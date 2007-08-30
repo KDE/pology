@@ -3,7 +3,7 @@
 import re
 
 _split_rx = re.compile(r"[^\w]+|\w+", re.UNICODE)
-_split_rx_markup = re.compile(r"[^\w]*<.*?>[^\w]*|[^\w]+|\w+", re.UNICODE)
+_split_rx_markup = re.compile(r"[^\w]*<.*?>[^\w<]*|[^\w]+|\w+", re.UNICODE)
 _word_rx = re.compile(r"^\w", re.UNICODE)
 
 def split_text (text, markup=False):
