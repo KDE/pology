@@ -32,6 +32,7 @@ _Message_spec = {
     "fuzzy" : {"type" : bool},
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
+    "format" : {"type" : unicode, "derived" : True},
 }
 _Message_single_strings = (
     "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
@@ -68,6 +69,14 @@ class Message_base (object):
 
         elif att == "key":
             return self.msgctxt + "|~|" + self.msgid
+
+        elif att == "format":
+            format_flag = ""
+            for flag in self.flag:
+                if flag.find("-format") >= 0:
+                    format_flag = flag
+                    break
+            return format_flag
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)

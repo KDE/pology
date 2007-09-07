@@ -60,7 +60,7 @@ class Sieve (object):
             for text in texts:
                 for c in self.shortcut:
                     text = text.replace(c, "")
-                words = split_text(text, True)[0]
+                words = split_text(text, True, msg.format)[0]
                 words = [w for w in words if w[0:1].isalpha()]
                 nwords[src] += len(words)
                 nchars[src] += len("".join(words))

@@ -7,10 +7,12 @@ from pology.file.catalog import Catalog
 import sys, os, imp
 from optparse import OptionParser
 
+
 def error (msg, code=1):
     cmdname = os.path.basename(sys.argv[0])
     sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
     sys.exit(code)
+
 
 def main ():
     # Setup options and parse the command line.
@@ -142,10 +144,17 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         print "--> Not syncing after sieving"
 
     # Assemble list of files.
-    fnames = free_args[1:]
+    file_or_dir_paths = free_args[1:]
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
-        fnames.extend([f.rstrip("\n") for f in flines])
+        file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
+
+    fnames = []
+    for path in file_or_dir_paths:
+        if os.path.isdir(path):
+            fnames.extend(collect_catalogs(path))
+        else:
+            fnames.append(path)
 
     # Decide on wrapping policy for modified messages.
     if op.do_wrap:
@@ -180,6 +189,18 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
             sieve.finalize()
+
+
+def collect_catalogs (topdir):
+
+    catalog_files = []
+    for root, dirs, files in os.walk(topdir):
+        for file in files:
+            if file.endswith(".po") or file.endswith(".pot"):
+                catalog_files.append(os.path.join(root, file))
+
+    return catalog_files
+
 
 if __name__ == '__main__':
     main()
