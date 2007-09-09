@@ -10,10 +10,12 @@ import os
 import codecs
 import re
 
+
 def _parse_quoted (s):
     sp = s[s.index("\"") + 1:s.rindex("\"")]
     sp = unescape(sp);
     return sp
+
 
 class _MessageDict:
     def __init__ (self):
@@ -42,6 +44,7 @@ class _MessageDict:
         self.lines_msgid = []
         self.lines_msgid_plural = []
         self.lines_msgstr = []
+
 
 def _parse_po_file (filename, MessageType=MessageMonitored):
     ifl = codecs.open(filename, "r", "UTF-8")
@@ -235,6 +238,7 @@ def _srcref_repack (srcrefs):
             srcdict[file].append(line)
     return srcdict
 
+
 class Catalog (object):
     """Catalog of messages."""
 
@@ -244,8 +248,8 @@ class Catalog (object):
 
         FIXME: Describe options.
         """
+
         self._wrapf = wrapf
-        self._filename = filename
 
         # Select type of message object to use.
         if monitored:
@@ -271,30 +275,50 @@ class Catalog (object):
 
         self.filename = filename
 
-
         # Fill in the message key-position links and removal status.
         self._msgpos = {}
         for i in range(len(self._messages)):
             self._msgpos[self._messages[i][0].key] = i
 
+        # Find position after all non-obsolete messages.
+        op = len(self._messages)
+        while op > 0 and self._messages[op - 1][0].obsolete:
+            op -= 1
+        self._obspos = op
+
         # Global removal state: set to true when any message is removed,
         # reset upon sync.
         self._some_removed = False
 
+
     def __len__ (self):
+
         return len(self._messages)
 
+
     def __getitem__ (self, i):
+
         return self._messages[i][0]
 
-    def add (self, msg, toend=False):
+
+    def __contains__ (self, msg):
+
+        return msg.key in self._msgpos
+
+
+    def add (self, msg, pos=None):
         """Add a message to the catalog.
 
         If the message with the same key already exists, it will be merged.
-        Unless toend is True, the insertion will be attempted such as that
-        the messages be near according to the source references (O(n)).
+        When the pos is None, the insertion will be attempted such as that
+        the messages be near according to the source references.
+        If pos is not None, the message is inserted at position given by pos,
+        unless it is obsolete.
+        Negative pos counts backward from first non-obsolete message (i.e.
+        pos=-1 means insert after all non-obsolete messages).
 
         Returns the position where merged or inserted.
+        O(n) runtime complexity, unless pos=-1 when O(1).
         """
         if not msg.msgid:
             raise StandardError, \
@@ -311,20 +335,25 @@ class Catalog (object):
                 ip = len(self._messages)
 
             else:
-                # Find position after all non-obsolete messages.
-                ip = nmsgs
-                while ip > 0 and self._messages[ip - 1][0].obsolete:
-                    ip -= 1
-
-                # If not requested insertion at end.
-                if not toend:
+                if pos is None:
                     # Find best insertion position.
-                    ip = self._pick_insertion_point(msg, ip)
+                    ip, none = self._pick_insertion_point(msg, self._obspos)
+                else:
+                    if pos >= 0:
+                        # Take given position as exact insertion point.
+                        ip = pos
+                    else:
+                        # Count backwards from the first obsolete message.
+                        ip = self._obspos + pos + 1
 
             # Update key-position links for the index to be added.
             for i in range(ip, nmsgs):
                 ckey = self._messages[i][0].key
                 self._msgpos[ckey] = i + 1
+
+            # Update position after all non-obsolete messages.
+            if not msg.obsolete:
+                self._obspos += 1
 
             # Store the message.
             self._messages.insert(ip, [msg, False, False])
@@ -339,6 +368,7 @@ class Catalog (object):
             ip = self._msgpos[msg.key]
             self._messages[ip][0].merge(msg)
             return ip
+
 
     def remove (self, ident):
         """Remove a message from the catalog.
@@ -361,11 +391,16 @@ class Catalog (object):
             ckey = self._messages[i][0].key
             self._msgpos[ckey] = i - 1
 
+        # Update position after all non-obsolete messages.
+        if not self._messages[ip][0].obsolete:
+            self._obspos -= 1
+
         # Remove from messages and key-position links,
         # and indicate a removal has occured (for sync).
         self._messages.pop(ip)
         self._msgpos.pop(key)
         self._some_removed = True
+
 
     def remove_on_sync (self, ident):
         """Remove a message from the catalog on the next sync.
@@ -385,6 +420,7 @@ class Catalog (object):
         # Indicate removal on sync for this message.
         self._messages[ip][2] = True
 
+
     def sync (self, force=False):
         """Writes catalog file to disk if any message has been modified.
 
@@ -396,11 +432,8 @@ class Catalog (object):
         self._messages.insert(0, [self.header, self.header_commited, False])
         nmsgs = len(self._messages)
 
-        # Find starting position for reinserting obsolete messages.
-        obspos = nmsgs
-        while obspos > 0 and self._messages[obspos - 1][0].obsolete:
-            obspos -= 1
-        obstop = obspos
+        # Starting position for reinserting obsolete messages.
+        obstop = self._obspos
 
         # NOTE: Key-position links may be invalidated from this point onwards,
         # by reorderings/removals. To make sure it is not used before the
@@ -420,7 +453,7 @@ class Catalog (object):
             elif msg.obsolete and i < obstop:
             # Obsolete message out of order, reinsert and repeat the index.
                 bundle = self._messages.pop(i)
-                self._messages.insert(obspos - 1, bundle)
+                self._messages.insert(self._obspos - 1, bundle)
                 # Move top position of obsolete messages.
                 obstop -= 1
             else:
@@ -438,7 +471,7 @@ class Catalog (object):
         if dowrite:
             # Remove one trailing newline, from the last message.
             if flines[-1] == "\n": flines.pop(-1)
-            ofl = codecs.open(self._filename, "w", "UTF-8")
+            ofl = codecs.open(self.filename, "w", "UTF-8")
             ofl.writelines(flines)
             ofl.close()
 
@@ -457,13 +490,29 @@ class Catalog (object):
         for i in range(len(self._messages)):
             self._msgpos[self._messages[i][0].key] = i
 
+        # Update position after all non-obsolete messages.
+        self._obspos = obstop
+
         # Reset removal state.
         self._some_removed = False
         self._msgrem = {}
 
         return dowrite
 
+
+    def insertion_inquiry (self, msg):
+        """Compute the tentative insertion position of a message into the
+        catalog and its "belonging weight" (returned as a tuple, respectively).
+
+        The belonging weight is computed by analyzing the source references.
+        O(n) runtime complexity.
+        """
+
+        return self._pick_insertion_point(msg, self._obspos)
+
+
     def _pick_insertion_point (self, msg, last):
+
         # List of candidate positions with quality weights.
         # 0.0 <= weight < 1.0 -- default insertion at the end (last)
         # 1.0 <= weight < 2.0 -- either prev or next message in the same source
@@ -532,4 +581,5 @@ class Catalog (object):
         # Pick the best insertion position candidate.
         ip_candidates.sort(cmp=lambda x, y: cmp(y[1], x[1]))
         #print ip_candidates
-        return ip_candidates[0][0]
+        return ip_candidates[0]
+

@@ -212,10 +212,25 @@ class Monlist (Monitored):
             self.__dict__["*"][i] = val
             self.__dict__["#"]["*"] += 1
 
+    def __eq__ (self, other):
+        if len(self.__dict__["*"]) != len(other):
+            return False
+        for i in range(len(other)):
+            if self.__dict__["*"][i] != other[i]:
+                return False
+        return True
+
+    def __ne__ (self, other):
+        return not self.__eq__(other)
+
     def append (self, val):
         self.assert_spec_setitem(val)
         self.__dict__["*"].append(val)
         self.__dict__["#"]["*"] += 1
+
+    def extend (self, other):
+        for val in other:
+            self.append(val)
 
     def remove (self, val):
         self.assert_spec_setitem(val)
@@ -248,6 +263,17 @@ class Monset (Monitored):
 
     def __iter__ (self):
         return iter(self.__dict__["*"])
+
+    def __eq__ (self, other):
+        if len(self.__dict__["*"]) != len(other):
+            return False
+        for i in range(len(other)):
+            if self.__dict__["*"][i] not in other:
+                return False
+        return True
+
+    def __ne__ (self, other):
+        return not self.__eq__(other)
 
     def add (self, val):
         self.assert_spec_setitem(val)
