@@ -296,9 +296,11 @@ class Catalog (object):
         return len(self._messages)
 
 
-    def __getitem__ (self, i):
+    def __getitem__ (self, ident):
 
-        return self._messages[i][0]
+        if isinstance(ident, self._MessageType):
+            ident = self._msgpos[ident.key]
+        return self._messages[ident][0]
 
 
     def __contains__ (self, msg):
@@ -471,6 +473,10 @@ class Catalog (object):
         if dowrite:
             # Remove one trailing newline, from the last message.
             if flines[-1] == "\n": flines.pop(-1)
+            # Create the parent directory if it does not exist.
+            dirname = os.path.dirname(self.filename)
+            if not os.path.isdir(dirname):
+                os.makedirs(dirname)
             ofl = codecs.open(self.filename, "w", "UTF-8")
             ofl.writelines(flines)
             ofl.close()
@@ -561,7 +567,7 @@ class Catalog (object):
                                 if lno1 <= lno:
                                     w = 1 + 1.0 / (lno - lno1 + 2)
                                     if w > wl:
-                                        wl = w; ipl = i - 1
+                                        wl = w; ipl = i
                     if ipl >= 0:
                         ip_candidates.append((ipl, wl))
                 # See if the new message fits before the current.
@@ -574,7 +580,7 @@ class Catalog (object):
                             if lno <= lno2:
                                 w = 1 + 1.0 / (lno2 - lno + 2)
                                 if w > wl:
-                                    wl = w; ipl = i - 1
+                                    wl = w; ipl = i
                 if ipl >= 0:
                     ip_candidates.append((ipl, wl))
 
