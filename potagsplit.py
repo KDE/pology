@@ -2,15 +2,18 @@
 # -*- coding: UTF-8 -*-
 
 import pology.misc.wrap as wrap
+from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 
 import sys, os
 from optparse import OptionParser
 
+
 def error (msg, code=1):
     cmdname = os.path.basename(sys.argv[0])
     sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
     sys.exit(code)
+
 
 def main ():
     # Setup options and parse the command line.
@@ -56,10 +59,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             pass
 
     # Assemble list of files.
-    fnames = fargs
+    file_or_dir_paths = fargs
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
-        fnames.extend([f.rstrip("\n") for f in flines])
+        file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
+    fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy.
     if op.do_wrap:
@@ -73,6 +77,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         cat = Catalog(fname, monitored=False, wrapf=wrap_func)
         cat.sync(force=True)
         if op.verbose: print ""
+
 
 if __name__ == '__main__':
     main()

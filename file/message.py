@@ -193,6 +193,10 @@ class Message_base (object):
         if force or self.modcount:
             self._renew_lines(wrapf, force)
 
+        # Message should finish with an empty line.
+        if self._lines_all[-1] != "\n":
+            self._lines_all.append("\n")
+
         return self._lines_all
 
     def to_string (self, wrapf=wrap_field, force=False):

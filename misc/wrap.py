@@ -23,23 +23,25 @@ def _tag_split (tag):
         return "", ""
 
 def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
-               natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=()):
+               natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
+               wcolmin=0):
     """Wrap text into lines, with added leading/trailing strings per line.
 
     Parameters:
-      text   - text to wrap
-      wcol   - column to wrap at
-      lead   - leading string for each line
-      trail  - trailing string for each line
-      flead  - special leading for the first line, normal leading is used
-               if not provided
-      femp   - whether to leave the first line empty if complete text does not
-               fit into it (leading and trailing strings are added in any case)
-      natbr  - string of characters other than space to consider for break
-      prebr  - tuple of strings to unconditionally break before
-      postbr - tuple of strings to unconditionally break after
-      tagbr  - tuple of tag names to break before opening and after closing
-      tagbr2 - tuple of tag names to always break after (like <br>)
+      text    - text to wrap
+      wcol    - column to wrap at
+      lead    - leading string for each line
+      trail   - trailing string for each line
+      flead   - special leading for the first line, normal leading is used
+                if not provided
+      femp    - whether to leave the first line empty if complete text does not
+                fit into it (leading and trailing strings are added in any case)
+      natbr   - string of characters other than space to naturally break at
+      prebr   - tuple of strings to unconditionally break before
+      postbr  - tuple of strings to unconditionally break after
+      tagbr   - tuple of tag names to break before opening and after closing
+      tagbr2  - tuple of tag names to always break after (like <br>)
+      wcolmin - minimal column to allow natural breaks at
 
     Return the list of lines (each line ends with a newline).
 
@@ -54,9 +56,6 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
     lenlead = len(lead)
     lentrail = len(trail)
     lenflead = len(flead)
-
-    # Minimal column position for natural breaks.
-    wcol_min = wcol // 2
 
     # Compute apparent character widths on the display.
     cwidth = [1] * lentext
@@ -133,7 +132,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
         # If not unconditional break, still enough text, and break possible.
         if not atbr and ple > ewcol and ewcol > 0:
-            if ple_ok > wcol_min: # don't allow too short natural break
+            if ple_ok > wcolmin: # don't allow too short natural break
                 pl = pl_ok
                 ple = ple_ok
             # Backstep any characters still too much.
@@ -180,7 +179,8 @@ def wrap_field (field, text, preseq=""):
                      natbr=_natbr,
                      prebr=_prebr,
                      postbr=_postbr,
-                     femp=True)
+                     femp=True,
+                     wcolmin=40)
 
 def wrap_field_unwrap (field, text, preseq=""):
     return wrap_text(text, 0,

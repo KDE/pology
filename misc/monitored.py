@@ -275,6 +275,9 @@ class Monset (Monitored):
     def __ne__ (self, other):
         return not self.__eq__(other)
 
+    def __contains__ (self, val):
+        return val in self.__dict__["*"]
+
     def add (self, val):
         self.assert_spec_setitem(val)
         if val not in self.__dict__["*"]:

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import pology.misc.wrap as wrap
+from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 
 import sys, os, imp
@@ -148,13 +149,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
         file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
-
-    fnames = []
-    for path in file_or_dir_paths:
-        if os.path.isdir(path):
-            fnames.extend(collect_catalogs(path))
-        else:
-            fnames.append(path)
+    fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy for modified messages.
     if op.do_wrap:
@@ -189,17 +184,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
             sieve.finalize()
-
-
-def collect_catalogs (topdir):
-
-    catalog_files = []
-    for root, dirs, files in os.walk(topdir):
-        for file in files:
-            if file.endswith(".po") or file.endswith(".pot"):
-                catalog_files.append(os.path.join(root, file))
-
-    return catalog_files
 
 
 if __name__ == '__main__':
