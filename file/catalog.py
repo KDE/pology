@@ -475,7 +475,7 @@ class Catalog (object):
             if flines[-1] == "\n": flines.pop(-1)
             # Create the parent directory if it does not exist.
             dirname = os.path.dirname(self.filename)
-            if not os.path.isdir(dirname):
+            if dirname and not os.path.isdir(dirname):
                 os.makedirs(dirname)
             ofl = codecs.open(self.filename, "w", "UTF-8")
             ofl.writelines(flines)
