@@ -116,7 +116,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sieve_mod = imp.new_module(sieve_mod_name)
         exec sieve_file in sieve_mod.__dict__
         sieve_file.close()
-        #sys.modules[sieve_mod_name] = sieve_mod # no need
+        sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         # Create the sieve.
         sieves.append(sieve_mod.Sieve(sopts, op))
 

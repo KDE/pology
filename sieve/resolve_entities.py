@@ -13,9 +13,9 @@ class Sieve (object):
 
         # Files defining entities.
         self.entity_files = []
-        if "from" in options:
-            options.accept("from")
-            self.entity_files = options["from"]
+        if "entdef" in options:
+            options.accept("entdef")
+            self.entity_files = options["entdef"]
 
         # Ignored entities.
         self.ignored_entities = ["lt", "gt", "apos", "quot", "amp"]
