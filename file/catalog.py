@@ -460,7 +460,7 @@ class Catalog (object):
                 obstop -= 1
             else:
             # Normal message, append formatted lines to rest.
-                flines.extend(msg.to_lines(self._wrapf, force))
+                flines.extend(msg.to_lines(self._wrapf, force or not infile))
                 if force or msg.modcount or not infile:
                     anymod = True
                     msg.modcount = 0 # must not be reset before to_lines()
