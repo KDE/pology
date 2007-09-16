@@ -24,7 +24,7 @@ def _tag_split (tag):
 
 def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
-               wcolmin=0):
+               wcolmin=0, midbr=True):
     """Wrap text into lines, with added leading/trailing strings per line.
 
     Parameters:
@@ -42,6 +42,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
       tagbr   - tuple of tag names to break before opening and after closing
       tagbr2  - tuple of tag names to always break after (like <br>)
       wcolmin - minimal column to allow natural breaks at
+      midbr   - allow mid-word break if no break found before wcol exceeded
 
     Return the list of lines (each line ends with a newline).
 
@@ -88,7 +89,9 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
         ple = cwidth[p] # apparent position into current line
         pl_ok = 0 # last good position into current line (where wrap was fine)
         ple_ok = 0 # last good apparent position into current line
-        while p + pl < lentext and (ple <= ewcol or wcol <= 0) and not atbr:
+        while p + pl < lentext \
+        and (ple <= ewcol or wcol <= 0 or not midbr) \
+        and not atbr:
             pchar = text[p + pl - 1]
             cchar = text[p + pl]
             backtext = text[:p+pl]
@@ -135,10 +138,11 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
             if ple_ok > wcolmin: # don't allow too short natural break
                 pl = pl_ok
                 ple = ple_ok
-            # Backstep any characters still too much.
-            while pl > 1 and ple > ewcol:
-                pl -= 1
-                ple -= cwidth[p + pl]
+            # Backstep any characters still too much if mid-word break allowed.
+            if midbr:
+                while pl > 1 and ple > ewcol:
+                    pl -= 1
+                    ple -= cwidth[p + pl]
 
         if nlines == 0 \
         and ((femp and p + pl < lentext) or (ewcol <= 0 and wcol > 0)):
@@ -194,7 +198,8 @@ def wrap_field_unwrap (field, text, preseq=""):
 def wrap_comment (ctype, text):
     return wrap_text(text, 80,
                      lead="#"+ctype+" ",
-                     femp=False)
+                     femp=False,
+                     midbr=False)
 
 def wrap_comment_unwrap (ctype, text):
     return wrap_text(text, 0,
