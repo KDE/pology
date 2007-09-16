@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import sys, os, re
+from pology.misc.resolve import resolve_alternatives
 
 
 def error (msg, code=1):
@@ -39,7 +40,13 @@ class Sieve (object):
     def process (self, msg, cat):
 
         for i in range(len(msg.msgstr)):
-            msg.msgstr[i] = self.resolve_alts(msg.msgstr[i], cat.filename)
+            msg.msgstr[i], nresolved, malformed = \
+                resolve_alternatives(msg.msgstr[i], self.select, self.total,
+                                     cat.filename)
+            if not malformed:
+                self.nresolved += nresolved
+            else:
+                self.nmalformed += 1
 
 
     def finalize (self):
@@ -49,64 +56,3 @@ class Sieve (object):
         if self.nmalformed > 0:
             print "Total malformed alternatives: %d" % self.nmalformed
 
-
-    def resolve_alts (self, text, fname):
-
-        head = "~@"
-        hlen = len(head)
-
-        original_text = text
-        new_text = u""
-        malformed = False
-        nresolved_local = 0
-
-        while True:
-            p = text.find(head)
-            if p < 0:
-                new_text += text
-                break
-
-            # Append segment prior to alternatives directive to the result.
-            new_text += text[:p]
-            rep_text = text[p:] # text segment for error reporting
-
-            # Must have at least 2 characters after the head.
-            if len(text) < p + hlen + 2:
-                malformed = True
-                print "%s: malformed directive: \"...%s\"" % (fname, rep_text)
-                break
-
-            # Read the separating character and trim source text.
-            sep = text[p + hlen]
-            text = text[p + hlen + 1:]
-
-            # Parse requested number of inserts,
-            # choose the one with matching index for the result.
-            for i in range(self.total):
-                # Ending separator for this insert.
-                p = text.find(sep)
-
-                # Must have exactly the given total number of alternatives.
-                if p < 0:
-                    malformed = True
-                    print "%s: too little alternatives in the directive: " \
-                          "\"...%s\"" % (fname, rep_text)
-                    break
-
-                # If at requested alternative, append to the result.
-                if i == self.select - 1:
-                    new_text += text[:p]
-                    nresolved_local += 1
-                    # Don't break here, should check if the total number
-                    # of alternatives match.
-
-                # Trim source text.
-                text = text[p + 1:]
-
-        if malformed:
-            self.nmalformed += 1
-            new_text = original_text
-        else:
-            self.nresolved += nresolved_local
-
-        return new_text

@@ -2,6 +2,8 @@
 
 import sys, re
 import xml.parsers.expat
+from pology.misc.resolve import read_entities
+from pology.misc.resolve import resolve_entities
 
 class Sieve (object):
     """Resolve XML entities in msgstr."""
@@ -24,32 +26,18 @@ class Sieve (object):
             self.ignored_entities.extend(options["ignore"])
 
         # Read entity definitions.
-        self.entities = {}
-        for fname in self.entity_files:
-            # Scoop up file contents, as raw bytes (UTF-8 expected).
-            ifs = open(fname, "r")
-            defstr = "".join(ifs.readlines())
-            ifs.close()
-            # Equip with prolog and epilogue.
-            defstr = "<?xml version='1.0' encoding='UTF-8'?>\n" \
-                     "<!DOCTYPE entityLoader [" + defstr + "]><done/>"
-            # Parse entities.
-            def handler (name, is_parameter_entity, value,
-                         base, systemId, publicId, notationName):
-                self.entities[name] = value
-            p = xml.parsers.expat.ParserCreate()
-            p.EntityDeclHandler = handler
-            try:
-                p.Parse(defstr, True)
-            except xml.parsers.expat.ExpatError, inst:
-                sys.stderr.write("%s: %s\n" % (fname, inst))
-                sys.exit(1)
+        self.entities = read_entities(*self.entity_files)
 
 
     def process (self, msg, cat):
 
         for i in range(len(msg.msgstr)):
-            msg.msgstr[i] = self.resolve_entities(msg.msgstr[i], cat.filename)
+            msg.msgstr[i], nresolved, nunknown = \
+                resolve_entities(msg.msgstr[i],
+                                 self.entities, self.ignored_entities,
+                                 cat.filename)
+            self.nresolved += nresolved
+            self.nunknown += nunknown
 
 
     def finalize (self):
@@ -59,28 +47,3 @@ class Sieve (object):
         if self.nunknown > 0:
             print "Total unknown entities: %d" % self.nunknown
 
-
-    def resolve_entities (self, text, fname):
-
-        new_text = ""
-        while True:
-            p = text.find("&")
-            if p < 0:
-                new_text += text
-                break
-
-            new_text += text[0:p + 1]
-            text = text[p + 1:]
-            m = re.match(r"^([\w_:][\w\d._:-]*);", text)
-            if m:
-                entname = m.group(1)
-                if entname not in self.ignored_entities:
-                    if entname in self.entities:
-                        self.nresolved += 1
-                        new_text = new_text[:-1] + self.entities[entname]
-                        text = text[len(m.group(0)):]
-                    else:
-                        self.nunknown += 1
-                        print "%s: unknown entity '%s'" % (fname, entname)
-
-        return new_text
