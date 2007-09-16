@@ -200,6 +200,8 @@ def wrap_comment (ctype, text):
                      lead="#"+ctype+" ",
                      femp=False,
                      midbr=False)
+    # midbr is False in order to prevent e.g. very long source references
+    # being forced split in the middle.
 
 def wrap_comment_unwrap (ctype, text):
     return wrap_text(text, 0,
