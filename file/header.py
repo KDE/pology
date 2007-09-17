@@ -146,3 +146,18 @@ class Header (Monitored):
                 fields.append(pair)
         return fields
 
+    def replace_field_value (self, name, new_value, nth=0):
+        """Replace value of the nth occurence of header field of given name.
+
+        Return True if the requested occurence was found, False otherwise.
+        """
+        nfound = 0
+        for i in range(len(self._field)):
+            if self._field[i][0] == name:
+                nfound += 1
+                if nfound - 1 == nth:
+                    self._field[i] = Monpair(unicode(name), new_value)
+                    break
+
+        return nfound - 1 == nth
+

@@ -492,9 +492,9 @@ class Catalog (Monitored):
         ofl.writelines(flines)
         ofl.close()
 
-        # Remove temporarily inserted header.
-        msg._committed = True
+        # Remove temporarily inserted header, indicate it has been committed.
         self._messages.pop(0)
+        self._header._committed = True
 
         # Execute pending removals on the sequence as well.
         # Indicate for each message that it has been committed.
@@ -529,6 +529,12 @@ class Catalog (Monitored):
         """
 
         return self._pick_insertion_point(msg, self._obspos)
+
+
+    def created (self):
+        """Whether the catalog has been newly created (no existing file)."""
+
+        return not self._header._committed
 
 
     def _pick_insertion_point (self, msg, last):
