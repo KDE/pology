@@ -2,6 +2,7 @@
 
 from pology.misc.escape import escape, unescape
 from pology.misc.wrap import wrap_field
+from pology.misc.monitored import Monitored
 from message import Message as MessageMonitored
 from message import MessageUnsafe as MessageUnsafe
 from header import Header
@@ -9,7 +10,7 @@ from header import Header
 import os
 import codecs
 import re
-
+import types
 
 def _parse_quoted (s):
     sp = s[s.index("\"") + 1:s.rindex("\"")]
@@ -239,7 +240,15 @@ def _srcref_repack (srcrefs):
     return srcdict
 
 
-class Catalog (object):
+_Catalog_spec = {
+    # Data.
+    "header" : {"type" : Header},
+    "filename" : {"type" : types.StringTypes},
+    "*" : {}, # messages sequence: the type is assigned at construction
+}
+
+
+class Catalog (Monitored):
     """Catalog of messages."""
 
     def __init__ (self, filename,
@@ -253,42 +262,44 @@ class Catalog (object):
 
         # Select type of message object to use.
         if monitored:
-            self._MessageType = MessageMonitored
+            message_type = MessageMonitored
         else:
-            self._MessageType = MessageUnsafe
+            message_type = MessageUnsafe
 
-        # For all read messages, store an ordered bundle:
-        # - the message itself
-        # - whether the message has been comitted to file
-        # - whether the message has been marked for removal on sync
+        # Read messages or create empty catalog:
         if os.path.exists(filename):
-            m = _parse_po_file(filename, self._MessageType)
-            self.header = Header(m[0])
-            self.header_commited = True
-            self._messages = [[x, True, False] for x in m[1:]]
+            m = _parse_po_file(filename, message_type)
+            self._header = Header(m[0])
+            self._header._committed = True # status for sync
+            self.__dict__["*"] = m[1:]
         elif create:
-            self.header = Header()
-            self.header_commited = False
-            self._messages = []
+            self._header = Header()
+            self._header._committed = False # status for sync
+            self.__dict__["*"] = []
         else:
             raise StandardError, "file '%s' does not exist" % (filename,)
 
-        self.filename = filename
+        self._filename = filename
 
-        # Fill in the message key-position links and removal status.
+        self._messages = self.__dict__["*"] # nicer name for the sequence
+
+        # Fill in the message key-position links.
+        # Set committed and remove-on-sync status.
         self._msgpos = {}
         for i in range(len(self._messages)):
-            self._msgpos[self._messages[i][0].key] = i
+            self._msgpos[self._messages[i].key] = i
+            self._messages[i]._committed = True
+            self._messages[i]._remove_on_sync = False
 
         # Find position after all non-obsolete messages.
         op = len(self._messages)
-        while op > 0 and self._messages[op - 1][0].obsolete:
+        while op > 0 and self._messages[op - 1].obsolete:
             op -= 1
         self._obspos = op
 
-        # Global removal state: set to true when any message is removed,
-        # reset upon sync.
-        self._some_removed = False
+        # Initialize monitoring.
+        _Catalog_spec["*"]["type"] = message_type
+        self.assert_spec_init(_Catalog_spec)
 
 
     def __len__ (self):
@@ -298,9 +309,10 @@ class Catalog (object):
 
     def __getitem__ (self, ident):
 
-        if isinstance(ident, self._MessageType):
+        self.assert_spec_getitem()
+        if not isinstance(ident, int):
             ident = self._msgpos[ident.key]
-        return self._messages[ident][0]
+        return self._messages[ident]
 
 
     def __contains__ (self, msg):
@@ -322,12 +334,12 @@ class Catalog (object):
         Returns the position where merged or inserted.
         O(n) runtime complexity, unless pos=-1 when O(1).
         """
+
+        self.assert_spec_setitem(msg)
+
         if not msg.msgid:
             raise StandardError, \
                   "trying to insert message with empty msgid into the catalog"
-        if not isinstance(msg, self._MessageType):
-            raise TypeError, \
-                  "trying to insert wrong message object type into the catalog"
 
         if not msg.key in self._msgpos:
             # The message is new, insert.
@@ -350,7 +362,7 @@ class Catalog (object):
 
             # Update key-position links for the index to be added.
             for i in range(ip, nmsgs):
-                ckey = self._messages[i][0].key
+                ckey = self._messages[i].key
                 self._msgpos[ckey] = i + 1
 
             # Update position after all non-obsolete messages.
@@ -358,17 +370,18 @@ class Catalog (object):
                 self._obspos += 1
 
             # Store the message.
-            self._messages.insert(ip, [msg, False, False])
-            # ...indicating by False that it is not present in the file yet,
-            # (the other False is removal on sync indicator).
+            self._messages.insert(ip, msg)
+            self._messages[ip]._remove_on_sync = False # no pending removal
+            self._messages[ip]._committed = False # write it on sync
             self._msgpos[msg.key] = ip # store new key-position link
+            self.__dict__["#"]["*"] += 1 # indicate sequence change
 
             return ip
 
         else:
             # The message exists, merge.
             ip = self._msgpos[msg.key]
-            self._messages[ip][0].merge(msg)
+            self._messages[ip].merge(msg)
             return ip
 
 
@@ -382,7 +395,7 @@ class Catalog (object):
         # Determine position and key by given ident.
         if isinstance(ident, int):
             ip = ident
-            key = self._messages[ip][0].key
+            key = self._messages[ip].key
         else:
             key = ident.key
             ip = self._msgpos[key]
@@ -390,18 +403,17 @@ class Catalog (object):
         # Update key-position links for the removed index.
         nmsgs = len(self._messages)
         for i in range(ip + 1, nmsgs):
-            ckey = self._messages[i][0].key
+            ckey = self._messages[i].key
             self._msgpos[ckey] = i - 1
 
         # Update position after all non-obsolete messages.
-        if not self._messages[ip][0].obsolete:
+        if not self._messages[ip].obsolete:
             self._obspos -= 1
 
-        # Remove from messages and key-position links,
-        # and indicate a removal has occured (for sync).
+        # Remove from messages and key-position links.
         self._messages.pop(ip)
         self._msgpos.pop(key)
-        self._some_removed = True
+        self.__dict__["#"]["*"] += 1 # indicate sequence change
 
 
     def remove_on_sync (self, ident):
@@ -420,18 +432,27 @@ class Catalog (object):
             ip = self._msgpos[ident.key]
 
         # Indicate removal on sync for this message.
-        self._messages[ip][2] = True
+        self._messages[ip]._remove_on_sync = True
+        self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
     def sync (self, force=False):
         """Writes catalog file to disk if any message has been modified.
 
         Unmodified messages are not reformatted, unless force is True.
-        Returns True if file was modified, False otherwise.
+        Return True if file was modified, False otherwise.
         """
 
+        # If no modifications throughout and sync not forced, return.
+        if not self.modcount and not force:
+            return False
+
+        # No need to indicate sequence changes here, as after sync the
+        # catalog is set to unmodified throughout.
+
         # Temporarily insert header, for homogeneous iteration.
-        self._messages.insert(0, [self.header, self.header_commited, False])
+        self._messages.insert(0, self._header)
+        self._messages[0]._remove_on_sync = False # never remove header
         nmsgs = len(self._messages)
 
         # Starting position for reinserting obsolete messages.
@@ -443,67 +464,60 @@ class Catalog (object):
         del self._msgpos
 
         flines = []
-        anymod = False
         i = 0
         while i < nmsgs:
-            msg, infile, remsync = self._messages[i]
-            key = msg.key
-            if remsync:
-            # Removal on sync requested, just note modification and skip.
-                anymod = True
+            msg = self._messages[i]
+            if msg._remove_on_sync:
+                # Removal on sync requested, just skip.
                 i += 1
             elif msg.obsolete and i < obstop:
-            # Obsolete message out of order, reinsert and repeat the index.
-                bundle = self._messages.pop(i)
-                self._messages.insert(self._obspos - 1, bundle)
+                # Obsolete message out of order, reinsert and repeat the index.
+                msg = self._messages.pop(i)
+                self._messages.insert(self._obspos - 1, msg)
                 # Move top position of obsolete messages.
                 obstop -= 1
             else:
-            # Normal message, append formatted lines to rest.
-                flines.extend(msg.to_lines(self._wrapf, force or not infile))
-                if force or msg.modcount or not infile:
-                    anymod = True
-                    msg.modcount = 0 # must not be reset before to_lines()
-                    self._messages[i][1] = True
-                    # ...True indicates the message has been comitted to file.
+                # Normal message, append formatted lines to rest.
+                flines.extend(msg.to_lines(self._wrapf,
+                                           force or not msg._committed))
                 i += 1
 
-        # Write to disk if needed.
-        dowrite = anymod or self._some_removed
-        if dowrite:
-            # Remove one trailing newline, from the last message.
-            if flines[-1] == "\n": flines.pop(-1)
-            # Create the parent directory if it does not exist.
-            dirname = os.path.dirname(self.filename)
-            if dirname and not os.path.isdir(dirname):
-                os.makedirs(dirname)
-            ofl = codecs.open(self.filename, "w", "UTF-8")
-            ofl.writelines(flines)
-            ofl.close()
+        # Remove one trailing newline, from the last message.
+        if flines[-1] == "\n": flines.pop(-1)
+        # Create the parent directory if it does not exist.
+        dirname = os.path.dirname(self._filename)
+        if dirname and not os.path.isdir(dirname):
+            os.makedirs(dirname)
+        ofl = codecs.open(self._filename, "w", "UTF-8")
+        ofl.writelines(flines)
+        ofl.close()
 
         # Remove temporarily inserted header.
+        msg._committed = True
         self._messages.pop(0)
 
-        # Execute pending removals on the catalog as well.
+        # Execute pending removals on the sequence as well.
+        # Indicate for each message that it has been committed.
         newlst = []
-        for bundle in self._messages:
-            if not bundle[2]: # not remove on sync
-                newlst.append(bundle)
-        self._messages = newlst
+        for msg in self._messages:
+            if not msg._remove_on_sync:
+                msg._committed = True
+                newlst.append(msg)
+        self.__dict__["*"] = newlst
+        self._messages = self.__dict__["*"]
 
         # Rebuild key-position links due to any reordered/removed messages.
         self._msgpos = {}
         for i in range(len(self._messages)):
-            self._msgpos[self._messages[i][0].key] = i
+            self._msgpos[self._messages[i].key] = i
 
         # Update position after all non-obsolete messages.
         self._obspos = obstop
 
-        # Reset removal state.
-        self._some_removed = False
-        self._msgrem = {}
+        # Reset modification state throughout.
+        self.modcount = 0
 
-        return dowrite
+        return True
 
 
     def insertion_inquiry (self, msg):
@@ -532,7 +546,7 @@ class Catalog (object):
             # See if the current and the previous messages share a source.
             mid_source = u""
             fs1 = fs2
-            fs2 = _srcref_repack(self._messages[i][0].source)
+            fs2 = _srcref_repack(self._messages[i].source)
             if i > 0:
                 for f1 in fs1:
                     if f1 in fs2:
