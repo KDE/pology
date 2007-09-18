@@ -7,10 +7,8 @@ from message import Message as MessageMonitored
 from message import MessageUnsafe as MessageUnsafe
 from header import Header
 
-import os
-import codecs
-import re
-import types
+import os, codecs, re, types, signal
+
 
 def _parse_quoted (s):
     sp = s[s.index("\"") + 1:s.rindex("\"")]
@@ -488,9 +486,12 @@ class Catalog (Monitored):
         dirname = os.path.dirname(self._filename)
         if dirname and not os.path.isdir(dirname):
             os.makedirs(dirname)
+        # Write to file atomically wrt. SIGINT.
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
         ofl = codecs.open(self._filename, "w", "UTF-8")
         ofl.writelines(flines)
         ofl.close()
+        signal.signal(signal.SIGINT, signal.SIG_DFL)
 
         # Remove temporarily inserted header, indicate it has been committed.
         self._messages.pop(0)

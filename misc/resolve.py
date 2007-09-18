@@ -82,6 +82,12 @@ def resolve_entities (text, entities, ignored_entities, srcname=None):
     return new_text, nresolved, nunknown
 
 
+def resolve_entities_simple (text, entities, ignored_entities, srcname=None):
+    """As resolve_entities(), but returns only the resolved text."""
+
+    return resolve_entities(text, entities, ignored_entities, srcname)[0]
+
+
 def resolve_alternatives (text, select, total, srcname=None):
     """Replace alternatives directives in the text with selected alternative.
 
@@ -162,3 +168,15 @@ def resolve_alternatives (text, select, total, srcname=None):
         nresolved = 0
 
     return new_text, nresolved, malformed
+
+
+def resolve_alternatives_simple (text, select, total, srcname=None):
+    """As resolve_alternatives(), but return only the resolved text.
+
+    If an alternatives directive is malformed, return original text.
+    """
+
+    ntext, d1, malformed = resolve_alternatives(text, select, total, srcname)
+    if malformed:
+        return text
+    return ntext
