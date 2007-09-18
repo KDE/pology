@@ -22,7 +22,7 @@ def sr_c2l (text):
         c = text[i]
         r = _dict_c2l.get(c)
         if r is not None:
-            if  len(r) > 1 \
+            if len(r) > 1 and c.isupper() \
             and (   (i + 1 < tlen and text[i + 1].isupper()) \
                  or (i > 0 and text[i - 1].isupper())):
                 ntext += r.upper()
