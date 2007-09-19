@@ -267,10 +267,12 @@ class Catalog (Monitored):
         # Read messages or create empty catalog:
         if os.path.exists(filename):
             m = _parse_po_file(filename, message_type)
+            self._created_from_scratch = False
             self._header = Header(m[0])
             self._header._committed = True # status for sync
             self.__dict__["*"] = m[1:]
         elif create:
+            self._created_from_scratch = True
             self._header = Header()
             self._header._committed = False # status for sync
             self.__dict__["*"] = []
@@ -493,6 +495,9 @@ class Catalog (Monitored):
         ofl.close()
         signal.signal(signal.SIGINT, signal.SIG_DFL)
 
+        # Indicate the catalog is no longer created from scratch, if it was.
+        self._created_from_scratch = False
+
         # Remove temporarily inserted header, indicate it has been committed.
         self._messages.pop(0)
         self._header._committed = True
@@ -535,7 +540,7 @@ class Catalog (Monitored):
     def created (self):
         """Whether the catalog has been newly created (no existing file)."""
 
-        return not self._header._committed
+        return self._created_from_scratch
 
 
     def _pick_insertion_point (self, msg, last):
