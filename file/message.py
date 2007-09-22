@@ -186,16 +186,13 @@ class Message_base (object):
         lins.extend(self._lines_msgid_plural)
         lins.extend(self._lines_msgstr)
 
-        lins.extend(u"\n")
+        if self._lines_all[-1] != "\n":
+            lins.extend(u"\n")
 
     def to_lines (self, wrapf=wrap_field, force=False):
 
         if force or self.modcount:
             self._renew_lines(wrapf, force)
-
-        # Message should finish with an empty line.
-        if self._lines_all[-1] != "\n":
-            self._lines_all.append("\n")
 
         return self._lines_all
 

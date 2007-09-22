@@ -105,7 +105,6 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
                     if srcref:
                         file, line = srcref.split(":")
                         loc.msg.source.append((file.strip(), int(line)))
-                loc.msg.lines_source.append(line_raw)
 
             elif line.startswith("#,"):
                 try_finish()
@@ -114,19 +113,16 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
                     flag = flag.strip()
                     if flag:
                         loc.msg.flag.append(flag)
-                loc.msg.lines_flag.append(line_raw)
 
             elif line.startswith("#."):
                 try_finish()
                 string_follows = False
                 loc.msg.auto_comment.append(line[2:].lstrip())
-                loc.msg.lines_auto_comment.append(line_raw)
 
             elif line.startswith("# ") or line == "#":
                 try_finish()
                 string_follows = False
                 loc.msg.manual_comment.append(line[2:].lstrip())
-                loc.msg.lines_manual_comment.append(line_raw)
 
             else:
                 raise StandardError,   "unknown comment type at %s:%d" \
@@ -190,31 +186,59 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
                 if loc.age_context == ctx_previous:
                     if loc.field_context == ctx_msgctxt:
                         loc.msg.msgctxt_previous += s
-                        loc.msg.lines_msgctxt_previous.append(line_raw)
                     elif loc.field_context == ctx_msgid:
                         loc.msg.msgid_previous += s
-                        loc.msg.lines_msgid_previous.append(line_raw)
                     elif loc.field_context == ctx_msgid_plural:
                         loc.msg.msgid_plural_previous += s
-                        loc.msg.lines_msgid_plural_previous.append(line_raw)
                 else:
                     if loc.field_context == ctx_msgctxt:
                         loc.msg.msgctxt += s
-                        loc.msg.lines_msgctxt.append(line_raw)
                     elif loc.field_context == ctx_msgid:
                         loc.msg.msgid += s
-                        loc.msg.lines_msgid.append(line_raw)
                     elif loc.field_context == ctx_msgid_plural:
                         loc.msg.msgid_plural += s
-                        loc.msg.lines_msgid_plural.append(line_raw)
                     elif loc.field_context == ctx_msgstr:
                         loc.msg.msgstr[msgstr_i] += s
-                        loc.msg.lines_msgstr.append(line_raw)
             else:
                 raise StandardError,   "expected string continuation at %s:%d" \
                                      % (filename, lno)
 
+        # Update line caches.
         loc.msg.lines_all.append(line_raw)
+        if 0: pass
+        elif line_raw.startswith("#:"):
+            loc.msg.lines_source.append(line_raw)
+        elif line_raw.startswith("#,"):
+            loc.msg.lines_flag.append(line_raw)
+        elif line_raw.startswith("#."):
+            loc.msg.lines_auto_comment.append(line_raw)
+        elif line_raw.startswith("# ") or line == "#":
+            loc.msg.lines_manual_comment.append(line_raw)
+        elif loc.age_context == ctx_previous:
+            if loc.field_context == ctx_msgctxt:
+                loc.msg.lines_msgctxt_previous.append(line_raw)
+            elif loc.field_context == ctx_msgid:
+                loc.msg.lines_msgid_previous.append(line_raw)
+            elif loc.field_context == ctx_msgid_plural:
+                loc.msg.lines_msgid_plural_previous.append(line_raw)
+            else:
+                raise StandardError,   "internal problem (11) at %s:%d" \
+                                     % (filename, lno)
+        elif loc.age_context == ctx_current:
+            if loc.field_context == ctx_msgctxt:
+                loc.msg.lines_msgctxt.append(line_raw)
+            elif loc.field_context == ctx_msgid:
+                loc.msg.lines_msgid.append(line_raw)
+            elif loc.field_context == ctx_msgid_plural:
+                loc.msg.lines_msgid_plural.append(line_raw)
+            elif loc.field_context == ctx_msgstr:
+                loc.msg.lines_msgstr.append(line_raw)
+            else:
+                raise StandardError,   "internal problem (12) at %s:%d" \
+                                     % (filename, lno)
+        else:
+            raise StandardError,   "internal problem (10) at %s:%d" \
+                                 % (filename, lno)
 
     try_finish() # the last message
 
@@ -480,6 +504,10 @@ class Catalog (Monitored):
                 # Normal message, append formatted lines to rest.
                 flines.extend(msg.to_lines(self._wrapf,
                                            force or not msg._committed))
+                # Message should finish with an empty line,
+                # unless it is the last one.
+                if i < nmsgs - 1 and flines[-1] != "\n":
+                    flines.append("\n")
                 i += 1
 
         # Remove one trailing newline, from the last message.
