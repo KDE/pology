@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-import re
-
 class Sieve (object):
     """Unfuzzy when only a context difference to previous."""
 
