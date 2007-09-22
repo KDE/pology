@@ -8,6 +8,7 @@ class Sieve (object):
 
     def __init__ (self, options, global_options):
 
+        # Characters to consider as shortcut markers.
         self.shortcut = ""
         if "accel" in options and len(options["accel"]) > 0:
             options.accept("accel")
@@ -15,6 +16,12 @@ class Sieve (object):
         else:
             # Assume & and _, these are the most typical.
             self.shortcut = "&_"
+
+        # Display detailed statistics?
+        self.detailed = False
+        if "detail" in options:
+            self.detailed = True
+            options.accept("detail")
 
         self.count_spec = (
             ("trn", u"translated"),
@@ -75,41 +82,55 @@ class Sieve (object):
     def finalize (self):
 
         # Collected data.
-        data = [[self.count[x[0]][y] for x in self.count_spec]
+        data = [[self.count[tkey][y] for tkey, tname in self.count_spec]
                 for y in range(5)]
 
-        # Derived data: word and character ratios.
-        for o, t, ins in ((1, 2, 3), (3, 4, 6)):
-            ratio = list()
-            for x in self.count_spec:
-                if self.count[x[0]][o] > 0 and self.count[x[0]][t] > 0:
-                    r = float(self.count[x[0]][t]) / self.count[x[0]][o]
-                    d = (r - 1) * 100
-                    ratio.append(d)
-                    #ratio.append(u"%+.1f" % (d,))
+        # Derived data: messages/words completition ratios.
+        for col, ins in ((0, 1), (1, 3)):
+            compr = []
+            for tkey, tname in self.count_spec:
+                if tkey not in ("tot", "obs") and self.count["tot"] > 0:
+                    r = float(self.count[tkey][col]) / self.count["tot"][col]
+                    compr.append(r * 100)
                 else:
-                    ratio.append(None)
-            data.insert(ins, ratio)
+                    compr.append(None)
+            data.insert(ins, compr)
 
-        # Derived data: character/word ratio, word/message ratio.
-        for w, c, ins in ((1, 3, 7), (2, 4, 8), (0, 1, 9), (0, 2, 10)):
-            chpw = list()
-            for x in self.count_spec:
-                if self.count[x[0]][w] > 0 and self.count[x[0]][c] > 0:
-                    r = float(self.count[x[0]][c]) / self.count[x[0]][w]
-                    chpw.append(r)
-                else:
-                    chpw.append(None)
-            data.insert(ins, chpw)
+        if self.detailed:
+            # Derived data: word and character ratios.
+            for o, t, ins in ((1, 2, 7), (3, 4, 8)):
+                ratio = []
+                for tkey, tname in self.count_spec:
+                    if self.count[tkey][o] > 0 and self.count[tkey][t] > 0:
+                        r = float(self.count[tkey][t]) / self.count[tkey][o]
+                        ratio.append((r - 1) * 100)
+                    else:
+                        ratio.append(None)
+                data.insert(ins, ratio)
+
+        if self.detailed:
+            # Derived data: character/word ratio, word/message ratio.
+            for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
+                chpw = []
+                for tkey, tname in self.count_spec:
+                    if self.count[tkey][w] > 0 and self.count[tkey][c] > 0:
+                        r = float(self.count[tkey][c]) / self.count[tkey][w]
+                        chpw.append(r)
+                    else:
+                        chpw.append(None)
+                data.insert(ins, chpw)
 
         # Row, column names and formats.
-        rown = [x[1] for x in self.count_spec]
-        coln = ["msg",
-                "w-or", "w-tr", "w-dto",
-                "ch-or", "ch-tr", "ch-dto",
-                "ch/w-or", "ch/w-tr", "w/msg-or", "w/msg-tr"]
-        dfmt = ["%d", "%d", "%d", "%+.1f%%", "%d", "%d", "%+.1f%%",
-                "%.1f", "%.1f", "%.1f", "%.1f"]
+        rown = [tname for tkey, tname in self.count_spec]
+        coln = ["msg", "msg/tot",
+                "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
+        dfmt = ["%d", "%.1f%%",
+                "%d", "%.1f%%", "%d", "%d", "%d"]
+        if self.detailed:
+            coln.extend(["w-dto", "ch-dto",
+                         "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
+            dfmt.extend(["%+.1f%%", "%+.1f%%",
+                         "%.1f", "%.1f", "%.1f", "%.1f"])
 
         # Output the table.
         print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,

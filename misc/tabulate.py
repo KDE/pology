@@ -62,13 +62,13 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     # ...add column names:
     if _coln is not None:
         if _rown is not None:
-            _coln.insert(0, None) # header corner
+            _coln.insert(0, none) # header corner
         for c in range(len(_coln), ncols + co):
             _coln.append(None)
     # ...add row names:
     if _rown is not None:
         if _coln is not None:
-            _rown.insert(0, None) # header corner
+            _rown.insert(0, none) # header corner
         for r in range(len(_rown), nrows + ro):
             _rown.append(None)
     # ...add formats:
