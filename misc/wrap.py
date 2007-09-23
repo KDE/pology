@@ -217,7 +217,9 @@ _tagbr_normal = (
 )
 _tagbr_inplace = (
     # HTML
-    "br", "hr"
+    "br", "hr",
+    # KUIT
+    "nl",
 )
 
 def wrap_field_ontag (field, text, preseq=""):
