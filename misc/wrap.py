@@ -135,7 +135,8 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
         # If not unconditional break, still enough text, and break possible.
         if not atbr and ple > ewcol and ewcol > 0:
-            if ple_ok > wcolmin: # don't allow too short natural break
+            # Don't allow too short natural break.
+            if ple_ok > wcolmin:
                 pl = pl_ok
                 ple = ple_ok
             # Backstep any characters still too much if mid-word break allowed.
@@ -143,6 +144,11 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                 while pl > 1 and ple > ewcol:
                     pl -= 1
                     ple -= cwidth[p + pl]
+
+        # Never break after a backslash.
+        while pl > 1 and text[p + pl - 1] == "\\":
+            pl -= 1
+            ple -= cwidth[p + pl]
 
         if nlines == 0 \
         and ((femp and p + pl < lentext) or (ewcol <= 0 and wcol > 0)):
