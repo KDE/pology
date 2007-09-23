@@ -79,6 +79,13 @@ def resolve_entities (text, entities, ignored_entities, srcname=None):
                     if srcname is not None:
                         print "%s: unknown entity '%s'" % (srcname, entname)
 
+    # Recursive resolving if at least one entity has been resolved.
+    if nresolved > 0:
+        new_text, nresolved_extra, nunknown_extra \
+            = resolve_entities(new_text, entities, ignored_entities, srcname)
+        nresolved += nresolved_extra
+        nunknown += nunknown_extra
+
     return new_text, nresolved, nunknown
 
 
