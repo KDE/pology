@@ -121,7 +121,7 @@ class Project (object):
             "branches_unwrap" : False,
             "branches_split_tags" : True,
 
-            "hook_on_scatter_pipe_msgstr" : [],
+            "hook_on_scatter_msgstr" : [],
         })
         self.__dict__["locked"] = False
 
@@ -276,17 +276,24 @@ def derive_project_data (project, options):
                 p.full_inverse_map[summit_name][branch_id].append(summit_name)
 
     # Fill in defaults for missing fields in hook specs.
+    p.hook_on_scatter_msgstr = hook_fill_defaults(p.hook_on_scatter_msgstr)
+
+    return p
+
+
+# Fill in defaults for missing fields in hook specs.
+def hook_fill_defaults (specs):
+
     new_specs = []
-    for spec in p.hook_on_scatter_pipe_msgstr:
+    for spec in specs:
         call = spec[0]
         branch_rx = r""
         if len(spec) > 1: branch_rx = spec[1]
         name_rx = r""
         if len(spec) > 2: name_rx = spec[2]
         new_specs.append((call, branch_rx, name_rx))
-    p.hook_on_scatter_pipe_msgstr = new_specs
 
-    return p
+    return new_specs
 
 
 # Each catalog is represented by a dictionary entry: the key is the catalog
@@ -715,9 +722,10 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                 or not (summit_msg.msgid_plural or branch_msg.msgid_plural):
                     # Both messages have same plurality.
                     for i in range(len(summit_msg.msgstr)):
-                        piped_msgstr = scatter_pipe_msgstr(
-                            summit_msg.msgstr[i], branch_id, branch_name,
-                            branch_path, options, project)
+                        piped_msgstr = exec_hook_msgstr(
+                            branch_id, branch_name,
+                            branch_cat, branch_msg, summit_msg.msgstr[i],
+                            project, options)
                         if i < len(branch_msg.msgstr):
                             branch_msg.msgstr[i] = piped_msgstr
                         else:
@@ -730,8 +738,9 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                     # singular, so copy plural form for n==1.
                     index = plural_form_for(summit_cat.header, 1)
                     branch_msg.msgstr[0] = scatter_pipe_msgstr(
-                        summit_msg.msgstr[index], branch_id, branch_name,
-                        branch_path, options, project)
+                        branch_id, branch_name,
+                        branch_cat, branch_msg, summit_msg.msgstr[index],
+                        project, options)
                     branch_msg.fuzzy = False
                     branch_msg.manual_comment = summit_msg.manual_comment
 
@@ -777,24 +786,17 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
             print "%s <-- %s" % (branch_cat.filename, paths_str)
 
 
-def scatter_pipe_msgstr (text, branch_id, branch_name, branch_filename,
-                         options, project):
+# Pipe msgstr through hook calls,
+# for which branch id and catalog name match hook specification.
+def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr,
+                      project, options):
 
-    piped_text = text
-    for call, branch_rx, name_rx in project.hook_on_scatter_pipe_msgstr:
+    piped_msgstr = msgstr
+    for call, branch_rx, name_rx in project.hook_on_scatter_msgstr:
         if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
-            func = call[0]
-            args = []
-            for arg in call[1:]:
-                if isinstance(arg, (str, unicode)):
-                    arg = interpolate(arg, {"lang" : options.lang,
-                                            "text" : piped_text,
-                                            "file" : branch_filename,
-                                            "name" : branch_name})
-                args.append(arg)
-            piped_text = func(*args)
+            piped_msgstr = call(cat, msg, piped_msgstr)
 
-    return piped_text
+    return piped_msgstr
 
 
 # Decide on wrapping policy for messages.
