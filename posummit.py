@@ -724,7 +724,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                     for i in range(len(summit_msg.msgstr)):
                         piped_msgstr = exec_hook_msgstr(
                             branch_id, branch_name,
-                            branch_cat, branch_msg, summit_msg.msgstr[i],
+                            summit_cat, summit_msg, summit_msg.msgstr[i],
                             project, options)
                         if i < len(branch_msg.msgstr):
                             branch_msg.msgstr[i] = piped_msgstr
@@ -739,7 +739,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                     index = plural_form_for(summit_cat.header, 1)
                     branch_msg.msgstr[0] = scatter_pipe_msgstr(
                         branch_id, branch_name,
-                        branch_cat, branch_msg, summit_msg.msgstr[index],
+                        summit_cat, summit_msg, summit_msg.msgstr[index],
                         project, options)
                     branch_msg.fuzzy = False
                     branch_msg.manual_comment = summit_msg.manual_comment
