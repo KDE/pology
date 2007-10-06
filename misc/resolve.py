@@ -40,7 +40,8 @@ def read_entities (*fnames):
     return entities
 
 
-def resolve_entities (text, entities, ignored_entities, srcname=None):
+def resolve_entities (text, entities, ignored_entities,
+                      srcname=None, fcap=False, nalts=0):
     """Replace XML entities in the text with their values.
 
     Parameters:
@@ -50,6 +51,12 @@ def resolve_entities (text, entities, ignored_entities, srcname=None):
                          can be tested by operator in for entity name)
       srcname          - if not None, unknown entities will be reported to
                          stdout, with this parameter as source identifier
+      fcap             - if the exact entity is not found, try one with
+                         first letter in lowercase; if such is found, upcase
+                         the first letter in its value before replacement
+      nalts            - entity values may have alternatives directives
+                         with this many alternatives per directive;
+                         important when fcap is in effect
 
     Return tuple of resulting text, number of resolved entities and
     number of unknown entities.
@@ -70,14 +77,27 @@ def resolve_entities (text, entities, ignored_entities, srcname=None):
         if m:
             entname = m.group(1)
             if entname not in ignored_entities:
+
+                entname_orig = entname
+                if fcap and not entname in entities:
+                    # Allowed to also try entity with first letter lowercased.
+                    entname = first_to_lower(entname)
+
                 if entname in entities:
                     nresolved += 1
-                    new_text = new_text[:-1] + entities[entname]
+                    entval = entities[entname]
+                    if fcap and entname_orig != entname:
+                        entval = first_to_upper(entval, nalts)
+                    new_text = new_text[:-1] + entval
                     text = text[len(m.group(0)):]
                 else:
                     nunknown += 1
                     if srcname is not None:
-                        print "%s: unknown entity '%s'" % (srcname, entname)
+                        if fcap and entname_orig != entname:
+                            print   "%s: unknown entity, either '%s' or '%s'" \
+                                  % (srcname, entname_orig, entname)
+                        else:
+                            print "%s: unknown entity '%s'" % (srcname, entname)
 
     # Recursive resolving if at least one entity has been resolved.
     if nresolved > 0:
@@ -89,11 +109,16 @@ def resolve_entities (text, entities, ignored_entities, srcname=None):
     return new_text, nresolved, nunknown
 
 
-def resolve_entities_simple (text, entities, ignored_entities, srcname=None):
+def resolve_entities_simple (text, entities, ignored_entities,
+                             srcname=None, fcap=False, nalts=0):
     """As resolve_entities(), but returns only the resolved text."""
 
-    return resolve_entities(text, entities, ignored_entities, srcname)[0]
+    return resolve_entities(text, entities, ignored_entities,
+                            srcname=srcname, fcap=fcap, nalts=nalts)[0]
 
+
+_alt_head = "~@"
+_alt_hlen = len(_alt_head)
 
 def resolve_alternatives (text, select, total, srcname=None):
     """Replace alternatives directives in the text with selected alternative.
@@ -116,16 +141,13 @@ def resolve_alternatives (text, select, total, srcname=None):
     as original text, and number of resolved entities is zero.
     """
 
-    head = "~@"
-    hlen = len(head)
-
     original_text = text
     new_text = u""
     nresolved = 0
     malformed = False
 
     while True:
-        p = text.find(head)
+        p = text.find(_alt_head)
         if p < 0:
             new_text += text
             break
@@ -135,7 +157,7 @@ def resolve_alternatives (text, select, total, srcname=None):
         rep_text = text[p:] # text segment for error reporting
 
         # Must have at least 2 characters after the head.
-        if len(text) < p + hlen + 2:
+        if len(text) < p + _alt_hlen + 2:
             malformed = True
             if srcname is not None:
                 print "%s: malformed directive: " \
@@ -143,8 +165,8 @@ def resolve_alternatives (text, select, total, srcname=None):
             break
 
         # Read the separating character and trim source text.
-        sep = text[p + hlen]
-        text = text[p + hlen + 1:]
+        sep = text[p + _alt_hlen]
+        text = text[p + _alt_hlen + 1:]
 
         # Parse requested number of inserts,
         # choose the one with matching index for the result.
@@ -187,3 +209,88 @@ def resolve_alternatives_simple (text, select, total, srcname=None):
     if malformed:
         return text
     return ntext
+
+
+def first_to_case (text, upper=True, nalts=0):
+    """Change case of the first letter in the text.
+
+    If nalts is greater than zero, consider that text may have alternatives
+    directives with this many alternatives; if the first letter is found
+    within an alternative, change cases for first letters in other alternatives
+    of the same directive too.
+    """
+
+    tlen = len(text)
+    remalts = 0
+    checkcase = True
+    ncchanged = 0
+    textcc = ""
+    i0 = 0
+    i = 0
+    while i < tlen:
+        i0 = i
+        c = text[i]
+        cchange = False
+
+        if nalts and not remalts and text[i:i+_alt_hlen] == _alt_head:
+            # An alternatives directive is just starting.
+            i += 2
+            if i >= tlen: # malformed directive, bail out
+                textcc = text
+                break
+            # Record alternatives separator, set number of remaining
+            # alternatives, reactivate case checking.
+            altsep = text[i]
+            remalts = nalts
+            checkcase = True
+
+        elif remalts and c == altsep:
+            # Alternative separator found, reduce number of remaining
+            # alternatives and reactivate case checking.
+            remalts -= 1
+            checkcase = True
+
+        elif checkcase and c.isalpha():
+            # Case check is active and the character is a letter;
+            # request case change.
+            cchange = True
+            # No more case checks until next alternatives separator.
+            checkcase = False
+
+        # Go to next character.
+        i += 1
+
+        # Check if previous segment should be added with case change, or as is.
+        cseg = text[i0:i]
+        if cchange:
+            ncchanged += 1
+            if upper: textcc += cseg.upper()
+            else:     textcc += cseg.lower()
+        else:
+            textcc += cseg
+
+        # If any letter has been upcased and there are no more alternatives
+        # to be processed, we're done.
+        if ncchanged > 0 and remalts == 0:
+            textcc += text[i:]
+            break
+
+    return textcc
+
+
+def first_to_upper (text, nalts=0):
+    """Upper case first letter in the text.
+
+    See first_to_case().
+    """
+
+    return first_to_case(text, upper=True, nalts=nalts)
+
+
+def first_to_lower (text, nalts=0):
+    """Lower case first letter in the text.
+
+    See first_to_case().
+    """
+
+    return first_to_case(text, upper=False, nalts=nalts)
