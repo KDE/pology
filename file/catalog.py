@@ -661,7 +661,7 @@ class Catalog (Monitored):
         nplustr = fields[-1][1].split(";")[0]
 
         # Get the number of forms from the string.
-        m = re.search("\d+", nplustr)
+        m = re.search(r"\d+", nplustr)
         if not m: # malformed nplurals
             return 1
 
@@ -712,4 +712,23 @@ class Catalog (Monitored):
         form = int(eval(self._plustr_eval))
 
         return form
+
+
+    def plural_indices_single (self):
+        """Determine indices of the plural forms used for single number only.
+
+        Indices are returned as a list.
+        """
+
+        # Get plural definition from the header.
+        fields = self._header.select_fields(u"Plural-Forms")
+        if not fields: # no plural definition, assume 0
+            return 0
+        plustr = fields[-1][1].split(";")[1]
+
+        lst = re.findall(r"\bn\s*==\s*\d+\s*\?\s*(\d+)", plustr)
+        if not lst and re.search(r"\bn\s*!=\s*\d+\s*$", plustr):
+            lst = ["0"]
+
+        return [int(x) for x in lst]
 

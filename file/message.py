@@ -52,10 +52,13 @@ class Message_base (object):
                 return False
             if not self.msgstr:
                 return False
+            # Consider message translated if at least one msgstr is translated:
+            # that's how gettext tools do, but then they report an error for
+            # missing argument in non-translated msgstrs.
             for val in self.msgstr:
-                if not val:
-                    return False
-            return True
+                if val:
+                    return True
+            return False
 
         elif att == "untranslated":
             if self.fuzzy or self.obsolete:
