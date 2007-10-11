@@ -736,7 +736,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                 elif summit_msg.msgid_plural and not branch_msg.msgid_plural:
                     # Summit is plural, branch is not: means that branch is
                     # singular, so copy plural form for n==1.
-                    index = plural_form_for(summit_cat.header, 1)
+                    index = summit_cat.plural_index(1)
                     branch_msg.msgstr[0] = scatter_pipe_msgstr(
                         branch_id, branch_name,
                         summit_cat, summit_msg, summit_msg.msgstr[index],
@@ -814,40 +814,6 @@ def get_wrap_func (unwrap, split_tags):
             wrap_func = wrap.wrap_field
 
     return wrap_func
-
-
-# Determine from plural header the msgstr index for case n==1.
-def plural_form_for (header, number):
-
-    # Get plural definition from the header.
-    fields = header.select_fields(u"Plural-Forms")
-    if not fields: # no plural definition, assume 0
-        return 0
-    plustr = fields[-1][1].split(";")[1]
-    plustr = plustr[plustr.find("=") + 1:] # remove plural= part
-
-    # Build Python-evaluable string out of the plural definition.
-    p = -1
-    evalstr = ""
-    while 1:
-        p = plustr.find("?")
-        if p < 0: break
-        cond = plustr[:p]
-        plustr = plustr[p + 1:]
-        cond = cond.replace("&&", " and ")
-        cond = cond.replace("||", " or ")
-        evalstr += "(" + cond + ") and "
-        p = plustr.find(":")
-        body = plustr[:p]
-        plustr = plustr[p + 1:]
-        evalstr += "\"" + body + "\" or "
-    evalstr += "\"" + plustr + "\""
-
-    # Evaluate the definition.
-    n = number # set eval context (plural definition contains n as variable)
-    form = int(eval(evalstr))
-
-    return form
 
 
 def find_summit_comment (msg, summit_tag):

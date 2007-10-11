@@ -325,6 +325,9 @@ class Catalog (Monitored):
         _Catalog_spec["*"]["type"] = message_type
         self.assert_spec_init(_Catalog_spec)
 
+        # Cached plural definition from the header.
+        self._plustr = ""
+
 
     def __len__ (self):
 
@@ -642,4 +645,71 @@ class Catalog (Monitored):
         ip_candidates.sort(cmp=lambda x, y: cmp(y[1], x[1]))
         #print ip_candidates
         return ip_candidates[0]
+
+
+    def nplurals (self):
+        """Return number of msgstr's expected in plural messages.
+
+        Determined by the Plural-Forms header field; if this field
+        is absent from the header, 1 is returned.
+        """
+
+        # Get nplurals string from the header.
+        fields = self._header.select_fields(u"Plural-Forms")
+        if not fields: # no plural definition
+            return 1
+        nplustr = fields[-1][1].split(";")[0]
+
+        # Get the number of forms from the string.
+        m = re.search("\d+", nplustr)
+        if not m: # malformed nplurals
+            return 1
+
+        return int(m.group(0))
+
+
+    def plural_index (self, number):
+        """Determine index of msgstr in plural messages for given number.
+
+        Determined by the Plural-Forms header field; if this field
+        is absent from the header, 0 is returned.
+        """
+
+        # Get plural definition from the header.
+        fields = self._header.select_fields(u"Plural-Forms")
+        if not fields: # no plural definition, assume 0
+            return 0
+        plustr = fields[-1][1].split(";")[1]
+
+        # Rebuild evaluation string only if changed to last invocation.
+        if plustr != self._plustr:
+            # Record raw plural definition for check on next call.
+            self._plustr = plustr
+
+            # Prepare Python-evaluable string out of the raw definition.
+            plustr = plustr[plustr.find("=") + 1:] # remove plural= part
+            p = -1
+            evalstr = ""
+            while 1:
+                p = plustr.find("?")
+                if p < 0: break
+                cond = plustr[:p]
+                plustr = plustr[p + 1:]
+                cond = cond.replace("&&", " and ")
+                cond = cond.replace("||", " or ")
+                evalstr += "(" + cond + ") and "
+                p = plustr.find(":")
+                body = plustr[:p]
+                plustr = plustr[p + 1:]
+                evalstr += "\"" + body + "\" or "
+            evalstr += "\"" + plustr + "\""
+
+            # Record the current evaluable definition.
+            self._plustr_eval = evalstr
+
+        # Evaluate the definition.
+        n = number # set eval context (plural definition uses n as variable)
+        form = int(eval(self._plustr_eval))
+
+        return form
 
