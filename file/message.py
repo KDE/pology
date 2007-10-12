@@ -33,6 +33,9 @@ _Message_spec = {
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
     "format" : {"type" : unicode, "derived" : True},
+
+    "refline" : {"type" : int},
+    "refentry" : {"type" : int},
 }
 _Message_single_strings = (
     "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
@@ -319,6 +322,9 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
         self._fuzzy = (u"fuzzy" in self._flag and not self._obsolete)
 
+        self._refline = init.get("refline", -1)
+        self._refentry = init.get("refentry", -1)
+
         self.assert_spec_init(_Message_spec)
 
         # Line caches.
@@ -391,6 +397,9 @@ class MessageUnsafe (Message_base):
         self.msgstr = init.get("msgstr", [u""])
 
         self.__dict__["fuzzy"] = (u"fuzzy" in self.flag and not self.obsolete)
+
+        self.refline = init.get("refline", -1)
+        self.refentry = init.get("refentry", -1)
 
         # Line caches.
         self._lines_all = init.get("lines_all", [])

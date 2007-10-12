@@ -30,6 +30,8 @@ class _MessageDict:
         self.msgid = u""
         self.msgid_plural = u""
         self.msgstr = []
+        self.refline = -1
+        self.refentry = -1
 
         self.lines_all = []
         self.lines_manual_comment = []
@@ -54,6 +56,7 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
 
     messages1 = list()
     lno = 0
+    eno = 0
 
     class Namespace: pass
     loc = Namespace()
@@ -149,6 +152,10 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
                 if loc.life_context == ctx_obsolete:
                     loc.msg.obsolete = True
                 loc.field_context = ctx_msgid
+                if loc.age_context == ctx_current:
+                    loc.msg.refline = lno
+                    loc.msg.refentry = eno
+                    eno += 1
                 line = line[5:].lstrip()
 
             elif line.startswith("msgstr"):
@@ -727,7 +734,7 @@ class Catalog (Monitored):
         plustr = fields[-1][1].split(";")[1]
 
         lst = re.findall(r"\bn\s*==\s*\d+\s*\?\s*(\d+)", plustr)
-        if not lst and re.search(r"\bn\s*!=\s*\d+\s*$", plustr):
+        if not lst and re.search(r"\bn\s*!=\s*\d+\s*([^?]|$)", plustr):
             lst = ["0"]
 
         return [int(x) for x in lst]
