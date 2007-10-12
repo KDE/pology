@@ -943,8 +943,8 @@ def summit_purge_single (summit_name, project, options):
         branch_cats[branch_id] = [Catalog(x) for x in branch_paths]
 
     # For each message in the summit catalog, check its presence in
-    # branch catalogs; update branch IDs, or remove the message
-    # if none remaining.
+    # branch catalogs (consider only non-obsolete messages);
+    # update branch IDs, or remove the message if none remaining.
     for summit_msg in summit_cat:
         branch_ids = get_summit_comment(summit_msg,
                                         _summit_tag_branchid).split()
@@ -952,7 +952,8 @@ def summit_purge_single (summit_name, project, options):
         for branch_id in branch_ids:
             if branch_id in branch_cats:
                 for branch_cat in branch_cats[branch_id]:
-                    if summit_msg in branch_cat:
+                    if summit_msg in branch_cat \
+                    and not branch_cat[summit_msg].obsolete:
                         valid_branch_ids.append(branch_id)
                         break
 
