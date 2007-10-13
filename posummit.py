@@ -688,7 +688,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             if options.verbose:
                 print "  modified %s" % summit_cat.filename
             else:
-                print "%s --> %s" % (branch_cat.filename, summit_cat.filename)
+                print "%s ==> %s" % (branch_cat.filename, summit_cat.filename)
 
 
 def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
@@ -783,7 +783,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
         if options.verbose:
             print "  modified %s from %s" % (branch_cat.filename, paths_str)
         else:
-            print "%s <-- %s" % (branch_cat.filename, paths_str)
+            print "%s <== %s" % (branch_cat.filename, paths_str)
 
 
 # Pipe msgstr through hook calls,
