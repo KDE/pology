@@ -889,12 +889,11 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
                 if fl != "fuzzy" and fl not in branch_msg.flag:
                     summit_msg.flag.remove(fl)
 
-            # Overwrite current summit source references only if one of the
-            # branch references is missing.
-            for srcref in branch_msg.source:
-                if srcref not in summit_msg.source:
-                    summit_msg.source = branch_msg.source
-                    break
+            # Equalize source references.
+            # FIXME: Once there is a way to reliably tell the root directory
+            # of source references, add missing and remove obsolete source
+            # references instead.
+            summit_msg.source = branch_msg.source
 
             # Split auto comments of the current summit message into
             # summit and non-summit tagged comments.
@@ -918,11 +917,10 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
 
         else:
             # Secondary source message for the summit message.
-            # Keep all comments as for the primary source,
-            # only combine source references.
-            for srcref in branch_msg.source:
-                if srcref not in summit_msg.source:
-                    summit_msg.source.add(srcref)
+            # FIXME: Once there is a way to reliably tell the root directory
+            # of source references, add missing and remove obsolete source
+            # references instead.
+            pass
 
 
 def summit_purge_single (summit_name, project, options):
