@@ -216,7 +216,7 @@ def wrap_comment_unwrap (ctype, text):
 
 _tagbr_normal = (
     # HTML
-    "p", "h1", "h3", "h3", "h4", "h5", "h6", "ul", "ol", "li",
+    "p", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li",
     "table", "th", "td", "tr", "center", "blockquote", "pre",
     # KUIT
     "title", "subtitle", "para", "list", "item",
