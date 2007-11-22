@@ -36,7 +36,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "-s", "--sieve-option", metavar="NAME[:VALUE]",
         action="append", dest="sieve_options", default=[],
-        help="pass an option to the sieves (repeat for more options)")
+        help="pass an option to the sieves")
     opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
