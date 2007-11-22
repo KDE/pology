@@ -34,7 +34,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         dest="files_from",
         help="get list of input files from FILE (one file per line)")
     opars.add_option(
-        "-s", "--sieve-option", metavar="NAME[:VALUE1,VALUE2...]",
+        "-s", "--sieve-option", metavar="NAME[:VALUE]",
         action="append", dest="sieve_options", default=[],
         help="pass an option to the sieves (repeat for more options)")
     opars.add_option(
