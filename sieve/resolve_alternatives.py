@@ -20,21 +20,23 @@ class Sieve (object):
         self.nmalformed = 0
 
         # Number of alternatives per directive.
-        if "alt" in options and len(options["alt"]) == 2:
-            for spec in options["alt"]:
+        if "alt" in options:
+            for spec in options["alt"].split(","):
                 if spec.endswith("t"):
                     self.total = int(spec[:-1])
                 else:
                     self.select = int(spec)
             if not hasattr(self, "total"):
                 error("number of alternatives not provided")
+            if not hasattr(self, "select"):
+                error("selected alternative not provided")
             if self.total < 1:
                 error("invalid number of alternatives: %d" % self.total)
             if self.select < 1 or self.select > self.total:
                 error("selected alternative out of range: %d" % self.select)
             options.accept("alt")
         else:
-            error("need alternatives specification (-s alt:<select>,<total>t)")
+            error("need alternatives specification (-salt:<select>,<total>t)")
 
 
     def process (self, msg, cat):

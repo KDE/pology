@@ -19,9 +19,9 @@ class Sieve (object):
 
         # Embed differences only if less different than this.
         self.limit = 1.0
-        if "limit" in options and len(options["limit"]) == 1:
+        if "limit" in options:
             options.accept("limit")
-            self.limit = float(options["limit"][0])
+            self.limit = float(options["limit"])
 
         # Indicators to the caller:
         # - monitor to avoid unnecessary reformatting

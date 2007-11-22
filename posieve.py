@@ -89,12 +89,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     sopts = _Sieve_options()
     for swspec in op.sieve_options:
         if swspec.find(":") >= 0:
-            sopt, valspec = swspec.split(":")
-            values = valspec.split(",")
+            sopt, value = swspec.split(":", 1)
         else:
             sopt = swspec
-            values = []
-        sopts[sopt] = values
+            value = ""
+        sopts[sopt] = value
 
     # Load sieve modules from supplied names in the command line.
     execdir = os.path.dirname(sys.argv[0])

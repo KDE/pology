@@ -17,13 +17,13 @@ class Sieve (object):
         self.entity_files = []
         if "entdef" in options:
             options.accept("entdef")
-            self.entity_files = options["entdef"]
+            self.entity_files = options["entdef"].split(",")
 
         # Ignored entities.
         self.ignored_entities = ["lt", "gt", "apos", "quot", "amp"]
         if "ignore" in options:
             options.accept("ignore")
-            self.ignored_entities.extend(options["ignore"])
+            self.ignored_entities.extend(options["ignore"].split(","))
 
         # Read entity definitions.
         self.entities = read_entities(*self.entity_files)

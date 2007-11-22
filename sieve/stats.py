@@ -12,7 +12,7 @@ class Sieve (object):
         self.shortcut = ""
         if "accel" in options and len(options["accel"]) > 0:
             options.accept("accel")
-            self.shortcut = "".join(options["accel"])
+            self.shortcut = options["accel"]
         else:
             # Assume & and _, these are the most typical.
             self.shortcut = "&_"
