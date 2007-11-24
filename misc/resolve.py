@@ -58,12 +58,12 @@ def resolve_entities (text, entities, ignored_entities,
                          with this many alternatives per directive;
                          important when fcap is in effect
 
-    Return tuple of resulting text, number of resolved entities and
-    number of unknown entities.
+    Return tuple of resulting text, list of resolved entities and
+    list of unknown entities.
     """
 
-    nunknown = 0
-    nresolved = 0
+    unknown = []
+    resolved = []
     new_text = ""
     while True:
         p = text.find("&")
@@ -84,14 +84,14 @@ def resolve_entities (text, entities, ignored_entities,
                     entname = first_to_lower(entname)
 
                 if entname in entities:
-                    nresolved += 1
+                    resolved.append(entname)
                     entval = entities[entname]
                     if fcap and entname_orig != entname:
                         entval = first_to_upper(entval, nalts)
                     new_text = new_text[:-1] + entval
                     text = text[len(m.group(0)):]
                 else:
-                    nunknown += 1
+                    unknown.append(entname)
                     if srcname is not None:
                         if fcap and entname_orig != entname:
                             print   "%s: unknown entity, either '%s' or '%s'" \
@@ -100,13 +100,13 @@ def resolve_entities (text, entities, ignored_entities,
                             print "%s: unknown entity '%s'" % (srcname, entname)
 
     # Recursive resolving if at least one entity has been resolved.
-    if nresolved > 0:
-        new_text, nresolved_extra, nunknown_extra \
+    if len(resolved) > 0:
+        new_text, resolved_extra, unknown_extra \
             = resolve_entities(new_text, entities, ignored_entities, srcname)
-        nresolved += nresolved_extra
-        nunknown += nunknown_extra
+        resolved.extend(resolved_extra)
+        unknown.extend(unknown_extra)
 
-    return new_text, nresolved, nunknown
+    return new_text, resolved, unknown
 
 
 def resolve_entities_simple (text, entities, ignored_entities,

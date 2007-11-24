@@ -32,12 +32,12 @@ class Sieve (object):
     def process (self, msg, cat):
 
         for i in range(len(msg.msgstr)):
-            msg.msgstr[i], nresolved, nunknown = \
+            msg.msgstr[i], resolved, unknown = \
                 resolve_entities(msg.msgstr[i],
                                  self.entities, self.ignored_entities,
                                  cat.filename)
-            self.nresolved += nresolved
-            self.nunknown += nunknown
+            self.nresolved += len(resolved)
+            self.nunknown += len(unknown)
 
 
     def finalize (self):
