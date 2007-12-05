@@ -794,7 +794,9 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr,
     piped_msgstr = msgstr
     for call, branch_rx, name_rx in project.hook_on_scatter_msgstr:
         if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
-            piped_msgstr = call(cat, msg, piped_msgstr)
+            piped_msgstr_tmp = call(cat, msg, piped_msgstr)
+            if piped_msgstr_tmp is not None:
+                piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
 
