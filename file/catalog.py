@@ -733,7 +733,7 @@ class Catalog (Monitored):
             return 0
         plustr = fields[-1][1].split(";")[1]
 
-        lst = re.findall(r"\bn\s*==\s*\d+\s*\?\s*(\d+)", plustr)
+        lst = re.findall(r"\bn\s*==\s*\d+\s*\)?\s*\?\s*(\d+)", plustr)
         if not lst and re.search(r"\bn\s*!=\s*\d+\s*([^?]|$)", plustr):
             lst = ["0"]
 
