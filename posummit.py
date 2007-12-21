@@ -53,7 +53,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("must provide operation mode")
     options.modes = free_args.pop(0).split(",")
     for mode in options.modes:
-        if mode not in ("gather", "scatter", "purge"):
+        if mode not in ("gather", "scatter", "purge", "reorder"):
             error("unknown mode '%s'" % mode)
 
     # Collect partial processing specs.
@@ -96,6 +96,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             summit_scatter(project, options)
         elif mode == "purge":
             summit_purge(project, options)
+        elif mode == "reorder":
+            summit_reorder(project, options)
 
 
 def error (msg, code=1):
@@ -417,47 +419,25 @@ def summit_scatter (project, options):
 def summit_purge (project, options):
 
     # Collect names of summit catalogs to purge.
-    summit_names = []
-    if not options.partspecs:
-        for name in project.catalogs[SUMMIT_ID]:
-            summit_names.append(name)
-    else:
-        for branch_id in options.partspecs:
-            for part_spec in options.partspecs[branch_id]:
-
-                if branch_id == SUMMIT_ID: # explicit by summit reference
-                    if part_spec.find(os.sep) >= 0: # whole subdir
-                        sel_subdir = os.path.normpath(part_spec)
-                        for name, spec in project.catalogs[SUMMIT_ID].items():
-                            path, subdir = spec[0] # summit catalogs are unique
-                            if sel_subdir == subdir:
-                                summit_names.append(name)
-                    else: # single name
-                        sel_name = part_spec
-                        summit_names.append(sel_name)
-
-                else: # implicit by branch reference
-                    if part_spec.find(os.sep) >= 0: # whole subdir
-                        sel_subdir = os.path.normpath(part_spec)
-                        for name, spec in project.catalogs[branch_id].items():
-                            for path, subdir in spec:
-                                if sel_subdir == subdir:
-                                    summit_names.extend(
-                                        project.direct_map[branch_id][name])
-                    else: # single name
-                        sel_name = part_spec
-                        summit_names.extend(
-                            project.direct_map[branch_id][sel_name])
-
-    # Make names unique and sort.
-    summit_names = list(set(summit_names))
-    summit_names.sort()
+    summit_names = select_summit_catalogs(project, options)
 
     # Purge all selected catalogs.
     for name in summit_names:
         if options.verbose:
             print "purging %s ..." % project.catalogs[SUMMIT_ID][name][0]
         summit_purge_single(name, project, options)
+
+
+def summit_reorder (project, options):
+
+    # Collect names of summit catalogs to reorder.
+    summit_names = select_summit_catalogs(project, options)
+
+    # Reorder all selected catalogs.
+    for name in summit_names:
+        if options.verbose:
+            print "reordering %s ..." % project.catalogs[SUMMIT_ID][name][0]
+        summit_reorder_single(name, project, options)
 
 
 def select_branches (project, options):
@@ -575,6 +555,48 @@ def select_branch_catalogs (branch_id, project, options):
     return branch_catalogs
 
 
+def select_summit_catalogs (project, options):
+
+    # Collect all summit catalogs selected explicitly or implicitly.
+    summit_names = []
+    if not options.partspecs:
+        for name in project.catalogs[SUMMIT_ID]:
+            summit_names.append(name)
+    else:
+        for branch_id in options.partspecs:
+            for part_spec in options.partspecs[branch_id]:
+
+                if branch_id == SUMMIT_ID: # explicit by summit reference
+                    if part_spec.find(os.sep) >= 0: # whole subdir
+                        sel_subdir = os.path.normpath(part_spec)
+                        for name, spec in project.catalogs[SUMMIT_ID].items():
+                            path, subdir = spec[0] # summit catalogs are unique
+                            if sel_subdir == subdir:
+                                summit_names.append(name)
+                    else: # single name
+                        sel_name = part_spec
+                        summit_names.append(sel_name)
+
+                else: # implicit by branch reference
+                    if part_spec.find(os.sep) >= 0: # whole subdir
+                        sel_subdir = os.path.normpath(part_spec)
+                        for name, spec in project.catalogs[branch_id].items():
+                            for path, subdir in spec:
+                                if sel_subdir == subdir:
+                                    summit_names.extend(
+                                        project.direct_map[branch_id][name])
+                    else: # single name
+                        sel_name = part_spec
+                        summit_names.extend(
+                            project.direct_map[branch_id][sel_name])
+
+    # Make names unique and sort.
+    summit_names = list(set(summit_names))
+    summit_names.sort()
+
+    return summit_names
+
+
 # Register new summit catalog to support implicitly mapped branch catalog,
 # updating inverse mappings as well.
 def add_summit_catalog_implicit (name, path, subdir, branch_id, project):
@@ -686,9 +708,10 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
     for summit_cat in summit_cats:
         if summit_cat.sync():
             if options.verbose:
-                print "  modified %s" % summit_cat.filename
+                print ">    (scattered) %s  %s" % (branch_cat.filename,
+                                                   summit_cat.filename)
             else:
-                print "%s ==> %s" % (branch_cat.filename, summit_cat.filename)
+                print ">    %s  %s" % (branch_cat.filename, summit_cat.filename)
 
 
 def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
@@ -781,9 +804,9 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
     if branch_cat.sync():
         paths_str = ", ".join(summit_paths)
         if options.verbose:
-            print "  modified %s from %s" % (branch_cat.filename, paths_str)
+            print "<    (gathered) %s  %s" % (branch_cat.filename, paths_str)
         else:
-            print "%s <== %s" % (branch_cat.filename, paths_str)
+            print "<    %s  %s" % (branch_cat.filename, paths_str)
 
 
 # Pipe msgstr through hook calls,
@@ -967,15 +990,47 @@ def summit_purge_single (summit_name, project, options):
     if summit_cat.sync():
         if len(summit_cat) > 0:
             if options.verbose:
-                print "  modified %s" % summit_cat.filename
+                print "!    (purged) %s" % summit_cat.filename
             else:
-                print "! %s" % summit_cat.filename
+                print "!    %s" % summit_cat.filename
         else:
             os.remove(summit_cat.filename)
             if options.verbose:
-                print "  removed %s" % summit_cat.filename
+                print "-    (removed) %s" % summit_cat.filename
             else:
-                print "- %s" % summit_cat.filename
+                print "-    %s" % summit_cat.filename
+
+
+def summit_reorder_single (summit_name, project, options):
+
+    # Decide on wrapping function for message fields in the summit.
+    wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+
+    # Open the summit catalog and all dependent branch catalogs.
+    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+    summit_cat = Catalog(summit_path, wrapf=wrapf)
+
+    # Open a fresh catalog with dummy path and copy the original header.
+    fresh_cat = Catalog("reorder-dummy-123.po", create=True, wrapf=wrapf)
+    # FIXME: if such a filename exists in the working dir, oh boy...
+    fresh_cat.header = summit_cat.header
+
+    # Insert messages from the original into the fresh catalog, one by one.
+    # This will reorder the messages heuristically into a better order.
+    # Keep track if any entry has actually changed its position.
+    reordered = False
+    for pos in range(0, len(summit_cat)):
+        ipos = fresh_cat.add(summit_cat[pos])
+        if pos != ipos:
+            reordered = True
+
+    # Assign the summit path to the fresh catalog and sync if needed.
+    fresh_cat.filename = summit_path
+    if reordered and fresh_cat.sync():
+        if options.verbose:
+            print "!    (reordered) %s" % fresh_cat.filename
+        else:
+            print "!    %s" % fresh_cat.filename
 
 
 if __name__ == '__main__':
