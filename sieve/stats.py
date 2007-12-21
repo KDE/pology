@@ -59,7 +59,7 @@ class Sieve (object):
 
         # Count the words and characters in original and translation.
         # Remove shortcut markers prior to counting; don't include words
-        # which do not start with a letter; remove scripted part.
+        # which do not start with a letter.
         nwords = {"orig" : 0, "tran" : 0}
         nchars = {"orig" : 0, "tran" : 0}
         for src, texts in (("orig", (msg.msgid, msg.msgid_plural)),
@@ -67,9 +67,6 @@ class Sieve (object):
             for text in texts:
                 for c in self.shortcut:
                     text = text.replace(c, "")
-                pf = text.find("|/|");
-                if pf >= 0:
-                    text = text[0:pf];
                 words = split_text(text, True, msg.format)[0]
                 words = [w for w in words if w[0:1].isalpha()]
                 nwords[src] += len(words)
