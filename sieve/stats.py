@@ -23,13 +23,25 @@ class Sieve (object):
             self.detailed = True
             options.accept("detail")
 
+        # Display compact list of catalogs with fuzzy/untranslated messages?
+        self.incomplete = False
+        if "incomplete" in options:
+            self.incomplete = True
+            options.accept("incomplete")
+
+        # Dictionary of catalogs which are not fully translated.
+        # Key is the catalog filename.
+        # Value is a doublet list: number fuzzy, number untranslated entries.
+        self.incomplete_catalogs = {}
+
+        # Counted categories.
         self.count_spec = (
             ("trn", u"translated"),
             ("fuz", u"fuzzy"),
             ("unt", u"untranslated"),
             ("tot", u"total"),
             ("obs", u"obsolete"),
-        );
+        )
         self.count = dict([(x[0], [0] * 5) for x in self.count_spec])
 
         # Indicators to the caller:
@@ -53,9 +65,15 @@ class Sieve (object):
         elif msg.fuzzy:
             self.count["fuz"][0] += 1
             categories.append("fuz")
+            if cat.filename not in self.incomplete_catalogs:
+                self.incomplete_catalogs[cat.filename] = [0, 0]
+            self.incomplete_catalogs[cat.filename][0] += 1
         elif msg.untranslated:
             self.count["unt"][0] += 1
             categories.append("unt")
+            if cat.filename not in self.incomplete_catalogs:
+                self.incomplete_catalogs[cat.filename] = [0, 0]
+            self.incomplete_catalogs[cat.filename][1] += 1
 
         # Count the words and characters in original and translation.
         # Remove shortcut markers prior to counting; don't include words
@@ -67,9 +85,9 @@ class Sieve (object):
             for text in texts:
                 for c in self.shortcut:
                     text = text.replace(c, "")
-                pf = text.find("|/|");
+                pf = text.find("|/|")
                 if pf >= 0:
-                    text = text[0:pf];
+                    text = text[0:pf]
                 words = split_text(text, True, msg.format)[0]
                 words = [w for w in words if w[0:1].isalpha()]
                 nwords[src] += len(words)
@@ -138,3 +156,30 @@ class Sieve (object):
         # Output the table.
         print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
                        space="   ", none=u"-")
+
+        # Output the table of catalogs which are not fully translated.
+        if self.incomplete:
+            #print "-"
+            #filenames = self.incomplete_catalogs.keys()
+            #filenames.sort()
+            #for filename in filenames:
+                #lst = self.incomplete_catalogs[filename]
+                #print "%s : %df %du" % (filename, lst[0], lst[1])
+
+            filenames = self.incomplete_catalogs.keys()
+            filenames.sort()
+            data = []
+            # Column of catalog filenames.
+            data.append(filenames)
+            # Column of numbers fuzzy.
+            data.append([self.incomplete_catalogs[x][0] for x in filenames])
+            # Column of numbers untranslated.
+            data.append([self.incomplete_catalogs[x][1] for x in filenames])
+            # Column names and formats.
+            coln = ["incomplete-catalog", "fuzzy", "untranslated"]
+            maxfl = max([len(x) for x in filenames])
+            dfmt = ["%%-%ds" % maxfl, "%d", "%d"]
+
+            print "-"
+            print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-")
+
