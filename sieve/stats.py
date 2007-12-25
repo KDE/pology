@@ -158,7 +158,7 @@ class Sieve (object):
                        space="   ", none=u"-")
 
         # Output the table of catalogs which are not fully translated.
-        if self.incomplete:
+        if self.incomplete and len(self.incomplete_catalogs) > 0:
             #print "-"
             #filenames = self.incomplete_catalogs.keys()
             #filenames.sort()
