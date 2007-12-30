@@ -877,6 +877,7 @@ def msg_ident (msg):
     return "_" + h.hexdigest() + "_"
 
 
+# NOTE: If changed, also change in stats sieve.
 #_summit_tag_ident = "+="
 _summit_tag_branchid = "+>"
 _summit_tags = (

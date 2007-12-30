@@ -3,6 +3,18 @@
 from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
 
+
+# Summit: Dig out the set of branches for the message.
+def _get_summit_branches (msg):
+
+    # Prefix of auto-comment with list of branches for the message.
+    br_prefix = "+>"
+
+    for c in msg.auto_comment:
+        if c.startswith(br_prefix):
+            return set(c[len(br_prefix):].strip().split())
+
+
 class Sieve (object):
     """General statistics."""
 
@@ -29,6 +41,12 @@ class Sieve (object):
             self.incomplete = True
             options.accept("incomplete")
 
+        # Summit: consider only messages belonging to given branches.
+        self.branches = None
+        if "branch" in options:
+            self.branches = set(options["branch"].split(","))
+            options.accept("branch")
+
         # Dictionary of catalogs which are not fully translated.
         # Key is the catalog filename.
         # Value is a doublet list: number fuzzy, number untranslated entries.
@@ -48,7 +66,15 @@ class Sieve (object):
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
 
+
     def process (self, msg, cat):
+
+        # Summit: if branches were given, skip the message if it does not
+        # belong to any of the given branches.
+        if self.branches:
+            msg_branches = _get_summit_branches(msg)
+            if not set.intersection(self.branches, msg_branches):
+                return
 
         categories = []
 
@@ -100,7 +126,12 @@ class Sieve (object):
             self.count[cat][3] += nchars["orig"]
             self.count[cat][4] += nchars["tran"]
 
+
     def finalize (self):
+
+        # Summit: If branches were given, indicate conspicuously up front.
+        if self.branches:
+            print ">>> selected-branches: %s" % " ".join(self.branches)
 
         # Collected data.
         data = [[self.count[tkey][y] for tkey, tname in self.count_spec]
@@ -110,7 +141,7 @@ class Sieve (object):
         for col, ins in ((0, 1), (1, 3)):
             compr = []
             for tkey, tname in self.count_spec:
-                if tkey not in ("tot", "obs") and self.count["tot"] > 0:
+                if tkey not in ("tot", "obs") and self.count["tot"][col] > 0:
                     r = float(self.count[tkey][col]) / self.count["tot"][col]
                     compr.append(r * 100)
                 else:
