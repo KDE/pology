@@ -157,15 +157,9 @@ class Sieve (object):
         print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
                        space="   ", none=u"-")
 
-        # Output the table of catalogs which are not fully translated.
+        # Output the table of catalogs which are not fully translated,
+        # if requested.
         if self.incomplete and len(self.incomplete_catalogs) > 0:
-            #print "-"
-            #filenames = self.incomplete_catalogs.keys()
-            #filenames.sort()
-            #for filename in filenames:
-                #lst = self.incomplete_catalogs[filename]
-                #print "%s : %df %du" % (filename, lst[0], lst[1])
-
             filenames = self.incomplete_catalogs.keys()
             filenames.sort()
             data = []
@@ -179,7 +173,7 @@ class Sieve (object):
             coln = ["incomplete-catalog", "fuzzy", "untranslated"]
             maxfl = max([len(x) for x in filenames])
             dfmt = ["%%-%ds" % maxfl, "%d", "%d"]
-
+            # Output.
             print "-"
             print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-")
 
