@@ -25,7 +25,7 @@ class Sieve (object):
         and msg.msgid_plural == msg.msgid_plural_previous:
             msg.fuzzy = False
             if self.flag_review:
-                msg.auto_comment.append(u"unreviewed-context")
+                msg.manual_comment.append(u"unreviewed-context")
             self.nmatch += 1
             msg.modcount = 1 # in case of non-monitored messages
 
