@@ -200,8 +200,10 @@ class Sieve (object):
             data.append([self.incomplete_catalogs[x][0] for x in filenames])
             # Column of numbers untranslated.
             data.append([self.incomplete_catalogs[x][1] for x in filenames])
+            # Column of the two added.
+            data.append([x + y for x, y in zip(*data[1:3])])
             # Column names and formats.
-            coln = ["incomplete-catalog", "fuzzy", "untranslated"]
+            coln = ["incomplete-catalog", "fuzz", "untr", "fuzz+untr"]
             maxfl = max([len(x) for x in filenames])
             dfmt = ["%%-%ds" % maxfl, "%d", "%d"]
             # Output.
