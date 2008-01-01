@@ -25,6 +25,8 @@ class Sieve (object):
         and msg.msgid_plural == msg.msgid_plural_previous:
             msg.fuzzy = False
             if self.flag_review:
+                # Add as manual comment, as any other type will vanish
+                # when catalog is merged with template.
                 msg.manual_comment.append(u"unreviewed-context")
             self.nmatch += 1
             msg.modcount = 1 # in case of non-monitored messages
