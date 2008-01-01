@@ -354,6 +354,19 @@ class Catalog (Monitored):
         return msg.key in self._msgpos
 
 
+    def find (self, msg):
+        """Return position of the message in the catalog.
+
+        If the message is not present in the catalog, return -1.
+        O(1) runtime complexity.
+        """
+
+        if msg.key in self._msgpos:
+            return self._msgpos[msg.key]
+        else:
+            return -1
+
+
     def add (self, msg, pos=None):
         """Add a message to the catalog.
 

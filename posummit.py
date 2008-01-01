@@ -658,7 +658,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
                                      primary_sourced[summit_cat.filename])
 
                 # Equip any new summit tags to the merged message.
-                summit_add_tags(summit_cat[pos_merged], branch_id)
+                summit_add_tags(summit_cat[pos_merged], branch_id, project)
 
         # If the message has not been merged anywhere, collect for insertion.
         # Also collect the catalog/position of the latest message merge,
@@ -697,7 +697,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
         pos_added = summit_cat_selected.add(msg, pos=pos_selected)
 
         # Equip summit tags to the added message.
-        summit_add_tags(summit_cat[pos_added], branch_id)
+        summit_add_tags(summit_cat[pos_added], branch_id, project)
 
 
     # Update headers of otherwise modified summit catalogs.
@@ -901,16 +901,24 @@ _summit_tags = (
     _summit_tag_branchid,
 )
 
-def summit_add_tags (msg, branch_id):
+def summit_add_tags (msg, branch_id, project):
 
     ## Add hash ident.
     #ident = msg_ident(msg)
     #set_summit_comment(msg, _summit_tag_ident, ident)
+
     # Add branch ID.
     branch_ids = get_summit_comment(msg, _summit_tag_branchid).split()
     if not branch_id in branch_ids:
+        # Order branch ids by the global order, to preserve priorites.
         branch_ids.append(branch_id)
-        set_summit_comment(msg, _summit_tag_branchid, " ".join(branch_ids))
+        global_branch_ids = [x[0] for x in project.branches]
+        ordered_branch_ids = []
+        for branch_id in global_branch_ids:
+            if branch_id in branch_ids:
+                ordered_branch_ids.append(branch_id)
+        set_summit_comment(msg, _summit_tag_branchid,
+                           " ".join(ordered_branch_ids))
 
 
 def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
@@ -1024,23 +1032,44 @@ def summit_reorder_single (summit_name, project, options):
     # Decide on wrapping function for message fields in the summit.
     wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
 
-    # Open the summit catalog and all dependent branch catalogs.
+    # Open the summit catalog.
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_cat = Catalog(summit_path, wrapf=wrapf)
+
+    # Determine and open primary branch catalog (for initial order).
+    primary_branch_cat = None
+    global_branch_ids = [x[0] for x in project.branches]
+    for branch_id in global_branch_ids:
+        if branch_id in project.full_inverse_map[summit_name]:
+            branch_name = project.full_inverse_map[summit_name][branch_id][0]
+            path, subdir = project.catalogs[branch_id][branch_name][0]
+            primary_branch_cat = Catalog(path)
+            break
+    if primary_branch_cat is None:
+        error("internal: cannot find primary branch catalog for reordering")
 
     # Open a fresh catalog with dummy path and copy the original header.
     fresh_cat = Catalog("reorder-dummy-123.po", create=True, wrapf=wrapf)
     # FIXME: if such a filename exists in the working dir, oh boy...
     fresh_cat.header = summit_cat.header
 
-    # Insert messages from the original into the fresh catalog, one by one.
-    # This will reorder the messages heuristically into a better order.
-    # Keep track if any entry has actually changed its position.
+    # First reinsert messages according to those in primary branch catalog.
+    for pos in range(0, len(primary_branch_cat)):
+        old_pos = summit_cat.find(primary_branch_cat[pos])
+        if old_pos >= 0:
+            fresh_cat.add(summit_cat[old_pos], -1)
+
+    # Then reinsert messages not present in primary branch catalog.
+    for pos in range(0, len(summit_cat)):
+        if fresh_cat.find(summit_cat[pos]) < 0:
+            fresh_cat.add(summit_cat[pos])
+
+    # Check if the order has actually changed.
     reordered = False
     for pos in range(0, len(summit_cat)):
-        ipos = fresh_cat.add(summit_cat[pos])
-        if pos != ipos:
+        if pos != fresh_cat.find(summit_cat[pos]):
             reordered = True
+            break
 
     # Assign the summit path to the fresh catalog and sync if needed.
     fresh_cat.filename = summit_path
