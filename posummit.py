@@ -627,62 +627,78 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             summit_cat.header = branch_cat.header
         summit_cats.append(summit_cat)
 
-    summit_cat_selected_prev = None
-
-    # Go through messages in the branch catalog.
+    # Go through messages in the branch catalog:
+    # merge with existing messages, collect any new messages.
+    # Do not insert new messages immediately, as the merge may update
+    # source references, which are necessary for heuristic insertion.
+    to_insert = []
+    last_merge_pos = None
+    last_merge_summit_cat = None
     for msg in branch_cat:
-        if not msg.obsolete: # do not gather obsolete messages
+        if msg.obsolete: # do not gather obsolete messages
+            continue
 
-            # If more than one summit catalog, decide in which to insert.
-            if len(summit_cats) > 1:
-                summit_cat_selected = None
-                pos_selected = None
-                weight_best = 0.0
-                for summit_cat in summit_cats:
-                    if msg in summit_cat:
-                        # Take the current catalog unconditionaly if
-                        # the message exists in it.
-                        summit_cat_selected = summit_cat
-                        weight_best = -1.0
-                        break
-                    else:
-                        # Otherwise judge by the best belonging weight.
-                        pos, weight = summit_cat.insertion_inquiry(msg)
-                        if weight > weight_best:
-                            weight_best = weight
-                            summit_cat_selected = summit_cat
-                            pos_selected = pos
+        # Merge in all summit catalogs that have this message.
+        pos_merged = None
+        for summit_cat in summit_cats:
+            if msg in summit_cat:
+                # Collect the data for heuristic insertion according
+                # to the first merge.
+                if pos_merged is None:
+                    last_merge_pos = pos_merged
+                    last_merge_summit_cat = summit_cat
 
-                # If the final weight is still zero, insert in the same
-                # catalog as the previous message, and after its positon.
-                if weight_best == 0.0 and summit_cat_selected_prev:
-                    summit_cat_selected = summit_cat_selected_prev
-                    pos_selected = pos_true_prev + 1
+                # Merge the message.
+                pos_merged = summit_cat.add(msg)
 
+                # Possibly update automatic comments.
+                if summit_cat.filename not in primary_sourced:
+                    primary_sourced[summit_cat.filename] = {}
+                summit_override_auto(summit_cat[pos_merged], msg, branch_id,
+                                     primary_sourced[summit_cat.filename])
+
+                # Equip any new summit tags to the merged message.
+                summit_add_tags(summit_cat[pos_merged], branch_id)
+
+        # If the message has not been merged anywhere, collect for insertion.
+        # Also collect the catalog/position of the latest message merge,
+        # needed later for heuristic insertion.
+        if pos_merged is None:
+            if last_merge_pos is not None:
+                to_insert.append((msg, last_merge_summit_cat, last_merge_pos))
             else:
-                # Select the only catalog for insertion.
-                summit_cat_selected = summit_cats[0]
-                # Insert at end if the summit catalog has been newly created,
-                # or let position be decided in call to catalog addition.
-                if summit_cat_selected.created():
-                    pos_selected = -1
-                else:
-                    pos_selected = None
+                to_insert.append((msg, summit_cats[0], -1))
 
-            # Insert/merge the message; the true position is reported back.
-            pos_true = summit_cat_selected.add(msg, pos=pos_selected)
+    # Go through messages collected for insertion and heuristically insert.
+    for msg, last_merge_summit_cat, last_merge_pos in to_insert:
+        # Decide in which catalog to insert by the highest greater than zero
+        # belonging weight.
+        # If no weight greater than zero, default to the same catalog as
+        # the last merged message prior to this and after its positon.
+        summit_cat_selected = last_merge_summit_cat
+        pos_selected = last_merge_pos
+        weight_best = 0.0
+        for summit_cat in summit_cats:
+            # Skip the catalog if it has been newly created
+            # (to speed up things, could check anyway).
+            if summit_cat.created():
+                continue
 
-            # Possibly update automatic comments.
-            if summit_cat_selected.filename not in primary_sourced:
-                primary_sourced[summit_cat_selected.filename] = {}
-            summit_override_auto(summit_cat_selected[pos_true], msg, branch_id,
-                                 primary_sourced[summit_cat_selected.filename])
+            pos, weight = summit_cat.insertion_inquiry(msg)
+            if weight > weight_best:
+                weight_best = weight
+                summit_cat_selected = summit_cat
+                pos_selected = pos
 
-            # Equip any needed summit tags to the added message.
-            summit_add_tags(summit_cat_selected[pos_true], branch_id)
+        if msg in summit_cat_selected:
+            error("internal: existing message in insertion pass")
 
-            summit_cat_selected_prev = summit_cat_selected
-            pos_true_prev = pos_true
+        # Insert the message; the true position is reported back.
+        pos_added = summit_cat_selected.add(msg, pos=pos_selected)
+
+        # Equip summit tags to the added message.
+        summit_add_tags(summit_cat[pos_added], branch_id)
+
 
     # Update headers of otherwise modified summit catalogs.
     for summit_cat in summit_cats:
@@ -946,6 +962,7 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
             # FIXME: Once there is a way to reliably tell the root directory
             # of source references, add missing and remove obsolete source
             # references instead.
+            # FIXME: Should this else branch be one level out?
             pass
 
 
