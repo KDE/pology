@@ -44,7 +44,7 @@ class Sieve (object):
         for i in range(len(msg.msgstr)):
             msg.msgstr[i], nresolved, malformed = \
                 resolve_alternatives(msg.msgstr[i], self.select, self.total,
-                                     cat.filename)
+                                     srcname=cat.filename)
             if not malformed:
                 self.nresolved += nresolved
             else:

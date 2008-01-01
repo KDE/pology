@@ -120,13 +120,15 @@ def resolve_entities_simple (text, entities, ignored_entities,
 _alt_head = "~@"
 _alt_hlen = len(_alt_head)
 
-def resolve_alternatives (text, select, total, srcname=None):
+def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
     """Replace alternatives directives in the text with selected alternative.
 
     Parameters:
       text    - the text to transform
       select  - index of alternative to select, one-based
       total   - total number of alternatives per directive
+      fmtstr  - if not None, the string to which the selected alternative
+                is sent by %-operator and then added into resolved text
       srcname - if not None, malformed directives will be reported to
                 stdout, with this parameter as source identifier
 
@@ -184,7 +186,10 @@ def resolve_alternatives (text, select, total, srcname=None):
 
             # If at requested alternative, append to the result.
             if i == select - 1:
-                new_text += text[:p]
+                alt = text[:p]
+                if fmtstr is not None:
+                    alt = fmtstr % alt
+                new_text += alt
                 nresolved += 1
                 # Don't break here, should check if the total number
                 # of alternatives match.
@@ -199,13 +204,15 @@ def resolve_alternatives (text, select, total, srcname=None):
     return new_text, nresolved, malformed
 
 
-def resolve_alternatives_simple (text, select, total, srcname=None):
+def resolve_alternatives_simple (text, select, total, fmtstr=None,
+                                 srcname=None):
     """As resolve_alternatives(), but return only the resolved text.
 
     If an alternatives directive is malformed, return original text.
     """
 
-    ntext, d1, malformed = resolve_alternatives(text, select, total, srcname)
+    ntext, d1, malformed = resolve_alternatives(text, select, total,
+                                                fmtstr=fmtstr, srcname=srcname)
     if malformed:
         return text
     return ntext
