@@ -603,8 +603,14 @@ class Catalog (Monitored):
         ip_candidates = [(last, 0.0)]
 
         # Try to find better position for insertion.
+        # Do not look for best weights, but take the first connection;
+        # this is nearer to expected of a PO file, and more deterministic.
+        # NOTE: The code below is more verbose than needed for this strategy;
+        # this in order to more easily shift to different strategy if needed.
+
         fs = _srcref_repack(msg.source) # need source refs in a dictionary
         fs2 = {}
+        insertion_found = False
         for i in range(0, last):
             # See if the current and the previous messages share a source.
             mid_source = u""
@@ -617,9 +623,7 @@ class Catalog (Monitored):
 
             # See if the new message fits between the current and the
             # previous if they share a source.
-            # Pick best local by distance penalty.
             if mid_source:
-                ipl = -1; wl = 0.0
                 for f in fs:
                     if f in fs1 and f in fs2:
                         lcombos = [(x, x1, x2) for x in fs[f] \
@@ -628,14 +632,15 @@ class Catalog (Monitored):
                         for lno, lno1, lno2 in lcombos:
                             if lno1 != lno2 and lno1 <= lno and lno <= lno2:
                                 w = 2 + 1.0 / (lno2 - lno1 + 2)
-                                if w > wl:
-                                    wl = w; ipl = i
-                if ipl >= 0:
-                    ip_candidates.append((ipl, wl))
+                                insertion_found = True
+                                break
+                        if insertion_found: break
+                if insertion_found:
+                    ip_candidates.append((i, w))
+                    break
             else:
                 # See if the new message fits after the previous.
                 if i > 0:
-                    ipl = -1; wl = 0.0
                     for f in fs:
                         if f in fs1:
                             lcombos = [(x, x1) for x in fs[f] \
@@ -643,23 +648,27 @@ class Catalog (Monitored):
                             for lno, lno1 in lcombos:
                                 if lno1 <= lno:
                                     w = 1 + 1.0 / (lno - lno1 + 2)
-                                    if w > wl:
-                                        wl = w; ipl = i
-                    if ipl >= 0:
-                        ip_candidates.append((ipl, wl))
+                                    insertion_found = True
+                                    break
+                            if insertion_found: break
+                    if insertion_found:
+                        ip_candidates.append((i, w))
+                        break
                 # See if the new message fits before the current.
-                ipl = -1; wl = 0.0
-                for f in fs:
-                    if f in fs2:
-                        lcombos = [(x, x2) for x in fs[f] \
-                                           for x2 in fs2[f]]
-                        for lno, lno2 in lcombos:
-                            if lno <= lno2:
-                                w = 1 + 1.0 / (lno2 - lno + 2)
-                                if w > wl:
-                                    wl = w; ipl = i
-                if ipl >= 0:
-                    ip_candidates.append((ipl, wl))
+                if i >= 0: # always true, just for the symmetric indent :)
+                    for f in fs:
+                        if f in fs2:
+                            lcombos = [(x, x2) for x in fs[f] \
+                                               for x2 in fs2[f]]
+                            for lno, lno2 in lcombos:
+                                if lno <= lno2:
+                                    w = 1 + 1.0 / (lno2 - lno + 2)
+                                    insertion_found = True
+                                    break
+                            if insertion_found: break
+                    if insertion_found:
+                        ip_candidates.append((i, w))
+                        break
 
         # Pick the best insertion position candidate.
         ip_candidates.sort(cmp=lambda x, y: cmp(y[1], x[1]))
