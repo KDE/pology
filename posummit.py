@@ -1055,30 +1055,50 @@ def summit_reorder_single (summit_name, project, options):
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_cat = Catalog(summit_path, wrapf=wrapf)
 
-    # Determine and open primary branch catalog (for initial order).
-    primary_branch_cat = None
+    # Open the dependent branch catalogs branch catalogs by
+    # priority of branches, and sorted by path within one branch.
+    branch_cats = []
     global_branch_ids = [x[0] for x in project.branches]
     for branch_id in global_branch_ids:
-        if branch_id in project.full_inverse_map[summit_name]:
-            branch_name = project.full_inverse_map[summit_name][branch_id][0]
-            path, subdir = project.catalogs[branch_id][branch_name][0]
-            primary_branch_cat = Catalog(path)
-            break
-    if primary_branch_cat is None:
-        error("internal: cannot find primary branch catalog for reordering")
+        full_inv_map = project.full_inverse_map[summit_name]
+        if branch_id in full_inv_map:
+            branch_paths = []
+            for branch_name in full_inv_map[branch_id]:
+                for path, subdir in project.catalogs[branch_id][branch_name]:
+                    branch_paths.append(path)
+            branch_paths.sort()
+            branch_cats.extend([Catalog(x) for x in branch_paths])
+    if branch_cats is None:
+        error("internal: cannot find branch catalogs for reordering")
 
     # Open a fresh catalog with dummy path and copy the original header.
     fresh_cat = Catalog("reorder-dummy-123.po", create=True, wrapf=wrapf)
     # FIXME: if such a filename exists in the working dir, oh boy...
     fresh_cat.header = summit_cat.header
 
-    # First reinsert messages according to those in primary branch catalog.
-    for pos in range(0, len(primary_branch_cat)):
-        old_pos = summit_cat.find(primary_branch_cat[pos])
-        if old_pos >= 0:
-            fresh_cat.add(summit_cat[old_pos], -1)
+    # Go through all branch catalogs which were selected by priority of
+    # branches and sorted within branch; at each catalog, go through its
+    # messages in order, and insert the matching summit message to the
+    # fresh catalog, when not already in it.
+    for branch_cat in branch_cats:
+        for pos in range(0, len(branch_cat)):
+            branch_msg = branch_cat[pos]
+            if branch_msg.obsolete: # skip obsolete messages in branch
+                continue
+            if fresh_cat.find(branch_msg) < 0:
+                old_pos = summit_cat.find(branch_msg)
+                # NOTE: Not every branch message must be present in this
+                # summit catalog: branch catalog may be spread across several
+                # other summit catalogs.
+                if old_pos >= 0:
+                    summit_msg = summit_cat[old_pos]
+                    # If the message is in one of existing file references,
+                    # this will nicely insert it, otherwise just appends.
+                    pos, weight = fresh_cat.insertion_inquiry(summit_msg)
+                    fresh_cat.add(summit_msg, pos)
 
-    # Then reinsert messages not present in primary branch catalog.
+    # Finally reinsert messages not present in any branch catalog
+    # (may happen if the summit wasn't purged before reordering).
     for pos in range(0, len(summit_cat)):
         if fresh_cat.find(summit_cat[pos]) < 0:
             fresh_cat.add(summit_cat[pos])
