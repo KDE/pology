@@ -335,9 +335,11 @@ def summit_gather (project, options):
 
     # Go through all selected branches.
     primary_sourced = {}
+    n_selected_by_summit_subdir = {}
     for branch_id in branch_ids:
 
-        branch_catalogs = select_branch_catalogs(branch_id, project, options)
+        branch_catalogs = select_branch_catalogs(branch_id, project, options,
+                                                 n_selected_by_summit_subdir)
 
         # Go through all selected catalogs in this branch.
         for branch_name, branch_path, branch_subdir in branch_catalogs:
@@ -383,6 +385,11 @@ def summit_gather (project, options):
             summit_gather_merge(branch_id, branch_path, summit_paths,
                                 project, options, primary_sourced)
 
+    # Assure no empty partial selections by summit subdirs.
+    for subdir in n_selected_by_summit_subdir:
+        if not n_selected_by_summit_subdir[subdir]:
+            error("no catalogs to gather by summit subdir '%s'" % subdir)
+
 
 def summit_scatter (project, options):
 
@@ -390,9 +397,11 @@ def summit_scatter (project, options):
     branch_ids = select_branches(project, options)
 
     # Go through all selected branches.
+    n_selected_by_summit_subdir = {}
     for branch_id in branch_ids:
 
-        branch_catalogs = select_branch_catalogs(branch_id, project, options)
+        branch_catalogs = select_branch_catalogs(branch_id, project, options,
+                                                 n_selected_by_summit_subdir)
 
         # Go through all selected catalogs in this branch.
         for branch_name, branch_path, branch_subdir in branch_catalogs:
@@ -414,6 +423,11 @@ def summit_scatter (project, options):
             # Merge messages from the summit catalogs into branch catalog.
             summit_scatter_merge(branch_id, branch_name, branch_path,
                                  summit_paths, project, options)
+
+    # Assure no empty partial selections by summit subdirs.
+    for subdir in n_selected_by_summit_subdir:
+        if not n_selected_by_summit_subdir[subdir]:
+            error("no catalogs to scatter by summit subdir '%s'" % subdir)
 
 
 def summit_purge (project, options):
@@ -457,7 +471,8 @@ def select_branches (project, options):
     return branch_ids
 
 
-def select_branch_catalogs (branch_id, project, options):
+def select_branch_catalogs (branch_id, project, options,
+                            n_selected_by_summit_subdir):
 
     # Shortcuts.
     pbcats = project.catalogs[branch_id]
@@ -488,10 +503,11 @@ def select_branch_catalogs (branch_id, project, options):
                                 branch_catalogs.append((name, path, subdir))
                     if not one_found:
                         error(  "no catalogs in branch '%s' subdir '%s'" \
-                            % (branch_id, subdir))
+                              % (branch_id, sel_subdir))
                 else:
                     # Otherwise, specific catalog is selected.
                     sel_name = part_spec
+                    one_found = False
                     for name, spec in pbcats.items():
                         if sel_name == name:
                             for path, subdir in spec:
@@ -523,6 +539,8 @@ def select_branch_catalogs (branch_id, project, options):
                 if part_spec.find(os.sep) >= 0:
                     # Complete subdir.
                     sel_subdir = os.path.normpath(part_spec)
+                    if sel_subdir not in n_selected_by_summit_subdir:
+                        n_selected_by_summit_subdir[sel_subdir] = 0
                     cats = []
                     for name, spec in project.catalogs[SUMMIT_ID].items():
                         path, subdir = spec[0] # all summit catalogs unique
@@ -533,6 +551,7 @@ def select_branch_catalogs (branch_id, project, options):
                                     for bpath, bsubdir in pbcats[bname]:
                                         cats.append((bname, bpath, bsubdir))
                     branch_catalogs.extend(cats)
+                    n_selected_by_summit_subdir[sel_subdir] += len(cats)
                 else:
                     # Specific catalog.
                     sel_name = part_spec
