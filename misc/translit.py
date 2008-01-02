@@ -11,7 +11,9 @@ _dict_c2l = {
     u'Е':u'E', u'Ж':u'Ž', u'З':u'Z', u'И':u'I', u'Ј':u'J', u'К':u'K',
     u'Л':u'L', u'Љ':u'Lj',u'М':u'M', u'Н':u'N', u'Њ':u'Nj',u'О':u'O',
     u'П':u'P', u'Р':u'R', u'С':u'S', u'Т':u'T', u'Ћ':u'Ć', u'У':u'U',
-    u'Ф':u'F', u'Х':u'H', u'Ц':u'C', u'Ч':u'Č', u'Џ':u'Dž',u'Ш':u'Š'
+    u'Ф':u'F', u'Х':u'H', u'Ц':u'C', u'Ч':u'Č', u'Џ':u'Dž',u'Ш':u'Š',
+    # accented (the keys are now 2-char):
+    u'а̑':u'â', u'о̑':u'ô',
 }
 def sr_c2l (text):
     """Transliterate Serbian Cyrillic text to Serbian Latin."""
@@ -20,7 +22,8 @@ def sr_c2l (text):
     ntext = ""
     for i in range(tlen):
         c = text[i]
-        r = _dict_c2l.get(c)
+        c2 = text[i:i+2]
+        r = _dict_c2l.get(c2) or _dict_c2l.get(c)
         if r is not None:
             if len(r) > 1 and c.isupper() \
             and (   (i + 1 < tlen and text[i + 1].isupper()) \
