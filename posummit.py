@@ -134,6 +134,7 @@ class Project (object):
             "branches_split_tags" : True,
 
             "hook_on_scatter_msgstr" : [],
+            "hook_on_scatter_file" : [],
         })
         self.__dict__["locked"] = False
 
@@ -310,6 +311,7 @@ def derive_project_data (project, options):
 
     # Fill in defaults for missing fields in hook specs.
     p.hook_on_scatter_msgstr = hook_fill_defaults(p.hook_on_scatter_msgstr)
+    p.hook_on_scatter_file = hook_fill_defaults(p.hook_on_scatter_file)
 
     return p
 
@@ -914,6 +916,11 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
 
     # Commit changes to the branch catalog.
     if branch_cat.sync():
+
+        # Apply hooks to branch catalog file.
+        exec_hook_file(branch_id, branch_name, branch_cat.filename,
+                       project, options)
+
         paths_str = ", ".join(summit_paths)
         if options.verbose:
             print "<    (gathered) %s  %s" % (branch_cat.filename, paths_str)
@@ -934,6 +941,29 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr,
                 piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
+
+
+# Pipe catalog file through hook calls,
+# for which branch id and catalog name match hook specification.
+def exec_hook_file (branch_id, branch_name, filepath, project, options):
+
+    # Make temporary backup of the file.
+    bckppath = "/tmp/backup%s-%s" % (os.getpid(), os.path.basename(filepath))
+    shutil.copyfile(filepath, bckppath)
+
+    # Apply all hooks to the file, but stop if one does not return True.
+    failed = False
+    for call, branch_rx, name_rx in project.hook_on_scatter_file:
+        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+            if not call(filepath):
+                failed = True
+                break
+
+    # If any hook failed, retrieve the temporary copy.
+    if failed:
+        shutil.move(bckppath, filepath)
+    else:
+        os.unlink(bckppath)
 
 
 # Decide on wrapping policy for messages.
