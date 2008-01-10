@@ -291,6 +291,22 @@ class Message_base (object):
 
         return modcount_before < self.modcount
 
+    def state (self):
+        """The code string describing the translation state of the message.
+
+        Code string can be one of:
+        "T" (translated), "F" (fuzzy), "U" (untranslated), "O" (obsolete).
+        """
+
+        if self.obsolete:
+            return "O"
+        elif self.fuzzy:
+            return "F"
+        elif self.translated:
+            return "T"
+        else:
+            return "U"
+
 
 class Message (Message_base, Monitored): # order important for get/setattr
     """Single message in the catalog."""

@@ -490,6 +490,11 @@ class Catalog (Monitored):
         Return True if file was modified, False otherwise.
         """
 
+        # Cannot sync catalogs which have been given no path
+        # (usually temporary catalogs).
+        if not self._filename.strip():
+            raise StandardError, "trying to sync nameless catalog"
+
         # If no modifications throughout and sync not forced, return.
         if not self.modcount and not force:
             return False

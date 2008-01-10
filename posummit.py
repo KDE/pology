@@ -30,6 +30,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="do_create", default=False,
         help="allow creation of new summit catalogs")
     opars.add_option(
+        "--force",
+        action="store_true", dest="force", default=False,
+        help="force some operations that are normally not advised")
+    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
@@ -53,7 +57,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("must provide operation mode")
     options.modes = free_args.pop(0).split(",")
     for mode in options.modes:
-        if mode not in ("gather", "scatter", "purge", "reorder"):
+        if mode not in ("gather", "scatter", "purge", "reorder", "merge"):
             error("unknown mode '%s'" % mode)
 
     # Collect partial processing specs.
@@ -98,6 +102,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             summit_purge(project, options)
         elif mode == "reorder":
             summit_reorder(project, options)
+        elif mode == "merge":
+            summit_merge(project, options)
 
 
 def error (msg, code=1):
@@ -117,6 +123,9 @@ class Project (object):
             "summit" : "",
             "branches" : [],
             "mappings" : [],
+
+            "templates_lang" : "",
+            "templates_summit" : "",
 
             "summit_unwrap" : True,
             "summit_split_tags" : True,
@@ -186,6 +195,27 @@ def derive_project_data (project, options):
 
     p = project # shortcut
 
+    # Decide the template summit path if in template summit mode and
+    # the path is not given explicitely.
+    if p.templates_lang and not p.templates_summit:
+        if options.lang != p.templates_lang:
+            # Current operation is for one of particular language summits,
+            # derive the template summit path by replacing the language code.
+            p.templates_summit = re.sub(r"\b%s\b" % options.lang,
+                                        p.templates_lang, p.summit, 1)
+        else:
+            # Current operation is for the template summit itself,
+            # just copy over the language summit path.
+            p.templates_summit = p.summit
+
+    # Decide the extension of catalogs.
+    if p.templates_lang and options.lang == p.templates_lang:
+        options.catext = ".pot"
+        # Reroute summit path to template summit path has been set.
+        p.summit = p.templates_summit
+    else:
+        options.catext = ".po"
+
     # Equip all branches missing by_lang field with by_lang=None.
     # If by_lang is not missing, interpolate for @lang@.
     mod_branches = []
@@ -200,11 +230,11 @@ def derive_project_data (project, options):
     # Collect catalogs from branches.
     p.catalogs = {}
     for branch_id, branch_dir, by_lang in p.branches:
-        p.catalogs[branch_id] = collect_catalogs(branch_dir, by_lang,
-                                                 project, options)
+        p.catalogs[branch_id] = collect_catalogs(branch_dir, options.catext,
+                                                 by_lang, project, options)
     # ...and from the summit.
-    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit, None,
-                                             project, options)
+    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit, options.catext,
+                                             None, project, options)
 
     # Assure that summit catalogs are unique.
     for name, spec in p.catalogs[SUMMIT_ID].items():
@@ -302,7 +332,7 @@ def hook_fill_defaults (specs):
 # name, the value is the list of tuples of file path and subdirectory
 # relative to top (list in case there are several same-named catalogs in
 # different subdirectories).
-def collect_catalogs (topdir, by_lang, project, options):
+def collect_catalogs (topdir, catext, by_lang, project, options):
 
     catalogs = {}
     topdir = os.path.normpath(topdir)
@@ -310,12 +340,12 @@ def collect_catalogs (topdir, by_lang, project, options):
         for file in files:
             catn = ""
             fpath = os.path.join(root, file)
-            if by_lang is None:
-                if file.endswith(".po"):
+            if by_lang is None or catext == ".pot":
+                if file.endswith(catext):
                     catn = file[0:file.rfind(".")]
                     spath = root[len(topdir) + 1:]
             else:
-                if file == by_lang + ".po":
+                if file == by_lang + ".po": # cannot be .pot, so no catext
                     catn = os.path.basename(root)
                     spath = os.path.dirname(root)[len(topdir) + 1:]
 
@@ -330,6 +360,13 @@ def collect_catalogs (topdir, by_lang, project, options):
 
 
 def summit_gather (project, options):
+
+    if (    project.templates_lang and options.lang != project.templates_lang
+        and not options.force):
+        error(  "template summit mode: gathering possible only on '%s' "
+                "(if this is the very creation of the '%s' summit, "
+                "run with: --create --force)"
+              % (project.templates_lang, options.lang))
 
     branch_ids = select_branches(project, options)
 
@@ -371,7 +408,7 @@ def summit_gather (project, options):
                 summit_name = summit_names[0]
                 summit_subdir = branch_subdir
                 summit_path = os.path.join(project.summit, summit_subdir,
-                                           summit_name + ".po")
+                                           summit_name + options.catext)
 
                 if not options.do_create:
                     error("missing summit catalog '%s' for branch "
@@ -392,6 +429,10 @@ def summit_gather (project, options):
 
 
 def summit_scatter (project, options):
+
+    if project.templates_lang and options.lang == project.templates_lang:
+        error(  "template summit mode: scattering not possible on '%s'"
+              % project.templates_lang)
 
     # Select branches to go through.
     branch_ids = select_branches(project, options)
@@ -432,17 +473,25 @@ def summit_scatter (project, options):
 
 def summit_purge (project, options):
 
+    if project.templates_lang and options.lang != project.templates_lang:
+        error(  "template summit mode: purging possible only on '%s'"
+              % project.templates_lang)
+
     # Collect names of summit catalogs to purge.
     summit_names = select_summit_catalogs(project, options)
 
     # Purge all selected catalogs.
     for name in summit_names:
         if options.verbose:
-            print "purging %s ..." % project.catalogs[SUMMIT_ID][name][0]
+            print "purging %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
         summit_purge_single(name, project, options)
 
 
 def summit_reorder (project, options):
+
+    if project.templates_lang and options.lang != project.templates_lang:
+        error(  "template summit mode: reordering possible only on '%s'"
+              % project.templates_lang)
 
     # Collect names of summit catalogs to reorder.
     summit_names = select_summit_catalogs(project, options)
@@ -450,8 +499,33 @@ def summit_reorder (project, options):
     # Reorder all selected catalogs.
     for name in summit_names:
         if options.verbose:
-            print "reordering %s ..." % project.catalogs[SUMMIT_ID][name][0]
+            print "reordering %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
         summit_reorder_single(name, project, options)
+
+
+def summit_merge (project, options):
+
+    if project.templates_lang and options.lang == project.templates_lang:
+        error(  "template summit mode: merging not possible on '%s'"
+              % project.templates_lang)
+
+    # Collect names of summit catalogs to merge.
+    summit_names = select_summit_catalogs(project, options)
+
+    # Collect all template catalogs to merge.
+    template_catalogs = collect_catalogs(project.templates_summit, ".pot",
+                                         None, project, options)
+
+    # Assert that all summit catalogs have templates.
+    for name in summit_names:
+        if not name in template_catalogs:
+            error("no template for summit catalog '%s'" % name)
+
+    # Merge all selected catalogs.
+    for name in summit_names:
+        for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
+            template_path = template_catalogs[name][0][0]
+            summit_merge_single(summit_path, template_path, project, options)
 
 
 def select_branches (project, options):
@@ -609,9 +683,11 @@ def select_summit_catalogs (project, options):
                         summit_names.extend(
                             project.direct_map[branch_id][sel_name])
 
-    # Make names unique and sort.
+    # Make names unique and sort by path.
     summit_names = list(set(summit_names))
-    summit_names.sort()
+    summit_names.sort(
+        cmp=lambda x, y: cmp(project.catalogs[SUMMIT_ID][x][0][0],
+                             project.catalogs[SUMMIT_ID][y][0][0]))
 
     return summit_names
 
@@ -807,8 +883,8 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                     print   "%s: summit message needs plurals: {%s}" \
                           % (branch_path, branch_msg.msgid)
         else:
-            print   "%s: message not in the summit: {%s}" \
-                  % (branch_path, branch_msg.msgid)
+            print   "%s:%d(%d): message not in the summit" \
+                  % (branch_path, branch_msg.refline, branch_msg.refentry)
 
     # Update header only if the branch catalog was otherwise modified.
     if branch_cat.modcount:
@@ -1071,9 +1147,8 @@ def summit_reorder_single (summit_name, project, options):
     if branch_cats is None:
         error("internal: cannot find branch catalogs for reordering")
 
-    # Open a fresh catalog with dummy path and copy the original header.
-    fresh_cat = Catalog("reorder-dummy-123.po", create=True, wrapf=wrapf)
-    # FIXME: if such a filename exists in the working dir, oh boy...
+    # Open a fresh catalog with empty path and copy the original header.
+    fresh_cat = Catalog("", create=True, wrapf=wrapf)
     fresh_cat.header = summit_cat.header
 
     # Go through all branch catalogs which were selected by priority of
@@ -1117,6 +1192,49 @@ def summit_reorder_single (summit_name, project, options):
             print "!    (reordered) %s" % fresh_cat.filename
         else:
             print "!    %s" % fresh_cat.filename
+
+
+def summit_merge_single (summit_path, template_path, project, options):
+
+    # Call msgmerge to create the temporary merged catalog.
+    tmp_path = "/tmp/merge%d-%s" % (os.getpid(), os.path.basename(summit_path))
+    cmdline = "msgmerge --quiet --previous %s %s -o %s "
+    cmdline %= (summit_path, template_path, tmp_path)
+    if project.summit_unwrap: # unwrap if requested
+        cmdline += "--no-wrap "
+    assert_system(cmdline)
+
+    # Split on tags if requested.
+    # NOTE: This could be done unconditionally, but save good time in case no
+    # tag splitting is requested; also wrapping in Gettext is much better than
+    # current in Pology for CJK languages, so don't ruin it if not necessary.
+    if project.summit_split_tags:
+        wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+        cat = Catalog(tmp_path, monitored=False, wrapf=wrapf)
+        cat.sync(force=True)
+
+    # Assert correctness of the merged catalog and copy over to the summit.
+    assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
+    assert_system("mv -f %s %s " % (tmp_path, summit_path))
+
+    if options.verbose:
+        print ".    (merged) %s" % summit_path
+    else:
+        print ".    %s" % summit_path
+
+
+# Execute command line and assert success.
+# In case of failure, report the failed command line if echo is False.
+def assert_system (cmdline, echo=False):
+
+    if echo:
+        print cmdline
+    ret = os.system(cmdline)
+    if ret:
+        if echo:
+            error("non-zero exit from previous command")
+        else:
+            error("non-zero exit from:\n%s" % cmdline)
 
 
 if __name__ == '__main__':
