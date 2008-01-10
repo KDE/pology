@@ -7,6 +7,7 @@ from pology.file.catalog import Catalog
 import sys, os, imp, shutil, re
 from optparse import OptionParser
 import md5
+import filecmp
 
 SUMMIT_ID = "+"
 
@@ -1213,14 +1214,19 @@ def summit_merge_single (summit_path, template_path, project, options):
         cat = Catalog(tmp_path, monitored=False, wrapf=wrapf)
         cat.sync(force=True)
 
-    # Assert correctness of the merged catalog and copy over to the summit.
-    assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
-    assert_system("mv -f %s %s " % (tmp_path, summit_path))
+    # If there is any difference between merged and old catalog.
+    if not filecmp.cmp(summit_path, tmp_path):
+        # Assert correctness of the merged catalog and move over to the summit.
+        assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
+        shutil.move(tmp_path, summit_path)
 
-    if options.verbose:
-        print ".    (merged) %s" % summit_path
+        if options.verbose:
+            print ".    (merged) %s" % summit_path
+        else:
+            print ".    %s" % summit_path
     else:
-        print ".    %s" % summit_path
+        # Remove the temporary merged catalog.
+        os.unlink(tmp_path)
 
 
 # Execute command line and assert success.
