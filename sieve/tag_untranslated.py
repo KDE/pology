@@ -16,6 +16,10 @@ class Sieve (object):
 
         flag_untranslated = u"untranslated"
 
+        # Skip obsolete messages.
+        if msg.obsolete:
+            return
+
         # Add flag if untranslated.
         if msg.untranslated:
             msg.flag.add(flag_untranslated)

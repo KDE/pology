@@ -14,6 +14,8 @@ def _get_summit_branches (msg):
         if c.startswith(br_prefix):
             return set(c[len(br_prefix):].strip().split())
 
+    return set()
+
 
 class Sieve (object):
     """General statistics."""

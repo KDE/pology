@@ -53,7 +53,7 @@ class Sieve (object):
             return
 
         if self.field == "msgctxt":
-            texts = [msg.msgctx]
+            texts = [msg.msgctxt]
         elif self.field == "msgid":
             texts = [msg.msgid, msg.msgid_plural]
         elif self.field == "msgstr":
