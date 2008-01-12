@@ -2,9 +2,6 @@
 
 import sys, os, re, locale
 
-reload(sys)
-encoding = locale.getdefaultlocale()[1]
-sys.setdefaultencoding(encoding)
 
 def error (msg, code=1):
 
@@ -36,8 +33,7 @@ class Sieve (object):
             if field in options:
                 options.accept(field)
                 self.field = field
-                rxstr = unicode(options[field], encoding)
-                self.regex = re.compile(rxstr, self.rxflags)
+                self.regex = re.compile(options[field], self.rxflags)
 
         if not self.field:
             error("no search pattern given")
