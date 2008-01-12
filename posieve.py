@@ -16,6 +16,10 @@ def error (msg, code=1):
 
 
 def main ():
+
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+
     # Setup options and parse the command line.
     usage = u"""
 %prog [options] sieve POFILE...
@@ -63,6 +67,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("must provide sieve to apply")
     if len(free_args) < 2 and not op.files_from:
         opars.error("must provide at least one input file")
+
+    # Convert all string values in options to unicode.
+    for att, val in op.__dict__.items():
+        if isinstance(val, str):
+            op.__dict__[att] = unicode(val)
+        elif isinstance(val, list):
+            op.__dict__[att] = [unicode(x) for x in val]
 
     # Could use some speedup.
     if op.use_psyco:

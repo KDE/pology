@@ -58,3 +58,11 @@ def escape (s):
     ns = ns.replace("\t", r"\t")
     return ns;
 
+
+def split_escaped (text, sep):
+    """Like split(), but the separator may be escaped by itself."""
+
+    alakazoom = u"\u0004"
+    tmp = text.replace(sep + sep, alakazoom).split(sep)
+    return [x.replace(alakazoom, sep) for x in tmp]
+
