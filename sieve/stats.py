@@ -5,7 +5,7 @@ from pology.misc.split import split_text
 
 
 # Summit: Dig out the set of branches for the message.
-def _get_summit_branches (msg):
+def get_summit_branches (msg):
 
     # Prefix of auto-comment with list of branches for the message.
     br_prefix = "+>"
@@ -74,7 +74,7 @@ class Sieve (object):
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
         if self.branches:
-            msg_branches = _get_summit_branches(msg)
+            msg_branches = get_summit_branches(msg)
             if not set.intersection(self.branches, msg_branches):
                 return
 

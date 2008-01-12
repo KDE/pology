@@ -1,17 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-
-# Summit: Dig out the set of branches for the message.
-def _get_summit_branches (msg):
-
-    # Prefix of auto-comment with list of branches for the message.
-    br_prefix = "+>"
-
-    for c in msg.auto_comment:
-        if c.startswith(br_prefix):
-            return set(c[len(br_prefix):].strip().split())
-
-    return set()
+from pology.sieve.stats import get_summit_branches
 
 
 class Sieve (object):
@@ -44,7 +33,7 @@ class Sieve (object):
         # tagging based on whether it belongs to any of the given branches.
         may_tag = True
         if self.branches:
-            msg_branches = _get_summit_branches(msg)
+            msg_branches = get_summit_branches(msg)
             if not set.intersection(self.branches, msg_branches):
                may_tag = False
 

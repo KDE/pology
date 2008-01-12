@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from pology.misc.diff import diff_texts, diff_to_old, diff_to_new
+from pology.sieve.stats import get_summit_branches
 
 import re
 
@@ -22,6 +23,12 @@ class Sieve (object):
         if "limit" in options:
             options.accept("limit")
             self.limit = float(options["limit"])
+
+        # Summit: consider only messages belonging to given branches.
+        self.branches = None
+        if "branch" in options:
+            self.branches = set(options["branch"].split(","))
+            options.accept("branch")
 
         # Indicators to the caller:
         # - monitor to avoid unnecessary reformatting
@@ -48,6 +55,13 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
+        # Summit: if branches were given, skip the message if it does not
+        # belong to any of the given branches.
+        if self.branches:
+            msg_branches = get_summit_branches(msg)
+            if not set.intersection(self.branches, msg_branches):
+                return
+
         # Differentiate the msgctxt.
         if msg.msgctxt_previous and msg.msgctxt:
             msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
@@ -58,6 +72,12 @@ class Sieve (object):
         if msg.msgid_previous and msg.msgid:
             msg.msgid_previous = self._diff(msg.msgid_previous, msg.msgid,
                                             msg.format)
+            msg.modcount = 1 # in case of non-monitored messages
+
+        # Differentiate the msgid_plural.
+        if msg.msgid_plural_previous and msg.msgid_plural:
+            msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
+                                                   msg.msgid_plural, msg.format)
             msg.modcount = 1 # in case of non-monitored messages
 
 
