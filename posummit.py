@@ -1187,31 +1187,36 @@ def summit_reorder_single (summit_name, project, options):
     # messages in order, and insert the matching summit message to the
     # fresh catalog, when not already in it.
     for branch_cat in branch_cats:
-        for pos in range(0, len(branch_cat)):
-            branch_msg = branch_cat[pos]
+        for branch_msg in branch_cat:
             if branch_msg.obsolete: # skip obsolete messages in branch
                 continue
-            if fresh_cat.find(branch_msg) < 0:
-                old_pos = summit_cat.find(branch_msg)
-                # NOTE: Not every branch message must be present in this
-                # summit catalog: branch catalog may be spread across several
-                # other summit catalogs.
-                if old_pos >= 0:
-                    summit_msg = summit_cat[old_pos]
-                    # If the message is in one of existing file references,
+            # NOTE: Not every branch message must be present in this
+            # summit catalog: branch catalog may be spread across several
+            # other summit catalogs.
+            old_pos = summit_cat.find(branch_msg)
+            if old_pos >= 0:
+                summit_msg = summit_cat[old_pos]
+                if branch_cat is branch_cats[0]:
+                    # The message is from the primary branch catalog,
+                    # just append it to the fresh catalog.
+                    fresh_cat.add(summit_msg, -1)
+                elif fresh_cat.find(branch_msg) < 0:
+                    # The message is from one of the secondary branch catalogs,
+                    # and not yet inserted.
+                    # If the message is in one of existing source references,
                     # this will nicely insert it, otherwise just appends.
                     pos, weight = fresh_cat.insertion_inquiry(summit_msg)
                     fresh_cat.add(summit_msg, pos)
 
     # Finally reinsert messages not present in any branch catalog
     # (may happen if the summit wasn't purged before reordering).
-    for pos in range(0, len(summit_cat)):
-        if fresh_cat.find(summit_cat[pos]) < 0:
-            fresh_cat.add(summit_cat[pos])
+    for msg in summit_cat:
+        if fresh_cat.find(msg) < 0:
+            fresh_cat.add(msg)
 
     # Check if the order has actually changed.
     reordered = False
-    for pos in range(0, len(summit_cat)):
+    for pos in range(len(summit_cat)):
         if pos != fresh_cat.find(summit_cat[pos]):
             reordered = True
             break
