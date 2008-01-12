@@ -266,6 +266,7 @@ def _srcref_repack (srcrefs):
             srcdict[file] = [line]
         else:
             srcdict[file].append(line)
+    srcdict[file].sort()
     return srcdict
 
 
