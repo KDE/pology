@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-import sys, os, re, locale
+import sys, os, re
 
 
 def error (msg, code=1):
