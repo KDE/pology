@@ -135,6 +135,7 @@ class Project (object):
 
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_file" : [],
+            "hook_on_gather_file" : [],
         })
         self.__dict__["locked"] = False
 
@@ -312,6 +313,7 @@ def derive_project_data (project, options):
     # Fill in defaults for missing fields in hook specs.
     p.hook_on_scatter_msgstr = hook_fill_defaults(p.hook_on_scatter_msgstr)
     p.hook_on_scatter_file = hook_fill_defaults(p.hook_on_scatter_file)
+    p.hook_on_gather_file = hook_fill_defaults(p.hook_on_gather_file)
 
     return p
 
@@ -821,6 +823,11 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
     # Commit changes to summit catalogs.
     for summit_cat in summit_cats:
         if summit_cat.sync():
+
+            # Apply hooks to summit catalog file.
+            exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
+                           project.hook_on_gather_file)
+
             if options.verbose:
                 print ">    (scattered) %s  %s" % (branch_cat.filename,
                                                    summit_cat.filename)
@@ -862,7 +869,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                         piped_msgstr = exec_hook_msgstr(
                             branch_id, branch_name,
                             summit_cat, summit_msg, summit_msg.msgstr[i],
-                            project, options)
+                            project.hook_on_scatter_msgstr)
                         if i < len(branch_msg.msgstr):
                             branch_msg.msgstr[i] = piped_msgstr
                         else:
@@ -919,7 +926,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
 
         # Apply hooks to branch catalog file.
         exec_hook_file(branch_id, branch_name, branch_cat.filename,
-                       project, options)
+                       project.hook_on_scatter_file)
 
         paths_str = ", ".join(summit_paths)
         if options.verbose:
@@ -930,11 +937,10 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
 
 # Pipe msgstr through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr,
-                      project, options):
+def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
 
     piped_msgstr = msgstr
-    for call, branch_rx, name_rx in project.hook_on_scatter_msgstr:
+    for call, branch_rx, name_rx in hooks:
         if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
             piped_msgstr_tmp = call(cat, msg, piped_msgstr)
             if piped_msgstr_tmp is not None:
@@ -945,7 +951,7 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr,
 
 # Pipe catalog file through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_file (branch_id, branch_name, filepath, project, options):
+def exec_hook_file (branch_id, branch_name, filepath, hooks):
 
     # Make temporary backup of the file.
     bckppath = "/tmp/backup%s-%s" % (os.getpid(), os.path.basename(filepath))
@@ -953,7 +959,7 @@ def exec_hook_file (branch_id, branch_name, filepath, project, options):
 
     # Apply all hooks to the file, but stop if one does not return True.
     failed = False
-    for call, branch_rx, name_rx in project.hook_on_scatter_file:
+    for call, branch_rx, name_rx in hooks:
         if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
             if not call(filepath):
                 failed = True
