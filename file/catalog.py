@@ -274,6 +274,7 @@ _Catalog_spec = {
     # Data.
     "header" : {"type" : Header},
     "filename" : {"type" : types.StringTypes},
+    "name" : {"type" : types.StringTypes, "derived" : True},
     "*" : {}, # messages sequence: the type is assigned at construction
 }
 
@@ -335,6 +336,22 @@ class Catalog (Monitored):
 
         # Cached plural definition from the header.
         self._plustr = ""
+
+
+    def __getattr__ (self, att):
+
+        if 0: pass
+
+        elif att == "name":
+            basename = os.path.basename(self._filename)
+            p = basename.rfind(".")
+            if p >= 0:
+                return basename[:p]
+            else:
+                return basename
+
+        else:
+            return Monitored.__getattr__(self, att)
 
 
     def __len__ (self):
