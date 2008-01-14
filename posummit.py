@@ -1136,11 +1136,15 @@ def summit_purge_single (summit_name, project, options):
             set_summit_comment(summit_msg, _summit_tag_branchid,
                                " ".join(valid_branch_ids))
             # If the primary branch has changed, update other message data too.
-            pr_branch_id = valid_branch_ids[0]
-            if branch_ids[0] != pr_branch_id:
-                summit_override_auto(summit_msg,
-                                     branch_cats[pr_branch_id][0][summit_msg],
-                                     pr_branch_id, {})
+            prim_branch_id = valid_branch_ids[0]
+            if branch_ids[0] != prim_branch_id:
+                # Update from the first sourced catalog in primary branch.
+                for branch_cat in branch_cats[prim_branch_id]:
+                    if summit_msg in branch_cat:
+                        summit_override_auto(summit_msg,
+                                             branch_cat[summit_msg],
+                                             prim_branch_id, {})
+                        break
         else:
             summit_cat.remove_on_sync(summit_msg)
 
