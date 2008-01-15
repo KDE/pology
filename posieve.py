@@ -112,7 +112,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     sieves = []
     for sieve_name in sieves_requested:
         # Resolve sieve file.
-        if not os.path.dirname(sieve_name):
+        if not sieve_name.endswith(".py"):
             sieve_path_base = sieve_name.replace("-", "_") + ".py"
             sieve_path = os.path.join(execdir, "sieve", sieve_path_base)
         else:
