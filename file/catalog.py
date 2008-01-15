@@ -47,8 +47,26 @@ class _MessageDict:
         self.lines_msgstr = []
 
 
+def _mine_po_encoding (filename):
+
+    ifl = open(filename, "r")
+    enc = "UTF-8"
+    enc_rx = re.compile(r"Content-Type:.*charset=(.+)\\n", re.I)
+    for line in ifl.xreadlines():
+        if line.strip().startswith("#:"):
+            break
+        m = enc_rx.search(line)
+        if m:
+            enc = m.group(1).strip()
+            break
+    ifl.close()
+    return enc
+
+
 def _parse_po_file (filename, MessageType=MessageMonitored):
-    ifl = codecs.open(filename, "r", "UTF-8")
+
+    fenc = _mine_po_encoding(filename)
+    ifl = codecs.open(filename, "r", fenc)
 
     ctx_modern, ctx_obsolete, \
     ctx_previous, ctx_current, \
@@ -256,7 +274,7 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
     for msg1 in messages1:
         messages2.append(MessageType(msg1.__dict__))
 
-    return messages2
+    return (messages2, fenc)
 
 
 def _srcref_repack (srcrefs):
@@ -299,7 +317,8 @@ class Catalog (Monitored):
 
         # Read messages or create empty catalog:
         if os.path.exists(filename):
-            m = _parse_po_file(filename, message_type)
+            m, e = _parse_po_file(filename, message_type)
+            self._encoding = e
             self._created_from_scratch = False
             self._header = Header(m[0])
             self._header._committed = True # status for sync
@@ -564,7 +583,7 @@ class Catalog (Monitored):
             os.makedirs(dirname)
         # Write to file atomically wrt. SIGINT.
         signal.signal(signal.SIGINT, signal.SIG_IGN)
-        ofl = codecs.open(self._filename, "w", "UTF-8")
+        ofl = codecs.open(self._filename, "w", self._encoding)
         ofl.writelines(flines)
         ofl.close()
         signal.signal(signal.SIGINT, signal.SIG_DFL)
