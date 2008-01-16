@@ -58,6 +58,8 @@ def _mine_po_encoding (filename):
         m = enc_rx.search(line)
         if m:
             enc = m.group(1).strip()
+            if not enc or enc == "CHARSET": # fall back to UTF-8
+                enc = "UTF-8"
             break
     ifl.close()
     return enc
