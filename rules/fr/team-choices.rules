@@ -1,0 +1,191 @@
+# Translation choices of french team
+# by the KDE French Team
+ 
+[(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
+valid before="&sp;dans&sp;" 
+valid before="&sp;en&sp;" 
+valid file="kcontrol_kcmcrypto.po" after="quand&sp;vous&sp;" before="&sp;en&sp;mode&sp;cryptage&sp;SSL"
+valid file="kdm.po" after="^" before="$"
+valid file="kolf.po" before=" ((la)|(une)) balle"
+valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
+valid file="kmail.po" before=" réellement dans le dossier"
+valid file="kmail_using-kmail.po" before=" réellement dans le dossier"
+valid file="kate_regular-expressions.po" after="Il est " before="en cassant un carreau"
+hint="préférons 'saisir' à 'entrer' (elle est où la porte ?)"
+ 
+[valide[^zr]]
+valid after="il&sp;"
+valid after="XML non "
+hint="Choix de l'équipe : valable/non valable (au lieu de valide/non valide)"
+ 
+[\bstop\b]
+valid file="konsole.po"
+valid file="ksysv.po" after="^" before="$" 
+valid file="ksysv.po" 
+hint="préférons 'arrêt' à 'stop'"
+ 
+[r@épertoire]
+valid after="services? de " before="s"
+hint="préférons 'dossier' à 'répertoire'"
+
+
+[taper|tapant]
+valid before="&sp;$"
+valid file="ktouch.po" after="apprendre&sp;à&sp;"
+valid file="ktouch.po" after="apprenez&sp;à&sp;"
+hint="Mieux vaut `saisir' que `taper'"
+
+[status|statut]
+valid after="[Ss]mb" 
+valid file="ksysv.po" after="^" before="Bar$" 
+valid file="artsbuilder_tools.po" after="^" before="$" 
+hint="remplacer `status' ou `statut' par `état'"
+
+[bouton\s*\w*\s*milieu]
+hint="`bouton du milieu' -> `bouton central'"
+
+[compress]
+valid file="artsbuilder_modules.po" after="Synth&lowbar;" before="OR"
+valid file="artsbuilder_modules.po" before="eur"
+valid file="artsbuilder_modules.po" before="ion"
+valid file="kppp.po" after="TCP&sp;" before="ion&sp;code&sp;copyright"
+valid file="krec.po"
+valid file="amarok.po"
+hint="`compresser' -> `compacter'"
+
+[&kcontrol;]
+hint="A remplacer par &centreConfiguration;"
+
+[&khelpcenter;]
+hint="A remplacer par &centreAide;"
+
+[r@eguli@ere]
+valid after="vérification&sp;" 
+valid after="casse&sp;" 
+valid after="adresse&sp;" 
+valid file="konqueror.po" after="colonne&sp;" 
+valid before="ment" 
+valid file="kverbos.po"
+hint="Choix de l'équipe : "expression rationnelle" (et non régulière)"
+
+[rendez vous]
+valid file="korganizer.po"
+valid file="khelpcenter_userguide_kdepim-apps.po"
+hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
+
+[sauver]
+hint="Sauver -> Enregistrer"
+
+[sauve]
+valid file="kdat.po"
+valid after="&sp;des?&sp;" before="gardes?"
+valid after="&sp;une&sp;" before="garde"
+hint="sauver => enregistrer (homogénéité)"
+
+[URL mal ]
+valid before="formée"
+hint="Homogénéite : utiliser 'URL mal formée'"
+
+[URL non ]
+hint="Homogeneite : utiliser 'URL mal formée'"
+
+[&lwb;items?&rwb;]
+hint="item(s) -> élément(s)"
+
+[modules? enfichable]
+hint="plugin -> module externe"
+
+[plugin]
+valid file="kugar_progguide.po" after="kugar_" before="\."
+valid file="konqueror_config.po" after="&amp;lt;khtmlsettings" before="&amp;gt;"
+valid file="korganizer_exchange-plugin.po" after="^\nkorganizer: Registering.*"
+valid after="&amp;ns" before="s-kcontrol;"
+hint="plugin -> module externe"
+
+[additif]
+hint="plugin -> module externe"
+
+[tuyau]
+valid file="kpf.po" after="^" before="$"
+hint="hint/tip -> Astuce (homogénéité)"
+
+[->]
+valid after="pstoraster -" before=" rastertopcl"
+hint="Utiliser le format «Fichier / Exporter sous»"
+
+[vous pouvez ici]
+hint="A remplacer par 'vous pouvez (faire...) ici'"
+
+[proximité]
+hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité'"
+
+[proxy]
+valid before="\(" after="\)"
+hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité' ou 'proxy'"
+
+[(B|b)arre d'outils]
+hint="Traduisez simplement 'Toolbar' par 'Barre' (ex: 'Main Toolbar'-> 'Barre principale')"
+
+[module&sp;de&sp;contr]
+hint="C'est module de configuration, pas de contrôle !! (homogénéité)"
+
+[@etes-vous s@ur]
+hint="'Voulez-vous vraiment...' est mieux. (homogénéité)"
+
+[non trouv@é]
+valid after="^&lt;" before="&gt;$"
+hint="`toto non trouvé' -> `Impossible de trouver toto' (homogénéité)"
+
+[Désirez-?vous]
+hint="`Désirez-vous' -> `Voulez-vous' (homogénéité)"
+
+[Souhaitez-?vous]
+hint="`Souhaitez-vous' -> `Voulez-vous' (homogénéité)"
+
+[Va ]
+valid after="Ja" 
+hint="`Va' -> `Aller' (à l'infinitif)"
+
+[pas été trouvé]
+hint="`pas été trouvé' -> `Impossible de trouver' (homogénéité)"
+
+[support]
+valid file="ppdtranslations.po"
+hint="support est un faux ami, a traduire par un dérivé de `disponible', `autoriser' ou 'accepter'"
+
+[dans votre PATH]
+hint="Utiliser la forme 'en suivant votre PATH'"
+
+[par votre PATH]
+hint="Utiliser la forme 'en suivant votre PATH'"
+
+[désinitialiser]
+hint="Utiliser 'libérer' dans le cas d'un périphérique (umount)"
+
+[d@emont@e]
+valid after="«&amp;nbsp;" before="&amp;nbsp;»"
+hint="Utiliser 'libérer' dans le cas d'un périphérique (umount)"
+
+[nom de connexion]
+hint="Utiliser 'nom d'utilisateur' a la place..."
+
+[ne peut pas @etre]
+hint="Utiliser une formule en 'Impossible de ...' (homogeneite)"
+
+[en train de]
+hint="On peut surement supprimer le 'en train de' pour alléger..."
+
+[entre de configuration]
+valid after="C" 
+hint="Mettre une majuscule a 'Centre de configuration de KDE'"
+
+[\bitem]
+hint="On essaie d'éviter 'item' ?"
+
+[visualis]
+hint="utiliser 'afficheur' plutôt que 'visualiseur' (ou ses dérivés)"
+
+[r@ecup@er]
+hint="Choix de l'équipe : 'réception/recevoir' (au lien de récupération/récupérer)"
+
+# End of rule file

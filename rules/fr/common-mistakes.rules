@@ -1,0 +1,314 @@
+# Common french mistakes
+# by the KDE French Team
+
+[connection]
+hint="`connexion' et non `connection' !"
+ 
+[formatt]
+hint="Un seul t"
+ 
+[cel%à]
+hint="celà -> cela"
+ 
+[bopite]
+hint="l'erreur classique quand on a rate la touche ^ :)"
+
+[&lwb;tr%ès&rwb;]
+valid after="enregis" 
+hint="Mettre un accent grave"
+
+[rafraich]
+hint="Les dérivés de rafraîchir veulent un accent circonflexe sur le `i'"
+
+[@érreur|Érreur]
+hint="Pas d'accent aigu sur le premier `e'"
+
+[chaine]
+valid after="[pP]ro"                                                                
+hint="Mettre une accent circonflexe sur le `i'"     
+
+[resaisir]
+hint="Mettre deux s (ressaisir)"
+
+[num%éro]
+hint="Mettre un accent aigu sur le `e'"
+
+[supress|suppresio|suprimer|supprimm]
+hint="Erreur sur le nombre de `p' ou de `m' dans le dérivé du verbe `supprimer'"
+
+[maximiz]
+hint="Mettre un `s' à la place du `z'"
+
+[emp%êch]
+hint="Mettre un accent circonflexe sur le `e'"
+
+[extr%ême]
+hint="Mettre un accent circonflexe sur le `e'"
+
+[s%él%ect]
+hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
+
+[sél%ect]c
+hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
+
+[n%éc%ess]
+hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"  
+
+[acc%éder]
+hint="C'est `accéder' (accent aigu)"
+
+[acc%ès]
+hint="C'est `accès' (accent grave)"
+
+[addres]
+valid after="&amp;k" before="sbook;" 
+valid file="kdm_kdmrc-ref.po" after="^Source" before="s$" 
+valid after="[kK]" before="s[bB]ook" 
+valid file="kab.po" before="sbook\.kab" 
+valid file="kab.po" after="&amp;kde;&sp;" before="sbook" 
+valid file="kmail.po" after="^\[" before="sBook\]$"
+valid file="kmail_faq.po" after="^\[" before="sBook\]$"
+valid file="lisa.po" msgid="PingAddresses = 192.168.100.0/255.255.255.0;192.168.100.10-192.168.199.19;192.168.200.1;192-192.168-168.100-199.0-9;\nPingNames = bb_mail;\nAllowedAddresses = 192.168.0.0/255.255.0.0\nBroadcastNetwork = 192.168.100.0/255.255.255.0\nSearchUsingNmblookup = 1                #also try nmblookup\nFirstWait = 30                          #30 hundredth seconds\nSecondWait = -1                         #only one try\n#SecondWait = 60                         #try twice, and the second time wait 0.6 seconds\nUpdatePeriod = 300                      #update after 300 secs\nDeliverUnnamedHosts = 0                 #don't publish hosts without name\nMaxPingsAtOnce = 256                    #send up to 256 ICMP echo requests at once"
+hint="Seulement un `d' en français"
+
+[dosier]
+hint="Il manque un `s'"
+
+[v%érif]
+hint="Mettre un accent aigu sur le `e'"
+
+[r%ègle&rwb;]
+hint="Mettre un accent grave et non circonflexe sur le `e'"
+
+[compl%ètem]
+hint="Mettre un accent grave"
+
+[Echec]
+hint="Mettre un accent aigu"
+
+[plateforme]
+hint="plateforme -> plate-forme"
+
+[incomplêt]
+hint="incomplête -> incomplète ou incomplêt -> incomplet"
+
+[incompli@èt[^e]]
+hint="incomplèt -> incomplet"
+
+[&lwb;license&rwb;]
+valid after="--" 
+valid after="Public&sp;" 
+hint="license -> licence"
+
+[ent@ete]
+hint="Mettre un trait d'union -> `en-tête'"
+
+[en-t%ête]
+hint="Mettre un accent circonflexe -> `en-tête'"
+
+[compl@etion]
+hint="complétion est un franglisme. Utiliser 'complètement'"
+
+[apelé]
+hint="A remplacer par 'appelé'"
+
+[app@ell@é] 
+hint="A remplacer par 'appelé'" 
+
+[aucunes] 
+hint="A remplacer par 'aucune'" 
+
+[autremnt] 
+hint="A remplacer par 'autrement'" 
+
+[autrment] 
+hint="A remplacer par 'autrement'" 
+
+[charète] 
+hint="A remplacer par 'charette'" 
+
+[comportment] 
+hint="A remplacer par 'comportement'" 
+
+[&lwb;cr@ées] 
+hint="A remplacer par 'créées'" 
+
+[environnment] 
+hint="A remplacer par 'environnement'" 
+
+[exeption] 
+hint="A remplacer par 'exception'" 
+
+[extention] 
+hint="A remplacer par 'extension'" 
+
+[param%étré] 
+hint="A remplacer par 'paramétré'" 
+
+[personalisé] 
+hint="A remplacer par 'personnalisé'" 
+
+[utliser] 
+hint="A remplacer par 'utiliser'" 
+
+[courier] 
+valid file="kdm.po" before=",12,5,iso-8859-1"
+hint="A remplacer par 'courrier'" 
+
+[language]
+valid ctx="desktop_po" before="=" 
+valid file="kljettool.po" after="Printer&sp;Job&sp;" 
+valid after="HyperText&sp;Markup&sp;" 
+valid after="Interface&sp;Definition&sp;" 
+valid after="Extensible&sp;Markup&sp;" 
+valid after="eXtensible&sp;Markup&sp;" 
+valid file="kdm.po" after="Country\n" before="\nCharset"
+valid file="kdm.po" after="^" before="$"
+valid file="knewsticker.po" after="^http.*"
+valid after="Print Control "
+hint="A remplacer par 'langage'"
+
+[&lwb;languages&rwb;]
+valid file="knewsticker.po" after="^http.*"
+hint="A remplacer par 'langage'"
+
+[sorite]
+hint="A remplacer par 'sortie'"
+
+[(super utilisateur)|(super-utilisateur)]
+hint="superutilisateur s'écrit sans tiret ou espace !!"
+
+[mozaïque]
+hint="Remplacer le 'z' par un 's'"
+
+[gallerie]
+hint="Un seul 'l', merci !"
+
+[et\s*bien]
+valid before="&sp;sûr" 
+valid before="&sp;documenté" 
+valid after="[a-zéè]+,?&sp;" 
+hint="Remplacer 'et bien' par 'eh bien'"
+
+[sous @él@ément]
+hint="mettre un tiret à 'sous-élément'"
+
+[chaque&sp;]
+valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
+valid before="fois&rwb;" 
+valid before="fois" 
+valid before="accès" 
+valid before="processus&rwb;" 
+valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
+valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;" 
+valid before="[a-zàôâéèêçîû\-]+[^sx]&nbsp;" 
+valid before="$" 
+valid before="Lune" 
+valid before="CRL"
+valid file="kword_opt.po" before="\(min\)" 
+hint="toujours un singulier après chaque"
+
+[([pP]ostscript)|(postScript)]c
+hint="Ecriture officielle : 'PostScript' (avec 2 majuscules)"
+
+[&lwb;http:/&rwb;]
+valid before="/"
+hint="Deux slashes apres le nom du protocole."
+
+[&lwb;TV&wrb;]
+hint="TV est un anglicisme. A éviter..."
+
+[CPU]
+hint="Traduire CPU par 'processeur'"
+
+[&lwb;environment&rwb;]
+valid after="K Desktop "
+hint="environment -> environnement"
+
+[installeur]
+hint="installeur => installateur"
+
+[clique[zr] ce]
+hint="On clique SUR quelque chose et non quelque chose"
+
+[&lwb;taches]
+hint="Mettre une accent circonflexe"
+
+[système de fichier]
+valid before="s"
+hint="Système de fichiers prend un 's' a fichier"
+
+[gestionnaire de fichier]
+valid before="s"
+hint="Gestionnaire de fichiers prend un 's' a fichier"
+
+[tire[a-z]+ partie]
+hint="Pas de 'e' a parti dans 'Tirer parti'"
+
+[clique gauche]
+hint="clique -> clic"
+
+[clique droit]
+hint="clique -> clic"
+
+[&lwb;clique de&rwb;]
+hint="clique -> clic"
+
+[profiles]
+hint="Pas de 'e' à profils"
+
+[assignement]
+hint="'Assignation' et non 'Assignement'"
+
+[faîte]
+hint="Pas d'accent circonflexe"
+
+[y-compris]
+hint="y-compris -> y compris"
+
+[dimensione]
+hint="2 n dans dimensionner (ou ses dérivés)"
+
+[reporte[rz]? le]
+hint="on ne reporte pas un bug, on fait un rapport."
+
+[type mime]
+hint="mime -> MIME (en majuscules)"
+
+[fabriquant]
+hint="le fabricant s'écrit avec un 'c'"
+
+[Voulez vous]
+valid after="[sS]i vous "
+hint="Ne pas oublier le trait d'union !"
+
+[&lwb;dela&rwb;]
+valid before="fond" 
+hint="En deux mots, c'est mieux (dela -> de la)"
+
+[digital]
+valid file="kicker-applets_ktimemon.po" before=" &UNIX;" 
+valid before=" CDE" 
+valid after="Compact Disc " before=" Audio"
+valid after="@" 
+hint="digital est un anglicisme. Utiliser 'numérique'"
+
+[d@efault]   
+valid file="ksysv.po" after=":init" before=":$"  
+valid file="ksirc.po" after="^!" before="$"  
+valid file="kdm_kdmrc-ref.po" after="^"
+hint="A remplacer par 'défaut'" 
+
+[&lwb;media&rwb;]
+hint="media -> média"
+
+[focntion]
+hint="`focntion' -> `fonction' (dyslexie)"
+
+[(raccourcis-clavier)|(raccourci-clavier)]
+hint="Pas de tiret entre raccourci et clavier"
+
+[basé.+ sur]
+hint="Seuls les militaires sont basés. Préfèrez « fondé sur » ou un participe comme « utilisant »"
+
+# End of rule file
