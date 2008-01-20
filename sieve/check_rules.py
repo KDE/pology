@@ -133,7 +133,11 @@ class Sieve (object):
         if self.xmlFile and newFile and exists(self.cachePath):
             #FIXME: header date getting is quite ugly...
             poDate=cat.header.field[2][1]
-            poDate=mktime(strptime(poDate[0:poDate.find("+")], '%Y-%m-%d %H:%M'))
+            #Truncate daylight information
+            poDate=poDate.rstrip("GMT")
+            poDate=poDate[0:poDate.find("+")]
+            #Convert in sec since epoch time format
+            poDate=mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
             if os.stat(self.cachePath)[8]>poDate:
                 print "Using cache"
                 self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
