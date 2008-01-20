@@ -113,9 +113,17 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for sieve_name in sieves_requested:
         # Resolve sieve file.
         if not sieve_name.endswith(".py"):
-            sieve_path_base = sieve_name.replace("-", "_") + ".py"
-            sieve_path = os.path.join(execdir, "sieve", sieve_path_base)
+            # One of internal sieves.
+            if ":" in sieve_name:
+                # Language-specific internal sieve.
+                lang, name = sieve_name.split(":")
+                sieve_path_base = os.path.join("l10n", lang, "sieve", name)
+            else:
+                sieve_path_base = os.path.join("sieve", sieve_name)
+            sieve_path_base = sieve_path_base.replace("-", "_") + ".py"
+            sieve_path = os.path.join(execdir, sieve_path_base)
         else:
+            # Sieve name is its path.
             sieve_path = sieve_name
         try:
             sieve_file = open(sieve_path)
