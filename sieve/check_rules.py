@@ -111,7 +111,7 @@ class Sieve (object):
             print "(Processing %s)" % filename
             newFile=True
             self.cached=False # Reset flag
-            self.cachePath=join(CACHEDIR, cat.filename.replace("/", MARSHALL))
+            self.cachePath=join(CACHEDIR, abspath(cat.filename).replace("/", MARSHALL))
             if self.cacheFile:
                 self.cacheFile.close()
             if self.filename!="":
