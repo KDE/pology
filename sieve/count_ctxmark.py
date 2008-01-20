@@ -10,6 +10,7 @@ class Sieve (object):
 
     def __init__ (self, options, global_options):
         self.nmatch = 0
+        self.ntotal = 0
         self.counts_by_file = {}
 
         self.report_by_file = False
@@ -23,6 +24,8 @@ class Sieve (object):
 
     def process (self, msg, cat):
         if not msg.obsolete:
+            self.ntotal += 1
+
             if cat.filename not in self.counts_by_file:
                 self.counts_by_file[cat.filename] = {}
                 self.counts_by_file[cat.filename]["total"] = 0
@@ -34,7 +37,8 @@ class Sieve (object):
                 self.counts_by_file[cat.filename]["match"] += 1
 
     def finalize (self):
-        print "Total with context markers: %d" % (self.nmatch,)
+        print   "Total with context markers: %d/%d (%.1f%%)" \
+              % (self.nmatch, self.ntotal, 100.0 * self.nmatch / self.ntotal)
         if self.report_by_file:
             print "...in the following files:"
             counts = [x for x in self.counts_by_file.items()
