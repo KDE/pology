@@ -166,6 +166,7 @@ hint="Mettre une espace insécable avant et une espace après"
 valid after="&sp;" before="&unbsp;"
 valid after="&sp;" before="&unbsp;.+»"
 valid after="\(" before="&unbsp;.+»"
+valid after="^" before="&unbsp;"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
