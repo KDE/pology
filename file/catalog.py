@@ -775,7 +775,8 @@ class Catalog (Monitored):
                 body = plustr[:p]
                 plustr = plustr[p + 1:]
                 evalstr += "\"" + body + "\" or "
-            evalstr += "\"" + plustr + "\""
+            if not evalstr:
+                evalstr = "0"
 
             # Record the current evaluable definition.
             self._plustr_eval = evalstr

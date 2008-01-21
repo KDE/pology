@@ -881,10 +881,10 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                     # Summit is plural, branch is not: means that branch is
                     # singular, so copy plural form for n==1.
                     index = summit_cat.plural_index(1)
-                    branch_msg.msgstr[0] = scatter_pipe_msgstr(
+                    branch_msg.msgstr[0] = exec_hook_msgstr(
                         branch_id, branch_name,
                         summit_cat, summit_msg, summit_msg.msgstr[index],
-                        project, options)
+                        project.hook_on_scatter_msgstr)
                     branch_msg.fuzzy = False
                     branch_msg.manual_comment = summit_msg.manual_comment
 
