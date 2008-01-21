@@ -5,7 +5,7 @@ from os.path import abspath, basename, dirname, exists, expandvars, isdir, isfil
 from codecs import open
 from time import strptime, mktime
 
-from pology.misc.rules import loadRules, Rule
+from pology.misc.rules import loadRules, printErrorMsg, printStat, xmlErrorMsg, Rule
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
@@ -14,15 +14,7 @@ encoding = locale.getdefaultlocale()[1]
 sys.setdefaultencoding(encoding)
 
 MARSHALL="+++"
-#TODO: use $HOME and expand variable
 CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
-
-def error (msg, code=1):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
-
 
 class Sieve (object):
     """Find messages matching given rules."""
@@ -81,6 +73,7 @@ class Sieve (object):
             options.accept("xml")
             xmlPath=options["xml"]
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
+                #TODO: create nice api to manage xml file and move it to misc/rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos>\n')
@@ -158,16 +151,11 @@ class Sieve (object):
                 poTag='<po name="%s">\n' % filename
                 self.xmlFile.write(poTag) # Write to result
                 self.cacheFile.write(poTag) # Write to cache
-
-        msgstr=u"".join(msg.msgstr)
-        msgtext=msg.to_string()
-        msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
-
-        for word in ("msgid", "msgctxt"):
-            msgtext=msgtext.replace(word, BOLD+word+RESET)
+        
+        # Now the sieve itself. Check message with every rules
         for rule in self.rules:
             try:
-                match=rule.process(msgstr, msg.msgid, msg.msgctxt, filename)
+                match=rule.process(u"".join(msg.msgstr), msg.msgid, msg.msgctxt, filename)
             except TimedOutException:
                 print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
                 continue
@@ -175,35 +163,14 @@ class Sieve (object):
                 self.nmatch += 1
                 if self.xmlFile:
                     # Now, write to XML file if defined
-                    error=[]
-                    error.append("\t<error>\n")
-                    error.append("\t\t<line>%s</line>\n" % msg.refline)
-                    error.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-                    error.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
-                    error.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
-                    error.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msgstr)
-                    error.append("\t\t<start>%s</start>\n" % rule.span[0])
-                    error.append("\t\t<end>%s</end>\n" % rule.span[1])
-                    error.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
-                    error.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
-                    error.append("\t</error>\n")
+                    error=xmlErrorMsg(msg, cat, rule)
                     self.xmlFile.writelines(error)
                     if not self.cached:
                         # Write result in cache
                         self.cacheFile.writelines(error)
                 else:
                     # Text format
-                    print "-"*(len(msgstr)+8)
-                    print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
-                    try:
-                        print msgtext
-                        print BOLD+'msgstr'+RESET+' "%s"' % (msgstr[0:rule.span[0]]+BOLD+RED+
-                                              msgstr[rule.span[0]:rule.span[1]]+RESET+
-                                              msgstr[rule.span[1]:])
-                        print "("+rule.rawPattern+")"+BOLD+RED+"==>"+RESET+BOLD+rule.hint+RESET
-                    except UnicodeEncodeError, e:
-                        print "UnicodeEncodeError, cannot print message (%s)" % e
-                #print "(debug) raw pattern: '%s'" % rule.rawPattern
+                    printErrorMsg(msg, cat, rule)
 
     def finalize (self):
         
@@ -218,10 +185,4 @@ class Sieve (object):
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
         if self.nmatch:
-            print "----------------------------------------------------"
-            print "Total matching: %d" % (self.nmatch,)
-            print "Rules stat (raw_pattern, calls, average time (ms)"
-            stat=list(((r.rawPattern, r.count, r.time/r.count) for r in self.rules if r.count!=0))
-            stat.sort(lambda x, y: cmp(x[2], y[2]))
-            for p, c, t in stat:
-                print "%-20s %6d %6.1f" % (p, c, t)
+            printStat(self.rules, self.nmatch)

@@ -5,6 +5,7 @@ from codecs import open
 from time import time
 
 from pology.misc.timeout import timed_out
+from pology.misc.colors import BOLD, RED, RESET
 
 """Parse rule files and propose a convenient interface to rules"""
 
@@ -23,6 +24,58 @@ accents[u"u"] = u"[%s]" % u"|".join([u'u', u'ù', u'û', u'U', u'Ù', u'Û'])
 accents[u"ù"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
 accents[u"û"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
 accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
+
+
+def printErrorMsg(msg, cat, rule):
+    """Print formated error message on screen"""
+    #TODO: move this to misc/rules.py
+    msgstr=u"".join(msg.msgstr)
+    msgtext=msg.to_string()
+    msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
+    for word in ("msgid", "msgctxt"):
+        msgtext=msgtext.replace(word, BOLD+word+RESET)
+
+    print "-"*(len(msgstr)+8)
+    print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
+    try:
+        print msgtext
+        print BOLD+'msgstr'+RESET+' "%s"' % (msgstr[0:rule.span[0]]+BOLD+RED+
+                              msgstr[rule.span[0]:rule.span[1]]+RESET+
+                              msgstr[rule.span[1]:])
+        print "("+rule.rawPattern+")"+BOLD+RED+"==>"+RESET+BOLD+rule.hint+RESET
+    except UnicodeEncodeError, e:
+        print RED+("UnicodeEncodeError, cannot print message (%s)" % e)+RESET
+
+def xmlErrorMsg(msg, cat, rule):
+    """Create and returns error message in XML format
+    @return: XML message as a list of unicode string"""
+    #TODO: move this to misc/rules.py
+    error=[]
+    error.append("\t<error>\n")
+    error.append("\t\t<line>%s</line>\n" % msg.refline)
+    error.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
+    error.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
+    error.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
+    error.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % u"".join(msg.msgstr))
+    error.append("\t\t<start>%s</start>\n" % rule.span[0])
+    error.append("\t\t<end>%s</end>\n" % rule.span[1])
+    error.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
+    error.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
+    error.append("\t</error>\n")
+    return error
+
+def printStat(rules, nmatch):
+    """Print rules match statistics
+    @param rules: list of rule files
+    @param nmatch: total number of matched items
+    """
+    print "----------------------------------------------------"
+    print "Total matching: %d" % nmatch
+    print "Rules stat (raw_pattern, calls, average time (ms)"
+    stat=list(((r.rawPattern, r.count, r.time/r.count) for r in rules if r.count!=0))
+    stat.sort(lambda x, y: cmp(x[2], y[2]))
+    for p, c, t in stat:
+        print "%-20s %6d %6.1f" % (p, c, t)
 
 def loadRules(filePath):
     """Load rule file and return list of Rule objects
