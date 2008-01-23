@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
 
+import os
+from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
+from pology.file.catalog import Catalog
 
 
 # Summit: Dig out the set of branches for the message.
@@ -43,6 +46,24 @@ class Sieve (object):
             self.incomplete = True
             options.accept("incomplete")
 
+        # Templates correspondence.
+        # Mapping of catalogs to templates, in form of <search>:<replace>.
+        # For each catalog file path, the first <search> substring is replaced
+        # by <replace>, and .po replaced with .pot, to construct its template
+        # file path. All templates not found under such paths are reported.
+        # Furthermore, all subdirs of these paths are searched for templates
+        # without corresponding catalogs, and every such template is counted
+        # as fully untranslated PO.
+        self.tspec = ""
+        if "templates" in options:
+            self.tspec = options["templates"]
+            if ":" not in self.tspec:
+                self.tspec_srch = self.tspec
+                self.tspec_repl = ""
+            else:
+                self.tspec_srch, self.tspec_repl = self.tspec.split(":", 1)
+            options.accept("templates")
+
         # Summit: consider only messages belonging to given branches.
         self.branches = None
         if "branch" in options:
@@ -64,12 +85,42 @@ class Sieve (object):
         )
         self.count = dict([(x[0], [0] * 5) for x in self.count_spec])
 
+        # Indicator of all visited catalogs.
+        self.visited_cats = {}
+
+        # Collections of all confirmed templates and tentative template subdirs.
+        self.matched_templates = []
+        self.template_subdirs = []
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
 
 
     def process (self, msg, cat):
+
+        # If template correspondence requested, handle template matching.
+        if (    self.tspec
+            and cat.filename not in self.visited_cats
+            and not cat.filename.endswith(".pot")):
+
+            self.visited_cats[cat.filename] = True
+
+            # Construct expected template path.
+            tpath = cat.filename.replace(self.tspec_srch, self.tspec_repl, 1)
+            pdot = tpath.rfind(".")
+            if pdot >= 0:
+                tpath = tpath[:pdot] + ".pot"
+            # Inform if the template does not exist.
+            if not os.path.isfile(tpath):
+                print "expected template catalog missing: %s" % tpath
+            # Indicate the template has been matched.
+            if tpath not in self.matched_templates:
+                self.matched_templates.append(tpath)
+            # Store tentative template subdir.
+            tsubdir = os.path.dirname(tpath)
+            if tsubdir not in self.template_subdirs:
+                self.template_subdirs.append(tsubdir)
 
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
@@ -130,6 +181,20 @@ class Sieve (object):
 
 
     def finalize (self):
+
+        # If template correspondence requested, handle POTs without POs.
+        if self.template_subdirs:
+            # Collect all catalogs in collected subdirs.
+            tpaths = collect_catalogs(self.template_subdirs)
+            # Filter to have only POTs remain.
+            tpaths = [x for x in tpaths if x.endswith(".pot")]
+            # Filter to leave out matched templates.
+            tpaths = [x for x in tpaths if x not in self.matched_templates]
+            # Add stats on all unmached templates.
+            for tpath in tpaths:
+                cat = Catalog(tpath, monitored=False)
+                for msg in cat:
+                    self.process(msg, cat)
 
         # Summit: If branches were given, indicate conspicuously up front.
         if self.branches:
