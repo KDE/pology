@@ -1,17 +1,22 @@
 # -*- coding: UTF-8 -*-
 
+"""Parse rule files and propose a convenient interface to rules"""
+
 import re
 from codecs import open
 from time import time
+from os.path import dirname, isdir, isfile, join
+from os import listdir
+import sys
+from locale import getdefaultlocale
 
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 
-"""Parse rule files and propose a convenient interface to rules"""
-
 TIMEOUT=8 # Time in sec after which a rule processing is timedout
 
 # Accent substitution dict
+#TODO: move this to specific module in l10n/fr and create a loading mechanism for all languages
 accents={}
 accents[u"e"] = u"[%s]" % u"|".join([u'e', u'é', u'è', u'ê', u'E', u'É', u'È', u'Ê'])
 accents[u"é"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
@@ -28,7 +33,6 @@ accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
 
 def printErrorMsg(msg, cat, rule):
     """Print formated error message on screen"""
-    #TODO: move this to misc/rules.py
     msgstr=u"".join(msg.msgstr)
     msgtext=msg.to_string()
     msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
@@ -49,7 +53,6 @@ def printErrorMsg(msg, cat, rule):
 def xmlErrorMsg(msg, cat, rule):
     """Create and returns error message in XML format
     @return: XML message as a list of unicode string"""
-    #TODO: move this to misc/rules.py
     error=[]
     error.append("\t<error>\n")
     error.append("\t\t<line>%s</line>\n" % msg.refline)
@@ -77,7 +80,47 @@ def printStat(rules, nmatch):
     for p, c, t in stat:
         print "%-20s %6d %6.1f" % (p, c, t)
 
-def loadRules(filePath):
+
+def loadRules(lang):
+    """Load all rules of given language
+    @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
+    @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
+    """
+    ruleFiles=[]           # List of rule files
+    ruleDir=""             # Rules directory
+    rules=[]               # List of rule objects
+    l10nDir=join(dirname(sys.argv[0]), "l10n") # Base of all language specific things
+
+    # Detect language
+    #TODO: use PO language header once it has been implemented 
+    if lang:
+        ruleDir=join(l10nDir, lang, "rules")
+        print "Using %s rules" % lang
+    else:
+        # Try to autodetect language
+        languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
+        print "Rules available in the following languages: %s" % ", ".join(languages)
+        for language in languages:
+            if language in sys.argv[-1] or language in getdefaultlocale()[0]:
+                print "Autodetecting %s language" % language
+                ruleDir=join(l10nDir, language, "rules")
+                break
+    
+    if not ruleDir:
+        print "Using default rule files (French)..."
+        ruleDir=join(l10nDir, "fr", "rules")
+    if isdir(ruleDir):
+        ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
+    else:
+        print "The rule directory is not a directory or is not accessible"
+    
+    for ruleFile in ruleFiles:
+        rules.extend(loadRulesFromFile(ruleFile))
+    
+    return rules
+
+
+def loadRulesFromFile(filePath):
     """Load rule file and return list of Rule objects
     @return: list of Rule object"""
 
@@ -131,7 +174,7 @@ def loadRules(filePath):
  
 def convert_entities(string):
     """Convert entities in string en returns it"""
-    
+    #TODO: use pology entities function instead of specific one
     string=string.replace("&cr;", "\r")
     string=string.replace("&lf;", "\n")
     string=string.replace("&lt;", "<")

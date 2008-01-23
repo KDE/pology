@@ -1,8 +1,6 @@
 - API doc (with Epydoc ?)
 - Developper and user doc in techbase
-- sieve/check_rules.py : rewrite language detection to use new rules location (l10n/xx/rules)
 - sieve/check_rules.py : refactor code to move out logic outside sieve and be reusable
-- move rules from root to l10n/fr dir
 - misc/rules.py : move out specific french things (accents) into l10n/fr/
 - misc/rules.py : use existing pology functions to resolv entities
 

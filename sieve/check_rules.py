@@ -5,15 +5,17 @@ from os.path import abspath, basename, dirname, exists, expandvars, isdir, isfil
 from codecs import open
 from time import strptime, mktime
 
-from pology.misc.rules import loadRules, printErrorMsg, printStat, xmlErrorMsg, Rule
+from pology.misc.rules import loadRules, printErrorMsg, printStat, xmlErrorMsg
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
 reload(sys)
 encoding = locale.getdefaultlocale()[1]
-sys.setdefaultencoding(encoding)
+sys.setdefaultencoding(encoding) #pylint: disable-msg=E1101
 
+# Pattern used to marshall path of cached files
 MARSHALL="+++"
+# Cache directory (for xml processing only)
 CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
 
 class Sieve (object):
@@ -29,44 +31,20 @@ class Sieve (object):
         self.filename=""     # File name we are processing
         self.cached=False    # Flag to indicate if process result is already is cache
         
-        ruleFiles=[]    # List of rule files used
-        ruleDir=""
-        baseRuleDir=join(dirname(sys.argv[0]), "rules")
-
-        # Detect language
         if "lang" in options:
             options.accept("lang")
-            ruleDir=join(baseRuleDir, options["lang"])
-            print "Using %s rules" % options["lang"]
+            lang=options["lang"]
         else:
-            # Try to autodetect language
-            languages=[d for d in os.listdir(baseRuleDir) if isdir(join(baseRuleDir, d))]
-            print "Rules availables in the following languages: %s" % ", ".join(languages)
-            for language in languages:
-                if language in sys.argv[-1] or language in locale.getdefaultlocale()[0]:
-                    print "Autodetecting %s language" % language
-                    ruleDir=join(baseRuleDir, language)
-                    break
-        # Identify rule files (overide language option)
-        if "rule" in options:
-            options.accept("rule")
-            if isdir(options["rule"]):
-                ruleFiles=[f for f in options["rule"] if isfile(f)]
-        
-        if not ruleFiles:
-            if not ruleDir:
-                print "Using default rule files (french)..."
-                ruleDir=join(baseRuleDir, "fr")
-            if isdir(ruleDir):
-                ruleFiles=[join(ruleDir, f) for f in os.listdir(ruleDir) if f.endswith(".rules")]
-            else:
-                print "The rule directory is not a directory or is not accessible"
+            lang=None
         
         # Load rules
-        for filePath in ruleFiles:
-            self.rules.extend(loadRules(filePath))
+        self.rules=loadRules(lang)
         
-        print "Load %s rules from %s rule file" % (len(self.rules), len(ruleFiles))
+        if len(self.rules)==0:
+            print "No rule loaded. Exiting"
+            sys.exit(1)
+
+        print "Load %s rules" % (len(self.rules))
         
         # Also output in XML file ?
         if "xml" in options:
@@ -116,7 +94,7 @@ class Sieve (object):
         
         # Current file loaded from cache on previous message. Close and return
         if self.cached:
-            # No need to analyse message, close cache if needed and return immediatly
+            # No need to analyze message, close cache if needed and return immediately
             if self.cacheFile:
                 self.xmlFile.write("</po>")
                 self.cacheFile=None # Indicate cache has been used and flushed into xmlFile
