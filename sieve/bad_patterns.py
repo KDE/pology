@@ -2,12 +2,17 @@
 
 import os, re, codecs
 from pology.misc.escape import split_escaped
+from pology.misc.comments import manc_parse_flag_list
 
 
 def error (msg, code=1):
     cmdname = os.path.basename(sys.argv[0])
     sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
     sys.exit(code)
+
+
+# Pipe flag used to manually prevent matching for a particular message.
+flag_no_bad_patterns = "no-bad-patterns"
 
 
 # Load pattern string from the file:
@@ -135,6 +140,10 @@ class Sieve (object):
 
         # Check only translated messages.
         if not msg.translated:
+            return
+
+        # Do not check messages when told so.
+        if flag_no_bad_patterns in manc_parse_flag_list(msg, "|"):
             return
 
         # Match patterns in all msgstr.

@@ -4,7 +4,10 @@
 Summit hooks for checking the validity of XML markup.
 """
 
+from pology.misc.comments import manc_parse_flag_list
 from pology.sieve.check_xml_kde4 import check_xml as check_xml_kde4_base
+from pology.sieve.check_xml_kde4 import flag_no_check_xml
+
 
 def check_xml_kde4 (strict=False, entities={}):
     """Factory of hooks to check KDE4 XML markup per msgstr.
@@ -16,13 +19,18 @@ def check_xml_kde4 (strict=False, entities={}):
     A dictionary of external XML entities (name, value) may be provided
     if such appear in the translation, for the check not to warn about
     unknown entities.
+    if the message has pipe flag no-check-xml, check is skipped.
     """
 
     if strict:
         def hook (cat, msg, msgstr):
+            if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
+                return
             check_xml_kde4_base(cat, msg, msgstr, ents=entities)
     else:
         def hook (cat, msg, msgstr):
+            if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
+                return
             if (    check_xml_kde4_base(cat, msg, msg.msgid,
                                         quiet=True, ents=entities)
                 and check_xml_kde4_base(cat, msg, msg.msgid_plural,

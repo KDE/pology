@@ -4,8 +4,10 @@
 Summit hooks for detecting unwanted patterns in translation.
 """
 
+from pology.misc.comments import manc_parse_flag_list
 from pology.sieve.bad_patterns import load_patterns
 from pology.sieve.bad_patterns import process_patterns, match_patterns
+from pology.sieve.bad_patterns import flag_no_bad_patterns
 
 
 def bad_patterns (rxmatch=False, casesens=True, patterns=[], fromfiles=[]):
@@ -19,6 +21,7 @@ def bad_patterns (rxmatch=False, casesens=True, patterns=[], fromfiles=[]):
     If rxmatch is False, patterns are matched by plain substring search,
     otherwise as regular expressions.
     If casesens is True, matching is case sensitive.
+    if the message has pipe flag no-bad-patterns, matching is skipped.
     """
 
     patterns_str = patterns[:]
@@ -29,6 +32,8 @@ def bad_patterns (rxmatch=False, casesens=True, patterns=[], fromfiles=[]):
                                     patterns=patterns_str)
 
     def hook (cat, msg, msgstr):
+        if flag_no_bad_patterns in manc_parse_flag_list(msg, "|"):
+            return
         msgfmt = (  "%s:%d(%d): bad pattern detected in translation: %s"
                   % (cat.filename, msg.refline, msg.refentry, "%s"))
         if not casesens:

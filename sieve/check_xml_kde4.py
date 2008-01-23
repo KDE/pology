@@ -3,6 +3,7 @@
 import sys, os, re
 import xml.parsers.expat
 from pology.misc.resolve import read_entities
+from pology.misc.comments import manc_parse_flag_list
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -94,6 +95,9 @@ _c_msg = None
 _c_quiet = False
 _c_errcnt = 0
 _c_ents = {}
+
+# Pipe flag used to manually prevent check for a particular message.
+flag_no_check_xml = "no-check-xml"
 
 
 # Heuristically escape &-accelerators by &amp; entities.
@@ -253,6 +257,10 @@ class Sieve (object):
 
         # Check only translated messages.
         if not msg.translated:
+            return
+
+        # Do not check messages when told so.
+        if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
             return
 
         # In in non-strict mode, check XML of translation only if the
