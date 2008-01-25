@@ -9,17 +9,17 @@ translator may want to automatically remove them for fuzzied messages
 (possibly adding them manually again when revisiting messages).
 
 Sieve options for selecting manual comments for removal:
-  - I{all}: all manual comments
-  - I{nopipe}: embedded lists of no-pipe flags (C{# |, foo, ...})
-  - I{pattern:<regex>}: comments matching the regular expression
-  - I{exclude:<regex>}: comments not matching the regular expression
+  - C{all}: all manual comments
+  - C{nopipe}: embedded lists of no-pipe flags (C{# |, foo, ...})
+  - C{pattern:<regex>}: comments matching the regular expression
+  - C{exclude:<regex>}: comments not matching the regular expression
 
 Other sieve options:
-  - I{case}: do case-sensitive matching (insensitive by default)
+  - C{case}: do case-sensitive matching (insensitive by default)
 
 The comments are selected for removal by first applying specific criteria
-in an unspecified order, then the I{pattern} match, and finaly the
-I{exclude} match.
+in an unspecified order, then the C{pattern} match, and finaly the
+C{exclude} match.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
