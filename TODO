@@ -1,6 +1,4 @@
 - API doc (with Epydoc ?)
 - Developper and user doc in techbase
-- sieve/check_rules.py : refactor code to move out logic outside sieve and be reusable
-- misc/rules.py : move out specific french things (accents) into l10n/fr/
 - misc/rules.py : use existing pology functions to resolv entities
 

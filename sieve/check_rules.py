@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import sys, os, locale
-from os.path import abspath, basename, dirname, exists, expandvars, isdir, isfile, join
+from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
 from time import strptime, mktime
 

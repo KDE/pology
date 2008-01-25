@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import re
+
 class Sieve (object):
     """Replace normal space by unbreakable space when needed"""
 
@@ -13,6 +15,7 @@ class Sieve (object):
             options.accept("no-review")
             self.flag_review = False
 
+        self.percent=re.compile("( %)(?=$| |\.|,)")
         # Indicators to the caller:
         # - monitor to avoid unnecessary reformatting when unfuzzied
         self.caller_monitored = True
@@ -42,7 +45,6 @@ class Sieve (object):
 
     def setUbsp(self, text):
         """Set correctly unbreakable spaces"""
-        #FIXME: only french typo available for now. Should be l10n-ised
         text=text.replace(u"\xa0", u" ")
         text=text.replace(u"&nbsp;:", u"\xc2\xa0:")
         text=text.replace(u" :", u"\xa0:")
@@ -51,4 +53,6 @@ class Sieve (object):
         text=text.replace(u" !", u"\xa0!")
         text=text.replace(u"« ", u"«\xa0")
         text=text.replace(u" »", u"\xa0»")
+        text=self.percent.sub(u"\xa0%", text)
+        
         return text

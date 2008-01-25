@@ -184,7 +184,7 @@ hint="Jamais plus d'une espace."
 
 [%]
 valid after="&unbsp;" before="$" 
-valid after="&unbsp;" before="[,\. ]" 
+valid after="&unbsp;" before="[,\. \)]" 
 valid after="&unbsp;" before="&sp;" 
 valid before="[0-9n]"
 valid file="ksim.po" before="[bcdfFhmnstu]\S" 

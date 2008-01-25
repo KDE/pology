@@ -5,7 +5,7 @@
 import re
 from codecs import open
 from time import time
-from os.path import dirname, isdir, isfile, join
+from os.path import dirname, isdir, join
 from os import listdir
 import sys
 from locale import getdefaultlocale
@@ -14,22 +14,6 @@ from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 
 TIMEOUT=8 # Time in sec after which a rule processing is timedout
-
-# Accent substitution dict
-#TODO: move this to specific module in l10n/fr and create a loading mechanism for all languages
-accents={}
-accents[u"e"] = u"[%s]" % u"|".join([u'e', u'é', u'è', u'ê', u'E', u'É', u'È', u'Ê'])
-accents[u"é"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"è"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"ê"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"a"] = u"[%s]" % u"|".join([u'a', u'à', u'â', u'A', u'À', u'Â'])
-accents[u"à"] = u"[%s]" % u"|".join([u'à', u'â', u'À', u'Â'])
-accents[u"â"] = u"[%s]" % u"|".join([u'à', u'â', u'À', u'Â'])
-accents[u"u"] = u"[%s]" % u"|".join([u'u', u'ù', u'û', u'U', u'Ù', u'Û'])
-accents[u"ù"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
-accents[u"û"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
-accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
-
 
 def printErrorMsg(msg, cat, rule):
     """Print formated error message on screen"""
@@ -100,10 +84,10 @@ def loadRules(lang):
         # Try to autodetect language
         languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
         print "Rules available in the following languages: %s" % ", ".join(languages)
-        for language in languages:
-            if language in sys.argv[-1] or language in getdefaultlocale()[0]:
-                print "Autodetecting %s language" % language
-                ruleDir=join(l10nDir, language, "rules")
+        for lang in languages:
+            if lang in sys.argv[-1] or lang in getdefaultlocale()[0]:
+                print "Autodetecting %s language" % lang
+                ruleDir=join(l10nDir, lang, "rules")
                 break
     
     if not ruleDir:
@@ -114,14 +98,23 @@ def loadRules(lang):
     else:
         print "The rule directory is not a directory or is not accessible"
     
+    # Find accents substitution dictionary
+    try:
+        m=__import__("pology.l10n.%s.accents" % lang, globals(), locals(), [""])
+        accents=m.accents
+    except ImportError:
+        print "No accents substitution dictionary found for % lang" % lang
+        accents=None
     for ruleFile in ruleFiles:
-        rules.extend(loadRulesFromFile(ruleFile))
+        rules.extend(loadRulesFromFile(ruleFile, accents))
     
     return rules
 
 
-def loadRulesFromFile(filePath):
+def loadRulesFromFile(filePath, accents):
     """Load rule file and return list of Rule objects
+    @param filePath: full path to rule file
+    @param accents: specific language l10n accents dictionary to use
     @return: list of Rule object"""
 
     rules=[]
@@ -146,7 +139,7 @@ def loadRulesFromFile(filePath):
             
             if line.strip()=="" and inRule:
                 inRule=False
-                rules.append(Rule(pattern, hint, valid))
+                rules.append(Rule(pattern, hint, valid, accents))
                 pattern=u""
                 valid=[]
                 hint=u""
@@ -192,22 +185,31 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
     
-    def __init__(self, pattern, hint, valid=[]):
+    def __init__(self, pattern, hint, valid=[], accents=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
         @param hint: hint given to user when rule match
         @type hint: unicode
         @param valid: list of valid case that should not make rule matching
+        @param accents: specific language accents dictionary to use.
         @type valid: list of unicode key=value """
         
         # Define instance variable
         self.pattern=None # Compiled regexp into re.pattern object
         self.valid=None   # Parsed valid definition
         self.hint=None    # Hint message return to user
+        self.accents=accents # Accents dictionary
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
         self.span=(0, 0)  # start, end offset where rule match
+
+        # Get accentMatch from accent dictionary
+        if self.accents.has_key("pattern"):
+            self.accentPattern=self.accents["pattern"]
+        else:
+            print "Accent dictionary does not have pattern. Disabled it"
+            self.accents=None
 
         # Compile pattern
         self.rawPattern=pattern
@@ -221,9 +223,10 @@ class Rule(object):
     def setPattern(self, pattern):
         """Compile pattern"""
         try:
-            for accentMatch in accentPattern.finditer(pattern):
-                letter=accentMatch.group(1)
-                pattern=pattern.replace("@%s" % letter, accents[letter])
+            if self.accents:
+                for accentMatch in self.accentPattern.finditer(pattern):
+                    letter=accentMatch.group(1)
+                    pattern=pattern.replace("@%s" % letter, self.accents[letter])
             self.pattern=re.compile(convert_entities(pattern))
         except Exception:
             print "Invalid pattern '%s', cannot compile" % pattern
