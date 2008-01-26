@@ -120,7 +120,7 @@ hint="A remplacer par 'vous pouvez (faire...) ici'"
 hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité'"
 
 [proxy]
-valid before="\(" after="\)"
+valid before="\)" after="\("
 hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité' ou 'proxy'"
 
 [(B|b)arre d'outils]
