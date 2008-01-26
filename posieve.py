@@ -186,7 +186,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if op.verbose:
             print "Sieving %s ..." % (fname,),
 
-        cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func)
+        try:
+            cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func)
+        except StandardError, e:
+            print "%s (skipping)" % e
+            continue
         for msg in cat:
             for sieve in sieves:
                 sieve.process(msg, cat)
