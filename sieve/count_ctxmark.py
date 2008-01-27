@@ -33,34 +33,41 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
-        if not msg.obsolete:
-            self.ntotal += 1
+        # Skip obsolete messages.
+        if msg.obsolete:
+            return
 
-            if cat.filename not in self.counts_by_file:
-                self.counts_by_file[cat.filename] = {}
-                self.counts_by_file[cat.filename]["total"] = 0
-                self.counts_by_file[cat.filename]["match"] = 0
-                if self.count_uniqs:
-                    self.counts_by_file[cat.filename]["uniq_nocxm"] = set()
-                    self.counts_by_file[cat.filename]["uniq_noctx"] = set()
-            counts = self.counts_by_file[cat.filename]
+        # Skip some special messages.
+        if msg.msgctxt in ("NAME OF TRANSLATORS", "EMAIL OF TRANSLATORS"):
+            return
 
-            counts["total"] += 1
+        self.ntotal += 1
 
-            if re.search(r"^\s*@[a-z]+", msg.msgctxt):
-                self.nmatch += 1
-                counts["match"] += 1
-                if self.count_uniqs:
-                    # Unique by no context marker.
-                    msgxid = msg.msgid
-                    p = msg.msgctxt.strip().find(" ")
-                    if p >= 0:
-                        msgxid += msg.msgctxt.strip()[p:]
-                    self.uniq_no_ctxmark.add(msgxid)
-                    counts["uniq_nocxm"].add(msgxid)
-                    # Unique by no context at all.
-                    self.uniq_no_context.add(msg.msgid)
-                    counts["uniq_noctx"].add(msg.msgid)
+        if cat.filename not in self.counts_by_file:
+            self.counts_by_file[cat.filename] = {}
+            self.counts_by_file[cat.filename]["total"] = 0
+            self.counts_by_file[cat.filename]["match"] = 0
+            if self.count_uniqs:
+                self.counts_by_file[cat.filename]["uniq_nocxm"] = set()
+                self.counts_by_file[cat.filename]["uniq_noctx"] = set()
+        counts = self.counts_by_file[cat.filename]
+
+        counts["total"] += 1
+
+        if re.search(r"^\s*@[a-z]+", msg.msgctxt):
+            self.nmatch += 1
+            counts["match"] += 1
+            if self.count_uniqs:
+                # Unique by no context marker.
+                msgxid = msg.msgid
+                p = msg.msgctxt.strip().find(" ")
+                if p >= 0:
+                    msgxid += msg.msgctxt.strip()[p:]
+                self.uniq_no_ctxmark.add(msgxid)
+                counts["uniq_nocxm"].add(msgxid)
+                # Unique by no context at all.
+                self.uniq_no_context.add(msg.msgid)
+                counts["uniq_noctx"].add(msg.msgid)
 
 
     def finalize (self):
