@@ -13,10 +13,13 @@ from locale import getdefaultlocale
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 
-TIMEOUT=8 # Time in sec after which a rule processing is timedout
+TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
 def printErrorMsg(msg, cat, rule):
-    """Print formated error message on screen"""
+    """Print formated error message on screen
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param rule: pology.misc.rules.Rule object"""
     msgstr=u"".join(msg.msgstr)
     msgtext=msg.to_string()
     msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
@@ -36,6 +39,9 @@ def printErrorMsg(msg, cat, rule):
 
 def xmlErrorMsg(msg, cat, rule):
     """Create and returns error message in XML format
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param rule: pology.misc.rules.Rule object
     @return: XML message as a list of unicode string"""
     error=[]
     error.append("\t<error>\n")
@@ -221,7 +227,8 @@ class Rule(object):
         self.setValid(valid)
 
     def setPattern(self, pattern):
-        """Compile pattern"""
+        """Compile pattern
+        @param pattern: pattern as a unicode string"""
         try:
             if self.accents:
                 for accentMatch in self.accentPattern.finditer(pattern):
@@ -232,7 +239,8 @@ class Rule(object):
             print "Invalid pattern '%s', cannot compile" % pattern
         
     def setValid(self, valid):
-        """Parse valid key=value arguments of valid list"""
+        """Parse valid key=value arguments of valid list
+        @param valid: valid line as unicode string"""
         self.valid=[]
         for item in valid:
             try:
