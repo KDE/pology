@@ -132,23 +132,27 @@ class Sieve (object):
         
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
-            try:
-                match=rule.process(u"".join(msg.msgstr), msg.msgid, msg.msgctxt, filename)
-            except TimedOutException:
-                print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
-                continue
-            if match:
-                self.nmatch += 1
-                if self.xmlFile:
-                    # Now, write to XML file if defined
-                    error=xmlErrorMsg(msg, cat, rule)
-                    self.xmlFile.writelines(error)
-                    if not self.cached:
-                        # Write result in cache
-                        self.cacheFile.writelines(error)
-                else:
-                    # Text format
-                    printErrorMsg(msg, cat, rule)
+            id=0 # Count msgstr plural forms
+            for msgstr in msg.msgstr:
+                try:
+                    match=rule.process(msgstr, msg.msgid, msg.msgctxt, filename)
+                except TimedOutException:
+                    print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
+                    id+=1
+                    continue
+                if match:
+                    self.nmatch+=1
+                    if self.xmlFile:
+                        # Now, write to XML file if defined
+                        error=xmlErrorMsg(msg, cat, rule, id)
+                        self.xmlFile.writelines(error)
+                        if not self.cached:
+                            # Write result in cache
+                            self.cacheFile.writelines(error)
+                    else:
+                        # Text format
+                        printErrorMsg(msg, cat, rule, id)
+                id+=1 # Increase msgstr id count
 
     def finalize (self):
         
