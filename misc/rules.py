@@ -20,7 +20,7 @@ def printErrorMsg(msg, cat, rule, pluralId=0):
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
-    @param id: msgstr count in case of plural form. Default to 0"""
+    @param pluralId: msgstr count in case of plural form. Default to 0"""
     msgstr=msg.msgstr[pluralId]
     msgtext=msg.to_string()
     msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
@@ -44,7 +44,7 @@ def xmlErrorMsg(msg, cat, rule, pluralId=0):
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
-    @param id: msgstr count in case of plural form. Default to 0
+    @param pluralId: msgstr count in case of plural form. Default to 0
     @return: XML message as a list of unicode string"""
     error=[]
     error.append("\t<error>\n")

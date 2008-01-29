@@ -13,7 +13,8 @@ _mns_ch = u"-" #–
 def diff_texts (text_old, text_new, markup=False, format=None):
     """Create text with embedded differences between new (+) and old (-).
 
-    Parameters:
+    Parameters::
+
       text_old - the older text
       text_new - the newer text
       markup - whether <...> markup can be expected in the texts

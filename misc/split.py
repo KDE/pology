@@ -9,7 +9,8 @@ _word_rx = re.compile(r"^\w", re.U)
 def split_text (text, markup=False, format=None):
     """Split text into words and intersections.
 
-    Parameters:
+    Parameters::
+
       text   - text to split
       markup - whether text contains markup tags
       format - gettext format flag (to consider format directives)

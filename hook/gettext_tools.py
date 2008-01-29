@@ -11,8 +11,10 @@ def msgfilter (filtr, options=""):
 
     Produces hooks with (filepath) signature, returning True on success.
     Hooks modify the given file in place.
-    The default command line to msgfilter is:
+    The default command line to msgfilter is::
+
         msgfilter <options> -i <filepath> -o <filepath> <filtr>
+
     where options argument to the factory may be used to pass any
     extra options to msgfilter.
     """
@@ -38,8 +40,10 @@ def msgfmt (options=""):
 
     Produces hooks with (filepath) signature, returning True on success.
     Hooks do not modify the given file.
-    The default command line to msgfmt is:
+    The default command line to msgfmt is::
+
         msgfilter <options> -o/dev/null <filepath>
+
     where options argument to the factory may be used to pass any
     extra options to msgfmt.
     """

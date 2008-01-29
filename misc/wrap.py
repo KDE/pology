@@ -27,7 +27,8 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                wcolmin=0, midbr=True):
     """Wrap text into lines, with added leading/trailing strings per line.
 
-    Parameters:
+    Parameters::
+
       text    - text to wrap
       wcol    - column to wrap at
       lead    - leading string for each line
@@ -46,7 +47,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
     Return the list of lines (each line ends with a newline).
 
-    Leading/trailing strings and \n itself are included into column counting.
+    Leading/trailing strings and newline are included into column counting.
     If wcol is 0 or negative, the lines are split only at unconditional breaks.
     """
 

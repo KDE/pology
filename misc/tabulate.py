@@ -6,7 +6,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
               rotated=False):
     """Tabulate data for output.
 
-    Parameters:
+    Parameters::
+
       data    - list of lists of column entries
       coln    - column names
       rown    - row names

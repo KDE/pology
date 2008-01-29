@@ -8,7 +8,8 @@ def read_entities (*fnames):
     """Read XML entity definitions from given file names into a dictionary.
 
     The files should contain only entity definitions in DTD form,
-    without any prolog or epilogue:
+    without any prolog or epilogue::
+
       ...
       <!ENTITY foo 'Foo-fum'>
       <!ENTITY bar 'Bar-boo'>
@@ -44,7 +45,8 @@ def resolve_entities (text, entities, ignored_entities,
                       srcname=None, fcap=False, nalts=0):
     """Replace XML entities in the text with their values.
 
-    Parameters:
+    Parameters::
+
       text             - the text to transform
       entities         - dictionary of entity names/values
       ignored_entities - list of entity names to ignore (any sequence that
@@ -123,7 +125,8 @@ _alt_hlen = len(_alt_head)
 def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
     """Replace alternatives directives in the text with selected alternative.
 
-    Parameters:
+    Parameters::
+
       text    - the text to transform
       select  - index of alternative to select, one-based
       total   - total number of alternatives per directive
