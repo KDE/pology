@@ -1,5 +1,17 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Message classes, that define entries from PO catalogs.
+
+Classes from this module define the entries proper,
+while the header entry is handled by L{pology.file.header}.
+
+@see: L{pology.file.header}
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
@@ -43,11 +55,137 @@ _Message_single_strings = (
 )
 
 class Message_base (object):
+    """
+    Abstract base class for entries in PO catalogs.
+
+    Elements of the message are accessed through instance variables.
+    Some of them are read-only, typically those that are derived from the
+    normal read-write variables and cannot be set independently.
+
+    The precise type of each variable depends on the subclass through which
+    it is accessed, but has a general behavior of one of the standard types.
+    E.g. when the behavior is that of a list, the type is stated as C{list*}.
+    All strings are assumed unicode, except where noted otherwise.
+
+    Regardless of the exact composition of the message, each will have all
+    the instance variables listed. In case the message actually does not have
+    an element corresponding to an instance variable, that variable will have
+    an appropriate null value.
+
+    Only the read-only instance variables are provided by this base class,
+    while the read-write variables are to be provided by its subclasses.
+    All are listed here, however, as the interface that all subclasses
+    should implement.
+
+    @ivar manual_comment: manual (translator) comments (C{# ...})
+    @type manual_comment: list* of strings
+
+    @ivar auto_comment: automatic comments (C{#. ...})
+    @type auto_comment: list* of strings
+
+    @ivar source: source references, as filepath:lineno pairs (C{#: ...})
+    @type source: set* of pairs*
+
+    @ivar flag: message flags (C{#, ...})
+    @type flag: set* of strings
+
+    @ivar obsolete: whether entry is obsolete (C{#~ ...})
+    @type obsolete: bool
+
+    @ivar msgctxt_previous: previous context field (C{#| msgctxt "..."})
+    @type msgctxt_previous: string
+
+    @ivar msgid_previous: previous message field (C{#| msgid "..."})
+    @type msgid_previous: string
+
+    @ivar msgid_plural_previous:
+        previous plural field (C{#| msgid_plural "..."})
+    @type msgid_plural_previous: string
+
+    @ivar msgctxt: context field (C{msgctxt "..."})
+    @type msgctxt: string
+
+    @ivar msgid: message field (C{msgid "..."})
+    @type msgid: string
+
+    @ivar msgid_plural: plural field (C{msgid_plural "..."})
+    @type msgid_plural: string
+
+    @ivar msgstr: translation fields (C{msgstr "..."}, C{msgstr[n] "..."})
+    @type msgstr: list* of strings
+
+    @ivar key: (read-only)
+        message key, which defines a unique entry in the catalog
+
+        An undefined composition of C{msgctxt} and C{msgid} fields
+        (but not C{msgid_plural} when it exists).
+    @type key: string
+
+    @ivar fuzzy:
+        whether the message is fuzzy
+
+        The state of fuzziness can be also checked by looking for the C{fuzzy}
+        flag in the set of flags, but using this variable is shorter,
+        and the message can be properly unfuzzied by assigning False to it
+        (e.g. C{*_previous} fields are cleared as well).
+    @type fuzzy: bool
+
+    @ivar untranslated: (read-only)
+        whether the message is untranslated (False for fuzzy messages)
+    @type untranslated: bool
+
+    @ivar translated: (read-only)
+        whether the message is translated (False for fuzzy messages)
+    @type translated: bool
+
+    @ivar format: (read-only)
+        whether the message contains any format flags (e.g. C{c-format})
+    @type translated: bool
+
+    @ivar refline:
+        referent line number of the message inside the catalog
+
+        Valid only if there were no modifications to the catalog, otherwise
+        undefined (made valid again after syncing the catalog).
+        Normally this is the line number of C{msgid} keyword,
+        but not guaranteed to be so.
+    @type refline: int
+
+    @ivar refentry:
+        referent entry number of the message inside the catalog
+
+        Valid only if there were no additions/removals of messages from the
+        catalog, otherwise undefined (made valid again after syncing the
+        catalog).
+    @type refentry: int
+
+    @see: L{Message}
+    @see: L{MessageUnsafe}
+    """
 
     def __init__ (self, getsetattr):
+        """
+        Internal constructor for subclasses' usage.
+
+        @param getsetattr:
+            the object with C{__getattr__} and C{__setattr__} methods,
+            as handler for unhandled instance variables
+        """
+
         self.__dict__["^getsetattr"] = getsetattr
 
+
     def __getattr__ (self, att):
+        """
+        Attribute getter.
+
+        Processes read-only variables, and sends others to the getter
+        given by the constructor.
+
+        @param att: name of the attribute to get
+        @returns: attribute value
+        """
+
         if 0: pass
 
         elif att == "translated":
@@ -87,7 +225,18 @@ class Message_base (object):
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
 
+
     def __setattr__ (self, att, val):
+        """
+        Attribute setter.
+
+        May act upon some attributes (e.g. checks), but finally passes
+        all of them to the setter given by the constructor.
+
+        @param att: name of the attribute to set
+        @param val: value to set the attribute to
+        """
+
         if 0: pass
 
         elif att == "fuzzy":
@@ -99,7 +248,9 @@ class Message_base (object):
 
         self.__dict__["^getsetattr"].__setattr__(self, att, val)
 
+
     def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False):
+
         prefix = {}
         if self.obsolete:
             prefix["curr"] = "#~ "
@@ -195,23 +346,63 @@ class Message_base (object):
         if self._lines_all[-1] != "\n":
             lins.extend(u"\n")
 
+
     def to_lines (self, wrapf=wrap_field, force=False):
+        """
+        The line-representation of the message.
+
+        Lines are returned with newlines included.
+
+        @param wrapf:
+            the function used for wrapping message fields (msgctxt, msgid, ...)
+
+            As arguments the function should accept the field name,
+            the field text, and the prefix to all lines,
+            and return the list of wrapped lines.
+        @type wrapf: (string, string, string) -> list of strings
+
+        @param force:
+            whether to force reformatting of all elements
+
+            Subclasses may keep a track of lines exactly as read from the
+            PO file, and allow reformatting of only the modified elements of
+            the message.
+        @type force: bool
+
+        @returns: formatted lines
+        @rtype: list of strings
+
+        @see: L{pology.misc.wrap}
+        """
 
         if force or self.modcount:
             self._renew_lines(wrapf, force)
 
         return self._lines_all
 
+
     def to_string (self, wrapf=wrap_field, force=False):
+        """
+        The string-representation of the message.
+
+        Passes the arguments to L{to_lines} and joins the resulting list.
+
+        @see: L{to_lines}
+        """
+
         return "".join(self.to_lines(wrapf, force))
 
+
     def _append_to_list (self, other, att):
+
         self_list = getattr(self, att)
         other_list = getattr(other, att)
         for el in other_list:
             self_list.append(el)
 
+
     def _overwrite_list (self, other, att):
+
         # Overwrites self list by element-assignment/append/pop,
         # so that modification history is tracked.
         self_list = getattr(self, att)
@@ -229,15 +420,22 @@ class Message_base (object):
             for i in range(other_len, self_len):
                 self_list.pop()
 
-    def merge (self, other):
-        """Merge in the contents of the other message with the same key.
 
-        Return True if any changes were made by merging, False otherwise
-        (though this is reliable only for a monitored message).
+    def merge (self, other):
+        """
+        Merge in the contents of the other message with the same key.
 
         Merging is basically riddled with heuristics, depending on the
-        state of self and the other message (translated/fuzzy/...) If
-        tight control is desired, the merging should be done manually.
+        state of this and the other message (translated/fuzzy/...)
+        When tight control is desired, the merging should be done manually.
+
+        @param other: the message to merge the contents from
+        @type other: object containing all the needed instance variables
+
+        @returns:
+            True if any changes were made by merging, False otherwise
+            (but the reliability of this depends on the subclass).
+        @rtype: bool
         """
 
         # Assert key equality.
@@ -291,11 +489,16 @@ class Message_base (object):
 
         return modcount_before < self.modcount
 
+
     def state (self):
-        """The code string describing the translation state of the message.
+        """
+        Coded description of the translation state of the message.
 
         Code string can be one of:
         "T" (translated), "F" (fuzzy), "U" (untranslated), "O" (obsolete).
+
+        @returns: coded translation state
+        @rtype: string
         """
 
         if self.obsolete:
@@ -309,13 +512,80 @@ class Message_base (object):
 
 
 class Message (Message_base, Monitored): # order important for get/setattr
-    """Single message in the catalog."""
+    """
+    The default class for catalog entries.
+
+    The interface is inherited from L{Message_base}, but when used through
+    this class it behaves in a special way: the modifications are monitored.
+    If you don't need to modify the messages after creation, consider using
+    the faster L{MessageUnsafe} class.
+
+    The message interface variables are kept under tight check:
+    no new variable can be created by assignment (silent typos not possible),
+    and all assignment are checked for value types (cannot assign a number
+    where a unicode string is expected).
+
+    Each instance variable has a counterpart modification counter,
+    as well as the message as whole. For example:
+
+        >>> msg = Message()
+        >>> msg.modcount
+        0
+        >>> msg.msgid_modcount
+        0
+        >>> msg.msgid = u"Blah, blah..."
+        >>> msg.msgid_modcount
+        1
+        >>> msg.modcount
+        1
+
+    The modifications are tracked by value-comparison, assigning the same
+    value does not increase the counters. A typicall use of the counters
+    would be to record the top counter, do some operations on the message,
+    and check afterwards if the top counter has increased to know if the
+    message was modified.
+
+    To implement monitoring, the loosely defined types in the base class
+    (those with a star) are actually of one of the internal C{Mon*} types:
+    L{Monlist}, L{Monset}, L{Monpair}. They implement some, but not all, of
+    the functionality of their standard counterparts. Like this class, they
+    inherit from L{Monitored} and have own modification counters:
+
+        >>> msg = Message()
+        >>> msg.msgstr = Monlist([u"Foo, bar, "])
+        >>> msg.msgstr_modcount
+        1
+        >>> msg.modcount
+        1
+        >>> msg.msgstr[0] += "baz..."
+        >>> msg.msgstr.modcount
+        1
+        >>> msg.modcount
+        2
+
+    Note the difference between C{msg.msgstr_modcount} and
+    C{msg.msgstr.modcount} -- the first increases when the instance variable
+    is assigned a different monitored list, while the second when the elements
+    of the list object change.
+
+    @see: L{Message_base}
+    @see: L{MessageUnsafe}
+    @see: L{pology.misc.monitored}
+    """
 
     def __init__ (self, init={}):
-        """Create new message.
+        """
+        Initializes the message elements by the values in the dictionary.
 
-        Dictionary init contains same-name keys as message fields to
-        initialize to; for any missing key, an appropriate default is used.
+        The dictionary keys are like the names of instance variables in the
+        interface, and not all must be supplied. Those left out will be
+        initialized to appropriate null values.
+
+        The monitored sequences should be supplied as their ordinary
+        counterparts (e.g. a C{list} in place of L{Monlist}),
+
+        @param init: dictionary of initial values
+        @type init: dict
         """
 
         Message_base.__init__(self, Monitored)
@@ -358,7 +628,9 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._lines_msgid_plural = init.get("lines_msgid_plural", [])
         self._lines_msgstr = init.get("lines_msgstr", [])
 
+
     def _renew_lines (self, wrapf=wrap_field, force=False):
+
         mod = {}
         if not self.obsolete_modcount:
             mod["manual_comment"] =    self.manual_comment_modcount \
@@ -385,13 +657,35 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
 
 class MessageUnsafe (Message_base):
-    """Single message in the catalog, non-monitored version."""
+    """
+    The lightweight class for catalog entries, for read-only applications.
+
+    Unlike the L{Message}, this class does nothing fancy with the interface
+    variables. The interface instance variables are implemented as in
+    L{Message_base}, where the starred lists are standard lists, starred sets
+    standard sets, etc. There is no assignment and type checking, nor
+    modification monitoring. You should use this class when messages are not
+    expected to be modified, for the performance benefit. This is typical for
+    PO-checking applications.
+
+    The top modification counter still exists, but only as an ordinary
+    inactive instance variable, which the client code can manually increase
+    to signal that the message has changed. This may be necessary for some
+    other client code, which relies on top counter, to function properly.
+
+    @see: L{Message_base}
+    """
 
     def __init__ (self, init={}):
-        """Create new message, filling in any fields given by the dictionary.
+        """
+        Initializes the message elements by the values in the dictionary.
 
-        Dictionary init contains same-name entries to initialize to;
-        for any missing key, an appropriate empty default is used.
+        The dictionary keys are like the names of instance variables in the
+        interface, and not all must be supplied. Those left out will be
+        initialized to appropriate null values.
+
+        @param init: dictionary of initial values
+        @type init: dict
         """
 
         Message_base.__init__(self, object)
@@ -434,7 +728,9 @@ class MessageUnsafe (Message_base):
 
         self.modcount = 0
 
+
     def _renew_lines (self, wrapf=wrap_field, force=False):
+
         mod = {}
         cond = self.modcount
         mod["manual_comment"] = cond
