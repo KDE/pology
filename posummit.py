@@ -134,6 +134,7 @@ class Project (object):
             "branches_split_tags" : True,
 
             "hook_on_scatter_msgstr" : [],
+            "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
             "hook_on_gather_file" : [],
         })
@@ -311,9 +312,9 @@ def derive_project_data (project, options):
                 p.full_inverse_map[summit_name][branch_id].append(summit_name)
 
     # Fill in defaults for missing fields in hook specs.
-    p.hook_on_scatter_msgstr = hook_fill_defaults(p.hook_on_scatter_msgstr)
-    p.hook_on_scatter_file = hook_fill_defaults(p.hook_on_scatter_file)
-    p.hook_on_gather_file = hook_fill_defaults(p.hook_on_gather_file)
+    for attr in p.__dict__:
+        if attr.startswith("hook_"):
+            p.__dict__[attr] = hook_fill_defaults(p.__dict__[attr])
 
     return p
 
@@ -921,6 +922,10 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                 # Summit catalog didn't contain this field, append it.
                 branch_cat.header.field.append(field)
 
+    # Apply hooks to the branch catalog.
+    exec_hook_cat(branch_id, branch_name, branch_cat,
+                  project.hook_on_scatter_cat)
+
     # Commit changes to the branch catalog.
     if branch_cat.sync():
 
@@ -947,6 +952,16 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
                 piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
+
+
+# Pipe catalog through hook calls,
+# for which branch id and catalog name match hook specification.
+def exec_hook_cat (branch_id, branch_name, cat, hooks):
+
+    # Apply all hooks to the catalog.
+    for call, branch_rx, name_rx in hooks:
+        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+            call(cat)
 
 
 # Pipe catalog file through hook calls,
