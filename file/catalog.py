@@ -382,6 +382,11 @@ class Catalog (Monitored):
         That is, when monitoring is requested, entries are represented by
         the L{Message} class, otherwise with L{MessageUnsafe}.
 
+        Monitored messages are usually appropriate when the application is
+        expected to modify them. Non-monitored messages should provide better
+        performance, so use them whenever the catalog is opened for read-only
+        purposes (such as checks).
+
         @param filename: name of the PO catalog on disk, or new catalog
         @type filename: string
 
