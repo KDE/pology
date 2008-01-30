@@ -1,5 +1,12 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Interface to PO catalogs.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 from pology.misc.escape import escape, unescape
 from pology.misc.wrap import wrap_field
 from pology.misc.monitored import Monitored
@@ -11,13 +18,16 @@ import os, codecs, re, types, signal
 
 
 def _parse_quoted (s):
+
     sp = s[s.index("\"") + 1:s.rindex("\"")]
     sp = unescape(sp);
     return sp
 
 
 class _MessageDict:
+
     def __init__ (self):
+
         self.manual_comment = []
         self.auto_comment = []
         self.source = []
@@ -300,15 +310,96 @@ _Catalog_spec = {
 
 
 class Catalog (Monitored):
-    """Catalog of messages."""
+    """
+    Class for access and operations on PO catalogs.
+
+    Catalog behaves as an ordered sequence of messages. The typical way of
+    iterating over the messages from a PO file would be::
+
+        cat = Catalog("relative/path/foo.po")
+        for msg in cat:
+            ...
+            (do something with msg)
+            ...
+        cat.sync()
+
+    where L{sync()<sync>} method is used to write any modifications back to
+    the PO file on disk.
+
+    The header entry of the catalog is not part of the message sequence,
+    but is provided by the L{header} instance variable, an object of
+    type different from an ordinary message entry.
+
+    The catalog is a I{monitored} class. The instance variables are limited
+    to a prescribed set and type-checked on assignments. have shadowing
+    I{modification counters}, and any modifications are reflected on the top
+    modification counter for the catalog as whole. For example:
+
+        >>> cat = Catalog("relative/path/foo.po")
+        >>> cat.filename  # file name of the catalog
+        'relative/path/foo.po'
+        >>> cat[0].msgid  # first message in the catalog
+        u'Welcome to Foobar'
+        >>> cat.modcount  # the top modcounter
+        0
+        >>> cat.filename_modcount  # shadowing counter to instance variable
+        0
+        >>> cat.filename = "relative/path/bar.po"  # change the file name
+        >>> cat.modcount, cat.filename_modcount  # both counters increase
+        (1, 1)
+        >>> cat.remove(0)  # remove the first message from the catalog
+        >>> cat.modcount  # the top counter increases again
+        2
+
+    Catalog message entries themeselves may also be monitored (default),
+    but need not, depending on the mode of creation. If the entries are
+    monitored, then any change to an entry also increases catalog's top
+    modcounter.
+
+    @ivar header: the header entry
+    @type header: L{Header}
+
+    @ivar filename: the file name which the catalog was created with
+    @type filename: string
+
+    @ivar name: (read-only)
+        the name of the catalog
+
+        Determined as base of the filename, without extension.
+    @type name: string
+
+    @see: L{Monitored}
+    @see: L{Message}, L{MessageUnsafe}
+    @see: L{Header}
+    """
 
     def __init__ (self, filename,
                   create=False, wrapf=wrap_field, monitored=True):
-        """Build message catalog by reading from a PO file or creating anew.
-
-        FIXME: Describe options.
         """
+        Build a message catalog by reading from a PO file or creating anew.
 
+        The message entries in the catalog may be monitored themselves or not.
+        That is, when monitoring is requested, entries are represented by
+        the L{Message} class, otherwise with L{MessageUnsafe}.
+
+        @param filename: name of the PO catalog on disk, or new catalog
+        @type filename: string
+
+        @param create:
+            whether a blank catalog can be created when the PO file does
+            not already exist, or signal an error
+        @type create: bool
+
+        @param wrapf:
+            the function used for wrapping message fields in output.
+            See C{to_lines()} method of L{Message_base} for details.
+        @type wrapf: string, string, string -> list of strings
+
+        @param monitored: whether the message entries are monitored
+        @type monitored: bool
+
+        @see: L{pology.misc.wrap}
+        """
         self._wrapf = wrapf
 
         # Select type of message object to use.
@@ -360,7 +451,14 @@ class Catalog (Monitored):
 
 
     def __getattr__ (self, att):
+        """
+        Attribute getter.
 
+        Processes read-only variables, and sends others to the base class.
+
+        @param att: name of the attribute to get
+        @returns: attribute value
+        """
         if 0: pass
 
         elif att == "name":
@@ -376,12 +474,33 @@ class Catalog (Monitored):
 
 
     def __len__ (self):
+        """
+        The number of messages in the catalog.
+
+        The number includes obsolete entries, and excludes header entry.
+
+        @returns: the number of messages
+        @rtype: int
+        """
 
         return len(self._messages)
 
 
     def __getitem__ (self, ident):
+        """
+        Get message by position or another message.
 
+        If the position is out of range, or the lookup message does not have
+        a counterpart in this catalog with the same key, an error is signaled.
+
+        Runtime complexity O(1), regardless of the C{ident} type.
+
+        @param ident: position index or another message
+        @type ident: int or subclass of L{Message_base}
+
+        @returns: reference to the message in catalog
+        @rtype: subclass of L{Message_base}
+        """
         self.assert_spec_getitem()
         if not isinstance(ident, int):
             ident = self._msgpos[ident.key]
@@ -389,17 +508,32 @@ class Catalog (Monitored):
 
 
     def __contains__ (self, msg):
+        """
+        Whether the message with the same key exists in the catalog.
 
+        Runtime complexity O(1).
+
+        @param msg: message to look for
+        @type msg: subclass of L{Message_base}
+
+        @returns: C{True} if the message exists
+        @rtype: bool
+        """
         return msg.key in self._msgpos
 
 
     def find (self, msg):
-        """Return position of the message in the catalog.
-
-        If the message is not present in the catalog, return -1.
-        O(1) runtime complexity.
         """
+        Position of the message in the catalog.
 
+        Runtime complexity O(1).
+
+        @param msg: message to look for
+        @type msg: subclass of L{Message_base}
+
+        @returns: position index if the message exists, -1 otherwise
+        @rtype: int
+        """
         if msg.key in self._msgpos:
             return self._msgpos[msg.key]
         else:
@@ -407,20 +541,34 @@ class Catalog (Monitored):
 
 
     def add (self, msg, pos=None):
-        """Add a message to the catalog.
-
-        If the message with the same key already exists, it will be merged.
-        When the pos is None, the insertion will be attempted such as that
-        the messages be near according to the source references.
-        If pos is not None, the message is inserted at position given by pos,
-        unless it is obsolete.
-        Negative pos counts backward from first non-obsolete message (i.e.
-        pos=-1 means insert after all non-obsolete messages).
-
-        Returns the position where merged or inserted.
-        O(n) runtime complexity, unless pos=-1 when O(1).
         """
+        Add a message to the catalog.
 
+        If the message with the same key already exists, it will be merged
+        (see C{merge()} method of L{Message_base}).
+
+        If the message does not exist in the catalog, when the position is
+        C{None}, the insertion will be attempted such as that the messages be
+        near according to the source references; if the position is not
+        C{None}, the message is inserted at the given position, unless it is
+        obsolete.
+
+        Negative positions can be given, and count backward from the first
+        non-obsolete message (i.e. -1 means insertion after all non-obsolete
+        messages).
+
+        Runtime complexity O(n), even if the position is explicitly stated;
+        O(1) only when the position is given as -1.
+
+        @param msg: message to insert or merge
+        @type msg: subclass of L{Message_base}
+
+        @param pos: position index to insert at
+        @type pos: int or C{None}
+
+        @returns: the position where merged or inserted
+        @rtype: int
+        """
         self.assert_spec_setitem(msg)
 
         if not msg.msgid:
@@ -472,10 +620,20 @@ class Catalog (Monitored):
 
 
     def remove (self, ident):
-        """Remove a message from the catalog.
+        """
+        Remove a message from the catalog, by position or another message.
 
-        ident can be either a message to be removed (matched by key),
-        or an index into the catalog. Removal by key is costly! (O(n))
+        If the position is out of range, or the lookup message does not have
+        a counterpart in this catalog with the same key, an error is signaled.
+
+        Runtime complexity O(n), regardless of C{ident} type.
+        Use L{remove_on_sync()<remove_on_sync>} method for O(1) complexity,
+        when the logic allows the removal to be delayed to syncing time.
+
+        @param ident: position index or another message
+        @type ident: int or subclass of L{Message_base}
+
+        @returns: C{None}
         """
 
         # Determine position and key by given ident.
@@ -503,12 +661,22 @@ class Catalog (Monitored):
 
 
     def remove_on_sync (self, ident):
-        """Remove a message from the catalog on the next sync.
+        """
+        Remove a message from the catalog, by position or another message,
+        on the next sync.
 
-        ident can be either a message to be removed (matched by key),
-        or an index into the catalog.
-        Well suited for a for-iteration over a catalog with a sync afterwards,
-        so that the indices are not confused by removal.
+        If the position is out of range, or the lookup message does not have
+        a counterpart in this catalog with the same key, an error is signaled.
+
+        Suited for for-in iterations over a catalog with a sync afterwards,
+        so that the indices are not confused by removal, and good performance.
+
+        Runtime complexity O(1).
+
+        @param ident: position index or another message
+        @type ident: int or subclass of L{Message_base}
+
+        @returns: C{None}
         """
 
         # Determine position and key by given ident.
@@ -523,10 +691,19 @@ class Catalog (Monitored):
 
 
     def sync (self, force=False):
-        """Writes catalog file to disk if any message has been modified.
+        """
+        Write catalog file to disk if any message has been modified.
 
-        Unmodified messages are not reformatted, unless force is True.
-        Return True if file was modified, False otherwise.
+        All activities scheduled for sync-time are performed, such as
+        delayed message removal.
+
+        Unmodified messages are not reformatted, unless forced.
+
+        @param force: whether to reformat unmodified messages
+        @type force: bool
+
+        @returns: C{True} if the file was modified, C{False} otherwise
+        @rtype: bool
         """
 
         # Cannot sync catalogs which have been given no path
@@ -622,18 +799,35 @@ class Catalog (Monitored):
 
 
     def insertion_inquiry (self, msg):
-        """Compute the tentative insertion position of a message into the
-        catalog and its "belonging weight" (returned as a tuple, respectively).
+        """
+        Compute the tentative insertion of the message into the catalog.
 
-        The belonging weight is computed by analyzing the source references.
-        O(n) runtime complexity.
+        The tentative insertion is a tuple of position of a message when it
+        would be inserted into the catalog, and the I{weight} indicating
+        the quality of positioning. The weight is computed by analyzing
+        the source references.
+
+        Runtime complexity O(n).
+
+        @param msg: message to compute the tentative insertion for
+        @type msg: subclass of L{Message_base}
+
+        @returns: the insertion position and its weight
+        @rtype: int, float
         """
 
         return self._pick_insertion_point(msg, self._obspos)
 
 
     def created (self):
-        """Whether the catalog has been newly created (no existing file)."""
+        """
+        Whether the catalog has been newly created (no existing PO file).
+
+        A catalog is no longer considered newly created after the first sync.
+
+        @returns: C{True} if newly created, C{False} otherwise
+        @rtype: bool
+        """
 
         return self._created_from_scratch
 
@@ -721,10 +915,14 @@ class Catalog (Monitored):
 
 
     def nplurals (self):
-        """Return number of msgstr's expected in plural messages.
+        """
+        Number of msgstr fields expected for plural messages.
 
         Determined by the Plural-Forms header field; if this field
-        is absent from the header, 1 is returned.
+        is absent from the header, defaults to 1.
+
+        @returns: number of plurals
+        @rtype: int
         """
 
         # Get nplurals string from the header.
@@ -742,10 +940,17 @@ class Catalog (Monitored):
 
 
     def plural_index (self, number):
-        """Determine index of msgstr in plural messages for given number.
+        """
+        Msgstr field index in plural messages for given number.
 
         Determined by the Plural-Forms header field; if this field
-        is absent from the header, 0 is returned.
+        is absent from the header, defaults to 0.
+
+        @param number: the number to determine the plural form for
+        @type number: int
+
+        @returns: index of msgstr field
+        @rtype: int
         """
 
         # Get plural definition from the header.
@@ -789,9 +994,11 @@ class Catalog (Monitored):
 
 
     def plural_indices_single (self):
-        """Determine indices of the plural forms used for single number only.
+        """
+        Indices of the msgstr fields which are used for single number only.
 
-        Indices are returned as a list.
+        @returns: msgstr indices used for single numbers
+        @rtype: list of ints
         """
 
         # Get plural definition from the header.

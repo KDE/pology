@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Message classes, that define entries from PO catalogs.
+Message entries in PO catalogs.
 
 Classes from this module define the entries proper,
 while the header entry is handled by L{pology.file.header}.
@@ -355,15 +355,13 @@ class Message_base (object):
 
         @param wrapf:
             the function used for wrapping message fields (msgctxt, msgid, ...)
-
             As arguments the function should accept the field name,
             the field text, and the prefix to all lines,
-            and return the list of wrapped lines.
-        @type wrapf: (string, string, string) -> list of strings
+            and return the list of wrapped lines (with newlines included).
+        @type wrapf: string, string, string -> list of strings
 
         @param force:
-            whether to force reformatting of all elements
-
+            whether to force reformatting of all elements.
             Subclasses may keep a track of lines exactly as read from the
             PO file, and allow reformatting of only the modified elements of
             the message.
@@ -516,7 +514,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
     The default class for catalog entries.
 
     The interface is inherited from L{Message_base}, but when used through
-    this class it behaves in a special way: the modifications are monitored.
+    this class it behaves in a special way: the modifications are I{monitored}.
     If you don't need to modify the messages after creation, consider using
     the faster L{MessageUnsafe} class.
 

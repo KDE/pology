@@ -1,5 +1,12 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Header entry in PO catalogs.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 from pology.misc.wrap import wrap_field
 from pology.misc.monitored import Monitored, Monlist, Monpair
 from message import Message
@@ -26,8 +33,52 @@ _Header_spec = {
 }
 
 class Header (Monitored):
+    """
+    Header entry in PO catalogs.
+
+    The PO header is syntactically just another entry in the catalog,
+    but with different semantics. Therefore, instead operating on it using
+    L{Message}, this class provides a different set of interface instance
+    variables and methods.
+
+    Like L{Message}, this class implements monitoring; the starred-types
+    (e.g. C{list*}) are according to the same convention as for messages,
+    and also the strings are assumed unicode unless otherwise noted.
+
+    There is no lightweight alternative to the monitored header, like that of
+    L{MessageUnsafe} for messages, because no performance demand is expected
+    for the headers only.
+
+    @ivar title: comment lines giving the title
+    @type title: list* of strings
+
+    @ivar copyright: comment line with the copyright statement
+    @type copyright: string
+
+    @ivar license: comment line with the license statement
+    @type license: comment line with the license statement
+
+    @ivar author: comment lines stating translators who worked on this catalog
+    @type author: list* of strings
+
+    @ivar comment: the free comment lines, being none of the specific ones
+    @type comment: list* of strings
+
+    @ivar field: parsed header fields as key-value string pairs
+    @type field: list* of pairs*
+
+    @see: L{Message}
+    """
 
     def __init__ (self, msg=None):
+        """
+        Initializes the header by the given message.
+
+        Тhe message object is stored and may be modified.
+
+        @param msg: the PO entry containing the header
+        @type msg: subclass of L{Message_base}
+        """
 
         if msg: # parse header message
             # Comments.
@@ -91,7 +142,17 @@ class Header (Monitored):
         # Unmodify all monitored members.
         self.modcount = 0
 
+
     def __getattr__ (self, att):
+        """
+        Attribute getter.
+
+        Processes read-only variables, and sends others to the base class.
+
+        @param att: name of the attribute to get
+        @returns: attribute value
+        """
+
         if att == "obsolete":
             return False
         elif att == "key":
@@ -99,7 +160,9 @@ class Header (Monitored):
         else:
             return Monitored.__getattr__(self, att)
 
+
     def _remake_msg (self, force=False):
+
         m = self._message
 
         if force \
@@ -125,32 +188,90 @@ class Header (Monitored):
             for field in self.field:
                 m.msgstr[0] += "%s: %s\\n" % tuple(field)
 
+
     def to_msg (self, force=False):
+        """
+        Convert the header into ordinary message object.
+
+        The message object returned may be the modification of the one
+        passed to the constructor. In that case, and if the message object
+        has monitoring features, the force parameter will tell whether to
+        modify all message elements, or to try to keep the changes minimal.
+
+        @param force: whether to recreate all message elements
+        @type force: bool
+
+        @returns: header as message
+        @rtype: the type that initialized the object
+        """
+
         self._remake_msg(force)
         return self._message
 
+
     def to_lines (self, wrapf=wrap_field, force=False):
+        """
+        The line-representation of the header.
+
+        Equivalent to the same-named method of message classes.
+
+        @see: L{Message_base}
+        """
+
         return self.to_msg(force).to_lines(wrapf, force)
 
+
     def to_string (self, wrapf=wrap_field, force=False):
+        """
+        The string-representation of the header.
+
+        Equivalent to the same-named method of message classes.
+
+        @see: L{Message_base}
+        """
+
         return self.to_msg(force).to_string(wrapf, force)
 
-    def select_fields (self, name):
-        """Find header fields with the given name.
 
-        Return a list of references to field-value pairs matching the name.
+    def select_fields (self, name):
         """
+        Find header fields with the given name.
+
+        Header fields need not be unique.
+
+        @param name: look for the fields with this name
+        @type name: string
+
+        @returns: references to name-value pairs matching the field name
+        @rtype: list of pairs*
+        """
+
         fields = []
         for pair in self.field:
             if pair.first == name:
                 fields.append(pair)
         return fields
 
-    def replace_field_value (self, name, new_value, nth=0):
-        """Replace value of the nth occurence of header field of given name.
 
-        Return True if the requested occurence was found, False otherwise.
+    def replace_field_value (self, name, new_value, nth=0):
         """
+        Replace the value of the n-th occurence of the named header field.
+
+        Header fields need not be unique, hence the n-th qualification.
+
+        @param name: name of the header field
+        @type name: string
+
+        @param new_value: new value for the field
+        @type new_value: string
+
+        @param nth: replace the value of this field among same-named fields
+        @type nth: int
+
+        @returns: True if the requested field was found, False otherwise
+        @rtype: bool
+        """
+
         nfound = 0
         for i in range(len(self._field)):
             if self._field[i][0] == name:
