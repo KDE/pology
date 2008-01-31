@@ -1,6 +1,13 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Transliteration of Serbian scripts.
 
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
+# Transliteration table Serbian Cyrillic->Latin.
 _dict_c2l = {
     u'а':u'a', u'б':u'b', u'в':u'v', u'г':u'g', u'д':u'd', u'ђ':u'đ',
     u'е':u'e', u'ж':u'ž', u'з':u'z', u'и':u'i', u'ј':u'j', u'к':u'k',
@@ -15,8 +22,21 @@ _dict_c2l = {
     # accented (the keys are now 2-char):
     u'а̑':u'â', u'о̑':u'ô',
 }
+
+
 def sr_c2l (text):
-    """Transliterate Serbian Cyrillic text to Serbian Latin."""
+    """
+    Transliterate Serbian Cyrillic text to Serbian Latin.
+
+    Handles uppercase digraphs properly:
+    управљање -> upravljanje, but УПРАВЉАЊЕ -> UPRAVLJANJE.
+
+    @param text: Cyrillic text to transform
+    @type text: string
+
+    @returns: the text in Latin
+    @rtype: string
+    """
 
     tlen = len(text)
     ntext = ""
