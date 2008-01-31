@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Interface to PO catalogs.
+Collection of PO entries.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
