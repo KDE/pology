@@ -1,8 +1,14 @@
 # -*- coding: UTF-8 -*-
 
-"""A timeout decorator based on SIGALRM from an activeState Python recipe by Chris Wright
-http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871"""
+"""
+A timeout decorator.
 
+Based on SIGALRM from an activeState Python recipe by Chris Wright,
+U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871}.
+
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: ???
+"""
 
 import signal
 

@@ -1,4 +1,11 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*
+
+"""
+Producing diffs between texts.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
 
 from pology.misc.split import split_text
 
@@ -11,16 +18,34 @@ _pls_ch = u"+"
 _mns_ch = u"-" #–
 
 def diff_texts (text_old, text_new, markup=False, format=None):
-    """Create text with embedded differences between new (+) and old (-).
+    """
+    Create text with embedded differences between old and new texts.
 
-    Parameters::
+    The difference is computed by looking at texts as collections of words
+    and intersegments. Segments present only in the new text are embedded
+    as C{{+...+}}, and segments only in the old text as C{{-...-}}.
 
-      text_old - the older text
-      text_new - the newer text
-      markup - whether <...> markup can be expected in the texts
-      format - gettext format flag
+    Differencing may take into account when the texts are expected to have
+    XML-like markup, or when they are of certain format defined by Gettext.
 
-    Return a tuple of string with embedded differences and difference ratio.
+    Also reported is the I{difference ratio}, a heuristic measure of
+    difference between two texts. 0.0 means no difference, and 1.0 that
+    the texts are completely different.
+
+    @param text_old: the old text
+    @type text_old: string
+
+    @param text_new: the new text
+    @type text_new: string
+
+    @param markup: whether C{<...>} markup can be expected in the texts
+    @type markup: bool
+
+    @param format: Gettext format flag (e.g. C{"c-format"}, etc.)
+    @type format: string
+
+    @returns: string with embedded differences and difference ratio
+    @rtype: string, float
     """
 
     # Split text into segments: words and intersections, combined into
@@ -96,7 +121,17 @@ _capt_new_rx = re.compile(  "\\" + _opn_ch + "\\" + _pls_ch + "(.*?)" \
 
 
 def diff_to_old (dtext):
-    """Get old version (-) from text with embedded differences."""
+    """
+    Recover old version (-) from text with embedded differences.
+
+    @param dtext: text with embedded differences
+    @type dtext: string
+
+    @returns: old version of the text
+    @rtype: string
+
+    @see: L{diff_texts}
+    """
 
     text = dtext
     text = _capt_new_rx.sub("", text)
@@ -105,7 +140,17 @@ def diff_to_old (dtext):
 
 
 def diff_to_new (dtext):
-    """Get new version (+) from text with embedded differences."""
+    """
+    Recover new version (+) from text with embedded differences.
+
+    @param dtext: text with embedded differences
+    @type dtext: string
+
+    @returns: new version of the text
+    @rtype: string
+
+    @see: L{diff_texts}
+    """
 
     text = dtext
     text = _capt_new_rx.sub("\\1", text)

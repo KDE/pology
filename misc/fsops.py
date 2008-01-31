@@ -1,16 +1,33 @@
 # -*- coding: UTF-8 -*-
 
+"""
+File system operations concerning PO files.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import os
 
 
 def collect_catalogs (file_or_dir_paths, sort=True):
-    """Collect list of catalog file paths from given file/directory paths.
+    """
+    Collect list of catalog file paths from given file/directory paths.
 
-    If a path in file_or_dir_paths is a directory path, the directory is
-    searched for .po and .pot files; otherwise, the path is taken verbatim as
-    single catalog file path.
+    When the given path is a directory path, the directory is recursively
+    searched for C{.po} and C{.pot} files. Otherwise, the path is taken
+    verbatim as single catalog file path (even if it does not exist).
 
-    If sort is true, the collected paths are sorted before returning.
+    The collected paths can also be sorted before returning.
+
+    @param file_or_dir_paths: paths to search for catalogs
+    @type file_or_dir_paths: list of strings
+
+    @param sort: whether to sort the list of collected paths
+    @type sort: bool
+
+    @returns: collected catalog paths
+    @rtype: list of strings
     """
 
     catalog_files = []

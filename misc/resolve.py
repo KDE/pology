@@ -1,11 +1,19 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Replacement of segments in text which define some underlying values.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import re
 import xml.parsers.expat
 
 
 def read_entities (*fnames):
-    """Read XML entity definitions from given file names into a dictionary.
+    """
+    Read XML entity definitions from given file names.
 
     The files should contain only entity definitions in DTD form,
     without any prolog or epilogue::
@@ -15,7 +23,14 @@ def read_entities (*fnames):
       <!ENTITY bar 'Bar-boo'>
       ...
 
-    If same entity is defined several times, the last read definition wins.
+    If the same entity is defined several times, the last read definition
+    is taken as final.
+
+    @param fnames: paths of entity-defining files
+    @type fnames: strings
+
+    @returns: name-value pairs of parsed entities
+    @rtype: dict
     """
 
     entities = {}
@@ -43,25 +58,53 @@ def read_entities (*fnames):
 
 def resolve_entities (text, entities, ignored_entities,
                       srcname=None, fcap=False, nalts=0):
-    """Replace XML entities in the text with their values.
+    """
+    Replace XML entities in the text with their values.
 
-    Parameters::
+    Entity values are defined by the supplied dictionary of name-value pairs.
+    Not all entities need be replaced, some can be explicitly ignored.
+    If an entity is neither defined nor ignored, a warning may be reported
+    to standard output.
 
-      text             - the text to transform
-      entities         - dictionary of entity names/values
-      ignored_entities - list of entity names to ignore (any sequence that
-                         can be tested by operator in for entity name)
-      srcname          - if not None, unknown entities will be reported to
-                         stdout, with this parameter as source identifier
-      fcap             - if the exact entity is not found, try one with
-                         first letter in lowercase; if such is found, upcase
-                         the first letter in its value before replacement
-      nalts            - entity values may have alternatives directives
-                         with this many alternatives per directive;
-                         important when fcap is in effect
+    Special services on request:
 
-    Return tuple of resulting text, list of resolved entities and
-    list of unknown entities.
+      - if the entity name starts with a capital letter, and is not among
+        defined entities, the lookup is tried with the lowercased initial
+        letter, and if found, the first letter in the value is uppercased
+
+      - when the auto-uppercasing is in effect, and the entity value starts
+        with an alternatives directive, the starting letter of each of the
+        alternatives is uppercased (see L{resolve_alternatives})
+
+    @param text: the text to transform
+    @type text: string
+
+    @param entities: entity name-value pairs
+    @type entities: dict
+
+    @param ignored_entities: entity names to ignore
+    @type ignored_entities:
+        any sequence that can be tested by C{in} for entity name
+
+    @param srcname:
+        if not None, report unknown entities to standard output,
+        with this parameter as source identifier
+    @type srcname: None or string
+
+    @param fcap: whether auto-uppercasing is in effect
+    @type fcap: bool
+
+    @param nalts:
+        non-zero indicate possible presence of alternatives directives,
+        with this many alternatives per directive (when fcap is in effect)
+    @type nalts: int >= 0
+
+    @returns:
+        the resulting text, resolved entities names, and unknown entity names
+    @rtype:
+        string, list of strings, list of strings
+
+    @see: L{resolve_alternatives}
     """
 
     unknown = []
@@ -113,7 +156,14 @@ def resolve_entities (text, entities, ignored_entities,
 
 def resolve_entities_simple (text, entities, ignored_entities,
                              srcname=None, fcap=False, nalts=0):
-    """As resolve_entities(), but returns only the resolved text."""
+    """
+    As L{resolve_entities}, but returns only the resolved text.
+
+    @returns: the resulting text
+    @rtype: string
+
+    @see: L{resolve_entities}
+    """
 
     return resolve_entities(text, entities, ignored_entities,
                             srcname=srcname, fcap=fcap, nalts=nalts)[0]
@@ -123,27 +173,51 @@ _alt_head = "~@"
 _alt_hlen = len(_alt_head)
 
 def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
-    """Replace alternatives directives in the text with selected alternative.
+    """
+    Replace alternatives directives in the text with the selected alternative.
 
-    Parameters::
+    Alternatives directives are of the form C{~@/.../.../...}, for example::
 
-      text    - the text to transform
-      select  - index of alternative to select, one-based
-      total   - total number of alternatives per directive
-      fmtstr  - if not None, the string to which the selected alternative
-                is sent by %-operator and then added into resolved text
-      srcname - if not None, malformed directives will be reported to
-                stdout, with this parameter as source identifier
+        I see a ~@/pink/white/ elephant.
 
-    Alternatives directive is in the form "~@/text1/text2/.../".
-    The slash-character can be replaced consistently with any other (sed-like).
-    The number of alternatives must match given total, or else the directive
-    is considered malformed.
+    where C{~@} is the directive identifier, followed by a character that
+    defines the delimiter of alternatives (like in C{sed} command).
+    The number of alternatives per directive is not defined by the directive
+    itself, but is provided as an external parameter.
 
-    Return tuple of resulting text, number of resolved alternatives and
-    boolean indicating whether a malformed directive was encountered.
-    If at least one directive was malformed, the resulting text is same
-    as original text, and number of resolved entities is zero.
+    Alternative directive is resolved into one of the alternative substrings
+    by given index of the alternative (one-based). Optionally, before
+    substituting the directive, the selected alternative can be filtered
+    through a string containing C{%s} format directive.
+
+    If an alternatives directive is malformed (e.g. to little alternatives),
+    it may be reported to standard output. Unless all encountered directives
+    were well-formed, the original text is returned instead of the partially
+    resolved one.
+
+    @param text: the text to transform
+    @type text: string
+
+    @param select: index of the alternative to select (one-based)
+    @type select: int > 0
+
+    @param total: number of alternatives per directive
+    @type total: int > 0
+
+    @param fmtstr:
+        if not None, filter string containing single C{%s} format directive
+    @type fmtstr: None or string
+
+    @param srcname:
+        if not None, report malformed directives to standard output,
+        with this string as source identifier
+    @type srcname: None or string
+
+    @returns:
+        resulting text, number of resolved alternatives, and an indicator
+        of well-formedness (C{True} if all directives well-formed)
+    @rtype:
+        string, int, bool
     """
 
     original_text = text
@@ -209,9 +283,13 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
 
 def resolve_alternatives_simple (text, select, total, fmtstr=None,
                                  srcname=None):
-    """As resolve_alternatives(), but return only the resolved text.
+    """
+    As L{resolve_alternatives}, but return only the resolved text.
 
-    If an alternatives directive is malformed, return original text.
+    @returns: the resulting text
+    @rtype: string
+
+    @see: L{resolve_alternatives}
     """
 
     ntext, d1, malformed = resolve_alternatives(text, select, total,
@@ -222,12 +300,26 @@ def resolve_alternatives_simple (text, select, total, fmtstr=None,
 
 
 def first_to_case (text, upper=True, nalts=0):
-    """Change case of the first letter in the text.
+    """
+    Change case of the first letter in the text.
 
-    If nalts is greater than zero, consider that text may have alternatives
-    directives with this many alternatives; if the first letter is found
-    within an alternative, change cases for first letters in other alternatives
-    of the same directive too.
+    Text may also have alternatives directives (see L{resolve_alternatives}).
+    In that case, if the first letter is found within an alternative, change
+    cases for first letters in other alternatives of the same directive too.
+
+    @param text: the text to transform
+    @type text: string
+
+    @param upper: whether to transform to uppercase (lowercase otherwise)
+    @type upper: bool
+
+    @param nalts: if non-zero, the number of alternatives per directive
+    @type nalts: int >= 0
+
+    @returns: the resulting text
+    @rtype: string
+
+    @see: L{resolve_alternatives}
     """
 
     tlen = len(text)
@@ -289,18 +381,25 @@ def first_to_case (text, upper=True, nalts=0):
 
 
 def first_to_upper (text, nalts=0):
-    """Upper case first letter in the text.
+    """
+    Uppercase the first letter in the text.
 
-    See first_to_case().
+    A shortcut for L{first_to_case} for uppercasing.
+
+    @see: L{first_to_case}
     """
 
     return first_to_case(text, upper=True, nalts=nalts)
 
 
 def first_to_lower (text, nalts=0):
-    """Lower case first letter in the text.
+    """
+    Lowercase the first letter in the text.
 
-    See first_to_case().
+    A shortcut for L{first_to_case} for lowercasing.
+
+    @see: L{first_to_case}
     """
 
     return first_to_case(text, upper=False, nalts=nalts)
+

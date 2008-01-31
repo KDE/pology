@@ -1,24 +1,44 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Splitting message fields into syntactical elements.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import re
+
 
 _split_rx = re.compile(r"[^\w]+|\w+", re.U)
 _split_rx_markup = re.compile(r"[^\w]*<.*?>[^\w<]*|[^\w]+|\w+", re.U)
 _word_rx = re.compile(r"^\w", re.U)
 
+
 def split_text (text, markup=False, format=None):
-    """Split text into words and intersections.
+    """
+    Split text into words and intersections.
 
-    Parameters::
+    The text is split into lists of words and intersections (inter-word
+    segments), such that there is always an intersection before the first and
+    after the last word, even if empty. That is, there is always one more of
+    interesections than of words.
 
-      text   - text to split
-      markup - whether text contains markup tags
-      format - gettext format flag (to consider format directives)
+    The text may contain C{<...>} tags, and be of certain format supported
+    by Gettext (e.g. C{c-format}). If specified, these elements may influence
+    splitting.
 
-    Return list of words and list of intersections, packed in a tuple.
+    @param text: the text to split
+    @type text: string
 
-    There is always an intersection before the first and after the last word,
-    even if empty; i.e. there is always one more of interesections than words.
+    @param markup: whether text contains markup tags
+    @type markup: bool
+
+    @param format: Gettext format flag
+    @type format: None or string
+
+    @returns: words and intersections
+    @rtype: list of strings, list of strings
     """
 
     if markup:

@@ -1,5 +1,10 @@
 # -*- coding: UTF-8 -*-
-""" Standard codes for shell colors"""
+"""
+Standard codes for shell colors.
+
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: ???
+"""
     
 BOLD     = '\033[01m'
 RED     = '\033[31m'

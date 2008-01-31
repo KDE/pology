@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Utilities for processing message comments.
+Parsing and composing message comments.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -27,7 +27,7 @@ def parse_list (comments, prefix, separator):
     @param separator: sequence separating list elements
     @type separator: string
 
-    @returns: list of parsed elements
+    @returns: parsed elements
     @rtype: list of strings
     """
 
@@ -56,10 +56,10 @@ def manc_parse_list (msg, prefix, separator=" "):
     @param separator: sequence separating list elements
     @type separator: string
 
-    @returns: list of parsed elements
+    @returns: parsed elements
     @rtype: list of strings
 
-    @see: L{parse_list()}
+    @see: L{parse_list}
     """
 
     return parse_list(msg.manual_comment, prefix, separator)
@@ -79,10 +79,10 @@ def autoc_parse_list (msg, prefix, separator=" "):
     @param separator: sequence separating list elements
     @type separator: string
 
-    @returns: list of parsed elements
+    @returns: parsed elements
     @rtype: list of strings
 
-    @see: L{parse_list()}
+    @see: L{parse_list}
     """
 
     return parse_list(msg.auto_comment, prefix, separator)
@@ -104,10 +104,10 @@ def manc_parse_flag_list (msg, prefix):
     @param prefix: flag list identifier
     @type prefix: string
 
-    @returns: list of parsed flags
+    @returns: parsed flags
     @rtype: list of strings
 
-    @see: L{parse_list()}
+    @see: L{parse_list}
     """
 
     return parse_list(msg.manual_comment, prefix + ",", ",")

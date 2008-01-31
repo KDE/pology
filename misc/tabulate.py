@@ -1,25 +1,55 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Pretty-printing of tabular data.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import copy
+
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
               rotated=False):
-    """Tabulate data for output.
+    """
+    Tabulate data in plain text.
 
-    Parameters::
+    All data fields can have missing trailing entries. They will be set to
+    C{None} according to table extents.
 
-      data    - list of lists of column entries
-      coln    - column names
-      rown    - row names
-      dfmt    - format strings per column
-      space   - string to be spacing between cells
-      none    - the display of empty cells
-      rotated - whether the table should be transposed
+    Examples:
 
-    Return string of the table (no trailing newline).
+        >>> print T.tabulate(data=((1, 4), (2, ), (3, 6)),
+        ...                  coln=("c1", "c2", "c3"), rown=("r1", "r2"),
+        ...                  space="  ", none="-")
+        -   c1  c2  c3
+        r1   1   2   3
+        r2   4   -   6
 
-    data, coln, rown, and dfmt can have missing trailing entries; they will
-    be set to None according to table extents.
+    @param data: column entries (cells) by column
+    @type data: list of lists of strings
+
+    @param coln: column names
+    @type coln: list of strings
+
+    @param rown: row names
+    @type rown: list of strings
+
+    @param dfmt: format strings per column (e.g. C{"%+.2f"} for floats)
+    @type dfmt: list of strings
+
+    @param space: fill-in for spacing between cells
+    @type space: string
+
+    @param none: fill-in for displaying empty cells (i.e. C{None}-valued)
+    @type none: string
+
+    @param rotated: whether the table should be transposed
+    @type rotated: bool
+
+    @returns: plain text representation of the table (no trailing newline)
+    @rtype: string
     """
 
     # Make local copies, to be able to extend to table extents.

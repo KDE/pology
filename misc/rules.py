@@ -1,6 +1,11 @@
 # -*- coding: UTF-8 -*-
 
-"""Parse rule files and propose a convenient interface to rules"""
+"""
+Parse rule files and propose a convenient interface to rules.
+
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: ???
+"""
 
 import re
 from codecs import open
