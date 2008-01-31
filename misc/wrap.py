@@ -107,8 +107,8 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
     @type flead: C{None} or string
 
     @param femp:
-        @C{True} to leave the first line empty if the complete text would not
-        fit into it, @C{False} for normal use of the first line
+        C{True} to leave the first line empty if the complete text would not
+        fit into it, C{False} for normal use of the first line
     @type femp: bool
 
     @param natbr: characters other than space to naturally break at
