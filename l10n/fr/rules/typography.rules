@@ -173,7 +173,7 @@ valid after="^" before="&unbsp;"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
-hint="Utiliser de vraies guillemets, au lieu d'une apostrophe. (homogénéité)"
+hint="Utiliser de vrais guillemets, au lieu d'une apostrophe. (homogénéité)"
 
 ['(?=[^\wéèàêâ])]
 valid before="&amp;[\wéèàêâ]" 
