@@ -22,11 +22,16 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     be set to None according to table extents.
     """
 
-    # Make local shallow copies.
-    _data = copy.copy(data)
-    _coln = copy.copy(coln)
-    _rown = copy.copy(rown)
-    _dfmt = copy.copy(dfmt)
+    # Make local copies, to be able to extend to table extents.
+    _data = []
+    for col in data:
+        _data.append(list(col))
+    _coln = None
+    if coln: _coln = list(coln)
+    _rown = None
+    if rown: _rown = list(rown)
+    _dfmt = None
+    if dfmt: _dfmt = list(dfmt)
 
     # Calculate maximum row and column number.
     # ...look at data:
