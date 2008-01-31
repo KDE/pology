@@ -28,8 +28,8 @@ def sr_c2l (text):
     """
     Transliterate Serbian Cyrillic text to Serbian Latin.
 
-    Handles uppercase digraphs properly:
-    управљање -> upravljanje, but УПРАВЉАЊЕ -> UPRAVLJANJE.
+    Properly converts uppercase digraphs, e.g.
+    Љубљана→Ljubljana, but ЉУБЉАНА→LJUBLJANA.
 
     @param text: Cyrillic text to transform
     @type text: string
