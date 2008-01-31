@@ -157,10 +157,16 @@ class Sieve (object):
         # Count the words and characters in original and translation.
         # Remove shortcut markers prior to counting; don't include words
         # which do not start with a letter; remove scripted part.
+        # For plural messages compute averages of msgid and msgstr groups,
+        # to normalize comparative counts on varying number of plural forms.
         nwords = {"orig" : 0, "tran" : 0}
         nchars = {"orig" : 0, "tran" : 0}
-        for src, texts in (("orig", (msg.msgid, msg.msgid_plural)),
-                           ("tran", msg.msgstr)):
+        msgids = [msg.msgid]
+        if msg.msgid_plural:
+            msgids.append(msg.msgid_plural)
+        for src, texts in (("orig", msgids), ("tran", msg.msgstr)):
+            lnwords = [] # this group word count, for averaging
+            lnchars = [] # this group character count, for averaging
             for text in texts:
                 for c in self.shortcut:
                     text = text.replace(c, "")
@@ -169,8 +175,10 @@ class Sieve (object):
                     text = text[0:pf]
                 words = split_text(text, True, msg.format)[0]
                 words = [w for w in words if w[0:1].isalpha()]
-                nwords[src] += len(words)
-                nchars[src] += len("".join(words))
+                lnwords.append(len(words))
+                lnchars.append(len("".join(words)))
+            nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
+            nchars[src] += int(round(float(sum(lnchars)) / len(texts)))
 
         # Add the word count to detected categories.
         for cat in categories:
