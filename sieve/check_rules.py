@@ -1,5 +1,12 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Sieves messages with rules and warn when a rule triggers.
+
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: GPLv3
+"""
+
 import sys, os, locale
 from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open

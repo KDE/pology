@@ -3,7 +3,7 @@
 Standard codes for shell colors.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
-@license: ???
+@license: GPLv3
 """
     
 BOLD     = '\033[01m'

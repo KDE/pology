@@ -4,7 +4,7 @@
 Parse rule files and propose a convenient interface to rules.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
-@license: ???
+@license: GPLv3
 """
 
 import re

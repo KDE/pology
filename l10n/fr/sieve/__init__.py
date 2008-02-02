@@ -8,5 +8,5 @@ Prepend the sieve name with C{fr:} in the command line of C{posieve.py},
 to have it look for the sieve in here.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
-@license: ???
+@license: GPLv3
 """

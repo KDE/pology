@@ -7,7 +7,7 @@ Based on SIGALRM from an activeState Python recipe by Chris Wright,
 U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871}.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
-@license: ???
+@license: GPLv3
 """
 
 import signal

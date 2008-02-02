@@ -3,7 +3,11 @@
 """ Accent substitution dictionary
 When in a rule the pattern @x is used, the x is replaced
 by the value accents["x"]
-Special key "pattern" is used to get the compiled regexp to match all accents key"""
+Special key "pattern" is used to get the compiled regexp to match all accents key
+
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: GPLv3
+"""
 
 import re
 

@@ -1,5 +1,9 @@
 # -*- coding: UTF-8 -*-
 
+"""
+@author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@license: GPLv3"""
+
 import re
 
 class Sieve (object):
