@@ -114,6 +114,12 @@ def error (msg, code=1):
     sys.exit(code)
 
 
+def warning (msg):
+
+    cmdname = os.path.basename(sys.argv[0])
+    sys.stderr.write("%s: warning: %s\n" % (cmdname, msg))
+
+
 class Project (object):
 
     def __init__ (self, options):
@@ -132,6 +138,8 @@ class Project (object):
             "summit_split_tags" : True,
             "branches_unwrap" : False,
             "branches_split_tags" : True,
+
+            "version_control" : "",
 
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_cat" : [],
@@ -199,6 +207,16 @@ def derive_project_data (project, options):
 
     p = project # shortcut
 
+    # Create the version control operator if given.
+    if p.version_control:
+        vcsn = p.version_control.lower()
+        if vcsn in ("svn", "subversion"):
+            p.vcs = VcsSubversion()
+        else:
+            error("unknown version control system '%s'" % p.version_control)
+    else:
+        p.vcs = None
+
     # Decide the template summit path if in template summit mode and
     # the path is not given explicitely.
     if p.templates_lang and not p.templates_summit:
@@ -245,6 +263,76 @@ def derive_project_data (project, options):
         if len(spec) > 1:
             fstr = " ".join([x[0] for x in spec])
             error("non-unique summit catalog '%s': %s" % (name, fstr))
+
+    # At scatter in template-summit mode, add to the collection of branch
+    # catalogs any that should be newly created.
+    p.add_on_scatter = {}
+    if (    p.templates_lang and options.lang != p.templates_lang
+        and "scatter" in options.modes):
+
+        # Go through all mappings and collect branch names mapped to
+        # summit catalogs per branch id and summit name.
+        mapped_summit_names = {}
+        for mapping in p.mappings:
+            branch_id = mapping[0]
+            branch_name = mapping[1]
+            summit_names = mapping[2:]
+            if not branch_id in mapped_summit_names:
+                mapped_summit_names[branch_id] = {}
+            for summit_name in summit_names:
+                if not summit_name in mapped_summit_names[branch_id]:
+                    mapped_summit_names[branch_id][summit_name] = []
+                mapped_summit_names[branch_id][summit_name].extend(branch_name)
+
+        # Go through all branches.
+        for branch_id, branch_dir, by_lang in p.branches:
+            # Collect all templates for this branch.
+            # FIXME: Templates path is determined poorly; not easy to fix,
+            # as in scatter the template path is not given explicitly.
+            templates_dir = re.sub(r"\b" + options.lang + r"\b",
+                                   p.templates_lang, branch_dir, 1)
+            # Skip this branch if no templates.
+            if not os.path.isdir(templates_dir):
+                continue
+            branch_templates = collect_catalogs(templates_dir, ".pot",
+                                                by_lang, project, options)
+
+            # Go through all summit catalogs.
+            for summit_name in p.catalogs[SUMMIT_ID]:
+
+                # Collect names of any catalogs in this branch mapped to
+                # the current summit catalog.
+                branch_names = []
+                if (    branch_id in mapped_summit_names
+                    and summit_name in mapped_summit_names[branch_id]):
+                    branch_names = mapped_summit_names[branch_id][summit_name]
+                # If no mapped catalogs, use summit name as the branch name.
+                if not branch_names:
+                    branch_names.append(summit_name)
+
+                # For each collected branch name, check if it exists in
+                # branch templates and collect if not already collected.
+                for branch_name in branch_names:
+                    if (    branch_name not in p.catalogs[branch_id]
+                        and branch_name in branch_templates):
+                        # Assemble all branch catalog entries.
+                        branch_catalogs = []
+                        for template in branch_templates[branch_name]:
+                            # Compose the branch catalog subdir and path.
+                            subdir = template[1]
+                            if by_lang:
+                                poname = options.lang + ".po"
+                            else:
+                                poname = branch_name + ".po"
+                            path = os.path.join(branch_dir, subdir, poname)
+                            # Add this file to catalog entry.
+                            #print "----->", branch_name, path, subdir
+                            branch_catalogs.append((path, subdir))
+                            # Record later initialization from template.
+                            p.add_on_scatter[path] = template[0]
+
+                        # Add branch catalog entry.
+                        p.catalogs[branch_id][branch_name] = branch_catalogs
 
     # Convenient dictionary views of mappings.
     # - direct: branch_id->branch_name->summit_name
@@ -830,7 +918,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
                            project.hook_on_gather_file)
 
             if options.verbose:
-                print ">    (scattered) %s  %s" % (branch_cat.filename,
+                print ">    (gathered) %s  %s" % (branch_cat.filename,
                                                    summit_cat.filename)
             else:
                 print ">    %s  %s" % (branch_cat.filename, summit_cat.filename)
@@ -841,6 +929,19 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = get_wrap_func(project.branches_unwrap, project.branches_split_tags)
+
+    # See if the branch catalog is to be newly created from the template.
+    new_from_template = False
+    if branch_path in project.add_on_scatter:
+        new_from_template = True
+        # Create any needed subdirectories beforehand.
+        incpath = ""
+        for subdir in os.path.normpath(branch_path).split(os.path.sep)[:-1]:
+            incpath = os.path.join(incpath, subdir)
+            if not os.path.isdir(incpath):
+                os.mkdir(incpath)
+        # Copy over the recorded template as the initial catalog.
+        shutil.copyfile(project.add_on_scatter[branch_path], branch_path)
 
     # Open the branch catalog and all summit catalogs.
     branch_cat = Catalog(branch_path, wrapf=wrapf)
@@ -933,11 +1034,25 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
         exec_hook_file(branch_id, branch_name, branch_cat.filename,
                        project.hook_on_scatter_file)
 
+        # Add to version control if new file.
+        if new_from_template and project.vcs:
+            if not project.vcs.add(branch_cat.filename):
+                warning(  "cannot add '%s' to version control"
+                        % branch_cat.filename)
+
         paths_str = ", ".join(summit_paths)
         if options.verbose:
-            print "<    (gathered) %s  %s" % (branch_cat.filename, paths_str)
+            if new_from_template:
+                print "+    (scattered-added) %s  %s" % (branch_cat.filename,
+                                                         paths_str)
+            else:
+                print "<    (scattered) %s  %s" % (branch_cat.filename,
+                                                   paths_str)
         else:
-            print "<    %s  %s" % (branch_cat.filename, paths_str)
+            if new_from_template:
+                print "+    %s  %s" % (branch_cat.filename, paths_str)
+            else:
+                print "<    %s  %s" % (branch_cat.filename, paths_str)
 
 
 # Pipe msgstr through hook calls,
@@ -1182,6 +1297,10 @@ def summit_purge_single (summit_name, project, options):
                 print "-    (removed) %s" % summit_cat.filename
             else:
                 print "-    %s" % summit_cat.filename
+            if project.vcs:
+                if not project.vcs.remove(summit_cat.filename):
+                    warning(  "cannot remove '%s' from version control"
+                            % summit_cat.filename)
 
 
 def summit_reorder_single (summit_name, project, options):
@@ -1307,6 +1426,77 @@ def assert_system (cmdline, echo=False):
             error("non-zero exit from previous command")
         else:
             error("non-zero exit from:\n%s" % cmdline)
+
+
+# Execute command line and collect stdout, stderr, and return code.
+# Also output the stdout and stderr if echo is True.
+_execid = 0
+def collect_system (cmdline, echo=False):
+
+    # Create temporary files.
+    global _execid
+    tmpout = "/tmp/exec%s-%d-out" % (os.getpid(), _execid)
+    tmperr = "/tmp/exec%s-%d-err" % (os.getpid(), _execid)
+    _execid += 1
+
+    # Execute.
+    if echo:
+        print cmdline
+    cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
+    ret = os.system(cmdline_mod)
+
+    # Collect stdout and stderr.
+    strout = "".join(open(tmpout).readlines())
+    strerr = "".join(open(tmperr).readlines())
+    if echo:
+        if strout:
+            sys.stdout.write("===== stdout from the command ^^^ =====\n")
+            sys.stdout.write(strout)
+        if strerr:
+            sys.stderr.write("***** stderr from the command ^^^ *****\n")
+            sys.stderr.write(strerr)
+
+    # Clean up.
+    os.unlink(tmpout)
+    os.unlink(tmperr)
+
+    return (strout, strerr, ret)
+
+
+# Base class for version control systems.
+class VcsBase (object):
+
+    # Return True if the path was added, False otherwise.
+    def add (self, path):
+
+        error("selected version control system does not define adding")
+
+    # Return True if the path was removed, False otherwise.
+    def remove (self, path):
+
+        error("selected version control system does not define removing")
+
+
+# Version control system: Subversion
+class VcsSubversion (VcsBase):
+
+    def add (self, path):
+
+        # Try adding by backtracking.
+        cpath = path
+        while collect_system("svn add %s" % cpath)[2] != 0:
+            cpath = ps.path.dirname(cpath)
+            if not cpath:
+                return False
+
+        return True
+
+    def remove (self, path):
+
+        if collect_system("svn remove %s" % cpath)[2] != 0:
+            return False
+
+        return True
 
 
 if __name__ == '__main__':
