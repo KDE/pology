@@ -1,5 +1,7 @@
 # Translation choices of french team
-# by the KDE French Team
+# by the KDE French Team (kde-francophone@kde.org)
+# License: GPLv3
+
  
 [(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
 valid before="&sp;dans&sp;" 
@@ -44,14 +46,8 @@ hint="remplacer `status' ou `statut' par `état'"
 [bouton\s*\w*\s*milieu]
 hint="`bouton du milieu' -> `bouton central'"
 
-[compress]
-valid file="artsbuilder_modules.po" after="Synth&lowbar;" before="OR"
-valid file="artsbuilder_modules.po" before="eur"
-valid file="artsbuilder_modules.po" before="ion"
-valid file="kppp.po" after="TCP&sp;" before="ion&sp;code&sp;copyright"
-valid file="krec.po"
-valid file="amarok.po"
-hint="`compresser' -> `compacter'"
+[compact]
+hint="Choix de l'équipe : 'compresser' au lieu de 'compacter'"
 
 [&kcontrol;]
 hint="A remplacer par &centreConfiguration;"
