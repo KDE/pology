@@ -39,8 +39,6 @@ hint="Mieux vaut `saisir' que `taper'"
 
 [status|statut]
 valid after="[Ss]mb" 
-valid file="ksysv.po" after="^" before="Bar$" 
-valid file="artsbuilder_tools.po" after="^" before="$" 
 hint="remplacer `status' ou `statut' par `état'"
 
 [bouton\s*\w*\s*milieu]

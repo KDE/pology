@@ -72,7 +72,7 @@ hint="Mettre une espace insécable avant et une espace après"
 [;]
 valid after="&amp;[a-z]+" 
 valid after="&unbsp;" before="&sp;" 
-valid ctx="plain" after="&unbsp;" before="\n" 
+valid after="&unbsp;" before="\n" 
 valid after="&unbsp;" before="$" 
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" 
 valid file="kdelibs.po" after="javascript:go\(0\)" before="\\\"&gt;" 

@@ -1,0 +1,41 @@
+Rule files syntax
+=================
+
+Naming and path: 
+- a rule file must ends with ".rules" suffix
+- rule files must be located into l10n/<lang>/rules directory
+
+File structure and syntax: 
+- All lines begining with a # are considered as comments
+- Each rule file must begin with a header indicating author(s) and license
+- Each rule file must end with a footer composed of a ligne of comment (eg. # End of rule file)
+- An blank line is used to separate two rules
+
+Rule definition: 
+- A rule is composed of three parts: 
+	o The pattern. It is used to find text matching the rule. The pattern should a valid regular expression
+	o The hint. The hint is given to the user to indicate him what to do to correct the message
+	o Valid expression. Indicate exceptions for which the rule should not match.
+- Pattern and hint are mandatory. Valid expression is optional.
+
+Pattern syntax:
+- [<regexp>]
+- eg. [status|statut] will trigger the rule for words status and statut
+
+Hint syntax:
+- hint="hint message"
+-eg. hint="remplacer `status' ou `statut' par `état'"
+
+Valid expression syntax:
+- One rule can have multiple valid expression. Each is evaluated separately.   
+- valid after="regexp" 
+- valid before="regexp"
+- valid before="regexp" after"regexp" # both are needed to cancel rule triggering
+- valid file="myApps.po" # Always valid for this po
+- valid file="myApps.po" after="regexp" before="regexp"
+- valid ctx="regexp" after="regexp" before="regexp" # Only in message in this PO context
+
+Eg. of rule : 
+[status|statut]
+valid after="[Ss]mb"   
+hint="remplacer `status' ou `statut' par `état'"
