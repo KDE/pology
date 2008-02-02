@@ -1493,7 +1493,7 @@ class VcsSubversion (VcsBase):
 
     def remove (self, path):
 
-        if collect_system("svn remove %s" % cpath)[2] != 0:
+        if collect_system("svn remove %s" % path)[2] != 0:
             return False
 
         return True
