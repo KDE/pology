@@ -331,7 +331,7 @@ class Catalog (Monitored):
     type different from an ordinary message entry.
 
     The catalog is a I{monitored} class. The instance variables are limited
-    to a prescribed set and type-checked on assignments. have shadowing
+    to a prescribed set and type-checked on assignment, have shadowing
     I{modification counters}, and any modifications are reflected on the top
     modification counter for the catalog as whole. For example:
 
@@ -422,6 +422,7 @@ class Catalog (Monitored):
             self._header._committed = True # status for sync
             self.__dict__["*"] = m[1:]
         elif create:
+            self._encoding = "UTF-8"
             self._created_from_scratch = True
             self._header = Header()
             self._header._committed = False # status for sync
