@@ -11,11 +11,11 @@ import re
 import xml.parsers.expat
 
 
-def read_entities (*fnames):
+def parse_entities (defstr, src=None):
     """
-    Read XML entity definitions from given file names.
+    Parse XML entity definitions from given string.
 
-    The files should contain only entity definitions in DTD form,
+    The string should contain only entity definitions in DTD form,
     without any prolog or epilogue::
 
       ...
@@ -26,11 +26,50 @@ def read_entities (*fnames):
     If the same entity is defined several times, the last read definition
     is taken as final.
 
+    @param defstr: entity-defining string
+    @type defstr: string
+
+    @param src: name of the source, for problem reporting
+    @param src: C{None} or string
+
+    @returns: name-value pairs of parsed entities
+    @rtype: dict
+    """
+
+    # Equip with prolog and epilogue.
+    defstr = "<?xml version='1.0' encoding='UTF-8'?>\n" \
+             "<!DOCTYPE entityLoader [" + defstr + "]><done/>"
+    # Parse entities.
+    entities = {}
+    def handler (name, is_parameter_entity, value,
+                    base, systemId, publicId, notationName):
+        entities[name] = value
+    p = xml.parsers.expat.ParserCreate()
+    p.EntityDeclHandler = handler
+    try:
+        p.Parse(defstr, True)
+    except xml.parsers.expat.ExpatError, inst:
+        if src:
+            raise StandardError ("%s: %s\n" % (src, inst))
+        else:
+            raise StandardError ("<STRING>: %s\n" % inst)
+
+    return entities
+
+
+def read_entities (*fnames):
+    """
+    Read XML entity definitions from given file names.
+
+    Just passes contents from the files to L{parse_entities}.
+
     @param fnames: paths of entity-defining files
     @type fnames: strings
 
     @returns: name-value pairs of parsed entities
     @rtype: dict
+
+    @see: L{parse_entities}
     """
 
     entities = {}
@@ -39,19 +78,8 @@ def read_entities (*fnames):
         ifs = open(fname, "r")
         defstr = "".join(ifs.readlines())
         ifs.close()
-        # Equip with prolog and epilogue.
-        defstr = "<?xml version='1.0' encoding='UTF-8'?>\n" \
-                    "<!DOCTYPE entityLoader [" + defstr + "]><done/>"
         # Parse entities.
-        def handler (name, is_parameter_entity, value,
-                        base, systemId, publicId, notationName):
-            entities[name] = value
-        p = xml.parsers.expat.ParserCreate()
-        p.EntityDeclHandler = handler
-        try:
-            p.Parse(defstr, True)
-        except xml.parsers.expat.ExpatError, inst:
-            raise StandardError ("%s: %s\n" % (fname, inst))
+        entities.update(parse_entities(defstr, src=fname))
 
     return entities
 
