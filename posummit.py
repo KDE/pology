@@ -911,17 +911,33 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
 
     # Commit changes to summit catalogs.
     for summit_cat in summit_cats:
+        created = summit_cat.created() # lost on sync, preserve
         if summit_cat.sync():
 
             # Apply hooks to summit catalog file.
             exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
                            project.hook_on_gather_file)
 
+            # Add to version control if new file.
+            if created and project.vcs:
+                if not project.vcs.add(summit_cat.filename):
+                    warning(  "cannot add '%s' to version control"
+                            % summit_cat.filename)
+
             if options.verbose:
-                print ">    (gathered) %s  %s" % (branch_cat.filename,
-                                                   summit_cat.filename)
+                if created:
+                    print "+>   (gathered-added) %s  %s" % (branch_cat.filename,
+                                                            summit_cat.filename)
+                else:
+                    print ">    (gathered) %s  %s" % (branch_cat.filename,
+                                                      summit_cat.filename)
             else:
-                print ">    %s  %s" % (branch_cat.filename, summit_cat.filename)
+                if created:
+                    print "+>   %s  %s" % (branch_cat.filename,
+                                           summit_cat.filename)
+                else:
+                    print ">    %s  %s" % (branch_cat.filename,
+                                           summit_cat.filename)
 
 
 def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
@@ -1043,14 +1059,14 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
         paths_str = ", ".join(summit_paths)
         if options.verbose:
             if new_from_template:
-                print "+    (scattered-added) %s  %s" % (branch_cat.filename,
+                print "+<   (scattered-added) %s  %s" % (branch_cat.filename,
                                                          paths_str)
             else:
                 print "<    (scattered) %s  %s" % (branch_cat.filename,
                                                    paths_str)
         else:
             if new_from_template:
-                print "+    %s  %s" % (branch_cat.filename, paths_str)
+                print "+<   %s  %s" % (branch_cat.filename, paths_str)
             else:
                 print "<    %s  %s" % (branch_cat.filename, paths_str)
 
@@ -1485,7 +1501,7 @@ class VcsSubversion (VcsBase):
         # Try adding by backtracking.
         cpath = path
         while collect_system("svn add %s" % cpath)[2] != 0:
-            cpath = ps.path.dirname(cpath)
+            cpath = os.path.dirname(cpath)
             if not cpath:
                 return False
 
