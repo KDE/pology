@@ -459,10 +459,14 @@ class Message_base (object):
             self.fuzzy = other.fuzzy
 
         else:
-            if (self.translated and other.translated) \
-            or (self.fuzzy and other.fuzzy):
+            if (   (self.translated and other.translated)
+                or (self.fuzzy and other.fuzzy)
+                or (self.untranslated and other.untranslated)
+            ):
                 if not self.manual_comment:
                     self._overwrite_list(other, "manual_comment")
+                if other.msgid_plural:
+                    self.msgid_plural = other.msgid_plural
 
             elif self.fuzzy and other.translated:
                 self._overwrite_list(other, "manual_comment")
