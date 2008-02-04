@@ -70,6 +70,20 @@ class Sieve (object):
             self.branches = set(options["branch"].split(","))
             options.accept("branch")
 
+        # Count in only the messages which have at most this many words,
+        # either in original or translation.
+        self.maxwords = None
+        if "maxwords" in options:
+            self.maxwords = int(options["maxwords"])
+            options.accept("maxwords")
+
+        # Count in only the messages which have at least this many words,
+        # either in original or translation.
+        self.minwords = None
+        if "minwords" in options:
+            self.minwords = int(options["minwords"])
+            options.accept("minwords")
+
         # Dictionary of catalogs which are not fully translated.
         # Key is the catalog filename.
         # Value is a doublet list: number fuzzy, number untranslated entries.
@@ -129,6 +143,44 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                 return
 
+        # Count the words and characters in original and translation.
+        # Remove shortcut markers prior to counting; don't include words
+        # which do not start with a letter; remove scripted part.
+        # For plural messages compute averages of msgid and msgstr groups,
+        # to normalize comparative counts on varying number of plural forms.
+        nwords = {"orig" : 0, "tran" : 0}
+        nchars = {"orig" : 0, "tran" : 0}
+        msgids = [msg.msgid]
+        if msg.msgid_plural:
+            msgids.append(msg.msgid_plural)
+        for src, texts in (("orig", msgids), ("tran", msg.msgstr)):
+            lnwords = [] # this group's word count, for averaging
+            lnchars = [] # this group's character count, for averaging
+            for text in texts:
+                for c in self.shortcut:
+                    text = text.replace(c, "")
+                pf = text.find("|/|")
+                if pf >= 0:
+                    text = text[0:pf]
+                words = split_text(text, True, msg.format)[0]
+                words = [w for w in words if w[0:1].isalpha()]
+                lnwords.append(len(words))
+                lnchars.append(len("".join(words)))
+            nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
+            nchars[src] += int(round(float(sum(lnchars)) / len(texts)))
+
+        # If the number of words has been limited, skip the message if it
+        # does not fall in the range.
+        if self.maxwords is not None:
+            if not (   nwords["orig"] <= self.maxwords
+                    or nwords["tran"] <= self.maxwords):
+                return
+        if self.minwords is not None:
+            if not (   nwords["orig"] >= self.minwords
+                    or nwords["tran"] >= self.minwords):
+                return
+
+        # Detect categories and add the counts.
         categories = []
 
         if not msg.obsolete:
@@ -154,33 +206,6 @@ class Sieve (object):
                 self.incomplete_catalogs[cat.filename] = [0, 0]
             self.incomplete_catalogs[cat.filename][1] += 1
 
-        # Count the words and characters in original and translation.
-        # Remove shortcut markers prior to counting; don't include words
-        # which do not start with a letter; remove scripted part.
-        # For plural messages compute averages of msgid and msgstr groups,
-        # to normalize comparative counts on varying number of plural forms.
-        nwords = {"orig" : 0, "tran" : 0}
-        nchars = {"orig" : 0, "tran" : 0}
-        msgids = [msg.msgid]
-        if msg.msgid_plural:
-            msgids.append(msg.msgid_plural)
-        for src, texts in (("orig", msgids), ("tran", msg.msgstr)):
-            lnwords = [] # this group word count, for averaging
-            lnchars = [] # this group character count, for averaging
-            for text in texts:
-                for c in self.shortcut:
-                    text = text.replace(c, "")
-                pf = text.find("|/|")
-                if pf >= 0:
-                    text = text[0:pf]
-                words = split_text(text, True, msg.format)[0]
-                words = [w for w in words if w[0:1].isalpha()]
-                lnwords.append(len(words))
-                lnchars.append(len("".join(words)))
-            nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
-            nchars[src] += int(round(float(sum(lnchars)) / len(texts)))
-
-        # Add the word count to detected categories.
         for cat in categories:
             self.count[cat][1] += nwords["orig"]
             self.count[cat][2] += nwords["tran"]
@@ -198,7 +223,7 @@ class Sieve (object):
             tpaths = [x for x in tpaths if x.endswith(".pot")]
             # Filter to leave out matched templates.
             tpaths = [x for x in tpaths if x not in self.matched_templates]
-            # Add stats on all unmached templates.
+            # Add stats on all unmatched templates.
             for tpath in tpaths:
                 cat = Catalog(tpath, monitored=False)
                 for msg in cat:
@@ -207,6 +232,14 @@ class Sieve (object):
         # Summit: If branches were given, indicate conspicuously up front.
         if self.branches:
             print ">>> selected-branches: %s" % " ".join(self.branches)
+
+        # If the number of words has been limited, indicate conspicuously.
+        if self.maxwords is not None and self.minwords is None:
+            print ">>> at-most-words: %d" % self.maxwords
+        if self.minwords is not None and self.maxwords is None:
+            print ">>> at-least-words: %d" % self.minwords
+        if self.minwords is not None and self.maxwords is not None:
+            print ">>> words-in-range: %d-%d" % (self.minwords, self.maxwords)
 
         # Collected data.
         data = [[self.count[tkey][y] for tkey, tname in self.count_spec]
