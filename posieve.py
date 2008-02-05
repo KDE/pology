@@ -143,7 +143,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         error("no sieve has accepted these options: %s" % sopts.unaccepted())
 
     # Get the message monitoring indicator from the sieves.
-    # Use monitored if at least one sieve has not requested otherwise.
+    # Monitor unless all sieves have requested otherwise.
     use_monitored = False
     for sieve in sieves:
         if getattr(sieve, "caller_monitored", True):
@@ -153,7 +153,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         print "--> Not monitoring messages"
 
     # Get the sync indicator from the sieves.
-    # Sync if at least one sieve has not requested otherwise.
+    # Sync unless all sieves have requested otherwise.
     do_sync = False
     for sieve in sieves:
         if getattr(sieve, "caller_sync", True):
@@ -161,6 +161,20 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             break
     if op.verbose and not do_sync:
         print "--> Not syncing after sieving"
+
+    # Open in header-only mode if no sieve has message processor.
+    # Categorize sieves by the presence of message/header processors.
+    use_headonly = True
+    header_sieves = []
+    message_sieves = []
+    for sieve in sieves:
+        if hasattr(sieve, "process"):
+            use_headonly = False
+            message_sieves.append(sieve)
+        if hasattr(sieve, "process_header"):
+            header_sieves.append(sieve)
+    if op.verbose and use_headonly:
+        print "--> Opening catalogs in header-only mode"
 
     # Assemble list of files.
     file_or_dir_paths = free_args[1:]
@@ -187,13 +201,24 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             print "Sieving %s ..." % (fname,),
 
         try:
-            cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func)
+            cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func,
+                          headonly=use_headonly)
         except StandardError, e:
             print "%s (skipping)" % e
             continue
-        for msg in cat:
-            for sieve in sieves:
-                sieve.process(msg, cat)
+
+        if not use_headonly:
+            # In normal mode, first run all header sieves on this catalog,
+            # then all message sieves on each message.
+            for sieve in header_sieves:
+                sieve.process_header(cat.header, cat)
+            for msg in cat:
+                for sieve in message_sieves:
+                    sieve.process(msg, cat)
+        else:
+            # In header-only mode, run only header sieves on this catalog.
+            for sieve in header_sieves:
+                sieve.process_header(cat.header, cat)
 
         if do_sync and cat.sync(op.force_sync):
             if op.verbose:
