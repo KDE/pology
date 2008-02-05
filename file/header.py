@@ -274,10 +274,10 @@ class Header (Monitored):
 
         nfound = 0
         for i in range(len(self._field)):
-            if self._field[i][0] == name:
+            if self.field[i][0] == name:
                 nfound += 1
                 if nfound - 1 == nth:
-                    self._field[i] = Monpair(unicode(name), new_value)
+                    self.field[i] = Monpair(unicode(name), new_value)
                     break
 
         return nfound - 1 == nth
