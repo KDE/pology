@@ -10,7 +10,7 @@ File system operations concerning PO files.
 import os
 
 
-def collect_catalogs (file_or_dir_paths, sort=True):
+def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
     """
     Collect list of catalog file paths from given file/directory paths.
 
@@ -18,13 +18,17 @@ def collect_catalogs (file_or_dir_paths, sort=True):
     searched for C{.po} and C{.pot} files. Otherwise, the path is taken
     verbatim as single catalog file path (even if it does not exist).
 
-    The collected paths can also be sorted before returning.
+    Collected paths are by default sorted and any duplicates eliminated,
+    but this can be controlled using the C{sort} and C{unique} parameters.
 
     @param file_or_dir_paths: paths to search for catalogs
     @type file_or_dir_paths: list of strings
 
     @param sort: whether to sort the list of collected paths
     @type sort: bool
+
+    @param unique: whether to eliminate duplicates among collected paths
+    @type unique: bool
 
     @returns: collected catalog paths
     @rtype: list of strings
@@ -41,7 +45,18 @@ def collect_catalogs (file_or_dir_paths, sort=True):
             catalog_files.append(path)
 
     if sort:
+        if unique:
+            catalog_files = list(set(catalog_files))
         catalog_files.sort()
+    elif unique:
+        # To preserve the order, reinsert catalogs avoiding duplicates.
+        seen = {}
+        unique = []
+        for catalog_file in catalog_files:
+            if catalog_file not in seen:
+                seen[catalog_file] = true
+                unique.append(catalog_file)
+        catalog_files = unique
 
     return catalog_files
 
