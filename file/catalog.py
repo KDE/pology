@@ -75,10 +75,13 @@ def _mine_po_encoding (filename):
     return enc
 
 
-def _parse_po_file (filename, MessageType=MessageMonitored):
+def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
 
     fenc = _mine_po_encoding(filename)
     ifl = codecs.open(filename, "r", fenc)
+    lines = ifl.readlines()
+    nlines = len(lines)
+    ifl.close()
 
     ctx_modern, ctx_obsolete, \
     ctx_previous, ctx_current, \
@@ -90,6 +93,8 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
 
     class Namespace: pass
     loc = Namespace()
+    loc.lno = 0
+    loc.tail = None
     loc.msg = _MessageDict()
     loc.life_context = ctx_modern
     loc.field_context = ctx_none
@@ -104,10 +109,18 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
             #print filename, lno - 1
             loc.msg = _MessageDict()
             loc.field_context = ctx_none
+            # In header-only mode, the first message read is the header.
+            # Compose the tail of this and rest of the lines, and
+            # set lno to nlines for exit.
+            if headonly:
+                loc.tail = "".join(lines[loc.lno-1:])
+                loc.lno = nlines
 
-    for line_raw in ifl.readlines(): # sentry for last entry
+    while loc.lno < nlines: # sentry for last entry
+        line_raw = lines[lno]
         line = line_raw.strip()
-        lno += 1
+        loc.lno += 1
+        lno = loc.lno # shortcut
 
         string_follows = True
         loc.age_context = ctx_current
@@ -279,14 +292,12 @@ def _parse_po_file (filename, MessageType=MessageMonitored):
 
     try_finish() # the last message
 
-    ifl.close()
-
     # Repack raw dictionaries as message objects.
     messages2 = []
     for msg1 in messages1:
         messages2.append(MessageType(msg1.__dict__))
 
-    return (messages2, fenc)
+    return (messages2, fenc, loc.tail)
 
 
 def _srcref_repack (srcrefs):
@@ -374,7 +385,8 @@ class Catalog (Monitored):
     """
 
     def __init__ (self, filename,
-                  create=False, wrapf=wrap_field, monitored=True):
+                  create=False, wrapf=wrap_field, monitored=True,
+                  headonly=False):
         """
         Build a message catalog by reading from a PO file or creating anew.
 
@@ -386,6 +398,12 @@ class Catalog (Monitored):
         expected to modify them. Non-monitored messages should provide better
         performance, so use them whenever the catalog is opened for read-only
         purposes (such as checks).
+
+        Catalog can also be opened in header-only mode, for better
+        performance when only the header data is needed. This mode provides
+        L{header} instance variable as usual, but the rest of entries are
+        unavailable. If any of the operations dealing with message entries
+        are invoked, an error is signaled.
 
         @param filename: name of the PO catalog on disk, or new catalog
         @type filename: string
@@ -403,6 +421,9 @@ class Catalog (Monitored):
         @param monitored: whether the message entries are monitored
         @type monitored: bool
 
+        @param headonly: whether to open in header-only mode
+        @type headonly: bool
+
         @see: L{pology.misc.wrap}
         """
         self._wrapf = wrapf
@@ -415,18 +436,20 @@ class Catalog (Monitored):
 
         # Read messages or create empty catalog:
         if os.path.exists(filename):
-            m, e = _parse_po_file(filename, message_type)
+            m, e, t = _parse_po_file(filename, message_type, headonly)
             self._encoding = e
             self._created_from_scratch = False
             self._header = Header(m[0])
             self._header._committed = True # status for sync
             self.__dict__["*"] = m[1:]
+            self._tail = t
         elif create:
             self._encoding = "UTF-8"
             self._created_from_scratch = True
             self._header = Header()
             self._header._committed = False # status for sync
             self.__dict__["*"] = []
+            self._tail = None
         else:
             raise StandardError, "file '%s' does not exist" % (filename,)
 
@@ -454,6 +477,13 @@ class Catalog (Monitored):
 
         # Cached plural definition from the header.
         self._plustr = ""
+
+
+    def _assert_headonly (self):
+
+        if self._tail:
+            raise StandardError, \
+                  "trying to access messages in header-only mode"
 
 
     def __getattr__ (self, att):
@@ -489,6 +519,7 @@ class Catalog (Monitored):
         @rtype: int
         """
 
+        self._assert_headonly()
         return len(self._messages)
 
 
@@ -507,6 +538,8 @@ class Catalog (Monitored):
         @returns: reference to the message in catalog
         @rtype: subclass of L{Message_base}
         """
+
+        self._assert_headonly()
         self.assert_spec_getitem()
         if not isinstance(ident, int):
             ident = self._msgpos[ident.key]
@@ -525,6 +558,8 @@ class Catalog (Monitored):
         @returns: C{True} if the message exists
         @rtype: bool
         """
+
+        self._assert_headonly()
         return msg.key in self._msgpos
 
 
@@ -540,6 +575,8 @@ class Catalog (Monitored):
         @returns: position index if the message exists, -1 otherwise
         @rtype: int
         """
+
+        self._assert_headonly()
         if msg.key in self._msgpos:
             return self._msgpos[msg.key]
         else:
@@ -575,6 +612,8 @@ class Catalog (Monitored):
         @returns: the position where merged or inserted
         @rtype: int
         """
+
+        self._assert_headonly()
         self.assert_spec_setitem(msg)
 
         if not msg.msgid:
@@ -642,6 +681,8 @@ class Catalog (Monitored):
         @returns: C{None}
         """
 
+        self._assert_headonly()
+
         # Determine position and key by given ident.
         if isinstance(ident, int):
             ip = ident
@@ -684,6 +725,8 @@ class Catalog (Monitored):
 
         @returns: C{None}
         """
+
+        self._assert_headonly()
 
         # Determine position and key by given ident.
         if isinstance(ident, int):
@@ -760,8 +803,10 @@ class Catalog (Monitored):
                     flines.append("\n")
                 i += 1
 
-        # Remove one trailing newline, from the last message.
-        if flines[-1] == "\n": flines.pop(-1)
+        # Remove one trailing newline from the last message,
+        # unless there is a tail.
+        if not self._tail and flines[-1] == "\n":
+            flines.pop(-1)
         # Create the parent directory if it does not exist.
         dirname = os.path.dirname(self._filename)
         if dirname and not os.path.isdir(dirname):
@@ -770,6 +815,8 @@ class Catalog (Monitored):
         signal.signal(signal.SIGINT, signal.SIG_IGN)
         ofl = codecs.open(self._filename, "w", self._encoding)
         ofl.writelines(flines)
+        if self._tail: # write tail if any
+            ofl.write(self._tail)
         ofl.close()
         signal.signal(signal.SIGINT, signal.SIG_DFL)
 
@@ -822,6 +869,7 @@ class Catalog (Monitored):
         @rtype: int, float
         """
 
+        self._assert_headonly()
         return self._pick_insertion_point(msg, self._obspos)
 
 
