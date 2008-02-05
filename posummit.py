@@ -3,6 +3,7 @@
 
 import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
+from pology.misc.monitored import Monpair
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -144,7 +145,11 @@ class Project (object):
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
+            "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
+
+            "header_propagate_fields_summed" : [],
+            "header_propagate_fields_primary" : [],
         })
         self.__dict__["locked"] = False
 
@@ -889,28 +894,90 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
         summit_add_tags(summit_cat[pos_added], branch_id, project)
 
 
-    # Update headers of otherwise modified summit catalogs.
+    # Update headers of summit catalogs.
     for summit_cat in summit_cats:
-        if summit_cat.modcount:
-            if not summit_cat.header.author and branch_cat.header.author:
-                # Copy the complete branch header if it has an author and
-                # the summit header misses an author.
-                summit_cat.header = branch_cat.header
-            else:
-                # Copy over POT creation date if newer.
-                field_name = "POT-Creation-Date"
-                branch_field = branch_cat.header.select_fields(field_name)[0]
-                summit_field = summit_cat.header.select_fields(field_name)[0]
-                # Compare only dates, ignore time (would have to consider
-                # timezones otherwise).
-                branch_date_cmp = re.sub(r" .*", "", branch_field[1])
-                summit_date_cmp = re.sub(r" .*", "", summit_field[1])
-                if branch_date_cmp > summit_date_cmp:
-                    summit_cat.header.replace_field_value(field_name,
-                                                        branch_field[1])
+        if not summit_cat.header.author and branch_cat.header.author:
+            # Copy the complete branch header if it has an author and
+            # the summit header misses an author.
+            # FIXME: Actually, this is an attempt to determine if the
+            # header is still uninitialized; do something more clever.
+            summit_cat.header = branch_cat.header
+        else:
+            # Copy header elements piecewise.
+
+            # Determine if this is the primary primary branch catalog for
+            # this summit catalog.
+            src_bids = project.full_inverse_map[summit_cat.name].keys()
+            all_bids = [x[0] for x in project.branches]
+            prim_branch = False
+            for bid in all_bids:
+                if bid in src_bids:
+                    prim_branch = (bid == branch_id)
+                    break
+
+            # Copy over some fields if this is the primary branch catalog
+            # and the summit catalog was otherwise modified.
+            if prim_branch and summit_cat.modcount:
+                fname = "POT-Creation-Date"
+                branch_field = branch_cat.header.select_fields(fname)[0]
+                summit_cat.header.replace_field_value(fname, branch_field[1])
+
+            # Copy over some fields unconditionally if this is the primary
+            # branch catalog.
+            if prim_branch:
+                fname = "Report-Msgid-Bugs-To"
+                branch_field = branch_cat.header.select_fields(fname)[0]
+                summit_cat.header.replace_field_value(fname, branch_field[1])
+
+            # Copy over fields from the primary branch catalog as requested.
+            if prim_branch:
+                for fname in project.header_propagate_fields_primary:
+                    bfields = branch_cat.header.select_fields(fname)
+                    cfields = summit_cat.header.select_fields(fname)
+                    # Replace old with new set if not equal.
+                    if bfields != cfields:
+                        for cfield in cfields:
+                            summit_cat.header.field.remove(cfield)
+                        for bfield in bfields:
+                            summit_cat.header.field.append(bfield)
+
+            # Sum requested fields: take the field from each branch header
+            # and add it with the same name (i.e. there will be multiple
+            # same-named fields in the summit header), but change their
+            # values to embed respective branch id:
+
+            # - construct new fields with this branch id from branch catalog,
+            cfields_new = []
+            for fname in project.header_propagate_fields_summed:
+                for field in branch_cat.header.select_fields(fname):
+                    cvalue = u"%s ~~ %s" % (field[1], branch_id)
+                    cfields_new.append(Monpair(field[0], cvalue))
+
+            # - collect old fields with this branch id from summit catalog,
+            cfields_old = []
+            for fname in project.header_propagate_fields_summed:
+                for field in summit_cat.header.select_fields(fname):
+                    m = re.search(r"~~ *(.*?) *$", field[1])
+                    if m and m.group(1) == branch_id:
+                        cfields_old.append(field)
+                    elif not m:
+                        # Remove such fields not associated with any branch.
+                        summit_cat.header.field.remove(field)
+
+            # - replace old with new sequence if not equal.
+            if cfields_old != cfields_new:
+                for field in cfields_old:
+                    summit_cat.header.field.remove(field)
+                for field in cfields_new:
+                    summit_cat.header.field.append(field)
 
     # Commit changes to summit catalogs.
     for summit_cat in summit_cats:
+
+        # Apply hooks to the summit catalog.
+        exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_cat,
+                      project.hook_on_gather_cat)
+
         created = summit_cat.created() # lost on sync, preserve
         if summit_cat.sync():
 
@@ -1406,14 +1473,66 @@ def summit_merge_single (summit_path, template_path, project, options):
         cmdline += "--no-wrap "
     assert_system(cmdline)
 
+    # Save good time by opening the merged catalog only if necessary,
+    # and only as much as necessary.
+
+    header_prop_fields = (  project.header_propagate_fields_summed
+                          + project.header_propagate_fields_primary)
+
+    # Should merged catalog be opened, and in what mode?
+    do_open = False
+    headonly = False
+    if project.summit_split_tags:
+        do_open = True
+    elif header_prop_fields:
+        do_open = True
+        headonly = True
+
+    # Should template catalog be opened too?
+    do_open_template = False
+    if header_prop_fields:
+        do_open_template = True
+
+    # Is monitored or non-monitored opening required?
+    monitored = False
+    if header_prop_fields:
+        monitored = True
+
+    #print do_open, do_open_template, headonly, monitored
+
+    # Open catalogs as necessary.
+    if do_open:
+        wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+        cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
+                      headonly=headonly)
+        if do_open_template:
+            tcat = Catalog(template_path, monitored=False, headonly=headonly)
+
     # Split on tags if requested.
-    # NOTE: This could be done unconditionally, but save good time in case no
-    # tag splitting is requested; also wrapping in Gettext is much better than
-    # current in Pology for CJK languages, so don't ruin it if not necessary.
     if project.summit_split_tags:
         wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
-        cat = Catalog(tmp_path, monitored=False, wrapf=wrapf)
         cat.sync(force=True)
+
+    # Propagate requested header fields.
+    # Collecting fields as follows to preserve their ordering.
+    fields = []
+    for field in cat.header.field:
+        if field[0] in header_prop_fields:
+            fields.append(field)
+    tfields = []
+    for tfield in tcat.header.field:
+        if tfield[0] in header_prop_fields:
+            tfields.append(tfield)
+    # Replace the field sequence if not equal to that of the template.
+    if fields != tfields:
+        for field in fields:
+            cat.header.field.remove(field)
+        for tfield in tfields:
+            cat.header.field.append(tfield)
+
+    # Synchronize merged catalog if it has been opened.
+    if do_open:
+        cat.sync()
 
     # If there is any difference between merged and old catalog.
     if not filecmp.cmp(summit_path, tmp_path):
