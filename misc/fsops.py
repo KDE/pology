@@ -54,7 +54,7 @@ def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
         unique = []
         for catalog_file in catalog_files:
             if catalog_file not in seen:
-                seen[catalog_file] = true
+                seen[catalog_file] = True
                 unique.append(catalog_file)
         catalog_files = unique
 
