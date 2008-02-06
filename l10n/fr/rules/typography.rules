@@ -172,13 +172,13 @@ valid after="^|\n|</p>|</?br\s?/?>" before="&unbsp;"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
-hint="Utiliser de vrais guillemets, au lieu d'une apostrophe. (homogénéité)"
+hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 ['(?=[^\wéèàêâ])]
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;" 
 valid before="&lt;b&gt;[\wéèàê]" 
-hint="Utiliser de vraies guillemets, au lieu d'une apostrophe. (homogénéité)"
+hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [&sp;&sp;+]
 valid file="kfmclient.po" 

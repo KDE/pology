@@ -25,11 +25,11 @@ hint="Les dérivés de rafraîchir veulent un accent circonflexe sur le `i'"
 hint="Pas d'accent aigu sur le premier `e'"
 
 [chaine]
-valid after="[pP]ro"                                                                
-hint="Mettre une accent circonflexe sur le `i'"     
+valid after="[pP]ro"
+hint="Mettre une accent circonflexe sur le `i'"
 
 [resaisir]
-hint="Mettre deux s (ressaisir)"
+hint="Mettre deux `s' (ressaisir)"
 
 [num%éro]
 hint="Mettre un accent aigu sur le `e'"
@@ -53,13 +53,13 @@ hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
 hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
 
 [n%éc%ess]
-hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"  
+hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
 
 [acc%éder]
-hint="C'est `accéder' (accent aigu)"
+hint="La bonne orthographe est `accéder' (accent aigu)"
 
 [acc%ès]
-hint="C'est `accès' (accent grave)"
+hint="La bonne orthographe est `accès' (accent grave)"
 
 [addres]
 valid after="&amp;k" before="sbook;" 
@@ -85,7 +85,7 @@ hint="Mettre un accent grave et non circonflexe sur le `e'"
 hint="Mettre un accent grave"
 
 [Echec]
-hint="Mettre un accent aigu"
+hint="Mettre un accent aigu : É"
 
 [plateforme]
 hint="plateforme -> plate-forme"
@@ -111,53 +111,53 @@ hint="Mettre un accent circonflexe -> `en-tête'"
 hint="complétion est un franglisme. Utiliser 'complètement'"
 
 [apelé]
-hint="A remplacer par 'appelé'"
+hint="À remplacer par 'appelé'"
 
 [app@ell@é] 
-hint="A remplacer par 'appelé'" 
+hint="À remplacer par 'appelé'" 
 
 [aucunes] 
-hint="A remplacer par 'aucune'" 
+hint="À remplacer par 'aucune'" 
 
 [autremnt] 
-hint="A remplacer par 'autrement'" 
+hint="À remplacer par 'autrement'" 
 
 [autrment] 
-hint="A remplacer par 'autrement'" 
+hint="À remplacer par 'autrement'" 
 
 [charète] 
-hint="A remplacer par 'charette'" 
+hint="À remplacer par 'charette'" 
 
 [comportment] 
-hint="A remplacer par 'comportement'" 
+hint="À remplacer par 'comportement'" 
 
 [&lwb;cr@ées]
-hint="A remplacer par 'créées'" 
+hint="À remplacer par 'créées'" 
 
 [environnment] 
-hint="A remplacer par 'environnement'" 
+hint="À remplacer par 'environnement'" 
 
 [exeption] 
-hint="A remplacer par 'exception'" 
+hint="À remplacer par 'exception'" 
 
 [extention]
-hint="A remplacer par 'extension'" 
+hint="À remplacer par 'extension'" 
 
 [etc\.\.\.]
 hint="Utiliser 'etc' ou '...' mais pas les deux !"
 
 [param%étré] 
-hint="A remplacer par 'paramétré'" 
+hint="À remplacer par 'paramétré'" 
 
 [personalisé] 
-hint="A remplacer par 'personnalisé'" 
+hint="À remplacer par 'personnalisé'" 
 
 [utliser] 
-hint="A remplacer par 'utiliser'" 
+hint="À remplacer par 'utiliser'" 
 
 [courier] 
 valid file="kdm.po" before=",12,5,iso-8859-1"
-hint="A remplacer par 'courrier'" 
+hint="À remplacer par 'courrier'" 
 
 [language]
 valid ctx="desktop_po" before="=" 
@@ -170,14 +170,14 @@ valid file="kdm.po" after="Country\n" before="\nCharset"
 valid file="kdm.po" after="^" before="$"
 valid file="knewsticker.po" after="^http.*"
 valid after="Print Control "
-hint="A remplacer par 'langage'"
+hint="À remplacer par 'langage'"
 
 [&lwb;languages&rwb;]
 valid file="knewsticker.po" after="^http.*"
-hint="A remplacer par 'langage'"
+hint="À remplacer par 'langage'"
 
 [sorite]
-hint="A remplacer par 'sortie'"
+hint="À remplacer par 'sortie'"
 
 [(super utilisateur)|(super-utilisateur)]
 hint="superutilisateur s'écrit sans tiret ou espace !!"
@@ -217,10 +217,10 @@ hint="Ecriture officielle : 'PostScript' (avec 2 majuscules)"
 
 [&lwb;http:/&rwb;]
 valid before="/"
-hint="Deux slashes apres le nom du protocole."
+hint="Deux slashes après le nom du protocole"
 
 [&lwb;TV&wrb;]
-hint="TV est un anglicisme. A éviter..."
+hint="TV est un anglicisme. À éviter..."
 
 [CPU]
 hint="Traduire CPU par 'processeur'"
@@ -240,14 +240,14 @@ hint="Mettre une accent circonflexe"
 
 [système de fichier]
 valid before="s"
-hint="Système de fichiers prend un 's' a fichier"
+hint="Système de fichiers prend un 's' à fichier"
 
 [gestionnaire de fichier]
 valid before="s"
-hint="Gestionnaire de fichiers prend un 's' a fichier"
+hint="Gestionnaire de fichiers prend un 's' à fichier"
 
 [tire[a-z]+ partie]
-hint="Pas de 'e' a parti dans 'Tirer parti'"
+hint="Pas de 'e' à 'parti' dans 'Tirer parti'"
 
 [clique gauche]
 hint="clique -> clic"
@@ -264,23 +264,23 @@ hint="Pas de 'e' à profils"
 [assignement]
 hint="'Assignation' et non 'Assignement'"
 
-[faîte]
+[[fF]aîtes]
 hint="Pas d'accent circonflexe"
 
 [y-compris]
 hint="y-compris -> y compris"
 
 [dimensione]
-hint="2 n dans dimensionner (ou ses dérivés)"
+hint="Il y a 2 'n' dans dimensionner (ou ses dérivés)"
 
 [reporte[rz]? le]
-hint="on ne reporte pas un bug, on fait un rapport."
+hint="on ne reporte pas un bogue, on fait un rapport..."
 
 [type mime]
 hint="mime -> MIME (en majuscules)"
 
 [fabriquant]
-hint="le fabricant s'écrit avec un 'c'"
+hint="'fabricant' s'écrit avec un 'c'"
 
 [Voulez vous]
 valid after="[sS]i vous "
@@ -295,13 +295,13 @@ valid file="kicker-applets_ktimemon.po" before=" &UNIX;"
 valid before=" CDE" 
 valid after="Compact Disc " before=" Audio"
 valid after="@" 
-hint="digital est un anglicisme. Utiliser 'numérique'"
+hint="'digital' est un anglicisme. Utiliser 'numérique'"
 
 [d@efault]   
 valid file="ksysv.po" after=":init" before=":$"  
 valid file="ksirc.po" after="^!" before="$"  
 valid file="kdm_kdmrc-ref.po" after="^"
-hint="A remplacer par 'défaut'" 
+hint="À remplacer par 'défaut'" 
 
 [&lwb;media&rwb;]
 hint="media -> média"
@@ -310,9 +310,9 @@ hint="media -> média"
 hint="`focntion' -> `fonction' (dyslexie)"
 
 [(raccourcis-clavier)|(raccourci-clavier)]
-hint="Pas de tiret entre raccourci et clavier"
+hint="Pas de tiret entre 'raccourci' et 'clavier'"
 
 [basé.+ sur]
-hint="Seuls les militaires sont basés. Préfèrez « fondé sur » ou un participe comme « utilisant »"
+hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
 
 # End of rule file
