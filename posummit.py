@@ -1517,21 +1517,22 @@ def summit_merge_single (summit_path, template_path, project, options):
         cat.sync(force=True)
 
     # Propagate requested header fields.
-    # Collecting fields as follows to preserve their ordering.
-    fields = []
-    for field in cat.header.field:
-        if field[0] in header_prop_fields:
-            fields.append(field)
-    tfields = []
-    for tfield in tcat.header.field:
-        if tfield[0] in header_prop_fields:
-            tfields.append(tfield)
-    # Replace the field sequence if not equal to that of the template.
-    if fields != tfields:
-        for field in fields:
-            cat.header.field.remove(field)
-        for tfield in tfields:
-            cat.header.field.append(tfield)
+    if header_prop_fields:
+        # Preserve order of the fields when collecting.
+        fields = []
+        for field in cat.header.field:
+            if field[0] in header_prop_fields:
+                fields.append(field)
+        tfields = []
+        for tfield in tcat.header.field:
+            if tfield[0] in header_prop_fields:
+                tfields.append(tfield)
+        # Replace the field sequence if not equal to that of the template.
+        if fields != tfields:
+            for field in fields:
+                cat.header.field.remove(field)
+            for tfield in tfields:
+                cat.header.field.append(tfield)
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
