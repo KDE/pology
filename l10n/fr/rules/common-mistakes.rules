@@ -144,7 +144,10 @@ hint="À remplacer par 'exception'"
 hint="À remplacer par 'extension'" 
 
 [etc\.\.\.]
-hint="Utiliser 'etc' ou '...' mais pas les deux !"
+hint="Utiliser 'etc.' sans rajouter des points de suspension inutiles"
+
+[etc[^\.]|etc$]
+hint="Il faut mettre un point (et un seul) après etc"
 
 [param%étré] 
 hint="À remplacer par 'paramétré'" 
