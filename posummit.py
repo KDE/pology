@@ -931,15 +931,18 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
 
             # Copy over fields from the primary branch catalog as requested.
             if prim_branch:
+                bfields = []
                 for fname in project.header_propagate_fields_primary:
-                    bfields = branch_cat.header.select_fields(fname)
-                    cfields = summit_cat.header.select_fields(fname)
-                    # Replace old with new set if not equal.
-                    if bfields != cfields:
-                        for cfield in cfields:
-                            summit_cat.header.field.remove(cfield)
-                        for bfield in bfields:
-                            summit_cat.header.field.append(bfield)
+                    bfields.extend(branch_cat.header.select_fields(fname))
+                cfields = []
+                for fname in project.header_propagate_fields_primary:
+                    cfields.extend(summit_cat.header.select_fields(fname))
+                # Replace old with new set if not equal.
+                if bfields != cfields:
+                    for cfield in cfields:
+                        summit_cat.header.field.remove(cfield)
+                    for bfield in bfields:
+                        summit_cat.header.field.append(bfield)
 
             # Sum requested fields: take the field from each branch header
             # and add it with the same name (i.e. there will be multiple
