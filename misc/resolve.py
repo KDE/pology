@@ -353,6 +353,7 @@ def first_to_case (text, upper=True, nalts=0):
     tlen = len(text)
     remalts = 0
     checkcase = True
+    intag = False
     ncchanged = 0
     textcc = ""
     i0 = 0
@@ -362,7 +363,16 @@ def first_to_case (text, upper=True, nalts=0):
         c = text[i]
         cchange = False
 
-        if nalts and not remalts and text[i:i+_alt_hlen] == _alt_head:
+        if c == "<":
+            # A markup tag is just starting.
+            intag = True
+
+        elif c == ">":
+            # A markup tag is just ending.
+            intag = False
+
+        elif (    not intag
+              and nalts and not remalts and text[i:i+_alt_hlen] == _alt_head):
             # An alternatives directive is just starting.
             i += 2
             if i >= tlen: # malformed directive, bail out
@@ -374,13 +384,13 @@ def first_to_case (text, upper=True, nalts=0):
             remalts = nalts
             checkcase = True
 
-        elif remalts and c == altsep:
+        elif not intag and remalts and c == altsep:
             # Alternative separator found, reduce number of remaining
             # alternatives and reactivate case checking.
             remalts -= 1
             checkcase = True
 
-        elif checkcase and c.isalpha():
+        elif not intag and checkcase and c.isalpha():
             # Case check is active and the character is a letter;
             # request case change.
             cchange = True
