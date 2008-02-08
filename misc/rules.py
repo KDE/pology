@@ -236,7 +236,7 @@ class Rule(object):
 
     def setPattern(self, pattern):
         """Compile pattern
-        @param pattern: pattern as a unicode string"""
+        @param pattern: pattern as an unicode string"""
         try:
             if self.accents:
                 for accentMatch in self.accentPattern.finditer(pattern):
@@ -248,7 +248,7 @@ class Rule(object):
         
     def setValid(self, valid):
         """Parse valid key=value arguments of valid list
-        @param valid: valid line as unicode string"""
+        @param valid: valid line as an unicode string"""
         self.valid=[]
         for item in valid:
             try:
@@ -261,11 +261,9 @@ class Rule(object):
                     value=convert_entities(value)
                     if key in ("before", "after", "ctx"):
                         # Compile regexp
-                        #print value
                         value=re.compile(value)
                     entry[key]=value
                 self.valid.append(entry)
-            # TO be finished. Waiting for valid structure definition
             except ValueError:
                 print "Invalid 'Valid' definition '%s'. Skipping" % item
                 continue
@@ -281,8 +279,6 @@ class Rule(object):
         begin=time()
         cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
 
-        #print "working on pattern: %s" % self.rawPattern
-        #print "with msg:%s" % msg
         patternMatches=self.pattern.finditer(msgstr)
 
         for patternMatch in patternMatches:
@@ -291,7 +287,6 @@ class Rule(object):
 
             # Rule pattern match. Now see if a valid exception exists
             for entry in self.valid:
-                #print "E"
                 before=False
                 after=False
                 if entry.has_key("file"):
@@ -302,19 +297,14 @@ class Rule(object):
                         continue # This valid entry does not apply to this context
                 #process valid here
                 if entry.has_key("before"):
-                    #print "before..."
                     beforeMatches=re.finditer(entry["before"], msgstr)
                     for beforeMatch in beforeMatches:
-                        #print "B(%s)" % entry["before"],
-                        #print "before match %s - pattern match %s" % (beforeMatch.start(), patternMatch.end())
                         if beforeMatch.start()==patternMatch.end():
                             before=True
                             break
                 if entry.has_key("after"):
-                    #print "after..."
                     afterMatches=re.finditer(entry["after"], msgstr)
                     for afterMatch in afterMatches:
-                        #print "A(%s)" % entry["after"],
                         if afterMatch.end()==patternMatch.start():
                             after=True
                             break
