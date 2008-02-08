@@ -67,10 +67,10 @@ valid file="korganizer.po"
 valid file="khelpcenter_userguide_kdepim-apps.po"
 hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
 
-[sauver]
+[[Ss]sauver]
 hint="Sauver -> Enregistrer"
 
-[sauve]
+[[Ss]auve]
 valid file="kdat.po"
 valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
@@ -117,8 +117,8 @@ hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité'"
 valid before="\)" after="\("
 hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité' ou 'proxy'"
 
-[(B|b)arre d'outils]
-hint="Traduisez simplement 'Toolbar' par 'Barre' (ex: 'Main Toolbar'-> 'Barre principale')"
+[(B|b)arre d'outils (principale|d'affichage)]
+hint="Traduisez simplement 'xxx Toolbar' par 'Barre de xxx' (ex: 'Main Toolbar'-> 'Barre principale')"
 
 [module&sp;de&sp;contr]
 hint="C'est module de configuration, pas de contrôle !! (homogénéité)"

@@ -143,10 +143,7 @@ hint="À remplacer par 'exception'"
 [extention]
 hint="À remplacer par 'extension'" 
 
-[etc\.\.\.]
-hint="Utiliser 'etc.' sans rajouter des points de suspension inutiles"
-
-[etc[^\.]|etc$]
+[\setc[^\.a-zA-Z]|\setc$|\setc\.{2}]
 hint="Il faut mettre un point (et un seul) après etc"
 
 [param%étré] 

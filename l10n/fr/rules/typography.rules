@@ -30,6 +30,8 @@ valid after="gg"  before="[a-z]+"
 valid after="smb://\[nom\["  before="motdepasse"
 valid after="\d\d" before="\d\d"
 valid after="(HH|hh)" before="(MM|mm)"
+valid after="(MM|mm)" before="(SS|ss)"
+valid after="Heures" before="Minutes"
 valid after="&unbsp;" before="</[a-zA-Z0-9]+>&sp;" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
@@ -159,6 +161,7 @@ hint="Une espace après une virgule"
 [»]
 valid after="&unbsp;" before="&sp;"
 valid after="&unbsp;" before="$"
+valid after="&unbsp;" before=\n"
 valid after="&unbsp;" before="&unbsp;(:|\?|!)" 
 valid after="&unbsp;" before="\." 
 valid after="&unbsp;" before="\)" 
@@ -279,12 +282,5 @@ hint="À bas MS-DOS"
 
 [(<strong>«)|(<b>«)|(»</strong>)|(»</b>)]
 hint="Ne pas cumuler le gras et les guillemets"
-
-[&lt;/li&gt;]
-valid after="[)!?\sa-zA-Zé»]" 
-valid after="%[0-9]" 
-valid after="lp0" 
-valid file="fontinst.po" after="Type1" 
-hint="pas de signe de ponctuation avant un </li>"
 
 # End of rule file
