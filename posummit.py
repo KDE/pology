@@ -142,6 +142,8 @@ class Project (object):
 
             "version_control" : "",
 
+            "scatter_create_filter" : {},
+
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
@@ -212,6 +214,8 @@ def derive_project_data (project, options):
 
     p = project # shortcut
 
+    branch_ids = [x[0] for x in p.branches]
+
     # Create the version control operator if given.
     if p.version_control:
         vcsn = p.version_control.lower()
@@ -254,6 +258,11 @@ def derive_project_data (project, options):
         mod_branches.append((branch_spec[0], branch_spec[1], by_lang))
     p.branches = mod_branches
 
+    # Equip all branches missing auto-create on scatter filter.
+    for branch_id in branch_ids:
+        if not branch_id in p.scatter_create_filter:
+            p.scatter_create_filter[branch_id] = ""
+
     # Collect catalogs from branches.
     p.catalogs = {}
     for branch_id, branch_dir, by_lang in p.branches:
@@ -294,8 +303,8 @@ def derive_project_data (project, options):
             # Collect all templates for this branch.
             # FIXME: Templates path is determined poorly; not easy to fix,
             # as in scatter the template path is not given explicitly.
-            templates_dir = re.sub(r"\b" + options.lang + r"\b",
-                                   p.templates_lang, branch_dir, 1)
+            templates_dir = re.sub(r"\b" + options.lang + r".*?" + os.path.sep,
+                                   p.templates_lang + os.path.sep, branch_dir, 1)
             # Skip this branch if no templates.
             if not os.path.isdir(templates_dir):
                 continue
@@ -318,6 +327,12 @@ def derive_project_data (project, options):
                 # For each collected branch name, check if it exists in
                 # branch templates and collect if not already collected.
                 for branch_name in branch_names:
+
+                    # Skip this catalog if excluded from auto-adition.
+                    if not re.search(p.scatter_create_filter[branch_id],
+                                     branch_name):
+                        continue
+
                     if (    branch_name not in p.catalogs[branch_id]
                         and branch_name in branch_templates):
                         # Assemble all branch catalog entries.
@@ -326,7 +341,7 @@ def derive_project_data (project, options):
                             # Compose the branch catalog subdir and path.
                             subdir = template[1]
                             if by_lang:
-                                poname = options.lang + ".po"
+                                poname = by_lang + ".po"
                             else:
                                 poname = branch_name + ".po"
                             path = os.path.join(branch_dir, subdir, poname)
@@ -346,7 +361,6 @@ def derive_project_data (project, options):
     p.direct_map = {}
     p.part_inverse_map = {}
     p.full_inverse_map = {}
-    branch_ids = [x[0] for x in p.branches]
 
     # Initialize mappings.
     # - direct:
