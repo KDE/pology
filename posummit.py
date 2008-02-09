@@ -961,7 +961,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
         pos_added = summit_cat_selected.add(msg, pos=pos_selected)
 
         # Equip summit tags to the added message.
-        summit_add_tags(summit_cat[pos_added], branch_id, project)
+        summit_add_tags(summit_cat_selected[pos_added], branch_id, project)
 
 
     # Update headers of summit catalogs.
@@ -988,15 +988,19 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             # and the summit catalog was otherwise modified.
             if prim_branch and summit_cat.modcount:
                 fname = "POT-Creation-Date"
-                branch_field = branch_cat.header.select_fields(fname)[0]
-                summit_cat.header.replace_field_value(fname, branch_field[1])
+                branch_fields = branch_cat.header.select_fields(fname)
+                if branch_fields:
+                    summit_cat.header.replace_field_value(fname,
+                                                          branch_fields[0][1])
 
             # Copy over some fields unconditionally if this is the primary
             # branch catalog.
             if prim_branch:
                 fname = "Report-Msgid-Bugs-To"
-                branch_field = branch_cat.header.select_fields(fname)[0]
-                summit_cat.header.replace_field_value(fname, branch_field[1])
+                branch_fields = branch_cat.header.select_fields(fname)
+                if branch_fields:
+                    summit_cat.header.replace_field_value(fname,
+                                                          branch_fields[0][1])
 
             # Copy over fields from the primary branch catalog as requested.
             if prim_branch:
