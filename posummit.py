@@ -133,7 +133,6 @@ class Project (object):
             "mappings" : [],
 
             "templates_lang" : "",
-            "templates_summit" : "",
 
             "summit_unwrap" : True,
             "summit_split_tags" : True,
@@ -141,8 +140,6 @@ class Project (object):
             "branches_split_tags" : True,
 
             "version_control" : "",
-
-            "scatter_create_filter" : {},
 
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_cat" : [],
@@ -214,7 +211,57 @@ def derive_project_data (project, options):
 
     p = project # shortcut
 
-    branch_ids = [x[0] for x in p.branches]
+    # Create summit object from summit dictionary.
+    class Summit: pass
+    s = Summit()
+    sd = p.summit
+    s.topdir = sd.pop("topdir", None)
+    s.topdir_templates = sd.pop("topdir_templates", None)
+    # Assert that there are no misnamed keys in the dictionary.
+    if sd:
+        error(  "unknown keys in specification of summit: %s"
+              % ", ".join(sd.keys()))
+    # Assert that all necessary fields in summit specification exist.
+    if s.topdir is None:
+        error("topdir not given for summit")
+    p.summit = s
+
+    # Create branch objects from branch dictionaries.
+    class Branch: pass
+    branches = []
+    for bd in p.branches:
+        b = Branch()
+        branches.append(b)
+
+        b.id = bd.pop("id", None)
+        b.topdir = bd.pop("topdir", None)
+        b.topdir_templates = bd.pop("topdir_templates", None)
+        b.by_lang = bd.pop("by_lang", None)
+        if b.by_lang:
+            b.by_lang = interpolate(b.by_lang, {"lang" : options.lang})
+        b.scatter_create_filter = bd.pop("scatter_create_filter", r"")
+        b.skip_version_control = bd.pop("skip_version_control", False)
+        b.merge_locally = bd.pop("merge_locally", False)
+
+        # Assert that there are no misnamed keys in the dictionary.
+        if bd:
+            error(  "unknown keys in specification of branch '%s': %s"
+                  % (b.id, ", ".join(bd.keys())))
+    p.branches = branches
+
+    # Assert that all necessary fields in branch specifications exist.
+    p.branch_ids = []
+    for branch in p.branches:
+        if branch.id is None:
+            error("branch with undefined id")
+        if branch.id in p.branch_ids:
+            error("non-unique branch id: %s" % branch.id)
+        p.branch_ids.append(branch.id)
+        if branch.topdir is None:
+            error("topdir not given for branch '%s'" % branch.id)
+
+    # Dictionary of branches by branch id.
+    p.bdict = dict([(x.id, x) for x in p.branches])
 
     # Create the version control operator if given.
     if p.version_control:
@@ -226,50 +273,19 @@ def derive_project_data (project, options):
     else:
         p.vcs = None
 
-    # Decide the template summit path if in template summit mode and
-    # the path is not given explicitely.
-    if p.templates_lang and not p.templates_summit:
-        if options.lang != p.templates_lang:
-            # Current operation is for one of particular language summits,
-            # derive the template summit path by replacing the language code.
-            p.templates_summit = re.sub(r"\b%s\b" % options.lang,
-                                        p.templates_lang, p.summit, 1)
-        else:
-            # Current operation is for the template summit itself,
-            # just copy over the language summit path.
-            p.templates_summit = p.summit
-
     # Decide the extension of catalogs.
     if p.templates_lang and options.lang == p.templates_lang:
         options.catext = ".pot"
-        # Reroute summit path to template summit path has been set.
-        p.summit = p.templates_summit
     else:
         options.catext = ".po"
 
-    # Equip all branches missing by_lang field with by_lang=None.
-    # If by_lang is not missing, interpolate for @lang@.
-    mod_branches = []
-    for branch_spec in p.branches:
-        if len(branch_spec) < 3:
-            by_lang = None
-        else:
-            by_lang = interpolate(branch_spec[2], {"lang" : options.lang})
-        mod_branches.append((branch_spec[0], branch_spec[1], by_lang))
-    p.branches = mod_branches
-
-    # Equip all branches missing auto-create on scatter filter.
-    for branch_id in branch_ids:
-        if not branch_id in p.scatter_create_filter:
-            p.scatter_create_filter[branch_id] = ""
-
     # Collect catalogs from branches.
     p.catalogs = {}
-    for branch_id, branch_dir, by_lang in p.branches:
-        p.catalogs[branch_id] = collect_catalogs(branch_dir, options.catext,
-                                                 by_lang, project, options)
+    for b in p.branches:
+        p.catalogs[b.id] = collect_catalogs(b.topdir, options.catext,
+                                            b.by_lang, project, options)
     # ...and from the summit.
-    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit, options.catext,
+    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
                                              None, project, options)
 
     # Assure that summit catalogs are unique.
@@ -299,17 +315,15 @@ def derive_project_data (project, options):
                 mapped_summit_names[branch_id][summit_name].extend(branch_name)
 
         # Go through all branches.
-        for branch_id, branch_dir, by_lang in p.branches:
-            # Collect all templates for this branch.
-            # FIXME: Templates path is determined poorly; not easy to fix,
-            # as in scatter the template path is not given explicitly.
-            templates_dir = re.sub(r"\b" + options.lang + r".*?" + os.path.sep,
-                                   p.templates_lang + os.path.sep, branch_dir, 1)
+        for branch in p.branches:
             # Skip this branch if no templates.
-            if not os.path.isdir(templates_dir):
+            if not branch.topdir_templates:
                 continue
-            branch_templates = collect_catalogs(templates_dir, ".pot",
-                                                by_lang, project, options)
+
+            # Collect all templates for this branch.
+            branch_templates = collect_catalogs(branch.topdir_templates,
+                                                ".pot", branch.by_lang,
+                                                project, options)
 
             # Go through all summit catalogs.
             for summit_name in p.catalogs[SUMMIT_ID]:
@@ -317,9 +331,9 @@ def derive_project_data (project, options):
                 # Collect names of any catalogs in this branch mapped to
                 # the current summit catalog.
                 branch_names = []
-                if (    branch_id in mapped_summit_names
-                    and summit_name in mapped_summit_names[branch_id]):
-                    branch_names = mapped_summit_names[branch_id][summit_name]
+                if (    branch.id in mapped_summit_names
+                    and summit_name in mapped_summit_names[branch.id]):
+                    branch_names = mapped_summit_names[branch.id][summit_name]
                 # If no mapped catalogs, use summit name as the branch name.
                 if not branch_names:
                     branch_names.append(summit_name)
@@ -328,23 +342,22 @@ def derive_project_data (project, options):
                 # branch templates and collect if not already collected.
                 for branch_name in branch_names:
 
-                    # Skip this catalog if excluded from auto-adition.
-                    if not re.search(p.scatter_create_filter[branch_id],
-                                     branch_name):
+                    # Skip this catalog if excluded from auto-addition.
+                    if not re.search(branch.scatter_create_filter, branch_name):
                         continue
 
-                    if (    branch_name not in p.catalogs[branch_id]
+                    if (    branch_name not in p.catalogs[branch.id]
                         and branch_name in branch_templates):
                         # Assemble all branch catalog entries.
                         branch_catalogs = []
                         for template in branch_templates[branch_name]:
                             # Compose the branch catalog subdir and path.
                             subdir = template[1]
-                            if by_lang:
-                                poname = by_lang + ".po"
+                            if branch.by_lang:
+                                poname = branch.by_lang + ".po"
                             else:
                                 poname = branch_name + ".po"
-                            path = os.path.join(branch_dir, subdir, poname)
+                            path = os.path.join(branch.topdir, subdir, poname)
                             # Add this file to catalog entry.
                             #print "----->", branch_name, path, subdir
                             branch_catalogs.append((path, subdir))
@@ -352,7 +365,7 @@ def derive_project_data (project, options):
                             p.add_on_scatter[path] = template[0]
 
                         # Add branch catalog entry.
-                        p.catalogs[branch_id][branch_name] = branch_catalogs
+                        p.catalogs[branch.id][branch_name] = branch_catalogs
 
     # Convenient dictionary views of mappings.
     # - direct: branch_id->branch_name->summit_name
@@ -364,19 +377,19 @@ def derive_project_data (project, options):
 
     # Initialize mappings.
     # - direct:
-    for branch_id in branch_ids:
+    for branch_id in p.branch_ids:
         p.direct_map[branch_id] = {}
         for branch_name in p.catalogs[branch_id]:
             p.direct_map[branch_id][branch_name] = []
     # - part inverse:
-    for branch_id in branch_ids:
+    for branch_id in p.branch_ids:
         p.part_inverse_map[branch_id] = {}
         for summit_name in p.catalogs[SUMMIT_ID]:
             p.part_inverse_map[branch_id][summit_name] = []
     # - full inverse:
     for summit_name in p.catalogs[SUMMIT_ID]:
         p.full_inverse_map[summit_name] = {}
-        for branch_id in branch_ids:
+        for branch_id in p.branch_ids:
             p.full_inverse_map[summit_name][branch_id] = []
 
     # Add explicit mappings.
@@ -401,19 +414,19 @@ def derive_project_data (project, options):
 
     # Add implicit mappings.
     # - direct:
-    for branch_id in branch_ids:
+    for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
             if p.direct_map[branch_id][branch_name] == []:
                 p.direct_map[branch_id][branch_name].append(branch_name)
     # - part inverse:
-    for branch_id in branch_ids:
+    for branch_id in p.branch_ids:
         for summit_name in p.catalogs[SUMMIT_ID]:
             if p.part_inverse_map[branch_id][summit_name] == [] \
             and summit_name in p.catalogs[branch_id]:
                 p.part_inverse_map[branch_id][summit_name].append(summit_name)
     # - full inverse:
     for summit_name in p.catalogs[SUMMIT_ID]:
-        for branch_id in branch_ids:
+        for branch_id in p.branch_ids:
             if p.full_inverse_map[summit_name][branch_id] == [] \
             and summit_name in p.catalogs[branch_id]:
                 p.full_inverse_map[summit_name][branch_id].append(summit_name)
@@ -520,7 +533,8 @@ def summit_gather (project, options):
                 # Set up the creation of a new summit catalog.
                 summit_name = summit_names[0]
                 summit_subdir = branch_subdir
-                summit_path = os.path.join(project.summit, summit_subdir,
+                summit_path = os.path.join(project.summit.topdir,
+                                           summit_subdir,
                                            summit_name + options.catext)
 
                 if not options.do_create:
@@ -591,7 +605,7 @@ def summit_purge (project, options):
               % project.templates_lang)
 
     # Collect names of summit catalogs to purge.
-    summit_names = select_summit_catalogs(project, options)
+    summit_names = select_summit_names(project, options)
 
     # Purge all selected catalogs.
     for name in summit_names:
@@ -607,7 +621,7 @@ def summit_reorder (project, options):
               % project.templates_lang)
 
     # Collect names of summit catalogs to reorder.
-    summit_names = select_summit_catalogs(project, options)
+    summit_names = select_summit_names(project, options)
 
     # Reorder all selected catalogs.
     for name in summit_names:
@@ -622,37 +636,79 @@ def summit_merge (project, options):
         error(  "template summit mode: merging not possible on '%s'"
               % project.templates_lang)
 
-    # Collect names of summit catalogs to merge.
-    summit_names = select_summit_catalogs(project, options)
+    # Select branches to merge.
+    branch_ids = select_branches(project, options)
 
-    # Collect all template catalogs to merge.
-    template_catalogs = collect_catalogs(project.templates_summit, ".pot",
-                                         None, project, options)
+    # Assume the summit should be merged too if all branches selected,
+    # and the template summit is defined.
+    if project.branch_ids == branch_ids and project.summit.topdir_templates:
 
-    # Assert that all summit catalogs have templates.
-    for name in summit_names:
-        if not name in template_catalogs:
-            error("no template for summit catalog '%s'" % name)
+        # Collect names of summit catalogs to merge.
+        summit_names = select_summit_names(project, options)
 
-    # Merge all selected catalogs.
-    for name in summit_names:
-        for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
-            template_path = template_catalogs[name][0][0]
-            summit_merge_single(summit_path, template_path, project, options)
+        # Collect template catalogs to use.
+        template_catalogs = collect_catalogs(project.summit.topdir_templates,
+                                             ".pot", None, project, options)
+
+        # Merge selected summit catalogs.
+        for name in summit_names:
+            if not name in template_catalogs:
+                warning("no template for summit catalog '%s'" % name)
+                continue
+            for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
+                template_path = template_catalogs[name][0][0]
+                summit_merge_single(summit_path, template_path,
+                                    project.summit_unwrap,
+                                    project.summit_split_tags,
+                                    project, options)
+
+    # Go through selected branches.
+    n_selected_by_summit_subdir = {}
+    for branch_id in branch_ids:
+        branch = project.bdict[branch_id]
+
+        # Skip branch if local merging not desired, or no templates defined.
+        if (not branch.merge_locally or branch.topdir_templates is None):
+            continue
+
+        # Collect branch catalogs to merge.
+        branch_catalogs = select_branch_catalogs(branch_id, project, options,
+                                                 n_selected_by_summit_subdir)
+
+        # Collect template catalogs to use.
+        template_catalogs = collect_catalogs(branch.topdir_templates, ".pot",
+                                             branch.by_lang, project, options)
+
+        # Merge selected branch catalogs.
+        for name, branch_path, branch_subdir in branch_catalogs:
+            if not name in template_catalogs:
+                warning("no template for branch catalog '%s'" % name)
+                continue
+            exact = False
+            for template_path, template_subdir in template_catalogs[name]:
+                if template_subdir == branch_subdir:
+                    exact = True
+                    break
+            if not exact:
+                warning("no exact template for branch catalog '%s'" % name)
+                continue
+            summit_merge_single(branch_path, template_path,
+                                project.branches_unwrap,
+                                project.branches_split_tags,
+                                project, options)
 
 
 def select_branches (project, options):
 
     # Select either all branches, or those mentioned in the command line.
     # If any command line spec points to the summit, must take all branches.
-    project_branch_ids = [x[0] for x in project.branches]
     if not options.branches or SUMMIT_ID in options.branches:
-        branch_ids = project_branch_ids
+        branch_ids = project.branch_ids
     else:
         branch_ids = options.branches
         # Assure that these branches actually exist in the project.
         for branch_id in branch_ids:
-            if not branch_id in project_branch_ids:
+            if not branch_id in project.branch_ids:
                 error("branch '%s' not in the project" % branch_id)
 
     return branch_ids
@@ -761,7 +817,7 @@ def select_branch_catalogs (branch_id, project, options,
     return branch_catalogs
 
 
-def select_summit_catalogs (project, options):
+def select_summit_names (project, options):
 
     # Collect all summit catalogs selected explicitly or implicitly.
     summit_names = []
@@ -922,9 +978,8 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             # Determine if this is the primary primary branch catalog for
             # this summit catalog.
             src_bids = project.full_inverse_map[summit_cat.name].keys()
-            all_bids = [x[0] for x in project.branches]
             prim_branch = False
-            for bid in all_bids:
+            for bid in project.branch_ids:
                 if bid in src_bids:
                     prim_branch = (bid == branch_id)
                     break
@@ -1135,7 +1190,9 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                        project.hook_on_scatter_file)
 
         # Add to version control if new file.
-        if new_from_template and project.vcs:
+        if (    new_from_template and project.vcs
+            and not project.bdict[branch_id].skip_version_control
+        ):
             if not project.vcs.add(branch_cat.filename):
                 warning(  "cannot add '%s' to version control"
                         % branch_cat.filename)
@@ -1274,9 +1331,8 @@ def summit_add_tags (msg, branch_id, project):
     if not branch_id in branch_ids:
         # Order branch ids by the global order, to preserve priorites.
         branch_ids.append(branch_id)
-        global_branch_ids = [x[0] for x in project.branches]
         ordered_branch_ids = []
-        for branch_id in global_branch_ids:
+        for branch_id in project.branch_ids:
             if branch_id in branch_ids:
                 ordered_branch_ids.append(branch_id)
         set_summit_comment(msg, _summit_tag_branchid,
@@ -1415,8 +1471,7 @@ def summit_reorder_single (summit_name, project, options):
     # Open the dependent branch catalogs branch catalogs by
     # priority of branches, and sorted by path within one branch.
     branch_cats = []
-    global_branch_ids = [x[0] for x in project.branches]
-    for branch_id in global_branch_ids:
+    for branch_id in project.branch_ids:
         full_inv_map = project.full_inverse_map[summit_name]
         if branch_id in full_inv_map:
             branch_paths = []
@@ -1480,13 +1535,14 @@ def summit_reorder_single (summit_name, project, options):
             print "!    %s" % fresh_cat.filename
 
 
-def summit_merge_single (summit_path, template_path, project, options):
+def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
+                         project, options):
 
     # Call msgmerge to create the temporary merged catalog.
-    tmp_path = "/tmp/merge%d-%s" % (os.getpid(), os.path.basename(summit_path))
+    tmp_path = "/tmp/merge%d-%s" % (os.getpid(), os.path.basename(catalog_path))
     cmdline = "msgmerge --quiet --previous %s %s -o %s "
-    cmdline %= (summit_path, template_path, tmp_path)
-    if project.summit_unwrap: # unwrap if requested
+    cmdline %= (catalog_path, template_path, tmp_path)
+    if unwrap:
         cmdline += "--no-wrap "
     assert_system(cmdline)
 
@@ -1499,7 +1555,7 @@ def summit_merge_single (summit_path, template_path, project, options):
     # Should merged catalog be opened, and in what mode?
     do_open = False
     headonly = False
-    if project.summit_split_tags:
+    if split_tags:
         do_open = True
     elif header_prop_fields:
         do_open = True
@@ -1519,15 +1575,15 @@ def summit_merge_single (summit_path, template_path, project, options):
 
     # Open catalogs as necessary.
     if do_open:
-        wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+        wrapf = get_wrap_func(unwrap, split_tags)
         cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
                       headonly=headonly)
         if do_open_template:
             tcat = Catalog(template_path, monitored=False, headonly=headonly)
 
     # Split on tags if requested.
-    if project.summit_split_tags:
-        wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+    if split_tags:
+        wrapf = get_wrap_func(unwrap, split_tags)
         cat.sync(force=True)
 
     # Propagate requested header fields.
@@ -1553,15 +1609,15 @@ def summit_merge_single (summit_path, template_path, project, options):
         cat.sync()
 
     # If there is any difference between merged and old catalog.
-    if not filecmp.cmp(summit_path, tmp_path):
-        # Assert correctness of the merged catalog and move over to the summit.
+    if not filecmp.cmp(catalog_path, tmp_path):
+        # Assert correctness of the merged catalog and move over the old.
         assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
-        shutil.move(tmp_path, summit_path)
+        shutil.move(tmp_path, catalog_path)
 
         if options.verbose:
-            print ".    (merged) %s" % summit_path
+            print ".    (merged) %s" % catalog_path
         else:
-            print ".    %s" % summit_path
+            print ".    %s" % catalog_path
     else:
         # Remove the temporary merged catalog.
         os.unlink(tmp_path)
