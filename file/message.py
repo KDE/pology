@@ -21,7 +21,7 @@ _Message_spec = {
                         "spec" : {"*" : {"type" : unicode}}},
     "auto_comment" : {"type" : Monlist,
                       "spec" : {"*" : {"type" : unicode}}},
-    "source" : {"type" : Monset,
+    "source" : {"type" : Monlist,
                 "spec" : {"*" : {"type" : Monpair,
                                  "spec" : {"first" : {"type" : unicode},
                                            "second" : {"type" : int}}}}},
@@ -84,7 +84,7 @@ class Message_base (object):
     @type auto_comment: list* of strings
 
     @ivar source: source references, as filepath:lineno pairs (C{#: ...})
-    @type source: set* of pairs*
+    @type source: list* of pairs*
 
     @ivar flag: message flags (C{#, ...})
     @type flag: set* of strings
@@ -594,7 +594,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
         self._manual_comment = Monlist(init.get("manual_comment", []))
         self._auto_comment = Monlist(init.get("auto_comment", []))
-        self._source = Monset([Monpair(*x) for x in init.get("source", [])])
+        self._source = Monlist([Monpair(*x) for x in init.get("source", [])])
         self._flag = Monset(init.get("flag", []))
 
         self._obsolete = init.get("obsolete", False)
