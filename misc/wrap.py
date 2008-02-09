@@ -178,7 +178,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
         pl_ok = 0 # last good position into current line (where wrap was fine)
         ple_ok = 0 # last good apparent position into current line
         while p + pl < lentext \
-        and (ple <= ewcol or wcol <= 0 or not midbr) \
+        and (ple <= ewcol or wcol <= 0 or (not midbr and pl_ok == 0)) \
         and not atbr:
             pchar = text[p + pl - 1]
             cchar = text[p + pl]
