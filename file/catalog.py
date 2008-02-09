@@ -14,7 +14,7 @@ from message import Message as MessageMonitored
 from message import MessageUnsafe as MessageUnsafe
 from header import Header
 
-import os, codecs, re, types, signal
+import os, codecs, re, types, signal, difflib
 
 
 def _parse_quoted (s):
@@ -888,84 +888,76 @@ class Catalog (Monitored):
 
     def _pick_insertion_point (self, msg, last):
 
-        # List of candidate positions with quality weights.
-        # 0.0 <= weight < 1.0 -- default insertion at the end (last)
-        # 1.0 <= weight < 2.0 -- either prev or next message in the same source
-        # 2.0 <= weight < 3.0 -- both prev and next message in the same source
-        ip_candidates = [(last, 0.0)]
+        # Return the best insertion position with associated weight.
+        # Assume the existing messages in the catalog are properly ordered.
 
-        # Try to find better position for insertion.
-        # Do not look for best weights, but take the first connection;
-        # this is nearer to expected of a PO file, and more deterministic.
-        # NOTE: The code below is more verbose than needed for this strategy;
-        # this in order to more easily shift to different strategy if needed.
+        # Insert at the last position if the candidate message has
+        # no source references.
+        if not msg.source:
+            return last, 0.0
 
-        fs = _srcref_repack(msg.source) # need source refs in a dictionary
-        fs2 = {}
-        insertion_found = False
-        for i in range(0, last):
-            # See if the current and the previous messages share a source.
-            mid_source = u""
-            fs1 = fs2
-            fs2 = _srcref_repack(self._messages[i].source)
-            if i > 0:
-                for f1 in fs1:
-                    if f1 in fs2:
-                        mid_source = f1; break
+        # The file name and line number of candidate's first source reference.
+        src, lno = msg.source[0]
 
-            # See if the new message fits between the current and the
-            # previous if they share a source.
-            if mid_source:
-                for f in fs:
-                    if f in fs1 and f in fs2:
-                        lcombos = [(x, x1, x2) for x in fs[f] \
-                                               for x1 in fs1[f] \
-                                               for x2 in fs2[f]]
-                        for lno, lno1, lno2 in lcombos:
-                            if lno1 != lno2 and lno1 <= lno and lno <= lno2:
-                                w = 2 + 1.0 / (lno2 - lno1 + 2)
-                                insertion_found = True
-                                break
-                        if insertion_found: break
-                if insertion_found:
-                    ip_candidates.append((i, w))
+        # Try to find insertion position by comparing the first
+        # source references of the candidate and existing messages.
+        # If the matching source files are found, insert according to
+        # the line number; otherwise, insert according to the best
+        # source file name similarity to existing file names.
+        ins_pos = -1
+        src_match = False
+        pos_first_by_srcs = {}
+        srcs = []
+        for i in range(last):
+            emsg = self._messages[i]
+
+            # Skip this message if it has no source references.
+            if not emsg.source:
+                continue
+
+            # The existing message's first source reference.
+            esrc, elno = emsg.source[0]
+            if esrc not in pos_first_by_srcs:
+                pos_first_by_srcs[esrc] = i
+                srcs.append(esrc)
+
+            if src == esrc:
+                # The source file names match.
+                # Insert at this position if the candidate's line number
+                # preceeds that of the current message.
+                src_match = True
+                if lno < elno:
+                    ins_pos = i
                     break
-            else:
-                # See if the new message fits after the previous.
-                if i > 0:
-                    for f in fs:
-                        if f in fs1:
-                            lcombos = [(x, x1) for x in fs[f] \
-                                               for x1 in fs1[f]]
-                            for lno, lno1 in lcombos:
-                                if lno1 <= lno:
-                                    w = 1 + 1.0 / (lno - lno1 + 2)
-                                    insertion_found = True
-                                    break
-                            if insertion_found: break
-                    if insertion_found:
-                        ip_candidates.append((i, w))
-                        break
-                # See if the new message fits before the current.
-                if i >= 0: # always true, just for the symmetric indent :)
-                    for f in fs:
-                        if f in fs2:
-                            lcombos = [(x, x2) for x in fs[f] \
-                                               for x2 in fs2[f]]
-                            for lno, lno2 in lcombos:
-                                if lno <= lno2:
-                                    w = 1 + 1.0 / (lno2 - lno + 2)
-                                    insertion_found = True
-                                    break
-                            if insertion_found: break
-                    if insertion_found:
-                        ip_candidates.append((i, w))
-                        break
+            elif src_match:
+                # The sources no longer match, but they were matched before.
+                # This means the candidate line number is after all existing,
+                # so insert at this position.
+                ins_pos = i
+                break
 
-        # Pick the best insertion position candidate.
-        ip_candidates.sort(cmp=lambda x, y: cmp(y[1], x[1]))
-        #print ip_candidates
-        return ip_candidates[0]
+        # Return insertion determined by matching source file names,
+        # or by most similar source file name.
+        # The former has heigher insertion weight than the latter.
+        if ins_pos >= 0:
+            return ins_pos, 1.0
+        elif srcs:
+            near_srcs = difflib.get_close_matches(src, srcs)
+            if near_srcs:
+                near_src = near_srcs[0]
+                if src < near_src:
+                    near_pos = pos_first_by_srcs[near_src]
+                else:
+                    p = srcs.index(near_src)
+                    if p + 1 < len(srcs):
+                        near_pos = pos_first_by_srcs[srcs[p + 1]]
+                    else:
+                        near_pos = last
+                return near_pos, 0.5
+            else:
+                return last, 0.0
+        else:
+            return last, 0.0
 
 
     def nplurals (self):
