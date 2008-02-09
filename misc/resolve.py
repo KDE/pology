@@ -9,6 +9,7 @@ Replacement of segments in text which define some underlying values.
 
 import re
 import xml.parsers.expat
+import difflib
 
 
 def parse_entities (defstr, src=None):
@@ -166,11 +167,26 @@ def resolve_entities (text, entities, ignored_entities,
                 else:
                     unknown.append(entname)
                     if srcname is not None:
+                        # Try to suggest some near matches.
+                        nears = difflib.get_close_matches(entname, entities)
                         if fcap and entname_orig != entname:
-                            print   "%s: unknown entity, either '%s' or '%s'" \
-                                  % (srcname, entname_orig, entname)
+                            if nears:
+                                print   "%s: unknown entity, either '%s' " \
+                                        "or '%s' (near matches: %s)" \
+                                      % (srcname, entname_orig, entname,
+                                         ", ".join(nears))
+                            else:
+                                print   "%s: unknown entity, either '%s' " \
+                                        "or '%s'" \
+                                      % (srcname, entname_orig, entname)
                         else:
-                            print "%s: unknown entity '%s'" % (srcname, entname)
+                            if nears:
+                                print   "%s: unknown entity '%s' " \
+                                        "(near matches: %s)" \
+                                      % (srcname, entname, ", ".join(nears))
+                            else:
+                                print   "%s: unknown entity '%s'" \
+                                      % (srcname, entname)
 
     # Recursive resolving if at least one entity has been resolved.
     if len(resolved) > 0:
