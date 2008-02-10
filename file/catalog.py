@@ -1059,3 +1059,98 @@ class Catalog (Monitored):
 
         return [int(x) for x in lst]
 
+
+    def select_by_key (self, msgctxt, msgid):
+        """
+        Select message from the catalog by the fields that define its key.
+
+        If matched, the message is returned as a single-element list, or
+        an empty list when there is no match. This is so that the result
+        of this method is in line with other C{select_*} methods.
+
+        Runtime complexity as that of L{find}.
+
+        @param msgctxt: the text of C{msgctxt} field (can be empty)
+        @type msgctxt: string
+
+        @param msgid: the text of C{msgid} field
+        @type msgid: string
+
+        @returns: selected messages
+        @rtype: list of subclass of L{Message_base}
+        """
+
+        m = MessageUnsafe({"msgctxt" : msgctxt, "msgid" : msgid})
+        p = self.find(m)
+        if p >= 0:
+            return [self._messages[p]]
+        else:
+            return []
+
+
+    def select_by_msgid (self, msgid):
+        """
+        Select messages from the catalog by matching C{msgid} field.
+
+        Several messages may have the same C{msgid} field, due to different
+        C{msgctxt} fields. Empty list is returned when there is no match.
+
+        Runtime complexity O(n).
+
+        @param msgid: the text of C{msgid} field
+        @type msgid: string
+
+        @returns: selected messages
+        @rtype: list of subclass of L{Message_base}
+        """
+
+        selected_msgs = []
+        for msg in self._messages:
+            if msg.msgid == msgid:
+                selected_msgs.append(msg)
+
+        return selected_msgs
+
+
+    def select_by_msgid_fuzzy (self, msgid, cutoff=0.6):
+        """
+        Select messages from the catalog by near-matching C{msgid} field.
+
+        The C{cutoff} parameter determines the minimal admissible similarity
+        (1.0 fo exact match).
+
+        The messages are returned ordered by decreasing similarity.
+
+        Runtime complexity O(n) * O(length(msgid)*avg(length(msgids)))
+        (probably).
+
+        @param msgid: the text of C{msgid} field
+        @type msgid: string
+
+        @param cutoff: minimal similarity
+        @type cutoff: float
+
+        @returns: selected messages
+        @rtype: list of subclass of L{Message_base}
+        """
+
+        # Build dictionary of message keys by msgid;
+        # there can be several keys per msgid, pack in a list.
+        msgkeys = {}
+        for msg in self._messages:
+            if msg.msgid not in msgkeys:
+                msgkeys[msg.msgid] = []
+            msgkeys[msg.msgid].append(msg.key)
+
+        # Get near-match msgids.
+        near_msgids = difflib.get_close_matches(msgid, msgkeys, cutoff=cutoff)
+
+        # Collect messages per selected msgids.
+        selected_msgs = []
+        for near_msgid in near_msgids:
+            for msgkey in msgkeys[near_msgid]:
+                selected_msgs.append(self._messages[self._msgpos[msgkey]])
+
+        return selected_msgs
+
+
