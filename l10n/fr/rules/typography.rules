@@ -182,7 +182,9 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 ['(?=[^\wéèàêâ])]
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;" 
-valid before="&lt;b&gt;[\wéèàê]" 
+valid before="&lt;b&gt;[\wéèàê]"
+valid file="kgeography.po" before="É|Î"
+valid file="kgeography.po" after="Vayots" 
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [&sp;&sp;+]
@@ -243,6 +245,7 @@ valid before="DCOPserver"
 valid after="S\.u" before="S\.E\."
 valid before="WRI"
 valid after="S\.u\.S" before="E\."
+valid file="kgeography.po" after="D" before="C\."
 valid after="e" before="V\."
 valid after="U" before="S\."
 valid after="kmail-uudecoded" before="XXXXXX"
