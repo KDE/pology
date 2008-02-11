@@ -19,7 +19,6 @@ Sieve options:
 """
 
 import os, re
-from pology.misc.split import split_text
 from pology.misc.comments import manc_parse_flag_list
 
 
