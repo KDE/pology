@@ -119,10 +119,26 @@ def equip_fancy_quotes (text, squote, fquotes):
 
         # Calculate the length of no-modify segment if it starts here.
         no_mod_len = 0
+
+        # - XML-markup
         if text[i] == "<":
             ic = text.find(">", i + 1)
             if ic >= 0: # markup only if closed, otherwise stay put
                 no_mod_len = ic - i + 1
+
+        # - text in special parenthesis
+        elif text[i] in ("{", "["):
+            if text[i] == "{":
+                other = "}"
+            else:
+                other = "]"
+            ic = text.find(other, i + 1)
+            if ic >= 0: # special only if closed, otherwise stay put
+                no_mod_len = ic - i + 1
+
+        # - simple quotes with no text in between
+        elif text[i:i+2*len(squote)] == squote + squote:
+            no_mod_len = 2 * len(squote)
 
         # Advance past the end of no-modify segment if found.
         if no_mod_len > 0:
