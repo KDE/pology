@@ -59,6 +59,7 @@ valid after="casse&sp;"
 valid after="adresse&sp;" 
 valid file="konqueror.po" after="colonne&sp;" 
 valid before="ment" 
+valid after="ir"
 valid file="kverbos.po"
 hint="Choix de l'équipe : "expression rationnelle" (et non régulière)"
 
@@ -96,11 +97,12 @@ valid file="korganizer_exchange-plugin.po" after="^\nkorganizer: Registering.*"
 valid after="&amp;ns" before="s-kcontrol;"
 hint="plugin -> module externe"
 
-[additif]
+[additif|greffon]
 hint="plugin -> module externe"
 
 [tuyau]
 valid file="kpf.po" after="^" before="$"
+valid file="kxsconfig.po" after="&sp;"
 hint="hint/tip -> Astuce (homogénéité)"
 
 [->]
@@ -145,7 +147,7 @@ hint="`pas été trouvé' -> `Impossible de trouver' (homogénéité)"
 
 [support]
 valid file="ppdtranslations.po"
-hint="support est un faux ami, a traduire par un dérivé de `disponible', `autoriser', 'accepter' ou 'prendre en charge'"
+hint="support est un faux ami, à traduire par un dérivé de `disponible', `autoriser', 'accepter' ou 'prendre en charge'"
 
 [dans votre PATH]
 hint="Utiliser la forme 'en suivant votre PATH'"
@@ -177,7 +179,7 @@ hint="Mettre une majuscule a 'Centre de configuration de KDE'"
 hint="On essaie d'éviter 'item' ?"
 
 [visualis]
-hint="utiliser 'afficheur' plutôt que 'visualiseur' (ou ses dérivés)"
+hint="utiliser 'afficheur' plutôt que 'visualiseur' (ou ses dérivés) ou alors 'aperçu' pour traduire preview"
 
 [r@ecup@er]
 hint="Choix de l'équipe : 'réception/recevoir' (au lieu de récupération/récupérer)"
