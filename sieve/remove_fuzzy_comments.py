@@ -18,7 +18,7 @@ Other sieve options:
   - C{case}: do case-sensitive matching (insensitive by default)
 
 The comments are selected for removal by first applying specific criteria
-in an unspecified order, then the C{pattern} match, and finaly the
+in an unspecified order, then the C{pattern} match, and finally the
 C{exclude} match.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
