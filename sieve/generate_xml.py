@@ -1,0 +1,189 @@
+# -*- coding: UTF-8 -*-
+
+"""
+Generate a XML output from the input PO files
+
+This Sieve allows the generation of an XML representation of a PO file or a list of PO files
+(depending on options of the posieve.py command line). 
+
+Each PO files is represented by a <po> tag which contains a list of <msg> tag, for each message. 
+The <msg> tag contains the classical entries describing a PO message :
+    - <line> :     Line number of the message
+    - <refentry> : Reference entry
+    - <status> :   Current status of the message (obsolete, translated, untranslated, fuzzy)
+    - <msgid> :    Message Identifier
+    - <msgstr> :   Translated Message
+    - <msgctxt> :  Message Context
+    
+Please note that if the translated message contains plural forms, they will be describe as 
+<plural> sub-tags of <msgstr> tag.       
+
+Existing Sieve options are:
+  -sxml:filename
+      Export the input PO files into the "filename" file instead of the standard output
+  -stranslatedOnly
+      Only export translated entries. (and so, ignore obsolete, untranslated and fuzzy strings)
+
+@author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
+@license: GPLv3
+"""
+
+import sys, os, locale
+from os.path import abspath, basename, dirname, isdir, isfile, join
+from codecs import open
+
+from pology.misc.rules import loadRules, Rule
+from pology.misc.colors import BOLD, RED, RESET
+from pology.misc.timeout import TimedOutException
+
+reload(sys)
+encoding = locale.getdefaultlocale()[1]
+sys.setdefaultencoding(encoding)
+
+def error (msg, code=1):
+
+    cmdname = os.path.basename(sys.argv[0])
+    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
+    sys.exit(code)
+
+
+class Sieve (object):
+    """Find messages matching given rules."""
+
+    def __init__ (self, options, global_options):
+
+        self.xmlFile = None # File handle to write XML output
+        self.filename = ""     # File name we are processing
+        self.translatedOnly = False
+        
+        
+        # Also output in XML file ?
+        if "xml" in options:
+            options.accept("xml")
+            xmlPath = options["xml"]
+            if os.access(dirname(abspath(xmlPath)), os.W_OK):
+                self.xmlFile=open(xmlPath, "w", "utf-8")
+            else:
+                print "Cannot open %s file. XML output disabled" % xmlPath
+        
+        if "translatedOnly" in options:
+            options.accept("translatedOnly")
+            self.translatedOnly = True
+        
+
+        self.output('<?xml version="1.0" encoding="UTF-8"?>\n')
+        self.output('<pos>\n')
+
+        self.count = {}
+        self.count["obs"] = 0
+        self.count["tot"] = 0
+        self.count["trn"] = 0
+        self.count["fuz"] = 0
+        self.count["unt"] = 0
+
+        # Indicators to the caller:
+        self.caller_sync = False # no need to sync catalogs
+        self.caller_monitored = False # no need for monitored messages
+
+    def process(self, msg, cat):
+        filename=basename(cat.filename)
+        
+        # Handle start/end of files for XML output (not needed for text output)
+        if self.filename!=filename:
+            if self.filename != "":
+                self.write_stats()
+                # close previous
+                self.output("</po>\n")
+
+            self.filename=filename
+            # open new po
+            self.output('<po name="%s">\n' % filename)
+
+        # Test the add or not of this message
+        if self.add_message(msg) is False:
+            return
+
+        # Statistics updating
+        if msg.obsolete:
+            self.count["obs"] += 1
+            status = "obsolete"
+        else:
+            self.count["tot"] += 1
+        if msg.translated:
+            self.count["trn"] += 1
+            status = "translated"
+        elif msg.fuzzy:
+            self.count["fuz"] += 1
+            status = "fuzzy"
+        elif msg.untranslated:
+            self.count["unt"] += 1
+            status = "untranslated"
+                
+        # Output writing
+        self.output("\t<msg>\n")
+        self.output("\t\t<line>%s</line>\n" % msg.refline)
+        self.output("\t\t<refentry>%s</refentry>\n" % msg.refentry)
+        self.output("\t\t<status>%s</status>\n" % status)
+        self.output("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid )
+        self.output("\t\t<msgstr>%s</msgstr>\n" % self.join_plural_form(msg.msgstr) )
+        
+        if len(msg.msgctxt) == 0:
+            self.output("\t\t<msgctxt></msgctxt>\n")
+        else:
+            self.output("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % self.replace_cdata(msg.msgctxt) )
+            
+        self.output("\t</msg>\n")
+
+    def join_plural_form(self, message_list):
+        if len(message_list) == 1:
+            return "<![CDATA[%s]]>" % self.replace_cdata(message_list[0])
+
+        message_str = ""
+        for msgstr in message_list:
+            message_str += "<plural><![CDATA[%s]]></plural>" % self.replace_cdata(msgstr)
+        
+        return message_str
+        
+
+    def add_message(self, msg):
+        if self.translatedOnly is False:
+            return True
+        
+        if self.translatedOnly is True and msg.translated is True:
+            return True
+        
+        return False
+
+
+    def replace_cdata(self, msg):
+        return msg.replace("<![CDATA[", "&lt;![CDATA[").replace("]]>", "]]&gt;")
+    
+    def output(self, content):
+        if self.xmlFile:
+            self.xmlFile.write(content)
+        else:
+            print content
+
+    def write_stats(self):
+        self.output("\t<stats>\n")
+        self.output("\t\t<obsolete>%s</obsolete>\n" % self.count["obs"])
+        self.output("\t\t<total>%s</total>\n" % self.count["tot"])
+        self.output("\t\t<translated>%s</translated>\n" % self.count["trn"])
+        self.output("\t\t<fuzzy>%s</fuzzy>\n" % self.count["fuz"])
+        self.output("\t\t<untranslated>%s</untranslated>\n" % self.count["unt"])
+        self.output("\t</stats>\n")
+        self.count["obs"] = 0
+        self.count["tot"] = 0
+        self.count["trn"] = 0
+        self.count["fuz"] = 0
+        self.count["unt"] = 0
+
+    def finalize (self):
+        self.write_stats()
+        self.output("</po>\n")
+        self.output('</pos>\n')
+        
+        if self.xmlFile:
+            # Close last po tag and xml file
+            self.xmlFile.close()
+
