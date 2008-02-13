@@ -68,7 +68,8 @@ valid file="kshisen.po" after="%2" before="%3"
 valid file="lskat.po" after="%1" before="%2" 
 valid file="kspread.po" after="[A-Z0-9]+" before="[A-Z0-9]+" 
 valid file="kspread.po" after="(ligne)|(colonne)" before="(ligne)|(colonne)" 
-valid file="kwintv.po" after="proportions 4" before="3$" 
+valid file="kwintv.po" after="proportions 4" before="3$"
+valid ctx="List of words.*" after="." 
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -137,7 +138,8 @@ hint="Mettre une espace insécable avant et une espace après"
 [,]
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
-valid after="[0-9]" before="[0-9]" 
+valid after="[0-9]" before="[0-9]"
+valid after="https?://\S+(?=,)" 
 valid after="^" before="&sp;"
 valid ctx="\w+ OF TRANSLATORS" after="."  before="."  
 valid ctx="desktop_po" after="^Keywords=.*" 
@@ -148,6 +150,7 @@ hint="Pas d'espace avant une virgule (mais un après) !"
 [,(?=[a-zA-Z])]
 valid after="x" before="y"
 valid after="^Keywords="
+valid ctx="Query" before="."
 valid file="kdm.po" after="Courier" before="12,5,iso-8859-1,50,0."
 valid file="kdm.po" after="Courier,12" before="5,iso-8859-1,50,0."
 valid file="kdm.po" after="Courier,12,5" before="iso-8859-1,50,0."
@@ -249,6 +252,7 @@ valid after="S\.u\.S" before="E\."
 valid file="kgeography.po" after="D" before="C\."
 valid after="e" before="V\."
 valid after="U" before="S\."
+valid after="S" before="A\."
 valid after="kmail-uudecoded" before="XXXXXX"
 valid after="(^|&sp;)\*" before="[a-zA-Z3]+(&sp;|$)"
 valid after="([A-Za-z\-]+\.?)+@([A-Za-z]+\.?)" before="([A-Za-z]+\.?)+$"
@@ -286,6 +290,12 @@ hint="Pas d'espace avant un point"
 
 [&cr;]
 hint="À bas MS-DOS"
+
+[&unbsp;[:|;] (?=[A-Z])]
+valid before="CRT|LCD|MS-DOS" # Keywords, acronyms
+valid before="Martin" # Authors
+valid before="Français|Anglais|Italien|Espagnol|Allemand"
+hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(»</strong>)|(»</b>)]
 hint="Ne pas cumuler le gras et les guillemets"

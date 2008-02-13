@@ -160,7 +160,7 @@ valid file="kdm.po" before=",12,5,iso-8859-1"
 hint="À remplacer par 'courrier'" 
 
 [language]
-valid ctx="desktop_po" before="=" 
+valid ctx="Query" before="=" 
 valid file="kljettool.po" after="Printer&sp;Job&sp;" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -301,6 +301,7 @@ hint="'digital' est un anglicisme. Utiliser 'numérique'"
 valid file="ksysv.po" after=":init" before=":$"  
 valid file="ksirc.po" after="^!" before="$"  
 valid file="kdm_kdmrc-ref.po" after="^"
+valid ctx="Query" before="."
 hint="À remplacer par 'défaut'" 
 
 [&lwb;media&rwb;]
