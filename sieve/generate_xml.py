@@ -124,7 +124,7 @@ class Sieve (object):
         self.output("\t\t<line>%s</line>\n" % msg.refline)
         self.output("\t\t<refentry>%s</refentry>\n" % msg.refentry)
         self.output("\t\t<status>%s</status>\n" % status)
-        self.output("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid )
+        self.output("\t\t<msgid><![CDATA[%s]]></msgid>\n" % self.replace_cdata(msg.msgid) )
         self.output("\t\t<msgstr>%s</msgstr>\n" % self.join_plural_form(msg.msgstr) )
         
         if len(msg.msgctxt) == 0:
