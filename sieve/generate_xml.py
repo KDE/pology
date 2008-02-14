@@ -1,28 +1,29 @@
 # -*- coding: UTF-8 -*-
 
 """
-Generate a XML output from the input PO files
+Generate a XML output from the input PO files.
 
-This Sieve allows the generation of an XML representation of a PO file or a list of PO files
-(depending on options of the posieve.py command line). 
+This sieve allows the generation of an XML representation of a PO file or
+a list of PO files (depending on options of the posieve.py command line).
 
-Each PO files is represented by a <po> tag which contains a list of <msg> tag, for each message. 
-The <msg> tag contains the classical entries describing a PO message :
-    - <line> :     Line number of the message
-    - <refentry> : Reference entry
-    - <status> :   Current status of the message (obsolete, translated, untranslated, fuzzy)
-    - <msgid> :    Message Identifier
-    - <msgstr> :   Translated Message
-    - <msgctxt> :  Message Context
-    
-Please note that if the translated message contains plural forms, they will be describe as 
-<plural> sub-tags of <msgstr> tag.       
+Each PO file is represented by a C{<po>} tag which contains a list of C{<msg>} tag, for each message. 
+The C{<msg>} tag contains the classical entries describing a PO message :
+  - C{<line>}: Line number of the message
+  - C{<refentry>}: Reference entry
+  - C{<status>}: Current status of the message (obsolete, translated,
+    untranslated, fuzzy)
+  - C{<msgid>}: Message Identifier
+  - C{<msgstr>}: Translated Message
+  - C{<msgctxt>}: Message Context
 
-Existing Sieve options are:
-  -sxml:filename
-      Export the input PO files into the "filename" file instead of the standard output
-  -stranslatedOnly
-      Only export translated entries. (and so, ignore obsolete, untranslated and fuzzy strings)
+Please note that if the translated message contains plural forms, they will be
+described as C{<plural>} subtags of C{<msgstr>} tag.
+
+The sieve options are:
+  - C{xml:<filename>}: Export the input PO files into the file instead
+    of the standard output
+  - C{translatedOnly}: Only export translated entries (and so, ignore obsolete,
+    untranslated and fuzzy strings)
 
 @author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
 @license: GPLv3

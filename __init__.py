@@ -27,6 +27,7 @@ As a design intent, Pology includes tools which have overlapping or even duplica
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
 
 @license: GPLv3
 """
