@@ -278,8 +278,8 @@ hint="Pas d'espace avant un point"
 [&cr;]
 hint="À bas MS-DOS"
 
-[&unbsp;[:|;] (?=[A-Z])]
-valid before="CRT|LCD|MS-DOS|SOCKS" # Keywords, acronyms
+[&unbsp;[:|;] (?=[A-Z])] 
+valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
 hint="Pas de majuscule après deux points ou un point virgule"
