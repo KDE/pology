@@ -132,50 +132,84 @@ def loadRulesFromFile(filePath, accents):
     @return: list of Rule object"""
 
     rules=[]
-    inRule=False #Flag that indicate we are currently parsing a rule
+    inRule=False #Flag that indicate we are currently parsing a rule bloc
+    inGroup=False #Flag that indicate we are currently parsing a validGroup bloc
     
     patternPattern=re.compile("\[(.*)\]")
     validPattern=re.compile("valid (.*)")
     #validPatternContent=re.compile('(.*?)="(.*?)"')
     validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
     hintPattern=re.compile("""hint="(.*)""")
+    validGroupPattern=re.compile("""validGroup (.*)""")
     
     pattern=u""
     valid=[]
     hint=u""
+    validGroup={}
+    validGroupName=u""
+    i=0
 
     try:
         for line in open(filePath, "r", "utf-8"):
             line=line.rstrip("\n")
+            i+=1
             
+            # Comments
             if line.startswith("#"):
                 continue
             
-            if line.strip()=="" and inRule:
-                inRule=False
-                rules.append(Rule(pattern, hint, valid, accents))
-                pattern=u""
+            # End of rule bloc
+            if line.strip()=="":
+                if inRule:
+                    inRule=False
+                    rules.append(Rule(pattern, hint, valid, accents))
+                    pattern=u""
+                    hint=u""
+                elif inGroup:
+                    inGroup=False
+                    validGroup[validGroupName]=valid
+                    validGroupName=u""
                 valid=[]
-                hint=u""
                 continue
-                
+            
+            # Begin of rule (pattern)
             result=patternPattern.match(line)
             if result and not inRule:
                 inRule=True
                 pattern=result.group(1)
                 continue
             
+            # valid line (for rule ou validGroup)
             result=validPattern.match(line)
-            if result and inRule:
+            if result and (inRule or inGroup):
                 valid.append(validPatternContent.findall(result.group(1)))
                 continue
             
+            # Rule hint
             result=hintPattern.match(line)
             if result and inRule:
                 hint=result.group(1)
-                continue 
+                continue
+            
+            # Validgroup 
+            result=validGroupPattern.match(line)
+            if result and not inGroup:
+                if inRule:
+                    # Use of validGroup directive inside a rule bloc
+                    validGroupName=result.group(1).strip()
+                    valid.extend(validGroup[validGroupName])
+                else:
+                    # Begin of validGroup
+                    inGroup=True
+                    validGroupName=result.group(1).strip()
+                    continue
+            
+            
+
     except IOError, e:
         print "Cannot read rule file at %s. Error was (%s)" % (filePath, e)
+    except KeyError, e:
+        print "Syntax error in rule file %s:%s\n%s" % (filePath, i, e)
 
     return rules
  
@@ -264,7 +298,7 @@ class Rule(object):
                         value=re.compile(value)
                     entry[key]=value
                 self.valid.append(entry)
-            except ValueError:
+            except Exception:
                 print "Invalid 'Valid' definition '%s'. Skipping" % item
                 continue
 
