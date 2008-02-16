@@ -309,8 +309,11 @@ valid ctx="Query" before="."
 valid file="kcmkonqhtml.po" after="window\."
 hint="À remplacer par 'défaut'" 
 
-[&lwb;media&rwb;]
+[media]
 hint="media -> média"
+
+[médias]
+hint="média ne prend pas de s même au pluriel"
 
 [focntion]
 hint="`focntion' -> `fonction' (dyslexie)"
