@@ -6,7 +6,6 @@
 [(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
 valid before="&sp;dans&sp;" 
 valid before="&sp;en&sp;" 
-valid file="kcontrol_kcmcrypto.po" after="quand&sp;vous&sp;" before="&sp;en&sp;mode&sp;cryptage&sp;SSL"
 valid file="kdm.po" after="^" before="$"
 valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
