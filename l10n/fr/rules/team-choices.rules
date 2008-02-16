@@ -37,10 +37,6 @@ valid file="ktouch.po" after="apprendre&sp;à&sp;"
 valid file="ktouch.po" after="apprenez&sp;à&sp;"
 hint="Mieux vaut `saisir' que `taper'"
 
-[status|statut]
-valid after="[Ss]mb" 
-hint="remplacer `status' ou `statut' par `état'"
-
 [bouton\s*\w*\s*milieu]
 hint="`bouton du milieu' -> `bouton central'"
 
@@ -91,6 +87,10 @@ hint="item(s) -> élément(s)"
 hint="plugin -> module externe"
 
 [plugin]
+valid after="\(" before="s?\)"
+valid after="ns" before="scan"
+valid before="_policy\.tgz"
+valid file="kcmkonqhtml.po" after="/"
 valid file="kugar_progguide.po" after="kugar_" before="\."
 valid file="konqueror_config.po" after="&amp;lt;khtmlsettings" before="&amp;gt;"
 valid file="korganizer_exchange-plugin.po" after="^\nkorganizer: Registering.*"
@@ -116,7 +116,7 @@ hint="A remplacer par 'vous pouvez (faire...) ici'"
 hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité'"
 
 [proxy]
-valid before="\)" after="\("
+valid before="\)" after="\(&?"
 hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité' ou 'proxy'"
 
 [(B|b)arre d'outils (principale|d'affichage)]
