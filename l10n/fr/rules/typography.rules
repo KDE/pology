@@ -2,11 +2,26 @@
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
 
+validGroup strongTypo
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*&sp;" 
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*$"
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*\n"
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>" 
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?ul>" 
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</qt>"
+
+validGroup inParenthesis
+valid after="\(" before="\)"
+
+validGroup inQuotes
+valid after="«&unbsp;" before="&unbsp;»"
 
 [:]
-valid after="&unbsp;" before="&sp;"
-valid after="&unbsp;" before="\n|\t"  
-valid after="&unbsp;" before="$"
+validGroup strongTypo
+validGroup inParenthesis
+validGroup inQuotes
+valid after="&unbsp;" before="\t"
 valid after="ftp" 
 valid after="https?"
 valid after="https?://\S+(?=:)"
@@ -27,25 +42,20 @@ valid after="vdvd"  before="/"
 valid after="lan"  before="/"
 valid after="about"  before="/"
 valid after="fonts"  before="/"
+valid file="kcmioslaveinfo.po" after="%1"  before="/"
 valid after="gg"  before="[a-z]+"
 valid after="smb://\[nom\["  before="motdepasse"
 valid after="\d\d" before="\d\d"
-valid after="(HH|hh)" before="(MM|mm)"
-valid after="(MM|mm)" before="(SS|ss)"
+valid after="(HH|hh|%h+)" before="(MM|mm|%m+)"
+valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
 valid after="Heures" before="Minutes"
-valid after="&unbsp;" before="</[a-zA-Z0-9]+>&sp;" 
-valid after="&unbsp;" before="</[a-zA-Z0-9]+>$"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?ul>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</qt>" 
-valid after="&unbsp;" before="\n"
 valid after="ht" before="\/\/dig"
+valid before="-[\)|\(]" # Smiley
 valid file="kdelibs.po" after="QApplication:" before="ManyColor"
 valid file="kdelibs.po" after="QApplication" before=":ManyColor" 
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
-valid after="Process" before=":checkInstall" 
-valid after="Process:" before="checkInstall" 
+valid after="Process" before=":check" 
+valid after="Process:" before="check" 
 valid after="javascript" before="go" 
 valid file="kdelibs.po" after="protocole" before="//utilisateur@motdepasse:www.exemple.org:port/dossier/fichier.extension" 
 valid file="kdelibs.po" after="protocole://utilisateur@motdepasse" before="www.exemple.org:port/dossier/fichier.extension" 
@@ -73,35 +83,28 @@ valid ctx="List of words.*" after="."
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
+validGroup strongTypo
+validGroup inParenthesis
+validGroup inQuotes
 valid after="&amp;[a-z]+" 
-valid after="&unbsp;" before="&sp;" 
-valid after="&unbsp;" before="\n" 
-valid after="&unbsp;" before="$" 
-valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+"
+valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid before="-\)" # Smiley 
-valid file="kdelibs.po" after="javascript:go\(0\)" before="\\\"&gt;" 
+valid file="kdelibs.po" after="javascript:go\(0\)" before="\\\"&gt;"
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
-valid after="&unbsp;" before="&sp;" 
-valid after="&unbsp;" before="\n" 
-valid after="&unbsp;" before="$"
+validGroup strongTypo
+validGroup inParenthesis
+validGroup inQuotes
 valid after="&unbsp;" before="\)"
-valid after="&unbsp;" before="&unbsp;»"
-valid after="&unbsp;" before="&lt;p&gt;" 
-valid after="&unbsp;" before="&lt;\/p&gt;" 
-valid after="&unbsp;" before="&lt;\/h[123]&gt;" 
-valid after="&unbsp;" before="&lt;br" 
-valid after="&unbsp;" before="\n"                                   
-valid after="&unbsp;" before="&lt;\/p&gt;"                                   
+valid after="&unbsp;" before="&unbsp;»"                              
 valid after="^&lt;" before="--.*--&gt;$"                                   
 valid after="&unbsp;" before="!"                                   
-valid after="&unbsp;" before="\)" 
-valid after="&unbsp;" before="&sp;" 
-valid after="!" before="!"                                
-valid after="!" before="&sp;"                  
-valid after="!" before="&lf;"                                
+valid after="&unbsp;" before="\)"  
+valid after="!" before="!"                        
+valid after="!" before="&sp;"
+valid after="!" before="&lf;"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;" 
 valid file="kspread.po" after="[abcx]" before="[abcx!\.]|$"
@@ -110,29 +113,17 @@ valid after="aKtion"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
-valid after="&unbsp;" before="&sp;" 
-valid after="&unbsp;" before="\n" 
-valid after="&unbsp;" before="$"
-valid after="&unbsp;" before="\)" 
+validGroup strongTypo
+validGroup inParenthesis
+validGroup inQuotes
+valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
-valid after="&unbsp;" before="&lt;p&gt;" 
-valid after="&unbsp;" before="&lt;\/p&gt;" 
-valid after="&unbsp;" before="&lt;\/i&gt;&sp;" 
-valid after="&unbsp;" before="&lt;\/h[123]&gt;" 
-valid after="&unbsp;" before="&lt;br&gt;" 
-valid after="&unbsp;" before="&lt;\/[a-zA-Z]+&gt;&lt;\/p&gt;" 
-valid after="&unbsp;" before="\n"                                   
-valid after="&unbsp;" before="&sp;"                                   
-valid after="&unbsp;" before="&lt;\/qt&gt;$" 
-valid after="&unbsp;" before="&lt;\/nobr&gt;&lt;\/qt&gt;$" 
-valid after="&unbsp;" before="&lt;\/h1&gt;&lt;p&gt;" 
-valid after="&unbsp;" before="&lt;\/p&gt;"
-valid after="http?://\S+(?=\?)" 
-valid file="kdelibs.po" msgid="\?\?" 
+valid after="https?://\S+(?=\?)" 
+valid file="kdelibs.po" msgid="\?\?"
+valid file="kfindpart.po" after="l" before="t" 
 valid after="&amp;nbsp;" before="&lt;\/qt&gt;$" 
 valid file="kdelibs.po" after="fichier.extension" before="requête=valeur"
 valid file="koncd.po" after="&sp;\*\.x" before="m,"
-valid file="kmail.po" after="&unbsp;" before="&unbsp;»"
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
@@ -144,7 +135,8 @@ valid after="^" before="&sp;"
 valid ctx="\w+ OF TRANSLATORS" after="."  before="."  
 valid ctx="desktop_po" after="^Keywords=.*" 
 valid after="[^&sp;(&unbsp;)]" before="&lt;br" 
-valid file="kdelibs.po" after="\[%1" before="%2\]" 
+valid file="kdelibs.po" after="\[%1" before="%2\]"
+valid file="kcmkwinrules.po" after="\+" 
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
@@ -160,7 +152,8 @@ valid file="kdm.po" after="SessionTypes=kde" before="failsafe"
 valid file="kugar_template-elements.po" after="\(r" before="g"
 valid file="kugar_template-elements.po" after="g" before="b\)"
 valid file="kspread.po"
-valid file="kmplot_reference.po" 
+valid file="kmplot_reference.po"
+valid file="kcmkwinrules.po" after="\+" 
 valid ctx="\w+ OF TRANSLATORS" after="."  before="."
 hint="Une espace après une virgule"
 
@@ -197,11 +190,13 @@ valid file="kfmclient.po"
 hint="Jamais plus d'une espace."
 
 [%]
-valid after="&unbsp;" before="$" 
+validGroup strongTypo
+validGroup inParenthesis
 valid after="&unbsp;" before="[,\. \)]"
-valid after="&unbsp;" before="&sp;"
 valid before="[0-9ns]"
-valid file="ksim.po" before="[bcdfFhmnstu]\S" 
+valid file="ksim.po" before="[bcdfFhmnstTu]"
+valid file="kcmcomponentchooser.po" before="[Au]"
+valid file="kdmgreet.po" before="[aBht]"
 valid file="kdelibs.po" msgid="%" 
 valid file="kdelibs.po" after="^" 
 valid file="kcron.po" after="^" before="H:%M$"
@@ -254,6 +249,7 @@ valid file="kgeography.po" after="D" before="C\."
 valid after="e" before="V\."
 valid after="U" before="S\."
 valid after="S" before="A\."
+valid file="kcmlocale.po" after="MM" before="AA"
 valid after="kmail-uudecoded" before="XXXXXX"
 valid after="(^|&sp;)\*" before="[a-zA-Z3]+(&sp;|$)"
 valid after="([A-Za-z\-]+\.?)+@([A-Za-z]+\.?)" before="([A-Za-z]+\.?)+$"
@@ -266,18 +262,8 @@ hint="Une espace après un point."
 
 [&sp;\.]
 valid before="desktop&sp;"
-valid file="kdvi.po" before="dvi"
 valid before="xinitrc"
-valid file="kmidi.po" before="cfg"
-valid before="WRI"
-valid before="png"
-valid before="kwd"
-valid before="ps"
-valid before="eps"
-valid before="doc"
-valid before="spec"
-valid before="m3u"
-valid before="pls"
+valid before="cfg|doc|dvi|kwd|eps|m3u|pls|png|ps|spec|txt|WRI"
 valid file="konsole.po" before="schema"
 valid file="konsole.po" before="keytab"
 valid file="konsole.po" before="schema"
@@ -293,7 +279,7 @@ hint="Pas d'espace avant un point"
 hint="À bas MS-DOS"
 
 [&unbsp;[:|;] (?=[A-Z])]
-valid before="CRT|LCD|MS-DOS" # Keywords, acronyms
+valid before="CRT|LCD|MS-DOS|SOCKS" # Keywords, acronyms
 valid before="Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
 hint="Pas de majuscule après deux points ou un point virgule"
