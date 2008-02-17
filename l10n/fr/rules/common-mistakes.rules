@@ -324,9 +324,12 @@ hint="Pas de tiret entre 'raccourci' et 'clavier'"
 [status|statut]
 valid after="[Ss]mb"
 valid file="kcmkonqhtml.po" after="window\."
-hint="remplacer `status' ou `statut' par `état'"
+hint="remplacer 'status' ou 'statut' par 'état'"
 
 [basé.+ sur]
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
+
+[support]
+hint="support est un faux ami, à traduire par un dérivé de 'disponible', 'autoriser', 'accepter', 'gérer' ou 'prendre en charge'"
 
 # End of rule file
