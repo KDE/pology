@@ -1166,8 +1166,8 @@ class Catalog (Monitored):
 
         Runtime complexity O(n), unless C{headonly} in effect, when O(1).
 
-        @param headonly: analyze only the header for accelerators
-        @type msgid: bool
+        @param headonly: analyze only the header
+        @type headonly: bool
 
         @returns: accelerator character or empty
         @rtype: string
