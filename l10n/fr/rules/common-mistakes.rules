@@ -330,6 +330,7 @@ hint="remplacer 'status' ou 'statut' par 'état'"
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
 
 [support]
+valid before="sMarkup" # D-Bus call
 hint="support est un faux ami, à traduire par un dérivé de 'disponible', 'autoriser', 'accepter', 'gérer' ou 'prendre en charge'"
 
 # End of rule file

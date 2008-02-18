@@ -12,7 +12,7 @@ valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
 valid file="kmail_using-kmail.po" before=" réellement dans le dossier"
 valid file="kate_regular-expressions.po" after="Il est " before="en cassant un carreau"
-hint="préférons 'saisir' à 'entrer' (elle est où la porte ?)"
+hint="préférons « saisir » à « entrer » (elle est où la porte ?)"
  
 [valide[^zr]]
 valid after="il&sp;"
@@ -23,24 +23,24 @@ hint="Choix de l'équipe : valable/non valable (au lieu de valide/non valide)"
 valid file="konsole.po"
 valid file="ksysv.po" after="^" before="$" 
 valid file="ksysv.po" 
-hint="préférons 'arrêt' à 'stop'"
+hint="préférons « arrêt » à « stop »"
  
 [r@épertoire]
 valid after="services? de " before="s"
-hint="préférons 'dossier' à 'répertoire'"
+hint="préférons « dossier » à « répertoire »"
 
 
 [taper|tapant]
 valid before="&sp;$"
 valid file="ktouch.po" after="apprendre&sp;à&sp;"
 valid file="ktouch.po" after="apprenez&sp;à&sp;"
-hint="Mieux vaut `saisir' que `taper'"
+hint="Mieux vaut « saisir » que « taper »"
 
 [bouton\s*\w*\s*milieu]
-hint="`bouton du milieu' -> `bouton central'"
+hint="bouton du milieu -> bouton central"
 
 [compact]
-hint="Choix de l'équipe : 'compresser' au lieu de 'compacter'"
+hint="Choix de l'équipe : « compresser » au lieu de « compacter »"
 
 [&kcontrol;]
 hint="A remplacer par &centreConfiguration;"
@@ -56,7 +56,7 @@ valid file="konqueror.po" after="colonne&sp;"
 valid before="ment" 
 valid after="ir"
 valid file="kverbos.po"
-hint="Choix de l'équipe : "expression rationnelle" (et non régulière)"
+hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]
 valid file="korganizer.po"
@@ -70,14 +70,14 @@ hint="Sauver -> Enregistrer"
 valid file="kdat.po"
 valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
-hint="sauver => enregistrer (homogénéité)"
+hint="sauver -> enregistrer (homogénéité)"
 
 [URL mal ]
 valid before="formée"
-hint="Homogénéite : utiliser 'URL mal formée'"
+hint="Homogénéite : utiliser « URL mal formée »"
 
 [URL non ]
-hint="Homogeneite : utiliser 'URL mal formée'"
+hint="Homogeneite : utiliser « URL mal formée »"
 
 [&lwb;items?&rwb;]
 hint="item(s) -> élément(s)"
@@ -106,78 +106,79 @@ hint="hint/tip -> Astuce (homogénéité)"
 
 [->]
 valid after="pstoraster -" before=" rastertopcl"
-hint="Utiliser le format «Fichier / Exporter sous»"
+valid file="khotkeys.po" after="&sp;"
+hint="Utiliser le format « Fichier / Exporter sous »"
 
 [vous pouvez ici]
-hint="A remplacer par 'vous pouvez (faire...) ici'"
+hint="A remplacer par « vous pouvez (faire...) ici »"
 
 [proximité]
-hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité'"
+hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité »"
 
 [proxy]
 valid before="\)" after="\(&?"
-hint="Utiliser 'Serveur mandataire' au lieu de 'Serveur de proximité' ou 'proxy'"
+hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité » ou « proxy »"
 
 [(B|b)arre d'outils (principale|d'affichage)]
-hint="Traduisez simplement 'xxx Toolbar' par 'Barre de xxx' (ex: 'Main Toolbar'-> 'Barre principale')"
+hint="Traduisez simplement « xxx Toolbar » par « Barre de xxx » (ex: Main Toolbar -> Barre principale)"
 
 [module&sp;de&sp;contr]
-hint="C'est module de configuration, pas de contrôle !! (homogénéité)"
+hint="C'est module de configuration, pas de contrôle ! (homogénéité)"
 
 [@etes-vous s@ur]
-hint="'Voulez-vous vraiment...' est mieux. (homogénéité)"
+hint="« Voulez-vous vraiment... » est préférable. (homogénéité)"
 
 [non trouv@é]
 valid after="^&lt;" before="&gt;$"
-hint="`toto non trouvé' -> `Impossible de trouver toto' (homogénéité)"
+hint="« toto non trouvé » -> « Impossible de trouver toto » (homogénéité)"
 
 [Désirez-?vous]
-hint="`Désirez-vous' -> `Voulez-vous' (homogénéité)"
+hint="« Désirez-vous » -> « Voulez-vous » (homogénéité)"
 
 [Souhaitez-?vous]
-hint="`Souhaitez-vous' -> `Voulez-vous' (homogénéité)"
+hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 
 [Va ]
 valid after="Ja" 
-hint="`Va' -> `Aller' (à l'infinitif)"
+hint="« Va » -> « Aller » (à l'infinitif)"
 
 [pas été trouvé]
-hint="`pas été trouvé' -> `Impossible de trouver' (homogénéité)"
+hint="« pas été trouvé » -> « Impossible de trouver » (homogénéité)"
 
 [dans votre PATH]
-hint="Utiliser la forme 'en suivant votre PATH'"
+hint="Utiliser la forme « en suivant votre PATH »"
 
 [par votre PATH]
-hint="Utiliser la forme 'en suivant votre PATH'"
+hint="Utiliser la forme « en suivant votre PATH »"
 
 [désinitialiser]
-hint="Utiliser 'libérer' dans le cas d'un périphérique (umount)"
+hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
 
 [d@emont@e]
 valid after="«&amp;nbsp;" before="&amp;nbsp;»"
-hint="Utiliser 'libérer' dans le cas d'un périphérique (umount)"
+hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
 
 [nom de connexion]
-hint="Utiliser 'nom d'utilisateur' a la place..."
+hint="Utiliser « nom d'utilisateur » a la place..."
 
 [ne peut pas @etre]
-hint="Utiliser une formule en 'Impossible de ...' (homogeneite)"
+hint="Utiliser une formule en « Impossible de ... » (homogeneite)"
 
 [en train de]
-hint="On peut surement supprimer le 'en train de' pour alléger..."
+hint="On peut surement supprimer le « en train de » pour alléger..."
 
 [entre de configuration]
 valid after="C" 
-hint="Mettre une majuscule a 'Centre de configuration de KDE'"
+hint="Mettre une majuscule a « Centre de configuration de KDE »"
 
 [\bitem]
 valid after="\?"
-hint="On essaie d'éviter 'item' ?"
+hint="On essaie d'éviter « item » ?"
 
 [visualis]
-hint="utiliser 'afficheur' plutôt que 'visualiseur' (ou ses dérivés) ou alors 'aperçu' pour traduire preview"
+hint="utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire preview"
 
 [r@ecup@er]
-hint="Choix de l'équipe : 'réception/recevoir' (au lieu de récupération/récupérer)"
+hint="Choix de l'équipe : « réception/recevoir » (au lieu de récupération/récupérer)"
 
 # End of rule file
