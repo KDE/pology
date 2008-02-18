@@ -1157,3 +1157,43 @@ class Catalog (Monitored):
         return selected_msgs
 
 
+    def possible_accelerator (self, headonly=False):
+        """
+        Report character possibly used as an accelerator in GUI messages.
+
+        The accelerator character is determined heuristically, based on
+        the catalog header and the message entries.
+
+        Runtime complexity O(n), unless C{headonly} in effect, when O(1).
+
+        @param headonly: analyze only the header for accelerators
+        @type msgid: bool
+
+        @returns: accelerator character or empty
+        @rtype: string
+        """
+
+        accel = ""
+
+        # Analyze header.
+
+        # - check the fields observed in the wild to state accelerators.
+        for fname in (
+            "X-Accelerator-Marker",
+        ):
+            fields = self._header.select_fields(fname)
+            if fields:
+                accel = fields[-1][1].strip()
+                if accel:
+                    break
+
+        # Skip analyzing messages if told so.
+        if headonly:
+            return accel
+
+        # Analyze messages.
+        # TODO.
+        pass
+
+        return accel
+
