@@ -17,10 +17,12 @@ class Sieve (object):
 
         self.nmatch = 0
 
+        self.accel_explicit = False
         self.accel = ""
         if "accel" in options:
             options.accept("accel")
             self.accel = "".join(options["accel"])
+            self.accel_explicit = True
 
         self.rxflags = re.U
         if "case" in options:
@@ -41,6 +43,18 @@ class Sieve (object):
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
+
+
+    def process_header (self, hdr, cat):
+
+        # Check if the catalog itself states the accelerator character,
+        # unless specified explicitly by the command line.
+        if not self.accel_explicit:
+            accel = cat.possible_accelerator()
+            if accel:
+                self.accel = accel
+            else:
+                self.accel = ""
 
 
     def process (self, msg, cat):
@@ -65,15 +79,16 @@ class Sieve (object):
             # Check for match.
             if self.regex.search(text):
                 self.nmatch += 1
-                print "--------------------"
+                if self.nmatch == 1:
+                    print "--------------------"
                 print "%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)
                 print msg.to_string().rstrip()
+                print "--------------------"
                 break
 
 
     def finalize (self):
 
         if self.nmatch:
-            print "--------------------"
             print "Total matching: %d" % (self.nmatch,)
 
