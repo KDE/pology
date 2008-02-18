@@ -273,8 +273,11 @@ class Message_base (object):
             self._lines_source = []
             srcrefs = []
             for src in self.source:
-                srcrefs.append(src[0] + ":" + str(src[1]))
-                self._lines_source = wrap_comment(":", " ".join(srcrefs))
+                if src[1] > 0:
+                    srcrefs.append(src[0] + ":" + str(src[1]))
+                else:
+                    srcrefs.append(src[0])
+            self._lines_source = wrap_comment(":", " ".join(srcrefs))
 
         if mod["flag"] or not self._lines_flag or force:
             self._lines_flag = []
