@@ -58,6 +58,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
+        "--no-skip",
+        action="store_false", dest="do_skip", default=True,
+        help="do not skip catalogs which signal errors")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -204,8 +208,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func,
                           headonly=use_headonly)
         except StandardError, e:
-            print "%s (skipping)" % e
-            continue
+            if op.do_skip:
+                print "%s (skipping file)" % e
+                continue
+            else:
+                raise
 
         if not use_headonly:
             # In normal mode, first run all header sieves on this catalog,
