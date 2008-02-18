@@ -26,13 +26,13 @@ class Sieve (object):
     def __init__ (self, options, global_options):
 
         # Characters to consider as shortcut markers.
+        self.shortcut_explicit = False
+        self.shortcut_usual = "&_~" # some typical markers
         self.shortcut = ""
         if "accel" in options and len(options["accel"]) > 0:
             options.accept("accel")
             self.shortcut = options["accel"]
-        else:
-            # Assume & and _, these are the most typical.
-            self.shortcut = "&_"
+            self.shortcut_explicit = True
 
         # Display detailed statistics?
         self.detailed = False
@@ -99,9 +99,6 @@ class Sieve (object):
         )
         self.count = dict([(x[0], [0] * 5) for x in self.count_spec])
 
-        # Indicator of all visited catalogs.
-        self.visited_cats = {}
-
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = []
         self.template_subdirs = []
@@ -111,14 +108,11 @@ class Sieve (object):
         self.caller_monitored = False # no need for monitored messages
 
 
-    def process (self, msg, cat):
+    def process_header (self, hdr, cat):
 
         # If template correspondence requested, handle template matching.
         if (    self.tspec
-            and cat.filename not in self.visited_cats
             and not cat.filename.endswith(".pot")):
-
-            self.visited_cats[cat.filename] = True
 
             # Construct expected template path.
             tpath = cat.filename.replace(self.tspec_srch, self.tspec_repl, 1)
@@ -135,6 +129,18 @@ class Sieve (object):
             tsubdir = os.path.dirname(tpath)
             if tsubdir not in self.template_subdirs:
                 self.template_subdirs.append(tsubdir)
+
+        # Check if the catalog itself states the shortcut character,
+        # unless specified explicitly by the command line.
+        if not self.shortcut_explicit:
+            accel = cat.possible_accelerator()
+            if accel:
+                self.shortcut = accel
+            else:
+                self.shortcut = self.shortcut_usual
+
+
+    def process (self, msg, cat):
 
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
