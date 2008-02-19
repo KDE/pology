@@ -7,7 +7,7 @@ By default, the sieve will not issue request to sync the catalog files,
 which means that the files will not be modified unless another sieve in
 the chain requests sync. In this way, the sieve can be used to normalize
 contexts for other non-syncing sieves, like L{stats<sieve.stats>} or
-L{find-messages<sieve.find_messages}. The normal sync-on-modify behavior
+L{find-messages<sieve.find_messages>}. The normal sync-on-modify behavior
 can be recovered by C{sync} option.
 
 Sieve options:
