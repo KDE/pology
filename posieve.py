@@ -102,6 +102,10 @@ The list of all internal sieves is given within the L{sieve} module, as well
 as instructions on how to write custom sieves. The list of internal language-specific sieves can be found within C{l10n.<lang>.sieve} module of
 the languages that have them.
 
+If an internal sieve contains underscores in its name, they can be replaced
+with dashes in the C{posieve} command line. The dashes will be converted back
+to underscores before trying to resolve the location of the internal sieve.
+
 @warning: This module is a script for end-use. No exposed functionality
 should be considered public API, it is subject to change without notice.
 
