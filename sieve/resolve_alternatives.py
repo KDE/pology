@@ -2,13 +2,7 @@
 
 import sys, os, re
 from pology.misc.resolve import resolve_alternatives
-
-
-def error (msg, code=1):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
+from pology.misc.report import error
 
 
 class Sieve (object):

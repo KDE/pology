@@ -4,6 +4,7 @@ import sys, os, re
 import xml.parsers.expat
 from pology.misc.resolve import read_entities
 from pology.misc.comments import manc_parse_flag_list
+from pology.misc.report import report_on_msg
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -154,8 +155,7 @@ def _handler_start_element (name, attrs):
     if name not in applicable_tags:
         _c_errcnt += 1
         if not _c_quiet:
-            print   "%s:%d(%d): unrecognized XML tag: %s" \
-                  % (_c_cat.filename, _c_msg.refline, _c_msg.refentry, name)
+            report_on_msg("unrecognized XML tag: %s" % name, _c_msg, _c_cat)
         return
 
     # Check applicability of attributes.
@@ -163,9 +163,8 @@ def _handler_start_element (name, attrs):
         if name not in all_attrs or attr not in all_attrs[name]:
             _c_errcnt += 1
             if not _c_quiet:
-                print   "%s:%d(%d): invalid attribute for tag <%s>: %s" \
-                      % (_c_cat.filename, _c_msg.refline, _c_msg.refentry,
-                         name, attr)
+                report_on_msg(  "invalid attribute for tag <%s>: %s"
+                              % (name, attr), _c_msg, _c_cat)
 
 
 # Handler to check existance of entities.
@@ -180,8 +179,7 @@ def _handler_default (text):
             and ent not in _c_ents):
             _c_errcnt += 1
             if not _c_quiet:
-                print   "%s:%d(%d): unknown entity: %s" \
-                      % (_c_cat.filename, _c_msg.refline, _c_msg.refentry, ent)
+                report_on_msg("unknown entity: %s" % ent, _c_msg, _c_cat)
 
 
 # Check current msgstr.
@@ -215,8 +213,7 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}):
             p.Parse(text, True)
         except xml.parsers.expat.ExpatError, inst:
             if not quiet:
-                print   "%s:%d(%d): XML parsing: %s" \
-                      % (cat.filename, msg.refline, msg.refentry, inst)
+                report_on_msg("XML parsing: %s" % inst, _c_msg, _c_cat)
             return False
 
     return _c_errcnt == 0

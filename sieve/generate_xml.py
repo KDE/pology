@@ -41,12 +41,6 @@ reload(sys)
 encoding = locale.getdefaultlocale()[1]
 sys.setdefaultencoding(encoding)
 
-def error (msg, code=1):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
-
 
 class Sieve (object):
     """Find messages matching given rules."""

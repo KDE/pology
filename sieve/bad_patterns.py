@@ -3,12 +3,7 @@
 import os, re, codecs
 from pology.misc.escape import split_escaped
 from pology.misc.comments import manc_parse_flag_list
-
-
-def error (msg, code=1):
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
+from pology.misc.report import error, report_on_msg
 
 
 # Pipe flag used to manually prevent matching for a particular message.
@@ -59,13 +54,12 @@ def process_patterns (patterns, rxmatch=False, casesens=True):
 # Try to match the text by all patterns in the list.
 # If rxmatch is False, the patterns are considered plain substrings,
 # otherwise compiled regexes.
-# If msg is non-empty string, for each matched pattern an info line
-# is output to stdout: either the msg as it is if pnames is empty,
-# or (msg % pnames[i]) where pnames is list of pattern names of same
-# length as the pattern
+# If mhandle is not None, for each matched pattern it is called with an
+# empty string if pnames is empty, or with pnames[i] where pnames is
+# list of pattern names of same length as the pattern list.
 # Return the list of patterns that matched if pnames is empty,
 # otherwise the list of (pattern, patname) tuples for patterns that matched.
-def match_patterns (text, patterns, rxmatch=False, msg="", pnames=[]):
+def match_patterns (text, patterns, rxmatch=False, mhandle=None, pnames=[]):
 
     matched_patterns = []
     for i in range(len(patterns)):
@@ -82,10 +76,12 @@ def match_patterns (text, patterns, rxmatch=False, msg="", pnames=[]):
         if matched:
             if pnames:
                 matched_patterns.append((pattern, pnames[i]))
-                print msg % pnames[i]
+                if mhandle:
+                    mhandle(pnames[i])
             else:
                 matched_patterns.append(pattern)
-                print msg
+                if mhandle:
+                    mhandle("")
 
     return matched_patterns
 
@@ -146,14 +142,22 @@ class Sieve (object):
         if flag_no_bad_patterns in manc_parse_flag_list(msg, "|"):
             return
 
+        # Report-handler for bad patterns.
+        def badhandle (name):
+            if name:
+                report_on_msg("bad pattern detected in translation: %s" % name,
+                              msg, cat)
+            else:
+                report_on_msg("bad pattern detected in translation" % name,
+                              msg, cat)
+
         # Match patterns in all msgstr.
-        msgfmt = (  "%s:%d(%d): bad pattern detected in translation: %s"
-                  % (cat.filename, msg.refline, msg.refentry, "%s"))
         for msgstr in msg.msgstr:
             if not self.casesens:
                 msgstr = msgstr.lower()
             self.nbad += len(match_patterns(msgstr, self.patterns_cmp,
-                                            rxmatch=self.rxmatch, msg=msgfmt,
+                                            rxmatch=self.rxmatch,
+                                            mhandle=badhandle,
                                             pnames=self.patterns))
 
 

@@ -32,17 +32,10 @@ accelerator character.
 """
 
 import sys, os, re
-
-
-def error (msg, code=1):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
+from pology.misc.report import error, report_msg_content
 
 
 class Sieve (object):
-    """Find messages matching given criterion."""
 
     def __init__ (self, options, global_options):
 
@@ -126,11 +119,10 @@ class Sieve (object):
 
         if match:
             self.nmatch += 1
+            delim = "--------------------"
             if self.nmatch == 1:
-                print "--------------------"
-            print "%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)
-            print msg.to_string().rstrip()
-            print "--------------------"
+                print delim
+            report_msg_content(msg, cat, delim=delim)
 
 
     def finalize (self):

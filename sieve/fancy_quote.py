@@ -20,12 +20,7 @@ Sieve options:
 
 import os, re
 from pology.misc.comments import manc_parse_flag_list
-
-
-def _error (msg, code=1):
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
+from pology.misc.report import error
 
 
 # Pipe flag used to manually prevent transformation into fancy quotes.
@@ -44,8 +39,8 @@ class Sieve (object):
         if "single" in options:
             quotes = options["single"]
             if len(quotes) != 2:
-                _error("invalid specification of single quotes '%s', "
-                       "expected two characters" % quotes)
+                error("invalid specification of single quotes '%s', "
+                      "expected two characters" % quotes)
             self.singles = (quotes[0], quotes[1])
             options.accept("single")
 
@@ -54,8 +49,8 @@ class Sieve (object):
         if "double" in options:
             quotes = options["double"]
             if len(quotes) != 2:
-                _error("invalid specification of double quotes '%s', "
-                       "expected two characters" % quotes)
+                error("invalid specification of double quotes '%s', "
+                      "expected two characters" % quotes)
             self.doubles = (quotes[0], quotes[1])
             options.accept("double")
 

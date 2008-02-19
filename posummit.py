@@ -4,6 +4,7 @@
 import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair
+from pology.misc.report import error, warning
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -106,19 +107,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             summit_reorder(project, options)
         elif mode == "merge":
             summit_merge(project, options)
-
-
-def error (msg, code=1):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
-
-
-def warning (msg):
-
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: warning: %s\n" % (cmdname, msg))
 
 
 class Project (object):

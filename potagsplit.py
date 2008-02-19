@@ -4,15 +4,10 @@
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
+from pology.misc.report import error
 
 import sys, os
 from optparse import OptionParser
-
-
-def error (msg, code=1):
-    cmdname = os.path.basename(sys.argv[0])
-    sys.stderr.write("%s: error: %s\n" % (cmdname, msg))
-    sys.exit(code)
 
 
 def main ():

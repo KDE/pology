@@ -34,11 +34,19 @@ def bad_patterns (rxmatch=False, casesens=True, patterns=[], fromfiles=[]):
     def hook (cat, msg, msgstr):
         if flag_no_bad_patterns in manc_parse_flag_list(msg, "|"):
             return
-        msgfmt = (  "%s:%d(%d): bad pattern detected in translation: %s"
-                  % (cat.filename, msg.refline, msg.refentry, "%s"))
+
+        # Report-handler for bad patterns.
+        def badhandle (name):
+            if name:
+                report_on_msg("bad pattern detected in translation: %s" % name,
+                              msg, cat)
+            else:
+                report_on_msg("bad pattern detected in translation" % name,
+                              msg, cat)
+
         if not casesens:
             msgstr = msgstr.lower()
         match_patterns(msgstr, patterns_cmp, rxmatch=rxmatch,
-                       msg=msgfmt, pnames=patterns_str)
+                       mhandle=badhandle, pnames=patterns_str)
 
     return hook
