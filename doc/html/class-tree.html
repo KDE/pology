@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class Hierarchy</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">&nbsp;</td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<center><b>
+ [ <a href="module-tree.html">Module Hierarchy</a>
+ | <a href="class-tree.html">Class Hierarchy</a> ]
+</b></center><br />
+<h1 class="epydoc">Class Hierarchy</h1>
+<ul class="nomargin-top">
+    <li> <strong class="uidlink">exceptions.Exception</strong>:
+      <em class="summary">Common base class for all exceptions.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.misc.timeout.TimedOutException-class.html">pology.misc.timeout.TimedOutException</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.file.message.Message_base-class.html">pology.file.message.Message_base</a></strong>:
+      <em class="summary">Abstract base class for entries in PO catalogs.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.file.message.Message-class.html">pology.file.message.Message</a></strong>:
+      <em class="summary">The default class for catalog entries.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.file.message.MessageUnsafe-class.html">pology.file.message.MessageUnsafe</a></strong>:
+      <em class="summary">The lightweight class for catalog entries, for read-only 
+        applications.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.monitored.Monitored-class.html">pology.misc.monitored.Monitored</a></strong>:
+      <em class="summary">Base class for monitored classes.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.file.catalog.Catalog-class.html">pology.file.catalog.Catalog</a></strong>:
+      <em class="summary">Class for access and operations on PO catalogs.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.file.header.Header-class.html">pology.file.header.Header</a></strong>:
+      <em class="summary">Header entry in PO catalogs.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.file.message.Message-class.html">pology.file.message.Message</a></strong>:
+      <em class="summary">The default class for catalog entries.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.monitored.Monlist-class.html">pology.misc.monitored.Monlist</a></strong>:
+      <em class="summary">Monitored list.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.monitored.Monpair-class.html">pology.misc.monitored.Monpair</a></strong>:
+      <em class="summary">Monitored pair (counterpart to two-element <code>tuple</code>).</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.monitored.Monset-class.html">pology.misc.monitored.Monset</a></strong>:
+      <em class="summary">Monitored set.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.posummit.Project-class.html">pology.posummit.Project</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.rules.Rule-class.html">pology.misc.rules.Rule</a></strong>:
+      <em class="summary">Represent a single rule</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_ctxmark_only.Sieve-class.html">pology.sieve.unfuzzy_ctxmark_only.Sieve</a></strong>:
+      <em class="summary">Unfuzzy when only a KUIT context mark difference to previous.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.remove_obsolete.Sieve-class.html">pology.sieve.remove_obsolete.Sieve</a></strong>:
+      <em class="summary">Remove obsolete messages.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.resolve_entities.Sieve-class.html">pology.sieve.resolve_entities.Sieve</a></strong>:
+      <em class="summary">Resolve XML entities in msgstr.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.check_rules.Sieve-class.html">pology.sieve.check_rules.Sieve</a></strong>:
+      <em class="summary">Find messages matching given rules.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.bad_patterns.Sieve-class.html">pology.sieve.bad_patterns.Sieve</a></strong>:
+      <em class="summary">Check for presence of deprecated patterns in translation.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.check_xml_kde4.Sieve-class.html">pology.sieve.check_xml_kde4.Sieve</a></strong>:
+      <em class="summary">Check validity of XML in KDE4 messages.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.diff_previous.Sieve-class.html">pology.sieve.diff_previous.Sieve</a></strong>:
+      <em class="summary">Embed/remove differences into previous versions of msgctxt/msgid.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.fancy_quote.Sieve-class.html">pology.sieve.fancy_quote.Sieve</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.find_messages.Sieve-class.html">pology.sieve.find_messages.Sieve</a></strong>:
+      <em class="summary">Find messages matching given criterion.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.tag_untranslated.Sieve-class.html">pology.sieve.tag_untranslated.Sieve</a></strong>:
+      <em class="summary">Add flag &quot;untranslated&quot; to untranslated messages.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_context_only.Sieve-class.html">pology.sieve.unfuzzy_context_only.Sieve</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.l10n.fr.sieve.setUbsp.Sieve-class.html">pology.l10n.fr.sieve.setUbsp.Sieve</a></strong>:
+      <em class="summary">Replace normal space by unbreakable space when needed</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.tag_incomplete.Sieve-class.html">pology.sieve.tag_incomplete.Sieve</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.count_ctxmark.Sieve-class.html">pology.sieve.count_ctxmark.Sieve</a></strong>:
+      <em class="summary">Count number of messages with KUIT context markers.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_inplace_only.Sieve-class.html">pology.sieve.unfuzzy_inplace_only.Sieve</a></strong>:
+      <em class="summary">Unfuzzy if the only differences are in-place closed tags 
+        (&lt;br/&gt;, etc.) Unconditionally in-place close such tags in the
+        msgstr's.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.generate_xml.Sieve-class.html">pology.sieve.generate_xml.Sieve</a></strong>:
+      <em class="summary">Find messages matching given rules.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.resolve_alternatives.Sieve-class.html">pology.sieve.resolve_alternatives.Sieve</a></strong>:
+      <em class="summary">Resolve alternatives directives in msgstr.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.stats.Sieve-class.html">pology.sieve.stats.Sieve</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.remove_fuzzy_comments.Sieve-class.html">pology.sieve.remove_fuzzy_comments.Sieve</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.posummit.VcsBase-class.html">pology.posummit.VcsBase</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.posummit.VcsSubversion-class.html">pology.posummit.VcsSubversion</a></strong>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+</ul>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 19 16:20:32 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

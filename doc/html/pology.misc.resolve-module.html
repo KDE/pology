@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.misc.resolve</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
+        Module&nbsp;resolve
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module resolve</h1><p class="nomargin-top"></p>
+<p>Replacement of segments in text which define some underlying 
+  values.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#parse_entities" class="summary-sig-name">parse_entities</a>(<span class="summary-sig-arg">defstr</span>,
+        <span class="summary-sig-arg">src</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Parse XML entity definitions from given string.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#read_entities" class="summary-sig-name">read_entities</a>(<span class="summary-sig-arg">*fnames</span>)</span><br />
+      Read XML entity definitions from given file names.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string, list of strings, list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities" class="summary-sig-name">resolve_entities</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">entities</span>,
+        <span class="summary-sig-arg">ignored_entities</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fcap</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Replace XML entities in the text with their values.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities_simple" class="summary-sig-name">resolve_entities_simple</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">entities</span>,
+        <span class="summary-sig-arg">ignored_entities</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fcap</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>)</span><br />
+      As <a href="pology.misc.resolve-module.html#resolve_entities" 
+      class="link">resolve_entities</a>, but returns only the resolved 
+      text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string, int, bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_alternatives" class="summary-sig-name">resolve_alternatives</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">select</span>,
+        <span class="summary-sig-arg">total</span>,
+        <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Replace alternatives directives in the text with the selected 
+      alternative.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_alternatives_simple" class="summary-sig-name">resolve_alternatives_simple</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">select</span>,
+        <span class="summary-sig-arg">total</span>,
+        <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      As <a href="pology.misc.resolve-module.html#resolve_alternatives" 
+      class="link">resolve_alternatives</a>, but return only the resolved 
+      text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#first_to_case" class="summary-sig-name">first_to_case</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">upper</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Change case of the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#first_to_upper" class="summary-sig-name">first_to_upper</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Uppercase the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#first_to_lower" class="summary-sig-name">first_to_lower</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Lowercase the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="parse_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_entities</span>(<span class="sig-arg">defstr</span>,
+        <span class="sig-arg">src</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse XML entity definitions from given string.</p>
+  <p>The string should contain only entity definitions in DTD form, without
+  any prolog or epilogue:</p>
+<pre class="literalblock">
+ ...
+ &lt;!ENTITY foo 'Foo-fum'&gt;
+ &lt;!ENTITY bar 'Bar-boo'&gt;
+ ...
+</pre>
+  <p>If the same entity is defined several times, the last read definition 
+  is taken as final.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>defstr</code></strong> (string) - entity-defining string</li>
+        <li><strong class="pname"><code>src</code></strong> - name of the source, for problem reporting</li>
+        <li><strong class="pname"><code>src</code></strong> - <code>None</code> or string</li>
+    </ul></dd>
+    <dt>Returns: dict</dt>
+        <dd>name-value pairs of parsed entities</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="read_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">read_entities</span>(<span class="sig-arg">*fnames</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read XML entity definitions from given file names.</p>
+  <p>Just passes contents from the files to <a 
+  href="pology.misc.resolve-module.html#parse_entities" 
+  class="link">parse_entities</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fnames</code></strong> (strings) - paths of entity-defining files</li>
+    </ul></dd>
+    <dt>Returns: dict</dt>
+        <dd>name-value pairs of parsed entities</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#parse_entities" 
+        class="link">parse_entities</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="resolve_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">entities</span>,
+        <span class="sig-arg">ignored_entities</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fcap</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Replace XML entities in the text with their values.</p>
+  <p>Entity values are defined by the supplied dictionary of name-value 
+  pairs. Not all entities need be replaced, some can be explicitly ignored.
+  If an entity is neither defined nor ignored, a warning may be reported to
+  standard output.</p>
+  <p>Special services on request:</p>
+  <ul>
+    <li>
+      if the entity name starts with a capital letter, and is not among 
+      defined entities, the lookup is tried with the lowercased initial 
+      letter, and if found, the first letter in the value is uppercased
+    </li>
+    <li>
+      when the auto-uppercasing is in effect, and the entity value starts 
+      with an alternatives directive, the starting letter of each of the 
+      alternatives is uppercased (see <a 
+      href="pology.misc.resolve-module.html#resolve_alternatives" 
+      class="link">resolve_alternatives</a>)
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>entities</code></strong> (dict) - entity name-value pairs</li>
+        <li><strong class="pname"><code>ignored_entities</code></strong> (any sequence that can be tested by <code>in</code> for entity 
+          name) - entity names to ignore</li>
+        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report unknown entities to standard output, with 
+          this parameter as source identifier</li>
+        <li><strong class="pname"><code>fcap</code></strong> (bool) - whether auto-uppercasing is in effect</li>
+        <li><strong class="pname"><code>nalts</code></strong> (int &gt;= 0) - non-zero indicate possible presence of alternatives directives, 
+          with this many alternatives per directive (when fcap is in 
+          effect)</li>
+    </ul></dd>
+    <dt>Returns: string, list of strings, list of strings</dt>
+        <dd>the resulting text, resolved entities names, and unknown entity 
+          names</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#resolve_alternatives" 
+        class="link">resolve_alternatives</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="resolve_entities_simple"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities_simple</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">entities</span>,
+        <span class="sig-arg">ignored_entities</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fcap</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>As <a href="pology.misc.resolve-module.html#resolve_entities" 
+  class="link">resolve_entities</a>, but returns only the resolved 
+  text.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#resolve_entities" 
+        class="link">resolve_entities</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="resolve_alternatives"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">select</span>,
+        <span class="sig-arg">total</span>,
+        <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Replace alternatives directives in the text with the selected 
+  alternative.</p>
+  <p>Alternatives directives are of the form <code>~@/.../.../...</code>, 
+  for example:</p>
+<pre class="literalblock">
+   I see a ~@/pink/white/ elephant.
+</pre>
+  <p>where <code>~@</code> is the directive identifier, followed by a 
+  character that defines the delimiter of alternatives (like in 
+  <code>sed</code> command). The number of alternatives per directive is 
+  not defined by the directive itself, but is provided as an external 
+  parameter.</p>
+  <p>Alternative directive is resolved into one of the alternative 
+  substrings by given index of the alternative (one-based). Optionally, 
+  before substituting the directive, the selected alternative can be 
+  filtered through a string containing <code>%s</code> format 
+  directive.</p>
+  <p>If an alternatives directive is malformed (e.g. to little 
+  alternatives), it may be reported to standard output. Unless all 
+  encountered directives were well-formed, the original text is returned 
+  instead of the partially resolved one.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>select</code></strong> (int &gt; 0) - index of the alternative to select (one-based)</li>
+        <li><strong class="pname"><code>total</code></strong> (int &gt; 0) - number of alternatives per directive</li>
+        <li><strong class="pname"><code>fmtstr</code></strong> (None or string) - if not None, filter string containing single <code>%s</code> 
+          format directive</li>
+        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report malformed directives to standard output, with
+          this string as source identifier</li>
+    </ul></dd>
+    <dt>Returns: string, int, bool</dt>
+        <dd>resulting text, number of resolved alternatives, and an indicator
+          of well-formedness (<code>True</code> if all directives 
+          well-formed)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="resolve_alternatives_simple"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives_simple</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">select</span>,
+        <span class="sig-arg">total</span>,
+        <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>As <a href="pology.misc.resolve-module.html#resolve_alternatives" 
+  class="link">resolve_alternatives</a>, but return only the resolved 
+  text.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#resolve_alternatives" 
+        class="link">resolve_alternatives</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_case"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_case</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">upper</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Change case of the first letter in the text.</p>
+  <p>Text may also have alternatives directives (see <a 
+  href="pology.misc.resolve-module.html#resolve_alternatives" 
+  class="link">resolve_alternatives</a>). In that case, if the first letter
+  is found within an alternative, change cases for first letters in other 
+  alternatives of the same directive too.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>upper</code></strong> (bool) - whether to transform to uppercase (lowercase otherwise)</li>
+        <li><strong class="pname"><code>nalts</code></strong> (int &gt;= 0) - if non-zero, the number of alternatives per directive</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#resolve_alternatives" 
+        class="link">resolve_alternatives</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_upper"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_upper</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Uppercase the first letter in the text.</p>
+  <p>A shortcut for <a href="pology.misc.resolve-module.html#first_to_case"
+  class="link">first_to_case</a> for uppercasing.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#first_to_case" 
+        class="link">first_to_case</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_lower"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_lower</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Lowercase the first letter in the text.</p>
+  <p>A shortcut for <a href="pology.misc.resolve-module.html#first_to_case"
+  class="link">first_to_case</a> for lowercasing.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#first_to_case" 
+        class="link">first_to_case</a>
+      </p>
+</div></td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 19 16:20:32 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

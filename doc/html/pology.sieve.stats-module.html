@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.sieve.stats</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
+        Module&nbsp;stats
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module stats</h1><p class="nomargin-top"></p>
+<p>Statistics: message and word counts by category, etc.</p>
+  <p>Various statistics on catalogs, that may help review the progress, 
+  split up the work, find out what needs updating, etc.</p>
+  <p>Sieve options:</p>
+  <ul>
+    <li>
+      <code>accel:&lt;character&gt;</code>: accelerator marker in GUI 
+      messages
+    </li>
+    <li>
+      <code>detail</code>: give more detailed statistics
+    </li>
+    <li>
+      <code>incomplete</code>: additionally list catalogs which are not 
+      100% translated
+    </li>
+    <li>
+      <code>templates:&lt;spec&gt;</code>: compare translation with 
+      templates (see below)
+    </li>
+    <li>
+      <code>minwords:&lt;number&gt;</code>: count only messages with at 
+      least this many words
+    </li>
+    <li>
+      <code>maxwords:&lt;number&gt;</code>: count only messages with at 
+      most this many words
+    </li>
+    <li>
+      <code>branch:&lt;branch_id&gt;</code>: consider only messages from 
+      this branch (summit)
+    </li>
+  </ul>
+  <p>The accelerator characters should be removed from the messages before 
+  counting, in order not to introduce word splits where there are none. The
+  sieve will try to guess the accelerator if <code>accel</code> option is 
+  not given, and if doesn't find one, it will remove the characteres most 
+  usually used for this purpose (<code>&amp;</code>, <code>_</code>, 
+  <code>~</code>).</p>
+  <p>If there exists both the directory with translated POs and with 
+  template POTs, using the <code>templates</code> option the sieve can be 
+  instructed to count POTs with no same-named PO counterpart as fully 
+  untranslated in the statistics. Value to <code>templates</code> option is
+  in the form <code>search:replace</code>, where <code>search</code> is the
+  substring in the given PO paths that will be replaced with 
+  <code>replace</code> string to construct the POT paths. For example:</p>
+<pre class="literalblock">
+   $ cd $MYTRANSLATIONS
+   $ ls
+   my_lang  templates
+   $ posieve.py stats -stemplates:my_lang:templates my_lang/
+</pre>
+  <p>Options <code>minwords</code> and <code>maxwords</code> tell the sieve
+  to account only those messages satisfying these limits, in <i>either</i> 
+  the original or translation, not necessarily both.</p>
+  <p>For <a href="pology.posummit-module.html" class="link">summited</a> 
+  catalogs, <code>branch</code> option is used to restrict the counting to 
+  the given branch only. Several branch IDs may be given as a 
+  comma-separated list.</p>
+  <h1 class="heading">Custom Contexts</h1>
+    <p>Some older PO files will have message contexts embedded into the 
+    <code>msgid</code> field, instead of using the Gettext proper 
+    <code>msgctxt</code> field. There are several customary ways in which 
+    this is done, but in general it depends on the translation environment 
+    where such PO files are used.</p>
+    <p>Embedded contexts will skew the statistics. Pology contains several 
+    sieves for converting embedded context into <code>msgctxt</code> 
+    context, named <code>normctx_*</code>, where <code>*</code> usually 
+    names the translation environment in question. When the statistics on 
+    such PO files is desired, the <code>stats</code> sieve should be 
+    preceeded in the chain by the context conversion sieve:</p>
+<pre class="literalblock">
+   $ posieve.py normctx_ooo,stats openoffice-fr/
+</pre>
+    <p>Note that <code>normctx_*</code> sieves, while they modify the 
+    messages, by default do not request synchronization of catalogs to 
+    disk. This is precisely so that they may be run as prefilters to 
+    non-modifying sieves such as <code>stats</code>.</p>
+  <h1 class="heading">Output Legend</h1>
+    <p>The basic output is the table where rows present statistics for a 
+    category of messages, and columns the statistical bits of data:</p>
+<pre class="literalblock">
+   $ posieve.py stats frobaz/
+   -              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
+   translated     ...    ...    ...     ...     ...    ...    ...
+   fuzzy          ...    ...    ...     ...     ...    ...    ...
+   untranslated   ...    ...    ...     ...     ...    ...    ...
+   total          ...    ...    ...     ...     ...    ...    ...
+   obsolete       ...    ...    ...     ...     ...    ...    ...
+</pre>
+    <p>The <code>total</code> row is the sum of <code>translated</code>, 
+    <code>fuzzy</code>, and <code>untranslated</code>, but not 
+    <code>obsolete</code>. The columns are as follows:</p>
+    <ul>
+      <li>
+        <code>msg</code>: number of messages
+      </li>
+      <li>
+        <code>msg/tot</code>: percentage of messages relative to 
+        <code>total</code>
+      </li>
+      <li>
+        <code>w-or</code>: number of words in original
+      </li>
+      <li>
+        <code>w/tot-or</code>: percentage of words in original relative to 
+        <code>total</code>
+      </li>
+      <li>
+        <code>w-tr</code>: number of words in translation
+      </li>
+      <li>
+        <code>ch-or</code>: number of characters in original
+      </li>
+      <li>
+        <code>ch-tr</code>: number of characters in translation
+      </li>
+    </ul>
+    <p>The output with <code>detail</code> sieve option in effect is the 
+    same, with several columns of derived data appended to the table:</p>
+    <ul>
+      <li>
+        <code>w-dto</code>: increase in words from original to translation
+      </li>
+      <li>
+        <code>ch-dto</code>: increase in characters from original to 
+        translation
+      </li>
+      <li>
+        <code>w/msg-or</code>: average of words per message in original
+      </li>
+      <li>
+        <code>w/msg-tr</code>: average of words per message in translation
+      </li>
+      <li>
+        <code>ch/w-or</code>: average of characters per message in original
+      </li>
+      <li>
+        <code>ch/w-tr</code>: average of characters per message in 
+        translation
+      </li>
+    </ul>
+    <p>If any of the sieve options that restrict counting to certain 
+    messages have been supplied, this is confirmed in output by a 
+    <code>&gt;&gt;&gt;</code> message before the table. For example:</p>
+<pre class="literalblock">
+   $ posieve.py stats -smaxwords:5 frobaz/
+   &gt;&gt;&gt; at-most-words: 5
+   (...the stats table follows...)
+</pre>
+    <p>When <code>incomplete</code> option is given, the statistics table 
+    is followed by a table of not fully translated catalogs, with counts of
+    fuzzy and untranslated messages:</p>
+<pre class="literalblock">
+   $ posieve.py stats -sincomplete frobaz/
+   (...the stats table...)
+   incomplete-catalog   fuzz   untr   fuzz+untr
+   frobaz/foxtrot.po       0     11          11
+   frobaz/november.po     19     14          33
+   frobaz/sierra.po       22      0          22
+</pre>
+  <h1 class="heading">Notes on Counting</h1>
+    <p>The word and character counts for a given message field are obtained
+    in the following way:</p>
+    <ul>
+      <li>
+        accelerator marker, if defined, is removed
+      </li>
+      <li>
+        XML-like markup is eliminated (<code>&lt;...&gt;</code>)
+      </li>
+      <li>
+        special tokens, such as format directives, are also eliminated 
+        (e.g. <code>%s</code> in a message marked as <code>c-format</code>)
+      </li>
+      <li>
+        the text is split into words by taking all contiguous sequences of 
+        <code>word</code> characters, as defined by <code>\w</code> regular
+        expression class (this means letters, numbers, underscore)
+      </li>
+      <li>
+        all words not starting with a letter are eliminated
+      </li>
+      <li>
+        the words that remain count into statistics
+      </li>
+    </ul>
+    <p>In plural messages, the counts of the original are those of 
+    <code>msgid</code> and <code>msgid_plural</code> fields 
+    <i>averaged</i>, and so for the translation, the averages of all 
+    <code>msgstr</code> fields. In this way, the comparative statistics 
+    between the original and the translation is not skewed for languages 
+    that have other than two plural forms.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.stats.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 19 16:20:33 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

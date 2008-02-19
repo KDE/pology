@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.file.catalog.Catalog</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.file-module.html">Package&nbsp;file</a> ::
+        <a href="pology.file.catalog-module.html">Module&nbsp;catalog</a> ::
+        Class&nbsp;Catalog
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Catalog</h1><p class="nomargin-top"></p>
+<pre class="base-tree">
+              object --+    
+                       |    
+<a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a> --+
+                           |
+                          <strong class="uidshort">Catalog</strong>
+</pre>
+
+<hr />
+<p>Class for access and operations on PO catalogs.</p>
+  <p>Catalog behaves as an ordered sequence of messages. The typical way of
+  iterating over the messages from a PO file would be:</p>
+<pre class="literalblock">
+   cat = Catalog(&quot;relative/path/foo.po&quot;)
+   for msg in cat:
+       ...
+       (do something with msg)
+       ...
+   cat.sync()
+</pre>
+  <p>where <a href="pology.file.catalog.Catalog-class.html#sync" 
+  class="link">sync()</a> method is used to write any modifications back to
+  the PO file on disk.</p>
+  <p>The header entry of the catalog is not part of the message sequence, 
+  but is provided by the <a 
+  href="pology.file.catalog.Catalog-class.html#header" 
+  class="link">header</a> instance variable, an object of type different 
+  from an ordinary message entry.</p>
+  <p>The catalog is a <i>monitored</i> class. The instance variables are 
+  limited to a prescribed set and type-checked on assignment, have 
+  shadowing <i>modification counters</i>, and any modifications are 
+  reflected on the top modification counter for the catalog as whole. For 
+  example:</p>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>cat = Catalog(<span class="py-string">&quot;relative/path/foo.po&quot;</span>)
+<span class="py-prompt">&gt;&gt;&gt; </span>cat.filename  <span class="py-comment"># file name of the catalog</span>
+<span class="py-output">'relative/path/foo.po'</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat[0].msgid  <span class="py-comment"># first message in the catalog</span>
+<span class="py-output">u'Welcome to Foobar'</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount  <span class="py-comment"># the top modcounter</span>
+<span class="py-output">0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.filename_modcount  <span class="py-comment"># shadowing counter to instance variable</span>
+<span class="py-output">0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.filename = <span class="py-string">&quot;relative/path/bar.po&quot;</span>  <span class="py-comment"># change the file name</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount, cat.filename_modcount  <span class="py-comment"># both counters increase</span>
+<span class="py-output">(1, 1)</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.remove(0)  <span class="py-comment"># remove the first message from the catalog</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount  <span class="py-comment"># the top counter increases again</span>
+<span class="py-output">2</span></pre>
+  <p>Catalog message entries themeselves may also be monitored (default), 
+  but need not, depending on the mode of creation. If the entries are 
+  monitored, then any change to an entry also increases catalog's top 
+  modcounter.</p>
+
+<hr />
+<div class="fields">      <dl><dt>See Also:</dt>
+        <dd>
+          <a href="pology.misc.monitored.Monitored-class.html" 
+          class="link">Monitored</a>,
+          <a href="pology.file.message.Message-class.html" 
+          class="link">Message</a>, <a 
+          href="pology.file.message.MessageUnsafe-class.html" 
+          class="link">MessageUnsafe</a>,
+          <a href="pology.file.header.Header-class.html" 
+          class="link">Header</a>
+        </dd>
+      </dl>
+</div><!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8281534&gt;</span>,
+        <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Build a message catalog by reading from a PO file or creating anew.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__getattr__" class="summary-sig-name">__getattr__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">att</span>)</span><br />
+      Attribute getter.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__len__" class="summary-sig-name">__len__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      The number of messages in the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">subclass of <a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__getitem__" class="summary-sig-name">__getitem__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ident</span>)</span><br />
+      Get message by position or another message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__contains__" class="summary-sig-name">__contains__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Whether the message with the same key exists in the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#find" class="summary-sig-name">find</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Position of the message in the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Add a message to the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ident</span>)</span><br />
+      Remove a message from the catalog, by position or another message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#remove_on_sync" class="summary-sig-name">remove_on_sync</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ident</span>)</span><br />
+      Remove a message from the catalog, by position or another message, on
+      the next sync.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#sync" class="summary-sig-name">sync</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Write catalog file to disk if any message has been modified.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int, float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#insertion_inquiry" class="summary-sig-name">insertion_inquiry</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Compute the tentative insertion of the message into the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#created" class="summary-sig-name">created</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Whether the catalog has been newly created (no existing PO file).</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#nplurals" class="summary-sig-name">nplurals</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Number of msgstr fields expected for plural messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#plural_index" class="summary-sig-name">plural_index</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">number</span>)</span><br />
+      Msgstr field index in plural messages for given number.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of ints</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#plural_indices_single" class="summary-sig-name">plural_indices_single</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Indices of the msgstr fields which are used for single number only.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#select_by_key" class="summary-sig-name">select_by_key</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msgctxt</span>,
+        <span class="summary-sig-arg">msgid</span>)</span><br />
+      Select message from the catalog by the fields that define its key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#select_by_msgid" class="summary-sig-name">select_by_msgid</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msgid</span>)</span><br />
+      Select messages from the catalog by matching <code>msgid</code> 
+      field.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#select_by_msgid_fuzzy" class="summary-sig-name">select_by_msgid_fuzzy</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msgid</span>,
+        <span class="summary-sig-arg">cutoff</span>=<span class="summary-sig-default">0.6</span>)</span><br />
+      Select messages from the catalog by near-matching <code>msgid</code> 
+      field.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#possible_accelerator" class="summary-sig-name">possible_accelerator</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Report character possibly used as an accelerator in GUI messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a></code></b>:
+      <code><a href="pology.misc.monitored.Monitored-class.html#__eq__">__eq__</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#__ne__">__ne__</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#__str__">__str__</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_getattr">assert_spec_getattr</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_getitem">assert_spec_getitem</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_init">assert_spec_init</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_setattr">assert_spec_setattr</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_setitem">assert_spec_setitem</a></code>,
+      <code><a href="pology.misc.monitored.Monitored-class.html#data">data</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE VARIABLES ==================== -->
+<a name="section-InstanceVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+        <a name="filename"></a><span class="summary-name">filename</span><br />
+      the file name which the catalog was created with
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="pology.file.header.Header-class.html" 
+      class="link">Header</a></span>
+    </td><td class="summary">
+        <a name="header"></a><span class="summary-name">header</span><br />
+      the header entry
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+        <a href="pology.file.catalog.Catalog-class.html#name" class="summary-name">name</a><br />
+      (read-only) the name of the catalog
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>,
+        <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8281534&gt;</span>,
+        <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Build a message catalog by reading from a PO file or creating 
+  anew.</p>
+  <p>The message entries in the catalog may be monitored themselves or not.
+  That is, when monitoring is requested, entries are represented by the <a 
+  href="pology.file.message.Message-class.html" class="link">Message</a> 
+  class, otherwise with <a 
+  href="pology.file.message.MessageUnsafe-class.html" 
+  class="link">MessageUnsafe</a>.</p>
+  <p>Monitored messages are usually appropriate when the application is 
+  expected to modify them. Non-monitored messages should provide better 
+  performance, so use them whenever the catalog is opened for read-only 
+  purposes (such as checks).</p>
+  <p>Catalog can also be opened in header-only mode, for better performance
+  when only the header data is needed. This mode provides <a 
+  href="pology.file.catalog.Catalog-class.html#header" 
+  class="link">header</a> instance variable as usual, but the rest of 
+  entries are unavailable. If any of the operations dealing with message 
+  entries are invoked, an error is signaled.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>filename</code></strong> (string) - name of the PO catalog on disk, or new catalog</li>
+        <li><strong class="pname"><code>create</code></strong> (bool) - whether a blank catalog can be created when the PO file does not 
+          already exist, or signal an error</li>
+        <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
+          <code>to_lines()</code> method of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> for details.</li>
+        <li><strong class="pname"><code>monitored</code></strong> (bool) - whether the message entries are monitored</li>
+        <li><strong class="pname"><code>headonly</code></strong> (bool) - whether to open in header-only mode</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.wrap-module.html" 
+        class="link">pology.misc.wrap</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="__getattr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getattr__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">att</span>)</span>
+    <br /><em class="fname">(Qualification operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Attribute getter.</p>
+  <p>Processes read-only variables, and sends others to the base class.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>att</code></strong> - name of the attribute to get</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>attribute value</dd>
+    <dt>Overrides:
+        <a href="pology.misc.monitored.Monitored-class.html#__getattr__">misc.monitored.Monitored.__getattr__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__len__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__len__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Length operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The number of messages in the catalog.</p>
+  <p>The number includes obsolete entries, and excludes header entry.</p>
+  <dl class="fields">
+    <dt>Returns: int</dt>
+        <dd>the number of messages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__getitem__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getitem__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ident</span>)</span>
+    <br /><em class="fname">(Indexing operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get message by position or another message.</p>
+  <p>If the position is out of range, or the lookup message does not have a
+  counterpart in this catalog with the same key, an error is signaled.</p>
+  <p>Runtime complexity O(1), regardless of the <code>ident</code> 
+  type.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ident</code></strong> (int or subclass of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - position index or another message</li>
+    </ul></dd>
+    <dt>Returns: subclass of <a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></dt>
+        <dd>reference to the message in catalog</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__contains__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__contains__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>)</span>
+    <br /><em class="fname">(In operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether the message with the same key exists in the catalog.</p>
+  <p>Runtime complexity O(1).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>) - message to look for</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if the message exists</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="find"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">find</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Position of the message in the catalog.</p>
+  <p>Runtime complexity O(1).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>) - message to look for</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>position index if the message exists, -1 otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Add a message to the catalog.</p>
+  <p>If the message with the same key already exists, it will be merged 
+  (see <code>merge()</code> method of <a 
+  href="pology.file.message.Message_base-class.html" 
+  class="link">Message_base</a>).</p>
+  <p>If the message does not exist in the catalog, when the position is 
+  <code>None</code>, the insertion will be attempted such as that the 
+  messages be near according to the source references; if the position is 
+  not <code>None</code>, the message is inserted at the given position, 
+  unless it is obsolete.</p>
+  <p>Negative positions can be given, and count backward from the first 
+  non-obsolete message (i.e. -1 means insertion after all non-obsolete 
+  messages).</p>
+  <p>Runtime complexity O(n), even if the position is explicitly stated; 
+  O(1) only when the position is given as -1.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>) - message to insert or merge</li>
+        <li><strong class="pname"><code>pos</code></strong> (int or <code>None</code>) - position index to insert at</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>the position where merged or inserted</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ident</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove a message from the catalog, by position or another message.</p>
+  <p>If the position is out of range, or the lookup message does not have a
+  counterpart in this catalog with the same key, an error is signaled.</p>
+  <p>Runtime complexity O(n), regardless of <code>ident</code> type. Use <a
+  href="pology.file.catalog.Catalog-class.html#remove_on_sync" 
+  class="link">remove_on_sync()</a> method for O(1) complexity, when the 
+  logic allows the removal to be delayed to syncing time.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ident</code></strong> (int or subclass of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - position index or another message</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><code>None</code></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_on_sync"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_on_sync</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ident</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove a message from the catalog, by position or another message, on 
+  the next sync.</p>
+  <p>If the position is out of range, or the lookup message does not have a
+  counterpart in this catalog with the same key, an error is signaled.</p>
+  <p>Suited for for-in iterations over a catalog with a sync afterwards, so
+  that the indices are not confused by removal, and good performance.</p>
+  <p>Runtime complexity O(1).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ident</code></strong> (int or subclass of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - position index or another message</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd><code>None</code></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="sync"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sync</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write catalog file to disk if any message has been modified.</p>
+  <p>All activities scheduled for sync-time are performed, such as delayed 
+  message removal.</p>
+  <p>Unmodified messages are not reformatted, unless forced.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>force</code></strong> (bool) - whether to reformat unmodified messages</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if the file was modified, <code>False</code> 
+          otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="insertion_inquiry"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">insertion_inquiry</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute the tentative insertion of the message into the catalog.</p>
+  <p>The tentative insertion is a tuple of position of a message when it 
+  would be inserted into the catalog, and the <i>weight</i> indicating the 
+  quality of positioning. The weight is computed by analyzing the source 
+  references.</p>
+  <p>Runtime complexity O(n).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>) - message to compute the tentative insertion for</li>
+    </ul></dd>
+    <dt>Returns: int, float</dt>
+        <dd>the insertion position and its weight</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="created"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">created</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether the catalog has been newly created (no existing PO file).</p>
+  <p>A catalog is no longer considered newly created after the first 
+  sync.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if newly created, <code>False</code> otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="nplurals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nplurals</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Number of msgstr fields expected for plural messages.</p>
+  <p>Determined by the Plural-Forms header field; if this field is absent 
+  from the header, defaults to 1.</p>
+  <dl class="fields">
+    <dt>Returns: int</dt>
+        <dd>number of plurals</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="plural_index"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">plural_index</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">number</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Msgstr field index in plural messages for given number.</p>
+  <p>Determined by the Plural-Forms header field; if this field is absent 
+  from the header, defaults to 0.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>number</code></strong> (int) - the number to determine the plural form for</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>index of msgstr field</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="plural_indices_single"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">plural_indices_single</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Indices of the msgstr fields which are used for single number 
+  only.</p>
+  <dl class="fields">
+    <dt>Returns: list of ints</dt>
+        <dd>msgstr indices used for single numbers</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="select_by_key"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_by_key</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msgctxt</span>,
+        <span class="sig-arg">msgid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Select message from the catalog by the fields that define its key.</p>
+  <p>If matched, the message is returned as a single-element list, or an 
+  empty list when there is no match. This is so that the result of this 
+  method is in line with other <code>select_*</code> methods.</p>
+  <p>Runtime complexity as that of <a 
+  href="pology.file.catalog.Catalog-class.html#find" 
+  class="link">find</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msgctxt</code></strong> (string) - the text of <code>msgctxt</code> field (can be empty)</li>
+        <li><strong class="pname"><code>msgid</code></strong> (string) - the text of <code>msgid</code> field</li>
+    </ul></dd>
+    <dt>Returns: list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></dt>
+        <dd>selected messages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="select_by_msgid"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_by_msgid</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msgid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Select messages from the catalog by matching <code>msgid</code> 
+  field.</p>
+  <p>Several messages may have the same <code>msgid</code> field, due to 
+  different <code>msgctxt</code> fields. Empty list is returned when there 
+  is no match.</p>
+  <p>Runtime complexity O(n).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msgid</code></strong> (string) - the text of <code>msgid</code> field</li>
+    </ul></dd>
+    <dt>Returns: list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></dt>
+        <dd>selected messages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="select_by_msgid_fuzzy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_by_msgid_fuzzy</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msgid</span>,
+        <span class="sig-arg">cutoff</span>=<span class="sig-default">0.6</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Select messages from the catalog by near-matching <code>msgid</code> 
+  field.</p>
+  <p>The <code>cutoff</code> parameter determines the minimal admissible 
+  similarity (1.0 fo exact match).</p>
+  <p>The messages are returned ordered by decreasing similarity.</p>
+  <p>Runtime complexity O(n) * O(length(msgid)*avg(length(msgids))) 
+  (probably).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msgid</code></strong> (string) - the text of <code>msgid</code> field</li>
+        <li><strong class="pname"><code>cutoff</code></strong> (float) - minimal similarity</li>
+    </ul></dd>
+    <dt>Returns: list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></dt>
+        <dd>selected messages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="possible_accelerator"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">possible_accelerator</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report character possibly used as an accelerator in GUI messages.</p>
+  <p>The accelerator character is determined heuristically, based on the 
+  catalog header and the message entries.</p>
+  <p>Runtime complexity O(n), unless <code>headonly</code> in effect, when 
+  O(1).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>headonly</code></strong> (bool) - analyze only the header</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>accelerator character or empty</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== INSTANCE VARIABLE DETAILS ==================== -->
+<a name="section-InstanceVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Variable Details</span></td>
+</tr>
+</table>
+<a name="name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">name</h3>
+  (read-only) the name of the catalog
+  <p>Determined as base of the filename, without extension.</p>
+  <dl class="fields">
+    <dt>Type:</dt>
+      <dd>string</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 19 16:20:33 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

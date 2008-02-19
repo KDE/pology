@@ -1,0 +1,5 @@
+To build the HTML documentation:
+
+  cd $KDESVN/l10n-kde4
+  epydoc pology -o scripts/pology/doc/html -v --no-sourcecode --no-frames --no-private
+

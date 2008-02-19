@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.sieve</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        Package&nbsp;sieve
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PACKAGE DESCRIPTION ==================== -->
+<h1 class="epydoc">Package sieve</h1><p class="nomargin-top"></p>
+<p>Catalog sieves.</p>
+  <p>These modules implement different &quot;sieves&quot; for PO catalogs: 
+  objects to which catalog entries are fed one by one, possibly with 
+  finalization phase at the end. The sieves are presently primarely used by
+  the <a href="pology.posieve-module.html" class="link">posieve</a> script,
+  but may also export public methods for use in other clients. The 
+  following passages describe how sieves are written, but also how clients 
+  that use them should behave.</p>
+  <h1 class="heading">The Sieve Layout</h1>
+    <p>Every sieve module must define the <code>Sieve</code> class, with 
+    some mandatory and some optional interface methods and instance 
+    variables. Here is a simple sieve which just counts the number of 
+    translated messages:</p>
+<pre class="literalblock">
+   class Sieve (object):
+
+       def __init__ (self, options, global_options):
+
+           self.ntranslated = 0
+
+       def process (self, msg, cat):
+
+           if msg.translated:
+               self.ntranslated += 1
+
+       def finalize (self):
+
+           print &quot;Total translated: %d&quot; % self.ntranslated
+</pre>
+    <p>The <code>__init__</code> method must take two arguments, the sieve 
+    options and global options (more on that below). The 
+    <code>process</code> method is the one which gets called for each 
+    message by the client, and must take the message (instance of <a 
+    href="pology.file.message.Message_base-class.html" 
+    class="link">Message_base</a>) and the catalog which contains it (<a 
+    href="pology.file.catalog.Catalog-class.html" 
+    class="link">Catalog</a>). The client calls the <code>finalize</code> 
+    method after no more messages will be fed to the sieve, but this method
+    needs not be defined (clients should check before placing the call); 
+    also, if <code>finalize</code> is defined, clients are not obligated to
+    call it.</p>
+    <p>Another optional method is <code>process_header</code>, which is 
+    called by the client for the header entry:</p>
+<pre class="literalblock">
+   def process_header (self, hdr, cat):
+       # ...
+</pre>
+    <p>where <code>hdr</code> is an instance of {Header}, and 
+    <code>cat</code> the containing catalog. Clients should check for the 
+    presence of this method, and if it is defined, should call it prior to 
+    any <code>process</code> call on the messages from the given catalog. 
+    I.e. it is illegal for the client to switch a catalog between two calls
+    to <code>process</code>, without calling <code>process_header</code> in
+    between if it exists.</p>
+    <p>The client ignores return values from all sieve methods, 
+    <code>process</code>, <code>process_header</code>, and 
+    <code>finalize</code> alike.</p>
+  <h1 class="heading">Options Handling</h1>
+    <p>The two arguments to the constructor:</p>
+<pre class="literalblock">
+   def __init__ (self, options, global_options):
+       # ...
+</pre>
+    <p>are as follows:</p>
+    <p><code>global_options</code> is the object of the command line 
+    options as given to the client which uses the sieve, where options are 
+    its instance variables (e.g. the object produced by the 
+    <code>OptionParser</code> from the <code>optparse</code> standard 
+    library module). The sieve may use this object to check for some usual 
+    options, like verbose or quite mode. Client may specify this object as 
+    <code>None</code>.</p>
+    <p><code>options</code> is a dictionary-like object of options intended
+    specifically for sieves. Its keys are option names, values are strings,
+    and it has one special method, <code>accept</code>. Suppose that the 
+    sieve takes an option named <code>checklevel</code>, stating the 
+    number-string for the level at which to perform some checks. Here is 
+    how that sieve would properly take the option:</p>
+<pre class="literalblock">
+   def __init__ (self, options, global_options):
+
+       self.checklevel = 0
+       if &quot;checklevel&quot; in options:
+           options.accept(&quot;checklevel&quot;)
+           self.checklevel = int(options[&quot;checklevel&quot;])
+           # ...do some checks on the validity...
+</pre>
+    <p>The interesting bit here is the 
+    <code>options.accept(&quot;checklevel&quot;)</code> statement, which is
+    the only method that the <code>options</code> object should provide 
+    aside from <code>in</code> and reference-by-key operators. It may be 
+    that the client is operating with several different sieves, and that 
+    the sieve options are given by the user (such as with the <a 
+    href="pology.posieve-module.html" class="link">posieve</a> script). 
+    Then, it is important that each sieve signals which options it has 
+    recognized and accepted, so that the client may signal to the user any 
+    superfluous and erroneus sieve options given.</p>
+    <p>If a sieve option is meant as a switch, the sieve should assume its 
+    value is undefined, and check only for presence:</p>
+<pre class="literalblock">
+   def __init__ (self, options, global_options):
+
+       self.tryharder = False # default value
+       if &quot;tryharder&quot; in options:
+           options.accept(&quot;tryharder&quot;)
+           self.tryharder = True # negated if present
+</pre>
+  <h1 class="heading">Catalog Regime Indicators</h1>
+    <p>There are two boolean instance variables that the sieve may define, 
+    and which the client may check for to decide on the regime in which the
+    catalogs are opened and closed:</p>
+<pre class="literalblock">
+   def __init__ (self, options, global_options):
+
+       # These are the defaults:
+       self.caller_sync = True
+       self.caller_monitored = True
+</pre>
+    <p><code>caller_sync</code> instructs the client whether the catalog 
+    whose messages were fed to the sieve should be synced to disk 
+    afterwards. If the sieve does not define this variable, the client 
+    should assume <code>True</code> and sync the catalog. This variable is 
+    typically set to <code>False</code> by sieves which do not modify 
+    anything, as it is better for client performance not to sync the 
+    catalog.</p>
+    <p><code>caller_monitored</code> tells the client whether it should 
+    open catalogs in monitored mode (see <a 
+    href="pology.file.catalog.Catalog-class.html" class="link">Catalog</a> 
+    instructor). If not defined, the client should assume it 
+    <code>True</code>. This is another performance enhancer for the sieves 
+    which do not modify entries.</p>
+    <p>Most usually, the modifying sieve will set neither of these 
+    variables (i.e. catalogs will be monitored and synced by default), 
+    while the checker sieve will set both to <code>False</code>. A 
+    modifying sieve which knows it will modify all messages may set only 
+    <code>caller_monitored</code> to <code>False</code>, while leaving 
+    <code>caller_sync</code> undefined (i.e. <code>True</code>).</p>
+    <p>Note that if a sieve requests no monitoring and/or no syncing, the 
+    client is not obliged to satisfy these requests. On the other hand, if 
+    a sieve does request monitoring and/or syncing (either explicitly or by
+    not defining them), the client must provide catalogs in that regime. 
+    This is because there may be several sieves operating at the same time,
+    and monitoring and syncing is usually necessary for the proper 
+    operation of sieves that request it.</p>
+  <h1 class="heading">Miscellaneous Remarks</h1>
+    <p>Monitored catalogs have modification counters (see <a 
+    href="pology.file.catalog.Catalog-class.html" class="link">Catalog</a> 
+    and <a href="pology.file.message.Message-class.html" 
+    class="link">Message</a>), which the sieve may use within its 
+    <code>process</code> method to find out if any modification really took
+    place. The proper way to do this is to recorder the current counter, 
+    and check for increase:</p>
+<pre class="literalblock">
+   def process (self, msg, cat):
+
+       startcount = msg.modcount
+
+       # ...
+       # ... do some stuff
+       # ...
+
+       if msg.modcount &gt; startcount:
+           self.nmodified += 1
+</pre>
+    <p>The <i>wrong</i> way to do it would be to merely check if 
+    <code>msg.modcount &gt; 0</code>, because several modification sieves 
+    may be operating at the same time, each increasing the counters.</p>
+    <p>If the sieve wants to remove the message from the catalog, if at all
+    possible it should use <code>remove_on_sync()</code> (see <a 
+    href="pology.file.catalog.Catalog-class.html" class="link">Catalog</a>)
+    instead of <code>remove()</code> method. This is because 
+    <code>remove()</code> will probably ruin the client's iteration over 
+    the catalog, so if it must be used, the sieve documentation should 
+    state it clearly.</p>
+    <p>The sieves should be properly documented in their module comment, 
+    while the <code>Sieve</code> class itself should not be documented. The
+    module comment should contain the short one line description of the 
+    sieve, followed by paragraphs explaining its functionality, followed by
+    list of sieve options. Check existing sieves for examples.</p>
+    <p>All methods of the <code>Sieve</code> class other than the above 
+    stated standard interface methods should be kept private. If the sieve 
+    module contains some more widely applicable methods, they should be 
+    defined at the top level, outside of the <code>Sieve</code> class, and 
+    properly documented.</p>
+
+<hr />
+<div class="fields">      <dl><dt>Authors:</dt>
+        <dd>
+          Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;,
+          S&#233;bastien Renard &lt;sebastien.renard@digitalfox.org&gt;,
+          Nicolas Ternisien &lt;nicolas.ternisien@gmail.com&gt;
+        </dd>
+      </dl>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== SUBMODULES ==================== -->
+<a name="section-Submodules"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Submodules</span></td>
+</tr>
+  <tr><td class="summary">
+  <ul class="nomargin">
+    <li> <strong class="uidlink"><a href="pology.sieve.bad_patterns-module.html">pology.sieve.bad_patterns</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.check_rules-module.html">pology.sieve.check_rules</a></strong>: <em class="summary">Sieves messages with rules and warn when a rule triggers.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.check_xml_kde4-module.html">pology.sieve.check_xml_kde4</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.count_ctxmark-module.html">pology.sieve.count_ctxmark</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.diff_previous-module.html">pology.sieve.diff_previous</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.fancy_quote-module.html">pology.sieve.fancy_quote</a></strong>: <em class="summary">Transform ASCII single and double quotes into fancy counterparts.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.find_messages-module.html">pology.sieve.find_messages</a></strong>: <em class="summary">Find messages by regular expression matching.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.generate_xml-module.html">pology.sieve.generate_xml</a></strong>: <em class="summary">Generate a XML output from the input PO files.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.remove_fuzzy_comments-module.html">pology.sieve.remove_fuzzy_comments</a></strong>: <em class="summary">Remove selected manual comments in fuzzy messages.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.remove_obsolete-module.html">pology.sieve.remove_obsolete</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.resolve_alternatives-module.html">pology.sieve.resolve_alternatives</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.resolve_entities-module.html">pology.sieve.resolve_entities</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.stats-module.html">pology.sieve.stats</a></strong>: <em class="summary">Statistics: message and word counts by category, etc.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.tag_incomplete-module.html">pology.sieve.tag_incomplete</a></strong>: <em class="summary">Mark fuzzy and untranslated messages as incomplete.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.tag_untranslated-module.html">pology.sieve.tag_untranslated</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_context_only-module.html">pology.sieve.unfuzzy_context_only</a></strong>: <em class="summary">Unfuzzy those messages fuzzied only due to a context change.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_ctxmark_only-module.html">pology.sieve.unfuzzy_ctxmark_only</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_inplace_only-module.html">pology.sieve.unfuzzy_inplace_only</a></strong>    </li>
+  </ul></td></tr>
+</table>
+
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Feb 19 16:20:33 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
