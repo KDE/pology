@@ -8,10 +8,11 @@ Pretty-printing of tabular data.
 """
 
 import copy
+import pology.misc.colors as C
 
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
-              rotated=False):
+              rotated=False, colorized=False):
     """
     Tabulate data in plain text.
 
@@ -47,6 +48,9 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
 
     @param rotated: whether the table should be transposed
     @type rotated: bool
+
+    @param colorized: whether the table should be colorized for shell output
+    @type colorized: bool
 
     @returns: plain text representation of the table (no trailing newline)
     @rtype: string
@@ -164,11 +168,15 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         if _coln is not None:
             lfmt = u"%-" + str(maxlen[c]) + "s"
             sdata[c][0] = lfmt % (sdata[c][0],)
+            if colorized:
+                sdata[c][0] = C.PURPLE + sdata[c][0] + C.RESET
     # ...but row names left aligned:
     if _rown is not None:
         lfmt = u"%-" + str(maxlen[0]) + "s"
         for r in range(nrows + ro):
             sdata[0][r] = lfmt % (sdata[0][r],)
+            if colorized:
+                sdata[0][r] = C.BLUE + sdata[0][r] + C.RESET
 
     # Assemble the table.
     lines = []

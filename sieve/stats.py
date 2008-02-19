@@ -139,7 +139,7 @@ Notes on Counting
 @license: GPLv3
 """
 
-import os
+import os, sys
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
@@ -424,9 +424,12 @@ class Sieve (object):
             dfmt.extend(["%+.1f%%", "%+.1f%%",
                          "%.1f", "%.1f", "%.1f", "%.1f"])
 
+        # See if the output will admit color sequences.
+        can_color = sys.stdout.isatty()
+
         # Output the table.
         print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                       space="   ", none=u"-")
+                       space="   ", none=u"-", colorized=can_color)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
@@ -448,5 +451,6 @@ class Sieve (object):
             dfmt = ["%%-%ds" % maxfl, "%d", "%d"]
             # Output.
             print "-"
-            print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-")
+            print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
+                           colorized=can_color)
 
