@@ -156,6 +156,10 @@
   language-specific sieves can be found within 
   <code>l10n.&lt;lang&gt;.sieve</code> module of the languages that have 
   them.</p>
+  <p>If an internal sieve contains underscores in its name, they can be 
+  replaced with dashes in the <code>posieve</code> command line. The dashes
+  will be converted back to underscores before trying to resolve the 
+  location of the internal sieve.</p>
 
 <hr />
 <div class="fields">      <p><strong>Warning:</strong>
@@ -177,23 +181,6 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Functions</span></td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="error"></a><span class="summary-sig-name">error</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">code</span>=<span class="summary-sig-default">1</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>

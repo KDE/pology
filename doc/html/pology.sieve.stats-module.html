@@ -118,14 +118,14 @@
     where such PO files are used.</p>
     <p>Embedded contexts will skew the statistics. Pology contains several 
     sieves for converting embedded context into <code>msgctxt</code> 
-    context, named <code>normctx_*</code>, where <code>*</code> usually 
+    context, named <code>normctx-*</code>, where <code>*</code> usually 
     names the translation environment in question. When the statistics on 
     such PO files is desired, the <code>stats</code> sieve should be 
     preceeded in the chain by the context conversion sieve:</p>
 <pre class="literalblock">
-   $ posieve.py normctx_ooo,stats openoffice-fr/
+   $ posieve.py normctx-ooo,stats openoffice-fr/
 </pre>
-    <p>Note that <code>normctx_*</code> sieves, while they modify the 
+    <p>Note that <code>normctx-*</code> sieves, while they modify the 
     messages, by default do not request synchronization of catalogs to 
     disk. This is precisely so that they may be run as prefilters to 
     non-modifying sieves such as <code>stats</code>.</p>
