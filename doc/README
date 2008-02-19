@@ -2,4 +2,6 @@ To build the HTML documentation:
 
   cd $KDESVN/l10n-kde4
   epydoc pology -o scripts/pology/doc/html -v --no-sourcecode --no-frames --no-private
+  find scripts/pology/doc/html -iname \*.html | xargs perl -pi -e 's/(Generated\b.*?) *on\b.*?(<|$)/$1$2/'
 
+The perl line kills generation timestamps, to not have diffs just due to it.
