@@ -1,5 +1,36 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Find messages by regular expression matching.
+
+Matches the regular expression against requested elements of the message,
+and reports the message if the match exists. Every matched message is
+reported to standard output, with the name of the file from which it comes,
+and referent line and entry number within the file.
+
+Sieve options for matching:
+  - C{msgctxt:<regex>}: regular expression to match against the C{msgctxt}
+  - C{msgid:<regex>}: regular expression to match against the C{msgid}
+  - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
+
+If more than one of the matching options are given (e.g. both C{msgid} and
+C{msgstr}), the message matches only if all of them match. In case of plural
+messages, C{msgid} is considered matched if either C{msgid} or C{msgid_plural}
+fields match, and C{msgstr} if any of the C{msgstr} fields match.
+
+Other sieve options:
+  - C{accel:<char>}: strip this character as an accelerator marker
+  - C{case}: case-sensitive match (insensitive by default)
+
+If accelerator character is not given by C{accel} option, the sieve will try
+to guess the accelerator; it may choose wrongly or decide that there are no
+accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
+accelerator character.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import sys, os, re
 
 
@@ -21,7 +52,7 @@ class Sieve (object):
         self.accel = ""
         if "accel" in options:
             options.accept("accel")
-            self.accel = "".join(options["accel"])
+            self.accel = options["accel"]
             self.accel_explicit = True
 
         self.rxflags = re.U
@@ -30,14 +61,15 @@ class Sieve (object):
         else:
             self.rxflags |= re.I
 
-        self.field = ""
+        self.fields = []
+        self.regexs = []
         for field in ("msgctxt", "msgid", "msgstr"):
             if field in options:
                 options.accept(field)
-                self.field = field
-                self.regex = re.compile(options[field], self.rxflags)
+                self.fields.append(field)
+                self.regexs.append(re.compile(options[field], self.rxflags))
 
-        if not self.field:
+        if not self.fields:
             error("no search pattern given")
 
         # Indicators to the caller:
@@ -62,29 +94,43 @@ class Sieve (object):
         if msg.obsolete:
             return
 
-        if self.field == "msgctxt":
-            texts = [msg.msgctxt]
-        elif self.field == "msgid":
-            texts = [msg.msgid, msg.msgid_plural]
-        elif self.field == "msgstr":
-            texts = msg.msgstr
-        else:
-            error("unknown search field '%s'" % self.field)
+        match = True
 
-        for text in texts:
-            # Remove accelerators.
-            for c in self.accel:
-                text = text.replace(c, "")
+        for field, regex in zip(self.fields, self.regexs):
 
-            # Check for match.
-            if self.regex.search(text):
-                self.nmatch += 1
-                if self.nmatch == 1:
-                    print "--------------------"
-                print "%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)
-                print msg.to_string().rstrip()
-                print "--------------------"
+            if field == "msgctxt":
+                texts = [msg.msgctxt]
+            elif field == "msgid":
+                texts = [msg.msgid, msg.msgid_plural]
+            elif field == "msgstr":
+                texts = msg.msgstr
+            else:
+                error("unknown search field '%s'" % field)
+
+            local_match = False
+
+            for text in texts:
+                # Remove accelerator.
+                if self.accel:
+                    text = text.replace(self.accel, "")
+
+                # Check for local match (local match is OR).
+                if regex.search(text):
+                    local_match = True
+                    break
+
+            # Check for global match (global match is AND).
+            if not local_match:
+                match = False
                 break
+
+        if match:
+            self.nmatch += 1
+            if self.nmatch == 1:
+                print "--------------------"
+            print "%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)
+            print msg.to_string().rstrip()
+            print "--------------------"
 
 
     def finalize (self):
