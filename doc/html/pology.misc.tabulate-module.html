@@ -80,7 +80,8 @@
         <span class="summary-sig-arg">dfmt</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">space</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">  </code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">none</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">rotated</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">rotated</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">colorized</span>=<span class="summary-sig-default">False</span>)</span><br />
       Tabulate data in plain text.</td>
           <td align="right" valign="top">
             
@@ -114,7 +115,8 @@
         <span class="sig-arg">dfmt</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">space</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">  </code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">none</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">rotated</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">rotated</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">colorized</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -144,6 +146,7 @@
         <li><strong class="pname"><code>none</code></strong> (string) - fill-in for displaying empty cells (i.e. 
           <code>None</code>-valued)</li>
         <li><strong class="pname"><code>rotated</code></strong> (bool) - whether the table should be transposed</li>
+        <li><strong class="pname"><code>colorized</code></strong> (bool) - whether the table should be colorized for shell output</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text representation of the table (no trailing newline)</dd>
