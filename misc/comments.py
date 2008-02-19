@@ -112,3 +112,23 @@ def manc_parse_flag_list (msg, prefix):
 
     return parse_list(msg.manual_comment, prefix + ",", ",")
 
+
+def parse_summit_branches (msg):
+    """
+    Summit: Extract branch IDs from comments.
+
+    Branch IDs are embedded as an auto comment of this form::
+
+        #. +> branch_id_1 branch_id_2 ...
+
+    Branch IDs should be unique.
+
+    @param msg: message to parse
+    @type msg: Message
+
+    @returns: parsed branched IDs
+    @rtype: set of strings
+    """
+
+    return set(parse_list(msg.auto_comment, "+>", " "))
+

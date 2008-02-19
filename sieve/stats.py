@@ -4,20 +4,8 @@ import os
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
+from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
-
-
-# Summit: Dig out the set of branches for the message.
-def get_summit_branches (msg):
-
-    # Prefix of auto-comment with list of branches for the message.
-    br_prefix = "+>"
-
-    for c in msg.auto_comment:
-        if c.startswith(br_prefix):
-            return set(c[len(br_prefix):].strip().split())
-
-    return set()
 
 
 class Sieve (object):
@@ -145,7 +133,7 @@ class Sieve (object):
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
         if self.branches:
-            msg_branches = get_summit_branches(msg)
+            msg_branches = parse_summit_branches(msg)
             if not set.intersection(self.branches, msg_branches):
                 return
 

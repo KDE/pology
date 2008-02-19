@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from pology.misc.diff import diff_texts, diff_to_old, diff_to_new
-from pology.sieve.stats import get_summit_branches
+from pology.misc.comments import parse_summit_branches
 
 import re
 
@@ -58,7 +58,7 @@ class Sieve (object):
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
         if self.branches:
-            msg_branches = get_summit_branches(msg)
+            msg_branches = parse_summit_branches(msg)
             if not set.intersection(self.branches, msg_branches):
                 return
 

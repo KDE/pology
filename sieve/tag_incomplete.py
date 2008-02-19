@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from pology.sieve.stats import get_summit_branches
+from pology.misc.comments import parse_summit_branches
 
 
 class Sieve (object):
@@ -33,7 +33,7 @@ class Sieve (object):
         # tagging based on whether it belongs to any of the given branches.
         may_tag = True
         if self.branches:
-            msg_branches = get_summit_branches(msg)
+            msg_branches = parse_summit_branches(msg)
             if not set.intersection(self.branches, msg_branches):
                may_tag = False
 
