@@ -23,10 +23,15 @@ specific translation environments. For another, "orthogonal" level of diversity,
 Pology also contains language-specific tools, grouped by language under a
 dedicated top-level module.
 
-As a design intent, Pology includes tools which have overlapping or even duplicate functionality. This is to allow for tools better suited to particular needs, by their collection of features and levels of complexity.
+As a design intent, Pology includes tools which have overlapping or even
+duplicate functionality. This is to allow for tools better suited to
+particular needs, by their collection of features and levels of complexity.
 
-@note: In the list of submodules, top-level modules without any submodules are
-typically scripts for end-use. Their module documentation describes the usage and features.
+I{"Pology -- the study of POs."}
+
+@note: In the list of submodules, top-level modules without any submodules
+are typically scripts for end-use. Their module documentation describes the
+usage and features.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>

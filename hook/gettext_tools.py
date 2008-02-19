@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Summit hooks for passing PO files through Gettext commands.
+Pipe PO files through Gettext commands.
 """
 
 import os

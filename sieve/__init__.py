@@ -38,9 +38,10 @@ The Sieve Layout
     global options (more on that below). The C{process} method is the one
     which gets called for each message by the client, and must take the
     message (instance of L{Message_base}) and the catalog which contains it
-    (L{Catalog}). The client calls the C{finalize} method after all messages
-    have been fed to the sieve, but this method needs not be defined
-    (clients should check before placing the call).
+    (L{Catalog}). The client calls the C{finalize} method after no more
+    messages will be fed to the sieve, but this method needs not be defined
+    (clients should check before placing the call); also, if C{finalize} is
+    defined, clients are not obligated to call it.
 
     Another optional method is C{process_header}, which is called by the
     client for the header entry::

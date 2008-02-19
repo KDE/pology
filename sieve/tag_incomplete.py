@@ -1,10 +1,36 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Mark fuzzy and untranslated messages as incomplete.
+
+Some people like to translate with non-dedicated tools, such as an ordinary
+text editor, which may provide no more support for editing PO files other
+than e.g. syntax highlighting. In such a scenario, this sieve can be used
+to equip both fuzzy and untranslated messages with C{incomplete} flag,
+for easy lookup in the editor.
+
+Note that C{incomplete} flags, being custom, will be lost when the PO file
+is merged with the template next time. This is intentional: the only purpose
+of the flag is for immediate editing, and the translator may forget to remove
+some. There is no reason for the flags to persist in that case. Also, if an
+C{incomplete} tag is forgotten when the message is translated, the subsequent
+run of this sieve will remove the flag.
+
+Sieve options:
+  - C{branch:<branch_id>}: consider only messages from this branch (summit)
+
+For L{summited<posummit>} catalogs, the C{branch} option is used to restrict
+modifications to messages from the given branch only. Several branch IDs
+may be given as a comma-separated list.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 from pology.misc.comments import parse_summit_branches
 
 
 class Sieve (object):
-    """Add flag "incomplete" to untranslated and fuzzy messages."""
 
     def __init__ (self, options, global_options):
 

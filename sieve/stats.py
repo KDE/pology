@@ -1,5 +1,144 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Statistics: message and word counts by category, etc.
+
+Various statistics on catalogs, that may help review the progress,
+split up the work, find out what needs updating, etc.
+
+Sieve options:
+  - C{accel:<character>}: accelerator marker in GUI messages
+  - C{detail}: give more detailed statistics
+  - C{incomplete}: additionally list catalogs which are not 100% translated
+  - C{templates:<spec>}: compare translation with templates (see below)
+  - C{minwords:<number>}: count only messages with at least this many words
+  - C{maxwords:<number>}: count only messages with at most this many words
+  - C{branch:<branch_id>}: consider only messages from this branch (summit)
+
+The accelerator characters should be removed from the messages before
+counting, in order not to introduce word splits where there are none.
+The sieve will try to guess the accelerator if C{accel} option is not given,
+and if doesn't find one, it will remove the characteres most usually used
+for this purpose (C{&}, C{_}, C{~}).
+
+If there exists both the directory with translated POs and with template POTs,
+using the C{templates} option the sieve can be instructed to count POTs
+with no same-named PO counterpart as fully untranslated in the statistics.
+Value to C{templates} option is in the form C{search:replace}, where
+C{search} is the substring in the given PO paths that will be replaced with
+C{replace} string to construct the POT paths. For example::
+
+    $ cd $MYTRANSLATIONS
+    $ ls
+    my_lang  templates
+    $ posieve.py stats -stemplates:my_lang:templates my_lang/
+
+Options C{minwords} and C{maxwords} tell the sieve to account only those
+messages satisfying these limits, in I{either} the original or translation,
+not necessarily both.
+
+For L{summited<posummit>} catalogs, C{branch} option is used to restrict
+the counting to the given branch only. Several branch IDs may be given as
+a comma-separated list.
+
+Custom Contexts
+===============
+
+Some older PO files will have message contexts embedded into the C{msgid}
+field, instead of using the Gettext proper C{msgctxt} field. There are
+several customary ways in which this is done, but in general it depends on
+the translation environment where such PO files are used.
+
+Embedded contexts will skew the statistics. Pology contains several sieves
+for converting embedded context into C{msgctxt} context, named C{normctx_*},
+where C{*} usually names the translation environment in question. When the
+statistics on such PO files is desired, the C{stats} sieve should be
+preceeded in the chain by the context conversion sieve::
+
+    $ posieve.py normctx_ooo,stats openoffice-fr/
+
+Note that C{normctx_*} sieves, while they modify the messages, by default
+do not request synchronization of catalogs to disk. This is precisely so
+that they may be run as prefilters to non-modifying sieves such as C{stats}.
+
+Output Legend
+=============
+
+    The basic output is the table where rows present statistics for
+    a category of messages, and columns the statistical bits of data::
+
+        $ posieve.py stats frobaz/
+        -              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
+        translated     ...    ...    ...     ...     ...    ...    ...
+        fuzzy          ...    ...    ...     ...     ...    ...    ...
+        untranslated   ...    ...    ...     ...     ...    ...    ...
+        total          ...    ...    ...     ...     ...    ...    ...
+        obsolete       ...    ...    ...     ...     ...    ...    ...
+
+    The C{total} row is the sum of C{translated}, C{fuzzy}, and
+    C{untranslated}, but not C{obsolete}. The columns are as follows:
+      - C{msg}: number of messages
+      - C{msg/tot}: percentage of messages relative to C{total}
+      - C{w-or}: number of words in original
+      - C{w/tot-or}: percentage of words in original relative to C{total}
+      - C{w-tr}: number of words in translation
+      - C{ch-or}: number of characters in original
+      - C{ch-tr}: number of characters in translation
+
+    The output with C{detail} sieve option in effect is the same, with
+    several columns of derived data appended to the table:
+      - C{w-dto}: increase in words from original to translation
+      - C{ch-dto}: increase in characters from original to translation
+      - C{w/msg-or}: average of words per message in original
+      - C{w/msg-tr}: average of words per message in translation
+      - C{ch/w-or}: average of characters per message in original
+      - C{ch/w-tr}: average of characters per message in translation
+
+    If any of the sieve options that restrict counting to certain messages
+    have been supplied, this is confirmed in output by a C{>>>} message
+    before the table. For example::
+
+        $ posieve.py stats -smaxwords:5 frobaz/
+        >>> at-most-words: 5
+        (...the stats table follows...)
+
+    When C{incomplete} option is given, the statistics table is followed by
+    a table of not fully translated catalogs, with counts of fuzzy and
+    untranslated messages::
+
+        $ posieve.py stats -sincomplete frobaz/
+        (...the stats table...)
+        incomplete-catalog   fuzz   untr   fuzz+untr
+        frobaz/foxtrot.po       0     11          11
+        frobaz/november.po     19     14          33
+        frobaz/sierra.po       22      0          22
+
+
+Notes on Counting
+=================
+
+    The word and character counts for a given message field are obtained
+    in the following way:
+      - accelerator marker, if defined, is removed
+      - XML-like markup is eliminated (C{<...>})
+      - special tokens, such as format directives, are also eliminated
+        (e.g. C{%s} in a message marked as C{c-format})
+      - the text is split into words by taking all contiguous sequences of
+        C{word} characters, as defined by C{\w} regular expression class
+        (this means letters, numbers, underscore)
+      - all words not starting with a letter are eliminated
+      - the words that remain count into statistics
+
+    In plural messages, the counts of the original are those of C{msgid}
+    and C{msgid_plural} fields I{averaged}, and so for the translation,
+    the averages of all C{msgstr} fields. In this way, the comparative
+    statistics between the original and the translation is not skewed for
+    languages that have other than two plural forms.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import os
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
@@ -9,7 +148,6 @@ from pology.file.catalog import Catalog
 
 
 class Sieve (object):
-    """General statistics."""
 
     def __init__ (self, options, global_options):
 

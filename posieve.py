@@ -86,7 +86,8 @@ given on the command line it will be sent to both.
 Pology also collects language-specific internal sieves. These are run by
 prefixing sieve name with the language code and a colon. For example, there is
 a sieve for the French language that replaces ordinary with non-breaking spaces
-in some interpunction scenarios, called C{setUbsp}, and is invoked like this::
+in some interpunction scenarios, the L{setUbsp<l10n.fr.sieve.setUbsp>},
+which is invoked like this::
 
     $ posieve.py fr:setUbsp frobaz-fr/
 

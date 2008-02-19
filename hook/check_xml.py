@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Summit hooks for checking the validity of XML markup.
+Check validity of XML markup.
 """
 
 from pology.misc.comments import manc_parse_flag_list

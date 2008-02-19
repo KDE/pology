@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Summit hooks for detecting unwanted patterns in translation.
+Detect unwanted patterns in translation.
 """
 
 from pology.misc.comments import manc_parse_flag_list
