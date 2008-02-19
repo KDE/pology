@@ -1,6 +1,113 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+Sieve messages in collections of PO files.
+
+Frequently there is a need to visit every message, either in a single catalog
+or collection of catalogs, and perform some operations on each. The operations
+may be checks, modifications, data collection, etc. This script is intended
+to ease this process, both from users' point of view and that of preparing
+new custom operations.
+
+The bundle of operations to be performed on a message is called a "sieve".
+C{posieve} does conceptually a simple thing: it runs each message in each
+catalog given to it, through sieves that the user has specified.
+
+Pology comes with many internal sieves, but users can write their own too.
+For example, here is how one could run the internal L{C{stats}<sieve.stats>}
+sieve, to collect statistics on all PO files in C{frobaz} directory::
+
+    $ posieve.py stats frobaz/
+    ... (after some time, a table with stats appears) ...
+
+Assuming that C{frobaz} contains a lot of PO files, user would wait some time
+until all the messages are pushed through the sieve, and then C{stats} would
+present its findings in a table.
+
+After the sieve name, any number of directory or file paths can be specified.
+C{posieve} will consider file paths as catalog files to open, and search
+recursively through directory paths for all files ending with C{.po} or C{.pot}.
+
+Sieves need not only collect data (such as the C{stats} above) or do checks,
+but may also modify messages. Whenever a message is modified, the catalog
+with changes will be saved over old catalog, and the user will be informed
+by an exclamation mark followed by the catalog path. An example of such
+internal sieve is L{tag-incomplete<sieve.tag_incomplete>}, which will add
+C{incomplete} flag to each fuzzy or untranslated message::
+
+    $ posieve.py tag-incomplete frobaz/
+    ! frobaz/alfa.po
+    ! frobaz/bravo.po
+    ! frobaz/charlie.po
+    Total incomplete tagged: 42
+
+C{posieve} itself monitors and informs about changed catalogs, whereas the
+final line in the example above has been output by the C{tag-incomplete} sieve.
+Sieves will frequently issue such final reports.
+
+More than one sieve can be applied to the catalog collection in one pass.
+This is called the "sieve chain", and is specified as comma-separated list
+of sieve names instead of a lone sieve name. Each message is passed through
+the sieves in the given order, in a pipeline fashion -- the output from the
+previous sieve is input to the next -- before moving to the next message.
+This order is important to bear in mind when two sieves in the chain can both
+modify a message. For example::
+
+    $ posieve.py stats,tag-incomplete frobaz/
+    ! frobaz/alfa.po
+    ! frobaz/bravo.po
+    ! frobaz/charlie.po
+    ... (table with stats) ...
+    Total incomplete tagged: 42
+
+If the order were C{tag-incomplete,stats} in this case the effect on the
+catalogs would be the same, but number of tagged messages would be the first
+in output, followed by the table with statistics.
+
+C{posieve} takes a few options, which you can list with the usual C{--help}
+option. However, more interesting is that sieves themselves can be sent some
+options. These sieve options are sent to sieve by the C{-s} option, which
+takes as argument a C{key:value} pair. As many of these as needed can be given.
+For example, C{stats} sieve could be instructed to take into account only
+messages with at most 5 words, like this::
+
+    $ posieve.py stats -s maxwords:5 frobaz/
+
+Sieve options can also be switches, when only the key is given. C{stats} can
+be instructed to show statistics in greater detail like this::
+
+    $ posieve.py stats -s detail frobaz/
+
+In case a sieve chain is specified, sieve options are routed to sieves as they
+will accept them. If two sieves in the chain have a same-named option, when
+given on the command line it will be sent to both.
+
+Pology also collects language-specific internal sieves. These are run by
+prefixing sieve name with the language code and a colon. For example, there is
+a sieve for the French language that replaces ordinary with non-breaking spaces
+in some interpunction scenarios, called C{setUbsp}, and is invoked like this::
+
+    $ posieve.py fr:setUbsp frobaz-fr/
+
+In case the user has written a custom sieve, it can be run by simply stating
+its path as sieve name. For C{posieve} to acknowledge it as external sieve,
+the file name has to end in C{.py}. Custom sieves can be chained as any other. For example::
+
+    $ posieve.py ../custom/my_count.py frobaz/
+    $ posieve.py stats,../custom/my_count.py frobaz/
+
+The list of all internal sieves is given within the L{sieve} module, as well
+as instructions on how to write custom sieves. The list of internal language-specific sieves can be found within C{l10n.<lang>.sieve} module of
+the languages that have them.
+
+@warning: This module is a script for end-use. No exposed functionality
+should be considered public API, it is subject to change without notice.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
