@@ -116,7 +116,7 @@ should be considered public API, it is subject to change without notice.
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
-from pology.misc.report import error, warning
+from pology.misc.report import error, warning, report
 
 import sys, os, imp
 from optparse import OptionParser
@@ -314,6 +314,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         try:
             cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func,
                           headonly=use_headonly)
+        except KeyboardInterrupt:
+            sys.exit(130)
         except StandardError, e:
             if op.do_skip:
                 warning("%s -- skipping file" % e)
