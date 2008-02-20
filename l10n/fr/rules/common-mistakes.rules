@@ -63,13 +63,8 @@ hint="La bonne orthographe est `accès' (accent grave)"
 
 [addres]
 valid after="&amp;k" before="sbook;" 
-valid file="kdm_kdmrc-ref.po" after="^Source" before="s$" 
-valid after="[kK]" before="s[bB]ook" 
-valid file="kab.po" before="sbook\.kab" 
-valid file="kab.po" after="&amp;kde;&sp;" before="sbook" 
+valid after="[kK]" before="s[bB]ook"
 valid file="kmail.po" after="^\[" before="sBook\]$"
-valid file="kmail_faq.po" after="^\[" before="sBook\]$"
-valid file="lisa.po" msgid="PingAddresses = 192.168.100.0/255.255.255.0;192.168.100.10-192.168.199.19;192.168.200.1;192-192.168-168.100-199.0-9;\nPingNames = bb_mail;\nAllowedAddresses = 192.168.0.0/255.255.0.0\nBroadcastNetwork = 192.168.100.0/255.255.255.0\nSearchUsingNmblookup = 1                #also try nmblookup\nFirstWait = 30                          #30 hundredth seconds\nSecondWait = -1                         #only one try\n#SecondWait = 60                         #try twice, and the second time wait 0.6 seconds\nUpdatePeriod = 300                      #update after 300 secs\nDeliverUnnamedHosts = 0                 #don't publish hosts without name\nMaxPingsAtOnce = 256                    #send up to 256 ICMP echo requests at once"
 hint="Seulement un `d' en français"
 
 [dosier]
@@ -156,24 +151,18 @@ hint="À remplacer par 'personnalisé'"
 hint="À remplacer par 'utiliser'" 
 
 [courier] 
-valid file="kdm.po" before=",12,5,iso-8859-1"
 hint="À remplacer par 'courrier'" 
 
 [language]
 valid ctx="Query" before="=" 
-valid file="kljettool.po" after="Printer&sp;Job&sp;" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
 valid after="Extensible&sp;Markup&sp;" 
 valid after="eXtensible&sp;Markup&sp;" 
-valid file="kdm.po" after="Country\n" before="\nCharset"
-valid file="kdm.po" after="^" before="$"
-valid file="knewsticker.po" after="^http.*"
 valid after="Print Control "
 hint="À remplacer par 'langage'"
 
 [&lwb;languages&rwb;]
-valid file="knewsticker.po" after="^http.*"
 hint="À remplacer par 'langage'"
 
 [sorite]
@@ -208,8 +197,7 @@ valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"
 valid before="[a-zàôâéèêçîû\-]+[^sx]&nbsp;" 
 valid before="$" 
 valid before="Lune" 
-valid before="CRL"
-valid file="kword_opt.po" before="\(min\)" 
+valid before="CRL" 
 hint="toujours un singulier après chaque"
 
 [([pP]ostscript)|(postScript)]c
@@ -294,22 +282,22 @@ hint="Ne pas oublier le trait d'union !"
 valid before="fond" 
 hint="En deux mots, c'est mieux (dela -> de la)"
 
-[digital]
-valid file="kicker-applets_ktimemon.po" before=" &UNIX;" 
+[digital] 
 valid before=" CDE" 
 valid after="Compact Disc " before=" Audio"
-valid after="@" 
+valid after="@"
+valid after="empreinte " 
 hint="'digital' est un anglicisme. Utiliser 'numérique'"
 
 [d@efault]   
 valid file="ksysv.po" after=":init" before=":$"  
-valid file="ksirc.po" after="^!" before="$"  
-valid file="kdm_kdmrc-ref.po" after="^"
-valid ctx="Query" before="."
+valid ctx="Query"
 valid file="kcmkonqhtml.po" after="window\."
+valid file="kioclient.po" after="Mount "
 hint="À remplacer par 'défaut'" 
 
 [media]
+valid after="Macro"
 hint="media -> média"
 
 [médias]

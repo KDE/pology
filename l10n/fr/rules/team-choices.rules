@@ -5,13 +5,10 @@
  
 [(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
 valid before="&sp;dans&sp;" 
-valid before="&sp;en&sp;" 
-valid file="kdm.po" after="^" before="$"
+valid before="&sp;en&sp;"
 valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
-valid file="kmail_using-kmail.po" before=" réellement dans le dossier"
-valid file="kate_regular-expressions.po" after="Il est " before="en cassant un carreau"
 hint="préférons « saisir » à « entrer » (elle est où la porte ?)"
  
 [valide[^zr]]
@@ -60,7 +57,6 @@ hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]
 valid file="korganizer.po"
-valid file="khelpcenter_userguide_kdepim-apps.po"
 hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
 
 [[Ss]sauver]
@@ -90,9 +86,6 @@ valid after="\(" before="s?\)"
 valid after="ns" before="scan"
 valid before="_policy\.tgz"
 valid file="kcmkonqhtml.po" after="/"
-valid file="kugar_progguide.po" after="kugar_" before="\."
-valid file="konqueror_config.po" after="&amp;lt;khtmlsettings" before="&amp;gt;"
-valid file="korganizer_exchange-plugin.po" after="^\nkorganizer: Registering.*"
 valid after="&amp;ns" before="s-kcontrol;"
 hint="plugin -> module externe"
 
@@ -100,7 +93,6 @@ hint="plugin -> module externe"
 hint="plugin -> module externe"
 
 [tuyau]
-valid file="kpf.po" after="^" before="$"
 valid file="kxsconfig.po" after="&sp;"
 hint="hint/tip -> Astuce (homogénéité)"
 
@@ -180,5 +172,23 @@ hint="utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) 
 
 [r@ecup@er]
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de récupération/récupérer)"
+
+[paquet(?!a)]
+valid before="s? IP"
+valid before="s? reçu"
+valid before="s? émis"
+valid before="s? sFTP"
+valid file="libk3b.po" after="Mauvais "
+valid file="libk3b.po" before=" #"
+valid file="knetworkconf.po"
+valid file="kcmusb.po"
+valid file="kfileshare.po"
+valid file="kppp.po"
+valid file="kgpg.po" before="s? chiffré"
+valid file="kgpg.po" after="déchiffrer les "
+valid file="kdevelop.po" after="«&unbsp;" before="&unbsp;»"
+valid file="cupsdconf4.po" before="s? provenant"
+valid file="cupsdconf4.po" before="s? de navigation"
+hint="paquet => paquetage (choix de l'équipe)"
 
 # End of rule file
