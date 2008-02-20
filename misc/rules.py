@@ -106,7 +106,8 @@ def loadRules(lang):
     
     if not ruleDir:
         print "Using default rule files (French)..."
-        ruleDir=join(l10nDir, "fr", "rules")
+        lang="fr"
+        ruleDir=join(l10nDir, lang, "rules")
     if isdir(ruleDir):
         ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
     else:
@@ -117,7 +118,7 @@ def loadRules(lang):
         m=__import__("pology.l10n.%s.accents" % lang, globals(), locals(), [""])
         accents=m.accents
     except ImportError:
-        print "No accents substitution dictionary found for % lang" % lang
+        print "No accents substitution dictionary found for %s lang" % lang
         accents=None
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, accents))
@@ -202,9 +203,7 @@ def loadRulesFromFile(filePath, accents):
                     # Begin of validGroup
                     inGroup=True
                     validGroupName=result.group(1).strip()
-                    continue
-            
-            
+                    continue            
 
     except IOError, e:
         print "Cannot read rule file at %s. Error was (%s)" % (filePath, e)
@@ -253,7 +252,7 @@ class Rule(object):
         self.span=(0, 0)  # start, end offset where rule match
 
         # Get accentMatch from accent dictionary
-        if self.accents.has_key("pattern"):
+        if self.accents and self.accents.has_key("pattern"):
             self.accentPattern=self.accents["pattern"]
         else:
             print "Accent dictionary does not have pattern. Disabled it"
@@ -324,10 +323,20 @@ class Rule(object):
                 before=False
                 after=False
                 if entry.has_key("file"):
-                    if entry["file"]!=filename:
-                        continue # This valid entry does not apply to this file
+                    if entry["file"]==filename:
+                        if not entry.has_key("after") and not entry.has_key("before") and not entry.has_key("ctx"):
+                            # This rule should not be processed for this file
+                            cancel=True
+                            break
+                    else:
+                        continue # This valid entry does not apply to this file    
                 if entry.has_key("ctx"):
-                    if not entry["ctx"].match(msgctxt):
+                    if entry["ctx"].match(msgctxt):
+                        if not entry.has_key("after") and not entry.has_key("before") and not entry.has_key("file"):
+                            # This rule should not be processed for this context
+                            cancel=True
+                            break
+                    else:
                         continue # This valid entry does not apply to this context
                 #process valid here
                 if entry.has_key("before"):
