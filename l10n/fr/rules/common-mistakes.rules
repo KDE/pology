@@ -197,7 +197,7 @@ valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"
 valid before="[a-zàôâéèêçîû\-]+[^sx]&nbsp;" 
 valid before="$" 
 valid before="Lune" 
-valid before="CRL" 
+valid before="CRL|I-frame" 
 hint="toujours un singulier après chaque"
 
 [([pP]ostscript)|(postScript)]c
