@@ -100,9 +100,6 @@ hint="hint/tip -> Astuce (homogénéité)"
 [clef]
 hint="Utilisez plutôt le mot « clé » (homogénéité)"
 
-[mot clé]
-hint="Il faut un trait d'union : « mot-clé »"
-
 [->]
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
