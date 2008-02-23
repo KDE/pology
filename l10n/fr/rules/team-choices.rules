@@ -83,7 +83,7 @@ hint="plugin -> module externe"
 
 [plugin]
 valid after="\(" before="s?\)"
-valid after="ns" before="scan"
+valid after="ns" before="scan|viewer"
 valid before="_policy\.tgz"
 valid file="kcmkonqhtml.po" after="/"
 valid after="&amp;ns" before="s-kcontrol;"
@@ -182,6 +182,7 @@ hint="utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) 
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de récupération/récupérer)"
 
 [paquet(?!a)]
+valid after="[E|e]m"
 valid before="s? IP"
 valid before="s? reçu"
 valid before="s? émis"
