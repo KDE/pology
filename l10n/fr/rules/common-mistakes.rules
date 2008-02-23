@@ -322,4 +322,17 @@ hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un partic
 valid before="sMarkup" # D-Bus call
 hint="support est un faux ami, à traduire par un dérivé de 'disponible', 'autoriser', 'accepter', 'gérer' ou 'prendre en charge'"
 
+[[t|T]ext(?![e|uel|\-])]
+valid ctx="Query"
+valid before="[&sp;|&unbsp;]?\/"
+valid after="[R|r]ich\s?"
+valid before="Label"
+valid after="K"
+valid after="[G|g]et"
+valid before="[F|f]ilter|Range|object"
+valid after="set|start|CD\-|[I|i]nsert|Widget|sub|block\-"
+valid after="\."
+valid before=":"
+hint="Merci de mettre un e à la fin de texte ou contexte !"
+
 # End of rule file
