@@ -46,7 +46,8 @@ valid after="about"  before="/"
 valid after="fonts"  before="/"
 valid after="trash"  before="/"
 valid file="kcmioslaveinfo.po" after="%1"  before="/"
-valid after="gg"  before="[a-z]+"
+valid after="gg|google"  before="KDE|[a-z]+"
+valid file="kurifilter.po" after="</b>" before="<b>ma recherche"
 valid after="smb://\[nom\["  before="motdepasse"
 valid after="\d\d" before="\d\d"
 valid after="(HH|hh|%h+)" before="(MM|mm|%m+)"
@@ -83,7 +84,7 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
-valid after="&amp;[a-z]+" 
+valid after="&amp;[0-9a-zA-Z]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
@@ -114,6 +115,7 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+valid ctx=".*one character"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="https?://\S+(?=\?)" 
@@ -174,8 +176,10 @@ valid file="kfmclient.po" before="URL"
 valid file="kfmclient.po" before="\]"
 valid file="kfmclient.po" after="\["
 valid file="k3b.po" before="{"
+valid file="kwriteconfig.po"
 valid after="="
 valid before=">"
+valid before=";" after="'[\w\s]+" # CSS
 valid file="kio_trash.po" after="url"
 valid file="kio_trash.po" before="url"
 valid file="kioclient.po" after="url|dest|src|type Mime"
