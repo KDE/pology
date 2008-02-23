@@ -211,6 +211,7 @@ hint="Deux slashes après le nom du protocole"
 hint="TV est un anglicisme. À éviter..."
 
 [CPU]
+valid ctx=".*heading"
 hint="Traduire CPU par 'processeur'"
 
 [&lwb;environment&rwb;]
