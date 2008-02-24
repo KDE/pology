@@ -55,6 +55,8 @@ valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
 valid after="Heures" before="Minutes"
 valid after="ht" before="\/\/dig"
 valid before="-[\)|\(]" # Smiley
+valid before="\d+(px)?;" # CSS
+valid after="font-weight" before="bold" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check" 
@@ -84,8 +86,10 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
-valid after="&amp;[0-9a-zA-Z]+"
+valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
+valid after="px|\d+" before"\"" # CSS
+valid after="bold" before="'"   # CSS
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
 valid file="konsole.po" before="\\" 
@@ -189,7 +193,14 @@ valid file="konqueror.po" before="\d"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [&sp;&sp;+]
-valid file="kioclient.po" 
+valid file="kioclient.po"
+valid file="solidshell.po"
+valid file="kfmclient.po"
+valid file="kcmcolors.po"
+valid file="phonon-xine.po"
+valid file="krunner.po"
+valid file="desktop_kdebase.po"
+valid file="kcmsamba.po" 
 hint="Jamais plus d'une espace."
 
 [%]
@@ -201,7 +212,8 @@ valid file="ksim.po" before="[bcdfFhmnstTu]"
 valid file="kcmcomponentchooser.po" before="[Au]"
 valid file="kdmgreet.po" before="[aBht]"
 valid file="kmenuedit.po" before="[cdDfFimuU]"
-valid file="k3b.po" before="[afty{]" 
+valid file="k3b.po" before="[afty{]"
+valid file="dolphin.po" before="[BY]" 
 valid file="kcron.po" after="^" before="H:%M$"
 valid file="kcron.po" after="^%H:" before="M$"
 valid before="appname"

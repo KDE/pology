@@ -191,7 +191,7 @@ valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]"
 valid before="fois&rwb;" 
 valid before="fois" 
 valid before="accès" 
-valid before="processus&rwb;" 
+valid before="processus" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]&nbsp;" 
@@ -316,6 +316,7 @@ hint="Pas de tiret entre 'raccourci' et 'clavier'"
 [status|statut]
 valid after="[Ss]mb"
 valid file="kcmkonqhtml.po" after="window\."
+valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
 hint="remplacer 'status' ou 'statut' par 'état'"
 
 [basé.+ sur]
