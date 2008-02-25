@@ -103,6 +103,7 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 [->]
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
+valid file="kwordquiz.po" after="&sp;" before="&sp;"
 hint="Utiliser le format « Fichier / Exporter sous »"
 
 [vous pouvez ici]
@@ -126,6 +127,7 @@ hint="« Voulez-vous vraiment... » est préférable. (homogénéité)"
 
 [non trouv@é]
 valid after="^&lt;" before="&gt;$"
+valid after="[Pp]ho"
 hint="« toto non trouvé » -> « Impossible de trouver toto » (homogénéité)"
 
 [Désirez-?vous]
@@ -150,8 +152,8 @@ hint="Utiliser la forme « en suivant votre PATH »"
 [désinitialiser]
 hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
 
-[d@emont@e]
-valid after="«&amp;nbsp;" before="&amp;nbsp;»"
+[d@emont@er?]
+valid after="«&unbsp;" before="&unbsp;»"
 hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
 
 [nom de connexion]

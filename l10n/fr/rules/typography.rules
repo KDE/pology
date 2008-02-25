@@ -57,6 +57,7 @@ valid after="ht" before="\/\/dig"
 valid before="-[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
 valid after="font-weight" before="bold" # CSS
+valid after="color" before="#" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check" 
@@ -64,14 +65,15 @@ valid after="javascript" before="go"
 valid file="imgalleryplugin.po" after="KImGalleryPlugin:" before="slotCreateHtml" 
 valid file="imgalleryplugin.po" after="KImGalleryPlugin" before=":slotCreateHtml"  
 valid file="kcron.po" after="%H" before="%M" 
-valid file="kdat.po" after="%02d" before="%02d" 
+valid file="kdat.po" after="%02d" before="%02d"
+valid file="kio4.po" after="\d" before="\d" 
 valid file="kio_smtp.po" after="SMTPProtocol" before=":smtp_open" 
 valid file="kio_smtp.po" after="SMTPProtocol:" before="smtp_open" 
 valid file="kiconedit.po" after="^1" before="1$" 
 valid file="kiconedit.po" after="^1" before="10$" 
 valid file="kiconedit.po" after="^1" before="5$" 
 valid file="kbackgammon.po" after="&sp;%1" before="%2\.$"
-valid file="konsole.po" before="\\" 
+valid file="konsole.po" before="\\"
 valid file="kshisen.po" after="%02d" before="%02d" 
 valid file="kshisen.po" after="XX" before="XX" 
 valid file="kshisen.po" after="%1" before="%2" 
@@ -88,11 +90,12 @@ validGroup inParenthesis
 validGroup inQuotes
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
-valid after="px|\d+" before"\"" # CSS
+valid after="px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
-valid file="konsole.po" before="\\" 
+valid file="konsole.po" before="\\"
+valid file="katepart4.po" after="plain|txt" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -173,6 +176,7 @@ valid before="&amp;[\wéèàêâ]"
 valid before="&lt;b&gt;"
 valid before="&lt;em&gt;"
 valid before="&lt;b&gt;[\wéèàê]"
+valid before="&lt;strong&gt;[\wéèàê]"
 valid file="kgeography.po" before="É|Î"
 valid file="kgeography.po" after="Vayots"
 valid file="kfmclient.po" after="URL"
@@ -212,6 +216,8 @@ valid file="ksim.po" before="[bcdfFhmnstTu]"
 valid file="kcmcomponentchooser.po" before="[Au]"
 valid file="kdmgreet.po" before="[aBht]"
 valid file="kmenuedit.po" before="[cdDfFimuU]"
+valid file="katepart4.po" before="[p]"
+valid file="kio4.po" before="[cdDfFimuU]"
 valid file="k3b.po" before="[afty{]"
 valid file="dolphin.po" before="[BY]" 
 valid file="kcron.po" after="^" before="H:%M$"
