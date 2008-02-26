@@ -9,6 +9,7 @@ valid before="&sp;en&sp;"
 valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
+valid file="kgoldrunner.po"
 hint="préférons « saisir » à « entrer » (elle est où la porte ?)"
  
 [valide[^zr]]
@@ -53,6 +54,7 @@ valid file="konqueror.po" after="colonne&sp;"
 valid before="ment" 
 valid after="ir"
 valid file="kverbos.po"
+valid file="kgoldrunner.po" after="ascension&sp;"
 hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]
@@ -104,6 +106,7 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
+valid after="<!--.*[^-]-" # HTML Comment
 hint="Utiliser le format « Fichier / Exporter sous »"
 
 [vous pouvez ici]
@@ -179,6 +182,7 @@ hint="On essaie d'éviter « item » ?"
 hint="utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire preview"
 
 [r@ecup@er]
+valid file="kgoldrunner.po"
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de récupération/récupérer)"
 
 [paquet(?!a)]
