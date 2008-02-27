@@ -288,7 +288,7 @@ hint="Une espace après un point."
 [&sp;\.]
 valid before="desktop&sp;"
 valid before="xinitrc"
-valid before="cfg|doc|dvi|kwd|eps|m3u|pls|png|ps|spec|txt|WRI|xml"
+valid before="cfg|doc|dvi|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml"
 valid before="NET"
 valid file="konsole.po" before="schema"
 valid file="konsole.po" before="keytab"

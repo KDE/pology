@@ -325,6 +325,7 @@ hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un partic
 
 [support]
 valid before="sMarkup" # D-Bus call
+valid after="http://\S+(?=support)"
 hint="support est un faux ami, à traduire par un dérivé de 'disponible', 'autoriser', 'accepter', 'gérer' ou 'prendre en charge'"
 
 [[t|T]ext(?![e|uel|\-])]
