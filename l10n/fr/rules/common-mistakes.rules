@@ -249,6 +249,7 @@ hint="clique -> clic"
 
 [crypt(er|ez|é?)]
 valid after="lib"
+valid before="ographie"
 hint="Il est préférable d'utiliser le verbe « chiffrer »
 
 [profiles]
@@ -275,6 +276,12 @@ hint="mime -> MIME (en majuscules)"
 
 [fabriquant]
 hint="'fabricant' s'écrit avec un 'c'"
+
+[un icône]
+hint="C'est *une* icône"
+
+[[I|i]cone]
+hint="Il faut un accent circonflexe au mot icône"
 
 [Voulez vous]
 valid after="[sS]i vous "
@@ -307,6 +314,9 @@ hint="média ne prend pas de s même au pluriel"
 
 [mots?-clé]
 hint="Il ne faut pas de trait d'union après « mot »"
+
+[[Q|q]uelques? soi]
+hint="Ceci s'écrit en trois mots « quel que soit, quels que soient, quelle que soit, quelles que soient »"
 
 [focntion]
 hint="`focntion' -> `fonction' (dyslexie)"

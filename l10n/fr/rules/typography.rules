@@ -22,29 +22,13 @@ validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
 valid after="&unbsp;" before="\t"
-valid after="ftp" 
-valid after="https?"
 valid after="https?://\S+(?=:)"
-valid after="webdavs?"
 valid after="mailto" 
 valid after="whatsthis"
 valid after="man"
 valid after="file"
 valid after="gg"
-valid after="exec" before="/" 
-valid after="news" before="/"
-valid after="lpr"  before="/"
-valid after="parallel"  before="/"
-valid after="smb"  before="/"
-valid after="camera"  before="/"
-valid after="help"  before="/"
-valid after="umax"  before="/"
-valid after="vdvd"  before="/"
-valid after="videodvd"  before="/"
-valid after="lan"  before="/"
-valid after="about"  before="/"
-valid after="fonts"  before="/"
-valid after="trash"  before="/"
+valid after="about|camera|exec|ftps?|fonts|help|https?|lan|lpr|news|parallel|smb|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid file="kcmioslaveinfo.po" after="%1"  before="/"
 valid after="gg|google"  before="KDE|[a-z]+"
 valid file="kurifilter.po" after="</b>" before="<b>ma recherche"
@@ -57,10 +41,12 @@ valid after="ht" before="\/\/dig"
 valid before="-[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
 valid after="font-weight" before="bold" # CSS
+valid after="font-size" before="\d+" # CSS
 valid after="color" before="#" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
-valid after="Process:" before="check" 
+valid after="Process:" before="check"
+valid after="QApplication:?" 
 valid after="javascript" before="go"  
 valid file="imgalleryplugin.po" after="KImGalleryPlugin:" before="slotCreateHtml" 
 valid file="imgalleryplugin.po" after="KImGalleryPlugin" before=":slotCreateHtml"  
@@ -92,7 +78,7 @@ validGroup inParenthesis
 validGroup inQuotes
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
-valid after="px|\d+|[a-f]{1,2}" before"\"" # CSS
+valid after="pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
@@ -221,8 +207,9 @@ valid file="ksim.po" before="[bcdfFhmnstTu]"
 valid file="kcmcomponentchooser.po" before="[Au]"
 valid file="kdmgreet.po" before="[aBht]"
 valid file="kmenuedit.po" before="[cdDfFimuU]"
-valid file="katepart4.po" before="[p]"
+valid file="katepart4.po" before="p"
 valid file="kio4.po" before="[cdDfFimuU]"
+valid file="kdelibs4.po" before="m"
 valid file="ktexteditor_plugins.po" before="[a-zA-Z]|:"
 valid file="k3b.po" before="[afty{]"
 valid file="dolphin.po" before="[BY]" 
@@ -310,7 +297,7 @@ valid before="F%\d"
 valid before="K3Shell|K3b"
 hint="Pas de majuscule après deux points ou un point virgule"
 
-[(<strong>«)|(<b>«)|(»</strong>)|(»</b>)]
+[(<strong>«)|(<b>«)|(<em>«)|(»</strong>)|(»</b>|(»</em>))]
 hint="Ne pas cumuler le gras et les guillemets"
 
 # End of rule file

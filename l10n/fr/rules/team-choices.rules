@@ -1,7 +1,6 @@
 # Translation choices of french team
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
-
  
 [(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
 valid before="&sp;dans&sp;" 
@@ -27,7 +26,6 @@ hint="préférons « arrêt » à « stop »"
 valid after="services? de " before="s"
 hint="préférons « dossier » à « répertoire »"
 
-
 [taper|tapant]
 valid before="&sp;$"
 valid file="ktouch.po" after="apprendre&sp;à&sp;"
@@ -39,6 +37,11 @@ hint="bouton du milieu -> bouton central"
 
 [compact]
 hint="Choix de l'équipe : « compresser » au lieu de « compacter »"
+
+[garder]
+valid after="[Ss]auve"
+valid after="[Rr]e"
+hint="Choix de l'équipe : utilisation du verbe conserver"
 
 [&kcontrol;]
 hint="A remplacer par &centreConfiguration;"
@@ -69,6 +72,9 @@ valid file="kdat.po"
 valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
 hint="sauver -> enregistrer (homogénéité)"
+
+[([Ee]nregistrer|[Aa]fficher|[Ss]électionner) tout$]
+hint="Mettez le « tout » en premier, par exemple « Tout enregistrer »"
 
 [URL mal ]
 valid before="formée"
