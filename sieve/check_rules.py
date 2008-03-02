@@ -44,8 +44,14 @@ class Sieve (object):
         else:
             lang=None
         
+        if "stat" in options:
+            options.accept("stat")
+            stat=True
+        else:
+            stat=False
+
         # Load rules
-        self.rules=loadRules(lang)
+        self.rules=loadRules(lang, stat)
         
         if len(self.rules)==0:
             print "No rule loaded. Exiting"
@@ -173,5 +179,4 @@ class Sieve (object):
                 self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
-        if self.nmatch:
-            printStat(self.rules, self.nmatch)
+        printStat(self.rules, self.nmatch)

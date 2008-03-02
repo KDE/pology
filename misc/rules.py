@@ -70,18 +70,21 @@ def printStat(rules, nmatch):
     @param rules: list of rule files
     @param nmatch: total number of matched items
     """
-    print "----------------------------------------------------"
-    print "Total matching: %d" % nmatch
-    print "Rules stat (raw_pattern, calls, average time (ms)"
-    stat=list(((r.rawPattern, r.count, r.time/r.count) for r in rules if r.count!=0))
-    stat.sort(lambda x, y: cmp(x[2], y[2]))
-    for p, c, t in stat:
-        print "%-20s %6d %6.1f" % (p, c, t)
+    if nmatch:
+        print "----------------------------------------------------"
+        print "Total matching: %d" % nmatch
+    stat=list(((r.rawPattern, r.count, r.time/r.count, r.time) for r in rules if r.count!=0 and r.stat is True))
+    if stat:
+        print "Rules stat (raw_pattern, calls, average time (ms), total time (ms)"
+        stat.sort(lambda x, y: cmp(x[3], y[3]))
+        for p, c, t, tt in stat:
+            print "%-20s\t\t%6d\t\t%6.1f\t\t%6d" % (p, c, t, tt)
 
 
-def loadRules(lang):
+def loadRules(lang, stat):
     """Load all rules of given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
+    @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
     ruleFiles=[]           # List of rule files
@@ -121,15 +124,16 @@ def loadRules(lang):
         print "No accents substitution dictionary found for %s lang" % lang
         accents=None
     for ruleFile in ruleFiles:
-        rules.extend(loadRulesFromFile(ruleFile, accents))
+        rules.extend(loadRulesFromFile(ruleFile, accents, stat))
     
     return rules
 
 
-def loadRulesFromFile(filePath, accents):
+def loadRulesFromFile(filePath, accents, stat):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
     @param accents: specific language l10n accents dictionary to use
+    @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @return: list of Rule object"""
 
     rules=[]
@@ -163,7 +167,7 @@ def loadRulesFromFile(filePath, accents):
             if line.strip()=="":
                 if inRule:
                     inRule=False
-                    rules.append(Rule(pattern, hint, valid, accents))
+                    rules.append(Rule(pattern, hint, valid, accents, stat))
                     pattern=u""
                     hint=u""
                 elif inGroup:
@@ -232,7 +236,7 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
     
-    def __init__(self, pattern, hint, valid=[], accents=None):
+    def __init__(self, pattern, hint, valid=[], accents=None, stat=False):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -250,6 +254,7 @@ class Rule(object):
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
         self.span=(0, 0)  # start, end offset where rule match
+        self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
 
         # Get accentMatch from accent dictionary
         if self.accents and self.accents.has_key("pattern"):
@@ -301,7 +306,7 @@ class Rule(object):
                 print "Invalid 'Valid' definition '%s'. Skipping" % item
                 continue
 
-    @timed_out(TIMEOUT)
+    #@timed_out(TIMEOUT)
     def process(self, msgstr, msgid, msgctxt, filename):
         """Process the given message
         @return: True if rule match, False if rule do not match, None if rule cannot be applied"""
@@ -309,7 +314,8 @@ class Rule(object):
             print "Pattern not defined. Skipping rule"
             return
         
-        begin=time()
+        if self.stat: begin=time()
+
         cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
 
         patternMatches=self.pattern.finditer(msgstr)
@@ -365,7 +371,7 @@ class Rule(object):
         else:
             # stat
             self.count+=1
-            self.time+=1000*(time()-begin)
+            if self.stat : self.time+=1000*(time()-begin)
             if cancel:
                 # Rule match but was canceled by a "valid" expression
                 return False
