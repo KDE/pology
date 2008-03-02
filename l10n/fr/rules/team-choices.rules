@@ -91,7 +91,7 @@ hint="item(s) -> élément(s)"
 hint="plugin -> module externe"
 
 [&lwb;plugins?&rwb;]
-valid after="\(" before="s?\)"
+valid after="\(" before="\)"
 valid file="kcmkonqhtml.po" after="/"
 valid file="desktop_playground-multimedia.po" before="$"
 hint="plugin -> module externe"

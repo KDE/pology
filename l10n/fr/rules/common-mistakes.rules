@@ -2,85 +2,86 @@
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
 
-[connection]
-hint="`connexion' et non `connection' !"
+[&lwb;boites?&rwb;]
+hint="Boite => boîte avec un accent circonflexe"
  
+[bopite]
+hint="l'erreur classique quand on a rate la touche ^ :)"
+
+[connection]
+hint="« connexion » et non « connection » en Français !"
+
 [formatt]
 hint="Un seul t"
  
 [cel%à]
 hint="celà -> cela"
- 
-[bopite]
-hint="l'erreur classique quand on a rate la touche ^ :)"
 
-[&lwb;tr%ès&rwb;]
+[&lwb;tr[eé]s&rwb;]
 valid after="enregis" 
 hint="Mettre un accent grave"
 
 [rafraich]
-hint="Les dérivés de rafraîchir veulent un accent circonflexe sur le `i'"
+hint="Les dérivés de rafraîchir veulent un accent circonflexe sur le « i »"
 
 [@érreur|Érreur]
-hint="Pas d'accent aigu sur le premier `e'"
+hint="Pas d'accent aigu sur le premier « e »"
 
 [chaine]
 valid after="[pP]ro"
-hint="Mettre une accent circonflexe sur le `i'"
+hint="Mettre un accent circonflexe sur le « i »"
 
 [resaisir]
-hint="Mettre deux `s' (ressaisir)"
+hint="Mettre deux « s » (ressaisir)"
 
-[num%éro]
-hint="Mettre un accent aigu sur le `e'"
+[num[eè]ro]
+hint="Mettre un accent aigu sur le « e »"
 
 [supress|suppresio|suprimer|supprimm]
-hint="Erreur sur le nombre de `p' ou de `m' dans le dérivé du verbe `supprimer'"
+hint="Erreur sur le nombre de « p » ou de « m » dans le dérivé du verbe « supprimer »"
 
 [maximiz]
-hint="Mettre un `s' à la place du `z'"
+hint="Mettre un « s » à la place du « z »"
 
-[emp%êch]
-hint="Mettre un accent circonflexe sur le `e'"
+[emp[éèe]ch]
+hint="Mettre un accent circonflexe sur le « e »"
 
-[extr%ême]
-hint="Mettre un accent circonflexe sur le `e'"
+[extr[eéè]me]
+hint="Mettre un accent circonflexe sur le « e »"
 
-[s%él%ect]
-hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
+[s[eè]lect|sél[éè]ct]
+hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
-[sél%ect]c
-hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
+[n[eè]cess|néc[éè]ss]
+hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
-[n%éc%ess]
-hint="Mettre un accent aigu sur le premier `e', pas sur le deuxième"
+[acc[eè]der]
+hint="La bonne orthographe est « accéder » (accent aigu)"
 
-[acc%éder]
-hint="La bonne orthographe est `accéder' (accent aigu)"
-
-[acc%ès]
-hint="La bonne orthographe est `accès' (accent grave)"
+[acc[ée]s&rwb;]
+valid before="&"
+hint="La bonne orthographe est « accès » (accent grave)"
 
 [addres]
 valid after="&amp;k" before="sbook;" 
 valid after="[kK]" before="s[bB]ook"
 valid file="kmail.po" after="^\[" before="sBook\]$"
-hint="Seulement un `d' en français"
+hint="Seulement un « d » en français"
 
 [dosier]
-hint="Il manque un `s'"
+hint="Il manque un « s »"
 
-[v%érif]
-hint="Mettre un accent aigu sur le `e'"
+[v[eè]rif]
+hint="Mettre un accent aigu sur le « e »"
 
-[r%ègle&rwb;]
-hint="Mettre un accent grave et non circonflexe sur le `e'"
+[r[éeê]gle&rwb;]
+hint="Mettre un accent grave et non circonflexe sur le « e »"
 
-[compl%ètem]
+[compl[ée]tem]
 hint="Mettre un accent grave"
 
-[Echec]
-hint="Mettre un accent aigu : É"
+[[Ee]chec]
+hint="Mettre un accent aigu : É ou é"
 
 [plateforme]
 hint="plateforme -> plate-forme"
@@ -96,10 +97,13 @@ valid after="--"
 valid after="Public&sp;" 
 hint="license -> licence"
 
+[&lwb;c'est à dire&rwb;]
+hint="Il faut mettre des traits d'union : « c'est-à-dire »"
+
 [ent@ete]
 hint="Mettre un trait d'union -> `en-tête'"
 
-[en-t%ête]
+[en-t[éèe]te]
 hint="Mettre un accent circonflexe -> `en-tête'"
 
 [compl@etion]
@@ -141,7 +145,7 @@ hint="À remplacer par 'extension'"
 [\setc[^\.a-zA-Z]|\setc$|\setc\.{2}]
 hint="Il faut mettre un point (et un seul) après etc"
 
-[param%étré] 
+[param[èe]tré] 
 hint="À remplacer par 'paramétré'" 
 
 [personalisé] 
@@ -323,6 +327,9 @@ hint="`focntion' -> `fonction' (dyslexie)"
 
 [(raccourcis-clavier)|(raccourci-clavier)]
 hint="Pas de tiret entre 'raccourci' et 'clavier'"
+
+[&lwb;occurences?&rwb;]
+hint="« occurences »-> « occurrences ». Avec deux « r » !"
 
 [status|statut]
 valid after="[Ss]mb"
