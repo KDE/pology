@@ -84,17 +84,15 @@ hint="Homogénéite : utiliser « URL mal formée »"
 hint="Homogeneite : utiliser « URL mal formée »"
 
 [&lwb;items?&rwb;]
+valid ctx="Query"
 hint="item(s) -> élément(s)"
 
 [modules? enfichable]
 hint="plugin -> module externe"
 
-[plugin]
+[&lwb;plugins?&rwb;]
 valid after="\(" before="s?\)"
-valid after="ns" before="scan|viewer"
-valid before="_policy\.tgz"
 valid file="kcmkonqhtml.po" after="/"
-valid after="&amp;ns" before="s-kcontrol;"
 valid file="desktop_playground-multimedia.po" before="$"
 hint="plugin -> module externe"
 
