@@ -69,7 +69,8 @@ valid file="lskat.po" after="%1" before="%2"
 valid file="kspread.po" after="[A-Z0-9]+" before="[A-Z0-9]+" 
 valid file="kspread.po" after="(ligne)|(colonne)" before="(ligne)|(colonne)"
 valid file="ktexteditor_plugins.po" after="H|%" 
-valid ctx="List of words.*" 
+valid ctx="List of words.*"
+valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -83,7 +84,8 @@ valid after="bold" before="'"   # CSS
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
 valid file="konsole.po" before="\\"
-valid file="katepart4.po" after="plain|txt" 
+valid file="katepart4.po" after="plain|txt"
+valid ctx="Numbers and characters" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -104,6 +106,7 @@ valid file="kspread.po" after="[abcx]" before="[abcx!\.]|$"
 valid file="kspread.po" after="\(a+b+c\)"
 valid file="k3b.po" before="a" 
 valid after="aKtion"
+valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -118,7 +121,8 @@ valid file="kfindpart.po" after="l" before="t"
 valid file="kio4.po" after="extension" before="requête" 
 valid file="kio4.po" after="^" before="&sp;"
 valid after="&amp;nbsp;" before="&lt;\/qt&gt;$"
-valid file="kgoldrunner.po" after="\?|2" 
+valid file="kgoldrunner.po" after="\?|2"
+valid ctx="Numbers and characters" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
@@ -131,7 +135,8 @@ valid after="^" before="&sp;"
 valid ctx="\w+ OF TRANSLATORS"  
 valid ctx="desktop_po" after="^Keywords=.*" 
 valid after="[^&sp;(&unbsp;)]" before="&lt;br" 
-valid file="kcmkwinrules.po" after="\+" 
+valid file="kcmkwinrules.po" after="\+"
+valid ctx="Numbers and characters" 
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
@@ -141,6 +146,7 @@ valid ctx="Query"
 valid file="kspread.po"
 valid file="kcmkwinrules.po" after="\+" 
 valid ctx="\w+ OF TRANSLATORS" after="."  before="."
+valid ctx="Numbers and characters"
 hint="Une espace après une virgule"
 
 [»]
@@ -150,13 +156,15 @@ valid after="&unbsp;" before=\n"
 valid after="&unbsp;" before="&unbsp;(:|\?|!)" 
 valid after="&unbsp;" before="\." 
 valid after="&unbsp;" before="\)" 
-valid after="&unbsp;" before="," 
+valid after="&unbsp;" before=","
+valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
 [«]
 valid after="&sp;" before="&unbsp;"
 valid after="\(|'" before="&unbsp;"
 valid after="^|\n|</p>|</?br\s?/?>" before="&unbsp;"
+valid ctx="Numbers and characters"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
@@ -185,6 +193,7 @@ valid file="kioclient.po" after="url|dest|src|type Mime"
 valid file="kioclient.po" before="url|dest|src|type Mime"
 valid file="konqueror.po" after="\d"
 valid file="konqueror.po" before="\d"
+valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [&sp;&sp;+]
@@ -226,6 +235,7 @@ valid after="^" before="$"
 valid file="kmail.po" before="D=""
 valid file="kmail.po" before="S=""
 valid file="knode.po" before="NAME|EMAIL|MYEMAIL|f|L"
+valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\d¤\b]
@@ -270,6 +280,7 @@ valid after="[A-Za-z]*\.?" before="([A-Za-z\-]+\.?)+@([A-Za-z]+\.?)"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
 valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
+valid ctx="Numbers and characters"
 hint="Une espace après un point."
 
 [&sp;\.]
@@ -297,7 +308,7 @@ valid before="F%\d"
 valid before="K3Shell|K3b"
 hint="Pas de majuscule après deux points ou un point virgule"
 
-[(<strong>«)|(<b>«)|(<em>«)|(»</strong>)|(»</b>|(»</em>))]
-hint="Ne pas cumuler le gras et les guillemets"
+[(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]
+hint="Ne pas cumuler le gras ou l'italique et les guillemets"
 
 # End of rule file
