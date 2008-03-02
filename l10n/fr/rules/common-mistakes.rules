@@ -18,7 +18,7 @@ hint="Un seul t"
 hint="celà -> cela"
 
 [&lwb;tr[eé]s&rwb;]
-valid after="enregis" 
+valid after="&" 
 hint="Mettre un accent grave"
 
 [rafraich]
@@ -89,7 +89,7 @@ hint="plateforme -> plate-forme"
 [incomplêt]
 hint="incomplête -> incomplète ou incomplêt -> incomplet"
 
-[incompli@èt[^e]]
+[incompl@èt[^e]]
 hint="incomplèt -> incomplet"
 
 [&lwb;license&rwb;]
@@ -166,7 +166,8 @@ valid after="eXtensible&sp;Markup&sp;"
 valid after="Print Control "
 hint="À remplacer par 'langage'"
 
-[&lwb;languages&rwb;]
+[&lwb;languages?&rwb;]
+valid ctx="Query"
 hint="À remplacer par 'langage'"
 
 [sorite]
@@ -192,8 +193,7 @@ hint="mettre un tiret à 'sous-élément'"
 
 [chaque&sp;]
 valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
-valid before="fois&rwb;" 
-valid before="fois" 
+valid before="fois&rwb;"  
 valid before="accès" 
 valid before="processus" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
@@ -204,8 +204,8 @@ valid before="Lune"
 valid before="CRL|I-frame" 
 hint="toujours un singulier après chaque"
 
-[([pP]ostscript)|(postScript)]c
-hint="Ecriture officielle : 'PostScript' (avec 2 majuscules)"
+[([pP]ostscript)|(postScript)]
+hint="Écriture officielle : 'PostScript' (avec 2 majuscules)"
 
 [&lwb;http:/&rwb;]
 valid before="/"
@@ -223,7 +223,7 @@ valid after="K Desktop "
 hint="environment -> environnement"
 
 [installeur]
-hint="installeur => installateur"
+hint="installeur -> installateur"
 
 [clique[zr] ce]
 hint="On clique SUR quelque chose et non quelque chose"
