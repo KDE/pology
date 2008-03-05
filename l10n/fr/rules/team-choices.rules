@@ -43,12 +43,6 @@ valid after="[Ss]auve"
 valid after="[Rr]e"
 hint="Choix de l'équipe : utilisation du verbe conserver"
 
-[&kcontrol;]
-hint="A remplacer par &centreConfiguration;"
-
-[&khelpcenter;]
-hint="A remplacer par &centreAide;"
-
 [r@eguli@ere]
 valid after="vérification&sp;" 
 valid after="casse&sp;" 
