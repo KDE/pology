@@ -10,9 +10,8 @@ in different contexts and scenario. May colorize some output.
 @license: GPLv3
 """
 
-import os, sys
+import os, re, sys, locale
 import pology.misc.colors as C
-
 
 def report (text, showcmd=False, subsrc=None, file=sys.stdout):
     """
@@ -165,7 +164,7 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
 
 
 def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
-                        file=sys.stdout):
+                        file=sys.stdout, highlight=None):
     """
     Report the content of a PO message.
 
@@ -182,13 +181,28 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     @type force: bool
     @param subsrc: more detailed source of the message
     @type subsrc: C{None} or string
+    @param file: output stream. Default is sys.stdout
+    @type file: file
+    @param highlight: regular expression pattern used to colorize text. Default is None
+    @param highlight: re.compile regular expression
     """
 
+    local_encoding=locale.getdefaultlocale()[1]
+    
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = tfmt % (cat.filename, msg.refline, msg.refentry)
     text += msg.to_string(force=force).rstrip() + "\n"
+    if highlight:
+        colors=[]
+        for match in highlight.finditer(text):
+            colors.append(match.span())
+        offset=0
+        for color in colors:
+            text=text[:color[0]+offset]+C.RED+text[color[0]+offset:color[1]+offset]+C.RESET+text[color[1]+offset:]
+            offset+=len(C.RED)+len(C.RESET)
     if delim:
         text += delim + "\n"
+    text=text.encode(local_encoding, "replace")
     file.write(text)
 
 
@@ -197,7 +211,7 @@ def _msg_ref_fmtstr (file=sys.stdout):
 
     if file.isatty():
         fmt = ""
-        fmt += C.BLUE + "%s" + C.RESET + ":" # file name
+        fmt += C.BOLD + "%s" + C.RESET + ":" # file name
         fmt += C.PURPLE + "%d" + C.RESET # line number
         fmt += "(" + C.PURPLE + "%d" + C.RESET + ")" # entry number
     else:
