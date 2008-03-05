@@ -118,7 +118,7 @@ from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
 
-import sys, os, imp
+import sys, os, imp, locale
 from optparse import OptionParser
 
 
@@ -180,11 +180,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("must provide at least one input file")
 
     # Convert all string values in options to unicode.
+    local_encoding=locale.getdefaultlocale()[1]
     for att, val in op.__dict__.items():
         if isinstance(val, str):
             op.__dict__[att] = unicode(val)
         elif isinstance(val, list):
-            op.__dict__[att] = [unicode(x) for x in val]
+            op.__dict__[att] = [unicode(x, local_encoding) for x in val]
 
     # Could use some speedup.
     if op.use_psyco:
