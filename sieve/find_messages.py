@@ -122,7 +122,7 @@ class Sieve (object):
             delim = "--------------------"
             if self.nmatch == 1:
                 print delim
-            report_msg_content(msg, cat, delim=delim)
+            report_msg_content(msg, cat, delim=delim, highlight=regex)
 
 
     def finalize (self):
