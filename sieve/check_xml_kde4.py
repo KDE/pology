@@ -145,7 +145,7 @@ def _handler_start_element (name, attrs):
     # Limit applicable tags for some catalogs.
     basename = os.path.basename(_c_cat.filename)
     if basename.startswith("desktop_") or basename.startswith("xml_"):
-        applicable_tags = [top_tag]
+        applicable_tags = html_tags + [top_tag]
     elif basename in ("kdeqt.po",):
         applicable_tags = html_tags + [top_tag]
     else:
