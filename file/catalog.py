@@ -150,10 +150,16 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                     srcref = srcref.strip()
                     if srcref:
                         lst = srcref.split(":", 1)
-                        if len(lst) == 1:
-                            lst.append(-1)
-                        file, line = lst
-                        loc.msg.source.append((file.strip(), int(line)))
+                        if len(lst) == 2:
+                            file = lst[0]
+                            try:
+                                line = int(lst[1])
+                            except:
+                                file = srcref
+                                line = -1
+                            loc.msg.source.append((file, line))
+                        else:
+                            loc.msg.source.append((srcref, -1))
 
             elif line.startswith("#,"):
                 try_finish()
