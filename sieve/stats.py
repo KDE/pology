@@ -275,6 +275,19 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                 return
 
+        # Decide if a metamessage:
+        ismeta = False
+        # - msgid in form "@@<tag>: ..." from xml2po
+        if msg.msgid.startswith("@@"):
+            ps = msg.msgid.find(":")
+            ismeta = (ps >= 0 and msg.msgid[2:ps].isalnum())
+        # - translator credits from xml2po
+        if msg.msgid == "translator-credits":
+            ismeta = True
+        # - translator credits in KDE GUI
+        if msg.msgctxt in ("NAME OF TRANSLATORS", "EMAIL OF TRANSLATORS"):
+            ismeta = True
+
         # Count the words and characters in original and translation.
         # Remove shortcut markers prior to counting; don't include words
         # which do not start with a letter; remove scripted part.
@@ -286,6 +299,8 @@ class Sieve (object):
         if msg.msgid_plural:
             msgids.append(msg.msgid_plural)
         for src, texts in (("orig", msgids), ("tran", msg.msgstr)):
+            if ismeta: # consider metamessages as zero counts
+                continue
             lnwords = [] # this group's word count, for averaging
             lnchars = [] # this group's character count, for averaging
             for text in texts:
