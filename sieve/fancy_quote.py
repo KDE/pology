@@ -118,6 +118,8 @@ class Sieve (object):
 _xml_literal_tags = (
     # HTML
     "tt", "code",
+    # KUIT
+    "icode", "bcode",
     # Docbook
     "screen", "screenco", "userinput", "code", "literal", "markup",
     "programlisting", "programlistingco", "returnvalue", "command",
