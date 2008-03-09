@@ -5,6 +5,7 @@
 [(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
 valid before="&sp;dans&sp;" 
 valid before="&sp;en&sp;"
+valid after="C&"
 valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
