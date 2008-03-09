@@ -10,9 +10,13 @@ moved to use ASCII quotes instead of the fancy quotes appropriate for their
 language. Use this sieve to replace ASCII quotes in the translation with
 selected fancy quotes.
 
-Sieve options:
+Sieve options for simple, character-to-character quote replacement:
   - C{single:<quotes>}: opening and closing single qoute (two characters)
   - C{double:<quotes>}: opening and closing double qoute (two characters)
+
+Sieve options for character-to-string quote replacement, useful e.g. when target quotes are tags or wiki markup:
+  - C{longsingle:<open>,<close>}: opening and closing single quotes
+  - C{longdouble:<open>,<close>}: opening and closing double quotes
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -20,6 +24,7 @@ Sieve options:
 
 import os, re
 from pology.misc.comments import manc_parse_flag_list
+from pology.misc.escape import split_escaped
 from pology.misc.report import error
 
 
@@ -36,6 +41,9 @@ class Sieve (object):
 
         # Pair of single quotes.
         self.singles = ()
+        if "single" in options and "longsingle" in options:
+            error("cannot specify both character and string replacement "
+                  "of single quotes")
         if "single" in options:
             quotes = options["single"]
             if len(quotes) != 2:
@@ -43,9 +51,19 @@ class Sieve (object):
                       "expected two characters" % quotes)
             self.singles = (quotes[0], quotes[1])
             options.accept("single")
+        elif "longsingle" in options:
+            quotes = split_escaped(options["longsingle"], ",")
+            if len(quotes) != 2:
+                error("invalid specification of single quotes '%s', "
+                      "expected two strings" % quotes)
+            self.singles = (quotes[0], quotes[1])
+            options.accept("longsingle")
 
         # Pair of double quotes.
         self.doubles = ()
+        if "double" in options and "longdouble" in options:
+            error("cannot specify both character and string replacement "
+                  "of double quotes")
         if "double" in options:
             quotes = options["double"]
             if len(quotes) != 2:
@@ -53,6 +71,13 @@ class Sieve (object):
                       "expected two characters" % quotes)
             self.doubles = (quotes[0], quotes[1])
             options.accept("double")
+        elif "longdouble" in options:
+            quotes = split_escaped(options["longdouble"], ",")
+            if len(quotes) != 2:
+                error("invalid specification of double quotes '%s', "
+                      "expected two strings" % quotes)
+            self.doubles = (quotes[0], quotes[1])
+            options.accept("longdouble")
 
 
     def process (self, msg, cat):
@@ -60,6 +85,15 @@ class Sieve (object):
         # Skip the message when told so.
         if flag_no_fancy_quote in manc_parse_flag_list(msg, "|"):
             return
+
+        # Skip the message if auto comments identify it as literal user input.
+        for cmnt in msg.auto_comment:
+            cmnt = cmnt.lower()
+            # - extracted by KDE's xml2pot
+            if "tag:" in cmnt:
+                tag = cmnt[cmnt.find(":")+1:].strip()
+                if tag in _xml_literal_tags:
+                    return
 
         # Modify quotes in all translations.
         for i in range(len(msg.msgstr)):
@@ -80,12 +114,23 @@ class Sieve (object):
                   % (self.nrepl_single, self.nrepl_double)
 
 
+# Regular expression for matching no-modify nodes in XML markup.
+_xml_literal_tags = (
+    # HTML
+    "tt", "code",
+    # Docbook
+    "screen", "screenco", "userinput", "code", "literal", "markup",
+    "programlisting", "programlistingco", "returnvalue", "command",
+    "synopsis", "cmdsynopsis", "synopfragment", "synopfragmentref",
+)
+_xml_literal_rx = re.compile(r"< *(%s)\b" % "|".join(_xml_literal_tags))
+
 def equip_fancy_quotes (text, squote, fquotes):
     """
     Heuristically replace simple with fancy quotes (eg. "foo" with “foo”).
 
     The replacement tries to avoid quotes in markup (e.g. XML attributes),
-    and other situations where the original quouting should not be touched.
+    and other situations where the original quoting should not be touched.
 
     @param text: the text to equip with fancy quotes
     @type text: string
@@ -115,21 +160,39 @@ def equip_fancy_quotes (text, squote, fquotes):
         # Calculate the length of no-modify segment if it starts here.
         no_mod_len = 0
 
-        # - XML-markup
-        if text[i] == "<":
+        # - known XML nodes which are literal user input to computer
+        m = _xml_literal_rx.match(text, i)
+        if m:
+            tag = m.group(1)
+            end_rx = re.compile(r"\b%s *>" % tag)
+            m = end_rx.search(text, i + len(tag))
+            if m: # skip only if closed, otherwise stay put
+                no_mod_len = m.span()[1] - i
+
+        # - within XML tags
+        elif text[i] == "<":
             ic = text.find(">", i + 1)
             if ic >= 0: # markup only if closed, otherwise stay put
                 no_mod_len = ic - i + 1
 
         # - text in special parenthesis
         elif text[i] in ("{", "["):
-            if text[i] == "{":
-                other = "}"
+            qopen = text[i]
+            if qopen == "{":
+                qclose = "}"
             else:
-                other = "]"
-            ic = text.find(other, i + 1)
-            if ic >= 0: # special only if closed, otherwise stay put
-                no_mod_len = ic - i + 1
+                qclose = "]"
+            # Look for balanced pair.
+            nopen = 1
+            ic = i + 1
+            while ic < len(text) and nopen > 0:
+                if text[ic] == qopen:
+                    nopen += 1
+                elif text[ic] == qclose:
+                    nopen -= 1
+                ic += 1
+            if nopen == 0: # special only if closed, otherwise stay put
+                no_mod_len = ic - i
 
         # - simple quotes with no text in between
         elif text[i:i+2*len(squote)] == squote + squote:
