@@ -27,16 +27,16 @@ valid after="file|gg|mailto|man|whatsthis"
 valid after="about|camera|exec|ftps?|fonts|help|https?|lan|lpr|news|parallel|smb|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid after="gg|google"  before="KDE|[a-z]+"
 valid after="smb://\[nom\["  before="motdepasse"
-valid after="\d\d" before="\d\d"
+valid after="\d\d?" before="\d\d?"
 valid after="(HH|hh|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
 valid after="Heures" before="Minutes"
 valid after="ht" before="\/\/dig"
-valid before="-[\)|\(]" # Smiley
+valid before="-?[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
 valid after="font-weight" before="bold" # CSS
 valid after="font-size" before="\d+" # CSS
-valid after="color" before="#" # CSS
+valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check"
@@ -90,12 +90,13 @@ validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
 valid after="&unbsp;" before="\)"
-valid after="&unbsp;" before="&unbsp;»"                              
+valid after="&unbsp;" before="&unbsp;»"
 valid after="^&lt;" before="--.*--&gt;$"                                   
-valid after="&unbsp;" before="!"                                   
+valid after="&unbsp;" before="!"
 valid after="&unbsp;" before="\)"  
-valid after="!" before="!"                        
+valid after="!" before="!"                  
 valid after="!" before="&sp;"
+valid after="!" before="$"
 valid after="!" before="&lf;"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;" 
@@ -134,7 +135,8 @@ valid ctx="\w+ OF TRANSLATORS"
 valid ctx="desktop_po" after="^Keywords=.*" 
 valid after="[^&sp;(&unbsp;)]" before="&lt;br" 
 valid file="kcmkwinrules.po" after="\+"
-valid ctx="Numbers and characters" 
+valid ctx="Numbers and characters"
+valid ctx="Keywords" 
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
@@ -145,6 +147,7 @@ valid file="kspread.po"
 valid file="kcmkwinrules.po" after="\+" 
 valid ctx="\w+ OF TRANSLATORS" after="."  before="."
 valid ctx="Numbers and characters"
+valid ctx="Keywords"
 hint="Une espace après une virgule"
 
 [»]
