@@ -124,6 +124,7 @@ _xml_literal_tags = (
     "screen", "screenco", "userinput", "code", "literal", "markup",
     "programlisting", "programlistingco", "returnvalue", "command",
     "synopsis", "cmdsynopsis", "synopfragment", "synopfragmentref",
+    "guilabel", "guimenuitem", "action", "errorname", 
 )
 _xml_literal_rx = re.compile(r"< *(%s)\b" % "|".join(_xml_literal_tags))
 
