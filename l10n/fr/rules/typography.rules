@@ -188,6 +188,7 @@ valid file="kwriteconfig.po"
 valid after="="
 valid before=">"
 valid before=";" after="'[\w\s]+" # CSS
+valid before=" ou \""
 valid file="kio_trash.po" after="url"
 valid file="kio_trash.po" before="url"
 valid file="kioclient.po" after="url|dest|src|type Mime"
@@ -309,6 +310,7 @@ hint="À bas MS-DOS"
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
+valid before="Sendmail"
 valid before="F%\d"
 valid before="K3Shell|K3b"
 hint="Pas de majuscule après deux points ou un point virgule"
