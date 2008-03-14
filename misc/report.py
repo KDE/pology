@@ -184,7 +184,7 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     @param file: output stream. Default is sys.stdout
     @type file: file
     @param highlight: regular expression pattern used to colorize text. Default is None
-    @param highlight: re.compile regular expression
+    @type highlight: re.compile regular expression
     """
 
     local_encoding=locale.getdefaultlocale()[1]
@@ -192,7 +192,7 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = tfmt % (cat.filename, msg.refline, msg.refentry)
     text += msg.to_string(force=force).rstrip() + "\n"
-    if highlight:
+    if highlight and file.isatty():
         colors=[]
         for match in highlight.finditer(text):
             colors.append(match.span())
