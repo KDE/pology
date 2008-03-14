@@ -144,7 +144,7 @@ def loadRulesFromFile(filePath, accents, stat):
     validPattern=re.compile("valid (.*)")
     #validPatternContent=re.compile('(.*?)="(.*?)"')
     validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
-    hintPattern=re.compile("""hint="(.*)""")
+    hintPattern=re.compile('''hint="(.*)"''')
     validGroupPattern=re.compile("""validGroup (.*)""")
     
     pattern=u""
