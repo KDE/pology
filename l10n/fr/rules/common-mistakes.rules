@@ -65,6 +65,7 @@ hint="La bonne orthographe est « accès » (accent grave)"
 [addres]
 valid after="&amp;k" before="sbook;" 
 valid after="[kK]" before="s[bB]ook"
+valid before="s="
 valid file="kmail.po" after="^\[" before="sBook\]$"
 hint="Seulement un « d » en français"
 
@@ -334,6 +335,7 @@ hint="« occurences »-> « occurrences ». Avec deux « r » !"
 
 [status|statut]
 valid after="[Ss]mb"
+valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
 hint="remplacer 'status' ou 'statut' par 'état'"

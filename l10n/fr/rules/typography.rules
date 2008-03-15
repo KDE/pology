@@ -104,6 +104,7 @@ valid file="kspread.po" after="[abcx]" before="[abcx!\.]|$"
 valid file="kspread.po" after="\(a+b+c\)"
 valid file="k3b.po" before="a" 
 valid after="aKtion"
+valid after="Yahoo"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -171,7 +172,7 @@ hint="Mettre une espace avant et une espace insécable après"
 [`]
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
-['(?=[^\wéèàêâ«])]
+['(?=[^\wéèàêâÉÈÀÊÂ«])]
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;em&gt;"
@@ -308,7 +309,7 @@ hint="À bas MS-DOS"
 
 [&unbsp;[:|;] (?=[A-Z])] 
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-valid before="Martin" # Authors
+valid before="Laura|Gerardo|Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
 valid before="Sendmail"
 valid before="F%\d"
