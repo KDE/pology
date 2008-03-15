@@ -305,6 +305,13 @@ class Monlist (Monitored):
         return not self.__eq__(other)
 
 
+    def __add__ (self, other):
+
+        lst = Monlist(self.__dict__["*"])
+        lst.extend(other)
+        return lst
+
+
     def append (self, val):
 
         self.assert_spec_setitem(val)
