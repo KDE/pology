@@ -921,6 +921,19 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             else:
                 to_insert.append((msg, summit_cats[0], -1))
 
+    # If there are any messages awaiting insertion, collect possible source
+    # file synonyms across all contributing branch catalogs per summit catalog.
+    if to_insert:
+        for summit_cat in summit_cats:
+            bpaths = []
+            for bid in project.full_inverse_map[summit_cat.name]:
+                for bname in project.full_inverse_map[summit_cat.name][bid]:
+                    for bpath, bdir in project.catalogs[bid][bname]:
+                        if bpath not in bpaths + [branch_cat.filename]:
+                            bpaths.append(bpath)
+            bcats = [Catalog(x, monitored=False) for x in bpaths]
+            fnsyn = fuzzy_match_source_files(branch_cat, bcats)
+
     # Go through messages collected for insertion and heuristically insert.
     for msg, last_merge_summit_cat, last_merge_pos in to_insert:
         # Decide in which catalog to insert by the highest greater than zero
@@ -936,7 +949,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             if summit_cat.created():
                 continue
 
-            pos, weight = summit_cat.insertion_inquiry(msg)
+            pos, weight = summit_cat.insertion_inquiry(msg, fnsyn)
             if weight > weight_best:
                 weight_best = weight
                 summit_cat_selected = summit_cat
@@ -1175,7 +1188,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                   project.hook_on_scatter_cat)
 
     # Commit changes to the branch catalog.
-    if branch_cat.sync():
+    if branch_cat.sync() or options.force:
 
         # Apply hooks to branch catalog file.
         exec_hook_file(branch_id, branch_name, branch_cat.filename,
@@ -1460,8 +1473,8 @@ def summit_reorder_single (summit_name, project, options):
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_cat = Catalog(summit_path, wrapf=wrapf)
 
-    # Open the dependent branch catalogs branch catalogs by
-    # priority of branches, and sorted by path within one branch.
+    # Open the dependent branch catalogs by priority of branches,
+    # and sorted by path within one branch.
     branch_cats = []
     for branch_id in project.branch_ids:
         full_inv_map = project.full_inverse_map[summit_name]
@@ -1484,6 +1497,9 @@ def summit_reorder_single (summit_name, project, options):
     # messages in order, and insert the matching summit message to the
     # fresh catalog, when not already in it.
     for branch_cat in branch_cats:
+        # Collect possible source file synonyms.
+        fnsyn = fuzzy_match_source_files(branch_cat, branch_cats)
+
         for branch_msg in branch_cat:
             if branch_msg.obsolete: # skip obsolete messages in branch
                 continue
@@ -1499,10 +1515,9 @@ def summit_reorder_single (summit_name, project, options):
                     fresh_cat.add(summit_msg, -1)
                 elif fresh_cat.find(branch_msg) < 0:
                     # The message is from one of the secondary branch catalogs,
-                    # and not yet inserted.
-                    # If the message is in one of existing source references,
-                    # this will nicely insert it, otherwise just appends.
-                    pos, weight = fresh_cat.insertion_inquiry(summit_msg)
+                    # and not yet inserted. Try to heuristically find nice
+                    # insertion position, according to source references.
+                    pos, weight = fresh_cat.insertion_inquiry(branch_msg, fnsyn)
                     fresh_cat.add(summit_msg, pos)
 
     # Finally reinsert messages not present in any branch catalog
@@ -1698,6 +1713,78 @@ class VcsSubversion (VcsBase):
             return False
 
         return True
+
+
+# For each source file mentioned in the test catalog, if it is not mentioned
+# in any of the other catalogs, check for any different, but possibly only
+# renamed/moved source files from the other catalogs (if the these contain
+# the test catalog itself, it is skipped automatically).
+# The heuristics uses number of messages common to both files
+# to ascertain the possibility. The amount of commonality can be set.
+# Return the dictionary of possible "synonyms", i.e. possible other names
+# for each of the determined matches.
+def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
+
+    syns = {}
+
+    # Collect all own sources, to avoid fuzzy matching for them.
+    ownfs = {}
+    for msg in cat:
+        for file, lno in msg.source:
+            ownfs[file] = True
+
+    for ocat in other_cats:
+        if cat is ocat:
+            continue
+
+        fcnts = {}
+        ccnts = {}
+        for msg in cat:
+            p = ocat.find(msg)
+            if p <= 0:
+                continue
+            omsg = ocat[p]
+
+            for file, lno in msg.source:
+                if file not in fcnts:
+                    fcnts[file] = 0.0
+                    ccnts[file] = {}
+                # Weigh each message disproportionally to the number of
+                # files it appears in (i.e. the sum of counts == 1).
+                fcnts[file] += 1.0 / len(msg.source)
+                counted = {}
+                for ofile, olno in omsg.source:
+                    if ofile not in ownfs and ofile not in counted:
+                        if ofile not in ccnts[file]:
+                            ccnts[file][ofile] = 0.0
+                        ccnts[file][ofile] += 1.0 / len(omsg.source)
+                        counted[ofile] = True
+
+        # Select match groups.
+        fuzzies = {}
+        for file, fcnt in fcnts.iteritems():
+            shares = []
+            for ofile, ccnt in ccnts[file].iteritems():
+                share = ccnt / (fcnt + 1.0) # tip a bit to avoid fcnt of 0.x
+                if share >= minshare:
+                    shares.append((ofile, share))
+            if shares:
+                shares.sort(lambda x, y: cmp(x[1], y[1])) # not necessary atm
+                fuzzies[file] = [f for f, s in shares]
+
+        # Update the dictionary of synonyms.
+        for file, fuzzfiles in fuzzies.iteritems():
+            group = [file] + fuzzfiles
+            for file in group:
+                if file not in syns:
+                    syns[file] = []
+                for syn in group:
+                    if file != syn and syn not in syns[file]:
+                        syns[file].append(syn)
+                if not syns[file]:
+                    syns.pop(file)
+
+    return syns
 
 
 if __name__ == '__main__':
