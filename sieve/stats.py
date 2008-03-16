@@ -229,6 +229,14 @@ class Sieve (object):
         self.matched_templates = []
         self.template_subdirs = []
 
+        # Some indicators of metamessages.
+        self.xml2po_meta_msgid = dict([(x, True) for x in
+            ("translator-credits",)])
+        self.xml2pot_meta_msgid = dict([(x, True) for x in
+            ("ROLES_OF_TRANSLATORS", "CREDIT_FOR_TRANSLATORS")])
+        self.kde_meta_msgctxt = dict([(x, True) for x in
+            ("NAME OF TRANSLATORS", "EMAIL OF TRANSLATORS")])
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
@@ -281,11 +289,13 @@ class Sieve (object):
         if msg.msgid.startswith("@@"):
             ps = msg.msgid.find(":")
             ismeta = (ps >= 0 and msg.msgid[2:ps].isalnum())
-        # - translator credits from xml2po
-        if msg.msgid == "translator-credits":
+        # - translator credits from xml2po and xml2pot
+        if (   msg.msgid in self.xml2po_meta_msgid
+            or msg.msgid in self.xml2pot_meta_msgid
+        ):
             ismeta = True
         # - translator credits in KDE GUI
-        if msg.msgctxt in ("NAME OF TRANSLATORS", "EMAIL OF TRANSLATORS"):
+        if msg.msgctxt in self.kde_meta_msgctxt:
             ismeta = True
 
         # Count the words and characters in original and translation.
