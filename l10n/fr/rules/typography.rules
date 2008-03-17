@@ -68,6 +68,7 @@ valid file="ktexteditor_plugins.po" after="H|%"
 valid file="libkcal.po" before="&unbsp;" after="&unbsp;" 
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
+valid ctx="Hours:minutes:seconds"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
