@@ -1023,7 +1023,8 @@ class Catalog (Monitored):
                 body = plustr[:p]
                 plustr = plustr[p + 1:]
                 evalstr += "\"" + body + "\" or "
-            if not evalstr:
+            evalstr += "\"" + plustr + "\""
+            if not evalstr.strip():
                 evalstr = "0"
 
             # Record the current evaluable definition.
