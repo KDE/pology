@@ -79,6 +79,7 @@ hint="Mettre un accent aigu sur le « e »"
 hint="Mettre un accent grave et non circonflexe sur le « e »"
 
 [compl[ée]tem]
+valid after="du |le |auto-"
 hint="Mettre un accent grave"
 
 [[Ee]chec]

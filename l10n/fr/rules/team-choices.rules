@@ -112,6 +112,7 @@ valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
+valid after="^" before="$"
 hint="Utiliser le format « Fichier / Exporter sous »"
 
 [vous pouvez ici]
