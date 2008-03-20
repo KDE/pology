@@ -1013,7 +1013,9 @@ class Catalog (Monitored):
             evalstr = ""
             while 1:
                 p = plustr.find("?")
-                if p < 0: break
+                if p < 0:
+                    evalstr += " " + plustr
+                    break
                 cond = plustr[:p]
                 plustr = plustr[p + 1:]
                 cond = cond.replace("&&", " and ")
@@ -1023,9 +1025,9 @@ class Catalog (Monitored):
                 body = plustr[:p]
                 plustr = plustr[p + 1:]
                 evalstr += "\"" + body + "\" or "
-            evalstr += "\"" + plustr + "\""
             if not evalstr.strip():
                 evalstr = "0"
+            print "{%s}" % evalstr
 
             # Record the current evaluable definition.
             self._plustr_eval = evalstr
