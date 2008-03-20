@@ -134,6 +134,7 @@ class Project (object):
             "hook_on_scatter_file" : [],
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
+            "hook_on_merge_head" : [],
 
             "header_propagate_fields_summed" : [],
             "header_propagate_fields_primary" : [],
@@ -645,7 +646,7 @@ def summit_merge (project, options):
                 continue
             for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
                 template_path = template_catalogs[name][0][0]
-                summit_merge_single(summit_path, template_path,
+                summit_merge_single(SUMMIT_ID, summit_path, template_path,
                                     project.summit_unwrap,
                                     project.summit_split_tags,
                                     project, options)
@@ -680,7 +681,7 @@ def summit_merge (project, options):
             if not exact:
                 warning("no exact template for branch catalog '%s'" % name)
                 continue
-            summit_merge_single(branch_path, template_path,
+            summit_merge_single(branch_id, branch_path, template_path,
                                 project.branches_unwrap,
                                 project.branches_split_tags,
                                 project, options)
@@ -1231,6 +1232,16 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
     return piped_msgstr
 
 
+# Pipe header through hook calls,
+# for which branch id and catalog name match hook specification.
+def exec_hook_head (branch_id, branch_name, header, hooks):
+
+    # Apply all hooks to the header.
+    for call, branch_rx, name_rx in hooks:
+        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+            call(header)
+
+
 # Pipe catalog through hook calls,
 # for which branch id and catalog name match hook specification.
 def exec_hook_cat (branch_id, branch_name, cat, hooks):
@@ -1542,8 +1553,8 @@ def summit_reorder_single (summit_name, project, options):
             print "!    %s" % fresh_cat.filename
 
 
-def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
-                         project, options):
+def summit_merge_single (branch_id, catalog_path, template_path,
+                         unwrap, split_tags, project, options):
 
     # Call msgmerge to create the temporary merged catalog.
     tmp_path = "/tmp/merge%d-%s" % (os.getpid(), os.path.basename(catalog_path))
@@ -1564,7 +1575,7 @@ def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
     headonly = False
     if split_tags:
         do_open = True
-    elif header_prop_fields:
+    elif header_prop_fields or project.hook_on_merge_head:
         do_open = True
         headonly = True
 
@@ -1575,7 +1586,7 @@ def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
 
     # Is monitored or non-monitored opening required?
     monitored = False
-    if header_prop_fields:
+    if header_prop_fields or project.hook_on_merge_head:
         monitored = True
 
     #print do_open, do_open_template, headonly, monitored
@@ -1587,11 +1598,6 @@ def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
                       headonly=headonly)
         if do_open_template:
             tcat = Catalog(template_path, monitored=False, headonly=headonly)
-
-    # Split on tags if requested.
-    if split_tags:
-        wrapf = get_wrap_func(unwrap, split_tags)
-        cat.sync(force=True)
 
     # Propagate requested header fields.
     if header_prop_fields:
@@ -1611,9 +1617,18 @@ def summit_merge_single (catalog_path, template_path, unwrap, split_tags,
             for tfield in tfields:
                 cat.header.field.append(tfield)
 
+    # Execute header hooks.
+    if project.hook_on_merge_head:
+        exec_hook_head(branch_id, cat.name, cat.header,
+                       project.hook_on_merge_head)
+
     # Synchronize merged catalog if it has been opened.
     if do_open:
-        cat.sync()
+        force = False
+        if split_tags:
+            wrapf = get_wrap_func(unwrap, split_tags)
+            force=True
+        cat.sync(force=force)
 
     # If there is any difference between merged and old catalog.
     if not filecmp.cmp(catalog_path, tmp_path):
