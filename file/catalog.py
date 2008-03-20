@@ -1027,7 +1027,6 @@ class Catalog (Monitored):
                 evalstr += "\"" + body + "\" or "
             if not evalstr.strip():
                 evalstr = "0"
-            print "{%s}" % evalstr
 
             # Record the current evaluable definition.
             self._plustr_eval = evalstr
