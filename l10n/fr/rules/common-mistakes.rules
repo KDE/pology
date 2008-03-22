@@ -38,7 +38,7 @@ hint="Mettre deux « s » (ressaisir)"
 hint="Mettre un accent aigu sur le « e »"
 
 [supress|suppresio|suprimer|supprimm]
-hint="Erreur sur le nombre de « p » ou de « m » dans le dérivé du verbe « supprimer »"
+hint="Erreur sur le nombre de lettres (p, s ou m) dans le dérivé du verbe « supprimer »"
 
 [maximiz]
 hint="Mettre un « s » à la place du « z »"
@@ -76,7 +76,7 @@ hint="Il manque un « s »"
 hint="Mettre un accent aigu sur le « e »"
 
 [r[éeê]gle&rwb;]
-hint="Mettre un accent grave et non circonflexe sur le « e »"
+hint="Mettre un accent grave (et non circonflexe) sur le « e »"
 
 [compl[ée]tem]
 valid after="du |le |auto-"
@@ -103,61 +103,61 @@ hint="license -> licence"
 hint="Il faut mettre des traits d'union : « c'est-à-dire »"
 
 [ent@ete]
-hint="Mettre un trait d'union -> `en-tête'"
+hint="Mettre un trait d'union -> « en-tête »"
 
 [en-t[éèe]te]
-hint="Mettre un accent circonflexe -> `en-tête'"
+hint="Mettre un accent circonflexe -> « en-tête »"
 
 [compl@etion]
-hint="complétion est un franglisme. Utiliser 'complètement'"
+hint="complétion est un franglisme. Utiliser « complètement »"
 
 [apelé]
-hint="À remplacer par 'appelé'"
+hint="À remplacer par « appelé »"
 
 [app@ell@é] 
-hint="À remplacer par 'appelé'" 
+hint="À remplacer par « appelé »" 
 
 [aucunes] 
-hint="À remplacer par 'aucune'" 
+hint="À remplacer par « aucune »" 
 
 [autremnt] 
-hint="À remplacer par 'autrement'" 
+hint="À remplacer par « autrement »" 
 
 [autrment] 
-hint="À remplacer par 'autrement'" 
+hint="À remplacer par « autrement »" 
 
 [charète] 
-hint="À remplacer par 'charette'" 
+hint="À remplacer par « charette »" 
 
 [comportment] 
-hint="À remplacer par 'comportement'" 
+hint="À remplacer par « comportement »" 
 
 [&lwb;cr@ées]
-hint="À remplacer par 'créées'" 
+hint="À remplacer par « créées »" 
 
 [environnment] 
-hint="À remplacer par 'environnement'" 
+hint="À remplacer par « environnement »" 
 
 [exeption] 
-hint="À remplacer par 'exception'" 
+hint="À remplacer par « exception »"
 
 [extention]
-hint="À remplacer par 'extension'" 
+hint="À remplacer par « extension »" 
 
 [\setc[^\.a-zA-Z]|\setc$|\setc\.{2}]
 hint="Il faut mettre un point (et un seul) après etc"
 
 [param[èe]tré] 
-hint="À remplacer par 'paramétré'" 
+hint="À remplacer par « paramétré »" 
 
 [personalisé] 
-hint="À remplacer par 'personnalisé'" 
+hint="À remplacer par « personnalisé »" 
 
 [utliser] 
-hint="À remplacer par 'utiliser'" 
+hint="À remplacer par « utiliser »" 
 
 [courier] 
-hint="À remplacer par 'courrier'" 
+hint="À remplacer par « courrier »" 
 
 [language]
 valid ctx="Query" before="=" 
@@ -166,32 +166,32 @@ valid after="Interface&sp;Definition&sp;"
 valid after="Extensible&sp;Markup&sp;" 
 valid after="eXtensible&sp;Markup&sp;" 
 valid after="Print Control "
-hint="À remplacer par 'langage'"
+hint="À remplacer par « langage »"
 
 [&lwb;languages?&rwb;]
 valid ctx="Query"
-hint="À remplacer par 'langage'"
+hint="À remplacer par « langage »"
 
 [sorite]
-hint="À remplacer par 'sortie'"
+hint="À remplacer par « sortie »"
 
 [(super utilisateur)|(super-utilisateur)]
-hint="superutilisateur s'écrit sans tiret ou espace !!"
+hint="superutilisateur s'écrit sans tiret ou espace !"
 
 [mozaïque]
-hint="Remplacer le 'z' par un 's'"
+hint="Remplacer le « z » par un « s »"
 
 [gallerie]
-hint="Un seul 'l', merci !"
+hint="Un seul « l », merci !"
 
 [et\s*bien]
 valid before="&sp;sûr" 
 valid before="&sp;documenté" 
 valid after="[a-zéè]+,?&sp;" 
-hint="Remplacer 'et bien' par 'eh bien'"
+hint="Remplacer « et bien » par « eh bien »"
 
 [sous @él@ément]
-hint="mettre un tiret à 'sous-élément'"
+hint="mettre un tiret à « sous-élément »"
 
 [chaque&sp;]
 valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
@@ -207,7 +207,7 @@ valid before="CRL|I-frame"
 hint="toujours un singulier après chaque"
 
 [([pP]ostscript)|(postScript)]
-hint="Écriture officielle : 'PostScript' (avec 2 majuscules)"
+hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 
 [&lwb;http:/&rwb;]
 valid before="/"
@@ -218,7 +218,7 @@ hint="TV est un anglicisme. À éviter..."
 
 [CPU]
 valid ctx=".*heading"
-hint="Traduire CPU par 'processeur'"
+hint="Traduire CPU par « processeur »"
 
 [&lwb;environment&rwb;]
 valid after="K Desktop "
@@ -231,18 +231,18 @@ hint="installeur -> installateur"
 hint="On clique SUR quelque chose et non quelque chose"
 
 [&lwb;taches]
-hint="Mettre une accent circonflexe"
+hint="Mettre un accent circonflexe"
 
 [système de fichier]
 valid before="s"
-hint="Système de fichiers prend un 's' à fichier"
+hint="Système de fichiers prend un « s » à fichier"
 
 [gestionnaire de fichier]
 valid before="s"
-hint="Gestionnaire de fichiers prend un 's' à fichier"
+hint="Gestionnaire de fichiers prend un « s » à fichier"
 
 [tire[a-z]+ partie]
-hint="Pas de 'e' à 'parti' dans 'Tirer parti'"
+hint="Pas de « e » à « parti » dans « Tirer parti »"
 
 [clique gauche]
 hint="clique -> clic"
@@ -256,14 +256,16 @@ hint="clique -> clic"
 [crypt(er|ez|é?)]
 valid after="lib"
 valid before="ographie"
+valid after="x-en"
+valid after="x-de"
 hint="Il est préférable d'utiliser le verbe « chiffrer »
 
 [profiles]
 valid file="kfmclient.po" before="&gt;"
-hint="Pas de 'e' à profils"
+hint="Pas de « e » à profils"
 
 [assignement]
-hint="'Assignation' et non 'Assignement'"
+hint="« Assignation » et non « Assignement »"
 
 [[fF]aîtes]
 hint="Pas d'accent circonflexe"
@@ -272,7 +274,7 @@ hint="Pas d'accent circonflexe"
 hint="y-compris -> y compris"
 
 [dimensione]
-hint="Il y a 2 'n' dans dimensionner (ou ses dérivés)"
+hint="Il y a 2 « n » dans dimensionner (ou ses dérivés)"
 
 [reporte[rz]? le]
 hint="on ne reporte pas un bogue, on fait un rapport..."
@@ -281,7 +283,7 @@ hint="on ne reporte pas un bogue, on fait un rapport..."
 hint="mime -> MIME (en majuscules)"
 
 [fabriquant]
-hint="'fabricant' s'écrit avec un 'c'"
+hint="« fabricant » s'écrit avec un « c »"
 
 [un icône]
 hint="C'est *une* icône"
@@ -302,14 +304,14 @@ valid before=" CDE"
 valid after="Compact Disc " before=" Audio"
 valid after="@"
 valid after="empreinte " 
-hint="'digital' est un anglicisme. Utiliser 'numérique'"
+hint="« digital » est un anglicisme. Utiliser « numérique »"
 
 [d@efault]   
 valid file="ksysv.po" after=":init" before=":$"  
 valid ctx="Query"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="kioclient.po" after="Mount "
-hint="À remplacer par 'défaut'" 
+hint="À remplacer par « défaut »" 
 
 [media]
 valid after="Macro"
@@ -326,10 +328,10 @@ hint="Il ne faut pas de trait d'union après « mot »"
 hint="Ceci s'écrit en trois mots « quel que soit, quels que soient, quelle que soit, quelles que soient »"
 
 [focntion]
-hint="`focntion' -> `fonction' (dyslexie)"
+hint="`focntion' -> « fonction » (dyslexie)"
 
 [(raccourcis-clavier)|(raccourci-clavier)]
-hint="Pas de tiret entre 'raccourci' et 'clavier'"
+hint="Pas de tiret entre « raccourci » et « clavier »"
 
 [&lwb;occurences?&rwb;]
 hint="« occurences »-> « occurrences ». Avec deux « r » !"
@@ -339,7 +341,7 @@ valid after="[Ss]mb"
 valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
-hint="remplacer 'status' ou 'statut' par 'état'"
+hint="remplacer « status » ou « statut » par « état »"
 
 [basé.+ sur]
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
@@ -347,7 +349,8 @@ hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un partic
 [support]
 valid before="sMarkup" # D-Bus call
 valid after="http://\S+(?=support)"
-hint="support est un faux ami, à traduire par un dérivé de 'disponible', 'autoriser', 'accepter', 'gérer' ou 'prendre en charge'"
+valid after="in"
+hint="support est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [[t|T]ext(?![e|uel|\-])]
 valid ctx="Query"

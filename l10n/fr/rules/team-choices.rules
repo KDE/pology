@@ -123,6 +123,8 @@ hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité »"
 
 [proxy]
 valid before="\)" after="\(&?"
+valid after="http_"
+valid file="kmail.po" after="mon"
 hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité » ou « proxy »"
 
 [(B|b)arre d'outils (principale|d'affichage)]

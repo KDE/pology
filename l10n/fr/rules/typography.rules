@@ -41,11 +41,13 @@ valid before="\d+(px)?;" # CSS
 valid after="font-weight" before="bold" # CSS
 valid after="font-size" before="\d+" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
+valid after="bottom" before="\s\d+"
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check"
 valid after="QApplication:?" 
 valid before="port"
+valid after="com" before="\d+"
 valid after="javascript" before="go"
 valid file="kcmioslaveinfo.po" after="%1"  before="/"
 valid file="kurifilter.po" after="</b>" before="<b>ma recherche"  
@@ -241,7 +243,8 @@ valid file="kdelibs4.po" before="m"
 valid file="ktexteditor_plugins.po" before="[a-zA-Z]|:"
 valid file="kttsd.po" before="[fltw]"
 valid file="k3b.po" before="[afty{]"
-valid file="dolphin.po" before="[BY]" 
+valid file="dolphin.po" before="[BY]"
+valid file="kmail.po" before="[BCQT]" 
 valid file="kcron.po" after="^" before="H:%M$"
 valid file="kcron.po" after="^%H:" before="M$"
 valid before="appname"
@@ -323,7 +326,7 @@ hint="À bas MS-DOS"
 
 [&unbsp;[:|;] (?=[A-Z])] 
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-valid before="Laura|Gerardo|Martin" # Authors
+valid before="David|Laura|Gerardo|Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
 valid before="Sendmail|OpenUniverse"
 valid before="F%\d"
