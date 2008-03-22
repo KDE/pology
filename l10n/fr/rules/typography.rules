@@ -28,8 +28,8 @@ valid after="&unbsp;" before="\t"
 valid after="https?://\S+(?=:)"
 valid after="file|gg|mailto|man|whatsthis"
 valid after="about|camera|exec|ftps?|fonts|help|https?|lan|lpr|news|parallel|smb|trash|umax|vdvd|videodvd|webdavs?" before="/" 
-valid after="gg|google"  before="KDE|[a-z]+"
-valid after="smb://\[nom\["  before="motdepasse"
+valid after="gg|google" before="KDE|[a-z]+"
+valid after="smb://\[nom\[" before="motdepasse"
 valid after="\d\d?" before="\d\d?"
 valid after="(HH|hh|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
@@ -222,7 +222,7 @@ valid file="phonon-xine.po"
 valid file="krunner.po"
 valid file="desktop_kdebase.po"
 valid file="kcmsamba.po" 
-hint="Jamais plus d'une espace."
+hint="Ne jamais mettre plus d'une espace"
 
 [%]
 validGroup strongTypo
@@ -304,7 +304,7 @@ valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
 valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
 valid ctx="Numbers and characters"
-hint="Une espace après un point."
+hint="Mettre une espace après un point"
 
 [&sp;\.]
 valid before="desktop&sp;"
