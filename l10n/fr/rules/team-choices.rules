@@ -10,12 +10,12 @@ valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
 valid file="kgoldrunner.po"
-hint="préférons « saisir » à « entrer » (elle est où la porte ?)"
+hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
  
 [valide[^zr]]
 valid after="il&sp;"
 valid after="XML non "
-hint="Choix de l'équipe : valable/non valable (au lieu de valide/non valide)"
+hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
  
 [\bstop\b]
 valid file="konsole.po"
@@ -37,7 +37,7 @@ hint="Mieux vaut « saisir » que « taper »"
 hint="bouton du milieu -> bouton central"
 
 [compact]
-hint="Choix de l'équipe : « compresser » au lieu de « compacter »"
+hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
 valid after="[Ss]auve"
@@ -60,7 +60,7 @@ valid file="korganizer.po"
 hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
 
 [[Ss]sauver]
-hint="Sauver -> Enregistrer"
+hint="sauver -> enregistrer"
 
 [[Ss]auve]
 valid file="kdat.po"
@@ -69,7 +69,7 @@ valid after="&sp;une&sp;" before="garde"
 hint="sauver -> enregistrer (homogénéité)"
 
 [([Ee]nregistrer|[Aa]fficher|[Ss]électionner) tout$]
-hint="Mettez le « tout » en premier, par exemple « Tout enregistrer »"
+hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
 
 [URL mal ]
 valid before="formée"
@@ -102,7 +102,7 @@ hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]
 valid file="kxsconfig.po" after="&sp;"
-hint="hint/tip -> Astuce (homogénéité)"
+hint="hint/tip -> astuce (homogénéité)"
 
 [clef]
 hint="Utilisez plutôt le mot « clé » (homogénéité)"
@@ -113,33 +113,40 @@ valid file="khotkeys.po" after="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
 valid after="^" before="$"
-hint="Utiliser le format « Fichier / Exporter sous »"
+hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
 
 [vous pouvez ici]
 hint="A remplacer par « vous pouvez (faire...) ici »"
 
 [proximité]
-hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité »"
+hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [proxy]
 valid before="\)" after="\(&?"
 valid after="http_"
 valid file="kmail.po" after="mon"
-hint="Utiliser « Serveur mandataire » au lieu de « Serveur de proximité » ou « proxy »"
+hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [(B|b)arre d'outils (principale|d'affichage)]
-hint="Traduisez simplement « xxx Toolbar » par « Barre de xxx » (ex: Main Toolbar -> Barre principale)"
+hint="Traduisez simplement « xxx Toolbar » par « Barre de xxx » (ex. : Main Toolbar -> Barre principale)"
 
 [module&sp;de&sp;contr]
-hint="C'est module de configuration, pas de contrôle ! (homogénéité)"
+hint="On dit « module de configuration », pas « module de contrôle » (homogénéité)"
 
 [@etes-vous s@ur]
-hint="« Voulez-vous vraiment... » est préférable. (homogénéité)"
+hint="« Voulez-vous vraiment... » est préférable (homogénéité)"
 
 [non trouv@é]
 valid after="^&lt;" before="&gt;$"
 valid after="[Pp]ho"
-hint="« toto non trouvé » -> « Impossible de trouver toto » (homogénéité)"
+hint="Utiliser une formule en « Impossible de trouver xxx » (homogénéité)"
+
+[pas été trouvé]
+hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
+
+[ne peut pas @etre]
+valid file="kcminfo.po"
+hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
 [Désirez-?vous]
 hint="« Désirez-vous » -> « Voulez-vous » (homogénéité)"
@@ -151,9 +158,6 @@ hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 valid after="Ja" 
 hint="« Va » -> « Aller » (à l'infinitif)"
 
-[pas été trouvé]
-hint="« pas été trouvé » -> « Impossible de trouver » (homogénéité)"
-
 [dans votre PATH]
 hint="Utiliser la forme « en suivant votre PATH »"
 
@@ -161,37 +165,33 @@ hint="Utiliser la forme « en suivant votre PATH »"
 hint="Utiliser la forme « en suivant votre PATH »"
 
 [désinitialiser]
-hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
+hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
 
 [d@emont@er?]
 valid after="«&unbsp;" before="&unbsp;»"
-hint="Utiliser « libérer » dans le cas d'un périphérique (umount)"
+hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
 
 [nom de connexion]
 valid file="kwlan.po" after="fournir un "
-hint="Utiliser « nom d'utilisateur » a la place..."
-
-[ne peut pas @etre]
-valid file="kcminfo.po"
-hint="Utiliser une formule en « Impossible de ... » (homogeneite)"
+hint="Utiliser « nom d'utilisateur » à la place..."
 
 [en train de]
-hint="On peut surement supprimer le « en train de » pour alléger..."
+hint="On peut sûrement supprimer le « en train de » pour alléger..."
 
 [entre de configuration]
 valid after="C" 
-hint="Mettre une majuscule a « Centre de configuration de KDE »"
+hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
 [\bitem]
 valid after="\?"
 hint="On essaie d'éviter « item » ?"
 
 [visualis]
-hint="utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire preview"
+hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
 [r@ecup@er]
 valid file="kgoldrunner.po"
-hint="Choix de l'équipe : « réception/recevoir » (au lieu de récupération/récupérer)"
+hint="Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer »)"
 
 [paquet(?!a)]
 valid after="[E|e]m"
@@ -210,6 +210,6 @@ valid file="kgpg.po" after="déchiffrer les "
 valid file="kdevelop.po" after="«&unbsp;" before="&unbsp;»"
 valid file="cupsdconf4.po" before="s? provenant"
 valid file="cupsdconf4.po" before="s? de navigation"
-hint="paquet => paquetage (choix de l'équipe)"
+hint="Choix de l'équipe : « paquetage »"
 
 # End of rule file
