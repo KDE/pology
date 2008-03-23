@@ -1414,19 +1414,33 @@ def summit_purge_single (summit_name, project, options):
     wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
 
     # Open the summit catalog and all dependent branch catalogs.
+    # For each branch catalog, also open any other dependent summit
+    # catalogs preceeding the current.
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_cat = Catalog(summit_path, wrapf=wrapf)
     branch_cats = {}
     for branch_id in project.full_inverse_map[summit_name]:
-        branch_paths = []
+        branch_cats[branch_id] = []
         for branch_name in project.full_inverse_map[summit_name][branch_id]:
-            for path, subdir in project.catalogs[branch_id][branch_name]:
-                branch_paths.append(path)
-        branch_paths.sort()
-        branch_cats[branch_id] = [Catalog(x) for x in branch_paths]
 
-    # For each message in the summit catalog, check its presence in
-    # branch catalogs (consider only non-obsolete messages);
+            # Dependent summit catalogs preceeding the current.
+            pre_dep_summit_cats = []
+            for dep_summit_name in project.direct_map[branch_id][branch_name]:
+                if dep_summit_name == summit_name:
+                    break
+                dep_summit_path = \
+                    project.catalogs[SUMMIT_ID][dep_summit_name][0][0]
+                dep_summit_cat = Catalog(dep_summit_path, monitored=False)
+                pre_dep_summit_cats.append(dep_summit_cat)
+
+            # All branch catalogs of this name, link to same dependent summit.
+            for path, subdir in project.catalogs[branch_id][branch_name]:
+                branch_cat = Catalog(path, monitored=False)
+                branch_cats[branch_id].append((branch_cat, pre_dep_summit_cats))
+
+    # For each message in the summit catalog, check for its presence in
+    # branch catalogs (consider only non-obsolete messages), but no presence
+    # in any of the preceeding summit catalogs;
     # update branch IDs, or remove the message if none remaining.
     for summit_msg in summit_cat:
         branch_ids = get_summit_comment(summit_msg,
@@ -1434,11 +1448,18 @@ def summit_purge_single (summit_name, project, options):
         valid_branch_ids = []
         for branch_id in branch_ids:
             if branch_id in branch_cats:
-                for branch_cat in branch_cats[branch_id]:
-                    if summit_msg in branch_cat \
-                    and not branch_cat[summit_msg].obsolete:
-                        valid_branch_ids.append(branch_id)
-                        break
+                for branch_cat, pre_dep_summit_cats in branch_cats[branch_id]:
+                    if (    summit_msg in branch_cat
+                        and not branch_cat[summit_msg].obsolete
+                    ):
+                        in_prev = False
+                        for dep_summit_cat in pre_dep_summit_cats:
+                            if summit_msg in dep_summit_cat:
+                                in_prev = True
+                                break
+                        if not in_prev:
+                            valid_branch_ids.append(branch_id)
+                            break
 
         if valid_branch_ids:
             set_summit_comment(summit_msg, _summit_tag_branchid,
@@ -1447,7 +1468,7 @@ def summit_purge_single (summit_name, project, options):
             prim_branch_id = valid_branch_ids[0]
             if branch_ids[0] != prim_branch_id:
                 # Update from the first sourced catalog in primary branch.
-                for branch_cat in branch_cats[prim_branch_id]:
+                for branch_cat, dummy in branch_cats[prim_branch_id]:
                     if summit_msg in branch_cat:
                         summit_override_auto(summit_msg,
                                              branch_cat[summit_msg],
