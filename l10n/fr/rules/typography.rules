@@ -198,7 +198,7 @@ valid file="kfmclient.po" after="\["
 valid file="k3b.po" before="{"
 valid file="kwriteconfig.po"
 valid after="="
-valid before=">"
+valid before="\s*/?>|&gt|}"
 valid before=";" after="'[\w\s]+" # CSS
 valid before=" ou \""
 valid file="kio_trash.po" after="url"
@@ -209,6 +209,15 @@ valid file="konqueror.po" after="\d"
 valid file="konqueror.po" before="\d"
 valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
+
+[\"]
+valid after="="
+valid before="\s*/?>|&gt|}"
+valid after="' ou "
+valid file="kspread.po"
+valid ctx="Numbers and characters"
+hint="Utiliser de vrais guillemets (alt-gr z ou x), au lieu de guillemets anglais (homogénéité)"
+
 
 [&sp;&sp;+]
 valid after="^"

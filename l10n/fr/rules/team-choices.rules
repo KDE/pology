@@ -2,7 +2,7 @@
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
  
-[(\bentrer\b)|(\bentré[^e])|(\bentrez\b)]
+[(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;" 
 valid before="&sp;en&sp;"
 valid after="C&"
@@ -12,7 +12,7 @@ valid file="kmail.po" before=" réellement dans le dossier"
 valid file="kgoldrunner.po"
 hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
  
-[valide[^zr]]
+[valide([^zr]|$)]
 valid after="il&sp;"
 valid after="XML non "
 hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
@@ -127,7 +127,7 @@ valid after="http_"
 valid file="kmail.po" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
-[(B|b)arre d'outils (principale|d'affichage)]
+[(B|b)arre d'outils? (principale|d'affichage)]
 hint="Traduisez simplement « xxx Toolbar » par « Barre de xxx » (ex. : Main Toolbar -> Barre principale)"
 
 [module&sp;de&sp;contr]
@@ -158,10 +158,10 @@ hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 valid after="Ja" 
 hint="« Va » -> « Aller » (à l'infinitif)"
 
-[dans votre PATH]
+[dans votre \$?PATH]
 hint="Utiliser la forme « en suivant votre PATH »"
 
-[par votre PATH]
+[par votre \$?PATH]
 hint="Utiliser la forme « en suivant votre PATH »"
 
 [désinitialiser]
