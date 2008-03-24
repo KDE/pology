@@ -211,9 +211,11 @@ valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
-valid after="="
+valid after="=|]|PS1"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
+valid file="kioclient.po" before="Mount"
+valid file="kioclient.po" after="default"
 valid file="kspread.po"
 valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets (alt-gr z ou x), au lieu de guillemets anglais (homogénéité)"

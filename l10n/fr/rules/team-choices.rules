@@ -10,6 +10,7 @@ valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
 valid file="kgoldrunner.po"
+valid ctx="Enter folder"
 hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
  
 [valide([^zr]|$)]
