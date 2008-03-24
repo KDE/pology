@@ -40,6 +40,7 @@ valid before="-?[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
 valid after="font-weight" before="bold" # CSS
 valid after="font-size" before="\d+" # CSS
+valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+"
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
@@ -70,10 +71,12 @@ valid file="kspread.po" after="[A-Z0-9]+" before="[A-Z0-9]+"
 valid file="kspread.po" after="(ligne)|(colonne)" before="(ligne)|(colonne)"
 valid file="ktexteditor_plugins.po" after="H|%"
 valid file="libkcal.po" before="&unbsp;" after="&unbsp;"
-valid file="kcalc.po" after="\+" 
+valid file="kcalc.po" after="\+"
+valid file="parley.po" before="verbe" 
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
+valid ctx="CSV separator"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -88,7 +91,8 @@ valid before="-\)" # Smiley
 valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
 valid file="konsole.po" before="\\"
 valid file="katepart4.po" after="plain|txt"
-valid ctx="Numbers and characters" 
+valid ctx="Numbers and characters"
+valid ctx="CSV separator" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -113,6 +117,7 @@ valid file="kcalc.po" after="^x"
 valid after="aKtion"
 valid after="Yahoo"
 valid ctx="Numbers and characters"
+valid ctx="CSV separator"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -149,6 +154,7 @@ valid file="kppp.po" after="0"
 valid file="kcalc.po" after="^" before="$"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
+valid ctx="CSV separator"
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
@@ -183,7 +189,7 @@ hint="Mettre une espace avant et une espace insécable après"
 [`]
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
-['(?=[^\wéèàêâÉÈÀÊÂ«])]
+['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;em&gt;"
@@ -251,6 +257,7 @@ valid file="kio4.po" before="[cdDfFimuU]"
 valid file="kppp.po" before="[d]"
 valid file="kdevelop.po" before="[{d]"
 valid file="kdelibs4.po" before="m"
+valid file="kscanplugin.po" before="d"
 valid file="ktexteditor_plugins.po" before="[a-zA-Z]|:"
 valid file="kttsd.po" before="[fltw]"
 valid file="k3b.po" before="[afty{]"
@@ -296,15 +303,13 @@ valid before="Xsession"
 valid before="Xdefaults"
 valid before="Xresources"
 valid before="DCOPserver"
-valid after="S\.u" before="S\.E\."
-valid before="CUE|DAT|IFO|ISO|SVD|TBL|TOC|WRI|xml|VCD"
-valid after="S\.u\.S" before="E\."
+valid before="[A-Z]{3}" # Extensions
+valid before="[a-z]{3}" # Extensions
+valid after="[A-Z]" # Acronyms
+valid after="jj" before="MM"
+valid after="MM" before="aaaa"
 valid file="mailody.po" after="B" before="V"
 valid file="kgeography.po" after="D" before="C\."
-valid after="e" before="V\."
-valid after="U" before="S\."
-valid after="S" before="A\."
-valid before="NET"
 valid file="kcmlocale.po" after="MM" before="AA"
 valid after="kmail-uudecoded" before="XXXXXX"
 valid after="(^|&sp;)\*" before="[a-zA-Z3]+(&sp;|$)"
