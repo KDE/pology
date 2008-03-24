@@ -3,7 +3,7 @@
 
 import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
-from pology.misc.monitored import Monpair
+from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
 
 import sys, os, imp, shutil, re
@@ -1377,7 +1377,8 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
             # FIXME: Once there is a way to reliably tell the root directory
             # of source references, add missing and remove obsolete source
             # references instead.
-            summit_msg.source = branch_msg.source
+            summit_msg.source = Monlist([Monpair(x, y)
+                                         for x, y in branch_msg.source])
 
             # Split auto comments of the current summit message into
             # summit and non-summit tagged comments.
@@ -1394,7 +1395,7 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
             # current summit message are different to the branch message
             # auto comments.
             if non_summit_comments != branch_msg.auto_comment:
-                summit_msg.auto_comment = branch_msg.auto_comment
+                summit_msg.auto_comment = Monlist(branch_msg.auto_comment)
                 summit_msg.auto_comment.extend(summit_comments)
 
             primary_sourced[summit_msg.key] = True
