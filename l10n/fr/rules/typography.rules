@@ -24,6 +24,7 @@ valid after="^" before="$"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup alone
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+(?=:)"
 valid after="file|gg|mailto|man|whatsthis"
@@ -68,7 +69,7 @@ valid file="konsole.po" before="\\"
 valid file="kshisen.po" after="%02d" before="%02d"
 valid file="kshisen.po" after="XX" before="XX"  
 valid file="kspread.po" after="[A-Z0-9]+" before="[A-Z0-9]+" 
-valid file="kspread.po" after="(ligne)|(colonne)" before="(ligne)|(colonne)"
+valid file="kspread.po" after="(ligne)|(colonne)|(body)" before="(ligne)|(colonne)|(office)"
 valid file="ktexteditor_plugins.po" after="H|%"
 valid file="libkcal.po" before="&unbsp;" after="&unbsp;"
 valid file="kcalc.po" after="\+"
@@ -83,12 +84,16 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup alone
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before="-\)" # Smiley 
-valid file="kspread.po" after="\w+\([ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;<>\[]+" before="[ _a-zéèîêôûA-Z0-9,:;/+\\\-&quot;\.<>\|\[\](]+\)"
+valid file="kspread.po" after="^\S+\(\S+(?=;)"
+valid file="kspread.po" after="(?<=;)\S+(?=;)"
+valid file="kspread.po" before="(?<=;)\S+(?=;)"
+valid file="kspread.po" before="(?<=;)\S+\)"
 valid file="konsole.po" before="\\"
 valid file="katepart4.po" after="plain|txt"
 valid ctx="Numbers and characters"
@@ -99,6 +104,7 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup alone
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^&lt;" before="--.*--&gt;$"                                   
@@ -110,8 +116,7 @@ valid after="!" before="$"
 valid after="!" before="&lf;"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;" 
-valid file="kspread.po" after="[abcx]" before="[abcx!\.]|$"
-valid file="kspread.po" after="\(a+b+c\)"
+valid file="kspread.po" after="[abcx!]|\(valeur\)"
 valid file="k3b.po" before="a"
 valid file="kcalc.po" after="^x"
 valid after="aKtion"
@@ -124,6 +129,7 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup alone
 valid ctx=".*one character"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
@@ -224,7 +230,7 @@ valid file="kioclient.po" before="Mount"
 valid file="kioclient.po" after="default"
 valid file="kspread.po"
 valid ctx="Numbers and characters"
-hint="Utiliser de vrais guillemets (alt-gr z ou x), au lieu de guillemets anglais (homogénéité)"
+hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 
 [&sp;&sp;+]
@@ -344,9 +350,10 @@ hint="À bas MS-DOS"
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
-valid before="Sendmail|OpenUniverse"
+valid before="Sendmail|OpenUniverse|Risk"
 valid before="F%\d"
 valid before="K3Shell|K3b"
+valid file="kspread.po" before="[A-Z]\s|Pa"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

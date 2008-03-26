@@ -12,6 +12,14 @@ valid file="kmail.po" before=" réellement dans le dossier"
 valid file="kgoldrunner.po"
 valid ctx="Enter folder"
 hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
+
+[entrées?\s?/(\s?|&unbsp;)sorties?]
+hint="Homogénéité : entrées / sorties (avec une espace insécable entre « entrée » et « / »)"
+
+[entrée&unbsp;/ sortie|entrées&unbsp;/ sortie(?!s)|entrée&unbsp;/ sorties]
+valid after="une "
+valid after="l'"
+hint="Utilisez cette expression au pluriel « entrées / sorties »"
  
 [valide([^zr]|$)]
 valid after="il&sp;"
@@ -45,6 +53,11 @@ valid after="[Ss]auve"
 valid after="[Rr]e"
 hint="Choix de l'équipe : utilisation du verbe conserver"
 
+[Notes?&unbsp;:|P\.?S\.?&unbsp;:]
+valid after="CU"
+valid file="knotes.po"
+hint="Utilisez le mot « Remarque : » (homogénéité)"
+
 [r@eguli@ere]
 valid after="vérification&sp;" 
 valid after="casse&sp;" 
@@ -52,6 +65,7 @@ valid after="adresse&sp;"
 valid file="konqueror.po" after="colonne&sp;" 
 valid before="ment" 
 valid after="ir"
+valid after="pauses? "
 valid file="kverbos.po"
 valid file="kgoldrunner.po" after="ascension&sp;"
 hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
@@ -65,12 +79,19 @@ hint="sauver -> enregistrer"
 
 [[Ss]auve]
 valid file="kdat.po"
+valid file="desktop_playground-sysadmin.po"
 valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
 hint="sauver -> enregistrer (homogénéité)"
 
 [([Ee]nregistrer|[Aa]fficher|[Ss]électionner) tout$]
 hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
+
+[[Ss]ystray]
+valid after="k"
+valid ctx="Keywords"
+valid before="_shot"
+hint="La traduction de « systray » est « boîte à miniatures »"
 
 [URL mal ]
 valid before="formée"
