@@ -320,6 +320,7 @@ hint="À remplacer par « défaut »"
 [media]
 valid after="Macro"
 valid after="Multi" before="\sMiddleware"
+valid after="/"
 hint="media -> média"
 
 [médias]

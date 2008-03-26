@@ -43,7 +43,8 @@ valid after="font-weight" before="bold" # CSS
 valid after="font-size" before="\d+" # CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
-valid after="bottom" before="\s\d+"
+valid after="bottom" before="\s\d+" # CSS
+valid after="\"\S+(?=:)" before="%?\d+\"" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check"
@@ -220,6 +221,7 @@ valid file="kioclient.po" before="url|dest|src|type Mime"
 valid file="konqueror.po" after="\d"
 valid file="konqueror.po" before="\d"
 valid ctx="Numbers and characters"
+valid ctx="list_of_words_to_replace"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
@@ -271,6 +273,7 @@ valid file="dolphin.po" before="[BY]"
 valid file="kmail.po" before="[BCQT]" 
 valid file="kcron.po" after="^" before="H:%M$"
 valid file="kcron.po" after="^%H:" before="M$"
+valid file="kopete.po" before="[mst]|album|player"
 valid before="appname"
 valid file="desktop_kdebase.po" before="progname"
 valid file="desktop_kdebase.po" before="pid"
