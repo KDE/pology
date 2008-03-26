@@ -891,7 +891,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
         if msg.obsolete: # do not gather obsolete messages
             continue
 
-        # Merge in all summit catalogs that have this message.
+        # Merge in first summit catalog that has this message.
         pos_merged = None
         for summit_cat in summit_cats:
             if msg in summit_cat:
@@ -912,6 +912,8 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
 
                 # Equip any new summit tags to the merged message.
                 summit_add_tags(summit_cat[pos_merged], branch_id, project)
+
+                break
 
         # If the message has not been merged anywhere, collect for insertion.
         # Also collect the catalog/position of the latest message merge,
