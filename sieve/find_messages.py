@@ -18,6 +18,11 @@ C{msgstr}), the message matches only if all of them match. In case of plural
 messages, C{msgid} is considered matched if either C{msgid} or C{msgid_plural}
 fields match, and C{msgstr} if any of the C{msgstr} fields match.
 
+Sieve options for replacement:
+  - C{replace:<string>}: string to replace matched part of translation
+
+The C{replace} option must go together with the C{msgstr} match. As usual for regular expression replacement, the replacement string may contain C{\<number>} references to groups defined by C{msgstr} match.
+
 Other sieve options:
   - C{accel:<char>}: strip this character as an accelerator marker
   - C{case}: case-sensitive match (insensitive by default)
@@ -65,9 +70,17 @@ class Sieve (object):
         if not self.fields:
             error("no search pattern given")
 
-        # Indicators to the caller:
-        self.caller_sync = False # no need to sync catalogs
-        self.caller_monitored = False # no need for monitored messages
+        self.replace = None
+        if "replace" in options:
+            if "msgstr" not in self.fields:
+                error("no msgstr pattern provided for replacement")
+            options.accept("replace")
+            self.replace = options["replace"]
+
+        # Unless replacement requested, no need to monitor/sync.
+        if self.replace is None:
+            self.caller_sync = False
+            self.caller_monitored = False
 
 
     def process_header (self, hdr, cat):
@@ -116,6 +129,11 @@ class Sieve (object):
             if not local_match:
                 match = False
                 break
+
+            # Do the replacement in translation if requested.
+            if field == "msgstr" and self.replace is not None:
+                for i in range(len(msg.msgstr)):
+                    msg.msgstr[i] = regex.sub(self.replace, msg.msgstr[i])
 
         if match:
             self.nmatch += 1
