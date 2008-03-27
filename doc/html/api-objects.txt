@@ -96,6 +96,7 @@ pology.misc.monitored._assert_spec_single	pology.misc.monitored-module.html#_ass
 pology.misc.report	pology.misc.report-module.html
 pology.misc.report.report_on_msg	pology.misc.report-module.html#report_on_msg
 pology.misc.report.warning_on_msg	pology.misc.report-module.html#warning_on_msg
+pology.misc.report._nonws_after_colreset	pology.misc.report-module.html#_nonws_after_colreset
 pology.misc.report.report	pology.misc.report-module.html#report
 pology.misc.report.warning	pology.misc.report-module.html#warning
 pology.misc.report.report_msg_content	pology.misc.report-module.html#report_msg_content
@@ -154,6 +155,7 @@ pology.misc.wrap.wrap_text	pology.misc.wrap-module.html#wrap_text
 pology.posieve	pology.posieve-module.html
 pology.posieve.warning	pology.misc.report-module.html#warning
 pology.posieve.error	pology.misc.report-module.html#error
+pology.posieve.report	pology.misc.report-module.html#report
 pology.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.posieve.main	pology.posieve-module.html#main
 pology.posummit	pology.posummit-module.html
@@ -182,10 +184,12 @@ pology.posummit.select_branch_catalogs	pology.posummit-module.html#select_branch
 pology.posummit.msg_ident	pology.posummit-module.html#msg_ident
 pology.posummit.get_summit_comment	pology.posummit-module.html#get_summit_comment
 pology.posummit.summit_reorder	pology.posummit-module.html#summit_reorder
-pology.posummit.interpolate	pology.posummit-module.html#interpolate
+pology.posummit.exec_hook_head	pology.posummit-module.html#exec_hook_head
 pology.posummit.summit_scatter_merge	pology.posummit-module.html#summit_scatter_merge
+pology.posummit.interpolate	pology.posummit-module.html#interpolate
 pology.posummit.SUMMIT_ID	pology.posummit-module.html#SUMMIT_ID
 pology.posummit.derive_project_data	pology.posummit-module.html#derive_project_data
+pology.posummit.fuzzy_match_source_files	pology.posummit-module.html#fuzzy_match_source_files
 pology.posummit._summit_tags	pology.posummit-module.html#_summit_tags
 pology.posummit.summit_override_auto	pology.posummit-module.html#summit_override_auto
 pology.posummit.find_summit_comment	pology.posummit-module.html#find_summit_comment
@@ -254,6 +258,9 @@ pology.sieve.fancy_quote.flag_no_fancy_quote	pology.sieve.fancy_quote-module.htm
 pology.sieve.fancy_quote.manc_parse_flag_list	pology.misc.comments-module.html#manc_parse_flag_list
 pology.sieve.fancy_quote.equip_fancy_quotes	pology.sieve.fancy_quote-module.html#equip_fancy_quotes
 pology.sieve.fancy_quote.error	pology.misc.report-module.html#error
+pology.sieve.fancy_quote._xml_literal_rx	pology.sieve.fancy_quote-module.html#_xml_literal_rx
+pology.sieve.fancy_quote.split_escaped	pology.misc.escape-module.html#split_escaped
+pology.sieve.fancy_quote._xml_literal_tags	pology.sieve.fancy_quote-module.html#_xml_literal_tags
 pology.sieve.find_messages	pology.sieve.find_messages-module.html
 pology.sieve.find_messages.report_msg_content	pology.misc.report-module.html#report_msg_content
 pology.sieve.find_messages.error	pology.misc.report-module.html#error
@@ -489,6 +496,7 @@ pology.misc.monitored.Monlist.__getitem__	pology.misc.monitored.Monlist-class.ht
 pology.misc.monitored.Monitored.assert_spec_getattr	pology.misc.monitored.Monitored-class.html#assert_spec_getattr
 pology.misc.monitored.Monitored.assert_spec_setattr	pology.misc.monitored.Monitored-class.html#assert_spec_setattr
 pology.misc.monitored.Monlist.__setitem__	pology.misc.monitored.Monlist-class.html#__setitem__
+pology.misc.monitored.Monlist.__add__	pology.misc.monitored.Monlist-class.html#__add__
 pology.misc.monitored.Monitored.assert_spec_getitem	pology.misc.monitored.Monitored-class.html#assert_spec_getitem
 pology.misc.monitored.Monitored.data	pology.misc.monitored.Monitored-class.html#data
 pology.misc.monitored.Monlist.remove	pology.misc.monitored.Monlist-class.html#remove

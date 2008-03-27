@@ -58,7 +58,8 @@
   are therefore easily moved to use ASCII quotes instead of the fancy 
   quotes appropriate for their language. Use this sieve to replace ASCII 
   quotes in the translation with selected fancy quotes.</p>
-  <p>Sieve options:</p>
+  <p>Sieve options for simple, character-to-character quote 
+  replacement:</p>
   <ul>
     <li>
       <code>single:&lt;quotes&gt;</code>: opening and closing single qoute 
@@ -67,6 +68,18 @@
     <li>
       <code>double:&lt;quotes&gt;</code>: opening and closing double qoute 
       (two characters)
+    </li>
+  </ul>
+  <p>Sieve options for character-to-string quote replacement, useful e.g. 
+  when target quotes are tags or wiki markup:</p>
+  <ul>
+    <li>
+      <code>longsingle:&lt;open&gt;,&lt;close&gt;</code>: opening and 
+      closing single quotes
+    </li>
+    <li>
+      <code>longdouble:&lt;open&gt;,&lt;close&gt;</code>: opening and 
+      closing double quotes
     </li>
   </ul>
 
@@ -165,7 +178,7 @@
   <p>Heuristically replace simple with fancy quotes (eg. &quot;foo&quot; 
   with &#8220;foo&#8221;).</p>
   <p>The replacement tries to avoid quotes in markup (e.g. XML attributes),
-  and other situations where the original quouting should not be 
+  and other situations where the original quoting should not be 
   touched.</p>
   <dl class="fields">
     <dt>Parameters:</dt>

@@ -149,7 +149,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>,
+        <span class="summary-sig-arg">stat</span>)</span><br />
       Load all rules of given language</td>
           <td align="right" valign="top">
             
@@ -167,7 +168,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRulesFromFile" class="summary-sig-name">loadRulesFromFile</a>(<span class="summary-sig-arg">filePath</span>,
-        <span class="summary-sig-arg">accents</span>)</span><br />
+        <span class="summary-sig-arg">accents</span>,
+        <span class="summary-sig-arg">stat</span>)</span><br />
       Load rule file and return list of Rule objects</td>
           <td align="right" valign="top">
             
@@ -313,7 +315,8 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>,
+        <span class="sig-arg">stat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -326,6 +329,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> - lang as a string in two caracter (i.e. fr). If none or empty, try
           to autodetect language</li>
+        <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
+          time execution</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of rules objects or None if rules cannot be found (with 
@@ -341,7 +346,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRulesFromFile</span>(<span class="sig-arg">filePath</span>,
-        <span class="sig-arg">accents</span>)</span>
+        <span class="sig-arg">accents</span>,
+        <span class="sig-arg">stat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -354,6 +360,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>filePath</code></strong> - full path to rule file</li>
         <li><strong class="pname"><code>accents</code></strong> - specific language l10n accents dictionary to use</li>
+        <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
+          time execution</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of Rule object</dd>

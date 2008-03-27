@@ -206,7 +206,8 @@
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>)</span><br />
       Report the content of a PO message.</td>
           <td align="right" valign="top">
             
@@ -436,7 +437,8 @@
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>,
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -456,6 +458,8 @@
         <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on line following the message</li>
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to force reformatting of cached message content</li>
         <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (file) - output stream. Default is sys.stdout</li>
+        <li><strong class="pname"><code>highlight</code></strong> (re.compile regular expression) - regular expression pattern used to colorize text. Default is None</li>
     </ul></dd>
   </dl>
 </td></tr></table>

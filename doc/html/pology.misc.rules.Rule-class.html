@@ -79,7 +79,8 @@ object --+
         <span class="summary-sig-arg">pattern</span>,
         <span class="summary-sig-arg">hint</span>,
         <span class="summary-sig-arg">valid</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="summary-sig-arg">accents</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">accents</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stat</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create a rule</td>
           <td align="right" valign="top">
             
@@ -132,8 +133,11 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">*args</span>,
-        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msgstr</span>,
+        <span class="summary-sig-arg">msgid</span>,
+        <span class="summary-sig-arg">msgctxt</span>,
+        <span class="summary-sig-arg">filename</span>)</span><br />
       Process the given message</td>
           <td align="right" valign="top">
             
@@ -196,7 +200,8 @@ object --+
         <span class="sig-arg">pattern</span>,
         <span class="sig-arg">hint</span>,
         <span class="sig-arg">valid</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="sig-arg">accents</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">accents</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stat</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -274,8 +279,11 @@ object --+
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">process</span>(<span class="sig-arg">*args</span>,
-        <span class="sig-arg">**kwargs</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msgstr</span>,
+        <span class="sig-arg">msgid</span>,
+        <span class="sig-arg">msgctxt</span>,
+        <span class="sig-arg">filename</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -287,10 +295,6 @@ object --+
     <dt>Returns:</dt>
         <dd>True if rule match, False if rule do not match, None if rule 
           cannot be applied</dd>
-    <dt>Decorators:</dt>
-    <dd><ul class="nomargin-top">
-        <li><code>@timed_out(TIMEOUT)</code></li>
-    </ul></dd>
   </dl>
 </td></tr></table>
 </div>

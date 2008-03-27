@@ -77,6 +77,17 @@
   considered matched if either <code>msgid</code> or 
   <code>msgid_plural</code> fields match, and <code>msgstr</code> if any of
   the <code>msgstr</code> fields match.</p>
+  <p>Sieve options for replacement:</p>
+  <ul>
+    <li>
+      <code>replace:&lt;string&gt;</code>: string to replace matched part 
+      of translation
+    </li>
+  </ul>
+  <p>The <code>replace</code> option must go together with the 
+  <code>msgstr</code> match. As usual for regular expression replacement, 
+  the replacement string may contain <code>\&lt;number&gt;</code> 
+  references to groups defined by <code>msgstr</code> match.</p>
   <p>Other sieve options:</p>
   <ul>
     <li>
