@@ -50,6 +50,8 @@ hint="Mettre un accent circonflexe sur le « e »"
 hint="Mettre un accent circonflexe sur le « e »"
 
 [s[eè]lect|sél[éè]ct]
+valid file="kommander.po" before="ed"
+valid after="rad"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]
