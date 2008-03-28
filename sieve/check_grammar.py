@@ -11,6 +11,7 @@ from httplib import HTTPConnection
 from urllib import urlencode
 from xml.dom.minidom import parseString
 from pology.misc.colors import BOLD, RED, RESET
+from pology.misc.report import warning_on_msg
 
 REQUEST="/?language=%s&%s"
 
@@ -60,10 +61,14 @@ class Sieve (object):
                     self.nmatch+=1
                     dom=parseString(responseData)
                     for error in dom.getElementsByTagName("error"):
-                        print BOLD+"Rule: "+RESET+error.getAttribute("ruleId")
-                        print BOLD+"Message: "+RESET+error.getAttribute("msg")
+                        print "-"*(len(msgstr)+8)
+                        print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
+                        #TODO: create a report function in the right place
+                        #TODO: color in red part of context that make the mistake
                         print BOLD+"Context: "+RESET+error.getAttribute("context")
+                        print "("+error.getAttribute("ruleId")+")"+BOLD+RED+"==>"+RESET+BOLD+error.getAttribute("msg")+RESET
                         print 
+                        
 
     def finalize (self):
         if self.nmatch:
