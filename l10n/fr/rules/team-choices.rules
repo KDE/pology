@@ -9,6 +9,7 @@ valid after="C&"
 valid file="kolf.po" before=" ((la)|(une)) balle"
 valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
 valid file="kmail.po" before=" réellement dans le dossier"
+valid file="kalzium.po" before=" de l'air"
 valid file="kgoldrunner.po"
 valid before=" au Panthéon| au tableau des meilleurs"
 valid ctx="Enter folder"
@@ -54,6 +55,7 @@ hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 [[Gg]ard(é|er)]
 valid after="[Ss]auve"
 valid after="[Rr]e"
+valid before=" au repos"
 hint="Choix de l'équipe : utilisation du verbe conserver"
 
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
@@ -128,6 +130,7 @@ hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]
 valid file="kxsconfig.po" after="&sp;"
+valid file="kalzium.po" after="un "
 hint="hint/tip -> astuce (homogénéité)"
 
 [clef]
@@ -136,6 +139,7 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 [->]
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
+valid file="kalzium.po" after="&sp;" before="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
 valid after="^" before="$"
@@ -145,6 +149,7 @@ hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
 hint="A remplacer par « vous pouvez (faire...) ici »"
 
 [proximité]
+valid after="à "
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [proxy]
@@ -218,6 +223,7 @@ hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) 
 
 [r@ecup@er]
 valid file="kgoldrunner.po"
+valid file="kalzium.po"
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer »)"
 
 [paquet(?!a)]
