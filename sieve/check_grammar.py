@@ -39,7 +39,7 @@ class Sieve (object):
         # LanguageTool server tcp port
         if "port" in options:
             options.accept("port")
-            host=options["port"]
+            port=str(options["port"])
         else:
             #TODO: autodetect tcp port by reading LanguageTool config file if host is localhost
             port="8081"
