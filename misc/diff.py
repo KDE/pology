@@ -49,20 +49,71 @@ def diff_texts (text_old, text_new, markup=False, format=None):
     """
 
     # Split text into segments: words and intersections, combined into
-    # single lists for old and new text.
+    # single lists for old and new text. Use words as is, but split
+    # intersections further into single characters.
     segments = []
+    segment_isintr = []
+
+    def add_segment (intr, word):
+        segments[-1].extend(list(intr) + [word])
+        segment_isintr[-1].extend([True] * len(intr) + [False])
+
     for text in (text_old, text_new):
         lw, li = split_text(text, markup, format)
         segments.append([])
-        map(lambda x, y: segments[-1].extend([x, y]), li, lw + [''])
-        # Remove empty segments.
-        segments[-1] = [x for x in segments[-1] if x]
+        segment_isintr.append([])
+        map(add_segment, li, lw + [''])
 
     # Create the difference.
     dlist = list(ndiff(segments[0], segments[1]))
+    dlist = [x for x in dlist if x[:1] in "+- "] # remove non-diff segments
 
-    # Remove non-difference segments.
-    dlist = [x for x in dlist if x[:1] in "+- "]
+    # Recompute which elements of the difference are intersections.
+    dlist_isintr = []
+    i_old = 0
+    i_new = 0
+    for el in dlist:
+        if el[0] == "-":
+            dlist_isintr.append(segment_isintr[0][i_old])
+        else:
+            dlist_isintr.append(segment_isintr[1][i_new])
+
+        if el[0] != "+":
+            i_old += 1
+        if el[0] != "-":
+            i_new += 1
+
+    # Reshuffle so that all new/old elements consecutive but for the
+    # intersections are grouped into all new followed by all old,
+    # with intersections included in both.
+    ndlist = []
+    i = 0
+    while i < len(dlist):
+        while i < len(dlist) and dlist[i][0] not in "+-":
+            ndlist.append(dlist[i])
+            i += 1
+        seq_new = []
+        seq_old = []
+        i_first_diff = i
+        i_last_diff = i
+        while i < len(dlist) and (dlist[i][0] in "+-" or dlist_isintr[i]):
+            if dlist[i][0] != "-":
+                seq_new.append(dlist[i])
+            if dlist[i][0] != "+":
+                seq_old.append(dlist[i])
+            if dlist[i][0] in "+-":
+                i_last_diff = i
+            i += 1
+        for iex in range(i_last_diff, i - 1):
+            seq_new.pop()
+            seq_old.pop()
+        i = i_last_diff + 1
+        if seq_new:
+            ndlist.append("+ " + "".join([x[2:] for x in seq_new]))
+        if seq_old:
+            ndlist.append("- " + "".join([x[2:] for x in seq_old]))
+    dlist = ndlist
+    dlist_intr = None # no longer valid
 
     # Format the embedded output.
     S_EQU, S_NEW, S_OLD = range(3)
