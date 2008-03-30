@@ -25,6 +25,7 @@ class Sieve (object):
         self.nmatch = 0 # Number of match for finalize
         self.aspell=None # Instance of Aspell parser
         self.encoding=getdefaultlocale()[1] # Local encoding to encode aspell output
+        self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
 
         if "lang" in options:
             options.accept("lang")
@@ -32,6 +33,10 @@ class Sieve (object):
         else:
             self.lang="fr"
         
+        if "list" in options:
+            options.accept("list")
+            self.list=[]
+
         personalDict=join(dirname(sys.argv[0]), "l10n", self.lang, "dict")
         if not isfile(personalDict):
             print "Personal KDE dictionnary is not available for your language"
@@ -53,7 +58,7 @@ class Sieve (object):
             for word in msgstr.split():
                 #TODO: also split on "/" separator
                 #TODO: better handling of those exceptions (separate file ?)
-                if "@" in word or "+" in word or ":" in word or DIGIT.search(word) or word[0] in ("--", "/", "$"):
+                if "@" in word or "+" in word or ":" in word or DIGIT.search(word) or word[0] in ("--", "/", "$") or word=="''":
                     continue
                 word=cleanWord(word)
                 encodedWord=word.encode("utf-8")
@@ -61,28 +66,36 @@ class Sieve (object):
                 if spell is False:
                     try:
                         self.nmatch+=1
-                        print "-"*(len(msgstr)+8)
-                        print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
-                        #TODO: create a report function in the right place
-                        #TODO: color in red part of context that make the mistake
-                        print BOLD+"Faulty word: "+RESET+RED+word+RESET
-                        suggestions=self.aspell.suggest(encodedWord)
-                        if suggestions:
-                            print BOLD+"Suggestion(s): "+RESET+", ".join([i.encode(self.encoding) for i in suggestions]) 
-                        print
+                        if self.list is not None:
+                            if word not in self.list:
+                                self.list.append(word)
+                        else:
+                            print "-"*(len(msgstr)+8)
+                            print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
+                            #TODO: create a report function in the right place
+                            #TODO: color in red part of context that make the mistake
+                            print BOLD+"Faulty word: "+RESET+RED+word+RESET
+                            suggestions=self.aspell.suggest(encodedWord)
+                            if suggestions:
+                                print BOLD+"Suggestion(s): "+RESET+", ".join([i.encode(self.encoding) for i in suggestions]) 
+                            print
                     except UnicodeEncodeError:
                         print "Cannot encode this word in your codec (%s)" % self.encoding
 
     def finalize (self):
-        if self.nmatch:
-            print "----------------------------------------------------"
-            print "Total matching: %d" % self.nmatch
+        if self.list is not None:
+            print "\n".join(self.list)
+        else:
+            if self.nmatch:
+                print "----------------------------------------------------"
+                print "Total matching: %d" % self.nmatch
+        
 
 def cleanWord(word):
     """Clean word from any extra punctuation, trailing \n or accelerator check
     @param word: word to be cleaned
     @type word: unicode
     @return: word clean (unicode)"""
-    for remove in ("&", ".", "...", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|"):
+    for remove in ("&", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\"):
         word=word.replace(remove, "")
     return word
