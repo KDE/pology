@@ -8,10 +8,11 @@ Sieves messages with GNU aspell spell checker (http://aspell.net/)
 """
 
 from pology.misc.colors import BOLD, RED, RESET
-from pology.misc.pyaspell import Aspell
+from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from locale import getdefaultlocale
 import re, sys
 from os.path import dirname, isfile, join
+from codecs import open
 
 # Regexp used to clean XML messages
 XML=re.compile("<.*?>")
@@ -26,6 +27,7 @@ class Sieve (object):
         self.aspell=None # Instance of Aspell parser
         self.encoding=getdefaultlocale()[1] # Local encoding to encode aspell output
         self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
+        self.ignoredContext=[] # List of all PO message context for which no spell check should be done
 
         if "lang" in options:
             options.accept("lang")
@@ -36,14 +38,36 @@ class Sieve (object):
         if "list" in options:
             options.accept("list")
             self.list=[]
-
-        personalDict=join(dirname(sys.argv[0]), "l10n", self.lang, "dict")
+ 
+        personalDict=join(dirname(sys.argv[0]), "l10n", self.lang, "spell", "dict.aspell")
         if not isfile(personalDict):
             print "Personal KDE dictionnary is not available for your language"
-            self.aspell=Aspell((("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8")))
+            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"))
         else:
             print "Using language specific KDE dictionnary (%s)" % personalDict
-            self.aspell=Aspell((("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", personalDict)))
+            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", personalDict))
+
+        # Create Aspell object
+        try:
+            self.aspell=Aspell(aspellOptions)
+        except AspellConfigError, e:
+            print RED+("Aspell Configuration error:\n%s" % e) + RESET
+            sys.exit(1)
+        except AspellError, e:
+            print RED+"Cannot initialize Aspell"+RESET
+            print RED+"\t- Check that you correctly install Aspell and the according language dictionary."+RESET
+            print RED+"\t- Check that you did not use special characters in you personal dictionary."+RESET
+            sys.exit(1) 
+
+        # Load ignoredContext
+        ignoredContextFile=join(dirname(sys.argv[0]), "l10n", self.lang, "spell", "ignoredContext")
+        if isfile(ignoredContextFile):
+            for line in open(ignoredContextFile, "r", "utf-8"):
+                line=line.strip()
+                if line.startswith("#") or line=="":
+                    continue
+                else:
+                    self.ignoredContext.append(line)
 
     def process (self, msg, cat):
 
@@ -51,17 +75,29 @@ class Sieve (object):
             return
 
         for msgstr in msg.msgstr:
-            #TODO: better handling of those exceptions (separate file ?)
-            if "name" in msg.msgctxt.lower():
-                continue
-            msgstr=XML.sub(" ", msgstr.replace("\n", " ")) # Remove XML, HTML and CSS tags
+            # Skip message with context in the ignoredContext list
+            msg.msgctxt.lower()
+            skip=False
+            for context in self.ignoredContext:
+                if context in msg.msgctxt.lower():
+                    skip=True
+                    break
+            if skip:
+                break
+            msgstr.replace("\n", " ")
+            msgstr=msgstr.replace("/", " ")
+            msgstr=msgstr.replace(".", " ")
+            msgstr=XML.sub(" ", msgstr) # Remove XML, HTML and CSS tags
             for word in msgstr.split():
-                #TODO: also split on "/" separator
-                #TODO: better handling of those exceptions (separate file ?)
+                # Skip words with special caracters (URL, shell script, email adress..."
                 if "@" in word or "+" in word or ":" in word or DIGIT.search(word) or word[0] in ("--", "/", "$") or word=="''":
                     continue
+                # Clean word from accentuation
                 word=cleanWord(word)
-                encodedWord=word.encode("utf-8")
+                # Skip place holder
+                if word.startswith("{") and word.endswith("}"):
+                    continue
+                encodedWord=word.encode("utf-8") # Aspell wait for unicode encoded words
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
@@ -89,7 +125,6 @@ class Sieve (object):
             if self.nmatch:
                 print "----------------------------------------------------"
                 print "Total matching: %d" % self.nmatch
-        
 
 def cleanWord(word):
     """Clean word from any extra punctuation, trailing \n or accelerator check
