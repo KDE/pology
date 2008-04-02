@@ -7,7 +7,7 @@
 #
 # License: BSD
 #
-# author: Wojciech Mu≥a
+# author: Wojciech Mu≈Ça
 # e-mail: wojciech_mula@poczta.onet.pl
 # www   : http://wmula.republika.pl/proj/aspell-python/
 #
