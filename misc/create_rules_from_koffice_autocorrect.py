@@ -2,10 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 """
-Create Pology rules from the KOffice KWord autocorrect xml file
+Create Pology rules from the KOffice KWord autocorrect xml file.
 This script is intended to be run standalone.
 
-Usage:
+Usage::
     python create_rules_from_koffice_autocorrect.py <autocorrect file> <output rule file>
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
