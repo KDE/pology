@@ -174,12 +174,13 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                 string_follows = False
                 loc.msg.auto_comment.append(line[2:].lstrip())
 
-            elif line.startswith("# ") or line == "#":
+            elif line.startswith("#"):
                 try_finish()
                 string_follows = False
                 loc.msg.manual_comment.append(line[2:].lstrip())
 
             else:
+                # Cannot reach, all unknown comments treated as manual above.
                 raise StandardError,   "unknown comment type at %s:%d" \
                                      % (filename, lno)
 
@@ -271,7 +272,7 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
             loc.msg.lines_flag.append(line_raw)
         elif line_raw.startswith("#."):
             loc.msg.lines_auto_comment.append(line_raw)
-        elif line_raw.startswith("# ") or line == "#":
+        elif line_raw.startswith("#") and line_raw[1:2] not in ("~", "|"):
             loc.msg.lines_manual_comment.append(line_raw)
         elif loc.age_context == ctx_previous:
             if loc.field_context == ctx_msgctxt:
