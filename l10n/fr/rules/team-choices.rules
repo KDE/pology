@@ -23,7 +23,11 @@ valid after="une "
 valid after="l'"
 valid after="d'"
 hint="Utilisez cette expression au pluriel « entrées / sorties »"
- 
+
+[k?ioslave]
+valid after="kcm"
+hint="Traduisez ce mot par « module d'entrée / sortie »"
+
 [valide([^zr]|$)]
 valid after="il&sp;"
 valid after="XML non "
