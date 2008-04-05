@@ -120,7 +120,9 @@ class Sieve (object):
 
     def finalize (self):
         if self.list is not None:
-            print "\n".join(self.list)
+            #print "\n".join()
+            print self.encoding
+            print "\n".join([i.decode(self.encoding) for i in self.list])
         else:
             if self.nmatch:
                 print "----------------------------------------------------"
@@ -131,6 +133,6 @@ def cleanWord(word):
     @param word: word to be cleaned
     @type word: unicode
     @return: word clean (unicode)"""
-    for remove in ("&", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\"):
+    for remove in ("&", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">"):
         word=word.replace(remove, "")
     return word
