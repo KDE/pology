@@ -1,6 +1,12 @@
 # Translation choices of french team
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
+
+validGroup inParenthesis
+valid after="\(" before="\)"
+
+validGroup inQuotes
+valid after="«&unbsp;" before="&unbsp;»"
  
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;" 
@@ -27,6 +33,9 @@ hint="Utilisez cette expression au pluriel « entrées / sorties »"
 [k?ioslave]
 valid after="kcm"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
+
+[[Mm]anettes?]
+hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
 
 [valide([^zr]|$)]
 valid after="il&sp;"
@@ -111,6 +120,7 @@ hint="Homogénéité : utiliser « URL mal formée »"
 
 [&lwb;items?&rwb;]
 valid ctx="Query"
+valid after="</"
 hint="item(s) -> élément(s)"
 
 [modules? enfichable]
@@ -122,6 +132,15 @@ valid after="kmdr-"
 valid file="kcmkonqhtml.po" after="/"
 valid file="desktop_playground-multimedia.po" before="$"
 hint="plugin -> module externe"
+
+[&lwb;root&rwb;]
+#validGroup inQuotes
+validGroup inParenthesis
+valid after="uid |UID "
+valid after="/"
+valid after="-l "
+valid before="@"
+hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
 
 [additif|greffon]
 hint="plugin -> module externe"
@@ -143,10 +162,11 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 [->]
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
+valid file="kverbos.po" after="-"
 valid file="kalzium.po" after="&sp;" before="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
-valid after="^" before="$"
+valid before="$"
 hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
 
 [vous pouvez ici]
@@ -220,6 +240,7 @@ hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
 [\bitem]
 valid after="\?"
+valid after="</"
 hint="On essaie d'éviter « item » ?"
 
 [visualis]

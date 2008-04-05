@@ -197,15 +197,13 @@ hint="mettre un tiret à « sous-élément »"
 
 [chaque&sp;]
 valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
-valid before="fois&rwb;"  
+valid before="fois&rwb;|fois$"  
 valid before="accès" 
 valid before="processus" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
-valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;" 
-valid before="[a-zàôâéèêçîû\-]+[^sx]&nbsp;" 
+valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"  
 valid before="$" 
-valid before="Lune" 
-valid before="CRL|I-frame" 
+valid before="[A-Z]" 
 hint="Il y a toujours un singulier après « chaque »"
 
 [([pP]ostscript)|(postScript)]
@@ -224,6 +222,7 @@ hint="TV est un anglicisme. À éviter..."
 
 [CPU]
 valid ctx=".*heading"
+valid after="K"
 hint="Traduire CPU par « processeur »"
 
 [&lwb;environment&rwb;]
@@ -264,7 +263,7 @@ valid after="lib"
 valid before="ographie"
 valid after="x-en"
 valid after="x-de"
-hint="Il est préférable d'utiliser le verbe « chiffrer »
+hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]
 valid file="kfmclient.po" before="&gt;"

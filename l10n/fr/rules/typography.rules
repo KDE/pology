@@ -39,8 +39,7 @@ valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
-valid after="font-weight" before="bold" # CSS
-valid after="font-size" before="\d+" # CSS
+valid after="font-size|font-style|font-weight|text-align"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
@@ -52,7 +51,7 @@ valid after="QApplication:?"
 valid after="QWidget:?"
 valid before="slot" 
 valid before="port"
-valid after="com" before="\d+"
+valid after="com|host" before="\d+"
 valid file="imgalleryplugin.po" after="KImGalleryPlugin:" before="slotCreateHtml" 
 valid file="imgalleryplugin.po" after="KImGalleryPlugin" before=":slotCreateHtml"  
 valid after="javascript" before="go"
@@ -82,6 +81,7 @@ valid ctx="List of words.*"
 valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
+valid ctx="Query"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -91,8 +91,9 @@ validGroup inQuotes
 validGroup alone
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
-valid after="pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
+valid after="center|pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
+valid before=" font" # CSS
 valid before="-\)" # Smiley 
 valid file="kspread.po" after="^\S+\(\S+(?=;)"
 valid file="kspread.po" after="(?<=;)\S+(?=;)"
@@ -111,7 +112,8 @@ validGroup inQuotes
 validGroup alone
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
-valid after="^&lt;" before="--.*--&gt;$"                                   
+valid after="^<" before="--.*--&gt;$"
+valid after="^<" before="DOCTYPE"
 valid after="&unbsp;" before="!"
 valid after="&unbsp;" before="\)"  
 valid after="!" before="!"                  
@@ -148,7 +150,8 @@ valid after="&amp;nbsp;" before="&lt;\/qt&gt;$"
 valid file="kgoldrunner.po" after="\?|2"
 valid file="katefindinfilesplugin.po" after="<br /><b>"
 valid file="kdevelop.po" after="<ul><li><b>"
-valid ctx="Numbers and characters" 
+valid ctx="Numbers and characters"
+valid ctx="Query"
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
@@ -238,7 +241,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 valid after="=|]|PS1"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
-valid file="kstars.po" after="\d+"
+valid after="\d+"
 valid file="kioclient.po" before="Mount"
 valid file="kioclient.po" after="default"
 valid file="kspread.po"
@@ -288,6 +291,7 @@ valid file="kcron.po" after="^" before="H:%M$"
 valid file="kcron.po" after="^%H:" before="M$"
 valid file="kmouth.po" after="[flt%]"
 valid file="kopete.po" before="[mst]|album|player"
+valid file="kuser.po" before="[U]"
 valid before="appname"
 valid file="desktop_kdebase.po" before="progname"
 valid file="desktop_kdebase.po" before="pid"
@@ -350,7 +354,7 @@ hint="Mettre une espace après un point"
 [&sp;\.]
 valid before="desktop&sp;"
 valid before="xinitrc"
-valid before="cfg|doc|dvi|h|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml"
+valid before="cfg|doc|dvi|h|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml|kalcul"
 valid before="NET|kde"
 valid file="konsole.po" before="schema"
 valid file="konsole.po" before="keytab"
