@@ -10,7 +10,8 @@ Sieves messages with rules and warn when a rule triggers.
 import sys, os, locale
 from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
-from time import strptime, mktime
+from time import strftime, strptime, mktime
+import locale
 
 from pology.misc.rules import loadRules, printErrorMsg, printStat, xmlErrorMsg
 from pology.misc.colors import BOLD, RED, RESET
@@ -67,6 +68,7 @@ class Sieve (object):
                 #TODO: create nice api to manage xml file and move it to misc/rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                self.xmlFile.write('<date>%s</date>\n' % strftime('%c').decode(locale.getpreferredencoding()))
                 self.xmlFile.write('<pos>\n')
             else:
                 print "Cannot open %s file. XML output disabled" % xmlPath
