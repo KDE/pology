@@ -118,9 +118,11 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
 
     while loc.lno < nlines: # sentry for last entry
         line_raw = lines[lno]
-        line = line_raw.strip()
         loc.lno += 1
         lno = loc.lno # shortcut
+        line = line_raw.strip()
+        if not line:
+            continue
 
         string_follows = True
         loc.age_context = ctx_current
