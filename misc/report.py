@@ -205,7 +205,83 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     text=text.encode(local_encoding, "replace")
     file.write(text)
 
+def rule_error(msg, cat, rule, pluralId=0):
+    """Print formated rule error message on screen
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param rule: pology.misc.rules.Rule object
+    @param pluralId: msgstr count in case of plural form. Default to 0"""
+    msgstr=msg.msgstr[pluralId]
+    msgtext=msg.to_string()
+    msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
+    msgtext=msgtext[0:msgtext.find('msgstr[')].rstrip()
+    for word in ("msgid", "msgctxt"):
+        msgtext=msgtext.replace(word, C.BOLD+word+C.RESET)
 
+    print "-"*(len(msgstr)+8)
+    #TODO: use _msg_ref_fmstr function
+    print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
+    try:
+        print msgtext
+        print C.BOLD+'msgstr'+C.RESET+' "%s"' % (msgstr[0:rule.span[0]]+C.BOLD+C.RED+
+                              msgstr[rule.span[0]:rule.span[1]]+C.RESET+
+                              msgstr[rule.span[1]:])
+        print "("+rule.rawPattern+")"+C.BOLD+C.RED+"==>"+C.RESET+C.BOLD+rule.hint+C.RESET
+    except UnicodeEncodeError, e:
+        print C.RED+("UnicodeEncodeError, cannot print message (%s)" % e)+C.RESET
+
+def rule_xml_error(msg, cat, rule, pluralId=0):
+    """Create and returns rule error message in XML format
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param rule: pology.misc.rules.Rule object
+    @param pluralId: msgstr count in case of plural form. Default to 0
+    @return: XML message as a list of unicode string"""
+    xmlError=[]
+    xmlError.append("\t<error>\n")
+    xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
+    xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
+    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
+    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msg.msgstr[pluralId])
+    xmlError.append("\t\t<start>%s</start>\n" % rule.span[0])
+    xmlError.append("\t\t<end>%s</end>\n" % rule.span[1])
+    xmlError.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
+    xmlError.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
+    xmlError.append("\t</error>\n")
+    return xmlError
+
+def spell_error(msg, cat, faultyWord, suggestions):
+    """Print formated rule error message on screen
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param faultyWord: badly spelled word
+    @param suggestions : list of correct words to suggest"""
+    print "-"*(len(msg.msgstr)+8)
+    print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
+    #TODO: color in red part of context that make the mistake
+    print C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET
+    if suggestions:
+        print C.BOLD+"Suggestion(s): "+C.RESET+", ".join(suggestions) 
+    print
+    
+def spell_xml_error(msg, cat, faultyWord, suggestions):
+    """Create and returns spell error message in XML format
+    @param msg: pology.file.message.Message object
+    @param cat: pology.file.catalog.Catalog object
+    @param faultyWord: badly spelled word
+    @param suggestions : list of correct words to suggest
+    @return: XML message as a list of unicode string"""
+    xmlError=[]
+    xmlError.append("\t<error>\n")
+    xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
+    xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
+    xmlError.append("\t\t<faulty>%s</faulty>\n" % faultyWord)
+    for suggestion in suggestions:
+        xmlError.append("\t\t<suggestion>%s</suggestion>\n" % suggestion)
+    xmlError.append("\t</error>\n")
+    return xmlError
+    
 # Format string for message reference, based on the file descriptor.
 def _msg_ref_fmtstr (file=sys.stdout):
 

@@ -13,7 +13,8 @@ from codecs import open
 from time import strftime, strptime, mktime
 import locale
 
-from pology.misc.rules import loadRules, printErrorMsg, printStat, xmlErrorMsg
+from pology.misc.rules import loadRules, printStat
+from pology.misc.report import rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
@@ -159,14 +160,14 @@ class Sieve (object):
                     self.nmatch+=1
                     if self.xmlFile:
                         # Now, write to XML file if defined
-                        error=xmlErrorMsg(msg, cat, rule, id)
-                        self.xmlFile.writelines(error)
+                        xmlError=rule_xml_error(msg, cat, rule, id)
+                        self.xmlFile.writelines(xmlError)
                         if not self.cached:
                             # Write result in cache
-                            self.cacheFile.writelines(error)
+                            self.cacheFile.writelines(xmlError)
                     else:
                         # Text format
-                        printErrorMsg(msg, cat, rule, id)
+                        rule_error(msg, cat, rule, id)
                 id+=1 # Increase msgstr id count
 
     def finalize (self):

@@ -20,50 +20,6 @@ from pology.misc.colors import BOLD, RED, RESET
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
-def printErrorMsg(msg, cat, rule, pluralId=0):
-    """Print formated error message on screen
-    @param msg: pology.file.message.Message object
-    @param cat: pology.file.catalog.Catalog object
-    @param rule: pology.misc.rules.Rule object
-    @param pluralId: msgstr count in case of plural form. Default to 0"""
-    msgstr=msg.msgstr[pluralId]
-    msgtext=msg.to_string()
-    msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
-    msgtext=msgtext[0:msgtext.find('msgstr[')].rstrip()
-    for word in ("msgid", "msgctxt"):
-        msgtext=msgtext.replace(word, BOLD+word+RESET)
-
-    print "-"*(len(msgstr)+8)
-    print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
-    try:
-        print msgtext
-        print BOLD+'msgstr'+RESET+' "%s"' % (msgstr[0:rule.span[0]]+BOLD+RED+
-                              msgstr[rule.span[0]:rule.span[1]]+RESET+
-                              msgstr[rule.span[1]:])
-        print "("+rule.rawPattern+")"+BOLD+RED+"==>"+RESET+BOLD+rule.hint+RESET
-    except UnicodeEncodeError, e:
-        print RED+("UnicodeEncodeError, cannot print message (%s)" % e)+RESET
-
-def xmlErrorMsg(msg, cat, rule, pluralId=0):
-    """Create and returns error message in XML format
-    @param msg: pology.file.message.Message object
-    @param cat: pology.file.catalog.Catalog object
-    @param rule: pology.misc.rules.Rule object
-    @param pluralId: msgstr count in case of plural form. Default to 0
-    @return: XML message as a list of unicode string"""
-    error=[]
-    error.append("\t<error>\n")
-    error.append("\t\t<line>%s</line>\n" % msg.refline)
-    error.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    error.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
-    error.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
-    error.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msg.msgstr[pluralId])
-    error.append("\t\t<start>%s</start>\n" % rule.span[0])
-    error.append("\t\t<end>%s</end>\n" % rule.span[1])
-    error.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
-    error.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
-    error.append("\t</error>\n")
-    return error
 
 def printStat(rules, nmatch):
     """Print rules match statistics
