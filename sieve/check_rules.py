@@ -7,11 +7,11 @@ Sieves messages with rules and warn when a rule triggers.
 @license: GPLv3
 """
 
-import sys, os, locale
+import sys, os
 from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
 from time import strftime, strptime, mktime
-import locale
+from locale import getdefaultlocale, getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
 from pology.misc.report import rule_error, rule_xml_error
@@ -19,7 +19,7 @@ from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
 reload(sys)
-encoding = locale.getdefaultlocale()[1]
+encoding = getdefaultlocale()[1]
 sys.setdefaultencoding(encoding) #pylint: disable-msg=E1101
 
 # Pattern used to marshall path of cached files
