@@ -2,13 +2,14 @@
 # -*- coding: UTF-8 -*-
 
 """
-Organize dictionary file : 
-- sort entries
-- remove duplicate
-- update header
+Organize dictionary file:
+  - sort entries
+  - remove duplicate
+  - update header
+
 This script is intended to be run standalone.
 
-Usage:
+Usage::
     python <dict file>
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>

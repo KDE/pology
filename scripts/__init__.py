@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# pology.__init__
+# pology.scripts.__init__
 
 """
 Standalone scripts for processing PO files and Pology-related service.
