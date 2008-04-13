@@ -36,7 +36,7 @@ class Sieve (object):
 
         if "lang" in options:
             options.accept("lang")
-            self.lang=options["lang"]
+            self.lang=str(options["lang"])
         else:
             self.lang="fr"
         
@@ -50,7 +50,7 @@ class Sieve (object):
             aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"))
         else:
             print "Using language specific KDE dictionnary (%s)" % personalDict
-            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", personalDict))
+            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", str(personalDict)))
 
         # Create Aspell object
         try:
