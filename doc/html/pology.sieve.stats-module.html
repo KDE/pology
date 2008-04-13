@@ -83,6 +83,14 @@
       <code>branch:&lt;branch_id&gt;</code>: consider only messages from 
       this branch (summit)
     </li>
+    <li>
+      <code>bydir</code>: display report by each leaf directory, followed 
+      by totals
+    </li>
+    <li>
+      <code>byfile</code>: display report by each catalog, followed by 
+      totals
+    </li>
   </ul>
   <p>The accelerator characters should be removed from the messages before 
   counting, in order not to introduce word splits where there are none. The
@@ -203,15 +211,18 @@
 </pre>
     <p>When <code>incomplete</code> option is given, the statistics table 
     is followed by a table of not fully translated catalogs, with counts of
-    fuzzy and untranslated messages:</p>
+    fuzzy and untranslated messages and words:</p>
 <pre class="literalblock">
    $ posieve.py stats -sincomplete frobaz/
    (...the stats table...)
-   incomplete-catalog   fuzz   untr   fuzz+untr
-   frobaz/foxtrot.po       0     11          11
-   frobaz/november.po     19     14          33
-   frobaz/sierra.po       22      0          22
+   incomplete-catalog   msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
+   frobaz/foxtrot.po        0      11        11     0   123     123
+   frobaz/november.po      19      14        33    85    47     132
+   frobaz/sierra.po        22       0        22   231     0     231
 </pre>
+    <p>In the column names, <code>msg/*</code> and {w/*} stand for messages
+    and words; <code>*/f</code>, <code>*/u</code>, and <code>*/f+u</code> 
+    stand for fuzzy, untranslated, and the two summed.</p>
   <h1 class="heading">Notes on Counting</h1>
     <p>The word and character counts for a given message field are obtained
     in the following way:</p>
