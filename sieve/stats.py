@@ -115,7 +115,7 @@ Output Legend
         frobaz/november.po      19      14        33    85    47     132
         frobaz/sierra.po        22       0        22   231     0     231
 
-    In the column names, C{msg/*} and {w/*} stand for messages and words;
+    In the column names, C{msg/*} and C{w/*} stand for messages and words;
     C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
     two summed.
 
