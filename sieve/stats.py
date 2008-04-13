@@ -14,6 +14,8 @@ Sieve options:
   - C{minwords:<number>}: count only messages with at least this many words
   - C{maxwords:<number>}: count only messages with at most this many words
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
+  - C{bydir}: display report by each leaf directory, followed by totals
+  - C{byfile}: display report by each catalog, followed by totals
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
@@ -104,14 +106,18 @@ Output Legend
 
     When C{incomplete} option is given, the statistics table is followed by
     a table of not fully translated catalogs, with counts of fuzzy and
-    untranslated messages::
+    untranslated messages and words::
 
         $ posieve.py stats -sincomplete frobaz/
         (...the stats table...)
-        incomplete-catalog   fuzz   untr   fuzz+untr
-        frobaz/foxtrot.po       0     11          11
-        frobaz/november.po     19     14          33
-        frobaz/sierra.po       22      0          22
+        incomplete-catalog   msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
+        frobaz/foxtrot.po        0      11        11     0   123     123
+        frobaz/november.po      19      14        33    85    47     132
+        frobaz/sierra.po        22       0        22   231     0     231
+
+    In the column names, C{msg/*} and {w/*} stand for messages and words;
+    C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
+    two summed.
 
 
 Notes on Counting
@@ -145,6 +151,8 @@ from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
 from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
+from pology.misc.report import warning
+import pology.misc.colors as C
 
 
 class Sieve (object):
@@ -210,9 +218,17 @@ class Sieve (object):
             self.minwords = int(options["minwords"])
             options.accept("minwords")
 
-        # Dictionary of catalogs which are not fully translated.
-        # Key is the catalog filename.
-        # Value is a doublet list: number fuzzy, number untranslated entries.
+        # Report statistics per leaf directory and/or per file.
+        self.bydir = None
+        if "bydir" in options:
+            self.bydir = True
+            options.accept("bydir")
+        self.byfile = None
+        if "byfile" in options:
+            self.byfile = True
+            options.accept("byfile")
+
+        # Filenames of catalogs which are not fully translated.
         self.incomplete_catalogs = {}
 
         # Counted categories.
@@ -223,11 +239,18 @@ class Sieve (object):
             ("tot", u"total"),
             ("obs", u"obsolete"),
         )
-        self.count = dict([(x[0], [0] * 5) for x in self.count_spec])
+
+        # Number of counts per category:
+        # messages, words in original, words in translation,
+        # characters in original, characters in translation.
+        self.counts_per_cat = 5
+
+        # Category counts per catalog filename.
+        self.counts = {}
 
         # Collections of all confirmed templates and tentative template subdirs.
-        self.matched_templates = []
-        self.template_subdirs = []
+        self.matched_templates = {}
+        self.template_subdirs = {}
 
         # Some indicators of metamessages.
         self.xml2po_meta_msgid = dict([(x, True) for x in
@@ -242,7 +265,28 @@ class Sieve (object):
         self.caller_monitored = False # no need for monitored messages
 
 
+    def _count_zero (self):
+
+        return dict([(x[0], [0] * self.counts_per_cat)
+                     for x in self.count_spec])
+
+
+    def _count_sum (self, c1, c2):
+
+        cs = self._count_zero()
+        for cat, catname in self.count_spec:
+            for i in range(self.counts_per_cat):
+                cs[cat][i] = c1[cat][i] + c2[cat][i]
+
+        return cs
+
+
     def process_header (self, hdr, cat):
+
+        # Establish counts for this file.
+        if cat.filename not in self.counts:
+            self.counts[cat.filename] = self._count_zero()
+        self.count = self.counts[cat.filename]
 
         # If template correspondence requested, handle template matching.
         if (    self.tspec
@@ -255,14 +299,15 @@ class Sieve (object):
                 tpath = tpath[:pdot] + ".pot"
             # Inform if the template does not exist.
             if not os.path.isfile(tpath):
-                print "expected template catalog missing: %s" % tpath
+                warning("expected template catalog missing: %s" % tpath)
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
-                self.matched_templates.append(tpath)
+                self.matched_templates[tpath] = True
             # Store tentative template subdir.
             tsubdir = os.path.dirname(tpath)
             if tsubdir not in self.template_subdirs:
-                self.template_subdirs.append(tsubdir)
+                csubdir = os.path.dirname(cat.filename)
+                self.template_subdirs[tsubdir] = csubdir
 
         # Check if the catalog itself states the shortcut character,
         # unless specified explicitly by the command line.
@@ -354,20 +399,33 @@ class Sieve (object):
             self.count["fuz"][0] += 1
             categories.append("fuz")
             if cat.filename not in self.incomplete_catalogs:
-                self.incomplete_catalogs[cat.filename] = [0, 0]
-            self.incomplete_catalogs[cat.filename][0] += 1
+                self.incomplete_catalogs[cat.filename] = True
         elif msg.untranslated:
             self.count["unt"][0] += 1
             categories.append("unt")
             if cat.filename not in self.incomplete_catalogs:
-                self.incomplete_catalogs[cat.filename] = [0, 0]
-            self.incomplete_catalogs[cat.filename][1] += 1
+                self.incomplete_catalogs[cat.filename] = True
 
         for cat in categories:
             self.count[cat][1] += nwords["orig"]
             self.count[cat][2] += nwords["tran"]
             self.count[cat][3] += nchars["orig"]
             self.count[cat][4] += nchars["tran"]
+
+
+    # Sort filenames as if templates-only were within language subdirs.
+    def _sort_equiv_filenames (self, filenames):
+
+        def equiv_template_path (x):
+            cdir = os.path.dirname(x)
+            if cdir in self.template_subdirs:
+                cdir = self.template_subdirs[cdir]
+                return os.path.join(cdir, os.path.basename(x))
+            else:
+                return x
+
+        filenames.sort(lambda x, y: cmp(equiv_template_path(x),
+                                        equiv_template_path(y)))
 
 
     def finalize (self):
@@ -383,8 +441,55 @@ class Sieve (object):
             # Add stats on all unmatched templates.
             for tpath in tpaths:
                 cat = Catalog(tpath, monitored=False)
+                self.process_header(cat.header, cat)
                 for msg in cat:
                     self.process(msg, cat)
+
+        # Assemble sets of total counts by requested divisions.
+        count_overall = self._count_zero()
+        counts_bydir = {}
+        filenames_bydir = {}
+        for filename, count in self.counts.iteritems():
+
+            count_overall = self._count_sum(count_overall, count)
+
+            if self.bydir:
+                cdir = os.path.dirname(filename)
+                if cdir in self.template_subdirs:
+                    # Pretend templates-only are within language subdir.
+                    cdir = self.template_subdirs[cdir]
+                if cdir not in counts_bydir:
+                    counts_bydir[cdir] = self._count_zero()
+                    filenames_bydir[cdir] = []
+                counts_bydir[cdir] = self._count_sum(counts_bydir[cdir], count)
+                filenames_bydir[cdir].append(filename)
+
+        # Arrange sets into ordered list with titles.
+        counts = []
+        if self.bydir:
+            cdirs = counts_bydir.keys();
+            cdirs.sort()
+            for cdir in cdirs:
+                if self.byfile:
+                    self._sort_equiv_filenames(filenames_bydir[cdir])
+                    for filename in filenames_bydir[cdir]:
+                        counts.append(("--- %s" % filename,
+                                       self.counts[filename]))
+                counts.append(("+++ %s/" % cdir, counts_bydir[cdir]))
+            counts.append(("=== (overall)", count_overall))
+
+        elif self.byfile:
+            filenames = self.counts.keys()
+            self._sort_equiv_filenames(filenames)
+            for filename in filenames:
+                counts.append(("--- %s" % filename, self.counts[filename]))
+            counts.append(("=== (overall)", count_overall))
+
+        else:
+            counts.append((None, count_overall))
+
+        # See if the output will admit color sequences.
+        can_color = sys.stdout.isatty()
 
         # Summit: If branches were given, indicate conspicuously up front.
         if self.branches:
@@ -398,82 +503,103 @@ class Sieve (object):
         if self.minwords is not None and self.maxwords is not None:
             print ">>> words-in-range: %d-%d" % (self.minwords, self.maxwords)
 
-        # Collected data.
-        data = [[self.count[tkey][y] for tkey, tname in self.count_spec]
-                for y in range(5)]
+        for title, count in counts:
 
-        # Derived data: messages/words completition ratios.
-        for col, ins in ((0, 1), (1, 3)):
-            compr = []
-            for tkey, tname in self.count_spec:
-                if tkey not in ("tot", "obs") and self.count["tot"][col] > 0:
-                    r = float(self.count[tkey][col]) / self.count["tot"][col]
-                    compr.append(r * 100)
+            # Order counts in tabular form.
+            selected_cats = self.count_spec
+            if False and self.incomplete: # skip this for the moment
+                # Display only fuzzy and untranslated counts.
+                selected_cats = (self.count_spec[1], self.count_spec[2])
+                # Skip display if complete.
+                really_incomplete = True
+                for tkey, tname in selected_cats:
+                    for col in range(self.counts_per_cat):
+                        if count[tkey][col] > 0:
+                            really_incomplete = False
+                            break
+                if really_incomplete:
+                    continue
+            data = [[count[tkey][y] for tkey, tname in selected_cats]
+                    for y in range(self.counts_per_cat)]
+
+            # Derived data: messages/words completition ratios.
+            for col, ins in ((0, 1), (1, 3)):
+                compr = []
+                for tkey, tname in selected_cats:
+                    if tkey not in ("tot", "obs") and count["tot"][col] > 0:
+                        r = float(count[tkey][col]) / count["tot"][col]
+                        compr.append(r * 100)
+                    else:
+                        compr.append(None)
+                data.insert(ins, compr)
+
+            if self.detailed:
+                # Derived data: word and character ratios.
+                for o, t, ins in ((1, 2, 7), (3, 4, 8)):
+                    ratio = []
+                    for tkey, tname in selected_cats:
+                        if count[tkey][o] > 0 and count[tkey][t] > 0:
+                            r = float(count[tkey][t]) / count[tkey][o]
+                            ratio.append((r - 1) * 100)
+                        else:
+                            ratio.append(None)
+                    data.insert(ins, ratio)
+
+            if self.detailed:
+                # Derived data: character/word ratio, word/message ratio.
+                for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
+                    chpw = []
+                    for tkey, tname in selected_cats:
+                        if count[tkey][w] > 0 and count[tkey][c] > 0:
+                            r = float(count[tkey][c]) / count[tkey][w]
+                            chpw.append(r)
+                        else:
+                            chpw.append(None)
+                    data.insert(ins, chpw)
+
+            # Row, column names and formats.
+            rown = [tname for tkey, tname in selected_cats]
+            coln = ["msg", "msg/tot",
+                    "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
+            dfmt = ["%d", "%.1f%%",
+                    "%d", "%.1f%%", "%d", "%d", "%d"]
+            if self.detailed:
+                coln.extend(["w-dto", "ch-dto",
+                             "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
+                dfmt.extend(["%+.1f%%", "%+.1f%%",
+                             "%.1f", "%.1f", "%.1f", "%.1f"])
+
+            # Outout table title if defined.
+            if title is not None:
+                if can_color:
+                    print C.BOLD + title + C.RESET
                 else:
-                    compr.append(None)
-            data.insert(ins, compr)
+                    print title
 
-        if self.detailed:
-            # Derived data: word and character ratios.
-            for o, t, ins in ((1, 2, 7), (3, 4, 8)):
-                ratio = []
-                for tkey, tname in self.count_spec:
-                    if self.count[tkey][o] > 0 and self.count[tkey][t] > 0:
-                        r = float(self.count[tkey][t]) / self.count[tkey][o]
-                        ratio.append((r - 1) * 100)
-                    else:
-                        ratio.append(None)
-                data.insert(ins, ratio)
-
-        if self.detailed:
-            # Derived data: character/word ratio, word/message ratio.
-            for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
-                chpw = []
-                for tkey, tname in self.count_spec:
-                    if self.count[tkey][w] > 0 and self.count[tkey][c] > 0:
-                        r = float(self.count[tkey][c]) / self.count[tkey][w]
-                        chpw.append(r)
-                    else:
-                        chpw.append(None)
-                data.insert(ins, chpw)
-
-        # Row, column names and formats.
-        rown = [tname for tkey, tname in self.count_spec]
-        coln = ["msg", "msg/tot",
-                "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
-        dfmt = ["%d", "%.1f%%",
-                "%d", "%.1f%%", "%d", "%d", "%d"]
-        if self.detailed:
-            coln.extend(["w-dto", "ch-dto",
-                         "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
-            dfmt.extend(["%+.1f%%", "%+.1f%%",
-                         "%.1f", "%.1f", "%.1f", "%.1f"])
-
-        # See if the output will admit color sequences.
-        can_color = sys.stdout.isatty()
-
-        # Output the table.
-        print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                       space="   ", none=u"-", colorized=can_color)
+            # Output the table.
+            print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
+                        space="   ", none=u"-", colorized=can_color)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
-        if self.incomplete and len(self.incomplete_catalogs) > 0:
+        if self.incomplete and self.incomplete_catalogs:
             filenames = self.incomplete_catalogs.keys()
-            filenames.sort()
+            self._sort_equiv_filenames(filenames)
             data = []
             # Column of catalog filenames.
             data.append(filenames)
-            # Column of numbers fuzzy.
-            data.append([self.incomplete_catalogs[x][0] for x in filenames])
-            # Column of numbers untranslated.
-            data.append([self.incomplete_catalogs[x][1] for x in filenames])
-            # Column of the two added.
-            data.append([x + y for x, y in zip(*data[1:3])])
+            data.append([self.counts[x]["fuz"][0] for x in filenames])
+            data.append([self.counts[x]["unt"][0] for x in filenames])
+            data.append([x + y for x, y in zip(data[1], data[2])])
+            data.append([self.counts[x]["fuz"][1] for x in filenames])
+            data.append([self.counts[x]["unt"][1] for x in filenames])
+            data.append([x + y for x, y in zip(data[4], data[5])])
+            # Columns of the two added.
             # Column names and formats.
-            coln = ["incomplete-catalog", "fuzz", "untr", "fuzz+untr"]
+            coln = ["incomplete-catalog",
+                    "msg/f", "msg/u", "msg/f+u", "w/f", "w/u", "w/f+u"]
             maxfl = max([len(x) for x in filenames])
-            dfmt = ["%%-%ds" % maxfl, "%d", "%d"]
+            dfmt = ["%%-%ds" % maxfl, "%d", "%d", "%d", "%d", "%d", "%d"]
             # Output.
             print "-"
             print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
