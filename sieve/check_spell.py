@@ -10,6 +10,7 @@ Sieves messages with GNU aspell spell checker (http://aspell.net/)
 from pology.misc.colors import RED, RESET
 from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import spell_error, spell_xml_error
+from pology import rootdir
 from locale import getdefaultlocale, getpreferredencoding
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
@@ -44,7 +45,7 @@ class Sieve (object):
             options.accept("list")
             self.list=[]
  
-        personalDict=join(dirname(sys.argv[0]), "l10n", self.lang, "spell", "dict.aspell")
+        personalDict=join(rootdir(), "l10n", self.lang, "spell", "dict.aspell")
         if not isfile(personalDict):
             print "Personal KDE dictionnary is not available for your language"
             aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"))
@@ -65,7 +66,7 @@ class Sieve (object):
             sys.exit(1) 
 
         # Load ignoredContext
-        ignoredContextFile=join(dirname(sys.argv[0]), "l10n", self.lang, "spell", "ignoredContext")
+        ignoredContextFile=join(rootdir(), "l10n", self.lang, "spell", "ignoredContext")
         if isfile(ignoredContextFile):
             for line in open(ignoredContextFile, "r", "utf-8"):
                 line=line.strip()
