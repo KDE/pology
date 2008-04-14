@@ -7,7 +7,7 @@ use Pology scripts, and adding a path to scripts themselves doesn't hurt
 either:
 
   export PYTHONPATH=$KDESVN/trunk/l10n-kde4/scripts:$PYTHONPATH
-  export PATH=$KDESVN/trunk/l10n-kde4/scripts/pology:$PATH
+  export PATH=$KDESVN/trunk/l10n-kde4/scripts/pology/scripts:$PATH
 
 At the moment, there are three scripts.
 
