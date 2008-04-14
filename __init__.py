@@ -58,3 +58,13 @@ Later on, Pology can be updated to the latest repository version by running::
 
 @license: GPLv3
 """
+
+def rootdir():
+    """
+    Get root directory of Pology installation.
+
+    @return: absolute directory path
+    @rtype: string
+    """
+
+    return __path__[0]

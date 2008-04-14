@@ -17,6 +17,7 @@ from locale import getdefaultlocale
 
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
+from pology import rootdir
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
@@ -46,7 +47,7 @@ def loadRules(lang, stat):
     ruleFiles=[]           # List of rule files
     ruleDir=""             # Rules directory
     rules=[]               # List of rule objects
-    l10nDir=join(dirname(sys.argv[0]), "l10n") # Base of all language specific things
+    l10nDir=join(rootdir(), "l10n") # Base of all language specific things
 
     # Detect language
     #TODO: use PO language header once it has been implemented 
