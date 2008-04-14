@@ -29,10 +29,6 @@ particular needs, by their collection of features and levels of complexity.
 
 I{"Pology -- the study of POs."}
 
-@note: In the list of submodules, top-level modules without any submodules
-are typically scripts for end-use. Their module documentation describes the
-usage and features.
-
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
