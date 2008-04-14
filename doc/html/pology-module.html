@@ -51,8 +51,8 @@
 <h1 class="epydoc">Package pology</h1><p class="nomargin-top"></p>
 <p>Pology is a framework for custom processing of PO files in field 
   environments, and a collection of tools based on its foundation, 
-  including many smaller scripts and &quot;subscripts&quot; which can be 
-  used to perform various precision tasks.</p>
+  including many smaller scripts and subscripts which can be used to 
+  perform various precision tasks.</p>
   <p>Core Pology objects -- abstractions of PO catalog and its entries -- 
   are designed to allow quick writing of robust scripts. By default, the 
   correctness of processed objects is strictly enforced, but such that the 
@@ -74,6 +74,27 @@
   particular needs, by their collection of features and levels of 
   complexity.</p>
   <p><i>&quot;Pology -- the study of POs.&quot;</i></p>
+  <h1 class="heading">Setup</h1>
+    <p>Although already useful for many day-to-day needs, Pology is 
+    currently in experimental stage of development, and therefore lacks 
+    packaging or any release versioning. But this does not make it 
+    difficult to set up.</p>
+    <p>Pology can be checked out from KDE's Subversion repository:</p>
+<pre class="literalblock">
+   $ cd &lt;parent_dir&gt;
+   $ svn co svn://anonsvn.kde.org/home/kde/trunk/l10n-kde4/scripts/pology
+</pre>
+    <p>and set up for use by exporting two environment variables:</p>
+<pre class="literalblock">
+   $ export PYTHONPATH=&lt;parent_dir&gt;:$PYTHONPATH
+   $ export PATH=&lt;parent_dir&gt;/pology/scripts:$PATH
+</pre>
+    <p>Later on, Pology can be updated to the latest repository version by 
+    running:</p>
+<pre class="literalblock">
+   $ cd &lt;parent_dir&gt;/pology
+   $ svn up
+</pre>
 
 <hr />
 <div class="fields">      <dl><dt>Authors:</dt>
