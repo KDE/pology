@@ -237,7 +237,7 @@ class Rule(object):
                 for accentMatch in self.accentPattern.finditer(pattern):
                     letter=accentMatch.group(1)
                     pattern=pattern.replace("@%s" % letter, self.accents[letter])
-            self.pattern=re.compile(convert_entities(pattern))
+            self.pattern=re.compile(convert_entities(pattern), re.U)
         except Exception:
             print "Invalid pattern '%s', cannot compile" % pattern
         
@@ -256,7 +256,7 @@ class Rule(object):
                     value=convert_entities(value)
                     if key in ("before", "after", "ctx"):
                         # Compile regexp
-                        value=re.compile(value)
+                        value=re.compile(value, re.U)
                     entry[key]=value
                 self.valid.append(entry)
             except Exception:
