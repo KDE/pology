@@ -219,9 +219,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sopts[sopt] = value
 
     # Load sieve modules from supplied names in the command line.
-    execdir = os.path.dirname(sys.argv[0])
     sieves_requested = free_args[0].split(",")
     sieves = []
+    import pology # for the path only
+    pology_path = os.path.dirname(pology.__file__)
     for sieve_name in sieves_requested:
         # Resolve sieve file.
         if not sieve_name.endswith(".py"):
@@ -233,7 +234,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             else:
                 sieve_path_base = os.path.join("sieve", sieve_name)
             sieve_path_base = sieve_path_base.replace("-", "_") + ".py"
-            sieve_path = os.path.join(execdir, sieve_path_base)
+            sieve_path = os.path.join(pology_path, sieve_path_base)
         else:
             # Sieve name is its path.
             sieve_path = sieve_name
