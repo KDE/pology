@@ -211,6 +211,8 @@ def rule_error(msg, cat, rule, pluralId=0):
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
     @param pluralId: msgstr count in case of plural form. Default to 0"""
+    C = _colors_for_file(sys.stdout)
+
     msgstr=msg.msgstr[pluralId]
     msgtext=msg.to_string()
     msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
@@ -257,6 +259,7 @@ def spell_error(msg, cat, faultyWord, suggestions):
     @param cat: pology.file.catalog.Catalog object
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest"""
+    C = _colors_for_file(sys.stdout)
     print "-"*(len(msg.msgstr)+8)
     print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
     #TODO: color in red part of context that make the mistake
@@ -285,13 +288,11 @@ def spell_xml_error(msg, cat, faultyWord, suggestions):
 # Format string for message reference, based on the file descriptor.
 def _msg_ref_fmtstr (file=sys.stdout):
 
-    if file.isatty():
-        fmt = ""
-        fmt += C.BOLD + "%s" + C.RESET + ":" # file name
-        fmt += C.PURPLE + "%d" + C.RESET # line number
-        fmt += "(" + C.PURPLE + "%d" + C.RESET + ")" # entry number
-    else:
-        fmt = "%s:%d(%d)"
+    C = _colors_for_file(file)
+    fmt = ""
+    fmt += C.BLUE + "%s" + C.RESET + ":" # file name
+    fmt += C.PURPLE + "%d" + C.RESET # line number
+    fmt += "(" + C.PURPLE + "%d" + C.RESET + ")" # entry number
 
     return fmt
 
@@ -311,3 +312,15 @@ def _nonws_after_colreset (text):
     else:
         return 0
 
+# Return appropriate color sequences for file descriptor.
+class _NoopColors (object):
+    def __init__ (self):
+        for color in dir(C):
+            if not color.startswith("_"):
+                self.__dict__[color] = ""
+_noopColors = _NoopColors()
+def _colors_for_file (file):
+    if file.isatty():
+        return C
+    else:
+        return _noopColors
