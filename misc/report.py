@@ -220,7 +220,7 @@ def rule_error(msg, cat, rule, pluralId=0):
     for word in ("msgid", "msgctxt"):
         msgtext=msgtext.replace(word, C.BOLD+word+C.RESET)
 
-    print "-"*(len(msgstr)+8)
+    print "-"*40
     #TODO: use _msg_ref_fmstr function
     print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
     try:
@@ -260,7 +260,7 @@ def spell_error(msg, cat, faultyWord, suggestions):
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest"""
     C = _colors_for_file(sys.stdout)
-    print "-"*(len(msg.msgstr)+8)
+    print "-"*40
     print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
     #TODO: color in red part of context that make the mistake
     print C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET
