@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.scripts.posieve</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.scripts-module.html">Package&nbsp;scripts</a> ::
+        Module&nbsp;posieve
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module posieve</h1><p class="nomargin-top"></p>
+<p>Sieve messages in collections of PO files.</p>
+  <p>Frequently there is a need to visit every message, either in a single 
+  catalog or collection of catalogs, and perform some operations on each. 
+  The operations may be checks, modifications, data collection, etc. This 
+  script is intended to ease this process, both from users' point of view 
+  and that of preparing new custom operations.</p>
+  <p>The bundle of operations to be performed on a message is called a 
+  &quot;sieve&quot;. <code>posieve</code> does conceptually a simple thing:
+  it runs each message in each catalog given to it, through sieves that the
+  user has specified.</p>
+  <p>Pology comes with many internal sieves, but users can write their own 
+  too. For example, here is how one could run the internal <a 
+  href="pology.sieve.stats-module.html" class="link"><code>stats</code></a>
+  sieve, to collect statistics on all PO files in <code>frobaz</code> 
+  directory:</p>
+<pre class="literalblock">
+   $ posieve.py stats frobaz/
+   ... (after some time, a table with stats appears) ...
+</pre>
+  <p>Assuming that <code>frobaz</code> contains a lot of PO files, user 
+  would wait some time until all the messages are pushed through the sieve,
+  and then <code>stats</code> would present its findings in a table.</p>
+  <p>After the sieve name, any number of directory or file paths can be 
+  specified. <code>posieve</code> will consider file paths as catalog files
+  to open, and search recursively through directory paths for all files 
+  ending with <code>.po</code> or <code>.pot</code>.</p>
+  <p>Sieves need not only collect data (such as the <code>stats</code> 
+  above) or do checks, but may also modify messages. Whenever a message is 
+  modified, the catalog with changes will be saved over old catalog, and 
+  the user will be informed by an exclamation mark followed by the catalog 
+  path. An example of such internal sieve is <a 
+  href="pology.sieve.tag_incomplete-module.html" 
+  class="link">tag-incomplete</a>, which will add <code>incomplete</code> 
+  flag to each fuzzy or untranslated message:</p>
+<pre class="literalblock">
+   $ posieve.py tag-incomplete frobaz/
+   ! frobaz/alfa.po
+   ! frobaz/bravo.po
+   ! frobaz/charlie.po
+   Total incomplete tagged: 42
+</pre>
+  <p><code>posieve</code> itself monitors and informs about changed 
+  catalogs, whereas the final line in the example above has been output by 
+  the <code>tag-incomplete</code> sieve. Sieves will frequently issue such 
+  final reports.</p>
+  <p>More than one sieve can be applied to the catalog collection in one 
+  pass. This is called the &quot;sieve chain&quot;, and is specified as 
+  comma-separated list of sieve names instead of a lone sieve name. Each 
+  message is passed through the sieves in the given order, in a pipeline 
+  fashion -- the output from the previous sieve is input to the next -- 
+  before moving to the next message. This order is important to bear in 
+  mind when two sieves in the chain can both modify a message. For 
+  example:</p>
+<pre class="literalblock">
+   $ posieve.py stats,tag-incomplete frobaz/
+   ! frobaz/alfa.po
+   ! frobaz/bravo.po
+   ! frobaz/charlie.po
+   ... (table with stats) ...
+   Total incomplete tagged: 42
+</pre>
+  <p>If the order were <code>tag-incomplete,stats</code> in this case the 
+  effect on the catalogs would be the same, but number of tagged messages 
+  would be the first in output, followed by the table with statistics.</p>
+  <p><code>posieve</code> takes a few options, which you can list with the 
+  usual <code>--help</code> option. However, more interesting is that 
+  sieves themselves can be sent some options. These sieve options are sent 
+  to sieve by the <code>-s</code> option, which takes as argument a 
+  <code>key:value</code> pair. As many of these as needed can be given. For
+  example, <code>stats</code> sieve could be instructed to take into 
+  account only messages with at most 5 words, like this:</p>
+<pre class="literalblock">
+   $ posieve.py stats -s maxwords:5 frobaz/
+</pre>
+  <p>Sieve options can also be switches, when only the key is given. 
+  <code>stats</code> can be instructed to show statistics in greater detail
+  like this:</p>
+<pre class="literalblock">
+   $ posieve.py stats -s detail frobaz/
+</pre>
+  <p>In case a sieve chain is specified, sieve options are routed to sieves
+  as they will accept them. If two sieves in the chain have a same-named 
+  option, when given on the command line it will be sent to both.</p>
+  <p>Pology also collects language-specific internal sieves. These are run 
+  by prefixing sieve name with the language code and a colon. For example, 
+  there is a sieve for the French language that replaces ordinary with 
+  non-breaking spaces in some interpunction scenarios, the <a 
+  href="pology.l10n.fr.sieve.setUbsp-module.html" class="link">setUbsp</a>,
+  which is invoked like this:</p>
+<pre class="literalblock">
+   $ posieve.py fr:setUbsp frobaz-fr/
+</pre>
+  <p>In case the user has written a custom sieve, it can be run by simply 
+  stating its path as sieve name. For <code>posieve</code> to acknowledge 
+  it as external sieve, the file name has to end in <code>.py</code>. 
+  Custom sieves can be chained as any other. For example:</p>
+<pre class="literalblock">
+   $ posieve.py ../custom/my_count.py frobaz/
+   $ posieve.py stats,../custom/my_count.py frobaz/
+</pre>
+  <p>The list of all internal sieves is given within the <a 
+  href="pology.sieve-module.html" class="link">sieve</a> module, as well as
+  instructions on how to write custom sieves. The list of internal 
+  language-specific sieves can be found within 
+  <code>l10n.&lt;lang&gt;.sieve</code> module of the languages that have 
+  them.</p>
+  <p>If an internal sieve contains underscores in its name, they can be 
+  replaced with dashes in the <code>posieve</code> command line. The dashes
+  will be converted back to underscores before trying to resolve the 
+  location of the internal sieve.</p>
+
+<hr />
+<div class="fields">      <p><strong>Warning:</strong>
+        This module is a script for end-use. No exposed functionality 
+        should be considered public API, it is subject to change without 
+        notice.
+      </p>
+      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="main"></a><span class="summary-sig-name">main</span>()</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
