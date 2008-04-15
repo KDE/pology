@@ -12,6 +12,8 @@ in different contexts and scenario. May colorize some output.
 
 import os, re, sys, locale
 import pology.misc.colors as C
+from copy import deepcopy
+
 
 def report (text, showcmd=False, subsrc=None, file=sys.stdout):
     """
@@ -205,6 +207,7 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     text=text.encode(local_encoding, "replace")
     file.write(text)
 
+
 def rule_error(msg, cat, rule, pluralId=0):
     """Print formated rule error message on screen
     @param msg: pology.file.message.Message object
@@ -213,24 +216,30 @@ def rule_error(msg, cat, rule, pluralId=0):
     @param pluralId: msgstr count in case of plural form. Default to 0"""
     C = _colors_for_file(sys.stdout)
 
-    msgstr=msg.msgstr[pluralId]
-    msgtext=msg.to_string()
-    msgtext=msgtext[0:msgtext.find('msgstr "')].rstrip()
-    msgtext=msgtext[0:msgtext.find('msgstr[')].rstrip()
-    for word in ("msgid", "msgctxt"):
-        msgtext=msgtext.replace(word, C.BOLD+word+C.RESET)
+    msg = deepcopy(msg)
 
-    print "-"*40
-    #TODO: use _msg_ref_fmstr function
-    print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
-    try:
-        print msgtext
-        print C.BOLD+'msgstr'+C.RESET+' "%s"' % (msgstr[0:rule.span[0]]+C.BOLD+C.RED+
-                              msgstr[rule.span[0]:rule.span[1]]+C.RESET+
-                              msgstr[rule.span[1]:])
-        print "("+rule.rawPattern+")"+C.BOLD+C.RED+"==>"+C.RESET+C.BOLD+rule.hint+C.RESET
-    except UnicodeEncodeError, e:
-        print C.RED+("UnicodeEncodeError, cannot print message (%s)" % e)+C.RESET
+    if rule.onmsgid:
+        text = msg.msgid
+    else:
+        text = msg.msgstr[pluralId]
+
+    textc = (  text[0:rule.span[0]]
+             + C.BOLD + C.RED + text[rule.span[0]:rule.span[1]] + C.RESET
+             + text[rule.span[1]:])
+
+    if rule.onmsgid:
+        msg.msgid = textc
+    else:
+        msg.msgstr[pluralId] = textc
+
+    # Some info on the rule.
+    rinfo = (  "(" + rule.rawPattern + ")"
+             + C.BOLD + C.RED + " ==> " + C.RESET
+             + C.BOLD + rule.hint + C.RESET)
+
+    # Must force reformat, as we don't know if the message is monitored.
+    report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40), force=True)
+
 
 def rule_xml_error(msg, cat, rule, pluralId=0):
     """Create and returns rule error message in XML format

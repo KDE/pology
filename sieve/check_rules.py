@@ -81,6 +81,8 @@ class Sieve (object):
                 print "Cannot create cache directory (%s):\n%s" % (CACHEDIR, e)
                 sys.exit(1)
  
+        print "-"*40
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages

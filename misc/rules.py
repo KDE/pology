@@ -28,7 +28,6 @@ def printStat(rules, nmatch):
     @param nmatch: total number of matched items
     """
     if nmatch:
-        print "----------------------------------------------------"
         print "Total matching: %d" % nmatch
     stat=list(((r.rawPattern, r.count, r.time/r.count, r.time) for r in rules if r.count!=0 and r.stat is True))
     if stat:
@@ -97,7 +96,8 @@ def loadRulesFromFile(filePath, accents, stat):
     inRule=False #Flag that indicate we are currently parsing a rule bloc
     inGroup=False #Flag that indicate we are currently parsing a validGroup bloc
     
-    patternPattern=re.compile("\[(.*)\]")
+    patternPattern=re.compile("\[(.*)\](i?)")
+    patternPatternMsgid=re.compile("\{(.*)\}(i?)")
     validPattern=re.compile("valid (.*)")
     #validPatternContent=re.compile('(.*?)="(.*?)"')
     validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
@@ -107,6 +107,8 @@ def loadRulesFromFile(filePath, accents, stat):
     pattern=u""
     valid=[]
     hint=u""
+    onmsgid=False
+    casesens=True
     validGroup={}
     validGroupName=u""
     i=0
@@ -124,9 +126,11 @@ def loadRulesFromFile(filePath, accents, stat):
             if line.strip()=="":
                 if inRule:
                     inRule=False
-                    rules.append(Rule(pattern, hint, valid, accents, stat))
+                    rules.append(Rule(pattern, hint, valid, accents, stat, casesens, onmsgid))
                     pattern=u""
                     hint=u""
+                    onmsgid=False
+                    casesens=True
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
@@ -135,10 +139,12 @@ def loadRulesFromFile(filePath, accents, stat):
                 continue
             
             # Begin of rule (pattern)
-            result=patternPattern.match(line)
+            result=(patternPattern.match(line) or patternPatternMsgid.match(line))
             if result and not inRule:
                 inRule=True
                 pattern=result.group(1)
+                onmsgid=result.group(0).startswith("{")
+                casesens=("i" not in result.group(2))
                 continue
             
             # valid line (for rule ou validGroup)
@@ -193,16 +199,20 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
     
-    def __init__(self, pattern, hint, valid=[], accents=None, stat=False):
+    def __init__(self, pattern, hint, valid=[], accents=None, stat=False, casesens=True, onmsgid=False):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
         @param hint: hint given to user when rule match
         @type hint: unicode
-        @param valid: list of valid case that should not make rule matching
+        @param valid: list of cases that should make or not make rule matching
         @param accents: specific language accents dictionary to use.
-        @type valid: list of unicode key=value """
-        
+        @type valid: list of unicode key=value
+        @param casesens: whether regex matching will be case-sensitive
+        @type casesens: bool
+        @param onmsgid: whether the rule is for msgid (msgstr otherwise)
+        @type onmsgid: bool """
+
         # Define instance variable
         self.pattern=None # Compiled regexp into re.pattern object
         self.valid=None   # Parsed valid definition
@@ -212,13 +222,21 @@ class Rule(object):
         self.time=0       # Total time of rule process calls
         self.span=(0, 0)  # start, end offset where rule match
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
+        self.casesens=casesens # Whether regex matches are case-sensitive
+        self.onmsgid=onmsgid # Whether to match rule on msgid
 
         # Get accentMatch from accent dictionary
-        if self.accents and self.accents.has_key("pattern"):
-            self.accentPattern=self.accents["pattern"]
-        else:
-            print "Accent dictionary does not have pattern. Disabled it"
-            self.accents=None
+        if self.accents:
+            if self.accents.has_key("pattern"):
+                self.accentPattern=self.accents["pattern"]
+            else:
+                print "Accent dictionary does not have pattern. Disabled it"
+                self.accents=None
+
+        # Flags for regex compilation.
+        self.reflags=re.U
+        if not self.casesens:
+            self.reflags|=re.I
 
         # Compile pattern
         self.rawPattern=pattern
@@ -237,7 +255,7 @@ class Rule(object):
                 for accentMatch in self.accentPattern.finditer(pattern):
                     letter=accentMatch.group(1)
                     pattern=pattern.replace("@%s" % letter, self.accents[letter])
-            self.pattern=re.compile(convert_entities(pattern), re.U)
+            self.pattern=re.compile(convert_entities(pattern), self.reflags)
         except Exception:
             print "Invalid pattern '%s', cannot compile" % pattern
         
@@ -250,13 +268,16 @@ class Rule(object):
                 entry={} # Empty valid entry
                 for (key, value) in item:
                     key=key.strip()
-                    if key not in ("file", "after", "before", "ctx", "msgid"):
+                    bkey = key
+                    if key.startswith("!"):
+                        bkey = key[1:]
+                    if bkey not in ("file", "after", "before", "ctx", "msgid", "msgstr"):
                         print "Invalid keyword '%s' in valid definition. Skipping" % key
                         continue
                     value=convert_entities(value)
-                    if key in ("before", "after", "ctx"):
+                    if bkey in ("after", "before", "ctx", "msgid", "msgstr"):
                         # Compile regexp
-                        value=re.compile(value, re.U)
+                        value=re.compile(value, self.reflags)
                     entry[key]=value
                 self.valid.append(entry)
             except Exception:
@@ -273,54 +294,90 @@ class Rule(object):
         
         if self.stat: begin=time()
 
+        if not self.onmsgid:
+            text = msgstr
+        else:
+            text = msgid
+
         cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
 
-        patternMatches=self.pattern.finditer(msgstr)
+        patternMatches=self.pattern.finditer(text)
 
         for patternMatch in patternMatches:
-            cancel=False
             self.span=patternMatch.span()
 
             # Rule pattern match. Now see if a valid exception exists
+            # First validity entry that matches invokes exception.
+            cancel=False
             for entry in self.valid:
-                before=False
-                after=False
-                if entry.has_key("file"):
-                    if entry["file"]==filename:
-                        if not entry.has_key("after") and not entry.has_key("before") and not entry.has_key("ctx"):
-                            # This rule should not be processed for this file
-                            cancel=True
-                            break
-                    else:
-                        continue # This valid entry does not apply to this file    
-                if entry.has_key("ctx"):
-                    if entry["ctx"].match(msgctxt):
-                        if not entry.has_key("after") and not entry.has_key("before") and not entry.has_key("file"):
-                            # This rule should not be processed for this context
-                            cancel=True
-                            break
-                    else:
-                        continue # This valid entry does not apply to this context
-                #process valid here
-                if entry.has_key("before"):
-                    beforeMatches=re.finditer(entry["before"], msgstr)
-                    for beforeMatch in beforeMatches:
-                        if beforeMatch.start()==patternMatch.end():
-                            before=True
-                            break
-                if entry.has_key("after"):
-                    afterMatches=re.finditer(entry["after"], msgstr)
-                    for afterMatch in afterMatches:
-                        if afterMatch.end()==patternMatch.start():
-                            after=True
-                            break
-                if (entry.has_key("before") and entry.has_key("after") and before and after) \
-                 or(entry.has_key("before") and not entry.has_key("after") and before) \
-                 or(not entry.has_key("before") and entry.has_key("after") and after):
-                    # We are in a valid context. Cancel rule triggering
-                    cancel=True
-                    break
-        
+
+                # All keys within a validity entry must match for the
+                # entry to match as whole.
+                cancel = True
+                for key, value in entry.iteritems():
+                    bkey = key
+                    invert = False
+                    if key.startswith("!"):
+                        bkey = key[1:]
+                        invert = True
+
+                    if bkey == "file":
+                        match = value == filename
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "after":
+                        # Search up to the match to avoid need for lookaheads.
+                        afterMatches = value.finditer(text, 0, patternMatch.start())
+                        found = False
+                        for afterMatch in afterMatches:
+                            if afterMatch.end() == patternMatch.start():
+                                found = True
+                                break
+                        if invert: found = not found
+                        if not found:
+                            cancel = False
+                            break 
+
+                    elif bkey == "before":
+                        # Search from the match to avoid need for lookbehinds.
+                        beforeMatches = value.finditer(text, patternMatch.end())
+                        found = False
+                        for beforeMatch in beforeMatches:
+                            if beforeMatch.start() == patternMatch.end():
+                                found = True
+                                break
+                        if invert: found = not found
+                        if not found:
+                            cancel = False
+                            break 
+
+                    elif bkey == "ctx":
+                        match = value.search(msgctxt)
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "msgid":
+                        match = value.search(msgid)
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "msgstr":
+                        match = value.search(msgstr)
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                if cancel:
+                    break 
+
         if cancel is None:
             # Rule does not match anything
             # Return and do not update stats
