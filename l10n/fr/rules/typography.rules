@@ -26,7 +26,7 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 valid after="&unbsp;" before="\t"
-valid after="https?://\S+(?=:)"
+valid after="https?://\S+"
 valid after="file|gg|mailto|man|whatsthis"
 valid after="about|camera|exec|ftps?|fonts|help|https?|lan|lpr|news|parallel|smb|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
@@ -43,7 +43,7 @@ valid after="font-size|font-style|font-weight|text-align"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
-valid after="\"\S+(?=:)" before="%?\d+\"" # CSS
+valid after="\"\S+" before="%?\d+\"" # CSS
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check"
@@ -95,10 +95,10 @@ valid after="center|pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley 
-valid file="kspread.po" after="^\S+\(\S+(?=;)"
-valid file="kspread.po" after="(?<=;)\S+(?=;)"
-valid file="kspread.po" before="(?<=;)\S+(?=;)"
-valid file="kspread.po" before="(?<=;)\S+\)"
+valid file="kspread.po" after="^\S+\(\S+"
+valid file="kspread.po" after=";\S+"
+valid file="kspread.po" before="\S+;"
+valid file="kspread.po" before="\S+\)"
 valid file="konsole.po" before="\\"
 valid file="katepart4.po" after="plain|txt"
 valid ctx="Numbers and characters"
@@ -141,7 +141,7 @@ validGroup alone
 valid ctx=".*one character"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
-valid after="https?://\S+(?=\?)"
+valid after="https?://\S+"
 valid after="\?" 
 valid file="kfindpart.po" after="l" before="t"
 valid file="kio4.po" after="extension" before="requête" 
@@ -159,7 +159,7 @@ valid after="[^&sp;(]" before="&sp;"
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
 valid after="[0-9]" before="[0-9]"
-valid after="https?://\S+(?=,)" 
+valid after="https?://\S+" 
 valid after="^" before="&sp;"
 valid ctx="\w+ OF TRANSLATORS"  
 valid ctx="desktop_po" after="^Keywords=.*" 
