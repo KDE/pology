@@ -34,6 +34,9 @@ hint="Utilisez cette expression au pluriel « entrées / sorties »"
 valid after="kcm"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
+[^[Ii]ci]
+hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournure de la forme : « Vous pouvez ici... » "
+
 [[Mm]anettes?]
 hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
 
