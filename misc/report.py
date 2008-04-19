@@ -277,17 +277,21 @@ def spell_error(msg, cat, faultyWord, suggestions):
         print C.BOLD+"Suggestion(s): "+C.RESET+", ".join(suggestions) 
     print
     
-def spell_xml_error(msg, cat, faultyWord, suggestions):
+def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     """Create and returns spell error message in XML format
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest
+    @param pluralId: msgstr count in case of plural form. Default to 0
     @return: XML message as a list of unicode string"""
     xmlError=[]
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
+    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
+    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msg.msgstr[pluralId])
     xmlError.append("\t\t<faulty>%s</faulty>\n" % faultyWord)
     for suggestion in suggestions:
         xmlError.append("\t\t<suggestion>%s</suggestion>\n" % suggestion)

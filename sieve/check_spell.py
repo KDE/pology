@@ -93,6 +93,7 @@ class Sieve (object):
             return
 
         filename=basename(cat.filename)
+        id=0 # Count msgstr plural forms
   
         # New file handling
         if self.xmlFile and self.filename!=filename:
@@ -146,13 +147,13 @@ class Sieve (object):
                         else:
                             suggestions=self.aspell.suggest(encodedWord)
                             if self.xmlFile:
-                                xmlError=spell_xml_error(msg, cat, word, suggestions)
+                                xmlError=spell_xml_error(msg, cat, word, suggestions, id)
                                 self.xmlFile.writelines(xmlError)
                             else:
                                 spell_error(msg, cat, word, [i.encode(self.encoding) for i in suggestions])
                     except UnicodeEncodeError:
                         print "Cannot encode this word in your codec (%s)" % self.encoding
-
+            id+=1 # Increase msgstr id count
     def finalize (self):
         if self.list is not None:
             print "\n".join([i.decode(self.encoding) for i in self.list])
