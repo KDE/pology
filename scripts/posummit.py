@@ -5,6 +5,7 @@ import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
+from pology.misc.fsops import mkdirpath
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -502,37 +503,45 @@ def summit_gather (project, options):
             # catalog supplies messages to.
             summit_names = project.direct_map[branch_id][branch_name]
 
-            # If more than one summit catalog has been collected, all of them
-            # must already exist (otherwise, how would we split the contents
-            # of the branch catalog?)
-            if len(summit_names) > 1:
-                for summit_name in summit_names:
-                    if summit_name not in project.catalogs[SUMMIT_ID]:
-                        fstr = "'" + "', '".join(summit_names) + "'"
-                        error(  "catalog '%s' from the mapping '%s:%s'->(%s) "
-                                "does not exist in the summit"
-                              % (summit_name, branch_id, branch_name, fstr))
+            # Collect summit catalog paths;
+            # if any of the summit catalogs are missing,
+            # try to create them if allowed.
+            summit_paths = []
+            for summit_name in summit_names:
+                if summit_name in project.catalogs[SUMMIT_ID]:
+                    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+                else:
+                    # Default the subdir to that of the current branch,
+                    # but try to fetch another according to other branchs,
+                    # if the same-name catalog exists there.
+                    obranch_path = ""
+                    summit_subdir = branch_subdir
+                    for obranch_id in project.branch_ids:
+                        if summit_name in project.catalogs[obranch_id]:
+                            obranch_path, summit_subdir = \
+                                project.catalogs[obranch_id][summit_name][0]
+                            break
 
-            # Collect paths of selected summit catalogs.
-            if summit_names[0] in project.catalogs[SUMMIT_ID]:
-                # If the first exists, all exist (asserted above).
-                summit_paths = [project.catalogs[SUMMIT_ID][x][0][0]
-                                for x in summit_names]
-            else:
-                # Set up the creation of a new summit catalog.
-                summit_name = summit_names[0]
-                summit_subdir = branch_subdir
-                summit_path = os.path.join(project.summit.topdir,
-                                           summit_subdir,
-                                           summit_name + options.catext)
+                    summit_path = os.path.join(project.summit.topdir,
+                                               summit_subdir,
+                                               summit_name + options.catext)
 
-                if not options.do_create:
-                    error("missing summit catalog '%s' for branch "
-                          "catalog '%s'" % (summit_path, branch_path))
+                    if not options.do_create:
+                        error("missing summit catalog '%s' for branch "
+                              "catalog '%s'" % (summit_path, branch_path))
 
-                add_summit_catalog_implicit(summit_name, summit_path,
-                                            summit_subdir, branch_id, project)
-                summit_paths = [summit_path]
+                    add_summit_catalog_implicit(summit_name, summit_path,
+                                                summit_subdir, branch_id,
+                                                project)
+
+                summit_paths.append(summit_path)
+
+                # To propely gather on split-mappings, before gathering the
+                # current branch catalog for a newly created summit catalog,
+                # we must gather from the branch in which it exists.
+                if obranch_path and obranch_id != branch_id:
+                    summit_gather_merge(obranch_id, obranch_path, [summit_path],
+                                        project, options, primary_sourced)
 
             # Merge this branch catalog into summit catalogs.
             summit_gather_merge(branch_id, branch_path, summit_paths,
@@ -589,7 +598,9 @@ def summit_scatter (project, options):
 
 def summit_purge (project, options):
 
-    if project.templates_lang and options.lang != project.templates_lang:
+    if (    project.templates_lang and options.lang != project.templates_lang
+        and not options.force
+    ):
         error(  "template summit mode: purging possible only on '%s'"
               % project.templates_lang)
 
@@ -605,7 +616,9 @@ def summit_purge (project, options):
 
 def summit_reorder (project, options):
 
-    if project.templates_lang and options.lang != project.templates_lang:
+    if (    project.templates_lang and options.lang != project.templates_lang
+        and not options.force
+    ):
         error(  "template summit mode: reordering possible only on '%s'"
               % project.templates_lang)
 
@@ -855,10 +868,11 @@ def select_summit_names (project, options):
 def add_summit_catalog_implicit (name, path, subdir, branch_id, project):
 
     project.catalogs[SUMMIT_ID][name] = [(path, subdir)]
-    project.part_inverse_map[branch_id][name] = [name]
-    if not name in project.full_inverse_map:
+    if name not in project.part_inverse_map[branch_id]:
+        project.part_inverse_map[branch_id][name] = [name]
+    if name not in project.full_inverse_map:
         project.full_inverse_map[name] = {}
-    project.full_inverse_map[name][branch_id] = [name]
+        project.full_inverse_map[name][branch_id] = [name]
 
 
 def summit_gather_merge (branch_id, branch_path, summit_paths,
@@ -1098,11 +1112,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
     if branch_path in project.add_on_scatter:
         new_from_template = True
         # Create any needed subdirectories beforehand.
-        incpath = ""
-        for subdir in os.path.normpath(branch_path).split(os.path.sep)[:-1]:
-            incpath = os.path.join(incpath, subdir)
-            if not os.path.isdir(incpath):
-                os.mkdir(incpath)
+        mkdirpath(os.path.dirname(branch_path))
         # Copy over the recorded template as the initial catalog.
         shutil.copyfile(project.add_on_scatter[branch_path], branch_path)
 

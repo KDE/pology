@@ -60,3 +60,20 @@ def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
 
     return catalog_files
 
+
+def mkdirpath (dirpath):
+    """
+    Make all the directories in the path which do not exist yet.
+
+    Like shell's C{mkdir -p}.
+
+    @param dirpath: the directory path to create
+    @type dirpath: string
+    """
+
+    incpath = ""
+    for subdir in os.path.normpath(dirpath).split(os.path.sep):
+        incpath = os.path.join(incpath, subdir)
+        if not os.path.isdir(incpath):
+            os.mkdir(incpath)
+
