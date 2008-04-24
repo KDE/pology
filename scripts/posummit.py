@@ -534,14 +534,16 @@ def summit_gather (project, options):
                                                 summit_subdir, branch_id,
                                                 project)
 
-                summit_paths.append(summit_path)
+                    # To propely gather on split-mappings, before
+                    # gathering the current branch catalog for a newly
+                    # created summit catalog, we must gather from the
+                    # branch in which it exists.
+                    if obranch_path and obranch_id != branch_id:
+                        summit_gather_merge(obranch_id, obranch_path,
+                                            [summit_path], project, options,
+                                            primary_sourced)
 
-                # To propely gather on split-mappings, before gathering the
-                # current branch catalog for a newly created summit catalog,
-                # we must gather from the branch in which it exists.
-                if obranch_path and obranch_id != branch_id:
-                    summit_gather_merge(obranch_id, obranch_path, [summit_path],
-                                        project, options, primary_sourced)
+                summit_paths.append(summit_path)
 
             # Merge this branch catalog into summit catalogs.
             summit_gather_merge(branch_id, branch_path, summit_paths,
