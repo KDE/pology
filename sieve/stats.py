@@ -16,6 +16,10 @@ Sieve options:
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{bydir}: display report by each leaf directory, followed by totals
   - C{byfile}: display report by each catalog, followed by totals
+  - C{msgbar}: show an ASCII bar giving overview of message counts
+  - C{wbar}: show an ASCII bar giving overview of word counts
+  - C{notab}: do not show the table (typically when bars are enabled)
+  - C{absolute}: make bars show absolute rather than relative info
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
@@ -119,6 +123,34 @@ Output Legend
     C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
     two summed.
 
+    When options C{msgbar} or C{wbar} are in effect, then bellow the table
+    an ASCII bar is displayed, giving visual relation between numbers of
+    translated, fuzzy, and untranslated messages or words::
+
+        $ posieve.py stats -swbar frobaz/
+        (...the stats table...)
+        4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
+
+    The output of the table can be prevented using the C{notab} option.
+    A typical condensed overview of translation state is obtained by::
+
+        $ posieve.py stats frobaz/ -sbyfile -smsgbar -snotab
+        --- frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
+        --- frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
+        --- frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
+        === (overall)          147/41/25 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤××××···|
+
+    though one may want to use C{-swbar} instead, as word counts are more
+    representative of amount of work needed to complete the translation.
+    The rounding for bars is such that while there is at least one fuzzy
+    or untranslated message or word, the bar will show one incomplete cell.
+
+    By default bars are presenting relative information, i.e. the percentages
+    of translated, fuzzy, and untranslated messages. This can be changed
+    into absolute display using the C{absolute} option, where single bar-cell
+    stands for a fixed number of messages or words, determined by taking
+    into account the stats across all bars in the run. However, the length of
+    an absolute bar will never be below three cells.
 
 Notes on Counting
 =================
@@ -227,6 +259,26 @@ class Sieve (object):
         if "byfile" in options:
             self.byfile = True
             options.accept("byfile")
+
+        # Forms of the statistics.
+        self.table = True
+        if "notab" in options:
+            self.table = False
+            options.accept("notab")
+        self.wbar = False
+        if "wbar" in options:
+            self.wbar = True
+            options.accept("wbar")
+        self.msgbar = False
+        if "msgbar" in options:
+            self.msgbar = True
+            options.accept("msgbar")
+
+        # Absolute or relative bars.
+        self.absolute = False
+        if "absolute" in options:
+            self.absolute = True
+            options.accept("absolute")
 
         # Filenames of catalogs which are not fully translated.
         self.incomplete_catalogs = {}
@@ -503,82 +555,39 @@ class Sieve (object):
         if self.minwords is not None and self.maxwords is not None:
             print ">>> words-in-range: %d-%d" % (self.minwords, self.maxwords)
 
+        # Should titles be output in-line or on separate lines.
+        self.inline = False
+        maxtitlecw = 0
+        if (not self.wbar or not self.msgbar) and (not self.table):
+            for title, count in counts:
+                if title is not None:
+                    self.inline = True
+                    titlecw = len(title)
+                    if maxtitlecw < titlecw:
+                        maxtitlecw = titlecw
+
+        # Output statistics in requested forms.
         for title, count in counts:
-
-            # Order counts in tabular form.
-            selected_cats = self.count_spec
-            if False and self.incomplete: # skip this for the moment
-                # Display only fuzzy and untranslated counts.
-                selected_cats = (self.count_spec[1], self.count_spec[2])
-                # Skip display if complete.
-                really_incomplete = True
-                for tkey, tname in selected_cats:
-                    for col in range(self.counts_per_cat):
-                        if count[tkey][col] > 0:
-                            really_incomplete = False
-                            break
-                if really_incomplete:
-                    continue
-            data = [[count[tkey][y] for tkey, tname in selected_cats]
-                    for y in range(self.counts_per_cat)]
-
-            # Derived data: messages/words completition ratios.
-            for col, ins in ((0, 1), (1, 3)):
-                compr = []
-                for tkey, tname in selected_cats:
-                    if tkey not in ("tot", "obs") and count["tot"][col] > 0:
-                        r = float(count[tkey][col]) / count["tot"][col]
-                        compr.append(r * 100)
-                    else:
-                        compr.append(None)
-                data.insert(ins, compr)
-
-            if self.detailed:
-                # Derived data: word and character ratios.
-                for o, t, ins in ((1, 2, 7), (3, 4, 8)):
-                    ratio = []
-                    for tkey, tname in selected_cats:
-                        if count[tkey][o] > 0 and count[tkey][t] > 0:
-                            r = float(count[tkey][t]) / count[tkey][o]
-                            ratio.append((r - 1) * 100)
-                        else:
-                            ratio.append(None)
-                    data.insert(ins, ratio)
-
-            if self.detailed:
-                # Derived data: character/word ratio, word/message ratio.
-                for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
-                    chpw = []
-                    for tkey, tname in selected_cats:
-                        if count[tkey][w] > 0 and count[tkey][c] > 0:
-                            r = float(count[tkey][c]) / count[tkey][w]
-                            chpw.append(r)
-                        else:
-                            chpw.append(None)
-                    data.insert(ins, chpw)
-
-            # Row, column names and formats.
-            rown = [tname for tkey, tname in selected_cats]
-            coln = ["msg", "msg/tot",
-                    "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
-            dfmt = ["%d", "%.1f%%",
-                    "%d", "%.1f%%", "%d", "%d", "%d"]
-            if self.detailed:
-                coln.extend(["w-dto", "ch-dto",
-                             "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
-                dfmt.extend(["%+.1f%%", "%+.1f%%",
-                             "%.1f", "%.1f", "%.1f", "%.1f"])
-
-            # Outout table title if defined.
+            # Output the title if defined.
             if title is not None:
+                if maxtitlecw:
+                    ntitle = (("%%-%ds" % maxtitlecw) % title)
+                else:
+                    ntitle = title
                 if can_color:
-                    print C.BOLD + title + C.RESET
+                    # Must color after padding, to avoid it seeing the colors.
+                    ntitle = C.BOLD + ntitle + C.RESET
+                if maxtitlecw:
+                    print ntitle,
                 else:
                     print title
 
-            # Output the table.
-            print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        space="   ", none=u"-", colorized=can_color)
+            if self.table:
+                self._tabular_stats(counts, title, count, can_color)
+            if self.msgbar:
+                self._msg_bar_stats(counts, title, count, can_color)
+            if self.wbar:
+                self._w_bar_stats(counts, title, count, can_color)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
@@ -604,4 +613,198 @@ class Sieve (object):
             print "-"
             print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
                            colorized=can_color)
+
+
+    def _tabular_stats (self, counts, title, count, can_color):
+
+        # Order counts in tabular form.
+        selected_cats = self.count_spec
+        if False and self.incomplete: # skip this for the moment
+            # Display only fuzzy and untranslated counts.
+            selected_cats = (self.count_spec[1], self.count_spec[2])
+            # Skip display if complete.
+            really_incomplete = True
+            for tkey, tname in selected_cats:
+                for col in range(self.counts_per_cat):
+                    if count[tkey][col] > 0:
+                        really_incomplete = False
+                        break
+            if really_incomplete:
+                return
+        data = [[count[tkey][y] for tkey, tname in selected_cats]
+                for y in range(self.counts_per_cat)]
+
+        # Derived data: messages/words completition ratios.
+        for col, ins in ((0, 1), (1, 3)):
+            compr = []
+            for tkey, tname in selected_cats:
+                if tkey not in ("tot", "obs") and count["tot"][col] > 0:
+                    r = float(count[tkey][col]) / count["tot"][col]
+                    compr.append(r * 100)
+                else:
+                    compr.append(None)
+            data.insert(ins, compr)
+
+        if self.detailed:
+            # Derived data: word and character ratios.
+            for o, t, ins in ((1, 2, 7), (3, 4, 8)):
+                ratio = []
+                for tkey, tname in selected_cats:
+                    if count[tkey][o] > 0 and count[tkey][t] > 0:
+                        r = float(count[tkey][t]) / count[tkey][o]
+                        ratio.append((r - 1) * 100)
+                    else:
+                        ratio.append(None)
+                data.insert(ins, ratio)
+
+        if self.detailed:
+            # Derived data: character/word ratio, word/message ratio.
+            for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
+                chpw = []
+                for tkey, tname in selected_cats:
+                    if count[tkey][w] > 0 and count[tkey][c] > 0:
+                        r = float(count[tkey][c]) / count[tkey][w]
+                        chpw.append(r)
+                    else:
+                        chpw.append(None)
+                data.insert(ins, chpw)
+
+        # Row, column names and formats.
+        rown = [tname for tkey, tname in selected_cats]
+        coln = ["msg", "msg/tot",
+                "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
+        dfmt = ["%d", "%.1f%%",
+                "%d", "%.1f%%", "%d", "%d", "%d"]
+        if self.detailed:
+            coln.extend(["w-dto", "ch-dto",
+                         "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
+            dfmt.extend(["%+.1f%%", "%+.1f%%",
+                         "%.1f", "%.1f", "%.1f", "%.1f"])
+
+        # Output the table.
+        print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
+                       space="   ", none=u"-", colorized=can_color)
+
+
+    def _msg_bar_stats (self, counts, title, count, can_color):
+
+        self._bar_stats(counts, title, count, can_color, "msgs", 0)
+
+
+    def _w_bar_stats (self, counts, title, count, can_color):
+
+        self._bar_stats(counts, title, count, can_color, "w-or", 1)
+
+
+    def _bar_stats (self, counts, title, count, can_color, dlabel, dcolumn):
+
+        # Count categories to display and chars/colors associated to them.
+        # Note: Use only characters from Latin1.
+        tspecs = (("trn", u"¤", C.GREEN),
+                  ("fuz", u"×", C.BLUE),
+                  ("unt", u"·", C.RED))
+
+        # Find out maximum counts overall.
+        maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
+        maxcounts_jumbled = maxcounts
+        for otitle, ocount in counts:
+            # Count both messages and words, for the number display later.
+            for tkey in maxcounts_jumbled:
+                for dcol in (0, 1):
+                    c = ocount[tkey][dcol]
+                    if maxcounts_jumbled[tkey] < c:
+                        maxcounts_jumbled[tkey] = c
+
+            # If absolute bars, compare counts only for same-level titles.
+            if self.absolute:
+                if title is None:
+                    if otitle is not None:
+                        continue
+                else:
+                    if otitle is None or not otitle.startswith(title[:1]):
+                        continue
+
+            for tkey in maxcounts:
+                c = ocount[tkey][dcolumn]
+                if maxcounts[tkey] < c:
+                    maxcounts[tkey] = c
+
+        # Character widths of maximum count categories.
+        maxcountscw = {}
+        for tkey, tval in maxcounts.iteritems():
+            maxcountscw[tkey] = len(str(tval))
+        maxcountscw_jumbled = {}
+        for tkey, tval in maxcounts_jumbled.iteritems():
+            maxcountscw_jumbled[tkey] = len(str(tval))
+
+        # Formatted counts by disjunct categories.
+        fmt_counts = []
+        for tkey, tchar, tcol in tspecs:
+            cstr = str(count[tkey][dcolumn])
+            if cstr == "0":
+                cstr = "-"
+            cfmt = ("%%%ds" % maxcountscw_jumbled[tkey]) % cstr
+            if can_color:
+                fmt_counts.append(tcol + cfmt + C.RESET)
+            else:
+                fmt_counts.append(cfmt)
+        fmt_counts = "/".join(fmt_counts)
+
+        # Maximum and nominal bar widths in characters.
+        # TODO: Make options.
+        if self.inline:
+            nombarcw = 20
+            maxbarcw = 50
+        else:
+            nombarcw = 40
+            maxbarcw = 80
+
+        def roundup (x):
+            ix = int(x)
+            if x - ix > 1e-16:
+                ix += 1
+            return ix
+
+        # Compute number of cells per category.
+        n_cells = {}
+        if self.absolute:
+            # Absolute bar.
+            n_per_cell = 0
+            for npc in (1, 2, 5,
+                        10, 20, 50,
+                        100, 200, 500,
+                        1000, 2000, 5000,
+                        10000, 20000, 50000):
+                if npc * maxbarcw > maxcounts["tot"]:
+                    n_per_cell = npc
+                    break
+            if not n_per_cell:
+                warning("too great count, cannot display bar graph")
+                return
+            for tkey in ("fuz", "unt", "tot"):
+                c = count[tkey][dcolumn]
+                n_cells[tkey] = roundup(float(c) / n_per_cell)
+            if n_cells["tot"] < 3:
+                n_cells["tot"] = 3
+            n_cells["trn"] = n_cells["tot"] - n_cells["fuz"] - n_cells["unt"]
+        else:
+            # Relative bar.
+            n_per_cell = float(nombarcw) / count["tot"][dcolumn]
+            for tkey in ("fuz", "unt"):
+                c = count[tkey][dcolumn]
+                n_cells[tkey] = roundup(c * n_per_cell)
+            n_cells["trn"] = nombarcw - n_cells["fuz"] - n_cells["unt"]
+
+        # Create the bar.
+        fmt_bar = []
+        for tkey, tchar, tcol in tspecs:
+            if can_color:
+                fmt_bar.append(tcol)
+            fmt_bar.append(tchar * n_cells[tkey])
+        if can_color:
+            fmt_bar.append(C.RESET)
+        fmt_bar = "".join(fmt_bar)
+
+        # Assemble final output.
+        print "%s %s |%s|" % (fmt_counts, dlabel, fmt_bar)
 
