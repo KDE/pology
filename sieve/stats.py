@@ -570,17 +570,17 @@ class Sieve (object):
         for title, count in counts:
             # Output the title if defined.
             if title is not None:
-                if maxtitlecw:
+                if self.inline:
                     ntitle = (("%%-%ds" % maxtitlecw) % title)
                 else:
                     ntitle = title
                 if can_color:
                     # Must color after padding, to avoid it seeing the colors.
                     ntitle = C.BOLD + ntitle + C.RESET
-                if maxtitlecw:
+                if self.inline:
                     print ntitle,
                 else:
-                    print title
+                    print ntitle
 
             if self.table:
                 self._tabular_stats(counts, title, count, can_color)
