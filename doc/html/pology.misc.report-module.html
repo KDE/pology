@@ -79,7 +79,7 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report" class="summary-sig-name">report</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Generic report.</td>
           <td align="right" valign="top">
             
@@ -99,7 +99,7 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#warning" class="summary-sig-name">warning</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Generic warning.</td>
           <td align="right" valign="top">
             
@@ -120,7 +120,7 @@
         <span class="summary-sig-arg">code</span>=<span class="summary-sig-default">1</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Generic error (aborts the execution).</td>
           <td align="right" valign="top">
             
@@ -141,7 +141,7 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Report on a PO message.</td>
           <td align="right" valign="top">
             
@@ -162,7 +162,7 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Warning on a PO message.</td>
           <td align="right" valign="top">
             
@@ -184,7 +184,7 @@
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">code</span>=<span class="summary-sig-default">1</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Error on a PO message (aborts the execution).</td>
           <td align="right" valign="top">
             
@@ -206,7 +206,7 @@
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>,
         <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>)</span><br />
       Report the content of a PO message.</td>
           <td align="right" valign="top">
@@ -287,7 +287,8 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#spell_xml_error" class="summary-sig-name">spell_xml_error</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">faultyWord</span>,
-        <span class="summary-sig-arg">suggestions</span>)</span><br />
+        <span class="summary-sig-arg">suggestions</span>,
+        <span class="summary-sig-arg">pluralId</span>=<span class="summary-sig-default">0</span>)</span><br />
       Create and returns spell error message in XML format</td>
           <td align="right" valign="top">
             
@@ -318,7 +319,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -347,7 +348,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">warning</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -377,7 +378,7 @@
         <span class="sig-arg">code</span>=<span class="sig-default">1</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -408,7 +409,7 @@
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -443,7 +444,7 @@
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -479,7 +480,7 @@
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">code</span>=<span class="sig-default">1</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -517,7 +518,7 @@
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>,
         <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -643,7 +644,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">spell_xml_error</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">faultyWord</span>,
-        <span class="sig-arg">suggestions</span>)</span>
+        <span class="sig-arg">suggestions</span>,
+        <span class="sig-arg">pluralId</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -658,6 +660,7 @@
         <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
         <li><strong class="pname"><code>faultyWord</code></strong> - badly spelled word</li>
         <li><strong class="pname"><code>suggestions</code></strong> - list of correct words to suggest</li>
+        <li><strong class="pname"><code>pluralId</code></strong> - msgstr count in case of plural form. Default to 0</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>XML message as a list of unicode string</dd>

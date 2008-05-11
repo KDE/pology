@@ -91,6 +91,21 @@
       <code>byfile</code>: display report by each catalog, followed by 
       totals
     </li>
+    <li>
+      <code>msgbar</code>: show an ASCII bar giving overview of message 
+      counts
+    </li>
+    <li>
+      <code>wbar</code>: show an ASCII bar giving overview of word counts
+    </li>
+    <li>
+      <code>notab</code>: do not show the table (typically when bars are 
+      enabled)
+    </li>
+    <li>
+      <code>absolute</code>: make bars show absolute rather than relative 
+      info
+    </li>
   </ul>
   <p>The accelerator characters should be removed from the messages before 
   counting, in order not to introduce word splits where there are none. The
@@ -224,6 +239,37 @@
     for messages and words; <code>*/f</code>, <code>*/u</code>, and 
     <code>*/f+u</code> stand for fuzzy, untranslated, and the two 
     summed.</p>
+    <p>When options <code>msgbar</code> or <code>wbar</code> are in effect,
+    then bellow the table an ASCII bar is displayed, giving visual relation
+    between numbers of translated, fuzzy, and untranslated messages or 
+    words:</p>
+<pre class="literalblock">
+   $ posieve.py stats -swbar frobaz/
+   (...the stats table...)
+   4572/1829/2533 w-or |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;|
+</pre>
+    <p>The output of the table can be prevented using the 
+    <code>notab</code> option. A typical condensed overview of translation 
+    state is obtained by:</p>
+<pre class="literalblock">
+   $ posieve.py stats frobaz/ -sbyfile -smsgbar -snotab
+   --- frobaz/foxtrot.po   34/ -/11 msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#183;&#183;&#183;&#183;&#183;|
+   --- frobaz/november.po  58/19/14 msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#183;&#183;&#183;&#183;|
+   --- frobaz/sierra.po    65/22/ - msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#215;|
+   === (overall)          147/41/25 msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#183;&#183;&#183;|
+</pre>
+    <p>though one may want to use <code>-swbar</code> instead, as word 
+    counts are more representative of amount of work needed to complete the
+    translation. The rounding for bars is such that while there is at least
+    one fuzzy or untranslated message or word, the bar will show one 
+    incomplete cell.</p>
+    <p>By default bars are presenting relative information, i.e. the 
+    percentages of translated, fuzzy, and untranslated messages. This can 
+    be changed into absolute display using the <code>absolute</code> 
+    option, where single bar-cell stands for a fixed number of messages or 
+    words, determined by taking into account the stats across all bars in 
+    the run. However, the length of an absolute bar will never be below 
+    three cells.</p>
   <h1 class="heading">Notes on Counting</h1>
     <p>The word and character counts for a given message field are obtained
     in the following way:</p>
