@@ -196,7 +196,7 @@ hint="Remplacer « et bien » par « eh bien »"
 hint="mettre un tiret à « sous-élément »"
 
 [chaque&sp;]
-valid before="[a-zàôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
+valid before="[a-z&àôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
 valid before="fois&rwb;|fois$"  
 valid before="accès" 
 valid before="processus" 
@@ -352,7 +352,7 @@ valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
 hint="remplacer « status » ou « statut » par « état »"
 
-[basé.+ sur]
+[basé.* sur]
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
 
 [support]
