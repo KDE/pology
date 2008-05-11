@@ -706,7 +706,7 @@ class Sieve (object):
 
         # Find out maximum counts overall.
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
-        maxcounts_jumbled = maxcounts
+        maxcounts_jumbled = maxcounts.copy()
         for otitle, ocount in counts:
             # Count both messages and words, for the number display later.
             for tkey in maxcounts_jumbled:
