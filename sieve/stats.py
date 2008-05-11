@@ -700,8 +700,8 @@ class Sieve (object):
 
         # Count categories to display and chars/colors associated to them.
         # Note: Use only characters from Latin1.
-        tspecs = (("trn", u"¤", C.GREEN),
-                  ("fuz", u"×", C.BLUE),
+        tspecs = (("trn", u"×", C.GREEN),
+                  ("fuz", u"¤", C.BLUE),
                   ("unt", u"·", C.RED))
 
         # Find out maximum counts overall.
