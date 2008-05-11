@@ -9,7 +9,9 @@ split up the work, find out what needs updating, etc.
 Sieve options:
   - C{accel:<character>}: accelerator marker in GUI messages
   - C{detail}: give more detailed statistics
-  - C{incomplete}: additionally list catalogs which are not 100% translated
+  - C{incomplete:<file>}: additionally list catalogs which are not 100%
+    translated; if C{<file>} is not empty, filenames of incomplete catalogs
+    will also be written out into a file, one per line.
   - C{templates:<spec>}: compare translation with templates (see below)
   - C{minwords:<number>}: count only messages with at least this many words
   - C{maxwords:<number>}: count only messages with at most this many words
@@ -178,6 +180,8 @@ Notes on Counting
 """
 
 import os, sys
+import codecs
+import locale
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import split_text
@@ -208,8 +212,10 @@ class Sieve (object):
 
         # Display compact list of catalogs with fuzzy/untranslated messages?
         self.incomplete = False
+        self.incmpfile = None
         if "incomplete" in options:
             self.incomplete = True
+            self.incmpfile = options["incomplete"]
             options.accept("incomplete")
 
         # Templates correspondence.
@@ -613,6 +619,12 @@ class Sieve (object):
             print "-"
             print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
                            colorized=can_color)
+            # Write catalog file names into the file if requested.
+            if self.incmpfile:
+                cmdlenc = locale.getdefaultlocale()[1]
+                ofl = codecs.open(self.incmpfile, "w", cmdlenc)
+                ofl.writelines([x + "\n" for x in filenames])
+                ofl.close()
 
 
     def _tabular_stats (self, counts, title, count, can_color):
