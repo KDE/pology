@@ -793,6 +793,13 @@ class Sieve (object):
             for tkey in ("fuz", "unt"):
                 c = count[tkey][dcolumn]
                 n_cells[tkey] = roundup(c * n_per_cell)
+            # When there are almost none translated, it may have happened that
+            # the sum of cells fuzzy+untranslated is over nominal; reduce.
+            while n_cells["fuz"] + n_cells["unt"] > nombarcw:
+                if n_cells["fuz"] >= n_cells["unt"]:
+                    n_cells["fuz"] -= 1
+                else:
+                    n_cells["unt"] -= 1
             n_cells["trn"] = nombarcw - n_cells["fuz"] - n_cells["unt"]
 
         # Create the bar.
