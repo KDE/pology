@@ -23,9 +23,9 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 # ----------------------------------------
-# Tags and attributes recognized by KDE4.
+# Informal Docbook specification.
 
-# Collect informal Docbook specification.
+# Collect tags and attributes from the companion file.
 specfile = os.path.join(rootdir(), "sieve", "check_xml_docbook4-spec.txt")
 ifl = open(specfile, "r")
 stripc_rx = re.compile(r"#.*")
