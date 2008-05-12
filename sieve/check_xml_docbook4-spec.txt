@@ -492,6 +492,8 @@ warning;
 wordasword;
 xref: endterm linkend xrefstyle;
 year;
+
+# Dummy tag for common attributes.
 pe-common-attrib:
   arch condition conformance dir lang remap revision revisionflag
   security userlevel vendor wordsize xreflabel
