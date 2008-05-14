@@ -45,7 +45,7 @@ Options C{minwords} and C{maxwords} tell the sieve to account only those
 messages satisfying these limits, in I{either} the original or translation,
 not necessarily both.
 
-For L{summited<posummit>} catalogs, C{branch} option is used to restrict
+For L{summited<scripts.posummit>} catalogs, C{branch} option is used to restrict
 the counting to the given branch only. Several branch IDs may be given as
 a comma-separated list.
 

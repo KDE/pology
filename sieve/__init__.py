@@ -6,9 +6,10 @@ Catalog sieves.
 
 These modules implement different "sieves" for PO catalogs: objects to which
 catalog entries are fed one by one, possibly with finalization phase at the end.
-The sieves are presently primarely used by the L{posieve} script, but may also
-export public methods for use in other clients. The following passages describe
-how sieves are written, but also how clients that use them should behave.
+The sieves are presently primarely used by the L{scripts.posieve} script,
+but may also export public methods for use in other clients. The following
+passages describe how sieves are written, but also how clients that use them
+should behave.
 
 
 The Sieve Layout
@@ -49,7 +50,7 @@ The Sieve Layout
         def process_header (self, hdr, cat):
             # ...
 
-    where C{hdr} is an instance of {Header}, and C{cat} the containing
+    where C{hdr} is an instance of L{Header}, and C{cat} the containing
     catalog. Clients should check for the presence of this method, and if
     it is defined, should call it prior to any C{process} call on the
     messages from the given catalog. I.e. it is illegal for the client to
@@ -96,7 +97,7 @@ Options Handling
     statement, which is the only method that the C{options} object should
     provide aside from C{in} and reference-by-key operators. It may be
     that the client is operating with several different sieves, and that
-    the sieve options are given by the user (such as with the L{posieve}
+    the sieve options are given by the user (such as with the L{scripts.posieve}
     script). Then, it is important that each sieve signals which options
     it has recognized and accepted, so that the client may signal to the
     user any superfluous and erroneus sieve options given.

@@ -19,9 +19,9 @@ run of this sieve will remove the flag.
 Sieve options:
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
 
-For L{summited<posummit>} catalogs, the C{branch} option is used to restrict
-modifications to messages from the given branch only. Several branch IDs
-may be given as a comma-separated list.
+For L{summited<scripts.posummit>} catalogs, the C{branch} option is used to
+restrict modifications to messages from the given branch only.
+Several branch IDs may be given as a comma-separated list.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
