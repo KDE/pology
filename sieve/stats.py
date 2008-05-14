@@ -151,8 +151,9 @@ Output Legend
     of translated, fuzzy, and untranslated messages. This can be changed
     into absolute display using the C{absolute} option, where single bar-cell
     stands for a fixed number of messages or words, determined by taking
-    into account the stats across all bars in the run. However, the length of
-    an absolute bar will never be below three cells.
+    into account the stats across all bars in the run. When absolute mode
+    is engaged, the bars are shown only for the most specific count level
+    (e.g. only for files if C{byfile} in effect).
 
 Notes on Counting
 =================
@@ -523,6 +524,11 @@ class Sieve (object):
                 filenames_bydir[cdir].append(filename)
 
         # Arrange sets into ordered list with titles.
+        # NOTE: The title prefixes, ===, etc. are later used
+        # to determine the leval of a particular count.
+        self._tpref_file = "---"
+        self._tpref_dir = "+++"
+        self._tpref_all = "==="
         counts = []
         if self.bydir:
             cdirs = counts_bydir.keys();
@@ -531,17 +537,19 @@ class Sieve (object):
                 if self.byfile:
                     self._sort_equiv_filenames(filenames_bydir[cdir])
                     for filename in filenames_bydir[cdir]:
-                        counts.append(("--- %s" % filename,
+                        counts.append(("%s %s" % (self._tpref_file, filename),
                                        self.counts[filename]))
-                counts.append(("+++ %s/" % cdir, counts_bydir[cdir]))
-            counts.append(("=== (overall)", count_overall))
+                counts.append(("%s %s/" % (self._tpref_dir, cdir),
+                               counts_bydir[cdir]))
+            counts.append(("%s (overall)" % self._tpref_all, count_overall))
 
         elif self.byfile:
             filenames = self.counts.keys()
             self._sort_equiv_filenames(filenames)
             for filename in filenames:
-                counts.append(("--- %s" % filename, self.counts[filename]))
-            counts.append(("=== (overall)", count_overall))
+                counts.append(("%s %s" % (self._tpref_file, filename),
+                               self.counts[filename]))
+            counts.append(("%s (overall)" % self._tpref_all, count_overall))
 
         else:
             counts.append((None, count_overall))
@@ -720,7 +728,7 @@ class Sieve (object):
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
         maxcounts_jumbled = maxcounts.copy()
         for otitle, ocount in counts:
-            # Count both messages and words, for the number display later.
+            # Count both messages and words, for the number display padding.
             for tkey in maxcounts_jumbled:
                 for dcol in (0, 1):
                     c = ocount[tkey][dcol]
@@ -796,8 +804,11 @@ class Sieve (object):
             for tkey in ("fuz", "unt", "tot"):
                 c = count[tkey][dcolumn]
                 n_cells[tkey] = roundup(float(c) / n_per_cell)
-            if n_cells["tot"] < 3:
-                n_cells["tot"] = 3
+            if n_cells["tot"] == 1 and n_cells["fuz"] + n_cells["unt"] > 1:
+                # Correct the situation when there is a single cell in total,
+                # but there are both some fuzzy and some untranslated,
+                # resulting in one cell each; give priority to untranslated.
+                n_cells["fuz"] = 0
             n_cells["trn"] = n_cells["tot"] - n_cells["fuz"] - n_cells["unt"]
         else:
             # Relative bar.
@@ -825,5 +836,16 @@ class Sieve (object):
         fmt_bar = "".join(fmt_bar)
 
         # Assemble final output.
-        print "%s %s |%s|" % (fmt_counts, dlabel, fmt_bar)
+        # If bars are absolute, show them only for most particular counts.
+        showbar = True
+        if self.absolute:
+            if self.byfile:
+                showbar = title.startswith(self._tpref_file)
+            elif self.bydir:
+                showbar = title.startswith(self._tpref_dir)
+
+        if showbar:
+            print "%s %s |%s|" % (fmt_counts, dlabel, fmt_bar)
+        else:
+            print "%s %s" % (fmt_counts, dlabel)
 
