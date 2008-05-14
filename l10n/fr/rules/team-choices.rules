@@ -31,7 +31,7 @@ valid after="d'"
 hint="Utilisez cette expression au pluriel « entrées / sorties »"
 
 [k?ioslave]
-valid after="kcm"
+valid after="kcm|/"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
 [^[Ii]ci]
