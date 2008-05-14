@@ -54,10 +54,10 @@
   <p>These modules implement different &quot;sieves&quot; for PO catalogs: 
   objects to which catalog entries are fed one by one, possibly with 
   finalization phase at the end. The sieves are presently primarely used by
-  the <a href="pology.posieve-module.html" class="link">posieve</a> script,
-  but may also export public methods for use in other clients. The 
-  following passages describe how sieves are written, but also how clients 
-  that use them should behave.</p>
+  the <a href="pology.scripts.posieve-module.html" 
+  class="link">scripts.posieve</a> script, but may also export public 
+  methods for use in other clients. The following passages describe how 
+  sieves are written, but also how clients that use them should behave.</p>
   <h1 class="heading">The Sieve Layout</h1>
     <p>Every sieve module must define the <code>Sieve</code> class, with 
     some mandatory and some optional interface methods and instance 
@@ -97,13 +97,14 @@
    def process_header (self, hdr, cat):
        # ...
 </pre>
-    <p>where <code>hdr</code> is an instance of {Header}, and 
-    <code>cat</code> the containing catalog. Clients should check for the 
-    presence of this method, and if it is defined, should call it prior to 
-    any <code>process</code> call on the messages from the given catalog. 
-    I.e. it is illegal for the client to switch a catalog between two calls
-    to <code>process</code>, without calling <code>process_header</code> in
-    between if it exists.</p>
+    <p>where <code>hdr</code> is an instance of <a 
+    href="pology.file.header.Header-class.html" class="link">Header</a>, 
+    and <code>cat</code> the containing catalog. Clients should check for 
+    the presence of this method, and if it is defined, should call it prior
+    to any <code>process</code> call on the messages from the given 
+    catalog. I.e. it is illegal for the client to switch a catalog between 
+    two calls to <code>process</code>, without calling 
+    <code>process_header</code> in between if it exists.</p>
     <p>The client ignores return values from all sieve methods, 
     <code>process</code>, <code>process_header</code>, and 
     <code>finalize</code> alike.</p>
@@ -142,10 +143,11 @@
     aside from <code>in</code> and reference-by-key operators. It may be 
     that the client is operating with several different sieves, and that 
     the sieve options are given by the user (such as with the <a 
-    href="pology.posieve-module.html" class="link">posieve</a> script). 
-    Then, it is important that each sieve signals which options it has 
-    recognized and accepted, so that the client may signal to the user any 
-    superfluous and erroneus sieve options given.</p>
+    href="pology.scripts.posieve-module.html" 
+    class="link">scripts.posieve</a> script). Then, it is important that 
+    each sieve signals which options it has recognized and accepted, so 
+    that the client may signal to the user any superfluous and erroneus 
+    sieve options given.</p>
     <p>If a sieve option is meant as a switch, the sieve should assume its 
     value is undefined, and check only for presence:</p>
 <pre class="literalblock">
@@ -260,6 +262,7 @@
         (http://www.languagetool.org)</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.check_rules-module.html">pology.sieve.check_rules</a></strong>: <em class="summary">Sieves messages with rules and warn when a rule triggers.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.check_spell-module.html">pology.sieve.check_spell</a></strong>: <em class="summary">Sieves messages with GNU aspell spell checker (http://aspell.net/)</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.check_xml_docbook4-module.html">pology.sieve.check_xml_docbook4</a></strong>: <em class="summary">Lightweight validity checking of POs containing Docbook XML.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.check_xml_kde4-module.html">pology.sieve.check_xml_kde4</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.count_ctxmark-module.html">pology.sieve.count_ctxmark</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.diff_previous-module.html">pology.sieve.diff_previous</a></strong>    </li>

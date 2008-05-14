@@ -131,10 +131,10 @@
   <p>Options <code>minwords</code> and <code>maxwords</code> tell the sieve
   to account only those messages satisfying these limits, in <i>either</i> 
   the original or translation, not necessarily both.</p>
-  <p>For <a href="pology.posummit-module.html" class="link">summited</a> 
-  catalogs, <code>branch</code> option is used to restrict the counting to 
-  the given branch only. Several branch IDs may be given as a 
-  comma-separated list.</p>
+  <p>For <a href="pology.scripts.posummit-module.html" 
+  class="link">summited</a> catalogs, <code>branch</code> option is used to
+  restrict the counting to the given branch only. Several branch IDs may be
+  given as a comma-separated list.</p>
   <h1 class="heading">Custom Contexts</h1>
     <p>Some older PO files will have message contexts embedded into the 
     <code>msgid</code> field, instead of using the Gettext proper 
@@ -270,8 +270,9 @@
     be changed into absolute display using the <code>absolute</code> 
     option, where single bar-cell stands for a fixed number of messages or 
     words, determined by taking into account the stats across all bars in 
-    the run. However, the length of an absolute bar will never be below 
-    three cells.</p>
+    the run. When absolute mode is engaged, the bars are shown only for the
+    most specific count level (e.g. only for files if <code>byfile</code> 
+    in effect).</p>
   <h1 class="heading">Notes on Counting</h1>
     <p>The word and character counts for a given message field are obtained
     in the following way:</p>
