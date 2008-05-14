@@ -305,7 +305,7 @@ def _msg_ref_fmtstr (file=sys.stdout):
     fmt = ""
     fmt += C.BLUE + "%s" + C.RESET + ":" # file name
     fmt += C.PURPLE + "%d" + C.RESET # line number
-    fmt += "(" + C.PURPLE + "%d" + C.RESET + ")" # entry number
+    fmt += "(" + C.PURPLE + "#%d" + C.RESET + ")" # entry number
 
     return fmt
 
