@@ -252,9 +252,9 @@ def rule_xml_error(msg, cat, rule, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
-    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
-    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msg.msgstr[pluralId])
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
+    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
+    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     xmlError.append("\t\t<start>%s</start>\n" % rule.span[0])
     xmlError.append("\t\t<end>%s</end>\n" % rule.span[1])
     xmlError.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
@@ -289,9 +289,9 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % msg.msgctxt)
-    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % msg.msgid)
-    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % msg.msgstr[pluralId])
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
+    xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
+    xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     xmlError.append("\t\t<faulty>%s</faulty>\n" % faultyWord)
     for suggestion in suggestions:
         xmlError.append("\t\t<suggestion>%s</suggestion>\n" % suggestion)
@@ -303,7 +303,7 @@ def _msg_ref_fmtstr (file=sys.stdout):
 
     C = _colors_for_file(file)
     fmt = ""
-    fmt += C.BLUE + "%s" + C.RESET + ":" # file name
+    fmt += C.CYAN + "%s" + C.RESET + ":" # file name
     fmt += C.PURPLE + "%d" + C.RESET # line number
     fmt += "(" + C.PURPLE + "#%d" + C.RESET + ")" # entry number
 
@@ -337,3 +337,12 @@ def _colors_for_file (file):
         return C
     else:
         return _noopColors
+
+def _escapeCDATA(text):
+    """Escape CDATA tags to allow inclusion into CDATA
+    @param text: text to convert
+    @type text: str or unicode
+    @return: modified string"""
+    text=text.replace("<![CDATA[", "<_!_[CDATA[")
+    text=text.replace("]]>", "]_]_>")
+    return text
