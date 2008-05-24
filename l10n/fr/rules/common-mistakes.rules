@@ -2,166 +2,166 @@
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
 
-[&lwb;boites?&rwb;]
+[&lwb;boites?&rwb;]i
 hint="boite => boîte (avec un accent circonflexe)"
  
-[bopite]
+[bopite]i
 hint="L'erreur classique quand on a raté la touche ^ :)"
 
-[connection]
+[connection]i
 hint="La bonne orthographe est « connexion » en français !"
 
-[formatt]
+[formatt]i
 hint="Un seul « t »"
  
-[cel%à]
+[cel%à]i
 hint="celà -> cela"
 
-[&lwb;tr[eé]s&rwb;]
+[&lwb;tr[eé]s&rwb;]i
 valid after="&" 
 hint="Mettre un accent grave"
 
-[rafraich]
+[rafraich]i
 hint="Les dérivés de « rafraîchir » veulent un accent circonflexe sur le « i »"
 
-[@érreur|Érreur]
+[@érreur|Érreur]i
 hint="Pas d'accent aigu sur le premier « e »"
 
-[chaine]
+[chaine]i
 valid after="[pP]ro"
 hint="Mettre un accent circonflexe sur le « i »"
 
-[resaisir]
+[resaisir]i
 hint="Mettre deux « s » (ressaisir)"
 
-[num[eè]ro]
+[num[eè]ro]i
 hint="Mettre un accent aigu sur le « e »"
 
 [supress|suppresio|suprimer|supprimm]
 hint="Erreur sur le nombre de lettres (p, s ou m) dans le dérivé du verbe « supprimer »"
 
-[maximiz]
+[maximiz]i
 hint="Mettre un « s » à la place du « z »"
 
-[emp[éèe]ch]
+[emp[éèe]ch]i
 hint="Mettre un accent circonflexe sur le « e »"
 
-[extr[eéè]me]
+[extr[eéè]me]i
 hint="Mettre un accent circonflexe sur le « e »"
 
-[s[eè]lect|sél[éè]ct]
+[s[eè]lect|sél[éè]ct]i
 valid file="kommander.po" before="ed"
 valid after="rad"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
-[n[eè]cess|néc[éè]ss]
+[n[eè]cess|néc[éè]ss]i
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
-[acc[eè]der]
+[acc[eè]der]i
 hint="La bonne orthographe est « accéder » (accent aigu)"
 
-[acc[ée]s&rwb;]
+[acc[ée]s&rwb;]i
 valid before="&"
 hint="La bonne orthographe est « accès » (accent grave)"
 
-[addres]
+[addres]i
 valid after="&amp;k" before="sbook;" 
 valid after="[kK]" before="s[bB]ook"
 valid before="s="
 valid file="kmail.po" after="^\[" before="sBook\]$"
 hint="Seulement un « d » en français"
 
-[dosier]
+[dosier]i
 hint="Il manque un « s »"
 
-[v[eè]rif]
+[v[eè]rif]i
 hint="Mettre un accent aigu sur le « e »"
 
-[r[éeê]gle&rwb;]
+[r[éeê]gle&rwb;]i
 hint="Mettre un accent grave (et non circonflexe) sur le « e »"
 
-[compl[ée]tem]
+[compl[ée]tem]i
 valid after="du |le |auto-"
 hint="Mettre un accent grave"
 
-[[Ee]chec]
+[echec]i
 hint="Mettre un accent aigu : « É » ou « é »"
 
-[plateforme]
+[plateforme]i
 hint="plateforme -> plate-forme"
 
-[incomplêt]
+[incomplêt]i
 hint="On écrit « incomplète » ou « incomplet » en français"
 
-[incompl@èt[^e]]
+[incompl@èt[^e]]i
 hint="On écrit « incomplet » en français"
 
-[&lwb;license&rwb;]
+[&lwb;license&rwb;]i
 valid after="--" 
 valid after="Public&sp;" 
 hint="La bonne orthographe est « licence » en français"
 
-[&lwb;c'est à dire&rwb;]
+[&lwb;c'est à dire&rwb;]i
 hint="Il faut mettre des traits d'union : « c'est-à-dire »"
 
-[ent@ete]
+[ent@ete]i
 hint="La bonne orthographe est « en-tête » (mettre un trait d'union)"
 
-[en-t[éèe]te]
+[en-t[éèe]te]i
 hint="La bonne orthographe est « en-tête » (mettre un accent circonflexe)"
 
-[compl@etion]
+[compl@etion]i
 hint="« complétion » est un franglisme. Utiliser « complètement »"
 
-[apelé]
+[apelé]i
 hint="À remplacer par « appelé »"
 
-[app@ell@é] 
+[app@ell@é]i
 hint="À remplacer par « appelé »" 
 
-[aucunes] 
+[aucunes]i
 hint="À remplacer par « aucune »" 
 
-[autremnt] 
+[autremnt]i
 hint="À remplacer par « autrement »" 
 
-[autrment] 
+[autrment]i
 hint="À remplacer par « autrement »" 
 
-[charète] 
+[charète]i
 hint="À remplacer par « charette »" 
 
-[comportment] 
+[comportment]i
 hint="À remplacer par « comportement »" 
 
-[&lwb;cr@ées]
+[&lwb;cr@ées]i
 hint="À remplacer par « créées »" 
 
-[environnment] 
+[environnment]i
 hint="À remplacer par « environnement »" 
 
-[exeption] 
+[exeption]i
 hint="À remplacer par « exception »"
 
-[extention]
+[extention]i
 hint="À remplacer par « extension »" 
 
 [\setc[^\.a-zA-Z]|\setc$|\setc\.{2}]
 hint="Il faut mettre un point (et un seul) à « etc. »"
 
-[param[èe]tré] 
+[param[èe]tré]i
 hint="À remplacer par « paramétré »" 
 
-[personalisé] 
+[personalisé]i
 hint="À remplacer par « personnalisé »" 
 
-[utliser] 
+[utliser]i
 hint="À remplacer par « utiliser »" 
 
-[courier] 
+[courier]i
 hint="À remplacer par « courrier »" 
 
-[language]
+[language]i
 valid ctx="Query" before="=" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -170,32 +170,32 @@ valid after="eXtensible&sp;Markup&sp;"
 valid after="Print Control "
 hint="À remplacer par « langage »"
 
-[&lwb;languages?&rwb;]
+[&lwb;languages?&rwb;]i
 valid ctx="Query"
 hint="À remplacer par « langage »"
 
-[sorite]
+[sorite]i
 hint="À remplacer par « sortie »"
 
-[(super utilisateur)|(super-utilisateur)]
+[(super utilisateur)|(super-utilisateur)]i
 hint="« superutilisateur » s'écrit sans tiret ou espace !"
 
-[mozaïque]
+[mozaïque]i
 hint="Remplacer le « z » par un « s »"
 
-[gallerie]
+[gallerie]i
 hint="Un seul « l » en français, merci !"
 
-[et\s*bien]
+[et\s*bien]i
 valid before="&sp;sûr" 
 valid before="&sp;documenté" 
 valid after="[a-zéè]+,?&sp;" 
 hint="Remplacer « et bien » par « eh bien »"
 
-[sous @él@ément]
+[sous @él@ément]i
 hint="mettre un tiret à « sous-élément »"
 
-[chaque&sp;]
+[chaque&sp;]i
 valid before="[a-z&àôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
 valid before="fois&rwb;|fois$"  
 valid before="accès" 
@@ -213,90 +213,90 @@ hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 valid after="«&unbsp;" before="&unbsp;»"
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
-[&lwb;http:/&rwb;]
+[&lwb;http:/&rwb;]i
 valid before="/"
 hint="Deux barres obliques/slashs après le nom du protocole"
 
-[&lwb;TV&wrb;]
+[&lwb;TV&wrb;]i
 hint="TV est un anglicisme. À éviter..."
 
-[CPU]
+[CPU]i
 valid ctx=".*heading"
 valid after="K"
 hint="Traduire CPU par « processeur »"
 
-[&lwb;environment&rwb;]
+[&lwb;environment&rwb;]i
 valid after="K Desktop "
 hint="environment -> environnement"
 
-[installeur]
+[installeur]i
 hint="installeur -> installateur"
 
-[clique[zr] ce]
+[clique[zr] ce]i
 hint="On clique SUR quelque chose et non quelque chose"
 
-[&lwb;taches]
+[&lwb;taches]i
 hint="Mettre un accent circonflexe"
 
-[système de fichier]
+[système de fichier]i
 valid before="s"
 hint="Système de fichiers prend un « s » à « fichier »"
 
-[gestionnaire de fichier]
+[gestionnaire de fichier]i
 valid before="s"
 hint="Gestionnaire de fichiers prend un « s » à « fichier »"
 
-[tire[a-z]+ partie]
+[tire[a-z]+ partie]i
 hint="Pas de « e » à « parti » dans « tirer parti »"
 
-[clique gauche]
+[clique gauche]i
 hint="clique -> clic"
 
-[clique droit]
+[clique droit]i
 hint="clique -> clic"
 
-[&lwb;clique de&rwb;]
+[&lwb;clique de&rwb;]i
 hint="clique -> clic"
 
-[crypt(er|ez|é?)]
+[crypt(er|ez|é?)]i
 valid after="lib"
 valid before="ographie"
 valid after="x-en"
 valid after="x-de"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
-[profiles]
+[profiles]i
 valid file="kfmclient.po" before="&gt;"
 hint="Pas de « e » à « profils »"
 
-[assignement]
+[assignement]i
 hint="« Assignation » et non « Assignement »"
 
-[[fF]aîtes]
+[faîtes]i
 hint="Pas d'accent circonflexe"
 
 [y-compris]
 hint="y-compris -> y compris"
 
-[dimensione]
+[dimensione]i
 hint="Il y a 2 « n » dans « dimensionner » (ou ses dérivés)"
 
-[reporte[rz]? le]
+[reporte[rz]? le]i
 hint="on ne reporte pas un bogue, on fait un rapport..."
 
 [type mime]
 hint="mime -> MIME (en majuscules)"
 
-[fabriquant]
+[fabriquant]i
 hint="« fabricant » s'écrit avec un « c »"
 
-[un icône]
+[un icône]i
 hint="C'est *une* icône"
 
-[[I|i]cone]
+[icone]i
 hint="Il faut un accent circonflexe au mot « icône »"
 
-[Voulez vous]
+[voulez vous]i
 valid after="[sS]i vous "
 hint="Ne pas oublier le trait d'union !"
 
@@ -318,34 +318,34 @@ valid file="kcmkonqhtml.po" after="window\."
 valid file="kioclient.po" after="Mount "
 hint="À remplacer par « défaut »" 
 
-[media]
+[media]i
 valid after="Macro"
 valid after="Multi" before="\sMiddleware"
 valid after="/"
 hint="media -> média"
 
-[médias]
+[médias]i
 hint="« média » ne prend pas de « s » même au pluriel"
 
 [mots?-clé]
 hint="Il ne faut pas de trait d'union après « mot »"
 
-[[Q|q]uelques? soi]
+[quelques? soi]i
 hint="Ceci s'écrit en trois mots « quel que soit », « quels que soient », « quelle que soit », ou « quelles que soient »"
 
-[focntion]
+[focntion]i
 hint="focntion -> fonction (dyslexie)"
 
-[[Pp]ré-]
+[pré-]i
 hint="Ne mettez pas de tiret après « pré »"
 
-[(raccourcis-clavier)|(raccourci-clavier)]
+[(raccourcis-clavier)|(raccourci-clavier)]i
 hint="Pas de tiret entre « raccourci » et « clavier »"
 
-[&lwb;occurences?&rwb;]
+[&lwb;occurences?&rwb;]i
 hint="occurences -> occurrences. Avec deux « r » !"
 
-[status|statut]
+[status|statut]i
 valid after="[Ss]mb"
 valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
@@ -355,13 +355,13 @@ hint="remplacer « status » ou « statut » par « état »"
 [basé.* sur]
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
 
-[support]
+[support]i
 valid before="sMarkup" # D-Bus call
 valid after="http://\S+"
 valid after="in"
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
-[[t|T]ext(?![e|uel|\-])]
+[text(?![e|uel|\-])]i
 valid ctx="Query"
 valid before="[&sp;|&unbsp;]?\/"
 valid after="[R|r]ich\s?"
