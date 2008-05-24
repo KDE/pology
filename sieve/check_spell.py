@@ -171,7 +171,9 @@ def cleanWord(word):
     @param word: word to be cleaned
     @type word: unicode
     @return: word clean (unicode)"""
-    word=word.strip("'")
-    for remove in ("&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?"):
+    for remove in ("&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®"):
         word=word.replace(remove, "")
+    word=word.strip("'")
+    word=word.strip('"')
+    word=word.strip("-")
     return word
