@@ -57,6 +57,7 @@ class Sieve (object):
         text=text.replace(u" !", u"\xa0!")
         text=text.replace(u"« ", u"«\xa0")
         text=text.replace(u" »", u"\xa0»")
+        text=text.replace(u" / ", u"\xa0/ ")
         text=self.percent.sub(u"\xa0%", text)
         
         return text
