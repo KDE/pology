@@ -125,6 +125,7 @@ class Sieve (object):
             msgstr.replace("\n", " ")
             msgstr=msgstr.replace("/", " ")
             msgstr=msgstr.replace(".", " ")
+            msgstr=msgstr.replace("|", " ")
             msgstr=XML.sub(" ", msgstr) # Remove XML, HTML and CSS tags
             msgstr=ENTITTY.sub(" ", msgstr) # Remove docbook entities
             for word in msgstr.split():
@@ -171,7 +172,7 @@ def cleanWord(word):
     @param word: word to be cleaned
     @type word: unicode
     @return: word clean (unicode)"""
-    for remove in ("&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®"):
+    for remove in ("#", "&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®"):
         word=word.replace(remove, "")
     word=word.strip("'")
     word=word.strip('"')
