@@ -18,6 +18,7 @@ run of this sieve will remove the flag.
 
 Sieve options:
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
+  - C{strip}: instead of adding, strip any C{incomplete} flags
 
 For L{summited<scripts.posummit>} catalogs, the C{branch} option is used to
 restrict modifications to messages from the given branch only.
@@ -35,6 +36,12 @@ class Sieve (object):
     def __init__ (self, options, global_options):
 
         self.nmatch = 0
+
+        # Strip the present flags instead?
+        self.strip = False
+        if "strip" in options:
+            options.accept("strip")
+            self.strip = True
 
         # Summit: consider only messages belonging to given branches.
         self.branches = None
@@ -63,8 +70,13 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                may_tag = False
 
+        # Remove the flag if stripping required and the message may be tagged.
+        if self.strip and may_tag and flag_incomplete in msg.flag:
+            msg.flag.remove(flag_incomplete)
+            msg.modcount = 1 # in case of non-monitored messages
+
         # Add flag if message may be tagged and is not translated.
-        if may_tag and not msg.translated:
+        elif may_tag and not msg.translated:
             msg.flag.add(flag_incomplete)
             self.nmatch += 1
             msg.modcount = 1 # in case of non-monitored messages
