@@ -103,6 +103,7 @@ pology.misc.report._nonws_after_colreset	pology.misc.report-module.html#_nonws_a
 pology.misc.report._noopColors	pology.misc.report-module.html#_noopColors
 pology.misc.report.spell_error	pology.misc.report-module.html#spell_error
 pology.misc.report.report_msg_content	pology.misc.report-module.html#report_msg_content
+pology.misc.report._escapeCDATA	pology.misc.report-module.html#_escapeCDATA
 pology.misc.report.warning_on_msg	pology.misc.report-module.html#warning_on_msg
 pology.misc.report._colors_for_file	pology.misc.report-module.html#_colors_for_file
 pology.misc.report.report	pology.misc.report-module.html#report
@@ -301,6 +302,7 @@ pology.sieve.diff_previous.diff_texts	pology.misc.diff-module.html#diff_texts
 pology.sieve.diff_previous.diff_to_old	pology.misc.diff-module.html#diff_to_old
 pology.sieve.diff_previous.diff_to_new	pology.misc.diff-module.html#diff_to_new
 pology.sieve.diff_previous.parse_summit_branches	pology.misc.comments-module.html#parse_summit_branches
+pology.sieve.empty_fuzzies	pology.sieve.empty_fuzzies-module.html
 pology.sieve.fancy_quote	pology.sieve.fancy_quote-module.html
 pology.sieve.fancy_quote.flag_no_fancy_quote	pology.sieve.fancy_quote-module.html#flag_no_fancy_quote
 pology.sieve.fancy_quote.manc_parse_flag_list	pology.misc.comments-module.html#manc_parse_flag_list
@@ -641,6 +643,10 @@ pology.sieve.diff_previous.Sieve._diff	pology.sieve.diff_previous.Sieve-class.ht
 pology.sieve.diff_previous.Sieve.finalize	pology.sieve.diff_previous.Sieve-class.html#finalize
 pology.sieve.diff_previous.Sieve.process	pology.sieve.diff_previous.Sieve-class.html#process
 pology.sieve.diff_previous.Sieve.__init__	pology.sieve.diff_previous.Sieve-class.html#__init__
+pology.sieve.empty_fuzzies.Sieve	pology.sieve.empty_fuzzies.Sieve-class.html
+pology.sieve.empty_fuzzies.Sieve.finalize	pology.sieve.empty_fuzzies.Sieve-class.html#finalize
+pology.sieve.empty_fuzzies.Sieve.process	pology.sieve.empty_fuzzies.Sieve-class.html#process
+pology.sieve.empty_fuzzies.Sieve.__init__	pology.sieve.empty_fuzzies.Sieve-class.html#__init__
 pology.sieve.fancy_quote.Sieve	pology.sieve.fancy_quote.Sieve-class.html
 pology.sieve.fancy_quote.Sieve.finalize	pology.sieve.fancy_quote.Sieve-class.html#finalize
 pology.sieve.fancy_quote.Sieve.process	pology.sieve.fancy_quote.Sieve-class.html#process
