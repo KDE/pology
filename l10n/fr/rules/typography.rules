@@ -248,6 +248,7 @@ valid after="\d+"
 valid file="kioclient.po" before="Mount"
 valid file="kioclient.po" after="default"
 valid file="kspread.po"
+valid file="ktimetracker.po" after="^"
 valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
