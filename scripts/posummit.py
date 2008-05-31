@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import fallback_import_paths
+
 import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
