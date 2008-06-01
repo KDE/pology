@@ -51,7 +51,52 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module unfuzzy_ctxmark_only</h1><p class="nomargin-top"></p>
-<!-- ==================== CLASSES ==================== -->
+<p>Unfuzzy those messages fuzzied only due to a change in context 
+  marker.</p>
+  <p>This sieve is similar to <a 
+  href="pology.sieve.unfuzzy_context_only-module.html" 
+  class="link">unfuzzy-context-only</a>, but it unfuzzies the message when 
+  the only change is in a specific part of <code>msgctxt</code>, in the 
+  <i>context marker</i>.</p>
+  <p>Context marker is a part of KUIT markup (KDE user interface text), 
+  which states more formally the general usage intent for the PO entry. For
+  example, there may be two messages which are same in English, but one 
+  applied as a menu item, and another as a dialog title; using KUIT, they 
+  would be marked as:</p>
+<pre class="literalblock">
+   msgctxt &quot;@action:inmenu File&quot;
+   msgid &quot;Export as HTML&quot;
+   msgstr &quot;&quot;
+
+   msgctxt &quot;@window:title&quot;
+   msgid &quot;Export as HTML&quot;
+   msgstr &quot;&quot;
+</pre>
+  <p>The context marker is the leading part of the context, starting with 
+  <code>@...</code> and ending with the first whitespace. This sieve will 
+  unfuzzy the message if only the context marker has changed (or was added 
+  or removed), but not if the change was in the rest of the context, after 
+  the first whitespace.</p>
+  <p>Sieve options:</p>
+  <ul>
+    <li>
+      <code>no-review</code>: do not add comment about unreviewed context 
+      (<i>not advised!</i>)
+    </li>
+  </ul>
+
+<hr />
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.sieve.unfuzzy_context_only-module.html" 
+        class="link">unfuzzy-context-only</a>
+      </p>
+      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
