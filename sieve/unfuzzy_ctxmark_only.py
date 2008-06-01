@@ -17,7 +17,7 @@ using KUIT, they would be marked as::
     msgid "Export as HTML"
     msgstr ""
 
-    msgctxt "@window:title"
+    msgctxt "@title:window"
     msgid "Export as HTML"
     msgstr ""
 
