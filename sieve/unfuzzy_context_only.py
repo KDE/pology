@@ -38,10 +38,6 @@ class Sieve (object):
             options.accept("no-review")
             self.flag_review = False
 
-        # Indicators to the caller:
-        # - monitor to avoid unnecessary reformatting when unfuzzied
-        self.caller_monitored = True
-
 
     def process (self, msg, cat):
 
@@ -54,7 +50,6 @@ class Sieve (object):
                 # when catalog is merged with template.
                 msg.manual_comment.append(u"unreviewed-context")
             self.nmatch += 1
-            msg.modcount = 1 # in case of non-monitored messages
 
 
     def finalize (self):
