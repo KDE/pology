@@ -22,6 +22,11 @@ XML=re.compile("<.*?>")
 ENTITTY=re.compile("&\S*?;")
 DIGIT=re.compile("\d")
 
+# Symbols to be removed from words before spell checking
+SYMBOLS=("#", "&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*",
+         "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®", "°", "²", "$", "~", ".")
+#SYMBOLSRE=re.compile("#|\&|--|\.|\.\.\.|,|;|,|\n|\(|\)|%|@|_|«||»|\*|\[|\]|\||\\|…|=|\<|\>|\!|\?|®|°|²|$|~")
+
 class Sieve (object):
     """Process messages through the aspell spell checker"""
     
@@ -73,7 +78,7 @@ class Sieve (object):
                 if line.startswith("#") or line=="":
                     continue
                 else:
-                    self.ignoredContext.append(line)
+                    self.ignoredContext.append(line.lower())
 
         # Also output in XML file ?
         if "xml" in options:
@@ -86,6 +91,10 @@ class Sieve (object):
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
             else:
                 print "Cannot open %s file. XML output disabled" % xmlPath
+            
+        # Indicators to the caller:
+        self.caller_sync = False # no need to sync catalogs
+        self.caller_monitored = False # no need for monitored messages
 
     def process (self, msg, cat):
 
@@ -126,6 +135,7 @@ class Sieve (object):
             msgstr=msgstr.replace("/", " ")
             msgstr=msgstr.replace(".", " ")
             msgstr=msgstr.replace("|", " ")
+            msgstr=msgstr.replace("[br]", " ")
             msgstr=XML.sub(" ", msgstr) # Remove XML, HTML and CSS tags
             msgstr=ENTITTY.sub(" ", msgstr) # Remove docbook entities
             for word in msgstr.split():
@@ -172,8 +182,9 @@ def cleanWord(word):
     @param word: word to be cleaned
     @type word: unicode
     @return: word clean (unicode)"""
-    for remove in ("#", "&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*", "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®"):
+    for remove in SYMBOLS:
         word=word.replace(remove, "")
+    #word=SYMBOLSRE.subn(word, "")[0]
     word=word.strip("'")
     word=word.strip('"')
     word=word.strip("-")
