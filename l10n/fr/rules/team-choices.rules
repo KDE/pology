@@ -37,7 +37,7 @@ hint="Traduisez ce mot par « module d'entrée / sortie »"
 [^[Ii]ci]
 hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournure de la forme : « Vous pouvez ici... » "
 
-[[Mm]anettes?]
+[manettes?]i
 hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
 
 [valide([^zr]|$)]
@@ -64,7 +64,7 @@ hint="Mieux vaut « saisir » que « taper »"
 [bouton\s*\w*\s*milieu]
 hint="bouton du milieu -> bouton central"
 
-[compact]
+[compact]i
 valid after="le mode &?"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
@@ -91,14 +91,14 @@ valid file="kverbos.po"
 valid file="kgoldrunner.po" after="ascension&sp;"
 hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
-[rendez vous]
+[rendez vous]i
 valid file="korganizer.po"
 hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
 
-[[Ss]sauver]
+[sauver]i
 hint="sauver -> enregistrer"
 
-[[Ss]auve]
+[sauve]i
 valid file="kdat.po"
 valid file="desktop_playground-sysadmin.po"
 valid after="&sp;des?&sp;" before="gardes?"
@@ -108,7 +108,7 @@ hint="sauver -> enregistrer (homogénéité)"
 [([Ee]nregistrer|[Aa]fficher|[Ss]électionner) tout$]
 hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
 
-[[Ss]ystray]
+[systray]i
 valid after="k"
 valid ctx="Keywords"
 valid before="_shot"
@@ -126,7 +126,7 @@ valid ctx="Query"
 valid after="</"
 hint="item(s) -> élément(s)"
 
-[modules? enfichable]
+[modules? enfichable]i
 hint="plugin -> module externe"
 
 [&lwb;plugins?&rwb;]
@@ -145,7 +145,7 @@ valid after="-l "
 valid before="@"
 hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
 
-[additif|greffon]
+[additif|greffon]i
 hint="plugin -> module externe"
 
 [OK|O\.k|Okay|ok]
@@ -154,12 +154,12 @@ valid before="ama" # Okayama city
 valid before="ular"
 hint="Utilisez « Ok » (homogénéité)"
 
-[tuyau]
+[tuyau]i
 valid file="kxsconfig.po" after="&sp;"
 valid file="kalzium.po" after="un "
 hint="hint/tip -> astuce (homogénéité)"
 
-[clef]
+[clef]i
 hint="Utilisez plutôt le mot « clé » (homogénéité)"
 
 [->]
@@ -179,7 +179,7 @@ hint="A remplacer par « vous pouvez (faire...) ici »"
 valid after="à "
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
-[proxy]
+[proxy]i
 valid before="\)" after="\(&?"
 valid after="http_"
 valid file="kmail.po" after="mon"
@@ -207,10 +207,10 @@ hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 valid file="kcminfo.po"
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
-[Désirez-?vous]
+[Désirez-?vous]i
 hint="« Désirez-vous » -> « Voulez-vous » (homogénéité)"
 
-[Souhaitez-?vous]
+[Souhaitez-?vous]i
 hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 
 [Va ]
@@ -223,13 +223,13 @@ hint="Utiliser la forme « en suivant votre PATH »"
 [par votre \$?PATH]
 hint="Utiliser la forme « en suivant votre PATH »"
 
-[chemin]
+[chemin]i
 hint="Traduisez « path » par « emplacement »"
 
-[désinitialiser]
+[désinitialiser]i
 hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
 
-[d@emont@er?]
+[d@emont@er?]i
 valid after="«&unbsp;" before="&unbsp;»"
 hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
 
@@ -244,7 +244,7 @@ hint="On peut sûrement supprimer le « en train de » pour alléger..."
 valid after="C" 
 hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
-[\bitem]
+[\bitem]i
 valid after="\?"
 valid after="</"
 hint="On essaie d'éviter « item » ?"
@@ -276,5 +276,9 @@ valid file="kdevelop.po" after="«&unbsp;" before="&unbsp;»"
 valid file="cupsdconf4.po" before="s? provenant"
 valid file="cupsdconf4.po" before="s? de navigation"
 hint="Choix de l'équipe : « paquetage »"
+
+[montrer]i
+valid before=" l'afficheur"
+hint="Traduire « show » par « afficher »"
 
 # End of rule file

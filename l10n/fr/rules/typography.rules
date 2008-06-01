@@ -252,6 +252,8 @@ valid file="ktimetracker.po" after="^"
 valid ctx="Numbers and characters"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
+[’]
+hint="Utilisez le symbole apostrophe (touche 4 sur un clavier français)"
 
 [&sp;&sp;+]
 valid after="^"
