@@ -26,11 +26,21 @@ The C{replace} option must go together with the C{msgstr} match. As usual for re
 Other sieve options:
   - C{accel:<char>}: strip this character as an accelerator marker
   - C{case}: case-sensitive match (insensitive by default)
+  - C{mark}: mark each matched message with a flag
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
+
+Using the C{mark} option, C{pattern-match} flag will be added to each
+matched message, in the PO file itself; the messages will not be sent to
+standard output. The modified files can then be opened in an editor,
+and messages looked up by this flag. This is for cases when the search is
+performed in order to modify something in matched messages, but doing so
+automatically using C{replace} option is not possible or safe enough.
+Option C{-m} of C{posieve.py} is useful here to send the names of
+modified POs to a separate file.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -38,6 +48,9 @@ accelerator character.
 
 import sys, os, re
 from pology.misc.report import error, report_msg_content
+
+
+_flag_mark = u"pattern-match"
 
 
 class Sieve (object):
@@ -77,8 +90,13 @@ class Sieve (object):
             options.accept("replace")
             self.replace = options["replace"]
 
-        # Unless replacement requested, no need to monitor/sync.
-        if self.replace is None:
+        self.mark = False
+        if "mark" in options:
+            options.accept("mark")
+            self.mark = True
+
+        # Unless replacement or marking requested, no need to monitor/sync.
+        if self.replace is None and not self.mark:
             self.caller_sync = False
             self.caller_monitored = False
 
@@ -137,10 +155,17 @@ class Sieve (object):
 
         if match:
             self.nmatch += 1
-            delim = "--------------------"
-            if self.nmatch == 1:
-                print delim
-            report_msg_content(msg, cat, delim=delim, highlight=regex)
+            if not self.mark:
+                delim = "--------------------"
+                if self.nmatch == 1:
+                    print delim
+                report_msg_content(msg, cat, delim=delim, highlight=regex)
+            else:
+                msg.flag.add(_flag_mark)
+
+        elif self.mark and _flag_mark in msg.flag:
+            # Remove the flag if present but the message does not match.
+            msg.flag.remove(_flag_mark)
 
 
     def finalize (self):
