@@ -171,6 +171,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_false", dest="do_skip", default=True,
         help="do not skip catalogs which signal errors")
     opars.add_option(
+        "-m", "--output-modified", metavar="FILE",
+        action="store", dest="output_modified", default=None,
+        help="output names of modified files into FILE")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -310,6 +314,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             wrap_func = wrap.wrap_field_unwrap
 
     # Sieve the messages throughout the files.
+    modified_files = []
     for fname in fnames:
         if op.verbose:
             print "Sieving %s ..." % (fname,),
@@ -344,12 +349,18 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 print "MODIFIED"
             else:
                 print "! %s" % (fname,)
+            modified_files.append(fname)
         else:
             if op.verbose: print ""
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
             sieve.finalize()
+
+    if op.output_modified:
+        ofh = open(op.output_modified, "w")
+        ofh.write("\n".join(modified_files))
+        ofh.close
 
 
 if __name__ == '__main__':
