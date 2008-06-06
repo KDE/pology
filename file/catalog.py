@@ -451,9 +451,16 @@ class Catalog (Monitored):
             m, e, t = _parse_po_file(filename, message_type, headonly)
             self._encoding = e
             self._created_from_scratch = False
-            self._header = Header(m[0])
-            self._header._committed = True # status for sync
-            self.__dict__["*"] = m[1:]
+            if not m[0].msgctxt and not m[0].msgid:
+                # Proper PO, containing the header.
+                self._header = Header(m[0])
+                self._header._committed = True # status for sync
+                self.__dict__["*"] = m[1:]
+            else:
+                # Improper PO, missing the header.
+                self._header = Header()
+                self._header._committed = False # status for sync
+                self.__dict__["*"] = m
             self._tail = t
         elif create:
             self._encoding = "UTF-8"
