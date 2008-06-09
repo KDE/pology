@@ -9,6 +9,7 @@ hint="boite => boîte (avec un accent circonflexe)"
 hint="L'erreur classique quand on a raté la touche ^ :)"
 
 [connection]i
+valid ctx="Name"
 hint="La bonne orthographe est « connexion » en français !"
 
 [formatt]i
@@ -51,7 +52,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 
 [s[eè]lect|sél[éè]ct]i
 valid file="kommander.po" before="ed"
-valid after="rad"
+valid after="rad|KChar"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -321,8 +322,10 @@ hint="À remplacer par « défaut »"
 
 [media]i
 valid after="Macro"
+valid after="Smart "
 valid after="Multi" before="\sMiddleware"
 valid after="/"
+valid before=":/"
 hint="media -> média"
 
 [médias]i

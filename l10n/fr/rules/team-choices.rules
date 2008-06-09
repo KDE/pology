@@ -66,6 +66,7 @@ hint="bouton du milieu -> bouton central"
 
 [compact]i
 valid after="le mode &?"
+valid before=" Flash"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
@@ -111,6 +112,7 @@ hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
 [systray]i
 valid after="k"
 valid ctx="Keywords"
+valid ctx="Name"
 valid before="_shot"
 hint="La traduction de « systray » est « boîte à miniatures »"
 
@@ -224,6 +226,7 @@ hint="Utiliser la forme « en suivant votre PATH »"
 hint="Utiliser la forme « en suivant votre PATH »"
 
 [chemin]i
+valid before=" équestre| de randonnée"
 hint="Traduisez « path » par « emplacement »"
 
 [désinitialiser]i
@@ -279,6 +282,7 @@ hint="Choix de l'équipe : « paquetage »"
 
 [montrer]i
 valid before=" l'afficheur"
+valid after="lui "
 hint="Traduire « show » par « afficher »"
 
 # End of rule file
