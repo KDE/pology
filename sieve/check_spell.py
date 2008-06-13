@@ -133,7 +133,6 @@ class Sieve (object):
                 break
             msgstr.replace("\n", " ")
             msgstr=msgstr.replace("/", " ")
-            msgstr=msgstr.replace(".", " ")
             msgstr=msgstr.replace("|", " ")
             msgstr=msgstr.replace("[br]", " ")
             msgstr=XML.sub(" ", msgstr) # Remove XML, HTML and CSS tags
