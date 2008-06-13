@@ -134,6 +134,7 @@ hint="plugin -> module externe"
 [&lwb;plugins?&rwb;]
 valid after="\(" before="\)"
 valid after="kmdr-"
+valid after="kipi-"
 valid file="kcmkonqhtml.po" after="/"
 valid file="desktop_playground-multimedia.po" before="$"
 hint="plugin -> module externe"
