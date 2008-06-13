@@ -271,6 +271,8 @@ def spell_error(msg, cat, faultyWord, suggestions):
     C = _colors_for_file(sys.stdout)
     print "-"*40
     print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
+    if msg.msgctxt:
+        print C.BOLD+"Context: "+C.RESET+msg.msgctxt
     #TODO: color in red part of context that make the mistake
     print C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET
     if suggestions:
