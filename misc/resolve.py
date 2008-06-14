@@ -216,7 +216,8 @@ def resolve_entities_simple (text, entities, ignored_entities,
 _alt_head = "~@"
 _alt_hlen = len(_alt_head)
 
-def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
+def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
+                          condf=None):
     """
     Replace alternatives directives in the text with the selected alternative.
 
@@ -257,6 +258,11 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
         with this string as source identifier
     @type srcname: None or string
 
+    @param condf:
+        resolve current alternative directive only when this function
+        returns C{True} on call with each alternative as argument
+    @type condf: None or C{(x_1, ..., x_n) -> True/False}
+
     @returns:
         resulting text, number of resolved alternatives, and an indicator
         of well-formedness (C{True} if all directives well-formed)
@@ -268,15 +274,17 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
     new_text = u""
     nresolved = 0
     malformed = False
-
+    p = -1
     while True:
-        p = text.find(_alt_head)
+        pp = p + 1
+        p = text.find(_alt_head, pp)
         if p < 0:
-            new_text += text
+            new_text += text[pp:]
             break
+        ps = p
 
         # Append segment prior to alternatives directive to the result.
-        new_text += text[:p]
+        new_text += text[pp:p]
         rep_text = text[p:] # text segment for error reporting
 
         # Must have at least 2 characters after the head.
@@ -287,16 +295,16 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
                       "\"...%s\"" % (srcname, rep_text)
             break
 
-        # Read the separating character and trim source text.
-        sep = text[p + _alt_hlen]
-        text = text[p + _alt_hlen + 1:]
+        # Read the separating character.
+        p += _alt_hlen
+        sep = text[p]
 
         # Parse requested number of inserts,
         # choose the one with matching index for the result.
+        alts = []
         for i in range(total):
-            # Ending separator for this insert.
-            p = text.find(sep)
-
+            pp = p + 1
+            p = text.find(sep, pp)
             # Must have exactly the given total number of alternatives.
             if p < 0:
                 malformed = True
@@ -304,19 +312,18 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
                     print "%s: too little alternatives in the directive: " \
                           "\"...%s\"" % (srcname, rep_text)
                 break
+            alts.append(text[pp:p])
 
-            # If at requested alternative, append to the result.
-            if i == select - 1:
-                alt = text[:p]
-                if fmtstr is not None:
-                    alt = fmtstr % alt
-                new_text += alt
-                nresolved += 1
-                # Don't break here, should check if the total number
-                # of alternatives match.
-
-            # Trim source text.
-            text = text[p + 1:]
+        # Replace the alternative if admissible, or leave directive untouched.
+        isel = select - 1
+        if isel < len(alts) and (not condf or condf(*alts)):
+            alt = alts[isel]
+            if fmtstr is not None:
+                alt = fmtstr % alt
+            new_text += alt
+            nresolved += 1
+        else:
+            new_text += text[ps:p+1]
 
     if malformed:
         new_text = original_text
@@ -326,7 +333,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None):
 
 
 def resolve_alternatives_simple (text, select, total, fmtstr=None,
-                                 srcname=None):
+                                 srcname=None, condf=None):
     """
     As L{resolve_alternatives}, but return only the resolved text.
 
@@ -337,7 +344,8 @@ def resolve_alternatives_simple (text, select, total, fmtstr=None,
     """
 
     ntext, d1, malformed = resolve_alternatives(text, select, total,
-                                                fmtstr=fmtstr, srcname=srcname)
+                                                fmtstr=fmtstr, srcname=srcname,
+                                                condf=condf)
     if malformed:
         return text
     return ntext
