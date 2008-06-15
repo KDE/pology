@@ -78,6 +78,7 @@ hint="Choix de l'équipe : utilisation du verbe conserver"
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
 valid after="CU"
 valid file="knotes.po"
+valid file="gwenview.po" after="^"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
 
 [r@eguli@ere]
