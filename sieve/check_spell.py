@@ -52,10 +52,10 @@ class Sieve (object):
  
         personalDict=join(rootdir(), "l10n", self.lang, "spell", "dict.aspell")
         if not isfile(personalDict):
-            print "Personal KDE dictionnary is not available for your language"
+            #print "Personal dictionary is not available for your language"
             aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"))
         else:
-            print "Using language specific KDE dictionnary (%s)" % personalDict
+            #print "Using language-specific dictionary (%s)" % personalDict
             aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", str(personalDict)))
 
         # Create Aspell object
