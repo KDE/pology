@@ -185,7 +185,7 @@ import codecs
 import locale
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
-from pology.misc.split import split_text
+from pology.misc.split import proper_words
 from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
 from pology.misc.report import warning
@@ -418,13 +418,10 @@ class Sieve (object):
             lnwords = [] # this group's word count, for averaging
             lnchars = [] # this group's character count, for averaging
             for text in texts:
-                for c in self.shortcut:
-                    text = text.replace(c, "")
                 pf = text.find("|/|")
                 if pf >= 0:
                     text = text[0:pf]
-                words = split_text(text, True, msg.format)[0]
-                words = [w for w in words if w[0:1].isalpha()]
+                words = proper_words(text, True, self.shortcut)
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
