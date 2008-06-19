@@ -267,7 +267,7 @@ valid after="x-de"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
-valid file="kfmclient.po" before="&gt;"
+valid file="kfmclient.po" after="/"
 hint="Pas de « e » à « profils »"
 
 [assignement]i
