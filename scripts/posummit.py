@@ -1595,7 +1595,9 @@ def summit_merge_single (branch_id, catalog_path, template_path,
                          unwrap, split_tags, project, options):
 
     # Call msgmerge to create the temporary merged catalog.
-    tmp_path = "/tmp/merge%d-%s" % (os.getpid(), os.path.basename(catalog_path))
+    tmp_dir = os.path.join("tmp", "summit-merge-%d" % os.getpid())
+    mkdirpath(tmp_dir)
+    tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
     cmdline = "msgmerge --quiet --previous %s %s -o %s "
     cmdline %= (catalog_path, template_path, tmp_path)
     if unwrap:
