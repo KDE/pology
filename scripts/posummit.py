@@ -7,7 +7,8 @@ import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
-from pology.misc.fsops import mkdirpath
+from pology.misc.fsops import mkdirpath, assert_system, collect_system
+from pology.misc.vcs import make_vcs
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -257,11 +258,7 @@ def derive_project_data (project, options):
 
     # Create the version control operator if given.
     if p.version_control:
-        vcsn = p.version_control.lower()
-        if vcsn in ("svn", "subversion"):
-            p.vcs = VcsSubversion()
-        else:
-            error("unknown version control system '%s'" % p.version_control)
+        p.vcs = make_vcs(p.version_control.lower())
     else:
         p.vcs = None
 
@@ -1683,91 +1680,6 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     else:
         # Remove the temporary merged catalog.
         os.unlink(tmp_path)
-
-
-# Execute command line and assert success.
-# In case of failure, report the failed command line if echo is False.
-def assert_system (cmdline, echo=False):
-
-    if echo:
-        print cmdline
-    ret = os.system(cmdline)
-    if ret:
-        if echo:
-            error("non-zero exit from previous command")
-        else:
-            error("non-zero exit from:\n%s" % cmdline)
-
-
-# Execute command line and collect stdout, stderr, and return code.
-# Also output the stdout and stderr if echo is True.
-_execid = 0
-def collect_system (cmdline, echo=False):
-
-    # Create temporary files.
-    global _execid
-    tmpout = "/tmp/exec%s-%d-out" % (os.getpid(), _execid)
-    tmperr = "/tmp/exec%s-%d-err" % (os.getpid(), _execid)
-    _execid += 1
-
-    # Execute.
-    if echo:
-        print cmdline
-    cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
-    ret = os.system(cmdline_mod)
-
-    # Collect stdout and stderr.
-    strout = "".join(open(tmpout).readlines())
-    strerr = "".join(open(tmperr).readlines())
-    if echo:
-        if strout:
-            sys.stdout.write("===== stdout from the command ^^^ =====\n")
-            sys.stdout.write(strout)
-        if strerr:
-            sys.stderr.write("***** stderr from the command ^^^ *****\n")
-            sys.stderr.write(strerr)
-
-    # Clean up.
-    os.unlink(tmpout)
-    os.unlink(tmperr)
-
-    return (strout, strerr, ret)
-
-
-# Base class for version control systems.
-class VcsBase (object):
-
-    # Return True if the path was added, False otherwise.
-    def add (self, path):
-
-        error("selected version control system does not define adding")
-
-    # Return True if the path was removed, False otherwise.
-    def remove (self, path):
-
-        error("selected version control system does not define removing")
-
-
-# Version control system: Subversion
-class VcsSubversion (VcsBase):
-
-    def add (self, path):
-
-        # Try adding by backtracking.
-        cpath = path
-        while collect_system("svn add %s" % cpath)[2] != 0:
-            cpath = os.path.dirname(cpath)
-            if not cpath:
-                return False
-
-        return True
-
-    def remove (self, path):
-
-        if collect_system("svn remove %s" % path)[2] != 0:
-            return False
-
-        return True
 
 
 # For each source file mentioned in the test catalog, if it is not mentioned
