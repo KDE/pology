@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 
 """
-File system operations concerning PO files.
+Operations with file system and external commands.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
+import sys
 import os
 
 
@@ -76,4 +77,70 @@ def mkdirpath (dirpath):
         incpath = os.path.join(incpath, subdir)
         if not os.path.isdir(incpath):
             os.mkdir(incpath)
+
+
+# Execute command line and assert success.
+# In case of failure, report the failed command line if echo is False.
+def assert_system (cmdline, echo=False):
+    """
+    Execute command line and assert success.
+
+    If the command exits with non-zero zero state, the program aborts.
+
+    @param cmdline: command line to execute
+    @type cmdline: string
+    @param echo: whether to echo the supplied command line
+    @type echo: bool
+    """
+
+    if echo:
+        print cmdline
+    ret = os.system(cmdline)
+    if ret:
+        if echo:
+            error("non-zero exit from previous command")
+        else:
+            error("non-zero exit from:\n%s" % cmdline)
+
+
+_execid = 0
+def collect_system (cmdline, echo=False):
+    """
+    Execute command line and collect stdout, stderr, and return code.
+
+    @param cmdline: command line to execute
+    @type cmdline: string
+    @param echo: whether to echo the command line, as well as stdout/stderr
+    @type echo: bool
+    """
+
+    # Create temporary files.
+    global _execid
+    tmpout = "/tmp/exec%s-%d-out" % (os.getpid(), _execid)
+    tmperr = "/tmp/exec%s-%d-err" % (os.getpid(), _execid)
+    _execid += 1
+
+    # Execute.
+    if echo:
+        print cmdline
+    cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
+    ret = os.system(cmdline_mod)
+
+    # Collect stdout and stderr.
+    strout = "".join(open(tmpout).readlines())
+    strerr = "".join(open(tmperr).readlines())
+    if echo:
+        if strout:
+            sys.stdout.write("===== stdout from the command ^^^ =====\n")
+            sys.stdout.write(strout)
+        if strerr:
+            sys.stderr.write("***** stderr from the command ^^^ *****\n")
+            sys.stderr.write(strerr)
+
+    # Clean up.
+    os.unlink(tmpout)
+    os.unlink(tmperr)
+
+    return (strout, strerr, ret)
+
 
