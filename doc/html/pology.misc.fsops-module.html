@@ -51,7 +51,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module fsops</h1><p class="nomargin-top"></p>
-<p>File system operations concerning PO files.</p>
+<p>Operations with file system and external commands.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -95,6 +95,42 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#mkdirpath" class="summary-sig-name">mkdirpath</a>(<span class="summary-sig-arg">dirpath</span>)</span><br />
       Make all the directories in the path which do not exist yet.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#assert_system" class="summary-sig-name">assert_system</a>(<span class="summary-sig-arg">cmdline</span>,
+        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Execute command line and assert success.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_system" class="summary-sig-name">collect_system</a>(<span class="summary-sig-arg">cmdline</span>,
+        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Execute command line and collect stdout, stderr, and return code.</td>
           <td align="right" valign="top">
             
             
@@ -171,6 +207,57 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dirpath</code></strong> (string) - the directory path to create</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="assert_system"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">assert_system</span>(<span class="sig-arg">cmdline</span>,
+        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Execute command line and assert success.</p>
+  <p>If the command exits with non-zero zero state, the program aborts.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
+        <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the supplied command line</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="collect_system"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_system</span>(<span class="sig-arg">cmdline</span>,
+        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Execute command line and collect stdout, stderr, and return code.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
+        <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the command line, as well as stdout/stderr</li>
     </ul></dd>
   </dl>
 </td></tr></table>

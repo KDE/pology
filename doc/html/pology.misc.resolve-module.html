@@ -160,7 +160,8 @@
         <span class="summary-sig-arg">select</span>,
         <span class="summary-sig-arg">total</span>,
         <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>)</span><br />
       Replace alternatives directives in the text with the selected 
       alternative.</td>
           <td align="right" valign="top">
@@ -182,7 +183,8 @@
         <span class="summary-sig-arg">select</span>,
         <span class="summary-sig-arg">total</span>,
         <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>)</span><br />
       As <a href="pology.misc.resolve-module.html#resolve_alternatives" 
       class="link">resolve_alternatives</a>, but return only the resolved 
       text.</td>
@@ -436,7 +438,8 @@
         <span class="sig-arg">select</span>,
         <span class="sig-arg">total</span>,
         <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">condf</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -474,6 +477,9 @@
           format directive</li>
         <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report malformed directives to standard output, with
           this string as source identifier</li>
+        <li><strong class="pname"><code>condf</code></strong> (None or <code>(x_1, ..., x_n) -&gt; True/False</code>) - resolve current alternative directive only when this function 
+          returns <code>True</code> on call with each alternative as 
+          argument</li>
     </ul></dd>
     <dt>Returns: string, int, bool</dt>
         <dd>resulting text, number of resolved alternatives, and an indicator
@@ -493,7 +499,8 @@
         <span class="sig-arg">select</span>,
         <span class="sig-arg">total</span>,
         <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">condf</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;

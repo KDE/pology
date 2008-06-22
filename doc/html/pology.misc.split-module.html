@@ -87,6 +87,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.split-module.html#proper_words" class="summary-sig-name">proper_words</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">accel</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+      Mine proper words out of the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -130,6 +149,41 @@
     </ul></dd>
     <dt>Returns: list of strings, list of strings</dt>
         <dd>words and intersections</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="proper_words"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">proper_words</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">accel</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Mine proper words out of the text.</p>
+  <p>The proper words are those one would expect to find in a dictionary, 
+  or at least having that latent quality (jargon, etc.) As opposed to URLs,
+  email addresses, shell variables, etc.</p>
+  <p>The text may contain XML-like markup (<code>&lt;...&gt;</code> tags, 
+  entities...), or keyboard accelerator markers. If specified, these 
+  elements may influence mining.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to split</li>
+        <li><strong class="pname"><code>markup</code></strong> (bool) - whether text contains markup tags</li>
+        <li><strong class="pname"><code>accel</code></strong> (string) - accelerator characters to ignore</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>proper words</dd>
   </dl>
 </td></tr></table>
 </div>
