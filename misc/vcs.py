@@ -14,6 +14,7 @@ various version control systems.
 import os
 
 from pology.misc.report import error, warning
+from pology.misc.fsops import collect_system
 
 
 def make_vcs (vcskey):
