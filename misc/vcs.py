@@ -33,7 +33,7 @@ def make_vcs (vcskey):
 
     nkey = vcskey.lower()
     if nkey in ("none", "noop"):
-        return VcsSubversion()
+        return VcsNoop()
     elif nkey in ("svn", "subversion"):
         return VcsSubversion()
     else:
