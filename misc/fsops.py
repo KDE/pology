@@ -32,8 +32,11 @@ def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
     @type unique: bool
 
     @returns: collected catalog paths
-    @rtype: list of strings
+    @rtype: string or list of strings
     """
+
+    if isinstance(file_or_dir_paths, (str, unicode)):
+        file_or_dir_paths = [file_or_dir_paths]
 
     catalog_files = []
     for path in file_or_dir_paths:
