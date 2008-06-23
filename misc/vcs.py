@@ -22,6 +22,7 @@ def make_vcs (vcskey):
 
     Desired VCS is identified by a keyword. Currently available:
       - Subversion (C{svn}, C{subversion})
+      - dummy noop (C{none}, C{noop})
 
     @param vcskey: keyword identifier of the VCS
     @type vcskey: string
@@ -31,7 +32,9 @@ def make_vcs (vcskey):
     """
 
     nkey = vcskey.lower()
-    if nkey in ("svn", "subversion"):
+    if nkey in ("none", "noop"):
+        return VcsSubversion()
+    elif nkey in ("svn", "subversion"):
         return VcsSubversion()
     else:
         error("unknown version control system requested by key '%s'" % vcskey)
@@ -67,6 +70,23 @@ class VcsBase (object):
         """
 
         error("selected version control system does not define removing")
+
+
+class VcsNoop (VcsBase):
+    """
+    VCS: Dummy VCS which silently passes any operation and does nothing.
+    """
+
+    def add (self, path):
+        # Base override.
+
+        return True
+
+
+    def remove (self, path):
+        # Base override.
+
+        return True
 
 
 class VcsSubversion (VcsBase):
