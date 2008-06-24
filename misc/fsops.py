@@ -77,6 +77,8 @@ def mkdirpath (dirpath):
 
     incpath = ""
     for subdir in os.path.normpath(dirpath).split(os.path.sep):
+        if not subdir:
+            subdir = os.path.sep
         incpath = os.path.join(incpath, subdir)
         if not os.path.isdir(incpath):
             os.mkdir(incpath)
