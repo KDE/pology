@@ -56,7 +56,7 @@ class Header (Monitored):
     @type copyright: string
 
     @ivar license: comment line with the license statement
-    @type license: comment line with the license statement
+    @type license: string
 
     @ivar author: comment lines stating translators who worked on this catalog
     @type author: list* of strings
@@ -281,4 +281,27 @@ class Header (Monitored):
                     break
 
         return nfound - 1 == nth
+
+
+    def remove_field (self, name):
+        """
+        Remove header fields with the given name, if it exists.
+
+        @param name: remove fields with this name
+        @type name: string
+
+        @return: number of removed fields
+        @rtype: int
+        """
+
+        i = 0
+        nrem = 0
+        while i < len(self.field):
+            if self.field[i][0] == name:
+                self.field.pop(i)
+                nrem += 1
+            else:
+                i += 1
+
+        return nrem
 
