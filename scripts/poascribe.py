@@ -239,6 +239,10 @@ def ascribe_updated_cat (options, config, user, catpath):
         # No messages to ascribe.
         return 0
 
+    if not config.vcs.is_clear(cat.filename):
+        warning("%s: VCS state not clear, skipping ascription" % cat.filename)
+        return 0
+
     # Create ascription catalog for this user if not existing already.
     acat = acats.get(user)
     if not acat:
