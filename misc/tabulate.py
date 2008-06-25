@@ -12,7 +12,7 @@ import pology.misc.colors as C
 
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
-              rotated=False, colorized=False):
+              rotated=False, colorized=False, indent=""):
     """
     Tabulate data in plain text.
 
@@ -51,6 +51,9 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
 
     @param colorized: whether the table should be colorized for shell output
     @type colorized: bool
+
+    @param indent: indent string for the whole table
+    @type indent: string
 
     @returns: plain text representation of the table (no trailing newline)
     @rtype: string
@@ -184,6 +187,6 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         cells = []
         for c in range(ncols + co):
             cells.append(sdata[c][r])
-        lines.append(space.join(cells))
+        lines.append(indent + space.join(cells))
 
     return "\n".join(lines)
