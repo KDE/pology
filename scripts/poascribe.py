@@ -330,6 +330,7 @@ def init_asc_cat (catname, user, config):
     rfv("Project-Id-Version", unicode(catname))
     rfv("Report-Msgid-Bugs-To", unicode(udat.email or ""))
     rfv("PO-Revision-Date", unicode(date_now()))
+    rfv("Content-Type", u"text/plain; charset=UTF-8")
 
     if udat.email:
         ltr = "%s <%s>" % (udat.name, udat.email)
