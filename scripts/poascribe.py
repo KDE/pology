@@ -173,6 +173,7 @@ def examine_state (options, configs_catpaths):
     cmon = options.mark is True
 
     # Count unascribed messages through catalogs.
+    # Mark them if requested.
     unasc_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
@@ -187,6 +188,10 @@ def examine_state (options, configs_catpaths):
                     if catpath not in unasc_by_cat:
                         unasc_by_cat[catpath] = 0
                     unasc_by_cat[catpath] += 1
+                    if options.mark:
+                        msg.flag.add(u"unascribed")
+            if options.mark:
+                sync_and_rep(cat)
 
     # Present findings.
     if unasc_by_cat:
@@ -263,8 +268,7 @@ def ascribe_updated_cat (options, config, user, catpath):
         # Ascribe modification of the message.
         ascribe_msg_mod(amsg, user, config, catrev)
 
-    if acat.sync():
-        print "!    " + acat.filename
+    if sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
     return len(unasc_msgs)
@@ -412,6 +416,15 @@ def asc_append_field (msg, field, value):
 
     stext = u"".join([field, fld_sep, " ", str(value)])
     msg.manual_comment.append(stext)
+
+
+def sync_and_rep (cat):
+
+    modified = cat.sync()
+    if modified:
+        print "!    " + cat.filename
+
+    return modified
 
 
 def date_now ():
