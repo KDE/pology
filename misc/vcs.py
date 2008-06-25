@@ -12,6 +12,7 @@ various version control systems.
 """
 
 import os
+import re
 
 from pology.misc.report import error, warning
 from pology.misc.fsops import collect_system
@@ -73,6 +74,20 @@ class VcsBase (object):
         error("selected version control system does not define removing")
 
 
+    def revision (self, path):
+        """
+        Get current revision ID of the path.
+
+        @param path: path to query for revision
+        @type path: string
+
+        @return: revision ID
+        @rtype: string
+        """
+
+        error("selected version control system does not define revision query")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -88,6 +103,12 @@ class VcsNoop (VcsBase):
         # Base override.
 
         return True
+
+
+    def revision (self, path):
+        # Base override.
+
+        return ""
 
 
 class VcsSubversion (VcsBase):
@@ -116,4 +137,18 @@ class VcsSubversion (VcsBase):
 
         return True
 
+
+    def revision (self, path):
+        # Base override.
+
+        res = collect_system("svn info %s" % path)
+        rx = re.compile(r"^Last Changed Rev: *([0-9]+)", re.I)
+        revid = ""
+        for line in res[0].split("\n"):
+            m = rx.search(line)
+            if m:
+                revid = m.group(1)
+                break
+
+        return revid
 
