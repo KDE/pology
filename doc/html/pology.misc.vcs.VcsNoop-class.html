@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.vcs.VcsBase</title>
+  <title>pology.misc.vcs.VcsNoop</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -40,7 +40,7 @@
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
         <a href="pology.misc.vcs-module.html">Module&nbsp;vcs</a> ::
-        Class&nbsp;VcsBase
+        Class&nbsp;VcsNoop
       </span>
     </td>
     <td>
@@ -51,21 +51,18 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class VcsBase</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class VcsNoop</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-object --+
-         |
-        <strong class="uidshort">VcsBase</strong>
+object --+    
+         |    
+   <a href="pology.misc.vcs.VcsBase-class.html">VcsBase</a> --+
+             |
+            <strong class="uidshort">VcsNoop</strong>
 </pre>
 
-<dl><dt>Known Subclasses:</dt>
-<dd>
-      <ul class="subclass-list">
-<li><a href="pology.misc.vcs.VcsNoop-class.html">VcsNoop</a></li><li>, <a href="pology.misc.vcs.VcsSubversion-class.html">VcsSubversion</a></li>  </ul>
-</dd></dl>
-
 <hr />
-<p>Abstract base for VCS objects.</p>
+<p>VCS: Dummy VCS which silently passes any operation and does 
+  nothing.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -81,7 +78,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Add path to version control.</td>
           <td align="right" valign="top">
@@ -99,7 +96,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Remove path from version control and from disk.</td>
           <td align="right" valign="top">
@@ -117,7 +114,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#revision" class="summary-sig-name">revision</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#revision" class="summary-sig-name">revision</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Get current revision ID of the path.</td>
           <td align="right" valign="top">
@@ -135,7 +132,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#is_clear" class="summary-sig-name">is_clear</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#is_clear" class="summary-sig-name">is_clear</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Check if the path is in clear state.</td>
           <td align="right" valign="top">
@@ -208,10 +205,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to add</li>
+        <li><strong class="pname"><code>path</code></strong> - path to add</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if addition successful</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#add">VcsBase.add</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -234,10 +235,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to remove</li>
+        <li><strong class="pname"><code>path</code></strong> - path to remove</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if removal successful</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#remove">VcsBase.remove</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -260,10 +265,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to query for revision</li>
+        <li><strong class="pname"><code>path</code></strong> - path to query for revision</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>revision ID</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#revision">VcsBase.revision</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -288,10 +297,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to check the state of</li>
+        <li><strong class="pname"><code>path</code></strong> - path to check the state of</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if clear</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#is_clear">VcsBase.is_clear</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>

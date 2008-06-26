@@ -51,7 +51,35 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module check_spell</h1><p class="nomargin-top"></p>
-<p>Sieves messages with GNU aspell spell checker (http://aspell.net/)</p>
+<p>Spell-check messages using GNU ASpell (http://aspell.net/).</p>
+  <p>For spell-checking, messages are split into words, which are then fed 
+  to Aspell one by one. Misspelled words can be reported to stdout (either 
+  verbosely with suggestions, or succinctly as pure list), or into a rich 
+  XML file with a lot of context information.</p>
+  <p>Sieve options:</p>
+  <ul>
+    <li>
+      <code>lang:&lt;lang&gt;</code>: language of translation (default: 
+      <code>fr</code>)
+    </li>
+    <li>
+      <code>list</code>: only report wrong words to stdout, one per line
+    </li>
+    <li>
+      <code>xml:&lt;filename&gt;</code>: build XML report file
+    </li>
+    <li>
+      <code>accel:&lt;char&gt;</code>: strip this character as accelerator 
+      marker
+    </li>
+    <li>
+      <code>skip:&lt;regex&gt;</code>: do not check words which match given
+      regular expression
+    </li>
+  </ul>
+  <p>If accelerator character is not explicitly given, it may be inferred 
+  from the PO header; otherwise, some usual accelerator characters are 
+  removed by default.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
