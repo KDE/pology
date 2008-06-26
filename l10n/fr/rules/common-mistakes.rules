@@ -224,6 +224,7 @@ hint="TV est un anglicisme. À éviter..."
 [CPU]i
 valid ctx=".*heading"
 valid after="K"
+valid before="freq"
 hint="Traduire CPU par « processeur »"
 
 [&lwb;environment&rwb;]i
@@ -299,7 +300,7 @@ valid after="sil"
 hint="Il faut un accent circonflexe au mot « icône »"
 
 [voulez vous]i
-valid after="[sS]i vous "
+valid after="vous "
 hint="Ne pas oublier le trait d'union !"
 
 [&lwb;dela&rwb;]
@@ -354,6 +355,7 @@ valid after="[Ss]mb"
 valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
+valid file="solid-network.po" after="«&unbsp;" before="&unbsp;»"
 hint="remplacer « status » ou « statut » par « état »"
 
 [basé.* sur]

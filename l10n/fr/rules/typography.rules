@@ -386,7 +386,7 @@ hint="À bas MS-DOS"
 
 [&unbsp;[:|;] (?=[A-Z])] 
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-valid before="David|Laura|Gerardo|Martin" # Authors
+valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
 valid before="Sendmail|Maj|OpenUniverse|Risk|Tiff|Thor|Verr"
 valid before="F%\d"
