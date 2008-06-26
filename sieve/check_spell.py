@@ -109,31 +109,25 @@ class Sieve (object):
             else:
                 self.accel = self.accel_usual
 
+        # Close previous/open new XML section.
+        if self.xmlFile:
+            filename = os.path.basename(cat.filename)
+            #print "(Processing %s)" % filename # better not contaminate stdout?
+            # Close previous PO.
+            if self.filename != "":
+                self.xmlFile.write("</po>\n")
+            self.filename = filename
+            # Open new PO.
+            poTag='<po name="%s">\n' % filename
+            self.xmlFile.write(poTag) # Write to result
+
 
     def process (self, msg, cat):
 
         if msg.obsolete:
             return
 
-        filename=basename(cat.filename)
         id=0 # Count msgstr plural forms
-  
-        # New file handling
-        if self.xmlFile and self.filename!=filename:
-            print "(Processing %s)" % filename
-            newFile=True
-            if self.filename!="":
-                # close previous
-                self.xmlFile.write("</po>\n")
-            self.filename=filename
-        else:
-            newFile=False
-        
-        # Handle start/end of files for XML output (not needed for text output)
-        if self.xmlFile and newFile:
-            # open new po
-            poTag='<po name="%s">\n' % filename
-            self.xmlFile.write(poTag) # Write to result
 
         for msgstr in msg.msgstr:
             # Skip message with context in the ignoredContext list
