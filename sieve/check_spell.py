@@ -1,7 +1,22 @@
 # -*- coding: UTF-8 -*-
 
 """
-Sieves messages with GNU aspell spell checker (http://aspell.net/)
+Spell-check messages using GNU ASpell (http://aspell.net/).
+
+For spell-checking, messages are split into words, which are then fed
+to Aspell one by one. Misspelled words can be reported to stdout
+(either verbosely with suggestions, or succinctly as pure list),
+or into a rich XML file with a lot of context information.
+
+Sieve options:
+  - C{lang:<lang>}: language of translation (default: C{fr})
+  - C{list}: only report wrong words to stdout, one per line
+  - C{xml:<filename>}: build XML report file
+  - C{accel:<char>}: strip this character as accelerator marker
+  - C{skip:<regex>}: do not check words which match given regular expression
+
+If accelerator character is not explicitly given, it may be inferred from the
+PO header; otherwise, some usual accelerator characters are removed by default.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
