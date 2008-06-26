@@ -88,6 +88,22 @@ class VcsBase (object):
         error("selected version control system does not define revision query")
 
 
+    def is_clear (self, path):
+        """
+        Check if the path is in clear state.
+
+        Clear state means none of: not version-controlled, modified, added...
+
+        @param path: path to check the state of
+        @type path: string
+
+        @return: C{True} if clear
+        @rtype: bool
+        """
+
+        error("selected version control system does not define state query")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -109,6 +125,12 @@ class VcsNoop (VcsBase):
         # Base override.
 
         return ""
+
+
+    def is_clear (self, path):
+        # Base override.
+
+        return True
 
 
 class VcsSubversion (VcsBase):
@@ -151,4 +173,13 @@ class VcsSubversion (VcsBase):
                 break
 
         return revid
+
+
+    def is_clear (self, path):
+        # Base override.
+
+        res = collect_system("svn status %s" % path)
+        clear = not re.search(r"^\S", res[0])
+
+        return clear
 
