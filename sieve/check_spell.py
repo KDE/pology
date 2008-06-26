@@ -10,6 +10,7 @@ Sieves messages with GNU aspell spell checker (http://aspell.net/)
 from pology.misc.colors import RED, RESET
 from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import spell_error, spell_xml_error
+from pology.misc.split import proper_words
 from pology import rootdir
 from locale import getdefaultlocale, getpreferredencoding
 import os, re, sys
@@ -17,15 +18,6 @@ from os.path import abspath, basename, dirname, isfile, join
 from codecs import open
 from time import strftime
 
-# Regexp used to clean XML messages
-XML=re.compile("<.*?>")
-ENTITTY=re.compile("&\S*?;")
-DIGIT=re.compile("\d")
-
-# Symbols to be removed from words before spell checking
-SYMBOLS=("#", "&", "--", ".", "...", ";", ",", "\n", "(", ")", "%", "@", "_", "«", "»", "*",
-         "[", "]", "|", "\\", "…", "=", "<", ">", "!", "?", "®", "°", "²", "$", "~", ".")
-#SYMBOLSRE=re.compile("#|\&|--|\.|\.\.\.|,|;|,|\n|\(|\)|%|@|_|«||»|\*|\[|\]|\||\\|…|=|\<|\>|\!|\?|®|°|²|$|~")
 
 class Sieve (object):
     """Process messages through the aspell spell checker"""
@@ -91,10 +83,32 @@ class Sieve (object):
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
             else:
                 print "Cannot open %s file. XML output disabled" % xmlPath
-            
+
+        # Remove accelerators?
+        self.accel_explicit = False
+        self.accel_usual = "&_~"
+        self.accel = ""
+        if "accel" in options:
+            options.accept("accel")
+            self.accel = options["accel"]
+            self.accel_explicit = True
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
+
+
+    def process_header (self, hdr, cat):
+
+        # Check if the catalog itself states the shortcut character,
+        # unless specified explicitly by the command line.
+        if not self.accel_explicit:
+            accel = cat.possible_accelerator()
+            if accel:
+                self.accel = accel
+            else:
+                self.accel = self.accel_usual
+
 
     def process (self, msg, cat):
 
@@ -131,22 +145,10 @@ class Sieve (object):
                     break
             if skip:
                 break
-            msgstr.replace("\n", " ")
-            msgstr=msgstr.replace("/", " ")
-            msgstr=msgstr.replace("|", " ")
-            msgstr=msgstr.replace("[br]", " ")
-            msgstr=XML.sub(" ", msgstr) # Remove XML, HTML and CSS tags
-            msgstr=ENTITTY.sub(" ", msgstr) # Remove docbook entities
-            for word in msgstr.split():
-                # Skip words with special caracters (URL, shell script, email adress..."
-                if "@" in word or "+" in word or ":" in word or DIGIT.search(word) or word[0] in ("--", "/", "$") or word=="''":
-                    continue
-                # Clean word from accentuation
-                word=cleanWord(word)
-                # Skip place holder
-                if word.startswith("{") and word.endswith("}"):
-                    continue
-                encodedWord=word.encode("utf-8") # Aspell wait for unicode encoded words
+            words = proper_words(msgstr, True, self.accel)
+            for word in words:
+                # Encode word for Aspell.
+                encodedWord=word.encode("utf-8")
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
@@ -164,6 +166,8 @@ class Sieve (object):
                     except UnicodeEncodeError:
                         print "Cannot encode this word in your codec (%s)" % self.encoding
             id+=1 # Increase msgstr id count
+
+
     def finalize (self):
         if self.list is not None:
             print "\n".join([i.decode(self.encoding) for i in self.list])
@@ -176,15 +180,3 @@ class Sieve (object):
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
 
-def cleanWord(word):
-    """Clean word from any extra punctuation, trailing \n or accelerator check
-    @param word: word to be cleaned
-    @type word: unicode
-    @return: word clean (unicode)"""
-    for remove in SYMBOLS:
-        word=word.replace(remove, "")
-    #word=SYMBOLSRE.subn(word, "")[0]
-    word=word.strip("'")
-    word=word.strip('"')
-    word=word.strip("-")
-    return word
