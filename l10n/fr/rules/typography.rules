@@ -78,7 +78,8 @@ valid file="kspread.po" after="(ligne)|(colonne)|(body)" before="(ligne)|(colonn
 valid file="ktexteditor_plugins.po" after="H|%"
 valid file="kcalc.po" after="\+"
 valid file="libkcal.po" before="&unbsp;" after="&unbsp;"
-valid file="parley.po" before="verbe" 
+valid file="parley.po" before="verbe"
+valid file="marble.po" before="all" 
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
@@ -96,7 +97,8 @@ valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
-valid before="-\)" # Smiley 
+valid before="-\)" # Smiley
+valid after=";" 
 valid file="kspread.po" after="^\S+\(\S+"
 valid file="kspread.po" after=";\S+"
 valid file="kspread.po" before="\S+;"
@@ -122,6 +124,7 @@ valid after="!" before="!"
 valid after="!" before="&sp;"
 valid after="!" before="$"
 valid after="!" before="&lf;"
+valid after="<"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;" 
 valid file="kspread.po" after="[abcx!]|\(valeur\)"
