@@ -93,6 +93,12 @@ class Sieve (object):
             self.accel = options["accel"]
             self.accel_explicit = True
 
+        # Pattern for words to skip.
+        self.skipRx = None
+        if "skip" in options:
+            options.accept("skip")
+            self.skipRx = re.compile(options["skip"], re.U|re.I)
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
@@ -139,7 +145,14 @@ class Sieve (object):
                     break
             if skip:
                 break
+
+            # Split text into words.
             words = proper_words(msgstr, True, self.accel)
+
+            # Possibly eliminate some words from checking.
+            if self.skipRx:
+                words = [x for x in words if not self.skipRx.search(x)]
+
             for word in words:
                 # Encode word for Aspell.
                 encodedWord=word.encode("utf-8")
