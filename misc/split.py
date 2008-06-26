@@ -122,6 +122,7 @@ _r_shopt_rx = (re.compile(r"(^|[^\w])(--|-|/)[\w-]+", re.U), "")
 _r_tags_rx = (re.compile(r"<.*?>"), " ")
 _r_ents_rx = (re.compile(r"&[\w.:-]+;"), " ")
 _r_numents_rx = (re.compile(r"&#x?\d+;"), " ")
+_r_digits_rx = (re.compile(r"\d+"), " ")
 
 _remove_xml_rxs = [
     _r_tags_rx, # before entities
@@ -134,9 +135,12 @@ _remove_rxs = [
     _r_url_rx,
     _r_shvar_rx,
     _r_shopt_rx,
+    _r_digits_rx,
 ]
-# Pass words which have only trailing digits and no underscores.
-_word_ok_rx = re.compile(r"^[^0-9_]+[0-9]*$", re.U)
+
+# Pass words when:
+# - no underscores
+_word_ok_rx = re.compile(r"^[^_]*$", re.U)
 
 
 def proper_words (text, markup=False, accel=""):
