@@ -59,8 +59,14 @@
   <p>Sieve options:</p>
   <ul>
     <li>
-      <code>lang:&lt;lang&gt;</code>: language of translation (default: 
-      <code>fr</code>)
+      <code>lang:&lt;language&gt;</code>: language of the translation
+    </li>
+    <li>
+      <code>enc:&lt;encoding&gt;</code>: encoding of PO files to be checked
+    </li>
+    <li>
+      <code>variety:&lt;varname&gt;</code>: variety of the language 
+      dictionary
     </li>
     <li>
       <code>list</code>: only report wrong words to stdout, one per line
@@ -77,6 +83,8 @@
       regular expression
     </li>
   </ul>
+  <p>When language or encoding are not explicitly given, they are extracted
+  from the current system locale.</p>
   <p>If accelerator character is not explicitly given, it may be inferred 
   from the PO header; otherwise, some usual accelerator characters are 
   removed by default.</p>
