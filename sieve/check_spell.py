@@ -9,11 +9,16 @@ to Aspell one by one. Misspelled words can be reported to stdout
 or into a rich XML file with a lot of context information.
 
 Sieve options:
-  - C{lang:<lang>}: language of translation (default: C{fr})
+  - C{lang:<language>}: language of the translation
+  - C{enc:<encoding>}: encoding of PO files to be checked
+  - C{variety:<varname>}: variety of the language dictionary
   - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
   - C{accel:<char>}: strip this character as accelerator marker
   - C{skip:<regex>}: do not check words which match given regular expression
+
+When language or encoding are not explicitly given, they are extracted from
+the current system locale.
 
 If accelerator character is not explicitly given, it may be inferred from the
 PO header; otherwise, some usual accelerator characters are removed by default.
@@ -32,6 +37,7 @@ import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
 from codecs import open
 from time import strftime
+from locale import getdefaultlocale
 
 
 class Sieve (object):
@@ -47,23 +53,53 @@ class Sieve (object):
         self.filename=""     # File name we are processing
         self.xmlFile=None # File handle to write XML output
 
+        # Build Aspell options.
+        aspellOptions = []
+
+        # - assume markup in messages (provide option to disable?)
+        aspellOptions.append(("mode", "sgml"))
+
+        # - language and encoding
+        self.lang, self.enc = getdefaultlocale()
+        if not self.lang:
+            self.lang = "fr" # historical default
+        if not self.enc:
+            self.enc = "UTF-8"
+        self.enc = self._encoding_for_aspell(self.enc) # normalize for Aspell
         if "lang" in options:
             options.accept("lang")
-            self.lang=str(options["lang"])
-        else:
-            self.lang="fr"
-        
-        if "list" in options:
-            options.accept("list")
-            self.list=[]
- 
-        personalDict=join(rootdir(), "l10n", self.lang, "spell", "dict.aspell")
-        if not isfile(personalDict):
-            #print "Personal dictionary is not available for your language"
-            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"))
-        else:
-            #print "Using language-specific dictionary (%s)" % personalDict
-            aspellOptions=(("lang", self.lang), ("mode", "sgml"), ("encoding", "utf-8"), ("personal-path", str(personalDict)))
+            self.lang = options["lang"]
+        if "enc" in options:
+            options.accept("enc")
+            self.enc = options["enc"]
+        aspellOptions.append(("lang", self.lang))
+        aspellOptions.append(("encoding", self.enc))
+
+        # - Pology's internal personal dictonary
+        pd_langs = [self.lang] # language codes to try
+        p = self.lang.find("_") 
+        if p > 0: # also try with bare language code
+            pd_langs.append(self.lang[:p])
+        for pd_lang in pd_langs:
+            personalDict = join(rootdir(), "l10n", pd_lang, "spell", "dict.aspell")
+            if isfile(personalDict):
+                #print "Using language-specific dictionary (%s)" % personalDict
+                aspellOptions.append(("personal-path", str(personalDict)))
+                break
+
+        # - dictionary variety
+        self.variety = None
+        if "variety" in options:
+            options.accept("variety")
+            self.variety = options["variety"]
+        if self.variety:
+            aspellOptions.append(("variety", self.variety))
+
+        # Some options may have ended up with unicode values,
+        # while Aspell expects plain strings. Convert.
+        for i in range(len(aspellOptions)):
+            opt, val = aspellOptions[i]
+            aspellOptions[i] = (opt, str(val))
 
         # Create Aspell object
         try:
@@ -86,6 +122,11 @@ class Sieve (object):
                     continue
                 else:
                     self.ignoredContext.append(line.lower())
+
+        # Simple list output of misspelled words?
+        if "list" in options:
+            options.accept("list")
+            self.list = []
 
         # Also output in XML file ?
         if "xml" in options:
@@ -201,4 +242,12 @@ class Sieve (object):
             self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
+
+
+    def _encoding_for_aspell (self, enc):
+
+        if re.search(r"utf.*8", enc, re.I):
+            return "UTF-8"
+
+        return enc
 
