@@ -10,7 +10,7 @@ or into a rich XML file with a lot of context information.
 
 Sieve options:
   - C{lang:<language>}: language of the translation
-  - C{enc:<encoding>}: encoding of PO files to be checked
+  - C{enc:<encoding>}: encoding for text sent to Aspell
   - C{variety:<varname>}: variety of the language dictionary
   - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
@@ -211,7 +211,7 @@ class Sieve (object):
 
             for word in words:
                 # Encode word for Aspell.
-                encodedWord=word.encode("utf-8")
+                encodedWord=word.encode(self.enc)
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
