@@ -32,12 +32,11 @@ from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import spell_error, spell_xml_error
 from pology.misc.split import proper_words
 from pology import rootdir
-from locale import getdefaultlocale, getpreferredencoding
+from locale import getdefaultlocale, getpreferredencoding, strcoll
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
 from codecs import open
 from time import strftime
-from locale import getdefaultlocale
 
 
 class Sieve (object):
@@ -47,7 +46,6 @@ class Sieve (object):
     
         self.nmatch = 0 # Number of match for finalize
         self.aspell=None # Instance of Aspell parser
-        self.encoding=getdefaultlocale()[1] # Local encoding to encode aspell output
         self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
         self.ignoredContext=[] # List of all PO message context for which no spell check should be done
         self.filename=""     # File name we are processing
@@ -60,20 +58,20 @@ class Sieve (object):
         aspellOptions.append(("mode", "sgml"))
 
         # - language and encoding
-        self.lang, self.enc = getdefaultlocale()
+        self.lang, self.encoding = getdefaultlocale()
         if not self.lang:
             self.lang = "fr" # historical default
-        if not self.enc:
-            self.enc = "UTF-8"
-        self.enc = self._encoding_for_aspell(self.enc) # normalize for Aspell
+        if not self.encoding:
+            self.encoding = "UTF-8"
         if "lang" in options:
             options.accept("lang")
             self.lang = options["lang"]
         if "enc" in options:
             options.accept("enc")
-            self.enc = options["enc"]
+            self.encoding = options["enc"]
+        self.encoding = self._encoding_for_aspell(self.encoding)
         aspellOptions.append(("lang", self.lang))
-        aspellOptions.append(("encoding", self.enc))
+        aspellOptions.append(("encoding", self.encoding))
 
         # - Pology's internal personal dictonary
         pd_langs = [self.lang] # language codes to try
@@ -211,7 +209,7 @@ class Sieve (object):
 
             for word in words:
                 # Encode word for Aspell.
-                encodedWord=word.encode(self.enc)
+                encodedWord=word.encode(self.encoding)
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
@@ -233,7 +231,9 @@ class Sieve (object):
 
     def finalize (self):
         if self.list is not None:
-            print "\n".join([i.decode(self.encoding) for i in self.list])
+            slist = [i.decode(self.encoding) for i in self.list]
+            slist.sort(lambda x, y: strcoll(x.lower(), y.lower()))
+            print "\n".join(slist)
         else:
             if self.nmatch:
                 print "----------------------------------------------------"
