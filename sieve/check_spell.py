@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Spell-check messages using GNU ASpell (http://aspell.net/).
+Spell-check messages using GNU Aspell (http://aspell.net/).
 
 For spell-checking, messages are split into words, which are then fed
 to Aspell one by one. Misspelled words can be reported to stdout
@@ -41,7 +41,7 @@ from locale import getdefaultlocale
 
 
 class Sieve (object):
-    """Process messages through the aspell spell checker"""
+    """Process messages through the Aspell spell checker"""
     
     def __init__ (self, options, global_options):
     
