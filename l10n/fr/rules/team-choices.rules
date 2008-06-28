@@ -32,6 +32,7 @@ hint="Utilisez cette expression au pluriel « entrées / sorties »"
 
 [k?ioslave]
 valid after="kcm|/"
+valid before="&unbsp;» en anglais"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
 [^[Ii]ci]
@@ -137,6 +138,7 @@ hint="plugin -> module externe"
 valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"
+valid before="-"
 valid file="kcmkonqhtml.po" after="/"
 valid file="desktop_playground-multimedia.po" before="$"
 hint="plugin -> module externe"
