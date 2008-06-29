@@ -122,7 +122,7 @@ _r_digits_rx = (re.compile(r"\d+"), " ")
 
 _r_fmtd_c_rx = (re.compile(r"(?<!%)%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]"), "", "c")
 _r_fmtd_qt_rx = (re.compile(r"%\d+"), "", "qt")
-_r_fmtd_python_rx = (re.compile(r"%\(\w+\)[a-z]"), "", "python")
+_r_fmtd_python_rx = (re.compile(r"(?<!%)%\(\w+\)[a-z]"), "", "python")
 
 _remove_xml_rxs = [
     _r_tags_rx, # before entities
