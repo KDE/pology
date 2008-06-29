@@ -131,10 +131,13 @@ def main ():
 
     # Setup options and parse the command line.
     usage = u"""
-%prog [options] sieve POFILE...
+%prog [options] sieve [POPATHS...]
 """.strip()
     description = u"""
-Apply a sieve to the PO files. Some of the sieves only examine PO files, and some can modify them. The first non-option argument is the sieve name; a list of several comma-separated names can be given too.
+Apply sieves to PO paths, which may be either single PO files or directories
+to search recursively for PO files. Some of the sieves only examine PO files,
+while other can modify them. The first non-option argument is the sieve name;
+a list of several comma-separated sieves can be given too.
 """.strip()
     version = u"""
 %prog (Pology) experimental
@@ -182,8 +185,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     if len(free_args) < 1:
         opars.error("must provide sieve to apply")
-    if len(free_args) < 2 and not op.files_from:
-        opars.error("must provide at least one input file")
 
     # Convert all string values in options to unicode.
     local_encoding=locale.getdefaultlocale()[1]
@@ -295,7 +296,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         print "--> Opening catalogs in header-only mode"
 
     # Assemble list of files.
-    file_or_dir_paths = free_args[1:]
+    file_or_dir_paths = free_args[1:] or ["."]
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
         file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
