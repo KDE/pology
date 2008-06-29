@@ -201,7 +201,7 @@ class Sieve (object):
                 break
 
             # Split text into words.
-            words = proper_words(msgstr, True, self.accel)
+            words = proper_words(msgstr, True, self.accel, msg.format)
 
             # Possibly eliminate some words from checking.
             if self.skipRx:

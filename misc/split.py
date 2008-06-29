@@ -114,15 +114,15 @@ _r_url_rx = (re.compile(r"\w+://[^\s]*"
                        , re.I|re.U), "")
 _r_email_rx = (re.compile(r"[\w.-]+@[\w.-]+", re.U), "")
 _r_shvar_rx = (re.compile(r"\$(\w+|\{.*?\})", re.U), "")
-_r_fmtd_rx = (re.compile(r"%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]" # c
-                         r"|%\d+" # qt
-                         r"|%\(\w+\)[a-z]" # python
-                        ), "")
 _r_shopt_rx = (re.compile(r"(^|[^\w])(--|-|/)[\w-]+", re.U), "")
 _r_tags_rx = (re.compile(r"<.*?>"), " ")
 _r_ents_rx = (re.compile(r"&[\w.:-]+;"), " ")
 _r_numents_rx = (re.compile(r"&#x?\d+;"), " ")
 _r_digits_rx = (re.compile(r"\d+"), " ")
+
+_r_fmtd_c_rx = (re.compile(r"%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]"), "", "c")
+_r_fmtd_qt_rx = (re.compile(r"%\d+"), "", "qt")
+_r_fmtd_python_rx = (re.compile(r"%\(\w+\)[a-z]"), "", "python")
 
 _remove_xml_rxs = [
     _r_tags_rx, # before entities
@@ -130,12 +130,16 @@ _remove_xml_rxs = [
     _r_numents_rx,
 ]
 _remove_rxs = [
-    _r_fmtd_rx, # before others
     _r_email_rx, # before URLs
     _r_url_rx,
     _r_shvar_rx,
     _r_shopt_rx,
     _r_digits_rx,
+]
+_remove_fmtd_rxs = [
+    _r_fmtd_c_rx,
+    _r_fmtd_qt_rx,
+    _r_fmtd_python_rx,
 ]
 
 # Pass words when:
@@ -143,7 +147,7 @@ _remove_rxs = [
 _word_ok_rx = re.compile(r"^[^_]*$", re.U)
 
 
-def proper_words (text, markup=False, accel=""):
+def proper_words (text, markup=False, accel="", format=None):
     """
     Mine proper words out of the text.
 
@@ -153,7 +157,8 @@ def proper_words (text, markup=False, accel=""):
 
     The text may contain XML-like markup (C{<...>} tags, entities...),
     or keyboard accelerator markers.
-    If specified, these elements may influence mining.
+    It may also be of certain format known to Gettext (e.g. C{c-format}).
+    If specified, these elements may influence splitting.
 
     @param text: the text to split
     @type text: string
@@ -164,14 +169,25 @@ def proper_words (text, markup=False, accel=""):
     @param accel: accelerator characters to ignore
     @type accel: string
 
+    @param format: Gettext format flag
+    @type format: None or string
+
     @returns: proper words
     @rtype: list of strings
     """
 
     # Remove markup.
+    # (before format directives)
     if markup:
         for rem_rx, sub in _remove_xml_rxs:
             text = rem_rx.sub(sub, text)
+
+    # Remove format directives.
+    # (before general non-words)
+    if format:
+        for rem_rx, sub, clng in _remove_fmtd_rxs:
+            if format.startswith(clng + "-"):
+                text = rem_rx.sub(sub, text)
 
     # Remove general known non-words.
     for rem_rx, sub in _remove_rxs:

@@ -421,7 +421,7 @@ class Sieve (object):
                 pf = text.find("|/|")
                 if pf >= 0:
                     text = text[0:pf]
-                words = proper_words(text, True, self.shortcut)
+                words = proper_words(text, True, self.shortcut, msg.format)
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
