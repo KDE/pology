@@ -21,6 +21,7 @@ from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
 
 wrapf = wrap_field_ontag_unwrap
+ufuzz = "fuzzy"
 
 
 def main ():
@@ -46,9 +47,17 @@ def main ():
         action="store", dest="updated", default=None,
         help="ascribe all updated entries to this user")
     opars.add_option(
+        "-f", "--fuzzied",
+        action="store_true", dest="fuzzied", default=False,
+        help="ascribe all fuzzied entries to fuzzy-user (if enabled)")
+    opars.add_option(
         "-m", "--mark",
         action="store_true", dest="mark", default=False,
         help="mark entries in original catalogs that match certain criteria")
+    opars.add_option(
+        "-n", "--no-state",
+        action="store_false", dest="state", default=True,
+        help="do not examine the ascription state of catalogs")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
@@ -94,6 +103,11 @@ def main ():
             config = Config(cfgpath)
             configs_loaded[cfgpath] = config
 
+            # Assert fuzzy-user enabled if fuzzy-ascription requested.
+            if options.fuzzied and not config.asc_fuzz:
+                error("fuzzy-ascription requested, but not enabled in "
+                      "configuration at: %s" % cfgpath)
+
         # Collect PO files.
         if os.path.isdir(path):
             catpaths = collect_catalogs(path)
@@ -105,7 +119,9 @@ def main ():
 
     if options.updated:
         ascribe_updated(options, configs_catpaths, options.updated)
-    else:
+    if options.fuzzied:
+        ascribe_fuzzied(options, configs_catpaths)
+    if options.state:
         examine_state(options, configs_catpaths)
 
 
@@ -163,9 +179,26 @@ class Config:
                 if "name" not in usect:
                     error("%s: user '%s' misses the name" % (cpath, user))
                 udat.name = usect.get("name")
+                if udat.name == ufuzz:
+                    error("%s: user name '%s' is reserved" % (cpath, ufuzz))
                 udat.oname = usect.get("original-name")
                 udat.email = usect.get("email")
         self.users.sort()
+
+        # Urgh.
+        self.asc_fuzz = False
+        if gsect.get("ascribe-fuzzies"):
+            self.asc_fuzz = config.getboolean("global", "ascribe-fuzzies")
+
+        if self.asc_fuzz:
+            # Create fuzzy-user.
+            udat = UserData()
+            self.udata[ufuzz] = udat
+            self.users.append(ufuzz)
+            udat.ascroot = os.path.join(self.ascroot, ufuzz)
+            udat.name = "Fuzzy"
+            udat.oname = None
+            udat.email = None
 
 
 def examine_state (options, configs_catpaths):
@@ -175,6 +208,7 @@ def examine_state (options, configs_catpaths):
     # Count unascribed messages through catalogs.
     # Mark them if requested.
     unasc_by_cat = {}
+    unasc_fuzz_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
             # Open current and all ascription catalogs.
@@ -182,26 +216,35 @@ def examine_state (options, configs_catpaths):
             acats = collect_asc_cats(config, cat.name)
             # Count non-ascribed.
             for msg in cat:
-                if not msg.translated:
-                    continue
-                if not is_ascribed(msg, acats):
-                    if catpath not in unasc_by_cat:
-                        unasc_by_cat[catpath] = 0
-                    unasc_by_cat[catpath] += 1
-                    if options.mark:
-                        msg.flag.add(u"unascribed")
+                if msg.translated:
+                    if not is_ascribed(msg, acats):
+                        if catpath not in unasc_by_cat:
+                            unasc_by_cat[catpath] = 0
+                        unasc_by_cat[catpath] += 1
+                        if options.mark:
+                            msg.flag.add(u"unascribed")
+                elif msg.fuzzy and config.asc_fuzz:
+                    if not is_ascribed(msg, acats):
+                        if catpath not in unasc_fuzz_by_cat:
+                            unasc_fuzz_by_cat[catpath] = 0
+                        unasc_fuzz_by_cat[catpath] += 1
             if options.mark:
                 sync_and_rep(cat)
 
     # Present findings.
-    if unasc_by_cat:
-        nunasc = reduce(lambda s, x: s + x, unasc_by_cat.itervalues())
-        ncats = len(unasc_by_cat)
-        print "===? Unascribed: %d entries in %d catalogs" % (nunasc, ncats)
-        catnames = unasc_by_cat.keys()
+    for unasc_cnts, chead in (
+        (unasc_by_cat, "Unascribed"),
+        (unasc_fuzz_by_cat, "Unascribed fuzzies"),
+    ):
+        if not unasc_cnts:
+            continue
+        nunasc = reduce(lambda s, x: s + x, unasc_cnts.itervalues())
+        ncats = len(unasc_cnts)
+        print "===? %s: %d entries in %d catalogs" % (chead, nunasc, ncats)
+        catnames = unasc_cnts.keys()
         catnames.sort()
         rown = catnames
-        data = [[unasc_by_cat[x] for x in catnames]]
+        data = [[unasc_cnts[x] for x in catnames]]
         print tabulate(data=data, rown=rown, indent="  ")
 
 
@@ -221,16 +264,33 @@ def ascribe_updated (options, configs_catpaths, user):
         print "===! Ascribed as modified: %d entries" % nasc
 
 
+def ascribe_fuzzied (options, configs_catpaths):
+
+    nasc = 0
+    for config, catpaths in configs_catpaths:
+
+        mkdirpath(config.udata[ufuzz].ascroot)
+
+        for catpath in catpaths:
+            nasc += ascribe_updated_cat(options, config, ufuzz, catpath)
+
+    if nasc > 0:
+        print "===! Ascribed as modified (fuzzy): %d entries" % nasc
+
+
 def ascribe_updated_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
     cat = Catalog(catpath, monitored=False, wrapf=wrapf)
     acats = collect_asc_cats(config, cat.name, user)
 
-    # Collect all translated and unascribed messages.
+    # Collect all translated (or fuzzy) and unascribed messages.
+    asc_fuzz = (user == ufuzz)
     unasc_msgs = []
     for msg in cat:
-        if not msg.translated:
+        if (   (not asc_fuzz and not msg.translated)
+            or (asc_fuzz and not msg.fuzzy)
+        ):
             continue
         if not is_ascribed(msg, acats):
             unasc_msgs.append(msg)
@@ -256,18 +316,24 @@ def ascribe_updated_cat (options, config, user, catpath):
     # Ascribe messages: add or modify if existing.
     for msg in unasc_msgs:
         if msg not in acat:
-            # Copy desired elements of the original message.
+            # Copy ID elements of the original message.
             amsg = Message()
             amsg.msgctxt = msg.msgctxt
             amsg.msgid = msg.msgid
-            amsg.msgid_plural = msg.msgid_plural
-            amsg.msgstr = Monlist(msg.msgstr)
             # Append to the end of catalog.
             pos = acat.add(amsg, -1)
         else:
-            # Copy translation.
+            # Retrieve existing ascribed message.
             amsg = acat[msg]
-            amsg.msgstr = Monlist(msg.msgstr)
+
+        # Copy desired non-ID elements.
+        amsg.msgid_plural = msg.msgid_plural
+        if msg.fuzzy:
+            amsg.fuzzy = True
+            amsg.msgctxt_previous = msg.msgctxt_previous
+            amsg.msgid_previous = msg.msgid_previous
+            amsg.msgid_plural_previous = msg.msgid_plural_previous
+        amsg.msgstr = Monlist(msg.msgstr)
 
         # Ascribe modification of the message.
         ascribe_msg_mod(amsg, user, config, catrev)
@@ -282,7 +348,7 @@ def is_ascribed (msg, acats):
 
     ascribed = False
     for ouser, acat in acats.iteritems():
-        if msg in acat and  asc_eq(msg, acat[msg]):
+        if msg in acat and asc_eq(msg, acat[msg]):
             ascribed = True
             break
     return ascribed
