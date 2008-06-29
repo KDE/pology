@@ -311,7 +311,7 @@ hint="En deux mots, c'est mieux (dela -> de la)"
 valid before=" CDE" 
 valid after="Compact Disc " before=" Audio"
 valid after="@"
-valid after="empreinte " 
+valid after="[Ee]mpreinte " 
 hint="« digital » est un anglicisme. Utiliser « numérique »"
 
 [d@efault]   

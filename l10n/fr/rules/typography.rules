@@ -227,6 +227,7 @@ valid file="kfmclient.po" before="\]"
 valid file="kfmclient.po" after="\["
 valid file="k3b.po" before="{"
 valid file="kwriteconfig.po"
+valid file="plasma_applet_desktop.po"
 valid after="="
 valid before="\s*/?>|&gt|}"
 valid before=";" after="'[\w\s]+" # CSS
