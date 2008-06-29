@@ -120,7 +120,7 @@ _r_ents_rx = (re.compile(r"&[\w.:-]+;"), " ")
 _r_numents_rx = (re.compile(r"&#x?\d+;"), " ")
 _r_digits_rx = (re.compile(r"\d+"), " ")
 
-_r_fmtd_c_rx = (re.compile(r"%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]"), "", "c")
+_r_fmtd_c_rx = (re.compile(r"(?<!%)%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]"), "", "c")
 _r_fmtd_qt_rx = (re.compile(r"%\d+"), "", "qt")
 _r_fmtd_python_rx = (re.compile(r"%\(\w+\)[a-z]"), "", "python")
 
