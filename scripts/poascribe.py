@@ -20,8 +20,8 @@ from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
 
-wrapf = wrap_field_ontag_unwrap
-ufuzz = "fuzzy"
+WRAPF = wrap_field_ontag_unwrap
+UFUZZ = "fuzzy"
 
 
 def main ():
@@ -179,8 +179,8 @@ class Config:
                 if "name" not in usect:
                     error("%s: user '%s' misses the name" % (cpath, user))
                 udat.name = usect.get("name")
-                if udat.name == ufuzz:
-                    error("%s: user name '%s' is reserved" % (cpath, ufuzz))
+                if udat.name == UFUZZ:
+                    error("%s: user name '%s' is reserved" % (cpath, UFUZZ))
                 udat.oname = usect.get("original-name")
                 udat.email = usect.get("email")
         self.users.sort()
@@ -193,9 +193,9 @@ class Config:
         if self.asc_fuzz:
             # Create fuzzy-user.
             udat = UserData()
-            self.udata[ufuzz] = udat
-            self.users.append(ufuzz)
-            udat.ascroot = os.path.join(self.ascroot, ufuzz)
+            self.udata[UFUZZ] = udat
+            self.users.append(UFUZZ)
+            udat.ascroot = os.path.join(self.ascroot, UFUZZ)
             udat.name = "Fuzzy"
             udat.oname = None
             udat.email = None
@@ -212,7 +212,7 @@ def examine_state (options, configs_catpaths):
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
             # Open current and all ascription catalogs.
-            cat = Catalog(catpath, monitored=cmon, wrapf=wrapf)
+            cat = Catalog(catpath, monitored=cmon, wrapf=WRAPF)
             acats = collect_asc_cats(config, cat.name)
             # Count non-ascribed.
             for msg in cat:
@@ -269,10 +269,10 @@ def ascribe_fuzzied (options, configs_catpaths):
     nasc = 0
     for config, catpaths in configs_catpaths:
 
-        mkdirpath(config.udata[ufuzz].ascroot)
+        mkdirpath(config.udata[UFUZZ].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_updated_cat(options, config, ufuzz, catpath)
+            nasc += ascribe_updated_cat(options, config, UFUZZ, catpath)
 
     if nasc > 0:
         print "===! Ascribed as modified (fuzzy): %d entries" % nasc
@@ -281,11 +281,11 @@ def ascribe_fuzzied (options, configs_catpaths):
 def ascribe_updated_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
-    cat = Catalog(catpath, monitored=False, wrapf=wrapf)
+    cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
     acats = collect_asc_cats(config, cat.name, user)
 
     # Collect all translated (or fuzzy) and unascribed messages.
-    asc_fuzz = (user == ufuzz)
+    asc_fuzz = (user == UFUZZ)
     unasc_msgs = []
     for msg in cat:
         if (   (not asc_fuzz and not msg.translated)
@@ -363,7 +363,7 @@ def collect_asc_cats (config, catname, muser=None):
             amon = True
         acatpath = os.path.join(config.udata[ouser].ascroot, catname + ".po")
         if os.path.isfile(acatpath):
-            acats[ouser] = Catalog(acatpath, monitored=amon, wrapf=wrapf)
+            acats[ouser] = Catalog(acatpath, monitored=amon, wrapf=WRAPF)
 
     return acats
 
@@ -372,7 +372,7 @@ def init_asc_cat (catname, user, config):
 
     udat = config.udata[user]
     acatpath = os.path.join(udat.ascroot, catname + ".po")
-    acat = Catalog(acatpath, create=True, wrapf=wrapf)
+    acat = Catalog(acatpath, create=True, wrapf=WRAPF)
     ahdr = acat.header
 
     ahdr.title = Monlist([u"Ascription shadow for %s.po" % catname])
