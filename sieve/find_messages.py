@@ -107,7 +107,7 @@ class Sieve (object):
         # unless specified explicitly by the command line.
         if not self.accel_explicit:
             accel = cat.possible_accelerator()
-            if accel:
+            if accel is not None:
                 self.accel = accel
             else:
                 self.accel = ""

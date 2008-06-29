@@ -372,7 +372,7 @@ class Sieve (object):
         # unless specified explicitly by the command line.
         if not self.shortcut_explicit:
             accel = cat.possible_accelerator()
-            if accel:
+            if accel is not None:
                 self.shortcut = accel
             else:
                 self.shortcut = self.shortcut_usual

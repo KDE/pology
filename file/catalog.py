@@ -1169,17 +1169,20 @@ class Catalog (Monitored):
 
         The accelerator character is determined heuristically, based on
         the catalog header and the message entries.
+        If empty string is returned, it was determined that there are
+        no accelerators in the catalog;
+        if C{None}, that there is no determination about accelerators.
 
         Runtime complexity O(n), unless C{headonly} in effect, when O(1).
 
         @param headonly: analyze only the header
         @type headonly: bool
 
-        @returns: accelerator character or empty
-        @rtype: string
+        @returns: accelerator character, empty, or C{None}
+        @rtype: string or C{None}
         """
 
-        accel = ""
+        accel = None
 
         # Analyze header.
 
@@ -1190,8 +1193,7 @@ class Catalog (Monitored):
             fields = self._header.select_fields(fname)
             if fields:
                 accel = fields[-1][1].strip()
-                if accel:
-                    break
+                break
 
         # Skip analyzing messages if told so.
         if headonly:
