@@ -467,7 +467,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">string or <code>None</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -1167,7 +1167,9 @@
   
   <p>Report character possibly used as an accelerator in GUI messages.</p>
   <p>The accelerator character is determined heuristically, based on the 
-  catalog header and the message entries.</p>
+  catalog header and the message entries. If empty string is returned, it 
+  was determined that there are no accelerators in the catalog; if 
+  <code>None</code>, that there is no determination about accelerators.</p>
   <p>Runtime complexity O(n), unless <code>headonly</code> in effect, when 
   O(1).</p>
   <dl class="fields">
@@ -1175,8 +1177,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>headonly</code></strong> (bool) - analyze only the header</li>
     </ul></dd>
-    <dt>Returns: string</dt>
-        <dd>accelerator character or empty</dd>
+    <dt>Returns: string or <code>None</code></dt>
+        <dd>accelerator character, empty, or <code>None</code></dd>
   </dl>
 </td></tr></table>
 </div>
