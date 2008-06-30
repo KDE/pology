@@ -10,6 +10,8 @@ Operations with file system and external commands.
 import sys
 import os
 
+from pology.misc.report import error, warning
+
 
 def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
     """
