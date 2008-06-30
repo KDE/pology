@@ -139,6 +139,7 @@ class Project (object):
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
             "hook_on_merge_head" : [],
+            "hook_on_merge_file" : [],
 
             "header_propagate_fields_summed" : [],
             "header_propagate_fields_primary" : [],
@@ -1672,6 +1673,12 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         # Assert correctness of the merged catalog and move over the old.
         assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
         shutil.move(tmp_path, catalog_path)
+
+        if project.hook_on_merge_file:
+            cat_name = os.path.basename(catalog_path)
+            cat_name = cat_name[:cat_name.rfind(".po")]
+            exec_hook_file(branch_id, cat_name, catalog_path,
+                           project.hook_on_merge_file)
 
         if options.verbose:
             print ".    (merged) %s" % catalog_path
