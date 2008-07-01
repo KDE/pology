@@ -25,7 +25,7 @@ hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
 hint="Homogénéité : entrées / sorties (avec une espace insécable entre « entrée » et « / »)"
 
 [entrée&unbsp;/ sortie|entrées&unbsp;/ sortie(?!s)|entrée&unbsp;/ sorties]
-valid after="une "
+valid after="[Uu]ne "
 valid after="l'"
 valid after="d'"
 hint="Utilisez cette expression au pluriel « entrées / sorties »"
