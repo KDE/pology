@@ -10,7 +10,6 @@ the rest of the info is pulled from user's configuration (C{~/.pologyrc}).
 
 Sieve options:
   - C{proj:<project_id>}: ID of the project
-  - C{nosync}: do not issue sync request
 
 Parameter C{proj} specifies the ID of the project which covers the POs
 about to be operated on. This ID is used as the name of configuration
@@ -28,10 +27,6 @@ in the project's section. All the used config fields are:
 Non-default header fields are not touched, except the revision date and
 the last translator which are always updated (including the comment
 line, where translators are listed with years of contributions).
-
-Option C{nosync} is there for cases when this sieve is used in a chain
-with other sieves, to allow modifying the header only if a catalog
-got modifed by another sieve that did request syncing.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -59,11 +54,6 @@ class Sieve (object):
             error("project ID must be provided (-s proj:<ID>)")
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
-
-        # Do not issue sync request if told so.
-        if "nosync" in options:
-            self.caller_sync = False
-            options.accept("nosync")
 
         # Collect project data.
         self.tname = prjcfg.string("name") or usrcfg.string("name")
