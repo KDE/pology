@@ -253,6 +253,30 @@ class Header (Monitored):
         return fields
 
 
+    def get_field_value (self, name, default=None):
+        """
+        Get the value of the given header field.
+
+        If there are several fields with the same name, it is undefined which
+        of them will supply the value; this method should be used only
+        for fields which are expected to be unique.
+        If there are no fields named as requested, C{default} is returned.
+
+        @param name: field name
+        @type name: string
+        @param default: value returned if there is no such field
+        @type default: as given
+
+        @returns: field value
+        @rtype: string or C{default}
+        """
+
+        for pair in self.field:
+            if pair.first == name:
+                return pair.second
+        return default
+
+
     def replace_field_value (self, name, new_value, nth=0):
         """
         Replace the value of the n-th occurence of the named header field.
@@ -281,6 +305,54 @@ class Header (Monitored):
                     break
 
         return nfound - 1 == nth
+
+
+    def set_field (self, name, value, after=None, before=None):
+        """
+        Set a header field to a value.
+
+        If the field already exists, its value is replaced with the given one.
+        If there are several same-named fields, it is undefined which one
+        and how many of them are going to have their values replaced;
+        this method should be used only for fields expected to be unique.
+        If there is no such field yet, it is inserted into the header;
+        after the field C{after} or before the field C{before} if given
+        and existing, or appended to the end otherwise.
+
+        @param name: name of the header field
+        @type name: unicode
+
+        @param value: new value for the field
+        @type value: unicode
+
+        @returns: position where the field was modified or inserted
+        @rtype: int
+        """
+
+        ins_pos = -1
+        rpl_pos = -1
+        for i in range(len(self._field)):
+            if self.field[i][0] == name:
+                rpl_pos = i
+                break
+            if (   (after and i > 0 and self.field[i - 1][0] == after)
+                or (before and self.field[i][0] == before)
+            ):
+                ins_pos = i
+                # Do not break, must try all fields for value replacement.
+
+        pair = Monpair(name, value)
+        if rpl_pos >= 0:
+            self._field[rpl_pos] = pair
+            pos = rpl_pos
+        elif ins_pos >= 0:
+            self._field.insert(ins_pos, pair)
+            pos = ins_pos
+        else:
+            self._field.append(pair)
+            pos = len(self._field)
+
+        return pos
 
 
     def remove_field (self, name):
