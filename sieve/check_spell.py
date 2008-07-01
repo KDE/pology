@@ -9,19 +9,26 @@ to Aspell one by one. Misspelled words can be reported to stdout
 or into a rich XML file with a lot of context information.
 
 Sieve options:
-  - C{lang:<language>}: language of the translation
+  - C{lang:<language>}: language of the Aspell dictionary
   - C{enc:<encoding>}: encoding for text sent to Aspell
-  - C{variety:<varname>}: variety of the language dictionary
+  - C{var:<varname>}: variety of the Aspell dictionary
   - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
   - C{accel:<char>}: strip this character as accelerator marker
   - C{skip:<regex>}: do not check words which match given regular expression
 
-When language or encoding are not explicitly given, they are extracted from
-the current system locale.
+When dictionary language, encoding, or variety are not explicitly given,
+they are extracted, in the following order of priority, from: 
+current PO file (language only), user configuration, current system locale
+(language and encoding only).
 
 If accelerator character is not explicitly given, it may be inferred from the
 PO header; otherwise, some usual accelerator characters are removed by default.
+
+The following user configuration fields are considered:
+  - C{[aspell]/language}: language of the Aspell dictionary
+  - C{[aspell]/encoding}: encoding for text sent to Aspell
+  - C{[aspell]/variety}: variety of the Aspell dictionary
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -32,6 +39,7 @@ from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import spell_error, spell_xml_error
 from pology.misc.split import proper_words
 from pology import rootdir
+import pology.misc.config as cfg
 from locale import getdefaultlocale, getpreferredencoding, strcoll
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
@@ -57,21 +65,43 @@ class Sieve (object):
         # - assume markup in messages (provide option to disable?)
         aspellOptions.append(("mode", "sgml"))
 
-        # - language and encoding
-        self.lang, self.encoding = getdefaultlocale()
-        if not self.lang:
-            self.lang = "fr" # historical default
-        if not self.encoding:
-            self.encoding = "UTF-8"
+        # - dictionary specifiers (by priority)
+        self.lang, self.encoding, self.variety = [None] * 3
+
         if "lang" in options:
             options.accept("lang")
             self.lang = options["lang"]
         if "enc" in options:
             options.accept("enc")
             self.encoding = options["enc"]
+        if "var" in options:
+            options.accept("var")
+            self.variety = options["var"]
+
+        cfgs = cfg.section("aspell")
+        if not self.lang:
+            self.lang = cfgs.string("language")
+        if not self.encoding:
+            self.encoding = cfgs.string("encoding")
+        if not self.variety:
+            self.variety = cfgs.string("variety")
+
+        loc_lang, loc_encoding = getdefaultlocale()
+        if not self.lang:
+            self.lang = loc_lang
+        if not self.encoding:
+            self.encoding = loc_encoding
+
+        if not self.lang:
+            self.lang = "fr" # historical default
+        if not self.encoding:
+            self.encoding = "UTF-8"
+
         self.encoding = self._encoding_for_aspell(self.encoding)
         aspellOptions.append(("lang", self.lang))
         aspellOptions.append(("encoding", self.encoding))
+        if self.variety:
+            aspellOptions.append(("variety", self.variety))
 
         # - Pology's internal personal dictonary
         pd_langs = [self.lang] # language codes to try
@@ -84,14 +114,6 @@ class Sieve (object):
                 #print "Using language-specific dictionary (%s)" % personalDict
                 aspellOptions.append(("personal-path", str(personalDict)))
                 break
-
-        # - dictionary variety
-        self.variety = None
-        if "variety" in options:
-            options.accept("variety")
-            self.variety = options["variety"]
-        if self.variety:
-            aspellOptions.append(("variety", self.variety))
 
         # Some options may have ended up with unicode values,
         # while Aspell expects plain strings. Convert.
@@ -233,7 +255,8 @@ class Sieve (object):
         if self.list is not None:
             slist = [i.decode(self.encoding) for i in self.list]
             slist.sort(lambda x, y: strcoll(x.lower(), y.lower()))
-            print "\n".join(slist)
+            if slist:
+                print "\n".join(slist)
         else:
             if self.nmatch:
                 print "----------------------------------------------------"
