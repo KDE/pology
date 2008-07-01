@@ -11,7 +11,7 @@ or into a rich XML file with a lot of context information.
 Sieve options:
   - C{lang:<language>}: language of the Aspell dictionary
   - C{enc:<encoding>}: encoding for text sent to Aspell
-  - C{var:<varname>}: variety of the Aspell dictionary
+  - C{var:<variety>}: variety of the Aspell dictionary
   - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
   - C{accel:<char>}: strip this character as accelerator marker
@@ -36,7 +36,7 @@ The following user configuration fields are considered:
 
 from pology.misc.colors import RED, RESET
 from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
-from pology.misc.report import spell_error, spell_xml_error
+from pology.misc.report import spell_error, spell_xml_error, error
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
@@ -53,17 +53,16 @@ class Sieve (object):
     def __init__ (self, options, global_options):
     
         self.nmatch = 0 # Number of match for finalize
-        self.aspell=None # Instance of Aspell parser
         self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
-        self.ignoredContext=[] # List of all PO message context for which no spell check should be done
         self.filename=""     # File name we are processing
         self.xmlFile=None # File handle to write XML output
 
         # Build Aspell options.
-        aspellOptions = []
+        self.aspellOptions = {}
 
         # - assume markup in messages (provide option to disable?)
-        aspellOptions.append(("mode", "sgml"))
+        self.aspellOptions["mode"] = "sgml"
+        # FIXME: In fact not needed? The words are sent parsed to checker.
 
         # - dictionary specifiers (by priority)
         self.lang, self.encoding, self.variety = [None] * 3
@@ -98,50 +97,10 @@ class Sieve (object):
             self.encoding = "UTF-8"
 
         self.encoding = self._encoding_for_aspell(self.encoding)
-        aspellOptions.append(("lang", self.lang))
-        aspellOptions.append(("encoding", self.encoding))
+        self.aspellOptions["lang"] = str(self.lang)
+        self.aspellOptions["encoding"] = str(self.encoding)
         if self.variety:
-            aspellOptions.append(("variety", self.variety))
-
-        # - Pology's internal personal dictonary
-        pd_langs = [self.lang] # language codes to try
-        p = self.lang.find("_") 
-        if p > 0: # also try with bare language code
-            pd_langs.append(self.lang[:p])
-        for pd_lang in pd_langs:
-            personalDict = join(rootdir(), "l10n", pd_lang, "spell", "dict.aspell")
-            if isfile(personalDict):
-                #print "Using language-specific dictionary (%s)" % personalDict
-                aspellOptions.append(("personal-path", str(personalDict)))
-                break
-
-        # Some options may have ended up with unicode values,
-        # while Aspell expects plain strings. Convert.
-        for i in range(len(aspellOptions)):
-            opt, val = aspellOptions[i]
-            aspellOptions[i] = (opt, str(val))
-
-        # Create Aspell object
-        try:
-            self.aspell=Aspell(aspellOptions)
-        except AspellConfigError, e:
-            print RED+("Aspell Configuration error:\n%s" % e) + RESET
-            sys.exit(1)
-        except AspellError, e:
-            print RED+"Cannot initialize Aspell"+RESET
-            print RED+"\t- Check that you correctly install Aspell and the according language dictionary."+RESET
-            print RED+"\t- Check that you did not use special characters in you personal dictionary."+RESET
-            sys.exit(1) 
-
-        # Load ignoredContext
-        ignoredContextFile=join(rootdir(), "l10n", self.lang, "spell", "ignoredContext")
-        if isfile(ignoredContextFile):
-            for line in open(ignoredContextFile, "r", "utf-8"):
-                line=line.strip()
-                if line.startswith("#") or line=="":
-                    continue
-                else:
-                    self.ignoredContext.append(line.lower())
+            self.aspellOptions["variety"] = str(self.variety)
 
         # Simple list output of misspelled words?
         if "list" in options:
@@ -175,12 +134,66 @@ class Sieve (object):
             options.accept("skip")
             self.skipRx = re.compile(options["skip"], re.U|re.I)
 
+        # Language-dependent elements built along the way.
+        self.aspells = {}
+        self.ignoredContexts = {}
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
 
 
     def process_header (self, hdr, cat):
+
+        # Check if the catalog itself states the language, and if yes,
+        # create the language-dependent stuff if not already created
+        # for this language.
+        clang = cat.language() or self.lang
+        if clang not in self.aspells:
+            # New language.
+            self.aspellOptions["lang"] = str(clang)
+
+            # Get Pology's internal personal dictonary for this language.
+            self.aspellOptions.pop("personal-path", None) # remove previous
+            pd_langs = [clang] # language codes to try
+            # - also try with bare language code,
+            # unless the language came from the PO itself.
+            p = clang.find("_")
+            if p > 0 and not cat.language():
+                pd_langs.append(clang[:p])
+            for pd_lang in pd_langs:
+                personalDict = join(rootdir(), "l10n", pd_lang, "spell", "dict.aspell")
+                if isfile(personalDict):
+                    #print "Using language-specific dictionary (%s)" % personalDict
+                    self.aspellOptions["personal-path"] = str(personalDict)
+                    break
+
+            # Create Aspell object.
+            try:
+                self.aspells[clang] = Aspell(self.aspellOptions.items())
+            except AspellConfigError, e:
+                error("Aspell configuration error:\n"
+                      "%s" % e)
+            except AspellError, e:
+                error("cannot initialize Aspell for language '%s':\n"
+                      "\t- check if Aspell and the language dictionary are correctly installed\n"
+                      "\t- check if there are any special characters in the personal dictionary\n"
+                      % clang)
+
+            # Load list of contexts by which to ignore messages.
+            self.ignoredContexts[clang] = []
+            ignoredContextFile=join(rootdir(), "l10n", clang, "spell", "ignoredContext")
+            if isfile(ignoredContextFile):
+                for line in open(ignoredContextFile, "r", "utf-8"):
+                    line=line.strip()
+                    if line.startswith("#") or line=="":
+                        continue
+                    else:
+                        self.ignoredContexts[clang].append(line.lower())
+
+        # Get language-dependent stuff.
+        self.aspell = self.aspells[clang]
+        self.ignoredContext = self.ignoredContexts[clang]
 
         # Check if the catalog itself states the shortcut character,
         # unless specified explicitly by the command line.
