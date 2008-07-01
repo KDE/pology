@@ -1205,3 +1205,26 @@ class Catalog (Monitored):
 
         return accel
 
+
+    def language (self):
+        """
+        Report language of the catalog, if available.
+
+        The language is extracted from the C{Language:} field in the header.
+        If this field is present, it should contain the language code
+        in line with GNU C library locales.
+        E.g. C{pt} for Portuguese, or C{pt_BR} for Brazilian Portuguese.
+        If the field is not present, C{None} is reported.
+
+        @returns: language code
+        @rtype: string or C{None}
+        """
+
+        lang = None
+
+        flds = self._header.select_fields("Language")
+        if flds:
+            lang = str(flds[0][1].strip())
+
+        return lang
+
