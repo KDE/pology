@@ -62,9 +62,6 @@
     <li>
       <code>proj:&lt;project_id&gt;</code>: ID of the project
     </li>
-    <li>
-      <code>nosync</code>: do not issue sync request
-    </li>
   </ul>
   <p>Parameter <code>proj</code> specifies the ID of the project which 
   covers the POs about to be operated on. This ID is used as the name of 
@@ -101,9 +98,6 @@
   <p>Non-default header fields are not touched, except the revision date 
   and the last translator which are always updated (including the comment 
   line, where translators are listed with years of contributions).</p>
-  <p>Option <code>nosync</code> is there for cases when this sieve is used 
-  in a chain with other sieves, to allow modifying the header only if a 
-  catalog got modifed by another sieve that did request syncing.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
