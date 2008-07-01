@@ -151,7 +151,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8304b54&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8304c34&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the header.</td>
           <td align="right" valign="top">
@@ -170,7 +170,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8304b54&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8304c34&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the header.</td>
           <td align="right" valign="top">
@@ -202,6 +202,25 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string or <code>default</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#get_field_value" class="summary-sig-name">get_field_value</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get the value of the given header field.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">bool</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -211,6 +230,27 @@
         <span class="summary-sig-arg">new_value</span>,
         <span class="summary-sig-arg">nth</span>=<span class="summary-sig-default">0</span>)</span><br />
       Replace the value of the n-th occurence of the named header field.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#set_field" class="summary-sig-name">set_field</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">after</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">before</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Set a header field to a value.</td>
           <td align="right" valign="top">
             
             
@@ -445,7 +485,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8304b54&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8304c34&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -471,7 +511,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8304b54&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8304c34&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -516,6 +556,38 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="get_field_value"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_field_value</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the value of the given header field.</p>
+  <p>If there are several fields with the same name, it is undefined which 
+  of them will supply the value; this method should be used only for fields
+  which are expected to be unique. If there are no fields named as 
+  requested, <code>default</code> is returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (string) - field name</li>
+        <li><strong class="pname"><code>default</code></strong> (as given) - value returned if there is no such field</li>
+    </ul></dd>
+    <dt>Returns: string or <code>default</code></dt>
+        <dd>field value</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="replace_field_value"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -544,6 +616,43 @@
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd>True if the requested field was found, False otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_field"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_field</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">value</span>,
+        <span class="sig-arg">after</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">before</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set a header field to a value.</p>
+  <p>If the field already exists, its value is replaced with the given one.
+  If there are several same-named fields, it is undefined which one and how
+  many of them are going to have their values replaced; this method should 
+  be used only for fields expected to be unique. If there is no such field 
+  yet, it is inserted into the header; after the field <code>after</code> 
+  or before the field <code>before</code> if given and existing, or 
+  appended to the end otherwise.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (unicode) - name of the header field</li>
+        <li><strong class="pname"><code>value</code></strong> (unicode) - new value for the field</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>position where the field was modified or inserted</dd>
   </dl>
 </td></tr></table>
 </div>

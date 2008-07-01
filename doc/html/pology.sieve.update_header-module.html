@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.check_spell</title>
+  <title>pology.sieve.update_header</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        Module&nbsp;check_spell
+        Module&nbsp;update_header
       </span>
     </td>
     <td>
@@ -50,61 +50,64 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module check_spell</h1><p class="nomargin-top"></p>
-<p>Spell-check messages using GNU Aspell (http://aspell.net/).</p>
-  <p>For spell-checking, messages are split into words, which are then fed 
-  to Aspell one by one. Misspelled words can be reported to stdout (either 
-  verbosely with suggestions, or succinctly as pure list), or into a rich 
-  XML file with a lot of context information.</p>
+<h1 class="epydoc">Module update_header</h1><p class="nomargin-top"></p>
+<p>Initialize and update the header of a PO file.</p>
+  <p>When work on a pristine PO starts, or an existing PO is to be revised 
+  with new translations, this sieve can be used to automatically set PO 
+  header fields to proper values. The revision date is taken as current, 
+  while the rest of the info is pulled from user's configuration 
+  (<code>~/.pologyrc</code>).</p>
   <p>Sieve options:</p>
   <ul>
     <li>
-      <code>lang:&lt;language&gt;</code>: language of the Aspell dictionary
+      <code>proj:&lt;project_id&gt;</code>: ID of the project
     </li>
     <li>
-      <code>enc:&lt;encoding&gt;</code>: encoding for text sent to Aspell
-    </li>
-    <li>
-      <code>var:&lt;variety&gt;</code>: variety of the Aspell dictionary
-    </li>
-    <li>
-      <code>list</code>: only report wrong words to stdout, one per line
-    </li>
-    <li>
-      <code>xml:&lt;filename&gt;</code>: build XML report file
-    </li>
-    <li>
-      <code>accel:&lt;char&gt;</code>: strip this character as accelerator 
-      marker
-    </li>
-    <li>
-      <code>skip:&lt;regex&gt;</code>: do not check words which match given
-      regular expression
+      <code>nosync</code>: do not issue sync request
     </li>
   </ul>
-  <p>When dictionary language, encoding, or variety are not explicitly 
-  given, they are extracted, in the following order of priority, from: 
-  current PO file (language only), user configuration, current system 
-  locale (language and encoding only).</p>
-  <p>If accelerator character is not explicitly given, it may be inferred 
-  from the PO header; otherwise, some usual accelerator characters are 
-  removed by default.</p>
-  <p>The following user configuration fields are considered:</p>
+  <p>Parameter <code>proj</code> specifies the ID of the project which 
+  covers the POs about to be operated on. This ID is used as the name of 
+  configuration section <code>[project-&lt;ID&gt;]</code>, which contains 
+  the project data fields. Also used are the fields under the 
+  <code>[user]</code> section, unless overriden in the project's section. 
+  All the used config fields are:</p>
   <ul>
     <li>
-      <code>[aspell]/language</code>: language of the Aspell dictionary
+      <code>[project-*]/name</code> or <code>[user]/name</code>: user's 
+      name
     </li>
     <li>
-      <code>[aspell]/encoding</code>: encoding for text sent to Aspell
+      <code>[project-*]/email</code> or <code>[user]/email</code>: user's 
+      email address
     </li>
     <li>
-      <code>[aspell]/variety</code>: variety of the Aspell dictionary
+      <code>[project-*]/language</code>: language code (IS0 639)
+    </li>
+    <li>
+      <code>[project-*]/language-team</code>: human-readable language name
+    </li>
+    <li>
+      <code>[project-*]/team-email</code>: team's email
+    </li>
+    <li>
+      <code>[project-*]/encoding</code>: encoding of PO files
+    </li>
+    <li>
+      <code>[project-*]/plural-forms</code>: the PO plural header 
+      (<code>nplurals=...; ...;</code>)
     </li>
   </ul>
+  <p>Non-default header fields are not touched, except the revision date 
+  and the last translator which are always updated (including the comment 
+  line, where translators are listed with years of contributions).</p>
+  <p>Option <code>nosync</code> is there for cases when this sieve is used 
+  in a chain with other sieves, to allow modifying the header only if a 
+  catalog got modifed by another sieve that did request syncing.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
-        S&#233;bastien Renard &lt;sebastien.renard@digitalfox.org&gt;
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
       </p>
       <p><strong>License:</strong>
         GPLv3
@@ -121,8 +124,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.sieve.check_spell.Sieve-class.html" class="summary-name">Sieve</a><br />
-      Process messages through the Aspell spell checker
+        <a href="pology.sieve.update_header.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
 </table>

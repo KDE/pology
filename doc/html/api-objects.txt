@@ -304,6 +304,7 @@ pology.sieve.check_spell.proper_words	pology.misc.split-module.html#proper_words
 pology.sieve.check_spell.spell_error	pology.misc.report-module.html#spell_error
 pology.sieve.check_spell.spell_xml_error	pology.misc.report-module.html#spell_xml_error
 pology.sieve.check_spell.rootdir	pology-module.html#rootdir
+pology.sieve.check_spell.error	pology.misc.report-module.html#error
 pology.sieve.check_xml_docbook4	pology.sieve.check_xml_docbook4-module.html
 pology.sieve.check_xml_docbook4.report_on_msg	pology.misc.report-module.html#report_on_msg
 pology.sieve.check_xml_docbook4.specstr	pology.sieve.check_xml_docbook4-module.html#specstr
@@ -406,6 +407,9 @@ pology.sieve.unfuzzy_inplace_only._close_inpl_rx	pology.sieve.unfuzzy_inplace_on
 pology.sieve.unfuzzy_inplace_only._norm_inpl	pology.sieve.unfuzzy_inplace_only-module.html#_norm_inpl
 pology.sieve.unfuzzy_inplace_only._open_inpl_rx	pology.sieve.unfuzzy_inplace_only-module.html#_open_inpl_rx
 pology.sieve.unfuzzy_inplace_only._tags_inpl	pology.sieve.unfuzzy_inplace_only-module.html#_tags_inpl
+pology.sieve.update_header	pology.sieve.update_header-module.html
+pology.sieve.update_header.error	pology.misc.report-module.html#error
+pology.sieve.update_header.warning	pology.misc.report-module.html#warning
 pology.file.catalog.Catalog	pology.file.catalog.Catalog-class.html
 pology.file.catalog.Catalog.possible_accelerator	pology.file.catalog.Catalog-class.html#possible_accelerator
 pology.misc.monitored.Monitored.__str__	pology.misc.monitored.Monitored-class.html#__str__
@@ -437,6 +441,7 @@ pology.misc.monitored.Monitored.data	pology.misc.monitored.Monitored-class.html#
 pology.file.catalog.Catalog.select_by_msgid_fuzzy	pology.file.catalog.Catalog-class.html#select_by_msgid_fuzzy
 pology.file.catalog.Catalog.nplurals	pology.file.catalog.Catalog-class.html#nplurals
 pology.file.catalog.Catalog.name	pology.file.catalog.Catalog-class.html#name
+pology.file.catalog.Catalog.language	pology.file.catalog.Catalog-class.html#language
 pology.file.catalog.Catalog.created	pology.file.catalog.Catalog-class.html#created
 pology.file.catalog.Catalog.plural_indices_single	pology.file.catalog.Catalog-class.html#plural_indices_single
 pology.file.catalog.Catalog.plural_index	pology.file.catalog.Catalog-class.html#plural_index
@@ -454,10 +459,12 @@ pology.file.header.Header._remake_msg	pology.file.header.Header-class.html#_rema
 pology.file.header.Header.copyright	pology.file.header.Header-class.html#copyright
 pology.file.header.Header.title	pology.file.header.Header-class.html#title
 pology.misc.monitored.Monitored.__eq__	pology.misc.monitored.Monitored-class.html#__eq__
+pology.file.header.Header.set_field	pology.file.header.Header-class.html#set_field
 pology.file.header.Header.__getattr__	pology.file.header.Header-class.html#__getattr__
 pology.file.header.Header.field	pology.file.header.Header-class.html#field
 pology.misc.monitored.Monitored.assert_spec_setitem	pology.misc.monitored.Monitored-class.html#assert_spec_setitem
 pology.file.header.Header.select_fields	pology.file.header.Header-class.html#select_fields
+pology.file.header.Header.get_field_value	pology.file.header.Header-class.html#get_field_value
 pology.misc.monitored.Monitored.__ne__	pology.misc.monitored.Monitored-class.html#__ne__
 pology.misc.monitored.Monitored.assert_spec_getitem	pology.misc.monitored.Monitored-class.html#assert_spec_getitem
 pology.misc.monitored.Monitored.assert_spec_getattr	pology.misc.monitored.Monitored-class.html#assert_spec_getattr
@@ -617,6 +624,7 @@ pology.misc.monitored.Monlist.__setitem__	pology.misc.monitored.Monlist-class.ht
 pology.misc.monitored.Monlist.__add__	pology.misc.monitored.Monlist-class.html#__add__
 pology.misc.monitored.Monitored.assert_spec_getitem	pology.misc.monitored.Monitored-class.html#assert_spec_getitem
 pology.misc.monitored.Monitored.data	pology.misc.monitored.Monitored-class.html#data
+pology.misc.monitored.Monlist.insert	pology.misc.monitored.Monlist-class.html#insert
 pology.misc.monitored.Monlist.remove	pology.misc.monitored.Monlist-class.html#remove
 pology.misc.monitored.Monitored.__repr__	pology.misc.monitored.Monitored-class.html#__repr__
 pology.misc.monitored.Monpair	pology.misc.monitored.Monpair-class.html
@@ -797,3 +805,6 @@ pology.sieve.unfuzzy_inplace_only.Sieve	pology.sieve.unfuzzy_inplace_only.Sieve-
 pology.sieve.unfuzzy_inplace_only.Sieve.finalize	pology.sieve.unfuzzy_inplace_only.Sieve-class.html#finalize
 pology.sieve.unfuzzy_inplace_only.Sieve.process	pology.sieve.unfuzzy_inplace_only.Sieve-class.html#process
 pology.sieve.unfuzzy_inplace_only.Sieve.__init__	pology.sieve.unfuzzy_inplace_only.Sieve-class.html#__init__
+pology.sieve.update_header.Sieve	pology.sieve.update_header.Sieve-class.html
+pology.sieve.update_header.Sieve.process_header	pology.sieve.update_header.Sieve-class.html#process_header
+pology.sieve.update_header.Sieve.__init__	pology.sieve.update_header.Sieve-class.html#__init__
