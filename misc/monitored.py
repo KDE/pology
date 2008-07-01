@@ -342,6 +342,13 @@ class Monlist (Monitored):
         self.__dict__["#"]["*"] += 1
 
 
+    def insert (self, i, val):
+
+        self.assert_spec_setitem(val)
+        self.__dict__["*"].insert(i, val)
+        self.__dict__["#"]["*"] += 1
+
+
 # =============================================================================
 # Monitored set.
 
