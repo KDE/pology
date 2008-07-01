@@ -59,14 +59,13 @@
   <p>Sieve options:</p>
   <ul>
     <li>
-      <code>lang:&lt;language&gt;</code>: language of the translation
+      <code>lang:&lt;language&gt;</code>: language of the Aspell dictionary
     </li>
     <li>
       <code>enc:&lt;encoding&gt;</code>: encoding for text sent to Aspell
     </li>
     <li>
-      <code>variety:&lt;varname&gt;</code>: variety of the language 
-      dictionary
+      <code>var:&lt;varname&gt;</code>: variety of the Aspell dictionary
     </li>
     <li>
       <code>list</code>: only report wrong words to stdout, one per line
@@ -83,11 +82,25 @@
       regular expression
     </li>
   </ul>
-  <p>When language or encoding are not explicitly given, they are extracted
-  from the current system locale.</p>
+  <p>When dictionary language, encoding, or variety are not explicitly 
+  given, they are extracted, in the following order of priority, from: 
+  current PO file (language only), user configuration, current system 
+  locale (language and encoding only).</p>
   <p>If accelerator character is not explicitly given, it may be inferred 
   from the PO header; otherwise, some usual accelerator characters are 
   removed by default.</p>
+  <p>The following user configuration fields are considered:</p>
+  <ul>
+    <li>
+      <code>[aspell]/language</code>: language of the Aspell dictionary
+    </li>
+    <li>
+      <code>[aspell]/encoding</code>: encoding for text sent to Aspell
+    </li>
+    <li>
+      <code>[aspell]/variety</code>: variety of the Aspell dictionary
+    </li>
+  </ul>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
