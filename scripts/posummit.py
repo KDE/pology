@@ -1007,20 +1007,18 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
             # Copy over some fields if this is the primary branch catalog
             # and the summit catalog was otherwise modified.
             if prim_branch and summit_cat.modcount:
-                fname = "POT-Creation-Date"
-                branch_fields = branch_cat.header.select_fields(fname)
-                if branch_fields:
-                    summit_cat.header.replace_field_value(fname,
-                                                          branch_fields[0][1])
+                fname = u"POT-Creation-Date"
+                fval = branch_cat.header.get_field_value(fname)
+                if fval:
+                    summit_cat.header.set_field(fname, fval)
 
             # Copy over some fields unconditionally if this is the primary
             # branch catalog.
             if prim_branch:
-                fname = "Report-Msgid-Bugs-To"
-                branch_fields = branch_cat.header.select_fields(fname)
-                if branch_fields:
-                    summit_cat.header.replace_field_value(fname,
-                                                          branch_fields[0][1])
+                fname = u"Report-Msgid-Bugs-To"
+                fval = branch_cat.header.get_field_value(fname)
+                if fval:
+                    summit_cat.header.set_field(fname, fval)
 
             # Copy over fields from the primary branch catalog as requested.
             if prim_branch:
@@ -1180,8 +1178,8 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
 
         # Overwrite everything except these fields.
         preserved_fields = []
-        for name in ["Report-Msgid-Bugs-To",
-                     "POT-Creation-Date",
+        for name in [u"Report-Msgid-Bugs-To",
+                     u"POT-Creation-Date",
                     ]:
             selected_fields = branch_cat.header.select_fields(name)
             if selected_fields:
@@ -1191,12 +1189,8 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
         branch_cat.header = summit_cat.header
 
         # Put back the preserved fields.
-        for field in preserved_fields:
-            name, value = field
-            replaced = branch_cat.header.replace_field_value(name, value)
-            if not replaced:
-                # Summit catalog didn't contain this field, append it.
-                branch_cat.header.field.append(field)
+        for name, value in preserved_fields:
+            branch_cat.header.set_field(name, value)
 
     # Apply hooks to the branch catalog.
     exec_hook_cat(branch_id, branch_name, branch_cat,

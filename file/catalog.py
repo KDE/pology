@@ -979,10 +979,10 @@ class Catalog (Monitored):
         """
 
         # Get nplurals string from the header.
-        fields = self._header.select_fields(u"Plural-Forms")
-        if not fields: # no plural definition
+        plforms = self._header.get_field_value("Plural-Forms")
+        if not plforms: # no plural definition
             return 1
-        nplustr = fields[-1][1].split(";")[0]
+        nplustr = plforms.split(";")[0]
 
         # Get the number of forms from the string.
         m = re.search(r"\d+", nplustr)
@@ -1007,10 +1007,10 @@ class Catalog (Monitored):
         """
 
         # Get plural definition from the header.
-        fields = self._header.select_fields(u"Plural-Forms")
-        if not fields: # no plural definition, assume 0
+        plforms = self._header.get_field_value("Plural-Forms")
+        if not plforms: # no plural definition, assume 0
             return 0
-        plustr = fields[-1][1].split(";")[1]
+        plustr = plforms.split(";")[1]
 
         # Rebuild evaluation string only if changed to last invocation.
         if plustr != self._plustr:
@@ -1057,10 +1057,10 @@ class Catalog (Monitored):
         """
 
         # Get plural definition from the header.
-        fields = self._header.select_fields(u"Plural-Forms")
-        if not fields: # no plural definition, assume 0
+        plforms = self._header.get_field_value("Plural-Forms")
+        if not plforms: # no plural definition, assume 0
             return 0
-        plustr = fields[-1][1].split(";")[1]
+        plustr = plforms.split(";")[1]
 
         lst = re.findall(r"\bn\s*==\s*\d+\s*\)?\s*\?\s*(\d+)", plustr)
         if not lst and re.search(r"\bn\s*!=\s*\d+\s*([^?]|$)", plustr):
@@ -1190,9 +1190,9 @@ class Catalog (Monitored):
         for fname in (
             "X-Accelerator-Marker",
         ):
-            fields = self._header.select_fields(fname)
-            if fields:
-                accel = fields[-1][1].strip()
+            fval = self._header.get_field_value(fname)
+            if fval:
+                accel = fval.strip()
                 break
 
         # Skip analyzing messages if told so.
@@ -1222,9 +1222,9 @@ class Catalog (Monitored):
 
         lang = None
 
-        flds = self._header.select_fields("Language")
-        if flds:
-            lang = str(flds[0][1].strip())
+        fval = self._header.get_field_value("Language")
+        if fval:
+            lang = fval.strip()
 
         return lang
 
