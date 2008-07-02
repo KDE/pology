@@ -116,7 +116,7 @@ should be considered public API, it is subject to change without notice.
 import fallback_import_paths
 
 import pology.misc.wrap as wrap
-from pology.misc.fsops import collect_catalogs
+from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
 
@@ -177,6 +177,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-m", "--output-modified", metavar="FILE",
         action="store", dest="output_modified", default=None,
         help="output names of modified files into FILE")
+    opars.add_option(
+        "-c", "--msgfmt-check",
+        action="store_true", dest="msgfmt_check", default=False,
+        help="check catalogs by msgfmt and skip those which do not pass")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
@@ -320,6 +324,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if op.verbose:
             print "Sieving %s ..." % (fname,),
 
+        if op.msgfmt_check:
+            # TODO: Make it more portable?
+            d1, oerr, ret = collect_system("msgfmt -o/dev/null -c %s" % fname)
+            if ret != 0:
+                oerr = oerr.strip()
+                warning("%s -- skipping, msgfmt check failed:\n"
+                        "%s" % (fname, oerr))
+                continue
+
         try:
             cat = Catalog(fname, monitored=use_monitored, wrapf=wrap_func,
                           headonly=use_headonly)
@@ -327,7 +340,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             sys.exit(130)
         except StandardError, e:
             if op.do_skip:
-                warning("%s -- skipping file" % e)
+                warning("%s -- skipping, parsing failure" % e)
                 continue
             else:
                 raise
