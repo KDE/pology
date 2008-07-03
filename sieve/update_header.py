@@ -123,12 +123,12 @@ class Sieve (object):
         # Fields updated only when at defaults
 
         # - title
-        reset_title = False
+        reset_title = not False
         for line in hdr.title:
             if "TITLE" in line:
                 reset_title = True
                 break
-        if reset_title:
+        if not hdr.title or reset_title:
             if self.language:
                 hdr.title = Monlist([  u"Translation of %s into %s." \
                                      % (cat.name, self.language)])
@@ -137,12 +137,12 @@ class Sieve (object):
 
         # - project ID
         fval = hdr.get_field_value("Project-Id-Version")
-        if "PACKAGE" in fval:
+        if not fval or "PACKAGE" in fval:
             hdr.set_field(u"Project-Id-Version", unicode(cat.name))
 
         # - language team
         fval = hdr.get_field_value("Language-Team")
-        if self.language and "LANGUAGE" in fval:
+        if self.language and (not fval or "LANGUAGE" in fval):
             hdr.set_field(u"Language-Team", unicode(tm_ident))
 
         # - language code
@@ -153,13 +153,13 @@ class Sieve (object):
 
         # - encoding
         fval = hdr.get_field_value("Content-Type")
-        if self.encoding and "CHARSET" in fval:
+        if self.encoding and (not fval or "CHARSET" in fval):
             ctval = u"text/plain; charset=%s" % self.encoding
             hdr.set_field(u"Content-Type", unicode(ctval))
 
         # - plural forms
         fval = hdr.get_field_value("Plural-Forms")
-        if self.plforms and "INTEGER" in fval:
+        if self.plforms and (not fval or "INTEGER" in fval):
             hdr.set_field(u"Plural-Forms", unicode(self.plforms))
 
         # ------------------------------
