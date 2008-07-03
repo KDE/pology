@@ -203,7 +203,7 @@ valid before="accès"
 valid before="processus" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"  
-valid before="$" 
+valid before="$|%" 
 valid before="[A-Z]" 
 hint="Il y a toujours un singulier après « chaque »"
 
@@ -352,6 +352,8 @@ hint="occurences -> occurrences. Avec deux « r » !"
 
 [status|statut]i
 valid after="[Ss]mb"
+valid after="klink"
+valid after="default"
 valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
