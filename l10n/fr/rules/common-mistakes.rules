@@ -225,10 +225,11 @@ hint="TV est un anglicisme. À éviter..."
 valid ctx=".*heading"
 valid after="K"
 valid before="freq"
+valid after="processeur \("
 hint="Traduire CPU par « processeur »"
 
 [&lwb;environment&rwb;]i
-valid after="K Desktop "
+valid after="Desktop |Model "
 hint="environment -> environnement"
 
 [installeur]i
