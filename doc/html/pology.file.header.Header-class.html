@@ -249,7 +249,8 @@
         <span class="summary-sig-arg">name</span>,
         <span class="summary-sig-arg">value</span>,
         <span class="summary-sig-arg">after</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">before</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">before</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">reorder</span>=<span class="summary-sig-default">False</span>)</span><br />
       Set a header field to a value.</td>
           <td align="right" valign="top">
             
@@ -630,7 +631,8 @@
         <span class="sig-arg">name</span>,
         <span class="sig-arg">value</span>,
         <span class="sig-arg">after</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">before</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">before</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">reorder</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -644,12 +646,17 @@
   be used only for fields expected to be unique. If there is no such field 
   yet, it is inserted into the header; after the field <code>after</code> 
   or before the field <code>before</code> if given and existing, or 
-  appended to the end otherwise.</p>
+  appended to the end otherwise. If the field already exists, but not in 
+  the position according to <code>after</code> or <code>before</code>, 
+  reordering can be requested too.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>name</code></strong> (unicode) - name of the header field</li>
         <li><strong class="pname"><code>value</code></strong> (unicode) - new value for the field</li>
+        <li><strong class="pname"><code>after</code></strong> (string) - the field to insert after</li>
+        <li><strong class="pname"><code>before</code></strong> (string) - the field to insert before</li>
+        <li><strong class="pname"><code>reorder</code></strong> (bool) - whether to move an existing field into better position</li>
     </ul></dd>
     <dt>Returns: int</dt>
         <dd>position where the field was modified or inserted</dd>

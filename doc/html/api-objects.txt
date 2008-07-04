@@ -233,6 +233,7 @@ pology.scripts.posieve.error	pology.misc.report-module.html#error
 pology.scripts.posieve.report	pology.misc.report-module.html#report
 pology.scripts.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.scripts.posieve.main	pology.scripts.posieve-module.html#main
+pology.scripts.posieve.collect_system	pology.misc.fsops-module.html#collect_system
 pology.scripts.posummit	pology.scripts.posummit-module.html
 pology.scripts.posummit.summit_add_tags	pology.scripts.posummit-module.html#summit_add_tags
 pology.scripts.posummit.hook_fill_defaults	pology.scripts.posummit-module.html#hook_fill_defaults
@@ -387,6 +388,9 @@ pology.sieve.resolve_alternatives.error	pology.misc.report-module.html#error
 pology.sieve.resolve_entities	pology.sieve.resolve_entities-module.html
 pology.sieve.resolve_entities.resolve_entities	pology.misc.resolve-module.html#resolve_entities
 pology.sieve.resolve_entities.read_entities	pology.misc.resolve-module.html#read_entities
+pology.sieve.set_header	pology.sieve.set_header-module.html
+pology.sieve.set_header.warning	pology.misc.report-module.html#warning
+pology.sieve.set_header.error	pology.misc.report-module.html#error
 pology.sieve.stats	pology.sieve.stats-module.html
 pology.sieve.stats.proper_words	pology.misc.split-module.html#proper_words
 pology.sieve.stats.warning	pology.misc.report-module.html#warning
@@ -773,6 +777,9 @@ pology.sieve.resolve_entities.Sieve	pology.sieve.resolve_entities.Sieve-class.ht
 pology.sieve.resolve_entities.Sieve.finalize	pology.sieve.resolve_entities.Sieve-class.html#finalize
 pology.sieve.resolve_entities.Sieve.process	pology.sieve.resolve_entities.Sieve-class.html#process
 pology.sieve.resolve_entities.Sieve.__init__	pology.sieve.resolve_entities.Sieve-class.html#__init__
+pology.sieve.set_header.Sieve	pology.sieve.set_header.Sieve-class.html
+pology.sieve.set_header.Sieve.process_header	pology.sieve.set_header.Sieve-class.html#process_header
+pology.sieve.set_header.Sieve.__init__	pology.sieve.set_header.Sieve-class.html#__init__
 pology.sieve.stats.Sieve	pology.sieve.stats.Sieve-class.html
 pology.sieve.stats.Sieve._tabular_stats	pology.sieve.stats.Sieve-class.html#_tabular_stats
 pology.sieve.stats.Sieve._msg_bar_stats	pology.sieve.stats.Sieve-class.html#_msg_bar_stats

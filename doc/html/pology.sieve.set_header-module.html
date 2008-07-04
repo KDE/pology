@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.update_header</title>
+  <title>pology.sieve.set_header</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        Module&nbsp;update_header
+        Module&nbsp;set_header
       </span>
     </td>
     <td>
@@ -50,59 +50,43 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module update_header</h1><p class="nomargin-top"></p>
-<p>Initialize and update the header of a PO file.</p>
-  <p>When work on a pristine PO starts, or an existing PO is to be revised 
-  with new translations, this sieve can be used to automatically set PO 
-  header fields to proper values. The revision date is taken as current, 
-  while the rest of the info is pulled from user's configuration 
-  (<code>~/.pologyrc</code>).</p>
-  <p>Sieve options:</p>
+<h1 class="epydoc">Module set_header</h1><p class="nomargin-top"></p>
+<p>Set elements of the PO header.</p>
+  <p>Sometimes a certain header field needs to be updated throught all POs,
+  and this sieve serves that purpose.</p>
+  <p>For the moment, the only available operation is to set a certain field
+  to a given value. More operation modes may be implemented in the 
+  future.</p>
+  <p>Sieve options for setting a field:</p>
   <ul>
     <li>
-      <code>proj:&lt;project_id&gt;</code>: ID of the project
+      <code>field:&lt;name&gt;:&lt;value&gt;</code>: set the named field to
+      the given value
     </li>
     <li>
-      <code>init</code>: treat the header as uninitialized
+      <code>create</code>: add the field if not present
+    </li>
+    <li>
+      <code>after:&lt;name&gt;</code>: when adding a field, add it after 
+      the given field
+    </li>
+    <li>
+      <code>before:&lt;name&gt;</code>: when adding a field, add it before 
+      the given field
+    </li>
+    <li>
+      <code>reorder</code>: reinsert the field to match implied order
     </li>
   </ul>
-  <p>Parameter <code>proj</code> specifies the ID of the project which 
-  covers the POs about to be operated on. This ID is used as the name of 
-  configuration section <code>[project-&lt;ID&gt;]</code>, which contains 
-  the project data fields. Also used are the fields under the 
-  <code>[user]</code> section, unless overriden in the project's section. 
-  All the used config fields are:</p>
-  <ul>
-    <li>
-      <code>[project-*]/name</code> or <code>[user]/name</code>: user's 
-      name
-    </li>
-    <li>
-      <code>[project-*]/email</code> or <code>[user]/email</code>: user's 
-      email address
-    </li>
-    <li>
-      <code>[project-*]/language</code>: language code (IS0 639)
-    </li>
-    <li>
-      <code>[project-*]/language-team</code>: human-readable language name
-    </li>
-    <li>
-      <code>[project-*]/team-email</code>: team's email
-    </li>
-    <li>
-      <code>[project-*]/encoding</code>: encoding of PO files
-    </li>
-    <li>
-      <code>[project-*]/plural-forms</code>: the PO plural header 
-      (<code>nplurals=...; ...;</code>)
-    </li>
-  </ul>
-  <p>Non-default header fields are not touched, except the revision date 
-  and the last translator which are always updated (including the comment 
-  line, where translators are listed with years of contributions). Option 
-  <code>init</code> may be used to force setting all fields as if the 
-  header were uninitialized, overwriting any previous content.</p>
+  <p>The {field} parameter takes the exact name of the header field and a 
+  value to set it to. But, by itself it will set the field only if it is 
+  already present in the header. To create the field if not present, 
+  <code>create</code> option must be given. If the field is being added, 
+  parameters <code>after</code> and <code>before</code> can be used to 
+  specify where to insert it; by default the new field is appended at the 
+  end of the header. If the field is present, using the option 
+  <code>reorder</code> it can be moved within the header to match the order
+  implied by <code>after</code> and {before}.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -123,7 +107,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.sieve.update_header.Sieve-class.html" class="summary-name">Sieve</a>
+        <a href="pology.sieve.set_header.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
 </table>
