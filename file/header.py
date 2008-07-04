@@ -330,8 +330,8 @@ class Header (Monitored):
         @param after: the field to insert after
         @type after: string
 
-        @param after: the field to insert before
-        @type after: string
+        @param before: the field to insert before
+        @type before: string
 
         @param reorder: whether to move an existing field into better position
         @type reorder: bool
