@@ -10,6 +10,7 @@ the rest of the info is pulled from user's configuration (C{~/.pologyrc}).
 
 Sieve options:
   - C{proj:<project_id>}: ID of the project
+  - C{init}: treat the header as uninitialized
 
 Parameter C{proj} specifies the ID of the project which covers the POs
 about to be operated on. This ID is used as the name of configuration
@@ -27,6 +28,8 @@ in the project's section. All the used config fields are:
 Non-default header fields are not touched, except the revision date and
 the last translator which are always updated (including the comment
 line, where translators are listed with years of contributions).
+Option C{init} may be used to force setting all fields as if the header
+were uninitialized, overwriting any previous content.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -54,6 +57,12 @@ class Sieve (object):
             error("project ID must be provided (-s proj:<ID>)")
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
+
+        # Whether to force initialization of all fields.
+        self.init = False
+        if "init" in options:
+            self.init = True
+            options.accept("init")
 
         # Collect project data.
         self.tname = prjcfg.string("name") or usrcfg.string("name")
@@ -119,11 +128,13 @@ class Sieve (object):
         rdate = time.strftime("%Y-%m-%d %H:%M%z")
         hdr.set_field(u"PO-Revision-Date", unicode(rdate))
 
-        # ------------------------------------
-        # Fields updated only when at defaults
+        # ------------------------------------------------
+        # Fields updated only when at defaults (or forced)
+
+        init = self.init
 
         # - title
-        reset_title = not False
+        reset_title = init is True
         for line in hdr.title:
             if "TITLE" in line:
                 reset_title = True
@@ -137,29 +148,29 @@ class Sieve (object):
 
         # - project ID
         fval = hdr.get_field_value("Project-Id-Version")
-        if fval is not None and "PACKAGE" in fval:
+        if fval is not None and ("PACKAGE" in fval or init):
             hdr.set_field(u"Project-Id-Version", unicode(cat.name))
 
         # - language team
         fval = hdr.get_field_value("Language-Team")
-        if self.language and fval is not None and "LANGUAGE" in fval:
+        if self.language and fval is not None and ("LANGUAGE" in fval or init):
             hdr.set_field(u"Language-Team", unicode(tm_ident))
 
         # - language code
         fval = hdr.get_field_value("Language")
-        if self.lang and fval is not None:
+        if self.lang and fval is not None and (not fval.strip() or init):
             hdr.set_field(u"Language", unicode(self.lang),
                           after="Language-Team")
 
         # - encoding
         fval = hdr.get_field_value("Content-Type")
-        if self.encoding and fval is not None and "CHARSET" in fval:
+        if self.encoding and fval is not None and ("CHARSET" in fval or init):
             ctval = u"text/plain; charset=%s" % self.encoding
             hdr.set_field(u"Content-Type", unicode(ctval))
 
         # - plural forms
         fval = hdr.get_field_value("Plural-Forms")
-        if self.plforms and fval is not None and "INTEGER" in fval:
+        if self.plforms and fval is not None and ("INTEGER" in fval or init):
             hdr.set_field(u"Plural-Forms", unicode(self.plforms))
 
         # ------------------------------
