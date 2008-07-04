@@ -307,7 +307,7 @@ class Header (Monitored):
         return nfound - 1 == nth
 
 
-    def set_field (self, name, value, after=None, before=None):
+    def set_field (self, name, value, after=None, before=None, reorder=False):
         """
         Set a header field to a value.
 
@@ -318,12 +318,23 @@ class Header (Monitored):
         If there is no such field yet, it is inserted into the header;
         after the field C{after} or before the field C{before} if given
         and existing, or appended to the end otherwise.
+        If the field already exists, but not in the position according to
+        C{after} or C{before}, reordering can be requested too.
 
         @param name: name of the header field
         @type name: unicode
 
         @param value: new value for the field
         @type value: unicode
+
+        @param after: the field to insert after
+        @type after: string
+
+        @param after: the field to insert before
+        @type after: string
+
+        @param reorder: whether to move an existing field into better position
+        @type reorder: bool
 
         @returns: position where the field was modified or inserted
         @rtype: int
@@ -334,12 +345,19 @@ class Header (Monitored):
         for i in range(len(self._field)):
             if self.field[i][0] == name:
                 rpl_pos = i
-                break
+                if not reorder:
+                    break
             if (   (after and i > 0 and self.field[i - 1][0] == after)
                 or (before and self.field[i][0] == before)
             ):
                 ins_pos = i
                 # Do not break, must try all fields for value replacement.
+
+        if reorder and ins_pos >= 0 and ins_pos != rpl_pos:
+            self._field.pop(rpl_pos)
+            if ins_pos > rpl_pos:
+                ins_pos -= 1
+            rpl_pos = -1
 
         pair = Monpair(name, value)
         if rpl_pos >= 0:
