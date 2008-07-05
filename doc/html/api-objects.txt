@@ -130,6 +130,7 @@ pology.misc.resolve.read_entities	pology.misc.resolve-module.html#read_entities
 pology.misc.resolve.first_to_lower	pology.misc.resolve-module.html#first_to_lower
 pology.misc.resolve.resolve_entities	pology.misc.resolve-module.html#resolve_entities
 pology.misc.resolve.resolve_entities_simple	pology.misc.resolve-module.html#resolve_entities_simple
+pology.misc.resolve.expand_vars	pology.misc.resolve-module.html#expand_vars
 pology.misc.resolve.parse_entities	pology.misc.resolve-module.html#parse_entities
 pology.misc.resolve.resolve_alternatives	pology.misc.resolve-module.html#resolve_alternatives
 pology.misc.resolve._alt_head	pology.misc.resolve-module.html#_alt_head
@@ -389,8 +390,6 @@ pology.sieve.resolve_entities	pology.sieve.resolve_entities-module.html
 pology.sieve.resolve_entities.resolve_entities	pology.misc.resolve-module.html#resolve_entities
 pology.sieve.resolve_entities.read_entities	pology.misc.resolve-module.html#read_entities
 pology.sieve.set_header	pology.sieve.set_header-module.html
-pology.sieve.set_header.warning	pology.misc.report-module.html#warning
-pology.sieve.set_header.error	pology.misc.report-module.html#error
 pology.sieve.stats	pology.sieve.stats-module.html
 pology.sieve.stats.proper_words	pology.misc.split-module.html#proper_words
 pology.sieve.stats.warning	pology.misc.report-module.html#warning

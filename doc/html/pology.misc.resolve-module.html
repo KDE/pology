@@ -252,6 +252,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#expand_vars" class="summary-sig-name">expand_vars</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">varmap</span>,
+        <span class="summary-sig-arg">head</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">%</code><code class="variable-quote">'</code></span>)</span><br />
+      Expand variables in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -609,6 +628,48 @@
         class="link">first_to_case</a>
       </p>
 </div></td></tr></table>
+</div>
+<a name="expand_vars"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">expand_vars</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">varmap</span>,
+        <span class="sig-arg">head</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">%</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Expand variables in the text.</p>
+  <p>Expansion directives start with a directive head (<code>head</code> 
+  parameter), followed by variable name consisting of alphanumeric 
+  characters and underscores, and ending by any other character. Variable 
+  name may also be explicitly delimited within braces. Variable values for 
+  substitution are looked up by name in the <code>varmap</code> dictionary;
+  if not found, <code>NameError</code> is raised.</p>
+  <p>Some examples:</p>
+<pre class="literalblock">
+   expand_vars(&quot;Mary had a little %mammal.&quot;, {&quot;mammal&quot;:&quot;lamb&quot;})
+   expand_vars(&quot;Quite a %{critic}esque play.&quot;, {&quot;critic&quot;:&quot;burl&quot;})
+   expand_vars(&quot;Lost in single ~A.&quot;, {&quot;A&quot;:&quot;parenthesis&quot;}, &quot;~&quot;)
+</pre>
+  <p>Dictionary values are filtered as <code>&quot;%s&quot; % value</code> 
+  prior to substitution. Directive head may be escaped by repeating it 
+  twice in a row.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - string to expand</li>
+        <li><strong class="pname"><code>varmap</code></strong> ((name, value) dictionary) - mapping of variable names to values</li>
+        <li><strong class="pname"><code>head</code></strong> (string) - opening sequence for expansion directive</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
 </div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->

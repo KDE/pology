@@ -87,6 +87,17 @@
   end of the header. If the field is present, using the option 
   <code>reorder</code> it can be moved within the header to match the order
   implied by <code>after</code> and {before}.</p>
+  <p>Field value strings may contain %-directives, which are expanded to 
+  catalog-dependent substrings prior to setting the value. These are:</p>
+  <ul>
+    <li>
+      <code>%poname</code>: catalog name (equal to file name without 
+      <code>.po</code> extension)
+    </li>
+  </ul>
+  <p>If literal %-sign is needed, it can be escaped by entering 
+  <code>%%</code>. The directive can also be given with braces, as 
+  <code>%{...}</code>, if its use would be ambiguous otherwise.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
