@@ -25,6 +25,14 @@ by default the new field is appended at the end of the header.
 If the field is present, using the option C{reorder} it can be moved within
 the header to match the order implied by C{after} and {before}.
 
+Field value strings may contain %-directives, which are expanded to
+catalog-dependent substrings prior to setting the value. These are:
+  - C{%poname}: catalog name (equal to file name without C{.po} extension)
+
+If literal %-sign is needed, it can be escaped by entering C{%%}.
+The directive can also be given with braces, as C{%{...}},
+if its use would be ambiguous otherwise.
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
@@ -33,6 +41,7 @@ import re
 import time
 
 from pology.misc.report import error, warning
+from pology.misc.resolve import expand_vars
 
 
 class Sieve (object):
@@ -71,7 +80,9 @@ class Sieve (object):
     def process_header (self, hdr, cat):
 
         if self.field and (self.create or hdr.select_fields(self.field)):
-            hdr.set_field(self.field, self.value,
+            pvars = {"poname" : cat.name}
+            value = expand_vars(self.value, pvars)
+            hdr.set_field(self.field, value,
                           after=self.after, before=self.before,
                           reorder=self.reorder)
 
