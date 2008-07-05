@@ -78,6 +78,7 @@ hint="Choix de l'équipe : utilisation du verbe conserver"
 
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
 valid after="CU"
+valid msgid="Rating:"
 valid file="knotes.po"
 valid file="gwenview.po" after="^"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
@@ -265,6 +266,7 @@ hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) 
 [r@ecup@er]
 valid file="kgoldrunner.po"
 valid file="kalzium.po"
+valid file="konqueror.po" after="une "
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer »)"
 
 [paquet(?!a)]
@@ -273,6 +275,7 @@ valid before="s? IP"
 valid before="s? reçu"
 valid before="s? émis"
 valid before="s? sFTP"
+valid befire="de taille"
 valid after="Envoyer un |Saisissez le "
 valid file="libk3b.po" after="Mauvais "
 valid file="libk3b.po" before=" #"

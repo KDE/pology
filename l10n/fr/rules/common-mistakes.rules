@@ -83,6 +83,7 @@ hint="Mettre un accent grave (et non circonflexe) sur le « e »"
 
 [compl[ée]tem]i
 valid after="du |le |auto-"
+valid before=" du
 hint="Mettre un accent grave"
 
 [echec]i
@@ -169,10 +170,7 @@ valid after="Interface&sp;Definition&sp;"
 valid after="Extensible&sp;Markup&sp;" 
 valid after="eXtensible&sp;Markup&sp;" 
 valid after="Print Control "
-hint="À remplacer par « langage »"
-
-[&lwb;languages?&rwb;]i
-valid ctx="Query"
+valid after="XML Style "
 hint="À remplacer par « langage »"
 
 [sorite]i
@@ -368,6 +366,7 @@ hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un partic
 valid before="sMarkup" # D-Bus call
 valid after="http://\S+"
 valid after="in"
+valid after="Cpp"
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [text(?![e|uel|\-])]i
