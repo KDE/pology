@@ -465,3 +465,83 @@ def first_to_lower (text, nalts=0):
 
     return first_to_case(text, upper=False, nalts=nalts)
 
+
+def expand_vars (text, varmap, head="%"):
+    """
+    Expand variables in the text.
+
+    Expansion directives start with a directive head (C{head} parameter),
+    followed by variable name consisting of alphanumeric characters and
+    underscores, and ending by any other character.
+    Variable name may also be explicitly delimited within braces.
+    Variable values for substitution are looked up by name in
+    the C{varmap} dictionary; if not found, C{NameError} is raised.
+
+    Some examples::
+
+        expand_vars("Mary had a little %mammal.", {"mammal":"lamb"})
+        expand_vars("Quite a %{critic}esque play.", {"critic":"burl"})
+        expand_vars("Lost in single ~A.", {"A":"parenthesis"}, "~")
+
+    Dictionary values are filtered as C{"%s" % value} prior to substitution.
+    Directive head may be escaped by repeating it twice in a row.
+
+    @param text: string to expand
+    @type text: string
+
+    @param varmap: mapping of variable names to values
+    @type varmap: (name, value) dictionary
+
+    @param head: opening sequence for expansion directive
+    @type head: string
+    """
+
+    p = 0
+    hlen = len(head)
+    tlen = len(text)
+    ntext = []
+    while p < tlen:
+        pp = p
+        p = text.find(head, pp)
+        if p < 0:
+            ntext.append(text[pp:])
+            break
+        ntext.append(text[pp:p])
+        p += hlen
+        if p < tlen and text[p:p+hlen] == head: # escaped
+            ntext.append(head)
+            p += hlen
+            continue
+        if p == tlen:
+            raise NameError, \
+                  ("variable expansion: trailing-off expansion directive "
+                   "at column %d in string '%s'" % (p - hlen, text))
+        braced = False
+        if text[p] == "{":
+            braced = True
+            p += 1
+        pp = p
+        while p < tlen:
+            c = text[p]
+            if (   (not braced and not (c.isalnum() or c == "_"))
+                or (braced and c == "}")
+            ):
+                break
+            p += 1
+        if braced and p == tlen:
+            raise NameError, \
+                  ("variable expansion: unclosed expansion directive "
+                   "at column %d in string '%s'" % (pp - 1 - hlen, text))
+        varname = text[pp:p]
+        if braced:
+            p += 1
+
+        varvalue = varmap.get(varname)
+        if varvalue is None:
+            raise NameError, \
+                  ("variable expansion: unknown variable '%s' "
+                   "at column %d in string '%s'" % (varname, pp, text))
+        ntext.append("%s" % varvalue)
+
+    return "".join(ntext)
+
