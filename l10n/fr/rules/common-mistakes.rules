@@ -53,6 +53,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 [s[eè]lect|sél[éè]ct]i
 valid file="kommander.po" before="ed"
 valid after="[rad|Radical|KChar]"
+valid before="Certificate"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -76,6 +77,7 @@ hint="Seulement un « d » en français"
 hint="Il manque un « s »"
 
 [v[eè]rif]i
+valid file="kleopatra.po" after="Decrypt"
 hint="Mettre un accent aigu sur le « e »"
 
 [r[éeê]gle&rwb;]i
@@ -262,6 +264,10 @@ hint="clique -> clic"
 [crypt(er|ez|é?)]i
 valid after="lib"
 valid before="ographie"
+valid before="Command"
+valid file="kleopatra.po" after="PREP_EN"
+valid file="kleopatra.po" after="EN" before="&rwb;|$"
+valid file="kleopatra.po" before="Verif|email|files"
 valid after="x-en"
 valid after="x-de"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
@@ -357,6 +363,7 @@ valid before=">" after="<"
 valid file="kcmkonqhtml.po" after="window\."
 valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
 valid file="solid-network.po" after="«&unbsp;" before="&unbsp;»"
+valid file="kleopatra.po" after="Certificate "
 hint="remplacer « status » ou « statut » par « état »"
 
 [basé.* sur]
