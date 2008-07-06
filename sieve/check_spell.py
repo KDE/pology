@@ -266,8 +266,7 @@ class Sieve (object):
 
     def finalize (self):
         if self.list is not None:
-            slist = [i.decode(self.encoding) for i in self.list]
-            locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
+            slist = [i.decode(locale.getdefaultlocale()[1]) for i in self.list]
             slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
             if slist:
                 print "\n".join(slist)
