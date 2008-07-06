@@ -40,11 +40,11 @@ from pology.misc.report import spell_error, spell_xml_error, error
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
-from locale import getdefaultlocale, getpreferredencoding, strcoll
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
 from codecs import open
 from time import strftime
+import locale
 
 
 class Sieve (object):
@@ -85,7 +85,7 @@ class Sieve (object):
         if not self.variety:
             self.variety = cfgs.string("variety")
 
-        loc_lang, loc_encoding = getdefaultlocale()
+        loc_lang, loc_encoding = locale.getdefaultlocale()
         if not self.lang:
             self.lang = loc_lang
         if not self.encoding:
@@ -115,7 +115,7 @@ class Sieve (object):
                 #TODO: create nice api to manage xml file and move it to misc/
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-                self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
+                self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
             else:
                 print "Cannot open %s file. XML output disabled" % xmlPath
 
@@ -267,7 +267,8 @@ class Sieve (object):
     def finalize (self):
         if self.list is not None:
             slist = [i.decode(self.encoding) for i in self.list]
-            slist.sort(lambda x, y: strcoll(x.lower(), y.lower()))
+            locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
+            slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
             if slist:
                 print "\n".join(slist)
         else:
