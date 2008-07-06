@@ -20,29 +20,53 @@ import re
 import sys
 from os.path import abspath
 from codecs import open
+import locale
+
+from pology.misc.report import error
+
 
 def main():
     if len(sys.argv)!=2:
         usage()
     
-    words=[]
-
     #TODO: check file is writable
-    print abspath(sys.argv[1])
-    dictFile=open(abspath(sys.argv[1]), "r", "utf-8")
-    
+    dictPath=abspath(sys.argv[1])
+    print dictPath
+    dictEncDefault = "UTF-8"
+    dictFile=open(dictPath, "r", dictEncDefault)
+
+    # Parse the header for language and encoding.
+    header=dictFile.readline()
+    m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
+    if not m:
+        error("malformed header of the dictionary file")
+    dictType, dictLang, numWords, dictEnc=m.groups()
+
+    # Reopen in correct encoding if not the default.
+    if dictEnc.lower() != dictEncDefault.lower():
+        dictFile.close()
+        dictFile=open(dictPath, "r", dictEnc)
+
+    # Read all words and eliminate duplicates.
+    words=set()
     for word in dictFile:
         if word.startswith("personal_ws"):
             continue
         if word in words:
             print "Remove duplicate: %s" % word.rstrip("\n")
         else:
-            words.append(word)
-    
-    words.sort()
+            words.add(word)
+    words=list(words)
+    numWords=len(words)
     dictFile.close()
-    dictFile=open(abspath(sys.argv[1]), "w", "utf-8")
-    dictFile.write("personal_ws-1.1 fr %s utf-8\n" % len(words))
+
+    # Sort the list according to current locale, ignoring case.
+    locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
+    words.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+
+    # Write back the updated dictionary.
+    dictFile=open(dictPath, "w", dictEnc)
+    dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
     dictFile.writelines(words)
     dictFile.close()
     print "Write %s words" % len(words)
