@@ -36,7 +36,7 @@ html_attrs = {
 "big" : ["style"],
 "em" : ["style"],
 "b" : ["style", "title"], # really has title?
-"td" : ["valign"],
+"td" : ["align", "width", "valign"],
 }
 
 kuit_tags = """
