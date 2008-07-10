@@ -190,6 +190,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if len(free_args) < 1:
         opars.error("must provide sieve to apply")
 
+    op.raw_sieves = free_args[0]
+    op.raw_paths = free_args[1:]
+
     # Convert all string values in options to unicode.
     local_encoding=locale.getdefaultlocale()[1]
     for att, val in op.__dict__.items():
@@ -230,7 +233,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sopts[sopt] = value
 
     # Load sieve modules from supplied names in the command line.
-    sieves_requested = free_args[0].split(",")
+    sieves_requested = op.raw_sieves.split(",")
     sieves = []
     from pology import rootdir
     for sieve_name in sieves_requested:
@@ -300,7 +303,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         print "--> Opening catalogs in header-only mode"
 
     # Assemble list of files.
-    file_or_dir_paths = free_args[1:] or ["."]
+    file_or_dir_paths = op.raw_paths or ["."]
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
         file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
