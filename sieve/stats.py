@@ -315,6 +315,8 @@ class Sieve (object):
                 if os.path.isdir(path):
                     tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
                     self.template_subdirs.append(tpath)
+        # Map of template to translation subdirs.
+        self.mapped_template_subdirs = {}
 
         # Some indicators of metamessages.
         self.xml2po_meta_msgid = dict([(x, True) for x in
@@ -474,8 +476,8 @@ class Sieve (object):
 
         def equiv_template_path (x):
             cdir = os.path.dirname(x)
-            if cdir in self.template_subdirs:
-                cdir = self.template_subdirs[cdir]
+            if cdir in self.mapped_template_subdirs:
+                cdir = self.mapped_template_subdirs[cdir]
                 return os.path.join(cdir, os.path.basename(x))
             else:
                 return x
@@ -488,7 +490,7 @@ class Sieve (object):
 
         # If template correspondence requested, handle POTs without POs.
         if self.template_subdirs:
-            # Collect all catalogs in collected subdirs.
+            # Collect all catalogs in template subdirs.
             tpaths = collect_catalogs(self.template_subdirs)
             # Filter to have only POTs remain.
             tpaths = [x for x in tpaths if x.endswith(".pot")]
@@ -500,6 +502,11 @@ class Sieve (object):
                 self.process_header(cat.header, cat)
                 for msg in cat:
                     self.process(msg, cat)
+            # Map template to translation subdirs.
+            for tpath in tpaths:
+                tsubdir = os.path.dirname(tpath)
+                subdir = tsubdir.replace(self.tspec_repl, self.tspec_srch, 1)
+                self.mapped_template_subdirs[tsubdir] = subdir
 
         # Assemble sets of total counts by requested divisions.
         count_overall = self._count_zero()
@@ -511,9 +518,9 @@ class Sieve (object):
 
             if self.bydir:
                 cdir = os.path.dirname(filename)
-                if cdir in self.template_subdirs:
+                if cdir in self.mapped_template_subdirs:
                     # Pretend templates-only are within language subdir.
-                    cdir = self.template_subdirs[cdir]
+                    cdir = self.mapped_template_subdirs[cdir]
                 if cdir not in counts_bydir:
                     counts_bydir[cdir] = self._count_zero()
                     filenames_bydir[cdir] = []
