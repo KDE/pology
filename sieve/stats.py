@@ -310,10 +310,11 @@ class Sieve (object):
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = {}
         self.template_subdirs = []
-        for path in global_options.raw_paths:
-            if os.path.isdir(path):
-                tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
-                self.template_subdirs.append(tpath)
+        if self.tspec:
+            for path in global_options.raw_paths:
+                if os.path.isdir(path):
+                    tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
+                    self.template_subdirs.append(tpath)
 
         # Some indicators of metamessages.
         self.xml2po_meta_msgid = dict([(x, True) for x in
