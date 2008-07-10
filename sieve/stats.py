@@ -309,7 +309,11 @@ class Sieve (object):
 
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = {}
-        self.template_subdirs = {}
+        self.template_subdirs = []
+        for path in global_options.raw_paths:
+            if os.path.isdir(path):
+                tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
+                self.template_subdirs.append(tpath)
 
         # Some indicators of metamessages.
         self.xml2po_meta_msgid = dict([(x, True) for x in
@@ -362,11 +366,6 @@ class Sieve (object):
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
-            # Store tentative template subdir.
-            tsubdir = os.path.dirname(tpath)
-            if tsubdir not in self.template_subdirs:
-                csubdir = os.path.dirname(cat.filename)
-                self.template_subdirs[tsubdir] = csubdir
 
         # Check if the catalog itself states the shortcut character,
         # unless specified explicitly by the command line.
