@@ -219,6 +219,44 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}):
     return _c_errcnt == 0
 
 # ----------------------------------------
+# Check for conformant Qt-date format msgstr.
+
+_qtdt_clean_rx = re.compile(r"'.*?'")
+_qtdt_split_rx = re.compile(r"\W+", re.U)
+
+def _qtdt_parse (text):
+
+    text = _qtdt_clean_rx.sub("", text)
+    fields = [x for x in _qtdt_split_rx.split(text) if x]
+    return fields
+
+
+def _qtdt_fjoin (fields):
+
+    lst = list(fields)
+    lst.sort()
+    return ", ".join(lst)
+
+
+# NOTE: May be used as summit msgstr hook, must return None
+def check_qtdt (cat, msg, msgstr):
+
+    # Check needed when used as summit hook.
+    if "qtdt-format" not in msg.msgctxt.lower():
+        return
+
+    # Get format fields from the msgid.
+    msgid_fmts = _qtdt_parse(msg.msgid)
+
+    # Expect the same format fields in msgstr.
+    msgstr_fmts = _qtdt_parse(msgstr)
+    if set(msgid_fmts) != set(msgstr_fmts):
+        report_on_msg("Qt date-format mismatch: "
+                      "msgid has fields (%s) while msgstr has (%s)"
+                      % (_qtdt_fjoin(msgid_fmts), _qtdt_fjoin(msgstr_fmts)),
+                      msg, cat)
+
+# ----------------------------------------
 # The checker sieve.
 
 class Sieve (object):
@@ -242,6 +280,12 @@ class Sieve (object):
             options.accept("entdef")
             self.entity_files = options["entdef"].split(",")
 
+        # Whether to check only non-XML issues.
+        self.nonxml = False
+        if "nonxml" in options:
+            options.accept("nonxml")
+            self.nonxml = True
+
         # Read definitions of external entities.
         self.entities = read_entities(*self.entity_files)
 
@@ -258,6 +302,15 @@ class Sieve (object):
 
         # Do not check messages when told so.
         if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
+            return
+
+        # Check Qt-date format if the string is such.
+        if "qtdt-format" in msg.msgctxt.lower():
+            for msgstr in msg.msgstr:
+                check_qtdt(cat, msg, msgstr)
+
+        # Stop here if only check of non-XML issues requested.
+        if self.nonxml:
             return
 
         # In in non-strict mode, check XML of translation only if the
