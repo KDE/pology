@@ -69,6 +69,7 @@ hint="La bonne orthographe est « accès » (accent grave)"
 [addres]i
 valid after="&amp;k" before="sbook;" 
 valid after="[kK]" before="s[bB]ook"
+valid after="Browse"
 valid before="s="
 valid file="kmail.po" after="^\[" before="sBook\]$"
 hint="Seulement un « d » en français"
@@ -173,6 +174,7 @@ valid after="Extensible&sp;Markup&sp;"
 valid after="eXtensible&sp;Markup&sp;" 
 valid after="Print Control "
 valid after="XML Style "
+valid after="Default"
 hint="À remplacer par « langage »"
 
 [sorite]i
@@ -302,6 +304,7 @@ hint="C'est *une* icône"
 
 [icone]i
 valid after="sil"
+valid after="k"
 hint="Il faut un accent circonflexe au mot « icône »"
 
 [voulez vous]i

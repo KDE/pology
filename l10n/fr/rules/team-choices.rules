@@ -153,6 +153,7 @@ valid after="uid |UID "
 valid after="/"
 valid after="-l "
 valid before="@"
+valid file="cupsdconf4.po" after="<b>" before="</b>"
 hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
 
 [additif|greffon]i
