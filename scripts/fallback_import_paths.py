@@ -16,7 +16,7 @@ that may benefit from non-standard paths.
 """
 
 import sys
-import os
+from os.path import realpath, sep
 
-pologypath = os.path.sep.join(sys.argv[0].split(os.path.sep)[:-3])
+pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-3])
 sys.path.append(pologypath)
