@@ -22,6 +22,7 @@ from os.path import abspath
 from codecs import open
 import locale
 
+import fallback_import_paths
 from pology.misc.report import error
 
 
