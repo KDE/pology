@@ -387,6 +387,7 @@ valid before="[F|f]ilter|Range|object"
 valid after="set|start|CD\-|[I|i]nsert|Widget|sub|block\-"
 valid after="\."
 valid before=":"
+valid before="all"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 # End of rule file
