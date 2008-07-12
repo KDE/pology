@@ -51,6 +51,8 @@ def main():
     # Read all words and eliminate duplicates.
     words=set()
     for word in dictFile:
+        if not word.strip():
+            continue
         if word.startswith("personal_ws"):
             continue
         if word in words:
