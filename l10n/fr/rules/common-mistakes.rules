@@ -335,6 +335,7 @@ valid after="Smart "
 valid after="Multi" before="\sMiddleware"
 valid after="/"
 valid before=":/"
+valid before="Device"
 hint="media -> média"
 
 [médias]i
