@@ -102,11 +102,13 @@ def loadRulesFromFile(filePath, accents, stat):
     #validPatternContent=re.compile('(.*?)="(.*?)"')
     validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
     hintPattern=re.compile('''hint="(.*)"''')
+    identPattern=re.compile('''id="(.*)"''')
     validGroupPattern=re.compile("""validGroup (.*)""")
     
     pattern=u""
     valid=[]
     hint=u""
+    ident=None
     onmsgid=False
     casesens=True
     validGroup={}
@@ -126,9 +128,10 @@ def loadRulesFromFile(filePath, accents, stat):
             if line.strip()=="":
                 if inRule:
                     inRule=False
-                    rules.append(Rule(pattern, hint, valid, accents, stat, casesens, onmsgid))
+                    rules.append(Rule(pattern, hint, valid, accents, stat, casesens, onmsgid, ident))
                     pattern=u""
                     hint=u""
+                    ident=None
                     onmsgid=False
                     casesens=True
                 elif inGroup:
@@ -159,6 +162,12 @@ def loadRulesFromFile(filePath, accents, stat):
                 hint=result.group(1)
                 continue
             
+            # Rule identifier
+            result=identPattern.match(line)
+            if result and inRule:
+                ident=result.group(1)
+                continue
+            
             # Validgroup 
             result=validGroupPattern.match(line)
             if result and not inGroup:
@@ -176,6 +185,8 @@ def loadRulesFromFile(filePath, accents, stat):
         print "Cannot read rule file at %s. Error was (%s)" % (filePath, e)
     except KeyError, e:
         print "Syntax error in rule file %s:%s\n%s" % (filePath, i, e)
+
+    # TODO: Make sure all identifiers (by id="..." fields) are unique.
 
     return rules
  
@@ -199,7 +210,7 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
     
-    def __init__(self, pattern, hint, valid=[], accents=None, stat=False, casesens=True, onmsgid=False):
+    def __init__(self, pattern, hint, valid=[], accents=None, stat=False, casesens=True, onmsgid=False, ident=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -217,6 +228,7 @@ class Rule(object):
         self.pattern=None # Compiled regexp into re.pattern object
         self.valid=None   # Parsed valid definition
         self.hint=None    # Hint message return to user
+        self.ident=None    # Rule identifier
         self.accents=accents # Accents dictionary
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
@@ -243,6 +255,7 @@ class Rule(object):
         self.setPattern(pattern)
         
         self.hint=hint
+        self.ident=ident
 
         #Parse valid key=value arguments
         self.setValid(valid)
