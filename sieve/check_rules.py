@@ -89,7 +89,8 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
-        if msg.obsolete:
+        # Apply rules only on translated messages.
+        if not msg.translated:
             return
 
         filename=basename(cat.filename)
