@@ -52,6 +52,15 @@ class Sieve (object):
         else:
             stat=False
 
+        # Remove accelerators?
+        self.accelExplicit=False
+        self.accelUsual="&_~"
+        self.accel=""
+        if "accel" in options:
+            options.accept("accel")
+            self.accel=options["accel"]
+            self.accelExplicit=True
+
         # Load rules
         self.rules=loadRules(lang, stat)
         
@@ -86,6 +95,19 @@ class Sieve (object):
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
+
+
+    def process_header (self, hdr, cat):
+
+        # Check if the catalog itself states the shortcut character,
+        # unless specified explicitly by the command line.
+        if not self.accelExplicit:
+            accel=cat.possible_accelerator()
+            if accel is not None:
+                self.accel=accel
+            else:
+                self.accel=self.accelUsual
+
 
     def process (self, msg, cat):
 
@@ -152,6 +174,8 @@ class Sieve (object):
         for rule in self.rules:
             id=0 # Count msgstr plural forms
             for msgstr in msg.msgstr:
+                if self.accel:
+                    msgstr=msgstr.replace(self.accel, "")
                 try:
                     match=rule.process(msgstr, msg.msgid, msg.msgctxt, filename)
                 except TimedOutException:
@@ -185,3 +209,4 @@ class Sieve (object):
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
         printStat(self.rules, self.nmatch)
+
