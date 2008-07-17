@@ -18,7 +18,6 @@ from locale import getdefaultlocale
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 from pology import rootdir
-from pology.misc.config import strbool
 from pology.misc.report import warning
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
@@ -107,7 +106,7 @@ def loadRulesFromFile(filePath, accents, stat):
     validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
     hintPattern=re.compile('''hint="(.*)"''')
     identPattern=re.compile('''id="(.*)"''')
-    disabledPattern=re.compile('''disabled="(.*)"''')
+    disabledPattern=re.compile('''disabled\\b''')
     validGroupPattern=re.compile("""validGroup (.*)""")
     
     pattern=u""
@@ -182,7 +181,7 @@ def loadRulesFromFile(filePath, accents, stat):
             # Whether rule is disabled
             result=disabledPattern.match(line)
             if result and inRule:
-                disabled=strbool(result.group(1))
+                disabled=True
                 continue
 
             # Validgroup 
