@@ -68,7 +68,11 @@ class Sieve (object):
             print "No rule loaded. Exiting"
             sys.exit(1)
 
-        print "Load %s rules" % (len(self.rules))
+        ndis=len([x for x in self.rules if x.disabled])
+        if ndis==0:
+            print "Load %s rules" % (len(self.rules))
+        else:
+            print "Load %s rules (%d disabled)" % (len(self.rules), ndis)
         
         # Also output in XML file ?
         if "xml" in options:
@@ -172,6 +176,8 @@ class Sieve (object):
         
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
+            if rule.disabled:
+                continue
             id=0 # Count msgstr plural forms
             for msgstr in msg.msgstr:
                 if self.accel:
