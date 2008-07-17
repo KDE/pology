@@ -19,6 +19,7 @@ from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 from pology import rootdir
 from pology.misc.config import strbool
+from pology.misc.report import warning
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
@@ -93,6 +94,8 @@ def loadRulesFromFile(filePath, accents, stat):
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @return: list of Rule object"""
 
+    class IdentError (Exception): pass
+
     rules=[]
     inRule=False #Flag that indicate we are currently parsing a rule bloc
     inGroup=False #Flag that indicate we are currently parsing a validGroup bloc
@@ -116,6 +119,7 @@ def loadRulesFromFile(filePath, accents, stat):
     casesens=True
     validGroup={}
     validGroupName=u""
+    identLines={}
     i=0
 
     try:
@@ -170,6 +174,9 @@ def loadRulesFromFile(filePath, accents, stat):
             result=identPattern.match(line)
             if result and inRule:
                 ident=result.group(1)
+                if ident in identLines:
+                    raise IdentError(ident, identLines[ident])
+                identLines[ident]=i
                 continue
             
             # Whether rule is disabled
@@ -191,10 +198,14 @@ def loadRulesFromFile(filePath, accents, stat):
                     validGroupName=result.group(1).strip()
                     continue            
 
+    except IdentError, e:
+        warning("Identifier error in rule file: '%s' at %s:%d "
+                "previously encountered at :%d"
+                % (e.args[0], filePath, i, e.args[1]))
     except IOError, e:
-        print "Cannot read rule file at %s. Error was (%s)" % (filePath, e)
+        warning("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
     except KeyError, e:
-        print "Syntax error in rule file %s:%s\n%s" % (filePath, i, e)
+        warning("Syntax error in rule file %s:%d\n%s" % (filePath, i, e))
 
     # TODO: Make sure all identifiers (by id="..." fields) are unique.
 
