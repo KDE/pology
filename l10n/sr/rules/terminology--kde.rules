@@ -1,0 +1,190 @@
+# Terminology checks for KDE translation into Serbian.
+# Serbian KDE translation team <kde-i18n-sr@kde.org>
+# License: GPLv3
+
+{\bapplet}i
+id="applet"
+hint="applet = аплет"
+valid msgstr="\bаплет"
+valid msgstr="applet[\w-]*;"
+
+{\bapplication}i
+id="application"
+hint="application = програм"
+valid !msgstr="\bаплика[цт]"
+
+{\bbrowser}i
+id="browser"
+hint="browser = прегледач"
+valid msgstr="\bпрегледач"
+valid msgstr="browser[\w-]*;"
+
+{\bclipboard}i
+id="clipboard"
+hint="clipboard = клипборд"
+valid msgid="\bX Clipboard"
+valid msgstr="\bклипборд"
+
+{\bcomputer}i
+id="computer"
+hint="computer = рачунар"
+valid !msgstr="компјутер"
+
+{\bdefault}i
+id="default"
+hint="default = подразумевано"
+valid msgstr="\bподразумева"
+valid msgstr="default[\w-]*;"
+valid file="kioclient.po" msgid="Mounts the CDROM"
+valid file="konsole.po" msgid="DEFAULTENCODING"
+valid file="kcmicons.po" msgid="^Default$" msgstr="основна"
+valid file="kcmicons.po" msgid="default icon" msgstr="основн\w+ икон"
+valid file="kcmkio.po" msgid="KDE's default policy"
+valid file="kcmkonqhtml.po" msgid="\.default\w"
+valid file="kcmlocale.po" msgid="this country or region" msgstr="локал\w+ станд"
+valid file="kcmsmserver.po" msgid="after session exit by default"
+valid file="kcmsmserver.po" msgid="happen by default when"
+valid file="katepart4.po" msgid="<b>View Defaults</b>"
+
+{\bfolder}i
+id="directory"
+hint="folder = фасцикла"
+valid !msgstr="директориј|омотниц"
+
+{\beditor}i
+id="editor"
+hint="editor = уређивач"
+valid msgstr="\bуређива"
+valid msgstr="editor[\w-]*;"
+
+{\bfile}i
+id="file"
+hint="file = фајл"
+valid !msgstr="\bдатоте"
+
+{\bGNU\b}i
+id="gnu"
+hint="GNU = Гну"
+valid msgstr="\bgnu-\w*;"
+valid msgid="GNU Network Object Model Environment"
+valid msgstr="gnu[\w-]*;|\.gnu"
+
+{\bGNU\b}
+id="gnu_p"
+hint="GNU = Гнуово"
+valid msgstr=""
+
+{\bhighlight}i
+id="highlight"
+hint="highlight = истакнути"
+valid msgstr="\bиста(кн|ћи)"
+valid msgstr="\bистица(њ|т)"
+valid msgstr="--highlight"
+
+{\bicon}i
+id="icon"
+hint="icon = икона"
+valid msgstr="\bикон" !msgstr="\bикони[цч]"
+valid msgstr="icon[\w-]*;|\.icon"
+valid file="kcmicons.po" msgid="icon theme"
+valid file="kcminput.po" msgid="icons on first click"
+
+{\bJava}i
+id="java"
+hint="Java = јава"
+valid msgstr="java[\w-]*;"
+valid file="desktop_kdelibs.po" msgid="Javanese"
+valid file="kcmkonqhtml.po" msgid="Java(Script)? policy"
+
+{\bJava}
+id="java_p"
+hint="Java = јаванско"
+valid msgstr=""
+
+{\bKonqueror}i
+id="konqueror"
+hint="Konqueror = К-освајач"
+valid msgstr="konqueror[\w-]*;|konqueror[./]"
+valid file="kcmkonqhtml.po" msgstr="<html|<qt"
+valid file="konqueror.po" msgstr="<img"
+valid file="kdmconfig.po" msgstr="dolphin[\w-]*;"
+
+{\blabel}i
+id="label"
+hint="label = етикета"
+valid msgstr="\bетикет"
+valid msgstr="\bознач"
+valid file="kcmsamba.po" msgid="Mounted under"
+
+{\bmanager}i
+id="manager"
+hint="manager = менаџер"
+valid msgstr="\bменаџер"
+valid msgstr="\bуправ" !msgstr="\bуправ(љач|ник)"
+valid msgstr="manager[\w-]*;"
+valid file="filetypes.po" msgid="Konqueror file manager"
+
+{\bnetwork}i
+id="network"
+hint="network = мрежа"
+valid msgstr="\bу?мреж"
+valid msgstr="network[\w-]*;"
+valid file="solid-network.po" msgid="solid-network"
+valid msgid="GNU Network Object Model Environment"
+
+{\bonline}i
+id="online"
+hint="online = на вези"
+valid msgstr="\bна вези"
+valid msgstr="online[\w-]*;"
+
+{\bonline}i
+id="online2"
+hint="online = на вези"
+valid msgstr=""
+
+{\bonline}i
+id="online3"
+hint="online = на вези"
+valid msgstr=""
+
+{\bpaste[sd]?\b}i
+id="paste"
+hint="paste = налепити"
+valid msgstr="\bналеп"
+valid file="desktop_kdebase.po" msgid="paste history utility"
+
+{\bquit(s|ted)?\b}i
+id="quit"
+hint="quit = напустити"
+valid msgstr="\bнапу(шта|сти)"
+
+{\brename}i
+id="rename"
+hint="rename = преименовати"
+valid msgstr="\bпреимен"
+valid file="kcmkio.po" msgid="\.part"
+
+{\bsoftware}i
+id="software"
+hint="software = софтвер"
+valid msgstr="\bсофтвер"
+valid msgstr="\bпрограм"
+valid msgstr="software[\w-]*;"
+
+{\bsyntax highlight}i
+id="syntaxhighlighting"
+hint="syntax highlighting = истицање синтаксе"
+valid msgstr="\bистицањ\w+ синтакс"
+
+{\bthumbnail}i
+id="thumbnail"
+hint="thumbnail = сличица"
+valid msgstr="\bсличиц"
+
+{^View$}
+id="view_menu"
+hint="View = Приказ"
+valid msgstr="^Приказ$"
+
+# End of rules

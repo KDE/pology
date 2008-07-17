@@ -1,0 +1,14 @@
+# Frequent ortography mistakes in Serbian.
+# Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+# License: GPLv3
+
+[\w(дп)\w]
+hint="гласовне промене: дп -> тп"
+
+[\w(дф)\w]
+hint="гласовне промене: дф -> тф"
+
+[\bби +(сте|смо)\b]i
+hint="спојено: бисте, бисмо"
+
+# End of rules
