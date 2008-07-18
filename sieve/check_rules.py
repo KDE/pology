@@ -14,7 +14,7 @@ from time import strftime, strptime, mktime
 from locale import getdefaultlocale, getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
-from pology.misc.report import rule_error, rule_xml_error
+from pology.misc.report import error, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
@@ -69,21 +69,45 @@ class Sieve (object):
 
         # Load rules
         self.rules=loadRules(lang, stat, self.env)
-        
+
+        # Perhaps retain only those rules explicitly requested
+        # in the command line, by their identifiers.
+        selectedRules=[]
+        if "rule" in options:
+            options.accept("rule")
+            selectedRules=set([x.strip() for x in options["rule"].split(",")])
+            foundRules=set()
+            srules=[]
+            for rule in self.rules:
+                if rule.ident in selectedRules:
+                    srules.append(rule)
+                    foundRules.add(rule.ident)
+            if foundRules!=selectedRules:
+                missingRules=list(selectedRules-foundRules)
+                missingRules.sort()
+                error("some explicitly selected rules are missing: %s"
+                      % ", ".join(missingRules))
+            self.rules=srules
+            selectedRules=list(selectedRules)
+            selectedRules.sort()
+
         if len(self.rules)==0:
             print "No rule loaded. Exiting"
             sys.exit(1)
 
         ndis=len([x for x in self.rules if x.disabled])
         if ndis and self.env:
-            print "Load %s rules [%s] (%d disabled)" % (len(self.rules), self.env, ndis)
+            print "Loaded %s rules [%s] (%d disabled)" % (len(self.rules), self.env, ndis)
         elif ndis:
-            print "Load %s rules (%d disabled)" % (len(self.rules), ndis)
+            print "Loaded %s rules (%d disabled)" % (len(self.rules), ndis)
         elif self.env:
-            print "Load %s rules [%s]" % (len(self.rules), self.env)
+            print "Loaded %s rules [%s]" % (len(self.rules), self.env)
         else:
-            print "Load %s rules" % (len(self.rules))
-        
+            print "Loaded %s rules" % (len(self.rules))
+
+        if selectedRules:
+            print "(explicitly selected: %s)" % ", ".join(selectedRules)
+
         # Also output in XML file ?
         if "xml" in options:
             options.accept("xml")
