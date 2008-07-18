@@ -51,6 +51,12 @@ class Sieve (object):
             stat=True
         else:
             stat=False
+        
+        if "env" in options:
+            options.accept("env")
+            self.env=options["env"]
+        else:
+            self.env=None
 
         # Remove accelerators?
         self.accelExplicit=False
@@ -62,17 +68,21 @@ class Sieve (object):
             self.accelExplicit=True
 
         # Load rules
-        self.rules=loadRules(lang, stat)
+        self.rules=loadRules(lang, stat, self.env)
         
         if len(self.rules)==0:
             print "No rule loaded. Exiting"
             sys.exit(1)
 
         ndis=len([x for x in self.rules if x.disabled])
-        if ndis==0:
-            print "Load %s rules" % (len(self.rules))
-        else:
+        if ndis and self.env:
+            print "Load %s rules [%s] (%d disabled)" % (len(self.rules), self.env, ndis)
+        elif ndis:
             print "Load %s rules (%d disabled)" % (len(self.rules), ndis)
+        elif self.env:
+            print "Load %s rules [%s]" % (len(self.rules), self.env)
+        else:
+            print "Load %s rules" % (len(self.rules))
         
         # Also output in XML file ?
         if "xml" in options:
@@ -178,12 +188,14 @@ class Sieve (object):
         for rule in self.rules:
             if rule.disabled:
                 continue
+            if rule.environ and rule.environ!=self.env:
+                continue
             id=0 # Count msgstr plural forms
             for msgstr in msg.msgstr:
                 if self.accel:
                     msgstr=msgstr.replace(self.accel, "")
                 try:
-                    match=rule.process(msgstr, msg.msgid, msg.msgctxt, filename)
+                    match=rule.process(msgstr, msg, cat, filename, self.env)
                 except TimedOutException:
                     print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
                     id+=1

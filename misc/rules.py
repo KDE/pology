@@ -10,7 +10,7 @@ Parse rule files and propose a convenient interface to rules.
 import re
 from codecs import open
 from time import time
-from os.path import dirname, isdir, join
+from os.path import dirname, basename, isdir, join
 from os import listdir
 import sys
 from locale import getdefaultlocale
@@ -38,10 +38,11 @@ def printStat(rules, nmatch):
             print "%-20s\t\t%6d\t\t%6.1f\t\t%6d" % (p, c, t, tt)
 
 
-def loadRules(lang, stat):
+def loadRules(lang, stat, env=None):
     """Load all rules of given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
+    @param env: also load rules applicable in this environment only
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
     ruleFiles=[]           # List of rule files
@@ -82,7 +83,30 @@ def loadRules(lang, stat):
         accents=None
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, accents, stat))
-    
+
+    # Remove rules with specific but different environment.
+    srules=[]
+    for rule in rules:
+        if rule.environ and rule.environ!=env:
+            continue
+        srules.append(rule)
+    rules=srules
+
+    # When operating in a specific environment, for two rules with
+    # same identifiers consider that the one in operating environment
+    # overrides the one in different or non-specific environment.
+    if env:
+        identsThisEnv=set()
+        for rule in rules:
+            if rule.ident and rule.environ==env:
+                identsThisEnv.add(rule.ident)
+        srules=[]
+        for rule in rules:
+            if rule.ident and rule.environ!=env and rule.ident in identsThisEnv:
+                continue
+            srules.append(rule)
+        rules=srules
+
     return rules
 
 
@@ -108,17 +132,20 @@ def loadRulesFromFile(filePath, accents, stat):
     identPattern=re.compile('''id="(.*)"''')
     disabledPattern=re.compile('''disabled\\b''')
     validGroupPattern=re.compile("""validGroup (.*)""")
+    environPattern=re.compile("""environment (.*)""")
     
-    pattern=u""
     valid=[]
+    pattern=u""
     hint=u""
     ident=None
     disabled=False
     onmsgid=False
     casesens=True
+    environ=None
     validGroup={}
     validGroupName=u""
     identLines={}
+    globalEnviron=None
     i=0
 
     try:
@@ -134,13 +161,16 @@ def loadRulesFromFile(filePath, accents, stat):
             if line.strip()=="":
                 if inRule:
                     inRule=False
-                    rules.append(Rule(pattern, hint, valid, accents, stat, casesens, onmsgid, ident, disabled))
+                    rules.append(Rule(pattern, hint, valid, accents, stat,
+                                      casesens, onmsgid, ident, disabled,
+                                      environ or globalEnviron))
                     pattern=u""
                     hint=u""
                     ident=None
                     disabled=False
                     onmsgid=False
                     casesens=True
+                    environ=None
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
@@ -174,8 +204,10 @@ def loadRulesFromFile(filePath, accents, stat):
             if result and inRule:
                 ident=result.group(1)
                 if ident in identLines:
-                    raise IdentError(ident, identLines[ident])
-                identLines[ident]=i
+                    (prevLine, prevEnviron)=identLines[ident]
+                    if prevEnviron==globalEnviron:
+                        raise IdentError(ident, prevLine)
+                identLines[ident]=(i, globalEnviron)
                 continue
             
             # Whether rule is disabled
@@ -183,7 +215,7 @@ def loadRulesFromFile(filePath, accents, stat):
             if result and inRule:
                 disabled=True
                 continue
-
+            
             # Validgroup 
             result=validGroupPattern.match(line)
             if result and not inGroup:
@@ -195,7 +227,19 @@ def loadRulesFromFile(filePath, accents, stat):
                     # Begin of validGroup
                     inGroup=True
                     validGroupName=result.group(1).strip()
-                    continue            
+                continue
+            
+            # Switch rule environment
+            result=environPattern.match(line)
+            if result and not inGroup:
+                envName=result.group(1).strip()
+                if inRule:
+                    # Environment specification for current rule.
+                    environ=envName
+                else:
+                    # Environment switch for rules that follow.
+                    globalEnviron=envName
+                continue
 
     except IdentError, e:
         warning("Identifier error in rule file: '%s' at %s:%d "
@@ -229,8 +273,14 @@ def convert_entities(string):
       
 class Rule(object):
     """Represent a single rule"""
-    
-    def __init__(self, pattern, hint, valid=[], accents=None, stat=False, casesens=True, onmsgid=False, ident=None, disabled=False):
+
+    _knownKeywords = set(("env", "file", "cat", "after", "before", "ctx", "msgid", "msgstr"))
+    _regexKeywords = set(("after", "before", "ctx", "msgid", "msgstr"))
+    _listKeywords = set(("env", "file", "cat"))
+
+    def __init__(self, pattern, hint, valid=[], accents=None, stat=False,
+                       casesens=True, onmsgid=False, ident=None, disabled=False,
+                       environ=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -247,6 +297,8 @@ class Rule(object):
         @type ident: unicode or C{None}
         @param disabled: whether rule is disabled
         @type disabled: bool
+        @param environ: environment in which the rule applies
+        @type environ: string or C{None}
         """
 
         # Define instance variable
@@ -262,6 +314,7 @@ class Rule(object):
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
         self.onmsgid=onmsgid # Whether to match rule on msgid
+        self.environ=None # Environment in which to apply the rule
 
         # Get accentMatch from accent dictionary
         if self.accents:
@@ -283,6 +336,7 @@ class Rule(object):
         self.hint=hint
         self.ident=ident
         self.disabled=disabled
+        self.environ=environ
 
         #Parse valid key=value arguments
         self.setValid(valid)
@@ -311,13 +365,16 @@ class Rule(object):
                     bkey = key
                     if key.startswith("!"):
                         bkey = key[1:]
-                    if bkey not in ("file", "after", "before", "ctx", "msgid", "msgstr"):
+                    if bkey not in Rule._knownKeywords:
                         print "Invalid keyword '%s' in valid definition. Skipping" % key
                         continue
                     value=convert_entities(value)
-                    if bkey in ("after", "before", "ctx", "msgid", "msgstr"):
+                    if bkey in Rule._regexKeywords:
                         # Compile regexp
                         value=re.compile(value, self.reflags)
+                    if bkey in Rule._listKeywords:
+                        # List of comma-separated words
+                        value=[x.strip() for x in value.split(",")]
                     entry[key]=value
                 self.valid.append(entry)
             except Exception:
@@ -325,7 +382,7 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, msgstr, msgid, msgctxt, filename):
+    def process(self, msgstr, msg, cat, filename=None, env=None):
         """Process the given message
         @return: True if rule match, False if rule do not match, None if rule cannot be applied"""
         if self.pattern is None:
@@ -334,10 +391,17 @@ class Rule(object):
         
         if self.stat: begin=time()
 
+        # Since catalog knows its file path, it would not be strictly
+        # nessesary to pass its filename as an argument;
+        # but, os.path.basename eats a lot of performance (!?),
+        # so use it only if filename has not been manually passed.
+        if filename is None:
+            filename=basename(cat.filename)
+
         if not self.onmsgid:
             text = msgstr
         else:
-            text = msgid
+            text = msg.msgid
 
         cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
 
@@ -361,8 +425,22 @@ class Rule(object):
                         bkey = key[1:]
                         invert = True
 
-                    if bkey == "file":
-                        match = value == filename
+                    if bkey == "env":
+                        match = env in value
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "cat":
+                        match = cat.name in value
+                        if invert: match = not match
+                        if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "file":
+                        match = filename in value
                         if invert: match = not match
                         if not match:
                             cancel = False
@@ -395,14 +473,14 @@ class Rule(object):
                             break 
 
                     elif bkey == "ctx":
-                        match = value.search(msgctxt)
+                        match = value.search(msg.msgctxt)
                         if invert: match = not match
                         if not match:
                             cancel = False
                             break 
 
                     elif bkey == "msgid":
-                        match = value.search(msgid)
+                        match = value.search(msg.msgid)
                         if invert: match = not match
                         if not match:
                             cancel = False
