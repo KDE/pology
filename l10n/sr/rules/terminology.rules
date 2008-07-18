@@ -1,0 +1,87 @@
+# Terminology checks for Serbian software translations.
+# Serbian Open Computing Terminology <sorta@googlegroups.com>
+# License: GPLv3
+
+{\bcomputer}i
+id="computer"
+hint="computer = рачунар"
+valid !msgstr="компјутер"
+
+{\bdefault}i
+id="default"
+hint="default = подразумевано"
+valid msgstr="\bподразумева"
+valid env="kde" msgstr="default[\w-]*;"
+valid cat="kioclient" msgid="Mounts the CDROM"
+valid cat="konsole" msgid="DEFAULTENCODING"
+valid cat="kcmicons" msgid="^Default$" msgstr="основна"
+valid cat="kcmicons" msgid="default icon" msgstr="основн\w+ икон"
+valid cat="kcmkio" msgid="KDE's default policy"
+valid cat="kcmkonqhtml" msgid="\.default\w"
+valid cat="kcmlocale" msgid="this country or region" msgstr="локал\w+ станд"
+valid cat="kcmsmserver" msgid="after session exit by default"
+valid cat="kcmsmserver" msgid="happen by default when"
+valid cat="katepart4" msgid="<b>View Defaults</b>"
+
+{\bfolder}i
+id="directory"
+hint="folder = фасцикла"
+valid !msgstr="директориј|омотниц"
+
+{\bfile}i
+id="file"
+hint="file = датотека"
+valid !msgstr="\bфајл"
+
+{\beditor}i
+id="editor"
+hint="editor = уређивач"
+valid msgstr="\bуређива"
+valid env="kde" msgstr="editor[\w-]*;"
+valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
+
+{\bhighlight}i
+id="highlight"
+hint="highlight = истакнути"
+valid msgstr="\bиста(кн|ћи)"
+valid msgstr="\bистица(њ|т)"
+valid msgstr="--highlight"
+
+{\blabel}i
+id="label"
+hint="label = ознака"
+valid msgstr="\bознак"
+valid msgstr="\bознач"
+
+{\bnetwork}i
+id="network"
+hint="network = мрежа"
+valid msgstr="\bу?мреж"
+valid env="kde" msgstr="network[\w-]*;"
+valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
+valid cat="solid-network" msgid="solid-network"
+
+{\brename}i
+id="rename"
+hint="rename = преименовати"
+valid msgstr="\bпреимен"
+valid cat="kcmkio" msgid="\.part"
+
+{\bsoftware}i
+id="software"
+hint="software = софтвер"
+valid msgstr="\bсофтвер"
+valid msgstr="\bпрограм"
+valid env="kde" msgstr="software[\w-]*;"
+
+{\bsyntax highlight}i
+id="syntaxhighlighting"
+hint="syntax highlighting = истицање синтаксе"
+valid msgstr="\bистицањ\w+ синтакс"
+
+{^View$}
+id="view_menu"
+hint="View = Приказ"
+valid msgstr="^Приказ$"
+
+# End of rules
