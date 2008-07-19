@@ -51,7 +51,50 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module check_rules</h1><p class="nomargin-top"></p>
-<p>Sieves messages with rules and warn when a rule triggers.</p>
+<p>Try to fail messages by rules and warn when that happens.</p>
+  <p>This sieve applies a collection of <a 
+  href="pology.misc.rules-module.html" class="link">special rules</a> to 
+  messages, reporting whenever a rule &quot;fails&quot; a message -- rules 
+  are usually written to detect messages faulty, or possibly such, in a 
+  certain sense.</p>
+  <p>By default, the sieve reads rules from Pology's internal 
+  <code>l10n/&lt;lang&gt;/rules/</code> directories, i.e. written for 
+  specific languages, and possibly specific translation environments within
+  a given language. Read about how to write rules and create rule files in 
+  the <a href="pology.misc.rules-module.html" class="link">misc.rules</a> 
+  module documentation.</p>
+  <p>The sieve parameters are:</p>
+  <ul>
+    <li>
+      <code>lang:&lt;language&gt;</code>: language for which to fetch and 
+      apply the rules
+    </li>
+    <li>
+      <code>env:&lt;environment&gt;</code>: specific environment within the
+      given language; if not given, only environment-agnostic rules are 
+      applied
+    </li>
+    <li>
+      <code>rule</code>: comma-separated list of specific rules to apply, 
+      containing rule identifiers; if not given, all rules for given 
+      language and environment are applied
+    </li>
+    <li>
+      <code>stat</code>: show statistics of rule matching at the end
+    </li>
+    <li>
+      <code>accel:&lt;character&gt;</code>: accelerator character to 
+      eliminate from text before the rules are applied
+    </li>
+    <li>
+      <code>xml:&lt;filename&gt;</code>: output results of the run in XML 
+      format file
+    </li>
+    <li>
+      <code>rfile:&lt;filename&gt;</code>: read rules from this file, 
+      instead of from Pology's internal rule files
+    </li>
+  </ul>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

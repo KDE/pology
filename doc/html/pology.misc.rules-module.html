@@ -51,7 +51,254 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module rules</h1><p class="nomargin-top"></p>
-<p>Parse rule files and propose a convenient interface to rules.</p>
+<p>Match messages by rules of arbitrary specificity.</p>
+  <p>A message-matching rule, represented by <a 
+  href="pology.misc.rules.Rule-class.html" class="link">Rule</a> object, is
+  a series of pattern matches to be applied to the message, leading to the 
+  decision of whether or not the rule as whole matches the message. 
+  Patterns can be of different kinds, act on different parts of the 
+  message, and be applied in a boolean-like combinations. The idea behind 
+  rules is to detect messages faulty in some way, hence when a rule matches
+  it is said that it &quot;fails the message&quot;, and when it does not 
+  match, that it &quot;passes the message&quot;.</p>
+  <p><a href="pology.misc.rules.Rule-class.html" class="link">Rule</a> 
+  objects can be constructed by the same code that uses them, but the 
+  primary intended use is that of maintaining collections of rules in 
+  external, special-format files, and loading them on demand. For example, 
+  there may be a collection of rules that catches typical ortography errors
+  in a given language, or checks terminology, etc. Such collections of 
+  language and translation-environment dependent rules are maintained 
+  within Pology itself, in <code>l10n/&lt;lang&gt;/rules/</code> 
+  directories.</p>
+  <p>The <a href="pology.sieve.check_rules-module.html" 
+  class="link">check-rules</a> sieve is normally used to apply rules to 
+  messages in PO files, while in custom code function <a 
+  href="pology.misc.rules-module.html#loadRulesFromFile" 
+  class="link">loadRulesFromFile</a> can be used to load rules from an 
+  arbitrary rule file, and <a 
+  href="pology.misc.rules-module.html#loadRules" class="link">loadRules</a>
+  to fetch rules from Pology's internal rule files.</p>
+  <h1 class="heading">Rule Files</h1>
+    <p>Rule files are kept simple, to facilitate easy editing without 
+    verbose syntax getting in the way. Rule file has the following 
+    layout:</p>
+<pre class="literalblock">
+   # Title of the rule collection.
+   # Author name.
+   # License.
+
+   global-directive
+   ...
+   global-directive
+
+   # Rule 1.
+   trigger-pattern
+   subdirective-1
+   ...
+   subdirective-n
+
+   # Rule 2.
+   trigger-pattern
+   subdirective-1
+   ...
+   subdirective-n
+
+   ...
+
+   # End of rules
+</pre>
+    <p>where the header (title, author, license) and footer comments are 
+    mandatory. Rules are separated by a blank line, and each rule starts 
+    with the main trigger pattern. #-comments always start from the 
+    beginning of the line. Example rule, to fail a message when the 
+    original part contains the word &quot;foo&quot; and the translation 
+    does not contain &quot;bar&quot;, except in PO catalog &quot;qwyx&quot;
+    where it should contain &quot;baz&quot; instead, would be:</p>
+<pre class="literalblock">
+   # A contrieved example rule.
+   {\bfoo}i
+   valid msgstr=&quot;\bbar&quot;
+   valid cat=&quot;qwyx&quot; msgstr=&quot;\bbaz&quot;
+   hint=&quot;Translate 'foo' with 'bar' (only in qwyx.po use 'baz')&quot;
+</pre>
+    <p>Trigger pattern is a regular expression within curly or square 
+    brackets, <code>{...}</code> or <code>[...]</code>, depending if it 
+    should be matched against original or translation part of the message, 
+    respectively. Additionaly, following the brackets there may be an 
+    <code>i</code>-flag, to indicate case-insensitive matching for all the 
+    patterns in the rule (default is case-sensitive). The trigger pattern 
+    is the main element of the rule; tests that follow in subdirectives are
+    to amend the trigger pattern, to pass the message even if the trigger 
+    pattern fails it.</p>
+    <p>There are several types of rule subdirectives. The main one is 
+    <code>valid</code>, which provides additional tests to pass the 
+    message. These tests are given by a list of 
+    <code>name=&quot;pattern&quot;</code> entries, which test different 
+    parts of the message and in different ways. For a <code>valid</code> 
+    directive to pass the message all its tests must pass it, and if any of
+    the <code>valid</code> directives passes the message, then the rule as 
+    whole passes it. Effectively, this means the boolean AND relationship 
+    within a directive, and OR across directives.</p>
+    <p>The following tests can be used within <code>valid</code> 
+    directives:</p>
+    <ul>
+      <li>
+        <code>msgid</code>: passes if the original text matches a regular 
+        expression
+      </li>
+      <li>
+        <code>msgstr</code>: passes if the translation text matches a 
+        regular expression
+      </li>
+      <li>
+        <code>ctx</code>: passes if the message context matches a regular 
+        expression
+      </li>
+      <li>
+        <code>before</code>: passes if the part of the text matched by the 
+        trigger pattern is placed exactly before the part matched by this 
+        regular expression
+      </li>
+      <li>
+        <code>after</code>: passes if the part of the text matched by the 
+        trigger pattern is placed exactly after the part matched by this 
+        regular expression
+      </li>
+      <li>
+        <code>file</code>: passes if the PO file name is contained in this 
+        comma-separated list of file names
+      </li>
+      <li>
+        <code>cat</code>: passes if the PO catalog name is contained in 
+        this comma-separated list of catalog names
+      </li>
+      <li>
+        <code>env</code>: passes if the operating environment is contained 
+        in this comma-separated list of environment names
+      </li>
+    </ul>
+    <p>For <code>before</code> and <code>after</code> tests, when there are
+    several matched substrings, by the trigger pattern and/or by the test 
+    patterns, then the test passes if any two are in the requested 
+    order.</p>
+    <p>Subdirectives other than <code>valid</code> set states and 
+    properties of the rule. The property directives are written simply as 
+    <code>property=&quot;value&quot;</code>. These include:</p>
+    <ul>
+      <li>
+        <code>hint</code>: hint which may be shown to the user when the 
+        rule fails a message
+      </li>
+      <li>
+        <code>id</code>: &quot;almost&quot; unique rule identifier (see 
+        part on rule environments)
+      </li>
+    </ul>
+    <p>State directives are given by the directive name, possibly followed 
+    by keyword parameters: <code>directive arg1 ...</code>. These are:</p>
+    <ul>
+      <li>
+        <code>validGroup &lt;groupname&gt;</code>: source a predefined 
+        group of <code>valid</code> directives
+      </li>
+      <li>
+        <code>environment &lt;envname&gt;</code>: explicitly set the 
+        environment of the rule
+      </li>
+      <li>
+        c{disabled}: disable the rule, i.e. make it pass all messages
+      </li>
+    </ul>
+    <p>Global directives, which are typically placed at the beginning of a 
+    rule file, before any rules, are used to define common elements for 
+    rules to source, or to set state for all rules below them. One such 
+    directive is <code>validGroup</code>, which defines common groups of 
+    <code>valid</code> directives:</p>
+<pre class="literalblock">
+   # Global validity group.
+   validGroup passIfQuoted
+   valid after=&quot;&#8220;&quot; before=&quot;&#8221;&quot;
+   valid after=&quot;&#8216;&quot; before=&quot;&#8217;&quot;
+
+   ....
+
+   # Rule X.
+   {...}
+   validGroup passIfQuoted
+   valid ...
+   ...
+
+   # Rule Y.
+   {...}
+   validGroup passIfQuoted
+   valid ...
+   ...
+</pre>
+    <p>Another global directive is setting specific environment on all 
+    rules that follow after it (unless overriden with namesake rule 
+    subdirective):</p>
+<pre class="literalblock">
+   # Global environment.
+   environment FOO
+
+   ...
+
+   # Rule X, belongs to FOO.
+   {...}
+   ...
+
+   # Rule Y, overrides to BAR.
+   {...}
+   environment BAR
+   ...
+</pre>
+  <h1 class="heading">Rule Environments</h1>
+    <p>When there are no <code>environment</code> directives in a rule 
+    file, either global or as subdirectives, then all rules loaded from it 
+    are considered as being environment-agnostic. This comes into picture 
+    when applying a rule, using <a 
+    href="pology.misc.rules.Rule-class.html#process" 
+    class="link">Rule.process</a> method, which may take an &quot;operating
+    environment&quot; as argument. If the operating environment is given 
+    and the rule is environment-agnostic, it will try to fail or pass the 
+    message ignoring the operating environment. However, if there was an 
+    <code>environment</code> directive in the file which covered the rule, 
+    i.e. the rule itself is now environment-specific, then it will try to 
+    fail the message only if its environment matches the operating 
+    environment, and otherwise it will pass it unconditionally.</p>
+    <p>Rule environments are used to control application of rules between 
+    diverse translation environments, where some rules may be common, some 
+    may be somewhat common, and some not common at all. In such a scenario,
+    common rules would be made environment-agnostic (i.e. not covered by an
+    <code>environment</code> directive), while totally non-common rules 
+    would be provided in separate rule files per environment, with one 
+    global <code>environment</code> directive in each.</p>
+    <p>The rules falling in between may be treated differently. Sometimes 
+    it may be organizationally convenient to keep in a single file rules 
+    from different environments, but still similar in some way; then the 
+    environment can either be switched by a global directive in the middle 
+    of the file, or rules may be given their own environment directives. At
+    other times, the rules are wholly similar, needing only a 
+    <code>valid</code> subdirective or two different across environments; 
+    then the <code>valid</code> directives for specific environments may be
+    started with the <code>env</code> test.</p>
+    <p>When mixing environment-agnostic and environment-specific rules, the
+    rule identifier, given by <code>id</code> property subdirective, plays 
+    a special role. If an environment-specific rule has the same identifier
+    as an environment-agnostic rule, and the operating environment is same 
+    as that of the environment-specific rule, than <a 
+    href="pology.misc.rules-module.html#loadRules" 
+    class="link">loadRules</a> will &quot;shadow&quot; the 
+    environment-agnostic rule, excluding it from its returned list of 
+    rules. This is used when there is a rule common to most translation 
+    environments, except for one or few outliers -- the outliers' rule and 
+    the common rule to be shadowed should be given same identifiers.</p>
+    <p>The <a href="pology.sieve.check_rules-module.html" 
+    class="link">check-rules</a> sieve has the <code>env</code> parameter 
+    to specify the operating environment, when it will apply the rules 
+    according to previous passages. This means that if the operating 
+    environment is not specified, from sieve user's point of view all 
+    environment-specific rules are simply ignored.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -110,7 +357,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>,
-        <span class="summary-sig-arg">stat</span>)</span><br />
+        <span class="summary-sig-arg">stat</span>,
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>)</span><br />
       Load all rules of given language</td>
           <td align="right" valign="top">
             
@@ -216,7 +464,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>,
-        <span class="sig-arg">stat</span>)</span>
+        <span class="sig-arg">stat</span>,
+        <span class="sig-arg">env</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -231,6 +480,7 @@
           to autodetect language</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
+        <li><strong class="pname"><code>env</code></strong> - also load rules applicable in this environment only</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of rules objects or None if rules cannot be found (with 
