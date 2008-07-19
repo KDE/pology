@@ -177,10 +177,16 @@
         in this comma-separated list of environment names
       </li>
     </ul>
-    <p>For <code>before</code> and <code>after</code> tests, when there are
-    several matched substrings, by the trigger pattern and/or by the test 
-    patterns, then the test passes if any two are in the requested 
-    order.</p>
+    <p>Each test can be negated by prefixing it with exclamation sign, e.g.
+    <code>!cat=&quot;foo,bar&quot;</code> will pass if catalog name is 
+    neither <code>foo</code> nor <code>bar</code>. Tests are 
+    short-circuiting, so it is good for performance to put simple string 
+    matching rules (e.g. <code>cat</code>, <code>env</code>) before more 
+    intensive regular expression ones (<code>msgid</code>, 
+    <code>msgstr</code>, etc.) For <code>before</code> and 
+    <code>after</code> tests, when there are several matched substrings, by
+    the trigger pattern and/or by the test patterns, then the test passes 
+    if any two are in the requested order.</p>
     <p>Subdirectives other than <code>valid</code> set states and 
     properties of the rule. The property directives are written simply as 
     <code>property=&quot;value&quot;</code>. These include:</p>
