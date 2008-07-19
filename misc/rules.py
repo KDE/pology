@@ -1,7 +1,209 @@
 # -*- coding: UTF-8 -*-
 
 """
-Parse rule files and propose a convenient interface to rules.
+Match messages by rules of arbitrary specificity.
+
+A message-matching rule, represented by L{Rule} object, is a series of
+pattern matches to be applied to the message, leading to the decision
+of whether or not the rule as whole matches the message.
+Patterns can be of different kinds, act on different parts of the message,
+and be applied in a boolean-like combinations.
+The idea behind rules is to detect messages faulty in some way,
+hence when a rule matches it is said that it "fails the message",
+and when it does not match, that it "passes the message".
+
+L{Rule} objects can be constructed by the same code that uses them,
+but the primary intended use is that of maintaining collections of
+rules in external, special-format files, and loading them on demand.
+For example, there may be a collection of rules that catches typical
+ortography errors in a given language, or checks terminology, etc.
+Such collections of language and translation-environment dependent rules
+are maintained within Pology itself, in C{l10n/<lang>/rules/} directories.
+
+The L{check-rules<sieve.check_rules>} sieve is normally used to apply rules
+to messages in PO files, while in custom code function L{loadRulesFromFile}
+can be used to load rules from an arbitrary rule file, and L{loadRules}
+to fetch rules from Pology's internal rule files.
+
+Rule Files
+==========
+
+Rule files are kept simple, to facilitate easy editing without
+verbose syntax getting in the way. Rule file has the following layout::
+
+    # Title of the rule collection.
+    # Author name.
+    # License.
+
+    global-directive
+    ...
+    global-directive
+
+    # Rule 1.
+    trigger-pattern
+    subdirective-1
+    ...
+    subdirective-n
+
+    # Rule 2.
+    trigger-pattern
+    subdirective-1
+    ...
+    subdirective-n
+
+    ...
+
+    # End of rules
+
+where the header (title, author, license) and footer comments are mandatory.
+Rules are separated by a blank line, and each rule starts with the main
+trigger pattern. #-comments always start from the beginning of the line.
+Example rule, to fail a message when the original part contains the word
+"foo" and the translation does not contain "bar", except in PO catalog
+"qwyx" where it should contain "baz" instead, would be::
+
+    # A contrieved example rule.
+    {\\bfoo}i
+    valid msgstr="\\bbar"
+    valid cat="qwyx" msgstr="\\bbaz"
+    hint="Translate 'foo' with 'bar' (only in qwyx.po use 'baz')"
+
+Trigger pattern is a regular expression within curly or square brackets,
+C{{...}} or C{[...]}, depending if it should be matched against original or
+translation part of the message, respectively. Additionaly, following the
+brackets there may be an C{i}-flag, to indicate case-insensitive matching
+for all the patterns in the rule (default is case-sensitive).
+The trigger pattern is the main element of the rule; tests that follow
+in subdirectives are to amend the trigger pattern, to pass the message
+even if the trigger pattern fails it.
+
+There are several types of rule subdirectives. The main one is C{valid},
+which provides additional tests to pass the message. These tests are
+given by a list of C{name="pattern"} entries, which test different parts
+of the message and in different ways. For a C{valid} directive to pass
+the message all its tests must pass it, and if any of the C{valid}
+directives passes the message, then the rule as whole passes it.
+Effectively, this means the boolean AND relationship within a directive,
+and OR across directives.
+
+The following tests can be used within C{valid} directives:
+  - C{msgid}: passes if the original text matches a regular expression
+  - C{msgstr}: passes if the translation text matches a regular expression
+  - C{ctx}: passes if the message context matches a regular expression
+  - C{before}: passes if the part of the text matched by the trigger pattern
+        is placed exactly before the part matched by this regular expression
+  - C{after}: passes if the part of the text matched by the trigger pattern
+        is placed exactly after the part matched by this regular expression
+  - C{file}: passes if the PO file name is contained in this comma-separated
+        list of file names
+  - C{cat}: passes if the PO catalog name is contained in this
+        comma-separated list of catalog names
+  - C{env}: passes if the operating environment is contained in this
+        comma-separated list of environment names
+
+For C{before} and C{after} tests, when there are several matched substrings,
+by the trigger pattern and/or by the test patterns, then the test passes if
+any two are in the requested order.
+
+Subdirectives other than C{valid} set states and properties of the rule.
+The property directives are written simply as C{property="value"}.
+These include:
+  - C{hint}: hint which may be shown to the user when the rule fails a message
+  - C{id}: "almost" unique rule identifier (see part on rule environments)
+
+State directives are given by the directive name, possibly followed by
+keyword parameters: C{directive arg1 ...}. These are:
+  - C{validGroup <groupname>}: source a predefined group of C{valid} directives
+  - C{environment <envname>}: explicitly set the environment of the rule
+  - c{disabled}: disable the rule, i.e. make it pass all messages
+
+Global directives, which are typically placed at the beginning of a rule file,
+before any rules, are used to define common elements for rules to source,
+or to set state for all rules below them. One such directive is C{validGroup},
+which defines common groups of C{valid} directives::
+
+    # Global validity group.
+    validGroup passIfQuoted
+    valid after="“" before="”"
+    valid after="‘" before="’"
+
+    ....
+
+    # Rule X.
+    {...}
+    validGroup passIfQuoted
+    valid ...
+    ...
+
+    # Rule Y.
+    {...}
+    validGroup passIfQuoted
+    valid ...
+    ...
+
+Another global directive is setting specific environment on all rules that
+follow after it (unless overriden with namesake rule subdirective)::
+
+    # Global environment.
+    environment FOO
+
+    ...
+
+    # Rule X, belongs to FOO.
+    {...}
+    ...
+
+    # Rule Y, overrides to BAR.
+    {...}
+    environment BAR
+    ...
+
+Rule Environments
+=================
+
+When there are no C{environment} directives in a rule file, either global or
+as subdirectives, then all rules loaded from it are considered as being
+environment-agnostic. This comes into picture when applying a rule, using
+L{Rule.process} method, which may take an "operating environment" as argument.
+If the operating environment is given and the rule is environment-agnostic,
+it will try to fail or pass the message ignoring the operating environment.
+However, if there was an C{environment} directive in the file which covered
+the rule, i.e. the rule itself is now environment-specific, then it will try
+to fail the message only if its environment matches the operating environment,
+and otherwise it will pass it unconditionally.
+
+Rule environments are used to control application of rules between
+diverse translation environments, where some rules may be common, some
+may be somewhat common, and some not common at all. In such a scenario,
+common rules would be made environment-agnostic (i.e. not covered by
+an C{environment} directive), while totally non-common rules would be
+provided in separate rule files per environment, with one global
+C{environment} directive in each.
+
+The rules falling in between may be treated differently.
+Sometimes it may be organizationally convenient to keep in a single file
+rules from different environments, but still similar in some way;
+then the environment can either be switched by a global directive in the middle
+of the file, or rules may be given their own environment directives.
+At other times, the rules are wholly similar, needing only a C{valid}
+subdirective or two different across environments; then the C{valid}
+directives for specific environments may be started with the C{env} test.
+
+When mixing environment-agnostic and environment-specific rules, the rule
+identifier, given by C{id} property subdirective, plays a special role.
+If an environment-specific rule has the same identifier as
+an environment-agnostic rule, and the operating environment is same as
+that of the environment-specific rule, than L{loadRules} will "shadow"
+the environment-agnostic rule, excluding it from its returned list of rules.
+This is used when there is a rule common to most translation environments,
+except for one or few outliers -- the outliers' rule and the common rule
+to be shadowed should be given same identifiers.
+
+The L{check-rules<sieve.check_rules>} sieve has the C{env} parameter to
+specify the operating environment, when it will apply the rules according
+to previous passages. This means that if the operating environment
+is not specified, from sieve user's point of view all environment-specific
+rules are simply ignored.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -388,7 +590,17 @@ class Rule(object):
         if self.pattern is None:
             print "Pattern not defined. Skipping rule"
             return
-        
+
+        # If this rule belongs to a specific environment,
+        # and the operating environment is different from it,
+        # cancel the rule immediately.
+        if self.environ and env != self.environ:
+            return False
+
+        # Cancel immediately if the rule is disabled.
+        if self.disabled:
+            return False
+
         if self.stat: begin=time()
 
         # Since catalog knows its file path, it would not be strictly

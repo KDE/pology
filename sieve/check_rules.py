@@ -1,7 +1,31 @@
 # -*- coding: UTF-8 -*-
 
 """
-Sieves messages with rules and warn when a rule triggers.
+Try to fail messages by rules and warn when that happens.
+
+This sieve applies a collection of L{special rules<misc.rules>} to
+messages, reporting whenever a rule "fails" a message --
+rules are usually written to detect messages faulty, or possibly such,
+in a certain sense.
+
+By default, the sieve reads rules from Pology's internal C{l10n/<lang>/rules/}
+directories, i.e. written for specific languages, and possibly specific
+translation environments within a given language. Read about how to write
+rules and create rule files in the L{misc.rules} module documentation.
+
+The sieve parameters are:
+   - C{lang:<language>}: language for which to fetch and apply the rules
+   - C{env:<environment>}: specific environment within the given language;
+        if not given, only environment-agnostic rules are applied
+   - C{rule}: comma-separated list of specific rules to apply, containing
+        rule identifiers; if not given, all rules for given language and
+        environment are applied
+   - C{stat}: show statistics of rule matching at the end
+   - C{accel:<character>}: accelerator character to eliminate from text
+        before the rules are applied
+   - C{xml:<filename>}: output results of the run in XML format file
+   - C{rfile:<filename>}: read rules from this file, instead of from
+        Pology's internal rule files
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -66,6 +90,13 @@ class Sieve (object):
             options.accept("accel")
             self.accel=options["accel"]
             self.accelExplicit=True
+        
+        if "rfile" in options:
+            options.accept("rfile")
+            customRuleFile=options["rfile"]
+            error("sorry, using external rule files not implemented yet")
+        else:
+            customRuleFile=None
 
         # Load rules
         self.rules=loadRules(lang, stat, self.env)
