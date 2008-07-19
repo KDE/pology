@@ -28,17 +28,17 @@ id="directory"
 hint="folder = фасцикла"
 valid !msgstr="директориј|омотниц"
 
-{\bfile}i
-id="file"
-hint="file = датотека"
-valid !msgstr="\bфајл"
-
 {\beditor}i
 id="editor"
 hint="editor = уређивач"
 valid msgstr="\bуређива"
 valid env="kde" msgstr="editor[\w-]*;"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
+
+{\bfile}i
+id="file"
+hint="file = датотека"
+valid !msgstr="\bфајл"
 
 {\bhighlight}i
 id="highlight"
