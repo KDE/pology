@@ -42,7 +42,7 @@ valid msgstr="gnu[\w-]*;|\.gnu"
 {\bGNU\b}
 id="gnu_p"
 hint="GNU = Гнуово"
-valid msgstr=""
+disabled
 
 {\bicon}i
 id="icon"
@@ -62,7 +62,7 @@ valid cat="kcmkonqhtml" msgid="Java(Script)? policy"
 {\bJava}
 id="java_p"
 hint="Java = јаванско"
-valid msgstr=""
+disabled
 
 {\bKonqueror}i
 id="konqueror"
@@ -96,12 +96,12 @@ valid msgstr="online[\w-]*;"
 {\bonline}i
 id="online2"
 hint="online = на вези"
-valid msgstr=""
+disabled
 
 {\bonline}i
 id="online3"
 hint="online = на вези"
-valid msgstr=""
+disabled
 
 {\bpaste[sd]?\b}i
 id="paste"
