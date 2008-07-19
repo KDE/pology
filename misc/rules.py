@@ -101,6 +101,11 @@ The following tests can be used within C{valid} directives:
   - C{env}: passes if the operating environment is contained in this
         comma-separated list of environment names
 
+Each test can be negated by prefixing it with exclamation sign, e.g.
+C{!cat="foo,bar"} will pass if catalog name is neither C{foo} nor C{bar}.
+Tests are short-circuiting, so it is good for performance to put simple
+string matching rules (e.g. C{cat}, C{env}) before more intensive
+regular expression ones (C{msgid}, C{msgstr}, etc.)
 For C{before} and C{after} tests, when there are several matched substrings,
 by the trigger pattern and/or by the test patterns, then the test passes if
 any two are in the requested order.
