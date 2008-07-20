@@ -53,7 +53,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 [s[eè]lect|sél[éè]ct]i
 valid file="kommander.po" before="ed"
 valid after="[rad|Radical|KChar]"
-valid before="Certificate"
+valid before="Certificate|or"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
