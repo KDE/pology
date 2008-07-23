@@ -54,6 +54,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 valid file="kommander.po" before="ed"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
+valid after="attribut "
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -164,6 +165,7 @@ hint="À remplacer par « personnalisé »"
 hint="À remplacer par « utiliser »" 
 
 [courier]i
+valid before=" bold"
 hint="À remplacer par « courrier »" 
 
 [language]i

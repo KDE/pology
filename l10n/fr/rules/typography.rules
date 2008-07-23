@@ -44,7 +44,7 @@ valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
 valid after="\"\S+" before="%?\d+\"" # CSS
-valid after="xs"
+valid after="xsl?"
 valid file="htmlsearch.po" msgid="^_: List of words to exclude from index" 
 valid after="Process" before=":check" 
 valid after="Process:" before="check"
@@ -52,6 +52,7 @@ valid after=".+:"
 valid before=":.+"
 valid before="slot" 
 valid before="port|PORT"
+valid after="<nom>"
 valid after="PATH"
 valid after="com|host|org" before="\d+"
 valid file="imgalleryplugin.po" after="KImGalleryPlugin:" before="slotCreateHtml" 
@@ -205,6 +206,7 @@ hint="Mettre une espace insécable avant et une espace après"
 [«]
 valid after="&sp;" before="&unbsp;"
 valid after="\(|'" before="&unbsp;"
+valid after="\t" before="&unbsp;"
 valid after="^|\n|</p>|</?br\s?/?>" before="&unbsp;"
 valid ctx="Numbers and characters"
 hint="Mettre une espace avant et une espace insécable après"
@@ -250,7 +252,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
 validGroup inQuotes
-valid after="=|]|PS1"
+valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
 valid after="\d+"
@@ -267,17 +269,7 @@ hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets ang
 hint="Utilisez le symbole apostrophe (touche 4 sur un clavier français)"
 
 [&sp;&sp;+]
-valid after="^"
-valid after="\n"
-valid file="kio4.po" after="^\d+"
-valid file="kioclient.po"
-valid file="solidshell.po"
-valid file="kfmclient.po"
-valid file="kcmcolors.po"
-valid file="phonon-xine.po"
-valid file="krunner.po"
-valid file="desktop_kdebase.po"
-valid file="kcmsamba.po" 
+valid msgid="&sp;&sp;+"
 hint="Ne jamais mettre plus d'une espace"
 
 [%]

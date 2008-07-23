@@ -178,6 +178,7 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 valid after="pstoraster -" before=" rastertopcl"
 valid file="khotkeys.po" after="&sp;"
 valid file="kverbos.po" after="-"
+valid file="ppdtranslations4.po" before=" CMJ"
 valid file="kalzium.po" after="&sp;" before="&sp;"
 valid file="kwordquiz.po" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
@@ -268,6 +269,7 @@ hint="On essaie d'éviter « item » ?"
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
 [r@ecup@er]
+valid after="ir"
 valid file="kgoldrunner.po"
 valid file="kalzium.po"
 valid file="konqueror.po" after="une "
