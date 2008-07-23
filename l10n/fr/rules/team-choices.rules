@@ -299,4 +299,11 @@ valid before=" l'afficheur"
 valid after="lui "
 hint="Traduire « show » par « afficher »"
 
+[messages? électronique]i
+hint="Le choix de l'équipe est « courrier électronique » ou « courriel » quand il n'y a pas la place"
+
+[courriers?]i
+valid before=" électronique"
+hint="Utilisez l'expression « courrier électronique » ou tout simplement « courriel » quand il n'y a pas la place"
+
 # End of rule file
