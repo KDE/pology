@@ -7,9 +7,15 @@ id="computer"
 hint="computer = рачунар"
 valid !msgstr="компјутер"
 
+{\bcut}i
+id="cut"
+hint="cut = исећи"
+valid msgstr="\bисе[кцчћ]"
+valid cat="klipper" msgid="cut\W*paste" msgstr="копи.{,9}налеп"
+
 {\bdefault}i
 id="default"
-hint="default = подразумевано"
+hint="default = подразумеван"
 valid msgstr="\bподразумева"
 valid env="kde" msgstr="default[\w-]*;"
 valid cat="kioclient" msgid="Mounts the CDROM"
@@ -39,6 +45,13 @@ valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 id="file"
 hint="file = датотека"
 valid !msgstr="\bфајл"
+
+{\bhardware}i
+id="hardware"
+hint="hardware = хардвер"
+valid msgstr="\bхардвер"
+valid cat="kcminfo" msgstr="подсист.{,9}рачунар"
+valid cat="solid-hardware" msgstr="solid-hardware"
 
 {\bhighlight}i
 id="highlight"
@@ -79,9 +92,19 @@ id="syntaxhighlighting"
 hint="syntax highlighting = истицање синтаксе"
 valid msgstr="\bистицањ\w+ синтакс"
 
+{\bURL}i
+id="url"
+hint="URL = УРЛ"
+valid msgstr="\bУРЛ"
+
 {^View$}
 id="view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
+
+{\bXML\b}i
+id="xml"
+hint="XML = XML"
+valid msgstr="\bXML"
 
 # End of rules

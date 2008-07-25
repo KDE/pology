@@ -27,10 +27,42 @@ hint="clipboard = клипборд"
 valid msgstr="\bклипборд"
 valid msgstr="clipboard[\w-]*;"
 
+{(?<!backup )\bcop(y|ied)(?!right)}i
+id="copy"
+hint="copy = копирати"
+valid msgstr="\bкопи(ра|ј)"
+valid cat="useraccount" msgid="Save copy.*for future" msgstr="Одложи за убудуће"
+
+{\bcopy}i
+id="copy_fs"
+hint="copy = копирати"
+disabled
+
+{(?<![%</])\bemail}i
+id="email"
+hint="email = е-пошта"
+valid msgstr="\bе-пошт"
+valid ctx="^EMAIL OF TRANSLATORS$"
+valid msgstr="email[\w-]*;"
+valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
+valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
+valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
+valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
+
 {\bfile}i
 id="file"
 hint="file = фајл"
 valid !msgstr="\bдатоте"
+
+{\bfile[ -]?system(?! browser)}i
+id="filesystem"
+hint="filesystem|file system = фајл систем"
+valid msgstr="\bфајл систем"
+
+{\bGCC}
+id="gcc"
+hint="GCC = ГЦЦ"
+valid msgstr="gcc-*;"
 
 {\bGNU\b}i
 id="gnu"
@@ -41,7 +73,7 @@ valid msgstr="gnu[\w-]*;|\.gnu"
 
 {\bGNU\b}
 id="gnu_p"
-hint="GNU = Гнуово"
+hint="GNU = Гнуов"
 disabled
 
 {\bicon}i
@@ -61,7 +93,7 @@ valid cat="kcmkonqhtml" msgid="Java(Script)? policy"
 
 {\bJava}
 id="java_p"
-hint="Java = јаванско"
+hint="Java = јавански"
 disabled
 
 {\bKonqueror}i
@@ -78,6 +110,11 @@ hint="label = етикета"
 valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
+
+{\bmailing list}i
+id="mailinglist"
+hint="mailing list = поштанска листа"
+valid msgstr="\bпоштанск\w+ лист"
 
 {\bmanager}i
 id="manager"
@@ -114,9 +151,44 @@ id="quit"
 hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
 
+{\bstring}i
+id="string"
+hint="string = ниска"
+valid !msgstr="знаков\w* низ|низ знаков|слов\w* низ"
+
 {\bthumbnail}i
 id="thumbnail"
 hint="thumbnail = сличица"
 valid msgstr="\bсличиц"
+
+{\bURL}i
+id="url"
+hint="URL = УРЛ"
+valid msgstr="url-\w*;"
+valid msgid="url=" msgstr="url=|address="
+valid cat="kio_trash" msgid="'url'"
+valid cat="kioclient" msgid="'url'"
+valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}хипер"
+
+{\bwizard}i
+id="wizard"
+hint="wizard = чаробњак"
+valid msgstr="\bчаробњак"
+
+{(?<!\.)\bXML\b}i
+id="xml"
+hint="XML = ИксМЛ"
+valid msgstr="xml[\w-]*;"
+
+{\bYahoo}i
+id="yahoo"
+hint="Yahoo = Јаху"
+valid msgstr="yahoo-\w*;"
+valid cat="desktop_kdebase" msgid="yahoo%" msgstr="yahoo%"
+
+{\bzoom(?![ -]out)}i
+id="zoom"
+hint="zoom = увеличати"
+valid msgstr="\bувелича"
 
 # End of rules
