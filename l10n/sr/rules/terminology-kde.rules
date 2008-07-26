@@ -38,6 +38,11 @@ id="copy_fs"
 hint="copy = копирати"
 disabled
 
+{\bdriver}i
+id="driver"
+hint="driver = драјвер"
+valid msgstr="\bдрајвер"
+
 {(?<![%</])\bemail}i
 id="email"
 hint="email = е-пошта"
@@ -48,6 +53,11 @@ valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
 valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
 valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
 valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
+
+{\bplugin}i
+id="extension"
+hint="plugin = прикључак"
+disabled
 
 {\bfile}i
 id="file"
@@ -146,6 +156,15 @@ hint="paste = налепити"
 valid msgstr="\bналеп"
 valid cat="desktop_kdebase" msgid="paste history utility"
 
+{\bplugin}i
+id="plugin"
+hint="plugin = прикључак"
+valid msgstr="\bприкључ[акц]"
+valid cat="phonon_gstreamer,kdeqt" msgid="-plugin" msgstr="-plugin"
+valid cat="ktraderclient" msgid="KMyApp/Plugin"
+valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
+valid cat="katefiletemplates" !msgid="^Template Plugin$"
+
 {\bquit(s|ted)?\b}i
 id="quit"
 hint="quit = напустити"
@@ -161,14 +180,20 @@ id="thumbnail"
 hint="thumbnail = сличица"
 valid msgstr="\bсличиц"
 
-{\bURL}i
-id="url"
-hint="URL = УРЛ"
-valid msgstr="url-\w*;"
-valid msgid="url=" msgstr="url=|address="
-valid cat="kio_trash" msgid="'url'"
-valid cat="kioclient" msgid="'url'"
-valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}хипер"
+{\btoolbar}i
+id="toolbar"
+hint="toolbar = трака алатки"
+valid msgstr="\bтра[цк]" !msgstr="\bалат[аеиоу]"
+valid cat="kdelibs4" msgid="^Show text on toolbar icons *$"
+valid cat="kdelibs4" msgid="^Highlight toolbar buttons on mouse over$"
+valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
+
+{\bviewer}i
+id="viewer"
+hint="viewer = приказивач"
+valid msgstr="\bприказивач"
+valid msgstr="viewer[\w-]*;"
+valid cat="desktop_kdelibs" msgid="text editor.*text viewer and editor"
 
 {\bwizard}i
 id="wizard"

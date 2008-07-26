@@ -2,6 +2,11 @@
 # Serbian Open Computing Terminology <sorta@googlegroups.com>
 # License: GPLv3
 
+{\badd-?on}i
+id="addon"
+hint="addon = додатак"
+valid msgstr="\bдода(так|тк|ц)"
+
 {\bcomputer}i
 id="computer"
 hint="computer = рачунар"
@@ -74,6 +79,12 @@ valid env="kde" msgstr="network[\w-]*;"
 valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
 valid cat="solid-network" msgid="solid-network"
 
+{\bviewer}i
+id="reader"
+hint="viewer = читач"
+valid msgstr="\bчитач"
+valid msgstr="\bчита(лац|о[цч])"
+
 {\brename}i
 id="rename"
 hint="rename = преименовати"
@@ -95,7 +106,12 @@ valid msgstr="\bистицањ\w+ синтакс"
 {\bURL}i
 id="url"
 hint="URL = УРЛ"
-valid msgstr="\bУРЛ"
+valid !env="kde" msgstr="\bУРЛ"
+valid env="kde" msgstr="url-\w*;"
+valid msgid="url=" msgstr="url=|address="
+valid cat="kio_trash" msgid="'url'"
+valid cat="kioclient" msgid="'url'"
+valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}хипер"
 
 {^View$}
 id="view_menu"
