@@ -589,7 +589,7 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, msgstr, msg, cat, filename=None, env=None):
+    def process(self, msgstr, msgid, msg, cat, filename=None, env=None):
         """Process the given message
         @return: True if rule match, False if rule do not match, None if rule cannot be applied"""
         if self.pattern is None:
@@ -618,7 +618,7 @@ class Rule(object):
         if not self.onmsgid:
             text = msgstr
         else:
-            text = msg.msgid
+            text = msgid
 
         cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
 
@@ -697,7 +697,7 @@ class Rule(object):
                             break 
 
                     elif bkey == "msgid":
-                        match = value.search(msg.msgid)
+                        match = value.search(msgid)
                         if invert: match = not match
                         if not match:
                             cancel = False

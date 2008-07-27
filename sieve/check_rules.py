@@ -239,6 +239,13 @@ class Sieve (object):
                 self.xmlFile.write(poTag) # Write to result
                 self.cacheFile.write(poTag) # Write to cache
         
+        # Prepare original and translation for checking.
+        msgid=msg.msgid
+        msgstrs=list(msg.msgstr)
+        if self.accel:
+            msgid=msgid.replace(self.accel, "")
+            msgstrs=[x.replace(self.accel, "") for x in msgstrs]
+        
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
             if rule.disabled:
@@ -246,11 +253,9 @@ class Sieve (object):
             if rule.environ and rule.environ!=self.env:
                 continue
             id=0 # Count msgstr plural forms
-            for msgstr in msg.msgstr:
-                if self.accel:
-                    msgstr=msgstr.replace(self.accel, "")
+            for msgstr in msgstrs:
                 try:
-                    match=rule.process(msgstr, msg, cat, filename, self.env)
+                    match=rule.process(msgstr, msgid, msg, cat, filename, self.env)
                 except TimedOutException:
                     print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
                     id+=1
