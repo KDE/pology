@@ -69,6 +69,23 @@ id="filesystem"
 hint="filesystem|file system = фајл систем"
 valid msgstr="\bфајл систем"
 
+{\bfonts?\b}i
+id="font"
+hint="font = фонт"
+valid msgstr="\bфонт"
+valid msgstr="font[\w-]*;"
+valid msgid="<font"
+valid msgid="<[^>]*font(=|-\w+)"
+valid cat="plasma_applet_notes" msgid="^Set font size automatically$"
+valid cat="kdelibs4" msgid="^Font style:$"
+valid cat="khelpcenter" msgid="^Font size adjustment:$"
+valid cat="khelpcenter" msgid="^(Fantasy|Italic|Sans serif|Serif|Fixed|Standard) font:$"
+valid cat="khelpcenter" msgid="^(Minimum|Medium) font size:$"
+valid cat="kfontinst" msgid="Abort font scan"
+valid cat="kfontinst" msgid="duplicate fonts found"
+valid cat="kfontinst" msgid="Scanning for duplicate fonts"
+valid cat="kfontinst" msgid="fonts\.\w"
+
 {\bGCC}
 id="gcc"
 hint="GCC = ГЦЦ"

@@ -7,6 +7,17 @@ id="addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
+{\bcharacter}i
+id="character"
+hint="character = знак"
+valid msgstr="\bзнак"
+valid env="kde" !msgstr="\bзнац"
+
+{\bcharacter}i
+id="character2"
+hint="character = знаковни"
+disabled
+
 {\bcomputer}i
 id="computer"
 hint="computer = рачунар"
@@ -38,6 +49,17 @@ valid cat="katepart4" msgid="<b>View Defaults</b>"
 id="directory"
 hint="folder = фасцикла"
 valid !msgstr="директориј|омотниц"
+
+{\bdownload}i
+id="download"
+hint="download = преузети"
+valid msgstr="\bпреуз(е|м|им|имањ)"
+valid cat="kioclient" msgid="kioclient download"
+
+{\bdownload}i
+id="download2"
+hint="download = преузимање"
+disabled
 
 {\beditor}i
 id="editor"
@@ -98,7 +120,7 @@ valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
 valid env="kde" msgstr="software[\w-]*;"
 
-{\bsyntax highlight}i
+{\bsyntax\W?highlight}i
 id="syntaxhighlighting"
 hint="syntax highlighting = истицање синтаксе"
 valid msgstr="\bистицањ\w+ синтакс"
