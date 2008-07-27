@@ -386,7 +386,7 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     acats = collect_asc_cats(config, cat.name, user)
 
     # Collect all or flagged messages (must be translated), with tags.
-    fl_rx = re.compile(r"^reviewed *[/:]?(.*)", re.I)
+    fl_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
     rev_msgs_tags = []
     for msg in cat:
         if not msg.translated:
