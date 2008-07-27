@@ -47,9 +47,21 @@ def main ():
         action="store", dest="updated", default=None,
         help="ascribe all updated entries to this user")
     opars.add_option(
+        "-r", "--reviewed", metavar="USER",
+        action="store", dest="reviewed", default=None,
+        help="ascribe selected or all entries as reviewed to this user")
+    opars.add_option(
         "-f", "--fuzzied",
         action="store_true", dest="fuzzied", default=False,
         help="ascribe all fuzzied entries to fuzzy-user (if enabled)")
+    opars.add_option(
+        "-t", "--tag", metavar="TAG",
+        action="store", dest="tag", default=None,
+        help="tag to add or consider in ascription records (in some modes)")
+    opars.add_option(
+        "-a", "--all",
+        action="store_true", dest="all", default=False,
+        help="ascribe all entries instead of selected (in some modes)")
     opars.add_option(
         "-m", "--mark",
         action="store_true", dest="mark", default=False,
@@ -119,6 +131,8 @@ def main ():
 
     if options.updated:
         ascribe_updated(options, configs_catpaths, options.updated)
+    if options.reviewed:
+        ascribe_reviewed(options, configs_catpaths, options.reviewed)
     if options.fuzzied:
         ascribe_fuzzied(options, configs_catpaths)
     if options.state:
@@ -264,6 +278,25 @@ def ascribe_updated (options, configs_catpaths, user):
         print "===! Ascribed as modified: %d entries" % nasc
 
 
+def ascribe_reviewed (options, configs_catpaths, user):
+
+    if user == UFUZZ:
+        error("cannot ascribe reviews to user '%s'" % UFUZZ)
+
+    nasc = 0
+    for config, catpaths in configs_catpaths:
+        if user not in config.users:
+            error("unknown user '%s' in config '%s'" % (user, config.path))
+
+        mkdirpath(config.udata[user].ascroot)
+
+        for catpath in catpaths:
+            nasc += ascribe_reviewed_cat(options, config, user, catpath)
+
+    if nasc > 0:
+        print "===! Ascribed as reviewed: %d entries" % nasc
+
+
 def ascribe_fuzzied (options, configs_catpaths):
 
     nasc = 0
@@ -300,7 +333,8 @@ def ascribe_updated_cat (options, config, user, catpath):
         return 0
 
     if not config.vcs.is_clear(cat.filename):
-        warning("%s: VCS state not clear, skipping ascription" % cat.filename)
+        warning("%s: VCS state not clear, cannot ascribe modifications"
+                % cat.filename)
         return 0
 
     # Create ascription catalog for this user if not existing already.
@@ -342,6 +376,86 @@ def ascribe_updated_cat (options, config, user, catpath):
         config.vcs.add(acat.filename)
 
     return len(unasc_msgs)
+
+
+def ascribe_reviewed_cat (options, config, user, catpath):
+
+    # Open current catalog and all ascription catalogs.
+    # Monitored, for removal of reviewed-* flags.
+    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    acats = collect_asc_cats(config, cat.name, user)
+
+    # Collect all or flagged messages (must be translated), with tags.
+    fl_rx = re.compile(r"^reviewed *[/:]?(.*)", re.I)
+    rev_msgs_tags = []
+    for msg in cat:
+        if not msg.translated:
+            continue
+
+        # Check if the message has been flagged as reviewed.
+        # Must not skip checking if --all is in effect, in order
+        # to collect any tagged reviews and clear any review flags.
+        flagged = False
+        flags = msg.flag.items()
+        tags = []
+        for flag in flags:
+            m = fl_rx.search(flag)
+            if m:
+                tags.append(m.group(1).strip() or None)
+                flagged = True
+                msg.flag.remove(flag)
+        if not flagged and not options.all:
+            continue
+
+        if not is_ascribed(msg, acats):
+            warning("%s: not all reviewed messages ascribed as modified, "
+                    "cannot ascribe reviews" % cat.filename)
+            return 0
+
+        if not tags:
+            tags.append(options.tag)
+
+        rev_msgs_tags.append((msg, tags))
+
+    if not rev_msgs_tags:
+        # No messages to ascribe.
+        return 0
+
+    # Create ascription catalog for this user if not existing already.
+    acat = acats.get(user)
+    if not acat:
+        acat = init_asc_cat(cat.name, user, config)
+    else:
+        update_asc_hdr(acat, user, config)
+
+    # Current VCS revision of the catalog.
+    catrev = config.vcs.revision(cat.filename)
+
+    # Ascribe messages as reviewed.
+    for msg, tags in rev_msgs_tags:
+        if msg not in acat:
+            # Copy ID elements of the original message.
+            amsg = Message()
+            amsg.msgctxt = msg.msgctxt
+            amsg.msgid = msg.msgid
+            # Append to the end of catalog.
+            pos = acat.add(amsg, -1)
+        else:
+            # Retrieve existing ascribed message.
+            amsg = acat[msg]
+
+        # Copy desired non-ID elements.
+        amsg.msgid_plural = msg.msgid_plural
+        amsg.msgstr = Monlist(msg.msgstr)
+
+        # Ascribe review of the message.
+        ascribe_msg_rev(amsg, tags, user, config, catrev)
+
+    sync_and_rep(cat)
+    if sync_and_rep(acat):
+        config.vcs.add(acat.filename)
+
+    return len(rev_msgs_tags)
 
 
 def is_ascribed (msg, acats):
@@ -432,6 +546,19 @@ def ascribe_msg_mod (amsg, user, config, catrev):
     if catrev:
         modstr += " | " + catrev
     asc_append_field(amsg, "modified", modstr)
+
+
+def ascribe_msg_rev (amsg, tags, user, config, catrev):
+
+    modstr = date_now()
+    if catrev:
+        modstr += " | " + catrev
+    for tag in tags:
+        if tag:
+            field = "reviewed/%s" % tag
+        else:
+            field = "reviewed"
+        asc_append_field(amsg, field, modstr)
 
 
 def asc_eq (msg1, msg2):
