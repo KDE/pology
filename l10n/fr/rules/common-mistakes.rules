@@ -79,6 +79,7 @@ hint="Seulement un « d » en français"
 hint="Il manque un « s »"
 
 [v[eè]rif]i
+valid after="Q"
 valid file="kleopatra.po" after="Decrypt"
 hint="Mettre un accent aigu sur le « e »"
 
@@ -363,6 +364,7 @@ hint="occurences -> occurrences. Avec deux « r » !"
 
 [status|statut]i
 valid after="[Ss]mb"
+valid after="Task"
 valid after="klink"
 valid after="default"
 valid before=">" after="<"
