@@ -39,7 +39,7 @@ any release versioning. But this does not make it difficult to set up.
 Pology can be checked out from KDE's Subversion repository::
 
     $ cd <parent_dir>
-    $ svn co svn://anonsvn.kde.org/home/kde/trunk/l10n-kde4/scripts/pology
+    $ svn co svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
 
 and set up for use by exporting environment variables::
 
