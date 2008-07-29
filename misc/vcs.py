@@ -104,6 +104,23 @@ class VcsBase (object):
         error("selected version control system does not define state query")
 
 
+    def is_older (self, rev1, rev2):
+        """
+        Check if revision 1 is older than revision 2.
+
+        @param rev1: revision string
+        @type rev1: string
+        @param rev2: revision string
+        @type rev2: string
+
+        @return: C{True} if first revision older than second
+        @rtype: bool
+        """
+
+        error("selected version control system does not define "
+              "revision age comparison")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -182,4 +199,10 @@ class VcsSubversion (VcsBase):
         clear = not re.search(r"^\S", res[0])
 
         return clear
+
+
+    def is_older (self, rev1, rev2):
+        # Base override.
+
+        return int(rev1) < int(rev2)
 
