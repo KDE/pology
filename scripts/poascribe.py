@@ -275,6 +275,9 @@ def examine_state (options, configs_catpaths):
 
 def ascribe_updated (options, configs_catpaths, user):
 
+    if user == UFUZZ:
+        error("cannot ascribe modifications to reserved user '%s'" % UFUZZ)
+
     nasc = 0
     for config, catpaths in configs_catpaths:
         if user not in config.users:
@@ -292,7 +295,7 @@ def ascribe_updated (options, configs_catpaths, user):
 def ascribe_reviewed (options, configs_catpaths, user):
 
     if user == UFUZZ:
-        error("cannot ascribe reviews to user '%s'" % UFUZZ)
+        error("cannot ascribe reviews to reserved user '%s'" % UFUZZ)
 
     nasc = 0
     for config, catpaths in configs_catpaths:
@@ -986,6 +989,9 @@ def parse_users (userstr, config, cid=None):
     if userstr:
         users = userstr.split(",")
     for user in users:
+        if user == UFUZZ:
+            error("cannot explicitly select reserved user '%s'" % user,
+                  subsrc=cid)
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path),
                   subsrc=cid)
