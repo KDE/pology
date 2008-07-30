@@ -117,7 +117,7 @@ def diff_texts (text_old, text_new, markup=False, format=None):
 
     # Format the embedded output.
     S_EQU, S_NEW, S_OLD = range(3)
-    dtext = ""
+    dtext = type(text_new)("")
     state = S_EQU
     len_equ, len_old, len_new = 0, 0, 0
     for el in dlist:
@@ -160,7 +160,11 @@ def diff_texts (text_old, text_new, markup=False, format=None):
     elif state == S_NEW:
         dtext += _pls_ch + _cls_ch
 
-    diff_ratio = 1.0 - float(len_equ) / float(len_new + len_old + len_equ)
+    len_all = len_new + len_old + len_equ
+    if len_all > 0:
+        diff_ratio = 1.0 - float(len_equ) / float(len_all)
+    else:
+        diff_ratio = 0.0
 
     return dtext, diff_ratio
 
