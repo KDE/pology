@@ -1035,13 +1035,7 @@ def diffsel_asc (args, msg, history, config):
     if i_asc is not None:
         amsg_sel = history[i_asc][0]
     else:
-        # Modification not found.
-        # Report empty message if users were not specified,
-        # and no message otherwise.
-        if not users:
-            amsg_sel = Message()
-        else:
-            return None
+        amsg_sel = Message()
 
     return amsg_sel
 
