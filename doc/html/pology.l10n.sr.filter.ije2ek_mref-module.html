@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.l10n.sr.filter.ije2ek_mref</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
+        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
+        <a href="pology.l10n.sr.filter-module.html">Package&nbsp;filter</a> ::
+        Module&nbsp;ije2ek_mref
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module ije2ek_mref</h1><p class="nomargin-top"></p>
+<p>Transform iyekavian text with marked yat-reflexes into ekavian.</p>
+  <p>Yat-reflexes are marked by inserting a special character, 
+  <code>&#226;&#128;&#186;</code>, just before the part of the word that differs from 
+  ekavian form:</p>
+<pre class="literalblock">
+   &#208;&#148;&#226;&#128;&#186;&#208;&#184;&#208;&#190; &#208;&#177;&#226;&#128;&#186;&#208;&#184;&#209;&#153;&#208;&#181;&#208;&#182;&#208;&#176;&#208;&#186;&#208;&#176; &#208;&#190; &#208;&#146;&#226;&#128;&#186;&#209;&#152;&#208;&#181;&#209;&#136;&#209;&#130;&#208;&#184;&#209;&#135;&#209;&#152;&#208;&#190;&#209;&#152; &#209;&#128;&#226;&#128;&#186;&#208;&#184;&#209;&#152;&#208;&#181;&#209;&#134;&#208;&#184;.
+</pre>
+  <p>or, for special cases where this would not work, one letter 
+  earlier:</p>
+<pre class="literalblock">
+   &#208;&#157;&#208;&#181; &#208;&#180;&#208;&#190;&#226;&#128;&#186;&#208;&#187;&#208;&#184;&#209;&#152;&#208;&#181;&#208;&#178;&#208;&#176;&#209;&#152; &#209;&#131;&#209;&#153;&#208;&#181; &#208;&#189;&#208;&#176; &#208;&#178;&#208;&#176;&#209;&#130;&#209;&#128;&#209;&#131;, &#226;&#128;&#186;&#208;&#189;&#208;&#184;&#209;&#152;&#208;&#181;&#209;&#129;&#208;&#176;&#208;&#188; &#209;&#129;&#208;&#181; &#209;&#129;&#226;&#128;&#186;&#208;&#188;&#208;&#184;&#209;&#152;&#208;&#176;&#208;&#190;.
+</pre>
+  <p>For extremely rare cases, it is possible to provide a substring in 
+  both ekavian and iyekavian forms:</p>
+<pre class="literalblock">
+   &#208;&#145;&#208;&#187;&#208;&#176;, &#208;&#177;&#208;&#187;&#208;&#176;, ~#/&#208;&#181;&#208;&#186;&#208;&#176;&#208;&#178;&#209;&#129;&#208;&#186;&#208;&#184; &#208;&#190;&#208;&#177;&#208;&#187;&#208;&#184;&#208;&#186;/&#208;&#184;&#209;&#152;&#208;&#181;&#208;&#186;&#208;&#176;&#208;&#178;&#209;&#129;&#208;&#186;&#208;&#184; &#208;&#190;&#208;&#177;&#208;&#187;&#208;&#184;&#208;&#186;/ &#208;&#177;&#208;&#187;&#208;&#176;, &#208;&#177;&#208;&#187;&#208;&#176;.
+</pre>
+  <p>where any character may be consistently used instead of 
+  <code>/</code>.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#208;&#167;&#208;&#176;&#209;&#129;&#208;&#187;&#208;&#176;&#208;&#178; &#208;&#152;&#208;&#187;&#208;&#184;&#209;&#155;) 
+        &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="process"></a><span class="summary-sig-name">process</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Filter's main processor.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="x"></a><span class="summary-name">x</span> = <code title="u'&#1112;&#1077;'"><code class="variable-quote">u'</code><code class="variable-string">&#1112;&#1077;</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

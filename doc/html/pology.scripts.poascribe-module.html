@@ -245,6 +245,7 @@
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">sels</span>,
         <span class="summary-sig-arg">diff</span>,
+        <span class="summary-sig-arg">pfilter</span>,
         <span class="summary-sig-arg">catpath</span>)</span></td>
           <td align="right" valign="top">
             
@@ -285,6 +286,27 @@
         <span class="summary-sig-arg">history</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#embed_diff" class="summary-sig-name">embed_diff</a>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>,
+        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Make diffs of all text fields from <code>msg1</code> to 
+      <code>msg2</code>, and embed them into <code>*_previous</code> fields
+      of <code>msg2</code> (making it fuzzy).</td>
           <td align="right" valign="top">
             
             
@@ -523,7 +545,7 @@
           <td><span class="summary-sig"><a name="asc_parse_ascriptions"></a><span class="summary-sig-name">asc_parse_ascriptions</span>(<span class="summary-sig-arg">amsg</span>,
         <span class="summary-sig-arg">acat</span>)</span><br />
       Get ascriptions from given ascription message as list of tuples 
-      <code>(ascription-type, date, revision)</code>, with date being a 
+      <code>(asc-type, asc-tag, date, revision)</code>, with date being a 
       real <code>datetime</code> object.</td>
           <td align="right" valign="top">
             
@@ -607,7 +629,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diffsel_mod"></a><span class="summary-sig-name">diffsel_mod</span>(<span class="summary-sig-arg">args</span>,
+          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#parse_users" class="summary-sig-name">parse_users</a>(<span class="summary-sig-arg">userstr</span>,
+        <span class="summary-sig-arg">config</span>,
+        <span class="summary-sig-arg">cid</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Parse users from comma-separated list, verifying that they exist.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="diffsel_asc"></a><span class="summary-sig-name">diffsel_asc</span>(<span class="summary-sig-arg">args</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">history</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
@@ -626,7 +667,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diffsel_revbmod"></a><span class="summary-sig-name">diffsel_revbmod</span>(<span class="summary-sig-arg">args</span>,
+          <td><span class="summary-sig"><a name="diffsel_rev"></a><span class="summary-sig-name">diffsel_rev</span>(<span class="summary-sig-arg">args</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">history</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
@@ -672,6 +713,31 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="embed_diff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">embed_diff</span>(<span class="sig-arg">msg1</span>,
+        <span class="sig-arg">msg2</span>,
+        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Make diffs of all text fields from <code>msg1</code> to 
+  <code>msg2</code>, and embed them into <code>*_previous</code> fields of 
+  <code>msg2</code> (making it fuzzy). Every text field is passed through 
+  <code>pfilter</code> before diffing. Returns <code>True</code> if there 
+  was any difference.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="asc_collect_history_w"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -690,8 +756,8 @@
   </tr></table>
   
   <p>Create ascription history of the message.</p>
-  <p>The history is assembled as list of tuples <code>(ascription-message, 
-  user, ascription-type, date, revision)</code>, sorted chronologically by 
+  <p>The history is assembled as list of tuples <code>(asc-message, user, 
+  asc-type, asc-tag, date, revision)</code>, sorted chronologically by 
   date/revision (newest first). Date gets to be a real 
   <code>datetime</code> object.</p>
   <dl class="fields">
@@ -719,6 +785,29 @@
   class="link">asc_collect_history</a> for the composition of 
   <code>hist*</code> arguments. Return value has the same semantics as with
   built-in <code>cmp</code> function.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_users"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_users</span>(<span class="sig-arg">userstr</span>,
+        <span class="sig-arg">config</span>,
+        <span class="sig-arg">cid</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse users from comma-separated list, verifying that they exist.</p>
+  <p><code>cid</code> is the string identifying the caller, for error 
+  report in case the a parsed user does not exist.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>

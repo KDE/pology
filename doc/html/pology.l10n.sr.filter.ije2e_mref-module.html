@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.l10n.sr</title>
+  <title>pology.l10n.sr.filter.ije2e_mref</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,9 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
-        Package&nbsp;sr
+        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
+        <a href="pology.l10n.sr.filter-module.html">Package&nbsp;filter</a> ::
+        Module&nbsp;ije2e_mref
       </span>
     </td>
     <td>
@@ -49,9 +51,27 @@
     </td>
   </tr>
 </table>
-<!-- ==================== PACKAGE DESCRIPTION ==================== -->
-<h1 class="epydoc">Package sr</h1><p class="nomargin-top"></p>
-<p>Language-specific tools for Serbian language.</p>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module ije2e_mref</h1><p class="nomargin-top"></p>
+<p>Transform iyekavian text with marked yat-reflexes into ekavian.</p>
+  <p>Yat-reflexes are marked by inserting a special character, 
+  <code>&#8250;</code>, just before the part of the word that differs from 
+  ekavian form:</p>
+<pre class="literalblock">
+   &#1044;&#8250;&#1080;&#1086; &#1073;&#8250;&#1080;&#1113;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#8250;&#1112;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#8250;&#1080;&#1112;&#1077;&#1094;&#1080;.
+</pre>
+  <p>or, for special cases where this would not work, one letter 
+  earlier:</p>
+<pre class="literalblock">
+   &#1053;&#1077; &#1076;&#1086;&#8250;&#1083;&#1080;&#1112;&#1077;&#1074;&#1072;&#1112; &#1091;&#1113;&#1077; &#1085;&#1072; &#1074;&#1072;&#1090;&#1088;&#1091;, &#8250;&#1085;&#1080;&#1112;&#1077;&#1089;&#1072;&#1084; &#1089;&#1077; &#1089;&#8250;&#1084;&#1080;&#1112;&#1072;&#1086;.
+</pre>
+  <p>For extremely rare cases, it is possible to provide a substring in 
+  both ekavian and iyekavian forms, in that order:</p>
+<pre class="literalblock">
+   &#1043;&#1076;&#8250;&#1112;&#1077; &#1089;' ~#/&#1090;&#1086;/&#1073;&#1072;/ &#1087;&#1086;&#1096;&#1086;&#785;?
+</pre>
+  <p>where any character may be consistently used instead of 
+  <code>/</code>.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -60,28 +80,32 @@
       <p><strong>License:</strong>
         GPLv3
       </p>
-</div><!-- ==================== SUBMODULES ==================== -->
-<a name="section-Submodules"></a>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Submodules</span></td>
+    <span class="table-header">Functions</span></td>
 </tr>
-  <tr><td class="summary">
-  <ul class="nomargin">
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.filter-module.html">pology.l10n.sr.filter</a></strong>: <em class="summary">Text filters specific for Serbian.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.filter.ije2e_mref-module.html">pology.l10n.sr.filter.ije2e_mref</a></strong>: <em class="summary">Transform iyekavian text with marked yat-reflexes into ekavian.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.filter.ije2ije_mref-module.html">pology.l10n.sr.filter.ije2ije_mref</a></strong>: <em class="summary">Transform iyekavian text with marked yat-reflexes into clean 
-        iyekavian.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.translit-module.html">pology.l10n.sr.translit</a></strong>: <em class="summary">Transliteration of Serbian scripts.</em>    </li>
-  </ul></td></tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="process"></a><span class="summary-sig-name">process</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Filter's main processor.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
-
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
