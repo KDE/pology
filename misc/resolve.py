@@ -12,6 +12,10 @@ import xml.parsers.expat
 import difflib
 
 
+# Defult starting string of alternatives directives.
+DEFAULT_ALTHEAD = "~@"
+
+
 def parse_entities (defstr, src=None):
     """
     Parse XML entity definitions from given string.
@@ -86,7 +90,8 @@ def read_entities (*fnames):
 
 
 def resolve_entities (text, entities, ignored_entities,
-                      srcname=None, fcap=False, nalts=0):
+                      srcname=None, fcap=False,
+                      nalts=0, althead=DEFAULT_ALTHEAD):
     """
     Replace XML entities in the text with their values.
 
@@ -128,6 +133,9 @@ def resolve_entities (text, entities, ignored_entities,
         with this many alternatives per directive (when fcap is in effect)
     @type nalts: int >= 0
 
+    @param althead: alternatives directive head instead of the default one
+    @type althead: string
+
     @returns:
         the resulting text, resolved entities names, and unknown entity names
     @rtype:
@@ -161,7 +169,7 @@ def resolve_entities (text, entities, ignored_entities,
                     resolved.append(entname)
                     entval = entities[entname]
                     if fcap and entname_orig != entname:
-                        entval = first_to_upper(entval, nalts)
+                        entval = first_to_upper(entval, nalts, althead)
                     new_text = new_text[:-1] + entval
                     text = text[len(m.group(0)):]
                 else:
@@ -191,7 +199,8 @@ def resolve_entities (text, entities, ignored_entities,
     # Recursive resolving if at least one entity has been resolved.
     if len(resolved) > 0:
         new_text, resolved_extra, unknown_extra \
-            = resolve_entities(new_text, entities, ignored_entities, srcname)
+            = resolve_entities(new_text, entities, ignored_entities, srcname,
+                               fcap, nalts, althead)
         resolved.extend(resolved_extra)
         unknown.extend(unknown_extra)
 
@@ -199,7 +208,8 @@ def resolve_entities (text, entities, ignored_entities,
 
 
 def resolve_entities_simple (text, entities, ignored_entities,
-                             srcname=None, fcap=False, nalts=0):
+                             srcname=None, fcap=False,
+                             nalts=0, althead=DEFAULT_ALTHEAD):
     """
     As L{resolve_entities}, but returns only the resolved text.
 
@@ -210,14 +220,12 @@ def resolve_entities_simple (text, entities, ignored_entities,
     """
 
     return resolve_entities(text, entities, ignored_entities,
-                            srcname=srcname, fcap=fcap, nalts=nalts)[0]
+                            srcname=srcname, fcap=fcap, nalts=nalts,
+                            althead=althead)[0]
 
-
-_alt_head = "~@"
-_alt_hlen = len(_alt_head)
 
 def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
-                          condf=None):
+                          condf=None, althead=DEFAULT_ALTHEAD):
     """
     Replace alternatives directives in the text with the selected alternative.
 
@@ -225,7 +233,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
 
         I see a ~@/pink/white/ elephant.
 
-    where C{~@} is the directive identifier, followed by a character that
+    where C{~@} is the directive head, followed by a character that
     defines the delimiter of alternatives (like in C{sed} command).
     The number of alternatives per directive is not defined by the directive
     itself, but is provided as an external parameter.
@@ -263,12 +271,18 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         returns C{True} on call with each alternative as argument
     @type condf: None or C{(x_1, ..., x_n) -> True/False}
 
+    @param althead: directive head to use instead of the default one
+    @type althead: string
+
     @returns:
         resulting text, number of resolved alternatives, and an indicator
         of well-formedness (C{True} if all directives well-formed)
     @rtype:
         string, int, bool
     """
+
+    alt_head = althead
+    alt_hlen = len(althead)
 
     original_text = text
     new_text = u""
@@ -277,7 +291,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
     p = -1
     while True:
         pp = p + 1
-        p = text.find(_alt_head, pp)
+        p = text.find(alt_head, pp)
         if p < 0:
             new_text += text[pp:]
             break
@@ -288,7 +302,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         rep_text = text[p:] # text segment for error reporting
 
         # Must have at least 2 characters after the head.
-        if len(text) < p + _alt_hlen + 2:
+        if len(text) < p + alt_hlen + 2:
             malformed = True
             if srcname is not None:
                 print "%s: malformed directive: " \
@@ -296,7 +310,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
             break
 
         # Read the separating character.
-        p += _alt_hlen
+        p += alt_hlen
         sep = text[p]
 
         # Parse requested number of inserts,
@@ -333,7 +347,8 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
 
 
 def resolve_alternatives_simple (text, select, total, fmtstr=None,
-                                 srcname=None, condf=None):
+                                 srcname=None, condf=None,
+                                 althead=DEFAULT_ALTHEAD):
     """
     As L{resolve_alternatives}, but return only the resolved text.
 
@@ -345,13 +360,13 @@ def resolve_alternatives_simple (text, select, total, fmtstr=None,
 
     ntext, d1, malformed = resolve_alternatives(text, select, total,
                                                 fmtstr=fmtstr, srcname=srcname,
-                                                condf=condf)
+                                                condf=condf, althead=althead)
     if malformed:
         return text
     return ntext
 
 
-def first_to_case (text, upper=True, nalts=0):
+def first_to_case (text, upper=True, nalts=0, althead=DEFAULT_ALTHEAD):
     """
     Change case of the first letter in the text.
 
@@ -368,11 +383,17 @@ def first_to_case (text, upper=True, nalts=0):
     @param nalts: if non-zero, the number of alternatives per directive
     @type nalts: int >= 0
 
+    @param althead: alternatives directive head instead of the default one
+    @type althead: string
+
     @returns: the resulting text
     @rtype: string
 
     @see: L{resolve_alternatives}
     """
+
+    alt_head = althead
+    alt_hlen = len(althead)
 
     tlen = len(text)
     remalts = 0
@@ -396,7 +417,7 @@ def first_to_case (text, upper=True, nalts=0):
             intag = False
 
         elif (    not intag
-              and nalts and not remalts and text[i:i+_alt_hlen] == _alt_head):
+              and nalts and not remalts and text[i:i+alt_hlen] == alt_head):
             # An alternatives directive is just starting.
             i += 2
             if i >= tlen: # malformed directive, bail out
@@ -442,7 +463,7 @@ def first_to_case (text, upper=True, nalts=0):
     return textcc
 
 
-def first_to_upper (text, nalts=0):
+def first_to_upper (text, nalts=0, althead=DEFAULT_ALTHEAD):
     """
     Uppercase the first letter in the text.
 
@@ -451,10 +472,10 @@ def first_to_upper (text, nalts=0):
     @see: L{first_to_case}
     """
 
-    return first_to_case(text, upper=True, nalts=nalts)
+    return first_to_case(text, upper=True, nalts=nalts, althead=althead)
 
 
-def first_to_lower (text, nalts=0):
+def first_to_lower (text, nalts=0, althead=DEFAULT_ALTHEAD):
     """
     Lowercase the first letter in the text.
 
@@ -463,7 +484,7 @@ def first_to_lower (text, nalts=0):
     @see: L{first_to_case}
     """
 
-    return first_to_case(text, upper=False, nalts=nalts)
+    return first_to_case(text, upper=False, nalts=nalts, althead=althead)
 
 
 def expand_vars (text, varmap, head="%"):
