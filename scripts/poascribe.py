@@ -218,7 +218,7 @@ class Config:
         self.users.sort()
 
         # Urgh.
-        self.asc_fuzz = False
+        self.asc_fuzz = True
         if gsect.get("ascribe-fuzzies"):
             self.asc_fuzz = config.getboolean("global", "ascribe-fuzzies")
 
