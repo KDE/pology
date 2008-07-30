@@ -41,7 +41,8 @@ _reflex_map = {
     u"мије": u"мејe",
     u"није": u"ни",
 }
-_max_reflex_len = max([len(x) for x in _reflex_map.keys()])
+_max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
+# ...using map() instead of [] to avoid x in global environment.
 
 _reflex_mark = u"›"
 _reflex_mark_len = len(_reflex_mark)
