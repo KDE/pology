@@ -242,7 +242,7 @@ def examine_state (options, configs_catpaths):
         for catpath in catpaths:
             # Open current and all ascription catalogs.
             cat = Catalog(catpath, monitored=False)
-            acats = collect_asc_cats(config, cat.name)
+            acats, acats_fuzzy = collect_asc_cats(config, cat.name)
             # Count non-ascribed.
             for msg in cat:
                 if msg.translated:
@@ -251,7 +251,7 @@ def examine_state (options, configs_catpaths):
                             unasc_by_cat[catpath] = 0
                         unasc_by_cat[catpath] += 1
                 elif msg.fuzzy and config.asc_fuzz:
-                    if not is_ascribed(msg, acats):
+                    if not is_ascribed(msg, acats_fuzzy):
                         if catpath not in unasc_fuzz_by_cat:
                             unasc_fuzz_by_cat[catpath] = 0
                         unasc_fuzz_by_cat[catpath] += 1
@@ -364,18 +364,22 @@ def ascribe_updated_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, user)
+    acats, acats_fuzzy = collect_asc_cats(config, cat.name, user)
 
     # Collect all translated (or fuzzy) and unascribed messages.
     asc_fuzz = (user == UFUZZ)
     unasc_msgs = []
     for msg in cat:
-        if (   (not asc_fuzz and not msg.translated)
-            or (asc_fuzz and not msg.fuzzy)
-        ):
-            continue
-        if not is_ascribed(msg, acats):
-            unasc_msgs.append(msg)
+        if not msg.fuzzy:
+            if not msg.translated:
+                continue
+            if not is_ascribed(msg, acats):
+                unasc_msgs.append(msg)
+        else:
+            if not asc_fuzz:
+                continue
+            if not is_ascribed(msg, acats_fuzzy):
+                unasc_msgs.append(msg)
 
     if not unasc_msgs:
         # No messages to ascribe.
@@ -432,7 +436,7 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     # Open current catalog and all ascription catalogs.
     # Monitored, for removal of reviewed-* flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, user)
+    acats, acats_fuzzy = collect_asc_cats(config, cat.name, user)
 
     # Collect all or flagged messages (must be translated), with tags.
     fl_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
@@ -520,10 +524,13 @@ def select_matching_cat (options, config, sels, diff, pfilter, catpath):
     # Open current catalog and all ascription catalogs.
     # Monitored, for adding selection flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name)
+    acats = collect_asc_cats(config, cat.name, wfuzzy=True)
 
     nflagged = 0
     for msg in cat:
+        if not msg.translated:
+            continue
+
         # Ascription history for current message.
         history = asc_collect_history(msg, acats, config)
 
@@ -679,7 +686,7 @@ def is_ascribed (msg, acats):
     return ascribed
 
 
-def collect_asc_cats (config, catname, muser=None):
+def collect_asc_cats (config, catname, muser=None, wfuzzy=False):
 
     acats = {}
     for ouser in config.users:
@@ -690,7 +697,13 @@ def collect_asc_cats (config, catname, muser=None):
         if os.path.isfile(acatpath):
             acats[ouser] = Catalog(acatpath, monitored=amon, wrapf=WRAPF)
 
-    return acats
+    if wfuzzy:
+        return acats
+    else:
+        if UFUZZ in acats:
+            return acats, {UFUZZ: acats.pop(UFUZZ)}
+        else:
+            return acats, {}
 
 
 def init_asc_cat (catname, user, config):
