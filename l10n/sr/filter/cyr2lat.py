@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
 
 """
-Transliteration of Serbian scripts.
+Transliterate Cyrillic text into Latin.
+
+Properly converts uppercase digraphs, e.g.
+Љубљана→Ljubljana, but ЉУБЉАНА→LJUBLJANA.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -24,19 +27,13 @@ _dict_c2l = {
 }
 
 
-def sr_c2l (text):
+def process (text):
     """
-    Transliterate Serbian Cyrillic text to Serbian Latin.
-
-    Properly converts uppercase digraphs, e.g.
-    Љубљана→Ljubljana, but ЉУБЉАНА→LJUBLJANA.
-
-    @param text: Cyrillic text to transform
-    @type text: string
-
-    @returns: the text in Latin
-    @rtype: string
+    Filter's main processor.
     """
+
+    # NOTE: Converted directly from C++ code,
+    # perhaps something more efficient is possible.
 
     tlen = len(text)
     ntext = ""
