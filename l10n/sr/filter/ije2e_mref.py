@@ -47,6 +47,7 @@ _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 
 _reflex_mark = u"›"
 _reflex_mark_len = len(_reflex_mark)
+_ije_althead = "~#"
 
 
 def process (text):
@@ -81,7 +82,7 @@ def process (text):
             segs.append(text[(p - _reflex_mark_len):p])
 
     ntext = "".join(segs)
-    ntext = resolve_alternatives_simple(ntext, 1, 2, althead="~#")
+    ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_ije_althead)
 
     return ntext
 

@@ -12,10 +12,7 @@ See L{ije2e_mref} for explanation of the markup.
 from pology.misc.report import warning
 from pology.misc.resolve import resolve_alternatives_simple
 
-from pology.l10n.sr.filter.ije2e_mref import _reflex_mark
-
-
-_reflex_mark_len = len(_reflex_mark)
+from pology.l10n.sr.filter.ije2e_mref import _reflex_mark, _ije_althead
 
 
 def process (text):
@@ -24,7 +21,7 @@ def process (text):
     """
 
     ntext = text.replace(_reflex_mark, "")
-    ntext = resolve_alternatives_simple(ntext, 2, 2, althead="~#")
+    ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_ije_althead)
 
     return ntext
 
