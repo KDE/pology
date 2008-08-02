@@ -23,18 +23,7 @@ def process (text):
     Filter's main processor.
     """
 
-    segs = []
-    p = 0
-    while True:
-        pp = p
-        p = text.find(_reflex_mark, p)
-        if p < 0:
-            segs.append(text[pp:])
-            break
-        segs.append(text[pp:p])
-        p += _reflex_mark_len
-
-    ntext = "".join(segs)
+    ntext = text.replace(_reflex_mark, "")
     ntext = resolve_alternatives_simple(ntext, 2, 2, althead="~#")
 
     return ntext

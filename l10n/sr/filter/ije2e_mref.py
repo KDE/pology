@@ -38,6 +38,7 @@ _reflex_map = {
 
     # - special cases (include one prev. letter)
     u"лије": u"ли",
+    u"мија": u"меја",
     u"мије": u"мејe",
     u"није": u"ни",
 }
