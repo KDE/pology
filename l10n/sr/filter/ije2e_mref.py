@@ -30,6 +30,7 @@ from pology.misc.resolve import resolve_alternatives_simple
 _reflex_map = {
     # - basic
     u"ије": u"е",
+    u"иј": u"е",
     u"је": u"е",
     u"ље": u"ле",
     u"ње": u"не",
