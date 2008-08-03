@@ -45,9 +45,9 @@ def main ():
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
-        "-u", "--updated", metavar="USER",
-        action="store", dest="updated", default=None,
-        help="ascribe all updated entries to this user")
+        "-m", "--modified", metavar="USER",
+        action="store", dest="modified", default=None,
+        help="ascribe all modified entries to this user")
     opars.add_option(
         "-r", "--reviewed", metavar="USER",
         action="store", dest="reviewed", default=None,
@@ -142,8 +142,8 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    if options.updated:
-        ascribe_updated(options, configs_catpaths, options.updated)
+    if options.modified:
+        ascribe_modified(options, configs_catpaths, options.modified)
     if options.reviewed:
         ascribe_reviewed(options, configs_catpaths, options.reviewed)
     if options.fuzzied:
@@ -273,7 +273,7 @@ def examine_state (options, configs_catpaths):
         print tabulate(data=data, rown=rown, indent="  ")
 
 
-def ascribe_updated (options, configs_catpaths, user):
+def ascribe_modified (options, configs_catpaths, user):
 
     if user == UFUZZ:
         error("cannot ascribe modifications to reserved user '%s'" % UFUZZ)
@@ -286,7 +286,7 @@ def ascribe_updated (options, configs_catpaths, user):
         mkdirpath(config.udata[user].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_updated_cat(options, config, user, catpath)
+            nasc += ascribe_modified_cat(options, config, user, catpath)
 
     if nasc > 0:
         print "===! Ascribed as modified: %d entries" % nasc
@@ -319,7 +319,7 @@ def ascribe_fuzzied (options, configs_catpaths):
         mkdirpath(config.udata[UFUZZ].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_updated_cat(options, config, UFUZZ, catpath)
+            nasc += ascribe_modified_cat(options, config, UFUZZ, catpath)
 
     if nasc > 0:
         print "===! Ascribed as modified (fuzzy): %d entries" % nasc
@@ -360,7 +360,7 @@ def select_matching (options, configs_catpaths, sels, diff):
         print "===! Selected matching: %d entries" % nsel
 
 
-def ascribe_updated_cat (options, config, user, catpath):
+def ascribe_modified_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
