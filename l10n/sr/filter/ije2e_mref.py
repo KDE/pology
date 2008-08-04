@@ -68,7 +68,7 @@ def process (text):
         p += _reflex_mark_len
 
         # Try to resolve yat-reflex.
-        for rl in range(_max_reflex_len):
+        for rl in range(_max_reflex_len, 0, -1):
             reflex = text[p:(p + rl + 1)]
             ekvform = _reflex_map.get(reflex)
             if ekvform is not None:
