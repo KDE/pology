@@ -1066,12 +1066,14 @@ def diffsel_rev (args, msg, history, config):
         error("superflous arguments: %s" % " ".join(args), subsrc=cid)
 
     # Find review point.
+    # Avoid reviews of users listed for modification.
     i_rev = None
     for i in range(len(history)):
         amsg, user, atype, atag, date, revision = history[i]
         if atype == _atype_rev and atag == atag_req:
-            i_rev = i
-            break
+            if not users or user not in users:
+                i_rev = i
+                break
 
     amsg_sel = None
     if i_rev is not None:
