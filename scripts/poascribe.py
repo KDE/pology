@@ -1053,8 +1053,8 @@ def diffsel_asc (args, msg, history, config):
     return amsg_sel
 
 
-def diffsel_rev (args, msg, history, config):
-    cid = "diff-selector:rev"
+def diffsel_revb (args, msg, history, config):
+    cid = "diff-selector:revb"
 
     users = []
     if args:
@@ -1112,7 +1112,7 @@ def diffsel_rev (args, msg, history, config):
 
 _known_diffsels = {
     "asc": diffsel_asc,
-    "rev": diffsel_rev,
+    "revb": diffsel_revb,
 }
 
 # -----------------------------------------------------------------------------
