@@ -99,7 +99,7 @@ def get_filter (lang, filtr, abort=False):
     @rtype: (string)->string
     """
 
-    lmod = get_module(lang, ["filter", filtr])
+    lmod = get_module(lang, ["filter", filtr], abort)
     if not hasattr(lmod, "process"):
         _raise_or_abort("language filter '%s:%s' does not have the "
                         "process() method" % (lang, filtr), abort)
