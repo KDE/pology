@@ -17,6 +17,7 @@ Sieve options:
   - C{accel:<char>}: strip this character as accelerator marker
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
+  - C{env:<environment>}: environment of internal dictionary supplements
 
 When dictionary language, encoding, or variety are not explicitly given,
 they are extracted, in the following order of priority, from: 
@@ -30,6 +31,19 @@ The C{filter} option specifies text-transformation filters to apply before
 the text is spell-checked. These are the filters found in C{pology.filters}
 and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
 of C{[<lang>:]<name>} (language stated when a filter is language-specific).
+
+Pology internally collects language-specific supplementary word lists
+to default Aspell dictionaries, under C{l10n/<lang>/spell/} directory.
+These contain either the words that should enter the default dictionary
+but have not been added yet, or, more importantly, the words that are
+specific to a given translation environment, i.e. too specific to enter
+the default dictionary. The C{env} option is used to specify the environment
+for which the supplementary word lists are loaded, as a subpath
+C{l10n/<lang>/spell/<env>}: all word lists in that subpath and above
+will be loaded. This means that the word lists are hierarchical, so that
+all-environment lists (loaded even when C{env} option is not given)
+reside directly in C{l10n/<lang>/spell/}, and the more specific ones in
+subdirectories below it.
 
 The following user configuration fields are considered:
   - C{[aspell]/language}: language of the Aspell dictionary
@@ -48,7 +62,7 @@ from pology import rootdir
 import pology.misc.config as cfg
 from pology.misc.langdep import get_filter_lreq
 import os, re, sys
-from os.path import abspath, basename, dirname, isfile, join
+from os.path import abspath, basename, dirname, isfile, isdir, join
 from codecs import open
 from time import strftime
 import locale
@@ -148,9 +162,17 @@ class Sieve (object):
             freqs = options["filter"].split(",")
             self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
 
+        # Environment for dictionary supplements.
+        self.env = None
+        if "env" in options:
+            options.accept("env")
+            self.env = options["env"]
+
         # Language-dependent elements built along the way.
         self.aspells = {}
         self.ignoredContexts = {}
+        self.personalDicts = {}
+        self.tmpDictFiles = {}
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
@@ -168,19 +190,23 @@ class Sieve (object):
             self.aspellOptions["lang"] = str(clang)
 
             # Get Pology's internal personal dictonary for this language.
-            self.aspellOptions.pop("personal-path", None) # remove previous
-            pd_langs = [clang] # language codes to try
-            # - also try with bare language code,
-            # unless the language came from the PO itself.
-            p = clang.find("_")
-            if p > 0 and not cat.language():
-                pd_langs.append(clang[:p])
-            for pd_lang in pd_langs:
-                personalDict = join(rootdir(), "l10n", pd_lang, "spell", "dict.aspell")
-                if isfile(personalDict):
-                    #print "Using language-specific dictionary (%s)" % personalDict
-                    self.aspellOptions["personal-path"] = str(personalDict)
-                    break
+            if clang not in self.personalDicts:
+                self.personalDicts[clang] = None
+                pd_langs = [clang] # language codes to try
+                # - also try with bare language code,
+                # unless the language came from the PO itself.
+                p = clang.find("_")
+                if p > 0 and not cat.language():
+                    pd_langs.append(clang[:p])
+                for pd_lang in pd_langs:
+                    personalDict = self._get_personal_dict(pd_lang)
+                    if personalDict:
+                        self.personalDicts[clang] = personalDict
+                        break
+            if self.personalDicts[clang]:
+                self.aspellOptions["personal-path"] = str(self.personalDicts[clang])
+            else:
+                self.aspellOptions.pop("personal-path", None) # remove previous
 
             # Create Aspell object.
             try:
@@ -283,6 +309,11 @@ class Sieve (object):
 
 
     def finalize (self):
+        # Remove composited personal dictionaries.
+        for tmpDictFile in self.tmpDictFiles.values():
+            if isfile(tmpDictFile):
+                os.unlink(tmpDictFile)
+
         if self.list is not None:
             slist = [i.decode(locale.getdefaultlocale()[1]) for i in self.list]
             slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
@@ -304,4 +335,66 @@ class Sieve (object):
             return "UTF-8"
 
         return enc
+
+
+    def _get_personal_dict (self, lang):
+        # Collect all personal dictionaries found for given
+        # language/environment and composit them into one to pass to Aspell.
+
+        # Collect all applicable dictionaries.
+        dictFiles=set()
+        spellRoot=join(rootdir(), "l10n", lang, "spell")
+        spellSub=join(".", (self.env or ""))
+        while spellSub:
+            spellDir=join(spellRoot, spellSub)
+            if isdir(spellDir):
+                for item in os.listdir(spellDir):
+                    if item.endswith(".aspell"):
+                        dictFiles.add(join(spellDir, item))
+            spellSub=dirname(spellSub)
+        dictFiles=list(dictFiles)
+
+        if not dictFiles:
+            return None
+
+        # If only one, Aspell can just use it.
+        if len(dictFiles)<2:
+            return dictFiles[0]
+
+        # Composite all dictionary files into one temporary.
+        words=[]
+        for dictFile in dictFiles:
+            words.extend(self._read_dict_file(dictFile))
+        tmpDictFile=("compdict-%d.aspell" % os.getpid())
+        self.tmpDictFiles[lang]=tmpDictFile
+        file=open(tmpDictFile, "w", "UTF-8")
+        file.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
+        file.writelines([x+"\n" for x in words])
+        file.close()
+        return tmpDictFile
+
+
+    def _read_dict_file (self, fname):
+        # Read words from an Aspell personal dictionary.
+
+        # Parse the header for encoding.
+        encDefault="UTF-8"
+        file=open(fname, "r", encDefault)
+        header=file.readline()
+        m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
+        if not m:
+            error("malformed header in dictionary file: %s" % fname)
+        enc=m.group(4)
+        # Reopen in correct encoding if not the default.
+        if enc.lower() != encDefault.lower():
+            file.close()
+            file=open(fname, "r", enc)
+
+        # Read words.
+        words=[]
+        for line in file:
+            word=line.strip()
+            if word:
+                words.append(word)
+        return words
 
