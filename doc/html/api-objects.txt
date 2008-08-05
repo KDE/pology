@@ -113,6 +113,8 @@ pology.misc.fsops.mkdirpath	pology.misc.fsops-module.html#mkdirpath
 pology.misc.fsops.assert_system	pology.misc.fsops-module.html#assert_system
 pology.misc.langdep	pology.misc.langdep-module.html
 pology.misc.langdep.get_filter	pology.misc.langdep-module.html#get_filter
+pology.misc.langdep._valid_lang_rx	pology.misc.langdep-module.html#_valid_lang_rx
+pology.misc.langdep._valid_item_rx	pology.misc.langdep-module.html#_valid_item_rx
 pology.misc.langdep.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.misc.langdep._raise_or_abort	pology.misc.langdep-module.html#_raise_or_abort
 pology.misc.langdep.split_req	pology.misc.langdep-module.html#split_req
@@ -227,6 +229,7 @@ pology.scripts.organizeDict.usage	pology.scripts.organizeDict-module.html#usage
 pology.scripts.organizeDict.main	pology.scripts.organizeDict-module.html#main
 pology.scripts.poascribe	pology.scripts.poascribe-module.html
 pology.scripts.poascribe.ascribe_fuzzied	pology.scripts.poascribe-module.html#ascribe_fuzzied
+pology.scripts.poascribe.parse_users	pology.scripts.poascribe-module.html#parse_users
 pology.scripts.poascribe.sync_and_rep	pology.scripts.poascribe-module.html#sync_and_rep
 pology.scripts.poascribe.ascribe_reviewed_cat	pology.scripts.poascribe-module.html#ascribe_reviewed_cat
 pology.scripts.poascribe.wrap_field_ontag_unwrap	pology.misc.wrap-module.html#wrap_field_ontag_unwrap
@@ -267,7 +270,7 @@ pology.scripts.poascribe.asc_set_field	pology.scripts.poascribe-module.html#asc_
 pology.scripts.poascribe.ascribe_msg_rev	pology.scripts.poascribe-module.html#ascribe_msg_rev
 pology.scripts.poascribe._known_selectors	pology.scripts.poascribe-module.html#_known_selectors
 pology.scripts.poascribe.fld_sep	pology.scripts.poascribe-module.html#fld_sep
-pology.scripts.poascribe.parse_users	pology.scripts.poascribe-module.html#parse_users
+pology.scripts.poascribe.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.scripts.poascribe.is_ascribed	pology.scripts.poascribe-module.html#is_ascribed
 pology.scripts.poascribe.ascribe_reviewed	pology.scripts.poascribe-module.html#ascribe_reviewed
 pology.scripts.poascribe.warning	pology.misc.report-module.html#warning
@@ -345,6 +348,7 @@ pology.sieve.check_rules	pology.sieve.check_rules-module.html
 pology.sieve.check_rules.encoding	pology.sieve.check_rules-module.html#encoding
 pology.sieve.check_rules.CACHEDIR	pology.sieve.check_rules-module.html#CACHEDIR
 pology.sieve.check_rules.rule_xml_error	pology.misc.report-module.html#rule_xml_error
+pology.sieve.check_rules.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.check_rules.MARSHALL	pology.sieve.check_rules-module.html#MARSHALL
 pology.sieve.check_rules.printStat	pology.misc.rules-module.html#printStat
 pology.sieve.check_rules.loadRules	pology.misc.rules-module.html#loadRules
@@ -352,6 +356,7 @@ pology.sieve.check_rules.rule_error	pology.misc.report-module.html#rule_error
 pology.sieve.check_rules.error	pology.misc.report-module.html#error
 pology.sieve.check_spell	pology.sieve.check_spell-module.html
 pology.sieve.check_spell.proper_words	pology.misc.split-module.html#proper_words
+pology.sieve.check_spell.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.check_spell.spell_error	pology.misc.report-module.html#spell_error
 pology.sieve.check_spell.spell_xml_error	pology.misc.report-module.html#spell_xml_error
 pology.sieve.check_spell.rootdir	pology-module.html#rootdir
@@ -426,6 +431,7 @@ pology.sieve.fancy_quote._xml_literal_rx	pology.sieve.fancy_quote-module.html#_x
 pology.sieve.fancy_quote.split_escaped	pology.misc.escape-module.html#split_escaped
 pology.sieve.fancy_quote._xml_literal_tags	pology.sieve.fancy_quote-module.html#_xml_literal_tags
 pology.sieve.find_messages	pology.sieve.find_messages-module.html
+pology.sieve.find_messages.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.find_messages._flag_mark	pology.sieve.find_messages-module.html#_flag_mark
 pology.sieve.find_messages.report_msg_content	pology.misc.report-module.html#report_msg_content
 pology.sieve.find_messages.error	pology.misc.report-module.html#error

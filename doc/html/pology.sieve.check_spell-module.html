@@ -81,6 +81,10 @@
       <code>skip:&lt;regex&gt;</code>: do not check words which match given
       regular expression
     </li>
+    <li>
+      <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
+      prior to spell checking
+    </li>
   </ul>
   <p>When dictionary language, encoding, or variety are not explicitly 
   given, they are extracted, in the following order of priority, from: 
@@ -89,6 +93,12 @@
   <p>If accelerator character is not explicitly given, it may be inferred 
   from the PO header; otherwise, some usual accelerator characters are 
   removed by default.</p>
+  <p>The <code>filter</code> option specifies text-transformation filters 
+  to apply before the text is spell-checked. These are the filters found in
+  <code>pology.filters</code> and 
+  <code>pology.l10n.&lt;lang&gt;.filters</code>, and are specified as 
+  comma-separated list of <code>[&lt;lang&gt;:]&lt;name&gt;</code> 
+  (language stated when a filter is language-specific).</p>
   <p>The following user configuration fields are considered:</p>
   <ul>
     <li>

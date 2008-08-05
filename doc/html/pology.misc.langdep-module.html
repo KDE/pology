@@ -89,13 +89,13 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">(string, string)</span>
+      <span class="summary-type">(string or <code>None</code>, string)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#split_req" class="summary-sig-name">split_req</a>(<span class="summary-sig-arg">langreq</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Split string of the language-dependent request.</td>
+      Split string of the language-dependent item request.</td>
           <td align="right" valign="top">
             
             
@@ -172,22 +172,30 @@
   </tr></table>
   
   <p>Import a language-dependent module.</p>
-  <p>For example:</p>
+  <p>Module is specified by the language code, and the elements of the 
+  relative path in Pology's package for that language. Language can also be
+  <code>None</code>, in which case a language-independent module is looked 
+  for. For example:</p>
 <pre class="literalblock">
-   lmod = _import_lang_mod(&quot;sr&quot;, [&quot;filter&quot;, &quot;cyr2lat&quot;])
+   get_module(&quot;sr&quot;, [&quot;filter&quot;, &quot;cyr2lat&quot;])
 </pre>
-  <p>will try to import the module <code>pology.l10n.sr.cyr2lat.py</code>. 
-  The elements of the module path can also contain hyphens, which will be 
-  converted into underscores when looking for the module.</p>
-  <p>If the module cannot be loaded, if <code>abort</code> is 
-  <code>True</code> the execution will abort with an error message; if 
-  <code>abort</code> is <code>False</code>, an exception is thrown.</p>
+  <p>will try to import the <code>pology.l10n.sr.cyr2lat</code> module, 
+  while:</p>
+<pre class="literalblock">
+   get_module(None, [&quot;filter&quot;, &quot;normctx-ooo&quot;])
+</pre>
+  <p>will try to import the <code>pology.filter.normctx_ooo</code>.</p>
+  <p>The elements of the module path can also contain hyphens, which will 
+  be converted into underscores when looking for the module.</p>
+  <p>If the module cannot be imported, if <code>abort</code> is 
+  <code>True</code> the execution will abort with an error message; 
+  otherwise an exception is raised.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
-        <li><strong class="pname"><code>path</code></strong> (list of strings) - relative module location within language</li>
-        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution if the module cannot be loaded</li>
+        <li><strong class="pname"><code>lang</code></strong> (string or <code>None</code>) - language code</li>
+        <li><strong class="pname"><code>path</code></strong> (list of strings) - relative module location</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution if the module cannot be imported</li>
     </ul></dd>
     <dt>Returns: module or <code>None</code></dt>
         <dd>imported module</dd>
@@ -209,20 +217,23 @@
     </td>
   </tr></table>
   
-  <p>Split string of the language-dependent request.</p>
-  <p>The language-dependent request is string of the form 
-  <code>lang:request</code>, This is parsed into a tuple of <code>(lang, 
-  request)</code> strings. If the language cannot be determined, and the 
-  execution aborts with a message, or <code>None</code> is returned, 
-  depending on value of <code>abort</code></p>
+  <p>Split string of the language-dependent item request.</p>
+  <p>The language-dependent item request is string of the form 
+  <code>[lang:]item</code>, which is to be parsed into <code>(lang, 
+  item)</code> tuple; if language is not stated, its value in the tuple 
+  will be <code>None</code>. The language should be a proper language code,
+  while the item should be an identifier-like string (except that it can 
+  include hyphens too, which will be converted to underscores).</p>
+  <p>If the item request cannot be parsed, either the execution is aborted 
+  with an error message, or an exception is raised, depending on value of 
+  <code>abort</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>langreq</code></strong> (string) - request specification</li>
-        <li><strong class="pname"><code>abort</code></strong> (bool) - if the request cannot be parsed, abort or report 
-          <code>None</code></li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution or if the request cannot be parsed</li>
     </ul></dd>
-    <dt>Returns: (string, string)</dt>
+    <dt>Returns: (string or <code>None</code>, string)</dt>
         <dd>parsed language and request</dd>
   </dl>
 </td></tr></table>

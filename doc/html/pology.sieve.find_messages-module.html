@@ -100,6 +100,10 @@
     <li>
       <code>mark</code>: mark each matched message with a flag
     </li>
+    <li>
+      <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters to
+      msgstr prior to matching
+    </li>
   </ul>
   <p>If accelerator character is not given by <code>accel</code> option, 
   the sieve will try to guess the accelerator; it may choose wrongly or 
@@ -115,6 +119,12 @@
   option is not possible or safe enough. Option <code>-m</code> of 
   <code>posieve.py</code> is useful here to send the names of modified POs 
   to a separate file.</p>
+  <p>The <code>filter</code> option specifies text-transformation filters 
+  to apply to msgstr before it is matched. These are the filters found in 
+  <code>pology.filters</code> and 
+  <code>pology.l10n.&lt;lang&gt;.filters</code>, and are specified as 
+  comma-separated list of <code>[&lt;lang&gt;:]&lt;name&gt;</code> 
+  (language stated when a filter is language-specific).</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
