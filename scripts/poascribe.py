@@ -21,6 +21,7 @@ from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
 from pology.misc.diff import diff_texts
+from pology.misc.langdep import get_filter_lreq
 
 WRAPF = wrap_field_ontag_unwrap
 UFUZZ = "fuzzy"
@@ -336,19 +337,7 @@ def select_matching (options, configs_catpaths, sels, diff):
     # Fetch prediff filter if requested.
     pfilter = None
     if options.prediff_filter:
-        fspec = options.prediff_filter
-        lst = fspec.split(":")
-        if len(lst) != 2:
-            error("pre-diff filter must be specified as <lang>:<filter>, "
-                  "given '%s' instead" % fspec)
-        lang, modname = lst
-        modname = modname.replace("-", "_")
-        try:
-            m = __import__("pology.l10n.%s.filter.%s" % (lang, modname),
-                           globals(), locals(), [""])
-            pfilter = m.process
-        except ImportError:
-            error("cannot load requested pre-diff filter '%s'" % fspec)
+        pfilter = get_filter_lreq(options.prediff_filter, abort=True)
 
     nsel = 0
     for config, catpaths in configs_catpaths:
