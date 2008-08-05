@@ -85,6 +85,14 @@
       <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
       prior to spell checking
     </li>
+    <li>
+      <code>env:&lt;environment&gt;</code>: environment of internal 
+      dictionary supplements
+    </li>
+    <li>
+      <code>suponly</code>: do not use default dictionary, only internal 
+      supplements
+    </li>
   </ul>
   <p>When dictionary language, encoding, or variety are not explicitly 
   given, they are extracted, in the following order of priority, from: 
@@ -99,6 +107,22 @@
   <code>pology.l10n.&lt;lang&gt;.filters</code>, and are specified as 
   comma-separated list of <code>[&lt;lang&gt;:]&lt;name&gt;</code> 
   (language stated when a filter is language-specific).</p>
+  <p>Pology internally collects language-specific supplementary word lists 
+  to default Aspell dictionaries, under 
+  <code>l10n/&lt;lang&gt;/spell/</code> directory. These contain either the
+  words that should enter the default dictionary but have not been added 
+  yet, or, more importantly, the words that are specific to a given 
+  translation environment, i.e. too specific to enter the default 
+  dictionary. The <code>env</code> option is used to specify the 
+  environment for which the supplementary word lists are loaded, as a 
+  subpath <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>: all word lists 
+  in that subpath and above will be loaded. This means that the word lists 
+  are hierarchical, so that all-environment lists (loaded even when 
+  <code>env</code> option is not given) reside directly in 
+  <code>l10n/&lt;lang&gt;/spell/</code>, and the more specific ones in 
+  subdirectories below it. The defaul dictionary can be avoided 
+  alltogether, and only supplementary used instead, by giving the 
+  <code>suponly</code> option.</p>
   <p>The following user configuration fields are considered:</p>
   <ul>
     <li>
@@ -109,6 +133,10 @@
     </li>
     <li>
       <code>[aspell]/variety</code>: variety of the Aspell dictionary
+    </li>
+    <li>
+      <code>[aspell]/supplements-only</code>: use only internal 
+      dictionaries
     </li>
   </ul>
 

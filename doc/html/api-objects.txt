@@ -360,6 +360,7 @@ pology.sieve.check_spell.get_filter_lreq	pology.misc.langdep-module.html#get_fil
 pology.sieve.check_spell.spell_error	pology.misc.report-module.html#spell_error
 pology.sieve.check_spell.spell_xml_error	pology.misc.report-module.html#spell_xml_error
 pology.sieve.check_spell.rootdir	pology-module.html#rootdir
+pology.sieve.check_spell._read_dict_file	pology.sieve.check_spell-module.html#_read_dict_file
 pology.sieve.check_spell.error	pology.misc.report-module.html#error
 pology.sieve.check_xml_docbook4	pology.sieve.check_xml_docbook4-module.html
 pology.sieve.check_xml_docbook4.report_on_msg	pology.misc.report-module.html#report_on_msg
@@ -785,6 +786,7 @@ pology.sieve.check_spell.Sieve	pology.sieve.check_spell.Sieve-class.html
 pology.sieve.check_spell.Sieve.process_header	pology.sieve.check_spell.Sieve-class.html#process_header
 pology.sieve.check_spell.Sieve.finalize	pology.sieve.check_spell.Sieve-class.html#finalize
 pology.sieve.check_spell.Sieve.process	pology.sieve.check_spell.Sieve-class.html#process
+pology.sieve.check_spell.Sieve._get_personal_dict	pology.sieve.check_spell.Sieve-class.html#_get_personal_dict
 pology.sieve.check_spell.Sieve._encoding_for_aspell	pology.sieve.check_spell.Sieve-class.html#_encoding_for_aspell
 pology.sieve.check_spell.Sieve.__init__	pology.sieve.check_spell.Sieve-class.html#__init__
 pology.sieve.check_xml_docbook4.Sieve	pology.sieve.check_xml_docbook4.Sieve-class.html
