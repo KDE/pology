@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.misc.langdep</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
+        Module&nbsp;langdep
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module langdep</h1><p class="nomargin-top"></p>
+<p>Fetch language-dependent modules, functions, data, etc.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">module or <code>None</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_module" class="summary-sig-name">get_module</a>(<span class="summary-sig-arg">lang</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Import a language-dependent module.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#split_req" class="summary-sig-name">split_req</a>(<span class="summary-sig-arg">langreq</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Split string of the language-dependent request.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string)-&gt;string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_filter" class="summary-sig-name">get_filter</a>(<span class="summary-sig-arg">lang</span>,
+        <span class="summary-sig-arg">filtr</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Fetch a language-dependent text filter function.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_filter_lreq"></a><span class="summary-sig-name">get_filter_lreq</span>(<span class="summary-sig-arg">langreq</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Like <a href="pology.misc.langdep-module.html#get_filter" 
+      class="link">get_filter</a>, but the filter is specified as <a 
+      href="pology.misc.langdep-module.html#split_req" 
+      class="link">language request</a>.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="get_module"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_module</span>(<span class="sig-arg">lang</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import a language-dependent module.</p>
+  <p>For example:</p>
+<pre class="literalblock">
+   lmod = _import_lang_mod(&quot;sr&quot;, [&quot;filter&quot;, &quot;cyr2lat&quot;])
+</pre>
+  <p>will try to import the module <code>pology.l10n.sr.cyr2lat.py</code>. 
+  The elements of the module path can also contain hyphens, which will be 
+  converted into underscores when looking for the module.</p>
+  <p>If the module cannot be loaded, if <code>abort</code> is 
+  <code>True</code> the execution will abort with an error message; if 
+  <code>abort</code> is <code>False</code>, an exception is thrown.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
+        <li><strong class="pname"><code>path</code></strong> (list of strings) - relative module location within language</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution if the module cannot be loaded</li>
+    </ul></dd>
+    <dt>Returns: module or <code>None</code></dt>
+        <dd>imported module</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="split_req"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">split_req</span>(<span class="sig-arg">langreq</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Split string of the language-dependent request.</p>
+  <p>The language-dependent request is string of the form 
+  <code>lang:request</code>, This is parsed into a tuple of <code>(lang, 
+  request)</code> strings. If the language cannot be determined, and the 
+  execution aborts with a message, or <code>None</code> is returned, 
+  depending on value of <code>abort</code></p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>langreq</code></strong> (string) - request specification</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - if the request cannot be parsed, abort or report 
+          <code>None</code></li>
+    </ul></dd>
+    <dt>Returns: (string, string)</dt>
+        <dd>parsed language and request</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_filter"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_filter</span>(<span class="sig-arg">lang</span>,
+        <span class="sig-arg">filtr</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fetch a language-dependent text filter function.</p>
+  <p>Loads the filter function from 
+  <code>pology.l10n.&lt;lang&gt;.filter.&lt;filtr&gt;</code> module. This 
+  module must have the <code>process(string) -&gt; string</code> method 
+  defined.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
+        <li><strong class="pname"><code>filtr</code></strong> (string) - filter name</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - if the filter is not loadable, abort or report <code>None</code></li>
+    </ul></dd>
+    <dt>Returns: (string)-&gt;string</dt>
+        <dd>the filter</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
