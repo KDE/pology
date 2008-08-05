@@ -26,6 +26,12 @@ The sieve parameters are:
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
+   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
+
+The C{filter} option specifies text-transformation filters to apply to
+msgstr before it is checked. These are the filters found in C{pology.filters}
+and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
+of C{[<lang>:]<name>} (language stated when a filter is language-specific).
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -41,6 +47,7 @@ from pology.misc.rules import loadRules, printStat
 from pology.misc.report import error, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
+from pology.misc.langdep import get_filter_lreq
 
 reload(sys)
 encoding = getdefaultlocale()[1]
@@ -90,6 +97,13 @@ class Sieve (object):
             options.accept("accel")
             self.accel=options["accel"]
             self.accelExplicit=True
+        
+        # Pre-check filters to apply.
+        self.pfilters=[]
+        if "filter" in options:
+            options.accept("filter")
+            freqs = options["filter"].split(",")
+            self.pfilters=[get_filter_lreq(x, abort=True) for x in freqs]
         
         if "rfile" in options:
             options.accept("rfile")
@@ -245,7 +259,9 @@ class Sieve (object):
         if self.accel:
             msgid=msgid.replace(self.accel, "")
             msgstrs=[x.replace(self.accel, "") for x in msgstrs]
-        
+        for pfilter in self.pfilters:
+            msgstrs=[pfilter(x) for x in msgstrs]
+
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
             if rule.disabled:

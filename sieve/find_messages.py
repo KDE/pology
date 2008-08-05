@@ -27,6 +27,7 @@ Other sieve options:
   - C{accel:<char>}: strip this character as an accelerator marker
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
+  - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
@@ -42,12 +43,18 @@ automatically using C{replace} option is not possible or safe enough.
 Option C{-m} of C{posieve.py} is useful here to send the names of
 modified POs to a separate file.
 
+The C{filter} option specifies text-transformation filters to apply to
+msgstr before it is matched. These are the filters found in C{pology.filters}
+and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
+of C{[<lang>:]<name>} (language stated when a filter is language-specific).
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
 import sys, os, re
 from pology.misc.report import error, report_msg_content
+from pology.misc.langdep import get_filter_lreq
 
 
 _flag_mark = u"pattern-match"
@@ -95,6 +102,12 @@ class Sieve (object):
             options.accept("mark")
             self.mark = True
 
+        self.pfilters = []
+        if "filter" in options:
+            options.accept("filter")
+            freqs = options["filter"].split(",")
+            self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
+
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.replace is None and not self.mark:
             self.caller_sync = False
@@ -122,12 +135,14 @@ class Sieve (object):
 
         for field, regex in zip(self.fields, self.regexs):
 
+            pfilters = []
             if field == "msgctxt":
                 texts = [msg.msgctxt]
             elif field == "msgid":
                 texts = [msg.msgid, msg.msgid_plural]
             elif field == "msgstr":
                 texts = msg.msgstr
+                pfilters = self.pfilters
             else:
                 error("unknown search field '%s'" % field)
 
@@ -137,6 +152,10 @@ class Sieve (object):
                 # Remove accelerator.
                 if self.accel:
                     text = text.replace(self.accel, "")
+
+                # Apply pre-match filters.
+                for pfilter in pfilters:
+                    text = pfilter(text)
 
                 # Check for local match (local match is OR).
                 if regex.search(text):

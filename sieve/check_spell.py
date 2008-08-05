@@ -16,6 +16,7 @@ Sieve options:
   - C{xml:<filename>}: build XML report file
   - C{accel:<char>}: strip this character as accelerator marker
   - C{skip:<regex>}: do not check words which match given regular expression
+  - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
 
 When dictionary language, encoding, or variety are not explicitly given,
 they are extracted, in the following order of priority, from: 
@@ -24,6 +25,11 @@ current PO file (language only), user configuration, current system locale
 
 If accelerator character is not explicitly given, it may be inferred from the
 PO header; otherwise, some usual accelerator characters are removed by default.
+
+The C{filter} option specifies text-transformation filters to apply before
+the text is spell-checked. These are the filters found in C{pology.filters}
+and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
+of C{[<lang>:]<name>} (language stated when a filter is language-specific).
 
 The following user configuration fields are considered:
   - C{[aspell]/language}: language of the Aspell dictionary
@@ -40,6 +46,7 @@ from pology.misc.report import spell_error, spell_xml_error, error
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
+from pology.misc.langdep import get_filter_lreq
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, join
 from codecs import open
@@ -133,6 +140,13 @@ class Sieve (object):
         if "skip" in options:
             options.accept("skip")
             self.skipRx = re.compile(options["skip"], re.U|re.I)
+
+        # Precheck filters for message text.
+        self.pfilters = []
+        if "filter" in options:
+            options.accept("filter")
+            freqs = options["filter"].split(",")
+            self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
 
         # Language-dependent elements built along the way.
         self.aspells = {}
@@ -234,6 +248,10 @@ class Sieve (object):
                     break
             if skip:
                 break
+
+            # Apply precheck filters.
+            for pfilter in self.pfilters:
+                msgstr = pfilter(msgstr)
 
             # Split text into words.
             words = proper_words(msgstr, True, self.accel, msg.format)
