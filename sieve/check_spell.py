@@ -18,6 +18,7 @@ Sieve options:
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
   - C{env:<environment>}: environment of internal dictionary supplements
+  - C{suponly}: do not use default dictionary, only internal supplements
 
 When dictionary language, encoding, or variety are not explicitly given,
 they are extracted, in the following order of priority, from: 
@@ -44,11 +45,14 @@ will be loaded. This means that the word lists are hierarchical, so that
 all-environment lists (loaded even when C{env} option is not given)
 reside directly in C{l10n/<lang>/spell/}, and the more specific ones in
 subdirectories below it.
+The defaul dictionary can be avoided alltogether, and only supplementary
+used instead, by giving the C{suponly} option.
 
 The following user configuration fields are considered:
   - C{[aspell]/language}: language of the Aspell dictionary
   - C{[aspell]/encoding}: encoding for text sent to Aspell
   - C{[aspell]/variety}: variety of the Aspell dictionary
+  - C{[aspell]/supplements-only}: use only internal dictionaries
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -168,6 +172,14 @@ class Sieve (object):
             options.accept("env")
             self.env = options["env"]
 
+        # Use only internal supplemental dictionaries?
+        self.suponly = False
+        if "suponly" in options:
+            options.accept("suponly")
+            self.suponly = True
+        if not self.suponly:
+            self.suponly = cfgs.boolean("supplements-only", False)
+
         # Language-dependent elements built along the way.
         self.aspells = {}
         self.ignoredContexts = {}
@@ -208,17 +220,26 @@ class Sieve (object):
             else:
                 self.aspellOptions.pop("personal-path", None) # remove previous
 
-            # Create Aspell object.
-            try:
-                self.aspells[clang] = Aspell(self.aspellOptions.items())
-            except AspellConfigError, e:
-                error("Aspell configuration error:\n"
-                      "%s" % e)
-            except AspellError, e:
-                error("cannot initialize Aspell for language '%s':\n"
-                      "\t- check if Aspell and the language dictionary are correctly installed\n"
-                      "\t- check if there are any special characters in the personal dictionary\n"
-                      % clang)
+            if not self.suponly:
+                # Create Aspell object.
+                try:
+                    self.aspells[clang] = Aspell(self.aspellOptions.items())
+                except AspellConfigError, e:
+                    error("Aspell configuration error:\n"
+                          "%s" % e)
+                except AspellError, e:
+                    error("cannot initialize Aspell for language '%s':\n"
+                          "\t- check if Aspell and the language dictionary are correctly installed\n"
+                          "\t- check if there are any special characters in the personal dictionary\n"
+                          % clang)
+            else:
+                # Create simple internal checker that only checks against
+                # internal supplemental dictionaries.
+                personalDict=self.personalDicts[clang]
+                if not personalDict:
+                    error("no supplemental dictionaries found for language '%s'"
+                          % clang)
+                self.aspells[clang]=_QuasiSpell(personalDict, self.encoding)
 
             # Load list of contexts by which to ignore messages.
             self.ignoredContexts[clang] = []
@@ -364,7 +385,7 @@ class Sieve (object):
         # Composite all dictionary files into one temporary.
         words=[]
         for dictFile in dictFiles:
-            words.extend(self._read_dict_file(dictFile))
+            words.extend(_read_dict_file(dictFile))
         tmpDictFile=("compdict-%d.aspell" % os.getpid())
         self.tmpDictFiles[lang]=tmpDictFile
         file=open(tmpDictFile, "w", "UTF-8")
@@ -374,27 +395,51 @@ class Sieve (object):
         return tmpDictFile
 
 
-    def _read_dict_file (self, fname):
-        # Read words from an Aspell personal dictionary.
+# Read words from an Aspell personal dictionary.
+def _read_dict_file (fname):
 
-        # Parse the header for encoding.
-        encDefault="UTF-8"
-        file=open(fname, "r", encDefault)
-        header=file.readline()
-        m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
-        if not m:
-            error("malformed header in dictionary file: %s" % fname)
-        enc=m.group(4)
-        # Reopen in correct encoding if not the default.
-        if enc.lower() != encDefault.lower():
-            file.close()
-            file=open(fname, "r", enc)
+    # Parse the header for encoding.
+    encDefault="UTF-8"
+    file=open(fname, "r", encDefault)
+    header=file.readline()
+    m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
+    if not m:
+        error("malformed header in dictionary file: %s" % fname)
+    enc=m.group(4)
+    # Reopen in correct encoding if not the default.
+    if enc.lower() != encDefault.lower():
+        file.close()
+        file=open(fname, "r", enc)
 
-        # Read words.
-        words=[]
-        for line in file:
-            word=line.strip()
-            if word:
-                words.append(word)
-        return words
+    # Read words.
+    words=[]
+    for line in file:
+        word=line.strip()
+        if word:
+            words.append(word)
+    return words
+
+
+# Simple spell checker which reads Aspell's personal dictionary file.
+class _QuasiSpell (object):
+
+    def __init__ (self, dictfile, encoding="UTF-8"):
+
+        self.validWords = _read_dict_file(dictfile)
+        self.encoding = encoding # of the raw text sent in for checking
+
+
+    def check (self, encWord):
+
+        word=str.decode(encWord, self.encoding)
+        if (    word not in self.validWords
+            and word.lower() not in self.validWords
+        ):
+            return False
+        return True
+
+
+    def suggest (self, encWord):
+
+        return []
 
