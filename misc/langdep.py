@@ -9,6 +9,7 @@ Fetch language-dependent modules, functions, data, etc.
 
 import sys
 import os
+import re
 
 from pology.misc.report import error, warning
 
@@ -17,68 +18,98 @@ def get_module (lang, path, abort=False):
     """
     Import a language-dependent module.
 
-    For example::
+    Module is specified by the language code, and the elements of
+    the relative path in Pology's package for that language.
+    Language can also be C{None}, in which case a language-independent
+    module is looked for. For example::
 
-        lmod = _import_lang_mod("sr", ["filter", "cyr2lat"])
+        get_module("sr", ["filter", "cyr2lat"])
 
-    will try to import the module C{pology.l10n.sr.cyr2lat.py}.
+    will try to import the C{pology.l10n.sr.cyr2lat} module, while::
+
+        get_module(None, ["filter", "normctx-ooo"])
+
+    will try to import the C{pology.filter.normctx_ooo}.
+
     The elements of the module path can also contain hyphens, which will
     be converted into underscores when looking for the module.
 
-    If the module cannot be loaded, if C{abort} is C{True} the execution
-    will abort with an error message;
-    if C{abort} is C{False}, an exception is thrown.
+    If the module cannot be imported, if C{abort} is C{True} the execution
+    will abort with an error message; otherwise an exception is raised.
 
     @param lang: language code
-    @type lang: string
-    @param path: relative module location within language
+    @type lang: string or C{None}
+    @param path: relative module location
     @type path: list of strings
-    @param abort: whether to abort execution if the module cannot be loaded
+    @param abort: whether to abort execution if the module cannot be imported
     @type abort: bool
 
     @returns: imported module
     @rtype: module or C{None}
     """
 
-    subname = ".".join(path)
-    subname = subname.replace("-", "_")
+    modpath = ".".join(path)
+    modpath = modpath.replace("-", "_")
+    if lang:
+        modpath = "pology.l10n.%s.%s" % (lang, modpath)
+    else:
+        modpath = "pology.%s" % (modpath)
     try:
-        lmod = __import__("pology.l10n.%s.%s" % (lang, subname),
-                          globals(), locals(), [""])
+        module = __import__(modpath, globals(), locals(), [""])
     except ImportError:
-        _raise_or_abort("cannot load language module '%s.%s'"
-                        % (lang, subname), abort)
+        _raise_or_abort("cannot import module '%s'" % modpath, abort)
 
-    # TODO: Make more detailed analysis why the loading fails: is there
-    # such a language, is there such a file, etc.
+    # TODO: Make more detailed analysis why importing fails:
+    # is there  such a language, is there such a file, etc.
 
-    return lmod
+    return module
 
+
+_valid_lang_rx = re.compile(r"^[a-z]{2,3}(_[A-Z]{2})?(@\w+)?$")
+_valid_item_rx = re.compile(r"^[a-z][\w-]*$", re.I)
 
 def split_req (langreq, abort=False):
     """
-    Split string of the language-dependent request.
+    Split string of the language-dependent item request.
 
-    The language-dependent request is string of the form C{lang:request},
-    This is parsed into a tuple of C{(lang, request)} strings. If the
-    language cannot be determined, and the execution aborts with a message,
-    or C{None} is returned, depending on value of C{abort}
+    The language-dependent item request is string of the form C{[lang:]item},
+    which is to be parsed into C{(lang, item)} tuple; if language is not
+    stated, its value in the tuple will be C{None}.
+    The language should be a proper language code, while the item should be
+    an identifier-like string (except that it can include hyphens too,
+    which will be converted to underscores).
+
+    If the item request cannot be parsed,
+    either the execution is aborted with an error message,
+    or an exception is raised, depending on value of C{abort}.
 
     @param langreq: request specification
     @type langreq: string
-    @param abort: if the request cannot be parsed, abort or report C{None}
+    @param abort: whether to abort execution or if the request cannot be parsed
     @type abort: bool
 
     @returns: parsed language and request
-    @rtype: (string, string)
+    @rtype: (string or C{None}, string)
     """
 
     lst = langreq.split(":", 1)
-    if len(lst) != 2:
-        _raise_or_abort("cannot parse item request by language '%s'" % langreq,
-                        abort)
+    if len(lst) > 2:
+        _raise_or_abort("cannot parse item request '%s'" % langreq, abort)
+    if len(lst) == 1:
+        lang, item = [None] + lst
+    else:
+        lang, item = lst
 
-    return tuple(lst)
+    if lang and not _valid_lang_rx.search(lang):
+        _raise_or_abort("invalid language name '%s' in item request '%s'"
+                        % (lang, langreq), abort)
+    if not _valid_item_rx.search(item):
+        _raise_or_abort("invalid item name '%s' in item request '%s'"
+                        % (item, langreq), abort)
+
+    item = item.replace("-", "_")
+
+    return (lang, item)
 
 
 def get_filter (lang, filtr, abort=False):
@@ -101,8 +132,8 @@ def get_filter (lang, filtr, abort=False):
 
     lmod = get_module(lang, ["filter", filtr], abort)
     if not hasattr(lmod, "process"):
-        _raise_or_abort("language filter '%s:%s' does not have the "
-                        "process() method" % (lang, filtr), abort)
+        _raise_or_abort("filter '%s:%s' does not have the process() method"
+                        % (lang, filtr), abort)
 
     # TODO: Check if process() is (string)->string function.
 
