@@ -75,7 +75,8 @@ def split_req (langreq, abort=False):
 
     lst = langreq.split(":", 1)
     if len(lst) != 2:
-        _raise_or_abort("cannot parse language request '%s'" % langreq, abort)
+        _raise_or_abort("cannot parse item request by language '%s'" % langreq,
+                        abort)
 
     return tuple(lst)
 
@@ -98,11 +99,7 @@ def get_filter (lang, filtr, abort=False):
     @rtype: (string)->string
     """
 
-    lmod = get_module(lang, ["filter", filtr], abort)
-    if not lmod:
-        _raise_or_abort("cannot load language filter '%s:%s'" % (lang, filtr),
-                        abort)
-
+    lmod = get_module(lang, ["filter", filtr])
     if not hasattr(lmod, "process"):
         _raise_or_abort("language filter '%s:%s' does not have the "
                         "process() method" % (lang, filtr), abort)
@@ -127,10 +124,7 @@ def _by_lreq (langreq, getter, abort=False):
     by applying it to parsed language request string.
     """
 
-    lst = split_req(langreq, abort)
-    if not lst:
-        return None
-    lang, request = lst
+    lang, request = split_req(langreq, abort)
     return getter(lang, request, abort)
 
 
