@@ -37,10 +37,6 @@ from pology.misc.rules import loadRules, Rule
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
-reload(sys)
-encoding = locale.getdefaultlocale()[1]
-sys.setdefaultencoding(encoding)
-
 
 class Sieve (object):
     """Find messages matching given rules."""

@@ -220,7 +220,7 @@ from time import time
 from os.path import dirname, basename, isdir, join
 from os import listdir
 import sys
-from locale import getdefaultlocale
+from locale import getlocale
 
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
@@ -267,7 +267,7 @@ def loadRules(lang, stat, env=None):
         languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
         print "Rules available in the following languages: %s" % ", ".join(languages)
         for lang in languages:
-            if lang in sys.argv[-1] or lang in getdefaultlocale()[0]:
+            if lang in sys.argv[-1] or lang in getlocale()[0]:
                 print "Autodetecting %s language" % lang
                 ruleDir=join(l10nDir, lang, "rules")
                 break

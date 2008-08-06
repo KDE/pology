@@ -126,8 +126,7 @@ from optparse import OptionParser
 
 def main ():
 
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
+    locale.setlocale(locale.LC_ALL, "")
 
     # Setup options and parse the command line.
     usage = u"""
@@ -194,7 +193,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     op.raw_paths = free_args[1:]
 
     # Convert all string values in options to unicode.
-    local_encoding=locale.getdefaultlocale()[1]
+    local_encoding = locale.getpreferredencoding()
     for att, val in op.__dict__.items():
         if isinstance(val, str):
             op.__dict__[att] = unicode(val)

@@ -14,10 +14,13 @@ import sys, os, imp, shutil, re
 from optparse import OptionParser
 import md5
 import filecmp
+import locale
 
 SUMMIT_ID = "+"
 
 def main ():
+
+    locale.setlocale(locale.LC_ALL, "")
 
     # Setup options and parse the command line.
     usage = u"""

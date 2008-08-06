@@ -110,7 +110,7 @@ class Sieve (object):
         if not self.variety:
             self.variety = cfgs.string("variety")
 
-        loc_lang, loc_encoding = locale.getdefaultlocale()
+        loc_lang, loc_encoding = locale.getlocale()
         if not self.lang:
             self.lang = loc_lang
         if not self.encoding:
@@ -349,7 +349,8 @@ class Sieve (object):
                 os.unlink(tmpDictFile)
 
         if self.list is not None:
-            slist = [i.decode(locale.getdefaultlocale()[1]) for i in self.list]
+            enc=locale.getpreferredencoding()
+            slist=[i.decode(enc) for i in self.list]
             slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
             if slist:
                 print "\n".join(slist)

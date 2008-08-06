@@ -9,6 +9,7 @@ import re
 import codecs
 import time
 import datetime
+import locale
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
@@ -28,6 +29,8 @@ UFUZZ = "fuzzy"
 
 
 def main ():
+
+    locale.setlocale(locale.LC_ALL, "")
 
     # Setup options and parse the command line.
     usage = (

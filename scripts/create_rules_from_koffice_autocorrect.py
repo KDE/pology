@@ -15,8 +15,11 @@ Usage::
 import re
 import sys
 from codecs import open
+import locale
 
 def main():
+    locale.setlocale(locale.LC_ALL, "")
+    
     if len(sys.argv)!=3:
         usage()
     

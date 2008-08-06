@@ -41,17 +41,13 @@ import sys, os
 from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
 from time import strftime, strptime, mktime
-from locale import getdefaultlocale, getpreferredencoding
+from locale import getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
 from pology.misc.report import error, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
-
-reload(sys)
-encoding = getdefaultlocale()[1]
-sys.setdefaultencoding(encoding) #pylint: disable-msg=E1101
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"

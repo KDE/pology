@@ -633,7 +633,7 @@ class Sieve (object):
                            colorized=can_color)
             # Write catalog file names into the file if requested.
             if self.incmpfile:
-                cmdlenc = locale.getdefaultlocale()[1]
+                cmdlenc = locale.getpreferredencoding()
                 ofl = codecs.open(self.incmpfile, "w", cmdlenc)
                 ofl.writelines([x + "\n" for x in filenames])
                 ofl.close()

@@ -1,13 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 import sys, os, re
+import locale
 import xml.parsers.expat
 from pology.misc.resolve import read_entities
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.report import report_on_msg
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
 ts_fence = "|/|"
 
@@ -210,7 +208,7 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}):
         p.DefaultHandler = _handler_default
 
         try:
-            p.Parse(text, True)
+            p.Parse(text.encode("UTF-8"), True)
         except xml.parsers.expat.ExpatError, inst:
             if not quiet:
                 report_on_msg("XML parsing: %s" % inst, _c_msg, _c_cat)

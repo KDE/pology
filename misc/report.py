@@ -189,7 +189,7 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     @type highlight: re.compile regular expression
     """
 
-    local_encoding=locale.getdefaultlocale()[1]
+    local_encoding=locale.getpreferredencoding()
     
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = tfmt % (cat.filename, msg.refline, msg.refentry)

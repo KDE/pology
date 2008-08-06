@@ -10,9 +10,13 @@ from pology.misc.report import error
 
 import sys, os
 from optparse import OptionParser
+import locale
 
 
 def main ():
+
+    locale.setlocale(locale.LC_ALL, "")
+
     # Setup options and parse the command line.
     usage = u"""
 %prog [options] POFILE...

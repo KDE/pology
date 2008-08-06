@@ -27,6 +27,9 @@ from pology.misc.report import error
 
 
 def main():
+
+    locale.setlocale(locale.LC_ALL, "")
+
     if len(sys.argv)!=2:
         usage()
     
@@ -64,7 +67,6 @@ def main():
     dictFile.close()
 
     # Sort the list according to current locale, ignoring case.
-    locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
     words.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
 
     # Write back the updated dictionary.

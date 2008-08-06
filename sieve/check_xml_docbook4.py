@@ -15,12 +15,10 @@ Docbook subset, and on a single PO entry level.
 import sys
 import os
 import re
+import locale
 import xml.parsers.expat
 from pology.misc.report import report_on_msg
 from pology import rootdir
-
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
 # ----------------------------------------
 # Informal Docbook specification.
@@ -100,7 +98,7 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
     p.StartElementHandler = _handler_start_element
 
     try:
-        p.Parse(text, True)
+        p.Parse(text.encode("UTF-8"), True)
     except xml.parsers.expat.ExpatError, inst:
         if not quiet:
             report_on_msg("Docbook parsing: %s" % inst, _c_msg, _c_cat)
