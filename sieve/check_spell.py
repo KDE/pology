@@ -180,6 +180,15 @@ class Sieve (object):
         if not self.suponly:
             self.suponly = cfgs.boolean("supplements-only", False)
 
+        # Split text into words in a simple way?
+        # NOTE: Temporary hack, remove when word splitting becomes smarter.
+        self.simsp = False
+        if "simsp" in options:
+            options.accept("simsp")
+            self.simsp = True
+        if not self.simsp:
+            self.simsp = cfgs.boolean("simple-split", False)
+
         # Language-dependent elements built along the way.
         self.aspells = {}
         self.ignoredContexts = {}
@@ -301,7 +310,11 @@ class Sieve (object):
                 msgstr = pfilter(msgstr)
 
             # Split text into words.
-            words = proper_words(msgstr, True, self.accel, msg.format)
+            if not self.simsp:
+                words=proper_words(msgstr, True, self.accel, msg.format)
+            else:
+                # NOTE: Temporary, remove when proper_words becomes smarter.
+                words=msgstr.split()
 
             # Possibly eliminate some words from checking.
             if self.skipRx:
