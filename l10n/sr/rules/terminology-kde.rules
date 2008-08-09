@@ -39,6 +39,7 @@ id="clipboard"
 hint="clipboard = клипборд"
 valid msgstr="\bклипборд"
 valid msgstr="clipboard[\w-]*;"
+valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
 {(?<!backup )\bcop(y|ied)(?!right)}i
 id="copy"
