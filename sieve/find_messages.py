@@ -12,6 +12,7 @@ Sieve options for matching:
   - C{msgctxt:<regex>}: regular expression to match against the C{msgctxt}
   - C{msgid:<regex>}: regular expression to match against the C{msgid}
   - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
+  - C{transl}: try to match only translated messages
 
 If more than one of the matching options are given (e.g. both C{msgid} and
 C{msgstr}), the message matches only if all of them match. In case of plural
@@ -108,6 +109,11 @@ class Sieve (object):
             freqs = options["filter"].split(",")
             self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
 
+        self.transl = False
+        if "transl" in options:
+            options.accept("transl")
+            self.transl = True
+
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.replace is None and not self.mark:
             self.caller_sync = False
@@ -129,6 +135,8 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if msg.obsolete:
+            return
+        if self.transl and not msg.translated:
             return
 
         match = True
