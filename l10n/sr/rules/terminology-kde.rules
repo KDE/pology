@@ -15,11 +15,24 @@ id="application"
 hint="application = програм"
 valid !msgstr="\bаплика[цт]"
 
+{\bbold}i
+id="bold"
+hint="bold = подебљан"
+valid msgstr="\bподебља"
+valid msgstr="bold[\w-]*;"
+
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
 valid msgstr="\bпрегледач"
 valid msgstr="browser[\w-]*;"
+
+{\bchat}i
+id="chat"
+hint="chat = ћаскати"
+valid msgstr="\bћаска[тњ]"
+valid msgstr="chat[\w-]*;"
+valid cat="timezones4" msgid="Chatham"
 
 {\bclipboard}i
 id="clipboard"
@@ -111,6 +124,13 @@ valid msgstr="icon[\w-]*;|\.icon"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
 
+{(?<!style:)\bitalic}i
+id="italic"
+hint="italic = курзиван"
+valid msgstr="\bкурзив"
+valid msgstr="italic[\w-]*;"
+valid cat="kfontinst" msgid="Old Italic"
+
 {\bJava}i
 id="java"
 hint="Java = јава"
@@ -137,6 +157,12 @@ hint="label = етикета"
 valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
+
+{\blog(ged|ging)?\b(?! ?(in|out)\b)}i
+id="log2"
+hint="log = бележити"
+valid msgstr="\b(за)?беле[жш]"
+valid msgstr="\bдневни[чк]"
 
 {\bmailing list}i
 id="mailinglist"
@@ -173,6 +199,12 @@ hint="paste = налепити"
 valid msgstr="\bналеп"
 valid cat="desktop_kdebase" msgid="paste history utility"
 
+{\bpattern}i
+id="pattern"
+hint="pattern = образац"
+valid msgstr="\bобра(зац|сц)"
+valid cat="desktop_kdebase" msgid="pattern="
+
 {\bplugin}i
 id="plugin"
 hint="plugin = прикључак"
@@ -186,6 +218,27 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 id="quit"
 hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
+
+{(?<!times in a )\brows?\b}i
+id="row"
+hint="row = врста"
+valid msgstr="\bврст"
+valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
+
+#! зезнут
+{\b(record|row)s?\b}i
+id="row_db"
+hint="record|row = врста"
+valid msgstr="\bврст"
+disabled
+
+{\bshell}i
+id="shell"
+hint="shell = шкољка"
+valid msgstr="\bшкољ[кц]"
+valid msgid="shell script" msgstr="скрипт"
+valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
+valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
 
 {\bstring}i
 id="string"

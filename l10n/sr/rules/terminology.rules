@@ -7,6 +7,11 @@ id="addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
+{\bcells?(?! ?phon)\b}i
+id="cell"
+hint="cell = ћелија"
+valid msgstr="\bћелиј"
+
 {\bcharacter}i
 id="character"
 hint="character = знак"
@@ -16,6 +21,18 @@ valid env="kde" !msgstr="\bзнац"
 {\bcharacter}i
 id="character2"
 hint="character = знаковни"
+disabled
+
+{\bcolumn}i
+id="column"
+hint="column = колона"
+valid msgstr="\bколон"
+valid cat="plasmaengineexplorer" msgstr="^све видљиве$"
+
+{\bcolumn}i
+id="column_page"
+hint="column = колона"
+valid msgstr="\bколона"
 disabled
 
 {\bcomputer}i
@@ -93,6 +110,14 @@ hint="label = ознака"
 valid msgstr="\bознак"
 valid msgstr="\bознач"
 
+{\blog\b(?! ?(in|out)\b)}i
+id="log"
+hint="log = дневник"
+valid msgstr="\bдневни[чк]"
+# наредни да би прошло до log2
+valid msgstr="\b(за)?беле[шж]"
+valid msgstr="\b(за)?пи(са|ше)"
+
 {\bnetwork}i
 id="network"
 hint="network = мрежа"
@@ -101,11 +126,18 @@ valid env="kde" msgstr="network[\w-]*;"
 valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
 valid cat="solid-network" msgid="solid-network"
 
-{\bviewer}i
+{\boblique}i
+id="oblique"
+hint="oblique = искошен"
+valid msgstr="\bискошен"
+valid env="kde" msgstr="oblique[\w-]*;"
+
+{\breader}i
 id="reader"
-hint="viewer = читач"
+hint="reader = читач"
 valid msgstr="\bчитач"
 valid msgstr="\bчита(лац|о[цч])"
+valid env="kde" msgstr="reader[\w-]*;"
 
 {\brename}i
 id="rename"
@@ -125,6 +157,19 @@ id="syntaxhighlighting"
 hint="syntax highlighting = истицање синтаксе"
 valid msgstr="\bистицањ\w+ синтакс"
 
+{(?<!<)(?<!</)\btable(?! of contents)}i
+id="table"
+hint="table = табела"
+valid msgstr="\bтабел"
+valid cat="desktop_kdebase" msgid="Rain on the Table"
+valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
+
+{\btemplate}i
+id="template"
+hint="template = шаблон"
+valid msgstr="\bшаблон"
+valid env="kde" msgstr="template[\w-]*;"
+
 {\bURL}i
 id="url"
 hint="URL = УРЛ"
@@ -139,6 +184,11 @@ valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}х�
 id="view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
+
+{\bwildcard}i
+id="wildcard"
+hint="wildcard = џокер"
+valid msgstr="\bџокер"
 
 {\bXML\b}i
 id="xml"
