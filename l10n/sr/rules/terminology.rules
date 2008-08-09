@@ -23,10 +23,16 @@ id="character2"
 hint="character = знаковни"
 disabled
 
+{\bcheck ?box}i
+id="checkbox"
+hint="checkbox|check box = кућица"
+valid msgstr="\bкућиц"
+
 {\bcolumn}i
 id="column"
 hint="column = колона"
 valid msgstr="\bколон"
+valid env="kde" msgstr="\bcolumn"
 valid cat="plasmaengineexplorer" msgstr="^све видљиве$"
 
 {\bcolumn}i
@@ -44,13 +50,16 @@ valid !msgstr="компјутер"
 id="cut"
 hint="cut = исећи"
 valid msgstr="\bисе[кцчћ]"
+valid env="kde" msgstr="\bcut"
 valid cat="klipper" msgid="cut\W*paste" msgstr="копи.{,9}налеп"
+valid cat="dolphin" msgid="ctrl.*\bc\b.*cut" msgstr="copy"
+valid cat="dolphin" msgid="provide short cuts"
 
 {\bdefault}i
 id="default"
 hint="default = подразумеван"
 valid msgstr="\bподразумева"
-valid env="kde" msgstr="default[\w-]*;"
+valid env="kde" msgstr="default"
 valid cat="kioclient" msgid="Mounts the CDROM"
 valid cat="konsole" msgid="DEFAULTENCODING"
 valid cat="kcmicons" msgid="^Default$" msgstr="основна"
@@ -61,6 +70,8 @@ valid cat="kcmlocale" msgid="this country or region" msgstr="локал\w+ ст�
 valid cat="kcmsmserver" msgid="after session exit by default"
 valid cat="kcmsmserver" msgid="happen by default when"
 valid cat="katepart4" msgid="<b>View Defaults</b>"
+valid cat="khelpcenter_contact,khelpcenter_help" msgid="default welcome page" msgstr="почетн\w+ стран\w+ добродошлиц"
+valid cat="dolphin" msgid="By default Dolphin sets bookmarks for;"
 
 {\bfolder}i
 id="directory"
@@ -82,8 +93,9 @@ disabled
 id="editor"
 hint="editor = уређивач"
 valid msgstr="\bуређива"
-valid env="kde" msgstr="editor[\w-]*;"
+valid env="kde" msgstr="editor"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
+valid cat="lokalize" msgid="the editors" msgstr="уредниц"
 
 {\bfile}i
 id="file"
@@ -122,7 +134,7 @@ valid msgstr="\b(за)?пи(са|ше)"
 id="network"
 hint="network = мрежа"
 valid msgstr="\bу?мреж"
-valid env="kde" msgstr="network[\w-]*;"
+valid env="kde" msgstr="network"
 valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
 valid cat="solid-network" msgid="solid-network"
 
@@ -130,27 +142,29 @@ valid cat="solid-network" msgid="solid-network"
 id="oblique"
 hint="oblique = искошен"
 valid msgstr="\bискошен"
-valid env="kde" msgstr="oblique[\w-]*;"
+valid env="kde" msgstr="oblique"
 
 {\breader}i
 id="reader"
 hint="reader = читач"
 valid msgstr="\bчитач"
 valid msgstr="\bчита(лац|о[цч])"
-valid env="kde" msgstr="reader[\w-]*;"
+valid env="kde" msgstr="reader"
 
 {\brename}i
 id="rename"
 hint="rename = преименовати"
 valid msgstr="\bпреимен"
+valid env="kde" msgstr="rename"
 valid cat="kcmkio" msgid="\.part"
+valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
 {\bsoftware}i
 id="software"
 hint="software = софтвер"
 valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
-valid env="kde" msgstr="software[\w-]*;"
+valid env="kde" msgstr="software"
 
 {\bsyntax\W?highlight}i
 id="syntaxhighlighting"
@@ -168,7 +182,7 @@ valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
 id="template"
 hint="template = шаблон"
 valid msgstr="\bшаблон"
-valid env="kde" msgstr="template[\w-]*;"
+valid env="kde" msgstr="template"
 
 {\bURL}i
 id="url"
@@ -179,11 +193,13 @@ valid msgid="url=" msgstr="url=|address="
 valid cat="kio_trash" msgid="'url'"
 valid cat="kioclient" msgid="'url'"
 valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}хипер"
+valid cat="khelpcenter_contact" msgid="url;"
 
 {^View$}
 id="view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
+valid env="kde" msgstr="View"
 
 {\bwildcard}i
 id="wildcard"

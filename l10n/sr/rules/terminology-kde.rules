@@ -8,7 +8,7 @@ environment kde
 id="applet"
 hint="applet = аплет"
 valid msgstr="\bаплет"
-valid msgstr="applet[\w-]*;"
+valid msgstr="applet"
 
 {\bapplication}i
 id="application"
@@ -19,33 +19,40 @@ valid !msgstr="\bаплика[цт]"
 id="bold"
 hint="bold = подебљан"
 valid msgstr="\bподебља"
-valid msgstr="bold[\w-]*;"
+valid msgstr="bold"
 
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
 valid msgstr="\bпрегледач"
-valid msgstr="browser[\w-]*;"
+valid msgstr="browser"
 
 {\bchat}i
 id="chat"
 hint="chat = ћаскати"
 valid msgstr="\bћаска[тњ]"
-valid msgstr="chat[\w-]*;"
+valid msgstr="chat"
 valid cat="timezones4" msgid="Chatham"
+
+{\bcheck ?box}i
+id="checkbox"
+hint="checkbox = кућица"
+valid msgstr="\bкућиц"
 
 {\bclipboard}i
 id="clipboard"
 hint="clipboard = клипборд"
 valid msgstr="\bклипборд"
-valid msgstr="clipboard[\w-]*;"
+valid msgstr="clipboard"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
 {(?<!backup )\bcop(y|ied)(?!right)}i
 id="copy"
 hint="copy = копирати"
 valid msgstr="\bкопи(ра|ј)"
+valid msgstr="\bcopy"
 valid cat="useraccount" msgid="Save copy.*for future" msgstr="Одложи за убудуће"
+valid cat="lokalize" msgid="copy; 20"
 
 {\bcopy}i
 id="copy_fs"
@@ -56,17 +63,20 @@ disabled
 id="driver"
 hint="driver = драјвер"
 valid msgstr="\bдрајвер"
+valid msgstr="driver"
 
 {(?<![%</])\bemail}i
 id="email"
 hint="email = е-пошта"
-valid msgstr="\bе-пошт"
+valid msgstr="\bе[‑-]пошт"
 valid ctx="^EMAIL OF TRANSLATORS$"
-valid msgstr="email[\w-]*;"
+valid msgstr="email"
 valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
 valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
 valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
 valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
+valid cat="sonnet" msgid="accept email-style" msgstr="из нужде"
+valid cat="khelpcenter_contact" msgid="email list"
 
 {\bplugin}i
 id="extension"
@@ -77,19 +87,19 @@ disabled
 id="file"
 hint="file = фајл"
 valid !msgstr="\bдатоте"
+valid msgstr="\bfile"
 
 {\bfile[ -]?system(?! browser)}i
 id="filesystem"
 hint="filesystem|file system = фајл систем"
 valid msgstr="\bфајл систем"
+valid cat="dolphin" msgid="files in a filesystem"
 
 {\bfonts?\b}i
 id="font"
 hint="font = фонт"
 valid msgstr="\bфонт"
-valid msgstr="font[\w-]*;"
-valid msgid="<font"
-valid msgid="<[^>]*font(=|-\w+)"
+valid msgstr="font"
 valid cat="plasma_applet_notes" msgid="^Set font size automatically$"
 valid cat="kdelibs4" msgid="^Font style:$"
 valid cat="khelpcenter" msgid="^Font size adjustment:$"
@@ -121,7 +131,7 @@ disabled
 id="icon"
 hint="icon = икона"
 valid msgstr="\bикон" !msgstr="\bикони[цч]"
-valid msgstr="icon[\w-]*;|\.icon"
+valid msgstr="icon"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
 
@@ -129,13 +139,13 @@ valid cat="kcminput" msgid="icons on first click"
 id="italic"
 hint="italic = курзиван"
 valid msgstr="\bкурзив"
-valid msgstr="italic[\w-]*;"
+valid msgstr="italic"
 valid cat="kfontinst" msgid="Old Italic"
 
 {\bJava}i
 id="java"
 hint="Java = јава"
-valid msgstr="java[\w-]*;"
+valid msgstr="java"
 valid cat="desktop_kdelibs" msgid="Javanese"
 valid cat="kcmkonqhtml" msgid="Java(Script)? policy"
 
@@ -147,7 +157,7 @@ disabled
 {\bKonqueror}i
 id="konqueror"
 hint="Konqueror = К-освајач"
-valid msgstr="konqueror[\w-]*;|konqueror[./]"
+valid msgstr="konqueror"
 valid cat="kcmkonqhtml" msgstr="<html|<qt"
 valid cat="konqueror" msgstr="<img"
 valid cat="kdmconfig" msgstr="dolphin[\w-]*;"
@@ -162,6 +172,7 @@ valid cat="kcmsamba" msgid="Mounted under"
 {\blog(ged|ging)?\b(?! ?(in|out)\b)}i
 id="log2"
 hint="log = бележити"
+valid msgstr="\blog"
 valid msgstr="\b(за)?беле[жш]"
 valid msgstr="\bдневни[чк]"
 
@@ -175,14 +186,15 @@ id="manager"
 hint="manager = менаџер"
 valid msgstr="\bменаџер"
 valid msgstr="\bуправ" !msgstr="\bуправ(љач|ник)"
-valid msgstr="manager[\w-]*;"
+valid msgstr="manager"
 valid cat="filetypes" msgid="Konqueror file manager"
+valid cat="dolphin" msgid="default file manager for the virtual" msgstr="подразумев.*отвара\w+ виртуел"
 
 {\bonline}i
 id="online"
 hint="online = на вези"
 valid msgstr="\bна вези"
-valid msgstr="online[\w-]*;"
+valid msgstr="online"
 
 {\bonline}i
 id="online2"
@@ -198,18 +210,21 @@ disabled
 id="paste"
 hint="paste = налепити"
 valid msgstr="\bналеп"
+valid msgstr="\bpaste"
 valid cat="desktop_kdebase" msgid="paste history utility"
 
 {\bpattern}i
 id="pattern"
 hint="pattern = образац"
 valid msgstr="\bобра(зац|сц)"
+valid msgstr="pattern"
 valid cat="desktop_kdebase" msgid="pattern="
 
 {\bplugin}i
 id="plugin"
 hint="plugin = прикључак"
 valid msgstr="\bприкључ[акц]"
+valid msgstr="plugin"
 valid cat="phonon_gstreamer,kdeqt" msgid="-plugin" msgstr="-plugin"
 valid cat="ktraderclient" msgid="KMyApp/Plugin"
 valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
@@ -219,6 +234,7 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 id="quit"
 hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
+valid msgstr="quit"
 
 {(?<!times in a )\brows?\b}i
 id="row"
@@ -233,10 +249,29 @@ hint="record|row = врста"
 valid msgstr="\bврст"
 disabled
 
+# о-рук
+{\bsetting}i
+id="setting"
+hint="setting = поставка"
+valid msgid="^settings$" msgstr="^подешавање$"
+valid msgstr="setting"
+valid msgstr="\bпостав(к|љ|ит)"
+valid msgstr="->подешавање"
+valid msgstr="подешавање->"
+valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
+valid cat="kio_smtp,kio_pop3" msgid="crypto settings module" msgstr="модул\w* за шифровање"
+valid cat="kdelibs4" msgid="original color setting"
+valid cat="kdelibs4" msgid="setting if you want this entry" msgstr="опциј"
+valid cat="krandr" msgid="^Apply settings on KDE startup$" msgstr="^Примени при покретању"
+valid cat="katepart4" msgid="setting for the default editing" msgstr="задату подразумевану уређивачку"
+valid cat="konqueror" msgid="Full-Screen Mode.*in the Settings menu" msgstr="у менију.*Прозор"
+valid cat="kcmkonqhtml,kcmkio" msgid="default policy setting" msgstr="подразумеван\w+ смерниц"
+
 {\bshell}i
 id="shell"
 hint="shell = шкољка"
 valid msgstr="\bшкољ[кц]"
+valid msgstr="shell"
 valid msgid="shell script" msgstr="скрипт"
 valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
 valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
@@ -250,11 +285,13 @@ valid !msgstr="знаков\w* низ|низ знаков|слов\w* низ"
 id="thumbnail"
 hint="thumbnail = сличица"
 valid msgstr="\bсличиц"
+valid msgstr="thumbnail"
 
 {\btoolbar}i
 id="toolbar"
 hint="toolbar = трака алатки"
 valid msgstr="\bтра[цк]" !msgstr="\bалат[аеиоу]"
+valid env="kde" msgstr="toolbar"
 valid cat="kdelibs4" msgid="^Show text on toolbar icons *$"
 valid cat="kdelibs4" msgid="^Highlight toolbar buttons on mouse over$"
 valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
@@ -264,17 +301,27 @@ id="viewer"
 hint="viewer = приказивач"
 valid msgstr="\bприказивач"
 valid msgstr="viewer[\w-]*;"
-valid cat="desktop_kdelibs" msgid="text editor.*text viewer and editor"
+valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
+valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
+
+{\bwidget}i
+id="widget"
+hint="widget = виџет"
+valid msgstr="\bвиџет"
+valid msgstr="widget[\w-]*;"
+valid cat="desktop_kdebase" msgid="dashboard widget" msgstr="инструмент-табл"
+valid cat="kcmkwm" msgid="popup widget" msgstr="искачућ\w+ спис"
 
 {\bwizard}i
 id="wizard"
 hint="wizard = чаробњак"
 valid msgstr="\bчаробњак"
+valid msgstr="\bwizard"
 
 {(?<!\.)\bXML\b}i
 id="xml"
 hint="XML = ИксМЛ"
-valid msgstr="xml[\w-]*;"
+valid msgstr="xml"
 
 {\bYahoo}i
 id="yahoo"
@@ -286,5 +333,6 @@ valid cat="desktop_kdebase" msgid="yahoo%" msgstr="yahoo%"
 id="zoom"
 hint="zoom = увеличати"
 valid msgstr="\bувелича"
+valid msgstr="zoom"
 
 # End of rules
