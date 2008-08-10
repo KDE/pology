@@ -60,7 +60,7 @@ The following user configuration fields are considered:
 
 from pology.misc.colors import RED, RESET
 from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
-from pology.misc.report import spell_error, spell_xml_error, error
+from pology.misc.report import spell_error, spell_xml_error, report, warning, error
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
@@ -142,7 +142,7 @@ class Sieve (object):
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
             else:
-                print "Cannot open %s file. XML output disabled" % xmlPath
+                warning("Cannot open %s file. XML output disabled" % xmlPath)
 
         # Remove accelerators?
         self.accel_explicit = False
@@ -277,7 +277,6 @@ class Sieve (object):
         # Close previous/open new XML section.
         if self.xmlFile:
             filename = os.path.basename(cat.filename)
-            #print "(Processing %s)" % filename # better not contaminate stdout?
             # Close previous PO.
             if self.filename != "":
                 self.xmlFile.write("</po>\n")
@@ -331,14 +330,15 @@ class Sieve (object):
                             if word not in self.list:
                                 self.list.append(word)
                         else:
-                            suggestions=self.aspell.suggest(encodedWord)
+                            encodedSuggestions=self.aspell.suggest(encodedWord)
+                            suggestions=[i.decode(self.encoding) for i in encodedSuggestions]
                             if self.xmlFile:
                                 xmlError=spell_xml_error(msg, cat, word, suggestions, id)
                                 self.xmlFile.writelines(xmlError)
                             else:
-                                spell_error(msg, cat, word, [i.encode(self.encoding) for i in suggestions])
+                                spell_error(msg, cat, word, suggestions)
                     except UnicodeEncodeError:
-                        print "Cannot encode this word in your codec (%s)" % self.encoding
+                        warning("Cannot encode this word in your codec (%s)" % self.encoding)
             id+=1 # Increase msgstr id count
 
 
@@ -349,15 +349,14 @@ class Sieve (object):
                 os.unlink(tmpDictFile)
 
         if self.list is not None:
-            enc=locale.getpreferredencoding()
-            slist=[i.decode(enc) for i in self.list]
-            slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+            slist = self.list
             if slist:
-                print "\n".join(slist)
+                slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+                report("\n".join(slist))
         else:
             if self.nmatch:
-                print "----------------------------------------------------"
-                print "Total matching: %d" % self.nmatch
+                report("-"*40)
+                report("Total matching: %d" % self.nmatch)
         if self.xmlFile:
             self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")

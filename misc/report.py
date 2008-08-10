@@ -15,9 +15,29 @@ import pology.misc.colors as C
 from copy import deepcopy
 
 
+def encwrite (file, text):
+    """
+    Write unicode text to file using best encoding guess.
+
+    If the file has been opened with explicit encoding, that encoding is used.
+    Otherwise a guess is made based on the environment locale.
+
+    @param file: file to write to
+    @type file: C{file}
+    @param text: text to write
+    @type text: string or unicode
+    """
+
+    enc = file.encoding or locale.getpreferredencoding()
+    text = text.encode(enc, "replace")
+    file.write(text)
+
+
 def report (text, showcmd=False, subsrc=None, file=sys.stdout):
     """
     Generic report.
+
+    Text is output to the file descriptor, with one newline appended.
 
     @param text: text to report
     @type text: string
@@ -34,13 +54,13 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout):
         cmdname = os.path.basename(sys.argv[0])
 
     if cmdname and subsrc:
-        file.write("%s: (%s) %s\n" % (cmdname, subsrc, text))
+        encwrite(file, "%s: (%s) %s\n" % (cmdname, subsrc, text))
     elif cmdname:
-        file.write("%s: %s\n" % (cmdname, text))
+        encwrite(file, "%s: %s\n" % (cmdname, text))
     elif subsrc:
-        file.write("(%s) %s\n" % (subsrc, text))
+        encwrite(file, "(%s) %s\n" % (subsrc, text))
     else:
-        file.write("%s\n" % text)
+        encwrite(file, "%s\n" % text)
 
 
 def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
@@ -189,8 +209,6 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
     @type highlight: re.compile regular expression
     """
 
-    local_encoding=locale.getpreferredencoding()
-    
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = tfmt % (cat.filename, msg.refline, msg.refentry)
     text += msg.to_string(force=force).rstrip() + "\n"
@@ -204,8 +222,7 @@ def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
             offset+=len(C.RED)+len(C.RESET)
     if delim:
         text += delim + "\n"
-    text=text.encode(local_encoding, "replace")
-    file.write(text)
+    report(text.rstrip(), file=file)
 
 
 def rule_error(msg, cat, rule, pluralId=0):
@@ -269,15 +286,14 @@ def spell_error(msg, cat, faultyWord, suggestions):
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest"""
     C = _colors_for_file(sys.stdout)
-    print "-"*40
-    print C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET
+    report("-"*40)
+    report(C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET)
     if msg.msgctxt:
-        print C.BOLD+"Context: "+C.RESET+msg.msgctxt
+        report(C.BOLD+"Context: "+C.RESET+msg.msgctxt)
     #TODO: color in red part of context that make the mistake
-    print C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET
+    report(C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET)
     if suggestions:
-        print C.BOLD+"Suggestion(s): "+C.RESET+", ".join(suggestions) 
-    print
+        report(C.BOLD+"Suggestions: "+C.RESET+", ".join(suggestions))
     
 def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     """Create and returns spell error message in XML format
