@@ -46,6 +46,15 @@ id="computer"
 hint="computer = рачунар"
 valid !msgstr="компјутер"
 
+{\bconfigured?}i
+id="configure"
+hint="configure = подесити"
+valid msgid="configured?( *\S+){,2} settings"
+valid msgstr="\bподе[сш]"
+valid env="kde" msgstr="\bзада[вјлот]"
+valid env="kde" msgstr="configure"
+valid cat="kate" msgid="configured\s*for the document type"
+
 {\bcut}i
 id="cut"
 hint="cut = исећи"

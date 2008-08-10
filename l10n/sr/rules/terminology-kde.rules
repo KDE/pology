@@ -46,6 +46,23 @@ valid msgstr="\bклипборд"
 valid msgstr="clipboard"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
+{\bconfiguration(?! file)}i
+id="configuration"
+hint="configuration = постава"
+valid msgstr="\bпостав[аеиоу]"
+valid msgstr="\bподеш(ава|ен)"
+valid msgstr="\bподесит"
+# дозвољено увек у контексту употребити ‘поставке’
+valid msgstr="\bпоставк"
+valid msgstr="config"
+valid msgid="configuration module" msgstr="контролн\w+ модул"
+valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
+
+{\bconfiguration file}i
+id="configurationfile"
+hint="configuration file = поставни фајл"
+valid msgstr="\bпоставн\w+ фајл"
+
 {(?<!backup )\bcop(y|ied)(?!right)}i
 id="copy"
 hint="copy = копирати"
