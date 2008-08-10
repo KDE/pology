@@ -76,6 +76,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.report-module.html#encwrite" class="summary-sig-name">encwrite</a>(<span class="summary-sig-arg">file</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Write unicode text to file using best encoding guess.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report" class="summary-sig-name">report</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
@@ -309,6 +327,33 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="encwrite"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">encwrite</span>(<span class="sig-arg">file</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Write unicode text to file using best encoding guess.</p>
+  <p>If the file has been opened with explicit encoding, that encoding is 
+  used. Otherwise a guess is made based on the environment locale.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - file to write to</li>
+        <li><strong class="pname"><code>text</code></strong> (string or unicode) - text to write</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="report"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -327,6 +372,7 @@
   </tr></table>
   
   <p>Generic report.</p>
+  <p>Text is output to the file descriptor, with one newline appended.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">

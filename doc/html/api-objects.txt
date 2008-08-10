@@ -148,6 +148,7 @@ pology.misc.report.warning_on_msg	pology.misc.report-module.html#warning_on_msg
 pology.misc.report._colors_for_file	pology.misc.report-module.html#_colors_for_file
 pology.misc.report.report	pology.misc.report-module.html#report
 pology.misc.report._msg_ref_fmtstr	pology.misc.report-module.html#_msg_ref_fmtstr
+pology.misc.report.encwrite	pology.misc.report-module.html#encwrite
 pology.misc.report.spell_xml_error	pology.misc.report-module.html#spell_xml_error
 pology.misc.report.rule_error	pology.misc.report-module.html#rule_error
 pology.misc.report.error	pology.misc.report-module.html#error
@@ -224,8 +225,8 @@ pology.misc.wrap._tag_split_rx	pology.misc.wrap-module.html#_tag_split_rx
 pology.misc.wrap.wrap_text	pology.misc.wrap-module.html#wrap_text
 pology.scripts	pology.scripts-module.html
 pology.scripts.create_rules_from_koffice_autocorrect	pology.scripts.create_rules_from_koffice_autocorrect-module.html
-pology.scripts.create_rules_from_koffice_autocorrect.main	pology.scripts.create_rules_from_koffice_autocorrect-module.html#main
 pology.scripts.create_rules_from_koffice_autocorrect.usage	pology.scripts.create_rules_from_koffice_autocorrect-module.html#usage
+pology.scripts.create_rules_from_koffice_autocorrect.main	pology.scripts.create_rules_from_koffice_autocorrect-module.html#main
 pology.scripts.fallback_import_paths	pology.scripts.fallback_import_paths-module.html
 pology.scripts.fallback_import_paths.pologypath	pology.scripts.fallback_import_paths-module.html#pologypath
 pology.scripts.organizeDict	pology.scripts.organizeDict-module.html
@@ -350,7 +351,6 @@ pology.sieve.check_grammar	pology.sieve.check_grammar-module.html
 pology.sieve.check_grammar.warning_on_msg	pology.misc.report-module.html#warning_on_msg
 pology.sieve.check_grammar.REQUEST	pology.sieve.check_grammar-module.html#REQUEST
 pology.sieve.check_rules	pology.sieve.check_rules-module.html
-pology.sieve.check_rules.encoding	pology.sieve.check_rules-module.html#encoding
 pology.sieve.check_rules.CACHEDIR	pology.sieve.check_rules-module.html#CACHEDIR
 pology.sieve.check_rules.rule_xml_error	pology.misc.report-module.html#rule_xml_error
 pology.sieve.check_rules.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
@@ -361,11 +361,13 @@ pology.sieve.check_rules.rule_error	pology.misc.report-module.html#rule_error
 pology.sieve.check_rules.error	pology.misc.report-module.html#error
 pology.sieve.check_spell	pology.sieve.check_spell-module.html
 pology.sieve.check_spell.proper_words	pology.misc.split-module.html#proper_words
+pology.sieve.check_spell.warning	pology.misc.report-module.html#warning
 pology.sieve.check_spell.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.check_spell.spell_error	pology.misc.report-module.html#spell_error
 pology.sieve.check_spell.spell_xml_error	pology.misc.report-module.html#spell_xml_error
 pology.sieve.check_spell.rootdir	pology-module.html#rootdir
 pology.sieve.check_spell._read_dict_file	pology.sieve.check_spell-module.html#_read_dict_file
+pology.sieve.check_spell.report	pology.misc.report-module.html#report
 pology.sieve.check_spell.error	pology.misc.report-module.html#error
 pology.sieve.check_xml_docbook4	pology.sieve.check_xml_docbook4-module.html
 pology.sieve.check_xml_docbook4.report_on_msg	pology.misc.report-module.html#report_on_msg
@@ -442,7 +444,6 @@ pology.sieve.find_messages._flag_mark	pology.sieve.find_messages-module.html#_fl
 pology.sieve.find_messages.report_msg_content	pology.misc.report-module.html#report_msg_content
 pology.sieve.find_messages.error	pology.misc.report-module.html#error
 pology.sieve.generate_xml	pology.sieve.generate_xml-module.html
-pology.sieve.generate_xml.encoding	pology.sieve.generate_xml-module.html#encoding
 pology.sieve.generate_xml.loadRules	pology.misc.rules-module.html#loadRules
 pology.sieve.normctx_ooo	pology.sieve.normctx_ooo-module.html
 pology.sieve.normctx_ooo.warning_on_msg	pology.misc.report-module.html#warning_on_msg
