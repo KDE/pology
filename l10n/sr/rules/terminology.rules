@@ -180,6 +180,17 @@ id="syntaxhighlighting"
 hint="syntax highlighting = истицање синтаксе"
 valid msgstr="\bистицањ\w+ синтакс"
 
+{\btabs?\b}i
+id="tab"
+hint="tab = језичак"
+valid msgstr="\bјезич[акц]|\bтабулатор"
+valid msgid="press tab|tab key|alt\W*tab"
+valid env="kde" msgstr="\btabs?\b"
+valid cat="konsole" msgid="^Tab title format:$" msgstr="^Формат наслова:$"
+valid cat="konsole" msgid="^Remote tab title format:$" msgstr="^Формат удаљеног наслова:$"
+valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
+valid cat="konsole" msgid="^Tab bar position:$" msgstr="^Положај:$"
+
 {(?<!<)(?<!</)\btable(?! of contents)}i
 id="table"
 hint="table = табела"

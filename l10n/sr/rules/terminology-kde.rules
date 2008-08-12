@@ -21,6 +21,12 @@ hint="bold = подебљан"
 valid msgstr="\bподебља"
 valid msgstr="bold"
 
+{\bbookmark}i
+id="bookmark"
+hint="bookmark = маркер"
+valid msgstr="\bмарк[ие]р"
+valid msgstr="bookmark"
+
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
@@ -252,6 +258,14 @@ id="quit"
 hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
 valid msgstr="quit"
+
+{\breset}i
+id="reset"
+hint="reset = ресетовати"
+valid msgstr="\bресет(ов|уј|\b)"
+valid msgstr="\bвра(ти|ће).*подразумев"
+valid msgstr="\breset"
+valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 
 {(?<!times in a )\brows?\b}i
 id="row"
