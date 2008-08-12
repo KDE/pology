@@ -138,6 +138,8 @@ valid cat="kfontinst" msgid="Abort font scan"
 valid cat="kfontinst" msgid="duplicate fonts found"
 valid cat="kfontinst" msgid="Scanning for duplicate fonts"
 valid cat="kfontinst" msgid="fonts\.\w"
+# глупави угњеждени стилови
+valid msgid="font-\w+:"
 
 {\bGCC}
 id="gcc"
@@ -342,7 +344,7 @@ valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
 {\bviewer}i
 id="viewer"
 hint="viewer = приказивач"
-valid msgstr="\bприказивач"
+valid msgstr="\bприказива[чњ]"
 valid msgstr="viewer[\w-]*;"
 valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
 valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
