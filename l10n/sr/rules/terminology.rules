@@ -168,6 +168,12 @@ valid env="kde" msgstr="rename"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
+{\bshortcut}i
+id="shortcut"
+hint="shortcut = пречица"
+valid msgstr="\bпречиц"
+valid env="kde" msgstr="shortcut"
+
 {\bsoftware}i
 id="software"
 hint="software = софтвер"

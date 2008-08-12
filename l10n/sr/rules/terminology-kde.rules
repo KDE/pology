@@ -33,6 +33,12 @@ hint="browser = прегледач"
 valid msgstr="\bпрегледач"
 valid msgstr="browser"
 
+{\bcache}i
+id="cache"
+hint="cache = кеш"
+valid msgstr="\bкеш"
+valid msgstr="cache"
+
 {\bchat}i
 id="chat"
 hint="chat = ћаскати"
@@ -311,6 +317,12 @@ valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
 id="string"
 hint="string = ниска"
 valid !msgstr="знаков\w* низ|низ знаков|слов\w* низ"
+
+{\bsystem tray}i
+id="systemtray"
+hint="system tray = системска касета"
+valid msgstr="\bсистемск\w+ касет"
+valid msgstr="system\W?tray"
 
 {\bthumbnail}i
 id="thumbnail"
