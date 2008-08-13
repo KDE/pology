@@ -308,4 +308,8 @@ hint="Le choix de l'équipe est « courrier électronique » ou « courriel » q
 valid before=" électronique"
 hint="Utilisez l'expression « courrier électronique » ou tout simplement « courriel » quand il n'y a pas la place"
 
+[surnom]i
+valid !msgid="nick"
+hint="Traduire « nick » ou « nickname » par « pseudo »"
+
 # End of rule file
