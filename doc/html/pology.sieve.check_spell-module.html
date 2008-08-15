@@ -123,6 +123,23 @@
   subdirectories below it. The defaul dictionary can be avoided 
   alltogether, and only supplementary used instead, by giving the 
   <code>suponly</code> option.</p>
+  <p>It is possible to selectively disable spell checking for a message, or
+  certain words within a message, by adding a special manual comment. The 
+  whole message is skipped by the no-sieve flag 
+  <code>no-check-spell</code>:</p>
+<pre class="literalblock">
+   # |, no-check-spell
+</pre>
+  <p>and only some words within the message by listing them in 
+  <code>well-spelled:</code> embedded list:</p>
+<pre class="literalblock">
+   # well-spelled: word1, word2, ...
+</pre>
+  <p>Which of these two methods to use depends on the nature of the message
+  and specifics of spelling checks for given language/environment. For 
+  example, if most of the message consists of valid words, but there are 
+  only one or two which are special in some way, it is probably better to 
+  list them explicitly, so that all other words are checked.</p>
   <p>The following user configuration fields are considered:</p>
   <ul>
     <li>
@@ -161,6 +178,22 @@
     </td><td class="summary">
         <a href="pology.sieve.check_spell.Sieve-class.html" class="summary-name">Sieve</a><br />
       Process messages through the Aspell spell checker
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="flag_no_check_spell"></a><span class="summary-name">flag_no_check_spell</span> = <code title="'no-check-spell'"><code class="variable-quote">'</code><code class="variable-string">no-check-spell</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
