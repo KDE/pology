@@ -383,6 +383,7 @@ valid before="sMarkup" # D-Bus call
 valid after="http://\S+"
 valid after="in"
 valid after="Cpp"
+valid after="kdev\S+"
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [text(?![e|uel|\-])]i

@@ -312,4 +312,8 @@ hint="Utilisez l'expression « courrier électronique » ou tout simplement « c
 valid !msgid="nick"
 hint="Traduire « nick » ou « nickname » par « pseudo »"
 
+{deprecated}i
+valid msgstr="déconseillé"
+hint="Traduire « deprecated » par « déconseillé »"
+
 # End of rule file
