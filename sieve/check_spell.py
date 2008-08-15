@@ -48,6 +48,23 @@ subdirectories below it.
 The defaul dictionary can be avoided alltogether, and only supplementary
 used instead, by giving the C{suponly} option.
 
+It is possible to selectively disable spell checking for a message,
+or certain words within a message, by adding a special manual comment.
+The whole message is skipped by the no-sieve flag C{no-check-spell}::
+
+    # |, no-check-spell
+
+and only some words within the message by listing them in C{well-spelled:}
+embedded list::
+
+    # well-spelled: word1, word2, ...
+
+Which of these two methods to use depends on the nature of the message and
+specifics of spelling checks for given language/environment.
+For example, if most of the message consists of valid words, but there are
+only one or two which are special in some way, it is probably better to
+list them explicitly, so that all other words are checked.
+
 The following user configuration fields are considered:
   - C{[aspell]/language}: language of the Aspell dictionary
   - C{[aspell]/encoding}: encoding for text sent to Aspell
@@ -65,11 +82,15 @@ from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
 from pology.misc.langdep import get_filter_lreq
+from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, isdir, join
 from codecs import open
 from time import strftime
 import locale
+
+
+flag_no_check_spell = "no-check-spell"
 
 
 class Sieve (object):
@@ -304,6 +325,10 @@ class Sieve (object):
             if skip:
                 break
 
+            # Skip message if explicitly requested.
+            if flag_no_check_spell in manc_parse_flag_list(msg, "|"):
+                continue
+
             # Apply precheck filters.
             for pfilter in self.pfilters:
                 msgstr = pfilter(msgstr)
@@ -315,9 +340,13 @@ class Sieve (object):
                 # NOTE: Temporary, remove when proper_words becomes smarter.
                 words=msgstr.split()
 
-            # Possibly eliminate some words from checking.
+            # Eliminate from checking words matching the skip regex.
             if self.skipRx:
                 words = [x for x in words if not self.skipRx.search(x)]
+
+            # Eliminate from checking words explicitly listed as good.
+            locally_ignored = manc_parse_list(msg, "well-spelled:", ",")
+            words = [x for x in words if x not in locally_ignored]
 
             for word in words:
                 # Encode word for Aspell.
