@@ -106,10 +106,29 @@ valid env="kde" msgstr="editor"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 valid cat="lokalize" msgid="the editors" msgstr="уредниц"
 
+{(?<![%</])\bemail}i
+id="email"
+hint="email = е-пошта"
+valid msgstr="\bе[‑-]пошт"
+valid env="kde" ctx="^EMAIL OF TRANSLATORS$"
+valid env="kde" msgstr="email"
+valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
+valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
+valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
+valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
+valid cat="sonnet" msgid="accept email-style" msgstr="из нужде"
+valid cat="khelpcenter_contact" msgid="email list"
+
 {\bfile}i
 id="file"
 hint="file = датотека"
 valid !msgstr="\bфајл"
+
+{\bfooter}i
+id="footer"
+hint="footer = подножје"
+valid msgstr="\bподнож[јн]"
+valid env="kde" msgstr="footer"
 
 {\bhardware}i
 id="hardware"
@@ -117,6 +136,30 @@ hint="hardware = хардвер"
 valid msgstr="\bхардвер"
 valid cat="kcminfo" msgstr="подсист.{,9}рачунар"
 valid cat="solid-hardware" msgstr="solid-hardware"
+
+{\bheader}i
+id="header"
+hint="header = заглавље"
+valid msgstr="\bзаглав[љн]"
+valid env="kde" msgstr="header"
+
+{\bheader}i
+id="header2"
+hint="header = заглавље"
+valid msgstr="\bзаглавље"
+disabled
+
+{\bheader}i
+id="header3"
+hint="header = заглавље"
+valid msgstr="\bзаглавље"
+disabled
+
+{\bheader}i
+id="header4"
+hint="header = заглавље"
+valid msgstr="\bзаглавље"
+disabled
 
 {\bhighlight}i
 id="highlight"
@@ -138,6 +181,38 @@ valid msgstr="\bдневни[чк]"
 # наредни да би прошло до log2
 valid msgstr="\b(за)?беле[шж]"
 valid msgstr="\b(за)?пи(са|ше)"
+
+{\blog(s|ged|ging)? ?(in|on)\b}i
+id="login"
+hint="log in = пријавити (се)"
+valid msgstr="\bпријав[аеиоунљ]"
+valid env="kde" msgstr="\blog ?in\b"
+valid env="kde" msgstr="\bсамопријав"
+valid cat="ksysguard" msgid="shell to login to the remote host" msgstr="веза са удаљеним домаћином преко"
+
+{\blogin}i
+id="login2"
+hint="login = пријавни"
+valid msgstr="\bпријавни"
+disabled
+
+{\blogin screen}i
+id="loginscreen"
+hint="login screen = пријавни екран"
+valid msgstr="\bпријавн\w+ екран"
+
+{\blog(s|ged|ging)? ?(out|off)\b}i
+id="logout"
+hint="log out = одјавити (се)"
+valid msgstr="\bодјав[аеиоунљ]"
+valid env="kde" msgstr="log ?(out|off)\b"
+valid cat="kcmlocale" msgid="you will have to logout first" msgstr="пошто се следећи пут пријавите"
+
+{\blogout}i
+id="logout2"
+hint="logout = одјавни"
+valid msgstr="\bодјавни"
+disabled
 
 {\bnetwork}i
 id="network"

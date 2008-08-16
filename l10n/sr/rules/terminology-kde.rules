@@ -88,24 +88,16 @@ id="copy_fs"
 hint="copy = копирати"
 disabled
 
+{\b(log\W?in|display) manager}i
+id="displaymanager"
+hint="login manager = менаџер пријављивања"
+valid msgstr="\bменаџер\w* пријављивања"
+
 {\bdriver}i
 id="driver"
 hint="driver = драјвер"
 valid msgstr="\bдрајвер"
 valid msgstr="driver"
-
-{(?<![%</])\bemail}i
-id="email"
-hint="email = е-пошта"
-valid msgstr="\bе[‑-]пошт"
-valid ctx="^EMAIL OF TRANSLATORS$"
-valid msgstr="email"
-valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
-valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
-valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
-valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
-valid cat="sonnet" msgid="accept email-style" msgstr="из нужде"
-valid cat="khelpcenter_contact" msgid="email list"
 
 {\bplugin}i
 id="extension"
@@ -157,6 +149,11 @@ valid msgstr="gnu[\w-]*;|\.gnu"
 id="gnu_p"
 hint="GNU = Гнуов"
 disabled
+
+{\bheader file}i
+id="headerfile"
+hint="header file = фајл заглавља"
+valid msgstr="\bфајл\w*( \S+)? заглавља"
 
 {\bicon}i
 id="icon"
