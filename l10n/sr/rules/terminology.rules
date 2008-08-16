@@ -38,7 +38,6 @@ valid cat="plasmaengineexplorer" msgstr="^све видљиве$"
 {\bcolumn}i
 id="column_page"
 hint="column = колона"
-valid msgstr="\bколона"
 disabled
 
 {\bcomputer}i
@@ -146,19 +145,16 @@ valid env="kde" msgstr="header"
 {\bheader}i
 id="header2"
 hint="header = заглавље"
-valid msgstr="\bзаглавље"
 disabled
 
 {\bheader}i
 id="header3"
 hint="header = заглавље"
-valid msgstr="\bзаглавље"
 disabled
 
 {\bheader}i
 id="header4"
 hint="header = заглавље"
-valid msgstr="\bзаглавље"
 disabled
 
 {\bhighlight}i
@@ -193,7 +189,6 @@ valid cat="ksysguard" msgid="shell to login to the remote host" msgstr="веза
 {\blogin}i
 id="login2"
 hint="login = пријавни"
-valid msgstr="\bпријавни"
 disabled
 
 {\blogin screen}i
@@ -211,7 +206,6 @@ valid cat="kcmlocale" msgid="you will have to logout first" msgstr="пошто �
 {\blogout}i
 id="logout2"
 hint="logout = одјавни"
-valid msgstr="\bодјавни"
 disabled
 
 {\bnetwork}i
