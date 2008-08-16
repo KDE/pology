@@ -136,15 +136,17 @@ class Sieve (object):
             print "No rule loaded. Exiting"
             sys.exit(1)
 
+        ntot=len(self.rules)
         ndis=len([x for x in self.rules if x.disabled])
+        nact=ntot-ndis
         if ndis and self.env:
-            print "Loaded %s rules [%s] (%d disabled)" % (len(self.rules), self.env, ndis)
+            print "Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
         elif ndis:
-            print "Loaded %s rules (%d disabled)" % (len(self.rules), ndis)
+            print "Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis)
         elif self.env:
-            print "Loaded %s rules [%s]" % (len(self.rules), self.env)
+            print "Loaded %s rules [%s]" % (ntot, self.env)
         else:
-            print "Loaded %s rules" % (len(self.rules))
+            print "Loaded %s rules" % (ntot)
 
         if selectedRules:
             print "(explicitly selected: %s)" % ", ".join(selectedRules)
