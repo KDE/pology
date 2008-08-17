@@ -19,6 +19,11 @@ C{msgstr}), the message matches only if all of them match. In case of plural
 messages, C{msgid} is considered matched if either C{msgid} or C{msgid_plural}
 fields match, and C{msgstr} if any of the C{msgstr} fields match.
 
+Every matching option has a counterpart with prepended C{n*},
+by which the meaning of the match is inverted; for example, if both
+C{msgid:foo} and C{nmsgid:bar} are given, then the message matches
+if its C{msgid} contains C{foo} but does not contain C{bar}.
+
 Sieve options for replacement:
   - C{replace:<string>}: string to replace matched part of translation
 
@@ -80,21 +85,30 @@ class Sieve (object):
         else:
             self.rxflags |= re.I
 
-        self.fields = []
-        self.regexs = []
+        self.field_matches = []
+        has_msgstr_match = False
         for field in ("msgctxt", "msgid", "msgstr"):
+            rxstr = None
             if field in options:
                 options.accept(field)
-                self.fields.append(field)
-                self.regexs.append(re.compile(options[field], self.rxflags))
+                regex = re.compile(options[field], self.rxflags)
+                self.field_matches.append((field, regex, False))
+                if field == "msgstr":
+                    has_msgstr_match = True
+            nfield = "n%s" % field
+            if nfield in options:
+                options.accept(nfield)
+                rxstr = options[nfield]
+                regex = re.compile(options[nfield], self.rxflags)
+                self.field_matches.append((field, regex, True))
 
-        if not self.fields:
-            error("no search pattern given")
+        if not self.field_matches:
+            error("no search pattern for a message field given")
 
         self.replace = None
         if "replace" in options:
-            if "msgstr" not in self.fields:
-                error("no msgstr pattern provided for replacement")
+            if not has_msgstr_match:
+                error("no msgstr search pattern provided for replacement")
             options.accept("replace")
             self.replace = options["replace"]
 
@@ -113,6 +127,10 @@ class Sieve (object):
         if "transl" in options:
             options.accept("transl")
             self.transl = True
+        self.untran = False
+        if "ntransl" in options:
+            options.accept("ntransl")
+            self.untran = True
 
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.replace is None and not self.mark:
@@ -138,10 +156,12 @@ class Sieve (object):
             return
         if self.transl and not msg.translated:
             return
+        if self.untran and msg.translated:
+            return
 
         match = True
 
-        for field, regex in zip(self.fields, self.regexs):
+        for field, regex, invert in self.field_matches:
 
             pfilters = []
             if field == "msgctxt":
@@ -169,6 +189,10 @@ class Sieve (object):
                 if regex.search(text):
                     local_match = True
                     break
+
+            # Invert meaning of the match if requested.
+            if invert:
+                local_match = not local_match
 
             # Check for global match (global match is AND).
             if not local_match:
