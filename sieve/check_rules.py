@@ -33,6 +33,11 @@ msgstr before it is checked. These are the filters found in C{pology.filters}
 and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
 of C{[<lang>:]<name>} (language stated when a filter is language-specific).
 
+Certain rules may be selectively disabled on a given message, by listing
+their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
+
+    # skip-rule: ruleid1, ruleid1, ...
+
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
 """
@@ -48,6 +53,7 @@ from pology.misc.report import error, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
+from pology.misc.comments import manc_parse_list
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -260,11 +266,16 @@ class Sieve (object):
         for pfilter in self.pfilters:
             msgstrs=[pfilter(x) for x in msgstrs]
 
+        # Collect explicitly ignored rules by ID for this message.
+        locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
+
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
             if rule.disabled:
                 continue
             if rule.environ and rule.environ!=self.env:
+                continue
+            if rule.ident in locally_ignored:
                 continue
             id=0 # Count msgstr plural forms
             for msgstr in msgstrs:
