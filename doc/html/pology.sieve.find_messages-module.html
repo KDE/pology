@@ -71,6 +71,10 @@
       against the <code>msgstr</code>
     </li>
     <li>
+      <code>comment:&lt;regex&gt;</code>: regular expression to match 
+      against comments
+    </li>
+    <li>
       <code>transl</code>: try to match only translated messages
     </li>
   </ul>
@@ -80,6 +84,11 @@
   considered matched if either <code>msgid</code> or 
   <code>msgid_plural</code> fields match, and <code>msgstr</code> if any of
   the <code>msgstr</code> fields match.</p>
+  <p>Every matching option has a counterpart with prepended 
+  <code>n*</code>, by which the meaning of the match is inverted; for 
+  example, if both <code>msgid:foo</code> and <code>nmsgid:bar</code> are 
+  given, then the message matches if its <code>msgid</code> contains 
+  <code>foo</code> but does not contain <code>bar</code>.</p>
   <p>Sieve options for replacement:</p>
   <ul>
     <li>
