@@ -105,6 +105,12 @@
   <code>pology.l10n.&lt;lang&gt;.filters</code>, and are specified as 
   comma-separated list of <code>[&lt;lang&gt;:]&lt;name&gt;</code> 
   (language stated when a filter is language-specific).</p>
+  <p>Certain rules may be selectively disabled on a given message, by 
+  listing their identifiers (<code>id=</code> rule property) in 
+  <code>skip-rule:</code> embedded list:</p>
+<pre class="literalblock">
+   # skip-rule: ruleid1, ruleid1, ...
+</pre>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
