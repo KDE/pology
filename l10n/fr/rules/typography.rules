@@ -405,4 +405,13 @@ hint="Pas de majuscule après deux points ou un point virgule"
 valid after="core&unbsp;|make&unbsp;"
 hint="Ne pas cumuler le gras ou l'italique et les guillemets"
 
+[[A-Z]\S+ / [a-z]\S+|[A-Z]\S+&ubsp;/ [a-z]\S+]
+valid msgstr="vCalendar|Application"
+valid after="\s"
+hint="Mettez une majuscule aux deux termes (homogénéïté)"
+
+[&sp;/&sp;|&sp;/&ubsp;]
+valid file="kcmlilo.po" before="lors du démarrage"
+hint="Mettez une espace insécable avant le / et une espace après"
+
 # End of rule file

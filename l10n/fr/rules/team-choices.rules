@@ -316,4 +316,8 @@ hint="Traduire « nick » ou « nickname » par « pseudo »"
 valid msgstr="déconseillé"
 hint="Traduire « deprecated » par « déconseillé »"
 
+[\bN/A\b|\bN/B\b|\bN/C\b]i
+valid file="kspread.po"
+hint="Traduisez ceci par « n/d »"
+
 # End of rule file

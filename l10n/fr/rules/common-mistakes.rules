@@ -400,7 +400,7 @@ valid before=":"
 valid before="all"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
-[anti-[^i]]
+[anti-[^i]]i
 hint="Pas de tiret après « anti »"
 
 # End of rule file
