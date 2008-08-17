@@ -88,6 +88,30 @@ id="copy_fs"
 hint="copy = копирати"
 disabled
 
+validGroup desktop-extras
+valid msgid="K Desktop Environment" msgstr="\bkde\b"
+valid cat="nepomuk" msgid="Strigi.*Desktop File Indexer" msgstr="\bstrigi\b"
+valid cat="nepomuk" msgid="Strigi.*Desktop Search" msgstr="\bstrigi\b"
+valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
+valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
+valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
+valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
+
+{\bdesktop(?! publishing)}i
+id="desktop"
+hint="desktop = површ"
+valid msgstr="\bповрш(?!ин)" !msgstr="радн\w+ површ"
+valid msgstr="desktop"
+validGroup desktop-extras
+
+{\bdesktop(?! publishing)}i
+id="desktop2"
+hint="desktop = радна површ"
+# колико да потврди да ипак има ‘површ’ кад је desktop изричито прескочено
+valid msgstr="\bповрш(?!ин)"
+valid msgstr="desktop"
+validGroup desktop-extras
+
 {\b(log\W?in|display) manager}i
 id="displaymanager"
 hint="login manager = менаџер пријављивања"
@@ -344,6 +368,11 @@ valid msgstr="\bприказива[чњ]"
 valid msgstr="viewer[\w-]*;"
 valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
 valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
+
+{\bvirtual desktop}i
+id="virtualdesktop"
+hint="virtual desktop = виртуелна површ"
+valid msgstr="\bвиртуелн\w+ површ(?!ин)"
 
 {\bwidget}i
 id="widget"
