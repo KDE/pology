@@ -12,6 +12,7 @@ Sieve options for matching:
   - C{msgctxt:<regex>}: regular expression to match against the C{msgctxt}
   - C{msgid:<regex>}: regular expression to match against the C{msgid}
   - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
+  - C{comment:<regex>}: regular expression to match against comments
   - C{transl}: try to match only translated messages
 
 If more than one of the matching options are given (e.g. both C{msgid} and
@@ -87,7 +88,7 @@ class Sieve (object):
 
         self.field_matches = []
         has_msgstr_match = False
-        for field in ("msgctxt", "msgid", "msgstr"):
+        for field in ("msgctxt", "msgid", "msgstr", "comment"):
             rxstr = None
             if field in options:
                 options.accept(field)
@@ -171,6 +172,12 @@ class Sieve (object):
             elif field == "msgstr":
                 texts = msg.msgstr
                 pfilters = self.pfilters
+            elif field == "comment":
+                texts = []
+                texts.extend(msg.manual_comment)
+                texts.extend(msg.auto_comment)
+                texts.append(", ".join(msg.flag))
+                texts.append(" ".join(["%s:%s" % x for x in msg.source]))
             else:
                 error("unknown search field '%s'" % field)
 
