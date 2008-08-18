@@ -128,6 +128,17 @@ id="extension"
 hint="plugin = прикључак"
 disabled
 
+{\bfeature}i
+id="feature"
+hint="feature = могућност"
+valid after="full[ -]"
+valid msgstr="\bмогућно(ст|шћ)"
+valid cat="dolphin" msgid="the main feature" msgstr="главни инструмент"
+valid cat="kcmkwm" msgid="using the active borders feature" msgstr="методом активних ивица"
+valid cat="kcmkwm" msgid="feature activates the border" msgstr="опција активира ивицу"
+valid cat="khelpcenter" msgid="fulltext search feature"
+valid cat="kdeqt" msgid="schema import feature is not supported" msgstr="није подржан увоз шема"
+
 {\bfile}i
 id="file"
 hint="file = фајл"
@@ -258,6 +269,11 @@ id="online3"
 hint="online = на вези"
 disabled
 
+{\boverwrite}i
+id="overwrite"
+hint="overwrite = пребрисати"
+valid msgstr="\bпребри[шс]"
+
 {\bpaste[sd]?\b}i
 id="paste"
 hint="paste = налепити"
@@ -373,6 +389,12 @@ valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ п�
 id="virtualdesktop"
 hint="virtual desktop = виртуелна површ"
 valid msgstr="\bвиртуелн\w+ површ(?!ин)"
+
+{\bwallpaper}i
+id="wallpaper"
+hint="wallpaper = тапет"
+valid msgstr="\bтапет"
+valid msgstr="wallpaper"
 
 {\bwidget}i
 id="widget"
