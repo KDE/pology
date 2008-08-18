@@ -55,7 +55,6 @@ verbose syntax getting in the way. Rule file has the following layout::
 
     # End of rules
 
-where the header (title, author, license) and footer comments are mandatory.
 Rules are separated by a blank line, and each rule starts with the main
 trigger pattern. #-comments always start from the beginning of the line.
 Example rule, to fail a message when the original part contains the word
@@ -356,7 +355,9 @@ def loadRulesFromFile(filePath, accents, stat):
     i=0
 
     try:
-        for line in open(filePath, "r", "utf-8"):
+        lines=open(filePath, "r", "UTF-8").readlines()
+        lines.append("\n") # sentry line
+        for line in lines:
             line=line.rstrip("\n")
             i+=1
             
