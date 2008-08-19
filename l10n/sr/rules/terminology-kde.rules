@@ -58,9 +58,10 @@ valid msgstr="\bклипборд"
 valid msgstr="clipboard"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
-{\bconfiguration(?! file)}i
+{\bconfiguration}i
 id="configuration"
 hint="configuration = постава"
+valid before=" file| script"
 valid msgstr="\bпостав[аеиоу]"
 valid msgstr="\bподеш(ава|ен)"
 valid msgstr="\bподесит"
@@ -75,9 +76,11 @@ id="configurationfile"
 hint="configuration file = поставни фајл"
 valid msgstr="\bпоставн\w+ фајл"
 
-{(?<!backup )\bcop(y|ied)(?!right)}i
+{\bcop(y|ied)}i
 id="copy"
 hint="copy = копирати"
+valid after="backup "
+valid before="right"
 valid msgstr="\bкопи(ра|ј)"
 valid msgstr="\bcopy"
 valid cat="useraccount" msgid="Save copy.*for future" msgstr="Одложи за убудуће"
@@ -97,16 +100,18 @@ valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
 valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
 valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
 
-{\bdesktop(?! publishing)}i
+{\bdesktop}i
 id="desktop"
 hint="desktop = површ"
+valid before=" publishing"
 valid msgstr="\bповрш(?!ин)" !msgstr="радн\w+ површ"
 valid msgstr="desktop"
 validGroup desktop-extras
 
-{\bdesktop(?! publishing)}i
+{\bdesktop}i
 id="desktop2"
 hint="desktop = радна површ"
+valid before=" publishing"
 # колико да потврди да ипак има ‘површ’ кад је desktop изричито прескочено
 valid msgstr="\bповрш(?!ин)"
 valid msgstr="desktop"
@@ -145,9 +150,10 @@ hint="file = фајл"
 valid !msgstr="\bдатоте"
 valid msgstr="\bfile"
 
-{\bfile[ -]?system(?! browser)}i
+{\bfile[ -]?system}i
 id="filesystem"
 hint="filesystem|file system = фајл систем"
+valid before=" browser"
 valid msgstr="\bфајл систем"
 valid cat="dolphin" msgid="files in a filesystem"
 
@@ -198,9 +204,10 @@ valid msgstr="icon"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
 
-{(?<!style:)\bitalic}i
+{\bitalic}i
 id="italic"
 hint="italic = курзиван"
+valid after="style:"
 valid msgstr="\bкурзив"
 valid msgstr="italic"
 valid cat="kfontinst" msgid="Old Italic"
@@ -232,9 +239,10 @@ valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
 
-{\blog(ged|ging)?\b(?! ?(in|out)\b)}i
+{\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
+valid before=" ?(in|out)\b"
 valid msgstr="\blog"
 valid msgstr="\b(за)?беле[жш]"
 valid msgstr="\bдневни[чк]"
@@ -312,9 +320,10 @@ valid msgstr="\bвра(ти|ће).*подразумев"
 valid msgstr="\breset"
 valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 
-{(?<!times in a )\brows?\b}i
+{\brows?\b}i
 id="row"
 hint="row = врста"
+valid after="times in a "
 valid msgstr="\bврст"
 valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
 
@@ -410,9 +419,10 @@ hint="wizard = чаробњак"
 valid msgstr="\bчаробњак"
 valid msgstr="\bwizard"
 
-{(?<!\.)\bXML\b}i
+{\bXML\b}i
 id="xml"
 hint="XML = ИксМЛ"
+valid after="\."
 valid msgstr="xml"
 
 {\bYahoo}i
@@ -421,9 +431,10 @@ hint="Yahoo = Јаху"
 valid msgstr="yahoo-\w*;"
 valid cat="desktop_kdebase" msgid="yahoo%" msgstr="yahoo%"
 
-{\bzoom(?![ -]out)}i
+{\bzoom}i
 id="zoom"
 hint="zoom = увеличати"
+valid before="[ -]out"
 valid msgstr="\bувелича"
 valid msgstr="zoom"
 

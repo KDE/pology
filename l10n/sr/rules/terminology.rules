@@ -7,9 +7,10 @@ id="addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
-{\bcells?(?! ?phon)\b}i
+{\bcells?\b}i
 id="cell"
 hint="cell = ћелија"
+valid before=" ?phon"
 valid msgstr="\bћелиј"
 
 {\bcharacter}i
@@ -105,9 +106,10 @@ valid env="kde" msgstr="editor"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 valid cat="lokalize" msgid="the editors" msgstr="уредниц"
 
-{(?<![%</])\bemail}i
+{\bemail}i
 id="email"
 hint="email = е-пошта"
+valid after="</?"
 valid msgstr="\bе[‑-]пошт"
 valid env="kde" ctx="^EMAIL OF TRANSLATORS$"
 valid env="kde" msgstr="email"
@@ -170,9 +172,10 @@ hint="label = ознака"
 valid msgstr="\bознак"
 valid msgstr="\bознач"
 
-{\blog\b(?! ?(in|out)\b)}i
+{\blog\b}i
 id="log"
 hint="log = дневник"
+valid before=" ?(in|out)\b"
 valid msgstr="\bдневни[чк]"
 # наредни да би прошло до log2
 valid msgstr="\b(за)?беле[шж]"
@@ -266,10 +269,12 @@ valid cat="konsole" msgid="^Remote tab title format:$" msgstr="^Формат у�
 valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
 valid cat="konsole" msgid="^Tab bar position:$" msgstr="^Положај:$"
 
-{(?<!<)(?<!</)\btable(?! of contents)}i
+{\btable}i
 id="table"
 hint="table = табела"
+valid before=" of contents"
 valid msgstr="\bтабел"
+valid env="kde" msgstr="\btable"
 valid cat="desktop_kdebase" msgid="Rain on the Table"
 valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
 
