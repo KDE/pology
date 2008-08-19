@@ -1,0 +1,9 @@
+# Style checks for KDE translation into Japanese.
+# Japanese KDE translation team <Kdeveloper@kde.gr.jp>
+# License: GPLv3
+
+[か\?]
+hint="日本語の疑問文には全角の「？」を使ってください。"
+
+[[Ａ-Ｚａ-ｚ０-９]]
+hint="半角の英数字を使ってください。"
