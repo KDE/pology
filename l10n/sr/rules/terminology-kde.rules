@@ -239,6 +239,19 @@ valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
 
+{\blines?\b}i
+id="line"
+hint="line = ред"
+valid after="command[ -]"
+valid after="on-|off-"
+valid before=" edit| input"
+valid before=" up\b" msgstr="\b(по)?равна"
+valid msgstr="\bред(а|у|ом|ов(а|и|е|има)|н[иао])?\b"
+valid cat="katepart4" msgid="load the settings line" msgstr="учитао поставке"
+valid cat="kdelibs4" msgid="header line"
+valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
+valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
+
 {\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
@@ -281,6 +294,18 @@ disabled
 id="overwrite"
 hint="overwrite = пребрисати"
 valid msgstr="\bпребри[шс]"
+
+{\bparse(s|ed|ing)?\b}i
+id="parse"
+hint="parse = рашчланити"
+valid msgstr="\bрашчла[нњ]"
+
+{\bparser}i
+id="parser"
+hint="parser = рашчлањивач"
+valid msgstr="\bрашчлањивач"
+valid msgstr="\bparser"
+valid cat="kio_ldap" msgstr="рашчлањивањ"
 
 {\bpaste[sd]?\b}i
 id="paste"
