@@ -50,15 +50,48 @@ valid msgstr="選択反転"
 hint="Move to Trash = ごみ箱に移動"
 valid msgstr="ごみ箱に移動"
 
+{install new theme}
+hint="install new theme = 新しいテーマをインストール"
+valid msgstr="新しいテーマをインストール"
+
+{get new themes}
+hint="get new themes = 新しいテーマを取得"
+valid msgstr="新しいテーマを取得"
+
 [ゴミ箱]
 hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
 
-{(?<![-/w])file dialog}i
+{bold}
+id="bold"
+hint="bold = ボールド"
+valid after="font-weight:[ ]*|[mo]|very "
+valid msgstr="ボールド"
+
+{italic}
+id="italic"
+hint="italic = イタリック"
+valid after="font-style:[ ]*"
+valid msgstr="イタリック"
+
+{underline}
+id="underline"
+hint="underline = 下線"
+valid after="text-decoration:[ ]*"
+valid msgstr="下線"
+
+{strikeout}
+id="strikeout"
+hint="strikeout = 取り消し線"
+valid msgstr="取り消し線"
+
+{file dialog}i
 hint="file dialog = ファイル選択ダイアログ"
+valid after="[\w\-]"
 valid msgstr="ファイル選択ダイアログ"
 
-{spam(?![m@])}i
+{spam}i
 hint="spam = スパム"
+valid before="[m@]"
 valid msgstr="スパム"
 
 {encryption key}i
@@ -75,8 +108,8 @@ valid msgstr="復号鍵"
 
 {fingerprint}i
 hint="fingerprint = フィンガープリント"
+valid after="audio "
 valid msgstr="フィンガープリント"
-valid !after="audio"
 
 {wep key}i
 hint="wep key = WEP キー"
@@ -88,3 +121,8 @@ hint="復号 (Decrypt) には「化」は付けません"
 {case sensitive}i
 hint="case sensitive = 大文字と小文字を区別"
 valid msgstr="大文字と小文字を区別"
+
+{case sensitive}i
+hint="case sensitive = 大文字と小文字を区別する"
+valid !ctx="@option:check"
+valid msgstr="大文字と小文字を区別する"
