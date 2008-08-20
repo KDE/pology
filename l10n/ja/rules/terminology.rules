@@ -50,36 +50,36 @@ valid msgstr="選択反転"
 hint="Move to Trash = ごみ箱に移動"
 valid msgstr="ごみ箱に移動"
 
-{install new theme}
+{install new theme}i
 hint="install new theme = 新しいテーマをインストール"
 valid msgstr="新しいテーマをインストール"
 
-{get new themes}
+{get new themes}i
 hint="get new themes = 新しいテーマを取得"
 valid msgstr="新しいテーマを取得"
 
 [ゴミ箱]
 hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
 
-{bold}
+{bold}i
 id="bold"
 hint="bold = ボールド"
 valid after="font-weight:[ ]*|[mo]|very "
 valid msgstr="ボールド"
 
-{italic}
+{italic}i
 id="italic"
 hint="italic = イタリック"
 valid after="font-style:[ ]*"
 valid msgstr="イタリック"
 
-{underline}
+{underline}i
 id="underline"
 hint="underline = 下線"
 valid after="text-decoration:[ ]*"
 valid msgstr="下線"
 
-{strikeout}
+{strikeout}i
 id="strikeout"
 hint="strikeout = 取り消し線"
 valid msgstr="取り消し線"
