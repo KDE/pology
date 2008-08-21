@@ -41,6 +41,12 @@ id="column_page"
 hint="column = колона"
 disabled
 
+{\bcommand[ -]?line}i
+id="commandline"
+hint="command line = командна линија"
+valid msgstr="\bкомандн\w+ линиј"
+valid env="kde" msgstr="command[ -]?line"
+
 {\bcomputer}i
 id="computer"
 hint="computer = рачунар"

@@ -58,6 +58,17 @@ valid msgstr="\bклипборд"
 valid msgstr="clipboard"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
+{\bcommands?\b}i
+id="command"
+hint="command = наредба"
+valid before="[ -]?line"
+valid after="^(Use this |This )"
+valid after="</?"
+valid msgstr="\bнаредб"
+valid msgstr="(?<!<)(?<!</)command"
+valid cat="katetextfilter" msgid="textfilter COMMAND"
+valid cat="konqueror" msgid="to the <b>Paste</b> command" msgstr="за <i>налепљивање</i>"
+
 {\bconfiguration}i
 id="configuration"
 hint="configuration = постава"
@@ -429,6 +440,13 @@ id="wallpaper"
 hint="wallpaper = тапет"
 valid msgstr="\bтапет"
 valid msgstr="wallpaper"
+
+# @gloss-new
+{\bwhitespace}i
+id="whitespace"
+hint="whitespace = празнина"
+valid msgstr="\bпразнина"
+disabled
 
 {\bwidget}i
 id="widget"
