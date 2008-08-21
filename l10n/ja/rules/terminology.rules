@@ -61,6 +61,10 @@ valid msgstr="新しいテーマを取得"
 [ゴミ箱]
 hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
 
+{fixed font|fixed width font}i
+hint="fixed (width) font = 固定幅フォント"
+valid msgstr="固定幅フォント"
+
 {bold}i
 id="bold"
 hint="bold = ボールド"
@@ -88,6 +92,19 @@ valid msgstr="取り消し線"
 hint="file dialog = ファイル選択ダイアログ"
 valid after="[\w\-]"
 valid msgstr="ファイル選択ダイアログ"
+
+{\bview mode}i
+hint="view mode = 表示モード"
+valid after="split "
+valid msgstr="表示モード"
+
+{format toolbar}i
+hint="format toolbar = 書式ツールバー"
+valid msgstr="書式ツールバー"
+
+{screen ruler}i
+hint="screen ruler = スクリーンルーラー"
+valid msgstr="スクリーンルーラー"
 
 {spam}i
 hint="spam = スパム"
@@ -117,6 +134,24 @@ valid msgstr="WEP キー"
 
 [復号化]
 hint="復号 (Decrypt) には「化」は付けません"
+
+{access control list}i
+hint="access control list = アクセス制御リスト (ACL)"
+valid msgstr="アクセス制御リスト"
+
+{file format}i
+id="fileformat"
+hint="file format = ファイルフォーマット"
+valid msgstr="ファイルフォーマット"
+
+{file ?size}i
+id="filesize"
+hint="file size = ファイルサイズ"
+valid msgstr="ファイルサイズ"
+
+{unsaved chagnes?}i
+hint="unsaved changes = 未保存の変更"
+valid msgstr="未保存の変更"
 
 {case sensitive}i
 hint="case sensitive = 大文字と小文字を区別"
