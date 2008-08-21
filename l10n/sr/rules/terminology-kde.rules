@@ -15,6 +15,18 @@ id="application"
 hint="application = програм"
 valid !msgstr="\bаплика[цт]"
 
+{\b(bitmap|pixmap)}i
+id="bitmap"
+hint="bitmap|pixmap = битмапа"
+valid msgstr="\b(не)?битмап(ск)?[аеиоу]"
+valid msgstr="bitmap"
+
+{\bbitmap}i
+id="bitmap2"
+hint="bitmap = битмапски"
+valid msgstr="\bбитмапски"
+disabled
+
 {\bbold}i
 id="bold"
 hint="bold = подебљан"
@@ -62,7 +74,7 @@ valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина 
 id="command"
 hint="command = наредба"
 valid before="[ -]?line"
-valid after="^(Use this |This )"
+valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
 valid msgstr="\bнаредб"
 valid msgstr="(?<!<)(?<!</)command"
@@ -206,6 +218,12 @@ disabled
 id="headerfile"
 hint="header file = фајл заглавља"
 valid msgstr="\bфајл\w*( \S+)? заглавља"
+
+{\bhistory}i
+id="history"
+hint="history = историјат"
+valid msgstr="\bисторијат"
+valid cat="klipper" msgid="KDE cut.*paste history utility" msgstr="алатка за копирање"
 
 {\bicon}i
 id="icon"
@@ -395,6 +413,11 @@ valid msgstr="shell"
 valid msgid="shell script" msgstr="скрипт"
 valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
 valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
+
+{\b(status ?bar)}i
+id="statusbar"
+hint="statusbar|status bar = трака стања"
+valid msgstr="\bтра[кц]\w+ стања"
 
 {\bstring}i
 id="string"
