@@ -441,12 +441,10 @@ hint="wallpaper = тапет"
 valid msgstr="\bтапет"
 valid msgstr="wallpaper"
 
-# @gloss-new
 {\bwhitespace}i
 id="whitespace"
 hint="whitespace = празнина"
-valid msgstr="\bпразнина"
-disabled
+valid msgstr="\bпразнин"
 
 {\bwidget}i
 id="widget"
