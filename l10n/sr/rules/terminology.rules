@@ -231,6 +231,19 @@ hint="oblique = искошен"
 valid msgstr="\bискошен"
 valid env="kde" msgstr="oblique"
 
+{\bpass\W?phrase}i
+id="passphrase"
+hint="passphrase = лозинка"
+valid msgstr="\bлозинк"
+valid env="kde" msgstr="passphrase"
+
+{\bpass\W?word}i
+id="password"
+hint="password = лозинка"
+valid msgstr="\bлозинк"
+valid before="@" msgstr="lozinka@"
+valid env="kde" msgstr="password"
+
 {\breader}i
 id="reader"
 hint="reader = читач"
@@ -258,6 +271,16 @@ hint="software = софтвер"
 valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
 valid env="kde" msgstr="software"
+
+{\bspaces?\b}i
+id="space"
+hint="space = размак"
+valid span="space\b" before=" (available|required|of|left)"
+valid span="space\b" after="(additional|all|allocate|blank|config|disk|empty|enough|free|memory|more|no|out of|remaining|of|some|sufficient|swap|total|used|work|I/O) "
+valid span="space\b" after="(white|user)\W?"
+valid msgstr="\bразма[кц]"
+valid env="kde" msgstr="space"
+valid cat="kcm_pci" msgid="^Space$"
 
 {\bsyntax\W?highlight}i
 id="syntaxhighlighting"

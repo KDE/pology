@@ -24,7 +24,6 @@ valid msgstr="bitmap"
 {\bbitmap}i
 id="bitmap2"
 hint="bitmap = битмапски"
-valid msgstr="\bбитмапски"
 disabled
 
 {\bbold}i
@@ -122,6 +121,13 @@ valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
 valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
 valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
 valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
+
+{\bdelimiter}i
+id="delimiter"
+hint="delimiter = издвајач"
+# само у каталозима који разликују separator/delimiter
+valid !cat="fooxyz"
+valid msgstr="\bиздвајач"
 
 {\bdesktop}i
 id="desktop"
@@ -386,6 +392,13 @@ valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
 id="row_db"
 hint="record|row = врста"
 disabled
+
+{\b(delimiter|separator)}i
+id="separator"
+hint="delimiter|separator = раздвајач"
+# изостави каталоге који разликују separator/delimiter
+valid cat="fooxyz"
+valid msgstr="\bраздвајач"
 
 # о-рук
 {\bsetting}i
