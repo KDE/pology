@@ -107,13 +107,12 @@
 
    # End of rules
 </pre>
-    <p>where the header (title, author, license) and footer comments are 
-    mandatory. Rules are separated by a blank line, and each rule starts 
-    with the main trigger pattern. #-comments always start from the 
-    beginning of the line. Example rule, to fail a message when the 
-    original part contains the word &quot;foo&quot; and the translation 
-    does not contain &quot;bar&quot;, except in PO catalog &quot;qwyx&quot;
-    where it should contain &quot;baz&quot; instead, would be:</p>
+    <p>Rules are separated by a blank line, and each rule starts with the 
+    main trigger pattern. #-comments always start from the beginning of the
+    line. Example rule, to fail a message when the original part contains 
+    the word &quot;foo&quot; and the translation does not contain 
+    &quot;bar&quot;, except in PO catalog &quot;qwyx&quot; where it should 
+    contain &quot;baz&quot; instead, would be:</p>
 <pre class="literalblock">
    # A contrieved example rule.
    {\bfoo}i
@@ -153,6 +152,10 @@
       <li>
         <code>ctx</code>: passes if the message context matches a regular 
         expression
+      </li>
+      <li>
+        <code>span</code>: passes if the part of the text matched by the 
+        trigger pattern is matched by this regular expression as well
       </li>
       <li>
         <code>before</code>: passes if the part of the text matched by the 
