@@ -89,6 +89,8 @@ The following tests can be used within C{valid} directives:
   - C{msgid}: passes if the original text matches a regular expression
   - C{msgstr}: passes if the translation text matches a regular expression
   - C{ctx}: passes if the message context matches a regular expression
+  - C{span}: passes if the part of the text matched by the trigger pattern
+        is matched by this regular expression as well
   - C{before}: passes if the part of the text matched by the trigger pattern
         is placed exactly before the part matched by this regular expression
   - C{after}: passes if the part of the text matched by the trigger pattern
@@ -482,8 +484,8 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "file", "cat", "after", "before", "ctx", "msgid", "msgstr"))
-    _regexKeywords = set(("after", "before", "ctx", "msgid", "msgstr"))
+    _knownKeywords = set(("env", "file", "cat", "span", "after", "before", "ctx", "msgid", "msgstr"))
+    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
     _listKeywords = set(("env", "file", "cat"))
 
     def __init__(self, pattern, hint, valid=[], accents=None, stat=False,
@@ -661,6 +663,13 @@ class Rule(object):
                         match = filename in value
                         if invert: match = not match
                         if not match:
+                            cancel = False
+                            break 
+
+                    elif bkey == "span":
+                        found = value.search(patternMatch.group(0)) is not None
+                        if invert: found = not found
+                        if not found:
                             cancel = False
                             break 
 
