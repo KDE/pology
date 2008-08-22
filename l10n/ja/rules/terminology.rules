@@ -50,6 +50,33 @@ valid msgstr="選択反転"
 hint="Move to Trash = ごみ箱に移動"
 valid msgstr="ごみ箱に移動"
 
+{^Copy Here$}
+hint="Copy Here = ここにコピー"
+valid msgstr="ここにコピー"
+
+{^Move Here$}
+hint="Move Here = ここに移動"
+valid msgstr="ここに移動"
+
+{^Link Here$}
+hint="Link Here = ここにリンク"
+valid msgstr="ここにリンク(?!を)"
+
+{^Cancel$}
+id="cancel"
+hint="Cancel = キャンセル"
+valid msgstr="キャンセル"
+
+{^Reset$}
+id="reset"
+hint="Reset = リセット"
+valid msgstr="リセット"
+
+{^Apply$}
+id="apply"
+hint="Apply = 適用"
+valid msgstr="適用"
+
 {install new theme}i
 hint="install new theme = 新しいテーマをインストール"
 valid msgstr="新しいテーマをインストール"
@@ -62,8 +89,10 @@ valid msgstr="新しいテーマを取得"
 hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
 
 {fixed font|fixed width font}i
+id="fixedfont"
 hint="fixed (width) font = 固定幅フォント"
 valid msgstr="固定幅フォント"
+valid before=" ?size"
 
 {bold}i
 id="bold"
@@ -76,6 +105,10 @@ id="italic"
 hint="italic = イタリック"
 valid after="font-style:[ ]*"
 valid msgstr="イタリック"
+
+{oblique}i
+hint="oblique = オブリック"
+valid msgstr="オブリック"
 
 {underline}i
 id="underline"
@@ -95,10 +128,45 @@ valid msgstr="ファイル選択ダイアログ"
 
 {\bview mode}i
 hint="view mode = 表示モード"
-valid after="split "
+valid after="split |tree "
 valid msgstr="表示モード"
 
+{flat view}i
+id="flatview"
+hint="flat view = フラット表示"
+valid msgstr="フラット表示"
+
+{tree view\b}i
+id="treeview"
+hint="tree view = ツリー表示 (表示モードの場合、ウィジェットの場合はツリービュー)"
+valid msgstr="ツリー表示"
+
+{main toolbar}i
+hint="main toolbar = メインツールバー"
+valid msgstr="メインツールバー"
+
+{status ?bar}i
+id="statusbar"
+hint="statusbar = ステータスバー"
+valid msgstr="ステータスバー"
+
+{location ?bar}i
+id="locationbar"
+hint="location bar = 場所バー"
+valid msgstr="場所バー"
+
+{progress ?bar}i
+id="progressbar"
+hint="progress bar = 進捗バー"
+valid msgstr="進捗バー"
+
+{extra toolbar}i
+id="extrabar"
+hint="extra toolbar = 拡張ツールバー"
+valid msgstr="拡張ツールバー"
+
 {format toolbar}i
+id="formatbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
 
@@ -153,11 +221,37 @@ valid msgstr="ファイルサイズ"
 hint="unsaved changes = 未保存の変更"
 valid msgstr="未保存の変更"
 
+{temporary file}i
+id="temporaryfile"
+hint="temporary file = 一時ファイル"
+valid msgstr="一時ファイル"
+
+{hidden file}i
+id="hiddenfile"
+hint="hidden file = 隠しファイル"
+valid msgstr="隠しファイル"
+
+[実行可能ファイル]
+id="executable"
+hint="executable (file) = 実行ファイル"
+
+{unmount}i
+id="unmount"
+hint="unmount = アンマウント"
+valid msgstr="アンマウント"
+valid after="_"
+
 {case sensitive}i
-hint="case sensitive = 大文字と小文字を区別"
+id="casesens"
+hint="case sensitive = 大文字と小文字を区別 (する)"
 valid msgstr="大文字と小文字を区別"
 
 {case sensitive}i
 hint="case sensitive = 大文字と小文字を区別する"
 valid !ctx="@option:check"
 valid msgstr="大文字と小文字を区別する"
+
+{please try again later}i
+id="tryagainlater"
+hint="try again later = しばらくたってからやり直してください"
+valid msgstr="しばらくたってからやり直してください"
