@@ -342,7 +342,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             sys.exit(130)
         except StandardError, e:
             if op.do_skip:
-                warning("%s -- skipping, parsing failure" % e)
+                warning("%s -- skipping, parsing failure: %s" % (fname, e))
                 continue
             else:
                 raise
