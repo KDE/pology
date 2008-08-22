@@ -561,7 +561,8 @@ class Rule(object):
                     pattern=pattern.replace("@%s" % letter, self.accents[letter])
             self.pattern=re.compile(convert_entities(pattern), self.reflags)
         except Exception:
-            print "Invalid pattern '%s', cannot compile" % pattern
+            print "Invalid pattern '%s', disabling rule" % pattern
+            self.disabled=True
         
     def setValid(self, valid):
         """Parse valid key=value arguments of valid list
