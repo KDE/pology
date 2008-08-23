@@ -113,6 +113,13 @@ id="copy_fs"
 hint="copy = копирати"
 disabled
 
+{\bdelimiter}i
+id="delimiter"
+hint="delimiter = издвајач"
+# само у каталозима који разликују separator/delimiter
+valid !cat="fooxyz"
+valid msgstr="\bиздвајач"
+
 validGroup desktop-extras
 valid msgid="K Desktop Environment" msgstr="\bkde\b"
 valid cat="nepomuk" msgid="Strigi.*Desktop File Indexer" msgstr="\bstrigi\b"
@@ -121,13 +128,6 @@ valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
 valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
 valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
 valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
-
-{\bdelimiter}i
-id="delimiter"
-hint="delimiter = издвајач"
-# само у каталозима који разликују separator/delimiter
-valid !cat="fooxyz"
-valid msgstr="\bиздвајач"
 
 {\bdesktop}i
 id="desktop"
