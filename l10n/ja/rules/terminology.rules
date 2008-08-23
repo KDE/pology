@@ -62,6 +62,14 @@ valid msgstr="ここに移動"
 hint="Link Here = ここにリンク"
 valid msgstr="ここにリンク(?!を)"
 
+{^Move Up$}
+hint="Move Up = 上に移動"
+valid msgstr="上に移動"
+
+{^Move Down$}
+hint="Move Down = 下に移動"
+valid msgstr="下に移動"
+
 {^Cancel$}
 id="cancel"
 hint="Cancel = キャンセル"
@@ -169,6 +177,22 @@ valid msgstr="拡張ツールバー"
 id="formatbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
+
+[アプリ]
+id="application"
+hint="application = アプリケーション (略さずに)"
+valid before="ケーション"
+valid before="ア州|マク県"
+
+{mail client}i
+id="mailclient"
+hint="mail client = メールクライアント"
+valid msgstr="メールクライアント"
+
+{terminal emulator}i
+id="terminalemulator"
+hint="terminal emulator = ターミナルエミュレータ"
+valid msgstr="ターミナルエミュレータ"
 
 {screen ruler}i
 hint="screen ruler = スクリーンルーラー"
