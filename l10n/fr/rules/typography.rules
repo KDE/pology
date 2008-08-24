@@ -20,6 +20,12 @@ valid after="«&unbsp;" before="&unbsp;»"
 validGroup alone
 valid after="^" before="$"
 
+validGroup optionTag
+valid after="<option>.*" before=".*</option>"
+
+validGroup tokenTag
+valid after="<token>.*" before=".*</token>"
+
 [:]
 validGroup strongTypo
 validGroup inParenthesis
@@ -255,6 +261,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
 validGroup inQuotes
+validGroup alone
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
@@ -279,6 +286,8 @@ hint="Ne jamais mettre plus d'une espace"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup optionTag
+validGroup tokenTag
 valid after="&unbsp;" before="[,\. \)]"
 valid before="[0-9ns]"
 valid before="{"
@@ -405,10 +414,10 @@ hint="Pas de majuscule après deux points ou un point virgule"
 valid after="core&unbsp;|make&unbsp;"
 hint="Ne pas cumuler le gras ou l'italique et les guillemets"
 
-[[A-Z]\S+ / [a-z]\S+|[A-Z]\S+&ubsp;/ [a-z]\S+]
-valid msgstr="vCalendar|Application"
-valid after="\s"
-hint="Mettez une majuscule aux deux termes (homogénéïté)"
+#[[A-Z]\S+ / [a-z]\S+|[A-Z]\S+&ubsp;/ [a-z]\S+]
+#valid msgstr="vCalendar|Application"
+#valid after="\s"
+#hint="Mettez une majuscule aux deux termes (homogénéïté)"
 
 [&sp;/&sp;|&sp;/&ubsp;]
 valid file="kcmlilo.po" before="lors du démarrage"
