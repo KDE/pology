@@ -178,6 +178,11 @@ id="formatbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
 
+[トレイアイコン]
+id="systray"
+hint="(system) tray icon = システムトレイアイコン (略さずに)"
+valid after="システム"
+
 [アプリ]
 id="application"
 hint="application = アプリケーション (略さずに)"
