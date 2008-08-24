@@ -61,6 +61,21 @@ valid env="kde" msgstr="\bзада[вјлот]"
 valid env="kde" msgstr="configure"
 valid cat="kate" msgid="configured\s*for the document type"
 
+# Некад је у питању курсор (текстуални), некад показивач (миша), отприлике
+# пола-пола по учестаности. Међутим, делује да се само у одређеним каталозима
+# јавља већином као заиста курсор, а другде је обично показивач.
+# Зато: аутоматски нек пропушта кад год није тачно наведен каталог, тако
+# да се оставља правилу pointer да разреши даље; кад јесте један од наведених
+# каталога, нек пропушта неке типичне комбинације где је показивач
+# (нпр. /mouse cursor/), а обара када случај није изричито дат као исправан.
+{\bcursor}i
+id="cursor"
+hint="cursor = курсор"
+valid !cat="kate,katefiletemplates,katepart4,konsole"
+valid after="mouse "
+valid before=" theme"
+valid msgstr="\bкурсор"
+
 {\bcut}i
 id="cut"
 hint="cut = исећи"
@@ -243,6 +258,16 @@ hint="password = лозинка"
 valid msgstr="\bлозинк"
 valid before="@" msgstr="lozinka@"
 valid env="kde" msgstr="password"
+
+{\bpointer}i
+id="pointer2"
+hint="pointer = показивач"
+valid msgstr="\bпоказивач"
+
+{\bpointer}i
+id="pointer3"
+hint="pointer = показивач"
+valid msgstr="\bпоказивач"
 
 {\breader}i
 id="reader"

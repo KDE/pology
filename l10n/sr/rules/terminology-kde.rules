@@ -62,6 +62,12 @@ id="checkbox"
 hint="checkbox = кућица"
 valid msgstr="\bкућиц"
 
+{\b(chooser|selector)}i
+id="chooser"
+hint="chooser|selector = бирач"
+valid msgstr="\bбирач"
+valid msgstr="selector"
+
 {\bclipboard}i
 id="clipboard"
 hint="clipboard = клипборд"
@@ -365,6 +371,21 @@ valid cat="phonon_gstreamer,kdeqt" msgid="-plugin" msgstr="-plugin"
 valid cat="ktraderclient" msgid="KMyApp/Plugin"
 valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
 valid cat="katefiletemplates" !msgid="^Template Plugin$"
+
+# (Види коментар уз правило cursor).
+# Пошто cursor аутоматски пропушта каталоге који му нису изричито задати,
+# а у њима проверава и једно и друго, онда ово правило ради обрнуто:
+# у каталозима који нису међу оним за cursor увек тражи ‘показивач’,
+# иначе обара ако случај није изричито дефинисан као исправан.
+{\b(cursor|pointer)}i
+id="pointer"
+hint="cursor|pointer = показивач"
+valid cat="kate,katefiletemplates,katepart4,konsole"
+valid msgstr="\bпоказивач"
+valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
+valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
+valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
+
 
 {\bquit(s|ted)?\b}i
 id="quit"
