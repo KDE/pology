@@ -85,6 +85,31 @@ id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
 
+{^Import(\.\.\.)?$}
+id="import"
+hint="Import = インポート..."
+valid msgstr="インポート..."
+
+{^Export(\.\.\.)?$}
+id="export"
+hint="Export = エクスポート"
+valid msgstr="エクスポート"
+
+{^Find Next$}
+id="findnext"
+hint="Find Next = 次を検索"
+valid msgstr="次を検索"
+
+{^Find Previous$}
+id="findprevious"
+hint="Find Previous = 前を検索"
+valid msgstr="前を検索"
+
+{^Find Prev$}
+id="findprev"
+hint="Find Prev = 前を検索"
+valid msgstr="前を検索"
+
 {install new theme}i
 hint="install new theme = 新しいテーマをインストール"
 valid msgstr="新しいテーマをインストール"

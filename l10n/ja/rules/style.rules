@@ -7,3 +7,292 @@ hint="日本語の疑問文には全角の「？」を使ってください。"
 
 [[Ａ-Ｚａ-ｚ０-９]]
 hint="半角の英数字を使ってください。"
+
+[\d ?進]
+hint="漢数字を使ってください (十進数)"
+valid before="行|捗"
+
+[\d ?次]
+hint="漢数字を使ってください (二次曲線)"
+
+[\d ?角]
+hint="漢数字を使ってください (三角形)"
+
+[\d ?面体]
+hint="漢数字を使ってください (正四面体)"
+
+[従って]
+hint="したがって (副詞の場合はかな書き)"
+valid after="に"
+
+[全て]
+hint="すべて"
+
+[一旦]
+hint="いったん"
+
+[一杯]
+hint="いっぱい"
+
+[予め]
+hint="あらかじめ"
+
+[大体]
+hint="だいたい"
+
+[大抵]
+hint="たいてい"
+
+[是非]
+hint="ぜひ"
+
+[未だ]
+hint="まだ"
+
+[先ず]
+hint="まず"
+
+[殆ど]
+hint="ほとんど"
+
+[沢山]
+hint="たくさん"
+
+[更に]
+hint="さらに"
+valid after="変"
+
+[恐らく]
+hint="おそらく"
+
+[稀]
+hint="まれ"
+
+[若しくは]
+hint="もしくは、または"
+
+[尚]
+hint="なお"
+valid before="南|北"
+
+[但し]
+hint="ただし"
+
+[即ち]
+hint="すなわち"
+
+[又]
+hint="また"
+
+[及び]
+hint="および (接続詞の場合はかな書き)"
+valid before="ま"
+valid after="ダードラー" before="ナガル" cat=kgeography
+
+[下さい]
+hint="ください (補助動詞)"
+
+[出来]
+hint="でき (ます、ません)"
+valid !before="[るれまなず]"
+
+[頂]
+hint="いただ (く) (補助動詞の場合)"
+valid !before="[かきくけこ]"
+
+[易]
+hint="やす (い)"
+valid !before="[かくいけ]"
+
+[難]
+hint="にく (い)"
+valid !before="[かくいけ]"
+
+[無]
+id="nai"
+hint="ない、なし"
+valid !before="[いしけき]"
+
+[迄]
+hint="まで"
+
+[等]
+hint="など"
+valid after="[均平同]"
+valid before="し|[一-龠]"
+
+[位]
+id="kurai"
+hint="くらい、ぐらい (助詞)"
+valid before="[一-龠]"
+valid after="[単上下測方変順水の]"
+
+[毎]
+id="every"
+hint="ごと"
+valid before="[年月週日時分秒回]"
+valid after="^" before="$" cat="kalarm"
+
+[度に]
+hint="たびに"
+valid after="[一-龠を]|\d ?"
+
+[様]
+hint="よう"
+valid after="[一-龠]"
+valid !before="[なにでだ]"
+
+[通り]
+id="tori1"
+hint="以下のとおり、予定どおり (cf. 何通り)"
+valid before="道"
+valid !after="の|(文字|言葉|見かけ|型|時間|期日|予定|計画|約束|スケジュール|約束|設定|計設計|仕様|規格|規定|指定|サイズ|思い|好み|予想|予測|想像|期待|希望|要求|思わく|指示|命令|説明|指摘|通常|平常|従来|前回|元|いつも|今まで|これまで)の?"
+
+[為]
+hint="ため"
+
+[塞]
+hint="ふさ (ぐ)"
+valid after="要"
+valid !before="[がぎぐげご]"
+
+[歪]
+hint="ゆが (む) (訓読みの場合はかな書き)"
+valid before="[度曲]"
+
+[畳]
+hint="たた (む)"
+valid !before="[まみむめも]"
+
+[貰]
+hint="もら (う)"
+valid !before="[わいうえおっ]"
+
+[晒]
+hint="さら (す)"
+
+[栞]
+hint="しおり"
+
+[筈]
+hint="はず"
+
+[繋]
+hint="つな (ぐ)"
+
+[閾]
+hint="しきい"
+
+[幾]
+hint="いく (つ、ら)"
+valid before="何"
+
+[詫び]
+hint="わび"
+
+[捧]
+hint="ささ (げる)"
+valid !before="[げぐ]"
+
+[括]
+hint="かな書きするか、別の表現を使ってください (囲む)"
+valid !before="[らりるれろ]"
+
+[曖昧]
+hint="あいまい"
+
+[と共に]
+hint="とともに"
+
+[御覧]
+hint="ご覧"
+
+[とおり]
+id="tori3"
+hint="3 通り、何通り (cf. 以下のとおり)"
+valid !after="\d *|いく|[何一二三四五六七八九十百千万億]"
+
+[けい線]
+hint="罫線"
+
+[かっこ]
+hint="括弧"
+
+[したが]
+hint="従って (動詞の場合は漢字)"
+valid !after="に"
+
+[かわりに]
+hint="代わりに"
+
+[すでに]
+hint="既に"
+
+[もっとも]
+hint="最も"
+
+[つねに]
+hint="常に"
+
+[おもに]
+hint="主に"
+
+[ただちに]
+hint="直ちに"
+
+[たとえば]
+hint="例えば"
+
+[関連づけ]
+hint="関連付け"
+
+[みな]
+hint="見な (す)"
+valid before="さん"
+valid after="割り込" before="し"
+valid !before="[さしすせそ]"
+
+[見做]
+hint="見な (す)"
+
+[みつ]
+hint="見つ (かる)"
+valid !before="[かけ]"
+
+[見付]
+hint="見つ (かる)"
+valid !before="[かけ]"
+
+[切替]
+hint="切り替え"
+
+[読込]
+hint="読み込み"
+
+[書込]
+hint="書き込み"
+
+[繰返]
+hint="繰り返し"
+
+[貼付]
+hint="貼り付け"
+
+[切取]
+hint="切り取り"
+
+[取付]
+hint="取り付け"
+
+[割当]
+hint="割り当て"
+
+[置換え]
+hint="置き換え"
+valid after="配"
+
+[書換え]
+hint="書き換え"
+
+[折返]
+hint="折り返し"
