@@ -593,7 +593,7 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, msgstr, msgid, msg, cat, filename=None, env=None):
+    def process(self, fmsgstr, fmsgid, msg, cat, filename=None, env=None):
         """Process the given message
         @return: True if rule match, False if rule do not match, None if rule cannot be applied"""
         if self.pattern is None:
@@ -620,121 +620,125 @@ class Rule(object):
             filename=basename(cat.filename)
 
         if not self.onmsgid:
-            text = msgstr
+            text = fmsgstr
         else:
-            text = msgid
+            text = fmsgid
 
-        cancel=None  # Flag to indicate we have to cancel rule triggering. None indicate rule does not match
+        patternMatches=list(self.pattern.finditer(text)) # need full data per match
+        if not patternMatches:
+            # Main pattern does not match anything, just return.
+            return False
 
-        patternMatches=self.pattern.finditer(text)
-
+        # All matched segments must be cleared to invoke exception.
+        cancel=True
         for patternMatch in patternMatches:
-            self.span=patternMatch.span()
-
-            # Rule pattern match. Now see if a valid exception exists
-            # First validity entry that matches invokes exception.
+            # First validity entry that matches excepts the current segment.
             cancel=False
             for entry in self.valid:
+                if self._is_valid(patternMatch, text, entry,
+                                  fmsgstr, fmsgid, msg, cat, filename, env):
+                    cancel=True
+                    break
+            if not cancel:
+                # Recored problematic segment for error reporting.
+                self.span=patternMatch.span()
+                break
 
-                # All keys within a validity entry must match for the
-                # entry to match as whole.
-                cancel = True
-                for key, value in entry.iteritems():
-                    bkey = key
-                    invert = False
-                    if key.startswith("!"):
-                        bkey = key[1:]
-                        invert = True
+        # Update stats for matched rules.
+        self.count+=1
+        if self.stat : self.time+=1000*(time()-begin)
 
-                    if bkey == "env":
-                        match = env in value
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
+        # Rule matched if its main pattern matched and was not cancelled.
+        return not cancel
 
-                    elif bkey == "cat":
-                        match = cat.name in value
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
 
-                    elif bkey == "file":
-                        match = filename in value
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
+    def _is_valid (self, pmatch, text, ventry,
+                         fmsgstr, fmsgid, msg, cat, filename, env):
 
-                    elif bkey == "span":
-                        found = value.search(patternMatch.group(0)) is not None
-                        if invert: found = not found
-                        if not found:
-                            cancel = False
-                            break 
+        # All keys within a validity entry must match for the
+        # entry to match as whole.
+        valid = True
+        for key, value in ventry.iteritems():
+            bkey = key
+            invert = False
+            if key.startswith("!"):
+                bkey = key[1:]
+                invert = True
 
-                    elif bkey == "after":
-                        # Search up to the match to avoid need for lookaheads.
-                        afterMatches = value.finditer(text, 0, patternMatch.start())
-                        found = False
-                        for afterMatch in afterMatches:
-                            if afterMatch.end() == patternMatch.start():
-                                found = True
-                                break
-                        if invert: found = not found
-                        if not found:
-                            cancel = False
-                            break 
+            if bkey == "env":
+                match = env in value
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
 
-                    elif bkey == "before":
-                        # Search from the match to avoid need for lookbehinds.
-                        beforeMatches = value.finditer(text, patternMatch.end())
-                        found = False
-                        for beforeMatch in beforeMatches:
-                            if beforeMatch.start() == patternMatch.end():
-                                found = True
-                                break
-                        if invert: found = not found
-                        if not found:
-                            cancel = False
-                            break 
+            elif bkey == "cat":
+                match = cat.name in value
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
 
-                    elif bkey == "ctx":
-                        match = value.search(msg.msgctxt)
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
+            elif bkey == "file":
+                match = filename in value
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
 
-                    elif bkey == "msgid":
-                        match = value.search(msgid)
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
+            elif bkey == "span":
+                found = value.search(pmatch.group(0)) is not None
+                if invert: found = not found
+                if not found:
+                    valid = False
+                    break
 
-                    elif bkey == "msgstr":
-                        match = value.search(msgstr)
-                        if invert: match = not match
-                        if not match:
-                            cancel = False
-                            break 
+            elif bkey == "after":
+                # Search up to the match to avoid need for lookaheads.
+                afterMatches = value.finditer(text, 0, pmatch.start())
+                found = False
+                for afterMatch in afterMatches:
+                    if afterMatch.end() == pmatch.start():
+                        found = True
+                        break
+                if invert: found = not found
+                if not found:
+                    valid = False
+                    break
 
-                if cancel:
-                    break 
+            elif bkey == "before":
+                # Search from the match to avoid need for lookbehinds.
+                beforeMatches = value.finditer(text, pmatch.end())
+                found = False
+                for beforeMatch in beforeMatches:
+                    if beforeMatch.start() == pmatch.end():
+                        found = True
+                        break
+                if invert: found = not found
+                if not found:
+                    valid = False
+                    break
 
-        if cancel is None:
-            # Rule does not match anything
-            # Return and do not update stats
-            return False
-        else:
-            # stat
-            self.count+=1
-            if self.stat : self.time+=1000*(time()-begin)
-            if cancel:
-                # Rule match but was canceled by a "valid" expression
-                return False
-            else:
-                # Rule match, return hint
-                return True
+            elif bkey == "ctx":
+                match = value.search(msg.msgctxt)
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "msgid":
+                match = value.search(fmsgid)
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "msgstr":
+                match = value.search(fmsgstr)
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+        return valid
+
