@@ -15,6 +15,16 @@ id="application"
 hint="application = програм"
 valid !msgstr="\bаплика[цт]"
 
+{\bbackup}i
+id="backup"
+hint="backup = резерва"
+valid msgstr="\bрезерв"
+
+{\bback up}i
+id="backup2"
+hint="back up = направити резерву"
+disabled
+
 {\b(bitmap|pixmap)}i
 id="bitmap"
 hint="bitmap|pixmap = битмапа"
@@ -99,7 +109,7 @@ valid msgstr="config"
 valid msgid="configuration module" msgstr="контролн\w+ модул"
 valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
 
-{\bconfiguration file}i
+{\bconfig(uration)?[ -]file}i
 id="configurationfile"
 hint="configuration file = поставни фајл"
 valid msgstr="\bпоставн\w+ фајл"
@@ -163,6 +173,13 @@ hint="driver = драјвер"
 valid msgstr="\bдрајвер"
 valid msgstr="driver"
 
+{\b(character set|char\W?set|encoding)}i
+id="encoding"
+hint="character set|charset|encoding = кодирање"
+valid msgstr="\bкодирањ" !msgstr="\bзнаковн\w+ кодирањ" !msgstr="кодирањ\w+ знак(?!ов)"
+valid msgstr="encoding"
+valid cat="khelpcenter" msgid="^Default encoding:$" msgstr="^Подразумевано:$"
+
 {\bplugin}i
 id="extension"
 hint="plugin = прикључак"
@@ -208,6 +225,19 @@ valid cat="kfontinst" msgid="Scanning for duplicate fonts"
 valid cat="kfontinst" msgid="fonts\.\w"
 # глупави угњеждени стилови
 valid msgid="font-\w+:"
+
+# Најчешће заправо ‘облик’, али тешко да ће неко тако превести кад
+# треба да стоји ‘формулар’. Зато просто пропуштамо и једно и друго.
+# Ређи случајеви кад треба да буде ‘форма’ (нпр. „нормална форма“)
+# покривају се понаособ.
+{\bforms?\b}i
+id="form"
+hint="form = формулар"
+valid msgstr="\bформулар"
+valid msgstr="\bобли[кцч]"
+valid msgid="normal(ization|ized)? form" msgstr="\bформ([аеиу]|ом|ама)\b"
+valid cat="kcmlocale" msgid="declined form.*month name" msgstr="деклин"
+valid cat="libkpimutils" msgid="email.*of the form" msgstr="нешто као"
 
 {\bGCC}
 id="gcc"
@@ -385,7 +415,6 @@ valid msgstr="\bпоказивач"
 valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
 valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
-
 
 {\bquit(s|ted)?\b}i
 id="quit"

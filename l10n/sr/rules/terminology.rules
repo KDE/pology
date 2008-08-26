@@ -72,8 +72,8 @@ valid cat="kate" msgid="configured\s*for the document type"
 id="cursor"
 hint="cursor = курсор"
 valid !cat="kate,katefiletemplates,katepart4,konsole"
-valid after="mouse "
-valid before=" theme"
+valid after="mouse " msgstr="\bпоказивач"
+valid before=" theme" msgstr="\bпоказивач"
 valid msgstr="\bкурсор"
 
 {\bcut}i
@@ -300,9 +300,11 @@ valid env="kde" msgstr="software"
 {\bspaces?\b}i
 id="space"
 hint="space = размак"
-valid span="space\b" before=" (available|required|of|left)"
-valid span="space\b" after="(additional|all|allocate|blank|config|disk|empty|enough|free|memory|more|no|out of|remaining|of|some|sufficient|swap|total|used|work|I/O) "
-valid span="space\b" after="(white|user)\W?"
+# који спадају под ‘простор’:
+valid span="space\b" before=" (available|required|of|left)" msgstr="\bпростор"
+valid span="space\b" after="(additional|all|allocate|config|disk|empty|enough|free|memory|more|no|out of|remaining|of|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
+# који спадају под посебне појмове:
+valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
 valid env="kde" msgstr="space"
 valid cat="kcm_pci" msgid="^Space$"
