@@ -76,6 +76,11 @@ valid after="mouse " msgstr="\bпоказивач"
 valid before=" theme" msgstr="\bпоказивач"
 valid msgstr="\bкурсор"
 
+{customize}i
+id="customize"
+hint="customize = прилагодити"
+valid msgstr="прилаго[дђ]" !msgstr="прилагодив"
+
 {\bcut}i
 id="cut"
 hint="cut = исећи"

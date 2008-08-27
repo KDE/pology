@@ -18,7 +18,7 @@ valid !msgstr="\bаплика[цт]"
 {\bbackup}i
 id="backup"
 hint="backup = резерва"
-valid msgstr="\bрезерв"
+valid msgstr="\bрезерв" !msgstr="\bрезервн\w+ копиј"
 
 {\bback up}i
 id="backup2"
@@ -128,6 +128,13 @@ valid cat="lokalize" msgid="copy; 20"
 id="copy_fs"
 hint="copy = копирати"
 disabled
+
+{\bcustom(?!i)}i
+id="custom"
+hint="custom = посебан"
+valid msgstr="\bпосеб(н|ан)"
+valid after="my own " msgstr="сопствен"
+valid msgstr="custom"
 
 {\bdelimiter}i
 id="delimiter"
@@ -507,6 +514,11 @@ valid env="kde" msgstr="toolbar"
 valid cat="kdelibs4" msgid="^Show text on toolbar icons *$"
 valid cat="kdelibs4" msgid="^Highlight toolbar buttons on mouse over$"
 valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
+
+{\btooltip}i
+id="tooltip"
+hint="tooltip = облачић"
+valid msgstr="\bоблачић"
 
 {\bviewer}i
 id="viewer"
