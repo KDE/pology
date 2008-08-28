@@ -28,7 +28,7 @@ valid msgstr="名前変更"
 
 {^Save As\.\.\.$}
 hint="Save As... = 名前を付けて保存..."
-valid msgstr="名前を付けて保存..."
+valid msgstr="名前を付けて保存\.\.\."
 
 {^Select All$}
 hint="Select All = すべて選択"
@@ -85,12 +85,12 @@ id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
 
-{^Import(\.\.\.)?$}
+{^Import$}
 id="import"
-hint="Import = インポート..."
-valid msgstr="インポート..."
+hint="Import = インポート"
+valid msgstr="インポート"
 
-{^Export(\.\.\.)?$}
+{^Export$}
 id="export"
 hint="Export = エクスポート"
 valid msgstr="エクスポート"
@@ -219,6 +219,18 @@ id="mailclient"
 hint="mail client = メールクライアント"
 valid msgstr="メールクライアント"
 
+[メールソフト|メールプログラム|メーラー]
+id="mailsoft"
+hint="メールクライアント"
+
+{hex editor}i
+id="hexeditor"
+hint="hex editor = バイナリエディタ"
+valid msgstr="バイナリエディタ"
+
+[十六進エディタ]
+hint="バイナリエディタ"
+
 {terminal emulator}i
 id="terminalemulator"
 hint="terminal emulator = ターミナルエミュレータ"
@@ -289,11 +301,30 @@ valid msgstr="隠しファイル"
 id="executable"
 hint="executable (file) = 実行ファイル"
 
+[添付物]
+id="attachment"
+hint="attachment = (メールの) 添付ファイル"
+
 {unmount}i
 id="unmount"
 hint="unmount = アンマウント"
 valid msgstr="アンマウント"
 valid after="_"
+
+{read[\- ]only}i
+id="readonly"
+hint="read-only = 読み取り専用"
+valid msgstr="読み取り専用"
+
+{aspect ratio}i
+id="aspect"
+hint="aspect ratio = アスペクト比"
+valid msgstr="アスペクト比"
+
+{keep aspect ratio}i
+id="keepaspect"
+hint="keepaspect = アスペクト比を保つ"
+valid msgstr="アスペクト比を保つ"
 
 {case sensitive}i
 id="casesens"

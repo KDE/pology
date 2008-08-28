@@ -150,6 +150,7 @@ valid !after="の|(文字|言葉|見かけ|型|時間|期日|予定|計画|約�
 
 [為]
 hint="ため"
+valid after="人"
 
 [塞]
 hint="ふさ (ぐ)"
@@ -296,3 +297,94 @@ hint="書き換え"
 
 [折返]
 hint="折り返し"
+
+[\(]
+environment waccel
+id="space1"
+hint="左括弧の前に半角のスペースを入れてください。"
+valid cat="kspread"
+valid after="[\s]"
+valid after="^"
+valid before="&[A-Za-z\d]\)"
+valid before="_[A-Za-z\d]\)"
+valid after="([。、？「」\"'/<>]|\.\.\.)"
+valid after="[=\+\-]"
+valid after="[A-Za-z]" before="\)"
+valid after="\$" before="KDEDIR"
+valid after="DVD\+R|DVD-R|CD-R|DVD%1R" before="W\)"
+valid after="BD-R" before"E\)"
+valid after="PDF" before="La\)TeX"
+valid before="TM\)"
+valid after="(Microsoft|Windows)" before="R\)"
+valid after="mplayer|diff|grep|write|wall" before="\d\)"
+valid after="[12]" before="[xy]\)" cat="joystick"
+valid after="range" before="\d\)" cat="kig"
+valid after="Point" before="\d\,\d\)" cat="kig"
+valid after="[a-z]" before="(n|a|a,b)\) ?=" cat="kalgebra"
+valid msgid="^%1\($" msgstr="^%1\($" cat="kalgebra"
+valid msgid="^QPixmap\($" msgstr="^QPixmap\($" cat="kommander"
+valid after="(cos|sin)" before="t\)"
+valid after="pi" before="\d?π"
+valid after="f" before="(x,y|x,k)\)"
+valid after="%\d" before="x\) ?="
+valid after="loop|ln" before="角度\)"
+valid after="aCH3" before=(CH2\)"
+valid after=";" before="\*" cat="kfontinst"
+valid after="%1" before="%2\)" ctx="command-with-section"
+valid after="new_shellscript" before="([12]|%N)\)\.sh"
+valid after="%" before="album|aritist|extension\)"
+valid after="\(%1,%2\)" before="%3x%4\)" cat="digikam"
+valid msgid="^T\(K\):$" msgstr="^T\(K\):$" cat="libkdcraw"
+valid after="@env" before="PATH\)"
+valid after="\$" before="変数\)"
+valid after="&?nbsp;"
+valid after="KDEDIR" before="&?nbsp;" cat="quanta"
+valid after="タグ名" before="属性1, 属性2" cat="quanta"
+valid after="s" before="\[a\-zA\-Z\]\+\)" cat="quanta"
+valid after="%artist\)" before="アルバム名" cat="kopete"
+valid after="。:" cat="kopete"
+
+[\)]
+environment waccel
+id="space2"
+hint="右括弧の後に半角のスペースを入れてください。"
+valid cat="kspread"
+valid before="[\s]"
+valid before="$"
+valid before="([。？、」\"'/<>:|\]]|, |\.\.\.)"
+valid before="[=\+\-]"
+valid after="\(La" before="TeX"
+valid after="\(X" before="HTML"
+valid after="\(K" before="WordQuiz"
+valid after="\(CH2" before="3COOH"
+valid after="\d" before="e-\d"
+valid after="\"" before="£" cat=kfontinst
+valid after="new_shellscript\(([12]|%N)" before="\.sh"
+valid after="\(%1,%2" before="\(%3x%4\)" cat="digikam"
+valid after="%artist" before="\(アルバム名: %album\)" cat="kopete"
+valid after="pool\.ntp\.org" before=",asia\.pool\.ntp\.org" cat="kcmkclock"
+valid after="\(ad\|banner" before="\\\\\./" cat="kcmkonqhtml"
+valid after="xff\]\*" before="\[" cat="quanta"
+valid after="\[a\-zA\-Z\]\+" before=";" cat="quanta"
+valid after="Windows\(R" before="\)" msgid="Windows\(R\)\)" cat="kfileshare"
+valid after="\((π/2|π)" before="\)" cat="kmplot"
+valid after="\.(xmi|mdl|kml|gpx)" before=";;"
+valid after="\(プロプライエタリ" before="\)" cat="kvpnc"
+valid before="\\\s" cat="desktop_kdebase"
+
+[ +\(&[A-Z\d]\)]
+environment waccel
+id="accel1"
+hint="アクセラレータの括弧の前にはスペースを入れません (前に括弧がある場合は入れます)"
+valid after="\)"
+valid after="#[12]" before=":" cat="kuser"
+
+[\(&[a-z]\)]
+environment waccel
+id="accel2"
+hint="アクセラレータには大文字を使ってください"
+
+[\.\.\. *\([_&][A-Z\d]\)]
+environment waccel
+id="accel3"
+hint="「...」はアクセラレータの後に付けてください"
