@@ -15,6 +15,33 @@ id="application"
 hint="application = програм"
 valid !msgstr="\bаплика[цт]"
 
+{\bauthenticate}i
+id="authenticate"
+hint="authenticate = аутентификовати"
+valid msgstr="\bаутентифик(ов|уј)"
+
+{\bauthentication}i
+id="authentication"
+hint="authentication = аутентификација"
+valid msgstr="\bаутентифик"
+valid msgstr="authentication"
+
+{\bauthori[zs]ation}i
+id="authorization"
+hint="authorization = овлашћење"
+valid msgstr="\bовла(ст|шћ)"
+# где је погрешно коришћено /authorization/ уместо /authentication/
+valid msgid="^Authorization dialog$" msgstr="аутентифик"
+valid cat="libmailtransport" msgid="to the server for authorization" msgstr="аутентифик"
+valid cat="kio_ldap" msgid="authorization information" msgstr="аутентифик"
+valid cat="kio_fish" msgid="SSH Authorization" msgstr="аутентифик"
+valid cat="kcmkio" msgid="^Authorization$" msgstr="аутентифик"
+
+{\bauthori[zs]e}i
+id="authorize"
+hint="authorize = овластити"
+valid msgstr="\bовла(ст|шћ)"
+
 {\bbackup}i
 id="backup"
 hint="backup = резерва"
