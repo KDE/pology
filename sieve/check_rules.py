@@ -17,6 +17,8 @@ The sieve parameters are:
    - C{lang:<language>}: language for which to fetch and apply the rules
    - C{env:<environment>}: specific environment within the given language;
         if not given, only environment-agnostic rules are applied
+   - C{envonly}: when a specific environment is given, apply only the rules
+        explicitly belonging to it (ignoring environment-agnostic ones)
    - C{rule}: comma-separated list of specific rules to apply, containing
         rule identifiers; if not given, all rules for given language and
         environment are applied
@@ -84,12 +86,20 @@ class Sieve (object):
             stat=True
         else:
             stat=False
-        
+
         if "env" in options:
             options.accept("env")
             self.env=options["env"]
         else:
             self.env=None
+
+        if "envonly" in options:
+            options.accept("envonly")
+            if "env" not in options:
+                warning("'envonly' parameter has no effect when 'env' not given too")
+            envOnly=True
+        else:
+            envOnly=False
 
         # Remove accelerators?
         self.accelExplicit=False
@@ -114,7 +124,7 @@ class Sieve (object):
             customRuleFiles=None
 
         # Load rules
-        self.rules=loadRules(lang, stat, self.env, customRuleFiles)
+        self.rules=loadRules(lang, stat, self.env, envOnly, customRuleFiles)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
@@ -145,11 +155,17 @@ class Sieve (object):
         ndis=len([x for x in self.rules if x.disabled])
         nact=ntot-ndis
         if ndis and self.env:
-            print "Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
+            if envOnly:
+                print "Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
+            else:
+                print "Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
         elif ndis:
             print "Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis)
         elif self.env:
-            print "Loaded %s rules [%s]" % (ntot, self.env)
+            if envOnly:
+                print "Loaded %s rules [%s]" % (ntot, self.env)
+            else:
+                print "Loaded %s rules [only %s]" % (ntot, self.env)
         else:
             print "Loaded %s rules" % (ntot)
 

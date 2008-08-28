@@ -246,11 +246,12 @@ def printStat(rules, nmatch):
             print "%-20s\t\t%6d\t\t%6.1f\t\t%6d" % (p, c, t, tt)
 
 
-def loadRules(lang, stat, env=None, ruleFiles=None):
+def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     """Load rules for a given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
-    @param env: also load rules applicable in this environment only
+    @param env: also load rules applicable in this environment
+    @param envOnly: load only rules applicable in the given environment
     @param ruleFiles: a list of rule files to load instead of internal
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
@@ -298,10 +299,13 @@ def loadRules(lang, stat, env=None, ruleFiles=None):
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, accents, stat))
 
-    # Remove rules with specific but different environment.
+    # Remove rules with specific but different to given environment,
+    # or any rule not in given environment in environment-only mode.
     srules=[]
     for rule in rules:
-        if rule.environ and rule.environ!=env:
+        if envOnly and rule.environ!=env:
+            continue
+        elif rule.environ and rule.environ!=env:
             continue
         srules.append(rule)
     rules=srules
