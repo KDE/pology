@@ -109,13 +109,12 @@ class Sieve (object):
         
         if "rfile" in options:
             options.accept("rfile")
-            customRuleFile=options["rfile"]
-            error("sorry, using external rule files not implemented yet")
+            customRuleFiles=[options["rfile"]]
         else:
-            customRuleFile=None
+            customRuleFiles=None
 
         # Load rules
-        self.rules=loadRules(lang, stat, self.env)
+        self.rules=loadRules(lang, stat, self.env, customRuleFiles)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.

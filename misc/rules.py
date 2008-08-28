@@ -226,7 +226,7 @@ from locale import getlocale
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 from pology import rootdir
-from pology.misc.report import warning
+from pology.misc.report import warning, error
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
@@ -246,48 +246,54 @@ def printStat(rules, nmatch):
             print "%-20s\t\t%6d\t\t%6.1f\t\t%6d" % (p, c, t, tt)
 
 
-def loadRules(lang, stat, env=None):
-    """Load all rules of given language
+def loadRules(lang, stat, env=None, ruleFiles=None):
+    """Load rules for a given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @param env: also load rules applicable in this environment only
+    @param ruleFiles: a list of rule files to load instead of internal
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
-    ruleFiles=[]           # List of rule files
     ruleDir=""             # Rules directory
     rules=[]               # List of rule objects
     l10nDir=join(rootdir(), "l10n") # Base of all language specific things
 
     # Detect language
-    #TODO: use PO language header once it has been implemented 
-    if lang:
-        ruleDir=join(l10nDir, lang, "rules")
-        print "Using %s rules" % lang
+    #TODO: use PO language header once it has been implemented
+    if ruleFiles is not None:
+        if not lang:
+            error("language must be explicitly given when using external rules")
+        print "Using external %s rules" % lang
     else:
-        # Try to autodetect language
-        languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
-        print "Rules available in the following languages: %s" % ", ".join(languages)
-        for lang in languages:
-            if lang in sys.argv[-1] or lang in getlocale()[0]:
-                print "Autodetecting %s language" % lang
-                ruleDir=join(l10nDir, lang, "rules")
-                break
-    
-    if not ruleDir:
-        print "Using default rule files (French)..."
-        lang="fr"
-        ruleDir=join(l10nDir, lang, "rules")
-    if isdir(ruleDir):
-        ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
-    else:
-        print "The rule directory is not a directory or is not accessible"
+        if lang:
+            ruleDir=join(l10nDir, lang, "rules")
+            print "Using %s rules" % lang
+        else:
+            # Try to autodetect language
+            languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
+            print "Rules available in the following languages: %s" % ", ".join(languages)
+            for lang in languages:
+                if lang in sys.argv[-1] or lang in getlocale()[0]:
+                    print "Autodetecting %s language" % lang
+                    ruleDir=join(l10nDir, lang, "rules")
+                    break
+
+        if not ruleDir:
+            print "Using default rule files (French)..."
+            lang="fr"
+            ruleDir=join(l10nDir, lang, "rules")
+
+        if isdir(ruleDir):
+            ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
+        else:
+            error("The rule directory is not a directory or is not accessible")
     
     # Find accents substitution dictionary
     try:
         m=__import__("pology.l10n.%s.accents" % lang, globals(), locals(), [""])
         accents=m.accents
     except ImportError:
-        print "No accents substitution dictionary found for %s lang" % lang
+        print "No accents substitution dictionary found for %s language" % lang
         accents=None
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, accents, stat))
