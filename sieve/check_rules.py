@@ -163,9 +163,9 @@ class Sieve (object):
             print "Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis)
         elif self.env:
             if envOnly:
-                print "Loaded %s rules [%s]" % (ntot, self.env)
-            else:
                 print "Loaded %s rules [only %s]" % (ntot, self.env)
+            else:
+                print "Loaded %s rules [%s]" % (ntot, self.env)
         else:
             print "Loaded %s rules" % (ntot)
 
