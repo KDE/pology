@@ -527,6 +527,13 @@ hint="system tray = системска касета"
 valid msgstr="\bсистемск\w+ касет"
 valid msgstr="system\W?tray"
 
+{\btaskbar}i
+id="taskbar"
+hint="taskbar = трака задатака"
+valid msgstr="\bтра[кц]\w+ задатака"
+valid cat="dolphin" msgid="toggle the icon on the taskbar" msgstr="тра\w+ алат"
+valid cat="kcmtaskbar" msgid="^When Taskbar Full$" msgstr="^када је трака пуна$"
+
 {\bthumbnail}i
 id="thumbnail"
 hint="thumbnail = сличица"

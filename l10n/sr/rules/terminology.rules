@@ -7,6 +7,13 @@ id="addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
+{\bborder}i
+id="border"
+hint="border = ивица"
+valid msgstr="\bо?иви[цч]"
+valid env="kde" msgstr="border"
+valid cat="kate,katepart4" after="icon " msgstr="појас\w* икон"
+
 {\bcells?\b}i
 id="cell"
 hint="cell = ћелија"
