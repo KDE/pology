@@ -154,6 +154,12 @@ id="strikeout"
 hint="strikeout = 取り消し線"
 valid msgstr="取り消し線"
 
+[タイプ]
+id="type"
+hint="間に「の」を入れた方がいいのでは？ (例: デバイスのタイプ)"
+valid after="ステレオ|ファイル|データ|オブジェクト"
+valid !after="[ァ-ヴー]"
+
 {file dialog}i
 hint="file dialog = ファイル選択ダイアログ"
 valid after="[\w\-]"
