@@ -75,6 +75,22 @@ hint="bookmark = маркер"
 valid msgstr="\bмарк[ие]р"
 valid msgstr="bookmark"
 
+{\bbrowse(?!r)}i
+id="browse"
+hint="browse = прегледати"
+# /browse for/ се изузима, и *не* треба да преведено са „прегледати...“
+valid before="d? for" msgstr="\b(по)?траж|пронађ|изабер"
+valid !before="d? for" msgstr="\bпрегледа[њтјол]"
+valid msgstr="\bbrowse\b"
+# в. коментар у каталогу (документационом)
+valid cat="dolphin" msgid="the user can toggle the browse button"
+
+{^Browse\W*$}
+id="browse_button"
+hint="Browse = Прегледај"
+valid msgstr="^Прегледај\W*$"
+valid msgstr="\bbrowse\b"
+
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
@@ -104,6 +120,21 @@ id="chooser"
 hint="chooser|selector = бирач"
 valid msgstr="\bбирач"
 valid msgstr="selector"
+
+{\bclick}i
+id="click"
+hint="click = кликнути"
+valid msgstr="\bклик(н[еиу]|тањ)"
+# без \b на почетку, због дво-, тро-.
+valid msgstr="клик(а|ом|у|ов(и|а|има|е))?"
+valid msgid="click( on)? this button" msgstr="овим дугметом"
+valid msgid="^Click here to" !msgstr="притисн"
+valid msgid="click and drag" msgstr="\bпреву[кцћ]"
+
+{\bclick}i
+id="click2"
+hint="click = клик"
+disabled
 
 {\bclipboard}i
 id="clipboard"
