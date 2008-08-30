@@ -404,4 +404,7 @@ hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 [anti-[^i]]i
 hint="Pas de tiret après « anti »"
 
+[\bDBUS\b]i
+hint="Il faut un tiret : « D-Bus »"
+
 # End of rule file
