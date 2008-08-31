@@ -36,6 +36,11 @@ id="checkbox"
 hint="checkbox|check box = кућица"
 valid msgstr="\bкућиц"
 
+{\bclient}i
+id="client"
+hint="client = клијент"
+valid msgstr="\bклијена?т"
+
 {\bcolumn}i
 id="column"
 hint="column = колона"
@@ -295,6 +300,14 @@ valid msgstr="\bпреимен"
 valid env="kde" msgstr="rename"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
+
+{\bserver}i
+id="server"
+hint="server = сервер"
+# посебно правило за /proxy server/
+valid after="proxy "
+valid msgstr="\bсервер"
+valid cat="nepomuk" msgid="^Nepomuk Server -" !msgstr=" [-—]"
 
 {\bshortcut}i
 id="shortcut"

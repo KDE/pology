@@ -154,7 +154,7 @@ valid msgstr="(?<!<)(?<!</)command"
 valid cat="katetextfilter" msgid="textfilter COMMAND"
 valid cat="konqueror" msgid="to the <b>Paste</b> command" msgstr="за <i>налепљивање</i>"
 
-{\bconfiguration}i
+{\bconfig(\b|uration)}i
 id="configuration"
 hint="configuration = постава"
 valid before=" file| script"
@@ -164,7 +164,8 @@ valid msgstr="\bподесит"
 # дозвољено увек у контексту употребити ‘поставке’
 valid msgstr="\bпоставк"
 valid msgstr="config"
-valid msgid="configuration module" msgstr="контролн\w+ модул"
+valid msgid="config(uration)? module" msgstr="контролн\w+ модул"
+valid cat="katepart4" msgid="config(uration)? page" msgstr="одеља?к"
 valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
 
 {\bconfig(uration)?[ -]file}i
@@ -186,6 +187,11 @@ valid cat="lokalize" msgid="copy; 20"
 id="copy_fs"
 hint="copy = копирати"
 disabled
+
+{\bcreate}i
+id="create"
+hint="create|make = направити|створити"
+valid !msgstr="креира"
 
 {\bcustom(?!i)}i
 id="custom"
@@ -516,15 +522,16 @@ valid cat="fooxyz"
 valid msgstr="\bраздвајач"
 
 # о-рук
-{\bsetting}i
+{\b(preference|setting)}i
 id="setting"
-hint="setting = поставка"
+hint="preference|setting = поставка"
 valid msgid="^settings$" msgstr="^подешавање$"
 valid msgstr="setting"
 valid msgstr="\bпостав(к|љ|ит)"
 valid msgstr="->подешавање"
 valid msgstr="подешавање->"
 valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
+valid span="preference\b" msgstr="пожеља?н|првенств"
 valid cat="kio_smtp,kio_pop3" msgid="crypto settings module" msgstr="модул\w* за шифровање"
 valid cat="kdelibs4" msgid="original color setting"
 valid cat="kdelibs4" msgid="setting if you want this entry" msgstr="опциј"
@@ -532,6 +539,7 @@ valid cat="krandr" msgid="^Apply settings on KDE startup$" msgstr="^Примен
 valid cat="katepart4" msgid="setting for the default editing" msgstr="задату подразумевану уређивачку"
 valid cat="konqueror" msgid="Full-Screen Mode.*in the Settings menu" msgstr="у менију.*Прозор"
 valid cat="kcmkonqhtml,kcmkio" msgid="default policy setting" msgstr="подразумеван\w+ смерниц"
+valid cat="kdeqt" msgid="^preferences?$" msgstr="личн\w+ избор"
 
 {\bshell}i
 id="shell"
