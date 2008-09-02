@@ -298,6 +298,9 @@ hint="書き換え"
 [折返]
 hint="折り返し"
 
+# environment waccel ルールの使い方 (PO ヘッダに X-Accelerator-Marker がある場合)
+# posieve.py check-rules -slang:ja -saccel -senv:waccel -senvonly 
+
 [\(]
 environment waccel
 id="space1"
@@ -371,6 +374,15 @@ valid after="\((π/2|π)" before="\)" cat="kmplot"
 valid after="\.(xmi|mdl|kml|gpx)" before=";;"
 valid after="\(プロプライエタリ" before="\)" cat="kvpnc"
 valid before="\\\s" cat="desktop_kdebase"
+
+[[A-Za-z]+]
+environment waccel
+id="space3"
+hint="英文字と日本語の間には半角のスペースを入れてください。"
+valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
+valid span="[DFPS]" before="ブロック" cat="kalzium"
+valid span="pH" before="値|測定器" cat="kalzium"
+valid span="km" after="平方" cat="marble"
 
 [ +\(&[A-Z\d]\)]
 environment waccel
