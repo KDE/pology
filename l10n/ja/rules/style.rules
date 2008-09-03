@@ -6,7 +6,24 @@
 hint="日本語の疑問文には全角の「？」を使ってください。"
 
 [[Ａ-Ｚａ-ｚ０-９]]
+id="hankaku1"
 hint="半角の英数字を使ってください。"
+
+[[（）［］｛｝]]
+id="hankaku2"
+hint="半角の括弧を使ってください。"
+
+[：]
+id="hankaku3"
+hint="半角のコロンを使ってください。"
+
+[／]
+id="hankaku4"
+hint="半角のスラッシュを使ってください。"
+
+[　]
+id="hankaku5"
+hint="半角のスペースを使ってください。"
 
 [\d ?進]
 hint="漢数字を使ってください (十進数)"
@@ -383,6 +400,11 @@ valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
 valid span="[DFPS]" before="ブロック" cat="kalzium"
 valid span="pH" before="値|測定器" cat="kalzium"
 valid span="km" after="平方" cat="marble"
+
+[[。、]]
+id="space4"
+hint="日本語の句読点の後にはスペースを入れません。"
+valid !before="[ 　]"
 
 [ +\(&[A-Z\d]\)]
 environment waccel
