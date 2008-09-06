@@ -61,7 +61,7 @@ def _mine_po_encoding (filename):
 
     ifl = open(filename, "r")
     enc = "UTF-8"
-    enc_rx = re.compile(r"Content-Type:.*charset=(.+)\\n", re.I)
+    enc_rx = re.compile(r"Content-Type:.*charset=(.+?)\\n", re.I)
     for line in ifl.xreadlines():
         if line.strip().startswith("#:"):
             break
