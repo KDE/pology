@@ -25,7 +25,7 @@ _natbr = u".,;/%-)]}"
 
 # Strings at which the text should be wrapped before or after.
 _prebr = ("|/|",)
-_postbr = ("\\n", "|/|")
+_postbr = (("\\n", "\\\\n"), "|/|")
 # |/| is the Transcript fence, should break both before and after.
 
 # Tags for normal breaking (after the closed tag)
@@ -187,8 +187,13 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
             # Check for an immediate break by sequence.
             for br in postbr:
-                if backtext.endswith(br):
-                    atbr = True; break
+                if not isinstance(br, tuple):
+                    if backtext.endswith(br):
+                        atbr = True; break
+                else:
+                    br1, br2 = br
+                    if backtext.endswith(br1) and not backtext.endswith(br2):
+                        atbr = True; break
             if atbr: break
             for br in prebr:
                 if foretext.startswith(br):
