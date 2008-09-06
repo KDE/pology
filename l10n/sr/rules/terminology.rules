@@ -203,6 +203,7 @@ hint="highlight = истакнути"
 valid msgstr="\bиста(кн|ћи)"
 valid msgstr="\bистица(њ|т)"
 valid msgstr="--highlight"
+valid env="kde" msgstr="highlight"
 
 {\blabel}i
 id="label"
@@ -327,7 +328,7 @@ id="space"
 hint="space = размак"
 # који спадају под ‘простор’:
 valid span="space\b" before=" (available|required|of|left)" msgstr="\bпростор"
-valid span="space\b" after="(additional|all|allocate|config|disk|empty|enough|free|memory|more|no|out of|remaining|of|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
+valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|memory|more|no|out of|remaining|of|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
