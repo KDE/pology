@@ -13,7 +13,8 @@ Sieve options for matching:
   - C{msgid:<regex>}: regular expression to match against the C{msgid}
   - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
   - C{comment:<regex>}: regular expression to match against comments
-  - C{transl}: try to match only translated messages
+  - C{transl}: the message must be translated
+  - C{plural}: the message must be plural
 
 If more than one of the matching options are given (e.g. both C{msgid} and
 C{msgstr}), the message matches only if all of them match. In case of plural
@@ -35,6 +36,7 @@ Other sieve options:
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
   - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
+  - C{maxchar}: ignore messages with more than this number of characters
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
@@ -133,6 +135,20 @@ class Sieve (object):
             options.accept("ntransl")
             self.untran = True
 
+        self.plural = False
+        if "plural" in options:
+            options.accept("plural")
+            self.plural = True
+        self.nonplural = False
+        if "nplural" in options:
+            options.accept("nplural")
+            self.nonplural = True
+
+        self.maxchar = None
+        if "maxchar" in options:
+            options.accept("maxchar")
+            self.maxchar = int(options["maxchar"])
+
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.replace is None and not self.mark:
             self.caller_sync = False
@@ -159,6 +175,10 @@ class Sieve (object):
             return
         if self.untran and msg.translated:
             return
+        if self.plural and not msg.msgid_plural:
+            return
+        if self.nonplural and msg.msgid_plural:
+            return
 
         match = True
 
@@ -180,6 +200,12 @@ class Sieve (object):
                 texts.append(" ".join(["%s:%s" % x for x in msg.source]))
             else:
                 error("unknown search field '%s'" % field)
+
+            if self.maxchar is not None and field in ("msgid", "msgstr"):
+                nchar = sum([len(x) for x in texts]) // len(texts)
+                if nchar > self.maxchar:
+                    match = False
+                    break
 
             local_match = False
 
