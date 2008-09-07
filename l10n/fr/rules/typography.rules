@@ -45,7 +45,7 @@ valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
-valid after="font-size|font-style|font-weight|text-align"# CSS
+valid after="font-family|font-size|font-style|font-weight|text-align"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
@@ -102,7 +102,7 @@ validGroup inQuotes
 validGroup alone
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
-valid after="center|pt|px|\d+|[a-f]{1,2}" before"\"" # CSS
+valid after="center|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" before"\"" # CSS
 valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley
@@ -266,7 +266,8 @@ valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
 valid after="\d+"
-valid after="font size="
+valid after="="
+valid after="=\S+" # HTML
 valid file="amarok.po" after="install"
 valid file="amarok.po" before="make install"
 valid file="kioclient.po" before="Mount"
