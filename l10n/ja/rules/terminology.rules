@@ -50,6 +50,10 @@ valid msgstr="選択反転"
 hint="Move to Trash = ごみ箱に移動"
 valid msgstr="ごみ箱に移動"
 
+{^Empty Trash$}
+hint="Empty Trash = ごみ箱を空にする"
+valid msgstr="ごみ箱を空にする"
+
 {^Copy Here$}
 hint="Copy Here = ここにコピー"
 valid msgstr="ここにコピー"
@@ -164,6 +168,17 @@ valid !after="[ァ-ヴー]"
 hint="file dialog = ファイル選択ダイアログ"
 valid after="[\w\-]"
 valid msgstr="ファイル選択ダイアログ"
+
+{password dialog}i
+id="password-dialog"
+hint="password dialog = パスワード入力ダイアログ"
+valid msgstr="パスワード入力ダイアログ"
+
+{\bfull ?screen\b}i
+id="fullscreen"
+hint="fullscreen = フルスクリーン"
+valid msgstr="フルスクリーン"
+valid msgstr="スクリーン全体" cat="kgrab, ksnapshot"
 
 {\bview mode}i
 hint="view mode = 表示モード"
