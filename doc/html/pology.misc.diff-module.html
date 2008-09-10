@@ -70,15 +70,35 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of tuples, float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_diff" class="summary-sig-name">word_diff</a>(<span class="summary-sig-arg">text_old</span>,
+        <span class="summary-sig-arg">text_new</span>,
+        <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Create word-level difference between old and new text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">string, float</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#diff_texts" class="summary-sig-name">diff_texts</a>(<span class="summary-sig-arg">text_old</span>,
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_ediff" class="summary-sig-name">word_ediff</a>(<span class="summary-sig-arg">text_old</span>,
         <span class="summary-sig-arg">text_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Create text with embedded differences between old and new texts.</td>
+      Create word-level embedded difference between old and new texts.</td>
           <td align="right" valign="top">
             
             
@@ -94,7 +114,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#diff_to_old" class="summary-sig-name">diff_to_old</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#ediff_to_old" class="summary-sig-name">ediff_to_old</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
       Recover old version (-) from text with embedded differences.</td>
           <td align="right" valign="top">
             
@@ -111,8 +131,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#diff_to_new" class="summary-sig-name">diff_to_new</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#ediff_to_new" class="summary-sig-name">ediff_to_new</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
       Recover new version (+) from text with embedded differences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of index tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#adapt_spans" class="summary-sig-name">adapt_spans</a>(<span class="summary-sig-arg">otext</span>,
+        <span class="summary-sig-arg">ftext</span>,
+        <span class="summary-sig-arg">spans</span>,
+        <span class="summary-sig-arg">merge</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Adapt matched spans in filtered text to original text.</td>
           <td align="right" valign="top">
             
             
@@ -132,14 +172,14 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="diff_texts"></a>
+<a name="word_diff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">diff_texts</span>(<span class="sig-arg">text_old</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_diff</span>(<span class="sig-arg">text_old</span>,
         <span class="sig-arg">text_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>)</span>
@@ -149,11 +189,22 @@
     </td>
   </tr></table>
   
-  <p>Create text with embedded differences between old and new texts.</p>
+  <p>Create word-level difference between old and new text.</p>
   <p>The difference is computed by looking at texts as collections of words
-  and intersegments. Segments present only in the new text are embedded as 
-  <code>{+...+}</code>, and segments only in the old text as 
-  <code>{-...-}</code>.</p>
+  and intersegments. Difference is presented as a list of tuples, with each
+  tuple composed of a difference tag and a text segment. Difference tag is 
+  string <code>&quot;+&quot;</code>, <code>&quot;-&quot;</code>, or 
+  <code>&quot; &quot;</code>, for text segments which are new, old, or 
+  present in both texts, respectively. The list is ordered such that 
+  joining all text segments not marked as old will reconstruct the new 
+  text, and joining all not marked as new will reconstruct the old text. 
+  For example:</p>
+<pre class="literalblock">
+   &gt;&gt;&gt; s1 = &quot;A new type of foo.&quot;
+   &gt;&gt;&gt; s2 = &quot;A new kind of bar.&quot;
+   &gt;&gt;&gt; text_diff(s1, s2)
+   []
+</pre>
   <p>Differencing may take into account when the texts are expected to have
   XML-like markup, or when they are of certain format defined by 
   Gettext.</p>
@@ -170,19 +221,51 @@
         <li><strong class="pname"><code>format</code></strong> (string) - Gettext format flag (e.g. <code>&quot;c-format&quot;</code>, 
           etc.)</li>
     </ul></dd>
-    <dt>Returns: string, float</dt>
-        <dd>string with embedded differences and difference ratio</dd>
+    <dt>Returns: list of tuples, float</dt>
+        <dd>difference list and difference ratio</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="diff_to_old"></a>
+<a name="word_ediff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">diff_to_old</span>(<span class="sig-arg">dtext</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_ediff</span>(<span class="sig-arg">text_old</span>,
+        <span class="sig-arg">text_new</span>,
+        <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">format</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create word-level embedded difference between old and new texts.</p>
+  <p>Same as <a href="pology.misc.diff-module.html#word_diff" 
+  class="link">word_diff</a>, but the difference is returned as text in 
+  which the new segments are wrapped as <code>{+...+}</code>, and the old 
+  segments as <code>{-...-}</code>.</p>
+  <dl class="fields">
+    <dt>Returns: string, float</dt>
+        <dd>string with embedded differences and difference ratio</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#word_diff" 
+        class="link">word_diff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="ediff_to_old"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ediff_to_old</span>(<span class="sig-arg">dtext</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -199,19 +282,19 @@
         <dd>old version of the text</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.diff-module.html#diff_texts" 
-        class="link">diff_texts</a>
+        <a href="pology.misc.diff-module.html#word_ediff" 
+        class="link">word_ediff</a>
       </p>
 </div></td></tr></table>
 </div>
-<a name="diff_to_new"></a>
+<a name="ediff_to_new"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">diff_to_new</span>(<span class="sig-arg">dtext</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ediff_to_new</span>(<span class="sig-arg">dtext</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -228,10 +311,53 @@
         <dd>new version of the text</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.diff-module.html#diff_texts" 
-        class="link">diff_texts</a>
+        <a href="pology.misc.diff-module.html#word_ediff" 
+        class="link">word_ediff</a>
       </p>
 </div></td></tr></table>
+</div>
+<a name="adapt_spans"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">adapt_spans</span>(<span class="sig-arg">otext</span>,
+        <span class="sig-arg">ftext</span>,
+        <span class="sig-arg">spans</span>,
+        <span class="sig-arg">merge</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Adapt matched spans in filtered text to original text.</p>
+  <p>Sometimes text gets filtered before being matched, and when a match is
+  found in the filtered text, it needs to be reported relative to the 
+  original text. This function will heuristically adapt matched spans 
+  relative to the filtered text back to the original text.</p>
+  <p>Spans are given as list of index tuples <code>[(start1, end1), 
+  ...]</code> where start and end index have standard Python semantics (may
+  be negative too). If <code>merge</code> is <code>True</code>, any spans 
+  that overlap or abut after adaptation will be merged into a single span, 
+  ordered by increasing start index, and empty spans removed; otherwise 
+  each adapted span will strictly correspond to the input span at that 
+  position.</p>
+  <p>If any of the input spans are invalid, the results are undefined.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>otext</code></strong> (string) - original text</li>
+        <li><strong class="pname"><code>ftext</code></strong> (string) - filtered text</li>
+        <li><strong class="pname"><code>spans</code></strong> (list of index tuples) - matched spans</li>
+        <li><strong class="pname"><code>merge</code></strong> - whether to merge overlapping spans @type bool</li>
+    </ul></dd>
+    <dt>Returns: list of index tuples</dt>
+        <dd>adapted spans</dd>
+  </dl>
+</td></tr></table>
 </div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->

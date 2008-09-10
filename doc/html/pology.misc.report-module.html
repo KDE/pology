@@ -221,11 +221,12 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8b3a4c4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>,
-        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Report the content of a PO message.</td>
           <td align="right" valign="top">
             
@@ -561,11 +562,12 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8b3a4c4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>,
-        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -575,6 +577,27 @@
   <p>Report the content of a PO message.</p>
   <p>Provides the message reference along with the message contents, 
   consisting of the catalog name and the message position within it.</p>
+  <p>Parts of the message can be highlighted using shell colors. Parameter 
+  <code>highlight</code> provides the highlighting specification, as list 
+  of tuples where each tuple consists of: name of the message element to 
+  highlight, element index (used when the element is a list of values), 
+  list of spans, and optionally the filtered text of the element value. For
+  example, to highlight spans <code>(5, 10)</code> and <code>(15, 
+  25)</code> in the <code>msgid</code>, and <code>(30, 40)</code> in 
+  <code>msgstr</code>, the highlighting specification would be:</p>
+<pre class="literalblock">
+   [(&quot;msgid&quot;, 0, [(5, 10), (15, 25)]), (&quot;msgstr&quot;, 0, [(30, 40)])]
+</pre>
+  <p>Names of the elements that can presently be highlighted are: 
+  <code>&quot;msgctxt&quot;</code>, <code>&quot;msgid&quot;</code>, 
+  <code>&quot;msgid_plural&quot;</code>, <code>&quot;msgstr&quot;</code>. 
+  For unique fields the element index is not used, but 0 should be given 
+  for consistency (may be enforced later).</p>
+  <p>Sometimes the match to which the spans correspond has been made on a 
+  filtered value of the message field (e.g. after accelerator markers or 
+  tags have been removed). In that case, the filtered text can be given as 
+  the fourth element of the tuple, after the list of spans, and the 
+  function will try to fit spans from filtered onto original text.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -582,11 +605,15 @@
           class="link">Message_base</a>) - the message to report the content for</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - the catalog where the message lives</li>
-        <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on line following the message</li>
+        <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
+          <code>to_lines()</code> method of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> for details.</li>
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to force reformatting of cached message content</li>
+        <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on the line following the message</li>
         <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>highlight</code></strong> ((see description)) - highlighting specification of message elements</li>
         <li><strong class="pname"><code>file</code></strong> (file) - output stream. Default is sys.stdout</li>
-        <li><strong class="pname"><code>highlight</code></strong> (re.compile regular expression) - regular expression pattern used to colorize text. Default is None</li>
     </ul></dd>
   </dl>
 </td></tr></table>

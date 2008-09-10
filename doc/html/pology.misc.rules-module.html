@@ -367,8 +367,10 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>,
         <span class="summary-sig-arg">stat</span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Load all rules of given language</td>
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envOnly</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">ruleFiles</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Load rules for a given language</td>
           <td align="right" valign="top">
             
             
@@ -474,14 +476,16 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>,
         <span class="sig-arg">stat</span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envOnly</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">ruleFiles</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Load all rules of given language</p>
+  <p>Load rules for a given language</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -489,7 +493,9 @@
           to autodetect language</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
-        <li><strong class="pname"><code>env</code></strong> - also load rules applicable in this environment only</li>
+        <li><strong class="pname"><code>env</code></strong> - also load rules applicable in this environment</li>
+        <li><strong class="pname"><code>envOnly</code></strong> - load only rules applicable in the given environment</li>
+        <li><strong class="pname"><code>ruleFiles</code></strong> - a list of rule files to load instead of internal</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of rules objects or None if rules cannot be found (with 

@@ -75,7 +75,10 @@
       against comments
     </li>
     <li>
-      <code>transl</code>: try to match only translated messages
+      <code>transl</code>: the message must be translated
+    </li>
+    <li>
+      <code>plural</code>: the message must be plural
     </li>
   </ul>
   <p>If more than one of the matching options are given (e.g. both 
@@ -115,6 +118,10 @@
     <li>
       <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters to
       msgstr prior to matching
+    </li>
+    <li>
+      <code>maxchar</code>: ignore messages with more than this number of 
+      characters
     </li>
   </ul>
   <p>If accelerator character is not given by <code>accel</code> option, 
