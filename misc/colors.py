@@ -45,6 +45,9 @@ def highlight_spans (text, spans, color=RED, ftext=None):
     @rtype: string
     """
 
+    if not spans:
+        return text
+
     # Adapt spans regardless if filtered text has been given or not,
     # to fix any overlapping and put into expected ordering.
     if ftext is None:
@@ -52,9 +55,11 @@ def highlight_spans (text, spans, color=RED, ftext=None):
     spans = adapt_spans(text, ftext, spans, merge=True)
 
     ctext = ""
+    cstart = 0
     for span in spans:
-        ctext += text[:span[0]]
+        ctext += text[cstart:span[0]]
         ctext += color + text[span[0]:span[1]] + RESET
+        cstart = span[1]
     ctext += text[span[1]:]
 
     return ctext
