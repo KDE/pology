@@ -200,6 +200,11 @@ valid msgstr="\bпосеб(н|ан)"
 valid after="my own " msgstr="сопствен"
 valid msgstr="custom"
 
+{\bdaemon}i
+id="daemon"
+hint="daemon|service = демон"
+valid msgstr="\bдемон"
+
 {\bdelimiter}i
 id="delimiter"
 hint="delimiter = издвајач"
@@ -267,6 +272,7 @@ valid cat="kcmkwm" msgid="using the active borders feature" msgstr="методо
 valid cat="kcmkwm" msgid="feature activates the border" msgstr="опција активира ивицу"
 valid cat="khelpcenter" msgid="fulltext search feature"
 valid cat="kdeqt" msgid="schema import feature is not supported" msgstr="није подржан увоз шема"
+valid cat="PO_Odyssey" msgid="feature of the PO format" msgstr="\bособин"
 
 {\bfile}i
 id="file"
@@ -517,12 +523,26 @@ id="row_db"
 hint="record|row = врста"
 disabled
 
+{\bscroll\W?bar}i
+id="scrollbar"
+hint="scrollbar = клизачка трака"
+valid msgstr="\bклизачк\w+ тра[кц]\w+"
+
 {\b(delimiter|separator)}i
 id="separator"
 hint="delimiter|separator = раздвајач"
 # изостави каталоге који разликују separator/delimiter
 valid cat="fooxyz"
 valid msgstr="\bраздвајач"
+
+{\bservices?\b}i
+id="service"
+hint="service = сервис"
+valid msgstr="\bсервис"
+valid cat="kurifilter" msgid="automatic lookup services"
+valid cat="kcmsamba" msgid="provide.*sharing service"
+valid cat="kcmkio" msgid="provides services"
+valid cat="desktop_kdebase" msgid="National Weather Service" msgstr="\bслужб"
 
 # о-рук
 {\b(preference|setting)}i
