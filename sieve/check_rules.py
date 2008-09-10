@@ -51,7 +51,7 @@ from time import strftime, strptime, mktime
 from locale import getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
-from pology.misc.report import error, rule_error, rule_xml_error
+from pology.misc.report import report, error, warning, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
@@ -148,7 +148,7 @@ class Sieve (object):
             selectedRules.sort()
 
         if len(self.rules)==0:
-            print "No rule loaded. Exiting"
+            warning("No rule loaded. Exiting")
             sys.exit(1)
 
         ntot=len(self.rules)
@@ -156,21 +156,21 @@ class Sieve (object):
         nact=ntot-ndis
         if ndis and self.env:
             if envOnly:
-                print "Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
+                report("Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis))
             else:
-                print "Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis)
+                report("Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis))
         elif ndis:
-            print "Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis)
+            report("Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis))
         elif self.env:
             if envOnly:
-                print "Loaded %s rules [only %s]" % (ntot, self.env)
+                report("Loaded %s rules [only %s]" % (ntot, self.env))
             else:
-                print "Loaded %s rules [%s]" % (ntot, self.env)
+                report("Loaded %s rules [%s]" % (ntot, self.env))
         else:
-            print "Loaded %s rules" % (ntot)
+            report("Loaded %s rules" % (ntot))
 
         if selectedRules:
-            print "(explicitly selected: %s)" % ", ".join(selectedRules)
+            report("(explicitly selected: %s)" % ", ".join(selectedRules))
 
         # Also output in XML file ?
         if "xml" in options:
@@ -182,17 +182,16 @@ class Sieve (object):
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
             else:
-                print "Cannot open %s file. XML output disabled" % xmlPath
+                warning("Cannot open %s file. XML output disabled" % xmlPath)
 
         if not exists(CACHEDIR) and self.xmlFile:
             #Create cache dir (only if we want wml output)
             try:
                 os.mkdir(CACHEDIR)
             except IOError, e:
-                print "Cannot create cache directory (%s):\n%s" % (CACHEDIR, e)
-                sys.exit(1)
- 
-        print "-"*40
+                error("Cannot create cache directory (%s):\n%s" % (CACHEDIR, e))
+
+        report("-"*40)
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
@@ -221,7 +220,7 @@ class Sieve (object):
   
         # New file handling
         if self.xmlFile and self.filename!=filename:
-            print "(Processing %s)" % filename
+            report("(Processing %s)" % filename)
             newFile=True
             self.cached=False # Reset flag
             self.cachePath=join(CACHEDIR, abspath(cat.filename).replace("/", MARSHALL))
@@ -252,13 +251,13 @@ class Sieve (object):
             #Convert in sec since epoch time format
             poDate=mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
             if os.stat(self.cachePath)[8]>poDate:
-                print "Using cache"
+                report("Using cache")
                 self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
                 self.cached=True
         
         # No cache available, create it for next time
         if self.xmlFile and newFile and not self.cached:
-            print "No cache available, processing file"
+            report("No cache available, processing file")
             self.cacheFile=open(self.cachePath, "w", "utf-8")
         
         # Handle start/end of files for XML output (not needed for text output)
@@ -295,23 +294,34 @@ class Sieve (object):
             id=0 # Count msgstr plural forms
             for msgstr in msgstrs:
                 try:
-                    match=rule.process(msgstr, msgid, msg, cat, filename, self.env)
+                    spans=rule.process(msgid, msgstr, msg, cat, filename, self.env)
                 except TimedOutException:
-                    print BOLD+RED+"Rule %s timed out. Skipping." % rule.rawPattern + RESET
+                    warning("Rule %s timed out. Skipping." % rule.rawPattern)
                     id+=1
                     continue
-                if match:
+                if spans:
                     self.nmatch+=1
                     if self.xmlFile:
+                        # FIXME: rule_xml_error is actually broken,
+                        # as it considers matching to always be on msgid,
+                        # and that there is only one matched span.
+                        # Needs XML format redefinition.
+                        if spans[0]:
+                            span=spans[0][0]
+                        else:
+                            span=spans[1][0]
+
                         # Now, write to XML file if defined
-                        xmlError=rule_xml_error(msg, cat, rule, id)
+                        xmlError=rule_xml_error(msg, cat, rule, span, id)
                         self.xmlFile.writelines(xmlError)
                         if not self.cached:
                             # Write result in cache
                             self.cacheFile.writelines(xmlError)
                     else:
-                        # Text format
-                        rule_error(msg, cat, rule, id)
+                        # Text format.
+                        highlight = [("msgid", 0, spans[0], msgid),
+                                     ("msgstr", id, spans[1], msgstr)]
+                        rule_error(msg, cat, rule, highlight)
                 id+=1 # Increase msgstr id count
 
     def finalize (self):

@@ -530,7 +530,6 @@ class Rule(object):
         self.accents=accents # Accents dictionary
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
-        self.span=(0, 0)  # start, end offset where rule match
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
         self.onmsgid=onmsgid # Whether to match rule on msgid
@@ -603,12 +602,37 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, fmsgstr, fmsgid, msg, cat, filename=None, env=None):
-        """Process the given message
-        @return: True if rule match, False if rule do not match, None if rule cannot be applied"""
+    def process(self, msgid, msgstr, msg, cat, filename=None, env=None):
+        """
+        Apply rule to an original/translation pair in the message.
+
+        Instead of giving the original values of C{msgid}/C{msgid_plural}
+        and component of C{msgstr}, the values may be filtered to remove
+        and modify any parts that would make the rule not act as intended.
+
+        If the rule does not match, C{False} is returned.
+        If it does match, the return value are two lists of spans
+        which were matched and not canceled,
+        first for the original and second for the translation.
+
+        @param msgid: the text in the role of original
+        @type msgid: string
+        @param msgstr: the text in the role of translation
+        @type msgstr: string
+        @param msg: message to which the texts belong
+        @type msg: instance of L{Message_base}
+        @param cat: catalog to which the message belongs
+        @type cat: L{Catalog}
+        @param env: environment in which the rule is applied
+        @type env: string
+
+        @return: C{False} or matched spans
+        @rtype: C{bool} or two lists of spans
+        """
+
         if self.pattern is None:
-            print "Pattern not defined. Skipping rule"
-            return
+            warning("Pattern not defined, skipping rule.")
+            return False
 
         # If this rule belongs to a specific environment,
         # and the operating environment is different from it,
@@ -629,37 +653,42 @@ class Rule(object):
         if filename is None:
             filename=basename(cat.filename)
 
-        if not self.onmsgid:
-            text = fmsgstr
+        if self.onmsgid:
+            text = msgid
         else:
-            text = fmsgid
+            text = msgstr
 
         patternMatches=list(self.pattern.finditer(text)) # need full data per match
         if not patternMatches:
             # Main pattern does not match anything, just return.
             return False
 
-        # All matched segments must be cleared to invoke exception.
+        # Test all matched segments.
         cancel=True
+        failedSpans=[]
         for patternMatch in patternMatches:
             # First validity entry that matches excepts the current segment.
             cancel=False
             for entry in self.valid:
                 if self._is_valid(patternMatch, text, entry,
-                                  fmsgstr, fmsgid, msg, cat, filename, env):
+                                  msgstr, msgid, msg, cat, filename, env):
                     cancel=True
                     break
             if not cancel:
-                # Recored problematic segment for error reporting.
-                self.span=patternMatch.span()
-                break
+                # Record the span of problematic segment.
+                failedSpans.append(patternMatch.span())
 
         # Update stats for matched rules.
         self.count+=1
         if self.stat : self.time+=1000*(time()-begin)
 
-        # Rule matched if its main pattern matched and was not cancelled.
-        return not cancel
+        if not failedSpans:
+            return False
+        else:
+            if self.onmsgid:
+                return (failedSpans, [])
+            else:
+                return ([], failedSpans)
 
 
     def _is_valid (self, pmatch, text, ventry,

@@ -265,43 +265,31 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     report(text.rstrip(), file=file)
 
 
-def rule_error(msg, cat, rule, pluralId=0):
-    """Print formated rule error message on screen
+def rule_error(msg, cat, rule, highlight=None):
+    """
+    Print formated rule error message on screen.
+
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
-    @param pluralId: msgstr count in case of plural form. Default to 0"""
+    @param highlight: highlight specification (see L{report_msg_content})
+    """
+
     C = _colors_for_file(sys.stdout)
-
-    msg = deepcopy(msg)
-
-    if rule.onmsgid:
-        text = msg.msgid
-    else:
-        text = msg.msgstr[pluralId]
-
-    textc = (  text[0:rule.span[0]]
-             + C.BOLD + C.RED + text[rule.span[0]:rule.span[1]] + C.RESET
-             + text[rule.span[1]:])
-
-    if rule.onmsgid:
-        msg.msgid = textc
-    else:
-        msg.msgstr[pluralId] = textc
 
     # Some info on the rule.
     rinfo = (  "(" + rule.rawPattern + ")"
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 
-    # Must force reformat, as we don't know if the message is monitored.
-    report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40), force=True)
+    report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40), highlight=highlight)
 
 
-def rule_xml_error(msg, cat, rule, pluralId=0):
+def rule_xml_error(msg, cat, rule, span, pluralId=0):
     """Create and returns rule error message in XML format
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
+    @param span: 2-tuple (start, end) of the offending span
     @param rule: pology.misc.rules.Rule object
     @param pluralId: msgstr count in case of plural form. Default to 0
     @return: XML message as a list of unicode string"""
@@ -312,8 +300,8 @@ def rule_xml_error(msg, cat, rule, pluralId=0):
     xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
-    xmlError.append("\t\t<start>%s</start>\n" % rule.span[0])
-    xmlError.append("\t\t<end>%s</end>\n" % rule.span[1])
+    xmlError.append("\t\t<start>%s</start>\n" % span[0])
+    xmlError.append("\t\t<end>%s</end>\n" % span[1])
     xmlError.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
     xmlError.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
     xmlError.append("\t</error>\n")
