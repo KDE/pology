@@ -45,7 +45,7 @@ valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
 valid before="\d+(px)?;" # CSS
-valid after="font-family|font-size|font-style|font-weight|text-align"# CSS
+valid after="font-family|font-size|font-style|font-weight|text-align|-type"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
@@ -102,7 +102,7 @@ validGroup inQuotes
 validGroup alone
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
-valid after="center|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" before"\"" # CSS
+valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley
@@ -257,6 +257,7 @@ valid file="kdevelop.po" after="attendu.*"
 valid ctx="Numbers and characters"
 valid ctx="list_of_words_to_replace"
 valid ctx="City name"
+valid ctx="characters are not allowed"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
@@ -268,6 +269,7 @@ valid after="' ou "
 valid after="\d+"
 valid after="="
 valid after="=\S+" # HTML
+valid msgid="DOCTYPE HTML PUBLIC "
 valid file="amarok.po" after="install"
 valid file="amarok.po" before="make install"
 valid file="kioclient.po" before="Mount"
@@ -275,6 +277,7 @@ valid file="kioclient.po" after="default"
 valid file="kspread.po"
 valid file="ktimetracker.po" after="^"
 valid ctx="Numbers and characters"
+valid ctx="characters are not allowed"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 [’]
@@ -397,6 +400,7 @@ valid file="konsole.po" before="keytab"
 valid file="kioclient.po" after="exec"
 valid file="kxsconfig.po" before="-"
 valid file="kommander.po" after="@\S+"
+valid ctx="characters are not allowed"
 hint="Pas d'espace avant un point"
 
 [&cr;]
