@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from pology.misc.diff import diff_texts, diff_to_old, diff_to_new
+from pology.misc.diff import word_ediff, ediff_to_old
 from pology.misc.comments import parse_summit_branches
 
 import re
@@ -38,11 +38,11 @@ class Sieve (object):
     def _diff (self, msgold, msgnew, format):
 
         # Remove any previous diff.
-        previous_clean = diff_to_old(msgold)
+        previous_clean = ediff_to_old(msgold)
 
         # Create the diff or only put back the clean text.
         if not self.strip:
-            diff, diff_ratio = diff_texts(previous_clean, msgnew,
+            diff, diff_ratio = word_ediff(previous_clean, msgnew,
                                           markup=True, format=format)
             # Use the diff only if not too much difference.
             if diff_ratio < self.limit:
