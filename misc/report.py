@@ -11,8 +11,12 @@ in different contexts and scenario. May colorize some output.
 """
 
 import os, re, sys, locale
-import pology.misc.colors as C
 from copy import deepcopy
+
+import pology.misc.colors as C
+from pology.file.message import Message
+from pology.misc.colors import highlight_spans
+from pology.misc.wrap import wrap_field
 
 
 def encwrite (file, text):
@@ -185,41 +189,77 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
     error(text, code=code, subsrc=subsrc, showcmd=True)
 
 
-def report_msg_content (msg, cat, delim=None, force=False, subsrc=None,
-                        file=sys.stdout, highlight=None):
+def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
+                        delim=None, subsrc=None, highlight=None,
+                        file=sys.stdout):
     """
     Report the content of a PO message.
 
     Provides the message reference along with the message contents,
     consisting of the catalog name and the message position within it.
 
+    Parts of the message can be highlighted using shell colors.
+    Parameter C{highlight} provides the highlighting specification, as
+    list of tuples where each tuple consists of: name of the message element
+    to highlight, element index (used when the element is a list of values),
+    list of spans, and optionally the filtered text of the element value.
+    For example, to highlight spans C{(5, 10)} and C{(15, 25)} in the C{msgid},
+    and C{(30, 40)} in C{msgstr}, the highlighting specification would be::
+
+        [("msgid", 0, [(5, 10), (15, 25)]), ("msgstr", 0, [(30, 40)])]
+
+    Names of the elements that can presently be highlighted are: C{"msgctxt"},
+    C{"msgid"}, C{"msgid_plural"}, C{"msgstr"}.
+    For unique fields the element index is not used, but 0 should be given
+    for consistency (may be enforced later).
+
+    Sometimes the match to which the spans correspond has been made on a
+    filtered value of the message field (e.g. after accelerator markers
+    or tags have been removed). In that case, the filtered text can be
+    given as the fourth element of the tuple, after the list of spans, and
+    the function will try to fit spans from filtered onto original text.
+
     @param msg: the message to report the content for
     @type msg: instance of L{Message_base}
     @param cat: the catalog where the message lives
     @type cat: L{Catalog}
-    @param delim: text to print on line following the message
-    @type delim: C{None} or string
+    @param wrapf:
+        the function used for wrapping message fields in output.
+        See C{to_lines()} method of L{Message_base} for details.
+    @type wrapf: string, string, string -> list of strings
     @param force: whether to force reformatting of cached message content
     @type force: bool
+    @param delim: text to print on the line following the message
+    @type delim: C{None} or string
     @param subsrc: more detailed source of the message
     @type subsrc: C{None} or string
+    @param highlight: highlighting specification of message elements
+    @type highlight: (see description)
     @param file: output stream. Default is sys.stdout
     @type file: file
-    @param highlight: regular expression pattern used to colorize text. Default is None
-    @type highlight: re.compile regular expression
     """
+
+    if highlight and file.isatty():
+        msg = Message(msg) # must work on copy
+        for hspec in highlight:
+            name, item, spans = hspec[:3]
+            ftext = None
+            if len(hspec) > 3:
+                ftext = hspec[3]
+            hl = lambda x: highlight_spans(x, spans, ftext=ftext)
+            if name == "msgctxt":
+                msg.msgctxt = hl(msg.msgctxt)
+            elif name == "msgid":
+                msg.msgid = hl(msg.msgid)
+            elif name == "msgid_plural":
+                msg.msgid_plural = hl(msg.msgid_plural)
+            elif name == "msgstr":
+                msg.msgstr[item] = hl(msg.msgstr[item])
+            # TODO: Add more fields.
 
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = tfmt % (cat.filename, msg.refline, msg.refentry)
-    text += msg.to_string(force=force).rstrip() + "\n"
-    if highlight and file.isatty():
-        colors=[]
-        for match in highlight.finditer(text):
-            colors.append(match.span())
-        offset=0
-        for color in colors:
-            text=text[:color[0]+offset]+C.RED+text[color[0]+offset:color[1]+offset]+C.RESET+text[color[1]+offset:]
-            offset+=len(C.RED)+len(C.RESET)
+    text += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
     if delim:
         text += delim + "\n"
     report(text.rstrip(), file=file)
