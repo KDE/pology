@@ -45,6 +45,12 @@ _tagbr_inplace = (
     "nl",
 )
 
+# Regex of zero-width segments in wrapping.
+_zerowidth_rxs = (
+    # Shell color escapes.
+    ("\033[", re.compile(r"\033\[\d+(;\d+)?m")),
+)
+
 
 def _tag_split (tag):
     """
@@ -172,9 +178,8 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
         # Find where to wrap.
         atbr = False # immediate break found
-        pl = 1 # position into current line
-        # ...start from 1 to avoid immediate break on break-before sequence
-        ple = cwidth[p] # apparent position into current line
+        pl = 0 # position into current line
+        ple = 0 # apparent position into current line
         pl_ok = 0 # last good position into current line (where wrap was fine)
         ple_ok = 0 # last good apparent position into current line
         while p + pl < lentext \
@@ -185,37 +190,40 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
             backtext = text[:p+pl]
             foretext = text[p+pl:]
 
-            # Check for an immediate break by sequence.
-            for br in postbr:
-                if not isinstance(br, tuple):
-                    if backtext.endswith(br):
-                        atbr = True; break
-                else:
-                    br1, br2 = br
-                    if backtext.endswith(br1) and not backtext.endswith(br2):
-                        atbr = True; break
-            if atbr: break
-            for br in prebr:
-                if foretext.startswith(br):
-                    atbr = True; break
-            if atbr: break
+            # Immediate breaks allowed only after at least one character.
+            if pl >= 1:
 
-            # Check for an immediate break by tag.
-            if tagbr or tagbr2:
-                if backtext.endswith(">"):
-                    pt = backtext.rfind("<", 0, -1)
-                    if pt >= 0:
-                        tag, state = _tag_split(backtext[pt:])
-                        if (tag in tagbr2) \
-                        or (tag in tagbr and state in ("close", "inplace")):
+                # Check for an immediate break by sequence.
+                for br in postbr:
+                    if not isinstance(br, tuple):
+                        if backtext.endswith(br):
                             atbr = True; break
-            if tagbr:
-                if foretext.startswith("<"):
-                    pt = foretext.find(">", 1)
-                    if pt >= 0:
-                        tag, state = _tag_split(foretext[:pt+1])
-                        if tag in tagbr and state == "open":
+                    else:
+                        br1, br2 = br
+                        if backtext.endswith(br1) and not backtext.endswith(br2):
                             atbr = True; break
+                if atbr: break
+                for br in prebr:
+                    if foretext.startswith(br):
+                        atbr = True; break
+                if atbr: break
+
+                # Check for an immediate break by tag.
+                if tagbr or tagbr2:
+                    if backtext.endswith(">"):
+                        pt = backtext.rfind("<", 0, -1)
+                        if pt >= 0:
+                            tag, state = _tag_split(backtext[pt:])
+                            if (tag in tagbr2) \
+                            or (tag in tagbr and state in ("close", "inplace")):
+                                atbr = True; break
+                if tagbr:
+                    if foretext.startswith("<"):
+                        pt = foretext.find(">", 1)
+                        if pt >= 0:
+                            tag, state = _tag_split(foretext[:pt+1])
+                            if tag in tagbr and state == "open":
+                                atbr = True; break
 
             # Check for valid natural break.
             if pchar == " " \
@@ -223,8 +231,18 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                 pl_ok = pl
                 ple_ok = ple
 
-            ple += cwidth[p + pl]
-            pl += 1
+            # Skip zero-width segments.
+            zerowidth = False
+            for zwhead, zwrx in _zerowidth_rxs:
+                if foretext.startswith(zwhead):
+                    m = zwrx.match(foretext)
+                    if m:
+                        pl += m.span()[1]
+                        zerowidth = True
+                        break
+            if not zerowidth:
+                ple += cwidth[p + pl]
+                pl += 1
 
         # If not unconditional break, still enough text, and break possible.
         if not atbr and ple > ewcol and ewcol > 0:
