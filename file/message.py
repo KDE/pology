@@ -226,6 +226,25 @@ class Message_base (object):
             return self.__dict__["^getsetattr"].__getattr__(self, att)
 
 
+    def get (self, ivar, default=None):
+        """
+        Get instance variable value.
+
+        Allows accessing the message like a dictionary.
+
+        @param ivar: name of the instance variable to get
+        @type ivar: string
+        @param default: value to return if instance variable does not exist
+
+        @returns: value of the instance variable or default
+        """
+
+        if hasattr(self, ivar):
+            return getattr(self, ivar)
+        else:
+            return default
+
+
     def __setattr__ (self, att, val):
         """
         Attribute setter.
@@ -377,7 +396,8 @@ class Message_base (object):
         @see: L{pology.misc.wrap}
         """
 
-        if force or self.modcount:
+        # Renew lines automatically if no lines formed yet.
+        if force or self.modcount or not self._lines_all:
             self._renew_lines(wrapf, force)
 
         return self._lines_all
