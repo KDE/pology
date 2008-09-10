@@ -64,6 +64,7 @@ of C{[<lang>:]<name>} (language stated when a filter is language-specific).
 import sys, os, re
 from pology.misc.report import error, report_msg_content
 from pology.misc.langdep import get_filter_lreq
+from pology.misc.wrap import wrap_field, wrap_field_unwrap
 
 
 _flag_mark = u"pattern-match"
@@ -154,6 +155,12 @@ class Sieve (object):
             self.caller_sync = False
             self.caller_monitored = False
 
+        # Select wrapping for reporting messages.
+        if global_options.do_wrap:
+            self.wrapf = wrap_field
+        else:
+            self.wrapf = wrap_field_unwrap
+
 
     def process_header (self, hdr, cat):
 
@@ -182,34 +189,42 @@ class Sieve (object):
 
         match = True
 
+        hl_spec = {}
+
         for field, regex, invert in self.field_matches:
 
+            # Select texts for matching, with highlight info.
             pfilters = []
             if field == "msgctxt":
-                texts = [msg.msgctxt]
+                texts = [(msg.msgctxt, "msgctxt", 0)]
             elif field == "msgid":
-                texts = [msg.msgid, msg.msgid_plural]
+                texts = [(msg.msgid, "msgid", 0),
+                         (msg.msgid_plural, "msgid_plural", 0)]
             elif field == "msgstr":
-                texts = msg.msgstr
+                texts = [(msg.msgstr[i], "msgstr", i)
+                         for i in range(len(msg.msgstr))]
                 pfilters = self.pfilters
             elif field == "comment":
                 texts = []
-                texts.extend(msg.manual_comment)
-                texts.extend(msg.auto_comment)
-                texts.append(", ".join(msg.flag))
-                texts.append(" ".join(["%s:%s" % x for x in msg.source]))
+                texts.extend([(msg.manual_comment, "cmanual", i)
+                              for i in range(len(msg.manual_comment))])
+                texts.extend([(msg.auto_comment, "cauto", i)
+                              for i in range(len(msg.auto_comment))])
+                texts.append((", ".join(msg.flag), "", 0))
+                texts.append((" ".join(["%s:%s" % x for x in msg.source]),
+                              "", 0))
             else:
                 error("unknown search field '%s'" % field)
 
             if self.maxchar is not None and field in ("msgid", "msgstr"):
-                nchar = sum([len(x) for x in texts]) // len(texts)
+                nchar = sum([len(x[0]) for x in texts]) // len(texts)
                 if nchar > self.maxchar:
                     match = False
                     break
 
             local_match = False
 
-            for text in texts:
+            for text, hl_name, hl_item in texts:
                 # Remove accelerator.
                 if self.accel:
                     text = text.replace(self.accel, "")
@@ -219,8 +234,15 @@ class Sieve (object):
                     text = pfilter(text)
 
                 # Check for local match (local match is OR).
-                if regex.search(text):
+                m = regex.search(text)
+                if m:
                     local_match = True
+
+                    hl_key = (hl_name, hl_item)
+                    if hl_key not in hl_spec:
+                        hl_spec[hl_key] = ([], text)
+                    hl_spec[hl_key][0].append(m.span())
+
                     break
 
             # Invert meaning of the match if requested.
@@ -240,10 +262,12 @@ class Sieve (object):
         if match:
             self.nmatch += 1
             if not self.mark:
-                delim = "--------------------"
+                delim = "-" * 20
                 if self.nmatch == 1:
                     print delim
-                report_msg_content(msg, cat, delim=delim, highlight=regex)
+                highlight = [x + y for x, y in hl_spec.items()]
+                report_msg_content(msg, cat, wrapf=self.wrapf, force=True,
+                                   delim=delim, highlight=highlight)
             else:
                 msg.flag.add(_flag_mark)
 
