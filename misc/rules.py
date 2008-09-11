@@ -95,8 +95,6 @@ The following tests can be used within C{valid} directives:
         is placed exactly before the part matched by this regular expression
   - C{after}: passes if the part of the text matched by the trigger pattern
         is placed exactly after the part matched by this regular expression
-  - C{file}: passes if the PO file name is contained in this comma-separated
-        list of file names
   - C{cat}: passes if the PO catalog name is contained in this
         comma-separated list of catalog names
   - C{env}: passes if the operating environment is contained in this
@@ -494,9 +492,9 @@ def convert_entities(string):
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "file", "cat", "span", "after", "before", "ctx", "msgid", "msgstr"))
+    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr"))
     _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
-    _listKeywords = set(("env", "file", "cat"))
+    _listKeywords = set(("env", "cat"))
 
     def __init__(self, pattern, hint, valid=[], accents=None, stat=False,
                        casesens=True, onmsgid=False, ident=None, disabled=False,
@@ -602,7 +600,7 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, msgid, msgstr, msg, cat, filename=None, env=None):
+    def process(self, msgid, msgstr, msg, cat, env=None):
         """
         Apply rule to an original/translation pair in the message.
 
@@ -646,13 +644,6 @@ class Rule(object):
 
         if self.stat: begin=time()
 
-        # Since catalog knows its file path, it would not be strictly
-        # nessesary to pass its filename as an argument;
-        # but, os.path.basename eats a lot of performance (!?),
-        # so use it only if filename has not been manually passed.
-        if filename is None:
-            filename=basename(cat.filename)
-
         if self.onmsgid:
             text = msgid
         else:
@@ -671,7 +662,7 @@ class Rule(object):
             cancel=False
             for entry in self.valid:
                 if self._is_valid(patternMatch, text, entry,
-                                  msgstr, msgid, msg, cat, filename, env):
+                                  msgstr, msgid, msg, cat, env):
                     cancel=True
                     break
             if not cancel:
@@ -692,7 +683,7 @@ class Rule(object):
 
 
     def _is_valid (self, pmatch, text, ventry,
-                         fmsgstr, fmsgid, msg, cat, filename, env):
+                         fmsgstr, fmsgid, msg, cat, env):
 
         # All keys within a validity entry must match for the
         # entry to match as whole.
@@ -713,13 +704,6 @@ class Rule(object):
 
             elif bkey == "cat":
                 match = cat.name in value
-                if invert: match = not match
-                if not match:
-                    valid = False
-                    break
-
-            elif bkey == "file":
-                match = filename in value
                 if invert: match = not match
                 if not match:
                     valid = False

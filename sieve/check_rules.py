@@ -294,7 +294,7 @@ class Sieve (object):
             id=0 # Count msgstr plural forms
             for msgstr in msgstrs:
                 try:
-                    spans=rule.process(msgid, msgstr, msg, cat, filename, self.env)
+                    spans=rule.process(msgid, msgstr, msg, cat, self.env)
                 except TimedOutException:
                     warning("Rule %s timed out. Skipping." % rule.rawPattern)
                     id+=1
