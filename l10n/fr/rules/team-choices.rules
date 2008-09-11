@@ -12,11 +12,11 @@ valid after="«&unbsp;" before="&unbsp;»"
 valid before="&sp;dans&sp;" 
 valid before="&sp;en&sp;"
 valid after="C&"
-valid file="kolf.po" before=" ((la)|(une)) balle"
-valid file="konsole.po" after="vous&sp;qui&sp;" before="&sp;ici"
-valid file="kmail.po" before=" réellement dans le dossier"
-valid file="kalzium.po" before=" de l'air"
-valid file="kgoldrunner.po"
+valid cat="kolf" before=" ((la)|(une)) balle"
+valid cat="konsole" after="vous&sp;qui&sp;" before="&sp;ici"
+valid cat="kmail" before=" réellement dans le dossier"
+valid cat="kalzium" before=" de l'air"
+valid cat="kgoldrunner"
 valid before=" au Panthéon| au tableau des meilleurs"
 valid ctx="Enter folder"
 hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
@@ -47,9 +47,9 @@ valid after="XML non "
 hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
  
 [\bstop\b]
-valid file="konsole.po"
-valid file="ksysv.po" after="^" before="$" 
-valid file="ksysv.po" 
+valid cat="konsole"
+valid cat="ksysv" after="^" before="$" 
+valid cat="ksysv" 
 hint="préférons « arrêt » à « stop »"
  
 [[Rr]@épertoire]
@@ -59,8 +59,8 @@ hint="préférons « dossier » à « répertoire »"
 
 [taper|tapant]
 valid before="&sp;$"
-valid file="ktouch.po" after="apprendre&sp;à&sp;"
-valid file="ktouch.po" after="apprenez&sp;à&sp;"
+valid cat="ktouch" after="apprendre&sp;à&sp;"
+valid cat="ktouch" after="apprenez&sp;à&sp;"
 hint="Mieux vaut « saisir » que « taper »"
 
 [bouton\s*\w*\s*milieu]
@@ -80,35 +80,35 @@ hint="Choix de l'équipe : utilisation du verbe conserver"
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
 valid after="CU"
 valid msgid="Rating:"
-valid file="knotes.po"
-valid file="korganizer.po"
-valid file="gwenview.po" after="^"
+valid cat="knotes"
+valid cat="korganizer"
+valid cat="gwenview" after="^"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
 
 [r@eguli@ere]
 valid after="vérification&sp;" 
 valid after="casse&sp;" 
 valid after="adresse&sp;" 
-valid file="konqueror.po" after="colonne&sp;" 
+valid cat="konqueror" after="colonne&sp;" 
 valid before="ment" 
 valid after="ir"
 valid after="pauses? "
-valid file="kverbos.po"
-valid file="kgoldrunner.po" after="ascension&sp;"
+valid cat="kverbos"
+valid cat="kgoldrunner" after="ascension&sp;"
 hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]i
-valid file="korganizer.po"
+valid cat="korganizer"
 hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
 
 [sauver]i
 hint="sauver -> enregistrer"
 
 [sauve]i
-valid file="kdat.po"
-valid file="desktop_playground-sysadmin.po"
-valid file="akonaditray.po" msgid="back.*up|restor"
-valid file="kpilot.po" msgid="back.*up|restor"
+valid cat="kdat"
+valid cat="desktop_playground-sysadmin"
+valid cat="akonaditray" msgid="back.*up|restor"
+valid cat="kpilot" msgid="back.*up|restor"
 valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
 hint="sauver -> enregistrer (homogénéité)"
@@ -143,8 +143,8 @@ valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"
 valid before="-"
-valid file="kcmkonqhtml.po" after="/"
-valid file="desktop_playground-multimedia.po" before="$"
+valid cat="kcmkonqhtml" after="/"
+valid cat="desktop_playground-multimedia" before="$"
 hint="plugin -> module externe"
 
 [&lwb;root&rwb;]
@@ -154,7 +154,7 @@ valid after="uid |UID "
 valid after="/"
 valid after="-l "
 valid before="@"
-valid file="cupsdconf4.po" after="<b>" before="</b>"
+valid cat="cupsdconf4" after="<b>" before="</b>"
 hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
 
 [additif|greffon]i
@@ -167,8 +167,8 @@ valid before="ular"
 hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]i
-valid file="kxsconfig.po" after="&sp;"
-valid file="kalzium.po" after="un "
+valid cat="kxsconfig" after="&sp;"
+valid cat="kalzium" after="un "
 hint="hint/tip -> astuce (homogénéité)"
 
 [clef]i
@@ -176,11 +176,11 @@ hint="Utilisez plutôt le mot « clé » (homogénéité)"
 
 [->]
 valid after="pstoraster -" before=" rastertopcl"
-valid file="khotkeys.po" after="&sp;"
-valid file="kverbos.po" after="-"
-valid file="ppdtranslations4.po" before=" CMJ"
-valid file="kalzium.po" after="&sp;" before="&sp;"
-valid file="kwordquiz.po" after="&sp;" before="&sp;"
+valid cat="khotkeys" after="&sp;"
+valid cat="kverbos" after="-"
+valid cat="ppdtranslations4" before=" CMJ"
+valid cat="kalzium" after="&sp;" before="&sp;"
+valid cat="kwordquiz" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
 valid before="$"
 hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
@@ -196,7 +196,7 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 valid before="\)" after="\(&?"
 valid after="http_"
 valid after="no_|no &|mon"
-valid file="kmail.po" after="mon"
+valid cat="kmail" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [(B|b)arre d'outils? (principale|d'affichage)]
@@ -214,11 +214,11 @@ valid after="[Pp]ho"
 hint="Utiliser une formule en « Impossible de trouver xxx » (homogénéité)"
 
 [pas été trouvé]
-valid file="kommander.po"
+valid cat="kommander"
 hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 
 [ne peut pas @etre]
-valid file="kcminfo.po"
+valid cat="kcminfo"
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
 [Désirez-?vous]i
@@ -239,7 +239,7 @@ hint="Utiliser la forme « en suivant votre PATH »"
 
 [chemin]i
 valid before=" équestre| de randonnée"
-valid file="klines.po"
+valid cat="klines"
 hint="Traduisez « path » par « emplacement »"
 
 [désinitialiser]i
@@ -250,7 +250,7 @@ valid after="«&unbsp;" before="&unbsp;»"
 hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
 
 [nom de connexion]
-valid file="kwlan.po" after="fournir un "
+valid cat="kwlan" after="fournir un "
 hint="Utiliser « nom d'utilisateur » à la place..."
 
 [en train de]
@@ -270,9 +270,9 @@ hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) 
 
 [r@ecup@er]
 valid after="ir"
-valid file="kgoldrunner.po"
-valid file="kalzium.po"
-valid file="konqueror.po" after="une "
+valid cat="kgoldrunner"
+valid cat="kalzium"
+valid cat="konqueror" after="une "
 hint="Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer »)"
 
 [paquet(?!a)]
@@ -284,17 +284,17 @@ valid before="s? sFTP"
 valid before="de taille"
 valid before="s? de carte"
 valid after="Envoyer un |Saisissez le "
-valid file="libk3b.po" after="Mauvais "
-valid file="libk3b.po" before=" #"
-valid file="knetworkconf.po"
-valid file="kcmusb.po"
-valid file="kfileshare.po"
-valid file="kppp.po"
-valid file="kgpg.po" before="s? chiffré"
-valid file="kgpg.po" after="déchiffrer les "
-valid file="kdevelop.po" after="«&unbsp;" before="&unbsp;»"
-valid file="cupsdconf4.po" before="s? provenant"
-valid file="cupsdconf4.po" before="s? de navigation"
+valid cat="libk3b" after="Mauvais "
+valid cat="libk3b" before=" #"
+valid cat="knetworkconf"
+valid cat="kcmusb"
+valid cat="kfileshare"
+valid cat="kppp"
+valid cat="kgpg" before="s? chiffré"
+valid cat="kgpg" after="déchiffrer les "
+valid cat="kdevelop" after="«&unbsp;" before="&unbsp;»"
+valid cat="cupsdconf4" before="s? provenant"
+valid cat="cupsdconf4" before="s? de navigation"
 hint="Choix de l'équipe : « paquetage »"
 
 [montrer]i
@@ -318,7 +318,7 @@ valid msgstr="déconseillé"
 hint="Traduire « deprecated » par « déconseillé »"
 
 [\bN/A\b|\bN/B\b|\bN/C\b]i
-valid file="kspread.po"
+valid cat="kspread"
 hint="Traduisez ceci par « n/d »"
 
 [didacti.iel|tutorial]i

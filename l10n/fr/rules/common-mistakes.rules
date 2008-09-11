@@ -51,7 +51,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 hint="Mettre un accent circonflexe sur le « e »"
 
 [s[eè]lect|sél[éè]ct]i
-valid file="kommander.po" before="ed"
+valid cat="kommander" before="ed"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
 valid after="attribut "
@@ -72,7 +72,7 @@ valid after="&amp;k" before="sbook;"
 valid after="[kK]" before="s[bB]ook"
 valid after="Browse"
 valid before="s="
-valid file="kmail.po" after="^\[" before="sBook\]$"
+valid cat="kmail" after="^\[" before="sBook\]$"
 hint="Seulement un « d » en français"
 
 [dosier]i
@@ -80,7 +80,7 @@ hint="Il manque un « s »"
 
 [v[eè]rif]i
 valid after="Q"
-valid file="kleopatra.po" after="Decrypt"
+valid cat="kleopatra" after="Decrypt"
 hint="Mettre un accent aigu sur le « e »"
 
 [r[éeê]gle&rwb;]i
@@ -270,16 +270,16 @@ hint="clique -> clic"
 valid after="lib"
 valid before="ographie"
 valid before="Command"
-valid file="kleopatra.po" after="PREP_EN"
-valid file="kleopatra.po" after="EN" before="&rwb;|$"
-valid file="kleopatra.po" before="Verif|email|files"
-valid file="kaffeine4.po" msgid="Free to air"
+valid cat="kleopatra" after="PREP_EN"
+valid cat="kleopatra" after="EN" before="&rwb;|$"
+valid cat="kleopatra" before="Verif|email|files"
+valid cat="kaffeine4" msgid="Free to air"
 valid after="x-en"
 valid after="x-de"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
-valid file="kfmclient.po" after="/"
+valid cat="kfmclient" after="/"
 hint="Pas de « e » à « profils »"
 
 [assignement]i
@@ -327,10 +327,10 @@ valid after="[Ee]mpreinte "
 hint="« digital » est un anglicisme. Utiliser « numérique »"
 
 [d@efault]   
-valid file="ksysv.po" after=":init" before=":$"  
+valid cat="ksysv" after=":init" before=":$"  
 valid ctx="Query"
-valid file="kcmkonqhtml.po" after="window\."
-valid file="kioclient.po" after="Mount "
+valid cat="kcmkonqhtml" after="window\."
+valid cat="kioclient" after="Mount "
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -370,10 +370,10 @@ valid after="klink"
 valid after="default"
 valid before="view"
 valid before=">" after="<"
-valid file="kcmkonqhtml.po" after="window\."
-valid file="solidshell.po" after="«&unbsp;" before="&unbsp;»"
-valid file="solid-network.po" after="«&unbsp;" before="&unbsp;»"
-valid file="kleopatra.po" after="Certificate "
+valid cat="kcmkonqhtml" after="window\."
+valid cat="solidshell" after="«&unbsp;" before="&unbsp;»"
+valid cat="solid-network" after="«&unbsp;" before="&unbsp;»"
+valid cat="kleopatra" after="Certificate "
 hint="remplacer « status » ou « statut » par « état »"
 
 [basé.* sur]
