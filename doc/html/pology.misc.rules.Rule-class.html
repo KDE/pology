@@ -134,18 +134,17 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><code>bool</code> or two lists of spans</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fmsgstr</span>,
-        <span class="summary-sig-arg">fmsgid</span>,
+        <span class="summary-sig-arg">msgid</span>,
+        <span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Process the given message</td>
+      Apply rule to an original/translation pair in the message.</td>
           <td align="right" valign="top">
             
             
@@ -297,11 +296,10 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">process</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">fmsgstr</span>,
-        <span class="sig-arg">fmsgid</span>,
+        <span class="sig-arg">msgid</span>,
+        <span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">filename</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">env</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -309,11 +307,27 @@ object --+
     </td>
   </tr></table>
   
-  <p>Process the given message</p>
+  <p>Apply rule to an original/translation pair in the message.</p>
+  <p>Instead of giving the original values of 
+  <code>msgid</code>/<code>msgid_plural</code> and component of 
+  <code>msgstr</code>, the values may be filtered to remove and modify any 
+  parts that would make the rule not act as intended.</p>
+  <p>If the rule does not match, <code>False</code> is returned. If it does
+  match, the return value are two lists of spans which were matched and not
+  canceled, first for the original and second for the translation.</p>
   <dl class="fields">
-    <dt>Returns:</dt>
-        <dd>True if rule match, False if rule do not match, None if rule 
-          cannot be applied</dd>
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msgid</code></strong> (string) - the text in the role of original</li>
+        <li><strong class="pname"><code>msgstr</code></strong> (string) - the text in the role of translation</li>
+        <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>) - message to which the texts belong</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - catalog to which the message belongs</li>
+        <li><strong class="pname"><code>env</code></strong> (string) - environment in which the rule is applied</li>
+    </ul></dd>
+    <dt>Returns: <code>bool</code> or two lists of spans</dt>
+        <dd><code>False</code> or matched spans</dd>
   </dl>
 </td></tr></table>
 </div>

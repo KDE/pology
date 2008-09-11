@@ -221,7 +221,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8b3a4c4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9a10534&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
@@ -246,8 +246,8 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#rule_error" class="summary-sig-name">rule_error</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">rule</span>,
-        <span class="summary-sig-arg">pluralId</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Print formated rule error message on screen</td>
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Print formated rule error message on screen.</td>
           <td align="right" valign="top">
             
             
@@ -266,6 +266,7 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#rule_xml_error" class="summary-sig-name">rule_xml_error</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">rule</span>,
+        <span class="summary-sig-arg">span</span>,
         <span class="summary-sig-arg">pluralId</span>=<span class="summary-sig-default">0</span>)</span><br />
       Create and returns rule error message in XML format</td>
           <td align="right" valign="top">
@@ -562,7 +563,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8b3a4c4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9a10534&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
@@ -628,21 +629,23 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">rule_error</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">rule</span>,
-        <span class="sig-arg">pluralId</span>=<span class="sig-default">0</span>)</span>
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Print formated rule error message on screen</p>
+  <p>Print formated rule error message on screen.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
         <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
         <li><strong class="pname"><code>rule</code></strong> - pology.misc.rules.Rule object</li>
-        <li><strong class="pname"><code>pluralId</code></strong> - msgstr count in case of plural form. Default to 0</li>
+        <li><strong class="pname"><code>highlight</code></strong> - highlight specification (see <a 
+          href="pology.misc.report-module.html#report_msg_content" 
+          class="link">report_msg_content</a>)</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -657,6 +660,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">rule_xml_error</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">rule</span>,
+        <span class="sig-arg">span</span>,
         <span class="sig-arg">pluralId</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -670,6 +674,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
         <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
+        <li><strong class="pname"><code>span</code></strong> - 2-tuple (start, end) of the offending span</li>
         <li><strong class="pname"><code>rule</code></strong> - pology.misc.rules.Rule object</li>
         <li><strong class="pname"><code>pluralId</code></strong> - msgstr count in case of plural form. Default to 0</li>
     </ul></dd>
