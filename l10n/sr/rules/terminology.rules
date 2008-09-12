@@ -20,6 +20,13 @@ hint="cell = ћелија"
 valid before=" ?phon"
 valid msgstr="\bћелиј"
 
+{\bcertificate}i
+id="certificate"
+hint="certificate = сертификат"
+valid msgstr="\bсертификат"
+valid env="kde" msgstr="certificate"
+valid cat="kdeqt" msgid="does not certificate" msgstr="не оверава"
+
 {\bcharacter}i
 id="character"
 hint="character = знак"
@@ -158,6 +165,17 @@ valid cat="lokalize" msgid="email.*mailing list" msgstr="адрес"
 valid cat="sonnet" msgid="accept email-style" msgstr="из нужде"
 valid cat="khelpcenter_contact" msgid="email list"
 
+{\bencrypt}i
+id="encrypt"
+hint="encrypt = шифровати"
+valid msgstr="\bшифр(ова|уј|арск)"
+
+{\bencryption}i
+id="encryption2"
+hint="encryption = шифрарски"
+valid msgstr="\bшифр(арск|овањ)"
+valid cat="knetattach" msgid="^use encryption" msgstr="^шифруј"
+
 {\bfile}i
 id="file"
 hint="file = датотека"
@@ -283,6 +301,7 @@ hint="pointer = показивач"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 
 {\bpointer}i
+hint="pointer = показивач"
 id="pointer3"
 disabled
 

@@ -121,6 +121,11 @@ hint="chooser|selector = бирач"
 valid msgstr="\bбирач" !msgstr="бирачом"
 valid msgstr="selector"
 
+{\bcipher}i
+id="cipher"
+hint="cipher = шифрар"
+valid msgstr="\bшифрар"
+
 {\bclick}i
 id="click"
 hint="click = кликнути"
