@@ -220,7 +220,7 @@ def word_ediff (text_old, text_new, markup=False, format=None):
                          + _old_vtag + _old_clsc)
         else:
             dtext.append(segtext)
-    dtext = "".join(dtext)
+    dtext = type(text_new)().join(dtext)
 
     return dtext, diff_ratio
 
