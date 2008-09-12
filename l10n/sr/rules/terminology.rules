@@ -85,7 +85,7 @@ id="cursor"
 hint="cursor = курсор"
 valid !cat="kate,katefiletemplates,katepart4,konsole"
 valid after="mouse " msgstr="\bпоказивач"
-valid before=" theme" msgstr="\bпоказивач"
+valid before=" theme" msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="\bкурсор"
 
 {customize}i
@@ -139,7 +139,7 @@ disabled
 {\beditor}i
 id="editor"
 hint="editor = уређивач"
-valid msgstr="\bуређива"
+valid msgstr="\bуређива" !msgstr="уређивачом"
 valid env="kde" msgstr="editor"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 valid cat="lokalize" msgid="the editors" msgstr="уредниц"
@@ -280,17 +280,16 @@ valid env="kde" msgstr="password"
 {\bpointer}i
 id="pointer2"
 hint="pointer = показивач"
-valid msgstr="\bпоказивач"
+valid msgstr="\bпоказивач" !msgstr="показивачом"
 
 {\bpointer}i
 id="pointer3"
-hint="pointer = показивач"
-valid msgstr="\bпоказивач"
+disabled
 
 {\breader}i
 id="reader"
 hint="reader = читач"
-valid msgstr="\bчитач"
+valid msgstr="\bчитач" !msgstr="читачом"
 valid msgstr="\bчита(лац|о[цч])"
 valid env="kde" msgstr="reader"
 
@@ -365,6 +364,13 @@ id="template"
 hint="template = шаблон"
 valid msgstr="\bшаблон"
 valid env="kde" msgstr="template"
+
+{\btext\W?editor}i
+id="texteditor"
+hint="text editor = уређивач текста"
+valid msgstr="\bуређива(ч(\b|[аеиу])|њ)\w* текста"
+valid env="kde" msgstr="texteditor"
+valid cat="desktop_kdesdk" msgid="Kate text editor" !msgstr="текст"
 
 {\bURL}i
 id="url"

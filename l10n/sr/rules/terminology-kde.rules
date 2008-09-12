@@ -94,7 +94,7 @@ valid msgstr="\bbrowse\b"
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
-valid msgstr="\bпрегледач"
+valid msgstr="\bпрегледач" !msgstr="прегледачом"
 valid msgstr="browser"
 
 {\bcache}i
@@ -118,7 +118,7 @@ valid msgstr="\bкућиц"
 {\b(chooser|selector)}i
 id="chooser"
 hint="chooser|selector = бирач"
-valid msgstr="\bбирач"
+valid msgstr="\bбирач" !msgstr="бирачом"
 valid msgstr="selector"
 
 {\bclick}i
@@ -210,7 +210,7 @@ id="delimiter"
 hint="delimiter = издвајач"
 # само у каталозима који разликују separator/delimiter
 valid !cat="fooxyz"
-valid msgstr="\bиздвајач"
+valid msgstr="\bиздвајач" !msgstr="издвајачом"
 
 validGroup desktop-extras
 valid msgid="K Desktop Environment" msgstr="\bkde\b"
@@ -279,6 +279,13 @@ id="file"
 hint="file = фајл"
 valid !msgstr="\bдатоте"
 valid msgstr="\bfile"
+
+{\bfile\W?manager}i
+id="filemanager"
+hint="file manager = менаџер фајлова"
+valid msgstr="\bменаџер\w* фајлова"
+valid cat="filetypes,desktop_kdebase" msgid="Konqueror\S* file manager" !msgstr="менаџер|управ(љач|ник)"
+valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразумева и за отварање.*вирт"
 
 {\bfile[ -]?system}i
 id="filesystem"
@@ -454,7 +461,7 @@ valid msgstr="\bрашчла[нњ]"
 {\bparser}i
 id="parser"
 hint="parser = рашчлањивач"
-valid msgstr="\bрашчлањивач"
+valid msgstr="\bрашчлањивач" !msgstr="рашчлањивачом"
 valid msgstr="\bparser"
 valid cat="kio_ldap" msgstr="рашчлањивањ"
 
@@ -491,7 +498,7 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 id="pointer"
 hint="cursor|pointer = показивач"
 valid cat="kate,katefiletemplates,katepart4,konsole"
-valid msgstr="\bпоказивач"
+valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
 valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
@@ -533,7 +540,7 @@ id="separator"
 hint="delimiter|separator = раздвајач"
 # изостави каталоге који разликују separator/delimiter
 valid cat="fooxyz"
-valid msgstr="\bраздвајач"
+valid msgstr="\bраздвајач" !msgstr="показивачом"
 
 {\bservices?\b}i
 id="service"
@@ -620,7 +627,7 @@ valid msgstr="tooltip"
 {\bviewer}i
 id="viewer"
 hint="viewer = приказивач"
-valid msgstr="\bприказива[чњ]"
+valid msgstr="\bприказива[чњ]" !msgstr="приказивачом"
 valid msgstr="viewer[\w-]*;"
 valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
 valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
@@ -635,6 +642,11 @@ id="wallpaper"
 hint="wallpaper = тапет"
 valid msgstr="\bтапет"
 valid msgstr="wallpaper"
+
+{\bweb browser}i
+id="webbrowser"
+hint="web browser = веб прегледач"
+valid msgstr="\bвеб прегледач" !msgstr="прегледачом"
 
 {\bwhitespace}i
 id="whitespace"
