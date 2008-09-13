@@ -21,7 +21,7 @@ from pology.file.message import Message
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
-from pology.misc.diff import diff_texts
+from pology.misc.diff import word_ediff
 from pology.misc.langdep import get_filter_lreq
 
 WRAPF = wrap_field_ontag_unwrap
@@ -634,7 +634,7 @@ def embed_diff (msg1, msg2, pfilter=None):
         diff = u""
         if text1 != text2:
             anydiff = True
-        diff, dr = diff_texts(text1, text2, markup=True, format=msg2.format)
+        diff, dr = word_ediff(text1, text2, markup=True, format=msg2.format)
         field_diffs.append(diff)
 
     if not anydiff:
