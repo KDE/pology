@@ -7,7 +7,7 @@ Various statistics on catalogs, that may help review the progress,
 split up the work, find out what needs updating, etc.
 
 Sieve options:
-  - C{accel:<character>}: accelerator marker in GUI messages
+  - C{accels:<chars>}: accelerator markers in GUI messages
   - C{detail}: give more detailed statistics
   - C{incomplete:<file>}: additionally list catalogs which are not 100%
     translated; if C{<file>} is not empty, filenames of incomplete catalogs
@@ -160,7 +160,7 @@ Notes on Counting
 
     The word and character counts for a given message field are obtained
     in the following way:
-      - accelerator marker, if defined, is removed
+      - accelerator markers, if defined, are removed
       - XML-like markup is eliminated (C{<...>})
       - special tokens, such as format directives, are also eliminated
         (e.g. C{%s} in a message marked as C{c-format})
@@ -197,13 +197,13 @@ class Sieve (object):
     def __init__ (self, options, global_options):
 
         # Characters to consider as shortcut markers.
-        self.shortcut_explicit = False
-        self.shortcut_usual = "&_~" # some typical markers
-        self.shortcut = ""
-        if "accel" in options and len(options["accel"]) > 0:
+        self.accels_explicit = False
+        self.accels_usual = list("&_~") # some typical accelerator markers
+        self.accels = []
+        if "accel" in options:
             options.accept("accel")
-            self.shortcut = options["accel"]
-            self.shortcut_explicit = True
+            self.accels = list(options["accel"])
+            self.accels_explicit = True
 
         # Display detailed statistics?
         self.detailed = False
@@ -370,14 +370,14 @@ class Sieve (object):
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
 
-        # Check if the catalog itself states the shortcut character,
+        # Check if the catalog itself states accelerator markers,
         # unless specified explicitly by the command line.
-        if not self.shortcut_explicit:
-            accel = cat.possible_accelerator()
-            if accel is not None:
-                self.shortcut = accel
+        if not self.accels_explicit:
+            accels = cat.accelerator()
+            if accels is not None:
+                self.accels = accels
             else:
-                self.shortcut = self.shortcut_usual
+                self.accels = self.accels_usual
 
 
     def process (self, msg, cat):
@@ -423,7 +423,7 @@ class Sieve (object):
                 pf = text.find("|/|")
                 if pf >= 0:
                     text = text[0:pf]
-                words = proper_words(text, True, self.shortcut, msg.format)
+                words = proper_words(text, True, self.accels, msg.format)
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))

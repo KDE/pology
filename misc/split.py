@@ -147,7 +147,7 @@ _remove_fmtd_rxs = [
 _word_ok_rx = re.compile(r"^[^_]*$", re.U)
 
 
-def proper_words (text, markup=False, accel="", format=None):
+def proper_words (text, markup=False, accels=[], format=None):
     """
     Mine proper words out of the text.
 
@@ -166,8 +166,8 @@ def proper_words (text, markup=False, accel="", format=None):
     @param markup: whether text contains markup tags
     @type markup: bool
 
-    @param accel: accelerator characters to ignore
-    @type accel: string
+    @param accels: accelerator characters to ignore
+    @type accels: sequence
 
     @param format: Gettext format flag
     @type format: None or string
@@ -194,8 +194,8 @@ def proper_words (text, markup=False, accel="", format=None):
         text = rem_rx.sub(sub, text)
 
     # Remove accelerators (must come after other replacements.
-    for ac in accel:
-        text = text.replace(ac, "")
+    for accel in accels:
+        text = text.replace(accel, "")
 
     rwords = split_text(text)[0]
     words = [x for x in rwords if _word_ok_rx.search(x)]

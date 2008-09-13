@@ -14,7 +14,7 @@ Sieve options:
   - C{var:<variety>}: variety of the Aspell dictionary
   - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
-  - C{accel:<char>}: strip this character as accelerator marker
+  - C{accel:<chars>}: strip these characters as accelerator markers
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
   - C{env:<environment>}: environment of internal dictionary supplements
@@ -25,8 +25,8 @@ they are extracted, in the following order of priority, from:
 current PO file (language only), user configuration, current system locale
 (language and encoding only).
 
-If accelerator character is not explicitly given, it may be inferred from the
-PO header; otherwise, some usual accelerator characters are removed by default.
+If accelerator characters are not explicitly given, they may be inferred from
+the PO file; otherwise, some usual accelerator markers are removed by default.
 
 The C{filter} option specifies text-transformation filters to apply before
 the text is spell-checked. These are the filters found in C{pology.filters}
@@ -166,13 +166,13 @@ class Sieve (object):
                 warning("Cannot open %s file. XML output disabled" % xmlPath)
 
         # Remove accelerators?
-        self.accel_explicit = False
-        self.accel_usual = "&_~"
-        self.accel = ""
+        self.accels_explicit = False
+        self.accels_usual = list("&_~")
+        self.accels = []
         if "accel" in options:
             options.accept("accel")
-            self.accel = options["accel"]
-            self.accel_explicit = True
+            self.accels = list(options["accel"])
+            self.accels_explicit = True
 
         # Pattern for words to skip.
         self.skipRx = None
@@ -288,12 +288,12 @@ class Sieve (object):
 
         # Check if the catalog itself states the shortcut character,
         # unless specified explicitly by the command line.
-        if not self.accel_explicit:
-            accel = cat.possible_accelerator()
-            if accel is not None:
-                self.accel = accel
+        if not self.accels_explicit:
+            accels = cat.accelerator()
+            if accels is not None:
+                self.accels = accels
             else:
-                self.accel = self.accel_usual
+                self.accels = self.accels_usual
 
         # Close previous/open new XML section.
         if self.xmlFile:
@@ -335,7 +335,7 @@ class Sieve (object):
 
             # Split text into words.
             if not self.simsp:
-                words=proper_words(msgstr, True, self.accel, msg.format)
+                words=proper_words(msgstr, True, self.accels, msg.format)
             else:
                 # NOTE: Temporary, remove when proper_words becomes smarter.
                 words=msgstr.split()

@@ -1163,54 +1163,126 @@ class Catalog (Monitored):
         return selected_msgs
 
 
-    def possible_accelerator (self, headonly=False):
+    def accelerator (self, bymsgs=False):
         """
-        Report character possibly used as an accelerator in GUI messages.
+        Report characters used as accelerator markers in GUI messages.
 
-        The accelerator character is determined heuristically, based on
-        the catalog header and the message entries.
-        If empty string is returned, it was determined that there are
-        no accelerators in the catalog;
-        if C{None}, that there is no determination about accelerators.
+        Accelerator characters are determined by looking for some
+        header fields, and if not found, by heuristically examining
+        messages if C{bymsgs} is C{True}.
 
-        Runtime complexity O(n), unless C{headonly} in effect, when O(1).
+        The header fields are tried in this order: C{Accelerator-Marker},
+        C{X-Accelerator-Marker}.
+        In each field, several accelerator markers can be stated as
+        comma-separated list, or there may be several fields;
+        the union of all parsed markers is reported.
 
-        @param headonly: analyze only the header
-        @type headonly: bool
+        If empty set is returned, it was determined that there are
+        no accelerator markers in the catalog;
+        if C{None}, that there is no determination about markers.
 
-        @returns: accelerator character, empty, or C{None}
-        @rtype: string or C{None}
+        If C{bymsgs} is C{True}, runtime complexity is O(n).
+
+        @param bymsgs: examine messages if necessary
+        @type bymsgs: bool
+
+        @returns: accelerator markers
+        @rtype: set of strings or C{None}
+
+        @note: Heuristic examination of messages not implemented yet.
         """
 
-        accel = None
+        accels = None
 
         # Analyze header.
 
         # - check the fields observed in the wild to state accelerators.
         for fname in (
+            "Accelerator-Marker",
             "X-Accelerator-Marker",
         ):
-            fval = self._header.get_field_value(fname)
-            if fval:
-                accel = fval.strip()
-                break
+            fields = self._header.select_fields(fname)
+            for fname, fval in fields:
+                if accels is None:
+                    accels = set()
+                accels.update([x.strip() for x in fval.split(",")])
+        if accels:
+            accels.discard("")
 
-        # Skip analyzing messages if told so.
-        if headonly:
-            return accel
+        # Skip analyzing messages if not necessary or not requested.
+        if accels is not None or not bymsgs:
+            return accels
 
         # Analyze messages.
         # TODO.
         pass
 
-        return accel
+        return accels
+
+
+    def markup (self, bymsgs=False):
+        """
+        Report what types of markup can be expected in messages.
+
+        Markup types are determined by looking for some header fields,
+        and if not found, by heuristically examining messages
+        if C{bymsgs} is C{True}. Markup types are represented as
+        short symbolic names, e.g. "html", "docbook", "mediawiki", etc.
+
+        The header fields are tried in this order: C{Text-Markup},
+        C{X-Text-Markup}.
+        In each field, several markup types can be stated as
+        comma-separated list, or there may be several fields;
+        the union of all parsed types is reported.
+
+        If empty set is returned, it was determined that there is
+        no markup in the catalog;
+        if C{None}, that there is no determination about markup.
+
+        If C{bymsgs} is C{True}, runtime complexity is O(n).
+
+        @param bymsgs: examine messages if necessary
+        @type bymsgs: bool
+
+        @returns: markup names
+        @rtype: set of strings or C{None}
+
+        @note: Heuristic examination of messages not implemented yet.
+        """
+
+        mtypes = None
+
+        # Analyze header.
+
+        # - check the fields observed in the wild to state markup types.
+        for fname in (
+            "Text-Markup",
+            "X-Text-Markup",
+        ):
+            fields = self._header.select_fields(fname)
+            for fname, fval in fields:
+                if mtypes is None:
+                    mtypes = set()
+                mtypes.update([x.strip() for x in fval.split(",")])
+        if mtypes:
+            mtypes.discard("")
+
+        # Skip analyzing messages if not necessary or not requested.
+        if mtypes is not None or not bymsgs:
+            return mtypes
+
+        # Analyze messages.
+        # TODO.
+        pass
+
+        return mtypes
 
 
     def language (self):
         """
         Report language of the catalog, if available.
 
-        The language is extracted from the C{Language:} field in the header.
+        The language is extracted from the C{Language} field in the header.
         If this field is present, it should contain the language code
         in line with GNU C library locales.
         E.g. C{pt} for Portuguese, or C{pt_BR} for Brazilian Portuguese.

@@ -23,7 +23,7 @@ The sieve parameters are:
         rule identifiers; if not given, all rules for given language and
         environment are applied
    - C{stat}: show statistics of rule matching at the end
-   - C{accel:<character>}: accelerator character to eliminate from text
+   - C{accel:<characters>}: accelerator characters to eliminate from text
         before the rules are applied
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
@@ -102,13 +102,13 @@ class Sieve (object):
             envOnly=False
 
         # Remove accelerators?
-        self.accelExplicit=False
-        self.accelUsual="&_~"
-        self.accel=""
+        self.accelsExplicit=False
+        self.accelsUsual=list("&_~")
+        self.accels=[]
         if "accel" in options:
             options.accept("accel")
-            self.accel=options["accel"]
-            self.accelExplicit=True
+            self.accels=list(options["accel"])
+            self.accelsExplicit=True
         
         # Pre-check filters to apply.
         self.pfilters=[]
@@ -202,12 +202,12 @@ class Sieve (object):
 
         # Check if the catalog itself states the shortcut character,
         # unless specified explicitly by the command line.
-        if not self.accelExplicit:
-            accel=cat.possible_accelerator()
-            if accel is not None:
-                self.accel=accel
+        if not self.accelsExplicit:
+            accels=cat.accelerator()
+            if accels is not None:
+                self.accels=accels
             else:
-                self.accel=self.accelUsual
+                self.accels=self.accelsUsual
 
 
     def process (self, msg, cat):
@@ -274,9 +274,9 @@ class Sieve (object):
         # Prepare original and translation for checking.
         msgid=msg.msgid
         msgstrs=list(msg.msgstr)
-        if self.accel:
-            msgid=msgid.replace(self.accel, "")
-            msgstrs=[x.replace(self.accel, "") for x in msgstrs]
+        for accel in self.accels:
+            msgid=msgid.replace(accel, "")
+            msgstrs=[x.replace(accel, "") for x in msgstrs]
         for pfilter in self.pfilters:
             msgstrs=[pfilter(x) for x in msgstrs]
 

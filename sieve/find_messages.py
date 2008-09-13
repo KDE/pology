@@ -32,7 +32,7 @@ Sieve options for replacement:
 The C{replace} option must go together with the C{msgstr} match. As usual for regular expression replacement, the replacement string may contain C{\<number>} references to groups defined by C{msgstr} match.
 
 Other sieve options:
-  - C{accel:<char>}: strip this character as an accelerator marker
+  - C{accel:<chars>}: strip these characters as accelerator markers
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
   - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
@@ -76,12 +76,12 @@ class Sieve (object):
 
         self.nmatch = 0
 
-        self.accel_explicit = False
-        self.accel = ""
+        self.accels_explicit = False
+        self.accels = []
         if "accel" in options:
             options.accept("accel")
-            self.accel = options["accel"]
-            self.accel_explicit = True
+            self.accels = list(options["accel"])
+            self.accels_explicit = True
 
         self.rxflags = re.U
         if "case" in options:
@@ -166,12 +166,12 @@ class Sieve (object):
 
         # Check if the catalog itself states the accelerator character,
         # unless specified explicitly by the command line.
-        if not self.accel_explicit:
-            accel = cat.possible_accelerator()
-            if accel is not None:
-                self.accel = accel
+        if not self.accels_explicit:
+            accels = cat.accelerator()
+            if accels is not None:
+                self.accels = accels
             else:
-                self.accel = ""
+                self.accels = []
 
 
     def process (self, msg, cat):
@@ -225,9 +225,9 @@ class Sieve (object):
             local_match = False
 
             for text, hl_name, hl_item in texts:
-                # Remove accelerator.
-                if self.accel:
-                    text = text.replace(self.accel, "")
+                # Remove accelerators.
+                for accel in self.accels:
+                    text = text.replace(accel, "")
 
                 # Apply pre-match filters.
                 for pfilter in pfilters:
