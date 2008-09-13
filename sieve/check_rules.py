@@ -56,6 +56,7 @@ from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
 from pology.misc.comments import manc_parse_list
+from pology.file.message import MessageUnsafe
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -271,17 +272,18 @@ class Sieve (object):
                 self.xmlFile.write(poTag) # Write to result
                 self.cacheFile.write(poTag) # Write to cache
         
-        # Prepare original and translation for checking.
-        msgid=msg.msgid
-        msgstrs=list(msg.msgstr)
-        for accel in self.accels:
-            msgid=msgid.replace(accel, "")
-            msgstrs=[x.replace(accel, "") for x in msgstrs]
-        for pfilter in self.pfilters:
-            msgstrs=[pfilter(x) for x in msgstrs]
-
         # Collect explicitly ignored rules by ID for this message.
         locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
+
+        # Prepare filtered messages for checking.
+        msgf = MessageUnsafe(msg)
+        msgf.msgid=msg.msgid
+        msgf.msgstr=list(msg.msgstr)
+        for accel in self.accels:
+            msgf.msgid=msgf.msgid.replace(accel, "")
+            msgf.msgstr=[x.replace(accel, "") for x in msgf.msgstr]
+        for pfilter in self.pfilters:
+            msgf.msgstr=[pfilter(x) for x in msgf.msgstr]
 
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
@@ -291,38 +293,30 @@ class Sieve (object):
                 continue
             if rule.ident in locally_ignored:
                 continue
-            id=0 # Count msgstr plural forms
-            for msgstr in msgstrs:
-                try:
-                    spans=rule.process(msgid, msgstr, msg, cat, self.env)
-                except TimedOutException:
-                    warning("Rule %s timed out. Skipping." % rule.rawPattern)
-                    id+=1
-                    continue
-                if spans:
-                    self.nmatch+=1
-                    if self.xmlFile:
-                        # FIXME: rule_xml_error is actually broken,
-                        # as it considers matching to always be on msgid,
-                        # and that there is only one matched span.
-                        # Needs XML format redefinition.
-                        if spans[0]:
-                            span=spans[0][0]
-                        else:
-                            span=spans[1][0]
-
-                        # Now, write to XML file if defined
-                        xmlError=rule_xml_error(msg, cat, rule, span, id)
-                        self.xmlFile.writelines(xmlError)
-                        if not self.cached:
-                            # Write result in cache
-                            self.cacheFile.writelines(xmlError)
-                    else:
-                        # Text format.
-                        highlight = [("msgid", 0, spans[0], msgid),
-                                     ("msgstr", id, spans[1], msgstr)]
-                        rule_error(msg, cat, rule, highlight)
-                id+=1 # Increase msgstr id count
+            try:
+                spans=rule.process(msgf, cat, env=self.env, nofilter=True)
+            except TimedOutException:
+                warning("Rule %s timed out. Skipping." % rule.rawPattern)
+                continue
+            if spans:
+                self.nmatch+=1
+                if self.xmlFile:
+                    # FIXME: rule_xml_error is actually broken,
+                    # as it considers matching to always be on msgid,
+                    # and that there is only one matched span.
+                    # Also, spans contain information about which fields
+                    # had problems, no msgstr index available as such.
+                    # Needs XML format redefinition.
+                    span=spans[0][2]
+                    # Now, write to XML file if defined
+                    xmlError=rule_xml_error(msg, cat, rule, span, 0)
+                    self.xmlFile.writelines(xmlError)
+                    if not self.cached:
+                        # Write result in cache
+                        self.cacheFile.writelines(xmlError)
+                else:
+                    # Text format.
+                    rule_error(msg, cat, rule, spans)
 
     def finalize (self):
         

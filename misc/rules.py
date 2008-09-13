@@ -35,6 +35,7 @@ verbose syntax getting in the way. Rule file has the following layout::
     # Author name.
     # License.
 
+    # Directives affecting all the rules.
     global-directive
     ...
     global-directive
@@ -55,9 +56,7 @@ verbose syntax getting in the way. Rule file has the following layout::
 
     # End of rules
 
-Rules are separated by a blank line, and each rule starts with the main
-trigger pattern. #-comments always start from the beginning of the line.
-Example rule, to fail a message when the original part contains the word
+An example rule, to fail a message when the original part contains the word
 "foo" and the translation does not contain "bar", except in PO catalog
 "qwyx" where it should contain "baz" instead, would be::
 
@@ -67,14 +66,43 @@ Example rule, to fail a message when the original part contains the word
     valid cat="qwyx" msgstr="\\bbaz"
     hint="Translate 'foo' with 'bar' (only in qwyx.po use 'baz')"
 
-Trigger pattern is a regular expression within curly or square brackets,
-C{{...}} or C{[...]}, depending if it should be matched against original or
-translation part of the message, respectively. Additionaly, following the
-brackets there may be an C{i}-flag, to indicate case-insensitive matching
-for all the patterns in the rule (default is case-sensitive).
-The trigger pattern is the main element of the rule; tests that follow
-in subdirectives are to amend the trigger pattern, to pass the message
-even if the trigger pattern fails it.
+The elements of a rule are detailed in the following.
+
+Trigger Pattern
+===============
+
+Trigger pattern is a regular expression, which can be given within curly or
+square brackets, C{{...}} or C{[...]}, if the intention is to match
+the original or translation parts of the message, respectively.
+Following the brackets there may the optional match-modifier character C{i},
+which indicates case-insensitive matching for I{all} the patterns
+in the rule (default is case-sensitive).
+
+This was the shorthand notation of the trigger pattern. The more verbose
+notation is C{*<part>/<regex>/<flags>}, where for separation instead of the slash (C{/}) any other non-letter character can be used consistently.
+This notation is needed when some other part of the message except
+the original and translation is to be matched, or when using brackets would
+cause balancing issues (e.g. when a closing curly bracket without
+the opening one is a part of the match for the original text).
+For all messages, C{<part>} can be one of the keywords: C{msgid}, C{msgstr},
+C{msgctxt}.
+E.g. C{{\\bfoo}i} is equivalent to C{*msgid/\\bfoo/i}.
+
+For plural messages, C{msgid/.../} (and conversely C{{...}} matches in
+either the C{msgid} or C{msgid_plural} fields, whereas C{msgstr}
+(and C{[...]}) in any of the C{msgstr} fields. That is, there is an
+implied boolean OR relationship when matching in corresponding groups.
+If particular among these fields are wanted, the following keywords
+can be used instead: C{msgid_singular}, C{msgid_plural}, C{msgstr_<N>},
+where C{N} is a number corresponding to the index of C{msgstr} field.
+
+The trigger pattern is the main element of the rule; if it matches,
+the message is by default considered failed by the rule. Tests that follow
+in subdirectives are there to pass the message if additional conditions
+are met.
+
+Subdirectives
+=============
 
 There are several types of rule subdirectives. The main one is C{valid},
 which provides additional tests to pass the message. These tests are
@@ -121,10 +149,17 @@ keyword parameters: C{directive arg1 ...}. These are:
   - C{environment <envname>}: explicitly set the environment of the rule
   - c{disabled}: disable the rule, i.e. make it pass all messages
 
-Global directives, which are typically placed at the beginning of a rule file,
-before any rules, are used to define common elements for rules to source,
-or to set state for all rules below them. One such directive is C{validGroup},
-which defines common groups of C{valid} directives::
+Global Directives
+=================
+
+Global directives are typically placed at the beginning of a rule file,
+before any rules, and are used to define common elements for rules to source,
+or to set state for all rules below them. Global directives can also be placed
+in the middle of the rule file, between two rules, when they affect all the
+rules that follow.
+
+One global directive is C{validGroup}, which defines common groups of
+C{valid} directives, which can be sourced by any rule::
 
     # Global validity group.
     validGroup passIfQuoted
@@ -145,8 +180,8 @@ which defines common groups of C{valid} directives::
     valid ...
     ...
 
-Another global directive is setting specific environment on all rules that
-follow after it (unless overriden with namesake rule subdirective)::
+Another global directive is to set the specific environment for the rules
+that follow (unless overriden with namesake rule subdirective)::
 
     # Global environment.
     environment FOO
@@ -208,6 +243,17 @@ specify the operating environment, when it will apply the rules according
 to previous passages. This means that if the operating environment
 is not specified, from sieve user's point of view all environment-specific
 rules are simply ignored.
+
+Quoting and Escaping
+====================
+
+Similar as with the verbose notation for the trigger pattern,
+any quoted value may consistently use any other character other than
+the double quote (single quote, slash, etc.) Literal quote inside
+the value can also be escaped using the backslash.
+The values of fields that are regular expressions are sent to the regular
+expression engine without resolving any escape sequences other
+than for the quote character itself.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -326,6 +372,8 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     return rules
 
 
+_rule_start = "*"
+
 def loadRulesFromFile(filePath, accents, stat):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
@@ -338,24 +386,13 @@ def loadRulesFromFile(filePath, accents, stat):
     rules=[]
     inRule=False #Flag that indicate we are currently parsing a rule bloc
     inGroup=False #Flag that indicate we are currently parsing a validGroup bloc
-    
-    patternPattern=re.compile("\[(.*)\](i?)")
-    patternPatternMsgid=re.compile("\{(.*)\}(i?)")
-    validPattern=re.compile("valid (.*)")
-    #validPatternContent=re.compile('(.*?)="(.*?)"')
-    validPatternContent=re.compile(r'(.*?)="(.*?(?<!\\))"')
-    hintPattern=re.compile('''hint="(.*)"''')
-    identPattern=re.compile('''id="(.*)"''')
-    disabledPattern=re.compile('''disabled\\b''')
-    validGroupPattern=re.compile("""validGroup (.*)""")
-    environPattern=re.compile("""environment (.*)""")
-    
+
     valid=[]
     pattern=u""
+    msgpart=""
     hint=u""
     ident=None
     disabled=False
-    onmsgid=False
     casesens=True
     environ=None
     validGroup={}
@@ -368,25 +405,28 @@ def loadRulesFromFile(filePath, accents, stat):
         lines=open(filePath, "r", "UTF-8").readlines()
         lines.append("\n") # sentry line
         for line in lines:
-            line=line.rstrip("\n")
             i+=1
-            
-            # Comments
-            if line.startswith("#"):
-                continue
+            fields = _parseRuleLine(line)
             
             # End of rule bloc
-            if line.strip()=="":
+            # FIXME: Remove 'not fields' when global directives too
+            # start with something. This will eliminate rule separation
+            # by empty lines, and skipping comment-only lines.
+            if line.strip().startswith("#"):
+                continue
+            if not fields or fields[0][0] in (_rule_start,):
                 if inRule:
                     inRule=False
-                    rules.append(Rule(pattern, hint, valid, accents, stat,
-                                      casesens, onmsgid, ident, disabled,
-                                      environ or globalEnviron))
+                    rules.append(Rule(pattern, msgpart,
+                                      hint=hint, valid=valid, accents=accents,
+                                      stat=stat, casesens=casesens,
+                                      ident=ident, disabled=disabled,
+                                      environ=(environ or globalEnviron)))
                     pattern=u""
+                    msgpart=""
                     hint=u""
                     ident=None
                     disabled=False
-                    onmsgid=False
                     casesens=True
                     environ=None
                 elif inGroup:
@@ -394,70 +434,89 @@ def loadRulesFromFile(filePath, accents, stat):
                     validGroup[validGroupName]=valid
                     validGroupName=u""
                 valid=[]
+            
+            if not fields:
                 continue
             
             # Begin of rule (pattern)
-            result=(patternPattern.match(line) or patternPatternMsgid.match(line))
-            if result and not inRule:
+            if fields[0][0]==_rule_start:
                 inRule=True
-                pattern=result.group(1)
-                onmsgid=result.group(0).startswith("{")
-                casesens=("i" not in result.group(2))
-                continue
+                msgpart=fields[0][1]
+                if msgpart not in _trigger_msgparts:
+                    raise StandardError, \
+                          "Unknown keyword '%s' in trigger pattern" % msgpart
+                pattern=fields[1][0]
+                for mmod in fields[1][1]:
+                    if mmod not in _trigger_matchmods:
+                        raise StandardError, \
+                              "Unknown match modifier '%s' in trigger pattern" \
+                              % mmod
+                casesens=("i" not in fields[1][1])
             
             # valid line (for rule ou validGroup)
-            result=validPattern.match(line)
-            if result and (inRule or inGroup):
-                valid.append(validPatternContent.findall(result.group(1)))
-                continue
+            elif fields[0][0]=="valid":
+                if not inRule and not inGroup:
+                    raise StandardError, \
+                          "'%s' directive outside of rule or validity group" \
+                          % "valid"
+                valid.append(fields[1:])
             
             # Rule hint
-            result=hintPattern.match(line)
-            if result and inRule:
-                hint=result.group(1)
-                continue
+            elif fields[0][0]=="hint":
+                if not inRule:
+                    raise StandardError, \
+                          "'%s' directive outside of rule" % "hint"
+                hint=fields[0][1]
             
             # Rule identifier
-            result=identPattern.match(line)
-            if result and inRule:
-                ident=result.group(1)
+            elif fields[0][0]=="id":
+                if not inRule:
+                    raise StandardError, \
+                          "'%s' directive outside of rule" % "id"
+                ident=fields[0][1]
                 if ident in identLines:
                     (prevLine, prevEnviron)=identLines[ident]
                     if prevEnviron==globalEnviron:
                         raise IdentError(ident, prevLine)
                 identLines[ident]=(i, globalEnviron)
-                continue
             
             # Whether rule is disabled
-            result=disabledPattern.match(line)
-            if result and inRule:
+            elif fields[0][0]=="disabled":
+                if not inRule:
+                    raise StandardError, \
+                          "'%s' directive outside of rule" % "disabled"
                 disabled=True
-                continue
             
             # Validgroup 
-            result=validGroupPattern.match(line)
-            if result and not inGroup:
+            elif fields[0][0]=="validGroup":
+                if inGroup:
+                    raise StandardError, \
+                          "'%s' directive inside validity group" % "validGroup"
                 if inRule:
                     # Use of validGroup directive inside a rule bloc
-                    validGroupName=result.group(1).strip()
+                    validGroupName=fields[1][0]
                     valid.extend(validGroup[validGroupName])
                 else:
                     # Begin of validGroup
                     inGroup=True
-                    validGroupName=result.group(1).strip()
-                continue
+                    validGroupName=fields[1][0]
             
             # Switch rule environment
-            result=environPattern.match(line)
-            if result and not inGroup:
-                envName=result.group(1).strip()
+            elif fields[0][0]=="environment":
+                if inGroup:
+                    raise StandardError, \
+                          "'%s' directive inside validity group" % "environment"
+                envName=fields[1][0]
                 if inRule:
                     # Environment specification for current rule.
                     environ=envName
                 else:
                     # Environment switch for rules that follow.
                     globalEnviron=envName
-                continue
+            
+            else:
+                raise StandardError, \
+                      "unknown directive '%s'" % fields[0][0]
 
     except IdentError, e:
         warning("Identifier error in rule file: '%s' at %s:%d "
@@ -465,13 +524,12 @@ def loadRulesFromFile(filePath, accents, stat):
                 % (e.args[0], filePath, i, e.args[1]))
     except IOError, e:
         warning("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
-    except KeyError, e:
+    except StandardError, e:
         warning("Syntax error in rule file %s:%d\n%s" % (filePath, i, e))
 
-    # TODO: Make sure all identifiers (by id="..." fields) are unique.
-
     return rules
- 
+
+
 def convert_entities(string):
     """Convert entities in string en returns it"""
     #TODO: use pology entities function instead of specific one
@@ -488,7 +546,22 @@ def convert_entities(string):
     string=string.replace("&nbsp;", " ")
   
     return string
-      
+
+
+_trigger_msgparts = [
+    # For matching in all messages.
+    "msgctxt", "msgid", "msgstr",
+
+    # For matching in plural messages part by part.
+    "msgid_singular", "msgid_plural",
+    "msgstr_0", "msgstr_1", "msgstr_2", "msgstr_3", "msgstr_4", "msgstr_5",
+    "msgstr_6", "msgstr_7", "msgstr_8", "msgstr_9", # ought to be enough
+]
+
+_trigger_matchmods = [
+    "i",
+]
+
 class Rule(object):
     """Represent a single rule"""
 
@@ -496,12 +569,14 @@ class Rule(object):
     _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
     _listKeywords = set(("env", "cat"))
 
-    def __init__(self, pattern, hint, valid=[], accents=None, stat=False,
-                       casesens=True, onmsgid=False, ident=None, disabled=False,
+    def __init__(self, pattern, msgpart, hint=None, valid=[], accents=None,
+                       stat=False, casesens=True, ident=None, disabled=False,
                        environ=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
+        @param msgpart: part of the message to be matched by C{pattern}
+        @type msgpart: string
         @param hint: hint given to user when rule match
         @type hint: unicode
         @param valid: list of cases that should make or not make rule matching
@@ -509,8 +584,6 @@ class Rule(object):
         @type valid: list of unicode key=value
         @param casesens: whether regex matching will be case-sensitive
         @type casesens: bool
-        @param onmsgid: whether the rule is for msgid (msgstr otherwise)
-        @type onmsgid: bool
         @param ident: rule identifier
         @type ident: unicode or C{None}
         @param disabled: whether rule is disabled
@@ -521,6 +594,7 @@ class Rule(object):
 
         # Define instance variable
         self.pattern=None # Compiled regexp into re.pattern object
+        self.msgpart=msgpart # The part of the message to match
         self.valid=None   # Parsed valid definition
         self.hint=None    # Hint message return to user
         self.ident=None    # Rule identifier
@@ -530,8 +604,11 @@ class Rule(object):
         self.time=0       # Total time of rule process calls
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
-        self.onmsgid=onmsgid # Whether to match rule on msgid
         self.environ=None # Environment in which to apply the rule
+
+        if msgpart not in _trigger_msgparts:
+            raise StandardError, \
+                  "Unknown message part '%s' for rule's main pattern" % msgpart
 
         # Get accentMatch from accent dictionary
         if self.accents:
@@ -577,7 +654,7 @@ class Rule(object):
         self.valid=[]
         for item in valid:
             try:
-                entry={} # Empty valid entry
+                entry=[] # Empty valid entry
                 for (key, value) in item:
                     key=key.strip()
                     bkey = key
@@ -593,102 +670,124 @@ class Rule(object):
                     if bkey in Rule._listKeywords:
                         # List of comma-separated words
                         value=[x.strip() for x in value.split(",")]
-                    entry[key]=value
+                    entry.append((key, value))
                 self.valid.append(entry)
             except Exception:
                 print "Invalid 'Valid' definition '%s'. Skipping" % item
                 continue
 
     #@timed_out(TIMEOUT)
-    def process(self, msgid, msgstr, msg, cat, env=None):
+    def process (self, msg, cat, env=None, nofilter=False):
         """
-        Apply rule to an original/translation pair in the message.
+        Apply rule to the message.
 
-        Instead of giving the original values of C{msgid}/C{msgid_plural}
-        and component of C{msgstr}, the values may be filtered to remove
-        and modify any parts that would make the rule not act as intended.
+        If the rule matches, I{highlight specification} of offending spans is
+        returned (see L{report_msg_content<misc.report.report_msg_content>});
+        otherwise an empty list.
 
-        If the rule does not match, C{False} is returned.
-        If it does match, the return value are two lists of spans
-        which were matched and not canceled,
-        first for the original and second for the translation.
+        Rule will normally apply its own filters to the message before
+        matching (on a local copy, the original message will not be affected).
+        If the message is already appropriately filtered, this self-filtering
+        can be prevented by setting C{nofilter} to {True}.
 
-        @param msgid: the text in the role of original
-        @type msgid: string
-        @param msgstr: the text in the role of translation
-        @type msgstr: string
         @param msg: message to which the texts belong
         @type msg: instance of L{Message_base}
         @param cat: catalog to which the message belongs
         @type cat: L{Catalog}
         @param env: environment in which the rule is applied
         @type env: string
+        @param nofilter: avoid filtering the message if C{True}
+        @type nofilter: bool
 
-        @return: C{False} or matched spans
-        @rtype: C{bool} or two lists of spans
+        @return: highlight specification (may be empty list)
         """
 
         if self.pattern is None:
             warning("Pattern not defined, skipping rule.")
-            return False
+            return []
 
         # If this rule belongs to a specific environment,
         # and the operating environment is different from it,
         # cancel the rule immediately.
         if self.environ and env != self.environ:
-            return False
+            return []
 
         # Cancel immediately if the rule is disabled.
         if self.disabled:
-            return False
+            return []
 
-        if self.stat: begin=time()
+        if self.stat:
+            begin=time()
 
-        if self.onmsgid:
-            text = msgid
+        # Apply own filters to the message if not filtered already.
+        if not nofilter:
+            msg = self._filter_message(msg)
+
+        if 0: pass
+        elif self.msgpart == "msgid":
+            text_spec = [("msgid", 0, msg.msgid),
+                         ("msgid_plural", 0, msg.msgid_plural)]
+        elif self.msgpart == "msgstr":
+            text_spec = [("msgstr", i, msg.msgstr[i])
+                         for i in range(len(msg.msgstr))]
+        elif self.msgpart == "msgctxt":
+            text_spec = [("msgctxt", 0, msg.msgctxt)]
+        elif self.msgpart == "msgid_singular":
+            text_spec = [("msgid", 0, msg.msgid)]
+        elif self.msgpart == "msgid_plural":
+            text_spec = [("msgid_plural", 0, msg.msgid_plural)]
+        elif self.msgpart.startswith("msgstr_"):
+            item = int(self.msgpart.split("_")[1])
+            text_spec = [("msgstr", item, msg.msgstr[item])]
         else:
-            text = msgstr
+            raise StandardError, \
+                  "Unknown trigger keyword '%s' in rule"
 
-        patternMatches=list(self.pattern.finditer(text)) # need full data per match
-        if not patternMatches:
-            # Main pattern does not match anything, just return.
-            return False
+        failed_spans = {}
+        for part, item, text in text_spec:
 
-        # Test all matched segments.
-        cancel=True
-        failedSpans=[]
-        for patternMatch in patternMatches:
-            # First validity entry that matches excepts the current segment.
-            cancel=False
-            for entry in self.valid:
-                if self._is_valid(patternMatch, text, entry,
-                                  msgstr, msgid, msg, cat, env):
-                    cancel=True
-                    break
-            if not cancel:
-                # Record the span of problematic segment.
-                failedSpans.append(patternMatch.span())
+            # Get full data per match.
+            pmatches = list(self.pattern.finditer(text))
+            if not pmatches:
+                # Main pattern does not match anything, go to next text.
+                continue
+
+            # Test all matched segments.
+            for pmatch in pmatches:
+                # First validity entry that matches excepts the current segment.
+                cancel = False
+                for entry in self.valid:
+                    if self._is_valid(pmatch, text, entry, msg, cat, env):
+                        cancel = True
+                        break
+                if not cancel:
+                    # Record the span of problematic segment.
+                    skey = (part, item)
+                    if skey not in failed_spans:
+                        failed_spans[skey] = (part, item, [], text)
+                    failed_spans[skey][2].append(pmatch.span())
 
         # Update stats for matched rules.
-        self.count+=1
-        if self.stat : self.time+=1000*(time()-begin)
+        self.count += 1
+        if self.stat:
+            self.time += 1000 * (time() - begin)
 
-        if not failedSpans:
-            return False
-        else:
-            if self.onmsgid:
-                return (failedSpans, [])
-            else:
-                return ([], failedSpans)
+        return failed_spans.values()
 
 
-    def _is_valid (self, pmatch, text, ventry,
-                         fmsgstr, fmsgid, msg, cat, env):
+    def _filter_message (self, msg):
+
+        # FIXME.
+        error("Message filtering by a rule not implemented yet")
+        return msg
+
+
+    def _is_valid (self, pmatch, text, ventry, msg, cat, env):
 
         # All keys within a validity entry must match for the
         # entry to match as whole.
         valid = True
-        for key, value in ventry.iteritems():
+        for key, value in ventry:
             bkey = key
             invert = False
             if key.startswith("!"):
@@ -750,18 +849,196 @@ class Rule(object):
                     break
 
             elif bkey == "msgid":
-                match = value.search(fmsgid)
+                match = False
+                for msgid in (msg.msgid, msg.msgid_plural):
+                    match = value.search(msgid)
+                    if match:
+                        break
                 if invert: match = not match
                 if not match:
                     valid = False
                     break
 
             elif bkey == "msgstr":
-                match = value.search(fmsgstr)
+                match = False
+                for msgstr in msg.msgstr:
+                    match = value.search(msgstr)
+                    if match:
+                        break
                 if invert: match = not match
                 if not match:
                     valid = False
                     break
 
         return valid
+
+
+def _parseRuleLine (line):
+    """
+    Split a rule line into fields as list of (name, value) pairs.
+
+    If a field name is followed by '=' or '=""', the field value will be
+    an empty string. If there is no equal sign, the value will be C{None}.
+
+    If the line is the trigger pattern, the name of the first field
+    is going to be the "*", and its value the keyword of the message part
+    to be matched; the name of the second field is going to be
+    the pattern itself, and its value the string of match modifiers.
+    """
+
+    llen = len(line)
+    fields = []
+    p = 0
+    in_modifiers = False
+
+    while p < llen:
+        while line[p].isspace():
+            p += 1
+            if p >= llen:
+                break
+        if p >= llen or line[p] == "#":
+            break
+
+        if len(fields) == 0 and line[p] in ("[", "{"):
+            # Shorthand trigger pattern.
+            bropn = line[p]
+            brcls, fname = {"{": ("}", "msgid"),
+                            "[": ("]", "msgstr")}[bropn]
+
+            # Collect the pattern.
+            # Look for the balanced closing bracket.
+            p1 = p + 1
+            balance = 1
+            while balance > 0:
+                p += 1
+                if p >= llen:
+                    break
+                if line[p] == bropn:
+                    balance += 1
+                elif line[p] == brcls:
+                    balance -= 1
+            if balance > 0:
+                raise StandardError, \
+                      "Unbalanced '%s' in shorthand trigger pattern" % bropn
+            fields.append((_rule_start, fname))
+            fields.append((line[p1:p], ""))
+
+            p += 1
+            in_modifiers = True
+
+        elif len(fields) == 0 and line[p] == _rule_start:
+            # Verbose trigger pattern.
+            p += 1
+            while p < llen and line[p].isspace():
+                p += 1
+            if p >= llen:
+                raise StandardError, \
+                      "Missing match keyword in trigger pattern"
+
+            # Collect the match keyword.
+            p1 = p
+            while line[p].isalnum() or line[p] == "_":
+                p += 1
+                if p >= llen:
+                    raise StandardError, \
+                          "Malformed trigger pattern"
+            fname = line[p1:p]
+
+            # Collect the pattern.
+            while line[p].isspace():
+                p += 1
+                if p >= llen:
+                    raise StandardError, \
+                          "No pattern after the trigger keyword"
+            quote = line[p]
+            p1 = p + 1
+            p = _findEndQuote(line, p)
+            fields.append((_rule_start, fname))
+            fields.append((line[p1:p], ""))
+
+            p += 1
+            in_modifiers = True
+
+        elif in_modifiers:
+            # Modifiers after the trigger pattern.
+            p1 = p
+            while not line[p].isspace():
+                p += 1
+                if p >= llen:
+                    break
+            pattern, pmods = fields[-1]
+            fields[-1] = (pattern, pmods + line[p1:p])
+
+        else:
+            # Subdirective field.
+
+            # Collect field name.
+            p1 = p
+            while not line[p].isspace() and line[p] != "=":
+                p += 1
+                if p >= llen:
+                    break
+            fname = line[p1:p]
+            if not re.match(r"^!?[a-z][\w-]*$", fname):
+                raise StandardError, "Invalid field name: %s" % fname
+
+            if p >= llen or line[p].isspace():
+                fields.append((fname, None))
+            else:
+                # Collect field value.
+                p += 1 # skip equal-character
+                if p >= llen or line[p].isspace():
+                    fields.append(fname, "")
+                else:
+                    quote = line[p]
+                    p1 = p + 1
+                    p = _findEndQuote(line, p)
+                    fvalue = line[p1:p]
+                    fields.append((fname, fvalue))
+                    p += 1 # skip quote
+
+    return fields
+
+
+def _findEndQuote (line, pos=0):
+    """
+    Find end quote to the quote at given position in the line.
+
+    Character at the C{pos} position is taken as the quote character.
+    Closing quote can be escaped with backslash inside the string,
+    in which the backslash is removed in parsed string;
+    backslash in any other position is considered ordinary.
+
+    @param line: the line to parse
+    @type line: string
+    @param pos: position of the opening quote
+    @type pos: int
+
+    @return: position of the closing quote
+    @rtype: int
+    """
+
+    quote = line[pos]
+    epos = pos + 1
+
+    llen = len(line)
+    string = ""
+    while epos < llen:
+        c = line[epos]
+        if c == "\\":
+            epos += 1
+            c2 = line[epos]
+            if c2 != quote:
+                string += c
+            string += c2
+        elif c == quote:
+            break
+        else:
+            string += c
+        epos += 1
+
+    if epos == llen:
+        raise StandardError, "Non-terminated quoted string: %s" % line[pos:]
+
+    return epos
 
