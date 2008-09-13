@@ -258,6 +258,7 @@ valid msgstr="driver"
 id="encoding"
 hint="character set|charset|encoding = кодирање"
 valid msgstr="\bкодирањ" !msgstr="\bзнаковн\w+ кодирањ" !msgstr="кодирањ\w+ знак(?!ов)"
+valid msgstr="\bзнаковн\w+ кодирањ" msgid="character encoding"
 valid msgstr="encoding"
 valid cat="khelpcenter" msgid="^Default encoding:$" msgstr="^Подразумевано:$"
 
@@ -278,6 +279,7 @@ valid cat="kcmkwm" msgid="feature activates the border" msgstr="опција а�
 valid cat="khelpcenter" msgid="fulltext search feature"
 valid cat="kdeqt" msgid="schema import feature is not supported" msgstr="није подржан увоз шема"
 valid cat="PO_Odyssey" msgid="feature of the PO format" msgstr="\bособин"
+valid cat="PO_Odyssey" msgid="poedit.*visual feature" msgstr="\bодлик"
 
 {\bfile}i
 id="file"
