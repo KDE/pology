@@ -74,8 +74,8 @@
       <code>xml:&lt;filename&gt;</code>: build XML report file
     </li>
     <li>
-      <code>accel:&lt;char&gt;</code>: strip this character as accelerator 
-      marker
+      <code>accel:&lt;chars&gt;</code>: strip these characters as 
+      accelerator markers
     </li>
     <li>
       <code>skip:&lt;regex&gt;</code>: do not check words which match given
@@ -98,8 +98,8 @@
   given, they are extracted, in the following order of priority, from: 
   current PO file (language only), user configuration, current system 
   locale (language and encoding only).</p>
-  <p>If accelerator character is not explicitly given, it may be inferred 
-  from the PO header; otherwise, some usual accelerator characters are 
+  <p>If accelerator characters are not explicitly given, they may be 
+  inferred from the PO file; otherwise, some usual accelerator markers are 
   removed by default.</p>
   <p>The <code>filter</code> option specifies text-transformation filters 
   to apply before the text is spell-checked. These are the filters found in

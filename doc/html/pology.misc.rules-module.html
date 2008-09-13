@@ -87,6 +87,7 @@
    # Author name.
    # License.
 
+   # Directives affecting all the rules.
    global-directive
    ...
    global-directive
@@ -107,9 +108,7 @@
 
    # End of rules
 </pre>
-    <p>Rules are separated by a blank line, and each rule starts with the 
-    main trigger pattern. #-comments always start from the beginning of the
-    line. Example rule, to fail a message when the original part contains 
+    <p>An example rule, to fail a message when the original part contains 
     the word &quot;foo&quot; and the translation does not contain 
     &quot;bar&quot;, except in PO catalog &quot;qwyx&quot; where it should 
     contain &quot;baz&quot; instead, would be:</p>
@@ -120,15 +119,42 @@
    valid cat=&quot;qwyx&quot; msgstr=&quot;\bbaz&quot;
    hint=&quot;Translate 'foo' with 'bar' (only in qwyx.po use 'baz')&quot;
 </pre>
-    <p>Trigger pattern is a regular expression within curly or square 
-    brackets, <code>{...}</code> or <code>[...]</code>, depending if it 
-    should be matched against original or translation part of the message, 
-    respectively. Additionaly, following the brackets there may be an 
-    <code>i</code>-flag, to indicate case-insensitive matching for all the 
-    patterns in the rule (default is case-sensitive). The trigger pattern 
-    is the main element of the rule; tests that follow in subdirectives are
-    to amend the trigger pattern, to pass the message even if the trigger 
-    pattern fails it.</p>
+    <p>The elements of a rule are detailed in the following.</p>
+  <h1 class="heading">Trigger Pattern</h1>
+    <p>Trigger pattern is a regular expression, which can be given within 
+    curly or square brackets, <code>{...}</code> or <code>[...]</code>, if 
+    the intention is to match the original or translation parts of the 
+    message, respectively. Following the brackets there may the optional 
+    match-modifier character <code>i</code>, which indicates 
+    case-insensitive matching for <i>all</i> the patterns in the rule 
+    (default is case-sensitive).</p>
+    <p>This was the shorthand notation of the trigger pattern. The more 
+    verbose notation is 
+    <code>*&lt;part&gt;/&lt;regex&gt;/&lt;flags&gt;</code>, where for 
+    separation instead of the slash (<code>/</code>) any other non-letter 
+    character can be used consistently. This notation is needed when some 
+    other part of the message except the original and translation is to be 
+    matched, or when using brackets would cause balancing issues (e.g. when
+    a closing curly bracket without the opening one is a part of the match 
+    for the original text). For all messages, <code>&lt;part&gt;</code> can
+    be one of the keywords: <code>msgid</code>, <code>msgstr</code>, 
+    <code>msgctxt</code>. E.g. <code>{\bfoo}i</code> is equivalent to 
+    <code>*msgid/\bfoo/i</code>.</p>
+    <p>For plural messages, <code>msgid/.../</code> (and conversely 
+    <code>{...}</code> matches in either the <code>msgid</code> or 
+    <code>msgid_plural</code> fields, whereas <code>msgstr</code> (and 
+    <code>[...]</code>) in any of the <code>msgstr</code> fields. That is, 
+    there is an implied boolean OR relationship when matching in 
+    corresponding groups. If particular among these fields are wanted, the 
+    following keywords can be used instead: <code>msgid_singular</code>, 
+    <code>msgid_plural</code>, <code>msgstr_&lt;N&gt;</code>, where 
+    <code>N</code> is a number corresponding to the index of 
+    <code>msgstr</code> field.</p>
+    <p>The trigger pattern is the main element of the rule; if it matches, 
+    the message is by default considered failed by the rule. Tests that 
+    follow in subdirectives are there to pass the message if additional 
+    conditions are met.</p>
+  <h1 class="heading">Subdirectives</h1>
     <p>There are several types of rule subdirectives. The main one is 
     <code>valid</code>, which provides additional tests to pass the 
     message. These tests are given by a list of 
@@ -214,11 +240,15 @@
         c{disabled}: disable the rule, i.e. make it pass all messages
       </li>
     </ul>
-    <p>Global directives, which are typically placed at the beginning of a 
-    rule file, before any rules, are used to define common elements for 
-    rules to source, or to set state for all rules below them. One such 
-    directive is <code>validGroup</code>, which defines common groups of 
-    <code>valid</code> directives:</p>
+  <h1 class="heading">Global Directives</h1>
+    <p>Global directives are typically placed at the beginning of a rule 
+    file, before any rules, and are used to define common elements for 
+    rules to source, or to set state for all rules below them. Global 
+    directives can also be placed in the middle of the rule file, between 
+    two rules, when they affect all the rules that follow.</p>
+    <p>One global directive is <code>validGroup</code>, which defines 
+    common groups of <code>valid</code> directives, which can be sourced by
+    any rule:</p>
 <pre class="literalblock">
    # Global validity group.
    validGroup passIfQuoted
@@ -239,8 +269,8 @@
    valid ...
    ...
 </pre>
-    <p>Another global directive is setting specific environment on all 
-    rules that follow after it (unless overriden with namesake rule 
+    <p>Another global directive is to set the specific environment for the 
+    rules that follow (unless overriden with namesake rule 
     subdirective):</p>
 <pre class="literalblock">
    # Global environment.
@@ -304,6 +334,14 @@
     according to previous passages. This means that if the operating 
     environment is not specified, from sieve user's point of view all 
     environment-specific rules are simply ignored.</p>
+  <h1 class="heading">Quoting and Escaping</h1>
+    <p>Similar as with the verbose notation for the trigger pattern, any 
+    quoted value may consistently use any other character other than the 
+    double quote (single quote, slash, etc.) Literal quote inside the value
+    can also be escaped using the backslash. The values of fields that are 
+    regular expressions are sent to the regular expression engine without 
+    resolving any escape sequences other than for the quote character 
+    itself.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

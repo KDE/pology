@@ -136,7 +136,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9a10534&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9ac27d4&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
@@ -467,13 +467,31 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string or <code>None</code></span>
+      <span class="summary-type">set of strings or <code>None</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#possible_accelerator" class="summary-sig-name">possible_accelerator</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Report character possibly used as an accelerator in GUI messages.</td>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#accelerator" class="summary-sig-name">accelerator</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">bymsgs</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Report characters used as accelerator markers in GUI messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set of strings or <code>None</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#markup" class="summary-sig-name">markup</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">bymsgs</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Report what types of markup can be expected in messages.</td>
           <td align="right" valign="top">
             
             
@@ -595,7 +613,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9a10534&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9ac27d4&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
@@ -1167,37 +1185,90 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="possible_accelerator"></a>
+<a name="accelerator"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">possible_accelerator</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">accelerator</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">bymsgs</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Report character possibly used as an accelerator in GUI messages.</p>
-  <p>The accelerator character is determined heuristically, based on the 
-  catalog header and the message entries. If empty string is returned, it 
-  was determined that there are no accelerators in the catalog; if 
-  <code>None</code>, that there is no determination about accelerators.</p>
-  <p>Runtime complexity O(n), unless <code>headonly</code> in effect, when 
-  O(1).</p>
+  <p>Report characters used as accelerator markers in GUI messages.</p>
+  <p>Accelerator characters are determined by looking for some header 
+  fields, and if not found, by heuristically examining messages if 
+  <code>bymsgs</code> is <code>True</code>.</p>
+  <p>The header fields are tried in this order: 
+  <code>Accelerator-Marker</code>, <code>X-Accelerator-Marker</code>. In 
+  each field, several accelerator markers can be stated as comma-separated 
+  list, or there may be several fields; the union of all parsed markers is 
+  reported.</p>
+  <p>If empty set is returned, it was determined that there are no 
+  accelerator markers in the catalog; if <code>None</code>, that there is 
+  no determination about markers.</p>
+  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity is 
+  O(n).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>headonly</code></strong> (bool) - analyze only the header</li>
+        <li><strong class="pname"><code>bymsgs</code></strong> (bool) - examine messages if necessary</li>
     </ul></dd>
-    <dt>Returns: string or <code>None</code></dt>
-        <dd>accelerator character, empty, or <code>None</code></dd>
+    <dt>Returns: set of strings or <code>None</code></dt>
+        <dd>accelerator markers</dd>
   </dl>
-</td></tr></table>
+<div class="fields">      <p><strong>Note:</strong>
+        Heuristic examination of messages not implemented yet.
+      </p>
+</div></td></tr></table>
+</div>
+<a name="markup"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">markup</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">bymsgs</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report what types of markup can be expected in messages.</p>
+  <p>Markup types are determined by looking for some header fields, and if 
+  not found, by heuristically examining messages if <code>bymsgs</code> is 
+  <code>True</code>. Markup types are represented as short symbolic names, 
+  e.g. &quot;html&quot;, &quot;docbook&quot;, &quot;mediawiki&quot;, 
+  etc.</p>
+  <p>The header fields are tried in this order: <code>Text-Markup</code>, 
+  <code>X-Text-Markup</code>. In each field, several markup types can be 
+  stated as comma-separated list, or there may be several fields; the union
+  of all parsed types is reported.</p>
+  <p>If empty set is returned, it was determined that there is no markup in
+  the catalog; if <code>None</code>, that there is no determination about 
+  markup.</p>
+  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity is 
+  O(n).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>bymsgs</code></strong> (bool) - examine messages if necessary</li>
+    </ul></dd>
+    <dt>Returns: set of strings or <code>None</code></dt>
+        <dd>markup names</dd>
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Heuristic examination of messages not implemented yet.
+      </p>
+</div></td></tr></table>
 </div>
 <a name="language"></a>
 <div>
@@ -1214,7 +1285,7 @@
   </tr></table>
   
   <p>Report language of the catalog, if available.</p>
-  <p>The language is extracted from the <code>Language:</code> field in the
+  <p>The language is extracted from the <code>Language</code> field in the 
   header. If this field is present, it should contain the language code in 
   line with GNU C library locales. E.g. <code>pt</code> for Portuguese, or 
   <code>pt_BR</code> for Brazilian Portuguese. If the field is not present,

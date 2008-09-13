@@ -177,15 +177,20 @@ pology.misc.resolve.parse_entities	pology.misc.resolve-module.html#parse_entitie
 pology.misc.resolve.resolve_alternatives	pology.misc.resolve-module.html#resolve_alternatives
 pology.misc.resolve.resolve_alternatives_simple	pology.misc.resolve-module.html#resolve_alternatives_simple
 pology.misc.rules	pology.misc.rules-module.html
+pology.misc.rules._parseRuleLine	pology.misc.rules-module.html#_parseRuleLine
+pology.misc.rules._rule_start	pology.misc.rules-module.html#_rule_start
 pology.misc.rules.warning	pology.misc.report-module.html#warning
 pology.misc.rules.TIMEOUT	pology.misc.rules-module.html#TIMEOUT
-pology.misc.rules.error	pology.misc.report-module.html#error
 pology.misc.rules.printStat	pology.misc.rules-module.html#printStat
 pology.misc.rules.rootdir	pology-module.html#rootdir
 pology.misc.rules.convert_entities	pology.misc.rules-module.html#convert_entities
 pology.misc.rules.loadRulesFromFile	pology.misc.rules-module.html#loadRulesFromFile
 pology.misc.rules.loadRules	pology.misc.rules-module.html#loadRules
 pology.misc.rules.timed_out	pology.misc.timeout-module.html#timed_out
+pology.misc.rules._findEndQuote	pology.misc.rules-module.html#_findEndQuote
+pology.misc.rules._trigger_matchmods	pology.misc.rules-module.html#_trigger_matchmods
+pology.misc.rules._trigger_msgparts	pology.misc.rules-module.html#_trigger_msgparts
+pology.misc.rules.error	pology.misc.report-module.html#error
 pology.misc.split	pology.misc.split-module.html
 pology.misc.split._mod_on_format_qt	pology.misc.split-module.html#_mod_on_format_qt
 pology.misc.split._remove_xml_rxs	pology.misc.split-module.html#_remove_xml_rxs
@@ -261,7 +266,6 @@ pology.scripts.poascribe.error	pology.misc.report-module.html#error
 pology.scripts.poascribe._atype_mod	pology.scripts.poascribe-module.html#_atype_mod
 pology.scripts.poascribe.collect_asc_cats	pology.scripts.poascribe-module.html#collect_asc_cats
 pology.scripts.poascribe.asc_eq	pology.scripts.poascribe-module.html#asc_eq
-pology.scripts.poascribe.selector_unasc	pology.scripts.poascribe-module.html#selector_unasc
 pology.scripts.poascribe._atype_rev_tagsep	pology.scripts.poascribe-module.html#_atype_rev_tagsep
 pology.scripts.poascribe.date_now	pology.scripts.poascribe-module.html#date_now
 pology.scripts.poascribe.main	pology.scripts.poascribe-module.html#main
@@ -505,7 +509,8 @@ pology.sieve.update_header	pology.sieve.update_header-module.html
 pology.sieve.update_header.error	pology.misc.report-module.html#error
 pology.sieve.update_header.warning	pology.misc.report-module.html#warning
 pology.file.catalog.Catalog	pology.file.catalog.Catalog-class.html
-pology.file.catalog.Catalog.possible_accelerator	pology.file.catalog.Catalog-class.html#possible_accelerator
+pology.file.catalog.Catalog.accelerator	pology.file.catalog.Catalog-class.html#accelerator
+pology.misc.monitored.Monitored.assert_spec_init	pology.misc.monitored.Monitored-class.html#assert_spec_init
 pology.misc.monitored.Monitored.__str__	pology.misc.monitored.Monitored-class.html#__str__
 pology.file.catalog.Catalog.sync	pology.file.catalog.Catalog-class.html#sync
 pology.file.catalog.Catalog.header	pology.file.catalog.Catalog-class.html#header
@@ -513,7 +518,6 @@ pology.file.catalog.Catalog.remove	pology.file.catalog.Catalog-class.html#remove
 pology.file.catalog.Catalog.find	pology.file.catalog.Catalog-class.html#find
 pology.file.catalog.Catalog.__init__	pology.file.catalog.Catalog-class.html#__init__
 pology.misc.monitored.Monitored.__setattr__	pology.misc.monitored.Monitored-class.html#__setattr__
-pology.misc.monitored.Monitored.assert_spec_setitem	pology.misc.monitored.Monitored-class.html#assert_spec_setitem
 pology.file.catalog.Catalog.__contains__	pology.file.catalog.Catalog-class.html#__contains__
 pology.file.catalog.Catalog.remove_on_sync	pology.file.catalog.Catalog-class.html#remove_on_sync
 pology.misc.monitored.Monitored.__eq__	pology.misc.monitored.Monitored-class.html#__eq__
@@ -522,7 +526,7 @@ pology.file.catalog.Catalog.filename	pology.file.catalog.Catalog-class.html#file
 pology.file.catalog.Catalog._assert_headonly	pology.file.catalog.Catalog-class.html#_assert_headonly
 pology.file.catalog.Catalog.add	pology.file.catalog.Catalog-class.html#add
 pology.file.catalog.Catalog.select_by_msgid	pology.file.catalog.Catalog-class.html#select_by_msgid
-pology.misc.monitored.Monitored.assert_spec_init	pology.misc.monitored.Monitored-class.html#assert_spec_init
+pology.misc.monitored.Monitored.assert_spec_setitem	pology.misc.monitored.Monitored-class.html#assert_spec_setitem
 pology.file.catalog.Catalog.__len__	pology.file.catalog.Catalog-class.html#__len__
 pology.misc.monitored.Monitored.__repr__	pology.misc.monitored.Monitored-class.html#__repr__
 pology.misc.monitored.Monitored.__ne__	pology.misc.monitored.Monitored-class.html#__ne__
@@ -537,6 +541,7 @@ pology.file.catalog.Catalog.nplurals	pology.file.catalog.Catalog-class.html#nplu
 pology.file.catalog.Catalog.name	pology.file.catalog.Catalog-class.html#name
 pology.file.catalog.Catalog.language	pology.file.catalog.Catalog-class.html#language
 pology.file.catalog.Catalog.created	pology.file.catalog.Catalog-class.html#created
+pology.file.catalog.Catalog.markup	pology.file.catalog.Catalog-class.html#markup
 pology.file.catalog.Catalog.plural_indices_single	pology.file.catalog.Catalog-class.html#plural_indices_single
 pology.file.catalog.Catalog.plural_index	pology.file.catalog.Catalog-class.html#plural_index
 pology.file.catalog.Catalog._pick_insertion_point	pology.file.catalog.Catalog-class.html#_pick_insertion_point
@@ -767,9 +772,10 @@ pology.misc.rules.Rule._is_valid	pology.misc.rules.Rule-class.html#_is_valid
 pology.misc.rules.Rule.setValid	pology.misc.rules.Rule-class.html#setValid
 pology.misc.rules.Rule.setPattern	pology.misc.rules.Rule-class.html#setPattern
 pology.misc.rules.Rule.process	pology.misc.rules.Rule-class.html#process
-pology.misc.rules.Rule._regexKeywords	pology.misc.rules.Rule-class.html#_regexKeywords
-pology.misc.rules.Rule._knownKeywords	pology.misc.rules.Rule-class.html#_knownKeywords
+pology.misc.rules.Rule._filter_message	pology.misc.rules.Rule-class.html#_filter_message
 pology.misc.rules.Rule._listKeywords	pology.misc.rules.Rule-class.html#_listKeywords
+pology.misc.rules.Rule._knownKeywords	pology.misc.rules.Rule-class.html#_knownKeywords
+pology.misc.rules.Rule._regexKeywords	pology.misc.rules.Rule-class.html#_regexKeywords
 pology.misc.rules.Rule.__init__	pology.misc.rules.Rule-class.html#__init__
 pology.misc.timeout.TimedOutException	pology.misc.timeout.TimedOutException-class.html
 pology.misc.timeout.TimedOutException.__str__	pology.misc.timeout.TimedOutException-class.html#__str__

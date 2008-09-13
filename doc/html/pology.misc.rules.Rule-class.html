@@ -77,12 +77,12 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pattern</span>,
-        <span class="summary-sig-arg">hint</span>,
+        <span class="summary-sig-arg">msgpart</span>,
+        <span class="summary-sig-arg">hint</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">valid</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">accents</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">stat</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">onmsgid</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">ident</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">disabled</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">environ</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -134,17 +134,16 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><code>bool</code> or two lists of spans</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">msgid</span>,
-        <span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Apply rule to an original/translation pair in the message.</td>
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">nofilter</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Apply rule to the message.</td>
           <td align="right" valign="top">
             
             
@@ -204,12 +203,12 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">pattern</span>,
-        <span class="sig-arg">hint</span>,
+        <span class="sig-arg">msgpart</span>,
+        <span class="sig-arg">hint</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">valid</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">accents</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">stat</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">onmsgid</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">ident</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">disabled</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">environ</span>=<span class="sig-default">None</span>)</span>
@@ -225,11 +224,11 @@ object --+
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>pattern</code></strong> (unicode) - valid regexp pattern that trigger the rule</li>
+        <li><strong class="pname"><code>msgpart</code></strong> (string) - part of the message to be matched by <code>pattern</code></li>
         <li><strong class="pname"><code>hint</code></strong> (unicode) - hint given to user when rule match</li>
         <li><strong class="pname"><code>valid</code></strong> (list of unicode key=value) - list of cases that should make or not make rule matching</li>
         <li><strong class="pname"><code>accents</code></strong> - specific language accents dictionary to use.</li>
         <li><strong class="pname"><code>casesens</code></strong> (bool) - whether regex matching will be case-sensitive</li>
-        <li><strong class="pname"><code>onmsgid</code></strong> (bool) - whether the rule is for msgid (msgstr otherwise)</li>
         <li><strong class="pname"><code>ident</code></strong> (unicode or <code>None</code>) - rule identifier</li>
         <li><strong class="pname"><code>disabled</code></strong> (bool) - whether rule is disabled</li>
         <li><strong class="pname"><code>environ</code></strong> (string or <code>None</code>) - environment in which the rule applies</li>
@@ -296,38 +295,37 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">process</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">msgid</span>,
-        <span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">nofilter</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Apply rule to an original/translation pair in the message.</p>
-  <p>Instead of giving the original values of 
-  <code>msgid</code>/<code>msgid_plural</code> and component of 
-  <code>msgstr</code>, the values may be filtered to remove and modify any 
-  parts that would make the rule not act as intended.</p>
-  <p>If the rule does not match, <code>False</code> is returned. If it does
-  match, the return value are two lists of spans which were matched and not
-  canceled, first for the original and second for the translation.</p>
+  <p>Apply rule to the message.</p>
+  <p>If the rule matches, <i>highlight specification</i> of offending spans
+  is returned (see <a 
+  href="pology.misc.report-module.html#report_msg_content" 
+  class="link">report_msg_content</a>); otherwise an empty list.</p>
+  <p>Rule will normally apply its own filters to the message before 
+  matching (on a local copy, the original message will not be affected). If
+  the message is already appropriately filtered, this self-filtering can be
+  prevented by setting <code>nofilter</code> to {True}.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msgid</code></strong> (string) - the text in the role of original</li>
-        <li><strong class="pname"><code>msgstr</code></strong> (string) - the text in the role of translation</li>
         <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
           class="link">Message_base</a>) - message to which the texts belong</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - catalog to which the message belongs</li>
         <li><strong class="pname"><code>env</code></strong> (string) - environment in which the rule is applied</li>
+        <li><strong class="pname"><code>nofilter</code></strong> (bool) - avoid filtering the message if <code>True</code></li>
     </ul></dd>
-    <dt>Returns: <code>bool</code> or two lists of spans</dt>
-        <dd><code>False</code> or matched spans</dd>
+    <dt>Returns:</dt>
+        <dd>highlight specification (may be empty list)</dd>
   </dl>
 </td></tr></table>
 </div>
