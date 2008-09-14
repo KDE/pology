@@ -498,6 +498,16 @@ class Catalog (Monitored):
         # Cached plural definition from the header.
         self._plustr = ""
 
+        # Cached accelerator markers.
+        # None means the accelerator markers have not been determined,
+        # empty means there are none.
+        self._accels = None
+
+        # Cached markup types.
+        # None means the markup types have not been determined,
+        # empty means there are none.
+        self._mtypes = None
+
 
     def _assert_headonly (self):
 
@@ -1181,7 +1191,12 @@ class Catalog (Monitored):
         no accelerator markers in the catalog;
         if C{None}, that there is no determination about markers.
 
-        If C{bymsgs} is C{True}, runtime complexity is O(n).
+        It is not defined when the header or messages will be examined,
+        or if they will be reexamined when they change (most probably not).
+        If you want to set accelerator markers after the catalog has been
+        opened, use L{set_accelerator}.
+
+        If C{bymsgs} is C{True}, runtime complexity may be O(n).
 
         @param bymsgs: examine messages if necessary
         @type bymsgs: bool
@@ -1191,6 +1206,10 @@ class Catalog (Monitored):
 
         @note: Heuristic examination of messages not implemented yet.
         """
+
+        # Check if accelerators have been already determined.
+        if self._accels is not None:
+            return self._accels
 
         accels = None
 
@@ -1220,6 +1239,28 @@ class Catalog (Monitored):
         return accels
 
 
+    def set_accelerator (self, accels):
+        """
+        Set accelerator markers that can be expected in messages.
+
+        Accelerator markers set by this method will later be readable by
+        the L{accelerator} method. This will not modify the catalog header
+        in any way; if that is desired, it must be done manually by
+        manipulating the header fields.
+
+        If C{accels} is given as C{None}, it means the accelerator markers
+        are undetermined; if empty, that there are no markers in messages.
+
+        @param accels: accelerator markers
+        @type accels: sequence of strings or C{None}
+        """
+
+        if accels is not None:
+            self._accels = set(accels)
+        else:
+            self._accels = None
+
+
     def markup (self, bymsgs=False):
         """
         Report what types of markup can be expected in messages.
@@ -1239,7 +1280,12 @@ class Catalog (Monitored):
         no markup in the catalog;
         if C{None}, that there is no determination about markup.
 
-        If C{bymsgs} is C{True}, runtime complexity is O(n).
+        It is not defined when the header or messages will be examined,
+        or if they will be reexamined when they change (most probably not).
+        If you want to set markup types after the catalog has been
+        opened, use L{set_markup} method.
+
+        If C{bymsgs} is C{True}, runtime complexity may be O(n).
 
         @param bymsgs: examine messages if necessary
         @type bymsgs: bool
@@ -1249,6 +1295,10 @@ class Catalog (Monitored):
 
         @note: Heuristic examination of messages not implemented yet.
         """
+
+        # Check if markup types have been already determined.
+        if self._mtypes is not None:
+            return self._mtypes
 
         mtypes = None
 
@@ -1276,6 +1326,28 @@ class Catalog (Monitored):
         pass
 
         return mtypes
+
+
+    def set_markup (self, mtypes):
+        """
+        Set markup types that can be expected in messages.
+
+        Markup types set by this method will later be readable by
+        the L{markup} method. This will not modify the catalog header
+        in any way; if that is desired, it must be done manually by
+        manipulating the header fields.
+
+        If C{mtypes} is given as C{None}, it means the markup types
+        are undetermined; if empty, that there is no markup in messages.
+
+        @param mtypes: markup types
+        @type mtypes: sequence of strings or C{None}
+        """
+
+        if mtypes is not None:
+            self._mtypes = set(mtypes)
+        else:
+            self._mtypes = None
 
 
     def language (self):
