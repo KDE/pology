@@ -36,7 +36,7 @@ def process (text):
     # perhaps something more efficient is possible.
 
     tlen = len(text)
-    ntext = ""
+    ntext = u""
     for i in range(tlen):
         c = text[i]
         c2 = text[i:i+2]
