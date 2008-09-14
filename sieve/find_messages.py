@@ -206,9 +206,9 @@ class Sieve (object):
                 pfilters = self.pfilters
             elif field == "comment":
                 texts = []
-                texts.extend([(msg.manual_comment, "cmanual", i)
+                texts.extend([(msg.manual_comment[i], "cmanual", i)
                               for i in range(len(msg.manual_comment))])
-                texts.extend([(msg.auto_comment, "cauto", i)
+                texts.extend([(msg.auto_comment[i], "cauto", i)
                               for i in range(len(msg.auto_comment))])
                 texts.append((", ".join(msg.flag), "", 0))
                 texts.append((" ".join(["%s:%s" % x for x in msg.source]),
