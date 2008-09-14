@@ -10,7 +10,9 @@ class Sieve (object):
 
     def __init__ (self, options, global_options):
 
-        self.nmatch = 0
+        self.nctxt = 0 # with context
+        self.nctxm = 0 # with context marker in context
+        self.nctxo = 0 # with anything but the context marker in context
         self.ntotal = 0
         self.counts_by_file = {}
 
@@ -46,7 +48,9 @@ class Sieve (object):
         if cat.filename not in self.counts_by_file:
             self.counts_by_file[cat.filename] = {}
             self.counts_by_file[cat.filename]["total"] = 0
-            self.counts_by_file[cat.filename]["match"] = 0
+            self.counts_by_file[cat.filename]["wctxm"] = 0
+            self.counts_by_file[cat.filename]["wctxt"] = 0
+            self.counts_by_file[cat.filename]["wctxo"] = 0
             if self.count_uniqs:
                 self.counts_by_file[cat.filename]["uniq_nocxm"] = set()
                 self.counts_by_file[cat.filename]["uniq_noctx"] = set()
@@ -54,9 +58,14 @@ class Sieve (object):
 
         counts["total"] += 1
 
-        if re.search(r"^\s*@[a-z]+", msg.msgctxt):
-            self.nmatch += 1
-            counts["match"] += 1
+        if msg.msgctxt:
+            self.nctxt += 1
+            counts["wctxt"] += 1
+
+        m = re.search(r"^\s*@[a-z:/]+\s*(.*)", msg.msgctxt)
+        if m:
+            self.nctxm += 1
+            counts["wctxm"] += 1
             if self.count_uniqs:
                 # Unique by no context marker.
                 msgxid = msg.msgid
@@ -68,48 +77,57 @@ class Sieve (object):
                 # Unique by no context at all.
                 self.uniq_no_context.add(msg.msgid)
                 counts["uniq_noctx"].add(msg.msgid)
+        if msg.msgctxt and (not m or m.group(1)):
+            self.nctxo += 1
+            counts["wctxo"] += 1
 
 
     def finalize (self):
 
+        print   "Total with contexts: %d/%d (%.1f%%)" \
+              % (self.nctxt, self.ntotal, 100.0 * self.nctxt / self.ntotal)
         print   "Total with context markers: %d/%d (%.1f%%)" \
-              % (self.nmatch, self.ntotal, 100.0 * self.nmatch / self.ntotal)
+              % (self.nctxm, self.ntotal, 100.0 * self.nctxm / self.ntotal)
+        print   "Total with context other than the marker: %d/%d (%.1f%%)" \
+              % (self.nctxo, self.ntotal, 100.0 * self.nctxo / self.ntotal)
 
         if self.count_uniqs:
             nuniq = len(self.uniq_no_ctxmark)
             print   "Total would-be unique without context marker: %d " \
                     "(%+.1f%% growth)" \
-                  % (nuniq, 100.0 * (self.nmatch - nuniq) / nuniq)
+                  % (nuniq, 100.0 * (self.nctxm - nuniq) / nuniq)
             nuniq2 = len(self.uniq_no_context)
             print   "Total would-be unique without context at all: %d " \
                     "(%+.1f%% growth)" \
-                  % (nuniq2, 100.0 * (self.nmatch - nuniq2) / nuniq2)
+                  % (nuniq2, 100.0 * (self.nctxm - nuniq2) / nuniq2)
 
         if self.report_by_file:
             print "...in the following files:"
             counts = [x for x in self.counts_by_file.items()
-                        if x[1]["match"] > 0]
-            counts.sort(cmp=lambda x, y: cmp(y[1]["match"], x[1]["match"]))
+                        if x[1]["wctxt"] > 0]
+            counts.sort(cmp=lambda x, y: cmp(y[1]["wctxm"], x[1]["wctxm"]))
             ratios = [
                 # floor(...*1000)/10 rounds down the percent to one decimal
-                math.floor(float(x[1]["match"]) / x[1]["total"] * 1000) / 10 \
+                math.floor(float(x[1]["wctxm"]) / x[1]["total"] * 1000) / 10 \
                 for x in counts]
-            coln = ["match", "total",  "ratio"]
-            dfmt = [   "%d",    "%d", "%.1f%%"]
+            coln = ["wctxm", "wctxt", "wctxo", "total",  "wctxm/tot"]
+            dfmt = [   "%d",    "%d",    "%d",    "%d",     "%.1f%%"]
             rown = [x[0] for x in counts]
-            data = [[x[1]["match"] for x in counts],
+            data = [[x[1]["wctxm"] for x in counts],
+                    [x[1]["wctxt"] for x in counts],
+                    [x[1]["wctxo"] for x in counts],
                     [x[1]["total"] for x in counts],
                     ratios]
             if self.count_uniqs:
                 coln.append("growth-cxm")
                 dfmt.append("%+.1f%%")
                 nuinqs = [len(x[1]["uniq_nocxm"]) for x in counts]
-                data.append([100.0 * (x[1]["match"] - y) / y
+                data.append([100.0 * (x[1]["wctxm"] - y) / y
                              for x, y in zip(counts, nuinqs)])
                 coln.append("growth-ctx")
                 dfmt.append("%+.1f%%")
                 nuinqs2 = [len(x[1]["uniq_noctx"]) for x in counts]
-                data.append([100.0 * (x[1]["match"] - y) / y
+                data.append([100.0 * (x[1]["wctxm"] - y) / y
                              for x, y in zip(counts, nuinqs2)])
             print tabulate(data, coln=coln, rown=rown, dfmt=dfmt)
 
