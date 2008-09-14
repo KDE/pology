@@ -53,6 +53,8 @@ def highlight_spans (text, spans, color=RED, ftext=None):
     if ftext is None:
         ftext = text
     spans = adapt_spans(text, ftext, spans, merge=True)
+    if not spans:
+        return text
 
     ctext = ""
     cstart = 0
