@@ -2,134 +2,40 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
-{^Copy$}
-hint="Copy = コピー"
-valid msgstr="コピー"
+{^Abort$}
+id="abort"
+hint="Abort = 中止"
+valid msgstr="中止"
 
-{^Paste$}
-hint="Paste = 貼り付け"
-valid msgstr="貼り付け"
+{\baccessibility}i
+id="accessibility"
+hint="accessibility = アクセシビリティ"
+valid msgstr="アクセシビリティ"
 
-{^Cut$}
-hint="Cut = 切り取り"
-valid msgstr="切り取り"
-
-{^Undo$}
-hint="Undo = 元に戻す"
-valid msgstr="元に戻す"
-
-{^Redo$}
-hint="Redo = やり直す"
-valid msgstr="やり直す"
-
-{^Rename$}
-hint="Rename = 名前変更"
-valid msgstr="名前変更"
-
-{^Save As\.\.\.$}
-hint="Save As... = 名前を付けて保存..."
-valid msgstr="名前を付けて保存\.\.\."
-
-{^Select All$}
-hint="Select All = すべて選択"
-valid msgstr="すべて選択"
-
-{^Deselect$}
-hint="Deselect = 選択解除"
-valid msgstr="選択解除"
-
-{^Deselect All$}
-hint="Deselect All = すべて選択解除"
-valid msgstr="すべて選択解除"
-
-{^Invert Selection$}
-hint="Invert Selection = 選択反転"
-valid msgstr="選択反転"
-
-{^Move to Trash$}
-hint="Move to Trash = ごみ箱に移動"
-valid msgstr="ごみ箱に移動"
-
-{^Empty Trash$}
-hint="Empty Trash = ごみ箱を空にする"
-valid msgstr="ごみ箱を空にする"
-
-{^Copy Here$}
-hint="Copy Here = ここにコピー"
-valid msgstr="ここにコピー"
-
-{^Move Here$}
-hint="Move Here = ここに移動"
-valid msgstr="ここに移動"
-
-{^Link Here$}
-hint="Link Here = ここにリンク"
-valid msgstr="ここにリンク(?!を)"
-
-{^Move Up$}
-hint="Move Up = 上に移動"
-valid msgstr="上に移動"
-
-{^Move Down$}
-hint="Move Down = 下に移動"
-valid msgstr="下に移動"
-
-{^Cancel$}
-id="cancel"
-hint="Cancel = キャンセル"
-valid msgstr="キャンセル"
-
-{^Reset$}
-id="reset"
-hint="Reset = リセット"
-valid msgstr="リセット"
+{\baddress book}i
+id="address_book"
+hint="address book = アドレス帳"
+valid msgstr="アドレス帳"
 
 {^Apply$}
 id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
 
-{^Import$}
-id="import"
-hint="Import = インポート"
-valid msgstr="インポート"
+{\bargument}i
+id="argument"
+hint="argument = 引数"
+valid msgstr="引数"
 
-{^Export$}
-id="export"
-hint="Export = エクスポート"
-valid msgstr="エクスポート"
+{aspect ratio}i
+id="aspect_ratio"
+hint="aspect ratio = アスペクト比"
+valid msgstr="アスペクト比"
 
-{^Find Next$}
-id="findnext"
-hint="Find Next = 次を検索"
-valid msgstr="次を検索"
-
-{^Find Previous$}
-id="findprevious"
-hint="Find Previous = 前を検索"
-valid msgstr="前を検索"
-
-{^Find Prev$}
-id="findprev"
-hint="Find Prev = 前を検索"
-valid msgstr="前を検索"
-
-{install new theme}i
-hint="install new theme = 新しいテーマをインストール"
-valid msgstr="新しいテーマをインストール"
-
-{get new themes}i
-hint="get new themes = 新しいテーマを取得"
-valid msgstr="新しいテーマを取得"
-
-[ゴミ箱]
-hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
-
-{fixed font|fixed width font}i
-id="fixedfont"
-hint="fixed (width) font = 固定幅フォント"
-valid msgstr="固定幅フォント"
-valid before=" ?size"
+{\battributes?\b}i
+id="attribute"
+hint="attribute = 属性"
+valid msgstr="属性"
 
 {bold}i
 id="bold"
@@ -137,227 +43,675 @@ hint="bold = ボールド"
 valid after="font-weight:[ ]*|[mo]|very "
 valid msgstr="ボールド"
 
-{italic}i
-id="italic"
-hint="italic = イタリック"
-valid after="font-style:[ ]*"
-valid msgstr="イタリック"
+{^Cancel$}
+id="cancel"
+hint="Cancel = キャンセル"
+valid msgstr="キャンセル"
 
-{oblique}i
-hint="oblique = オブリック"
-valid msgstr="オブリック"
+{$Clear$}
+id="clear"
+hint="Clear = クリア"
+valid msgstr="クリア"
 
-{underline}i
-id="underline"
-hint="underline = 下線"
-valid after="text-decoration:[ ]*"
-valid msgstr="下線"
+{\bclipboard}i
+id="clipboard"
+hint="clipboard = クリップボード"
+valid msgstr="クリップボード"
+valid cat="desktop_kdebase" msgid="X Clipboard" msgstr="X Clipboard"
 
-{strikeout}i
-id="strikeout"
-hint="strikeout = 取り消し線"
-valid msgstr="取り消し線"
+{^Close$}
+id="close"
+hint="Close = 閉じる"
+valid msgstr="閉じる"
 
-[タイプ]
-id="type"
-hint="間に「の」を入れた方がいいのでは？ (例: デバイスのタイプ)"
-valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェクト"
-valid !after="[ァ-ヴー]"
+{\bcolor space}i
+id="color_space"
+hint="color space = カラースペース"
+valid msgstr="カラースペース"
 
-{file dialog}i
+{\bcolumns?}i
+id="column"
+hint="column = カラム|列"
+valid msgstr="(カラム|列)"
+valid cat="kspread" msgid="columns?\("
+disabled
+
+{\bcombo box}i
+id="combo_box"
+hint="combo box = コンボボックス"
+valid msgstr="コンボボックス"
+
+{\bcommand line}i
+id="command_line"
+hint="command line = コマンドライン"
+valid msgstr="コマンドライン"
+
+{\bcommand prompt\b}i
+id="command_prompt"
+hint="command prompt = コマンドプロンプト"
+valid msgstr="コマンドプロンプト"
+
+{\bcontext menu}i
+id="context_menu"
+hint="context menu = コンテキストメニュー"
+valid msgstr="コンテキストメニュー"
+
+{^Copy$}
+id="copy"
+hint="Copy = コピー"
+valid msgstr="コピー"
+
+{^Copy Here$}
+id="copy_here"
+hint="Copy Here = ここにコピー"
+valid msgstr="ここにコピー"
+
+{\bcase sensitive}i
+id="case_sensitive"
+hint="case sensitive = 大文字と小文字を区別"
+valid msgstr="大文字と小文字を区別"
+valid cat="kfileshare" msgstr="Case sensitive"
+
+{^Create New$}
+id="create_new"
+hint="Create New = 新規作成"
+valid msgstr="新規作成"
+
+{^Cut$}
+id="cut"
+hint="Cut = 切り取り"
+valid msgstr="切り取り"
+
+{\bdecryption key}i
+id="decryption_key"
+hint="decryption key = 復号鍵"
+valid msgstr="復号鍵"
+
+{^Defaults$}
+id="defaults"
+hint="Defaults = 標準設定"
+valid msgstr="標準設定"
+
+{^Delete$}
+id="delete"
+hint="Delete = 削除"
+valid msgstr="削除"
+valid ctx="keyboard-key-name|QShortcut" msgstr="Delete"
+
+{^Deselect$}
+id="deselect"
+hint="Deselect = 選択解除"
+valid msgstr="選択解除"
+
+{^Deselect All$}
+id="deselect_all"
+hint="Deselect All = すべて選択解除"
+valid msgstr="すべて選択解除"
+
+{^Empty Trash$}
+id="empty_trash"
+hint="Empty Trash = ごみ箱を空にする"
+valid msgstr="ごみ箱を空にする"
+
+{\bencryption key}i
+id="encryption_key"
+hint="encryption key = 暗号化鍵"
+valid msgstr="暗号化鍵"
+
+{\bend of line|\bline end}i
+id="end_of_line"
+hint="end of line = 行末"
+valid msgstr="行末"
+
+{^Export$}
+id="export"
+hint="Export = エクスポート"
+valid msgstr="エクスポート"
+
+{\bextra toolbar}i
+id="extra_toolbar"
+hint="extra toolbar = 拡張ツールバー"
+valid msgstr="拡張ツールバー"
+
+{\bfile manager}i
+id="file_manager"
+hint="file manager = ファイルマネージャ"
+valid msgstr="ファイルマネージャ"
+
+{\bfilter bar}i
+id="filter_bar"
+hint="filter bar = フィルタバー"
+valid msgstr="フィルタバー"
+
+{\bfirewall}i
+id="firewall"
+hint="firewall = ファイアウォール"
+valid msgstr="ファイアウォール"
+
+{\bflat view\b}i
+id="flat_view"
+hint="flat view = フラット表示"
+valid msgstr="フラット表示"
+
+{\bfile dialog}i
+id="file_dialog"
 hint="file dialog = ファイル選択ダイアログ"
 valid after="[\w\-]"
 valid msgstr="ファイル選択ダイアログ"
 
-{password dialog}i
-id="password-dialog"
-hint="password dialog = パスワード入力ダイアログ"
-valid msgstr="パスワード入力ダイアログ"
+{\bfile format}i
+id="file_format"
+hint="file format = ファイルフォーマット"
+valid msgstr="ファイルフォーマット"
+disabled
+
+{\bfile ?size}i
+id="file_size"
+hint="file size = ファイルサイズ"
+valid msgstr="ファイルサイズ"
+
+{^Find Next$}
+id="find_next"
+hint="Find Next = 次を検索"
+valid msgstr="次を検索"
+
+{^Find Prev$}
+id="find_prev"
+hint="Find Prev = 前を検索"
+valid msgstr="前を検索"
+
+{^Find Previous$}
+id="find_previous"
+hint="Find Previous = 前を検索"
+valid msgstr="前を検索"
+
+{\bfingerprint}i
+id="finger_print"
+hint="finger print = フィンガープリント"
+valid after="audio "
+valid msgstr="フィンガープリント"
+
+{\bfixed font}i
+id="fixed_font"
+hint="fixed font = 固定幅フォント"
+valid msgstr="固定幅フォント"
+valid before=" ?size"
+
+{\bfixed width font}i
+id="fixed_width_font"
+hint="fixed width font = 固定幅フォント"
+valid msgstr="固定幅フォント"
+
+{\bformat toolbar}i
+id="format_toolbar"
+hint="format toolbar = 書式ツールバー"
+valid msgstr="書式ツールバー"
 
 {\bfull ?screen\b}i
 id="fullscreen"
 hint="fullscreen = フルスクリーン"
 valid msgstr="フルスクリーン"
-valid msgstr="スクリーン全体" cat="kgrab, ksnapshot"
+valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
 
-{\bview mode}i
-hint="view mode = 表示モード"
-valid after="split |tree "
-valid msgstr="表示モード"
-
-{flat view}i
-id="flatview"
-hint="flat view = フラット表示"
-valid msgstr="フラット表示"
-
-{tree view\b}i
-id="treeview"
-hint="tree view = ツリー表示 (表示モードの場合、ウィジェットの場合はツリービュー)"
-valid msgstr="ツリー表示"
-
-{main toolbar}i
-hint="main toolbar = メインツールバー"
-valid msgstr="メインツールバー"
-
-{status ?bar}i
-id="statusbar"
-hint="statusbar = ステータスバー"
-valid msgstr="ステータスバー"
-
-{location ?bar}i
-id="locationbar"
-hint="location bar = 場所バー"
-valid msgstr="場所バー"
-
-{progress ?bar}i
-id="progressbar"
-hint="progress bar = 進捗バー"
-valid msgstr="進捗バー"
-
-{extra toolbar}i
-id="extrabar"
-hint="extra toolbar = 拡張ツールバー"
-valid msgstr="拡張ツールバー"
-
-{format toolbar}i
-id="formatbar"
-hint="format toolbar = 書式ツールバー"
-valid msgstr="書式ツールバー"
-
-[トレイアイコン]
-id="systray"
-hint="(system) tray icon = システムトレイアイコン (略さずに)"
-valid after="システム"
-
-[アプリ]
-id="application"
-hint="application = アプリケーション (略さずに)"
-valid before="ケーション"
-valid before="ア州|マク県"
-
-{mail client}i
-id="mailclient"
-hint="mail client = メールクライアント"
-valid msgstr="メールクライアント"
-
-[メールソフト|メールプログラム|メーラー]
-id="mailsoft"
-hint="メールクライアント"
-
-{hex editor}i
-id="hexeditor"
+{\bhex editor}i
+id="hex_editor"
 hint="hex editor = バイナリエディタ"
 valid msgstr="バイナリエディタ"
 
-[十六進エディタ]
-hint="バイナリエディタ"
+{\bhidden files?}i
+id="hidden_file"
+hint="hidden file = 隠しファイル"
+valid msgstr="隠しファイル"
+valid cat="kfileshare" msgstr="Hidden files:"
 
-{terminal emulator}i
-id="terminalemulator"
-hint="terminal emulator = ターミナルエミュレータ"
-valid msgstr="ターミナルエミュレータ"
+{\bhue\b}i
+id="hue"
+hint="hue = 色相"
+valid msgstr="色相"
+valid ctx="kgm"
 
-{screen ruler}i
+{\bimage viewer}i
+id="image_viewer"
+hint="image viewer = 画像ビューア"
+valid msgstr="画像ビューア"
+
+{^Import$}
+id="import"
+hint="Import = インポート"
+valid msgstr="インポート"
+
+{^Insert$}
+id="insert"
+hint="Insert = 挿入"
+valid msgstr="挿入"
+valid ctx="QShortcut" msgstr="Insert"
+valid ctx="keyboard-key-name" msgstr="Insert"
+
+{\binstant messenger}i
+id="instant_messenger"
+hint="instant messenger = インスタントメッセンジャー"
+valid msgstr="インスタントメッセンジャー"
+
+{\binterface}i
+id="interface"
+hint="interface = インターフェース"
+valid msgstr="インターフェース"
+disabled
+
+{^Invert Selection$}
+id="invert_selection"
+hint="Invert Selection = 選択反転"
+valid msgstr="選択反転"
+
+{\bitalic}i
+id="italic"
+hint="italic = イタリック"
+valid after="font-style:[ ]*"
+valid msgstr="イタリック"
+
+{\bline numbers?}i
+id="line_number"
+hint="line number = 行番号"
+valid msgstr="行番号"
+
+{^Link Here$}
+id="link_here"
+hint="Link Here = ここにリンク"
+valid msgstr="ここにリンク(?!を)"
+
+{\blist box}i
+id="list_box"
+hint="list box = リストボックス"
+valid msgstr="リストボックス"
+
+{\blocation ?bar}i
+id="location_bar"
+hint="location bar = 場所バー"
+valid msgstr="場所バー"
+
+{\bmail client}i
+id="mail_client"
+hint="mail client = メールクライアント"
+valid msgstr="メールクライアント"
+
+{\bmain toolbar}i
+id="main_toolbar"
+hint="main toolbar = メインツールバー"
+valid msgstr="メインツールバー"
+
+{\bmain window}i
+id="main_window"
+hint="main window = メインウィンドウ"
+valid msgstr="メインウィンドウ"
+
+{^Maximize$}
+id="maximize"
+hint="Maximize = 最大化"
+valid msgstr="最大化"
+
+{\bmedia player}i
+id="media_player"
+hint="media player = メディアプレーヤー"
+valid msgstr="メディアプレーヤー"
+
+{^Minimize$}
+id="minimize"
+hint="Minimize = 最小化"
+valid msgstr="最小化"
+
+{\bmount}i
+id="mount"
+hint="mount = マウント"
+valid before="ain"
+valid before=" (Athos|Ekar|Erebus|Evans|Graham|John|Lemmon|Mario|Palomar|Stromlo|Wilson)"
+valid before="/sbin/"
+valid before=" %d" cat="amarok"
+valid msgstr="マウント"
+
+{^Move Down$}
+id="move_down"
+hint="Move Down = 下に移動"
+valid msgstr="下に移動"
+
+{^Move Here$}
+id="move_here"
+hint="Move Here = ここに移動"
+valid msgstr="ここに移動"
+
+{^Move to Trash$}
+id="move_to_trash"
+hint="Move to Trash = ごみ箱に移動"
+valid msgstr="ごみ箱に移動"
+
+{^Move Up$}
+id="move_up"
+hint="Move Up = 上に移動"
+valid msgstr="上に移動"
+
+{\boblique}i
+id="oblique"
+hint="oblique = オブリック"
+valid msgstr="オブリック"
+
+{^Open\.\.\.$}
+id="open"
+hint="Open... = 開く..."
+valid msgstr="開く..."
+disabled
+
+{^Overwrite$}
+id="overwrite"
+hint="Overwrite = 上書き"
+valid msgstr="上書き"
+
+{\bparameter}i
+id="parameter"
+hint="parameter = パラメータ"
+valid msgstr="パラメータ"
+valid cat="kipiplugin_metadataedit" msgstr="IPTC-NAA Digital Newsphoto Parameter Record"
+
+{\bpassword dialog}i
+id="password_dialog"
+hint="password dialog = パスワード入力ダイアログ"
+valid msgstr="パスワード入力ダイアログ"
+
+{^Paste$}
+id="paste"
+hint="Paste = 貼り付け"
+valid msgstr="貼り付け"
+
+{^Pause$}
+id="pause"
+hint="Pause = 一時停止"
+valid msgstr="一時停止"
+valid cat="rsibreak" msgstr="休憩"
+valid ctx="QShortcut" msgstr="Pause"
+
+{\bplayer}i
+id="player"
+hint="player = プレーヤー [メディアプレーヤー]"
+valid after="computer |AI |human "
+valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, kbackgammon, kombination, kttt, libksirtet"
+valid after="Dragon |Kaffeine "
+valid cat="kopete" after="%"
+valid msgstr="プレーヤー"
+
+{\bplayers?}i
+id="player2"
+hint="player = プレイヤー [ゲームの参加者]"
+valid after="media |audio |music |movie |video |midi |karaoke |file |CD |DVD |MPEG "
+valid after="external"
+valid cat="kopete" after="%"
+valid cat="amarok, k3b, libk3b, kplayer, kaffeine4, kmplayer, juk, kcmnotify"
+valid after="Dragon |Kaffeine |XMMS |DJ-Mixer and "
+valid msgstr="プレイヤー"
+
+{\bplaylists?}i
+id="playlist"
+hint="playlist = プレイリスト"
+valid msgstr="プレイリスト"
+
+{^Print\.\.\.$}
+id="print"
+hint="Print... = 印刷..."
+valid msgstr="印刷..."
+
+{^Print Preview$}
+id="print_preview"
+hint="Print Preview = 印刷プレビュー"
+valid msgstr="印刷プレビュー"
+
+{\bprogress ?bar}i
+id="progress_bar"
+hint="progress bar = 進捗バー"
+valid msgstr="進捗バー"
+
+{\bpropert(y|ies)}i
+id="property"
+hint="property = プロパティ"
+valid msgstr="プロパティ"
+valid cat="kipiplugin_sendimages" msgid="properties.txt"
+
+{^Quit$}
+id="quit"
+hint="Quit = 終了"
+valid msgstr="終了"
+
+{\bread[\- ]only}i
+id="read_only"
+hint="read only = 読み取り専用"
+valid msgstr="読み取り専用"
+
+{^Redo$}
+id="redo"
+hint="Redo = やり直す"
+valid msgstr="やり直す"
+
+{^Rename$}
+id="rename"
+hint="Rename = 名前変更"
+valid msgstr="名前変更"
+
+{^Replace$}
+id="replace"
+hint="Replace = 置換"
+valid msgstr="置換"
+
+{^Reset$}
+id="reset"
+hint="Reset = リセット"
+valid msgstr="リセット"
+
+{^Restore$}
+id="restore"
+hint="Restore = 復元"
+valid msgstr="復元"
+
+{\breturn value}i
+id="return_value"
+hint="return value = 戻り値"
+valid msgstr="戻り値"
+
+{\bripper}i
+id="ripper"
+hint="ripper = リッパー"
+valid msgstr="リッパー"
+
+{\bsaturation}i
+id="saturation"
+hint="saturation = 彩度"
+valid msgstr="彩度"
+
+{^Save$}
+id="save"
+hint="Save = 保存"
+valid msgstr="保存"
+
+{^Save As\.\.\.$}
+id="save_as"
+hint="Save As... = 名前を付けて保存..."
+valid msgstr="名前を付けて保存\.\.\."
+disabled
+
+{\bscreen ruler}i
+id="screen_ruler"
 hint="screen ruler = スクリーンルーラー"
 valid msgstr="スクリーンルーラー"
 
-{spam}i
+{\bscreen saver}i
+id="screen_saver"
+hint="screen saver = スクリーンセーバー"
+valid msgstr="スクリーンセーバー"
+
+{\bsearch ?bar}i
+id="search_bar"
+hint="search bar = 検索バー"
+valid msgstr="検索バー"
+
+{\bsecurity}i
+id="security"
+hint="security = セキュリティ"
+valid msgstr="セキュリティ"
+valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
+valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
+
+{^Select All$}
+id="select_all"
+hint="Select All = すべて選択"
+valid msgstr="すべて選択"
+
+{\bservers?\b}i
+id="server"
+hint="server = サーバ"
+valid msgstr="サーバ"
+valid cat="kfileshare" msgstr="Paranoid server security|Server signing:|Server channel:|SSL server cert:|SSL server key:|Time server"
+
+{\bsigning key}i
+id="signing_key"
+hint="signing key = 署名鍵"
+valid msgstr="署名鍵"
+
+{\bspams?}i
+id="spam"
 hint="spam = スパム"
 valid before="[m@]"
 valid msgstr="スパム"
 
-{encryption key}i
-hint="encryption key = 暗号化鍵"
-valid msgstr="暗号化鍵"
+{\bstatus ?bar}i
+id="statusbar"
+hint="statusbar = ステータスバー"
+valid msgstr="ステータスバー"
 
-{signing key}i
-hint="signing key = 署名鍵"
-valid msgstr="署名鍵"
+{^Stop$}
+id="stop"
+hint="Stop = 停止"
+valid msgstr="停止"
 
-{decryption key}i
-hint="decryption key = 復号鍵"
-valid msgstr="復号鍵"
+{\bstrikeout}i
+id="strikeout"
+hint="strikeout = 取り消し線"
+valid msgstr="取り消し線"
 
-{fingerprint}i
-hint="fingerprint = フィンガープリント"
-valid after="audio "
-valid msgstr="フィンガープリント"
+{\bsystem tray}i
+id="system_tray"
+hint="system tray = システムトレイ"
+valid msgstr="システムトレイ"
 
-{wep key}i
-hint="wep key = WEP キー"
-valid msgstr="WEP キー"
+{\btemplates?}i
+id="template"
+hint="template = テンプレート"
+valid msgstr="テンプレート"
+valid cat="kfileshare" msgstr="Template homedir:|Template shell:|Template primary group:"
 
-[復号化]
-hint="復号 (Decrypt) には「化」は付けません"
-
-{access control list}i
-hint="access control list = アクセス制御リスト (ACL)"
-valid msgstr="アクセス制御リスト"
-
-{file format}i
-id="fileformat"
-hint="file format = ファイルフォーマット"
-valid msgstr="ファイルフォーマット"
-
-{file ?size}i
-id="filesize"
-hint="file size = ファイルサイズ"
-valid msgstr="ファイルサイズ"
-
-{unsaved chagnes?}i
-hint="unsaved changes = 未保存の変更"
-valid msgstr="未保存の変更"
-
-{temporary file}i
-id="temporaryfile"
+{\btemporary file}i
+id="temporary_file"
 hint="temporary file = 一時ファイル"
 valid msgstr="一時ファイル"
 
-{hidden file}i
-id="hiddenfile"
-hint="hidden file = 隠しファイル"
-valid msgstr="隠しファイル"
+{\bterminal}i
+id="terminal"
+hint="terminal = ターミナル"
+valid msgstr="ターミナル"
 
-[実行可能ファイル]
-id="executable"
-hint="executable (file) = 実行ファイル"
+{\bterminal emulator}i
+id="terminal_emulator"
+hint="terminal emulator = ターミナルエミュレータ"
+valid msgstr="ターミナルエミュレータ"
 
-[添付物]
-id="attachment"
-hint="attachment = (メールの) 添付ファイル"
+{\btext editor}i
+id="text_editor"
+hint="text editor = テキストエディタ"
+valid msgstr="テキストエディタ"
 
-{unmount}i
+{\bthreshold}i
+id="threshold"
+hint="threshold = しきい値"
+valid msgstr="しきい値"
+
+{\bthumbnails?}i
+id="thumbnail"
+hint="thumbnail = サムネイル"
+valid msgstr="サムネイル"
+
+{\btooltips?}i
+id="tooltip"
+hint="tooltip = ツールチップ"
+valid msgstr="ツールチップ"
+
+{\btree view\b}i
+id="tree_view"
+hint="tree view = ツリー表示 [表示モード。ウィジェットを指す場合はツリービュー]"
+valid msgstr="ツリー表示"
+
+{\btree view\b}i
+id="tree_view2"
+hint="tree view = ツリービュー"
+valid msgstr="ツリービュー"
+disabled
+
+{\bunderline}i
+id="underline"
+hint="underline = 下線"
+valid after="text-decoration:[ ]*"
+valid msgstr="下線"
+
+{^Undo$}
+id="undo"
+hint="Undo = 元に戻す"
+valid msgstr="元に戻す"
+
+{\bunmount}i
 id="unmount"
 hint="unmount = アンマウント"
 valid msgstr="アンマウント"
 valid after="_"
 
-{read[\- ]only}i
-id="readonly"
-hint="read-only = 読み取り専用"
-valid msgstr="読み取り専用"
+{\buser}i
+id="user"
+hint="user = ユーザ"
+valid msgstr="ユーザ"
+disabled
 
-{aspect ratio}i
-id="aspect"
-hint="aspect ratio = アスペクト比"
-valid msgstr="アスペクト比"
+{\bvalue}i
+id="value"
+hint="value = 値"
+valid msgstr="値"
+disabled
 
-{keep aspect ratio}i
-id="keepaspect"
-hint="keepaspect = アスペクト比を保つ"
-valid msgstr="アスペクト比を保つ"
+{\bvalue}i
+id="value2"
+hint="value = 明度"
+valid !ctx="HSV"
+valid msgstr="明度"
 
-{case sensitive}i
-id="casesens"
-hint="case sensitive = 大文字と小文字を区別 (する)"
-valid msgstr="大文字と小文字を区別"
+{\bview mode}i
+id="view_mode"
+hint="view mode = 表示モード"
+valid after="split |tree "
+valid msgstr="表示モード"
 
-{case sensitive}i
-hint="case sensitive = 大文字と小文字を区別する"
-valid !ctx="@option:check"
-valid msgstr="大文字と小文字を区別する"
+{\bvirus}i
+id="virus"
+hint="virus = ウイルス"
+valid msgstr="ウイルス"
 
-{please try again later}i
-id="tryagainlater"
-hint="try again later = しばらくたってからやり直してください"
-valid msgstr="しばらくたってからやり直してください"
+{\bweb browser}i
+id="web_browser"
+hint="web browser = ウェブブラウザ"
+valid msgstr="ウェブブラウザ"
+
+{\bwidgets?}i
+id="widget"
+hint="widget = ウィジェット"
+valid msgstr="ウィジェット"
+
+{\bwizards?}i
+id="wizard"
+hint="wizard = ウィザード"
+valid msgstr="ウィザード"
+valid cat="kfileshare" msgstr="Show add printer wizard"
+
+{\bwep key}i
+id="wep_key"
+hint="WEP key = WEP キー"
+valid msgstr="WEP キー"

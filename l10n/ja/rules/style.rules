@@ -316,7 +316,7 @@ hint="書き換え"
 hint="折り返し"
 
 # environment waccel ルールの使い方 (PO ヘッダに X-Accelerator-Marker がある場合)
-# posieve.py check-rules -slang:ja -saccel -senv:waccel -senvonly 
+# posieve.py check-rules -slang:ja -saccel -senv:waccel -senvonly
 
 [\(]
 environment waccel

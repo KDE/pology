@@ -1,0 +1,81 @@
+# Terminology checks for KDE translation into Japanese.
+# Japanese KDE translation team <Kdeveloper@kde.gr.jp>
+# License: GPLv3
+
+[メールソフト|メールプログラム|メーラー]
+id="mailsoft-j"
+hint="メールクライアント"
+
+[十六進エディタ]
+id="hex_editor-j"
+hint="バイナリエディタ"
+
+[ゴミ箱]
+id="trash-j"
+hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
+
+[実行可能ファイル]
+id="executable-j"
+hint="executable (file) = 実行ファイル"
+
+[添付物]
+id="attachment-j"
+hint="attachment = (メールの) 添付ファイル"
+
+[トレイアイコン]
+id="trayicon-j"
+hint="(system) tray icon = システムトレイアイコン (略さずに)"
+valid after="システム"
+
+[アプリ]
+id="application-j"
+hint="application = アプリケーション (略さずに)"
+valid before="ケーション"
+valid before="ア州|マク県"
+
+[復号化]
+id="decrypt-j"
+hint="復号 (Decrypt) には「化」は付けません"
+
+[タイプ]
+id="type-j"
+hint="間に「の」を入れた方がいいのでは？ (例: デバイスのタイプ)"
+valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェクト"
+valid !after="[ァ-ヴー]"
+disabled
+
+{access control list}i
+id="access_control_list"
+hint="access control list = アクセス制御リスト [ACL]"
+valid msgstr="アクセス制御リスト"
+
+{keep aspect ratio}i
+id="keep_aspect_ratio"
+hint="keepaspect = アスペクト比を保つ"
+valid msgstr="アスペクト比を保つ"
+
+{install new theme}i
+id="install_new_theme"
+hint="install new theme = 新しいテーマをインストール"
+valid msgstr="新しいテーマをインストール"
+
+{get new themes}i
+id="get_new_theme"
+hint="get new themes = 新しいテーマを取得"
+valid msgstr="新しいテーマを取得"
+
+{case sensitive}i
+id="case_sensitive-o"
+hint="case sensitive = 大文字と小文字を区別する"
+valid !ctx="@option:check"
+valid msgstr="大文字と小文字を区別する"
+
+{\bunsaved chagnes?}i
+id="unsaved_changes"
+hint="unsaved changes = 未保存の変更"
+valid msgstr="未保存の変更"
+
+{please try again later}i
+id="tryagainlater"
+hint="try again later = しばらくたってからやり直してください"
+valid msgstr="しばらくたってからやり直してください"
