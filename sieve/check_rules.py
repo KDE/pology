@@ -104,7 +104,6 @@ class Sieve (object):
 
         # Remove accelerators?
         self.accelsExplicit=False
-        self.accelsUsual=list("&_~")
         self.accels=[]
         if "accel" in options:
             options.accept("accel")
@@ -208,7 +207,7 @@ class Sieve (object):
             if accels is not None:
                 self.accels=accels
             else:
-                self.accels=self.accelsUsual
+                self.accels=[]
 
 
     def process (self, msg, cat):
