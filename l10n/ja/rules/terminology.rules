@@ -48,6 +48,12 @@ id="cancel"
 hint="Cancel = キャンセル"
 valid msgstr="キャンセル"
 
+{\bcheck ?box}i
+id="check_box"
+hint="check box = チェックボックス"
+valid msgstr="チェックボックス"
+disabled
+
 {$Clear$}
 id="clear"
 hint="Clear = クリア"
@@ -148,6 +154,26 @@ id="deselect_all"
 hint="Deselect All = すべて選択解除"
 valid msgstr="すべて選択解除"
 
+{^Discard$}
+id="discard"
+hint="Discard = 破棄"
+valid msgstr="破棄"
+
+{^Discard Changes$}
+id="discard_changes"
+hint="Discard Changes = 変更を破棄"
+valid msgstr="変更を破棄"
+
+{\bdrag and drop\b}i
+id="drag_and_drop"
+hint="drag and drop = ドラッグ＆ドロップ"
+valid msgstr="ドラッグ＆ドロップ"
+
+{\bdrop[ -]?down lists?}i
+id="dropdown_list"
+hint="dropdown list = ドロップダウンリスト"
+valid msgstr="ドロップダウンリスト"
+
 {^Empty Trash$}
 id="empty_trash"
 hint="Empty Trash = ごみ箱を空にする"
@@ -168,6 +194,18 @@ id="export"
 hint="Export = エクスポート"
 valid msgstr="エクスポート"
 
+{\bextensions?}i
+id="extension"
+hint="extension = 拡張子"
+valid msgstr="拡張子"
+disabled
+
+{\bextensions?}i
+id="extension2"
+hint="extension = エクステンション|拡張機能"
+valid msgstr="エクステンション|拡張機能"
+disabled
+
 {\bextra toolbar}i
 id="extra_toolbar"
 hint="extra toolbar = 拡張ツールバー"
@@ -177,6 +215,12 @@ valid msgstr="拡張ツールバー"
 id="file_manager"
 hint="file manager = ファイルマネージャ"
 valid msgstr="ファイルマネージャ"
+
+{\bfilenames?}i
+id="filename"
+hint="filename = ファイル名"
+valid msgstr="ファイル名"
+disabled
 
 {\bfilter bar}i
 id="filter_bar"
@@ -354,6 +398,11 @@ id="media_player"
 hint="media player = メディアプレーヤー"
 valid msgstr="メディアプレーヤー"
 
+{\b(MIME|Mime|mime)[ -]?[Tt]ypes?}
+id="mime_type"
+hint="MIME type = MIME タイプ"
+valid msgstr="MIME タイプ"
+
 {^Minimize$}
 id="minimize"
 hint="Minimize = 最小化"
@@ -427,6 +476,18 @@ valid msgstr="一時停止"
 valid cat="rsibreak" msgstr="休憩"
 valid ctx="QShortcut" msgstr="Pause"
 
+{\bplain text}i
+id="plain_text"
+hint="plain text = プレーンテキスト"
+valid msgstr="プレーンテキスト"
+disabled
+
+{\bplain text}i
+id="plain_text2"
+hint="plain text = 平文"
+valid msgstr="平文"
+disabled
+
 {\bplayer}i
 id="player"
 hint="player = プレーヤー [メディアプレーヤー]"
@@ -455,6 +516,7 @@ valid msgstr="プレイリスト"
 id="print"
 hint="Print... = 印刷..."
 valid msgstr="印刷..."
+disabled
 
 {^Print Preview$}
 id="print_preview"
@@ -476,6 +538,11 @@ valid cat="kipiplugin_sendimages" msgid="properties.txt"
 id="quit"
 hint="Quit = 終了"
 valid msgstr="終了"
+
+{\bradio buttons?}i
+id="radio_button"
+hint="radio button = ラジオボタン"
+valid msgstr="ラジオボタン"
 
 {\bread[\- ]only}i
 id="read_only"
@@ -543,6 +610,11 @@ id="screen_saver"
 hint="screen saver = スクリーンセーバー"
 valid msgstr="スクリーンセーバー"
 
+{\bscroll ?bars?}i
+id="scroll_bar"
+hint="scroll bar = スクロールバー"
+valid msgstr="スクロールバー"
+
 {\bsearch ?bar}i
 id="search_bar"
 hint="search bar = 検索バー"
@@ -571,11 +643,21 @@ id="signing_key"
 hint="signing key = 署名鍵"
 valid msgstr="署名鍵"
 
+{\bsliders?}i
+id="slider"
+hint="slider = スライダー"
+valid msgstr="スライダー"
+
 {\bspams?}i
 id="spam"
 hint="spam = スパム"
 valid before="[m@]"
 valid msgstr="スパム"
+
+{\bspin ?box}i
+id="spin_box"
+hint="spin box = スピンボックス"
+valid msgstr="スピンボックス"
 
 {\bstatus ?bar}i
 id="statusbar"
@@ -617,6 +699,11 @@ valid msgstr="ターミナル"
 id="terminal_emulator"
 hint="terminal emulator = ターミナルエミュレータ"
 valid msgstr="ターミナルエミュレータ"
+
+{\btext ?box}i
+id="text_box"
+hint="text box = テキストボックス"
+valid msgstr="テキストボックス"
 
 {\btext editor}i
 id="text_editor"
@@ -666,13 +753,23 @@ hint="unmount = アンマウント"
 valid msgstr="アンマウント"
 valid after="_"
 
-{\buser}i
+{\busers?}i
 id="user"
 hint="user = ユーザ"
 valid msgstr="ユーザ"
 disabled
 
-{\bvalue}i
+{\buser ?names?}i
+id="username"
+hint="username = ユーザ名"
+valid msgstr="ユーザ名"
+
+{\butilit(y|ies)}i
+id="utility"
+hint="utility = ユーティリティ"
+valid msgstr="ユーティリティ"
+
+{\bvalues?}i
 id="value"
 hint="value = 値"
 valid msgstr="値"
