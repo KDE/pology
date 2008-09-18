@@ -243,6 +243,12 @@ valid msgstr="\bповрш(?!ин)"
 valid msgstr="desktop"
 validGroup desktop-extras
 
+{\bdialog(ue)?}i
+id="dialog"
+hint="dialog = дијалог"
+valid msgstr="\bдијало[гзш]"
+valid before=" box" !msgstr="(кутиј\w+|оквир\w*) дијалог"
+
 {\b(log\W?in|display) manager}i
 id="displaymanager"
 hint="login manager = менаџер пријављивања"
@@ -359,6 +365,14 @@ id="history"
 hint="history = историјат"
 valid msgstr="\bисторијат"
 valid cat="klipper" msgid="KDE cut.*paste history utility" msgstr="алатка за копирање"
+
+{\bhost}i
+id="host"
+valid before="ed|ing" # глагол
+hint="host = домаћин"
+valid msgstr="\bдомаћин"
+valid cat="ksysguard" msgid="remote\.host\.org" msgstr="\.domacin\."
+valid cat="kio4" msgid="proxy's hostname" msgstr="име\w* прокси"
 
 {\bicon}i
 id="icon"

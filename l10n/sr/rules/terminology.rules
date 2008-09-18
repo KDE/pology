@@ -2,6 +2,13 @@
 # Serbian Open Computing Terminology <sorta@googlegroups.com>
 # License: GPLv3
 
+{\baccount}i
+id="account"
+hint="account = налог"
+valid before="ing" # рачуновођство
+valid msgstr="\bнало(г|зи)"
+valid cat="khelpcenter_support" msgid="Account-Nr" msgstr="Account-Nr"
+
 {\badd-?on}i
 id="addon"
 hint="addon = додатак"
