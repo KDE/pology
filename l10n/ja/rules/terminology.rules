@@ -59,6 +59,17 @@ id="clear"
 hint="Clear = クリア"
 valid msgstr="クリア"
 
+{\bclear[ -]?text}i
+id="clear_text"
+hint="clear text = 平文"
+valid msgstr="平文"
+valid ctx="action"
+
+{^Clear Text$}
+id="clear_text_action"
+hint="Clear Text = テキストをクリア"
+valid msgstr="テキストをクリア"
+
 {\bclipboard}i
 id="clipboard"
 hint="clipboard = クリップボード"
@@ -174,6 +185,11 @@ id="dropdown_list"
 hint="dropdown list = ドロップダウンリスト"
 valid msgstr="ドロップダウンリスト"
 
+{^Edit$}
+id="edit"
+hint="Edit = 編集"
+valid msgstr="編集"
+
 {^Empty Trash$}
 id="empty_trash"
 hint="Empty Trash = ごみ箱を空にする"
@@ -226,6 +242,11 @@ disabled
 id="filter_bar"
 hint="filter bar = フィルタバー"
 valid msgstr="フィルタバー"
+
+{^Find$}
+id="find"
+hint="Find = 検索"
+valid msgstr="検索"
 
 {\bfirewall}i
 id="firewall"
@@ -290,6 +311,11 @@ valid msgstr="固定幅フォント"
 id="format_toolbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
+
+{\bfrom cursor}i
+id="from_cursor"
+hint="from cursor = カーソル位置から"
+valid msgstr="カーソル位置から"
 
 {\bfull ?screen\b}i
 id="fullscreen"
@@ -453,7 +479,7 @@ id="overwrite"
 hint="Overwrite = 上書き"
 valid msgstr="上書き"
 
-{\bparameter}i
+{\bparameters?}i
 id="parameter"
 hint="parameter = パラメータ"
 valid msgstr="パラメータ"
@@ -476,17 +502,17 @@ valid msgstr="一時停止"
 valid cat="rsibreak" msgstr="休憩"
 valid ctx="QShortcut" msgstr="Pause"
 
-{\bplain text}i
+{\bplain[ -]?text}i
 id="plain_text"
 hint="plain text = プレーンテキスト"
 valid msgstr="プレーンテキスト"
 disabled
 
-{\bplain text}i
+{\bplain[ -]?text}i
 id="plain_text2"
-hint="plain text = 平文"
+hint="plain text = 平文 [暗号化されていないデータ]"
 valid msgstr="平文"
-disabled
+valid !msgid="password"
 
 {\bplayer}i
 id="player"
@@ -574,7 +600,7 @@ id="restore"
 hint="Restore = 復元"
 valid msgstr="復元"
 
-{\breturn value}i
+{\breturn values?}i
 id="return_value"
 hint="return value = 戻り値"
 valid msgstr="戻り値"
@@ -614,6 +640,11 @@ valid msgstr="スクリーンセーバー"
 id="scroll_bar"
 hint="scroll bar = スクロールバー"
 valid msgstr="スクロールバー"
+
+{^Search$}
+id="search"
+hint="Search = 検索"
+valid msgstr="検索"
 
 {\bsearch ?bar}i
 id="search_bar"
@@ -796,6 +827,11 @@ valid msgstr="ウイルス"
 id="web_browser"
 hint="web browser = ウェブブラウザ"
 valid msgstr="ウェブブラウザ"
+
+{\bwhole words only}i
+id="whole_words_only"
+hint="whole words only = 単語単位"
+valid msgstr="単語単位"
 
 {\bwidgets?}i
 id="widget"
