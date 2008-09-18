@@ -356,6 +356,8 @@ pology.scripts.potagsplit.error	pology.misc.report-module.html#error
 pology.scripts.potagsplit.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.scripts.potagsplit.main	pology.scripts.potagsplit-module.html#main
 pology.sieve	pology.sieve-module.html
+pology.sieve.apply_filter	pology.sieve.apply_filter-module.html
+pology.sieve.apply_filter.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.bad_patterns	pology.sieve.bad_patterns-module.html
 pology.sieve.bad_patterns.process_patterns	pology.sieve.bad_patterns-module.html#process_patterns
 pology.sieve.bad_patterns.manc_parse_flag_list	pology.misc.comments-module.html#manc_parse_flag_list
@@ -512,6 +514,7 @@ pology.file.catalog.Catalog	pology.file.catalog.Catalog-class.html
 pology.file.catalog.Catalog.accelerator	pology.file.catalog.Catalog-class.html#accelerator
 pology.misc.monitored.Monitored.assert_spec_init	pology.misc.monitored.Monitored-class.html#assert_spec_init
 pology.misc.monitored.Monitored.__str__	pology.misc.monitored.Monitored-class.html#__str__
+pology.file.catalog.Catalog.set_accelerator	pology.file.catalog.Catalog-class.html#set_accelerator
 pology.file.catalog.Catalog.sync	pology.file.catalog.Catalog-class.html#sync
 pology.file.catalog.Catalog.header	pology.file.catalog.Catalog-class.html#header
 pology.file.catalog.Catalog.remove	pology.file.catalog.Catalog-class.html#remove
@@ -546,6 +549,7 @@ pology.file.catalog.Catalog.plural_indices_single	pology.file.catalog.Catalog-cl
 pology.file.catalog.Catalog.plural_index	pology.file.catalog.Catalog-class.html#plural_index
 pology.file.catalog.Catalog._pick_insertion_point	pology.file.catalog.Catalog-class.html#_pick_insertion_point
 pology.file.catalog.Catalog.select_by_key	pology.file.catalog.Catalog-class.html#select_by_key
+pology.file.catalog.Catalog.set_markup	pology.file.catalog.Catalog-class.html#set_markup
 pology.file.header.Header	pology.file.header.Header-class.html
 pology.file.header.Header.replace_field_value	pology.file.header.Header-class.html#replace_field_value
 pology.file.header.Header.comment	pology.file.header.Header-class.html#comment
@@ -806,6 +810,10 @@ pology.scripts.posummit.Project.resolve_path	pology.scripts.posummit.Project-cla
 pology.scripts.posummit.Project.resolve_path_rooted	pology.scripts.posummit.Project-class.html#resolve_path_rooted
 pology.scripts.posummit.Project.include	pology.scripts.posummit.Project-class.html#include
 pology.scripts.posummit.Project.__init__	pology.scripts.posummit.Project-class.html#__init__
+pology.sieve.apply_filter.Sieve	pology.sieve.apply_filter.Sieve-class.html
+pology.sieve.apply_filter.Sieve.finalize	pology.sieve.apply_filter.Sieve-class.html#finalize
+pology.sieve.apply_filter.Sieve.process	pology.sieve.apply_filter.Sieve-class.html#process
+pology.sieve.apply_filter.Sieve.__init__	pology.sieve.apply_filter.Sieve-class.html#__init__
 pology.sieve.bad_patterns.Sieve	pology.sieve.bad_patterns.Sieve-class.html
 pology.sieve.bad_patterns.Sieve.finalize	pology.sieve.bad_patterns.Sieve-class.html#finalize
 pology.sieve.bad_patterns.Sieve.process	pology.sieve.bad_patterns.Sieve-class.html#process

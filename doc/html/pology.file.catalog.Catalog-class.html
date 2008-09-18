@@ -136,7 +136,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9ac27d4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8b4e614&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
@@ -485,6 +485,24 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_accelerator" class="summary-sig-name">set_accelerator</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">accels</span>)</span><br />
+      Set accelerator markers that can be expected in messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">set of strings or <code>None</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -492,6 +510,24 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#markup" class="summary-sig-name">markup</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">bymsgs</span>=<span class="summary-sig-default">False</span>)</span><br />
       Report what types of markup can be expected in messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_markup" class="summary-sig-name">set_markup</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mtypes</span>)</span><br />
+      Set markup types that can be expected in messages.</td>
           <td align="right" valign="top">
             
             
@@ -613,7 +649,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9ac27d4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8b4e614&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
@@ -1212,7 +1248,12 @@
   <p>If empty set is returned, it was determined that there are no 
   accelerator markers in the catalog; if <code>None</code>, that there is 
   no determination about markers.</p>
-  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity is 
+  <p>It is not defined when the header or messages will be examined, or if 
+  they will be reexamined when they change (most probably not). If you want
+  to set accelerator markers after the catalog has been opened, use <a 
+  href="pology.file.catalog.Catalog-class.html#set_accelerator" 
+  class="link">set_accelerator</a>.</p>
+  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity may be
   O(n).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -1226,6 +1267,38 @@
         Heuristic examination of messages not implemented yet.
       </p>
 </div></td></tr></table>
+</div>
+<a name="set_accelerator"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_accelerator</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">accels</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set accelerator markers that can be expected in messages.</p>
+  <p>Accelerator markers set by this method will later be readable by the 
+  <a href="pology.file.catalog.Catalog-class.html#accelerator" 
+  class="link">accelerator</a> method. This will not modify the catalog 
+  header in any way; if that is desired, it must be done manually by 
+  manipulating the header fields.</p>
+  <p>If <code>accels</code> is given as <code>None</code>, it means the 
+  accelerator markers are undetermined; if empty, that there are no markers
+  in messages.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>accels</code></strong> (sequence of strings or <code>None</code>) - accelerator markers</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
 </div>
 <a name="markup"></a>
 <div>
@@ -1255,7 +1328,12 @@
   <p>If empty set is returned, it was determined that there is no markup in
   the catalog; if <code>None</code>, that there is no determination about 
   markup.</p>
-  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity is 
+  <p>It is not defined when the header or messages will be examined, or if 
+  they will be reexamined when they change (most probably not). If you want
+  to set markup types after the catalog has been opened, use <a 
+  href="pology.file.catalog.Catalog-class.html#set_markup" 
+  class="link">set_markup</a> method.</p>
+  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity may be
   O(n).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -1269,6 +1347,38 @@
         Heuristic examination of messages not implemented yet.
       </p>
 </div></td></tr></table>
+</div>
+<a name="set_markup"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_markup</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mtypes</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set markup types that can be expected in messages.</p>
+  <p>Markup types set by this method will later be readable by the <a 
+  href="pology.file.catalog.Catalog-class.html#markup" 
+  class="link">markup</a> method. This will not modify the catalog header 
+  in any way; if that is desired, it must be done manually by manipulating 
+  the header fields.</p>
+  <p>If <code>mtypes</code> is given as <code>None</code>, it means the 
+  markup types are undetermined; if empty, that there is no markup in 
+  messages.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>mtypes</code></strong> (sequence of strings or <code>None</code>) - markup types</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
 </div>
 <a name="language"></a>
 <div>
