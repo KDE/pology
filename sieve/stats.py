@@ -95,8 +95,10 @@ Output Legend
 
     The output with C{detail} sieve option in effect is the same, with
     several columns of derived data appended to the table:
-      - C{w-dto}: increase in words from original to translation
-      - C{ch-dto}: increase in characters from original to translation
+      - C{w-ef}: word expansion factor
+            (increase in words from original to translation)
+      - C{ch-ef}: character expansion factor
+            (increase in characters from original to translation)
       - C{w/msg-or}: average of words per message in original
       - C{w/msg-tr}: average of words per message in translation
       - C{ch/w-or}: average of characters per message in original
@@ -428,6 +430,7 @@ class Sieve (object):
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
             nchars[src] += int(round(float(sum(lnchars)) / len(texts)))
+            #nchars[src] += (nwords[src] - 1) # nominal space per each two words
 
         # If the number of words has been limited, skip the message if it
         # does not fall in the range.
@@ -700,7 +703,7 @@ class Sieve (object):
         dfmt = ["%d", "%.1f%%",
                 "%d", "%.1f%%", "%d", "%d", "%d"]
         if self.detailed:
-            coln.extend(["w-dto", "ch-dto",
+            coln.extend(["w-ef", "ch-ef",
                          "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
             dfmt.extend(["%+.1f%%", "%+.1f%%",
                          "%.1f", "%.1f", "%.1f", "%.1f"])
