@@ -2,6 +2,16 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
+{\bcertificate authorit(y|ies)}i
+id="CA"
+hint="certificate authority = 認証局 [CA]"
+valid msgstr="認証局"
+
+{\bcertificate revocation lists?}i
+id="CRL"
+hint="certificate revocation list = 証明書失効リスト [CRL]"
+valid msgstr="証明書失効リスト"
+
 {^Abort$}
 id="abort"
 hint="Abort = 中止"
@@ -189,6 +199,26 @@ valid msgstr="ドロップダウンリスト"
 id="edit"
 hint="Edit = 編集"
 valid msgstr="編集"
+
+{\belements?\b}i
+id="element"
+hint="element = 要素 [GUI や XML の要素]"
+valid msgstr="要素"
+valid cat="kalzium, plasma_engine_kalzium"
+valid after="chemical |IUPAC systematic |periodic table of "
+valid before=" have been discovered"
+
+{\belements?\b}i
+id="element2"
+hint="element = 元素 [化学元素]"
+valid msgstr="元素"
+disabled
+
+{\be[-]?mail address(es)?}i
+id="email_address"
+hint="email address = メールアドレス"
+valid msgstr="メールアドレス"
+valid cat="krecipes" msgid="^insert your email address$"
 
 {^Empty Trash$}
 id="empty_trash"
@@ -379,6 +409,12 @@ hint="italic = イタリック"
 valid after="font-style:[ ]*"
 valid msgstr="イタリック"
 
+{\bkey pairs?}i
+id="key_pair"
+hint="key pair = 鍵ペア"
+valid msgstr="鍵ペア"
+valid after="secret " msgstr="秘密鍵のペア"
+
 {\bline numbers?}i
 id="line_number"
 hint="line number = 行番号"
@@ -514,6 +550,19 @@ hint="plain text = 平文 [暗号化されていないデータ]"
 valid msgstr="平文"
 valid !msgid="password"
 
+{^Play$}
+id="play"
+hint="Play = 再生 [メディアファイルを再生]"
+valid msgstr="再生"
+valid ctx="game"
+valid cat="ksudoku" msgid="Play" msgstr="プレイ"
+
+{^Play$|^PLAY$}
+id="play2"
+hint="Play = プレイ [ゲームをプレイ]"
+valid msgstr="プレイ"
+valid !ctx="game"
+
 {\bplayer}i
 id="player"
 hint="player = プレーヤー [メディアプレーヤー]"
@@ -549,6 +598,11 @@ id="print_preview"
 hint="Print Preview = 印刷プレビュー"
 valid msgstr="印刷プレビュー"
 
+{\bprivate keys?}i
+id="private_key"
+hint="private key = 秘密鍵"
+valid msgstr="秘密鍵"
+
 {\bprogress ?bar}i
 id="progress_bar"
 hint="progress bar = 進捗バー"
@@ -559,6 +613,11 @@ id="property"
 hint="property = プロパティ"
 valid msgstr="プロパティ"
 valid cat="kipiplugin_sendimages" msgid="properties.txt"
+
+{\bpublic keys?}i
+id="public_key"
+hint="public key = 公開鍵"
+valid msgstr="公開鍵"
 
 {^Quit$}
 id="quit"
@@ -651,6 +710,11 @@ id="search_bar"
 hint="search bar = 検索バー"
 valid msgstr="検索バー"
 
+{\bsecret keys?}i
+id="secret_key"
+hint="secret key = 秘密鍵"
+valid msgstr="秘密鍵"
+
 {\bsecurity}i
 id="security"
 hint="security = セキュリティ"
@@ -710,7 +774,7 @@ id="system_tray"
 hint="system tray = システムトレイ"
 valid msgstr="システムトレイ"
 
-{\btemplates?}i
+{\btemplates?\b}i
 id="template"
 hint="template = テンプレート"
 valid msgstr="テンプレート"
@@ -794,6 +858,8 @@ disabled
 id="username"
 hint="username = ユーザ名"
 valid msgstr="ユーザ名"
+valid cat="kfileshare" msgstr="Username map:|Username level:"
+valid before="@(server\.com|%1|ftpserver)"
 
 {\butilit(y|ies)}i
 id="utility"
