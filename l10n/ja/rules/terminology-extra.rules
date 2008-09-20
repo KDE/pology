@@ -44,6 +44,34 @@ valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェ�
 valid !after="[ァ-ヴー]"
 disabled
 
+[bittorrent|Bittorrent]
+id="bittorent-j"
+hint="BitTorrent [大文字と小文字の違いに注意]"
+
+[DBUS|Dbus|D-BUS|D-bus]
+id="dbus-j"
+hint="D-Bus [大文字と小文字の違いに注意]"
+
+[EXIF]
+id="exif-j"
+hint="Exif [大文字と小文字の違いに注意]"
+
+[Gimp|gimp]
+id="gimp-j"
+hint="GIMP [大文字と小文字の違いに注意]"
+
+[Javascript]
+id="javascript-j"
+hint="JavaScript [大文字と小文字の違いに注意]"
+
+[Latex|LaTex]
+id="latex-j"
+hint="LaTeX [大文字と小文字の違いに注意]"
+
+[Postscript]
+id="postscript-j"
+hint="PostScript [大文字と小文字の違いに注意]"
+
 {access control list}i
 id="access_control_list"
 hint="access control list = アクセス制御リスト [ACL]"

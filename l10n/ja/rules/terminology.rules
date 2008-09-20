@@ -27,6 +27,11 @@ id="address_book"
 hint="address book = アドレス帳"
 valid msgstr="アドレス帳"
 
+{\bapplets?\b}i
+id="applet"
+hint="applet = アプレット"
+valid msgstr="アプレット"
+
 {^Apply$}
 id="apply"
 hint="Apply = 適用"
@@ -52,6 +57,11 @@ id="bold"
 hint="bold = ボールド"
 valid after="font-weight:[ ]*|[mo]|very "
 valid msgstr="ボールド"
+
+{\bbookmarks?\b}i
+id="bookmark"
+hint="bookmark = ブックマーク"
+valid msgstr="ブックマーク"
 
 {^Cancel$}
 id="cancel"
@@ -90,6 +100,11 @@ valid cat="desktop_kdebase" msgid="X Clipboard" msgstr="X Clipboard"
 id="close"
 hint="Close = 閉じる"
 valid msgstr="閉じる"
+
+{^Collapse All$}
+id="collapse_all"
+hint="Collapse All = すべてたたむ"
+valid msgstr="すべてたたむ"
 
 {\bcolor space}i
 id="color_space"
@@ -234,6 +249,11 @@ valid msgstr="暗号化鍵"
 id="end_of_line"
 hint="end of line = 行末"
 valid msgstr="行末"
+
+{¥Expand All$}
+id="expand_all"
+hint="Expand All = すべて展開"
+valid msgstr="すべて展開"
 
 {^Export$}
 id="export"
@@ -587,6 +607,11 @@ id="playlist"
 hint="playlist = プレイリスト"
 valid msgstr="プレイリスト"
 
+{\bplugins?\b}i
+id="plugin"
+hint="plugin = プラグイン"
+valid msgstr="プラグイン"
+
 {^Print\.\.\.$}
 id="print"
 hint="Print... = 印刷..."
@@ -628,6 +653,11 @@ valid msgstr="終了"
 id="radio_button"
 hint="radio button = ラジオボタン"
 valid msgstr="ラジオボタン"
+
+{\b(Raw|RAW) [Ii]mages?}
+id="raw_image"
+hint="Raw image = RAW 画像"
+valid msgstr="RAW 画像"
 
 {\bread[\- ]only}i
 id="read_only"
@@ -774,6 +804,11 @@ id="system_tray"
 hint="system tray = システムトレイ"
 valid msgstr="システムトレイ"
 
+{\btab ?bars?\b}i
+id="tab_bar"
+hint="tab bar = タブバー"
+valid msgstr="タブバー"
+
 {\btemplates?\b}i
 id="template"
 hint="template = テンプレート"
@@ -814,6 +849,16 @@ valid msgstr="しきい値"
 id="thumbnail"
 hint="thumbnail = サムネイル"
 valid msgstr="サムネイル"
+
+{\btime[ -]?zones?\b}i
+id="time_zone"
+hint="time zone = タイムゾーン"
+valid msgstr="タイムゾーン"
+
+{\btitle ?bars?\b}i
+id="title_bar"
+hint="title bar = タイトルバー"
+valid msgstr="タイトルバー"
 
 {\btooltips?}i
 id="tooltip"
