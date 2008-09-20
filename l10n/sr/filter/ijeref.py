@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*
 
 """
-Transform iyekavian text with marked yat-reflexes into ekavian.
+Process iyekavian text with marked yat-reflexes.
 
 Yat-reflexes are marked by inserting a special character, C{›},
 just before the part of the word that differs from ekavian form::
@@ -51,9 +51,9 @@ _reflex_mark_len = len(_reflex_mark)
 _ije_althead = "~#"
 
 
-def process (text):
+def to_e (text):
     """
-    Filter's main processor.
+    Resolve marked iyekavian into clean ekavian text.
     """
 
     segs = []
@@ -84,6 +84,17 @@ def process (text):
 
     ntext = "".join(segs)
     ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_ije_althead)
+
+    return ntext
+
+
+def to_ije (text):
+    """
+    Resolve marked iyekavian into clean iyekavian text.
+    """
+
+    ntext = text.replace(_reflex_mark, "")
+    ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_ije_althead)
 
     return ntext
 
