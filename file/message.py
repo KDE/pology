@@ -614,12 +614,14 @@ class Message (Message_base, Monitored): # order important for get/setattr
         @type init: dict
         """
 
+        # NOTE: Make sure all sequences are shallow copied.
+
         Message_base.__init__(self, Monitored)
 
-        self._manual_comment = Monlist(init.get("manual_comment", []))
-        self._auto_comment = Monlist(init.get("auto_comment", []))
-        self._source = Monlist([Monpair(*x) for x in init.get("source", [])])
-        self._flag = Monset(init.get("flag", []))
+        self._manual_comment = Monlist(init.get("manual_comment", [])[:])
+        self._auto_comment = Monlist(init.get("auto_comment", [])[:])
+        self._source = Monlist([Monpair(*x) for x in init.get("source", [])[:]])
+        self._flag = Monset(init.get("flag", [])[:])
 
         self._obsolete = init.get("obsolete", False)
 
@@ -630,7 +632,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._msgctxt = init.get("msgctxt", u"")
         self._msgid = init.get("msgid", u"")
         self._msgid_plural = init.get("msgid_plural", u"")
-        self._msgstr = Monlist(init.get("msgstr", []))
+        self._msgstr = Monlist(init.get("msgstr", [])[:])
 
         self._fuzzy = (u"fuzzy" in self._flag and not self._obsolete)
 
@@ -640,19 +642,19 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self.assert_spec_init(_Message_spec)
 
         # Line caches.
-        self._lines_all = init.get("lines_all", [])
-        self._lines_manual_comment = init.get("lines_manual_comment", [])
-        self._lines_auto_comment = init.get("lines_auto_comment", [])
-        self._lines_source = init.get("lines_source", [])
-        self._lines_flag = init.get("lines_flag", [])
-        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])
-        self._lines_msgid_previous = init.get("lines_msgid_previous", [])
+        self._lines_all = init.get("lines_all", [])[:]
+        self._lines_manual_comment = init.get("lines_manual_comment", [])[:]
+        self._lines_auto_comment = init.get("lines_auto_comment", [])[:]
+        self._lines_source = init.get("lines_source", [])[:]
+        self._lines_flag = init.get("lines_flag", [])[:]
+        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])[:]
+        self._lines_msgid_previous = init.get("lines_msgid_previous", [])[:]
         self._lines_msgid_plural_previous = \
-            init.get("lines_msgid_plural_previous", [])
-        self._lines_msgctxt = init.get("lines_msgctxt", [])
-        self._lines_msgid = init.get("lines_msgid", [])
-        self._lines_msgid_plural = init.get("lines_msgid_plural", [])
-        self._lines_msgstr = init.get("lines_msgstr", [])
+            init.get("lines_msgid_plural_previous", [])[:]
+        self._lines_msgctxt = init.get("lines_msgctxt", [])[:]
+        self._lines_msgid = init.get("lines_msgid", [])[:]
+        self._lines_msgid_plural = init.get("lines_msgid_plural", [])[:]
+        self._lines_msgstr = init.get("lines_msgstr", [])[:]
 
 
     def _renew_lines (self, wrapf=wrap_field, force=False):
@@ -714,12 +716,14 @@ class MessageUnsafe (Message_base):
         @type init: dict
         """
 
+        # NOTE: Make sure all sequences are shallow copied.
+
         Message_base.__init__(self, object)
 
-        self.manual_comment = init.get("manual_comment", [])
-        self.auto_comment = init.get("auto_comment", [])
-        self.source = init.get("source", [])
-        self.flag = init.get("flag", [])
+        self.manual_comment = init.get("manual_comment", [])[:]
+        self.auto_comment = init.get("auto_comment", [])[:]
+        self.source = init.get("source", [])[:]
+        self.flag = init.get("flag", [])[:]
 
         self.obsolete = init.get("obsolete", False)
 
@@ -730,7 +734,7 @@ class MessageUnsafe (Message_base):
         self.msgctxt = init.get("msgctxt", u"")
         self.msgid = init.get("msgid", u"")
         self.msgid_plural = init.get("msgid_plural", u"")
-        self.msgstr = init.get("msgstr", [u""])
+        self.msgstr = init.get("msgstr", [u""])[:]
 
         self.__dict__["fuzzy"] = (u"fuzzy" in self.flag and not self.obsolete)
 
@@ -738,19 +742,19 @@ class MessageUnsafe (Message_base):
         self.refentry = init.get("refentry", -1)
 
         # Line caches.
-        self._lines_all = init.get("lines_all", [])
-        self._lines_manual_comment = init.get("lines_manual_comment", [])
-        self._lines_auto_comment = init.get("lines_auto_comment", [])
-        self._lines_source = init.get("lines_source", [])
-        self._lines_flag = init.get("lines_flag", [])
-        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])
-        self._lines_msgid_previous = init.get("lines_msgid_previous", [])
+        self._lines_all = init.get("lines_all", [])[:]
+        self._lines_manual_comment = init.get("lines_manual_comment", [])[:]
+        self._lines_auto_comment = init.get("lines_auto_comment", [])[:]
+        self._lines_source = init.get("lines_source", [])[:]
+        self._lines_flag = init.get("lines_flag", [])[:]
+        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])[:]
+        self._lines_msgid_previous = init.get("lines_msgid_previous", [])[:]
         self._lines_msgid_plural_previous = \
-            init.get("lines_msgid_plural_previous", [])
-        self._lines_msgctxt = init.get("lines_msgctxt", [])
-        self._lines_msgid = init.get("lines_msgid", [])
-        self._lines_msgid_plural = init.get("lines_msgid_plural", [])
-        self._lines_msgstr = init.get("lines_msgstr", [])
+            init.get("lines_msgid_plural_previous", [])[:]
+        self._lines_msgctxt = init.get("lines_msgctxt", [])[:]
+        self._lines_msgid = init.get("lines_msgid", [])[:]
+        self._lines_msgid_plural = init.get("lines_msgid_plural", [])[:]
+        self._lines_msgstr = init.get("lines_msgstr", [])[:]
 
         self.modcount = 0
 
