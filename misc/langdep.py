@@ -74,7 +74,7 @@ def split_req (langreq, abort=False):
     Split string of the language-dependent item request.
 
     The language-dependent item request is string of the form
-    C{[lang:]path[.item]}, which is to be parsed into
+    C{[lang:]path[/item]}, which is to be parsed into
     C{(lang, path, item)} tuple; if language is not stated,
     its value in the tuple will be C{None}, and likewise for the item.
     The language should be a proper language code, path a sequence of
@@ -102,7 +102,7 @@ def split_req (langreq, abort=False):
     else:
         lang, path = lst
 
-    lst = path.rsplit(".", 1)
+    lst = path.rsplit("/", 1)
     if len(lst) == 1:
         item = None
     else:
