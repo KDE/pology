@@ -453,6 +453,26 @@ valid msgstr="manager"
 valid cat="filetypes" msgid="Konqueror file manager"
 valid cat="dolphin" msgid="default file manager for the virtual" msgstr="подразумев.*отвара\w+ виртуел"
 
+# зезнут, мало-мало па га треба изоставити
+{\bmodes?\b}i
+id="mode"
+hint="mode = режим"
+valid after="full\W?screen "
+valid after="view(s|ing)? " msgstr="начин\w* приказ"
+valid msgstr="режим"
+# због изостављања:
+valid !msgstr="\bначин" !msgstr="\bмод(а|у|ом|ов(и|е|има))\b"
+valid msgstr="\bmodes?\b"
+valid cat="kdmconfig" msgid="dialog based mode" msgstr="завнова\w+ на дијалогу"
+valid cat="katepart4" after="syntax highlight "
+valid cat="dolphin" after="three viewing " msgstr="на разне начине"
+valid cat="PO_Odyssey" before=" of.*communication" msgstr="начин.*комуник"
+
+{\boff\W?line}i
+id="offline"
+hint="offline = ван везе"
+valid msgstr="\bван везе"
+
 {\bonline}i
 id="online"
 hint="online = на вези"
@@ -523,6 +543,11 @@ valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
 valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
+
+{\bproxy}i
+id="proxy"
+hint="proxy = прокси"
+valid msgstr="\bпрокси"
 
 {\bquit(s|ted)?\b}i
 id="quit"
