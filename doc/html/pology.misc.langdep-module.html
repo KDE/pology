@@ -89,7 +89,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">(string or <code>None</code>, string)</span>
+      <span class="summary-type">(string or <code>None</code>, string, string or <code>None</code>)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -113,6 +113,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_filter" class="summary-sig-name">get_filter</a>(<span class="summary-sig-arg">lang</span>,
         <span class="summary-sig-arg">filtr</span>,
+        <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Fetch a language-dependent text filter function.</td>
           <td align="right" valign="top">
@@ -219,11 +220,11 @@
   
   <p>Split string of the language-dependent item request.</p>
   <p>The language-dependent item request is string of the form 
-  <code>[lang:]item</code>, which is to be parsed into <code>(lang, 
-  item)</code> tuple; if language is not stated, its value in the tuple 
-  will be <code>None</code>. The language should be a proper language code,
-  while the item should be an identifier-like string (except that it can 
-  include hyphens too, which will be converted to underscores).</p>
+  <code>[lang:]path[.item]</code>, which is to be parsed into <code>(lang, 
+  path, item)</code> tuple; if language is not stated, its value in the 
+  tuple will be <code>None</code>, and likewise for the item. The language 
+  should be a proper language code, path a sequence of identifier-like 
+  strings connected by dots, and item also an identifier-like string.</p>
   <p>If the item request cannot be parsed, either the execution is aborted 
   with an error message, or an exception is raised, depending on value of 
   <code>abort</code>.</p>
@@ -233,7 +234,7 @@
         <li><strong class="pname"><code>langreq</code></strong> (string) - request specification</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution or if the request cannot be parsed</li>
     </ul></dd>
-    <dt>Returns: (string or <code>None</code>, string)</dt>
+    <dt>Returns: (string or <code>None</code>, string, string or <code>None</code>)</dt>
         <dd>parsed language and request</dd>
   </dl>
 </td></tr></table>
@@ -247,6 +248,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_filter</span>(<span class="sig-arg">lang</span>,
         <span class="sig-arg">filtr</span>,
+        <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -256,14 +258,16 @@
   
   <p>Fetch a language-dependent text filter function.</p>
   <p>Loads the filter function from 
-  <code>pology.l10n.&lt;lang&gt;.filter.&lt;filtr&gt;</code> module. This 
-  module must have the <code>process(string) -&gt; string</code> method 
-  defined.</p>
+  <code>pology.l10n.&lt;lang&gt;.filter.&lt;filtr&gt;</code> module. The 
+  filter function must have the <code>(string) -&gt; string</code> 
+  signature. If <code>func</code> is <code>None</code>, the function name 
+  defaults to <code>process</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
-        <li><strong class="pname"><code>filtr</code></strong> (string) - filter name</li>
+        <li><strong class="pname"><code>filtr</code></strong> (string) - filter module</li>
+        <li><strong class="pname"><code>func</code></strong> (string of <code>None</code>) - filter function</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - if the filter is not loadable, abort or report <code>None</code></li>
     </ul></dd>
     <dt>Returns: (string)-&gt;string</dt>
