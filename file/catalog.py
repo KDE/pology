@@ -1230,12 +1230,14 @@ class Catalog (Monitored):
 
         # Skip analyzing messages if not necessary or not requested.
         if accels is not None or not bymsgs:
+            self._accels = accels
             return accels
 
         # Analyze messages.
         # TODO.
         pass
 
+        self._accels = accels
         return accels
 
 
@@ -1319,12 +1321,14 @@ class Catalog (Monitored):
 
         # Skip analyzing messages if not necessary or not requested.
         if mtypes is not None or not bymsgs:
+            self._mtypes = mtypes
             return mtypes
 
         # Analyze messages.
         # TODO.
         pass
 
+        self._mtypes = mtypes
         return mtypes
 
 
