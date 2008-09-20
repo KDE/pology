@@ -34,6 +34,14 @@ pology.hook.check_xml.manc_parse_flag_list	pology.misc.comments-module.html#manc
 pology.hook.gettext_tools	pology.hook.gettext_tools-module.html
 pology.hook.gettext_tools.msgfilter	pology.hook.gettext_tools-module.html#msgfilter
 pology.hook.gettext_tools.msgfmt	pology.hook.gettext_tools-module.html#msgfmt
+pology.hook.remove_accel	pology.hook.remove_accel-module.html
+pology.hook.remove_accel._rem_in_text	pology.hook.remove_accel-module.html#_rem_in_text
+pology.hook.remove_accel._usual_accels	pology.hook.remove_accel-module.html#_usual_accels
+pology.hook.remove_accel.remove_accel_text	pology.hook.remove_accel-module.html#remove_accel_text
+pology.hook.remove_accel._rem_in_msg	pology.hook.remove_accel-module.html#_rem_in_msg
+pology.hook.remove_accel.remove_accel_msg	pology.hook.remove_accel-module.html#remove_accel_msg
+pology.hook.remove_accel.remove_accel_text_greedy	pology.hook.remove_accel-module.html#remove_accel_text_greedy
+pology.hook.remove_accel.remove_accel_msg_greedy	pology.hook.remove_accel-module.html#remove_accel_msg_greedy
 pology.l10n	pology.l10n-module.html
 pology.l10n.fr	pology.l10n.fr-module.html
 pology.l10n.fr.accents	pology.l10n.fr.accents-module.html
@@ -464,6 +472,7 @@ pology.sieve.fancy_quote._xml_literal_tags	pology.sieve.fancy_quote-module.html#
 pology.sieve.find_messages	pology.sieve.find_messages-module.html
 pology.sieve.find_messages.get_filter_lreq	pology.misc.langdep-module.html#get_filter_lreq
 pology.sieve.find_messages.wrap_field_unwrap	pology.misc.wrap-module.html#wrap_field_unwrap
+pology.sieve.find_messages.remove_accel_msg	pology.hook.remove_accel-module.html#remove_accel_msg
 pology.sieve.find_messages._flag_mark	pology.sieve.find_messages-module.html#_flag_mark
 pology.sieve.find_messages.wrap_field	pology.misc.wrap-module.html#wrap_field
 pology.sieve.find_messages.report_msg_content	pology.misc.report-module.html#report_msg_content
