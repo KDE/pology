@@ -188,11 +188,29 @@ id="file"
 hint="file = датотека"
 valid !msgstr="\bфајл"
 
+{\bfile ?names?\b}i
+id="filename"
+hint="filename|file name = име датотеке"
+valid msgstr="\bиме\w* .*\bдатоте|датоте\w* .*\bиме" !msgstr="датотеч\w+ име"
+
 {\bfooter}i
 id="footer"
 hint="footer = подножје"
 valid msgstr="\bподнож[јн]"
 valid env="kde" msgstr="footer"
+
+# Покрива и force и force2.
+# Делимична провера, не може се разликовати ван контекста.
+{\bforce}i
+id="force"
+hint="force = приморати"
+valid msgstr="\bпримора|\bнаме[тћ]"
+valid cat="khotkeys" msgid="force a restart" msgstr="сами .* из почетка"
+
+{\bforce}i
+id="force2"
+hint="force = наметнути"
+disabled
 
 {\bhardware}i
 id="hardware"

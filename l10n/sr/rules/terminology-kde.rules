@@ -260,6 +260,12 @@ hint="driver = драјвер"
 valid msgstr="\bдрајвер"
 valid msgstr="driver"
 
+{\be-?mail ?address}i
+id="emailaddress"
+hint="email address = адреса е-поште"
+valid msgstr="\bадрес\w+ е-поште"
+valid msgstr="е-поштом .*\bадрес"
+
 {\b(character set|char\W?set|encoding)}i
 id="encoding"
 hint="character set|charset|encoding = кодирање"
@@ -299,6 +305,12 @@ hint="file manager = менаџер фајлова"
 valid msgstr="\bменаџер\w* фајлова"
 valid cat="filetypes,desktop_kdebase" msgid="Konqueror\S* file manager" !msgstr="менаџер|управ(љач|ник)"
 valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразумева и за отварање.*вирт"
+
+{\bfile ?names?\b}i
+id="filename"
+hint="filename|file name = име фајла"
+valid msgstr="\bиме\w* .*\bфајл|фајл\w* .*\bиме" !msgstr="фајл име"
+valid msgstr="filename"
 
 {\bfile[ -]?system}i
 id="filesystem"
@@ -456,7 +468,7 @@ valid cat="dolphin" msgid="default file manager for the virtual" msgstr="под�
 # зезнут, мало-мало па га треба изоставити
 {\bmodes?\b}i
 id="mode"
-hint="mode = режим"
+hint="mode = режим [изузетак: view mode = начин приказа]"
 valid after="full\W?screen "
 valid after="view(s|ing)? " msgstr="начин\w* приказ"
 valid msgstr="режим"
