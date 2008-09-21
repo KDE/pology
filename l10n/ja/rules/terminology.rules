@@ -37,10 +37,23 @@ id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
 
-{\bargument}i
+{\barguments?\b}i
 id="argument"
 hint="argument = 引数"
+valid before=" of a complex number"
 valid msgstr="引数"
+
+{\barguments?\b}i
+id="argument2"
+hint="argument = 偏角"
+valid !before=" of a complex number"
+valid msgstr="偏角"
+
+{\bascending}i
+id="ascending"
+hint="ascending = 昇順"
+valid msgstr="昇順"
+valid before="numbers"
 
 {aspect ratio}i
 id="aspect_ratio"
@@ -133,6 +146,11 @@ id="command_prompt"
 hint="command prompt = コマンドプロンプト"
 valid msgstr="コマンドプロンプト"
 
+{\bconstant bitrate\b}i
+id="constant_bitrate"
+hint="constant bitrate = 固定ビットレート"
+valid msgstr="固定ビットレート"
+
 {\bcontext menu}i
 id="context_menu"
 hint="context menu = コンテキストメニュー"
@@ -179,6 +197,11 @@ id="delete"
 hint="Delete = 削除"
 valid msgstr="削除"
 valid ctx="keyboard-key-name|QShortcut" msgstr="Delete"
+
+{\bdesceinding}i
+id="descending"
+hint="descending = 降順"
+valid msgstr="降順"
 
 {^Deselect$}
 id="deselect"
@@ -231,8 +254,8 @@ disabled
 
 {\be[-]?mail address(es)?}i
 id="email_address"
-hint="email address = メールアドレス"
-valid msgstr="メールアドレス"
+hint="email address = メールアドレス [E を付けずに]"
+valid msgstr="メールアドレス" !msgstr="e[ -]?メールアドレス"
 valid cat="krecipes" msgid="^insert your email address$"
 
 {^Empty Trash$}
@@ -249,6 +272,11 @@ valid msgstr="暗号化鍵"
 id="end_of_line"
 hint="end of line = 行末"
 valid msgstr="行末"
+
+{\benvironment variables?\b}i
+id="environment_variable"
+hint="environment variable = 環境変数"
+valid msgstr="環境変数"
 
 {¥Expand All$}
 id="expand_all"
@@ -773,6 +801,14 @@ id="slider"
 hint="slider = スライダー"
 valid msgstr="スライダー"
 
+{\bsort(s|ed|ing)?\b}i
+id="sort"
+hint="sort = ソート"
+valid span="sort|sorts" before=" of"
+valid after="of all " span="sorts"
+valid after="of some " span="sort"
+valid msgstr="ソート"
+
 {\bspams?}i
 id="spam"
 hint="spam = スパム"
@@ -922,6 +958,46 @@ id="value2"
 hint="value = 明度"
 valid !ctx="HSV"
 valid msgstr="明度"
+
+{\bvariables?\b}i
+id="variable"
+hint="variable = 変数"
+valid ctx="variable star"
+valid before=" (star|nebula)"
+valid before="[ -](bitrate|width|depth|space|block size|viewpoint)"
+valid msgstr="変数"
+
+{\bvariable\b}i
+id="variable2"
+hint="variable = 可変"
+valid ctx="variable star"
+valid before=" (star|nebula)"
+valid !before="[ -](bitrate|width|depth|space|block size|viewpoint)"
+valid msgstr="可変"
+valid cat="kile" msgstr="伸縮する(垂直|水平)方向の空白"
+
+{\bvariables?\b}i
+id="variable3"
+hint="variable = 変光星"
+valid !ctx="variable star"
+valid !before=" (star|nebula)"
+valid msgstr="変光星"
+valid cat="kstars" msgstr="AAVSO 作成の光度曲線"
+
+{\bvariable bitrate\b}i
+id="variable_bitrate"
+hint="variable bitrate = 可変ビットレート"
+valid msgstr="可変ビットレート"
+
+{\bvariable nebulas?\b}i
+id="variable_nebula"
+hint="variable nebula = 変光星雲"
+valid msgstr="変光星雲"
+
+{\bvariable stars?\b}i
+id="variable_star"
+hint="variable star = 変光星"
+valid msgstr="変光星"
 
 {\bview mode}i
 id="view_mode"
