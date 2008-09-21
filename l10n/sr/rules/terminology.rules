@@ -307,6 +307,14 @@ hint="oblique = искошен"
 valid msgstr="\bискошен"
 valid env="kde" msgstr="oblique"
 
+{\bpanel}i
+id="panel"
+hint="panel = панел"
+valid msgstr="\bпанел"
+valid env="kde" msgid="control.*module" msgstr="контролн\w+ модул|модул контролн\w+"
+valid env="kde" msgstr="\bpanel"
+valid cat="dolphin" msgid="^This panel opens" msgstr="^Отвара"
+
 {\bpass\W?phrase}i
 id="passphrase"
 hint="passphrase = лозинка"

@@ -429,6 +429,14 @@ valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
 
+{\blayout}i
+id="layout"
+hint="layout = распоред"
+valid msgstr="\bраспоре[дђ]"
+valid cat="kcmsamba" msgid="friendly layout" msgstr="прегледан начин"
+valid cat="kxkb" msgid="^Layout variant\W*$" msgstr="^Варијанта\W*$"
+valid cat="kxkb" msgid="shortcut.*switching.*handle" msgstr="пречиц.*рукуј"
+
 {\blines?\b}i
 id="line"
 hint="line = ред"
