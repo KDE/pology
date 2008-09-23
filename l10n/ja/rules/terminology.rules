@@ -27,6 +27,11 @@ id="address_book"
 hint="address book = アドレス帳"
 valid msgstr="アドレス帳"
 
+{\bappearance}i
+id="appearance"
+hint="appearance = 外観"
+valid msgstr="外観"
+
 {\bapplets?\b}i
 id="applet"
 hint="applet = アプレット"
@@ -40,8 +45,8 @@ valid msgstr="適用"
 {\barguments?\b}i
 id="argument"
 hint="argument = 引数"
-valid before=" of a complex number"
 valid msgstr="引数"
+valid msgstr="偏角"
 
 {\barguments?\b}i
 id="argument2"
@@ -182,7 +187,12 @@ id="cut"
 hint="Cut = 切り取り"
 valid msgstr="切り取り"
 
-{\bdecryption key}i
+{^Decrease Volume$}
+id="decrease_volume"
+hint="Decrease Volume = 音量を下げる"
+valid msgstr="音量を下げる"
+
+{\bdecryption keys?}i
 id="decryption_key"
 hint="decryption key = 復号鍵"
 valid msgstr="復号鍵"
@@ -197,6 +207,12 @@ id="delete"
 hint="Delete = 削除"
 valid msgstr="削除"
 valid ctx="keyboard-key-name|QShortcut" msgstr="Delete"
+
+{\bdelimiters?}i
+id="delimiter"
+hint="delimiter = 区切り文字"
+valid before=" line"
+valid msgstr="区切り文字"
 
 {\bdesceinding}i
 id="descending"
@@ -263,7 +279,7 @@ id="empty_trash"
 hint="Empty Trash = ごみ箱を空にする"
 valid msgstr="ごみ箱を空にする"
 
-{\bencryption key}i
+{\bencryption keys?}i
 id="encryption_key"
 hint="encryption key = 暗号化鍵"
 valid msgstr="暗号化鍵"
@@ -390,6 +406,11 @@ id="format_toolbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
 
+{\bfree ?space\b}i
+id="free_space"
+hint="free space = 空き容量|空き領域"
+valid msgstr="空き(領域|容量)"
+
 {\bfrom cursor}i
 id="from_cursor"
 hint="from cursor = カーソル位置から"
@@ -427,6 +448,11 @@ valid msgstr="画像ビューア"
 id="import"
 hint="Import = インポート"
 valid msgstr="インポート"
+
+{^Increase Volume$}
+id="increase_volume"
+hint="Increase Volume = 音量を上げる"
+valid msgstr="音量を上げる"
 
 {^Insert$}
 id="insert"
@@ -595,8 +621,8 @@ disabled
 {\bplain[ -]?text}i
 id="plain_text2"
 hint="plain text = 平文 [暗号化されていないデータ]"
-valid msgstr="平文"
 valid !msgid="password"
+valid msgstr="平文"
 
 {^Play$}
 id="play"
@@ -608,8 +634,8 @@ valid cat="ksudoku" msgid="Play" msgstr="プレイ"
 {^Play$|^PLAY$}
 id="play2"
 hint="Play = プレイ [ゲームをプレイ]"
-valid msgstr="プレイ"
 valid !ctx="game"
+valid msgstr="プレイ"
 
 {\bplayer}i
 id="player"
@@ -667,6 +693,12 @@ hint="property = プロパティ"
 valid msgstr="プロパティ"
 valid cat="kipiplugin_sendimages" msgid="properties.txt"
 
+{\bproxy}i
+id="proxy"
+hint="proxy = プロキシ"
+valid msgstr="プロキシ"
+valid cat="kfileshare" msgstr="(DNS|WINS|Msdfs) proxy"
+
 {\bpublic keys?}i
 id="public_key"
 hint="public key = 公開鍵"
@@ -712,6 +744,12 @@ id="reset"
 hint="Reset = リセット"
 valid msgstr="リセット"
 
+{\bresources?\b}i
+id="resource"
+hint="resource = リソース"
+valid msgstr="リソース"
+disabled
+
 {^Restore$}
 id="restore"
 hint="Restore = 復元"
@@ -722,10 +760,20 @@ id="return_value"
 hint="return value = 戻り値"
 valid msgstr="戻り値"
 
-{\bripper}i
+{\brippers?}i
 id="ripper"
 hint="ripper = リッパー"
 valid msgstr="リッパー"
+
+{\bsample rates?}i
+id="sample_rate"
+hint="sample rate = サンプリングレート"
+valid msgstr="サンプリングレート"
+
+{\bsampling rates?}i
+id="sampling_rate"
+hint="sampling rate = サンプリングレート"
+valid msgstr="サンプリングレート"
 
 {\bsaturation}i
 id="saturation"
@@ -791,7 +839,7 @@ hint="server = サーバ"
 valid msgstr="サーバ"
 valid cat="kfileshare" msgstr="Paranoid server security|Server signing:|Server channel:|SSL server cert:|SSL server key:|Time server"
 
-{\bsigning key}i
+{\bsigning keys?}i
 id="signing_key"
 hint="signing key = 署名鍵"
 valid msgstr="署名鍵"
@@ -808,6 +856,19 @@ valid span="sort|sorts" before=" of"
 valid after="of all " span="sorts"
 valid after="of some " span="sort"
 valid msgstr="ソート"
+
+{\bspaces?\b}i
+id="space"
+hint="space = スペース"
+valid msgstr="スペース"
+disabled
+
+{\bspace\b}i
+id="space2"
+hint="space = 領域"
+valid !after="(disk|swap|memory) "
+valid msgstr="領域"
+valid msgstr="ディスクの使用状況を表示する KDE のユーティリティ"
 
 {\bspams?}i
 id="spam"
@@ -970,17 +1031,14 @@ valid msgstr="変数"
 {\bvariable\b}i
 id="variable2"
 hint="variable = 可変"
-valid ctx="variable star"
-valid before=" (star|nebula)"
 valid !before="[ -](bitrate|width|depth|space|block size|viewpoint)"
 valid msgstr="可変"
 valid cat="kile" msgstr="伸縮する(垂直|水平)方向の空白"
 
 {\bvariables?\b}i
 id="variable3"
-hint="variable = 変光星"
-valid !ctx="variable star"
-valid !before=" (star|nebula)"
+hint="variable = 変光星 [variable star]"
+valid !before=" star" !ctx="variable star"
 valid msgstr="変光星"
 valid cat="kstars" msgstr="AAVSO 作成の光度曲線"
 
@@ -988,16 +1046,6 @@ valid cat="kstars" msgstr="AAVSO 作成の光度曲線"
 id="variable_bitrate"
 hint="variable bitrate = 可変ビットレート"
 valid msgstr="可変ビットレート"
-
-{\bvariable nebulas?\b}i
-id="variable_nebula"
-hint="variable nebula = 変光星雲"
-valid msgstr="変光星雲"
-
-{\bvariable stars?\b}i
-id="variable_star"
-hint="variable star = 変光星"
-valid msgstr="変光星"
 
 {\bview mode}i
 id="view_mode"
@@ -1009,6 +1057,16 @@ valid msgstr="表示モード"
 id="virus"
 hint="virus = ウイルス"
 valid msgstr="ウイルス"
+
+{^Volume Down$}
+id="volume_down"
+hint="Volume Down = 音量を下げる"
+valid msgstr="音量を下げる"
+
+{^Volume Up$}
+id="volume_up"
+hint="Volume Up = 音量を上げる"
+valid msgstr="音量を上げる"
 
 {\bweb browser}i
 id="web_browser"
@@ -1031,7 +1089,7 @@ hint="wizard = ウィザード"
 valid msgstr="ウィザード"
 valid cat="kfileshare" msgstr="Show add printer wizard"
 
-{\bwep key}i
+{\bwep keys?}i
 id="wep_key"
 hint="WEP key = WEP キー"
 valid msgstr="WEP キー"
