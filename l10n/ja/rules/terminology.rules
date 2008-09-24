@@ -70,6 +70,11 @@ id="attribute"
 hint="attribute = 属性"
 valid msgstr="属性"
 
+{\bbandwidth\b}i
+id="bandwidth"
+hint="bandwidth = 帯域幅"
+valid msgstr="帯域幅"
+
 {bold}i
 id="bold"
 hint="bold = ボールド"
@@ -288,6 +293,11 @@ valid msgstr="暗号化鍵"
 id="end_of_line"
 hint="end of line = 行末"
 valid msgstr="行末"
+
+{\bentit(y|ies)}i
+id="entity"
+hint="entity = エンティティ"
+valid msgstr="エンティティ"
 
 {\benvironment variables?\b}i
 id="environment_variable"
@@ -739,6 +749,11 @@ id="replace"
 hint="Replace = 置換"
 valid msgstr="置換"
 
+{\brequests?\b}i
+id="request"
+hint="request = 要求"
+valid !msgstr="リクエスト"
+
 {^Reset$}
 id="reset"
 hint="Reset = リセット"
@@ -993,8 +1008,7 @@ valid after="_"
 {\busers?}i
 id="user"
 hint="user = ユーザ"
-valid msgstr="ユーザ"
-disabled
+valid !msgstr="ユーザー"
 
 {\buser ?names?}i
 id="username"
@@ -1088,6 +1102,16 @@ id="wizard"
 hint="wizard = ウィザード"
 valid msgstr="ウィザード"
 valid cat="kfileshare" msgstr="Show add printer wizard"
+
+{\bworking cop(y|ies)}i
+id="working_copy"
+hint="working copy = 作業コピー"
+valid msgstr="作業コピー"
+
+{\bworking folders?}i
+id="working_folder"
+hint="working folder = 作業フォルダ"
+valid msgstr="作業フォルダ"
 
 {\bwep keys?}i
 id="wep_key"
