@@ -368,12 +368,48 @@ def derive_project_data (project, options):
     p.part_inverse_map = {}
     p.full_inverse_map = {}
 
-    # Initialize mappings.
-    # - direct:
+    # Add direct mappings.
     for branch_id in p.branch_ids:
         p.direct_map[branch_id] = {}
         for branch_name in p.catalogs[branch_id]:
             p.direct_map[branch_id][branch_name] = []
+        # - explicit
+        for mapping in p.mappings:
+            branch_id, branch_name = mapping[:2]
+            summit_names = mapping[2:]
+            p.direct_map[branch_id][branch_name] = summit_names
+        # - implicit
+        for branch_name in p.catalogs[branch_id]:
+            if p.direct_map[branch_id][branch_name] == []:
+                p.direct_map[branch_id][branch_name].append(branch_name)
+
+    # Add or complain about missing summit catalogs.
+    for branch_id in p.branch_ids:
+        for branch_name in p.catalogs[branch_id]:
+            summit_names = project.direct_map[branch_id][branch_name]
+            for summit_name in summit_names:
+                if summit_name not in p.catalogs[SUMMIT_ID]:
+                    # Compose the path for the missing summit catalog.
+                    # Default the subdir to that of the current branch,
+                    # as it is the primary branch for this catalog.
+                    branch_path, branch_dir = \
+                        p.catalogs[branch_id][branch_name][0]
+                    summit_subdir = branch_dir
+                    summit_path = os.path.join(p.summit.topdir, summit_subdir,
+                                               summit_name + options.catext)
+
+                    # Allow missing summit catalog only if the first mode
+                    # is gather, and creation is enabled.
+                    if options.modes[0] != "gather" or not options.do_create:
+                        error("missing summit catalog '%s' for branch "
+                              "catalog '%s'" % (summit_path, branch_path))
+
+                    # Add summit catalog into list of existing catalogs;
+                    # it will be created for real on gather.
+                    p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
+                                                           summit_subdir)]
+
+    # Initialize inverse mappings.
     # - part inverse:
     for branch_id in p.branch_ids:
         p.part_inverse_map[branch_id] = {}
@@ -385,13 +421,10 @@ def derive_project_data (project, options):
         for branch_id in p.branch_ids:
             p.full_inverse_map[summit_name][branch_id] = []
 
-    # Add explicit mappings.
+    # Add explicit inverse mappings.
     for mapping in p.mappings:
-        branch_id = mapping[0]
-        branch_name = mapping[1]
+        branch_id, branch_name = mapping[:2]
         summit_names = mapping[2:]
-        # - direct:
-        p.direct_map[branch_id][branch_name] = summit_names
         # - part inverse:
         for summit_name in summit_names:
             if summit_name not in p.part_inverse_map[branch_id]:
@@ -405,12 +438,7 @@ def derive_project_data (project, options):
                 p.full_inverse_map[summit_name][branch_id] = []
             p.full_inverse_map[summit_name][branch_id].append(branch_name)
 
-    # Add implicit mappings.
-    # - direct:
-    for branch_id in p.branch_ids:
-        for branch_name in p.catalogs[branch_id]:
-            if p.direct_map[branch_id][branch_name] == []:
-                p.direct_map[branch_id][branch_name].append(branch_name)
+    # Add implicit inverse mappings.
     # - part inverse:
     for branch_id in p.branch_ids:
         for summit_name in p.catalogs[SUMMIT_ID]:
@@ -511,42 +539,23 @@ def summit_gather (project, options):
             # try to create them if allowed.
             summit_paths = []
             for summit_name in summit_names:
-                if summit_name in project.catalogs[SUMMIT_ID]:
-                    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
-                else:
-                    # Default the subdir to that of the current branch,
-                    # but try to fetch another according to other branchs,
-                    # if the same-name catalog exists there.
-                    obranch_path = ""
-                    summit_subdir = branch_subdir
-                    for obranch_id in project.branch_ids:
-                        if summit_name in project.catalogs[obranch_id]:
-                            obranch_path, summit_subdir = \
-                                project.catalogs[obranch_id][summit_name][0]
-                            break
+                summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+                summit_paths.append(summit_path)
 
-                    summit_path = os.path.join(project.summit.topdir,
-                                               summit_subdir,
-                                               summit_name + options.catext)
-
-                    if not options.do_create:
-                        error("missing summit catalog '%s' for branch "
-                              "catalog '%s'" % (summit_path, branch_path))
-
-                    add_summit_catalog_implicit(summit_name, summit_path,
-                                                summit_subdir, branch_id,
-                                                project)
-
+                if not os.path.isfile(summit_path):
                     # To propely gather on split-mappings, before
                     # gathering the current branch catalog for a newly
-                    # created summit catalog, we must gather from the
-                    # branch in which it exists.
-                    if obranch_path and obranch_id != branch_id:
-                        summit_gather_merge(obranch_id, obranch_path,
-                                            [summit_path], project, options,
-                                            primary_sourced)
-
-                summit_paths.append(summit_path)
+                    # created summit catalog, we must gather from
+                    # higher priority branches in which it exists too.
+                    for obranch_id in project.branch_ids:
+                        if obranch_id == branch_id:
+                            break
+                        if summit_name in project.catalogs[obranch_id]:
+                            obranch_path = \
+                                project.catalogs[obranch_id][summit_name][0][0]
+                            summit_gather_merge(obranch_id, obranch_path,
+                                                [summit_path], project,
+                                                options, primary_sourced)
 
             # Merge this branch catalog into summit catalogs.
             summit_gather_merge(branch_id, branch_path, summit_paths,
@@ -866,18 +875,6 @@ def select_summit_names (project, options):
                              project.catalogs[SUMMIT_ID][y][0][0]))
 
     return summit_names
-
-
-# Register new summit catalog to support implicitly mapped branch catalog,
-# updating inverse mappings as well.
-def add_summit_catalog_implicit (name, path, subdir, branch_id, project):
-
-    project.catalogs[SUMMIT_ID][name] = [(path, subdir)]
-    if name not in project.part_inverse_map[branch_id]:
-        project.part_inverse_map[branch_id][name] = [name]
-    if name not in project.full_inverse_map:
-        project.full_inverse_map[name] = {}
-        project.full_inverse_map[name][branch_id] = [name]
 
 
 def summit_gather_merge (branch_id, branch_path, summit_paths,
