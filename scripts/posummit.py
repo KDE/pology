@@ -946,6 +946,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
     # If there are any messages awaiting insertion, collect possible source
     # file synonyms across all contributing branch catalogs per summit catalog.
     if to_insert:
+        summit_cats_fnsyns = []
         for summit_cat in summit_cats:
             bpaths = []
             for bid in project.full_inverse_map[summit_cat.name]:
@@ -955,6 +956,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
                             bpaths.append(bpath)
             bcats = [Catalog(x, monitored=False) for x in bpaths]
             fnsyn = fuzzy_match_source_files(branch_cat, bcats)
+            summit_cats_fnsyns.append((summit_cat, fnsyn))
 
     # Go through messages collected for insertion and heuristically insert.
     for msg, last_merge_summit_cat, last_merge_pos in to_insert:
@@ -965,7 +967,7 @@ def summit_gather_merge (branch_id, branch_path, summit_paths,
         summit_cat_selected = last_merge_summit_cat
         pos_selected = last_merge_pos
         weight_best = 0.0
-        for summit_cat in summit_cats:
+        for summit_cat, fnsyn in summit_cats_fnsyns:
             # Skip the catalog if it has been newly created
             # (to speed up things, could check anyway).
             if summit_cat.created():
