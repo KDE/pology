@@ -89,6 +89,8 @@ def read_entities (*fnames):
     return entities
 
 
+_entity_tail_rx = re.compile(r"^([\w_:][\w\d._:-]*);")
+
 def resolve_entities (text, entities, ignored_entities,
                       srcname=None, fcap=False,
                       nalts=0, althead=DEFAULT_ALTHEAD):
@@ -155,7 +157,7 @@ def resolve_entities (text, entities, ignored_entities,
 
         new_text += text[0:p + 1]
         text = text[p + 1:]
-        m = re.match(r"^([\w_:][\w\d._:-]*);", text)
+        m = _entity_tail_rx.match(text)
         if m:
             entname = m.group(1)
             if entname not in ignored_entities:
