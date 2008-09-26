@@ -67,7 +67,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("must provide operation mode")
     options.modes = free_args.pop(0).split(",")
     for mode in options.modes:
-        if mode not in ("gather", "scatter", "purge", "reorder", "merge"):
+        if mode not in ("gather", "scatter", "merge"):
             error("unknown mode '%s'" % mode)
 
     # Collect partial processing specs.
@@ -108,10 +108,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             summit_gather(project, options)
         elif mode == "scatter":
             summit_scatter(project, options)
-        elif mode == "purge":
-            summit_purge(project, options)
-        elif mode == "reorder":
-            summit_reorder(project, options)
         elif mode == "merge":
             summit_merge(project, options)
 
@@ -515,56 +511,14 @@ def summit_gather (project, options):
                 "run with: --create --force)"
               % (project.templates_lang, options.lang))
 
-    branch_ids = select_branches(project, options)
+    # Collect names of summit catalogs to gather.
+    summit_names = select_summit_names(project, options)
 
-    # Go through all selected branches.
-    primary_sourced = {}
-    n_selected_by_summit_subdir = {}
-    for branch_id in branch_ids:
-
-        branch_catalogs = select_branch_catalogs(branch_id, project, options,
-                                                 n_selected_by_summit_subdir)
-
-        # Go through all selected catalogs in this branch.
-        for branch_name, branch_path, branch_subdir in branch_catalogs:
-            if options.verbose:
-                print "gathering from %s ..." % branch_path
-
-            # Collect names of all the summit catalogs which this branch
-            # catalog supplies messages to.
-            summit_names = project.direct_map[branch_id][branch_name]
-
-            # Collect summit catalog paths;
-            # if any of the summit catalogs are missing,
-            # try to create them if allowed.
-            summit_paths = []
-            for summit_name in summit_names:
-                summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
-                summit_paths.append(summit_path)
-
-                if not os.path.isfile(summit_path):
-                    # To propely gather on split-mappings, before
-                    # gathering the current branch catalog for a newly
-                    # created summit catalog, we must gather from
-                    # higher priority branches in which it exists too.
-                    for obranch_id in project.branch_ids:
-                        if obranch_id == branch_id:
-                            break
-                        if summit_name in project.catalogs[obranch_id]:
-                            obranch_path = \
-                                project.catalogs[obranch_id][summit_name][0][0]
-                            summit_gather_merge(obranch_id, obranch_path,
-                                                [summit_path], project,
-                                                options, primary_sourced)
-
-            # Merge this branch catalog into summit catalogs.
-            summit_gather_merge(branch_id, branch_path, summit_paths,
-                                project, options, primary_sourced)
-
-    # Assure no empty partial selections by summit subdirs.
-    for subdir in n_selected_by_summit_subdir:
-        if not n_selected_by_summit_subdir[subdir]:
-            error("no catalogs to gather by summit subdir '%s'" % subdir)
+    # Gather all selected catalogs.
+    for name in summit_names:
+        if options.verbose:
+            print "gathering %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
+        summit_gather_single(name, project, options)
 
 
 def summit_scatter (project, options):
@@ -601,49 +555,13 @@ def summit_scatter (project, options):
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
 
             # Merge messages from the summit catalogs into branch catalog.
-            summit_scatter_merge(branch_id, branch_name, branch_path,
-                                 summit_paths, project, options)
+            summit_scatter_single(branch_id, branch_name, branch_path,
+                                  summit_paths, project, options)
 
     # Assure no empty partial selections by summit subdirs.
     for subdir in n_selected_by_summit_subdir:
         if not n_selected_by_summit_subdir[subdir]:
             error("no catalogs to scatter by summit subdir '%s'" % subdir)
-
-
-def summit_purge (project, options):
-
-    if (    project.templates_lang and options.lang != project.templates_lang
-        and not options.force
-    ):
-        error(  "template summit mode: purging possible only on '%s'"
-              % project.templates_lang)
-
-    # Collect names of summit catalogs to purge.
-    summit_names = select_summit_names(project, options)
-
-    # Purge all selected catalogs.
-    for name in summit_names:
-        if options.verbose:
-            print "purging %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
-        summit_purge_single(name, project, options)
-
-
-def summit_reorder (project, options):
-
-    if (    project.templates_lang and options.lang != project.templates_lang
-        and not options.force
-    ):
-        error(  "template summit mode: reordering possible only on '%s'"
-              % project.templates_lang)
-
-    # Collect names of summit catalogs to reorder.
-    summit_names = select_summit_names(project, options)
-
-    # Reorder all selected catalogs.
-    for name in summit_names:
-        if options.verbose:
-            print "reordering %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
-        summit_reorder_single(name, project, options)
 
 
 def summit_merge (project, options):
@@ -877,234 +795,265 @@ def select_summit_names (project, options):
     return summit_names
 
 
-def summit_gather_merge (branch_id, branch_path, summit_paths,
-                         project, options, primary_sourced):
+def summit_gather_single (summit_name, project, options):
 
     # Decide on wrapping function for message fields in the summit.
     wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
 
-    # Open branch catalog.
-    branch_cat = Catalog(branch_path)
+    # Collect branches in which this summit catalog has corresponding
+    # branch catalogs, in order of branch priority.
+    src_branch_ids = []
+    for branch_id in project.branch_ids:
+        if project.full_inverse_map[summit_name][branch_id]:
+            src_branch_ids.append(branch_id)
 
-    # Open all summit catalogs;
-    # use header of the branch catalog if the summit catalog is newly created.
-    summit_cats = []
-    for summit_path in summit_paths:
-        summit_cat = Catalog(summit_path, create=True, wrapf=wrapf)
-        # Copy over branch header for newly created summit catalog.
-        if summit_cat.created():
-            summit_cat.header = branch_cat.header
-        summit_cats.append(summit_cat)
+    # Open all corresponding branch catalogs.
+    # For each branch catalog, also gather any dependent summit
+    # catalogs preceeding the current, and ready them open;
+    # this is needed in order that any new messages get inserted
+    # deterministically in case of split-mappings.
+    bcat_pscats = {}
+    for branch_id in src_branch_ids:
+        bcat_pscats[branch_id] = []
+        for branch_name in project.full_inverse_map[summit_name][branch_id]:
 
-    # Go through messages in the branch catalog:
-    # merge with existing messages, collect any new messages.
-    # Do not insert new messages immediately, as the merge may update
-    # source references, which are necessary for heuristic insertion.
-    to_insert = []
-    last_merge_pos = None
-    last_merge_summit_cat = None
+            # Gather and open dependent summit catalogs preceding the current.
+            pre_summit_cats = []
+            for dep_summit_name in project.direct_map[branch_id][branch_name]:
+                if dep_summit_name == summit_name:
+                    break
+                dep_summit_path = \
+                    project.catalogs[SUMMIT_ID][dep_summit_name][0][0]
+                # FIXME: Can we get into circles here?
+                summit_gather_single(dep_summit_name, project, options)
+                dep_summit_cat = Catalog(dep_summit_path, monitored=False)
+                pre_summit_cats.append(dep_summit_cat)
+
+            # Open all branch catalogs of this name, ordered by path,
+            # link them to the same preceding dependent summit catalogs.
+            branch_paths = []
+            for path, subdir in project.catalogs[branch_id][branch_name]:
+                branch_paths.append(path)
+            branch_paths.sort()
+            for path in branch_paths:
+                # Open monitored, as otherwise the summit catalog will
+                # refuse to insert new message from the branch.
+                branch_cat = Catalog(path)
+                bcat_pscats[branch_id].append((branch_cat, pre_summit_cats))
+
+    # Select primary branch catalog and list of all catalogs with branch ids.
+    prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
+    branch_ids_cats = []
+    for branch_id in src_branch_ids:
+        for branch_cat, pre_summit_cats in bcat_pscats[branch_id]:
+            branch_ids_cats.append((branch_id, branch_cat))
+
+    # Gather messages through branch catalogs.
+    # Also add summit messages to a fresh catalog, such that if no
+    # summit messages were changed by themselves, but their order changed,
+    # the fresh catalog can be synced in place of the original.
+    # For the 
+    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+    summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
+    summit_created = summit_cat.created() # created state may be lost, preserve
+    fresh_cat = Catalog("", wrapf=wrapf, create=True)
+    for branch_id in src_branch_ids:
+        for branch_cat, pre_summit_cats in bcat_pscats[branch_id]:
+            is_primary = branch_cat is prim_branch_cat
+            summit_gather_single_bcat(branch_id, branch_cat, summit_cat,
+                                      pre_summit_cats, is_primary,
+                                      project, options)
+            summit_gather_single_bcat(branch_id, branch_cat, fresh_cat,
+                                      pre_summit_cats, is_primary,
+                                      project, options)
+
+    # If there was any reordering, or some summit messages are obsoleted,
+    # replace the original with the fresh catalog.
+    replace = False
+    # Check for obsolete messages by comparing totals.
+    if len(summit_cat) != len(fresh_cat):
+        replace = True
+    else:
+        # Check reordering.
+        for pos in range(len(summit_cat)):
+            if pos != fresh_cat.find(summit_cat[pos]):
+                replace = True
+                break
+    if replace:
+        # Set path and header to that of the original.
+        fresh_cat.filename = summit_path
+        fresh_cat.header = summit_cat.header
+        summit_cat = fresh_cat
+
+    # Update the summit header.
+    summit_gather_single_header(summit_cat, prim_branch_cat, branch_ids_cats,
+                                project, options)
+
+    # Apply hooks to the summit catalog.
+    exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_cat,
+                  project.hook_on_gather_cat)
+
+    # Sync to disk.
+    if summit_cat.sync():
+
+        # Apply hooks to summit catalog file.
+        exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
+                        project.hook_on_gather_file)
+
+        # Add to version control if new file.
+        if summit_created and project.vcs:
+            if not project.vcs.add(summit_cat.filename):
+                warning(  "cannot add '%s' to version control"
+                        % summit_cat.filename)
+
+        branch_paths = []
+        for branch_id, branch_cat in branch_ids_cats:
+            branch_paths.append(branch_cat.filename)
+        paths_str = " ".join(branch_paths)
+
+        if options.verbose:
+            if summit_created:
+                print "+>   (gathered-added) %s  %s" % (summit_cat.filename,
+                                                        paths_str)
+            else:
+                print ">    (gathered) %s  %s" % (summit_cat.filename,
+                                                  paths_str)
+        else:
+            if summit_created:
+                print "+>   %s  %s" % (summit_cat.filename, paths_str)
+            else:
+                print ">    %s  %s" % (summit_cat.filename, paths_str)
+
+
+def summit_gather_single_bcat (branch_id, branch_cat, summit_cat,
+                               pre_summit_cats, is_primary,
+                               project, options):
+
+    # Go through messages in the branch catalog, merging them with
+    # existing summit messages, or collecting for later insertion.
+    # Do not insert new messages immediately, as source references may be
+    # updated by merging, which reflects on heuristic insertion.
+    # Ignore messages present in preceeding summit catalogs.
+    msgs_to_insert = []
     for msg in branch_cat:
-        if msg.obsolete: # do not gather obsolete messages
+
+        # Do not gather obsolete messages.
+        if msg.obsolete:
             continue
 
-        # Merge in first summit catalog that has this message.
-        pos_merged = None
-        for summit_cat in summit_cats:
-            if msg in summit_cat:
-                # Collect the data for heuristic insertion according
-                # to the first merge.
-                if pos_merged is None:
-                    last_merge_pos = pos_merged
-                    last_merge_summit_cat = summit_cat
-
-                # Merge the message.
-                pos_merged = summit_cat.add(msg)
-
-                # Possibly update automatic comments.
-                if summit_cat.filename not in primary_sourced:
-                    primary_sourced[summit_cat.filename] = {}
-                summit_override_auto(summit_cat[pos_merged], msg, branch_id,
-                                     primary_sourced[summit_cat.filename])
-
-                # Equip any new summit tags to the merged message.
-                summit_add_tags(summit_cat[pos_merged], branch_id, project)
-
+        # Do not gather messages belonging to preceding summit catalogs.
+        in_pre = False
+        for pre_summit_cat in pre_summit_cats:
+            if msg in pre_summit_cat:
+                in_pre = True
                 break
+        if in_pre:
+            continue
 
-        # If the message has not been merged anywhere, collect for insertion.
-        # Also collect the catalog/position of the latest message merge,
-        # needed later for heuristic insertion.
-        if pos_merged is None:
-            if last_merge_pos is not None:
-                to_insert.append((msg, last_merge_summit_cat, last_merge_pos))
-            else:
-                to_insert.append((msg, summit_cats[0], -1))
+        # Merge the branch message or collect for insertion.
+        if msg in summit_cat:
+            # Merge the message.
+            pos_merged = summit_cat.add(msg)
+
+            # Update automatic comments.
+            summit_override_auto(summit_cat[pos_merged], msg, branch_id,
+                                 is_primary)
+
+            # Equip any new summit tags to the merged message.
+            summit_add_tags(summit_cat[pos_merged], branch_id, project)
+        else:
+            msgs_to_insert.append(msg)
 
     # If there are any messages awaiting insertion, collect possible source
-    # file synonyms across all contributing branch catalogs per summit catalog.
-    if to_insert:
-        summit_cats_fnsyns = []
-        for summit_cat in summit_cats:
-            bpaths = []
-            for bid in project.full_inverse_map[summit_cat.name]:
-                for bname in project.full_inverse_map[summit_cat.name][bid]:
-                    for bpath, bdir in project.catalogs[bid][bname]:
-                        if bpath not in bpaths + [branch_cat.filename]:
-                            bpaths.append(bpath)
-            bcats = [Catalog(x, monitored=False) for x in bpaths]
-            fnsyn = fuzzy_match_source_files(branch_cat, bcats)
-            summit_cats_fnsyns.append((summit_cat, fnsyn))
+    # file synonyms to those in the summit catalog.
+    if msgs_to_insert:
+        fnsyn = fuzzy_match_source_files(branch_cat, [summit_cat])
 
     # Go through messages collected for insertion and heuristically insert.
-    for msg, last_merge_summit_cat, last_merge_pos in to_insert:
-        # Decide in which catalog to insert by the highest greater than zero
-        # belonging weight.
-        # If no weight greater than zero, default to the same catalog as
-        # the last merged message prior to this and after its positon.
-        summit_cat_selected = last_merge_summit_cat
-        pos_selected = last_merge_pos
-        weight_best = 0.0
-        for summit_cat, fnsyn in summit_cats_fnsyns:
-            # Skip the catalog if it has been newly created
-            # (to speed up things, could check anyway).
-            if summit_cat.created():
-                continue
-
+    for msg in msgs_to_insert:
+        # Avoid expensive heuristic insertion if the summit catalog is
+        # newly created and this is the primary branch catalog.
+        if summit_cat.created() and is_primary:
+            pos = -1
+        else:
             pos, weight = summit_cat.insertion_inquiry(msg, fnsyn)
-            if weight > weight_best:
-                weight_best = weight
-                summit_cat_selected = summit_cat
-                pos_selected = pos
-
-        if msg in summit_cat_selected:
-            error("internal: existing message in insertion pass")
-
         # Insert the message; the true position is reported back.
-        pos_added = summit_cat_selected.add(msg, pos=pos_selected)
+        pos_added = summit_cat.add(msg, pos)
 
         # Equip summit tags to the added message.
-        summit_add_tags(summit_cat_selected[pos_added], branch_id, project)
+        summit_add_tags(summit_cat[pos_added], branch_id, project)
 
 
-    # Update headers of summit catalogs.
-    for summit_cat in summit_cats:
-        if not summit_cat.header.author and branch_cat.header.author:
-            # Copy the complete branch header if it has an author and
-            # the summit header misses an author.
-            # FIXME: Actually, this is an attempt to determine if the
-            # header is still uninitialized; do something more clever.
-            summit_cat.header = branch_cat.header
-        else:
-            # Copy header elements piecewise.
+def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
+                                 project, options):
 
-            # Determine if this is the primary primary branch catalog for
-            # this summit catalog.
-            src_bids = project.full_inverse_map[summit_cat.name].keys()
-            prim_branch = False
-            for bid in project.branch_ids:
-                if bid in src_bids:
-                    prim_branch = (bid == branch_id)
-                    break
+    # If the summit catalog was just created, initialize the summit header
+    # by copying it from the primary branch catalog.
+    if summit_cat.created():
+        summit_cat.header = prim_branch_cat.header
 
-            # Copy over some fields if this is the primary branch catalog
-            # and the summit catalog was otherwise modified.
-            if prim_branch and summit_cat.modcount:
-                fname = u"POT-Creation-Date"
-                fval = branch_cat.header.get_field_value(fname)
-                if fval:
-                    summit_cat.header.set_field(fname, fval)
+    # Copy over some fields from the primary branch catalog
+    # if the summit catalog was otherwise modified.
+    if summit_cat.modcount:
+        fname = u"POT-Creation-Date"
+        fval = prim_branch_cat.header.get_field_value(fname)
+        if fval:
+            summit_cat.header.set_field(fname, fval)
 
-            # Copy over some fields unconditionally if this is the primary
-            # branch catalog.
-            if prim_branch:
-                fname = u"Report-Msgid-Bugs-To"
-                fval = branch_cat.header.get_field_value(fname)
-                if fval:
-                    summit_cat.header.set_field(fname, fval)
+    # Copy over some fields unconditionally from the primary branch catalog.
+    fname = u"Report-Msgid-Bugs-To"
+    fval = prim_branch_cat.header.get_field_value(fname)
+    if fval:
+        summit_cat.header.set_field(fname, fval)
 
-            # Copy over fields from the primary branch catalog as requested.
-            if prim_branch:
-                bfields = []
-                for fname in project.header_propagate_fields_primary:
-                    bfields.extend(branch_cat.header.select_fields(fname))
-                cfields = []
-                for fname in project.header_propagate_fields_primary:
-                    cfields.extend(summit_cat.header.select_fields(fname))
-                # Replace old with new set if not equal.
-                if bfields != cfields:
-                    for cfield in cfields:
-                        summit_cat.header.field.remove(cfield)
-                    for bfield in bfields:
-                        summit_cat.header.field.append(bfield)
+    # Copy over fields from the primary branch catalog as requested.
+    bfields = []
+    for fname in project.header_propagate_fields_primary:
+        bfields.extend(prim_branch_cat.header.select_fields(fname))
+    cfields = []
+    for fname in project.header_propagate_fields_primary:
+        cfields.extend(summit_cat.header.select_fields(fname))
+    # Replace old with new set if not equal.
+    if bfields != cfields:
+        for cfield in cfields:
+            summit_cat.header.field.remove(cfield)
+        for bfield in bfields:
+            summit_cat.header.field.append(bfield)
 
-            # Sum requested fields: take the field from each branch header
-            # and add it with the same name (i.e. there will be multiple
-            # same-named fields in the summit header), but change their
-            # values to embed respective branch id:
+    # Sum requested fields: take the field from each branch header
+    # and add it with the same name (i.e. there will be multiple
+    # same-named fields in the summit header), but change their
+    # values to embed respective branch id:
+    for branch_id, branch_cat in branch_ids_cats:
 
-            # - construct new fields with this branch id from branch catalog,
-            cfields_new = []
-            for fname in project.header_propagate_fields_summed:
-                for field in branch_cat.header.select_fields(fname):
-                    cvalue = u"%s ~~ %s" % (field[1], branch_id)
-                    cfields_new.append(Monpair(field[0], cvalue))
+        # - construct new fields with this branch id from branch catalog,
+        cfields_new = []
+        for fname in project.header_propagate_fields_summed:
+            for field in branch_cat.header.select_fields(fname):
+                cvalue = u"%s ~~ %s" % (field[1], branch_id)
+                cfields_new.append(Monpair(field[0], cvalue))
 
-            # - collect old fields with this branch id from summit catalog,
-            cfields_old = []
-            for fname in project.header_propagate_fields_summed:
-                for field in summit_cat.header.select_fields(fname):
-                    m = re.search(r"~~ *(.*?) *$", field[1])
-                    if m and m.group(1) == branch_id:
-                        cfields_old.append(field)
-                    elif not m:
-                        # Remove such fields not associated with any branch.
-                        summit_cat.header.field.remove(field)
-
-            # - replace old with new sequence if not equal.
-            if cfields_old != cfields_new:
-                for field in cfields_old:
+        # - collect old fields with this branch id from summit catalog,
+        cfields_old = []
+        for fname in project.header_propagate_fields_summed:
+            for field in summit_cat.header.select_fields(fname):
+                m = re.search(r"~~ *(.*?) *$", field[1])
+                if m and m.group(1) == branch_id:
+                    cfields_old.append(field)
+                elif not m:
+                    # Remove such fields not associated with any branch.
                     summit_cat.header.field.remove(field)
-                for field in cfields_new:
-                    summit_cat.header.field.append(field)
 
-    # Commit changes to summit catalogs.
-    for summit_cat in summit_cats:
-
-        # Apply hooks to the summit catalog.
-        exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_cat,
-                      project.hook_on_gather_cat)
-
-        created = summit_cat.created() # lost on sync, preserve
-        if summit_cat.sync():
-
-            # Apply hooks to summit catalog file.
-            exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
-                           project.hook_on_gather_file)
-
-            # Add to version control if new file.
-            if created and project.vcs:
-                if not project.vcs.add(summit_cat.filename):
-                    warning(  "cannot add '%s' to version control"
-                            % summit_cat.filename)
-
-            if options.verbose:
-                if created:
-                    print "+>   (gathered-added) %s  %s" % (branch_cat.filename,
-                                                            summit_cat.filename)
-                else:
-                    print ">    (gathered) %s  %s" % (branch_cat.filename,
-                                                      summit_cat.filename)
-            else:
-                if created:
-                    print "+>   %s  %s" % (branch_cat.filename,
-                                           summit_cat.filename)
-                else:
-                    print ">    %s  %s" % (branch_cat.filename,
-                                           summit_cat.filename)
+        # - replace old with new sequence if not equal.
+        if cfields_old != cfields_new:
+            for field in cfields_old:
+                summit_cat.header.field.remove(field)
+            for field in cfields_new:
+                summit_cat.header.field.append(field)
 
 
-def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
-                          project, options):
+def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
+                           project, options):
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = get_wrap_func(project.branches_unwrap, project.branches_split_tags)
@@ -1213,7 +1162,7 @@ def summit_scatter_merge (branch_id, branch_name, branch_path, summit_paths,
                 warning(  "cannot add '%s' to version control"
                         % branch_cat.filename)
 
-        paths_str = ", ".join(summit_paths)
+        paths_str = " ".join(summit_paths)
         if options.verbose:
             if new_from_template:
                 print "+<   (scattered-added) %s  %s" % (branch_cat.filename,
@@ -1365,224 +1314,44 @@ def summit_add_tags (msg, branch_id, project):
                            " ".join(ordered_branch_ids))
 
 
-def summit_override_auto (summit_msg, branch_msg, branch_id, primary_sourced):
-
-    branch_ids = get_summit_comment(summit_msg, _summit_tag_branchid).split()
+def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
 
     # Copy auto/source/flag comments only if this is the primary branch
     # for the current message.
-    if not branch_ids or branch_id == branch_ids[0]:
-        if summit_msg.key not in primary_sourced:
-            # This is the primary branch message for the summit message.
+    if is_primary:
 
-            # Equalize flags, except the fuzzy.
-            for fl in branch_msg.flag:
-                if fl != "fuzzy":
-                    summit_msg.flag.add(fl)
-            for fl in summit_msg.flag:
-                if fl != "fuzzy" and fl not in branch_msg.flag:
-                    summit_msg.flag.remove(fl)
+        # Equalize flags, except the fuzzy.
+        for fl in branch_msg.flag:
+            if fl != "fuzzy":
+                summit_msg.flag.add(fl)
+        for fl in summit_msg.flag:
+            if fl != "fuzzy" and fl not in branch_msg.flag:
+                summit_msg.flag.remove(fl)
 
-            # Equalize source references.
-            # FIXME: Once there is a way to reliably tell the root directory
-            # of source references, add missing and remove obsolete source
-            # references instead.
-            summit_msg.source = Monlist([Monpair(x, y)
-                                         for x, y in branch_msg.source])
+        # Equalize source references.
+        # FIXME: Once there is a way to reliably tell the root directory
+        # of source references, add missing and remove obsolete source
+        # references instead.
+        summit_msg.source = Monlist([Monpair(x, y)
+                                        for x, y in branch_msg.source])
 
-            # Split auto comments of the current summit message into
-            # summit and non-summit tagged comments.
-            non_summit_comments = []
-            summit_comments = []
-            for comment in summit_msg.auto_comment:
-                wlst = comment.split()
-                if wlst and wlst[0] in _summit_tags:
-                    summit_comments.append(comment)
-                else:
-                    non_summit_comments.append(comment)
-
-            # Copy auto comments only if non-summit auto comments of the
-            # current summit message are different to the branch message
-            # auto comments.
-            if non_summit_comments != branch_msg.auto_comment:
-                summit_msg.auto_comment = Monlist(branch_msg.auto_comment)
-                summit_msg.auto_comment.extend(summit_comments)
-
-            primary_sourced[summit_msg.key] = True
-
-        else:
-            # Secondary source message for the summit message.
-            # FIXME: Once there is a way to reliably tell the root directory
-            # of source references, add missing and remove obsolete source
-            # references instead.
-            # FIXME: Should this else branch be one level out?
-            pass
-
-
-def summit_purge_single (summit_name, project, options):
-
-    # Decide on wrapping function for message fields in the summit.
-    wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
-
-    # Open the summit catalog and all dependent branch catalogs.
-    # For each branch catalog, also open any other dependent summit
-    # catalogs preceeding the current.
-    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
-    summit_cat = Catalog(summit_path, wrapf=wrapf)
-    branch_cats = {}
-    for branch_id in project.full_inverse_map[summit_name]:
-        branch_cats[branch_id] = []
-        for branch_name in project.full_inverse_map[summit_name][branch_id]:
-
-            # Dependent summit catalogs preceeding the current.
-            pre_dep_summit_cats = []
-            for dep_summit_name in project.direct_map[branch_id][branch_name]:
-                if dep_summit_name == summit_name:
-                    break
-                dep_summit_path = \
-                    project.catalogs[SUMMIT_ID][dep_summit_name][0][0]
-                dep_summit_cat = Catalog(dep_summit_path, monitored=False)
-                pre_dep_summit_cats.append(dep_summit_cat)
-
-            # All branch catalogs of this name, link to same dependent summit.
-            for path, subdir in project.catalogs[branch_id][branch_name]:
-                branch_cat = Catalog(path, monitored=False)
-                branch_cats[branch_id].append((branch_cat, pre_dep_summit_cats))
-
-    # For each message in the summit catalog, check for its presence in
-    # branch catalogs (consider only non-obsolete messages), but no presence
-    # in any of the preceeding summit catalogs;
-    # update branch IDs, or remove the message if none remaining.
-    for summit_msg in summit_cat:
-        branch_ids = get_summit_comment(summit_msg,
-                                        _summit_tag_branchid).split()
-        valid_branch_ids = []
-        for branch_id in branch_ids:
-            if branch_id in branch_cats:
-                for branch_cat, pre_dep_summit_cats in branch_cats[branch_id]:
-                    if (    summit_msg in branch_cat
-                        and not branch_cat[summit_msg].obsolete
-                    ):
-                        in_prev = False
-                        for dep_summit_cat in pre_dep_summit_cats:
-                            if summit_msg in dep_summit_cat:
-                                in_prev = True
-                                break
-                        if not in_prev:
-                            valid_branch_ids.append(branch_id)
-                            break
-
-        if valid_branch_ids:
-            set_summit_comment(summit_msg, _summit_tag_branchid,
-                               " ".join(valid_branch_ids))
-            # If the primary branch has changed, update other message data too.
-            prim_branch_id = valid_branch_ids[0]
-            if branch_ids[0] != prim_branch_id:
-                # Update from the first sourced catalog in primary branch.
-                for branch_cat, dummy in branch_cats[prim_branch_id]:
-                    if summit_msg in branch_cat:
-                        summit_override_auto(summit_msg,
-                                             branch_cat[summit_msg],
-                                             prim_branch_id, {})
-                        break
-        else:
-            summit_cat.remove_on_sync(summit_msg)
-
-    # Sync to disk, remove afterwards if empty.
-    if summit_cat.sync():
-        if len(summit_cat) > 0:
-            if options.verbose:
-                print "!    (purged) %s" % summit_cat.filename
+        # Split auto comments of the current summit message into
+        # summit and non-summit tagged comments.
+        non_summit_comments = []
+        summit_comments = []
+        for comment in summit_msg.auto_comment:
+            wlst = comment.split()
+            if wlst and wlst[0] in _summit_tags:
+                summit_comments.append(comment)
             else:
-                print "!    %s" % summit_cat.filename
-        else:
-            os.remove(summit_cat.filename)
-            if options.verbose:
-                print "-    (removed) %s" % summit_cat.filename
-            else:
-                print "-    %s" % summit_cat.filename
-            if project.vcs:
-                if not project.vcs.remove(summit_cat.filename):
-                    warning(  "cannot remove '%s' from version control"
-                            % summit_cat.filename)
+                non_summit_comments.append(comment)
 
-
-def summit_reorder_single (summit_name, project, options):
-
-    # Decide on wrapping function for message fields in the summit.
-    wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
-
-    # Open the summit catalog.
-    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
-    summit_cat = Catalog(summit_path, wrapf=wrapf)
-
-    # Open the dependent branch catalogs by priority of branches,
-    # and sorted by path within one branch.
-    branch_cats = []
-    for branch_id in project.branch_ids:
-        full_inv_map = project.full_inverse_map[summit_name]
-        if branch_id in full_inv_map:
-            branch_paths = []
-            for branch_name in full_inv_map[branch_id]:
-                for path, subdir in project.catalogs[branch_id][branch_name]:
-                    branch_paths.append(path)
-            branch_paths.sort()
-            branch_cats.extend([Catalog(x) for x in branch_paths])
-    if branch_cats is None:
-        error("internal: cannot find branch catalogs for reordering")
-
-    # Open a fresh catalog with empty path and copy the original header.
-    fresh_cat = Catalog("", create=True, wrapf=wrapf)
-    fresh_cat.header = summit_cat.header
-
-    # Go through all branch catalogs which were selected by priority of
-    # branches and sorted within branch; at each catalog, go through its
-    # messages in order, and insert the matching summit message to the
-    # fresh catalog, when not already in it.
-    for branch_cat in branch_cats:
-        # Collect possible source file synonyms.
-        fnsyn = fuzzy_match_source_files(branch_cat, branch_cats)
-
-        for branch_msg in branch_cat:
-            if branch_msg.obsolete: # skip obsolete messages in branch
-                continue
-            # NOTE: Not every branch message must be present in this
-            # summit catalog: branch catalog may be spread across several
-            # other summit catalogs.
-            old_pos = summit_cat.find(branch_msg)
-            if old_pos >= 0:
-                summit_msg = summit_cat[old_pos]
-                if branch_cat is branch_cats[0]:
-                    # The message is from the primary branch catalog,
-                    # just append it to the fresh catalog.
-                    fresh_cat.add(summit_msg, -1)
-                elif fresh_cat.find(branch_msg) < 0:
-                    # The message is from one of the secondary branch catalogs,
-                    # and not yet inserted. Try to heuristically find nice
-                    # insertion position, according to source references.
-                    pos, weight = fresh_cat.insertion_inquiry(branch_msg, fnsyn)
-                    fresh_cat.add(summit_msg, pos)
-
-    # Finally reinsert messages not present in any branch catalog
-    # (may happen if the summit wasn't purged before reordering).
-    for msg in summit_cat:
-        if fresh_cat.find(msg) < 0:
-            fresh_cat.add(msg)
-
-    # Check if the order has actually changed.
-    reordered = False
-    for pos in range(len(summit_cat)):
-        if pos != fresh_cat.find(summit_cat[pos]):
-            reordered = True
-            break
-
-    # Assign the summit path to the fresh catalog and sync if needed.
-    fresh_cat.filename = summit_path
-    if reordered and fresh_cat.sync():
-        if options.verbose:
-            print "!    (reordered) %s" % fresh_cat.filename
-        else:
-            print "!    %s" % fresh_cat.filename
+        # Copy auto comments only if non-summit auto comments of the
+        # current summit message are different to the branch message
+        # auto comments.
+        if non_summit_comments != branch_msg.auto_comment:
+            summit_msg.auto_comment = Monlist(branch_msg.auto_comment)
+            summit_msg.auto_comment.extend(summit_comments)
 
 
 def summit_merge_single (branch_id, catalog_path, template_path,
