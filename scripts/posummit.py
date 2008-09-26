@@ -394,16 +394,19 @@ def derive_project_data (project, options):
                     summit_path = os.path.join(p.summit.topdir, summit_subdir,
                                                summit_name + options.catext)
 
-                    # Allow missing summit catalog only if the first mode
-                    # is gather, and creation is enabled.
-                    if options.modes[0] != "gather" or not options.do_create:
-                        error("missing summit catalog '%s' for branch "
-                              "catalog '%s'" % (summit_path, branch_path))
+                    # Add missing summit catalog if the mode is gather
+                    # and creation is enabled.
+                    # Abort on missing summit catalog if the mode is gather
+                    # and creation is not enabled.
+                    if "gather" in options.modes:
+                        if not options.do_create:
+                            error("missing summit catalog '%s' for branch "
+                                  "catalog '%s'" % (summit_path, branch_path))
 
-                    # Add summit catalog into list of existing catalogs;
-                    # it will be created for real on gather.
-                    p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
-                                                           summit_subdir)]
+                        # Add summit catalog into list of existing catalogs;
+                        # it will be created for real on gather.
+                        p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
+                                                               summit_subdir)]
 
     # Initialize inverse mappings.
     # - part inverse:
