@@ -9,6 +9,8 @@ Splitting message fields into syntactical elements.
 
 import re
 
+from pology.misc.resolve import remove_accelerator
+
 
 _split_rx = re.compile(r"[^\w]+|\w+", re.U)
 _split_rx_markup = re.compile(r"[^\w]*(<.*?>|&[\w.:-]+;|&#x?\d+;)[^\w<&]*"
@@ -193,9 +195,8 @@ def proper_words (text, markup=False, accels=[], format=None):
     for rem_rx, sub in _remove_rxs:
         text = rem_rx.sub(sub, text)
 
-    # Remove accelerators (must come after other replacements.
-    for accel in accels:
-        text = text.replace(accel, "")
+    # Remove accelerators (must come after other replacements).
+    text = remove_accelerator(text, accels, greedy=True)
 
     rwords = split_text(text)[0]
     words = [x for x in rwords if _word_ok_rx.search(x)]
