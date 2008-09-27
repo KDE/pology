@@ -18,9 +18,45 @@ _usual_accels = list("_&~^")
 
 def _rem_in_text (text, accels):
 
-    if accels:
-        for accel in accels:
-            text = text.replace(accel, "", 1)
+    if not accels: # may be None
+        return text
+
+    for accel in accels:
+        alen = len(accel)
+        p = 0
+        while True:
+            p = text.find(accel, p)
+            if p < 0:
+                break
+
+            if text[p + alen:p + alen + 1].isalnum():
+                # Valid accelerator.
+                text = text[:p] + text[p + alen:]
+
+                # May have been an accelerator in style of
+                # "(<marker><alnum>)" at the start or end of text.
+                if (text[p - 1:p] == "(" and text[p + 1:p + 2] == ")"):
+                    # Check if at start or end, ignoring spaces.
+                    tlen = len(text)
+                    p1 = p - 2
+                    while p1 >= 0 and text[p1] == " ":
+                        p1 -= 1
+                    p1 += 1
+                    p2 = p + 2
+                    while p2 < tlen and text[p2] == " ":
+                        p2 += 1
+                    p2 -= 1
+                    if p1 == 0 or p2 + 1 == tlen:
+                        text = text[:p1] + text[p2 + 1:]
+
+                # Remove only one accelerator marker.
+                break
+
+            if text[p + alen:p + 2 * alen] == accel:
+                # Escaped accelerator marker.
+                text = text[:p] + text[p + alen:]
+
+            p += alen
 
     return text
 
