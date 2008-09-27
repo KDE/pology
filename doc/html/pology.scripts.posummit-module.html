@@ -201,40 +201,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="summit_purge"></a><span class="summary-sig-name">summit_purge</span>(<span class="summary-sig-arg">project</span>,
-        <span class="summary-sig-arg">options</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="summit_reorder"></a><span class="summary-sig-name">summit_reorder</span>(<span class="summary-sig-arg">project</span>,
-        <span class="summary-sig-arg">options</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="summit_merge"></a><span class="summary-sig-name">summit_merge</span>(<span class="summary-sig-arg">project</span>,
         <span class="summary-sig-arg">options</span>)</span></td>
           <td align="right" valign="top">
@@ -305,32 +271,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="add_summit_catalog_implicit"></a><span class="summary-sig-name">add_summit_catalog_implicit</span>(<span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">subdir</span>,
-        <span class="summary-sig-arg">branch_id</span>,
-        <span class="summary-sig-arg">project</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="summit_gather_merge"></a><span class="summary-sig-name">summit_gather_merge</span>(<span class="summary-sig-arg">branch_id</span>,
-        <span class="summary-sig-arg">branch_path</span>,
-        <span class="summary-sig-arg">summit_paths</span>,
+          <td><span class="summary-sig"><a name="summit_gather_single"></a><span class="summary-sig-name">summit_gather_single</span>(<span class="summary-sig-arg">summit_name</span>,
         <span class="summary-sig-arg">project</span>,
-        <span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">primary_sourced</span>)</span></td>
+        <span class="summary-sig-arg">options</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -346,7 +289,49 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="summit_scatter_merge"></a><span class="summary-sig-name">summit_scatter_merge</span>(<span class="summary-sig-arg">branch_id</span>,
+          <td><span class="summary-sig"><a name="summit_gather_single_bcat"></a><span class="summary-sig-name">summit_gather_single_bcat</span>(<span class="summary-sig-arg">branch_id</span>,
+        <span class="summary-sig-arg">branch_cat</span>,
+        <span class="summary-sig-arg">summit_cat</span>,
+        <span class="summary-sig-arg">pre_summit_cats</span>,
+        <span class="summary-sig-arg">is_primary</span>,
+        <span class="summary-sig-arg">project</span>,
+        <span class="summary-sig-arg">options</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="summit_gather_single_header"></a><span class="summary-sig-name">summit_gather_single_header</span>(<span class="summary-sig-arg">summit_cat</span>,
+        <span class="summary-sig-arg">prim_branch_cat</span>,
+        <span class="summary-sig-arg">branch_ids_cats</span>,
+        <span class="summary-sig-arg">project</span>,
+        <span class="summary-sig-arg">options</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="summit_scatter_single"></a><span class="summary-sig-name">summit_scatter_single</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
         <span class="summary-sig-arg">branch_path</span>,
         <span class="summary-sig-arg">summit_paths</span>,
@@ -552,43 +537,7 @@
           <td><span class="summary-sig"><a name="summit_override_auto"></a><span class="summary-sig-name">summit_override_auto</span>(<span class="summary-sig-arg">summit_msg</span>,
         <span class="summary-sig-arg">branch_msg</span>,
         <span class="summary-sig-arg">branch_id</span>,
-        <span class="summary-sig-arg">primary_sourced</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="summit_purge_single"></a><span class="summary-sig-name">summit_purge_single</span>(<span class="summary-sig-arg">summit_name</span>,
-        <span class="summary-sig-arg">project</span>,
-        <span class="summary-sig-arg">options</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="summit_reorder_single"></a><span class="summary-sig-name">summit_reorder_single</span>(<span class="summary-sig-arg">summit_name</span>,
-        <span class="summary-sig-arg">project</span>,
-        <span class="summary-sig-arg">options</span>)</span></td>
+        <span class="summary-sig-arg">is_primary</span>)</span></td>
           <td align="right" valign="top">
             
             

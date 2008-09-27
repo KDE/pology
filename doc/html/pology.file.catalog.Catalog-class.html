@@ -136,7 +136,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x91cf614&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa05702c&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
@@ -544,7 +544,25 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#language" class="summary-sig-name">language</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Report language of the catalog, if available.</td>
+      Report language of the translation.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_language" class="summary-sig-name">set_language</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">lang</span>)</span><br />
+      Set language of the translation.</td>
           <td align="right" valign="top">
             
             
@@ -649,7 +667,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x91cf614&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa05702c&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
@@ -1394,15 +1412,53 @@
     </td>
   </tr></table>
   
-  <p>Report language of the catalog, if available.</p>
-  <p>The language is extracted from the <code>Language</code> field in the 
-  header. If this field is present, it should contain the language code in 
-  line with GNU C library locales. E.g. <code>pt</code> for Portuguese, or 
+  <p>Report language of the translation.</p>
+  <p>Language is determined by looking for the <code>Language</code> header
+  field. If this field is present, it should contain the language code in 
+  line with GNU C library locales, e.g. <code>pt</code> for Portuguese, or 
   <code>pt_BR</code> for Brazilian Portuguese. If the field is not present,
-  <code>None</code> is reported.</p>
+  language is considered undetermined, and <code>None</code> is 
+  returned.</p>
+  <p>It is not defined when the header will be examined, or if it will be 
+  reexamined when it changes (most probably not). If you want to set 
+  language after the catalog has been opened, use <a 
+  href="pology.file.catalog.Catalog-class.html#set_language" 
+  class="link">set_language</a> method.</p>
   <dl class="fields">
     <dt>Returns: string or <code>None</code></dt>
         <dd>language code</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_language"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_language</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">lang</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set language of the translation.</p>
+  <p>Language set by this method will later be readable by the <a 
+  href="pology.file.catalog.Catalog-class.html#language" 
+  class="link">language</a> method. This will not modify the catalog header
+  in any way; if that is desired, it must be done manually by manipulating 
+  the header fields.</p>
+  <p>If <code>lang</code> is given as <code>None</code>, it means the 
+  language is undetermined. If it is given as empty string, it means the 
+  language is deliberately considered unknown.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lang</code></strong> (string or <code>None</code>) - language code</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>

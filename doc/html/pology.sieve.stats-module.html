@@ -110,11 +110,11 @@
     </li>
   </ul>
   <p>The accelerator characters should be removed from the messages before 
-  counting, in order not to introduce word splits where there are none. The
-  sieve will try to guess the accelerator if <code>accel</code> option is 
-  not given, and if doesn't find one, it will remove the characteres most 
-  usually used for this purpose (<code>&amp;</code>, <code>_</code>, 
-  <code>~</code>).</p>
+  counting, in order not to introduce word splits where there are none. If 
+  accelerator character is not given by <code>accel</code> option, the 
+  sieve will try to guess the accelerator; it may choose wrongly or decide 
+  that there are no accelerators. E.g. an <code>X-Accelerator-Marker</code>
+  header field is checked for the accelerator character.</p>
   <p>If there exists both the directory with translated POs and with 
   template POTs, using the <code>templates</code> option the sieve can be 
   instructed to count POTs with no same-named PO counterpart as fully 
@@ -279,7 +279,7 @@
     in the following way:</p>
     <ul>
       <li>
-        accelerator markers, if defined, are removed
+        accelerator marker, if defined, is removed
       </li>
       <li>
         XML-like markup is eliminated (<code>&lt;...&gt;</code>)

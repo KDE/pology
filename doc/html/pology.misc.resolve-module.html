@@ -278,6 +278,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#remove_accelerator" class="summary-sig-name">remove_accelerator</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">accels</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">greedy</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Remove accelerator from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -700,6 +719,52 @@
         <li><strong class="pname"><code>varmap</code></strong> ((name, value) dictionary) - mapping of variable names to values</li>
         <li><strong class="pname"><code>head</code></strong> (string) - opening sequence for expansion directive</li>
     </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_accelerator"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accelerator</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">accels</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">greedy</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove accelerator from the text.</p>
+  <p>Accelerator markers are characters which determine which letter in the
+  text will be used as keyboard accelerator in user interface. They are 
+  usually a single non-alphanumeric character, and inserted before the 
+  letter which should be the accelerator, e.g. <code>&quot;Foo 
+  &amp;Bar&quot;</code>, <code>&quot;Foo _Bar&quot;</code>, etc. Sometimes,
+  especially in CJK texts, accelerator letter is separated out in 
+  parenthesis, at the start or end of the text, such as <code>&quot;Foo Bar
+  (&amp;B)&quot;</code>.</p>
+  <p>This function will try to remove the accelerator in a smart way. E.g. 
+  it will ignore ampersand in <code>&quot;Foo &amp; Bar&quot;</code>, and 
+  completely remove a CJK-style accelerator.</p>
+  <p>If <code>accels</code> is <code>None</code>, the behavior depends on 
+  the value of <code>greedy</code>. If it is <code>False</code>, text is 
+  removed as is. If it is <code>True</code>, some usual accelerator markers
+  are considered: <code>_</code>, <code>&amp;</code>, <code>~</code>, and 
+  <code>^</code>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to clear of the accelerator</li>
+        <li><strong class="pname"><code>accels</code></strong> (sequence of strings or <code>None</code>) - possible accelerator markers</li>
+        <li><strong class="pname"><code>greedy</code></strong> (bool) - whether to try known markers if <code>accels</code> is 
+          <code>None</code></li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without the accelerator</dd>
   </dl>
 </td></tr></table>
 </div>
