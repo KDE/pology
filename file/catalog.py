@@ -498,6 +498,10 @@ class Catalog (Monitored):
         # Cached plural definition from the header.
         self._plustr = ""
 
+        # Cached language of the translation.
+        # None means the language has not been determined.
+        self._lang = None
+
         # Cached accelerator markers.
         # None means the accelerator markers have not been determined,
         # empty means there are none.
@@ -1356,17 +1360,30 @@ class Catalog (Monitored):
 
     def language (self):
         """
-        Report language of the catalog, if available.
+        Report language of the translation.
 
-        The language is extracted from the C{Language} field in the header.
+        Language is determined by looking for the C{Language} header field.
         If this field is present, it should contain the language code
-        in line with GNU C library locales.
-        E.g. C{pt} for Portuguese, or C{pt_BR} for Brazilian Portuguese.
-        If the field is not present, C{None} is reported.
+        in line with GNU C library locales, e.g. C{pt} for Portuguese,
+        or C{pt_BR} for Brazilian Portuguese.
+        If the field is not present, language is considered undetermined,
+        and C{None} is returned.
+
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes (most probably not).
+        If you want to set language after the catalog has been
+        opened, use L{set_language} method.
+
+        @returns: language code
+        @rtype: string or C{None}
 
         @returns: language code
         @rtype: string or C{None}
         """
+
+        # Check if language has already been determined.
+        if self._lang is not None:
+            return self._lang
 
         lang = None
 
@@ -1374,5 +1391,29 @@ class Catalog (Monitored):
         if fval:
             lang = fval.strip()
 
+        self._lang = lang
         return lang
+
+
+    def set_language (self, lang):
+        """
+        Set language of the translation.
+
+        Language set by this method will later be readable by
+        the L{language} method. This will not modify the catalog header
+        in any way; if that is desired, it must be done manually by
+        manipulating the header fields.
+
+        If C{lang} is given as C{None}, it means the language is undetermined.
+        If it is given as empty string, it means the language is deliberately
+        considered unknown.
+
+        @param lang: language code
+        @type lang: string or C{None}
+        """
+
+        if lang is not None:
+            self._lang = unicode(lang)
+        else:
+            self._lang = None
 
