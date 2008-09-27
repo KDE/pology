@@ -26,20 +26,20 @@ id="hankaku5"
 hint="半角のスペースを使ってください。"
 
 [\d ?進]
-hint="漢数字を使ってください (十進数)"
+hint="漢数字を使ってください [十進数]"
 valid before="行|捗"
 
 [\d ?次]
-hint="漢数字を使ってください (二次曲線)"
+hint="漢数字を使ってください [二次曲線]"
 
 [\d ?角]
-hint="漢数字を使ってください (三角形)"
+hint="漢数字を使ってください [三角形]"
 
 [\d ?面体]
-hint="漢数字を使ってください (正四面体)"
+hint="漢数字を使ってください [正四面体]"
 
 [従って]
-hint="したがって (副詞の場合はかな書き)"
+hint="したがって [副詞の場合はかな書き]"
 valid after="に"
 
 [全て]
@@ -102,27 +102,27 @@ hint="すなわち"
 hint="また"
 
 [及び]
-hint="および (接続詞の場合はかな書き)"
+hint="および [接続詞の場合はかな書き]"
 valid before="ま"
-valid after="ダードラー" before="ナガル" cat="kgeography"
+valid ctx="kgm"
 
 [下さい]
-hint="ください (補助動詞)"
+hint="ください [補助動詞]"
 
 [出来]
-hint="でき (ます、ません)"
+hint="できます、できません"
 valid !before="[るれまなず]"
 
 [頂]
-hint="いただ (く) (補助動詞の場合)"
+hint="いただく [補助動詞]"
 valid !before="[かきくけこ]"
 
 [易]
-hint="やす (い)"
+hint="やすい"
 valid !before="[かくいけ]"
 
 [難]
-hint="にく (い)"
+hint="にくい"
 valid !before="[かくいけ]"
 
 [無]
@@ -140,7 +140,7 @@ valid before="し|[一-龠]"
 
 [位]
 id="kurai"
-hint="くらい、ぐらい (助詞)"
+hint="くらい、ぐらい [助詞]"
 valid before="[一-龠]"
 valid after="[単上下測方変順水の]"
 
@@ -161,7 +161,7 @@ valid !before="[なにでだ]"
 
 [通り]
 id="tori1"
-hint="以下のとおり、予定どおり (cf. 何通り)"
+hint="以下のとおり、予定どおり [cf. 何通り]"
 valid before="道"
 valid !after="の|(文字|言葉|見かけ|型|時間|期日|予定|計画|約束|スケジュール|約束|設定|計設計|仕様|規格|規定|指定|サイズ|思い|好み|予想|予測|想像|期待|希望|要求|思わく|指示|命令|説明|指摘|通常|平常|従来|前回|元|いつも|今まで|これまで)の?"
 
@@ -170,24 +170,24 @@ hint="ため"
 valid after="人"
 
 [塞]
-hint="ふさ (ぐ)"
+hint="ふさぐ [訓読みの場合はかな書き]"
 valid after="要"
 valid !before="[がぎぐげご]"
 
 [歪]
-hint="ゆが (む) (訓読みの場合はかな書き)"
+hint="ゆがむ [訓読みの場合はかな書き]"
 valid before="[度曲]"
 
 [畳]
-hint="たた (む)"
+hint="たたむ"
 valid !before="[まみむめも]"
 
 [貰]
-hint="もら (う)"
+hint="もらう"
 valid !before="[わいうえおっ]"
 
 [晒]
-hint="さら (す)"
+hint="さらす"
 
 [栞]
 hint="しおり"
@@ -196,24 +196,24 @@ hint="しおり"
 hint="はず"
 
 [繋]
-hint="つな (ぐ)"
+hint="つなぐ"
 
 [閾]
 hint="しきい"
 
 [幾]
-hint="いく (つ、ら)"
+hint="いくつ、いくら"
 valid before="何"
 
 [詫び]
 hint="わび"
 
 [捧]
-hint="ささ (げる)"
+hint="ささげる"
 valid !before="[げぐ]"
 
 [括]
-hint="かな書きするか、別の表現を使ってください (囲む)"
+hint="くくる、囲む"
 valid !before="[らりるれろ]"
 
 [曖昧]
@@ -229,11 +229,14 @@ hint="ご覧"
 hint="かつ"
 
 [並びに]
-hint="ならびに (接続詞)"
+hint="ならびに [接続詞]"
+
+[辿]
+hint="たどる"
 
 [とおり]
 id="tori3"
-hint="3 通り、何通り (cf. 以下のとおり)"
+hint="3 通り、何通り [cf. 以下のとおり]"
 valid !after="\d *|いく|[何一二三四五六七八九十百千万億]"
 
 [けい線]
@@ -242,8 +245,11 @@ hint="罫線"
 [かっこ]
 hint="括弧"
 
+[あて先]
+hint="宛先"
+
 [したが]
-hint="従って (動詞の場合は漢字)"
+hint="従って [動詞の場合は漢字]"
 valid !after="に"
 
 [かわりに]
@@ -271,20 +277,20 @@ hint="例えば"
 hint="関連付け"
 
 [みな]
-hint="見な (す)"
+hint="見なす"
 valid before="さん"
 valid after="割り込" before="し"
 valid !before="[さしすせそ]"
 
 [見做]
-hint="見な (す)"
+hint="見なす"
 
 [みつ]
-hint="見つ (かる)"
+hint="見つかる"
 valid !before="[かけ]"
 
 [見付]
-hint="見つ (かる)"
+hint="見つかる"
 valid !before="[かけ]"
 
 [切替]
@@ -320,6 +326,9 @@ hint="書き換え"
 
 [折返]
 hint="折り返し"
+
+[割込]
+hint="割り込み"
 
 # environment waccel ルールの使い方 (PO ヘッダに X-Accelerator-Marker がある場合)
 # posieve.py check-rules -slang:ja -saccel -senv:waccel -senvonly
@@ -415,7 +424,7 @@ valid !before="[ 　]"
 [ +\(&[A-Z\d]\)]
 environment waccel
 id="accel1"
-hint="アクセラレータの括弧の前にはスペースを入れません (前に括弧がある場合は入れます)"
+hint="アクセラレータの括弧の前にはスペースを入れません [前に括弧がある場合は入れます]"
 valid after="\)"
 valid after="#[12]" before=":" cat="kuser"
 

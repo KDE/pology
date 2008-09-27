@@ -12,7 +12,7 @@ hint="バイナリエディタ"
 
 [ゴミ箱]
 id="trash-j"
-hint="Trash = ごみ箱 (平仮名と漢字で書いてください)"
+hint="Trash = ごみ箱 [平仮名と漢字で書いてください]"
 
 [実行可能ファイル]
 id="executable-j"
@@ -24,12 +24,12 @@ hint="attachment = (メールの) 添付ファイル"
 
 [トレイアイコン]
 id="trayicon-j"
-hint="(system) tray icon = システムトレイアイコン (略さずに)"
+hint="(system) tray icon = システムトレイアイコン [略さずに]"
 valid after="システム"
 
 [アプリ]
 id="application-j"
-hint="application = アプリケーション (略さずに)"
+hint="application = アプリケーション [略さずに]"
 valid before="ケーション"
 valid before="ア州|マク県"
 
@@ -39,7 +39,7 @@ hint="復号 (Decrypt) には「化」は付けません"
 
 [タイプ]
 id="type-j"
-hint="間に「の」を入れた方がいいのでは？ (例: デバイスのタイプ)"
+hint="間に「の」を入れた方がいいのでは？ [例: デバイスのタイプ]"
 valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェクト"
 valid !after="[ァ-ヴー]"
 disabled

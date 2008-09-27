@@ -27,15 +27,13 @@ id="address_book"
 hint="address book = アドレス帳"
 valid msgstr="アドレス帳"
 
-{\bappearance}i
+{Appearance}
 id="appearance"
 hint="appearance = 外観"
+valid before=" time"
 valid msgstr="外観"
-
-{\bapplets?\b}i
-id="applet"
-hint="applet = アプレット"
-valid msgstr="アプレット"
+valid cat="krecipes" msgstr="見栄え"
+valid cat="katepart4" msgstr="表示"
 
 {^Apply$}
 id="apply"
@@ -46,19 +44,19 @@ valid msgstr="適用"
 id="argument"
 hint="argument = 引数"
 valid msgstr="引数"
-valid msgstr="偏角"
+valid msgid="complex number" msgstr="偏角"
 
 {\barguments?\b}i
 id="argument2"
-hint="argument = 偏角"
-valid !before=" of a complex number"
+hint="argument = 偏角 [複素数の偏角]"
+valid !msgid="complex number"
 valid msgstr="偏角"
 
 {\bascending}i
 id="ascending"
 hint="ascending = 昇順"
 valid msgstr="昇順"
-valid before="numbers"
+valid before=" numbers"
 
 {aspect ratio}i
 id="aspect_ratio"
@@ -69,6 +67,7 @@ valid msgstr="アスペクト比"
 id="attribute"
 hint="attribute = 属性"
 valid msgstr="属性"
+valid msgid="physical attributes" msgstr="物理特性"
 
 {\bbandwidth\b}i
 id="bandwidth"
@@ -90,12 +89,6 @@ valid msgstr="ブックマーク"
 id="cancel"
 hint="Cancel = キャンセル"
 valid msgstr="キャンセル"
-
-{\bcheck ?box}i
-id="check_box"
-hint="check box = チェックボックス"
-valid msgstr="チェックボックス"
-disabled
 
 {$Clear$}
 id="clear"
@@ -141,20 +134,10 @@ valid msgstr="(カラム|列)"
 valid cat="kspread" msgid="columns?\("
 disabled
 
-{\bcombo box}i
-id="combo_box"
-hint="combo box = コンボボックス"
-valid msgstr="コンボボックス"
-
 {\bcommand line}i
 id="command_line"
 hint="command line = コマンドライン"
 valid msgstr="コマンドライン"
-
-{\bcommand prompt\b}i
-id="command_prompt"
-hint="command prompt = コマンドプロンプト"
-valid msgstr="コマンドプロンプト"
 
 {\bconstant bitrate\b}i
 id="constant_bitrate"
@@ -202,10 +185,23 @@ id="decryption_key"
 hint="decryption key = 復号鍵"
 valid msgstr="復号鍵"
 
+{\bdefault}i
+id="default"
+hint="default = 標準"
+valid msgstr="標準"
+disabled
+
+{\bdefault}i
+id="default2"
+hint="default = デフォルト"
+valid msgstr="デフォルト"
+disabled
+
 {^Defaults$}
 id="defaults"
 hint="Defaults = 標準設定"
 valid msgstr="標準設定"
+valid cat="knotes" msgstr="デフォルト設定"
 
 {^Delete$}
 id="delete"
@@ -217,7 +213,14 @@ valid ctx="keyboard-key-name|QShortcut" msgstr="Delete"
 id="delimiter"
 hint="delimiter = 区切り文字"
 valid before=" line"
+valid cat="kile"
 valid msgstr="区切り文字"
+
+{\bdelimiters?}i
+id="delimiter2"
+hint="delimiter = デリミタ"
+valid !cat="kile"
+valid msgstr="デリミタ"
 
 {\bdesceinding}i
 id="descending"
@@ -244,15 +247,22 @@ id="discard_changes"
 hint="Discard Changes = 変更を破棄"
 valid msgstr="変更を破棄"
 
+{\bdocuments?}i
+id="document"
+hint="document = 文書"
+valid msgstr="文書"
+disabled
+
+{\bdocuments?}i
+id="document2"
+hint="document = ドキュメント"
+valid msgstr="ドキュメント"
+disabled
+
 {\bdrag and drop\b}i
 id="drag_and_drop"
 hint="drag and drop = ドラッグ＆ドロップ"
 valid msgstr="ドラッグ＆ドロップ"
-
-{\bdrop[ -]?down lists?}i
-id="dropdown_list"
-hint="dropdown list = ドロップダウンリスト"
-valid msgstr="ドロップダウンリスト"
 
 {^Edit$}
 id="edit"
@@ -262,10 +272,7 @@ valid msgstr="編集"
 {\belements?\b}i
 id="element"
 hint="element = 要素 [GUI や XML の要素]"
-valid msgstr="要素"
-valid cat="kalzium, plasma_engine_kalzium"
-valid after="chemical |IUPAC systematic |periodic table of "
-valid before=" have been discovered"
+valid !msgstr="エレメント"
 
 {\belements?\b}i
 id="element2"
@@ -509,11 +516,6 @@ id="link_here"
 hint="Link Here = ここにリンク"
 valid msgstr="ここにリンク(?!を)"
 
-{\blist box}i
-id="list_box"
-hint="list box = リストボックス"
-valid msgstr="リストボックス"
-
 {\blocation ?bar}i
 id="location_bar"
 hint="location bar = 場所バー"
@@ -548,20 +550,25 @@ valid msgstr="メディアプレーヤー"
 id="mime_type"
 hint="MIME type = MIME タイプ"
 valid msgstr="MIME タイプ"
+valid cat="kfmclient, kioclient" msgstr="mimetype"
 
 {^Minimize$}
 id="minimize"
 hint="Minimize = 最小化"
 valid msgstr="最小化"
 
-{\bmount}i
+{\bmount(s|ed|ing)?\b}i
 id="mount"
 hint="mount = マウント"
-valid before="ain"
 valid before=" (Athos|Ekar|Erebus|Evans|Graham|John|Lemmon|Mario|Palomar|Stromlo|Wilson)"
-valid before="/sbin/"
-valid before=" %d" cat="amarok"
 valid msgstr="マウント"
+valid span="mounted" before=" on a telescope"
+valid msgstr="mount"
+
+{\bmount ?point}i
+id="mount_point"
+hint="mount point = マウントポイント"
+valid msgstr="マウントポイント"
 
 {^Move Down$}
 id="move_down"
@@ -591,7 +598,13 @@ valid msgstr="オブリック"
 {^Open\.\.\.$}
 id="open"
 hint="Open... = 開く..."
-valid msgstr="開く..."
+valid msgstr="開く\.\.\."
+disabled
+
+{^Open With\.\.\.$}
+id="open_with"
+hint="Open With... = アプリケーションで開く..."
+valid msgstr="アプリケーションで開く\.\.\."
 disabled
 
 {^Overwrite$}
@@ -604,6 +617,7 @@ id="parameter"
 hint="parameter = パラメータ"
 valid msgstr="パラメータ"
 valid cat="kipiplugin_metadataedit" msgstr="IPTC-NAA Digital Newsphoto Parameter Record"
+valid cat="kspread"
 
 {\bpassword dialog}i
 id="password_dialog"
@@ -671,15 +685,10 @@ id="playlist"
 hint="playlist = プレイリスト"
 valid msgstr="プレイリスト"
 
-{\bplugins?\b}i
-id="plugin"
-hint="plugin = プラグイン"
-valid msgstr="プラグイン"
-
 {^Print\.\.\.$}
 id="print"
 hint="Print... = 印刷..."
-valid msgstr="印刷..."
+valid msgstr="印刷\.\.\."
 disabled
 
 {^Print Preview$}
@@ -702,6 +711,7 @@ id="property"
 hint="property = プロパティ"
 valid msgstr="プロパティ"
 valid cat="kipiplugin_sendimages" msgid="properties.txt"
+valid after="(food|physical) "
 
 {\bproxy}i
 id="proxy"
@@ -718,11 +728,6 @@ valid msgstr="公開鍵"
 id="quit"
 hint="Quit = 終了"
 valid msgstr="終了"
-
-{\bradio buttons?}i
-id="radio_button"
-hint="radio button = ラジオボタン"
-valid msgstr="ラジオボタン"
 
 {\b(Raw|RAW) [Ii]mages?}
 id="raw_image"
@@ -842,6 +847,7 @@ hint="security = セキュリティ"
 valid msgstr="セキュリティ"
 valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
 valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
+valid cat="kspread" msgstr="証券"
 
 {^Select All$}
 id="select_all"
@@ -851,8 +857,7 @@ valid msgstr="すべて選択"
 {\bservers?\b}i
 id="server"
 hint="server = サーバ"
-valid msgstr="サーバ"
-valid cat="kfileshare" msgstr="Paranoid server security|Server signing:|Server channel:|SSL server cert:|SSL server key:|Time server"
+valid !msgstr="サーバー"
 
 {\bsigning keys?}i
 id="signing_key"
@@ -885,16 +890,17 @@ valid !after="(disk|swap|memory) "
 valid msgstr="領域"
 valid msgstr="ディスクの使用状況を表示する KDE のユーティリティ"
 
+{\bspace\b}i
+id="space3"
+hint="space = 宇宙"
+valid msgstr="宇宙"
+disabled
+
 {\bspams?}i
 id="spam"
 hint="spam = スパム"
 valid before="[m@]"
 valid msgstr="スパム"
-
-{\bspin ?box}i
-id="spin_box"
-hint="spin box = スピンボックス"
-valid msgstr="スピンボックス"
 
 {\bstatus ?bar}i
 id="statusbar"
@@ -941,11 +947,6 @@ valid msgstr="ターミナル"
 id="terminal_emulator"
 hint="terminal emulator = ターミナルエミュレータ"
 valid msgstr="ターミナルエミュレータ"
-
-{\btext ?box}i
-id="text_box"
-hint="text box = テキストボックス"
-valid msgstr="テキストボックス"
 
 {\btext editor}i
 id="text_editor"
@@ -1003,7 +1004,7 @@ valid msgstr="元に戻す"
 id="unmount"
 hint="unmount = アンマウント"
 valid msgstr="アンマウント"
-valid after="_"
+valid msgstr="unmount"
 
 {\busers?}i
 id="user"
@@ -1014,8 +1015,7 @@ valid !msgstr="ユーザー"
 id="username"
 hint="username = ユーザ名"
 valid msgstr="ユーザ名"
-valid cat="kfileshare" msgstr="Username map:|Username level:"
-valid before="@(server\.com|%1|ftpserver)"
+valid msgstr="username"
 
 {\butilit(y|ies)}i
 id="utility"
@@ -1092,7 +1092,7 @@ id="whole_words_only"
 hint="whole words only = 単語単位"
 valid msgstr="単語単位"
 
-{\bwidgets?}i
+{\bwidgets?\b}i
 id="widget"
 hint="widget = ウィジェット"
 valid msgstr="ウィジェット"
