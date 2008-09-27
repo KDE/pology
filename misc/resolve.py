@@ -568,3 +568,82 @@ def expand_vars (text, varmap, head="%"):
 
     return "".join(ntext)
 
+
+_usual_accels = list("_&~^")
+
+def remove_accelerator (text, accels=None, greedy=False):
+    """
+    Remove accelerator from the text.
+
+    Accelerator markers are characters which determine which letter in
+    the text will be used as keyboard accelerator in user interface.
+    They are usually a single non-alphanumeric character,
+    and inserted before the letter which should be the accelerator,
+    e.g. C{"Foo &Bar"}, C{"Foo _Bar"}, etc.
+    Sometimes, especially in CJK texts, accelerator letter is separated out
+    in parenthesis, at the start or end of the text, such as C{"Foo Bar (&B)"}.
+
+    This function will try to remove the accelerator in a smart way.
+    E.g. it will ignore ampersand in C{"Foo & Bar"}, and completely
+    remove a CJK-style accelerator.
+
+    If C{accels} is C{None}, the behavior depends on the value of C{greedy}.
+    If it is C{False}, text is removed as is. If it is C{True}, some usual
+    accelerator markers are considered: C{_}, C{&}, C{~}, and C{^}.
+
+    @param text: text to clear of the accelerator
+    @type text: string
+    @param accels: possible accelerator markers
+    @type accels: sequence of strings or C{None}
+    @param greedy: whether to try known markers if C{accels} is C{None}
+    @type greedy: bool
+
+    @returns: text without the accelerator
+    @rtype: string
+    """
+
+    if accels is None:
+        if not greedy:
+            return text
+        else:
+            accels = _usual_accels
+
+    for accel in accels:
+        alen = len(accel)
+        p = 0
+        while True:
+            p = text.find(accel, p)
+            if p < 0:
+                break
+
+            if text[p + alen:p + alen + 1].isalnum():
+                # Valid accelerator.
+                text = text[:p] + text[p + alen:]
+
+                # May have been an accelerator in style of
+                # "(<marker><alnum>)" at the start or end of text.
+                if (text[p - 1:p] == "(" and text[p + 1:p + 2] == ")"):
+                    # Check if at start or end, ignoring spaces.
+                    tlen = len(text)
+                    p1 = p - 2
+                    while p1 >= 0 and text[p1] == " ":
+                        p1 -= 1
+                    p1 += 1
+                    p2 = p + 2
+                    while p2 < tlen and text[p2] == " ":
+                        p2 += 1
+                    p2 -= 1
+                    if p1 == 0 or p2 + 1 == tlen:
+                        text = text[:p1] + text[p2 + 1:]
+
+                # Remove only one accelerator marker.
+                break
+
+            if text[p + alen:p + 2 * alen] == accel:
+                # Escaped accelerator marker.
+                text = text[:p] + text[p + alen:]
+
+            p += alen
+
+    return text
+

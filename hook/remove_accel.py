@@ -13,63 +13,19 @@ in case it does not specify any on its own.
 @license: GPLv3
 """
 
-_usual_accels = list("_&~^")
+from pology.misc.resolve import remove_accelerator as _rem_in_text
 
 
-def _rem_in_text (text, accels):
+def _rem_in_msg (msg, accels, greedy=False):
 
-    if not accels: # may be None
-        return text
-
-    for accel in accels:
-        alen = len(accel)
-        p = 0
-        while True:
-            p = text.find(accel, p)
-            if p < 0:
-                break
-
-            if text[p + alen:p + alen + 1].isalnum():
-                # Valid accelerator.
-                text = text[:p] + text[p + alen:]
-
-                # May have been an accelerator in style of
-                # "(<marker><alnum>)" at the start or end of text.
-                if (text[p - 1:p] == "(" and text[p + 1:p + 2] == ")"):
-                    # Check if at start or end, ignoring spaces.
-                    tlen = len(text)
-                    p1 = p - 2
-                    while p1 >= 0 and text[p1] == " ":
-                        p1 -= 1
-                    p1 += 1
-                    p2 = p + 2
-                    while p2 < tlen and text[p2] == " ":
-                        p2 += 1
-                    p2 -= 1
-                    if p1 == 0 or p2 + 1 == tlen:
-                        text = text[:p1] + text[p2 + 1:]
-
-                # Remove only one accelerator marker.
-                break
-
-            if text[p + alen:p + 2 * alen] == accel:
-                # Escaped accelerator marker.
-                text = text[:p] + text[p + alen:]
-
-            p += alen
-
-    return text
-
-
-def _rem_in_msg (msg, accels):
-
-    msg.msgid = _rem_in_text(msg.msgid, accels)
-    msg.msgid_plural = _rem_in_text(msg.msgid_plural, accels)
+    msg.msgid = _rem_in_text(msg.msgid, accels, greedy)
+    msg.msgid_plural = _rem_in_text(msg.msgid_plural, accels, greedy)
     for i in range(len(msg.msgstr)):
-        msg.msgstr[i] = _rem_in_text(msg.msgstr[i], accels)
+        msg.msgstr[i] = _rem_in_text(msg.msgstr[i], accels, greedy)
 
-    msg.msgid_previous = _rem_in_text(msg.msgid_previous, accels)
-    msg.msgid_plural_previous = _rem_in_text(msg.msgid_plural_previous, accels)
+    msg.msgid_previous = _rem_in_text(msg.msgid_previous, accels, greedy)
+    msg.msgid_plural_previous = _rem_in_text(msg.msgid_plural_previous, accels,
+                                             greedy)
 
 
 def remove_accel_text (cat, msg, text):
@@ -79,6 +35,7 @@ def remove_accel_text (cat, msg, text):
     If catalog reports C{None} for accelerators, text is not touched.
 
     @note: Hook type: C{(cat, msg, text) -> text}
+    @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
@@ -91,12 +48,11 @@ def remove_accel_text_greedy (cat, msg, text):
     for accelerators, some frequent marker characters are removed.
 
     @note: Hook type: C{(cat, msg, text) -> text}
+    @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
-    if accels is None:
-        accels = _usual_accels
-    return _rem_in_text(text, accels)
+    return _rem_in_text(text, accels, greedy=True)
 
 
 def remove_accel_msg (cat, msg):
@@ -106,6 +62,7 @@ def remove_accel_msg (cat, msg):
     If catalog reports C{None} for accelerators, text is not touched.
 
     @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
@@ -118,10 +75,9 @@ def remove_accel_msg_greedy (cat, msg):
     for accelerators, some frequent marker characters are removed.
 
     @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
-    if accels is None:
-        accels = _usual_accels
-    _rem_in_msg(msg, accels)
+    _rem_in_msg(msg, accels, greedy=True)
 
