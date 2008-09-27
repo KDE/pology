@@ -1376,9 +1376,6 @@ class Catalog (Monitored):
 
         @returns: language code
         @rtype: string or C{None}
-
-        @returns: language code
-        @rtype: string or C{None}
         """
 
         # Check if language has already been determined.
