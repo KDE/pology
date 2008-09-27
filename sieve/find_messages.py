@@ -65,6 +65,8 @@ import sys, os, re
 from pology.misc.report import error, report_msg_content
 from pology.misc.langdep import get_filter_lreq
 from pology.misc.wrap import wrap_field, wrap_field_unwrap
+from pology.file.message import MessageUnsafe
+from pology.hook.remove_accel import remove_accel_msg
 
 
 _flag_mark = u"pattern-match"
@@ -76,12 +78,10 @@ class Sieve (object):
 
         self.nmatch = 0
 
-        self.accels_explicit = False
-        self.accels = []
+        self.accels = None
         if "accel" in options:
             options.accept("accel")
             self.accels = list(options["accel"])
-            self.accels_explicit = True
 
         self.rxflags = re.U
         if "case" in options:
@@ -164,14 +164,9 @@ class Sieve (object):
 
     def process_header (self, hdr, cat):
 
-        # Check if the catalog itself states the accelerator character,
-        # unless specified explicitly by the command line.
-        if not self.accels_explicit:
-            accels = cat.accelerator()
-            if accels is not None:
-                self.accels = accels
-            else:
-                self.accels = []
+        # Force explicitly given accelerators.
+        if self.accels is not None:
+            cat.set_accelerator(self.accels)
 
 
     def process (self, msg, cat):
@@ -187,31 +182,40 @@ class Sieve (object):
         if self.nonplural and msg.msgid_plural:
             return
 
+        # Prepare filtered message for matching.
+        msgf = MessageUnsafe(msg)
+
+        # - remove accelerators
+        remove_accel_msg(cat, msgf)
+
+        # - apply msgstr filters
+        for pfilter in self.pfilters:
+            for i in range(len(msgf.msgstr)):
+                msgf.msgstr[i] = pfilter(msgf.msgstr[i])
+
+        # Match requested fields.
         match = True
-
         hl_spec = {}
-
         for field, regex, invert in self.field_matches:
 
             # Select texts for matching, with highlight info.
             pfilters = []
             if field == "msgctxt":
-                texts = [(msg.msgctxt, "msgctxt", 0)]
+                texts = [(msgf.msgctxt, "msgctxt", 0)]
             elif field == "msgid":
-                texts = [(msg.msgid, "msgid", 0),
-                         (msg.msgid_plural, "msgid_plural", 0)]
+                texts = [(msgf.msgid, "msgid", 0),
+                         (msgf.msgid_plural, "msgid_plural", 0)]
             elif field == "msgstr":
-                texts = [(msg.msgstr[i], "msgstr", i)
-                         for i in range(len(msg.msgstr))]
-                pfilters = self.pfilters
+                texts = [(msgf.msgstr[i], "msgstr", i)
+                         for i in range(len(msgf.msgstr))]
             elif field == "comment":
                 texts = []
-                texts.extend([(msg.manual_comment[i], "cmanual", i)
-                              for i in range(len(msg.manual_comment))])
-                texts.extend([(msg.auto_comment[i], "cauto", i)
-                              for i in range(len(msg.auto_comment))])
-                texts.append((", ".join(msg.flag), "", 0))
-                texts.append((" ".join(["%s:%s" % x for x in msg.source]),
+                texts.extend([(msgf.manual_comment[i], "cmanual", i)
+                              for i in range(len(msgf.manual_comment))])
+                texts.extend([(msgf.auto_comment[i], "cauto", i)
+                              for i in range(len(msgf.auto_comment))])
+                texts.append((", ".join(msgf.flag), "", 0))
+                texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
                               "", 0))
             else:
                 error("unknown search field '%s'" % field)
@@ -225,13 +229,6 @@ class Sieve (object):
             local_match = False
 
             for text, hl_name, hl_item in texts:
-                # Remove accelerators.
-                for accel in self.accels:
-                    text = text.replace(accel, "")
-
-                # Apply pre-match filters.
-                for pfilter in pfilters:
-                    text = pfilter(text)
 
                 # Check for local match (local match is OR).
                 m = regex.search(text)
@@ -255,6 +252,7 @@ class Sieve (object):
                 break
 
             # Do the replacement in translation if requested.
+            # NOTE: Use the real, not the filtered message.
             if field == "msgstr" and self.replace is not None:
                 for i in range(len(msg.msgstr)):
                     msg.msgstr[i] = regex.sub(self.replace, msg.msgstr[i])

@@ -25,9 +25,10 @@ Sieve options:
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
-The sieve will try to guess the accelerator if C{accel} option is not given,
-and if doesn't find one, it will remove the characteres most usually used
-for this purpose (C{&}, C{_}, C{~}).
+If accelerator character is not given by C{accel} option, the sieve will try
+to guess the accelerator; it may choose wrongly or decide that there are no
+accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
+accelerator character.
 
 If there exists both the directory with translated POs and with template POTs,
 using the C{templates} option the sieve can be instructed to count POTs
@@ -162,7 +163,7 @@ Notes on Counting
 
     The word and character counts for a given message field are obtained
     in the following way:
-      - accelerator markers, if defined, are removed
+      - accelerator marker, if defined, is removed
       - XML-like markup is eliminated (C{<...>})
       - special tokens, such as format directives, are also eliminated
         (e.g. C{%s} in a message marked as C{c-format})
@@ -198,14 +199,11 @@ class Sieve (object):
 
     def __init__ (self, options, global_options):
 
-        # Characters to consider as shortcut markers.
-        self.accels_explicit = False
-        self.accels_usual = list("&_~") # some typical accelerator markers
-        self.accels = []
+        # Explicit accelerator markers.
+        self.accels = None
         if "accel" in options:
             options.accept("accel")
             self.accels = list(options["accel"])
-            self.accels_explicit = True
 
         # Display detailed statistics?
         self.detailed = False
@@ -372,14 +370,9 @@ class Sieve (object):
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
 
-        # Check if the catalog itself states accelerator markers,
-        # unless specified explicitly by the command line.
-        if not self.accels_explicit:
-            accels = cat.accelerator()
-            if accels is not None:
-                self.accels = accels
-            else:
-                self.accels = self.accels_usual
+        # Force explicitly given accelerators.
+        if self.accels is not None:
+            cat.set_accelerator(self.accels)
 
 
     def process (self, msg, cat):
@@ -425,7 +418,7 @@ class Sieve (object):
                 pf = text.find("|/|")
                 if pf >= 0:
                     text = text[0:pf]
-                words = proper_words(text, True, self.accels, msg.format)
+                words = proper_words(text, True, cat.accelerator(), msg.format)
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))

@@ -25,8 +25,10 @@ they are extracted, in the following order of priority, from:
 current PO file (language only), user configuration, current system locale
 (language and encoding only).
 
-If accelerator characters are not explicitly given, they may be inferred from
-the PO file; otherwise, some usual accelerator markers are removed by default.
+If accelerator character is not given by C{accel} option, the sieve will try
+to guess the accelerator; it may choose wrongly or decide that there are no
+accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
+accelerator character.
 
 The C{filter} option specifies text-transformation filters to apply before
 the text is spell-checked. These are the filters found in C{pology.filters}
@@ -165,14 +167,11 @@ class Sieve (object):
             else:
                 warning("Cannot open %s file. XML output disabled" % xmlPath)
 
-        # Remove accelerators?
-        self.accels_explicit = False
-        self.accels_usual = list("&_~")
-        self.accels = []
+        # Explicit accelerator markers.
+        self.accels = None
         if "accel" in options:
             options.accept("accel")
             self.accels = list(options["accel"])
-            self.accels_explicit = True
 
         # Pattern for words to skip.
         self.skipRx = None
@@ -286,14 +285,9 @@ class Sieve (object):
         self.aspell = self.aspells[clang]
         self.ignoredContext = self.ignoredContexts[clang]
 
-        # Check if the catalog itself states the shortcut character,
-        # unless specified explicitly by the command line.
-        if not self.accels_explicit:
-            accels = cat.accelerator()
-            if accels is not None:
-                self.accels = accels
-            else:
-                self.accels = self.accels_usual
+        # Force explicitly given accelerators.
+        if self.accels is not None:
+            cat.set_accelerator(self.accels)
 
         # Close previous/open new XML section.
         if self.xmlFile:
@@ -335,7 +329,7 @@ class Sieve (object):
 
             # Split text into words.
             if not self.simsp:
-                words=proper_words(msgstr, True, self.accels, msg.format)
+                words=proper_words(msgstr, True, cat.accelerator(), msg.format)
             else:
                 # NOTE: Temporary, remove when proper_words becomes smarter.
                 words=msgstr.split()

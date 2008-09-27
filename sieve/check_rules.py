@@ -23,7 +23,7 @@ The sieve parameters are:
         rule identifiers; if not given, all rules for given language and
         environment are applied
    - C{stat}: show statistics of rule matching at the end
-   - C{accel:<characters>}: accelerator characters to eliminate from text
+   - C{accel:<characters>}: accelerator markers to eliminate from text
         before the rules are applied
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
@@ -57,6 +57,7 @@ from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
+from pology.hook.remove_accel import remove_accel_msg
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -102,13 +103,11 @@ class Sieve (object):
         else:
             envOnly=False
 
-        # Remove accelerators?
-        self.accelsExplicit=False
-        self.accels=[]
+        # Explicit accelerator markers.
+        self.accels = None
         if "accel" in options:
             options.accept("accel")
-            self.accels=list(options["accel"])
-            self.accelsExplicit=True
+            self.accels = list(options["accel"])
         
         # Pre-check filters to apply.
         self.pfilters=[]
@@ -200,14 +199,9 @@ class Sieve (object):
 
     def process_header (self, hdr, cat):
 
-        # Check if the catalog itself states the shortcut character,
-        # unless specified explicitly by the command line.
-        if not self.accelsExplicit:
-            accels=cat.accelerator()
-            if accels is not None:
-                self.accels=accels
-            else:
-                self.accels=[]
+        # Force explicitly given accelerators.
+        if self.accels is not None:
+            cat.set_accelerator(self.accels)
 
 
     def process (self, msg, cat):
@@ -276,11 +270,7 @@ class Sieve (object):
 
         # Prepare filtered messages for checking.
         msgf = MessageUnsafe(msg)
-        msgf.msgid=msg.msgid
-        msgf.msgstr=list(msg.msgstr)
-        for accel in self.accels:
-            msgf.msgid=msgf.msgid.replace(accel, "")
-            msgf.msgstr=[x.replace(accel, "") for x in msgf.msgstr]
+        remove_accel_msg(cat, msgf)
         for pfilter in self.pfilters:
             msgf.msgstr=[pfilter(x) for x in msgf.msgstr]
 
