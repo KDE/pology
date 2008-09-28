@@ -254,6 +254,12 @@ hint="label = ознака"
 valid msgstr="\bознак"
 valid msgstr="\bознач"
 
+# Све провере на list.
+{\blist}i
+id="list2"
+hint="list = листа"
+disabled
+
 {\blog\b}i
 id="log"
 hint="log = дневник"
@@ -352,6 +358,26 @@ valid msgstr="\bпреимен"
 valid env="kde" msgstr="rename"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
+
+{\bsav(e[ds]?|ing)\b}i
+id="save"
+hint="save = сачувати"
+valid after="power "
+valid msgstr="\bсачувати"
+valid msgstr="\bсачува" !msgstr="\bсачував"
+valid !env="kde" msgstr="\bчува([јм]|њ\w+)?\b"
+valid env="kde" msgstr="\bупис(уј|ив|ивањ)"
+valid cat="kateinsertcommand" msgid="saved over" msgstr="памти између"
+valid cat="katepart4" msgid="^Open/Save$" msgstr="^Радње с"
+valid cat="kdmconfig" msgid="save one key" msgstr="\bуштед"
+valid cat="lokalize" msgid="saves a great" msgstr="\bштед"
+valid cat="dolphin" msgid="to save time" msgstr="\b(штед|ефикасн)"
+
+# Све провере на save.
+{\bsaving}i
+id="saving"
+hint="saving = чување"
+disabled
 
 {\bserver}i
 id="server"

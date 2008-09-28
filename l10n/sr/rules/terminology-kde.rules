@@ -185,7 +185,7 @@ valid after="backup "
 valid before="right"
 valid msgstr="\bкопи(ра|ј)"
 valid msgstr="\bcopy"
-valid cat="useraccount" msgid="Save copy.*for future" msgstr="Одложи за убудуће"
+valid cat="useraccount" msgid="Save copy.*for future" msgstr="Сачувај за убудуће"
 valid cat="lokalize" msgid="copy; 20"
 
 {\bcopy}i
@@ -451,6 +451,25 @@ valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
 valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 
+{\blist(s|ed)?\b}i
+id="list"
+hint="list = списак [може бити и ‘листа’, где се изричито дозволи]"
+valid after="(mailing|e?mail|distribution|access control) " msgstr="\bлист"
+valid cat="kio_imap4" after="access control " msgstr="\bacl"
+valid after="free/busy " !msgstr="\bлист"
+valid !cat="kabc" msgstr="\bсписа?к"
+valid msgstr="\b(набр[оа]?ј|навед|наво[дс]|испи[сш])"
+valid msgstr="\blist|list[\w-]*;"
+valid cat="kabc" msgstr="\bлист"
+valid cat="kabc" msgid="list of emails" msgstr="\bсписак"
+valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опцијама,"
+
+{\blist}i
+id="list3"
+hint="list = набројати [заправо само не ‘излистати’]"
+valid !msgstr="\bизлист"
+# остало на list
+
 {\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
@@ -594,6 +613,12 @@ valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
 {\b(record|row)s?\b}i
 id="row_db"
 hint="record|row = врста"
+disabled
+
+# Све провере на save.
+{\bsaving}i
+id="saving"
+hint="saving = уписивање"
 disabled
 
 {\bscroll\W?bar}i
