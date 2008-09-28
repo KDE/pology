@@ -173,6 +173,11 @@ valid msgid="config(uration)? module" msgstr="контролн\w+ модул"
 valid cat="katepart4" msgid="config(uration)? page" msgstr="одеља?к"
 valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
 
+{\bconfiguration dialog}i
+id="configurationdialog"
+hint="configuration dialog = дијалог за подешавање"
+valid msgstr="\bдијалог\w* за( \w+)? подешавање"
+
 {\bconfig(uration)?[ -]file}i
 id="configurationfile"
 hint="configuration file = поставни фајл"
@@ -594,6 +599,12 @@ hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
 valid msgstr="quit"
 
+{\b(regular expression|regex)}i
+id="regularexpression"
+hint="regular expression = регуларни израз [скр. regex = региз]"
+valid span="regular" msgstr="\bрегуларн\w+ израз"
+valid span="regex" msgstr="\bрегиз"
+
 {\breset}i
 id="reset"
 hint="reset = ресетовати"
@@ -620,6 +631,13 @@ disabled
 id="saving"
 hint="saving = уписивање"
 disabled
+
+{\bscreen saver}i
+id="screensaver"
+hint="screen saver = чувар екрана"
+valid msgstr="\bчувар\w* екрана"
+# Може скраћено у наредним каталозима:
+valid cat="kcmscreensaver" msgstr="\bчувар"
 
 {\bscroll\W?bar}i
 id="scrollbar"

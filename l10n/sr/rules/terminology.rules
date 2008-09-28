@@ -6,6 +6,7 @@
 id="account"
 hint="account = налог"
 valid before="ing" # рачуновођство
+valid after="take( \w+){,2} into " # „узети у обзир“
 valid msgstr="\bнало(г|зи)"
 valid cat="khelpcenter_support" msgid="Account-Nr" msgstr="Account-Nr"
 
@@ -372,6 +373,7 @@ valid cat="katepart4" msgid="^Open/Save$" msgstr="^Радње с"
 valid cat="kdmconfig" msgid="save one key" msgstr="\bуштед"
 valid cat="lokalize" msgid="saves a great" msgstr="\bштед"
 valid cat="dolphin" msgid="to save time" msgstr="\b(штед|ефикасн)"
+valid cat="PO_Odyssey" msgid="work may be saved" msgstr="\bуштед"
 
 # Све провере на save.
 {\bsaving}i
