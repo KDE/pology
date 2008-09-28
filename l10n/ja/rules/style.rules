@@ -335,7 +335,7 @@ hint="割り込み"
 
 [\(]
 environment waccel
-id="space1"
+id="style-space1"
 hint="左括弧の前に半角のスペースを入れてください。"
 valid cat="kspread"
 valid after="[\s]"
@@ -381,7 +381,7 @@ valid after="。:" cat="kopete"
 
 [\)]
 environment waccel
-id="space2"
+id="style-space2"
 hint="右括弧の後に半角のスペースを入れてください。"
 valid cat="kspread"
 valid before="[\s]"
@@ -409,7 +409,7 @@ valid before="\\\s" cat="desktop_kdebase"
 
 [[A-Za-z]+]
 environment waccel
-id="space3"
+id="style-space3"
 hint="英文字と日本語の間には半角のスペースを入れてください。"
 valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
 valid span="[DFPS]" before="ブロック" cat="kalzium"
@@ -417,7 +417,7 @@ valid span="pH" before="値|測定器" cat="kalzium"
 valid span="km" after="平方" cat="marble"
 
 [[。、]]
-id="space4"
+id="style-space4"
 hint="日本語の句読点の後にはスペースを入れません。"
 valid !before="[ 　]"
 

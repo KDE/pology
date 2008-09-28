@@ -20,7 +20,7 @@ valid msgstr="中止"
 {\baccessibility}i
 id="accessibility"
 hint="accessibility = アクセシビリティ"
-valid msgstr="アクセシビリティ"
+valid msgstr="アクセシビリティ(?!ー)"
 
 {\baddress book}i
 id="address_book"
@@ -32,13 +32,21 @@ id="appearance"
 hint="appearance = 外観"
 valid before=" time"
 valid msgstr="外観"
-valid cat="krecipes" msgstr="見栄え"
-valid cat="katepart4" msgstr="表示"
 
 {^Apply$}
 id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
+
+{\barchives?\b}i
+id="archive"
+hint="archive = アーカイブ"
+valid msgstr="アーカイブ"
+
+{\barchivers?\b}i
+id="archiver"
+hint="archiver = アーカイバ"
+valid msgstr="アーカイバ"
 
 {\barguments?\b}i
 id="argument"
@@ -69,6 +77,12 @@ hint="attribute = 属性"
 valid msgstr="属性"
 valid msgid="physical attributes" msgstr="物理特性"
 
+{^Back$}
+id="back"
+hint="Back = 戻る"
+valid ctx="Back side|Back of"
+valid msgstr="戻る"
+
 {\bbandwidth\b}i
 id="bandwidth"
 hint="bandwidth = 帯域幅"
@@ -98,19 +112,19 @@ valid msgstr="クリア"
 {\bclear[ -]?text}i
 id="clear_text"
 hint="clear text = 平文"
+valid !msgid="password|crypto|encrypt"
 valid msgstr="平文"
-valid ctx="action"
 
 {^Clear Text$}
 id="clear_text_action"
 hint="Clear Text = テキストをクリア"
+valid !ctx="action"
 valid msgstr="テキストをクリア"
 
 {\bclipboard}i
 id="clipboard"
 hint="clipboard = クリップボード"
 valid msgstr="クリップボード"
-valid cat="desktop_kdebase" msgid="X Clipboard" msgstr="X Clipboard"
 
 {^Close$}
 id="close"
@@ -201,7 +215,6 @@ disabled
 id="defaults"
 hint="Defaults = 標準設定"
 valid msgstr="標準設定"
-valid cat="knotes" msgstr="デフォルト設定"
 
 {^Delete$}
 id="delete"
@@ -220,7 +233,7 @@ valid msgstr="区切り文字"
 id="delimiter2"
 hint="delimiter = デリミタ"
 valid !cat="kile"
-valid msgstr="デリミタ"
+valid msgstr="デリミタ(?!ー)"
 
 {\bdesceinding}i
 id="descending"
@@ -284,7 +297,6 @@ disabled
 id="email_address"
 hint="email address = メールアドレス [E を付けずに]"
 valid msgstr="メールアドレス" !msgstr="e[ -]?メールアドレス"
-valid cat="krecipes" msgid="^insert your email address$"
 
 {^Empty Trash$}
 id="empty_trash"
@@ -296,15 +308,22 @@ id="encryption_key"
 hint="encryption key = 暗号化鍵"
 valid msgstr="暗号化鍵"
 
-{\bend of line|\bline end}i
+{\bend of line\n}i
 id="end_of_line"
 hint="end of line = 行末"
 valid msgstr="行末"
+disabled
+
+{\bend of line\b}i
+id="end_of_line2"
+hint="end of line = 改行コード"
+valid msgstr="改行コード"
+disabled
 
 {\bentit(y|ies)}i
 id="entity"
 hint="entity = エンティティ"
-valid msgstr="エンティティ"
+valid msgstr="エンティティ(?!ー)"
 
 {\benvironment variables?\b}i
 id="environment_variable"
@@ -338,10 +357,22 @@ id="extra_toolbar"
 hint="extra toolbar = 拡張ツールバー"
 valid msgstr="拡張ツールバー"
 
+{\bextract(s|ed|ing|tion)?\b}i
+id="extract"
+hint="extract = 展開"
+valid !cat="ark" !msgid="archive"
+valid msgstr="展開"
+
+{\bextract(s|ed|ing|tion)?\b}i
+id="extract2"
+hint="extract = 取り出す|抽出"
+valid msgstr=" (取り出[さしすせそ]|抽出)"
+disabled
+
 {\bfile manager}i
 id="file_manager"
 hint="file manager = ファイルマネージャ"
-valid msgstr="ファイルマネージャ"
+valid msgstr="ファイルマネージャ(?!ー)"
 
 {\bfilenames?}i
 id="filename"
@@ -423,6 +454,24 @@ id="format_toolbar"
 hint="format toolbar = 書式ツールバー"
 valid msgstr="書式ツールバー"
 
+{^Forward$}
+id="forward"
+hint="Forward = 進む [前へ進む]"
+valid cat="kmail, knode, mailody"
+valid msgstr="進む"
+
+{\bforward(s|ed|ing)?\b}i
+id="forward2"
+hint="Forward = 転送 [メッセージを転送]"
+valid !ctx="message|msg" !msgid="message"
+valid msgstr="転送"
+
+{\bforward(ed|s)?\b}i
+id="forward3"
+hint="Forward = フォワード [ポートをフォワード]"
+valid !msgid="\bports?\b"
+valid msgstr="フォワード"
+
 {\bfree ?space\b}i
 id="free_space"
 hint="free space = 空き容量|空き領域"
@@ -442,7 +491,7 @@ valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
 {\bhex editor}i
 id="hex_editor"
 hint="hex editor = バイナリエディタ"
-valid msgstr="バイナリエディタ"
+valid msgstr="バイナリエディタ(?!ー)"
 
 {\bhidden files?}i
 id="hidden_file"
@@ -505,6 +554,12 @@ id="key_pair"
 hint="key pair = 鍵ペア"
 valid msgstr="鍵ペア"
 valid after="secret " msgstr="秘密鍵のペア"
+
+{\bline break}i
+id="line_break"
+hint="line break = 改行"
+valid msgstr="改行"
+disabled
 
 {\bline numbers?}i
 id="line_number"
@@ -590,6 +645,18 @@ id="move_up"
 hint="Move Up = 上に移動"
 valid msgstr="上に移動"
 
+{\bnewline}i
+id="newline"
+hint="newline = 改行"
+valid msgstr="改行"
+disabled
+
+{^Next$}
+id="next"
+hint="Next = 次へ"
+valid msgstr="次へ"
+disabled
+
 {\boblique}i
 id="oblique"
 hint="oblique = オブリック"
@@ -645,7 +712,7 @@ disabled
 {\bplain[ -]?text}i
 id="plain_text2"
 hint="plain text = 平文 [暗号化されていないデータ]"
-valid !msgid="password"
+valid !msgid="password|crypto|encrypt"
 valid msgstr="平文"
 
 {^Play$}
@@ -685,6 +752,12 @@ id="playlist"
 hint="playlist = プレイリスト"
 valid msgstr="プレイリスト"
 
+{^Previous$}
+id="previous"
+hint="Previous = 前へ"
+valid msgstr="前へ"
+disabled
+
 {^Print\.\.\.$}
 id="print"
 hint="Print... = 印刷..."
@@ -709,14 +782,13 @@ valid msgstr="進捗バー"
 {\bpropert(y|ies)}i
 id="property"
 hint="property = プロパティ"
-valid msgstr="プロパティ"
-valid cat="kipiplugin_sendimages" msgid="properties.txt"
+valid msgstr="プロパティ(?!ー)"
 valid after="(food|physical) "
 
 {\bproxy}i
 id="proxy"
 hint="proxy = プロキシ"
-valid msgstr="プロキシ"
+valid msgstr="プロキシ(?!ー)"
 valid cat="kfileshare" msgstr="(DNS|WINS|Msdfs) proxy"
 
 {\bpublic keys?}i
@@ -743,6 +815,11 @@ valid msgstr="読み取り専用"
 id="redo"
 hint="Redo = やり直す"
 valid msgstr="やり直す"
+
+{^Reload$}
+id="reload"
+hint="Reload = 再読み込み"
+valid msgstr="再読み込み"
 
 {^Rename$}
 id="rename"
@@ -844,7 +921,7 @@ valid msgstr="秘密鍵"
 {\bsecurity}i
 id="security"
 hint="security = セキュリティ"
-valid msgstr="セキュリティ"
+valid msgstr="セキュリティ(?!ー)"
 valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
 valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
 valid cat="kspread" msgstr="証券"
@@ -888,7 +965,6 @@ id="space2"
 hint="space = 領域"
 valid !after="(disk|swap|memory) "
 valid msgstr="領域"
-valid msgstr="ディスクの使用状況を表示する KDE のユーティリティ"
 
 {\bspace\b}i
 id="space3"
@@ -896,10 +972,10 @@ hint="space = 宇宙"
 valid msgstr="宇宙"
 disabled
 
-{\bspams?}i
+{\bspams?\b}i
 id="spam"
 hint="spam = スパム"
-valid before="[m@]"
+valid before="@"
 valid msgstr="スパム"
 
 {\bstatus ?bar}i
@@ -951,7 +1027,7 @@ valid msgstr="ターミナルエミュレータ"
 {\btext editor}i
 id="text_editor"
 hint="text editor = テキストエディタ"
-valid msgstr="テキストエディタ"
+valid msgstr="テキストエディタ(?!ー)"
 
 {\bthreshold}i
 id="threshold"
@@ -1006,6 +1082,13 @@ hint="unmount = アンマウント"
 valid msgstr="アンマウント"
 valid msgstr="unmount"
 
+{^Up$}
+id="up"
+hint="Up = 上へ"
+valid ctx="QShortcut|keyboard-key-name"
+valid msgstr="上へ"
+disabled
+
 {\busers?}i
 id="user"
 hint="user = ユーザ"
@@ -1020,7 +1103,7 @@ valid msgstr="username"
 {\butilit(y|ies)}i
 id="utility"
 hint="utility = ユーティリティ"
-valid msgstr="ユーティリティ"
+valid msgstr="ユーティリティ(?!ー)"
 
 {\bvalues?}i
 id="value"
@@ -1030,7 +1113,7 @@ disabled
 
 {\bvalue}i
 id="value2"
-hint="value = 明度"
+hint="value = 明度 [HSV の V]"
 valid !ctx="HSV"
 valid msgstr="明度"
 
@@ -1047,14 +1130,12 @@ id="variable2"
 hint="variable = 可変"
 valid !before="[ -](bitrate|width|depth|space|block size|viewpoint)"
 valid msgstr="可変"
-valid cat="kile" msgstr="伸縮する(垂直|水平)方向の空白"
 
 {\bvariables?\b}i
 id="variable3"
 hint="variable = 変光星 [variable star]"
 valid !before=" star" !ctx="variable star"
 valid msgstr="変光星"
-valid cat="kstars" msgstr="AAVSO 作成の光度曲線"
 
 {\bvariable bitrate\b}i
 id="variable_bitrate"
