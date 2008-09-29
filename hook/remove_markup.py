@@ -10,7 +10,7 @@ to set expected markup types after the catalog has been opened,
 in case it does not specify any on its own.
 
 The following markup types are recognized at the moment, by keyword strings
-(case insensitive): C{html}, C{kuit}, C{htmlkuit}, C{xml}.
+(case insensitive): C{html}, C{kuit}, C{htmlkuit}, C{docbook}, C{xml}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -30,6 +30,9 @@ def _rem_in_text (text, mtypes):
             text = M.html_to_plain(text)
         elif mtype == "kuit":
             text = M.kuit_to_plain(text)
+        elif mtype == "docbook":
+            # No special conversion at the moment.
+            text = M.xml_to_plain(text)
         elif mtype == "xml":
             text = M.xml_to_plain(text)
 
