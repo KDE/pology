@@ -367,7 +367,7 @@ def kuit_to_plain (text):
     """
     Convert KUIT markup to plain text.
 
-    @param text: kuit text to convert to plain
+    @param text: KUIT text to convert to plain
     @type text: string
 
     @returns: plain text version
@@ -375,4 +375,29 @@ def kuit_to_plain (text):
     """
 
     return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, _kuit_keepws)
+
+
+_htkt_tags = _html_tags + _kuit_tags
+_htkt_subs = dict(_html_subs.items() + _kuit_subs.items())
+_htkt_ents = dict(_html_ents.items() + _kuit_ents.items())
+_htkt_keepws = set(list(_html_keepws) + list(_kuit_keepws))
+
+def htmlkuit_to_plain (text):
+    """
+    Convert mixed HTML and KUIT markup to plain text.
+
+    Note that in general this is not the same as first converting HTML,
+    and then KUIT, or vice versa. For example, if the text has C{&lt;}
+    entity, after first conversion it will become plain C{<}, and interfere
+    with second conversion. Thus, this function should be used whenever
+    both HTML and KUIT may appear in the same text.
+
+    @param text: HTML+KUIT text to convert to plain
+    @type text: string
+
+    @returns: plain text version
+    @rtype: string
+    """
+
+    return xml_to_plain(text, _htkt_tags, _htkt_subs, _htkt_ents, _htkt_keepws)
 
