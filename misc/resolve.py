@@ -647,3 +647,130 @@ def remove_accelerator (text, accels=None, greedy=False):
 
     return text
 
+
+def remove_fmtdirs (text, format, subs=""):
+    """
+    Remove format directives from the text.
+
+    Format directives are used to substitute values in the text.
+    An example text with directives in several formats::
+
+        "%d men on a %s man's chest."  # C
+        "%(num)d men on a %(attrib)s man's chest."  # Python
+        "%1 men on a %2 man's chest." # KDE/Qt
+
+    Format is specified by a string keyword. The following formats are
+    known at the moment: C{c}, C{qt}, c{kde}, c{python}.
+    Format string may also have C{-format} appended to the keyword, for
+    compatibility with Gettext format flags.
+
+    @param text: text from which to remove format directives
+    @type text: string
+    @param format: format keyword
+    @type format: string
+    @param subs: text to replace format directives instead of just removing it
+    @type subs: string
+
+    @returns: text without format directives
+    @rtype: string
+    """
+
+    format = format.lower()
+    if format.endswith("-format"):
+        format = format[:format.rfind("-")]
+
+    if 0: pass
+    elif format == "c":
+        text = _remove_fmtdirs_c(text, subs)
+    elif format in ("kde", "qt"):
+        # FIXME: Actually, there are some differences between the two.
+        text = _remove_fmtdirs_qt(text, subs)
+    elif format == "python":
+        text = _remove_fmtdirs_python(text, subs) # must be first
+        text = _remove_fmtdirs_c(text, subs)
+
+    return text
+
+
+# FIXME: Make it tighter.
+_fmtdir_tail_c = r"[ +-]?\d*\.?\d*[a-z]"
+_fmtdir_tail_c_rx = re.compile(_fmtdir_tail_c)
+
+def _remove_fmtdirs_c (text, subs=""):
+
+    p = 0
+    nsegs = []
+    while True:
+        pp = p
+        p = text.find("%", p)
+        if p < 0:
+            nsegs.append(text[pp:])
+            break
+        nsegs.append(text[pp:p])
+        p += 1
+        if text[p:p+1] == "%":
+            nsegs.append("%")
+            p += 1
+            continue
+        m = _fmtdir_tail_c_rx.match(text, p)
+        if m:
+            p = m.span()[1]
+            if subs:
+                nsegs.append(subs)
+
+    return "".join(nsegs)
+
+
+# FIXME: Make it tighter?
+_fmtdir_tail_python_rx = re.compile(r"\(.*?\)" + _fmtdir_tail_c)
+
+def _remove_fmtdirs_python (text, subs=""):
+
+    p = 0
+    nsegs = []
+    while True:
+        pp = p
+        p = text.find("%", p)
+        if p < 0:
+            nsegs.append(text[pp:])
+            break
+        nsegs.append(text[pp:p])
+        p += 1
+        if text[p:p+1] == "%":
+            nsegs.append("%")
+            p += 1
+            continue
+        print text[p:]
+        m = _fmtdir_tail_python_rx.match(text, p)
+        if m:
+            p = m.span()[1]
+            if subs:
+                nsegs.append(subs)
+
+    return "".join(nsegs)
+
+
+_fmtdir_tail_qt_rx = re.compile(r"L?\d{1,2}")
+
+def _remove_fmtdirs_qt (text, subs=""):
+
+    p = 0
+    nsegs = []
+    while True:
+        pp = p
+        p = text.find("%", p)
+        if p < 0:
+            nsegs.append(text[pp:])
+            break
+        nsegs.append(text[pp:p])
+        p += 1
+        m = _fmtdir_tail_qt_rx.match(text, p)
+        if m:
+            p = m.span()[1]
+            if subs:
+                nsegs.append(subs)
+        else:
+            nsegs.append("%")
+
+    return "".join(nsegs)
+
