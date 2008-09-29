@@ -320,3 +320,59 @@ def _unmask_ws (text):
         text = text.replace(mask, ws)
     return text
 
+
+_html_tags = """
+qt html
+a b big blockquote body br center cite code dd dl dt em font
+h1 h2 h3 h4 h5 h6 head hr i img li meta nobr ol p pre
+s span strong style sub sup table td th tr tt u ul var
+""".split()
+_html_subs = {
+}
+_html_ents = { # in addition to default XML entities
+    "nbsp": u"\xa0",
+}
+_html_keepws = set("""
+code pre
+""".split())
+
+def html_to_plain (text):
+    """
+    Convert HTML markup to plain text.
+
+    @param text: HTML text to convert to plain
+    @type text: string
+
+    @returns: plain text version
+    @rtype: string
+    """
+
+    return xml_to_plain(text, _html_tags, _html_subs, _html_ents, _html_keepws)
+
+
+_kuit_tags = """
+kuit kuil title subtitle para list item note warning
+filename link application command resource icode bcode shortcut interface
+emphasis placeholder email envar message numid nl
+""".split()
+_kuit_subs = {
+}
+_kuit_ents = { # in addition to default XML entities
+}
+_kuit_keepws = set("""
+icode bcode
+""".split())
+
+def kuit_to_plain (text):
+    """
+    Convert KUIT markup to plain text.
+
+    @param text: kuit text to convert to plain
+    @type text: string
+
+    @returns: plain text version
+    @rtype: string
+    """
+
+    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, _kuit_keepws)
+
