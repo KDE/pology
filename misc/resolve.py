@@ -774,3 +774,79 @@ def _remove_fmtdirs_qt (text, subs=""):
 
     return "".join(nsegs)
 
+
+def remove_literals (text, subs=""):
+    """
+    Remove literal substrings from the text.
+
+    Literal substrings are URLs, email addresses, web site names,
+    command options, etc. This function will heuristically try to
+    remove such substrings from the text.
+
+    @param text: text from which to remove literals
+    @type text: string
+    @param subs: text to replace literals instead of just removing them
+    @type subs: string
+
+    @returns: text without literals
+    @rtype: string
+    """
+
+    text = _remove_literals_url(text, subs)
+    text = _remove_literals_email(text, subs)
+    text = _remove_literals_web(text, subs) # after URLs and email
+    text = _remove_literals_cmd(text, subs)
+
+    return text
+
+
+def _remove_by_rx (text, rx, subs=""):
+
+    p = 0
+    nsegs = []
+    while True:
+        m = rx.search(text, p)
+        if not m:
+            nsegs.append(text[p:])
+            break
+        p1, p2 = m.span()
+        nsegs.append(text[p:p1])
+        if subs:
+            nsegs.append(subs)
+        p = p2
+
+    return "".join(nsegs)
+
+
+_literal_url_rx = re.compile(r"\S+://\S*[\w&=]")
+
+def _remove_literals_url (text, subs=""):
+
+    return _remove_by_rx(text, _literal_url_rx, subs)
+
+
+_literal_web_rx = re.compile(r"\w+(\.[\w-]+)+")
+
+def _remove_literals_web (text, subs=""):
+
+    return _remove_by_rx(text, _literal_web_rx, subs)
+
+
+_literal_email_rx = re.compile(r"\w[\w.-]*@\w+\.[\w.-]*\w")
+
+def _remove_literals_email (text, subs=""):
+
+    return _remove_by_rx(text, _literal_email_rx, subs)
+
+
+_literal_cmd_rx = re.compile(r"[a-z\d_-]+\(\d\)", re.I)
+_literal_cmdopt_rx = re.compile(r"(?<!\S)-[a-z\d]+", re.I)
+_literal_cmdoptlong_rx = re.compile(r"(?<!\S)--[a-z\d-]+", re.I)
+
+def _remove_literals_cmd (text, subs=""):
+
+    text = _remove_by_rx(text, _literal_cmd_rx, subs)
+    text = _remove_by_rx(text, _literal_cmdopt_rx, subs)
+    text = _remove_by_rx(text, _literal_cmdoptlong_rx, subs)
+    return text
+
