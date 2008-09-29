@@ -196,38 +196,35 @@ def _resolve_ents (text, ents={}, ignents={}):
     Resolve XML entities as described in L{xml_to_plain}, ignoring some.
     """
 
-    # There may be entities within entities, so reparse the text as long
-    # as at least one known entity has been replaced in the previous pass.
+    # There may be entities within entities, so replace entities in each
+    # entity value too before substituting in the main text.
+    ntext = []
+    p = 0
     while True:
-        n_replaced = 0
-        ntext = []
-        p = 0
-        while True:
-            pp = p
-            p = text.find("&", p)
-            if p < 0:
-                break
-            ntext.append(text[pp:p])
-            m = _entity_rx.match(text, p)
-            if m:
-                name = m.group(1)
-                if name not in ignents:
-                    value = ents.get(name)
-                    if value is not None:
-                        ntext.append(value)
-                        n_replaced += 1
-                    else:
-                        ntext.append(name)
-                else: # ignored entity, do not touch
-                    ntext.append(text[p:m.span()[1]])
-                p = m.span()[1]
-            else:
-                ntext.append(text[p]) # the ampersand
-                p += 1
-        ntext.append(text[pp:])
-        text = "".join(ntext)
-        if n_replaced == 0:
+        pp = p
+        p = text.find("&", p)
+        if p < 0:
             break
+        ntext.append(text[pp:p])
+        m = _entity_rx.match(text, p)
+        if m:
+            name = m.group(1)
+            if name not in ignents:
+                value = ents.get(name)
+                if value is not None:
+                    # FIXME: Endless recursion if the entity repeats itself.
+                    value = _resolve_ents(value, ents, ignents)
+                    ntext.append(value)
+                else:
+                    ntext.append(name)
+            else: # ignored entity, do not touch
+                ntext.append(text[p:m.span()[1]])
+            p = m.span()[1]
+        else:
+            ntext.append(text[p]) # the ampersand
+            p += 1
+    ntext.append(text[pp:])
+    text = "".join(ntext)
 
     return text
 
