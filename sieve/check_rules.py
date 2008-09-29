@@ -28,7 +28,7 @@ The sieve parameters are:
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
-   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
+   - C{filter:[<lang>:]<name>,...}: apply filters prior to rule checking
 
 The C{filter} option specifies text-transformation filters to apply to
 msgstr before it is checked. These are the filters found in C{pology.filters}
@@ -229,9 +229,8 @@ class Sieve (object):
         
         # Current file loaded from cache on previous message. Close and return
         if self.cached:
-            # No need to analyze message, close cache if needed and return immediately
+            # No need to analyze message, return immediately
             if self.cacheFile:
-                self.xmlFile.write("</po>")
                 self.cacheFile=None # Indicate cache has been used and flushed into xmlFile
             return
         
@@ -291,14 +290,11 @@ class Sieve (object):
                 self.nmatch+=1
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
-                    # as it considers matching to always be on msgid,
-                    # and that there is only one matched span.
-                    # Also, spans contain information about which fields
-                    # had problems, no msgstr index available as such.
-                    # Needs XML format redefinition.
-                    span=spans[0][2]
+                    # as it considers matching to always be on msgstr
+                    # Multiple span are now supported as well as msgstr index
+
                     # Now, write to XML file if defined
-                    xmlError=rule_xml_error(msg, cat, rule, span, 0)
+                    xmlError=rule_xml_error(msg, cat, rule, spans[0][2], spans[0][1])
                     self.xmlFile.writelines(xmlError)
                     if not self.cached:
                         # Write result in cache

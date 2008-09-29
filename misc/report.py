@@ -289,7 +289,7 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     """Create and returns rule error message in XML format
     @param msg: pology.file.message.Message object
     @param cat: pology.file.catalog.Catalog object
-    @param span: 2-tuple (start, end) of the offending span
+    @param span: list of 2-tuple (start, end) of offending spans
     @param rule: pology.misc.rules.Rule object
     @param pluralId: msgstr count in case of plural form. Default to 0
     @return: XML message as a list of unicode string"""
@@ -300,8 +300,10 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
-    xmlError.append("\t\t<start>%s</start>\n" % span[0])
-    xmlError.append("\t\t<end>%s</end>\n" % span[1])
+    for begin, end in span:
+        xmlError.append("\t\t<highlight begin='%s' end='%s'/>\n" % (begin, end))
+    #xmlError.append("\t\t<start>%s</start>\n" % span[0])
+    #xmlError.append("\t\t<end>%s</end>\n" % span[1])
     xmlError.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
     xmlError.append("\t\t<hint><![CDATA[%s]]></hint>\n" % rule.hint)
     xmlError.append("\t</error>\n")
