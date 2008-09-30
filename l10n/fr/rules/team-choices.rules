@@ -132,7 +132,7 @@ hint="Homogénéité : utiliser « URL mal formée »"
 
 [&lwb;items?&rwb;]
 valid ctx="Query"
-valid after="</"
+valid after="</|<"
 hint="item(s) -> élément(s)"
 
 [modules? enfichable]i
@@ -237,8 +237,8 @@ hint="Utiliser la forme « en suivant votre PATH »"
 [par votre \$?PATH]
 hint="Utiliser la forme « en suivant votre PATH »"
 
-[chemin]i
-valid before=" équestre| de randonnée"
+[chemins?]i
+valid before=" équestre| de randonnée| de bézier"
 valid cat="klines"
 hint="Traduisez « path » par « emplacement »"
 
@@ -259,11 +259,6 @@ hint="On peut sûrement supprimer le « en train de » pour alléger..."
 [entre de configuration]
 valid after="C" 
 hint="Mettre une majuscule à « Centre de configuration de KDE »"
-
-[\bitem]i
-valid after="\?"
-valid after="</"
-hint="On essaie d'éviter « item » ?"
 
 [visualis]
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
@@ -326,5 +321,12 @@ hint="Traduisez ceci par « tutoriel» (choix de l'équipe)"
 
 [coloris|colorie|coloria]i
 hint="Utilisez plutôt le verbe « colorer » ou le substantif « coloration »"
+
+{Shift\b}
+valid msgstr="\bMaj\b"
+valid after="(Hue|First|Second|Third) "
+valid before=" (left|right|up|down)"
+valid before="-JIS"
+hint="Traduisez « Shift » par « Maj » (sans point à la fin)"
 
 # End of rule file
