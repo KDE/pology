@@ -566,7 +566,7 @@ def expand_vars (text, varmap, head="%"):
                    "at column %d in string '%s'" % (varname, pp, text))
         ntext.append("%s" % varvalue)
 
-    return "".join(ntext)
+    return type(text)("").join(ntext)
 
 
 _usual_accels = list("_&~^")
