@@ -89,7 +89,7 @@ def read_entities (*fnames):
     return entities
 
 
-_entity_tail_rx = re.compile(r"^([\w_:][\w\d._:-]*);")
+_entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
 
 def resolve_entities (text, entities, ignored_entities,
                       srcname=None, fcap=False,
@@ -617,6 +617,14 @@ def remove_accelerator (text, accels=None, greedy=False):
                 break
 
             if text[p + alen:p + alen + 1].isalnum():
+                # If the accelerator marker is &, do not remove it if it
+                # looks like an XML entity (less damage than otherwise).
+                if accel == "&":
+                    m = _entity_tail_rx.match(text, p + alen)
+                    if m:
+                        p = m.span()[1]
+                        continue
+
                 # Valid accelerator.
                 text = text[:p] + text[p + alen:]
 
@@ -642,8 +650,7 @@ def remove_accelerator (text, accels=None, greedy=False):
             if text[p + alen:p + 2 * alen] == accel:
                 # Escaped accelerator marker.
                 text = text[:p] + text[p + alen:]
-
-            p += alen
+                p += alen
 
     return text
 
