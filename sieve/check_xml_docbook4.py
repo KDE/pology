@@ -78,8 +78,6 @@ def _handler_start_element (name, attrs):
                               % (name, attr), _c_msg, _c_cat)
 
 
-_placeholder_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
-
 # Check current msgstr.
 def check_xml_docbook (cat, msg, msgstr, quiet=False):
 
@@ -112,8 +110,10 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
     return _c_errcnt == 0
 
 
+# Test whether all <placeholder-N/> tags in msgid are present in msgstr.
+_placeholder_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
+
 def match_placeholder_tags (msgid, msgstr):
-    # Test whether all <placeholder-N/> tags in msgid are present in msgstr.
 
     if "placeholder-" in msgid:
         msgid_plnums = set()
