@@ -109,6 +109,15 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
 # ----------------------------------------
 # The checker sieve.
 
+_meta_msg_msgctxt = set([
+])
+_meta_msg_msgid = set([
+    "translator-credits",
+])
+_meta_msg_msgid_sw = [
+    "@@image:",
+]
+
 class Sieve (object):
     """Weakly check validity of Docbook XML."""
 
@@ -126,6 +135,13 @@ class Sieve (object):
         # Check only translated messages.
         if not msg.translated:
             return
+
+        # Skip some known meta-messages.
+        if msg.msgctxt in _meta_msg_msgctxt or msg.msgid in _meta_msg_msgid:
+            return
+        for sw in _meta_msg_msgid_sw:
+            if msg.msgid.startswith(sw):
+                return
 
         # Check XML in translation.
         for msgstr in msg.msgstr:
