@@ -106,10 +106,18 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
             report_on_msg("Docbook parsing: %s" % inst, _c_msg, _c_cat)
         return False
 
-    # Test that <placeholder-N/> tags in msgid are present in msgstr.
-    if "placeholder-" in msg.msgid:
+    if not match_placeholder_tags(msg.msgid, msgstr):
+        return False
+
+    return _c_errcnt == 0
+
+
+def match_placeholder_tags (msgid, msgstr):
+    # Test whether all <placeholder-N/> tags in msgid are present in msgstr.
+
+    if "placeholder-" in msgid:
         msgid_plnums = set()
-        for m in _placeholder_rx.finditer(msg.msgid):
+        for m in _placeholder_rx.finditer(msgid):
             msgid_plnums.add(m.group(1))
         msgstr_plnums = set()
         for m in _placeholder_rx.finditer(msgstr):
@@ -127,7 +135,7 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
                           % ", ".join(tags), _c_msg, _c_cat)
             return False
 
-    return _c_errcnt == 0
+    return True
 
 # ----------------------------------------
 # The checker sieve.
