@@ -66,7 +66,7 @@ from pology.misc.report import error, report_msg_content
 from pology.misc.langdep import get_filter_lreq
 from pology.misc.wrap import wrap_field, wrap_field_unwrap
 from pology.file.message import MessageUnsafe
-from pology.hook.remove_accel import remove_accel_msg
+from pology.hook.remove_subs import remove_accel_msg
 
 
 _flag_mark = u"pattern-match"

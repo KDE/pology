@@ -57,7 +57,7 @@ from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_filter_lreq
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
-from pology.hook.remove_accel import remove_accel_msg
+from pology.hook.remove_subs import remove_accel_msg
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
