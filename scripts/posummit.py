@@ -137,6 +137,7 @@ class Project (object):
             "hook_on_scatter_file" : [],
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
+            "hook_on_gather_file_branch" : [],
             "hook_on_merge_head" : [],
             "hook_on_merge_file" : [],
 
@@ -839,9 +840,22 @@ def summit_gather_single (summit_name, project, options):
                 branch_paths.append(path)
             branch_paths.sort()
             for path in branch_paths:
+                # Apply hooks to branch catalog file, creating temporaries.
+                tmp_path = None
+                if project.hook_on_gather_file_branch:
+                    # Temporary path should be such as to not modify the
+                    # catalog name (e.g. appending ".mod" could make ".po"
+                    # a part of the name).
+                    tmp_path = path + "~mod"
+                    shutil.copyfile(path, tmp_path)
+                    exec_hook_file(branch_id, branch_name, tmp_path,
+                                   project.hook_on_gather_file_branch)
+
                 # Open monitored, as otherwise the summit catalog will
                 # refuse to insert new message from the branch.
-                branch_cat = Catalog(path)
+                branch_cat = Catalog(tmp_path or path)
+                if tmp_path: # as soon as catalog is opened, no longer needed
+                    os.unlink(tmp_path)
                 bcat_pscats[branch_id].append((branch_cat, pre_summit_cats))
 
     # Select primary branch catalog and list of all catalogs with branch ids.
