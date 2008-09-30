@@ -120,7 +120,7 @@ from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
 
-import sys, os, imp, locale
+import sys, os, imp, locale, re
 from optparse import OptionParser
 
 
@@ -180,6 +180,25 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-c", "--msgfmt-check",
         action="store_true", dest="msgfmt_check", default=False,
         help="check catalogs by msgfmt and skip those which do not pass")
+    opars.add_option(
+        "-e", "--exclude-cat", metavar="REGEX",
+        dest="exclude_cat",
+        help="do not sieve files when their catalog name (file basename "
+             "without .po* extension) matches the regular expression")
+    opars.add_option(
+        "-E", "--exclude-path", metavar="REGEX",
+        dest="exclude_path",
+        help="do not sieve files when their full path matches "
+             "the regular expression")
+    opars.add_option(
+        "-i", "--include-cat", metavar="REGEX",
+        help="sieve files only when their catalog name (file basename "
+             "without .po* extension) matches the regular expression")
+    opars.add_option(
+        "-I", "--include-path", metavar="REGEX",
+        dest="include_path",
+        help="sieve files only when their full path matches "
+             "the regular expression")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
@@ -320,11 +339,46 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         else:
             wrap_func = wrap.wrap_field_unwrap
 
+    # Prepare selection regexes.
+    exclude_cat_rx = None
+    if op.exclude_cat:
+        exclude_cat_rx = re.compile(op.exclude_cat, re.I|re.U)
+    exclude_path_rx = None
+    if op.exclude_path:
+        exclude_path_rx = re.compile(op.exclude_path, re.I|re.U)
+    include_cat_rx = None
+    if op.include_cat:
+        include_cat_rx = re.compile(op.include_cat, re.I|re.U)
+    include_path_rx = None
+    if op.include_path:
+        include_path_rx = re.compile(op.include_path, re.I|re.U)
+
     # Sieve the messages throughout the files.
     modified_files = []
     for fname in fnames:
+        # Construct catalog name by stripping final .po* from file basename.
+        cname = os.path.basename(fname)
+        p = cname.rfind(".po")
+        if p > 0:
+            cname = cname[:p]
+
+        # Check if the catalog should be sieved
+        do_sieve = True
+        if do_sieve and exclude_cat_rx:
+            do_sieve = exclude_cat_rx.search(cname) is None
+        if do_sieve and exclude_path_rx:
+            do_sieve = exclude_path_rx.search(fname) is None
+        if do_sieve and include_cat_rx:
+            do_sieve = include_cat_rx.search(cname) is not None
+        if do_sieve and include_path_rx:
+            do_sieve = include_path_rx.search(fname) is not None
+        if not do_sieve:
+            if op.verbose:
+                print "skipping on request: %s" % (fname,)
+            continue
+
         if op.verbose:
-            print "Sieving %s ..." % (fname,),
+            print "sieving %s ..." % (fname,),
 
         if op.msgfmt_check:
             # TODO: Make it more portable?
