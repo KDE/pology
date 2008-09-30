@@ -121,11 +121,6 @@ hint="Clear Text = テキストをクリア"
 valid !ctx="action"
 valid msgstr="テキストをクリア"
 
-{\bclipboard}i
-id="clipboard"
-hint="clipboard = クリップボード"
-valid msgstr="クリップボード"
-
 {^Close$}
 id="close"
 hint="Close = 閉じる"
@@ -271,6 +266,12 @@ id="document2"
 hint="document = ドキュメント"
 valid msgstr="ドキュメント"
 disabled
+
+{^Down$}
+id="down"
+hint="Down = 下へ"
+valid ctx="QShortcut|keyboard-key-name|network"
+valid msgstr="下へ"
 
 {\bdrag and drop\b}i
 id="drag_and_drop"
@@ -627,8 +628,8 @@ valid msgstr="マウントポイント"
 
 {^Move Down$}
 id="move_down"
-hint="Move Down = 下に移動"
-valid msgstr="下に移動"
+hint="Move Down = 下へ移動"
+valid msgstr="下へ移動"
 
 {^Move Here$}
 id="move_here"
@@ -642,8 +643,8 @@ valid msgstr="ごみ箱に移動"
 
 {^Move Up$}
 id="move_up"
-hint="Move Up = 上に移動"
-valid msgstr="上に移動"
+hint="Move Up = 上へ移動"
+valid msgstr="上へ移動"
 
 {\bnewline}i
 id="newline"
@@ -734,7 +735,7 @@ hint="player = プレーヤー [メディアプレーヤー]"
 valid after="computer |AI |human "
 valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, kbackgammon, kombination, kttt, libksirtet"
 valid after="Dragon |Kaffeine "
-valid cat="kopete" after="%"
+valid after="%"
 valid msgstr="プレーヤー"
 
 {\bplayers?}i
@@ -742,7 +743,7 @@ id="player2"
 hint="player = プレイヤー [ゲームの参加者]"
 valid after="media |audio |music |movie |video |midi |karaoke |file |CD |DVD |MPEG "
 valid after="external"
-valid cat="kopete" after="%"
+valid after="%"
 valid cat="amarok, k3b, libk3b, kplayer, kaffeine4, kmplayer, juk, kcmnotify"
 valid after="Dragon |Kaffeine |XMMS |DJ-Mixer and "
 valid msgstr="プレイヤー"
@@ -920,8 +921,8 @@ valid msgstr="秘密鍵"
 
 {\bsecurity}i
 id="security"
-hint="security = セキュリティ"
-valid msgstr="セキュリティ(?!ー)"
+hint="security = セキュリティ|安全|安全性"
+valid msgstr="セキュリティ(?!ー)|安全|安全性"
 valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
 valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
 valid cat="kspread" msgstr="証券"
@@ -1085,9 +1086,8 @@ valid msgstr="unmount"
 {^Up$}
 id="up"
 hint="Up = 上へ"
-valid ctx="QShortcut|keyboard-key-name"
+valid ctx="QShortcut|keyboard-key-name|network"
 valid msgstr="上へ"
-disabled
 
 {\busers?}i
 id="user"
@@ -1178,7 +1178,7 @@ id="widget"
 hint="widget = ウィジェット"
 valid msgstr="ウィジェット"
 
-{\bwizards?}i
+{\bwizards?\b}i
 id="wizard"
 hint="wizard = ウィザード"
 valid msgstr="ウィザード"
