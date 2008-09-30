@@ -7,20 +7,20 @@ Remove special substrings from parts of the message.
 @license: GPLv3
 """
 
-from pology.misc.resolve import remove_accelerator as _rem_in_text
+from pology.misc.resolve import remove_accelerator as _rm_accel_in_text
 import pology.misc.markup as M
 
 
-def _rem_in_msg (msg, accels, greedy=False):
+def _rm_accel_in_msg (msg, accels, greedy=False):
 
-    msg.msgid = _rem_in_text(msg.msgid, accels, greedy)
-    msg.msgid_plural = _rem_in_text(msg.msgid_plural, accels, greedy)
+    msg.msgid = _rm_accel_in_text(msg.msgid, accels, greedy)
+    msg.msgid_plural = _rm_accel_in_text(msg.msgid_plural, accels, greedy)
     for i in range(len(msg.msgstr)):
-        msg.msgstr[i] = _rem_in_text(msg.msgstr[i], accels, greedy)
+        msg.msgstr[i] = _rm_accel_in_text(msg.msgstr[i], accels, greedy)
 
-    msg.msgid_previous = _rem_in_text(msg.msgid_previous, accels, greedy)
-    msg.msgid_plural_previous = _rem_in_text(msg.msgid_plural_previous, accels,
-                                             greedy)
+    msg.msgid_previous = _rm_accel_in_text(msg.msgid_previous, accels, greedy)
+    msg.msgid_plural_previous = _rm_accel_in_text(msg.msgid_plural_previous,
+                                                  accels, greedy)
 
 
 def remove_accel_text (cat, msg, text):
@@ -39,7 +39,7 @@ def remove_accel_text (cat, msg, text):
     """
 
     accels = cat.accelerator()
-    return _rem_in_text(text, accels)
+    return _rm_accel_in_text(text, accels)
 
 
 def remove_accel_text_greedy (cat, msg, text):
@@ -52,7 +52,7 @@ def remove_accel_text_greedy (cat, msg, text):
     """
 
     accels = cat.accelerator()
-    return _rem_in_text(text, accels, greedy=True)
+    return _rm_accel_in_text(text, accels, greedy=True)
 
 
 def remove_accel_msg (cat, msg):
@@ -65,7 +65,7 @@ def remove_accel_msg (cat, msg):
     """
 
     accels = cat.accelerator()
-    _rem_in_msg(msg, accels)
+    _rm_accel_in_msg(msg, accels)
 
 
 def remove_accel_msg_greedy (cat, msg):
@@ -78,10 +78,10 @@ def remove_accel_msg_greedy (cat, msg):
     """
 
     accels = cat.accelerator()
-    _rem_in_msg(msg, accels, greedy=True)
+    _rm_accel_in_msg(msg, accels, greedy=True)
 
 
-def _rem_in_text (text, mtypes):
+def _rm_markup_in_text (text, mtypes):
 
     for mtype in mtypes:
         mtype = mtype.lower()
@@ -101,15 +101,16 @@ def _rem_in_text (text, mtypes):
     return text
 
 
-def _rem_in_msg (msg, mtypes):
+def _rm_markup_in_msg (msg, mtypes):
 
-    msg.msgid = _rem_in_text(msg.msgid, mtypes)
-    msg.msgid_plural = _rem_in_text(msg.msgid_plural, mtypes)
+    msg.msgid = _rm_markup_in_text(msg.msgid, mtypes)
+    msg.msgid_plural = _rm_markup_in_text(msg.msgid_plural, mtypes)
     for i in range(len(msg.msgstr)):
-        msg.msgstr[i] = _rem_in_text(msg.msgstr[i], mtypes)
+        msg.msgstr[i] = _rm_markup_in_text(msg.msgstr[i], mtypes)
 
-    msg.msgid_previous = _rem_in_text(msg.msgid_previous, mtypes)
-    msg.msgid_plural_previous = _rem_in_text(msg.msgid_plural_previous, mtypes)
+    msg.msgid_previous = _rm_markup_in_text(msg.msgid_previous, mtypes)
+    msg.msgid_plural_previous = _rm_markup_in_text(msg.msgid_plural_previous,
+                                                   mtypes)
 
 
 def remove_markup_text (cat, msg, text):
@@ -130,7 +131,7 @@ def remove_markup_text (cat, msg, text):
     """
 
     mtypes = cat.markup()
-    return _rem_in_text(text, mtypes)
+    return _rm_markup_in_text(text, mtypes)
 
 
 def remove_markup_msg (cat, msg):
@@ -142,5 +143,5 @@ def remove_markup_msg (cat, msg):
     """
 
     mtypes = cat.markup()
-    _rem_in_msg(msg, mtypes)
+    _rm_markup_in_msg(msg, mtypes)
 

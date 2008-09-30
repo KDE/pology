@@ -650,7 +650,8 @@ def remove_accelerator (text, accels=None, greedy=False):
             if text[p + alen:p + 2 * alen] == accel:
                 # Escaped accelerator marker.
                 text = text[:p] + text[p + alen:]
-                p += alen
+
+            p += alen
 
     return text
 
