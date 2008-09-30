@@ -775,7 +775,7 @@ def _remove_fmtdirs_qt (text, subs=""):
     return "".join(nsegs)
 
 
-def remove_literals (text, subs=""):
+def remove_literals (text, subs="", substrs=[], regexes=[], heuristic=True):
     """
     Remove literal substrings from the text.
 
@@ -783,19 +783,38 @@ def remove_literals (text, subs=""):
     command options, etc. This function will heuristically try to
     remove such substrings from the text.
 
+    Additional literals to remove may be specified as verbatim substrings
+    (C{substrs} parameter) and regular expressions (C{regexes}).
+    These are applied before the internal heuristic matchers.
+    Heuristic removal may be entirely disabled by setting C{heuristic}
+    to C{False}.
+
     @param text: text from which to remove literals
     @type text: string
     @param subs: text to replace literals instead of just removing them
     @type subs: string
+    @param substrs: additional substrings to remove by direct string match
+    @type substrs: sequence of strings
+    @param regexes: additional substrings to remove by regex match
+    @type regexes: sequence of compiled regular expressions
+    @param heuristic: whether to apply heuristic at all
+    @type heuristic: bool
 
     @returns: text without literals
     @rtype: string
     """
 
-    text = _remove_literals_url(text, subs)
-    text = _remove_literals_email(text, subs)
-    text = _remove_literals_web(text, subs) # after URLs and email
-    text = _remove_literals_cmd(text, subs)
+    # Apply explicit literals before heuristics.
+    for substr in substrs:
+        text = text.replace(substr, subs)
+    for regex in regexes:
+        text = regex.sub(subs, text)
+
+    if heuristic:
+        text = _remove_literals_url(text, subs)
+        text = _remove_literals_email(text, subs)
+        text = _remove_literals_web(text, subs) # after URLs and email
+        text = _remove_literals_cmd(text, subs)
 
     return text
 
