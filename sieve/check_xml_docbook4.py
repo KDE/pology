@@ -17,7 +17,7 @@ import os
 import re
 import locale
 import xml.parsers.expat
-from pology.misc.report import report_on_msg
+from pology.misc.report import report, report_on_msg
 from pology import rootdir
 
 # ----------------------------------------
@@ -78,6 +78,8 @@ def _handler_start_element (name, attrs):
                               % (name, attr), _c_msg, _c_cat)
 
 
+_placeholder_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
+
 # Check current msgstr.
 def check_xml_docbook (cat, msg, msgstr, quiet=False):
 
@@ -103,6 +105,27 @@ def check_xml_docbook (cat, msg, msgstr, quiet=False):
         if not quiet:
             report_on_msg("Docbook parsing: %s" % inst, _c_msg, _c_cat)
         return False
+
+    # Test that <placeholder-N/> tags in msgid are present in msgstr.
+    if "placeholder-" in msg.msgid:
+        msgid_plnums = set()
+        for m in _placeholder_rx.finditer(msg.msgid):
+            msgid_plnums.add(m.group(1))
+        msgstr_plnums = set()
+        for m in _placeholder_rx.finditer(msgstr):
+            msgstr_plnums.add(m.group(1))
+        missing_plnums = list(msgid_plnums.difference(msgstr_plnums))
+        extra_plnums = list(msgstr_plnums.difference(msgid_plnums))
+        if missing_plnums:
+            tags = ["<placeholder-%s/>" % x for x in missing_plnums]
+            report_on_msg("Missing placeholder tags in translation: %s"
+                          % ", ".join(tags), _c_msg, _c_cat)
+            return False
+        elif extra_plnums: # do not report both, single glitch may cause them
+            tags = ["<placeholder-%s/>" % x for x in extra_plnums]
+            report_on_msg("Extra placeholder tags in translation: %s"
+                          % ", ".join(tags), _c_msg, _c_cat)
+            return False
 
     return _c_errcnt == 0
 
@@ -152,5 +175,5 @@ class Sieve (object):
     def finalize (self):
 
         if self.nbad > 0:
-            print "Total translations with invalid Docbook: %d" % self.nbad
+            report("Total translations with invalid Docbook: %d" % self.nbad)
 
