@@ -113,6 +113,44 @@ def manc_parse_flag_list (msg, prefix):
     return parse_list(msg.manual_comment, prefix + ",", ",")
 
 
+def manc_parse_field_values (msg, field):
+    """
+    Extract values of a field embedded in manual comments.
+
+    And embedded field is of the form::
+
+        # <field>: <value> ### sub-comment
+
+    There may be several fields of the same name, thus the values are
+    returned in a list (empty if there ware no appearances of the field).
+    Values are stripped of leading and trailing whitespace.
+
+    @param msg: message to parse
+    @type msg: Message
+    @param field: field name
+    @type field: string
+
+    @returns: parsed values
+    @rtype: list of strings
+    """
+
+    values = []
+    for cmnt in msg.manual_comment:
+        cmnt = cmnt.strip()
+        p = cmnt.find("###")
+        if p >= 0:
+            cmnt = cmnt[:p]
+        if cmnt.startswith(field):
+            p = cmnt.find(field) + len(field)
+            while p < len(cmnt) and cmnt[p].isspace():
+                p += 1
+            if p == len(cmnt) or cmnt[p] != ":":
+                continue
+            values.append(cmnt[p + 1:].strip())
+
+    return values
+
+
 def parse_summit_branches (msg):
     """
     Summit: Extract branch IDs from comments.
