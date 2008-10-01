@@ -138,12 +138,13 @@
   option is not possible or safe enough. Option <code>-m</code> of 
   <code>posieve.py</code> is useful here to send the names of modified POs 
   to a separate file.</p>
-  <p>The <code>filter</code> option specifies text-transformation filters 
-  to apply to msgstr before it is matched. These are the filters found in 
-  <code>pology.filters</code> and 
-  <code>pology.l10n.&lt;lang&gt;.filters</code>, and are specified as 
-  comma-separated list of <code>[&lt;lang&gt;:]&lt;name&gt;</code> 
-  (language stated when a filter is language-specific).</p>
+  <p>The <code>filter</code> option specifies pure text hooks to apply to 
+  msgstr before it is checked. The hooks are found in 
+  <code>pology.hook</code> and <code>pology.l10n.&lt;lang&gt;.hook</code> 
+  modules, and are specified as comma-separated list of 
+  <code>[&lt;lang&gt;:]&lt;name&gt;[/&lt;function&gt;]</code>; language is 
+  stated when a hook is language-specific, and function when it is not the 
+  default <code>process()</code> within the hook module.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

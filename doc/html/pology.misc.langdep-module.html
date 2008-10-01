@@ -107,15 +107,15 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">(string)-&gt;string</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_filter" class="summary-sig-name">get_filter</a>(<span class="summary-sig-arg">lang</span>,
+          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_hook" class="summary-sig-name">get_hook</a>(<span class="summary-sig-arg">lang</span>,
         <span class="summary-sig-arg">filtr</span>,
         <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Fetch a language-dependent text filter function.</td>
+      Fetch a language-dependent hook function.</td>
           <td align="right" valign="top">
             
             
@@ -131,10 +131,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_filter_lreq"></a><span class="summary-sig-name">get_filter_lreq</span>(<span class="summary-sig-arg">langreq</span>,
+          <td><span class="summary-sig"><a name="get_hook_lreq"></a><span class="summary-sig-name">get_hook_lreq</span>(<span class="summary-sig-arg">langreq</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Like <a href="pology.misc.langdep-module.html#get_filter" 
-      class="link">get_filter</a>, but the filter is specified as <a 
+      Like <a href="pology.misc.langdep-module.html#get_hook" 
+      class="link">get_hook</a>, but the hook is specified as <a 
       href="pology.misc.langdep-module.html#split_req" 
       class="link">language request</a>.</td>
           <td align="right" valign="top">
@@ -178,14 +178,14 @@
   <code>None</code>, in which case a language-independent module is looked 
   for. For example:</p>
 <pre class="literalblock">
-   get_module(&quot;sr&quot;, [&quot;filter&quot;, &quot;cyr2lat&quot;])
+   get_module(&quot;sr&quot;, [&quot;hook&quot;, &quot;cyr2lat&quot;])
 </pre>
   <p>will try to import the <code>pology.l10n.sr.cyr2lat</code> module, 
   while:</p>
 <pre class="literalblock">
-   get_module(None, [&quot;filter&quot;, &quot;normctx-ooo&quot;])
+   get_module(None, [&quot;hook&quot;, &quot;normctx-ooo&quot;])
 </pre>
-  <p>will try to import the <code>pology.filter.normctx_ooo</code>.</p>
+  <p>will try to import the <code>pology.hook.normctx_ooo</code>.</p>
   <p>The elements of the module path can also contain hyphens, which will 
   be converted into underscores when looking for the module.</p>
   <p>If the module cannot be imported, if <code>abort</code> is 
@@ -239,14 +239,14 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="get_filter"></a>
+<a name="get_hook"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_filter</span>(<span class="sig-arg">lang</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_hook</span>(<span class="sig-arg">lang</span>,
         <span class="sig-arg">filtr</span>,
         <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
@@ -256,22 +256,21 @@
     </td>
   </tr></table>
   
-  <p>Fetch a language-dependent text filter function.</p>
-  <p>Loads the filter function from 
-  <code>pology.l10n.&lt;lang&gt;.filter.&lt;filtr&gt;</code> module. The 
-  filter function must have the <code>(string) -&gt; string</code> 
-  signature. If <code>func</code> is <code>None</code>, the function name 
-  defaults to <code>process</code>.</p>
+  <p>Fetch a language-dependent hook function.</p>
+  <p>Loads the hook function from 
+  <code>pology.l10n.&lt;lang&gt;.hook.&lt;filtr&gt;</code> module. If 
+  <code>func</code> is <code>None</code>, the function name defaults to 
+  <code>process</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
-        <li><strong class="pname"><code>filtr</code></strong> (string) - filter module</li>
-        <li><strong class="pname"><code>func</code></strong> (string of <code>None</code>) - filter function</li>
-        <li><strong class="pname"><code>abort</code></strong> (bool) - if the filter is not loadable, abort or report <code>None</code></li>
+        <li><strong class="pname"><code>filtr</code></strong> (string) - hook module</li>
+        <li><strong class="pname"><code>func</code></strong> (string of <code>None</code>) - hook function</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - if the hook is not loadable, abort or report <code>None</code></li>
     </ul></dd>
-    <dt>Returns: (string)-&gt;string</dt>
-        <dd>the filter</dd>
+    <dt>Returns:</dt>
+        <dd>the hook</dd>
   </dl>
 </td></tr></table>
 </div>
