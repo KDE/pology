@@ -52,10 +52,12 @@ automatically using C{replace} option is not possible or safe enough.
 Option C{-m} of C{posieve.py} is useful here to send the names of
 modified POs to a separate file.
 
-The C{filter} option specifies text-transformation filters to apply to
-msgstr before it is matched. These are the filters found in C{pology.filters}
-and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
-of C{[<lang>:]<name>} (language stated when a filter is language-specific).
+The C{filter} option specifies pure text hooks to apply to
+msgstr before it is checked. The hooks are found in C{pology.hook}
+and C{pology.l10n.<lang>.hook} modules, and are specified
+as comma-separated list of C{[<lang>:]<name>[/<function>]};
+language is stated when a hook is language-specific, and function
+when it is not the default C{process()} within the hook module.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -63,7 +65,7 @@ of C{[<lang>:]<name>} (language stated when a filter is language-specific).
 
 import sys, os, re
 from pology.misc.report import error, report_msg_content
-from pology.misc.langdep import get_filter_lreq
+from pology.misc.langdep import get_hook_lreq
 from pology.misc.wrap import wrap_field, wrap_field_unwrap
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
@@ -125,7 +127,7 @@ class Sieve (object):
         if "filter" in options:
             options.accept("filter")
             freqs = options["filter"].split(",")
-            self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
+            self.pfilters = [get_hook_lreq(x, abort=True) for x in freqs]
 
         self.transl = False
         if "transl" in options:

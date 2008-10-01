@@ -30,10 +30,12 @@ The sieve parameters are:
         Pology's internal rule files
    - C{filter:[<lang>:]<name>,...}: apply filters prior to rule checking
 
-The C{filter} option specifies text-transformation filters to apply to
-msgstr before it is checked. These are the filters found in C{pology.filters}
-and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
-of C{[<lang>:]<name>} (language stated when a filter is language-specific).
+The C{filter} option specifies pure text hooks to apply to
+msgstr before it is checked. The hooks are found in C{pology.hook}
+and C{pology.l10n.<lang>.hook} modules, and are specified
+as comma-separated list of C{[<lang>:]<name>[/<function>]};
+language is stated when a hook is language-specific, and function
+when it is not the default C{process()} within the hook module.
 
 Certain rules may be selectively disabled on a given message, by listing
 their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
@@ -54,7 +56,7 @@ from pology.misc.rules import loadRules, printStat
 from pology.misc.report import report, error, warning, rule_error, rule_xml_error
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
-from pology.misc.langdep import get_filter_lreq
+from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
@@ -114,7 +116,7 @@ class Sieve (object):
         if "filter" in options:
             options.accept("filter")
             freqs = options["filter"].split(",")
-            self.pfilters=[get_filter_lreq(x, abort=True) for x in freqs]
+            self.pfilters=[get_hook_lreq(x, abort=True) for x in freqs]
         
         if "rfile" in options:
             options.accept("rfile")

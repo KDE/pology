@@ -30,10 +30,12 @@ to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
-The C{filter} option specifies text-transformation filters to apply before
-the text is spell-checked. These are the filters found in C{pology.filters}
-and C{pology.l10n.<lang>.filters}, and are specified as comma-separated list
-of C{[<lang>:]<name>} (language stated when a filter is language-specific).
+The C{filter} option specifies pure text hooks to apply to
+msgstr before it is checked. The hooks are found in C{pology.hook}
+and C{pology.l10n.<lang>.hook} modules, and are specified
+as comma-separated list of C{[<lang>:]<name>[/<function>]};
+language is stated when a hook is language-specific, and function
+when it is not the default C{process()} within the hook module.
 
 Pology internally collects language-specific supplementary word lists
 to default Aspell dictionaries, under C{l10n/<lang>/spell/} directory.
@@ -83,7 +85,7 @@ from pology.misc.report import spell_error, spell_xml_error, report, warning, er
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg
-from pology.misc.langdep import get_filter_lreq
+from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, isdir, join
@@ -184,7 +186,7 @@ class Sieve (object):
         if "filter" in options:
             options.accept("filter")
             freqs = options["filter"].split(",")
-            self.pfilters = [get_filter_lreq(x, abort=True) for x in freqs]
+            self.pfilters = [get_hook_lreq(x, abort=True) for x in freqs]
 
         # Environment for dictionary supplements.
         self.env = None

@@ -29,7 +29,9 @@ _dict_c2l = {
 
 def process (text):
     """
-    Filter's main processor.
+    Hook's main processor.
+
+    @note: Hook type: C{(text) -> text}
     """
 
     # NOTE: Converted directly from C++ code,

@@ -23,13 +23,13 @@ def get_module (lang, path, abort=False):
     Language can also be C{None}, in which case a language-independent
     module is looked for. For example::
 
-        get_module("sr", ["filter", "cyr2lat"])
+        get_module("sr", ["hook", "cyr2lat"])
 
     will try to import the C{pology.l10n.sr.cyr2lat} module, while::
 
-        get_module(None, ["filter", "normctx-ooo"])
+        get_module(None, ["hook", "normctx-ooo"])
 
-    will try to import the C{pology.filter.normctx_ooo}.
+    will try to import the C{pology.hook.normctx_ooo}.
 
     The elements of the module path can also contain hyphens, which will
     be converted into underscores when looking for the module.
@@ -125,48 +125,44 @@ def split_req (langreq, abort=False):
     return (lang, path, item)
 
 
-def get_filter (lang, filtr, func=None, abort=False):
+def get_hook (lang, filtr, func=None, abort=False):
     """
-    Fetch a language-dependent text filter function.
+    Fetch a language-dependent hook function.
 
-    Loads the filter function from C{pology.l10n.<lang>.filter.<filtr>} module.
-    The filter function must have the C{(string) -> string} signature.
+    Loads the hook function from C{pology.l10n.<lang>.hook.<filtr>} module.
     If C{func} is C{None}, the function name defaults to C{process}.
 
     @param lang: language code
     @type lang: string
-    @param filtr: filter module
+    @param filtr: hook module
     @type filtr: string
-    @param func: filter function
+    @param func: hook function
     @type func: string of C{None}
-    @param abort: if the filter is not loadable, abort or report C{None}
+    @param abort: if the hook is not loadable, abort or report C{None}
     @type abort: bool
 
-    @returns: the filter
-    @rtype: (string)->string
+    @returns: the hook
     """
 
-    path = ["filter"] + filtr.split(".")
+    path = ["hook"] + filtr.split(".")
     lmod = get_module(lang, path, abort)
     if func is None:
         func = "process"
     call = getattr(lmod, func, None)
     if call is None:
-        _raise_or_abort("filter module '%s:%s' does not define '%s' function"
+        _raise_or_abort("hook module '%s:%s' does not define '%s' function"
                         % (lang, filtr, func), abort)
-
-    # TODO: Check if (string)->string function.
 
     return call
 
 
-def get_filter_lreq (langreq, abort=False):
+def get_hook_lreq (langreq, abort=False):
     """
-    Like L{get_filter}, but the filter is specified as
+    Like L{get_hook}, but the hook is specified as
     L{language request<split_req>}.
     """
 
-    return _by_lreq(langreq, get_filter, abort)
+    return _by_lreq(langreq, get_hook, abort)
 
 
 def _by_lreq (langreq, getter, abort=False):

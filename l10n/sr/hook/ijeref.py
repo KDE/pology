@@ -54,6 +54,8 @@ _ije_althead = "~#"
 def to_e (text):
     """
     Resolve marked iyekavian into clean ekavian text.
+
+    @note: Hook type: C{(text) -> text}
     """
 
     segs = []
@@ -91,6 +93,8 @@ def to_e (text):
 def to_ije (text):
     """
     Resolve marked iyekavian into clean iyekavian text.
+
+    @note: Hook type: C{(text) -> text}
     """
 
     ntext = text.replace(_reflex_mark, "")

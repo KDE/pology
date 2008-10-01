@@ -22,7 +22,7 @@ from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
 from pology.misc.diff import word_ediff
-from pology.misc.langdep import get_filter_lreq
+from pology.misc.langdep import get_hook_lreq
 
 WRAPF = wrap_field_ontag_unwrap
 UFUZZ = "fuzzy"
@@ -340,7 +340,7 @@ def select_matching (options, configs_catpaths, sels, diff):
     # Fetch prediff filter if requested.
     pfilter = None
     if options.prediff_filter:
-        pfilter = get_filter_lreq(options.prediff_filter, abort=True)
+        pfilter = get_hook_lreq(options.prediff_filter, abort=True)
 
     nsel = 0
     for config, catpaths in configs_catpaths:

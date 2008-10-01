@@ -10,7 +10,9 @@ Retain only Katakana words in the text, separated by spaces.
 
 def process (text):
     """
-    Filter's main processor.
+    Hook's main processor.
+
+    @note: Hook type: C{(text) -> text}
     """
 
     ntext = []
