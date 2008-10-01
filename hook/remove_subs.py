@@ -7,8 +7,14 @@ Remove special substrings from parts of the message.
 @license: GPLv3
 """
 
+import re
+
 from pology.misc.resolve import remove_accelerator as _rm_accel_in_text
+from pology.misc.resolve import remove_fmtdirs as _rm_fmtd_in_text_single
+from pology.misc.resolve import remove_literals as _rm_lit_in_text_single
 import pology.misc.markup as M
+from pology.misc.comments import manc_parse_field_values
+from pology.misc.report import warning_on_msg
 
 
 def _rm_accel_in_msg (msg, accels, greedy=False):
@@ -136,7 +142,7 @@ def remove_markup_text (cat, msg, text):
 
 def remove_markup_msg (cat, msg):
     """
-    Remove markup from all applicable text fields in the message, 
+    Remove markup from all applicable text fields in the message,
     as if L{remove_markup_text} was applied to each.
 
     @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
@@ -144,4 +150,186 @@ def remove_markup_msg (cat, msg):
 
     mtypes = cat.markup()
     _rm_markup_in_msg(msg, mtypes)
+
+
+def _format_flags (msg):
+
+    return [x for x in msg.flag if x.endswith("-format")]
+
+
+def _rm_fmtd_in_text (text, formats, subs=""):
+
+    for format in formats:
+        text = _rm_fmtd_in_text_single(text, format, subs=subs)
+
+    return text
+
+
+def _rm_fmtd_in_msg (msg, subs=""):
+
+    formats = _format_flags(msg)
+
+    msg.msgid = _rm_fmtd_in_text(msg.msgid, formats, subs)
+    msg.msgid_plural = _rm_fmtd_in_text(msg.msgid_plural, formats, subs)
+    for i in range(len(msg.msgstr)):
+        msg.msgstr[i] = _rm_fmtd_in_text(msg.msgstr[i], formats, subs)
+
+    msg.msgid_previous = _rm_fmtd_in_text(msg.msgid_previous, formats, subs)
+    msg.msgid_plural_previous = _rm_fmtd_in_text(msg.msgid_plural_previous,
+                                                 formats, subs)
+
+
+def remove_fmtdirs_text (cat, msg, text):
+    """
+    Remove format directives from one of the text fields of the message.
+
+    The type of format directives is determined from message format flags.
+
+    @note: Hook type: C{(cat, msg, text) -> text}
+    @see: L{pology.misc.resolve.remove_fmtdirs}
+    """
+
+    return _rm_fmtd_in_text(text, _format_flags(msg))
+
+
+def remove_fmtdirs_text_tick (cat, msg, text):
+    """
+    Like L{remove_fmtdirs_text}, except that each format directive is
+    replaced by a non-whitespace "tick" instead of plainly removed.
+
+    @note: Hook type: C{(cat, msg, text) -> text}
+    """
+
+    return _rm_fmtd_in_text(text, _format_flags(msg), "~")
+
+
+def remove_fmtdirs_msg (cat, msg):
+    """
+    Remove format directives from all applicable text fields in the message,
+    as if L{remove_fmtdirs_text} was applied to each.
+
+    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    """
+
+    _rm_fmtd_in_msg(msg)
+
+
+def remove_fmtdirs_msg_tick (cat, msg):
+    """
+    Remove format directives from all applicable text fields in the message,
+    as if L{remove_fmtdirs_text_tick} was applied to each.
+
+    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    """
+
+    _rm_fmtd_in_msg(msg, "~")
+
+
+def _literals_spec (cat, msg):
+
+    fname = "literal-segment"
+    rx_strs = manc_parse_field_values(msg, fname)
+
+    # Compile regexes.
+    # Empty regex indicates not to do any heuristic removal.
+    rxs = []
+    heuristic = True
+    for rx_str in rx_strs:
+        if rx_str:
+            try:
+                rxs.append(re.compile(rx_str, re.U))
+            except:
+                warning_on_msg("field %s states malformed regex: %s"
+                               % (fname, rx_str), msg, cat)
+        else:
+            heuristic = False
+
+    return [], rxs, heuristic
+
+
+def _rm_lit_in_text (text, substrs, regexes, heuristic, subs=""):
+
+    return _rm_lit_in_text_single(text, subs=subs, substrs=substrs,
+                                  regexes=regexes, heuristic=heuristic)
+
+
+def _rm_lit_in_msg (cat, msg, subs=""):
+
+    strs, rxs, heu = _literals_spec(cat, msg)
+
+    msg.msgid = _rm_lit_in_text(msg.msgid, strs, rxs, heu, subs)
+    msg.msgid_plural = _rm_lit_in_text(msg.msgid_plural, strs, rxs, heu, subs)
+    for i in range(len(msg.msgstr)):
+        msg.msgstr[i] = _rm_lit_in_text(msg.msgstr[i], strs, rxs, heu, subs)
+
+    msg.msgid_previous = _rm_lit_in_text(msg.msgid_previous,
+                                          strs, rxs, heu, subs)
+    msg.msgid_plural_previous = _rm_lit_in_text(msg.msgid_plural_previous,
+                                                 strs, rxs, heu, subs)
+
+
+def remove_literals_text (cat, msg, text):
+    """
+    Remove literal segments from one of the text fields of the message.
+
+    Literal segments are URLs, email addresses, command line options, etc.
+    anything symbolic that the machine, rather than human alone, should parse.
+    Note format directives are excluded here, see L{remove_fmtdirs_text}
+    for removing them.
+
+    By default, literals are removed heuristically, but this can be influenced
+    by embedded C{literal-segment} fields in manual comments. For example::
+
+        # literal-segment: foobar
+
+    states that all C{foobar} segments are literals. The field value is
+    actually a regular expression, and there may be several such fields::
+
+        # literal-segment: \w+bar
+        # literal-segment: foo[&=] ### a sub comment
+
+    To prevent any heuristic removal of literals, add a C{literal-segment}
+    field with empty value.
+
+    @note: Hook type: C{(cat, msg, text) -> text}
+    @see: L{pology.misc.resolve.remove_literals}
+    """
+
+    strs, rxs, heu = _literals_spec(cat, msg)
+    return _rm_lit_in_text(text, strs, rxs, heu)
+
+
+def remove_literals_text_tick (cat, msg, text):
+    """
+    Like L{remove_literals_text}, except that each literal segment is
+    replaced by a non-whitespace "tick" instead of plainly removed.
+
+    @note: Hook type: C{(cat, msg, text) -> text}
+    """
+
+    strs, rxs, heu = _literals_spec(cat, msg)
+    return _rm_lit_in_text(text, strs, rxs, heu, "~")
+
+
+def remove_literals_msg (cat, msg):
+    """
+    Remove literal segments from all applicable text fields in the message,
+    as if L{remove_literals_text} was applied to each.
+
+    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    """
+
+    _rm_lit_in_msg(cat, msg)
+
+
+def remove_literals_msg_tick (cat, msg):
+    """
+    Remove literal segments from all applicable text fields in the message,
+    as if L{remove_literals_text_tick} was applied to each.
+
+    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    """
+
+    _rm_lit_in_msg(cat, msg, "~")
+
 
