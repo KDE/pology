@@ -12,7 +12,7 @@ fi
 # Proper module path for epydoc to follow.
 export PYTHONPATH=../../:$PYTHONPATH
 
-rm -rf doc/*
+rm -rf html/*
 
 epydoc pology \
        -o html -v \
@@ -22,3 +22,6 @@ epydoc pology \
   find html -iname \*.html \
 | xargs perl -pi -e 's/(Generated\b.*?) *on\b.*?(<|$)/$1$2/'
 
+# Peform repository ops.
+svn status html/ | grep '^!' | sed 's/.//' | xargs -r svn rm
+svn status html/ | grep '^?' | sed 's/.//' | xargs -r svn add
