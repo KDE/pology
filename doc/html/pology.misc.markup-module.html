@@ -106,6 +106,57 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#html_to_plain" class="summary-sig-name">html_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert HTML markup to plain text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#kuit_to_plain" class="summary-sig-name">kuit_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert KUIT markup to plain text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#htmlkuit_to_plain" class="summary-sig-name">htmlkuit_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert mixed HTML and KUIT markup to plain text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -256,6 +307,87 @@
         <li><strong class="pname"><code>tags</code></strong> (sequence of strings) - known tags</li>
         <li><strong class="pname"><code>subs</code></strong> (dictionary of 3-tuples) - replacement specification</li>
         <li><strong class="pname"><code>ents</code></strong> (dictionary) - known entities and their values</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="html_to_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">html_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert HTML markup to plain text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - HTML text to convert to plain</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="kuit_to_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">kuit_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert KUIT markup to plain text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - KUIT text to convert to plain</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="htmlkuit_to_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">htmlkuit_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert mixed HTML and KUIT markup to plain text.</p>
+  <p>Note that in general this is not the same as first converting HTML, 
+  and then KUIT, or vice versa. For example, if the text has 
+  <code>&amp;lt;</code> entity, after first conversion it will become plain
+  <code>&lt;</code>, and interfere with second conversion. Thus, this 
+  function should be used whenever both HTML and KUIT may appear in the 
+  same text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - HTML+KUIT text to convert to plain</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text version</dd>

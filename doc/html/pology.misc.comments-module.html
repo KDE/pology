@@ -145,6 +145,24 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.comments-module.html#manc_parse_field_values" class="summary-sig-name">manc_parse_field_values</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">field</span>)</span><br />
+      Extract values of a field embedded in manual comments.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">set of strings</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -318,6 +336,40 @@
         class="link">parse_list</a>
       </p>
 </div></td></tr></table>
+</div>
+<a name="manc_parse_field_values"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">manc_parse_field_values</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">field</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Extract values of a field embedded in manual comments.</p>
+  <p>And embedded field is of the form:</p>
+<pre class="literalblock">
+   # &lt;field&gt;: &lt;value&gt; ### sub-comment
+</pre>
+  <p>There may be several fields of the same name, thus the values are 
+  returned in a list (empty if there ware no appearances of the field). 
+  Values are stripped of leading and trailing whitespace.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (Message) - message to parse</li>
+        <li><strong class="pname"><code>field</code></strong> (string) - field name</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>parsed values</dd>
+  </dl>
+</td></tr></table>
 </div>
 <a name="parse_summit_branches"></a>
 <div>

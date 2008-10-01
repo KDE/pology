@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.hook.remove_subs</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.hook-module.html">Package&nbsp;hook</a> ::
+        Module&nbsp;remove_subs
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module remove_subs</h1><p class="nomargin-top"></p>
+<p>Remove special substrings from parts of the message.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_accel_text" class="summary-sig-name">remove_accel_text</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Remove accelerator marker from one of the text fields of the message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_accel_text_greedy" class="summary-sig-name">remove_accel_text_greedy</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Like <a href="pology.hook.remove_subs-module.html#remove_accel_text" 
+      class="link">remove_accel_text</a>, except that if catalog reports 
+      <code>None</code> for accelerators, some frequent marker characters 
+      are removed.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_accel_msg" class="summary-sig-name">remove_accel_msg</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove accelerator marker from all applicable text fields in the 
+      message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_accel_text" 
+      class="link">remove_accel_text</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_accel_msg_greedy" class="summary-sig-name">remove_accel_msg_greedy</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Like <a href="pology.hook.remove_subs-module.html#remove_accel_msg" 
+      class="link">remove_accel_msg</a>, except that if catalog reports 
+      <code>None</code> for accelerators, some frequent marker characters 
+      are removed.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_markup_text" class="summary-sig-name">remove_markup_text</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Remove markup from one of the text fields of the message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_markup_msg" class="summary-sig-name">remove_markup_msg</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove markup from all applicable text fields in the message, as if 
+      <a href="pology.hook.remove_subs-module.html#remove_markup_text" 
+      class="link">remove_markup_text</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" class="summary-sig-name">remove_fmtdirs_text</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Remove format directives from one of the text fields of the message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" class="summary-sig-name">remove_fmtdirs_text_tick</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Like <a 
+      href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" 
+      class="link">remove_fmtdirs_text</a>, except that each format 
+      directive is replaced by a non-whitespace &quot;tick&quot; instead of
+      plainly removed.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_msg" class="summary-sig-name">remove_fmtdirs_msg</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove format directives from all applicable text fields in the 
+      message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" 
+      class="link">remove_fmtdirs_text</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_msg_tick" class="summary-sig-name">remove_fmtdirs_msg_tick</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove format directives from all applicable text fields in the 
+      message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" 
+      class="link">remove_fmtdirs_text_tick</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_text" class="summary-sig-name">remove_literals_text</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Remove literal segments from one of the text fields of the message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_text_tick" class="summary-sig-name">remove_literals_text_tick</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Like <a 
+      href="pology.hook.remove_subs-module.html#remove_literals_text" 
+      class="link">remove_literals_text</a>, except that each literal 
+      segment is replaced by a non-whitespace &quot;tick&quot; instead of 
+      plainly removed.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_msg" class="summary-sig-name">remove_literals_msg</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove literal segments from all applicable text fields in the 
+      message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_literals_text" 
+      class="link">remove_literals_text</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_msg_tick" class="summary-sig-name">remove_literals_msg_tick</a>(<span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Remove literal segments from all applicable text fields in the 
+      message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_literals_text_tick" 
+      class="link">remove_literals_text_tick</a> was applied to each.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="remove_accel_text"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accel_text</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove accelerator marker from one of the text fields of the 
+  message.</p>
+  <p>Accelerator marker is determined from the catalog, by calling its <a 
+  href="pology.file.catalog.Catalog-class.html#accelerator" 
+  class="link">accelerator()</a> method. Use <a 
+  href="pology.file.catalog.Catalog-class.html#set_accelerator" 
+  class="link">set_accelerator()</a> to set possible accelerator markers 
+  after the catalog has been opened, in case it does not specify any on its
+  own. If catalog reports <code>None</code> for accelerators, text is not 
+  touched.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_accelerator" 
+        class="link">pology.misc.resolve.remove_accelerator</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_accel_text_greedy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accel_text_greedy</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.hook.remove_subs-module.html#remove_accel_text" 
+  class="link">remove_accel_text</a>, except that if catalog reports 
+  <code>None</code> for accelerators, some frequent marker characters are 
+  removed.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_accelerator" 
+        class="link">pology.misc.resolve.remove_accelerator</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_accel_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accel_msg</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove accelerator marker from all applicable text fields in the 
+  message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_accel_text" 
+  class="link">remove_accel_text</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_accelerator" 
+        class="link">pology.misc.resolve.remove_accelerator</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_accel_msg_greedy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accel_msg_greedy</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.hook.remove_subs-module.html#remove_accel_msg" 
+  class="link">remove_accel_msg</a>, except that if catalog reports 
+  <code>None</code> for accelerators, some frequent marker characters are 
+  removed.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_accelerator" 
+        class="link">pology.misc.resolve.remove_accelerator</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_markup_text"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_markup_text</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove markup from one of the text fields of the message.</p>
+  <p>Expected markup types are determined from the catalog, by calling its 
+  <a href="pology.file.catalog.Catalog-class.html#markup" 
+  class="link">markup()</a> method. Use <a 
+  href="pology.file.catalog.Catalog-class.html#set_markup" 
+  class="link">set_markup()</a> to set expected markup types after the 
+  catalog has been opened, in case it does not specify any on its own. If 
+  catalog reports <code>None</code> for markup types, text is not 
+  touched.</p>
+  <p>The following markup types are recognized at the moment, by keyword 
+  strings (case insensitive): <code>html</code>, <code>kuit</code>, 
+  <code>htmlkuit</code>, <code>docbook</code>, <code>xml</code>.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_markup_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_markup_msg</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove markup from all applicable text fields in the message, as if <a
+  href="pology.hook.remove_subs-module.html#remove_markup_text" 
+  class="link">remove_markup_text</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_fmtdirs_text"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_text</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove format directives from one of the text fields of the 
+  message.</p>
+  <p>The type of format directives is determined from message format 
+  flags.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_fmtdirs" 
+        class="link">pology.misc.resolve.remove_fmtdirs</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_fmtdirs_text_tick"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_text_tick</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.hook.remove_subs-module.html#remove_fmtdirs_text"
+  class="link">remove_fmtdirs_text</a>, except that each format directive 
+  is replaced by a non-whitespace &quot;tick&quot; instead of plainly 
+  removed.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_fmtdirs_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_msg</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove format directives from all applicable text fields in the 
+  message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" 
+  class="link">remove_fmtdirs_text</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_fmtdirs_msg_tick"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_msg_tick</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove format directives from all applicable text fields in the 
+  message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" 
+  class="link">remove_fmtdirs_text_tick</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_literals_text"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_text</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal segments from one of the text fields of the 
+  message.</p>
+  <p>Literal segments are URLs, email addresses, command line options, etc.
+  anything symbolic that the machine, rather than human alone, should 
+  parse. Note format directives are excluded here, see <a 
+  href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" 
+  class="link">remove_fmtdirs_text</a> for removing them.</p>
+  <p>By default, literals are removed heuristically, but this can be 
+  influenced by embedded <code>literal-segment</code> fields in manual 
+  comments. For example:</p>
+<pre class="literalblock">
+   # literal-segment: foobar
+</pre>
+  <p>states that all <code>foobar</code> segments are literals. The field 
+  value is actually a regular expression, and there may be several such 
+  fields:</p>
+<pre class="literalblock">
+   # literal-segment: \w+bar
+   # literal-segment: foo[&amp;=] ### a sub comment
+</pre>
+  <p>To prevent any heuristic removal of literals, add a 
+  <code>literal-segment</code> field with empty value.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+      <p><strong>See Also:</strong>
+        <a href="pology.misc.resolve-module.html#remove_literals" 
+        class="link">pology.misc.resolve.remove_literals</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_literals_text_tick"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_text_tick</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a 
+  href="pology.hook.remove_subs-module.html#remove_literals_text" 
+  class="link">remove_literals_text</a>, except that each literal segment 
+  is replaced by a non-whitespace &quot;tick&quot; instead of plainly 
+  removed.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg, text) -&gt; text</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_literals_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_msg</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal segments from all applicable text fields in the 
+  message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_literals_text" 
+  class="link">remove_literals_text</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="remove_literals_msg_tick"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_msg_tick</span>(<span class="sig-arg">cat</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal segments from all applicable text fields in the 
+  message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_literals_text_tick" 
+  class="link">remove_literals_text_tick</a> was applied to each.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        <code>msg</code>
+      </p>
+</div></td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

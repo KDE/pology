@@ -297,6 +297,46 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#remove_fmtdirs" class="summary-sig-name">remove_fmtdirs</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">format</span>,
+        <span class="summary-sig-arg">subs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+      Remove format directives from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#remove_literals" class="summary-sig-name">remove_literals</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">subs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">substrs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">regexes</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">heuristic</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Remove literal substrings from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -765,6 +805,87 @@
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>text without the accelerator</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_fmtdirs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">format</span>,
+        <span class="sig-arg">subs</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove format directives from the text.</p>
+  <p>Format directives are used to substitute values in the text. An 
+  example text with directives in several formats:</p>
+<pre class="literalblock">
+   &quot;%d men on a %s man's chest.&quot;  # C
+   &quot;%(num)d men on a %(attrib)s man's chest.&quot;  # Python
+   &quot;%1 men on a %2 man's chest.&quot; # KDE/Qt
+</pre>
+  <p>Format is specified by a string keyword. The following formats are 
+  known at the moment: <code>c</code>, <code>qt</code>, c{kde}, c{python}. 
+  Format string may also have <code>-format</code> appended to the keyword,
+  for compatibility with Gettext format flags.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text from which to remove format directives</li>
+        <li><strong class="pname"><code>format</code></strong> (string) - format keyword</li>
+        <li><strong class="pname"><code>subs</code></strong> (string) - text to replace format directives instead of just removing it</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without format directives</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_literals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">subs</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">substrs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">regexes</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">heuristic</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal substrings from the text.</p>
+  <p>Literal substrings are URLs, email addresses, web site names, command 
+  options, etc. This function will heuristically try to remove such 
+  substrings from the text.</p>
+  <p>Additional literals to remove may be specified as verbatim substrings 
+  (<code>substrs</code> parameter) and regular expressions 
+  (<code>regexes</code>). These are applied before the internal heuristic 
+  matchers. Heuristic removal may be entirely disabled by setting 
+  <code>heuristic</code> to <code>False</code>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text from which to remove literals</li>
+        <li><strong class="pname"><code>subs</code></strong> (string) - text to replace literals instead of just removing them</li>
+        <li><strong class="pname"><code>substrs</code></strong> (sequence of strings) - additional substrings to remove by direct string match</li>
+        <li><strong class="pname"><code>regexes</code></strong> (sequence of compiled regular expressions) - additional substrings to remove by regex match</li>
+        <li><strong class="pname"><code>heuristic</code></strong> (bool) - whether to apply heuristic at all</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without literals</dd>
   </dl>
 </td></tr></table>
 </div>
