@@ -192,15 +192,21 @@ def remove_fmtdirs_text (cat, msg, text):
     return _rm_fmtd_in_text(text, _format_flags(msg))
 
 
-def remove_fmtdirs_text_tick (cat, msg, text):
+def remove_fmtdirs_text_tick (tick):
     """
     Like L{remove_fmtdirs_text}, except that each format directive is
     replaced by a non-whitespace "tick" instead of plainly removed.
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @param tick: the tick sequence
+    @type tick: string
+
+    @note: Hook type factory: C{(cat, msg, text) -> text}
     """
 
-    return _rm_fmtd_in_text(text, _format_flags(msg), "~")
+    def hook (cat, msg, text):
+        return _rm_fmtd_in_text(text, _format_flags(msg), tick)
+
+    return hook
 
 
 def remove_fmtdirs_msg (cat, msg):
@@ -214,15 +220,21 @@ def remove_fmtdirs_msg (cat, msg):
     _rm_fmtd_in_msg(msg)
 
 
-def remove_fmtdirs_msg_tick (cat, msg):
+def remove_fmtdirs_msg_tick (tick):
     """
     Remove format directives from all applicable text fields in the message,
     as if L{remove_fmtdirs_text_tick} was applied to each.
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @param tick: the tick sequence
+    @type tick: string
+
+    @note: Hook type factory: C{(cat, msg) -> None}, modifies C{msg}
     """
 
-    _rm_fmtd_in_msg(msg, "~")
+    def hook (cat, msg):
+        _rm_fmtd_in_msg(msg, tick)
+
+    return hook
 
 
 def _literals_spec (cat, msg):
@@ -299,16 +311,22 @@ def remove_literals_text (cat, msg, text):
     return _rm_lit_in_text(text, strs, rxs, heu)
 
 
-def remove_literals_text_tick (cat, msg, text):
+def remove_literals_text_tick (tick):
     """
     Like L{remove_literals_text}, except that each literal segment is
     replaced by a non-whitespace "tick" instead of plainly removed.
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @param tick: the tick sequence
+    @type tick: string
+
+    @note: Hook type factory: C{(cat, msg, text) -> text}
     """
 
-    strs, rxs, heu = _literals_spec(cat, msg)
-    return _rm_lit_in_text(text, strs, rxs, heu, "~")
+    def hook (cat, msg, text):
+        strs, rxs, heu = _literals_spec(cat, msg)
+        return _rm_lit_in_text(text, strs, rxs, heu, tick)
+
+    return hook
 
 
 def remove_literals_msg (cat, msg):
@@ -322,14 +340,19 @@ def remove_literals_msg (cat, msg):
     _rm_lit_in_msg(cat, msg)
 
 
-def remove_literals_msg_tick (cat, msg):
+def remove_literals_msg_tick (tick):
     """
     Remove literal segments from all applicable text fields in the message,
     as if L{remove_literals_text_tick} was applied to each.
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @param tick: the tick sequence
+    @type tick: string
+
+    @note: Hook type factory: C{(cat, msg) -> None}, modifies C{msg}
     """
 
-    _rm_lit_in_msg(cat, msg, "~")
+    def hook (cat, msg):
+        _rm_lit_in_msg(cat, msg, tick)
 
+    return hook
 
