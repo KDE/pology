@@ -222,7 +222,7 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     @param msg: the message to report the content for
     @type msg: instance of L{Message_base}
     @param cat: the catalog where the message lives
-    @type cat: L{Catalog}
+    @type cat: L{Catalog} or C{None}
     @param wrapf:
         the function used for wrapping message fields in output.
         See C{to_lines()} method of L{Message_base} for details.
@@ -258,14 +258,16 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
             # TODO: Add more fields.
 
     tfmt = _msg_ref_fmtstr(file) + "\n"
-    text = tfmt % (cat.filename, msg.refline, msg.refentry)
+    text = ""
+    if cat is not None:
+        text += tfmt % (cat.filename, msg.refline, msg.refentry)
     text += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
     if delim:
         text += delim + "\n"
     report(text.rstrip(), file=file)
 
 
-def rule_error(msg, cat, rule, highlight=None):
+def rule_error(msg, cat, rule, highlight=None, msgf=None):
     """
     Print formated rule error message on screen.
 
@@ -273,16 +275,25 @@ def rule_error(msg, cat, rule, highlight=None):
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
     @param highlight: highlight specification (see L{report_msg_content})
+    @param msgf: filtered message which the rule really matched
     """
 
     C = _colors_for_file(sys.stdout)
 
     # Some info on the rule.
-    rinfo = (  "(" + rule.rawPattern + ")"
+    rinfo = (  ""
+             +  C.BOLD + "rule:" + C.RESET + " "
+             + "(" + rule.rawPattern + ")"
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 
-    report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40), highlight=highlight)
+    if msgf is None:
+        report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40),
+                           highlight=highlight)
+    else:
+        report_msg_content(msg, cat, delim=rinfo, highlight=highlight)
+        report(C.GREEN + "filtered message was:" + C.RESET)
+        report_msg_content(msgf, cat=None, delim=("-"*40))
 
 
 def rule_xml_error(msg, cat, rule, span, pluralId=0):
