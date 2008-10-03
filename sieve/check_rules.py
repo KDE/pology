@@ -48,7 +48,6 @@ from pology.misc.rules import loadRules, printStat
 from pology.misc.report import report, error, warning, rule_error, rule_xml_error, report_msg_content
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
-from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
 
