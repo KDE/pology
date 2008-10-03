@@ -48,8 +48,6 @@ def plain_to_unwrapped (text):
     return text
 
 
-_tag_split_rx = re.compile(r"<\s*(/?)\s*(\w*).*>")
-
 _ents_xml = {
     "lt": "<",
     "gt": ">",
@@ -68,7 +66,8 @@ _ws_masks = {
 }
 _ws_unmasks = dict([(y, x) for x, y in _ws_masks.items()])
 
-def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
+def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
+                  ignels=set()):
     """
     Convert any XML-like markup to plain text.
 
@@ -100,8 +99,12 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
     values, a dictionary of known entities with values may be provided using
     the C{ents} parameter.
 
-    Whitespace can be preserved within some tags, as given by the C{keepws}
-    sequence.
+    Whitespace can be preserved within some elements, as given by
+    their tags in the C{keepws} sequence.
+
+    Some elements may be completely removed, as given by the C{ignels} sequence.
+    Each element of the sequence should either be a tag, or a (tag, type) tuple,
+    where type is the value of the C{type} argument to element, if any.
 
     It is assumed that the markup is well-formed, and if it is not
     the result is undefined; but best attempt at conversion is made.
@@ -122,6 +125,10 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
     @type subs: dictionary of 3-tuples
     @param ents: known entities and their values
     @type ents: dictionary
+    @param keepws: tags of elements in which to preserve whitespace
+    @type keepws: sequence of strings
+    @param ignels: tags or tag/types or elements to completely remove
+    @type ignels: sequence of strings and (string, string) tuples
 
     @returns: plain text version
     @rtype: string
@@ -132,6 +139,8 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
         tags = set(tags)
     if not isinstance(keepws, set):
         keepws = set(keepws)
+    if not isinstance(ignels, set):
+        ignels = set(ignels)
 
     # Resolve user-supplied entities before tags,
     # as they may contain more markup.
@@ -142,8 +151,9 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
     # Build element tree, trying to work around badly formed XML
     # (but do note when the closing element is missing).
     # Element tree is constructed as list of tuples:
-    # (tag, opening_tag_literal, closing_tag_literal, content)
-    # where content is a sublist for given element;
+    # (tag, opening_tag_literal, closing_tag_literal, atype, content)
+    # where atype is the value of type attribute (if any),
+    # and content is a sublist for given element;
     # tag may be #text, when the content is string.
     eltree = []
     curel = eltree
@@ -155,20 +165,13 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
         p = text.find("<", p)
         if p < 0:
             break
-        curel.append(("#text", None, None, text[pp:p]))
-        pp = p
-        p = text.find(">", p + 1)
+        curel.append(("#text", None, None, None, text[pp:p]))
+        tag_literal, tag, atype, opening, p = _parse_tag(text, p)
         if p < 0:
             break
-        p += 1
-        tag_literal = text[pp:p]
-        m = _tag_split_rx.match(tag_literal) # must match
-        if not m:
-            error("xml_to_plain: internal 10")
-        tag = m.group(2)
-        if m.group(1) != "/": # opening tag
+        if opening: # opening tag
             any_tag = True
-            curel.append([tag, tag_literal, None, []])
+            curel.append([tag, tag_literal, None, atype, []])
             parent.append(curel)
             curel = curel[-1][-1]
         else: # closing tag
@@ -176,17 +179,93 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
                 curel = parent.pop()
                 curel[-1][2] = tag_literal # record closing tag literal
             else: # faulty markup, move top element
-                eltree = [[tag, None, tag_literal, curel]]
+                eltree = [[tag, None, tag_literal, None, curel]]
                 curel = eltree
-    curel.append(("#text", None, None, text[pp:]))
+    curel.append(("#text", None, None, None, text[pp:]))
 
     # Replace tags.
-    text = _resolve_tags(eltree, tags, subs)
+    text = _resolve_tags(eltree, tags, subs, keepws, ignels)
 
     # Resolve default entities.
     text = _resolve_ents(text, _ents_xml)
 
     return text
+
+
+def _parse_tag (text, p):
+    # text[p] must be "<"
+
+    tag = ""
+    atype = None
+    opening = True
+
+    tlen = len(text)
+    pp = p
+    in_str = False
+    in_tag = False
+    in_attr = False
+    in_lead = True
+    in_afterslash = False
+    in_aftereq = False
+    in_aftertag = False
+    in_afterattr = False
+    ntag = ""
+    nattr = ""
+    while True:
+        p += 1
+        if p >= tlen:
+            break
+
+        if in_lead and not text[p].isspace():
+            in_lead = False
+            opening = text[p] != "/"
+            if opening:
+                in_tag = True
+                p_tag = p
+            else:
+                in_afterslash = True
+        elif in_afterslash and not text[p].isspace():
+            in_afterslash = False
+            in_tag = True
+            p_tag = p
+        elif in_tag and (text[p].isspace() or text[p] == ">"):
+            in_tag = False
+            in_aftertag = True
+            tag = text[p_tag:p]
+            ntag = tag.lower()
+        elif in_aftertag and not (text[p].isspace() or text[p] == ">"):
+            in_aftertag = False
+            in_attr = True
+            p_attr = p
+        elif in_attr and (text[p].isspace() or text[p] in ("=", ">")):
+            in_attr = False
+            if text[p] != "=":
+                in_afterattr = True
+            else:
+                in_aftereq = True
+            attr = text[p_attr:p]
+            nattr = attr.lower()
+        elif in_aftereq and text[p] in ('"', "'"):
+            in_aftereq = False
+            in_str = True
+            quote_char = text[p]
+            p_str = p + 1
+        elif in_str and text[p] == quote_char:
+            in_str = False
+            s = text[p_str:p].strip().replace(" ", "")
+            if nattr == "type":
+                atype = s
+        elif in_afterattr and text[p] == "=":
+            in_afterattr = False
+            in_aftereq = True
+
+        if not in_str and text[p] == ">":
+            break
+
+    p += 1
+    tag_literal = text[pp:p]
+
+    return tag_literal, tag, atype, opening, p
 
 
 _entity_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
@@ -234,14 +313,14 @@ def _resolve_ents (text, ents={}, ignents={}):
 _wsgr_premask_rx = re.compile(r"\s+(\x04~\w\w)")
 _wsgr_postmask_rx = re.compile(r"(\x04~\w\w)\s+")
 
-def _resolve_tags (elseq, tags=None, subs={}, keepws=set()):
+def _resolve_tags (elseq, tags=None, subs={}, keepws=set(), ignels=set()):
     """
     Replace XML tags as described in L{xml_to_plain}, given the parsed tree.
     Split into top and recursive part.
     """
 
     # Text with masked whitespace where significant.
-    text = _resolve_tags_r(elseq, tags, subs, keepws)
+    text = _resolve_tags_r(elseq, tags, subs, keepws, ignels)
 
     # Simplify whitespace.
     text = _wsgr_rx.sub(" ", text)
@@ -259,10 +338,14 @@ def _resolve_tags (elseq, tags=None, subs={}, keepws=set()):
     return text
 
 
-def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set()):
+def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set(), ignels=set()):
 
     segs = []
     for el in elseq:
+        if el[0] in ignels or (el[0], el[3]) in ignels:
+            # Complete element is ignored (by tag, or tag/type).
+            continue
+
         if el[0] == "#text":
             segs.append(el[-1])
         elif tags is None or el[0] in tags:
@@ -272,7 +355,7 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set()):
             if repl_post is None:
                 repl_post = ""
             if repl_cont is None:
-                repl_cont = _resolve_tags_r(el[-1], tags, subs)
+                repl_cont = _resolve_tags_r(el[-1], tags, subs, keepws, ignels)
                 if el[0] in keepws:
                     # Mask whitespace in wrapped text.
                     repl_cont = _mask_ws(repl_cont)
@@ -299,7 +382,7 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set()):
             repl_post = el[2]
             if repl_post is None:
                 repl_post = ""
-            repl_cont = _resolve_tags_r(el[-1], tags, subs)
+            repl_cont = _resolve_tags_r(el[-1], tags, subs, keepws, ignels)
             segs.append(repl_pre + repl_cont + repl_post)
 
     return "".join(segs)
@@ -327,7 +410,7 @@ _html_tags = """
 """.split()
 _html_subs = {
     "_nows" : ("", "", None),
-    "_parabr": ("\n\n", "\n\n", None),
+    "_parabr": (WS_NEWLINE*2, WS_NEWLINE*2, None),
 }
 _html_subs.update([(x, _html_subs["_nows"]) for x in _html_tags])
 _html_subs.update([(x, _html_subs["_parabr"]) for x in
@@ -338,6 +421,9 @@ _html_ents = { # in addition to default XML entities
 _html_keepws = set("""
     code pre
 """.split())
+_html_ignels = set([
+    ("style", "text/css"),
+])
 
 def html_to_plain (text):
     """
@@ -350,7 +436,8 @@ def html_to_plain (text):
     @rtype: string
     """
 
-    return xml_to_plain(text, _html_tags, _html_subs, _html_ents, _html_keepws)
+    return xml_to_plain(text, _html_tags, _html_subs, _html_ents,
+                              _html_keepws, _html_ignels)
 
 
 _kuit_tags = """
@@ -360,7 +447,7 @@ _kuit_tags = """
 """.split()
 _kuit_subs = {
     "_nows" : ("", "", None),
-    "_parabr" : ("", "\n\n", None),
+    "_parabr" : ("", WS_NEWLINE*2, None),
 }
 _kuit_subs.update([(x, _kuit_subs["_nows"]) for x in _kuit_tags])
 _kuit_subs.update([(x, _kuit_subs["_parabr"]) for x in
@@ -370,6 +457,8 @@ _kuit_ents = { # in addition to default XML entities
 _kuit_keepws = set("""
     icode bcode
 """.split())
+_kuit_ignels = set([
+])
 
 def kuit_to_plain (text):
     """
@@ -382,13 +471,15 @@ def kuit_to_plain (text):
     @rtype: string
     """
 
-    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, _kuit_keepws)
+    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, 
+                              _kuit_keepws, _kuit_ignels)
 
 
 _htkt_tags = _html_tags + _kuit_tags
 _htkt_subs = dict(_html_subs.items() + _kuit_subs.items())
 _htkt_ents = dict(_html_ents.items() + _kuit_ents.items())
 _htkt_keepws = set(list(_html_keepws) + list(_kuit_keepws))
+_htkt_ignels = set(list(_html_ignels) + list(_kuit_ignels))
 
 def htmlkuit_to_plain (text):
     """
@@ -407,5 +498,6 @@ def htmlkuit_to_plain (text):
     @rtype: string
     """
 
-    return xml_to_plain(text, _htkt_tags, _htkt_subs, _htkt_ents, _htkt_keepws)
+    return xml_to_plain(text, _htkt_tags, _htkt_subs, _htkt_ents,
+                              _htkt_keepws, _htkt_ignels)
 
