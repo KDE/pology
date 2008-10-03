@@ -102,8 +102,7 @@ def _rm_markup_in_text (text, mtypes):
         elif mtype == "kuit":
             text = M.kuit_to_plain(text)
         elif mtype == "docbook":
-            # No special conversion at the moment.
-            text = M.xml_to_plain(text)
+            text = M.docbook_to_plain(text)
         elif mtype == "xml":
             text = M.xml_to_plain(text)
 

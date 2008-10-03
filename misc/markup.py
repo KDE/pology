@@ -7,6 +7,7 @@ Process text markup.
 @license: GPLv3
 """
 
+import os
 import re
 import codecs
 from pology.misc.report import error
@@ -507,14 +508,17 @@ def htmlkuit_to_plain (text):
 # Assembled on first use.
 _dbk_tags = None
 _dbk_subs = None
+_dbk_ents = None
 _dbk_keepws = None
 _dbk_ignels = None
 
 def _prep_docbook_to_plain ():
 
+    global _dbk_tags, _dbk_subs, _dbk_ents, _dbk_keepws, _dbk_ignels
+
     specpath = os.path.join(rootdir(), "misc",
                             "check_xml_docbook4-spec.txt")
-    docbook_tagattrs = collect_xml_spec1(specpath)
+    docbook_tagattrs = collect_xml_spec_l1(specpath)
 
     _dbk_tags = set(docbook_tagattrs.keys())
 
@@ -525,6 +529,9 @@ def _prep_docbook_to_plain ():
     _dbk_subs.update([(x, _kuit_subs["_nows"]) for x in _dbk_tags])
     _dbk_subs.update([(x, _kuit_subs["_parabr"]) for x in
                       "para title".split()]) # FIXME: Add more.
+
+    _dbk_ents = { # in addition to default XML entities
+    }
 
     _dbk_keepws = set("""
         screen programlisting
