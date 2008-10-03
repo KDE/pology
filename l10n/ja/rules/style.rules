@@ -2,6 +2,8 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
+addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
+
 [か\?]
 hint="日本語の疑問文には全角の「？」を使ってください。"
 
@@ -330,11 +332,9 @@ hint="折り返し"
 [割込]
 hint="割り込み"
 
-# environment waccel ルールの使い方 (PO ヘッダに X-Accelerator-Marker がある場合)
-# posieve.py check-rules -slang:ja -saccel -senv:waccel -senvonly
+removeFilter handle="accel"
 
 [\(]
-environment waccel
 id="style-space1"
 hint="左括弧の前に半角のスペースを入れてください。"
 valid cat="kspread"
@@ -380,7 +380,6 @@ valid after="%artist\)" before="アルバム名" cat="kopete"
 valid after="。:" cat="kopete"
 
 [\)]
-environment waccel
 id="style-space2"
 hint="右括弧の後に半角のスペースを入れてください。"
 valid cat="kspread"
@@ -408,7 +407,6 @@ valid after="\(プロプライエタリ" before="\)" cat="kvpnc"
 valid before="\\\s" cat="desktop_kdebase"
 
 [[A-Za-z]+]
-environment waccel
 id="style-space3"
 hint="英文字と日本語の間には半角のスペースを入れてください。"
 valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
@@ -422,18 +420,15 @@ hint="日本語の句読点の後にはスペースを入れません。"
 valid !before="[ 　]"
 
 [ +\(&[A-Z\d]\)]
-environment waccel
 id="accel1"
 hint="アクセラレータの括弧の前にはスペースを入れません [前に括弧がある場合は入れます]"
 valid after="\)"
 valid after="#[12]" before=":" cat="kuser"
 
 [\(&[a-z]\)]
-environment waccel
 id="accel2"
 hint="アクセラレータには大文字を使ってください"
 
 [\.\.\. *\([_&][A-Z\d]\)]
-environment waccel
 id="accel3"
 hint="「...」はアクセラレータの後に付けてください"

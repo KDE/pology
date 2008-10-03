@@ -2,6 +2,8 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
+addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
+
 [メールソフト|メールプログラム|メーラー]
 id="mailsoft-j"
 hint="メールクライアント"

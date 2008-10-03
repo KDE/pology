@@ -2,6 +2,8 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
+addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
+
 {\bcertificate authorit(y|ies)}i
 id="CA"
 hint="certificate authority = 認証局 [CA]"

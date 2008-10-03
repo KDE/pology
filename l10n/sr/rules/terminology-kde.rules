@@ -4,6 +4,8 @@
 
 environment kde
 
+include file="puretext.filters"
+
 {\bapplet}i
 id="applet"
 hint="applet = аплет"
@@ -157,7 +159,7 @@ valid after="</?"
 valid msgstr="\bнаредб"
 valid msgstr="(?<!<)(?<!</)command"
 valid cat="katetextfilter" msgid="textfilter COMMAND"
-valid cat="konqueror" msgid="to the <b>Paste</b> command" msgstr="за <i>налепљивање</i>"
+valid cat="konqueror" msgid="to the \S*Paste\S* command" msgstr="за \S*налепљивање\S*"
 
 {\bconfig(\b|uration)}i
 id="configuration"
@@ -358,14 +360,13 @@ valid cat="PO_Odyssey" after="plural-"
 {\bGCC}
 id="gcc"
 hint="GCC = ГЦЦ"
-valid msgstr="gcc-*;"
+valid msgstr="&gcc\S*;"
 
 {\bGNU\b}i
 id="gnu"
 hint="GNU = Гну"
-valid msgstr="\bgnu-\w*;"
+valid msgstr="&gnu\S*;"
 valid msgid="GNU Network Object Model Environment"
-valid msgstr="gnu[\w-]*;|\.gnu"
 
 {\bGNU\b}
 id="gnu_p"
@@ -422,10 +423,8 @@ disabled
 {\bKonqueror}i
 id="konqueror"
 hint="Konqueror = К-освајач"
-valid msgstr="konqueror"
-valid cat="kcmkonqhtml" msgstr="<html|<qt"
-valid cat="konqueror" msgstr="<img"
-valid cat="kdmconfig" msgstr="dolphin[\w-]*;"
+valid msgstr="&konqueror\S*;"
+valid cat="kdmconfig" msgstr="&dolphin\S*;"
 
 {\blabel}i
 id="label"
@@ -779,8 +778,7 @@ valid msgstr="\bwizard"
 {\bXML\b}i
 id="xml"
 hint="XML = ИксМЛ"
-valid after="\."
-valid msgstr="xml"
+valid msgstr="&xml\S*;"
 
 {\bYahoo}i
 id="yahoo"
