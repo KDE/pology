@@ -23,12 +23,12 @@ The sieve parameters are:
         rule identifiers; if not given, all rules for given language and
         environment are applied
    - C{stat}: show statistics of rule matching at the end
-   - C{accel:<characters>}: accelerator markers to eliminate from text
-        before the rules are applied
+   - C{accel:<characters>}: characters to consider as accelerator markers
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
    - C{filter:[<lang>:]<name>,...}: apply filters prior to rule checking
+   - C{showfmsg}: show filtered message too when a rule fails a message
 
 The C{filter} option specifies pure text hooks to apply to
 msgstr before it is checked. The hooks are found in C{pology.hook}
@@ -53,13 +53,12 @@ from time import strftime, strptime, mktime
 from locale import getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
-from pology.misc.report import report, error, warning, rule_error, rule_xml_error
+from pology.misc.report import report, error, warning, rule_error, rule_xml_error, report_msg_content
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
-from pology.hook.remove_subs import remove_accel_msg
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -123,6 +122,13 @@ class Sieve (object):
             customRuleFiles=[options["rfile"]]
         else:
             customRuleFiles=None
+        
+        # Show filtered message too when a rule fails a message.
+        if "showfmsg" in options:
+            options.accept("showfmsg")
+            self.showfmsg=True
+        else:
+            self.showfmsg=False
 
         # Load rules
         self.rules=loadRules(lang, stat, self.env, envOnly, customRuleFiles)
@@ -172,6 +178,15 @@ class Sieve (object):
 
         if selectedRules:
             report("(explicitly selected: %s)" % ", ".join(selectedRules))
+
+        # Collect all distinct filters from rules.
+        self.ruleFilters=set()
+        for rule in self.rules:
+            if not rule.disabled:
+                self.ruleFilters.add(rule.filtr)
+        nflt = len([x for x in self.ruleFilters if x is not None])
+        if nflt:
+            report("Loaded rules define %s distinct filter sets" % nflt)
 
         # Also output in XML file ?
         if "xml" in options:
@@ -270,10 +285,14 @@ class Sieve (object):
         locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
 
         # Prepare filtered messages for checking.
-        msgf = MessageUnsafe(msg)
-        remove_accel_msg(cat, msgf)
-        for pfilter in self.pfilters:
-            msgf.msgstr=[pfilter(x) for x in msgf.msgstr]
+        msgByFilter={}
+        for filtr in self.ruleFilters:
+            if filtr is not None:
+                msgf=MessageUnsafe(msg)
+                filtr(self.env, cat, msgf)
+            else:
+                msgf=msg
+            msgByFilter[filtr]=msgf
 
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
@@ -283,6 +302,7 @@ class Sieve (object):
                 continue
             if rule.ident in locally_ignored:
                 continue
+            msgf = msgByFilter[rule.filtr]
             try:
                 spans=rule.process(msgf, cat, env=self.env, nofilter=True)
             except TimedOutException:
@@ -303,7 +323,9 @@ class Sieve (object):
                         self.cacheFile.writelines(xmlError)
                 else:
                     # Text format.
-                    rule_error(msg, cat, rule, spans)
+                    if not self.showfmsg:
+                        msgf=None
+                    rule_error(msg, cat, rule, spans, msgf)
 
     def finalize (self):
         

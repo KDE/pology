@@ -197,6 +197,19 @@ that follow (unless overriden with namesake rule subdirective)::
     environment BAR
     ...
 
+Files can be included into rule files using the C{include} directive::
+
+    include file="foo.something"
+
+If the file to be included is a relative path, it is taken as relative to
+the file which includes it. One rule file should not include another
+(with C{.rules} extension), as all rule files are sourced automatically.
+Instead, an inclusion file should contain a subset of directives needed
+in several rule files, such as filter sets.
+
+Global directives are also used to set filters to apply to messages before
+the rules are matched; these directives are detailed below.
+
 Rule Environments
 =================
 
@@ -244,6 +257,186 @@ to previous passages. This means that if the operating environment
 is not specified, from sieve user's point of view all environment-specific
 rules are simply ignored.
 
+Message Filtering
+=================
+
+It is frequently advantageous for a set of rules not to act on raw text
+given by message fields, but on a suitably filtered variants.
+For example, if rules are used for terminology checks, it would be good
+to remove any markup from the text (e.g. for an C{<email>} tag not to
+record as a real word missing proper translation).
+
+Filters sets are created by issuing global C{addFilter*} directives::
+
+    # Remove XML-like tags.
+    addFilterRegex match="<.*?>" on="pmsgid,pmsgstr"
+    # Remove long command-line options.
+    addFilterRegex match="--[\w-]+" on="pmsgid,pmsgstr"
+
+    # Rule A will act on a message filtered by previous two directives.
+    {...}
+    ...
+
+    # Remove function calls like foo(x, y).
+    addFilterRegex match="\w+\(.*?\)" on="pmsgid,pmsgstr"
+
+    # Rule B will act on a message filtered by previous three directives.
+    {...}
+    ...
+
+Filters are thus added cumulatively to the filter set, the current set
+affecting all the rules beneath it. (Note that these examples are only
+for illustration, there are more finely tuned filtering options to remove
+markup or literals such as command line options.) C{addFilter*} directive
+may also appear within a rule, when it adds only to the filter set for
+that rule::
+
+    # Rule C, with an additional filter just for itself.
+    {...}
+    addFilterRegex match="grep\(1\)" on="pmsgstr"
+    ...
+
+    # Rule D, sees only previous global filter additions.
+    {...}
+    ...
+
+Every filter directive must have the C{on=} field, which lists parts of
+the message to which the filter should apply. In the examples above,
+C{pmsgid} and C{pmsgstr} indicating that the filter applies I{purely}
+to msgid/msgstr, i.e. not taking into account rest of the message;
+in comparison, C{msgid} and C{msgstr} would indicate that filter applies
+to the same fields, but that it can also analyze the rest of the message
+to decide its behavior. It depends on the filter directive which parts
+it can state in the C{on=} field.
+
+To remove a filter from the current set, the addition directive can give
+filter a I{handle}, which is then given to the C{removeField} directive
+to remove a filter::
+
+    addFilterRegex match="<.*?>" on="pmsgid,pmsgstr" handle="tags"
+
+    # Rule A, "tags" filter applies to it.
+    {...}
+    ...
+
+    # Rule B, removes "tags" filter only for itself.
+    {...}
+    removeFilter handle="tags"
+    ...
+
+    # Rule C, "tags" filter applies to it again.
+    {...}
+    ...
+
+    removeFilter handle="tags"
+
+    # Rule D, "tags" filter does not apply to it and any following rule.
+    {...}
+    ...
+
+Several filters may have the same handle, in which case a remove directive
+removes them all from the current set. C{handle=} field can contain a
+comma-separated list of several filters to remove at once.
+A remove directive within a rule influences the complete rule regardless
+of where it is positioned (e.g. between two validity directives).
+
+To completely clear filter set, C{clearFilters} directive is used, without
+any fields. Like C{removeFilter}, it can be issued either globally, or
+within a rule.
+
+Parts of the message to which the filter may apply in general (whereas
+the precise applicable subset depends on the filter type), as given by
+a comma-separate list in the C{on=} field, are:
+
+  - C{msg}: filter applies to the complete message
+
+  - C{msgid}: modifies only original fields (C{msgid}, C{msgid_plural}),
+    but the precise behavior may depend on other parts of the message,
+    e.g. on the presence of C{*-format} flags.
+
+  - C{msgstr}: modifies only translation fields (C{msgstr} set),
+    possibly depending on other parts of the mesage
+
+  - C{pmsgid}: modifies only original fields, without considering
+    other parts of the message
+
+  - C{pmsgstr}: modifies only translation fields, without considering
+    other parts of the message
+
+A filter may be added or removed only in certain environments, specified
+by the C{env=} field in C{addFilter*} and C{removeFilter} directives.
+
+The following filters are currently available:
+
+C{addFilterRegex}
+-----------------
+
+    Parts of the text to remove are determined by a regular expression.
+    The pattern is given by the C{match=} field; if a replacement of
+    the matched segment is wanted instead of full removal,
+    the C{repl=} field may be used to specify the replacement string
+    (which can include back-references)::
+
+        # Replace %<number> format directives with a tilde in translation.
+        addFilterRegex match="%\d+" repl="~" on="pmsgstr"
+
+    Applicable to C{pmsgid} and C{pmsgstr} message parts.
+
+C{addFilterHook}
+----------------
+
+    Hooks are functions with special signatures, defined in the submodules
+    of L{pology.hook} module. The hook function to use is specified by the
+    C{name=} field, the specification taking the form of
+    C{[lang:]hook-module[/hook-function]}; optional C{lang} is given when
+    the hook is language specific, in one of the C{pology.l10n.<lang>.hook}
+    modules, and C{hook-function} when the function name in the hook module
+    is not the default C{process()}.
+    For example, to remove accelerator markers from GUI POs, possibly
+    based on what each PO itself states the marker character to be,
+    the following hook filter can be used::
+
+        addFilterHook name="remove-subs/remove-accel-msg" on="msg"
+
+    (see L{pology.hook.remove_subs.remove_accel_text} for details).
+
+    It depends on the hook type to which parts of the message it can apply.
+    Hooks of type C{(cat, msg) -> None, modifies msg} must apply to C{msg},
+    whereas C{(cat, msg, text) -> text} can apply to C{msgid} and C{msgstr}.
+    Pure text hooks C{(text) -> text} apply to C{pmsgid} and C{pmsgstr}.
+
+    Aside from hook functions, a hook module may provide I{hook factories}
+    used to parametrize hook functions. Factory arguments can be given by
+    the C{factory=} field, in the same form as they would be written when
+    calling the factory from the code::
+
+        addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" \\
+                      factory="'~'" on="msg"
+
+    (see L{pology.hook.remove_subs.remove_fmtdirs_msg_tick} for details).
+
+Cost of Filtering
+-----------------
+
+Filtering may be time expensive, and it normally is in real-life uses.
+Therefore the implementation will try to assemble as little filter sets
+as necessary, judging by their signatures -- a hash of ordering, type, and
+fields of filters in the current set for a rule.
+Likewise, L{check-rules<sieve.check_rules>} will apply one filter set only
+once per message, distributing the appropriate filtered message to
+a given rule.
+
+This means that you should be conservative when adding and removing filters,
+such to produce as little sets as really necessary.
+For example, you may know that filters P and Q can be applied in any order,
+and in one rule file give P followed by Q, but in another Q followed by P.
+However, the implementation cannot know that the ordering does not matter,
+so it will create two filter sets, and waste twice as much time in filtering.
+
+For big filter sets which are needed in several rule files, it may be best
+to split them out in a separate file and use C{include} directive
+to include them into rule files.
+
 Quoting and Escaping
 ====================
 
@@ -255,6 +448,8 @@ The values of fields that are regular expressions are sent to the regular
 expression engine without resolving any escape sequences other
 than for the quote character itself.
 
+A line is continued by a backslash in the last column.
+
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
 """
@@ -262,7 +457,7 @@ than for the quote character itself.
 import re
 from codecs import open
 from time import time
-from os.path import dirname, basename, isdir, join
+from os.path import dirname, basename, isdir, join, isabs
 from os import listdir
 import sys
 from locale import getlocale
@@ -271,6 +466,10 @@ from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 from pology import rootdir
 from pology.misc.report import warning, error
+from pology.misc.config import strbool
+from pology.misc.langdep import get_hook_lreq, split_req
+from pology.file.message import MessageUnsafe
+import pology.hook.remove_subs as remsub
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
@@ -340,11 +539,14 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     except ImportError:
         print "No accents substitution dictionary found for %s language" % lang
         accents=None
+    seenFilters = {}
     for ruleFile in ruleFiles:
-        rules.extend(loadRulesFromFile(ruleFile, accents, stat))
+        rules.extend(loadRulesFromFile(ruleFile, accents, stat, env,
+                                       seenFilters))
 
     # Remove rules with specific but different to given environment,
     # or any rule not in given environment in environment-only mode.
+    # FIXME: This should be moved to loadRulesFromFile.
     srules=[]
     for rule in rules:
         if envOnly and rule.environ!=env:
@@ -374,11 +576,15 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
 
 _rule_start = "*"
 
-def loadRulesFromFile(filePath, accents, stat):
+def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
     @param accents: specific language l10n accents dictionary to use
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
+    @param env: environment in which the rules are to be applied
+    @param seenFilters: dictionary of previously encountered filter functions,
+        by their signatures; to avoid constructing same filters over
+        different files
     @return: list of Rule object"""
 
     class IdentError (Exception): pass
@@ -399,29 +605,52 @@ def loadRulesFromFile(filePath, accents, stat):
     validGroupName=u""
     identLines={}
     globalEnviron=None
-    i=0
+    globalFilters=[]
+    filters=None
+    lno=0
 
     try:
         lines=open(filePath, "r", "UTF-8").readlines()
         lines.append("\n") # sentry line
-        for line in lines:
-            i+=1
-            fields = _parseRuleLine(line)
-            
+        fileStack=[]
+        while True:
+            while lno >= len(lines):
+                if not fileStack:
+                    lines = None
+                    break
+                lines, filePath, lno = fileStack.pop()
+            if lines is None:
+                break
+            lno += 1
+            fields, lno = _parseRuleLine(lines, lno)
+
             # End of rule bloc
             # FIXME: Remove 'not fields' when global directives too
             # start with something. This will eliminate rule separation
             # by empty lines, and skipping comment-only lines.
-            if line.strip().startswith("#"):
+            if lines[lno - 1].strip().startswith("#"):
                 continue
             if not fields or fields[0][0] in (_rule_start,):
                 if inRule:
                     inRule=False
+
+                    if filters is None:
+                        filters = globalFilters
+                    # Use previously assembled filter with the same signature,
+                    # to be able to compare filter functions by "is".
+                    filterSig = _filterFinalSig(filters)
+                    if filterSig in seenFilters:
+                        filterFunc = seenFilters[filterSig]
+                    else:
+                        filterFunc = _filterComposeFinal(filters)
+                        seenFilters[filterSig] = filterFunc
+
                     rules.append(Rule(pattern, msgpart,
                                       hint=hint, valid=valid, accents=accents,
                                       stat=stat, casesens=casesens,
                                       ident=ident, disabled=disabled,
-                                      environ=(environ or globalEnviron)))
+                                      environ=(environ or globalEnviron),
+                                      filtr=filterFunc))
                     pattern=u""
                     msgpart=""
                     hint=u""
@@ -429,6 +658,7 @@ def loadRulesFromFile(filePath, accents, stat):
                     disabled=False
                     casesens=True
                     environ=None
+                    filters=None
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
@@ -478,7 +708,7 @@ def loadRulesFromFile(filePath, accents, stat):
                     (prevLine, prevEnviron)=identLines[ident]
                     if prevEnviron==globalEnviron:
                         raise IdentError(ident, prevLine)
-                identLines[ident]=(i, globalEnviron)
+                identLines[ident]=(lno, globalEnviron)
             
             # Whether rule is disabled
             elif fields[0][0]=="disabled":
@@ -513,21 +743,348 @@ def loadRulesFromFile(filePath, accents, stat):
                 else:
                     # Environment switch for rules that follow.
                     globalEnviron=envName
-            
+
+            # Add or remove filters
+            elif (   fields[0][0].startswith("addFilter")
+                  or fields[0][0] in ["removeFilter", "clearFilters"]):
+                # Select the proper filter list on which to act.
+                if inRule:
+                    if filters is None: # local filters not created yet
+                        filters = globalFilters[:] # shallow copy
+                    currentFilters = filters
+                    currentEnviron = environ or globalEnviron
+                else:
+                    currentFilters = globalFilters
+                    currentEnviron = globalEnviron
+
+                if fields[0][0].startswith("addFilter"):
+                    filterType = fields[0][0][len("addFilter"):]
+                    handle, parts, fenvs, rest = _filterParseGeneral(fields[1:])
+                    if fenvs is None and currentEnviron:
+                        fenvs = [currentEnviron]
+                    if filterType == "Regex":
+                        func, sig = _filterCreateRegex(rest)
+                    elif filterType == "Hook":
+                        func, sig = _filterCreateHook(rest)
+                    else:
+                        raise StandardError, \
+                              "Unknown filter directive '%s'" % fields[0][0]
+                    totalFunc, totalSig = _filterSetOnParts(parts, func, sig)
+                    currentFilters.append([handle, fenvs, totalFunc, totalSig])
+
+                elif fields[0][0] == ("removeFilter"):
+                    _filterRemove(fields[1:], currentFilters, env)
+
+                else: # remove all filters
+                    if len(fields) != 1:
+                        raise StandardError, \
+                              "Expected no fields in " \
+                              "all-filter removal directive"
+                    # Must not loose reference to the selected list.
+                    while currentFilters:
+                        currentFilters.pop()
+
+            # Include another file
+            elif fields[0][0] == "include":
+                if inRule or inGroup:
+                    raise StandardError, \
+                          "'%s' directive inside a rule or group" % "include"
+                fileStack.append((lines, filePath, lno))
+                lines, filePath, lno = _includeFile(fields[1:], filePath)
+
             else:
                 raise StandardError, \
                       "unknown directive '%s'" % fields[0][0]
 
     except IdentError, e:
-        warning("Identifier error in rule file: '%s' at %s:%d "
-                "previously encountered at :%d"
-                % (e.args[0], filePath, i, e.args[1]))
+        error("Identifier error in rule file: '%s' at %s:%d "
+              "previously encountered at :%d"
+              % (e.args[0], filePath, lno, e.args[1]))
     except IOError, e:
-        warning("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
+        error("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
     except StandardError, e:
-        warning("Syntax error in rule file %s:%d\n%s" % (filePath, i, e))
+        error("Syntax error in rule file %s:%d\n%s" % (filePath, lno, e))
 
     return rules
+
+
+def _checkFields (directive, fields, knownFields, mandatoryFields=set(),
+                  unique=True):
+
+    fieldDict = dict(fields)
+    if unique and len(fieldDict) != len(fields):
+        raise StandardError, \
+              "Duplicate fields in '%s' directive" % directive
+
+    if not isinstance(knownFields, set):
+        knownFields = set(knownFields)
+    unknownFields = set(fieldDict).difference(knownFields)
+    if unknownFields:
+        raise StandardError, \
+              "Unknown fields in '%s' directive: %s" \
+              % ", ".join(unknownFields)
+
+    for name in mandatoryFields:
+        if name not in fieldDict:
+            raise StandardError, \
+                  "Mandatory field '%s' missing in '%s' directive: %s" \
+                  % ", ".join(name, unknownFields)
+
+
+def _includeFile (fields, includingFilePath):
+
+    _checkFields("include", fields, ["file"], ["file"])
+    fieldDict = dict(fields)
+
+    relativeFilePath = fieldDict["file"]
+    if isabs(relativeFilePath):
+        filePath = relativeFilePath
+    else:
+        filePath = join(dirname(includingFilePath), relativeFilePath)
+
+    if filePath.endswith(".rules"):
+        warning("including one rules file into another, '%s' from '%s'"
+                % (filePath, includingFilePath))
+
+    lines=open(filePath, "r", "UTF-8").readlines()
+    lines.append("\n") # sentry line
+
+    return lines, filePath, 0
+
+
+def _filterRemove (fields, currentFilters, env):
+
+    _checkFields("removeFilter", fields, ["handle", "env"], ["handle"])
+    fieldDict = dict(fields)
+
+    handleStr = fieldDict["handle"]
+
+    fenvStr = fieldDict.get("env")
+    if fenvStr is not None:
+        fenvs = [x.strip() for x in fenvStr.split(",")]
+        if not env or env not in fenvs:
+            # We are operating in no environment, or operating environment
+            # is not listed among the selected; skip removal.
+            return
+
+    handles = set([x.strip() for x in handleStr.split(",")])
+    seenHandles = set()
+    k = 0
+    while k < len(currentFilters):
+        handle = currentFilters[k][0]
+        if handle in handles:
+            currentFilters.pop(k)
+            seenHandles.add(handle)
+        else:
+            k += 1
+    unseenHandles = handles.difference(seenHandles)
+    if unseenHandles:
+        raise StandardError, \
+              "No filters with these handles to remove: %s" \
+              % ", ".join(unseenHandles)
+
+
+_filterKnownParts = set([
+    "msg", "msgid", "msgstr", "pmsgid", "pmsgstr"
+])
+
+def _filterParseGeneral (fields):
+
+    handle = None
+    parts = []
+    envs = None
+
+    rest = []
+    for field in fields:
+        name, value = field
+        if name == "handle":
+            if "," in value:
+                raise StandardError, \
+                      "Invalid filter handle '%s'" % value
+            handle = value
+        elif name == "on":
+            parts = [x.strip() for x in value.split(",")]
+            unknownParts = set(parts).difference(_filterKnownParts)
+            if unknownParts:
+                raise StandardError, \
+                      "Unknown message parts for filter to act on: %s" \
+                      % ", ".join(unknownParts)
+        elif name == "env":
+            envs = [x.strip() for x in value.split(",")]
+        else:
+            rest.append(field)
+
+    if not parts:
+        raise StandardError, \
+              "No parts specified for the filter to act on"
+
+    return handle, parts, envs, rest
+
+
+def _filterSetOnParts (parts_, func, sig):
+
+    chain = []
+    parts = parts_[:]
+    parts.sort()
+    for part in parts:
+        if part == "msg":
+            chain.append(_filterOnMsg(func))
+        elif part == "msgstr":
+            chain.append(_filterOnMsgstr(func))
+        elif part == "msgid":
+            chain.append(_filterOnMsgid(func))
+        elif part == "pmsgstr":
+            chain.append(_filterOnMsgstrPure(func))
+        elif part == "pmsgid":
+            chain.append(_filterOnMsgidPure(func))
+
+    def composition (cat, msg):
+
+        for func in chain:
+            func(cat, msg)
+
+    totalSig = sig + "\x04" + ",".join(parts)
+
+    return composition, totalSig
+
+
+def _filterFinalSig (filterList):
+
+    sigs = [x[3] for x in filterList]
+    finalSig = "\x05".join(sigs)
+
+    return finalSig
+
+
+def _filterComposeFinal (filterList):
+
+    if not filterList:
+        return None
+
+    fenvs_funcs = [(x[1], x[2]) for x in filterList]
+
+    def composition (env, cat, msg):
+
+        for fenvs, func in fenvs_funcs:
+            # Apply filter if environment-agnostic or in operating environment.
+            if fenvs is None or env in fenvs:
+                func(cat, msg)
+
+    return composition
+
+
+def _filterOnMsg (func):
+
+    return lambda cat, msg: func(cat, msg)
+
+
+def _filterOnMsgstr (func):
+
+    def aggregate (cat, msg):
+
+        for i in range(len(msg.msgstr)):
+            tmp = func(cat, msg, msg.msgstr[i])
+            if tmp is not None: msg.msgstr[i] = tmp
+
+    return aggregate
+
+
+def _filterOnMsgid (func):
+
+    def aggregate (cat, msg):
+
+        tmp = func(cat, msg, msg.msgid)
+        if tmp is not None: msg.msgid = tmp
+        tmp = func(cat, msg, msg.msgid_plural)
+        if tmp is not None: msg.msgid_plural = tmp
+
+    return aggregate
+
+
+def _filterOnMsgstrPure (func):
+
+    def aggregate (cat, msg):
+
+        for i in range(len(msg.msgstr)):
+            tmp = func(msg.msgstr[i])
+            if tmp is not None: msg.msgstr[i] = tmp
+
+    return aggregate
+
+
+def _filterOnMsgidPure (func):
+
+    def aggregate (cat, msg):
+
+        tmp = func(msg.msgid)
+        if tmp is not None: msg.msgid = tmp
+        tmp = func(msg.msgid_plural)
+        if tmp is not None: msg.msgid_plural = tmp
+
+    return aggregate
+
+
+_filterRegexKnownFields = set(["match", "repl", "case"])
+
+def _filterCreateRegex (fields):
+
+    _checkFields("addFilterRegex", fields, _filterRegexKnownFields, ["match"])
+    fieldDict = dict(fields)
+
+    caseSens = _fancyBool(fieldDict.get("case", "0"))
+    flags = re.U
+    if not caseSens:
+        flags |= re.I
+
+    matchStr = fieldDict["match"]
+    matchRx = re.compile(matchStr, flags)
+
+    replStr = fieldDict.get("repl", "")
+
+    def func (text):
+        return matchRx.sub(replStr, text)
+
+    sig = "\x04".join([matchStr, replStr, str(caseSens)])
+
+    return func, sig
+
+
+_filterHookKnownFields = set(["name", "factory"])
+
+def _filterCreateHook (fields):
+
+    _checkFields("addFilterHook", fields, _filterHookKnownFields, ["name"])
+    fieldDict = dict(fields)
+
+    hookName = fieldDict["name"]
+    hook = get_hook_lreq(hookName, abort=False)
+
+    factoryStr = fieldDict.get("factory")
+    if factoryStr is not None:
+        # The hook we fetched is in fact a hook factory; produce the hook.
+        if factoryStr.strip():
+            factoryArgs = eval(factoryStr)
+            if not isinstance(factoryArgs, tuple):
+                factoryArgs = (factoryArgs,)
+        else:
+            factoryArgs = ()
+        hook = hook(*factoryArgs)
+        factoryStr = "\x04".join([str(x) for x in factoryArgs])
+    else:
+        factoryStr = ""
+
+    sig = "\x04".join([x for x in split_req(hookName) if x is not None])
+
+    return hook, sig
+
+
+def _fancyBool (string):
+
+    value = strbool(string)
+    if value is None:
+        raise StandardError, \
+              "Cannot ascribe boolean value to '%s'" % string
+    return value
 
 
 def convert_entities(string):
@@ -571,7 +1128,7 @@ class Rule(object):
 
     def __init__(self, pattern, msgpart, hint=None, valid=[], accents=None,
                        stat=False, casesens=True, ident=None, disabled=False,
-                       environ=None):
+                       environ=None, filtr=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -604,7 +1161,8 @@ class Rule(object):
         self.time=0       # Total time of rule process calls
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
-        self.environ=None # Environment in which to apply the rule
+        self.environ=environ # Environment in which to apply the rule
+        self.filtr=filtr # Function to filter the message before checking
 
         if msgpart not in _trigger_msgparts:
             raise StandardError, \
@@ -721,7 +1279,7 @@ class Rule(object):
 
         # Apply own filters to the message if not filtered already.
         if not nofilter:
-            msg = self._filter_message(msg)
+            msg = self._filter_message(env, cat, msg)
 
         if 0: pass
         elif self.msgpart == "msgid":
@@ -775,11 +1333,14 @@ class Rule(object):
         return failed_spans.values()
 
 
-    def _filter_message (self, msg):
+    def _filter_message (self, env, cat, msg):
 
-        # FIXME.
-        error("Message filtering by a rule not implemented yet")
-        return msg
+        fmsg = msg
+        if self.filtr is not None:
+            fmsg = MessageUnsafe(msg)
+            self.filtr(env, cat, fmsg)
+
+        return fmsg
 
 
     def _is_valid (self, pmatch, text, ventry, msg, cat, env):
@@ -873,7 +1434,7 @@ class Rule(object):
         return valid
 
 
-def _parseRuleLine (line):
+def _parseRuleLine (lines, lno):
     """
     Split a rule line into fields as list of (name, value) pairs.
 
@@ -885,6 +1446,15 @@ def _parseRuleLine (line):
     to be matched; the name of the second field is going to be
     the pattern itself, and its value the string of match modifiers.
     """
+
+    # Compose line out or backslash continuations.
+    line = lines[lno - 1]
+    while line.endswith("\\\n"):
+        line = line[:-2]
+        if lno >= len(lines):
+            break
+        lno += 1
+        line += lines[lno - 1]
 
     llen = len(line)
     fields = []
@@ -997,7 +1567,7 @@ def _parseRuleLine (line):
                     fields.append((fname, fvalue))
                     p += 1 # skip quote
 
-    return fields
+    return fields, lno
 
 
 def _findEndQuote (line, pos=0):
