@@ -170,7 +170,7 @@ class Sieve (object):
                 self.ruleFilters.add(rule.filtr)
         nflt = len([x for x in self.ruleFilters if x is not None])
         if nflt:
-            report("Loaded rules define %s distinct filter sets" % nflt)
+            report("Active rules define %s distinct filter sets" % nflt)
 
         # Also output in XML file ?
         if "xml" in options:
