@@ -8,7 +8,9 @@ Process text markup.
 """
 
 import re
+import codecs
 from pology.misc.report import error
+from pology import rootdir
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -402,12 +404,12 @@ def _unmask_ws (text):
     return text
 
 
-_html_tags = """
+_html_tags = set("""
     qt html
     a b big blockquote body br center cite code dd dl dt em font
     h1 h2 h3 h4 h5 h6 head hr i img li meta nobr ol p pre
     s span strong style sub sup table td th tr tt u ul var
-""".split()
+""".split())
 _html_subs = {
     "_nows" : ("", "", None),
     "_parabr": (WS_NEWLINE*2, WS_NEWLINE*2, None),
@@ -440,11 +442,11 @@ def html_to_plain (text):
                               _html_keepws, _html_ignels)
 
 
-_kuit_tags = """
+_kuit_tags = set("""
     kuit kuil title subtitle para list item note warning
     filename link application command resource icode bcode shortcut interface
     emphasis placeholder email envar message numid nl
-""".split()
+""".split())
 _kuit_subs = {
     "_nows" : ("", "", None),
     "_parabr" : ("", WS_NEWLINE*2, None),
@@ -475,7 +477,7 @@ def kuit_to_plain (text):
                               _kuit_keepws, _kuit_ignels)
 
 
-_htkt_tags = _html_tags + _kuit_tags
+_htkt_tags = set(list(_html_tags) + list(_kuit_tags))
 _htkt_subs = dict(_html_subs.items() + _kuit_subs.items())
 _htkt_ents = dict(_html_ents.items() + _kuit_ents.items())
 _htkt_keepws = set(list(_html_keepws) + list(_kuit_keepws))
@@ -500,4 +502,101 @@ def htmlkuit_to_plain (text):
 
     return xml_to_plain(text, _htkt_tags, _htkt_subs, _htkt_ents,
                               _htkt_keepws, _htkt_ignels)
+
+
+# Assembled on first use.
+_dbk_tags = None
+_dbk_subs = None
+_dbk_keepws = None
+_dbk_ignels = None
+
+def _prep_docbook_to_plain ():
+
+    specpath = os.path.join(rootdir(), "misc",
+                            "check_xml_docbook4-spec.txt")
+    docbook_tagattrs = collect_xml_spec1(specpath)
+
+    _dbk_tags = set(docbook_tagattrs.keys())
+
+    _dbk_subs = {
+        "_nows" : ("", "", None),
+        "_parabr" : ("", WS_NEWLINE*2, None),
+    }
+    _dbk_subs.update([(x, _kuit_subs["_nows"]) for x in _dbk_tags])
+    _dbk_subs.update([(x, _kuit_subs["_parabr"]) for x in
+                      "para title".split()]) # FIXME: Add more.
+
+    _dbk_keepws = set("""
+        screen programlisting
+    """.split()) # FIXME: Add more.
+
+    _dbk_ignels = set([
+    ])
+
+def docbook_to_plain (text):
+    """
+    Convert Docbook markup to plain text.
+
+    @param text: Docbook text to convert to plain
+    @type text: string
+
+    @returns: plain text version
+    @rtype: string
+    """
+
+    if _dbk_tags is None:
+        _prep_docbook_to_plain()
+
+    return xml_to_plain(text, _dbk_tags, _dbk_subs, _dbk_ents,
+                              _dbk_keepws, _dbk_ignels)
+
+
+def collect_xml_spec_l1 (specpath):
+    """
+    Collect informal XML format specification, level 1.
+
+    Level 1 specification is the dictionary of all known tags, with
+    allowed attributes (by name only) for each.
+
+    File of the level 1 specification is in the following format::
+
+        # A comment.
+        tagA;  # tag without any attributes
+        tagB: attr1, attr2;  # tag having some attributes
+        tagC: attr1, attr2, attr3, attr4,
+              attr5, attr6;  # tag with many attributes, split over lines
+
+    The specification can contain a dummy tag named C{pe-common-attributes},
+    stating attributes which are common to all tags, instead of having to
+    list them with each and every tag.
+
+    Specification file must be UTF-8 encoded.
+
+    @param spectpath: path to level 1 specification file
+    @type specpath: string
+
+    @return: level 1 specification
+    @rtype: dict
+    """
+
+    ifl = codecs.open(specpath, "r", "UTF-8")
+    stripc_rx = re.compile(r"#.*")
+    specstr = "".join([stripc_rx.sub('', x) for x in ifl.readlines()])
+    ifl.close()
+    tagattrs = {}
+    for elspec in specstr.split(";"):
+        lst = elspec.split(":")
+        tag = lst.pop(0).strip()
+        tagattrs[tag] = {}
+        if lst:
+            attrs = lst[0].split()
+            tagattrs[tag] = dict([(attr, True) for attr in attrs])
+
+    # Add common attributes to each tag.
+    cattrs = tagattrs.pop("pe-common-attrib", [])
+    if cattrs:
+        for attrs in tagattrs.itervalues():
+            attrs.update(cattrs)
+
+    return tagattrs
 

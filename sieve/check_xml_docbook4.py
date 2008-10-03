@@ -18,34 +18,19 @@ import re
 import locale
 import xml.parsers.expat
 from pology.misc.report import report, report_on_msg
+from pology.misc.markup import collect_xml_spec_l1
 from pology import rootdir
 
 # ----------------------------------------
 # Informal Docbook specification.
 
 # Collect tags and attributes from the companion file.
-specfile = os.path.join(rootdir(), "sieve", "check_xml_docbook4-spec.txt")
-ifl = open(specfile, "r")
-stripc_rx = re.compile(r"#.*")
-specstr = "".join([stripc_rx.sub('', x) for x in ifl.readlines()])
-ifl.close()
-docbook_tagattrs = {}
-for elspec in specstr.split(";"):
-    lst = elspec.split(":")
-    tag = lst.pop(0).strip()
-    docbook_tagattrs[tag] = {}
-    if lst:
-        attrs = lst[0].split()
-        docbook_tagattrs[tag] = dict([(attr, True) for attr in attrs])
+specpath = os.path.join(rootdir(), "misc", "check_xml_docbook4-spec.txt")
+docbook_tagattrs = collect_xml_spec_l1(specpath)
 
 # Add dummy top tag.
 dummy_top = "dummytop123"
 docbook_tagattrs[dummy_top] = {}
-
-# Add common attributes to each tag.
-cattrs = docbook_tagattrs.pop("pe-common-attrib")
-for attrs in docbook_tagattrs.itervalues():
-    attrs.update(cattrs)
 
 # ----------------------------------------
 # Check well-formedness and existence of tags.
