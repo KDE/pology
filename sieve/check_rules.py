@@ -27,15 +27,7 @@ The sieve parameters are:
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
-   - C{filter:[<lang>:]<name>,...}: apply filters prior to rule checking
    - C{showfmsg}: show filtered message too when a rule fails a message
-
-The C{filter} option specifies pure text hooks to apply to
-msgstr before it is checked. The hooks are found in C{pology.hook}
-and C{pology.l10n.<lang>.hook} modules, and are specified
-as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific, and function
-when it is not the default C{process()} within the hook module.
 
 Certain rules may be selectively disabled on a given message, by listing
 their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
@@ -109,13 +101,6 @@ class Sieve (object):
         if "accel" in options:
             options.accept("accel")
             self.accels = list(options["accel"])
-        
-        # Pre-check filters to apply.
-        self.pfilters=[]
-        if "filter" in options:
-            options.accept("filter")
-            freqs = options["filter"].split(",")
-            self.pfilters=[get_hook_lreq(x, abort=True) for x in freqs]
         
         if "rfile" in options:
             options.accept("rfile")
