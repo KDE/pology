@@ -74,7 +74,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
 
     By default, all tags are removed from the text;
     entities, unless one of the XML default (C{&lt;}, C{&gt;}, C{&amp;},
-    C{&quot;}, C{&apos;}), are left in stripped of ampersand and semicolon;
+    C{&quot;}, C{&apos;}), are left untouched;
     all whitespace groups are simplified to single space and leading and
     trailing removed.
 
@@ -216,7 +216,8 @@ def _resolve_ents (text, ents={}, ignents={}):
                     value = _resolve_ents(value, ents, ignents)
                     ntext.append(value)
                 else:
-                    ntext.append(name)
+                    # Put entity back as-is.
+                    ntext.append(m.group(0))
             else: # ignored entity, do not touch
                 ntext.append(text[p:m.span()[1]])
             p = m.span()[1]
