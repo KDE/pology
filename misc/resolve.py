@@ -846,14 +846,14 @@ def _remove_by_rx (text, rx, subs=""):
     return "".join(nsegs)
 
 
-_literal_url_rx = re.compile(r"\S+://\S*[\w&=]")
+_literal_url_rx = re.compile(r"\S+://\S*[\w&=]", re.U)
 
 def _remove_literals_url (text, subs=""):
 
     return _remove_by_rx(text, _literal_url_rx, subs)
 
 
-_literal_web_rx = re.compile(r"\w+(\.[\w-]+)+")
+_literal_web_rx = re.compile(r"\w+(\.[\w-]+)+", re.U)
 
 def _remove_literals_web (text, subs=""):
 
@@ -879,10 +879,12 @@ def _remove_literals_cmd (text, subs=""):
     return text
 
 
+_literal_filehome_rx = re.compile(r"~(/[\w.-]+)+/?", re.I|re.U)
 _literal_fileext_rx = re.compile(r"\*\.[a-z\d]+", re.I)
 
 def _remove_literals_file (text, subs=""):
 
+    text = _remove_by_rx(text, _literal_filehome_rx, subs)
     text = _remove_by_rx(text, _literal_fileext_rx, subs)
     return text
 
