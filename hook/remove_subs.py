@@ -89,6 +89,9 @@ def remove_accel_msg_greedy (cat, msg):
 
 def _rm_markup_in_text (text, mtypes):
 
+    if mtypes is None:
+        return text
+
     for mtype in mtypes:
         mtype = mtype.lower()
         if 0: pass
