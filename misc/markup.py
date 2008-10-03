@@ -572,7 +572,7 @@ def collect_xml_spec_l1 (specpath):
 
     Specification file must be UTF-8 encoded.
 
-    @param spectpath: path to level 1 specification file
+    @param specpath: path to level 1 specification file
     @type specpath: string
 
     @return: level 1 specification
