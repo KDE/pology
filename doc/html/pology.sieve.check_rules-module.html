@@ -88,8 +88,8 @@
       <code>stat</code>: show statistics of rule matching at the end
     </li>
     <li>
-      <code>accel:&lt;characters&gt;</code>: accelerator markers to 
-      eliminate from text before the rules are applied
+      <code>accel:&lt;characters&gt;</code>: characters to consider as 
+      accelerator markers
     </li>
     <li>
       <code>xml:&lt;filename&gt;</code>: output results of the run in XML 
@@ -102,6 +102,10 @@
     <li>
       <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
       prior to rule checking
+    </li>
+    <li>
+      <code>showfmsg</code>: show filtered message too when a rule fails a 
+      message
     </li>
   </ul>
   <p>The <code>filter</code> option specifies pure text hooks to apply to 

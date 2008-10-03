@@ -287,6 +287,19 @@
    environment BAR
    ...
 </pre>
+    <p>Files can be included into rule files using the <code>include</code>
+    directive:</p>
+<pre class="literalblock">
+   include file=&quot;foo.something&quot;
+</pre>
+    <p>If the file to be included is a relative path, it is taken as 
+    relative to the file which includes it. One rule file should not 
+    include another (with <code>.rules</code> extension), as all rule files
+    are sourced automatically. Instead, an inclusion file should contain a 
+    subset of directives needed in several rule files, such as filter 
+    sets.</p>
+    <p>Global directives are also used to set filters to apply to messages 
+    before the rules are matched; these directives are detailed below.</p>
   <h1 class="heading">Rule Environments</h1>
     <p>When there are no <code>environment</code> directives in a rule 
     file, either global or as subdirectives, then all rules loaded from it 
@@ -334,6 +347,190 @@
     according to previous passages. This means that if the operating 
     environment is not specified, from sieve user's point of view all 
     environment-specific rules are simply ignored.</p>
+  <h1 class="heading">Message Filtering</h1>
+    <p>It is frequently advantageous for a set of rules not to act on raw 
+    text given by message fields, but on a suitably filtered variants. For 
+    example, if rules are used for terminology checks, it would be good to 
+    remove any markup from the text (e.g. for an <code>&lt;email&gt;</code>
+    tag not to record as a real word missing proper translation).</p>
+    <p>Filters sets are created by issuing global <code>addFilter*</code> 
+    directives:</p>
+<pre class="literalblock">
+   # Remove XML-like tags.
+   addFilterRegex match=&quot;&lt;.*?&gt;&quot; on=&quot;pmsgid,pmsgstr&quot;
+   # Remove long command-line options.
+   addFilterRegex match=&quot;--[\w-]+&quot; on=&quot;pmsgid,pmsgstr&quot;
+
+   # Rule A will act on a message filtered by previous two directives.
+   {...}
+   ...
+
+   # Remove function calls like foo(x, y).
+   addFilterRegex match=&quot;\w+\(.*?\)&quot; on=&quot;pmsgid,pmsgstr&quot;
+
+   # Rule B will act on a message filtered by previous three directives.
+   {...}
+   ...
+</pre>
+    <p>Filters are thus added cumulatively to the filter set, the current 
+    set affecting all the rules beneath it. (Note that these examples are 
+    only for illustration, there are more finely tuned filtering options to
+    remove markup or literals such as command line options.) 
+    <code>addFilter*</code> directive may also appear within a rule, when 
+    it adds only to the filter set for that rule:</p>
+<pre class="literalblock">
+   # Rule C, with an additional filter just for itself.
+   {...}
+   addFilterRegex match=&quot;grep\(1\)&quot; on=&quot;pmsgstr&quot;
+   ...
+
+   # Rule D, sees only previous global filter additions.
+   {...}
+   ...
+</pre>
+    <p>Every filter directive must have the <code>on=</code> field, which 
+    lists parts of the message to which the filter should apply. In the 
+    examples above, <code>pmsgid</code> and <code>pmsgstr</code> indicating
+    that the filter applies <i>purely</i> to msgid/msgstr, i.e. not taking 
+    into account rest of the message; in comparison, <code>msgid</code> and
+    <code>msgstr</code> would indicate that filter applies to the same 
+    fields, but that it can also analyze the rest of the message to decide 
+    its behavior. It depends on the filter directive which parts it can 
+    state in the <code>on=</code> field.</p>
+    <p>To remove a filter from the current set, the addition directive can 
+    give filter a <i>handle</i>, which is then given to the 
+    <code>removeField</code> directive to remove a filter:</p>
+<pre class="literalblock">
+   addFilterRegex match=&quot;&lt;.*?&gt;&quot; on=&quot;pmsgid,pmsgstr&quot; handle=&quot;tags&quot;
+
+   # Rule A, &quot;tags&quot; filter applies to it.
+   {...}
+   ...
+
+   # Rule B, removes &quot;tags&quot; filter only for itself.
+   {...}
+   removeFilter handle=&quot;tags&quot;
+   ...
+
+   # Rule C, &quot;tags&quot; filter applies to it again.
+   {...}
+   ...
+
+   removeFilter handle=&quot;tags&quot;
+
+   # Rule D, &quot;tags&quot; filter does not apply to it and any following rule.
+   {...}
+   ...
+</pre>
+    <p>Several filters may have the same handle, in which case a remove 
+    directive removes them all from the current set. <code>handle=</code> 
+    field can contain a comma-separated list of several filters to remove 
+    at once. A remove directive within a rule influences the complete rule 
+    regardless of where it is positioned (e.g. between two validity 
+    directives).</p>
+    <p>To completely clear filter set, <code>clearFilters</code> directive 
+    is used, without any fields. Like <code>removeFilter</code>, it can be 
+    issued either globally, or within a rule.</p>
+    <p>Parts of the message to which the filter may apply in general 
+    (whereas the precise applicable subset depends on the filter type), as 
+    given by a comma-separate list in the <code>on=</code> field, are:</p>
+    <ul>
+      <li>
+        <code>msg</code>: filter applies to the complete message
+      </li>
+      <li>
+        <code>msgid</code>: modifies only original fields 
+        (<code>msgid</code>, <code>msgid_plural</code>), but the precise 
+        behavior may depend on other parts of the message, e.g. on the 
+        presence of <code>*-format</code> flags.
+      </li>
+      <li>
+        <code>msgstr</code>: modifies only translation fields 
+        (<code>msgstr</code> set), possibly depending on other parts of the
+        mesage
+      </li>
+      <li>
+        <code>pmsgid</code>: modifies only original fields, without 
+        considering other parts of the message
+      </li>
+      <li>
+        <code>pmsgstr</code>: modifies only translation fields, without 
+        considering other parts of the message
+      </li>
+    </ul>
+    <p>A filter may be added or removed only in certain environments, 
+    specified by the <code>env=</code> field in <code>addFilter*</code> and
+    <code>removeFilter</code> directives.</p>
+    <p>The following filters are currently available:</p>
+    <h2 class="heading"><code>addFilterRegex</code></h2>
+      <p>Parts of the text to remove are determined by a regular 
+      expression. The pattern is given by the <code>match=</code> field; if
+      a replacement of the matched segment is wanted instead of full 
+      removal, the <code>repl=</code> field may be used to specify the 
+      replacement string (which can include back-references):</p>
+<pre class="literalblock">
+   # Replace %&lt;number&gt; format directives with a tilde in translation.
+   addFilterRegex match=&quot;%\d+&quot; repl=&quot;~&quot; on=&quot;pmsgstr&quot;
+</pre>
+      <p>Applicable to <code>pmsgid</code> and <code>pmsgstr</code> message
+      parts.</p>
+    <h2 class="heading"><code>addFilterHook</code></h2>
+      <p>Hooks are functions with special signatures, defined in the 
+      submodules of <a href="pology.hook-module.html" 
+      class="link">pology.hook</a> module. The hook function to use is 
+      specified by the <code>name=</code> field, the specification taking 
+      the form of <code>[lang:]hook-module[/hook-function]</code>; optional
+      <code>lang</code> is given when the hook is language specific, in one
+      of the <code>pology.l10n.&lt;lang&gt;.hook</code> modules, and 
+      <code>hook-function</code> when the function name in the hook module 
+      is not the default <code>process()</code>. For example, to remove 
+      accelerator markers from GUI POs, possibly based on what each PO 
+      itself states the marker character to be, the following hook filter 
+      can be used:</p>
+<pre class="literalblock">
+   addFilterHook name=&quot;remove-subs/remove-accel-msg&quot; on=&quot;msg&quot;
+</pre>
+      <p>(see <a 
+      href="pology.hook.remove_subs-module.html#remove_accel_text" 
+      class="link">pology.hook.remove_subs.remove_accel_text</a> for 
+      details).</p>
+      <p>It depends on the hook type to which parts of the message it can 
+      apply. Hooks of type <code>(cat, msg) -&gt; None, modifies msg</code>
+      must apply to <code>msg</code>, whereas <code>(cat, msg, text) -&gt; 
+      text</code> can apply to <code>msgid</code> and <code>msgstr</code>. 
+      Pure text hooks <code>(text) -&gt; text</code> apply to 
+      <code>pmsgid</code> and <code>pmsgstr</code>.</p>
+      <p>Aside from hook functions, a hook module may provide <i>hook 
+      factories</i> used to parametrize hook functions. Factory arguments 
+      can be given by the <code>factory=</code> field, in the same form as 
+      they would be written when calling the factory from the code:</p>
+<pre class="literalblock">
+   addFilterHook name=&quot;remove-subs/remove-fmtdirs-msg-tick&quot; \
+                 factory=&quot;'~'&quot; on=&quot;msg&quot;
+</pre>
+      <p>(see <a 
+      href="pology.hook.remove_subs-module.html#remove_fmtdirs_msg_tick" 
+      class="link">pology.hook.remove_subs.remove_fmtdirs_msg_tick</a> for 
+      details).</p>
+    <h2 class="heading">Cost of Filtering</h2>
+      <p>Filtering may be time expensive, and it normally is in real-life 
+      uses. Therefore the implementation will try to assemble as little 
+      filter sets as necessary, judging by their signatures -- a hash of 
+      ordering, type, and fields of filters in the current set for a rule. 
+      Likewise, <a href="pology.sieve.check_rules-module.html" 
+      class="link">check-rules</a> will apply one filter set only once per 
+      message, distributing the appropriate filtered message to a given 
+      rule.</p>
+      <p>This means that you should be conservative when adding and 
+      removing filters, such to produce as little sets as really necessary.
+      For example, you may know that filters P and Q can be applied in any 
+      order, and in one rule file give P followed by Q, but in another Q 
+      followed by P. However, the implementation cannot know that the 
+      ordering does not matter, so it will create two filter sets, and 
+      waste twice as much time in filtering.</p>
+      <p>For big filter sets which are needed in several rule files, it may
+      be best to split them out in a separate file and use 
+      <code>include</code> directive to include them into rule files.</p>
   <h1 class="heading">Quoting and Escaping</h1>
     <p>Similar as with the verbose notation for the trigger pattern, any 
     quoted value may consistently use any other character other than the 
@@ -342,6 +539,7 @@
     regular expressions are sent to the regular expression engine without 
     resolving any escape sequences other than for the quote character 
     itself.</p>
+    <p>A line is continued by a backslash in the last column.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -422,7 +620,9 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRulesFromFile" class="summary-sig-name">loadRulesFromFile</a>(<span class="summary-sig-arg">filePath</span>,
         <span class="summary-sig-arg">accents</span>,
-        <span class="summary-sig-arg">stat</span>)</span><br />
+        <span class="summary-sig-arg">stat</span>,
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">seenFilters</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Load rule file and return list of Rule objects</td>
           <td align="right" valign="top">
             
@@ -546,7 +746,9 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRulesFromFile</span>(<span class="sig-arg">filePath</span>,
         <span class="sig-arg">accents</span>,
-        <span class="sig-arg">stat</span>)</span>
+        <span class="sig-arg">stat</span>,
+        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">seenFilters</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -561,6 +763,10 @@
         <li><strong class="pname"><code>accents</code></strong> - specific language l10n accents dictionary to use</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
+        <li><strong class="pname"><code>env</code></strong> - environment in which the rules are to be applied</li>
+        <li><strong class="pname"><code>seenFilters</code></strong> - dictionary of previously encountered filter functions, by their 
+          signatures; to avoid constructing same filters over different 
+          files</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of Rule object</dd>

@@ -215,9 +215,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" class="summary-sig-name">remove_fmtdirs_text_tick</a>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">text</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" class="summary-sig-name">remove_fmtdirs_text_tick</a>(<span class="summary-sig-arg">tick</span>)</span><br />
       Like <a 
       href="pology.hook.remove_subs-module.html#remove_fmtdirs_text" 
       class="link">remove_fmtdirs_text</a>, except that each format 
@@ -259,8 +257,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_msg_tick" class="summary-sig-name">remove_fmtdirs_msg_tick</a>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">msg</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_fmtdirs_msg_tick" class="summary-sig-name">remove_fmtdirs_msg_tick</a>(<span class="summary-sig-arg">tick</span>)</span><br />
       Remove format directives from all applicable text fields in the 
       message, as if <a 
       href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" 
@@ -299,9 +296,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_text_tick" class="summary-sig-name">remove_literals_text_tick</a>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">text</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_text_tick" class="summary-sig-name">remove_literals_text_tick</a>(<span class="summary-sig-arg">tick</span>)</span><br />
       Like <a 
       href="pology.hook.remove_subs-module.html#remove_literals_text" 
       class="link">remove_literals_text</a>, except that each literal 
@@ -343,8 +338,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_msg_tick" class="summary-sig-name">remove_literals_msg_tick</a>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">msg</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_literals_msg_tick" class="summary-sig-name">remove_literals_msg_tick</a>(<span class="summary-sig-arg">tick</span>)</span><br />
       Remove literal segments from all applicable text fields in the 
       message, as if <a 
       href="pology.hook.remove_subs-module.html#remove_literals_text_tick" 
@@ -597,9 +591,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_text_tick</span>(<span class="sig-arg">cat</span>,
-        <span class="sig-arg">msg</span>,
-        <span class="sig-arg">text</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_text_tick</span>(<span class="sig-arg">tick</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -611,9 +603,13 @@
   is replaced by a non-whitespace &quot;tick&quot; instead of plainly 
   removed.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tick</code></strong> (string) - the tick sequence</li>
+    </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, text) -&gt; text</code>
+        Hook type factory: <code>(cat, msg, text) -&gt; text</code>
       </p>
 </div></td></tr></table>
 </div>
@@ -651,8 +647,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_msg_tick</span>(<span class="sig-arg">cat</span>,
-        <span class="sig-arg">msg</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs_msg_tick</span>(<span class="sig-arg">tick</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -664,9 +659,13 @@
   href="pology.hook.remove_subs-module.html#remove_fmtdirs_text_tick" 
   class="link">remove_fmtdirs_text_tick</a> was applied to each.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tick</code></strong> (string) - the tick sequence</li>
+    </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        Hook type factory: <code>(cat, msg) -&gt; None</code>, modifies 
         <code>msg</code>
       </p>
 </div></td></tr></table>
@@ -727,9 +726,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_text_tick</span>(<span class="sig-arg">cat</span>,
-        <span class="sig-arg">msg</span>,
-        <span class="sig-arg">text</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_text_tick</span>(<span class="sig-arg">tick</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -742,9 +739,13 @@
   is replaced by a non-whitespace &quot;tick&quot; instead of plainly 
   removed.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tick</code></strong> (string) - the tick sequence</li>
+    </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, text) -&gt; text</code>
+        Hook type factory: <code>(cat, msg, text) -&gt; text</code>
       </p>
 </div></td></tr></table>
 </div>
@@ -782,8 +783,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_msg_tick</span>(<span class="sig-arg">cat</span>,
-        <span class="sig-arg">msg</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals_msg_tick</span>(<span class="sig-arg">tick</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -795,9 +795,13 @@
   href="pology.hook.remove_subs-module.html#remove_literals_text_tick" 
   class="link">remove_literals_text_tick</a> was applied to each.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tick</code></strong> (string) - the tick sequence</li>
+    </ul></dd>
   </dl>
 <div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg) -&gt; None</code>, modifies 
+        Hook type factory: <code>(cat, msg) -&gt; None</code>, modifies 
         <code>msg</code>
       </p>
 </div></td></tr></table>

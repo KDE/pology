@@ -95,7 +95,8 @@
         <span class="summary-sig-arg">tags</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">subs</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">keepws</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>)</span><br />
+        <span class="summary-sig-arg">keepws</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="summary-sig-arg">ignels</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>)</span><br />
       Convert any XML-like markup to plain text.</td>
           <td align="right" valign="top">
             
@@ -157,6 +158,40 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#docbook_to_plain" class="summary-sig-name">docbook_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert Docbook markup to plain text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#collect_xml_spec_l1" class="summary-sig-name">collect_xml_spec_l1</a>(<span class="summary-sig-arg">specpath</span>)</span><br />
+      Collect informal XML format specification, level 1.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -191,7 +226,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="x"></a><span class="summary-name">x</span> = <code title="'\x04~sp'"><code class="variable-quote">'</code><code class="variable-string">\x04~sp</code><code class="variable-quote">'</code></code>
+        <a name="x"></a><span class="summary-name">x</span> = <code title="'item'"><code class="variable-quote">'</code><code class="variable-string">item</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -250,7 +285,8 @@
         <span class="sig-arg">tags</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">subs</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="sig-arg">keepws</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>)</span>
+        <span class="sig-arg">keepws</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="sig-arg">ignels</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -258,22 +294,21 @@
   </tr></table>
   
   <p>Convert any XML-like markup to plain text.</p>
-  <p>By default, all tags are removed from the text; entities, unless one 
-  of the XML default (<code>&amp;lt;</code>, <code>&amp;gt;</code>, 
-  <code>&amp;amp;</code>, <code>&amp;quot;</code>, 
-  <code>&amp;apos;</code>), are left in stripped of ampersand and 
-  semicolon; all whitespace groups are simplified to single space and 
-  leading and trailing removed.</p>
+  <p>By default, all tags in the text are replaced with a single space; 
+  entities, unless one of the XML default (<code>&amp;lt;</code>, 
+  <code>&amp;gt;</code>, <code>&amp;amp;</code>, <code>&amp;quot;</code>, 
+  <code>&amp;apos;</code>), are left untouched; all whitespace groups are 
+  simplified to single space and leading and trailing removed.</p>
   <p>If only a particular subset of tags should be taken into account, it 
   can be specified by the <code>tags</code> parameter, as a sequence of tag
   names (the sequence is internally converted to set before 
   processing).</p>
-  <p>If a tag should not be plain removed, but replaced with some 
-  characters (either opening or closing tag), or the text wrapped by it 
-  replaced too, this can be specified by the <code>subs</code> parameter. 
-  It is a dictionary of 3-tuples by tag name, which tells what to replace 
-  with the opening tag, the closing tag, and the wrapped text. For example,
-  to replace <code>&lt;i&gt;foobar&lt;/i&gt;</code> with 
+  <p>If a tag should be replaced with a special sequence of characters 
+  (either opening or closing tag), or the text wrapped by it replaced too, 
+  this can be specified by the <code>subs</code> parameter. It is a 
+  dictionary of 3-tuples by tag name, which tells what to replace with the 
+  opening tag, the closing tag, and the wrapped text. For example, to 
+  replace <code>&lt;i&gt;foobar&lt;/i&gt;</code> with 
   <code>/foobar/</code>, the dictionary entry would be 
   <code>{&quot;i&quot;: (&quot;/&quot;, &quot;/&quot;, None)}</code> (where
   final <code>None</code> states not to touch the wrapped text); to replace
@@ -287,8 +322,12 @@
   <p>To have some entities other than the XML default replaced with proper 
   values, a dictionary of known entities with values may be provided using 
   the <code>ents</code> parameter.</p>
-  <p>Whitespace can be preserved within some tags, as given by the 
-  <code>keepws</code> sequence.</p>
+  <p>Whitespace can be preserved within some elements, as given by their 
+  tags in the <code>keepws</code> sequence.</p>
+  <p>Some elements may be completely removed, as given by the 
+  <code>ignels</code> sequence. Each element of the sequence should either 
+  be a tag, or a (tag, type) tuple, where type is the value of the 
+  <code>type</code> argument to element, if any.</p>
   <p>It is assumed that the markup is well-formed, and if it is not the 
   result is undefined; but best attempt at conversion is made.</p>
   <p>There are several other functions in this module which deal with well 
@@ -307,6 +346,8 @@
         <li><strong class="pname"><code>tags</code></strong> (sequence of strings) - known tags</li>
         <li><strong class="pname"><code>subs</code></strong> (dictionary of 3-tuples) - replacement specification</li>
         <li><strong class="pname"><code>ents</code></strong> (dictionary) - known entities and their values</li>
+        <li><strong class="pname"><code>keepws</code></strong> (sequence of strings) - tags of elements in which to preserve whitespace</li>
+        <li><strong class="pname"><code>ignels</code></strong> (sequence of strings and (string, string) tuples) - tags or tag/types or elements to completely remove</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text version</dd>
@@ -391,6 +432,70 @@
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="docbook_to_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">docbook_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert Docbook markup to plain text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - Docbook text to convert to plain</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="collect_xml_spec_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_xml_spec_l1</span>(<span class="sig-arg">specpath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Collect informal XML format specification, level 1.</p>
+  <p>Level 1 specification is the dictionary of all known tags, with 
+  allowed attributes (by name only) for each.</p>
+  <p>File of the level 1 specification is in the following format:</p>
+<pre class="literalblock">
+   # A comment.
+   tagA;  # tag without any attributes
+   tagB: attr1, attr2;  # tag having some attributes
+   tagC: attr1, attr2, attr3, attr4,
+         attr5, attr6;  # tag with many attributes, split over lines
+</pre>
+  <p>The specification can contain a dummy tag named 
+  <code>pe-common-attributes</code>, stating attributes which are common to
+  all tags, instead of having to list them with each and every tag.</p>
+  <p>Specification file must be UTF-8 encoded.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>specpath</code></strong> (string) - path to level 1 specification file</li>
+    </ul></dd>
+    <dt>Returns: dict</dt>
+        <dd>level 1 specification</dd>
   </dl>
 </td></tr></table>
 </div>

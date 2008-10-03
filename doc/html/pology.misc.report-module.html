@@ -221,7 +221,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x961d41c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa1676f4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
@@ -246,7 +246,8 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#rule_error" class="summary-sig-name">rule_error</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">rule</span>,
-        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">msgf</span>=<span class="summary-sig-default">None</span>)</span><br />
       Print formated rule error message on screen.</td>
           <td align="right" valign="top">
             
@@ -563,7 +564,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x961d41c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa1676f4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
@@ -605,7 +606,7 @@
         <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
           class="link">Message_base</a>) - the message to report the content for</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
-          class="link">Catalog</a>) - the catalog where the message lives</li>
+          class="link">Catalog</a> or <code>None</code>) - the catalog where the message lives</li>
         <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
           <code>to_lines()</code> method of <a 
           href="pology.file.message.Message_base-class.html" 
@@ -629,7 +630,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">rule_error</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">rule</span>,
-        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">msgf</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -646,6 +648,7 @@
         <li><strong class="pname"><code>highlight</code></strong> - highlight specification (see <a 
           href="pology.misc.report-module.html#report_msg_content" 
           class="link">report_msg_content</a>)</li>
+        <li><strong class="pname"><code>msgf</code></strong> - filtered message which the rule really matched</li>
     </ul></dd>
   </dl>
 </td></tr></table>
