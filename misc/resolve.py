@@ -823,6 +823,7 @@ def remove_literals (text, subs="", substrs=[], regexes=[], heuristic=True):
         text = _remove_literals_email(text, subs)
         text = _remove_literals_web(text, subs) # after URLs and email
         text = _remove_literals_cmd(text, subs)
+        text = _remove_literals_file(text, subs)
 
     return text
 
@@ -875,5 +876,13 @@ def _remove_literals_cmd (text, subs=""):
     text = _remove_by_rx(text, _literal_cmd_rx, subs)
     text = _remove_by_rx(text, _literal_cmdopt_rx, subs)
     text = _remove_by_rx(text, _literal_cmdoptlong_rx, subs)
+    return text
+
+
+_literal_fileext_rx = re.compile(r"\*\.[a-z\d]+", re.I)
+
+def _remove_literals_file (text, subs=""):
+
+    text = _remove_by_rx(text, _literal_fileext_rx, subs)
     return text
 
