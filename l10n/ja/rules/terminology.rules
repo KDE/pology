@@ -71,6 +71,11 @@ id="aspect_ratio"
 hint="aspect ratio = アスペクト比"
 valid msgstr="アスペクト比"
 
+{\battachments?\b}i
+id="attachment"
+hint="attachment = 添付ファイル"
+valid msgstr="添付ファイル" !msgstr="添付物"
+
 {\battributes?\b}i
 id="attribute"
 hint="attribute = 属性"
@@ -492,7 +497,7 @@ valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
 {\bhex editor}i
 id="hex_editor"
 hint="hex editor = バイナリエディタ"
-valid msgstr="バイナリエディタ(?!ー)"
+valid msgstr="バイナリエディタ(?!ー)" !msgstr="十六進エディタ"
 
 {\bhidden files?}i
 id="hidden_file"
@@ -656,7 +661,7 @@ disabled
 id="next"
 hint="Next = 次へ"
 valid msgstr="次へ"
-disabled
+valid ctx="Next page" msgstr="次のページ"
 
 {\boblique}i
 id="oblique"
@@ -757,7 +762,7 @@ valid msgstr="プレイリスト"
 id="previous"
 hint="Previous = 前へ"
 valid msgstr="前へ"
-disabled
+valid ctx="Previous page" msgstr="前のページ"
 
 {^Print\.\.\.$}
 id="print"
@@ -1162,6 +1167,11 @@ valid msgstr="音量を下げる"
 id="volume_up"
 hint="Volume Up = 音量を上げる"
 valid msgstr="音量を上げる"
+
+{\bwallets?\b}i
+id="wallet"
+hint="wallet = ウォレット"
+valid msgstr="ウォレット"
 
 {\bweb browser}i
 id="web_browser"

@@ -6,10 +6,6 @@
 id="mailsoft-j"
 hint="メールクライアント"
 
-[十六進エディタ]
-id="hex_editor-j"
-hint="バイナリエディタ"
-
 [ゴミ箱]
 id="trash-j"
 hint="Trash = ごみ箱 [平仮名と漢字で書いてください]"
@@ -17,10 +13,6 @@ hint="Trash = ごみ箱 [平仮名と漢字で書いてください]"
 [実行可能ファイル]
 id="executable-j"
 hint="executable (file) = 実行ファイル"
-
-[添付物]
-id="attachment-j"
-hint="attachment = (メールの) 添付ファイル"
 
 [トレイアイコン]
 id="trayicon-j"
@@ -31,7 +23,7 @@ valid after="システム"
 id="application-j"
 hint="application = アプリケーション [略さずに]"
 valid before="ケーション"
-valid before="ア州|マク県"
+valid ctx="kgm"
 
 [復号化]
 id="decrypt-j"
@@ -43,6 +35,12 @@ hint="間に「の」を入れた方がいいのでは？ [例: デバイスの�
 valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェクト"
 valid !after="[ァ-ヴー]"
 disabled
+
+[\bweb\b]i
+id="web-j"
+hint="Web = ウェブ [片仮名で書いてください]"
+valid ctx="Query"
+valid msgstr="Java Web Start"
 
 [bittorrent|Bittorrent]
 id="bittorent-j"
