@@ -72,7 +72,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
     """
     Convert any XML-like markup to plain text.
 
-    By default, all tags are removed from the text;
+    By default, all tags in the text are replaced with a single space;
     entities, unless one of the XML default (C{&lt;}, C{&gt;}, C{&amp;},
     C{&quot;}, C{&apos;}), are left untouched;
     all whitespace groups are simplified to single space and leading and
@@ -82,7 +82,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set()):
     be specified by the C{tags} parameter, as a sequence of tag names
     (the sequence is internally converted to set before processing).
 
-    If a tag should not be plain removed, but replaced with some characters
+    If a tag should be replaced with a special sequence of characters
     (either opening or closing tag), or the text wrapped by it replaced too,
     this can be specified by the C{subs} parameter. It is a dictionary of
     3-tuples by tag name, which tells what to replace with the opening tag,
@@ -266,7 +266,7 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set()):
         if el[0] == "#text":
             segs.append(el[-1])
         elif tags is None or el[0] in tags:
-            repl_pre, repl_post, repl_cont = subs.get(el[0], [None] * 3)
+            repl_pre, repl_post, repl_cont = subs.get(el[0], [" ", " ", None])
             if repl_pre is None:
                 repl_pre = ""
             if repl_post is None:
@@ -320,18 +320,23 @@ def _unmask_ws (text):
 
 
 _html_tags = """
-qt html
-a b big blockquote body br center cite code dd dl dt em font
-h1 h2 h3 h4 h5 h6 head hr i img li meta nobr ol p pre
-s span strong style sub sup table td th tr tt u ul var
+    qt html
+    a b big blockquote body br center cite code dd dl dt em font
+    h1 h2 h3 h4 h5 h6 head hr i img li meta nobr ol p pre
+    s span strong style sub sup table td th tr tt u ul var
 """.split()
 _html_subs = {
+    "_nows" : ("", "", None),
+    "_parabr": ("\n\n", "\n\n", None),
 }
+_html_subs.update([(x, _html_subs["_nows"]) for x in _html_tags])
+_html_subs.update([(x, _html_subs["_parabr"]) for x in
+                   "br h1 h2 h3 h4 h5 h6 hr li p pre td th tr".split()])
 _html_ents = { # in addition to default XML entities
     "nbsp": u"\xa0",
 }
 _html_keepws = set("""
-code pre
+    code pre
 """.split())
 
 def html_to_plain (text):
@@ -349,16 +354,21 @@ def html_to_plain (text):
 
 
 _kuit_tags = """
-kuit kuil title subtitle para list item note warning
-filename link application command resource icode bcode shortcut interface
-emphasis placeholder email envar message numid nl
+    kuit kuil title subtitle para list item note warning
+    filename link application command resource icode bcode shortcut interface
+    emphasis placeholder email envar message numid nl
 """.split()
 _kuit_subs = {
+    "_nows" : ("", "", None),
+    "_parabr" : ("", "\n\n", None),
 }
+_kuit_subs.update([(x, _kuit_subs["_nows"]) for x in _kuit_tags])
+_kuit_subs.update([(x, _kuit_subs["_parabr"]) for x in
+                   "title subtitle para item".split()])
 _kuit_ents = { # in addition to default XML entities
 }
 _kuit_keepws = set("""
-icode bcode
+    icode bcode
 """.split())
 
 def kuit_to_plain (text):
