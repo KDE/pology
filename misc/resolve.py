@@ -631,18 +631,20 @@ def remove_accelerator (text, accels=None, greedy=False):
                 # May have been an accelerator in style of
                 # "(<marker><alnum>)" at the start or end of text.
                 if (text[p - 1:p] == "(" and text[p + 1:p + 2] == ")"):
-                    # Check if at start or end, ignoring spaces.
+                    # Check if at start or end, ignoring non-alphanumerics.
                     tlen = len(text)
                     p1 = p - 2
-                    while p1 >= 0 and text[p1] == " ":
+                    while p1 >= 0 and not text[p1].isalnum():
                         p1 -= 1
                     p1 += 1
                     p2 = p + 2
-                    while p2 < tlen and text[p2] == " ":
+                    while p2 < tlen and not text[p2].isalnum():
                         p2 += 1
                     p2 -= 1
-                    if p1 == 0 or p2 + 1 == tlen:
-                        text = text[:p1] + text[p2 + 1:]
+                    if p1 == 0:
+                        text = text[:p - 1].lstrip() + text[p2 + 1:]
+                    elif p2 + 1 == tlen:
+                        text = text[:p1] + text[p + 2:].rstrip()
 
                 # Remove only one accelerator marker.
                 break
