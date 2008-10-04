@@ -91,7 +91,7 @@ def read_entities (*fnames):
 
 _entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
 
-def resolve_entities (text, entities, ignored_entities,
+def resolve_entities (text, entities, ignored_entities=set(),
                       srcname=None, fcap=False,
                       nalts=0, althead=DEFAULT_ALTHEAD):
     """
@@ -209,7 +209,7 @@ def resolve_entities (text, entities, ignored_entities,
     return new_text, resolved, unknown
 
 
-def resolve_entities_simple (text, entities, ignored_entities,
+def resolve_entities_simple (text, entities, ignored_entities=set(),
                              srcname=None, fcap=False,
                              nalts=0, althead=DEFAULT_ALTHEAD):
     """
