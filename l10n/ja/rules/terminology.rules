@@ -2,6 +2,7 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
+addFilterHook name="remove-subs/remove-markup-msg" on="msg"
 addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
 
 {\bcertificate authorit(y|ies)}i
@@ -95,10 +96,10 @@ id="bandwidth"
 hint="bandwidth = 帯域幅"
 valid msgstr="帯域幅"
 
-{bold}i
+{\bbold\b}i
 id="bold"
 hint="bold = ボールド"
-valid after="font-weight:[ ]*|[mo]|very "
+valid after="very "
 valid msgstr="ボールド"
 
 {\bbookmarks?\b}i
@@ -386,7 +387,6 @@ valid msgstr="ファイルマネージャ(?!ー)"
 id="filename"
 hint="filename = ファイル名"
 valid msgstr="ファイル名"
-disabled
 
 {\bfilter bar}i
 id="filter_bar"
@@ -544,7 +544,6 @@ valid msgstr="インスタントメッセンジャー"
 id="interface"
 hint="interface = インターフェース"
 valid msgstr="インターフェース"
-disabled
 
 {^Invert Selection$}
 id="invert_selection"
@@ -554,7 +553,6 @@ valid msgstr="選択反転"
 {\bitalic}i
 id="italic"
 hint="italic = イタリック"
-valid after="font-style:[ ]*"
 valid msgstr="イタリック"
 
 {\bkey pairs?}i
@@ -853,7 +851,6 @@ valid msgstr="リセット"
 id="resource"
 hint="resource = リソース"
 valid msgstr="リソース"
-disabled
 
 {^Restore$}
 id="restore"
@@ -1076,7 +1073,6 @@ disabled
 {\bunderline}i
 id="underline"
 hint="underline = 下線"
-valid after="text-decoration:[ ]*"
 valid msgstr="下線"
 
 {^Undo$}
