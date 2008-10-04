@@ -2,7 +2,6 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
-addFilterHook name="remove-subs/remove-markup-msg" on="msg" handle="markup"
 addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
 
 [か\?]
@@ -336,6 +335,68 @@ hint="折り返し"
 [割込]
 hint="割り込み"
 
+[\.\.\.$]
+id="dots1"
+hint="「...」を取り忘れていませんか？"
+valid msgid="(\.\.\.?|…)(</[bi]>)?$"
+
+{\.\.\.?$}
+id="dots2"
+hint="「...」を付け忘れていませんか？"
+valid msgstr="\.\.\.$"
+
+[\w<application>|</application>\w]
+id="tag-application"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<filename>|</filename>\w]
+id="tag-filename"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<resource>|</resource>\w]
+id="tag-resource"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<command>|</command>\w]
+id="tag-command"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<icode>|</icode>\w]
+id="tag-icode"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<envar>|</envar>\w]
+id="tag-envar"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<email>|</email>\w]
+id="tag-email"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<link>|</link>\w]
+id="tag-link"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<numid>|</numid>\w]
+id="tag-numid"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<shortcut>|</shortcut>\w]
+id="tag-shortcut"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w[ ]+<interface>|</interface>[ ]+\w]
+id="tag-interface"
+hint="このタグの前後にはスペースを入れません"
+
+[\w<tt>|</tt>\w]
+id="tag-tt"
+hint="このタグの前後には半角のスペースを入れてください"
+
+[\w<code>|</code>\w]
+id="tag-code"
+hint="このタグの前後には半角のスペースを入れてください"
+
 removeFilter handle="accel"
 
 [\(]
@@ -436,57 +497,3 @@ hint="アクセラレータには大文字を使ってください"
 [\.\.\. *\([_&][A-Z\d]\)]
 id="accel3"
 hint="「...」はアクセラレータの後に付けてください"
-
-removeFilter handle="markup"
-
-[\w<application>|</application>\w]
-id="tag-application"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<filename>|</filename>\w]
-id="tag-filename"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<resource>|</resource>\w]
-id="tag-resource"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<command>|</command>\w]
-id="tag-command"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<icode>|</icode>\w]
-id="tag-icode"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<envar>|</envar>\w]
-id="tag-envar"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<email>|</email>\w]
-id="tag-email"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<link>|</link>\w]
-id="tag-link"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<numid>|</numid>\w]
-id="tag-numid"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<shortcut>|</shortcut>\w]
-id="tag-shortcut"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w[ ]+<interface>|</interface>[ ]+\w]
-id="tag-interface"
-hint="このタグの前後にはスペースを入れません"
-
-[\w<tt>|</tt>\w]
-id="tag-tt"
-hint="このタグの前後には半角のスペースを入れてください"
-
-[\w<code>|</code>\w]
-id="tag-code"
-hint="このタグの前後には半角のスペースを入れてください"
