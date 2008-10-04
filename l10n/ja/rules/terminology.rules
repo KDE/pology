@@ -2,7 +2,7 @@
 # Japanese KDE translation team <Kdeveloper@kde.gr.jp>
 # License: GPLv3
 
-addFilterHook name="remove-subs/remove-markup-msg" on="msg"
+addFilterHook name="remove-subs/remove-markup-msg" on="msg" handle="markup"
 addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
 
 {\bcertificate authorit(y|ies)}i
