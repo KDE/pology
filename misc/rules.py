@@ -335,8 +335,10 @@ to remove a filter::
     ...
 
 Several filters may have the same handle, in which case a remove directive
-removes them all from the current set. C{handle=} field can contain a
-comma-separated list of several filters to remove at once.
+removes them all from the current set. One filter can have several handles,
+given by comma-separated in C{handle=} field, in which case it can be removed
+by any of those handles. Likewise, C{handle=} field in remove directive can
+state several handles by which to remove filters.
 A remove directive within a rule influences the complete rule regardless
 of where it is positioned (e.g. between two validity directives).
 
@@ -768,7 +770,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
 
                 if fields[0][0].startswith("addFilter"):
                     filterType = fields[0][0][len("addFilter"):]
-                    handle, parts, fenvs, rest = _filterParseGeneral(fields[1:])
+                    handles, parts, fenvs, rest = _filterParseGeneral(fields[1:])
                     if fenvs is None and currentEnviron:
                         fenvs = [currentEnviron]
                     if filterType == "Regex":
@@ -781,15 +783,15 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                     msgParts = set(parts).difference(_filterKnownRuleParts)
                     if msgParts:
                         totFunc, totSig = _msgFilterSetOnParts(msgParts, func, sig)
-                        currentMsgFilters.append([handle, fenvs, totFunc, totSig])
+                        currentMsgFilters.append([handles, fenvs, totFunc, totSig])
                     ruleParts = set(parts).difference(_filterKnownMsgParts)
                     if ruleParts and (env is None or env in fenvs):
                         totFunc, totSig = _ruleFilterSetOnParts(ruleParts, func, sig)
-                        currentRuleFilters.append([handle, fenvs, totFunc, totSig])
+                        currentRuleFilters.append([handles, fenvs, totFunc, totSig])
 
                 elif fields[0][0] == ("removeFilter"):
-                    _filterRemove(fields[1:], currentMsgFilters, env)
-                    _filterRemove(fields[1:], currentRuleFilters, env)
+                    _filterRemove(fields[1:],
+                                  (currentMsgFilters, currentRuleFilters), env)
 
                 else: # remove all filters
                     if len(fields) != 1:
@@ -870,7 +872,7 @@ def _includeFile (fields, includingFilePath):
     return lines, filePath, 0
 
 
-def _filterRemove (fields, currentFilters, env):
+def _filterRemove (fields, filterLists, env):
 
     _checkFields("removeFilter", fields, ["handle", "env"], ["handle"])
     fieldDict = dict(fields)
@@ -887,14 +889,15 @@ def _filterRemove (fields, currentFilters, env):
 
     handles = set([x.strip() for x in handleStr.split(",")])
     seenHandles = set()
-    k = 0
-    while k < len(currentFilters):
-        handle = currentFilters[k][0]
-        if handle in handles:
-            currentFilters.pop(k)
-            seenHandles.add(handle)
-        else:
-            k += 1
+    for flist in filterLists:
+        k = 0
+        while k < len(flist):
+            commonHandles = flist[k][0].intersection(handles)
+            if commonHandles:
+                flist.pop(k)
+                seenHandles.update(commonHandles)
+            else:
+                k += 1
     unseenHandles = handles.difference(seenHandles)
     if unseenHandles:
         raise StandardError, \
@@ -913,7 +916,7 @@ _filterKnownParts = set(  list(_filterKnownMsgParts)
 
 def _filterParseGeneral (fields):
 
-    handle = None
+    handles = set()
     parts = []
     envs = None
 
@@ -921,10 +924,7 @@ def _filterParseGeneral (fields):
     for field in fields:
         name, value = field
         if name == "handle":
-            if "," in value:
-                raise StandardError, \
-                      "Invalid filter handle '%s'" % value
-            handle = value
+            handles = set([x.strip() for x in value.split(",")])
         elif name == "on":
             parts = [x.strip() for x in value.split(",")]
             unknownParts = set(parts).difference(_filterKnownParts)
@@ -941,7 +941,7 @@ def _filterParseGeneral (fields):
         raise StandardError, \
               "No parts specified for the filter to act on"
 
-    return handle, parts, envs, rest
+    return handles, parts, envs, rest
 
 
 def _msgFilterSetOnParts (parts, func, sig):
