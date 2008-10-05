@@ -167,7 +167,7 @@ class Sieve (object):
         self.ruleFilters=set()
         for rule in self.rules:
             if not rule.disabled:
-                self.ruleFilters.add(rule.filtr)
+                self.ruleFilters.add(rule.mfilter)
         nflt = len([x for x in self.ruleFilters if x is not None])
         if nflt:
             report("Active rules define %s distinct filter sets" % nflt)
@@ -270,13 +270,13 @@ class Sieve (object):
 
         # Prepare filtered messages for checking.
         msgByFilter={}
-        for filtr in self.ruleFilters:
-            if filtr is not None:
+        for mfilter in self.ruleFilters:
+            if mfilter is not None:
                 msgf=MessageUnsafe(msg)
-                filtr(self.env, cat, msgf)
+                mfilter(self.env, cat, msgf)
             else:
                 msgf=msg
-            msgByFilter[filtr]=msgf
+            msgByFilter[mfilter]=msgf
 
         # Now the sieve itself. Check message with every rules
         for rule in self.rules:
@@ -286,7 +286,7 @@ class Sieve (object):
                 continue
             if rule.ident in locally_ignored:
                 continue
-            msgf = msgByFilter[rule.filtr]
+            msgf = msgByFilter[rule.mfilter]
             try:
                 spans=rule.process(msgf, cat, env=self.env, nofilter=True)
             except TimedOutException:

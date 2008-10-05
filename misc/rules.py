@@ -301,8 +301,8 @@ that rule::
     ...
 
 Every filter directive must have the C{on=} field, which lists parts of
-the message to which the filter should apply. In the examples above,
-C{pmsgid} and C{pmsgstr} indicating that the filter applies I{purely}
+the message or the rule to which the filter should apply. In the examples
+above, C{pmsgid} and C{pmsgstr} indicate that the filter applies I{purely}
 to msgid/msgstr, i.e. not taking into account rest of the message;
 in comparison, C{msgid} and C{msgstr} would indicate that filter applies
 to the same fields, but that it can also analyze the rest of the message
@@ -344,8 +344,8 @@ To completely clear filter set, C{clearFilters} directive is used, without
 any fields. Like C{removeFilter}, it can be issued either globally, or
 within a rule.
 
-Parts of the message to which the filter may apply in general (whereas
-the precise applicable subset depends on the filter type), as given by
+Parts of the message and the rule to which the filter may apply in general
+(whereas the precise applicable subset depends on the filter type), given by
 a comma-separate list in the C{on=} field, are:
 
   - C{msg}: filter applies to the complete message
@@ -362,6 +362,8 @@ a comma-separate list in the C{on=} field, are:
 
   - C{pmsgstr}: modifies only translation fields, without considering
     other parts of the message
+
+  - C{pattern}: modifies all search patterns in the rule
 
 A filter may be added or removed only in certain environments, specified
 by the C{env=} field in C{addFilter*} and C{removeFilter} directives.
@@ -380,7 +382,7 @@ C{addFilterRegex}
         # Replace %<number> format directives with a tilde in translation.
         addFilterRegex match="%\d+" repl="~" on="pmsgstr"
 
-    Applicable to C{pmsgid} and C{pmsgstr} message parts.
+    Applicable to C{pmsgid}, C{pmsgstr}, and C{pattern} parts.
 
 C{addFilterHook}
 ----------------
@@ -403,7 +405,8 @@ C{addFilterHook}
     It depends on the hook type to which parts of the message it can apply.
     Hooks of type C{(cat, msg) -> None, modifies msg} must apply to C{msg},
     whereas C{(cat, msg, text) -> text} can apply to C{msgid} and C{msgstr}.
-    Pure text hooks C{(text) -> text} apply to C{pmsgid} and C{pmsgstr}.
+    Pure text hooks C{(text) -> text} apply to C{pmsgid}, C{pmsgstr}, and
+    C{pattern}.
 
     Aside from hook functions, a hook module may provide I{hook factories}
     used to parametrize hook functions. Factory arguments can be given by
@@ -539,10 +542,10 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     except ImportError:
         print "No accents substitution dictionary found for %s language" % lang
         accents=None
-    seenFilters = {}
+    seenMsgFilters = {}
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, accents, stat, env,
-                                       seenFilters))
+                                       seenMsgFilters))
 
     # Remove rules with specific but different to given environment,
     # or any rule not in given environment in environment-only mode.
@@ -576,15 +579,15 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
 
 _rule_start = "*"
 
-def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
+def loadRulesFromFile(filePath, accents, stat, env=None, seenMsgFilters={}):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
     @param accents: specific language l10n accents dictionary to use
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @param env: environment in which the rules are to be applied
-    @param seenFilters: dictionary of previously encountered filter functions,
-        by their signatures; to avoid constructing same filters over
-        different files
+    @param seenMsgFilters: dictionary of previously encountered message
+        filter functions, by their signatures; to avoid constructing
+        same filters over different files
     @return: list of Rule object"""
 
     class IdentError (Exception): pass
@@ -605,8 +608,11 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
     validGroupName=u""
     identLines={}
     globalEnviron=None
-    globalFilters=[]
-    filters=None
+    globalMsgFilters=[]
+    globalRuleFilters=[]
+    msgFilters=None
+    ruleFilters=None
+    seenRuleFilters={}
     lno=0
 
     try:
@@ -634,23 +640,30 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
                 if inRule:
                     inRule=False
 
-                    if filters is None:
-                        filters = globalFilters
+                    if msgFilters is None:
+                        msgFilters = globalMsgFilters
+                    if ruleFilters is None:
+                        ruleFilters = globalRuleFilters
                     # Use previously assembled filter with the same signature,
                     # to be able to compare filter functions by "is".
-                    filterSig = _filterFinalSig(filters)
-                    if filterSig in seenFilters:
-                        filterFunc = seenFilters[filterSig]
-                    else:
-                        filterFunc = _filterComposeFinal(filters)
-                        seenFilters[filterSig] = filterFunc
+                    msgFilterSig = _filterFinalSig(msgFilters)
+                    msgFilterFunc = seenMsgFilters.get(msgFilterSig)
+                    if msgFilterFunc is None:
+                        msgFilterFunc = _msgFilterComposeFinal(msgFilters)
+                        seenMsgFilters[msgFilterSig] = msgFilterFunc
+                    ruleFilterSig = _filterFinalSig(ruleFilters)
+                    ruleFilterFunc = seenRuleFilters.get(ruleFilterSig)
+                    if ruleFilterFunc is None:
+                        ruleFilterFunc = _ruleFilterComposeFinal(ruleFilters)
+                        seenRuleFilters[ruleFilterSig] = ruleFilterFunc
 
                     rules.append(Rule(pattern, msgpart,
                                       hint=hint, valid=valid, accents=accents,
                                       stat=stat, casesens=casesens,
                                       ident=ident, disabled=disabled,
                                       environ=(environ or globalEnviron),
-                                      filtr=filterFunc))
+                                      mfilter=msgFilterFunc,
+                                      rfilter=ruleFilterFunc))
                     pattern=u""
                     msgpart=""
                     hint=u""
@@ -658,7 +671,8 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
                     disabled=False
                     casesens=True
                     environ=None
-                    filters=None
+                    msgFilters=None
+                    ruleFilters=None
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
@@ -747,14 +761,18 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
             # Add or remove filters
             elif (   fields[0][0].startswith("addFilter")
                   or fields[0][0] in ["removeFilter", "clearFilters"]):
-                # Select the proper filter list on which to act.
+                # Select the proper filter lists on which to act.
                 if inRule:
-                    if filters is None: # local filters not created yet
-                        filters = globalFilters[:] # shallow copy
-                    currentFilters = filters
+                    if msgFilters is None: # local filters not created yet
+                        msgFilters = globalMsgFilters[:] # shallow copy
+                    if ruleFilters is None:
+                        ruleFilters = globalRuleFilters[:]
+                    currentMsgFilters = msgFilters
+                    currentRuleFilters = ruleFilters
                     currentEnviron = environ or globalEnviron
                 else:
-                    currentFilters = globalFilters
+                    currentMsgFilters = globalMsgFilters
+                    currentRuleFilters = globalRuleFilters
                     currentEnviron = globalEnviron
 
                 if fields[0][0].startswith("addFilter"):
@@ -769,20 +787,29 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenFilters={}):
                     else:
                         raise StandardError, \
                               "Unknown filter directive '%s'" % fields[0][0]
-                    totalFunc, totalSig = _filterSetOnParts(parts, func, sig)
-                    currentFilters.append([handle, fenvs, totalFunc, totalSig])
+                    msgParts = set(parts).difference(_filterKnownRuleParts)
+                    if msgParts:
+                        totFunc, totSig = _msgFilterSetOnParts(msgParts, func, sig)
+                        currentMsgFilters.append([handle, fenvs, totFunc, totSig])
+                    ruleParts = set(parts).difference(_filterKnownMsgParts)
+                    if ruleParts and (env is None or env in fenvs):
+                        totFunc, totSig = _ruleFilterSetOnParts(ruleParts, func, sig)
+                        currentRuleFilters.append([handle, fenvs, totFunc, totSig])
 
                 elif fields[0][0] == ("removeFilter"):
-                    _filterRemove(fields[1:], currentFilters, env)
+                    _filterRemove(fields[1:], currentMsgFilters, env)
+                    _filterRemove(fields[1:], currentRuleFilters, env)
 
                 else: # remove all filters
                     if len(fields) != 1:
                         raise StandardError, \
                               "Expected no fields in " \
                               "all-filter removal directive"
-                    # Must not loose reference to the selected list.
-                    while currentFilters:
-                        currentFilters.pop()
+                    # Must not loose reference to the selected lists.
+                    while currentMsgFilters:
+                        currentMsgFilters.pop()
+                    while currentRuleFilters:
+                        currentRuleFilters.pop()
 
             # Include another file
             elif fields[0][0] == "include":
@@ -884,9 +911,14 @@ def _filterRemove (fields, currentFilters, env):
               % ", ".join(unseenHandles)
 
 
-_filterKnownParts = set([
-    "msg", "msgid", "msgstr", "pmsgid", "pmsgstr"
+_filterKnownMsgParts = set([
+    "msg", "msgid", "msgstr", "pmsgid", "pmsgstr",
 ])
+_filterKnownRuleParts = set([
+    "pattern",
+])
+_filterKnownParts = set(  list(_filterKnownMsgParts)
+                        + list(_filterKnownRuleParts))
 
 def _filterParseGeneral (fields):
 
@@ -907,7 +939,7 @@ def _filterParseGeneral (fields):
             unknownParts = set(parts).difference(_filterKnownParts)
             if unknownParts:
                 raise StandardError, \
-                      "Unknown message parts for filter to act on: %s" \
+                      "Unknown parts for filter to act on: %s" \
                       % ", ".join(unknownParts)
         elif name == "env":
             envs = [x.strip() for x in value.split(",")]
@@ -921,10 +953,10 @@ def _filterParseGeneral (fields):
     return handle, parts, envs, rest
 
 
-def _filterSetOnParts (parts_, func, sig):
+def _msgFilterSetOnParts (parts, func, sig):
 
     chain = []
-    parts = parts_[:]
+    parts = list(parts)
     parts.sort()
     for part in parts:
         if part == "msg":
@@ -938,10 +970,10 @@ def _filterSetOnParts (parts_, func, sig):
         elif part == "pmsgid":
             chain.append(_filterOnMsgidPure(func))
 
-    def composition (cat, msg):
+    def composition (msg, cat):
 
         for func in chain:
-            func(cat, msg)
+            func(msg, cat)
 
     totalSig = sig + "\x04" + ",".join(parts)
 
@@ -956,31 +988,31 @@ def _filterFinalSig (filterList):
     return finalSig
 
 
-def _filterComposeFinal (filterList):
+def _msgFilterComposeFinal (filterList):
 
     if not filterList:
         return None
 
     fenvs_funcs = [(x[1], x[2]) for x in filterList]
 
-    def composition (env, cat, msg):
+    def composition (msg, cat, env):
 
         for fenvs, func in fenvs_funcs:
             # Apply filter if environment-agnostic or in operating environment.
             if fenvs is None or env in fenvs:
-                func(cat, msg)
+                func(msg, cat)
 
     return composition
 
 
 def _filterOnMsg (func):
 
-    return lambda cat, msg: func(cat, msg)
+    return lambda msg, cat: func(cat, msg)
 
 
 def _filterOnMsgstr (func):
 
-    def aggregate (cat, msg):
+    def aggregate (msg, cat):
 
         for i in range(len(msg.msgstr)):
             tmp = func(cat, msg, msg.msgstr[i])
@@ -991,7 +1023,7 @@ def _filterOnMsgstr (func):
 
 def _filterOnMsgid (func):
 
-    def aggregate (cat, msg):
+    def aggregate (msg, cat):
 
         tmp = func(cat, msg, msg.msgid)
         if tmp is not None: msg.msgid = tmp
@@ -1003,7 +1035,7 @@ def _filterOnMsgid (func):
 
 def _filterOnMsgstrPure (func):
 
-    def aggregate (cat, msg):
+    def aggregate (msg, cat):
 
         for i in range(len(msg.msgstr)):
             tmp = func(msg.msgstr[i])
@@ -1014,12 +1046,67 @@ def _filterOnMsgstrPure (func):
 
 def _filterOnMsgidPure (func):
 
-    def aggregate (cat, msg):
+    def aggregate (msg, cat):
 
         tmp = func(msg.msgid)
         if tmp is not None: msg.msgid = tmp
         tmp = func(msg.msgid_plural)
         if tmp is not None: msg.msgid_plural = tmp
+
+    return aggregate
+
+
+def _ruleFilterSetOnParts (parts, func, sig):
+
+    chain = []
+    parts = list(parts)
+    parts.sort()
+    for part in parts:
+        if part == "pattern":
+            chain.append((_filterOnPattern(func), part))
+
+    def composition (value, part):
+
+        if part not in _filterKnownRuleParts:
+            raise StandardError, \
+                  "Requested to filter unknown rule part '%s'" % part
+
+        for func, fpart in chain:
+            if fpart == part:
+                value = func(value)
+
+        return value
+
+    totalSig = sig + "\x04" + ",".join(parts)
+
+    return composition, totalSig
+
+
+def _ruleFilterComposeFinal (filterList):
+
+    if not filterList:
+        return None
+
+    funcs = [x[2] for x in filterList]
+
+    def composition (value, part):
+
+        for func in funcs:
+            value = func(value, part)
+
+        return value
+
+    return composition
+
+
+def _filterOnPattern (func):
+
+    def aggregate (pattern):
+
+        tmp = func(pattern)
+        if tmp is not None: pattern = tmp
+
+        return pattern
 
     return aggregate
 
@@ -1128,7 +1215,7 @@ class Rule(object):
 
     def __init__(self, pattern, msgpart, hint=None, valid=[], accents=None,
                        stat=False, casesens=True, ident=None, disabled=False,
-                       environ=None, filtr=None):
+                       environ=None, mfilter=None, rfilter=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -1147,6 +1234,10 @@ class Rule(object):
         @type disabled: bool
         @param environ: environment in which the rule applies
         @type environ: string or C{None}
+        @param mfilter: filter to apply to message before checking
+        @type mfilter: (msg, cat, env) -> <anything>
+        @param rfilter: filter to apply to rule strings (e.g. on regex patterns)
+        @type rfilter: (string) -> string
         """
 
         # Define instance variable
@@ -1162,7 +1253,8 @@ class Rule(object):
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
         self.environ=environ # Environment in which to apply the rule
-        self.filtr=filtr # Function to filter the message before checking
+        self.mfilter=mfilter # Function to filter the message before checking
+        self.rfilter=rfilter # Function to filter the rule strings
 
         if msgpart not in _trigger_msgparts:
             raise StandardError, \
@@ -1201,7 +1293,10 @@ class Rule(object):
                 for accentMatch in self.accentPattern.finditer(pattern):
                     letter=accentMatch.group(1)
                     pattern=pattern.replace("@%s" % letter, self.accents[letter])
-            self.pattern=re.compile(convert_entities(pattern), self.reflags)
+            pattern=convert_entities(pattern)
+            if self.rfilter:
+                pattern=self.rfilter(pattern, "pattern")
+            self.pattern=re.compile(pattern, self.reflags)
         except Exception:
             print "Invalid pattern '%s', disabling rule" % pattern
             self.disabled=True
@@ -1222,6 +1317,8 @@ class Rule(object):
                         print "Invalid keyword '%s' in valid definition. Skipping" % key
                         continue
                     value=convert_entities(value)
+                    if self.rfilter:
+                        value=self.rfilter(value, "pattern")
                     if bkey in Rule._regexKeywords:
                         # Compile regexp
                         value=re.compile(value, self.reflags)
@@ -1279,7 +1376,7 @@ class Rule(object):
 
         # Apply own filters to the message if not filtered already.
         if not nofilter:
-            msg = self._filter_message(env, cat, msg)
+            msg = self._filter_message(msg, cat, env)
 
         if 0: pass
         elif self.msgpart == "msgid":
@@ -1333,12 +1430,12 @@ class Rule(object):
         return failed_spans.values()
 
 
-    def _filter_message (self, env, cat, msg):
+    def _filter_message (self, msg, cat, env):
 
         fmsg = msg
-        if self.filtr is not None:
+        if self.mfilter is not None:
             fmsg = MessageUnsafe(msg)
-            self.filtr(env, cat, fmsg)
+            self.mfilter(fmsg, cat, env)
 
         return fmsg
 
