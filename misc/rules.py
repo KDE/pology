@@ -535,17 +535,9 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
         else:
             error("The rule directory is not a directory or is not accessible")
     
-    # Find accents substitution dictionary
-    try:
-        m=__import__("pology.l10n.%s.accents" % lang, globals(), locals(), [""])
-        accents=m.accents
-    except ImportError:
-        print "No accents substitution dictionary found for %s language" % lang
-        accents=None
     seenMsgFilters = {}
     for ruleFile in ruleFiles:
-        rules.extend(loadRulesFromFile(ruleFile, accents, stat, env,
-                                       seenMsgFilters))
+        rules.extend(loadRulesFromFile(ruleFile, stat, env, seenMsgFilters))
 
     # Remove rules with specific but different to given environment,
     # or any rule not in given environment in environment-only mode.
@@ -579,10 +571,9 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
 
 _rule_start = "*"
 
-def loadRulesFromFile(filePath, accents, stat, env=None, seenMsgFilters={}):
+def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
-    @param accents: specific language l10n accents dictionary to use
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @param env: environment in which the rules are to be applied
     @param seenMsgFilters: dictionary of previously encountered message
@@ -658,7 +649,7 @@ def loadRulesFromFile(filePath, accents, stat, env=None, seenMsgFilters={}):
                         seenRuleFilters[ruleFilterSig] = ruleFilterFunc
 
                     rules.append(Rule(pattern, msgpart,
-                                      hint=hint, valid=valid, accents=accents,
+                                      hint=hint, valid=valid,
                                       stat=stat, casesens=casesens,
                                       ident=ident, disabled=disabled,
                                       environ=(environ or globalEnviron),
@@ -1178,24 +1169,6 @@ def _fancyBool (string):
     return value
 
 
-def convert_entities(string):
-    """Convert entities in string en returns it"""
-    #TODO: use pology entities function instead of specific one
-    string=string.replace("&cr;", "\r")
-    string=string.replace("&lf;", "\n")
-    string=string.replace("&lt;", "<")
-    string=string.replace("&gt;", ">")
-    string=string.replace("&sp;", " ")
-    string=string.replace("&quot;", '\"')
-    string=string.replace("&rwb;", u"(?=[^\wéèêàâùûôÉÈÊÀÂÙÛÔ])")
-    string=string.replace("&lwb;", u"(?<=[^\wéèêàâùûôÉÈÊÀÂÙÛÔ])")
-    string=string.replace("&amp;", "&")
-    string=string.replace("&unbsp;", u"\xa0")
-    string=string.replace("&nbsp;", " ")
-  
-    return string
-
-
 _trigger_msgparts = [
     # For matching in all messages.
     "msgctxt", "msgid", "msgstr",
@@ -1217,7 +1190,7 @@ class Rule(object):
     _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
     _listKeywords = set(("env", "cat"))
 
-    def __init__(self, pattern, msgpart, hint=None, valid=[], accents=None,
+    def __init__(self, pattern, msgpart, hint=None, valid=[],
                        stat=False, casesens=True, ident=None, disabled=False,
                        environ=None, mfilter=None, rfilter=None):
         """Create a rule
@@ -1228,7 +1201,6 @@ class Rule(object):
         @param hint: hint given to user when rule match
         @type hint: unicode
         @param valid: list of cases that should make or not make rule matching
-        @param accents: specific language accents dictionary to use.
         @type valid: list of unicode key=value
         @param casesens: whether regex matching will be case-sensitive
         @type casesens: bool
@@ -1251,7 +1223,6 @@ class Rule(object):
         self.hint=None    # Hint message return to user
         self.ident=None    # Rule identifier
         self.disabled=False # Whether rule is disabled
-        self.accents=accents # Accents dictionary
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
@@ -1263,14 +1234,6 @@ class Rule(object):
         if msgpart not in _trigger_msgparts:
             raise StandardError, \
                   "Unknown message part '%s' for rule's main pattern" % msgpart
-
-        # Get accentMatch from accent dictionary
-        if self.accents:
-            if self.accents.has_key("pattern"):
-                self.accentPattern=self.accents["pattern"]
-            else:
-                print "Accent dictionary does not have pattern. Disabled it"
-                self.accents=None
 
         # Flags for regex compilation.
         self.reflags=re.U
@@ -1293,16 +1256,11 @@ class Rule(object):
         """Compile pattern
         @param pattern: pattern as an unicode string"""
         try:
-            if self.accents:
-                for accentMatch in self.accentPattern.finditer(pattern):
-                    letter=accentMatch.group(1)
-                    pattern=pattern.replace("@%s" % letter, self.accents[letter])
-            pattern=convert_entities(pattern)
             if self.rfilter:
                 pattern=self.rfilter(pattern, "pattern")
             self.pattern=re.compile(pattern, self.reflags)
-        except Exception:
-            print "Invalid pattern '%s', disabling rule" % pattern
+        except Exception, e:
+            warning("Invalid pattern '%s', disabling rule\n%s" % (pattern, e))
             self.disabled=True
         
     def setValid(self, valid):
@@ -1318,9 +1276,8 @@ class Rule(object):
                     if key.startswith("!"):
                         bkey = key[1:]
                     if bkey not in Rule._knownKeywords:
-                        print "Invalid keyword '%s' in valid definition. Skipping" % key
+                        warning("Invalid keyword '%s' in valid definition. Skipping" % key)
                         continue
-                    value=convert_entities(value)
                     if self.rfilter:
                         value=self.rfilter(value, "pattern")
                     if bkey in Rule._regexKeywords:
@@ -1331,8 +1288,8 @@ class Rule(object):
                         value=[x.strip() for x in value.split(",")]
                     entry.append((key, value))
                 self.valid.append(entry)
-            except Exception:
-                print "Invalid 'Valid' definition '%s'. Skipping" % item
+            except Exception, e:
+                warning("Invalid 'Valid' definition '%s'. Skipping\n%s" % (item, e))
                 continue
 
     #@timed_out(TIMEOUT)
