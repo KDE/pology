@@ -1007,7 +1007,11 @@ def _msgFilterComposeFinal (filterList):
 
 def _filterOnMsg (func):
 
-    return lambda msg, cat: func(cat, msg)
+    def aggregate (msg, cat):
+
+        func(cat, msg)
+
+    return aggregate
 
 
 def _filterOnMsgstr (func):

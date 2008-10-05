@@ -273,7 +273,7 @@ class Sieve (object):
         for mfilter in self.ruleFilters:
             if mfilter is not None:
                 msgf=MessageUnsafe(msg)
-                mfilter(self.env, cat, msgf)
+                mfilter(msgf, cat, self.env)
             else:
                 msgf=msg
             msgByFilter[mfilter]=msgf
