@@ -212,6 +212,8 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     C{"msgid"}, C{"msgid_plural"}, C{"msgstr"}.
     For unique fields the element index is not used, but 0 should be given
     for consistency (may be enforced later).
+    Span tuples can have more than two elements, with indices followed by
+    additional elements, which are ignored by this function.
 
     Sometimes the match to which the spans correspond has been made on a
     filtered value of the message field (e.g. after accelerator markers

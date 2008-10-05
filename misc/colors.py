@@ -27,6 +27,8 @@ def highlight_spans (text, spans, color=RED, ftext=None):
     Adds shell colors around defined spans in the text.
     Spans are given as list of index tuples C{[(start1, end1), ...]} where
     start and end index have standard Python semantics.
+    Span tuples can have more than two elements, with indices followed by
+    additional elements, which are ignored by this function.
 
     If C{ftext} is not C{None} spans are understood as relative to it,
     and the function will try to adapt them to the main text
