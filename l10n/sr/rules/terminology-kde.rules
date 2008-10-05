@@ -326,6 +326,11 @@ valid before=" browser"
 valid msgstr="\bфајл систем"
 valid cat="dolphin" msgid="files in a filesystem"
 
+{\bFirefox}i
+id="firefox"
+hint="Firefox = Фајерфокс"
+valid msgstr="&firefox\S*;" !msgstr="\bФаје?рфокс"
+
 {\bfonts?\b}i
 id="font"
 hint="font = фонт"
@@ -360,12 +365,12 @@ valid cat="PO_Odyssey" after="plural-"
 {\bGCC}
 id="gcc"
 hint="GCC = ГЦЦ"
-valid msgstr="&gcc\S*;"
+valid msgstr="&gcc\S*;" !msgstr="\bГЦЦ"
 
 {\bGNU\b}i
 id="gnu"
 hint="GNU = Гну"
-valid msgstr="&gnu\S*;"
+valid msgstr="&gnu\S*;" !msgstr="\bГну(\b|[ау]\b|ом\b|ов)"
 valid msgid="GNU Network Object Model Environment"
 
 {\bGNU\b}
@@ -423,7 +428,7 @@ disabled
 {\bKonqueror}i
 id="konqueror"
 hint="Konqueror = К-освајач"
-valid msgstr="&konqueror\S*;"
+valid msgstr="&konqueror\S*;" !msgstr="\bконк\w?р\w?р|(\bк\W*)?освајач"
 valid cat="kdmconfig" msgstr="&dolphin\S*;"
 
 {\blabel}i
@@ -510,6 +515,11 @@ valid cat="kdmconfig" msgid="dialog based mode" msgstr="завнова\w+ на �
 valid cat="katepart4" after="syntax highlight "
 valid cat="dolphin" after="three viewing " msgstr="на разне начине"
 valid cat="PO_Odyssey" before=" of.*communication" msgstr="начин.*комуник"
+
+{\bMozilla Foundation}i
+id="mozilla"
+hint="Mozilla Foundation = Мозилина задужбина"
+valid msgstr="&mozillafoundation\S*;" !msgstr="\bМозилин\w+ задужбин|Задужбин\w+ Мозил"
 
 {\boff\W?line}i
 id="offline"
@@ -717,6 +727,11 @@ hint="thumbnail = сличица"
 valid msgstr="\bсличиц"
 valid msgstr="thumbnail"
 
+{\bThunderbird}i
+id="thunderbird"
+hint="Thunderbird = Тандерберд"
+valid msgstr="&thunderbird\S*;" !msgstr="\bТанд\w?рб\w?рд"
+
 {\btoolbar}i
 id="toolbar"
 hint="toolbar = трака алатки"
@@ -778,13 +793,12 @@ valid msgstr="\bwizard"
 {\bXML\b}i
 id="xml"
 hint="XML = ИксМЛ"
-valid msgstr="&xml\S*;"
+valid msgstr="&xml\S*;" !msgstr="\bиксмл"
 
 {\bYahoo}i
 id="yahoo"
 hint="Yahoo = Јаху"
-valid msgstr="yahoo-\w*;"
-valid cat="desktop_kdebase" msgid="yahoo%" msgstr="yahoo%"
+valid msgstr="&yahoo\S*;" !msgstr="\bјаху"
 
 {\bzoom}i
 id="zoom"
