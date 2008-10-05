@@ -13,6 +13,7 @@ fi
 export PYTHONPATH=../../:$PYTHONPATH
 
 rm -rf html/*
+find ../ -iname \*.pyc | xargs -r rm
 
 epydoc pology \
        -o html -v \
