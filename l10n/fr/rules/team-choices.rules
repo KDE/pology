@@ -133,7 +133,7 @@ hint="Homogénéité : utiliser « URL mal formée »"
 [URL non ]
 hint="Homogénéité : utiliser « URL mal formée »"
 
-[&lwb;items?&rwb;]
+[\bitems?\b]
 valid ctx="Query"
 valid after="</|<"
 hint="item(s) -> élément(s)"
@@ -141,7 +141,7 @@ hint="item(s) -> élément(s)"
 [modules? enfichable]i
 hint="plugin -> module externe"
 
-[&lwb;plugins?&rwb;]
+[\bplugins?\b]
 valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"
@@ -150,7 +150,7 @@ valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia" before="$"
 hint="plugin -> module externe"
 
-[&lwb;root&rwb;]
+[\broot\b]
 #validGroup inQuotes
 validGroup inParenthesis
 valid after="uid |UID "

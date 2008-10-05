@@ -5,7 +5,7 @@
 addFilterHook name="fr:patternAccents" on="pattern"
 addFilterHook name="fr:patternEntities" on="pattern"
 
-[&lwb;boites?&rwb;]i
+[\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
 [bopite]i
@@ -21,7 +21,7 @@ hint="Un seul « t »"
 [cel%à]i
 hint="celà -> cela"
 
-[&lwb;tr[eé]s&rwb;]i
+[\btr[eé]s\b]i
 valid after="&" 
 hint="Mettre un accent grave"
 
@@ -66,7 +66,7 @@ hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 [acc[eè]der]i
 hint="La bonne orthographe est « accéder » (accent aigu)"
 
-[acc[ée]s&rwb;]i
+[acc[ée]s\b]i
 valid before="&"
 hint="La bonne orthographe est « accès » (accent grave)"
 
@@ -86,7 +86,7 @@ valid after="Q"
 valid cat="kleopatra" after="Decrypt"
 hint="Mettre un accent aigu sur le « e »"
 
-[r[éeê]gle&rwb;]i
+[r[éeê]gle\b]i
 hint="Mettre un accent grave (et non circonflexe) sur le « e »"
 
 [compl[ée]tem]i
@@ -106,12 +106,12 @@ hint="On écrit « incomplète » ou « incomplet » en français"
 [incompl@èt[^e]]i
 hint="On écrit « incomplet » en français"
 
-[&lwb;license&rwb;]i
+[\blicense\b]i
 valid after="--" 
 valid after="Public&sp;" 
 hint="La bonne orthographe est « licence » en français"
 
-[&lwb;c'est à dire&rwb;]i
+[\bc'est à dire\b]i
 hint="Il faut mettre des traits d'union : « c'est-à-dire »"
 
 [ent@ete]i
@@ -144,7 +144,7 @@ hint="À remplacer par « charette »"
 [comportment]i
 hint="À remplacer par « comportement »" 
 
-[&lwb;cr@ées]i
+[\bcr@ées]i
 hint="À remplacer par « créées »" 
 
 [environnment]i
@@ -206,7 +206,7 @@ hint="mettre un tiret à « sous-élément »"
 
 [chaque&sp;]i
 valid before="[a-z&àôâéèêçîû\-]+[^sx][&sp;\.,:\)]" 
-valid before="fois&rwb;|fois$"  
+valid before="fois\b|fois$"  
 valid before="accès" 
 valid before="processus" 
 valid before="[a-zàôâéèêçîû\-]+[^sx]$" 
@@ -222,11 +222,11 @@ hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 valid after="«&unbsp;" before="&unbsp;»"
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
-[&lwb;http:/&rwb;]i
+[\bhttp:/\b]i
 valid before="/"
 hint="Deux barres obliques/slashs après le nom du protocole"
 
-[&lwb;TV&wrb;]i
+[\bTV&wrb;]i
 hint="TV est un anglicisme. À éviter..."
 
 [CPU]i
@@ -236,7 +236,7 @@ valid before="freq"
 valid after="processeur \("
 hint="Traduire CPU par « processeur »"
 
-[&lwb;environment&rwb;]i
+[\benvironment\b]i
 valid after="Desktop |Model "
 hint="environment -> environnement"
 
@@ -246,7 +246,7 @@ hint="installeur -> installateur"
 [clique[zr] ce]i
 hint="On clique SUR quelque chose et non quelque chose"
 
-[&lwb;taches]i
+[\btaches]i
 hint="Mettre un accent circonflexe"
 
 [système de fichier]i
@@ -266,7 +266,7 @@ hint="clique -> clic"
 [clique droit]i
 hint="clique -> clic"
 
-[&lwb;clique de&rwb;]i
+[\bclique de\b]i
 hint="clique -> clic"
 
 [crypt(er|ez|é?)]i
@@ -274,7 +274,7 @@ valid after="lib"
 valid before="ographie"
 valid before="Command"
 valid cat="kleopatra" after="PREP_EN"
-valid cat="kleopatra" after="EN" before="&rwb;|$"
+valid cat="kleopatra" after="EN" before="\b|$"
 valid cat="kleopatra" before="Verif|email|files"
 valid cat="kaffeine4" msgid="Free to air"
 valid after="x-en"
@@ -318,7 +318,7 @@ hint="Il faut un accent circonflexe au mot « icône »"
 valid after="vous "
 hint="Ne pas oublier le trait d'union !"
 
-[&lwb;dela&rwb;]
+[\bdela\b]
 valid before="fond" 
 hint="En deux mots, c'est mieux (dela -> de la)"
 
@@ -363,7 +363,7 @@ hint="Ne mettez pas de tiret après « pré »"
 [(raccourcis-clavier)|(raccourci-clavier)]i
 hint="Pas de tiret entre « raccourci » et « clavier »"
 
-[&lwb;occurences?&rwb;]i
+[\boccurences?\b]i
 hint="occurences -> occurrences. Avec deux « r » !"
 
 [status|statut]i
