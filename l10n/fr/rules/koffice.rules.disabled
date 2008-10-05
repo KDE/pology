@@ -2,6 +2,9 @@
 # by the KOffice project (http://www.koffice.org)
 # License: GPLv3
 
+addFilterHook name="fr:patternAccents" on="pattern"
+addFilterHook name="fr:patternEntities" on="pattern"
+
 [&lwb;Dés que&rwb;]
 hint="Dés que => Dès que (d'après le fichier de correction de KOffice)"
 

@@ -1,9 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-""" Accent substitution dictionary
-When in a rule the pattern @x is used, the x is replaced
-by the value accents["x"]
-Special key "pattern" is used to get the compiled regexp to match all accents key
+"""
+Accent equivalence in regular expression patterns.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -23,4 +21,14 @@ accents[u"u"] = u"[%s]" % u"|".join([u'u', u'ù', u'û', u'U', u'Ù', u'Û'])
 accents[u"ù"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
 accents[u"û"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
 accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
-accents[u"pattern"]=accentPattern
+
+
+def process(pattern):
+    """Replace every C{@x} in the pattern by the value C{accents["x"]}."""
+
+    for accentMatch in accentPattern.finditer(pattern):
+        letter=accentMatch.group(1)
+        pattern=pattern.replace("@%s" % letter, accents[letter])
+
+    return pattern
+
