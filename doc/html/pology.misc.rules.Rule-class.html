@@ -80,13 +80,13 @@ object --+
         <span class="summary-sig-arg">msgpart</span>,
         <span class="summary-sig-arg">hint</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">valid</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="summary-sig-arg">accents</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">stat</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">ident</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">disabled</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">environ</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">filtr</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">mfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
       Create a rule</td>
           <td align="right" valign="top">
             
@@ -207,13 +207,13 @@ object --+
         <span class="sig-arg">msgpart</span>,
         <span class="sig-arg">hint</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">valid</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="sig-arg">accents</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">stat</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">ident</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">disabled</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">environ</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">filtr</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">mfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rfilter</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -229,11 +229,12 @@ object --+
         <li><strong class="pname"><code>msgpart</code></strong> (string) - part of the message to be matched by <code>pattern</code></li>
         <li><strong class="pname"><code>hint</code></strong> (unicode) - hint given to user when rule match</li>
         <li><strong class="pname"><code>valid</code></strong> (list of unicode key=value) - list of cases that should make or not make rule matching</li>
-        <li><strong class="pname"><code>accents</code></strong> - specific language accents dictionary to use.</li>
         <li><strong class="pname"><code>casesens</code></strong> (bool) - whether regex matching will be case-sensitive</li>
         <li><strong class="pname"><code>ident</code></strong> (unicode or <code>None</code>) - rule identifier</li>
         <li><strong class="pname"><code>disabled</code></strong> (bool) - whether rule is disabled</li>
         <li><strong class="pname"><code>environ</code></strong> (string or <code>None</code>) - environment in which the rule applies</li>
+        <li><strong class="pname"><code>mfilter</code></strong> ((msg, cat, env) -&gt; &lt;anything&gt;) - filter to apply to message before checking</li>
+        <li><strong class="pname"><code>rfilter</code></strong> ((string) -&gt; string) - filter to apply to rule strings (e.g. on regex patterns)</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__

@@ -389,14 +389,15 @@
    ...
 </pre>
     <p>Every filter directive must have the <code>on=</code> field, which 
-    lists parts of the message to which the filter should apply. In the 
-    examples above, <code>pmsgid</code> and <code>pmsgstr</code> indicating
-    that the filter applies <i>purely</i> to msgid/msgstr, i.e. not taking 
-    into account rest of the message; in comparison, <code>msgid</code> and
-    <code>msgstr</code> would indicate that filter applies to the same 
-    fields, but that it can also analyze the rest of the message to decide 
-    its behavior. It depends on the filter directive which parts it can 
-    state in the <code>on=</code> field.</p>
+    lists parts of the message or the rule to which the filter should 
+    apply. In the examples above, <code>pmsgid</code> and 
+    <code>pmsgstr</code> indicate that the filter applies <i>purely</i> to 
+    msgid/msgstr, i.e. not taking into account rest of the message; in 
+    comparison, <code>msgid</code> and <code>msgstr</code> would indicate 
+    that filter applies to the same fields, but that it can also analyze 
+    the rest of the message to decide its behavior. It depends on the 
+    filter directive which parts it can state in the <code>on=</code> 
+    field.</p>
     <p>To remove a filter from the current set, the addition directive can 
     give filter a <i>handle</i>, which is then given to the 
     <code>removeField</code> directive to remove a filter:</p>
@@ -431,9 +432,10 @@
     <p>To completely clear filter set, <code>clearFilters</code> directive 
     is used, without any fields. Like <code>removeFilter</code>, it can be 
     issued either globally, or within a rule.</p>
-    <p>Parts of the message to which the filter may apply in general 
-    (whereas the precise applicable subset depends on the filter type), as 
-    given by a comma-separate list in the <code>on=</code> field, are:</p>
+    <p>Parts of the message and the rule to which the filter may apply in 
+    general (whereas the precise applicable subset depends on the filter 
+    type), given by a comma-separate list in the <code>on=</code> field, 
+    are:</p>
     <ul>
       <li>
         <code>msg</code>: filter applies to the complete message
@@ -457,6 +459,9 @@
         <code>pmsgstr</code>: modifies only translation fields, without 
         considering other parts of the message
       </li>
+      <li>
+        <code>pattern</code>: modifies all search patterns in the rule
+      </li>
     </ul>
     <p>A filter may be added or removed only in certain environments, 
     specified by the <code>env=</code> field in <code>addFilter*</code> and
@@ -472,8 +477,8 @@
    # Replace %&lt;number&gt; format directives with a tilde in translation.
    addFilterRegex match=&quot;%\d+&quot; repl=&quot;~&quot; on=&quot;pmsgstr&quot;
 </pre>
-      <p>Applicable to <code>pmsgid</code> and <code>pmsgstr</code> message
-      parts.</p>
+      <p>Applicable to <code>pmsgid</code>, <code>pmsgstr</code>, and 
+      <code>pattern</code> parts.</p>
     <h2 class="heading"><code>addFilterHook</code></h2>
       <p>Hooks are functions with special signatures, defined in the 
       submodules of <a href="pology.hook-module.html" 
@@ -499,7 +504,8 @@
       must apply to <code>msg</code>, whereas <code>(cat, msg, text) -&gt; 
       text</code> can apply to <code>msgid</code> and <code>msgstr</code>. 
       Pure text hooks <code>(text) -&gt; text</code> apply to 
-      <code>pmsgid</code> and <code>pmsgstr</code>.</p>
+      <code>pmsgid</code>, <code>pmsgstr</code>, and 
+      <code>pattern</code>.</p>
       <p>Aside from hook functions, a hook module may provide <i>hook 
       factories</i> used to parametrize hook functions. Factory arguments 
       can be given by the <code>factory=</code> field, in the same form as 
@@ -619,28 +625,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRulesFromFile" class="summary-sig-name">loadRulesFromFile</a>(<span class="summary-sig-arg">filePath</span>,
-        <span class="summary-sig-arg">accents</span>,
         <span class="summary-sig-arg">stat</span>,
         <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">seenFilters</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
+        <span class="summary-sig-arg">seenMsgFilters</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Load rule file and return list of Rule objects</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="convert_entities"></a><span class="summary-sig-name">convert_entities</span>(<span class="summary-sig-arg">string</span>)</span><br />
-      Convert entities in string en returns it</td>
           <td align="right" valign="top">
             
             
@@ -745,10 +733,9 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRulesFromFile</span>(<span class="sig-arg">filePath</span>,
-        <span class="sig-arg">accents</span>,
         <span class="sig-arg">stat</span>,
         <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">seenFilters</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+        <span class="sig-arg">seenMsgFilters</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -760,13 +747,12 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>filePath</code></strong> - full path to rule file</li>
-        <li><strong class="pname"><code>accents</code></strong> - specific language l10n accents dictionary to use</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
         <li><strong class="pname"><code>env</code></strong> - environment in which the rules are to be applied</li>
-        <li><strong class="pname"><code>seenFilters</code></strong> - dictionary of previously encountered filter functions, by their 
-          signatures; to avoid constructing same filters over different 
-          files</li>
+        <li><strong class="pname"><code>seenMsgFilters</code></strong> - dictionary of previously encountered message filter functions, by
+          their signatures; to avoid constructing same filters over 
+          different files</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of Rule object</dd>
