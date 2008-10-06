@@ -285,7 +285,7 @@ def rule_error(msg, cat, rule, highlight=None, msgf=None):
     # Some info on the rule.
     rinfo = (  ""
              +  C.BOLD + "rule:" + C.RESET + " "
-             + "(" + rule.rawPattern + ")"
+             + rule.displayName
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 

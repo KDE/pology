@@ -442,6 +442,39 @@ For big filter sets which are needed in several rule files, it may be best
 to split them out in a separate file and use C{include} directive
 to include them into rule files.
 
+Special Triggers
+================
+
+Regular expression matching of message fields is most of the time sufficient
+as a trigger, and hence has the two succint notations provided.
+But there are other trigger options, applicable like standard directives,
+in the form of C{*<trigger_type> <field1>="<value1>"...}.
+
+C{hook}
+-------
+
+    Like for filtering, a hook can serve as the rule trigger too.
+    It is specified exactly like in the C{addFilterHook} directive,
+    with C{name=}, C{factory=}, and C{on=} fields having the same meaning.
+    The difference is in the type of hooks which are applicable in this
+    context, which must be one of the test types:
+    C{(cat, msg) -> L{highlight<misc.report.report_msg_content>}}
+    (applies to C{msg} part as given by the C{on=} field),
+    C{(cat, msg, text) -> spans}
+    (applies to C{msgstr} and C{msgid} parts),
+    or C{(text) -> spans}
+    (to C{pmsgid} or C{pmsgstr}).
+    Also unlike with filter hooks, C{on=} field can state only one
+    message part to apply the test hook to, and not a comma-separated list.
+
+    An example rule with a test hook as the trigger would be::
+
+        *hook name="ui-references/validate" on="msgstr"
+        id="check-ui-refs"
+        hint="some UI references cannot be validated"
+
+    (see C{pology.hook.ui_references.validate} for details).
+
 Quoting and Escaping
 ====================
 
@@ -486,7 +519,7 @@ def printStat(rules, nmatch):
     """
     if nmatch:
         print "Total matching: %d" % nmatch
-    stat=list(((r.rawPattern, r.count, r.time/r.count, r.time) for r in rules if r.count!=0 and r.stat is True))
+    stat=list(((r.displayName, r.count, r.time/r.count, r.time) for r in rules if r.count!=0 and r.stat is True))
     if stat:
         print "Rules stat (raw_pattern, calls, average time (ms), total time (ms)"
         stat.sort(lambda x, y: cmp(x[3], y[3]))
@@ -606,6 +639,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
     msgFilters=None
     ruleFilters=None
     seenRuleFilters={}
+    triggerFunc=None
     lno=0
 
     try:
@@ -656,7 +690,8 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                                       ident=ident, disabled=disabled,
                                       environ=(environ or globalEnviron),
                                       mfilter=msgFilterFunc,
-                                      rfilter=ruleFilterFunc))
+                                      rfilter=ruleFilterFunc,
+                                      trigger=triggerFunc))
                     pattern=u""
                     msgpart=""
                     hint=u""
@@ -666,6 +701,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                     environ=None
                     msgFilters=None
                     ruleFilters=None
+                    triggerFunc=None
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
@@ -675,25 +711,31 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
             if not fields:
                 continue
             
-            # Begin of rule (pattern)
+            # Begin of rule (pattern or special)
             if fields[0][0]==_rule_start:
                 inRule=True
-                msgpart=fields[0][1]
-                if msgpart not in _trigger_msgparts:
-                    raise StandardError, \
-                          "Unknown keyword '%s' in trigger pattern" % msgpart
-                pattern=fields[1][0]
-                for mmod in fields[1][1]:
-                    if mmod not in _trigger_matchmods:
-                        raise StandardError, \
-                              "Unknown match modifier '%s' in trigger pattern" \
-                              % mmod
-                casesens=("i" not in fields[1][1])
-            
+                keyword=fields[0][1]
+                if keyword in _trigger_msgparts:
+                    msgpart=keyword
+                    pattern=fields[1][0]
+                    for mmod in fields[1][1]:
+                        if mmod not in _trigger_matchmods:
+                            raise SyntaxError, \
+                                  "Unknown match modifier '%s' " \
+                                  "in trigger pattern" % mmod
+                    casesens=("i" not in fields[1][1])
+                elif keyword in _trigger_specials:
+                    rest = fields[1:]
+                    if keyword == "hook":
+                        triggerFunc = _triggerFromHook(rest)
+                else:
+                    raise SyntaxError, \
+                          "Unknown keyword '%s' in rule trigger" % tkeyw
+
             # valid line (for rule ou validGroup)
             elif fields[0][0]=="valid":
                 if not inRule and not inGroup:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive outside of rule or validity group" \
                           % "valid"
                 valid.append(fields[1:])
@@ -701,14 +743,14 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
             # Rule hint
             elif fields[0][0]=="hint":
                 if not inRule:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive outside of rule" % "hint"
                 hint=fields[0][1]
             
             # Rule identifier
             elif fields[0][0]=="id":
                 if not inRule:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive outside of rule" % "id"
                 ident=fields[0][1]
                 if ident in identLines:
@@ -720,14 +762,14 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
             # Whether rule is disabled
             elif fields[0][0]=="disabled":
                 if not inRule:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive outside of rule" % "disabled"
                 disabled=True
             
             # Validgroup 
             elif fields[0][0]=="validGroup":
                 if inGroup:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive inside validity group" % "validGroup"
                 if inRule:
                     # Use of validGroup directive inside a rule bloc
@@ -741,7 +783,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
             # Switch rule environment
             elif fields[0][0]=="environment":
                 if inGroup:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive inside validity group" % "environment"
                 envName=fields[1][0]
                 if inRule:
@@ -778,7 +820,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                     elif filterType == "Hook":
                         func, sig = _filterCreateHook(rest)
                     else:
-                        raise StandardError, \
+                        raise SyntaxError, \
                               "Unknown filter directive '%s'" % fields[0][0]
                     msgParts = set(parts).difference(_filterKnownRuleParts)
                     if msgParts:
@@ -795,7 +837,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
 
                 else: # remove all filters
                     if len(fields) != 1:
-                        raise StandardError, \
+                        raise SyntaxError, \
                               "Expected no fields in " \
                               "all-filter removal directive"
                     # Must not loose reference to the selected lists.
@@ -807,13 +849,13 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
             # Include another file
             elif fields[0][0] == "include":
                 if inRule or inGroup:
-                    raise StandardError, \
+                    raise SyntaxError, \
                           "'%s' directive inside a rule or group" % "include"
                 fileStack.append((lines, filePath, lno))
                 lines, filePath, lno = _includeFile(fields[1:], filePath)
 
             else:
-                raise StandardError, \
+                raise SyntaxError, \
                       "unknown directive '%s'" % fields[0][0]
 
     except IdentError, e:
@@ -822,7 +864,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
               % (e.args[0], filePath, lno, e.args[1]))
     except IOError, e:
         error("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
-    except StandardError, e:
+    except SyntaxError, e:
         error("Syntax error in rule file %s:%d\n%s" % (filePath, lno, e))
 
     return rules
@@ -833,22 +875,22 @@ def _checkFields (directive, fields, knownFields, mandatoryFields=set(),
 
     fieldDict = dict(fields)
     if unique and len(fieldDict) != len(fields):
-        raise StandardError, \
+        raise SyntaxError, \
               "Duplicate fields in '%s' directive" % directive
 
     if not isinstance(knownFields, set):
         knownFields = set(knownFields)
     unknownFields = set(fieldDict).difference(knownFields)
     if unknownFields:
-        raise StandardError, \
+        raise SyntaxError, \
               "Unknown fields in '%s' directive: %s" \
               % ", ".join(unknownFields)
 
     for name in mandatoryFields:
         if name not in fieldDict:
-            raise StandardError, \
-                  "Mandatory field '%s' missing in '%s' directive: %s" \
-                  % ", ".join(name, unknownFields)
+            raise SyntaxError, \
+                  "Mandatory field '%s' missing in '%s' directive" \
+                  % (name, directive)
 
 
 def _includeFile (fields, includingFilePath):
@@ -900,7 +942,7 @@ def _filterRemove (fields, filterLists, env):
                 k += 1
     unseenHandles = handles.difference(seenHandles)
     if unseenHandles:
-        raise StandardError, \
+        raise SyntaxError, \
               "No filters with these handles to remove: %s" \
               % ", ".join(unseenHandles)
 
@@ -929,7 +971,7 @@ def _filterParseGeneral (fields):
             parts = [x.strip() for x in value.split(",")]
             unknownParts = set(parts).difference(_filterKnownParts)
             if unknownParts:
-                raise StandardError, \
+                raise SyntaxError, \
                       "Unknown parts for filter to act on: %s" \
                       % ", ".join(unknownParts)
         elif name == "env":
@@ -938,7 +980,7 @@ def _filterParseGeneral (fields):
             rest.append(field)
 
     if not parts:
-        raise StandardError, \
+        raise SyntaxError, \
               "No parts specified for the filter to act on"
 
     return handles, parts, envs, rest
@@ -1063,7 +1105,7 @@ def _ruleFilterSetOnParts (parts, func, sig):
     def composition (value, part):
 
         if part not in _filterKnownRuleParts:
-            raise StandardError, \
+            raise SyntaxError, \
                   "Requested to filter unknown rule part '%s'" % part
 
         for func, fpart in chain:
@@ -1144,14 +1186,7 @@ def _filterCreateHook (fields):
     factoryStr = fieldDict.get("factory")
     if factoryStr is not None:
         # The hook we fetched is in fact a hook factory; produce the hook.
-        if factoryStr.strip():
-            factoryArgs = eval(factoryStr)
-            if not isinstance(factoryArgs, tuple):
-                factoryArgs = (factoryArgs,)
-        else:
-            factoryArgs = ()
-        hook = hook(*factoryArgs)
-        factoryStr = "\x04".join([str(x) for x in factoryArgs])
+        hook, factoryStr = _fabricateHook(hook, factoryStr)
     else:
         factoryStr = ""
 
@@ -1160,16 +1195,85 @@ def _filterCreateHook (fields):
     return hook, sig
 
 
+def _fabricateHook (factory, argstr):
+
+    if argstr.strip():
+        args = eval(argstr)
+        if not isinstance(args, tuple):
+            args = (args,)
+    else:
+        args = ()
+
+    hook = factory(*args)
+
+    argsig = "\x04".join([str(x) for x in args])
+
+    return hook, argsig
+
+
+_triggerKnownMsgParts = set([
+    "msg", "msgid", "msgstr", "pmsgid", "pmsgstr",
+])
+
+def _triggerFromHook (fields):
+
+    _checkFields("hook", fields, ["name", "factory", "on"], ["name", "on"])
+    fieldDict = dict(fields)
+
+    hookName = fieldDict["name"]
+    hook = get_hook_lreq(hookName, abort=False)
+
+    factoryStr = fieldDict.get("factory")
+    if factoryStr is not None:
+        # The hook we fetched is in fact a hook factory; produce the hook.
+        hook, dummy = _fabricateHook(hook, factoryStr)
+
+    msgpart = fieldDict["on"].strip()
+    if msgpart not in _triggerKnownMsgParts:
+        raise SyntaxError, \
+              "Unknown message part for trigger to act on: %s" % msgpart
+
+    if msgpart == "msg":
+        def trigger (msg, cat):
+            return hook(cat, msg)
+    elif msgpart == "msgid":
+        def trigger (msg, cat):
+            hl = []
+            hl.append(("msgid", 0) + hook(cat, msg, msg.msgid))
+            hl.append(("msgid_plural", 0) + hook(cat, msg, msg.msgid_plural))
+            return hl
+    elif msgpart == "msgstr":
+        def trigger (msg, cat):
+            hl = []
+            for i in range(len(msg.msgstr)):
+                hl.append(("msgstr", i) + hook(cat, msg, msg.msgstr[i]))
+            return hl
+    elif msgpart == "pmsgid":
+        def trigger (msg, cat):
+            hl = []
+            hl.append(("msgid", 0) + hook(msg.msgid))
+            hl.append(("msgid_plural", 0) + hook(msg.msgid_plural))
+            return hl
+    elif msgpart == "pmsgstr":
+        def trigger (msg, cat):
+            hl = []
+            for i in range(len(msg.msgstr)):
+                hl.append(("msgstr", i) + hook(msgstr))
+            return hl
+
+    return trigger
+
+
 def _fancyBool (string):
 
     value = strbool(string)
     if value is None:
-        raise StandardError, \
+        raise SyntaxError, \
               "Cannot ascribe boolean value to '%s'" % string
     return value
 
 
-_trigger_msgparts = [
+_trigger_msgparts = set([
     # For matching in all messages.
     "msgctxt", "msgid", "msgstr",
 
@@ -1177,7 +1281,10 @@ _trigger_msgparts = [
     "msgid_singular", "msgid_plural",
     "msgstr_0", "msgstr_1", "msgstr_2", "msgstr_3", "msgstr_4", "msgstr_5",
     "msgstr_6", "msgstr_7", "msgstr_8", "msgstr_9", # ought to be enough
-]
+])
+_trigger_specials = set([
+    "hook",
+])
 
 _trigger_matchmods = [
     "i",
@@ -1192,7 +1299,8 @@ class Rule(object):
 
     def __init__(self, pattern, msgpart, hint=None, valid=[],
                        stat=False, casesens=True, ident=None, disabled=False,
-                       environ=None, mfilter=None, rfilter=None):
+                       environ=None, mfilter=None, rfilter=None,
+                       trigger=None):
         """Create a rule
         @param pattern: valid regexp pattern that trigger the rule
         @type pattern: unicode
@@ -1214,15 +1322,17 @@ class Rule(object):
         @type mfilter: (msg, cat, env) -> <anything>
         @param rfilter: filter to apply to rule strings (e.g. on regex patterns)
         @type rfilter: (string) -> string
+        @param trigger: function to act as trigger instead of C{pattern} applied to C{msgpart}
+        @type trigger: (msg, cat, env) -> L{highlight<misc.report.report_msg_content>}
         """
 
         # Define instance variable
         self.pattern=None # Compiled regexp into re.pattern object
         self.msgpart=msgpart # The part of the message to match
         self.valid=None   # Parsed valid definition
-        self.hint=None    # Hint message return to user
-        self.ident=None    # Rule identifier
-        self.disabled=False # Whether rule is disabled
+        self.hint=hint    # Hint message return to user
+        self.ident=ident    # Rule identifier
+        self.disabled=disabled # Whether rule is disabled
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
@@ -1230,8 +1340,9 @@ class Rule(object):
         self.environ=environ # Environment in which to apply the rule
         self.mfilter=mfilter # Function to filter the message before checking
         self.rfilter=rfilter # Function to filter the rule strings
+        self.trigger=None # Function to use as trigger instead of pattern
 
-        if msgpart not in _trigger_msgparts:
+        if trigger is None and msgpart not in _trigger_msgparts:
             raise StandardError, \
                   "Unknown message part '%s' for rule's main pattern" % msgpart
 
@@ -1240,14 +1351,11 @@ class Rule(object):
         if not self.casesens:
             self.reflags|=re.I
 
-        # Compile pattern
-        self.rawPattern=pattern
-        self.setPattern(pattern)
-        
-        self.hint=hint
-        self.ident=ident
-        self.disabled=disabled
-        self.environ=environ
+        # Setup trigger.
+        if not trigger:
+            self.setPattern(pattern)
+        else:
+            self.setTrigger(trigger)
 
         #Parse valid key=value arguments
         self.setValid(valid)
@@ -1262,6 +1370,27 @@ class Rule(object):
         except Exception, e:
             warning("Invalid pattern '%s', disabling rule\n%s" % (pattern, e))
             self.disabled=True
+        self.rawPattern=pattern
+        self.trigger=None # invalidate any trigger function
+        if self.ident:
+            self.displayName="<id=%s>" % self.ident
+        else:
+            self.displayName="(%s)" % pattern
+        
+    def setTrigger(self, trigger):
+        """
+        Use trigger function instead of pattern.
+
+        @param trigger: function to act as trigger
+        @type trigger: (msg, cat, env) -> {highlight<misc.report.report_msg_content>}
+        """
+        self.trigger=trigger
+        self.pattern=None # invalidate any pattern
+        self.rawPattern=""
+        if self.ident:
+            self.displayName="<id=%s>" % self.ident
+        else:
+            self.displayName="<trigger>"
         
     def setValid(self, valid):
         """Parse valid key=value arguments of valid list
@@ -1318,8 +1447,8 @@ class Rule(object):
         @return: highlight specification (may be empty list)
         """
 
-        if self.pattern is None:
-            warning("Pattern not defined, skipping rule.")
+        if self.pattern is None and self.trigger is None:
+            warning("Trigger not defined, skipping rule.")
             return []
 
         # If this rule belongs to a specific environment,
@@ -1339,25 +1468,47 @@ class Rule(object):
         if not nofilter:
             msg = self._filter_message(msg, cat, env)
 
+        if self.pattern:
+            failed_spans = self._processWithPattern(msg, cat, env)
+        else:
+            failed_spans = self._processWithTrigger(msg, cat, env)
+
+        # Update stats for matched rules.
+        self.count += 1
+        if self.stat:
+            self.time += 1000 * (time() - begin)
+
+        return failed_spans
+
+
+    def _create_text_spec (self, msgpart, msg):
+
         if 0: pass
-        elif self.msgpart == "msgid":
+        elif msgpart == "msgid":
             text_spec = [("msgid", 0, msg.msgid),
                          ("msgid_plural", 0, msg.msgid_plural)]
-        elif self.msgpart == "msgstr":
+        elif msgpart == "msgstr":
             text_spec = [("msgstr", i, msg.msgstr[i])
                          for i in range(len(msg.msgstr))]
-        elif self.msgpart == "msgctxt":
+        elif msgpart == "msgctxt":
             text_spec = [("msgctxt", 0, msg.msgctxt)]
-        elif self.msgpart == "msgid_singular":
+        elif msgpart == "msgid_singular":
             text_spec = [("msgid", 0, msg.msgid)]
-        elif self.msgpart == "msgid_plural":
+        elif msgpart == "msgid_plural":
             text_spec = [("msgid_plural", 0, msg.msgid_plural)]
-        elif self.msgpart.startswith("msgstr_"):
-            item = int(self.msgpart.split("_")[1])
+        elif msgpart.startswith("msgstr_"):
+            item = int(msgpart.split("_")[1])
             text_spec = [("msgstr", item, msg.msgstr[item])]
         else:
             raise StandardError, \
-                  "Unknown trigger keyword '%s' in rule"
+                  "Unknown message part '%s' in rule"
+
+        return text_spec
+
+
+    def _processWithPattern (self, msg, cat, env):
+
+        text_spec = self._create_text_spec(self.msgpart, msg)
 
         failed_spans = {}
         for part, item, text in text_spec:
@@ -1373,7 +1524,9 @@ class Rule(object):
                 # First validity entry that matches excepts the current segment.
                 cancel = False
                 for entry in self.valid:
-                    if self._is_valid(pmatch, text, entry, msg, cat, env):
+                    if self._is_valid(pmatch.group(0),
+                                      pmatch.start(), pmatch.end(),
+                                      text, entry, msg, cat, env):
                         cancel = True
                         break
                 if not cancel:
@@ -1383,10 +1536,38 @@ class Rule(object):
                         failed_spans[skey] = (part, item, [], text)
                     failed_spans[skey][2].append(pmatch.span())
 
-        # Update stats for matched rules.
-        self.count += 1
-        if self.stat:
-            self.time += 1000 * (time() - begin)
+        return failed_spans.values()
+
+
+    def _processWithTrigger (self, msg, cat, env):
+
+        # Apply trigger.
+        possibly_failed_spans = self.trigger(msg, cat)
+
+        # Try to clear spans with validity tests.
+        failed_spans = {}
+        for part, item, spans, ftext in possibly_failed_spans:
+            part_item = part
+            if part == "msgstr":
+                part_item = part + "_" + str(item)
+            text_spec = self._create_text_spec(part_item, msg)
+            if ftext is None: # the trigger didn't do any own filtering
+                ftext = text_spec[0][2] # message field which contains the span
+            for span in spans:
+                mstart, mend = span[:2] # may contain 3rd element, error text
+                pmatch = ftext[mstart:mend]
+                cancel = False
+                for entry in self.valid:
+                    if self._is_valid(pmatch, mstart, mend,
+                                      ftext, entry, msg, cat, env):
+                        cancel = True
+                        break
+                if not cancel:
+                    # Record the span of problematic segment.
+                    skey = (part, item)
+                    if skey not in failed_spans:
+                        failed_spans[skey] = (part, item, [], ftext)
+                    failed_spans[skey][2].append(span)
 
         return failed_spans.values()
 
@@ -1401,7 +1582,7 @@ class Rule(object):
         return fmsg
 
 
-    def _is_valid (self, pmatch, text, ventry, msg, cat, env):
+    def _is_valid (self, match, mstart, mend, text, ventry, msg, cat, env):
 
         # All keys within a validity entry must match for the
         # entry to match as whole.
@@ -1428,7 +1609,7 @@ class Rule(object):
                     break
 
             elif bkey == "span":
-                found = value.search(pmatch.group(0)) is not None
+                found = value.search(match) is not None
                 if invert: found = not found
                 if not found:
                     valid = False
@@ -1436,10 +1617,10 @@ class Rule(object):
 
             elif bkey == "after":
                 # Search up to the match to avoid need for lookaheads.
-                afterMatches = value.finditer(text, 0, pmatch.start())
+                afterMatches = value.finditer(text, 0, mstart)
                 found = False
                 for afterMatch in afterMatches:
-                    if afterMatch.end() == pmatch.start():
+                    if afterMatch.end() == mstart:
                         found = True
                         break
                 if invert: found = not found
@@ -1449,10 +1630,10 @@ class Rule(object):
 
             elif bkey == "before":
                 # Search from the match to avoid need for lookbehinds.
-                beforeMatches = value.finditer(text, pmatch.end())
+                beforeMatches = value.finditer(text, mend)
                 found = False
                 for beforeMatch in beforeMatches:
-                    if beforeMatch.start() == pmatch.end():
+                    if beforeMatch.start() == mend:
                         found = True
                         break
                 if invert: found = not found
@@ -1546,7 +1727,7 @@ def _parseRuleLine (lines, lno):
                 elif line[p] == brcls:
                     balance -= 1
             if balance > 0:
-                raise StandardError, \
+                raise SyntaxError, \
                       "Unbalanced '%s' in shorthand trigger pattern" % bropn
             fields.append((_rule_start, fname))
             fields.append((line[p1:p], ""))
@@ -1555,37 +1736,40 @@ def _parseRuleLine (lines, lno):
             in_modifiers = True
 
         elif len(fields) == 0 and line[p] == _rule_start:
-            # Verbose trigger pattern.
+            # Verbose trigger.
             p += 1
             while p < llen and line[p].isspace():
                 p += 1
             if p >= llen:
-                raise StandardError, \
-                      "Missing match keyword in trigger pattern"
+                raise SyntaxError, \
+                      "Missing match keyword in rule trigger"
 
             # Collect the match keyword.
             p1 = p
             while line[p].isalnum() or line[p] == "_":
                 p += 1
                 if p >= llen:
-                    raise StandardError, \
-                          "Malformed trigger pattern"
-            fname = line[p1:p]
+                    raise SyntaxError, \
+                          "Malformed rule trigger"
+            tkeyw = line[p1:p]
+            fields.append((_rule_start, tkeyw))
 
-            # Collect the pattern.
-            while line[p].isspace():
-                p += 1
-                if p >= llen:
-                    raise StandardError, \
-                          "No pattern after the trigger keyword"
-            quote = line[p]
-            p1 = p + 1
-            p = _findEndQuote(line, p)
-            fields.append((_rule_start, fname))
-            fields.append((line[p1:p], ""))
-
-            p += 1
-            in_modifiers = True
+            if tkeyw in _trigger_msgparts:
+                # Collect the pattern.
+                while line[p].isspace():
+                    p += 1
+                    if p >= llen:
+                        raise SyntaxError, \
+                            "No pattern after trigger keyword '%s'" % tkeyw
+                quote = line[p]
+                p1 = p + 1
+                p = _findEndQuote(line, p)
+                fields.append((line[p1:p], ""))
+                p += 1 # skip quote
+                in_modifiers = True
+            else:
+                # Special trigger, go on reading fields.
+                pass
 
         elif in_modifiers:
             # Modifiers after the trigger pattern.
@@ -1608,7 +1792,7 @@ def _parseRuleLine (lines, lno):
                     break
             fname = line[p1:p]
             if not re.match(r"^!?[a-z][\w-]*$", fname):
-                raise StandardError, "Invalid field name: %s" % fname
+                raise SyntaxError, "Invalid field name: %s" % fname
 
             if p >= llen or line[p].isspace():
                 fields.append((fname, None))
@@ -1666,7 +1850,7 @@ def _findEndQuote (line, pos=0):
         epos += 1
 
     if epos == llen:
-        raise StandardError, "Non-terminated quoted string: %s" % line[pos:]
+        raise SyntaxError, "Non-terminated quoted string: %s" % line[pos:]
 
     return epos
 
