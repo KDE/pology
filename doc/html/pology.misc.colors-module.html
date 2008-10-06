@@ -190,7 +190,9 @@
   <p>Highlight spans in text.</p>
   <p>Adds shell colors around defined spans in the text. Spans are given as
   list of index tuples <code>[(start1, end1), ...]</code> where start and 
-  end index have standard Python semantics.</p>
+  end index have standard Python semantics. Span tuples can have more than 
+  two elements, with indices followed by additional elements, which are 
+  ignored by this function.</p>
   <p>If <code>ftext</code> is not <code>None</code> spans are understood as
   relative to it, and the function will try to adapt them to the main text 
   (see <a href="pology.misc.diff-module.html#adapt_spans" 

@@ -424,11 +424,13 @@
    ...
 </pre>
     <p>Several filters may have the same handle, in which case a remove 
-    directive removes them all from the current set. <code>handle=</code> 
-    field can contain a comma-separated list of several filters to remove 
-    at once. A remove directive within a rule influences the complete rule 
-    regardless of where it is positioned (e.g. between two validity 
-    directives).</p>
+    directive removes them all from the current set. One filter can have 
+    several handles, given by comma-separated in <code>handle=</code> 
+    field, in which case it can be removed by any of those handles. 
+    Likewise, <code>handle=</code> field in remove directive can state 
+    several handles by which to remove filters. A remove directive within a
+    rule influences the complete rule regardless of where it is positioned 
+    (e.g. between two validity directives).</p>
     <p>To completely clear filter set, <code>clearFilters</code> directive 
     is used, without any fields. Like <code>removeFilter</code>, it can be 
     issued either globally, or within a rule.</p>
@@ -537,6 +539,35 @@
       <p>For big filter sets which are needed in several rule files, it may
       be best to split them out in a separate file and use 
       <code>include</code> directive to include them into rule files.</p>
+  <h1 class="heading">Special Triggers</h1>
+    <p>Regular expression matching of message fields is most of the time 
+    sufficient as a trigger, and hence has the two succint notations 
+    provided. But there are other trigger options, applicable like standard
+    directives, in the form of <code>*&lt;trigger_type&gt; 
+    &lt;field1&gt;=&quot;&lt;value1&gt;&quot;...</code>.</p>
+    <h2 class="heading"><code>hook</code></h2>
+      <p>Like for filtering, a hook can serve as the rule trigger too. It 
+      is specified exactly like in the <code>addFilterHook</code> 
+      directive, with <code>name=</code>, <code>factory=</code>, and 
+      <code>on=</code> fields having the same meaning. The difference is in
+      the type of hooks which are applicable in this context, which must be
+      one of the test types: <code>(cat, msg) -&gt; <a 
+      href="pology.misc.report-module.html#report_msg_content" 
+      class="link">highlight</a></code> (applies to <code>msg</code> part 
+      as given by the <code>on=</code> field), <code>(cat, msg, text) -&gt;
+      spans</code> (applies to <code>msgstr</code> and <code>msgid</code> 
+      parts), or <code>(text) -&gt; spans</code> (to <code>pmsgid</code> or
+      <code>pmsgstr</code>). Also unlike with filter hooks, 
+      <code>on=</code> field can state only one message part to apply the 
+      test hook to, and not a comma-separated list.</p>
+      <p>An example rule with a test hook as the trigger would be:</p>
+<pre class="literalblock">
+   *hook name=&quot;ui-references/validate&quot; on=&quot;msgstr&quot;
+   id=&quot;check-ui-refs&quot;
+   hint=&quot;some UI references cannot be validated&quot;
+</pre>
+      <p>(see <code>pology.hook.ui_references.validate</code> for 
+      details).</p>
   <h1 class="heading">Quoting and Escaping</h1>
     <p>Similar as with the verbose notation for the trigger pattern, any 
     quoted value may consistently use any other character other than the 

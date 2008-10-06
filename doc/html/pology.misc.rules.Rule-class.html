@@ -86,7 +86,8 @@ object --+
         <span class="summary-sig-arg">disabled</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">environ</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mfilter</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">rfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">rfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">trigger</span>=<span class="summary-sig-default">None</span>)</span><br />
       Create a rule</td>
           <td align="right" valign="top">
             
@@ -106,6 +107,24 @@ object --+
           <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#setPattern" class="summary-sig-name">setPattern</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pattern</span>)</span><br />
       Compile pattern</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#setTrigger" class="summary-sig-name">setTrigger</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">trigger</span>)</span><br />
+      Use trigger function instead of pattern.</td>
           <td align="right" valign="top">
             
             
@@ -213,7 +232,8 @@ object --+
         <span class="sig-arg">disabled</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">environ</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">mfilter</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">rfilter</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">rfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">trigger</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -235,6 +255,10 @@ object --+
         <li><strong class="pname"><code>environ</code></strong> (string or <code>None</code>) - environment in which the rule applies</li>
         <li><strong class="pname"><code>mfilter</code></strong> ((msg, cat, env) -&gt; &lt;anything&gt;) - filter to apply to message before checking</li>
         <li><strong class="pname"><code>rfilter</code></strong> ((string) -&gt; string) - filter to apply to rule strings (e.g. on regex patterns)</li>
+        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; <a 
+          href="pology.misc.report-module.html#report_msg_content" 
+          class="link">highlight</a>) - function to act as trigger instead of <code>pattern</code> 
+          applied to <code>msgpart</code></li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -262,6 +286,31 @@ object --+
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>pattern</code></strong> - pattern as an unicode string</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setTrigger"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setTrigger</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">trigger</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Use trigger function instead of pattern.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; 
+          {highlight&lt;misc.report.report_msg_content&gt;}) - function to act as trigger</li>
     </ul></dd>
   </dl>
 </td></tr></table>
