@@ -1,0 +1,13 @@
+# The arcane.
+# Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+# License: GPLv3
+
+
+# Detect ASCII segments outside of allowed contexts.
+# Allow original UI references (autoresolved when summit is scattered).
+# No filters (e.g. markup designates allowed contexts).
+*hook name="sr:checks/naked_latin_origui" on="msgstr"
+environment kde
+id="nakedlatin"
+hint="латиница ван дозвољеног контекста"
+
