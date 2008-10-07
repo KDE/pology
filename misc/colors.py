@@ -49,6 +49,7 @@ def highlight_spans (text, spans, color=RED, ftext=None):
 
     if not spans:
         return text
+    spans = [x[:2] for x in spans] # eliminate any trailing elements in spans
 
     # Adapt spans regardless if filtered text has been given or not,
     # to fix any overlapping and put into expected ordering.
