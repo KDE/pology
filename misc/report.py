@@ -289,13 +289,24 @@ def rule_error(msg, cat, rule, highlight=None, msgf=None):
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 
-    if msgf is None:
-        report_msg_content(msg, cat, delim=rinfo+"\n"+("-"*40),
-                           highlight=highlight)
-    else:
-        report_msg_content(msg, cat, delim=rinfo, highlight=highlight)
+    report_msg_content(msg, cat, highlight=highlight)
+    report(rinfo)
+
+    # If any spans have extra info on the problem, report it.
+    nrep = 0
+    for spans in [x[2] for x in highlight]:
+        for span in spans:
+            if len(span) > 2:
+                nrep += 1
+                report(  C.BOLD + "note#%d: " % nrep + C.RESET
+                       + span[2])
+
+    # Report the filtered message, to which the rule was in fact applied.
+    if msgf is not None:
         report(C.GREEN + "filtered message was:" + C.RESET)
-        report_msg_content(msgf, cat=None, delim=("-"*40))
+        report_msg_content(msgf, cat=None)
+
+    report("-" * 40)
 
 
 def rule_xml_error(msg, cat, rule, span, pluralId=0):
