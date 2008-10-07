@@ -94,6 +94,11 @@ _c_msg = None
 _c_quiet = False
 _c_errcnt = 0
 _c_ents = {}
+_c_spanrep = False
+_c_errspans = []
+_c_parser = None
+_c_text = None
+_c_enc = "UTF-8"
 
 # Pipe flag used to manually prevent check for a particular message.
 flag_no_check_xml = "no-check-xml"
@@ -152,17 +157,26 @@ def _handler_start_element (name, attrs):
     # Check existence of tag.
     if name not in applicable_tags:
         _c_errcnt += 1
-        if not _c_quiet:
-            report_on_msg("unrecognized XML tag: %s" % name, _c_msg, _c_cat)
+        errmsg = "unrecognized XML tag: %s" % name
+        if _c_spanrep:
+            span = _make_span(_c_text, _c_parser.CurrentLineNumber,
+                              _c_parser.CurrentColumnNumber + 1, errmsg)
+            _c_errspans.append(span)
+        elif not _c_quiet:
+            report_on_msg(errmsg, _c_msg, _c_cat)
         return
 
     # Check applicability of attributes.
     for attr in attrs:
         if name not in all_attrs or attr not in all_attrs[name]:
             _c_errcnt += 1
-            if not _c_quiet:
-                report_on_msg(  "invalid attribute for tag <%s>: %s"
-                              % (name, attr), _c_msg, _c_cat)
+            errmsg = "invalid attribute for tag <%s>: %s" % (name, attr)
+            if _c_spanrep:
+                span = _make_span(_c_text, _c_parser.CurrentLineNumber,
+                                  _c_parser.CurrentColumnNumber + 1, errmsg)
+                _c_errspans.append(span)
+            elif not _c_quiet:
+                report_on_msg(errmsg, _c_msg, _c_cat)
 
 
 # Handler to check existance of entities.
@@ -176,12 +190,17 @@ def _handler_default (text):
             and ent not in html_entities
             and ent not in _c_ents):
             _c_errcnt += 1
-            if not _c_quiet:
-                report_on_msg("unknown entity: %s" % ent, _c_msg, _c_cat)
+            errmsg = "unknown entity: %s" % ent
+            if _c_spanrep:
+                span = _make_span(_c_text, _c_parser.CurrentLineNumber,
+                                  _c_parser.CurrentColumnNumber + 1, errmsg)
+                _c_errspans.append(span)
+            elif not _c_quiet:
+                report_on_msg(errmsg, _c_msg, _c_cat)
 
 
 # Check current msgstr.
-def check_xml (cat, msg, msgstr, quiet=False, ents={}):
+def check_xml (cat, msg, msgstr, quiet=False, ents={}, spanrep=False):
 
     # Link current state for handlers.
     global _c_cat; _c_cat = cat
@@ -189,6 +208,10 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}):
     global _c_quiet; _c_quiet = quiet
     global _c_ents; _c_ents = ents
     global _c_errcnt; _c_errcnt = 0
+    global _c_spanrep; _c_spanrep = spanrep
+    global _c_errspans; _c_errspans = []
+    global _c_parser
+    global _c_text
 
     # Split into possible ordinary and scripted parts.
     texts = msgstr.split(ts_fence, 1)
@@ -202,19 +225,52 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}):
             text = "<%s>%s</%s>" % (top_tag, text, top_tag)
 
         # Parse the text.
-        p = xml.parsers.expat.ParserCreate()
+        p = xml.parsers.expat.ParserCreate(_c_enc)
         p.UseForeignDTD() # not to barf on non-default XML entities
         p.StartElementHandler = _handler_start_element
         p.DefaultHandler = _handler_default
+        _c_parser = p
 
+        _c_text = text
         try:
-            p.Parse(text.encode("UTF-8"), True)
-        except xml.parsers.expat.ExpatError, inst:
-            if not quiet:
-                report_on_msg("XML parsing: %s" % inst, _c_msg, _c_cat)
-            return False
+            p.Parse(text.encode(_c_enc), True)
+        except xml.parsers.expat.ExpatError, e:
+            if spanrep:
+                span = _make_span(text, e.lineno, e.offset, e.message)
+                _c_errspans.append(span)
+                return (_c_errspans, _c_text)
+            elif not quiet:
+                report_on_msg("XML parsing: %s" % e, msg, cat)
+                return False
 
-    return _c_errcnt == 0
+    if not spanrep:
+        return _c_errcnt == 0
+    else:
+        return (_c_errspans, _c_text)
+
+
+_near_xml_error_rx = re.compile(r"\W*[\w:.-]*[^\w\s>]*(\s*>)?", re.U)
+
+def _make_span (text, lno, col, errmsg):
+
+    # Find problematic position.
+    clno = 1
+    p = 0
+    while clno < lno:
+        p = text.find("\n", p)
+        if p < 0:
+            break
+        p += 1
+        clno += 1
+    if p < 0:
+        return (0, len(text))
+
+    # Scoop some reasonable nearby text.
+    m = _near_xml_error_rx.match(text, p + col - 1)
+    if not m:
+        return (0, len(text))
+    return (m.start(), m.end(), errmsg)
+
 
 # ----------------------------------------
 # Check for conformant Qt-date format msgstr.
