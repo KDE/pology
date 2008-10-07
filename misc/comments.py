@@ -99,6 +99,11 @@ def manc_parse_flag_list (msg, prefix):
     Custom flags are extracted by calling L{parse_list()}
     with C{<prefix>,} as prefix and C{,} as element separator.
 
+    Some types of custom flags used elsewhere in Pology, by prefixes:
+
+      - pipe flags, with pipe character (C{|}) as prefix, used to
+        influence behavior of L{sieves<pology.sieve>}
+
     @param msg: message to parse
     @type msg: Message
     @param prefix: flag list identifier
