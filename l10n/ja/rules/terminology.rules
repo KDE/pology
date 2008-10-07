@@ -377,6 +377,11 @@ hint="extract = 取り出す|抽出"
 valid msgstr=" (取り出[さしすせそ]|抽出)"
 disabled
 
+{\bfax\b}i
+id="fax"
+hint="fax = ファクス"
+valid msgstr="ファクス"
+
 {\bfile manager}i
 id="file_manager"
 hint="file manager = ファイルマネージャ"

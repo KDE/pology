@@ -340,10 +340,11 @@ id="dots1"
 hint="「...」を取り忘れていませんか？"
 valid msgid="(\.\.\.?|…)$"
 
-{\.\.\.?$}
+{^\w+(\s+\w+){0,3}\.\.\.?$}i
 id="dots2"
 hint="「...」を付け忘れていませんか？"
 valid msgstr="\.\.\.$"
+valid msgid="please wait\.\.\."
 
 [ +\(&[A-Z\d]\)]
 id="accel1"
