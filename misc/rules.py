@@ -1197,16 +1197,9 @@ def _filterCreateHook (fields):
 
 def _fabricateHook (factory, argstr):
 
-    if argstr.strip():
-        args = eval(argstr)
-        if not isinstance(args, tuple):
-            args = (args,)
-    else:
-        args = ()
+    hook = eval("factory(%s)" % argstr)
 
-    hook = factory(*args)
-
-    argsig = "\x04".join([str(x) for x in args])
+    argsig = argstr
 
     return hook, argsig
 
