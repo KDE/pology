@@ -50,7 +50,7 @@ def check_xml_kde4 (strict=False, entities={}, entlang=None, fcap=True):
     @note: Hook type factory: C{(cat, msg, text) -> None}
     """
 
-    _check_xml_kde4_w(strict, entities, entlang, fcap, False)
+    return _check_xml_kde4_w(strict, entities, entlang, fcap, False)
 
 
 def check_xml_kde4_sp (strict=False, entities={}, entlang=None, fcap=False):
@@ -87,8 +87,10 @@ def _check_xml_kde4_w (strict, entities, entlang, fcap, spanrep):
             if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
                 if spanrep: return [], None
                 else: return
-            return check_xml_kde4_base(cat, msg, msgstr, ents=entities,
-                                       spanrep=spanrep)
+            res = check_xml_kde4_base(cat, msg, msgstr, ents=entities,
+                                      spanrep=spanrep)
+            if spanrep:
+                return res
     else:
         def hook (cat, msg, msgstr):
             if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
@@ -98,9 +100,11 @@ def _check_xml_kde4_w (strict, entities, entlang, fcap, spanrep):
                                         quiet=True, ents=entities)
                 and check_xml_kde4_base(cat, msg, msg.msgid_plural,
                                         quiet=True, ents=entities)):
-                return check_xml_kde4_base(cat, msg, msgstr,
-                                           quiet=False, ents=entities,
-                                           spanrep=spanrep)
+                res = check_xml_kde4_base(cat, msg, msgstr,
+                                          quiet=False, ents=entities,
+                                          spanrep=spanrep)
+                if spanrep:
+                    return res
 
     return hook
 
