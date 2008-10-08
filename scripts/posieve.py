@@ -106,6 +106,18 @@ If an internal sieve contains underscores in its name, they can be replaced
 with dashes in the C{posieve} command line. The dashes will be converted back
 to underscores before trying to resolve the location of the internal sieve.
 
+The following user configuration fields are considered
+(they may be overridden by command line options):
+  - C{[posieve]/wrap}: whether to wrap message fields (default C{yes})
+  - C{[posieve]/tag-split}: whether to split mesage fields on tags
+        (default C{yes})
+  - C{[posieve]/skip-on-error}: whether to skip current catalog on
+        processing error, and go to next (default C{yes})
+  - C{[posieve]/msgfmt-check}: whether to check catalog file by C{msgfmt -c}
+        before sieving (default C{no})
+  - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
+        if available (default C{yes})
+
 @warning: This module is a script for end-use. No exposed functionality
 should be considered public API, it is subject to change without notice.
 
@@ -119,6 +131,7 @@ import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
+import pology.misc.config as pology_config
 
 import sys, os, imp, locale, re
 from optparse import OptionParser
@@ -127,6 +140,14 @@ from optparse import OptionParser
 def main ():
 
     locale.setlocale(locale.LC_ALL, "")
+
+    # Get defaults for command line options from global config.
+    cfgsec = pology_config.section("posieve")
+    def_do_wrap = cfgsec.boolean("wrap", True)
+    def_do_tag_split = cfgsec.boolean("tag-split", True)
+    def_do_skip = cfgsec.boolean("skip-on-error", True)
+    def_msgfmt_check = cfgsec.boolean("msgfmt-check", False)
+    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -158,19 +179,19 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="force rewrite of all messages, modified or not")
     opars.add_option(
         "--no-wrap",
-        action="store_false", dest="do_wrap", default=True,
+        action="store_false", dest="do_wrap", default=def_do_wrap,
         help="do not break long unsplit lines into several lines")
     opars.add_option(
         "--no-tag-split",
-        action="store_false", dest="do_tag_split", default=True,
+        action="store_false", dest="do_tag_split", default=def_do_tag_split,
         help="do not break lines on selected tags")
     opars.add_option(
         "--no-psyco",
-        action="store_false", dest="use_psyco", default=True,
+        action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
         "--no-skip",
-        action="store_false", dest="do_skip", default=True,
+        action="store_false", dest="do_skip", default=def_do_skip,
         help="do not skip catalogs which signal errors")
     opars.add_option(
         "-m", "--output-modified", metavar="FILE",
@@ -178,7 +199,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="output names of modified files into FILE")
     opars.add_option(
         "-c", "--msgfmt-check",
-        action="store_true", dest="msgfmt_check", default=False,
+        action="store_true", dest="msgfmt_check", default=def_msgfmt_check,
         help="check catalogs by msgfmt and skip those which do not pass")
     opars.add_option(
         "-e", "--exclude-cat", metavar="REGEX",
