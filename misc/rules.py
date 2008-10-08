@@ -127,6 +127,11 @@ The following tests can be used within C{valid} directives:
         comma-separated list of catalog names
   - C{env}: passes if the operating environment is contained in this
         comma-separated list of environment names
+  - C{head}: passes if the catalog header contains field/value combination;
+        the format is C{<sep><field><sep><value>}, where C{<sep>} is
+        an arbitrary separator character used consistently at both positions,
+        and C{<field>} and C{<value>} are regular expressions on field name
+        and value. Example: C{head="/Language.*/\\bsr"}
 
 Each test can be negated by prefixing it with exclamation sign, e.g.
 C{!cat="foo,bar"} will pass if catalog name is neither C{foo} nor C{bar}.
@@ -1286,8 +1291,9 @@ _trigger_matchmods = [
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr"))
+    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head"))
     _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
+    _twoRegexKeywords = set(("head",))
     _listKeywords = set(("env", "cat"))
 
     def __init__(self, pattern, msgpart, hint=None, valid=[],
@@ -1405,9 +1411,14 @@ class Rule(object):
                     if bkey in Rule._regexKeywords:
                         # Compile regexp
                         value=re.compile(value, self.reflags)
-                    if bkey in Rule._listKeywords:
+                    elif bkey in Rule._listKeywords:
                         # List of comma-separated words
                         value=[x.strip() for x in value.split(",")]
+                    elif bkey in Rule._twoRegexKeywords:
+                        # Split into the two regexes and compile them.
+                        frx, vrx=value[1:].split(value[:1])
+                        value=(re.compile(frx, self.reflags),
+                               re.compile(vrx, self.reflags))
                     entry.append((key, value))
                 self.valid.append(entry)
             except Exception, e:
@@ -1596,6 +1607,18 @@ class Rule(object):
 
             elif bkey == "cat":
                 match = cat.name in value
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "head":
+                frx, vrx = value
+                match = False
+                for name, value in cat.header.field:
+                    match = frx.search(name) and vrx.search(value)
+                    if match:
+                        break
                 if invert: match = not match
                 if not match:
                     valid = False
