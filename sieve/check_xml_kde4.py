@@ -5,7 +5,7 @@ import locale
 import xml.parsers.expat
 from pology.misc.resolve import read_entities
 from pology.misc.comments import manc_parse_flag_list
-from pology.misc.report import report_on_msg
+from pology.misc.report import report, report_on_msg
 
 ts_fence = "|/|"
 
@@ -235,6 +235,7 @@ def check_xml (cat, msg, msgstr, quiet=False, ents={}, spanrep=False):
         try:
             p.Parse(text.encode(_c_enc), True)
         except xml.parsers.expat.ExpatError, e:
+            _c_errcnt += 1
             if spanrep:
                 span = _make_span(text, e.lineno, e.offset, e.message)
                 _c_errspans.append(span)
@@ -386,8 +387,8 @@ class Sieve (object):
 
         if self.nbad > 0:
             if self.strict:
-                print   "Total translations with invalid XML (strict): %d" \
-                      % self.nbad
+                report("Total translations with invalid XML (strict): %d"
+                       % self.nbad)
             else:
-                print "Total translations with invalid XML: %d" % self.nbad
+                report("Total translations with invalid XML: %d" % self.nbad)
 
