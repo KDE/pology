@@ -621,7 +621,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._manual_comment = Monlist(init.get("manual_comment", [])[:])
         self._auto_comment = Monlist(init.get("auto_comment", [])[:])
         self._source = Monlist([Monpair(*x) for x in init.get("source", [])[:]])
-        self._flag = Monset(init.get("flag", [])[:])
+        self._flag = Monset(init.get("flag", []))
 
         self._obsolete = init.get("obsolete", False)
 
@@ -723,7 +723,7 @@ class MessageUnsafe (Message_base):
         self.manual_comment = init.get("manual_comment", [])[:]
         self.auto_comment = init.get("auto_comment", [])[:]
         self.source = init.get("source", [])[:]
-        self.flag = init.get("flag", [])[:]
+        self.flag = set(init.get("flag", []))
 
         self.obsolete = init.get("obsolete", False)
 
