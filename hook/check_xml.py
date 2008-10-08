@@ -8,7 +8,7 @@ import os
 import glob
 
 from pology.misc.comments import manc_parse_flag_list
-from pology.sieve.check_xml_kde4 import check_xml as check_xml_kde4_base
+from pology.sieve.check_xml_kde4 import check_xml_kde4 as check_xml_kde4_base
 from pology.sieve.check_xml_kde4 import flag_no_check_xml
 from pology.misc.resolve import read_entities
 

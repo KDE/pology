@@ -200,7 +200,7 @@ def _handler_default (text):
 
 
 # Check current msgstr.
-def check_xml (cat, msg, msgstr, quiet=False, ents={}, spanrep=False):
+def check_xml_kde4 (cat, msg, msgstr, quiet=False, ents={}, spanrep=False):
 
     # Link current state for handlers.
     global _c_cat; _c_cat = cat
@@ -371,15 +371,15 @@ class Sieve (object):
         # In in non-strict mode, check XML of translation only if the
         # original itself is valid XML.
         if not self.strict:
-            if (   not check_xml(cat, msg, msg.msgid,
-                                 quiet=True, ents=self.entities)
-                or not check_xml(cat, msg, msg.msgid_plural,
-                                 quiet=True, ents=self.entities)):
+            if (   not check_xml_kde4(cat, msg, msg.msgid,
+                                      quiet=True, ents=self.entities)
+                or not check_xml_kde4(cat, msg, msg.msgid_plural,
+                                      quiet=True, ents=self.entities)):
                 return
 
         # Check XML in translation.
         for msgstr in msg.msgstr:
-            if not check_xml(cat, msg, msgstr, ents=self.entities):
+            if not check_xml_kde4(cat, msg, msgstr, ents=self.entities):
                 self.nbad += 1
 
 
