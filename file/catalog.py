@@ -79,7 +79,8 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
 
     fenc = _mine_po_encoding(filename)
     ifl = codecs.open(filename, "r", fenc)
-    lines = ifl.readlines()
+    lines = re.split(r"\r\n|\r|\n", ifl.read())
+    # ...no file.readlines(), it treats some other characters as line breaks.
     nlines = len(lines)
     ifl.close()
 
