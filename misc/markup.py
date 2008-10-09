@@ -10,8 +10,11 @@ Process text markup.
 import os
 import re
 import codecs
+import xml.parsers.expat
+
 from pology.misc.report import error
 from pology import rootdir
+from pology.misc.diff import adapt_spans
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -51,7 +54,7 @@ def plain_to_unwrapped (text):
     return text
 
 
-_ents_xml = {
+_xml_def_ents = {
     "lt": "<",
     "gt": ">",
     "apos": "'",
@@ -149,7 +152,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
     # as they may contain more markup.
     # (Resolve default entities after tags,
     # because the default entities can introduce invalid markup.)
-    text = _resolve_ents(text, ents, _ents_xml)
+    text = _resolve_ents(text, ents, _xml_def_ents)
 
     # Build element tree, trying to work around badly formed XML
     # (but do note when the closing element is missing).
@@ -190,7 +193,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
     text = _resolve_tags(eltree, tags, subs, keepws, ignels)
 
     # Resolve default entities.
-    text = _resolve_ents(text, _ents_xml)
+    text = _resolve_ents(text, _xml_def_ents)
 
     return text
 
@@ -516,8 +519,7 @@ def _prep_docbook_to_plain ():
 
     global _dbk_tags, _dbk_subs, _dbk_ents, _dbk_keepws, _dbk_ignels
 
-    specpath = os.path.join(rootdir(), "misc",
-                            "check_xml_docbook4-spec.txt")
+    specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
     docbook_tagattrs = collect_xml_spec_l1(specpath)
 
     _dbk_tags = set(docbook_tagattrs.keys())
@@ -606,4 +608,262 @@ def collect_xml_spec_l1 (specpath):
             attrs.update(cattrs)
 
     return tagattrs
+
+
+# Simplified matching of XML entity name (sans ampersand and semicolon).
+_simple_ent_rx = re.compile(r"^([a-zA-Z0-9_.:-]+|#[0-9]+)$");
+
+# Get line/column segment in error report.
+_lin_col_rx = re.compile(r":\s*line\s*\d+,\s*column\s*\d+", re.I)
+
+# Dummy top tag for topless texts.
+_dummy_top = "_"
+
+# Global data for XML checking.
+class _Global: pass
+_g_xml_l1 = _Global()
+
+
+def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
+                  casesens=True, accelamp=False):
+    """
+    Validate XML markup against L{level1<collect_xml_spec_l1>} specification.
+
+    Text is not required to have a top tag; if it does not, a dummy one will
+    be assigned to assure that the check passes.
+
+    If C{spec} is C{None}, text is only checked to be well-formed.
+
+    If C{ents} are C{None}, entities in the text are ignored by the check;
+    otherwise, an entity not belonging to the known set is considered erroneous.
+    Default XML entities (C{&lt;}, C{&gt;}, C{&amp;}, C{&quot;}, C{&apos;})
+    are automatically added to the set of known entities.
+
+    Tag and attribute names can be made case-insensitive by setting
+    C{casesens} to C{False}.
+
+    If text is a part of user interface, and the environment may use
+    the literal ampersand as accelerator marker, it can be allowed to pass
+    the check by setting C{accelamp} to C{True}.
+
+    The result of the check is list of erroneous spans in the text,
+    each given by start and end index (in Python standard semantics),
+    and the error description, packed in a tuple.
+    If there are no errors, empty list is returned.
+    Reported spans need not be formally complete with respect to the error
+    location, but are heuristically determined to be short and
+    provide good visual indication of what triggers the error.
+
+    @param text: text to check
+    @type text: string
+    @param spec: markup definition
+    @type spec: L{level1<collect_xml_spec_l1>} specification
+    @param xmlfmt: name of the particular XML format (for error messages)
+    @type xmlfmt: string
+    @param ents: set of known entities
+    @type ents: sequence
+    @param casesens: whether tag names are case-insensitive
+    @type casesens: bool
+    @param accelamp: whether to allow ampersand as accelerator marker
+    @type accelamp: bool
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    # If ampersand accelerator marked allowed, replace one in non-entity
+    # position with &amp;, to let the parser proceed.
+    text_orig = text
+    if accelamp:
+        text = _escape_amp_accel(x)
+
+    # Make sure the text has a top tag.
+    text = "<%s>%s</%s>" % (_dummy_top, text, _dummy_top)
+
+    # Prepare parser.
+    xenc = "UTF-8"
+    parser = xml.parsers.expat.ParserCreate(xenc)
+    parser.UseForeignDTD() # not to barf on non-default XML entities
+    parser.StartElementHandler = _handler_start_element
+    parser.DefaultHandler = _handler_default
+
+    # Link state for handlers.
+    g = _g_xml_l1
+    g.text = text
+    g.spec = spec
+    g.xmlfmt = xmlfmt or "<xml>"
+    g.ents = ents
+    g.casesens = casesens
+    g.xenc = xenc
+    g.parser = parser
+    g.errcnt = 0
+    g.spans = []
+
+    # Parse and check.
+    try:
+        parser.Parse(text.encode(xenc), True)
+    except xml.parsers.expat.ExpatError, e:
+        errmsg = "(%s) %s" % (g.xmlfmt, e.message)
+        span = _make_span(text, e.lineno, e.offset, errmsg)
+        g.spans.append(span)
+
+    # Adapt spans back to original text.
+    pure_spans = [x[:2] for x in g.spans]
+    pure_spans = adapt_spans(text_orig, text, pure_spans, merge=False)
+    # Remove unhelpful line/column in error messages.
+    errmsgs = []
+    for errmsg, span in zip([x[2] for x in g.spans], pure_spans):
+        m = _lin_col_rx.search(errmsg)
+        if m:
+            errmsg = errmsg[:m.start()] + errmsg[m.end():]
+        errmsgs.append(errmsg)
+    # Put spans back together.
+    g.spans = [x + (y,) for x, y in zip(pure_spans, errmsgs)]
+
+    return g.spans
+
+
+def _escape_amp_accel (text):
+
+    pos_amp = -1
+    num_amp = 0
+
+    p1 = 0
+    while True:
+
+        # Bracket possible entity reference.
+        p1 = text.find("&", p1)
+        if p1 < 0:
+            break
+        p2 = text.find(";", p1)
+
+        # An accelerator marker if no semicolon in rest of the text
+        # or the bracketed segment does not look like an entity,
+        # and it is in front of an alphanumeric or itself.
+        nc = text[p1 + 1:p1 + 2]
+        if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
+            and (nc.isalnum() or nc == "&")
+        ):
+            pos_amp = p1
+            num_amp = 1
+            # Check if the next one is an ampersand too,
+            # i.e. if it's an escaped accelerator markup.
+            # FIXME: Or perhaps not let the other ampersand pass?
+            if text[p1 + 1:p1 + 2] == "&":
+                num_amp += 1
+
+            break
+
+        if p2 < 0:
+            break
+
+        p1 = p2
+
+    if num_amp > 0:
+        text = text[:pos_amp] + "&amp;" * num_amp + text[pos_amp + num_amp:]
+
+    return text
+
+
+def _handler_start_element (tag, attrs):
+
+    g = _g_xml_l1
+
+    if g.spec is None:
+        return
+
+    # Normalize names to lower case if allowed.
+    if not g.casesens:
+        tag = tag.lower()
+        attrs = [x.lower() for x in attrs]
+
+    # Check existence of the tag.
+    if tag not in g.spec and tag != _dummy_top:
+        errmsg = "(%s) unrecognized tag '%s'" % (g.xmlfmt, tag)
+        span = _make_span(g.text, g.parser.CurrentLineNumber,
+                          g.parser.CurrentColumnNumber + 1, errmsg)
+        g.spans.append(span)
+        return
+
+    if tag == _dummy_top:
+        return
+
+    # Check applicability of attributes.
+    known_attrs = g.spec[tag]
+    for attr in attrs:
+        if attr not in known_attrs:
+            errmsg = ("(%s) invalid attribute '%s' to tag '%s'"
+                      % (g.xmlfmt, tag, attr))
+            span = _make_span(g.text, g.parser.CurrentLineNumber,
+                              g.parser.CurrentColumnNumber + 1, errmsg)
+            g.spans.append(span)
+
+
+def _handler_default (text):
+
+    g = _g_xml_l1
+
+    if g.ents is not None and text.startswith('&') and text.endswith(';'):
+        ent = text[1:-1]
+        if ent not in g.ents and ent not in _xml_def_ents:
+            errmsg = "(%s) unknown entity '%s'" % (g.xmlfmt, ent)
+            span = _make_span(g.text, g.parser.CurrentLineNumber,
+                              g.parser.CurrentColumnNumber + 1, errmsg)
+            g.spans.append(span)
+
+
+# Text to fetch from the reported error position in XML stream.
+_near_xml_error_rx = re.compile(r"\W*[\w:.-]*[^\w\s>]*(\s*>)?", re.U)
+
+def _make_span (text, lno, col, errmsg):
+
+    # Find problematic position.
+    clno = 1
+    p = 0
+    while clno < lno:
+        p = text.find("\n", p)
+        if p < 0:
+            break
+        p += 1
+        clno += 1
+    if p < 0:
+        return (0, len(text))
+
+    # Scoop some reasonable nearby text.
+    m = _near_xml_error_rx.match(text, p + col - 1)
+    if not m:
+        return (0, len(text), errmsg)
+    start, end = m.span()
+    while text[start].isalnum():
+        if start == 0:
+            break
+        start -= 1
+
+    return (start, end, errmsg)
+
+
+_docbook_l1 = None
+
+def check_xml_docbook4_l1 (text, ents=None):
+    """
+    Validate XML markup against L{level1<collect_xml_spec_l1>} specification.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _docbook_l1
+    if _docbook_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
+        _docbook_l1 = collect_xml_spec_l1(specpath)
+
+    return check_xml_l1 (text, spec=_docbook_l1, xmlfmt="Docbook4", ents=ents)
 
