@@ -17,6 +17,7 @@ import pology.misc.colors as C
 from pology.file.message import Message
 from pology.misc.colors import highlight_spans
 from pology.misc.wrap import wrap_field
+from pology.misc.diff import adapt_spans
 
 
 def encwrite (file, text):
@@ -191,7 +192,7 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
 
 def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
                         delim=None, subsrc=None, highlight=None,
-                        file=sys.stdout):
+                        onlynotes=False, file=sys.stdout):
     """
     Report the content of a PO message.
 
@@ -212,8 +213,9 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     C{"msgid"}, C{"msgid_plural"}, C{"msgstr"}.
     For unique fields the element index is not used, but 0 should be given
     for consistency (may be enforced later).
-    Span tuples can have more than two elements, with indices followed by
-    additional elements, which are ignored by this function.
+    Span tuples can have a third element, following the indices, which is
+    the note about why the particular span is highlighted;
+    there may be more elements after the note, and these are all ignored.
 
     Sometimes the match to which the spans correspond has been made on a
     filtered value of the message field (e.g. after accelerator markers
@@ -237,18 +239,28 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     @type subsrc: C{None} or string
     @param highlight: highlighting specification of message elements
     @type highlight: (see description)
+    @param onlynotes: show only notes in highlight spans, not full content
+    @type onlynotes: bool
     @param file: output stream. Default is sys.stdout
     @type file: file
     """
 
-    if highlight and file.isatty():
+    notes_data = []
+    if highlight:
         msg = Message(msg) # must work on copy
         for hspec in highlight:
             name, item, spans = hspec[:3]
-            ftext = None
-            if len(hspec) > 3:
-                ftext = hspec[3]
-            hl = lambda x: highlight_spans(x, spans, ftext=ftext)
+
+            def hl (x):
+                ftext = x
+                if len(hspec) > 3:
+                    ftext = hspec[3]
+                aspans = adapt_spans(x, ftext, spans, merge=False)
+                notes_data.append((x, name, item, aspans))
+                if file.isatty():
+                    x = highlight_spans(x, spans, ftext=ftext)
+                return x
+
             if name == "msgctxt":
                 msg.msgctxt = hl(msg.msgctxt)
             elif name == "msgid":
@@ -259,14 +271,40 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
                 msg.msgstr[item] = hl(msg.msgstr[item])
             # TODO: Add more fields.
 
+
+    # Report the message.
     tfmt = _msg_ref_fmtstr(file) + "\n"
     text = ""
     if cat is not None:
         text += tfmt % (cat.filename, msg.refline, msg.refentry)
-    text += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
-    if delim:
-        text += delim + "\n"
+    if not onlynotes:
+        text += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
     report(text.rstrip(), file=file)
+
+    # Report notes.
+    if notes_data:
+        C = _colors_for_file(file)
+        note_ord = 1
+        for text, name, item, spans in notes_data:
+            if msg.msgid_plural and name == "msgstr":
+                name = "%s%d" % (name, item)
+            for span in spans:
+                if len(span) > 2:
+                    start, end, note = span
+                    seglen = end - start
+                    if seglen > 0 and seglen < 20:
+                        posinfo = ("(%s:%d:%d:\"%s\")"
+                                   % (name, start, end, text[start:end]))
+                    else:
+                        posinfo = "(%s:%d:%d)" % (name, start, end)
+                    report(  C.BOLD + "#%d:" % note_ord + C.RESET + " "
+                           + C.GREEN + posinfo + C.RESET + " "
+                           + note,
+                           file=file)
+                    note_ord += 1
+
+    if delim:
+        report(delim, file=file)
 
 
 def rule_error(msg, cat, rule, highlight=None, msgf=None):
@@ -291,15 +329,6 @@ def rule_error(msg, cat, rule, highlight=None, msgf=None):
 
     report_msg_content(msg, cat, highlight=highlight)
     report(rinfo)
-
-    # If any spans have extra info on the problem, report it.
-    nrep = 0
-    for spans in [x[2] for x in highlight]:
-        for span in spans:
-            if len(span) > 2:
-                nrep += 1
-                report(  C.BOLD + "note#%d: " % nrep + C.RESET
-                       + span[2])
 
     # Report the filtered message, to which the rule was in fact applied.
     if msgf is not None:
