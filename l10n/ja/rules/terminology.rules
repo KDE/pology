@@ -40,10 +40,10 @@ id="apply"
 hint="Apply = 適用"
 valid msgstr="適用"
 
-{\barchives?\b}i
+{\barchives?\b|\barchiv(ed|ing)\b}i
 id="archive"
 hint="archive = アーカイブ"
-valid msgstr="アーカイブ"
+valid msgstr="アーカイブ" !msgstr="書庫|アーカイブ化"
 
 {\barchivers?\b}i
 id="archiver"
@@ -150,7 +150,7 @@ valid msgstr="(カラム|列)"
 valid cat="kspread" msgid="columns?\("
 disabled
 
-{\bcommand line}i
+{\bcommand line\b}i
 id="command_line"
 hint="command line = コマンドライン"
 valid msgstr="コマンドライン"
@@ -190,6 +190,11 @@ valid msgstr="新規作成"
 id="cut"
 hint="Cut = 切り取り"
 valid msgstr="切り取り"
+
+{Decrease Font Sizes?}
+id="decrease_font_size"
+hint="Decrease Font Size = フォントサイズを小さく"
+valid msgstr="フォントサイズを小さく"
 
 {^Decrease Volume$}
 id="decrease_volume"
@@ -290,6 +295,11 @@ id="edit"
 hint="Edit = 編集"
 valid msgstr="編集"
 
+{\beject(s|ed|ing)?\b}i
+hint="eject = イジェクト"
+id="eject"
+valid msgstr="イジェクト"
+
 {\belements?\b}i
 id="element"
 hint="element = 要素 [GUI や XML の要素]"
@@ -328,6 +338,11 @@ hint="end of line = 改行コード"
 valid msgstr="改行コード"
 disabled
 
+{Enlarge Fonts?}
+id="enlarge_font"
+hint="Enlarge Font = フォントサイズを大きく"
+valid msgstr="フォントサイズを大きく"
+
 {\bentit(y|ies)}i
 id="entity"
 hint="entity = エンティティ"
@@ -338,15 +353,15 @@ id="environment_variable"
 hint="environment variable = 環境変数"
 valid msgstr="環境変数"
 
-{¥Expand All$}
+{^Expand All$}
 id="expand_all"
 hint="Expand All = すべて展開"
 valid msgstr="すべて展開"
 
-{^Export$}
+{\bexport(s|ed|ing)?\b}i
 id="export"
-hint="Export = エクスポート"
-valid msgstr="エクスポート"
+hint="export = エクスポート"
+valid msgstr="エクスポート" !msgstr="エキスポート"
 
 {\bextensions?}i
 id="extension"
@@ -461,6 +476,12 @@ id="fixed_width_font"
 hint="fixed width font = 固定幅フォント"
 valid msgstr="固定幅フォント"
 
+{\bfont ?sizes?\b}i
+id="font_size"
+hint="font size = フォントサイズ"
+valid msgstr="フォントサイズ"
+valid after="relative " msgstr="フォントの相対サイズ"
+
 {\bformat toolbar}i
 id="format_toolbar"
 hint="format toolbar = 書式ツールバー"
@@ -497,7 +518,7 @@ valid msgstr="カーソル位置から"
 {\bfull ?screen\b}i
 id="fullscreen"
 hint="fullscreen = フルスクリーン"
-valid msgstr="フルスクリーン"
+valid msgstr="フルスクリーン" !msgstr="全画面"
 valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
 
 {\bhex editor}i
@@ -522,10 +543,15 @@ id="image_viewer"
 hint="image viewer = 画像ビューア"
 valid msgstr="画像ビューア"
 
-{^Import$}
+{\bimport(s|ed|ing)?\b}i
 id="import"
-hint="Import = インポート"
+hint="import = インポート"
 valid msgstr="インポート"
+
+{Increase Font Sizes?}
+id="increase_font_size"
+hint="Increase Font Size = フォントサイズを大きく"
+valid msgstr="フォントサイズを大きく"
 
 {^Increase Volume$}
 id="increase_volume"
@@ -672,17 +698,15 @@ id="oblique"
 hint="oblique = オブリック"
 valid msgstr="オブリック"
 
-{^Open\.\.\.$}
+{Open\.\.\.}
 id="open"
 hint="Open... = 開く..."
 valid msgstr="開く\.\.\."
-disabled
 
-{^Open With\.\.\.$}
+{Open With\.\.\.}
 id="open_with"
 hint="Open With... = アプリケーションで開く..."
 valid msgstr="アプリケーションで開く\.\.\."
-disabled
 
 {^Overwrite$}
 id="overwrite"
@@ -728,9 +752,9 @@ valid msgstr="平文"
 {^Play$}
 id="play"
 hint="Play = 再生 [メディアファイルを再生]"
-valid msgstr="再生"
 valid ctx="game"
 valid cat="ksudoku" msgid="Play" msgstr="プレイ"
+valid msgstr="再生"
 
 {^Play$|^PLAY$}
 id="play2"
@@ -768,11 +792,10 @@ hint="Previous = 前へ"
 valid msgstr="前へ"
 valid ctx="Previous page" msgstr="前のページ"
 
-{^Print\.\.\.$}
+{Print\.\.\.}
 id="print"
 hint="Print... = 印刷..."
 valid msgstr="印刷\.\.\."
-disabled
 
 {^Print Preview$}
 id="print_preview"
@@ -855,6 +878,7 @@ valid msgstr="リセット"
 id="resource"
 hint="resource = リソース"
 valid msgstr="リソース"
+valid after="uniform " before=" locator"
 
 {^Restore$}
 id="restore"
@@ -891,11 +915,10 @@ id="save"
 hint="Save = 保存"
 valid msgstr="保存"
 
-{^Save As\.\.\.$}
+{Save As\.\.\.}
 id="save_as"
 hint="Save As... = 名前を付けて保存..."
 valid msgstr="名前を付けて保存\.\.\."
-disabled
 
 {\bscreen ruler}i
 id="screen_ruler"
@@ -940,10 +963,27 @@ id="select_all"
 hint="Select All = すべて選択"
 valid msgstr="すべて選択"
 
+{\bseparators?}i
+id="separator"
+hint="separator = セパレータ [メニューやツールバーで項目のグループを区切る線]"
+valid !after="(insert|add|delete|remove) " !before=" (color|width)"
+valid msgstr="セパレータ(?!ー)"
+
+{\bseparators?}i
+id="separator2"
+hint="separator = 区切り|区切り文字"
+valid !after="thousands " !before=" characters?"
+valid msgstr="区切り|区切り文字"
+
 {\bservers?\b}i
 id="server"
 hint="server = サーバ"
 valid !msgstr="サーバー"
+
+{Shrink Fonts?\b}
+id="shrink_font"
+hint="Shrink Font = フォントサイズを小さく"
+valid msgstr="フォントサイズを小さく"
 
 {\bsigning keys?}i
 id="signing_key"
@@ -1087,7 +1127,7 @@ valid msgstr="元に戻す"
 {\bunmount}i
 id="unmount"
 hint="unmount = アンマウント"
-valid msgstr="アンマウント"
+valid msgstr="アンマウント" !msgstr="マウント解除"
 valid msgstr="unmount"
 
 {^Up$}
