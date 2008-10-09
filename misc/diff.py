@@ -285,6 +285,11 @@ def adapt_spans (otext, ftext, spans, merge=True):
     and empty spans removed; otherwise each adapted span will strictly
     correspond to the input span at that position.
 
+    Span tuples may have more elements past the start and end indices.
+    They will be ignored, but preserved; if merging is in effect,
+    extra elements will be preserved for only the frontmost of
+    the overlapping spans (undefined for which if there are several).
+
     If any of the input spans are invalid, the results are undefined.
 
     @param otext: original text
@@ -303,12 +308,13 @@ def adapt_spans (otext, ftext, spans, merge=True):
     # Resolve negative spans.
     flen = len(ftext)
     fspans = []
-    for start, end in spans:
+    for span in spans:
+        start, end = span[:2]
         if start < 0:
             start = flen - start
         if end < 0:
             end = flen - end
-        fspans.append((start, end))
+        fspans.append((start, end) + span[2:])
 
     # Create character-level difference from original to filtered text.
     dlist = list(ndiff(otext, ftext))
@@ -320,7 +326,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
     for fspan in fspans:
         #print "======> span to adapt:", fspan
         aspan = []
-        for filtered_index, end_extra in zip(fspan, (0, 1)):
+        for filtered_index, end_extra in zip(fspan[:2], (0, 1)):
             #print ">>> index to adapt:", filtered_index
             original_index = 0
             track_index = 0
@@ -340,27 +346,31 @@ def adapt_spans (otext, ftext, spans, merge=True):
                         break
             #print "<<< adapted index:", original_index
             aspan.append(original_index)
+        aspan.extend(fspan[2:])
 
         aspans.append(tuple(aspan))
 
     # Merge spans if requested.
     if merge:
+        # Sort by start index immediately, for priority of extra elements.
+        aspans.sort(lambda x, y: cmp(x[0], y[0]))
         maspans = []
         while len(aspans) > 0:
-            cstart, cend = aspans[0]
+            cstart, cend = aspans[0][:2]
+            extras = aspans[0][2:]
             if cstart >= cend:
                 aspans.pop(0) # remove empty spans
                 continue
             i = 0
             while i < len(aspans):
-                start, end = aspans[i]
+                start, end = aspans[i][:2]
                 if cend >= start and cstart <= end:
                     cstart = min(cstart, start)
                     cend = max(cend, end)
                     aspans.pop(i)
                 else:
                     i += 1
-            maspans.append((cstart, cend))
+            maspans.append((cstart, cend) + extras)
         # Sort by start index.
         maspans.sort(lambda x, y: cmp(x[0], y[0]))
         aspans = maspans
