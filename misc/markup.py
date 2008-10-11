@@ -15,6 +15,7 @@ import xml.parsers.expat
 from pology.misc.report import error
 from pology import rootdir
 from pology.misc.diff import adapt_spans
+from pology.misc.resolve import read_entities
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -54,7 +55,7 @@ def plain_to_unwrapped (text):
     return text
 
 
-_xml_def_ents = {
+xml_entities = {
     "lt": "<",
     "gt": ">",
     "apos": "'",
@@ -152,7 +153,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
     # as they may contain more markup.
     # (Resolve default entities after tags,
     # because the default entities can introduce invalid markup.)
-    text = _resolve_ents(text, ents, _xml_def_ents)
+    text = _resolve_ents(text, ents, xml_entities)
 
     # Build element tree, trying to work around badly formed XML
     # (but do note when the closing element is missing).
@@ -193,7 +194,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
     text = _resolve_tags(eltree, tags, subs, keepws, ignels)
 
     # Resolve default entities.
-    text = _resolve_ents(text, _xml_def_ents)
+    text = _resolve_ents(text, xml_entities)
 
     return text
 
@@ -487,17 +488,18 @@ _htkt_ents = dict(_html_ents.items() + _kuit_ents.items())
 _htkt_keepws = set(list(_html_keepws) + list(_kuit_keepws))
 _htkt_ignels = set(list(_html_ignels) + list(_kuit_ignels))
 
-def htmlkuit_to_plain (text):
+def kde4_to_plain (text):
     """
-    Convert mixed HTML and KUIT markup to plain text.
+    Convert KDE4 GUI markup to plain text.
 
-    Note that in general this is not the same as first converting HTML,
-    and then KUIT, or vice versa. For example, if the text has C{&lt;}
-    entity, after first conversion it will become plain C{<}, and interfere
-    with second conversion. Thus, this function should be used whenever
-    both HTML and KUIT may appear in the same text.
+    KDE4 GUI texts may contain both (X)HTML and KUIT markup,
+    even mixed in the same text.
+    Note that the conversion cannot be achieved, in general, by first
+    converting (X)HTML, and then KUIT, or vice versa.
+    For example, if the text has C{&lt;} entity, after first conversion
+    it will become plain C{<}, and interfere with second conversion.
 
-    @param text: HTML+KUIT text to convert to plain
+    @param text: KDE4 text to convert to plain
     @type text: string
 
     @returns: plain text version
@@ -515,14 +517,14 @@ _dbk_ents = None
 _dbk_keepws = None
 _dbk_ignels = None
 
-def _prep_docbook_to_plain ():
+def _prep_docbook4_to_plain ():
 
     global _dbk_tags, _dbk_subs, _dbk_ents, _dbk_keepws, _dbk_ignels
 
     specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
-    docbook_tagattrs = collect_xml_spec_l1(specpath)
+    docbook4_tagattrs = collect_xml_spec_l1(specpath)
 
-    _dbk_tags = set(docbook_tagattrs.keys())
+    _dbk_tags = set(docbook4_tagattrs.keys())
 
     _dbk_subs = {
         "_nows" : ("", "", None),
@@ -542,9 +544,9 @@ def _prep_docbook_to_plain ():
     _dbk_ignels = set([
     ])
 
-def docbook_to_plain (text):
+def docbook4_to_plain (text):
     """
-    Convert Docbook markup to plain text.
+    Convert Docbook 4.x markup to plain text.
 
     @param text: Docbook text to convert to plain
     @type text: string
@@ -554,7 +556,7 @@ def docbook_to_plain (text):
     """
 
     if _dbk_tags is None:
-        _prep_docbook_to_plain()
+        _prep_docbook4_to_plain()
 
     return xml_to_plain(text, _dbk_tags, _dbk_subs, _dbk_ents,
                               _dbk_keepws, _dbk_ignels)
@@ -619,15 +621,18 @@ _lin_col_rx = re.compile(r":\s*line\s*\d+,\s*column\s*\d+", re.I)
 # Dummy top tag for topless texts.
 _dummy_top = "_"
 
+# Formatting for head of XML error messages.
+_ehfmt = "(%s markup) "
+
 # Global data for XML checking.
 class _Global: pass
 _g_xml_l1 = _Global()
 
-
 def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
                   casesens=True, accelamp=False):
     """
-    Validate XML markup against L{level1<collect_xml_spec_l1>} specification.
+    Validate XML markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
 
     Text is not required to have a top tag; if it does not, a dummy one will
     be assigned to assure that the check passes.
@@ -675,7 +680,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     # position with &amp;, to let the parser proceed.
     text_orig = text
     if accelamp:
-        text = _escape_amp_accel(x)
+        text = _escape_amp_accel(text)
 
     # Make sure the text has a top tag.
     text = "<%s>%s</%s>" % (_dummy_top, text, _dummy_top)
@@ -691,7 +696,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     g = _g_xml_l1
     g.text = text
     g.spec = spec
-    g.xmlfmt = xmlfmt or "<xml>"
+    g.xmlfmt = xmlfmt or "XML"
     g.ents = ents
     g.casesens = casesens
     g.xenc = xenc
@@ -703,7 +708,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     try:
         parser.Parse(text.encode(xenc), True)
     except xml.parsers.expat.ExpatError, e:
-        errmsg = "(%s) %s" % (g.xmlfmt, e.message)
+        errmsg = (_ehfmt + "%s") % (g.xmlfmt, e.message)
         span = _make_span(text, e.lineno, e.offset, errmsg)
         g.spans.append(span)
 
@@ -739,10 +744,11 @@ def _escape_amp_accel (text):
 
         # An accelerator marker if no semicolon in rest of the text
         # or the bracketed segment does not look like an entity,
-        # and it is in front of an alphanumeric or itself.
+        # and it is in front of an alphanumeric or itself
+        # (or in front of tilde-directive, special in KDE4).
         nc = text[p1 + 1:p1 + 2]
         if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
-            and (nc.isalnum() or nc == "&")
+            and ((nc.isalnum() or nc == "~") or nc == "&")
         ):
             pos_amp = p1
             num_amp = 1
@@ -779,7 +785,7 @@ def _handler_start_element (tag, attrs):
 
     # Check existence of the tag.
     if tag not in g.spec and tag != _dummy_top:
-        errmsg = "(%s) unrecognized tag '%s'" % (g.xmlfmt, tag)
+        errmsg = (_ehfmt + "unrecognized tag '%s'") % (g.xmlfmt, tag)
         span = _make_span(g.text, g.parser.CurrentLineNumber,
                           g.parser.CurrentColumnNumber + 1, errmsg)
         g.spans.append(span)
@@ -792,8 +798,8 @@ def _handler_start_element (tag, attrs):
     known_attrs = g.spec[tag]
     for attr in attrs:
         if attr not in known_attrs:
-            errmsg = ("(%s) invalid attribute '%s' to tag '%s'"
-                      % (g.xmlfmt, tag, attr))
+            errmsg = ((_ehfmt + "invalid attribute '%s' to tag '%s'")
+                      % (g.xmlfmt, attr, tag))
             span = _make_span(g.text, g.parser.CurrentLineNumber,
                               g.parser.CurrentColumnNumber + 1, errmsg)
             g.spans.append(span)
@@ -805,8 +811,8 @@ def _handler_default (text):
 
     if g.ents is not None and text.startswith('&') and text.endswith(';'):
         ent = text[1:-1]
-        if ent not in g.ents and ent not in _xml_def_ents:
-            errmsg = "(%s) unknown entity '%s'" % (g.xmlfmt, ent)
+        if ent not in g.ents and ent not in xml_entities:
+            errmsg = (_ehfmt + "unknown entity '%s'") % (g.xmlfmt, ent)
             span = _make_span(g.text, g.parser.CurrentLineNumber,
                               g.parser.CurrentColumnNumber + 1, errmsg)
             g.spans.append(span)
@@ -842,28 +848,211 @@ def _make_span (text, lno, col, errmsg):
     return (start, end, errmsg)
 
 
-_docbook_l1 = None
+_docbook4_l1 = None
 
 def check_xml_docbook4_l1 (text, ents=None):
     """
-    Validate XML markup against L{level1<collect_xml_spec_l1>} specification.
+    Validate Docbook 4.x markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    Markup definition is extended to include C{<placeholder-N/>} elements,
+    which C{xml2po} uses to segment text when extracting markup documents
+    into PO templates.
 
     See L{check_xml_l1} for description of the C{ents} parameter
     and the return value.
 
     @param text: text to check
     @type text: string
-    @param ents: set of known entities
+    @param ents: set of known entities (in addition to default)
     @type ents: sequence
 
     @returns: erroneous spans in the text
     @rtype: list of (int, int, string) tuples
     """
 
-    global _docbook_l1
-    if _docbook_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
-        _docbook_l1 = collect_xml_spec_l1(specpath)
+    # FIXME: Freak message in konqueror_browser.po that puts
+    # Python's difflib.ndiff() into infinite loop.
+    if text.startswith("1, 7, 9, 11, 13, 15, 17, 19"):
+        return []
 
-    return check_xml_l1 (text, spec=_docbook_l1, xmlfmt="Docbook4", ents=ents)
+    global _docbook4_l1
+    if _docbook4_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
+        _docbook4_l1 = collect_xml_spec_l1(specpath)
+
+    return check_xml_l1(text, spec=_docbook4_l1, xmlfmt="Docbook4", ents=ents)
+
+
+_placeholder_el_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
+
+def check_placeholder_els (orig, trans):
+    """
+    Check if sets of C{<placeholder-N/>} elements are matching between
+    original and translated text.
+
+    C{<placeholder-N/>} elements are added into text by C{xml2po},
+    for finer segmentation of markup documents extracted into PO templates.
+
+    See L{check_xml_l1} for description of the return value.
+
+    @param orig: original text
+    @type orig: string
+    @param trans: translated text
+    @type trans: string
+
+    @returns: erroneous spans in translation
+    @rtype: list of (int, int, string) tuples
+    """
+
+    spans = []
+
+    orig_plnums = set()
+    for m in _placeholder_el_rx.finditer(orig):
+        orig_plnums.add(m.group(1))
+    trans_plnums = set()
+    for m in _placeholder_el_rx.finditer(trans):
+        trans_plnums.add(m.group(1))
+
+    missing_plnums = list(orig_plnums.difference(trans_plnums))
+    extra_plnums = list(trans_plnums.difference(orig_plnums))
+    if missing_plnums:
+        tags = "".join(["<placeholder-%s/>" % x for x in missing_plnums])
+        errmsg = ("Missing placeholder tags in translation: %s" % tags)
+        spans.append((0, 0, errmsg))
+    elif extra_plnums: # do not report both, single glitch may cause them
+        tags = "".join(["<placeholder-%s/>" % x for x in extra_plnums])
+        errmsg = ("Extra placeholder tags in translation: %s" % tags)
+        spans.append((0, 0, errmsg))
+
+    return spans
+
+
+# Class for making several dictionaries readable as one,
+# without creating a single one with the union of keys from all other.
+class _Multidict (object):
+
+    def __init__ (self, dicts):
+        # Order of dictionaries in the list matters,
+        # firstmost has higher priority when looking for key.
+        self.dicts = dicts
+
+    def __contains__ (self, key):
+        for d in self.dicts:
+            if key in d:
+                return True
+        return False
+
+    def __getitem__ (self, key):
+        for d in self.dicts:
+            if key in d:
+                return d[key]
+        raise KeyError, key
+
+    def get (self, key, defval=None):
+        for d in self.dicts:
+            if key in d:
+                return d[key]
+        return defval
+
+
+_entpath_html = os.path.join(rootdir(), "spec", "html.entities")
+html_entities = read_entities(_entpath_html)
+
+_html_l1 = None
+
+def check_xml_html_l1 (text, ents=None):
+    """
+    Validate XHTML markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _html_l1
+    if _html_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        _html_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = _Multidict([ents, html_entities])
+
+    return check_xml_l1(text, spec=_html_l1, xmlfmt="XHTML", ents=ents,
+                        casesens=False)
+
+
+_kuit_l1 = None
+
+def check_xml_kuit_l1 (text, ents=None):
+    """
+    Validate KUIT markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    KUIT is the semantic markup for user interface in KDE4.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _kuit_l1
+    if _kuit_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        _kuit_l1 = collect_xml_spec_l1(specpath)
+
+    return check_xml_l1(text, spec=_kuit_l1, xmlfmt="KUIT", ents=ents)
+
+
+_kde4_l1 = None
+_kde4_ents = None
+
+def check_xml_kde4_l1 (text, ents=None):
+    """
+    Validate markup in texts used in KDE4 GUI.
+
+    KDE4 GUI texts may contain both XHTML (Qt's subset of it, in fact)
+    and KUIT markup, even mixed in the same text.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _kde4_l1, _kde4_ents
+    if _kde4_l1 is None:
+        _kde4_l1 = {}
+        spath1 = os.path.join(rootdir(), "spec", "html.l1")
+        _kde4_l1.update(collect_xml_spec_l1(spath1))
+        spath2 = os.path.join(rootdir(), "spec", "kuit.l1")
+        _kde4_l1.update(collect_xml_spec_l1(spath2))
+        _kde4_ents = html_entities.copy()
+
+    if ents is not None:
+        ents = _Multidict([ents, _kde4_ents])
+
+    return check_xml_l1(text, spec=_kde4_l1, xmlfmt="KDE4", ents=ents,
+                        accelamp=True, casesens=False)
 

@@ -1,0 +1,59 @@
+# Informal listing of (X)HTML tags and their attributes.
+
+# FIXME: Current setup reflects mostly to the "Qt rich text", a subset of HTML.
+# Gather tags and attributes from the real HTML.
+
+# FIXME: Attributes are only partially listed, add more.
+
+html;
+a: href title;
+b;
+big;
+blockquote;
+body;
+br;
+center;
+cite;
+code;
+dd;
+dl;
+dt;
+em;
+font: color face size;
+h1;
+h2;
+h3;
+h4;
+h5;
+h6;
+head;
+hr;
+i;
+img: src width height;
+li;
+meta: content name;
+nobr;
+ol;
+p: align;
+pre;
+s;
+span;
+strong;
+style: type;
+sub;
+sup;
+table: bgcolor border cellspacing cellpadding width;
+td: align width valign;
+th;
+tr;
+tt;
+u;
+ul;
+var;
+
+# Dummy tag for common attributes.
+# FIXME: Really all have title attribute?
+pe-common-attributes: style title;
+
+# Qt's rich text top level tag (deprecated in Qt 4.x?).
+qt;

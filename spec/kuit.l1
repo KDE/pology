@@ -1,0 +1,27 @@
+# Informal listing of KUIT tags and their attributes.
+
+kuit: ctx;
+kuil: ctx;
+title;
+subtitle;
+para;
+list;
+item;
+note: label;
+warning: label;
+filename;
+link: url;
+application;
+command: section;
+resource;
+icode;
+bcode;
+shortcut;
+interface;
+emphasis;
+placeholder;
+email: address;
+envar;
+message;
+numid;
+nl;
