@@ -8,6 +8,11 @@ from pology.misc.comments import manc_parse_flag_list
 from pology.misc.report import report, report_on_msg, report_on_msg_hl
 from pology.misc.markup import check_xml_kde4_l1, check_xml_html_l1
 
+# Pure Qt POs in KDE repository.
+qt_catnames = (
+    "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
+)
+
 # Pipe flag used to manually prevent check for a particular message.
 flag_no_check_xml = "no-check-xml"
 
@@ -45,9 +50,7 @@ class Sieve (object):
         # Select type of markup to check based on catalog name.
         if cat.name.startswith(("desktop_", "xml_")):
             self.check_xml = lambda text, ents=None: []
-        elif cat.name in (
-            "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
-        ):
+        elif cat.name in qt_catnames:
             self.check_xml = check_xml_html_l1
         else:
             self.check_xml = check_xml_kde4_l1
