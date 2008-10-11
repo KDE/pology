@@ -8,7 +8,7 @@ import os
 import glob
 
 from pology.misc.comments import manc_parse_flag_list
-from pology.sieve.check_xml_kde4 import check_xml_kde4 as check_xml_kde4_base
+from pology.misc.markup import check_xml_kde4_l1
 from pology.sieve.check_xml_kde4 import flag_no_check_xml
 from pology.misc.resolve import read_entities
 from pology.misc.report import warning
@@ -69,7 +69,7 @@ def _check_xml_kde4_w (strict, entities, entpathenv, fcap, spanrep):
     """
 
     if entpathenv is not None:
-        entpath = os.getenv(entpathvar)
+        entpath = os.getenv(entpathenv)
         if entpath is None:
             warning("expected environment variable %s not set" % entpathenv)
         else:
@@ -89,26 +89,22 @@ def _check_xml_kde4_w (strict, entities, entpathenv, fcap, spanrep):
     if strict:
         def hook (cat, msg, msgstr):
             if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
-                if spanrep: return [], None
+                if spanrep: return ([],)
                 else: return
-            res = check_xml_kde4_base(cat, msg, msgstr, ents=entities,
-                                      spanrep=spanrep)
+            spans = check_xml_kde4_l1(msgstr, ents=entities)
             if spanrep:
-                return res
+                return (spans,)
     else:
         def hook (cat, msg, msgstr):
-            if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
-                if spanrep: return [], None
+            if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
+                or check_xml_kde4_l1(msg.msgid, ents=entities)
+                or check_xml_kde4_l1(msg.msgid_plural, ents=entities)
+            ):
+                if spanrep: return ([],)
                 else: return
-            if (    check_xml_kde4_base(cat, msg, msg.msgid,
-                                        quiet=True, ents=entities)
-                and check_xml_kde4_base(cat, msg, msg.msgid_plural,
-                                        quiet=True, ents=entities)):
-                res = check_xml_kde4_base(cat, msg, msgstr,
-                                          quiet=False, ents=entities,
-                                          spanrep=spanrep)
-                if spanrep:
-                    return res
+            spans = check_xml_kde4_l1(msgstr, ents=entities)
+            if spanrep:
+                return (spans,)
 
     return hook
 
