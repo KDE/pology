@@ -18,6 +18,7 @@ from pology.file.message import Message
 from pology.misc.colors import highlight_spans
 from pology.misc.wrap import wrap_field
 from pology.misc.diff import adapt_spans
+from pology.misc.escape import escape
 
 
 def encwrite (file, text):
@@ -58,14 +59,27 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout):
     if showcmd:
         cmdname = os.path.basename(sys.argv[0])
 
-    if cmdname and subsrc:
-        encwrite(file, "%s: (%s) %s\n" % (cmdname, subsrc, text))
-    elif cmdname:
-        encwrite(file, "%s: %s\n" % (cmdname, text))
-    elif subsrc:
-        encwrite(file, "(%s) %s\n" % (subsrc, text))
-    else:
-        encwrite(file, "%s\n" % text)
+    lines = text.split("\n")
+    for i in range(len(lines)):
+        if i == 0:
+            if cmdname and subsrc:
+                head = "%s (%s): " % (cmdname, subsrc)
+            elif cmdname:
+                head = "%s: " % cmdname
+            elif subsrc:
+                head = "(%s): " % subsrc
+            else:
+                head = ""
+            lhead = len(head)
+        else:
+            if lhead:
+                head = "... "
+            else:
+                head = ""
+        lines[i] = head + lines[i]
+
+    text = "\n".join(lines) + "\n"
+    encwrite(file, text)
 
 
 def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
@@ -119,13 +133,13 @@ def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
     """
     Report on a PO message.
 
-    Provides the message reference along with the report text,
-    consisting of the catalog name and the message position within it.
+    Outputs the message reference (catalog name and message position),
+    along with the report text.
 
     @param text: text to report
     @type text: string
     @param msg: the message for which the text is reported
-    @type msg: instance of L{Message_base}
+    @type msg: L{Message_base}
     @param cat: the catalog where the message lives
     @type cat: L{Catalog}
     @param subsrc: more detailed source of the message
@@ -143,13 +157,13 @@ def warning_on_msg (text, msg, cat, subsrc=None, file=sys.stderr):
     """
     Warning on a PO message.
 
-    Provides the message reference along with the warning text,
-    consisting of the catalog name and the message position within it.
+    Outputs the message reference (catalog name and the message position),
+    along with the warning text.
 
     @param text: text to report
     @type text: string
     @param msg: the message for which the text is reported
-    @type msg: instance of L{Message_base}
+    @type msg: L{Message_base}
     @param cat: the catalog where the message lives
     @type cat: L{Catalog}
     @param subsrc: more detailed source of the message
@@ -167,14 +181,13 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
     """
     Error on a PO message (aborts the execution).
 
-    Provides the message reference along with the error text,
-    consisting of the catalog name and the message position within it.
-    Exits with the given code.
+    Outputs the message reference (catalog name and message position),
+    along with the error text. Aborts execution with the given code.
 
     @param text: text to report
     @type text: string
     @param msg: the message for which the text is reported
-    @type msg: instance of L{Message_base}
+    @type msg: L{Message_base}
     @param cat: the catalog where the message lives
     @type cat: L{Catalog}
     @param code: the exit code
@@ -190,14 +203,96 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
     error(text, code=code, subsrc=subsrc, showcmd=True)
 
 
-def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
-                        delim=None, subsrc=None, highlight=None,
-                        onlynotes=False, file=sys.stdout):
+def report_on_msg_hl (highlight, msg, cat, fmsg=None,
+                      subsrc=None, file=sys.stdout):
+    """
+    Report on parts of a PO message.
+
+    For each of the spans found in the L{highlight<report_msg_content>}
+    specification which have a note attached, outputs the position reference
+    (catalog name, message position, spanned segment) and the span note.
+    The highlight can be relative to a somewhat modified, filtered message
+    instead of the original one.
+
+    @param highlight: highlight specification
+    @type highlight: L{highlight<report_msg_content>}
+    @param msg: the message for which the text is reported
+    @type msg: L{Message_base}
+    @param cat: the catalog where the message lives
+    @type cat: L{Catalog}
+    @param fmsg: filtered message to which the highlight corresponds
+    @type fmsg: L{Message_base}
+    @param subsrc: more detailed source of the message
+    @type subsrc: C{None} or string
+    @param file: send output to this file descriptor
+    @type file: C{file}
+    """
+
+    tfmt = _msg_ref_fmtstr(file)
+
+    if not fmsg: # use original message as filtered if not given
+        fmsg = msg
+
+    for hspec in highlight:
+        name, item, spans = hspec[:3]
+
+        if name == "msgctxt":
+            text = msg.msgctxt
+            ftext = fmsg.msgctxt
+        elif name == "msgid":
+            text = msg.msgid
+            ftext = fmsg.msgid
+        elif name == "msgid_plural":
+            text = msg.msgid_plural
+            ftext = fmsg.msgid_plural
+        elif name == "msgstr":
+            text = msg.msgstr[item]
+            ftext = fmsg.msgstr[item]
+        # TODO: Add more fields.
+        else:
+            warning("unknown field '%s' in highlight specification" % name)
+            continue
+
+        if len(hspec) > 3:
+            # Override filtered text from filtered message
+            # by filtered text from the highlight spec.
+            ftext = hspec[3]
+
+        spans = adapt_spans(text, ftext, spans, merge=False)
+
+        if msg.msgid_plural and name == "msgstr":
+            name = "%s_%d" % (name, item)
+
+        for span in spans:
+            if len(span) < 3:
+                continue
+            start, end, snote = span
+            seglen = end - start
+            if seglen > 0:
+                segtext = text[start:end]
+                if len(segtext) > 30:
+                    segtext = segtext[:27] + "..."
+                posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+            else:
+                posinfo = "%s:%d" % (name, start)
+            posinfo = C.GREEN + posinfo + C.RESET
+
+            refstr = tfmt % (cat.filename, msg.refline, msg.refentry)
+            rtext = "%s[%s]: %s" % (refstr, posinfo, snote)
+            report(rtext, subsrc=subsrc, showcmd=False)
+
+
+def report_msg_content (msg, cat,
+                        wrapf=wrap_field, force=False,
+                        note=None, delim=None, highlight=None,
+                        showmsg=True, fmsg=None, showfmsg=False,
+                        subsrc=None, file=sys.stdout):
     """
     Report the content of a PO message.
 
-    Provides the message reference along with the message contents,
-    consisting of the catalog name and the message position within it.
+    Provides the message reference, consisting of the catalog name and
+    the message position within it, the message contents,
+    and any notes on particular segments.
 
     Parts of the message can be highlighted using shell colors.
     Parameter C{highlight} provides the highlighting specification, as
@@ -222,9 +317,19 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     or tags have been removed). In that case, the filtered text can be
     given as the fourth element of the tuple, after the list of spans, and
     the function will try to fit spans from filtered onto original text.
+    More globally, if the complete highlight is relative to a modified,
+    filtered version of the message, this message can be given as
+    C{fmsg} parameter.
+
+    The display of content can be controlled by C{showmsg} parameter;
+    if it is C{False}, only the message reference and span notes are shown.
+    Similarly for the C{showfmsg} parameter, which controls the display
+    of the content of filtered message (if given by C{fmsg}).
+    To show the filtered message may be useful for debugging filtering
+    in cases when it is not straightforward, or it is user-defined.
 
     @param msg: the message to report the content for
-    @type msg: instance of L{Message_base}
+    @type msg: L{Message_base}
     @param cat: the catalog where the message lives
     @type cat: L{Catalog} or C{None}
     @param wrapf:
@@ -233,81 +338,109 @@ def report_msg_content (msg, cat, wrapf=wrap_field, force=False,
     @type wrapf: string, string, string -> list of strings
     @param force: whether to force reformatting of cached message content
     @type force: bool
+    @param note: note about why the content is being reported
+    @type note: string
     @param delim: text to print on the line following the message
     @type delim: C{None} or string
-    @param subsrc: more detailed source of the message
-    @type subsrc: C{None} or string
     @param highlight: highlighting specification of message elements
     @type highlight: (see description)
-    @param onlynotes: show only notes in highlight spans, not full content
-    @type onlynotes: bool
-    @param file: output stream. Default is sys.stdout
+    @param showmsg: show content of the message
+    @type showmsg: bool
+    @param fmsg: filtered message
+    @type fmsg: L{Message_base}
+    @param showfmsg: show content of the filtered message, if any
+    @type showfmsg: bool
+    @param subsrc: more detailed source of the message
+    @type subsrc: C{None} or string
+    @param file: output stream
     @type file: file
     """
 
+    C = _colors_for_file(file)
+    rsegs = []
+
     notes_data = []
     if highlight:
-        msg = Message(msg) # must work on copy
+        msg = Message(msg) # must work on copy, highlight modifies it
+        ffmsg = fmsg or msg # use original message as filtered if not given
+
         for hspec in highlight:
             name, item, spans = hspec[:3]
 
-            def hl (x):
-                ftext = x
+            def hl (text, ftext):
                 if len(hspec) > 3:
+                    # Override filtered text from filtered message
+                    # by filtered text from the highlight spec.
                     ftext = hspec[3]
-                aspans = adapt_spans(x, ftext, spans, merge=False)
-                notes_data.append((x, name, item, aspans))
+                aspans = adapt_spans(text, ftext, spans, merge=False)
+                notes_data.append((text, name, item, aspans))
                 if file.isatty():
-                    x = highlight_spans(x, spans, ftext=ftext)
-                return x
+                    text = highlight_spans(text, spans, ftext=ftext)
+                return text
 
             if name == "msgctxt":
-                msg.msgctxt = hl(msg.msgctxt)
+                msg.msgctxt = hl(msg.msgctxt, ffmsg.msgctxt)
             elif name == "msgid":
-                msg.msgid = hl(msg.msgid)
+                msg.msgid = hl(msg.msgid, ffmsg.msgid)
             elif name == "msgid_plural":
-                msg.msgid_plural = hl(msg.msgid_plural)
+                msg.msgid_plural = hl(msg.msgid_plural, ffmsg.msgid_plural)
             elif name == "msgstr":
-                msg.msgstr[item] = hl(msg.msgstr[item])
+                msg.msgstr[item] = hl(msg.msgstr[item], ffmsg.msgstr[item])
+            else:
+                warning("unknown field '%s' in highlight specification" % name)
             # TODO: Add more fields.
 
-
     # Report the message.
-    tfmt = _msg_ref_fmtstr(file) + "\n"
-    text = ""
+    mstr = ""
     if cat is not None:
-        text += tfmt % (cat.filename, msg.refline, msg.refentry)
-    if not onlynotes:
-        text += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
-    report(text.rstrip(), file=file)
+        tfmt = _msg_ref_fmtstr(file)
+        mstr += tfmt % (cat.filename, msg.refline, msg.refentry) + "\n"
+    if showmsg:
+        mstr += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
+    if mstr:
+        rsegs.append(mstr.rstrip())
 
     # Report notes.
-    if notes_data:
-        C = _colors_for_file(file)
+    if note is not None: # global
+        notestr = (C.BOLD + "note:" + C.RESET + " " + note)
+        rsegs.append(notestr)
+    if notes_data: # span notes
         note_ord = 1
         for text, name, item, spans in notes_data:
             if msg.msgid_plural and name == "msgstr":
                 name = "%s%d" % (name, item)
             for span in spans:
-                if len(span) > 2:
-                    start, end, note = span
-                    seglen = end - start
-                    if seglen > 0 and seglen < 20:
-                        posinfo = ("(%s:%d:%d:\"%s\")"
-                                   % (name, start, end, text[start:end]))
-                    else:
-                        posinfo = "(%s:%d:%d)" % (name, start, end)
-                    report(  C.BOLD + "#%d:" % note_ord + C.RESET + " "
-                           + C.GREEN + posinfo + C.RESET + " "
-                           + note,
-                           file=file)
-                    note_ord += 1
+                if len(span) < 3:
+                    continue
+                start, end, snote = span
+                seglen = end - start
+                if seglen > 0:
+                    segtext = text[start:end]
+                    if len(segtext) > 30:
+                        segtext = segtext[:27] + "..."
+                    posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+                else:
+                    posinfo = "%s:%d" % (name, start)
+                posinfo = C.GREEN + posinfo + C.RESET
+                shead = C.BOLD + "span#%d" % note_ord + C.RESET
+                rsegs.append("%s[%s]: %s" % (shead, posinfo, snote))
+                note_ord += 1
+
+    # Report the filtered message, if given and requested.
+    if fmsg and showfmsg:
+        fmtnote = C.GREEN + ">>> filtered message was:" + C.RESET
+        rsegs.append(fmtnote)
+        mstr = fmsg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
+        rsegs.append(mstr.rstrip())
 
     if delim:
-        report(delim, file=file)
+        rsegs.append(delim)
+
+    rtext = "\n".join(rsegs).rstrip()
+    report(rtext, subsrc=subsrc, file=file)
 
 
-def rule_error(msg, cat, rule, highlight=None, msgf=None):
+def rule_error(msg, cat, rule, highlight=None, fmsg=None):
     """
     Print formated rule error message on screen.
 
@@ -315,27 +448,21 @@ def rule_error(msg, cat, rule, highlight=None, msgf=None):
     @param cat: pology.file.catalog.Catalog object
     @param rule: pology.misc.rules.Rule object
     @param highlight: highlight specification (see L{report_msg_content})
-    @param msgf: filtered message which the rule really matched
+    @param fmsg: filtered message which the rule really matched
     """
 
     C = _colors_for_file(sys.stdout)
 
     # Some info on the rule.
     rinfo = (  ""
-             +  C.BOLD + "rule:" + C.RESET + " "
-             + rule.displayName
+             + "rule %s" % rule.displayName + " "
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 
-    report_msg_content(msg, cat, highlight=highlight)
-    report(rinfo)
-
-    # Report the filtered message, to which the rule was in fact applied.
-    if msgf is not None:
-        report(C.GREEN + "filtered message was:" + C.RESET)
-        report_msg_content(msgf, cat=None)
-
-    report("-" * 40)
+    report_msg_content(msg, cat,
+                       highlight=highlight,
+                       fmsg=fmsg, showfmsg=(fmsg is not None),
+                       note=rinfo, delim=("-" * 40))
 
 
 def rule_xml_error(msg, cat, rule, span, pluralId=0):
