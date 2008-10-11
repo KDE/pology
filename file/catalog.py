@@ -81,6 +81,10 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
     ifl = codecs.open(filename, "r", fenc)
     lines = [x + "\n" for x in re.split(r"\r\n|\r|\n", ifl.read())]
     # ...no file.readlines(), it treats some other characters as line breaks.
+    if lines[-1] == "\n":
+        # If the file ended properly in a line break, the last line will be
+        # phony, from the empty element splitted out by the last line break.
+        lines.pop()
     nlines = len(lines)
     ifl.close()
 
