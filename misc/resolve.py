@@ -62,20 +62,26 @@ def parse_entities (defstr, src=None):
     return entities
 
 
-def read_entities (*fnames):
+def read_entities (filepath):
     """
-    Read XML entity definitions from given file names.
+    Read XML entity definitions from given file path.
 
-    Just passes contents from the files to L{parse_entities}.
+    Input argument can be a single file path, or a sequence of paths.
+    Content of each file is parsed by L{parse_entities}.
 
-    @param fnames: paths of entity-defining files
-    @type fnames: strings
+    @param filepath: path or paths of entity-defining file
+    @type filepath: string or sequence of strings
 
     @returns: name-value pairs of parsed entities
     @rtype: dict
 
     @see: L{parse_entities}
     """
+
+    if isinstance(filepath, basestring):
+        fnames = [filepath]
+    else:
+        fnames = filepath
 
     entities = {}
     for fname in fnames:

@@ -26,7 +26,7 @@ class Sieve (object):
             self.ignored_entities.extend(options["ignore"].split(","))
 
         # Read entity definitions.
-        self.entities = read_entities(*self.entity_files)
+        self.entities = read_entities(self.entity_files)
 
 
     def process (self, msg, cat):

@@ -38,7 +38,7 @@ class Sieve (object):
             self.entity_files = options["entdef"].split(",")
 
         # Read definitions of external entities.
-        self.entities = read_entities(*self.entity_files)
+        self.entities = read_entities(self.entity_files)
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs to the caller

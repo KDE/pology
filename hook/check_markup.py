@@ -77,7 +77,7 @@ def _check_xml_kde4_w (strict, entities, entpathenv, fcap, spanrep):
             entities = {}
             for path in entpath.split(":"):
                 pattern = os.path.join(path, "*.entities")
-                entities.update(read_entities(*glob.glob(pattern)))
+                entities.update(read_entities(glob.glob(pattern)))
             entities.update(entities_by_arg)
     if fcap:
         fcap_entities = {}
