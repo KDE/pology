@@ -45,7 +45,9 @@ class Sieve (object):
         # Select type of markup to check based on catalog name.
         if cat.name.startswith(("desktop_", "xml_")):
             self.check_xml = lambda text, ents=None: []
-        elif cat.name in ("kdeqt",):
+        elif cat.name in (
+            "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
+        ):
             self.check_xml = check_xml_html_l1
         else:
             self.check_xml = check_xml_kde4_l1
