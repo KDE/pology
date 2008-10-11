@@ -320,8 +320,7 @@ def report_msg_content (msg, cat,
                 else:
                     posinfo = "%s:%d" % (name, start)
                 posinfo = C.GREEN + posinfo + C.RESET
-                shead = C.BOLD + "span#%d" % note_ord + C.RESET
-                rsegs.append("%s[%s]: %s" % (shead, posinfo, snote))
+                rsegs.append("[%s]: %s" % (posinfo, snote))
                 note_ord += 1
 
     # Report the filtered message, if given and requested.
