@@ -8,8 +8,6 @@ from pology.misc.comments import manc_parse_flag_list
 from pology.misc.report import report, report_on_msg, report_on_msg_hl
 from pology.misc.markup import check_xml_kde4_l1, check_xml_html_l1
 
-ts_fence = "|/|"
-
 # Pipe flag used to manually prevent check for a particular message.
 flag_no_check_xml = "no-check-xml"
 
@@ -46,7 +44,7 @@ class Sieve (object):
 
         # Select type of markup to check based on catalog name.
         if cat.name.startswith(("desktop_", "xml_")):
-            self.check_xml = check_xml_html_l1
+            self.check_xml = lambda text, ents=None: []
         elif cat.name in ("kdeqt",):
             self.check_xml = check_xml_html_l1
         else:
@@ -74,13 +72,9 @@ class Sieve (object):
         # Check XML in translation.
         highlight = []
         for i in range(len(msg.msgstr)):
-            msgstr = msg.msgstr[i]
-            # Check both ordinary and scripted translation, if any.
-            texts = msgstr.split(ts_fence, 1)
-            for text in texts:
-                spans = self.check_xml(text, ents=self.entities)
-                if spans:
-                    highlight.append(("msgstr", i, spans, text))
+            spans = self.check_xml(msg.msgstr[i], ents=self.entities)
+            if spans:
+                highlight.append(("msgstr", i, spans, msg.msgstr[i]))
 
         if highlight:
             self.nbad += 1
