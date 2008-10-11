@@ -1550,7 +1550,11 @@ class Rule(object):
 
         # Try to clear spans with validity tests.
         failed_spans = {}
-        for part, item, spans, ftext in possibly_failed_spans:
+        for spanspec in possibly_failed_spans:
+            part, item, spans = spanspec[:3]
+            ftext = None
+            if len(spanspec) > 3:
+                ftext = spanspec[3]
             part_item = part
             if part == "msgstr":
                 part_item = part + "_" + str(item)
