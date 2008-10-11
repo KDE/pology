@@ -1280,6 +1280,10 @@ class Catalog (Monitored):
         and if not found, by heuristically examining messages
         if C{bymsgs} is C{True}. Markup types are represented as
         short symbolic names, e.g. "html", "docbook", "mediawiki", etc.
+        These names are always reported in lower-case, regardless
+        of the original casing as provided by the header, etc.
+        See L{set_markup} for list of markup types current used throughout
+        Pology modules to influence behavior on processing.
 
         The header fields are tried in this order: C{Text-Markup},
         C{X-Text-Markup}.
@@ -1324,7 +1328,7 @@ class Catalog (Monitored):
             for fname, fval in fields:
                 if mtypes is None:
                     mtypes = set()
-                mtypes.update([x.strip() for x in fval.split(",")])
+                mtypes.update([x.strip().lower() for x in fval.split(",")])
         if mtypes:
             mtypes.discard("")
 
@@ -1353,12 +1357,19 @@ class Catalog (Monitored):
         If C{mtypes} is given as C{None}, it means the markup types
         are undetermined; if empty, that there is no markup in messages.
 
+        The following markup types are currently used by various parts
+        of Pology to influence behavior on processing:
+          - C{qtrich}: Qt rich-text, (almost) a subset of HTML
+          - C{kuit}: UI semantic markup in KDE4
+          - C{kde4}: markup in KDE4 UI POs, a mix of Qt rich-text and KUIT
+          - C{docbook4}: Docbook 4.x markup, in documentation POs
+
         @param mtypes: markup types
         @type mtypes: sequence of strings or C{None}
         """
 
         if mtypes is not None:
-            self._mtypes = set(mtypes)
+            self._mtypes = set([x.lower() for x in mtypes])
         else:
             self._mtypes = None
 
