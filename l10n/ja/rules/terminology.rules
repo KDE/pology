@@ -22,7 +22,7 @@ valid msgstr="中止"
 {\baccessibility}i
 id="accessibility"
 hint="accessibility = アクセシビリティ"
-valid msgstr="アクセシビリティ(?!ー)"
+valid msgstr="アクセシビリティ" !msgstr="アクセシビリティー"
 
 {\baddress book}i
 id="address_book"
@@ -160,10 +160,28 @@ id="constant_bitrate"
 hint="constant bitrate = 固定ビットレート"
 valid msgstr="固定ビットレート"
 
+{\bcontents?\b}i
+id="content"
+hint="content = 中身|内容"
+valid msgstr="中身|内容"
+disabled
+
+{\bcontents?\b}i
+id="content2"
+hint="content = コンテンツ"
+valid !after="(web|digital|digitized|active) " !before=" provider"
+valid msgstr="コンテンツ"
+
+{\bcontents\b}
+id="content3"
+hint="content = 目次"
+valid msgstr="目次"
+disabled
+
 {\bcontext menu}i
 id="context_menu"
 hint="context menu = コンテキストメニュー"
-valid msgstr="コンテキストメニュー"
+valid msgstr="コンテキストメニュー" !msgstr="コンテクスト"
 
 {^Copy$}
 id="copy"
@@ -240,7 +258,7 @@ valid msgstr="区切り文字"
 id="delimiter2"
 hint="delimiter = デリミタ"
 valid !cat="kile"
-valid msgstr="デリミタ(?!ー)"
+valid msgstr="デリミタ" !msgstr="デリミター"
 
 {\bdesceinding}i
 id="descending"
@@ -346,7 +364,7 @@ valid msgstr="フォントサイズを大きく"
 {\bentit(y|ies)}i
 id="entity"
 hint="entity = エンティティ"
-valid msgstr="エンティティ(?!ー)"
+valid msgstr="エンティティ" !msgstr="エンティティー"
 
 {\benvironment variables?\b}i
 id="environment_variable"
@@ -400,7 +418,7 @@ valid msgstr="ファクス"
 {\bfile manager}i
 id="file_manager"
 hint="file manager = ファイルマネージャ"
-valid msgstr="ファイルマネージャ(?!ー)"
+valid msgstr="ファイルマネージャ" !msgstr="マネージャー"
 
 {\bfilenames?}i
 id="filename"
@@ -524,7 +542,7 @@ valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
 {\bhex editor}i
 id="hex_editor"
 hint="hex editor = バイナリエディタ"
-valid msgstr="バイナリエディタ(?!ー)" !msgstr="十六進エディタ"
+valid msgstr="バイナリエディタ" !msgstr="エディター|十六進エディタ"
 
 {\bhidden files?}i
 id="hidden_file"
@@ -590,6 +608,11 @@ id="key_pair"
 hint="key pair = 鍵ペア"
 valid msgstr="鍵ペア"
 valid after="secret " msgstr="秘密鍵のペア"
+
+{\blaunchers?\b}i
+id="launcher"
+hint="launcher = ランチャー"
+valid msgstr="ランチャー" !msgstr="ランチャ(?!ー)|ラウンチャー?"
 
 {\bline break}i
 id="line_break"
@@ -769,7 +792,7 @@ valid after="computer |AI |human "
 valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, kbackgammon, kombination, kttt, libksirtet"
 valid after="Dragon |Kaffeine "
 valid after="%"
-valid msgstr="プレーヤー"
+valid msgstr="プレーヤー" !msgstr="プレーヤ(?!ー)|プレイヤー"
 
 {\bplayers?}i
 id="player2"
@@ -779,7 +802,7 @@ valid after="external"
 valid after="%"
 valid cat="amarok, k3b, libk3b, kplayer, kaffeine4, kmplayer, juk, kcmnotify"
 valid after="Dragon |Kaffeine |XMMS |DJ-Mixer and "
-valid msgstr="プレイヤー"
+valid msgstr="プレイヤー" !msgstr="プレイヤ(?!ー)|プレーヤー?"
 
 {\bplaylists?}i
 id="playlist"
@@ -815,13 +838,13 @@ valid msgstr="進捗バー"
 {\bpropert(y|ies)}i
 id="property"
 hint="property = プロパティ"
-valid msgstr="プロパティ(?!ー)"
+valid msgstr="プロパティ" !msgstr="プロパティー"
 valid after="(food|physical) "
 
 {\bproxy}i
 id="proxy"
 hint="proxy = プロキシ"
-valid msgstr="プロキシ(?!ー)"
+valid msgstr="プロキシ" !msgstr="プロキシー|プロクシ"
 valid cat="kfileshare" msgstr="(DNS|WINS|Msdfs) proxy"
 
 {\bpublic keys?}i
@@ -953,7 +976,7 @@ valid msgstr="秘密鍵"
 {\bsecurity}i
 id="security"
 hint="security = セキュリティ|安全|安全性"
-valid msgstr="セキュリティ(?!ー)|安全|安全性"
+valid msgstr="セキュリティ|安全|安全性" !msgstr="セキュリティー"
 valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
 valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
 valid cat="kspread" msgstr="証券"
@@ -967,7 +990,7 @@ valid msgstr="すべて選択"
 id="separator"
 hint="separator = セパレータ [メニューやツールバーで項目のグループを区切る線]"
 valid !after="(insert|add|delete|remove) " !before=" (color|width)"
-valid msgstr="セパレータ(?!ー)"
+valid msgstr="セパレータ" !msgstr="セパレーター"
 
 {\bseparators?}i
 id="separator2"
@@ -1042,6 +1065,11 @@ id="strikeout"
 hint="strikeout = 取り消し線"
 valid msgstr="取り消し線"
 
+{\bswitchers?\b}i
+id="switcher"
+hint="switcher = スイッチャー"
+valid msgstr="スイッチャー" !msgstr="スイッチャ(?!ー)"
+
 {\bsystem tray}i
 id="system_tray"
 hint="system tray = システムトレイ"
@@ -1051,6 +1079,11 @@ valid msgstr="システムトレイ"
 id="tab_bar"
 hint="tab bar = タブバー"
 valid msgstr="タブバー"
+
+{\btable of contents}i
+id="table_of_contents"
+hint="table of contents = 目次"
+valid msgstr="目次"
 
 {\btemplates?\b}i
 id="template"
@@ -1076,7 +1109,7 @@ valid msgstr="ターミナルエミュレータ"
 {\btext editor}i
 id="text_editor"
 hint="text editor = テキストエディタ"
-valid msgstr="テキストエディタ(?!ー)"
+valid msgstr="テキストエディタ" !msgstr="エディター"
 
 {\bthreshold}i
 id="threshold"
@@ -1097,6 +1130,11 @@ valid msgstr="タイムゾーン"
 id="title_bar"
 hint="title bar = タイトルバー"
 valid msgstr="タイトルバー"
+
+{\b[Tt]o-?[Dd]os?}
+id="todo"
+hint="to-do = To-Do"
+valid msgstr="To-Do" !msgstr="To-Dos|To ?Dos?|[Tt]o[- ]?dos?"
 
 {\btooltips?}i
 id="tooltip"
@@ -1150,7 +1188,7 @@ valid msgstr="username"
 {\butilit(y|ies)}i
 id="utility"
 hint="utility = ユーティリティ"
-valid msgstr="ユーティリティ(?!ー)"
+valid msgstr="ユーティリティ" !msgstr="ユーティリティー"
 
 {\bvalues?}i
 id="value"
@@ -1195,6 +1233,11 @@ hint="view mode = 表示モード"
 valid after="split |tree "
 valid msgstr="表示モード"
 
+{\bviewers?\b}i
+id="viewer"
+hint="viewer = ビューア"
+valid msgstr="ビューア" !msgstr="ビューアー|ビューワー?|ビュ[ワア]ー"
+
 {\bvirus}i
 id="virus"
 hint="virus = ウイルス"
@@ -1228,7 +1271,7 @@ valid msgstr="単語単位"
 {\bwidgets?\b}i
 id="widget"
 hint="widget = ウィジェット"
-valid msgstr="ウィジェット"
+valid msgstr="ウィジェット" !msgstr="ウィジット"
 
 {\bwizards?\b}i
 id="wizard"
