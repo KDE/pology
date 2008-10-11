@@ -18,7 +18,7 @@ import re
 from copy import deepcopy
 
 from pology.misc.report import report, warning, error
-import pology.misc.colors as C
+from pology.misc.colors import colors_for_file
 from pology.file.message import Message
 from pology.misc.wrap import wrap_field
 from pology.misc.diff import adapt_spans
@@ -124,6 +124,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
     @type file: C{file}
     """
 
+    C = colors_for_file(file)
     tfmt = _msg_ref_fmtstr(file)
 
     if not fmsg: # use original message as filtered if not given
@@ -252,7 +253,7 @@ def report_msg_content (msg, cat,
     @type file: file
     """
 
-    C = C.colors_for_file(file)
+    C = colors_for_file(file)
     rsegs = []
 
     notes_data = []
@@ -271,7 +272,8 @@ def report_msg_content (msg, cat,
                 aspans = adapt_spans(text, ftext, spans, merge=False)
                 notes_data.append((text, name, item, aspans))
                 if file.isatty():
-                    text = _highlight_spans(text, spans, ftext=ftext)
+                    text = _highlight_spans(text, spans, C.RED, C.RESET,
+                                            ftext=ftext)
                 return text
 
             if name == "msgctxt":
@@ -347,7 +349,7 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None):
     @param fmsg: filtered message which the rule really matched
     """
 
-    C = C.colors_for_file(sys.stdout)
+    C = colors_for_file(sys.stdout)
 
     # Some info on the rule.
     rinfo = (  ""
@@ -391,7 +393,7 @@ def spell_error(msg, cat, faultyWord, suggestions):
     @param cat: pology.file.catalog.Catalog object
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest"""
-    C = C.colors_for_file(sys.stdout)
+    C = colors_for_file(sys.stdout)
     report("-"*40)
     report(C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET)
     if msg.msgctxt:
@@ -425,29 +427,13 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
 # Format string for message reference, based on the file descriptor.
 def _msg_ref_fmtstr (file=sys.stdout):
 
-    C = C.colors_for_file(file)
+    C = colors_for_file(file)
     fmt = ""
     fmt += C.CYAN + "%s" + C.RESET + ":" # file name
     fmt += C.PURPLE + "%d" + C.RESET # line number
     fmt += "(" + C.PURPLE + "#%d" + C.RESET + ")" # entry number
 
     return fmt
-
-# Position in text of first non-whitespace after first whitespace sequence
-# after last shell color reset.
-# 0 if no color reset, len(text) if no conforming non-whitespace after reset.
-def _nonws_after_colreset (text):
-
-    p = text.rfind(C.RESET)
-    if p >= 0:
-        p += len(C.RESET)
-        while p < len(text) and text[p].isspace():
-            p += 1
-        while p < len(text) and not text[p].isspace():
-            p += 1
-        return p
-    else:
-        return 0
 
 
 def _escapeCDATA(text):
@@ -460,7 +446,7 @@ def _escapeCDATA(text):
     return text
 
 
-def highlight_spans (text, spans, color=C.RED, ftext=None):
+def _highlight_spans (text, spans, color_s, color_e, ftext=None):
     """
     Highlight spans in text.
 
@@ -478,8 +464,10 @@ def highlight_spans (text, spans, color=C.RED, ftext=None):
     @type text: string
     @param spans: spans to highlight
     @type spans: list of tuples
-    @param color: shell color sequence for highlighting
-    @type color: string
+    @param color_s: starting color sequence
+    @type color_s: string
+    @param color_e: ending color sequence
+    @type color_e: string
     @param ftext: text to which spans are actually relative
     @type ftext: string
 
@@ -502,7 +490,7 @@ def highlight_spans (text, spans, color=C.RED, ftext=None):
     cstart = 0
     for span in spans:
         ctext += text[cstart:span[0]]
-        ctext += color + text[span[0]:span[1]] + RESET
+        ctext += color_s + text[span[0]:span[1]] + color_e
         cstart = span[1]
     ctext += text[span[1]:]
 

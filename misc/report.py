@@ -124,3 +124,20 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     report("%s: %s" % (pref, text), showcmd=showcmd, subsrc=subsrc, file=file)
     sys.exit(code)
 
+
+# Position in text of first non-whitespace after first whitespace sequence
+# after last shell color reset.
+# 0 if no color reset, len(text) if no conforming non-whitespace after reset.
+def _nonws_after_colreset (text):
+
+    p = text.rfind(C.RESET)
+    if p >= 0:
+        p += len(C.RESET)
+        while p < len(text) and text[p].isspace():
+            p += 1
+        while p < len(text) and not text[p].isspace():
+            p += 1
+        return p
+    else:
+        return 0
+
