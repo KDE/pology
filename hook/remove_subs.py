@@ -14,7 +14,7 @@ from pology.misc.resolve import remove_fmtdirs as _rm_fmtd_in_text_single
 from pology.misc.resolve import remove_literals as _rm_lit_in_text_single
 import pology.misc.markup as M
 from pology.misc.comments import manc_parse_field_values
-from pology.misc.report import warning_on_msg
+from pology.misc.msgreport import warning_on_msg
 
 
 def _rm_accel_in_msg (msg, accels, greedy=False):

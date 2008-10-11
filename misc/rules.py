@@ -463,7 +463,7 @@ C{hook}
     with C{name=}, C{factory=}, and C{on=} fields having the same meaning.
     The difference is in the type of hooks which are applicable in this
     context, which must be one of the test types:
-    C{(cat, msg) -> L{highlight<misc.report.report_msg_content>}}
+    C{(cat, msg) -> L{highlight<misc.msgreport.report_msg_content>}}
     (applies to C{msg} part as given by the C{on=} field),
     C{(cat, msg, text) -> spans}
     (applies to C{msgstr} and C{msgid} parts),
@@ -1322,7 +1322,7 @@ class Rule(object):
         @param rfilter: filter to apply to rule strings (e.g. on regex patterns)
         @type rfilter: (string) -> string
         @param trigger: function to act as trigger instead of C{pattern} applied to C{msgpart}
-        @type trigger: (msg, cat, env) -> L{highlight<misc.report.report_msg_content>}
+        @type trigger: (msg, cat, env) -> L{highlight<misc.msgreport.report_msg_content>}
         """
 
         # Define instance variable
@@ -1381,7 +1381,7 @@ class Rule(object):
         Use trigger function instead of pattern.
 
         @param trigger: function to act as trigger
-        @type trigger: (msg, cat, env) -> {highlight<misc.report.report_msg_content>}
+        @type trigger: (msg, cat, env) -> {highlight<misc.msgreport.report_msg_content>}
         """
         self.trigger=trigger
         self.pattern=None # invalidate any pattern
@@ -1431,7 +1431,7 @@ class Rule(object):
         Apply rule to the message.
 
         If the rule matches, I{highlight specification} of offending spans is
-        returned (see L{report_msg_content<misc.report.report_msg_content>});
+        returned (see L{report_msg_content<misc.msgreport.report_msg_content>});
         otherwise an empty list.
 
         Rule will normally apply its own filters to the message before

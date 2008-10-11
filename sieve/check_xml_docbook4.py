@@ -20,7 +20,8 @@ import os
 import re
 import locale
 import xml.parsers.expat
-from pology.misc.report import report, report_on_msg_hl, report_msg_content
+from pology.misc.report import report
+from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology import rootdir
 

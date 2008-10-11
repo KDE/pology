@@ -3,9 +3,10 @@
 import sys, os, re
 import locale
 import xml.parsers.expat
-from pology.misc.resolve import read_entities
+from pology.misc.entities import read_entities
 from pology.misc.comments import manc_parse_flag_list
-from pology.misc.report import report, report_on_msg, report_on_msg_hl
+from pology.misc.report import report
+from pology.misc.msgreport import report_on_msg, report_on_msg_hl
 from pology.misc.markup import check_xml_kde4_l1, check_xml_html_l1
 
 # Pure Qt POs in KDE repository.

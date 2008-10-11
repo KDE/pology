@@ -9,7 +9,7 @@ Various checks for translations into Serbian.
 
 import re
 
-from pology.misc.report import warning_on_msg
+from pology.misc.msgreport import warning_on_msg
 
 # ----------------------------------------
 # Checks for presence of naked Latin segments.

@@ -64,7 +64,8 @@ when it is not the default C{process()} within the hook module.
 """
 
 import sys, os, re
-from pology.misc.report import error, report_msg_content
+from pology.misc.report import error, warning
+from pology.misc.msgreport import report_msg_content
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.wrap import wrap_field, wrap_field_unwrap
 from pology.file.message import MessageUnsafe

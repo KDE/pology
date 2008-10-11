@@ -2,7 +2,7 @@
 
 import sys, re
 import xml.parsers.expat
-from pology.misc.resolve import read_entities
+from pology.misc.entities import read_entities
 from pology.misc.resolve import resolve_entities
 
 class Sieve (object):

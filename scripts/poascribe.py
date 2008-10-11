@@ -13,7 +13,8 @@ import locale
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
-from pology.misc.report import error, warning, warning_on_msg
+from pology.misc.report import error, warning
+from pology.misc.msgreport import warning_on_msg
 from pology.misc.fsops import collect_catalogs, mkdirpath
 from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog

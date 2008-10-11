@@ -5,12 +5,11 @@ Check validity of text markup.
 """
 
 import os
-import glob
 
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.markup import check_xml_kde4_l1
 from pology.sieve.check_xml_kde4 import flag_no_check_xml
-from pology.misc.resolve import read_entities
+from pology.misc.entities import read_entities_by_env, fcap_entities
 from pology.misc.report import warning
 
 
@@ -26,10 +25,12 @@ def check_xml_kde4 (strict=False, entities={}, entpathenv=None, fcap=True):
     A dictionary of external XML entities (name, value) may be provided
     if such appear in the translation, for the check not to warn about
     unknown entities.
+
     Entities may also be automatically collected, by parsing all C{*.entities}
     files in directory paths given by the environment variable C{entpathenv};
     entity files are taken only from the roots of directory paths,
     and not recursively searched for.
+
     If an entity with the first letter in uppercase is encountered and not
     among the defined ones, it may be allowed to pass the check by setting
     the C{fcap} parameter to C{True}.
@@ -69,22 +70,14 @@ def _check_xml_kde4_w (strict, entities, entpathenv, fcap, spanrep):
     """
 
     if entpathenv is not None:
-        entpath = os.getenv(entpathenv)
-        if entpath is None:
-            warning("expected environment variable %s not set" % entpathenv)
-        else:
-            entities_by_arg = entities # add in the end, has higher priority
-            entities = {}
-            for path in entpath.split(":"):
-                pattern = os.path.join(path, "*.entities")
-                entities.update(read_entities(glob.glob(pattern)))
-            entities.update(entities_by_arg)
+        tmp_entities = read_entities_by_env(entpathenv)
+        # Give lower priority to read entities in case of conflicts.
+        tmp_entities.update(entities)
+        entities = tmp_entities
     if fcap:
-        fcap_entities = {}
-        for name, value in entities.iteritems():
-            cname = name[:1].upper() + name[1:]
-            fcap_entities[cname] = value
-        entities.update(fcap_entities)
+        tmp_entities = fcap_entities(entities)
+        tmp_entities.update(entities)
+        entities = tmp_entities
 
     if strict:
         def hook (cat, msg, msgstr):

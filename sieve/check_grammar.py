@@ -12,7 +12,7 @@ from urllib import urlencode
 import socket, sys
 from xml.dom.minidom import parseString
 from pology.misc.colors import BOLD, RED, RESET
-from pology.misc.report import warning_on_msg
+from pology.misc.msgreport import warning_on_msg
 
 REQUEST="/?language=%s&%s"
 

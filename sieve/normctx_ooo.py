@@ -17,7 +17,7 @@ Sieve options:
 @license: GPLv3
 """
 
-from pology.misc.report import warning_on_msg
+from pology.misc.msgreport import warning_on_msg
 
 
 class Sieve (object):

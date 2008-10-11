@@ -6,9 +6,6 @@ Standard codes for shell colors.
 @license: GPLv3
 """
 
-from pology.misc.diff import adapt_spans
-
-
 BOLD     = '\033[01m'
 RED     = '\033[31m'
 GREEN     = '\033[32m'
@@ -20,51 +17,34 @@ GREY    = '\033[37m'
 RESET     = '\033[0;0m'
 
 
-def highlight_spans (text, spans, color=RED, ftext=None):
+_color_names = "BOLD RED GREEN ORANGE BLUE PURPLE CYAN GREY RESET".split()
+
+class _ColorData (object):
+    pass
+
+
+_shell_colors = _ColorData()
+for color in _color_names:
+    setattr(_shell_colors, color, eval(color))
+
+_noop_colors = _ColorData()
+for color in _color_names:
+    setattr(_noop_colors, color, "")
+
+
+def colors_for_file (file):
     """
-    Highlight spans in text.
+    Appropriate colors for file descriptor.
 
-    Adds shell colors around defined spans in the text.
-    Spans are given as list of index tuples C{[(start1, end1), ...]} where
-    start and end index have standard Python semantics.
-    Span tuples can have more than two elements, with indices followed by
-    additional elements, which are ignored by this function.
+    @param file: file for which the colors are requested
+    @type file: file descriptor
 
-    If C{ftext} is not C{None} spans are understood as relative to it,
-    and the function will try to adapt them to the main text
-    (see L{pology.misc.diff.adapt_spans}).
-
-    @param text: text to be highlighted
-    @type text: string
-    @param spans: spans to highlight
-    @type spans: list of tuples
-    @param color: shell color sequence for highlighting
-    @type color: string
-    @param ftext: text to which spans are actually relative
-    @type ftext: string
-
-    @returns: highlighted text
-    @rtype: string
+    @returns: color codes
+    @rtype: object with color names as instance variables
     """
 
-    if not spans:
-        return text
-
-    # Adapt spans regardless if filtered text has been given or not,
-    # to fix any overlapping and put into expected ordering.
-    if ftext is None:
-        ftext = text
-    spans = adapt_spans(text, ftext, spans, merge=True)
-    if not spans:
-        return text
-
-    ctext = ""
-    cstart = 0
-    for span in spans:
-        ctext += text[cstart:span[0]]
-        ctext += color + text[span[0]:span[1]] + RESET
-        cstart = span[1]
-    ctext += text[span[1]:]
-
-    return ctext
+    if file.isatty():
+        return _shell_colors
+    else:
+        return _noop_colors
 

@@ -13,7 +13,8 @@ The items checked are:
 """
 
 import re
-from pology.misc.report import report, report_on_msg
+from pology.misc.report import report
+from pology.misc.msgreport import report_on_msg
 
 ts_fence = "|/|"
 

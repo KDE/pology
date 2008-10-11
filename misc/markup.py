@@ -15,7 +15,7 @@ import xml.parsers.expat
 from pology.misc.report import error
 from pology import rootdir
 from pology.misc.diff import adapt_spans
-from pology.misc.resolve import read_entities
+from pology.misc.entities import read_entities
 
 
 _nlgr_rx = re.compile(r"\n{2,}")

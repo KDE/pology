@@ -79,9 +79,9 @@ The following user configuration fields are considered:
 @license: GPLv3
 """
 
-from pology.misc.colors import RED, RESET
 from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
-from pology.misc.report import spell_error, spell_xml_error, report, warning, error
+from pology.misc.report import report, warning, error
+from pology.misc.msgreport import spell_error, spell_xml_error
 from pology.misc.split import proper_words
 from pology import rootdir
 import pology.misc.config as cfg

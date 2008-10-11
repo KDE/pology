@@ -45,7 +45,8 @@ from time import strftime, strptime, mktime
 from locale import getpreferredencoding
 
 from pology.misc.rules import loadRules, printStat
-from pology.misc.report import report, error, warning, rule_error, rule_xml_error, report_msg_content
+from pology.misc.report import report, error, warning
+from pology.misc.msgreport import rule_error, rule_xml_error, report_msg_content
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.comments import manc_parse_list

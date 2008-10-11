@@ -7,92 +7,15 @@ Replacement of segments in text which define some underlying values.
 @license: GPLv3
 """
 
+import os
 import re
-import xml.parsers.expat
 import difflib
+
+from pology.misc.report import warning
 
 
 # Defult starting string of alternatives directives.
 DEFAULT_ALTHEAD = "~@"
-
-
-def parse_entities (defstr, src=None):
-    """
-    Parse XML entity definitions from given string.
-
-    The string should contain only entity definitions in DTD form,
-    without any prolog or epilogue::
-
-      ...
-      <!ENTITY foo 'Foo-fum'>
-      <!ENTITY bar 'Bar-boo'>
-      ...
-
-    If the same entity is defined several times, the last read definition
-    is taken as final.
-
-    @param defstr: entity-defining string
-    @type defstr: string
-
-    @param src: name of the source, for problem reporting
-    @param src: C{None} or string
-
-    @returns: name-value pairs of parsed entities
-    @rtype: dict
-    """
-
-    # Equip with prolog and epilogue.
-    defstr = "<?xml version='1.0' encoding='UTF-8'?>\n" \
-             "<!DOCTYPE entityLoader [" + defstr + "]><done/>"
-    # Parse entities.
-    entities = {}
-    def handler (name, is_parameter_entity, value,
-                    base, systemId, publicId, notationName):
-        entities[name] = value
-    p = xml.parsers.expat.ParserCreate()
-    p.EntityDeclHandler = handler
-    try:
-        p.Parse(defstr, True)
-    except xml.parsers.expat.ExpatError, inst:
-        if src:
-            raise StandardError ("%s: %s\n" % (src, inst))
-        else:
-            raise StandardError ("<STRING>: %s\n" % inst)
-
-    return entities
-
-
-def read_entities (filepath):
-    """
-    Read XML entity definitions from given file path.
-
-    Input argument can be a single file path, or a sequence of paths.
-    Content of each file is parsed by L{parse_entities}.
-
-    @param filepath: path or paths of entity-defining file
-    @type filepath: string or sequence of strings
-
-    @returns: name-value pairs of parsed entities
-    @rtype: dict
-
-    @see: L{parse_entities}
-    """
-
-    if isinstance(filepath, basestring):
-        fnames = [filepath]
-    else:
-        fnames = filepath
-
-    entities = {}
-    for fname in fnames:
-        # Scoop up file contents, as raw bytes (UTF-8 expected).
-        ifs = open(fname, "r")
-        defstr = "".join(ifs.readlines())
-        ifs.close()
-        # Parse entities.
-        entities.update(parse_entities(defstr, src=fname))
-
-    return entities
 
 
 _entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
@@ -187,22 +110,22 @@ def resolve_entities (text, entities, ignored_entities=set(),
                         nears = difflib.get_close_matches(entname, entities)
                         if fcap and entname_orig != entname:
                             if nears:
-                                print   "%s: unknown entity, either '%s' " \
-                                        "or '%s' (near matches: %s)" \
-                                      % (srcname, entname_orig, entname,
-                                         ", ".join(nears))
+                                warning("%s: unknown entity, either '%s' "
+                                        "or '%s' (near matches: %s)"
+                                        % (srcname, entname_orig, entname,
+                                         ", ".join(nears)))
                             else:
-                                print   "%s: unknown entity, either '%s' " \
-                                        "or '%s'" \
-                                      % (srcname, entname_orig, entname)
+                                warning("%s: unknown entity, either '%s' "
+                                        "or '%s'"
+                                        % (srcname, entname_orig, entname))
                         else:
                             if nears:
-                                print   "%s: unknown entity '%s' " \
-                                        "(near matches: %s)" \
-                                      % (srcname, entname, ", ".join(nears))
+                                warning("%s: unknown entity '%s' "
+                                        "(near matches: %s)"
+                                        % (srcname, entname, ", ".join(nears)))
                             else:
-                                print   "%s: unknown entity '%s'" \
-                                      % (srcname, entname)
+                                warning("%s: unknown entity '%s'"
+                                        % (srcname, entname))
 
     # Recursive resolving if at least one entity has been resolved.
     if len(resolved) > 0:
@@ -313,8 +236,8 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         if len(text) < p + alt_hlen + 2:
             malformed = True
             if srcname is not None:
-                print "%s: malformed directive: " \
-                      "\"...%s\"" % (srcname, rep_text)
+                warning("%s: malformed directive: "
+                        "\"...%s\"" % (srcname, rep_text))
             break
 
         # Read the separating character.
@@ -331,8 +254,8 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
             if p < 0:
                 malformed = True
                 if srcname is not None:
-                    print "%s: too little alternatives in the directive: " \
-                          "\"...%s\"" % (srcname, rep_text)
+                    warning("%s: too little alternatives in the directive: "
+                            "\"...%s\"" % (srcname, rep_text))
                 break
             alts.append(text[pp:p])
 
@@ -756,7 +679,6 @@ def _remove_fmtdirs_python (text, subs=""):
             nsegs.append("%")
             p += 1
             continue
-        print text[p:]
         m = _fmtdir_tail_python_rx.match(text, p)
         if m:
             p = m.span()[1]

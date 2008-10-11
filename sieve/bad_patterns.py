@@ -3,7 +3,8 @@
 import os, re, codecs
 from pology.misc.escape import split_escaped
 from pology.misc.comments import manc_parse_flag_list
-from pology.misc.report import error, report_on_msg
+from pology.misc.report import error
+from pology.misc.msgreport import report_on_msg
 
 
 # Pipe flag used to manually prevent matching for a particular message.
