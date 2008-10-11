@@ -136,13 +136,14 @@
   <code>msgid</code> itself is valid XML markup in KDE4 UI.</p>
   <p>A dictionary of external XML entities (name, value) may be provided if
   such appear in the translation, for the check not to warn about unknown 
-  entities. Entities may also be automatically collected, by parsing all 
+  entities.</p>
+  <p>Entities may also be automatically collected, by parsing all 
   <code>*.entities</code> files in directory paths given by the environment
   variable <code>entpathenv</code>; entity files are taken only from the 
-  roots of directory paths, and not recursively searched for. If an entity 
-  with the first letter in uppercase is encountered and not among the 
-  defined ones, it may be allowed to pass the check by setting the 
-  <code>fcap</code> parameter to <code>True</code>.</p>
+  roots of directory paths, and not recursively searched for.</p>
+  <p>If an entity with the first letter in uppercase is encountered and not
+  among the defined ones, it may be allowed to pass the check by setting 
+  the <code>fcap</code> parameter to <code>True</code>.</p>
   <p>If the message has <a 
   href="pology.misc.comments-module.html#manc_parse_flag_list" 
   class="link">pipe flag</a> <code>no-check-xml</code>, the check is 

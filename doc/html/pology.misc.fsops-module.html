@@ -70,6 +70,28 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_files_by_ext" class="summary-sig-name">collect_files_by_ext</a>(<span class="summary-sig-arg">dirpath</span>,
+        <span class="summary-sig-arg">extension</span>,
+        <span class="summary-sig-arg">recurse</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">sort</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Collect list of files having given extension from given directory 
+      path.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">string or list of strings</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -150,6 +172,49 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="collect_files_by_ext"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_files_by_ext</span>(<span class="sig-arg">dirpath</span>,
+        <span class="sig-arg">extension</span>,
+        <span class="sig-arg">recurse</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">sort</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Collect list of files having given extension from given directory 
+  path.</p>
+  <p>Single path or a sequence of paths may be given as 
+  <code>dirpath</code> parameter. Similarly, a single extension or sequence
+  of extensions may be given in place of <code>extension</code> parameter. 
+  If extensions are given as empty sequence, then files with no extensions 
+  are collected. Directories can be searched for files recursively or 
+  non-resursively, as requested by the <code>recurse</code> parameter.</p>
+  <p>Collected file paths are by default sorted and any duplicates 
+  eliminated, but this can be controlled using the <code>sort</code> and 
+  <code>unique</code> parameters.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dirpath</code></strong> (string or sequence of strings) - path to search for files</li>
+        <li><strong class="pname"><code>extension</code></strong> (string or sequence of strings) - extension of files to collect</li>
+        <li><strong class="pname"><code>recurse</code></strong> (bool) - whether to search for files recursively</li>
+        <li><strong class="pname"><code>sort</code></strong> (bool) - whether to sort collected paths</li>
+        <li><strong class="pname"><code>unique</code></strong> (bool) - whether to eliminate duplicates from collected paths</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>list of collected file paths</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="collect_catalogs"></a>
 <div>
 <table class="details" border="1" cellpadding="3"

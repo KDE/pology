@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.misc.msgreport</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
+        Module&nbsp;msgreport
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module msgreport</h1><p class="nomargin-top"></p>
+<p>Report info, warning and error messages.</p>
+  <p>Functions for Pology tools to report PO messages to the user at 
+  runtime, in different contexts and scenario. May colorize some 
+  output.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_on_msg" class="summary-sig-name">report_on_msg</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+      Report on a PO message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#warning_on_msg" class="summary-sig-name">warning_on_msg</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+      Warning on a PO message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#error_on_msg" class="summary-sig-name">error_on_msg</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">code</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+      Error on a PO message (aborts the execution).</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_on_msg_hl" class="summary-sig-name">report_on_msg_hl</a>(<span class="summary-sig-arg">highlight</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+      Report on parts of a PO message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x91d109c&gt;</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">showmsg</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">showfmsg</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+      Report the content of a PO message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#rule_error" class="summary-sig-name">rule_error</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">rule</span>,
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Print formated rule error message on screen.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#rule_xml_error" class="summary-sig-name">rule_xml_error</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">rule</span>,
+        <span class="summary-sig-arg">span</span>,
+        <span class="summary-sig-arg">pluralId</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Create and returns rule error message in XML format</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#spell_error" class="summary-sig-name">spell_error</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">faultyWord</span>,
+        <span class="summary-sig-arg">suggestions</span>)</span><br />
+      Print formated rule error message on screen</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#spell_xml_error" class="summary-sig-name">spell_xml_error</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">faultyWord</span>,
+        <span class="summary-sig-arg">suggestions</span>,
+        <span class="summary-sig-arg">pluralId</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Create and returns spell error message in XML format</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#highlight_spans" class="summary-sig-name">highlight_spans</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">spans</span>,
+        <span class="summary-sig-arg">color</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">\x1b[31m</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">ftext</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Highlight spans in text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="report_on_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">report_on_msg</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report on a PO message.</p>
+  <p>Outputs the message reference (catalog name and message position), 
+  along with the report text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message for which the text is reported</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="warning_on_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">warning_on_msg</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Warning on a PO message.</p>
+  <p>Outputs the message reference (catalog name and the message position),
+  along with the warning text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message for which the text is reported</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="error_on_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">error_on_msg</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">code</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Error on a PO message (aborts the execution).</p>
+  <p>Outputs the message reference (catalog name and message position), 
+  along with the error text. Aborts execution with the given code.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message for which the text is reported</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>code</code></strong> (int) - the exit code</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="report_on_msg_hl"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">report_on_msg_hl</span>(<span class="sig-arg">highlight</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report on parts of a PO message.</p>
+  <p>For each of the spans found in the <a 
+  href="pology.misc.msgreport-module.html#report_msg_content" 
+  class="link">highlight</a> specification which have a note attached, 
+  outputs the position reference (catalog name, message position, spanned 
+  segment) and the span note. The highlight can be relative to a somewhat 
+  modified, filtered message instead of the original one.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>highlight</code></strong> (<a href="pology.misc.msgreport-module.html#report_msg_content" 
+          class="link">highlight</a>) - highlight specification</li>
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message for which the text is reported</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>fmsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - filtered message to which the highlight corresponds</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="report_msg_content"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x91d109c&gt;</span>,
+        <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">showmsg</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">showfmsg</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report the content of a PO message.</p>
+  <p>Provides the message reference, consisting of the catalog name and the
+  message position within it, the message contents, and any notes on 
+  particular segments.</p>
+  <p>Parts of the message can be highlighted using shell colors. Parameter 
+  <code>highlight</code> provides the highlighting specification, as list 
+  of tuples where each tuple consists of: name of the message element to 
+  highlight, element index (used when the element is a list of values), 
+  list of spans, and optionally the filtered text of the element value. For
+  example, to highlight spans <code>(5, 10)</code> and <code>(15, 
+  25)</code> in the <code>msgid</code>, and <code>(30, 40)</code> in 
+  <code>msgstr</code>, the highlighting specification would be:</p>
+<pre class="literalblock">
+   [(&quot;msgid&quot;, 0, [(5, 10), (15, 25)]), (&quot;msgstr&quot;, 0, [(30, 40)])]
+</pre>
+  <p>Names of the elements that can presently be highlighted are: 
+  <code>&quot;msgctxt&quot;</code>, <code>&quot;msgid&quot;</code>, 
+  <code>&quot;msgid_plural&quot;</code>, <code>&quot;msgstr&quot;</code>. 
+  For unique fields the element index is not used, but 0 should be given 
+  for consistency (may be enforced later). Span tuples can have a third 
+  element, following the indices, which is the note about why the 
+  particular span is highlighted; there may be more elements after the 
+  note, and these are all ignored.</p>
+  <p>Sometimes the match to which the spans correspond has been made on a 
+  filtered value of the message field (e.g. after accelerator markers or 
+  tags have been removed). In that case, the filtered text can be given as 
+  the fourth element of the tuple, after the list of spans, and the 
+  function will try to fit spans from filtered onto original text. More 
+  globally, if the complete highlight is relative to a modified, filtered 
+  version of the message, this message can be given as <code>fmsg</code> 
+  parameter.</p>
+  <p>The display of content can be controlled by <code>showmsg</code> 
+  parameter; if it is <code>False</code>, only the message reference and 
+  span notes are shown. Similarly for the <code>showfmsg</code> parameter, 
+  which controls the display of the content of filtered message (if given 
+  by <code>fmsg</code>). To show the filtered message may be useful for 
+  debugging filtering in cases when it is not straightforward, or it is 
+  user-defined.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message to report the content for</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a> or <code>None</code>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
+          <code>to_lines()</code> method of <a 
+          href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> for details.</li>
+        <li><strong class="pname"><code>force</code></strong> (bool) - whether to force reformatting of cached message content</li>
+        <li><strong class="pname"><code>note</code></strong> (string) - note about why the content is being reported</li>
+        <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on the line following the message</li>
+        <li><strong class="pname"><code>highlight</code></strong> ((see description)) - highlighting specification of message elements</li>
+        <li><strong class="pname"><code>showmsg</code></strong> (bool) - show content of the message</li>
+        <li><strong class="pname"><code>fmsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - filtered message</li>
+        <li><strong class="pname"><code>showfmsg</code></strong> (bool) - show content of the filtered message, if any</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (file) - output stream</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rule_error"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rule_error</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">rule</span>,
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Print formated rule error message on screen.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
+        <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
+        <li><strong class="pname"><code>rule</code></strong> - pology.misc.rules.Rule object</li>
+        <li><strong class="pname"><code>highlight</code></strong> - highlight specification (see <a 
+          href="pology.misc.msgreport-module.html#report_msg_content" 
+          class="link">report_msg_content</a>)</li>
+        <li><strong class="pname"><code>fmsg</code></strong> - filtered message which the rule really matched</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rule_xml_error"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rule_xml_error</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">rule</span>,
+        <span class="sig-arg">span</span>,
+        <span class="sig-arg">pluralId</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create and returns rule error message in XML format</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
+        <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
+        <li><strong class="pname"><code>span</code></strong> - list of 2-tuple (start, end) of offending spans</li>
+        <li><strong class="pname"><code>rule</code></strong> - pology.misc.rules.Rule object</li>
+        <li><strong class="pname"><code>pluralId</code></strong> - msgstr count in case of plural form. Default to 0</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>XML message as a list of unicode string</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="spell_error"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">spell_error</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">faultyWord</span>,
+        <span class="sig-arg">suggestions</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Print formated rule error message on screen</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
+        <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
+        <li><strong class="pname"><code>faultyWord</code></strong> - badly spelled word</li>
+        <li><strong class="pname"><code>suggestions</code></strong> - list of correct words to suggest</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="spell_xml_error"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">spell_xml_error</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">faultyWord</span>,
+        <span class="sig-arg">suggestions</span>,
+        <span class="sig-arg">pluralId</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create and returns spell error message in XML format</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> - pology.file.message.Message object</li>
+        <li><strong class="pname"><code>cat</code></strong> - pology.file.catalog.Catalog object</li>
+        <li><strong class="pname"><code>faultyWord</code></strong> - badly spelled word</li>
+        <li><strong class="pname"><code>suggestions</code></strong> - list of correct words to suggest</li>
+        <li><strong class="pname"><code>pluralId</code></strong> - msgstr count in case of plural form. Default to 0</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>XML message as a list of unicode string</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="highlight_spans"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">highlight_spans</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">spans</span>,
+        <span class="sig-arg">color</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">\x1b[31m</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">ftext</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Highlight spans in text.</p>
+  <p>Adds shell colors around defined spans in the text. Spans are given as
+  list of index tuples <code>[(start1, end1), ...]</code> where start and 
+  end index have standard Python semantics. Span tuples can have more than 
+  two elements, with indices followed by additional elements, which are 
+  ignored by this function.</p>
+  <p>If <code>ftext</code> is not <code>None</code> spans are understood as
+  relative to it, and the function will try to adapt them to the main text 
+  (see <a href="pology.misc.diff-module.html#adapt_spans" 
+  class="link">pology.misc.diff.adapt_spans</a>).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to be highlighted</li>
+        <li><strong class="pname"><code>spans</code></strong> (list of tuples) - spans to highlight</li>
+        <li><strong class="pname"><code>color</code></strong> (string) - shell color sequence for highlighting</li>
+        <li><strong class="pname"><code>ftext</code></strong> (string) - text to which spans are actually relative</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>highlighted text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

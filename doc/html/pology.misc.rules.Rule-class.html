@@ -256,7 +256,7 @@ object --+
         <li><strong class="pname"><code>mfilter</code></strong> ((msg, cat, env) -&gt; &lt;anything&gt;) - filter to apply to message before checking</li>
         <li><strong class="pname"><code>rfilter</code></strong> ((string) -&gt; string) - filter to apply to rule strings (e.g. on regex patterns)</li>
         <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; <a 
-          href="pology.misc.report-module.html#report_msg_content" 
+          href="pology.misc.msgreport-module.html#report_msg_content" 
           class="link">highlight</a>) - function to act as trigger instead of <code>pattern</code> 
           applied to <code>msgpart</code></li>
     </ul></dd>
@@ -310,7 +310,7 @@ object --+
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; 
-          {highlight&lt;misc.report.report_msg_content&gt;}) - function to act as trigger</li>
+          {highlight&lt;misc.msgreport.report_msg_content&gt;}) - function to act as trigger</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -360,7 +360,7 @@ object --+
   <p>Apply rule to the message.</p>
   <p>If the rule matches, <i>highlight specification</i> of offending spans
   is returned (see <a 
-  href="pology.misc.report-module.html#report_msg_content" 
+  href="pology.misc.msgreport-module.html#report_msg_content" 
   class="link">report_msg_content</a>); otherwise an empty list.</p>
   <p>Rule will normally apply its own filters to the message before 
   matching (on a local copy, the original message will not be affected). If

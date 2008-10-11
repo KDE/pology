@@ -70,15 +70,12 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">object with color names as instance variables</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.colors-module.html#highlight_spans" class="summary-sig-name">highlight_spans</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">spans</span>,
-        <span class="summary-sig-arg">color</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">\x1b[31m</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">ftext</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Highlight spans in text.</td>
+          <td><span class="summary-sig"><a href="pology.misc.colors-module.html#colors_for_file" class="summary-sig-name">colors_for_file</a>(<span class="summary-sig-arg">file</span>)</span><br />
+      Appropriate colors for file descriptor.</td>
           <td align="right" valign="top">
             
             
@@ -160,6 +157,13 @@
         <a name="RESET"></a><span class="summary-name">RESET</span> = <code title="'\x1b[0;0m'"><code class="variable-quote">'</code><code class="variable-string">\x1b[0;0m</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="color"></a><span class="summary-name">color</span> = <code title="'RESET'"><code class="variable-quote">'</code><code class="variable-string">RESET</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -170,43 +174,28 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="highlight_spans"></a>
+<a name="colors_for_file"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">highlight_spans</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">spans</span>,
-        <span class="sig-arg">color</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">\x1b[31m</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">ftext</span>=<span class="sig-default">None</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">colors_for_file</span>(<span class="sig-arg">file</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Highlight spans in text.</p>
-  <p>Adds shell colors around defined spans in the text. Spans are given as
-  list of index tuples <code>[(start1, end1), ...]</code> where start and 
-  end index have standard Python semantics. Span tuples can have more than 
-  two elements, with indices followed by additional elements, which are 
-  ignored by this function.</p>
-  <p>If <code>ftext</code> is not <code>None</code> spans are understood as
-  relative to it, and the function will try to adapt them to the main text 
-  (see <a href="pology.misc.diff-module.html#adapt_spans" 
-  class="link">pology.misc.diff.adapt_spans</a>).</p>
+  <p>Appropriate colors for file descriptor.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to be highlighted</li>
-        <li><strong class="pname"><code>spans</code></strong> (list of tuples) - spans to highlight</li>
-        <li><strong class="pname"><code>color</code></strong> (string) - shell color sequence for highlighting</li>
-        <li><strong class="pname"><code>ftext</code></strong> (string) - text to which spans are actually relative</li>
+        <li><strong class="pname"><code>file</code></strong> (file descriptor) - file for which the colors are requested</li>
     </ul></dd>
-    <dt>Returns: string</dt>
-        <dd>highlighted text</dd>
+    <dt>Returns: object with color names as instance variables</dt>
+        <dd>color codes</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -71,41 +71,6 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">dict</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#parse_entities" class="summary-sig-name">parse_entities</a>(<span class="summary-sig-arg">defstr</span>,
-        <span class="summary-sig-arg">src</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Parse XML entity definitions from given string.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">dict</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#read_entities" class="summary-sig-name">read_entities</a>(<span class="summary-sig-arg">*fnames</span>)</span><br />
-      Read XML entity definitions from given file names.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">string, list of strings, list of strings</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -363,76 +328,6 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="parse_entities"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_entities</span>(<span class="sig-arg">defstr</span>,
-        <span class="sig-arg">src</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Parse XML entity definitions from given string.</p>
-  <p>The string should contain only entity definitions in DTD form, without
-  any prolog or epilogue:</p>
-<pre class="literalblock">
- ...
- &lt;!ENTITY foo 'Foo-fum'&gt;
- &lt;!ENTITY bar 'Bar-boo'&gt;
- ...
-</pre>
-  <p>If the same entity is defined several times, the last read definition 
-  is taken as final.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>defstr</code></strong> (string) - entity-defining string</li>
-        <li><strong class="pname"><code>src</code></strong> - name of the source, for problem reporting</li>
-        <li><strong class="pname"><code>src</code></strong> - <code>None</code> or string</li>
-    </ul></dd>
-    <dt>Returns: dict</dt>
-        <dd>name-value pairs of parsed entities</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="read_entities"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">read_entities</span>(<span class="sig-arg">*fnames</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Read XML entity definitions from given file names.</p>
-  <p>Just passes contents from the files to <a 
-  href="pology.misc.resolve-module.html#parse_entities" 
-  class="link">parse_entities</a>.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>fnames</code></strong> (strings) - paths of entity-defining files</li>
-    </ul></dd>
-    <dt>Returns: dict</dt>
-        <dd>name-value pairs of parsed entities</dd>
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.resolve-module.html#parse_entities" 
-        class="link">parse_entities</a>
-      </p>
-</div></td></tr></table>
-</div>
 <a name="resolve_entities"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
