@@ -1194,13 +1194,32 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                 print "<    %s  %s" % (branch_cat.filename, paths_str)
 
 
+def hook_applicable (branch_check, branch_id, name_check, name):
+
+    if hasattr(branch_check, "__call__"):
+        if not branch_check(branch_id):
+            return False
+    else:
+        if not re.search(branch_check, branch_id):
+            return False
+
+    if hasattr(name_check, "__call__"):
+        if not name_check(name):
+            return False
+    else:
+        if not re.search(name_check, name):
+            return False
+
+    return True
+
+
 # Pipe msgstr through hook calls,
 # for which branch id and catalog name match hook specification.
 def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
 
     piped_msgstr = msgstr
-    for call, branch_rx, name_rx in hooks:
-        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+    for call, branch_ch, name_ch in hooks:
+        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
             piped_msgstr_tmp = call(cat, msg, piped_msgstr)
             if piped_msgstr_tmp is not None:
                 piped_msgstr = piped_msgstr_tmp
@@ -1213,8 +1232,8 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
 def exec_hook_head (branch_id, branch_name, header, hooks):
 
     # Apply all hooks to the header.
-    for call, branch_rx, name_rx in hooks:
-        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+    for call, branch_ch, name_ch in hooks:
+        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
             call(header)
 
 
@@ -1223,8 +1242,8 @@ def exec_hook_head (branch_id, branch_name, header, hooks):
 def exec_hook_cat (branch_id, branch_name, cat, hooks):
 
     # Apply all hooks to the catalog.
-    for call, branch_rx, name_rx in hooks:
-        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+    for call, branch_ch, name_ch in hooks:
+        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
             call(cat)
 
 
@@ -1238,8 +1257,8 @@ def exec_hook_file (branch_id, branch_name, filepath, hooks):
 
     # Apply all hooks to the file, but stop if one does not return True.
     failed = False
-    for call, branch_rx, name_rx in hooks:
-        if re.search(branch_rx, branch_id) and re.search(name_rx, branch_name):
+    for call, branch_ch, name_ch in hooks:
+        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
             if not call(filepath):
                 failed = True
                 break
