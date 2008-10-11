@@ -409,42 +409,42 @@ def _unmask_ws (text):
     return text
 
 
-_html_tags = set("""
+_qtrich_tags = set("""
     qt html
     a b big blockquote body br center cite code dd dl dt em font
     h1 h2 h3 h4 h5 h6 head hr i img li meta nobr ol p pre
     s span strong style sub sup table td th tr tt u ul var
 """.split())
-_html_subs = {
+_qtrich_subs = {
     "_nows" : ("", "", None),
     "_parabr": (WS_NEWLINE*2, WS_NEWLINE*2, None),
 }
-_html_subs.update([(x, _html_subs["_nows"]) for x in _html_tags])
-_html_subs.update([(x, _html_subs["_parabr"]) for x in
+_qtrich_subs.update([(x, _qtrich_subs["_nows"]) for x in _qtrich_tags])
+_qtrich_subs.update([(x, _qtrich_subs["_parabr"]) for x in
                    "br h1 h2 h3 h4 h5 h6 hr li p pre td th tr".split()])
-_html_ents = { # in addition to default XML entities
+_qtrich_ents = { # in addition to default XML entities
     "nbsp": u"\xa0",
 }
-_html_keepws = set("""
+_qtrich_keepws = set("""
     code pre
 """.split())
-_html_ignels = set([
+_qtrich_ignels = set([
     ("style", "text/css"),
 ])
 
-def html_to_plain (text):
+def qtrich_to_plain (text):
     """
-    Convert HTML markup to plain text.
+    Convert Qt rich-text markup to plain text.
 
-    @param text: HTML text to convert to plain
+    @param text: Qt rich text to convert to plain
     @type text: string
 
     @returns: plain text version
     @rtype: string
     """
 
-    return xml_to_plain(text, _html_tags, _html_subs, _html_ents,
-                              _html_keepws, _html_ignels)
+    return xml_to_plain(text, _qtrich_tags, _qtrich_subs, _qtrich_ents,
+                              _qtrich_keepws, _qtrich_ignels)
 
 
 _kuit_tags = set("""
@@ -482,20 +482,20 @@ def kuit_to_plain (text):
                               _kuit_keepws, _kuit_ignels)
 
 
-_htkt_tags = set(list(_html_tags) + list(_kuit_tags))
-_htkt_subs = dict(_html_subs.items() + _kuit_subs.items())
-_htkt_ents = dict(_html_ents.items() + _kuit_ents.items())
-_htkt_keepws = set(list(_html_keepws) + list(_kuit_keepws))
-_htkt_ignels = set(list(_html_ignels) + list(_kuit_ignels))
+_htkt_tags = set(list(_qtrich_tags) + list(_kuit_tags))
+_htkt_subs = dict(_qtrich_subs.items() + _kuit_subs.items())
+_htkt_ents = dict(_qtrich_ents.items() + _kuit_ents.items())
+_htkt_keepws = set(list(_qtrich_keepws) + list(_kuit_keepws))
+_htkt_ignels = set(list(_qtrich_ignels) + list(_kuit_ignels))
 
 def kde4_to_plain (text):
     """
     Convert KDE4 GUI markup to plain text.
 
-    KDE4 GUI texts may contain both (X)HTML and KUIT markup,
+    KDE4 GUI texts may contain both Qt rich-text and KUIT markup,
     even mixed in the same text.
     Note that the conversion cannot be achieved, in general, by first
-    converting (X)HTML, and then KUIT, or vice versa.
+    converting Qt rich-text, and then KUIT, or vice versa.
     For example, if the text has C{&lt;} entity, after first conversion
     it will become plain C{<}, and interfere with second conversion.
 
@@ -961,12 +961,16 @@ class _Multidict (object):
 _entpath_html = os.path.join(rootdir(), "spec", "html.entities")
 html_entities = read_entities(_entpath_html)
 
-_html_l1 = None
+_qtrich_l1 = None
 
-def check_xml_html_l1 (text, ents=None):
+def check_xml_qtrich_l1 (text, ents=None):
     """
-    Validate XHTML markup in text against L{level1<collect_xml_spec_l1>}
+    Validate Qt rich-text markup in text against L{level1<collect_xml_spec_l1>}
     specification.
+
+    At the moment, this function can only check Qt rich-text if well-formed
+    in the XML sense, although Qt rich-text allows HTML-type omission of
+    closing tags.
 
     See L{check_xml_l1} for description of the C{ents} parameter
     and the return value.
@@ -980,16 +984,16 @@ def check_xml_html_l1 (text, ents=None):
     @rtype: list of (int, int, string) tuples
     """
 
-    global _html_l1
-    if _html_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "html.l1")
-        _html_l1 = collect_xml_spec_l1(specpath)
+    global _qtrich_l1
+    if _qtrich_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "qtrich.l1")
+        _qtrich_l1 = collect_xml_spec_l1(specpath)
 
     if ents is not None:
         ents = _Multidict([ents, html_entities])
 
-    return check_xml_l1(text, spec=_html_l1, xmlfmt="XHTML", ents=ents,
-                        casesens=False)
+    return check_xml_l1(text, spec=_qtrich_l1, xmlfmt="Qt-rich", ents=ents,
+                        accelamp=True, casesens=False)
 
 
 _kuit_l1 = None
@@ -1015,10 +1019,11 @@ def check_xml_kuit_l1 (text, ents=None):
 
     global _kuit_l1
     if _kuit_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        specpath = os.path.join(rootdir(), "spec", "kuit.l1")
         _kuit_l1 = collect_xml_spec_l1(specpath)
 
-    return check_xml_l1(text, spec=_kuit_l1, xmlfmt="KUIT", ents=ents)
+    return check_xml_l1(text, spec=_kuit_l1, xmlfmt="KUIT", ents=ents,
+                        accelamp=True)
 
 
 _kde4_l1 = None
@@ -1028,8 +1033,8 @@ def check_xml_kde4_l1 (text, ents=None):
     """
     Validate markup in texts used in KDE4 GUI.
 
-    KDE4 GUI texts may contain both XHTML (Qt's subset of it, in fact)
-    and KUIT markup, even mixed in the same text.
+    KDE4 GUI texts may contain both Qt rich-text and KUIT markup,
+    even mixed in the same text.
 
     See L{check_xml_l1} for description of the C{ents} parameter
     and the return value.
@@ -1046,7 +1051,7 @@ def check_xml_kde4_l1 (text, ents=None):
     global _kde4_l1, _kde4_ents
     if _kde4_l1 is None:
         _kde4_l1 = {}
-        spath1 = os.path.join(rootdir(), "spec", "html.l1")
+        spath1 = os.path.join(rootdir(), "spec", "qtrich.l1")
         _kde4_l1.update(collect_xml_spec_l1(spath1))
         spath2 = os.path.join(rootdir(), "spec", "kuit.l1")
         _kde4_l1.update(collect_xml_spec_l1(spath2))

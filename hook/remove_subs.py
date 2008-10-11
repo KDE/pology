@@ -95,10 +95,10 @@ def _rm_markup_in_text (text, mtypes):
     for mtype in mtypes:
         mtype = mtype.lower()
         if 0: pass
-        elif mtype == "kde4" or mtype == "htmlkuit":
+        elif mtype == "kde4":
             text = M.kde4_to_plain(text)
-        elif mtype == "html":
-            text = M.html_to_plain(text)
+        elif mtype == "qtrich":
+            text = M.qtrich_to_plain(text)
         elif mtype == "kuit":
             text = M.kuit_to_plain(text)
         elif mtype == "docbook4" or mtype == "docbook":
@@ -132,8 +132,8 @@ def remove_markup_text (cat, msg, text):
     in case it does not specify any on its own.
     If catalog reports C{None} for markup types, text is not touched.
 
-    The following markup types are recognized at the moment, by keyword strings
-    (case insensitive): C{html}, C{kuit}, C{kde4}, C{docbook4}, C{xml}.
+    See L{pology.file.catalog.set_markup} for list of markup types
+    by keyword strings recognized at the moment.
 
     @note: Hook type: C{(cat, msg, text) -> text}
     """

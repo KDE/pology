@@ -1,10 +1,8 @@
-# Informal listing of (X)HTML tags and their attributes.
-
-# FIXME: Current setup reflects mostly to the "Qt rich text", a subset of HTML.
-# Gather tags and attributes from the real HTML.
+# Informal listing of Qt rich-text tags and their attributes.
 
 # FIXME: Attributes are only partially listed, add more.
 
+# Tags which are subset of HTML.
 html;
 a: href title;
 b;
@@ -55,5 +53,5 @@ var;
 # FIXME: Really all have title attribute?
 pe-common-attributes: style title;
 
-# Qt's rich text top level tag (deprecated in Qt 4.x?).
+# Qt's rich-text top level tag (deprecated in Qt 4.x?)
 qt;
