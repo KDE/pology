@@ -95,14 +95,14 @@ def _rm_markup_in_text (text, mtypes):
     for mtype in mtypes:
         mtype = mtype.lower()
         if 0: pass
-        elif mtype == "htmlkuit":
-            text = M.htmlkuit_to_plain(text)
+        elif mtype == "kde4" or mtype == "htmlkuit":
+            text = M.kde4_to_plain(text)
         elif mtype == "html":
             text = M.html_to_plain(text)
         elif mtype == "kuit":
             text = M.kuit_to_plain(text)
-        elif mtype == "docbook":
-            text = M.docbook_to_plain(text)
+        elif mtype == "docbook4" or mtype == "docbook":
+            text = M.docbook4_to_plain(text)
         elif mtype == "xml":
             text = M.xml_to_plain(text)
 
@@ -133,7 +133,7 @@ def remove_markup_text (cat, msg, text):
     If catalog reports C{None} for markup types, text is not touched.
 
     The following markup types are recognized at the moment, by keyword strings
-    (case insensitive): C{html}, C{kuit}, C{htmlkuit}, C{docbook}, C{xml}.
+    (case insensitive): C{html}, C{kuit}, C{kde4}, C{docbook4}, C{xml}.
 
     @note: Hook type: C{(cat, msg, text) -> text}
     """
