@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Check validity of XML markup.
+Check validity of text markup.
 """
 
 import os
