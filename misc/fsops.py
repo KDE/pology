@@ -13,6 +13,78 @@ import os
 from pology.misc.report import error, warning
 
 
+def collect_files_by_ext (dirpath, extension,
+                          recurse=True, sort=True, unique=True):
+    """
+    Collect list of files having given extension from given directory path.
+
+    Single path or a sequence of paths may be given as C{dirpath} parameter.
+    Similarly, a single extension or sequence of extensions may be given
+    in place of C{extension} parameter. If extensions are given as empty
+    sequence, then files with no extensions are collected.
+    Directories can be searched for files recursively or non-resursively,
+    as requested by the C{recurse} parameter.
+
+    Collected file paths are by default sorted and any duplicates eliminated,
+    but this can be controlled using the C{sort} and C{unique} parameters.
+
+    @param dirpath: path to search for files
+    @type dirpath: string or sequence of strings
+    @param extension: extension of files to collect
+    @type extension: string or sequence of strings
+    @param recurse: whether to search for files recursively
+    @type recurse: bool
+    @param sort: whether to sort collected paths
+    @type sort: bool
+    @param unique: whether to eliminate duplicates from collected paths
+    @type unique: bool
+
+    @returns: list of collected file paths
+    @rtype: list of strings
+    """
+
+    if isinstance(dirpath, basestring):
+        dirpaths = [dirpath]
+    else:
+        dirpaths = dirpath
+
+    if isinstance(extension, basestring):
+        extensions = [extension]
+    else:
+        extensions = extension
+    # Tuple for matching file paths with str.endswith().
+    dot_exts = tuple(["." + x for x in extensions])
+
+    filepaths = []
+    for dirpath in dirpaths:
+        if not os.path.isdir(dirpath):
+            warning("path '%s' is not a directory path" % dirpath)
+            continue
+        for root, dirs, files in os.walk(dirpath):
+            for file in files:
+                if (   file.endswith(dot_exts)
+                    or (not dot_exts and "." not in file)
+                ):
+                    filepath = os.path.normpath(os.path.join(root, file))
+                    filepaths.append(filepath)
+
+    if sort:
+        if unique:
+            filepaths = list(set(filepaths))
+        filepaths.sort()
+    elif unique:
+        # To preserve the order, reinsert catalogs avoiding duplicates.
+        seen = {}
+        unique = []
+        for filepath in filepaths:
+            if filepath not in seen:
+                seen[filepath] = True
+                unique.append(filepath)
+        filepaths = unique
+
+    return filepaths
+
+
 def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
     """
     Collect list of catalog file paths from given file/directory paths.
@@ -65,6 +137,7 @@ def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
         catalog_files = unique
 
     return catalog_files
+
 
 
 def mkdirpath (dirpath):
