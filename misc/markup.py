@@ -598,6 +598,8 @@ def collect_xml_spec_l1 (specpath):
     for elspec in specstr.split(";"):
         lst = elspec.split(":")
         tag = lst.pop(0).strip()
+        if not tag:
+            continue
         tagattrs[tag] = {}
         if lst:
             attrs = lst[0].split()
