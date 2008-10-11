@@ -56,6 +56,13 @@
   validation of XML files generated from translated POs can show it correct
   for sure. This sieve just checks for well-formedness and mere existance 
   of a tag in Docbook subset, and on a single PO entry level.</p>
+  <p>Sieve options:</p>
+  <ul>
+    <li>
+      <code>showmsg</code>: show content of the message, with errors 
+      highlighted
+    </li>
+  </ul>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -76,150 +83,10 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.sieve.check_xml_docbook4.Sieve-class.html" class="summary-name">Sieve</a><br />
-      Weakly check validity of Docbook XML.
+        <a href="pology.sieve.check_xml_docbook4.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
 </table>
-<!-- ==================== FUNCTIONS ==================== -->
-<a name="section-Functions"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Functions</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="check_xml_docbook"></a><span class="summary-sig-name">check_xml_docbook</span>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">msgstr</span>,
-        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">False</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="match_placeholder_tags"></a><span class="summary-sig-name">match_placeholder_tags</span>(<span class="summary-sig-arg">msgid</span>,
-        <span class="summary-sig-arg">msgstr</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-</table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="pology.sieve.check_xml_docbook4-module.html#specpath" class="summary-name">specpath</a> = <code title="'/home/caslav/VCS/kde/trunk/l10n-support/pology/misc/check_xml_docbook\
-4-spec.txt'"><code class="variable-quote">'</code><code class="variable-string">/home/caslav/VCS/kde/trunk/l10n-support/pology/mis</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="pology.sieve.check_xml_docbook4-module.html#docbook_tagattrs" class="summary-name">docbook_tagattrs</a> = <code title="{u'': {u'arch': True,
-       u'condition': True,
-       u'conformance': True,
-       u'dir': True,
-       u'id': True,
-       u'lang': True,
-       u'remap': True,
-       u'revision': True,
-..."><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">arch</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">condition</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">, </code><code class="variable-quote">u</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="dummy_top"></a><span class="summary-name">dummy_top</span> = <code title="'dummytop123'"><code class="variable-quote">'</code><code class="variable-string">dummytop123</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
-</table>
-<!-- ==================== VARIABLES DETAILS ==================== -->
-<a name="section-VariablesDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables Details</span></td>
-</tr>
-</table>
-<a name="specpath"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">specpath</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'</code><code class="variable-string">/home/caslav/VCS/kde/trunk/l10n-support/pology/misc/check_xml_docbook</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">4-spec.txt</code><code class="variable-quote">'</code>
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="docbook_tagattrs"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">docbook_tagattrs</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">arch</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">condition</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">conformance</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">dir</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">lang</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">remap</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-       <code class="variable-quote">u'</code><code class="variable-string">revision</code><code class="variable-quote">'</code><code class="variable-op">: </code>True<code class="variable-op">,</code>
-<code class="variable-ellipsis">...</code>
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

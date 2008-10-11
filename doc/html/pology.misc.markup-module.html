@@ -147,8 +147,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#htmlkuit_to_plain" class="summary-sig-name">htmlkuit_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
-      Convert mixed HTML and KUIT markup to plain text.</td>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#kde4_to_plain" class="summary-sig-name">kde4_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert KDE4 GUI markup to plain text.</td>
           <td align="right" valign="top">
             
             
@@ -164,8 +164,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#docbook_to_plain" class="summary-sig-name">docbook_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
-      Convert Docbook markup to plain text.</td>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#docbook4_to_plain" class="summary-sig-name">docbook4_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert Docbook 4.x markup to plain text.</td>
           <td align="right" valign="top">
             
             
@@ -192,6 +192,127 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_l1" class="summary-sig-name">check_xml_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">xmlfmt</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">accelamp</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Validate XML markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_docbook4_l1" class="summary-sig-name">check_xml_docbook4_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate Docbook 4.x markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_placeholder_els" class="summary-sig-name">check_placeholder_els</a>(<span class="summary-sig-arg">orig</span>,
+        <span class="summary-sig-arg">trans</span>)</span><br />
+      Check if sets of <code>&lt;placeholder-N/&gt;</code> elements are 
+      matching between original and translated text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_html_l1" class="summary-sig-name">check_xml_html_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate XHTML markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_kuit_l1" class="summary-sig-name">check_xml_kuit_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate KUIT markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_kde4_l1" class="summary-sig-name">check_xml_kde4_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate markup in texts used in KDE4 GUI.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -201,6 +322,13 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Variables</span></td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.misc.markup-module.html#xml_entities" class="summary-name">xml_entities</a> = <code title="{'amp': '&amp;', 'apos': '\'', 'gt': '&gt;', 'lt': '&lt;', 'quot': '&quot;'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">amp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">apos</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">gt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">lt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -220,6 +348,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="WS_NEWLINE"></a><span class="summary-name">WS_NEWLINE</span> = <code title="'\x04~nl'"><code class="variable-quote">'</code><code class="variable-string">\x04~nl</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="html_entities"></a><span class="summary-name">html_entities</span> = <code title="{u'nbsp': u'&#160;', u'reg': u'&#174;', u'tm': u'&#8482;'}"><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">nbsp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#160;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">reg</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#174;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">tm</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#8482;</code><code class="variable-quote">'</code><code class="variable-group">}</code></code>
     </td>
   </tr>
 <tr>
@@ -404,52 +539,52 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="htmlkuit_to_plain"></a>
+<a name="kde4_to_plain"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">htmlkuit_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">kde4_to_plain</span>(<span class="sig-arg">text</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Convert mixed HTML and KUIT markup to plain text.</p>
-  <p>Note that in general this is not the same as first converting HTML, 
-  and then KUIT, or vice versa. For example, if the text has 
-  <code>&amp;lt;</code> entity, after first conversion it will become plain
-  <code>&lt;</code>, and interfere with second conversion. Thus, this 
-  function should be used whenever both HTML and KUIT may appear in the 
-  same text.</p>
+  <p>Convert KDE4 GUI markup to plain text.</p>
+  <p>KDE4 GUI texts may contain both (X)HTML and KUIT markup, even mixed in
+  the same text. Note that the conversion cannot be achieved, in general, 
+  by first converting (X)HTML, and then KUIT, or vice versa. For example, 
+  if the text has <code>&amp;lt;</code> entity, after first conversion it 
+  will become plain <code>&lt;</code>, and interfere with second 
+  conversion.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - HTML+KUIT text to convert to plain</li>
+        <li><strong class="pname"><code>text</code></strong> (string) - KDE4 text to convert to plain</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text version</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="docbook_to_plain"></a>
+<a name="docbook4_to_plain"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">docbook_to_plain</span>(<span class="sig-arg">text</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">docbook4_to_plain</span>(<span class="sig-arg">text</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Convert Docbook markup to plain text.</p>
+  <p>Convert Docbook 4.x markup to plain text.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -496,6 +631,259 @@
     </ul></dd>
     <dt>Returns: dict</dt>
         <dd>level 1 specification</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">spec</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">xmlfmt</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">accelamp</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate XML markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>Text is not required to have a top tag; if it does not, a dummy one 
+  will be assigned to assure that the check passes.</p>
+  <p>If <code>spec</code> is <code>None</code>, text is only checked to be 
+  well-formed.</p>
+  <p>If <code>ents</code> are <code>None</code>, entities in the text are 
+  ignored by the check; otherwise, an entity not belonging to the known set
+  is considered erroneous. Default XML entities (<code>&amp;lt;</code>, 
+  <code>&amp;gt;</code>, <code>&amp;amp;</code>, <code>&amp;quot;</code>, 
+  <code>&amp;apos;</code>) are automatically added to the set of known 
+  entities.</p>
+  <p>Tag and attribute names can be made case-insensitive by setting 
+  <code>casesens</code> to <code>False</code>.</p>
+  <p>If text is a part of user interface, and the environment may use the 
+  literal ampersand as accelerator marker, it can be allowed to pass the 
+  check by setting <code>accelamp</code> to <code>True</code>.</p>
+  <p>The result of the check is list of erroneous spans in the text, each 
+  given by start and end index (in Python standard semantics), and the 
+  error description, packed in a tuple. If there are no errors, empty list 
+  is returned. Reported spans need not be formally complete with respect to
+  the error location, but are heuristically determined to be short and 
+  provide good visual indication of what triggers the error.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>spec</code></strong> (<a href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+          class="link">level1</a> specification) - markup definition</li>
+        <li><strong class="pname"><code>xmlfmt</code></strong> (string) - name of the particular XML format (for error messages)</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities</li>
+        <li><strong class="pname"><code>casesens</code></strong> (bool) - whether tag names are case-insensitive</li>
+        <li><strong class="pname"><code>accelamp</code></strong> (bool) - whether to allow ampersand as accelerator marker</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_docbook4_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_docbook4_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate Docbook 4.x markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>Markup definition is extended to include 
+  <code>&lt;placeholder-N/&gt;</code> elements, which <code>xml2po</code> 
+  uses to segment text when extracting markup documents into PO 
+  templates.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_placeholder_els"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_placeholder_els</span>(<span class="sig-arg">orig</span>,
+        <span class="sig-arg">trans</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if sets of <code>&lt;placeholder-N/&gt;</code> elements are 
+  matching between original and translated text.</p>
+  <p><code>&lt;placeholder-N/&gt;</code> elements are added into text by 
+  <code>xml2po</code>, for finer segmentation of markup documents extracted
+  into PO templates.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>orig</code></strong> (string) - original text</li>
+        <li><strong class="pname"><code>trans</code></strong> (string) - translated text</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in translation</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_html_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_html_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate XHTML markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_kuit_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_kuit_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate KUIT markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>KUIT is the semantic markup for user interface in KDE4.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_kde4_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_kde4_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate markup in texts used in KDE4 GUI.</p>
+  <p>KDE4 GUI texts may contain both XHTML (Qt's subset of it, in fact) and
+  KUIT markup, even mixed in the same text.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables Details</span></td>
+</tr>
+</table>
+<a name="xml_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">xml_entities</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">amp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">apos</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">gt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">lt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">quot</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
   </dl>
 </td></tr></table>
 </div>

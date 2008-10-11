@@ -219,13 +219,39 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.report-module.html#report_on_msg_hl" class="summary-sig-name">report_on_msg_hl</a>(<span class="summary-sig-arg">highlight</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
+      Report on parts of a PO message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8dcb41c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x976210c&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">showmsg</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">showfmsg</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Report the content of a PO message.</td>
           <td align="right" valign="top">
@@ -247,7 +273,7 @@
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">rule</span>,
         <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">msgf</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">fmsg</span>=<span class="summary-sig-default">None</span>)</span><br />
       Print formated rule error message on screen.</td>
           <td align="right" valign="top">
             
@@ -466,13 +492,13 @@
   </tr></table>
   
   <p>Report on a PO message.</p>
-  <p>Provides the message reference along with the report text, consisting 
-  of the catalog name and the message position within it.</p>
+  <p>Outputs the message reference (catalog name and message position), 
+  along with the report text.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
-        <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
           class="link">Message_base</a>) - the message for which the text is reported</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - the catalog where the message lives</li>
@@ -501,13 +527,13 @@
   </tr></table>
   
   <p>Warning on a PO message.</p>
-  <p>Provides the message reference along with the warning text, consisting
-  of the catalog name and the message position within it.</p>
+  <p>Outputs the message reference (catalog name and the message position),
+  along with the warning text.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
-        <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
           class="link">Message_base</a>) - the message for which the text is reported</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - the catalog where the message lives</li>
@@ -537,18 +563,60 @@
   </tr></table>
   
   <p>Error on a PO message (aborts the execution).</p>
-  <p>Provides the message reference along with the error text, consisting 
-  of the catalog name and the message position within it. Exits with the 
-  given code.</p>
+  <p>Outputs the message reference (catalog name and message position), 
+  along with the error text. Aborts execution with the given code.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text to report</li>
-        <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
           class="link">Message_base</a>) - the message for which the text is reported</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - the catalog where the message lives</li>
         <li><strong class="pname"><code>code</code></strong> (int) - the exit code</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="report_on_msg_hl"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">report_on_msg_hl</span>(<span class="sig-arg">highlight</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report on parts of a PO message.</p>
+  <p>For each of the spans found in the <a 
+  href="pology.misc.report-module.html#report_msg_content" 
+  class="link">highlight</a> specification which have a note attached, 
+  outputs the position reference (catalog name, message position, spanned 
+  segment) and the span note. The highlight can be relative to a somewhat 
+  modified, filtered message instead of the original one.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>highlight</code></strong> (<a href="pology.misc.report-module.html#report_msg_content" 
+          class="link">highlight</a>) - highlight specification</li>
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message for which the text is reported</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog where the message lives</li>
+        <li><strong class="pname"><code>fmsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - filtered message to which the highlight corresponds</li>
         <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
         <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
     </ul></dd>
@@ -564,11 +632,15 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8dcb41c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x976210c&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">showmsg</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">showfmsg</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -577,8 +649,9 @@
   </tr></table>
   
   <p>Report the content of a PO message.</p>
-  <p>Provides the message reference along with the message contents, 
-  consisting of the catalog name and the message position within it.</p>
+  <p>Provides the message reference, consisting of the catalog name and the
+  message position within it, the message contents, and any notes on 
+  particular segments.</p>
   <p>Parts of the message can be highlighted using shell colors. Parameter 
   <code>highlight</code> provides the highlighting specification, as list 
   of tuples where each tuple consists of: name of the message element to 
@@ -594,18 +667,29 @@
   <code>&quot;msgctxt&quot;</code>, <code>&quot;msgid&quot;</code>, 
   <code>&quot;msgid_plural&quot;</code>, <code>&quot;msgstr&quot;</code>. 
   For unique fields the element index is not used, but 0 should be given 
-  for consistency (may be enforced later). Span tuples can have more than 
-  two elements, with indices followed by additional elements, which are 
-  ignored by this function.</p>
+  for consistency (may be enforced later). Span tuples can have a third 
+  element, following the indices, which is the note about why the 
+  particular span is highlighted; there may be more elements after the 
+  note, and these are all ignored.</p>
   <p>Sometimes the match to which the spans correspond has been made on a 
   filtered value of the message field (e.g. after accelerator markers or 
   tags have been removed). In that case, the filtered text can be given as 
   the fourth element of the tuple, after the list of spans, and the 
-  function will try to fit spans from filtered onto original text.</p>
+  function will try to fit spans from filtered onto original text. More 
+  globally, if the complete highlight is relative to a modified, filtered 
+  version of the message, this message can be given as <code>fmsg</code> 
+  parameter.</p>
+  <p>The display of content can be controlled by <code>showmsg</code> 
+  parameter; if it is <code>False</code>, only the message reference and 
+  span notes are shown. Similarly for the <code>showfmsg</code> parameter, 
+  which controls the display of the content of filtered message (if given 
+  by <code>fmsg</code>). To show the filtered message may be useful for 
+  debugging filtering in cases when it is not straightforward, or it is 
+  user-defined.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msg</code></strong> (instance of <a href="pology.file.message.Message_base-class.html"
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
           class="link">Message_base</a>) - the message to report the content for</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a> or <code>None</code>) - the catalog where the message lives</li>
@@ -614,10 +698,15 @@
           href="pology.file.message.Message_base-class.html" 
           class="link">Message_base</a> for details.</li>
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to force reformatting of cached message content</li>
+        <li><strong class="pname"><code>note</code></strong> (string) - note about why the content is being reported</li>
         <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on the line following the message</li>
-        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
         <li><strong class="pname"><code>highlight</code></strong> ((see description)) - highlighting specification of message elements</li>
-        <li><strong class="pname"><code>file</code></strong> (file) - output stream. Default is sys.stdout</li>
+        <li><strong class="pname"><code>showmsg</code></strong> (bool) - show content of the message</li>
+        <li><strong class="pname"><code>fmsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - filtered message</li>
+        <li><strong class="pname"><code>showfmsg</code></strong> (bool) - show content of the filtered message, if any</li>
+        <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the message</li>
+        <li><strong class="pname"><code>file</code></strong> (file) - output stream</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -633,7 +722,7 @@
         <span class="sig-arg">cat</span>,
         <span class="sig-arg">rule</span>,
         <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">msgf</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">fmsg</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -650,7 +739,7 @@
         <li><strong class="pname"><code>highlight</code></strong> - highlight specification (see <a 
           href="pology.misc.report-module.html#report_msg_content" 
           class="link">report_msg_content</a>)</li>
-        <li><strong class="pname"><code>msgf</code></strong> - filtered message which the rule really matched</li>
+        <li><strong class="pname"><code>fmsg</code></strong> - filtered message which the rule really matched</li>
     </ul></dd>
   </dl>
 </td></tr></table>

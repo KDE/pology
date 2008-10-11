@@ -345,6 +345,10 @@
   ordered by increasing start index, and empty spans removed; otherwise 
   each adapted span will strictly correspond to the input span at that 
   position.</p>
+  <p>Span tuples may have more elements past the start and end indices. 
+  They will be ignored, but preserved; if merging is in effect, extra 
+  elements will be preserved for only the frontmost of the overlapping 
+  spans (undefined for which if there are several).</p>
   <p>If any of the input spans are invalid, the results are undefined.</p>
   <dl class="fields">
     <dt>Parameters:</dt>

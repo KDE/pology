@@ -161,6 +161,30 @@
   replaced with dashes in the <code>posieve</code> command line. The dashes
   will be converted back to underscores before trying to resolve the 
   location of the internal sieve.</p>
+  <p>The following user configuration fields are considered (they may be 
+  overridden by command line options):</p>
+  <ul>
+    <li>
+      <code>[posieve]/wrap</code>: whether to wrap message fields (default 
+      <code>yes</code>)
+    </li>
+    <li>
+      <code>[posieve]/tag-split</code>: whether to split mesage fields on 
+      tags (default <code>yes</code>)
+    </li>
+    <li>
+      <code>[posieve]/skip-on-error</code>: whether to skip current catalog
+      on processing error, and go to next (default <code>yes</code>)
+    </li>
+    <li>
+      <code>[posieve]/msgfmt-check</code>: whether to check catalog file by
+      <code>msgfmt -c</code> before sieving (default <code>no</code>)
+    </li>
+    <li>
+      <code>[posieve]/use-psyco</code>: whether to use Psyco specializing 
+      compiler, if available (default <code>yes</code>)
+    </li>
+  </ul>
 
 <hr />
 <div class="fields">      <p><strong>Warning:</strong>

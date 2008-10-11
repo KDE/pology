@@ -201,6 +201,16 @@
         <code>env</code>: passes if the operating environment is contained 
         in this comma-separated list of environment names
       </li>
+      <li>
+        <code>head</code>: passes if the catalog header contains 
+        field/value combination; the format is 
+        <code>&lt;sep&gt;&lt;field&gt;&lt;sep&gt;&lt;value&gt;</code>, 
+        where <code>&lt;sep&gt;</code> is an arbitrary separator character 
+        used consistently at both positions, and <code>&lt;field&gt;</code>
+        and <code>&lt;value&gt;</code> are regular expressions on field 
+        name and value. Example: 
+        <code>head=&quot;/Language.*/\bsr&quot;</code>
+      </li>
     </ul>
     <p>Each test can be negated by prefixing it with exclamation sign, e.g.
     <code>!cat=&quot;foo,bar&quot;</code> will pass if catalog name is 
