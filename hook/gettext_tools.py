@@ -2,6 +2,9 @@
 
 """
 Pipe PO files through Gettext commands.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
 """
 
 import os
