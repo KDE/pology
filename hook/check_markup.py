@@ -195,19 +195,35 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
     return hook
 
 
+# Cache for loaded entities, by environment variable and fcap setting,
+# to speed up when several markup hooks are using the same setup.
+_loaded_entities_cache = {}
+
 def _read_combine_entities (entities, entpathenv, fcap):
 
+    loaded_entities = None
     if entpathenv is not None:
-        tmp_entities = read_entities_by_env(entpathenv)
-        # Give lower priority to read entities in case of conflicts.
-        if entities is not None:
-            tmp_entities.update(entities)
-        entities = tmp_entities
+        key = (entpathenv, fcap)
+        loaded_entities = _loaded_entities_cache.get(key)
+        if loaded_entities is None:
+            loaded_entities = read_entities_by_env(entpathenv)
+            if fcap:
+                loaded_entities = fcap_entities(loaded_entities)
+            _loaded_entities_cache[key] = loaded_entities
 
     if fcap and entities is not None:
-        tmp_entities = fcap_entities(entities)
-        tmp_entities.update(entities)
-        entities = tmp_entities
+        entities = fcap_entities(entities)
 
-    return entities
+    # Combine explicit and loaded entities.
+    all_entities = None
+    if entities is not None and loaded_entities is not None:
+        # Give lower priority to read entities in case of conflicts.
+        all_entities = loaded_entities.copy()
+        all_entities.update(entities)
+    elif entities is not None:
+        all_entities = entities
+    elif loaded_entities is not None:
+        all_entities = loaded_entities
+
+    return all_entities
 
