@@ -189,7 +189,8 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
             return (spans,)
         else:
             for span in spans:
-                report_on_msg(span[2], msg, cat)
+                if span[2:]:
+                    report_on_msg(span[2], msg, cat)
 
     return hook
 
