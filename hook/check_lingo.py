@@ -126,7 +126,7 @@ def _check_spell_w (lang, encoding, variety, extopts,
         except AspellConfigError, e:
             error("Aspell configuration error:\n%s" % e)
         except AspellError, e:
-            error("cannot initialize Aspell given configuration:\n%s" % e)
+            error("cannot initialize Aspell:\n%s" % e)
     else:
         # Create simple internal checker that only checks against
         # internal supplemental dictionaries.
@@ -141,14 +141,13 @@ def _check_spell_w (lang, encoding, variety, extopts,
 
     # FIXME: It is said that no fancy word-splitting is done on the text,
     # but still, best to split it assuming plain text?
-    wsplit_rx = re.compile("\w+", re.U)
-    purenum_rx = re.compile("^\d*$", re.U)
+    wsplit_rx = re.compile("[^\W\d_]+", re.U)
     def wsplit (cat, msg, text):
         word_spans = []
         for m in wsplit_rx.finditer(text):
             word, span = m.group(0), m.span()
-            if not purenum_rx.search(word):
-                word_spans.append((word, span))
+            word_spans.append((word, span))
+        # ...could have been a single comprehension, but may need expansion.
         return word_spans
 
     # The hook itself.
