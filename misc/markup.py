@@ -730,10 +730,9 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     return g.spans
 
 
-def _escape_amp_accel (text):
+_ts_fence = "|/|"
 
-    pos_amp = -1
-    num_amp = 0
+def _escape_amp_accel (text):
 
     p1 = 0
     while True:
@@ -752,23 +751,24 @@ def _escape_amp_accel (text):
         if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
             and ((nc.isalnum() or nc == "~") or nc == "&")
         ):
-            pos_amp = p1
-            num_amp = 1
             # Check if the next one is an ampersand too,
             # i.e. if it's an escaped accelerator markup.
             # FIXME: Or perhaps not let the other ampersand pass?
+            namp = 1
             if text[p1 + 1:p1 + 2] == "&":
-                num_amp += 1
+                namp += 1
 
-            break
+            # Escape the marker.
+            text = text[:p1] + "&amp;" * namp + text[p1 + namp:]
+
+            # Perhaps there is a Transcript fence in front,
+            # jump to it to escape another marker there.
+            p2 = text.find(_ts_fence, p1 + 1)
 
         if p2 < 0:
             break
 
         p1 = p2
-
-    if num_amp > 0:
-        text = text[:pos_amp] + "&amp;" * num_amp + text[pos_amp + num_amp:]
 
     return text
 
