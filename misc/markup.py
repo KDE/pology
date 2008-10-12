@@ -734,6 +734,9 @@ _ts_fence = "|/|"
 
 def _escape_amp_accel (text):
 
+    p_ts = text.find(_ts_fence)
+    in_script = False
+
     p1 = 0
     while True:
 
@@ -741,6 +744,8 @@ def _escape_amp_accel (text):
         p1 = text.find("&", p1)
         if p1 < 0:
             break
+        if p_ts >= 0 and p1 > p_ts:
+            in_script = True
         p2 = text.find(";", p1)
 
         # An accelerator marker if no semicolon in rest of the text
@@ -759,16 +764,25 @@ def _escape_amp_accel (text):
                 namp += 1
 
             # Escape the marker.
-            text = text[:p1] + "&amp;" * namp + text[p1 + namp:]
+            escseg = "&amp;" * namp
+            text = text[:p1] + escseg + text[p1 + namp:]
+            p1 += len(escseg)
 
-            # Perhaps there is a Transcript fence in front,
-            # jump to it to escape another marker there.
-            p2 = text.find(_ts_fence, p1 + 1)
+            if not in_script:
+                # If there is a Transcript fence in front, jump to it.
+                # Otherwise jump out (allow only one marker in ordinary text),
+                # unless the marker was escaped.
+                # Allow any number of markers in the scripted part.
+                if p_ts >= 0:
+                    p2 = p_ts
+                    in_script = True
+                elif namp == 1:
+                    break
 
-        if p2 < 0:
+        elif p2 > p1:
+            p1 = p2
+        else:
             break
-
-        p1 = p2
 
     return text
 
