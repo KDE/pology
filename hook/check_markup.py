@@ -2,12 +2,16 @@
 
 """
 Check validity of text markup.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
 """
 
 import pology.misc.markup as M
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.entities import read_entities_by_env, fcap_entities
 from pology.misc.report import warning
+from pology.misc.msgreport import report_on_msg
 
 
 # Pipe flag used to manually prevent check for a particular message.
@@ -171,28 +175,21 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
-    if strict:
-        def hook (cat, msg, msgstr):
-            if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
-                or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
-            ):
-                if spanrep: return ([],)
-                else: return
-            spans = check(msgstr, ents=entities)
-            if spanrep:
-                return (spans,)
-    else:
-        def hook (cat, msg, msgstr):
-            if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
-                or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
-                or check(msg.msgid, ents=entities)
-                or check(msg.msgid_plural, ents=entities)
-            ):
-                if spanrep: return ([],)
-                else: return
-            spans = check(msgstr, ents=entities)
-            if spanrep:
-                return (spans,)
+    def hook (cat, msg, msgstr):
+        if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
+            or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
+            or (    not strict
+                and (   check(msg.msgid, ents=entities)
+                     or check(msg.msgid_plural, ents=entities)))
+        ):
+            if spanrep: return ([],)
+            else: return
+        spans = check(msgstr, ents=entities)
+        if spanrep:
+            return (spans,)
+        else:
+            for span in spans:
+                report_on_msg(span[2], msg, cat)
 
     return hook
 
@@ -205,6 +202,7 @@ def _read_combine_entities (entities, entpathenv, fcap):
         if entities is not None:
             tmp_entities.update(entities)
         entities = tmp_entities
+
     if fcap and entities is not None:
         tmp_entities = fcap_entities(entities)
         tmp_entities.update(entities)
