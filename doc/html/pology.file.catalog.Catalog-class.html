@@ -136,7 +136,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x91d109c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x87a91b4&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
@@ -667,7 +667,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x91d109c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x87a91b4&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
@@ -1337,8 +1337,12 @@
   <p>Markup types are determined by looking for some header fields, and if 
   not found, by heuristically examining messages if <code>bymsgs</code> is 
   <code>True</code>. Markup types are represented as short symbolic names, 
-  e.g. &quot;html&quot;, &quot;docbook&quot;, &quot;mediawiki&quot;, 
-  etc.</p>
+  e.g. &quot;html&quot;, &quot;docbook&quot;, &quot;mediawiki&quot;, etc. 
+  These names are always reported in lower-case, regardless of the original
+  casing as provided by the header, etc. See <a 
+  href="pology.file.catalog.Catalog-class.html#set_markup" 
+  class="link">set_markup</a> for list of markup types current used 
+  throughout Pology modules to influence behavior on processing.</p>
   <p>The header fields are tried in this order: <code>Text-Markup</code>, 
   <code>X-Text-Markup</code>. In each field, several markup types can be 
   stated as comma-separated list, or there may be several fields; the union
@@ -1390,6 +1394,23 @@
   <p>If <code>mtypes</code> is given as <code>None</code>, it means the 
   markup types are undetermined; if empty, that there is no markup in 
   messages.</p>
+  <p>The following markup types are currently used by various parts of 
+  Pology to influence behavior on processing:</p>
+  <ul>
+    <li>
+      <code>qtrich</code>: Qt rich-text, (almost) a subset of HTML
+    </li>
+    <li>
+      <code>kuit</code>: UI semantic markup in KDE4
+    </li>
+    <li>
+      <code>kde4</code>: markup in KDE4 UI POs, a mix of Qt rich-text and 
+      KUIT
+    </li>
+    <li>
+      <code>docbook4</code>: Docbook 4.x markup, in documentation POs
+    </li>
+  </ul>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">

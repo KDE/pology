@@ -489,6 +489,11 @@
    # Replace %&lt;number&gt; format directives with a tilde in translation.
    addFilterRegex match=&quot;%\d+&quot; repl=&quot;~&quot; on=&quot;pmsgstr&quot;
 </pre>
+      <p>Case-sensitivity of matching can be controlled by 
+      <code>casesens=</code> field, see <a 
+      href="pology.misc.config-module.html#strbool" 
+      class="link">strbool</a> for boolean-like values it can use. By 
+      default, matching is case-sensitive.</p>
       <p>Applicable to <code>pmsgid</code>, <code>pmsgstr</code>, and 
       <code>pattern</code> parts.</p>
     <h2 class="heading"><code>addFilterHook</code></h2>
@@ -555,6 +560,12 @@
     provided. But there are other trigger options, applicable like standard
     directives, in the form of <code>*&lt;trigger_type&gt; 
     &lt;field1&gt;=&quot;&lt;value1&gt;&quot;...</code>.</p>
+    <p>Every trigger can be given the field <code>casesens=</code>, to 
+    control case-sensitivity of pattern matching both in the trigger itself
+    (if applicable), and in other patterns in the rule (validity tests). 
+    See <a href="pology.misc.config-module.html#strbool" 
+    class="link">strbool</a> for boolean-like values that can be used. By 
+    default, matching is case-sensitive.</p>
     <h2 class="heading"><code>hook</code></h2>
       <p>Like for filtering, a hook can serve as the rule trigger too. It 
       is specified exactly like in the <code>addFilterHook</code> 
