@@ -87,6 +87,7 @@ from pology import rootdir
 import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
+from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, isdir, join
 from codecs import open
@@ -94,7 +95,6 @@ from time import strftime
 import locale
 
 
-flag_no_check_spell = "no-check-spell"
 
 
 class Sieve (object):
@@ -341,7 +341,7 @@ class Sieve (object):
                 words = [x for x in words if not self.skipRx.search(x)]
 
             # Eliminate from checking words explicitly listed as good.
-            locally_ignored = manc_parse_list(msg, "well-spelled:", ",")
+            locally_ignored = manc_parse_list(msg, elist_well_spelled, ",")
             words = [x for x in words if x not in locally_ignored]
 
             for word in words:
