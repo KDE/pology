@@ -306,7 +306,7 @@ def report_msg_content (msg, cat,
         note_ord = 1
         for text, name, item, spans in notes_data:
             if msg.msgid_plural and name == "msgstr":
-                name = "%s%d" % (name, item)
+                name = "%s_%d" % (name, item)
             for span in spans:
                 if len(span) < 3:
                     continue
