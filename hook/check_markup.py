@@ -14,7 +14,8 @@ from pology.misc.report import warning
 flag_no_check_xml = "no-check-xml"
 
 
-def check_xml (strict=False, entities={}, entpathenv=None, fcap=True):
+def check_xml (strict=False, entities={}, entpathenv=None, fcap=True,
+               mkeyw=None):
     """
     Check general XML markup in translations.
 
@@ -39,8 +40,13 @@ def check_xml (strict=False, entities={}, entpathenv=None, fcap=True):
     among the defined ones, it may be allowed to pass the check by setting
     the C{fcap} parameter to C{True}.
 
-    If the message has L{pipe flag<pology.misc.comments.manc_parse_flag_list>}
-    C{no-check-xml}, the check is skipped.
+    If a message has L{pipe flag<pology.misc.comments.manc_parse_flag_list>}
+    C{no-check-xml}, the check is skipped for that message.
+    If one or several markup keywords are given as C{mkeyw} parameter,
+    check is skipped for all messages in a catalog which does not report
+    one of the given keywords by its L{markup()<file.catalog.Catalog.markup>}
+    method. See L{set_markup()<file.catalog.Catalog.set_markup>} for list of
+    markup keywords recognized at the moment.
 
     @param strict: whether to require valid C{msgstr} even if C{msgid} is not
     @type strict: bool
@@ -55,10 +61,11 @@ def check_xml (strict=False, entities={}, entpathenv=None, fcap=True):
     """
 
     return _check_xml_w(M.check_xml_l1,
-                        strict, entities, entpathenv, fcap, False)
+                        strict, entities, entpathenv, fcap, mkeyw, False)
 
 
-def check_xml_sp (strict=False, entities=None, entpathenv=None, fcap=False):
+def check_xml_sp (strict=False, entities=None, entpathenv=None, fcap=False,
+                  mkeyw=None):
     """
     Like L{check_xml_kde4}, except that erroneous spans are returned
     instead of reporting problems to stdout.
@@ -67,10 +74,11 @@ def check_xml_sp (strict=False, entities=None, entpathenv=None, fcap=False):
     """
 
     return _check_xml_w(M.check_xml_l1,
-                        strict, entities, entpathenv, fcap, True)
+                        strict, entities, entpathenv, fcap, mkeyw, True)
 
 
-def check_xml_kde4 (strict=False, entities={}, entpathenv=None, fcap=True):
+def check_xml_kde4 (strict=False, entities={}, entpathenv=None, fcap=True,
+                    mkeyw=None):
     """
     Check XML markup in translations of KDE4 UI catalogs.
 
@@ -80,10 +88,11 @@ def check_xml_kde4 (strict=False, entities={}, entpathenv=None, fcap=True):
     """
 
     return _check_xml_w(M.check_xml_kde4_l1,
-                        strict, entities, entpathenv, fcap, False)
+                        strict, entities, entpathenv, fcap, mkeyw, False)
 
 
-def check_xml_kde4_sp (strict=False, entities={}, entpathenv=None, fcap=False):
+def check_xml_kde4_sp (strict=False, entities={}, entpathenv=None, fcap=False,
+                       mkeyw=None):
     """
     Like L{check_xml_kde4}, except that erroneous spans are returned
     instead of reporting problems to stdout.
@@ -92,10 +101,11 @@ def check_xml_kde4_sp (strict=False, entities={}, entpathenv=None, fcap=False):
     """
 
     return _check_xml_w(M.check_xml_kde4_l1,
-                        strict, entities, entpathenv, fcap, True)
+                        strict, entities, entpathenv, fcap, mkeyw, True)
 
 
-def check_xml_docbook4 (strict=False, entities={}, entpathenv=None, fcap=True):
+def check_xml_docbook4 (strict=False, entities={}, entpathenv=None, fcap=True,
+                        mkeyw=None):
     """
     Check XML markup in translations of Docbook 4.x catalogs.
 
@@ -105,10 +115,11 @@ def check_xml_docbook4 (strict=False, entities={}, entpathenv=None, fcap=True):
     """
 
     return _check_xml_w(M.check_xml_docbook4_l1,
-                        strict, entities, entpathenv, fcap, False)
+                        strict, entities, entpathenv, fcap, mkeyw, False)
 
 
-def check_xml_docbook4_sp (strict=False, entities={}, entpathenv=None, fcap=False):
+def check_xml_docbook4_sp (strict=False, entities={}, entpathenv=None,
+                           fcap=False, mkeyw=None):
     """
     Like L{check_xml_docbook4}, except that erroneous spans are returned
     instead of reporting problems to stdout.
@@ -117,10 +128,11 @@ def check_xml_docbook4_sp (strict=False, entities={}, entpathenv=None, fcap=Fals
     """
 
     return _check_xml_w(M.check_xml_docbook4_l1,
-                        strict, entities, entpathenv, fcap, True)
+                        strict, entities, entpathenv, fcap, mkeyw, True)
 
 
-def check_xml_qtrich (strict=False, entities={}, entpathenv=None, fcap=True):
+def check_xml_qtrich (strict=False, entities={}, entpathenv=None, fcap=True,
+                      mkeyw=None):
     """
     Check Qt rich-text markup in translations.
 
@@ -132,10 +144,11 @@ def check_xml_qtrich (strict=False, entities={}, entpathenv=None, fcap=True):
     """
 
     return _check_xml_w(M.check_xml_qtrich_l1,
-                        strict, entities, entpathenv, fcap, False)
+                        strict, entities, entpathenv, fcap, mkeyw, False)
 
 
-def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False):
+def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False,
+                         mkeyw=None):
     """
     Like L{check_xml_qtrich}, except that erroneous spans are returned
     instead of reporting problems to stdout.
@@ -144,19 +157,25 @@ def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False)
     """
 
     return _check_xml_w(M.check_xml_qtrich_l1,
-                        strict, entities, entpathenv, fcap, True)
+                        strict, entities, entpathenv, fcap, mkeyw, True)
 
 
-def _check_xml_w (check, strict, entities, entpathenv, fcap, spanrep):
+def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
     """
     Worker for C{check_xml*} hook factories.
     """
 
     entities = _read_combine_entities(entities, entpathenv, fcap)
+    if mkeyw is not None:
+        if isinstance(mkeyw, basestring):
+            mkeyw = [mkeyw]
+        mkeyw = set(mkeyw)
 
     if strict:
         def hook (cat, msg, msgstr):
-            if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
+            if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
+                or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
+            ):
                 if spanrep: return ([],)
                 else: return
             spans = check(msgstr, ents=entities)
@@ -165,6 +184,7 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, spanrep):
     else:
         def hook (cat, msg, msgstr):
             if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
+                or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
                 or check(msg.msgid, ents=entities)
                 or check(msg.msgid_plural, ents=entities)
             ):
