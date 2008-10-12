@@ -389,6 +389,10 @@ C{addFilterRegex}
         # Replace %<number> format directives with a tilde in translation.
         addFilterRegex match="%\d+" repl="~" on="pmsgstr"
 
+    Case-sensitivity of matching can be controlled by C{casesens=} field,
+    see L{strbool<misc.config.strbool>} for boolean-like values it can use.
+    By default, matching is case-sensitive.
+
     Applicable to C{pmsgid}, C{pmsgstr}, and C{pattern} parts.
 
 C{addFilterHook}
@@ -454,6 +458,12 @@ Regular expression matching of message fields is most of the time sufficient
 as a trigger, and hence has the two succint notations provided.
 But there are other trigger options, applicable like standard directives,
 in the form of C{*<trigger_type> <field1>="<value1>"...}.
+
+Every trigger can be given the field C{casesens=}, to control case-sensitivity
+of pattern matching both in the trigger itself (if applicable), and in
+other patterns in the rule (validity tests).
+See L{strbool<misc.config.strbool>} for boolean-like values that can be used.
+By default, matching is case-sensitive.
 
 C{hook}
 -------
@@ -730,7 +740,7 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                                   "in trigger pattern" % mmod
                     casesens=("i" not in fields[1][1])
                 elif keyword in _trigger_specials:
-                    rest = fields[1:]
+                    casesens, rest = _triggerParseGeneral(fields[1:])
                     if keyword == "hook":
                         triggerFunc = _triggerFromHook(rest)
                 else:
@@ -1160,7 +1170,7 @@ def _filterCreateRegex (fields):
     _checkFields("addFilterRegex", fields, _filterRegexKnownFields, ["match"])
     fieldDict = dict(fields)
 
-    caseSens = _fancyBool(fieldDict.get("case", "0"))
+    caseSens = _fancyBool(fieldDict.get("casesens", "0"))
     flags = re.U
     if not caseSens:
         flags |= re.I
@@ -1207,6 +1217,21 @@ def _fabricateHook (factory, argstr):
     argsig = argstr
 
     return hook, argsig
+
+
+def _triggerParseGeneral (fields):
+
+    casesens = True
+
+    rest = []
+    for field in fields:
+        name, value = field
+        if name == "casesens":
+            casesens = _fancyBool(value)
+        else:
+            rest.append(field)
+
+    return casesens, rest
 
 
 _triggerKnownMsgParts = set([
