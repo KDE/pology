@@ -127,13 +127,13 @@ def remove_markup_text (cat, msg, text):
 
     Expected markup types are determined from the catalog, by calling its
     L{markup()<pology.file.catalog.Catalog.markup>} method.
-    Use L{set_markup()<pology.file.catalog.Catalog.set_markup>}
+    Use L{set_markup()<file.catalog.Catalog.set_markup>}
     to set expected markup types after the catalog has been opened,
     in case it does not specify any on its own.
     If catalog reports C{None} for markup types, text is not touched.
 
-    See L{pology.file.catalog.set_markup} for list of markup types
-    by keyword strings recognized at the moment.
+    Also see L{set_markup()<file.catalog.Catalog.set_markup>} for list of
+    markup keywords recognized at the moment.
 
     @note: Hook type: C{(cat, msg, text) -> text}
     """
