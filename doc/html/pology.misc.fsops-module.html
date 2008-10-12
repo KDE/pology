@@ -162,6 +162,24 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#lines_from_file" class="summary-sig-name">lines_from_file</a>(<span class="summary-sig-arg">filepath</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>)</span><br />
+      Read content of a text file into list of lines.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -324,6 +342,37 @@
         <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
         <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the command line, as well as stdout/stderr</li>
     </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="lines_from_file"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">lines_from_file</span>(<span class="sig-arg">filepath</span>,
+        <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read content of a text file into list of lines.</p>
+  <p>Only CR, LF, and CR+LF are treated as line breaks.</p>
+  <p>If the give file path is not readable, or text cannot be decoded using
+  given encoding, exceptions are raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>filepath</code></strong> (string) - path of the file to read</li>
+        <li><strong class="pname"><code>encoding</code></strong> - text encoding for the file</li>
+        <li><strong class="pname"><code>encoding</code></strong> - string</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>lines</dd>
   </dl>
 </td></tr></table>
 </div>
