@@ -9,6 +9,8 @@ Operations with file system and external commands.
 
 import sys
 import os
+import codecs
+import re
 
 from pology.misc.report import error, warning
 
@@ -223,4 +225,44 @@ def collect_system (cmdline, echo=False):
 
     return (strout, strerr, ret)
 
+
+def lines_from_file (filepath, encoding="UTF-8"):
+    """
+    Read content of a text file into list of lines.
+
+    Only CR, LF, and CR+LF are treated as line breaks.
+
+    If the give file path is not readable, or text cannot be decoded using
+    given encoding, exceptions are raised.
+
+    @param filepath: path of the file to read
+    @type filepath: string
+    @param encoding: text encoding for the file
+    @param encoding: string
+
+    @returns: lines
+    @rtype: list of strings
+    """
+
+    try:
+        ifl = codecs.open(filepath, "r", encoding)
+    except:
+        warning("cannot open '%s' for reading" % filepath)
+        raise
+    try:
+        content = ifl.read()
+    except:
+        warning("cannot read content of '%s' using %s encoding"
+                % (filepath, encoding))
+        raise
+    ifl.close()
+
+    lines = [x + "\n" for x in re.split(r"\r\n|\r|\n", content)]
+    # ...no file.readlines(), it treats some other characters as line breaks.
+    if lines[-1] == "\n":
+        # If the file ended properly in a line break, the last line will be
+        # phony, from the empty element splitted out by the last line break.
+        lines.pop()
+
+    return lines
 

@@ -10,6 +10,7 @@ Collection of PO entries.
 from pology.misc.escape import escape, unescape
 from pology.misc.wrap import wrap_field
 from pology.misc.monitored import Monitored
+from pology.misc.fsops import lines_from_file
 from message import Message as MessageMonitored
 from message import MessageUnsafe as MessageUnsafe
 from header import Header
@@ -78,15 +79,8 @@ def _mine_po_encoding (filename):
 def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
 
     fenc = _mine_po_encoding(filename)
-    ifl = codecs.open(filename, "r", fenc)
-    lines = [x + "\n" for x in re.split(r"\r\n|\r|\n", ifl.read())]
-    # ...no file.readlines(), it treats some other characters as line breaks.
-    if lines[-1] == "\n":
-        # If the file ended properly in a line break, the last line will be
-        # phony, from the empty element splitted out by the last line break.
-        lines.pop()
+    lines = lines_from_file(filename, fenc)
     nlines = len(lines)
-    ifl.close()
 
     ctx_modern, ctx_obsolete, \
     ctx_previous, ctx_current, \
