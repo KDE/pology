@@ -577,7 +577,7 @@ def collect_xml_spec_l1 (specpath):
         tagC: attr1, attr2, attr3, attr4,
               attr5, attr6;  # tag with many attributes, split over lines
 
-    The specification can contain a dummy tag named C{pe-common-attributes},
+    The specification can contain a dummy tag named C{pe-common-attrib},
     stating attributes which are common to all tags, instead of having to
     list them with each and every tag.
 

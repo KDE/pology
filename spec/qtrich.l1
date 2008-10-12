@@ -51,7 +51,7 @@ var;
 
 # Dummy tag for common attributes.
 # FIXME: Really all have title attribute?
-pe-common-attributes: style title;
+pe-common-attrib: style title;
 
 # Qt's rich-text top level tag (deprecated in Qt 4.x?)
 qt;
