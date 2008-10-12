@@ -518,11 +518,12 @@ from locale import getlocale
 from pology.misc.timeout import timed_out
 from pology.misc.colors import BOLD, RED, RESET
 from pology import rootdir
-from pology.misc.report import warning, error
+from pology.misc.report import report, warning, error
 from pology.misc.config import strbool
 from pology.misc.langdep import get_hook_lreq, split_req
 from pology.file.message import MessageUnsafe
 import pology.hook.remove_subs as remsub
+from pology.misc.tabulate import tabulate
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
@@ -533,13 +534,26 @@ def printStat(rules, nmatch):
     @param nmatch: total number of matched items
     """
     if nmatch:
-        print "Total matching: %d" % nmatch
-    stat=list(((r.displayName, r.count, r.time/r.count, r.time) for r in rules if r.count!=0 and r.stat is True))
-    if stat:
-        print "Rules stat (raw_pattern, calls, average time (ms), total time (ms)"
-        stat.sort(lambda x, y: cmp(x[3], y[3]))
-        for p, c, t, tt in stat:
-            print "%-20s\t\t%6d\t\t%6.1f\t\t%6d" % (p, c, t, tt)
+        report("Total matching: %d" % nmatch)
+    statRules=[r for r in rules if r.count!=0 and r.stat is True]
+    if statRules:
+        statRules.sort(lambda x, y: cmp(x.time, y.time))
+        data=[]
+        rown=[r.displayName for r in statRules]
+        data.append([r.count for r in statRules])
+        data.append([r.time/r.count*1000 for r in statRules])
+        totTimeMsg=sum(data[-1])/1000
+        data.append([r.time for r in statRules])
+        totTime=sum(data[-1])
+        data.append([r.time/totTime*100 for r in statRules])
+        report("Rule application statistics:")
+        coln=["calls", "avg-time [ms]", "tot-time [s]", "time-share"]
+        dfmt=[   "%d",           "%.3f",          "%.1f",     "%.2f%%"]
+        report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
+                        colorized=sys.stdout.isatty()))
+        report("Total application time [s]: %.1f" % (totTime))
+        report("Average application time per message [ms]: %.1f"
+               % (totTimeMsg*1000))
 
 
 def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
@@ -1505,7 +1519,7 @@ class Rule(object):
         # Update stats for matched rules.
         self.count += 1
         if self.stat:
-            self.time += 1000 * (time() - begin)
+            self.time += time() - begin
 
         return failed_spans
 
