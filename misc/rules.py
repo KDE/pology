@@ -117,6 +117,8 @@ The following tests can be used within C{valid} directives:
   - C{msgid}: passes if the original text matches a regular expression
   - C{msgstr}: passes if the translation text matches a regular expression
   - C{ctx}: passes if the message context matches a regular expression
+  - C{srcref}: passes if file path of one of the source references matches
+        a regular expression
   - C{span}: passes if the part of the text matched by the trigger pattern
         is matched by this regular expression as well
   - C{before}: passes if the part of the text matched by the trigger pattern
@@ -1330,8 +1332,8 @@ _trigger_matchmods = [
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head"))
-    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr"))
+    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head", "srcref"))
+    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr", "srcref"))
     _twoRegexKeywords = set(("head",))
     _listKeywords = set(("env", "cat"))
 
@@ -1723,6 +1725,17 @@ class Rule(object):
                 for msgstr in msg.msgstr:
                     match = value.search(msgstr)
                     if match:
+                        break
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "srcref":
+                match = False
+                for file, lno in msg.source:
+                    if value.search(file):
+                        match = True
                         break
                 if invert: match = not match
                 if not match:
