@@ -2,7 +2,11 @@
 # Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 # License: GPLv3
 
+# ----------------------------------------
 # Detect Latin segments outside of allowed contexts.
+
+clearFilters
+
 # Allow original UI references (autoresolved when summit is scattered).
 # No filters (e.g. markup designates allowed contexts).
 *hook name="sr:checks/naked_latin_origui" on="msgstr"
@@ -10,13 +14,17 @@ environment kde
 id="x-latin"
 hint="латиница ван дозвољеног контекста"
 
-# For the following rules, convert to ordinary special entities
-# which are auto-generated when KDE summits are scattered.
+# ----------------------------------------
+# Detect markup errors.
+
+clearFilters
+
+# Convert to ordinary special entities  which are auto-generated
+# when KDE summits are scattered.
 addFilterRegex env="kde" \
                match="(&\S+?)(?:_ot_sp|_ot|_sp|_db41)(-\S*;)" repl="\1\2" \
                on="pmsgstr"
 
-# Detect markup errors.
 # Strict mode: request valid translation even if the original is not.
 # Catalogs must announce markup in the header, using markup type keyword in
 # X-Text-Markup field (see markup= parameters in factories below);
@@ -54,3 +62,17 @@ addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
 id="x-markup-db"
 hint="грешке у обележавању"
 
+# ----------------------------------------
+# The following rules should be applied on pure text.
+clearFilters
+include file="puretext.filters"
+
+# Check spelling.
+*hook name="check-lingo/check-spell-sp" \
+      factory="lang='sr', env='kde'" \
+      on="msgstr"
+environment kde
+# Remove Latin-only words.
+addFilterRegex match="[a-z]+" on="pmsgid,pmsgstr"
+id="x-spell"
+hint="непознате или погрешно написане речи"
