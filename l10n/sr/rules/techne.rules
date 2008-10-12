@@ -2,12 +2,55 @@
 # Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 # License: GPLv3
 
-
-# Detect ASCII segments outside of allowed contexts.
+# Detect Latin segments outside of allowed contexts.
 # Allow original UI references (autoresolved when summit is scattered).
 # No filters (e.g. markup designates allowed contexts).
 *hook name="sr:checks/naked_latin_origui" on="msgstr"
 environment kde
-id="nakedlatin"
+id="x-latin"
 hint="латиница ван дозвољеног контекста"
+
+# For the following rules, convert to ordinary special entities
+# which are auto-generated when KDE summits are scattered.
+addFilterRegex env="kde" \
+               match="(&\S+?)(?:_ot_sp|_ot|_sp|_db41)(-\S*;)" repl="\1\2" \
+               on="pmsgstr"
+
+# Detect markup errors.
+# Strict mode: request valid translation even if the original is not.
+# Catalogs must announce markup in the header, using markup type keyword in
+# X-Text-Markup field (see markup= parameters in factories below);
+# when the hook and catalog markup types do not match, the check is skipped.
+
+# ...in KDE4 UI POs.
+*hook name="check-markup/check-xml-kde4-sp" \
+      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
+               mkeyw='kde4'" \
+      on="msgstr"
+environment kde
+id="x-markup-k"
+hint="грешке у обележавању"
+
+# ...in pure Qt UI POs.
+*hook name="check-markup/check-xml-qtrich-sp" \
+      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
+               mkeyw='qtrich'" \
+      on="msgstr"
+environment kde
+id="x-markup-q"
+hint="грешке у обележавању"
+
+# ...in KDE documentation POs.
+*hook name="check-markup/check-xml-docbook4-sp" \
+      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
+               mkeyw='docbook4'" \
+      on="msgstr"
+environment kde
+# Remove entities used as-is KDE documentation.
+addFilterRegex match="&\S+\.\S+\.mail;" on="pmsgid,pmsgstr"
+addFilterRegex match="&\S+\.\S+\.documentation;" on="pmsgid,pmsgstr"
+addFilterRegex match="&under(FDL|GPL);" on="pmsgid,pmsgstr"
+addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
+id="x-markup-db"
+hint="грешке у обележавању"
 
