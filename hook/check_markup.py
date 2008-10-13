@@ -206,13 +206,12 @@ def _read_combine_entities (entities, entpathenv, fcap):
         key = (entpathenv, fcap)
         loaded_entities = _loaded_entities_cache.get(key)
         if loaded_entities is None:
-            loaded_entities = read_entities_by_env(entpathenv)
-            if fcap:
-                loaded_entities = fcap_entities(loaded_entities)
+            loaded_entities = read_entities_by_env(entpathenv, fcap=fcap)
             _loaded_entities_cache[key] = loaded_entities
 
     if fcap and entities is not None:
-        entities = fcap_entities(entities)
+        entities = entities.copy()
+        entities = fcap_entities(entities, update=True)
 
     # Combine explicit and loaded entities.
     all_entities = None
