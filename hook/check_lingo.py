@@ -176,7 +176,7 @@ def _check_spell_w (lang, encoding, variety, extopts,
                 if maxsugg > 0 and len(encsuggs) > maxsugg:
                     encsuggs = encsuggs[:maxsugg] + ["..."]
                 suggs = [x.decode(encoding) for x in encsuggs]
-                if maxsugg != 0:
+                if maxsugg != 0 and suggs:
                     snote = ("unknown word '%s' (suggestions: %s)"
                              % (word, ", ".join(suggs)))
                 else:
