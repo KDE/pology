@@ -73,6 +73,15 @@ include file="puretext.filters"
       on="msgstr"
 environment kde
 # Remove Latin-only words.
-addFilterRegex match="[a-z]+" on="pmsgid,pmsgstr"
+addFilterRegex match="[a-zđžćčš]+" on="pmsgid,pmsgstr"
 id="x-spell"
 hint="непознате или погрешно написане речи"
+# Разне транскрипције и измишљотине, прескачемо док нешто не приправимо.
+valid cat="timezones4,desktop_l10n,kdelibs_colors4"
+valid cat="kdelibs4" ctx="unicode block name"
+valid cat="kdelibs4" srcref="kcalendarsystem(hijri|jalali|hebrew)"
+valid cat="desktop_kdelibs" srcref="all_languages.desktop"
+valid cat="kdeqt" ctx="QFontDatabase"
+valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
+# Елементи транскрипта.
+valid span="^аку$" after="\|/\|.*"
