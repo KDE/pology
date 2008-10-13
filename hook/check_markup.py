@@ -177,7 +177,8 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
 
     def hook (cat, msg, msgstr):
         if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
-            or (mkeyw is not None and not mkeyw.intersection(cat.markup()))
+            or (    mkeyw is not None
+                and not mkeyw.intersection(cat.markup() or set()))
             or (    not strict
                 and (   check(msg.msgid, ents=entities)
                      or check(msg.msgid_plural, ents=entities)))
