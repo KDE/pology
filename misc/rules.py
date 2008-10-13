@@ -1187,7 +1187,7 @@ def _filterCreateRegex (fields):
     fieldDict = dict(fields)
 
     caseSens = _fancyBool(fieldDict.get("casesens", "0"))
-    flags = re.U
+    flags = re.U | re.S
     if not caseSens:
         flags |= re.I
 
@@ -1387,7 +1387,7 @@ class Rule(object):
                   "Unknown message part '%s' for rule's main pattern" % msgpart
 
         # Flags for regex compilation.
-        self.reflags=re.U
+        self.reflags=re.U|re.S
         if not self.casesens:
             self.reflags|=re.I
 
