@@ -96,7 +96,7 @@ def read_entities (filepath, fcap=False):
         entities.update(parse_entities(defstr, src=fname))
 
     if fcap:
-        entities.update(fcap_entities(entities))
+        fcap_entities(entities, update=True)
 
     return entities
 
@@ -140,7 +140,7 @@ def read_entities_by_env (entpathenv, recurse=True, fcap=False):
     return entities
 
 
-def fcap_entities (entities):
+def fcap_entities (entities, update=False):
     """
     Create paired set of entities with first letters in upper-case.
 
@@ -149,15 +149,26 @@ def fcap_entities (entities):
     Such entity is created only if the original entity has at least one
     letter in the name, and the first letter in the name is lower-case.
 
+    New entities are either returned in a new dictionary, or are inserted
+    into the original dictionary, which is then returned.
+
     @param entities: (name, value) dictionary of entities
     @type entities: dict
+    @param update: whether to insert new entities into C{entities} itself
+    @type update: bool
 
     @returns: (name, value) dictionary of upper-case entities
     @rtype: dict
     """
 
-    fcaps = {}
-    for name, value in entities.iteritems():
+    if update:
+        fcaps = entities
+        iterents = entities.items()
+    else:
+        fcaps = {}
+        iterents = entities.iteritems()
+
+    for name, value in iterents:
         # Upper-case entity name.
         p = 0
         while p < len(name) and not name[p].isalpha():
