@@ -11,6 +11,7 @@ import os
 import re
 import codecs
 import xml.parsers.expat
+import difflib
 
 from pology.misc.report import error
 from pology import rootdir
@@ -832,7 +833,14 @@ def _handler_default (text):
     if g.ents is not None and text.startswith('&') and text.endswith(';'):
         ent = text[1:-1]
         if ent not in g.ents and ent not in xml_entities:
-            errmsg = (_ehfmt + "unknown entity '%s'") % (g.xmlfmt, ent)
+            nearents = difflib.get_close_matches(ent, g.ents)
+            if nearents:
+                if len(nearents) > 5: # do not overwhelm message
+                    nearents = nearents[:5] + ["..."]
+                errmsg = ((_ehfmt + "unknown entity '%s' (suggestions: %s)")
+                          % (g.xmlfmt, ent, ", ".join(nearents)))
+            else:
+                errmsg = (_ehfmt + "unknown entity '%s'") % (g.xmlfmt, ent)
             span = _make_span(g.text, g.parser.CurrentLineNumber,
                               g.parser.CurrentColumnNumber + 1, errmsg)
             g.spans.append(span)
@@ -969,11 +977,39 @@ class _Multidict (object):
                 return d[key]
         raise KeyError, key
 
+    def __iter__ (self):
+        return self.iterkeys()
+
     def get (self, key, defval=None):
         for d in self.dicts:
             if key in d:
                 return d[key]
         return defval
+
+    def iterkeys (self):
+        return self._Iterator(dict.iterkeys, self.dicts)
+
+    def itervalues (self):
+        return self._Iterator(dict.itervalues, self.dicts)
+
+    def iteritems (self):
+        return self._Iterator(dict.iteritems, self.dicts)
+
+    class _Iterator (object):
+
+        def __init__ (self, getit, dicts):
+            self._iters = [getit(d) for d in dicts]
+
+        def __iter__ (self):
+            return self
+
+        def next (self):
+            while self._iters:
+                try:
+                    return self._iters[0].next()
+                except StopIteration:
+                    self._iters.pop(0)
+            raise StopIteration
 
 
 _entpath_html = os.path.join(rootdir(), "spec", "html.entities")
