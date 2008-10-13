@@ -1,6 +1,8 @@
-# The arcane.
+# The arcane for KDE translation into Serbian.
 # Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 # License: GPLv3
+
+environment kde
 
 # ----------------------------------------
 # Detect Latin segments outside of allowed contexts.
@@ -10,7 +12,6 @@ clearFilters
 # Allow original UI references (autoresolved when summit is scattered).
 # No filters (e.g. markup designates allowed contexts).
 *hook name="sr:checks/naked_latin_origui" on="msgstr"
-environment kde
 id="x-latin"
 hint="латиница ван дозвољеног контекста"
 
@@ -21,8 +22,7 @@ clearFilters
 
 # Convert to ordinary special entities  which are auto-generated
 # when KDE summits are scattered.
-addFilterRegex env="kde" \
-               match="(&\S+?)(?:_ot_sp|_ot|_sp|_db41)(-\S*;)" repl="\1\2" \
+addFilterRegex match="(&\S+?)(?:_ot_sp|_ot|_sp|_db41)(-\S*;)" repl="\1\2" \
                on="pmsgstr"
 
 # Strict mode: request valid translation even if the original is not.
@@ -35,7 +35,6 @@ addFilterRegex env="kde" \
       factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
                mkeyw='kde4'" \
       on="msgstr"
-environment kde
 id="x-markup-k"
 hint="грешке у обележавању"
 
@@ -44,7 +43,6 @@ hint="грешке у обележавању"
       factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
                mkeyw='qtrich'" \
       on="msgstr"
-environment kde
 id="x-markup-q"
 hint="грешке у обележавању"
 
@@ -53,7 +51,6 @@ hint="грешке у обележавању"
       factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
                mkeyw='docbook4'" \
       on="msgstr"
-environment kde
 # Remove entities used as-is KDE documentation.
 addFilterRegex match="&\S+\.\S+\.mail;" on="pmsgid,pmsgstr"
 addFilterRegex match="&\S+\.\S+\.documentation;" on="pmsgid,pmsgstr"
@@ -71,7 +68,6 @@ include file="puretext.filters"
 *hook name="check-lingo/check-spell-sp" \
       factory="lang='sr', env='kde'" \
       on="msgstr"
-environment kde
 # Remove Latin-only words.
 addFilterRegex match="[a-zđžćčš]+" on="pmsgid,pmsgstr"
 id="x-spell"
