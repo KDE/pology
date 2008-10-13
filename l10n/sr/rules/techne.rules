@@ -84,4 +84,4 @@ valid cat="desktop_kdelibs" srcref="all_languages.desktop"
 valid cat="kdeqt" ctx="QFontDatabase"
 valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
 # Елементи транскрипта.
-valid span="^аку$" after="\|/\|.*"
+valid span="^(аку)$" after="\$\[[^\]]*"
