@@ -421,7 +421,8 @@ _qtrich_subs = {
 }
 _qtrich_subs.update([(x, _qtrich_subs["_nows"]) for x in _qtrich_tags])
 _qtrich_subs.update([(x, _qtrich_subs["_parabr"]) for x in
-                   "br h1 h2 h3 h4 h5 h6 hr li p pre td th tr".split()])
+                   "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre "
+                   "td th tr".split()])
 _qtrich_ents = { # in addition to default XML entities
     "nbsp": u"\xa0",
 }
