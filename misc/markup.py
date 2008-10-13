@@ -422,8 +422,8 @@ _qtrich_subs = {
 }
 _qtrich_subs.update([(x, _qtrich_subs["_nows"]) for x in _qtrich_tags])
 _qtrich_subs.update([(x, _qtrich_subs["_parabr"]) for x in
-                   "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre "
-                   "td th tr".split()])
+                   "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre td th tr"
+                   "".split()])
 _qtrich_ents = { # in addition to default XML entities
     "nbsp": u"\xa0",
 }
@@ -463,7 +463,8 @@ _kuit_subs.update([(x, _kuit_subs["_nows"]) for x in _kuit_tags])
 _kuit_subs.update([(x, _kuit_subs["_ws"]) for x in
                    "placeholder".split()])
 _kuit_subs.update([(x, _kuit_subs["_parabr"]) for x in
-                   "title subtitle para item".split()])
+                   "title subtitle para item"
+                   "".split()])
 _kuit_ents = { # in addition to default XML entities
 }
 _kuit_keepws = set("""
@@ -534,10 +535,14 @@ def _prep_docbook4_to_plain ():
     _dbk_subs = {
         "_nows" : ("", "", None),
         "_parabr" : ("", WS_NEWLINE*2, None),
+        "_ws" : (" ", " ", None),
     }
     _dbk_subs.update([(x, _kuit_subs["_nows"]) for x in _dbk_tags])
     _dbk_subs.update([(x, _kuit_subs["_parabr"]) for x in
                       "para title".split()]) # FIXME: Add more.
+    _dbk_subs.update([(x, _kuit_subs["_ws"]) for x in
+                       "contrib address firstname placeholder surname"
+                       "".split()])
 
     _dbk_ents = { # in addition to default XML entities
     }
