@@ -456,8 +456,11 @@ _kuit_tags = set("""
 _kuit_subs = {
     "_nows" : ("", "", None),
     "_parabr" : ("", WS_NEWLINE*2, None),
+    "_ws" : (" ", " ", None),
 }
 _kuit_subs.update([(x, _kuit_subs["_nows"]) for x in _kuit_tags])
+_kuit_subs.update([(x, _kuit_subs["_ws"]) for x in
+                   "placeholder".split()])
 _kuit_subs.update([(x, _kuit_subs["_parabr"]) for x in
                    "title subtitle para item".split()])
 _kuit_ents = { # in addition to default XML entities
