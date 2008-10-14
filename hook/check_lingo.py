@@ -28,7 +28,7 @@ elist_well_spelled = "well-spelled:"
 def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
                  env=None, suponly=False, maxsugg=5):
     """
-    Check spelling using Aspell.
+    Check spelling using Aspell [hook factory].
 
     Aspell language is selected by the C{lang} parameter, which should be
     a language code of one of the installed spelling dictionaries.
@@ -77,7 +77,8 @@ def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
     @param maxsugg: maximum number of suggestions to show for misspelled word
     @type maxsugg: int
 
-    @note: Hook type factory: C{(cat, msg, text) -> None}
+    @return: type S3A hook
+    @rtype: C{(text, msg, cat) -> numerr}
     """
 
     return _check_spell_w(lang, encoding, variety, extopts,
@@ -88,9 +89,10 @@ def check_spell_sp (lang, encoding="UTF-8", variety=None, extopts={},
                     env=None, suponly=False, maxsugg=5):
     """
     Like L{check_spell}, except that erroneous spans are returned
-    instead of reporting problems to stdout.
+    instead of reporting problems to stdout [hook factory].
 
-    @note: Hook type factory: C{(cat, msg, text) -> spans}
+    @return: type V3A hook
+    @rtype: C{(text, msg, cat) -> spans}
     """
 
     return _check_spell_w(lang, encoding, variety, extopts,
@@ -142,7 +144,7 @@ def _check_spell_w (lang, encoding, variety, extopts,
     # FIXME: It is said that no fancy word-splitting is done on the text,
     # but still, best to split it assuming plain text?
     wsplit_rx = re.compile("[^\W\d_]+", re.U)
-    def wsplit (cat, msg, text):
+    def wsplit (text, msg, cat):
         word_spans = []
         for m in wsplit_rx.finditer(text):
             word, span = m.group(0), m.span()
@@ -151,17 +153,17 @@ def _check_spell_w (lang, encoding, variety, extopts,
         return word_spans
 
     # The hook itself.
-    def hook (cat, msg, msgstr):
+    def hook (text, msg, cat):
 
-        if spanrep: defret = ([],)
-        else: defret = None
+        if spanrep: defret = []
+        else: defret = 0
 
         # Skip message if explicitly requested.
         if flag_no_check_spell in manc_parse_flag_list(msg, "|"):
             return defret
 
         # Split text into words and spans: [(word, (start, end)), ...]
-        word_spans = wsplit(cat, msg, msgstr)
+        word_spans = wsplit(text, msg, cat)
 
         # Ignore words explicitly listed as good.
         ignored_words = set(manc_parse_list(msg, elist_well_spelled, ","))
@@ -184,11 +186,12 @@ def _check_spell_w (lang, encoding, variety, extopts,
                 spans.append(span + (snote,))
 
         if spanrep:
-            return (spans,)
+            return spans
         else:
             for span in spans:
                 if span[2:]:
                     report_on_msg(span[2], msg, cat)
+            return len(spans)
 
     return hook
 

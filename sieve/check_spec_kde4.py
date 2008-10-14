@@ -42,7 +42,7 @@ def _qtdt_fjoin (fields):
 
 
 # Worker for check_qtdt* hooks.
-def _check_qtdt_w (cat, msg, msgstr):
+def _check_qtdt_w (msgstr, msg, cat):
 
     # Check needed when used as summit hook.
     if (   (_qtdt_flag not in msg.msgctxt.lower())
@@ -65,18 +65,21 @@ def _check_qtdt_w (cat, msg, msgstr):
     return spans
 
 
-# Pass-through hook.
-def check_qtdt (cat, msg, msgstr):
+# Pass-through test hook.
+def check_qtdt (msgstr, msg, cat):
 
-    spans = _check_qtdt_w(cat, msg, msgstr)
+    spans = _check_qtdt_w(msgstr, msg, cat)
     if spans:
         report_on_msg(spans[0][-1], msg, cat)
+        return False
+    else:
+        return True
 
 
-# Span-reporting hook.
-def check_qtdt_sp (cat, msg, msgstr):
+# Span-reporting test hook.
+def check_qtdt_sp (msgstr, msg, cat):
 
-    return _check_qtdt_w(cat, msg, msgstr)
+    return _check_qtdt_w(msgstr, msg, cat)
 
 
 # --------------------------------------

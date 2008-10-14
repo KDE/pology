@@ -21,7 +21,7 @@ flag_no_check_xml = "no-check-xml"
 def check_xml (strict=False, entities={}, entpathenv=None, fcap=True,
                mkeyw=None):
     """
-    Check general XML markup in translations.
+    Check general XML markup in translations [hook factory].
 
     Text is only checked to be well-formed XML, and possibly also whether
     encountered entities are defined. Markup errors are reported to stdout.
@@ -61,7 +61,8 @@ def check_xml (strict=False, entities={}, entpathenv=None, fcap=True,
     @param fcap: whether to allow first-uppercase entities
     @type fcap: bool
 
-    @note: Hook type factory: C{(cat, msg, text) -> None}
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
     """
 
     return _check_xml_w(M.check_xml_l1,
@@ -72,9 +73,10 @@ def check_xml_sp (strict=False, entities=None, entpathenv=None, fcap=False,
                   mkeyw=None):
     """
     Like L{check_xml_kde4}, except that erroneous spans are returned
-    instead of reporting problems to stdout.
+    instead of reporting problems to stdout [hook factory].
 
-    @note: Hook type factory: C{(cat, msg, text) -> spans}
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
     return _check_xml_w(M.check_xml_l1,
@@ -84,11 +86,12 @@ def check_xml_sp (strict=False, entities=None, entpathenv=None, fcap=False,
 def check_xml_kde4 (strict=False, entities={}, entpathenv=None, fcap=True,
                     mkeyw=None):
     """
-    Check XML markup in translations of KDE4 UI catalogs.
+    Check XML markup in translations of KDE4 UI catalogs [hook factory].
 
     See L{check_xml} for description of parameters.
 
-    @note: Hook type factory: C{(cat, msg, text) -> None}
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
     """
 
     return _check_xml_w(M.check_xml_kde4_l1,
@@ -99,9 +102,10 @@ def check_xml_kde4_sp (strict=False, entities={}, entpathenv=None, fcap=False,
                        mkeyw=None):
     """
     Like L{check_xml_kde4}, except that erroneous spans are returned
-    instead of reporting problems to stdout.
+    instead of reporting problems to stdout [hook factory].
 
-    @note: Hook type factory: C{(cat, msg, text) -> spans}
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
     return _check_xml_w(M.check_xml_kde4_l1,
@@ -111,11 +115,12 @@ def check_xml_kde4_sp (strict=False, entities={}, entpathenv=None, fcap=False,
 def check_xml_docbook4 (strict=False, entities={}, entpathenv=None, fcap=True,
                         mkeyw=None):
     """
-    Check XML markup in translations of Docbook 4.x catalogs.
+    Check XML markup in translations of Docbook 4.x catalogs [hook factory].
 
     See L{check_xml} for description of parameters.
 
-    @note: Hook type factory: C{(cat, msg, text) -> None}
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
     """
 
     return _check_xml_w(M.check_xml_docbook4_l1,
@@ -126,9 +131,10 @@ def check_xml_docbook4_sp (strict=False, entities={}, entpathenv=None,
                            fcap=False, mkeyw=None):
     """
     Like L{check_xml_docbook4}, except that erroneous spans are returned
-    instead of reporting problems to stdout.
+    instead of reporting problems to stdout [hook factory].
 
-    @note: Hook type factory: C{(cat, msg, text) -> spans}
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
     return _check_xml_w(M.check_xml_docbook4_l1,
@@ -138,13 +144,14 @@ def check_xml_docbook4_sp (strict=False, entities={}, entpathenv=None,
 def check_xml_qtrich (strict=False, entities={}, entpathenv=None, fcap=True,
                       mkeyw=None):
     """
-    Check Qt rich-text markup in translations.
+    Check Qt rich-text markup in translations [hook factory].
 
     See L{check_xml} for description of parameters.
     See notes on checking Qt rich-text to
     L{check_xml_qtrich_l1<misc.markup.check_xml_qtrich_l1>}.
 
-    @note: Hook type factory: C{(cat, msg, text) -> None}
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
     """
 
     return _check_xml_w(M.check_xml_qtrich_l1,
@@ -155,9 +162,10 @@ def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False,
                          mkeyw=None):
     """
     Like L{check_xml_qtrich}, except that erroneous spans are returned
-    instead of reporting problems to stdout.
+    instead of reporting problems to stdout [hook factory].
 
-    @note: Hook type factory: C{(cat, msg, text) -> spans}
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
     return _check_xml_w(M.check_xml_qtrich_l1,
@@ -175,7 +183,7 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
-    def hook (cat, msg, msgstr):
+    def hook (msgstr, msg, cat):
         if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
             or (    mkeyw is not None
                 and not mkeyw.intersection(cat.markup() or set()))
@@ -183,15 +191,16 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
                 and (   check(msg.msgid, ents=entities)
                      or check(msg.msgid_plural, ents=entities)))
         ):
-            if spanrep: return ([],)
-            else: return
+            if spanrep: return []
+            else: return 0
         spans = check(msgstr, ents=entities)
         if spanrep:
-            return (spans,)
+            return spans
         else:
             for span in spans:
                 if span[2:]:
                     report_on_msg(span[2], msg, cat)
+            return len(spans)
 
     return hook
 

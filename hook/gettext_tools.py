@@ -9,17 +9,30 @@ Pipe PO files through Gettext commands.
 
 import os
 
-def msgfilter (filtr, options=""):
-    """Factory of hooks to pass PO files through msgfilter.
+from pology.misc.report import warning
 
-    Produces hooks with (filepath) signature, returning True on success.
-    Hooks modify the given file in place.
-    The default command line to msgfilter is::
+
+def msgfilter (filtr, options=""):
+    """
+    Pass PO files through C{msgfilter(1)} [hook factory].
+
+    Hooks modify PO files in place; the executed command is::
 
         msgfilter <options> -i <filepath> -o <filepath> <filtr>
 
-    where options argument to the factory may be used to pass any
-    extra options to msgfilter.
+    where C{options} parameter may be used to pass any
+    extra options to C{msgfilter}.
+
+    @param filtr: filter to use (e.g. C{cat} for no-op)
+    @type filtr: string
+    @param options: additional options to pass to C{msgfilter}
+    @type options string
+
+    @return: type F6A hook
+    @rtype: C{(filepath) -> numerr}
+
+    @note: In case C{msgfilter} does not finish without errors,
+        hooks always report number of errors as 1.
     """
 
     # FIXME: Check availability and version of msgfilter.
@@ -30,25 +43,34 @@ def msgfilter (filtr, options=""):
         cmdline = base_cmdline + "-i %s -o %s " % (filepath, filepath) + filtr
         ret = os.system(cmdline)
         if ret:
-            print   "%s: msgfilter failed (filter: '%s', options: '%s')" \
-                  % (filepath, filtr, options)
-            return False
-        return True
+            warning("%s: msgfilter failed with exit code %d "
+                    "(filter: '%s', options: '%s')"
+                    % (filepath, ret, filtr, options))
+            return 1
+        return 0
 
     return hook
 
 
 def msgfmt (options=""):
-    """Factory of hooks to pass PO files through msgfmt.
+    """
+    Pass PO files through C{msgfmt(1)} [hook factory].
 
-    Produces hooks with (filepath) signature, returning True on success.
-    Hooks do not modify the given file.
-    The default command line to msgfmt is::
+    The file is not modified; the executed command is::
 
         msgfilter <options> -o/dev/null <filepath>
 
-    where options argument to the factory may be used to pass any
-    extra options to msgfmt.
+    where C{options} parameter may be used to pass any
+    extra options to C{msgfmt}.
+
+    @param options: additional options to pass to C{msgfmt}
+    @type options: string
+
+    @return: type S6A hook
+    @rtype: C{(filepath) -> numerr}
+
+    @note: In case C{msgfmt} does not finish without errors,
+        hooks always report number of errors as 1.
     """
 
     # FIXME: Check availability and version of msgfmt.
@@ -59,8 +81,10 @@ def msgfmt (options=""):
         cmdline = base_cmdline + filepath
         ret = os.system(cmdline)
         if ret:
-            print "%s: msgfmt failed (options: '%s')" % (filepath, options)
-            return False
-        return True
+            warning("%s: msgfmt failed with exit code %d "
+                    "(options: '%s')" % (filepath, ret, options))
+            return 1
+        return 0
 
     return hook
+

@@ -27,11 +27,13 @@ def _rm_accel_in_msg (msg, accels, greedy=False):
     msg.msgid_previous = _rm_accel_in_text(msg.msgid_previous, accels, greedy)
     msg.msgid_plural_previous = _rm_accel_in_text(msg.msgid_plural_previous,
                                                   accels, greedy)
+    return 0
 
 
-def remove_accel_text (cat, msg, text):
+def remove_accel_text (text, msg, cat):
     """
-    Remove accelerator marker from one of the text fields of the message.
+    Remove accelerator marker from one of the text fields of the message
+    [type F3A hook].
 
     Accelerator marker is determined from the catalog, by calling its
     L{accelerator()<pology.file.catalog.Catalog.accelerator>} method.
@@ -40,7 +42,8 @@ def remove_accel_text (cat, msg, text):
     in case it does not specify any on its own.
     If catalog reports C{None} for accelerators, text is not touched.
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @return: text
+
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
@@ -48,12 +51,14 @@ def remove_accel_text (cat, msg, text):
     return _rm_accel_in_text(text, accels)
 
 
-def remove_accel_text_greedy (cat, msg, text):
+def remove_accel_text_greedy (text, msg, cat):
     """
     Like L{remove_accel_text}, except that if catalog reports C{None}
-    for accelerators, some frequent marker characters are removed.
+    for accelerators, some frequent marker characters are removed
+    [type F3A hook].
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @return: text
+
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
@@ -61,30 +66,33 @@ def remove_accel_text_greedy (cat, msg, text):
     return _rm_accel_in_text(text, accels, greedy=True)
 
 
-def remove_accel_msg (cat, msg):
+def remove_accel_msg (msg, cat):
     """
     Remove accelerator marker from all applicable text fields in the message,
-    as if L{remove_accel_text} was applied to each.
+    as if L{remove_accel_text} was applied to each [type F4A hook].
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @return: number of errors
+
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
-    _rm_accel_in_msg(msg, accels)
+    return _rm_accel_in_msg(msg, accels)
 
 
-def remove_accel_msg_greedy (cat, msg):
+def remove_accel_msg_greedy (msg, cat):
     """
     Like L{remove_accel_msg}, except that if catalog reports C{None}
-    for accelerators, some frequent marker characters are removed.
+    for accelerators, some frequent marker characters are removed
+    [type F4A hook].
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @return: number of errors
+
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
     accels = cat.accelerator()
-    _rm_accel_in_msg(msg, accels, greedy=True)
+    return _rm_accel_in_msg(msg, accels, greedy=True)
 
 
 def _rm_markup_in_text (text, mtypes):
@@ -119,11 +127,12 @@ def _rm_markup_in_msg (msg, mtypes):
     msg.msgid_previous = _rm_markup_in_text(msg.msgid_previous, mtypes)
     msg.msgid_plural_previous = _rm_markup_in_text(msg.msgid_plural_previous,
                                                    mtypes)
+    return 0
 
 
-def remove_markup_text (cat, msg, text):
+def remove_markup_text (text, msg, cat):
     """
-    Remove markup from one of the text fields of the message.
+    Remove markup from one of the text fields of the message [type F3A hook].
 
     Expected markup types are determined from the catalog, by calling its
     L{markup()<pology.file.catalog.Catalog.markup>} method.
@@ -132,26 +141,23 @@ def remove_markup_text (cat, msg, text):
     in case it does not specify any on its own.
     If catalog reports C{None} for markup types, text is not touched.
 
-    Also see L{set_markup()<file.catalog.Catalog.set_markup>} for list of
-    markup keywords recognized at the moment.
-
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @return: text
     """
 
     mtypes = cat.markup()
     return _rm_markup_in_text(text, mtypes)
 
 
-def remove_markup_msg (cat, msg):
+def remove_markup_msg (msg, cat):
     """
     Remove markup from all applicable text fields in the message,
-    as if L{remove_markup_text} was applied to each.
+    as if L{remove_markup_text} was applied to each [type F4A hook].
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @return: number of errors
     """
 
     mtypes = cat.markup()
-    _rm_markup_in_msg(msg, mtypes)
+    return _rm_markup_in_msg(msg, mtypes)
 
 
 def _format_flags (msg):
@@ -179,15 +185,18 @@ def _rm_fmtd_in_msg (msg, subs=""):
     msg.msgid_previous = _rm_fmtd_in_text(msg.msgid_previous, formats, subs)
     msg.msgid_plural_previous = _rm_fmtd_in_text(msg.msgid_plural_previous,
                                                  formats, subs)
+    return 0
 
 
-def remove_fmtdirs_text (cat, msg, text):
+def remove_fmtdirs_text (text, msg, cat):
     """
-    Remove format directives from one of the text fields of the message.
+    Remove format directives from one of the text fields of the message
+    [type F3A hook].
 
     The type of format directives is determined from message format flags.
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @return: text
+
     @see: L{pology.misc.resolve.remove_fmtdirs}
     """
 
@@ -197,49 +206,52 @@ def remove_fmtdirs_text (cat, msg, text):
 def remove_fmtdirs_text_tick (tick):
     """
     Like L{remove_fmtdirs_text}, except that each format directive is
-    replaced by a non-whitespace "tick" instead of plainly removed.
+    replaced by a non-whitespace "tick" instead of plainly removed
+    [hook factory].
 
     @param tick: the tick sequence
     @type tick: string
 
-    @note: Hook type factory: C{(cat, msg, text) -> text}
+    @return: type F3A hook
+    @rtype: C{(cat, msg, text) -> text}
     """
 
-    def hook (cat, msg, text):
+    def hook (text, msg, cat):
         return _rm_fmtd_in_text(text, _format_flags(msg), tick)
 
     return hook
 
 
-def remove_fmtdirs_msg (cat, msg):
+def remove_fmtdirs_msg (msg, cat):
     """
     Remove format directives from all applicable text fields in the message,
-    as if L{remove_fmtdirs_text} was applied to each.
+    as if L{remove_fmtdirs_text} was applied to each [type F4A hook].
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @return: number of errors
     """
 
-    _rm_fmtd_in_msg(msg)
+    return _rm_fmtd_in_msg(msg)
 
 
 def remove_fmtdirs_msg_tick (tick):
     """
     Remove format directives from all applicable text fields in the message,
-    as if L{remove_fmtdirs_text_tick} was applied to each.
+    as if L{remove_fmtdirs_text_tick} was applied to each [hook factory].
 
     @param tick: the tick sequence
     @type tick: string
 
-    @note: Hook type factory: C{(cat, msg) -> None}, modifies C{msg}
+    @return: type F4A hook
+    @rtype: C{(cat, msg, text) -> numerr}
     """
 
-    def hook (cat, msg):
-        _rm_fmtd_in_msg(msg, tick)
+    def hook (msg, cat):
+        return _rm_fmtd_in_msg(msg, tick)
 
     return hook
 
 
-def _literals_spec (cat, msg):
+def _literals_spec (msg, cat):
 
     fname = "literal-segment"
     rx_strs = manc_parse_field_values(msg, fname)
@@ -267,9 +279,9 @@ def _rm_lit_in_text (text, substrs, regexes, heuristic, subs=""):
                                   regexes=regexes, heuristic=heuristic)
 
 
-def _rm_lit_in_msg (cat, msg, subs=""):
+def _rm_lit_in_msg (msg, cat, subs=""):
 
-    strs, rxs, heu = _literals_spec(cat, msg)
+    strs, rxs, heu = _literals_spec(msg, cat)
 
     msg.msgid = _rm_lit_in_text(msg.msgid, strs, rxs, heu, subs)
     msg.msgid_plural = _rm_lit_in_text(msg.msgid_plural, strs, rxs, heu, subs)
@@ -280,11 +292,13 @@ def _rm_lit_in_msg (cat, msg, subs=""):
                                           strs, rxs, heu, subs)
     msg.msgid_plural_previous = _rm_lit_in_text(msg.msgid_plural_previous,
                                                  strs, rxs, heu, subs)
+    return 0
 
 
-def remove_literals_text (cat, msg, text):
+def remove_literals_text (text, msg, cat):
     """
-    Remove literal segments from one of the text fields of the message.
+    Remove literal segments from one of the text fields of the message
+    [type F3A hook].
 
     Literal segments are URLs, email addresses, command line options, etc.
     anything symbolic that the machine, rather than human alone, should parse.
@@ -305,56 +319,60 @@ def remove_literals_text (cat, msg, text):
     To prevent any heuristic removal of literals, add a C{literal-segment}
     field with empty value.
 
-    @note: Hook type: C{(cat, msg, text) -> text}
+    @return: text
+
     @see: L{pology.misc.resolve.remove_literals}
     """
 
-    strs, rxs, heu = _literals_spec(cat, msg)
+    strs, rxs, heu = _literals_spec(msg, cat)
     return _rm_lit_in_text(text, strs, rxs, heu)
 
 
 def remove_literals_text_tick (tick):
     """
     Like L{remove_literals_text}, except that each literal segment is
-    replaced by a non-whitespace "tick" instead of plainly removed.
+    replaced by a non-whitespace "tick" instead of plainly removed
+    [hook factory].
 
     @param tick: the tick sequence
     @type tick: string
 
-    @note: Hook type factory: C{(cat, msg, text) -> text}
+    @return: type F3A hook
+    @rtype: C{(cat, msg, text) -> text}
     """
 
-    def hook (cat, msg, text):
-        strs, rxs, heu = _literals_spec(cat, msg)
+    def hook (text, msg, cat):
+        strs, rxs, heu = _literals_spec(msg, cat)
         return _rm_lit_in_text(text, strs, rxs, heu, tick)
 
     return hook
 
 
-def remove_literals_msg (cat, msg):
+def remove_literals_msg (msg, cat):
     """
     Remove literal segments from all applicable text fields in the message,
-    as if L{remove_literals_text} was applied to each.
+    as if L{remove_literals_text} was applied to each [type F4A hook].
 
-    @note: Hook type: C{(cat, msg) -> None}, modifies C{msg}
+    @return: number of errors
     """
 
-    _rm_lit_in_msg(cat, msg)
+    return _rm_lit_in_msg(msg, cat)
 
 
 def remove_literals_msg_tick (tick):
     """
     Remove literal segments from all applicable text fields in the message,
-    as if L{remove_literals_text_tick} was applied to each.
+    as if L{remove_literals_text_tick} was applied to each [hook factory].
 
     @param tick: the tick sequence
     @type tick: string
 
-    @note: Hook type factory: C{(cat, msg) -> None}, modifies C{msg}
+    @return: type F4A hook
+    @rtype: C{(cat, msg, text) -> numerr}
     """
 
-    def hook (cat, msg):
-        _rm_lit_in_msg(cat, msg, tick)
+    def hook (msg, cat):
+        return _rm_lit_in_msg(msg, cat, tick)
 
     return hook
 

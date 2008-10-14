@@ -1111,7 +1111,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     for i in range(len(summit_msg.msgstr)):
                         piped_msgstr = exec_hook_msgstr(
                             branch_id, branch_name,
-                            summit_cat, summit_msg, summit_msg.msgstr[i],
+                            summit_msg.msgstr[i], summit_msg, summit_cat,
                             project.hook_on_scatter_msgstr)
                         if i < len(branch_msg.msgstr):
                             branch_msg.msgstr[i] = piped_msgstr
@@ -1126,7 +1126,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     index = summit_cat.plural_index(1)
                     branch_msg.msgstr[0] = exec_hook_msgstr(
                         branch_id, branch_name,
-                        summit_cat, summit_msg, summit_msg.msgstr[index],
+                        summit_msg.msgstr[index], summit_msg, summit_cat,
                         project.hook_on_scatter_msgstr)
                     branch_msg.fuzzy = False
                     branch_msg.manual_comment = summit_msg.manual_comment
@@ -1215,13 +1215,13 @@ def hook_applicable (branch_check, branch_id, name_check, name):
 
 # Pipe msgstr through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
+def exec_hook_msgstr (branch_id, branch_name, msgstr, msg, cat, hooks):
 
     piped_msgstr = msgstr
     for call, branch_ch, name_ch in hooks:
         if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
-            piped_msgstr_tmp = call(cat, msg, piped_msgstr)
-            if piped_msgstr_tmp is not None:
+            piped_msgstr_tmp = call(piped_msgstr, msg, cat)
+            if isinstance(piped_msgstr_tmp, basestring):
                 piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
@@ -1229,12 +1229,12 @@ def exec_hook_msgstr (branch_id, branch_name, cat, msg, msgstr, hooks):
 
 # Pipe header through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_head (branch_id, branch_name, header, hooks):
+def exec_hook_head (branch_id, branch_name, hdr, cat, hooks):
 
     # Apply all hooks to the header.
     for call, branch_ch, name_ch in hooks:
         if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
-            call(header)
+            call(hdr, cat)
 
 
 # Pipe catalog through hook calls,
@@ -1259,7 +1259,7 @@ def exec_hook_file (branch_id, branch_name, filepath, hooks):
     failed = False
     for call, branch_ch, name_ch in hooks:
         if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
-            if not call(filepath):
+            if call(filepath) != 0:
                 failed = True
                 break
 
@@ -1458,7 +1458,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Execute header hooks.
     if project.hook_on_merge_head:
-        exec_hook_head(branch_id, cat.name, cat.header,
+        exec_hook_head(branch_id, cat.name, cat.header, cat,
                        project.hook_on_merge_head)
 
     # Synchronize merged catalog if it has been opened.

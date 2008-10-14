@@ -416,10 +416,12 @@ C{addFilterHook}
     (see L{pology.hook.remove_subs.remove_accel_text} for details).
 
     It depends on the hook type to which parts of the message it can apply.
-    Hooks of type C{(cat, msg) -> None, modifies msg} must apply to C{msg},
-    whereas C{(cat, msg, text) -> text} can apply to C{msgid} and C{msgstr}.
-    Pure text hooks C{(text) -> text} apply to C{pmsgid}, C{pmsgstr}, and
-    C{pattern}.
+    Hooks of type F4A (C{(msg, cat) -> numerr}) must apply to C{msg},
+    whereas F3A (C{(text, msg, cat) -> text}) can apply to C{msgid} and
+    C{msgstr}; F3B and F3C hooks should be applied only to C{msgid} or
+    C{msgstr}, respectively, to satisfy their type restrictions.
+    Pure text hooks F1A (C{(text) -> text}) apply to C{pmsgid}, C{pmsgstr},
+    and C{pattern}.
 
     Aside from hook functions, a hook module may provide I{hook factories}
     used to parametrize hook functions. Factory arguments can be given by
@@ -474,15 +476,13 @@ C{hook}
     It is specified exactly like in the C{addFilterHook} directive,
     with C{name=}, C{factory=}, and C{on=} fields having the same meaning.
     The difference is in the type of hooks which are applicable in this
-    context, which must be one of the test types:
-    C{(cat, msg) -> L{highlight<misc.msgreport.report_msg_content>}}
-    (applies to C{msg} part as given by the C{on=} field),
-    C{(cat, msg, text) -> spans}
-    (applies to C{msgstr} and C{msgid} parts),
-    or C{(text) -> spans}
-    (to C{pmsgid} or C{pmsgstr}).
+    context, which must be one of the validation types:
+    V4A (C{(msg, cat) -> parts}) applies to C{msg} part as given by
+    the C{on=} field), V3A (C{(text, msg, cat) -> spans}) applies to either
+    C{msgid} or C{msgstr}, V3B and V3C to strictly C{msgid} or C{msgstr},
+    respectively, and V1A (C{(text) -> spans}) to C{pmsgid} or C{pmsgstr}.
     Also unlike with filter hooks, C{on=} field can state only one
-    message part to apply the test hook to, and not a comma-separated list.
+    message part to apply the validation hook to, not a comma-separated list.
 
     An example rule with a test hook as the trigger would be::
 
@@ -524,7 +524,6 @@ from pology.misc.report import report, warning, error
 from pology.misc.config import strbool
 from pology.misc.langdep import get_hook_lreq, split_req
 from pology.file.message import MessageUnsafe
-import pology.hook.remove_subs as remsub
 from pology.misc.tabulate import tabulate
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
@@ -536,7 +535,7 @@ def printStat(rules, nmatch):
     @param nmatch: total number of matched items
     """
     if nmatch:
-        report("Total matching: %d" % nmatch)
+        report("Total problems detected by rules: %d" % nmatch)
     statRules=[r for r in rules if r.count!=0 and r.stat is True]
     if statRules:
         statRules.sort(lambda x, y: cmp(x.time, y.time))
@@ -1073,7 +1072,7 @@ def _filterOnMsg (func):
 
     def aggregate (msg, cat):
 
-        func(cat, msg)
+        func(msg, cat)
 
     return aggregate
 
@@ -1083,7 +1082,7 @@ def _filterOnMsgstr (func):
     def aggregate (msg, cat):
 
         for i in range(len(msg.msgstr)):
-            tmp = func(cat, msg, msg.msgstr[i])
+            tmp = func(msg.msgstr[i], msg, cat)
             if tmp is not None: msg.msgstr[i] = tmp
 
     return aggregate
@@ -1093,9 +1092,9 @@ def _filterOnMsgid (func):
 
     def aggregate (msg, cat):
 
-        tmp = func(cat, msg, msg.msgid)
+        tmp = func(msg.msgid, msg, cat)
         if tmp is not None: msg.msgid = tmp
-        tmp = func(cat, msg, msg.msgid_plural)
+        tmp = func(msg.msgid_plural, msg, cat)
         if tmp is not None: msg.msgid_plural = tmp
 
     return aggregate
@@ -1214,14 +1213,13 @@ def _filterCreateHook (fields):
     hookName = fieldDict["name"]
     hook = get_hook_lreq(hookName, abort=False)
 
+    sig = "\x04".join([x for x in split_req(hookName) if x is not None])
+
     factoryStr = fieldDict.get("factory")
     if factoryStr is not None:
-        # The hook we fetched is in fact a hook factory; produce the hook.
-        hook, factoryStr = _fabricateHook(hook, factoryStr)
-    else:
-        factoryStr = ""
-
-    sig = "\x04".join([x for x in split_req(hookName) if x is not None])
+        # The fetched hook is in fact a hook factory; produce the hook.
+        hook, fsig = _fabricateHook(hook, factoryStr)
+        sig += "\x04\x04" + fsig
 
     return hook, sig
 
@@ -1274,30 +1272,30 @@ def _triggerFromHook (fields):
 
     if msgpart == "msg":
         def trigger (msg, cat):
-            return hook(cat, msg)
+            return hook(msg, cat)
     elif msgpart == "msgid":
         def trigger (msg, cat):
             hl = []
-            hl.append(("msgid", 0) + hook(cat, msg, msg.msgid))
-            hl.append(("msgid_plural", 0) + hook(cat, msg, msg.msgid_plural))
+            hl.append(("msgid", 0, hook(msg.msgid, msg, cat)))
+            hl.append(("msgid_plural", 0, hook(msg.msgid_plural, msg, cat)))
             return hl
     elif msgpart == "msgstr":
         def trigger (msg, cat):
             hl = []
             for i in range(len(msg.msgstr)):
-                hl.append(("msgstr", i) + hook(cat, msg, msg.msgstr[i]))
+                hl.append(("msgstr", i, hook(msg.msgstr[i], msg, cat)))
             return hl
     elif msgpart == "pmsgid":
         def trigger (msg, cat):
             hl = []
-            hl.append(("msgid", 0) + hook(msg.msgid))
-            hl.append(("msgid_plural", 0) + hook(msg.msgid_plural))
+            hl.append(("msgid", 0, hook(msg.msgid)))
+            hl.append(("msgid_plural", 0, hook(msg.msgid_plural)))
             return hl
     elif msgpart == "pmsgstr":
         def trigger (msg, cat):
             hl = []
             for i in range(len(msg.msgstr)):
-                hl.append(("msgstr", i) + hook(msgstr))
+                hl.append(("msgstr", i, hook(msgstr)))
             return hl
 
     return trigger

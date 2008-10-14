@@ -189,7 +189,7 @@ class Sieve (object):
         msgf = MessageUnsafe(msg)
 
         # - remove accelerators
-        remove_accel_msg(cat, msgf)
+        remove_accel_msg(msgf, cat)
 
         # - apply msgstr filters
         for pfilter in self.pfilters:

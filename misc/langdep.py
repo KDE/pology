@@ -125,17 +125,17 @@ def split_req (langreq, abort=False):
     return (lang, path, item)
 
 
-def get_hook (lang, filtr, func=None, abort=False):
+def get_hook (lang, hmod, func=None, abort=False):
     """
     Fetch a language-dependent hook function.
 
-    Loads the hook function from C{pology.l10n.<lang>.hook.<filtr>} module.
+    Loads the hook function from C{pology.l10n.<lang>.hook.<hmod>} module.
     If C{func} is C{None}, the function name defaults to C{process}.
 
     @param lang: language code
     @type lang: string
-    @param filtr: hook module
-    @type filtr: string
+    @param hmod: hook module
+    @type hmod: string
     @param func: hook function
     @type func: string of C{None}
     @param abort: if the hook is not loadable, abort or report C{None}
@@ -144,14 +144,14 @@ def get_hook (lang, filtr, func=None, abort=False):
     @returns: the hook
     """
 
-    path = ["hook"] + filtr.split(".")
+    path = ["hook"] + hmod.split(".")
     lmod = get_module(lang, path, abort)
     if func is None:
         func = "process"
     call = getattr(lmod, func, None)
     if call is None:
         _raise_or_abort("hook module '%s:%s' does not define '%s' function"
-                        % (lang, filtr, func), abort)
+                        % (lang, hmod, func), abort)
 
     return call
 
@@ -162,7 +162,7 @@ def get_hook_lreq (langreq, abort=False):
     L{language request<split_req>}.
     """
 
-    return _by_lreq(langreq, get_hook, abort)
+    return _by_lreq(langreq, get_hook, abort=abort)
 
 
 def _by_lreq (langreq, getter, abort=False):

@@ -10,6 +10,7 @@ Various checks for translations into Serbian.
 import re
 
 from pology.misc.msgreport import warning_on_msg
+from pology.misc.diff import adapt_spans
 
 # ----------------------------------------
 # Checks for presence of naked Latin segments.
@@ -75,17 +76,17 @@ _no_check_lat_origui_rxs = (
 _naked_latin_rx = re.compile(r"[a-z][a-z\W]*", re.U|re.I)
 
 # The hook worker.
-def _naked_latin_w (cat, msg, msgstr, origui=False, passthrough=False):
+def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
 
     # Avoid meta-messages.
     if (   msg.msgctxt in ("EMAIL OF TRANSLATORS",)
         or (    cat.name.startswith("desktop_")
             and msg.msgctxt in ("Keywords", "Query"))
     ):
-        if passthrough:
-            return None
+        if sideeffect:
+            return 0
         else:
-            return [], None
+            return []
 
     # Eliminate all no-check segments.
     stripped_msgstr = msgstr
@@ -96,20 +97,22 @@ def _naked_latin_w (cat, msg, msgstr, origui=False, passthrough=False):
         stripped_msgstr = rx.sub("", stripped_msgstr)
 
     matches = _naked_latin_rx.finditer(stripped_msgstr)
-    if passthrough:
+    if sideeffect:
         # Report if any Latin text remained in stripped msgstr.
         for m in matches:
             warning_on_msg("naked-Latin segment: %s" % m.group(0), msg, cat)
-        return None
+        return len(matches)
     else:
-        # Collect offending spans.
+        # Collect and adapt offending spans.
         spans = [m.span() for m in matches]
-        return spans, stripped_msgstr
+        spans = adapt_spans(msgstr, stripped_msgstr, spans, merge=False)
+        return spans
 
 
-def naked_latin (cat, msg, msgstr):
+def naked_latin (msgstr, msg, cat):
     """
-    Report spans of Latin letters outside of sanctioned contexts.
+    Report spans of Latin letters outside of sanctioned contexts
+    [type V3C hook].
 
     Latin segments are allowed within:
       - the following XML-like tags: C{bcode}, C{command}, C{email}, C{envar},
@@ -126,16 +129,16 @@ def naked_latin (cat, msg, msgstr):
       - templates in wiki markup, e.g. C{"{{note|Обавезно проверите...}}"}
       - explicit wrapping C{~!/.../}, e.g. C{"...наредбом ~!/grep/..."}
 
-    @note: Hook type: C{(cat, msg, msgstr) -> spans}
+    @return: annotated spans
     """
 
-    return _naked_latin_w(cat, msg, msgstr)
+    return _naked_latin_w(msgstr, msg, cat)
 
 
-def naked_latin_origui (cat, msg, msgstr):
+def naked_latin_origui (msgstr, msg, cat):
     """
     Like C{naked_latin}, but allowing original UI references which are
-    supposed to be automatically resolved.
+    supposed to be automatically resolved [type V3C hook].
 
     Original UI references are given:
       - within XML-like tags: C{gui*} (C{guilabel}, C{guimenu}, etc.),
@@ -144,28 +147,30 @@ def naked_latin_origui (cat, msg, msgstr):
       - manually wrapped by C{~%/.../},
         e.g. C{"...кликните на ~%/Scramble Reactor/ да..."}
 
-    @note: Hook type: C{(cat, msg, msgstr) -> spans}
+    @return: annotated spans
     """
 
-    return _naked_latin_w(cat, msg, msgstr, origui=True)
+    return _naked_latin_w(msgstr, msg, cat, origui=True)
 
 
-def naked_latin_pt (cat, msg, msgstr):
+def naked_latin_se (msgstr, msg, cat):
     """
-    Pass-through version of C{naked_latin}, issuing warnings to stderr.
+    Side-effect version of C{naked_latin}, issuing warnings to stderr
+    [type S3C hook].
 
-    @note: Hook type: C{(cat, msg, msgstr) -> None}
-    """
-
-    return _naked_latin_w(cat, msg, msgstr, passthrough=True)
-
-
-def naked_latin_origui_pt (cat, msg, msgstr):
-    """
-    Pass-through version of C{naked_latin_origui}, issuing warnings to stderr.
-
-    @note: Hook type: C{(cat, msg, msgstr) -> None}
+    @return: number of errors
     """
 
-    return _naked_latin_w(cat, msg, msgstr, origui=True, passthrough=True)
+    return _naked_latin_w(msgstr, msg, cat, sideeffect=True)
+
+
+def naked_latin_origui_se (msgstr, msg, cat):
+    """
+    Side-effect version of C{naked_latin_origui}, issuing warnings to stderr
+    [type S3C hook].
+
+    @return: number of errors
+    """
+
+    return _naked_latin_w(msgstr, msg, cat, origui=True, sideeffect=True)
 
