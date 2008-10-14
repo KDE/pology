@@ -88,11 +88,15 @@ the original (obtained by C{msg} parameter) must be consulted.
 If a C{*3B} or C{*3C} hook is applied on an inappropriate text field,
 the results are undefined.
 
-Hooks on PO messages in a catalog:
+Hooks on PO entries in a catalog:
 
   - C{F4A} = C{(msg, cat)->numerr}: filters a message, modifying it
   - C{V4A} = C{(msg, cat)->parts}: validates a message
   - C{S4A} = C{(msg, cat)->numerr}: side-effects on a message (no modification)
+
+  - C{F4B} = C{(hdr, cat)->numerr}: filters a header, modifying it
+  - C{V4B} = C{(hdr, cat)->parts}: validates a header
+  - C{S5B} = C{(hdr, cat)->numerr}: side-effects on a header (no modification)
 
 Hooks on PO catalogs:
 
