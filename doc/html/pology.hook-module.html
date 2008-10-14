@@ -168,7 +168,7 @@
   <code>msg</code> parameter) must be consulted. If a <code>*3B</code> or 
   <code>*3C</code> hook is applied on an inappropriate text field, the 
   results are undefined.</p>
-  <p>Hooks on PO messages in a catalog:</p>
+  <p>Hooks on PO entries in a catalog:</p>
   <ul>
     <li>
       <code>F4A</code> = <code>(msg, cat)-&gt;numerr</code>: filters a 
@@ -181,6 +181,18 @@
     <li>
       <code>S4A</code> = <code>(msg, cat)-&gt;numerr</code>: side-effects 
       on a message (no modification)
+    </li>
+    <li>
+      <code>F4B</code> = <code>(hdr, cat)-&gt;numerr</code>: filters a 
+      header, modifying it
+    </li>
+    <li>
+      <code>V4B</code> = <code>(hdr, cat)-&gt;parts</code>: validates a 
+      header
+    </li>
+    <li>
+      <code>S5B</code> = <code>(hdr, cat)-&gt;numerr</code>: side-effects 
+      on a header (no modification)
     </li>
   </ul>
   <p>Hooks on PO catalogs:</p>
@@ -235,14 +247,15 @@
     <code>l10n.&lt;lang&gt;.hook.&lt;submod&gt;</code>, so that they can be
     automatically obtained by <a 
     href="pology.misc.langdep-module.html#get_hook" 
-    class="link">misc.langdep.get_hook</a>. In particular, Pology utilities
-    allowing users to insert hooks into processing will expect hooks to be 
-    in these locations, such that <a 
+    class="link">misc.langdep.get_hook()</a>. In particular, Pology 
+    utilities allowing users to insert hooks into processing will expect 
+    hooks to be in these locations, such that <a 
     href="pology.misc.langdep-module.html#get_hook_lreq" 
-    class="link">misc.langdep.get_hook_lreq</a> function can fetch the hook
-    from a string specification. If a hook module implements a single hook,
-    and the hook function is named <code>process()</code>, users can select
-    it by giving only the hook module name, without the function name.</p>
+    class="link">misc.langdep.get_hook_lreq()</a> function can fetch the 
+    hook from a string specification. If a hook module implements a single 
+    hook, and the hook function is named <code>process()</code>, users can 
+    select it by giving only the hook module name, without the function 
+    name.</p>
     <p>Annotated parts for PO messages returned by hooks are a reduced 
     version, but a valid instance of highlight specifications used by 
     reporting functions, e.g. <a 

@@ -96,7 +96,7 @@ Hooks on PO entries in a catalog:
 
   - C{F4B} = C{(hdr, cat)->numerr}: filters a header, modifying it
   - C{V4B} = C{(hdr, cat)->parts}: validates a header
-  - C{S5B} = C{(hdr, cat)->numerr}: side-effects on a header (no modification)
+  - C{S4B} = C{(hdr, cat)->numerr}: side-effects on a header (no modification)
 
 Hooks on PO catalogs:
 
