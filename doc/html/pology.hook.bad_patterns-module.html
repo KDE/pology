@@ -63,7 +63,7 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><code>(text, msg, cat)-&gt;numerr</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -71,7 +71,7 @@
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
-      Factory of hooks to detect unwanted patterns per msgstr.</td>
+      Detect unwanted patterns in text [hook factory].</td>
           <td align="right" valign="top">
             
             
@@ -108,16 +108,26 @@
     </td>
   </tr></table>
   
-  <p>Factory of hooks to detect unwanted patterns per msgstr.</p>
-  <p>Produces hooks with (cat, msg, msgstr) signature, returning None. 
-  Patterns can be given both as list of strings, and as a list of file 
+  <p>Detect unwanted patterns in text [hook factory].</p>
+  <p>Patterns can be given both as list of strings, and as a list of file 
   paths containing patterns (in each file: one pattern per line, strip 
   leading and trailing whitespace, skip empty lines, #-comments). Detected 
-  patterns are reported to stdout. If rxmatch is False, patterns are 
-  matched by plain substring search, otherwise as regular expressions. If 
-  casesens is True, matching is case sensitive. if the message has pipe 
-  flag no-bad-patterns, matching is skipped.</p>
+  patterns are reported to stdout.</p>
+  <p>If <code>rxmatch</code> is <code>False</code>, patterns are matched by
+  plain substring search, otherwise as regular expressions. If 
+  <code>casesens</code> is True, matching is case sensitive.</p>
+  <p>If the message has pipe flag <code>no-bad-patterns</code>, check is 
+  skipped.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>rxmatch</code></strong> (bool) - whether to take pattern as regular expression</li>
+        <li><strong class="pname"><code>casesens</code></strong> (bool) - whether the match should be case-sensitive</li>
+        <li><strong class="pname"><code>patterns</code></strong> (list of strings) - patterns to match the text</li>
+        <li><strong class="pname"><code>fromfiles</code></strong> (list of strings) - file paths from which to read patterns</li>
+    </ul></dd>
+    <dt>Returns: <code>(text, msg, cat)-&gt;numerr</code></dt>
+        <dd>type S3A hook</dd>
   </dl>
 </td></tr></table>
 </div>

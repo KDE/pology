@@ -23,6 +23,7 @@ pology.file.message.wrap_comment	pology.misc.wrap-module.html#wrap_comment
 pology.file.message.wrap_field	pology.misc.wrap-module.html#wrap_field
 pology.hook	pology.hook-module.html
 pology.hook.bad_patterns	pology.hook.bad_patterns-module.html
+pology.hook.bad_patterns.report_on_msg	pology.misc.msgreport-module.html#report_on_msg
 pology.hook.bad_patterns.manc_parse_flag_list	pology.misc.comments-module.html#manc_parse_flag_list
 pology.hook.bad_patterns.process_patterns	pology.sieve.bad_patterns-module.html#process_patterns
 pology.hook.bad_patterns.bad_patterns	pology.hook.bad_patterns-module.html#bad_patterns
@@ -63,6 +64,7 @@ pology.hook.check_markup.flag_no_check_xml	pology.hook.check_markup-module.html#
 pology.hook.gettext_tools	pology.hook.gettext_tools-module.html
 pology.hook.gettext_tools.msgfilter	pology.hook.gettext_tools-module.html#msgfilter
 pology.hook.gettext_tools.msgfmt	pology.hook.gettext_tools-module.html#msgfmt
+pology.hook.gettext_tools.warning	pology.misc.report-module.html#warning
 pology.hook.remove_subs	pology.hook.remove_subs-module.html
 pology.hook.remove_subs._rm_lit_in_msg	pology.hook.remove_subs-module.html#_rm_lit_in_msg
 pology.hook.remove_subs.manc_parse_field_values	pology.misc.comments-module.html#manc_parse_field_values
@@ -117,13 +119,14 @@ pology.l10n.sr.hook.checks._gui_man_dir	pology.l10n.sr.hook.checks-module.html#_
 pology.l10n.sr.hook.checks.naked_latin_origui	pology.l10n.sr.hook.checks-module.html#naked_latin_origui
 pology.l10n.sr.hook.checks._no_check_lat_origui_rxs	pology.l10n.sr.hook.checks-module.html#_no_check_lat_origui_rxs
 pology.l10n.sr.hook.checks.warning_on_msg	pology.misc.msgreport-module.html#warning_on_msg
+pology.l10n.sr.hook.checks.naked_latin_origui_se	pology.l10n.sr.hook.checks-module.html#naked_latin_origui_se
 pology.l10n.sr.hook.checks._naked_latin_rx	pology.l10n.sr.hook.checks-module.html#_naked_latin_rx
 pology.l10n.sr.hook.checks._lat_wrap_dir	pology.l10n.sr.hook.checks-module.html#_lat_wrap_dir
 pology.l10n.sr.hook.checks.naked_latin	pology.l10n.sr.hook.checks-module.html#naked_latin
-pology.l10n.sr.hook.checks.naked_latin_origui_pt	pology.l10n.sr.hook.checks-module.html#naked_latin_origui_pt
+pology.l10n.sr.hook.checks.adapt_spans	pology.misc.diff-module.html#adapt_spans
+pology.l10n.sr.hook.checks.naked_latin_se	pology.l10n.sr.hook.checks-module.html#naked_latin_se
 pology.l10n.sr.hook.checks._no_check_lat_rxs	pology.l10n.sr.hook.checks-module.html#_no_check_lat_rxs
 pology.l10n.sr.hook.checks._naked_latin_w	pology.l10n.sr.hook.checks-module.html#_naked_latin_w
-pology.l10n.sr.hook.checks.naked_latin_pt	pology.l10n.sr.hook.checks-module.html#naked_latin_pt
 pology.l10n.sr.hook.cyr2lat	pology.l10n.sr.hook.cyr2lat-module.html
 pology.l10n.sr.hook.cyr2lat.process	pology.l10n.sr.hook.cyr2lat-module.html#process
 pology.l10n.sr.hook.cyr2lat._dict_c2l	pology.l10n.sr.hook.cyr2lat-module.html#_dict_c2l
@@ -247,6 +250,7 @@ pology.misc.markup.read_entities	pology.misc.entities-module.html#read_entities
 pology.misc.markup._wsgr_postmask_rx	pology.misc.markup-module.html#_wsgr_postmask_rx
 pology.misc.markup.check_xml_l1	pology.misc.markup-module.html#check_xml_l1
 pology.misc.markup._mask_ws	pology.misc.markup-module.html#_mask_ws
+pology.misc.markup.rootdir	pology-module.html#rootdir
 pology.misc.markup.check_xml_qtrich_l1	pology.misc.markup-module.html#check_xml_qtrich_l1
 pology.misc.markup.error	pology.misc.report-module.html#error
 pology.misc.markup._kuit_tags	pology.misc.markup-module.html#_kuit_tags
@@ -288,7 +292,6 @@ pology.misc.markup._htkt_ignels	pology.misc.markup-module.html#_htkt_ignels
 pology.misc.markup._qtrich_keepws	pology.misc.markup-module.html#_qtrich_keepws
 pology.misc.markup._ts_fence	pology.misc.markup-module.html#_ts_fence
 pology.misc.markup._make_span	pology.misc.markup-module.html#_make_span
-pology.misc.markup.rootdir	pology-module.html#rootdir
 pology.misc.markup.check_xml_kde4_l1	pology.misc.markup-module.html#check_xml_kde4_l1
 pology.misc.markup._ehfmt	pology.misc.markup-module.html#_ehfmt
 pology.misc.markup._htkt_keepws	pology.misc.markup-module.html#_htkt_keepws

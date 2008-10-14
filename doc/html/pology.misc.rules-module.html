@@ -180,6 +180,10 @@
         expression
       </li>
       <li>
+        <code>srcref</code>: passes if file path of one of the source 
+        references matches a regular expression
+      </li>
+      <li>
         <code>span</code>: passes if the part of the text matched by the 
         trigger pattern is matched by this regular expression as well
       </li>
@@ -517,11 +521,13 @@
       class="link">pology.hook.remove_subs.remove_accel_text</a> for 
       details).</p>
       <p>It depends on the hook type to which parts of the message it can 
-      apply. Hooks of type <code>(cat, msg) -&gt; None, modifies msg</code>
-      must apply to <code>msg</code>, whereas <code>(cat, msg, text) -&gt; 
-      text</code> can apply to <code>msgid</code> and <code>msgstr</code>. 
-      Pure text hooks <code>(text) -&gt; text</code> apply to 
-      <code>pmsgid</code>, <code>pmsgstr</code>, and 
+      apply. Hooks of type F4A (<code>(msg, cat) -&gt; numerr</code>) must 
+      apply to <code>msg</code>, whereas F3A (<code>(text, msg, cat) -&gt; 
+      text</code>) can apply to <code>msgid</code> and <code>msgstr</code>;
+      F3B and F3C hooks should be applied only to <code>msgid</code> or 
+      <code>msgstr</code>, respectively, to satisfy their type 
+      restrictions. Pure text hooks F1A (<code>(text) -&gt; text</code>) 
+      apply to <code>pmsgid</code>, <code>pmsgstr</code>, and 
       <code>pattern</code>.</p>
       <p>Aside from hook functions, a hook module may provide <i>hook 
       factories</i> used to parametrize hook functions. Factory arguments 
@@ -572,15 +578,16 @@
       directive, with <code>name=</code>, <code>factory=</code>, and 
       <code>on=</code> fields having the same meaning. The difference is in
       the type of hooks which are applicable in this context, which must be
-      one of the test types: <code>(cat, msg) -&gt; <a 
-      href="pology.misc.msgreport-module.html#report_msg_content" 
-      class="link">highlight</a></code> (applies to <code>msg</code> part 
-      as given by the <code>on=</code> field), <code>(cat, msg, text) -&gt;
-      spans</code> (applies to <code>msgstr</code> and <code>msgid</code> 
-      parts), or <code>(text) -&gt; spans</code> (to <code>pmsgid</code> or
-      <code>pmsgstr</code>). Also unlike with filter hooks, 
-      <code>on=</code> field can state only one message part to apply the 
-      test hook to, and not a comma-separated list.</p>
+      one of the validation types: V4A (<code>(msg, cat) -&gt; 
+      parts</code>) applies to <code>msg</code> part as given by the 
+      <code>on=</code> field), V3A (<code>(text, msg, cat) -&gt; 
+      spans</code>) applies to either <code>msgid</code> or 
+      <code>msgstr</code>, V3B and V3C to strictly <code>msgid</code> or 
+      <code>msgstr</code>, respectively, and V1A (<code>(text) -&gt; 
+      spans</code>) to <code>pmsgid</code> or <code>pmsgstr</code>. Also 
+      unlike with filter hooks, <code>on=</code> field can state only one 
+      message part to apply the validation hook to, not a comma-separated 
+      list.</p>
       <p>An example rule with a test hook as the trigger would be:</p>
 <pre class="literalblock">
    *hook name=&quot;ui-references/validate&quot; on=&quot;msgstr&quot;

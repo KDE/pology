@@ -112,7 +112,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_hook" class="summary-sig-name">get_hook</a>(<span class="summary-sig-arg">lang</span>,
-        <span class="summary-sig-arg">filtr</span>,
+        <span class="summary-sig-arg">hmod</span>,
         <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Fetch a language-dependent hook function.</td>
@@ -247,7 +247,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_hook</span>(<span class="sig-arg">lang</span>,
-        <span class="sig-arg">filtr</span>,
+        <span class="sig-arg">hmod</span>,
         <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
@@ -258,14 +258,14 @@
   
   <p>Fetch a language-dependent hook function.</p>
   <p>Loads the hook function from 
-  <code>pology.l10n.&lt;lang&gt;.hook.&lt;filtr&gt;</code> module. If 
+  <code>pology.l10n.&lt;lang&gt;.hook.&lt;hmod&gt;</code> module. If 
   <code>func</code> is <code>None</code>, the function name defaults to 
   <code>process</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
-        <li><strong class="pname"><code>filtr</code></strong> (string) - hook module</li>
+        <li><strong class="pname"><code>hmod</code></strong> (string) - hook module</li>
         <li><strong class="pname"><code>func</code></strong> (string of <code>None</code>) - hook function</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - if the hook is not loadable, abort or report <code>None</code></li>
     </ul></dd>

@@ -50,7 +50,233 @@
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
 <h1 class="epydoc">Package hook</h1><p class="nomargin-top"></p>
-<!-- ==================== SUBMODULES ==================== -->
+<p>Hooks pluggable into various Pology contexts.</p>
+  <p>Hooks are functions with specified sets of input parameters, return 
+  values, processing intent, and behavioral constraints. As such, they can 
+  be used as testing and modification plugins in many processing contexts 
+  in Pology. There are three broad categories of hooks: filtering, 
+  validation and side-effect hooks.</p>
+  <p>Filtering hooks modify some of their inputs; modifications are done 
+  in-place whenever the input is mutable (like a PO message), otherwise the
+  modified input is provided in a return value (like a PO message text 
+  field).</p>
+  <p>Validation hooks perform certain checks on their inputs, and return 
+  list of <i>annotated spans</i> or <i>annotated parts</i>, which state all
+  the encountered errors. Annotated spans are reported when the object of 
+  checks is a piece of text; each span is a tuple of start and end index of
+  the problematic segment in the text, and a note which explains the 
+  problem. A return value of a text-validation hook will thus be a 
+  list:</p>
+<pre class="literalblock">
+   [(start1, end1, &quot;note1&quot;), (start2, end2, &quot;note1&quot;), ...]
+</pre>
+  <p>(note can also be <code>None</code>, when there is nothing to say 
+  about the problem). Annotated parts are reported for an object having 
+  more than one distinct text, such as a PO message. Each annotated part is
+  a tuple stating the problematic part of the object by name (e.g. 
+  <code>&quot;msgid&quot;</code>, <code>&quot;msgstr&quot;</code>), the 
+  item index for array-like parts (e.g. for <code>msgstr</code>), and the 
+  list of annotated subparts, describing problem with the given part (for a
+  PO message, this is a list of annotated spans, as subparts are text 
+  fields). A return value of an PO message-validation hook will look 
+  like:</p>
+<pre class="literalblock">
+   [(&quot;part1&quot;, item1, [(start11, end11, &quot;note11&quot;), ...]),
+    (&quot;part2&quot;, item2, [(start21, end21, &quot;note21&quot;), ...]),
+    ...]
+</pre>
+  <p>Side-effect hooks neither modify the inputs nor report validation 
+  info, but can be used to whatever purpose which is independent of the 
+  processing chain in which the hook is inserted. For example, a checking 
+  hook can be implemented like this, if it is enough that it reports 
+  problems to stdout, or where clients are not set to use full validation 
+  info (spans/parts). The return value of side-effect hooks is an integer, 
+  the number of errors encountered internally by the hook. Clients may use 
+  this number to decide upon further behavior (e.g. if side-effect hook 
+  modified a temporary copy of a file, client may decide to abandon the 
+  result and use the original file if there were some errors).</p>
+  <p>In the following, each hook type will be presented, and assigned a 
+  formal type keyword. The type keyword is in the form 
+  <code>&lt;letter1&gt;&lt;number&gt;&lt;letter2&gt;</code>, e.g. 
+  <code>F1A</code>. The first letter represents the hook category: 
+  <code>F</code> for filtering hooks, <code>V</code> for validation hooks, 
+  and <code>S</code> for side-effect hooks. The number enumerates the input
+  signature by parameter types, and the final letter the semantic of input 
+  parameters for same input signature. As a more mnemonic reminder, each 
+  type will also be given an informal signature in the form of 
+  <code>(param1, param2, ...) -&gt; result</code>; in them, 
+  <code>spans</code> stand for annotated spans, <code>parts</code> for 
+  annotated parts, and <code>numerr</code> for number of errors.</p>
+  <p>Hooks on pure text:</p>
+  <ul>
+    <li>
+      <code>F1A</code> = <code>(text)-&gt;text</code>: filters the text
+    </li>
+    <li>
+      <code>V1A</code> = <code>(text)-&gt;spans</code>: validates the text
+    </li>
+    <li>
+      <code>S1A</code> = <code>(text)-&gt;numerr</code>: side-effects on 
+      text
+    </li>
+  </ul>
+  <p>Hooks on text fields in a PO message in a catalog:</p>
+  <ul>
+    <li>
+      <code>F3A</code> = <code>(text, msg, cat)-&gt;text</code>: filters 
+      any text field
+    </li>
+    <li>
+      <code>V3A</code> = <code>(text, msg, cat)-&gt;spans</code>: validates
+      any text field
+    </li>
+    <li>
+      <code>S3A</code> = <code>(text, msg, cat)-&gt;numerr</code>: 
+      side-effects on any text field
+    </li>
+    <li>
+      <code>F3B</code> = <code>(msgid, msg, cat)-&gt;msgid</code>: filters 
+      an original text field; original fields are either <code>msgid</code>
+      or <code>msgid_plural</code>
+    </li>
+    <li>
+      <code>V3B</code> = <code>(msgid, msg, cat)-&gt;spans</code>: 
+      validates an original text field
+    </li>
+    <li>
+      <code>S3B</code> = <code>(msgid, msg, cat)-&gt;numerr</code>: 
+      side-effects on an original text field
+    </li>
+    <li>
+      <code>F3C</code> = <code>(msgstr, msg, cat)-&gt;msgstr</code>: 
+      filters a translation text field; translation fields are the 
+      <code>msgstr</code> array
+    </li>
+    <li>
+      <code>V3C</code> = <code>(msgstr, msg, cat)-&gt;spans</code>: 
+      validates a translation text field
+    </li>
+    <li>
+      <code>S3C</code> = <code>(msgstr, msg, cat)-&gt;numerr</code>: 
+      side-effects on a translation text field
+    </li>
+  </ul>
+  <p><code>*3B</code> and <code>*3C</code> series are introduced next to 
+  <code>*3A</code> for cases when it does not make sense for text field to 
+  be any other but one of the original, or translation fields. For example,
+  to process the translation sometimes the original (obtained by 
+  <code>msg</code> parameter) must be consulted. If a <code>*3B</code> or 
+  <code>*3C</code> hook is applied on an inappropriate text field, the 
+  results are undefined.</p>
+  <p>Hooks on PO messages in a catalog:</p>
+  <ul>
+    <li>
+      <code>F4A</code> = <code>(msg, cat)-&gt;numerr</code>: filters a 
+      message, modifying it
+    </li>
+    <li>
+      <code>V4A</code> = <code>(msg, cat)-&gt;parts</code>: validates a 
+      message
+    </li>
+    <li>
+      <code>S4A</code> = <code>(msg, cat)-&gt;numerr</code>: side-effects 
+      on a message (no modification)
+    </li>
+  </ul>
+  <p>Hooks on PO catalogs:</p>
+  <ul>
+    <li>
+      <code>F5A</code> = <code>(cat)-&gt;numerr</code>: filters a catalog, 
+      modifying it in any way; (either messages themselves, or removing, 
+      adding, moving messages)
+    </li>
+    <li>
+      <code>S5A</code> = <code>(cat)-&gt;numerr</code>: side-effects on a 
+      catalog (no modification)
+    </li>
+  </ul>
+  <p>Hooks on file paths:</p>
+  <ul>
+    <li>
+      <code>F6A</code> = <code>(filepath)-&gt;numerr</code>: filters a 
+      file, modifying it in any way
+    </li>
+    <li>
+      <code>S6A</code> = <code>(filepath)-&gt;numerr</code>: side-effects 
+      on a file, no modification
+    </li>
+  </ul>
+  <p><code>*2*</code> series, which would be <code>(text, 
+  msg)-&gt;...</code> hooks, has been skipped, as no need for them was 
+  observed so far next to <code>*3*</code> hooks.</p>
+  <h1 class="heading">Hook Factories</h1>
+    <p>Since hooks have fixed input signatures by type, the way to 
+    customize a given hook behavior is to produce its function by another 
+    function. The hook-producing function is called a &quot;hook 
+    factory&quot;. It works by preparing anything needed for the hook, and 
+    then defining the hook proper and returning it, thereby creating a 
+    lexical closure around it:</p>
+<pre class="literalblock">
+   def hook_factory (parfoo, parbar):
+
+       # perhaps use parfoo, parbar to setup hook definition
+
+       def hook (...):
+
+           # perhaps use parfoo, parbar in the hook definition too
+
+       return hook
+</pre>
+    <p>In fact, most of the <code>hook.&lt;submod&gt;</code> modules define
+    hook factories rather than hooks directly.</p>
+  <h1 class="heading">Notes</h1>
+    <p>Hooks should be defined in submodules 
+    <code>hook.&lt;submod&gt;</code> and language-dependent 
+    <code>l10n.&lt;lang&gt;.hook.&lt;submod&gt;</code>, so that they can be
+    automatically obtained by <a 
+    href="pology.misc.langdep-module.html#get_hook" 
+    class="link">misc.langdep.get_hook</a>. In particular, Pology utilities
+    allowing users to insert hooks into processing will expect hooks to be 
+    in these locations, such that <a 
+    href="pology.misc.langdep-module.html#get_hook_lreq" 
+    class="link">misc.langdep.get_hook_lreq</a> function can fetch the hook
+    from a string specification. If a hook module implements a single hook,
+    and the hook function is named <code>process()</code>, users can select
+    it by giving only the hook module name, without the function name.</p>
+    <p>Annotated parts for PO messages returned by hooks are a reduced 
+    version, but a valid instance of highlight specifications used by 
+    reporting functions, e.g. <a 
+    href="pology.misc.msgreport-module.html#report_msg_content" 
+    class="link">report_msg_content()</a>. Annotated parts do not have the 
+    optional fourth element of a tuple in highlight specification, which is
+    used to provide the filtered text against which spans were constructed,
+    instead of the original text.</p>
+    <p>In connection with the previous, if a validation hook internally 
+    filters the text and constructs list of problematic spans against such 
+    text, just before returning it can use <a 
+    href="pology.misc.diff-module.html#adapt_spans" 
+    class="link">adapt_spans()</a> to reconstruct spans against the 
+    original text.</p>
+    <p>The documentation of each hook should state its type in the short 
+    description, in square brackets at the end as <code>[type ??? 
+    hook]</code>. Input parameters should be named like in the type lists 
+    above, and shouldn't be listed as <code>@param:</code>; only the return
+    is given under <code>@return:</code>, again using one of the above 
+    listed return names, to complete the hook signature.</p>
+    <p>The documentation to a hook factory should have <code>[hook 
+    factory]</code> at the end of short description. It should normally 
+    list all the input parameters, while the return value should be given 
+    as <code>@return: type ??? hook</code>, and hook signature as the 
+    <code>@rtype:</code> field.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== SUBMODULES ==================== -->
 <a name="section-Submodules"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">

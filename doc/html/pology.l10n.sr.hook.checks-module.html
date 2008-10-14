@@ -76,10 +76,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin" class="summary-sig-name">naked_latin</a>(<span class="summary-sig-arg">cat</span>,
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin" class="summary-sig-name">naked_latin</a>(<span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">msgstr</span>)</span><br />
-      Report spans of Latin letters outside of sanctioned contexts.</td>
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Report spans of Latin letters outside of sanctioned contexts [type 
+      V3C hook].</td>
           <td align="right" valign="top">
             
             
@@ -95,11 +96,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_origui" class="summary-sig-name">naked_latin_origui</a>(<span class="summary-sig-arg">cat</span>,
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_origui" class="summary-sig-name">naked_latin_origui</a>(<span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">msgstr</span>)</span><br />
+        <span class="summary-sig-arg">cat</span>)</span><br />
       Like <code>naked_latin</code>, but allowing original UI references 
-      which are supposed to be automatically resolved.</td>
+      which are supposed to be automatically resolved [type V3C hook].</td>
           <td align="right" valign="top">
             
             
@@ -115,11 +116,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_pt" class="summary-sig-name">naked_latin_pt</a>(<span class="summary-sig-arg">cat</span>,
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_se" class="summary-sig-name">naked_latin_se</a>(<span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">msgstr</span>)</span><br />
-      Pass-through version of <code>naked_latin</code>, issuing warnings to
-      stderr.</td>
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Side-effect version of <code>naked_latin</code>, issuing warnings to 
+      stderr [type S3C hook].</td>
           <td align="right" valign="top">
             
             
@@ -135,11 +136,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_origui_pt" class="summary-sig-name">naked_latin_origui_pt</a>(<span class="summary-sig-arg">cat</span>,
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.checks-module.html#naked_latin_origui_se" class="summary-sig-name">naked_latin_origui_se</a>(<span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">msgstr</span>)</span><br />
-      Pass-through version of <code>naked_latin_origui</code>, issuing 
-      warnings to stderr.</td>
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Side-effect version of <code>naked_latin_origui</code>, issuing 
+      warnings to stderr [type S3C hook].</td>
           <td align="right" valign="top">
             
             
@@ -166,16 +167,17 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin</span>(<span class="sig-arg">cat</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin</span>(<span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
-        <span class="sig-arg">msgstr</span>)</span>
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Report spans of Latin letters outside of sanctioned contexts.</p>
+  <p>Report spans of Latin letters outside of sanctioned contexts [type V3C
+  hook].</p>
   <p>Latin segments are allowed within:</p>
   <ul>
     <li>
@@ -221,11 +223,10 @@
     </li>
   </ul>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>annotated spans</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, msgstr) -&gt; spans</code>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="naked_latin_origui"></a>
 <div>
@@ -234,9 +235,9 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_origui</span>(<span class="sig-arg">cat</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_origui</span>(<span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
-        <span class="sig-arg">msgstr</span>)</span>
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -244,7 +245,7 @@
   </tr></table>
   
   <p>Like <code>naked_latin</code>, but allowing original UI references 
-  which are supposed to be automatically resolved.</p>
+  which are supposed to be automatically resolved [type V3C hook].</p>
   <p>Original UI references are given:</p>
   <ul>
     <li>
@@ -259,61 +260,58 @@
     </li>
   </ul>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>annotated spans</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, msgstr) -&gt; spans</code>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
-<a name="naked_latin_pt"></a>
+<a name="naked_latin_se"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_pt</span>(<span class="sig-arg">cat</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_se</span>(<span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
-        <span class="sig-arg">msgstr</span>)</span>
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Pass-through version of <code>naked_latin</code>, issuing warnings to 
-  stderr.</p>
+  <p>Side-effect version of <code>naked_latin</code>, issuing warnings to 
+  stderr [type S3C hook].</p>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, msgstr) -&gt; None</code>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
-<a name="naked_latin_origui_pt"></a>
+<a name="naked_latin_origui_se"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_origui_pt</span>(<span class="sig-arg">cat</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">naked_latin_origui_se</span>(<span class="sig-arg">msgstr</span>,
         <span class="sig-arg">msg</span>,
-        <span class="sig-arg">msgstr</span>)</span>
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Pass-through version of <code>naked_latin_origui</code>, issuing 
-  warnings to stderr.</p>
+  <p>Side-effect version of <code>naked_latin_origui</code>, issuing 
+  warnings to stderr [type S3C hook].</p>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Hook type: <code>(cat, msg, msgstr) -&gt; None</code>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
