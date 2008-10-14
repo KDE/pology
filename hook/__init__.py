@@ -135,9 +135,9 @@ Notes
 
 Hooks should be defined in submodules C{hook.<submod>} and language-dependent
 C{l10n.<lang>.hook.<submod>}, so that they can be automatically obtained by
-L{misc.langdep.get_hook}. In particular, Pology utilities allowing users to
+L{misc.langdep.get_hook()}. In particular, Pology utilities allowing users to
 insert hooks into processing will expect hooks to be in these locations,
-such that L{misc.langdep.get_hook_lreq} function can fetch the hook from
+such that L{misc.langdep.get_hook_lreq()} function can fetch the hook from
 a string specification.
 If a hook module implements a single hook, and the hook function is named
 C{process()}, users can select it by giving only the hook module name,

@@ -299,7 +299,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
     @param spans: matched spans
     @type spans: list of index tuples
     @param merge: whether to merge overlapping spans
-    @type bool
+    @type merge: bool
 
     @returns: adapted spans
     @rtype: list of index tuples
