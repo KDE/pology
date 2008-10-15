@@ -177,13 +177,22 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
     Worker for C{check_xml*} hook factories.
     """
 
-    entities = _read_combine_entities(entities, entpathenv, fcap)
     if mkeyw is not None:
         if isinstance(mkeyw, basestring):
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
+    # Lazy-evaluated data.
+    ldata = {}
+    def eval_ldata ():
+        ldata["entities"] = _read_combine_entities(entities, entpathenv, fcap)
+
     def hook (msgstr, msg, cat):
+
+        if not ldata:
+            eval_ldata()
+        entities = ldata["entities"]
+
         if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
             or (    mkeyw is not None
                 and not mkeyw.intersection(cat.markup() or set()))
