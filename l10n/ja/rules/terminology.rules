@@ -84,6 +84,11 @@ hint="attribute = 属性"
 valid msgstr="属性"
 valid msgid="physical attributes" msgstr="物理特性"
 
+{\bavatars?\b}i
+id="avatar"
+hint="avatar = アバター"
+valid msgstr="アバター" !msgstr="アバタ(?!ー)"
+
 {^Back$}
 id="back"
 hint="Back = 戻る"
@@ -182,6 +187,11 @@ disabled
 id="context_menu"
 hint="context menu = コンテキストメニュー"
 valid msgstr="コンテキストメニュー" !msgstr="コンテクスト"
+
+{\bcookies?\b}i
+id="cookie"
+hint="cookie = クッキー"
+valid msgstr="クッキー" !msgstr="cookie"
 
 {^Copy$}
 id="copy"
@@ -334,6 +344,11 @@ id="email_address"
 hint="email address = メールアドレス [E を付けずに]"
 valid msgstr="メールアドレス" !msgstr="e[ -]?メールアドレス"
 
+{\bemoticons?\b}i
+id="emoticon"
+hint="emoticon = 感情アイコン"
+valid msgstr="感情アイコン"
+
 {^Empty Trash$}
 id="empty_trash"
 hint="Empty Trash = ごみ箱を空にする"
@@ -409,6 +424,11 @@ id="extract2"
 hint="extract = 取り出す|抽出"
 valid msgstr=" (取り出[さしすせそ]|抽出)"
 disabled
+
+{\bfavicons?\b}i
+id="favicon"
+hint="favicon = ファビコン"
+valid msgstr="ファビコン" !msgstr="お気に入りアイコン"
 
 {\bfax\b}i
 id="fax"
@@ -603,6 +623,11 @@ id="italic"
 hint="italic = イタリック"
 valid msgstr="イタリック"
 
+{\bjournals?\b}i
+id="journal"
+hint="journal = 日記"
+valid msgstr="日記"
+
 {\bkey pairs?}i
 id="key_pair"
 hint="key pair = 鍵ペア"
@@ -735,6 +760,16 @@ valid msgstr="アプリケーションで開く\.\.\."
 id="overwrite"
 hint="Overwrite = 上書き"
 valid msgstr="上書き"
+
+{\bpagers?\b}i
+id="pager"
+hint="pager = ポケットベル"
+valid !msgstr="ポケベル"
+
+{\bpagers?\b}i
+id="pager2"
+hint="pager = ページャ"
+valid !msgstr="ページャー"
 
 {\bparameters?}i
 id="parameter"
@@ -1018,6 +1053,13 @@ id="slider"
 hint="slider = スライダー"
 valid msgstr="スライダー"
 
+{\bsmileys?\b}i
+id="smiley"
+hint="smiley = 顔文字"
+valid before=" pixmap"
+valid after="pretty "
+valid msgstr="顔文字"
+
 {\bsort(s|ed|ing)?\b}i
 id="sort"
 hint="sort = ソート"
@@ -1047,7 +1089,6 @@ disabled
 {\bspams?\b}i
 id="spam"
 hint="spam = スパム"
-valid before="@"
 valid msgstr="スパム"
 
 {\bstatus ?bar}i
@@ -1074,6 +1115,12 @@ valid msgstr="スイッチャー" !msgstr="スイッチャ(?!ー)"
 id="system_tray"
 hint="system tray = システムトレイ"
 valid msgstr="システムトレイ"
+
+{System Settings}
+id="systemsettings"
+hint="System Settings = KDE システム設定"
+valid msgstr="KDE システム設定"
+disabled
 
 {\btab ?bars?\b}i
 id="tab_bar"
