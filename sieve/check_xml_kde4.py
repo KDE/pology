@@ -46,7 +46,7 @@ class Sieve (object):
     def process_header (self, hdr, cat):
 
         # Select type of markup to check based on catalog name.
-        if cat.name.startswith(("desktop_", "xml_")):
+        if cat.name.startswith("desktop_") or cat.name.startswith("xml_"):
             self.check_xml = lambda text, ents=None: []
         elif cat.name in qt_catnames:
             self.check_xml = check_xml_qtrich_l1
