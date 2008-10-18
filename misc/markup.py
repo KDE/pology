@@ -720,7 +720,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     try:
         parser.Parse(text.encode(xenc), True)
     except xml.parsers.expat.ExpatError, e:
-        errmsg = (_ehfmt + "%s") % (g.xmlfmt, e.message)
+        errmsg = (_ehfmt + "%s") % (g.xmlfmt, e)
         span = _make_span(text, e.lineno, e.offset, errmsg)
         g.spans.append(span)
 
