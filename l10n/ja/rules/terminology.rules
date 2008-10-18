@@ -143,6 +143,11 @@ id="collapse_all"
 hint="Collapse All = すべてたたむ"
 valid msgstr="すべてたたむ"
 
+{\bcolor picker}i
+id="color_picker"
+hint="color picker = カラーピッカー"
+valid msgstr="カラーピッカー"
+
 {\bcolor space}i
 id="color_space"
 hint="color space = カラースペース"
@@ -295,6 +300,16 @@ id="discard_changes"
 hint="Discard Changes = 変更を破棄"
 valid msgstr="変更を破棄"
 
+{Do not ask again}
+id="do_not_ask_again"
+hint="Do not ask again = 次回から確認しない"
+valid msgstr="次回から確認しない"
+
+{Do not show this message again}
+id="do_not_show_this_message_again"
+hint="Do not show this message again = 次回からこのメッセージを表示しない"
+valid msgstr="次回からこのメッセージを表示しない"
+
 {\bdocuments?}i
 id="document"
 hint="document = 文書"
@@ -428,7 +443,7 @@ disabled
 {\bfavicons?\b}i
 id="favicon"
 hint="favicon = ファビコン"
-valid msgstr="ファビコン" !msgstr="お気に入りアイコン"
+valid msgstr="ファビコン"
 
 {\bfax\b}i
 id="fax"
@@ -740,6 +755,7 @@ id="next"
 hint="Next = 次へ"
 valid msgstr="次へ"
 valid ctx="Next page" msgstr="次のページ"
+valid ctx="Opposite to Prior" msgstr="1 画面下へスクロール"
 
 {\boblique}i
 id="oblique"
@@ -777,6 +793,16 @@ hint="parameter = パラメータ"
 valid msgstr="パラメータ"
 valid cat="kipiplugin_metadataedit" msgstr="IPTC-NAA Digital Newsphoto Parameter Record"
 valid cat="kspread"
+
+{\bpars(e[sd]?|ing)\b}i
+id="parse"
+hint="parse = 解析"
+valid msgstr="解析" !msgstr="パース"
+
+{\bparsers?\b}i
+id="parser"
+hint="parser = パーサ"
+valid msgstr="パーサ" !msgstr="パーサー"
 
 {\bpassword dialog}i
 id="password_dialog"
@@ -843,6 +869,11 @@ valid msgstr="プレイヤー" !msgstr="プレイヤ(?!ー)|プレーヤー?"
 id="playlist"
 hint="playlist = プレイリスト"
 valid msgstr="プレイリスト"
+
+{\bpreferences\b}i
+id="preferences"
+hint="preferences = 設定"
+valid msgstr="設定"
 
 {^Previous$}
 id="previous"
@@ -1110,6 +1141,22 @@ valid msgstr="取り消し線"
 id="switcher"
 hint="switcher = スイッチャー"
 valid msgstr="スイッチャー" !msgstr="スイッチャ(?!ー)"
+
+{\bsyntax\b}i
+id="syntax"
+hint="syntax = 構文|文法"
+valid before=" (error|highlighting)"
+valid msgstr="構文|文法"
+
+{\bsyntax errors?}i
+id="syntax_error"
+hint="syntax error = 構文エラー"
+valid msgstr="構文エラー"
+
+{\bsyntax highlighting}i
+id="syntax_highlighting"
+hint="syntax highlighting = 構文強調表示"
+valid msgstr="構文強調表示"
 
 {\bsystem tray}i
 id="system_tray"
