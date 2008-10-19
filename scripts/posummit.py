@@ -804,12 +804,37 @@ def summit_gather_single (summit_name, project, options):
     # Decide on wrapping function for message fields in the summit.
     wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
 
+    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+
     # Collect branches in which this summit catalog has corresponding
     # branch catalogs, in order of branch priority.
     src_branch_ids = []
     for branch_id in project.branch_ids:
         if project.full_inverse_map[summit_name][branch_id]:
             src_branch_ids.append(branch_id)
+
+    # If there are no branch catalogs,
+    # then the current summit catalog is to be removed.
+    if not src_branch_ids:
+        # Remove by version control, if any.
+        if project.vcs:
+            if not project.vcs.remove(summit_path):
+                warning(  "cannot remove '%s' from version control"
+                        % summit_path)
+        # If not removed by version control, plainly delete.
+        if os.path.isfile(summit_path):
+            os.unlink(summit_path)
+            if os.path.isfile(summit_path):
+                warning("cannot remove '%s' from disk" % summit_path)
+
+        if not os.path.isfile(summit_path):
+            if options.verbose:
+                print "-   (gathered-removed) %s  %s" % summit_path
+            else:
+                print "-    %s" % summit_path
+
+        # Skip the rest, nothing to gather.
+        return
 
     # Open all corresponding branch catalogs.
     # For each branch catalog, also gather any dependent summit
@@ -870,7 +895,6 @@ def summit_gather_single (summit_name, project, options):
     # summit messages were changed by themselves, but their order changed,
     # the fresh catalog can be synced in place of the original.
     # For the 
-    summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
     summit_created = summit_cat.created() # created state may be lost, preserve
     fresh_cat = Catalog("", wrapf=wrapf, create=True)
