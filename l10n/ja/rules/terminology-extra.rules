@@ -107,3 +107,52 @@ valid msgstr="未保存の変更"
 id="tryagainlater"
 hint="try again later = しばらくたってからやり直してください"
 valid msgstr="しばらくたってからやり直してください"
+
+
+# 用語集にない (terminology.rules にない) カタカナ語の表記ゆれをチェックします。
+addFilterHook name="ja:katakana" on="pmsgstr"
+
+[アダプター]
+hint="adaptor = アダプタ"
+
+[エントリー]
+hint="entry = エントリ"
+
+[カテゴリー]
+hint="category = カテゴリ"
+
+[カレンダ\b]
+hint="calendar = カレンダー"
+
+[ギャラリ\b]
+hint="gallery = ギャラリー"
+
+[コンピューター]
+hint="computer = コンピュータ"
+
+[\bカンマ\b]
+hint="comma = コンマ"
+
+[スキャナー]
+hint="scanner = スキャナ"
+
+[センサ\b]
+hint="sensor = センサー"
+
+[ダイアル]
+hint="dial = ダイヤル"
+
+[タイマ\b]
+hint="timer = タイマー"
+
+[ディジタル]
+hint="digital = デジタル"
+
+[フィルター]
+hint="filter = フィルタ"
+
+[プライバシ\b]
+hint="privacy = プライバシー"
+
+[プリンター]
+hint="printer = プリンタ"

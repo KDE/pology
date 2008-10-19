@@ -440,6 +440,11 @@ hint="extract = 取り出す|抽出"
 valid msgstr=" (取り出[さしすせそ]|抽出)"
 disabled
 
+{\bfacing pages}i
+id="facing_pages"
+hint="facing pages = 見開きページ [文書の表示モード]"
+valid msgstr="見開きページ"
+
 {\bfavicons?\b}i
 id="favicon"
 hint="favicon = ファビコン"
@@ -448,7 +453,7 @@ valid msgstr="ファビコン"
 {\bfax\b}i
 id="fax"
 hint="fax = ファクス"
-valid msgstr="ファクス"
+valid msgstr="ファクス" !msgstr="ファックス"
 
 {\bfile manager}i
 id="file_manager"
@@ -473,7 +478,23 @@ valid msgstr="検索"
 {\bfirewall}i
 id="firewall"
 hint="firewall = ファイアウォール"
-valid msgstr="ファイアウォール"
+valid msgstr="ファイアウォール" !msgstr="ファイアーウォール|ファイヤー?ウォール"
+
+{Fit to Height}
+id="fit_to_height"
+hint="Fit to Height = 高さに合わせる"
+valid msgstr="高さに合わせる"
+
+{Fit to Page}
+id="fit_to_page"
+hint="Fit to Page = ページに合わせる"
+valid before=" (Width|Height)"
+valid msgstr="ページに合わせる"
+
+{Fit to Width}
+id="fit_to_width"
+hint="Fit to Width = 幅に合わせる"
+valid msgstr="幅に合わせる"
 
 {\bflat view\b}i
 id="flat_view"
@@ -743,6 +764,11 @@ valid msgstr="ごみ箱に移動"
 id="move_up"
 hint="Move Up = 上へ移動"
 valid msgstr="上へ移動"
+
+{\bnetwork failure}i
+id="network_failure"
+hint="network failure = ネットワーク障害"
+valid msgstr="ネットワーク障害"
 
 {\bnewline}i
 id="newline"
@@ -1090,6 +1116,11 @@ hint="smiley = 顔文字"
 valid before=" pixmap"
 valid after="pretty "
 valid msgstr="顔文字"
+
+{Snap to Grid}
+id="snap_to_grid"
+hint="Snap to Grid = グリッドに合わせる"
+valid msgstr="グリッドに合わせる"
 
 {\bsort(s|ed|ing)?\b}i
 id="sort"
