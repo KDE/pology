@@ -901,11 +901,11 @@ def summit_gather_single (summit_name, project, options):
     for branch_id in src_branch_ids:
         for branch_cat, pre_summit_cats in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
-            summit_gather_single_bcat(branch_id, branch_cat, summit_cat,
-                                      pre_summit_cats, is_primary,
+            summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
+                                      summit_cat, pre_summit_cats, is_primary,
                                       project, options)
-            summit_gather_single_bcat(branch_id, branch_cat, fresh_cat,
-                                      pre_summit_cats, is_primary,
+            summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
+                                      fresh_cat, pre_summit_cats, is_primary,
                                       project, options)
 
     # If there was any reordering, or some summit messages are obsoleted,
@@ -966,8 +966,8 @@ def summit_gather_single (summit_name, project, options):
                 print ">    %s  %s" % (summit_cat.filename, paths_str)
 
 
-def summit_gather_single_bcat (branch_id, branch_cat, summit_cat,
-                               pre_summit_cats, is_primary,
+def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
+                               summit_cat, pre_summit_cats, is_primary,
                                project, options):
 
     # Go through messages in the branch catalog, merging them with
@@ -1001,7 +1001,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, summit_cat,
                                  is_primary)
 
             # Equip any new summit tags to the merged message.
-            summit_add_tags(summit_cat[pos_merged], branch_id, project)
+            summit_set_tags(summit_cat[pos_merged], branch_ids_cats, project)
         else:
             msgs_to_insert.append(msg)
 
@@ -1022,7 +1022,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, summit_cat,
         pos_added = summit_cat.add(msg, pos)
 
         # Equip summit tags to the added message.
-        summit_add_tags(summit_cat[pos_added], branch_id, project)
+        summit_set_tags(summit_cat[pos_added], branch_ids_cats, project)
 
 
 def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
@@ -1355,23 +1355,27 @@ _summit_tags = (
     _summit_tag_branchid,
 )
 
-def summit_add_tags (msg, branch_id, project):
+def summit_set_tags (msg, bids_cats, project):
 
     ## Add hash ident.
     #ident = msg_ident(msg)
     #set_summit_comment(msg, _summit_tag_ident, ident)
 
-    # Add branch ID.
-    branch_ids = get_summit_comment(msg, _summit_tag_branchid).split()
-    if not branch_id in branch_ids:
-        # Order branch ids by the global order, to preserve priorites.
-        branch_ids.append(branch_id)
-        ordered_branch_ids = []
-        for branch_id in project.branch_ids:
-            if branch_id in branch_ids:
-                ordered_branch_ids.append(branch_id)
-        set_summit_comment(msg, _summit_tag_branchid,
-                           " ".join(ordered_branch_ids))
+    # Get branch IDs of any branch catalog which contains this message.
+    branch_ids = []
+    for bid, bcat in bids_cats:
+        if msg in bcat:
+            branch_ids.append(bid)
+
+    # Order branch IDs by the global order, to preserve priorites.
+    ordered_branch_ids = []
+    for branch_id in project.branch_ids:
+        if branch_id in branch_ids:
+            ordered_branch_ids.append(branch_id)
+
+    # Set branch IDs.
+    set_summit_comment(msg, _summit_tag_branchid,
+                       " ".join(ordered_branch_ids))
 
 
 def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
