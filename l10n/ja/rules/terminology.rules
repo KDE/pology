@@ -143,6 +143,11 @@ id="collapse_all"
 hint="Collapse All = すべてたたむ"
 valid msgstr="すべてたたむ"
 
+{\bcolor dialog}i
+id="color_dialog"
+hint="color dialog = 色選択ダイアログ"
+valid msgstr="色選択ダイアログ"
+
 {\bcolor picker}i
 id="color_picker"
 hint="color picker = カラーピッカー"
@@ -732,6 +737,11 @@ id="minimize"
 hint="Minimize = 最小化"
 valid msgstr="最小化"
 
+{\bmonospace}i
+id="monospace"
+hint="monospace = モノスペース"
+valid msgstr="モノスペース"
+
 {\bmount(s|ed|ing)?\b}i
 id="mount"
 hint="mount = マウント"
@@ -989,6 +999,11 @@ id="reset"
 hint="Reset = リセット"
 valid msgstr="リセット"
 
+{Reset to Defaults}
+id="reset_to_defaults"
+hint="Reset to Defaults = 標準設定に戻す"
+valid msgstr="標準設定に戻す"
+
 {\bresources?\b}i
 id="resource"
 hint="resource = リソース"
@@ -1019,6 +1034,11 @@ valid msgstr="サンプリングレート"
 id="sampling_rate"
 hint="sampling rate = サンプリングレート"
 valid msgstr="サンプリングレート"
+
+{\bsans serif}i
+id="sans_serif"
+hint="sans serif = サンセリフ"
+valid msgstr="サンセリフ"
 
 {\bsaturation}i
 id="saturation"
@@ -1089,6 +1109,12 @@ id="separator2"
 hint="separator = 区切り|区切り文字"
 valid !after="thousands " !before=" characters?"
 valid msgstr="区切り|区切り文字"
+
+{\bserif}i
+id="serif"
+hint="serif = セリフ"
+valid after="(sans|dejavu|liberation|luxi) "
+valid msgstr="セリフ"
 
 {\bservers?\b}i
 id="server"
