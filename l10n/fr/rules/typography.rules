@@ -47,7 +47,7 @@ valid after="Heures" before="Minutes"
 valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
-valid before="\d+(px)?;" # CSS
+valid before="\s?\d+(px)?;" # CSS
 valid after="font-family|font-size|font-style|font-weight|text-align|-type"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
@@ -172,6 +172,7 @@ valid ctx="Query"
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
+validGroup inQuotes
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
