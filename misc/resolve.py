@@ -661,7 +661,7 @@ def _remove_fmtdirs_c (text, subs=""):
 
 
 # FIXME: Make it tighter?
-_fmtdir_tail_python_rx = re.compile(r"\(.*?\)" + _fmtdir_tail_c)
+_fmtdir_tail_python_rx = re.compile(r"(\(.*?\))?" + _fmtdir_tail_c)
 
 def _remove_fmtdirs_python (text, subs=""):
 
