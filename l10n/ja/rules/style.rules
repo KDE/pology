@@ -370,6 +370,16 @@ hint="「...」を付け忘れていませんか？"
 valid msgstr="\.\.\.$"
 valid msgid="please wait\.\.\."
 
+[: ?$]
+id="colon1"
+hint="「:」を取り忘れていませんか？"
+valid msgid=": ?$"
+
+{: ?$}
+id="colon2"
+hint="「:」を付け忘れていませんか？"
+valid msgstr=": ?$"
+
 [ +\(&[A-Z\d]\)]
 id="accel1"
 hint="アクセラレータの括弧の前にはスペースを入れません [前に括弧がある場合は入れます]"
