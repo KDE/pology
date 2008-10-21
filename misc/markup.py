@@ -174,7 +174,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
         if p < 0:
             break
         curel.append(("#text", None, None, None, text[pp:p]))
-        tag_literal, tag, atype, opening, p = _parse_tag(text, p)
+        tag_literal, tag, atype, opening, closing, p = _parse_tag(text, p)
         if p < 0:
             break
         if opening: # opening tag
@@ -182,10 +182,12 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
             curel.append([tag, tag_literal, None, atype, []])
             parent.append(curel)
             curel = curel[-1][-1]
-        else: # closing tag
+        if closing: # closing tag (can be both opening and closing)
             if parent:
                 curel = parent.pop()
-                curel[-1][2] = tag_literal # record closing tag literal
+                if not opening:
+                    # Record closing tag literal if not opening as well.
+                    curel[-1][2] = tag_literal 
             else: # faulty markup, move top element
                 eltree = [[tag, None, tag_literal, None, curel]]
                 curel = eltree
@@ -206,6 +208,7 @@ def _parse_tag (text, p):
     tag = ""
     atype = None
     opening = True
+    closing = False
 
     tlen = len(text)
     pp = p
@@ -236,10 +239,11 @@ def _parse_tag (text, p):
             in_afterslash = False
             in_tag = True
             p_tag = p
-        elif in_tag and (text[p].isspace() or text[p] == ">"):
+        elif in_tag and (text[p].isspace() or text[p] in (">", "/")):
             in_tag = False
             in_aftertag = True
             tag = text[p_tag:p]
+            closing = opening and text[p] == "/"
             ntag = tag.lower()
         elif in_aftertag and not (text[p].isspace() or text[p] == ">"):
             in_aftertag = False
@@ -273,7 +277,7 @@ def _parse_tag (text, p):
     p += 1
     tag_literal = text[pp:p]
 
-    return tag_literal, tag, atype, opening, p
+    return tag_literal, tag, atype, opening, closing, p
 
 
 _entity_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
