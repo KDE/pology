@@ -8,9 +8,9 @@ environment kde
 # Detect Latin segments outside of allowed contexts.
 
 clearFilters
+# No filters (e.g. markup designates allowed contexts).
 
 # Allow original UI references (autoresolved when summit is scattered).
-# No filters (e.g. markup designates allowed contexts).
 *hook name="sr:checks/naked_latin_origui" on="msgstr"
 id="x-latin"
 hint="латиница ван дозвољеног контекста"
@@ -62,6 +62,34 @@ addFilterRegex match="&under(FDL|GPL);" on="pmsgid,pmsgstr"
 addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
 id="x-markup-db"
 hint="грешке у обележавању"
+
+# ----------------------------------------
+# Detect problems with UI references.
+
+clearFilters
+# No filters (e.g. markup designates references automatically).
+
+# ...in KDE4 UI POs.
+*hook name="ui-references/check-ui-kde4" \
+      factory="uicpathenv='UICATS_KDE4_SR', mkeyw='kde4'" \
+      on="msgstr"
+id="x-uiref-k"
+hint="неуспело разрешавање ниске сучеља (КДЕ сучеље)"
+
+# ...in KDE documentation POs.
+*hook name="ui-references/check-ui-docbook4" \
+      factory="uicpathenv='UICATS_KDE4_SR', mkeyw='docbook4'" \
+      on="msgstr"
+id="x-uiref-db"
+hint="неуспело разрешавање ниске сучеља (документација)"
+
+# ...in other catalogs (e.g. pure Qt UI, desktop files).
+*hook name="ui-references/check-ui" \
+      factory="uicpathenv='UICATS_KDE4_SR', \
+               mkeyw=['docbook4', 'kde4'], invmkeyw=True" \
+      on="msgstr"
+id="x-uiref-o"
+hint="неуспело разрешавање ниске сучеља (другде)"
 
 # ----------------------------------------
 # The following rules should be applied on pure text.
