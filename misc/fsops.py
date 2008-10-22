@@ -141,6 +141,45 @@ def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
     return catalog_files
 
 
+def collect_catalogs_by_env (catpathenv, sort=True, unique=True, relcwd=True):
+    """
+    Collect list of catalog file paths from directories given
+    by an environment variable.
+
+    @param sort: whether to sort the list of collected paths
+    @type sort: bool
+    @param unique: whether to eliminate duplicates among collected paths
+    @type unique: bool
+    @param relcwd: whether to make paths relative to current working directory
+        when they point to a file within it
+    @param relcwd: bool
+
+    @returns: collected catalog paths
+    @rtype: list of strings
+    """
+
+    catpath = os.getenv(catpathenv)
+    if catpath is None:
+        warning("environment variable with catalog paths '%s' "
+                "not set" % catpath)
+        return []
+
+    catdirs = catpath.split(":")
+    catfiles = collect_catalogs(catdirs, sort, unique)
+
+    if relcwd:
+        cwd = os.getcwd()
+        catfiles_rel = []
+        for catfile in catfiles:
+            if catfile.startswith(cwd):
+                catfile = catfile[len(cwd):]
+                while catfile.startswith(os.path.sep):
+                    catfile = catfile[len(os.path.sep):]
+            catfiles_rel.append(catfile)
+        catfiles = catfiles_rel
+
+    return catfiles
+
 
 def mkdirpath (dirpath):
     """
