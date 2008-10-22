@@ -96,7 +96,7 @@ def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
     for rx in _no_check_lat_rxs:
         stripped_msgstr = rx.sub("", stripped_msgstr)
 
-    matches = _naked_latin_rx.finditer(stripped_msgstr)
+    matches = list(_naked_latin_rx.finditer(stripped_msgstr))
     if sideeffect:
         # Report if any Latin text remained in stripped msgstr.
         for m in matches:
