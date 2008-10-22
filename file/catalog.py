@@ -596,7 +596,7 @@ class Catalog (Monitored):
         return msg.key in self._msgpos
 
 
-    def find (self, msg):
+    def find (self, msg, wobs=True):
         """
         Position of the message in the catalog.
 
@@ -604,6 +604,8 @@ class Catalog (Monitored):
 
         @param msg: message to look for
         @type msg: subclass of L{Message_base}
+        @param wobs: obsolete messages considered non-existant if C{False}
+        @type wobs: bool
 
         @returns: position index if the message exists, -1 otherwise
         @rtype: int
@@ -611,9 +613,9 @@ class Catalog (Monitored):
 
         self._assert_headonly()
         if msg.key in self._msgpos:
-            return self._msgpos[msg.key]
-        else:
-            return -1
+            if wobs or not msg.obsolete:
+                return self._msgpos[msg.key]
+        return -1
 
 
     def add (self, msg, pos=None):
@@ -1082,7 +1084,7 @@ class Catalog (Monitored):
         return [int(x) for x in lst]
 
 
-    def select_by_key (self, msgctxt, msgid):
+    def select_by_key (self, msgctxt, msgid, wobs=False):
         """
         Select message from the catalog by the fields that define its key.
 
@@ -1094,23 +1096,24 @@ class Catalog (Monitored):
 
         @param msgctxt: the text of C{msgctxt} field (can be empty)
         @type msgctxt: string
-
         @param msgid: the text of C{msgid} field
         @type msgid: string
+        @param wobs: whether to include obsolete messages in selection
+        @type wobs: bool
 
         @returns: selected messages
         @rtype: list of subclass of L{Message_base}
         """
 
         m = MessageUnsafe({"msgctxt" : msgctxt, "msgid" : msgid})
-        p = self.find(m)
+        p = self.find(m, wobs)
         if p >= 0:
             return [self._messages[p]]
         else:
             return []
 
 
-    def select_by_msgid (self, msgid):
+    def select_by_msgid (self, msgid, wobs=False):
         """
         Select messages from the catalog by matching C{msgid} field.
 
@@ -1121,6 +1124,8 @@ class Catalog (Monitored):
 
         @param msgid: the text of C{msgid} field
         @type msgid: string
+        @param wobs: whether to include obsolete messages in selection
+        @type wobs: bool
 
         @returns: selected messages
         @rtype: list of subclass of L{Message_base}
@@ -1128,13 +1133,13 @@ class Catalog (Monitored):
 
         selected_msgs = []
         for msg in self._messages:
-            if msg.msgid == msgid:
+            if msg.msgid == msgid and (wobs or not msg.obsolete):
                 selected_msgs.append(msg)
 
         return selected_msgs
 
 
-    def select_by_msgid_fuzzy (self, msgid, cutoff=0.6):
+    def select_by_msgid_fuzzy (self, msgid, cutoff=0.6, wobs=False):
         """
         Select messages from the catalog by near-matching C{msgid} field.
 
@@ -1148,9 +1153,10 @@ class Catalog (Monitored):
 
         @param msgid: the text of C{msgid} field
         @type msgid: string
-
         @param cutoff: minimal similarity
         @type cutoff: float
+        @param wobs: whether to include obsolete messages in selection
+        @type wobs: bool
 
         @returns: selected messages
         @rtype: list of subclass of L{Message_base}
@@ -1160,6 +1166,9 @@ class Catalog (Monitored):
         # there can be several keys per msgid, pack in a list.
         msgkeys = {}
         for msg in self._messages:
+            if msg.obsolete and not wobs:
+                # Skip obsolete messages if not explicitly included.
+                continue
             if msg.msgid not in msgkeys:
                 msgkeys[msg.msgid] = []
             msgkeys[msg.msgid].append(msg.key)
