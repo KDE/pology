@@ -60,6 +60,8 @@ def check_xml (strict=False, entities={}, entpathenv=None, fcap=True,
     @type entpathenv: string
     @param fcap: whether to allow first-uppercase entities
     @type fcap: bool
+    @param mkeyw: markup keywords for taking catalogs into account
+    @type mkeyw: string or list of strings
 
     @return: type S3C hook
     @rtype: C{(msgstr, msg, cat) -> numerr}

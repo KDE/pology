@@ -486,11 +486,11 @@ C{hook}
 
     An example rule with a test hook as the trigger would be::
 
-        *hook name="ui-references/validate" on="msgstr"
+        *hook name="ui-references/check-ui" on="msgstr"
         id="check-ui-refs"
         hint="some UI references cannot be validated"
 
-    (see C{pology.hook.ui_references.validate} for details).
+    (see L{hook.ui_references.check_ui} for details).
 
 Quoting and Escaping
 ====================
