@@ -239,17 +239,16 @@ def _parse_tag (text, p):
             in_afterslash = False
             in_tag = True
             p_tag = p
-        elif in_tag and (text[p].isspace() or text[p] in (">", "/")):
+        elif in_tag and (text[p].isspace() or text[p] in "/>"):
             in_tag = False
             in_aftertag = True
             tag = text[p_tag:p]
-            closing = opening and text[p] == "/"
             ntag = tag.lower()
-        elif in_aftertag and not (text[p].isspace() or text[p] == ">"):
+        elif in_aftertag and not (text[p].isspace() or text[p] in "/>"):
             in_aftertag = False
             in_attr = True
             p_attr = p
-        elif in_attr and (text[p].isspace() or text[p] in ("=", ">")):
+        elif in_attr and (text[p].isspace() or text[p] in "=/>"):
             in_attr = False
             if text[p] != "=":
                 in_afterattr = True
@@ -271,6 +270,8 @@ def _parse_tag (text, p):
             in_afterattr = False
             in_aftereq = True
 
+        if not in_str and text[p] == "/":
+            closing = True
         if not in_str and text[p] == ">":
             break
 
