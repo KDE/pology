@@ -57,6 +57,7 @@ _no_check_lat_rxs = (
     re.compile(r"<\s*(option)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
     re.compile(r"<\s*(keycap)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
     re.compile(r"<\s*(userinput)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
+    re.compile(r"<\s*(systemitem)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
     # - all tags (must come after the above text removed by tags)
     re.compile(r"<.*?>", re.U|re.I),
     # - wiki stuff
