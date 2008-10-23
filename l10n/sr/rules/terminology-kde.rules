@@ -289,7 +289,7 @@ disabled
 {\bfeature}i
 id="feature"
 hint="feature = могућност"
-valid after="full[ -]"
+valid after="fully?[ -]"
 valid after="(also|it) "
 valid msgstr="\bмогућно(ст|шћ)"
 valid cat="dolphin" msgid="the main feature" msgstr="главни инструмент"
