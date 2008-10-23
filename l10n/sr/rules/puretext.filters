@@ -28,3 +28,8 @@ addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
 # function in pology.hook.remove_subs module.
 # (-> after markup removal)
 addFilterHook name="remove-subs/remove-literals-msg" on="msg"
+
+# Convert accent graphs into Unicode accent compositions,
+# then remove accents from letters alltogether.
+addFilterHook env="kde" name="sr:accents/resolve_agraphs" on="pmsgstr"
+addFilterHook name="sr:accents/remove_accents" on="pmsgstr"
