@@ -28,6 +28,7 @@ The sieve parameters are:
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
    - C{showfmsg}: show filtered message too when a rule fails a message
+   - C{nomsg}: do not show message content, only problem descriptions
 
 Certain rules may be selectively disabled on a given message, by listing
 their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
@@ -114,6 +115,13 @@ class Sieve (object):
             self.showfmsg=True
         else:
             self.showfmsg=False
+
+        # Whether to show message content at all.
+        if "nomsg" in options:
+            options.accept("nomsg")
+            self.showmsg=False
+        else:
+            self.showmsg=True
 
         # Load rules
         self.rules=loadRules(lang, stat, self.env, envOnly, customRuleFiles)
@@ -310,7 +318,7 @@ class Sieve (object):
                     # Text format.
                     if not self.showfmsg:
                         msgf=None
-                    rule_error(msg, cat, rule, spans, msgf)
+                    rule_error(msg, cat, rule, spans, msgf, self.showmsg)
 
     def finalize (self):
         

@@ -337,7 +337,7 @@ def report_msg_content (msg, cat,
     report(rtext, subsrc=subsrc, file=file)
 
 
-def rule_error(msg, cat, rule, highlight=None, fmsg=None):
+def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
     """
     Print formated rule error message on screen.
 
@@ -346,6 +346,7 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None):
     @param rule: pology.misc.rules.Rule object
     @param highlight: highlight specification (see L{report_msg_content})
     @param fmsg: filtered message which the rule really matched
+    @param showmsg: whether to show contents of message (either filtered or original)
     """
 
     C = colors_for_file(sys.stdout)
@@ -356,10 +357,14 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None):
              + C.BOLD + C.RED + " ==> " + C.RESET
              + C.BOLD + rule.hint + C.RESET)
 
-    report_msg_content(msg, cat,
-                       highlight=highlight,
-                       fmsg=fmsg, showfmsg=(fmsg is not None),
-                       note=rinfo, delim=("-" * 40))
+    if showmsg:
+        report_msg_content(msg, cat,
+                           highlight=highlight,
+                           fmsg=fmsg, showfmsg=(fmsg is not None),
+                           note=rinfo, delim=("-" * 40))
+    else:
+        report_on_msg(rinfo, msg, cat)
+        report_on_msg_hl(highlight, msg, cat, fmsg)
 
 
 def rule_xml_error(msg, cat, rule, span, pluralId=0):
