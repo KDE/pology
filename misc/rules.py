@@ -119,6 +119,8 @@ The following tests can be used within C{valid} directives:
   - C{ctx}: passes if the message context matches a regular expression
   - C{srcref}: passes if file path of one of the source references matches
         a regular expression
+  - C{comment}: passes if any extracted or translator comment line matches
+        a regular expression
   - C{span}: passes if the part of the text matched by the trigger pattern
         is matched by this regular expression as well
   - C{before}: passes if the part of the text matched by the trigger pattern
@@ -1330,8 +1332,8 @@ _trigger_matchmods = [
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head", "srcref"))
-    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr", "srcref"))
+    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head", "srcref", "comment"))
+    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr", "srcref", "comment"))
     _twoRegexKeywords = set(("head",))
     _listKeywords = set(("env", "cat"))
 
@@ -1733,6 +1735,20 @@ class Rule(object):
                 match = False
                 for file, lno in msg.source:
                     if value.search(file):
+                        match = True
+                        break
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "comment":
+                match = False
+                all_cmnt = []
+                all_cmnt.extend(msg.manual_comment)
+                all_cmnt.extend(msg.auto_comment)
+                for cmnt in all_cmnt:
+                    if value.search(cmnt):
                         match = True
                         break
                 if invert: match = not match
