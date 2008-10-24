@@ -33,10 +33,9 @@ _max_accent_len = max(map(len, list(_accents_flat)))
 _min_accent_len = min(map(len, list(_accents_flat)))
 _accent_len_range = range(_max_accent_len, _min_accent_len - 1, -1)
 
-"""
-FIXME: The graphing sequences with slashes and backslashes are far
-too easy to happen accidentally; think of something better.
-_agraphs = {
+# FIXME: The graphing sequences with slashes and backslashes are far
+# too easy to happen accidentally; think of something better.
+_agraphs_unused = {
     ur"\а": ur"а̀",
     ur"/а": ur"а́",
     ur"\\а": ur"а̏",
@@ -73,7 +72,7 @@ _agraphs = {
     ur"^р": ur"р̑",
     ur"~р": ur"р̄",
 }
-"""
+
 _agraphs = {
     #ur"^а": ur"а̑",
     #ur"^о": ur"о̑",
