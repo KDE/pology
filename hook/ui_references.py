@@ -145,6 +145,11 @@ To replace just the first format directive with the argument, the directive
 in the argument specification is preceeded with an exclamation mark
 (C{!}): C{...^!%s:foo}.
 
+In general, but especially with implicit references, the text wrapped
+as reference may actually contain several references in form of UI path
+(e.g. "...go to Foo->Bar->Baz, and check..."). Hook factories can
+take one or more strings which are used as UI path separators (e.g. C{->}).
+
 Normalization of UI Text
 ========================
 
@@ -221,7 +226,7 @@ from pology.hook.remove_subs import remove_accel_msg, remove_markup_msg
 default_headrefs = ["~%"]
 
 
-def resolve_ui (headrefs=default_headrefs, tagrefs=[],
+def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
                 uicpaths=None, uicpathenv=None, xmlescape=False, pfhook=None,
                 mkeyw=None, invmkeyw=False, quiet=False):
     """
@@ -240,10 +245,16 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[],
     method. This match may be inverted by C{invmkeyw} parameter, i.e.
     to skip resolution for catalogs reporting one of given keywords.
 
+    The list of UI path separators given by the C{uipathseps} parameter
+    is ordered by priority, such that the first one found in the composite
+    reference text is used to split it into componental UI references.
+
     @param headrefs: heads for explicit UI references
     @type headrefs: list of strings
     @param tagrefs: XML-like tags which define implicit UI references
     @type tagrefs: list of strings
+    @param uipathseps: separators in composited UI references
+    @type uipathseps: list of strings
     @param uicpaths: paths to UI catalogs in the project
     @type uicpaths: list of strings
     @param uicpathenv: environment variable defining directories
@@ -258,18 +269,18 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[],
     @param invmkeyw: whether to invert the meaning of C{mkeyw} parameter
     @type invmkeyw: bool
     @param quiet: whether to output warnings of failed resolutions
-    @type quite: bool
+    @type quiet: bool
 
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
     """
 
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
-def check_ui (headrefs=default_headrefs, tagrefs=[],
+def check_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
               uicpaths=None, uicpathenv=None, xmlescape=False,
               mkeyw=None, invmkeyw=False):
     """
@@ -283,8 +294,8 @@ def check_ui (headrefs=default_headrefs, tagrefs=[],
 
     pfhook = None
     quiet = True
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
@@ -307,10 +318,11 @@ def resolve_ui_docbook4 (headrefs=default_headrefs,
     """
 
     tagrefs = _tagrefs_docbook4
+    uipathseps = []
     xmlescape = True
     invmkeyw = False
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
@@ -327,12 +339,13 @@ def check_ui_docbook4 (headrefs=default_headrefs,
     """
 
     tagrefs = _tagrefs_docbook4
+    uipathseps = []
     xmlescape = True
     invmkeyw = False
     pfhook = None
     quiet = True
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
@@ -340,7 +353,7 @@ _tagrefs_kde4 = [
     "interface",
 ]
 
-def resolve_ui_kde4 (headrefs=default_headrefs,
+def resolve_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
                      uicpaths=None, uicpathenv=None, pfhook=None,
                      mkeyw=None, quiet=False):
     """
@@ -349,19 +362,24 @@ def resolve_ui_kde4 (headrefs=default_headrefs,
     A convenience hook which fixes some of the parameters to L{resolve_ui}
     to match implicit UI references and formatting needs for KDE4 UI POs.
 
+    If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
+    will be used automatically.
+
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
     """
 
     tagrefs = _tagrefs_kde4
+    if uipathseps is None:
+        uipathseps = ["->"]
     xmlescape = True
     invmkeyw = False
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
-def check_ui_kde4 (headrefs=default_headrefs,
+def check_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
                    uicpaths=None, uicpathenv=None, mkeyw=None):
     """
     Check UI references in KDE4 UI translations [hook factory].
@@ -369,22 +387,28 @@ def check_ui_kde4 (headrefs=default_headrefs,
     A convenience hook which fixes some of the parameters to L{check_ui}
     to match implicit UI references and formatting needs for KDE4 UI POs.
 
+    If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
+    will be used automatically.
+
     @return: type V3C hook
     @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
     tagrefs = _tagrefs_kde4
+    if uipathseps is None:
+        uipathseps = ["->"]
     xmlescape = True
     invmkeyw = False
     pfhook = None
     quiet = True
-    return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw, quiet,
+    return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
-def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                   pfhook, mkeyw, invmkeyw, quiet, modtext, spanrep):
+def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
+                   xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                   modtext, spanrep):
     """
     Worker for hook factories.
     """
@@ -394,6 +418,8 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
         tagrefs = set(tagrefs)
     if not isinstance(headrefs, set):
         headrefs = set(headrefs)
+    if not isinstance(uipathseps, set):
+        uipathseps = set(uipathseps)
 
     # Markup keywords should remain None if not a sequence or string.
     if mkeyw is not None:
@@ -463,12 +489,9 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
                         warning_on_msg(errmsg, msg, cat)
                     break
 
-                uiref = m.group(2)
+                uirefpath = m.group(2)
                 pe = m.end() - len(m.group(3))
-                ps = pe - len(uiref)
-
-                rsplit.append((text[p:ps], uiref, ps, pe))
-                p = pe
+                ps = pe - len(uirefpath)
 
             elif ph < pt:
                 # Headed UI reference.
@@ -481,15 +504,17 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
                         warning_on_msg(errmsg, msg, cat)
                     break
 
-                uiref = m.group(2)
+                uirefpath = m.group(2)
                 ps, pe = m.span()
-
-                rsplit.append((text[p:ps], uiref, ps, pe))
-                p = pe
 
             else:
                 # Both positions equal, meaning end of text.
                 break
+
+            ptext_uiref = _split_uirefpath(text[p:ps], uirefpath, uipathseps)
+            for ptext, uiref in ptext_uiref:
+                rsplit.append((ptext, uiref, ps, pe))
+            p = pe
 
         # Trailing segment (or everything after an error).
         rsplit.append((text[p:], None, -1, -1))
@@ -814,4 +839,19 @@ def _to_uiref (nmsg):
     # TODO: Analyze format directives to add dummy arguments?
 
     return uiref
+
+
+# Split UI reference path as [(ptext, ref1), (sep, ref2), (sep, ref3), ...]
+def _split_uirefpath (ptext, uirefpath, uipathseps):
+
+    p = -1
+    for sep in uipathseps:
+        p = uirefpath.find(sep)
+        if p >= 0:
+            break
+    if p < 0:
+        return [(ptext, uirefpath)]
+    else:
+        rsplit = uirefpath.split(sep)
+        return zip([ptext] + [sep] * (len(rsplit) - 1), rsplit)
 
