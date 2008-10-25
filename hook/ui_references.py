@@ -633,11 +633,17 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
                 lststr = lststr[:p]
             catnames.extend(lststr.split())
 
+    # Make catalog names unique, preserving order.
+    uniq_catnames = []
+    for catname in catnames:
+        if catname not in uniq_catnames:
+            uniq_catnames.append(catname)
+
     # Open and normalize UI catalogs.
     # Cache catalogs for performance.
     uicats = []
     chkeys = set()
-    for catname in set(catnames): # make catalog names unique
+    for catname in uniq_catnames:
         catpath = uicpaths.get(catname)
         if catpath is None:
             warning("UI catalog '%s' associated to '%s' "
