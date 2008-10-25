@@ -621,7 +621,7 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
         normcatpath = catpath + "~norm"
         uicat = _norm_cats_cache[normkey].get(normcatpath)
         if uicat is None:
-            print "Loading UI catalog '%s'..." % catpath
+            #print "Loading and normalizing UI catalog '%s'..." % catpath
             uicat_raw = Catalog(catpath, monitored=False)
             uicat = _norm_ui_cat(uicat_raw, normcatpath, xmlescape)
             uicat.filename = normcatpath
