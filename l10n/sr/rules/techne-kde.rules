@@ -74,14 +74,14 @@ clearFilters
       factory="uicpathenv='UICATS_KDE4_SR', mkeyw='kde4'" \
       on="msgstr"
 id="x-uiref-k"
-hint="неуспело разрешавање ниске сучеља (КДЕ сучеље)"
+hint="неуспело разрешавање ниске сучеља"
 
 # ...in KDE documentation POs.
 *hook name="ui-references/check-ui-docbook4" \
       factory="uicpathenv='UICATS_KDE4_SR', mkeyw='docbook4'" \
       on="msgstr"
 id="x-uiref-db"
-hint="неуспело разрешавање ниске сучеља (документација)"
+hint="неуспело разрешавање ниске сучеља"
 
 # ...in other catalogs (e.g. pure Qt UI, desktop files).
 *hook name="ui-references/check-ui" \
@@ -89,7 +89,7 @@ hint="неуспело разрешавање ниске сучеља (доку�
                mkeyw=['docbook4', 'kde4'], invmkeyw=True" \
       on="msgstr"
 id="x-uiref-o"
-hint="неуспело разрешавање ниске сучеља (другде)"
+hint="неуспело разрешавање ниске сучеља"
 
 # ----------------------------------------
 # The following rules should be applied on pure text.

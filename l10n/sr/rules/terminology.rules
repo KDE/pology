@@ -21,7 +21,6 @@ valid msgstr="\bдода(так|тк|ц)"
 id="border"
 hint="border = ивица"
 valid msgstr="\bо?иви[цч]"
-valid env="kde" msgstr="border"
 valid cat="kate,katepart4" after="icon " msgstr="појас\w* икон"
 
 {\bcells?\b}i
@@ -34,7 +33,6 @@ valid msgstr="\bћелиј"
 id="certificate"
 hint="certificate = сертификат"
 valid msgstr="\bсертификат"
-valid env="kde" msgstr="certificate"
 valid cat="kdeqt" msgid="does not certificate" msgstr="не оверава"
 
 {\bcharacter}i
@@ -62,7 +60,6 @@ valid msgstr="\bклијена?т"
 id="column"
 hint="column = колона"
 valid msgstr="\bколон"
-valid env="kde" msgstr="\bcolumn"
 valid cat="plasmaengineexplorer" msgstr="^све видљиве$"
 
 {\bcolumn}i
@@ -87,7 +84,6 @@ hint="configure = подесити"
 valid msgid="configured?( *\S+){,2} settings"
 valid msgstr="\bподе[сш]"
 valid env="kde" msgstr="\bзада[вјлот]"
-valid env="kde" msgstr="configure"
 valid cat="kate" msgid="configured\s*for the document type"
 
 # Некад је у питању курсор (текстуални), некад показивач (миша), отприлике
@@ -114,7 +110,6 @@ valid msgstr="прилаго[дђ]" !msgstr="прилагодив"
 id="cut"
 hint="cut = исећи"
 valid msgstr="\bисе[кцчћ]"
-valid env="kde" msgstr="\bcut"
 valid cat="klipper" msgid="cut\W*paste" msgstr="копи.{,9}налеп"
 valid cat="dolphin" msgid="ctrl.*\bc\b.*cut" msgstr="copy"
 valid cat="dolphin" msgid="provide short cuts"
@@ -123,7 +118,7 @@ valid cat="dolphin" msgid="provide short cuts"
 id="default"
 hint="default = подразумеван"
 valid msgstr="\bподразумева"
-valid env="kde" msgstr="default"
+valid env="kde" msgstr="&\w*default\S*;"
 valid cat="kioclient" msgid="Mounts the CDROM"
 valid cat="konsole" msgid="DEFAULTENCODING"
 valid cat="kcmicons" msgid="^Default$" msgstr="основна"
@@ -157,7 +152,7 @@ disabled
 id="editor"
 hint="editor = уређивач"
 valid msgstr="\bуређива" !msgstr="уређивачом"
-valid env="kde" msgstr="editor"
+valid env="kde" msgstr="&\w*editor\S*;"
 valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 valid cat="lokalize" msgid="the editors" msgstr="уредниц"
 
@@ -166,7 +161,7 @@ id="email"
 hint="email = е-пошта"
 valid msgstr="\bе[‑-]пошт"
 valid env="kde" ctx="^EMAIL OF TRANSLATORS$"
-valid env="kde" msgstr="email"
+valid env="kde" msgstr="&\w*email\S*;"
 valid cat="kabc" msgid="^Preferred Email$" msgstr="адрес"
 valid cat="kabc" msgid="^Change Email\.\.\.$" msgstr="адрес"
 valid cat="kabc" msgid="^List of Emails$" msgstr="адрес"
@@ -199,7 +194,6 @@ valid msgstr="\bиме\w* .*\bдатоте|датоте\w* .*\bиме" !msgstr="
 id="footer"
 hint="footer = подножје"
 valid msgstr="\bподнож[јн]"
-valid env="kde" msgstr="footer"
 
 # Покрива и force и force2.
 # Делимична провера, не може се разликовати ван контекста.
@@ -225,7 +219,6 @@ valid cat="solid-hardware" msgstr="solid-hardware"
 id="header"
 hint="header = заглавље"
 valid msgstr="\bзаглав[љн]"
-valid env="kde" msgstr="header"
 
 {\bheader}i
 id="header2"
@@ -249,7 +242,6 @@ valid msgstr="\bиста(кн|ћи)"
 valid msgstr="\bистица[њтол]"
 valid msgstr="\bистич[еу]"
 valid msgstr="--highlight"
-valid env="kde" msgstr="highlight"
 
 {\blabel}i
 id="label"
@@ -306,7 +298,7 @@ disabled
 id="network"
 hint="network = мрежа"
 valid msgstr="\bу?мреж"
-valid env="kde" msgstr="network"
+valid env="kde" msgstr="&\w*network\S*;"
 valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
 valid cat="solid-network" msgid="solid-network"
 
@@ -314,28 +306,26 @@ valid cat="solid-network" msgid="solid-network"
 id="oblique"
 hint="oblique = искошен"
 valid msgstr="\bискошен"
-valid env="kde" msgstr="oblique"
+valid env="kde" msgstr="&oblique\S*;"
 
 {\bpanel}i
 id="panel"
 hint="panel = панел"
 valid msgstr="\bпанел"
+valid env="kde" msgstr="&\w*panel\S*;"
 valid env="kde" msgid="control.*module" msgstr="контролн\w+ модул|модул контролн\w+"
-valid env="kde" msgstr="\bpanel"
 valid cat="dolphin" msgid="^This panel opens" msgstr="^Отвара"
 
 {\bpass\W?phrase}i
 id="passphrase"
 hint="passphrase = лозинка"
 valid msgstr="\bлозинк"
-valid env="kde" msgstr="passphrase"
 
 {\bpass\W?word}i
 id="password"
 hint="password = лозинка"
 valid msgstr="\bлозинк"
 valid before="@" msgstr="lozinka@"
-valid env="kde" msgstr="password"
 
 {\bpointer}i
 id="pointer2"
@@ -352,13 +342,12 @@ id="reader"
 hint="reader = читач"
 valid msgstr="\bчитач" !msgstr="читачом"
 valid msgstr="\bчита(лац|о[цч])"
-valid env="kde" msgstr="reader"
+valid env="kde" msgstr="&\w*reader\S*;"
 
 {\brename}i
 id="rename"
 hint="rename = преименовати"
 valid msgstr="\bпреимен"
-valid env="kde" msgstr="rename"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
@@ -395,25 +384,25 @@ valid cat="nepomuk" msgid="^Nepomuk Server -" !msgstr=" [-—]"
 id="shortcut"
 hint="shortcut = пречица"
 valid msgstr="\bпречиц"
-valid env="kde" msgstr="shortcut"
+valid env="kde" msgstr="&\w*shortcut\S*;"
 
 {\bsoftware}i
 id="software"
 hint="software = софтвер"
+valid env="kde" msgstr="&\w*software\S*;"
 valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
-valid env="kde" msgstr="software"
 
 {\bspaces?\b}i
 id="space"
-hint="space = размак"
+hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
 valid span="space\b" before=" (available|required|of|left)" msgstr="\bпростор"
-valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|memory|more|no|out of|remaining|of|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
+valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|little|memory|more|no|out of|remaining|of|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
-valid env="kde" msgstr="space"
+valid env="kde" msgstr="\bspace\b" # може и као ентитет и у <shortcut>
 valid cat="kcm_pci" msgid="^Space$"
 
 {\bsyntax\W?highlight}i
@@ -426,7 +415,7 @@ id="tab"
 hint="tab = језичак"
 valid msgstr="\bјезич[акц]|\bтабулатор"
 valid msgid="press tab|tab key|alt\W*tab"
-valid env="kde" msgstr="\btabs?\b"
+valid cat="kdelibs4" ctx="keyboard" msgstr="&tab\S*;"
 valid cat="konsole" msgid="^Tab title format:$" msgstr="^Формат наслова:$"
 valid cat="konsole" msgid="^Remote tab title format:$" msgstr="^Формат удаљеног наслова:$"
 valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
@@ -437,7 +426,6 @@ id="table"
 hint="table = табела"
 valid before=" of contents"
 valid msgstr="\bтабел"
-valid env="kde" msgstr="\btable"
 valid cat="desktop_kdebase" msgid="Rain on the Table"
 valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
 
@@ -445,13 +433,13 @@ valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
 id="template"
 hint="template = шаблон"
 valid msgstr="\bшаблон"
-valid env="kde" msgstr="template"
+valid env="kde" msgstr="&\w*template\S*;"
 
 {\btext\W?editor}i
 id="texteditor"
 hint="text editor = уређивач текста"
 valid msgstr="\bуређива(ч(\b|[аеиу])|њ)\w* текста"
-valid env="kde" msgstr="texteditor"
+valid env="kde" msgstr="&\w*texteditor\S*;"
 valid cat="desktop_kdesdk" msgid="Kate text editor" !msgstr="текст"
 
 {\bURL}i
@@ -469,7 +457,6 @@ valid cat="khelpcenter_contact" msgid="url;"
 id="view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
-valid env="kde" msgstr="View"
 valid cat="kcmcolors" msgstr="приказ"
 
 {\bwildcard}i

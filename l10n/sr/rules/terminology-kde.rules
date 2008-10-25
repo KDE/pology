@@ -10,7 +10,7 @@ include file="puretext.filters"
 id="applet"
 hint="applet = аплет"
 valid msgstr="\bаплет"
-valid msgstr="applet"
+valid msgstr="&\w*applet\S*;"
 
 {\bapplication}i
 id="application"
@@ -26,7 +26,6 @@ valid msgstr="\bаутентифик(ов|уј)"
 id="authentication"
 hint="authentication = аутентификација"
 valid msgstr="\bаутентифик"
-valid msgstr="authentication"
 
 {\bauthori[zs]ation}i
 id="authorization"
@@ -58,7 +57,7 @@ disabled
 id="bitmap"
 hint="bitmap|pixmap = битмапа"
 valid msgstr="\b(не)?битмап(ск)?[аеиоу]"
-valid msgstr="bitmap"
+valid msgstr="&(xbitmap)-\S*;"
 
 {\bbitmap}i
 id="bitmap2"
@@ -69,13 +68,13 @@ disabled
 id="bold"
 hint="bold = подебљан"
 valid msgstr="\bподебља"
-valid msgstr="bold"
+valid msgstr="&(demi|semi|extra|ultra)?bold\S*;"
 
 {\bbookmark}i
 id="bookmark"
 hint="bookmark = маркер"
 valid msgstr="\bмарк[ие]р"
-valid msgstr="bookmark"
+valid msgstr="&\w*bookmark\S*;"
 
 {\bbrowse(?!r)}i
 id="browse"
@@ -83,7 +82,6 @@ hint="browse = прегледати"
 # /browse for/ се изузима, и *не* треба да преведено са „прегледати...“
 valid before="d? for" msgstr="\b(по)?траж|пронађ|изабер"
 valid !before="d? for" msgstr="\bпрегледа[њтјол]"
-valid msgstr="\bbrowse\b"
 # в. коментар у каталогу (документационом)
 valid cat="dolphin" msgid="the user can toggle the browse button"
 
@@ -91,25 +89,22 @@ valid cat="dolphin" msgid="the user can toggle the browse button"
 id="browse_button"
 hint="Browse = Прегледај"
 valid msgstr="^Прегледај\W*$"
-valid msgstr="\bbrowse\b"
 
 {\bbrowser}i
 id="browser"
 hint="browser = прегледач"
 valid msgstr="\bпрегледач" !msgstr="прегледачом"
-valid msgstr="browser"
+valid msgstr="&\w*browser\S*;"
 
 {\bcache}i
 id="cache"
 hint="cache = кеш"
 valid msgstr="\bкеш"
-valid msgstr="cache"
 
 {\bchat}i
 id="chat"
 hint="chat = ћаскати"
 valid msgstr="\bћаска[тњ]"
-valid msgstr="chat"
 valid cat="timezones4" msgid="Chatham"
 
 {\bcheck ?box}i
@@ -121,7 +116,7 @@ valid msgstr="\bкућиц"
 id="chooser"
 hint="chooser|selector = бирач"
 valid msgstr="\bбирач" !msgstr="бирачом"
-valid msgstr="selector"
+valid msgstr="&\w*selector\S*;"
 
 {\bcipher}i
 id="cipher"
@@ -147,7 +142,7 @@ disabled
 id="clipboard"
 hint="clipboard = клипборд"
 valid msgstr="\bклипборд"
-valid msgstr="clipboard"
+valid msgstr="&\w*clipboard\S*;"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
 {\bcommands?\b}i
@@ -157,7 +152,7 @@ valid before="[ -]?line"
 valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
 valid msgstr="\bнаредб"
-valid msgstr="(?<!<)(?<!</)command"
+valid msgstr="&\w*command\S*;"
 valid cat="katetextfilter" msgid="textfilter COMMAND"
 valid cat="konqueror" msgid="to the \S*Paste\S* command" msgstr="за \S*налепљивање\S*"
 
@@ -168,9 +163,9 @@ valid before=" file| script"
 valid msgstr="\bпостав[аеиоу]"
 valid msgstr="\bподеш(ава|ен)"
 valid msgstr="\bподесит"
+valid msgstr="&\w*config\S*;"
 # дозвољено увек у контексту употребити ‘поставке’
 valid msgstr="\bпоставк"
-valid msgstr="config"
 valid msgid="config(uration)? module" msgstr="контролн\w+ модул"
 valid cat="katepart4" msgid="config(uration)? page" msgstr="одеља?к"
 valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
@@ -191,7 +186,6 @@ hint="copy = копирати"
 valid after="backup "
 valid before="right"
 valid msgstr="\bкопи(ра|ј)"
-valid msgstr="\bcopy"
 valid cat="useraccount" msgid="Save copy.*for future" msgstr="Сачувај за убудуће"
 valid cat="lokalize" msgid="copy; 20"
 
@@ -210,7 +204,6 @@ id="custom"
 hint="custom = посебан"
 valid msgstr="\bпосеб(н|ан)"
 valid after="my own " msgstr="сопствен"
-valid msgstr="custom"
 
 {\bdaemon}i
 id="daemon"
@@ -225,7 +218,10 @@ valid !cat="fooxyz"
 valid msgstr="\bиздвајач" !msgstr="издвајачом"
 
 validGroup desktop-extras
+valid before=" publishing"
 valid msgid="K Desktop Environment" msgstr="\bkde\b"
+valid after="\." msgstr="\.desktop"
+valid msgstr="&\w*desktop\S*;"
 valid cat="nepomuk" msgid="Strigi.*Desktop File Indexer" msgstr="\bstrigi\b"
 valid cat="nepomuk" msgid="Strigi.*Desktop Search" msgstr="\bstrigi\b"
 valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
@@ -236,18 +232,14 @@ valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="инд�
 {\bdesktop}i
 id="desktop"
 hint="desktop = површ"
-valid before=" publishing"
 valid msgstr="\bповрш(?!ин)" !msgstr="радн\w+ површ"
-valid msgstr="desktop"
 validGroup desktop-extras
 
 {\bdesktop}i
 id="desktop2"
 hint="desktop = радна површ"
-valid before=" publishing"
 # колико да потврди да ипак има ‘површ’ кад је desktop изричито прескочено
 valid msgstr="\bповрш(?!ин)"
-valid msgstr="desktop"
 validGroup desktop-extras
 
 {\bdialog(ue)?}i
@@ -265,7 +257,6 @@ valid msgstr="\bменаџер\w* пријављивања"
 id="driver"
 hint="driver = драјвер"
 valid msgstr="\bдрајвер"
-valid msgstr="driver"
 
 {\be-?mail ?address}i
 id="emailaddress"
@@ -278,7 +269,6 @@ id="encoding"
 hint="character set|charset|encoding = кодирање"
 valid msgstr="\bкодирањ" !msgstr="\bзнаковн\w+ кодирањ" !msgstr="кодирањ\w+ знак(?!ов)"
 valid msgstr="\bзнаковн\w+ кодирањ" msgid="character encoding"
-valid msgstr="encoding"
 valid cat="khelpcenter" msgid="^Default encoding:$" msgstr="^Подразумевано:$"
 
 {\bplugin}i
@@ -304,7 +294,6 @@ valid cat="PO_Odyssey" msgid="poedit.*visual feature" msgstr="\bодлик"
 id="file"
 hint="file = фајл"
 valid !msgstr="\bдатоте"
-valid msgstr="\bfile"
 
 {\bfile\W?manager}i
 id="filemanager"
@@ -317,7 +306,6 @@ valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразу
 id="filename"
 hint="filename|file name = име фајла"
 valid msgstr="\bиме\w* .*\bфајл|фајл\w* .*\bиме" !msgstr="фајл име"
-valid msgstr="filename"
 
 {\bfile[ -]?system}i
 id="filesystem"
@@ -335,7 +323,7 @@ valid msgstr="&firefox\S*;" !msgstr="\bФаје?рфокс"
 id="font"
 hint="font = фонт"
 valid msgstr="\bфонт"
-valid msgstr="font"
+valid msgstr="&(fontinstaller|fontviewer)\S*;"
 valid cat="plasma_applet_notes" msgid="^Set font size automatically$"
 valid cat="kdelibs4" msgid="^Font style:$"
 valid cat="khelpcenter" msgid="^Font size adjustment:$"
@@ -401,24 +389,21 @@ valid cat="kio4" msgid="proxy's hostname" msgstr="име\w* прокси"
 id="icon"
 hint="icon = икона"
 valid msgstr="\bикон" !msgstr="\bикони[цч]"
-valid msgstr="icon"
+valid msgstr="&\w*icon\S*;"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
 
 {\bitalic}i
 id="italic"
 hint="italic = курзиван"
-valid after="style:"
 valid msgstr="\bкурзив"
-valid msgstr="italic"
+valid msgstr="&italic\S*;"
 valid cat="kfontinst" msgid="Old Italic"
 
-{\bJava}i
+{\bJava\b}i
 id="java"
 hint="Java = јава"
-valid msgstr="java"
-valid cat="desktop_kdelibs" msgid="Javanese"
-valid cat="kcmkonqhtml" msgid="Java(Script)? policy"
+valid msgstr="&java\S*;"
 
 {\bJava}
 id="java_p"
@@ -468,7 +453,7 @@ valid cat="kio_imap4" after="access control " msgstr="\bacl"
 valid after="free/busy " !msgstr="\bлист"
 valid !cat="kabc" msgstr="\bсписа?к"
 valid msgstr="\b(набр[оа]?ј|навед|наво[дс]|испи[сш])"
-valid msgstr="\blist|list[\w-]*;"
+valid msgstr="&(internetbooklist)\S*;"
 valid cat="kabc" msgstr="\bлист"
 valid cat="kabc" msgid="list of emails" msgstr="\bсписак"
 valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опцијама,"
@@ -483,7 +468,6 @@ valid !msgstr="\bизлист"
 id="log2"
 hint="log = бележити"
 valid before=" ?(in|out)\b"
-valid msgstr="\blog"
 valid msgstr="\b(за)?беле[жш]"
 valid msgstr="\bдневни[чк]"
 
@@ -497,7 +481,7 @@ id="manager"
 hint="manager = менаџер"
 valid msgstr="\bменаџер"
 valid msgstr="\bуправ" !msgstr="\bуправ(љач|ник)"
-valid msgstr="manager"
+valid msgstr="&\w*manager\S*;"
 valid cat="filetypes" msgid="Konqueror file manager"
 valid cat="dolphin" msgid="default file manager for the virtual" msgstr="подразумев.*отвара\w+ виртуел"
 
@@ -510,7 +494,6 @@ valid after="view(s|ing)? " msgstr="начин\w* приказ"
 valid msgstr="режим"
 # због изостављања:
 valid !msgstr="\bначин" !msgstr="\bмод(а|у|ом|ов(и|е|има))\b"
-valid msgstr="\bmodes?\b"
 valid cat="kdmconfig" msgid="dialog based mode" msgstr="завнова\w+ на дијалогу"
 valid cat="katepart4" after="syntax highlight "
 valid cat="dolphin" after="three viewing " msgstr="на разне начине"
@@ -530,7 +513,7 @@ valid msgstr="\bван везе"
 id="online"
 hint="online = на вези"
 valid msgstr="\bна вези"
-valid msgstr="online"
+valid msgstr="&\w*online\S*;"
 
 {\bonline}i
 id="online2"
@@ -556,28 +539,24 @@ valid msgstr="\bрашчла[нњ]"
 id="parser"
 hint="parser = рашчлањивач"
 valid msgstr="\bрашчлањивач" !msgstr="рашчлањивачом"
-valid msgstr="\bparser"
 valid cat="kio_ldap" msgstr="рашчлањивањ"
 
 {\bpaste[sd]?\b}i
 id="paste"
 hint="paste = налепити"
 valid msgstr="\bналеп"
-valid msgstr="\bpaste"
 valid cat="desktop_kdebase" msgid="paste history utility"
 
 {\bpattern}i
 id="pattern"
 hint="pattern = образац"
 valid msgstr="\bобра(зац|сц)"
-valid msgstr="pattern"
 valid cat="desktop_kdebase" msgid="pattern="
 
 {\bplugin}i
 id="plugin"
 hint="plugin = прикључак"
 valid msgstr="\bприкључ[акц]"
-valid msgstr="plugin"
 valid cat="phonon_gstreamer,kdeqt" msgid="-plugin" msgstr="-plugin"
 valid cat="ktraderclient" msgid="KMyApp/Plugin"
 valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
@@ -606,7 +585,6 @@ valid msgstr="\bпрокси"
 id="quit"
 hint="quit = напустити"
 valid msgstr="\bнапу(шта|сти)"
-valid msgstr="quit"
 
 {\b(regular expression|regex)}i
 id="regularexpression"
@@ -619,7 +597,6 @@ id="reset"
 hint="reset = ресетовати"
 valid msgstr="\bресет(ов|уј|\b)"
 valid msgstr="\bвра(ти|ће).*подразумев"
-valid msgstr="\breset"
 valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 
 {\brows?\b}i
@@ -670,16 +647,16 @@ valid cat="kcmkio" msgid="provides services"
 valid cat="desktop_kdebase" msgid="National Weather Service" msgstr="\bслужб"
 
 # о-рук
-{\b(preference|setting)}i
+{\b(preference|setting)s?}i
 id="setting"
 hint="preference|setting = поставка"
 valid msgid="^settings$" msgstr="^подешавање$"
-valid msgstr="setting"
 valid msgstr="\bпостав(ц|к|љ|ит)"
 valid msgstr="->подешавање"
 valid msgstr="подешавање->"
 valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
 valid span="preference\b" msgstr="пожеља?н|првенств"
+valid span="settings" before=" menu" # „мени Подешавање“
 valid cat="kio_smtp,kio_pop3" msgid="crypto settings module" msgstr="модул\w* за шифровање"
 valid cat="kdelibs4" msgid="original color setting"
 valid cat="kdelibs4" msgid="setting if you want this entry" msgstr="опциј"
@@ -693,7 +670,6 @@ valid cat="kdeqt" msgid="^preferences?$" msgstr="личн\w+ избор"
 id="shell"
 hint="shell = шкољка"
 valid msgstr="\bшкољ[кц]"
-valid msgstr="shell"
 valid msgid="shell script" msgstr="скрипт"
 valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
 valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
@@ -712,7 +688,7 @@ valid !msgstr="знаков\w* низ|низ знаков|слов\w* низ"
 id="systemtray"
 hint="system tray = системска касета"
 valid msgstr="\bсистемск\w+ касет"
-valid msgstr="system\W?tray"
+valid msgstr="&\w*systemtray\S*;"
 
 {\btaskbar}i
 id="taskbar"
@@ -725,7 +701,6 @@ valid cat="kcmtaskbar" msgid="^When Taskbar Full$" msgstr="^када је тра
 id="thumbnail"
 hint="thumbnail = сличица"
 valid msgstr="\bсличиц"
-valid msgstr="thumbnail"
 
 {\bThunderbird}i
 id="thunderbird"
@@ -745,13 +720,12 @@ valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
 id="tooltip"
 hint="tooltip = облачић"
 valid msgstr="\bоблачић"
-valid msgstr="tooltip"
 
 {\bviewer}i
 id="viewer"
 hint="viewer = приказивач"
 valid msgstr="\bприказива[чњ]" !msgstr="приказивачом"
-valid msgstr="viewer[\w-]*;"
+valid msgstr="&\w*viewer\S*;"
 valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
 valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
 
@@ -764,7 +738,6 @@ valid msgstr="\bвиртуелн\w+ површ(?!ин)"
 id="wallpaper"
 hint="wallpaper = тапет"
 valid msgstr="\bтапет"
-valid msgstr="wallpaper"
 
 {\bweb browser}i
 id="webbrowser"
@@ -780,7 +753,7 @@ valid msgstr="\bпразнин"
 id="widget"
 hint="widget = виџет"
 valid msgstr="\bвиџет"
-valid msgstr="widget"
+valid msgstr="&\w*widget\S*;"
 valid cat="desktop_kdebase" msgid="dashboard widget" msgstr="инструмент-табл"
 valid cat="kcmkwm" msgid="popup widget" msgstr="искачућ\w+ спис"
 
@@ -788,7 +761,6 @@ valid cat="kcmkwm" msgid="popup widget" msgstr="искачућ\w+ спис"
 id="wizard"
 hint="wizard = чаробњак"
 valid msgstr="\bчаробњак"
-valid msgstr="\bwizard"
 
 {\bXML\b}i
 id="xml"
@@ -805,6 +777,5 @@ id="zoom"
 hint="zoom = увеличати"
 valid before="[ -]out"
 valid msgstr="\bувелича"
-valid msgstr="zoom"
 
 # End of rules
