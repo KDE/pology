@@ -115,6 +115,12 @@ addFilterHook name="ja:katakana" on="pmsgstr"
 [アダプター]
 hint="adaptor = アダプタ"
 
+[インストーラー]
+hint="installer = インストーラ"
+
+[エディター]
+hint="editor = エディタ"
+
 [エントリー]
 hint="entry = エントリ"
 
@@ -136,6 +142,9 @@ hint="comma = コンマ"
 [スキャナー]
 hint="scanner = スキャナ"
 
+[スライダ\b]
+hint="slider = スライダー"
+
 [センサ\b]
 hint="sensor = センサー"
 
@@ -148,11 +157,35 @@ hint="timer = タイマー"
 [ディジタル]
 hint="digital = デジタル"
 
+[ドライバー]
+hint="driver = ドライバ"
+
 [フィルター]
 hint="filter = フィルタ"
+
+[フッター]
+hint="footer = フッタ"
 
 [プライバシ\b]
 hint="privacy = プライバシー"
 
 [プリンター]
 hint="printer = プリンタ"
+
+[ヘッダー]
+hint="header = ヘッダ"
+
+[\bベンダ\b]
+hint="vendor = ベンダー"
+
+[\bマーカ\b]
+hint="marker = マーカー"
+
+[\bメーカ\b]
+hint="maker = メーカー"
+
+[ライブラリー]
+hint="library = ライブラリ"
+
+[ヴァージョン]
+hint="version = バージョン"

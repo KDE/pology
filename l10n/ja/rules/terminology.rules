@@ -100,6 +100,20 @@ id="bandwidth"
 hint="bandwidth = 帯域幅"
 valid msgstr="帯域幅"
 
+# @gloss-new
+{\bbinary}i
+id="binary"
+hint="binary = 二進|二進法"
+valid msgstr="二進|二進法"
+disabled
+
+# @gloss-new
+{\bbinary}i
+id="binary2"
+hint="binary = バイナリ"
+valid msgstr="バイナリ"
+disabled
+
 {\bbold\b}i
 id="bold"
 hint="bold = ボールド"
@@ -115,6 +129,13 @@ valid msgstr="ブックマーク"
 id="cancel"
 hint="Cancel = キャンセル"
 valid msgstr="キャンセル"
+
+# @gloss-new
+{\bcapture}i
+id="capture"
+hint="capture = キャプチャ"
+valid msgstr="キャプチャ"
+disabled
 
 {$Clear$}
 id="clear"
@@ -305,6 +326,20 @@ id="discard_changes"
 hint="Discard Changes = 変更を破棄"
 valid msgstr="変更を破棄"
 
+# @gloss-new
+{\bdisplay}i
+id="display"
+hint="display = ディスプレイ"
+valid msgstr="ディスプレイ"
+disabled
+
+# @gloss-new
+{\bdisplay}i
+id="display2"
+hint="display = 表示"
+valid msgstr="表示"
+disabled
+
 {Do not ask again}
 id="do_not_ask_again"
 hint="Do not ask again = 次回から確認しない"
@@ -405,6 +440,20 @@ valid msgstr="エンティティ" !msgstr="エンティティー"
 id="environment_variable"
 hint="environment variable = 環境変数"
 valid msgstr="環境変数"
+
+# @gloss-new
+{\bexecutable}i
+id="executable"
+hint="executable = 実行ファイル"
+valid msgstr="実行ファイル"
+disabled
+
+# @gloss-new
+{\bexecutable}i
+id="executable2"
+hint="executable = 実行可能"
+valid msgstr="実行可能"
+disabled
 
 {^Expand All$}
 id="expand_all"
@@ -659,6 +708,11 @@ id="invert_selection"
 hint="Invert Selection = 選択反転"
 valid msgstr="選択反転"
 
+{\binternet service provider}i
+id="isp"
+hint="internet service provider = ISP|インターネットサービスプロバイダ"
+valid msgstr="ISP|インターネットサービスプロバイダ" !msgstr="プロバイダー"
+
 {\bitalic}i
 id="italic"
 hint="italic = イタリック"
@@ -736,6 +790,20 @@ valid cat="kfmclient, kioclient" msgstr="mimetype"
 id="minimize"
 hint="Minimize = 最小化"
 valid msgstr="最小化"
+
+# @gloss-new
+{\bmonitor}i
+id="monitor"
+hint="monitor = モニタ"
+valid msgstr="モニタ"
+disabled
+
+# @gloss-new
+{\bmonitor}i
+id="monitor2"
+hint="monitor = 監視"
+valid msgstr="監視"
+disabled
 
 {\bmonospace}i
 id="monospace"
@@ -943,6 +1011,12 @@ hint="property = プロパティ"
 valid msgstr="プロパティ" !msgstr="プロパティー"
 valid after="(food|physical) "
 
+{\bproviders?}i
+id="provider"
+hint="provider = プロバイダ"
+valid after="(search|internet service) "
+valid msgstr="プロバイダ" !msgstr="プロバイダー"
+
 {\bproxy}i
 id="proxy"
 hint="proxy = プロキシ"
@@ -1080,6 +1154,11 @@ id="search_bar"
 hint="search bar = 検索バー"
 valid msgstr="検索バー"
 
+{\bsearch providers?}i
+id="search_provider"
+hint="search provider = 検索プロバイダ"
+valid msgstr="検索プロバイダ" !msgstr="プロバイダー"
+
 {\bsecret keys?}i
 id="secret_key"
 hint="secret key = 秘密鍵"
@@ -1130,11 +1209,6 @@ valid msgstr="フォントサイズを小さく"
 id="signing_key"
 hint="signing key = 署名鍵"
 valid msgstr="署名鍵"
-
-{\bsliders?}i
-id="slider"
-hint="slider = スライダー"
-valid msgstr="スライダー"
 
 {\bsmileys?\b}i
 id="smiley"
