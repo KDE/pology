@@ -223,7 +223,7 @@ default_headrefs = ["~%"]
 
 def resolve_ui (headrefs=default_headrefs, tagrefs=[],
                 uicpaths=None, uicpathenv=None, xmlescape=False, pfhook=None,
-                mkeyw=None, invmkeyw=False):
+                mkeyw=None, invmkeyw=False, quiet=False):
     """
     Resolve general UI references in translations [hook factory].
 
@@ -257,13 +257,15 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[],
     @type mkeyw: string or list of strings
     @param invmkeyw: whether to invert the meaning of C{mkeyw} parameter
     @type invmkeyw: bool
+    @param quiet: whether to output warnings of failed resolutions
+    @type quite: bool
 
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
     """
 
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
@@ -280,8 +282,9 @@ def check_ui (headrefs=default_headrefs, tagrefs=[],
     """
 
     pfhook = None
+    quiet = True
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
@@ -292,7 +295,7 @@ _tagrefs_docbook4 = [
 
 def resolve_ui_docbook4 (headrefs=default_headrefs,
                          uicpaths=None, uicpathenv=None, pfhook=None,
-                         mkeyw=None):
+                         mkeyw=None, quiet=False):
     """
     Resolve UI references in Docbook 4.x translations [hook factory].
 
@@ -307,7 +310,7 @@ def resolve_ui_docbook4 (headrefs=default_headrefs,
     xmlescape = True
     invmkeyw = False
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
@@ -327,8 +330,9 @@ def check_ui_docbook4 (headrefs=default_headrefs,
     xmlescape = True
     invmkeyw = False
     pfhook = None
+    quiet = True
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
@@ -338,7 +342,7 @@ _tagrefs_kde4 = [
 
 def resolve_ui_kde4 (headrefs=default_headrefs,
                      uicpaths=None, uicpathenv=None, pfhook=None,
-                     mkeyw=None):
+                     mkeyw=None, quiet=False):
     """
     Resolve UI references in KDE4 UI translations [hook factory].
 
@@ -353,7 +357,7 @@ def resolve_ui_kde4 (headrefs=default_headrefs,
     xmlescape = True
     invmkeyw = False
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=True, spanrep=False)
 
 
@@ -373,13 +377,14 @@ def check_ui_kde4 (headrefs=default_headrefs,
     xmlescape = True
     invmkeyw = False
     pfhook = None
+    quiet = True
     return _resolve_ui_w(headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                         pfhook, mkeyw, invmkeyw,
+                         pfhook, mkeyw, invmkeyw, quiet,
                          modtext=False, spanrep=True)
 
 
 def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
-                   pfhook, mkeyw, invmkeyw, modtext, spanrep):
+                   pfhook, mkeyw, invmkeyw, quiet, modtext, spanrep):
     """
     Worker for hook factories.
     """
@@ -454,7 +459,7 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
                 if not m:
                     errmsg = "non-terminated UI reference by tag '%s'" % tag
                     errspans.append(mt.span() + (errmsg,))
-                    if not spanrep:
+                    if not spanrep and not quiet:
                         warning_on_msg(errmsg, msg, cat)
                     break
 
@@ -472,7 +477,7 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
                 if not m:
                     errmsg = "non-terminated UI reference by head '%s'" % head
                     errspans.append(mh.span() + (errmsg,))
-                    if not spanrep:
+                    if not spanrep and not quiet:
                         warning_on_msg(errmsg, msg, cat)
                     break
 
@@ -528,7 +533,7 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
                     uiref_res, errmsgs = resolve_single_uiref(uiref, msg, cat)
                     tsegs.append(uiref_res)
                     errspans.extend([(start, end, x) for x in errmsgs])
-                    if not spanrep:
+                    if not spanrep and not quiet:
                         for errmsg in errmsgs:
                             warning_on_msg(errmsg, msg, cat)
 
