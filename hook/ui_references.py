@@ -568,16 +568,10 @@ def _collect_ui_catpaths (uicpaths, uicpathenv):
 
 
 # Cache for normalized UI catalogs.
-# Mapping by normalization options, followed by catalog name:
-# cache[normkey][catname]
+# Mapping by normalization options and catalog name.
 _norm_cats_cache = {}
 
 def _load_norm_ui_cats (cat, uicpaths, xmlescape):
-
-    # Update cache for normalization key.
-    normkey = (xmlescape,)
-    if normkey not in _norm_cats_cache:
-        _norm_cats_cache[normkey] = {}
 
     # Construct list of catalogs, by catalog name, from which this
     # catalog may draw UI strings.
@@ -612,28 +606,36 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
     # Open and normalize UI catalogs.
     # Cache catalogs for performance.
     uicats = []
-    for catname in set(catnames):
+    chkeys = set()
+    for catname in set(catnames): # make catalog names unique
         catpath = uicpaths.get(catname)
         if catpath is None:
             warning("UI catalog '%s' associated to '%s' "
                     "not among known catalog paths" % (catname, cat.name))
             continue
-        normcatpath = catpath + "~norm"
-        uicat = _norm_cats_cache[normkey].get(normcatpath)
+        chkey = (xmlescape, catpath)
+        chkeys.add(chkey)
+        uicat = _norm_cats_cache.get(chkey)
         if uicat is None:
-            #print "Loading and normalizing UI catalog '%s'..." % catpath
+            #print "Loading and normalizing UI catalog '%s'..." % list(chkey)
             uicat_raw = Catalog(catpath, monitored=False)
-            uicat = _norm_ui_cat(uicat_raw, normcatpath, xmlescape)
-            uicat.filename = normcatpath
-            _norm_cats_cache[normkey][normcatpath] = uicat
+            uicat = _norm_ui_cat(uicat_raw, xmlescape)
+            _norm_cats_cache[chkey] = uicat
         uicats.append(uicat)
+
+    # Remove previous catalogs not reused by this call.
+    # TODO: Better strategy for removing from cache.
+    for chkey in set(_norm_cats_cache.keys()).difference(chkeys):
+        #print "Removing normalized UI catalog '%s'..." % list(chkey)
+        del _norm_cats_cache[chkey]
 
     return uicats
 
 
-def _norm_ui_cat (cat, normpath, xmlescape):
+def _norm_ui_cat (cat, xmlescape):
 
     norm_cat = Catalog("", create=True, monitored=False)
+    norm_cat.filename = cat.filename + "~norm"
 
     for msg in cat:
         remove_markup_msg(msg, cat) # before accelerator removal
