@@ -500,9 +500,8 @@ def _resolve_ui_w (headrefs, tagrefs, uicpaths, uicpathenv, xmlescape,
             ldata["uicpaths"] = _collect_ui_catpaths(uicpaths, uicpathenv)
         if ldata.get("actcatfile") != cat.filename:
             ldata["actcatfile"] = cat.filename
-            prevnormcats = ldata.get("normcats", [])
             ldata["normcats"] = _load_norm_ui_cats(cat, ldata["uicpaths"],
-                                                   xmlescape, prevnormcats)
+                                                   xmlescape)
         normcats = ldata["normcats"]
 
         uiref_res, errmsgs = _resolve_single_uiref(uiref, normcats)
@@ -568,7 +567,17 @@ def _collect_ui_catpaths (uicpaths, uicpathenv):
     return uicpath_dict
 
 
-def _load_norm_ui_cats (cat, uicpaths, xmlescape, prev_uicats):
+# Cache for normalized UI catalogs.
+# Mapping by normalization options, followed by catalog name:
+# cache[normkey][catname]
+_norm_cats_cache = {}
+
+def _load_norm_ui_cats (cat, uicpaths, xmlescape):
+
+    # Update cache for normalization key.
+    normkey = (xmlescape,)
+    if normkey not in _norm_cats_cache:
+        _norm_cats_cache[normkey] = {}
 
     # Construct list of catalogs, by catalog name, from which this
     # catalog may draw UI strings.
@@ -601,9 +610,8 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape, prev_uicats):
             catnames.extend(lststr.split())
 
     # Open and normalize UI catalogs.
-    # Reuse previous catalogs when possible, for performance.
+    # Cache catalogs for performance.
     uicats = []
-    prev_uicats_by_path = dict([(x.filename, x) for x in prev_uicats])
     for catname in set(catnames):
         catpath = uicpaths.get(catname)
         if catpath is None:
@@ -611,11 +619,13 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape, prev_uicats):
                     "not among known catalog paths" % (catname, cat.name))
             continue
         normcatpath = catpath + "~norm"
-        uicat = prev_uicats_by_path.get(normcatpath)
+        uicat = _norm_cats_cache[normkey].get(normcatpath)
         if uicat is None:
+            print "Loading UI catalog '%s'..." % catpath
             uicat_raw = Catalog(catpath, monitored=False)
             uicat = _norm_ui_cat(uicat_raw, normcatpath, xmlescape)
             uicat.filename = normcatpath
+            _norm_cats_cache[normkey][normcatpath] = uicat
         uicats.append(uicat)
 
     return uicats
