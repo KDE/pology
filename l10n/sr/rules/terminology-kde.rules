@@ -267,7 +267,7 @@ valid msgstr="е-поштом .*\bадрес"
 {\b(character set|char\W?set|encoding)}i
 id="encoding"
 hint="character set|charset|encoding = кодирање"
-valid msgstr="\bкодирањ" !msgstr="\bзнаковн\w+ кодирањ" !msgstr="кодирањ\w+ знак(?!ов)"
+valid msgstr="\bкодира" !msgstr="\bзнаковн\w+ кодира" !msgstr="кодира\w+ знак(?!ов)"
 valid msgstr="\bзнаковн\w+ кодирањ" msgid="character encoding"
 valid cat="khelpcenter" msgid="^Default encoding:$" msgstr="^Подразумевано:$"
 
@@ -348,6 +348,7 @@ valid msgstr="\bобли[кцч]"
 valid msgid="normal(ization|ized)? form" msgstr="\bформ([аеиу]|ом|ама)\b"
 valid cat="kcmlocale" msgid="declined form.*month name" msgstr="деклин"
 valid cat="libkpimutils" msgid="email.*of the form" msgstr="нешто као"
+valid cat="userguide_playing-audiocds" after="free flowing "
 valid cat="PO_Odyssey" after="plural-"
 
 {\bGCC}
@@ -467,7 +468,7 @@ valid !msgstr="\bизлист"
 {\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
-valid before=" ?(in|out)\b"
+valid before=" ?(in|into|out|off)\b"
 valid msgstr="\b(за)?беле[жш]"
 valid msgstr="\bдневни[чк]"
 
