@@ -37,6 +37,9 @@ _no_check_lat_rxs = (
     re.compile(r"~@(.)(.*?)\1(.*?)\1", re.U|re.I|re.S),
     # - extension filter, e.g. "*.png|PNG files"
     re.compile(r"^.*\*\..*\|", re.U|re.I),
+    # - URLs and web links
+    re.compile(r"\S+://\S*[\w&=]", re.U),
+    re.compile(r"\w{3,}(\.[\w-]{2,})+", re.U),
     # - text within these tags
     # NOTE: Some tags are requested without attributes, as otherwise
     # Latin-content is allowed inside attribute only.
