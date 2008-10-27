@@ -546,7 +546,9 @@ def _prep_docbook4_to_plain ():
     _dbk_subs.update([(x, _kuit_subs["_parabr"]) for x in
                       "para title".split()]) # FIXME: Add more.
     _dbk_subs.update([(x, _kuit_subs["_ws"]) for x in
-                       "contrib address firstname placeholder surname"
+                       "contrib address firstname placeholder surname "
+                       "guilabel guibutton guiicon guimenu guisubmenu "
+                       "guimenuitem "
                        "".split()])
 
     _dbk_ents = { # in addition to default XML entities
