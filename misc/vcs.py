@@ -121,6 +121,21 @@ class VcsBase (object):
               "revision age comparison")
 
 
+    def is_versioned (self, path):
+        """
+        Check if path is under version control.
+
+        @param path: path to check
+        @type path: string
+
+        @return: C{True} if versioned
+        @rtype: bool
+        """
+
+        error("selected version control system does not define "
+              "checking whether a path is version controlled")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -145,6 +160,12 @@ class VcsNoop (VcsBase):
 
 
     def is_clear (self, path):
+        # Base override.
+
+        return True
+
+
+    def is_versioned (self, path):
         # Base override.
 
         return True
@@ -205,4 +226,16 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         return int(rev1) < int(rev2)
+
+
+    def is_versioned (self, path):
+        # Base override.
+
+        res = collect_system("svn info %s" % path)
+        rx = re.compile(r"^Repository", re.I)
+        for line in res[0].split("\n"):
+            if rx.search(line):
+                return True
+
+        return False
 
