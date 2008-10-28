@@ -193,6 +193,11 @@
     format directive with the argument, the directive in the argument 
     specification is preceeded with an exclamation mark (<code>!</code>): 
     <code>...^!%s:foo</code>.</p>
+    <p>In general, but especially with implicit references, the text 
+    wrapped as reference may actually contain several references in form of
+    UI path (e.g. &quot;...go to Foo-&gt;Bar-&gt;Baz, and check...&quot;). 
+    Hook factories can take one or more strings which are used as UI path 
+    separators (e.g. <code>-&gt;</code>).</p>
   <h1 class="heading">Normalization of UI Text</h1>
     <p>The exact text of UI message may contain some characters and 
     substrings which should not find their way into the text which 
@@ -268,12 +273,14 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.ui_references-module.html#resolve_ui" class="summary-sig-name">resolve_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">tagrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">xmlescape</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">pfhook</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">invmkeyw</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">invmkeyw</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">False</span>)</span><br />
       Resolve general UI references in translations [hook factory].</td>
           <td align="right" valign="top">
             
@@ -292,6 +299,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.ui_references-module.html#check_ui" class="summary-sig-name">check_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">tagrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">xmlescape</span>=<span class="summary-sig-default">False</span>,
@@ -317,7 +325,8 @@
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pfhook</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">False</span>)</span><br />
       Resolve UI references in Docbook 4.x translations [hook factory].</td>
           <td align="right" valign="top">
             
@@ -355,10 +364,12 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.ui_references-module.html#resolve_ui_kde4" class="summary-sig-name">resolve_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pfhook</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">False</span>)</span><br />
       Resolve UI references in KDE4 UI translations [hook factory].</td>
           <td align="right" valign="top">
             
@@ -376,6 +387,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.ui_references-module.html#check_ui_kde4" class="summary-sig-name">check_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -425,12 +437,14 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_ui</span>(<span class="sig-arg">headrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">tagrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">uipathseps</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">uicpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpathenv</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">xmlescape</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">pfhook</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">invmkeyw</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">invmkeyw</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -452,11 +466,16 @@
   class="link">markup()</a> method. This match may be inverted by 
   <code>invmkeyw</code> parameter, i.e. to skip resolution for catalogs 
   reporting one of given keywords.</p>
+  <p>The list of UI path separators given by the <code>uipathseps</code> 
+  parameter is ordered by priority, such that the first one found in the 
+  composite reference text is used to split it into componental UI 
+  references.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>headrefs</code></strong> (list of strings) - heads for explicit UI references</li>
         <li><strong class="pname"><code>tagrefs</code></strong> (list of strings) - XML-like tags which define implicit UI references</li>
+        <li><strong class="pname"><code>uipathseps</code></strong> (list of strings) - separators in composited UI references</li>
         <li><strong class="pname"><code>uicpaths</code></strong> (list of strings) - paths to UI catalogs in the project</li>
         <li><strong class="pname"><code>uicpathenv</code></strong> (string) - environment variable defining directories where UI catalogs may 
           be found (colon-separated directory paths)</li>
@@ -464,6 +483,7 @@
         <li><strong class="pname"><code>pfhook</code></strong> (function or string) - F1A hook to postprocess resolved UI text</li>
         <li><strong class="pname"><code>mkeyw</code></strong> (string or list of strings) - markup keywords for taking catalogs into account</li>
         <li><strong class="pname"><code>invmkeyw</code></strong> (bool) - whether to invert the meaning of <code>mkeyw</code> parameter</li>
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - whether to output warnings of failed resolutions</li>
     </ul></dd>
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; msgstr</code></dt>
         <dd>type F3C hook</dd>
@@ -479,6 +499,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_ui</span>(<span class="sig-arg">headrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">tagrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">uipathseps</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">uicpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpathenv</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">xmlescape</span>=<span class="sig-default">False</span>,
@@ -510,7 +531,8 @@
         <span class="sig-arg">uicpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpathenv</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pfhook</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -564,10 +586,12 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_ui_kde4</span>(<span class="sig-arg">headrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">uipathseps</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpathenv</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pfhook</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -579,6 +603,8 @@
   href="pology.hook.ui_references-module.html#resolve_ui" 
   class="link">resolve_ui</a> to match implicit UI references and 
   formatting needs for KDE4 UI POs.</p>
+  <p>If <code>uipathseps</code> is <code>None</code>, separators known to 
+  KUIT <code>&lt;interface&gt;</code> tag will be used automatically.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; msgstr</code></dt>
         <dd>type F3C hook</dd>
@@ -593,6 +619,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_ui_kde4</span>(<span class="sig-arg">headrefs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">uipathseps</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">uicpathenv</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
@@ -607,6 +634,8 @@
   href="pology.hook.ui_references-module.html#check_ui" 
   class="link">check_ui</a> to match implicit UI references and formatting 
   needs for KDE4 UI POs.</p>
+  <p>If <code>uipathseps</code> is <code>None</code>, separators known to 
+  KUIT <code>&lt;interface&gt;</code> tag will be used automatically.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
         <dd>type V3C hook</dd>

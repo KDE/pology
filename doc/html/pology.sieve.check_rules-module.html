@@ -92,6 +92,10 @@
       accelerator markers
     </li>
     <li>
+      <code>markup:&lt;mkeywords&gt;</code>: markup types by keyword (comma
+      separated)
+    </li>
+    <li>
       <code>xml:&lt;filename&gt;</code>: output results of the run in XML 
       format file
     </li>
@@ -108,6 +112,15 @@
       descriptions
     </li>
   </ul>
+  <p>Parameters <code>accel</code> and <code>markup</code> set accelerator 
+  markers (e.g. <code>_</code>, <code>&amp;</code>, etc.) and markup types 
+  by keyword (e.g. <code>xml</code>, <code>qtrich</code>, etc.) that may be
+  present in sieved catalogs. However, providing this information by itself
+  does nothing, it is only forced on catalogs (overriding what their 
+  headers state, if anything) such that filter and validation hooks can 
+  properly process messages. See documentation to <a 
+  href="pology.misc.rules-module.html" class="link">rules</a> for setting 
+  up these in rule files.</p>
   <p>Certain rules may be selectively disabled on a given message, by 
   listing their identifiers (<code>id=</code> rule property) in 
   <code>skip-rule:</code> embedded list:</p>
