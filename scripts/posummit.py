@@ -946,11 +946,16 @@ def summit_gather_single (summit_name, project, options):
         exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
                         project.hook_on_gather_file)
 
-        # Add to version control if new file.
-        if summit_created and project.vcs:
+        added = False
+        if summit_created:
+            added = True
+        # Add to version control.
+        if project.vcs and not project.vcs.is_versioned(summit_cat.filename):
             if not project.vcs.add(summit_cat.filename):
                 warning(  "cannot add '%s' to version control"
                         % summit_cat.filename)
+            else:
+                added = True
 
         branch_paths = []
         for branch_id, branch_cat in branch_ids_cats:
@@ -958,14 +963,14 @@ def summit_gather_single (summit_name, project, options):
         paths_str = " ".join(branch_paths)
 
         if options.verbose:
-            if summit_created:
+            if added:
                 print "+>   (gathered-added) %s  %s" % (summit_cat.filename,
                                                         paths_str)
             else:
                 print ">    (gathered) %s  %s" % (summit_cat.filename,
                                                   paths_str)
         else:
-            if summit_created:
+            if added:
                 print "+>   %s  %s" % (summit_cat.filename, paths_str)
             else:
                 print ">    %s  %s" % (summit_cat.filename, paths_str)
