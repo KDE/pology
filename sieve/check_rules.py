@@ -24,11 +24,20 @@ The sieve parameters are:
         environment are applied
    - C{stat}: show statistics of rule matching at the end
    - C{accel:<characters>}: characters to consider as accelerator markers
+   - C{markup:<mkeywords>}: markup types by keyword (comma separated)
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
    - C{showfmsg}: show filtered message too when a rule fails a message
    - C{nomsg}: do not show message content, only problem descriptions
+
+Parameters C{accel} and C{markup} set accelerator markers (e.g. C{_}, C{&},
+etc.) and markup types by keyword (e.g. C{xml}, C{qtrich}, etc.) that may
+be present in sieved catalogs. However, providing this information by itself
+does nothing, it is only forced on catalogs (overriding what their headers
+state, if anything) such that filter and validation hooks can properly
+process messages. See documentation to L{rules<misc.rules>} for setting
+up these in rule files.
 
 Certain rules may be selectively disabled on a given message, by listing
 their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
@@ -102,6 +111,12 @@ class Sieve (object):
         if "accel" in options:
             options.accept("accel")
             self.accels = list(options["accel"])
+        
+        # Explicit markup types.
+        self.markup=None
+        if "markup" in options:
+            options.accept("markup")
+            self.markup=options["markup"].split(",")
         
         if "rfile" in options:
             options.accept("rfile")
@@ -212,6 +227,10 @@ class Sieve (object):
         # Force explicitly given accelerators.
         if self.accels is not None:
             cat.set_accelerator(self.accels)
+
+        # Force explicitly given markup.
+        if self.markup is not None:
+            cat.set_markup(self.markup)
 
 
     def process (self, msg, cat):
