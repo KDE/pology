@@ -365,11 +365,16 @@ def derive_project_data (project, options):
     p.part_inverse_map = {}
     p.full_inverse_map = {}
 
-    # Add direct mappings.
+    # Initialize mappings by branch before the main loop for direct mappings,
+    # because an explicit mapping may name a branch before it was processed
+    # in the main loop.
     for branch_id in p.branch_ids:
         p.direct_map[branch_id] = {}
         for branch_name in p.catalogs[branch_id]:
             p.direct_map[branch_id][branch_name] = []
+
+    # Add direct mappings.
+    for branch_id in p.branch_ids:
         # - explicit
         for mapping in p.mappings:
             branch_id, branch_name = mapping[:2]
