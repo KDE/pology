@@ -377,9 +377,9 @@ def derive_project_data (project, options):
     for branch_id in p.branch_ids:
         # - explicit
         for mapping in p.mappings:
-            branch_id, branch_name = mapping[:2]
+            bid, bname = mapping[:2]
             summit_names = mapping[2:]
-            p.direct_map[branch_id][branch_name] = summit_names
+            p.direct_map[bid][bname] = summit_names
         # - implicit
         for branch_name in p.catalogs[branch_id]:
             if p.direct_map[branch_id][branch_name] == []:
