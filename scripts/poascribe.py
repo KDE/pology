@@ -1081,7 +1081,10 @@ def diffsel_revb (args, msg, history, config):
                 i_mod = i
                 break
         if i_mod is not None:
-            amsg_sel = history[i_mod + 1][0]
+            if i_mod + 1 < len(history):
+                amsg_sel = history[i_mod + 1][0]
+            else:
+                amsg_sel = Message()
     else:
         # Review point not found:
         # If users specified, look for the first modification by one of them,
@@ -1096,7 +1099,10 @@ def diffsel_revb (args, msg, history, config):
                     i_mod = i
                     break
             if i_mod is not None:
-                amsg_sel = history[i_mod + 1][0]
+                if i_mod + 1 < len(history):
+                    amsg_sel = history[i_mod + 1][0]
+                else:
+                    amsg_sel = Message()
         else:
             amsg_sel = Message()
 
