@@ -740,10 +740,40 @@ id="wallpaper"
 hint="wallpaper = тапет"
 valid msgstr="\bтапет"
 
+{\bweb(\w+|\b)}i
+id="web"
+hint="Web = Веб [малим словом као придев]"
+valid span="^web$" before="\W?site" # проследи на website
+valid span="website" # исто
+valid span="^web$" before="\W?page" # проследи на webpage
+valid span="webpage" # исто
+# Захтевај самостално ‘веб’ у преводу ако је самостално у извору.
+valid span="^web$" msgstr="\bвеб\b"
+valid span="^web\w" msgstr="\bвеб"
+valid msgstr="&\w*web\S*;"
+
+{\bweb}i
+id="web2"
+hint="web = веб"
+disabled
+
 {\bweb browser}i
 id="webbrowser"
 hint="web browser = веб прегледач"
 valid msgstr="\bвеб прегледач" !msgstr="прегледачом"
+
+{\bweb\W?page}i
+id="webpage"
+hint="webpage = веб страна"
+valid msgstr="\bвеб стран" !msgstr="\bвеб страниц"
+
+{\b(web\W?)?site}i
+id="website"
+hint="website = веб сајт"
+# Ако извор не скраћује може и не мора скраћено у преводу,
+# ако извор скраћује мора скраћено у преводу.
+valid span="^web" msgstr="\bсајт"
+valid span="^site" msgstr="(?<!веб )\bсајт"
 
 {\bwhitespace}i
 id="whitespace"
