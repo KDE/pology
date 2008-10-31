@@ -202,7 +202,8 @@ def report_msg_content (msg, cat,
         [("msgid", 0, [(5, 10), (15, 25)]), ("msgstr", 0, [(30, 40)])]
 
     Names of the elements that can presently be highlighted are: C{"msgctxt"},
-    C{"msgid"}, C{"msgid_plural"}, C{"msgstr"}.
+    C{"msgid"}, C{"msgid_plural"}, C{"msgstr"}, C{"manual_comment"},
+    C{"auto_comment"}, C{"source"}, C{"flag"}.
     For unique fields the element index is not used, but 0 should be given
     for consistency (may be enforced later).
     Span tuples can have a third element, following the indices, which is
@@ -284,9 +285,18 @@ def report_msg_content (msg, cat,
                 msg.msgid_plural = hl(msg.msgid_plural, ffmsg.msgid_plural)
             elif name == "msgstr":
                 msg.msgstr[item] = hl(msg.msgstr[item], ffmsg.msgstr[item])
+            elif name == "manual_comment":
+                msg.manual_comment[item] = hl(msg.manual_comment[item],
+                                              ffmsg.manual_comment[item])
+            elif name == "auto_comment":
+                msg.auto_comment[item] = hl(msg.auto_comment[item],
+                                            ffmsg.auto_comment[item])
+            elif name == "source":
+                pass # FIXME: How to do this?
+            elif name == "flag":
+                pass # FIXME: How to do this?
             else:
                 warning("unknown field '%s' in highlight specification" % name)
-            # TODO: Add more fields.
 
     # Report the message.
     mstr = ""
