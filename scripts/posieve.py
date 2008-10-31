@@ -127,14 +127,21 @@ should be considered public API, it is subject to change without notice.
 
 import fallback_import_paths
 
+import sys
+import os
+import imp
+import locale
+import re
+from optparse import OptionParser
+import glob
+
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
 import pology.misc.config as pology_config
-
-import sys, os, imp, locale, re
-from optparse import OptionParser
+from pology import rootdir
+from pology.misc.subcmd import ParamParser
 
 
 def main ():
@@ -166,12 +173,20 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
+        "-l", "--list-sieves",
+        action="store_true", dest="list_sieves", default=False,
+        help="list available internal sieves")
+    opars.add_option(
+        "-H", "--help-sieves",
+        action="store_true", dest="help_sieves", default=False,
+        help="show help for applied sieves")
+    opars.add_option(
         "-f", "--files-from", metavar="FILE",
         dest="files_from",
         help="get list of input files from FILE (one file per line)")
     opars.add_option(
         "-s", "--sieve-option", metavar="NAME[:VALUE]",
-        action="append", dest="sieve_options", default=[],
+        action="append", dest="sieve_params", default=[],
         help="pass an option to the sieves")
     opars.add_option(
         "--force-sync",
@@ -249,6 +264,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             pass
 
     # Parse sieve options.
+    # FIXME: Temporary, until all sieves are switched to new style.
     class _Sieve_options (dict):
         def __init__ (self):
             self._accepted = []
@@ -261,9 +277,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 if not opt in self._accepted:
                     noadm[opt] = val
             return noadm
-
     sopts = _Sieve_options()
-    for swspec in op.sieve_options:
+    for swspec in op.sieve_params:
         if swspec.find(":") >= 0:
             sopt, value = swspec.split(":", 1)
         else:
@@ -271,10 +286,30 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             value = ""
         sopts[sopt] = value
 
+    # Dummy-set all internal sieves as requested if sieve listing required.
+    sieves_requested = []
+    if op.list_sieves:
+        # Global sieves.
+        modpaths = glob.glob(os.path.join(rootdir(), "sieve", "[a-z]*.py"))
+        modpaths.sort()
+        for modpath in modpaths:
+            sname = os.path.basename(modpath)[:-3] # minus .py
+            sname = sname.replace("_", "-")
+            sieves_requested.append(sname)
+        # Language-specific sieves.
+        modpaths = glob.glob(os.path.join(rootdir(),
+                                          "l10n", "*", "sieve", "[a-z]*.py"))
+        modpaths.sort()
+        for modpath in modpaths:
+            sname = os.path.basename(modpath)[:-3] # minus .py
+            sname = sname.replace("_", "-")
+            lang = os.path.basename(os.path.dirname(os.path.dirname(modpath)))
+            sieves_requested.append(lang + ":" + sname)
+
     # Load sieve modules from supplied names in the command line.
-    sieves_requested = op.raw_sieves.split(",")
-    sieves = []
-    from pology import rootdir
+    if not sieves_requested:
+        sieves_requested = op.raw_sieves.split(",")
+    sieve_modules = []
     for sieve_name in sieves_requested:
         # Resolve sieve file.
         if not sieve_name.endswith(".py"):
@@ -293,19 +328,57 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         try:
             sieve_file = open(sieve_path)
         except IOError:
-            error("cannot load sieve: %s\n" % sieve_path)
+            error("cannot load sieve: %s" % sieve_path)
         # Load file into new module.
-        sieve_mod_name = "sieve_" + str(len(sieves))
+        sieve_mod_name = "sieve_" + str(len(sieve_modules))
         sieve_mod = imp.new_module(sieve_mod_name)
         exec sieve_file in sieve_mod.__dict__
         sieve_file.close()
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
-        # Create the sieve.
-        sieves.append(sieve_mod.Sieve(sopts, op))
+        sieve_modules.append((sieve_name, sieve_mod))
+        if not hasattr(sieve_mod, "Sieve"):
+            error("module does not define Sieve class: %s" % sieve_path)
+        # FIXME: Check that module has setup_sieve function,
+        # once all sieves are switched to new style.
 
-    # Sieves will have marked options that they have accepted.
-    if sopts.unaccepted():
-        error("no sieve has accepted these options: %s" % sopts.unaccepted())
+    # Define and parse sieve parameters.
+    pp = ParamParser()
+    snames = []
+    for name, mod in sieve_modules:
+        # FIXME: Remove when all sieves are switched to new style.
+        if not hasattr(mod, "setup_sieve"):
+            continue
+        scview = pp.add_subcmd(name)
+        if hasattr(mod, "setup_sieve"):
+            mod.setup_sieve(scview)
+        snames.append(name)
+    if op.list_sieves:
+        report("Available internal sieves:")
+        report(pp.listcmd(snames))
+        sys.exit(0)
+    if op.help_sieves:
+        report("Help for sieves:")
+        report("")
+        report(pp.help(snames))
+        sys.exit(0)
+    # FIXME: Abort instead when all sieves are switched to new style.
+    sparams, nacc_params = pp.parse(op.sieve_params, snames) #, abort=True)
+
+    # Create sieves.
+    sieves = []
+    for name, mod in sieve_modules:
+        # FIXME: Remove when all sieves are switched to new style.
+        if not hasattr(mod, "setup_sieve"):
+            sieves.append(mod.Sieve(sopts, op))
+            continue
+        sieves.append(mod.Sieve(sparams[name], op))
+
+    # Old-style sieves will have marked options that they have accepted.
+    # FIXME: Remove when all sieves are switched to new style.
+    all_nacc_params = set(sopts.unaccepted().keys())
+    all_nacc_params = all_nacc_params.intersection(set(nacc_params))
+    if all_nacc_params:
+        error("no sieve has accepted these parameters: %s" % all_nacc_params)
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.

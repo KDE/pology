@@ -21,7 +21,7 @@ The Sieve Layout
 
         class Sieve (object):
 
-            def __init__ (self, options, global_options):
+            def __init__ (self, params, options):
 
                 self.ntranslated = 0
 
@@ -35,7 +35,7 @@ The Sieve Layout
                 print "Total translated: %d" % self.ntranslated
 
 
-    The C{__init__} method must take two arguments, the sieve options and
+    The C{__init__} method must take two arguments, the sieve parameters and
     global options (more on that below). The C{process} method is the one
     which gets called for each message by the client, and must take the
     message (instance of L{Message_base}) and the catalog which contains it
@@ -61,56 +61,53 @@ The Sieve Layout
     C{process_header}, and C{finalize} alike.
 
 
-Options Handling
-================
+Parameter Handling
+==================
 
     The two arguments to the constructor::
 
-        def __init__ (self, options, global_options):
+        def __init__ (self, params, options):
             # ...
 
     are as follows:
 
-    C{global_options} is the object of the command line options as given
+    C{options} is the object of the command line options as given
     to the client which uses the sieve, where options are its instance
     variables (e.g. the object produced by the C{OptionParser} from the
     C{optparse} standard library module). The sieve may use this object to
     check for some usual options, like verbose or quite mode. Client may
     specify this object as C{None}.
 
-    C{options} is a dictionary-like object of options intended specifically
-    for sieves. Its keys are option names, values are strings, and it has
-    one special method, C{accept}. Suppose that the sieve takes an option
-    named C{checklevel}, stating the number-string for the level at which
-    to perform some checks. Here is how that sieve would properly take the
-    option::
+    C{params} is similarly and object with instance variables, but these
+    are parameters intended specifically for the sieve. The sieve module
+    defines C{setup_sieve} function, which the client calls with
+    L{SubcmdView} object as argument, to fill in the sieve description and
+    define all mandatory and optional parameters.
+    Suppose that a sieve takes a parameter named C{checklevel}, stating
+    the number of the level at which to perform some checks.
+    Here is how that sieve would define this parameter::
 
-        def __init__ (self, options, global_options):
+        def setup_sieve (p):
 
-            self.checklevel = 0
-            if "checklevel" in options:
-                options.accept("checklevel")
-                self.checklevel = int(options["checklevel"])
-                # ...do some checks on the validity...
+            p.set_desc("An example sieve.")
+            p.add_param("checklevel", int, defval=0,
+                        desc="Validity checking level.")
 
-    The interesting bit here is the C{options.accept("checklevel")}
-    statement, which is the only method that the C{options} object should
-    provide aside from C{in} and reference-by-key operators. It may be
-    that the client is operating with several different sieves, and that
-    the sieve options are given by the user (such as with the L{scripts.posieve}
-    script). Then, it is important that each sieve signals which options
-    it has recognized and accepted, so that the client may signal to the
-    user any superfluous and erroneus sieve options given.
+        class Sieve (object):
 
-    If a sieve option is meant as a switch, the sieve should assume its
-    value is undefined, and check only for presence::
+            def __init__ (self, params, options):
 
-        def __init__ (self, options, global_options):
+                if params.checklevel >= 1:
+                    # ...setup some level 1 validity checks...
+                if params.checklevel >= 2:
+                    # ...setup some level 2 validity checks...
+                #...
 
-            self.tryharder = False # default value
-            if "tryharder" in options:
-                options.accept("tryharder")
-                self.tryharder = True # negated if present
+    See L{add_param()<misc.subcmd.SubcmdView.add_param>} method for
+    details on defining sieve parameters.
+    Client is not obliged to call C{setup_sieve()}, but must
+    make sure that the C{params} argument it sends to the sieve has
+    all the instance variable according to defined parameters.
 
 
 Catalog Regime Indicators
