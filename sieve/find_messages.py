@@ -15,11 +15,15 @@ Sieve parameters for matching:
   - C{comment:<regex>}: regular expression to match against comments
   - C{transl}: the message must be translated
   - C{plural}: the message must be plural
+  - C{or}: use OR- instead of AND-matching for text fields
 
 If more than one of the matching parameters are given (e.g. both C{msgid} and
-C{msgstr}), the message matches only if all of them match. In case of plural
-messages, C{msgid} is considered matched if either C{msgid} or C{msgid_plural}
-fields match, and C{msgstr} if any of the C{msgstr} fields match.
+C{msgstr}), the message matches only if all of them match.
+This can be changed for text fields (C{msgid}, C{msgstr}, etc.) such that
+the message matches if any of text fields match.
+In case of plural messages, C{msgid} is considered matched if either C{msgid}
+or C{msgid_plural} fields match, and C{msgstr} if any of the C{msgstr}
+fields match.
 
 Every matching option has a counterpart with prepended C{n*},
 by which the meaning of the match is inverted; for example, if both
@@ -157,8 +161,8 @@ def setup_sieve (p):
     p.add_param("maxchar", int, defval=0,
                 metavar="NUM",
                 desc=
-    "Matches if the msgstr field has at most this many characters "
-    "(0 or less means any number of characters)."
+    "Matches if both the msgid and msgstr field have at most this many "
+    "characters (0 or less means any number of characters)."
     )
     p.add_param("or", bool, defval=False, attrname="or_match",
                 desc=
@@ -271,16 +275,24 @@ class Sieve (object):
 
         # Prepare filtered message for matching.
         msgf = MessageUnsafe(msg)
-
         # - remove accelerators
         remove_accel_msg(msgf, cat)
-
         # - apply msgstr filters
         for pfilter in self.pfilters:
             for i in range(len(msgf.msgstr)):
                 msgf.msgstr[i] = pfilter(msgf.msgstr[i])
 
-        # Match requested fields.
+        if self.p.maxchar > 0:
+            otexts = [msgf.msgid]
+            if msgf.msgid_plural:
+                otexts.append(msgf.msgid_plural)
+            ttexts = msgf.msgstr
+            onchar = sum([len(x) for x in otexts]) // len(otexts)
+            tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
+            if onchar > self.p.maxchar or tnchar > self.p.maxchar:
+                return
+
+        # Match requested text fields.
         match = not self.p.or_match
         hl_spec = {}
         for field, regex, invert in self.field_matches:
@@ -297,21 +309,16 @@ class Sieve (object):
                          for i in range(len(msgf.msgstr))]
             elif field == "comment":
                 texts = []
-                texts.extend([(msgf.manual_comment[i], "cmanual", i)
+                texts.extend([(msgf.manual_comment[i], "manual_comment", i)
                               for i in range(len(msgf.manual_comment))])
-                texts.extend([(msgf.auto_comment[i], "cauto", i)
+                texts.extend([(msgf.auto_comment[i], "auto_comment", i)
                               for i in range(len(msgf.auto_comment))])
-                texts.append((", ".join(msgf.flag), "", 0))
-                texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
-                              "", 0))
+                #FIXME: How to search flags and sources? Mind highlighting.
+                #texts.append((", ".join(msgf.flag), "flag", 0))
+                #texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
+                              #"source", 0))
             else:
                 error("unknown search field '%s'" % field)
-
-            if self.p.maxchar > 0 and field in ("msgid", "msgstr"):
-                nchar = sum([len(x[0]) for x in texts]) // len(texts)
-                if nchar > self.p.maxchar:
-                    match = False
-                    break
 
             local_match = False
 
@@ -336,10 +343,12 @@ class Sieve (object):
             # Check for global match.
             if self.p.or_match:
                 match = match or local_match
+                if match:
+                    break
             else:
                 match = match and local_match
-            if not match:
-                break
+                if not match:
+                    break
 
             # Do the replacement in translation if requested.
             # NOTE: Use the real, not the filtered message.
