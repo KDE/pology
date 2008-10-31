@@ -260,11 +260,16 @@ class ParamParser (object):
                     error(_p_("error in command line (subcommand)",
                              "parameter '%(par)s' is a flag, no value expected")
                           % dict(par=param))
+                if ptype is not bool and strval is None:
+                    error(_p_("error in command line (subcommand)",
+                             "value expected for parameter '%(par)s'")
+                          % dict(par=param))
 
                 val = scview._defvals[param]
                 if ptype is bool:
                     val = not val
 
+                val_lst = []
                 if strval is not None:
                     if not scview._seplists[param]:
                         try:
