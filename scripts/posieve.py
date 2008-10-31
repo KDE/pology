@@ -241,11 +241,14 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="output more detailed progress info")
     (op, free_args) = opars.parse_args()
 
-    if len(free_args) < 1:
+    if len(free_args) < 1 and not op.list_sieves:
         opars.error("must provide sieve to apply")
 
-    op.raw_sieves = free_args[0]
-    op.raw_paths = free_args[1:]
+    op.raw_sieves = []
+    op.raw_paths = []
+    if len(free_args) >= 1:
+        op.raw_sieves = free_args[0]
+        op.raw_paths = free_args[1:]
 
     # Convert all string values in options to unicode.
     local_encoding = locale.getpreferredencoding()
