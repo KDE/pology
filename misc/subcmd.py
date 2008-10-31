@@ -326,7 +326,7 @@ class ParamParser (object):
                     # Option explicitly given, skip.
                     continue
 
-                if scview._optionals[param] is False:
+                if scview._mandatorys[param]:
                     error(_p_("error in command line (subcommand)",
                              "mandatory parameter '%(par)s' to subcommand "
                              "'%(cmd)s' not given")
@@ -391,7 +391,7 @@ class SubcmdView (object):
 
         # Maps by parameter name.
         self._ptypes = {}
-        self._optionals = {}
+        self._mandatorys = {}
         self._defvals = {}
         self._admvals = {}
         self._multivals = {}
@@ -420,7 +420,7 @@ class SubcmdView (object):
         self._shdesc = shdesc
 
 
-    def add_param (self, name, ptype, optional=True, attrname=None,
+    def add_param (self, name, ptype, mandatory=False, attrname=None,
                    defval=None, admvals=None, multival=False, seplist=False,
                    metavar=None, desc=None):
         """
@@ -462,8 +462,8 @@ class SubcmdView (object):
         @type name: string
         @param ptype: type of the expected argument
         @type ptype: type
-        @param optional: whether parameter is optional or mandatory
-        @type optional: bool
+        @param mandatory: whether parameter is mandatory
+        @type mandatory: bool
         @param attrname: explicit name for the object attribute under which
             the parsed parameter value is stored (auto-derived if C{None})
         @type attrname: string
@@ -550,7 +550,7 @@ class SubcmdView (object):
                   % dict(par=param, cmd=self._subcmd))
 
         self._ptypes[param] = ptype
-        self._optionals[param] = optional
+        self._mandatorys[param] = mandatory
         self._defvals[param] = defval
         self._admvals[param] = admvals
         self._multivals[param] = multival
@@ -577,10 +577,10 @@ class SubcmdView (object):
         m_params = []
         o_params = []
         for param in self._ordered:
-            if self._optionals[param]:
-                o_params.append(param)
-            else:
+            if self._mandatorys[param]:
                 m_params.append(param)
+            else:
+                o_params.append(param)
 
         # Format output.
 
