@@ -1271,6 +1271,7 @@ class Catalog (Monitored):
 
         if accels is not None:
             self._accels = set(accels)
+            self._accels.discard("")
         else:
             self._accels = None
 
