@@ -66,7 +66,7 @@
 <pre class="literalblock">
    class Sieve (object):
 
-       def __init__ (self, options, global_options):
+       def __init__ (self, params, options):
 
            self.ntranslated = 0
 
@@ -80,7 +80,7 @@
            print &quot;Total translated: %d&quot; % self.ntranslated
 </pre>
     <p>The <code>__init__</code> method must take two arguments, the sieve 
-    options and global options (more on that below). The 
+    parameters and global options (more on that below). The 
     <code>process</code> method is the one which gets called for each 
     message by the client, and must take the message (instance of <a 
     href="pology.file.message.Message_base-class.html" 
@@ -108,56 +108,52 @@
     <p>The client ignores return values from all sieve methods, 
     <code>process</code>, <code>process_header</code>, and 
     <code>finalize</code> alike.</p>
-  <h1 class="heading">Options Handling</h1>
+  <h1 class="heading">Parameter Handling</h1>
     <p>The two arguments to the constructor:</p>
 <pre class="literalblock">
-   def __init__ (self, options, global_options):
+   def __init__ (self, params, options):
        # ...
 </pre>
     <p>are as follows:</p>
-    <p><code>global_options</code> is the object of the command line 
-    options as given to the client which uses the sieve, where options are 
-    its instance variables (e.g. the object produced by the 
+    <p><code>options</code> is the object of the command line options as 
+    given to the client which uses the sieve, where options are its 
+    instance variables (e.g. the object produced by the 
     <code>OptionParser</code> from the <code>optparse</code> standard 
     library module). The sieve may use this object to check for some usual 
     options, like verbose or quite mode. Client may specify this object as 
     <code>None</code>.</p>
-    <p><code>options</code> is a dictionary-like object of options intended
-    specifically for sieves. Its keys are option names, values are strings,
-    and it has one special method, <code>accept</code>. Suppose that the 
-    sieve takes an option named <code>checklevel</code>, stating the 
-    number-string for the level at which to perform some checks. Here is 
-    how that sieve would properly take the option:</p>
+    <p><code>params</code> is similarly and object with instance variables,
+    but these are parameters intended specifically for the sieve. The sieve
+    module defines <code>setup_sieve</code> function, which the client 
+    calls with <a href="pology.misc.subcmd.SubcmdView-class.html" 
+    class="link">SubcmdView</a> object as argument, to fill in the sieve 
+    description and define all mandatory and optional parameters. Suppose 
+    that a sieve takes a parameter named <code>checklevel</code>, stating 
+    the number of the level at which to perform some checks. Here is how 
+    that sieve would define this parameter:</p>
 <pre class="literalblock">
-   def __init__ (self, options, global_options):
+   def setup_sieve (p):
 
-       self.checklevel = 0
-       if &quot;checklevel&quot; in options:
-           options.accept(&quot;checklevel&quot;)
-           self.checklevel = int(options[&quot;checklevel&quot;])
-           # ...do some checks on the validity...
-</pre>
-    <p>The interesting bit here is the 
-    <code>options.accept(&quot;checklevel&quot;)</code> statement, which is
-    the only method that the <code>options</code> object should provide 
-    aside from <code>in</code> and reference-by-key operators. It may be 
-    that the client is operating with several different sieves, and that 
-    the sieve options are given by the user (such as with the <a 
-    href="pology.scripts.posieve-module.html" 
-    class="link">scripts.posieve</a> script). Then, it is important that 
-    each sieve signals which options it has recognized and accepted, so 
-    that the client may signal to the user any superfluous and erroneus 
-    sieve options given.</p>
-    <p>If a sieve option is meant as a switch, the sieve should assume its 
-    value is undefined, and check only for presence:</p>
-<pre class="literalblock">
-   def __init__ (self, options, global_options):
+       p.set_desc(&quot;An example sieve.&quot;)
+       p.add_param(&quot;checklevel&quot;, int, defval=0,
+                   desc=&quot;Validity checking level.&quot;)
 
-       self.tryharder = False # default value
-       if &quot;tryharder&quot; in options:
-           options.accept(&quot;tryharder&quot;)
-           self.tryharder = True # negated if present
+   class Sieve (object):
+
+       def __init__ (self, params, options):
+
+           if params.checklevel &gt;= 1:
+               # ...setup some level 1 validity checks...
+           if params.checklevel &gt;= 2:
+               # ...setup some level 2 validity checks...
+           #...
 </pre>
+    <p>See <a href="pology.misc.subcmd.SubcmdView-class.html#add_param" 
+    class="link">add_param()</a> method for details on defining sieve 
+    parameters. Client is not obliged to call <code>setup_sieve()</code>, 
+    but must make sure that the <code>params</code> argument it sends to 
+    the sieve has all the instance variable according to defined 
+    parameters.</p>
   <h1 class="heading">Catalog Regime Indicators</h1>
     <p>There are two boolean instance variables that the sieve may define, 
     and which the client may check for to decide on the regime in which the
@@ -270,7 +266,7 @@
     <li> <strong class="uidlink"><a href="pology.sieve.diff_previous-module.html">pology.sieve.diff_previous</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.empty_fuzzies-module.html">pology.sieve.empty_fuzzies</a></strong>: <em class="summary">Make all fuzzy entries untranslated.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.fancy_quote-module.html">pology.sieve.fancy_quote</a></strong>: <em class="summary">Transform ASCII single and double quotes into fancy counterparts.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.find_messages-module.html">pology.sieve.find_messages</a></strong>: <em class="summary">Find messages by regular expression matching.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.find_messages-module.html">pology.sieve.find_messages</a></strong>: <em class="summary">Find messages in catalogs.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.generate_xml-module.html">pology.sieve.generate_xml</a></strong>: <em class="summary">Generate a XML output from the input PO files.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.normctx_ooo-module.html">pology.sieve.normctx_ooo</a></strong>: <em class="summary">Convert OpenOffice embedded context to Gettext context.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.remove_fuzzy_comments-module.html">pology.sieve.remove_fuzzy_comments</a></strong>: <em class="summary">Remove selected manual comments in fuzzy messages.</em>    </li>

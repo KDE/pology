@@ -51,12 +51,12 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module find_messages</h1><p class="nomargin-top"></p>
-<p>Find messages by regular expression matching.</p>
-  <p>Matches the regular expression against requested elements of the 
-  message, and reports the message if the match exists. Every matched 
-  message is reported to standard output, with the name of the file from 
-  which it comes, and referent line and entry number within the file.</p>
-  <p>Sieve options for matching:</p>
+<p>Find messages in catalogs.</p>
+  <p>Matches patterns against elements of the message and examines its 
+  properties, and reports the message if the match is complete. Matched 
+  messages are reported to standard output, with the name of the file from 
+  which they come, and referent line and entry number within the file.</p>
+  <p>Sieve parameters for matching:</p>
   <ul>
     <li>
       <code>msgctxt:&lt;regex&gt;</code>: regular expression to match 
@@ -81,7 +81,7 @@
       <code>plural</code>: the message must be plural
     </li>
   </ul>
-  <p>If more than one of the matching options are given (e.g. both 
+  <p>If more than one of the matching parameters are given (e.g. both 
   <code>msgid</code> and <code>msgstr</code>), the message matches only if 
   all of them match. In case of plural messages, <code>msgid</code> is 
   considered matched if either <code>msgid</code> or 
@@ -92,7 +92,7 @@
   example, if both <code>msgid:foo</code> and <code>nmsgid:bar</code> are 
   given, then the message matches if its <code>msgid</code> contains 
   <code>foo</code> but does not contain <code>bar</code>.</p>
-  <p>Sieve options for replacement:</p>
+  <p>Sieve parameters for replacement:</p>
   <ul>
     <li>
       <code>replace:&lt;string&gt;</code>: string to replace matched part 
@@ -103,7 +103,7 @@
   <code>msgstr</code> match. As usual for regular expression replacement, 
   the replacement string may contain <code>\&lt;number&gt;</code> 
   references to groups defined by <code>msgstr</code> match.</p>
-  <p>Other sieve options:</p>
+  <p>Other sieve parameters:</p>
   <ul>
     <li>
       <code>accel:&lt;chars&gt;</code>: strip these characters as 
@@ -166,6 +166,31 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.find_messages.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.l10n.fr.sieve.setUbsp</title>
+  <title>pology.misc.subcmd</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,10 +38,8 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
-        <a href="pology.l10n.fr-module.html">Package&nbsp;fr</a> ::
-        <a href="pology.l10n.fr.sieve-module.html">Package&nbsp;sieve</a> ::
-        Module&nbsp;setUbsp
+        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
+        Module&nbsp;subcmd
       </span>
     </td>
     <td>
@@ -52,10 +50,44 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module setUbsp</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Module subcmd</h1><p class="nomargin-top"></p>
+<p>Handle subcommands and their parameters.</p>
+  <p>Subcommands are putting main command into different modes of 
+  operation. Main commands with subcommands are typical of package 
+  managers, version control systems, etc. This module provides a handler to
+  conveniently load subcommands on demand, and parser to extract and route 
+  parameters to them from the command line.</p>
+  <p>The command line interface consists of having subcommand a free 
+  parameter, and a special collector-option to collect parameters for the 
+  subcommand:</p>
+<pre class="literalblock">
+   $ cmd -a -b -c \  # command and any usual options
+         subcmd \    # subcommand
+         -s foo \    # subcommand parameter 'foo', without value (flag)
+         -s bar:xyz  # subcommand parameter 'bar', with the value 'xyz'
+</pre>
+  <p>where <code>-s</code> is the collector-option, repeated for as many 
+  subcommand parameters as needed. The collector-option can be freely 
+  positioned in the command line, before or after the subcommand name, and 
+  mixed with other options.</p>
+  <p>The format of subcommand parameter is either <code>param</code> for 
+  flag parameters, <code>param:value</code> for parameters taking a value, 
+  or <code>param:value1,value2,...</code> for parameters taking a list of 
+  values. Instead of, or in addition to using comma-separated string to 
+  represent the list, some parameters can be repeated on the command line, 
+  and all the values collected to make the list.</p>
+  <p>Several subcommands may be given too, in which case a each subcommand 
+  parameter is routed to every subcommand which expects it. This means that
+  all those subcommands should place the same semantics into the same-named
+  parameter they are using.</p>
+
 <hr />
-<div class="fields">      <p><strong>Author:</strong>
-        S&#233;bastien Renard &lt;sebastien.renard@digitalfox.org&gt;
+<div class="fields">      <p><strong>Note:</strong>
+        For any of the methods in this module, the order of keyword 
+        parameters is not guaranteed. Always name them in calls.
+      </p>
+      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
       </p>
       <p><strong>License:</strong>
         GPLv3
@@ -72,8 +104,16 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.l10n.fr.sieve.setUbsp.Sieve-class.html" class="summary-name">Sieve</a><br />
-      Replace normal space by unbreakable space when needed
+        <a href="pology.misc.subcmd.ParamParser-class.html" class="summary-name">ParamParser</a><br />
+      Parser for subcommand parameters.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.misc.subcmd.SubcmdView-class.html" class="summary-name">SubcmdView</a><br />
+      The view of a particular subcommand in a parameter parser.
     </td>
   </tr>
 </table>
@@ -91,7 +131,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td><span class="summary-sig"><a name="_p_"></a><span class="summary-sig-name">_p_</span>(<span class="summary-sig-arg">x</span>,
+        <span class="summary-sig-arg">y</span>)</span></td>
           <td align="right" valign="top">
             
             

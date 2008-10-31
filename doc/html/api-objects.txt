@@ -139,6 +139,7 @@ pology.l10n.fr.hook.patternEntities.entities	pology.l10n.fr.hook.patternEntities
 pology.l10n.fr.hook.patternEntities.resolve_entities_simple	pology.misc.resolve-module.html#resolve_entities_simple
 pology.l10n.fr.sieve	pology.l10n.fr.sieve-module.html
 pology.l10n.fr.sieve.setUbsp	pology.l10n.fr.sieve.setUbsp-module.html
+pology.l10n.fr.sieve.setUbsp.setup_sieve	pology.l10n.fr.sieve.setUbsp-module.html#setup_sieve
 pology.l10n.ja	pology.l10n.ja-module.html
 pology.l10n.ja.hook	pology.l10n.ja.hook-module.html
 pology.l10n.ja.hook.katakana	pology.l10n.ja.hook.katakana-module.html
@@ -500,6 +501,10 @@ pology.misc.split._mf_c_rx	pology.misc.split-module.html#_mf_c_rx
 pology.misc.split._r_fmtd_c_rx	pology.misc.split-module.html#_r_fmtd_c_rx
 pology.misc.split._mf_qt_rx	pology.misc.split-module.html#_mf_qt_rx
 pology.misc.split._split_rx	pology.misc.split-module.html#_split_rx
+pology.misc.subcmd	pology.misc.subcmd-module.html
+pology.misc.subcmd._p_	pology.misc.subcmd-module.html#_p_
+pology.misc.subcmd._isinstance_els	pology.misc.subcmd-module.html#_isinstance_els
+pology.misc.subcmd.error	pology.misc.report-module.html#error
 pology.misc.tabulate	pology.misc.tabulate-module.html
 pology.misc.tabulate.tabulate	pology.misc.tabulate-module.html#tabulate
 pology.misc.timeout	pology.misc.timeout-module.html
@@ -588,6 +593,7 @@ pology.scripts.poascribe.update_asc_hdr	pology.scripts.poascribe-module.html#upd
 pology.scripts.poascribe.mkdirpath	pology.misc.fsops-module.html#mkdirpath
 pology.scripts.poascribe.apply_differ	pology.scripts.poascribe-module.html#apply_differ
 pology.scripts.posieve	pology.scripts.posieve-module.html
+pology.scripts.posieve.rootdir	pology-module.html#rootdir
 pology.scripts.posieve.warning	pology.misc.report-module.html#warning
 pology.scripts.posieve.error	pology.misc.report-module.html#error
 pology.scripts.posieve.report	pology.misc.report-module.html#report
@@ -729,6 +735,7 @@ pology.sieve.find_messages	pology.sieve.find_messages-module.html
 pology.sieve.find_messages.get_hook_lreq	pology.misc.langdep-module.html#get_hook_lreq
 pology.sieve.find_messages.wrap_field	pology.misc.wrap-module.html#wrap_field
 pology.sieve.find_messages.wrap_field_unwrap	pology.misc.wrap-module.html#wrap_field_unwrap
+pology.sieve.find_messages.setup_sieve	pology.sieve.find_messages-module.html#setup_sieve
 pology.sieve.find_messages.remove_accel_msg	pology.hook.remove_subs-module.html#remove_accel_msg
 pology.sieve.find_messages._flag_mark	pology.sieve.find_messages-module.html#_flag_mark
 pology.sieve.find_messages.warning	pology.misc.report-module.html#warning
@@ -1051,6 +1058,21 @@ pology.misc.rules.Rule._listKeywords	pology.misc.rules.Rule-class.html#_listKeyw
 pology.misc.rules.Rule._is_valid	pology.misc.rules.Rule-class.html#_is_valid
 pology.misc.rules.Rule.setValid	pology.misc.rules.Rule-class.html#setValid
 pology.misc.rules.Rule._twoRegexKeywords	pology.misc.rules.Rule-class.html#_twoRegexKeywords
+pology.misc.subcmd.ParamParser	pology.misc.subcmd.ParamParser-class.html
+pology.misc.subcmd.ParamParser._fmt_admvals	pology.misc.subcmd.ParamParser-class.html#_fmt_admvals
+pology.misc.subcmd.ParamParser.get_view	pology.misc.subcmd.ParamParser-class.html#get_view
+pology.misc.subcmd.ParamParser.help	pology.misc.subcmd.ParamParser-class.html#help
+pology.misc.subcmd.ParamParser.parse	pology.misc.subcmd.ParamParser-class.html#parse
+pology.misc.subcmd.ParamParser.listcmd	pology.misc.subcmd.ParamParser-class.html#listcmd
+pology.misc.subcmd.ParamParser.add_subcmd	pology.misc.subcmd.ParamParser-class.html#add_subcmd
+pology.misc.subcmd.ParamParser.__init__	pology.misc.subcmd.ParamParser-class.html#__init__
+pology.misc.subcmd.SubcmdView	pology.misc.subcmd.SubcmdView-class.html
+pology.misc.subcmd.SubcmdView.set_desc	pology.misc.subcmd.SubcmdView-class.html#set_desc
+pology.misc.subcmd.SubcmdView.help	pology.misc.subcmd.SubcmdView-class.html#help
+pology.misc.subcmd.SubcmdView.set_shdesc	pology.misc.subcmd.SubcmdView-class.html#set_shdesc
+pology.misc.subcmd.SubcmdView.add_param	pology.misc.subcmd.SubcmdView-class.html#add_param
+pology.misc.subcmd.SubcmdView.shdesc	pology.misc.subcmd.SubcmdView-class.html#shdesc
+pology.misc.subcmd.SubcmdView.__init__	pology.misc.subcmd.SubcmdView-class.html#__init__
 pology.misc.timeout.TimedOutException	pology.misc.timeout.TimedOutException-class.html
 pology.misc.timeout.TimedOutException.__str__	pology.misc.timeout.TimedOutException-class.html#__str__
 pology.misc.timeout.TimedOutException.__init__	pology.misc.timeout.TimedOutException-class.html#__init__
