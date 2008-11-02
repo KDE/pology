@@ -145,6 +145,11 @@ valid msgstr="\bклипборд"
 valid msgstr="&\w*clipboard\S*;"
 valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
 
+{\bcolor\W?scheme}i
+id="colorscheme"
+hint="color scheme = шема боја"
+valid msgstr="\bшем\w+ боја\b"
+
 {\bcommands?\b}i
 id="command"
 hint="command = наредба"
@@ -394,6 +399,11 @@ valid msgstr="&\w*icon\S*;"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
 
+{\bicon\W?theme}i
+id="icontheme"
+hint="icon theme = тема икона"
+valid msgstr="\bтем\w+ икона\b"
+
 {\bitalic}i
 id="italic"
 hint="italic = курзиван"
@@ -431,6 +441,12 @@ valid msgstr="\bраспоре[дђ]"
 valid cat="kcmsamba" msgid="friendly layout" msgstr="прегледан начин"
 valid cat="kxkb" msgid="^Layout variant\W*$" msgstr="^Варијанта\W*$"
 valid cat="kxkb" msgid="shortcut.*switching.*handle" msgstr="пречиц.*рукуј"
+
+{\bleft\W?click}i
+id="leftclick"
+hint="left click = кликнути левим"
+valid msgstr="\bлев\w+ клик([^нћ]|\b)" # само именички
+valid msgstr="\bклик[нћ]\w+ левим" # глаголски
 
 {\blines?\b}i
 id="line"
@@ -485,6 +501,12 @@ valid msgstr="\bуправ" !msgstr="\bуправ(љач|ник)"
 valid msgstr="&\w*manager\S*;"
 valid cat="filetypes" msgid="Konqueror file manager"
 valid cat="dolphin" msgid="default file manager for the virtual" msgstr="подразумев.*отвара\w+ виртуел"
+
+{\bmiddle\W?click}i
+id="middleclick"
+hint="middle click = кликнути средњим"
+valid msgstr="\bсредњ\w+ клик([^нћ]|\b)" # само именички
+valid msgstr="\bклик[нћ]\w+ средњим" # глаголски
 
 # зезнут, мало-мало па га треба изоставити
 {\bmodes?\b}i
@@ -600,6 +622,12 @@ valid msgstr="\bресет(ов|уј|\b)"
 valid msgstr="\bвра(ти|ће).*подразумев"
 valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 
+{\bright\W?click}i
+id="rightclick"
+hint="right click = кликнути десним"
+valid msgstr="\bдесн\w+ клик([^нћ]|\b)" # само именички
+valid msgstr="\bклик[нћ]\w+ десним" # глаголски
+
 {\brows?\b}i
 id="row"
 hint="row = врста"
@@ -674,6 +702,11 @@ valid msgstr="\bшкољ[кц]"
 valid msgid="shell script" msgstr="скрипт"
 valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
 valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
+
+{\bsplash\W?screen}i
+id="splashscreen"
+hint="splash screen = уводни екран"
+valid msgstr="\bуводн\w+ екран"
 
 {\b(status ?bar)}i
 id="statusbar"

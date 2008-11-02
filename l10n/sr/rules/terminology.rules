@@ -249,6 +249,12 @@ hint="label = ознака"
 valid msgstr="\bознак"
 valid msgstr="\bознач"
 
+{\bleft\W?click}i
+id="leftclick2"
+hint="left click = леви клик"
+valid msgstr="\bлев\w+ клик"
+valid env="kde" msgstr="\bклик[нћ]\w+ левим"
+
 # Све провере на list.
 {\blist}i
 id="list2"
@@ -293,6 +299,12 @@ valid cat="kcmlocale" msgid="you will have to logout first" msgstr="пошто �
 id="logout2"
 hint="logout = одјавни"
 disabled
+
+{\bmiddle\W?click}i
+id="middleclick2"
+hint="middle click = средњи клик"
+valid msgstr="\bсредњ\w+ клик"
+valid env="kde" msgstr="\bклик[нћ]\w+ средњим"
 
 {\bnetwork}i
 id="network"
@@ -350,6 +362,12 @@ hint="rename = преименовати"
 valid msgstr="\bпреимен"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
+
+{\bright\W?click}i
+id="rightclick2"
+hint="right click = десни клик"
+valid msgstr="\bдесн\w+ клик"
+valid env="kde" msgstr="\bклик[нћ]\w+ десним"
 
 {\bsav(e[ds]?|ing)\b}i
 id="save"
