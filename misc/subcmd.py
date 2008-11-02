@@ -685,10 +685,11 @@ class SubcmdView (object):
         if self._shdesc is not None:
             return self._shdesc
         else:
-            p = min(self._desc.find("\n\n"), self._desc.find(". "))
-            if p > 0:
-                return self._desc[:p]
-            return self._desc
+            p1 = self._desc.find("\n\n")
+            if p1 < 0: p1 = len(self._desc)
+            p2 = self._desc.find(". ")
+            if p2 < 0: p2 = len(self._desc)
+            return self._desc[:min(p1, p2)]
 
 
 # Check if all elements in a list are instances of given type
