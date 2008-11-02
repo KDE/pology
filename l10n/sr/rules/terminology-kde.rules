@@ -481,6 +481,11 @@ hint="list = набројати [заправо само не ‘излиста�
 valid !msgstr="\bизлист"
 # остало на list
 
+{\blocation\W?bar}i
+id="locationbar"
+hint="location bar = трака локације"
+valid msgstr="\bтра(ци|к\w+) локације"
+
 {\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
@@ -702,6 +707,12 @@ valid msgstr="\bшкољ[кц]"
 valid msgid="shell script" msgstr="скрипт"
 valid cat="kwriteconfig" msgid="shell use '' for empty" msgstr="задајте ''"
 valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
+
+{\bside\W?bar}i
+id="sidebar"
+hint="sidebar = бочна трака [осим /history sidebar/ = бочни историјат]"
+valid !after="history " msgstr="\bбочн\w+ тра(ци|к\w+)\b"
+valid after="history " msgstr="\bбочн\w+ историјат"
 
 {\bsplash\W?screen}i
 id="splashscreen"
