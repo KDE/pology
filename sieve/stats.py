@@ -9,9 +9,9 @@ split up the work, find out what needs updating, etc.
 Sieve options:
   - C{accels:<chars>}: accelerator markers in GUI messages
   - C{detail}: give more detailed statistics
-  - C{incomplete:<file>}: additionally list catalogs which are not 100%
-    translated; if C{<file>} is not empty, filenames of incomplete catalogs
-    will also be written out into a file, one per line.
+  - C{incomplete}: additionally list catalogs which are not 100% translated
+  - C{incompfile:<file>}: write filenames of incomplete catalogs into a file,
+        one path per line
   - C{templates:<spec>}: compare translation with templates (see below)
   - C{minwords:<number>}: count only messages with at least this many words
   - C{maxwords:<number>}: count only messages with at most this many words
@@ -183,9 +183,11 @@ Notes on Counting
 @license: GPLv3
 """
 
-import os, sys
+import os
+import sys
 import codecs
 import locale
+
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import proper_words
@@ -195,29 +197,101 @@ from pology.misc.report import warning
 import pology.misc.colors as C
 
 
+def setup_sieve (p):
+
+    p.set_desc(
+    "Compute translation statistics."
+    "\n\n"
+    "Provides basic count of number of messages by type (translated, fuzzy, "
+    "etc.), along with words and character counts, and some other derived "
+    "statistics on request."
+    "\n\n"
+    "For details and notes on how counting is done, see documentation to "
+    "pology.sieve.stats."
+    )
+
+    p.add_param("accel", unicode, multival=True,
+                metavar="CHAR",
+                desc=
+    "Character which is used as UI accelerator marker in text fields, "
+    "to remove it before counting. "
+    "If a catalog defines accelerator marker in the header, "
+    "this value overrides it."
+    )
+    p.add_param("detail", bool, defval=False,
+                desc=
+    "Compute and display some derived statistical quantities."
+    )
+    p.add_param("incomplete", bool, defval=False,
+                desc=
+    "List catalogs which are not fully translated, with incompletness counts."
+    )
+    p.add_param("incompfile", unicode,
+                metavar="FILE",
+                desc=
+    "Write paths of not fully translated catalogs into a file, one per line."
+    )
+    p.add_param("templates", unicode,
+                metavar="SRCH:REPL",
+                desc=
+    "Count catalogs which had not translation done on them into statistics. "
+    "Assumes that translated catalogs and templates live in two root "
+    "directories with same structure; then for each path to translated "
+    "catalogs given on command line, the corresponding path to templates "
+    "is constructed by replacing first occurence of SRCH with REPL."
+    )
+    p.add_param("branch", unicode, seplist=True,
+                metavar="BRANCH",
+                desc=
+    "In summited catalogs, count in only messages belonging to given branch. "
+    "Several branches can be given as comma-separated list."
+    )
+    p.add_param("maxwords", int,
+                metavar="NUMBER",
+                desc=
+    "Count in only messages which have at most this many words, "
+    "either in original or translation."
+    )
+    p.add_param("minwords", int,
+                metavar="NUMBER",
+                desc=
+    "Count in only messages which have at least this many words, "
+    "either in original or translation."
+    )
+    p.add_param("bydir", bool, defval=False,
+                desc=
+    "Report statistics per leaf directory in searched paths."
+    )
+    p.add_param("byfile", bool, defval=False,
+                desc=
+    "Report statistics per catalog."
+    )
+    p.add_param("notab", bool, defval=True, attrname="table",
+                desc=
+    "Do not show main table with statistics."
+    )
+    p.add_param("wbar", bool, defval=False,
+                desc=
+    "Show statistics in form of word bars."
+    )
+    p.add_param("msgbar", bool, defval=False,
+                desc=
+    "Show statistics in form of message bars."
+    )
+    p.add_param("absolute", bool, defval=False,
+                desc=
+    "Scale lengths of word and message bars to numbers they represent, "
+    "rather than relative to percentage of translation state. "
+    "Useful with '%s' and '%s' parameters, to compare sizes of different "
+    "translation units." % ("byfile", "bydir")
+    )
+
+
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, params, options):
 
-        # Explicit accelerator markers.
-        self.accels = None
-        if "accel" in options:
-            options.accept("accel")
-            self.accels = list(options["accel"])
-
-        # Display detailed statistics?
-        self.detailed = False
-        if "detail" in options:
-            self.detailed = True
-            options.accept("detail")
-
-        # Display compact list of catalogs with fuzzy/untranslated messages?
-        self.incomplete = False
-        self.incmpfile = None
-        if "incomplete" in options:
-            self.incomplete = True
-            self.incmpfile = options["incomplete"]
-            options.accept("incomplete")
+        self.p = params
 
         # Templates correspondence.
         # Mapping of catalogs to templates, in form of <search>:<replace>.
@@ -227,65 +301,12 @@ class Sieve (object):
         # Furthermore, all subdirs of these paths are searched for templates
         # without corresponding catalogs, and every such template is counted
         # as fully untranslated PO.
-        self.tspec = ""
-        if "templates" in options:
-            self.tspec = options["templates"]
-            if ":" not in self.tspec:
-                self.tspec_srch = self.tspec
+        if self.p.templates:
+            if ":" not in self.p.templates:
+                self.tspec_srch = self.p.templates
                 self.tspec_repl = ""
             else:
-                self.tspec_srch, self.tspec_repl = self.tspec.split(":", 1)
-            options.accept("templates")
-
-        # Summit: consider only messages belonging to given branches.
-        self.branches = None
-        if "branch" in options:
-            self.branches = set(options["branch"].split(","))
-            options.accept("branch")
-
-        # Count in only the messages which have at most this many words,
-        # either in original or translation.
-        self.maxwords = None
-        if "maxwords" in options:
-            self.maxwords = int(options["maxwords"])
-            options.accept("maxwords")
-
-        # Count in only the messages which have at least this many words,
-        # either in original or translation.
-        self.minwords = None
-        if "minwords" in options:
-            self.minwords = int(options["minwords"])
-            options.accept("minwords")
-
-        # Report statistics per leaf directory and/or per file.
-        self.bydir = None
-        if "bydir" in options:
-            self.bydir = True
-            options.accept("bydir")
-        self.byfile = None
-        if "byfile" in options:
-            self.byfile = True
-            options.accept("byfile")
-
-        # Forms of the statistics.
-        self.table = True
-        if "notab" in options:
-            self.table = False
-            options.accept("notab")
-        self.wbar = False
-        if "wbar" in options:
-            self.wbar = True
-            options.accept("wbar")
-        self.msgbar = False
-        if "msgbar" in options:
-            self.msgbar = True
-            options.accept("msgbar")
-
-        # Absolute or relative bars.
-        self.absolute = False
-        if "absolute" in options:
-            self.absolute = True
-            options.accept("absolute")
+                self.tspec_srch, self.tspec_repl = self.p.templates.split(":", 1)
 
         # Filenames of catalogs which are not fully translated.
         self.incomplete_catalogs = {}
@@ -310,8 +331,8 @@ class Sieve (object):
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = {}
         self.template_subdirs = []
-        if self.tspec:
-            for path in global_options.raw_paths:
+        if self.p.templates:
+            for path in options.raw_paths:
                 if os.path.isdir(path):
                     tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
                     self.template_subdirs.append(tpath)
@@ -355,7 +376,7 @@ class Sieve (object):
         self.count = self.counts[cat.filename]
 
         # If template correspondence requested, handle template matching.
-        if (    self.tspec
+        if (    self.p.templates
             and not cat.filename.endswith(".pot")):
 
             # Construct expected template path.
@@ -371,17 +392,17 @@ class Sieve (object):
                 self.matched_templates[tpath] = True
 
         # Force explicitly given accelerators.
-        if self.accels is not None:
-            cat.set_accelerator(self.accels)
+        if self.p.accel is not None:
+            cat.set_accelerator(self.p.accel)
 
 
     def process (self, msg, cat):
 
         # Summit: if branches were given, skip the message if it does not
         # belong to any of the given branches.
-        if self.branches:
+        if self.p.branch:
             msg_branches = parse_summit_branches(msg)
-            if not set.intersection(self.branches, msg_branches):
+            if not set.intersection(self.p.branch, msg_branches):
                 return
 
         # Decide if a metamessage:
@@ -427,13 +448,13 @@ class Sieve (object):
 
         # If the number of words has been limited, skip the message if it
         # does not fall in the range.
-        if self.maxwords is not None:
-            if not (   nwords["orig"] <= self.maxwords
-                    or nwords["tran"] <= self.maxwords):
+        if self.p.maxwords is not None:
+            if not (   nwords["orig"] <= self.p.maxwords
+                    or nwords["tran"] <= self.p.maxwords):
                 return
-        if self.minwords is not None:
-            if not (   nwords["orig"] >= self.minwords
-                    or nwords["tran"] >= self.minwords):
+        if self.p.minwords is not None:
+            if not (   nwords["orig"] >= self.p.minwords
+                    or nwords["tran"] >= self.p.minwords):
                 return
 
         # Detect categories and add the counts.
@@ -512,7 +533,7 @@ class Sieve (object):
 
             count_overall = self._count_sum(count_overall, count)
 
-            if self.bydir:
+            if self.p.bydir:
                 cdir = os.path.dirname(filename)
                 if cdir in self.mapped_template_subdirs:
                     # Pretend templates-only are within language subdir.
@@ -530,11 +551,11 @@ class Sieve (object):
         self._tpref_dir = "+++"
         self._tpref_all = "==="
         counts = []
-        if self.bydir:
+        if self.p.bydir:
             cdirs = counts_bydir.keys();
             cdirs.sort()
             for cdir in cdirs:
-                if self.byfile:
+                if self.p.byfile:
                     self._sort_equiv_filenames(filenames_bydir[cdir])
                     for filename in filenames_bydir[cdir]:
                         counts.append(("%s %s" % (self._tpref_file, filename),
@@ -543,7 +564,7 @@ class Sieve (object):
                                counts_bydir[cdir]))
             counts.append(("%s (overall)" % self._tpref_all, count_overall))
 
-        elif self.byfile:
+        elif self.p.byfile:
             filenames = self.counts.keys()
             self._sort_equiv_filenames(filenames)
             for filename in filenames:
@@ -558,21 +579,21 @@ class Sieve (object):
         can_color = sys.stdout.isatty()
 
         # Summit: If branches were given, indicate conspicuously up front.
-        if self.branches:
-            print ">>> selected-branches: %s" % " ".join(self.branches)
+        if self.p.branch:
+            print ">>> selected-branches: %s" % " ".join(self.p.branch)
 
         # If the number of words has been limited, indicate conspicuously.
-        if self.maxwords is not None and self.minwords is None:
-            print ">>> at-most-words: %d" % self.maxwords
-        if self.minwords is not None and self.maxwords is None:
-            print ">>> at-least-words: %d" % self.minwords
-        if self.minwords is not None and self.maxwords is not None:
-            print ">>> words-in-range: %d-%d" % (self.minwords, self.maxwords)
+        if self.p.maxwords is not None and self.p.minwords is None:
+            print ">>> at-most-words: %d" % self.p.maxwords
+        if self.p.minwords is not None and self.p.maxwords is None:
+            print ">>> at-least-words: %d" % self.p.minwords
+        if self.p.minwords is not None and self.p.maxwords is not None:
+            print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
 
         # Should titles be output in-line or on separate lines.
         self.inline = False
         maxtitlecw = 0
-        if (not self.wbar or not self.msgbar) and (not self.table):
+        if (not self.p.wbar or not self.p.msgbar) and (not self.p.table):
             for title, count in counts:
                 if title is not None:
                     self.inline = True
@@ -596,16 +617,16 @@ class Sieve (object):
                 else:
                     print ntitle
 
-            if self.table:
+            if self.p.table:
                 self._tabular_stats(counts, title, count, can_color)
-            if self.msgbar:
+            if self.p.msgbar:
                 self._msg_bar_stats(counts, title, count, can_color)
-            if self.wbar:
+            if self.p.wbar:
                 self._w_bar_stats(counts, title, count, can_color)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
-        if self.incomplete and self.incomplete_catalogs:
+        if self.p.incomplete and self.incomplete_catalogs:
             filenames = self.incomplete_catalogs.keys()
             self._sort_equiv_filenames(filenames)
             data = []
@@ -627,19 +648,22 @@ class Sieve (object):
             print "-"
             print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
                            colorized=can_color)
-            # Write catalog file names into the file if requested.
-            if self.incmpfile:
-                cmdlenc = locale.getpreferredencoding()
-                ofl = codecs.open(self.incmpfile, "w", cmdlenc)
-                ofl.writelines([x + "\n" for x in filenames])
-                ofl.close()
+
+        # Write file names of catalogs which are not fully translated
+        # into a file, if requested.
+        if self.p.incompfile and self.incomplete_catalogs:
+            filenames = self.incomplete_catalogs.keys()
+            cmdlenc = locale.getpreferredencoding()
+            ofl = codecs.open(self.p.incompfile, "w", cmdlenc)
+            ofl.writelines([x + "\n" for x in filenames])
+            ofl.close()
 
 
     def _tabular_stats (self, counts, title, count, can_color):
 
         # Order counts in tabular form.
         selected_cats = self.count_spec
-        if False and self.incomplete: # skip this for the moment
+        if False and self.p.incomplete: # skip this for the moment
             # Display only fuzzy and untranslated counts.
             selected_cats = (self.count_spec[1], self.count_spec[2])
             # Skip display if complete.
@@ -665,7 +689,7 @@ class Sieve (object):
                     compr.append(None)
             data.insert(ins, compr)
 
-        if self.detailed:
+        if self.p.detail:
             # Derived data: word and character ratios.
             for o, t, ins in ((1, 2, 7), (3, 4, 8)):
                 ratio = []
@@ -677,7 +701,7 @@ class Sieve (object):
                         ratio.append(None)
                 data.insert(ins, ratio)
 
-        if self.detailed:
+        if self.p.detail:
             # Derived data: character/word ratio, word/message ratio.
             for w, c, ins in ((0, 1, 9), (0, 2, 10), (1, 3, 11), (2, 4, 12)):
                 chpw = []
@@ -695,7 +719,7 @@ class Sieve (object):
                 "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
         dfmt = ["%d", "%.1f%%",
                 "%d", "%.1f%%", "%d", "%d", "%d"]
-        if self.detailed:
+        if self.p.detail:
             coln.extend(["w-ef", "ch-ef",
                          "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
             dfmt.extend(["%+.1f%%", "%+.1f%%",
@@ -736,7 +760,7 @@ class Sieve (object):
                         maxcounts_jumbled[tkey] = c
 
             # If absolute bars, compare counts only for same-level titles.
-            if self.absolute:
+            if self.p.absolute:
                 if title is None:
                     if otitle is not None:
                         continue
@@ -771,7 +795,7 @@ class Sieve (object):
         fmt_counts = "/".join(fmt_counts)
 
         # Maximum and nominal bar widths in characters.
-        # TODO: Make options.
+        # TODO: Make parameters.
         if self.inline:
             nombarcw = 20
             maxbarcw = 50
@@ -790,7 +814,7 @@ class Sieve (object):
 
         # Compute number of cells per category.
         n_cells = {}
-        if self.absolute:
+        if self.p.absolute:
             # Absolute bar.
             n_per_cell = 0
             for npc in (1, 2, 5,
@@ -853,10 +877,10 @@ class Sieve (object):
         # Assemble final output.
         # If bars are absolute, show them only for most particular counts.
         showbar = True
-        if self.absolute:
-            if self.byfile:
+        if self.p.absolute:
+            if self.p.byfile:
                 showbar = title.startswith(self._tpref_file)
-            elif self.bydir:
+            elif self.p.bydir:
                 showbar = title.startswith(self._tpref_dir)
 
         if showbar:
