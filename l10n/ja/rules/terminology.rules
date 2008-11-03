@@ -19,6 +19,18 @@ id="abort"
 hint="Abort = 中止"
 valid msgstr="中止"
 
+{\baccess\b}i
+id="access"
+hint="access = アクセス"
+valid msgstr="アクセス"
+disabled
+
+{\baccess\b}i
+id="access2"
+hint="access = 権限"
+valid !after="have (write|read) "
+valid msgstr="権限"
+
 {\baccessibility}i
 id="accessibility"
 hint="accessibility = アクセシビリティ"
@@ -100,19 +112,28 @@ id="bandwidth"
 hint="bandwidth = 帯域幅"
 valid msgstr="帯域幅"
 
-# @gloss-new
 {\bbinary}i
 id="binary"
 hint="binary = 二進|二進法"
+valid !ctx="encoding" !comment="encoding" !before=" encoding" !after="switch base to "
 valid msgstr="二進|二進法"
-disabled
 
-# @gloss-new
 {\bbinary}i
 id="binary2"
 hint="binary = バイナリ"
+valid !before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
 valid msgstr="バイナリ"
-disabled
+
+{\bbinary}i
+id="binary3"
+hint="binary = 実行ファイル"
+valid before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
+valid ctx="encoding"
+valid comment="encoding"
+valid before=" encoding"
+valid after="switch base to "
+valid cat="cervisia"
+valid msgstr="実行ファイル"
 
 {\bbold\b}i
 id="bold"
@@ -316,6 +337,16 @@ id="deselect_all"
 hint="Deselect All = すべて選択解除"
 valid msgstr="すべて選択解除"
 
+{\bdesktop search}i
+id="desktop_search"
+hint="desktop search = デスクトップ検索"
+valid msgstr="デスクトップ検索"
+
+{\bdevices?}i
+id="device"
+hint="device = デバイス"
+valid msgstr="デバイス"
+
 {^Discard$}
 id="discard"
 hint="Discard = 破棄"
@@ -441,19 +472,29 @@ id="environment_variable"
 hint="environment variable = 環境変数"
 valid msgstr="環境変数"
 
-# @gloss-new
 {\bexecutable}i
 id="executable"
 hint="executable = 実行ファイル"
+valid before=" (file|program|code|script|attribute)"
+valid after="(is( not)?|mark the file as) "
+valid ctx="is executable"
 valid msgstr="実行ファイル"
-disabled
 
-# @gloss-new
 {\bexecutable}i
 id="executable2"
 hint="executable = 実行可能"
+valid !before=" (code|script|attribute)" !after="(is( not)?|mark the file as) " !ctx="is executable"
 valid msgstr="実行可能"
-disabled
+
+{\bexecutable files?}i
+id="executable_file"
+hint="executable file = 実行ファイル"
+valid msgstr="実行ファイル"
+
+{\bexecutable programs?}i
+id="executable_program"
+hint="executable program = 実行ファイル"
+valid msgstr="実行ファイル"
 
 {^Expand All$}
 id="expand_all"
@@ -643,6 +684,11 @@ id="from_cursor"
 hint="from cursor = カーソル位置から"
 valid msgstr="カーソル位置から"
 
+{\bfull text search}i
+id="full_text_search"
+hint="full text search = 全文検索"
+valid msgstr="全文検索"
+
 {\bfull ?screen\b}i
 id="fullscreen"
 hint="fullscreen = フルスクリーン"
@@ -685,6 +731,34 @@ valid msgstr="フォントサイズを大きく"
 id="increase_volume"
 hint="Increase Volume = 音量を上げる"
 valid msgstr="音量を上げる"
+
+{\bindex(es)?\b|\bindices}i
+id="index"
+hint="index = 索引"
+valid !cat="kile" !before=" (page)"
+valid msgstr="索引"
+
+{\bindex(es)?|\bindices}i
+id="index2"
+hint="index = インデックス"
+valid !cat="nepomuk, kerry, kcmbeagle" !after="(search) "
+valid msgstr="インデックス"
+
+{\bindex(es)?|\bindices}i
+id="index3"
+hint="index = 指数"
+valid msgstr="指数"
+disabled
+
+{\bindexer}i
+id="indexer"
+hint="indexer = インデクサ"
+valid msgstr="インデクサ"
+
+{\bindexing}i
+id="indexing"
+hint="indexing = インデックス作成"
+valid msgstr="インデックス[のを]?作成"
 
 {^Insert$}
 id="insert"
@@ -876,6 +950,11 @@ id="open_with"
 hint="Open With... = アプリケーションで開く..."
 valid msgstr="アプリケーションで開く\.\.\."
 
+{\bon screen display}i
+id="osd"
+hint="on screen display = OSD|オンスクリーンディスプレイ"
+valid msgstr="OSD|オンスクリーンディスプレイ"
+
 {^Overwrite$}
 id="overwrite"
 hint="Overwrite = 上書き"
@@ -924,6 +1003,24 @@ hint="Pause = 一時停止"
 valid msgstr="一時停止"
 valid cat="rsibreak" msgstr="休憩"
 valid ctx="QShortcut" msgstr="Pause"
+
+{\bpermissions}i
+id="permission"
+hint="permission = パーミッション"
+valid !after="(file|advanced|change|check|inherit|preserve|by) " !ctx="sort by"
+valid msgstr="パーミッション"
+
+{\bpermissions?}i
+id="permission2"
+hint="permission = 権限"
+valid !after="have( the)?( (read|write|read/write|access|(sufficient|enough|necessary|required|correct|right)( (access|read|write))?))? "
+valid msgstr="権限"
+
+{\bpermissions?}i
+id="permission3"
+hint="permission = 許可"
+valid msgstr="許可"
+disabled
 
 {\bplain[ -]?text}i
 id="plain_text"
@@ -1263,6 +1360,18 @@ id="stop"
 hint="Stop = 停止"
 valid msgstr="停止"
 
+{\bstorage}i
+id="storage"
+hint="storage = ストレージ"
+valid !before=" (device|media|medium)" !after="mass "
+valid msgstr="ストレージ"
+
+{\bstorage}i
+id="storage2"
+hint="storage = 保存"
+valid msgstr="保存"
+disabled
+
 {\bstrikeout}i
 id="strikeout"
 hint="strikeout = 取り消し線"
@@ -1462,6 +1571,7 @@ valid msgstr="表示モード"
 id="viewer"
 hint="viewer = ビューア"
 valid msgstr="ビューア" !msgstr="ビューアー|ビューワー?|ビュ[ワア]ー"
+valid cat="kipiplugin_simpleviewerexport" after="simple ?" msgstr="simpleviewer"
 
 {\bvirus}i
 id="virus"
@@ -1497,6 +1607,16 @@ valid msgstr="単語単位"
 id="widget"
 hint="widget = ウィジェット"
 valid msgstr="ウィジェット" !msgstr="ウィジット"
+
+{\bwired}i
+id="wired"
+hint="wired = 有線"
+valid msgstr="有線"
+
+{\bwireless}i
+id="wireless"
+hint="wireless = ワイヤレス"
+valid msgstr="ワイヤレス"
 
 {\bwizards?\b}i
 id="wizard"

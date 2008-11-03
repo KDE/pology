@@ -72,6 +72,14 @@ hint="LaTeX [大文字と小文字の違いに注意]"
 id="postscript-j"
 hint="PostScript [大文字と小文字の違いに注意]"
 
+[\bOk\b]
+id="ok"
+hint="OK [大文字で]"
+
+[\bUrl\b]
+id="url"
+hint="URL [大文字で]"
+
 {access control list}i
 id="access_control_list"
 hint="access control list = アクセス制御リスト [ACL]"
