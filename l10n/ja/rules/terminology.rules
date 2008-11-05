@@ -158,6 +158,19 @@ hint="capture = キャプチャ"
 valid msgstr="キャプチャ"
 disabled
 
+{\bcharacter sets?\b}i
+id="character_set"
+hint="character set = 文字セット"
+valid msgstr="文字セット"
+valid cat="kfileshare" msgstr="Character set:"
+
+
+{\bcharsets?\b}i
+id="charset"
+hint="charset = 文字セット"
+valid msgstr="文字セット"
+valid cat="kfileshare" msgstr="(DOS|UNIX|Display) charset:"
+
 {$Clear$}
 id="clear"
 hint="Clear = クリア"
@@ -737,8 +750,9 @@ id="index"
 hint="index = 索引"
 valid !cat="kile" !before=" (page)"
 valid msgstr="索引"
+valid cat="kile" before="{"
 
-{\bindex(es)?|\bindices}i
+{\bindex(es)?\b|\bindices}i
 id="index2"
 hint="index = インデックス"
 valid !cat="nepomuk, kerry, kcmbeagle" !after="(search) "
@@ -759,6 +773,7 @@ valid msgstr="インデクサ"
 id="indexing"
 hint="indexing = インデックス作成"
 valid msgstr="インデックス[のを]?作成"
+valid after="re-" msgstr="インデックス[のを]?再作成"
 
 {^Insert$}
 id="insert"
@@ -864,6 +879,11 @@ valid cat="kfmclient, kioclient" msgstr="mimetype"
 id="minimize"
 hint="Minimize = 最小化"
 valid msgstr="最小化"
+
+{\bmodifier keys?}i
+id="modifier_key"
+hint="modifier key = 修飾キー"
+valid msgstr="修飾キー"
 
 # @gloss-new
 {\bmonitor}i
