@@ -572,6 +572,7 @@ valid msgstr="ファイルマネージャ" !msgstr="マネージャー"
 id="filename"
 hint="filename = ファイル名"
 valid msgstr="ファイル名"
+valid after="(HTML|text|output) " msgstr="ファイルの名前"
 
 {\bfilter bar}i
 id="filter_bar"
