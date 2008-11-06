@@ -320,6 +320,10 @@ class Sieve (object):
             ("obs", u"obsolete"),
         )
 
+        # FIXME: After parameter parser can deliver requested sequence type.
+        if self.p.branch is not None:
+            self.p.branch = set(self.p.branch)
+
         # Number of counts per category:
         # messages, words in original, words in translation,
         # characters in original, characters in translation.
