@@ -67,10 +67,85 @@ MARSHALL="+++"
 # Cache directory (for xml processing only)
 CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
 
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Apply rules to messages and report those that do not pass."
+    "\n\n"
+    "See documentation to pology.sieve.check_rules for details."
+    % dict(par1="or")
+    )
+
+    p.add_param("lang", unicode,
+                metavar="CODE",
+                desc=
+    "Load rules for this language "
+    "(if not given, a language is automatically guessed)."
+    )
+    p.add_param("env", unicode,
+                metavar="CODE",
+                desc=
+    "Load rules for this environment within language "
+    "(if not given, only environment-agnostic rules are loaded)."
+    )
+    p.add_param("stat", bool, defval=False,
+                desc=
+    "Output some statistics on application of rules."
+    )
+    p.add_param("envonly", bool, defval=False,
+                desc=
+    "Load only rules explicitly belonging to environment given by '%(par)s'."
+    % dict(par="env")
+    )
+    p.add_param("accel", unicode, multival=True,
+                metavar="CHAR",
+                desc=
+    "Character which is used as UI accelerator marker in text fields. "
+    "If a catalog defines accelerator marker in the header, "
+    "this value overrides it."
+    )
+    p.add_param("markup", unicode, seplist=True,
+                metavar="KEYWORD",
+                desc=
+    "Markup that can be expected in text fields, as special keyword "
+    "(see documentation to pology.file.catalog, Catalog.set_markup(), "
+    "for markup keywords currently known to Pology). "
+    "If a catalog defines markup type in the header, "
+    "this value overrides it."
+    "Several markups can be given as comma-separated list."
+    )
+    p.add_param("rfile", unicode, multival=True,
+                metavar="PATH",
+                desc=
+    "Load rules from a file, rather than internal Pology rules. "
+    "Several rule files can be given by repeating the parameter."
+    )
+    p.add_param("showfmsg", bool, defval=False,
+                desc=
+    "Show filtered message too when reporting message failed by a rule."
+    )
+    p.add_param("nomsg", bool, attrname="showmsg", defval=True,
+                desc=
+    "Do not show message content at all when reporting failures."
+    )
+    p.add_param("rule", unicode, seplist=True,
+                metavar="RULEID",
+                desc=
+    "Apply only the rule given by this identifier. "
+    "Several identifiers can be given as comma-separated list."
+    )
+    p.add_param("xml", unicode,
+                metavar="PATH",
+                desc=
+    "Write rule failures into an XML file instead of stdout."
+    )
+
+
 class Sieve (object):
     """Find messages matching given rules."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, params, options):
 
         self.nmatch = 0 # Number of match for finalize
         self.rules=[]   # List of rules objects loaded in memory
@@ -79,74 +154,30 @@ class Sieve (object):
         self.cachePath=None # Path to cache file
         self.filename=""     # File name we are processing
         self.cached=False    # Flag to indicate if process result is already is cache
-        
-        if "lang" in options:
-            options.accept("lang")
-            lang=options["lang"]
-        else:
-            lang=None
-        
-        if "stat" in options:
-            options.accept("stat")
-            stat=True
-        else:
-            stat=False
 
-        if "env" in options:
-            options.accept("env")
-            self.env=options["env"]
-        else:
-            self.env=None
+        lang=params.lang
 
-        if "envonly" in options:
-            options.accept("envonly")
-            if "env" not in options:
-                warning("'envonly' parameter has no effect when 'env' not given too")
-            envOnly=True
-        else:
-            envOnly=False
+        self.env=params.env
+        envOnly=params.envonly
+        if envOnly and params.env is None:
+            warning("'envonly' parameter has no effect when 'env' not given")
 
-        # Explicit accelerator markers.
-        self.accels = None
-        if "accel" in options:
-            options.accept("accel")
-            self.accels = list(options["accel"])
-        
-        # Explicit markup types.
-        self.markup=None
-        if "markup" in options:
-            options.accept("markup")
-            self.markup=options["markup"].split(",")
-        
-        if "rfile" in options:
-            options.accept("rfile")
-            customRuleFiles=[options["rfile"]]
-        else:
-            customRuleFiles=None
-        
-        # Show filtered message too when a rule fails a message.
-        if "showfmsg" in options:
-            options.accept("showfmsg")
-            self.showfmsg=True
-        else:
-            self.showfmsg=False
+        self.accels=params.accel
+        self.markup=params.markup
 
-        # Whether to show message content at all.
-        if "nomsg" in options:
-            options.accept("nomsg")
-            self.showmsg=False
-        else:
-            self.showmsg=True
+        stat=params.stat
+        self.showfmsg=params.showfmsg
+        self.showmsg=params.showmsg
 
         # Load rules
+        customRuleFiles=params.rfile
         self.rules=loadRules(lang, stat, self.env, envOnly, customRuleFiles)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
         selectedRules=[]
-        if "rule" in options:
-            options.accept("rule")
-            selectedRules=set([x.strip() for x in options["rule"].split(",")])
+        if params.rule:
+            selectedRules=set([x.strip() for x in params.rule])
             foundRules=set()
             srules=[]
             for rule in self.rules:
@@ -197,9 +228,8 @@ class Sieve (object):
             report("Active rules define %s distinct filter sets" % nflt)
 
         # Also output in XML file ?
-        if "xml" in options:
-            options.accept("xml")
-            xmlPath=options["xml"]
+        if params.xml:
+            xmlPath=params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 #TODO: create nice api to manage xml file and move it to misc/rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
