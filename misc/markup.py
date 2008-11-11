@@ -924,6 +924,48 @@ def check_xml_docbook4_l1 (text, ents=None):
     return check_xml_l1(text, spec=_docbook4_l1, xmlfmt="Docbook4", ents=ents)
 
 
+def check_xmlents (text, ents={}):
+    """
+    Check whether XML-like entities in the text are among known.
+
+    The text does not have to be XML markup as such.
+    No XML parsing is performed, only the raw search for XML-like entities.
+
+    @param text: text with entities to check
+    @type text: string
+    @param ents: known entities
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    spans = []
+
+    p = 0
+    while True:
+        p = text.find("&", p)
+        if p < 0:
+            break
+        pp = p
+        m = _entity_rx.match(text, p)
+        if m:
+            p = m.end()
+            ent = m.group(1)
+            if ent not in ents:
+                nearents = difflib.get_close_matches(ent, ents)
+                if nearents:
+                    if len(nearents) > 5: # do not overwhelm message
+                        nearents = nearents[:5] + ["..."]
+                    errmsg = ("unknown entity '%s' (suggestions: %s)"
+                              % (ent, ", ".join(nearents)))
+                else:
+                    errmsg = ("unknown entity '%s'" % ent)
+                spans.append((pp, p, errmsg))
+
+    return spans
+
+
 _placeholder_el_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
 
 def check_placeholder_els (orig, trans):

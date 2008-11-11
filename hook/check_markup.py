@@ -174,6 +174,36 @@ def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False,
                         strict, entities, entpathenv, fcap, mkeyw, True)
 
 
+def check_xmlents (strict=False, entities={}, entpathenv=None, fcap=True,
+                   mkeyw=None):
+    """
+    Check existence of XML entities in translations [hook factory].
+
+    See L{check_xml} for description of parameters.
+    See notes on checking of entities to
+    L{check_xmlents<misc.markup.check_xmlents>}.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(M.check_xmlents,
+                        strict, entities, entpathenv, fcap, mkeyw, False)
+
+
+def check_xmlents_sp (strict=False, entities={}, entpathenv=None,
+                      fcap=False, mkeyw=None):
+    """
+    Like L{check_xmlents}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(M.check_xmlents,
+                        strict, entities, entpathenv, fcap, mkeyw, True)
+
 def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
     """
     Worker for C{check_xml*} hook factories.

@@ -12,6 +12,7 @@ import re
 from pology.misc.resolve import remove_accelerator as _rm_accel_in_text
 from pology.misc.resolve import remove_fmtdirs as _rm_fmtd_in_text_single
 from pology.misc.resolve import remove_literals as _rm_lit_in_text_single
+from pology.misc.resolve import resolve_entities_simple
 import pology.misc.markup as M
 from pology.misc.comments import manc_parse_field_values
 from pology.misc.msgreport import warning_on_msg
@@ -113,6 +114,11 @@ def _rm_markup_in_text (text, mtypes):
             text = M.docbook4_to_plain(text)
         elif mtype == "xml":
             text = M.xml_to_plain(text)
+        elif mtype == "xmlents":
+            # FIXME: Only default XML entities can be handled as-is;
+            # perhaps markup remover should also take entity mapping
+            # as argument, and pass it here?
+            text = resolve_entities_simple(text, M.xml_entities)
 
     return text
 

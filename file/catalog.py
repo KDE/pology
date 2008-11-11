@@ -1367,6 +1367,7 @@ class Catalog (Monitored):
           - C{kuit}: UI semantic markup in KDE4
           - C{kde4}: markup in KDE4 UI POs, a mix of Qt rich-text and KUIT
           - C{docbook4}: Docbook 4.x markup, in documentation POs
+          - C{xmlents}: only XML-like entities, no other formal markup
 
         @param mtypes: markup types
         @type mtypes: sequence of strings or C{None}
