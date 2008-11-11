@@ -63,6 +63,14 @@ addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
 id="x-markup-db"
 hint="грешке у обележавању"
 
+# ...in POs which have no markup, but in summit have XML-like entities.
+*hook name="check-markup/check-xmlents-sp" \
+      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
+               mkeyw='xmlents'" \
+      on="msgstr"
+id="x-markup-e"
+hint="грешке у обележавању"
+
 # ----------------------------------------
 # Detect problems with UI references.
 
