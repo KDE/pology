@@ -381,7 +381,7 @@ valid msgid="please wait\.\.\."
 id="colon1"
 hint="「:」を取り忘れていませんか？"
 valid msgid=": ?$"
-valid msgid="(every|after|for|from|to|of|at|except|named|is|at least) ?$"
+valid msgid="(every|after|for|from|to|of|at|except|named|is|at least|more than) ?$"
 
 {: ?$}
 id="colon2"

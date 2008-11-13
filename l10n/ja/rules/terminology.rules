@@ -207,6 +207,7 @@ valid msgstr="色選択ダイアログ"
 id="color_picker"
 hint="color picker = カラーピッカー"
 valid msgstr="カラーピッカー"
+valid before=" dialog"
 
 {\bcolor space}i
 id="color_space"
