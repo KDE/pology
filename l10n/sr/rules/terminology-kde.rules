@@ -450,7 +450,7 @@ valid msgstr="\bклик[нћ]\w+ левим" # глаголски
 
 {\blines?\b}i
 id="line"
-hint="line = ред"
+hint="line = ред [‘линија’ где се не ради о тексту]"
 valid after="command[ -]"
 valid after="on-|off-"
 valid before=" (edit|input)"
@@ -461,12 +461,14 @@ valid cat="kdelibs4" msgid="header line"
 valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
 valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
+valid cat="kmix" msgstr="\bлиниј"
 
 {\blist(s|ed)?\b}i
 id="list"
 hint="list = списак [може бити и ‘листа’, где се изричито дозволи]"
-valid after="(mailing|e?mail|distribution|access control) " msgstr="\bлист"
+valid after="(mailing |e?mail |distribution |access control |play\W?|dynamic )" msgstr="\bлист"
 valid cat="kio_imap4" after="access control " msgstr="\bacl"
+valid cat="juk" after="collection " msgstr="\bлист"
 valid after="free/busy " !msgstr="\bлист"
 valid !cat="kabc" msgstr="\bсписа?к"
 valid msgstr="\b(набр[оа]?ј|навед|наво[дс]|испи[сш])"
@@ -683,9 +685,9 @@ valid cat="desktop_kdebase" msgid="National Weather Service" msgstr="\bслуж�
 # о-рук
 {\b(preference|setting)s?}i
 id="setting"
-hint="preference|setting = поставка"
+hint="preference|setting = поставка [‘Подешавање’ као наслов менија /Settings/]"
 valid msgid="^settings$" msgstr="^подешавање$"
-valid msgstr="\bпостав(ц|к|љ|ит)"
+valid msgstr="\bпостав(ц|к|љ|ит)" !srcref="\.rc$"
 valid msgstr="->подешавање"
 valid msgstr="подешавање->"
 valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
@@ -835,7 +837,7 @@ valid cat="kcmkwm" msgid="popup widget" msgstr="искачућ\w+ спис"
 {\bwizard}i
 id="wizard"
 hint="wizard = чаробњак"
-valid msgstr="\bчаробњак"
+valid msgstr="\bчаробња[кш]"
 
 {\bXML\b}i
 id="xml"

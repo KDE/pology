@@ -106,7 +106,7 @@ id="customize"
 hint="customize = прилагодити"
 valid msgstr="прилаго[дђ]" !msgstr="прилагодив"
 
-{\bcut}i
+{\bcut(s|ting)?\b}i
 id="cut"
 hint="cut = исећи"
 valid msgstr="\bисе[кцчћ]"
@@ -199,7 +199,7 @@ valid msgstr="\bподнож[јн]"
 # Делимична провера, не може се разликовати ван контекста.
 {\bforce}i
 id="force"
-hint="force = приморати"
+hint="force = приморати [или ‘наметнути’]"
 valid msgstr="\bпримора|\bнаме[тћ]"
 valid cat="khotkeys" msgid="force a restart" msgstr="сами .* из почетка"
 
@@ -356,10 +356,10 @@ valid msgstr="\bчитач" !msgstr="читачом"
 valid msgstr="\bчита(лац|о[цч])"
 valid env="kde" msgstr="&\w*reader\S*;"
 
-{\brename}i
+{\brenam(e[sd]?|ing)\b}i
 id="rename"
 hint="rename = преименовати"
-valid msgstr="\bпреимен"
+valid msgstr="\bпреиме[нњ]"
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
