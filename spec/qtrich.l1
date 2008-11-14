@@ -41,7 +41,7 @@ style: type;
 sub;
 sup;
 table: bgcolor border cellspacing cellpadding width;
-td: align width valign;
+td: align width valign rowspan;
 th;
 tr;
 tt;
