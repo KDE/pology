@@ -10,7 +10,7 @@ valid after="\(" before="\)"
 
 validGroup inQuotes
 valid after="«&unbsp;" before="&unbsp;»"
- 
+
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;" 
 valid before="&sp;en&sp;"
@@ -109,6 +109,7 @@ hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous ête
 hint="sauver -> enregistrer"
 
 [sauve]i
+valid msgid="backup"
 valid cat="kdat"
 valid cat="desktop_playground-sysadmin"
 valid cat="akonaditray" msgid="back.*up|restor"
