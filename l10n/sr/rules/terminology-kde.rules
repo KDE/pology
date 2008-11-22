@@ -165,7 +165,7 @@ valid cat="konqueror" msgid="to the \S*Paste\S* command" msgstr="за \S*нал�
 id="configuration"
 hint="configuration = постава"
 valid before=" file| script"
-valid msgstr="\bпостав[аеиоу]"
+valid msgstr="\bпостав[аеиоун]"
 valid msgstr="\bподеш(ава|ен)"
 valid msgstr="\bподесит"
 valid msgstr="&\w*config\S*;"
