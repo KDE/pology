@@ -15,12 +15,14 @@ Sieve parameters for matching:
   - C{comment:<regex>}: regular expression to match against comments
   - C{transl}: the message must be translated
   - C{plural}: the message must be plural
+  - C{maxchar}: messages must have no more than this number of characters
+  - C{fexpr}: logical expression made out of any previous matching typs
   - C{or}: use OR- instead of AND-matching for text fields
 
 If more than one of the matching parameters are given (e.g. both C{msgid} and
 C{msgstr}), the message matches only if all of them match.
 This can be changed for text fields (C{msgid}, C{msgstr}, etc.) such that
-the message matches if any of text fields match.
+the message matches if any of text fields match, using the C{of} parameter.
 In case of plural messages, C{msgid} is considered matched if either C{msgid}
 or C{msgid_plural} fields match, and C{msgstr} if any of the C{msgstr}
 fields match.
@@ -29,6 +31,27 @@ Every matching option has a counterpart with prepended C{n*},
 by which the meaning of the match is inverted; for example, if both
 C{msgid:foo} and C{nmsgid:bar} are given, then the message matches
 if its C{msgid} contains C{foo} but does not contain C{bar}.
+
+When simple AND- or OR-matching is not enough, parameter C{fexpr} can
+be used to specify full logical expressions, using any of the basic
+matchers linked with AND, OR, NOT parameters, and parenthesis.
+If a matcher needs a value (e.g. regular expressions), within expression
+it is given as C{MATCHER/VALUE/}, where another nonalphanumeric character
+can be used instead of slash if the value contains it.
+If matchers is influenced by another global parameter (e.g. case sensitivity),
+in the expression it may be able to take overriding modifiers as single
+characters after matcher name, i.e. C{MATCHER/VALUE/MODS} (or C{MATCHER/MODS}
+for parameterless matchers). Examples::
+
+    # Either msgctxt or comment contain 'foo', and msgid contains 'bar'.
+    fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'
+
+    # msgid contains 'quuk' in any casing and msgstr exactly 'Qaak'.
+    fexpr:'msgid/quuk/ and msgstr/Qaak/c'
+
+Available modifiers to matchers are:
+    - C{c}: text matching pattern is case-sensitive
+    - C{i}: text matching pattern is case-insensitive
 
 Sieve parameters for replacement:
   - C{replace:<string>}: string to replace matched part of translation
@@ -40,7 +63,6 @@ Other sieve parameters:
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
   - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
-  - C{maxchar}: ignore messages with more than this number of characters
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
@@ -71,7 +93,7 @@ import sys
 import os
 import re
 
-from pology.misc.report import error, warning
+from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.wrap import wrap_field, wrap_field_unwrap
@@ -100,6 +122,8 @@ def setup_sieve (p):
     % dict(par1="or")
     )
 
+    # NOTE: Do not add default values for matchers,
+    # we need None to see if they were issued or not.
     p.add_param("msgid", unicode, multival=True,
                 metavar="REGEX",
                 desc=
@@ -158,11 +182,39 @@ def setup_sieve (p):
                 desc=
     "Matches if the message is not plural."
     )
-    p.add_param("maxchar", int, defval=0,
+    p.add_param("maxchar", int,
                 metavar="NUM",
                 desc=
     "Matches if both the msgid and msgstr field have at most this many "
     "characters (0 or less means any number of characters)."
+    )
+    p.add_param("nmaxchar", int,
+                metavar="NUM",
+                desc=
+    "Matches if either the msgid or msgstr field have more than this many "
+    "characters (0 or less means any number of characters)."
+    )
+    p.add_param("fexpr", unicode,
+                metavar="EXPRESSION",
+                desc=
+    "Matches if the logical expression matches. "
+    "The expression is composed of direct matchers (not starting with n*), "
+    "explicitly linked with AND, OR, and NOT operators, and parenthesis. "
+    "Base matchers taking parameters are given as MATCHER/VALUE/, "
+    "where slash can be replaced with another character sed-style. "
+    "Global matching modifiers can be overriden using MATCHER/VALUE/MODS, or "
+    "MATCHER/MODS for parameterless matchers "
+    "(currently available: c/i for case-sensitive/insensitive). "
+    "Examples:"
+    "\n\n"
+    "fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'"
+    "\n\n"
+    "fexpr:'msgid/quuk/ and msgstr/Qaak/c'"
+    )
+    p.add_param("nfexpr", unicode,
+                metavar="EXPRESSION",
+                desc=
+    "Matches if the logical expression does not match."
     )
     p.add_param("or", bool, defval=False, attrname="or_match",
                 desc=
@@ -205,6 +257,20 @@ def setup_sieve (p):
 _flag_mark = u"pattern-match"
 
 
+# Matchers taking a value.
+_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment"])
+# Matchers not taking a value.
+_nop_matchers = set(["transl", "plural"])
+
+# Matchers which produce a regular expression out of their value.
+_rx_matchers = set(["msgctxt", "msgid", "msgstr", "comment"])
+
+# All matchers together.
+_all_matchers = set()
+_all_matchers.update(_op_matchers)
+_all_matchers.update(_nop_matchers)
+
+
 class Sieve (object):
 
 
@@ -214,27 +280,65 @@ class Sieve (object):
 
         self.p = params
 
-        self.rxflags = re.U
-        if not self.p.case:
-            self.rxflags |= re.I
+        # Build matching function.
+        # It takes as arguments: filtered message, message, catalog,
+        # and highlight specification (which is filled on matches).
 
-        self.field_matches = []
-        has_msgstr_match = False
-        for field in ("msgctxt", "msgid", "msgstr", "comment"):
-            rxstr = None
-            for value in getattr(params, field) or []:
-                regex = re.compile(value, self.rxflags)
-                self.field_matches.append((field, regex, False))
-                if field == "msgstr":
-                    has_msgstr_match = True
-            nfield = "n%s" % field
-            for value in getattr(params, nfield) or []:
-                regex = re.compile(value, self.rxflags)
-                self.field_matches.append((field, regex, True))
+        def create_match_group (names, negatable=False, orlinked=False):
 
+            names_negs = [(x, False) for x in names]
+            if negatable:
+                names_negs.extend([(x, True) for x in names])
+
+            matchers = []
+            for name, neg in names_negs:
+                nname = name
+                if neg:
+                    nname = "n" + name
+                values = getattr(params, nname)
+                if values is None: # parameter not given
+                    continue
+                if not isinstance(values, list):
+                    values = [values]
+                for value in values:
+                    if name == "fexpr":
+                        m = _build_expr(value, params)
+                    else:
+                        m = _create_matcher(name, value, [], params, neg)
+                    matchers.append(m)
+
+            if orlinked:
+                expr = lambda *a: reduce(lambda s, m: s or m(*a),
+                                         matchers, False)
+            else:
+                expr = lambda *a: reduce(lambda s, m: s and m(*a),
+                                         matchers, True)
+            return expr
+
+        # - first matchers which are always AND
+        expr_and = create_match_group([
+            "transl", "plural", "maxchar",
+        ], negatable=True, orlinked=False)
+
+        # - then matchers which can be AND or OR
+        expr_andor = create_match_group([
+            "msgctxt", "msgid", "msgstr", "comment",
+            "fexpr",
+        ], negatable=True, orlinked=self.p.or_match)
+
+        # - all together
+        self.matcher = lambda *a: expr_and(*a) and expr_andor(*a)
+
+        # Prepare replacement.
+        self.replrxs = []
         if self.p.replace is not None:
-            if not has_msgstr_match:
-                error("no msgstr search pattern provided for replacement")
+            if not self.p.msgstr:
+                error("cannot replace if no msgstr pattern given")
+            rxflags = re.U
+            if not self.p.case:
+                rxflags |= re.I
+            for rxstr in self.p.msgstr:
+                self.replrxs.append(re.compile(rxstr, rxflags))
 
         # Resolve filtering hooks.
         self.pfilters = []
@@ -264,14 +368,6 @@ class Sieve (object):
 
         if msg.obsolete:
             return
-        if self.p.transl and not msg.translated:
-            return
-        if self.p.ntransl and msg.translated:
-            return
-        if self.p.plural and not msg.msgid_plural:
-            return
-        if self.p.nplural and msg.msgid_plural:
-            return
 
         # Prepare filtered message for matching.
         msgf = MessageUnsafe(msg)
@@ -282,86 +378,23 @@ class Sieve (object):
             for i in range(len(msgf.msgstr)):
                 msgf.msgstr[i] = pfilter(msgf.msgstr[i])
 
-        if self.p.maxchar > 0:
-            otexts = [msgf.msgid]
-            if msgf.msgid_plural:
-                otexts.append(msgf.msgid_plural)
-            ttexts = msgf.msgstr
-            onchar = sum([len(x) for x in otexts]) // len(otexts)
-            tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
-            if onchar > self.p.maxchar or tnchar > self.p.maxchar:
-                return
-
-        # Match requested text fields.
-        match = not self.p.or_match
+        # Match the message.
         hl_spec = {}
-        for field, regex, invert in self.field_matches:
-
-            # Select texts for matching, with highlight info.
-            pfilters = []
-            if field == "msgctxt":
-                texts = [(msgf.msgctxt, "msgctxt", 0)]
-            elif field == "msgid":
-                texts = [(msgf.msgid, "msgid", 0),
-                         (msgf.msgid_plural, "msgid_plural", 0)]
-            elif field == "msgstr":
-                texts = [(msgf.msgstr[i], "msgstr", i)
-                         for i in range(len(msgf.msgstr))]
-            elif field == "comment":
-                texts = []
-                texts.extend([(msgf.manual_comment[i], "manual_comment", i)
-                              for i in range(len(msgf.manual_comment))])
-                texts.extend([(msgf.auto_comment[i], "auto_comment", i)
-                              for i in range(len(msgf.auto_comment))])
-                #FIXME: How to search flags and sources? Mind highlighting.
-                #texts.append((", ".join(msgf.flag), "flag", 0))
-                #texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
-                              #"source", 0))
-            else:
-                error("unknown search field '%s'" % field)
-
-            local_match = False
-
-            for text, hl_name, hl_item in texts:
-
-                # Check for local match (local match is OR).
-                m = regex.search(text)
-                if m:
-                    local_match = True
-
-                    hl_key = (hl_name, hl_item)
-                    if hl_key not in hl_spec:
-                        hl_spec[hl_key] = ([], text)
-                    hl_spec[hl_key][0].append(m.span())
-
-                    break
-
-            # Invert meaning of the match if requested.
-            if invert:
-                local_match = not local_match
-
-            # Check for global match.
-            if self.p.or_match:
-                match = match or local_match
-                if match:
-                    break
-            else:
-                match = match and local_match
-                if not match:
-                    break
-
-            # Do the replacement in translation if requested.
-            # NOTE: Use the real, not the filtered message.
-            if field == "msgstr" and self.p.replace is not None:
-                for i in range(len(msg.msgstr)):
-                    msg.msgstr[i] = regex.sub(self.p.replace, msg.msgstr[i])
+        match = self.matcher(msgf, msg, cat, hl_spec)
 
         if match:
             self.nmatch += 1
+
+            # Do the replacement in translation if requested.
+            # NOTE: Use the real, not the filtered message.
+            for regex in self.replrxs:
+                for i in range(len(msg.msgstr)):
+                    msg.msgstr[i] = regex.sub(self.p.replace, msg.msgstr[i])
+
             if not self.p.mark:
                 delim = "-" * 20
                 if self.nmatch == 1:
-                    print delim
+                    report(delim)
                 highlight = [x + y for x, y in hl_spec.items()]
                 report_msg_content(msg, cat, wrapf=self.wrapf, force=True,
                                    delim=delim, highlight=highlight)
@@ -376,5 +409,268 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch:
-            print "Total matching: %d" % (self.nmatch,)
+            report("Total matching: %d" % self.nmatch)
+
+
+_all_ops = set()
+_unary_ops = set(["not"])
+_all_ops.update(_unary_ops)
+_binary_ops = set(["and", "or"])
+_all_ops.update(_binary_ops)
+
+
+def _build_expr (exprstr, params):
+
+    expr, p = _build_expr_r(exprstr, 0, len(exprstr), params)
+    if p < len(exprstr):
+        error("invalid search expression: "
+              "premature end of expression after '%s'" % exprstr[:p])
+    return expr
+
+
+def _build_expr_r (exprstr, start, end, params):
+
+    p = start
+    tstack = []
+    can_unary = True
+    can_binary = False
+    can_operand = True
+    while p < end:
+        while p < end and exprstr[p].isspace() and exprstr[p] != ")":
+            p += 1
+        if p == end or exprstr[p] == ")":
+            break
+
+        # Parse current subexpression, matcher, or operator.
+        if exprstr[p] == "(":
+            if not can_operand:
+                error("invalid search expression: "
+                      "expected operator after '%s'" % exprstr[:p])
+            expr, p = _build_expr_r(exprstr, p + 1, end, params)
+            if p == end or exprstr[p] != ")":
+                error("invalid search expression: "
+                      "no closing parenthesis after '%s'" % exprstr[:p])
+            tstack.append(expr)
+            can_operand = False
+            can_unary = False
+            can_binary = True
+            p += 1
+        elif exprstr[p].isalpha():
+            pp = p
+            while p < end and exprstr[p].isalnum():
+                p += 1
+            tok = exprstr[pp:p].lower()
+            if tok in _all_ops:
+                if tok in _unary_ops and not can_unary:
+                    error("invalid search expression: "
+                          "unexpected unary operator after '%s'"
+                          % exprstr[:pp])
+                if tok in _binary_ops and not can_binary:
+                    error("invalid search expression: "
+                          "unexpected binary operator after '%s'"
+                          % exprstr[:pp])
+                can_operand = True
+                can_unary = True
+                can_binary = False
+                tstack.append(tok)
+            else:
+                if not can_operand:
+                    error("invalid search expression: "
+                          "expected operator after '%s'" % exprstr[:pp])
+                expr, p = _build_expr_matcher(tok, exprstr, p, end, params)
+                tstack.append(expr)
+                can_operand = False
+                can_unary = False
+                can_binary = True
+        else:
+            error("invalid search expression: "
+                  "expected token starting with letter after '%s'"
+                  % exprstr[:p + 1])
+
+        # Update expression as possible.
+        updated = True
+        while updated:
+            updated = False
+            if (    len(tstack) >= 2
+                and tstack[-2] in _unary_ops
+                and tstack[-1] not in _all_ops
+            ):
+                def closure (): # for closure over cexpr*
+                    cexpr1 = tstack.pop()
+                    op = tstack.pop()
+                    if op == "not":
+                        cexpr = lambda *a: not cexpr1(*a)
+                    else: # cannot happen
+                        error("invalid search expression: "
+                              "unknown unary operator '%s'" % op)
+                    return cexpr
+                tstack.append(closure())
+                updated = True
+            if (    len(tstack) >= 3
+                and tstack[-3] not in _all_ops
+                and tstack[-2] in _binary_ops
+                and tstack[-1] not in _all_ops
+            ):
+                def closure (): # for closure over cexpr*
+                    cexpr2 = tstack.pop()
+                    op = tstack.pop()
+                    cexpr1 = tstack.pop()
+                    if op == "and":
+                        cexpr = lambda *a: cexpr1(*a) and cexpr2(*a)
+                    elif op == "or":
+                        cexpr = lambda *a: cexpr1(*a) or cexpr2(*a)
+                    else: # cannot happen
+                        error("invalid search expression: "
+                              "unknown binary operator '%s'" % op)
+                    return cexpr
+                tstack.append(closure())
+                updated = True
+
+    if len(tstack) >= 2:
+        error("invalid search expression: "
+              "premature end of expression after '%s'" % exprstr[:end])
+    if len(tstack) == 0:
+        error("invalid search expression: "
+              "expected subexpression after '%s'" % exprstr[:start])
+
+    return tstack[0], p
+
+
+def _build_expr_matcher (mname, exprstr, start, end, params):
+
+    if mname not in _all_matchers:
+        error("invalid search expression: "
+              "unknown matcher '%s' after '%s'" % (mname, exprstr[:start]))
+
+    # Get matcher value, if any.
+    mval = None
+    p = start
+    if mname in _op_matchers:
+        c = exprstr[p:p + 1]
+        if p == end or c.isspace() or c.isalnum() or c in ("(", ")"):
+            error("invalid search expression: "
+                  "expected parameter delimiter after '%s'" % exprstr[:p])
+        delim = exprstr[p]
+        pp = p + 1
+        p = exprstr.find(delim, p + 1, end)
+        if p < 0:
+            error("invalid search expression: "
+                  "expected closing delimiter after '%s'" % exprstr[:end - 1])
+        mval = exprstr[pp:p]
+    # Get match modifiers, if any.
+    mmods = []
+    c = exprstr[p:p + 1]
+    if p < end and not c.isspace() and not c.isalnum() and c not in ("(", ")"):
+        p += 1
+        pp = p
+        while p < end and exprstr[p].isalnum():
+            p += 1
+        mmods = list(exprstr[pp:p])
+
+    #print "{%s}{%s}{%s}" % (mname, mval, mmods)
+    return _create_matcher(mname, mval, mmods, params), p
+
+
+_matcher_mods = {
+    "msgctxt": ["c", "i"],
+    "msgid": ["c", "i"],
+    "msgstr": ["c", "i"],
+    "comment": ["c", "i"],
+}
+
+def _create_matcher (name, value, mods, params, neg=False):
+
+    known_mods = _matcher_mods.get(name, [])
+    bad_mods = set(mods).difference(known_mods)
+    if bad_mods:
+        fmtmods = " ".join(bad_mods)
+        error("unknown modifiers to '%s' matcher: %s" % (name, fmtmods))
+
+    if name in _rx_matchers:
+        rxflags = re.U
+        if "i" in mods or (not params.case and "c" not in mods):
+            rxflags |= re.I
+        try:
+            regex = re.compile(value, rxflags)
+        except:
+            error("cannot compile regular expression '%s'" % value)
+
+    if 0: pass
+
+    elif name == "msgctxt":
+        def matcher (msgf, msg, cat, hl):
+            texts = [(msgf.msgctxt, "msgctxt", 0)]
+            return _rx_in_any_text(regex, texts, hl)
+
+    elif name == "msgid":
+        def matcher (msgf, msg, cat, hl):
+            texts = [(msgf.msgid, "msgid", 0),
+                     (msgf.msgid_plural, "msgid_plural", 0)]
+            return _rx_in_any_text(regex, texts, hl)
+
+    elif name == "msgstr":
+        def matcher (msgf, msg, cat, hl):
+            texts = [(msgf.msgstr[i], "msgstr", i)
+                     for i in range(len(msgf.msgstr))]
+            return _rx_in_any_text(regex, texts, hl)
+
+    elif name == "comment":
+        def matcher (msgf, msg, cat, hl):
+            texts = []
+            texts.extend([(msgf.manual_comment[i], "manual_comment", i)
+                          for i in range(len(msgf.manual_comment))])
+            texts.extend([(msgf.auto_comment[i], "auto_comment", i)
+                          for i in range(len(msgf.auto_comment))])
+            #FIXME: How to search flags and sources? Mind highlighting.
+            #texts.append((", ".join(msgf.flag), "flag", 0))
+            #texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
+                          #"source", 0))
+            return _rx_in_any_text(regex, texts, hl)
+
+    elif name == "transl":
+        def matcher (msgf, msg, cat, hl):
+            if value is None or value:
+                return msg.translated
+            else:
+                return not msg.translated
+
+    elif name == "plural":
+        def matcher (msgf, msg, cat, hl):
+            if value is None or value:
+                return msg.msgid_plural != ""
+            else:
+                return msg.msgid_plural == ""
+
+    elif name == "maxchar":
+        def matcher (msgf, msg, cat, hl):
+            otexts = [msgf.msgid]
+            if msgf.msgid_plural:
+                otexts.append(msgf.msgid_plural)
+            ttexts = msgf.msgstr
+            onchar = sum([len(x) for x in otexts]) // len(otexts)
+            tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
+            return onchar <= value and tnchar <= value
+
+    else:
+        error("unknown matcher '%s'" % name)
+
+    if neg:
+        return lambda *a: not matcher(*a)
+    else:
+        return matcher
+
+
+def _rx_in_any_text (regex, texts, hl):
+
+    match = False
+    for text, hl_name, hl_item in texts:
+        # Go through all matches, to highlight them all.
+        for m in regex.finditer(text):
+            hl_key = (hl_name, hl_item)
+            if hl_key not in hl:
+                hl[hl_key] = ([], text)
+            hl[hl_key][0].append(m.span())
+            match = True
+
+    return match
 
