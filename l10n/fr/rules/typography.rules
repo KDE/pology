@@ -48,7 +48,7 @@ valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
 valid before="\s?\d+(px)?;" # CSS
-valid after="font-family|font-size|font-style|font-weight|text-align|-type"# CSS
+valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|-type"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
@@ -303,6 +303,8 @@ valid before="[0-9ns]"
 valid before="[A-Za-z]\b"
 valid before="{"
 valid before="appname"
+valid before="%"
+valid after="%"
 valid after="^" before=" d'occupation"
 valid after="width=\"\d+" before="\"" # HTML
 valid after="^" before="$"
@@ -312,6 +314,7 @@ valid cat="kcron" after="^" before="H:%M$"
 valid cat="kcron" after="^%H:" before="M$"
 valid cat="kmouth" after="[flt%]"
 valid cat="kopete" before="[mst]|album|player"
+valid cat="amarok" before="track|title|artist|composer|year|album|comment|genre|ignore|initial|folder|filetype|discnumber"
 valid cat="desktop_kdebase" before="progname"
 valid cat="desktop_kdebase" before="pid"
 valid cat="desktop_kdebase" before="signum"
