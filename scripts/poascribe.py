@@ -434,6 +434,7 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     # Collect all or flagged messages (must be translated), with tags.
     fl_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
     rev_msgs_tags = []
+    non_mod_asc_msgs = []
     for msg in cat:
         if not msg.translated and not msg.fuzzy:
             continue
@@ -461,15 +462,24 @@ def ascribe_reviewed_cat (options, config, user, catpath):
                 continue
             msg.fuzzy = False
 
+        # Message cannot be ascribed as reviewed if it was not
+        # already ascribed as modified. Collect to report later.
         if not is_ascribed(msg, acats):
-            warning("%s: not all reviewed messages ascribed as modified, "
-                    "cannot ascribe reviews" % cat.filename)
-            return 0
+            non_mod_asc_msgs.append(msg)
+            continue
 
         if not tags:
             tags.append(options.tag)
 
         rev_msgs_tags.append((msg, tags))
+
+    if non_mod_asc_msgs:
+        fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
+                             for x in non_mod_asc_msgs])
+        warning("%s: not all reviewed messages ascribed as modified, "
+                "cannot ascribe reviews; unascribed: %s"
+                % (cat.filename, fmtrefs))
+        return 0
 
     if not rev_msgs_tags:
         # No messages to ascribe.
