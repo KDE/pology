@@ -578,6 +578,7 @@ valid cat="kio_ldap" msgstr="рашчлањивањ"
 id="paste"
 hint="paste = налепити"
 valid msgstr="\bналеп"
+valid msgstr="&(paste)\S*;"
 valid cat="desktop_kdebase" msgid="paste history utility"
 
 {\bpattern}i
