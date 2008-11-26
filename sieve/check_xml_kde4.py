@@ -14,26 +14,72 @@ from pology.hook.check_markup import flag_no_check_xml
 qt_catnames = (
     "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
 )
+qt_catname_ends = (
+    "_qt",
+)
+
+def is_qt_cat (name):
+
+    if name in qt_catnames:
+        return True
+    for end in qt_catname_ends:
+        if name.endswith(end):
+            return True
+    return False
+
+
+def _check_qt_w_adds (text, ents):
+
+    res = []
+
+    # Basic Qt check.
+    res.extend(check_xml_qtrich_l1(text, ents))
+
+    # No Transcript.
+    tsfence = "|/|"
+    p = text.find(tsfence)
+    if p >= 0:
+        res.append((p, p + len(tsfence),
+                    "Qt POs cannot contain scripted messages"))
+
+    return res
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Validate text markup and few other details in KDE4 POs. "
+    "These include full-bread KDE4 POs (most are such), "
+    "pure Qt POs (e.g. in qt module), and pure text POs (e.g. desktop_*)."
+    )
+    p.add_param("entdef", unicode, multival=True,
+                metavar="FILE",
+                desc=
+    "File defining any external entities used in messages "
+    "(parameter can be repeated to add more files). Entity file "
+    "defines entities one per line, in the format:"
+    "\n\n"
+    "<!ENTITY entname 'entvalue'>"
+    )
+    p.add_param("strict", bool, defval=False,
+                desc=
+    "Check translations strictly: report problems in translation regardless "
+    "of whether original itself is valid (default is to check translation "
+    "only if original passes checks)."
+    )
+
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, params, options):
 
         self.nbad = 0
 
-        # Whether to strictly check translations:
-        # if False, XML errors in translation are reported only if original
-        # itself is valid XML, otherwise errors are reported unconditionally.
-        self.strict = False
-        if "strict" in options:
-            options.accept("strict")
-            self.strict = True
+        # Whether to strictly check translations.
+        self.strict = params.strict
 
         # Files defining external entities.
-        self.entity_files = []
-        if "entdef" in options:
-            options.accept("entdef")
-            self.entity_files = options["entdef"].split(",")
+        self.entity_files = params.entdef or []
 
         # Read definitions of external entities.
         self.entities = read_entities(self.entity_files)
@@ -48,8 +94,8 @@ class Sieve (object):
         # Select type of markup to check based on catalog name.
         if cat.name.startswith("desktop_") or cat.name.startswith("xml_"):
             self.check_xml = lambda text, ents=None: []
-        elif cat.name in qt_catnames:
-            self.check_xml = check_xml_qtrich_l1
+        elif is_qt_cat(cat.name):
+            self.check_xml = _check_qt_w_adds
         else:
             self.check_xml = check_xml_kde4_l1
 
@@ -88,8 +134,8 @@ class Sieve (object):
 
         if self.nbad > 0:
             if self.strict:
-                report("Total translations with invalid XML (strict): %d"
+                report("Total translations with problems (strict): %d"
                        % self.nbad)
             else:
-                report("Total translations with invalid XML: %d" % self.nbad)
+                report("Total translations with problems: %d" % self.nbad)
 
