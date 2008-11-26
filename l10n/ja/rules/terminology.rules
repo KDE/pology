@@ -1018,6 +1018,7 @@ valid msgstr="パスワード入力ダイアログ"
 id="paste"
 hint="Paste = 貼り付け"
 valid msgstr="貼り付け"
+valid ctx="Name" msgstr="Paste"
 
 {^Pause$}
 id="pause"
