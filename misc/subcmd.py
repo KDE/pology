@@ -689,7 +689,10 @@ class SubcmdView (object):
             if p1 < 0: p1 = len(self._desc)
             p2 = self._desc.find(". ")
             if p2 < 0: p2 = len(self._desc)
-            return self._desc[:min(p1, p2)]
+            shdesc = self._desc[:min(p1, p2)].strip()
+            if shdesc.endswith("."):
+                shdesc = shdesc[:-1]
+            return shdesc
 
 
 # Check if all elements in a list are instances of given type
