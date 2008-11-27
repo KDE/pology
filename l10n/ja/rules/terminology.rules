@@ -85,6 +85,21 @@ id="aspect_ratio"
 hint="aspect ratio = アスペクト比"
 valid msgstr="アスペクト比"
 
+{\bassistant\b}i
+id="assistant"
+hint="assistant = ウィザード"
+valid after="(Qt|ruler) "
+valid before="'s name"
+valid before=" super-hero"
+valid cat="kooka"
+valid msgstr="ウィザード"
+
+{\bassistant}i
+id="assistant2"
+hint="assistant = アシスタント"
+valid msgstr="アシスタント"
+disabled
+
 {\battachments?\b}i
 id="attachment"
 hint="attachment = 添付ファイル"
@@ -163,7 +178,6 @@ id="character_set"
 hint="character set = 文字セット"
 valid msgstr="文字セット"
 valid cat="kfileshare" msgstr="Character set:"
-
 
 {\bcharsets?\b}i
 id="charset"
@@ -454,6 +468,11 @@ id="empty_trash"
 hint="Empty Trash = ごみ箱を空にする"
 valid msgstr="ごみ箱を空にする"
 
+{\bencryption certificates?}i
+id="encryption_certificate"
+hint="encryption certificate = 暗号化用証明書"
+valid msgstr="暗号化用証明書"
+
 {\bencryption keys?}i
 id="encryption_key"
 hint="encryption key = 暗号化鍵"
@@ -509,6 +528,11 @@ valid msgstr="実行ファイル"
 id="executable_program"
 hint="executable program = 実行ファイル"
 valid msgstr="実行ファイル"
+
+{\bexit ?status}i
+id="exit_status"
+hint="exit status = 終了ステータス"
+valid msgstr="終了ステータス"
 
 {^Expand All$}
 id="expand_all"
@@ -1324,6 +1348,11 @@ valid !msgstr="サーバー"
 id="shrink_font"
 hint="Shrink Font = フォントサイズを小さく"
 valid msgstr="フォントサイズを小さく"
+
+{\bsigning certificates?}i
+id="signing_certificate"
+hint="signing certificate = 署名用証明書"
+valid msgstr="署名用証明書"
 
 {\bsigning keys?}i
 id="signing_key"
