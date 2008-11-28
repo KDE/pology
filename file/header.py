@@ -27,6 +27,7 @@ _Header_spec = {
                "spec" : {"*" : {"type" : Monpair,
                                 "spec" : {"first" : {"type" : unicode},
                                           "second" : {"type" : unicode}}}}},
+    "initialized" : {"type" : bool, "derived" : True},
     # Dummies for summary iteration in catalog:
     "obsolete" : {"type" : bool, "derived" : True},
     "key" : {"type" : bool, "derived" : True},
@@ -66,6 +67,9 @@ class Header (Monitored):
 
     @ivar field: parsed header fields as key-value string pairs
     @type field: list* of pairs*
+
+    @ivar initialized: (read-only) whether the header is fully initialized
+    @type initialized: bool
 
     @see: L{Message}
     """
@@ -157,6 +161,18 @@ class Header (Monitored):
             return False
         elif att == "key":
             return Message().key # key of an empty-msgid message
+        elif att == "initialized":
+            # Check if all necessary fields have been initialized.
+            gfv = self.get_field_value
+            return not (False
+               or "PACKAGE VERSION" in gfv("Project-Id-Version")
+               or "YEAR-MO-DA" in gfv("PO-Revision-Date")
+               or "FULL NAME" in gfv("Language-Team")
+               or "LANGUAGE" in gfv("Language-Team")
+               or "CHARSET" in gfv("Content-Type")
+               or "INTEGER" in gfv("Plural-Forms")
+               or "EXPRESSION" in gfv("Plural-Forms")
+            )
         else:
             return Monitored.__getattr__(self, att)
 
