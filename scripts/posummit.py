@@ -1173,8 +1173,9 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
             print   "%s:%d(%d): message not in the summit" \
                   % (branch_path, branch_msg.refline, branch_msg.refentry)
 
-    # Update header only if the branch catalog was otherwise modified.
-    if branch_cat.modcount:
+    # Update header only if the branch catalog was otherwise modified,
+    # or if the branch catalog header is not initialized.
+    if branch_cat.modcount or not branch_cat.header.initialized:
         # Give priority to the first summit catalog.
         summit_cat = summit_cats[0]
 
