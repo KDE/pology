@@ -167,7 +167,7 @@ class Header (Monitored):
             return not (False
                or "PACKAGE VERSION" in gfv("Project-Id-Version")
                or "YEAR-MO-DA" in gfv("PO-Revision-Date")
-               or "FULL NAME" in gfv("Language-Team")
+               or "FULL NAME" in gfv("Last-Translator")
                or "LANGUAGE" in gfv("Language-Team")
                or "CHARSET" in gfv("Content-Type")
                or "INTEGER" in gfv("Plural-Forms")
@@ -203,6 +203,10 @@ class Header (Monitored):
             m.msgstr = Monlist([u""])
             for field in self.field:
                 m.msgstr[0] += "%s: %s\\n" % tuple(field)
+
+        if force or self.modcount:
+            if m.fuzzy and self.initialized:
+                m.fuzzy = False
 
 
     def to_msg (self, force=False):
