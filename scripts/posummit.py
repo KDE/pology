@@ -15,6 +15,7 @@ from optparse import OptionParser
 import md5
 import filecmp
 import locale
+import time
 
 SUMMIT_ID = "+"
 
@@ -143,6 +144,12 @@ class Project (object):
 
             "header_propagate_fields_summed" : [],
             "header_propagate_fields_primary" : [],
+
+            "vivify_on_merge" : False,
+            "vivify_w_translator" : "Simulacrum",
+            "vivify_w_langteam" : "Nevernessian",
+            "vivify_w_charset" : "UTF-8",
+            "vivify_w_plurals" : "",
         })
         self.__dict__["locked"] = False
 
@@ -356,6 +363,29 @@ def derive_project_data (project, options):
 
                         # Add branch catalog entry.
                         p.catalogs[branch.id][branch_name] = branch_catalogs
+
+    # At merge in template-summit mode,
+    # if automatic vivification of summit catalogs requested,
+    # add to the collection of summit catalogs any that should be created.
+    p.add_on_merge = {}
+    if (    p.templates_lang and options.lang != p.templates_lang
+        and "merge" in options.modes and p.vivify_on_merge
+    ):
+        # Collect all summit templates.
+        summit_templates = collect_catalogs(p.summit.topdir_templates,
+                                            ".pot", False,
+                                            project, options)
+
+        # Go through all summit templates, recording missing summit catalogs.
+        for name, spec in summit_templates.iteritems():
+            tpath, tsubdir = spec[0] # all summit catalogs unique
+            if name not in p.catalogs[SUMMIT_ID]:
+                # Compose the summit catalog path.
+                spath = os.path.join(p.summit.topdir, tsubdir, name + ".po")
+                # Add this file to summit catalog entries.
+                p.catalogs[SUMMIT_ID][name] = [(spath, tsubdir)]
+                # Record later initialization from template.
+                p.add_on_merge[spath] = tpath
 
     # Convenient dictionary views of mappings.
     # - direct: branch_id->branch_name->summit_name
@@ -1432,15 +1462,21 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
 def summit_merge_single (branch_id, catalog_path, template_path,
                          unwrap, split_tags, project, options):
 
-    # Call msgmerge to create the temporary merged catalog.
-    tmp_dir = os.path.join("tmp", "summit-merge-%d" % os.getpid())
+    tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
     mkdirpath(tmp_dir)
     tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
-    cmdline = "msgmerge --quiet --previous %s %s -o %s "
-    cmdline %= (catalog_path, template_path, tmp_path)
-    if unwrap:
-        cmdline += "--no-wrap "
-    assert_system(cmdline)
+    vivified = False
+    if catalog_path not in project.add_on_merge:
+        # Call msgmerge to create the temporary merged catalog.
+        cmdline = "msgmerge --quiet --previous %s %s -o %s "
+        cmdline %= (catalog_path, template_path, tmp_path)
+        if unwrap:
+            cmdline += "--no-wrap "
+        assert_system(cmdline)
+    else:
+        # Create pristine catalog from template.
+        vivified = True
+        shutil.copyfile(template_path, tmp_path)
 
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
@@ -1453,7 +1489,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     headonly = False
     if split_tags:
         do_open = True
-    elif header_prop_fields or project.hook_on_merge_head:
+    elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
         headonly = True
 
@@ -1464,7 +1500,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Is monitored or non-monitored opening required?
     monitored = False
-    if header_prop_fields or project.hook_on_merge_head:
+    if header_prop_fields or project.hook_on_merge_head or vivified:
         monitored = True
 
     #print do_open, do_open_template, headonly, monitored
@@ -1476,6 +1512,27 @@ def summit_merge_single (branch_id, catalog_path, template_path,
                       headonly=headonly)
         if do_open_template:
             tcat = Catalog(template_path, monitored=False, headonly=headonly)
+
+    # Initialize header if the catalog has been vivified from template.
+    if vivified:
+        hdr = cat.header
+        hdr.title = Monlist()
+        hdr.copyright = u""
+        hdr.license = u""
+        hdr.author = Monlist()
+        hdr.comment = Monlist()
+        if "PACKAGE" in hdr.get_field_value("Project-Id-Version", ""):
+            hdr.set_field(u"Project-Id-Version", unicode(cat.name))
+        rdate = time.strftime("%Y-%m-%d %H:%M%z")
+        hdr.set_field(u"PO-Revision-Date", unicode(rdate))
+        hdr.set_field(u"Last-Translator", unicode(project.vivify_w_translator))
+        hdr.set_field(u"Language-Team", unicode(project.vivify_w_langteam))
+        hdr.set_field(u"Content-Type",
+                      u"text/plain; charset=%s" % project.vivify_w_charset)
+        if project.vivify_w_plurals:
+            hdr.set_field(u"Plural-Forms", unicode(project.vivify_w_plurals))
+        else:
+            hdr.remove_field(u"Plural-Forms")
 
     # Propagate requested header fields.
     if header_prop_fields:
@@ -1516,10 +1573,16 @@ def summit_merge_single (branch_id, catalog_path, template_path,
                        project.hook_on_merge_file)
 
     # If there is any difference between merged and old catalog.
-    if not filecmp.cmp(catalog_path, tmp_path):
+    if vivified or not filecmp.cmp(catalog_path, tmp_path):
         # Assert correctness of the merged catalog and move over the old.
         assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
         shutil.move(tmp_path, catalog_path)
+
+        # Add to version control if not already added.
+        if project.vcs and not project.vcs.is_versioned(catalog_path):
+            if not project.vcs.add(catalog_path):
+                warning(  "cannot add '%s' to version control"
+                        % catalog_path)
 
         if options.verbose:
             print ".    (merged) %s" % catalog_path
