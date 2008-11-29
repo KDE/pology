@@ -268,7 +268,9 @@ def setup_sieve (p):
     )
     p.add_param("notab", bool, defval=True, attrname="table",
                 desc=
-    "Do not show main table with statistics."
+    "Do not show main table with statistics. "
+    "If no bar-display parameter has been issued, '%s' is selected "
+    "automatically." % ("msgbar")
     )
     p.add_param("wbar", bool, defval=False,
                 desc=
@@ -307,6 +309,10 @@ class Sieve (object):
                 self.tspec_repl = ""
             else:
                 self.tspec_srch, self.tspec_repl = self.p.templates.split(":", 1)
+
+        # Automatically select a bar view if none given and table not displayed.
+        if not (self.p.table or self.p.msgbar or self.p.wbar):
+            self.p.msgbar = True
 
         # Filenames of catalogs which are not fully translated.
         self.incomplete_catalogs = {}
