@@ -150,6 +150,8 @@ class Project (object):
             "vivify_w_langteam" : "Nevernessian",
             "vivify_w_charset" : "UTF-8",
             "vivify_w_plurals" : "",
+
+            "compendium_on_merge" : "",
         })
         self.__dict__["locked"] = False
 
@@ -1465,18 +1467,28 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
     mkdirpath(tmp_dir)
     tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
+
+    # Create pristine catalog by copying from template if needed.
     vivified = False
-    if catalog_path not in project.add_on_merge:
-        # Call msgmerge to create the temporary merged catalog.
-        cmdline = "msgmerge --quiet --previous %s %s -o %s "
-        cmdline %= (catalog_path, template_path, tmp_path)
-        if unwrap:
-            cmdline += "--no-wrap "
-        assert_system(cmdline)
-    else:
-        # Create pristine catalog from template.
+    if catalog_path in project.add_on_merge:
         vivified = True
         shutil.copyfile(template_path, tmp_path)
+
+    # Call msgmerge to create the temporary merged catalog.
+    if not vivified or project.compendium_on_merge:
+        catalog_path_mod = catalog_path
+        if vivified:
+            catalog_path_mod = "/dev/null"
+        cmdline = ("msgmerge --quiet --previous %s %s -o %s "
+                % (catalog_path_mod, template_path, tmp_path))
+        if unwrap:
+            cmdline += "--no-wrap "
+        if project.compendium_on_merge:
+            if not os.path.isfile(project.compendium_on_merge):
+                error("compendium not found at expected path '%s'"
+                    % project.compendium_on_merge)
+            cmdline += "--compendium %s " % project.compendium_on_merge
+        assert_system(cmdline)
 
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
@@ -1495,7 +1507,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Should template catalog be opened too?
     do_open_template = False
-    if header_prop_fields:
+    if header_prop_fields or vivified:
         do_open_template = True
 
     # Is monitored or non-monitored opening required?
@@ -1521,8 +1533,12 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         hdr.license = u""
         hdr.author = Monlist()
         hdr.comment = Monlist()
-        if "PACKAGE" in hdr.get_field_value("Project-Id-Version", ""):
-            hdr.set_field(u"Project-Id-Version", unicode(cat.name))
+        # Get the project ID from template;
+        # if it gives default value, use catalog name instead.
+        projid = tcat.header.get_field_value("Project-Id-Version")
+        if not projid or "PACKAGE" in projid:
+            projid = cat.name
+        hdr.set_field(u"Project-Id-Version", unicode(projid))
         rdate = time.strftime("%Y-%m-%d %H:%M%z")
         hdr.set_field(u"PO-Revision-Date", unicode(rdate))
         hdr.set_field(u"Last-Translator", unicode(project.vivify_w_translator))
@@ -1559,11 +1575,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
-        force = False
-        if split_tags:
-            wrapf = get_wrap_func(unwrap, split_tags)
-            force=True
-        cat.sync(force=force)
+        cat.sync(force=split_tags)
 
     # Execute file hooks.
     if project.hook_on_merge_file:
@@ -1576,6 +1588,8 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     if vivified or not filecmp.cmp(catalog_path, tmp_path):
         # Assert correctness of the merged catalog and move over the old.
         assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
+        if vivified:
+            mkdirpath(os.path.dirname(catalog_path))
         shutil.move(tmp_path, catalog_path)
 
         # Add to version control if not already added.
