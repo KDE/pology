@@ -369,7 +369,7 @@ class Header (Monitored):
                 ins_pos = i
                 # Do not break, must try all fields for value replacement.
 
-        if reorder and ins_pos >= 0 and ins_pos != rpl_pos:
+        if reorder and ins_pos >= 0 and rpl_pos >= 0 and ins_pos != rpl_pos:
             self._field.pop(rpl_pos)
             if ins_pos > rpl_pos:
                 ins_pos -= 1
