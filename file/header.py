@@ -165,13 +165,13 @@ class Header (Monitored):
             # Check if all necessary fields have been initialized.
             gfv = self.get_field_value
             return not (False
-               or "PACKAGE VERSION" in gfv("Project-Id-Version")
-               or "YEAR-MO-DA" in gfv("PO-Revision-Date")
-               or "FULL NAME" in gfv("Last-Translator")
-               or "LANGUAGE" in gfv("Language-Team")
-               or "CHARSET" in gfv("Content-Type")
-               or "INTEGER" in gfv("Plural-Forms")
-               or "EXPRESSION" in gfv("Plural-Forms")
+               or "PACKAGE VERSION" in gfv("Project-Id-Version", "")
+               or "YEAR-MO-DA" in gfv("PO-Revision-Date", "")
+               or "FULL NAME" in gfv("Last-Translator", "")
+               or "LANGUAGE" in gfv("Language-Team", "")
+               or "CHARSET" in gfv("Content-Type", "")
+               or "INTEGER" in gfv("Plural-Forms", "")
+               or "EXPRESSION" in gfv("Plural-Forms", "")
             )
         else:
             return Monitored.__getattr__(self, att)
