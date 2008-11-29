@@ -1237,20 +1237,21 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     # If the branch catalog has been newly created,
     # see if it is translated enough to be really written out.
     skip_write = False
-    if new_from_template:
+    if new_from_template and not options.force:
         ntrans = 0
         for msg in branch_cat:
             if msg.translated:
                 ntrans += 1
-        if float(ntrans) / len(branch_cat) >= project.scatter_min_completeness:
-            # Create any needed subdirectories and set destination branch path.
-            mkdirpath(os.path.dirname(branch_path))
-            branch_cat.filename = branch_path
-        else:
+        if float(ntrans) / len(branch_cat) < project.scatter_min_completeness:
             skip_write = True
 
+    if new_from_template and not skip_write:
+        # Create any needed subdirectories and set destination branch path.
+        mkdirpath(os.path.dirname(branch_path))
+        branch_cat.filename = branch_path
+
     # Commit changes to the branch catalog.
-    if not skip_write and (options.force or branch_cat.sync()):
+    if not skip_write and (branch_cat.sync() or options.force):
 
         # Apply hooks to branch catalog file.
         exec_hook_file(branch_id, branch_name, branch_cat.filename,
