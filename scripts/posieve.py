@@ -381,7 +381,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     all_nacc_params = set(sopts.unaccepted().keys())
     all_nacc_params = all_nacc_params.intersection(set(nacc_params))
     if all_nacc_params:
-        error("no sieve has accepted these parameters: %s" % all_nacc_params)
+        error("no sieve has accepted these parameters: %s"
+              % ", ".join(all_nacc_params))
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.
