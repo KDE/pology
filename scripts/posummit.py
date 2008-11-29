@@ -152,6 +152,8 @@ class Project (object):
             "vivify_w_plurals" : "",
 
             "compendium_on_merge" : "",
+
+            "scatter_min_completeness" : 0.0,
         })
         self.__dict__["locked"] = False
 
@@ -1143,15 +1145,16 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
     # See if the branch catalog is to be newly created from the template.
     new_from_template = False
+    branch_path_mod = branch_path
     if branch_path in project.add_on_scatter:
         new_from_template = True
-        # Create any needed subdirectories beforehand.
-        mkdirpath(os.path.dirname(branch_path))
-        # Copy over the recorded template as the initial catalog.
-        shutil.copyfile(project.add_on_scatter[branch_path], branch_path)
+        # Initialize new catalog with messages directly from the template.
+        # Later the catalog file name will be switched to branch path,
+        # if the catalog satisfies criteria to be created on scatter.
+        branch_path_mod = project.add_on_scatter[branch_path]
 
     # Open the branch catalog and all summit catalogs.
-    branch_cat = Catalog(branch_path, wrapf=wrapf)
+    branch_cat = Catalog(branch_path_mod, wrapf=wrapf)
     summit_cats = [Catalog(x) for x in summit_paths]
 
     # Go through messages in the branch catalog.
@@ -1231,8 +1234,23 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     exec_hook_cat(branch_id, branch_name, branch_cat,
                   project.hook_on_scatter_cat)
 
+    # If the branch catalog has been newly created,
+    # see if it is translated enough to be really written out.
+    skip_write = False
+    if new_from_template:
+        ntrans = 0
+        for msg in branch_cat:
+            if msg.translated:
+                ntrans += 1
+        if float(ntrans) / len(branch_cat) >= project.scatter_min_completeness:
+            # Create any needed subdirectories and set destination branch path.
+            mkdirpath(os.path.dirname(branch_path))
+            branch_cat.filename = branch_path
+        else:
+            skip_write = True
+
     # Commit changes to the branch catalog.
-    if branch_cat.sync() or options.force:
+    if not skip_write and (options.force or branch_cat.sync()):
 
         # Apply hooks to branch catalog file.
         exec_hook_file(branch_id, branch_name, branch_cat.filename,
