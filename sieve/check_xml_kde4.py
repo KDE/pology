@@ -13,7 +13,7 @@ from pology.hook.check_markup import flag_no_check_xml
 # Pure Qt POs in KDE repository.
 qt_catnames = (
     "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
-    "kdgantt1",
+    "kdgantt1", "kdgantt",
 )
 qt_catname_ends = (
     "_qt",
