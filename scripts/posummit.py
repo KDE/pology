@@ -1489,27 +1489,27 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
 
-    # Create pristine catalog by copying from template if needed.
-    vivified = False
-    if catalog_path in project.add_on_merge:
-        vivified = True
-        shutil.copyfile(template_path, tmp_path)
+    # Whether to create pristine catalog from template.
+    vivified = catalog_path in project.add_on_merge
 
     # Call msgmerge to create the temporary merged catalog.
-    if not vivified or use_compendium:
-        catalog_path_mod = catalog_path
-        if vivified:
-            catalog_path_mod = "/dev/null"
-        cmdline = ("msgmerge --quiet --previous %s %s -o %s "
-                % (catalog_path_mod, template_path, tmp_path))
-        if unwrap:
-            cmdline += "--no-wrap "
+    catalog_path_mod = catalog_path
+    if vivified:
         if use_compendium:
-            if not os.path.isfile(project.compendium_on_merge):
-                error("compendium not found at expected path '%s'"
-                    % project.compendium_on_merge)
-            cmdline += "--compendium %s " % project.compendium_on_merge
-        assert_system(cmdline)
+            catalog_path_mod = "/dev/null"
+        else:
+            catalog_path_mod = tmp_path
+            shutil.copyfile(template_path, tmp_path)
+    cmdline = ("msgmerge --quiet --previous %s %s -o %s "
+            % (catalog_path_mod, template_path, tmp_path))
+    if unwrap:
+        cmdline += "--no-wrap "
+    if use_compendium:
+        if not os.path.isfile(project.compendium_on_merge):
+            error("compendium not found at expected path '%s'"
+                % project.compendium_on_merge)
+        cmdline += "--compendium %s " % project.compendium_on_merge
+    assert_system(cmdline)
 
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
