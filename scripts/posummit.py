@@ -1487,6 +1487,8 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     mkdirpath(tmp_dir)
     tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
 
+    use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
+
     # Create pristine catalog by copying from template if needed.
     vivified = False
     if catalog_path in project.add_on_merge:
@@ -1494,7 +1496,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         shutil.copyfile(template_path, tmp_path)
 
     # Call msgmerge to create the temporary merged catalog.
-    if not vivified or project.compendium_on_merge:
+    if not vivified or use_compendium:
         catalog_path_mod = catalog_path
         if vivified:
             catalog_path_mod = "/dev/null"
@@ -1502,7 +1504,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
                 % (catalog_path_mod, template_path, tmp_path))
         if unwrap:
             cmdline += "--no-wrap "
-        if project.compendium_on_merge:
+        if use_compendium:
             if not os.path.isfile(project.compendium_on_merge):
                 error("compendium not found at expected path '%s'"
                     % project.compendium_on_merge)
@@ -1607,7 +1609,9 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     if vivified or not filecmp.cmp(catalog_path, tmp_path):
         # Assert correctness of the merged catalog and move over the old.
         assert_system("msgfmt -c -o/dev/null %s " % tmp_path)
+        added = False
         if vivified:
+            added = True
             mkdirpath(os.path.dirname(catalog_path))
         shutil.move(tmp_path, catalog_path)
 
@@ -1616,11 +1620,19 @@ def summit_merge_single (branch_id, catalog_path, template_path,
             if not project.vcs.add(catalog_path):
                 warning(  "cannot add '%s' to version control"
                         % catalog_path)
+            else:
+                added = True
 
         if options.verbose:
-            print ".    (merged) %s" % catalog_path
+            if added:
+                print "+.   (merged-added) %s" % catalog_path
+            else:
+                print ".    (merged) %s" % catalog_path
         else:
-            print ".    %s" % catalog_path
+            if added:
+                print "+.   %s" % catalog_path
+            else:
+                print ".    %s" % catalog_path
     else:
         # Remove the temporary merged catalog.
         os.unlink(tmp_path)
