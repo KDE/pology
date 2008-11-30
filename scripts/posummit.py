@@ -8,6 +8,7 @@ from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
+from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
 
 import sys, os, imp, shutil, re
@@ -186,7 +187,7 @@ class Project (object):
 
         # Resolve relative paths as relative to current root dir.
         if not os.path.isabs(path):
-            new_path = os.path.normpath(os.path.join(self._rootdir, new_path))
+            new_path = join_ncwd(self._rootdir, new_path)
 
         return new_path
 
@@ -358,7 +359,7 @@ def derive_project_data (project, options):
                                 poname = branch.by_lang + ".po"
                             else:
                                 poname = branch_name + ".po"
-                            path = os.path.join(branch.topdir, subdir, poname)
+                            path = join_ncwd(branch.topdir, subdir, poname)
                             # Add this file to catalog entry.
                             #print "----->", branch_name, path, subdir
                             branch_catalogs.append((path, subdir))
@@ -385,7 +386,7 @@ def derive_project_data (project, options):
             tpath, tsubdir = spec[0] # all summit catalogs unique
             if name not in p.catalogs[SUMMIT_ID]:
                 # Compose the summit catalog path.
-                spath = os.path.join(p.summit.topdir, tsubdir, name + ".po")
+                spath = join_ncwd(p.summit.topdir, tsubdir, name + ".po")
                 # Add this file to summit catalog entries.
                 p.catalogs[SUMMIT_ID][name] = [(spath, tsubdir)]
                 # Record later initialization from template.
@@ -433,8 +434,8 @@ def derive_project_data (project, options):
                     summit_subdir = branch_dir
                     if p.bdict[branch_id].by_lang:
                         summit_subdir = os.path.dirname(summit_subdir)
-                    summit_path = os.path.join(p.summit.topdir, summit_subdir,
-                                               summit_name + options.catext)
+                    summit_path = join_ncwd(p.summit.topdir, summit_subdir,
+                                            summit_name + options.catext)
 
                     # Add missing summit catalog if the mode is gather
                     # and creation is enabled.
@@ -527,7 +528,7 @@ def collect_catalogs (topdir, catext, by_lang, project, options):
     for root, dirs, files in os.walk(topdir):
         for file in files:
             catn = ""
-            fpath = os.path.join(root, file)
+            fpath = join_ncwd(root, file)
             if by_lang is None or catext == ".pot":
                 if file.endswith(catext):
                     catn = file[0:file.rfind(".")]
