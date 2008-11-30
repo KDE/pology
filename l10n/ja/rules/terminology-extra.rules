@@ -43,6 +43,7 @@ id="web-j"
 hint="Web = ウェブ [片仮名で書いてください]"
 valid ctx="Query"
 valid msgstr="Java Web Start"
+valid span="^Web$" ctx="Name"
 
 [bittorrent|Bittorrent]
 id="bittorent-j"

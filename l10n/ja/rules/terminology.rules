@@ -166,7 +166,6 @@ id="cancel"
 hint="Cancel = キャンセル"
 valid msgstr="キャンセル"
 
-# @gloss-new
 {\bcapture}i
 id="capture"
 hint="capture = キャプチャ"
@@ -385,14 +384,12 @@ id="discard_changes"
 hint="Discard Changes = 変更を破棄"
 valid msgstr="変更を破棄"
 
-# @gloss-new
 {\bdisplay}i
 id="display"
 hint="display = ディスプレイ"
 valid msgstr="ディスプレイ"
 disabled
 
-# @gloss-new
 {\bdisplay}i
 id="display2"
 hint="display = 表示"
@@ -713,6 +710,24 @@ hint="Forward = フォワード [ポートをフォワード]"
 valid !msgid="\bports?\b"
 valid msgstr="フォワード"
 
+{\bframe}i
+id="frame"
+hint="frame = 枠 [ウィンドウの装飾]"
+valid msgstr="枠"
+disabled
+
+{\bframe}i
+id="frame2"
+hint="frame = フレーム [ウェブページのフレーム]"
+valid msgstr="フレーム"
+disabled
+
+{\bframe}i
+id="frame3"
+hint="frame = フレーム [伝送単位]"
+valid msgstr="フレーム"
+disabled
+
 {\bfree ?space\b}i
 id="free_space"
 hint="free space = 空き容量|空き領域"
@@ -847,6 +862,7 @@ valid after="secret " msgstr="秘密鍵のペア"
 {\blaunchers?\b}i
 id="launcher"
 hint="launcher = ランチャー"
+valid after="compiz-kde-"
 valid msgstr="ランチャー" !msgstr="ランチャ(?!ー)|ラウンチャー?"
 
 {\bline break}i
@@ -911,14 +927,12 @@ id="modifier_key"
 hint="modifier key = 修飾キー"
 valid msgstr="修飾キー"
 
-# @gloss-new
 {\bmonitor}i
 id="monitor"
 hint="monitor = モニタ"
 valid msgstr="モニタ"
 disabled
 
-# @gloss-new
 {\bmonitor}i
 id="monitor2"
 hint="monitor = 監視"
