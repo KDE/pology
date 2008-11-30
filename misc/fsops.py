@@ -305,3 +305,30 @@ def lines_from_file (filepath, encoding="UTF-8"):
 
     return lines
 
+
+def join_ncwd (*elements):
+    """
+    Join path and normalize it with respect to current working directory.
+
+    Path elements are joined with C{os.path.join} and the joined path
+    normalized by C{os.path.normpath}.
+    The normalized path is then made relative to current working directory
+    if it points to a location within current working directory.
+
+    @param elements: path elements
+    @type elements: varlist
+
+    @returns: normalized joined path
+    @rtype: string
+    """
+
+    path = os.path.join(*elements)
+    cwd = os.getcwd() + os.path.sep
+    apath = os.path.abspath(path)
+    if apath.startswith(cwd):
+        path = apath[len(cwd):]
+    else:
+        path = os.path.normpath(path)
+
+    return path
+
