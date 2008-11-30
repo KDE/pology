@@ -170,6 +170,7 @@ class Header (Monitored):
                or "FULL NAME" in gfv("Last-Translator", "")
                or "LANGUAGE" in gfv("Language-Team", "")
                or "CHARSET" in gfv("Content-Type", "")
+               or "ENCODING" in gfv("Content-Transfer-Encoding", "")
                or "INTEGER" in gfv("Plural-Forms", "")
                or "EXPRESSION" in gfv("Plural-Forms", "")
             )

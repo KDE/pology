@@ -168,6 +168,11 @@ class Sieve (object):
             ctval = u"text/plain; charset=%s" % self.encoding
             hdr.set_field(u"Content-Type", unicode(ctval))
 
+        # - transfer encoding
+        fval = hdr.get_field_value("Content-Transfer-Encoding")
+        if fval is not None and ("ENCODING" in fval or init):
+            hdr.set_field(u"Content-Transfer-Encoding", u"8bit")
+
         # - plural forms
         fval = hdr.get_field_value("Plural-Forms")
         if self.plforms and fval is not None and ("INTEGER" in fval or init):

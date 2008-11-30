@@ -1568,6 +1568,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         hdr.set_field(u"Language-Team", unicode(project.vivify_w_langteam))
         hdr.set_field(u"Content-Type",
                       u"text/plain; charset=%s" % project.vivify_w_charset)
+        hdr.set_field(u"Content-Transfer-Encoding", u"8bit")
         if project.vivify_w_plurals:
             hdr.set_field(u"Plural-Forms", unicode(project.vivify_w_plurals))
         else:
