@@ -431,6 +431,8 @@ def derive_project_data (project, options):
                     branch_path, branch_dir = \
                         p.catalogs[branch_id][branch_name][0]
                     summit_subdir = branch_dir
+                    if p.bdict[branch_id].by_lang:
+                        summit_subdir = os.path.dirname(summit_subdir)
                     summit_path = os.path.join(p.summit.topdir, summit_subdir,
                                                summit_name + options.catext)
 
