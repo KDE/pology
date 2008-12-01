@@ -621,10 +621,10 @@ def _create_matcher (name, value, mods, params, neg=False):
                           for i in range(len(msgf.manual_comment))])
             texts.extend([(msgf.auto_comment[i], "auto_comment", i)
                           for i in range(len(msgf.auto_comment))])
-            #FIXME: How to search flags and sources? Mind highlighting.
+            texts.extend([(msgf.source[i][0], "source", i)
+                          for i in range(len(msgf.source))])
+            #FIXME: How to search flags? Mind highlighting.
             #texts.append((", ".join(msgf.flag), "flag", 0))
-            #texts.append((" ".join(["%s:%s" % x for x in msgf.source]),
-                          #"source", 0))
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "transl":

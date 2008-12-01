@@ -23,6 +23,7 @@ from pology.file.message import Message
 from pology.misc.wrap import wrap_field
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape
+from pology.misc.monitored import Monpair
 
 
 def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
@@ -292,7 +293,9 @@ def report_msg_content (msg, cat,
                 msg.auto_comment[item] = hl(msg.auto_comment[item],
                                             ffmsg.auto_comment[item])
             elif name == "source":
-                pass # FIXME: How to do this?
+                msg.source[item] = Monpair(hl(msg.source[item][0],
+                                              ffmsg.source[item][0]),
+                                           msg.source[item][1])
             elif name == "flag":
                 pass # FIXME: How to do this?
             else:
