@@ -18,9 +18,8 @@ Sieve options:
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{bydir}: display report by each leaf directory, followed by totals
   - C{byfile}: display report by each catalog, followed by totals
-  - C{msgbar}: show an ASCII bar giving overview of message counts
-  - C{wbar}: show an ASCII bar giving overview of word counts
-  - C{notab}: do not show the table (typically when bars are enabled)
+  - C{msgbar}: show statistics as ASCII bar of message counts
+  - C{wbar}: show statistics as ASCII bar of word counts
   - C{absolute}: make bars show absolute rather than relative info
 
 The accelerator characters should be removed from the messages before
@@ -128,18 +127,16 @@ Output Legend
     C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
     two summed.
 
-    When options C{msgbar} or C{wbar} are in effect, then bellow the table
-    an ASCII bar is displayed, giving visual relation between numbers of
+    When options C{msgbar} or C{wbar} are in effect, statistics is given
+    in the form of an ASCII bar, giving visual relation between numbers of
     translated, fuzzy, and untranslated messages or words::
 
         $ posieve.py stats -swbar frobaz/
-        (...the stats table...)
         4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
 
-    The output of the table can be prevented using the C{notab} option.
     A typical condensed overview of translation state is obtained by::
 
-        $ posieve.py stats frobaz/ -sbyfile -smsgbar -snotab
+        $ posieve.py stats -sbyfile -smsgbar frobaz/
         --- frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
         --- frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
         --- frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
@@ -266,12 +263,6 @@ def setup_sieve (p):
                 desc=
     "Report statistics per catalog."
     )
-    p.add_param("notab", bool, defval=True, attrname="table",
-                desc=
-    "Do not show main table with statistics. "
-    "If no bar-display parameter has been issued, '%s' is selected "
-    "automatically." % ("msgbar")
-    )
     p.add_param("wbar", bool, defval=False,
                 desc=
     "Show statistics in form of word bars."
@@ -310,9 +301,10 @@ class Sieve (object):
             else:
                 self.tspec_srch, self.tspec_repl = self.p.templates.split(":", 1)
 
-        # Automatically select a bar view if none given and table not displayed.
-        if not (self.p.table or self.p.msgbar or self.p.wbar):
-            self.p.msgbar = True
+        # Turn off table display if a bar view has been selected.
+        self.p.table = True
+        if self.p.msgbar or self.p.wbar:
+            self.p.table = False
 
         # Filenames of catalogs which are not fully translated.
         self.incomplete_catalogs = {}
@@ -859,7 +851,10 @@ class Sieve (object):
 
         else:
             # Relative bar.
-            n_per_cell = float(nombarcw) / count["tot"][dcolumn]
+            if count["tot"][dcolumn] > 0:
+                n_per_cell = float(nombarcw) / count["tot"][dcolumn]
+            else:
+                n_per_cell = 0
             for tkey in ("fuz", "unt"):
                 c = count[tkey][dcolumn]
                 n_cells[tkey] = roundup(c * n_per_cell)
@@ -894,6 +889,8 @@ class Sieve (object):
                 showbar = title.startswith(self._tpref_dir)
 
         if showbar:
+            if count["tot"][dcolumn] == 0:
+                fmt_bar = ""
             print "%s %s |%s|" % (fmt_counts, dlabel, fmt_bar)
         else:
             print "%s %s" % (fmt_counts, dlabel)
