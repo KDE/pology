@@ -419,10 +419,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         print "--> Opening catalogs in header-only mode"
 
     # Assemble list of files.
-    file_or_dir_paths = op.raw_paths or ["."]
+    file_or_dir_paths = op.raw_paths
     if op.files_from:
         flines = open(op.files_from, "r").readlines()
-        file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
+        for fline in flines:
+            fline = fline.rstrip("\n")
+            if fline:
+                file_or_dir_paths.append(fline)
+    elif not file_or_dir_paths:
+        file_or_dir_paths = ["."]
     fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy for modified messages.
