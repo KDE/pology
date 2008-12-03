@@ -1001,14 +1001,14 @@ def summit_gather_single (summit_name, project, options):
 
         if options.verbose:
             if added:
-                print "+>   (gathered-added) %s  %s" % (summit_cat.filename,
+                print ">+   (gathered-added) %s  %s" % (summit_cat.filename,
                                                         paths_str)
             else:
                 print ">    (gathered) %s  %s" % (summit_cat.filename,
                                                   paths_str)
         else:
             if added:
-                print "+>   %s  %s" % (summit_cat.filename, paths_str)
+                print ">+   %s  %s" % (summit_cat.filename, paths_str)
             else:
                 print ">    %s  %s" % (summit_cat.filename, paths_str)
 
@@ -1271,14 +1271,14 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
         paths_str = " ".join(summit_paths)
         if options.verbose:
             if new_from_template:
-                print "+<   (scattered-added) %s  %s" % (branch_cat.filename,
+                print "<+   (scattered-added) %s  %s" % (branch_cat.filename,
                                                          paths_str)
             else:
                 print "<    (scattered) %s  %s" % (branch_cat.filename,
                                                    paths_str)
         else:
             if new_from_template:
-                print "+<   %s  %s" % (branch_cat.filename, paths_str)
+                print "<+   %s  %s" % (branch_cat.filename, paths_str)
             else:
                 print "<    %s  %s" % (branch_cat.filename, paths_str)
 
@@ -1629,12 +1629,12 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
         if options.verbose:
             if added:
-                print "+.   (merged-added) %s" % catalog_path
+                print ".+   (merged-added) %s" % catalog_path
             else:
                 print ".    (merged) %s" % catalog_path
         else:
             if added:
-                print "+.   %s" % catalog_path
+                print ".+   %s" % catalog_path
             else:
                 print ".    %s" % catalog_path
     else:
