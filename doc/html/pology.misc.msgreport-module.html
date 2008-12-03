@@ -165,7 +165,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x865e09c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x879a0d4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
@@ -438,7 +438,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x865e09c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x879a0d4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
@@ -471,12 +471,14 @@
 </pre>
   <p>Names of the elements that can presently be highlighted are: 
   <code>&quot;msgctxt&quot;</code>, <code>&quot;msgid&quot;</code>, 
-  <code>&quot;msgid_plural&quot;</code>, <code>&quot;msgstr&quot;</code>. 
-  For unique fields the element index is not used, but 0 should be given 
-  for consistency (may be enforced later). Span tuples can have a third 
-  element, following the indices, which is the note about why the 
-  particular span is highlighted; there may be more elements after the 
-  note, and these are all ignored.</p>
+  <code>&quot;msgid_plural&quot;</code>, <code>&quot;msgstr&quot;</code>, 
+  <code>&quot;manual_comment&quot;</code>, 
+  <code>&quot;auto_comment&quot;</code>, <code>&quot;source&quot;</code>, 
+  <code>&quot;flag&quot;</code>. For unique fields the element index is not
+  used, but 0 should be given for consistency (may be enforced later). Span
+  tuples can have a third element, following the indices, which is the note
+  about why the particular span is highlighted; there may be more elements 
+  after the note, and these are all ignored.</p>
   <p>Sometimes the match to which the spans correspond has been made on a 
   filtered value of the message field (e.g. after accelerator markers or 
   tags have been removed). In that case, the filtered text can be given as 

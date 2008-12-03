@@ -201,6 +201,23 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#join_ncwd" class="summary-sig-name">join_ncwd</a>(<span class="summary-sig-arg">*elements</span>)</span><br />
+      Join path and normalize it with respect to current working directory.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -427,6 +444,36 @@
     </ul></dd>
     <dt>Returns: list of strings</dt>
         <dd>lines</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="join_ncwd"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">join_ncwd</span>(<span class="sig-arg">*elements</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Join path and normalize it with respect to current working 
+  directory.</p>
+  <p>Path elements are joined with <code>os.path.join</code> and the joined
+  path normalized by <code>os.path.normpath</code>. The normalized path is 
+  then made relative to current working directory if it points to a 
+  location within current working directory.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>elements</code></strong> (varlist) - path elements</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>normalized joined path</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -242,6 +242,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
+      Check whether XML-like entities in the text are among known.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_placeholder_els" class="summary-sig-name">check_placeholder_els</a>(<span class="summary-sig-arg">orig</span>,
         <span class="summary-sig-arg">trans</span>)</span><br />
       Check if sets of <code>&lt;placeholder-N/&gt;</code> elements are 
@@ -723,6 +741,35 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
         <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xmlents"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check whether XML-like entities in the text are among known.</p>
+  <p>The text does not have to be XML markup as such. No XML parsing is 
+  performed, only the raw search for XML-like entities.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text with entities to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - known entities</li>
     </ul></dd>
     <dt>Returns: list of (int, int, string) tuples</dt>
         <dd>erroneous spans in the text</dd>

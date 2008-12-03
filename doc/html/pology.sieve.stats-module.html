@@ -64,10 +64,12 @@
       <code>detail</code>: give more detailed statistics
     </li>
     <li>
-      <code>incomplete:&lt;file&gt;</code>: additionally list catalogs 
-      which are not 100% translated; if <code>&lt;file&gt;</code> is not 
-      empty, filenames of incomplete catalogs will also be written out into
-      a file, one per line.
+      <code>incomplete</code>: additionally list catalogs which are not 
+      100% translated
+    </li>
+    <li>
+      <code>incompfile:&lt;file&gt;</code>: write filenames of incomplete 
+      catalogs into a file, one path per line
     </li>
     <li>
       <code>templates:&lt;spec&gt;</code>: compare translation with 
@@ -94,15 +96,10 @@
       totals
     </li>
     <li>
-      <code>msgbar</code>: show an ASCII bar giving overview of message 
-      counts
+      <code>msgbar</code>: show statistics as ASCII bar of message counts
     </li>
     <li>
-      <code>wbar</code>: show an ASCII bar giving overview of word counts
-    </li>
-    <li>
-      <code>notab</code>: do not show the table (typically when bars are 
-      enabled)
+      <code>wbar</code>: show statistics as ASCII bar of word counts
     </li>
     <li>
       <code>absolute</code>: make bars show absolute rather than relative 
@@ -243,19 +240,17 @@
     <code>*/f+u</code> stand for fuzzy, untranslated, and the two 
     summed.</p>
     <p>When options <code>msgbar</code> or <code>wbar</code> are in effect,
-    then bellow the table an ASCII bar is displayed, giving visual relation
+    statistics is given in the form of an ASCII bar, giving visual relation
     between numbers of translated, fuzzy, and untranslated messages or 
     words:</p>
 <pre class="literalblock">
    $ posieve.py stats -swbar frobaz/
-   (...the stats table...)
    4572/1829/2533 w-or |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;|
 </pre>
-    <p>The output of the table can be prevented using the 
-    <code>notab</code> option. A typical condensed overview of translation 
-    state is obtained by:</p>
+    <p>A typical condensed overview of translation state is obtained 
+    by:</p>
 <pre class="literalblock">
-   $ posieve.py stats frobaz/ -sbyfile -smsgbar -snotab
+   $ posieve.py stats -sbyfile -smsgbar frobaz/
    --- frobaz/foxtrot.po   34/ -/11 msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#183;&#183;&#183;&#183;&#183;|
    --- frobaz/november.po  58/19/14 msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#183;&#183;&#183;&#183;|
    --- frobaz/sierra.po    65/22/ - msgs |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#215;|
@@ -327,6 +322,31 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.stats.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>

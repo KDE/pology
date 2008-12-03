@@ -80,18 +80,58 @@
     <li>
       <code>plural</code>: the message must be plural
     </li>
+    <li>
+      <code>maxchar</code>: messages must have no more than this number of 
+      characters
+    </li>
+    <li>
+      <code>fexpr</code>: logical expression made out of any previous 
+      matching typs
+    </li>
+    <li>
+      <code>or</code>: use OR- instead of AND-matching for text fields
+    </li>
   </ul>
   <p>If more than one of the matching parameters are given (e.g. both 
   <code>msgid</code> and <code>msgstr</code>), the message matches only if 
-  all of them match. In case of plural messages, <code>msgid</code> is 
-  considered matched if either <code>msgid</code> or 
-  <code>msgid_plural</code> fields match, and <code>msgstr</code> if any of
-  the <code>msgstr</code> fields match.</p>
+  all of them match. This can be changed for text fields 
+  (<code>msgid</code>, <code>msgstr</code>, etc.) such that the message 
+  matches if any of text fields match, using the <code>of</code> parameter.
+  In case of plural messages, <code>msgid</code> is considered matched if 
+  either <code>msgid</code> or <code>msgid_plural</code> fields match, and 
+  <code>msgstr</code> if any of the <code>msgstr</code> fields match.</p>
   <p>Every matching option has a counterpart with prepended 
   <code>n*</code>, by which the meaning of the match is inverted; for 
   example, if both <code>msgid:foo</code> and <code>nmsgid:bar</code> are 
   given, then the message matches if its <code>msgid</code> contains 
   <code>foo</code> but does not contain <code>bar</code>.</p>
+  <p>When simple AND- or OR-matching is not enough, parameter 
+  <code>fexpr</code> can be used to specify full logical expressions, using
+  any of the basic matchers linked with AND, OR, NOT parameters, and 
+  parenthesis. If a matcher needs a value (e.g. regular expressions), 
+  within expression it is given as <code>MATCHER/VALUE/</code>, where 
+  another nonalphanumeric character can be used instead of slash if the 
+  value contains it. If matchers is influenced by another global parameter 
+  (e.g. case sensitivity), in the expression it may be able to take 
+  overriding modifiers as single characters after matcher name, i.e. 
+  <code>MATCHER/VALUE/MODS</code> (or <code>MATCHER/MODS</code> for 
+  parameterless matchers). Examples:</p>
+<pre class="literalblock">
+   # Either msgctxt or comment contain 'foo', and msgid contains 'bar'.
+   fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'
+
+   # msgid contains 'quuk' in any casing and msgstr exactly 'Qaak'.
+   fexpr:'msgid/quuk/ and msgstr/Qaak/c'
+</pre>
+  <p>Available modifiers to matchers are:</p>
+  <ul>
+    <li>
+      <code>c</code>: text matching pattern is case-sensitive
+    </li>
+    <li>
+      <code>i</code>: text matching pattern is case-insensitive
+    </li>
+  </ul>
   <p>Sieve parameters for replacement:</p>
   <ul>
     <li>
@@ -118,10 +158,6 @@
     <li>
       <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters to
       msgstr prior to matching
-    </li>
-    <li>
-      <code>maxchar</code>: ignore messages with more than this number of 
-      characters
     </li>
   </ul>
   <p>If accelerator character is not given by <code>accel</code> option, 
