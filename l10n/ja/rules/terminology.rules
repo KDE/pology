@@ -88,7 +88,7 @@ valid msgstr="アスペクト比"
 {\bassistant\b}i
 id="assistant"
 hint="assistant = ウィザード"
-valid after="(Qt|ruler) "
+valid after="(Qt|KDevelop|ruler) "
 valid before="'s name"
 valid before=" super-hero"
 valid cat="kooka"
@@ -325,6 +325,12 @@ hint="default = デフォルト"
 valid msgstr="デフォルト"
 disabled
 
+{\bdefault}i
+id="default3"
+hint="default = 通常"
+valid msgstr="通常"
+disabled
+
 {^Defaults$}
 id="defaults"
 hint="Defaults = 標準設定"
@@ -506,7 +512,7 @@ valid msgstr="環境変数"
 id="executable"
 hint="executable = 実行ファイル"
 valid before=" (file|program|code|script|attribute)"
-valid after="(is( not)?|mark the file as) "
+valid after="(is( not)?|mark the file as|kills the) "
 valid ctx="is executable"
 valid msgstr="実行ファイル"
 
@@ -937,6 +943,12 @@ disabled
 id="monitor2"
 hint="monitor = 監視"
 valid msgstr="監視"
+disabled
+
+{\bmonitor}i
+id="monitor3"
+hint="monitor = モニタ"
+valid msgstr="モニタ"
 disabled
 
 {\bmonospace}i
@@ -1395,13 +1407,13 @@ valid msgstr="ソート"
 
 {\bspaces?\b}i
 id="space"
-hint="space = スペース"
+hint="space = スペース [語と語の区切りを表すために空ける空白]"
 valid msgstr="スペース"
 disabled
 
 {\bspace\b}i
 id="space2"
-hint="space = 領域"
+hint="space = 領域 [ディスク領域、スワップ領域、メモリ領域など]"
 valid !after="(disk|swap|memory) "
 valid msgstr="領域"
 
@@ -1409,6 +1421,12 @@ valid msgstr="領域"
 id="space3"
 hint="space = 宇宙"
 valid msgstr="宇宙"
+disabled
+
+{\bspace}i
+id="space4"
+hint="space = スペース [空間、場所]"
+valid msgstr="スペース"
 disabled
 
 {\bspams?\b}i
@@ -1574,6 +1592,13 @@ hint="Up = 上へ"
 valid ctx="QShortcut|keyboard-key-name|network"
 valid msgstr="上へ"
 
+{^Up$}
+id="up2"
+hint="Up = 上へ"
+valid ctx="QShortcut|keyboard-key-name|network"
+valid msgstr="上へ"
+disabled
+
 {\busers?}i
 id="user"
 hint="user = ユーザ"
@@ -1626,6 +1651,11 @@ valid msgstr="変光星"
 id="variable_bitrate"
 hint="variable bitrate = 可変ビットレート"
 valid msgstr="可変ビットレート"
+
+{\bversion control system}i
+id="version_control_system"
+hint="version control system = バージョン管理システム"
+valid msgstr="バージョン管理システム"
 
 {\bview mode}i
 id="view_mode"
