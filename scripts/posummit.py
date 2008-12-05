@@ -841,12 +841,16 @@ def select_summit_names (project, options):
     return summit_names
 
 
-def summit_gather_single (summit_name, project, options):
+def summit_gather_single (summit_name, project, options,
+                          phony=False, pre_summit_names=[]):
 
     # Decide on wrapping function for message fields in the summit.
     wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
 
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+
+    fresh_cat = Catalog("", wrapf=wrapf, create=True)
+    fresh_cat.filename = summit_path
 
     # Collect branches in which this summit catalog has corresponding
     # branch catalogs, in order of branch priority.
@@ -858,6 +862,9 @@ def summit_gather_single (summit_name, project, options):
     # If there are no branch catalogs,
     # then the current summit catalog is to be removed.
     if not src_branch_ids:
+        if phony: # cannot happen
+            error("internal: phony-gather on summit catalog to be removed")
+
         # Remove by version control, if any.
         if project.vcs:
             if not project.vcs.remove(summit_path):
@@ -876,32 +883,45 @@ def summit_gather_single (summit_name, project, options):
                 print "-    %s" % summit_path
 
         # Skip the rest, nothing to gather.
-        return
+        return fresh_cat
 
     # Open all corresponding branch catalogs.
-    # For each branch catalog, also gather any dependent summit
-    # catalogs preceeding the current, and ready them open;
+    # For each branch catalog, also phony-gather any dependent summit
+    # catalogs. Phony means not to take into account branch catalogs which
+    # map to current summit catalog if it is higher in their queue than
+    # the phony-gathered one, and not to sync phony-gathered catalog;
     # this is needed in order that any new messages get inserted
-    # deterministically in case of split-mappings.
+    # uniquely and deterministically in case of split-mappings.
     bcat_pscats = {}
     for branch_id in src_branch_ids:
         bcat_pscats[branch_id] = []
         for branch_name in project.full_inverse_map[summit_name][branch_id]:
 
-            # Gather and open dependent summit catalogs preceding the current.
-            pre_summit_cats = []
+            # In phony-gather, do not use branch catalogs with split-mappings
+            # which map to one of the summit catalogs among previous.
+            phony_skip = False
+            for dep_summit_name in project.direct_map[branch_id][branch_name]:
+                if dep_summit_name in pre_summit_names:
+                    phony_skip = True
+                    break
+            if phony_skip:
+                continue
+
+            # Gather and open dependent summit catalogs.
+            dep_summit_cats = []
+            pre_summit_names_m = pre_summit_names[:]
             for dep_summit_name in project.direct_map[branch_id][branch_name]:
                 if dep_summit_name == summit_name:
-                    break
-                dep_summit_path = \
-                    project.catalogs[SUMMIT_ID][dep_summit_name][0][0]
+                    pre_summit_names_m.append(summit_name)
+                    continue
                 # FIXME: Can we get into circles here?
-                summit_gather_single(dep_summit_name, project, options)
-                dep_summit_cat = Catalog(dep_summit_path, monitored=False)
-                pre_summit_cats.append(dep_summit_cat)
+                dep_summit_cat = summit_gather_single(dep_summit_name,
+                                                      project, options,
+                                                      True, pre_summit_names_m)
+                dep_summit_cats.append(dep_summit_cat)
 
             # Open all branch catalogs of this name, ordered by path,
-            # link them to the same preceding dependent summit catalogs.
+            # link them to the same dependent summit catalogs.
             branch_paths = []
             for path, subdir in project.catalogs[branch_id][branch_name]:
                 branch_paths.append(path)
@@ -923,32 +943,37 @@ def summit_gather_single (summit_name, project, options):
                 branch_cat = Catalog(tmp_path or path)
                 if tmp_path: # as soon as catalog is opened, no longer needed
                     os.unlink(tmp_path)
-                bcat_pscats[branch_id].append((branch_cat, pre_summit_cats))
+                bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
 
     # Select primary branch catalog and list of all catalogs with branch ids.
     prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
     branch_ids_cats = []
     for branch_id in src_branch_ids:
-        for branch_cat, pre_summit_cats in bcat_pscats[branch_id]:
+        for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
             branch_ids_cats.append((branch_id, branch_cat))
 
     # Gather messages through branch catalogs.
     # Also add summit messages to a fresh catalog, such that if no
     # summit messages were changed by themselves, but their order changed,
     # the fresh catalog can be synced in place of the original.
-    # For the 
-    summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
-    summit_created = summit_cat.created() # created state may be lost, preserve
-    fresh_cat = Catalog("", wrapf=wrapf, create=True)
+    if not phony:
+        summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
+        summit_created = summit_cat.created() # preserve created state
     for branch_id in src_branch_ids:
-        for branch_cat, pre_summit_cats in bcat_pscats[branch_id]:
+        for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
             summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
-                                      summit_cat, pre_summit_cats, is_primary,
+                                      fresh_cat, dep_summit_cats, is_primary,
                                       project, options)
+            if phony: # gather only fresh catalog in phony-gather
+                continue
             summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
-                                      fresh_cat, pre_summit_cats, is_primary,
+                                      summit_cat, dep_summit_cats, is_primary,
                                       project, options)
+
+    # If phony-gather, stop here and return fresh catalog for reference.
+    if phony:
+        return fresh_cat
 
     # If there was any reordering, or some summit messages are obsoleted,
     # replace the original with the fresh catalog.
@@ -1012,16 +1037,18 @@ def summit_gather_single (summit_name, project, options):
             else:
                 print ">    %s  %s" % (summit_cat.filename, paths_str)
 
+    return summit_cat
+
 
 def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
-                               summit_cat, pre_summit_cats, is_primary,
+                               summit_cat, dep_summit_cats, is_primary,
                                project, options):
 
     # Go through messages in the branch catalog, merging them with
     # existing summit messages, or collecting for later insertion.
     # Do not insert new messages immediately, as source references may be
     # updated by merging, which reflects on heuristic insertion.
-    # Ignore messages present in preceeding summit catalogs.
+    # Ignore messages present in dependent summit catalogs.
     msgs_to_insert = []
     for msg in branch_cat:
 
@@ -1029,13 +1056,13 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         if msg.obsolete:
             continue
 
-        # Do not gather messages belonging to preceding summit catalogs.
-        in_pre = False
-        for pre_summit_cat in pre_summit_cats:
-            if msg in pre_summit_cat:
-                in_pre = True
+        # Do not gather messages belonging to depending summit catalogs.
+        in_dep = False
+        for dep_summit_cat in dep_summit_cats:
+            if msg in dep_summit_cat:
+                in_dep = True
                 break
-        if in_pre:
+        if in_dep:
             continue
 
         # Merge the branch message or collect for insertion.
@@ -1466,21 +1493,33 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
 
         # Split auto comments of the current summit message into
         # summit and non-summit tagged comments.
-        non_summit_comments = []
-        summit_comments = []
-        for comment in summit_msg.auto_comment:
-            wlst = comment.split()
-            if wlst and wlst[0] in _summit_tags:
-                summit_comments.append(comment)
-            else:
-                non_summit_comments.append(comment)
+        # Also of the branch message, in case it has summit-alike comments.
+        summit_nscmnts, summit_scmnts = split_summit_comments(summit_msg)
+        branch_nscmnts, branch_scmnts = split_summit_comments(branch_msg)
 
-        # Copy auto comments only if non-summit auto comments of the
-        # current summit message are different to the branch message
-        # auto comments.
-        if non_summit_comments != branch_msg.auto_comment:
+        # Override auto comments only if different overally
+        # (which needs not be, due to double fresh/old insertion)
+        # and non-summit auto comments of the current summit message
+        # are different to the branch message auto comments.
+        if (    summit_msg.auto_comment != branch_msg.auto_comment
+            and summit_nscmnts != branch_nscmnts
+        ):
             summit_msg.auto_comment = Monlist(branch_msg.auto_comment)
-            summit_msg.auto_comment.extend(summit_comments)
+            summit_msg.auto_comment.extend(summit_scmnts)
+
+
+def split_summit_comments (msg):
+
+    non_summit_comments = []
+    summit_comments = []
+    for comment in msg.auto_comment:
+        wlst = comment.split()
+        if wlst and wlst[0] in _summit_tags:
+            summit_comments.append(comment)
+        else:
+            non_summit_comments.append(comment)
+
+    return non_summit_comments, summit_comments
 
 
 def summit_merge_single (branch_id, catalog_path, template_path,
