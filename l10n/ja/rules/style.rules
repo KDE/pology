@@ -498,6 +498,11 @@ hint="日本語の句読点の後にはスペースを入れません。"
 removeFilter handle="markup"
 valid !before="[ 　]"
 
+[[1-9] %(?![1-9])]
+id="style-percent"
+hint="数字とパーセント記号の間にはスペースを入れません。"
+removeFilter handle="fmtdirs"
+
 removeFilter handle="markup"
 
 [\w<application>|</application>\w]
