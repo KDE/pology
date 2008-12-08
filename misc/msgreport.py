@@ -135,8 +135,8 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
         name, item, spans = hspec[:3]
 
         if name == "msgctxt":
-            text = msg.msgctxt
-            ftext = fmsg.msgctxt
+            text = msg.msgctxt or u""
+            ftext = fmsg.msgctxt or u""
         elif name == "msgid":
             text = msg.msgid
             ftext = fmsg.msgid
@@ -279,7 +279,8 @@ def report_msg_content (msg, cat,
                 return text
 
             if name == "msgctxt":
-                msg.msgctxt = hl(msg.msgctxt, ffmsg.msgctxt)
+                if msg.msgctxt or ffmsg.msgctxt:
+                    msg.msgctxt = hl(msg.msgctxt or u"", ffmsg.msgctxt or u"")
             elif name == "msgid":
                 msg.msgid = hl(msg.msgid, ffmsg.msgid)
             elif name == "msgid_plural":
@@ -392,7 +393,7 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or u""))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     for begin, end in span:
@@ -432,7 +433,7 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt))
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or u""))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     xmlError.append("\t\t<faulty>%s</faulty>\n" % faultyWord)

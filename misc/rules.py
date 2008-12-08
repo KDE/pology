@@ -1536,7 +1536,7 @@ class Rule(object):
             text_spec = [("msgstr", i, msg.msgstr[i])
                          for i in range(len(msg.msgstr))]
         elif msgpart == "msgctxt":
-            text_spec = [("msgctxt", 0, msg.msgctxt)]
+            text_spec = [("msgctxt", 0, msg.msgctxt or u"")]
         elif msgpart == "msgid_singular":
             text_spec = [("msgid", 0, msg.msgid)]
         elif msgpart == "msgid_plural":
@@ -1703,7 +1703,7 @@ class Rule(object):
                     break
 
             elif bkey == "ctx":
-                match = value.search(msg.msgctxt)
+                match = value.search(msg.msgctxt or u"")
                 if invert: match = not match
                 if not match:
                     valid = False

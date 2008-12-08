@@ -312,10 +312,9 @@ class Sieve (object):
 
         for msgstr in msg.msgstr:
             # Skip message with context in the ignoredContext list
-            msg.msgctxt.lower()
             skip=False
             for context in self.ignoredContext:
-                if context in msg.msgctxt.lower():
+                if context in (msg.msgctxt or u"").lower():
                     skip=True
                     break
             if skip:

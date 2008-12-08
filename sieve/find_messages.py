@@ -599,7 +599,7 @@ def _create_matcher (name, value, mods, params, neg=False):
 
     elif name == "msgctxt":
         def matcher (msgf, msg, cat, hl):
-            texts = [(msgf.msgctxt, "msgctxt", 0)]
+            texts = [(msgf.msgctxt or u"", "msgctxt", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgid":

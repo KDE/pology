@@ -62,7 +62,7 @@ class Sieve (object):
             self.nctxt += 1
             counts["wctxt"] += 1
 
-        m = re.search(r"^\s*@[a-z:/]+\s*(.*)", msg.msgctxt)
+        m = re.search(r"^\s*@[a-z:/]+\s*(.*)", msg.msgctxt or u"")
         if m:
             self.nctxm += 1
             counts["wctxm"] += 1

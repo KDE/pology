@@ -118,7 +118,7 @@ class Sieve (object):
         self.output("\t\t<msgid><![CDATA[%s]]></msgid>\n" % self.replace_cdata(msg.msgid) )
         self.output("\t\t<msgstr>%s</msgstr>\n" % self.join_plural_form(msg.msgstr) )
         
-        if len(msg.msgctxt) == 0:
+        if not msg.msgctxt:
             self.output("\t\t<msgctxt></msgctxt>\n")
         else:
             self.output("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % self.replace_cdata(msg.msgctxt) )

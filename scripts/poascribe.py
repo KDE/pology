@@ -635,7 +635,7 @@ def embed_diff (msg1, msg2, pfilter=None):
     anydiff = False
     field_diffs = []
     for text1, text2 in [
-        (msg1.msgctxt, msg2.msgctxt),
+        (msg1.msgctxt or u"", msg2.msgctxt or u""),
         (msg1.msgid, msg2.msgid),
         (msg1.msgid_plural, msg2.msgid_plural),
     ] + zip(msgstrs1, msgstrs2):
@@ -652,7 +652,9 @@ def embed_diff (msg1, msg2, pfilter=None):
         return False
 
     # Embed diffs.
-    msgctxt_previous = field_diffs[0]
+    msgctxt_previous = None
+    if msg1.msgctxt or msg2.msgctxt:
+        msgctxt_previous = field_diffs[0]
     msgid_previous = field_diffs[1]
     msgid_plural_previous = field_diffs[2]
     msgstr_previous_sections = []

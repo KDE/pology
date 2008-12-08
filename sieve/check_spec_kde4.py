@@ -45,7 +45,7 @@ def _qtdt_fjoin (fields):
 def _check_qtdt_w (msgstr, msg, cat):
 
     # Check needed when used as summit hook.
-    if (   (_qtdt_flag not in msg.msgctxt.lower())
+    if (   (_qtdt_flag not in (msg.msgctxt or u"").lower())
        and (_qtdt_flag not in msg.flag)
     ):
         return

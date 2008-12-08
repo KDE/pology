@@ -64,10 +64,12 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
-        if msg.fuzzy \
-        and msg.msgid == msg.msgid_previous \
-        and msg.msgid_plural == msg.msgid_plural_previous \
-        and _stripped(msg.msgctxt) == _stripped(msg.msgctxt_previous):
+        if (    msg.fuzzy
+            and msg.msgid == msg.msgid_previous
+            and msg.msgid_plural == msg.msgid_plural_previous
+            and (   _stripped(msg.msgctxt or u"")
+                 == _stripped(msg.msgctxt_previous or u""))
+        ):
             msg.fuzzy = False
             if self.flag_review:
                 # Add as manual comment, as any other type will vanish
