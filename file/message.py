@@ -30,11 +30,11 @@ _Message_spec = {
 
     "obsolete" : {"type" : bool},
 
-    "msgctxt_previous" : {"type" : unicode},
+    "msgctxt_previous" : {"type" : (unicode, type(None))},
     "msgid_previous" : {"type" : unicode},
     "msgid_plural_previous" : {"type" : unicode},
 
-    "msgctxt" : {"type" : unicode},
+    "msgctxt" : {"type" : (unicode, type(None))},
     "msgid" : {"type" : unicode},
     "msgid_plural" : {"type" : unicode},
     "msgstr" : {"type" : Monlist,
@@ -93,7 +93,7 @@ class Message_base (object):
     @type obsolete: bool
 
     @ivar msgctxt_previous: previous context field (C{#| msgctxt "..."})
-    @type msgctxt_previous: string
+    @type msgctxt_previous: string or None
 
     @ivar msgid_previous: previous message field (C{#| msgid "..."})
     @type msgid_previous: string
@@ -103,7 +103,7 @@ class Message_base (object):
     @type msgid_plural_previous: string
 
     @ivar msgctxt: context field (C{msgctxt "..."})
-    @type msgctxt: string
+    @type msgctxt: string or None
 
     @ivar msgid: message field (C{msgid "..."})
     @type msgid: string
@@ -212,7 +212,10 @@ class Message_base (object):
             return False
 
         elif att == "key":
-            return self.msgctxt + "|~|" + self.msgid
+            if self.msgctxt is not None:
+                return self.msgctxt + "|~|" + self.msgid
+            else:
+                return self.msgid
 
         elif att == "format":
             format_flag = ""
@@ -317,7 +320,9 @@ class Message_base (object):
                 # modcount of this string > 0 or lines not cached or forced
                 self.__dict__[att_lins] = []
                 msgsth = getattr(self, att)
-                if msgsth: # string not empty
+                if (   msgsth
+                    or (att.startswith("msgctxt") and msgsth is not None)
+                ):
                     if att.endswith("_previous"):
                         fname = att[:-len("_previous")]
                         pstat = "prev"
@@ -625,11 +630,11 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
         self._obsolete = init.get("obsolete", False)
 
-        self._msgctxt_previous = init.get("msgctxt_previous", u"")
+        self._msgctxt_previous = init.get("msgctxt_previous", None)
         self._msgid_previous = init.get("msgid_previous", u"")
         self._msgid_plural_previous = init.get("msgid_plural_previous", u"")
 
-        self._msgctxt = init.get("msgctxt", u"")
+        self._msgctxt = init.get("msgctxt", None)
         self._msgid = init.get("msgid", u"")
         self._msgid_plural = init.get("msgid_plural", u"")
         self._msgstr = Monlist(init.get("msgstr", [])[:])
@@ -727,11 +732,11 @@ class MessageUnsafe (Message_base):
 
         self.obsolete = init.get("obsolete", False)
 
-        self.msgctxt_previous = init.get("msgctxt_previous", u"")
+        self.msgctxt_previous = init.get("msgctxt_previous", None)
         self.msgid_previous = init.get("msgid_previous", u"")
         self.msgid_plural_previous = init.get("msgid_plural_previous", u"")
 
-        self.msgctxt = init.get("msgctxt", u"")
+        self.msgctxt = init.get("msgctxt", None)
         self.msgid = init.get("msgid", u"")
         self.msgid_plural = init.get("msgid_plural", u"")
         self.msgstr = init.get("msgstr", [u""])[:]

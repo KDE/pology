@@ -34,10 +34,10 @@ class _MessageDict:
         self.source = []
         self.flag = []
         self.obsolete = False
-        self.msgctxt_previous = u""
+        self.msgctxt_previous = None
         self.msgid_previous = u""
         self.msgid_plural_previous = u""
-        self.msgctxt = u""
+        self.msgctxt = None
         self.msgid = u""
         self.msgid_plural = u""
         self.msgstr = []
@@ -246,6 +246,8 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                 s = _parse_quoted(line)
                 if loc.age_context == ctx_previous:
                     if loc.field_context == ctx_msgctxt:
+                        if loc.msg.msgctxt_previous is None:
+                            loc.msg.msgctxt_previous = u""
                         loc.msg.msgctxt_previous += s
                     elif loc.field_context == ctx_msgid:
                         loc.msg.msgid_previous += s
@@ -253,6 +255,8 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                         loc.msg.msgid_plural_previous += s
                 else:
                     if loc.field_context == ctx_msgctxt:
+                        if loc.msg.msgctxt is None:
+                            loc.msg.msgctxt = u""
                         loc.msg.msgctxt += s
                     elif loc.field_context == ctx_msgid:
                         loc.msg.msgid += s
