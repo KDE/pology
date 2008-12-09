@@ -130,7 +130,7 @@ valid msgstr="帯域幅"
 {\bbinary}i
 id="binary"
 hint="binary = 二進|二進法"
-valid !ctx="encoding" !comment="encoding" !before=" encoding" !after="switch base to "
+valid !ctx="encoding|coding" !comment="encoding" !before=" encoding" !after="switch base to "
 valid msgstr="二進|二進法"
 
 {\bbinary}i
@@ -143,7 +143,7 @@ valid msgstr="バイナリ"
 id="binary3"
 hint="binary = 実行ファイル"
 valid before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
-valid ctx="encoding"
+valid ctx="encoding|coding"
 valid comment="encoding"
 valid before=" encoding"
 valid after="switch base to "
@@ -238,6 +238,19 @@ disabled
 id="command_line"
 hint="command line = コマンドライン"
 valid msgstr="コマンドライン"
+
+{\bcompact(s|ing|ed)?\b}i
+id="compact"
+hint="compact = 最適化"
+valid span="compact" before=" (disk|flash|style|mode|view)"
+valid span="compact" after="more "
+valid span="compact" ctx="view(ing)? mode"
+valid msgstr="最適化"
+
+{\bcompaction\n}i
+id="compaction"
+hint="compaction = 最適化"
+valid msgstr="最適化"
 
 {\bconstant bitrate\b}i
 id="constant_bitrate"
