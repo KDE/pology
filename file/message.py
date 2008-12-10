@@ -358,13 +358,14 @@ class Message_base (object):
             lins.extend(self._lines_source)
         lins.extend(self._lines_flag)
 
-        if u"fuzzy" in self.flag:
-        # Old original makes sense only for a message with a fuzzy flag.
-        # Note that this check is not the same as checking for self.fuzzy,
-        # as self.fuzzy is false for an obsolete message with a fuzzy flag.
-            lins.extend(self._lines_msgctxt_previous)
-            lins.extend(self._lines_msgid_previous)
-            lins.extend(self._lines_msgid_plural_previous)
+        # Actually, it might make sense regardless...
+        ## Old originals makes sense only for a message with a fuzzy flag.
+        #if u"fuzzy" in self.flag:
+        ## Note that this check is not the same as checking for self.fuzzy,
+        ## as self.fuzzy is false for an obsolete message with a fuzzy flag.
+        lins.extend(self._lines_msgctxt_previous)
+        lins.extend(self._lines_msgid_previous)
+        lins.extend(self._lines_msgid_plural_previous)
 
         lins.extend(self._lines_msgctxt)
         lins.extend(self._lines_msgid)
