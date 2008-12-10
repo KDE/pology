@@ -68,7 +68,8 @@ def main ():
     opars.add_option(
         "-a", "--all",
         action="store_true", dest="all", default=False,
-        help="ascribe all entries instead of selected (in some modes)")
+        help="ascribe all admissible entries instead of selected "
+             "(in some modes)")
     opars.add_option(
         "-s", "--select", metavar="TYPE[:ARGS]",
         action="append", dest="selects", default=[],
@@ -436,8 +437,12 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
-        if not msg.translated and not msg.fuzzy:
+        if not msg.translated:
             continue
+
+        # Message cannot be ascribed as reviewed if it was not
+        # already ascribed as modified.
+        ascribed = is_ascribed(msg, acats)
 
         # Check if the message has been flagged as reviewed.
         # Must not skip checking if --all is in effect, in order
@@ -448,24 +453,17 @@ def ascribe_reviewed_cat (options, config, user, catpath):
         for flag in flags:
             m = fl_rx.search(flag)
             if m:
-                tags.append(m.group(1).strip() or None)
-                flagged = True
-                msg.flag.remove(flag)
-        if not flagged and not options.all:
-            continue
-
-        # Fuzzy messages may be explicitly flagged,
-        # e.g. after review with embedded diffs.
-        # Otherwise skip the fuzzy.
-        if msg.fuzzy:
-            if not flagged:
-                continue
-            msg.fuzzy = False
-
-        # Message cannot be ascribed as reviewed if it was not
-        # already ascribed as modified. Collect to report later.
-        if not is_ascribed(msg, acats):
-            non_mod_asc_msgs.append(msg)
+                if ascribed:
+                    tags.append(m.group(1).strip() or None)
+                    flagged = True
+                    msg.flag.remove(flag)
+                    # Do not break, other review flags possible.
+                else:
+                    # Collect messages explicitly flagged as reviewed but not
+                    # ascribable as such, to report later.
+                    non_mod_asc_msgs.append(msg)
+                    break
+        if (not flagged and not options.all) or not ascribed:
             continue
 
         if not tags:
@@ -476,10 +474,9 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     if non_mod_asc_msgs:
         fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
                              for x in non_mod_asc_msgs])
-        warning("%s: not all reviewed messages ascribed as modified, "
-                "cannot ascribe reviews; unascribed: %s"
+        warning("%s: some messages explicitly marked as reviewed cannot "
+                "be ascribed, because they were not ascribed as modified: %s"
                 % (cat.filename, fmtrefs))
-        return 0
 
     if not rev_msgs_tags:
         # No messages to ascribe.
