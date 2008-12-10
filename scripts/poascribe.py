@@ -676,7 +676,8 @@ def embed_diff (msg1, msg2, pfilter=None):
     msg2.msgctxt_previous = msgctxt_previous
     msg2.msgid_previous = msgid_previous
     msg2.msgid_plural_previous = msgid_plural_previous
-    msg2.fuzzy = True # or else *_previous fields will be removed on sync
+    #msg2.fuzzy = True # or else *_previous fields will be removed on sync
+    # ...not anymore.
 
     return True
 
@@ -1018,6 +1019,18 @@ def parse_users (userstr, config, cid=None):
     return users
 
 
+def parse_mods (modstr, known_mods, cid=None):
+
+    mods = set(modstr)
+    unknown_mods = mods.difference(known_mods)
+    if unknown_mods:
+        unknown_mods = list(unknown_mods)
+        unknown_mods.sort()
+        error("unknown modifiers: %s" % "".join(unknown_mods), subsrc=cid)
+
+    return mods
+
+
 # -----------------------------------------------------------------------------
 # Selectors.
 
@@ -1038,8 +1051,11 @@ def diffsel_asc (args, msg, history, config):
     cid = "diff-selector:asc"
 
     users = []
+    mods = set()
     if args:
         users = parse_users(args.pop(0), config, cid)
+    if args:
+        mods = parse_mods(args.pop(0), "!", cid)
     if args:
         error("superflous arguments: %s" % " ".join(args), subsrc=cid)
 
@@ -1053,8 +1069,10 @@ def diffsel_asc (args, msg, history, config):
 
     if i_asc is not None:
         amsg_sel = history[i_asc][0]
-    else:
+    elif "!" not in mods:
         amsg_sel = Message()
+    else:
+        amsg_sel = None
 
     return amsg_sel
 
