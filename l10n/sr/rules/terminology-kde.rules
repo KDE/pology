@@ -465,6 +465,7 @@ valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
 valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,okular" msgstr="\bлиниј"
+valid cat="okular" after="leader " msgstr="изводниц"
 
 {\blist(s|ed)?\b}i
 id="list"
