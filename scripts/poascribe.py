@@ -88,6 +88,10 @@ def main ():
         action="store_false", dest="state", default=True,
         help="do not examine the ascription state of catalogs")
     opars.add_option(
+        "-c", "--clear-review",
+        action="store_true", dest="clear_review", default=False,
+        help="clear all review flags and embedded diffs")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -148,6 +152,9 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
+    # Clear review states before all ascription.
+    if options.clear_review:
+        clear_review(options, configs_catpaths)
     if options.modified:
         ascribe_modified(options, configs_catpaths, options.modified)
     if options.reviewed:
@@ -354,6 +361,17 @@ def select_matching (options, configs_catpaths, sels, diff):
         print "===! Selected matching: %d entries" % nsel
 
 
+def clear_review (options, configs_catpaths):
+
+    ncleared = 0
+    for config, catpaths in configs_catpaths:
+        for catpath in catpaths:
+            ncleared += clear_review_cat(options, config, catpath)
+
+    if ncleared > 0:
+        print "===! Cleared review states: %d" % ncleared
+
+
 def ascribe_modified_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
@@ -425,6 +443,8 @@ def ascribe_modified_cat (options, config, user, catpath):
     return len(unasc_msgs)
 
 
+_revdflags_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
+
 def ascribe_reviewed_cat (options, config, user, catpath):
 
     # Open current catalog and all ascription catalogs.
@@ -433,7 +453,6 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     acats, acats_fuzzy = collect_asc_cats(config, cat.name, user)
 
     # Collect all or flagged messages (must be translated), with tags.
-    fl_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
@@ -451,7 +470,7 @@ def ascribe_reviewed_cat (options, config, user, catpath):
         flags = msg.flag.items()
         tags = []
         for flag in flags:
-            m = fl_rx.search(flag)
+            m = _revdflags_rx.search(flag)
             if m:
                 if ascribed:
                     tags.append(m.group(1).strip() or None)
@@ -519,6 +538,8 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     return len(rev_msgs_tags)
 
 
+_revflag = u"review"
+
 def select_matching_cat (options, config, sels, diff, pfilter, catpath):
 
     # Open current catalog and all ascription catalogs.
@@ -546,13 +567,47 @@ def select_matching_cat (options, config, sels, diff, pfilter, catpath):
                 continue
 
         # Flag.
-        msg.flag.add(u"review")
+        msg.flag.add(_revflag)
 
         nflagged += 1
 
     sync_and_rep(cat)
 
     return nflagged
+
+
+def clear_review_cat (options, config, catpath):
+
+    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+
+    nontrans_with_revflags = []
+    ncleared = 0
+    for msg in cat:
+        for flag in msg.flag.items():
+            if flag == _revflag or _revdflags_rx.search(flag):
+                msg.flag.remove(flag)
+                ncleared += 1
+                if msg.translated:
+                    # Clear possible embedded diffs.
+                    msg.msgctxt_previous = None
+                    msg.msgid_previous = u""
+                    msg.msgid_plural_previous = u""
+                else:
+                    # Non-translated messages should not have review flags,
+                    # collect to report.
+                    nontrans_with_revflags.append(msg)
+                # Do not break, other review flags possible.
+
+    if nontrans_with_revflags:
+        fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
+                             for x in nontrans_with_revflags])
+        warning("%s: some non-translated messages have review flags, "
+                "which should never be the case: %s"
+                % (cat.filename, fmtrefs))
+
+    sync_and_rep(cat)
+
+    return ncleared
 
 
 _known_selectors = {}
