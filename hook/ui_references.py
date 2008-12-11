@@ -718,7 +718,7 @@ def _resolve_single_uiref (uitext, uicats):
 
     # Split into msgctxt and msgid.
     has_msgctxt = False
-    msgctxt = ""
+    msgctxt = None
     msgid = uitext
     if ctxsep in uitext:
         lst = uitext.split(ctxsep)
@@ -727,8 +727,11 @@ def _resolve_single_uiref (uitext, uicats):
             errmsgs.append("superfluous tail '%s' in UI reference '%s'"
                            % (rep, uitext))
         msgctxt, msgid = lst[:2]
+        if not msgctxt:
+            # FIXME: What about context with existing, but empty context?
+            msgctxt = None
         has_msgctxt = True
-        # msgctxt may be empty while has_msgctxt is True.
+        # msgctxt may be None while has_msgctxt is True.
         # This distinction is important when deciding between two msgids,
         # one having no context and one having a context.
 
