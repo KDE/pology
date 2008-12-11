@@ -55,6 +55,7 @@ valid msgstr="\bкућиц"
 id="client"
 hint="client = клијент"
 valid msgstr="\bклијена?т"
+valid env="kde" msgstr="&(emacsclient)-\S*;"
 
 {\bcolumn}i
 id="column"
@@ -238,6 +239,7 @@ disabled
 {\bhighlight}i
 id="highlight"
 hint="highlight = истакнути"
+valid before="er" # проследи на highlighter
 valid msgstr="\bиста(кн|ћи)"
 valid msgstr="\bистица[њтол]"
 valid msgstr="\bистич[еу]"
