@@ -844,7 +844,11 @@ def _handler_default (text):
 
     if g.ents is not None and text.startswith('&') and text.endswith(';'):
         ent = text[1:-1]
-        if ent not in g.ents and ent not in xml_entities:
+        errmsg = None
+        if ent.startswith("#"):
+            if nument_to_char(ent) is None:
+                errmsg = ("invalid numeric entity '%s'" % ent)
+        elif ent not in g.ents and ent not in xml_entities:
             nearents = difflib.get_close_matches(ent, g.ents)
             if nearents:
                 if len(nearents) > 5: # do not overwhelm message
@@ -853,6 +857,8 @@ def _handler_default (text):
                           % (g.xmlfmt, ent, ", ".join(nearents)))
             else:
                 errmsg = (_ehfmt + "unknown entity '%s'") % (g.xmlfmt, ent)
+
+        if errmsg is not None:
             span = _make_span(g.text, g.parser.CurrentLineNumber,
                               g.parser.CurrentColumnNumber + 1, errmsg)
             g.spans.append(span)
@@ -924,7 +930,53 @@ def check_xml_docbook4_l1 (text, ents=None):
     return check_xml_l1(text, spec=_docbook4_l1, xmlfmt="Docbook4", ents=ents)
 
 
-def check_xmlents (text, ents={}):
+_digits_dec = set("0123456789")
+_digits_hex = set("0123456789abcdefABCDEF")
+
+def nument_to_char (nument):
+    """
+    Convert numeric XML entity to character.
+
+    Numeric XML entities can be decimal, C{&#DDDD;}, or hexadecimal,
+    C{&#xHHHH;}, where C{D} and C{H} stand for number system's digits.
+    4 digits is the maximum, but there can be less.
+
+    If the entity cannot be converted to a character, for whatever reason,
+    C{None} is reported.
+
+    @param nument: numeric entity, with or without C{&} and C{;}
+    @type nument: string
+
+    @return: character represented by the entity
+    @rtype: string or None
+    """
+
+    if nument[:1] == "&":
+        nument = nument[1:-1]
+
+    if nument[:1] != "#":
+        return None
+
+    if nument[1:2] == "x":
+        known_digits = _digits_hex
+        numstr = nument[2:]
+        base = 16
+    else:
+        known_digits = _digits_dec
+        numstr = nument[1:]
+        base = 10
+
+    if len(numstr) > 4 or len(numstr) < 1:
+        return None
+
+    unknown_digits = set(numstr).difference(known_digits)
+    if unknown_digits:
+        return None
+
+    return unichr(int(numstr, base))
+
+
+def check_xmlents (text, ents={}, numeric=False):
     """
     Check whether XML-like entities in the text are among known.
 
@@ -935,6 +987,8 @@ def check_xmlents (text, ents={}):
     @type text: string
     @param ents: known entities
     @type ents: sequence
+    @param numeric: whether numeric character entities are allowed
+    @type numeric: bool
 
     @returns: erroneous spans in the text
     @rtype: list of (int, int, string) tuples
@@ -952,7 +1006,11 @@ def check_xmlents (text, ents={}):
         if m:
             p = m.end()
             ent = m.group(1)
-            if ent not in ents:
+            errmsg = None
+            if numeric and ent.startswith("#"):
+                if nument_to_char(ent) is None:
+                    errmsg = ("invalid numeric entity '%s'" % ent)
+            elif ent not in ents:
                 nearents = difflib.get_close_matches(ent, ents)
                 if nearents:
                     if len(nearents) > 5: # do not overwhelm message
@@ -961,6 +1019,8 @@ def check_xmlents (text, ents={}):
                               % (ent, ", ".join(nearents)))
                 else:
                     errmsg = ("unknown entity '%s'" % ent)
+
+            if errmsg is not None:
                 spans.append((pp, p, errmsg))
 
     return spans

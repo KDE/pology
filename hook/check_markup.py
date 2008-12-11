@@ -175,7 +175,7 @@ def check_xml_qtrich_sp (strict=False, entities={}, entpathenv=None, fcap=False,
 
 
 def check_xmlents (strict=False, entities={}, entpathenv=None, fcap=True,
-                   mkeyw=None):
+                   mkeyw=None, numeric=False):
     """
     Check existence of XML entities in translations [hook factory].
 

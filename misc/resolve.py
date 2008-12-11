@@ -21,7 +21,7 @@ DEFAULT_ALTHEAD = "~@"
 _entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
 
 def resolve_entities (text, entities, ignored_entities=set(),
-                      srcname=None, fcap=False,
+                      srcname=None, numeric=True, fcap=False,
                       nalts=0, althead=DEFAULT_ALTHEAD):
     """
     Replace XML entities in the text with their values.
