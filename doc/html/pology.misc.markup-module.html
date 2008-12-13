@@ -238,12 +238,30 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#nument_to_char" class="summary-sig-name">nument_to_char</a>(<span class="summary-sig-arg">nument</span>)</span><br />
+      Convert numeric XML entity to character.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">list of (int, int, string) tuples</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
       Check whether XML-like entities in the text are among known.</td>
           <td align="right" valign="top">
             
@@ -747,6 +765,38 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="nument_to_char"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nument_to_char</span>(<span class="sig-arg">nument</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert numeric XML entity to character.</p>
+  <p>Numeric XML entities can be decimal, <code>&amp;#DDDD;</code>, or 
+  hexadecimal, <code>&amp;#xHHHH;</code>, where <code>D</code> and 
+  <code>H</code> stand for number system's digits. 4 digits is the maximum,
+  but there can be less.</p>
+  <p>If the entity cannot be converted to a character, for whatever reason,
+  <code>None</code> is reported.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>nument</code></strong> (string) - numeric entity, with or without <code>&amp;</code> and 
+          <code>;</code></li>
+    </ul></dd>
+    <dt>Returns: string or None</dt>
+        <dd>character represented by the entity</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="check_xmlents"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -755,7 +805,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+        <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -770,6 +821,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text with entities to check</li>
         <li><strong class="pname"><code>ents</code></strong> (sequence) - known entities</li>
+        <li><strong class="pname"><code>numeric</code></strong> (bool) - whether numeric character entities are allowed</li>
     </ul></dd>
     <dt>Returns: list of (int, int, string) tuples</dt>
         <dd>erroneous spans in the text</dd>

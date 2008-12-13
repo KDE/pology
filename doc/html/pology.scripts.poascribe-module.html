@@ -203,6 +203,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="clear_review"></a><span class="summary-sig-name">clear_review</span>(<span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">configs_catpaths</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="ascribe_modified_cat"></a><span class="summary-sig-name">ascribe_modified_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
@@ -262,6 +279,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="clear_review_cat"></a><span class="summary-sig-name">clear_review_cat</span>(<span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">config</span>,
+        <span class="summary-sig-arg">catpath</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="apply_selectors"></a><span class="summary-sig-name">apply_selectors</span>(<span class="summary-sig-arg">sels</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">history</span>,
@@ -286,27 +321,6 @@
         <span class="summary-sig-arg">history</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#embed_diff" class="summary-sig-name">embed_diff</a>(<span class="summary-sig-arg">msg1</span>,
-        <span class="summary-sig-arg">msg2</span>,
-        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Make diffs of all text fields from <code>msg1</code> to 
-      <code>msg2</code>, and embed them into <code>*_previous</code> fields
-      of <code>msg2</code> (making it fuzzy).</td>
           <td align="right" valign="top">
             
             
@@ -649,6 +663,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="parse_mods"></a><span class="summary-sig-name">parse_mods</span>(<span class="summary-sig-arg">modstr</span>,
+        <span class="summary-sig-arg">known_mods</span>,
+        <span class="summary-sig-arg">cid</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="diffsel_asc"></a><span class="summary-sig-name">diffsel_asc</span>(<span class="summary-sig-arg">args</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">history</span>,
@@ -714,31 +746,6 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="embed_diff"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">embed_diff</span>(<span class="sig-arg">msg1</span>,
-        <span class="sig-arg">msg2</span>,
-        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Make diffs of all text fields from <code>msg1</code> to 
-  <code>msg2</code>, and embed them into <code>*_previous</code> fields of 
-  <code>msg2</code> (making it fuzzy). Every text field is passed through 
-  <code>pfilter</code> before diffing. Returns <code>True</code> if there 
-  was any difference.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="asc_collect_history_w"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
