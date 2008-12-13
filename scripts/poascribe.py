@@ -22,7 +22,6 @@ from pology.file.message import Message
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
-from pology.misc.diff import word_ediff
 from pology.misc.langdep import get_hook_lreq
 
 WRAPF = wrap_field_ontag_unwrap
@@ -653,85 +652,11 @@ def apply_differ (diff, msg, history, config, pfilter=None):
     # Empty message (instead of C{None}) means that there is
     # no purpose showing the diff, although the message is different.
     if amsg.msgid:
-        anydiff = embed_diff(amsg, msg, pfilter)
+        anydiff = msg.embed_diff(amsg, pfilter=pfilter)
     else:
         anydiff = True
 
     return anydiff
-
-
-def embed_diff (msg1, msg2, pfilter=None):
-    """
-    Make diffs of all text fields from C{msg1} to C{msg2}, and embed them
-    into C{*_previous} fields of C{msg2} (making it fuzzy).
-    Every text field is passed through C{pfilter} before diffing.
-    Returns C{True} if there was any difference.
-    """
-
-    # Equalize number of msgstr fields.
-    msgstrs1 = []
-    msgstrs2 = []
-    lenm1 = len(msg1.msgstr)
-    lenm2 = len(msg2.msgstr)
-    for i in range(max(lenm1, lenm2)):
-        if i < lenm1:
-            msgstrs1.append(msg1.msgstr[i])
-        else:
-            msgstrs1.append(u"")
-        if i < lenm2:
-            msgstrs2.append(msg2.msgstr[i])
-        else:
-            msgstrs2.append(u"")
-
-    # Create diffs.
-    anydiff = False
-    field_diffs = []
-    for text1, text2 in [
-        (msg1.msgctxt or u"", msg2.msgctxt or u""),
-        (msg1.msgid, msg2.msgid),
-        (msg1.msgid_plural, msg2.msgid_plural),
-    ] + zip(msgstrs1, msgstrs2):
-        if pfilter:
-            text1 = pfilter(text1)
-            text2 = pfilter(text2)
-        diff = u""
-        if text1 != text2:
-            anydiff = True
-        diff, dr = word_ediff(text1, text2, markup=True, format=msg2.format)
-        field_diffs.append(diff)
-
-    if not anydiff:
-        return False
-
-    # Embed diffs.
-    msgctxt_previous = None
-    if msg1.msgctxt or msg2.msgctxt:
-        msgctxt_previous = field_diffs[0]
-    msgid_previous = field_diffs[1]
-    msgid_plural_previous = field_diffs[2]
-    msgstr_previous_sections = []
-    add_indices = len(field_diffs) > 4
-    for i in range(3, len(field_diffs)):
-        if field_diffs[i]:
-            if add_indices:
-                msgstr_previous_sections.append("========== [%d]" % i)
-            else:
-                msgstr_previous_sections.append("==========")
-            msgstr_previous_sections.append(field_diffs[i])
-    msgstr_previous = "\n".join(msgstr_previous_sections)
-    if msgstr_previous:
-        if not msg2.msgid_plural:
-            msgid_previous += "\n" + msgstr_previous
-        else:
-            msgid_plural_previous += "\n" + msgstr_previous
-
-    msg2.msgctxt_previous = msgctxt_previous
-    msg2.msgid_previous = msgid_previous
-    msg2.msgid_plural_previous = msgid_plural_previous
-    #msg2.fuzzy = True # or else *_previous fields will be removed on sync
-    # ...not anymore.
-
-    return True
 
 
 def is_ascribed (msg, acats):
