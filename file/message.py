@@ -15,6 +15,8 @@ while the header entry is handled by L{pology.file.header}.
 from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
+from pology.misc.diff import word_ediff
+
 
 _Message_spec = {
     "manual_comment" : {"type" : Monlist,
@@ -541,6 +543,125 @@ class Message_base (object):
             return "T"
         else:
             return "U"
+
+
+    def embed_diff (self, omsg, pfilter=None, flag=None):
+        """
+        Embed text field diffs against the other message into previous fields.
+
+        The difference is created from the other to the current message,
+        and embedded into C{previous_*} fields of current message.
+        The difference of C{msgstr} fields is put into C{previous_msgid}
+        (or C{previous_msgid_plural} for plural messages), suitably
+        visually separated. See L{word_ediff<misc.diff.word_ediff>} for
+        the syntax of embedded differences.
+
+        If the other message is fuzzy and equipped with previous fields,
+        these fields are going to be used instead of its current fields.
+
+        Every text field can be passed through a filter before differencing,
+        using the C{pfilter} parameter. A flag can be added to the message
+        if there was any difference, using the C{flag} parameter.
+
+        @param other_msg: the message towards which to make the difference
+        @type omsg: L{Message_base}
+        @param pfilter: filter to be applied to all text prior to differencing
+        @type pfilter: callable
+        @param flag: flag to add to the message if there was any difference
+        @type flag: string
+
+        @return: C{True} if there was any difference, false otherwise
+        @rtype: bool
+        """
+
+        # Use previous instead of current fields of the other message,
+        # if the message is fuzzy and previous fields are available.
+        if omsg.fuzzy and omsg.previous_msgid:
+            other_msgctxt = omsg.previous_msgctxt
+            other_msgid = omsg.previous_msgid
+            other_msgid_plural = omsg.previous_msgid_plural
+        else:
+            other_msgctxt = omsg.msgctxt
+            other_msgid = omsg.msgid
+            other_msgid_plural = omsg.msgid_plural
+
+        # Equalize number of msgstr fields.
+        msgstrs1 = []
+        msgstrs2 = []
+        lenm1 = len(omsg.msgstr)
+        lenm2 = len(self.msgstr)
+        for i in range(max(lenm1, lenm2)):
+            if i < lenm1:
+                msgstrs1.append(omsg.msgstr[i])
+            else:
+                msgstrs1.append(u"")
+            if i < lenm2:
+                msgstrs2.append(self.msgstr[i])
+            else:
+                msgstrs2.append(u"")
+
+        # Create diffs.
+        anydiff = False
+        field_diffs = []
+        field_drs = [] # difference ratios
+        for text1, text2 in [
+            (other_msgctxt or u"", self.msgctxt or u""),
+            (other_msgid, self.msgid),
+            (other_msgid_plural, self.msgid_plural),
+        ] + zip(msgstrs1, msgstrs2):
+            if pfilter:
+                text1 = pfilter(text1)
+                text2 = pfilter(text2)
+            diff = u""
+            if text1 != text2:
+                anydiff = True
+            diff, dr = word_ediff(text1, text2, markup=True, format=self.format)
+            field_diffs.append(diff)
+            field_drs.append(dr)
+
+        if not anydiff:
+            return False
+
+        # Embed diffs.
+        msgctxt_previous = None
+        if field_drs[0]:
+            msgctxt_previous = field_diffs[0]
+        msgid_previous = u""
+        if field_drs[1]:
+            msgid_previous = field_diffs[1]
+        msgid_plural_previous = u""
+        if field_drs[2]:
+            msgid_plural_previous = field_diffs[2]
+        msgstr_previous_sections = []
+        add_indices = len(field_diffs) > 4
+        for i in range(3, len(field_diffs)):
+            if field_drs[i]:
+                if add_indices:
+                    sepmark = "msgstr[%d]" % (i - 3)
+                else:
+                    sepmark = "msgstr"
+                sep = "========== %s:" % sepmark
+                msgstr_previous_sections.append(sep)
+                msgstr_previous_sections.append(field_diffs[i])
+        msgstr_previous = "\n".join(msgstr_previous_sections)
+        if msgstr_previous:
+            if not self.msgid_plural:
+                if msgid_previous:
+                    msgid_previous += "\n"
+                msgid_previous += msgstr_previous
+            else:
+                if msgid_plural_previous:
+                    msgid_plural_previous += "\n"
+                msgid_plural_previous += msgstr_previous
+
+        self.msgctxt_previous = msgctxt_previous
+        self.msgid_previous = msgid_previous
+        self.msgid_plural_previous = msgid_plural_previous
+
+        if flag:
+            self.flag.add(unicode(flag))
+
+        return True
 
 
 class Message (Message_base, Monitored): # order important for get/setattr
