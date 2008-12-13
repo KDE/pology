@@ -563,7 +563,7 @@ class Message_base (object):
         using the C{pfilter} parameter. A flag can be added to the message
         if there was any difference, using the C{flag} parameter.
 
-        @param other_msg: the message towards which to make the difference
+        @param omsg: the message towards which to make the difference
         @type omsg: L{Message_base}
         @param pfilter: filter to be applied to all text prior to differencing
         @type pfilter: callable
