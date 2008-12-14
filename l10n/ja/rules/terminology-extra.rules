@@ -49,9 +49,9 @@ valid span="^Web$" ctx="Name"
 id="bittorent-j"
 hint="BitTorrent [大文字と小文字の違いに注意]"
 
-[DBUS|DBus|Dbus|D-BUS|D-bus]
+[(?<!Q)(DBUS|DBus|Dbus|D-BUS|D-bus)]
 id="dbus-j"
-hint="D-Bus [大文字と小文字の違いに注意]"
+hint="D-Bus [大文字と小文字の違いに注意 cf. QDBus]"
 
 [EXIF]
 id="exif-j"

@@ -1019,6 +1019,7 @@ hint="Next = 次へ"
 valid msgstr="次へ"
 valid ctx="Next page" msgstr="次のページ"
 valid ctx="Opposite to Prior" msgstr="1 画面下へスクロール"
+valid ctx="(following|next) track" msgstr="次のトラック"
 
 {\boblique}i
 id="oblique"
@@ -1167,6 +1168,7 @@ id="previous"
 hint="Previous = 前へ"
 valid msgstr="前へ"
 valid ctx="Previous page" msgstr="前のページ"
+valid ctx="(preceding|previous) track" msgstr="前のトラック"
 
 {Print\.\.\.}
 id="print"
