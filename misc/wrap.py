@@ -80,7 +80,7 @@ def _tag_split (tag):
 
 def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
-               wcolmin=0, midbr=True):
+               wcolmin=0, midbr=True, remtrws=False):
     """
     Wrap text into lines.
 
@@ -139,6 +139,11 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
         C{True} to allow break in the middle of a word if no usual break
         found before C{wcol} has been exceeded
     @type midbr: bool
+
+    @param remtrws:
+        whether to strictly remove any trailing whitespace in wrapped lines
+        (otherwise trailing whitespace may be left in under certain conditions)
+    @type remtrws: bool
 
     @returns: wrapped lines (each ends with a newline)
     @rtype: list of strings
@@ -276,10 +281,14 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
         lines.append(flead + trail)
 
     for i in range(len(lines)): # postprocess
-        if not trail: # strip trailing whitespace if no trailing string
-            # ...except for whitespace which is part of leading string
-            if i == 0: clead = flead
-            else:      clead = lead
+        # Strip trailing whitespace if no trailing string or removal is forced.
+        if not trail or remtrws:
+            # Do not remove trailing whitespace which is part of leading string,
+            # unless removal is forced.
+            clead = ""
+            if not remtrws:
+                if i == 0: clead = flead
+                else:      clead = lead
             tmp = lines[i][len(clead):]
             lines[i] = clead + tmp.rstrip()
         lines[i] += "\n" # terminate with newline
@@ -358,9 +367,11 @@ def wrap_comment (ctype, text):
     return wrap_text(text, 80,
                      lead="#"+ctype+" ",
                      femp=False,
-                     midbr=False)
+                     midbr=False,
+                     remtrws=True)
     # midbr is False in order to prevent e.g. very long source references
     # being forced split in the middle.
+    # remtrws is True in order to remove the trailing space in empty comments.
 
 
 def wrap_comment_unwrap (ctype, text):
@@ -374,7 +385,8 @@ def wrap_comment_unwrap (ctype, text):
 
     return wrap_text(text, 0,
                      lead="#"+ctype+" ",
-                     femp=False)
+                     femp=False,
+                     remtrws=True)
 
 
 def wrap_field_ontag (field, text, preseq=""):
