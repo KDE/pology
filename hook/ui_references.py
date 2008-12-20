@@ -93,7 +93,8 @@ If the UI text is unique by C{msgid} field in linked UI catalogs, then
 it can be referenced simply as given above. But, if there are several
 UI messages with same C{msgid}, differentiated by C{msgctxt}, then
 the C{msgctxt} too has to be given explicitly in the reference, separated
-by the pipe (C{|}) character. If the UI catalog has these two messages::
+by the I{context separator}, which is the pipe (C{|}) character.
+If the UI catalog has these two messages::
 
     msgctxt "@title:menu"
     msgid "Columns"
@@ -109,12 +110,12 @@ then, the proper C{"Columns"} can be implicitly referenced as::
     msgstr "...<guibutton>@title:menu|Columns</guibutton>..."
 
 In the unlikely case of C{|} character being part of the context string itself,
-the "broken bar" C{¦} (C{U+00A6}) can be used instead.
+the "broken bar" C{¦} (C{U+00A6}) can be used as the context separator instead.
 
 If two messages with same C{msgid} are not in the same UI catalog, that
 is not a conflict as one of those catalogs has priority. If one message
 has context, but the other does not, the message without context is
-selected by just preceeding the C{msgid} text with context separator
+selected by just preceeding the C{msgid} text with the context separator
 (i.e. as if the context is "empty").
 
 Rarely it may happen that the referenced text is not statically complete,
@@ -140,7 +141,7 @@ If there are several format directives in the referenced text,
 they are by default considered "named", i.e. all character-wise equal
 format directives will be replaced by the same argument. This is the
 proper thing to do e.g. for C{python-format} or C{kde-format} messages,
-but not for {c-format}, e.g. when there are two C{%s} in the text.
+but not for C{c-format}, e.g. when there are two C{%s} in the text.
 To replace just the first format directive with the argument, the directive
 in the argument specification is preceeded with an exclamation mark
 (C{!}): C{...^!%s:foo}.
@@ -149,6 +150,23 @@ In general, but especially with implicit references, the text wrapped
 as reference may actually contain several references in form of UI path
 (e.g. "...go to Foo->Bar->Baz, and check..."). Hook factories can
 take one or more strings which are used as UI path separators (e.g. C{->}).
+
+Sometimes the UI reference in the original text is not valid as it is,
+i.e. such message no longer exists in the UI. This mostly happens due to
+slight interpunction mismatch, small wording changes, etc.,
+such that translator can easily locate the correct UI message and use
+its C{msgid} as the reference.
+However, in rare cases, such as in an outdated documentation passages, there
+just is no equivalent UI message to refer to. This should most certainly
+be reported to the authors of the original text, but until fixed, presents
+a problem for resolution of the UI reference. For this reason, reference
+can be temporarily translated in place, preceded by twin context separator::
+
+    msgid "...<guilabel>An Outdated Label</guilabel>..."
+    msgstr "...<guilabel>||Zastarela etiketa</guilabel>..."
+
+This will resolve into the verbatim text of the reference, with context
+separators removed.
 
 Normalization of UI Text
 ========================
