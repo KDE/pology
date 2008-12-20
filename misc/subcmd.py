@@ -646,6 +646,7 @@ class SubcmdView (object):
         ls += ["  " + _p_("subcommand help: header", "%(cmd)s")
                       % dict(cmd=self._subcmd)]
         ls += ["  " + "=" * len(ls[-1].strip())]
+        ls += [""]
         desc = self._desc
         if not desc:
             desc = _p_("subcommand help: dummy description when "
@@ -657,6 +658,7 @@ class SubcmdView (object):
             ls += [""]
             ls += ["  " + _p_("subcommand help: header",
                              "Mandatory parameters:")]
+            ls += [""]
             for param in m_params:
                 ls += [fmt_par(param, "  ")]
 
@@ -664,6 +666,7 @@ class SubcmdView (object):
             ls += [""]
             ls += ["  " + _p_("subcommand help: header",
                              "Optional parameters:")]
+            ls += [""]
             for param in o_params:
                 ls += [fmt_par(param, "  ")]
 
