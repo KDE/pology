@@ -128,7 +128,7 @@ class Message_base (object):
 
         The state of fuzziness can be also checked by looking for the C{fuzzy}
         flag in the set of flags, but using this variable is shorter,
-        and the message can be properly unfuzzied by assigning False to it
+        and the message can be thoroughly unfuzzied by assigning C{False} to it
         (e.g. C{*_previous} fields are cleared as well).
     @type fuzzy: bool
 
@@ -269,6 +269,9 @@ class Message_base (object):
                     self.flag.add(u"fuzzy")
                 else:
                     self.flag.remove(u"fuzzy")
+                    self.msgctxt_previous = None
+                    self.msgid_previous = u""
+                    self.msgid_plural_previous = u""
 
         self.__dict__["^getsetattr"].__setattr__(self, att, val)
 
