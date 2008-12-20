@@ -50,7 +50,11 @@ def setup_sieve (p):
     "\n\n"
     "Sometimes a certain header field needs to be updated throught many POs, "
     "and this sieve serves that purpose."
-    % dict(par1="or")
+    "\n\n"
+    "Note that %%-character in the value is used to expand some preset "
+    "variables. Currently these are: %%%(poname)s - name of the catalog. "
+    "If literal %% is needed (e.g. in plural forms), it can be escaped as %%%%."
+    % dict(poname="poname")
     )
 
     p.add_param("field", unicode, multival=True,
