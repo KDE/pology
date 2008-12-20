@@ -78,15 +78,15 @@
       <code>reorder</code>: reinsert the field to match implied order
     </li>
   </ul>
-  <p>The {field} parameter takes the exact name of the header field and a 
-  value to set it to. But, by itself it will set the field only if it is 
-  already present in the header. To create the field if not present, 
-  <code>create</code> option must be given. If the field is being added, 
-  parameters <code>after</code> and <code>before</code> can be used to 
-  specify where to insert it; by default the new field is appended at the 
-  end of the header. If the field is present, using the option 
+  <p>The <code>field</code> parameter takes the exact name of the header 
+  field and a value to set it to. But, by itself it will set the field only
+  if it is already present in the header. To create the field if not 
+  present, <code>create</code> option must be given. If the field is being 
+  added, parameters <code>after</code> and <code>before</code> can be used 
+  to specify where to insert it; by default the new field is appended at 
+  the end of the header. If the field is present, using the option 
   <code>reorder</code> it can be moved within the header to match the order
-  implied by <code>after</code> and {before}.</p>
+  implied by <code>after</code> and <code>before</code>.</p>
   <p>Field value strings may contain %-directives, which are expanded to 
   catalog-dependent substrings prior to setting the value. These are:</p>
   <ul>
@@ -119,6 +119,31 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.set_header.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
