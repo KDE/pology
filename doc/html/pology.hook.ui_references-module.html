@@ -139,9 +139,9 @@
     catalogs, then it can be referenced simply as given above. But, if 
     there are several UI messages with same <code>msgid</code>, 
     differentiated by <code>msgctxt</code>, then the <code>msgctxt</code> 
-    too has to be given explicitly in the reference, separated by the pipe 
-    (<code>|</code>) character. If the UI catalog has these two 
-    messages:</p>
+    too has to be given explicitly in the reference, separated by the 
+    <i>context separator</i>, which is the pipe (<code>|</code>) character.
+    If the UI catalog has these two messages:</p>
 <pre class="literalblock">
    msgctxt &quot;@title:menu&quot;
    msgid &quot;Columns&quot;
@@ -159,12 +159,13 @@
 </pre>
     <p>In the unlikely case of <code>|</code> character being part of the 
     context string itself, the &quot;broken bar&quot; <code>&#166;</code> 
-    (<code>U+00A6</code>) can be used instead.</p>
+    (<code>U+00A6</code>) can be used as the context separator instead.</p>
     <p>If two messages with same <code>msgid</code> are not in the same UI 
     catalog, that is not a conflict as one of those catalogs has priority. 
     If one message has context, but the other does not, the message without
     context is selected by just preceeding the <code>msgid</code> text with
-    context separator (i.e. as if the context is &quot;empty&quot;).</p>
+    the context separator (i.e. as if the context is 
+    &quot;empty&quot;).</p>
     <p>Rarely it may happen that the referenced text is not statically 
     complete, but contains a format directive which is resolved at runtime.
     In such cases, the reference is <code>msgid</code> as it is, and the 
@@ -188,16 +189,33 @@
     are by default considered &quot;named&quot;, i.e. all character-wise 
     equal format directives will be replaced by the same argument. This is 
     the proper thing to do e.g. for <code>python-format</code> or 
-    <code>kde-format</code> messages, but not for {c-format}, e.g. when 
-    there are two <code>%s</code> in the text. To replace just the first 
-    format directive with the argument, the directive in the argument 
-    specification is preceeded with an exclamation mark (<code>!</code>): 
-    <code>...^!%s:foo</code>.</p>
+    <code>kde-format</code> messages, but not for <code>c-format</code>, 
+    e.g. when there are two <code>%s</code> in the text. To replace just 
+    the first format directive with the argument, the directive in the 
+    argument specification is preceeded with an exclamation mark 
+    (<code>!</code>): <code>...^!%s:foo</code>.</p>
     <p>In general, but especially with implicit references, the text 
     wrapped as reference may actually contain several references in form of
     UI path (e.g. &quot;...go to Foo-&gt;Bar-&gt;Baz, and check...&quot;). 
     Hook factories can take one or more strings which are used as UI path 
     separators (e.g. <code>-&gt;</code>).</p>
+    <p>Sometimes the UI reference in the original text is not valid as it 
+    is, i.e. such message no longer exists in the UI. This mostly happens 
+    due to slight interpunction mismatch, small wording changes, etc., such
+    that translator can easily locate the correct UI message and use its 
+    <code>msgid</code> as the reference. However, in rare cases, such as in
+    an outdated documentation passages, there just is no equivalent UI 
+    message to refer to. This should most certainly be reported to the 
+    authors of the original text, but until fixed, presents a problem for 
+    resolution of the UI reference. For this reason, reference can be 
+    temporarily translated in place, preceded by twin context 
+    separator:</p>
+<pre class="literalblock">
+   msgid &quot;...&lt;guilabel&gt;An Outdated Label&lt;/guilabel&gt;...&quot;
+   msgstr &quot;...&lt;guilabel&gt;||Zastarela etiketa&lt;/guilabel&gt;...&quot;
+</pre>
+    <p>This will resolve into the verbatim text of the reference, with 
+    context separators removed.</p>
   <h1 class="heading">Normalization of UI Text</h1>
     <p>The exact text of UI message may contain some characters and 
     substrings which should not find their way into the text which 
