@@ -74,8 +74,8 @@ messages with at most 5 words, like this::
 
     $ posieve.py stats -s maxwords:5 frobaz/
 
-Sieve parameters can also be switches, when only the key is given. C{stats} can
-be instructed to show statistics in greater detail like this::
+Sieve parameters can also be switches, when only the parameter name is given.
+C{stats} can be instructed to show statistics in greater detail like this::
 
     $ posieve.py stats -s detail frobaz/
 
