@@ -450,6 +450,7 @@ valid after="タグ名" before="属性1, 属性2" cat="quanta"
 valid after="s" before="\[a\-zA\-Z\]\+\)" cat="quanta"
 valid after="%artist\)" before="アルバム名" cat="kopete"
 valid after="。:" cat="kopete"
+valid after="\left" cat="kile"
 valid cat="kspread"
 
 [\)]

@@ -525,14 +525,14 @@ valid msgstr="環境変数"
 id="executable"
 hint="executable = 実行ファイル"
 valid before=" (file|program|code|script|attribute)"
-valid after="(is( not)?|mark the file as|kills the) "
+valid after="(is|not|mark the file as|kills the) "
 valid ctx="is executable"
 valid msgstr="実行ファイル"
 
 {\bexecutable}i
 id="executable2"
 hint="executable = 実行可能"
-valid !before=" (code|script|attribute)" !after="(is( not)?|mark the file as) " !ctx="is executable"
+valid !before=" (code|script|attribute)" !after="(is|not|mark the file as) " !ctx="is executable"
 valid msgstr="実行可能"
 
 {\bexecutable files?}i
@@ -878,6 +878,18 @@ hint="key pair = 鍵ペア"
 valid msgstr="鍵ペア"
 valid after="secret " msgstr="秘密鍵のペア"
 
+{\blandscape}i
+id="landscape"
+hint="landscape = 横長"
+valid msgstr="横長"
+disabled
+
+{\blandscape}i
+id="landscape2"
+hint="landscape = ランドスケープ"
+valid msgstr="ランドスケープ"
+disabled
+
 {\blaunchers?\b}i
 id="launcher"
 hint="launcher = ランチャー"
@@ -1138,7 +1150,7 @@ valid msgstr="プレイ"
 id="player"
 hint="player = プレーヤー [メディアプレーヤー]"
 valid after="computer |AI |human "
-valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, kbackgammon, kombination, kttt, libksirtet"
+valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, kbackgammon, kombination, kttt, libksirtet, ktron"
 valid after="Dragon |Kaffeine "
 valid after="%"
 valid msgstr="プレーヤー" !msgstr="プレーヤ(?!ー)|プレイヤー"
@@ -1146,6 +1158,9 @@ valid msgstr="プレーヤー" !msgstr="プレーヤ(?!ー)|プレイヤー"
 {\bplayers?}i
 id="player2"
 hint="player = プレイヤー [ゲームの参加者]"
+valid after="single " msgstr="1 人プレイ"
+valid after="two " before=" game" msgstr="2 人"
+valid before=" is AI" msgstr="AI がプレイ"
 valid after="media |audio |music |movie |video |midi |karaoke |file |CD |DVD |MPEG "
 valid after="external"
 valid after="%"
@@ -1157,6 +1172,18 @@ valid msgstr="プレイヤー" !msgstr="プレイヤ(?!ー)|プレーヤー?"
 id="playlist"
 hint="playlist = プレイリスト"
 valid msgstr="プレイリスト"
+
+{\bportrait}i
+id="portrait"
+hint="portrait = 縦長"
+valid msgstr="縦長"
+disabled
+
+{\bportrait}i
+id="portrait2"
+hint="portrait = ポートレート"
+valid msgstr="ポートレート"
+disabled
 
 {\bpreferences\b}i
 id="preferences"
