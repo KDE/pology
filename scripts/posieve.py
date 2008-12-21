@@ -67,20 +67,20 @@ in output, followed by the table with statistics.
 
 C{posieve} takes a few options, which you can list with the usual C{--help}
 option. However, more interesting is that sieves themselves can be sent some
-options. These sieve options are sent to sieve by the C{-s} option, which
-takes as argument a C{key:value} pair. As many of these as needed can be given.
+I{parameters}, using the C{-s} option, which takes as argument a
+C{parameter:value} pair. As many of these as needed can be given.
 For example, C{stats} sieve could be instructed to take into account only
 messages with at most 5 words, like this::
 
     $ posieve.py stats -s maxwords:5 frobaz/
 
-Sieve options can also be switches, when only the key is given. C{stats} can
+Sieve parameters can also be switches, when only the key is given. C{stats} can
 be instructed to show statistics in greater detail like this::
 
     $ posieve.py stats -s detail frobaz/
 
-In case a sieve chain is specified, sieve options are routed to sieves as they
-will accept them. If two sieves in the chain have a same-named option, when
+In case a sieve chain is specified, sieve parameters are routed to sieves as they
+will accept them. If two sieves in the chain have a same-named parameters, when
 given on the command line it will be sent to both.
 
 Pology also collects language-specific internal sieves. These are run by
