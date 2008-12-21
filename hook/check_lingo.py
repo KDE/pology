@@ -12,7 +12,6 @@ import codecs
 import re
 
 from pology import rootdir
-from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import warning, error
 from pology.misc.comments import manc_parse_flag_list, manc_parse_list
 from pology.misc.msgreport import report_on_msg
@@ -123,11 +122,12 @@ def _check_spell_w (lang, encoding, variety, extopts,
         aopts = dict([(x, y.encode(encoding)) for x, y in aopts.items()])
 
         # Create Aspell object.
+        import pology.external.pyaspell as A
         try:
-            checker = Aspell(aopts.items())
-        except AspellConfigError, e:
+            checker = A.Aspell(aopts.items())
+        except A.AspellConfigError, e:
             error("Aspell configuration error:\n%s" % e)
-        except AspellError, e:
+        except A.AspellError, e:
             error("cannot initialize Aspell:\n%s" % e)
     else:
         # Create simple internal checker that only checks against
