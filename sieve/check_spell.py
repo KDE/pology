@@ -79,7 +79,6 @@ The following user configuration fields are considered:
 @license: GPLv3
 """
 
-from pology.external.pyaspell import Aspell, AspellConfigError, AspellError
 from pology.misc.report import report, warning, error
 from pology.misc.msgreport import spell_error, spell_xml_error
 from pology.misc.split import proper_words
@@ -253,12 +252,13 @@ class Sieve (object):
 
             if not self.suponly:
                 # Create Aspell object.
+                import pology.external.pyaspell as A
                 try:
-                    self.aspells[clang] = Aspell(self.aspellOptions.items())
-                except AspellConfigError, e:
+                    self.aspells[clang] = A.Aspell(self.aspellOptions.items())
+                except A.AspellConfigError, e:
                     error("Aspell configuration error:\n"
                           "%s" % e)
-                except AspellError, e:
+                except A.AspellError, e:
                     error("cannot initialize Aspell for language '%s':\n"
                           "\t- check if Aspell and the language dictionary are correctly installed\n"
                           "\t- check if there are any special characters in the personal dictionary\n"
