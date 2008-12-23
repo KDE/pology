@@ -817,8 +817,8 @@ valid msgstr="\bвеб прегледач" !msgstr="прегледачом"
 
 {\bweb\W?page}i
 id="webpage"
-hint="webpage = веб страна"
-valid msgstr="\bвеб стран" !msgstr="\bвеб страниц"
+hint="webpage = веб страница"
+valid msgstr="\bвеб страниц"
 
 {\b(web\W?)?site}i
 id="website"
