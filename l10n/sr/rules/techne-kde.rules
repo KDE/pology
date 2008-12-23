@@ -109,7 +109,8 @@ include file="puretext.filters"
       factory="lang='sr', env='kde'" \
       on="msgstr"
 # Remove Latin-only words.
-addFilterRegex match="[a-zđžćčš]+" on="pmsgid,pmsgstr"
+# There may also be non-Latin case endings, remove them too.
+addFilterRegex match="[a-zđžćčš]+(-\w+)?" on="pmsgid,pmsgstr"
 id="x-spell"
 hint="непознате или погрешно написане речи"
 # Разне транскрипције и измишљотине, прескачемо док нешто не приправимо.
