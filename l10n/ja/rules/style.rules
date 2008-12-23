@@ -243,6 +243,9 @@ hint="はるか"
 hint="またぐ"
 valid !before="[がぎぐげご]"
 
+[暫く]
+hint="しばらく"
+
 [とおり]
 id="tori3"
 hint="3 通り、何通り [cf. 以下のとおり]"
@@ -381,7 +384,7 @@ valid msgid="please wait\.\.\."
 id="colon1"
 hint="「:」を取り忘れていませんか？"
 valid msgid=": ?$"
-valid msgid="(every|after|for|from|to|of|at|except|named|is|at least|more than) ?$"
+valid msgid="(every|after|for|from|to|of|at|except|named|is|at least|more than|below|above) ?$"
 
 {: ?$}
 id="colon2"
@@ -557,3 +560,8 @@ hint="このタグの前後には半角のスペースを入れてください"
 [\w<code>|</code>\w]
 id="tag-code"
 hint="このタグの前後には半角のスペースを入れてください"
+
+[<(i|em)>.+</(i|em)>]
+id="tag-italic"
+hint="本当に必要でなければイタリック体の使用を避けてください (引用符や KUIT タグに置き換えるとか)"
+valid span="<i>イタリック(テキスト|体)</i>" cat="quanta"
