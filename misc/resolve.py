@@ -575,8 +575,8 @@ def remove_accelerator (text, accels=None, greedy=False):
                     elif p2 + 1 == tlen:
                         text = text[:p1] + text[p + 2:].rstrip()
 
-                # Remove only one accelerator marker.
-                break
+                # Do not break, remove all accelerator markers,
+                # as it is indeterminate which one is the real one.
 
             if text[p + alen:p + 2 * alen] == accel:
                 # Escaped accelerator marker.
