@@ -30,7 +30,7 @@ to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
-The C{filter} option specifies pure text hooks to apply to
+The C{filter} option specifies filter hooks (F1A, F3C) to apply to
 msgstr before it is checked. The hooks are found in C{pology.hook}
 and C{pology.l10n.<lang>.hook} modules, and are specified
 as comma-separated list of C{[<lang>:]<name>[/<function>]};
@@ -185,7 +185,8 @@ class Sieve (object):
         if "filter" in options:
             options.accept("filter")
             freqs = options["filter"].split(",")
-            self.pfilters = [get_hook_lreq(x, abort=True) for x in freqs]
+            filters = [get_hook_lreq(x, abort=True) for x in freqs]
+            self.pfilters = zip(freqs, filters)
 
         # Environment for dictionary supplements.
         self.env = None
@@ -325,8 +326,15 @@ class Sieve (object):
                 continue
 
             # Apply precheck filters.
-            for pfilter in self.pfilters:
-                msgstr = pfilter(msgstr)
+            for pfname, pfilter in self.pfilters:
+                try: # try as type F1A hook
+                    msgstr = pfilter(msgstr)
+                except TypeError:
+                    try: # try as type F3* hook
+                        msgstr = pfilter(msgstr, msg, cat)
+                    except TypeError:
+                        warning("cannot execute filter '%s'" % pfname)
+                        raise
 
             # Split text into words.
             if not self.simsp:
