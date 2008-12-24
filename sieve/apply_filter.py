@@ -10,6 +10,7 @@ or F3* (C{(text/msgstr, msg, cat)->msgstr}).
 Sieve parameters:
   - C{filter:<filter>,...}: comma-separated list of hook specifications
   - C{factory:<filter>~~...}: double-tilde separated list of factory arguments
+  - C{nosync}: do not request syncing of the catalogs
 
 Global hooks can be specified just by their module name, e.g. C{foo}
 for C{pology.hook.foo}, if the module defines hook as C{process()} function;
@@ -26,6 +27,9 @@ Each argument string is an ansamble of arguments as would be given
 to the factory call inside Python code (without wrapping parenthesis).
 If an argument string is empty, the hook corresponding to it is considered
 a plain hook rather than factory, and skipped on evaluation of factories.
+
+Using the C{nosync} parameter, the sieve can be chained with a checker sieve,
+to filter C{msgstr} before sending the checker sieve gets to operate on it.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -57,8 +61,19 @@ class Sieve (object):
                     factory = self.tfilters[i][0]
                     self.tfilters[i][0] = eval("factory(%s)" % fargs[i])
 
+        # Whether to not request syncing of the catalog.
+        self.nosync = False
+        if "nosync" in options:
+            options.accept("nosync")
+            self.nosync = True
+
         # Number of modified messages.
         self.nmod = 0
+
+        # Do not request syncing of the catalog if requested.
+        if self.nosync:
+            self.caller_sync = False
+            self.caller_monitored = False
 
 
     def process (self, msg, cat):
