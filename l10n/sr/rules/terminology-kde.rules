@@ -473,11 +473,11 @@ hint="list = списак [може бити и ‘листа’, где се и
 valid after="(mailing |e?mail |distribution |access control |play\W?|dynamic |white |black )" msgstr="\bлист"
 valid cat="kio_imap4" after="access control " msgstr="\bacl"
 valid cat="juk" after="collection " msgstr="\bлист"
-valid after="free/busy " !msgstr="\bлист"
+valid after="free[ /-]busy " !msgstr="\bлист"
 valid !cat="kabc" msgstr="\bсписа?к"
 valid msgstr="\b(набр[оа]?ј|навед|наво[дс]|испи[сш])"
 valid msgstr="&(internetbooklist)\S*;"
-valid cat="kabc" msgstr="\bлист"
+valid cat="kabc,userguide_getting-help" msgstr="\bлист"
 valid cat="kabc" msgid="list of emails" msgstr="\bсписак"
 valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опцијама,"
 
