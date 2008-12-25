@@ -548,7 +548,7 @@ def _prep_docbook4_to_plain ():
     _dbk_subs.update([(x, _kuit_subs["_ws"]) for x in
                        "contrib address firstname placeholder surname "
                        "guilabel guibutton guiicon guimenu guisubmenu "
-                       "guimenuitem "
+                       "guimenuitem indexterm "
                        "".split()])
 
     _dbk_ents = { # in addition to default XML entities
