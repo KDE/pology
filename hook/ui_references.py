@@ -692,6 +692,9 @@ def _norm_ui_cat (cat, xmlescape):
     norm_cat.filename = cat.filename + "~norm"
 
     for msg in cat:
+        if msg.obsolete:
+            continue
+
         remove_markup_msg(msg, cat) # before accelerator removal
         remove_accel_msg(msg, cat) # after markup removal
 
