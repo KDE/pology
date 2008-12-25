@@ -67,6 +67,9 @@ addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
 # (-> after markup removal)
 addFilterHook name="remove-subs/remove-literals-msg" on="msg"
 
+# Remove local entities which are to be left as-is in the message.
+addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+
 # Convert accent graphs into Unicode accent compositions,
 # then remove accents from letters alltogether.
 addFilterHook env="kde" name="sr:accents/resolve_agraphs" on="pmsgstr"

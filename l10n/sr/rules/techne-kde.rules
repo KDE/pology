@@ -25,6 +25,9 @@ clearFilters
 addFilterRegex match="(&\S+?)(?:_ot_sp|_ot|_sp|_db41)(-\S*;)" repl="\1\2" \
                on="pmsgstr"
 
+# Remove local entities which are to be left as-is in the message.
+addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+
 # Strict mode means to request valid translation even if the original is not.
 # Catalogs must announce markup in the header, using markup type keyword in
 # X-Text-Markup field (see markup= parameters in factories below);
