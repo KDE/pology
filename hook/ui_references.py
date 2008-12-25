@@ -542,7 +542,7 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
 
     # Function to resolve given UI reference
     # (part that needs to be under closure).
-    def resolve_single_uiref(uiref, msg, cat):
+    def resolve_single_uiref(uiref, msg, cat, hook_helper):
 
         if ldata.get("uicpaths") is None:
             ldata["uicpaths"] = _collect_ui_catpaths(uicpaths, uicpathenv)
@@ -552,14 +552,17 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                                                    xmlescape)
         normcats = ldata["normcats"]
 
-        uiref_res, errmsgs = _resolve_single_uiref(uiref, normcats)
+        hookcl_f3c = lambda uiref: hook_helper(uiref, msg, cat, True, False)
+        hookcl_v3c = lambda uiref: hook_helper(uiref, msg, cat, False, True)
+        uiref_res, errmsgs = _resolve_single_uiref(uiref, normcats,
+                                                   hookcl_f3c, hookcl_v3c)
         uiref_res = pfhook(uiref_res)
 
         return uiref_res, errmsgs
 
 
-    # The hook itself.
-    def hook (msgstr, msg, cat):
+    # The hook itself, in two parts.
+    def hook_helper (msgstr, msg, cat, modtext, spanrep):
 
         errspans = []
         tsegs = []
@@ -573,7 +576,8 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
             for ptext, uiref, start, end in rsplit:
                 tsegs.append(ptext)
                 if uiref is not None:
-                    uiref_res, errmsgs = resolve_single_uiref(uiref, msg, cat)
+                    uiref_res, errmsgs = resolve_single_uiref(uiref, msg, cat,
+                                                              hook_helper)
                     tsegs.append(uiref_res)
                     errspans.extend([(start, end, x) for x in errmsgs])
                     if not spanrep and not quiet:
@@ -589,6 +593,10 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
             return errspans
         else: # S3C hook
             return len(errspans)
+
+    def hook (msgstr, msg, cat):
+
+        return hook_helper(msgstr, msg, cat, modtext, spanrep)
 
     return hook
 
@@ -723,7 +731,7 @@ def _escape_to_xml (text):
 
 _ts_fence = "|/|"
 
-def _resolve_single_uiref (uitext, uicats):
+def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
 
     errmsgs = []
 
@@ -772,6 +780,12 @@ def _resolve_single_uiref (uitext, uicats):
                 if alst[0].startswith(_uiref_argsrepl):
                     alst[0] = alst[0][1:]
                     single = True
+                # Argument itself may contain UI references.
+                local_errspans = hookcl_v3c(alst[1])
+                if local_errspans:
+                    errmsgs.extend([x[-1] for x in local_errspans])
+                else:
+                    alst[1] = hookcl_f3c(alst[1])
                 alst.append(single)
                 args.append(alst)
             else:
