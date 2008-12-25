@@ -14,7 +14,7 @@ from pology.misc.resolve import remove_fmtdirs as _rm_fmtd_in_text_single
 from pology.misc.resolve import remove_literals as _rm_lit_in_text_single
 from pology.misc.resolve import resolve_entities_simple
 import pology.misc.markup as M
-from pology.misc.comments import manc_parse_field_values
+from pology.misc.comments import manc_parse_field_values, manc_parse_list
 from pology.misc.msgreport import warning_on_msg
 
 
@@ -381,4 +381,39 @@ def remove_literals_msg_tick (tick):
         return _rm_lit_in_msg(msg, cat, tick)
 
     return hook
+
+
+def remove_ignored_entities_msg (msg, cat):
+    """
+    Remove locally ignored entities from all applicable text fields in
+    the message [type F4A hook].
+
+    Entities are ignored by listing them in the embedded C{ignore-entities}
+    fields in manual comments. For example::
+
+        # ignore-entity: foobar, froobaz
+
+    will remove entities C{&foobar;} and C{&froobaz;} from all text fields.
+
+    @return: number of errors
+    """
+
+    locally_ignored = manc_parse_list(msg, "ignore-entity:", ",")
+    if not locally_ignored:
+        return 0
+
+    msg.msgid = _rm_ent_in_text(msg.msgid, locally_ignored)
+    msg.msgid_plural = _rm_ent_in_text(msg.msgid_plural, locally_ignored)
+    for i in range(len(msg.msgstr)):
+        msg.msgstr[i] = _rm_ent_in_text(msg.msgstr[i], locally_ignored)
+
+    return 0
+
+
+def _rm_ent_in_text (text, entities):
+
+    for entity in entities:
+        text = text.replace("&%s;" % entity, "")
+
+    return text
 
