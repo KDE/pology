@@ -707,6 +707,8 @@ def _norm_ui_cat (cat, xmlescape):
         remove_accel_msg(msg, cat) # after markup removal
 
         if xmlescape: # after markup removal
+            if msg.msgctxt:
+                msg.msgctxt = _escape_to_xml(msg.msgctxt)
             msg.msgid = _escape_to_xml(msg.msgid)
             msg.msgid_plural = _escape_to_xml(msg.msgid_plural)
             for i in range(len(msg.msgstr)):
