@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*
 
 """
-Process iyekavian text with marked yat-reflexes.
+Process yekavian text with marked yat-reflexes.
 
 Yat-reflexes are marked by inserting a special character, C{›},
 just before the part of the word that differs from ekavian form::
@@ -13,7 +13,7 @@ or, for special cases where this would not work, one letter earlier::
     Не до›лијевај уље на ватру, ›нијесам се с›мијао.
 
 For extremely rare cases, it is possible to provide a substring in
-both ekavian and iyekavian forms, in that order::
+both ekavian and yekavian forms, in that order::
 
     Гд›је с' ~#/то/ба/ пошо̑?
 
@@ -25,6 +25,7 @@ where any character may be consistently used instead of C{/}.
 
 from pology.misc.report import warning
 from pology.misc.resolve import resolve_alternatives_simple
+from pology.misc.resolve import resolve_alternatives
 
 
 _reflex_map = {
@@ -53,7 +54,7 @@ _ije_althead = "~#"
 
 def to_e (text):
     """
-    Resolve marked iyekavian into clean ekavian text [type F1A hook].
+    Resolve marked yekavian into clean ekavian text [type F1A hook].
 
     @return: text
     """
@@ -81,24 +82,64 @@ def to_e (text):
             p += len(reflex)
         else:
             dreflex = text[(p - _reflex_mark_len):(p + _max_reflex_len + 1)]
-            warning("unknown yat-reflex '%s...', skipped" % dreflex)
+            warning("unknown yat-reflex at '%s...', skipped" % dreflex)
             segs.append(text[(p - _reflex_mark_len):p])
 
     ntext = "".join(segs)
-    ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_ije_althead)
+    ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_ije_althead,
+                                        srcname="<text>")
 
     return ntext
 
 
 def to_ije (text):
     """
-    Resolve marked iyekavian into clean iyekavian text [type F1A hook].
+    Resolve marked yekavian into clean yekavian text [type F1A hook].
 
     @return: text
     """
 
     ntext = text.replace(_reflex_mark, "")
-    ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_ije_althead)
+    ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_ije_althead,
+                                        srcname="<text>")
 
     return ntext
+
+
+def validate (text):
+    """
+    Check whether all marked yat-reflexes are known [type V1A hook].
+
+    @return: type V1A hook
+    @rtype: C{(text) -> spans}
+    """
+
+    spans = []
+    p = 0
+    while True:
+        pp = p
+        p = text.find(_reflex_mark, p)
+        if p < 0:
+            break
+        p += _reflex_mark_len
+
+        # Check if yat-reflex can be resolved.
+        for rl in range(_max_reflex_len, 0, -1):
+            reflex = text[p:(p + rl + 1)]
+            ekvform = _reflex_map.get(reflex)
+            if ekvform is not None:
+                break
+        if not ekvform:
+            start, end = p - _reflex_mark_len, p + _max_reflex_len + 1
+            dreflex = text[start:end]
+            errmsg = "unknown yat-reflex at '%s...'" % dreflex
+            spans.append((start, end, errmsg))
+
+    d1, ngood, allgood = resolve_alternatives(text, 1, 2, althead=_ije_althead)
+    if not allgood:
+        errmsg = ("malformed ekavian-yekavian alternative encountered "
+                  "after %d good" % ngood)
+        spans.append((0, 0, errmsg))
+
+    return spans
 
