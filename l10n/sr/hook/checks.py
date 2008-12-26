@@ -41,29 +41,16 @@ _no_check_lat_rxs = (
     re.compile(r"\S+://\S*[\w&=]", re.U),
     re.compile(r"\w{3,}(\.[\w-]{2,})+", re.U),
     # - text within these tags
-    # NOTE: Some tags are requested without attributes, as otherwise
-    # Latin-content is allowed inside attribute only.
-    re.compile(r"<\s*(bcode)\b.*?\b\1\s*>", re.U|re.I|re.S),
-    re.compile(r"<\s*(command)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(email)\s*>\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(envar)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(filename)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(icode)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(link)\s*>\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(shortcut)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(placeholder)\b.*?\b\1\s*>", re.U|re.I),
-    re.compile(r"<\s*(style)\b.*?\b\1\s*>", re.U|re.I|re.S), # for text/css
-    re.compile(r"<\s*(code)\b.*?\b\1\s*>", re.U|re.I|re.S), # HTML code tag
-    re.compile(r"<\s*(tt)\b.*?\b\1\s*>", re.U|re.I|re.S), # also HTML code tag
-    re.compile(r"<\s*(literal)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(screen)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(option)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(keycap)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(userinput)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(systemitem)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(prompt)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(function)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
-    re.compile(r"<\s*(foreignphrase)\b.*?\b\1\s*>", re.U|re.I|re.S), # Docbook
+    re.compile(r"<\s*(%s)\b.*?\b\1\s*>" % "|".join("""
+        bcode command envar filename icode shortcut placeholder style code tt
+        literal screen option keycap userinput systemitem prompt function
+        foreignphrase varname programlisting
+    """.split()), re.U|re.I|re.S),
+    # - some tags are requested without attributes, as otherwise
+    # Latin-content is allowed inside attributes only.
+    re.compile(r"<\s*(%s)\s*>\b.*?\b\1\s*>" % "|".join("""
+        email link
+    """.split()), re.U|re.I|re.S),
     # - all tags (must come after the above text removed by tags)
     re.compile(r"<.*?>", re.U|re.I),
     # - wiki stuff
@@ -82,6 +69,11 @@ _no_check_lat_origui_rxs = (
 # Warn on naked-Latin if this matches.
 _naked_latin_rx = re.compile(r"[a-z][a-z\W]*", re.U|re.I)
 
+# Messages to skip by tags in auto comments.
+_auto_cmnt_tag_rx = re.compile(r"^\s*Tag:\s*(%s)\s*$" % "|".join("""
+    filename envar programlisting screen
+""".split()), re.U|re.I)
+
 # The hook worker.
 def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
 
@@ -94,6 +86,14 @@ def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
             return 0
         else:
             return []
+
+    # Avoid specially tagged messages.
+    for auto_cmnt in msg.auto_comment:
+        if _auto_cmnt_tag_rx.search(auto_cmnt):
+            if sideeffect:
+                return 0
+            else:
+                return []
 
     # Eliminate all no-check segments.
     stripped_msgstr = msgstr
