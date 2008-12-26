@@ -103,6 +103,17 @@ id="x-uiref-o"
 hint="неуспело разрешавање ниске сучеља"
 
 # ----------------------------------------
+# Check ekavian-yekavian hybridization.
+
+clearFilters
+# No filters, so that to_e filter hook does not spew errors,
+# and to be faster if run standalone.
+
+*hook name="sr:ijeref/validate" on="pmsgstr"
+id="x-ijeref"
+hint="непознат рефлекс јата (или лош ек-ијек уметак)"
+
+# ----------------------------------------
 # The following rules should be applied on pure text.
 clearFilters
 include file="puretext.filters"
