@@ -274,7 +274,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         new_text = original_text
         nresolved = 0
 
-    return new_text, nresolved, malformed
+    return new_text, nresolved, not malformed
 
 
 def resolve_alternatives_simple (text, select, total, fmtstr=None,
@@ -289,10 +289,10 @@ def resolve_alternatives_simple (text, select, total, fmtstr=None,
     @see: L{resolve_alternatives}
     """
 
-    ntext, d1, malformed = resolve_alternatives(text, select, total,
-                                                fmtstr=fmtstr, srcname=srcname,
-                                                condf=condf, althead=althead)
-    if malformed:
+    ntext, d1, valid = resolve_alternatives(text, select, total,
+                                            fmtstr=fmtstr, srcname=srcname,
+                                            condf=condf, althead=althead)
+    if not valid:
         return text
     return ntext
 
