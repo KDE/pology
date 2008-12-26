@@ -1297,7 +1297,7 @@ def _triggerFromHook (fields):
         def trigger (msg, cat):
             hl = []
             for i in range(len(msg.msgstr)):
-                hl.append(("msgstr", i, hook(msgstr)))
+                hl.append(("msgstr", i, hook(msg.msgstr[i])))
             return hl
 
     return trigger
