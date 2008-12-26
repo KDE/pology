@@ -269,7 +269,7 @@ def _literals_spec (msg, cat):
     for rx_str in rx_strs:
         if rx_str:
             try:
-                rxs.append(re.compile(rx_str, re.U))
+                rxs.append(re.compile(rx_str, re.U|re.S))
             except:
                 warning_on_msg("field %s states malformed regex: %s"
                                % (fname, rx_str), msg, cat)
