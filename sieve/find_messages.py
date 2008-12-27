@@ -343,7 +343,7 @@ class Sieve (object):
         # Resolve filtering hooks.
         self.pfilters = []
         for hreq in self.p.filter or []:
-            self.pfilters.append(get_hook_lreq(x, abort=True))
+            self.pfilters.append(get_hook_lreq(hreq, abort=True))
 
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.p.replace is None and not self.p.mark:
