@@ -354,15 +354,24 @@ def ascribe_postmerge (options, configs_catpaths, mode):
     stest = mode.selector
 
     nasc = 0
+    nobs = 0
+    nrvv = 0
     for config, catpaths in configs_catpaths:
 
         mkdirpath(config.udata[UFUZZ].ascroot)
 
         for catpath in catpaths:
             nasc += ascribe_modified_cat(options, config, UFUZZ, catpath, stest)
+            cnobs, cnrvv = ascribe_obsrvv_cat(options, config, catpath)
+            nobs += cnobs
+            nrvv += cnrvv
 
     if nasc > 0:
-        report("===! Ascribed as modified (fuzzy): %d entries" % nasc)
+        report("===! Ascribed as fuzzy: %d entries" % nasc)
+    if nobs > 0:
+        report("===! Ascribed as obsoleted: %d entries" % nobs)
+    if nrvv > 0:
+        report("===! Ascribed as revived: %d entries" % nrvv)
 
 
 def diff_select (options, configs_catpaths, mode):
@@ -684,6 +693,63 @@ def show_history_cat (options, config, catpath, stest):
     return nselected
 
 
+def ascribe_obsrvv_cat (options, config, catpath):
+
+    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    acats = collect_asc_cats(config, cat.name, monall=True)
+
+    # Current VCS revision of the catalog.
+    catrev = config.vcs.revision(cat.filename)
+
+    nobsoleted = 0
+    nrevived = 0
+    for msg in cat:
+        history = asc_collect_history(msg, acats, config)
+        if msg.obsolete:
+            if not history:
+                warning("%s: no ascription history for obsoleted message "
+                        "at %s(#%s)"
+                        % (cat.filename, msg.refline, msg.refentry))
+                continue
+            # Ascribe obsolescence if not already ascribed after last revival,
+            # or if revival was never ascribed.
+            can_asc = True
+            for a in history:
+                if a.type == _atype_obs:
+                    can_asc = False
+                    break
+                if a.type == _atype_rvv:
+                    break
+            if can_asc:
+                ascribe_msg_obs(a.msg, a.user, config, catrev)
+                nobsoleted += 1
+        elif history:
+            # Ascribe revival if not already ascribed after last obsolescence.
+            can_asc = False
+            for a in history:
+                if a.type == _atype_rvv:
+                    break
+                if a.type == _atype_obs:
+                    can_asc = True
+                    break
+            if can_asc:
+                ascribe_msg_rvv(a.msg, a.user, config, catrev)
+                nrevived += 1
+
+    if nobsoleted == 0 and nrevived == 0:
+        return 0, 0
+
+    if not config.vcs.is_clear(cat.filename):
+        warning("%s: VCS state not clear, cannot ascribe obsolescence/revival"
+                % cat.filename)
+        return 0, 0
+
+    for acat in acats.values():
+        sync_and_rep(acat)
+
+    return nobsoleted, nrevived
+
+
 def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
 
     cleared = False
@@ -718,12 +784,12 @@ def is_ascribed (msg, acats):
     return ascribed
 
 
-def collect_asc_cats (config, catname, muser=None):
+def collect_asc_cats (config, catname, muser=None, monall=False):
 
     acats = {}
     for ouser in config.users:
         amon = False
-        if muser and ouser == muser:
+        if (muser and ouser == muser) or monall:
             amon = True
         acatpath = os.path.join(config.udata[ouser].ascroot, catname + ".po")
         if os.path.isfile(acatpath):
@@ -814,6 +880,26 @@ def ascribe_msg_rev (amsg, tags, user, config, catrev):
         if tag:
              field += _atype_rev_tagsep + tag
         asc_append_field(amsg, field, modstr)
+
+
+_atype_obs = "obsoleted"
+
+def ascribe_msg_obs (amsg, user, config, catrev):
+
+    modstr = date_now()
+    if catrev:
+        modstr += " | " + catrev
+    asc_append_field(amsg, _atype_obs, modstr)
+
+
+_atype_rvv = "revived"
+
+def ascribe_msg_rvv (amsg, user, config, catrev):
+
+    modstr = date_now()
+    if catrev:
+        modstr += " | " + catrev
+    asc_append_field(amsg, _atype_rvv, modstr)
 
 
 def asc_eq (msg1, msg2):
