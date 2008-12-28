@@ -548,7 +548,7 @@ class Message_base (object):
             return "U"
 
 
-    def embed_diff (self, omsg, pfilter=None, flag=None):
+    def embed_diff (self, omsg, pfilter=None, flag=None, dryrun=False):
         """
         Embed text field diffs against the other message into previous fields.
 
@@ -572,6 +572,9 @@ class Message_base (object):
         @type pfilter: callable
         @param flag: flag to add to the message if there was any difference
         @type flag: string
+        @param dryrun: do not actually embed differences if C{True}
+            (run for return value only)
+        @type dryrun: bool
 
         @return: C{True} if there was any difference, false otherwise
         @rtype: bool
@@ -618,6 +621,8 @@ class Message_base (object):
             diff = u""
             if text1 != text2:
                 anydiff = True
+                if dryrun:
+                    return True
             diff, dr = word_ediff(text1, text2, markup=True, format=self.format)
             field_diffs.append(diff)
             field_drs.append(dr)
