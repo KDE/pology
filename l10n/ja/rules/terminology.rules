@@ -111,6 +111,24 @@ hint="attribute = 属性"
 valid msgstr="属性"
 valid msgid="physical attributes" msgstr="物理特性"
 
+{\baudio\b}i
+id="audio"
+hint="audio = 音声 [映像に対する音声]"
+valid !before=" (output|input|capture|device|backend|track|channel|stream|(samle|sampling) rate|bitrate|delay)"
+valid msgstr="音声"
+
+{\baudio}i
+id="audio2"
+hint="audio = 音声"
+valid !before=" (file|(file ?)?format|codec)"
+valid msgstr="音声"
+
+{\baudio\b}i
+id="audio3"
+hint="audio = オーディオ"
+valid !before=" (CD|DVD|player|card|server)"
+valid msgstr="オーディオ"
+
 {\bavatars?\b}i
 id="avatar"
 hint="avatar = アバター"
@@ -1196,6 +1214,7 @@ hint="Previous = 前へ"
 valid msgstr="前へ"
 valid ctx="Previous page" msgstr="前のページ"
 valid ctx="(preceding|previous) track" msgstr="前のトラック"
+valid ctx="preselected user" msgstr="前回のユーザ"
 
 {Print\.\.\.}
 id="print"
@@ -1694,10 +1713,33 @@ id="variable_bitrate"
 hint="variable bitrate = 可変ビットレート"
 valid msgstr="可変ビットレート"
 
+{\bvendors?\b}i
+id="vendor"
+hint="vendor = ベンダー"
+valid msgstr="ベンダー"
+
 {\bversion control system}i
 id="version_control_system"
 hint="version control system = バージョン管理システム"
 valid msgstr="バージョン管理システム"
+
+{\bvideo\b}i
+id="video"
+hint="video = 映像 [音声に対する映像]"
+valid !before=" (output|input|capture|device|track|channel|stream|(samle|sampling) rate|bitrate)"
+valid msgstr="映像"
+
+{\bvideo\b}i
+id="video2"
+hint="video = 動画 [静止画に対する動画]"
+valid !before=" (file|(file ?)?format|codec|player)"
+valid msgstr="動画"
+
+{\bvideo\b}i
+id="video3"
+hint="video = ビデオ"
+valid !before=" (CD|DVD|card|driver|port|chat|camera|conference|conferencing)"
+valid msgstr="ビデオ"
 
 {\bview mode}i
 id="view_mode"
