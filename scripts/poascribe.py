@@ -13,9 +13,9 @@ import locale
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
-from pology.misc.report import error, warning
+from pology.misc.report import report, warning, error
 from pology.misc.msgreport import warning_on_msg
-from pology.misc.fsops import collect_catalogs, mkdirpath
+from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
 from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
 from pology.file.message import Message
@@ -34,7 +34,7 @@ def main ():
 
     # Setup options and parse the command line.
     usage = (
-        u"%prog [OPTIONS] [PATHS...]")
+        u"%prog [OPTIONS] [MODE] [MODEARGS] [PATHS...]")
     description = (
         u"Keep track of who, when, and how, has translated, modified, "
         u"or reviewed messages in a collection of PO files.")
@@ -49,56 +49,32 @@ def main ():
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
-        "-m", "--modified", metavar="USER",
-        action="store", dest="modified", default=None,
-        help="ascribe all modified entries to this user")
+        "-s", "--select", metavar="SELECTOR[:ARGS]",
+        action="append", dest="selectors", default=[],
+        help="consider only messages matched by this selector. "
+             "Can be repeated, AND-semantics.")
     opars.add_option(
-        "-r", "--reviewed", metavar="USER",
-        action="store", dest="reviewed", default=None,
-        help="ascribe selected or all entries as reviewed to this user")
+        "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
+        action="append", dest="aselectors", default=[],
+        help="select message from ascription history by this selector "
+             "(relevant in some modes). "
+             "Can be repeated, AND-semantics.")
     opars.add_option(
-        "-f", "--fuzzied",
-        action="store_true", dest="fuzzied", default=False,
-        help="ascribe all fuzzied entries to fuzzy-user (if enabled)")
+        "-f", "--filter", metavar="NAME",
+        action="store", dest="text_filter", default=None,
+        help="pass relevent message text fields through a filter before "
+             "matching or comparing them "
+             "(relevant in some modes)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
         action="store", dest="tag", default=None,
-        help="tag to add or consider in ascription records (in some modes)")
-    opars.add_option(
-        "-a", "--all",
-        action="store_true", dest="all", default=False,
-        help="ascribe all admissible entries instead of selected "
-             "(in some modes)")
-    opars.add_option(
-        "-s", "--select", metavar="TYPE[:ARGS]",
-        action="append", dest="selects", default=[],
-        help="mark entries in original catalogs that match given condition")
-    opars.add_option(
-        "-d", "--diff", metavar="TYPE[:ARGS]",
-        action="store", dest="diff", default=None,
-        help="diff entries in original catalogs against an earlier version "
-             "(if --select in effect, only those matched)")
-    opars.add_option(
-        "-F", "--prediff-filter", metavar="NAME",
-        action="store", dest="prediff_filter", default=None,
-        help="pass texts to be diffed through a filter beforehand")
-    opars.add_option(
-        "-n", "--no-state",
-        action="store_false", dest="state", default=True,
-        help="do not examine the ascription state of catalogs")
-    opars.add_option(
-        "-c", "--clear-review",
-        action="store_true", dest="clear_review", default=False,
-        help="clear all review flags and embedded diffs")
+        help="tag to add or consider in ascription records "
+             "(relevant in some modes)")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
     (options, free_args) = opars.parse_args()
-
-    options.paths = [os.path.normpath(x) for x in free_args]
-    if not options.paths:
-        options.paths = ["."]
 
     # Could use some speedup.
     if options.use_psyco:
@@ -108,12 +84,73 @@ def main ():
         except ImportError:
             pass
 
+    # Fetch filter if requested, store it in options.
+    options.tfilter = None
+    if options.text_filter:
+        options.tfilter = get_hook_lreq(options.text_filter, abort=True)
+
+    # Create selectors if any explicitly given.
+    selector = None
+    if options.selectors:
+        selector = build_selector(options, options.selectors)
+    aselector = None
+    if options.aselectors:
+        aselector = build_selector(options, options.aselectors, hist=True)
+
+    # Parse operation mode and its arguments.
+    if len(free_args) < 1:
+        error("operation mode not given")
+    class Mode: pass
+    mode = Mode()
+    mode.name = free_args.pop(0)
+    if 0: pass
+    elif mode.name in ("status", "st"):
+        execute_operation = examine_state
+        mode.selector = selector or build_selector(options, ["any"])
+    elif mode.name in ("modified", "mo"):
+        if len(free_args) < 1:
+            error("no user to whom to ascribe modifications given")
+        mode.user = free_args.pop(0)
+        mode.selector = selector or build_selector(options, ["any"])
+        execute_operation = ascribe_modified
+    elif mode.name in ("reviewed", "re"):
+        if len(free_args) < 1:
+            error("no user to whom to ascribe reviews given")
+        mode.user = free_args.pop(0)
+        execute_operation = ascribe_reviewed
+        # Default selector for review ascription must match
+        # default selector for review selection.
+        mode.selector = selector or build_selector(options, ["nwasc"])
+    elif mode.name in ("post-merge", "pm"):
+        execute_operation = ascribe_postmerge
+        mode.selector = selector or build_selector(options, ["any"])
+    elif mode.name in ("diff", "di"):
+        execute_operation = diff_select
+        # Default selector for review selection must match
+        # default selector for review ascription.
+        mode.selector = selector or build_selector(options, ["nwasc"])
+        # Build default ascription selector only if neither selector
+        # is explicitly given, since explicit basic selector may be used for
+        # ascription selection in a suitable sense (see diff_select_cat()).
+        if not selector and not aselector:
+            mode.aselector = build_selector(options, ["asc"], hist=True)
+        else:
+            mode.aselector = aselector
+    elif mode.name in ("clear-review", "cr"):
+        execute_operation = clear_review
+        mode.selector = selector or build_selector(options, ["any"])
+    else:
+        error("unknown operation mode '%s'" % mode.name)
+
     # For each path:
     # - determine its associated ascription config,
     # - collect all catalogs.
+    paths = [join_ncwd(x) for x in free_args]
+    if not paths:
+        paths = ["."]
     configs_loaded = {}
     configs_catpaths = []
-    for path in options.paths:
+    for path in paths:
         # Look for the first config file up the directory tree.
         parent = os.path.abspath(path)
         if os.path.isfile(parent):
@@ -137,11 +174,6 @@ def main ():
             config = Config(cfgpath)
             configs_loaded[cfgpath] = config
 
-            # Assert fuzzy-user enabled if fuzzy-ascription requested.
-            if options.fuzzied and not config.asc_fuzz:
-                error("fuzzy-ascription requested, but not enabled in "
-                      "configuration at: %s" % cfgpath)
-
         # Collect PO files.
         if os.path.isdir(path):
             catpaths = collect_catalogs(path)
@@ -151,22 +183,8 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    # Clear review states before all ascription.
-    if options.clear_review:
-        clear_review(options, configs_catpaths)
-    if options.modified:
-        ascribe_modified(options, configs_catpaths, options.modified)
-    if options.reviewed:
-        ascribe_reviewed(options, configs_catpaths, options.reviewed)
-    if options.fuzzied:
-        ascribe_fuzzied(options, configs_catpaths)
-    # Selection and diffing after all ascription.
-    if options.selects or options.diff:
-        select_matching(options, configs_catpaths,
-                        options.selects, options.diff)
-    # State after everything else.
-    if options.state:
-        examine_state(options, configs_catpaths)
+    # Execute operation.
+    execute_operation(options, configs_catpaths, mode)
 
 
 def rel_path (ref_path, rel_path):
@@ -175,10 +193,7 @@ def rel_path (ref_path, rel_path):
         path = rel_path
     else:
         ref_dir = os.path.dirname(ref_path)
-        path = os.path.abspath(os.path.join(ref_dir, rel_path))
-    cwd = os.getcwd() + os.path.sep
-    if path.startswith(cwd):
-        path = path[len(cwd):]
+        path = join_ncwd(ref_dir, rel_path)
     return path
 
 
@@ -229,63 +244,65 @@ class Config:
                 udat.email = usect.get("email")
         self.users.sort()
 
-        # Urgh.
-        self.asc_fuzz = True
-        if gsect.get("ascribe-fuzzies"):
-            self.asc_fuzz = config.getboolean("global", "ascribe-fuzzies")
-
-        if self.asc_fuzz:
-            # Create fuzzy-user.
-            udat = UserData()
-            self.udata[UFUZZ] = udat
-            self.users.append(UFUZZ)
-            udat.ascroot = os.path.join(self.ascroot, UFUZZ)
-            udat.name = "Fuzzy"
-            udat.oname = None
-            udat.email = None
+        # Create fuzzy-user.
+        udat = UserData()
+        self.udata[UFUZZ] = udat
+        self.users.append(UFUZZ)
+        udat.ascroot = os.path.join(self.ascroot, UFUZZ)
+        udat.name = "Fuzzy"
+        udat.oname = None
+        udat.email = None
 
 
-def examine_state (options, configs_catpaths):
+def examine_state (options, configs_catpaths, mode):
+
+    stest = mode.selector
 
     # Count unascribed messages through catalogs.
-    unasc_by_cat = {}
-    unasc_fuzz_by_cat = {}
+    unasc_trans_by_cat = {}
+    unasc_fuzzy_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
             # Open current and all ascription catalogs.
             cat = Catalog(catpath, monitored=False)
-            acats, acats_fuzzy = collect_asc_cats(config, cat.name)
+            acats = collect_asc_cats(config, cat.name)
             # Count non-ascribed.
             for msg in cat:
                 if msg.translated:
-                    if not is_ascribed(msg, acats):
-                        if catpath not in unasc_by_cat:
-                            unasc_by_cat[catpath] = 0
-                        unasc_by_cat[catpath] += 1
-                elif msg.fuzzy and config.asc_fuzz:
-                    if not is_ascribed(msg, acats_fuzzy):
-                        if catpath not in unasc_fuzz_by_cat:
-                            unasc_fuzz_by_cat[catpath] = 0
-                        unasc_fuzz_by_cat[catpath] += 1
+                    unasc_by_cat = unasc_trans_by_cat
+                elif msg.fuzzy:
+                    unasc_by_cat = unasc_fuzzy_by_cat
+                else:
+                    continue
+                if is_ascribed(msg, acats):
+                    continue
+                history = asc_collect_history(msg, acats, config)
+                if stest(msg, cat, history, config, options) is None:
+                    continue
+                if catpath not in unasc_by_cat:
+                    unasc_by_cat[catpath] = 0
+                unasc_by_cat[catpath] += 1
 
     # Present findings.
     for unasc_cnts, chead in (
-        (unasc_by_cat, "Unascribed"),
-        (unasc_fuzz_by_cat, "Unascribed fuzzies"),
+        (unasc_trans_by_cat, "Unascribed translated"),
+        (unasc_fuzzy_by_cat, "Unascribed fuzzy"),
     ):
         if not unasc_cnts:
             continue
         nunasc = reduce(lambda s, x: s + x, unasc_cnts.itervalues())
         ncats = len(unasc_cnts)
-        print "===? %s: %d entries in %d catalogs" % (chead, nunasc, ncats)
+        report("===? %s: %d entries in %d catalogs" % (chead, nunasc, ncats))
         catnames = unasc_cnts.keys()
         catnames.sort()
         rown = catnames
         data = [[unasc_cnts[x] for x in catnames]]
-        print tabulate(data=data, rown=rown, indent="  ")
+        report(tabulate(data=data, rown=rown, indent="  "))
 
 
-def ascribe_modified (options, configs_catpaths, user):
+def ascribe_modified (options, configs_catpaths, mode):
+
+    user = mode.user
 
     if user == UFUZZ:
         error("cannot ascribe modifications to reserved user '%s'" % UFUZZ)
@@ -298,13 +315,17 @@ def ascribe_modified (options, configs_catpaths, user):
         mkdirpath(config.udata[user].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_modified_cat(options, config, user, catpath)
+            nasc += ascribe_modified_cat(options, config, user, catpath,
+                                         mode.selector)
 
     if nasc > 0:
-        print "===! Ascribed as modified: %d entries" % nasc
+        report("===! Ascribed as modified: %d entries" % nasc)
 
 
-def ascribe_reviewed (options, configs_catpaths, user):
+def ascribe_reviewed (options, configs_catpaths, mode):
+
+    user = mode.user
+    stest = mode.selector
 
     if user == UFUZZ:
         error("cannot ascribe reviews to reserved user '%s'" % UFUZZ)
@@ -317,13 +338,15 @@ def ascribe_reviewed (options, configs_catpaths, user):
         mkdirpath(config.udata[user].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_reviewed_cat(options, config, user, catpath)
+            nasc += ascribe_reviewed_cat(options, config, user, catpath, stest)
 
     if nasc > 0:
-        print "===! Ascribed as reviewed: %d entries" % nasc
+        report("===! Ascribed as reviewed: %d entries" % nasc)
 
 
-def ascribe_fuzzied (options, configs_catpaths):
+def ascribe_postmerge (options, configs_catpaths, mode):
+
+    stest = mode.selector
 
     nasc = 0
     for config, catpaths in configs_catpaths:
@@ -331,66 +354,60 @@ def ascribe_fuzzied (options, configs_catpaths):
         mkdirpath(config.udata[UFUZZ].ascroot)
 
         for catpath in catpaths:
-            nasc += ascribe_modified_cat(options, config, UFUZZ, catpath)
+            nasc += ascribe_modified_cat(options, config, UFUZZ, catpath, stest)
 
     if nasc > 0:
-        print "===! Ascribed as modified (fuzzy): %d entries" % nasc
+        report("===! Ascribed as modified (fuzzy): %d entries" % nasc)
 
 
-def select_matching (options, configs_catpaths, sels, diff):
+def diff_select (options, configs_catpaths, mode):
 
-    # Split selectors into arguments.
-    psels = [x.split(":") for x in sels]
-    pdiff = []
-    if diff:
-        pdiff = diff.split(":")
+    stest = mode.selector
+    aselect = mode.aselector
+    pfilter = options.tfilter
 
-    # Fetch prediff filter if requested.
-    pfilter = None
-    if options.prediff_filter:
-        pfilter = get_hook_lreq(options.prediff_filter, abort=True)
-
-    nsel = 0
+    ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
-            nsel += select_matching_cat(options, config,
-                                        psels, pdiff, pfilter, catpath)
+            ndiffed += diff_select_cat(options, config, catpath,
+                                       stest, aselect, pfilter)
 
-    if nsel > 0:
-        print "===! Selected matching: %d entries" % nsel
+    if ndiffed > 0:
+        report("===! Diffed from history: %d" % ndiffed)
 
 
-def clear_review (options, configs_catpaths):
+def clear_review (options, configs_catpaths, mode):
+
+    stest = mode.selector
 
     ncleared = 0
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
-            ncleared += clear_review_cat(options, config, catpath)
+            ncleared += clear_review_cat(options, config, catpath, stest)
 
     if ncleared > 0:
-        print "===! Cleared review states: %d" % ncleared
+        report("===! Cleared review states: %d" % ncleared)
 
 
-def ascribe_modified_cat (options, config, user, catpath):
+def ascribe_modified_cat (options, config, user, catpath, stest):
 
     # Open current catalog and all ascription catalogs.
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acats, acats_fuzzy = collect_asc_cats(config, cat.name, user)
+    acats = collect_asc_cats(config, cat.name, user)
 
     # Collect all translated (or fuzzy) and unascribed messages.
-    asc_fuzz = (user == UFUZZ)
     unasc_msgs = []
     for msg in cat:
-        if not msg.fuzzy:
-            if not msg.translated:
-                continue
-            if not is_ascribed(msg, acats):
-                unasc_msgs.append(msg)
-        else:
-            if not asc_fuzz:
-                continue
-            if not is_ascribed(msg, acats_fuzzy):
-                unasc_msgs.append(msg)
+        if is_ascribed(msg, acats):
+            continue
+        history = asc_collect_history(msg, acats, config)
+        if stest(msg, cat, history, config, options) is None:
+            continue
+        if (   (user != UFUZZ and not msg.translated)
+            or (user == UFUZZ and not msg.fuzzy)
+        ):
+            continue
+        unasc_msgs.append(msg)
 
     if not unasc_msgs:
         # No messages to ascribe.
@@ -442,58 +459,53 @@ def ascribe_modified_cat (options, config, user, catpath):
     return len(unasc_msgs)
 
 
-_revdflags_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
+_revdflags = ("revd", "reviewed")
+_revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
-def ascribe_reviewed_cat (options, config, user, catpath):
+def ascribe_reviewed_cat (options, config, user, catpath, stest):
 
     # Open current catalog and all ascription catalogs.
     # Monitored, for removal of reviewed-* flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats, acats_fuzzy = collect_asc_cats(config, cat.name, user)
+    acats = collect_asc_cats(config, cat.name, user)
 
-    # Collect all or flagged messages (must be translated), with tags.
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
         if not msg.translated:
             continue
-
-        # Message cannot be ascribed as reviewed if it was not
-        # already ascribed as modified.
-        ascribed = is_ascribed(msg, acats)
-
-        # Check if the message has been flagged as reviewed.
-        # Must not skip checking if --all is in effect, in order
-        # to collect any tagged reviews and clear any review flags.
-        flagged = False
-        flags = msg.flag.items()
-        tags = []
-        for flag in flags:
-            m = _revdflags_rx.search(flag)
-            if m:
-                if ascribed:
-                    tags.append(m.group(1).strip() or None)
-                    flagged = True
-                    msg.flag.remove(flag)
-                    # Do not break, other review flags possible.
-                else:
-                    # Collect messages explicitly flagged as reviewed but not
-                    # ascribable as such, to report later.
-                    non_mod_asc_msgs.append(msg)
-                    break
-        if (not flagged and not options.all) or not ascribed:
+        history = asc_collect_history(msg, acats, config)
+        if stest(msg, cat, history, config, options) is None:
             continue
 
+        # Message cannot be ascribed as reviewed if it has not been
+        # already ascribed as modified.
+        if not is_ascribed(msg, acats):
+            # Collect to report later.
+            # NOTE: Intentionally not removing any misplaced review flags.
+            non_mod_asc_msgs.append(msg)
+            continue
+
+        # Collect any tags in explicit reviewed-flags.
+        tags = []
+        for flag in msg.flag:
+            m = _revdflag_rx.search(flag)
+            if m:
+                tags.append(m.group(1).strip() or None)
+                # Do not break, several review flags possible.
         if not tags:
             tags.append(options.tag)
+
+        # Clear review state.
+        clear_review_msg(msg)
 
         rev_msgs_tags.append((msg, tags))
 
     if non_mod_asc_msgs:
         fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
                              for x in non_mod_asc_msgs])
-        warning("%s: some messages explicitly marked as reviewed cannot "
-                "be ascribed, because they were not ascribed as modified: %s"
+        warning("%s: some messages cannot be ascribed as reviewed "
+                "because they were not ascribed as modified: %s"
                 % (cat.filename, fmtrefs))
 
     if not rev_msgs_tags:
@@ -537,37 +549,39 @@ def ascribe_reviewed_cat (options, config, user, catpath):
     return len(rev_msgs_tags)
 
 
+# Flag used to mark messages selected for review.
 _revflag = u"review"
 
-def select_matching_cat (options, config, sels, diff, pfilter, catpath):
 
-    # Open current catalog and all ascription catalogs.
-    # Monitored, for adding selection flags.
+def diff_select_cat (options, config, catpath, stest, aselect, pfilter):
+
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, wfuzzy=True)
+    acats = collect_asc_cats(config, cat.name)
 
     nflagged = 0
     for msg in cat:
         if not msg.translated:
             continue
-
-        # Ascription history for current message.
         history = asc_collect_history(msg, acats, config)
-
-        # Apply selectors.
-        selected = apply_selectors(sels, msg, history, config)
-        if not selected:
+        sres = stest(msg, cat, history, config, options)
+        if sres is None:
             continue
 
-        # Apply differ.
-        if diff:
-            anydiff = apply_differ(diff, msg, history, config, pfilter)
-            if not anydiff:
-                continue
+        # Try to select ascription to differentiate from.
+        i_asc = None
+        if aselect:
+            i_asc = aselect(msg, cat, history, config, options)
+        elif isinstance(sres, int) and sres + 1 < len(history):
+            # If there is no ascription selector, but basic selector returned
+            # an ascription index, use one ascription before for diffing.
+            i_asc = sres + 1
 
-        # Flag.
+        # Differentiate and flag.
+        if i_asc is not None:
+            anydiff = msg.embed_diff(history[i_asc].msg, pfilter=pfilter)
+            # NOTE: Do NOT think of avoiding to flag the message if there is
+            # no difference to history, must be symmetric to review ascription.
         msg.flag.add(_revflag)
-
         nflagged += 1
 
     sync_and_rep(cat)
@@ -575,27 +589,20 @@ def select_matching_cat (options, config, sels, diff, pfilter, catpath):
     return nflagged
 
 
-def clear_review_cat (options, config, catpath):
+def clear_review_cat (options, config, catpath, stest):
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    acats = collect_asc_cats(config, cat.name)
 
     nontrans_with_revflags = []
     ncleared = 0
     for msg in cat:
-        for flag in msg.flag.items():
-            if flag == _revflag or _revdflags_rx.search(flag):
-                msg.flag.remove(flag)
-                ncleared += 1
-                if msg.translated:
-                    # Clear possible embedded diffs.
-                    msg.msgctxt_previous = None
-                    msg.msgid_previous = u""
-                    msg.msgid_plural_previous = u""
-                else:
-                    # Non-translated messages should not have review flags,
-                    # collect to report.
-                    nontrans_with_revflags.append(msg)
-                # Do not break, other review flags possible.
+        history = asc_collect_history(msg, acats, config)
+        if stest(msg, cat, history, config, options) is None:
+            continue
+
+        if clear_review_msg(msg, nontrans_with_revflags):
+            ncleared += 1
 
     if nontrans_with_revflags:
         fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
@@ -609,54 +616,28 @@ def clear_review_cat (options, config, catpath):
     return ncleared
 
 
-_known_selectors = {}
+def clear_review_msg (msg, rep_ntrans=None):
 
-def apply_selectors (sels, msg, history, config):
+    cleared = False
+    for flag in msg.flag.items():
+        if flag == _revflag or _revdflag_rx.search(flag):
+            if msg.translated:
+                msg.flag.remove(flag)
+                if not cleared:
+                    # Clear possible embedded diffs.
+                    msg.msgctxt_previous = None
+                    msg.msgid_previous = u""
+                    msg.msgid_plural_previous = u""
+                cleared = True
+                # Do not break, other review flags possible.
+            else:
+                # Non-translated messages should not have review flags,
+                # collect to report if requested.
+                if rep_ntrans is not None:
+                    rep_ntrans.append(msg)
+                break
 
-    selected = True
-
-    for sargs in sels:
-        sname, args = sargs[0].strip(), sargs[1:]
-        invert = False
-        sname_orig = sname
-        if sname.startswith("n"):
-            invert = True
-            sname = sname[1:]
-
-        selector = _known_selectors.get(sname)
-        if not selector:
-            error("unknown selector type '%s'" % sname_orig)
-        matched = selector(args, msg, history, config)
-        if invert:
-            matched = not matched
-        selected = selected and matched
-        if not selected:
-            break
-
-    return selected
-
-
-_known_diffsels = {}
-
-def apply_differ (diff, msg, history, config, pfilter=None):
-
-    dname, args = diff[0].strip(), diff[1:]
-    diffsel = _known_diffsels.get(dname)
-    if not diffsel:
-        error("unknown diff-selector type '%s'" % dname)
-    amsg = diffsel(args, msg, history, config)
-    if not amsg:
-        return False
-
-    # Make a diff only if selector reports non-empty message.
-    # Empty message (instead of C{None}) means that there is
-    # no purpose showing the diff, although the message is different.
-    if amsg.msgid:
-        anydiff = msg.embed_diff(amsg, pfilter=pfilter)
-    else:
-        anydiff = True
-
-    return anydiff
+    return cleared
 
 
 def is_ascribed (msg, acats):
@@ -669,7 +650,7 @@ def is_ascribed (msg, acats):
     return ascribed
 
 
-def collect_asc_cats (config, catname, muser=None, wfuzzy=False):
+def collect_asc_cats (config, catname, muser=None):
 
     acats = {}
     for ouser in config.users:
@@ -680,13 +661,7 @@ def collect_asc_cats (config, catname, muser=None, wfuzzy=False):
         if os.path.isfile(acatpath):
             acats[ouser] = Catalog(acatpath, monitored=amon, wrapf=WRAPF)
 
-    if wfuzzy:
-        return acats
-    else:
-        if UFUZZ in acats:
-            return acats, {UFUZZ: acats.pop(UFUZZ)}
-        else:
-            return acats, {}
+    return acats
 
 
 def init_asc_cat (catname, user, config):
@@ -778,10 +753,13 @@ def asc_eq (msg1, msg2):
     Whether two messages are equal from the ascription viewpoint.
     """
 
-    return (    msg1.msgctxt == msg2.msgctxt
+    return (    True
+            and msg1.fuzzy == msg2.fuzzy
+            and msg1.msgctxt == msg2.msgctxt
             and msg1.msgid == msg2.msgid
             and msg1.msgid_plural == msg2.msgid_plural
-            and msg1.msgstr == msg2.msgstr)
+            and msg1.msgstr == msg2.msgstr
+    )
 
 
 fld_sep = ":"
@@ -828,6 +806,16 @@ def asc_append_field (msg, field, value):
     msg.manual_comment.append(stext)
 
 
+class _Ascription (object):
+
+    def __setattr__ (self, attr, val):
+
+        if attr not in ("msg", "user", "type", "tag", "date", "rev"):
+            raise KeyError, \
+                  "trying to set invalid ascription field '%s'" % attr
+        self.__dict__[attr] = val
+
+
 def asc_collect_history (msg, acats, config):
 
     return asc_collect_history_w(msg, acats, config, {})
@@ -858,9 +846,11 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
             continue
         if msg in acat:
             amsg = acat[msg]
-            ascs = asc_parse_ascriptions(amsg, acat)
-            for asc in ascs:
-                history.append((amsg, user) + asc)
+            for asc in asc_parse_ascriptions(amsg, acat):
+                a = _Ascription()
+                a.msg, a.user = amsg, user
+                a.type, a.tag, a.date, a.rev = asc
+                history.append(a)
 
     # Continue into the past by pivoting around fuzzy messages.
     acat = acats.get(UFUZZ)
@@ -920,7 +910,7 @@ def asc_parse_ascriptions (amsg, acat):
     return ascripts
 
 
-def asc_age_cmp (hist1, hist2, config):
+def asc_age_cmp (a1, a2, config):
     """
     Compare age of two ascriptions in history by their date/revision.
 
@@ -928,24 +918,22 @@ def asc_age_cmp (hist1, hist2, config):
     Return value has the same semantics as with built-in C{cmp} function.
     """
 
-    date1, rev1 = hist1[-2:]
-    date2, rev2 = hist2[-2:]
-    if rev1 and rev2:
-        if rev1 == rev2:
+    if a1.rev and a2.rev:
+        if a1.rev == a2.rev:
             return 0
-        elif config.vcs.is_older(rev1, rev2):
+        elif config.vcs.is_older(a1.rev, a2.rev):
             return -1
         else:
             return 1
     else:
-         return cmp(date1, date2)
+         return cmp(a1.date, a2.date)
 
 
 def sync_and_rep (cat):
 
     modified = cat.sync()
     if modified:
-        print "!    " + cat.filename
+        report("!    " + cat.filename)
 
     return modified
 
@@ -996,130 +984,295 @@ def parse_users (userstr, config, cid=None):
     return users
 
 
-def parse_mods (modstr, known_mods, cid=None):
+# Build compound selector out of list of specifications.
+# Selector specification is a string in format NAME:ARG1:ARG2:...
+def build_selector (options, selspecs, hist=False):
 
-    mods = set(modstr)
-    unknown_mods = mods.difference(known_mods)
-    if unknown_mods:
-        unknown_mods = list(unknown_mods)
-        unknown_mods.sort()
-        error("unknown modifiers: %s" % "".join(unknown_mods), subsrc=cid)
+    # Component selectors.
+    selectors = []
+    for selspec in selspecs:
+        lst = selspec.split(":")
+        sname, sargs = lst[0], lst[1:]
+        negated = False
+        if sname.startswith("n"):
+            sname = sname[1:]
+            negated = True
+        sfactory, can_hist = _selector_factories.get(sname, (None, False))
+        if not sfactory:
+            error("unknown selector '%s'" % sname)
+        if hist:
+            if not can_hist:
+                error("selector '%s' cannot be used "
+                      "as history selector" % sname)
+            if negated:
+                error("negated selectors (here '%s') cannot be used "
+                      "as history selectors" % sname)
+        selector = sfactory(*sargs)
+        if negated:
+            selector = negate_selector(selector)
+        selectors.append(selector)
 
-    return mods
-
-
-# -----------------------------------------------------------------------------
-# Selectors.
-
-#def selector_foo (args, msg, history, config):
-    #cid = "selector:foo"
-
-    #return True
-
-
-_known_selectors = {
-    #"foo": selector_foo,
-}
-
-# -----------------------------------------------------------------------------
-# Diff-selectors.
-
-def diffsel_asc (args, msg, history, config):
-    cid = "diff-selector:asc"
-
-    users = []
-    mods = set()
-    if args:
-        users = parse_users(args.pop(0), config, cid)
-    if args:
-        mods = parse_mods(args.pop(0), "!", cid)
-    if args:
-        error("superflous arguments: %s" % " ".join(args), subsrc=cid)
-
-    # Find the point of last ascription, any, or by requested users.
-    i_asc = None
-    for i in range(len(history)):
-        amsg, user, atype, atag, date, revision = history[i]
-        if not users or user in users:
-            i_asc = i
-            break
-
-    if i_asc is not None:
-        amsg_sel = history[i_asc][0]
-    elif "!" not in mods:
-        amsg_sel = Message()
+    # Compound selector.
+    if hist:
+        res0 = None
     else:
-        amsg_sel = None
+        res0 = False
+    def cselector (*a):
+        res = res0
+        for selector in selectors:
+            res = selector(*a)
+            if res is None:
+                return res
+        return res
 
-    return amsg_sel
+    return cselector
 
 
-def diffsel_revb (args, msg, history, config):
-    cid = "diff-selector:revb"
+# Negative selector is built to return:
+# - True if the positive selector returns None
+# - None otherwise (the positive selector returns True or ascription index)
+# NOTE: No False as return value because selectors should return
+# one of None, True, or index.
+def negate_selector (selector):
 
-    users = []
-    if args:
-        users = parse_users(args.pop(0), config, cid)
-    atag_req = None
-    if args:
-        atag_req = args.pop(0)
-    if args:
-        error("superflous arguments: %s" % " ".join(args), subsrc=cid)
-
-    # Find review point.
-    # Avoid reviews of users listed for modification.
-    i_rev = None
-    for i in range(len(history)):
-        amsg, user, atype, atag, date, revision = history[i]
-        if atype == _atype_rev and atag == atag_req:
-            if not users or user not in users:
-                i_rev = i
-                break
-
-    amsg_sel = None
-    if i_rev is not None:
-        # Review point found:
-        # look for first later modification,
-        # possibly by one of the requested users,
-        # select one ascription earlier.
-        i_mod = None
-        for i in range(i_rev - 1, -1, -1):
-            amsg, user, atype, atag, date, revision = history[i]
-            if atype == _atype_mod and (not users or user in users):
-                i_mod = i
-                break
-        if i_mod is not None:
-            if i_mod + 1 < len(history):
-                amsg_sel = history[i_mod + 1][0]
-            else:
-                amsg_sel = Message()
-    else:
-        # Review point not found:
-        # If users specified, look for the first modification by one of them,
-        # and report one modification earlier; if no such found,
-        # report no message for diffing.
-        # If users not specified, report empty message.
-        if users:
-            i_mod = None
-            for i in range(len(history) - 1, -1, -1):
-                amsg, user, atype, atag, date, revision = history[i]
-                if atype == _atype_mod and user in users:
-                    i_mod = i
-                    break
-            if i_mod is not None:
-                if i_mod + 1 < len(history):
-                    amsg_sel = history[i_mod + 1][0]
-                else:
-                    amsg_sel = Message()
+    def negative_selector (*args):
+        res = selector(*args)
+        if res is None:
+            return True
         else:
-            amsg_sel = Message()
+            return None
 
-    return amsg_sel
+    return negative_selector
 
 
-_known_diffsels = {
-    "asc": diffsel_asc,
-    "revb": diffsel_revb,
+# -----------------------------------------------------------------------------
+# Selector factories.
+# Use build_selector() to create selectors.
+
+# NOTE: Selectors should return one of None, True, or
+# a valid index into ascription history.
+# They should never return False, so that non-selection can always be checked
+# by ...is None, since index 0 and False would be same.
+
+def selector_any ():
+    cid = "selector:any"
+
+    def selector (msg, cat, history, config, options):
+
+        return True
+
+    return selector
+
+
+def selector_wasc ():
+    cid = "selector:wasc"
+
+    def selector (msg, cat, history, config, options):
+
+        if history and asc_eq(msg, history[0].msg):
+            return True
+
+        return None
+
+    return selector
+
+
+def selector_xrevd ():
+    cid = "selector:xrevd"
+
+    revdflags_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
+
+    def selector (msg, cat, history, config, options):
+
+        for flag in msg.flags:
+            if _revdflag_rx.search(flag):
+                return True
+
+        return None
+
+    return selector
+
+
+# Select last ascription (any, or by users).
+def selector_asc (user_spec=None):
+    cid = "selector:asc"
+
+    def selector (msg, cat, history, config, options):
+
+        users = []
+        if user_spec:
+            users = parse_users(user_spec, config, cid)
+
+        i_sel = None
+        for i in range(len(history)):
+            a = history[i]
+            if not users or a.user in users:
+                i_sel = i
+                break
+
+        return i_sel
+
+    return selector
+
+
+# Select last modification (any or by users).
+def selector_mod (user_spec=None):
+    cid = "selector:mod"
+
+    def selector (msg, cat, history, config, options):
+
+        users = []
+        if user_spec:
+            users = parse_users(user_spec, config, cid)
+
+        i_sel = None
+        for i in range(len(history)):
+            a = history[i]
+            if a.type == _atype_mod and (not users or a.user in users):
+                i_sel = i
+                break
+
+        return i_sel
+
+    return selector
+
+
+# Select first modification (any or by m-users) after last review
+# (any or by r-users, and either way not by m-users).
+def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
+    cid = "selector:modar"
+
+    def selector (msg, cat, history, config, options):
+
+        rusers = []
+        if ruser_spec:
+            rusers = parse_users(ruser_spec, config, cid)
+        musers = []
+        if muser_spec:
+            musers = parse_users(muser_spec, config, cid)
+
+        i_sel = None
+        i_cand = None
+        for i in range(len(history)):
+            a = history[i]
+            if (     a.type == _atype_rev and a.tag == atag_req
+                and (not rusers or a.user in rusers)
+                and (not musers or a.user not in musers)
+            ):
+                if i_cand is None:
+                    # Review found before candidate modification.
+                    break
+                else:
+                    # Candidate modification is good
+                    # unless filter is in effect and there is no difference
+                    # between the modification and current review.
+                    mm, mr = history[i_cand].msg, a.msg
+                    pf = options.tfilter
+                    if pf and not mm.embed_diff(mr, pfilter=pf, dryrun=True):
+                        i_cand = None
+                    else:
+                        i_sel = i_cand
+                        break
+            if a.type == _atype_mod and (not musers or a.user in musers):
+                # Modification found, make it candidate.
+                i_cand = i
+
+        if i_cand is not None:
+            # There was no review after modification candidate, so use it,
+            # unless filter is in effect and there is no difference between
+            # candidate and the first earlier modification
+            # (any, or not by m-users).
+            if options.tfilter and i_cand + 1 < len(history):
+                mm = history[i_cand].msg
+                pf = options.tfilter
+                for a in history[i_cand + 1:]:
+                    if (    a.type == _atype_mod
+                        and (not musers or a.user not in musers)
+                        and not a.msg.embed_diff(mm, pfilter=pf, dryrun=True)
+                    ):
+                        i_cand = None
+                        break
+            if i_cand is not None:
+                i_sel = i_cand
+
+        return i_sel
+
+    return selector
+
+
+# Select last review (any or by users).
+def selector_rev (user_spec=None, atag_req=None):
+    cid = "selector:rev"
+
+    def selector (msg, cat, history, config, options):
+
+        users = []
+        if user_spec:
+            users = parse_users(user_spec, config, cid)
+
+        i_sel = None
+        for i in range(len(history)):
+            a = history[i]
+            if (    a.type == _atype_rev and a.tag == atag_req
+                and (not users or a.user in users)
+            ):
+                i_sel = i
+                break
+
+        return i_sel
+
+    return selector
+
+
+# Select first review (any or by r-users) before last modification
+# (any or by m-users, and either way not by r-users).
+def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
+    cid = "selector:revbm"
+
+    def selector (msg, cat, history, config, options):
+
+        rusers = []
+        if ruser_spec:
+            rusers = parse_users(ruser_spec, config, cid)
+        musers = []
+        if muser_spec:
+            musers = parse_users(muser_spec, config, cid)
+
+        # TODO: Make it filter-sensitive like :modar.
+
+        i_sel = None
+        can_select = False
+        for i in range(len(history)):
+            a = history[i]
+            if (     a.type == _atype_mod
+                and (not musers or a.user in musers)
+                and (not rusers or a.user not in rusers)
+            ):
+                # Modification found, enable selection of review.
+                can_select = True
+            if (    a.type == _atype_rev and a.tag == atag_req
+                and (not rusers or a.user in rusers)
+            ):
+                # Review found, select it if enabled, and stop anyway.
+                if can_select:
+                    i_sel = i
+                break
+
+        return i_sel
+
+    return selector
+
+
+_selector_factories = {
+    # key: (function, can_be_used_as_history_selector)
+    "any": (selector_any, False),
+    "wasc": (selector_wasc, False),
+    "xrevd": (selector_xrevd, False),
+    "asc": (selector_asc, True),
+    "mod": (selector_mod, True),
+    "modar": (selector_modar, True),
+    "rev": (selector_rev, True),
+    "revbm": (selector_revbm, True),
 }
 
 # -----------------------------------------------------------------------------
