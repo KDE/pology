@@ -117,23 +117,24 @@
   would be the first in output, followed by the table with statistics.</p>
   <p><code>posieve</code> takes a few options, which you can list with the 
   usual <code>--help</code> option. However, more interesting is that 
-  sieves themselves can be sent some options. These sieve options are sent 
-  to sieve by the <code>-s</code> option, which takes as argument a 
-  <code>key:value</code> pair. As many of these as needed can be given. For
-  example, <code>stats</code> sieve could be instructed to take into 
-  account only messages with at most 5 words, like this:</p>
+  sieves themselves can be sent some <i>parameters</i>, using the 
+  <code>-s</code> option, which takes as argument a 
+  <code>parameter:value</code> pair. As many of these as needed can be 
+  given. For example, <code>stats</code> sieve could be instructed to take 
+  into account only messages with at most 5 words, like this:</p>
 <pre class="literalblock">
    $ posieve.py stats -s maxwords:5 frobaz/
 </pre>
-  <p>Sieve options can also be switches, when only the key is given. 
-  <code>stats</code> can be instructed to show statistics in greater detail
-  like this:</p>
+  <p>Sieve parameters can also be switches, when only the parameter name is
+  given. <code>stats</code> can be instructed to show statistics in greater
+  detail like this:</p>
 <pre class="literalblock">
    $ posieve.py stats -s detail frobaz/
 </pre>
-  <p>In case a sieve chain is specified, sieve options are routed to sieves
-  as they will accept them. If two sieves in the chain have a same-named 
-  option, when given on the command line it will be sent to both.</p>
+  <p>In case a sieve chain is specified, sieve parameters are routed to 
+  sieves as they will accept them. If two sieves in the chain have a 
+  same-named parameters, when given on the command line it will be sent to 
+  both.</p>
   <p>Pology also collects language-specific internal sieves. These are run 
   by prefixing sieve name with the language code and a colon. For example, 
   there is a sieve for the French language that replaces ordinary with 

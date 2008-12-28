@@ -92,7 +92,8 @@
         <span class="summary-sig-arg">tagbr</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="summary-sig-arg">tagbr2</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="summary-sig-arg">wcolmin</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">midbr</span>=<span class="summary-sig-default">True</span>)</span><br />
+        <span class="summary-sig-arg">midbr</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">remtrws</span>=<span class="summary-sig-default">False</span>)</span><br />
       Wrap text into lines.</td>
           <td align="right" valign="top">
             
@@ -247,7 +248,8 @@
         <span class="sig-arg">tagbr</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="sig-arg">tagbr2</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="sig-arg">wcolmin</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">midbr</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">midbr</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">remtrws</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -283,6 +285,9 @@
         <li><strong class="pname"><code>wcolmin</code></strong> (int) - minimal column to allow natural breaks at</li>
         <li><strong class="pname"><code>midbr</code></strong> (bool) - <code>True</code> to allow break in the middle of a word if no 
           usual break found before <code>wcol</code> has been exceeded</li>
+        <li><strong class="pname"><code>remtrws</code></strong> (bool) - whether to strictly remove any trailing whitespace in wrapped 
+          lines (otherwise trailing whitespace may be left in under certain
+          conditions)</li>
     </ul></dd>
     <dt>Returns: list of strings</dt>
         <dd>wrapped lines (each ends with a newline)</dd>

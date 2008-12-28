@@ -181,7 +181,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x880a25c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the message.</td>
           <td align="right" valign="top">
@@ -200,7 +200,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x880a25c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the message.</td>
           <td align="right" valign="top">
@@ -249,16 +249,37 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (string, int, string, float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#diff_from" class="summary-sig-name">diff_from</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">omsg</span>,
+        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Compute text field diffs from the other to current message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">bool</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#embed_diff" class="summary-sig-name">embed_diff</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">omsg</span>,
+        <span class="summary-sig-arg">tocurr</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">flag</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">flag</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Embed text field diffs against the other message into previous 
-      fields.</td>
+        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Embed text field diffs against the other message.</td>
           <td align="right" valign="top">
             
             
@@ -599,7 +620,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x880a25c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -637,7 +658,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x880a25c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -710,6 +731,49 @@ object --+
   </dl>
 </td></tr></table>
 </div>
+<a name="diff_from"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">diff_from</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">omsg</span>,
+        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute text field diffs from the other to current message.</p>
+  <p>The difference is returned as list of four-tuples of (field name, 
+  field item, field diff, difference ratio). Field diff is represent as 
+  embedded differences, see <a 
+  href="pology.misc.diff-module.html#word_ediff" 
+  class="link">word_ediff</a>.</p>
+  <p>If the other message is fuzzy and equipped with previous fields, these
+  fields are going to be used instead of its current fields.</p>
+  <p>Every text field can be passed through a filter before differencing, 
+  using the <code>pfilter</code> parameter.</p>
+  <p>Embedded difference can be additionally highlighted for an output 
+  descriptor given by <code>hlto</code> parameter (e.g. colorized for the 
+  shell).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>omsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message from which to make the difference</li>
+        <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to all text prior to differencing</li>
+        <li><strong class="pname"><code>hlto</code></strong> (file) - destination to produce highlighting for</li>
+    </ul></dd>
+    <dt>Returns: list of (string, int, string, float)</dt>
+        <dd>difference list</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="embed_diff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -719,34 +783,36 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">embed_diff</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">omsg</span>,
+        <span class="sig-arg">tocurr</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">flag</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">flag</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Embed text field diffs against the other message into previous 
-  fields.</p>
-  <p>The difference is created from the other to the current message, and 
-  embedded into <code>previous_*</code> fields of current message. The 
-  difference of <code>msgstr</code> fields is put into 
-  <code>previous_msgid</code> (or <code>previous_msgid_plural</code> for 
-  plural messages), suitably visually separated. See <a 
-  href="pology.misc.diff-module.html#word_ediff" 
+  <p>Embed text field diffs against the other message.</p>
+  <p>The difference is created from the other to this message, and embedded
+  into <code>previous_*</code> fields of this message (default), or the 
+  current fields (if <code>tocurr</code> is <code>True</code>). If embeding
+  is into previous fields, the difference of <code>msgstr</code> fields is 
+  put into <code>previous_msgid</code> (or 
+  <code>previous_msgid_plural</code> for plural messages), suitably 
+  visually separated. See <a href="pology.misc.diff-module.html#word_ediff"
   class="link">word_ediff</a> for the syntax of embedded differences.</p>
-  <p>If the other message is fuzzy and equipped with previous fields, these
-  fields are going to be used instead of its current fields.</p>
-  <p>Every text field can be passed through a filter before differencing, 
-  using the <code>pfilter</code> parameter. A flag can be added to the 
-  message if there was any difference, using the <code>flag</code> 
-  parameter.</p>
+  <p>See <a href="pology.file.message.Message_base-class.html#diff_from" 
+  class="link">diff_from</a> for the behavior in presence of fuzzy 
+  messages, and usage of <code>pfilter</code> and c{hlto} parameters. A 
+  flag can be added to the message if there was any difference, using the 
+  <code>flag</code> parameter.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>omsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
-          class="link">Message_base</a>) - the message towards which to make the difference</li>
+          class="link">Message_base</a>) - the message from which to make the difference</li>
+        <li><strong class="pname"><code>tocurr</code></strong> (bool) - embed differences into current fields if <code>True</code></li>
         <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to all text prior to differencing</li>
         <li><strong class="pname"><code>flag</code></strong> (string) - flag to add to the message if there was any difference</li>
     </ul></dd>
@@ -786,8 +852,9 @@ object --+
   whether the message is fuzzy
   <p>The state of fuzziness can be also checked by looking for the 
   <code>fuzzy</code> flag in the set of flags, but using this variable is 
-  shorter, and the message can be properly unfuzzied by assigning False to 
-  it (e.g. <code>*_previous</code> fields are cleared as well).</p>
+  shorter, and the message can be thoroughly unfuzzied by assigning 
+  <code>False</code> to it (e.g. <code>*_previous</code> fields are cleared
+  as well).</p>
   <dl class="fields">
     <dt>Type:</dt>
       <dd>bool</dd>

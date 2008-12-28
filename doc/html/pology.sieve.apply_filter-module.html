@@ -66,6 +66,9 @@
       <code>factory:&lt;filter&gt;~~...</code>: double-tilde separated list
       of factory arguments
     </li>
+    <li>
+      <code>nosync</code>: do not request syncing of the catalogs
+    </li>
   </ul>
   <p>Global hooks can be specified just by their module name, e.g. 
   <code>foo</code> for <code>pology.hook.foo</code>, if the module defines 
@@ -84,6 +87,9 @@
   parenthesis). If an argument string is empty, the hook corresponding to 
   it is considered a plain hook rather than factory, and skipped on 
   evaluation of factories.</p>
+  <p>Using the <code>nosync</code> parameter, the sieve can be chained with
+  a checker sieve, to filter <code>msgstr</code> before sending the checker
+  sieve gets to operate on it.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

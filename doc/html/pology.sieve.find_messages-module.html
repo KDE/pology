@@ -229,7 +229,150 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(msgf, msg, cat, hl={})-&gt;bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.sieve.find_messages-module.html#build_msg_matcher" class="summary-sig-name">build_msg_matcher</a>(<span class="summary-sig-arg">exprstr</span>,
+        <span class="summary-sig-arg">mopts</span>)</span><br />
+      Build expression matcher for messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(msg, cat, hl={})-&gt;bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.sieve.find_messages-module.html#build_msg_fmatcher" class="summary-sig-name">build_msg_fmatcher</a>(<span class="summary-sig-arg">exprstr</span>,
+        <span class="summary-sig-arg">mopts</span>,
+        <span class="summary-sig-arg">accels</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">filters</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
+      Build expression matcher for messages, with filtering.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="build_msg_matcher"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">build_msg_matcher</span>(<span class="sig-arg">exprstr</span>,
+        <span class="sig-arg">mopts</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Build expression matcher for messages.</p>
+  <p>For expression syntax, see this module documentation on 
+  <code>fexpr</code> sieve parameter.</p>
+  <p>The <code>mopts</code> object defines global matching options, and 
+  should contain the following data attributes:</p>
+  <ul>
+    <li>
+      <code>case</code> (<code>bool</code>): <code>True</code> for 
+      case-sensitive matching
+    </li>
+  </ul>
+  <p>The built matcher function takes up to four parameters, in order:</p>
+  <ul>
+    <li>
+      <code>msgf</code>: filtered message (to really match against)
+    </li>
+    <li>
+      <code>msg</code>: raw message (to properly report matched spans)
+    </li>
+    <li>
+      <code>cat</code>: catalog in which the message resides
+    </li>
+    <li>
+      <code>hl</code>: <a 
+      href="pology.misc.msgreport-module.html#report_msg_content" 
+      class="link">highlight specification</a> (to be filled with matched 
+      spans)
+    </li>
+  </ul>
+  <p>Matcher function returns <code>True</code> if the message is matched, 
+  <code>False</code> otherwise.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>exprstr</code></strong> (string) - expression string</li>
+        <li><strong class="pname"><code>mopts</code></strong> (attribute object) - global matching options</li>
+    </ul></dd>
+    <dt>Returns: (msgf, msg, cat, hl={})-&gt;bool</dt>
+        <dd>matcher function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="build_msg_fmatcher"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">build_msg_fmatcher</span>(<span class="sig-arg">exprstr</span>,
+        <span class="sig-arg">mopts</span>,
+        <span class="sig-arg">accels</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">filters</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Build expression matcher for messages, with filtering.</p>
+  <p>Like <a 
+  href="pology.sieve.find_messages-module.html#build_msg_matcher" 
+  class="link">build_msg_matcher</a>, except that matchers built by this 
+  function do their own filtering, and so omit the first argument.</p>
+  <p>For semantics of <code>accels</code> and <code>filters</code>, see 
+  this module documentation on <code>accel</code> and <code>filter</code> 
+  sieve parameters.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>exprstr</code></strong> (string) - expression string</li>
+        <li><strong class="pname"><code>mopts</code></strong> (attribute object) - global matching options</li>
+        <li><strong class="pname"><code>accels</code></strong> (sequence of strings or <code>None</code>) - possible accelerator markers</li>
+        <li><strong class="pname"><code>filters</code></strong> ((text)-&gt;text) - filters to apply to text fields [F1A hooks]</li>
+    </ul></dd>
+    <dt>Returns: (msg, cat, hl={})-&gt;bool</dt>
+        <dd>matcher function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

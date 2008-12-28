@@ -115,7 +115,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="examine_state"></a><span class="summary-sig-name">examine_state</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>)</span></td>
+        <span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -133,7 +134,7 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_modified"></a><span class="summary-sig-name">ascribe_modified</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">user</span>)</span></td>
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -151,7 +152,7 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_reviewed"></a><span class="summary-sig-name">ascribe_reviewed</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">user</span>)</span></td>
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -167,27 +168,27 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_fuzzied"></a><span class="summary-sig-name">ascribe_fuzzied</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="select_matching"></a><span class="summary-sig-name">select_matching</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="ascribe_postmerge"></a><span class="summary-sig-name">ascribe_postmerge</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">sels</span>,
-        <span class="summary-sig-arg">diff</span>)</span></td>
+        <span class="summary-sig-arg">mode</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="diff_select"></a><span class="summary-sig-name">diff_select</span>(<span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -204,7 +205,26 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="clear_review"></a><span class="summary-sig-name">clear_review</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>)</span></td>
+        <span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">mode</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="show_history"></a><span class="summary-sig-name">show_history</span>(<span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -223,7 +243,8 @@
           <td><span class="summary-sig"><a name="ascribe_modified_cat"></a><span class="summary-sig-name">ascribe_modified_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">catpath</span>)</span></td>
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -242,7 +263,8 @@
           <td><span class="summary-sig"><a name="ascribe_reviewed_cat"></a><span class="summary-sig-name">ascribe_reviewed_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">catpath</span>)</span></td>
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -258,12 +280,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="select_matching_cat"></a><span class="summary-sig-name">select_matching_cat</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="diff_select_cat"></a><span class="summary-sig-name">diff_select_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">sels</span>,
-        <span class="summary-sig-arg">diff</span>,
-        <span class="summary-sig-arg">pfilter</span>,
-        <span class="summary-sig-arg">catpath</span>)</span></td>
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">stest</span>,
+        <span class="summary-sig-arg">aselect</span>,
+        <span class="summary-sig-arg">pfilter</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -281,7 +303,8 @@
         <tr>
           <td><span class="summary-sig"><a name="clear_review_cat"></a><span class="summary-sig-name">clear_review_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catpath</span>)</span></td>
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -297,30 +320,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="apply_selectors"></a><span class="summary-sig-name">apply_selectors</span>(<span class="summary-sig-arg">sels</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">history</span>,
-        <span class="summary-sig-arg">config</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="apply_differ"></a><span class="summary-sig-name">apply_differ</span>(<span class="summary-sig-arg">diff</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">history</span>,
+          <td><span class="summary-sig"><a name="show_history_cat"></a><span class="summary-sig-name">show_history_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">stest</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">rep_ntrans</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">clrevd</span>=<span class="summary-sig-default">True</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -355,8 +376,7 @@
         <tr>
           <td><span class="summary-sig"><a name="collect_asc_cats"></a><span class="summary-sig-name">collect_asc_cats</span>(<span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catname</span>,
-        <span class="summary-sig-arg">muser</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">wfuzzy</span>=<span class="summary-sig-default">False</span>)</span></td>
+        <span class="summary-sig-arg">muser</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -577,8 +597,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#asc_age_cmp" class="summary-sig-name">asc_age_cmp</a>(<span class="summary-sig-arg">hist1</span>,
-        <span class="summary-sig-arg">hist2</span>,
+          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#asc_age_cmp" class="summary-sig-name">asc_age_cmp</a>(<span class="summary-sig-arg">a1</span>,
+        <span class="summary-sig-arg">a2</span>,
         <span class="summary-sig-arg">config</span>)</span><br />
       Compare age of two ascriptions in history by their date/revision.</td>
           <td align="right" valign="top">
@@ -663,9 +683,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="parse_mods"></a><span class="summary-sig-name">parse_mods</span>(<span class="summary-sig-arg">modstr</span>,
-        <span class="summary-sig-arg">known_mods</span>,
-        <span class="summary-sig-arg">cid</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td><span class="summary-sig"><a name="build_selector"></a><span class="summary-sig-name">build_selector</span>(<span class="summary-sig-arg">options</span>,
+        <span class="summary-sig-arg">selspecs</span>,
+        <span class="summary-sig-arg">hist</span>=<span class="summary-sig-default">False</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -681,10 +701,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diffsel_asc"></a><span class="summary-sig-name">diffsel_asc</span>(<span class="summary-sig-arg">args</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">history</span>,
-        <span class="summary-sig-arg">config</span>)</span></td>
+          <td><span class="summary-sig"><a name="negate_selector"></a><span class="summary-sig-name">negate_selector</span>(<span class="summary-sig-arg">selector</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -700,10 +717,140 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diffsel_revb"></a><span class="summary-sig-name">diffsel_revb</span>(<span class="summary-sig-arg">args</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">history</span>,
-        <span class="summary-sig-arg">config</span>)</span></td>
+          <td><span class="summary-sig"><a name="selector_any"></a><span class="summary-sig-name">selector_any</span>()</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_wasc"></a><span class="summary-sig-name">selector_wasc</span>()</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_xrevd"></a><span class="summary-sig-name">selector_xrevd</span>()</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_fexpr"></a><span class="summary-sig-name">selector_fexpr</span>(<span class="summary-sig-arg">expr</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_asc"></a><span class="summary-sig-name">selector_asc</span>(<span class="summary-sig-arg">user_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_mod"></a><span class="summary-sig-name">selector_mod</span>(<span class="summary-sig-arg">user_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_modar"></a><span class="summary-sig-name">selector_modar</span>(<span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ruser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_rev"></a><span class="summary-sig-name">selector_rev</span>(<span class="summary-sig-arg">user_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_revbm"></a><span class="summary-sig-name">selector_revbm</span>(<span class="summary-sig-arg">ruser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -779,8 +926,8 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">asc_age_cmp</span>(<span class="sig-arg">hist1</span>,
-        <span class="sig-arg">hist2</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">asc_age_cmp</span>(<span class="sig-arg">a1</span>,
+        <span class="sig-arg">a2</span>,
         <span class="sig-arg">config</span>)</span>
   </h3>
   </td><td align="right" valign="top"
