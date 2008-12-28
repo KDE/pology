@@ -59,6 +59,24 @@ def to_e (text):
     @return: text
     """
 
+    return _to_e_worker(text, silent=False)
+
+
+def to_e_s (text):
+    """
+    Like L{to_e}, but it silently ignores problems [type F1A hook].
+
+    @return: text
+    """
+
+    return _to_e_worker(text, silent=True)
+
+
+def _to_e_worker (text, silent=False):
+    """
+    Worker for C{to_e*} hooks.
+    """
+
     segs = []
     p = 0
     while True:
@@ -81,9 +99,10 @@ def to_e (text):
             segs.append(ekvform)
             p += len(reflex)
         else:
-            dreflex = text[(p - _reflex_mark_len):(p + _max_reflex_len + 1)]
-            warning("unknown yat-reflex at '%s...', skipped" % dreflex)
             segs.append(text[(p - _reflex_mark_len):p])
+            if not silent:
+                dreflex = text[(p - _reflex_mark_len):(p + _max_reflex_len + 1)]
+                warning("unknown yat-reflex at '%s...', skipped" % dreflex)
 
     ntext = "".join(segs)
     ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_ije_althead,
@@ -99,9 +118,30 @@ def to_ije (text):
     @return: text
     """
 
+    return _to_ije_worker(text, silent=False)
+
+
+def to_ije_s (text):
+    """
+    Like L{to_ije}, but it silently ignores problems [type F1A hook].
+
+    @return: text
+    """
+
+    return _to_ije_worker(text, silent=True)
+
+
+def _to_ije_worker (text, silent=False):
+    """
+    Worker for C{to_ije*} hooks.
+    """
+
     ntext = text.replace(_reflex_mark, "")
+    srcname = None
+    if not silent:
+        srcname="<text>"
     ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_ije_althead,
-                                        srcname="<text>")
+                                        srcname=srcname)
 
     return ntext
 
