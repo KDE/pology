@@ -643,7 +643,7 @@ class Message_base (object):
         @rtype: bool
         """
 
-        field_diffs = self.diff_from(omsg, pfilter=pfilter, flag=flag)
+        field_diffs = self.diff_from(omsg, pfilter=pfilter)
 
         if not field_diffs:
             return False
