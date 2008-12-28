@@ -482,8 +482,9 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
         # already ascribed as modified.
         if not is_ascribed(msg, acats):
             # Collect to report later.
-            # NOTE: Intentionally not removing any misplaced review flags.
             non_mod_asc_msgs.append(msg)
+            # Clear only flags to-review, and not explicit review-done.
+            clear_review_msg(msg, clrevd=False)
             continue
 
         # Collect any tags in explicit reviewed-flags.
@@ -510,6 +511,9 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
 
     if not rev_msgs_tags:
         # No messages to ascribe.
+        if non_mod_asc_msgs:
+            # May have had some review states cleared.
+            sync_and_rep(cat)
         return 0
 
     # Create ascription catalog for this user if not existing already.
@@ -616,11 +620,11 @@ def clear_review_cat (options, config, catpath, stest):
     return ncleared
 
 
-def clear_review_msg (msg, rep_ntrans=None):
+def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
 
     cleared = False
     for flag in msg.flag.items():
-        if flag == _revflag or _revdflag_rx.search(flag):
+        if flag == _revflag or (clrevd and _revdflag_rx.search(flag)):
             if msg.translated:
                 msg.flag.remove(flag)
                 if not cleared:
