@@ -302,7 +302,7 @@ class Sieve (object):
                     values = [values]
                 for value in values:
                     if name == "fexpr":
-                        m = _build_expr(value, params)
+                        m = build_msg_matcher(value, params)
                     else:
                         m = _create_matcher(name, value, [], params, neg)
                     matchers.append(m)
@@ -370,13 +370,7 @@ class Sieve (object):
             return
 
         # Prepare filtered message for matching.
-        msgf = MessageUnsafe(msg)
-        # - remove accelerators
-        remove_accel_msg(msgf, cat)
-        # - apply msgstr filters
-        for pfilter in self.pfilters:
-            for i in range(len(msgf.msgstr)):
-                msgf.msgstr[i] = pfilter(msgf.msgstr[i])
+        msgf = _prepare_filtered_msg(msg, cat, filters=self.pfilters)
 
         # Match the message.
         hl_spec = {}
@@ -419,13 +413,96 @@ _binary_ops = set(["and", "or"])
 _all_ops.update(_binary_ops)
 
 
-def _build_expr (exprstr, params):
+def build_msg_matcher (exprstr, mopts):
+    """
+    Build expression matcher for messages.
 
-    expr, p = _build_expr_r(exprstr, 0, len(exprstr), params)
+    For expression syntax, see this module documentation on C{fexpr}
+    sieve parameter.
+
+    The C{mopts} object defines global matching options, and
+    should contain the following data attributes:
+
+      - C{case} (C{bool}): C{True} for case-sensitive matching
+
+    The built matcher function takes up to four parameters, in order:
+
+      - C{msgf}: filtered message (to really match against)
+      - C{msg}: raw message (to properly report matched spans)
+      - C{cat}: catalog in which the message resides
+      - C{hl}: L{highlight specification<misc.msgreport.report_msg_content>}
+        (to be filled with matched spans)
+
+    Matcher function returns C{True} if the message is matched,
+    C{False} otherwise.
+
+    @param exprstr: expression string
+    @type exprstr: string
+    @param mopts: global matching options
+    @type mopts: attribute object
+
+    @return: matcher function
+    @rtype: (msgf, msg, cat, hl={})->bool
+    """
+
+    expr, p = _build_expr_r(exprstr, 0, len(exprstr), mopts)
     if p < len(exprstr):
         error("invalid search expression: "
               "premature end of expression after '%s'" % exprstr[:p])
     return expr
+
+
+def build_msg_fmatcher (exprstr, mopts,
+                        accels=None, filters=[]):
+    """
+    Build expression matcher for messages, with filtering.
+
+    Like L{build_msg_matcher}, except that matchers built by this function
+    do their own filtering, and so omit the first argument.
+
+    For semantics of C{accels} and C{filters}, see this module documentation
+    on C{accel} and C{filter} sieve parameters.
+
+    @param exprstr: expression string
+    @type exprstr: string
+    @param mopts: global matching options
+    @type mopts: attribute object
+    @param accels: possible accelerator markers
+    @type accels: sequence of strings or C{None}
+    @param filters: filters to apply to text fields [F1A hooks]
+    @type filters: (text)->text
+
+    @return: matcher function
+    @rtype: (msg, cat, hl={})->bool
+    """
+
+    raw_matcher = build_msg_matcher(exprstr, mopts)
+
+    def matcher (msg, cat, hl={}):
+        msgf = _prepare_filtered_msg(msg, cat, accels, filters)
+        return raw_matcher(msgf, msg, cat, hl)
+
+    return matcher
+
+
+def _prepare_filtered_msg (msg, cat, accels=None, filters=[]):
+
+    # Must not modify contents of real message.
+    msgf = MessageUnsafe(msg)
+
+    # - remove accelerators
+    if accels is not None:
+        old_accels = cat.accelerator()
+        cat.set_accelerator(accels)
+    remove_accel_msg(msgf, cat)
+    if accels is not None:
+        cat.set_accelerator(old_accels)
+    # - apply msgstr filters
+    for filtr in filters:
+        for i in range(len(msgf.msgstr)):
+            msgf.msgstr[i] = filtr(msgf.msgstr[i])
+
+    return msgf
 
 
 def _build_expr_r (exprstr, start, end, params):
@@ -598,24 +675,24 @@ def _create_matcher (name, value, mods, params, neg=False):
     if 0: pass
 
     elif name == "msgctxt":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             texts = [(msgf.msgctxt or u"", "msgctxt", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgid":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             texts = [(msgf.msgid, "msgid", 0),
                      (msgf.msgid_plural, "msgid_plural", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgstr":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             texts = [(msgf.msgstr[i], "msgstr", i)
                      for i in range(len(msgf.msgstr))]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "comment":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             texts = []
             texts.extend([(msgf.manual_comment[i], "manual_comment", i)
                           for i in range(len(msgf.manual_comment))])
@@ -628,21 +705,21 @@ def _create_matcher (name, value, mods, params, neg=False):
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "transl":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             if value is None or value:
                 return msg.translated
             else:
                 return not msg.translated
 
     elif name == "plural":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             if value is None or value:
                 return msg.msgid_plural != ""
             else:
                 return msg.msgid_plural == ""
 
     elif name == "maxchar":
-        def matcher (msgf, msg, cat, hl):
+        def matcher (msgf, msg, cat, hl={}):
             otexts = [msgf.msgid]
             if msgf.msgid_plural:
                 otexts.append(msgf.msgid_plural)
