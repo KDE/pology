@@ -548,7 +548,7 @@ class Message_base (object):
             return "U"
 
 
-    def diff_from (self, omsg, pfilter=None, flag=None):
+    def diff_from (self, omsg, pfilter=None):
         """
         Compute text field diffs from the other to current message.
 
