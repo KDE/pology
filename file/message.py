@@ -548,16 +548,14 @@ class Message_base (object):
             return "U"
 
 
-    def embed_diff (self, omsg, pfilter=None, flag=None, dryrun=False):
+    def diff_from (self, omsg, pfilter=None, flag=None, dryrun=False):
         """
-        Embed text field diffs against the other message into previous fields.
+        Compute text field diffs from the other to current message.
 
-        The difference is created from the other to the current message,
-        and embedded into C{previous_*} fields of current message.
-        The difference of C{msgstr} fields is put into C{previous_msgid}
-        (or C{previous_msgid_plural} for plural messages), suitably
-        visually separated. See L{word_ediff<misc.diff.word_ediff>} for
-        the syntax of embedded differences.
+        The difference is returned as list of four-tuples of
+        (field name, field item, field diff, difference ratio).
+        Field diff is represent as embedded differences, see
+        L{word_ediff<misc.diff.word_ediff>}.
 
         If the other message is fuzzy and equipped with previous fields,
         these fields are going to be used instead of its current fields.
@@ -566,18 +564,13 @@ class Message_base (object):
         using the C{pfilter} parameter. A flag can be added to the message
         if there was any difference, using the C{flag} parameter.
 
-        @param omsg: the message towards which to make the difference
+        @param omsg: the message from which to make the difference
         @type omsg: L{Message_base}
         @param pfilter: filter to be applied to all text prior to differencing
         @type pfilter: callable
-        @param flag: flag to add to the message if there was any difference
-        @type flag: string
-        @param dryrun: do not actually embed differences if C{True}
-            (run for return value only)
-        @type dryrun: bool
 
-        @return: C{True} if there was any difference, false otherwise
-        @rtype: bool
+        @return: difference list
+        @rtype: list of (string, int, string, float)
         """
 
         # Use previous instead of current fields of the other message,
@@ -596,7 +589,8 @@ class Message_base (object):
         msgstrs2 = []
         lenm1 = len(omsg.msgstr)
         lenm2 = len(self.msgstr)
-        for i in range(max(lenm1, lenm2)):
+        nmsgstr = max(lenm1, lenm2)
+        for i in range(nmsgstr):
             if i < lenm1:
                 msgstrs1.append(omsg.msgstr[i])
             else:
@@ -607,50 +601,78 @@ class Message_base (object):
                 msgstrs2.append(u"")
 
         # Create diffs.
-        anydiff = False
         field_diffs = []
-        field_drs = [] # difference ratios
-        for text1, text2 in [
-            (other_msgctxt or u"", self.msgctxt or u""),
-            (other_msgid, self.msgid),
-            (other_msgid_plural, self.msgid_plural),
-        ] + zip(msgstrs1, msgstrs2):
+        for field, item, text1, text2 in [
+            ("msgctxt", 0, other_msgctxt or u"", self.msgctxt or u""),
+            ("msgid", 0, other_msgid, self.msgid),
+            ("msgid_plural", 0, other_msgid_plural, self.msgid_plural),
+        ] + zip(["msgstr"] * nmsgstr, range(nmsgstr), msgstrs1, msgstrs2):
             if pfilter:
                 text1 = pfilter(text1)
                 text2 = pfilter(text2)
-            diff = u""
             if text1 != text2:
-                anydiff = True
-                if dryrun:
-                    return True
-            diff, dr = word_ediff(text1, text2, markup=True, format=self.format)
-            field_diffs.append(diff)
-            field_drs.append(dr)
+                ediff, dr = word_ediff(text1, text2,
+                                       markup=True, format=self.format)
+                field_diffs.append((field, item, ediff, dr))
 
-        if not anydiff:
+        return field_diffs
+
+
+    def embed_diff (self, omsg, pfilter=None, flag=None):
+        """
+        Embed text field diffs against the other message into previous fields.
+
+        The difference is created from the other to the current message,
+        and embedded into C{previous_*} fields of current message.
+        The difference of C{msgstr} fields is put into C{previous_msgid}
+        (or C{previous_msgid_plural} for plural messages), suitably
+        visually separated. See L{word_ediff<misc.diff.word_ediff>} for
+        the syntax of embedded differences.
+
+        See L{diff_from} for the behavior in presence of fuzzy messages,
+        and usage of C{pfilter} and c{flag} parameters.
+
+        @param omsg: the message from which to make the difference
+        @type omsg: L{Message_base}
+        @param pfilter: filter to be applied to all text prior to differencing
+        @type pfilter: callable
+        @param flag: flag to add to the message if there was any difference
+        @type flag: string
+
+        @return: C{True} if there was any difference, false otherwise
+        @rtype: bool
+        """
+
+        field_diffs = self.diff_from(omsg, pfilter=pfilter, flag=flag)
+
+        if not field_diffs:
             return False
+
+        nmsgstr_diffs = 0
+        for field, item, ediff, dr in field_diffs:
+            if field == "msgstr":
+                nmsgstr_diffs += 1
 
         # Embed diffs.
         msgctxt_previous = None
-        if field_drs[0]:
-            msgctxt_previous = field_diffs[0]
         msgid_previous = u""
-        if field_drs[1]:
-            msgid_previous = field_diffs[1]
         msgid_plural_previous = u""
-        if field_drs[2]:
-            msgid_plural_previous = field_diffs[2]
         msgstr_previous_sections = []
-        add_indices = len(field_diffs) > 4
-        for i in range(3, len(field_diffs)):
-            if field_drs[i]:
-                if add_indices:
+        for field, item, ediff, dr in field_diffs:
+            if field == "msgctxt":
+                msgctxt_previous = ediff
+            elif field == "msgid":
+                msgid_previous = ediff
+            elif field == "msgid_plural":
+                msgid_plural_previous = ediff
+            elif field == "msgstr":
+                if nmsgstr_diffs > 1:
                     sepmark = "msgstr[%d]" % (i - 3)
                 else:
                     sepmark = "msgstr"
                 sep = "========== %s:" % sepmark
                 msgstr_previous_sections.append(sep)
-                msgstr_previous_sections.append(field_diffs[i])
+                msgstr_previous_sections.append(ediff)
         msgstr_previous = "\n".join(msgstr_previous_sections)
         if msgstr_previous:
             if not self.msgid_plural:
