@@ -14,7 +14,7 @@ from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
 from pology.misc.report import report, warning, error
-from pology.misc.msgreport import warning_on_msg
+from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
 from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
@@ -23,6 +23,8 @@ from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
 from pology.misc.langdep import get_hook_lreq
+from pology.sieve.find_messages import build_msg_fmatcher
+from pology.misc.colors import colors_for_file
 
 WRAPF = wrap_field_ontag_unwrap
 UFUZZ = "fuzzy"
@@ -139,6 +141,9 @@ def main ():
     elif mode.name in ("clear-review", "cr"):
         execute_operation = clear_review
         mode.selector = selector or build_selector(options, ["any"])
+    elif mode.name in ("history", "hi"):
+        execute_operation = show_history
+        mode.selector = selector or build_selector(options, ["nany"])
     else:
         error("unknown operation mode '%s'" % mode.name)
 
@@ -389,6 +394,19 @@ def clear_review (options, configs_catpaths, mode):
         report("===! Cleared review states: %d" % ncleared)
 
 
+def show_history (options, configs_catpaths, mode):
+
+    stest = mode.selector
+
+    nshown = 0
+    for config, catpaths in configs_catpaths:
+        for catpath in catpaths:
+            nshown += show_history_cat(options, config, catpath, stest)
+
+    if nshown > 0:
+        report("===> Computed histories: %d" % nshown)
+
+
 def ascribe_modified_cat (options, config, user, catpath, stest):
 
     # Open current catalog and all ascription catalogs.
@@ -618,6 +636,52 @@ def clear_review_cat (options, config, catpath, stest):
     sync_and_rep(cat)
 
     return ncleared
+
+
+def show_history_cat (options, config, catpath, stest):
+
+    C = colors_for_file(sys.stdout)
+
+    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    acats = collect_asc_cats(config, cat.name)
+
+    nselected = 0
+    for msg in cat:
+        history = asc_collect_history(msg, acats, config)
+        if stest(msg, cat, history, config, options) is None:
+            continue
+        nselected += 1
+
+        hinfo = [C.GREEN + ">>> history follows:" + C.RESET]
+        hfmt = "%%%dd" % len(str(len(history)))
+        for i in range(len(history)):
+            a = history[i]
+            typewtag = a.type
+            if a.tag:
+                typewtag += "/" + a.tag
+            ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
+            hinfo += [(ihead + "%(mod)s by %(usr)s on %(dat)s")
+                      % dict(usr=a.user, mod=typewtag, dat=a.date)]
+            if i + 1 >= len(history):
+                continue
+            dmsg = Message(a.msg)
+            anydiff = dmsg.embed_diff(history[i + 1].msg, tocurr=True,
+                                      pfilter=options.tfilter, hlto=sys.stdout)
+            if anydiff:
+                dmsg.manual_comment = Monlist() # review tags were here
+                dmsgstr = dmsg.to_string().rstrip("\n")
+                hindent = " " * (len(hfmt % 0) + 2)
+                hinfo += [hindent + x for x in dmsgstr.split("\n")]
+        hinfo = "\n".join(hinfo)
+
+        if history:
+            msg = Message(msg)
+            msg.embed_diff(history[0].msg, tocurr=True,
+                           pfilter=options.tfilter, hlto=sys.stdout)
+        report_msg_content(msg, cat, wrapf=WRAPF,
+                           note=hinfo, delim=("-" * 20))
+
+    return nselected
 
 
 def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
@@ -1080,8 +1144,7 @@ def selector_wasc ():
             elif options.tfilter:
                 # Also consider ascribed if no difference from last ascription
                 # under the filter in effect.
-                pf = options.tfilter
-                if not msg.embed_diff(amsg, pfilter=pf, dryrun=True):
+                if not msg.diff_from(amsg, pfilter=options.tfilter):
                     return True
 
         return None
@@ -1099,6 +1162,38 @@ def selector_xrevd ():
         for flag in msg.flags:
             if _revdflag_rx.search(flag):
                 return True
+
+        return None
+
+    return selector
+
+
+def selector_fexpr (expr=None):
+    cid = "selector:fexpr"
+
+    if not (expr or "").strip():
+        error("matching expression cannot be empty", subsrc=cid)
+
+    class Data: pass
+    g = Data()
+    g.options = None
+    g.matcher = None
+
+    def selector (msg, cat, history, config, options):
+
+        # Build and cache the matcher when options change.
+        if g.options is not options:
+            g.options = options
+            filters = []
+            if options.tfilter:
+                filters = [options.tfilter]
+            mopts = Data()
+            mopts.case = False
+            g.matcher = build_msg_fmatcher(expr, filters=filters,
+                                           mopts=mopts)
+
+        if g.matcher(msg, cat):
+            return True
 
         return None
 
@@ -1180,7 +1275,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     # between the modification and current review.
                     mm, mr = history[i_cand].msg, a.msg
                     pf = options.tfilter
-                    if pf and not mm.embed_diff(mr, pfilter=pf, dryrun=True):
+                    if pf and not mm.diff_from(mr, pfilter=pf):
                         i_cand = None
                     else:
                         i_sel = i_cand
@@ -1196,11 +1291,10 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
             # (any, or not by m-users).
             if options.tfilter and i_cand + 1 < len(history):
                 mm = history[i_cand].msg
-                pf = options.tfilter
                 for a in history[i_cand + 1:]:
                     if (    a.type == _atype_mod
                         and (not musers or a.user not in musers)
-                        and not a.msg.embed_diff(mm, pfilter=pf, dryrun=True)
+                        and not a.msg.diff_from(mm, pfilter=options.tfilter)
                     ):
                         i_cand = None
                         break
@@ -1280,6 +1374,7 @@ _selector_factories = {
     "any": (selector_any, False),
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
+    "fexpr": (selector_fexpr, False),
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
     "modar": (selector_modar, True),
