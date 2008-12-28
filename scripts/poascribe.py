@@ -1069,8 +1069,16 @@ def selector_wasc ():
 
     def selector (msg, cat, history, config, options):
 
-        if history and asc_eq(msg, history[0].msg):
-            return True
+        if history:
+            amsg = history[0].msg
+            if asc_eq(msg, amsg):
+                return True
+            elif options.tfilter:
+                # Also consider ascribed if no difference from last ascription
+                # under the filter in effect.
+                pf = options.tfilter
+                if not msg.embed_diff(amsg, pfilter=pf, dryrun=True):
+                    return True
 
         return None
 
