@@ -160,6 +160,13 @@
     <p>In the unlikely case of <code>|</code> character being part of the 
     context string itself, the &quot;broken bar&quot; <code>&#166;</code> 
     (<code>U+00A6</code>) can be used as the context separator instead.</p>
+    <p>In case the reference with context does not resolve to a message, 
+    the context string will next be tried as regular expression match on 
+    <code>msgctxt</code> fields in the UI catalog (matching will be 
+    case-sensitive). If this results in a single selected message, the 
+    reference is resolved. This feature provides workaround against very 
+    long contexts, which would be ungainly to put in the reference, and may
+    also slightly change over time.</p>
     <p>If two messages with same <code>msgid</code> are not in the same UI 
     catalog, that is not a conflict as one of those catalogs has priority. 
     If one message has context, but the other does not, the message without

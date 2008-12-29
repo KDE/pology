@@ -136,7 +136,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8fe25a4&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
@@ -432,6 +432,31 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#select_by_key_match" class="summary-sig-name">select_by_key_match</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msgctxt</span>,
+        <span class="summary-sig-arg">msgid</span>,
+        <span class="summary-sig-arg">exctxt</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">exid</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">case</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">wobs</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Select messages from the catalog by matching key-defining fields.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#select_by_msgid" class="summary-sig-name">select_by_msgid</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msgid</span>,
         <span class="summary-sig-arg">wobs</span>=<span class="summary-sig-default">False</span>)</span><br />
@@ -671,7 +696,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8800064&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8fe25a4&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
@@ -1167,8 +1192,55 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msgctxt</code></strong> (string) - the text of <code>msgctxt</code> field (can be empty)</li>
+        <li><strong class="pname"><code>msgctxt</code></strong> (string or <code>None</code>) - the text of <code>msgctxt</code> field</li>
         <li><strong class="pname"><code>msgid</code></strong> (string) - the text of <code>msgid</code> field</li>
+        <li><strong class="pname"><code>wobs</code></strong> (bool) - whether to include obsolete messages in selection</li>
+    </ul></dd>
+    <dt>Returns: list of subclass of <a 
+      href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a></dt>
+        <dd>selected messages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="select_by_key_match"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_by_key_match</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msgctxt</span>,
+        <span class="sig-arg">msgid</span>,
+        <span class="sig-arg">exctxt</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">exid</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">case</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">wobs</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Select messages from the catalog by matching key-defining fields.</p>
+  <p>Parameters <code>msgctxt</code> and <code>msgid</code> are either 
+  exact values, to be matched by equality against message fields, or 
+  regular expression strings. Parameters <code>exctxt</code> and 
+  <code>exid</code> control which kind of match it is, respectively.</p>
+  <p>Runtime complexity O(n), unless all matches are exact, when as that of
+  <a href="pology.file.catalog.Catalog-class.html#find" 
+  class="link">find</a>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msgctxt</code></strong> (string or <code>None</code>) - the text or regex string of <code>msgctxt</code> field</li>
+        <li><strong class="pname"><code>msgid</code></strong> (string) - the text or regex string of <code>msgid</code> field</li>
+        <li><strong class="pname"><code>exctxt</code></strong> (bool) - <code>msgctxt</code> is exact value if <code>True</code>, regex 
+          if <code>False</code></li>
+        <li><strong class="pname"><code>exid</code></strong> (bool) - <code>msgid</code> is exact value if <code>True</code>, regex if 
+          <code>False</code></li>
+        <li><strong class="pname"><code>case</code></strong> (bool) - whether regex matching is case-sensitive</li>
         <li><strong class="pname"><code>wobs</code></strong> (bool) - whether to include obsolete messages in selection</li>
     </ul></dd>
     <dt>Returns: list of subclass of <a 
