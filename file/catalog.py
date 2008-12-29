@@ -1154,7 +1154,11 @@ class Catalog (Monitored):
         if not case:
             rxflags |= re.I
         if not exctxt:
-            msgctxt_rx = re.compile(msgctxt, rxflags)
+            if msgctxt is not None:
+                msgctxt_rx = re.compile(msgctxt, rxflags)
+            else:
+                # Force exact match if actually no context required.
+                exctxt = True
         if not exid:
             msgid_rx = re.compile(msgid, rxflags)
 
