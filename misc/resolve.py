@@ -257,6 +257,8 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
                     warning("%s: too little alternatives in the directive: "
                             "\"...%s\"" % (srcname, rep_text))
                 break
+            if malformed:
+                break
             alts.append(text[pp:p])
 
         # Replace the alternative if admissible, or leave directive untouched.
