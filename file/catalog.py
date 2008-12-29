@@ -1098,8 +1098,8 @@ class Catalog (Monitored):
 
         Runtime complexity as that of L{find}.
 
-        @param msgctxt: the text of C{msgctxt} field (can be empty)
-        @type msgctxt: string
+        @param msgctxt: the text of C{msgctxt} field
+        @type msgctxt: string or C{None}
         @param msgid: the text of C{msgid} field
         @type msgid: string
         @param wobs: whether to include obsolete messages in selection
@@ -1115,6 +1115,60 @@ class Catalog (Monitored):
             return [self._messages[p]]
         else:
             return []
+
+
+    def select_by_key_match (self, msgctxt, msgid, exctxt=False, exid=True,
+                             case=True, wobs=False):
+        """
+        Select messages from the catalog by matching key-defining fields.
+
+        Parameters C{msgctxt} and C{msgid} are either exact values,
+        to be matched by equality against message fields,
+        or regular expression strings. Parameters C{exctxt} and C{exid}
+        control which kind of match it is, respectively.
+
+        Runtime complexity O(n), unless all matches are exact,
+        when as that of L{find}.
+
+        @param msgctxt: the text or regex string of C{msgctxt} field
+        @type msgctxt: string or C{None}
+        @param msgid: the text or regex string of C{msgid} field
+        @type msgid: string
+        @param exctxt: C{msgctxt} is exact value if C{True}, regex if C{False}
+        @type exctxt: bool
+        @param exid: C{msgid} is exact value if C{True}, regex if C{False}
+        @type exid: bool
+        @param case: whether regex matching is case-sensitive
+        @type case: bool
+        @param wobs: whether to include obsolete messages in selection
+        @type wobs: bool
+
+        @returns: selected messages
+        @rtype: list of subclass of L{Message_base}
+        """
+
+        if exctxt and exid:
+            return self.select_by_key(msgctxt, msgid, wobs=wobs)
+
+        rxflags = re.U
+        if not case:
+            rxflags |= re.I
+        if not exctxt:
+            msgctxt_rx = re.compile(msgctxt, rxflags)
+        if not exid:
+            msgid_rx = re.compile(msgid, rxflags)
+
+        selected_msgs = []
+        for msg in self._messages:
+            if (    (wobs or not msg.obsolete)
+                and (   (exid and msg.msgid == msgid)
+                     or (not exid and msgid_rx.search(msg.msgid)))
+                and (   (exctxt and msg.msgctxt == msgctxt)
+                     or (not exctxt and msgctxt_rx.search(msg.msgctxt or u"")))
+            ):
+                selected_msgs.append(msg)
+
+        return selected_msgs
 
 
     def select_by_msgid (self, msgid, wobs=False):
