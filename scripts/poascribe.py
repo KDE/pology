@@ -669,8 +669,12 @@ def show_history_cat (options, config, catpath, stest):
             if a.tag:
                 typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
-            hinfo += [(ihead + "%(mod)s by %(usr)s on %(dat)s")
-                      % dict(usr=a.user, mod=typewtag, dat=a.date)]
+            anote_d = dict(usr=a.user, mod=typewtag, dat=a.date, rev=a.rev)
+            if a.rev:
+                anote = "%(mod)s by %(usr)s on %(dat)s (rev %(rev)s)" % anote_d
+            else:
+                anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
+            hinfo += [ihead + anote]
             if i + 1 >= len(history):
                 continue
             dmsg = Message(a.msg)
