@@ -44,6 +44,7 @@ valid after="\d\d?" before="\d\d?"
 valid after="([pH]H|hh|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
 valid after="Heures" before="Minutes"
+valid after="minutes" before="secondes"
 valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
