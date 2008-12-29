@@ -1334,8 +1334,8 @@ def selector_mod (user_spec=None):
     return selector
 
 
-# Select first modification (any or by m-users) after last review
-# (any or by r-users, and either way not by m-users).
+# Select first modification (any or by m-users, and not by r-users)
+# after last review (any or by r-users, and not by m-users).
 def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
     cid = "selector:modar"
 
@@ -1370,7 +1370,10 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     else:
                         i_sel = i_cand
                         break
-            if a.type == _atype_mod and (not musers or a.user in musers):
+            if (    a.type == _atype_mod
+                and (not musers or a.user in musers)
+                and (not rusers or a.user not in rusers)
+            ):
                 # Modification found, make it candidate.
                 i_cand = i
 
@@ -1420,8 +1423,8 @@ def selector_rev (user_spec=None, atag_req=None):
     return selector
 
 
-# Select first review (any or by r-users) before last modification
-# (any or by m-users, and either way not by r-users).
+# Select first review (any or by r-users, and not by m-users)
+# before last modification (any or by m-users, and not by r-users).
 def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
     cid = "selector:revbm"
 
@@ -1448,6 +1451,7 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
                 can_select = True
             if (    a.type == _atype_rev and a.tag == atag_req
                 and (not rusers or a.user in rusers)
+                and (not musers or a.user not in musers)
             ):
                 # Review found, select it if enabled, and stop anyway.
                 if can_select:
