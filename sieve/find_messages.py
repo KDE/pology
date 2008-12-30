@@ -14,6 +14,7 @@ Sieve parameters for matching:
   - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
   - C{comment:<regex>}: regular expression to match against comments
   - C{transl}: the message must be translated
+  - C{flag:<regex>}: regular expression to match against flags
   - C{plural}: the message must be plural
   - C{maxchar}: messages must have no more than this number of characters
   - C{fexpr}: logical expression made out of any previous matching typs
@@ -21,8 +22,9 @@ Sieve parameters for matching:
 
 If more than one of the matching parameters are given (e.g. both C{msgid} and
 C{msgstr}), the message matches only if all of them match.
-This can be changed for text fields (C{msgid}, C{msgstr}, etc.) such that
-the message matches if any of text fields match, using the C{of} parameter.
+Using the C{or} parameter this can be changed for matching in text fields
+(C{msgctxt}, C{msgid}, C{msgstr}, C{comment})
+such that the message matches if any of text fields match.
 In case of plural messages, C{msgid} is considered matched if either C{msgid}
 or C{msgid_plural} fields match, and C{msgstr} if any of the C{msgstr}
 fields match.
@@ -112,8 +114,8 @@ def setup_sieve (p):
     "\n\n"
     "When several matching parameters are given, by default a message "
     "is matched if all of them match (AND-semantics). "
-    "This can be changed to OR-semantics in a limited sense, "
-    "for pattern matching in text fields (msgid, msgstr, etc.) "
+    "This can be changed to OR-semantics for matching in text fields "
+    "(msgctxt, msgid, msgstr, comment) "
     "using the '%(par1)s' parameter. "
     "Any matching parameter can be repeated if it makes sense (e.g. two "
     "matches on msgid)."
@@ -173,6 +175,16 @@ def setup_sieve (p):
     p.add_param("ntransl", bool,
                 desc=
     "Matches if the message is not translated."
+    )
+    p.add_param("flag", unicode, multival=True,
+                metavar="REGEX",
+                desc=
+    "Matches if one of the flags matches the regular expression."
+    )
+    p.add_param("nflag", unicode, multival=True,
+                metavar="REGEX",
+                desc=
+    "Matches if none of the flags matches the regular expression."
     )
     p.add_param("plural", bool,
                 desc=
@@ -258,12 +270,12 @@ _flag_mark = u"pattern-match"
 
 
 # Matchers taking a value.
-_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment"])
+_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
 # Matchers not taking a value.
 _nop_matchers = set(["transl", "plural"])
 
 # Matchers which produce a regular expression out of their value.
-_rx_matchers = set(["msgctxt", "msgid", "msgstr", "comment"])
+_rx_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
 
 # All matchers together.
 _all_matchers = set()
@@ -317,7 +329,7 @@ class Sieve (object):
 
         # - first matchers which are always AND
         expr_and = create_match_group([
-            "transl", "plural", "maxchar",
+            "transl", "plural", "maxchar", "flag",
         ], negatable=True, orlinked=False)
 
         # - then matchers which can be AND or OR
@@ -727,6 +739,14 @@ def _create_matcher (name, value, mods, params, neg=False):
             onchar = sum([len(x) for x in otexts]) // len(otexts)
             tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
             return onchar <= value and tnchar <= value
+
+    elif name == "flag":
+        def matcher (msgf, msg, cat, hl={}):
+            #FIXME: How to highlight flags? (then use _rx_in_any_text)
+            for flag in msgf.flag:
+                if regex.search(flag):
+                    return True
+            return False
 
     else:
         error("unknown matcher '%s'" % name)
