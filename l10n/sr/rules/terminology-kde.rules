@@ -81,7 +81,7 @@ id="browse"
 hint="browse = прегледати"
 # /browse for/ се изузима, и *не* треба да преведено са „прегледати...“
 valid before="d? for" msgstr="\b(по)?траж|пронађ|изабер"
-valid !before="d? for" msgstr="\bпрегледа[њтјол]"
+valid !before="d? for" msgstr="\bпрегледа(\b|[њтјол])"
 # в. коментар у каталогу (документационом)
 valid cat="dolphin" msgid="the user can toggle the browse button"
 
@@ -153,7 +153,7 @@ valid msgstr="\bшем\w+ боја\b"
 {\bcommands?\b}i
 id="command"
 hint="command = наредба"
-valid before="[ -]?line"
+valid before="[ -]?line| shell"
 valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
 valid msgstr="\bнаредб"
@@ -352,6 +352,7 @@ id="form"
 hint="form = формулар"
 valid msgstr="\bформулар"
 valid msgstr="\bобли[кцч]"
+valid after="in (the |a )?" span="form\b" msgstr="\bу виду\b"
 valid msgid="normal(ization|ized)? form" msgstr="\bформ([аеиу]|ом|ама)\b"
 valid cat="kcmlocale" msgid="declined form.*month name" msgstr="деклин"
 valid cat="libkpimutils" msgid="email.*of the form" msgstr="нешто као"
@@ -483,7 +484,7 @@ valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опц
 
 {\blist}i
 id="list3"
-hint="list = набројати [заправо само не ‘излистати’]"
+hint="list = набројати [заправо само ‘излистати’ мора изричито да се пропусти]"
 valid !msgstr="\bизлист"
 # остало на list
 
