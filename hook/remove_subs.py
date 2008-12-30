@@ -285,9 +285,7 @@ def _rm_lit_in_text (text, substrs, regexes, heuristic, subs=""):
                                   regexes=regexes, heuristic=heuristic)
 
 
-def _rm_lit_in_msg (msg, cat, subs=""):
-
-    strs, rxs, heu = _literals_spec(msg, cat)
+def _rm_lit_in_msg (msg, cat, strs, rxs, heu, subs=""):
 
     msg.msgid = _rm_lit_in_text(msg.msgid, strs, rxs, heu, subs)
     msg.msgid_plural = _rm_lit_in_text(msg.msgid_plural, strs, rxs, heu, subs)
@@ -362,7 +360,8 @@ def remove_literals_msg (msg, cat):
     @return: number of errors
     """
 
-    return _rm_lit_in_msg(msg, cat)
+    strs, rxs, heu = _literals_spec(msg, cat)
+    return _rm_lit_in_msg(msg, cat, strs, rxs, heu)
 
 
 def remove_literals_msg_tick (tick):
@@ -378,9 +377,109 @@ def remove_literals_msg_tick (tick):
     """
 
     def hook (msg, cat):
-        return _rm_lit_in_msg(msg, cat, tick)
+        strs, rxs, heu = _literals_spec(msg, cat)
+        return _rm_lit_in_msg(msg, cat, strs, rxs, heu, tick)
 
     return hook
+
+
+def remove_marlits_text (text, msg, cat):
+    """
+    Remove literals by markup from one of the text fields of the message
+    [type F3A hook].
+
+    An "intersection" of L{remove_markup_text} and L{remove_literals_text},
+    where literals segments are determined by markup, and both the segment text
+    and its markup is removed. See documentation of these hooks for notes
+    on what is considered literal and how markup type is determined.
+
+    @return: text
+    """
+
+    strs, rxs, heu = [], _marlit_rxs(msg, cat), False
+    return _rm_lit_in_text(text, strs, rxs, heu)
+
+
+def remove_marlits_msg (msg, cat):
+    """
+    Remove literal segments by markup from all applicable text fields in
+    the message, as if L{remove_marlits_text} was applied to each
+    [type F4A hook].
+
+    @return: number of errors
+    """
+
+    strs, rxs, heu = [], _marlit_rxs(msg, cat), False
+    return _rm_lit_in_msg(msg, cat, strs, rxs, heu)
+
+
+class Cache: pass
+_marlit_cache = Cache()
+_marlit_cache.mtypes = None
+_marlit_cache.tags = []
+_marlit_cache.rxs = []
+_marlit_cache.acmnt_tag_rx = re.compile(r"^\s*tag:\s*(\w+)\s*$", re.I)
+_marlit_cache.rxs_all = [re.compile(r".*", re.S)]
+
+def _marlit_rxs (msg, cat):
+
+    # Update regex cache due to markup type.
+    mtypes = cat.markup()
+    if _marlit_cache.mtypes != mtypes:
+        _marlit_cache.mtypes = mtypes
+        _marlit_cache.rxs = []
+        for mtype in mtypes:
+            _marlit_cache.tags = _marlit_tags(mtype)
+            rx = _build_tagged_rx(_marlit_cache.tags)
+            _marlit_cache.rxs.append(rx)
+
+    # Check if the whole message is under a literal tag.
+    for acmnt in msg.auto_comment:
+        m = _marlit_cache.acmnt_tag_rx.search(acmnt)
+        if m:
+            tag = m.group(1).strip().lower()
+            if tag in _marlit_cache.tags:
+                return _marlit_cache.rxs_all
+
+    return _marlit_cache.rxs
+
+
+def _marlit_tags (mtype):
+
+    tags = ""
+    if 0: pass
+    elif mtype == "kde4":
+        tags = """
+            icode bcode filename envar command numid
+            tt code
+        """
+    elif mtype == "qtrich":
+        tags = """
+            tt code
+        """
+    elif mtype == "kuit":
+        tags = """
+            icode bcode filename envar command numid
+        """
+    elif mtype == "docbook4" or mtype == "docbook":
+        tags = """
+            literal filename envar command option function markup varname
+            screen programlisting userinput computeroutput
+        """
+    elif mtype == "xml":
+        pass
+
+    return tags.split()
+
+
+def _build_tagged_rx (tags):
+
+    if isinstance(tags, basestring):
+        tags = tags.split()
+    basetagged_rxsub = r"<\s*(%s)\b[^<]*>.*?<\s*/\s*\1\s*>"
+    tagged_rx = re.compile(basetagged_rxsub % "|".join(tags), re.I|re.S)
+
+    return tagged_rx
 
 
 def remove_ignored_entities_msg (msg, cat):
