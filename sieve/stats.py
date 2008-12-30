@@ -6,7 +6,7 @@ Statistics: message and word counts by category, etc.
 Various statistics on catalogs, that may help review the progress,
 split up the work, find out what needs updating, etc.
 
-Sieve options:
+Sieve parameters:
   - C{accels:<chars>}: accelerator markers in GUI messages
   - C{detail}: give more detailed statistics
   - C{incomplete}: additionally list catalogs which are not 100% translated
@@ -15,6 +15,7 @@ Sieve options:
   - C{templates:<spec>}: compare translation with templates (see below)
   - C{minwords:<number>}: count only messages with at least this many words
   - C{maxwords:<number>}: count only messages with at most this many words
+  - C{fexpr:<expr>}: consider only messages matching the search expression
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{bydir}: display report by each leaf directory, followed by totals
   - C{byfile}: display report by each catalog, followed by totals
@@ -24,15 +25,15 @@ Sieve options:
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
-If accelerator character is not given by C{accel} option, the sieve will try
+If accelerator character is not given by C{accel} parameter, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
 If there exists both the directory with translated POs and with template POTs,
-using the C{templates} option the sieve can be instructed to count POTs
+using the C{templates} parameter the sieve can be instructed to count POTs
 with no same-named PO counterpart as fully untranslated in the statistics.
-Value to C{templates} option is in the form C{search:replace}, where
+Value to C{templates} parameter is in the form C{search:replace}, where
 C{search} is the substring in the given PO paths that will be replaced with
 C{replace} string to construct the POT paths. For example::
 
@@ -41,13 +42,18 @@ C{replace} string to construct the POT paths. For example::
     my_lang  templates
     $ posieve.py stats -stemplates:my_lang:templates my_lang/
 
-Options C{minwords} and C{maxwords} tell the sieve to account only those
-messages satisfying these limits, in I{either} the original or translation,
-not necessarily both.
-
-For L{summited<scripts.posummit>} catalogs, C{branch} option is used to restrict
-the counting to the given branch only. Several branch IDs may be given as
-a comma-separated list.
+Several parameters are used to restrict counting to messages satisfying
+a certain criterion.
+C{minwords} and C{maxwords} restrict counting to messages satisfying
+these word limits, in I{either} the original or translation.
+C{fexpr} restricts counting to messages matched by the search expression
+of the type defined by the L{find-messages<sieve.find_messages>} sieve
+(see description of its same-named parameter).
+For L{summited<scripts.posummit>} catalogs, C{branch} parameter is used to
+count only messages from the given branch (several branch IDs may
+be given as a comma-separated list).
+If more than one restriction parameter is used, all must be satisfied for
+the message to be taken into account.
 
 Custom Contexts
 ===============
@@ -93,7 +99,7 @@ Output Legend
       - C{ch-or}: number of characters in original
       - C{ch-tr}: number of characters in translation
 
-    The output with C{detail} sieve option in effect is the same, with
+    The output with C{detail} parameter in effect is the same, with
     several columns of derived data appended to the table:
       - C{w-ef}: word expansion factor
             (increase in words from original to translation)
@@ -104,7 +110,7 @@ Output Legend
       - C{ch/w-or}: average of characters per message in original
       - C{ch/w-tr}: average of characters per message in translation
 
-    If any of the sieve options that restrict counting to certain messages
+    If any of the sieve parameters that restrict counting to certain messages
     have been supplied, this is confirmed in output by a C{>>>} message
     before the table. For example::
 
@@ -112,7 +118,7 @@ Output Legend
         >>> at-most-words: 5
         (...the stats table follows...)
 
-    When C{incomplete} option is given, the statistics table is followed by
+    When C{incomplete} parameter is given, the statistics table is followed by
     a table of not fully translated catalogs, with counts of fuzzy and
     untranslated messages and words::
 
@@ -127,7 +133,7 @@ Output Legend
     C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
     two summed.
 
-    When options C{msgbar} or C{wbar} are in effect, statistics is given
+    When parameters C{msgbar} or C{wbar} are in effect, statistics is given
     in the form of an ASCII bar, giving visual relation between numbers of
     translated, fuzzy, and untranslated messages or words::
 
@@ -149,7 +155,7 @@ Output Legend
 
     By default bars are presenting relative information, i.e. the percentages
     of translated, fuzzy, and untranslated messages. This can be changed
-    into absolute display using the C{absolute} option, where single bar-cell
+    into absolute display using the C{absolute} parameter, where single bar-cell
     stands for a fixed number of messages or words, determined by taking
     into account the stats across all bars in the run. When absolute mode
     is engaged, the bars are shown only for the most specific count level
@@ -192,6 +198,7 @@ from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
 from pology.misc.report import warning
 import pology.misc.colors as C
+from pology.sieve.find_messages import build_msg_fmatcher
 
 
 def setup_sieve (p):
@@ -254,6 +261,12 @@ def setup_sieve (p):
                 desc=
     "Count in only messages which have at least this many words, "
     "either in original or translation."
+    )
+    p.add_param("fexpr", unicode,
+                metavar="EXPRESSION",
+                desc=
+    "Count in only messages matched by the search expression. "
+    "See description of the same parameter to '%s' sieve." % ("find-messages")
     )
     p.add_param("bydir", bool, defval=False,
                 desc=
@@ -321,6 +334,14 @@ class Sieve (object):
         # FIXME: After parameter parser can deliver requested sequence type.
         if self.p.branch is not None:
             self.p.branch = set(self.p.branch)
+
+        # Create message matcher if requested.
+        self.matcher = None
+        if self.p.fexpr:
+            class Data: pass
+            mopts = Data()
+            mopts.case = False
+            self.matcher = build_msg_fmatcher(self.p.fexpr, mopts)
 
         # Number of counts per category:
         # messages, words in original, words in translation,
@@ -406,6 +427,9 @@ class Sieve (object):
             msg_branches = parse_summit_branches(msg)
             if not set.intersection(self.p.branch, msg_branches):
                 return
+
+        if self.matcher and not self.matcher(msg, cat):
+            return
 
         # Decide if a metamessage:
         ismeta = False
@@ -580,17 +604,17 @@ class Sieve (object):
         # See if the output will admit color sequences.
         can_color = sys.stdout.isatty()
 
-        # Summit: If branches were given, indicate conspicuously up front.
+        # Indicate conspicuously up front restrictions to counted messages.
         if self.p.branch:
             print ">>> selected-branches: %s" % " ".join(self.p.branch)
-
-        # If the number of words has been limited, indicate conspicuously.
         if self.p.maxwords is not None and self.p.minwords is None:
             print ">>> at-most-words: %d" % self.p.maxwords
         if self.p.minwords is not None and self.p.maxwords is None:
             print ">>> at-least-words: %d" % self.p.minwords
         if self.p.minwords is not None and self.p.maxwords is not None:
             print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
+        if self.p.fexpr:
+            print ">>> selected-by-expr: %s" % self.p.fexpr
 
         # Should titles be output in-line or on separate lines.
         self.inline = False
