@@ -40,6 +40,11 @@ addFilterHook name="ui-references/resolve-ui" \
                        quiet=True" \
               on="msgstr"
 
+# Remove literal substrings, those which are to be understood by the machine
+# and therefore not translated, as designated by markup.
+# (-> before markup removal)
+addFilterHook name="remove-subs/remove-marlits-msg" on="msg"
+
 # Remove text markup.
 # For this to work, POs need to specify markup types using
 # the X-Text-Markup header field; its value is a markup keyword.
@@ -60,10 +65,10 @@ addFilterHook name="remove-subs/remove-accel-msg" on="msg"
 # Replace format directives with tildes (~), based on *-format flags.
 addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
 
-# Remove other literal substrings, which are to be understood by the machine,
-# and therefore not translated. Heuristics can be augmented by explicit
-# instructions per message, see documentation on remove_literals_text()
-# function in pology.hook.remove_subs module.
+# Remove other literal substrings by heuristics.
+# Heuristics can be augmented by explicit instructions per message,
+# see documentation on remove_literals_text() function
+# in pology.hook.remove_subs module.
 # (-> after markup removal)
 addFilterHook name="remove-subs/remove-literals-msg" on="msg"
 
