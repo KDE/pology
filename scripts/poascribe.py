@@ -73,6 +73,11 @@ def main ():
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
+        "-c", "--config", metavar="PATH",
+        action="store", dest="config", default=None,
+        help="explicit path to ascription configuration "
+             "(instead of automatic lookup up the directory tree)")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -156,20 +161,24 @@ def main ():
     configs_loaded = {}
     configs_catpaths = []
     for path in paths:
-        # Look for the first config file up the directory tree.
-        parent = os.path.abspath(path)
-        if os.path.isfile(parent):
-            parent = os.path.dirname(parent)
-        while True:
-            cfgpath = os.path.join(parent, "ascribe")
-            if os.path.isfile(cfgpath):
-                break
-            else:
-                cfgpath = ""
-            pparent = parent
-            parent = os.path.dirname(parent)
-            if parent == pparent:
-                break
+        if not options.config:
+            # Look for the first config file up the directory tree.
+            parent = os.path.abspath(path)
+            if os.path.isfile(parent):
+                parent = os.path.dirname(parent)
+            while True:
+                cfgpath = os.path.join(parent, "ascribe")
+                if os.path.isfile(cfgpath):
+                    break
+                else:
+                    cfgpath = ""
+                pparent = parent
+                parent = os.path.dirname(parent)
+                if parent == pparent:
+                    break
+        else:
+            # Use config file supplied through the command line.
+            cfgpath = options.config
         if not cfgpath:
             error("cannot find ascription configuration for path: %s" % path)
         cfgpath = rel_path(os.getcwd(), cfgpath) # for nicer message output
