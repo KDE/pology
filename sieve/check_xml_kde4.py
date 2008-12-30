@@ -115,7 +115,7 @@ class Sieve (object):
         # original itself is valid XML.
         if not self.strict:
             if (   self.check_xml(msg.msgid, ents=self.entities)
-                or self.check_xml(msg.msgid_plural, ents=self.entities)
+                or self.check_xml(msg.msgid_plural or u"", ents=self.entities)
             ):
                 return
 

@@ -1096,8 +1096,9 @@ def _filterOnMsgid (func):
 
         tmp = func(msg.msgid, msg, cat)
         if tmp is not None: msg.msgid = tmp
-        tmp = func(msg.msgid_plural, msg, cat)
-        if tmp is not None: msg.msgid_plural = tmp
+        if msg.msgid_plural is not None:
+            tmp = func(msg.msgid_plural, msg, cat)
+            if tmp is not None: msg.msgid_plural = tmp
 
     return aggregate
 
@@ -1119,8 +1120,9 @@ def _filterOnMsgidPure (func):
 
         tmp = func(msg.msgid)
         if tmp is not None: msg.msgid = tmp
-        tmp = func(msg.msgid_plural)
-        if tmp is not None: msg.msgid_plural = tmp
+        if msg.msgid_plural is not None:
+            tmp = func(msg.msgid_plural)
+            if tmp is not None: msg.msgid_plural = tmp
 
     return aggregate
 
@@ -1279,7 +1281,8 @@ def _triggerFromHook (fields):
         def trigger (msg, cat):
             hl = []
             hl.append(("msgid", 0, hook(msg.msgid, msg, cat)))
-            hl.append(("msgid_plural", 0, hook(msg.msgid_plural, msg, cat)))
+            if msg.msgid_plural is not None:
+                hl.append(("msgid_plural", 0, hook(msg.msgid_plural, msg, cat)))
             return hl
     elif msgpart == "msgstr":
         def trigger (msg, cat):
@@ -1291,7 +1294,8 @@ def _triggerFromHook (fields):
         def trigger (msg, cat):
             hl = []
             hl.append(("msgid", 0, hook(msg.msgid)))
-            hl.append(("msgid_plural", 0, hook(msg.msgid_plural)))
+            if msg.msgid_plural is not None:
+                hl.append(("msgid_plural", 0, hook(msg.msgid_plural)))
             return hl
     elif msgpart == "pmsgstr":
         def trigger (msg, cat):
@@ -1530,17 +1534,22 @@ class Rule(object):
 
         if 0: pass
         elif msgpart == "msgid":
-            text_spec = [("msgid", 0, msg.msgid),
-                         ("msgid_plural", 0, msg.msgid_plural)]
+            text_spec = [("msgid", 0, msg.msgid)]
+            if msg.msgid_plural is not None:
+                text_spec += [("msgid_plural", 0, msg.msgid_plural)]
         elif msgpart == "msgstr":
             text_spec = [("msgstr", i, msg.msgstr[i])
                          for i in range(len(msg.msgstr))]
         elif msgpart == "msgctxt":
-            text_spec = [("msgctxt", 0, msg.msgctxt or u"")]
+            text_spec = []
+            if msg.msgctxt is not None:
+                text_spec = [("msgctxt", 0, msg.msgctxt)]
         elif msgpart == "msgid_singular":
             text_spec = [("msgid", 0, msg.msgid)]
         elif msgpart == "msgid_plural":
-            text_spec = [("msgid_plural", 0, msg.msgid_plural)]
+            text_spec = []
+            if msg.msgid_plural is not None:
+                text_spec += [("msgid_plural", 0, msg.msgid_plural)]
         elif msgpart.startswith("msgstr_"):
             item = int(msgpart.split("_")[1])
             text_spec = [("msgstr", item, msg.msgstr[item])]
@@ -1703,7 +1712,9 @@ class Rule(object):
                     break
 
             elif bkey == "ctx":
-                match = value.search(msg.msgctxt or u"")
+                match = False
+                if msg.msgctxt:
+                    match = value.search(msg.msgctxt)
                 if invert: match = not match
                 if not match:
                     valid = False
@@ -1712,7 +1723,8 @@ class Rule(object):
             elif bkey == "msgid":
                 match = False
                 for msgid in (msg.msgid, msg.msgid_plural):
-                    match = value.search(msgid)
+                    if msgid is not None:
+                        match = value.search(msgid)
                     if match:
                         break
                 if invert: match = not match

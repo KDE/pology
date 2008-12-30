@@ -63,19 +63,19 @@ class Sieve (object):
                 return
 
         # Differentiate the msgctxt.
-        if msg.msgctxt_previous and msg.msgctxt:
+        if msg.msgctxt_previous is not None and msg.msgctxt is not None:
             msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
                                               msg.format)
             msg.modcount = 1 # in case of non-monitored messages
 
         # Differentiate the msgid.
-        if msg.msgid_previous and msg.msgid:
+        if msg.msgid_previous is not None:
             msg.msgid_previous = self._diff(msg.msgid_previous, msg.msgid,
                                             msg.format)
             msg.modcount = 1 # in case of non-monitored messages
 
         # Differentiate the msgid_plural.
-        if msg.msgid_plural_previous and msg.msgid_plural:
+        if msg.msgid_plural_previous is not None and msg.msgid_plural is not None:
             msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
                                                    msg.msgid_plural, msg.format)
             msg.modcount = 1 # in case of non-monitored messages

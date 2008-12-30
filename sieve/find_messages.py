@@ -688,13 +688,16 @@ def _create_matcher (name, value, mods, params, neg=False):
 
     elif name == "msgctxt":
         def matcher (msgf, msg, cat, hl={}):
-            texts = [(msgf.msgctxt or u"", "msgctxt", 0)]
+            texts = []
+            if msgf.msgctxt is not None:
+                texts += [(msgf.msgctxt, "msgctxt", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgid":
         def matcher (msgf, msg, cat, hl={}):
-            texts = [(msgf.msgid, "msgid", 0),
-                     (msgf.msgid_plural, "msgid_plural", 0)]
+            texts = [(msgf.msgid, "msgid", 0)]
+            if msgf.msgid_plural is not None:
+                texts += [(msgf.msgid_plural, "msgid_plural", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgstr":
@@ -726,14 +729,14 @@ def _create_matcher (name, value, mods, params, neg=False):
     elif name == "plural":
         def matcher (msgf, msg, cat, hl={}):
             if value is None or value:
-                return msg.msgid_plural != ""
+                return msg.msgid_plural is not None
             else:
-                return msg.msgid_plural == ""
+                return msg.msgid_plural is None
 
     elif name == "maxchar":
         def matcher (msgf, msg, cat, hl={}):
             otexts = [msgf.msgid]
-            if msgf.msgid_plural:
+            if msgf.msgid_plural is not None:
                 otexts.append(msgf.msgid_plural)
             ttexts = msgf.msgstr
             onchar = sum([len(x) for x in otexts]) // len(otexts)

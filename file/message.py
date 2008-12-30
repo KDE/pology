@@ -34,12 +34,12 @@ _Message_spec = {
     "obsolete" : {"type" : bool},
 
     "msgctxt_previous" : {"type" : (unicode, type(None))},
-    "msgid_previous" : {"type" : unicode},
-    "msgid_plural_previous" : {"type" : unicode},
+    "msgid_previous" : {"type" : (unicode, type(None))},
+    "msgid_plural_previous" : {"type" : (unicode, type(None))},
 
     "msgctxt" : {"type" : (unicode, type(None))},
     "msgid" : {"type" : unicode},
-    "msgid_plural" : {"type" : unicode},
+    "msgid_plural" : {"type" : (unicode, type(None))},
     "msgstr" : {"type" : Monlist,
                 "spec" : {"*" : {"type" : unicode}}},
 
@@ -52,9 +52,12 @@ _Message_spec = {
     "refline" : {"type" : int},
     "refentry" : {"type" : int},
 }
-_Message_single_strings = (
+_Message_single_fields = (
     "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
     "msgctxt", "msgid", "msgid_plural",
+)
+_Message_mandatory_fields = (
+    "msgid", "msgstr",
 )
 
 class Message_base (object):
@@ -99,11 +102,11 @@ class Message_base (object):
     @type msgctxt_previous: string or None
 
     @ivar msgid_previous: previous message field (C{#| msgid "..."})
-    @type msgid_previous: string
+    @type msgid_previous: string or None
 
     @ivar msgid_plural_previous:
         previous plural field (C{#| msgid_plural "..."})
-    @type msgid_plural_previous: string
+    @type msgid_plural_previous: string or None
 
     @ivar msgctxt: context field (C{msgctxt "..."})
     @type msgctxt: string or None
@@ -112,7 +115,7 @@ class Message_base (object):
     @type msgid: string
 
     @ivar msgid_plural: plural field (C{msgid_plural "..."})
-    @type msgid_plural: string
+    @type msgid_plural: string or None
 
     @ivar msgstr: translation fields (C{msgstr "..."}, C{msgstr[n] "..."})
     @type msgstr: list* of strings
@@ -271,8 +274,8 @@ class Message_base (object):
                 else:
                     self.flag.remove(u"fuzzy")
                     self.msgctxt_previous = None
-                    self.msgid_previous = u""
-                    self.msgid_plural_previous = u""
+                    self.msgid_previous = None
+                    self.msgid_plural_previous = None
 
         self.__dict__["^getsetattr"].__setattr__(self, att, val)
 
@@ -320,15 +323,15 @@ class Message_base (object):
             if flst:
                 self._lines_flag = wrap_comment(",", ", ".join(flst))
 
-        for att in _Message_single_strings:
+        for att in _Message_single_fields:
             att_lins = "_lines_" + att
             if mod[att] or not self.__dict__[att_lins] or force:
                 # modcount of this string > 0 or lines not cached or forced
                 self.__dict__[att_lins] = []
                 msgsth = getattr(self, att)
-                if (   msgsth
-                    or (att.startswith("msgctxt") and msgsth is not None)
-                ):
+                if msgsth is not None or att in _Message_mandatory_fields:
+                    if msgsth is None:
+                        msgsth = u""
                     if att.endswith("_previous"):
                         fname = att[:-len("_previous")]
                         pstat = "prev"
@@ -337,21 +340,18 @@ class Message_base (object):
                         pstat = "curr"
                     self.__dict__[att_lins] = wrapf(fname, escape(msgsth),
                                                     prefix[pstat])
-                elif att == "msgid": # msgid must go in, even empty
-                    self.__dict__[att_lins] = wrapf("msgid", "")
 
         if mod["msgstr"] or not self._lines_msgstr or force:
             self._lines_msgstr = []
-            if not self.msgstr:
-                self._lines_msgstr.extend(wrapf("msgstr", "", prefix["curr"]))
-            elif not self.msgid_plural:
+            msgstr = self.msgstr or [u""]
+            if self.msgid_plural is None:
                 self._lines_msgstr.extend(wrapf("msgstr",
-                                          escape(self.msgstr[0]),
+                                          escape(msgstr[0]),
                                           prefix["curr"]))
             else:
-                for i in range(len(self.msgstr)):
+                for i in range(len(msgstr)):
                     self._lines_msgstr.extend(wrapf("msgstr[%d]" % (i,),
-                                                    escape(self.msgstr[i]),
+                                                    escape(msgstr[i]),
                                                     prefix["curr"]))
 
         # Marshal the lines into proper order.
@@ -483,7 +483,7 @@ class Message_base (object):
         modcount_before = self.modcount
 
         # Plural always overrides non-plural, regardless of self/other state.
-        if not self.msgid_plural and other.msgid_plural:
+        if self.msgid_plural is None and other.msgid_plural is not None:
             if other.manual_comment:
                 self._overwrite_list(other, "manual_comment")
             if other.fuzzy:
@@ -501,13 +501,13 @@ class Message_base (object):
             ):
                 if not self.manual_comment:
                     self._overwrite_list(other, "manual_comment")
-                if other.msgid_plural:
+                if other.msgid_plural is not None:
                     self.msgid_plural = other.msgid_plural
 
             elif self.fuzzy and other.translated:
                 self._overwrite_list(other, "manual_comment")
-                if not self.msgid_plural or other.msgid_plural:
-                    if other.msgid_plural:
+                if self.msgid_plural is None or other.msgid_plural is not None:
+                    if other.msgid_plural is not None:
                         self.msgid_plural = other.msgid_plural
                     self._overwrite_list(other, "msgstr")
                     if self.msgid_plural == other.msgid_plural:
@@ -515,12 +515,12 @@ class Message_base (object):
 
             elif self.untranslated and (other.translated or other.fuzzy):
                 self._overwrite_list(other, "manual_comment")
-                if not self.msgid_plural or other.msgid_plural:
+                if self.msgid_plural is None or other.msgid_plural is not None:
                     if other.fuzzy:
                         self.msgctxt_previous = other.msgctxt_previous
                         self.msgid_previous = other.msgid_previous
                         self.msgid_plural_previous = other.msgid_plural_previous
-                    if other.msgid_plural:
+                    if other.msgid_plural is not None:
                         self.msgid_plural = other.msgid_plural
                     self._overwrite_list(other, "msgstr")
                     self.fuzzy = other.fuzzy
@@ -580,10 +580,10 @@ class Message_base (object):
 
         # Use previous instead of current fields of the other message,
         # if the message is fuzzy and previous fields are available.
-        if omsg.fuzzy and omsg.previous_msgid:
-            other_msgctxt = omsg.previous_msgctxt
-            other_msgid = omsg.previous_msgid
-            other_msgid_plural = omsg.previous_msgid_plural
+        if omsg.fuzzy and omsg.msgid_previous is not None:
+            other_msgctxt = omsg.msgctxt_previous
+            other_msgid = omsg.msgid_previous
+            other_msgid_plural = omsg.msgid_plural_previous
         else:
             other_msgctxt = omsg.msgctxt
             other_msgid = omsg.msgid
@@ -612,7 +612,7 @@ class Message_base (object):
         for field, item, text1, text2 in [
             ("msgctxt", 0, other_msgctxt or u"", self.msgctxt or u""),
             ("msgid", 0, other_msgid, self.msgid),
-            ("msgid_plural", 0, other_msgid_plural, self.msgid_plural),
+            ("msgid_plural", 0, other_msgid_plural or u"", self.msgid_plural or u""),
         ] + zip(["msgstr"] * nmsgstr, range(nmsgstr), msgstrs1, msgstrs2):
             if pfilter:
                 text1 = pfilter(text1)
@@ -675,8 +675,8 @@ class Message_base (object):
         # Embed diffs.
         if not tocurr:
             msgctxt_previous = None
-            msgid_previous = u""
-            msgid_plural_previous = u""
+            msgid_previous = None
+            msgid_plural_previous = None
             msgstr_previous_sections = []
             for field, item, ediff, dr in field_diffs:
                 if field == "msgctxt":
@@ -695,13 +695,17 @@ class Message_base (object):
                     msgstr_previous_sections.append(ediff)
             msgstr_previous = "\n".join(msgstr_previous_sections)
             if msgstr_previous:
-                if not self.msgid_plural:
+                if self.msgid_plural is None:
                     if msgid_previous:
                         msgid_previous += "\n"
+                    else:
+                        msgid_previous = u""
                     msgid_previous += msgstr_previous
                 else:
                     if msgid_plural_previous:
                         msgid_plural_previous += "\n"
+                    else:
+                        msgid_plural_previous = u""
                     msgid_plural_previous += msgstr_previous
 
             self.msgctxt_previous = msgctxt_previous
@@ -811,12 +815,12 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._obsolete = init.get("obsolete", False)
 
         self._msgctxt_previous = init.get("msgctxt_previous", None)
-        self._msgid_previous = init.get("msgid_previous", u"")
-        self._msgid_plural_previous = init.get("msgid_plural_previous", u"")
+        self._msgid_previous = init.get("msgid_previous", None)
+        self._msgid_plural_previous = init.get("msgid_plural_previous", None)
 
         self._msgctxt = init.get("msgctxt", None)
         self._msgid = init.get("msgid", u"")
-        self._msgid_plural = init.get("msgid_plural", u"")
+        self._msgid_plural = init.get("msgid_plural", None)
         self._msgstr = Monlist(init.get("msgstr", [])[:])
 
         self._fuzzy = (u"fuzzy" in self._flag and not self._obsolete)
@@ -852,7 +856,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
                                 or self.auto_comment.modcount
             mod["source"] = self.source_modcount or self.source.modcount
             mod["flag"] = self.flag_modcount or self.flag.modcount
-            for att in _Message_single_strings:
+            for att in _Message_single_fields:
                 mod[att] = getattr(self, att + "_modcount") > 0
             mod["msgstr"] = self.msgstr_modcount or self.msgstr.modcount
         else:
@@ -862,7 +866,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
             mod["auto_comment"] = True
             mod["source"] = True
             mod["flag"] = True
-            for att in _Message_single_strings:
+            for att in _Message_single_fields:
                 mod[att] = True
             mod["msgstr"] = True
 
@@ -913,12 +917,12 @@ class MessageUnsafe (Message_base):
         self.obsolete = init.get("obsolete", False)
 
         self.msgctxt_previous = init.get("msgctxt_previous", None)
-        self.msgid_previous = init.get("msgid_previous", u"")
-        self.msgid_plural_previous = init.get("msgid_plural_previous", u"")
+        self.msgid_previous = init.get("msgid_previous", None)
+        self.msgid_plural_previous = init.get("msgid_plural_previous", None)
 
         self.msgctxt = init.get("msgctxt", None)
         self.msgid = init.get("msgid", u"")
-        self.msgid_plural = init.get("msgid_plural", u"")
+        self.msgid_plural = init.get("msgid_plural", None)
         self.msgstr = init.get("msgstr", [u""])[:]
 
         self.__dict__["fuzzy"] = (u"fuzzy" in self.flag and not self.obsolete)
@@ -952,7 +956,7 @@ class MessageUnsafe (Message_base):
         mod["auto_comment"] = cond
         mod["source"] = cond
         mod["flag"] = cond
-        for att in _Message_single_strings:
+        for att in _Message_single_fields:
             mod[att] = cond
         mod["msgstr"] = cond
 

@@ -230,7 +230,7 @@ def _check_xml_w (check, strict, entities, entpathenv, fcap, mkeyw, spanrep):
                 and not mkeyw.intersection(cat.markup() or set()))
             or (    not strict
                 and (   check(msg.msgid, ents=entities)
-                     or check(msg.msgid_plural, ents=entities)))
+                     or check(msg.msgid_plural or u"", ents=entities)))
         ):
             if spanrep: return []
             else: return 0

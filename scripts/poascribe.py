@@ -773,8 +773,8 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
                 if not cleared:
                     # Clear possible embedded diffs.
                     msg.msgctxt_previous = None
-                    msg.msgid_previous = u""
-                    msg.msgid_plural_previous = u""
+                    msg.msgid_previous = None
+                    msg.msgid_plural_previous = None
                 cleared = True
                 # Do not break, other review flags possible.
             else:
@@ -1023,7 +1023,7 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
     acat = acats.get(UFUZZ)
     if acat and msg in acat:
         amsg = acat[msg]
-        if amsg.msgctxt_previous or amsg.msgid_previous:
+        if amsg.msgctxt_previous is not None or amsg.msgid_previous is not None:
             pmsg = Message()
             pmsg.msgctxt = amsg.msgctxt_previous
             pmsg.msgid = amsg.msgid_previous

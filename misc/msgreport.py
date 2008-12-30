@@ -141,8 +141,8 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             text = msg.msgid
             ftext = fmsg.msgid
         elif name == "msgid_plural":
-            text = msg.msgid_plural
-            ftext = fmsg.msgid_plural
+            text = msg.msgid_plural or u""
+            ftext = fmsg.msgid_plural or u""
         elif name == "msgstr":
             text = msg.msgstr[item]
             ftext = fmsg.msgstr[item]
@@ -158,7 +158,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
 
         spans = adapt_spans(text, ftext, spans, merge=False)
 
-        if msg.msgid_plural and name == "msgstr":
+        if msg.msgid_plural is not None and name == "msgstr":
             name = "%s_%d" % (name, item)
 
         for span in spans:
@@ -284,7 +284,8 @@ def report_msg_content (msg, cat,
             elif name == "msgid":
                 msg.msgid = hl(msg.msgid, ffmsg.msgid)
             elif name == "msgid_plural":
-                msg.msgid_plural = hl(msg.msgid_plural, ffmsg.msgid_plural)
+                msg.msgid_plural = hl(msg.msgid_plural or u"",
+                                      ffmsg.msgid_plural or u"")
             elif name == "msgstr":
                 msg.msgstr[item] = hl(msg.msgstr[item], ffmsg.msgstr[item])
             elif name == "manual_comment":
@@ -319,7 +320,7 @@ def report_msg_content (msg, cat,
     if notes_data: # span notes
         note_ord = 1
         for text, name, item, spans in notes_data:
-            if msg.msgid_plural and name == "msgstr":
+            if msg.msgid_plural is not None and name == "msgstr":
                 name = "%s_%d" % (name, item)
             for span in spans:
                 if len(span) < 3:

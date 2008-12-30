@@ -717,7 +717,8 @@ def _norm_ui_cat (cat, xmlescape):
             if msg.msgctxt:
                 msg.msgctxt = _escape_to_xml(msg.msgctxt)
             msg.msgid = _escape_to_xml(msg.msgid)
-            msg.msgid_plural = _escape_to_xml(msg.msgid_plural)
+            if msg.msgid_plural:
+                msg.msgid_plural = _escape_to_xml(msg.msgid_plural)
             for i in range(len(msg.msgstr)):
                 msg.msgstr[i] = _escape_to_xml(msg.msgstr[i])
 

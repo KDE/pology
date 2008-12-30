@@ -454,7 +454,7 @@ class Sieve (object):
         nwords = {"orig" : 0, "tran" : 0}
         nchars = {"orig" : 0, "tran" : 0}
         msgids = [msg.msgid]
-        if msg.msgid_plural:
+        if msg.msgid_plural is not None:
             msgids.append(msg.msgid_plural)
         for src, texts in (("orig", msgids), ("tran", msg.msgstr)):
             if ismeta: # consider metamessages as zero counts

@@ -21,13 +21,17 @@ from pology.misc.msgreport import warning_on_msg
 def _rm_accel_in_msg (msg, accels, greedy=False):
 
     msg.msgid = _rm_accel_in_text(msg.msgid, accels, greedy)
-    msg.msgid_plural = _rm_accel_in_text(msg.msgid_plural, accels, greedy)
+    if msg.msgid_plural:
+        msg.msgid_plural = _rm_accel_in_text(msg.msgid_plural, accels, greedy)
     for i in range(len(msg.msgstr)):
         msg.msgstr[i] = _rm_accel_in_text(msg.msgstr[i], accels, greedy)
 
-    msg.msgid_previous = _rm_accel_in_text(msg.msgid_previous, accels, greedy)
-    msg.msgid_plural_previous = _rm_accel_in_text(msg.msgid_plural_previous,
-                                                  accels, greedy)
+    if msg.msgid_previous:
+        msg.msgid_previous = _rm_accel_in_text(msg.msgid_previous,
+                                               accels, greedy)
+    if msg.msgid_plural_previous:
+        msg.msgid_plural_previous = _rm_accel_in_text(msg.msgid_plural_previous,
+                                                      accels, greedy)
     return 0
 
 
@@ -126,13 +130,16 @@ def _rm_markup_in_text (text, mtypes):
 def _rm_markup_in_msg (msg, mtypes):
 
     msg.msgid = _rm_markup_in_text(msg.msgid, mtypes)
-    msg.msgid_plural = _rm_markup_in_text(msg.msgid_plural, mtypes)
+    if msg.msgid_plural:
+        msg.msgid_plural = _rm_markup_in_text(msg.msgid_plural, mtypes)
     for i in range(len(msg.msgstr)):
         msg.msgstr[i] = _rm_markup_in_text(msg.msgstr[i], mtypes)
 
-    msg.msgid_previous = _rm_markup_in_text(msg.msgid_previous, mtypes)
-    msg.msgid_plural_previous = _rm_markup_in_text(msg.msgid_plural_previous,
-                                                   mtypes)
+    if msg.msgid_previous:
+        msg.msgid_previous = _rm_markup_in_text(msg.msgid_previous, mtypes)
+    if msg.msgid_plural_previous:
+        msg.msgid_plural_previous = _rm_markup_in_text(msg.msgid_plural_previous,
+                                                       mtypes)
     return 0
 
 
@@ -184,13 +191,16 @@ def _rm_fmtd_in_msg (msg, subs=""):
     formats = _format_flags(msg)
 
     msg.msgid = _rm_fmtd_in_text(msg.msgid, formats, subs)
-    msg.msgid_plural = _rm_fmtd_in_text(msg.msgid_plural, formats, subs)
+    if msg.msgid_plural:
+        msg.msgid_plural = _rm_fmtd_in_text(msg.msgid_plural, formats, subs)
     for i in range(len(msg.msgstr)):
         msg.msgstr[i] = _rm_fmtd_in_text(msg.msgstr[i], formats, subs)
 
-    msg.msgid_previous = _rm_fmtd_in_text(msg.msgid_previous, formats, subs)
-    msg.msgid_plural_previous = _rm_fmtd_in_text(msg.msgid_plural_previous,
-                                                 formats, subs)
+    if msg.msgid_previous:
+        msg.msgid_previous = _rm_fmtd_in_text(msg.msgid_previous, formats, subs)
+    if msg.msgid_plural_previous:
+        msg.msgid_plural_previous = _rm_fmtd_in_text(msg.msgid_plural_previous,
+                                                     formats, subs)
     return 0
 
 
@@ -288,14 +298,18 @@ def _rm_lit_in_text (text, substrs, regexes, heuristic, subs=""):
 def _rm_lit_in_msg (msg, cat, strs, rxs, heu, subs=""):
 
     msg.msgid = _rm_lit_in_text(msg.msgid, strs, rxs, heu, subs)
-    msg.msgid_plural = _rm_lit_in_text(msg.msgid_plural, strs, rxs, heu, subs)
+    if msg.msgid_plural:
+        msg.msgid_plural = _rm_lit_in_text(msg.msgid_plural,
+                                           strs, rxs, heu, subs)
     for i in range(len(msg.msgstr)):
         msg.msgstr[i] = _rm_lit_in_text(msg.msgstr[i], strs, rxs, heu, subs)
 
-    msg.msgid_previous = _rm_lit_in_text(msg.msgid_previous,
-                                          strs, rxs, heu, subs)
-    msg.msgid_plural_previous = _rm_lit_in_text(msg.msgid_plural_previous,
-                                                 strs, rxs, heu, subs)
+    if msg.msgid_previous:
+        msg.msgid_previous = _rm_lit_in_text(msg.msgid_previous,
+                                             strs, rxs, heu, subs)
+    if msg.msgid_plural_previous:
+        msg.msgid_plural_previous = _rm_lit_in_text(msg.msgid_plural_previous,
+                                                    strs, rxs, heu, subs)
     return 0
 
 
@@ -502,7 +516,8 @@ def remove_ignored_entities_msg (msg, cat):
         return 0
 
     msg.msgid = _rm_ent_in_text(msg.msgid, locally_ignored)
-    msg.msgid_plural = _rm_ent_in_text(msg.msgid_plural, locally_ignored)
+    if msg.msgid_plural:
+        msg.msgid_plural = _rm_ent_in_text(msg.msgid_plural, locally_ignored)
     for i in range(len(msg.msgstr)):
         msg.msgstr[i] = _rm_ent_in_text(msg.msgstr[i], locally_ignored)
 

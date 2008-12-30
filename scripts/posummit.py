@@ -1204,8 +1204,11 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
         if summit_msg is not None:
             if summit_msg.translated:
-                if (summit_msg.msgid_plural and branch_msg.msgid_plural) \
-                or not (summit_msg.msgid_plural or branch_msg.msgid_plural):
+                if (   (    summit_msg.msgid_plural is not None
+                        and branch_msg.msgid_plural is not None)
+                    or (   summit_msg.msgid_plural is None
+                        or branch_msg.msgid_plural is None)
+                ):
                     # Both messages have same plurality.
                     for i in range(len(summit_msg.msgstr)):
                         piped_msgstr = exec_hook_msgstr(
@@ -1219,7 +1222,9 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     branch_msg.fuzzy = False
                     branch_msg.manual_comment = summit_msg.manual_comment
 
-                elif summit_msg.msgid_plural and not branch_msg.msgid_plural:
+                elif (    summit_msg.msgid_plural is not None
+                      and branch_msg.msgid_plural is None
+                ):
                     # Summit is plural, branch is not: means that branch is
                     # singular, so copy plural form for n==1.
                     index = summit_cat.plural_index(1)

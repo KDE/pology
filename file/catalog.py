@@ -35,11 +35,11 @@ class _MessageDict:
         self.flag = []
         self.obsolete = False
         self.msgctxt_previous = None
-        self.msgid_previous = u""
-        self.msgid_plural_previous = u""
+        self.msgid_previous = None
+        self.msgid_plural_previous = None
         self.msgctxt = None
         self.msgid = u""
-        self.msgid_plural = u""
+        self.msgid_plural = None
         self.msgstr = []
         self.refline = -1
         self.refentry = -1
@@ -250,8 +250,12 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                             loc.msg.msgctxt_previous = u""
                         loc.msg.msgctxt_previous += s
                     elif loc.field_context == ctx_msgid:
+                        if loc.msg.msgid_previous is None:
+                            loc.msg.msgid_previous = u""
                         loc.msg.msgid_previous += s
                     elif loc.field_context == ctx_msgid_plural:
+                        if loc.msg.msgid_plural_previous is None:
+                            loc.msg.msgid_plural_previous = u""
                         loc.msg.msgid_plural_previous += s
                 else:
                     if loc.field_context == ctx_msgctxt:
@@ -261,6 +265,8 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
                     elif loc.field_context == ctx_msgid:
                         loc.msg.msgid += s
                     elif loc.field_context == ctx_msgid_plural:
+                        if loc.msg.msgid_plural is None:
+                            loc.msg.msgid_plural = u""
                         loc.msg.msgid_plural += s
                     elif loc.field_context == ctx_msgstr:
                         loc.msg.msgstr[msgstr_i] += s
