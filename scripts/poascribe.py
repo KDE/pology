@@ -720,9 +720,9 @@ def ascribe_obsrvv_cat (options, config, catpath):
         history = asc_collect_history(msg, acats, config)
         if msg.obsolete:
             if not history:
-                warning("%s: no ascription history for obsoleted message "
-                        "at %s(#%s)"
-                        % (cat.filename, msg.refline, msg.refentry))
+                #warning("%s: no ascription history for obsoleted message "
+                        #"at %s(#%s)"
+                        #% (cat.filename, msg.refline, msg.refentry))
                 continue
             # Ascribe obsolescence if not already ascribed after last revival,
             # or if revival was never ascribed.
