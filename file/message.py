@@ -687,7 +687,7 @@ class Message_base (object):
                     msgid_plural_previous = ediff
                 elif field == "msgstr":
                     if nmsgstr_diffs > 1:
-                        sepmark = "msgstr[%d]" % (i - 3)
+                        sepmark = "msgstr[%d]" % item
                     else:
                         sepmark = "msgstr"
                     sep = "========== %s:" % sepmark
