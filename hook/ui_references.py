@@ -114,7 +114,7 @@ the "broken bar" C{¦} (C{U+00A6}) can be used as the context separator instead.
 
 In case the reference with context does not resolve to a message,
 the context string will next be tried as regular expression match on
-C{msgctxt} fields in the UI catalog (matching will be case-sensitive).
+C{msgctxt} fields in the UI catalog (matching will be case-insensitive).
 If this results in a single selected message, the reference is resolved.
 This feature provides workaround against very long contexts, which would
 be ungainly to put in the reference, and may also slightly change over time.
@@ -811,7 +811,7 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
                 # Also try as if the context were regular expression.
                 msgs = uicat.select_by_key_match(msgctxt, msgid,
                                                  exctxt=False, exid=True,
-                                                 case=True)
+                                                 case=False)
         else:
             msgs = uicat.select_by_msgid(msgid)
         if len(msgs) == 1:
