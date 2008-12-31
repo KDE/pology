@@ -11,6 +11,7 @@ import sys
 import os
 import codecs
 import re
+import locale
 
 from pology.misc.report import error, warning
 
@@ -331,4 +332,35 @@ def join_ncwd (*elements):
         path = os.path.normpath(path)
 
     return path
+
+
+def str_to_unicode_seq (seq):
+    """
+    Convert all raw string values in a sequence to unicode.
+
+    Strings comming in from the environment are frequently raw byte sequences,
+    and need to be converted into Unicode strings according to system locale
+    (e.g. command-line arguments).
+    This function will take any sequence of raw strings and convert it into
+    a list of Unicode strings.
+
+    In case there are values in the input sequence which are not raw strings,
+    they will be carried over into the resulting list as-is.
+
+    @param seq: input sequence
+    @type seq: sequence of raw strings
+
+    @returns: output sequence
+    @rtype: list of unicode strings
+    """
+
+    lenc = locale.getpreferredencoding()
+
+    useq = []
+    for val in seq:
+        if isinstance(val, str):
+            val = unicode(val, lenc)
+        useq.append(val)
+
+    return useq
 
