@@ -1025,12 +1025,17 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
     acat = acats.get(UFUZZ)
     if acat and msg in acat:
         amsg = acat[msg]
+        # Use previous key values for pivoting if available (normal state),
+        # but also try current values (in case a message was manually fuzzied).
+        pmsg = Message()
         if amsg.msgctxt_previous is not None or amsg.msgid_previous is not None:
-            pmsg = Message()
             pmsg.msgctxt = amsg.msgctxt_previous
             pmsg.msgid = amsg.msgid_previous
-            ct_history = asc_collect_history_w(pmsg, acats, config, seenmsg)
-            history.extend(ct_history)
+        else:
+            pmsg.msgctxt = amsg.msgctxt
+            pmsg.msgid = amsg.msgid
+        ct_history = asc_collect_history_w(pmsg, acats, config, seenmsg)
+        history.extend(ct_history)
 
     history.sort(lambda x, y: asc_age_cmp(y, x, config))
 
