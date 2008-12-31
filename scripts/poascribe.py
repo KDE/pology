@@ -151,6 +151,8 @@ def main ():
     elif mode.name in ("history", "hi"):
         execute_operation = show_history
         mode.selector = selector or build_selector(options, ["nany"])
+    elif mode.name in ("derive-obsolete", "do"):
+        execute_operation = ascribe_derivobs
     else:
         error("unknown operation mode '%s'" % mode.name)
 
@@ -383,6 +385,18 @@ def ascribe_postmerge (options, configs_catpaths, mode):
         report("===! Ascribed as obsoleted: %d entries" % nobs)
     if nrvv > 0:
         report("===! Ascribed as revived: %d entries" % nrvv)
+
+
+def ascribe_derivobs (options, configs_catpaths, mode):
+
+    nobs = 0
+    for config, catpaths in configs_catpaths:
+
+        for catpath in catpaths:
+            nobs += ascribe_derivobs_cat(options, config, catpath)
+
+    if nobs > 0:
+        report("===! Ascribed as obsoleted by derivation: %d entries" % nobs)
 
 
 def diff_select (options, configs_catpaths, mode):
@@ -663,7 +677,7 @@ def show_history_cat (options, config, catpath, stest):
 
     C = colors_for_file(sys.stdout)
 
-    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    cat = Catalog(catpath, wrapf=WRAPF)
     acats = collect_asc_cats(config, cat.name)
 
     nselected = 0
@@ -711,7 +725,7 @@ def show_history_cat (options, config, catpath, stest):
 
 def ascribe_obsrvv_cat (options, config, catpath):
 
-    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    cat = Catalog(catpath, wrapf=WRAPF)
     acats = collect_asc_cats(config, cat.name, monall=True)
 
     # Current VCS revision of the catalog.
@@ -727,29 +741,14 @@ def ascribe_obsrvv_cat (options, config, catpath):
                         #"at %s(#%s)"
                         #% (cat.filename, msg.refline, msg.refentry))
                 continue
-            # Ascribe obsolescence if not already ascribed after last revival,
-            # or if revival was never ascribed.
-            can_asc = True
-            for a in history:
-                if a.type == _atype_obs:
-                    can_asc = False
-                    break
-                if a.type == _atype_rvv:
-                    break
-            if can_asc:
+            # Ascribe obsolescence if history is not showing it already.
+            if not is_obsoleted(history):
                 a = history[0]
                 ascribe_msg_obs(a.msg, a.user, config, catrev)
                 nobsoleted += 1
         elif history:
-            # Ascribe revival if not already ascribed after last obsolescence.
-            can_asc = False
-            for a in history:
-                if a.type == _atype_rvv:
-                    break
-                if a.type == _atype_obs:
-                    can_asc = True
-                    break
-            if can_asc:
+            # Ascribe revival if history is showing obsolescence.
+            if is_obsoleted(history):
                 a = history[0]
                 ascribe_msg_rvv(a.msg, a.user, config, catrev)
                 nrevived += 1
@@ -792,6 +791,43 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
     return cleared
 
 
+def ascribe_derivobs_cat (options, config, catpath):
+
+    cat = Catalog(catpath, wrapf=WRAPF)
+    acats = collect_asc_cats(config, cat.name, monall=True)
+
+    catrev = config.vcs.revision(cat.filename)
+
+    reachable = set()
+    for msg in cat:
+        history = asc_collect_history(msg, acats, config, wfuzzy=True)
+        for a in history:
+            reachable.add((a.user, a.msg))
+
+    for user, acat in acats.iteritems():
+        for amsg in acat:
+            if (user, amsg) in reachable:
+                continue
+            oacats = acats.copy()
+            oacats.pop(user)
+            history = asc_collect_history(amsg, oacats, config, wfuzzy=True)
+            for a in history:
+                reachable.add((a.user, a.msg))
+
+    nobsoleted = 0
+    for user, acat in acats.iteritems():
+        for amsg in acat:
+            if (user, amsg) not in reachable:
+                # Ascribe obsolescence if history is not showing it already.
+                history = asc_collect_history(amsg, acats, config, wfuzzy=True)
+                if not is_obsoleted(history):
+                    nobsoleted += 1
+                    ascribe_msg_obs(amsg, user, config, catrev)
+        sync_and_rep(acat)
+
+    return nobsoleted
+
+
 def is_fuzzy (msg):
 
     return "fuzzy" in msg.flag
@@ -817,6 +853,22 @@ def is_ascribed (msg, acats):
             ascribed = True
             break
     return ascribed
+
+
+def is_obsoleted (history):
+
+    # History shows obsolescence if no revival after last obsolescence,
+    # or if obsolescence was never ascribed.
+
+    obsoleted = False
+    for a in history:
+        if a.type == _atype_obs:
+            obsoleted = True
+            break
+        if a.type == _atype_rvv:
+            break
+
+    return obsoleted
 
 
 def collect_asc_cats (config, catname, muser=None, monall=False):
@@ -1005,12 +1057,12 @@ class _Ascription (object):
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acats, config):
+def asc_collect_history (msg, acats, config, wfuzzy=False):
 
-    return asc_collect_history_w(msg, acats, config, {})
+    return asc_collect_history_w(msg, acats, config, wfuzzy, {})
 
 
-def asc_collect_history_w (msg, acats, config, seenmsg):
+def asc_collect_history_w (msg, acats, config, wfuzzy, seenmsg):
     """
     Create ascription history of the message.
 
@@ -1035,11 +1087,7 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
             continue
         if msg in acat:
             amsg = acat[msg]
-            for asc in asc_parse_ascriptions(amsg, acat):
-                a = _Ascription()
-                a.msg, a.user = amsg, user
-                a.type, a.tag, a.date, a.rev = asc
-                history.append(a)
+            history.extend(asc_collect_history_single(amsg, acat, user))
 
     # Sort here and not at the end, as history after pivoting must
     # logically be older, while due to different moments of modified/fuzzy
@@ -1050,17 +1098,28 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
     acat = acats.get(UFUZZ)
     if acat and msg in acat:
         amsg = acat[msg]
-        # Use previous key values for pivoting if available (normal state),
-        # but also try current values (in case a message was manually fuzzied).
-        pmsg = Message()
-        if amsg.msgctxt_previous is not None or amsg.msgid_previous is not None:
+        # Add fuzzy to history if requested.
+        if wfuzzy:
+            history.extend(asc_collect_history_single(amsg, acat, UFUZZ))
+        # Pivot around previous key values.
+        if amsg.msgid_previous is not None:
+            pmsg = Message()
             pmsg.msgctxt = amsg.msgctxt_previous
             pmsg.msgid = amsg.msgid_previous
-        else:
-            pmsg.msgctxt = amsg.msgctxt
-            pmsg.msgid = amsg.msgid
-        ct_history = asc_collect_history_w(pmsg, acats, config, seenmsg)
-        history.extend(ct_history)
+            ct_history = asc_collect_history_w(pmsg, acats, config, wfuzzy, seenmsg)
+            history.extend(ct_history)
+
+    return history
+
+
+def asc_collect_history_single (amsg, acat, auser):
+
+    history = []
+    for asc in asc_parse_ascriptions(amsg, acat):
+        a = _Ascription()
+        a.msg, a.user = amsg, auser
+        a.type, a.tag, a.date, a.rev = asc
+        history.append(a)
 
     return history
 
