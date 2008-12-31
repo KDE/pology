@@ -482,7 +482,7 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
 
         # Copy desired non-ID elements.
         if is_fuzzy(msg):
-            amsg.flag.add("fuzzy")
+            amsg.flag.add(u"fuzzy")
             amsg.msgctxt_previous = msg.msgctxt_previous
             amsg.msgid_previous = msg.msgid_previous
             amsg.msgid_plural_previous = msg.msgid_plural_previous
