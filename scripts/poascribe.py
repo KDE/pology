@@ -1180,12 +1180,19 @@ def parse_users (userstr, config, cid=None):
 
 # Build compound selector out of list of specifications.
 # Selector specification is a string in format NAME:ARG1:ARG2:...
+# (instead of colon, separator can be any non-alphanumeric excluding
+# underscore and hyphen)
 def build_selector (options, selspecs, hist=False):
 
     # Component selectors.
     selectors = []
     for selspec in selspecs:
-        lst = selspec.split(":")
+        argsep = ":"
+        for c in selspec:
+            if not (c.isalpha() or c.isdigit() or c in ("_", "-")):
+                argsep = c
+                break
+        lst = selspec.split(argsep)
         sname, sargs = lst[0], lst[1:]
         negated = False
         if sname.startswith("n"):
