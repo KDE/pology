@@ -35,8 +35,10 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 valid after="&unbsp;" before="\t"
+valid after="&unbsp;" before="&unbsp;»"
+valid after="&unbsp;" before="</interface"
 valid after="https?://\S+"
-valid after="file|gg|mailto|man|whatsthis"
+valid after="file|gg|mailto|man|whatsthis|kmail|addMsg"
 valid after="about|audiocd|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
 valid after="smb://\[nom\[" before="motdepasse"
@@ -208,10 +210,11 @@ hint="Une espace après une virgule"
 valid after="&unbsp;" before="&sp;"
 valid after="&unbsp;" before="$"
 valid after="&unbsp;" before="\n"
-valid after="&unbsp;" before="&unbsp;(:|\?|!|;)" 
+valid after="&unbsp;" before="&unbsp;(:|\?|!|;|/)" 
 valid after="&unbsp;" before="\." 
 valid after="&unbsp;" before="\)" 
 valid after="&unbsp;" before=","
+valid after="&unbsp;" before="</pre>|</p>|</li>"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -219,7 +222,7 @@ hint="Mettre une espace insécable avant et une espace après"
 valid after="&sp;" before="&unbsp;"
 valid after="\(|'" before="&unbsp;"
 valid after="\t" before="&unbsp;"
-valid after="^|\n|</p>|</?br\s?/?>" before="&unbsp;"
+valid after="^|\n|</p>|</?br\s?/?>|<p>|<pre>" before="&unbsp;"
 valid ctx="Numbers and characters"
 hint="Mettre une espace avant et une espace insécable après"
 
@@ -300,8 +303,9 @@ validGroup inQuotes
 validGroup optionTag
 validGroup tokenTag
 valid after="&unbsp;" before="[,\. \)]"
+valid after="font-size:[0-9]+"# CSS
 valid before="[0-9ns]"
-valid before="[A-Za-z]\b"
+valid before="[A-Za-z_]\b"
 valid before="{"
 valid before="appname|progname|execname"
 valid before="%"
