@@ -334,33 +334,40 @@ def join_ncwd (*elements):
     return path
 
 
-def str_to_unicode_seq (seq):
+def str_to_unicode (strarg):
     """
-    Convert all raw string values in a sequence to unicode.
+    Convert a raw string value or sequence of values into Unicode.
 
     Strings comming in from the environment are frequently raw byte sequences,
     and need to be converted into Unicode strings according to system locale
     (e.g. command-line arguments).
-    This function will take any sequence of raw strings and convert it into
-    a list of Unicode strings.
+    This function will take either a single raw string or any sequence
+    of raw strings and convert it into a Unicode string or list thereof.
 
-    In case there are values in the input sequence which are not raw strings,
-    they will be carried over into the resulting list as-is.
+    If the input value is not a single raw or unicode string,
+    it is assumed to be a sequence of values.
+    In case there are values in the input which are not raw strings,
+    they will be carried over into the result as-is.
 
-    @param seq: input sequence
-    @type seq: sequence of raw strings
+    @param strarg: input string or sequence
+    @type strarg: string, unicode, or sequence of objects
 
-    @returns: output sequence
-    @rtype: list of unicode strings
+    @returns: unicode string or sequence of objects
+    @rtype: unicode string or list of objects
     """
+
+    if isinstance(strarg, unicode):
+        return strarg
 
     lenc = locale.getpreferredencoding()
 
-    useq = []
-    for val in seq:
-        if isinstance(val, str):
-            val = unicode(val, lenc)
-        useq.append(val)
-
-    return useq
+    if isinstance(strarg, str):
+        return unicode(strarg, lenc)
+    else:
+        uargs = []
+        for val in strarg:
+            if isinstance(val, str):
+                val = unicode(val, lenc)
+            uargs.append(val)
+        return uargs
 

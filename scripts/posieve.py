@@ -135,7 +135,7 @@ import re
 from optparse import OptionParser
 import glob
 
-from pology.misc.fsops import str_to_unicode_seq
+from pology.misc.fsops import str_to_unicode
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
@@ -241,7 +241,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
 
-    (op, free_args) = opars.parse_args(str_to_unicode_seq(sys.argv[1:]))
+    (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     if len(free_args) < 1 and not op.list_sieves:
         opars.error("must provide sieve to apply")
