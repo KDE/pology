@@ -13,6 +13,8 @@ valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>"
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?ul>" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</qt>"
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*&unbsp;»"
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</interface"
 
 validGroup inParenthesis
 valid after="\(" before="\)"
@@ -35,10 +37,8 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 valid after="&unbsp;" before="\t"
-valid after="&unbsp;" before="&unbsp;»"
-valid after="&unbsp;" before="</interface"
 valid after="https?://\S+"
-valid after="file|gg|mailto|man|whatsthis|kmail|addMsg"
+valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
 valid after="about|audiocd|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
 valid after="smb://\[nom\[" before="motdepasse"
