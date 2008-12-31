@@ -937,13 +937,13 @@ def ascribe_msg_rvv (amsg, user, config, catrev):
     asc_append_field(amsg, _atype_rvv, modstr)
 
 
-def asc_eq (msg1, msg2):
+def asc_eq (msg1, msg2, ignfuzz=False):
     """
     Whether two messages are equal from the ascription viewpoint.
     """
 
     return (    True
-            and is_fuzzy(msg1) == is_fuzzy(msg2)
+            and (is_fuzzy(msg1) == is_fuzzy(msg2) or ignfuzz)
             and msg1.msgctxt == msg2.msgctxt
             and msg1.msgid == msg2.msgid
             and msg1.msgid_plural == msg2.msgid_plural
@@ -1041,6 +1041,11 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
                 a.type, a.tag, a.date, a.rev = asc
                 history.append(a)
 
+    # Sort here and not at the end, as history after pivoting must
+    # logically be older, while due to different moments of modified/fuzzy
+    # ascription this may be procedurally violated.
+    history.sort(lambda x, y: asc_age_cmp(y, x, config))
+
     # Continue into the past by pivoting around fuzzy messages.
     acat = acats.get(UFUZZ)
     if acat and msg in acat:
@@ -1056,8 +1061,6 @@ def asc_collect_history_w (msg, acats, config, seenmsg):
             pmsg.msgid = amsg.msgid
         ct_history = asc_collect_history_w(pmsg, acats, config, seenmsg)
         history.extend(ct_history)
-
-    history.sort(lambda x, y: asc_age_cmp(y, x, config))
 
     return history
 
@@ -1272,13 +1275,16 @@ def selector_wasc ():
 
         if history:
             amsg = history[0].msg
-            if asc_eq(msg, amsg):
+            if asc_eq(msg, amsg, ignfuzz=True):
                 return True
             elif options.tfilter:
                 # Also consider ascribed if no difference from last ascription
                 # under the filter in effect.
                 if not msg.diff_from(amsg, pfilter=options.tfilter):
                     return True
+        elif not is_translated(msg):
+            # Also consider ascribed untranslated messages without history.
+            return True
 
         return None
 
