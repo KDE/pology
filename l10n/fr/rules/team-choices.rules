@@ -334,4 +334,8 @@ valid before=" (left|right|up|down)"
 valid before="-JIS"
 hint="Traduisez « Shift » par « Maj » (sans point à la fin)"
 
+{spacer}
+valid msgstr="séparateur"
+hint="Utilisez le mot « séparateur » pour traduire « spacer »"
+
 # End of rule file
