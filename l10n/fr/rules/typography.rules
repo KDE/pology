@@ -51,7 +51,7 @@ valid after="%\d" before="%\d"
 valid after="ht" before="\/\/dig"
 valid before="-?[\)|\(]" # Smiley
 valid before="\s?\d+(px)?;" # CSS
-valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|-type"# CSS
+valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
 valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
@@ -214,7 +214,7 @@ valid after="&unbsp;" before="&unbsp;(:|\?|!|;|/)"
 valid after="&unbsp;" before="\." 
 valid after="&unbsp;" before="\)" 
 valid after="&unbsp;" before=","
-valid after="&unbsp;" before="</pre>|</p>|</li>"
+valid after="&unbsp;" before="</pre>|</p>|</li>|<br\s?/?>|</a>"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -392,6 +392,7 @@ valid cat="konsole" before="keytab"
 valid cat="kioclient" after="exec"
 valid cat="kxsconfig" before="-"
 valid cat="kommander" after="@\S+"
+valid cat="ksystemlog" after=":" 
 valid ctx="characters are not allowed"
 hint="Pas d'espace avant un point"
 
