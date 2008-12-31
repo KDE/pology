@@ -284,9 +284,9 @@ def examine_state (options, configs_catpaths, mode):
             acats = collect_asc_cats(config, cat.name)
             # Count non-ascribed.
             for msg in cat:
-                if msg.translated:
+                if is_translated(msg):
                     unasc_by_cat = unasc_trans_by_cat
-                elif msg.fuzzy:
+                elif is_fuzzy(msg):
                     unasc_by_cat = unasc_fuzzy_by_cat
                 else:
                     continue
@@ -434,6 +434,7 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
     acats = collect_asc_cats(config, cat.name, user)
 
     # Collect all translated (or fuzzy) and unascribed messages.
+    # Treat obsolete messages also as either translated or fuzzy.
     unasc_msgs = []
     for msg in cat:
         if is_ascribed(msg, acats):
@@ -441,8 +442,8 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
         history = asc_collect_history(msg, acats, config)
         if stest(msg, cat, history, config, options) is None:
             continue
-        if (   (user != UFUZZ and not msg.translated)
-            or (user == UFUZZ and not msg.fuzzy)
+        if (   (user != UFUZZ and not is_translated(msg))
+            or (user == UFUZZ and not is_fuzzy(msg))
         ):
             continue
         unasc_msgs.append(msg)
@@ -480,12 +481,12 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
             amsg = acat[msg]
 
         # Copy desired non-ID elements.
-        amsg.msgid_plural = msg.msgid_plural
-        if msg.fuzzy:
-            amsg.fuzzy = True
+        if is_fuzzy(msg):
+            amsg.flag.add("fuzzy")
             amsg.msgctxt_previous = msg.msgctxt_previous
             amsg.msgid_previous = msg.msgid_previous
             amsg.msgid_plural_previous = msg.msgid_plural_previous
+        amsg.msgid_plural = msg.msgid_plural
         amsg.msgstr = Monlist(msg.msgstr)
 
         # Ascribe modification of the message.
@@ -510,7 +511,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
-        if not msg.translated:
+        if not is_translated(msg):
             continue
         history = asc_collect_history(msg, acats, config)
         if stest(msg, cat, history, config, options) is None:
@@ -602,7 +603,7 @@ def diff_select_cat (options, config, catpath, stest, aselect, pfilter):
 
     nflagged = 0
     for msg in cat:
-        if not msg.translated:
+        if not msg.translated: # no reviewing of obsolete messages
             continue
         history = asc_collect_history(msg, acats, config)
         sres = stest(msg, cat, history, config, options)
@@ -772,7 +773,7 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
     cleared = False
     for flag in msg.flag.items():
         if flag == _revflag or (clrevd and _revdflag_rx.search(flag)):
-            if msg.translated:
+            if is_translated(translated):
                 msg.flag.remove(flag)
                 if not cleared:
                     # Clear possible embedded diffs.
@@ -789,6 +790,23 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
                 break
 
     return cleared
+
+
+def is_fuzzy (msg):
+
+    return "fuzzy" in msg.flag
+
+
+def is_translated (msg):
+
+    if not msg.obsolete:
+        return msg.translated
+    else:
+        if "fuzzy" not in msg.flag:
+            for msgstr in msg.msgstr:
+                if msgstr:
+                    return True
+        return False
 
 
 def is_ascribed (msg, acats):
@@ -925,7 +943,7 @@ def asc_eq (msg1, msg2):
     """
 
     return (    True
-            and msg1.fuzzy == msg2.fuzzy
+            and is_fuzzy(msg1) == is_fuzzy(msg2)
             and msg1.msgctxt == msg2.msgctxt
             and msg1.msgid == msg2.msgid
             and msg1.msgid_plural == msg2.msgid_plural
