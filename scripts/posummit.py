@@ -3,6 +3,7 @@
 
 import fallback_import_paths
 
+from pology.misc.fsops import str_to_unicode_seq
 import pology.misc.wrap as wrap
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
@@ -53,7 +54,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
-    (options, free_args) = opars.parse_args()
+
+    (options, free_args) = opars.parse_args(str_to_unicode_seq(sys.argv[1:]))
 
     if len(free_args) < 1:
         opars.error("must provide project file name")

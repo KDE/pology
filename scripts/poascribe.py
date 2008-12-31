@@ -13,6 +13,7 @@ import locale
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
+from pology.misc.fsops import str_to_unicode_seq
 from pology.misc.report import report, warning, error
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
@@ -81,7 +82,8 @@ def main ():
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
-    (options, free_args) = opars.parse_args()
+
+    (options, free_args) = opars.parse_args(str_to_unicode_seq(sys.argv[1:]))
 
     # Could use some speedup.
     if options.use_psyco:
@@ -1288,6 +1290,7 @@ def selector_fexpr (expr=None):
                 filters = [options.tfilter]
             mopts = Data()
             mopts.case = False
+            print "{%s}" % expr
             g.matcher = build_msg_fmatcher(expr, filters=filters,
                                            mopts=mopts)
 

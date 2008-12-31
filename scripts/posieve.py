@@ -135,6 +135,7 @@ import re
 from optparse import OptionParser
 import glob
 
+from pology.misc.fsops import str_to_unicode_seq
 import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
@@ -239,7 +240,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
-    (op, free_args) = opars.parse_args()
+
+    (op, free_args) = opars.parse_args(str_to_unicode_seq(sys.argv[1:]))
 
     if len(free_args) < 1 and not op.list_sieves:
         opars.error("must provide sieve to apply")
@@ -249,14 +251,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if len(free_args) >= 1:
         op.raw_sieves = free_args[0]
         op.raw_paths = free_args[1:]
-
-    # Convert all string values in options to unicode.
-    local_encoding = locale.getpreferredencoding()
-    for att, val in op.__dict__.items():
-        if isinstance(val, str):
-            op.__dict__[att] = unicode(val)
-        elif isinstance(val, list):
-            op.__dict__[att] = [unicode(x, local_encoding) for x in val]
 
     # Could use some speedup.
     if op.use_psyco:
