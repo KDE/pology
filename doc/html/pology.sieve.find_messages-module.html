@@ -78,6 +78,10 @@
       <code>transl</code>: the message must be translated
     </li>
     <li>
+      <code>flag:&lt;regex&gt;</code>: regular expression to match against 
+      flags
+    </li>
+    <li>
       <code>plural</code>: the message must be plural
     </li>
     <li>
@@ -94,11 +98,12 @@
   </ul>
   <p>If more than one of the matching parameters are given (e.g. both 
   <code>msgid</code> and <code>msgstr</code>), the message matches only if 
-  all of them match. This can be changed for text fields 
-  (<code>msgid</code>, <code>msgstr</code>, etc.) such that the message 
-  matches if any of text fields match, using the <code>of</code> parameter.
-  In case of plural messages, <code>msgid</code> is considered matched if 
-  either <code>msgid</code> or <code>msgid_plural</code> fields match, and 
+  all of them match. Using the <code>or</code> parameter this can be 
+  changed for matching in text fields (<code>msgctxt</code>, 
+  <code>msgid</code>, <code>msgstr</code>, <code>comment</code>) such that 
+  the message matches if any of text fields match. In case of plural 
+  messages, <code>msgid</code> is considered matched if either 
+  <code>msgid</code> or <code>msgid_plural</code> fields match, and 
   <code>msgstr</code> if any of the <code>msgstr</code> fields match.</p>
   <p>Every matching option has a counterpart with prepended 
   <code>n*</code>, by which the meaning of the match is inverted; for 

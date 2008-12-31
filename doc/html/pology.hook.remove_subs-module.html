@@ -368,6 +368,48 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_marlits_text" class="summary-sig-name">remove_marlits_text</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Remove literals by markup from one of the text fields of the message 
+      [type F3A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_marlits_msg" class="summary-sig-name">remove_marlits_msg</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Remove literal segments by markup from all applicable text fields in 
+      the message, as if <a 
+      href="pology.hook.remove_subs-module.html#remove_marlits_text" 
+      class="link">remove_marlits_text</a> was applied to each [type F4A 
+      hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#remove_ignored_entities_msg" class="summary-sig-name">remove_ignored_entities_msg</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
       Remove locally ignored entities from all applicable text fields in 
@@ -815,6 +857,64 @@
     </ul></dd>
     <dt>Returns: <code>(cat, msg, text) -&gt; numerr</code></dt>
         <dd>type F4A hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_marlits_text"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_marlits_text</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literals by markup from one of the text fields of the message 
+  [type F3A hook].</p>
+  <p>An &quot;intersection&quot; of <a 
+  href="pology.hook.remove_subs-module.html#remove_markup_text" 
+  class="link">remove_markup_text</a> and <a 
+  href="pology.hook.remove_subs-module.html#remove_literals_text" 
+  class="link">remove_literals_text</a>, where literals segments are 
+  determined by markup, and both the segment text and its markup is 
+  removed. See documentation of these hooks for notes on what is considered
+  literal and how markup type is determined.</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_marlits_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_marlits_msg</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal segments by markup from all applicable text fields in 
+  the message, as if <a 
+  href="pology.hook.remove_subs-module.html#remove_marlits_text" 
+  class="link">remove_marlits_text</a> was applied to each [type F4A 
+  hook].</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
 </td></tr></table>
 </div>

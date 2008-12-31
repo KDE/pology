@@ -54,7 +54,7 @@
 <p>Statistics: message and word counts by category, etc.</p>
   <p>Various statistics on catalogs, that may help review the progress, 
   split up the work, find out what needs updating, etc.</p>
-  <p>Sieve options:</p>
+  <p>Sieve parameters:</p>
   <ul>
     <li>
       <code>accels:&lt;chars&gt;</code>: accelerator markers in GUI 
@@ -84,6 +84,10 @@
       most this many words
     </li>
     <li>
+      <code>fexpr:&lt;expr&gt;</code>: consider only messages matching the 
+      search expression
+    </li>
+    <li>
       <code>branch:&lt;branch_id&gt;</code>: consider only messages from 
       this branch (summit)
     </li>
@@ -108,16 +112,16 @@
   </ul>
   <p>The accelerator characters should be removed from the messages before 
   counting, in order not to introduce word splits where there are none. If 
-  accelerator character is not given by <code>accel</code> option, the 
+  accelerator character is not given by <code>accel</code> parameter, the 
   sieve will try to guess the accelerator; it may choose wrongly or decide 
   that there are no accelerators. E.g. an <code>X-Accelerator-Marker</code>
   header field is checked for the accelerator character.</p>
   <p>If there exists both the directory with translated POs and with 
-  template POTs, using the <code>templates</code> option the sieve can be 
-  instructed to count POTs with no same-named PO counterpart as fully 
-  untranslated in the statistics. Value to <code>templates</code> option is
-  in the form <code>search:replace</code>, where <code>search</code> is the
-  substring in the given PO paths that will be replaced with 
+  template POTs, using the <code>templates</code> parameter the sieve can 
+  be instructed to count POTs with no same-named PO counterpart as fully 
+  untranslated in the statistics. Value to <code>templates</code> parameter
+  is in the form <code>search:replace</code>, where <code>search</code> is 
+  the substring in the given PO paths that will be replaced with 
   <code>replace</code> string to construct the POT paths. For example:</p>
 <pre class="literalblock">
    $ cd $MYTRANSLATIONS
@@ -125,13 +129,19 @@
    my_lang  templates
    $ posieve.py stats -stemplates:my_lang:templates my_lang/
 </pre>
-  <p>Options <code>minwords</code> and <code>maxwords</code> tell the sieve
-  to account only those messages satisfying these limits, in <i>either</i> 
-  the original or translation, not necessarily both.</p>
-  <p>For <a href="pology.scripts.posummit-module.html" 
-  class="link">summited</a> catalogs, <code>branch</code> option is used to
-  restrict the counting to the given branch only. Several branch IDs may be
-  given as a comma-separated list.</p>
+  <p>Several parameters are used to restrict counting to messages 
+  satisfying a certain criterion. <code>minwords</code> and 
+  <code>maxwords</code> restrict counting to messages satisfying these word
+  limits, in <i>either</i> the original or translation. <code>fexpr</code> 
+  restricts counting to messages matched by the search expression of the 
+  type defined by the <a href="pology.sieve.find_messages-module.html" 
+  class="link">find-messages</a> sieve (see description of its same-named 
+  parameter). For <a href="pology.scripts.posummit-module.html" 
+  class="link">summited</a> catalogs, <code>branch</code> parameter is used
+  to count only messages from the given branch (several branch IDs may be 
+  given as a comma-separated list). If more than one restriction parameter 
+  is used, all must be satisfied for the message to be taken into 
+  account.</p>
   <h1 class="heading">Custom Contexts</h1>
     <p>Some older PO files will have message contexts embedded into the 
     <code>msgid</code> field, instead of using the Gettext proper 
@@ -191,8 +201,8 @@
         <code>ch-tr</code>: number of characters in translation
       </li>
     </ul>
-    <p>The output with <code>detail</code> sieve option in effect is the 
-    same, with several columns of derived data appended to the table:</p>
+    <p>The output with <code>detail</code> parameter in effect is the same,
+    with several columns of derived data appended to the table:</p>
     <ul>
       <li>
         <code>w-ef</code>: word expansion factor (increase in words from 
@@ -216,7 +226,7 @@
         translation
       </li>
     </ul>
-    <p>If any of the sieve options that restrict counting to certain 
+    <p>If any of the sieve parameters that restrict counting to certain 
     messages have been supplied, this is confirmed in output by a 
     <code>&gt;&gt;&gt;</code> message before the table. For example:</p>
 <pre class="literalblock">
@@ -224,9 +234,9 @@
    &gt;&gt;&gt; at-most-words: 5
    (...the stats table follows...)
 </pre>
-    <p>When <code>incomplete</code> option is given, the statistics table 
-    is followed by a table of not fully translated catalogs, with counts of
-    fuzzy and untranslated messages and words:</p>
+    <p>When <code>incomplete</code> parameter is given, the statistics 
+    table is followed by a table of not fully translated catalogs, with 
+    counts of fuzzy and untranslated messages and words:</p>
 <pre class="literalblock">
    $ posieve.py stats -sincomplete frobaz/
    (...the stats table...)
@@ -239,10 +249,10 @@
     for messages and words; <code>*/f</code>, <code>*/u</code>, and 
     <code>*/f+u</code> stand for fuzzy, untranslated, and the two 
     summed.</p>
-    <p>When options <code>msgbar</code> or <code>wbar</code> are in effect,
-    statistics is given in the form of an ASCII bar, giving visual relation
-    between numbers of translated, fuzzy, and untranslated messages or 
-    words:</p>
+    <p>When parameters <code>msgbar</code> or <code>wbar</code> are in 
+    effect, statistics is given in the form of an ASCII bar, giving visual 
+    relation between numbers of translated, fuzzy, and untranslated 
+    messages or words:</p>
 <pre class="literalblock">
    $ posieve.py stats -swbar frobaz/
    4572/1829/2533 w-or |&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#164;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#215;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;|
@@ -264,11 +274,11 @@
     <p>By default bars are presenting relative information, i.e. the 
     percentages of translated, fuzzy, and untranslated messages. This can 
     be changed into absolute display using the <code>absolute</code> 
-    option, where single bar-cell stands for a fixed number of messages or 
-    words, determined by taking into account the stats across all bars in 
-    the run. When absolute mode is engaged, the bars are shown only for the
-    most specific count level (e.g. only for files if <code>byfile</code> 
-    in effect).</p>
+    parameter, where single bar-cell stands for a fixed number of messages 
+    or words, determined by taking into account the stats across all bars 
+    in the run. When absolute mode is engaged, the bars are shown only for 
+    the most specific count level (e.g. only for files if 
+    <code>byfile</code> in effect).</p>
   <h1 class="heading">Notes on Counting</h1>
     <p>The word and character counts for a given message field are obtained
     in the following way:</p>
