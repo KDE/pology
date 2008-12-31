@@ -291,9 +291,9 @@ pology.misc.escape.split_escaped	pology.misc.escape-module.html#split_escaped
 pology.misc.escape.unescape_strict	pology.misc.escape-module.html#unescape_strict
 pology.misc.fsops	pology.misc.fsops-module.html
 pology.misc.fsops.collect_catalogs_by_env	pology.misc.fsops-module.html#collect_catalogs_by_env
+pology.misc.fsops.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.misc.fsops.join_ncwd	pology.misc.fsops-module.html#join_ncwd
 pology.misc.fsops.error	pology.misc.report-module.html#error
-pology.misc.fsops.str_to_unicode_seq	pology.misc.fsops-module.html#str_to_unicode_seq
 pology.misc.fsops.lines_from_file	pology.misc.fsops-module.html#lines_from_file
 pology.misc.fsops.warning	pology.misc.report-module.html#warning
 pology.misc.fsops._execid	pology.misc.fsops-module.html#_execid
@@ -607,6 +607,7 @@ pology.scripts.poascribe.parse_datetime	pology.scripts.poascribe-module.html#par
 pology.scripts.poascribe.build_msg_fmatcher	pology.sieve.find_messages-module.html#build_msg_fmatcher
 pology.scripts.poascribe.is_ascribed	pology.scripts.poascribe-module.html#is_ascribed
 pology.scripts.poascribe.UFUZZ	pology.scripts.poascribe-module.html#UFUZZ
+pology.scripts.poascribe.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.scripts.poascribe.join_ncwd	pology.misc.fsops-module.html#join_ncwd
 pology.scripts.poascribe._atype_obs	pology.scripts.poascribe-module.html#_atype_obs
 pology.scripts.poascribe.selector_mod	pology.scripts.poascribe-module.html#selector_mod
@@ -620,7 +621,6 @@ pology.scripts.poascribe.get_hook_lreq	pology.misc.langdep-module.html#get_hook_
 pology.scripts.poascribe.selector_rev	pology.scripts.poascribe-module.html#selector_rev
 pology.scripts.poascribe._revdflags	pology.scripts.poascribe-module.html#_revdflags
 pology.scripts.poascribe.asc_eq	pology.scripts.poascribe-module.html#asc_eq
-pology.scripts.poascribe.str_to_unicode_seq	pology.misc.fsops-module.html#str_to_unicode_seq
 pology.scripts.poascribe.build_selector	pology.scripts.poascribe-module.html#build_selector
 pology.scripts.poascribe.selector_asc	pology.scripts.poascribe-module.html#selector_asc
 pology.scripts.poascribe.asc_get_fields	pology.scripts.poascribe-module.html#asc_get_fields
@@ -654,6 +654,7 @@ pology.scripts.poascribe.fld_sep	pology.scripts.poascribe-module.html#fld_sep
 pology.scripts.poascribe.selector_revbm	pology.scripts.poascribe-module.html#selector_revbm
 pology.scripts.poascribe._atype_rvv	pology.scripts.poascribe-module.html#_atype_rvv
 pology.scripts.posieve	pology.scripts.posieve-module.html
+pology.scripts.posieve.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.scripts.posieve.rootdir	pology-module.html#rootdir
 pology.scripts.posieve.warning	pology.misc.report-module.html#warning
 pology.scripts.posieve.error	pology.misc.report-module.html#error
@@ -661,9 +662,9 @@ pology.scripts.posieve.report	pology.misc.report-module.html#report
 pology.scripts.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.scripts.posieve.main	pology.scripts.posieve-module.html#main
 pology.scripts.posieve.collect_system	pology.misc.fsops-module.html#collect_system
-pology.scripts.posieve.str_to_unicode_seq	pology.misc.fsops-module.html#str_to_unicode_seq
 pology.scripts.posummit	pology.scripts.posummit-module.html
 pology.scripts.posummit.hook_fill_defaults	pology.scripts.posummit-module.html#hook_fill_defaults
+pology.scripts.posummit.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.scripts.posummit.hook_applicable	pology.scripts.posummit-module.html#hook_applicable
 pology.scripts.posummit.get_wrap_func	pology.scripts.posummit-module.html#get_wrap_func
 pology.scripts.posummit.set_summit_comment	pology.scripts.posummit-module.html#set_summit_comment
@@ -684,7 +685,6 @@ pology.scripts.posummit.summit_merge_single	pology.scripts.posummit-module.html#
 pology.scripts.posummit.summit_merge	pology.scripts.posummit-module.html#summit_merge
 pology.scripts.posummit.fuzzy_match_source_files	pology.scripts.posummit-module.html#fuzzy_match_source_files
 pology.scripts.posummit.main	pology.scripts.posummit-module.html#main
-pology.scripts.posummit.str_to_unicode_seq	pology.misc.fsops-module.html#str_to_unicode_seq
 pology.scripts.posummit.exec_hook_msgstr	pology.scripts.posummit-module.html#exec_hook_msgstr
 pology.scripts.posummit.select_branch_catalogs	pology.scripts.posummit-module.html#select_branch_catalogs
 pology.scripts.posummit.msg_ident	pology.scripts.posummit-module.html#msg_ident

@@ -220,12 +220,12 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of unicode strings</span>
+      <span class="summary-type">unicode string or list of objects</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#str_to_unicode_seq" class="summary-sig-name">str_to_unicode_seq</a>(<span class="summary-sig-arg">seq</span>)</span><br />
-      Convert all raw string values in a sequence to unicode.</td>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#str_to_unicode" class="summary-sig-name">str_to_unicode</a>(<span class="summary-sig-arg">strarg</span>)</span><br />
+      Convert a raw string value or sequence of values into Unicode.</td>
           <td align="right" valign="top">
             
             
@@ -494,35 +494,37 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="str_to_unicode_seq"></a>
+<a name="str_to_unicode"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">str_to_unicode_seq</span>(<span class="sig-arg">seq</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">str_to_unicode</span>(<span class="sig-arg">strarg</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Convert all raw string values in a sequence to unicode.</p>
+  <p>Convert a raw string value or sequence of values into Unicode.</p>
   <p>Strings comming in from the environment are frequently raw byte 
   sequences, and need to be converted into Unicode strings according to 
-  system locale (e.g. command-line arguments). This function will take any 
-  sequence of raw strings and convert it into a list of Unicode 
-  strings.</p>
-  <p>In case there are values in the input sequence which are not raw 
-  strings, they will be carried over into the resulting list as-is.</p>
+  system locale (e.g. command-line arguments). This function will take 
+  either a single raw string or any sequence of raw strings and convert it 
+  into a Unicode string or list thereof.</p>
+  <p>If the input value is not a single raw or unicode string, it is 
+  assumed to be a sequence of values. In case there are values in the input
+  which are not raw strings, they will be carried over into the result 
+  as-is.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>seq</code></strong> (sequence of raw strings) - input sequence</li>
+        <li><strong class="pname"><code>strarg</code></strong> (string, unicode, or sequence of objects) - input string or sequence</li>
     </ul></dd>
-    <dt>Returns: list of unicode strings</dt>
-        <dd>output sequence</dd>
+    <dt>Returns: unicode string or list of objects</dt>
+        <dd>unicode string or sequence of objects</dd>
   </dl>
 </td></tr></table>
 </div>
