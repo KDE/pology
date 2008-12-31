@@ -736,6 +736,7 @@ def ascribe_obsrvv_cat (options, config, catpath):
                 if a.type == _atype_rvv:
                     break
             if can_asc:
+                a = history[0]
                 ascribe_msg_obs(a.msg, a.user, config, catrev)
                 nobsoleted += 1
         elif history:
@@ -748,6 +749,7 @@ def ascribe_obsrvv_cat (options, config, catpath):
                     can_asc = True
                     break
             if can_asc:
+                a = history[0]
                 ascribe_msg_rvv(a.msg, a.user, config, catrev)
                 nrevived += 1
 
@@ -1295,7 +1297,6 @@ def selector_fexpr (expr=None):
                 filters = [options.tfilter]
             mopts = Data()
             mopts.case = False
-            print "{%s}" % expr
             g.matcher = build_msg_fmatcher(expr, filters=filters,
                                            mopts=mopts)
 
