@@ -427,8 +427,8 @@ def remove_marlits_msg (msg, cat):
     return _rm_lit_in_msg(msg, cat, strs, rxs, heu)
 
 
-class Cache: pass
-_marlit_cache = Cache()
+class _Cache: pass
+_marlit_cache = _Cache()
 _marlit_cache.mtypes = None
 _marlit_cache.tags = []
 _marlit_cache.rxs = []
