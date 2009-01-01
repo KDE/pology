@@ -15,7 +15,7 @@ while the header entry is handled by L{pology.file.header}.
 from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
-from pology.misc.diff import word_ediff, ediff_to_new
+from pology.misc.diff import word_ediff, word_diff, ediff_to_new
 from pology.misc.colors import colors_for_file
 
 
@@ -549,7 +549,7 @@ class Message_base (object):
             return "U"
 
 
-    def diff_from (self, omsg, pfilter=None, hlto=None):
+    def diff_from (self, omsg, pfilter=None, hlto=None, addrem=None):
         """
         Compute text field diffs from the other to current message.
 
@@ -567,12 +567,23 @@ class Message_base (object):
         Embedded difference can be additionally highlighted for an output
         descriptor given by C{hlto} parameter (e.g. colorized for the shell).
 
+        Instead of embedding the difference, using the C{addrem} parameter
+        only equal, added, or removed segments can be reported.
+        The value of this parameter is a string, such that the first character
+        selects the type of partial difference: one of (=, e) for equal,
+        (+, a) for added, and (-, r) for removed segments, and the rest of
+        the string is used as separator to join the selected segments
+        (if the separator is empty, space is used instead).
+
         @param omsg: the message from which to make the difference
         @type omsg: L{Message_base}
         @param pfilter: filter to be applied to all text prior to differencing
         @type pfilter: callable
         @param hlto: destination to produce highlighting for
         @type hlto: file
+        @param addrem: report equal, added or removed segments instead of
+            full difference, joined by what follows the selection character
+        @type addrem: string
 
         @return: difference list
         @rtype: list of (string, int, string, float)
@@ -618,13 +629,32 @@ class Message_base (object):
                 text1 = pfilter(text1)
                 text2 = pfilter(text2)
             if text1 != text2:
-                ediff, dr = word_ediff(text1, text2,
-                                       markup=True, format=self.format)
+                if not addrem:
+                    ediff, dr = word_ediff(text1, text2,
+                                           markup=True, format=self.format)
+                else:
+                    wdiff, dr = word_diff(text1, text2,
+                                          markup=True, format=self.format)
+                    mode = addrem[0]
+                    sep = addrem[1:] or " "
+                    if mode in ("=", "e"):
+                        dtyp = " "
+                    elif mode in ("+", "a"):
+                        dtyp = "+"
+                    elif mode in ("-", "r"):
+                        dtyp = "-"
+                    else:
+                        raise StandardError, (
+                              "unknown selection mode '%s' for "
+                              "partial differencing" % mode)
+                    ediff = sep.join([x for t, x in wdiff if t == dtyp])
+
                 if hlto:
                     ediff = ediff.replace("{-", C.RED + "{-")
                     ediff = ediff.replace("-}", "-}" + C.RESET)
                     ediff = ediff.replace("{+", C.BLUE + "{+")
                     ediff = ediff.replace("+}", "+}" + C.RESET)
+
                 field_diffs.append((field, item, ediff, dr))
 
         return field_diffs
@@ -634,7 +664,7 @@ class Message_base (object):
     _diffsep_inner = "~-~-~-~-~-~"
 
     def embed_diff (self, omsg, keeponfuzz=True, tocurr=False, flag=None,
-                    pfilter=None, hlto=None):
+                    pfilter=None, hlto=None, addrem=None):
         """
         Embed text field diffs against the other message.
 
@@ -653,7 +683,7 @@ class Message_base (object):
         of embedded differences.
 
         See L{diff_from} for the behavior in presence of fuzzy messages,
-        and usage of C{pfilter} and c{hlto} parameters.
+        and usage of C{pfilter}, c{hlto}, and C{addrem} parameters.
         A flag can be added to the message if there was any difference,
         using the C{flag} parameter.
 
@@ -672,7 +702,8 @@ class Message_base (object):
         @rtype: bool
         """
 
-        field_diffs = self.diff_from(omsg, pfilter=pfilter, hlto=hlto)
+        field_diffs = self.diff_from(omsg, pfilter=pfilter, hlto=hlto,
+                                     addrem=addrem)
 
         if not field_diffs:
             return False
