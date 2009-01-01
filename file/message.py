@@ -628,27 +628,32 @@ class Message_base (object):
             if pfilter:
                 text1 = pfilter(text1)
                 text2 = pfilter(text2)
-            if text1 != text2:
-                if not addrem:
+            if not addrem:
+                if text1 != text2:
                     ediff, dr = word_ediff(text1, text2,
                                            markup=True, format=self.format)
                 else:
-                    wdiff, dr = word_diff(text1, text2,
-                                          markup=True, format=self.format)
-                    mode = addrem[0]
-                    sep = addrem[1:] or " "
-                    if mode in ("=", "e"):
-                        dtyp = " "
-                    elif mode in ("+", "a"):
-                        dtyp = "+"
-                    elif mode in ("-", "r"):
-                        dtyp = "-"
-                    else:
-                        raise StandardError, (
-                              "unknown selection mode '%s' for "
-                              "partial differencing" % mode)
-                    ediff = sep.join([x for t, x in wdiff if t == dtyp])
+                    ediff = text2
+            else:
+                wdiff, dr = word_diff(text1, text2,
+                                      markup=True, format=self.format)
+                mode = addrem[0]
+                sep = addrem[1:] or " "
+                if mode in ("=", "e"):
+                    dtyp = " "
+                elif mode in ("+", "a"):
+                    dtyp = "+"
+                elif mode in ("-", "r"):
+                    dtyp = "-"
+                else:
+                    raise StandardError, (
+                            "unknown selection mode '%s' for "
+                            "partial differencing" % mode)
+                ediff = sep.join([x for t, x in wdiff if t == dtyp])
 
+            # If addrem is in effect, there may be some difference
+            # computed from text1 to text2 even if text1 == text2.
+            if text2 != ediff:
                 if hlto:
                     ediff = ediff.replace("{-", C.RED + "{-")
                     ediff = ediff.replace("-}", "-}" + C.RESET)
