@@ -42,9 +42,10 @@ def word_diff (text_old, text_new, markup=False, format=None):
     as new will reconstruct the old text. For example::
 
         >>> s1 = "A new type of foo."
-        >>> s2 = "A new kind of bar."
-        >>> text_diff(s1, s2)
-        []
+        >>> s2 = "A new kind of foo."
+        >>> word_diff(s1, s2)
+        ([(' ', 'A new '), ('+', 'kind'), ('-', 'type'), (' ', ' of foo.')],
+        0.36363636363636365)
 
     Differencing may take into account when the texts are expected to have
     XML-like markup, or when they are of certain format defined by Gettext.
