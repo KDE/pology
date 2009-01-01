@@ -236,6 +236,10 @@ class Config:
 
         self.vcs = make_vcs(gsect.get("version-control", "noop"))
 
+        self.tfilter = gsect.get("text-filter", None)
+        if self.tfilter:
+            self.tfilter = get_hook_lreq(self.tfilter, abort=True)
+
         class UserData: pass
         self.udata = {}
         self.users = []
@@ -394,11 +398,11 @@ def diff_select (options, configs_catpaths, mode):
 
     stest = mode.selector
     aselect = mode.aselector
-    pfilter = options.tfilter
 
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath in catpaths:
+            pfilter = options.tfilter or config.tfilter
             ndiffed += diff_select_cat(options, config, catpath,
                                        stest, aselect, pfilter)
 
@@ -690,6 +694,8 @@ def show_history_cat (options, config, catpath, stest):
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
     acats = collect_asc_cats(config, cat.name)
 
+    pfilter = options.tfilter or config.tfilter
+
     nselected = 0
     for msg in cat:
         history = asc_collect_history(msg, acats, config)
@@ -719,7 +725,7 @@ def show_history_cat (options, config, catpath, stest):
                 break
             dmsg = Message(a.msg)
             anydiff = dmsg.embed_diff(history[i_next].msg, tocurr=True,
-                                      pfilter=options.tfilter, hlto=sys.stdout)
+                                      pfilter=pfilter, hlto=sys.stdout)
             if anydiff:
                 dmsg.manual_comment = Monlist() # review tags were here
                 dmsgstr = dmsg.to_string().rstrip("\n")
@@ -731,7 +737,7 @@ def show_history_cat (options, config, catpath, stest):
         if i_nfasc is not None:
             msg = Message(msg)
             msg.embed_diff(history[i_nfasc].msg, tocurr=True,
-                           pfilter=options.tfilter, hlto=sys.stdout)
+                           pfilter=pfilter, hlto=sys.stdout)
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=hinfo, delim=("-" * 20))
 
@@ -1299,13 +1305,17 @@ class _Cache (object):
     pass
 
 
-def cached_matcher (cache, expr, options, cid):
+def cached_matcher (cache, expr, config, options, cid):
 
-    if getattr(cache, "options", None) is not options:
+    if (   getattr(cache, "options", None) is not options
+        or getattr(cache, "config", None) is not config
+    ):
         cache.options = options
+        cache.config = config
+        pfilter = options.tfilter or config.tfilter
         filters = []
-        if options.tfilter:
-            filters = [options.tfilter]
+        if pfilter:
+            filters = [pfilter]
         mopts = _Cache(dict(case=False))
         cache.matcher = build_msg_fmatcher(expr, filters=filters, mopts=mopts)
 
@@ -1351,14 +1361,16 @@ def selector_wasc ():
 
     def selector (msg, cat, history, config, options):
 
+        pfilter = options.tfilter or config.tfilter
+
         if history:
             amsg = history[0].msg
             if asc_eq(msg, amsg):
                 return True
-            elif options.tfilter:
+            elif pfilter:
                 # Also consider ascribed if no difference from last ascription
                 # under the filter in effect.
-                if not msg.diff_from(amsg, pfilter=options.tfilter):
+                if not msg.diff_from(amsg, pfilter=pfilter):
                     return True
         elif not is_translated(msg) and not is_fuzzy(msg):
             # Also consider pristine messages ascribed.
@@ -1395,7 +1407,7 @@ def selector_fexpr (expr=None):
 
     def selector (msg, cat, history, config, options):
 
-        matcher = cached_matcher(cache, expr, options, cid)
+        matcher = cached_matcher(cache, expr, config, options, cid)
         if matcher(msg, cat):
             return True
 
@@ -1431,7 +1443,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 
     def selector (msg, cat, history, config, options):
 
-        matcher = cached_matcher(cache, expr, options, cid)
+        matcher = cached_matcher(cache, expr, config, options, cid)
         users = cached_users(cache, user_spec, config, cid)
 
         if not addrem:
@@ -1455,8 +1467,9 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                 if i_next is None:
                     break
                 amsg = MessageUnsafe(a.msg)
+                pfilter = options.tfilter or config.tfilter
                 amsg.embed_diff(history[i_next].msg, tocurr=True,
-                                pfilter=options.tfilter, addrem=addrem)
+                                pfilter=pfilter, addrem=addrem)
 
             if matcher(amsg, cat):
                 return i
@@ -1540,7 +1553,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     # unless filter is in effect and there is no difference
                     # between the modification and current review.
                     mm, mr = history[i_cand].msg, a.msg
-                    pf = options.tfilter
+                    pf = options.tfilter or config.tfilter
                     if pf and not mm.diff_from(mr, pfilter=pf):
                         i_cand = None
                     else:
@@ -1558,7 +1571,8 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
             # unless filter is in effect and there is no difference between
             # candidate and the first earlier modification
             # (any, or not by m-users).
-            if options.tfilter and i_cand + 1 < len(history):
+            pfilter = options.tfilter or config.tfilter
+            if pfilter and i_cand + 1 < len(history):
                 mm = history[i_cand].msg
                 for a in history[i_cand + 1:]:
                     if (    a.type == _atype_mod
