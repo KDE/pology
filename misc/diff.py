@@ -104,8 +104,8 @@ def word_diff (text_old, text_new, markup=False, format=None):
         if el[0] != "-":
             i_new += 1
 
-    # Reshuffle so that all new/old elements consecutive but for the
-    # intersections are grouped into all new followed by all old,
+    # Reshuffle so that all old-new elements consecutive but for the
+    # intersections are grouped into all old followed by all new,
     # with intersections included in both.
     ndlist = []
     i = 0
@@ -118,10 +118,10 @@ def word_diff (text_old, text_new, markup=False, format=None):
         i_first_diff = i
         i_last_diff = i
         while i < len(dlist) and (dlist[i][0] in "+-" or dlist_isintr[i]):
-            if dlist[i][0] != "-":
-                seq_new.append(dlist[i])
             if dlist[i][0] != "+":
                 seq_old.append(dlist[i])
+            if dlist[i][0] != "-":
+                seq_new.append(dlist[i])
             if dlist[i][0] in "+-":
                 i_last_diff = i
             i += 1
@@ -129,10 +129,10 @@ def word_diff (text_old, text_new, markup=False, format=None):
             seq_new.pop()
             seq_old.pop()
         i = i_last_diff + 1
-        if seq_new:
-            ndlist.append("+ " + "".join([x[2:] for x in seq_new]))
         if seq_old:
             ndlist.append("- " + "".join([x[2:] for x in seq_old]))
+        if seq_new:
+            ndlist.append("+ " + "".join([x[2:] for x in seq_new]))
     dlist = ndlist
 
     # Join contiguous new/old/both segments, make tagged tuples.
