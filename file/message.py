@@ -15,7 +15,7 @@ while the header entry is handled by L{pology.file.header}.
 from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
-from pology.misc.diff import word_ediff
+from pology.misc.diff import word_ediff, ediff_to_new
 from pology.misc.colors import colors_for_file
 
 
@@ -630,7 +630,10 @@ class Message_base (object):
         return field_diffs
 
 
-    def embed_diff (self, omsg, tocurr=False, flag=None,
+    _diffsep = "~*~*~*~*~*~"
+    _diffsep_inner = "~-~-~-~-~-~"
+
+    def embed_diff (self, omsg, keeponfuzz=True, tocurr=False, flag=None,
                     pfilter=None, hlto=None):
         """
         Embed text field diffs against the other message.
@@ -641,6 +644,11 @@ class Message_base (object):
         If embeding is into previous fields, the difference of C{msgstr}
         fields is put into C{previous_msgid} (or C{previous_msgid_plural}
         for plural messages), suitably visually separated.
+        If previous fields already exist and message has C{fuzzy} flag,
+        then the differenced C{msgctxt}, C{msgid}, and C{msgid_plural},
+        are also going to be added with separation to existing values;
+        to instead fully overwrite existing previous fields in fuzzy message,
+        set C{keeponfuzz} to C{False}.
         See L{word_ediff<misc.diff.word_ediff>} for the syntax
         of embedded differences.
 
@@ -651,6 +659,8 @@ class Message_base (object):
 
         @param omsg: the message from which to make the difference
         @type omsg: L{Message_base}
+        @param keeponfuzz: whether to preserve previous fields if fuzzy-flagged
+        @type keeponfuzz: bool
         @param tocurr: embed differences into current fields if C{True}
         @type tocurr: bool
         @param pfilter: filter to be applied to all text prior to differencing
@@ -658,7 +668,7 @@ class Message_base (object):
         @param flag: flag to add to the message if there was any difference
         @type flag: string
 
-        @return: C{True} if there was any difference, false otherwise
+        @return: C{True} if there was any difference to embed
         @rtype: bool
         """
 
@@ -667,10 +677,11 @@ class Message_base (object):
         if not field_diffs:
             return False
 
-        nmsgstr_diffs = 0
+        msgstr_abzero = False
         for field, item, ediff, dr in field_diffs:
-            if field == "msgstr":
-                nmsgstr_diffs += 1
+            if field == "msgstr" and item > 0:
+                msgstr_abzero = True
+                break
 
         # Embed diffs.
         if not tocurr:
@@ -686,34 +697,44 @@ class Message_base (object):
                 elif field == "msgid_plural":
                     msgid_plural_previous = ediff
                 elif field == "msgstr":
-                    if nmsgstr_diffs > 1:
-                        sepmark = "msgstr[%d]" % item
-                    else:
-                        sepmark = "msgstr"
-                    sep = "========== %s:" % sepmark
+                    sepmark = ""
+                    if msgstr_abzero:
+                        sepmark = "[%d]" % item
+                    sep = "%s%s" % (Message_base._diffsep_inner, sepmark)
                     msgstr_previous_sections.append(sep)
                     msgstr_previous_sections.append(ediff)
             msgstr_previous = "\n".join(msgstr_previous_sections)
             if msgstr_previous:
                 if self.msgid_plural is None:
-                    if msgid_previous:
-                        msgid_previous += "\n"
-                    else:
+                    if msgid_previous is None:
                         msgid_previous = u""
                     msgid_previous += msgstr_previous
                 else:
-                    if msgid_plural_previous:
-                        msgid_plural_previous += "\n"
-                    else:
+                    if msgid_plural_previous is None:
                         msgid_plural_previous = u""
                     msgid_plural_previous += msgstr_previous
 
-            self.msgctxt_previous = msgctxt_previous
-            self.msgid_previous = msgid_previous
-            self.msgid_plural_previous = msgid_plural_previous
+            keepold = keeponfuzz and "fuzzy" in self.flag
+            # ...do not check self.fuzzy, should cover obsolete too
+            for field in ("msgctxt", "msgid", "msgid_plural"):
+                attr = field + "_previous"
+                ediff = locals()[attr]
+                aval = getattr(self, attr)
+                if aval is not None or ediff is not None:
+                    if keepold:
+                        if aval is None:
+                            aval = u""
+                        else:
+                            aval += "\n"
+                        aval += Message_base._diffsep
+                        if ediff is not None:
+                            aval += "\n" + ediff
+                    else:
+                        aval = ediff
+                    setattr(self, attr, aval)
         else:
             for field, item, ediff, dr in field_diffs:
-                if isinstance(getattr(self, field), Monlist):
+                if isinstance(getattr(self, field), (Monlist, list)):
                     while item >= len(getattr(self, field)):
                         getattr(self, field).append(u"")
                     getattr(self, field)[item] = ediff
@@ -724,6 +745,53 @@ class Message_base (object):
             self.flag.add(unicode(flag))
 
         return True
+
+
+    def unembed_diff (self, keeponfuzz=True, flag=None):
+        """
+        Undo the embedding of text field diffs.
+
+        If called with same C{tocurr} and C{flag} arguments as
+        L{embed_diff} was called with, this method should exactly
+        undo the embedding, returning the message to its earlier state.
+        Only embedding into previous fields can be undone.
+
+        @param keeponfuzz: whether previous fields were kept if fuzzy-flagged
+        @type keeponfuzz: bool
+        @param flag: flag which was added on embedding, to remove
+        @type flag: string
+
+        @return: C{True} if there was any embedding to undo
+        @rtype: bool
+        """
+
+        anyundo = False
+
+        diffsep = Message_base._diffsep
+        oldkept = keeponfuzz and "fuzzy" in self.flag
+        # ...do not check self.fuzzy, should cover obsolete too
+        for field in ("msgctxt", "msgid", "msgid_plural"):
+            attr = field + "_previous"
+            aval = getattr(self, attr)
+            if aval is not None:
+                if oldkept:
+                    # ...do not check self.fuzzy, should cover obsolete too
+                    p = aval.find(diffsep)
+                    if p == 0: # previously there was no field
+                        setattr(self, attr, None)
+                        anyundo = True
+                    elif p > 0:
+                        setattr(self, attr, aval[:p - 1]) # chop leading newline
+                        anyundo = True
+                else:
+                    setattr(self, attr, None)
+                    anyundo = True
+
+        if flag in self.flag:
+            self.flag.remove(flag)
+            anyundo = True
+
+        return anyundo
 
 
 class Message (Message_base, Monitored): # order important for get/setattr
