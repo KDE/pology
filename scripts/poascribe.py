@@ -1488,11 +1488,15 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                 i_next = i + 1
             else:
                 i_next = first_nfuzzy(history, i + 1)
-                if i_next is None:
-                    break
+                if i_next is not None:
+                    amsg2 = history[i_next].msg
+                else:
+                    amsg2 = MessageUnsafe(a.msg)
+                    amsg2.msgstr = [u""] * len(amsg2.msgstr)
+                    i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
                 pfilter = options.tfilter or config.tfilter
-                amsg.embed_diff(history[i_next].msg, tocurr=True,
+                amsg.embed_diff(amsg2, tocurr=True,
                                 pfilter=pfilter, addrem=addrem)
 
             if matcher(amsg, cat):
