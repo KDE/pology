@@ -19,7 +19,7 @@ from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
 from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
-from pology.file.message import Message
+from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.wrap import wrap_field_ontag_unwrap
 from pology.misc.tabulate import tabulate
@@ -1075,7 +1075,7 @@ def asc_collect_history_w (msg, acats, config, before, seenmsg):
         if npaths > 1:
             warning("%s: multiple history paths (%d) for message at %s(#%s)"
                     % (cat.filename, npaths, msg.refline, msg.refentry))
-        pmsg = Message()
+        pmsg = MessageUnsafe()
         pmsg.msgctxt, pmsg.msgid = fuzzy_amsg_keys.pop()
         # All ascriptions beyond the pivot must be older than the oldest so far.
         after = history and history[-1] or before
@@ -1206,6 +1206,7 @@ def parse_users (userstr, config, cid=None):
             if not user.startswith("~"):
                 users.add(user)
             else:
+                user = user[1:]
                 for ouser in config.users:
                     if user != ouser:
                         users.add(ouser)
@@ -1286,6 +1287,47 @@ def negate_selector (selector):
 
 
 # -----------------------------------------------------------------------------
+# Caching for selectors.
+
+class _Cache (object):
+
+    def __init__ (self, dict={}):
+
+        for key, val in dict.iteritems():
+            self.__dict__[key] = val
+
+    pass
+
+
+def cached_matcher (cache, expr, options, cid):
+
+    if getattr(cache, "options", None) is not options:
+        cache.options = options
+        filters = []
+        if options.tfilter:
+            filters = [options.tfilter]
+        mopts = _Cache(dict(case=False))
+        cache.matcher = build_msg_fmatcher(expr, filters=filters, mopts=mopts)
+
+    return cache.matcher
+
+
+def cached_users (cache, user_spec, config, cid, utype=None):
+
+    if (   getattr(cache, "config", None) is not config
+        or utype not in getattr(cache, "users", {})
+    ):
+        cache.config = config
+        if not hasattr(cache, "users"):
+            cache.users = {}
+        cache.users[utype] = []
+        if user_spec:
+            cache.users[utype] = parse_users(user_spec, config, cid)
+
+    return cache.users[utype]
+
+
+# -----------------------------------------------------------------------------
 # Selector factories.
 # Use build_selector() to create selectors.
 
@@ -1349,26 +1391,60 @@ def selector_fexpr (expr=None):
     if not (expr or "").strip():
         error("matching expression cannot be empty", subsrc=cid)
 
-    class Data: pass
-    g = Data()
-    g.options = None
-    g.matcher = None
+    cache = _Cache()
 
     def selector (msg, cat, history, config, options):
 
-        # Build and cache the matcher when options change.
-        if g.options is not options:
-            g.options = options
-            filters = []
-            if options.tfilter:
-                filters = [options.tfilter]
-            mopts = Data()
-            mopts.case = False
-            g.matcher = build_msg_fmatcher(expr, filters=filters,
-                                           mopts=mopts)
-
-        if g.matcher(msg, cat):
+        matcher = cached_matcher(cache, expr, options, cid)
+        if matcher(msg, cat):
             return True
+
+        return None
+
+    return selector
+
+
+def selector_hexpr (expr=None, user_spec=None, addrem=None):
+    cid = "selector:hexpr"
+
+    if not (expr or "").strip():
+        error("matching expression cannot be empty", subsrc=cid)
+
+    cache = _Cache()
+
+    def selector (msg, cat, history, config, options):
+
+        matcher = cached_matcher(cache, expr, options, cid)
+        users = cached_users(cache, user_spec, config, cid)
+
+        if not addrem:
+            i = 0
+        else:
+            i = first_nfuzzy(history, 0)
+            if i is None:
+                return None
+
+        while i < len(history):
+            a = history[i]
+            if users and a.user not in users:
+                i += 1
+                continue
+
+            if not addrem:
+                amsg = a.msg
+                i_next = i + 1
+            else:
+                i_next = first_nfuzzy(history, i + 1)
+                if i_next is None:
+                    break
+                amsg = MessageUnsafe(a.msg)
+                amsg.embed_diff(history[i_next].msg, tocurr=True,
+                                pfilter=options.tfilter, addrem=addrem)
+
+            if matcher(amsg, cat):
+                return i
+
+            i = i_next
 
         return None
 
@@ -1379,11 +1455,11 @@ def selector_fexpr (expr=None):
 def selector_asc (user_spec=None):
     cid = "selector:asc"
 
+    cache = _Cache()
+
     def selector (msg, cat, history, config, options):
 
-        users = []
-        if user_spec:
-            users = parse_users(user_spec, config, cid)
+        users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
@@ -1401,11 +1477,11 @@ def selector_asc (user_spec=None):
 def selector_mod (user_spec=None):
     cid = "selector:mod"
 
+    cache = _Cache()
+
     def selector (msg, cat, history, config, options):
 
-        users = []
-        if user_spec:
-            users = parse_users(user_spec, config, cid)
+        users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
@@ -1424,14 +1500,12 @@ def selector_mod (user_spec=None):
 def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
     cid = "selector:modar"
 
+    cache = _Cache()
+
     def selector (msg, cat, history, config, options):
 
-        rusers = []
-        if ruser_spec:
-            rusers = parse_users(ruser_spec, config, cid)
-        musers = []
-        if muser_spec:
-            musers = parse_users(muser_spec, config, cid)
+        rusers = cached_users(cache, ruser_spec, config, cid, utype="r")
+        musers = cached_users(cache, muser_spec, config, cid, utype="m")
 
         i_sel = None
         i_cand = None
@@ -1488,11 +1562,11 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
 def selector_rev (user_spec=None, atag_req=None):
     cid = "selector:rev"
 
+    cache = _Cache()
+
     def selector (msg, cat, history, config, options):
 
-        users = []
-        if user_spec:
-            users = parse_users(user_spec, config, cid)
+        users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
@@ -1513,14 +1587,12 @@ def selector_rev (user_spec=None, atag_req=None):
 def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
     cid = "selector:revbm"
 
+    cache = _Cache()
+
     def selector (msg, cat, history, config, options):
 
-        rusers = []
-        if ruser_spec:
-            rusers = parse_users(ruser_spec, config, cid)
-        musers = []
-        if muser_spec:
-            musers = parse_users(muser_spec, config, cid)
+        rusers = cached_users(cache, ruser_spec, config, cid, utype="r")
+        musers = cached_users(cache, muser_spec, config, cid, utype="m")
 
         # TODO: Make it filter-sensitive like :modar.
 
@@ -1554,6 +1626,7 @@ _selector_factories = {
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
+    "hexpr": (selector_hexpr, True),
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
     "modar": (selector_modar, True),
