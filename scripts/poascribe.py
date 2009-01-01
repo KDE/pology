@@ -710,7 +710,7 @@ def show_history_cat (options, config, catpath, stest):
         hfmt = "%%%dd" % len(str(len(history)))
         for i in range(len(history)):
             a = history[i]
-            wcontent = a.msg and not is_fuzzy(a.msg)
+            wtrans = a.msg and not is_fuzzy(a.msg)
             typewtag = a.type
             if a.tag:
                 typewtag += "/" + a.tag
@@ -721,13 +721,14 @@ def show_history_cat (options, config, catpath, stest):
             else:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
-            if not wcontent:
-                # Nothing more to show without content to current ascription.
+            if not a.type == _atype_mod or not wtrans:
+                # Nothing more to show if this ascription was not modification,
+                # or there is no translated message associated to it.
                 continue
             # Find first earlier non-fuzzy for diffing.
             i_next = first_nfuzzy(history, i + 1)
             if i_next is None:
-                # Nothing more to show without next non-fuzzy with content.
+                # Nothing more to show without next non-fuzzy.
                 continue
             dmsg = Message(a.msg)
             anydiff = dmsg.embed_diff(history[i_next].msg, tocurr=True,
