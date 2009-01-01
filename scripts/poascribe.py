@@ -1404,6 +1404,23 @@ def selector_fexpr (expr=None):
     return selector
 
 
+def selector_e (entry=None):
+    cid = "selector:e"
+
+    if not entry or not entry.isdigit():
+        error("message reference by entry must be an integer", subsrc=cid)
+    refentry = int(entry)
+
+    def selector (msg, cat, history, config, options):
+
+        if msg.refentry == refentry:
+            return True
+
+        return None
+
+    return selector
+
+
 def selector_hexpr (expr=None, user_spec=None, addrem=None):
     cid = "selector:hexpr"
 
@@ -1626,6 +1643,7 @@ _selector_factories = {
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
+    "e": (selector_e, False),
     "hexpr": (selector_hexpr, True),
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
