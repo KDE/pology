@@ -201,9 +201,10 @@
   For example:</p>
 <pre class="literalblock">
    &gt;&gt;&gt; s1 = &quot;A new type of foo.&quot;
-   &gt;&gt;&gt; s2 = &quot;A new kind of bar.&quot;
-   &gt;&gt;&gt; text_diff(s1, s2)
-   []
+   &gt;&gt;&gt; s2 = &quot;A new kind of foo.&quot;
+   &gt;&gt;&gt; word_diff(s1, s2)
+   ([(' ', 'A new '), ('+', 'kind'), ('-', 'type'), (' ', ' of foo.')],
+   0.36363636363636365)
 </pre>
   <p>Differencing may take into account when the texts are expected to have
   XML-like markup, or when they are of certain format defined by 
