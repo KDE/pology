@@ -703,12 +703,14 @@ def show_history_cat (options, config, catpath, stest):
             continue
         nselected += 1
 
+        # In order to index ascriptions properly, collect all.
+        history = asc_collect_history(msg, acats, config, all=True)
+
         hinfo = [C.GREEN + ">>> history follows:" + C.RESET]
         hfmt = "%%%dd" % len(str(len(history)))
         for i in range(len(history)):
             a = history[i]
-            if is_fuzzy(a.msg):
-                continue
+            wcontent = a.msg and not is_fuzzy(a.msg)
             typewtag = a.type
             if a.tag:
                 typewtag += "/" + a.tag
@@ -719,10 +721,14 @@ def show_history_cat (options, config, catpath, stest):
             else:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
+            if not wcontent:
+                # Nothing more to show without content to current ascription.
+                continue
             # Find first earlier non-fuzzy for diffing.
             i_next = first_nfuzzy(history, i + 1)
             if i_next is None:
-                break
+                # Nothing more to show without next non-fuzzy with content.
+                continue
             dmsg = Message(a.msg)
             anydiff = dmsg.embed_diff(history[i_next].msg, tocurr=True,
                                       pfilter=pfilter, hlto=sys.stdout)
@@ -832,7 +838,7 @@ def is_obsoleted (history):
 def first_nfuzzy (history, start=0):
 
     for i in range(start, len(history)):
-        if not is_fuzzy(history[i].msg):
+        if history[i].msg and not is_fuzzy(history[i].msg):
             return i
 
     return None
@@ -1024,12 +1030,7 @@ class _Ascription (object):
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acats, config):
-
-    return asc_collect_history_w(msg, acats, config, None, {})
-
-
-def asc_collect_history_w (msg, acats, config, before, seenmsg):
+def asc_collect_history (msg, acats, config, all=False):
     """
     Create ascription history of the message.
 
@@ -1037,7 +1038,19 @@ def asc_collect_history_w (msg, acats, config, before, seenmsg):
     C{(asc-message, user, asc-type, asc-tag, date, revision)},
     sorted chronologically by date/revision (newest first).
     Date gets to be a real C{datetime} object.
+
+    Normally only the last ascription of a given user/catalog/message
+    combination is taken into history, as others do not have
+    the associated message directly available. If C{all} is set to C{True},
+    then all ascriptions are going to be taken. At the moment, messages
+    attached to extra ascriptions will be C{None}, but in the future
+    they may be obtained from VCS (pending fast CVS with local history).
     """
+
+    return asc_collect_history_w(msg, acats, config, all, None, {})
+
+
+def asc_collect_history_w (msg, acats, config, all, before, seenmsg):
 
     history = []
     if not seenmsg:
@@ -1053,7 +1066,7 @@ def asc_collect_history_w (msg, acats, config, before, seenmsg):
     for user, acat in acats.iteritems():
         if msg in acat:
             amsg = acat[msg]
-            for a in asc_collect_history_single(amsg, acat, user):
+            for a in asc_collect_history_single(amsg, acat, user, config, all):
                 if not before or asc_age_cmp(a, before, config) < 0:
                     history.append(a)
             if is_fuzzy(amsg):
@@ -1085,13 +1098,14 @@ def asc_collect_history_w (msg, acats, config, before, seenmsg):
         pmsg.msgctxt, pmsg.msgid = fuzzy_amsg_keys.pop()
         # All ascriptions beyond the pivot must be older than the oldest so far.
         after = history and history[-1] or before
-        ct_history = asc_collect_history_w(pmsg, acats, config, after, seenmsg)
+        ct_history = asc_collect_history_w(pmsg, acats, config, all,
+                                           after, seenmsg)
         history.extend(ct_history)
 
     return history
 
 
-def asc_collect_history_single (amsg, acat, auser):
+def asc_collect_history_single (amsg, acat, auser, config, all):
 
     history = []
     for asc in asc_parse_ascriptions(amsg, acat):
@@ -1099,6 +1113,15 @@ def asc_collect_history_single (amsg, acat, auser):
         a.msg, a.user = amsg, auser
         a.type, a.tag, a.date, a.rev = asc
         history.append(a)
+
+    history.sort(lambda x, y: asc_age_cmp(y, x, config))
+    if not all:
+        history = [history[0]]
+    else:
+        # Kill messages of non-latest ascriptions,
+        # until they can be fetched from VCS.
+        for a in history[1:]:
+            a.msg = None
 
     return history
 
