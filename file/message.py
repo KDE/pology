@@ -231,6 +231,9 @@ class Message_base (object):
                     break
             return format_flag
 
+        elif att == "fuzzy":
+            return "fuzzy" in self.flag
+
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
 
