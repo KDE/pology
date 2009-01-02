@@ -13,6 +13,7 @@ various version control systems.
 
 import os
 import re
+import shutil
 
 from pology.misc.report import error, warning
 from pology.misc.fsops import collect_system
@@ -136,6 +137,36 @@ class VcsBase (object):
               "checking whether a path is version controlled")
 
 
+    def export (self, path, rev, dstpath, rewrite=None):
+        """
+        Export a versioned file.
+
+        Makes a copy of versioned file pointed to by local path C{path},
+        in the revision C{rev}, to destination path C{dstpath}.
+        If C{rev} is C{None}, C{path} is copied as-is to C{dstpath}.
+
+        Final repository path, as determined from C{path}, can be filtered
+        through an external function C{rewrite} before being used.
+        The function takes as arguments the path and revision strings.
+        This can be useful, for example, to reroute remote repository URL.
+
+        @param path: path of the versioned file in local repository
+        @type path: string
+        @param rev: revision to export
+        @type rev: string or C{None}
+        @param dstpath: file path to export to
+        @type dstpath: string
+        @param rewrite: function to filter resolved repository path
+        @type rewrite: (string, string)->string or None
+
+        @return: C{True} if fetching succeeded, C{False} otherwise
+        @rtype: bool
+        """
+
+        error("selected version control system does not define "
+              "fetching a versioned file")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -168,6 +199,19 @@ class VcsNoop (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
+        return True
+
+
+    def export (self, path, rev, dstpath, rewrite=None):
+        # Base override.
+
+        if rev is not None:
+            return False
+
+        try:
+            os.shutil.copyfile(path, dstpath)
+        except:
+            return False
         return True
 
 
@@ -238,4 +282,37 @@ class VcsSubversion (VcsBase):
                 return True
 
         return False
+
+
+    def export (self, path, rev, dstpath, rewrite=None):
+        # Base override.
+
+        if rev is None:
+            try:
+                os.shutil.copyfile(path, dstpath)
+            except:
+                return False
+            return True
+
+        res = collect_system("svn info %s" % path)
+        if res[-1] != 0:
+            return False
+        rx = re.compile(r"^URL:\s*(\S+)", re.I)
+        rempath = None
+        for line in res[0].split("\n"):
+            m = rx.search(line)
+            if m:
+                rempath = m.group(1)
+                break
+        if not rempath:
+            return False
+
+        if rewrite:
+            rempath = rewrite(rempath, rev)
+
+        cmdline = "svn export %s -r %s %s" % (rempath, rev, dstpath)
+        if collect_system(cmdline)[-1] != 0:
+            return False
+
+        return True
 
