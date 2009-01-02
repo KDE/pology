@@ -16,7 +16,6 @@ from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
 from pology.misc.diff import word_ediff, word_diff, ediff_to_new
-from pology.misc.colors import colors_for_file
 
 
 _Message_spec = {
@@ -621,8 +620,6 @@ class Message_base (object):
 
         # Create diffs.
         field_diffs = []
-        if hlto:
-            C = colors_for_file(hlto)
         for field, item, text1, text2 in [
             ("msgctxt", 0, other_msgctxt or u"", self.msgctxt or u""),
             ("msgid", 0, other_msgid, self.msgid),
@@ -634,7 +631,8 @@ class Message_base (object):
             if not addrem:
                 if text1 != text2:
                     ediff, dr = word_ediff(text1, text2,
-                                           markup=True, format=self.format)
+                                           markup=True, format=self.format,
+                                           hlto=hlto)
                 else:
                     ediff = text2
             else:
@@ -657,12 +655,6 @@ class Message_base (object):
             # If addrem is in effect, there may be some difference
             # computed from text1 to text2 even if text1 == text2.
             if text2 != ediff:
-                if hlto:
-                    ediff = ediff.replace("{-", C.RED + "{-")
-                    ediff = ediff.replace("-}", "-}" + C.RESET)
-                    ediff = ediff.replace("{+", C.BLUE + "{+")
-                    ediff = ediff.replace("+}", "+}" + C.RESET)
-
                 field_diffs.append((field, item, ediff, dr))
 
         return field_diffs

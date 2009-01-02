@@ -7,10 +7,11 @@ Producing diffs between texts.
 @license: GPLv3
 """
 
-from pology.misc.split import split_text
-
 import re
 from difflib import ndiff
+
+from pology.misc.split import split_text
+from pology.misc.colors import colors_for_file
 
 
 _new_tag = "+"
@@ -26,6 +27,11 @@ _old_opnc = "{"
 _old_clsc = "}"
 
 _equ_tag = " "
+
+_new_opn = _new_opnc + _new_vtag
+_new_cls = _new_vtag + _new_clsc
+_old_opn = _old_opnc + _old_vtag
+_old_cls = _old_vtag + _old_clsc
 
 
 def word_diff (text_old, text_new, markup=False, format=None):
@@ -194,7 +200,7 @@ def word_diff (text_old, text_new, markup=False, format=None):
     return dlist, diff_ratio
 
 
-def word_ediff (text_old, text_new, markup=False, format=None):
+def word_ediff (text_old, text_new, markup=False, format=None, hlto=None):
     """
     Create word-level embedded difference between old and new texts.
 
@@ -212,16 +218,19 @@ def word_ediff (text_old, text_new, markup=False, format=None):
     dtext = []
     for segtag, segtext in dlist:
         if segtag == _new_tag:
-            dtext.append(  _new_opnc + _new_vtag
-                         + segtext
-                         + _new_vtag + _new_clsc)
+            dtext.append(_new_opn + segtext + _new_cls)
         elif segtag == _old_tag:
-            dtext.append(  _old_opnc + _old_vtag
-                         + segtext
-                         + _old_vtag + _old_clsc)
+            dtext.append(_old_opn + segtext + _old_cls)
         else:
             dtext.append(segtext)
     dtext = type(text_new)().join(dtext)
+
+    if hlto:
+        C = colors_for_file(hlto)
+        dtext = dtext.replace(_old_opn, C.RED + _old_opn)
+        dtext = dtext.replace(_old_cls, _old_cls + C.RESET)
+        dtext = dtext.replace(_new_opn, C.BLUE + _new_opn)
+        dtext = dtext.replace(_new_cls, _new_cls + C.RESET)
 
     return dtext, diff_ratio
 
