@@ -589,6 +589,32 @@ class Catalog (Monitored):
         return self._messages[ident]
 
 
+    def __setitem__ (self, ident, msg):
+        """
+        Set message by position or another message.
+
+        If the position is out of range, or the lookup message does not have
+        a counterpart in this catalog with the same key, an error is signaled.
+
+        Runtime complexity O(1), regardless of the C{ident} type.
+
+        @param ident: position index or another message
+        @type ident: int or subclass of L{Message_base}
+
+        @returns: reference to the message in catalog
+        @rtype: subclass of L{Message_base}
+        """
+
+        self._assert_headonly()
+        self.assert_spec_setitem(msg)
+        if not isinstance(ident, int):
+            ident = self._msgpos[ident.key]
+        if self._messages[ident] != msg:
+            self._messages[ident] = msg
+            self.__dict__["#"]["*"] += 1
+        return self._messages[ident]
+
+
     def __contains__ (self, msg):
         """
         Whether the message with the same key exists in the catalog.
