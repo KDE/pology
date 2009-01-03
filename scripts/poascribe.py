@@ -79,6 +79,11 @@ def main ():
         help="explicit path to ascription configuration "
              "(instead of automatic lookup up the directory tree)")
     opars.add_option(
+        "-d", "--depth", metavar="LEVEL",
+        action="store", dest="depth", default=None,
+        help="consider ascription history up to this level into the past "
+             "(relevant in some modes)")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -150,6 +155,9 @@ def main ():
         mode.selector = selector or build_selector(options, ["nwasc"])
     elif mode.name in ("derive-obsolete", "do"):
         execute_operation = ascribe_derivobs
+        if len(free_args) < 1:
+            error("no user to whom to ascribe derived obsolescence")
+        mode.user = free_args.pop(0)
     else:
         error("unknown operation mode '%s'" % mode.name)
 
@@ -182,7 +190,7 @@ def main ():
             cfgpath = options.config
         if not cfgpath:
             error("cannot find ascription configuration for path: %s" % path)
-        cfgpath = rel_path(os.getcwd(), cfgpath) # for nicer message output
+        cfgpath = join_ncwd(cfgpath) # for nicer message output
         config = configs_loaded.get(cfgpath, None)
         if not config:
             # New config, load.
@@ -191,25 +199,29 @@ def main ():
 
         # Collect PO files.
         if os.path.isdir(path):
-            catpaths = collect_catalogs(path)
+            catpaths_raw = collect_catalogs(path)
         else:
-            catpaths = [path]
+            catpaths_raw = [path]
+        # Determine paths of ascription catalogs.
+        # Pack as (catpath, acatpath) tuples.
+        catpaths = []
+        absrootpath = os.path.abspath(config.catroot)
+        lenarpath = len(absrootpath)
+        lenarpathws = lenarpath + len(os.path.sep)
+        for catpath_raw in catpaths_raw:
+            abscatpath = os.path.abspath(catpath_raw)
+            p = abscatpath.find(absrootpath)
+            if p != 0 or abscatpath[lenarpath:lenarpathws] != os.path.sep:
+                error("catalog not in the root given by configuration: %s"
+                      % catpath_raw)
+            acatpath = join_ncwd(config.ascroot, abscatpath[lenarpathws:])
+            catpaths.append((join_ncwd(catpath_raw), acatpath))
 
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
     # Execute operation.
     execute_operation(options, configs_catpaths, mode)
-
-
-def rel_path (ref_path, rel_path):
-
-    if os.path.isabs(rel_path):
-        path = rel_path
-    else:
-        ref_dir = os.path.dirname(ref_path)
-        path = join_ncwd(ref_dir, rel_path)
-    return path
 
 
 class Config:
@@ -224,8 +236,9 @@ class Config:
         self.path = cpath
 
         gsect = dict(config.items("global"))
-        self.catroot = rel_path(cpath, gsect.get("catalog-root", ""))
-        self.ascroot = rel_path(cpath, gsect.get("ascript-root", ""))
+        cpathdir = os.path.dirname(cpath)
+        self.catroot = join_ncwd(cpathdir, gsect.get("catalog-root", ""))
+        self.ascroot = join_ncwd(cpathdir, gsect.get("ascript-root", ""))
         if self.catroot == self.ascroot:
             error("%s: catalog root and ascription root "
                   "resolve to same path: %s" % (cpath, self.catroot))
@@ -281,35 +294,45 @@ def examine_state (options, configs_catpaths, mode):
     unasc_trans_by_cat = {}
     unasc_fuzzy_by_cat = {}
     unasc_utran_by_cat = {}
+    unasc_obsol_by_cat = {}
+    unasc_revvd_by_cat = {}
+    def accu(countdict, catpath):
+        if catpath not in countdict:
+            countdict[catpath] = 0
+        countdict[catpath] += 1
+        return countdict[catpath]
+
     for config, catpaths in configs_catpaths:
-        for catpath in catpaths:
-            # Open current and all ascription catalogs.
+        for catpath, acatpath in catpaths:
+            # Open current and ascription catalog.
             cat = Catalog(catpath, monitored=False)
-            acats = collect_asc_cats(config, cat.name)
+            acat = Catalog(acatpath, create=True, monitored=False)
             # Count non-ascribed.
             for msg in cat:
-                history = asc_collect_history(msg, acats, config)
-                if not history and not is_translated(msg) and not is_fuzzy(msg):
-                    continue # pristine
-                if history and asc_eq(msg, history[0].msg):
-                    continue # ascribed
+                history = asc_collect_history(msg, acat, config)
                 if stest(msg, cat, history, config, options) is None:
                     continue # not selected
-                if is_translated(msg):
-                    unasc_by_cat = unasc_trans_by_cat
-                elif is_fuzzy(msg):
-                    unasc_by_cat = unasc_fuzzy_by_cat
+                if not history or not asc_eq(msg, history[0].msg):
+                    if is_translated(msg):
+                        accu(unasc_trans_by_cat, catpath)
+                    elif is_fuzzy(msg):
+                        accu(unasc_fuzzy_by_cat, catpath)
+                    elif history:
+                        accu(unasc_utran_by_cat, catpath)
+                if msg.obsolete:
+                    if not history or not is_obsoleted(history):
+                        accu(unasc_obsol_by_cat, catpath)
                 else:
-                    unasc_by_cat = unasc_utran_by_cat
-                if catpath not in unasc_by_cat:
-                    unasc_by_cat[catpath] = 0
-                unasc_by_cat[catpath] += 1
+                    if history and is_obsoleted(history):
+                        accu(unasc_revvd_by_cat, catpath)
 
     # Present findings.
     for unasc_cnts, chead in (
         (unasc_trans_by_cat, "Unascribed translated"),
         (unasc_fuzzy_by_cat, "Unascribed fuzzy"),
         (unasc_utran_by_cat, "Unascribed untranslated"),
+        (unasc_obsol_by_cat, "Unascribed obsoleted"),
+        (unasc_revvd_by_cat, "Unascribed revived"),
     ):
         if not unasc_cnts:
             continue
@@ -338,9 +361,9 @@ def ascribe_modified (options, configs_catpaths, mode):
 
         mkdirpath(config.udata[user].ascroot)
 
-        for catpath in catpaths:
+        for catpath, acatpath in catpaths:
             cnmod, cnfuz, cnutr, cnobs, cnrvv \
-                = ascribe_modified_cat(options, config, user, catpath,
+                = ascribe_modified_cat(options, config, user, catpath, acatpath,
                                        mode.selector)
             nmod += cnmod
             nfuz += cnfuz
@@ -375,8 +398,9 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
         mkdirpath(config.udata[user].ascroot)
 
-        for catpath in catpaths:
-            nasc += ascribe_reviewed_cat(options, config, user, catpath, stest)
+        for catpath, acatpath in catpaths:
+            nasc += ascribe_reviewed_cat(options, config, user,
+                                         catpath, acatpath, stest)
 
     if nasc > 0:
         report("===! Reviewed: %d entries" % nasc)
@@ -384,11 +408,14 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
 def ascribe_derivobs (options, configs_catpaths, mode):
 
+    user = mode.user
+
     nobs = 0
     for config, catpaths in configs_catpaths:
 
-        for catpath in catpaths:
-            nobs += ascribe_derivobs_cat(options, config, catpath)
+        for catpath, acatpath in catpaths:
+            nobs += ascribe_derivobs_cat(options, config, user,
+                                         catpath, acatpath)
 
     if nobs > 0:
         report("===! Obsoleted by derivation: %d entries" % nobs)
@@ -401,9 +428,9 @@ def diff_select (options, configs_catpaths, mode):
 
     ndiffed = 0
     for config, catpaths in configs_catpaths:
-        for catpath in catpaths:
+        for catpath, acatpath in catpaths:
             pfilter = options.tfilter or config.tfilter
-            ndiffed += diff_select_cat(options, config, catpath,
+            ndiffed += diff_select_cat(options, config, catpath, acatpath,
                                        stest, aselect, pfilter)
 
     if ndiffed > 0:
@@ -416,8 +443,9 @@ def clear_review (options, configs_catpaths, mode):
 
     ncleared = 0
     for config, catpaths in configs_catpaths:
-        for catpath in catpaths:
-            ncleared += clear_review_cat(options, config, catpath, stest)
+        for catpath, acatpath in catpaths:
+            ncleared += clear_review_cat(options, config, catpath, acatpath,
+                                         stest)
 
     if ncleared > 0:
         report("===! Cleared review states: %d" % ncleared)
@@ -429,18 +457,19 @@ def show_history (options, configs_catpaths, mode):
 
     nshown = 0
     for config, catpaths in configs_catpaths:
-        for catpath in catpaths:
-            nshown += show_history_cat(options, config, catpath, stest)
+        for catpath, acatpath in catpaths:
+            nshown += show_history_cat(options, config, catpath, acatpath,
+                                       stest)
 
     if nshown > 0:
         report("===> Computed histories: %d" % nshown)
 
 
-def ascribe_modified_cat (options, config, user, catpath, stest):
+def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
 
-    # Open current catalog and all ascription catalogs.
-    cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, user)
+    # Open current catalog and ascription catalog.
+    cat = Catalog(catpath, monitored=False)
+    acat = prep_write_asc_cat(acatpath, config)
 
     # Collect unascribed messages, but ignoring pristine ones
     # (those which are both untranslated and without history).
@@ -452,7 +481,7 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
     nobsoleted = 0
     nrevived = 0
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         if not history and not is_translated(msg) and not is_fuzzy(msg):
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
@@ -490,44 +519,14 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
                 % cat.filename)
         return 0, 0, 0, 0, 0
 
-    # Create ascription catalog for this user if not existing already.
-    acat = acats.get(user)
-    if not acat:
-        acat = init_asc_cat(cat.name, user, config)
-    else:
-        update_asc_hdr(acat, user, config)
-
     # Current VCS revision of the catalog.
     catrev = config.vcs.revision(cat.filename)
 
-    # Ascribe messages: add or modify if existing.
+    # Ascribe messages as modified.
     for msg, ascribe_msg in toasc_msgs:
-        if msg not in acat:
-            # Copy ID elements of the original message.
-            amsg = Message()
-            amsg.msgctxt = msg.msgctxt
-            amsg.msgid = msg.msgid
-            # Append to the end of catalog.
-            pos = acat.add(amsg, -1)
-        else:
-            # Retrieve existing ascribed message.
-            amsg = acat[msg]
+        ascribe_msg(msg, acat, catrev, user, config)
 
-        # Copy desired non-ID elements.
-        if is_fuzzy(msg):
-            amsg.fuzzy = True
-            amsg.msgctxt_previous = msg.msgctxt_previous
-            amsg.msgid_previous = msg.msgid_previous
-            amsg.msgid_plural_previous = msg.msgid_plural_previous
-        else:
-            amsg.fuzzy = False # to also remove previous fields
-        amsg.msgid_plural = msg.msgid_plural
-        amsg.msgstr = Monlist(msg.msgstr)
-
-        # Ascribe modification of the message.
-        ascribe_msg(amsg, user, config, catrev)
-
-    if sync_and_rep(acat):
+    if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
     return ntrnmodif, nfuzmodif, nutrmodif, nobsoleted, nrevived
@@ -536,17 +535,17 @@ def ascribe_modified_cat (options, config, user, catpath, stest):
 _revdflags = ("revd", "reviewed")
 _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
-def ascribe_reviewed_cat (options, config, user, catpath, stest):
+def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
-    # Open current catalog and all ascription catalogs.
+    # Open current catalog and ascription catalog.
     # Monitored, for removal of reviewed-* flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, user)
+    acat = prep_write_asc_cat(acatpath, config)
 
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         # Makes no sense to ascribe review to pristine messages.
         if not history and not is_translated(msg) and not is_fuzzy(msg):
             continue
@@ -554,7 +553,10 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
             continue
         # Message cannot be ascribed as reviewed if it has not been
         # already ascribed as modified.
-        if not history or not asc_eq(msg, history[0].msg):
+        # Message equality must be tested without review scaffolding.
+        cmsg = MessageUnsafe(msg)
+        clear_review_msg(cmsg)
+        if not history or not asc_eq(cmsg, history[0].msg):
             # Collect to report later.
             non_mod_asc_msgs.append(msg)
             # Clear only flags to-review, and not explicit review-done.
@@ -568,7 +570,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
             if m:
                 tags.append(m.group(1).strip() or None)
                 # Do not break, several review flags possible.
-        if not tags:
+        if not tags and options.tag:
             tags.append(options.tag)
 
         # Clear review state.
@@ -590,38 +592,15 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
             sync_and_rep(cat)
         return 0
 
-    # Create ascription catalog for this user if not existing already.
-    acat = acats.get(user)
-    if not acat:
-        acat = init_asc_cat(cat.name, user, config)
-    else:
-        update_asc_hdr(acat, user, config)
-
     # Current VCS revision of the catalog.
     catrev = config.vcs.revision(cat.filename)
 
     # Ascribe messages as reviewed.
     for msg, tags in rev_msgs_tags:
-        if msg not in acat:
-            # Copy ID elements of the original message.
-            amsg = Message()
-            amsg.msgctxt = msg.msgctxt
-            amsg.msgid = msg.msgid
-            # Append to the end of catalog.
-            pos = acat.add(amsg, -1)
-        else:
-            # Retrieve existing ascribed message.
-            amsg = acat[msg]
-
-        # Copy desired non-ID elements.
-        amsg.msgid_plural = msg.msgid_plural
-        amsg.msgstr = Monlist(msg.msgstr)
-
-        # Ascribe review of the message.
-        ascribe_msg_rev(amsg, tags, user, config, catrev)
+        ascribe_msg_rev(msg, acat, tags, catrev, user, config)
 
     sync_and_rep(cat)
-    if sync_and_rep(acat):
+    if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
     return len(rev_msgs_tags)
@@ -630,14 +609,15 @@ def ascribe_reviewed_cat (options, config, user, catpath, stest):
 # Flag used to mark messages selected for review.
 _revflag = u"review"
 
-def diff_select_cat (options, config, catpath, stest, aselect, pfilter):
+def diff_select_cat (options, config, catpath, acatpath,
+                     stest, aselect, pfilter):
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name)
+    acat = Catalog(acatpath, monitored=False)
 
     nflagged = 0
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         # Makes no sense to review pristine messages.
         if not history and not is_translated(msg) and not is_fuzzy(msg):
             continue
@@ -657,8 +637,8 @@ def diff_select_cat (options, config, catpath, stest, aselect, pfilter):
 
         # Differentiate and flag.
         if i_asc is not None:
-            anydiff = msg.embed_diff(history[i_asc].msg, keeponfuzz=True,
-                                     pfilter=pfilter)
+            amsg = history[i_asc].msg
+            anydiff = msg.embed_diff(amsg, keeponfuzz=True, pfilter=pfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
         msg.flag.add(_revflag)
@@ -669,14 +649,14 @@ def diff_select_cat (options, config, catpath, stest, aselect, pfilter):
     return nflagged
 
 
-def clear_review_cat (options, config, catpath, stest):
+def clear_review_cat (options, config, catpath, acatpath, stest):
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name)
+    acat = Catalog(acatpath, monitored=False)
 
     ncleared = 0
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
         if clear_review_msg(msg):
@@ -687,30 +667,34 @@ def clear_review_cat (options, config, catpath, stest):
     return ncleared
 
 
-def show_history_cat (options, config, catpath, stest):
+def show_history_cat (options, config, catpath, acatpath, stest):
 
     C = colors_for_file(sys.stdout)
 
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name)
+    acat = Catalog(acatpath, create=True, monitored=False)
 
     pfilter = options.tfilter or config.tfilter
 
     nselected = 0
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
         nselected += 1
 
-        # In order to index ascriptions properly, collect all.
-        history = asc_collect_history(msg, acats, config, all=True)
+        hlevels = len(history)
+        if options.depth is not None:
+            hlevels = int(options.depth)
+            if hlevels > len(history):
+                hlevels = len(history)
 
-        hinfo = [C.GREEN + ">>> history follows:" + C.RESET]
-        hfmt = "%%%dd" % len(str(len(history)))
-        for i in range(len(history)):
+        hinfo = []
+        if hlevels > 0:
+            hinfo += [C.GREEN + ">>> history follows:" + C.RESET]
+            hfmt = "%%%dd" % len(str(hlevels))
+        for i in range(hlevels):
             a = history[i]
-            wtrans = a.msg and not is_fuzzy(a.msg)
             typewtag = a.type
             if a.tag:
                 typewtag += "/" + a.tag
@@ -721,40 +705,65 @@ def show_history_cat (options, config, catpath, stest):
             else:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
-            if not a.type == _atype_mod or not wtrans:
-                # Nothing more to show if this ascription was not modification,
-                # or there is no translated message associated to it.
+            if not a.type == _atype_mod or is_fuzzy(a.msg):
+                # Nothing more to show if this ascription is not modification,
+                # or there a fuzzy message is associated to it.
                 continue
             # Find first earlier non-fuzzy for diffing.
             i_next = first_nfuzzy(history, i + 1)
             if i_next is None:
                 # Nothing more to show without next non-fuzzy.
                 continue
-            dmsg = Message(a.msg)
-            anydiff = dmsg.embed_diff(history[i_next].msg, tocurr=True,
+            dmsg = MessageUnsafe(a.msg)
+            nmsg = history[i_next].msg
+            anydiff = dmsg.embed_diff(nmsg, tocurr=True,
                                       pfilter=pfilter, hlto=sys.stdout)
+            anydiff = diff_manual_comment(nmsg, dmsg) or anydiff
             if anydiff:
-                dmsg.manual_comment = Monlist() # review tags were here
-                dmsgstr = dmsg.to_string().rstrip("\n")
+                dmsg.auto_comment = Monlist() # ascription tags were here
+                dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
-                hinfo += [hindent + x for x in dmsgstr.split("\n")]
+                hinfo += [hindent + x for x in dmsgfmt.split("\n")]
         hinfo = "\n".join(hinfo)
 
         i_nfasc = first_nfuzzy(history)
         if i_nfasc is not None:
             msg = Message(msg)
-            msg.embed_diff(history[i_nfasc].msg, tocurr=True,
-                           pfilter=pfilter, hlto=sys.stdout)
+            nmsg = history[i_nfasc].msg
+            anydiff = msg.embed_diff(nmsg, tocurr=True,
+                                     pfilter=pfilter, hlto=sys.stdout)
+            anydiff = diff_manual_comment(nmsg, msg) or anydiff
         report_msg_content(msg, cat, wrapf=WRAPF,
-                           note=hinfo, delim=("-" * 20))
+                           note=(hinfo or None), delim=("-" * 20))
 
     return nselected
+
+
+# FIXME: Remove when Message.embed_diff() can do it.
+def diff_manual_comment (msg1, msg2):
+
+    from pology.misc.diff import word_ediff
+    manc1 = msg1.manual_comment
+    manc2 = msg2.manual_comment
+    if manc1 == manc2:
+        return False
+    maxlen = max(len(manc1), len(manc2))
+    manc1.extend([u""] * (maxlen - len(manc1)))
+    manc2.extend([u""] * (maxlen - len(manc2)))
+    mancdiff = [u""] * maxlen
+    for i in range(maxlen):
+        mancdiff[i], dr = word_ediff(manc1[i], manc2[i],
+                                     hlto=sys.stdout)
+    if isinstance(msg2, Message):
+        mancdiff = Monlist(mancdiff)
+    msg2.manual_comment = mancdiff
+    return True
 
 
 def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
 
     cleared = False
-    for flag in msg.flag.items():
+    for flag in list(msg.flag): # modified inside
         if flag == _revflag or (clrevd and _revdflag_rx.search(flag)):
             msg.flag.remove(flag)
             if not cleared:
@@ -766,39 +775,44 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
     return cleared
 
 
-def ascribe_derivobs_cat (options, config, catpath):
+def ascribe_derivobs_cat (options, config, user, catpath, acatpath):
 
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acats = collect_asc_cats(config, cat.name, monall=True)
+    acat = prep_write_asc_cat(acatpath, config)
 
     catrev = config.vcs.revision(cat.filename)
 
     reachable = set()
     for msg in cat:
-        history = asc_collect_history(msg, acats, config)
+        history = asc_collect_history(msg, acat, config)
         for a in history:
-            reachable.add((a.user, a.msg))
+            reachable.add(a.rmsg)
 
-    for user, acat in acats.iteritems():
-        for amsg in acat:
-            if (user, amsg) in reachable:
-                continue
-            oacats = acats.copy()
-            oacats.pop(user)
-            history = asc_collect_history(amsg, oacats, config)
-            for a in history:
-                reachable.add((a.user, a.msg))
+    # Collect all unreachable, and order them by date of last ascription.
+    unreachable = []
+    for amsg in acat:
+        if amsg not in reachable:
+            history = asc_collect_history_single(amsg, acat, config)
+            unreachable.append(history[0])
+    unreachable.sort(lambda x, y: asc_age_cmp(y, x, config))
+    unreachable = [x.rmsg for x in unreachable]
 
+    # From newest to oldest, ascribe obsolescence to each unreachable message,
+    # but set as reachable any in its history.
+    # This way only the "head" of each obsolete chain is ascribed.
     nobsoleted = 0
-    for user, acat in acats.iteritems():
-        for amsg in acat:
-            if (user, amsg) not in reachable:
-                # Ascribe obsolescence if history is not showing it already.
-                history = asc_collect_history(amsg, acats, config)
-                if not is_obsoleted(history):
-                    nobsoleted += 1
-                    ascribe_msg_obs(amsg, user, config, catrev)
-        sync_and_rep(acat)
+    for amsg in unreachable:
+        if amsg not in reachable:
+            history = asc_collect_history(amsg, acat, config)
+            for a in history:
+                if a.rmsg is not amsg:
+                    reachable.add(a.rmsg)
+            if not is_obsoleted(history):
+                ascribe_msg_obs(history[0].msg, acat, catrev, user, config)
+                nobsoleted += 1
+
+    if nobsoleted > 0: # ascription catalog may have been created
+        asc_sync_and_rep(acat)
 
     return nobsoleted
 
@@ -845,37 +859,27 @@ def first_nfuzzy (history, start=0):
     return None
 
 
-def collect_asc_cats (config, catname, muser=None, monall=False):
+def prep_write_asc_cat (acatpath, config):
 
-    acats = {}
-    for ouser in config.users:
-        amon = False
-        if (muser and ouser == muser) or monall:
-            amon = True
-        acatpath = os.path.join(config.udata[ouser].ascroot, catname + ".po")
-        if os.path.isfile(acatpath):
-            acats[ouser] = Catalog(acatpath, monitored=amon, wrapf=WRAPF)
-
-    return acats
+    if not os.path.isfile(acatpath):
+        return init_asc_cat(acatpath, config)
+    else:
+        return Catalog(acatpath, monitored=True, wrapf=WRAPF)
 
 
-def init_asc_cat (catname, user, config):
+def init_asc_cat (acatpath, config):
 
-    udat = config.udata[user]
-    acatpath = os.path.join(udat.ascroot, catname + ".po")
-    acat = Catalog(acatpath, create=True, wrapf=WRAPF)
+    acat = Catalog(acatpath, create=True, monitored=True, wrapf=WRAPF)
     ahdr = acat.header
 
-    ahdr.title = Monlist([u"Ascription shadow for %s.po" % catname])
+    ahdr.title = Monlist([u"Ascription shadow for %s.po" % acat.name])
 
-    if udat.oname and udat.email:
-        author = u"%s (%s) <%s>" % (udat.name, udat.oname, udat.email)
-    elif udat.oname:
-        author = u"%s (%s)" % (udat.name, udat.oname)
-    elif udat.email:
-        author = u"%s <%s>" % (udat.name, udat.email)
+    translator = u"Ascriber"
+
+    if config.team_email:
+        author = u"%s <%s>" % (translator, config.team_email)
     else:
-        author = u"%s" % udat.name
+        author = u"%s" % translator
     ahdr.author = Monlist([author])
 
     ahdr.copyright = u"Copyright same as for the original catalog."
@@ -884,16 +888,16 @@ def init_asc_cat (catname, user, config):
 
     rfv = ahdr.replace_field_value # shortcut
 
-    rfv("Project-Id-Version", unicode(catname))
-    rfv("Report-Msgid-Bugs-To", unicode(udat.email or ""))
-    rfv("PO-Revision-Date", unicode(date_now()))
+    rfv("Project-Id-Version", unicode(acat.name))
+    rfv("Report-Msgid-Bugs-To", unicode(config.team_email or ""))
+    rfv("PO-Revision-Date", unicode(format_datetime()))
     rfv("Content-Type", u"text/plain; charset=UTF-8")
     rfv("Content-Transfer-Encoding", u"8bit")
 
-    if udat.email:
-        ltr = "%s <%s>" % (udat.name, udat.email)
+    if config.team_email:
+        ltr = "%s <%s>" % (translator, config.team_email)
     else:
-        ltr = udat.name
+        ltr = translator
     rfv("Last-Translator", unicode(ltr))
 
     if config.lang_team:
@@ -913,54 +917,255 @@ def init_asc_cat (catname, user, config):
     return acat
 
 
-def update_asc_hdr (acat, user, config):
+def update_asc_hdr (acat):
 
-    acat.header.replace_field_value("PO-Revision-Date", unicode(date_now()))
+    acat.header.replace_field_value("PO-Revision-Date",
+                                    unicode(format_datetime()))
+
+
+_id_fields = (
+    "msgctxt", "msgid",
+)
+_nonid_fields = (
+    "msgid_plural", "msgstr",
+)
+_fields_previous = (
+    "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
+)
+_fields_comment = (
+    "manual_comment", "auto_comment",
+)
+_nonid_fields_tracked = (()
+    + _nonid_fields
+    + _fields_previous
+    + ("manual_comment",)
+)
+_multiple_fields = (()
+    + ("msgstr",)
+    + _fields_comment
+)
+
+_trsep_head = u"|"
+_trsep_head_ext = u"~"
+_trsep_mod_none = u"x"
+_trsep_mod_eq = u"e"
+
+def field_separator_head (length):
+
+    return _trsep_head + _trsep_head_ext * length
+
+
+def needed_separator_length (msg):
+
+    goodsep = False
+    seplen = 0
+    while not goodsep:
+        seplen += 1
+        sephead = field_separator_head(seplen)
+        goodsep = True
+        for field in _nonid_fields_tracked:
+            values = msg.get(field)
+            if values is None:
+                continue
+            if isinstance(values, basestring):
+                values = [values]
+            for value in values:
+                if sephead in value:
+                    goodsep = False
+                    break
+            if not goodsep:
+                break
+
+    return seplen
+
+
+def has_nonid_diff (pmsg, msg):
+
+    if is_fuzzy(msg) != is_fuzzy(pmsg):
+        return True
+
+    for field in _nonid_fields_tracked:
+        msg_value = msg.get(field)
+        if not is_fuzzy(msg) and field in _fields_previous:
+            # Ignore previous values in non-fuzzy messages.
+            msg_value = None
+        pmsg_value = pmsg.get(field)
+        if msg_value != pmsg_value:
+            return True
+
+    return False
+
+
+def get_as_sequence (msg, field, asc=True):
+
+    if not asc and not is_fuzzy(msg) and field in _fields_previous:
+        # Ignore previous fields on non-fuzzy non-ascription messages.
+        return []
+
+    msg_seq = msg.get(field)
+    if msg_seq is None:
+        msg_seq = []
+    elif field not in _multiple_fields:
+        msg_seq = [msg_seq]
+    elif field in _fields_comment:
+        # Report comments as a single newline-delimited entry.
+        if msg_seq:
+            msg_seq = [u"\n".join(msg_seq)]
+
+    return msg_seq
+
+
+def set_from_sequence (msg_seq, msg, field):
+
+    if field not in _multiple_fields:
+        # Single entry; set to given, or to None if no elements.
+        msg_val = None
+        if msg_seq:
+            msg_val = msg_seq[0]
+        multiple = False
+    elif field in _fields_comment:
+        # Comments treated as single newline-delimited entries; split.
+        msg_val = []
+        if msg_seq:
+            msg_val = msg_seq[0].split("\n")
+        multiple = True
+    else:
+        # Straight sequence.
+        msg_val = msg_seq
+        multiple = True
+
+    if multiple and isinstance(msg, Message):
+        msg_val = Monlist(msg_val)
+
+    setattr(msg, field, msg_val)
+
+
+def add_nonid (amsg, msg, slen, rhistory):
+
+    shead = field_separator_head(slen)
+    nones = [field_separator_head(x.slen) + _trsep_mod_none
+             for x in rhistory if x.slen]
+    padnone = u"\n".join(nones)
+
+    for field in _nonid_fields_tracked:
+
+        msg_seq = get_as_sequence(msg, field, asc=False)
+        amsg_seq = get_as_sequence(amsg, field)
+
+        # Expand items to length in new message.
+        for i in range(len(amsg_seq), len(msg_seq)):
+            amsg_seq.append(padnone)
+
+        # Add to items.
+        for i in range(len(amsg_seq)):
+            if i < len(msg_seq):
+                nmod = 0
+                i_eq = None
+                for a in rhistory:
+                    if not a.slen: # no modification in this ascription
+                        continue
+                    if i_eq is None:
+                        msg_seq_p = get_as_sequence(a.msg, field)
+                        if i < len(msg_seq_p) and msg_seq[i] == msg_seq_p[i]:
+                            i_eq = nmod
+                            # ...no break, need number of modifications.
+                    nmod += 1
+                if i_eq is None:
+                    add = msg_seq[i] + shead
+                else:
+                    add = shead + _trsep_mod_eq + str(i_eq)
+            else:
+                add = shead + _trsep_mod_none
+            if amsg_seq[i]:
+                amsg_seq[i] += u"\n"
+            amsg_seq[i] += add
+
+        set_from_sequence(amsg_seq, amsg, field)
+
+    if is_fuzzy(msg):
+        amsg.flag.add(u"fuzzy")
+    else:
+        amsg.flag.remove(u"fuzzy")
+    # ...no amsg.fuzzy = True/False, in order not to kill previous fields.
+
+
+_atag_sep = u"/"
+_mark_fuzz = u"f"
+
+def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
+                     dt=None):
+
+    # Create or retrieve ascription message.
+    if msg not in acat:
+        # Copy ID elements of the original message.
+        amsg = Message()
+        for field in _id_fields:
+            setattr(amsg, field, getattr(msg, field))
+        # Append to the end of catalog.
+        pos = acat.add(amsg, -1)
+    else:
+        # Retrieve existing ascription message.
+        amsg = acat[msg]
+
+    # Reconstruct historical messages, from first to last.
+    rhistory = asc_collect_history_single(amsg, acat, config)
+    rhistory.reverse()
+
+    # Do any of non-ID elements differ to last historical message?
+    hasdiff = not rhistory or has_nonid_diff(rhistory[-1].msg, msg)
+
+    # Add ascription comment.
+    modstr = user + " | " + format_datetime(dt)
+    if arev or hasdiff:
+        modstr += " | " + arev
+    modstr_wsep = modstr
+    if hasdiff:
+        seplen = needed_separator_length(msg)
+        modstr_wsep += " | " + str(seplen)
+        if is_fuzzy(msg):
+            modstr_wsep += _mark_fuzz
+    first = True
+    for atag in atags or [None]:
+        field = atype
+        if atag:
+            field += _atag_sep + atag
+        if first:
+            asc_append_field(amsg, field, modstr_wsep)
+            first = False
+        else:
+            asc_append_field(amsg, field, modstr)
+
+    # Add non-ID fields.
+    if hasdiff:
+        add_nonid(amsg, msg, seplen, rhistory)
 
 
 _atype_mod = "modified"
 
-def ascribe_msg_mod (amsg, user, config, catrev):
+def ascribe_msg_mod (msg, acat, catrev, user, config):
 
-    modstr = date_now()
-    if catrev:
-        modstr += " | " + catrev
-    asc_append_field(amsg, _atype_mod, modstr)
+    ascribe_msg_any(msg, acat, _atype_mod, [], catrev, user, config)
 
 
 _atype_rev = "reviewed"
-_atype_rev_tagsep = "/"
 
-def ascribe_msg_rev (amsg, tags, user, config, catrev):
+def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
 
-    modstr = date_now()
-    if catrev:
-        modstr += " | " + catrev
-    for tag in tags:
-        field = _atype_rev
-        if tag:
-             field += _atype_rev_tagsep + tag
-        asc_append_field(amsg, field, modstr)
+    ascribe_msg_any(msg, acat, _atype_rev, tags, catrev, user, config)
 
 
 _atype_obs = "obsoleted"
 
-def ascribe_msg_obs (amsg, user, config, catrev):
+def ascribe_msg_obs (msg, acat, catrev, user, config):
 
-    modstr = date_now()
-    if catrev:
-        modstr += " | " + catrev
-    asc_append_field(amsg, _atype_obs, modstr)
+    ascribe_msg_any(msg, acat, _atype_obs, [], catrev, user, config)
 
 
 _atype_rvv = "revived"
 
-def ascribe_msg_rvv (amsg, user, config, catrev):
+def ascribe_msg_rvv (msg, acat, catrev, user, config):
 
-    modstr = date_now()
-    if catrev:
-        modstr += " | " + catrev
-    asc_append_field(amsg, _atype_rvv, modstr)
+    ascribe_msg_any(msg, acat, _atype_rvv, [], catrev, user, config)
 
 
 def asc_eq (msg1, msg2):
@@ -968,90 +1173,47 @@ def asc_eq (msg1, msg2):
     Whether two messages are equal from the ascription viewpoint.
     """
 
-    return (    True
-            and is_fuzzy(msg1) == is_fuzzy(msg2)
-            and msg1.msgctxt == msg2.msgctxt
-            and msg1.msgid == msg2.msgid
-            and msg1.msgid_plural == msg2.msgid_plural
-            and msg1.msgstr == msg2.msgstr
-    )
+    if is_fuzzy(msg1) != is_fuzzy(msg2):
+        return False
+    for field in _nonid_fields_tracked:
+        if msg1.get(field) != msg2.get(field):
+            return False
+    return True
 
 
 fld_sep = ":"
 
-
-def asc_get_fields (msg, field, defvals=[]):
-
-    values = []
-    for text in msg.manual_comment:
-        text = text.strip()
-        lst = [x.strip() for x in text.split(fld_sep, 1)]
-        if lst and lst[0] == field:
-            if len(lst) == 2:
-                values.append(lst[1])
-            else:
-                values.append("")
-    if not values:
-        values = defvals
-    return values
-
-
-def asc_set_field (msg, field, value):
-
-    stext = u"".join([field, fld_sep, " ", str(value)])
-
-    # Try to find the field and replace its value.
-    replaced = False
-    for i in range(len(msg.manual_comment)):
-        text = msg.manual_comment[i].strip()
-        lst = [x.strip() for x in text.split(fld_sep, 1)]
-        if lst and lst[0] == field:
-            msg.manual_comment[i] = stext
-            replaced = True
-            break
-
-    # Field not found, append.
-    if not replaced:
-        msg.manual_comment.append(stext)
-
-
 def asc_append_field (msg, field, value):
 
     stext = u"".join([field, fld_sep, " ", str(value)])
-    msg.manual_comment.append(stext)
+    msg.auto_comment.append(stext)
 
 
 class _Ascription (object):
 
     def __setattr__ (self, attr, val):
 
-        if attr not in ("msg", "user", "type", "tag", "date", "rev"):
+        if attr not in ("rmsg", "msg", "user", "type", "tag", "date", "rev",
+                        "slen", "fuzz"):
             raise KeyError, \
                   "trying to set invalid ascription field '%s'" % attr
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acats, config, all=False):
+def asc_collect_history (msg, acat, config):
     """
     Create ascription history of the message.
 
     The history is assembled as list of tuples
-    C{(asc-message, user, asc-type, asc-tag, date, revision)},
+    C{(asc-message, user, asc-type, asc-tag, date, revision, seplen, isfuzz)},
     sorted chronologically by date/revision (newest first).
     Date gets to be a real C{datetime} object.
-
-    Normally only the last ascription of a given user/catalog/message
-    combination is taken into history, as others do not have
-    the associated message directly available. If C{all} is set to C{True},
-    then all ascriptions are going to be taken. At the moment, messages
-    attached to extra ascriptions will be C{None}, but in the future
-    they may be obtained from VCS (pending fast CVS with local history).
     """
 
-    return asc_collect_history_w(msg, acats, config, all, None, {})
+    return asc_collect_history_w(msg, acat, config, None, {})
 
 
-def asc_collect_history_w (msg, acats, config, all, before, seenmsg):
+def asc_collect_history_w (msg, acat, config, before, seenmsg):
 
     history = []
     if not seenmsg:
@@ -1063,108 +1225,158 @@ def asc_collect_history_w (msg, acats, config, all, before, seenmsg):
     seenmsg[msg.key] = True
 
     # Collect history from all ascription catalogs.
-    fuzzy_amsgs = []
-    for user, acat in acats.iteritems():
-        if msg in acat:
-            amsg = acat[msg]
-            for a in asc_collect_history_single(amsg, acat, user, config, all):
-                if not before or asc_age_cmp(a, before, config) < 0:
-                    history.append(a)
-            if is_fuzzy(amsg):
-                fuzzy_amsgs.append(amsg)
+    if msg in acat:
+        amsg = acat[msg]
+        for a in asc_collect_history_single(amsg, acat, config):
+            if not before or asc_age_cmp(a, before, config) < 0:
+                history.append(a)
 
-    # Collect keys of fuzzy messages with unique and existing pivots.
-    msg_pkey = (msg.msgctxt, msg.msgid)
-    fuzzy_amsg_keys = set()
-    for amsg in fuzzy_amsgs:
-        if amsg.msgid_previous is not None:
-            pkey = (amsg.msgctxt_previous, amsg.msgid_previous)
-            if pkey != msg_pkey and pkey not in fuzzy_amsg_keys:
-                fuzzy_amsg_keys.add(pkey)
-
-    history.sort(lambda x, y: asc_age_cmp(y, x, config))
-
-    # Continue into the past by pivoting around fuzzy messages.
-    if fuzzy_amsg_keys:
-        # FIXME:
-        # What to do if there are several unique pivots?
-        # Can it happen? In normal operation, or only in corner cases?
-        # Multiple histories, diamond diagram and stuff...
-        # For now, just draw one randomly, and warn about it.
-        npaths = len(fuzzy_amsg_keys)
-        if npaths > 1:
-            warning("%s: multiple history paths (%d) for message at %s(#%s)"
-                    % (cat.filename, npaths, msg.refline, msg.refentry))
+    # Continue into the past by pivoting around first message if fuzzy.
+    amsg = history and history[-1].msg or None
+    if amsg and is_fuzzy(amsg) and amsg.msgid_previous:
         pmsg = MessageUnsafe()
-        pmsg.msgctxt, pmsg.msgid = fuzzy_amsg_keys.pop()
+        for field in _id_fields:
+            setattr(pmsg, field, amsg.get(field + "_previous"))
         # All ascriptions beyond the pivot must be older than the oldest so far.
         after = history and history[-1] or before
-        ct_history = asc_collect_history_w(pmsg, acats, config, all,
-                                           after, seenmsg)
+        ct_history = asc_collect_history_w(pmsg, acat, config, after, seenmsg)
         history.extend(ct_history)
 
     return history
 
 
-def asc_collect_history_single (amsg, acat, auser, config, all):
+def amsg_step_value (aval, shead, stail, spos, pvals, i):
+
+    if i >= len(spos):
+        spos.extend([0] * (i - len(spos) + 1))
+    if i >= len(pvals):
+        pvals.extend([[] for x in range(i - len(pvals) + 1)])
+    p0 = spos[i]
+    p1 = aval.find(shead, p0)
+    p2 = aval.find(stail, p1 + 1)
+    if p2 < 0:
+        p2 = len(aval)
+    spos[i] = p2 + len(stail)
+    mods = aval[p1 + len(shead):p2]
+    if _trsep_mod_eq in mods:
+        q1 = mods.find(_trsep_mod_eq) + len(_trsep_mod_eq)
+        q2 = q1
+        while q2 < len(mods) and mods[q2].isdigit():
+            q2 += 1
+        nrev = int(mods[q1:q2])
+        pval = pvals[i][nrev]
+    else:
+        if _trsep_mod_none in mods:
+            pval = None
+        else:
+            pval = aval[p0:p1]
+    pvals[i].append(pval)
+    return pval
+
+
+def asc_collect_history_single (amsg, acat, config):
 
     history = []
-    for asc in asc_parse_ascriptions(amsg, acat):
+    spos = dict([(field, [0]) for field in _nonid_fields_tracked])
+    pvals = dict([(field, [[]]) for field in _nonid_fields_tracked])
+    for asc in asc_parse_ascriptions(amsg, acat, config):
         a = _Ascription()
-        a.msg, a.user = amsg, auser
-        a.type, a.tag, a.date, a.rev = asc
+        a.user, a.type, a.tag, a.date, a.rev, a.slen, a.fuzz = asc
+        if a.slen: # separator defined, reconstruct the message
+            shead = field_separator_head(a.slen)
+            pmsg = MessageUnsafe()
+            for field in _id_fields:
+                setattr(pmsg, field, amsg.get(field))
+            for field in _nonid_fields_tracked:
+                amsg_seq = get_as_sequence(amsg, field)
+                pmsg_seq = []
+                for i in range(len(amsg_seq)):
+                    aval = amsg_seq[i]
+                    pval = amsg_step_value(aval, shead, u"\n",
+                                           spos[field], pvals[field], i)
+                    # ...do not break if None, has to roll all spos items
+                    if pval is not None:
+                        while i >= len(pmsg_seq):
+                            pmsg_seq.append(u"")
+                        pmsg_seq[i] = pval
+                set_from_sequence(pmsg_seq, pmsg, field)
+            if a.fuzz:
+                pmsg.flag.add(u"fuzzy")
+        else:
+            pmsg = history[-1].msg # must exist
+        a.rmsg, a.msg = amsg, pmsg
         history.append(a)
 
     history.sort(lambda x, y: asc_age_cmp(y, x, config))
-    if not all:
-        history = [history[0]]
-    else:
-        # Kill messages of non-latest ascriptions,
-        # until they can be fetched from VCS.
-        for a in history[1:]:
-            a.msg = None
 
     return history
 
 
-def asc_parse_ascriptions (amsg, acat):
+def asc_parse_ascriptions (amsg, acat, config):
     """
     Get ascriptions from given ascription message as list of tuples
-    C{(asc-type, asc-tag, date, revision)}, with date being a real
-    C{datetime} object.
+    C{(asc-user, asc-type, asc-tag, date, revision, seplen, isfuzzy)},
+    with date being a real C{datetime} object.
     """
 
     ascripts = []
-    for cmnt in amsg.manual_comment:
+    for cmnt in amsg.auto_comment:
         p = cmnt.find(":")
         if p < 0:
             warning_on_msg("malformed ascription comment '%s' "
                            "(no ascription type)" % cmnt, amsg, acat)
             continue
-        asctype = cmnt[:p].strip()
-        asctag = None
-        lst = asctype.split(_atype_rev_tagsep, 1)
+        atype = cmnt[:p].strip()
+        atag = None
+        lst = atype.split(_atag_sep, 1)
         if len(lst) == 2:
-            asctype = lst[0].strip()
-            asctag = lst[1].strip()
+            atype = lst[0].strip()
+            atag = lst[1].strip()
         lst = cmnt[p+1:].split("|")
-        if len(lst) == 1:
-            datestr = lst[0].strip()
-            revision = None
-        elif len(lst) == 2:
-            datestr = lst[0].strip()
-            revision = lst[1].strip()
-        else:
+        if len(lst) < 2 or len(lst) > 4:
             warning_on_msg("malformed ascription comment '%s' "
                            "(wrong number of descriptors)" % cmnt, amsg, acat)
             continue
+
+        auser = lst.pop(0).strip()
+        if not auser:
+            warning_on_msg("malformed ascription comment '%s' "
+                           "(malformed user string)" % cmnt, amsg, acat)
+            continue
+        if auser not in config.users:
+            warning_on_msg("malformed ascription comment '%s' "
+                           "(unknown user)" % cmnt, amsg, acat)
+            continue
+
+        datestr = lst.pop(0).strip()
         try:
             date = parse_datetime(datestr)
         except:
             warning_on_msg("malformed ascription comment '%s' "
                            "(malformed date string)" % cmnt, amsg, acat)
             continue
-        ascripts.append((asctype, asctag, date, revision))
+
+        revision = None
+        if lst:
+            revision = lst.pop(0).strip() or None
+
+        seplen = None
+        isfuzz = False
+        if lst:
+            tmp = lst.pop(0).strip()
+            if _mark_fuzz in tmp:
+                isfuzz = True
+                tmp = tmp.replace(_mark_fuzz, "", 1)
+            if tmp:
+                try:
+                    seplen = int(tmp)
+                except:
+                    warning_on_msg("malformed ascription comment '%s' "
+                                   "(malformed separator length)"
+                                   % cmnt, amsg, acat)
+                    continue
+
+        ascripts.append((auser, atype, atag, date, revision, seplen, isfuzz))
 
     return ascripts
 
@@ -1177,15 +1389,13 @@ def asc_age_cmp (a1, a2, config):
     Return value has the same semantics as with built-in C{cmp} function.
     """
 
-    if a1.rev and a2.rev:
-        if a1.rev == a2.rev:
-            return 0
-        elif config.vcs.is_older(a1.rev, a2.rev):
+    if a1.rev and a2.rev and a1.rev != a2.rev:
+        if config.vcs.is_older(a1.rev, a2.rev):
             return -1
         else:
             return 1
     else:
-         return cmp(a1.date, a2.date)
+        return cmp(a1.date, a2.date)
 
 
 def sync_and_rep (cat):
@@ -1197,9 +1407,25 @@ def sync_and_rep (cat):
     return modified
 
 
-def date_now ():
+def asc_sync_and_rep (acat):
 
-    return time.strftime("%Y-%m-%d %H:%M:%S%z")
+    if acat.modcount:
+        update_asc_hdr(acat)
+
+    return sync_and_rep(acat)
+
+
+def format_datetime (dt=None):
+
+    fmt = "%Y-%m-%d %H:%M:%S%z"
+    if dt is not None:
+        dtstr = dt.strftime(fmt)
+        # NOTE: If timezone offset is lost, the datetime object is UTC.
+        tail = datestr[datestr.rfind(":"):]
+        if "+" not in tail and "-" not in tail:
+            dtstr += "+0000"
+    else:
+        return time.strftime(fmt)
 
 
 _parse_date_rx = re.compile(
@@ -1492,7 +1718,14 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                     amsg2 = history[i_next].msg
                 else:
                     amsg2 = MessageUnsafe(a.msg)
-                    amsg2.msgstr = [u""] * len(amsg2.msgstr)
+                    for field in _nonid_fields_tracked:
+                        amsg2_value = amsg2.get(field)
+                        if amsg2_value is None:
+                            pass
+                        elif isinstance(amsg2_value, basestring):
+                            setattr(amsg2, field, None)
+                        else:
+                            amsg2_value = [u""] * len(amsg2_value)
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
                 pfilter = options.tfilter or config.tfilter
