@@ -114,52 +114,58 @@ def main ():
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
         error("operation mode not given")
-    class Mode: pass
-    mode = Mode()
-    mode.name = free_args.pop(0)
-    if 0: pass
-    elif mode.name in ("status", "st"):
-        execute_operation = examine_state
-        mode.selector = selector or build_selector(options, ["any"])
-    elif mode.name in ("modified", "mo"):
-        if len(free_args) < 1:
-            error("no user to whom to ascribe modifications given")
-        mode.user = free_args.pop(0)
-        mode.selector = selector or build_selector(options, ["any"])
-        execute_operation = ascribe_modified
-    elif mode.name in ("reviewed", "re"):
-        if len(free_args) < 1:
-            error("no user to whom to ascribe reviews given")
-        mode.user = free_args.pop(0)
-        execute_operation = ascribe_reviewed
-        # Default selector for review ascription must match
-        # default selector for review selection.
-        mode.selector = selector or build_selector(options, ["nwasc"])
-    elif mode.name in ("diff", "di"):
-        execute_operation = diff_select
-        # Default selector for review selection must match
-        # default selector for review ascription.
-        mode.selector = selector or build_selector(options, ["nwasc"])
-        # Build default ascription selector only if neither selector
-        # is explicitly given, since explicit basic selector may be used for
-        # ascription selection in a suitable sense (see diff_select_cat()).
-        if not selector and not aselector:
-            mode.aselector = build_selector(options, ["asc"], hist=True)
+    modenames = free_args.pop(0).split(",")
+    needuser = False
+    class _Mode: pass
+    modes = []
+    for modename in modenames:
+        mode = _Mode()
+        mode.name = modename
+        if 0: pass
+        elif mode.name in ("status", "st"):
+            mode.execute = examine_state
+            mode.selector = selector or build_selector(options, ["any"])
+        elif mode.name in ("modified", "mo"):
+            mode.execute = ascribe_modified
+            mode.selector = selector or build_selector(options, ["any"])
+            needuser = True
+        elif mode.name in ("reviewed", "re"):
+            mode.execute = ascribe_reviewed
+            # Default selector for review ascription must match
+            # default selector for review selection.
+            mode.selector = selector or build_selector(options, ["nwasc"])
+            needuser = True
+        elif mode.name in ("diff", "di"):
+            mode.execute = diff_select
+            # Default selector for review selection must match
+            # default selector for review ascription.
+            mode.selector = selector or build_selector(options, ["nwasc"])
+            # Build default ascription selector only if neither selector
+            # is explicitly given, since explicit basic selector may be used for
+            # ascription selection in a suitable sense (see diff_select_cat()).
+            if not selector and not aselector:
+                mode.aselector = build_selector(options, ["asc"], hist=True)
+            else:
+                mode.aselector = aselector
+        elif mode.name in ("clear-review", "cr"):
+            mode.execute = clear_review
+            mode.selector = selector or build_selector(options, ["any"])
+        elif mode.name in ("history", "hi"):
+            mode.execute = show_history
+            mode.selector = selector or build_selector(options, ["nwasc"])
+        elif mode.name in ("derive-obsolete", "do"):
+            mode.execute = ascribe_derivobs
+            needuser = True
         else:
-            mode.aselector = aselector
-    elif mode.name in ("clear-review", "cr"):
-        execute_operation = clear_review
-        mode.selector = selector or build_selector(options, ["any"])
-    elif mode.name in ("history", "hi"):
-        execute_operation = show_history
-        mode.selector = selector or build_selector(options, ["nwasc"])
-    elif mode.name in ("derive-obsolete", "do"):
-        execute_operation = ascribe_derivobs
+            error("unknown operation mode '%s'" % mode.name)
+        modes.append(mode)
+
+    if needuser:
         if len(free_args) < 1:
-            error("no user to whom to ascribe derived obsolescence")
-        mode.user = free_args.pop(0)
-    else:
-        error("unknown operation mode '%s'" % mode.name)
+            error("issued operations require a user to be specified")
+        user = free_args.pop(0).strip()
+        for mode in modes:
+            mode.user = user
 
     # For each path:
     # - determine its associated ascription config,
@@ -220,8 +226,9 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    # Execute operation.
-    execute_operation(options, configs_catpaths, mode)
+    # Execute operations.
+    for mode in modes:
+        mode.execute(options, configs_catpaths, mode)
 
 
 class Config:
@@ -1415,17 +1422,20 @@ def asc_sync_and_rep (acat):
     return sync_and_rep(acat)
 
 
+_dt_fmt = "%Y-%m-%d %H:%M:%S%z"
+_dt_str_now = time.strftime(_dt_fmt)
+
 def format_datetime (dt=None):
 
     fmt = "%Y-%m-%d %H:%M:%S%z"
     if dt is not None:
-        dtstr = dt.strftime(fmt)
+        dtstr = dt.strftime(_dt_fmt)
         # NOTE: If timezone offset is lost, the datetime object is UTC.
         tail = datestr[datestr.rfind(":"):]
         if "+" not in tail and "-" not in tail:
             dtstr += "+0000"
     else:
-        return time.strftime(fmt)
+        return _dt_str_now
 
 
 _parse_date_rx = re.compile(
