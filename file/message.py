@@ -739,10 +739,14 @@ class Message_base (object):
                 if self.msgid_plural is None:
                     if msgid_previous is None:
                         msgid_previous = u""
+                    else:
+                        msgid_previous += "\n"
                     msgid_previous += msgstr_previous
                 else:
                     if msgid_plural_previous is None:
                         msgid_plural_previous = u""
+                    else:
+                        msgid_plural_previous += "\n"
                     msgid_plural_previous += msgstr_previous
 
             keepold = keeponfuzz and "fuzzy" in self.flag
