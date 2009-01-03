@@ -10,6 +10,7 @@ import codecs
 import time
 import datetime
 import locale
+import imp
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
@@ -84,6 +85,11 @@ def main ():
         help="consider ascription history up to this level into the past "
              "(relevant in some modes)")
     opars.add_option(
+        "-x", "--externals", metavar="PYFILE",
+        action="append", dest="externals", default=[],
+        help="collect optional functionality from an external Python file "
+             "(selectors, etc.)")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -97,6 +103,10 @@ def main ():
             psyco.full()
         except ImportError:
             pass
+
+    # Collect any external functionality.
+    for xmod_path in options.externals:
+        collect_externals(xmod_path)
 
     # Fetch filter if requested, store it in options.
     options.tfilter = None
@@ -1504,7 +1514,7 @@ def build_selector (options, selspecs, hist=False):
         if sname.startswith("n"):
             sname = sname[1:]
             negated = True
-        sfactory, can_hist = _selector_factories.get(sname, (None, False))
+        sfactory, can_hist = xm_selector_factories.get(sname, (None, False))
         if not sfactory:
             error("unknown selector '%s'" % sname)
         if hist:
@@ -1922,7 +1932,7 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
     return selector
 
 
-_selector_factories = {
+xm_selector_factories = {
     # key: (function, can_be_used_as_history_selector)
     "any": (selector_any, False),
     "wasc": (selector_wasc, False),
@@ -1936,6 +1946,31 @@ _selector_factories = {
     "rev": (selector_rev, True),
     "revbm": (selector_revbm, True),
 }
+
+# -----------------------------------------------------------------------------
+
+_external_mods = {}
+
+def collect_externals (xmod_path):
+
+    # Load external module.
+    try:
+        xmod_file = open(xmod_path)
+    except IOError:
+        error("cannot load external module: %s" % xmod_path)
+    # Load file into new module.
+    xmod_name = "xmod_" + str(len(_external_mods))
+    xmod = imp.new_module(xmod_name)
+    exec xmod_file in xmod.__dict__
+    xmod_file.close()
+    _external_mods[xmod_name] = xmod # to avoid garbage collection
+
+    # Collect everything collectable from the module.
+
+    selector_factories = getattr(xmod, "xm_selector_factories", None)
+    if selector_factories is not None:
+        xm_selector_factories.update(selector_factories)
+
 
 # -----------------------------------------------------------------------------
 
