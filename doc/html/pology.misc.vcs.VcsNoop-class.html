@@ -162,6 +162,27 @@ object --+
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#export" class="summary-sig-name">export</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">rev</span>,
+        <span class="summary-sig-arg">dstpath</span>,
+        <span class="summary-sig-arg">rewrite</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Export a versioned file.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.vcs.VcsBase-class.html">VcsBase</a></code></b>:
@@ -354,6 +375,51 @@ object --+
         <dd><code>True</code> if versioned</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#is_versioned">VcsBase.is_versioned</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="export"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">export</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">rev</span>,
+        <span class="sig-arg">dstpath</span>,
+        <span class="sig-arg">rewrite</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Export a versioned file.</p>
+  <p>Makes a copy of versioned file pointed to by local path 
+  <code>path</code>, in the revision <code>rev</code>, to destination path 
+  <code>dstpath</code>. If <code>rev</code> is <code>None</code>, 
+  <code>path</code> is copied as-is to <code>dstpath</code>.</p>
+  <p>Final repository path, as determined from <code>path</code>, can be 
+  filtered through an external function <code>rewrite</code> before being 
+  used. The function takes as arguments the path and revision strings. This
+  can be useful, for example, to reroute remote repository URL.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - path of the versioned file in local repository</li>
+        <li><strong class="pname"><code>rev</code></strong> - revision to export</li>
+        <li><strong class="pname"><code>dstpath</code></strong> - file path to export to</li>
+        <li><strong class="pname"><code>rewrite</code></strong> - function to filter resolved repository path</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if fetching succeeded, <code>False</code> 
+          otherwise</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#export">VcsBase.export</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>

@@ -97,23 +97,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="rel_path"></a><span class="summary-sig-name">rel_path</span>(<span class="summary-sig-arg">ref_path</span>,
-        <span class="summary-sig-arg">rel_path</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="examine_state"></a><span class="summary-sig-name">examine_state</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
@@ -244,6 +227,7 @@
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
@@ -264,6 +248,7 @@
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
@@ -283,6 +268,7 @@
           <td><span class="summary-sig"><a name="diff_select_cat"></a><span class="summary-sig-name">diff_select_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>,
         <span class="summary-sig-arg">aselect</span>,
         <span class="summary-sig-arg">pfilter</span>)</span></td>
@@ -304,6 +290,7 @@
           <td><span class="summary-sig"><a name="clear_review_cat"></a><span class="summary-sig-name">clear_review_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>)</span></td>
           <td align="right" valign="top">
             
@@ -323,7 +310,25 @@
           <td><span class="summary-sig"><a name="show_history_cat"></a><span class="summary-sig-name">show_history_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="diff_manual_comment"></a><span class="summary-sig-name">diff_manual_comment</span>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -359,7 +364,9 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_derivobs_cat"></a><span class="summary-sig-name">ascribe_derivobs_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catpath</span>)</span></td>
+        <span class="summary-sig-arg">user</span>,
+        <span class="summary-sig-arg">catpath</span>,
+        <span class="summary-sig-arg">acatpath</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -440,27 +447,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="collect_asc_cats"></a><span class="summary-sig-name">collect_asc_cats</span>(<span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catname</span>,
-        <span class="summary-sig-arg">muser</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">monall</span>=<span class="summary-sig-default">False</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="init_asc_cat"></a><span class="summary-sig-name">init_asc_cat</span>(<span class="summary-sig-arg">catname</span>,
-        <span class="summary-sig-arg">user</span>,
+          <td><span class="summary-sig"><a name="prep_write_asc_cat"></a><span class="summary-sig-name">prep_write_asc_cat</span>(<span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
@@ -477,8 +464,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="update_asc_hdr"></a><span class="summary-sig-name">update_asc_hdr</span>(<span class="summary-sig-arg">acat</span>,
-        <span class="summary-sig-arg">user</span>,
+          <td><span class="summary-sig"><a name="init_asc_cat"></a><span class="summary-sig-name">init_asc_cat</span>(<span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
@@ -495,10 +481,134 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_msg_mod"></a><span class="summary-sig-name">ascribe_msg_mod</span>(<span class="summary-sig-arg">amsg</span>,
+          <td><span class="summary-sig"><a name="update_asc_hdr"></a><span class="summary-sig-name">update_asc_hdr</span>(<span class="summary-sig-arg">acat</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="field_separator_head"></a><span class="summary-sig-name">field_separator_head</span>(<span class="summary-sig-arg">length</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="needed_separator_length"></a><span class="summary-sig-name">needed_separator_length</span>(<span class="summary-sig-arg">msg</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="has_nonid_diff"></a><span class="summary-sig-name">has_nonid_diff</span>(<span class="summary-sig-arg">pmsg</span>,
+        <span class="summary-sig-arg">msg</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_as_sequence"></a><span class="summary-sig-name">get_as_sequence</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">field</span>,
+        <span class="summary-sig-arg">asc</span>=<span class="summary-sig-default">True</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_from_sequence"></a><span class="summary-sig-name">set_from_sequence</span>(<span class="summary-sig-arg">msg_seq</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">field</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="add_nonid"></a><span class="summary-sig-name">add_nonid</span>(<span class="summary-sig-arg">amsg</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">slen</span>,
+        <span class="summary-sig-arg">rhistory</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ascribe_msg_any"></a><span class="summary-sig-name">ascribe_msg_any</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">atype</span>,
+        <span class="summary-sig-arg">atags</span>,
+        <span class="summary-sig-arg">arev</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catrev</span>)</span></td>
+        <span class="summary-sig-arg">dt</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -514,11 +624,32 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_msg_rev"></a><span class="summary-sig-name">ascribe_msg_rev</span>(<span class="summary-sig-arg">amsg</span>,
+          <td><span class="summary-sig"><a name="ascribe_msg_mod"></a><span class="summary-sig-name">ascribe_msg_mod</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">catrev</span>,
+        <span class="summary-sig-arg">user</span>,
+        <span class="summary-sig-arg">config</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ascribe_msg_rev"></a><span class="summary-sig-name">ascribe_msg_rev</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">tags</span>,
+        <span class="summary-sig-arg">catrev</span>,
         <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catrev</span>)</span></td>
+        <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -534,10 +665,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_msg_obs"></a><span class="summary-sig-name">ascribe_msg_obs</span>(<span class="summary-sig-arg">amsg</span>,
+          <td><span class="summary-sig"><a name="ascribe_msg_obs"></a><span class="summary-sig-name">ascribe_msg_obs</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">catrev</span>,
         <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catrev</span>)</span></td>
+        <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -553,10 +685,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_msg_rvv"></a><span class="summary-sig-name">ascribe_msg_rvv</span>(<span class="summary-sig-arg">amsg</span>,
+          <td><span class="summary-sig"><a name="ascribe_msg_rvv"></a><span class="summary-sig-name">ascribe_msg_rvv</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">catrev</span>,
         <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">catrev</span>)</span></td>
+        <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -590,42 +723,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="asc_get_fields"></a><span class="summary-sig-name">asc_get_fields</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">field</span>,
-        <span class="summary-sig-arg">defvals</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="asc_set_field"></a><span class="summary-sig-name">asc_set_field</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">field</span>,
-        <span class="summary-sig-arg">value</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="asc_append_field"></a><span class="summary-sig-name">asc_append_field</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">field</span>,
         <span class="summary-sig-arg">value</span>)</span></td>
@@ -644,9 +741,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="asc_collect_history"></a><span class="summary-sig-name">asc_collect_history</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">acats</span>,
-        <span class="summary-sig-arg">config</span>)</span></td>
+          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#asc_collect_history" class="summary-sig-name">asc_collect_history</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">config</span>)</span><br />
+      Create ascription history of the message.</td>
           <td align="right" valign="top">
             
             
@@ -662,12 +760,32 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#asc_collect_history_w" class="summary-sig-name">asc_collect_history_w</a>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">acats</span>,
+          <td><span class="summary-sig"><a name="asc_collect_history_w"></a><span class="summary-sig-name">asc_collect_history_w</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">before</span>,
-        <span class="summary-sig-arg">seenmsg</span>)</span><br />
-      Create ascription history of the message.</td>
+        <span class="summary-sig-arg">seenmsg</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="amsg_step_value"></a><span class="summary-sig-name">amsg_step_value</span>(<span class="summary-sig-arg">aval</span>,
+        <span class="summary-sig-arg">shead</span>,
+        <span class="summary-sig-arg">stail</span>,
+        <span class="summary-sig-arg">spos</span>,
+        <span class="summary-sig-arg">pvals</span>,
+        <span class="summary-sig-arg">i</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -685,7 +803,7 @@
         <tr>
           <td><span class="summary-sig"><a name="asc_collect_history_single"></a><span class="summary-sig-name">asc_collect_history_single</span>(<span class="summary-sig-arg">amsg</span>,
         <span class="summary-sig-arg">acat</span>,
-        <span class="summary-sig-arg">auser</span>)</span></td>
+        <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -702,10 +820,11 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="asc_parse_ascriptions"></a><span class="summary-sig-name">asc_parse_ascriptions</span>(<span class="summary-sig-arg">amsg</span>,
-        <span class="summary-sig-arg">acat</span>)</span><br />
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">config</span>)</span><br />
       Get ascriptions from given ascription message as list of tuples 
-      <code>(asc-type, asc-tag, date, revision)</code>, with date being a 
-      real <code>datetime</code> object.</td>
+      <code>(asc-user, asc-type, asc-tag, date, revision, seplen, 
+      isfuzzy)</code>, with date being a real <code>datetime</code> object.</td>
           <td align="right" valign="top">
             
             
@@ -756,7 +875,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="date_now"></a><span class="summary-sig-name">date_now</span>()</span></td>
+          <td><span class="summary-sig"><a name="asc_sync_and_rep"></a><span class="summary-sig-name">asc_sync_and_rep</span>(<span class="summary-sig-arg">acat</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="format_datetime"></a><span class="summary-sig-name">format_datetime</span>(<span class="summary-sig-arg">dt</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -843,6 +978,7 @@
         <tr>
           <td><span class="summary-sig"><a name="cached_matcher"></a><span class="summary-sig-name">cached_matcher</span>(<span class="summary-sig-arg">cache</span>,
         <span class="summary-sig-arg">expr</span>,
+        <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">cid</span>)</span></td>
           <td align="right" valign="top">
@@ -929,6 +1065,22 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="selector_fexpr"></a><span class="summary-sig-name">selector_fexpr</span>(<span class="summary-sig-arg">expr</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_e"></a><span class="summary-sig-name">selector_e</span>(<span class="summary-sig-arg">entry</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1074,18 +1226,16 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="asc_collect_history_w"></a>
+<a name="asc_collect_history"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">asc_collect_history_w</span>(<span class="sig-arg">msg</span>,
-        <span class="sig-arg">acats</span>,
-        <span class="sig-arg">config</span>,
-        <span class="sig-arg">before</span>,
-        <span class="sig-arg">seenmsg</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">asc_collect_history</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">acat</span>,
+        <span class="sig-arg">config</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1094,8 +1244,8 @@
   
   <p>Create ascription history of the message.</p>
   <p>The history is assembled as list of tuples <code>(asc-message, user, 
-  asc-type, asc-tag, date, revision)</code>, sorted chronologically by 
-  date/revision (newest first). Date gets to be a real 
+  asc-type, asc-tag, date, revision, seplen, isfuzz)</code>, sorted 
+  chronologically by date/revision (newest first). Date gets to be a real 
   <code>datetime</code> object.</p>
   <dl class="fields">
   </dl>

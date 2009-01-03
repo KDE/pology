@@ -109,6 +109,10 @@
       <code>absolute</code>: make bars show absolute rather than relative 
       info
     </li>
+    <li>
+      <code>ondiff</code>: reduce number of words in fuzzy messages by 
+      difference ratio
+    </li>
   </ul>
   <p>The accelerator characters should be removed from the messages before 
   counting, in order not to introduce word splits where there are none. If 
@@ -130,18 +134,37 @@
    $ posieve.py stats -stemplates:my_lang:templates my_lang/
 </pre>
   <p>Several parameters are used to restrict counting to messages 
-  satisfying a certain criterion. <code>minwords</code> and 
-  <code>maxwords</code> restrict counting to messages satisfying these word
-  limits, in <i>either</i> the original or translation. <code>fexpr</code> 
-  restricts counting to messages matched by the search expression of the 
-  type defined by the <a href="pology.sieve.find_messages-module.html" 
-  class="link">find-messages</a> sieve (see description of its same-named 
-  parameter). For <a href="pology.scripts.posummit-module.html" 
-  class="link">summited</a> catalogs, <code>branch</code> parameter is used
-  to count only messages from the given branch (several branch IDs may be 
-  given as a comma-separated list). If more than one restriction parameter 
-  is used, all must be satisfied for the message to be taken into 
-  account.</p>
+  satisfying a certain criterion:</p>
+  <ul>
+    <li>
+      <code>minwords</code> and <code>maxwords</code> restrict counting to 
+      messages satisfying these word limits, in <i>either</i> the original 
+      or translation.
+    </li>
+    <li>
+      <code>fexpr</code> restricts counting to messages matched by the 
+      search expression of the type defined by the <a 
+      href="pology.sieve.find_messages-module.html" 
+      class="link">find-messages</a> sieve (see description of its 
+      same-named parameter).
+    </li>
+    <li>
+      For <a href="pology.scripts.posummit-module.html" 
+      class="link">summited</a> catalogs, <code>branch</code> parameter is 
+      used to count only messages from the given branch (several branch IDs
+      may be given as a comma-separated list).
+    </li>
+    <li>
+      Fuzzy messages are often very easy to correct (e.g. a typo fixed), 
+      which may make their word count misleading when estimating effort. To
+      amend this somewhat, if parameter <code>ondiff</code> is issued the 
+      word count of fuzzy messages is multiplied by the difference ratio 
+      between current and previous <code>msgid</code> fields (if previous 
+      <code>msgid</code> is available).
+    </li>
+  </ul>
+  <p>If more than one restriction parameter is used, all must be satisfied 
+  for the message to be taken into account.</p>
   <h1 class="heading">Custom Contexts</h1>
     <p>Some older PO files will have message contexts embedded into the 
     <code>msgid</code> field, instead of using the Gettext proper 
