@@ -22,6 +22,7 @@ Sieve parameters:
   - C{msgbar}: show statistics as ASCII bar of message counts
   - C{wbar}: show statistics as ASCII bar of word counts
   - C{absolute}: make bars show absolute rather than relative info
+  - C{ondiff}: reduce number of words in fuzzy messages by difference ratio
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
@@ -43,17 +44,28 @@ C{replace} string to construct the POT paths. For example::
     $ posieve.py stats -stemplates:my_lang:templates my_lang/
 
 Several parameters are used to restrict counting to messages satisfying
-a certain criterion.
-C{minwords} and C{maxwords} restrict counting to messages satisfying
-these word limits, in I{either} the original or translation.
-C{fexpr} restricts counting to messages matched by the search expression
-of the type defined by the L{find-messages<sieve.find_messages>} sieve
-(see description of its same-named parameter).
-For L{summited<scripts.posummit>} catalogs, C{branch} parameter is used to
-count only messages from the given branch (several branch IDs may
-be given as a comma-separated list).
+a certain criterion:
+
+  - C{minwords} and C{maxwords} restrict counting to messages satisfying
+    these word limits, in I{either} the original or translation.
+
+  - C{fexpr} restricts counting to messages matched by the search expression
+    of the type defined by the L{find-messages<sieve.find_messages>} sieve
+    (see description of its same-named parameter).
+
+  - For L{summited<scripts.posummit>} catalogs, C{branch} parameter is used to
+    count only messages from the given branch (several branch IDs may
+    be given as a comma-separated list).
+
+  - Fuzzy messages are often very easy to correct (e.g. a typo fixed), which
+    may make their word count misleading when estimating effort.
+    To amend this somewhat, if parameter C{ondiff} is issued the word count
+    of fuzzy messages is multiplied by the difference ratio between current
+    and previous C{msgid} fields (if previous C{msgid} is available).
+
 If more than one restriction parameter is used, all must be satisfied for
 the message to be taken into account.
+
 
 Custom Contexts
 ===============
@@ -199,6 +211,7 @@ from pology.file.catalog import Catalog
 from pology.misc.report import warning
 import pology.misc.colors as C
 from pology.sieve.find_messages import build_msg_fmatcher
+from pology.misc.diff import word_diff
 
 
 def setup_sieve (p):
@@ -290,6 +303,11 @@ def setup_sieve (p):
     "rather than relative to percentage of translation state. "
     "Useful with '%s' and '%s' parameters, to compare sizes of different "
     "translation units." % ("byfile", "bydir")
+    )
+    p.add_param("ondiff", bool, defval=False,
+                desc=
+    "Multiply word counts in fuzzy messages by difference ratio between "
+    "current and previous original text."
     )
 
 
@@ -483,6 +501,13 @@ class Sieve (object):
                     or nwords["tran"] >= self.p.minwords):
                 return
 
+        # Scale word and character counts in fuzzy original if requested.
+        if self.p.ondiff and msg.msgid_previous is not None:
+            diff, dr = word_diff(msg.msgid_previous, msg.msgid,
+                                 markup=True, format=msg.format)
+            nwords["orig"] = int(dr * nwords["orig"])
+            nchars["orig"] = int(dr * nchars["orig"])
+
         # Detect categories and add the counts.
         categories = []
 
@@ -615,6 +640,8 @@ class Sieve (object):
             print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
         if self.p.fexpr:
             print ">>> selected-by-expr: %s" % self.p.fexpr
+        if self.p.ondiff:
+            print ">>> scaled-fuzzy-counts"
 
         # Should titles be output in-line or on separate lines.
         self.inline = False
@@ -741,8 +768,9 @@ class Sieve (object):
 
         # Row, column names and formats.
         rown = [tname for tkey, tname in selected_cats]
+        ond = self.p.ondiff and "*" or ""
         coln = ["msg", "msg/tot",
-                "w-or", "w/tot-or", "w-tr", "ch-or", "ch-tr"]
+                ond + "w-or", ond + "w/tot-or", "w-tr", ond + "ch-or", "ch-tr"]
         dfmt = ["%d", "%.1f%%",
                 "%d", "%.1f%%", "%d", "%d", "%d"]
         if self.p.detail:
@@ -763,7 +791,8 @@ class Sieve (object):
 
     def _w_bar_stats (self, counts, title, count, can_color):
 
-        self._bar_stats(counts, title, count, can_color, "w-or", 1)
+        ond = self.p.ondiff and "*" or ""
+        self._bar_stats(counts, title, count, can_color, ond + "w-or", 1)
 
 
     def _bar_stats (self, counts, title, count, can_color, dlabel, dcolumn):
