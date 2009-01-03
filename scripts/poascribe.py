@@ -1967,9 +1967,19 @@ def collect_externals (xmod_path):
 
     # Collect everything collectable from the module.
 
-    selector_factories = getattr(xmod, "xm_selector_factories", None)
+    xms = []
+
+    xms.append("xm_selector_factories")
+    selector_factories = getattr(xmod, xms[-1], None)
     if selector_factories is not None:
         xm_selector_factories.update(selector_factories)
+
+    # Warn of unknown externals.
+    known_xms = set(xms)
+    for xm in filter(lambda x: x.startswith("xm_"), dir(xmod)):
+        if xm not in known_xms:
+            warning("unknown external resource '%s' in module '%s'"
+                    % (xm, xmod_path))
 
 
 # -----------------------------------------------------------------------------
