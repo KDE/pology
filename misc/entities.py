@@ -11,6 +11,7 @@ import os
 import xml.parsers.expat
 
 from pology.misc.fsops import collect_files_by_ext
+from pology.misc.report import warning
 
 
 def parse_entities (defstr, src=None):
