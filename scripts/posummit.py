@@ -14,7 +14,7 @@ from pology.misc.vcs import make_vcs
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
-import md5
+import hashlib
 import filecmp
 import locale
 import time
@@ -1441,7 +1441,7 @@ def set_summit_comment (msg, summit_tag, text):
 
 def msg_ident (msg):
 
-    h = md5.new()
+    h = hashlib.md5()
     h.update(msg.key.encode("UTF-8"))
     return "_" + h.hexdigest() + "_"
 
