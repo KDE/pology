@@ -494,7 +494,7 @@ addFilterHook name="remove-subs/remove-markup-msg" on="msg"
 valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
 valid span="[DFPS]" before="ブロック" cat="kalzium"
 valid span="pH" before="値|測定器" cat="kalzium"
-valid span="km" after="平方" cat="marble"
+valid span="km" after="平方"
 
 [[。、]]
 id="style-space4"

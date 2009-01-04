@@ -80,6 +80,12 @@ hint="ascending = 昇順"
 valid msgstr="昇順"
 valid before=" numbers"
 
+{\bASCII\b|\bAscii\b|\bascii\b}
+id="ascii"
+hint="ASCII = ASCII [すべて大文字で。ASCII art はカタカナでアスキーアート。]"
+valid msgstr="ASCII" !before="[ -](Art|art|ART)"
+valid msgstr="アスキーアート" before="[ -](Art|art|ART)"
+
 {aspect ratio}i
 id="aspect_ratio"
 hint="aspect ratio = アスペクト比"
@@ -128,6 +134,18 @@ id="audio3"
 hint="audio = オーディオ"
 valid !before=" (CD|DVD|player|card|server)"
 valid msgstr="オーディオ"
+
+{\bauthentication}i
+id="authentication"
+hint="authentication = 認証"
+valid msgstr="認証"
+valid cat="kfileshare" msgstr="(Client )?(plaintext|lanman|NTLM(v2)?) authentication"
+valid cat="kopete" msgid="Simple Authentication and Security Layer" msgstr="SASL"
+
+{\bauthorization}i
+id="authorization"
+hint="authorization = 許可|権限付与|承認"
+valid msgstr="許可|権限付与|承認"
 
 {\bavatars?\b}i
 id="avatar"
