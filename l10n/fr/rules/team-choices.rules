@@ -339,4 +339,12 @@ hint="Traduisez « Shift » par « Maj » (sans point à la fin)"
 valid msgstr="séparateur"
 hint="Utilisez le mot « séparateur » pour traduire « spacer »"
 
+[\bpresse]i
+valid after="publication de "
+valid after="articles? de "
+valid after="sociétés? de "
+valid before="-papier"
+valid cat="ppdtranslations4" before=" pour"
+hint="Traduisez « press » avec les verbes « cliquer » ou « appuyer »"
+
 # End of rule file
