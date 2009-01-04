@@ -336,10 +336,11 @@ class Monlist (Monitored):
     def pop (self, i=None):
 
         if i is None:
-            self.__dict__["*"].pop()
+            val = self.__dict__["*"].pop()
         else:
-            self.__dict__["*"].pop(i)
+            val = self.__dict__["*"].pop(i)
         self.__dict__["#"]["*"] += 1
+        return val
 
 
     def insert (self, i, val):
