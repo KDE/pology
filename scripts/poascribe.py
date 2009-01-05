@@ -90,6 +90,11 @@ def main ():
         help="collect optional functionality from an external Python file "
              "(selectors, etc.)")
     opars.add_option(
+        "-l", "--live-diff",
+        action="store_true", dest="live_diff", default=False,
+        help="use \"live\" differencing, i.e. embedding into current fields "
+              "(relevant in some modes)")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -554,6 +559,8 @@ _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
 def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
+    live = options.live_diff
+
     # Open current catalog and ascription catalog.
     # Monitored, for removal of reviewed-* flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
@@ -572,12 +579,12 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         # already ascribed as modified.
         # Message equality must be tested without review scaffolding.
         cmsg = MessageUnsafe(msg)
-        clear_review_msg(cmsg)
+        clear_review_msg(cmsg, live)
         if not history or not asc_eq(cmsg, history[0].msg):
             # Collect to report later.
             non_mod_asc_msgs.append(msg)
             # Clear only flags to-review, and not explicit review-done.
-            clear_review_msg(msg, clrevd=False)
+            clear_review_msg(msg, live, clrevd=False)
             continue
 
         # Collect any tags in explicit reviewed-flags.
@@ -591,7 +598,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             tags.append(options.tag)
 
         # Clear review state.
-        clear_review_msg(msg)
+        clear_review_msg(msg, live)
 
         rev_msgs_tags.append((msg, tags))
 
@@ -629,6 +636,8 @@ _revflag = u"review"
 def diff_select_cat (options, config, catpath, acatpath,
                      stest, aselect, pfilter):
 
+    live = options.live_diff
+
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, monitored=False)
 
@@ -655,7 +664,7 @@ def diff_select_cat (options, config, catpath, acatpath,
         # Differentiate and flag.
         if i_asc is not None:
             amsg = history[i_asc].msg
-            anydiff = msg.embed_diff(amsg, pfilter=pfilter)
+            anydiff = msg.embed_diff(amsg, live=live, pfilter=pfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
         msg.flag.add(_revflag)
@@ -668,6 +677,8 @@ def diff_select_cat (options, config, catpath, acatpath,
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
 
+    live = options.live_diff
+
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, monitored=False)
 
@@ -676,7 +687,7 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
-        if clear_review_msg(msg):
+        if clear_review_msg(msg, live):
             ncleared += 1
 
     sync_and_rep(cat)
@@ -735,7 +746,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             anydiff = dmsg.embed_diff(nmsg, live=True,
                                       pfilter=pfilter, hlto=sys.stdout)
-            if anydiff:
+            if True:#anydiff:
                 dmsg.auto_comment = Monlist() # ascription tags were here
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
@@ -754,7 +765,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
+def clear_review_msg (msg, live, rep_ntrans=None, clrevd=True):
 
     cleared = False
     for flag in list(msg.flag): # modified inside
@@ -762,7 +773,7 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
             msg.flag.remove(flag)
             if not cleared:
                 # Clear possible embedded diffs.
-                msg.unembed_diff()
+                msg.unembed_diff(live=live)
                 cleared = True
             # Do not break, other review flags possible.
 
@@ -1301,7 +1312,10 @@ def asc_collect_history_single (amsg, acat, config):
         a.rmsg, a.msg = amsg, pmsg
         history.append(a)
 
-    history.sort(lambda x, y: asc_age_cmp(y, x, config))
+    #history.sort(lambda x, y: asc_age_cmp(y, x, config))
+    # ...sorting not good, in case several operations were done at once,
+    # e.g. ascribing modification and review at the same time.
+    history.reverse()
 
     return history
 
