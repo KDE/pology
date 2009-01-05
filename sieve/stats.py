@@ -693,8 +693,10 @@ class Sieve (object):
             data.append([x + y for x, y in zip(data[4], data[5])])
             # Columns of the two added.
             # Column names and formats.
+            ond = self.p.ondiff and "*" or ""
             coln = ["incomplete-catalog",
-                    "msg/f", "msg/u", "msg/f+u", "w/f", "w/u", "w/f+u"]
+                    "msg/f", "msg/u", "msg/f+u", ond + "w/f", "w/u",
+                    ond + "w/f+u"]
             maxfl = max([len(x) for x in filenames])
             dfmt = ["%%-%ds" % maxfl, "%d", "%d", "%d", "%d", "%d", "%d"]
             # Output.
