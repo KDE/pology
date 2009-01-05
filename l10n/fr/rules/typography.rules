@@ -303,6 +303,7 @@ validGroup inQuotes
 validGroup optionTag
 validGroup tokenTag
 valid after="&unbsp;" before="[,\. \)]"
+valid after="&unbsp;" before="&unbsp;[\?!,]"
 valid after="font-size:[0-9]+"# CSS
 valid before="[0-9ns]"
 valid before="[A-Za-z_]\b"

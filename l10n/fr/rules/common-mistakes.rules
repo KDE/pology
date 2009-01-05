@@ -71,11 +71,12 @@ valid before="&"
 hint="La bonne orthographe est « accès » (accent grave)"
 
 [addres]i
-valid after="&amp;k" before="sbook;" 
+valid after="&amp;k" before="sbook;"
 valid after="[kK]" before="s[bB]ook"
 valid after="Browse"
 valid after="</?"
 valid before="s="
+valid cat="kio_groupwise" after="/" before="sbook/"
 valid cat="kmail" after="^\[" before="sBook\]$"
 hint="Seulement un « d » en français"
 
