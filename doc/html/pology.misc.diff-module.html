@@ -70,14 +70,15 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of tuples, float</span>
+      <span class="summary-type">list of tuples or (list of tuples, float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_diff" class="summary-sig-name">word_diff</a>(<span class="summary-sig-arg">text_old</span>,
         <span class="summary-sig-arg">text_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create word-level difference between old and new text.</td>
           <td align="right" valign="top">
             
@@ -90,7 +91,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string, float</span>
+      <span class="summary-type">string or None or (string or None, float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -98,7 +99,8 @@
         <span class="summary-sig-arg">text_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create word-level embedded difference between old and new texts.</td>
           <td align="right" valign="top">
             
@@ -111,11 +113,11 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">string or None</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#ediff_to_old" class="summary-sig-name">ediff_to_old</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_ediff_to_old" class="summary-sig-name">word_ediff_to_old</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
       Recover old version (-) from text with embedded differences.</td>
           <td align="right" valign="top">
             
@@ -128,12 +130,90 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">string or None</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#ediff_to_new" class="summary-sig-name">ediff_to_new</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_ediff_to_new" class="summary-sig-name">word_ediff_to_new</a>(<span class="summary-sig-arg">dtext</span>)</span><br />
       Recover new version (+) from text with embedded differences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of word-diffs or (list of word-diffs, float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_diff" class="summary-sig-name">line_word_diff</a>(<span class="summary-sig-arg">lines_old</span>,
+        <span class="summary-sig-arg">lines_new</span>,
+        <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create word-level difference between old and new lines of text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (string, float), float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff" class="summary-sig-name">line_word_ediff</a>(<span class="summary-sig-arg">lines_old</span>,
+        <span class="summary-sig-arg">lines_new</span>,
+        <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create word-level embedded difference between old and new lines of 
+      text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff_to_old" class="summary-sig-name">line_word_ediff_to_old</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
+      Recover old version (-) from lines of text with embedded differences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff_to_new" class="summary-sig-name">line_word_ediff_to_new</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
+      Recover new version (+) from lines of text with embedded differences.</td>
           <td align="right" valign="top">
             
             
@@ -183,7 +263,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">word_diff</span>(<span class="sig-arg">text_old</span>,
         <span class="sig-arg">text_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">format</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -196,35 +277,46 @@
   tuple composed of a difference tag and a text segment. Difference tag is 
   string <code>&quot;+&quot;</code>, <code>&quot;-&quot;</code>, or 
   <code>&quot; &quot;</code>, for text segments which are new, old, or 
-  present in both texts, respectively. The list is ordered such that 
-  joining all text segments not marked as old will reconstruct the new 
-  text, and joining all not marked as new will reconstruct the old text. 
-  For example:</p>
+  present in both texts, respectively. If one of the texts is 
+  <code>None</code>, as opposed to empty string, a tilde is appended to the
+  base difference tag.</p>
+  <p>The list is ordered such that joining all text segments not marked as 
+  old will reconstruct the new text, and joining all not marked as new will
+  reconstruct the old text.</p>
+  <p>If requested by the <code>diffr</code> parameter, also reported is the
+  <i>difference ratio</i>, a heuristic measure of difference between two 
+  texts. 0.0 means no difference, and 1.0 that the texts are completely 
+  different.</p>
+  <p>Differencing may take into account when the texts are expected to have
+  XML-like markup, or when they are of certain format defined by 
+  Gettext.</p>
+  <p>Examples:</p>
 <pre class="literalblock">
    &gt;&gt;&gt; s1 = &quot;A new type of foo.&quot;
    &gt;&gt;&gt; s2 = &quot;A new kind of foo.&quot;
    &gt;&gt;&gt; word_diff(s1, s2)
+   [(' ', 'A new '), ('+', 'kind'), ('-', 'type'), (' ', ' of foo.')]
+   &gt;&gt;&gt; word_diff(s1, s2, diffr=True)
    ([(' ', 'A new '), ('+', 'kind'), ('-', 'type'), (' ', ' of foo.')],
    0.36363636363636365)
+   &gt;&gt;&gt; word_diff(s1, None, diffr=True)
+   ([('-~', 'A new type of foo.')], 1.0)
+   &gt;&gt;&gt; word_diff(None, s2, diffr=True)
+   ([('+~', 'A new kind of foo.')], 1.0)
 </pre>
-  <p>Differencing may take into account when the texts are expected to have
-  XML-like markup, or when they are of certain format defined by 
-  Gettext.</p>
-  <p>Also reported is the <i>difference ratio</i>, a heuristic measure of 
-  difference between two texts. 0.0 means no difference, and 1.0 that the 
-  texts are completely different.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text_old</code></strong> (string) - the old text</li>
-        <li><strong class="pname"><code>text_new</code></strong> (string) - the new text</li>
+        <li><strong class="pname"><code>text_old</code></strong> (string or None) - the old text</li>
+        <li><strong class="pname"><code>text_new</code></strong> (string or None) - the new text</li>
         <li><strong class="pname"><code>markup</code></strong> (bool) - whether <code>&lt;...&gt;</code> markup can be expected in the 
           texts</li>
         <li><strong class="pname"><code>format</code></strong> (string) - Gettext format flag (e.g. <code>&quot;c-format&quot;</code>, 
           etc.)</li>
+        <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
     </ul></dd>
-    <dt>Returns: list of tuples, float</dt>
-        <dd>difference list and difference ratio</dd>
+    <dt>Returns: list of tuples or (list of tuples, float)</dt>
+        <dd>difference list and possibly difference ratio</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -239,7 +331,8 @@
         <span class="sig-arg">text_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -250,10 +343,35 @@
   <p>Same as <a href="pology.misc.diff-module.html#word_diff" 
   class="link">word_diff</a>, but the difference is returned as text in 
   which the new segments are wrapped as <code>{+...+}</code>, and the old 
-  segments as <code>{-...-}</code>.</p>
+  segments as <code>{-...-}</code>. If a difference wrapper is already 
+  contained in the text, it will be escaped by inserting a tilde, e.g. 
+  <code>&quot;{+...+}&quot;</code> -&gt; 
+  <code>&quot;{~+...+~}&quot;</code>. If even an escaped wrapper is 
+  contained in the text, another tilde is inserted, and so on.</p>
+  <p>If one of the texts is <code>None</code>, then the whole other text is
+  wrapped as suitable difference, and a tilde added to its end to indicate 
+  that the other text was <code>None</code>. If neither of the texts is 
+  <code>None</code>, but after differencing the tilde appears in the end of
+  embedded difference, it is escaped by another tilde. If both texts are 
+  <code>None</code>, <code>None</code> is returned as the difference.</p>
+  <p>The <code>hlto</code> parameter can be used to additionally highlight 
+  embedded difference for an output descriptor pointed to by it (e.g. 
+  colorized for the shell if given as <code>sys.stdout</code>). If 
+  highlighting is applied, <a 
+  href="pology.misc.diff-module.html#word_ediff_to_old" 
+  class="link">word_ediff_to_old</a> and <a 
+  href="pology.misc.diff-module.html#word_ediff_to_new" 
+  class="link">word_ediff_to_new</a> cannot be used to recover the original
+  texts.</p>
+  <p>See <a href="pology.misc.diff-module.html#word_diff" 
+  class="link">word_diff</a> for description of other parameters.</p>
   <dl class="fields">
-    <dt>Returns: string, float</dt>
-        <dd>string with embedded differences and difference ratio</dd>
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>hlto</code></strong> (file descriptor) - destination to produce extra highlighting for</li>
+    </ul></dd>
+    <dt>Returns: string or None or (string or None, float)</dt>
+        <dd>string with embedded differences and possibly difference ratio</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
         <a href="pology.misc.diff-module.html#word_diff" 
@@ -261,14 +379,14 @@
       </p>
 </div></td></tr></table>
 </div>
-<a name="ediff_to_old"></a>
+<a name="word_ediff_to_old"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">ediff_to_old</span>(<span class="sig-arg">dtext</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_ediff_to_old</span>(<span class="sig-arg">dtext</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -281,7 +399,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
     </ul></dd>
-    <dt>Returns: string</dt>
+    <dt>Returns: string or None</dt>
         <dd>old version of the text</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
@@ -290,14 +408,14 @@
       </p>
 </div></td></tr></table>
 </div>
-<a name="ediff_to_new"></a>
+<a name="word_ediff_to_new"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">ediff_to_new</span>(<span class="sig-arg">dtext</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_ediff_to_new</span>(<span class="sig-arg">dtext</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -310,12 +428,150 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
     </ul></dd>
-    <dt>Returns: string</dt>
+    <dt>Returns: string or None</dt>
         <dd>new version of the text</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
         <a href="pology.misc.diff-module.html#word_ediff" 
         class="link">word_ediff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="line_word_diff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_diff</span>(<span class="sig-arg">lines_old</span>,
+        <span class="sig-arg">lines_new</span>,
+        <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create word-level difference between old and new lines of text.</p>
+  <p>First makes a difference on a line-level, and then for each set of 
+  differing lines a difference on word-level, using <a 
+  href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a>.
+  Difference is presented as a list of tuples of word diffs and ratios as 
+  constructed by <a href="pology.misc.diff-module.html#word_diff" 
+  class="link">word_diff</a>. See <a 
+  href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a> 
+  for description of keyword parameters. The difference ratio is computed 
+  as line-length weighted average of word difference ratios per line.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lines_old</code></strong> (string) - old lines of text</li>
+        <li><strong class="pname"><code>lines_new</code></strong> (string) - new lines of text</li>
+    </ul></dd>
+    <dt>Returns: list of word-diffs or (list of word-diffs, float)</dt>
+        <dd>difference list and possibly difference ratio</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="line_word_ediff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff</span>(<span class="sig-arg">lines_old</span>,
+        <span class="sig-arg">lines_new</span>,
+        <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create word-level embedded difference between old and new lines of 
+  text.</p>
+  <p>Same as <a href="pology.misc.diff-module.html#line_word_diff" 
+  class="link">line_word_diff</a>, but the difference is returned as list 
+  of tuples of line of text (in which the new segments are wrapped as 
+  <code>{+...+}</code>, and the old segments as <code>{-...-}</code>) and 
+  difference ratio for the line. See <a 
+  href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a> 
+  and <a href="pology.misc.diff-module.html#word_ediff" 
+  class="link">word_ediff</a> for description of keyword parameters.</p>
+  <dl class="fields">
+    <dt>Returns: list of (string, float), float</dt>
+        <dd>list of lines and partial difference ratios, and total ratio</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#line_word_diff" 
+        class="link">line_word_diff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="line_word_ediff_to_old"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff_to_old</span>(<span class="sig-arg">dlines</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Recover old version (-) from lines of text with embedded 
+  differences.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dlines</code></strong> (list of strings) - lines of text with embedded differences</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>old version of the lines</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#line_word_ediff" 
+        class="link">line_word_ediff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="line_word_ediff_to_new"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff_to_new</span>(<span class="sig-arg">dlines</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Recover new version (+) from lines of text with embedded 
+  differences.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dlines</code></strong> (list of strings) - lines of text with embedded differences</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>new version of the lines</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#line_word_ediff" 
+        class="link">line_word_ediff</a>
       </p>
 </div></td></tr></table>
 </div>
