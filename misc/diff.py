@@ -237,8 +237,8 @@ def word_ediff (text_old, text_new, markup=False, format=None, hlto=None,
     Same as L{word_diff}, but the difference is returned as text in
     which the new segments are wrapped as C{{+...+}}, and the old
     segments as C{{-...-}}.
-    If a difference wrapper is already contained in the text, it
-    will be escaped by inserting a tilde, e.g. C{"...{+..."} -> C{"...{~+..."}.
+    If a difference wrapper is already contained in the text, it will be
+    escaped by inserting a tilde, e.g. C{"{+...+}"} -> C{"{~+...+~}"}.
     If even an escaped wrapper is contained in the text, another tilde
     is inserted, and so on.
 
