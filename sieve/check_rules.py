@@ -184,6 +184,7 @@ class Sieve (object):
                 if rule.ident in selectedRules:
                     srules.append(rule)
                     foundRules.add(rule.ident)
+                    rule.disabled = False
             if foundRules!=selectedRules:
                 missingRules=list(selectedRules-foundRules)
                 missingRules.sort()
