@@ -19,9 +19,10 @@ The sieve parameters are:
         if not given, only environment-agnostic rules are applied
    - C{envonly}: when a specific environment is given, apply only the rules
         explicitly belonging to it (ignoring environment-agnostic ones)
-   - C{rule}: comma-separated list of specific rules to apply, containing
-        rule identifiers; if not given, all rules for given language and
-        environment are applied
+   - C{rule:<ruleid>}: comma-separated list of specific rules to apply,
+        by their identifiers; also enables any disabled rule among the selected
+   - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
+        the regular expression
    - C{stat}: show statistics of rule matching at the end
    - C{accel:<characters>}: characters to consider as accelerator markers
    - C{markup:<mkeywords>}: markup types by keyword (comma separated)
@@ -53,6 +54,7 @@ from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
 from time import strftime, strptime, mktime
 from locale import getpreferredencoding
+import re
 
 from pology.misc.rules import loadRules, printStat
 from pology.misc.report import report, error, warning
@@ -135,6 +137,13 @@ def setup_sieve (p):
     "Apply only the rule given by this identifier. "
     "Several identifiers can be given as comma-separated list."
     )
+    p.add_param("rulerx", unicode, multival=True,
+                metavar="REGEX",
+                desc=
+    "Apply only the rules with identifiers matching this regular expression. "
+    "Several patterns can be given by repeating the parameter, in which case "
+    "a rule is matched if all patterns match."
+    )
     p.add_param("xml", unicode,
                 metavar="PATH",
                 desc=
@@ -176,10 +185,11 @@ class Sieve (object):
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
         selectedRules=[]
+        selectedRulesRx=[]
+        srules=[]
         if params.rule:
             selectedRules=set([x.strip() for x in params.rule])
             foundRules=set()
-            srules=[]
             for rule in self.rules:
                 if rule.ident in selectedRules:
                     srules.append(rule)
@@ -190,12 +200,25 @@ class Sieve (object):
                 missingRules.sort()
                 error("some explicitly selected rules are missing: %s"
                       % ", ".join(missingRules))
-            self.rules=srules
             selectedRules=list(selectedRules)
             selectedRules.sort()
+        if params.rulerx:
+            foundRulesRx=set()
+            identRxs=[re.compile(x, re.U) for x in params.rulerx]
+            for rule in self.rules:
+                if (    rule.ident
+                    and reduce(lambda s, x: s and x.search(rule.ident),
+                               identRxs, True)
+                ):
+                    srules.append(rule)
+                    foundRulesRx.add(rule.ident)
+            selectedRulesRx=list(foundRulesRx)
+            selectedRulesRx.sort()
+        if params.rule or params.rulerx:
+            self.rules=srules
 
         if len(self.rules)==0:
-            warning("No rule loaded. Exiting")
+            warning("No rule loaded or selected. Exiting")
             sys.exit(1)
 
         ntot=len(self.rules)
@@ -218,6 +241,13 @@ class Sieve (object):
 
         if selectedRules:
             report("(explicitly selected: %s)" % ", ".join(selectedRules))
+        if selectedRulesRx:
+            n = len(selectedRulesRx)
+            if n <= 5:
+                report("(selected by regular expression: %s)"
+                       % ", ".join(selectedRulesRx))
+            else:
+                report("(selected by regular expression: [%d rules])" % n)
 
         # Collect all distinct filters from rules.
         self.ruleFilters=set()
