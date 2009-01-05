@@ -15,7 +15,9 @@ while the header entry is handled by L{pology.file.header}.
 from pology.misc.escape import escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
-from pology.misc.diff import word_ediff, word_diff, ediff_to_new
+from pology.misc.diff import word_ediff, word_diff
+from pology.misc.diff import line_word_ediff, line_word_diff
+from pology.misc.diff import word_ediff_to_new, line_word_ediff_to_new
 
 
 _Message_spec = {
@@ -51,12 +53,49 @@ _Message_spec = {
     "refline" : {"type" : int},
     "refentry" : {"type" : int},
 }
+
+# Exclusive groupings.
 _Message_single_fields = (
     "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
     "msgctxt", "msgid", "msgid_plural",
 )
+_Message_list_fields = (
+    "manual_comment", "auto_comment",
+    "msgstr",
+)
+_Message_list2_fields = (
+    "source",
+)
+_Message_set_fields = (
+    "flag",
+)
+_Message_state_fields = (
+    "obsolete",
+)
+
+# Convenience groupings.
+_Message_all_fields = (()
+    + _Message_single_fields
+    + _Message_list_fields
+    + _Message_list2_fields
+    + _Message_set_fields
+    + _Message_state_fields
+)
+_Message_sequence_fields = (()
+    + _Message_list_fields
+    + _Message_list2_fields
+    + _Message_set_fields
+)
+_Message_key_fields = (
+    "msgctxt", "msgid",
+)
 _Message_mandatory_fields = (
     "msgid", "msgstr",
+)
+_Message_currprev_fields = (
+    ("msgctxt", "msgctxt_previous"),
+    ("msgid", "msgid_previous"),
+    ("msgid_plural", "msgid_plural_previous"),
 )
 
 class Message_base (object):
@@ -280,6 +319,24 @@ class Message_base (object):
                     self.msgid_plural_previous = None
 
         self.__dict__["^getsetattr"].__setattr__(self, att, val)
+
+
+    def __eq__ (self, omsg):
+        """
+        Reports wheter messages are equal in all apparent parts.
+
+        "Apparent" parts include all those which are visible in the PO file.
+        I.e. the check will ignore internal states, like line caches, etc.
+
+        @returns: C{True} if messages are equal in apparent parts
+        @rtype: bool
+        """
+
+        for field in _Message_all_fields:
+            if self.get(field) != omsg.get(field):
+                return False
+
+        return True
 
 
     def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False):
@@ -551,17 +608,30 @@ class Message_base (object):
             return "U"
 
 
-    def diff_from (self, omsg, pfilter=None, hlto=None, addrem=None):
+    def ediff_from (self, omsg, pfilter=None, hlto=None, addrem=None):
         """
-        Compute text field diffs from the other to current message.
+        Compute embedded differences of relevant message parts
+        from the other to the current message.
+
+        The idea behind "relevant" is to produce a difference
+        which would be of most help to human reviewer of changes
+        between the two messages. There is no guarantee on which
+        parts are considered relevant in this sense, and their
+        selection may change without notice.
 
         The difference is returned as list of four-tuples of
-        (field name, field item, field diff, difference ratio).
-        Field diff is represent as embedded differences, see
-        L{word_ediff<misc.diff.word_ediff>}.
+        (part name, part item, embedded difference, difference ratio).
+        The part name can be used to fetch the part with the L{get()} method.
+        The part item is C{None} for singular fields, and index for list fields.
+        Since flags are forming a set, item in their case is the flag itself,
+        and the embedded difference is the whole flag either as removed or
+        added part; the difference ratio is thus always 1.0.
+        See L{word_ediff<misc.diff.word_ediff>} for the format
+        of embedded differences.
 
         If the other message is fuzzy and equipped with previous fields,
-        these fields are going to be used instead of its current fields.
+        those fields are going to be used instead of its current fields
+        to diff against current fields of this message.
 
         Every text field can be passed through a filter before differencing,
         using the C{pfilter} parameter.
@@ -572,9 +642,9 @@ class Message_base (object):
         Instead of embedding the difference, using the C{addrem} parameter
         only equal, added, or removed segments can be reported.
         The value of this parameter is a string, such that the first character
-        selects the type of partial difference: one of (=, e) for equal,
-        (+, a) for added, and (-, r) for removed segments, and the rest of
-        the string is used as separator to join the selected segments
+        selects the type of partial difference: one of ('=', "e') for equal,
+        ('+', 'a') for added, and ('-', 'r') for removed segments, and the
+        rest of the string is used as separator to join the selected segments
         (if the separator is empty, space is used instead).
 
         @param omsg: the message from which to make the difference
@@ -591,53 +661,39 @@ class Message_base (object):
         @rtype: list of (string, int, string, float)
         """
 
-        # Use previous instead of current fields of the other message,
+        # Work on copies.
+        msg1 = MessageUnsafe(omsg)
+        msg2 = MessageUnsafe(self)
+
+        # Use previous instead of current fields of the from-message,
         # if the message is fuzzy and previous fields are available.
-        if omsg.fuzzy and omsg.msgid_previous is not None:
-            other_msgctxt = omsg.msgctxt_previous
-            other_msgid = omsg.msgid_previous
-            other_msgid_plural = omsg.msgid_plural_previous
-        else:
-            other_msgctxt = omsg.msgctxt
-            other_msgid = omsg.msgid
-            other_msgid_plural = omsg.msgid_plural
+        if msg1.fuzzy and msg1.msgid_previous is not None:
+            for fcurr, fprev in _Message_currprev_fields:
+                setattr(msg1, fcurr, msg1.get(fprev))
 
-        # Equalize number of msgstr fields.
-        msgstrs1 = []
-        msgstrs2 = []
-        lenm1 = len(omsg.msgstr)
-        lenm2 = len(self.msgstr)
-        nmsgstr = max(lenm1, lenm2)
-        for i in range(nmsgstr):
-            if i < lenm1:
-                msgstrs1.append(omsg.msgstr[i])
-            else:
-                msgstrs1.append(u"")
-            if i < lenm2:
-                msgstrs2.append(self.msgstr[i])
-            else:
-                msgstrs2.append(u"")
+        # Diff two texts under the given diffing options.
+        def _tediff (text1, text2, islines=False):
 
-        # Create diffs.
-        field_diffs = []
-        for field, item, text1, text2 in [
-            ("msgctxt", 0, other_msgctxt or u"", self.msgctxt or u""),
-            ("msgid", 0, other_msgid, self.msgid),
-            ("msgid_plural", 0, other_msgid_plural or u"", self.msgid_plural or u""),
-        ] + zip(["msgstr"] * nmsgstr, range(nmsgstr), msgstrs1, msgstrs2):
+            if not islines:
+                f_ediff, f_diff = word_ediff, word_diff
+            else:
+                f_ediff, f_diff = line_word_ediff, line_word_diff
+
             if pfilter:
-                text1 = pfilter(text1)
-                text2 = pfilter(text2)
-            if not addrem:
-                if text1 != text2:
-                    ediff, dr = word_ediff(text1, text2,
-                                           markup=True, format=self.format,
-                                           hlto=hlto)
+                if not islines:
+                    text1 = pfilter(text1)
+                    text2 = pfilter(text2)
                 else:
-                    ediff = text2
+                    text1 = [pfilter(x) for x in text1]
+                    text2 = [pfilter(x) for x in text2]
+
+            if not addrem:
+                ediff, dr = f_ediff(text1, text2,
+                                    markup=True, format=self.format,
+                                    hlto=hlto, diffr=True)
             else:
-                wdiff, dr = word_diff(text1, text2,
-                                      markup=True, format=self.format)
+                wdiff, dr = f_diff(text1, text2,
+                                   markup=True, format=self.format, diffr=True)
                 mode = addrem[0]
                 sep = addrem[1:] or " "
                 if mode in ("=", "e"):
@@ -650,49 +706,102 @@ class Message_base (object):
                     raise StandardError, (
                             "unknown selection mode '%s' for "
                             "partial differencing" % mode)
-                ediff = sep.join([x for t, x in wdiff if t == dtyp])
+                if not islines:
+                    ediff = sep.join([x for t, x in wdiff if t == dtyp])
+                else:
+                    ediff = []
+                    for wdiff1 in wdiff:
+                        ediff += [sep.join([x for t, x in wdiff1 if t == dtyp])]
 
-            # If addrem is in effect, there may be some difference
-            # computed from text1 to text2 even if text1 == text2.
-            if text2 != ediff:
-                field_diffs.append((field, item, ediff, dr))
+            return ediff, dr
+
+        # Create diffs of relevant fields:
+
+        field_diffs = []
+
+        for field in (
+            "manual_comment", ("flag", [u"fuzzy"]),
+            "msgctxt", "msgid", "msgid_plural", "msgstr",
+            "obsolete",
+        ):
+            if isinstance(field, tuple):
+                field, items = field
+            if field in _Message_single_fields:
+                val1 = msg1.get(field)
+                val2 = msg2.get(field)
+                if addrem or val1 != val2:
+                    ediff, dr = _tediff(val1, val2)
+                    field_diffs.append((field, None, ediff, dr))
+            elif field in _Message_list_fields:
+                lst1 = msg1.get(field)
+                lst2 = msg2.get(field)
+                if addrem or lst1 != lst2:
+                    ediffs, totdr = _tediff(lst1, lst2, islines=True)
+                    item = 0
+                    for ediff, dr in ediffs:
+                        field_diffs.append((field, item, ediff, dr))
+                        item += 1
+            elif field in _Message_set_fields:
+                items1 = msg1.get(field)
+                items2 = msg2.get(field)
+                for item in items:
+                    ediff = None
+                    if item in items1 and item not in items2:
+                        ediff, dr = word_ediff(item, None, diffr=True)
+                    elif item not in items1 and item in items2:
+                        ediff, dr = word_ediff(None, item, diffr=True)
+                    if ediff is not None:
+                        field_diffs.append((field, item, ediff, dr))
+            elif field in _Message_state_fields:
+                s1 = msg1.get(field)
+                s2 = msg2.get(field)
+                ediff = None
+                if s1 and not s2:
+                    ediff, dr = word_ediff(field, None, diffr=True)
+                elif not s1 and s2:
+                    ediff, dr = word_ediff(None, field, diffr=True)
+                if ediff is not None:
+                    field_diffs.append((field, None, ediff, dr))
+            else:
+                raise StandardError, (
+                      "internal: unknown field '%s' in differencing" % field)
 
         return field_diffs
 
+    _diffsep_minlen = 10
+    _diffsep_el = u"~"
+    _diffsep_item = u":"
+    _dcmnt_head = u"x-ediff:"
+    _dcmnt_sep = u", "
+    _dcmnt_argsep = u" "
+    _dcmnt_ind_state = u"state"
+    _dcmnt_ind_seplen = u"seplen"
 
-    _diffsep = "~*~*~*~*~*~"
-    _diffsep_inner = "~-~-~-~-~-~"
-
-    def embed_diff (self, omsg, keeponfuzz=True, tocurr=False, flag=None,
+    def embed_diff (self, omsg, live=False, flag=None,
                     pfilter=None, hlto=None, addrem=None):
         """
-        Embed text field diffs against the other message.
+        Embed differences of relevant message parts
+        from the other to the current message.
 
-        The difference is created from the other to this message,
-        and embedded into C{previous_*} fields of this message (default),
-        or the current fields (if C{tocurr} is C{True}).
-        If embeding is into previous fields, the difference of C{msgstr}
-        fields is put into C{previous_msgid} (or C{previous_msgid_plural}
-        for plural messages), suitably visually separated.
-        If previous fields already exist and message has C{fuzzy} flag,
-        then the differenced C{msgctxt}, C{msgid}, and C{msgid_plural},
-        are also going to be added with separation to existing values;
-        to instead fully overwrite existing previous fields in fuzzy message,
-        set C{keeponfuzz} to C{False}.
+        The difference is created from the other to this message, and
+        embedded into the previous fields or current fields of this message,
+        depending on whether C{live} is C{False} or C{True}, respectively.
+        If embedding is into previous fields, the difference is embedded
+        either into C{msgid_previous} or into C{msgid_plural_previous}
+        if it exists, preserving any original content therein.
         See L{word_ediff<misc.diff.word_ediff>} for the syntax
         of embedded differences.
 
-        See L{diff_from} for the behavior in presence of fuzzy messages,
-        and usage of C{pfilter}, c{hlto}, and C{addrem} parameters.
-        A flag can be added to the message if there was any difference,
-        using the C{flag} parameter.
+        See L{ediff_from} for the behavior in presence of fuzzy messages,
+        and usage of C{pfilter}, C{hlto}, and C{addrem} parameters.
+
+        A flag can be added to the message if any difference was embedded,
+        as provided by the C{flag} parameter.
 
         @param omsg: the message from which to make the difference
         @type omsg: L{Message_base}
-        @param keeponfuzz: whether to preserve previous fields if fuzzy-flagged
-        @type keeponfuzz: bool
-        @param tocurr: embed differences into current fields if C{True}
-        @type tocurr: bool
+        @param live: embed differences into current fields if C{True}
+        @type live: bool
         @param pfilter: filter to be applied to all text prior to differencing
         @type pfilter: callable
         @param flag: flag to add to the message if there was any difference
@@ -702,79 +811,94 @@ class Message_base (object):
         @rtype: bool
         """
 
-        field_diffs = self.diff_from(omsg, pfilter=pfilter, hlto=hlto,
-                                     addrem=addrem)
+        field_diffs = self.ediff_from(omsg, pfilter=pfilter, hlto=hlto,
+                                      addrem=addrem)
 
         if not field_diffs:
             return False
 
-        msgstr_abzero = False
-        for field, item, ediff, dr in field_diffs:
-            if field == "msgstr" and item > 0:
-                msgstr_abzero = True
-                break
+        indargs = {}
 
-        # Embed diffs.
-        if not tocurr:
-            msgctxt_previous = None
-            msgid_previous = None
-            msgid_plural_previous = None
-            msgstr_previous_sections = []
-            for field, item, ediff, dr in field_diffs:
-                if field == "msgctxt":
-                    msgctxt_previous = ediff
-                elif field == "msgid":
-                    msgid_previous = ediff
-                elif field == "msgid_plural":
-                    msgid_plural_previous = ediff
-                elif field == "msgstr":
-                    sepmark = ""
-                    if msgstr_abzero:
-                        sepmark = "[%d]" % item
-                    sep = "%s%s" % (Message_base._diffsep_inner, sepmark)
-                    msgstr_previous_sections.append(sep)
-                    msgstr_previous_sections.append(ediff)
-            msgstr_previous = "\n".join(msgstr_previous_sections)
-            if msgstr_previous:
-                if self.msgid_plural is None:
-                    if msgid_previous is None:
-                        msgid_previous = u""
-                    else:
-                        msgid_previous += "\n"
-                    msgid_previous += msgstr_previous
+        if not live:
+            # Pick destination previous field.
+            if self.msgid_plural_previous is not None:
+                dfield = "msgid_plural_previous"
+            else:
+                dfield = "msgid_previous"
+            dfval = self.get(dfield)
+
+            # Pick length of separators.
+            seplen = Message_base._diffsep_minlen
+            sepinc = 5
+            seplen_p = seplen - 1
+            while seplen_p < seplen:
+                diffsep = Message_base._diffsep_el * seplen
+                seplen_p = seplen
+                if diffsep in (dfval or u""):
+                    seplen += sepinc
                 else:
-                    if msgid_plural_previous is None:
-                        msgid_plural_previous = u""
-                    else:
-                        msgid_plural_previous += "\n"
-                    msgid_plural_previous += msgstr_previous
+                    for field, item, ediff, dr in field_diffs:
+                        if diffsep in ediff:
+                            seplen += sepinc
+                            break
 
-            keepold = keeponfuzz and "fuzzy" in self.flag
-            # ...do not check self.fuzzy, should cover obsolete too
-            for field in ("msgctxt", "msgid", "msgid_plural"):
-                attr = field + "_previous"
-                ediff = locals()[attr]
-                aval = getattr(self, attr)
-                if aval is not None or ediff is not None:
-                    if keepold:
-                        if aval is None:
-                            aval = u""
-                        else:
-                            aval += "\n"
-                        aval += Message_base._diffsep
-                        if ediff is not None:
-                            aval += "\n" + ediff
+            # If separator length greater than minimal, indicate it.
+            if seplen > Message_base._diffsep_minlen:
+                indargs[Message_base._dcmnt_ind_seplen] = [str(seplen)]
+
+            # Assemble difference segments.
+            ndfval_segs = []
+            if dfval is not None:
+                ndfval_segs += [dfval]
+            sepitem = Message_base._diffsep_item
+            for field, item, ediff, dr in field_diffs:
+                if field not in _Message_state_fields:
+                    if item is not None:
+                        itemfmt = "%s%s%s" % (field, sepitem, item)
                     else:
-                        aval = ediff
-                    setattr(self, attr, aval)
+                        itemfmt = field
+                    ndfval_segs += [diffsep + itemfmt, ediff]
+                else:
+                    ind_state = Message_base._dcmnt_ind_state
+                    if ind_state not in indargs:
+                        indargs[ind_state] = []
+                    indargs[ind_state].append(ediff)
+
+            ndfval = "\n".join(ndfval_segs)
+            setattr(self, dfield, ndfval)
+
         else:
             for field, item, ediff, dr in field_diffs:
-                if isinstance(getattr(self, field), (Monlist, list)):
-                    while item >= len(getattr(self, field)):
-                        getattr(self, field).append(u"")
-                    getattr(self, field)[item] = ediff
+                val = self.get(field)
+                if field in _Message_list_fields:
+                    val.extend([u""] * (item + 1 - len(val)))
+                    val[item] = ediff
+                elif field in _Message_set_fields:
+                    val.add(ediff)
+                elif field in _Message_state_fields:
+                    ind_state = Message_base._dcmnt_ind_state
+                    if ind_state not in indargs:
+                        indargs[ind_state] = []
+                    indargs[ind_state].append(ediff)
                 else:
                     setattr(self, field, ediff)
+
+        # Add empty diff comment to escape a comment that looks like it.
+        acmnts = self.auto_comment
+        if acmnts and acmnts[0].lstrip().startswith(Message_base._dcmnt_head):
+            indargs[""] = True
+
+        # Add diff comment if any diff indicators recorded.
+        if indargs:
+            inds = [x for x in indargs.keys() if x]
+            inds.sort()
+            dcmnt = Message_base._dcmnt_head
+            sep = Message_base._dcmnt_sep
+            asep = Message_base._dcmnt_argsep
+            tail = sep.join([asep.join([x] + indargs[x]) for x in inds])
+            if tail:
+                 dcmnt += " " + tail
+            self.auto_comment.insert(0, dcmnt)
 
         if flag:
             self.flag.add(unicode(flag))
@@ -782,17 +906,18 @@ class Message_base (object):
         return True
 
 
-    def unembed_diff (self, keeponfuzz=True, flag=None):
+    def unembed_diff (self, live=False, flag=None):
         """
         Undo the embedding of text field diffs.
 
-        If called with same C{tocurr} and C{flag} arguments as
+        If called with same C{live} and C{flag} arguments as
         L{embed_diff} was called with, this method should exactly
         undo the embedding, returning the message to its earlier state.
-        Only embedding into previous fields can be undone.
+        Embedding cannot be undone if any of C{pfilter}, C{hlto} or C{addrem},
+        parameters were used with L{embed_diff}.
 
-        @param keeponfuzz: whether previous fields were kept if fuzzy-flagged
-        @type keeponfuzz: bool
+        @param live: differences were embedded into current fields if C{True}
+        @type live: bool
         @param flag: flag which was added on embedding, to remove
         @type flag: string
 
@@ -802,24 +927,69 @@ class Message_base (object):
 
         anyundo = False
 
-        diffsep = Message_base._diffsep
-        oldkept = keeponfuzz and "fuzzy" in self.flag
-        # ...do not check self.fuzzy, should cover obsolete too
-        for field in ("msgctxt", "msgid", "msgid_plural"):
-            attr = field + "_previous"
-            aval = getattr(self, attr)
-            if aval is not None:
-                if oldkept:
-                    # ...do not check self.fuzzy, should cover obsolete too
-                    p = aval.find(diffsep)
-                    if p == 0: # previously there was no field
-                        setattr(self, attr, None)
-                        anyundo = True
-                    elif p > 0:
-                        setattr(self, attr, aval[:p - 1]) # chop leading newline
-                        anyundo = True
+        acmnts = self.auto_comment
+        dcmnt_head = Message_base._dcmnt_head
+        argsep = Message_base._dcmnt_argsep.strip() or None
+        seplen = Message_base._diffsep_minlen
+        if acmnts and acmnts[0].lstrip().startswith(dcmnt_head):
+            dcmnt = acmnts.pop(0).lstrip()[len(dcmnt_head):]
+            for indargs in dcmnt.split(Message_base._dcmnt_sep):
+                lst = indargs.split(argsep)
+                ind, args = lst[0], [word_ediff_to_new(x) for x in lst[1:]]
+                # FIXME: Issue warnings on unknown indicators and arguments.
+                if 0: pass
+                elif ind == Message_base._dcmnt_ind_state:
+                    for arg in args:
+                        if arg in _Message_state_fields:
+                            setattr(self, arg, True)
+                elif ind == Message_base._dcmnt_ind_seplen:
+                    seplen = int(args[0]) # FIXME: Checks.
+            anyundo = True
+
+        if not live:
+            diffsep = Message_base._diffsep_el * seplen
+            if self.msgid_plural_previous is not None:
+                dfield = "msgid_plural_previous"
+            else:
+                dfield = "msgid_previous"
+            dfval = self.get(dfield)
+            if dfval is not None:
+                p = dfval.find(diffsep)
+                if p == 0:
+                    ndfval = None
                 else:
-                    setattr(self, attr, None)
+                    ndfval = dfval[:p - 1] # strip trailing newline
+                    # FIXME: Check that there is a newline.
+                setattr(self, dfield, ndfval)
+                anyundo = True
+
+        else:
+            ismon = isinstance(self, Message)
+            for field in _Message_single_fields:
+                val = self.get(field)
+                nval = word_ediff_to_new(val)
+                if nval != val:
+                    setattr(self, field, nval)
+                    anyundo = True
+            for field in _Message_list_fields:
+                lst = self.get(field)
+                nlst = line_word_ediff_to_new(lst)
+                if ismon:
+                    nlst = Monlist(nlst)
+                if lst != nlst:
+                    setattr(self, field, nlst)
+                    anyundo = True
+            for field in _Message_set_fields:
+                st = self.get(field)
+                nst = set()
+                for el in st:
+                    nel = word_ediff_to_new(el)
+                    if nel == el:
+                        nst.add(el)
+                if ismon:
+                    nst = Monset(nst)
+                if st != nst:
+                    setattr(self, field, nst)
                     anyundo = True
 
         if flag in self.flag:
