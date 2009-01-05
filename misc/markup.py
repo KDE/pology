@@ -849,7 +849,7 @@ def _handler_default (text):
             if nument_to_char(ent) is None:
                 errmsg = ("invalid numeric entity '%s'" % ent)
         elif ent not in g.ents and ent not in xml_entities:
-            nearents = difflib.get_close_matches(ent, g.ents)
+            nearents = [] #difflib.get_close_matches(ent, g.ents)
             if nearents:
                 if len(nearents) > 5: # do not overwhelm message
                     nearents = nearents[:5] + ["..."]
@@ -1011,7 +1011,7 @@ def check_xmlents (text, ents={}, numeric=False):
                 if nument_to_char(ent) is None:
                     errmsg = ("invalid numeric entity '%s'" % ent)
             elif ent not in ents:
-                nearents = difflib.get_close_matches(ent, ents)
+                nearents = [] #difflib.get_close_matches(ent, ents)
                 if nearents:
                     if len(nearents) > 5: # do not overwhelm message
                         nearents = nearents[:5] + ["..."]
