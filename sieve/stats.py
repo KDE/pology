@@ -503,8 +503,8 @@ class Sieve (object):
 
         # Scale word and character counts in fuzzy original if requested.
         if self.p.ondiff and msg.msgid_previous is not None:
-            diff = word_ediff(msg.msgid_previous, msg.msgid,
-                              markup=True, format=msg.format)
+            diff, dr = word_ediff(msg.msgid_previous, msg.msgid,
+                                  markup=True, format=msg.format, diffr=True)
             nwords["orig"] = int(dr * nwords["orig"])
             nchars["orig"] = int(dr * nchars["orig"])
 
