@@ -715,10 +715,8 @@ class Message_base (object):
 
             return ediff, dr
 
-        # Create diffs of relevant fields:
-
+        # Create diffs of relevant fields.
         field_diffs = []
-
         for field in (
             "manual_comment", ("flag", [u"fuzzy"]),
             "msgctxt", "msgid", "msgid_plural", "msgstr",
@@ -739,7 +737,8 @@ class Message_base (object):
                     ediffs, totdr = _tediff(lst1, lst2, islines=True)
                     item = 0
                     for ediff, dr in ediffs:
-                        field_diffs.append((field, item, ediff, dr))
+                        if dr > 0.0:
+                            field_diffs.append((field, item, ediff, dr))
                         item += 1
             elif field in _Message_set_fields:
                 items1 = msg1.get(field)
