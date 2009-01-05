@@ -655,7 +655,7 @@ def diff_select_cat (options, config, catpath, acatpath,
         # Differentiate and flag.
         if i_asc is not None:
             amsg = history[i_asc].msg
-            anydiff = msg.embed_diff(amsg, keeponfuzz=True, pfilter=pfilter)
+            anydiff = msg.embed_diff(amsg, pfilter=pfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
         msg.flag.add(_revflag)
@@ -733,9 +733,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 continue
             dmsg = MessageUnsafe(a.msg)
             nmsg = history[i_next].msg
-            anydiff = dmsg.embed_diff(nmsg, tocurr=True,
+            anydiff = dmsg.embed_diff(nmsg, live=True,
                                       pfilter=pfilter, hlto=sys.stdout)
-            anydiff = diff_manual_comment(nmsg, dmsg) or anydiff
             if anydiff:
                 dmsg.auto_comment = Monlist() # ascription tags were here
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
@@ -749,32 +748,10 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_nfasc].msg
             anydiff = msg.embed_diff(nmsg, tocurr=True,
                                      pfilter=pfilter, hlto=sys.stdout)
-            anydiff = diff_manual_comment(nmsg, msg) or anydiff
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=(hinfo or None), delim=("-" * 20))
 
     return nselected
-
-
-# FIXME: Remove when Message.embed_diff() can do it.
-def diff_manual_comment (msg1, msg2):
-
-    from pology.misc.diff import word_ediff
-    manc1 = msg1.manual_comment
-    manc2 = msg2.manual_comment
-    if manc1 == manc2:
-        return False
-    maxlen = max(len(manc1), len(manc2))
-    manc1.extend([u""] * (maxlen - len(manc1)))
-    manc2.extend([u""] * (maxlen - len(manc2)))
-    mancdiff = [u""] * maxlen
-    for i in range(maxlen):
-        mancdiff[i], dr = word_ediff(manc1[i], manc2[i],
-                                     hlto=sys.stdout)
-    if isinstance(msg2, Message):
-        mancdiff = Monlist(mancdiff)
-    msg2.manual_comment = mancdiff
-    return True
 
 
 def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
@@ -785,7 +762,7 @@ def clear_review_msg (msg, rep_ntrans=None, clrevd=True):
             msg.flag.remove(flag)
             if not cleared:
                 # Clear possible embedded diffs.
-                msg.unembed_diff(keeponfuzz=True)
+                msg.unembed_diff()
                 cleared = True
             # Do not break, other review flags possible.
 
@@ -1640,7 +1617,7 @@ def selector_wasc ():
             elif pfilter:
                 # Also consider ascribed if no difference from last ascription
                 # under the filter in effect.
-                if not msg.diff_from(amsg, pfilter=pfilter):
+                if not msg.ediff_from(amsg, pfilter=pfilter):
                     return True
         elif not is_translated(msg) and not is_fuzzy(msg):
             # Also consider pristine messages ascribed.
@@ -1749,7 +1726,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
                 pfilter = options.tfilter or config.tfilter
-                amsg.embed_diff(amsg2, tocurr=True,
+                amsg.embed_diff(amsg2, live=True,
                                 pfilter=pfilter, addrem=addrem)
 
             if matcher(amsg, cat):
@@ -1835,7 +1812,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     # between the modification and current review.
                     mm, mr = history[i_cand].msg, a.msg
                     pf = options.tfilter or config.tfilter
-                    if pf and not mm.diff_from(mr, pfilter=pf):
+                    if pf and not mm.ediff_from(mr, pfilter=pf):
                         i_cand = None
                     else:
                         i_sel = i_cand
@@ -1858,7 +1835,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                 for a in history[i_cand + 1:]:
                     if (    a.type == _atype_mod
                         and (not musers or a.user not in musers)
-                        and not a.msg.diff_from(mm, pfilter=options.tfilter)
+                        and not a.msg.ediff_from(mm, pfilter=options.tfilter)
                     ):
                         i_cand = None
                         break

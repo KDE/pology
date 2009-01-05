@@ -211,7 +211,7 @@ from pology.file.catalog import Catalog
 from pology.misc.report import warning
 import pology.misc.colors as C
 from pology.sieve.find_messages import build_msg_fmatcher
-from pology.misc.diff import word_diff
+from pology.misc.diff import word_ediff
 
 
 def setup_sieve (p):
@@ -503,8 +503,8 @@ class Sieve (object):
 
         # Scale word and character counts in fuzzy original if requested.
         if self.p.ondiff and msg.msgid_previous is not None:
-            diff, dr = word_diff(msg.msgid_previous, msg.msgid,
-                                 markup=True, format=msg.format)
+            diff = word_ediff(msg.msgid_previous, msg.msgid,
+                              markup=True, format=msg.format)
             nwords["orig"] = int(dr * nwords["orig"])
             nchars["orig"] = int(dr * nchars["orig"])
 
