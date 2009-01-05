@@ -746,7 +746,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         if i_nfasc is not None:
             msg = Message(msg)
             nmsg = history[i_nfasc].msg
-            anydiff = msg.embed_diff(nmsg, tocurr=True,
+            anydiff = msg.embed_diff(nmsg, live=True,
                                      pfilter=pfilter, hlto=sys.stdout)
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=(hinfo or None), delim=("-" * 20))
