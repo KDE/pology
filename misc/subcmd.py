@@ -47,8 +47,7 @@ import os
 import re
 from textwrap import TextWrapper
 import fnmatch
-
-from pology.misc.report import error
+import locale
 
 def _p_ (x, y):
     return y
@@ -85,9 +84,10 @@ class ParamParser (object):
         """
 
         if subcmd in self._scviews:
-            error(_p_("error message",
-                     "trying to add subcommand '%(cmd)s' once again")
-                  % dict(cmd=subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add subcommand '%(cmd)s' once again")
+                % dict(cmd=subcmd))
 
         self._scviews[subcmd] = SubcmdView(self, subcmd, desc)
 
@@ -107,9 +107,10 @@ class ParamParser (object):
 
         scview = self._scviews.get(subcmd, None)
         if scview is None:
-            error(_p_("error message",
-                     "trying to get a view for an unknown "
-                     "subcommand '%(cmd)s'") % dict(cmd=subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to get a view for an unknown "
+                    "subcommand '%(cmd)s'") % dict(cmd=subcmd))
         return scview
 
 
@@ -134,9 +135,10 @@ class ParamParser (object):
         for subcmd in subcmds:
             scview = self._scviews.get(subcmd, None)
             if scview is None:
-                error(_p_("error message",
-                         "trying to get help for an unknown "
-                         "subcommand '%(cmd)s'") % dict(cmd=subcmd))
+                raise SubcmdError(
+                    _p_("error message",
+                        "trying to get help for an unknown "
+                        "subcommand '%(cmd)s'") % dict(cmd=subcmd))
             fmts.append(scview.help(wcol))
             fmts.append("")
 
@@ -175,9 +177,10 @@ class ParamParser (object):
         for subcmd in subcmds:
             scview = self._scviews.get(subcmd, None)
             if scview is None:
-                error(_p_("error message",
-                         "trying to include an unknown subcommand '%(cmd)s' "
-                         "in listing") % dict(cmd=subcmd))
+                raise SubcmdError(
+                    _p_("error message",
+                        "trying to include an unknown subcommand '%(cmd)s' "
+                        "in listing") % dict(cmd=subcmd))
             desc = scview.shdesc()
             if desc:
                 name = ("%%-%ds" % maxsclen) % subcmd
@@ -189,7 +192,7 @@ class ParamParser (object):
         return "\n".join(fmts)
 
 
-    def parse (self, rawpars, subcmds, abort=False):
+    def parse (self, rawpars, subcmds):
         """
         Parse the list of parameters collected from the command line.
 
@@ -212,16 +215,11 @@ class ParamParser (object):
         If a parameter is parsed which is not accepted by any of the given
         subcommands, its name is added to list of non-accepted parameters,
         which is the second element of the return tuple.
-        Alternatively, execution may be aborted, with non-accepted parameters
-        reported to stderr.
 
         @param rawpars: raw parameters
         @type rawpars: list of strings
         @param subcmds: names of issued subcommands
         @type subcmds: list of strings
-        @param abort: whether to abort execution when some parameters
-            were not accepted by any subcommand
-        @type abort: bool
 
         @return: objects with parameters as attributes, and
             list of parameter names not accepted by any of subcommands
@@ -231,9 +229,10 @@ class ParamParser (object):
         # Assure only registered subcommands have been issued.
         for subcmd in subcmds:
             if subcmd not in self._scviews:
-                error(_p_("error in command line (subcommand)",
-                         "unregistered subcommand '%(cmd)s' issued")
-                      % dict(cmd=subcmd))
+                raise SubcmdError(
+                    _p_("error in command line (subcommand)",
+                        "unregistered subcommand '%(cmd)s' issued")
+                    % dict(cmd=subcmd))
 
         # Parse all given parameters and collect their values.
         param_vals = dict([(x, {}) for x in subcmds])
@@ -251,19 +250,22 @@ class ParamParser (object):
                     continue
 
                 if param in param_vals[subcmd] and not scview._multivals[param]:
-                    error(_p_("error in command line (subcommand)",
-                              "parameter '%(par)s' repeated more than once")
-                          % dict(par=param))
+                    raise SubcmdError(
+                        _p_("error in command line (subcommand)",
+                            "parameter '%(par)s' repeated more than once")
+                        % dict(par=param))
 
                 ptype = scview._ptypes[param]
                 if ptype is bool and strval is not None:
-                    error(_p_("error in command line (subcommand)",
-                             "parameter '%(par)s' is a flag, no value expected")
-                          % dict(par=param))
+                    raise SubcmdError(
+                        _p_("error in command line (subcommand)",
+                            "parameter '%(par)s' is a flag, no value expected")
+                        % dict(par=param))
                 if ptype is not bool and strval is None:
-                    error(_p_("error in command line (subcommand)",
-                             "value expected for parameter '%(par)s'")
-                          % dict(par=param))
+                    raise SubcmdError(
+                        _p_("error in command line (subcommand)",
+                            "value expected for parameter '%(par)s'")
+                        % dict(par=param))
 
                 val = scview._defvals[param]
                 if ptype is bool:
@@ -275,22 +277,24 @@ class ParamParser (object):
                         try:
                             val = ptype(strval)
                         except:
-                            error(_p_("error in command line (subcommand)",
-                                     "cannot convert value '%(val)s' to "
-                                     "parameter '%(par)s' into expected "
-                                     "type '%(type)s'")
-                                  % dict(val=strval, par=param, type=ptype))
+                            raise SubcmdError(
+                                _p_("error in command line (subcommand)",
+                                    "cannot convert value '%(val)s' to "
+                                    "parameter '%(par)s' into expected "
+                                    "type '%(type)s'")
+                                % dict(val=strval, par=param, type=ptype))
                         val_lst = [val]
                     else:
                         tmplst = strval.split(",")
                         try:
                             val = [ptype(x) for x in tmplst]
                         except:
-                            error(_p_("error in command line (subcommand)",
-                                     "cannot convert value '%(val)s' to "
-                                     "parameter '%(par)s' into list of "
-                                     "elements of expected type '%(type)s'")
-                                  % dict(val=strval, par=param, type=ptype))
+                            raise SubcmdError(
+                                _p_("error in command line (subcommand)",
+                                    "cannot convert value '%(val)s' to "
+                                    "parameter '%(par)s' into list of "
+                                    "elements of expected type '%(type)s'")
+                                % dict(val=strval, par=param, type=ptype))
                         val_lst = val
 
                 # Assure admissibility of parameter values.
@@ -299,10 +303,11 @@ class ParamParser (object):
                     for val in val_lst:
                         if val not in admvals:
                             avals = self._fmt_admvals(admvals)
-                            error(_p_("error in command line (subcommand)",
-                                     "value '%(val)s' to parameter '%(par)s' "
-                                     "not from the admissible set: %(avals)s")
-                                  % dict(val=strval, par=param, avals=avals))
+                            raise SubcmdError(
+                                _p_("error in command line (subcommand)",
+                                    "value '%(val)s' to parameter '%(par)s' "
+                                    "not from the admissible set: %(avals)s")
+                                % dict(val=strval, par=param, avals=avals))
 
                 param_accepted = True
                 if scview._multivals[param] or scview._seplists[param]:
@@ -315,12 +320,6 @@ class ParamParser (object):
             if not param_accepted and param not in nacc_params:
                 nacc_params.append(param)
 
-        if abort:
-            error(_p_("error in command line (subcommand)",
-                     "parameters not expected by any of the "
-                     "issued subcommands: %(pars)s")
-                  % dict(pars=" ".join(nacc_params)))
-
         # Assure that all mandatory parameters have been supplied to each
         # issued subcommand, and set defaults for all optional parameters.
         for subcmd in subcmds:
@@ -332,10 +331,11 @@ class ParamParser (object):
                     continue
 
                 if scview._mandatorys[param]:
-                    error(_p_("error in command line (subcommand)",
-                             "mandatory parameter '%(par)s' to subcommand "
-                             "'%(cmd)s' not given")
-                          % dict(par=param, cmd=subcmd))
+                    raise SubcmdError(
+                        _p_("error in command line (subcommand)",
+                            "mandatory parameter '%(par)s' to subcommand "
+                            "'%(cmd)s' not given")
+                        % dict(par=param, cmd=subcmd))
 
                 param_vals[subcmd][param] = scview._defvals[param]
 
@@ -490,40 +490,45 @@ class SubcmdView (object):
         islist = multival or seplist
 
         if defval is not None and not islist and not isinstance(defval, ptype):
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with default value '%(val)s' "
-                     "different from its stated type '%(type)s'")
-                  % dict(par=param, cmd=self._subcmd, val=defval, type=ptype))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with default value '%(val)s' "
+                    "different from its stated type '%(type)s'")
+                % dict(par=param, cmd=self._subcmd, val=defval, type=ptype))
 
         if defval is not None and islist and not _isinstance_els(defval, ptype):
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with default value '%(val)s' "
-                     "which contains some elements different from their "
-                     "stated type '%(type)s'")
-                  % dict(par=param, cmd=self._subcmd, val=defval, type=ptype))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with default value '%(val)s' "
+                    "which contains some elements different from their "
+                    "stated type '%(type)s'")
+                % dict(par=param, cmd=self._subcmd, val=defval, type=ptype))
 
         if defval is not None and admvals is not None and defval not in admvals:
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with default value '%(val)s' "
-                     "not from the admissible set: %(avals)s")
-                  % dict(par=param, cmd=self._subcmd, val=defval,
-                         avals=self._parent._fmt_admvals(admvals)))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with default value '%(val)s' "
+                    "not from the admissible set: %(avals)s")
+                % dict(par=param, cmd=self._subcmd, val=defval,
+                       avals=self._parent._fmt_admvals(admvals)))
 
         if param in self._ptypes:
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to subcommand "
-                     "'%(cmd)s' once again")
-                  % dict(par=param, cmd=self._subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to subcommand "
+                    "'%(cmd)s' once again")
+                % dict(par=param, cmd=self._subcmd))
 
         if islist and not isinstance(defval, (type(None), tuple, list)):
-            error(_p_("error message",
-                     "parameter '%(par)s' to subcommand '%(cmd)s' "
-                     "stated to be list-valued, but the default value "
-                     "is not given as a list or tuple")
-                  % dict(par=param, cmd=self._subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "parameter '%(par)s' to subcommand '%(cmd)s' "
+                    "stated to be list-valued, but the default value "
+                    "is not given as a list or tuple")
+                % dict(par=param, cmd=self._subcmd))
 
         general_ptype = None
         general_multival = None
@@ -534,25 +539,28 @@ class SubcmdView (object):
             general_seplist = scview._seplists.get(param)
 
         if general_ptype is not None and ptype is not general_ptype:
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with 'ptype' field "
-                     "different from other subcommands")
-                  % dict(par=param, cmd=self._subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with 'ptype' field "
+                    "different from other subcommands")
+                % dict(par=param, cmd=self._subcmd))
 
         if general_multival is not None and multival != general_multival:
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with 'multival' field "
-                     "different from other subcommands")
-                  % dict(par=param, cmd=self._subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with 'multival' field "
+                    "different from other subcommands")
+                % dict(par=param, cmd=self._subcmd))
 
         if general_seplist is not None and seplist != general_seplist:
-            error(_p_("error message",
-                     "trying to add parameter '%(par)s' to "
-                     "subcommand '%(cmd)s' with a 'seplist' field "
-                     "different from other subcommands")
-                  % dict(par=param, cmd=self._subcmd))
+            raise SubcmdError(
+                _p_("error message",
+                    "trying to add parameter '%(par)s' to "
+                    "subcommand '%(cmd)s' with a 'seplist' field "
+                    "different from other subcommands")
+                % dict(par=param, cmd=self._subcmd))
 
         self._ptypes[param] = ptype
         self._mandatorys[param] = mandatory
@@ -702,4 +710,32 @@ class SubcmdView (object):
 def _isinstance_els (lst, typ):
 
     return reduce(lambda x, y: x and isinstance(y, typ), lst, True)
+
+
+class SubcmdError (Exception):
+    """
+    Exception for errors on defining subcommands and parsing their parameters.
+    """
+
+    def __init__ (self, msg):
+        """
+        Constructor.
+
+        All the parameters are made available as instance variables.
+
+        @param msg: a description of what went wrong
+        @type msg: string
+        """
+
+        self.msg = msg
+
+
+    def  __unicode__ (self):
+
+        return unicode(self.msg)
+
+
+    def  __str__ (self):
+
+        return self.__unicode__().encode(locale.getpreferredencoding())
 
