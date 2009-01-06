@@ -34,9 +34,10 @@ accelerator character.
 If there exists both the directory with translated POs and with template POTs,
 using the C{templates} parameter the sieve can be instructed to count POTs
 with no same-named PO counterpart as fully untranslated in the statistics.
-Value to C{templates} parameter is in the form C{search:replace}, where
-C{search} is the substring in the given PO paths that will be replaced with
-C{replace} string to construct the POT paths. For example::
+Value to C{templates} parameter is in the form of C{search:replace}, where
+C{search} is the substring in the directory paths of processed PO files that
+will be replaced with C{replace} string to construct directory paths of POTs.
+For example::
 
     $ cd $MYTRANSLATIONS
     $ ls
@@ -251,11 +252,12 @@ def setup_sieve (p):
     p.add_param("templates", unicode,
                 metavar="SRCH:REPL",
                 desc=
-    "Count catalogs which had not translation done on them into statistics. "
+    "Count in templates without a corresponding catalog (i.e. translation on "
+    "it has not started yet) into statistics. "
     "Assumes that translated catalogs and templates live in two root "
-    "directories with same structure; then for each path to translated "
-    "catalogs given on command line, the corresponding path to templates "
-    "is constructed by replacing first occurence of SRCH with REPL."
+    "directories with same structure; then for each path of an existing "
+    "catalog, its directory is taken and the path to corresponding templates "
+    "directory constructed by replacing first occurence of SRCH with REPL."
     )
     p.add_param("branch", unicode, seplist=True,
                 metavar="BRANCH",
@@ -370,11 +372,6 @@ class Sieve (object):
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = {}
         self.template_subdirs = []
-        if self.p.templates:
-            for path in options.raw_paths:
-                if os.path.isdir(path):
-                    tpath = path.replace(self.tspec_srch, self.tspec_repl, 1)
-                    self.template_subdirs.append(tpath)
         # Map of template to translation subdirs.
         self.mapped_template_subdirs = {}
 
@@ -429,6 +426,9 @@ class Sieve (object):
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
+            # Collect this template subdirectory to later look in it for
+            # templates the translation of which has not started yet.
+            self.template_subdirs.append(os.path.dirname(tpath))
 
         # Force explicitly given accelerators.
         if self.p.accel is not None:
