@@ -140,6 +140,7 @@ import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
+from pology.misc.msgreport import warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
 from pology.misc.subcmd import ParamParser
@@ -345,7 +346,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         # FIXME: Remove when all sieves are switched to new style.
         if not hasattr(mod, "setup_sieve"):
             continue
-        scview = pp.add_subcmd(name)
+        try:
+            scview = pp.add_subcmd(name)
+        except Exception, e:
+            error(unicode(e))
         if hasattr(mod, "setup_sieve"):
             mod.setup_sieve(scview)
         snames.append(name)
@@ -358,17 +362,26 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("")
         report(pp.help(snames))
         sys.exit(0)
-    # FIXME: Abort instead when all sieves are switched to new style.
-    sparams, nacc_params = pp.parse(op.sieve_params, snames) #, abort=True)
+    try:
+        sparams, nacc_params = pp.parse(op.sieve_params, snames)
+    except Exception, e:
+        error(unicode(e))
+    # FIXME: Really abort when all sieves are switched to new style.
+    #if nacc_params:
+        #error("parameters not expected by any of the issued subcommands: %s"
+              #% (" ".join(nacc_params)))
 
     # Create sieves.
     sieves = []
     for name, mod in sieve_modules:
-        # FIXME: Remove when all sieves are switched to new style.
-        if not hasattr(mod, "setup_sieve"):
-            sieves.append(mod.Sieve(sopts, op))
-            continue
-        sieves.append(mod.Sieve(sparams[name], op))
+        try:
+            # FIXME: Remove when all sieves are switched to new style.
+            if not hasattr(mod, "setup_sieve"):
+                sieves.append(mod.Sieve(sopts, op))
+                continue
+            sieves.append(mod.Sieve(sparams[name]))
+        except Exception, e:
+            error(unicode(e))
 
     # Old-style sieves will have marked options that they have accepted.
     # FIXME: Remove when all sieves are switched to new style.
@@ -386,7 +399,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             use_monitored = True
             break
     if op.verbose and not use_monitored:
-        print "--> Not monitoring messages"
+        report("--> Not monitoring messages")
 
     # Get the sync indicator from the sieves.
     # Sync unless all sieves have requested otherwise.
@@ -396,7 +409,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             do_sync = True
             break
     if op.verbose and not do_sync:
-        print "--> Not syncing after sieving"
+        report("--> Not syncing after sieving")
 
     # Open in header-only mode if no sieve has message processor.
     # Categorize sieves by the presence of message/header processors.
@@ -410,7 +423,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if hasattr(sieve, "process_header"):
             header_sieves.append(sieve)
     if op.verbose and use_headonly:
-        print "--> Opening catalogs in header-only mode"
+        report("--> Opening catalogs in header-only mode")
 
     # Assemble list of files.
     file_or_dir_paths = op.raw_paths
@@ -450,6 +463,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if op.include_path:
         include_path_rx = re.compile(op.include_path, re.I|re.U)
 
+    if op.do_skip:
+        problem = warning
+        problem_on_msg = warning_on_msg
+    else:
+        problem = error
+        problem_on_msg = error_on_msg
+
     # Sieve the messages throughout the files.
     modified_files = []
     for fname in fnames:
@@ -471,19 +491,20 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             do_sieve = include_path_rx.search(fname) is not None
         if not do_sieve:
             if op.verbose:
-                print "skipping on request: %s" % (fname,)
+                report("skipping on request: %s" % fname)
             continue
 
         if op.verbose:
-            print "sieving %s ..." % (fname,),
+            report("sieving %s ..." % fname)
 
         if op.msgfmt_check:
             # TODO: Make it more portable?
             d1, oerr, ret = collect_system("msgfmt -o/dev/null -c %s" % fname)
             if ret != 0:
                 oerr = oerr.strip()
-                warning("%s -- skipping, msgfmt check failed:\n"
-                        "%s" % (fname, oerr))
+                problem(u"%s: msgfmt check failed:\n"
+                        u"%s" % (fname, oerr))
+                warning(u"skipping catalog due to check failure")
                 continue
 
         try:
@@ -491,38 +512,56 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                           headonly=use_headonly)
         except KeyboardInterrupt:
             sys.exit(130)
-        except StandardError, e:
-            if op.do_skip:
-                warning("%s -- skipping, parsing failure: %s" % (fname, e))
-                continue
-            else:
-                raise
+        except Exception, e:
+            problem(u"%s: parsing failed: %s" % (fname, e))
+            warning(u"skipping catalog due to parsing failure")
+            continue
 
-        if not use_headonly:
-            # In normal mode, first run all header sieves on this catalog,
-            # then all message sieves on each message.
-            for sieve in header_sieves:
+        skip = False
+        # First run all header sieves.
+        for sieve in header_sieves:
+            try:
                 sieve.process_header(cat.header, cat)
+            except Exception, e:
+                problem(u"%s:header: sieving failed: %s" (fname, e))
+                skip = True
+                continue
+        if skip:
+            warning(u"skipping catalog due to header sieving failure")
+            continue
+        # Then run all message sieves on each message,
+        # unless processing only the header.
+        if not use_headonly:
             for msg in cat:
                 for sieve in message_sieves:
-                    sieve.process(msg, cat)
-        else:
-            # In header-only mode, run only header sieves on this catalog.
-            for sieve in header_sieves:
-                sieve.process_header(cat.header, cat)
+                    try:
+                        sieve.process(msg, cat)
+                    except Exception, e:
+                        problem_on_msg(u"sieving failed: %s" % e, msg, cat)
+                        skip = True
+                        continue
+                if skip:
+                    break
+        if skip:
+            warning(u"skipping catalog due to mesage sieving failure")
+            continue
 
         if do_sync and cat.sync(op.force_sync):
             if op.verbose:
-                print "MODIFIED"
+                report("MODIFIED")
             else:
-                print "! %s" % (fname,)
+                report("! %s" % fname)
             modified_files.append(fname)
         else:
-            if op.verbose: print ""
+            if op.verbose:
+                report("")
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
-            sieve.finalize()
+            try:
+                sieve.finalize()
+            except Exception, e:
+                problem(u"finalization failed: %s" % e)
 
     if op.output_modified:
         ofh = open(op.output_modified, "w")
