@@ -209,6 +209,14 @@
         <a href="pology.sieve.find_messages.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.find_messages.ExprError-class.html" class="summary-name">ExprError</a><br />
+      Exception for errors in message matching expressions.
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -241,7 +249,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.sieve.find_messages-module.html#build_msg_matcher" class="summary-sig-name">build_msg_matcher</a>(<span class="summary-sig-arg">exprstr</span>,
-        <span class="summary-sig-arg">mopts</span>)</span><br />
+        <span class="summary-sig-arg">mopts</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build expression matcher for messages.</td>
           <td align="right" valign="top">
             
@@ -259,9 +268,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.sieve.find_messages-module.html#build_msg_fmatcher" class="summary-sig-name">build_msg_fmatcher</a>(<span class="summary-sig-arg">exprstr</span>,
-        <span class="summary-sig-arg">mopts</span>,
+        <span class="summary-sig-arg">mopts</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">accels</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">filters</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
+        <span class="summary-sig-arg">filters</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build expression matcher for messages, with filtering.</td>
           <td align="right" valign="top">
             
@@ -290,7 +300,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">build_msg_matcher</span>(<span class="sig-arg">exprstr</span>,
-        <span class="sig-arg">mopts</span>)</span>
+        <span class="sig-arg">mopts</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -300,12 +311,14 @@
   <p>Build expression matcher for messages.</p>
   <p>For expression syntax, see this module documentation on 
   <code>fexpr</code> sieve parameter.</p>
-  <p>The <code>mopts</code> object defines global matching options, and 
-  should contain the following data attributes:</p>
+  <p>The <code>mopts</code> parameter, if given, defines global matching 
+  options. It can be either a dictionary or an object with data attributes,
+  and can contain the following keys/attributes (in parenthesis: type and 
+  default value in case the key is not present):</p>
   <ul>
     <li>
-      <code>case</code> (<code>bool</code>): <code>True</code> for 
-      case-sensitive matching
+      <code>case</code> (<code>bool</code>, <code>False</code>): 
+      <code>True</code> for case-sensitive matching
     </li>
   </ul>
   <p>The built matcher function takes up to four parameters, in order:</p>
@@ -323,16 +336,23 @@
       <code>hl</code>: <a 
       href="pology.misc.msgreport-module.html#report_msg_content" 
       class="link">highlight specification</a> (to be filled with matched 
-      spans)
+      spans, can be omitted from the call)
     </li>
   </ul>
   <p>Matcher function returns <code>True</code> if the message is matched, 
   <code>False</code> otherwise.</p>
+  <p>In case an error in expression is encountered while building the 
+  matcher, either <a href="pology.sieve.find_messages.ExprError-class.html"
+  class="link">ExprError</a> exception may be thrown or execution aborted, 
+  depending on the parameter <code>abort</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>exprstr</code></strong> (string) - expression string</li>
-        <li><strong class="pname"><code>mopts</code></strong> (attribute object) - global matching options</li>
+        <li><strong class="pname"><code>mopts</code></strong> (dict or attribute object) - global matching options</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - on errors in expression, abort execution if <code>True</code>, 
+          raise <a href="pology.sieve.find_messages.ExprError-class.html" 
+          class="link">ExprError</a> if <code>False</code></li>
     </ul></dd>
     <dt>Returns: (msgf, msg, cat, hl={})-&gt;bool</dt>
         <dd>matcher function</dd>
@@ -347,9 +367,10 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">build_msg_fmatcher</span>(<span class="sig-arg">exprstr</span>,
-        <span class="sig-arg">mopts</span>,
+        <span class="sig-arg">mopts</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">accels</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">filters</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
+        <span class="sig-arg">filters</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -371,6 +392,8 @@
         <li><strong class="pname"><code>mopts</code></strong> (attribute object) - global matching options</li>
         <li><strong class="pname"><code>accels</code></strong> (sequence of strings or <code>None</code>) - possible accelerator markers</li>
         <li><strong class="pname"><code>filters</code></strong> ((text)-&gt;text) - filters to apply to text fields [F1A hooks]</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - on errors, abort execution if <code>True</code>, raise exception 
+          if <code>False</code></li>
     </ul></dd>
     <dt>Returns: (msg, cat, hl={})-&gt;bool</dt>
         <dd>matcher function</dd>

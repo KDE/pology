@@ -80,9 +80,13 @@
       environment-agnostic ones)
     </li>
     <li>
-      <code>rule</code>: comma-separated list of specific rules to apply, 
-      containing rule identifiers; if not given, all rules for given 
-      language and environment are applied
+      <code>rule:&lt;ruleid&gt;</code>: comma-separated list of specific 
+      rules to apply, by their identifiers; also enables any disabled rule 
+      among the selected
+    </li>
+    <li>
+      <code>rulerx:&lt;regex&gt;</code>: specific rules to apply, those 
+      whose identifiers match the regular expression
     </li>
     <li>
       <code>stat</code>: show statistics of rule matching at the end

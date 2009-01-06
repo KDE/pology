@@ -871,6 +871,7 @@ pology.sieve.find_messages._rx_matchers	pology.sieve.find_messages-module.html#_
 pology.sieve.find_messages._rx_in_any_text	pology.sieve.find_messages-module.html#_rx_in_any_text
 pology.sieve.find_messages._matcher_mods	pology.sieve.find_messages-module.html#_matcher_mods
 pology.sieve.find_messages._build_expr_matcher	pology.sieve.find_messages-module.html#_build_expr_matcher
+pology.sieve.find_messages._prep_attrobj	pology.sieve.find_messages-module.html#_prep_attrobj
 pology.sieve.find_messages.build_msg_fmatcher	pology.sieve.find_messages-module.html#build_msg_fmatcher
 pology.sieve.find_messages._build_expr_r	pology.sieve.find_messages-module.html#_build_expr_r
 pology.sieve.find_messages.report_msg_content	pology.misc.msgreport-module.html#report_msg_content
@@ -1355,6 +1356,9 @@ pology.sieve.fancy_quote.Sieve	pology.sieve.fancy_quote.Sieve-class.html
 pology.sieve.fancy_quote.Sieve.finalize	pology.sieve.fancy_quote.Sieve-class.html#finalize
 pology.sieve.fancy_quote.Sieve.process	pology.sieve.fancy_quote.Sieve-class.html#process
 pology.sieve.fancy_quote.Sieve.__init__	pology.sieve.fancy_quote.Sieve-class.html#__init__
+pology.sieve.find_messages.ExprError	pology.sieve.find_messages.ExprError-class.html
+pology.sieve.find_messages.ExprError.__str__	pology.sieve.find_messages.ExprError-class.html#__str__
+pology.sieve.find_messages.ExprError.__init__	pology.sieve.find_messages.ExprError-class.html#__init__
 pology.sieve.find_messages.Sieve	pology.sieve.find_messages.Sieve-class.html
 pology.sieve.find_messages.Sieve.process_header	pology.sieve.find_messages.Sieve-class.html#process_header
 pology.sieve.find_messages.Sieve.finalize	pology.sieve.find_messages.Sieve-class.html#finalize
