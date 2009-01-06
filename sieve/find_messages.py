@@ -52,8 +52,8 @@ for parameterless matchers). Examples::
     fexpr:'msgid/quuk/ and msgstr/Qaak/c'
 
 Available modifiers to matchers are:
-    - C{c}: text matching pattern is case-sensitive
-    - C{i}: text matching pattern is case-insensitive
+  - C{c}: text matching pattern is case-sensitive
+  - C{i}: text matching pattern is case-insensitive
 
 Sieve parameters for replacement:
   - C{replace:<string>}: string to replace matched part of translation
@@ -65,6 +65,7 @@ Other sieve parameters:
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
   - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
+  - C{nowrap}: do not wrap long messages when writing them to output
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
@@ -264,6 +265,10 @@ def setup_sieve (p):
     "Replace all substrings matched by msgstr pattern with REPLSTR. "
     "It can include back-references to matched groups (\\1, \\2, etc.)"
     )
+    p.add_param("nowrap", bool, defval=False,
+                desc=
+    "Do not wrap long messages when writing them to output."
+    )
 
 
 _flag_mark = u"pattern-match"
@@ -366,10 +371,10 @@ class Sieve (object):
             self.caller_monitored = False
 
         # Select wrapping for reporting messages.
-        if options.do_wrap:
-            self.wrapf = wrap_field
-        else:
+        if self.p.nowrap:
             self.wrapf = wrap_field_unwrap
+        else:
+            self.wrapf = wrap_field
 
 
     def process_header (self, hdr, cat):
