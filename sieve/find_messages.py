@@ -95,7 +95,9 @@ when it is not the default C{process()} within the hook module.
 import sys
 import os
 import re
+import locale
 
+from pology.sieve import SieveError
 from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
 from pology.misc.langdep import get_hook_lreq
@@ -324,7 +326,7 @@ class Sieve (object):
                         else:
                             m = _create_matcher(name, value, [], params, neg)
                     except ExprError, e:
-                        error(str(e))
+                        raise SieveError(unicode(e))
                     matchers.append(m)
 
             if orlinked:
@@ -353,7 +355,7 @@ class Sieve (object):
         self.replrxs = []
         if self.p.replace is not None:
             if not self.p.msgstr:
-                error("cannot replace if no msgstr pattern given")
+                raise SieveError("cannot replace if no msgstr pattern given")
             rxflags = re.U
             if not self.p.case:
                 rxflags |= re.I
@@ -460,7 +462,7 @@ class ExprError (Exception):
         self.end = end
 
 
-    def __str__ (self):
+    def __unicode__ (self):
 
         if self.expr is not None and self.start is not None:
             start = self.start
@@ -486,7 +488,13 @@ class ExprError (Exception):
         else:
             repstr = "invalid expression"
 
-        return repstr
+        return unicode(repstr)
+
+
+    def __str__ (self):
+
+        return self.__unicode__().encode(locale.getpreferredencoding())
+
 
 
 def build_msg_matcher (exprstr, mopts=None, abort=False):
