@@ -72,7 +72,7 @@ def setup_sieve (p):
 
 class Sieve (object):
 
-    def __init__ (self, params, options):
+    def __init__ (self, params):
 
         self.nbad = 0
 

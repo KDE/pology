@@ -291,7 +291,7 @@ _all_matchers.update(_nop_matchers)
 class Sieve (object):
 
 
-    def __init__ (self, params, options):
+    def __init__ (self, params):
 
         self.nmatch = 0
 

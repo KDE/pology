@@ -21,7 +21,7 @@ The Sieve Layout
 
         class Sieve (object):
 
-            def __init__ (self, params, options):
+            def __init__ (self, params):
 
                 self.ntranslated = 0
 
@@ -35,8 +35,8 @@ The Sieve Layout
                 print "Total translated: %d" % self.ntranslated
 
 
-    The C{__init__} method must take two arguments, the sieve parameters and
-    global options (more on that below). The C{process} method is the one
+    The constructor takes as argument an object specifying any sieve parameters
+    (more on that below). The C{process} method is the one
     which gets called for each message by the client, and must take the
     message (instance of L{Message_base}) and the catalog which contains it
     (L{Catalog}). The client calls the C{finalize} method after no more
@@ -64,22 +64,9 @@ The Sieve Layout
 Parameter Handling
 ==================
 
-    The two arguments to the constructor::
-
-        def __init__ (self, params, options):
-            # ...
-
-    are as follows:
-
-    C{options} is the object of the command line options as given
-    to the client which uses the sieve, where options are its instance
-    variables (e.g. the object produced by the C{OptionParser} from the
-    C{optparse} standard library module). The sieve may use this object to
-    check for some usual options, like verbose or quite mode. Client may
-    specify this object as C{None}.
-
-    C{params} is similarly and object with instance variables, but these
-    are parameters intended specifically for the sieve. The sieve module
+    The C{params} argument to the sieve constructor is an object with
+    data attributes that specify parameters influencing the sieve operation.
+    The sieve module
     defines C{setup_sieve} function, which the client calls with
     L{SubcmdView} object as argument, to fill in the sieve description and
     define all mandatory and optional parameters.
@@ -95,7 +82,7 @@ Parameter Handling
 
         class Sieve (object):
 
-            def __init__ (self, params, options):
+            def __init__ (self, params):
 
                 if params.checklevel >= 1:
                     # ...setup some level 1 validity checks...
@@ -117,7 +104,7 @@ Catalog Regime Indicators
     which the client may check for to decide on the regime in which the
     catalogs are opened and closed::
 
-        def __init__ (self, options, global_options):
+        def __init__ (self, params):
 
             # These are the defaults:
             self.caller_sync = True
@@ -183,7 +170,7 @@ Miscellaneous Remarks
     the C{Sieve} class itself should not be documented. The module comment
     should contain the short one line description of the sieve, followed by
     paragraphs explaining its functionality, followed by list of sieve
-    options. Check existing sieves for examples.
+    parameters. Check existing sieves for examples.
 
     All methods of the C{Sieve} class other than the above stated standard
     interface methods should be kept private. If the sieve module contains

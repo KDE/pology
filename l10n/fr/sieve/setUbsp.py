@@ -14,7 +14,7 @@ def setup_sieve (p):
 class Sieve (object):
     """Replace normal space by unbreakable space when needed"""
 
-    def __init__ (self, params, options):
+    def __init__ (self, params):
 
         self.nmatch = 0
 

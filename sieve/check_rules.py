@@ -154,7 +154,7 @@ def setup_sieve (p):
 class Sieve (object):
     """Find messages matching given rules."""
 
-    def __init__ (self, params, options):
+    def __init__ (self, params):
 
         self.nmatch = 0 # Number of match for finalize
         self.rules=[]   # List of rules objects loaded in memory

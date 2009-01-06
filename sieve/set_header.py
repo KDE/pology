@@ -9,7 +9,7 @@ and this sieve serves that purpose.
 For the moment, the only available operation is to set a certain field
 to a given value. More operation modes may be implemented in the future.
 
-Sieve options for setting a field:
+Sieve parameters for setting a field:
   - C{field:<name>:<value>}: set the named field to the given value
   - C{create}: add the field if not present
   - C{after:<name>}: when adding a field, add it after the given field
@@ -90,7 +90,7 @@ def setup_sieve (p):
 
 class Sieve (object):
 
-    def __init__ (self, params, options):
+    def __init__ (self, params):
 
         # Parse field setting specifications.
         self.fields_values = []
