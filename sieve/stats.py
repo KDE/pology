@@ -356,10 +356,8 @@ class Sieve (object):
         # Create message matcher if requested.
         self.matcher = None
         if self.p.fexpr:
-            class Data: pass
-            mopts = Data()
-            mopts.case = False
-            self.matcher = build_msg_fmatcher(self.p.fexpr, mopts)
+            mopts = dict(case=False)
+            self.matcher = build_msg_fmatcher(self.p.fexpr, mopts, abort=True)
 
         # Number of counts per category:
         # messages, words in original, words in translation,
