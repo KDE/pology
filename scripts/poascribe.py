@@ -1578,7 +1578,8 @@ def cached_matcher (cache, expr, config, options, cid):
         if pfilter:
             filters = [pfilter]
         mopts = _Cache(dict(case=False))
-        cache.matcher = build_msg_fmatcher(expr, filters=filters, mopts=mopts)
+        cache.matcher = build_msg_fmatcher(expr, filters=filters, mopts=mopts,
+                                           abort=True)
 
     return cache.matcher
 
