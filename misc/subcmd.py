@@ -243,17 +243,17 @@ class ParamParser (object):
             lst += [None] * (2 - len(lst))
             param, strval = lst
 
-            if param in param_vals and not scview._multivals[param]:
-                error(_p_("error in command line (subcommand)",
-                         "parameter '%(par)s' repeated more than once")
-                       % dict(par=param))
-
             param_accepted = False
             for subcmd in subcmds:
                 scview = self._scviews[subcmd]
                 if param not in scview._ptypes:
                     # Current subcommand does not have this parameter, skip.
                     continue
+
+                if param in param_vals[subcmd] and not scview._multivals[param]:
+                    error(_p_("error in command line (subcommand)",
+                              "parameter '%(par)s' repeated more than once")
+                          % dict(par=param))
 
                 ptype = scview._ptypes[param]
                 if ptype is bool and strval is not None:
