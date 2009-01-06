@@ -313,10 +313,13 @@ class Sieve (object):
                 if not isinstance(values, list):
                     values = [values]
                 for value in values:
-                    if name == "fexpr":
-                        m = build_msg_matcher(value, params)
-                    else:
-                        m = _create_matcher(name, value, [], params, neg)
+                    try:
+                        if name == "fexpr":
+                            m = build_msg_matcher(value, params)
+                        else:
+                            m = _create_matcher(name, value, [], params, neg)
+                    except ExprError, e:
+                        error(str(e))
                     matchers.append(m)
 
             if orlinked:
@@ -425,17 +428,75 @@ _binary_ops = set(["and", "or"])
 _all_ops.update(_binary_ops)
 
 
-def build_msg_matcher (exprstr, mopts):
+class ExprError (Exception):
+    """
+    Exception for errors in message matching expressions.
+    """
+
+    def __init__ (self, expr=None, msg=None, start=None, end=None):
+        """
+        Constructor.
+
+        All the parameters are made available as instance variables.
+
+        @param expr: the complete expression that caused the problem
+        @type expr: string or None
+        @param msg: the description of the problem
+        @type msg: string or None
+        @param start: start position of the problem into the expression string
+        @type start: int or None
+        @param end: end position of the problem
+        @type end: int or None
+        """
+
+        self.expr = expr
+        self.msg = msg
+        self.start = start
+        self.end = end
+
+
+    def __str__ (self):
+
+        if self.expr is not None and self.start is not None:
+            start = self.start
+            if self.end is not None:
+                end = self.end
+            else:
+                end = self.start + 10
+            subexpr = self.expr[start:end]
+            if start > 0:
+                subexpr = "..." + subexpr
+            if end < len(self.expr):
+                subexpr = subexpr + "..."
+        else:
+            subexpr = None
+
+        if self.msg is not None and subexpr is not None:
+            repstr = ("invalid expression at %d [%s]: %s"
+                      % (self.start, subexpr, self.msg))
+        elif self.msg is not None:
+            repstr = "invalid expression: %s" % self.msg
+        elif subexpr is not None:
+            repstr = ("invalid expression at %d [%s]" % (self.start, subexpr))
+        else:
+            repstr = "invalid expression"
+
+        return repstr
+
+
+def build_msg_matcher (exprstr, mopts=None, abort=False):
     """
     Build expression matcher for messages.
 
     For expression syntax, see this module documentation on C{fexpr}
     sieve parameter.
 
-    The C{mopts} object defines global matching options, and
-    should contain the following data attributes:
+    The C{mopts} parameter, if given, defines global matching options.
+    It can be either a dictionary or an object with data attributes,
+    and can contain the following keys/attributes (in parenthesis:
+    type and default value in case the key is not present):
 
-      - C{case} (C{bool}): C{True} for case-sensitive matching
+      - C{case} (C{bool}, C{False}): C{True} for case-sensitive matching
 
     The built matcher function takes up to four parameters, in order:
 
@@ -443,29 +504,45 @@ def build_msg_matcher (exprstr, mopts):
       - C{msg}: raw message (to properly report matched spans)
       - C{cat}: catalog in which the message resides
       - C{hl}: L{highlight specification<misc.msgreport.report_msg_content>}
-        (to be filled with matched spans)
+        (to be filled with matched spans, can be omitted from the call)
 
     Matcher function returns C{True} if the message is matched,
     C{False} otherwise.
 
+    In case an error in expression is encountered while building the matcher,
+    either L{ExprError} exception may be thrown or execution aborted,
+    depending on the parameter C{abort}.
+
     @param exprstr: expression string
     @type exprstr: string
     @param mopts: global matching options
-    @type mopts: attribute object
+    @type mopts: dict or attribute object
+    @param abort: on errors in expression, abort execution if C{True},
+        raise L{ExprError} if C{False}
+    @type abort: bool
 
     @return: matcher function
     @rtype: (msgf, msg, cat, hl={})->bool
     """
 
-    expr, p = _build_expr_r(exprstr, 0, len(exprstr), mopts)
-    if p < len(exprstr):
-        error("invalid search expression: "
-              "premature end of expression after '%s'" % exprstr[:p])
+    mopts = _prep_attrobj(mopts, dict(
+        case=False,
+    ))
+
+    try:
+        expr, p = _build_expr_r(exprstr, 0, len(exprstr), mopts)
+        if p < len(exprstr):
+            raise ExprError(exprstr, "premature end of expression")
+    except ExprError, e:
+        if abort:
+            error(str(e))
+        else:
+            raise
     return expr
 
 
-def build_msg_fmatcher (exprstr, mopts,
-                        accels=None, filters=[]):
+def build_msg_fmatcher (exprstr, mopts=None,
+                        accels=None, filters=[], abort=False):
     """
     Build expression matcher for messages, with filtering.
 
@@ -483,18 +560,37 @@ def build_msg_fmatcher (exprstr, mopts,
     @type accels: sequence of strings or C{None}
     @param filters: filters to apply to text fields [F1A hooks]
     @type filters: (text)->text
+    @param abort: on errors, abort execution if C{True},
+        raise exception if C{False}
+    @type abort: bool
 
     @return: matcher function
     @rtype: (msg, cat, hl={})->bool
     """
 
-    raw_matcher = build_msg_matcher(exprstr, mopts)
+    raw_matcher = build_msg_matcher(exprstr, mopts=mopts, abort=abort)
 
     def matcher (msg, cat, hl={}):
         msgf = _prepare_filtered_msg(msg, cat, accels, filters)
         return raw_matcher(msgf, msg, cat, hl)
 
     return matcher
+
+
+def _prep_attrobj (aobj, dctdef=None):
+
+    if aobj is None or isinstance(aobj, dict):
+        dct = aobj or {}
+        class _Data: pass
+        aobj = _Data()
+        for key, value in dct.items():
+            setattr(aobj, key, value)
+
+    for key, val in (dctdef or {}).items():
+        if not hasattr(aobj, key):
+            setattr(aobj, key, val)
+
+    return aobj
 
 
 def _prepare_filtered_msg (msg, cat, accels=None, filters=[]):
@@ -533,12 +629,10 @@ def _build_expr_r (exprstr, start, end, params):
         # Parse current subexpression, matcher, or operator.
         if exprstr[p] == "(":
             if not can_operand:
-                error("invalid search expression: "
-                      "expected operator after '%s'" % exprstr[:p])
+                raise ExprError(exprstr, "expected operator", p)
             expr, p = _build_expr_r(exprstr, p + 1, end, params)
             if p == end or exprstr[p] != ")":
-                error("invalid search expression: "
-                      "no closing parenthesis after '%s'" % exprstr[:p])
+                raise ExprError(exprstr, "no closing parenthesis", p)
             tstack.append(expr)
             can_operand = False
             can_unary = False
@@ -551,30 +645,24 @@ def _build_expr_r (exprstr, start, end, params):
             tok = exprstr[pp:p].lower()
             if tok in _all_ops:
                 if tok in _unary_ops and not can_unary:
-                    error("invalid search expression: "
-                          "unexpected unary operator after '%s'"
-                          % exprstr[:pp])
+                    raise ExprError(exprstr, "unexpected unary operator", pp)
                 if tok in _binary_ops and not can_binary:
-                    error("invalid search expression: "
-                          "unexpected binary operator after '%s'"
-                          % exprstr[:pp])
+                    raise ExprError(exprstr, "unexpected binary operator", pp)
                 can_operand = True
                 can_unary = True
                 can_binary = False
                 tstack.append(tok)
             else:
                 if not can_operand:
-                    error("invalid search expression: "
-                          "expected operator after '%s'" % exprstr[:pp])
+                    raise ExprError(exprstr, "expected an operator", pp)
                 expr, p = _build_expr_matcher(tok, exprstr, p, end, params)
                 tstack.append(expr)
                 can_operand = False
                 can_unary = False
                 can_binary = True
         else:
-            error("invalid search expression: "
-                  "expected token starting with letter after '%s'"
-                  % exprstr[:p + 1])
+            raise ExprError(exprstr,
+                            "expected token starting with a letter", p + 1)
 
         # Update expression as possible.
         updated = True
@@ -590,8 +678,8 @@ def _build_expr_r (exprstr, start, end, params):
                     if op == "not":
                         cexpr = lambda *a: not cexpr1(*a)
                     else: # cannot happen
-                        error("invalid search expression: "
-                              "unknown unary operator '%s'" % op)
+                        raise ExprError(exprstr,
+                                        "unknown unary operator '%s'" % op)
                     return cexpr
                 tstack.append(closure())
                 updated = True
@@ -609,18 +697,16 @@ def _build_expr_r (exprstr, start, end, params):
                     elif op == "or":
                         cexpr = lambda *a: cexpr1(*a) or cexpr2(*a)
                     else: # cannot happen
-                        error("invalid search expression: "
-                              "unknown binary operator '%s'" % op)
+                        raise ExprError(exprstr,
+                                        "unknown binary operator '%s'" % op)
                     return cexpr
                 tstack.append(closure())
                 updated = True
 
     if len(tstack) >= 2:
-        error("invalid search expression: "
-              "premature end of expression after '%s'" % exprstr[:end])
+        raise ExprError(exprstr, "premature end of expression", end)
     if len(tstack) == 0:
-        error("invalid search expression: "
-              "expected subexpression after '%s'" % exprstr[:start])
+        raise ExprError(exprstr, "expected subexpression", start)
 
     return tstack[0], p
 
@@ -628,8 +714,8 @@ def _build_expr_r (exprstr, start, end, params):
 def _build_expr_matcher (mname, exprstr, start, end, params):
 
     if mname not in _all_matchers:
-        error("invalid search expression: "
-              "unknown matcher '%s' after '%s'" % (mname, exprstr[:start]))
+        raise ExprError(exprstr, "unknown matcher '%s'" % mname,
+                        start - len(mname))
 
     # Get matcher value, if any.
     mval = None
@@ -637,14 +723,12 @@ def _build_expr_matcher (mname, exprstr, start, end, params):
     if mname in _op_matchers:
         c = exprstr[p:p + 1]
         if p == end or c.isspace() or c.isalnum() or c in ("(", ")"):
-            error("invalid search expression: "
-                  "expected parameter delimiter after '%s'" % exprstr[:p])
+            raise ExprError(exprstr, "expected parameter delimiter", p)
         delim = exprstr[p]
         pp = p + 1
         p = exprstr.find(delim, p + 1, end)
         if p < 0:
-            error("invalid search expression: "
-                  "expected closing delimiter after '%s'" % exprstr[:end - 1])
+            raise ExprError(exprstr, "expected closing delimiter", end - 1)
         mval = exprstr[pp:p]
     # Get match modifiers, if any.
     mmods = []
@@ -672,8 +756,9 @@ def _create_matcher (name, value, mods, params, neg=False):
     known_mods = _matcher_mods.get(name, [])
     bad_mods = set(mods).difference(known_mods)
     if bad_mods:
-        fmtmods = " ".join(bad_mods)
-        error("unknown modifiers to '%s' matcher: %s" % (name, fmtmods))
+        raise ExprError(None,
+                        "unknown modifiers to '%s' matcher: %s"
+                        % (name, " ".join(bad_mods)))
 
     if name in _rx_matchers:
         rxflags = re.U
@@ -682,7 +767,8 @@ def _create_matcher (name, value, mods, params, neg=False):
         try:
             regex = re.compile(value, rxflags)
         except:
-            error("cannot compile regular expression '%s'" % value)
+            raise ExprError(None,
+                            "cannot compile regular expression '%s'" % value)
 
     if 0: pass
 
@@ -752,7 +838,7 @@ def _create_matcher (name, value, mods, params, neg=False):
             return False
 
     else:
-        error("unknown matcher '%s'" % name)
+        raise ExprError(None, "unknown matcher '%s'" % name)
 
     if neg:
         return lambda *a: not matcher(*a)
