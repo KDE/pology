@@ -99,7 +99,6 @@ Parameter Handling
     Client is not obliged to call C{setup_sieve()}, but must
     make sure that the C{params} argument it sends to the sieve has
     all the instance variable according to defined parameters.
-    One way to do this is by using the L{build_sieve} function.
 
 
 Catalog Regime Indicators
@@ -192,42 +191,6 @@ Miscellaneous Remarks
 import locale
 
 from pology.misc.subcmd import ParamParser
-
-
-class _Data: pass
-_built_sieves = _Data()
-_built_sieves.count = 0
-
-def build_sieve (smodule, sparams={}):
-    """
-    Build a sieve from given module and parameters.
-
-    Taking a sieve module and dictionary of parameters, this function
-    constructs the parameter object expected by the sieve constructor,
-    with all the optional parameters not found in the dictionary set
-    to their default values, and then the sieve itself.
-
-    @param smodule: module defining the sieve to be built
-    @type smodule: a sieve module
-    @param sparams: non-default parameters to be sent to the sieve
-    @type sparams: dict
-
-    @returns: build sieve and list of non-accepted parameters by name
-    @rtype: Sieve, list of strings
-    """
-
-    pp = ParamParser()
-    sname = "<built-sieve-%s>" % _built_sieves.count
-    ppsc = pp.add_subcmd(sname)
-    smodule.setup_sieve(ppsc)
-
-    rawpars = ["%s:%s" % x for x in sparams.items()]
-    params, nacc_params = pp.parse(rawpars, [sname])
-    sieve = smodule.Sieve(params[sname])
-
-    _built_sieves.count += 1
-
-    return sieve, nacc_params
 
 
 class SieveError (Exception):
