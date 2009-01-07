@@ -8,8 +8,9 @@ Producing diffs between texts.
 """
 
 import re
-from difflib import ndiff
+from difflib import SequenceMatcher
 
+from pology.misc.report import error
 from pology.misc.split import split_text
 from pology.misc.colors import colors_for_file
 
@@ -37,8 +38,24 @@ _old_opn = _old_opnc + _old_vtag
 _old_cls = _old_vtag + _old_clsc
 
 
-# String heads in diffs that indicate difference segments proper.
-_dsheads = ("+ ", "- ", "  ")
+def _tagged_diff (seq1, seq2):
+
+    dlist = []
+    opcodes = SequenceMatcher(None, seq1, seq2).get_opcodes()
+    for opcode, i1, i2, j1, j2 in opcodes:
+        if opcode == "equal":
+            dlist.extend([(_equ_tag, el) for el in seq1[i1:i2]])
+        elif opcode == "replace":
+            dlist.extend([(_old_tag, el) for el in seq1[i1:i2]])
+            dlist.extend([(_new_tag, el) for el in seq2[j1:j2]])
+        elif opcode == "delete":
+            dlist.extend([(_old_tag, el) for el in seq1[i1:i2]])
+        elif opcode == "insert":
+            dlist.extend([(_new_tag, el) for el in seq2[j1:j2]])
+        else:
+            error("unknown opcode '%s' from sequence matcher" % opcode)
+
+    return dlist
 
 
 def word_diff (text_old, text_new, markup=False, format=None,
@@ -100,11 +117,11 @@ def word_diff (text_old, text_new, markup=False, format=None,
     if text_old is None and text_new is None:
         specdlist = []
     elif text_old is None:
-        specdlist = [("+" + _tagext_none, text_new)]
+        specdlist = [(_new_tag + _tagext_none, text_new)]
     elif text_new is None:
-        specdlist = [("-" + _tagext_none, text_old)]
+        specdlist = [(_old_tag + _tagext_none, text_old)]
     elif text_new == "" and text_old == "":
-        specdlist = [(" ", "")]
+        specdlist = [(_equ_tag, "")]
         specdr = 0.0
     if specdlist is not None:
         return diffr and (specdlist, specdr) or specdlist
@@ -125,23 +142,22 @@ def word_diff (text_old, text_new, markup=False, format=None,
         segment_isintr.append([])
         map(add_segment, li, lw + [''])
 
-    # Create the difference.
-    dlist = list(ndiff(segments[0], segments[1]))
-    dlist = [x for x in dlist if x[:2] in _dsheads] # remove non-diff segments
+    # Create the tagged difference.
+    dlist = _tagged_diff(segments[0], segments[1])
 
     # Recompute which elements of the difference are intersections.
     dlist_isintr = []
     i_old = 0
     i_new = 0
-    for el in dlist:
-        if el[0] == "-":
+    for tag, seg in dlist:
+        if tag == _old_tag:
             dlist_isintr.append(segment_isintr[0][i_old])
         else:
             dlist_isintr.append(segment_isintr[1][i_new])
 
-        if el[0] != "+":
+        if tag != _new_tag:
             i_old += 1
-        if el[0] != "-":
+        if tag != _old_tag:
             i_new += 1
 
     # Reshuffle so that all old-new elements consecutive but for the
@@ -150,19 +166,19 @@ def word_diff (text_old, text_new, markup=False, format=None,
     ndlist = []
     i = 0
     while i < len(dlist):
-        while i < len(dlist) and dlist[i][0] not in "+-":
+        while i < len(dlist) and dlist[i][0] == _equ_tag:
             ndlist.append(dlist[i])
             i += 1
         seq_new = []
         seq_old = []
         i_first_diff = i
         i_last_diff = i
-        while i < len(dlist) and (dlist[i][0] in "+-" or dlist_isintr[i]):
-            if dlist[i][0] != "+":
-                seq_old.append(dlist[i])
-            if dlist[i][0] != "-":
-                seq_new.append(dlist[i])
-            if dlist[i][0] in "+-":
+        while i < len(dlist) and (dlist[i][0] != _equ_tag or dlist_isintr[i]):
+            if dlist[i][0] != _new_tag:
+                seq_old.append(dlist[i][1])
+            if dlist[i][0] != _old_tag:
+                seq_new.append(dlist[i][1])
+            if dlist[i][0] != _equ_tag:
                 i_last_diff = i
             i += 1
         for iex in range(i_last_diff, i - 1):
@@ -170,9 +186,9 @@ def word_diff (text_old, text_new, markup=False, format=None,
             seq_old.pop()
         i = i_last_diff + 1
         if seq_old:
-            ndlist.append("- " + "".join([x[2:] for x in seq_old]))
+            ndlist.append((_old_tag, "".join(seq_old)))
         if seq_new:
-            ndlist.append("+ " + "".join([x[2:] for x in seq_new]))
+            ndlist.append((_new_tag, "".join(seq_new)))
     dlist = ndlist
 
     # Join contiguous new/old/both segments, make tagged tuples.
@@ -181,41 +197,40 @@ def word_diff (text_old, text_new, markup=False, format=None,
     state = S_EQU
     cseg = []
     len_equ, len_old, len_new = 0, 0, 0
-    dlist.append(". ") # sentry
-    for el in dlist:
-        segtype = el[0]
+    _sen_tag = "."
+    dlist.append((_sen_tag, "")) # sentry
+    for tag, seg in dlist:
 
-        if state == S_EQU and segtype in ("+", "-", "."):
+        if state == S_EQU and tag in (_new_tag, _old_tag, _sen_tag):
             if cseg:
                 ndlist.append((_equ_tag, "".join(cseg)))
             cseg = []
-            if segtype == "+":
+            if tag == _new_tag:
                 state = S_NEW
             else:
                 state = S_OLD
 
-        elif state == S_OLD and segtype in (" ", "+", "."):
+        elif state == S_OLD and tag in (_equ_tag, _new_tag, _sen_tag):
             if cseg:
                 ndlist.append((_old_tag, "".join(cseg)))
             cseg = []
-            if segtype == " ":
+            if tag == _equ_tag:
                 state = S_EQU
             else:
                 state = S_NEW
 
-        elif state == S_NEW and segtype in (" ", "-", "."):
+        elif state == S_NEW and tag in (_equ_tag, _old_tag, _sen_tag):
             if cseg:
                 ndlist.append((_new_tag, "".join(cseg)))
             cseg = []
-            if segtype == " ":
+            if tag == _equ_tag:
                 state = S_EQU
             else:
                 state = S_OLD
 
-        seg = el[2:]
-        if segtype == "-":
+        if tag == _old_tag:
             len_old += len(seg)
-        elif segtype == "+":
+        elif tag == _new_tag:
             len_new += len(seg)
         else:
             len_equ += len(seg)
@@ -357,10 +372,7 @@ def line_word_diff (lines_old, lines_new, markup=False, format=None,
     """
 
     # Create the difference.
-    # For basic diffing, indicate lines with content by adding them a newline.
-    dlist = list(ndiff(lines_old, lines_new))
-    # Remove non-diff segments and split into tag-segment pairs.
-    dlist = [(x[0], x[2:]) for x in dlist if x[:2] in _dsheads]
+    dlist = _tagged_diff(lines_old, lines_new)
 
     # Reshuffle so that all consecutive old-new lines are grouped into
     # all old followed by all new.
@@ -370,20 +382,20 @@ def line_word_diff (lines_old, lines_new, markup=False, format=None,
     sumws = 0.0
     i = 0
     while i < len(dlist):
-        while i < len(dlist) and dlist[i][0] not in "+-":
+        while i < len(dlist) and dlist[i][0] == _equ_tag:
             seg = dlist[i][1]
-            wdiffs.append(([(" ", seg)], 0.0))
+            wdiffs.append(([(_equ_tag, seg)], 0.0))
             w = len(seg)
             sumwdrs += 0.0 * w
             sumws += w
             i += 1
         seq_new = []
         seq_old = []
-        while i < len(dlist) and dlist[i][0] in "+-":
+        while i < len(dlist) and dlist[i][0] != _equ_tag:
             seg = dlist[i][1]
-            if dlist[i][0] != "+":
+            if dlist[i][0] != _new_tag:
                 seq_old.append(seg)
-            if dlist[i][0] != "-":
+            if dlist[i][0] != _old_tag:
                 seq_new.append(seg)
             i += 1
         if seq_old and seq_new:
@@ -395,9 +407,9 @@ def line_word_diff (lines_old, lines_new, markup=False, format=None,
             lmax = max(lold, lnew)
             lmin = min(lold, lnew)
             if lold <= lnew:
-                s1, s2, tag2, rev = seq_old, seq_new, "+", False
+                s1, s2, tag2, rev = seq_old, seq_new, _new_tag, False
             else:
-                s1, s2, tag2, rev = seq_new, seq_old, "-", True
+                s1, s2, tag2, rev = seq_new, seq_old, _old_tag, True
             i1 = 0
             i2 = 0
             while i1 < lmin:
@@ -432,12 +444,14 @@ def line_word_diff (lines_old, lines_new, markup=False, format=None,
                 sumwdrs += 1.0 * w
                 sumws += w
         elif seq_old:
-            wdiffs.extend([([("-" + _tagext_none, x)], 1.0) for x in seq_old])
+            wdiffs.extend([([(_old_tag + _tagext_none, x)], 1.0)
+                           for x in seq_old])
             w = sum(map(len, seq_old))
             sumwdrs += 1.0 * w
             sumws += w
         elif seq_new:
-            wdiffs.extend([([("+" + _tagext_none, x)], 1.0) for x in seq_new])
+            wdiffs.extend([([(_new_tag + _tagext_none, x)], 1.0)
+                           for x in seq_new])
             w = sum(map(len, seq_new))
             sumwdrs += 1.0 * w
             sumws += w
@@ -670,9 +684,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
         fspans.append((start, end) + span[2:])
 
     # Create character-level difference from original to filtered text.
-    dlist = list(ndiff(otext, ftext))
-    dlist = [x for x in dlist if x[:2] in _dsheads] # remove non-diff segments
-    dlist = [(x[:1], x[2:]) for x in dlist] # split into (type, segment) pairs
+    dlist = _tagged_diff(otext, ftext)
 
     # For each span, go through the difference and... do some magic.
     aspans = []
@@ -683,17 +695,17 @@ def adapt_spans (otext, ftext, spans, merge=True):
             #print ">>> index to adapt:", filtered_index
             original_index = 0
             track_index = 0
-            for dtype, dseg in dlist:
+            for dtag, dseg in dlist:
                 slen = len(dseg)
-                if dtype == "+":
+                if dtag == _new_tag:
                     track_index += slen
-                elif dtype == "-":
+                elif dtag == _old_tag:
                     original_index += slen
                 else:
                     original_index += slen
                     track_index += slen
-                #print dtype, dseg, track_index, original_index
-                if dtype not in ("+", "-"):
+                #print dtag, dseg, track_index, original_index
+                if dtag == _equ_tag:
                     if track_index + end_extra > filtered_index:
                         original_index -= track_index - filtered_index
                         break
