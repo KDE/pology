@@ -140,7 +140,7 @@ import pology.misc.wrap as wrap
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
-from pology.misc.msgreport import warning_on_msg, error_on_msg
+from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
 from pology.misc.subcmd import ParamParser
@@ -238,6 +238,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         dest="include_path",
         help="sieve files only when their full path matches "
              "the regular expression")
+    opars.add_option(
+        "-a", "--announce-entry",
+        action="store_true", dest="announce_entry", default=False,
+        help="announce that header or message is just about to be sieved")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
@@ -520,6 +524,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
         skip = False
         # First run all header sieves.
+        if header_sieves and op.announce_entry:
+            report(u"sieving %s:header ..." % fname)
         for sieve in header_sieves:
             try:
                 sieve.process_header(cat.header, cat)
@@ -536,6 +542,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         # unless processing only the header.
         if not use_headonly:
             for msg in cat:
+                if op.announce_entry:
+                    report(u"sieving %s:%d(#%d) ..."
+                           % (fname, msg.refline, msg.refentry))
                 for sieve in message_sieves:
                     try:
                         sieve.process(msg, cat)
