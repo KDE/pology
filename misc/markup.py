@@ -1017,6 +1017,8 @@ def check_xmlents (text, ents={}, numeric=False):
 
             if errmsg is not None:
                 spans.append((pp, p, errmsg))
+        else:
+            p += 1
 
     return spans
 
