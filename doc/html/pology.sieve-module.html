@@ -108,10 +108,20 @@
     <p>The client ignores return values from all sieve methods, 
     <code>process</code>, <code>process_header</code>, and 
     <code>finalize</code> alike.</p>
-    <p>No sieve method should abort the program execution in case of 
-    errors, but throw an instance of <a 
-    href="pology.sieve.SieveError-class.html" class="link">SieveError</a> 
-    exception instead.</p>
+    <p>Sieve methods should not abort the program execution in case of 
+    errors, but throw an exception instead. In particular, if 
+    <code>process</code> method throws an instance of <a 
+    href="pology.sieve.SieveMessageError-class.html" 
+    class="link">SieveMessageError</a>, it means that the sieve can still 
+    process other messages in the same catalog; if it throws <a 
+    href="pology.sieve.SieveCatalogError-class.html" 
+    class="link">SieveCatalogError</a>, then any following messages in the 
+    same catalog must be skipped, but other catalogs may be processed. 
+    Similarly, if <code>process_header</code> throws <a 
+    href="pology.sieve.SieveCatalogError-class.html" 
+    class="link">SieveCatalogError</a>, then other catalogs may be 
+    processed. Any other type of exception means that the sieve should no 
+    longer be used.</p>
   <h1 class="heading">Parameter Handling</h1>
     <p>The <code>params</code> argument to the sieve constructor is an 
     object with data attributes that specify parameters influencing the 
@@ -292,7 +302,23 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.SieveError-class.html" class="summary-name">SieveError</a><br />
-      Exception for errors during sieving, thrown by sieve methods.
+      Base exception class for sieve errors with special meaning.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.SieveMessageError-class.html" class="summary-name">SieveMessageError</a><br />
+      Exception for single messages.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.SieveCatalogError-class.html" class="summary-name">SieveCatalogError</a><br />
+      Exception for single catalogs.
     </td>
   </tr>
 </table>
