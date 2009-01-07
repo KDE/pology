@@ -917,11 +917,6 @@ def check_xml_docbook4_l1 (text, ents=None):
     @rtype: list of (int, int, string) tuples
     """
 
-    # FIXME: Freak message in konqueror_browser.po that puts
-    # Python's difflib.ndiff() into infinite loop.
-    if text.startswith("1, 7, 9, 11, 13, 15, 17, 19"):
-        return []
-
     global _docbook4_l1
     if _docbook4_l1 is None:
         specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
