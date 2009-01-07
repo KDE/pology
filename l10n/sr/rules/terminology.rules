@@ -215,6 +215,7 @@ hint="hardware = хардвер"
 valid msgstr="\bхардвер"
 valid cat="kcminfo" msgstr="подсист.{,9}рачунар"
 valid cat="solid-hardware" msgstr="solid-hardware"
+valid env="kde" msgstr="&\w*hardware\w*-\S*;"
 
 {\bheader}i
 id="header"
@@ -345,6 +346,7 @@ valid before="@" msgstr="lozinka@"
 id="pointer2"
 hint="pointer = показивач"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
+valid env="kde" msgstr="&\w*pointer\w*-\S*;"
 
 {\bpointer}i
 hint="pointer = показивач"
