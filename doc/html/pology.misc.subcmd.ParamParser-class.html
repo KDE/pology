@@ -171,8 +171,7 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.subcmd.ParamParser-class.html#parse" class="summary-sig-name">parse</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">rawpars</span>,
-        <span class="summary-sig-arg">subcmds</span>,
-        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">subcmds</span>)</span><br />
       Parse the list of parameters collected from the command line.</td>
           <td align="right" valign="top">
             
@@ -371,8 +370,7 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">parse</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">rawpars</span>,
-        <span class="sig-arg">subcmds</span>,
-        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">subcmds</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -397,15 +395,12 @@ object --+
   prepending an 'x' if it does not start with a letter.</p>
   <p>If a parameter is parsed which is not accepted by any of the given 
   subcommands, its name is added to list of non-accepted parameters, which 
-  is the second element of the return tuple. Alternatively, execution may 
-  be aborted, with non-accepted parameters reported to stderr.</p>
+  is the second element of the return tuple.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>rawpars</code></strong> (list of strings) - raw parameters</li>
         <li><strong class="pname"><code>subcmds</code></strong> (list of strings) - names of issued subcommands</li>
-        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution when some parameters were not accepted
-          by any subcommand</li>
     </ul></dd>
     <dt>Returns: dict of objects by subcommand name and list of strings</dt>
         <dd>objects with parameters as attributes, and list of parameter 

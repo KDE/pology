@@ -66,7 +66,7 @@
 <pre class="literalblock">
    class Sieve (object):
 
-       def __init__ (self, params, options):
+       def __init__ (self, params):
 
            self.ntranslated = 0
 
@@ -79,10 +79,10 @@
 
            print &quot;Total translated: %d&quot; % self.ntranslated
 </pre>
-    <p>The <code>__init__</code> method must take two arguments, the sieve 
-    parameters and global options (more on that below). The 
-    <code>process</code> method is the one which gets called for each 
-    message by the client, and must take the message (instance of <a 
+    <p>The constructor takes as argument an object specifying any sieve 
+    parameters (more on that below). The <code>process</code> method is the
+    one which gets called for each message by the client, and must take the
+    message (instance of <a 
     href="pology.file.message.Message_base-class.html" 
     class="link">Message_base</a>) and the catalog which contains it (<a 
     href="pology.file.catalog.Catalog-class.html" 
@@ -108,24 +108,16 @@
     <p>The client ignores return values from all sieve methods, 
     <code>process</code>, <code>process_header</code>, and 
     <code>finalize</code> alike.</p>
+    <p>No sieve method should abort the program execution in case of 
+    errors, but throw an instance of <a 
+    href="pology.sieve.SieveError-class.html" class="link">SieveError</a> 
+    exception instead.</p>
   <h1 class="heading">Parameter Handling</h1>
-    <p>The two arguments to the constructor:</p>
-<pre class="literalblock">
-   def __init__ (self, params, options):
-       # ...
-</pre>
-    <p>are as follows:</p>
-    <p><code>options</code> is the object of the command line options as 
-    given to the client which uses the sieve, where options are its 
-    instance variables (e.g. the object produced by the 
-    <code>OptionParser</code> from the <code>optparse</code> standard 
-    library module). The sieve may use this object to check for some usual 
-    options, like verbose or quite mode. Client may specify this object as 
-    <code>None</code>.</p>
-    <p><code>params</code> is similarly and object with instance variables,
-    but these are parameters intended specifically for the sieve. The sieve
-    module defines <code>setup_sieve</code> function, which the client 
-    calls with <a href="pology.misc.subcmd.SubcmdView-class.html" 
+    <p>The <code>params</code> argument to the sieve constructor is an 
+    object with data attributes that specify parameters influencing the 
+    sieve operation. The sieve module defines <code>setup_sieve</code> 
+    function, which the client calls with <a 
+    href="pology.misc.subcmd.SubcmdView-class.html" 
     class="link">SubcmdView</a> object as argument, to fill in the sieve 
     description and define all mandatory and optional parameters. Suppose 
     that a sieve takes a parameter named <code>checklevel</code>, stating 
@@ -140,7 +132,7 @@
 
    class Sieve (object):
 
-       def __init__ (self, params, options):
+       def __init__ (self, params):
 
            if params.checklevel &gt;= 1:
                # ...setup some level 1 validity checks...
@@ -150,16 +142,16 @@
 </pre>
     <p>See <a href="pology.misc.subcmd.SubcmdView-class.html#add_param" 
     class="link">add_param()</a> method for details on defining sieve 
-    parameters. Client is not obliged to call <code>setup_sieve()</code>, 
-    but must make sure that the <code>params</code> argument it sends to 
-    the sieve has all the instance variable according to defined 
     parameters.</p>
+    <p>Client is not obliged to call <code>setup_sieve()</code>, but must 
+    make sure that the <code>params</code> argument it sends to the sieve 
+    has all the instance variable according to defined parameters.</p>
   <h1 class="heading">Catalog Regime Indicators</h1>
     <p>There are two boolean instance variables that the sieve may define, 
     and which the client may check for to decide on the regime in which the
     catalogs are opened and closed:</p>
 <pre class="literalblock">
-   def __init__ (self, options, global_options):
+   def __init__ (self, params):
 
        # These are the defaults:
        self.caller_sync = True
@@ -225,7 +217,7 @@
     while the <code>Sieve</code> class itself should not be documented. The
     module comment should contain the short one line description of the 
     sieve, followed by paragraphs explaining its functionality, followed by
-    list of sieve options. Check existing sieves for examples.</p>
+    list of sieve parameters. Check existing sieves for examples.</p>
     <p>All methods of the <code>Sieve</code> class other than the above 
     stated standard interface methods should be kept private. If the sieve 
     module contains some more widely applicable methods, they should be 
@@ -287,6 +279,23 @@
 </table>
 
 <br />
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.SieveError-class.html" class="summary-name">SieveError</a><br />
+      Exception for errors during sieving, thrown by sieve methods.
+    </td>
+  </tr>
+</table>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

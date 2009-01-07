@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.find_messages.ExprError</title>
+  <title>pology.misc.subcmd.SubcmdError</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        <a href="pology.sieve.find_messages-module.html">Module&nbsp;find_messages</a> ::
-        Class&nbsp;ExprError
+        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
+        <a href="pology.misc.subcmd-module.html">Module&nbsp;subcmd</a> ::
+        Class&nbsp;SubcmdError
       </span>
     </td>
     <td>
@@ -51,7 +51,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ExprError</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class SubcmdError</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
               object --+        
                        |        
@@ -59,11 +59,12 @@ exceptions.BaseException --+
                            |    
         exceptions.Exception --+
                                |
-                              <strong class="uidshort">ExprError</strong>
+                              <strong class="uidshort">SubcmdError</strong>
 </pre>
 
 <hr />
-<p>Exception for errors in message matching expressions.</p>
+<p>Exception for errors on defining subcommands and parsing their 
+  parameters.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -79,11 +80,8 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.sieve.find_messages.ExprError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">expr</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">start</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">end</span>=<span class="summary-sig-default">None</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.subcmd.SubcmdError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
       Constructor.</td>
           <td align="right" valign="top">
             
@@ -116,7 +114,7 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.sieve.find_messages.ExprError-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.subcmd.SubcmdError-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
       str(x)</td>
           <td align="right" valign="top">
             
@@ -186,10 +184,7 @@ exceptions.BaseException --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">expr</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">msg</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">start</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">end</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">msg</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -202,10 +197,7 @@ exceptions.BaseException --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>expr</code></strong> (string or None) - the complete expression that caused the problem</li>
-        <li><strong class="pname"><code>msg</code></strong> (string or None) - the description of the problem</li>
-        <li><strong class="pname"><code>start</code></strong> (int or None) - start position of the problem into the expression string</li>
-        <li><strong class="pname"><code>end</code></strong> (int or None) - end position of the problem</li>
+        <li><strong class="pname"><code>msg</code></strong> (string) - a description of what went wrong</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
