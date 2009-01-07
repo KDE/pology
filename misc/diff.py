@@ -37,6 +37,10 @@ _old_opn = _old_opnc + _old_vtag
 _old_cls = _old_vtag + _old_clsc
 
 
+# String heads in diffs that indicate difference segments proper.
+_dsheads = ("+ ", "- ", "  ")
+
+
 def word_diff (text_old, text_new, markup=False, format=None,
                diffr=False):
     """
@@ -123,7 +127,7 @@ def word_diff (text_old, text_new, markup=False, format=None,
 
     # Create the difference.
     dlist = list(ndiff(segments[0], segments[1]))
-    dlist = [x for x in dlist if x[:1] in "+- "] # remove non-diff segments
+    dlist = [x for x in dlist if x[:2] in _dsheads] # remove non-diff segments
 
     # Recompute which elements of the difference are intersections.
     dlist_isintr = []
@@ -356,7 +360,7 @@ def line_word_diff (lines_old, lines_new, markup=False, format=None,
     # For basic diffing, indicate lines with content by adding them a newline.
     dlist = list(ndiff(lines_old, lines_new))
     # Remove non-diff segments and split into tag-segment pairs.
-    dlist = [(x[0], x[2:]) for x in dlist if x[:1] in "+- "]
+    dlist = [(x[0], x[2:]) for x in dlist if x[:2] in _dsheads]
 
     # Reshuffle so that all consecutive old-new lines are grouped into
     # all old followed by all new.
@@ -651,6 +655,9 @@ def adapt_spans (otext, ftext, spans, merge=True):
     @rtype: list of index tuples
     """
 
+    if not spans:
+        return spans
+
     # Resolve negative spans.
     flen = len(ftext)
     fspans = []
@@ -664,7 +671,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
 
     # Create character-level difference from original to filtered text.
     dlist = list(ndiff(otext, ftext))
-    dlist = [x for x in dlist if x[:1] in "+- "] # remove non-diff segments
+    dlist = [x for x in dlist if x[:2] in _dsheads] # remove non-diff segments
     dlist = [(x[:1], x[2:]) for x in dlist] # split into (type, segment) pairs
 
     # For each span, go through the difference and... do some magic.
