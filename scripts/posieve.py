@@ -112,7 +112,7 @@ The following user configuration fields are considered
   - C{[posieve]/tag-split}: whether to split mesage fields on tags
         (default C{yes})
   - C{[posieve]/skip-on-error}: whether to skip current catalog on
-        processing error, and go to next (default C{yes})
+        processing error and go to next, if possible (default C{yes})
   - C{[posieve]/msgfmt-check}: whether to check catalog file by C{msgfmt -c}
         before sieving (default C{no})
   - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
@@ -144,6 +144,7 @@ from pology.misc.msgreport import warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
 from pology.misc.subcmd import ParamParser
+from pology.sieve import SieveMessageError, SieveCatalogError
 
 
 def main ():
@@ -209,7 +210,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "--no-skip",
         action="store_false", dest="do_skip", default=def_do_skip,
-        help="do not skip catalogs which signal errors")
+        help="do not try to skip catalogs which signal errors")
     opars.add_option(
         "-m", "--output-modified", metavar="FILE",
         action="store", dest="output_modified", default=None,
@@ -464,11 +465,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         include_path_rx = re.compile(op.include_path, re.I|re.U)
 
     if op.do_skip:
-        problem = warning
-        problem_on_msg = warning_on_msg
+        errwarn = warning
+        errwarn_on_msg = warning_on_msg
     else:
-        problem = error
-        problem_on_msg = error_on_msg
+        errwarn = error
+        errwarn_on_msg = error_on_msg
 
     # Sieve the messages throughout the files.
     modified_files = []
@@ -502,7 +503,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             d1, oerr, ret = collect_system("msgfmt -o/dev/null -c %s" % fname)
             if ret != 0:
                 oerr = oerr.strip()
-                problem(u"%s: msgfmt check failed:\n"
+                errwarn(u"%s: msgfmt check failed:\n"
                         u"%s" % (fname, oerr))
                 warning(u"skipping catalog due to check failure")
                 continue
@@ -513,7 +514,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         except KeyboardInterrupt:
             sys.exit(130)
         except Exception, e:
-            problem(u"%s: parsing failed: %s" % (fname, e))
+            errwarn(u"%s: parsing failed: %s" % (fname, e))
             warning(u"skipping catalog due to parsing failure")
             continue
 
@@ -522,10 +523,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         for sieve in header_sieves:
             try:
                 sieve.process_header(cat.header, cat)
-            except Exception, e:
-                problem(u"%s:header: sieving failed: %s" (fname, e))
+            except SieveCatalogError, e:
+                errwarn(u"%s:header: sieving failed: %s" (fname, e))
                 skip = True
-                continue
+                break
+            except Exception, e:
+                error(u"%s:header: sieving failed: %s" (fname, e))
         if skip:
             warning(u"skipping catalog due to header sieving failure")
             continue
@@ -536,14 +539,19 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 for sieve in message_sieves:
                     try:
                         sieve.process(msg, cat)
-                    except Exception, e:
-                        problem_on_msg(u"sieving failed: %s" % e, msg, cat)
+                    except SieveMessageError, e:
+                        errwarn_on_msg(u"sieving failed: %s" % e, msg, cat)
+                        break
+                    except SieveCatalogError, e:
+                        errwarn_on_msg(u"sieving failed: %s" % e, msg, cat)
                         skip = True
-                        continue
+                        break
+                    except Exception, e:
+                        error_on_msg(u"sieving failed: %s" % e, msg, cat)
                 if skip:
                     break
         if skip:
-            warning(u"skipping catalog due to mesage sieving failure")
+            warning(u"skipping catalog due to message sieving failure")
             continue
 
         if do_sync and cat.sync(op.force_sync):
@@ -561,7 +569,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             try:
                 sieve.finalize()
             except Exception, e:
-                problem(u"finalization failed: %s" % e)
+                warning(u"finalization failed: %s" % e)
 
     if op.output_modified:
         ofh = open(op.output_modified, "w")

@@ -60,8 +60,15 @@ The Sieve Layout
     The client ignores return values from all sieve methods, C{process},
     C{process_header}, and C{finalize} alike.
 
-    No sieve method should abort the program execution in case of errors,
-    but throw an instance of L{SieveError} exception instead.
+    Sieve methods should not abort the program execution in case of errors,
+    but throw an exception instead. In particular, if C{process} method
+    throws an instance of L{SieveMessageError}, it means that the sieve
+    can still process other messages in the same catalog;
+    if it throws L{SieveCatalogError}, then any following messages
+    in the same catalog must be skipped, but other catalogs may be processed.
+    Similarly, if C{process_header} throws L{SieveCatalogError},
+    then other catalogs may be processed. Any other type of exception
+    means that the sieve should no longer be used.
 
 
 Parameter Handling
@@ -195,7 +202,7 @@ from pology.misc.subcmd import ParamParser
 
 class SieveError (Exception):
     """
-    Exception for errors during sieving, thrown by sieve methods.
+    Base exception class for sieve errors with special meaning.
     """
 
     def __init__ (self, msg):
@@ -219,4 +226,27 @@ class SieveError (Exception):
     def  __str__ (self):
 
         return self.__unicode__().encode(locale.getpreferredencoding())
+
+
+class SieveMessageError (SieveError):
+    """
+    Exception for single messages.
+
+    If sieve's C{process} method throws it, client is allowed to send
+    other messages from the same catalog to the sieve.
+    """
+
+    pass
+
+
+class SieveCatalogError (SieveError):
+    """
+    Exception for single catalogs.
+
+    If sieve's C{process} or C{process_header} method throw it, client is not
+    allowed to send other messages from the same catalog to the sieve,
+    but can send messages from other catalogs.
+    """
+
+    pass
 
