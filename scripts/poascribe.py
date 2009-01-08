@@ -288,7 +288,6 @@ class Config:
                 udat = UserData()
                 self.udata[user] = udat
                 self.users.append(user)
-                udat.ascroot = os.path.join(self.ascroot, user)
                 if "name" not in usect:
                     error("%s: user '%s' misses the name" % (cpath, user))
                 udat.name = usect.get("name")
@@ -302,7 +301,6 @@ class Config:
         udat = UserData()
         self.udata[UFUZZ] = udat
         self.users.append(UFUZZ)
-        udat.ascroot = os.path.join(self.ascroot, UFUZZ)
         udat.name = "UFUZZ"
         udat.oname = None
         udat.email = None
@@ -381,8 +379,6 @@ def ascribe_modified (options, configs_catpaths, mode):
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path))
 
-        mkdirpath(config.udata[user].ascroot)
-
         for catpath, acatpath in catpaths:
             cnmod, cnfuz, cnutr, cnobs, cnrvv \
                 = ascribe_modified_cat(options, config, user, catpath, acatpath,
@@ -417,8 +413,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     for config, catpaths in configs_catpaths:
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path))
-
-        mkdirpath(config.udata[user].ascroot)
 
         for catpath, acatpath in catpaths:
             nasc += ascribe_reviewed_cat(options, config, user,
@@ -1419,6 +1413,7 @@ def asc_sync_and_rep (acat):
 
     if acat.modcount:
         update_asc_hdr(acat)
+        mkdirpath(os.path.dirname(acat.filename))
 
     return sync_and_rep(acat)
 
