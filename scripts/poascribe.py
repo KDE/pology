@@ -639,7 +639,7 @@ def diff_select_cat (options, config, catpath, acatpath,
     live = options.live_diff
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acat = Catalog(acatpath, monitored=False)
+    acat = Catalog(acatpath, create=True, monitored=False)
 
     nflagged = 0
     for msg in cat:
@@ -680,7 +680,7 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
     live = options.live_diff
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
-    acat = Catalog(acatpath, monitored=False)
+    acat = Catalog(acatpath, create=True, monitored=False)
 
     ncleared = 0
     for msg in cat:
