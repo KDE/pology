@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 
-from pology.misc.report import error, warning
+from pology.misc.report import report, error, warning
 from pology.misc.fsops import collect_system
 
 
@@ -167,6 +167,31 @@ class VcsBase (object):
               "fetching a versioned file")
 
 
+    def commit (self, paths, message=None):
+        """
+        Commit paths to the repository.
+
+        Paths can include any number of files and directories.
+        It depends on the particular VCS what committing means,
+        but in general it should be the earliest level at which
+        modifications are recorded in the repository history.
+
+        If the commit message is not given, VCS should ask for one as usual
+        (pop an editor window, or whatever the user has configured).
+
+        @param paths: paths to commit
+        @type paths: list of strings
+        @param message: commit message
+        @type message: string or None
+
+        @return: C{True} if committing succeeded, C{False} otherwise
+        @rtype: bool
+        """
+
+        error("selected version control system does not define "
+              "committing of paths")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -212,6 +237,12 @@ class VcsNoop (VcsBase):
             os.shutil.copyfile(path, dstpath)
         except:
             return False
+        return True
+
+
+    def commit (self, paths, message=None):
+        # Base override.
+
         return True
 
 
@@ -312,6 +343,22 @@ class VcsSubversion (VcsBase):
 
         cmdline = "svn export %s -r %s %s" % (rempath, rev, dstpath)
         if collect_system(cmdline)[-1] != 0:
+            return False
+
+        return True
+
+
+    def commit (self, paths, message=None):
+        # Base override.
+
+        cmdline = "svn commit "
+        if message is not None:
+            cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+        cmdline += " ".join(paths)
+
+        # Do not use collect_system(), user may need to input stuff.
+        #report(cmdline)
+        if os.system(cmdline) != 0:
             return False
 
         return True
