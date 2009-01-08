@@ -75,11 +75,6 @@ def main ():
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
-        "-c", "--config", metavar="PATH",
-        action="store", dest="config", default=None,
-        help="explicit path to ascription configuration "
-             "(instead of automatic lookup up the directory tree)")
-    opars.add_option(
         "-d", "--depth", metavar="LEVEL",
         action="store", dest="depth", default=None,
         help="consider ascription history up to this level into the past "
@@ -93,7 +88,22 @@ def main ():
         "-l", "--live-diff",
         action="store_true", dest="live_diff", default=False,
         help="use \"live\" differencing, i.e. embedding into current fields "
-              "(relevant in some modes)")
+             "(relevant in some modes)")
+    opars.add_option(
+        "-c", "--commit",
+        action="store_true", dest="commit", default=False,
+        help="automatically commit original and ascription catalogs, "
+             "in proper order")
+    opars.add_option(
+        "-m", "--message", metavar="TEXT",
+        action="store", dest="message", default=None,
+        help="commit message for original catalogs, when %(option)s "
+             "is in effect" % dict(option="-c"))
+    opars.add_option(
+        "-M", "--ascript-message", metavar="TEXT",
+        action="store", dest="ascript_message", default=None,
+        help="commit message for ascription catalogs, when %(option)s "
+             "is in effect" % dict(option="-c"))
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
@@ -191,24 +201,20 @@ def main ():
     configs_loaded = {}
     configs_catpaths = []
     for path in paths:
-        if not options.config:
-            # Look for the first config file up the directory tree.
-            parent = os.path.abspath(path)
-            if os.path.isfile(parent):
-                parent = os.path.dirname(parent)
-            while True:
-                cfgpath = os.path.join(parent, "ascribe")
-                if os.path.isfile(cfgpath):
-                    break
-                else:
-                    cfgpath = ""
-                pparent = parent
-                parent = os.path.dirname(parent)
-                if parent == pparent:
-                    break
-        else:
-            # Use config file supplied through the command line.
-            cfgpath = options.config
+        # Look for the first config file up the directory tree.
+        parent = os.path.abspath(path)
+        if os.path.isfile(parent):
+            parent = os.path.dirname(parent)
+        while True:
+            cfgpath = os.path.join(parent, "ascribe")
+            if os.path.isfile(cfgpath):
+                break
+            else:
+                cfgpath = ""
+            pparent = parent
+            parent = os.path.dirname(parent)
+            if parent == pparent:
+                break
         if not cfgpath:
             error("cannot find ascription configuration for path: %s" % path)
         cfgpath = join_ncwd(cfgpath) # for nicer message output
@@ -241,9 +247,42 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
+    # Commit modifications to original catalogs if requested.
+    if options.commit:
+        commit_catalogs(configs_catpaths, False, options.message)
+
     # Execute operations.
     for mode in modes:
         mode.execute(options, configs_catpaths, mode)
+
+    # Commit modifications to ascription catalogs if requested.
+    if options.commit:
+        commit_catalogs(configs_catpaths, True, options.ascript_message)
+
+
+def commit_catalogs (configs_catpaths, ascriptions=True, message=None):
+
+    # Attach paths to each distinct config, to commit them all at once.
+    configs = []
+    catpaths_byconf = {}
+    for config, catpaths in configs_catpaths:
+        if config not in catpaths_byconf:
+            catpaths_byconf[config] = []
+            configs.append(config)
+        for catpath, acatpath in catpaths:
+            if ascriptions:
+                catpath = acatpath
+            catpaths_byconf[config].append(catpath)
+
+    # Commit by config.
+    for config in configs:
+        cmsg = message
+        if message is None:
+            if ascriptions:
+                cmsg = config.ascript_commit_message
+            else:
+                cmsg = config.commit_message
+        config.vcs.commit(catpaths_byconf[config], cmsg)
 
 
 class Config:
@@ -274,6 +313,9 @@ class Config:
         self.tfilter = gsect.get("text-filter", None)
         if self.tfilter:
             self.tfilter = get_hook_lreq(self.tfilter, abort=True)
+
+        self.commit_message = gsect.get("commit-message", None)
+        self.ascript_commit_message = gsect.get("ascript-commit-message", None)
 
         class UserData: pass
         self.udata = {}
