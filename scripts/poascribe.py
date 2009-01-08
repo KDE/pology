@@ -985,6 +985,14 @@ _multiple_fields = (()
     + ("msgstr",)
     + _fields_comment
 )
+_nonid_fields_eq_nonfuzzy = (()
+    + _nonid_fields
+    + ("manual_comment",)
+)
+_nonid_fields_eq_fuzzy = (()
+    + _nonid_fields_eq_nonfuzzy
+    + _fields_previous
+)
 
 _trsep_head = u"|"
 _trsep_head_ext = u"~"
@@ -1216,7 +1224,11 @@ def asc_eq (msg1, msg2):
 
     if is_fuzzy(msg1) != is_fuzzy(msg2):
         return False
-    for field in _nonid_fields_tracked:
+    if is_fuzzy(msg1):
+        check_fields = _nonid_fields_eq_fuzzy
+    else:
+        check_fields = _nonid_fields_eq_nonfuzzy
+    for field in check_fields:
         if msg1.get(field) != msg2.get(field):
             return False
     return True
