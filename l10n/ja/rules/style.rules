@@ -454,6 +454,7 @@ valid after="s" before="\[a\-zA\-Z\]\+\)" cat="quanta"
 valid after="%artist\)" before="アルバム名" cat="kopete"
 valid after="。:" cat="kopete"
 valid after="\left" cat="kile"
+valid after="%1" before="%2, %3\)" cat="kalgebra"
 valid cat="kspread"
 
 [\)]
@@ -564,4 +565,5 @@ hint="このタグの前後には半角のスペースを入れてください"
 [<(i|em)>.+</(i|em)>]
 id="tag-italic"
 hint="本当に必要でなければイタリック体の使用を避けてください (引用符や KUIT タグに置き換えるとか)"
-valid span="<i>イタリック(テキスト|体)</i>" cat="quanta"
+valid span="<i>イタリック体</i>" cat="quanta, kopete"
+valid cat="kalgebra"
