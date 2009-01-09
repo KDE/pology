@@ -671,6 +671,21 @@ class Message_base (object):
             for fcurr, fprev in _Message_currprev_fields:
                 setattr(msg1, fcurr, msg1.get(fprev))
 
+        ar_dtyp = None
+        if addrem:
+            mode = addrem[0]
+            ar_sep = unicode(addrem[1:] or " ")
+            if mode in ("=", "e"):
+                ar_dtyp = " "
+            elif mode in ("+", "a"):
+                ar_dtyp = "+"
+            elif mode in ("-", "r"):
+                ar_dtyp = "-"
+            else:
+                raise StandardError, (
+                    "unknown selection mode '%s' for "
+                    "partial differencing" % mode)
+
         # Diff two texts under the given diffing options.
         def _tediff (text1, text2, islines=False):
 
@@ -694,24 +709,19 @@ class Message_base (object):
             else:
                 wdiff, dr = f_diff(text1, text2,
                                    markup=True, format=self.format, diffr=True)
-                mode = addrem[0]
-                sep = addrem[1:] or " "
-                if mode in ("=", "e"):
-                    dtyp = " "
-                elif mode in ("+", "a"):
-                    dtyp = "+"
-                elif mode in ("-", "r"):
-                    dtyp = "-"
-                else:
-                    raise StandardError, (
-                            "unknown selection mode '%s' for "
-                            "partial differencing" % mode)
                 if not islines:
-                    ediff = sep.join([x for t, x in wdiff if t == dtyp])
+                    ediff = None
+                    ar_segs = [x for t, x in wdiff if t == ar_dtyp]
+                    dr = 1.0 - dr
+                    if text1 is not None or text2 is not None:
+                        ediff = ar_sep.join(ar_segs)
                 else:
                     ediff = []
-                    for wdiff1 in wdiff:
-                        ediff += [sep.join([x for t, x in wdiff1 if t == dtyp])]
+                    for wdiff1, dr1 in wdiff:
+                        ar_segs = [x for t, x in wdiff1 if t == ar_dtyp]
+                        dr1 = 1.0 - dr1
+                        if text1 or text2:
+                            ediff += [(ar_sep.join(ar_segs), dr1)]
 
             return ediff, dr
 
@@ -745,20 +755,26 @@ class Message_base (object):
                 items2 = msg2.get(field)
                 for item in items:
                     ediff = None
-                    if item in items1 and item not in items2:
-                        ediff, dr = word_ediff(item, None, diffr=True)
-                    elif item not in items1 and item in items2:
-                        ediff, dr = word_ediff(None, item, diffr=True)
+                    if (    item in items1 and item not in items2
+                        and (not addrem or ar_dtyp == "-")
+                    ):
+                        ediff, dr = word_ediff(item, None, hlto=hlto,
+                                               diffr=True)
+                    elif (    item not in items1 and item in items2
+                          and (not addrem or ar_dtyp == "+")
+                    ):
+                        ediff, dr = word_ediff(None, item, hlto=hlto,
+                                               diffr=True)
                     if ediff is not None:
                         field_diffs.append((field, item, ediff, dr))
             elif field in _Message_state_fields:
                 s1 = msg1.get(field)
                 s2 = msg2.get(field)
                 ediff = None
-                if s1 and not s2:
-                    ediff, dr = word_ediff(field, None, diffr=True)
-                elif not s1 and s2:
-                    ediff, dr = word_ediff(None, field, diffr=True)
+                if s1 and not s2 and (not addrem or ar_dtyp == "-"):
+                    ediff, dr = word_ediff(field, None, hlto=hlto, diffr=True)
+                elif not s1 and s2 and (not addrem or ar_dtyp == "+"):
+                    ediff, dr = word_ediff(None, field, hlto=hlto, diffr=True)
                 if ediff is not None:
                     field_diffs.append((field, None, ediff, dr))
             else:
