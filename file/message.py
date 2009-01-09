@@ -270,7 +270,7 @@ class Message_base (object):
             return format_flag
 
         elif att == "fuzzy":
-            return "fuzzy" in self.flag
+            return u"fuzzy" in self.flag
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
@@ -309,16 +309,17 @@ class Message_base (object):
         if 0: pass
 
         elif att == "fuzzy":
-            if self.fuzzy != val:
-                if val == True:
-                    self.flag.add(u"fuzzy")
-                else:
+            if val == True:
+                self.flag.add(u"fuzzy")
+            else:
+                if u"fuzzy" in self.flag:
                     self.flag.remove(u"fuzzy")
-                    self.msgctxt_previous = None
-                    self.msgid_previous = None
-                    self.msgid_plural_previous = None
+                self.msgctxt_previous = None
+                self.msgid_previous = None
+                self.msgid_plural_previous = None
 
-        self.__dict__["^getsetattr"].__setattr__(self, att, val)
+        else:
+            self.__dict__["^getsetattr"].__setattr__(self, att, val)
 
 
     def __eq__ (self, omsg):
@@ -1217,8 +1218,6 @@ class MessageUnsafe (Message_base):
         self.msgid = init.get("msgid", u"")
         self.msgid_plural = init.get("msgid_plural", None)
         self.msgstr = init.get("msgstr", [u""])[:]
-
-        self.__dict__["fuzzy"] = (u"fuzzy" in self.flag and not self.obsolete)
 
         self.refline = init.get("refline", -1)
         self.refentry = init.get("refentry", -1)
