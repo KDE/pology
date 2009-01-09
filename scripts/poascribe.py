@@ -414,39 +414,29 @@ def ascribe_modified (options, configs_catpaths, mode):
 
     user = mode.user
 
-    ntrn = 0
-    nfuz = 0
-    nutr = 0
-    nobs = 0
-    nofz = 0
-    nout = 0
+    counts = dict([(x, 0) for x in _all_states])
     for config, catpaths in configs_catpaths:
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path))
 
         for catpath, acatpath in catpaths:
-            ret = ascribe_modified_cat(options, config, user, catpath, acatpath,
-                                       mode.selector)
-            cntrn, cnfuz, cnutr, cnobs, cnofz, cnout = ret
-            ntrn += cntrn
-            nfuz += cnfuz
-            nutr += cnutr
-            nobs += cnobs
-            nofz += cnofz
-            nout += cnout
+            ccounts = ascribe_modified_cat(options, config, user,
+                                           catpath, acatpath, mode.selector)
+            for st, val in ccounts.items():
+                counts[st] += val
 
-    if ntrn > 0:
-        report("===! Translated: %d entries" % ntrn)
-    if nfuz > 0:
-        report("===! Fuzzy: %d entries" % nfuz)
-    if nutr > 0:
-        report("===! Untranslated: %d entries" % nutr)
-    if nobs > 0:
-        report("===! Obsolete translated: %d entries" % nobs)
-    if nofz > 0:
-        report("===! Obsolete fuzzy: %d entries" % nofz)
-    if nout > 0:
-        report("===! Obsolete untranslated: %d entries" % nout)
+    if counts[_st_tran] > 0:
+        report("===! Translated: %d entries" % counts[_st_tran])
+    if counts[_st_fuzzy] > 0:
+        report("===! Fuzzy: %d entries" % counts[_st_fuzzy])
+    if counts[_st_untran] > 0:
+        report("===! Untranslated: %d entries" % counts[_st_untran])
+    if counts[_st_otran] > 0:
+        report("===! Obsolete translated: %d entries" % counts[_st_otran])
+    if counts[_st_ofuzzy] > 0:
+        report("===! Obsolete fuzzy: %d entries" % counts[_st_ofuzzy])
+    if counts[_st_ountran] > 0:
+        report("===! Obsolete untranslated: %d entries" % counts[_st_ountran])
 
 
 def ascribe_reviewed (options, configs_catpaths, mode):
@@ -523,38 +513,16 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     # Collect unascribed messages, but ignoring pristine ones
     # (those which are both untranslated and without history).
     toasc_msgs = []
-    ntrn = 0
-    nfuz = 0
-    nutr = 0
-    nobs = 0
-    nofz = 0
-    nout = 0
+    counts = dict([(x, 0) for x in _all_states])
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         if not history and is_any_untran(msg):
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
             continue # not selected
-
-        # Note message for modification.
         if not (history and asc_eq(msg, history[0].msg)):
             toasc_msgs.append(msg)
-            st = state(msg)
-            if 0: pass
-            elif st == _st_tran:
-                ntrn += 1
-            elif st == _st_fuzzy:
-                nfuz += 1
-            elif st == _st_untran:
-                nutr += 1
-            elif st == _st_otran:
-                nobs += 1
-            elif st == _st_ofuzzy:
-                nofz += 1
-            elif st == _st_ountran:
-                nout += 1
-            else:
-                error("internal: unknown message state on ascription")
+            counts[state(msg)] += 1
 
     # Collect non-obsolete ascribed messages that no longer have
     # original counterpart, to ascribe as obsolete.
@@ -564,21 +532,16 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
             msg = asc_collect_history_single(amsg, acat, config)[0].msg
             msg.obsolete = True
             toasc_msgs.append(msg)
-            if st == _st_tran:
-                ntrn += 1
-            elif st == _st_fuzzy:
-                nfuz += 1
-            else:
-                nutr += 1
+            counts[st] += 1
 
     if not toasc_msgs:
         # No messages to ascribe.
-        return 0, 0, 0, 0, 0, 0
+        return counts
 
     if not config.vcs.is_clear(cat.filename):
         warning("%s: VCS state not clear, cannot ascribe modifications"
                 % cat.filename)
-        return 0, 0, 0, 0, 0, 0
+        return counts
 
     # Current VCS revision of the catalog.
     catrev = config.vcs.revision(cat.filename)
@@ -590,7 +553,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
-    return ntrn, nfuz, nutr, nobs, nofz, nout
+    return counts
 
 
 _revdflags = ("revd", "reviewed")
@@ -774,7 +737,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             hinfo += [ihead + anote]
             if not a.type == _atype_mod or is_any_fuzzy(a.msg):
                 # Nothing more to show if this ascription is not modification,
-                # or there a fuzzy message is associated to it.
+                # or a fuzzy message is associated to it.
                 continue
             # Find first earlier non-fuzzy for diffing.
             i_next = first_nfuzzy(history, i + 1)
@@ -827,7 +790,10 @@ _st_untran = "U"
 _st_otran = "OT"
 _st_ofuzzy = "OF"
 _st_ountran = "OU"
-
+_all_states = (
+    _st_tran, _st_fuzzy, _st_untran,
+    _st_otran, _st_ofuzzy, _st_ountran,
+)
 def state (msg):
     if not msg.obsolete:
         if msg.translated:
