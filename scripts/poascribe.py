@@ -516,6 +516,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     # (those which are both untranslated and without history).
     toasc_msgs = []
     counts = dict([(x, 0) for x in _all_states])
+    counts0 = counts.copy()
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         if not history and is_any_untran(msg):
@@ -546,12 +547,12 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
 
     if not toasc_msgs:
         # No messages to ascribe.
-        return counts
+        return counts0
 
     if not config.vcs.is_clear(cat.filename):
         warning("%s: VCS state not clear, cannot ascribe modifications"
                 % cat.filename)
-        return counts
+        return counts0
 
     # Current VCS revision of the catalog.
     catrev = config.vcs.revision(cat.filename)
