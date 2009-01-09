@@ -279,7 +279,8 @@ def commit_catalogs (configs_catpaths, ascriptions=True, message=None):
                 cmsg = config.ascript_commit_message
             else:
                 cmsg = config.commit_message
-        config.vcs.commit(catpaths_byconf[config], cmsg)
+        if not config.vcs.commit(catpaths_byconf[config], cmsg):
+            error("VCS reports that catalogs cannot be committed")
 
 
 class Config:
