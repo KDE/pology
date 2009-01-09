@@ -529,12 +529,20 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     # Collect non-obsolete ascribed messages that no longer have
     # original counterpart, to ascribe as obsolete.
     for amsg in acat:
-        st = state(amsg)
-        if amsg not in cat and st not in (_st_otran, _st_ofuzzy, _st_ountran):
-            msg = asc_collect_history_single(amsg, acat, config)[0].msg
-            msg.obsolete = True
-            toasc_msgs.append(msg)
-            counts[st] += 1
+        if amsg not in cat:
+            ast = state(amsg)
+            st = None
+            if ast == _st_tran:
+                st = _st_otran
+            elif ast == _st_fuzzy:
+                st = _st_ofuzzy
+            elif ast == _st_untran:
+                st = _st_ountran
+            if st:
+                msg = asc_collect_history_single(amsg, acat, config)[0].msg
+                msg.obsolete = True
+                toasc_msgs.append(msg)
+                counts[st] += 1
 
     if not toasc_msgs:
         # No messages to ascribe.
