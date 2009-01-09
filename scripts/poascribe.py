@@ -178,9 +178,6 @@ def main ():
         elif mode.name in ("history", "hi"):
             mode.execute = show_history
             mode.selector = selector or build_selector(options, ["nwasc"])
-        elif mode.name in ("derive-obsolete", "do"):
-            mode.execute = ascribe_derivobs
-            needuser = True
         else:
             error("unknown operation mode '%s'" % mode.name)
         modes.append(mode)
@@ -357,7 +354,8 @@ def examine_state (options, configs_catpaths, mode):
     unasc_fuzzy_by_cat = {}
     unasc_utran_by_cat = {}
     unasc_obsol_by_cat = {}
-    unasc_revvd_by_cat = {}
+    unasc_obsfz_by_cat = {}
+    unasc_obsut_by_cat = {}
     def accu(countdict, catpath):
         if catpath not in countdict:
             countdict[catpath] = 0
@@ -375,26 +373,30 @@ def examine_state (options, configs_catpaths, mode):
                 if stest(msg, cat, history, config, options) is None:
                     continue # not selected
                 if not history or not asc_eq(msg, history[0].msg):
-                    if is_translated(msg):
+                    st = state(msg)
+                    if 0: pass
+                    elif st == _st_tran:
                         accu(unasc_trans_by_cat, catpath)
-                    elif is_fuzzy(msg):
+                    elif st == _st_ofuzzy:
                         accu(unasc_fuzzy_by_cat, catpath)
-                    elif history:
-                        accu(unasc_utran_by_cat, catpath)
-                if msg.obsolete:
-                    if not history or not is_obsoleted(history):
+                    elif st == _st_otran:
                         accu(unasc_obsol_by_cat, catpath)
-                else:
-                    if history and is_obsoleted(history):
-                        accu(unasc_revvd_by_cat, catpath)
+                    elif st == _st_ofuzzy:
+                        accu(unasc_obsfz_by_cat, catpath)
+                    elif history: # avoid pristine untranslated messages
+                        if st == _st_untran:
+                            accu(unasc_utran_by_cat, catpath)
+                        else:
+                            accu(unasc_obsut_by_cat, catpath)
 
     # Present findings.
     for unasc_cnts, chead in (
         (unasc_trans_by_cat, "Unascribed translated"),
         (unasc_fuzzy_by_cat, "Unascribed fuzzy"),
         (unasc_utran_by_cat, "Unascribed untranslated"),
-        (unasc_obsol_by_cat, "Unascribed obsoleted"),
-        (unasc_revvd_by_cat, "Unascribed revived"),
+        (unasc_obsol_by_cat, "Unascribed obsolete translated"),
+        (unasc_obsfz_by_cat, "Unascribed obsolete fuzzy"),
+        (unasc_obsut_by_cat, "Unascribed obsolete untranslated"),
     ):
         if not unasc_cnts:
             continue
@@ -412,35 +414,39 @@ def ascribe_modified (options, configs_catpaths, mode):
 
     user = mode.user
 
-    nmod = 0
+    ntrn = 0
     nfuz = 0
     nutr = 0
     nobs = 0
-    nrvv = 0
+    nofz = 0
+    nout = 0
     for config, catpaths in configs_catpaths:
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path))
 
         for catpath, acatpath in catpaths:
-            cnmod, cnfuz, cnutr, cnobs, cnrvv \
-                = ascribe_modified_cat(options, config, user, catpath, acatpath,
+            ret = ascribe_modified_cat(options, config, user, catpath, acatpath,
                                        mode.selector)
-            nmod += cnmod
+            cntrn, cnfuz, cnutr, cnobs, cnofz, cnout = ret
+            ntrn += cntrn
             nfuz += cnfuz
             nutr += cnutr
             nobs += cnobs
-            nrvv += cnrvv
+            nofz += cnofz
+            nout += cnout
 
-    if nmod > 0:
-        report("===! Modified (translated): %d entries" % nmod)
+    if ntrn > 0:
+        report("===! Translated: %d entries" % ntrn)
     if nfuz > 0:
-        report("===! Modified (fuzzy): %d entries" % nfuz)
+        report("===! Fuzzy: %d entries" % nfuz)
     if nutr > 0:
-        report("===! Modified (untranslated): %d entries" % nutr)
+        report("===! Untranslated: %d entries" % nutr)
     if nobs > 0:
-        report("===! Obsoleted: %d entries" % nobs)
-    if nrvv > 0:
-        report("===! Revived: %d entries" % nrvv)
+        report("===! Obsolete translated: %d entries" % nobs)
+    if nofz > 0:
+        report("===! Obsolete fuzzy: %d entries" % nofz)
+    if nout > 0:
+        report("===! Obsolete untranslated: %d entries" % nout)
 
 
 def ascribe_reviewed (options, configs_catpaths, mode):
@@ -462,21 +468,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
     if nasc > 0:
         report("===! Reviewed: %d entries" % nasc)
-
-
-def ascribe_derivobs (options, configs_catpaths, mode):
-
-    user = mode.user
-
-    nobs = 0
-    for config, catpaths in configs_catpaths:
-
-        for catpath, acatpath in catpaths:
-            nobs += ascribe_derivobs_cat(options, config, user,
-                                         catpath, acatpath)
-
-    if nobs > 0:
-        report("===! Obsoleted by derivation: %d entries" % nobs)
 
 
 def diff_select (options, configs_catpaths, mode):
@@ -531,63 +522,75 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
 
     # Collect unascribed messages, but ignoring pristine ones
     # (those which are both untranslated and without history).
-    # Treat obsolete messages also as either translated or fuzzy.
     toasc_msgs = []
-    ntrnmodif = 0
-    nfuzmodif = 0
-    nutrmodif = 0
-    nobsoleted = 0
-    nrevived = 0
+    ntrn = 0
+    nfuz = 0
+    nutr = 0
+    nobs = 0
+    nofz = 0
+    nout = 0
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
-        if not history and not is_translated(msg) and not is_fuzzy(msg):
+        if not history and is_any_untran(msg):
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
             continue # not selected
 
         # Note message for modification.
         if not (history and asc_eq(msg, history[0].msg)):
-            toasc_msgs.append((msg, ascribe_msg_mod))
-            if is_translated(msg):
-                ntrnmodif += 1
-            elif is_fuzzy(msg):
-                nfuzmodif += 1
+            toasc_msgs.append(msg)
+            st = state(msg)
+            if 0: pass
+            elif st == _st_tran:
+                ntrn += 1
+            elif st == _st_fuzzy:
+                nfuz += 1
+            elif st == _st_untran:
+                nutr += 1
+            elif st == _st_otran:
+                nobs += 1
+            elif st == _st_ofuzzy:
+                nofz += 1
+            elif st == _st_ountran:
+                nout += 1
             else:
-                nutrmodif += 1
+                error("internal: unknown message state on ascription")
 
-        # Note for obsolescence/revival (must follow modification,
-        # in case of a previously unascribed obsolete message).
-        if msg.obsolete:
-            # Note for obsolescence if history not showing it already.
-            if not history or not is_obsoleted(history):
-                toasc_msgs.append((msg, ascribe_msg_obs))
-                nobsoleted += 1
-        else:
-            # Note for revival if history is showing obsolescence.
-            if history and is_obsoleted(history):
-                toasc_msgs.append((msg, ascribe_msg_rvv))
-                nrevived += 1
+    # Collect non-obsolete ascribed messages that no longer have
+    # original counterpart, to ascribe as obsolete.
+    for amsg in acat:
+        st = state(amsg)
+        if amsg not in cat and st not in (_st_otran, _st_ofuzzy, _st_ountran):
+            msg = asc_collect_history_single(amsg, acat, config)[0].msg
+            msg.obsolete = True
+            toasc_msgs.append(msg)
+            if st == _st_tran:
+                ntrn += 1
+            elif st == _st_fuzzy:
+                nfuz += 1
+            else:
+                nutr += 1
 
     if not toasc_msgs:
         # No messages to ascribe.
-        return 0, 0, 0, 0, 0
+        return 0, 0, 0, 0, 0, 0
 
     if not config.vcs.is_clear(cat.filename):
         warning("%s: VCS state not clear, cannot ascribe modifications"
                 % cat.filename)
-        return 0, 0, 0, 0, 0
+        return 0, 0, 0, 0, 0, 0
 
     # Current VCS revision of the catalog.
     catrev = config.vcs.revision(cat.filename)
 
     # Ascribe messages as modified.
-    for msg, ascribe_msg in toasc_msgs:
-        ascribe_msg(msg, acat, catrev, user, config)
+    for msg in toasc_msgs:
+        ascribe_msg_mod(msg, acat, catrev, user, config)
 
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
-    return ntrnmodif, nfuzmodif, nutrmodif, nobsoleted, nrevived
+    return ntrn, nfuz, nutr, nobs, nofz, nout
 
 
 _revdflags = ("revd", "reviewed")
@@ -607,7 +610,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to ascribe review to pristine messages.
-        if not history and not is_translated(msg) and not is_fuzzy(msg):
+        if not history and is_any_untran(msg):
             continue
         if stest(msg, cat, history, config, options) is None:
             continue
@@ -681,7 +684,7 @@ def diff_select_cat (options, config, catpath, acatpath,
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to review pristine messages.
-        if not history and not is_translated(msg) and not is_fuzzy(msg):
+        if not history and is_any_untran(msg):
             continue
         sres = stest(msg, cat, history, config, options)
         if sres is None:
@@ -769,7 +772,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             else:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
-            if not a.type == _atype_mod or is_fuzzy(a.msg):
+            if not a.type == _atype_mod or is_any_fuzzy(a.msg):
                 # Nothing more to show if this ascription is not modification,
                 # or there a fuzzy message is associated to it.
                 continue
@@ -816,85 +819,65 @@ def clear_review_msg (msg, live, rep_ntrans=None, clrevd=True):
     return cleared
 
 
-def ascribe_derivobs_cat (options, config, user, catpath, acatpath):
+# Exclusive states of a message.
+# FIXME: This functionality better exported to pology.file.message
+_st_tran = "T"
+_st_fuzzy = "F"
+_st_untran = "U"
+_st_otran = "OT"
+_st_ofuzzy = "OF"
+_st_ountran = "OU"
 
-    cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
-    acat = prep_write_asc_cat(acatpath, config)
+def state (msg):
+    if not msg.obsolete:
+        if msg.translated:
+            return _st_tran
+        elif msg.fuzzy:
+            return _st_fuzzy
+        else:
+            return _st_untran
+    else:
+        if "fuzzy" in msg.flag:
+            return _st_ofuzzy
+        for msgstr in msg.msgstr:
+            if msgstr:
+                return _st_otran
+        return _st_ountran
 
-    catrev = config.vcs.revision(cat.filename)
 
-    reachable = set()
-    for msg in cat:
-        history = asc_collect_history(msg, acat, config)
-        for a in history:
-            reachable.add(a.rmsg)
-
-    # Collect all unreachable, and order them by date of last ascription.
-    unreachable = []
-    for amsg in acat:
-        if amsg not in reachable:
-            history = asc_collect_history_single(amsg, acat, config)
-            unreachable.append(history[0])
-    unreachable.sort(lambda x, y: asc_age_cmp(y, x, config))
-    unreachable = [x.rmsg for x in unreachable]
-
-    # From newest to oldest, ascribe obsolescence to each unreachable message,
-    # but set as reachable any in its history.
-    # This way only the "head" of each obsolete chain is ascribed.
-    nobsoleted = 0
-    for amsg in unreachable:
-        if amsg not in reachable:
-            history = asc_collect_history(amsg, acat, config)
-            for a in history:
-                if a.rmsg is not amsg:
-                    reachable.add(a.rmsg)
-            if not is_obsoleted(history):
-                ascribe_msg_obs(history[0].msg, acat, catrev, user, config)
-                nobsoleted += 1
-
-    if nobsoleted > 0: # ascription catalog may have been created
-        asc_sync_and_rep(acat)
-
-    return nobsoleted
-
+def is_tran (msg):
+    return state(msg) == _st_tran
 
 def is_fuzzy (msg):
+    return state(msg) == _st_fuzzy
 
-    return "fuzzy" in msg.flag
+def is_untran (msg):
+    return state(msg) == _st_untran
 
+def is_otran (msg):
+    return state(msg) == _st_otran
 
-def is_translated (msg):
+def is_ofuzzy (msg):
+    return state(msg) == _st_ofuzzy
 
-    if not msg.obsolete:
-        return msg.translated
-    else:
-        if "fuzzy" not in msg.flag:
-            for msgstr in msg.msgstr:
-                if msgstr:
-                    return True
-        return False
+def is_ountran (msg):
+    return state(msg) == _st_ountran
 
+def is_any_untran (msg):
+    return state(msg) in (_st_untran, _st_ountran)
 
-def is_obsoleted (history):
+def is_any_fuzzy (msg):
+    return state(msg) in (_st_fuzzy, _st_ofuzzy)
 
-    # History shows obsolescence if no revival after last obsolescence,
-    # or if obsolescence was never ascribed.
-
-    obsoleted = False
-    for a in history:
-        if a.type == _atype_obs:
-            obsoleted = True
-            break
-        if a.type == _atype_rvv:
-            break
-
-    return obsoleted
+def is_any_obsolete (msg):
+    return state(msg) in (_st_otran, _st_ofuzzy, _st_ountran)
 
 
 def first_nfuzzy (history, start=0):
 
     for i in range(start, len(history)):
-        if history[i].msg and not is_fuzzy(history[i].msg):
+        hmsg = history[i].msg
+        if hmsg and not is_any_fuzzy(hmsg):
             return i
 
     return None
@@ -1030,13 +1013,10 @@ def needed_separator_length (msg):
 
 def has_nonid_diff (pmsg, msg):
 
-    if is_fuzzy(msg) != is_fuzzy(pmsg):
-        return True
-
     for field in _nonid_fields_tracked:
         msg_value = msg.get(field)
-        if not is_fuzzy(msg) and field in _fields_previous:
-            # Ignore previous values in non-fuzzy messages.
+        if not is_any_fuzzy(msg) and field in _fields_previous:
+            # Ignore previous values in messages with no fuzzy flag.
             msg_value = None
         pmsg_value = pmsg.get(field)
         if msg_value != pmsg_value:
@@ -1047,8 +1027,8 @@ def has_nonid_diff (pmsg, msg):
 
 def get_as_sequence (msg, field, asc=True):
 
-    if not asc and not is_fuzzy(msg) and field in _fields_previous:
-        # Ignore previous fields on non-fuzzy non-ascription messages.
+    if not asc and not is_any_fuzzy(msg) and field in _fields_previous:
+        # Ignore previous fields on non-ascription messages without fuzzy flag.
         return []
 
     msg_seq = msg.get(field)
@@ -1131,15 +1111,10 @@ def add_nonid (amsg, msg, slen, rhistory):
 
         set_from_sequence(amsg_seq, amsg, field)
 
-    if is_fuzzy(msg):
-        amsg.flag.add(u"fuzzy")
-    else:
-        amsg.flag.remove(u"fuzzy")
-    # ...no amsg.fuzzy = True/False, in order not to kill previous fields.
-
 
 _atag_sep = u"/"
 _mark_fuzz = u"f"
+_mark_obs = u"o"
 
 def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
                      dt=None):
@@ -1161,18 +1136,30 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
     rhistory.reverse()
 
     # Do any of non-ID elements differ to last historical message?
-    hasdiff = not rhistory or has_nonid_diff(rhistory[-1].msg, msg)
+    if rhistory:
+        hasdiff_state = state(rhistory[-1].msg) != state(msg)
+        hasdiff_nonid = has_nonid_diff(rhistory[-1].msg, msg)
+    else:
+        hasdiff_nonid = True
+        hasdiff_state = True
+    hasdiff = hasdiff_nonid or hasdiff_state
 
     # Add ascription comment.
     modstr = user + " | " + format_datetime(dt)
     if arev or hasdiff:
-        modstr += " | " + arev
+        modstr += " | " + (arev or "")
     modstr_wsep = modstr
     if hasdiff:
-        seplen = needed_separator_length(msg)
-        modstr_wsep += " | " + str(seplen)
-        if is_fuzzy(msg):
-            modstr_wsep += _mark_fuzz
+        wsep = ""
+        if hasdiff_nonid:
+            seplen = needed_separator_length(msg)
+            wsep += str(seplen)
+        if is_any_obsolete(msg):
+            wsep += _mark_obs
+        if is_any_fuzzy(msg):
+            wsep += _mark_fuzz
+        if wsep:
+            modstr_wsep += " | " + wsep
     first = True
     for atag in atags or [None]:
         field = atype
@@ -1185,8 +1172,18 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
             asc_append_field(amsg, field, modstr)
 
     # Add non-ID fields.
-    if hasdiff:
+    if hasdiff_nonid:
         add_nonid(amsg, msg, seplen, rhistory)
+
+    # Update state.
+    if is_any_fuzzy(msg):
+        amsg.flag.add(u"fuzzy")
+    else:
+        amsg.flag.remove(u"fuzzy")
+    if is_any_obsolete(msg):
+        amsg.obsolete = True
+    else:
+        amsg.obsolete = False
 
 
 _atype_mod = "modified"
@@ -1203,28 +1200,14 @@ def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
     ascribe_msg_any(msg, acat, _atype_rev, tags, catrev, user, config)
 
 
-_atype_obs = "obsoleted"
-
-def ascribe_msg_obs (msg, acat, catrev, user, config):
-
-    ascribe_msg_any(msg, acat, _atype_obs, [], catrev, user, config)
-
-
-_atype_rvv = "revived"
-
-def ascribe_msg_rvv (msg, acat, catrev, user, config):
-
-    ascribe_msg_any(msg, acat, _atype_rvv, [], catrev, user, config)
-
-
 def asc_eq (msg1, msg2):
     """
     Whether two messages are equal from the ascription viewpoint.
     """
 
-    if is_fuzzy(msg1) != is_fuzzy(msg2):
+    if state(msg1) != state(msg2):
         return False
-    if is_fuzzy(msg1):
+    if is_any_fuzzy(msg1):
         check_fields = _nonid_fields_eq_fuzzy
     else:
         check_fields = _nonid_fields_eq_nonfuzzy
@@ -1247,21 +1230,13 @@ class _Ascription (object):
     def __setattr__ (self, attr, val):
 
         if attr not in ("rmsg", "msg", "user", "type", "tag", "date", "rev",
-                        "slen", "fuzz"):
+                        "slen", "fuzz", "obs"):
             raise KeyError, \
                   "trying to set invalid ascription field '%s'" % attr
         self.__dict__[attr] = val
 
 
 def asc_collect_history (msg, acat, config):
-    """
-    Create ascription history of the message.
-
-    The history is assembled as list of tuples
-    C{(asc-message, user, asc-type, asc-tag, date, revision, seplen, isfuzz)},
-    sorted chronologically by date/revision (newest first).
-    Date gets to be a real C{datetime} object.
-    """
 
     return asc_collect_history_w(msg, acat, config, None, {})
 
@@ -1286,7 +1261,7 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg):
 
     # Continue into the past by pivoting around first message if fuzzy.
     amsg = history and history[-1].msg or msg
-    if is_fuzzy(amsg) and amsg.msgid_previous:
+    if is_any_fuzzy(amsg) and amsg.msgid_previous:
         pmsg = MessageUnsafe()
         for field in _id_fields:
             setattr(pmsg, field, amsg.get(field + "_previous"))
@@ -1334,8 +1309,8 @@ def asc_collect_history_single (amsg, acat, config):
     pvals = dict([(field, [[]]) for field in _nonid_fields_tracked])
     for asc in asc_parse_ascriptions(amsg, acat, config):
         a = _Ascription()
-        a.user, a.type, a.tag, a.date, a.rev, a.slen, a.fuzz = asc
-        if a.slen: # separator defined, reconstruct the message
+        a.user, a.type, a.tag, a.date, a.rev, a.slen, a.fuzz, a.obs = asc
+        if a.slen: # separator existing, reconstruct the fields
             shead = field_separator_head(a.slen)
             pmsg = MessageUnsafe()
             for field in _id_fields:
@@ -1353,10 +1328,12 @@ def asc_collect_history_single (amsg, acat, config):
                             pmsg_seq.append(u"")
                         pmsg_seq[i] = pval
                 set_from_sequence(pmsg_seq, pmsg, field)
-            if a.fuzz:
-                pmsg.flag.add(u"fuzzy")
         else:
             pmsg = history[-1].msg # must exist
+        if a.fuzz:
+            pmsg.flag.add(u"fuzzy")
+        if a.obs:
+            pmsg.obsolete = True
         a.rmsg, a.msg = amsg, pmsg
         history.append(a)
 
@@ -1371,7 +1348,7 @@ def asc_collect_history_single (amsg, acat, config):
 def asc_parse_ascriptions (amsg, acat, config):
     """
     Get ascriptions from given ascription message as list of tuples
-    C{(asc-user, asc-type, asc-tag, date, revision, seplen, isfuzzy)},
+    C{(user, type, tag, date, revision, seplen, isfuzzy, isobsolete)},
     with date being a real C{datetime} object.
     """
 
@@ -1416,13 +1393,17 @@ def asc_parse_ascriptions (amsg, acat, config):
         if lst:
             revision = lst.pop(0).strip() or None
 
-        seplen = None
+        seplen = 0
         isfuzz = False
+        isobs = False
         if lst:
             tmp = lst.pop(0).strip()
             if _mark_fuzz in tmp:
                 isfuzz = True
                 tmp = tmp.replace(_mark_fuzz, "", 1)
+            if _mark_obs in tmp:
+                isobs = True
+                tmp = tmp.replace(_mark_obs, "", 1)
             if tmp:
                 try:
                     seplen = int(tmp)
@@ -1432,7 +1413,8 @@ def asc_parse_ascriptions (amsg, acat, config):
                                    % cmnt, amsg, acat)
                     continue
 
-        ascripts.append((auser, atype, atag, date, revision, seplen, isfuzz))
+        ascripts.append((auser, atype, atag, date, revision, seplen,
+                         isfuzz, isobs))
 
     return ascripts
 
@@ -1683,7 +1665,7 @@ def selector_wasc ():
                 # under the filter in effect.
                 if not msg.ediff_from(amsg, pfilter=pfilter):
                     return True
-        elif not is_translated(msg) and not is_fuzzy(msg):
+        elif not is_any_untran(msg):
             # Also consider pristine messages ascribed.
             return True
 
