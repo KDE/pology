@@ -862,10 +862,10 @@ class Catalog (Monitored):
                 i += 1
             elif msg.obsolete and i < obstop:
                 # Obsolete message out of order, reinsert and repeat the index.
+                # Reinsertion is such that the relative ordering of obsolete
+                # messages is preserved.
                 msg = self._messages.pop(i)
                 self._messages.insert(obstop - 1, msg)
-                # Move top position of obsolete messages.
-                obstop -= 1
             else:
                 # Normal message, append formatted lines to rest.
                 flines.extend(msg.to_lines(self._wrapf,
