@@ -844,8 +844,9 @@ class Catalog (Monitored):
         nmsgs = len(self._messages)
 
         # Starting position for reinserting obsolete messages.
-        obstop = self._obspos
-        obstop += 1 # due to inserted header
+        obstop = len(self._messages)
+        while obstop > 0 and self._messages[obstop - 1].obsolete:
+            obstop -= 1
 
         # NOTE: Key-position links may be invalidated from this point onwards,
         # by reorderings/removals. To make sure it is not used before the
