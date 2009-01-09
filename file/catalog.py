@@ -845,6 +845,7 @@ class Catalog (Monitored):
 
         # Starting position for reinserting obsolete messages.
         obstop = self._obspos
+        obstop += 1 # due to inserted header
 
         # NOTE: Key-position links may be invalidated from this point onwards,
         # by reorderings/removals. To make sure it is not used before the
@@ -861,7 +862,7 @@ class Catalog (Monitored):
             elif msg.obsolete and i < obstop:
                 # Obsolete message out of order, reinsert and repeat the index.
                 msg = self._messages.pop(i)
-                self._messages.insert(self._obspos - 1, msg)
+                self._messages.insert(obstop - 1, msg)
                 # Move top position of obsolete messages.
                 obstop -= 1
             else:
