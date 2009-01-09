@@ -709,10 +709,10 @@ class Message_base (object):
             else:
                 wdiff, dr = f_diff(text1, text2,
                                    markup=True, format=self.format, diffr=True)
+                dr = 1.0 - dr
                 if not islines:
                     ediff = None
                     ar_segs = [x for t, x in wdiff if t == ar_dtyp]
-                    dr = 1.0 - dr
                     if text1 is not None or text2 is not None:
                         ediff = ar_sep.join(ar_segs)
                 else:
