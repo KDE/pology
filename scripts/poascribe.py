@@ -350,12 +350,7 @@ def examine_state (options, configs_catpaths, mode):
     stest = mode.selector
 
     # Count unascribed messages through catalogs.
-    unasc_trans_by_cat = {}
-    unasc_fuzzy_by_cat = {}
-    unasc_utran_by_cat = {}
-    unasc_obsol_by_cat = {}
-    unasc_obsfz_by_cat = {}
-    unasc_obsut_by_cat = {}
+    counts = dict([(x, {}) for x in _all_states])
     def accu(countdict, catpath):
         if catpath not in countdict:
             countdict[catpath] = 0
@@ -370,34 +365,26 @@ def examine_state (options, configs_catpaths, mode):
             # Count non-ascribed.
             for msg in cat:
                 history = asc_collect_history(msg, acat, config)
+                if not history and is_any_untran(msg):
+                    continue # pristine
                 if stest(msg, cat, history, config, options) is None:
                     continue # not selected
                 if not history or not asc_eq(msg, history[0].msg):
                     st = state(msg)
-                    if 0: pass
-                    elif st == _st_tran:
-                        accu(unasc_trans_by_cat, catpath)
-                    elif st == _st_ofuzzy:
-                        accu(unasc_fuzzy_by_cat, catpath)
-                    elif st == _st_otran:
-                        accu(unasc_obsol_by_cat, catpath)
-                    elif st == _st_ofuzzy:
-                        accu(unasc_obsfz_by_cat, catpath)
-                    elif history: # avoid pristine untranslated messages
-                        if st == _st_untran:
-                            accu(unasc_utran_by_cat, catpath)
-                        else:
-                            accu(unasc_obsut_by_cat, catpath)
+                    if catpath not in counts[st]:
+                        counts[st][catpath] = 0
+                    counts[st][catpath] += 1
 
     # Present findings.
-    for unasc_cnts, chead in (
-        (unasc_trans_by_cat, "Unascribed translated"),
-        (unasc_fuzzy_by_cat, "Unascribed fuzzy"),
-        (unasc_utran_by_cat, "Unascribed untranslated"),
-        (unasc_obsol_by_cat, "Unascribed obsolete translated"),
-        (unasc_obsfz_by_cat, "Unascribed obsolete fuzzy"),
-        (unasc_obsut_by_cat, "Unascribed obsolete untranslated"),
+    for st, chead in (
+        (_st_tran, "Unascribed translated"),
+        (_st_fuzzy, "Unascribed fuzzy"),
+        (_st_untran, "Unascribed untranslated"),
+        (_st_otran, "Unascribed obsolete translated"),
+        (_st_ofuzzy, "Unascribed obsolete fuzzy"),
+        (_st_ountran, "Unascribed obsolete untranslated"),
     ):
+        unasc_cnts = counts[st]
         if not unasc_cnts:
             continue
         nunasc = reduce(lambda s, x: s + x, unasc_cnts.itervalues())
