@@ -810,7 +810,7 @@ class Catalog (Monitored):
         self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
-    def sync (self, force=False):
+    def sync (self, force=False, nosigcap=False):
         """
         Write catalog file to disk if any message has been modified.
 
@@ -821,6 +821,8 @@ class Catalog (Monitored):
 
         @param force: whether to reformat unmodified messages
         @type force: bool
+        @param nosigcap: do not try to capture signals on file writing
+        @type nosigcap: bool
 
         @returns: C{True} if the file was modified, C{False} otherwise
         @rtype: bool
@@ -885,13 +887,15 @@ class Catalog (Monitored):
         if dirname and not os.path.isdir(dirname):
             os.makedirs(dirname)
         # Write to file atomically wrt. SIGINT.
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
+        if not nosigcap:
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
         ofl = codecs.open(self._filename, "w", self._encoding)
         ofl.writelines(flines)
         if self._tail: # write tail if any
             ofl.write(self._tail)
         ofl.close()
-        signal.signal(signal.SIGINT, signal.SIG_DFL)
+        if not nosigcap:
+            signal.signal(signal.SIGINT, signal.SIG_DFL)
 
         # Indicate the catalog is no longer created from scratch, if it was.
         self._created_from_scratch = False
