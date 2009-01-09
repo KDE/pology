@@ -849,6 +849,7 @@ class Catalog (Monitored):
         obstop = len(self._messages)
         while obstop > 0 and self._messages[obstop - 1].obsolete:
             obstop -= 1
+        obsins = obstop
 
         # NOTE: Key-position links may be invalidated from this point onwards,
         # by reorderings/removals. To make sure it is not used before the
@@ -867,7 +868,8 @@ class Catalog (Monitored):
                 # Reinsertion is such that the relative ordering of obsolete
                 # messages is preserved.
                 msg = self._messages.pop(i)
-                self._messages.insert(obstop - 1, msg)
+                self._messages.insert(obsins - 1, msg) # -1 due to popping
+                obstop -= 1
             else:
                 # Normal message, append formatted lines to rest.
                 flines.extend(msg.to_lines(self._wrapf,
