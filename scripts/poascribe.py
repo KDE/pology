@@ -1285,8 +1285,8 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg):
                 history.append(a)
 
     # Continue into the past by pivoting around first message if fuzzy.
-    amsg = history and history[-1].msg or None
-    if amsg and is_fuzzy(amsg) and amsg.msgid_previous:
+    amsg = history and history[-1].msg or msg
+    if is_fuzzy(amsg) and amsg.msgid_previous:
         pmsg = MessageUnsafe()
         for field in _id_fields:
             setattr(pmsg, field, amsg.get(field + "_previous"))
