@@ -899,9 +899,10 @@ class Message_base (object):
                     setattr(self, field, ediff)
 
         # Add empty diff comment to escape a comment that looks like it.
-        acmnts = self.auto_comment
-        if acmnts and acmnts[0].lstrip().startswith(Message_base._dcmnt_head):
-            indargs[""] = True
+        for acmnt in self.auto_comment:
+            if acmnt.lstrip().startswith(Message_base._dcmnt_head):
+                indargs[""] = True
+                break
 
         # Add diff comment if any diff indicators recorded.
         if indargs:
@@ -942,12 +943,16 @@ class Message_base (object):
 
         anyundo = False
 
-        acmnts = self.auto_comment
         dcmnt_head = Message_base._dcmnt_head
         argsep = Message_base._dcmnt_argsep.strip() or None
         seplen = Message_base._diffsep_minlen
-        if acmnts and acmnts[0].lstrip().startswith(dcmnt_head):
-            dcmnt = acmnts.pop(0).lstrip()[len(dcmnt_head):]
+        i_dcmnt = None
+        for i in range(len(self.auto_comment)):
+            if self.auto_comment[i].lstrip().startswith(dcmnt_head):
+                i_dcmnt = i
+                break
+        if i_dcmnt is not None:
+            dcmnt = self.auto_comment.pop(i_dcmnt).lstrip()[len(dcmnt_head):]
             for indargs in dcmnt.split(Message_base._dcmnt_sep):
                 lst = indargs.split(argsep)
                 ind, args = lst[0], [word_ediff_to_new(x) for x in lst[1:]]
