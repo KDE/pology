@@ -270,7 +270,7 @@ class Message_base (object):
             return format_flag
 
         elif att == "fuzzy":
-            return u"fuzzy" in self.flag
+            return u"fuzzy" in self.flag and not self.obsolete
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
