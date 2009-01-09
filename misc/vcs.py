@@ -143,7 +143,8 @@ class VcsBase (object):
 
         Makes a copy of versioned file pointed to by local path C{path},
         in the revision C{rev}, to destination path C{dstpath}.
-        If C{rev} is C{None}, C{path} is copied as-is to C{dstpath}.
+        If C{rev} is C{None}, the clean version of C{path} according
+        to current local repository state is copied to C{dstpath}.
 
         Final repository path, as determined from C{path}, can be filtered
         through an external function C{rewrite} before being used.
@@ -319,9 +320,8 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            try:
-                os.shutil.copyfile(path, dstpath)
-            except:
+            cmdline = "svn export %s %s" % (path, dstpath)
+            if collect_system(cmdline)[-1] != 0:
                 return False
             return True
 
