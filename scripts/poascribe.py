@@ -362,7 +362,7 @@ def examine_state (options, configs_catpaths, mode):
             # Open current and ascription catalog.
             cat = Catalog(catpath, monitored=False)
             acat = Catalog(acatpath, create=True, monitored=False)
-            # Count non-ascribed.
+            # Count non-ascribed by original catalog.
             for msg in cat:
                 history = asc_collect_history(msg, acat, config)
                 if not history and is_any_untran(msg):
@@ -374,6 +374,21 @@ def examine_state (options, configs_catpaths, mode):
                     if catpath not in counts[st]:
                         counts[st][catpath] = 0
                     counts[st][catpath] += 1
+            # Count non-ascribed by ascription catalog.
+            for amsg in acat:
+                if amsg not in cat:
+                    ast = state(amsg)
+                    st = None
+                    if ast == _st_tran:
+                        st = _st_otran
+                    elif ast == _st_fuzzy:
+                        st = _st_ofuzzy
+                    elif ast == _st_untran:
+                        st = _st_ountran
+                    if st:
+                        if catpath not in counts[st]:
+                            counts[st][catpath] = 0
+                        counts[st][catpath] += 1
 
     # Present findings.
     for st, chead in (
