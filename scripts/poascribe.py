@@ -748,8 +748,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             anydiff = dmsg.embed_diff(nmsg, live=True,
                                       pfilter=pfilter, hlto=sys.stdout)
-            if True:#anydiff:
-                dmsg.auto_comment = Monlist() # ascription tags were here
+            if anydiff:
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
@@ -1295,11 +1294,12 @@ def asc_collect_history_single (amsg, acat, config):
                         pmsg_seq[i] = pval
                 set_from_sequence(pmsg_seq, pmsg, field)
         else:
-            pmsg = history[-1].msg # must exist
+            pmsg = MessageUnsafe(history[-1].msg) # must exist
         if a.fuzz:
             pmsg.flag.add(u"fuzzy")
-        if a.obs:
-            pmsg.obsolete = True
+        elif u"fuzzy" in pmsg.flag:
+            pmsg.flag.remove(u"fuzzy")
+        pmsg.obsolete = a.obs
         a.rmsg, a.msg = amsg, pmsg
         history.append(a)
 
