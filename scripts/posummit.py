@@ -717,6 +717,7 @@ def select_branch_catalogs (branch_id, project, options,
             for part_spec in options.partspecs[branch_id]:
                 # If the catalog specification has path separators,
                 # then it selects a complete subdir in the branch.
+                branch_catalogs_l = []
                 if part_spec.find(os.sep) >= 0:
                     sel_subdir = os.path.normpath(part_spec)
                     one_found = False
@@ -724,7 +725,7 @@ def select_branch_catalogs (branch_id, project, options,
                         for path, subdir in spec:
                             if sel_subdir == subdir:
                                 one_found = True
-                                branch_catalogs.append((name, path, subdir))
+                                branch_catalogs_l.append((name, path, subdir))
                     if not one_found:
                         error(  "no catalogs in branch '%s' subdir '%s'" \
                               % (branch_id, sel_subdir))
@@ -735,7 +736,7 @@ def select_branch_catalogs (branch_id, project, options,
                     for name, spec in pbcats.items():
                         if sel_name == name:
                             for path, subdir in spec:
-                                branch_catalogs.append((name, path, subdir))
+                                branch_catalogs_l.append((name, path, subdir))
                                 one_found = True
                             break
                     if not one_found:
@@ -744,18 +745,20 @@ def select_branch_catalogs (branch_id, project, options,
 
                 # Also select all branch catalogs which contribute to same
                 # summit catalogs as the already selected ones.
+                branch_catalogs_l2 = []
                 dmap = project.direct_map[branch_id]
                 pimap = project.part_inverse_map[branch_id]
-                extra_branch_catalogs = []
-                for branch_name, d1, d2 in branch_catalogs:
+                for branch_name, d1, d2 in branch_catalogs_l:
                     if branch_name in dmap:
                         for summit_name in dmap[branch_name]:
                             if summit_name in pimap:
                                 for name in pimap[summit_name]:
                                     for path, subdir in pbcats[name]:
-                                        extra_branch_catalogs.append(
+                                        branch_catalogs_l2.append(
                                             (name, path, subdir))
-                branch_catalogs.extend(extra_branch_catalogs)
+
+                branch_catalogs.extend(branch_catalogs_l)
+                branch_catalogs.extend(branch_catalogs_l2)
 
         # Process inverse specifications (summit->branch).
         if SUMMIT_ID in options.partspecs:
