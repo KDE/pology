@@ -25,21 +25,8 @@ _lat_wrap_dir = "~!"
 _no_check_lat_rxs = (
     # - explicitly wrapped to ignore
     re.compile(_lat_wrap_dir + r"(.)(.*?)\1", re.U|re.I|re.S),
-    # - entities
-    re.compile(r"&[\w_:][\w\d._:-]*;", re.U|re.I),
     # - format directives
     re.compile(r"%(\d+| ?[\d.]*[a-z]+)", re.U|re.I),
-    # - command line options
-    re.compile(r"(?<!\S)--?\w[\w-]*", re.U|re.I),
-    # - hex numbers
-    re.compile(r"0x[\dabcdef]*", re.U|re.I),
-    # - alternatives directives
-    re.compile(r"~@(.)(.*?)\1(.*?)\1", re.U|re.I|re.S),
-    # - extension filter, e.g. "*.png|PNG files"
-    re.compile(r"^.*\*\..*\|", re.U|re.I),
-    # - URLs and web links
-    re.compile(r"\S+://\S*[\w&=]", re.U),
-    re.compile(r"\w{3,}(\.[\w-]{2,})+", re.U),
     # - text within these tags
     re.compile(r"<\s*(%s)\b.*?\b\1\s*>" % "|".join("""
         bcode command envar filename icode shortcut placeholder style code tt
@@ -53,6 +40,19 @@ _no_check_lat_rxs = (
     """.split()), re.U|re.I|re.S),
     # - all tags (must come after the above text removed by tags)
     re.compile(r"<.*?>", re.U|re.I),
+    # - entities
+    re.compile(r"&[\w_:][\w\d._:-]*;", re.U|re.I),
+    # - command line options
+    re.compile(r"(?<!\S)--?\w[\w-]*", re.U|re.I),
+    # - hex numbers
+    re.compile(r"0x[\dabcdef]*", re.U|re.I),
+    # - alternatives directives
+    re.compile(r"~@(.)(.*?)\1(.*?)\1", re.U|re.I|re.S),
+    # - extension filter, e.g. "*.png|PNG files"
+    re.compile(r"^.*\*\..*\|", re.U|re.I),
+    # - URLs and web links
+    re.compile(r"\S+://\S*[\w&=]", re.U),
+    re.compile(r"\w{3,}(\.[\w-]{2,})+", re.U),
     # - wiki stuff
     re.compile(r"\[\[[^\]]*(\||\])", re.U|re.I),
     re.compile(r"\[[^\s]*", re.U|re.I),
