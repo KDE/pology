@@ -269,7 +269,8 @@ def commit_catalogs (configs_catpaths, ascriptions=True, message=None):
         for catpath, acatpath in catpaths:
             if ascriptions:
                 catpath = acatpath
-            catpaths_byconf[config].append(catpath)
+            if config.vcs.is_versioned(catpath):
+                catpaths_byconf[config].append(catpath)
 
     # Commit by config.
     for config in configs:
