@@ -1643,7 +1643,7 @@ def selector_wasc ():
                 # under the filter in effect.
                 if not msg.ediff_from(amsg, pfilter=pfilter):
                     return True
-        elif not is_any_untran(msg):
+        elif is_any_untran(msg):
             # Also consider pristine messages ascribed.
             return True
 
@@ -1697,6 +1697,23 @@ def selector_e (entry=None):
     def selector (msg, cat, history, config, options):
 
         if msg.refentry == refentry:
+            return True
+
+        return None
+
+    return selector
+
+
+def selector_l (line=None):
+    cid = "selector:l"
+
+    if not line or not line.isdigit():
+        error("message reference by line must be an integer", subsrc=cid)
+    refline = int(line)
+
+    def selector (msg, cat, history, config, options):
+
+        if abs(msg.refline - refline) <= 1:
             return True
 
         return None
@@ -1940,6 +1957,7 @@ xm_selector_factories = {
     "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
     "e": (selector_e, False),
+    "l": (selector_l, False),
     "hexpr": (selector_hexpr, True),
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
