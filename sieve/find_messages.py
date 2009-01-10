@@ -395,7 +395,7 @@ class Sieve (object):
         msgf = _prepare_filtered_msg(msg, cat, filters=self.pfilters)
 
         # Match the message.
-        hl_spec = {}
+        hl_spec = []
         match = self.matcher(msgf, msg, cat, hl_spec)
 
         if match:
@@ -411,9 +411,8 @@ class Sieve (object):
                 delim = "-" * 20
                 if self.nmatch == 1:
                     report(delim)
-                highlight = [x + y for x, y in hl_spec.items()]
                 report_msg_content(msg, cat, wrapf=self.wrapf, force=True,
-                                   delim=delim, highlight=highlight)
+                                   delim=delim, highlight=hl_spec)
             else:
                 msg.flag.add(_flag_mark)
 
@@ -535,7 +534,7 @@ def build_msg_matcher (exprstr, mopts=None, abort=False):
     @type abort: bool
 
     @return: matcher function
-    @rtype: (msgf, msg, cat, hl={})->bool
+    @rtype: (msgf, msg, cat, hl=[])->bool
     """
 
     mopts = _prep_attrobj(mopts, dict(
@@ -578,12 +577,12 @@ def build_msg_fmatcher (exprstr, mopts=None,
     @type abort: bool
 
     @return: matcher function
-    @rtype: (msg, cat, hl={})->bool
+    @rtype: (msg, cat, hl=[])->bool
     """
 
     raw_matcher = build_msg_matcher(exprstr, mopts=mopts, abort=abort)
 
-    def matcher (msg, cat, hl={}):
+    def matcher (msg, cat, hl=[]):
         msgf = _prepare_filtered_msg(msg, cat, accels, filters)
         return raw_matcher(msgf, msg, cat, hl)
 
@@ -786,27 +785,27 @@ def _create_matcher (name, value, mods, params, neg=False):
     if 0: pass
 
     elif name == "msgctxt":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             texts = []
             if msgf.msgctxt is not None:
                 texts += [(msgf.msgctxt, "msgctxt", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgid":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             texts = [(msgf.msgid, "msgid", 0)]
             if msgf.msgid_plural is not None:
                 texts += [(msgf.msgid_plural, "msgid_plural", 0)]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "msgstr":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             texts = [(msgf.msgstr[i], "msgstr", i)
                      for i in range(len(msgf.msgstr))]
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "comment":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             texts = []
             texts.extend([(msgf.manual_comment[i], "manual_comment", i)
                           for i in range(len(msgf.manual_comment))])
@@ -819,21 +818,21 @@ def _create_matcher (name, value, mods, params, neg=False):
             return _rx_in_any_text(regex, texts, hl)
 
     elif name == "transl":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             if value is None or value:
                 return msg.translated
             else:
                 return not msg.translated
 
     elif name == "plural":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             if value is None or value:
                 return msg.msgid_plural is not None
             else:
                 return msg.msgid_plural is None
 
     elif name == "maxchar":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             otexts = [msgf.msgid]
             if msgf.msgid_plural is not None:
                 otexts.append(msgf.msgid_plural)
@@ -843,7 +842,7 @@ def _create_matcher (name, value, mods, params, neg=False):
             return onchar <= value and tnchar <= value
 
     elif name == "flag":
-        def matcher (msgf, msg, cat, hl={}):
+        def matcher (msgf, msg, cat, hl=[]):
             #FIXME: How to highlight flags? (then use _rx_in_any_text)
             for flag in msgf.flag:
                 if regex.search(flag):
@@ -862,14 +861,17 @@ def _create_matcher (name, value, mods, params, neg=False):
 def _rx_in_any_text (regex, texts, hl):
 
     match = False
+    hl_dct = {}
     for text, hl_name, hl_item in texts:
         # Go through all matches, to highlight them all.
         for m in regex.finditer(text):
             hl_key = (hl_name, hl_item)
-            if hl_key not in hl:
-                hl[hl_key] = ([], text)
-            hl[hl_key][0].append(m.span())
+            if hl_key not in hl_dct:
+                hl_dct[hl_key] = ([], text)
+            hl_dct[hl_key][0].append(m.span())
             match = True
+
+    hl.extend([x + y for x, y in hl_dct.items()])
 
     return match
 
