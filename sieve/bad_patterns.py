@@ -90,7 +90,7 @@ def match_patterns (text, patterns, rxmatch=False, mhandle=None, pnames=[]):
 class Sieve (object):
     """Check for presence of deprecated patterns in translation."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nbad = 0
 

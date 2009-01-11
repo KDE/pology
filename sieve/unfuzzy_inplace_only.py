@@ -20,7 +20,7 @@ class Sieve (object):
     Unconditionally in-place close such tags in the msgstr's.
     """
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nunfuzz = 0
         self.nmodinpl = 0

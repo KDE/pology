@@ -41,7 +41,7 @@ from pology.misc.timeout import TimedOutException
 class Sieve (object):
     """Find messages matching given rules."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.xmlFile = None # File handle to write XML output
         self.filename = ""     # File name we are processing

@@ -8,7 +8,7 @@ from pology.misc.report import error
 class Sieve (object):
     """Resolve alternatives directives in msgstr."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nresolved = 0
         self.nmalformed = 0

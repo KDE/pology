@@ -8,7 +8,7 @@ from pology.misc.tabulate import tabulate
 class Sieve (object):
     """Count number of messages with KUIT context markers."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nctxt = 0 # with context
         self.nctxm = 0 # with context marker in context

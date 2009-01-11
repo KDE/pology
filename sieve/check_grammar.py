@@ -19,7 +19,7 @@ REQUEST="/?language=%s&%s"
 class Sieve (object):
     """Process messages through the LanguageTool grammar checker"""
     
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
     
         self.nmatch = 0 # Number of match for finalize
         self.connection=None # Connection to LanguageTool server

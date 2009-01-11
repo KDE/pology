@@ -3,7 +3,7 @@
 class Sieve (object):
     """Remove obsolete messages."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
         self.nmatch = 0
         # Indicators to the caller:
         # - no need for monitored messages, removing only

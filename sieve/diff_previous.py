@@ -8,7 +8,7 @@ import re
 class Sieve (object):
     """Embed/remove differences into previous versions of msgctxt/msgid."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nmod = 0
 

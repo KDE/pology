@@ -3,7 +3,7 @@
 class Sieve (object):
     """Add flag "untranslated" to untranslated messages."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nmatch = 0
 

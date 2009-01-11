@@ -37,7 +37,7 @@ _meta_msg_msgid_sw = (
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nbad = 0
 

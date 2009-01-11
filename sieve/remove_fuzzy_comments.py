@@ -39,7 +39,7 @@ def _accept_negation (options, key, default):
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         # Number of modified messages.
         self.nmod = 0

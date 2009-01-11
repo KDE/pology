@@ -33,7 +33,7 @@ from pology.misc.comments import parse_summit_branches
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nmatch = 0
 

@@ -99,7 +99,7 @@ import locale
 class Sieve (object):
     """Process messages through the Aspell spell checker"""
     
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
     
         self.nmatch = 0 # Number of match for finalize
         self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)

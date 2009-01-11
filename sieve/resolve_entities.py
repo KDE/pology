@@ -8,7 +8,7 @@ from pology.misc.resolve import resolve_entities
 class Sieve (object):
     """Resolve XML entities in msgstr."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nresolved = 0
         self.nunknown = 0

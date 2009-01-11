@@ -45,7 +45,7 @@ from pology.misc.monitored import Monlist
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         # Collect user and project configuration.
         prjsect = ""

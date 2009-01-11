@@ -21,7 +21,7 @@ from pology.misc.monitored import Monlist
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nemptied = 0
 

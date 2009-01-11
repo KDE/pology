@@ -41,7 +41,7 @@ from pology.misc.report import report, warning, error
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.tfilters = []
         if "filter" in options:

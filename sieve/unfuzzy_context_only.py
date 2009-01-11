@@ -28,7 +28,7 @@ Sieve options:
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nmatch = 0
 

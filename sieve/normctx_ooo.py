@@ -22,7 +22,7 @@ from pology.misc.msgreport import warning_on_msg
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nconv = 0
 

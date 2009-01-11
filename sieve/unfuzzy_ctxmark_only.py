@@ -51,7 +51,7 @@ def _stripped (ctxt):
 class Sieve (object):
     """Unfuzzy when only a KUIT context mark difference to previous."""
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nmatch = 0
 

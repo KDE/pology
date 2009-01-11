@@ -34,7 +34,7 @@ flag_no_fancy_quote = "no-fancy-quote"
 
 class Sieve (object):
 
-    def __init__ (self, options, global_options):
+    def __init__ (self, options):
 
         self.nrepl_single = 0
         self.nrepl_double = 0
