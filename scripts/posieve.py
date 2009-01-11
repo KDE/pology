@@ -382,7 +382,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         try:
             # FIXME: Remove when all sieves are switched to new style.
             if not hasattr(mod, "setup_sieve"):
-                sieves.append(mod.Sieve(sopts, op))
+                sieves.append(mod.Sieve(sopts))
                 continue
             sieves.append(mod.Sieve(sparams[name]))
         except Exception, e:
