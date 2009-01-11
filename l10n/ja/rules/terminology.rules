@@ -110,6 +110,7 @@ disabled
 id="attachment"
 hint="attachment = 添付ファイル"
 valid msgstr="添付ファイル" !msgstr="添付物"
+valid before=" method" msgstr="添付方法"
 
 {\battributes?\b}i
 id="attribute"
@@ -428,6 +429,7 @@ valid msgstr="デスクトップ検索"
 id="device"
 hint="device = デバイス"
 valid msgstr="デバイス"
+valid after="multi-function " msgstr="複合機" cat="system-config-printer-kde"
 
 {^Discard$}
 id="discard"
