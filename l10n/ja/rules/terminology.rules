@@ -136,17 +136,17 @@ hint="audio = オーディオ"
 valid !before=" (CD|DVD|player|card|server)"
 valid msgstr="オーディオ"
 
-{\bauthentication}i
+{\bauthenticat(e|ing|ion)}i
 id="authentication"
 hint="authentication = 認証"
 valid msgstr="認証"
 valid cat="kfileshare" msgstr="(Client )?(plaintext|lanman|NTLM(v2)?) authentication"
 valid cat="kopete" msgid="Simple Authentication and Security Layer" msgstr="SASL"
 
-{\bauthorization}i
+{\bauthoriz(e|ing|ation)}i
 id="authorization"
-hint="authorization = 許可|権限付与|承認"
-valid msgstr="許可|権限付与|承認"
+hint="authorization = 許可|権限|権限付与|承認"
+valid msgstr="許可|権限|権限付与|承認"
 
 {\bavatars?\b}i
 id="avatar"
@@ -823,10 +823,17 @@ hint="hue = 色相"
 valid msgstr="色相"
 valid ctx="kgm"
 
-{\bimage viewer}i
-id="image_viewer"
-hint="image viewer = 画像ビューア"
-valid msgstr="画像ビューア"
+{\bimages?\b}i
+id="image"
+hint="image = 画像"
+valid msgstr="画像"
+disabled
+
+{\bimages?\b}i
+id="image2"
+hint="image = イメージ"
+valid msgstr="イメージ"
+disabled
 
 {\bimport(s|ed|ing)?\b}i
 id="import"

@@ -59,7 +59,7 @@ hint="Exif [大文字と小文字の違いに注意]"
 
 [Gimp|gimp]
 id="gimp-j"
-hint="GIMP [大文字と小文字の違いに注意]"
+hint="GIMP [全部大文字で]"
 
 [Javascript]
 id="javascript-j"
@@ -79,7 +79,15 @@ hint="OK [大文字で]"
 
 [\bUrl\b]
 id="url"
-hint="URL [大文字で]"
+hint="URL [全部大文字で]"
+
+[\bJpeg\b]
+id="jpeg"
+hint="JPEG [全部大文字で]"
+
+[\bIO\b]
+id="io"
+hint="I/O [間にスラッシュを入れる]"
 
 {access control list}i
 id="access_control_list"
