@@ -420,7 +420,7 @@ valid msgstr="\bпрограм"
 id="space"
 hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
-valid span="space\b" before=" (available|required|of|left)" msgstr="\bпростор"
+valid span="space\b" before=" (available|required|of|left|information)" msgstr="\bпростор"
 valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|little|memory|more|no|out of|remaining|of|save|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
