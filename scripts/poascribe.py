@@ -27,6 +27,7 @@ from pology.misc.tabulate import tabulate
 from pology.misc.langdep import get_hook_lreq
 from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
+from pology.misc.resolve import expand_vars
 
 WRAPF = wrap_field_ontag_unwrap
 UFUZZ = "fuzzy"
@@ -182,6 +183,7 @@ def main ():
             error("unknown operation mode '%s'" % mode.name)
         modes.append(mode)
 
+    mode.user = None
     if needuser:
         if len(free_args) < 1:
             error("issued operations require a user to be specified")
@@ -254,10 +256,12 @@ def main ():
 
     # Commit modifications to ascription catalogs if requested.
     if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message)
+        commit_catalogs(configs_catpaths, True, options.ascript_message,
+                        mode.user)
 
 
-def commit_catalogs (configs_catpaths, ascriptions=True, message=None):
+def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
+                     user=None):
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -277,7 +281,11 @@ def commit_catalogs (configs_catpaths, ascriptions=True, message=None):
         cmsg = message
         if message is None:
             if ascriptions:
-                cmsg = config.ascript_commit_message
+                if user and config.ascript_commit_message_w_user:
+                    cmsg = config.ascript_commit_message_w_user
+                    cmsg = expand_vars(cmsg, dict(user=user), head="%")
+                else:
+                    cmsg = config.ascript_commit_message
             else:
                 cmsg = config.commit_message
         if not config.vcs.commit(catpaths_byconf[config], cmsg):
@@ -315,6 +323,8 @@ class Config:
 
         self.commit_message = gsect.get("commit-message", None)
         self.ascript_commit_message = gsect.get("ascript-commit-message", None)
+        self.ascript_commit_message_w_user = \
+            gsect.get("ascript-commit-message-w-user", None)
 
         class UserData: pass
         self.udata = {}
