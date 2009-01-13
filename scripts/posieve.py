@@ -565,13 +565,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
         if do_sync and cat.sync(op.force_sync):
             if op.verbose:
-                report("MODIFIED")
+                report("! (MODIFIED) %s" % fname)
             else:
                 report("! %s" % fname)
             modified_files.append(fname)
-        else:
-            if op.verbose:
-                report("")
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
