@@ -388,6 +388,7 @@ valid cat="kdmconfig" msgid="save one key" msgstr="\bуштед"
 valid cat="lokalize" msgid="saves a great" msgstr="\bштед"
 valid cat="dolphin" msgid="to save time" msgstr="\b(штед|ефикасн)"
 valid cat="PO_Odyssey" msgid="work may be saved" msgstr="\bуштед"
+valid cat="powerdevil" msgid="sav(e|ing).*battery" msgstr="\bу?штед"
 
 # Све провере на save.
 {\bsaving}i
