@@ -614,6 +614,7 @@ valid msgstr="&\w*pointer\w*-\S*;"
 valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
 valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
+valid cat="lokalize" msgid="cursor column" msgstr="курсор"
 
 {\bproxy}i
 id="proxy"
