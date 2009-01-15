@@ -1459,17 +1459,29 @@ def format_datetime (dt=None):
         return _dt_str_now
 
 
-_parse_date_rx = re.compile(
-    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *([+-]\d+) *$")
+_parse_date_rxs = [re.compile(x) for x in (
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *([+-]\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *$",
+    r"^ *(\d+)-(\d+) *$",
+    r"^ *(\d+) *$",
+)]
 
 def parse_datetime (dstr):
     # NOTE: Timezone offset is lost, the datetime object becomes UTC.
     # NOTE: Can we use dateutil module in here?
 
-    m = _parse_date_rx.search(dstr)
+    for parse_date_rx in _parse_date_rxs:
+        m = parse_date_rx.search(dstr)
+        if m:
+            break
     if not m:
         raise StandardError, "cannot parse date string '%s'" % dstr
-    year, month, day, hour, minute, second, off = [int(x) for x in m.groups()]
+    pgroups = list([int(x) for x in m.groups()])
+    pgroups.extend([1] * (3 - len(pgroups)))
+    pgroups.extend([0] * (7 - len(pgroups)))
+    year, month, day, hour, minute, second, off = pgroups
     dt0 = datetime.datetime(year=year, month=month, day=day,
                             hour=hour, minute=minute, second=second)
     offmin = (off // 100) * 60 + (abs(off) % 100)
@@ -1965,6 +1977,41 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
     return selector
 
 
+# Select first modification (any or by users) at or after given time/revision.
+def selector_modafter (time_spec=None, user_spec=None):
+    cid = "selector:modafter"
+
+    cache = _Cache()
+
+    if not time_spec:
+        error("time/revision specification cannot be empty", subsrc=cid)
+
+    if "-" in time_spec:
+        date = parse_datetime(time_spec)
+        rev = None
+    else:
+        date = None
+        rev = time_spec.strip()
+
+    def selector (msg, cat, history, config, options):
+
+        users = cached_users(cache, user_spec, config, cid)
+
+        i_sel = None
+        for i in range(len(history) - 1, -1, -1):
+            a = history[i]
+            if (    a.type == _atype_mod and (not users or a.user in users)
+                and (not date or a.date >= date)
+                and (not rev or not config.vcs.is_older(a.rev, rev))
+            ):
+                i_sel = i
+                break
+
+        return i_sel
+
+    return selector
+
+
 xm_selector_factories = {
     # key: (function, can_be_used_as_history_selector)
     "any": (selector_any, False),
@@ -1979,6 +2026,7 @@ xm_selector_factories = {
     "modar": (selector_modar, True),
     "rev": (selector_rev, True),
     "revbm": (selector_revbm, True),
+    "modafter": (selector_modafter, True),
 }
 
 # -----------------------------------------------------------------------------
