@@ -976,13 +976,14 @@ class Message_base (object):
             dfval = self.get(dfield)
             if dfval is not None:
                 p = dfval.find(diffsep)
-                if p == 0:
-                    ndfval = None
-                else:
-                    ndfval = dfval[:p - 1] # strip trailing newline
-                    # FIXME: Check that there is a newline.
-                setattr(self, dfield, ndfval)
-                anyundo = True
+                if p >= 0:
+                    if p == 0:
+                        ndfval = None
+                    else:
+                        ndfval = dfval[:p - 1] # strip trailing newline
+                        # FIXME: Check that there is a newline.
+                    setattr(self, dfield, ndfval)
+                    anyundo = True
 
         else:
             ismon = isinstance(self, Message)
