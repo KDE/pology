@@ -1488,14 +1488,18 @@ def parse_users (userstr, config, cid=None):
 
     users = set()
     if userstr:
+        xusers = set()
         for user in userstr.split(","):
             user = user.strip()
             if not user.startswith("~"):
                 users.add(user)
             else:
                 user = user[1:]
+                if user in users:
+                    users.remove(user)
+                xusers.add(user)
                 for ouser in config.users:
-                    if user != ouser:
+                    if ouser not in xusers:
                         users.add(ouser)
     for user in users:
         if user not in config.users:
