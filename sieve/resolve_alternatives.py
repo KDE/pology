@@ -41,10 +41,10 @@ class Sieve (object):
     def process (self, msg, cat):
 
         for i in range(len(msg.msgstr)):
-            msg.msgstr[i], nresolved, malformed = \
+            msg.msgstr[i], nresolved, valid = \
                 resolve_alternatives(msg.msgstr[i], self.select, self.total,
                                      srcname=cat.filename)
-            if not malformed:
+            if valid:
                 self.nresolved += nresolved
             else:
                 self.nmalformed += 1
