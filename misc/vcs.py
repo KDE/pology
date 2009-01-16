@@ -16,7 +16,7 @@ import re
 import shutil
 
 from pology.misc.report import report, error, warning
-from pology.misc.fsops import collect_system
+from pology.misc.fsops import collect_system, unicode_to_str
 
 
 def make_vcs (vcskey):
@@ -52,6 +52,10 @@ class VcsBase (object):
         """
         Add path to version control.
 
+        It depends on the particular VCS what adding means,
+        but in general it should be the point where the subsequent L{commit()}
+        on the same path will record addition in the repository history.
+
         @param path: path to add
         @type path: string
 
@@ -64,6 +68,10 @@ class VcsBase (object):
     def remove (self, path):
         """
         Remove path from version control and from disk.
+
+        It depends on the particular VCS what removing means,
+        but in general it should be the point where the subsequent L{commit()}
+        on the same path will record removal in the repository history.
 
         @param path: path to remove
         @type path: string
@@ -358,7 +366,151 @@ class VcsSubversion (VcsBase):
 
         # Do not use collect_system(), user may need to input stuff.
         #report(cmdline)
-        if os.system(cmdline) != 0:
+        if os.system(unicode_to_str(cmdline)) != 0:
+            return False
+
+        return True
+
+
+class VcsGit (VcsBase):
+    """
+    VCS: Git.
+    """
+
+    def add (self, path):
+        # Base override.
+
+        if collect_system("git add %s" % path)[2] != 0:
+            return False
+
+        return True
+
+
+    def remove (self, path):
+        # Base override.
+
+        if os.path.isdir(path):
+            warning("cannot remove directories: %s" % path)
+            return False
+
+        if collect_system("git rm %s" % path)[2] != 0:
+            return False
+
+        return True
+
+
+    def revision (self, path):
+        # Base override.
+
+        res = collect_system("git log %s" % path)
+        rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
+        revid = ""
+        for line in res[0].split("\n"):
+            m = rx.search(line)
+            if m:
+                revid = m.group(1)
+                break
+
+        return revid
+
+
+    def is_clear (self, path):
+        # Base override.
+
+        res = collect_system("git status %s" % path)
+        rx = re.compile(r"\bmodified:\s*(\S.*)", re.I)
+        for line in res[0].split("\n"):
+            m = rx.search(line)
+            if m and m.group(1) == path:
+                return False
+
+        return True
+
+
+    def is_older (self, rev1, rev2):
+        # Base override.
+
+        res = collect_system("git log %s" % rev2)
+        rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
+        first = True
+        for line in res[0].split("\n"):
+            m = rx.search(line)
+            if m:
+                if first:
+                    first = False
+                    continue
+                rev = m.group(1)
+                if rev == rev1:
+                    return True
+
+        # FIXME: What to do when one revision is not descendent of the other?
+        # By the current implementation the method is not ordering relation,
+        # as both is_older(r1, r2) and is_older(r2, r1) may be false.
+
+        return False
+
+
+    def is_versioned (self, path):
+        # Base override.
+
+        res = collect_system("git status %s" % path)
+        if res[1]:
+            return False
+
+        return True
+
+
+    # FIXME: Implement this.
+    #def export (self, path, rev, dstpath, rewrite=None):
+        ## Base override.
+
+
+    def commit (self, paths, message=None):
+        # Base override.
+
+        # Check if all paths are versioned.
+        # Add to index any modified paths that have not been added.
+        for path in paths:
+            if not self.is_versioned(path):
+                warning("cannot commit non-versioned path: %s" % path)
+                return False
+            if os.path.exists(path) and not self.add(path):
+                warning("cannot add path to index: %s" % path)
+                return False
+
+        # Reset all paths in index which have not been given to commit.
+        res = collect_system("git status")
+        sect_rx = re.compile(r"^# (\S.*):$", re.I)
+        file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
+        inlist = False
+        ipaths = []
+        for line in res[0].split("\n"):
+            m = sect_rx.search(line)
+            if m:
+                if m.group(1).endswith("to be committed"):
+                    inlist = True
+                else:
+                    break
+            if not inlist:
+                continue
+            m = file_rx.search(line)
+            if m:
+                ipaths.append(m.group(1))
+        rpaths = list(set(ipaths).difference(paths))
+        if rpaths:
+            warning("resetting paths in index which are not to be committed")
+            cmdline = "git reset %s" % " ".join(rpaths)
+            os.system(unicode_to_str(cmdline))
+            # ...seems to return != 0 even if it did what it was told to.
+
+        # Commit the index.
+        cmdline = "git commit "
+        if message is not None:
+            cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+
+        # Do not use collect_system(), user may need to input stuff.
+        #report(cmdline)
+        if os.system(unicode_to_str(cmdline)) != 0:
             return False
 
         return True
