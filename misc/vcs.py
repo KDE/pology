@@ -521,6 +521,9 @@ class VcsGit (VcsBase):
         if rev is None:
             rev = "HEAD"
 
+        if rewrite:
+            path = rewrite(path, rev)
+
         # FIXME: Better temporary location."
         tarpdir = "/tmp"
         tarbdir = "git-archive-tree%d" % os.getpid()
