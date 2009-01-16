@@ -201,9 +201,35 @@ def mkdirpath (dirpath):
             os.mkdir(incpath)
 
 
+def system_wd (cmdline, wdir):
+    """
+    Execute command line in a specific working directory.
+
+    Like C{os.system}, only switching CWD during execution.
+
+    @param cmdline: command line to execute
+    @type cmdline: string
+    @param wdir: working directory for the command (CWD if none given)
+    @type wdir: path
+
+    @returns: exit code from the command
+    @rtype: int
+    """
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(wdir)
+        ret = os.system(cmdline)
+    except:
+        os.chdir(cwd)
+        raise
+
+    return ret
+
+
 # Execute command line and assert success.
 # In case of failure, report the failed command line if echo is False.
-def assert_system (cmdline, echo=False):
+def assert_system (cmdline, echo=False, wdir=None):
     """
     Execute command line and assert success.
 
@@ -213,11 +239,18 @@ def assert_system (cmdline, echo=False):
     @type cmdline: string
     @param echo: whether to echo the supplied command line
     @type echo: bool
+    @param wdir: working directory for the command (CWD if none given)
+    @type wdir: path
     """
 
     if echo:
         print cmdline
+    if wdir is not None:
+        cwd = os.getcwd()
+        os.chdir(wdir)
     ret = os.system(unicode_to_str(cmdline))
+    if wdir is not None:
+        os.chdir(cwd)
     if ret:
         if echo:
             error("non-zero exit from previous command")
@@ -226,7 +259,7 @@ def assert_system (cmdline, echo=False):
 
 
 _execid = 0
-def collect_system (cmdline, echo=False):
+def collect_system (cmdline, echo=False, wdir=None):
     """
     Execute command line and collect stdout, stderr, and return code.
 
@@ -234,6 +267,11 @@ def collect_system (cmdline, echo=False):
     @type cmdline: string
     @param echo: whether to echo the command line, as well as stdout/stderr
     @type echo: bool
+    @param wdir: working directory for the command (CWD if none given)
+    @type wdir: path
+
+    @returns: tuple of stdout, stderr, and exit code
+    @rtype: (string, string, int)
     """
 
     # Create temporary files.
@@ -246,7 +284,12 @@ def collect_system (cmdline, echo=False):
     if echo:
         print cmdline
     cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
+    if wdir is not None:
+        cwd = os.getcwd()
+        os.chdir(wdir)
     ret = os.system(unicode_to_str(cmdline_mod))
+    if wdir is not None:
+        os.chdir(cwd)
 
     # Collect stdout and stderr.
     strout = str_to_unicode("".join(open(tmpout).readlines()))
