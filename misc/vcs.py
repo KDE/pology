@@ -34,11 +34,13 @@ def make_vcs (vcskey):
     @rtype: instance of L{VcsBase}
     """
 
-    nkey = vcskey.lower()
+    nkey = vcskey.strip().lower()
     if nkey in ("none", "noop"):
         return VcsNoop()
     elif nkey in ("svn", "subversion"):
         return VcsSubversion()
+    elif nkey in ("git"):
+        return VcsGit()
     else:
         error("unknown version control system requested by key '%s'" % vcskey)
 
