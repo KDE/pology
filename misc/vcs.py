@@ -16,7 +16,7 @@ import re
 import shutil
 
 from pology.misc.report import report, error, warning
-from pology.misc.fsops import collect_system, unicode_to_str
+from pology.misc.fsops import collect_system, system_wd, unicode_to_str
 
 
 def make_vcs (vcskey):
@@ -377,10 +377,52 @@ class VcsGit (VcsBase):
     VCS: Git.
     """
 
+    def _gitroot (self, paths):
+
+        single = False
+        if isinstance(paths, basestring):
+            paths = [paths]
+            single = True
+
+        # Take first path as referent.
+        path = os.path.abspath(paths[0])
+
+        root = None
+        if os.path.isfile(path):
+            pdir = os.path.dirname(path)
+        else:
+            pdir = path
+        while True:
+            gitpath = os.path.join(pdir, ".git")
+            if os.path.isdir(gitpath):
+                root = pdir
+                break
+            pdir_p = pdir
+            pdir = os.path.dirname(pdir)
+            if pdir == pdir_p:
+                break
+
+        if root is None:
+            raise StandardError, "cannot find Git repository for '%s'" % path
+
+        rpaths = []
+        for path in paths:
+            path = os.path.abspath(path)
+            path = path[len(root) + len(os.path.sep):]
+            rpaths.append(path)
+
+        if single:
+            return root, rpaths[0]
+        else:
+            return root, rpaths
+
+
     def add (self, path):
         # Base override.
 
-        if collect_system("git add %s" % path)[2] != 0:
+        root, path = self._gitroot(path)
+
+        if collect_system("git add %s" % path, wdir=root)[2] != 0:
             return False
 
         return True
@@ -393,7 +435,9 @@ class VcsGit (VcsBase):
             warning("cannot remove directories: %s" % path)
             return False
 
-        if collect_system("git rm %s" % path)[2] != 0:
+        root, path = self._gitroot(path)
+
+        if collect_system("git rm %s" % path, wdir=root)[2] != 0:
             return False
 
         return True
@@ -402,7 +446,9 @@ class VcsGit (VcsBase):
     def revision (self, path):
         # Base override.
 
-        res = collect_system("git log %s" % path)
+        root, path = self._gitroot(path)
+
+        res = collect_system("git log %s" % path, wdir=root)
         rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -417,7 +463,9 @@ class VcsGit (VcsBase):
     def is_clear (self, path):
         # Base override.
 
-        res = collect_system("git status %s" % path)
+        root, path = self._gitroot(path)
+
+        res = collect_system("git status %s" % path, wdir=root)
         rx = re.compile(r"\bmodified:\s*(\S.*)", re.I)
         for line in res[0].split("\n"):
             m = rx.search(line)
@@ -430,7 +478,9 @@ class VcsGit (VcsBase):
     def is_older (self, rev1, rev2):
         # Base override.
 
-        res = collect_system("git log %s" % rev2)
+        root, path = self._gitroot(path)
+
+        res = collect_system("git log %s" % rev2, wdir=root)
         rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
         first = True
         for line in res[0].split("\n"):
@@ -453,33 +503,68 @@ class VcsGit (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
-        res = collect_system("git status %s" % path)
+        root, path = self._gitroot(path)
+
+        res = collect_system("git status %s" % path, wdir=root)
         if res[1]:
             return False
 
         return True
 
 
-    # FIXME: Implement this.
-    #def export (self, path, rev, dstpath, rewrite=None):
-        ## Base override.
+    def export (self, path, rev, dstpath, rewrite=None):
+        # Base override.
+
+        root, path = self._gitroot(path)
+        ret = True
+
+        if rev is None:
+            rev = "HEAD"
+
+        # FIXME: Better temporary location."
+        tarpdir = "/tmp"
+        tarbdir = "git-archive-tree%d" % os.getpid()
+        res = collect_system("  git archive --prefix=%s/ %s %s "
+                             "| (cd %s && tar xf -)"
+                             % (tarbdir, rev, path, tarpdir),
+                             wdir=root)
+        if res[2] == 0:
+            tardir = os.path.join(tarpdir, tarbdir)
+            tarpath = os.path.join(tardir, path)
+            try:
+                shutil.copyfile(tarpath, dstpath)
+            except:
+                ret = False
+        else:
+            ret = False
+
+        if os.path.isdir(tardir):
+            shutil.rmtree(tardir)
+
+        return ret
 
 
     def commit (self, paths, message=None):
         # Base override.
 
+        if not paths:
+            return True
+
+        opaths = paths
+        root, paths = self._gitroot(paths)
+
         # Check if all paths are versioned.
         # Add to index any modified paths that have not been added.
-        for path in paths:
-            if not self.is_versioned(path):
-                warning("cannot commit non-versioned path: %s" % path)
+        for opath in opaths:
+            if not self.is_versioned(opath):
+                warning("cannot commit non-versioned path: %s" % opath)
                 return False
-            if os.path.exists(path) and not self.add(path):
-                warning("cannot add path to index: %s" % path)
+            if os.path.exists(opath) and not self.add(opath):
+                warning("cannot add path to index: %s" % opath)
                 return False
 
         # Reset all paths in index which have not been given to commit.
-        res = collect_system("git status")
+        res = collect_system("git status", wdir=root)
         sect_rx = re.compile(r"^# (\S.*):$", re.I)
         file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
         inlist = False
@@ -500,7 +585,7 @@ class VcsGit (VcsBase):
         if rpaths:
             warning("resetting paths in index which are not to be committed")
             cmdline = "git reset %s" % " ".join(rpaths)
-            os.system(unicode_to_str(cmdline))
+            system_wd(unicode_to_str(cmdline), root)
             # ...seems to return != 0 even if it did what it was told to.
 
         # Commit the index.
@@ -510,7 +595,7 @@ class VcsGit (VcsBase):
 
         # Do not use collect_system(), user may need to input stuff.
         #report(cmdline)
-        if os.system(unicode_to_str(cmdline)) != 0:
+        if system_wd(unicode_to_str(cmdline), root) != 0:
             return False
 
         return True
