@@ -217,7 +217,7 @@ def assert_system (cmdline, echo=False):
 
     if echo:
         print cmdline
-    ret = os.system(cmdline)
+    ret = os.system(unicode_to_str(cmdline))
     if ret:
         if echo:
             error("non-zero exit from previous command")
@@ -246,11 +246,11 @@ def collect_system (cmdline, echo=False):
     if echo:
         print cmdline
     cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
-    ret = os.system(cmdline_mod)
+    ret = os.system(unicode_to_str(cmdline_mod))
 
     # Collect stdout and stderr.
-    strout = "".join(open(tmpout).readlines())
-    strerr = "".join(open(tmperr).readlines())
+    strout = str_to_unicode("".join(open(tmpout).readlines()))
+    strerr = str_to_unicode("".join(open(tmperr).readlines()))
     if echo:
         if strout:
             sys.stdout.write("===== stdout from the command ^^^ =====\n")
@@ -266,14 +266,15 @@ def collect_system (cmdline, echo=False):
     return (strout, strerr, ret)
 
 
-def lines_from_file (filepath, encoding="UTF-8"):
+def lines_from_file (filepath, encoding=None):
     """
     Read content of a text file into list of lines.
 
     Only CR, LF, and CR+LF are treated as line breaks.
 
-    If the give file path is not readable, or text cannot be decoded using
-    given encoding, exceptions are raised.
+    If the given file path is not readable, or text cannot be decoded using
+    given encoding, exceptions are raised. If encoding is not given,
+    the encoding specified by the environment is used.
 
     @param filepath: path of the file to read
     @type filepath: string
@@ -283,6 +284,9 @@ def lines_from_file (filepath, encoding="UTF-8"):
     @returns: lines
     @rtype: list of strings
     """
+
+    if encoding is None:
+        encoding = locale.getpreferredencoding()
 
     try:
         ifl = codecs.open(filepath, "r", encoding)
@@ -368,6 +372,44 @@ def str_to_unicode (strarg):
         for val in strarg:
             if isinstance(val, str):
                 val = unicode(val, lenc)
+            uargs.append(val)
+        return uargs
+
+
+def unicode_to_str (strarg):
+    """
+    Convert a unicode string into raw byte sequence.
+
+    Strings goint to the environment should frequently be raw byte sequences,
+    and need to be converted from Unicode strings according to system locale
+    (e.g. command-line arguments).
+    This function will take either a single Unicode string or any sequence
+    of Unicode strings and convert it into a raw string or list thereof.
+
+    If the input value is not a single raw or unicode string,
+    it is assumed to be a sequence of values.
+    In case there are values in the input which are not Unicode strings,
+    they will be carried over into the result as-is.
+
+    @param strarg: input string or sequence
+    @type strarg: string, unicode, or sequence of objects
+
+    @returns: raw string or sequence of objects
+    @rtype: raw string or list of objects
+    """
+
+    if isinstance(strarg, str):
+        return strarg
+
+    lenc = locale.getpreferredencoding()
+
+    if isinstance(strarg, unicode):
+        return strarg.encode(lenc)
+    else:
+        uargs = []
+        for val in strarg:
+            if isinstance(val, unicode):
+                val = val.encode(lenc)
             uargs.append(val)
         return uargs
 
