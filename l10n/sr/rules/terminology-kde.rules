@@ -549,7 +549,7 @@ valid msgstr="\bван везе"
 {\bonline}i
 id="online"
 hint="online = на вези"
-valid msgstr="\bна вези"
+valid msgstr="\bна вез[иу]"
 valid msgstr="&\w*online\S*;"
 
 {\bonline}i
@@ -611,10 +611,12 @@ hint="cursor|pointer = показивач"
 valid cat="kate,katefiletemplates,katepart4,konsole"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="&\w*pointer\w*-\S*;"
+valid span="cursor" after="text " msgstr="курсор"
 valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
 valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
 valid cat="lokalize" msgid="cursor column" msgstr="курсор"
+valid cat="userguide_panel-and-desktop" msgid="placed the cursor" msgstr="курсор"
 
 {\bproxy}i
 id="proxy"
