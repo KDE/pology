@@ -169,7 +169,7 @@ class ParamParser (object):
                    " - ")
 
         initin = " " * 2
-        subsin = initin + " " * 4
+        subsin = initin + " " * (maxsclen + 3)
         wrapper = TextWrapper(initial_indent=initin,
                               subsequent_indent=subsin,
                               width=wcol)
