@@ -149,13 +149,13 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">int</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#assert_system" class="summary-sig-name">assert_system</a>(<span class="summary-sig-arg">cmdline</span>,
-        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Execute command line and assert success.</td>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#system_wd" class="summary-sig-name">system_wd</a>(<span class="summary-sig-arg">cmdline</span>,
+        <span class="summary-sig-arg">wdir</span>)</span><br />
+      Execute command line in a specific working directory.</td>
           <td align="right" valign="top">
             
             
@@ -171,8 +171,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#assert_system" class="summary-sig-name">assert_system</a>(<span class="summary-sig-arg">cmdline</span>,
+        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">wdir</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Execute command line and assert success.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string, int)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_system" class="summary-sig-name">collect_system</a>(<span class="summary-sig-arg">cmdline</span>,
-        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">wdir</span>=<span class="summary-sig-default">None</span>)</span><br />
       Execute command line and collect stdout, stderr, and return code.</td>
           <td align="right" valign="top">
             
@@ -190,7 +210,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#lines_from_file" class="summary-sig-name">lines_from_file</a>(<span class="summary-sig-arg">filepath</span>,
-        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">None</span>)</span><br />
       Read content of a text file into list of lines.</td>
           <td align="right" valign="top">
             
@@ -226,6 +246,23 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#str_to_unicode" class="summary-sig-name">str_to_unicode</a>(<span class="summary-sig-arg">strarg</span>)</span><br />
       Convert a raw string value or sequence of values into Unicode.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">raw string or list of objects</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#unicode_to_str" class="summary-sig-name">unicode_to_str</a>(<span class="summary-sig-arg">strarg</span>)</span><br />
+      Convert a unicode string into raw byte sequence.</td>
           <td align="right" valign="top">
             
             
@@ -382,6 +419,34 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="system_wd"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">system_wd</span>(<span class="sig-arg">cmdline</span>,
+        <span class="sig-arg">wdir</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Execute command line in a specific working directory.</p>
+  <p>Like <code>os.system</code>, only switching CWD during execution.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
+        <li><strong class="pname"><code>wdir</code></strong> (path) - working directory for the command (CWD if none given)</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>exit code from the command</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="assert_system"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -390,7 +455,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">assert_system</span>(<span class="sig-arg">cmdline</span>,
-        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">wdir</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -404,6 +470,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
         <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the supplied command line</li>
+        <li><strong class="pname"><code>wdir</code></strong> (path) - working directory for the command (CWD if none given)</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -416,7 +483,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_system</span>(<span class="sig-arg">cmdline</span>,
-        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">echo</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">wdir</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -429,7 +497,10 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
         <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the command line, as well as stdout/stderr</li>
+        <li><strong class="pname"><code>wdir</code></strong> (path) - working directory for the command (CWD if none given)</li>
     </ul></dd>
+    <dt>Returns: (string, string, int)</dt>
+        <dd>tuple of stdout, stderr, and exit code</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -441,7 +512,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">lines_from_file</span>(<span class="sig-arg">filepath</span>,
-        <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">encoding</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -450,8 +521,9 @@
   
   <p>Read content of a text file into list of lines.</p>
   <p>Only CR, LF, and CR+LF are treated as line breaks.</p>
-  <p>If the give file path is not readable, or text cannot be decoded using
-  given encoding, exceptions are raised.</p>
+  <p>If the given file path is not readable, or text cannot be decoded 
+  using given encoding, exceptions are raised. If encoding is not given, 
+  the encoding specified by the environment is used.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -525,6 +597,40 @@
     </ul></dd>
     <dt>Returns: unicode string or list of objects</dt>
         <dd>unicode string or sequence of objects</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="unicode_to_str"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">unicode_to_str</span>(<span class="sig-arg">strarg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert a unicode string into raw byte sequence.</p>
+  <p>Strings goint to the environment should frequently be raw byte 
+  sequences, and need to be converted from Unicode strings according to 
+  system locale (e.g. command-line arguments). This function will take 
+  either a single Unicode string or any sequence of Unicode strings and 
+  convert it into a raw string or list thereof.</p>
+  <p>If the input value is not a single raw or unicode string, it is 
+  assumed to be a sequence of values. In case there are values in the input
+  which are not Unicode strings, they will be carried over into the result 
+  as-is.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>strarg</code></strong> (string, unicode, or sequence of objects) - input string or sequence</li>
+    </ul></dd>
+    <dt>Returns: raw string or list of objects</dt>
+        <dd>raw string or sequence of objects</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.vcs.VcsBase</title>
+  <title>pology.misc.vcs.VcsGit</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -40,7 +40,7 @@
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
         <a href="pology.misc.vcs-module.html">Module&nbsp;vcs</a> ::
-        Class&nbsp;VcsBase
+        Class&nbsp;VcsGit
       </span>
     </td>
     <td>
@@ -51,21 +51,17 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class VcsBase</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class VcsGit</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-object --+
-         |
-        <strong class="uidshort">VcsBase</strong>
+object --+    
+         |    
+   <a href="pology.misc.vcs.VcsBase-class.html">VcsBase</a> --+
+             |
+            <strong class="uidshort">VcsGit</strong>
 </pre>
 
-<dl><dt>Known Subclasses:</dt>
-<dd>
-      <ul class="subclass-list">
-<li><a href="pology.misc.vcs.VcsGit-class.html">VcsGit</a></li><li>, <a href="pology.misc.vcs.VcsNoop-class.html">VcsNoop</a></li><li>, <a href="pology.misc.vcs.VcsSubversion-class.html">VcsSubversion</a></li>  </ul>
-</dd></dl>
-
 <hr />
-<p>Abstract base for VCS objects.</p>
+<p>VCS: Git.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -81,7 +77,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Add path to version control.</td>
           <td align="right" valign="top">
@@ -99,7 +95,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Remove path from version control and from disk.</td>
           <td align="right" valign="top">
@@ -117,7 +113,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#revision" class="summary-sig-name">revision</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#revision" class="summary-sig-name">revision</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Get current revision ID of the path.</td>
           <td align="right" valign="top">
@@ -135,7 +131,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#is_clear" class="summary-sig-name">is_clear</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#is_clear" class="summary-sig-name">is_clear</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Check if the path is in clear state.</td>
           <td align="right" valign="top">
@@ -153,7 +149,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#is_older" class="summary-sig-name">is_older</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#is_older" class="summary-sig-name">is_older</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">rev1</span>,
         <span class="summary-sig-arg">rev2</span>)</span><br />
       Check if revision 1 is older than revision 2.</td>
@@ -172,7 +168,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#is_versioned" class="summary-sig-name">is_versioned</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#is_versioned" class="summary-sig-name">is_versioned</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Check if path is under version control.</td>
           <td align="right" valign="top">
@@ -190,7 +186,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#export" class="summary-sig-name">export</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#export" class="summary-sig-name">export</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>,
         <span class="summary-sig-arg">rev</span>,
         <span class="summary-sig-arg">dstpath</span>,
@@ -211,7 +207,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsGit-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">paths</span>,
         <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>)</span><br />
       Commit paths to the repository.</td>
@@ -290,10 +286,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to add</li>
+        <li><strong class="pname"><code>path</code></strong> - path to add</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if addition successful</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#add">VcsBase.add</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -321,10 +321,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to remove</li>
+        <li><strong class="pname"><code>path</code></strong> - path to remove</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if removal successful</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#remove">VcsBase.remove</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -347,10 +351,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to query for revision</li>
+        <li><strong class="pname"><code>path</code></strong> - path to query for revision</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>revision ID</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#revision">VcsBase.revision</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -375,10 +383,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to check the state of</li>
+        <li><strong class="pname"><code>path</code></strong> - path to check the state of</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if clear</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#is_clear">VcsBase.is_clear</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -402,11 +414,15 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>rev1</code></strong> (string) - revision string</li>
-        <li><strong class="pname"><code>rev2</code></strong> (string) - revision string</li>
+        <li><strong class="pname"><code>rev1</code></strong> - revision string</li>
+        <li><strong class="pname"><code>rev2</code></strong> - revision string</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if first revision older than second</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#is_older">VcsBase.is_older</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -429,10 +445,14 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path to check</li>
+        <li><strong class="pname"><code>path</code></strong> - path to check</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if versioned</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#is_versioned">VcsBase.is_versioned</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -467,14 +487,18 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string) - path of the versioned file in local repository</li>
-        <li><strong class="pname"><code>rev</code></strong> (string or <code>None</code>) - revision to export</li>
-        <li><strong class="pname"><code>dstpath</code></strong> (string) - file path to export to</li>
-        <li><strong class="pname"><code>rewrite</code></strong> ((string, string)-&gt;string or None) - function to filter resolved repository path</li>
+        <li><strong class="pname"><code>path</code></strong> - path of the versioned file in local repository</li>
+        <li><strong class="pname"><code>rev</code></strong> - revision to export</li>
+        <li><strong class="pname"><code>dstpath</code></strong> - file path to export to</li>
+        <li><strong class="pname"><code>rewrite</code></strong> - function to filter resolved repository path</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if fetching succeeded, <code>False</code> 
           otherwise</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#export">VcsBase.export</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -504,12 +528,16 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>paths</code></strong> (list of strings) - paths to commit</li>
-        <li><strong class="pname"><code>message</code></strong> (string or None) - commit message</li>
+        <li><strong class="pname"><code>paths</code></strong> - paths to commit</li>
+        <li><strong class="pname"><code>message</code></strong> - commit message</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if committing succeeded, <code>False</code> 
           otherwise</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#commit">VcsBase.commit</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>

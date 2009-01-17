@@ -183,6 +183,25 @@ object --+
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsNoop-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">paths</span>,
+        <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Commit paths to the repository.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.vcs.VcsBase-class.html">VcsBase</a></code></b>:
@@ -244,6 +263,11 @@ object --+
   </tr></table>
   
   <p>Add path to version control.</p>
+  <p>It depends on the particular VCS what adding means, but in general it 
+  should be the point where the subsequent <a 
+  href="pology.misc.vcs.VcsBase-class.html#commit" 
+  class="link">commit()</a> on the same path will record addition in the 
+  repository history.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -274,6 +298,11 @@ object --+
   </tr></table>
   
   <p>Remove path from version control and from disk.</p>
+  <p>It depends on the particular VCS what removing means, but in general 
+  it should be the point where the subsequent <a 
+  href="pology.misc.vcs.VcsBase-class.html#commit" 
+  class="link">commit()</a> on the same path will record removal in the 
+  repository history.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -401,8 +430,9 @@ object --+
   <p>Export a versioned file.</p>
   <p>Makes a copy of versioned file pointed to by local path 
   <code>path</code>, in the revision <code>rev</code>, to destination path 
-  <code>dstpath</code>. If <code>rev</code> is <code>None</code>, 
-  <code>path</code> is copied as-is to <code>dstpath</code>.</p>
+  <code>dstpath</code>. If <code>rev</code> is <code>None</code>, the clean
+  version of <code>path</code> according to current local repository state 
+  is copied to <code>dstpath</code>.</p>
   <p>Final repository path, as determined from <code>path</code>, can be 
   filtered through an external function <code>rewrite</code> before being 
   used. The function takes as arguments the path and revision strings. This
@@ -420,6 +450,45 @@ object --+
           otherwise</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#export">VcsBase.export</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="commit"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">commit</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">paths</span>,
+        <span class="sig-arg">message</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Commit paths to the repository.</p>
+  <p>Paths can include any number of files and directories. It depends on 
+  the particular VCS what committing means, but in general it should be the
+  earliest level at which modifications are recorded in the repository 
+  history.</p>
+  <p>If the commit message is not given, VCS should ask for one as usual 
+  (pop an editor window, or whatever the user has configured).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>paths</code></strong> - paths to commit</li>
+        <li><strong class="pname"><code>message</code></strong> - commit message</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if committing succeeded, <code>False</code> 
+          otherwise</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#commit">VcsBase.commit</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
