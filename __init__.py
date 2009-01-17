@@ -59,6 +59,7 @@ Later on, Pology can be updated to the latest repository version by running::
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
+@author: Goran Rakic (Горан Ракић) <grakic@devbase.net>
 
 @license: GPLv3
 """
