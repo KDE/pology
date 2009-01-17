@@ -440,17 +440,17 @@ def ascribe_modified (options, configs_catpaths, mode):
                 counts[st] += val
 
     if counts[_st_tran] > 0:
-        report("===! Translated: %d entries" % counts[_st_tran])
+        report("===! Translated: %d" % counts[_st_tran])
     if counts[_st_fuzzy] > 0:
-        report("===! Fuzzy: %d entries" % counts[_st_fuzzy])
+        report("===! Fuzzy: %d" % counts[_st_fuzzy])
     if counts[_st_untran] > 0:
-        report("===! Untranslated: %d entries" % counts[_st_untran])
+        report("===! Untranslated: %d" % counts[_st_untran])
     if counts[_st_otran] > 0:
-        report("===! Obsolete translated: %d entries" % counts[_st_otran])
+        report("===! Obsolete translated: %d" % counts[_st_otran])
     if counts[_st_ofuzzy] > 0:
-        report("===! Obsolete fuzzy: %d entries" % counts[_st_ofuzzy])
+        report("===! Obsolete fuzzy: %d" % counts[_st_ofuzzy])
     if counts[_st_ountran] > 0:
-        report("===! Obsolete untranslated: %d entries" % counts[_st_ountran])
+        report("===! Obsolete untranslated: %d" % counts[_st_ountran])
 
 
 def ascribe_reviewed (options, configs_catpaths, mode):
@@ -471,7 +471,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
                                          catpath, acatpath, stest)
 
     if nasc > 0:
-        report("===! Reviewed: %d entries" % nasc)
+        report("===! Reviewed: %d" % nasc)
 
 
 def diff_select (options, configs_catpaths, mode):
