@@ -26,13 +26,52 @@ _dict_c2l = {
     u'а̑':u'â', u'о̑':u'ô',
 }
 
+# Transliteration table Serbian Cyrillic->ASCII, basic stripped.
+_dict_c2a_stripped = _dict_c2l.copy()
+_dict_c2a_stripped.update({
+    u'ђ':u'dj', u'ж':u'z', u'ћ':u'c', u'ч':u'c', u'џ':u'dz', u'ш':u's',
+    u'Ђ':u'Dj', u'Ж':u'Z', u'Ћ':u'C', u'Ч':u'C', u'Џ':u'Dz', u'Ш':u'S',
+})
+
+# Transliteration table English in Serbian Cyrillic by layout -> English.
+_dict_c2a_englay = _dict_c2l.copy()
+_dict_c2a_englay.update({
+    u'љ':u'q', u'њ':u'w', u'ж':u'y', u'џ':u'x',
+    u'Љ':u'Q', u'Њ':u'W', u'Ж':u'Y', u'Џ':u'X',
+})
 
 def process (text):
     """
-    Type F1A hook.
+    Transliterate from Cyrillic to proper Latin [type F1A hook].
 
     @return: text
     """
+
+    return _process_w(text, _dict_c2l)
+
+
+def process_to_stripped (text):
+    """
+    Transliterate from Cyrillic to stripped ASCII [type F1A hook].
+
+    @return: text
+    """
+
+    return _process_w(text, _dict_c2a_stripped)
+
+
+def process_to_englay (text):
+    """
+    Transliterate from English in Cyrillic by layout to proper English
+    [type F1A hook].
+
+    @return: text
+    """
+
+    return _process_w(text, _dict_c2a_englay)
+
+
+def _process_w (text, trdict):
 
     # NOTE: Converted directly from C++ code,
     # perhaps something more efficient is possible.
@@ -42,7 +81,7 @@ def process (text):
     for i in range(tlen):
         c = text[i]
         c2 = text[i:i+2]
-        r = _dict_c2l.get(c2) or _dict_c2l.get(c)
+        r = trdict.get(c2) or trdict.get(c)
         if r is not None:
             if len(r) > 1 and c.isupper() \
             and (   (i + 1 < tlen and text[i + 1].isupper()) \
