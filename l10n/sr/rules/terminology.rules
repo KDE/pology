@@ -267,7 +267,7 @@ disabled
 {\blog\b}i
 id="log"
 hint="log = дневник"
-valid before=" ?(in|into|out|off)\b"
+valid before=" ?(in|into|out|off|on)\b"
 valid msgstr="\bдневни[чк]"
 # наредни да би прошло до log2
 valid msgstr="\b(за)?беле[шж]"
@@ -389,6 +389,7 @@ valid cat="lokalize" msgid="saves a great" msgstr="\bштед"
 valid cat="dolphin" msgid="to save time" msgstr="\b(штед|ефикасн)"
 valid cat="PO_Odyssey" msgid="work may be saved" msgstr="\bуштед"
 valid cat="powerdevil" msgid="sav(e|ing).*battery" msgstr="\bу?штед"
+valid cat="userguide_programs-and-documents" msgid="save screen space" msgstr="\bу?штед"
 
 # Све провере на save.
 {\bsaving}i
@@ -422,7 +423,7 @@ id="space"
 hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
 valid span="space\b" before=" (available|required|of|left|information)" msgstr="\bпростор"
-valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|little|memory|more|much|no|out of|remaining|of|save|storage|some|sufficient|total|used|work|I/O) " msgstr="\bпростор"
+valid span="space\b" after="(additional|all|allocate|config|digital|disk|empty|enough|free|little|memory|more|much|no|out of|remaining|of|save|screen|storage|some|sufficient|take up|total|used|work|I/O) " msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
@@ -438,7 +439,7 @@ valid msgstr="\bистицањ\w+ синтакс"
 id="tab"
 hint="tab = језичак"
 valid msgstr="\bјезич[акц]|\bтабулатор"
-valid msgid="press tab|tab key|alt\W*tab|ctrl\W*tab|shift\W*tab"
+valid msgid="(press|pressing) &?tab|(tab|&tab;) key|alt\W*tab|ctrl\W*tab|shift\W*tab"
 valid cat="kdelibs4" ctx="keyboard" msgstr="&tab\S*;"
 valid cat="kdeqt" ctx="shortcut" msgstr="&tab\S*;"
 valid cat="konsole" msgid="^Tab title format:$" msgstr="^Формат наслова:$"

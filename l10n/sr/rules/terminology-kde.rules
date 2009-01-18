@@ -498,7 +498,7 @@ valid msgstr="\bтра(ци|к\w+) локације"
 {\blog(ged|ging)?\b}i
 id="log2"
 hint="log = бележити"
-valid before=" ?(in|into|out|off)\b"
+valid before=" ?(in|into|out|off|on)\b"
 valid msgstr="\b(за)?беле[жш]"
 valid msgstr="\bдневни[чк]"
 
@@ -617,6 +617,7 @@ valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курс�
 valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
 valid cat="lokalize" msgid="cursor column" msgstr="курсор"
 valid cat="userguide_panel-and-desktop" msgid="placed the cursor" msgstr="курсор"
+valid cat="userguide_standard-menu-entries" msgid="inserted where the cursor" msgstr="курсор"
 
 {\bproxy}i
 id="proxy"
@@ -692,6 +693,7 @@ id="service"
 hint="service = сервис"
 valid msgstr="\bсервис"
 valid msgstr="&\w*service\w*-\S*;"
+valid before=" provider" msgstr="\bуслуг"
 valid cat="kurifilter" msgid="automatic lookup services"
 valid cat="kcmsamba" msgid="provide.*sharing service"
 valid cat="kcmkio" msgid="provides services"
