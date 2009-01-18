@@ -121,12 +121,14 @@ valid msgid="physical attributes" msgstr="物理特性"
 {\baudio\b}i
 id="audio"
 hint="audio = 音声 [映像に対する音声]"
-valid !before=" (output|input|capture|device|backend|track|channel|stream|(samle|sampling) rate|bitrate|delay)"
+valid cat="k3b, libk3b, desktop_extragear-multimedia_k3b" before=" track"
+valid !before=" (output|input|capture|device|backend|track|channel|stream|frame|data|(samle|sampling) rate|bitrate|delay)"
 valid msgstr="音声"
 
 {\baudio}i
 id="audio2"
 hint="audio = 音声"
+valid cat="k3b, libk3b" before=" file" !before=" file format"
 valid !before=" (file|(file ?)?format|codec)"
 valid msgstr="音声"
 
@@ -134,6 +136,7 @@ valid msgstr="音声"
 id="audio3"
 hint="audio = オーディオ"
 valid !before=" (CD|DVD|player|card|server)"
+valid msgid="Enhanced Audio CD" msgstr="CD-Extra"
 valid msgstr="オーディオ"
 
 {\bauthenticat(e|ing|ion)}i
@@ -197,6 +200,11 @@ valid msgstr="ボールド"
 id="bookmark"
 hint="bookmark = ブックマーク"
 valid msgstr="ブックマーク"
+
+{\bBrowse\.\.\.}
+id="browse"
+hint="Browse... = ブラウズ..."
+valid msgstr="ブラウズ..."
 
 {^Cancel$}
 id="cancel"
@@ -1590,6 +1598,7 @@ valid msgstr="タブバー"
 id="table_of_contents"
 hint="table of contents = 目次"
 valid msgstr="目次"
+valid cat="k3b, libk3b" msgstr="内容一覧"
 
 {\btemplates?\b}i
 id="template"
@@ -1753,7 +1762,7 @@ valid msgstr="バージョン管理システム"
 {\bvideo\b}i
 id="video"
 hint="video = 映像 [音声に対する映像]"
-valid !before=" (output|input|capture|device|track|channel|stream|(samle|sampling) rate|bitrate)"
+valid !before=" (output|input|capture|device|track|channel|stream|frame|data|(samle|sampling) rate|bitrate)"
 valid msgstr="映像"
 
 {\bvideo\b}i
