@@ -508,6 +508,10 @@ id="style-percent"
 hint="数字とパーセント記号の間にはスペースを入れません。"
 removeFilter handle="fmtdirs"
 
+[\w“|”\w]
+id="quotedouble"
+hint="英語の引用符の前後には半角のスペースを入れてください"
+
 removeFilter handle="markup"
 
 [\w<application>|</application>\w]
