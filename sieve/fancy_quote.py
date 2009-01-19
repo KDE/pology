@@ -158,6 +158,7 @@ def equip_fancy_quotes (text, squote, fquotes):
     i_open = -1
     i = 0
     ntext = ""
+    lensq = len(squote)
     while i < len(text):
 
         # Calculate the length of no-modify segment if it starts here.
@@ -198,8 +199,14 @@ def equip_fancy_quotes (text, squote, fquotes):
                 no_mod_len = ic - i
 
         # - simple quotes with no text in between
-        elif text[i:i+2*len(squote)] == squote + squote:
-            no_mod_len = 2 * len(squote)
+        elif text[i:i + 2 * lensq] == squote + squote:
+            no_mod_len = 2 * lensq
+
+        # - ASCII quote just after a number, and no opening quote so far
+        # (may be a unit: inch, foot, minute, second)
+        elif i_open < 0 and text[i:i + 1].isdigit():
+            if text[i + 1:i + 1 + lensq] == squote:
+                no_mod_len = 1 + lensq
 
         # Advance past the end of no-modify segment if found.
         if no_mod_len > 0:
