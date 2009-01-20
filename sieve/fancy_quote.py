@@ -86,6 +86,10 @@ class Sieve (object):
         if flag_no_fancy_quote in manc_parse_flag_list(msg, "|"):
             return
 
+        # Skip the message if special by context (one of meta-messages).
+        if _spec_msgctxt_rx.search(msg.msgctxt or ""):
+            return
+
         # Skip the message if auto comments identify it as literal user input.
         for cmnt in msg.auto_comment:
             cmnt = cmnt.lower()
@@ -113,6 +117,12 @@ class Sieve (object):
             print   "Total quote pairs replaced (single+double): %d+%d" \
                   % (self.nrepl_single, self.nrepl_double)
 
+
+# Regular expression for matching special messages by context.
+_spec_msgctxt = (
+    "qtdt-format",
+)
+_spec_msgctxt_rx = re.compile("|".join(_spec_msgctxt))
 
 # Regular expression for matching no-modify nodes in XML markup.
 _xml_literal_tags = (
