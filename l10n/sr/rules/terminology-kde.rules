@@ -483,6 +483,7 @@ valid msgstr="&(internetbooklist)\S*;"
 valid cat="kabc,userguide_getting-help" msgstr="\bлист"
 valid cat="kabc" msgid="list of emails" msgstr="\bсписак"
 valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опцијама,"
+valid cat="kget" after="transfers?\W?" msgstr="лист\w+ преноса"
 
 {\blist}i
 id="list3"
