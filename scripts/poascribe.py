@@ -377,19 +377,19 @@ def examine_state (options, configs_catpaths, mode):
             # Count non-ascribed by original catalog.
             for msg in cat:
                 history = asc_collect_history(msg, acat, config)
-                if not history and is_any_untran(msg):
+                if not history and msg.untranslated:
                     continue # pristine
                 if stest(msg, cat, history, config, options) is None:
                     continue # not selected
                 if not history or not asc_eq(msg, history[0].msg):
-                    st = state(msg)
+                    st = msg.state()
                     if catpath not in counts[st]:
                         counts[st][catpath] = 0
                     counts[st][catpath] += 1
             # Count non-ascribed by ascription catalog.
             for amsg in acat:
                 if amsg not in cat:
-                    ast = state(amsg)
+                    ast = amsg.state()
                     st = None
                     if ast == _st_tran:
                         st = _st_otran
@@ -531,19 +531,19 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     counts0 = counts.copy()
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
-        if not history and is_any_untran(msg):
+        if not history and msg.untranslated:
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
             continue # not selected
         if not (history and asc_eq(msg, history[0].msg)):
             toasc_msgs.append(msg)
-            counts[state(msg)] += 1
+            counts[msg.state()] += 1
 
     # Collect non-obsolete ascribed messages that no longer have
     # original counterpart, to ascribe as obsolete.
     for amsg in acat:
         if amsg not in cat:
-            ast = state(amsg)
+            ast = amsg.state()
             st = None
             if ast == _st_tran:
                 st = _st_otran
@@ -596,7 +596,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to ascribe review to pristine messages.
-        if not history and is_any_untran(msg):
+        if not history and msg.untranslated:
             continue
         if stest(msg, cat, history, config, options) is None:
             continue
@@ -670,7 +670,7 @@ def diff_select_cat (options, config, catpath, acatpath,
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to review pristine messages.
-        if not history and is_any_untran(msg):
+        if not history and msg.untranslated:
             continue
         sres = stest(msg, cat, history, config, options)
         if sres is None:
@@ -758,7 +758,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             else:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
-            if not a.type == _atype_mod or is_any_fuzzy(a.msg):
+            if not a.type == _atype_mod or a.msg.fuzzy:
                 # Nothing more to show if this ascription is not modification,
                 # or a fuzzy message is associated to it.
                 continue
@@ -804,8 +804,8 @@ def clear_review_msg (msg, live, rep_ntrans=None, clrevd=True):
     return cleared
 
 
-# Exclusive states of a message.
-# FIXME: This functionality better exported to pology.file.message
+# Exclusive states of a message, as reported by Message.state().
+# FIXME: These keywords better exported to pology.file.message
 _st_tran = "T"
 _st_fuzzy = "F"
 _st_untran = "U"
@@ -816,56 +816,13 @@ _all_states = (
     _st_tran, _st_fuzzy, _st_untran,
     _st_otran, _st_ofuzzy, _st_ountran,
 )
-def state (msg):
-    if not msg.obsolete:
-        if msg.translated:
-            return _st_tran
-        elif msg.fuzzy:
-            return _st_fuzzy
-        else:
-            return _st_untran
-    else:
-        if "fuzzy" in msg.flag:
-            return _st_ofuzzy
-        for msgstr in msg.msgstr:
-            if msgstr:
-                return _st_otran
-        return _st_ountran
-
-
-def is_tran (msg):
-    return state(msg) == _st_tran
-
-def is_fuzzy (msg):
-    return state(msg) == _st_fuzzy
-
-def is_untran (msg):
-    return state(msg) == _st_untran
-
-def is_otran (msg):
-    return state(msg) == _st_otran
-
-def is_ofuzzy (msg):
-    return state(msg) == _st_ofuzzy
-
-def is_ountran (msg):
-    return state(msg) == _st_ountran
-
-def is_any_untran (msg):
-    return state(msg) in (_st_untran, _st_ountran)
-
-def is_any_fuzzy (msg):
-    return state(msg) in (_st_fuzzy, _st_ofuzzy)
-
-def is_any_obsolete (msg):
-    return state(msg) in (_st_otran, _st_ofuzzy, _st_ountran)
 
 
 def first_nfuzzy (history, start=0):
 
     for i in range(start, len(history)):
         hmsg = history[i].msg
-        if hmsg and not is_any_fuzzy(hmsg):
+        if hmsg and not hmsg.fuzzy:
             return i
 
     return None
@@ -1003,7 +960,7 @@ def has_nonid_diff (pmsg, msg):
 
     for field in _nonid_fields_tracked:
         msg_value = msg.get(field)
-        if not is_any_fuzzy(msg) and field in _fields_previous:
+        if not msg.fuzzy and field in _fields_previous:
             # Ignore previous values in messages with no fuzzy flag.
             msg_value = None
         pmsg_value = pmsg.get(field)
@@ -1015,7 +972,7 @@ def has_nonid_diff (pmsg, msg):
 
 def get_as_sequence (msg, field, asc=True):
 
-    if not asc and not is_any_fuzzy(msg) and field in _fields_previous:
+    if not asc and not msg.fuzzy and field in _fields_previous:
         # Ignore previous fields on non-ascription messages without fuzzy flag.
         return []
 
@@ -1125,7 +1082,7 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
 
     # Do any of non-ID elements differ to last historical message?
     if rhistory:
-        hasdiff_state = state(rhistory[-1].msg) != state(msg)
+        hasdiff_state = rhistory[-1].msg.state() != msg.state()
         hasdiff_nonid = has_nonid_diff(rhistory[-1].msg, msg)
     else:
         hasdiff_nonid = True
@@ -1142,9 +1099,9 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         if hasdiff_nonid:
             seplen = needed_separator_length(msg)
             wsep += str(seplen)
-        if is_any_obsolete(msg):
+        if msg.obsolete:
             wsep += _mark_obs
-        if is_any_fuzzy(msg):
+        if msg.fuzzy:
             wsep += _mark_fuzz
         if wsep:
             modstr_wsep += " | " + wsep
@@ -1164,11 +1121,11 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         add_nonid(amsg, msg, seplen, rhistory)
 
     # Update state.
-    if is_any_fuzzy(msg):
+    if msg.fuzzy:
         amsg.flag.add(u"fuzzy")
     else:
         amsg.flag.remove(u"fuzzy")
-    if is_any_obsolete(msg):
+    if msg.obsolete:
         amsg.obsolete = True
     else:
         amsg.obsolete = False
@@ -1193,9 +1150,9 @@ def asc_eq (msg1, msg2):
     Whether two messages are equal from the ascription viewpoint.
     """
 
-    if state(msg1) != state(msg2):
+    if msg1.state() != msg2.state():
         return False
-    if is_any_fuzzy(msg1):
+    if msg1.fuzzy:
         check_fields = _nonid_fields_eq_fuzzy
     else:
         check_fields = _nonid_fields_eq_nonfuzzy
@@ -1249,7 +1206,7 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg):
 
     # Continue into the past by pivoting around first message if fuzzy.
     amsg = history and history[-1].msg or msg
-    if is_any_fuzzy(amsg) and amsg.msgid_previous:
+    if amsg.fuzzy and amsg.msgid_previous:
         pmsg = MessageUnsafe()
         for field in _id_fields:
             setattr(pmsg, field, amsg.get(field + "_previous"))
@@ -1670,7 +1627,7 @@ def selector_wasc ():
                 # under the filter in effect.
                 if not msg.ediff_from(amsg, pfilter=pfilter):
                     return True
-        elif is_any_untran(msg):
+        elif msg.untranslated:
             # Also consider pristine messages ascribed.
             return True
 
