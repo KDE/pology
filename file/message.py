@@ -45,6 +45,8 @@ _Message_spec = {
                 "spec" : {"*" : {"type" : unicode}}},
 
     "key" : {"type" : unicode, "derived" : True},
+    "fmt" : {"type" : unicode, "derived" : True},
+    "inv" : {"type" : unicode, "derived" : True},
     "fuzzy" : {"type" : bool},
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
@@ -158,12 +160,35 @@ class Message_base (object):
     @ivar msgstr: translation fields (C{msgstr "..."}, C{msgstr[n] "..."})
     @type msgstr: list* of strings
 
-    @ivar key: (read-only)
-        message key, which defines a unique entry in the catalog
+    @ivar key: (read-only) key composition
 
-        An undefined composition of C{msgctxt} and C{msgid} fields
-        (but not C{msgid_plural} when it exists).
+        Message key is formed by the parts of the message which define
+        unique entry in a catalog.
+
+        The value is an undefined serialization of C{msgctxt} and C{msgid}.
     @type key: string
+
+    @ivar fmt: (read-only) format composition
+
+        Format composition consists of all message parts which determine
+        contents of compiled message in the MO file, including whether
+        it is compiled at all.
+
+        The value is an undefined serialization of: C{msgctxt}, C{msgid},
+        C{msgid_plural}, C{msgstr}, C{fuzzy}, C{obsolete}.
+    @type fmt: string
+
+    @ivar inv: (read-only) extraction-invariant composition
+
+        Extraction-invariant parts of the message are those that are not
+        dependent on the placement and comments to the message in the code.
+        In effect, these are the parts which are not eliminated when
+        the message is obsoleted after merging.
+
+        The value is an undefined serialization of: C{msgctxt}, C{msgid},
+        C{msgid_plural}, C{msgstr}, C{fuzzy}, C{obsolete}, C{manual_comment},
+        C{msgctxt_previous}, C{msgid_previous}, C{msgid_plural_previous}.
+    @type inv: string
 
     @ivar fuzzy:
         whether the message is fuzzy
@@ -252,10 +277,19 @@ class Message_base (object):
             return True
 
         elif att == "key":
-            if self.msgctxt is not None:
-                return self.msgctxt + "|~|" + self.msgid
-            else:
-                return self.msgid
+            return self._compose(["msgctxt", "msgid"])
+
+        elif att == "fmt":
+            return self._compose(["msgctxt", "msgid",
+                                  "msgid_plural", "msgstr",
+                                  "fuzzy", "obsolete"])
+
+        elif att == "inv":
+            return self._compose(["msgctxt", "msgid",
+                                  "msgid_plural", "msgstr",
+                                  "fuzzy", "obsolete",
+                                  "manual_comment", "msgctxt_previous",
+                                  "msgid_previous", "msgid_plural_previous"])
 
         elif att == "format":
             format_flag = ""
@@ -270,6 +304,27 @@ class Message_base (object):
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
+
+
+    def _compose (self, fields):
+
+        fmtvals = []
+        for field in fields:
+            val = self.get(field)
+            if val is None:
+                fval = u"\x00"
+            elif isinstance(val, bool):
+                fval = val and u"1" or u"0"
+            elif isinstance(val, (list, Monlist)):
+                fval = u"\x02".join([u"%s" % x for x in val])
+            elif isinstance(val, (set, Monset)):
+                vlst = [u"%s" % x for x in val]
+                vlst.sort()
+                fval = u"\x02".join(vlst)
+            else:
+                fval = u"%s" % val
+            fmtvals.append(fval)
+        return "\x04".join(fmtvals)
 
 
     def get (self, ivar, default=None):
