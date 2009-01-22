@@ -55,12 +55,11 @@ class Sieve (object):
                 msg.modcount = 1 # in case of non-monitored messages
 
         # Replace any <...> with <.../> in the msgstr.
-        if not msg.obsolete:
-            for i in range(len(msg.msgstr)):
-                if _open_inpl_rx.search(msg.msgstr[i]):
-                    msg.msgstr[i] = _open_inpl_rx.sub(r"<\1/>", msg.msgstr[i])
-                    self.nmodinpl += 1
-                    msg.modcount = 1 # in case of non-monitored messages
+        for i in range(len(msg.msgstr)):
+            if _open_inpl_rx.search(msg.msgstr[i]):
+                msg.msgstr[i] = _open_inpl_rx.sub(r"<\1/>", msg.msgstr[i])
+                self.nmodinpl += 1
+                msg.modcount = 1 # in case of non-monitored messages
 
 
     def finalize (self):

@@ -100,15 +100,15 @@ class Sieve (object):
             status = "obsolete"
         else:
             self.count["tot"] += 1
-        if msg.translated:
-            self.count["trn"] += 1
-            status = "translated"
-        elif msg.fuzzy:
-            self.count["fuz"] += 1
-            status = "fuzzy"
-        elif msg.untranslated:
-            self.count["unt"] += 1
-            status = "untranslated"
+            if msg.translated:
+                self.count["trn"] += 1
+                status = "translated"
+            elif msg.fuzzy:
+                self.count["fuz"] += 1
+                status = "fuzzy"
+            elif msg.untranslated:
+                self.count["unt"] += 1
+                status = "untranslated"
                 
         # Output writing
         self.output("\t<msg>\n")

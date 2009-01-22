@@ -509,14 +509,14 @@ class Sieve (object):
         # Detect categories and add the counts.
         categories = []
 
-        if not msg.obsolete:
+        if not msg.obsolete: # do not count obsolete into totals
             self.count["tot"][0] += 1
             categories.append("tot")
-        else:
+
+        if msg.obsolete: # do not split obsolete into fuzzy/translated
             self.count["obs"][0] += 1
             categories.append("obs")
-
-        if msg.translated:
+        elif msg.translated:
             self.count["trn"][0] += 1
             categories.append("trn")
         elif msg.fuzzy:

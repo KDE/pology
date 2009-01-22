@@ -35,14 +35,13 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if msg.fuzzy:
-            msg.fuzzy = False
-            msg.msgstr = Monlist()
-            if self.rmcomments:
-                msg.manual_comment = Monlist()
-            self.nemptied += 1
-
-        elif msg.obsolete:
-            if "fuzzy" in msg.flag:
+            if not msg.obsolete:
+                msg.fuzzy = False
+                msg.msgstr = Monlist()
+                if self.rmcomments:
+                    msg.manual_comment = Monlist()
+                self.nemptied += 1
+            else:
                 cat.remove_on_sync(msg)
 
 
