@@ -149,10 +149,10 @@ class VcsBase (object):
 
     def export (self, path, rev, dstpath, rewrite=None):
         """
-        Export a versioned file.
+        Export a versioned file or directory.
 
-        Makes a copy of versioned file pointed to by local path C{path},
-        in the revision C{rev}, to destination path C{dstpath}.
+        Makes a copy of versioned file or directory pointed to by
+        local path C{path}, in the revision C{rev}, to destination C{dstpath}.
         If C{rev} is C{None}, the clean version of C{path} according
         to current local repository state is copied to C{dstpath}.
 
@@ -161,7 +161,7 @@ class VcsBase (object):
         The function takes as arguments the path and revision strings.
         This can be useful, for example, to reroute remote repository URL.
 
-        @param path: path of the versioned file in local repository
+        @param path: path of the versioned file or directory in local repository
         @type path: string
         @param rev: revision to export
         @type rev: string or C{None}
@@ -175,7 +175,7 @@ class VcsBase (object):
         """
 
         error("selected version control system does not define "
-              "fetching a versioned file")
+              "fetching a versioned path")
 
 
     def commit (self, paths, message=None):
@@ -537,7 +537,7 @@ class VcsGit (VcsBase):
             tardir = os.path.join(tarpdir, tarbdir)
             tarpath = os.path.join(tardir, path)
             try:
-                shutil.copyfile(tarpath, dstpath)
+                shutil.move(tarpath, dstpath)
             except:
                 ret = False
         else:
