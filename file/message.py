@@ -183,8 +183,8 @@ class Message_base (object):
     @type translated: bool
 
     @ivar format: (read-only)
-        whether the message contains any format flags (e.g. C{c-format})
-    @type translated: bool
+        the format flag of the message (e.g. C{c-format}) or empty string
+    @type format: string
 
     @ivar refline:
         referent line number of the message inside the catalog
@@ -233,9 +233,7 @@ class Message_base (object):
         if 0: pass
 
         elif att == "translated":
-            if self.fuzzy or self.obsolete:
-                return False
-            if not self.msgstr:
+            if self.fuzzy:
                 return False
             # Consider message translated if at least one msgstr is translated:
             # that's how gettext tools do, but then they report an error for
@@ -246,14 +244,12 @@ class Message_base (object):
             return False
 
         elif att == "untranslated":
-            if self.fuzzy or self.obsolete:
+            if self.fuzzy:
                 return False
-            if not self.msgstr:
-                return True
             for val in self.msgstr:
-                if not val:
-                    return True
-            return False
+                if val:
+                    return False
+            return True
 
         elif att == "key":
             if self.msgctxt is not None:
@@ -270,7 +266,7 @@ class Message_base (object):
             return format_flag
 
         elif att == "fuzzy":
-            return u"fuzzy" in self.flag and not self.obsolete
+            return u"fuzzy" in self.flag
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
@@ -426,9 +422,7 @@ class Message_base (object):
 
         # Actually, it might make sense regardless...
         ## Old originals makes sense only for a message with a fuzzy flag.
-        #if u"fuzzy" in self.flag:
-        ## Note that this check is not the same as checking for self.fuzzy,
-        ## as self.fuzzy is false for an obsolete message with a fuzzy flag.
+        #if self.fuzzy:
         lins.extend(self._lines_msgctxt_previous)
         lins.extend(self._lines_msgid_previous)
         lins.extend(self._lines_msgid_plural_previous)
@@ -593,20 +587,28 @@ class Message_base (object):
         Coded description of the translation state of the message.
 
         Code string can be one of:
-        "T" (translated), "F" (fuzzy), "U" (untranslated), "O" (obsolete).
+        "T" (translated), "F" (fuzzy), "U" (untranslated),
+        "OT" (obsolete translated), "OF" (obsolete fuzzy),
+        "OU" (obsolete untranslated).
 
         @returns: coded translation state
         @rtype: string
         """
 
-        if self.obsolete:
-            return "O"
-        elif self.fuzzy:
-            return "F"
-        elif self.translated:
-            return "T"
+        if not self.obsolete:
+            if self.fuzzy:
+                return "F"
+            elif self.translated:
+                return "T"
+            else:
+                return "U"
         else:
-            return "U"
+            if self.fuzzy:
+                return "OF"
+            elif self.translated:
+                return "OT"
+            else:
+                return "OU"
 
 
     def ediff_from (self, omsg, pfilter=None, hlto=None, addrem=None):
