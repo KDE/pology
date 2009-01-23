@@ -18,12 +18,6 @@ class Sieve (object):
             options.accept("strip")
             self.strip = True
 
-        # Embed differences only if less different than this.
-        self.limit = 1.0
-        if "limit" in options:
-            options.accept("limit")
-            self.limit = float(options["limit"])
-
         # Summit: consider only messages belonging to given branches.
         self.branches = None
         if "branch" in options:
@@ -42,13 +36,8 @@ class Sieve (object):
 
         # Create the diff or only put back the clean text.
         if not self.strip:
-            diff, diff_ratio = word_ediff(previous_clean, msgnew,
-                                          markup=True, format=format, diffr=True)
-            # Use the diff only if not too much difference.
-            if diff_ratio < self.limit:
-                return diff
-            else:
-                return previous_clean
+            return word_ediff(previous_clean, msgnew,
+                              markup=True, format=format)
         else:
             return previous_clean
 
