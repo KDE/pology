@@ -24,22 +24,18 @@ class Sieve (object):
             self.branches = set(options["branch"].split(","))
             options.accept("branch")
 
-        # Indicators to the caller:
-        # - monitor to avoid unnecessary reformatting
-        self.caller_monitored = True
-
 
     def _diff (self, msgold, msgnew, format):
 
         # Remove any previous diff.
-        previous_clean = word_ediff_to_old(msgold)
+        msgold_clean = word_ediff_to_old(msgold)
 
         # Create the diff or only put back the clean text.
         if not self.strip:
-            return word_ediff(previous_clean, msgnew,
+            return word_ediff(msgold_clean, msgnew,
                               markup=True, format=format)
         else:
-            return previous_clean
+            return msgold_clean
 
 
     def process (self, msg, cat):
@@ -51,23 +47,20 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                 return
 
-        # Differentiate the msgctxt.
-        if msg.msgctxt_previous is not None and msg.msgctxt is not None:
-            msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
-                                              msg.format)
-            msg.modcount = 1 # in case of non-monitored messages
+        # Skip if message is not fuzzy or does not have previous fields.
+        if not msg.fuzzy or msg.msgid_previous is None:
+            # Remove any stray previous fields.
+            msg.msgctxt_previous = None
+            msg.msgid_previous = None
+            msg.msgid_plural_previous = None
+            return
 
-        # Differentiate the msgid.
-        if msg.msgid_previous is not None:
-            msg.msgid_previous = self._diff(msg.msgid_previous, msg.msgid,
-                                            msg.format)
-            msg.modcount = 1 # in case of non-monitored messages
-
-        # Differentiate the msgid_plural.
-        if msg.msgid_plural_previous is not None and msg.msgid_plural is not None:
-            msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
-                                                   msg.msgid_plural, msg.format)
-            msg.modcount = 1 # in case of non-monitored messages
+        msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
+                                          msg.format)
+        msg.msgid_previous = self._diff(msg.msgid_previous, msg.msgid,
+                                        msg.format)
+        msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
+                                               msg.msgid_plural, msg.format)
 
 
     def finalize (self):
