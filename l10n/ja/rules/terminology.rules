@@ -217,6 +217,21 @@ hint="capture = キャプチャ"
 valid msgstr="キャプチャ"
 disabled
 
+{\bchapters?\b}i
+id="chapter"
+hint="chapter = 章"
+valid cat="k3b, libk3b, kmplayer, kplayer, kaffeine4, kaffeinegl, dragonplayer"
+valid msgstr="章"
+valid after="DVD "
+valid cat="kile" before="\*?{title}"
+
+{\bchapters?\b}i
+id="chapter2"
+hint="chapter = チャプター [DVD の映像シーンの区切り]"
+valid !after="DVD " !cat="k3b, libk3b, kmplayer, kplayer, kaffeine4, kaffeinegl, dragonplayer"
+valid msgstr="チャプター" !msgstr="チャプタ(?!ー)"
+valid after="the Configuration dialog "
+
 {\bcharacter sets?\b}i
 id="character_set"
 hint="character set = 文字セット"
