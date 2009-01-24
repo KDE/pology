@@ -191,7 +191,7 @@ object --+
         <span class="summary-sig-arg">rev</span>,
         <span class="summary-sig-arg">dstpath</span>,
         <span class="summary-sig-arg">rewrite</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Export a versioned file.</td>
+      Export a versioned file or directory.</td>
           <td align="right" valign="top">
             
             
@@ -474,9 +474,9 @@ object --+
     </td>
   </tr></table>
   
-  <p>Export a versioned file.</p>
-  <p>Makes a copy of versioned file pointed to by local path 
-  <code>path</code>, in the revision <code>rev</code>, to destination path 
+  <p>Export a versioned file or directory.</p>
+  <p>Makes a copy of versioned file or directory pointed to by local path 
+  <code>path</code>, in the revision <code>rev</code>, to destination 
   <code>dstpath</code>. If <code>rev</code> is <code>None</code>, the clean
   version of <code>path</code> according to current local repository state 
   is copied to <code>dstpath</code>.</p>
@@ -487,7 +487,7 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> - path of the versioned file in local repository</li>
+        <li><strong class="pname"><code>path</code></strong> - path of the versioned file or directory in local repository</li>
         <li><strong class="pname"><code>rev</code></strong> - revision to export</li>
         <li><strong class="pname"><code>dstpath</code></strong> - file path to export to</li>
         <li><strong class="pname"><code>rewrite</code></strong> - function to filter resolved repository path</li>

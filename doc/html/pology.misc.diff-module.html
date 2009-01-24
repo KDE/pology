@@ -51,7 +51,8 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module diff</h1><p class="nomargin-top"></p>
-<p>Producing diffs between texts.</p>
+<p>Produce special diffs between strings and other interesting 
+  objects.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -70,7 +71,7 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of tuples or (list of tuples, float)</span>
+      <span class="summary-type">[(string, string)...] or ([(string, string)...], float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -91,7 +92,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string or None or (string or None, float)</span>
+      <span class="summary-type">string/None or (string/None, float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -147,11 +148,12 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of word-diffs or (list of word-diffs, float)</span>
+      <span class="summary-type">[[(string, string)...]...] or ([([(string, string)...], float)...], 
+      float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_diff" class="summary-sig-name">line_word_diff</a>(<span class="summary-sig-arg">lines_old</span>,
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_diff" class="summary-sig-name">line_diff</a>(<span class="summary-sig-arg">lines_old</span>,
         <span class="summary-sig-arg">lines_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
@@ -168,11 +170,11 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (string, float), float</span>
+      <span class="summary-type">[string...] or ([(string, float)...], float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff" class="summary-sig-name">line_word_ediff</a>(<span class="summary-sig-arg">lines_old</span>,
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_ediff" class="summary-sig-name">line_ediff</a>(<span class="summary-sig-arg">lines_old</span>,
         <span class="summary-sig-arg">lines_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
@@ -195,7 +197,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff_to_old" class="summary-sig-name">line_word_ediff_to_old</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_ediff_to_old" class="summary-sig-name">line_ediff_to_old</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
       Recover old version (-) from lines of text with embedded differences.</td>
           <td align="right" valign="top">
             
@@ -212,7 +214,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_word_ediff_to_new" class="summary-sig-name">line_word_ediff_to_new</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#line_ediff_to_new" class="summary-sig-name">line_ediff_to_new</a>(<span class="summary-sig-arg">dlines</span>)</span><br />
       Recover new version (+) from lines of text with embedded differences.</td>
           <td align="right" valign="top">
             
@@ -241,6 +243,107 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, int/None, [(string, string)...])...] or ([(string, 
+      int/None, [(string, string)...], float)...], float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#msg_diff" class="summary-sig-name">msg_diff</a>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>,
+        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create word-level difference between extraction-invariant parts of 
+      messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">type(emsg or msg2 or msg1 or None) or (type(~), float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#msg_ediff" class="summary-sig-name">msg_ediff</a>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>,
+        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">emsg</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ecat</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">emptydc</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create word-level embedded difference between extraction-invariant 
+      parts of messages.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">type of first non-None of rmsg, emsg, or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#msg_ediff_to_new" class="summary-sig-name">msg_ediff_to_new</a>(<span class="summary-sig-arg">emsg</span>,
+        <span class="summary-sig-arg">rmsg</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Resolve message with embedded difference to the newer message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#msg_ediff_to_old" class="summary-sig-name">msg_ediff_to_old</a>(<span class="summary-sig-arg">emsg</span>,
+        <span class="summary-sig-arg">rmsg</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Resolve message with embedded difference to the older message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="x"></a><span class="summary-name">x</span> = <code title="'msgid_plural'"><code class="variable-quote">'</code><code class="variable-string">msgid_plural</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -315,7 +418,7 @@
           etc.)</li>
         <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
     </ul></dd>
-    <dt>Returns: list of tuples or (list of tuples, float)</dt>
+    <dt>Returns: [(string, string)...] or ([(string, string)...], float)</dt>
         <dd>difference list and possibly difference ratio</dd>
   </dl>
 </td></tr></table>
@@ -370,7 +473,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>hlto</code></strong> (file descriptor) - destination to produce extra highlighting for</li>
     </ul></dd>
-    <dt>Returns: string or None or (string or None, float)</dt>
+    <dt>Returns: string/None or (string/None, float)</dt>
         <dd>string with embedded differences and possibly difference ratio</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
@@ -437,14 +540,14 @@
       </p>
 </div></td></tr></table>
 </div>
-<a name="line_word_diff"></a>
+<a name="line_diff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_diff</span>(<span class="sig-arg">lines_old</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_diff</span>(<span class="sig-arg">lines_old</span>,
         <span class="sig-arg">lines_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
@@ -471,19 +574,20 @@
         <li><strong class="pname"><code>lines_old</code></strong> (string) - old lines of text</li>
         <li><strong class="pname"><code>lines_new</code></strong> (string) - new lines of text</li>
     </ul></dd>
-    <dt>Returns: list of word-diffs or (list of word-diffs, float)</dt>
-        <dd>difference list and possibly difference ratio</dd>
+    <dt>Returns: [[(string, string)...]...] or ([([(string, string)...], float)...], 
+      float)</dt>
+        <dd>difference list and possibly difference ratios</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="line_word_ediff"></a>
+<a name="line_ediff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff</span>(<span class="sig-arg">lines_old</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_ediff</span>(<span class="sig-arg">lines_old</span>,
         <span class="sig-arg">lines_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
@@ -497,32 +601,32 @@
   
   <p>Create word-level embedded difference between old and new lines of 
   text.</p>
-  <p>Same as <a href="pology.misc.diff-module.html#line_word_diff" 
-  class="link">line_word_diff</a>, but the difference is returned as list 
-  of tuples of line of text (in which the new segments are wrapped as 
+  <p>Same as <a href="pology.misc.diff-module.html#line_diff" 
+  class="link">line_diff</a>, but the difference is returned as list of 
+  tuples of line of text (in which the new segments are wrapped as 
   <code>{+...+}</code>, and the old segments as <code>{-...-}</code>) and 
   difference ratio for the line. See <a 
   href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a> 
   and <a href="pology.misc.diff-module.html#word_ediff" 
   class="link">word_ediff</a> for description of keyword parameters.</p>
   <dl class="fields">
-    <dt>Returns: list of (string, float), float</dt>
-        <dd>list of lines and partial difference ratios, and total ratio</dd>
+    <dt>Returns: [string...] or ([(string, float)...], float)</dt>
+        <dd>lines with embedded differences and possibly difference ratios</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.diff-module.html#line_word_diff" 
-        class="link">line_word_diff</a>
+        <a href="pology.misc.diff-module.html#line_diff" 
+        class="link">line_diff</a>
       </p>
 </div></td></tr></table>
 </div>
-<a name="line_word_ediff_to_old"></a>
+<a name="line_ediff_to_old"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff_to_old</span>(<span class="sig-arg">dlines</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_ediff_to_old</span>(<span class="sig-arg">dlines</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -540,19 +644,19 @@
         <dd>old version of the lines</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.diff-module.html#line_word_ediff" 
-        class="link">line_word_ediff</a>
+        <a href="pology.misc.diff-module.html#line_ediff" 
+        class="link">line_ediff</a>
       </p>
 </div></td></tr></table>
 </div>
-<a name="line_word_ediff_to_new"></a>
+<a name="line_ediff_to_new"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_word_ediff_to_new</span>(<span class="sig-arg">dlines</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_ediff_to_new</span>(<span class="sig-arg">dlines</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -570,8 +674,8 @@
         <dd>new version of the lines</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.diff-module.html#line_word_ediff" 
-        class="link">line_word_ediff</a>
+        <a href="pology.misc.diff-module.html#line_ediff" 
+        class="link">line_ediff</a>
       </p>
 </div></td></tr></table>
 </div>
@@ -619,6 +723,253 @@
     </ul></dd>
     <dt>Returns: list of index tuples</dt>
         <dd>adapted spans</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="msg_diff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">msg_diff</span>(<span class="sig-arg">msg1</span>,
+        <span class="sig-arg">msg2</span>,
+        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create word-level difference between extraction-invariant parts of 
+  messages.</p>
+  <p>For which parts of a message are considered extraction-invariant, see 
+  description of <a href="pology.file.message.Message_base-class.html" 
+  class="link">inv</a> instance variable of message objects.</p>
+  <p>There are two return modes, depending on the value of 
+  <code>diffr</code> parameter.</p>
+  <p>If <code>diffr</code> is <code>False</code>, the difference is 
+  returned as list of 3-tuples of differences by message part: (part name, 
+  part item, word difference). The part name can be used to fetch the part 
+  value from the message, using <a 
+  href="pology.file.message.Message_base-class.html#get" 
+  class="link">get()</a> method of message objects. The part item is 
+  <code>None</code> for singular message parts (e.g. <code>msgid</code>), 
+  and index for list parts (e.g. <code>msgstr</code>). See <a 
+  href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a> 
+  for the format of word-level difference.</p>
+  <p>If <code>diffr</code> is <code>True</code>, then each part difference 
+  has a fourth element, the difference ratio; see <a 
+  href="pology.misc.diff-module.html#word_diff" class="link">word_diff</a> 
+  for its semantics. Additionally, the total difference ratio is computed, 
+  based on partial ones (also counting the zero difference of parts which 
+  were equal). The return value is now a 2-tuple of list of part 
+  differences (as 4-tuples) and the total difference ratio.</p>
+  <p>Either of the messages can be given as <code>None</code>. In case only
+  one of the messages is <code>None</code>, the difference of 
+  <code>msgid</code> field will show that this field does not exist in the 
+  non-existant message (according to format of non-existant counterparts of
+  <a href="pology.misc.diff-module.html#word_diff" 
+  class="link">word_diff</a>). If both messages are <code>None</code>, the 
+  difference is empty list, as the messages are same, even if 
+  non-existant.</p>
+  <p>Every <code>msgstr</code> field can be passed through a filter before 
+  differencing, using the <code>pfilter</code> parameter.</p>
+  <p>Instead of constructing the full difference, using the 
+  <code>addrem</code> parameter only equal, added, or removed segments can 
+  be reported. The value of this parameter is a string, such that the first
+  character selects the type of partial difference: one of ('=', &quot;e') 
+  for equal, ('+', 'a') for added, and ('-', 'r') for removed segments, and
+  the rest of the string is used as separator to join the selected segments
+  (if the separator is empty, space is used instead).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg1</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> or None) - the message from which to make the difference</li>
+        <li><strong class="pname"><code>msg2</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> or None) - the message to which to make the difference</li>
+        <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to translation prior to differencing</li>
+        <li><strong class="pname"><code>addrem</code></strong> (string) - report equal, added or removed segments instead of full 
+          difference, joined by what follows the selection character</li>
+        <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
+    </ul></dd>
+    <dt>Returns: [(string, int/None, [(string, string)...])...] or ([(string, 
+      int/None, [(string, string)...], float)...], float)</dt>
+        <dd>difference list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="msg_ediff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">msg_ediff</span>(<span class="sig-arg">msg1</span>,
+        <span class="sig-arg">msg2</span>,
+        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">emsg</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ecat</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">emptydc</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create word-level embedded difference between extraction-invariant 
+  parts of messages.</p>
+  <p>Like <a href="pology.misc.diff-module.html#msg_diff" 
+  class="link">msg_diff</a>, but instead of difference list the result is a
+  message with embedded differences, of the kind produced by <a 
+  href="pology.misc.diff-module.html#word_ediff" 
+  class="link">word_ediff</a>. See <a 
+  href="pology.misc.diff-module.html#msg_diff" class="link">msg_diff</a> 
+  for description <code>pfilter</code> and <code>addrem</code> parameters, 
+  and <a href="pology.misc.diff-module.html#word_ediff" 
+  class="link">word_ediff</a> for the format of embedded differences. 
+  Additionally, if <code>pfilter</code> is given, <code>msgstr</code> 
+  fields will be diffed both with and without the filter, and both 
+  embeddings are going to be presented in the field, suitably visually 
+  separated.</p>
+  <p>By default, a new message with embedded difference will be 
+  constructed, of the type of first non-None of <code>msg2</code> and 
+  <code>msg1</code>. Alternatively, the difference can be embedded into the
+  message supplied by <code>emsg</code> parameter.</p>
+  <p>If resulting messages with embedded differences are to be inserted 
+  into a catalog, that catalog can be given by the <code>ecat</code> 
+  parameter. Then, if the key of the resulting message would conflict one 
+  of those already in the catalog, its context will be appropriately padded
+  to avoid the conflict. This is done by adding a pipe character and an 
+  unspecified number of alphanumerics (generally junk-looking) to the end 
+  of the <code>msgctxt</code>.</p>
+  <p>An additional automatic comment starting with <code>x-ediff:</code> 
+  may be added to the message, possibly followed by some indicators 
+  necessary to complete the difference specification. These include:</p>
+  <ul>
+    <li>
+      <code>state &lt;STATE_DIFF&gt; ...</code>: changes in message state, 
+      like <code>obsolete</code> and <code>fuzzy</code>; e.g. <code>state 
+      {+obsolete+}</code> means that the message has been obsoleted from 
+      <code>msg1</code> to <code>msg2</code>, while <code>state 
+      {-obsolete-}</code> means that it has been was revived.
+    </li>
+    <li>
+      <code>ctxtpad &lt;STRING&gt;</code>: padding alphanumerics added to 
+      the <code>msgctxt</code> field to avoid key collision with one of the
+      messages from <code>ecat</code>.
+    </li>
+    <li>
+      <code>fseplen &lt;NUMBER&gt;</code>: if {pfilter} was used, and the 
+      default field separator had to be extended because such substring 
+      already existed in the text, this indicator states its length.
+    </li>
+  </ul>
+  <p>By default the difference comment is not added if there are no 
+  indicators, but it may be forced by setting <code>emptydc</code> 
+  parameter to <code>True</code>.</p>
+  <p>Embedded differences can be additionally highlighted for an output 
+  descriptor given by <code>hlto</code> parameter (e.g. colorized for the 
+  shell).</p>
+  <p>If <code>diffr</code> is <code>True</code>, aside from the message 
+  with embedded differences, the total difference ratio is returned (see <a
+  href="pology.misc.diff-module.html#msg_diff" class="link">msg_diff</a>). 
+  If <code>pfilter</code> is given, the ratio refers to difference under 
+  filter.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg1</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> or None) - the message from which to make the difference</li>
+        <li><strong class="pname"><code>msg2</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> or None) - the message to which to make the difference</li>
+        <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to translation prior to differencing</li>
+        <li><strong class="pname"><code>addrem</code></strong> (string) - report equal, added or removed segments instead of full 
+          difference, joined by what follows the selection character</li>
+        <li><strong class="pname"><code>emsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - message to embedd the difference to</li>
+        <li><strong class="pname"><code>ecat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - catalog of messages to avoid key conflict with</li>
+        <li><strong class="pname"><code>emptydc</code></strong> (bool) - whether to add difference comment even if empty</li>
+        <li><strong class="pname"><code>hlto</code></strong> (file) - destination to produce highlighting for</li>
+        <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
+    </ul></dd>
+    <dt>Returns: type(emsg or msg2 or msg1 or None) or (type(~), float)</dt>
+        <dd>message with embedded differences (or None) and possibly 
+          difference ratio</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="msg_ediff_to_new"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">msg_ediff_to_new</span>(<span class="sig-arg">emsg</span>,
+        <span class="sig-arg">rmsg</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Resolve message with embedded difference to the newer message.</p>
+  <p>Message cannot be properly resolved if <code>hlto</code> or 
+  <code>addrem</code> parameters to <a 
+  href="pology.misc.diff-module.html#msg_ediff" class="link">msg_ediff</a> 
+  were used on embedding. In this function is called on such a message, the
+  result is undefined.</p>
+  <p>By default a new message object is created, but using the 
+  <code>rmsg</code> parameter, en existing message can be given to be 
+  filled with all the resolved parts (keeping its own, ignored parts). This
+  message can be the <code>emsg</code> itself.</p>
+  <p>If the resolved message evaluates to no message, the function returns 
+  <code>None</code>, and <code>rmsg</code> is not touched if it was 
+  given.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>emsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a> or None) - resolvable message with embedded differences</li>
+        <li><strong class="pname"><code>rmsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - message to fill in the resolved parts</li>
+    </ul></dd>
+    <dt>Returns: type of first non-None of rmsg, emsg, or None</dt>
+        <dd>resolved message (or None)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="msg_ediff_to_old"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">msg_ediff_to_old</span>(<span class="sig-arg">emsg</span>,
+        <span class="sig-arg">rmsg</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Resolve message with embedded difference to the older message.</p>
+  <p>Like <a href="pology.misc.diff-module.html#msg_ediff_to_new" 
+  class="link">msg_ediff_to_new</a>, only constructing the opposite 
+  message. See <a href="pology.misc.diff-module.html#msg_ediff_to_new" 
+  class="link">msg_ediff_to_new</a> for parameters and return values.</p>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>

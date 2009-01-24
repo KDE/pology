@@ -199,7 +199,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x881ed84&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the message.</td>
           <td align="right" valign="top">
@@ -218,7 +218,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x881ed84&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the message.</td>
           <td align="right" valign="top">
@@ -256,71 +256,6 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#state" class="summary-sig-name">state</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Coded description of the translation state of the message.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (string, int, string, float)</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#ediff_from" class="summary-sig-name">ediff_from</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">omsg</span>,
-        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Compute embedded differences of relevant message parts from the other
-      to the current message.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#embed_diff" class="summary-sig-name">embed_diff</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">omsg</span>,
-        <span class="summary-sig-arg">live</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">flag</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">pfilter</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Embed differences of relevant message parts from the other to the 
-      current message.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#unembed_diff" class="summary-sig-name">unembed_diff</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">live</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">flag</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Undo the embedding of text field diffs.</td>
           <td align="right" valign="top">
             
             
@@ -371,10 +306,18 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+        <a href="pology.file.message.Message_base-class.html#fmt" class="summary-name">fmt</a><br />
+      (read-only) format composition
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
     </td><td class="summary">
         <a href="pology.file.message.Message_base-class.html#format" class="summary-name">format</a><br />
-      (read-only) whether the message contains any format flags (e.g.
+      (read-only) the format flag of the message (e.g.
     </td>
   </tr>
 <tr>
@@ -389,8 +332,16 @@ object --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">string</span>
     </td><td class="summary">
+        <a href="pology.file.message.Message_base-class.html#inv" class="summary-name">inv</a><br />
+      (read-only) extraction-invariant composition
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
         <a href="pology.file.message.Message_base-class.html#key" class="summary-name">key</a><br />
-      (read-only) message key, which defines a unique entry in the catalog
+      (read-only) key composition
     </td>
   </tr>
 <tr>
@@ -687,7 +638,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x881ed84&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -725,7 +676,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x881ed84&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -791,161 +742,12 @@ object --+
   
   <p>Coded description of the translation state of the message.</p>
   <p>Code string can be one of: &quot;T&quot; (translated), &quot;F&quot; 
-  (fuzzy), &quot;U&quot; (untranslated), &quot;O&quot; (obsolete).</p>
+  (fuzzy), &quot;U&quot; (untranslated), &quot;OT&quot; (obsolete 
+  translated), &quot;OF&quot; (obsolete fuzzy), &quot;OU&quot; (obsolete 
+  untranslated).</p>
   <dl class="fields">
     <dt>Returns: string</dt>
         <dd>coded translation state</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="ediff_from"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">ediff_from</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">omsg</span>,
-        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Compute embedded differences of relevant message parts from the other 
-  to the current message.</p>
-  <p>The idea behind &quot;relevant&quot; is to produce a difference which 
-  would be of most help to human reviewer of changes between the two 
-  messages. There is no guarantee on which parts are considered relevant in
-  this sense, and their selection may change without notice.</p>
-  <p>The difference is returned as list of four-tuples of (part name, part 
-  item, embedded difference, difference ratio). The part name can be used 
-  to fetch the part with the <a 
-  href="pology.file.message.Message_base-class.html#get" 
-  class="link">get()</a> method. The part item is <code>None</code> for 
-  singular fields, and index for list fields. Since flags are forming a 
-  set, item in their case is the flag itself, and the embedded difference 
-  is the whole flag either as removed or added part; the difference ratio 
-  is thus always 1.0. See <a href="pology.misc.diff-module.html#word_ediff"
-  class="link">word_ediff</a> for the format of embedded differences.</p>
-  <p>If the other message is fuzzy and equipped with previous fields, those
-  fields are going to be used instead of its current fields to diff against
-  current fields of this message.</p>
-  <p>Every text field can be passed through a filter before differencing, 
-  using the <code>pfilter</code> parameter.</p>
-  <p>Embedded difference can be additionally highlighted for an output 
-  descriptor given by <code>hlto</code> parameter (e.g. colorized for the 
-  shell).</p>
-  <p>Instead of embedding the difference, using the <code>addrem</code> 
-  parameter only equal, added, or removed segments can be reported. The 
-  value of this parameter is a string, such that the first character 
-  selects the type of partial difference: one of ('=', &quot;e') for equal,
-  ('+', 'a') for added, and ('-', 'r') for removed segments, and the rest 
-  of the string is used as separator to join the selected segments (if the 
-  separator is empty, space is used instead).</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>omsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
-          class="link">Message_base</a>) - the message from which to make the difference</li>
-        <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to all text prior to differencing</li>
-        <li><strong class="pname"><code>hlto</code></strong> (file) - destination to produce highlighting for</li>
-        <li><strong class="pname"><code>addrem</code></strong> (string) - report equal, added or removed segments instead of full 
-          difference, joined by what follows the selection character</li>
-    </ul></dd>
-    <dt>Returns: list of (string, int, string, float)</dt>
-        <dd>difference list</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="embed_diff"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">embed_diff</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">omsg</span>,
-        <span class="sig-arg">live</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">flag</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">pfilter</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Embed differences of relevant message parts from the other to the 
-  current message.</p>
-  <p>The difference is created from the other to this message, and embedded
-  into the previous fields or current fields of this message, depending on 
-  whether <code>live</code> is <code>False</code> or <code>True</code>, 
-  respectively. If embedding is into previous fields, the difference is 
-  embedded either into <code>msgid_previous</code> or into 
-  <code>msgid_plural_previous</code> if it exists, preserving any original 
-  content therein. See <a href="pology.misc.diff-module.html#word_ediff" 
-  class="link">word_ediff</a> for the syntax of embedded differences.</p>
-  <p>See <a href="pology.file.message.Message_base-class.html#ediff_from" 
-  class="link">ediff_from</a> for the behavior in presence of fuzzy 
-  messages, and usage of <code>pfilter</code>, <code>hlto</code>, and 
-  <code>addrem</code> parameters.</p>
-  <p>A flag can be added to the message if any difference was embedded, as 
-  provided by the <code>flag</code> parameter.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>omsg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
-          class="link">Message_base</a>) - the message from which to make the difference</li>
-        <li><strong class="pname"><code>live</code></strong> (bool) - embed differences into current fields if <code>True</code></li>
-        <li><strong class="pname"><code>pfilter</code></strong> (callable) - filter to be applied to all text prior to differencing</li>
-        <li><strong class="pname"><code>flag</code></strong> (string) - flag to add to the message if there was any difference</li>
-    </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd><code>True</code> if there was any difference to embed</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="unembed_diff"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">unembed_diff</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">live</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">flag</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Undo the embedding of text field diffs.</p>
-  <p>If called with same <code>live</code> and <code>flag</code> arguments 
-  as <a href="pology.file.message.Message_base-class.html#embed_diff" 
-  class="link">embed_diff</a> was called with, this method should exactly 
-  undo the embedding, returning the message to its earlier state. Embedding
-  cannot be undone if any of <code>pfilter</code>, <code>hlto</code> or 
-  <code>addrem</code>, parameters were used with <a 
-  href="pology.file.message.Message_base-class.html#embed_diff" 
-  class="link">embed_diff</a>.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>live</code></strong> (bool) - differences were embedded into current fields if 
-          <code>True</code></li>
-        <li><strong class="pname"><code>flag</code></strong> (string) - flag which was added on embedding, to remove</li>
-    </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd><code>True</code> if there was any embedding to undo</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -959,15 +761,36 @@ object --+
     <span class="table-header">Instance Variable Details</span></td>
 </tr>
 </table>
+<a name="fmt"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">fmt</h3>
+  (read-only) format composition
+  <p>Format composition consists of all message parts which determine 
+  contents of compiled message in the MO file, including whether it is 
+  compiled at all.</p>
+  <p>The value is an undefined serialization of: <code>msgctxt</code>, 
+  <code>msgid</code>, <code>msgid_plural</code>, <code>msgstr</code>, 
+  <code>fuzzy</code>, <code>obsolete</code>.</p>
+  <dl class="fields">
+    <dt>Type:</dt>
+      <dd>string</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="format"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">format</h3>
-  (read-only) whether the message contains any format flags (e.g. 
-  <code>c-format</code>)
+  (read-only) the format flag of the message (e.g. <code>c-format</code>) 
+  or empty string
   <dl class="fields">
+    <dt>Type:</dt>
+      <dd>string</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -989,16 +812,39 @@ object --+
   </dl>
 </td></tr></table>
 </div>
+<a name="inv"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">inv</h3>
+  (read-only) extraction-invariant composition
+  <p>Extraction-invariant parts of the message are those that are not 
+  dependent on the placement and comments to the message in the code. In 
+  effect, these are the parts which are not eliminated when the message is 
+  obsoleted after merging.</p>
+  <p>The value is an undefined serialization of: <code>msgctxt</code>, 
+  <code>msgid</code>, <code>msgid_plural</code>, <code>msgstr</code>, 
+  <code>fuzzy</code>, <code>obsolete</code>, <code>manual_comment</code>, 
+  <code>msgctxt_previous</code>, <code>msgid_previous</code>, 
+  <code>msgid_plural_previous</code>.</p>
+  <dl class="fields">
+    <dt>Type:</dt>
+      <dd>string</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="key"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">key</h3>
-  (read-only) message key, which defines a unique entry in the catalog
-  <p>An undefined composition of <code>msgctxt</code> and 
-  <code>msgid</code> fields (but not <code>msgid_plural</code> when it 
-  exists).</p>
+  (read-only) key composition
+  <p>Message key is formed by the parts of the message which define unique 
+  entry in a catalog.</p>
+  <p>The value is an undefined serialization of <code>msgctxt</code> and 
+  <code>msgid</code>.</p>
   <dl class="fields">
     <dt>Type:</dt>
       <dd>string</dd>
