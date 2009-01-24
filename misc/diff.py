@@ -798,7 +798,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     If both messages are C{None}, the difference is empty list, as the
     messages are same, even if non-existant.
 
-    Every text field can be passed through a filter before differencing,
+    Every C{msgstr} field can be passed through a filter before differencing,
     using the C{pfilter} parameter.
 
     Instead of constructing the full difference, using the C{addrem} parameter
@@ -813,7 +813,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     @type msg1: L{Message_base<file.message.Message_base>} or None
     @param msg2: the message to which to make the difference
     @type msg2: L{Message_base<file.message.Message_base>} or None
-    @param pfilter: filter to be applied to all text prior to differencing
+    @param pfilter: filter to be applied to translation prior to differencing
     @type pfilter: callable
     @param addrem: report equal, added or removed segments instead of
         full difference, joined by what follows the selection character
@@ -852,17 +852,17 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
                                   "partial differencing" % mode)
 
     # Diff two texts under the given diffing options.
-    def _twdiff (text1, text2, islines=False):
+    def _twdiff (text1, text2, islines=False, cpfilter=None):
 
         f_diff = islines and line_diff or word_diff
 
-        if pfilter:
+        if cpfilter:
             if not islines:
-                text1 = pfilter(text1)
-                text2 = pfilter(text2)
+                text1 = cpfilter(text1)
+                text2 = cpfilter(text2)
             else:
-                text1 = [pfilter(x) for x in text1]
-                text2 = [pfilter(x) for x in text2]
+                text1 = [cpfilter(x) for x in text1]
+                text2 = [cpfilter(x) for x in text2]
 
         wdiff, dr = f_diff(text1, text2,
                            markup=True, format=msg2.format, diffr=True)
@@ -902,7 +902,8 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
             lst1 = msg1.get(part)
             lst2 = msg2.get(part)
             if addrem or lst1 != lst2:
-                wdiffs, totdr = _twdiff(lst1, lst2, islines=True)
+                cpf = part == "msgstr" and pfilter or None
+                wdiffs, totdr = _twdiff(lst1, lst2, islines=True, cpfilter=cpf)
                 item = 0
                 for wdiff, dr in wdiffs:
                     if dr > 0.0:
@@ -941,15 +942,18 @@ _dcmnt_sep = u", "
 _dcmnt_asep = u" "
 _dcmnt_ind_state = u"state"
 _dcmnt_ind_ctxtpad = u"ctxtpad"
+_dcmnt_ind_fseplen = u"fseplen"
 _dcmnt_all_inds = ( # ordered
-    _dcmnt_ind_state, _dcmnt_ind_ctxtpad,
+    _dcmnt_ind_state, _dcmnt_ind_ctxtpad, _dcmnt_ind_fseplen,
 )
 _ctxtpad_sep = u"|"
 _ctxtpad_noctxt = u"~"
 _ctxtpad_alnums = u"abcdefghijklmnopqrstuvwxyz0123456789"
+_fsep_el = u"~"
+_fsep_minlen = 10
 
 def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
-               hlto=None, emptydc=False, emsg=None, ecat=None, diffr=False):
+               emsg=None, ecat=None, emptydc=False, hlto=None, diffr=False):
     """
     Create word-level embedded difference between extraction-invariant
     parts of messages.
@@ -958,22 +962,22 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     with embedded differences, of the kind produced by L{word_ediff}.
     See L{msg_diff} for description C{pfilter} and C{addrem} parameters,
     and L{word_ediff} for the format of embedded differences.
-
-    Embedded differences can be additionally highlighted for an output
-    descriptor given by C{hlto} parameter (e.g. colorized for the shell).
+    Additionally, if C{pfilter} is given, C{msgstr} fields will be diffed
+    both with and without the filter, and both embeddings are going to
+    be presented in the field, suitably visually separated.
 
     By default, a new message with embedded difference will be constructed,
     of the type of first non-None of C{msg2} and C{msg1}.
     Alternatively, the difference can be embedded into the message supplied
     by C{emsg} parameter.
 
-    If resulting messages with embedded differences are being inserted
+    If resulting messages with embedded differences are to be inserted
     into a catalog, that catalog can be given by the C{ecat} parameter.
     Then, if the key of the resulting message would conflict one of
     those already in the catalog, its context will be appropriately padded
     to avoid the conflict.
-    This is done by adding a pipe and an unspecified number of alphanumerics
-    (generally junk-looking) to the end of the C{msgctxt}.
+    This is done by adding a pipe character and an unspecified number
+    of alphanumerics (generally junk-looking) to the end of the C{msgctxt}.
 
     An additional automatic comment starting with C{x-ediff:}
     may be added to the message, possibly followed by some indicators
@@ -987,29 +991,37 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
       - C{ctxtpad <STRING>}: padding alphanumerics added to the C{msgctxt}
         field to avoid key collision with one of the messages from C{ecat}.
 
+      - C{fseplen <NUMBER>}: if {pfilter} was used, and the default field
+        separator had to be extended because such substring already existed
+        in the text, this indicator states its length.
+
     By default the difference comment is not added if there are no indicators,
     but it may be forced by setting C{emptydc} parameter to C{True}.
 
+    Embedded differences can be additionally highlighted for an output
+    descriptor given by C{hlto} parameter (e.g. colorized for the shell).
+
     If C{diffr} is C{True}, aside from the message with embedded differences,
     the total difference ratio is returned (see L{msg_diff}).
+    If C{pfilter} is given, the ratio refers to difference under filter.
 
     @param msg1: the message from which to make the difference
     @type msg1: L{Message_base<file.message.Message_base>} or None
     @param msg2: the message to which to make the difference
     @type msg2: L{Message_base<file.message.Message_base>} or None
-    @param pfilter: filter to be applied to all text prior to differencing
+    @param pfilter: filter to be applied to translation prior to differencing
     @type pfilter: callable
     @param addrem: report equal, added or removed segments instead of
         full difference, joined by what follows the selection character
     @type addrem: string
-    @param hlto: destination to produce highlighting for
-    @type hlto: file
-    @param emptydc: whether to add embedding comment even if empty
-    @type emptydc: bool
     @param emsg: message to embedd the difference to
     @type emsg: L{Message_base<file.message.Message_base>}
     @param ecat: catalog of messages to avoid key conflict with
     @type ecat: L{Catalog<file.catalog.Catalog>}
+    @param emptydc: whether to add difference comment even if empty
+    @type emptydc: bool
+    @param hlto: destination to produce highlighting for
+    @type hlto: file
     @param diffr: whether to report difference ratio
     @type diffr: bool
 
@@ -1021,10 +1033,19 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     if msg1 is None and msg2 is None:
         return None
 
-    mdiffs, totdr = msg_diff(msg1, msg2,
-                             pfilter=pfilter, addrem=addrem,
-                             diffr=True)
+    mdiffs, totdr = msg_diff(msg1, msg2, addrem=addrem, diffr=True)
+    mdiffs_pf = []
+    if pfilter:
+        mdiffs_pf, totdr = msg_diff(msg1, msg2, pfilter=pfilter,
+                                    addrem=addrem, diffr=True)
 
+    # Construct list of embedded diffs out of original difference list.
+    dwraps = _assemble_ewraps(hlto)
+    mtoe = lambda (p, i, wd, dr): (p, i, _assemble_ediff(wd, dwraps))
+    ediffs = map(mtoe, mdiffs)
+    ediffs_pf = map(mtoe, mdiffs_pf)
+
+    # Construct the message to embed differences into.
     if emsg is None:
         tmsg = msg2 or msg1
         emsg = type(tmsg)()
@@ -1033,15 +1054,23 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             if tval is not None:
                 setattr(emsg, part, type(tval)(tval))
 
-    # Construct list of embedded diffs out of original difference list.
-    dwraps = _assemble_ewraps(hlto)
-    ediffs = []
-    for part, item, wdiff, dr in mdiffs:
-        ediff = _assemble_ediff(wdiff, dwraps)
-        ediffs.append((part, item, ediff))
-
     # Indicators for the difference comment.
     indargs = {}
+
+    # Determine field separator for raw/filtered differences.
+    # NOTE: This must be done whether the filter is given or not, to know
+    # if there was a filter when resolving old/new version of the message.
+    fseplen = _fsep_minlen
+    fsepinc = 5
+    fseplen_p = fseplen - 1
+    while fseplen_p < fseplen:
+        fsep = _fsep_el * fseplen
+        fseplen_p = fseplen
+        for part, item, ediff in ediffs + ediffs_pf:
+            if fsep in ediff:
+                fseplen += fsepinc
+                indargs[_dcmnt_ind_fseplen] = [str(fseplen)]
+                break
 
     # Embed differences.
     for part, item, ediff in ediffs:
@@ -1051,6 +1080,10 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
         elif typ == _dt_list:
             lst = emsg.get(part)
             lst.extend([u""] * (item + 1 - len(lst)))
+            for part_pf, item_pf, ediff_pf in ediffs_pf:
+                if part_pf == part and item_pf == item:
+                    ediff += "\n" + fsep + "\n" + ediff_pf
+                    break
             lst[item] = ediff
         elif typ == _dt_state:
             if _dcmnt_ind_state not in indargs:
@@ -1102,8 +1135,8 @@ def msg_ediff_to_new (emsg, rmsg=None):
     """
     Resolve message with embedded difference to the newer message.
 
-    Message cannot be properly resolved if any of C{pfilter}, C{hlto},
-    or C{addrem} parameters to L{msg_ediff} were used on embedding.
+    Message cannot be properly resolved if C{hlto} or C{addrem} parameters
+    to L{msg_ediff} were used on embedding.
     In this function is called on such a message, the result is undefined.
 
     By default a new message object is created, but using the C{rmsg}
@@ -1158,6 +1191,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
     # unescape comments which looked like diff comment and were escaped.
     states = []
     ctxtpad = None
+    fseplen = _fsep_minlen
     cmnts = []
     for cmnt in list(emsg.get(_dcmnt_field)):
         scmnt = cmnt.strip()
@@ -1175,6 +1209,8 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                             states.append(arg)
                 elif ind == _dcmnt_ind_ctxtpad:
                     ctxtpad = args[0]
+                elif ind == _dcmnt_ind_fseplen:
+                    fseplen = int(args[0])
         else:
             if p > 0 and scmnt[:p] == _dcmnt_head_esc * p:
                 nwp = 0
@@ -1208,6 +1244,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
         msgctxt_nopad = val
 
     # Resolve parts.
+    fsep = _fsep_el * fseplen
     for part, typ in _msg_diff_parts:
         if ctxtpad and part == "msgctxt":
             val = msgctxt_nopad
@@ -1219,7 +1256,13 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 return None
             atts_vals.append((part, nval))
         elif typ == _dt_list:
-            nlst = listtype(line_ediff_to_x(val))
+            lst = []
+            for el in val:
+                p = el.find(fsep)
+                if p >= 0: # strip filtered difference
+                    el = el[:p - 1] # -1 to remove newline
+                lst.append(el)
+            nlst = listtype(line_ediff_to_x(lst))
             atts_vals.append((part, nlst))
         elif typ == _dt_state:
             pass # handled earlier

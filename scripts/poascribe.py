@@ -680,10 +680,7 @@ def diff_select_cat (options, config, catpath, acatpath,
 
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
-        # FIXME: Filter must not be used for embedding the diff,
-        # as then the original cannot be recovered on clear-review.
-        # Find some other place to provide filtered diff too.
-        msg_ediff(amsg, msg, emsg=msg)
+        msg_ediff(amsg, msg, emsg=msg, pfilter=pfilter)
         # NOTE: Do NOT think of avoiding to flag the message if there is
         # no difference to history, must be symmetric to review ascription.
         msg.flag.add(_diffflag)
