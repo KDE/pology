@@ -19,13 +19,53 @@ from pology.misc.report import report, error, warning
 from pology.misc.fsops import collect_system, system_wd, unicode_to_str
 
 
+_vcskeys_by_pkey = {}
+_vcstypes_by_akey = {}
+
+def _register_vcs ():
+
+    register = (
+        # First keyword is primary.
+        (("none", "noop", "dummy"),
+         VcsNoop),
+        (("svn", "subversion"),
+         VcsSubversion),
+        (("git",),
+         VcsGit),
+    )
+    for vcskeys, vcstype in register:
+        _vcskeys_by_pkey[vcskeys[0]] = vcskeys
+        _vcstypes_by_akey.update([(x, vcstype) for x in vcskeys])
+
+
+def available_vcs (flat=False):
+    """
+    Get keywords of all available version control systems.
+
+    Some VCS have more than one keyword identifying them.
+    If C{flat} is C{False}, a dictionary with primary keyword per VCS
+    as keys, and tuple of all alternatives (including the main keyword)
+    as values, is returned.
+    If C{flat} is C{True}, all keywords are returned in a flat tuple.
+
+    @return: VCS keywords, as dictionary by primary or as a flat list of all
+    @rtype: {string: (string)} or [string]
+    """
+
+    if flat:
+        return _vcstypes_by_akey.keys()
+    else:
+        return _vcskeys_by_pkey.copy()
+
+
 def make_vcs (vcskey):
     """
     Factory for version control systems.
 
     Desired VCS is identified by a keyword. Currently available:
+      - dummy noop (C{none}, C{noop}, C{dummy})
       - Subversion (C{svn}, C{subversion})
-      - dummy noop (C{none}, C{noop})
+      - Git (C{git})
 
     @param vcskey: keyword identifier of the VCS
     @type vcskey: string
@@ -35,14 +75,11 @@ def make_vcs (vcskey):
     """
 
     nkey = vcskey.strip().lower()
-    if nkey in ("none", "noop"):
-        return VcsNoop()
-    elif nkey in ("svn", "subversion"):
-        return VcsSubversion()
-    elif nkey in ("git",):
-        return VcsGit()
-    else:
-        error("unknown version control system requested by key '%s'" % vcskey)
+    vcstype = _vcstypes_by_akey.get(nkey)
+    if not vcstype:
+        raise TypeError("unknown version control system requested "
+                        "by key '%s'" % vcskey)
+    return vcstype()
 
 
 class VcsBase (object):
@@ -728,3 +765,5 @@ def _crop_log (entries, rev1, rev2):
 
     return entries[start:end]
 
+
+_register_vcs()
