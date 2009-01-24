@@ -114,6 +114,19 @@ id="x-ijeref"
 hint="непознат рефлекс јата (или лош ек-ијек уметак)"
 
 # ----------------------------------------
+# Check for inadvertently left embedded differences.
+
+clearFilters
+
+{\{[+-]|[+-]\}}
+id="x-ediff-o"
+hint="неуклоњене угњеждене разлике у извору"
+
+[\{[+-]|[+-]\}]
+id="x-ediff-t"
+hint="неуклоњене угњеждене разлике у преводу"
+
+# ----------------------------------------
 # The following rules should be applied on pure text.
 clearFilters
 include file="puretext.filters"
