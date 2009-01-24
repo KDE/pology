@@ -1041,7 +1041,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
 
     # Construct list of embedded diffs out of original difference list.
     dwraps = _assemble_ewraps(hlto)
-    mtoe = lambda (p, i, wd, dr): (p, i, _assemble_ediff(wd, dwraps))
+    mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps))
     ediffs = map(mtoe, mdiffs)
     ediffs_pf = map(mtoe, mdiffs_pf)
 
