@@ -203,6 +203,39 @@ class VcsBase (object):
               "committing of paths")
 
 
+    def log (self, path, rev1=None, rev2=None):
+        """
+        Get revision log of the path.
+
+        Revision log entry consists of revision ID, commiter name,
+        date string, and commit message.
+        Except the revision ID, any of these may be empty strings,
+        depending on the particular VCS.
+        The log is ordered from earliest to newest revision.
+
+        A section of entries between revisions C{rev1} (inclusive)
+        and C{rev2} (exclusive) can be returned instead of the whole log.
+        If C{rev1} is C{None}, selected IDs start from the first in the log.
+        If C{rev2} is C{None}, selected IDs end with the last in the log.
+
+        If either C{rev1} or C{rev2} is not C{None} and does not exist in
+        the path's log, or the path is not versioned, empty log is returned.
+
+        @param path: path to query for revisions
+        @type path: string
+        @param rev1: entries starting from this revision (inclusive)
+        @type rev1: string
+        @param rev2: entries up to this revision (exclusive)
+        @type rev2: string
+
+        @return: revision ID, committer name, date string, commit message
+        @rtype: list of (string, string, string, string)
+        """
+
+        error("selected version control system does not define "
+              "revision history query")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -255,6 +288,12 @@ class VcsNoop (VcsBase):
         # Base override.
 
         return True
+
+
+    def log (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        return []
 
 
 class VcsSubversion (VcsBase):
@@ -372,6 +411,36 @@ class VcsSubversion (VcsBase):
             return False
 
         return True
+
+
+    def log (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        res = collect_system("svn log %s" % path)
+        if res[-1] != 0:
+            return []
+        rev = ""
+        next_rev, next_cmsg = range(2)
+        entries = []
+        next = -1
+        for line in res[0].strip().split("\n"):
+            if line.startswith("----------"):
+                if rev:
+                    cmsg = "\n".join(cmsg).strip("\n")
+                    entries.append((rev, user, dstr, cmsg))
+                cmsg = []
+                next = next_rev
+            elif next == next_rev:
+                lst = line.split("|")
+                rev, user, dstr = [x.strip() for x in lst[:3]]
+                rev = rev[1:] # strip initial "r"
+                next = next_cmsg
+            elif next == next_cmsg:
+                cmsg += [line]
+
+        entries.reverse()
+
+        return _crop_log(entries, rev1, rev2)
 
 
 class VcsGit (VcsBase):
@@ -604,4 +673,58 @@ class VcsGit (VcsBase):
             return False
 
         return True
+
+
+    def log (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        res = collect_system("git log %s" % path)
+        if res[-1] != 0:
+            return []
+        rev = ""
+        next_auth, next_date, next_cmsg = range(3)
+        next = -1
+        entries = []
+        lines = res[0].split("\n")
+        for i in range(len(lines) + 1):
+            if i < len(lines):
+                line = lines[i]
+            if i == len(lines) or line.startswith("commit"):
+                if rev:
+                    cmsg = "\n".join(cmsg).strip("\n")
+                    entries.append((rev, user, dstr, cmsg))
+                rev = line[line.find(" ") + 1:].strip()
+                cmsg = []
+                next = next_auth
+            elif next == next_auth:
+                user = line[line.find(":") + 1:].strip()
+                next = next_date
+            elif next == next_date:
+                dstr = line[line.find(":") + 1:].strip()
+                next = next_cmsg
+            elif next == next_cmsg:
+                cmsg += [line[4:]]
+
+        entries.reverse()
+
+        return _crop_log(entries, rev1, rev2)
+
+
+def _crop_log (entries, rev1, rev2):
+
+    start = 0
+    if rev1 is not None:
+        while start < len(entries):
+            if entries[start][0] == rev1:
+                break
+            start += 1
+
+    end = len(entries)
+    if rev2 is not None:
+        while end > 0:
+            end -= 1
+            if entries[end][0] == rev2:
+                break
+
+    return entries[start:end]
 
