@@ -28,6 +28,7 @@ from pology.misc.langdep import get_hook_lreq
 from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
 from pology.misc.resolve import expand_vars
+from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 
 WRAPF = wrap_field_ontag_unwrap
 UFUZZ = "fuzzy"
@@ -85,11 +86,6 @@ def main ():
         action="append", dest="externals", default=[],
         help="collect optional functionality from an external Python file "
              "(selectors, etc.)")
-    opars.add_option(
-        "-l", "--live-diff",
-        action="store_true", dest="live_diff", default=False,
-        help="use \"live\" differencing, i.e. embedding into current fields "
-             "(relevant in some modes)")
     opars.add_option(
         "-c", "--commit",
         action="store_true", dest="commit", default=False,
@@ -584,8 +580,6 @@ _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
 def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
-    live = options.live_diff
-
     # Open current catalog and ascription catalog.
     # Monitored, for removal of reviewed-* flags.
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
@@ -604,12 +598,12 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         # already ascribed as modified.
         # Message equality must be tested without review scaffolding.
         cmsg = MessageUnsafe(msg)
-        clear_review_msg(cmsg, live)
+        clear_review_msg(cmsg)
         if not history or not asc_eq(cmsg, history[0].msg):
             # Collect to report later.
             non_mod_asc_msgs.append(msg)
             # Clear only flags to-review, and not explicit review-done.
-            clear_review_msg(msg, live, clrevd=False)
+            clear_review_msg(msg, clrevd=False)
             continue
 
         # Collect any tags in explicit reviewed-flags.
@@ -623,7 +617,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             tags.append(options.tag)
 
         # Clear review state.
-        clear_review_msg(msg, live)
+        clear_review_msg(msg)
 
         rev_msgs_tags.append((msg, tags))
 
@@ -655,13 +649,11 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     return len(rev_msgs_tags)
 
 
-# Flag used to mark messages selected for review.
-_revflag = u"review"
+# Flag used to mark diffed messages.
+_diffflag = u"ediff"
 
 def diff_select_cat (options, config, catpath, acatpath,
                      stest, aselect, pfilter):
-
-    live = options.live_diff
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, create=True, monitored=False)
@@ -687,12 +679,14 @@ def diff_select_cat (options, config, catpath, acatpath,
             i_asc = first_nfuzzy(history, sres + 1)
 
         # Differentiate and flag.
-        if i_asc is not None:
-            amsg = history[i_asc].msg
-            anydiff = msg.embed_diff(amsg, live=live, pfilter=pfilter)
-            # NOTE: Do NOT think of avoiding to flag the message if there is
-            # no difference to history, must be symmetric to review ascription.
-        msg.flag.add(_revflag)
+        amsg = i_asc is not None and history[i_asc].msg or None
+        # FIXME: Filter must not be used for embedding the diff,
+        # as then the original cannot be recovered on clear-review.
+        # Find some other place to provide filtered diff too.
+        msg_ediff(amsg, msg, emsg=msg)
+        # NOTE: Do NOT think of avoiding to flag the message if there is
+        # no difference to history, must be symmetric to review ascription.
+        msg.flag.add(_diffflag)
         nflagged += 1
 
     sync_and_rep(cat)
@@ -702,8 +696,6 @@ def diff_select_cat (options, config, catpath, acatpath,
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
 
-    live = options.live_diff
-
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, create=True, monitored=False)
 
@@ -712,7 +704,7 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
-        if clear_review_msg(msg, live):
+        if clear_review_msg(msg):
             ncleared += 1
 
     sync_and_rep(cat)
@@ -769,9 +761,9 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 continue
             dmsg = MessageUnsafe(a.msg)
             nmsg = history[i_next].msg
-            anydiff = dmsg.embed_diff(nmsg, live=True,
-                                      pfilter=pfilter, hlto=sys.stdout)
-            if anydiff:
+            if dmsg != nmsg:
+                msg_ediff(nmsg, dmsg, emsg=dmsg,
+                          pfilter=pfilter, hlto=sys.stdout)
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
@@ -781,27 +773,32 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         if i_nfasc is not None:
             msg = Message(msg)
             nmsg = history[i_nfasc].msg
-            anydiff = msg.embed_diff(nmsg, live=True,
-                                     pfilter=pfilter, hlto=sys.stdout)
+            msg_ediff(nmsg, msg, emsg=msg,
+                      pfilter=pfilter, hlto=sys.stdout)
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=(hinfo or None), delim=("-" * 20))
 
     return nselected
 
 
-def clear_review_msg (msg, live, rep_ntrans=None, clrevd=True):
+def clear_review_msg (msg, clrevd=True):
 
-    cleared = False
+    oldcount = msg.modcount
+
+    # Clear possible review flags.
+    diffed = False
     for flag in list(msg.flag): # modified inside
-        if flag == _revflag or (clrevd and _revdflag_rx.search(flag)):
+        if flag == _diffflag or (clrevd and _revdflag_rx.search(flag)):
+            if flag == _diffflag:
+                diffed = True
             msg.flag.remove(flag)
-            if not cleared:
-                # Clear possible embedded diffs.
-                msg.unembed_diff(live=live)
-                cleared = True
             # Do not break, other review flags possible.
 
-    return cleared
+    # Clear embedded diffs.
+    if diffed:
+        msg_ediff_to_new(msg, rmsg=msg)
+
+    return msg.modcount > oldcount
 
 
 # Exclusive states of a message, as reported by Message.state().
@@ -1625,7 +1622,7 @@ def selector_wasc ():
             elif pfilter:
                 # Also consider ascribed if no difference from last ascription
                 # under the filter in effect.
-                if not msg.ediff_from(amsg, pfilter=pfilter):
+                if not msg_diff(amsg, msg, pfilter=pfilter):
                     return True
         elif msg.untranslated:
             # Also consider pristine messages ascribed.
@@ -1751,8 +1748,8 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
                 pfilter = options.tfilter or config.tfilter
-                amsg.embed_diff(amsg2, live=True,
-                                pfilter=pfilter, addrem=addrem)
+                msg_ediff(amsg2, amsg, emsg=amsg,
+                          pfilter=pfilter, addrem=addrem)
 
             if matcher(amsg, cat):
                 return i
@@ -1837,7 +1834,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     # between the modification and current review.
                     mm, mr = history[i_cand].msg, a.msg
                     pf = options.tfilter or config.tfilter
-                    if pf and not mm.ediff_from(mr, pfilter=pf):
+                    if pf and not msg_diff(mr, mm, pfilter=pf):
                         i_cand = None
                     else:
                         i_sel = i_cand
@@ -1860,7 +1857,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                 for a in history[i_cand + 1:]:
                     if (    a.type == _atype_mod
                         and (not musers or a.user not in musers)
-                        and not a.msg.ediff_from(mm, pfilter=options.tfilter)
+                        and not msg_diff(mm, a.msg, pfilter=options.tfilter)
                     ):
                         i_cand = None
                         break
