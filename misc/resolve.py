@@ -107,7 +107,9 @@ def resolve_entities (text, entities, ignored_entities=set(),
                     unknown.append(entname)
                     if srcname is not None:
                         # Try to suggest some near matches.
-                        nears = difflib.get_close_matches(entname, entities)
+                        #nears = difflib.get_close_matches(entname, entities)
+                        # FIXME: Too slow for a lot entities.
+                        nears = []
                         if fcap and entname_orig != entname:
                             if nears:
                                 warning("%s: unknown entity, either '%s' "
