@@ -273,6 +273,26 @@ class VcsBase (object):
               "revision history query")
 
 
+    def to_commit (self, path):
+        """
+        Get paths which need to be committed within the given path.
+
+        Input path can be either a file or directory.
+        If it is a directory, it depends on VCS whether it will
+        only report files within it that need to be committed,
+        or subdirectories too (including the given directory).
+
+        @param path: path to query for non-committed paths
+        @type path: string
+
+        @return: non-committed paths
+        @rtype: list of strings
+        """
+
+        error("selected version control system does not define "
+              "listing of non-committed paths")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -328,6 +348,12 @@ class VcsNoop (VcsBase):
 
 
     def log (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        return []
+
+
+    def to_commit (self, path):
         # Base override.
 
         return []
@@ -406,12 +432,10 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            rev = "HEAD"
-            # FIXME: Slow. This below will export working copy.
-            #cmdline = "svn export %s %s" % (path, dstpath)
-            #if collect_system(cmdline)[-1] != 0:
-                #return False
-            #return True
+            cmdline = "svn export %s -r BASE %s" % (path, dstpath)
+            if collect_system(cmdline)[-1] != 0:
+                return False
+            return True
 
         res = collect_system("svn info %s" % path)
         if res[-1] != 0:
@@ -480,6 +504,22 @@ class VcsSubversion (VcsBase):
         entries.reverse()
 
         return _crop_log(entries, rev1, rev2)
+
+
+    def to_commit (self, path):
+        # Base override.
+
+        res = collect_system("svn status %s" % path)
+        if res[-1] != 0:
+            return []
+
+        ncpaths = []
+        for line in res[0].split("\n"):
+            if line[:1] in ("A", "M"):
+                path = line[1:].strip()
+                ncpaths.append(path)
+
+        return ncpaths
 
 
 class VcsGit (VcsBase):
@@ -682,23 +722,7 @@ class VcsGit (VcsBase):
                 return False
 
         # Reset all paths in index which have not been given to commit.
-        res = collect_system("git status", wdir=root)
-        sect_rx = re.compile(r"^# (\S.*):$", re.I)
-        file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
-        inlist = False
-        ipaths = []
-        for line in res[0].split("\n"):
-            m = sect_rx.search(line)
-            if m:
-                if m.group(1).endswith("to be committed"):
-                    inlist = True
-                else:
-                    break
-            if not inlist:
-                continue
-            m = file_rx.search(line)
-            if m:
-                ipaths.append(m.group(1))
+        ipaths = self._paths_to_commit(root)
         rpaths = list(set(ipaths).difference(paths))
         if rpaths:
             warning("resetting paths in index which are not to be committed")
@@ -722,7 +746,9 @@ class VcsGit (VcsBase):
     def log (self, path, rev1=None, rev2=None):
         # Base override.
 
-        res = collect_system("git log %s" % path)
+        root, path = self._gitroot(path)
+
+        res = collect_system("git log %s" % path, wdir=root)
         if res[-1] != 0:
             return []
         rev = ""
@@ -752,6 +778,44 @@ class VcsGit (VcsBase):
         entries.reverse()
 
         return _crop_log(entries, rev1, rev2)
+
+
+    def to_commit (self, path):
+        # Base override.
+
+        root, path = self._gitroot(path)
+
+        ncpaths = self._paths_to_commit(root, path or ".")
+
+        return ncpaths
+
+
+    def _paths_to_commit (self, root, path=None):
+
+        if path:
+            cmdline = "git status %s" % path
+        else:
+            cmdline = "git status"
+        res = collect_system(cmdline, wdir=root)
+
+        sect_rx = re.compile(r"^# (\S.*):$", re.I)
+        file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
+        inlist = False
+        ipaths = []
+        for line in res[0].split("\n"):
+            m = sect_rx.search(line)
+            if m:
+                if m.group(1).endswith("to be committed"):
+                    inlist = True
+                else:
+                    break
+            if not inlist:
+                continue
+            m = file_rx.search(line)
+            if m:
+                ipaths.append(m.group(1))
+
+        return ipaths
 
 
 def _crop_log (entries, rev1, rev2):
