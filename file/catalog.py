@@ -654,6 +654,34 @@ class Catalog (Monitored):
         return -1
 
 
+    def get (self, msg, defmsg=None):
+        """
+        Get message by key of another message, with default fallback.
+
+        If the lookup message C{msg} does not have a counterpart
+        in this catalog with the same key, C{defmsg} is returned.
+        C{msg} can also be C{None}, when C{defmsg} is returned.
+
+        Runtime complexity O(1).
+
+        @param msg: message for the lookup by key
+        @type msg: subclass of L{Message_base} or None
+        @param defmsg: fallback in case lookup failed
+        @type defmsg: any
+
+        @returns: reference to the message in catalog, or default
+        @rtype: subclass of L{Message_base} or type(defmsg)
+        """
+
+        if msg is None:
+            return defmsg
+        pos = self.find(msg)
+        if pos >= 0:
+            return self._messages[pos]
+        else:
+            return defmsg
+
+
     def add (self, msg, pos=None):
         """
         Add a message to the catalog.
