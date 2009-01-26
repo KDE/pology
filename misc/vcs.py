@@ -406,10 +406,12 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            cmdline = "svn export %s %s" % (path, dstpath)
-            if collect_system(cmdline)[-1] != 0:
-                return False
-            return True
+            rev = "HEAD"
+            # FIXME: Slow. This below will export working copy.
+            #cmdline = "svn export %s %s" % (path, dstpath)
+            #if collect_system(cmdline)[-1] != 0:
+                #return False
+            #return True
 
         res = collect_system("svn info %s" % path)
         if res[-1] != 0:
@@ -577,8 +579,14 @@ class VcsGit (VcsBase):
         rx = re.compile(r"\bmodified:\s*(\S.*)", re.I)
         for line in res[0].split("\n"):
             m = rx.search(line)
-            if m and m.group(1) == path:
-                return False
+            if m:
+                mpath = m.group(1)
+                if os.path.isfile(path):
+                    if mpath == path:
+                        return False
+                else:
+                    if not path or mpath[len(path):].startswith(os.path.sep):
+                        return False
 
         return True
 
@@ -646,11 +654,10 @@ class VcsGit (VcsBase):
                 shutil.move(tarpath, dstpath)
             except:
                 ret = False
+            if os.path.isdir(tardir):
+                shutil.rmtree(tardir)
         else:
             ret = False
-
-        if os.path.isdir(tardir):
-            shutil.rmtree(tardir)
 
         return ret
 
