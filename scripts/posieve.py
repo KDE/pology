@@ -136,7 +136,7 @@ from optparse import OptionParser
 import glob
 
 from pology.misc.fsops import str_to_unicode
-import pology.misc.wrap as wrap
+from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report
@@ -443,16 +443,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy for modified messages.
-    if op.do_wrap:
-        if op.do_tag_split:
-            wrap_func = wrap.wrap_field_ontag
-        else:
-            wrap_func = wrap.wrap_field
-    else:
-        if op.do_tag_split:
-            wrap_func = wrap.wrap_field_ontag_unwrap
-        else:
-            wrap_func = wrap.wrap_field_unwrap
+    wrap_func = select_field_wrapper(oncol=op.do_wrap, ontags=op.do_tag_split)
 
     # Prepare selection regexes.
     exclude_cat_rx = None

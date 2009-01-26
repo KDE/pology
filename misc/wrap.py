@@ -436,3 +436,30 @@ def wrap_field_ontag_unwrap (field, text, preseq=""):
                      tagbr2=_tagbr_inplace,
                      femp=True)
 
+
+def select_field_wrapper (oncol=True, ontags=True):
+    """
+    Select wrap function for PO message fields.
+
+    @param oncol: whether to wrap on column
+    @type oncol: bool
+    @param ontags: whether to wrap on tags
+    @type ontags: bool
+
+    @returns: wrap function (field, text, preseq="") -> wrapped text
+    @rtype: (string, string, string) -> string
+    """
+
+    if oncol:
+        if ontags:
+            wrapf = wrap_field_ontag
+        else:
+            wrapf = wrap_field
+    else:
+        if ontags:
+            wrapf = wrap_field_ontag_unwrap
+        else:
+            wrapf = wrap_field_unwrap
+
+    return wrapf
+

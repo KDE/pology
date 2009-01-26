@@ -4,7 +4,7 @@
 import fallback_import_paths
 
 from pology.misc.fsops import str_to_unicode
-import pology.misc.wrap as wrap
+from pology.misc.wrap import select_field_wrapper
 from pology.file.catalog import Catalog
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
@@ -849,7 +849,8 @@ def summit_gather_single (summit_name, project, options,
                           phony=False, pre_summit_names=[]):
 
     # Decide on wrapping function for message fields in the summit.
-    wrapf = get_wrap_func(project.summit_unwrap, project.summit_split_tags)
+    wrapf = select_field_wrapper(not project.summit_unwrap,
+                                 project.summit_split_tags)
 
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
 
@@ -1175,7 +1176,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                            project, options):
 
     # Decide on wrapping function for message fields in the brances.
-    wrapf = get_wrap_func(project.branches_unwrap, project.branches_split_tags)
+    wrapf = select_field_wrapper(not project.branches_unwrap,
+                                 project.branches_split_tags)
 
     # See if the branch catalog is to be newly created from the template.
     new_from_template = False
@@ -1395,23 +1397,6 @@ def exec_hook_file (branch_id, branch_name, filepath, hooks):
         os.unlink(bckppath)
 
 
-# Decide on wrapping policy for messages.
-def get_wrap_func (unwrap, split_tags):
-
-    if unwrap:
-        if split_tags:
-            wrap_func = wrap.wrap_field_ontag_unwrap
-        else:
-            wrap_func = wrap.wrap_field_unwrap
-    else:
-        if split_tags:
-            wrap_func = wrap.wrap_field_ontag
-        else:
-            wrap_func = wrap.wrap_field
-
-    return wrap_func
-
-
 def find_summit_comment (msg, summit_tag):
 
     i = 0
@@ -1598,7 +1583,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Open catalogs as necessary.
     if do_open:
-        wrapf = get_wrap_func(unwrap, split_tags)
+        wrapf = select_field_wrapper(not unwrap, split_tags)
         cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
                       headonly=headonly)
         if do_open_template:
