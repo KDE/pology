@@ -1697,6 +1697,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         os.unlink(tmp_path)
 
 
+# FIXME: Export as library function, used by poediff too.
 # For each source file mentioned in the test catalog, if it is not mentioned
 # in any of the other catalogs, check for any different, but possibly only
 # renamed/moved source files from the other catalogs (if the these contain
