@@ -941,8 +941,9 @@ class Catalog (Monitored):
                 obstop -= 1
             else:
                 # Normal message, append formatted lines to rest.
+                committed = msg.get("_committed", False)
                 flines.extend(msg.to_lines(self._wrapf,
-                                           force or not msg._committed))
+                                           force or not committed))
                 # Message should finish with an empty line,
                 # unless it is the last one.
                 if i < nmsgs - 1 and flines[-1] != "\n":
