@@ -74,17 +74,28 @@ class Header (Monitored):
     @see: L{Message}
     """
 
-    def __init__ (self, msg=None):
+    def __init__ (self, init=None):
         """
-        Initializes the header by the given message.
+        Initializes the header by the given message or header.
 
-        Тhe message object is stored and may be modified.
-
-        @param msg: the PO entry containing the header
-        @type msg: subclass of L{Message_base}
+        @param init: the PO entry containing the header, or another header
+        @type init: subclass of L{Message_base}, or L{Header}
         """
 
-        if msg: # parse header message
+        if isinstance(init, Header): # copy header fields
+            hdr = init
+            self._title = Monlist(hdr._title)
+            self._copyright = hdr._copyright
+            self._license = hdr._license
+            self._author = Monlist(hdr._author)
+            self._comment = Monlist(hdr._comment)
+            self._field = Monlist([Monpair(x[0], x[1]) for x in hdr._field])
+
+            # Create the message.
+            self._message = hdr.to_msg()
+
+        elif init: # parse header message
+            msg = init
             # Comments.
             self._title = Monlist()
             self._copyright = u""
@@ -114,8 +125,8 @@ class Header (Monitored):
                 m = re.match(r"(.*?): ?(.*)", field)
                 if m: self._field.append(Monpair(*m.groups()))
 
-            # Store the message.
-            self._message = msg
+            # Copy the message.
+            self._message = Message(msg)
 
         else: # create default fields
             self._title = Monlist([u"SOME DESCRIPTIVE TITLE."]);
@@ -178,6 +189,25 @@ class Header (Monitored):
             return Monitored.__getattr__(self, att)
 
 
+    def get (self, ivar, default=None):
+        """
+        Get instance variable value.
+
+        Allows accessing the header like a dictionary.
+
+        @param ivar: name of the instance variable to get
+        @type ivar: string
+        @param default: value to return if instance variable does not exist
+
+        @returns: value of the instance variable or default
+        """
+
+        if hasattr(self, ivar):
+            return getattr(self, ivar)
+        else:
+            return default
+
+
     def _remake_msg (self, force=False):
 
         m = self._message
@@ -208,6 +238,20 @@ class Header (Monitored):
         if force or self.modcount:
             if m.fuzzy and self.initialized:
                 m.fuzzy = False
+
+
+    def __eq__ (self, ohdr):
+        """
+        Reports wheter headers are equal in all apparent parts.
+
+        "Apparent" parts include all those which are visible in the PO file.
+        I.e. the check will ignore internal states, like line caches, etc.
+
+        @returns: C{True} if headers are equal in apparent parts
+        @rtype: bool
+        """
+
+        return self.to_msg() == ohdr.to_msg()
 
 
     def to_msg (self, force=False):
