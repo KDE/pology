@@ -95,7 +95,7 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
         file = open(filename, "r")
         close_later = True
     else:
-        if hasattr(file, name):
+        if hasattr(file, "name"):
             filename = file.name
         else:
             filename = "<stream>"
