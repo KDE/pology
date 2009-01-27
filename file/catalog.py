@@ -10,12 +10,17 @@ Collection of PO entries.
 from pology.misc.escape import escape, unescape
 from pology.misc.wrap import wrap_field
 from pology.misc.monitored import Monitored
-from pology.misc.fsops import lines_from_file
+from pology.misc.fsops import mkdirpath
 from message import Message as MessageMonitored
 from message import MessageUnsafe as MessageUnsafe
 from header import Header
 
-import os, codecs, re, types, signal, difflib, copy
+import os
+import re
+import types
+import signal
+import difflib
+import copy
 
 
 def _parse_quoted (s):
@@ -58,29 +63,46 @@ class _MessageDict:
         self.lines_msgstr = []
 
 
-def _mine_po_encoding (filename):
+def _read_lines_and_encoding (file):
 
-    ifl = open(filename, "r")
-    enc = "UTF-8"
+    lines = [x + "\n" for x in re.split(r"\r\n|\r|\n", file.read())]
+    if lines[-1] == "\n":
+        lines.pop()
+
+    enc = None
     enc_rx = re.compile(r"Content-Type:.*charset=(.+?)\\n", re.I)
-    for line in ifl.xreadlines():
+    for line in lines:
         if line.strip().startswith("#:"):
             break
         m = enc_rx.search(line)
         if m:
             enc = m.group(1).strip()
-            if not enc or enc == "CHARSET": # fall back to UTF-8
-                enc = "UTF-8"
+            if not enc or enc == "CHARSET": # no encoding given
+                enc = None
             break
-    ifl.close()
-    return enc
+    if enc is None:
+        enc = "UTF-8" # fall back to UTF-8 if encoding not found
+
+    enclines = [x.decode(enc) for x in lines]
+
+    return enclines, enc
 
 
-def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
+def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
 
-    fenc = _mine_po_encoding(filename)
-    lines = lines_from_file(filename, fenc)
-    nlines = len(lines)
+    if isinstance(file, basestring):
+        filename = file
+        file = open(filename, "r")
+        close_later = True
+    else:
+        if hasattr(file, name):
+            filename = file.name
+        else:
+            filename = "<stream>"
+        close_later = False
+    lines, fenc = _read_lines_and_encoding(file)
+    if close_later:
+        file.close()
 
     ctx_modern, ctx_obsolete, \
     ctx_previous, ctx_current, \
@@ -102,6 +124,7 @@ def _parse_po_file (filename, MessageType=MessageMonitored, headonly=False):
     # The message has been completed by the previous line if the context just
     # switched away from ctx_msgstr;
     # call whenever context switch happens, *before* assigning new context.
+    nlines = len(lines)
     def try_finish ():
         if loc.field_context == ctx_msgstr:
             messages1.append(loc.msg)
@@ -407,7 +430,7 @@ class Catalog (Monitored):
 
     def __init__ (self, filename,
                   create=False, wrapf=wrap_field, monitored=True,
-                  headonly=False):
+                  headonly=False, readfh=None):
         """
         Build a message catalog by reading from a PO file or creating anew.
 
@@ -425,6 +448,12 @@ class Catalog (Monitored):
         L{header} instance variable as usual, but the rest of entries are
         unavailable. If any of the operations dealing with message entries
         are invoked, an error is signaled.
+
+        Instead of opening and reading from catalog's filename,
+        catalog can be read from a file-like object provided by
+        C{readfh} parameter.
+        Same as when reading from file on disk, text will be decoded
+        using catalog's encoding after reading it from C{readfh}.
 
         @param filename: name of the PO catalog on disk, or new catalog
         @type filename: string
@@ -445,6 +474,9 @@ class Catalog (Monitored):
         @param headonly: whether to open in header-only mode
         @type headonly: bool
 
+        @param readfh: file to read the catalog from
+        @type readfh: file-like object
+
         @see: L{pology.misc.wrap}
         """
         self._wrapf = wrapf
@@ -455,9 +487,10 @@ class Catalog (Monitored):
         else:
             message_type = MessageUnsafe
 
-        # Read messages or create empty catalog:
-        if os.path.exists(filename):
-            m, e, t = _parse_po_file(filename, message_type, headonly)
+        # Read messages or create empty catalog.
+        if os.path.exists(filename) or readfh:
+            file = readfh or filename
+            m, e, t = _parse_po_file(file, message_type, headonly)
             self._encoding = e
             self._created_from_scratch = False
             if not m[0].msgctxt and not m[0].msgid:
@@ -838,7 +871,7 @@ class Catalog (Monitored):
         self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
-    def sync (self, force=False, nosigcap=False):
+    def sync (self, force=False, nosigcap=False, writefh=None):
         """
         Write catalog file to disk if any message has been modified.
 
@@ -847,10 +880,18 @@ class Catalog (Monitored):
 
         Unmodified messages are not reformatted, unless forced.
 
+        Instead of opening and writing into catalog's filename,
+        catalog can be written to a file-like object provided by
+        C{writefh} parameter.
+        Same as when writing to file on disk, text will be encoded
+        using catalog's encoding before writing it C{writefh}.
+
         @param force: whether to reformat unmodified messages
         @type force: bool
         @param nosigcap: do not try to capture signals on file writing
         @type nosigcap: bool
+        @param writefh: file to write the catalog to
+        @type writefh: file-like object
 
         @returns: C{True} if the file was modified, C{False} otherwise
         @rtype: bool
@@ -912,18 +953,24 @@ class Catalog (Monitored):
         # unless there is a tail.
         if not self._tail and flines[-1] == "\n":
             flines.pop(-1)
+        # Encode lines and any tail.
+        enclines = [x.encode(self._encoding) for x in flines]
+        if self._tail:
+            enctail = self._tail.encode(self._encoding)
         # Create the parent directory if it does not exist.
-        dirname = os.path.dirname(self._filename)
-        if dirname and not os.path.isdir(dirname):
-            os.makedirs(dirname)
+        mkdirpath(os.path.dirname(self._filename))
         # Write to file atomically wrt. SIGINT.
         if not nosigcap:
             signal.signal(signal.SIGINT, signal.SIG_IGN)
-        ofl = codecs.open(self._filename, "w", self._encoding)
-        ofl.writelines(flines)
+        if not writefh:
+            ofl = open(self._filename, "w")
+        else:
+            ofl = writefh
+        ofl.writelines(enclines)
         if self._tail: # write tail if any
-            ofl.write(self._tail)
-        ofl.close()
+            ofl.write(enctail)
+        if not writefh:
+            ofl.close()
         if not nosigcap:
             signal.signal(signal.SIGINT, signal.SIG_DFL)
 
