@@ -33,6 +33,7 @@ import sys, os, locale
 from os.path import abspath, basename, dirname, isdir, isfile, join
 from codecs import open
 
+from pology.misc.report import report
 from pology.misc.rules import loadRules, Rule
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
@@ -55,7 +56,7 @@ class Sieve (object):
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 self.xmlFile=open(xmlPath, "w", "utf-8")
             else:
-                print "Cannot open %s file. XML output disabled" % xmlPath
+                report("Cannot open %s file. XML output disabled" % xmlPath)
         
         if "translatedOnly" in options:
             options.accept("translatedOnly")
@@ -153,7 +154,7 @@ class Sieve (object):
         if self.xmlFile:
             self.xmlFile.write(content)
         else:
-            print content
+            report(content.rstrip("\n"))
 
     def write_stats(self):
         self.output("\t<stats>\n")
