@@ -38,6 +38,12 @@ _new_opn = _new_opnc + _new_vtag
 _new_cls = _new_vtag + _new_clsc
 _old_opn = _old_opnc + _old_vtag
 _old_cls = _old_vtag + _old_clsc
+_all_wrappers = set((_new_opn, _new_cls, _old_opn, _old_cls))
+
+_tmp_wr = (_new_vtag, _new_opnc, _new_clsc, _old_vtag, _old_opnc, _old_clsc)
+_tmp_wrlen = map(len, _tmp_wr)
+if max(_tmp_wrlen) != 1 or min(_tmp_wrlen) != 1:
+    error("internal: all ediff wrapper elements must be of unit length")
 
 
 def _tagged_diff (seq1, seq2):
@@ -114,13 +120,15 @@ def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
 
     # Special cases, when one or both texts are None, or both are empty.
     specdlist = None
-    specdr = 1.0
     if text_old is None and text_new is None:
         specdlist = []
+        specdr = 0.0
     elif text_old is None:
         specdlist = [(_new_tag + _tagext_none, text_new)]
+        specdr = 1.0
     elif text_new is None:
         specdlist = [(_old_tag + _tagext_none, text_old)]
+        specdr = 1.0
     elif text_new == "" and text_old == "":
         specdlist = [(_equ_tag, "")]
         specdr = 0.0
@@ -530,6 +538,9 @@ def _line_ediff_to_oldnew (dlines, repl_old, repl_new):
 
 def _assemble_ediff (dlist, dwraps):
 
+    if not dlist:
+        return None
+
     old_opn, old_cls, new_opn, new_cls = dwraps
     dtext = []
     other_none = False
@@ -555,11 +566,6 @@ def _assemble_ediff (dlist, dwraps):
     elif dtext.endswith(_tagext_none):
         # Escape any trailing other-none markers.
         dtext += _tagext_none
-
-    if segtag[-_tagext_none_len:] == _tagext_none:
-        # Can happen only if there is exactly one difference segment.
-        wext = _tagext_none
-        segtag = segtag[:-_tagext_none_len:]
 
     return dtext
 
@@ -864,8 +870,9 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
                 text1 = [cpfilter(x) for x in text1]
                 text2 = [cpfilter(x) for x in text2]
 
+        format = (msg2 or msg1).format
         wdiff, dr = f_diff(text1, text2,
-                           markup=True, format=msg2.format, diffr=True)
+                           markup=True, format=format, diffr=True)
         if addrem:
             if not islines:
                 wdiff_part = None
@@ -892,36 +899,26 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
         if typ == _dt_single:
             val1 = msg1.get(part)
             val2 = msg2.get(part)
-            dr = 0.0
-            if addrem or val1 != val2:
-                wdiff, dr = _twdiff(val1, val2)
-                part_diffs.append((part, None, wdiff, dr))
+            wdiff, dr = _twdiff(val1, val2)
+            part_diffs.append((part, None, wdiff, dr))
             sumdr += dr * 1.0
             sumw += 1.0
         elif typ == _dt_list:
             lst1 = msg1.get(part)
             lst2 = msg2.get(part)
-            if addrem or lst1 != lst2:
-                cpf = part == "msgstr" and pfilter or None
-                wdiffs, totdr = _twdiff(lst1, lst2, islines=True, cpfilter=cpf)
-                item = 0
-                for wdiff, dr in wdiffs:
-                    if dr > 0.0:
-                        part_diffs.append((part, item, wdiff, dr))
-                    item += 1
-                    sumdr += dr * 1.0
-                    sumw += 1.0
+            cpf = part == "msgstr" and pfilter or None
+            wdiffs, totdr = _twdiff(lst1, lst2, islines=True, cpfilter=cpf)
+            item = 0
+            for wdiff, dr in wdiffs:
+                part_diffs.append((part, item, wdiff, dr))
+                item += 1
+                sumdr += dr * 1.0
+                sumw += 1.0
         elif typ == _dt_state:
-            s1 = msg1.get(part)
-            s2 = msg2.get(part)
-            wdiff = None
-            dr = 0.0
-            if s1 and not s2 and (not addrem or ar_dtyp == _old_tag):
-                wdiff, dr = word_diff(part, "", diffr=True)
-            elif not s1 and s2 and (not addrem or ar_dtyp == _new_tag):
-                wdiff, dr = word_diff("", part, diffr=True)
-            if wdiff is not None:
-                part_diffs.append((part, None, wdiff, dr))
+            st1 = msg1.get(part) and part or ""
+            st2 = msg2.get(part) and part or ""
+            wdiff, dr = word_diff(st1, st2, diffr=True)
+            part_diffs.append((part, None, wdiff, dr))
             sumdr += dr * 1.0
             sumw += 1.0
         else:
@@ -936,7 +933,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
 
 
 _dcmnt_field = "auto_comment" # to use manual_comment would be bad idea
-_dcmnt_head = u"x-ediff:"
+_dcmnt_head = u"ediff:"
 _dcmnt_head_esc = u"~" # must be single character
 _dcmnt_sep = u", "
 _dcmnt_asep = u" "
@@ -979,7 +976,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     This is done by adding a pipe character and an unspecified number
     of alphanumerics (generally junk-looking) to the end of the C{msgctxt}.
 
-    An additional automatic comment starting with C{x-ediff:}
+    An additional automatic comment starting with C{ediff:}
     may be added to the message, possibly followed by some indicators
     necessary to complete the difference specification. These include:
 
@@ -1031,19 +1028,20 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     """
 
     if msg1 is None and msg2 is None:
-        return None
+        return not diffr and (None, 0.0) or None
 
-    mdiffs, totdr = msg_diff(msg1, msg2, addrem=addrem, diffr=True)
-    mdiffs_pf = []
+    # Compute the difference.
+    wdiffs, totdr = msg_diff(msg1, msg2, addrem=addrem, diffr=True)
+    wdiffs_pf = []
     if pfilter:
-        mdiffs_pf, totdr = msg_diff(msg1, msg2, pfilter=pfilter,
+        wdiffs_pf, totdr = msg_diff(msg1, msg2, pfilter=pfilter,
                                     addrem=addrem, diffr=True)
 
     # Construct list of embedded diffs out of original difference list.
     dwraps = _assemble_ewraps(hlto)
-    mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps))
-    ediffs = map(mtoe, mdiffs)
-    ediffs_pf = map(mtoe, mdiffs_pf)
+    mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps), x[3])
+    ediffs = map(mtoe, wdiffs)
+    ediffs_pf = map(mtoe, wdiffs_pf)
 
     # Construct the message to embed differences into.
     if emsg is None:
@@ -1066,32 +1064,35 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     while fseplen_p < fseplen:
         fsep = _fsep_el * fseplen
         fseplen_p = fseplen
-        for part, item, ediff in ediffs + ediffs_pf:
-            if fsep in ediff:
+        for part, item, ediff, dr in ediffs + ediffs_pf:
+            if ediff and fsep in ediff:
                 fseplen += fsepinc
                 indargs[_dcmnt_ind_fseplen] = [str(fseplen)]
                 break
 
     # Embed differences.
-    for part, item, ediff in ediffs:
+    for i in range(len(ediffs)):
+        part, item, ediff, dr = ediffs[i]
         typ = _msg_dpart_types[part]
         if typ == _dt_single:
             setattr(emsg, part, ediff)
         elif typ == _dt_list:
             lst = emsg.get(part)
             lst.extend([u""] * (item + 1 - len(lst)))
-            for part_pf, item_pf, ediff_pf in ediffs_pf:
-                if part_pf == part and item_pf == item:
+            if ediffs_pf:
+                ediff_pf = ediffs_pf[i][2]
+                if ediff_pf:
                     ediff += "\n" + fsep + "\n" + ediff_pf
-                    break
             lst[item] = ediff
         elif typ == _dt_state:
-            if _dcmnt_ind_state not in indargs:
-                indargs[_dcmnt_ind_state] = []
-            indargs[_dcmnt_ind_state].append(ediff)
+            if wdiffs[i][2][0][0] != _equ_tag:
+                if _dcmnt_ind_state not in indargs:
+                    indargs[_dcmnt_ind_state] = []
+                indargs[_dcmnt_ind_state].append(ediff)
+            setattr(emsg, part, bool(word_ediff_to_new(ediff)))
         else:
             raise StandardError, ("internal: unknown part '%s' "
-                                   "in differencing" % part)
+                                  "in differencing" % part)
 
     # Pad context to avoid conflicts.
     if ecat is not None and emsg in ecat:
