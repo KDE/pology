@@ -1156,6 +1156,14 @@ def asc_eq (msg1, msg2):
     return True
 
 
+def flt_eq (msg1, msg2, pfilter):
+    """
+    Whether two messages are equal under translation filter.
+    """
+
+    return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] > 0.0
+
+
 fld_sep = ":"
 
 def asc_append_field (msg, field, value):
@@ -1617,9 +1625,9 @@ def selector_wasc ():
             if asc_eq(msg, amsg):
                 return True
             elif pfilter:
-                # Also consider ascribed if no difference from last ascription
+                # Also consider ascribed if equal to last ascription
                 # under the filter in effect.
-                if not msg_diff(amsg, msg, pfilter=pfilter):
+                if flt_eq(amsg, msg, pfilter):
                     return True
         elif msg.untranslated:
             # Also consider pristine messages ascribed.
@@ -1827,11 +1835,11 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                     break
                 else:
                     # Candidate modification is good
-                    # unless filter is in effect and there is no difference
-                    # between the modification and current review.
+                    # unless filter is in effect and the modification
+                    # is equal under it to current review.
                     mm, mr = history[i_cand].msg, a.msg
-                    pf = options.tfilter or config.tfilter
-                    if pf and not msg_diff(mr, mm, pfilter=pf):
+                    pfilter = options.tfilter or config.tfilter
+                    if pfilter and flt_eq(mr, mm, pfilter):
                         i_cand = None
                     else:
                         i_sel = i_cand
@@ -1845,8 +1853,8 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
 
         if i_cand is not None:
             # There was no review after modification candidate, so use it,
-            # unless filter is in effect and there is no difference between
-            # candidate and the first earlier modification
+            # unless filter is in effect and candidate is equal under it
+            # to the first earlier modification
             # (any, or not by m-users).
             pfilter = options.tfilter or config.tfilter
             if pfilter and i_cand + 1 < len(history):
@@ -1854,7 +1862,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
                 for a in history[i_cand + 1:]:
                     if (    a.type == _atype_mod
                         and (not musers or a.user not in musers)
-                        and not msg_diff(mm, a.msg, pfilter=options.tfilter)
+                        and flt_eq(mm, a.msg, pfilter)
                     ):
                         i_cand = None
                         break
