@@ -1224,11 +1224,6 @@ def _msg_ediff_to_x (emsg, rmsg, new):
     listtype = type(rmsg.msgstr)
     atts_vals.append((_dcmnt_field, listtype(cmnts)))
 
-    # Set states recovered from diff comment.
-    for state in states:
-        if not rmsg.get(state): # to avoid nulling *_previous on fuzzy
-            atts_vals.append((state, True))
-
     # Remove context padding.
     if ctxtpad:
         val = emsg.get("msgctxt")
@@ -1268,7 +1263,9 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 return None
             atts_vals.append((part, nlst))
         elif typ == _dt_state:
-            pass # handled earlier
+            if part in states:
+                val = True
+            atts_vals.append((part, val))
         else:
             raise StandardError, ("internal: unknown part '%s' "
                                   "in resolving difference" % part)
