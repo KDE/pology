@@ -1,22 +1,25 @@
+[2009-01-19: Patched to reflect changes so far, until a normal README is made]
 
 From a mail of Chusslove Illich the 31th of Decembre 2007 on kde-i18n-doc@kde.org mailing list
 =============================================================================================
 
-So just something short for the moment. One has to export the python path to
-use Pology scripts, and adding a path to scripts themselves doesn't hurt
-either:
+So just something short for the moment. One has to export only the path
+to use Pology's scripts (assuming checkout of KDE repository at $KDESVN):
 
-  export PYTHONPATH=$KDESVN/trunk/l10n-kde4/scripts:$PYTHONPATH
-  export PATH=$KDESVN/trunk/l10n-kde4/scripts/pology/scripts:$PATH
+  export PATH=$KDESVN/trunk/l10n-support/pology/scripts:$PATH
+
+To make use of Pology in Python code, the PYTHONPATH should be exported too:
+
+   export PYTHONPATH=$KDESVN/trunk/l10n-support:$PYTHONPATH
 
 At the moment, there are three scripts.
 
 One script is the posieve.py, which applies "sieves" to PO files, which may
 modify or only collect data from the files. Sieves are run in this way:
 
-  $ posieve.py sieve-name [-sOPTION:VALUE ...] INPUT...
+  $ posieve sieve-name [-sPARAM:VALUE ...] INPUT...
 
-where -s specifies option-value pairs (some options don't take a value) for
+where -s specifies param-value pairs (some params don't take a value) for
 the particular sieve, and input can be PO files or directory paths
 containing PO files.
 
@@ -53,10 +56,10 @@ they are):
 
 where -saccel tells what is the accelerator character to strip before match,
 and <field> is one of msgctxt, msgid, msgstr. (Obviously, this sieve has
-tons of stuff it could do more... :)
+tons of stuff it could do more... :) [2009-01-19: tons of stuff added since]
 
 * for those stuck in the stone age (like me :), using general purpose text
-editor for translation instead of a modern tool such as KAider, two sieves
+editor for translation instead of a modern tool such as Lokalize, two sieves
 to ease the effort:
 
   $ posieve.py tag-untranslated INPUT...
@@ -76,6 +79,10 @@ are split at appropriate tags (<p>, <li>, <br>...):
 
 which people often find easier on eyes while translating. Unfortunately,
 messages get rewrapped to plain style on merge...
+
+[2009-01-19: the following is obsolete, see
+http://techbase.kde.org/Localization/Workflows/PO_Summit for current state;
+didn't blow into anyone's face yet]
 
 The third script, posummit.py, is the heavy artillery, secret weapon, etc.
 and as all such contraptions easily ill-concieved and more likely to blow
