@@ -1264,6 +1264,8 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                     el = el[:p - 1] # -1 to remove newline
                 lst.append(el)
             nlst = listtype(line_ediff_to_x(lst))
+            if nlst == [] and part == "msgstr":
+                return None
             atts_vals.append((part, nlst))
         elif typ == _dt_state:
             pass # handled earlier
