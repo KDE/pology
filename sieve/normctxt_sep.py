@@ -71,11 +71,11 @@ class Sieve (object):
 
         pos = msg.msgid.find(self.csep)
         if pos >= 0:
-            if msg.msgid.find(self.csep, pos + 1) >= 0:
+            if msg.msgid.find(self.csep, pos + len(self.csep)) >= 0:
                 # If more than one delimiter, probably not context.
                 return
             ctxt = msg.msgid[:pos]
-            text = msg.msgid[pos + 1:]
+            text = msg.msgid[pos + len(self.csep):]
             if not ctxt or not text:
                 # Something is strange, skip.
                 return
