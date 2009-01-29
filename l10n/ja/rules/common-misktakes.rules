@@ -1,0 +1,17 @@
+# Checks common mistakes.
+# Japanese KDE translation team <Kdeveloper@kde.gr.jp>
+# License: GPLv3
+
+include file="puretext.filters"
+
+[をを]
+hint="「を」が重複しています"
+
+[符合]
+id="sign"
+hint="sign  = 符号 [符合 = ぴったり合うこと]"
+
+[越え]
+id="exceed"
+hint="exceed (上回る) = 超える"
+valid after="(地平線|セッション|終端|行末|EOF\)? )を"
