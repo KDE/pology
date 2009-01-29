@@ -8,11 +8,11 @@ starting and ending with predefined substrings, the "head" and the "tail".
 For example, in::
 
     msgid ""
-    "_:this-is-context\n"
+    "_:this-is-context\\n"
     "This is original text"
     msgstr "This is translated text"
 
-the head is underscore-colon (C{_:}), and the tail newline (C{\n}).
+the head is underscore-colon (C{_:}), and the tail newline (C{\\n}).
 
 Sieve options:
   - C{head} (mandatory): head string of the delimited context
