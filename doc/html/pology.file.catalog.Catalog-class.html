@@ -136,9 +136,10 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
       Build a message catalog by reading from a PO file or creating anew.</td>
           <td align="right" valign="top">
             
@@ -262,6 +263,26 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">subclass of <a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a> or type(defmsg)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">defmsg</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get message by key of another message, with default fallback.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">int</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -324,7 +345,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#sync" class="summary-sig-name">sync</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">nosigcap</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">nosigcap</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">writefh</span>=<span class="summary-sig-default">None</span>)</span><br />
       Write catalog file to disk if any message has been modified.</td>
           <td align="right" valign="top">
             
@@ -717,9 +739,10 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -745,6 +768,10 @@
   class="link">header</a> instance variable as usual, but the rest of 
   entries are unavailable. If any of the operations dealing with message 
   entries are invoked, an error is signaled.</p>
+  <p>Instead of opening and reading from catalog's filename, catalog can be
+  read from a file-like object provided by <code>readfh</code> parameter. 
+  Same as when reading from file on disk, text will be decoded using 
+  catalog's encoding after reading it from <code>readfh</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -757,6 +784,7 @@
           class="link">Message_base</a> for details.</li>
         <li><strong class="pname"><code>monitored</code></strong> (bool) - whether the message entries are monitored</li>
         <li><strong class="pname"><code>headonly</code></strong> (bool) - whether to open in header-only mode</li>
+        <li><strong class="pname"><code>readfh</code></strong> (file-like object) - file to read the catalog from</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -950,6 +978,41 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">defmsg</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get message by key of another message, with default fallback.</p>
+  <p>If the lookup message <code>msg</code> does not have a counterpart in 
+  this catalog with the same key, <code>defmsg</code> is returned. 
+  <code>msg</code> can also be <code>None</code>, when <code>defmsg</code> 
+  is returned.</p>
+  <p>Runtime complexity O(1).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a> or None) - message for the lookup by key</li>
+        <li><strong class="pname"><code>defmsg</code></strong> (any) - fallback in case lookup failed</li>
+    </ul></dd>
+    <dt>Returns: subclass of <a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a> or type(defmsg)</dt>
+        <dd>reference to the message in catalog, or default</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="add"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1070,7 +1133,8 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">sync</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">nosigcap</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">nosigcap</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">writefh</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1081,11 +1145,16 @@
   <p>All activities scheduled for sync-time are performed, such as delayed 
   message removal.</p>
   <p>Unmodified messages are not reformatted, unless forced.</p>
+  <p>Instead of opening and writing into catalog's filename, catalog can be
+  written to a file-like object provided by <code>writefh</code> parameter.
+  Same as when writing to file on disk, text will be encoded using 
+  catalog's encoding before writing it <code>writefh</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to reformat unmodified messages</li>
         <li><strong class="pname"><code>nosigcap</code></strong> (bool) - do not try to capture signals on file writing</li>
+        <li><strong class="pname"><code>writefh</code></strong> (file-like object) - file to write the catalog to</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if the file was modified, <code>False</code> 

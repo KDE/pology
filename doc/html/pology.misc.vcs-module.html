@@ -115,6 +115,23 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">{string: (string)} or [string]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs-module.html#available_vcs" class="summary-sig-name">available_vcs</a>(<span class="summary-sig-arg">flat</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Get keywords of all available version control systems.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">instance of <a href="pology.misc.vcs.VcsBase-class.html" 
       class="link">VcsBase</a></span>
     </td><td class="summary">
@@ -141,6 +158,32 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="available_vcs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">available_vcs</span>(<span class="sig-arg">flat</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get keywords of all available version control systems.</p>
+  <p>Some VCS have more than one keyword identifying them. If 
+  <code>flat</code> is <code>False</code>, a dictionary with primary 
+  keyword per VCS as keys, and tuple of all alternatives (including the 
+  main keyword) as values, is returned. If <code>flat</code> is 
+  <code>True</code>, all keywords are returned in a flat tuple.</p>
+  <dl class="fields">
+    <dt>Returns: {string: (string)} or [string]</dt>
+        <dd>VCS keywords, as dictionary by primary or as a flat list of all</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="make_vcs"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -159,10 +202,13 @@
   <p>Desired VCS is identified by a keyword. Currently available:</p>
   <ul>
     <li>
+      dummy noop (<code>none</code>, <code>noop</code>, <code>dummy</code>)
+    </li>
+    <li>
       Subversion (<code>svn</code>, <code>subversion</code>)
     </li>
     <li>
-      dummy noop (<code>none</code>, <code>noop</code>)
+      Git (<code>git</code>)
     </li>
   </ul>
   <dl class="fields">

@@ -97,8 +97,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Initializes the header by the given message.</td>
+        <span class="summary-sig-arg">init</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initializes the header by the given message or header.</td>
           <td align="right" valign="top">
             
             
@@ -117,6 +117,43 @@
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#__getattr__" class="summary-sig-name">__getattr__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">att</span>)</span><br />
       Attribute getter.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ivar</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get instance variable value.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#__eq__" class="summary-sig-name">__eq__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ohdr</span>)</span><br />
+      Reports wheter headers are equal in all apparent parts.</td>
           <td align="right" valign="top">
             
             
@@ -151,7 +188,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the header.</td>
           <td align="right" valign="top">
@@ -170,7 +207,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the header.</td>
           <td align="right" valign="top">
@@ -282,7 +319,6 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a></code></b>:
-      <code><a href="pology.misc.monitored.Monitored-class.html#__eq__">__eq__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__ne__">__ne__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
@@ -403,7 +439,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">msg</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">init</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -411,13 +447,14 @@
     </td>
   </tr></table>
   
-  <p>Initializes the header by the given message.</p>
-  <p>&#1058;he message object is stored and may be modified.</p>
+  <p>Initializes the header by the given message or header.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
-          class="link">Message_base</a>) - the PO entry containing the header</li>
+        <li><strong class="pname"><code>init</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
+          class="link">Message_base</a>, or <a 
+          href="pology.file.header.Header-class.html" 
+          class="link">Header</a>) - the PO entry containing the header, or another header</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -452,6 +489,64 @@
         <dd>attribute value</dd>
     <dt>Overrides:
         <a href="pology.misc.monitored.Monitored-class.html#__getattr__">misc.monitored.Monitored.__getattr__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ivar</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get instance variable value.</p>
+  <p>Allows accessing the header like a dictionary.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ivar</code></strong> (string) - name of the instance variable to get</li>
+        <li><strong class="pname"><code>default</code></strong> - value to return if instance variable does not exist</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>value of the instance variable or default</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__eq__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__eq__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ohdr</span>)</span>
+    <br /><em class="fname">(Equality operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reports wheter headers are equal in all apparent parts.</p>
+  <p>&quot;Apparent&quot; parts include all those which are visible in the 
+  PO file. I.e. the check will ignore internal states, like line caches, 
+  etc.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if headers are equal in apparent parts</dd>
+    <dt>Overrides:
+        <a href="pology.misc.monitored.Monitored-class.html#__eq__">misc.monitored.Monitored.__eq__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -494,7 +589,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -520,7 +615,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x97c38b4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"

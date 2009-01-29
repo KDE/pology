@@ -220,6 +220,44 @@ object --+
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (string, string, string, string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#log" class="summary-sig-name">log</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">rev1</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rev2</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get revision log of the path.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#to_commit" class="summary-sig-name">to_commit</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>)</span><br />
+      Get paths which need to be committed within the given path.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
@@ -536,6 +574,85 @@ object --+
           otherwise</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#commit">VcsBase.commit</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="log"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">log</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">rev1</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rev2</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get revision log of the path.</p>
+  <p>Revision log entry consists of revision ID, commiter name, date 
+  string, and commit message. Except the revision ID, any of these may be 
+  empty strings, depending on the particular VCS. The log is ordered from 
+  earliest to newest revision.</p>
+  <p>A section of entries between revisions <code>rev1</code> (inclusive) 
+  and <code>rev2</code> (exclusive) can be returned instead of the whole 
+  log. If <code>rev1</code> is <code>None</code>, selected IDs start from 
+  the first in the log. If <code>rev2</code> is <code>None</code>, selected
+  IDs end with the last in the log.</p>
+  <p>If either <code>rev1</code> or <code>rev2</code> is not 
+  <code>None</code> and does not exist in the path's log, or the path is 
+  not versioned, empty log is returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - path to query for revisions</li>
+        <li><strong class="pname"><code>rev1</code></strong> - entries starting from this revision (inclusive)</li>
+        <li><strong class="pname"><code>rev2</code></strong> - entries up to this revision (exclusive)</li>
+    </ul></dd>
+    <dt>Returns: list of (string, string, string, string)</dt>
+        <dd>revision ID, committer name, date string, commit message</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#log">VcsBase.log</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="to_commit"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">to_commit</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get paths which need to be committed within the given path.</p>
+  <p>Input path can be either a file or directory. If it is a directory, it
+  depends on VCS whether it will only report files within it that need to 
+  be committed, or subdirectories too (including the given directory).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - path to query for non-committed paths</li>
+    </ul></dd>
+    <dt>Returns: list of strings</dt>
+        <dd>non-committed paths</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#to_commit">VcsBase.to_commit</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
