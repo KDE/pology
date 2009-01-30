@@ -96,6 +96,26 @@ _Message_currprev_fields = (
     ("msgid", "msgid_previous"),
     ("msgid_plural", "msgid_plural_previous"),
 )
+_Message_fmt_fields = (
+    "msgctxt",
+    "msgid",
+    "msgid_plural",
+    "msgstr",
+    "obsolete",
+    "fuzzy",
+)
+_Message_inv_fields = (
+    "manual_comment",
+    "msgctxt_previous",
+    "msgid_previous",
+    "msgid_plural_previous",
+    "msgctxt",
+    "msgid",
+    "msgid_plural",
+    "msgstr",
+    "obsolete",
+    "fuzzy",
+)
 
 class Message_base (object):
     """
@@ -661,6 +681,95 @@ class Message_base (object):
                 return "OT"
             else:
                 return "OU"
+
+
+    def set (self, omsg):
+        """
+        Copy all parts from the other message.
+
+        All mutable parts are deeply copied.
+
+        @param omsg: the message from which to copy the parts
+        @type omsg: instance of L{Message_base}
+
+        @returns: self
+        """
+
+        return self._set_parts(omsg, _Message_all_fields)
+
+
+    def set_key (self, omsg):
+        """
+        Copy all key parts from the other message.
+
+        See L{key} instance variable for the description
+        and list of key parts.
+
+        All mutable parts are deeply copied.
+
+        @param omsg: the message from which to copy the parts
+        @type omsg: instance of L{Message_base}
+
+        @returns: self
+        """
+
+        return self._set_parts(omsg, _Message_key_fields)
+
+
+    def set_fmt (self, omsg):
+        """
+        Copy all format parts from the other message.
+
+        See L{fmt} instance variable for the description
+        and list of format parts.
+
+        All mutable parts are deeply copied.
+
+        @param omsg: the message from which to copy the parts
+        @type omsg: instance of L{Message_base}
+
+        @returns: self
+        """
+
+        return self._set_parts(omsg, _Message_fmt_fields)
+
+
+    def set_inv (self, omsg):
+        """
+        Copy extraction-invariant parts from the other message.
+
+        See L{inv} instance variable for the description
+        and list of extraction-invariant parts.
+
+        All mutable parts are deeply copied.
+
+        @param omsg: the message from which to copy the parts
+        @type omsg: instance of L{Message_base}
+
+        @returns: self
+        """
+
+        return self._set_parts(omsg, _Message_inv_fields)
+
+
+    def _set_parts (self, omsg, parts):
+        """
+        Worker for set* methods.
+        """
+
+        for part in parts:
+            oval = omsg.get(part)
+            val = self.get(part)
+            if oval is not None:
+                if part in _Message_list2_fields:
+                    oval = type(val)([type(x)(x) for x in oval])
+                elif part in _Message_sequence_fields:
+                    oval = type(val)(oval)
+                elif val is not None:
+                    oval = type(val)(oval)
+            setattr(self, part, oval)
+
+        return self
 
 
 class Message (Message_base, Monitored): # order important for get/setattr
