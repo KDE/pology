@@ -1138,7 +1138,7 @@ def msg_ediff_to_new (emsg, rmsg=None):
 
     Message cannot be properly resolved if C{hlto} or C{addrem} parameters
     to L{msg_ediff} were used on embedding.
-    In this function is called on such a message, the result is undefined.
+    If this function is called on such a message, the result is undefined.
 
     By default a new message object is created, but using the C{rmsg}
     parameter, en existing message can be given to be filled with all
@@ -1220,9 +1220,11 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 cmnt = cmnt[:nwp] + cmnt[nwp + 1:]
             cmnts.append(cmnt)
 
-    # Put back cleaned comments.
     listtype = type(rmsg.msgstr)
-    atts_vals.append((_dcmnt_field, listtype(cmnts)))
+
+    # Put back cleaned comments if the message is resolved unto itself.
+    if rmsg is emsg:
+        atts_vals.append((_dcmnt_field, listtype(cmnts)))
 
     # Remove context padding.
     if ctxtpad:
