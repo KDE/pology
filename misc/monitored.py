@@ -225,8 +225,8 @@ class Monpair (Monitored):
                       "initializer sequence for a pair must have two elements"
             self._first, self._second = pair
         else:
-            self._first = first
-            self._second = second
+            self._first = init.first
+            self._second = init.second
         self.assert_spec_init(_Monpair_spec)
 
 
