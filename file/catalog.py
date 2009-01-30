@@ -929,7 +929,7 @@ class Catalog (Monitored):
         i = 0
         while i < nmsgs:
             msg = self._messages[i]
-            if msg._remove_on_sync:
+            if msg.get("_remove_on_sync", False):
                 # Removal on sync requested, just skip.
                 i += 1
             elif msg.obsolete and i < obstop:
@@ -986,7 +986,7 @@ class Catalog (Monitored):
         # Indicate for each message that it has been committed.
         newlst = []
         for msg in self._messages:
-            if not msg._remove_on_sync:
+            if not msg.get("_remove_on_sync", False):
                 msg._committed = True
                 newlst.append(msg)
         self.__dict__["*"] = newlst
