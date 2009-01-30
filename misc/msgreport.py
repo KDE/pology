@@ -295,9 +295,9 @@ def report_msg_content (msg, cat,
                 msg.auto_comment[item] = hl(msg.auto_comment[item],
                                             ffmsg.auto_comment[item])
             elif name == "source":
-                msg.source[item] = Monpair(hl(msg.source[item][0],
+                msg.source[item] = Monpair((hl(msg.source[item][0],
                                               ffmsg.source[item][0]),
-                                           msg.source[item][1])
+                                            msg.source[item][1]))
             elif name == "flag":
                 pass # FIXME: How to do this?
             else:

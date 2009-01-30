@@ -208,19 +208,22 @@ class Monpair (Monitored):
     @ivar second: the second element of the pair
     """
 
-    def __init__ (self, first=None, second=None, pair=None):
+    def __init__ (self, init=None):
         """
         Create a pair with two elements.
 
         All methods behave as their namesakes in standard C{tuple}.
 
-        @param first: the first element of the pair
-        @param second: the second element of the pair
+        @param init: 2-element sequence or another pair
+        @param init: tuple, list,... or Monpair
         """
 
-        if pair is not None:
-            self._first = pair[0]
-            self._second = pair[1]
+        if not isinstance(init, Monpair):
+            pair = tuple(init)
+            if len(pair) != 2:
+                raise TypeError, \
+                      "initializer sequence for a pair must have two elements"
+            self._first, self._second = pair
         else:
             self._first = first
             self._second = second

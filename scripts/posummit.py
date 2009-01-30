@@ -1151,7 +1151,7 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
         for fname in project.header_propagate_fields_summed:
             for field in branch_cat.header.select_fields(fname):
                 cvalue = u"%s ~~ %s" % (field[1], branch_id)
-                cfields_new.append(Monpair(field[0], cvalue))
+                cfields_new.append(Monpair((field[0], cvalue)))
 
         # - collect old fields with this branch id from summit catalog,
         cfields_old = []
@@ -1489,8 +1489,7 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
         # FIXME: Once there is a way to reliably tell the root directory
         # of source references, add missing and remove obsolete source
         # references instead.
-        summit_msg.source = Monlist([Monpair(x, y)
-                                        for x, y in branch_msg.source])
+        summit_msg.source = Monlist(map(Monpair, branch_msg.source))
 
         # Split auto comments of the current summit message into
         # summit and non-summit tagged comments.

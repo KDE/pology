@@ -89,7 +89,7 @@ class Header (Monitored):
             self._license = hdr._license
             self._author = Monlist(hdr._author)
             self._comment = Monlist(hdr._comment)
-            self._field = Monlist([Monpair(x[0], x[1]) for x in hdr._field])
+            self._field = Monlist(map(Monpair, hdr._field))
 
             # Create the message.
             self._message = hdr.to_msg()
@@ -123,7 +123,7 @@ class Header (Monitored):
             self._field = Monlist()
             for field in msg.msgstr[0].split("\n"):
                 m = re.match(r"(.*?): ?(.*)", field)
-                if m: self._field.append(Monpair(*m.groups()))
+                if m: self._field.append(Monpair(m.groups()))
 
             # Copy the message.
             self._message = Message(msg)
@@ -136,16 +136,16 @@ class Header (Monitored):
             self._comment = Monlist([u""])
 
             self._field = Monlist([
-                Monpair(u"Project-Id-Version", u"PACKAGE VERSION"),
-                Monpair(u"Report-Msgid-Bugs-To", u""),
-                Monpair(u"POT-Creation-Date", unicode(time.strftime("%Y-%m-%d %H:%M%z"))),
-                Monpair(u"PO-Revision-Date", u"YEAR-MO-DA HO:MI+ZONE"),
-                Monpair(u"Last-Translator", u"FULL NAME <EMAIL@ADDRESS>"),
-                Monpair(u"Language-Team", u"LANGUAGE <LL@li.org>"),
-                Monpair(u"MIME-Version", u"1.0"),
-                Monpair(u"Content-Type", u"text/plain; charset=CHARSET"),
-                Monpair(u"Content-Transfer-Encoding", u"8bit"),
-                Monpair(u"Plural-Forms", u"nplurals=INTEGER; plural=EXPRESSION;"),
+                Monpair((u"Project-Id-Version", u"PACKAGE VERSION")),
+                Monpair((u"Report-Msgid-Bugs-To", u"")),
+                Monpair((u"POT-Creation-Date", unicode(time.strftime("%Y-%m-%d %H:%M%z")))),
+                Monpair((u"PO-Revision-Date", u"YEAR-MO-DA HO:MI+ZONE")),
+                Monpair((u"Last-Translator", u"FULL NAME <EMAIL@ADDRESS>")),
+                Monpair((u"Language-Team", u"LANGUAGE <LL@li.org>")),
+                Monpair((u"MIME-Version", u"1.0")),
+                Monpair((u"Content-Type", u"text/plain; charset=CHARSET")),
+                Monpair((u"Content-Transfer-Encoding", u"8bit")),
+                Monpair((u"Plural-Forms", u"nplurals=INTEGER; plural=EXPRESSION;")),
             ])
 
             # Create the message.
@@ -366,7 +366,7 @@ class Header (Monitored):
             if self.field[i][0] == name:
                 nfound += 1
                 if nfound - 1 == nth:
-                    self.field[i] = Monpair(unicode(name), new_value)
+                    self.field[i] = Monpair((unicode(name), new_value))
                     break
 
         return nfound - 1 == nth
@@ -424,7 +424,7 @@ class Header (Monitored):
                 ins_pos -= 1
             rpl_pos = -1
 
-        pair = Monpair(name, value)
+        pair = Monpair((name, value))
         if rpl_pos >= 0:
             self._field[rpl_pos] = pair
             pos = rpl_pos
