@@ -1085,11 +1085,12 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                     ediff += "\n" + fsep + "\n" + ediff_pf
             lst[item] = ediff
         elif typ == _dt_state:
-            if wdiffs[i][2][0][0] != _equ_tag:
+            stag, spart = wdiffs[i][2][0]
+            if stag != _equ_tag:
                 if _dcmnt_ind_state not in indargs:
                     indargs[_dcmnt_ind_state] = []
                 indargs[_dcmnt_ind_state].append(ediff)
-            setattr(emsg, part, bool(word_ediff_to_new(ediff)))
+            setattr(emsg, part, stag in (_new_tag, _equ_tag) and spart)
         else:
             raise StandardError, ("internal: unknown part '%s' "
                                   "in differencing" % part)
