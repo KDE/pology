@@ -752,6 +752,10 @@ def adapt_spans (otext, ftext, spans, merge=True):
 _dt_state, _dt_single, _dt_list = range(3)
 
 _msg_diff_parts = (
+    ("obsolete", _dt_state),
+    ("fuzzy", _dt_state),
+    # ...fuzzy state must come before *_previous fields,
+    # not to null them in embedded diff when setting fuzzy to False.
     ("manual_comment", _dt_list),
     ("msgctxt_previous", _dt_single),
     ("msgid_previous", _dt_single),
@@ -760,8 +764,6 @@ _msg_diff_parts = (
     ("msgid", _dt_single),
     ("msgid_plural", _dt_single),
     ("msgstr", _dt_list),
-    ("obsolete", _dt_state),
-    ("fuzzy", _dt_state),
 )
 _msg_dpart_types = dict(_msg_diff_parts)
 
@@ -1090,7 +1092,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                 if _dcmnt_ind_state not in indargs:
                     indargs[_dcmnt_ind_state] = []
                 indargs[_dcmnt_ind_state].append(ediff)
-            setattr(emsg, part, stag in (_new_tag, _equ_tag) and spart)
+            sval = bool(stag in (_new_tag, _equ_tag) and spart)
+            setattr(emsg, part, sval)
         else:
             raise StandardError, ("internal: unknown part '%s' "
                                   "in differencing" % part)
