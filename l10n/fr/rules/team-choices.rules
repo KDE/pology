@@ -331,6 +331,7 @@ hint="Utilisez plutôt le verbe « colorer » ou le substantif « coloration »"
 
 {Shift\b}
 valid msgstr="\bMaj\b"
+valid msgstr="\bMajuscule\b"
 valid after="(Hue|First|Second|Third) "
 valid before=" (left|right|up|down)"
 valid before="-JIS"
