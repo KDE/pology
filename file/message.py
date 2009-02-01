@@ -105,6 +105,10 @@ _Message_fmt_fields = (
     "fuzzy",
 )
 _Message_inv_fields = (
+    "obsolete",
+    "fuzzy",
+    # ...fuzzy state must come before *_previous fields,
+    # not to null them in when setting fields in this order.
     "manual_comment",
     "msgctxt_previous",
     "msgid_previous",
@@ -113,8 +117,6 @@ _Message_inv_fields = (
     "msgid",
     "msgid_plural",
     "msgstr",
-    "obsolete",
-    "fuzzy",
 )
 
 class Message_base (object):
