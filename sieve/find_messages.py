@@ -101,7 +101,7 @@ from pology.sieve import SieveError
 from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
 from pology.misc.langdep import get_hook_lreq
-from pology.misc.wrap import wrap_field, wrap_field_unwrap
+from pology.misc.wrap import wrap_field_ontag, wrap_field_ontag_unwrap
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
 
@@ -374,9 +374,9 @@ class Sieve (object):
 
         # Select wrapping for reporting messages.
         if self.p.nowrap:
-            self.wrapf = wrap_field_unwrap
+            self.wrapf = wrap_field_ontag_unwrap
         else:
-            self.wrapf = wrap_field
+            self.wrapf = wrap_field_ontag
 
 
     def process_header (self, hdr, cat):
