@@ -952,7 +952,8 @@ _fsep_el = u"~"
 _fsep_minlen = 10
 
 def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
-               emsg=None, ecat=None, emptydc=False, hlto=None, diffr=False):
+               emsg=None, ecat=None, eokpos=None, enoctxt=None,
+               emptydc=False, hlto=None, diffr=False):
     """
     Create word-level embedded difference between extraction-invariant
     parts of messages.
@@ -977,6 +978,12 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     to avoid the conflict.
     This is done by adding a pipe character and an unspecified number
     of alphanumerics (generally junk-looking) to the end of the C{msgctxt}.
+    In case the conflict with a particular message in the catalog is
+    acceptable (e.g. when resulting message is to be inserted in its place),
+    the position of this message can be given by the C{eokpos} parameter.
+    In case a certain value of C{msgctxt} should be padded regardless
+    of whether there is a conflict or not,
+    this value can be given by C{enoctxt} parameter.
 
     An additional automatic comment starting with C{ediff:}
     may be added to the message, possibly followed by some indicators
@@ -1017,6 +1024,10 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     @type emsg: L{Message_base<file.message.Message_base>}
     @param ecat: catalog of messages to avoid key conflict with
     @type ecat: L{Catalog<file.catalog.Catalog>}
+    @param eokpos: position into C{ecat} where key conflict is ignored
+    @type eokpos: int
+    @param enoctxt: C{msgctxt} string that should be padded unconditionally
+    @type enoctxt: string
     @param emptydc: whether to add difference comment even if empty
     @type emptydc: bool
     @param hlto: destination to produce highlighting for
@@ -1099,14 +1110,18 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                                   "in differencing" % part)
 
     # Pad context to avoid conflicts.
-    if ecat is not None and emsg in ecat:
+    if (   (ecat is not None and emsg in ecat and ecat.find(emsg) != eokpos)
+        or (enoctxt is not None and emsg.msgctxt == enoctxt)
+    ):
         noctxtind = emsg.msgctxt is None and _ctxtpad_noctxt or ""
         octxt = emsg.msgctxt or u""
         while True:
             padding = "".join([random.choice(_ctxtpad_alnums)
                                for x in range(5)])
             emsg.msgctxt = octxt + _ctxtpad_sep + padding + noctxtind
-            if emsg not in ecat:
+            if (    emsg not in ecat
+                and (enoctxt is None or emsg.msgctxt != enoctxt)
+            ):
                 break
         indargs[_dcmnt_ind_ctxtpad] = [padding]
 
