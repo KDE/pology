@@ -212,7 +212,6 @@ def apply_ediff (op):
     # Prepare catalog for rejects and merges.
     wrapf = select_field_wrapper(oncol=op.do_wrap, ontags=op.do_tag_split)
     rcat = Catalog("", create=True, monitored=False, wrapf=wrapf)
-    hmsgctxt = ecat.header.get_field_value(ED._hmsgctxt_field)
     ED.init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
     # FIXME: Using header-message context of patch catalog would be fine
     # for rejects too, if not for possible split differences.
@@ -665,7 +664,7 @@ def patch_header (cat, ehmsg, ecat, options):
                 # and otherwise the header should stay as-is.
                 pass
         else:
-            if cat.created:
+            if cat.created():
                 cat.header = Header(hmsg2)
             ehmsg = MessageUnsafe(ehmsg)
             ehmsg.flag.add(_flag_ediff)
