@@ -377,7 +377,7 @@ def patch_messages (cat, emsgs, ecat, options):
                 tmsg = cat[pos]
                 tpos = pos
             else:
-                tmsg = MessageUnsafe(msg2)
+                tmsg = MessageUnsafe(msg2 or {})
                 tpos = None
             emsg = msg_ediff(msg1_s, msg2_s, emsg=tmsg, ecat=cat, eokpos=tpos)
 
@@ -589,8 +589,10 @@ def build_splitting_triplets (emsgs, cat, options):
     cat2 = Catalog("", create=True, monitored=False)
     for emsg in emsgs:
         msg1, msg2, msg1_s, msg2_s = resolve_diff_pair(emsg)
-        cat1.add(msg1, -1)
-        cat2.add(msg2, -1)
+        if msg1:
+            cat1.add(msg1, -1)
+        if msg2:
+            cat2.add(msg2, -1)
     # Make headers same, to avoid any diffs there.
     cat1.header = cat.header
     cat2.header = cat.header
@@ -717,6 +719,7 @@ def unembed_ediff (path, all=False, old=False):
     if hmsgctxt is None:
         # No embedded differences, skip.
         return
+    cat.header.remove_field(ED._hmsgctxt_field)
 
     uehmsg = None
     unembedded = {}
@@ -733,14 +736,16 @@ def unembed_ediff (path, all=False, old=False):
             # For split-difference embeddings, throw away the current-to-new;
             # this effectively rejects the patch, which is safest thing to do.
             cat.remove_on_sync(msg)
-        if msg.msgctxt == hmsgctxt:
+        elif msg.msgctxt == hmsgctxt:
             if uehmsg:
                 warning_on_msg("unembedding results in duplicate header, "
                                "previous header at %d(#%d); skipping"
                                % (uehmsg.refline, uehmsg.refentry), msg, cat)
                 return
             msg_ediff_to_x = not old and msg_ediff_to_new or msg_ediff_to_old
-            cat.header = Header(msg_ediff_to_x(clear_header_metadata(msg)))
+            hmsg = msg_ediff_to_x(clear_header_metadata(msg))
+            if hmsg.msgstr and hmsg.msgstr[0]:
+                cat.header = Header(hmsg)
             cat.remove_on_sync(msg)
             uehmsg = msg
         else:
