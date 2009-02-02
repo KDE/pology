@@ -1132,9 +1132,9 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
         p = scmnt.find(_dcmnt_head)
         if p >= 0 and scmnt[:p] == _dcmnt_head_esc * p:
             nwp = 0
-            while cmnt[nwp].isspace():
+            while scmnt[nwp].isspace():
                 nwp += 1
-            ecomments[i] = cmnt[:nwp] + _dcmnt_head_esc + cmnt[nwp:]
+            ecomments[i] = scmnt[:nwp] + _dcmnt_head_esc + scmnt[nwp:]
 
     # Add diff comment.
     if indargs or emptydc:
@@ -1194,9 +1194,11 @@ def _msg_ediff_to_x (emsg, rmsg, new):
 
     if new:
         word_ediff_to_x = word_ediff_to_new
+        word_ediff_to_o = word_ediff_to_old
         line_ediff_to_x = line_ediff_to_new
     else:
         word_ediff_to_x = word_ediff_to_old
+        word_ediff_to_o = word_ediff_to_new
         line_ediff_to_x = line_ediff_to_old
 
     # Work on copy if target message not given.
@@ -1209,7 +1211,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
 
     # Parse everything out of diff comment,
     # unescape comments which looked like diff comment and were escaped.
-    states = []
+    states = {}
     ctxtpad = None
     fseplen = _fsep_minlen
     cmnts = []
@@ -1226,7 +1228,11 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 elif ind == _dcmnt_ind_state:
                     for arg in args:
                         if _msg_dpart_types.get(arg) == _dt_state:
-                            states.append(arg)
+                            states[arg] = True
+                    args_o = [word_ediff_to_o(x) for x in lst[1:]]
+                    for arg in args_o:
+                        if _msg_dpart_types.get(arg) == _dt_state:
+                            states[arg] = False
                 elif ind == _dcmnt_ind_ctxtpad:
                     ctxtpad = args[0]
                 elif ind == _dcmnt_ind_fseplen:
@@ -1284,9 +1290,9 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 return None
             atts_vals.append((part, nlst))
         elif typ == _dt_state:
-            if part in states:
-                val = True
-            atts_vals.append((part, val))
+            val = states.get(part)
+            if val is not None:
+                atts_vals.append((part, val))
         else:
             raise StandardError, ("internal: unknown part '%s' "
                                   "in resolving difference" % part)
