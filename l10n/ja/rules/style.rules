@@ -149,7 +149,7 @@ valid after="[単上下測方変順水の]"
 [毎]
 id="every"
 hint="ごと"
-valid before="[年月週日時分秒回]"
+valid before="([年月週日時分秒回]|平方)"
 valid after="^" before="$" cat="kalarm"
 
 [度に]
