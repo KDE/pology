@@ -107,8 +107,6 @@ _Message_fmt_fields = (
 _Message_inv_fields = (
     "obsolete",
     "fuzzy",
-    # ...fuzzy state must come before *_previous fields,
-    # not to null them in when setting fields in this order.
     "manual_comment",
     "msgctxt_previous",
     "msgid_previous",
@@ -212,10 +210,10 @@ class Message_base (object):
     @ivar fuzzy:
         whether the message is fuzzy
 
-        The state of fuzziness can be also checked by looking for the C{fuzzy}
-        flag in the set of flags, but using this variable is shorter,
-        and the message can be thoroughly unfuzzied by assigning C{False} to it
-        (e.g. C{*_previous} fields are cleared as well).
+        The state of fuzziness can be also checked and set by looking for
+        and adding/removing the C{fuzzy} flag from the set of flags,
+        but this is needed frequently enough to deserve an instance variable.
+        Note: To "thoroughly" unfuzzy the message, see method L{unfuzzy}.
     @type fuzzy: bool
 
     @ivar untranslated: (read-only)
@@ -381,12 +379,8 @@ class Message_base (object):
         elif att == "fuzzy":
             if val == True:
                 self.flag.add(u"fuzzy")
-            else:
-                if u"fuzzy" in self.flag:
-                    self.flag.remove(u"fuzzy")
-                self.msgctxt_previous = None
-                self.msgid_previous = None
-                self.msgid_plural_previous = None
+            elif u"fuzzy" in self.flag:
+                self.flag.remove(u"fuzzy")
 
         else:
             self.__dict__["^getsetattr"].__setattr__(self, att, val)
@@ -590,6 +584,39 @@ class Message_base (object):
                 self_list.pop()
 
 
+    def unfuzzy (self):
+        """
+        Thoroughly unfuzzy the message.
+
+        Strictly speaking, a message is fuzzy if it has the C{fuzzy} flag set.
+        Thus a message can be unfuzzied by removing this flag, either
+        manually from the C{flag} set, or through instance variable C{fuzzy}.
+        But if there were previous fields (e.g. C{msgid_previous})
+        added to the message when it was made fuzzy on merge, they will
+        remain in the message after it has been unfuzzied in this way.
+        This is normally not wanted, and in such cases this method may
+        be used to I{thouroughly} unfuzzy the message: remove C{fuzzy} flag,
+        set C{fuzzy} instance variable to C{False}, and all C{*_previous}
+        instance variables to C{None}.
+
+        If the message is not strictly fuzzy upon this call,
+        it is undefined whether any present previous fields will be
+        left untouched, or removed nontheless.
+
+        @returns: True if the message was unfuzzied, false otherwise
+        """
+
+        if not self.fuzzy:
+            return False
+
+        self.fuzzy = False # also removes fuzzy flag
+        self.msgctxt_previous = None
+        self.msgid_previous = None
+        self.msgid_plural_previous = None
+
+        return True
+
+
     def merge (self, other):
         """
         Merge in the contents of the other message with the same key.
@@ -638,6 +665,7 @@ class Message_base (object):
                     self._overwrite_list(other, "manual_comment")
                 if other.msgid_plural is not None:
                     self.msgid_plural = other.msgid_plural
+                self._overwrite_list(other, "msgstr")
 
             elif self.fuzzy and other.translated:
                 self._overwrite_list(other, "manual_comment")
@@ -646,7 +674,7 @@ class Message_base (object):
                         self.msgid_plural = other.msgid_plural
                     self._overwrite_list(other, "msgstr")
                     if self.msgid_plural == other.msgid_plural:
-                        self.fuzzy = False
+                        self.unfuzzy()
 
             elif self.untranslated and (other.translated or other.fuzzy):
                 self._overwrite_list(other, "manual_comment")
