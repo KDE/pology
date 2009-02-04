@@ -36,7 +36,7 @@ class Sieve (object):
 
         if msg.fuzzy:
             if not msg.obsolete:
-                msg.fuzzy = False
+                msg.unfuzzy()
                 msg.msgstr = Monlist()
                 if self.rmcomments:
                     msg.manual_comment = Monlist()

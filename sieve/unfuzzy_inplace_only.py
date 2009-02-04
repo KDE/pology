@@ -50,7 +50,7 @@ class Sieve (object):
             if (    msgid_n == msgid_previous_n
                 and msgid_plural_n == msgid_plural_previous_n
             ):
-                msg.fuzzy = False
+                msg.unfuzzy()
                 self.nunfuzz += 1
                 msg.modcount = 1 # in case of non-monitored messages
 

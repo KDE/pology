@@ -1225,7 +1225,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                             branch_msg.msgstr[i] = piped_msgstr
                         else:
                             branch_msg.msgstr.append(piped_msgstr)
-                    branch_msg.fuzzy = False
+                    branch_msg.unfuzzy()
                     branch_msg.manual_comment = summit_msg.manual_comment
 
                 elif (    summit_msg.msgid_plural is not None
@@ -1238,7 +1238,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                         branch_id, branch_name,
                         summit_msg.msgstr[index], summit_msg, summit_cat,
                         project.hook_on_scatter_msgstr)
-                    branch_msg.fuzzy = False
+                    branch_msg.unfuzzy()
                     branch_msg.manual_comment = summit_msg.manual_comment
 
                 else:

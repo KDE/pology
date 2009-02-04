@@ -754,8 +754,6 @@ _dt_state, _dt_single, _dt_list = range(3)
 _msg_diff_parts = (
     ("obsolete", _dt_state),
     ("fuzzy", _dt_state),
-    # ...fuzzy state must come before *_previous fields,
-    # not to null them in embedded diff when setting fuzzy to False.
     ("manual_comment", _dt_list),
     ("msgctxt_previous", _dt_single),
     ("msgid_previous", _dt_single),

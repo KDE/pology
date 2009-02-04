@@ -44,7 +44,7 @@ class Sieve (object):
         if msg.fuzzy \
         and msg.msgid == msg.msgid_previous \
         and msg.msgid_plural == msg.msgid_plural_previous:
-            msg.fuzzy = False
+            msg.unfuzzy()
             if self.flag_review:
                 # Add as manual comment, as any other type will vanish
                 # when catalog is merged with template.

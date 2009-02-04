@@ -70,7 +70,7 @@ class Sieve (object):
             and (   _stripped(msg.msgctxt or u"")
                  == _stripped(msg.msgctxt_previous or u""))
         ):
-            msg.fuzzy = False
+            msg.unfuzzy()
             if self.flag_review:
                 # Add as manual comment, as any other type will vanish
                 # when catalog is merged with template.

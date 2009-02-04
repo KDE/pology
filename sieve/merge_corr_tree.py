@@ -105,10 +105,10 @@ class Sieve (object):
                 if "(pofilter)" not in cmnt:
                     corr_manual_comment.append(cmnt)
 
-            # Take over: manual comments, fuzzy state, translation.
+            # Take over all extraction-invariant parts
+            # and set cleaned up comments.
+            msg.set_inv(corr_msg)
             msg.manual_comment = Monlist(corr_manual_comment)
-            msg.fuzzy = corr_msg.fuzzy
-            msg.msgstr = corr_msg.msgstr
 
             if msg.modcount > oldcount:
                 self.ncorr += 1
