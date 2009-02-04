@@ -471,7 +471,14 @@ class Message_base (object):
                     self.__dict__[att_lins] = wrapf(fname, escape(msgsth),
                                                     prefix[pstat])
 
-        if mod["msgstr"] or not self._lines_msgstr or force:
+        # msgstr must be renewed if the plurality of the message changed.
+        new_plurality = (    self._lines_msgstr
+                         and (   (    self.msgid_plural is None
+                                  and "msgstr[" in self._lines_msgstr[0])
+                              or (    self.msgid_plural is not None
+                                  and "msgstr[" not in self._lines_msgstr[0])))
+
+        if mod["msgstr"] or not self._lines_msgstr or new_plurality or force:
             self._lines_msgstr = []
             msgstr = self.msgstr or [u""]
             if self.msgid_plural is None:
