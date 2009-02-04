@@ -429,7 +429,8 @@ class Catalog (Monitored):
     """
 
     def __init__ (self, filename,
-                  create=False, wrapf=wrap_field, monitored=True,
+                  create=False, truncate=False,
+                  wrapf=wrap_field, monitored=True,
                   headonly=False, readfh=None):
         """
         Build a message catalog by reading from a PO file or creating anew.
@@ -463,6 +464,11 @@ class Catalog (Monitored):
             not already exist, or signal an error
         @type create: bool
 
+        @param truncate:
+            whether catalog should be empty (and with uninitialized header)
+            regardless of whether it is opened or created
+        @type truncate: bool
+
         @param wrapf:
             the function used for wrapping message fields in output.
             See C{to_lines()} method of L{Message_base} for details.
@@ -487,8 +493,12 @@ class Catalog (Monitored):
         else:
             message_type = MessageUnsafe
 
+        # Signal if catalog should exist on disk but does not.
+        if not create and not (os.path.exists(filename) or readfh):
+            raise StandardError, "file '%s' does not exist" % filename
+
         # Read messages or create empty catalog.
-        if os.path.exists(filename) or readfh:
+        if not truncate and (os.path.exists(filename) or readfh):
             file = readfh or filename
             m, e, t = _parse_po_file(file, message_type, headonly)
             self._encoding = e
@@ -504,15 +514,13 @@ class Catalog (Monitored):
                 self._header._committed = False # status for sync
                 self.__dict__["*"] = m
             self._tail = t
-        elif create:
+        else:
             self._encoding = "UTF-8"
             self._created_from_scratch = True
             self._header = Header()
             self._header._committed = False # status for sync
             self.__dict__["*"] = []
             self._tail = None
-        else:
-            raise StandardError, "file '%s' does not exist" % (filename,)
 
         self._filename = filename
 
