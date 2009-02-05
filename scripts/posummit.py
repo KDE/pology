@@ -980,18 +980,25 @@ def summit_gather_single (summit_name, project, options,
     if phony:
         return fresh_cat
 
-    # If there was any reordering, or some summit messages are obsoleted,
+    # If there was any reordering or plurality changes,
+    # or some summit messages are obsoleted,
     # replace the original with the fresh catalog.
     replace = False
     # Check for obsolete messages by comparing totals.
     if len(summit_cat) != len(fresh_cat):
         replace = True
     else:
-        # Check reordering.
-        for pos in range(len(summit_cat)):
-            if pos != fresh_cat.find(summit_cat[pos]):
+        pos = 0
+        for msg in summit_cat:
+            # Check reordering.
+            if pos != fresh_cat.find(msg):
                 replace = True
                 break
+            # Check plurality changes.
+            if msg.msgid_plural != fresh_cat[msg].msgid_plural:
+                replace = True
+                break
+            pos += 1
     if replace:
         # Set path and header to that of the original.
         fresh_cat.filename = summit_path
