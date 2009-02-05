@@ -562,7 +562,7 @@ def msg_cleanup (msg):
 
 def msg_eq_fields (m1, m2, fields):
 
-    if m1 is None != m2 is None:
+    if (m1 is None) != (m2 is None):
         return False
     elif m1 is None and m2 is None:
         return True
