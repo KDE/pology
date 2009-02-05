@@ -756,9 +756,9 @@ class Catalog (Monitored):
         self._assert_headonly()
         self.assert_spec_setitem(msg)
 
-        if not msg.msgid:
+        if not msg.msgid and not msg.msgctxt:
             raise StandardError, \
-                  "trying to insert message with empty msgid into the catalog"
+                  "trying to insert message with empty key into the catalog"
 
         if not msg.key in self._msgpos:
             # The message is new, insert.
