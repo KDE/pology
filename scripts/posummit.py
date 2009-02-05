@@ -990,7 +990,6 @@ def summit_gather_single (summit_name, project, options,
     else:
         pos = 0
         for msg in summit_cat:
-            fmsg =
             # Check reordering.
             if pos != fresh_cat.find(msg):
                 replace = True
