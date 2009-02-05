@@ -22,7 +22,7 @@ def main ():
 %prog [options] POFILE...
 """.strip()
     description = u"""
-Rewraps PO files considering some markup tags as unconditional breaks too.
+Rewrap PO files considering text structure more finely (markup tags, etc.)
 """.strip()
     version = u"""
 %prog (Pology) experimental
@@ -37,7 +37,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=True,
-        help="do not break long unsplit lines into several lines")
+        help="no basic wrapping (on newline characters)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=True,
