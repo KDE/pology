@@ -990,12 +990,14 @@ def summit_gather_single (summit_name, project, options,
     else:
         pos = 0
         for msg in summit_cat:
+            fmsg =
             # Check reordering.
             if pos != fresh_cat.find(msg):
                 replace = True
                 break
             # Check plurality changes.
-            if msg.msgid_plural != fresh_cat[msg].msgid_plural:
+            fmsg = fresh_cat[msg]
+            if (msg.msgid_plural is None) != (fmsg.msgid_plural is None):
                 replace = True
                 break
             pos += 1
