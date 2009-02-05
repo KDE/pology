@@ -109,7 +109,7 @@ to underscores before trying to resolve the location of the internal sieve.
 The following user configuration fields are considered
 (they may be overridden by command line options):
   - C{[posieve]/wrap}: whether to wrap message fields (default C{yes})
-  - C{[posieve]/tag-split}: whether to split mesage fields on tags
+  - C{[posieve]/fine-wrap}: whether to wrap message fields more finely
         (default C{yes})
   - C{[posieve]/skip-on-error}: whether to skip current catalog on
         processing error and go to next, if possible (default C{yes})
@@ -154,7 +154,7 @@ def main ():
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("posieve")
     def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_tag_split = cfgsec.boolean("tag-split", True)
+    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_do_skip = cfgsec.boolean("skip-on-error", True)
     def_msgfmt_check = cfgsec.boolean("msgfmt-check", False)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
@@ -198,11 +198,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="do not break long unsplit lines into several lines")
+        help="no basic wrapping (on column)")
     opars.add_option(
-        "--no-tag-split",
-        action="store_false", dest="do_tag_split", default=def_do_tag_split,
-        help="do not break lines on selected tags")
+        "--no-fine-wrap",
+        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
+        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -443,7 +443,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy for modified messages.
-    wrap_func = select_field_wrapper(oncol=op.do_wrap, ontags=op.do_tag_split)
+    wrap_func = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
 
     # Prepare selection regexes.
     exclude_cat_rx = None

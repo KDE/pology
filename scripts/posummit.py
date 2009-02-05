@@ -129,9 +129,9 @@ class Project (object):
             "templates_lang" : "",
 
             "summit_unwrap" : True,
-            "summit_split_tags" : True,
+            "summit_fine_wrap" : True,
             "branches_unwrap" : False,
-            "branches_split_tags" : True,
+            "branches_fine_wrap" : True,
 
             "version_control" : "",
 
@@ -640,7 +640,7 @@ def summit_merge (project, options):
                 template_path = template_catalogs[name][0][0]
                 summit_merge_single(SUMMIT_ID, summit_path, template_path,
                                     project.summit_unwrap,
-                                    project.summit_split_tags,
+                                    project.summit_fine_wrap,
                                     project, options)
 
     # Go through selected branches.
@@ -675,7 +675,7 @@ def summit_merge (project, options):
                 continue
             summit_merge_single(branch_id, branch_path, template_path,
                                 project.branches_unwrap,
-                                project.branches_split_tags,
+                                project.branches_fine_wrap,
                                 project, options)
 
 
@@ -850,7 +850,7 @@ def summit_gather_single (summit_name, project, options,
 
     # Decide on wrapping function for message fields in the summit.
     wrapf = select_field_wrapper(not project.summit_unwrap,
-                                 project.summit_split_tags)
+                                 project.summit_fine_wrap)
 
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
 
@@ -1177,7 +1177,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = select_field_wrapper(not project.branches_unwrap,
-                                 project.branches_split_tags)
+                                 project.branches_fine_wrap)
 
     # See if the branch catalog is to be newly created from the template.
     new_from_template = False
@@ -1523,7 +1523,7 @@ def split_summit_comments (msg):
 
 
 def summit_merge_single (branch_id, catalog_path, template_path,
-                         unwrap, split_tags, project, options):
+                         unwrap, fine_wrap, project, options):
 
     tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
     mkdirpath(tmp_dir)
@@ -1562,7 +1562,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     # Should merged catalog be opened, and in what mode?
     do_open = False
     headonly = False
-    if split_tags:
+    if fine_wrap:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
@@ -1582,7 +1582,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Open catalogs as necessary.
     if do_open:
-        wrapf = select_field_wrapper(not unwrap, split_tags)
+        wrapf = select_field_wrapper(not unwrap, fine_wrap)
         cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
                       headonly=headonly)
         if do_open_template:
@@ -1639,7 +1639,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
-        cat.sync(force=split_tags)
+        cat.sync(force=fine_wrap)
 
     # Execute file hooks.
     if project.hook_on_merge_file:

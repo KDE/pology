@@ -68,9 +68,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Decide on wrapping policy.
     if op.do_wrap:
-        wrap_func = wrap.wrap_field_ontag
+        wrap_func = wrap.wrap_field_fine
     else:
-        wrap_func = wrap.wrap_field_ontag_unwrap
+        wrap_func = wrap.wrap_field_fine_unwrap
 
     # Rewrap all catalogs.
     for fname in fnames:

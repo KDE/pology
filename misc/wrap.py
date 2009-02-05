@@ -389,9 +389,9 @@ def wrap_comment_unwrap (ctype, text):
                      remtrws=True)
 
 
-def wrap_field_ontag (field, text, preseq=""):
+def wrap_field_fine (field, text, preseq=""):
     """
-    Wrap fields in PO messages, including breaks at selected tags.
+    Wrap fields in PO messages, including breaks at selected markup elements.
 
     This function can be sent as parameter to L{Message} and L{Catalog}
     methods and constructors.
@@ -413,10 +413,10 @@ def wrap_field_ontag (field, text, preseq=""):
                      femp=True)
 
 
-def wrap_field_ontag_unwrap (field, text, preseq=""):
+def wrap_field_fine_unwrap (field, text, preseq=""):
     """
-    Wrap fields in PO messages, including breaks at selected tags, but only
-    at unconditional breaks (no column-wrapping).
+    Wrap fields in PO messages, including breaks at selected markup elements,
+    but only at unconditional breaks (no column-wrapping).
 
     This function can be sent as parameter to L{Message} and L{Catalog}
     methods and constructors.
@@ -437,27 +437,27 @@ def wrap_field_ontag_unwrap (field, text, preseq=""):
                      femp=True)
 
 
-def select_field_wrapper (oncol=True, ontags=True):
+def select_field_wrapper (basic=True, fine=True):
     """
     Select wrap function for PO message fields.
 
-    @param oncol: whether to wrap on column
-    @type oncol: bool
-    @param ontags: whether to wrap on tags
-    @type ontags: bool
+    @param basic: whether to wrap on column
+    @type basic: bool
+    @param fine: whether to wrap on markup elements
+    @type fine: bool
 
     @returns: wrap function (field, text, preseq="") -> wrapped text
     @rtype: (string, string, string) -> string
     """
 
-    if oncol:
-        if ontags:
-            wrapf = wrap_field_ontag
+    if basic:
+        if fine:
+            wrapf = wrap_field_fine
         else:
             wrapf = wrap_field
     else:
-        if ontags:
-            wrapf = wrap_field_ontag_unwrap
+        if fine:
+            wrapf = wrap_field_fine_unwrap
         else:
             wrapf = wrap_field_unwrap
 

@@ -22,7 +22,7 @@ from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monlist, Monset
-from pology.misc.wrap import wrap_field_ontag_unwrap
+from pology.misc.wrap import wrap_field_fine_unwrap
 from pology.misc.tabulate import tabulate
 from pology.misc.langdep import get_hook_lreq
 from pology.sieve.find_messages import build_msg_fmatcher
@@ -30,7 +30,7 @@ from pology.misc.colors import colors_for_file
 from pology.misc.resolve import expand_vars
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 
-WRAPF = wrap_field_ontag_unwrap
+WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
 
 

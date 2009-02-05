@@ -45,7 +45,7 @@ def main ():
     cfgsec = pology_config.section("poediff")
     def_do_merge = cfgsec.boolean("merge", True)
     def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_tag_split = cfgsec.boolean("tag-split", True)
+    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -92,11 +92,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="do not break long unsplit lines into several lines")
+        help="no basic wrapping (on column)")
     opars.add_option(
-        "--no-tag-split",
-        action="store_false", dest="do_tag_split", default=def_do_tag_split,
-        help="do not break lines on selected tags")
+        "--no-fine-wrap",
+        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
+        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -171,7 +171,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         pspecs = collect_pspecs_from_vcs(vcs, paths, revs)
 
     # Create the diff.
-    wrapf = select_field_wrapper(oncol=op.do_wrap, ontags=op.do_tag_split)
+    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     hlto = not op.output and sys.stdout or None
     ecat, ndiffed = diff_pairs(pspecs, op.do_merge, wrapf, hlto)
 

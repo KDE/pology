@@ -51,7 +51,7 @@ def main ():
     cfgsec = pology_config.section("poepatch")
     def_do_merge = cfgsec.boolean("merge", True)
     def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_tag_split = cfgsec.boolean("tag-split", True)
+    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -105,11 +105,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="do not break long unsplit lines into several lines")
+        help="no basic wrapping (on column)")
     opars.add_option(
-        "--no-tag-split",
-        action="store_false", dest="do_tag_split", default=def_do_tag_split,
-        help="do not break lines on selected tags")
+        "--no-fine-wrap",
+        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
+        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -210,15 +210,9 @@ def apply_ediff (op):
             cemsgs.append(emsg)
 
     # Prepare catalog for rejects and merges.
-    wrapf = select_field_wrapper(oncol=op.do_wrap, ontags=op.do_tag_split)
+    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     rcat = Catalog("", create=True, monitored=False, wrapf=wrapf)
     ED.init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
-    # FIXME: Using header-message context of patch catalog would be fine
-    # for rejects too, if not for possible split differences.
-    # They were not seen during diffing, and could not have been factored in
-    # when computing sufficient header-message context.
-    # Perhaps add enoctxt= parameter to msg_ediff, and use it when
-    # reembedding split differences?
 
     # Apply diff to catalogs.
     for fpaths, ehmsg, emsgs in edsplits:
