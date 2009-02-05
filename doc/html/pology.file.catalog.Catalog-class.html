@@ -136,7 +136,8 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
+        <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9c56994&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -739,7 +740,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9d71d14&gt;</span>,
+        <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9c56994&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -778,6 +780,8 @@
         <li><strong class="pname"><code>filename</code></strong> (string) - name of the PO catalog on disk, or new catalog</li>
         <li><strong class="pname"><code>create</code></strong> (bool) - whether a blank catalog can be created when the PO file does not 
           already exist, or signal an error</li>
+        <li><strong class="pname"><code>truncate</code></strong> (bool) - whether catalog should be empty (and with uninitialized header) 
+          regardless of whether it is opened or created</li>
         <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
           <code>to_lines()</code> method of <a 
           href="pology.file.message.Message_base-class.html" 

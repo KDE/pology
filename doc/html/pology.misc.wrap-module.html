@@ -186,10 +186,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#wrap_field_ontag" class="summary-sig-name">wrap_field_ontag</a>(<span class="summary-sig-arg">field</span>,
+          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#wrap_field_fine" class="summary-sig-name">wrap_field_fine</a>(<span class="summary-sig-arg">field</span>,
         <span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">preseq</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
-      Wrap fields in PO messages, including breaks at selected tags.</td>
+      Wrap fields in PO messages, including breaks at selected markup 
+      elements.</td>
           <td align="right" valign="top">
             
             
@@ -205,11 +206,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#wrap_field_ontag_unwrap" class="summary-sig-name">wrap_field_ontag_unwrap</a>(<span class="summary-sig-arg">field</span>,
+          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#wrap_field_fine_unwrap" class="summary-sig-name">wrap_field_fine_unwrap</a>(<span class="summary-sig-arg">field</span>,
         <span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">preseq</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
-      Wrap fields in PO messages, including breaks at selected tags, but 
-      only at unconditional breaks (no column-wrapping).</td>
+      Wrap fields in PO messages, including breaks at selected markup 
+      elements, but only at unconditional breaks (no column-wrapping).</td>
           <td align="right" valign="top">
             
             
@@ -225,8 +226,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#select_field_wrapper" class="summary-sig-name">select_field_wrapper</a>(<span class="summary-sig-arg">oncol</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">ontags</span>=<span class="summary-sig-default">True</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#select_field_wrapper" class="summary-sig-name">select_field_wrapper</a>(<span class="summary-sig-arg">basic</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">fine</span>=<span class="summary-sig-default">True</span>)</span><br />
       Select wrap function for PO message fields.</td>
           <td align="right" valign="top">
             
@@ -437,14 +438,14 @@
       </p>
 </div></td></tr></table>
 </div>
-<a name="wrap_field_ontag"></a>
+<a name="wrap_field_fine"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrap_field_ontag</span>(<span class="sig-arg">field</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrap_field_fine</span>(<span class="sig-arg">field</span>,
         <span class="sig-arg">text</span>,
         <span class="sig-arg">preseq</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
   </h3>
@@ -453,7 +454,8 @@
     </td>
   </tr></table>
   
-  <p>Wrap fields in PO messages, including breaks at selected tags.</p>
+  <p>Wrap fields in PO messages, including breaks at selected markup 
+  elements.</p>
   <p>This function can be sent as parameter to <a 
   href="pology.file.message.Message-class.html" class="link">Message</a> 
   and <a href="pology.file.catalog.Catalog-class.html" 
@@ -469,14 +471,14 @@
       </p>
 </div></td></tr></table>
 </div>
-<a name="wrap_field_ontag_unwrap"></a>
+<a name="wrap_field_fine_unwrap"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrap_field_ontag_unwrap</span>(<span class="sig-arg">field</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrap_field_fine_unwrap</span>(<span class="sig-arg">field</span>,
         <span class="sig-arg">text</span>,
         <span class="sig-arg">preseq</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
   </h3>
@@ -485,8 +487,8 @@
     </td>
   </tr></table>
   
-  <p>Wrap fields in PO messages, including breaks at selected tags, but 
-  only at unconditional breaks (no column-wrapping).</p>
+  <p>Wrap fields in PO messages, including breaks at selected markup 
+  elements, but only at unconditional breaks (no column-wrapping).</p>
   <p>This function can be sent as parameter to <a 
   href="pology.file.message.Message-class.html" class="link">Message</a> 
   and <a href="pology.file.catalog.Catalog-class.html" 
@@ -509,8 +511,8 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_field_wrapper</span>(<span class="sig-arg">oncol</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">ontags</span>=<span class="sig-default">True</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_field_wrapper</span>(<span class="sig-arg">basic</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">fine</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -521,8 +523,8 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>oncol</code></strong> (bool) - whether to wrap on column</li>
-        <li><strong class="pname"><code>ontags</code></strong> (bool) - whether to wrap on tags</li>
+        <li><strong class="pname"><code>basic</code></strong> (bool) - whether to wrap on column</li>
+        <li><strong class="pname"><code>fine</code></strong> (bool) - whether to wrap on markup elements</li>
     </ul></dd>
     <dt>Returns: (string, string, string) -&gt; string</dt>
         <dd>wrap function (field, text, preseq=&quot;&quot;) -&gt; wrapped 

@@ -280,6 +280,8 @@
         <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">emsg</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ecat</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">eokpos</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">enoctxt</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">emptydc</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
@@ -816,6 +818,8 @@
         <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">emsg</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ecat</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">eokpos</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">enoctxt</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">emptydc</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
@@ -850,7 +854,13 @@
   of those already in the catalog, its context will be appropriately padded
   to avoid the conflict. This is done by adding a pipe character and an 
   unspecified number of alphanumerics (generally junk-looking) to the end 
-  of the <code>msgctxt</code>.</p>
+  of the <code>msgctxt</code>. In case the conflict with a particular 
+  message in the catalog is acceptable (e.g. when resulting message is to 
+  be inserted in its place), the position of this message can be given by 
+  the <code>eokpos</code> parameter. In case a certain value of 
+  <code>msgctxt</code> should be padded regardless of whether there is a 
+  conflict or not, this value can be given by <code>enoctxt</code> 
+  parameter.</p>
   <p>An additional automatic comment starting with <code>ediff:</code> may 
   be added to the message, possibly followed by some indicators necessary 
   to complete the difference specification. These include:</p>
@@ -898,6 +908,8 @@
           class="link">Message_base</a>) - message to embedd the difference to</li>
         <li><strong class="pname"><code>ecat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - catalog of messages to avoid key conflict with</li>
+        <li><strong class="pname"><code>eokpos</code></strong> (int) - position into <code>ecat</code> where key conflict is ignored</li>
+        <li><strong class="pname"><code>enoctxt</code></strong> (string) - <code>msgctxt</code> string that should be padded unconditionally</li>
         <li><strong class="pname"><code>emptydc</code></strong> (bool) - whether to add difference comment even if empty</li>
         <li><strong class="pname"><code>hlto</code></strong> (file) - destination to produce highlighting for</li>
         <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
@@ -927,7 +939,7 @@
   <p>Message cannot be properly resolved if <code>hlto</code> or 
   <code>addrem</code> parameters to <a 
   href="pology.misc.diff-module.html#msg_ediff" class="link">msg_ediff</a> 
-  were used on embedding. In this function is called on such a message, the
+  were used on embedding. If this function is called on such a message, the
   result is undefined.</p>
   <p>By default a new message object is created, but using the 
   <code>rmsg</code> parameter, en existing message can be given to be 
