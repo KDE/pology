@@ -3,7 +3,8 @@
 
 import fallback_import_paths
 
-import pology.misc.wrap as wrap
+import pology.misc.config as pology_config
+from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.misc.report import error
@@ -16,6 +17,12 @@ import locale
 def main ():
 
     locale.setlocale(locale.LC_ALL, "")
+
+    # Get defaults for command line options from global config.
+    cfgsec = pology_config.section("porewrap")
+    def_do_wrap = cfgsec.boolean("wrap", True)
+    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
+    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -36,11 +43,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="get list of input files from FILE (one file per line)")
     opars.add_option(
         "--no-wrap",
-        action="store_false", dest="do_wrap", default=True,
-        help="no basic wrapping (on newline characters)")
+        action="store_false", dest="do_wrap", default=def_do_wrap,
+        help="no basic wrapping (on column)")
+    opars.add_option(
+        "--no-fine-wrap",
+        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
+        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "--no-psyco",
-        action="store_false", dest="use_psyco", default=True,
+        action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
         "-v", "--verbose",
@@ -67,10 +78,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy.
-    if op.do_wrap:
-        wrap_func = wrap.wrap_field_fine
-    else:
-        wrap_func = wrap.wrap_field_fine_unwrap
+    wrap_func = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
 
     # Rewrap all catalogs.
     for fname in fnames:
