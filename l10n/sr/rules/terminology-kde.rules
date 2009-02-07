@@ -473,7 +473,7 @@ valid cat="okular" after="leader " msgstr="изводниц"
 {\blist(s|ed)?\b}i
 id="list"
 hint="list = списак [може бити и ‘листа’, где се изричито дозволи]"
-valid after="(mailing |e?mail |distribution |access control |play\W?|dynamic |white |black )" msgstr="\bлист"
+valid after="(mailing |e?mail |distribution |access control |play\W?|dynamic |white |black |block\W?)" msgstr="\bлист"
 valid cat="kio_imap4" after="access control " msgstr="\bacl"
 valid cat="juk" after="collection " msgstr="\bлист"
 valid after="free[ /-]busy " !msgstr="\bлист"
