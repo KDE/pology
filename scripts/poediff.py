@@ -476,8 +476,7 @@ def add_msg_diff (msg1, msg2, ecat, hlto, fnsyn=None):
     if fnsyn is None:
         ecat.add_last(emsg)
     else:
-        pos, weight = ecat.insertion_inquiry(emsg, fnsyn)
-        ecat.add(emsg, pos)
+        ecat.add(emsg, None, fnsyn)
 
     return 1
 

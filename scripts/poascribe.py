@@ -1065,7 +1065,7 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         for field in _id_fields:
             setattr(amsg, field, getattr(msg, field))
         # Append to the end of catalog.
-        pos = acat.add_last(amsg)
+        acat.add_last(amsg)
     else:
         # Retrieve existing ascription message.
         amsg = acat[msg]
