@@ -154,12 +154,12 @@ def apply_ediff (op):
         edfpath = op.input
         readfh = None
     else:
-        edfpath = ""
+        edfpath = "<stdin>"
         readfh = sys.stdin
     try:
         ecat = Catalog(edfpath, monitored=False, readfh=readfh)
     except:
-        error("error reading ediff: %s" % (op.input or "<stdin>"))
+        error("error reading ediff: %s" % edfpath)
 
     # Split ediff by diffed catalog into original and new file paths,
     # header message, and ordinary messages.
