@@ -169,7 +169,7 @@ def apply_ediff (op):
     edsplits = []
     cehmsg = None
     smsgid = u"\x00"
-    ecat.add(MessageUnsafe(dict(msgctxt=hmsgctxt, msgid=smsgid)), -1) # sentry
+    ecat.add_last(MessageUnsafe(dict(msgctxt=hmsgctxt, msgid=smsgid))) # sentry
     for emsg in ecat:
         if emsg.msgctxt == hmsgctxt:
             if cehmsg:
@@ -292,7 +292,7 @@ def apply_ediff (op):
                 # Clean header diff.
                 ehmsg.manual_comment = ehmsg.manual_comment[:1]
                 ehmsg.msgstr[0] = u""
-            rcat.add(ehmsg, -1)
+            rcat.add_last(ehmsg)
             for emsg, flag in rejected_emsgs_flags:
                 # Reembed to avoid any conflicts.
                 msg1, msg2, msg1_s, msg2_s = resolve_diff_pair(emsg)
@@ -300,7 +300,7 @@ def apply_ediff (op):
                                  emsg=msg2_s, ecat=rcat, enoctxt=hmsgctxt)
                 if flag:
                     emsg.flag.add(flag)
-                rcat.add(emsg, -1)
+                rcat.add_last(emsg)
 
     # If there were any rejects, write them out.
     if len(rcat) > 0:
@@ -584,9 +584,9 @@ def build_splitting_triplets (emsgs, cat, options):
     for emsg in emsgs:
         msg1, msg2, msg1_s, msg2_s = resolve_diff_pair(emsg)
         if msg1:
-            cat1.add(msg1, -1)
+            cat1.add_last(msg1)
         if msg2:
-            cat2.add(msg2, -1)
+            cat2.add_last(msg2)
     # Make headers same, to avoid any diffs there.
     cat1.header = cat.header
     cat2.header = cat.header

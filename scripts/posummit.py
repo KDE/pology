@@ -1082,7 +1082,8 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         # Merge the branch message or collect for insertion.
         if msg in summit_cat:
             # Merge the message.
-            pos_merged = summit_cat.add(msg)
+            pos_merged = summit_cat.find(msg)
+            summit_cat[pos_merged].merge(msg)
 
             # Update automatic comments.
             summit_override_auto(summit_cat[pos_merged], msg, branch_id,
@@ -1103,11 +1104,10 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         # Avoid expensive heuristic insertion if the summit catalog is
         # newly created and this is the primary branch catalog.
         if summit_cat.created() and is_primary:
-            pos = -1
+            pos_added = summit_cat.add_last(msg)
         else:
             pos, weight = summit_cat.insertion_inquiry(msg, fnsyn)
-        # Insert the message; the true position is reported back.
-        pos_added = summit_cat.add(msg, pos)
+            pos_added = summit_cat.add(msg, pos)
 
         # Equip summit tags to the added message.
         summit_set_tags(summit_cat[pos_added], branch_ids_cats, project)

@@ -725,7 +725,7 @@ def _norm_ui_cat (cat, xmlescape):
         # If the message as modified is still valid,
         # and not already present in the normalized catalog, append it.
         if msg.msgid and msg not in norm_cat:
-            norm_cat.add(msg, -1) # O(1) when position -1
+            norm_cat.add_last(msg)
 
     return norm_cat
 

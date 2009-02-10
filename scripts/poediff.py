@@ -332,7 +332,7 @@ def diff_cats (cat1, cat2, ecat, merge, hlto=False, wrem=True, wadd=True):
             for msg in cat:
                 imsg = msg_invert_cp(msg)
                 if imsg not in icat:
-                    icat.add(imsg, -1)
+                    icat.add_last(imsg)
             icat_pack[0] = icat
         return icat_pack[0]
 
@@ -473,10 +473,11 @@ def add_msg_diff (msg1, msg2, ecat, hlto, fnsyn=None):
     emsg = msg_ediff(msg1_s, msg2_s, emsg=emsg, ecat=ecat, hlto=hlto)
 
     # Add to the diff catalog.
-    pos = -1
-    if fnsyn is not None:
+    if fnsyn is None:
+        ecat.add_last(emsg)
+    else:
         pos, weight = ecat.insertion_inquiry(emsg, fnsyn)
-    ecat.add(emsg, pos)
+        ecat.add(emsg, pos)
 
     return 1
 
