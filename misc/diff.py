@@ -995,7 +995,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
       - C{ctxtpad <STRING>}: padding alphanumerics added to the C{msgctxt}
         field to avoid key collision with one of the messages from C{ecat}.
 
-      - C{fseplen <NUMBER>}: if {pfilter} was used, and the default field
+      - C{fseplen <NUMBER>}: if C{pfilter} was used, and the default field
         separator had to be extended because such substring already existed
         in the text, this indicator states its length.
 
@@ -1165,6 +1165,11 @@ def msg_ediff_to_new (emsg, rmsg=None):
     If the resolved message evaluates to no message, the function
     returns C{None}, and C{rmsg} is not touched if it was given.
 
+    Any states indicated as added by the difference comment are ignored
+    in favor of the actual states of embedded difference message.
+    The two sets should normally be equal, but if they are not,
+    the actual state in effect overrides the indicated added state.
+
     @param emsg: resolvable message with embedded differences
     @type emsg: L{Message_base<file.message.Message_base>} or None
     @param rmsg: message to fill in the resolved parts
@@ -1181,7 +1186,9 @@ def msg_ediff_to_old (emsg, rmsg=None):
     """
     Resolve message with embedded difference to the older message.
 
-    Like L{msg_ediff_to_new}, only constructing the opposite message.
+    Like L{msg_ediff_to_new}, only constructing the opposite message
+    (except that states indicated as removed by difference comment are
+    never ignored, i.e. they always override actual states).
     See L{msg_ediff_to_new} for parameters and return values.
     """
 
