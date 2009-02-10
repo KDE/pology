@@ -534,12 +534,6 @@ class Catalog (Monitored):
             self._messages[i]._committed = True
             self._messages[i]._remove_on_sync = False
 
-        # Find canonical position after all non-obsolete messages.
-        op = len(self._messages)
-        while op > 0 and self._messages[op - 1].obsolete:
-            op -= 1
-        self._obspos = op
-
         # Initialize monitoring.
         final_spec = copy.deepcopy(_Catalog_spec)
         final_spec["*"]["type"] = message_type
@@ -775,32 +769,20 @@ class Catalog (Monitored):
 
         if not msg.key in self._msgpos:
             # The message is new, insert.
-            nmsgs = len(self._messages)
             if pos is None:
                 # Find best insertion position.
-                last = (msg.obsolete and (nmsgs,) or (self._obspos,))[0]
-                ip, weight = self._pick_insertion_point(msg, last, srefsyn)
+                ip, weight = self._pick_insertion_point(msg, srefsyn)
             elif pos >= 0:
                 # Take given position as exact insertion point.
                 ip = pos
-            elif not msg.obsolete:
-                # Count from the canonically first obsolete message.
-                ip = self._obspos + pos
             else:
-                # Count from the last message.
-                ip = nmsgs + pos
+                # Count backward from the last message.
+                ip = len(self._messages) + pos
 
             # Update key-position links for the index to be added.
-            for i in range(ip, nmsgs):
+            for i in range(ip, len(self._messages)):
                 ckey = self._messages[i].key
                 self._msgpos[ckey] = i + 1
-
-            # Update canonical position after all non-obsolete messages.
-            if not msg.obsolete:
-                if ip <= self._obspos:
-                    self._obspos += 1
-                else:
-                    self._obspos = ip + 1
 
             # Store the message.
             self._messages.insert(ip, msg)
@@ -834,16 +816,22 @@ class Catalog (Monitored):
         is not obsolete, the position is reported as number of messages
         (i.e. one position after the last message).
 
+        Runtime complexity O(number of contiguous trailing obsolete messages).
+
         @return: canonical position of first obsolete message
         @rtype: int
         """
 
-        return self._obspos
+        op = len(self._messages)
+        while op > 0 and self._messages[op - 1].obsolete:
+            op -= 1
+
+        return op
 
 
     def add_last (self, msg):
         """
-        Add a message to the end of catalog, if not already in it.
+        Add a message to the selected end of catalog, if not already in it.
 
         Synonym to C{cat.add(msg, cat.obspos())} if the message is
         not obsolete (i.e. tries to add the message after all non-obsolete),
@@ -888,14 +876,9 @@ class Catalog (Monitored):
             ip = self._msgpos[key]
 
         # Update key-position links for the removed index.
-        nmsgs = len(self._messages)
-        for i in range(ip + 1, nmsgs):
+        for i in range(ip + 1, len(self._messages)):
             ckey = self._messages[i].key
             self._msgpos[ckey] = i - 1
-
-        # Update position after all non-obsolete messages.
-        if not self._messages[ip].obsolete:
-            self._obspos -= 1
 
         # Remove from messages and key-position links.
         self._messages.pop(ip)
@@ -1061,9 +1044,6 @@ class Catalog (Monitored):
         for i in range(len(self._messages)):
             self._msgpos[self._messages[i].key] = i
 
-        # Update position after all non-obsolete messages.
-        self._obspos = obstop
-
         # Reset modification state throughout.
         self.modcount = 0
 
@@ -1091,7 +1071,7 @@ class Catalog (Monitored):
         """
 
         self._assert_headonly()
-        return self._pick_insertion_point(msg, self._obspos, srefsyn)
+        return self._pick_insertion_point(msg, srefsyn)
 
 
     def created (self):
@@ -1107,10 +1087,15 @@ class Catalog (Monitored):
         return self._created_from_scratch
 
 
-    def _pick_insertion_point (self, msg, last, srefsyn={}):
+    def _pick_insertion_point (self, msg, srefsyn={}):
 
         # Return the best insertion position with associated weight.
         # Assume the existing messages in the catalog are properly ordered.
+
+        if not msg.obsolete:
+            last = self.obspos()
+        else:
+            last = len(self._messages)
 
         # Insert at the last position if the candidate message has
         # no source references.
