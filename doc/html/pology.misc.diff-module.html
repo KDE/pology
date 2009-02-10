@@ -878,9 +878,10 @@
       messages from <code>ecat</code>.
     </li>
     <li>
-      <code>fseplen &lt;NUMBER&gt;</code>: if {pfilter} was used, and the 
-      default field separator had to be extended because such substring 
-      already existed in the text, this indicator states its length.
+      <code>fseplen &lt;NUMBER&gt;</code>: if <code>pfilter</code> was 
+      used, and the default field separator had to be extended because such
+      substring already existed in the text, this indicator states its 
+      length.
     </li>
   </ul>
   <p>By default the difference comment is not added if there are no 
@@ -948,6 +949,10 @@
   <p>If the resolved message evaluates to no message, the function returns 
   <code>None</code>, and <code>rmsg</code> is not touched if it was 
   given.</p>
+  <p>Any states indicated as added by the difference comment are ignored in
+  favor of the actual states of embedded difference message. The two sets 
+  should normally be equal, but if they are not, the actual state in effect
+  overrides the indicated added state.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -978,8 +983,10 @@
   
   <p>Resolve message with embedded difference to the older message.</p>
   <p>Like <a href="pology.misc.diff-module.html#msg_ediff_to_new" 
-  class="link">msg_ediff_to_new</a>, only constructing the opposite 
-  message. See <a href="pology.misc.diff-module.html#msg_ediff_to_new" 
+  class="link">msg_ediff_to_new</a>, only constructing the opposite message
+  (except that states indicated as removed by difference comment are never 
+  ignored, i.e. they always override actual states). See <a 
+  href="pology.misc.diff-module.html#msg_ediff_to_new" 
   class="link">msg_ediff_to_new</a> for parameters and return values.</p>
   <dl class="fields">
   </dl>

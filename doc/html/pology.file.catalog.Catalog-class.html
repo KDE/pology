@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9c56994&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9ebf764&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -284,14 +284,50 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">int</span>
+      <span class="summary-type">int or None</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">srefsyn</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Add a message to the catalog.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#obspos" class="summary-sig-name">obspos</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get canonical position of the first obsolete message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#add_last" class="summary-sig-name">add_last</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
+      Add a message to the end of catalog, if not already in it.</td>
           <td align="right" valign="top">
             
             
@@ -741,7 +777,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9c56994&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9ebf764&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1026,7 +1062,8 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">msg</span>,
-        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">srefsyn</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1034,31 +1071,99 @@
   </tr></table>
   
   <p>Add a message to the catalog.</p>
-  <p>If the message with the same key already exists, it will be merged 
-  (see <code>merge()</code> method of <a 
-  href="pology.file.message.Message_base-class.html" 
-  class="link">Message_base</a>).</p>
+  <p>If the message with the same key already exists in the catalog, it 
+  will be replaced with the new message, ignoring position. The return 
+  value will be <code>None</code>.</p>
   <p>If the message does not exist in the catalog, when the position is 
   <code>None</code>, the insertion will be attempted such as that the 
   messages be near according to the source references; if the position is 
-  not <code>None</code>, the message is inserted at the given position, 
-  unless it is obsolete.</p>
-  <p>Negative positions can be given, and count backward from the first 
-  non-obsolete message (i.e. -1 means insertion after all non-obsolete 
-  messages).</p>
-  <p>Runtime complexity O(n), even if the position is explicitly stated; 
-  O(1) only when the position is given as -1.</p>
+  not <code>None</code>, the message is inserted at the given position. The
+  return value will be the true insertion position.</p>
+  <p>Negative position can be given as well. It counts backward from the 
+  first non-obsolete message if the message to be added is not obsolete, or
+  from last message otherwise.</p>
+  <p>When the message is inserted according to source references, a 
+  dictionary of file paths to consider synonymous can be given by the 
+  <code>srefsyn</code>. The key is the file path for which the synonyms are
+  being given, and the value the list of synonymous file paths. The mapping
+  is not symmetric; if B is in the list of synonyms to A, A will not be 
+  automatically considered to be among synonyms of B, unless explicitly 
+  given in the list of synonyms to B.</p>
+  <p>Runtime complexity O(1) if the message is present in the catalog; O(n 
+  - pos) if the position is given and the message is not present; O(n) if 
+  the position is not given and the message is not present.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
           class="link">Message_base</a>) - message to insert or merge</li>
-        <li><strong class="pname"><code>pos</code></strong> (int or <code>None</code>) - position index to insert at</li>
+        <li><strong class="pname"><code>pos</code></strong> (int or None) - position index to insert at</li>
+        <li><strong class="pname"><code>srefsyn</code></strong> ({string: list of strings}) - synonymous names to some of the source files</li>
     </ul></dd>
-    <dt>Returns: int</dt>
-        <dd>the position where merged or inserted</dd>
+    <dt>Returns: int or None</dt>
+        <dd>if inserted, the position where inserted</dd>
   </dl>
 </td></tr></table>
+</div>
+<a name="obspos"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">obspos</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get canonical position of the first obsolete message.</p>
+  <p><i>Canonical</i> position of the first obsolete message is the 
+  position of first of the contiguous obsolete messages at the end of the 
+  catalog. Normally this should be the same as the position of the very 
+  first obsolete message, as all obsolete messages should be contiguously 
+  grouped at the end. But there is no enforcement of such grouping, 
+  therefore the more stricter definition.</p>
+  <p>If there are no messages in the catalog, or the last message is not 
+  obsolete, the position is reported as number of messages (i.e. one 
+  position after the last message).</p>
+  <dl class="fields">
+    <dt>Returns: int</dt>
+        <dd>canonical position of first obsolete message</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_last"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_last</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Add a message to the end of catalog, if not already in it.</p>
+  <p>Synonym to <code>cat.add(msg, cat.obspos())</code> if the message is 
+  not obsolete (i.e. tries to add the message after all non-obsolete), or 
+  to <code>cat.add(msg, len(cat))</code> (tries to add at the very end). If
+  the message already exits in the catalog (by key), same behavior as for 
+  <a href="pology.file.catalog.Catalog-class.html#add" class="link">add</a>
+  applies.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.file.catalog.Catalog-class.html#add" 
+        class="link">add</a>
+      </p>
+</div></td></tr></table>
 </div>
 <a name="remove"></a>
 <div>
@@ -1193,7 +1298,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>msg</code></strong> (subclass of <a href="pology.file.message.Message_base-class.html"
           class="link">Message_base</a>) - message to compute the tentative insertion for</li>
-        <li><strong class="pname"><code>srefsyn</code></strong> (dictionary: file name, list of synonymous names) - synonymous names to some of the source files</li>
+        <li><strong class="pname"><code>srefsyn</code></strong> ({string: list of strings}) - synonymous names to some of the source files</li>
     </ul></dd>
     <dt>Returns: int, float</dt>
         <dd>the insertion position and its weight</dd>
