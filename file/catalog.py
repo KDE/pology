@@ -534,7 +534,7 @@ class Catalog (Monitored):
             self._messages[i]._committed = True
             self._messages[i]._remove_on_sync = False
 
-        # Find position after all non-obsolete messages.
+        # Find canonical position after all non-obsolete messages.
         op = len(self._messages)
         while op > 0 and self._messages[op - 1].obsolete:
             op -= 1
@@ -723,34 +723,47 @@ class Catalog (Monitored):
             return defmsg
 
 
-    def add (self, msg, pos=None):
+    def add (self, msg, pos=None, srefsyn={}):
         """
         Add a message to the catalog.
 
-        If the message with the same key already exists, it will be merged
-        (see C{merge()} method of L{Message_base}).
+        If the message with the same key already exists in the catalog,
+        it will be replaced with the new message, ignoring position.
+        The return value will be C{None}.
 
         If the message does not exist in the catalog, when the position is
         C{None}, the insertion will be attempted such as that the messages be
         near according to the source references; if the position is not
-        C{None}, the message is inserted at the given position, unless it is
-        obsolete.
+        C{None}, the message is inserted at the given position.
+        The return value will be the true insertion position.
 
-        Negative positions can be given, and count backward from the first
-        non-obsolete message (i.e. -1 means insertion after all non-obsolete
-        messages).
+        Negative position can be given as well. It counts backward from
+        the first non-obsolete message if the message to be added
+        is not obsolete, or from last message otherwise.
 
-        Runtime complexity O(n), even if the position is explicitly stated;
-        O(1) only when the position is given as -1.
+        When the message is inserted according to source references,
+        a dictionary of file paths to consider synonymous can be given
+        by the C{srefsyn}. The key is the file path for which the synonyms
+        are being given, and the value the list of synonymous file paths.
+        The mapping is not symmetric; if B is in the list of synonyms to A,
+        A will not be automatically considered to be among synonyms of B,
+        unless explicitly given in the list of synonyms to B.
+
+        Runtime complexity O(1) if the message is present in the catalog;
+        O(n - pos) if the position is given and the message is not present;
+        O(n) if the position is not given and the message is not present.
 
         @param msg: message to insert or merge
         @type msg: subclass of L{Message_base}
 
         @param pos: position index to insert at
-        @type pos: int or C{None}
+        @type pos: int or None
 
-        @returns: the position where merged or inserted
-        @rtype: int
+        @param srefsyn: synonymous names to some of the source files
+        @type srefsyn: {string: list of strings}
+
+        @returns: if inserted, the position where inserted
+        @rtype: int or None
         """
 
         self._assert_headonly()
@@ -763,30 +776,31 @@ class Catalog (Monitored):
         if not msg.key in self._msgpos:
             # The message is new, insert.
             nmsgs = len(self._messages)
-            if msg.obsolete:
-                # Insert obsolete message to the very end.
-                ip = len(self._messages)
-
+            if pos is None:
+                # Find best insertion position.
+                last = (msg.obsolete and (nmsgs,) or (self._obspos,))[0]
+                ip, weight = self._pick_insertion_point(msg, last, srefsyn)
+            elif pos >= 0:
+                # Take given position as exact insertion point.
+                ip = pos
+            elif not msg.obsolete:
+                # Count from the canonically first obsolete message.
+                ip = self._obspos + pos
             else:
-                if pos is None:
-                    # Find best insertion position.
-                    ip, none = self._pick_insertion_point(msg, self._obspos)
-                else:
-                    if pos >= 0:
-                        # Take given position as exact insertion point.
-                        ip = pos
-                    else:
-                        # Count backwards from the first obsolete message.
-                        ip = self._obspos + pos + 1
+                # Count from the last message.
+                ip = nmsgs + pos
 
             # Update key-position links for the index to be added.
             for i in range(ip, nmsgs):
                 ckey = self._messages[i].key
                 self._msgpos[ckey] = i + 1
 
-            # Update position after all non-obsolete messages.
+            # Update canonical position after all non-obsolete messages.
             if not msg.obsolete:
-                self._obspos += 1
+                if ip <= self._obspos:
+                    self._obspos += 1
+                else:
+                    self._obspos = ip + 1
 
             # Store the message.
             self._messages.insert(ip, msg)
@@ -798,10 +812,52 @@ class Catalog (Monitored):
             return ip
 
         else:
-            # The message exists, merge.
+            # The message exists, replace the original message.
             ip = self._msgpos[msg.key]
-            self._messages[ip].merge(msg)
-            return ip
+            self._messages[ip] = msg
+
+            return None
+
+
+    def obspos (self):
+        """
+        Get canonical position of the first obsolete message.
+
+        I{Canonical} position of the first obsolete message is the position
+        of first of the contiguous obsolete messages at the end of the catalog.
+        Normally this should be the same as the position of the very first
+        obsolete message, as all obsolete messages should be contiguously
+        grouped at the end. But there is no enforcement of such grouping,
+        therefore the more stricter definition.
+
+        If there are no messages in the catalog, or the last message
+        is not obsolete, the position is reported as number of messages
+        (i.e. one position after the last message).
+
+        @return: canonical position of first obsolete message
+        @rtype: int
+        """
+
+        return self._obspos
+
+
+    def add_last (self, msg):
+        """
+        Add a message to the end of catalog, if not already in it.
+
+        Synonym to C{cat.add(msg, cat.obspos())} if the message is
+        not obsolete (i.e. tries to add the message after all non-obsolete),
+        or to C{cat.add(msg, len(cat))} (tries to add at the very end).
+        If the message already exits in the catalog (by key),
+        same behavior as for L{add} applies.
+
+        @see: L{add}
+        """
+
+        if not msg.obsolete:
+            return self.add(msg, self.obspos())
+        else:
+            return self.add(msg, len(self._messages))
 
 
     def remove (self, ident):
@@ -1028,7 +1084,7 @@ class Catalog (Monitored):
         @param msg: message to compute the tentative insertion for
         @type msg: subclass of L{Message_base}
         @param srefsyn: synonymous names to some of the source files
-        @type srefsyn: dictionary: file name, list of synonymous names
+        @type srefsyn: {string: list of strings}
 
         @returns: the insertion position and its weight
         @rtype: int, float
