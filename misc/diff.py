@@ -323,7 +323,7 @@ def word_ediff_to_old (dtext):
     @see: L{word_ediff}
     """
 
-    return _word_ediff_to_oldnew(dtext, "", "\\1")
+    return _word_ediff_to_oldnew(dtext, _capt_old_rx, _capt_new_rx)
 
 
 def word_ediff_to_new (dtext):
@@ -339,20 +339,20 @@ def word_ediff_to_new (dtext):
     @see: L{word_ediff}
     """
 
-    return _word_ediff_to_oldnew(dtext, "\\1", "")
+    return _word_ediff_to_oldnew(dtext, _capt_new_rx, _capt_old_rx)
 
 
-def _word_ediff_to_oldnew (dtext, repl_old, repl_new):
+def _word_ediff_to_oldnew (dtext, capt_this_rx, capt_other_rx):
 
     if dtext is None:
         return None
     text = dtext
-    text = _capt_old_rx.sub(repl_new, text)
-    text = _capt_new_rx.sub(repl_old, text)
+    text = capt_this_rx.sub(r"\1", text)
+    text = capt_other_rx.sub(r"", text)
     text = _unescape_ewraps(text)
     if text.endswith(_tagext_none):
         text = text[:-_tagext_none_len]
-        if not text:
+        if not text and capt_other_rx.search(dtext):
             return None
     return text
 
@@ -507,7 +507,7 @@ def line_ediff_to_old (dlines):
     @see: L{line_ediff}
     """
 
-    return _line_ediff_to_oldnew(dlines, "", "\\1")
+    return _line_ediff_to_oldnew(dlines, word_ediff_to_old)
 
 
 def line_ediff_to_new (dlines):
@@ -523,14 +523,14 @@ def line_ediff_to_new (dlines):
     @see: L{line_ediff}
     """
 
-    return _line_ediff_to_oldnew(dlines, "\\1", "")
+    return _line_ediff_to_oldnew(dlines, word_ediff_to_new)
 
 
-def _line_ediff_to_oldnew (dlines, repl_old, repl_new):
+def _line_ediff_to_oldnew (dlines, word_ediff_to_x):
 
     lines = []
     for dline in dlines:
-        line = _word_ediff_to_oldnew(dline, repl_old, repl_new)
+        line = word_ediff_to_x(dline)
         if line is not None:
             lines.append(line)
     return lines
