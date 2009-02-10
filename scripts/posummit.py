@@ -1080,17 +1080,14 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             continue
 
         # Merge the branch message or collect for insertion.
-        if msg in summit_cat:
+        summit_msg = summit_cat.get(msg)
+        if summit_msg is not None:
             # Merge the message.
-            pos_merged = summit_cat.find(msg)
-            summit_cat[pos_merged].merge(msg)
-
+            summit_msg.merge(msg)
             # Update automatic comments.
-            summit_override_auto(summit_cat[pos_merged], msg, branch_id,
-                                 is_primary)
-
+            summit_override_auto(summit_msg, msg, branch_id, is_primary)
             # Equip any new summit tags to the merged message.
-            summit_set_tags(summit_cat[pos_merged], branch_ids_cats, project)
+            summit_set_tags(summit_msg, branch_ids_cats, project)
         else:
             msgs_to_insert.append(msg)
 
