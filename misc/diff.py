@@ -1194,10 +1194,12 @@ def _msg_ediff_to_x (emsg, rmsg, new):
         word_ediff_to_x = word_ediff_to_new
         word_ediff_to_o = word_ediff_to_old
         line_ediff_to_x = line_ediff_to_new
+        ignore_state_diff = True
     else:
         word_ediff_to_x = word_ediff_to_old
         word_ediff_to_o = word_ediff_to_new
         line_ediff_to_x = line_ediff_to_old
+        ignore_state_diff = False
 
     # Work on copy if target message not given.
     if rmsg is None:
@@ -1245,9 +1247,8 @@ def _msg_ediff_to_x (emsg, rmsg, new):
 
     listtype = type(rmsg.msgstr)
 
-    # Put back cleaned comments if the message is resolved unto itself.
-    if rmsg is emsg:
-        atts_vals.append((_dcmnt_field, listtype(cmnts)))
+    # Put back cleaned comments.
+    atts_vals.append((_dcmnt_field, listtype(cmnts)))
 
     # Remove context padding.
     if ctxtpad:
@@ -1288,9 +1289,10 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 return None
             atts_vals.append((part, nlst))
         elif typ == _dt_state:
-            val = states.get(part)
-            if val is not None:
-                atts_vals.append((part, val))
+            if not ignore_state_diff:
+                val = states.get(part)
+                if val is not None:
+                    atts_vals.append((part, val))
         else:
             raise StandardError, ("internal: unknown part '%s' "
                                   "in resolving difference" % part)
