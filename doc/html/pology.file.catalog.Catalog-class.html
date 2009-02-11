@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9ebf764&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x96e2df4&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -327,7 +327,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#add_last" class="summary-sig-name">add_last</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>)</span><br />
-      Add a message to the end of catalog, if not already in it.</td>
+      Add a message to the selected end of catalog, if not already in it.</td>
           <td align="right" valign="top">
             
             
@@ -777,7 +777,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9ebf764&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x96e2df4&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1129,6 +1129,8 @@
   <p>If there are no messages in the catalog, or the last message is not 
   obsolete, the position is reported as number of messages (i.e. one 
   position after the last message).</p>
+  <p>Runtime complexity O(number of contiguous trailing obsolete 
+  messages).</p>
   <dl class="fields">
     <dt>Returns: int</dt>
         <dd>canonical position of first obsolete message</dd>
@@ -1150,7 +1152,8 @@
     </td>
   </tr></table>
   
-  <p>Add a message to the end of catalog, if not already in it.</p>
+  <p>Add a message to the selected end of catalog, if not already in 
+  it.</p>
   <p>Synonym to <code>cat.add(msg, cat.obspos())</code> if the message is 
   not obsolete (i.e. tries to add the message after all non-obsolete), or 
   to <code>cat.add(msg, len(cat))</code> (tries to add at the very end). If
