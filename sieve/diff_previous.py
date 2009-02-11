@@ -1,28 +1,73 @@
 # -*- coding: UTF-8 -*-
 
+"""
+Embed differences in original text in fuzzy messages into previous fields.
+
+When catalogs are merged with C{--previous} option to C{msgmerge},
+fuzzy messages will retain previous version of original text
+(C{msgid}, etc.) under C{#|} comments.
+This sieve makes an I{embedded difference} from previous to current
+original text, placing it into previous fields. For example, the message::
+
+    #: main.c:110
+    #, fuzzy
+    #| msgid "The Record of The Witch River"
+    msgid "Records of The Witch River"
+    msgstr "Beleška o Veštičjoj reci"
+
+will become after sieving::
+
+    #: main.c:110
+    #, fuzzy
+    #| msgid "{-The Record-}{+Records+} of The Witch River"
+    msgid "Records of The Witch River"
+    msgstr "Beleška o Veštičjoj reci"
+
+Text editors may even provide highlighting for the wrapped difference segments
+(e.g. Kwrite/Kate).
+
+Sieve parameters:
+  - C{strip}: remove embedded differences from previous fields
+  - C{branch:<branch_id>}: process only messages from this branch (summit)
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
+from pology.misc.report import report
 from pology.misc.diff import word_ediff, word_ediff_to_old
 from pology.misc.comments import parse_summit_branches
 
 import re
 
-class Sieve (object):
-    """Embed/remove differences into previous versions of msgctxt/msgid."""
 
-    def __init__ (self, options):
+def setup_sieve (p):
+
+    p.set_desc(
+    "Diff previous to current fields in fuzzy messages."
+    )
+
+    p.add_param("strip", bool,
+                desc=
+    "Remove embedded differences from previous fields."
+    )
+
+    p.add_param("branch", unicode, seplist=True,
+                metavar="BRANCH",
+                desc=
+    "In summited catalogs, process only messages belonging to given branch. "
+    "Several branches can be given as comma-separated list."
+    )
+
+
+class Sieve (object):
+
+    def __init__ (self, params):
 
         self.nmod = 0
 
-        # Only strip the present embedded diffs?
-        self.strip = False
-        if "strip" in options:
-            options.accept("strip")
-            self.strip = True
-
-        # Summit: consider only messages belonging to given branches.
-        self.branches = None
-        if "branch" in options:
-            self.branches = set(options["branch"].split(","))
-            options.accept("branch")
+        self.strip = params.strip
+        self.branches = set(params.branch or [])
 
 
     def _diff (self, msgold, msgnew, format):
@@ -62,7 +107,15 @@ class Sieve (object):
         msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
                                                msg.msgid_plural, msg.format)
 
+        self.nmod += 1
+
 
     def finalize (self):
+
         if self.nmod > 0:
-            print "Total messages processed for differences: %d" % self.nmod
+            if not self.strip:
+                report("Total fuzzy messages with differences: %d" % self.nmod)
+            else:
+                report("Total fuzzy messages stripped of differences: %d"
+                       % self.nmod)
+
