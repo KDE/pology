@@ -577,23 +577,23 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     if ruleFiles is not None:
         if not lang:
             error("language must be explicitly given when using external rules")
-        print "Using external %s rules" % lang
+        report("Using external %s rules" % lang)
     else:
         if lang:
             ruleDir=join(l10nDir, lang, "rules")
-            print "Using %s rules" % lang
+            report("Using %s rules" % lang)
         else:
             # Try to autodetect language
             languages=[d for d in listdir(l10nDir) if isdir(join(l10nDir, d, "rules"))]
-            print "Rules available in the following languages: %s" % ", ".join(languages)
+            report("Rules available in the following languages: %s" % ", ".join(languages))
             for lang in languages:
                 if lang in sys.argv[-1] or lang in getlocale()[0]:
-                    print "Autodetecting %s language" % lang
+                    report("Autodetecting %s language" % lang)
                     ruleDir=join(l10nDir, lang, "rules")
                     break
 
         if not ruleDir:
-            print "Using default rule files (French)..."
+            report("Using default rule files (French)...")
             lang="fr"
             ruleDir=join(l10nDir, lang, "rules")
 
@@ -1215,26 +1215,22 @@ def _filterCreateHook (fields):
     fieldDict = dict(fields)
 
     hookName = fieldDict["name"]
-    hook = get_hook_lreq(hookName, abort=False)
-
-    sig = "\x04".join([x for x in split_req(hookName) if x is not None])
-
     factoryStr = fieldDict.get("factory")
     if factoryStr is not None:
-        # The fetched hook is in fact a hook factory; produce the hook.
-        hook, fsig = _fabricateHook(hook, factoryStr)
-        sig += "\x04\x04" + fsig
+        hookSpec = "%s~%s" % (hookName, factoryStr)
+    else:
+        hookSpec = hookName
+    hook = get_hook_lreq(hookSpec, abort=False)
+
+    sigSegs = []
+    for el in split_req(hookSpec):
+        if el is not None:
+            sigSegs.append(el)
+        else:
+            sigSegs.append("\x00")
+    sig = "\x04".join(sigSegs)
 
     return hook, sig
-
-
-def _fabricateHook (factory, argstr):
-
-    hook = eval("factory(%s)" % argstr)
-
-    argsig = argstr
-
-    return hook, argsig
 
 
 def _triggerParseGeneral (fields):
@@ -1262,12 +1258,12 @@ def _triggerFromHook (fields):
     fieldDict = dict(fields)
 
     hookName = fieldDict["name"]
-    hook = get_hook_lreq(hookName, abort=False)
-
     factoryStr = fieldDict.get("factory")
     if factoryStr is not None:
-        # The hook we fetched is in fact a hook factory; produce the hook.
-        hook, dummy = _fabricateHook(hook, factoryStr)
+        hookSpec = "%s~%s" % (hookName, factoryStr)
+    else:
+        hookSpec = hookName
+    hook = get_hook_lreq(hookSpec, abort=False)
 
     msgpart = fieldDict["on"].strip()
     if msgpart not in _triggerKnownMsgParts:

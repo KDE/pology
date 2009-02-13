@@ -74,12 +74,14 @@ def split_req (langreq, abort=False):
     Split string of the language-dependent item request.
 
     The language-dependent item request is string of the form
-    C{[lang:]path[/item]}, which is to be parsed into
-    C{(lang, path, item)} tuple; if language is not stated,
-    its value in the tuple will be C{None}, and likewise for the item.
-    The language should be a proper language code, path a sequence of
-    identifier-like strings connected by dots, and item also an
-    identifier-like string.
+    C{[lang:]path[/item][~args]}, which is to be parsed into
+    C{(lang, path, item, args)} tuple.
+    If language is not stated, its value in the tuple will be C{None},
+    and likewise for the item and argument strings.
+    The language should be a proper language code,
+    the path a sequence of identifier-like strings connected by dots,
+    item also an identifier-like string,
+    and arguments can be an arbitrary string.
 
     If the item request cannot be parsed,
     either the execution is aborted with an error message,
@@ -91,22 +93,28 @@ def split_req (langreq, abort=False):
     @type abort: bool
 
     @returns: parsed language and request
-    @rtype: (string or C{None}, string, string or C{None})
+    @rtype: (string or C{None}, string, string or C{None}, string or C{None})
     """
 
-    lst = langreq.split(":")
-    if len(lst) > 2:
-        _raise_or_abort("cannot parse item request '%s'" % langreq, abort)
+    rest = langreq
+
+    lst = rest.split("~", 1)
+    if len(lst) == 1:
+        rest, args = lst + [None]
+    else:
+        rest, args = lst
+
+    lst = rest.split("/", 1)
+    if len(lst) == 1:
+        rest, item = lst + [None]
+    else:
+        rest, item = lst
+
+    lst = rest.split(":", 1)
     if len(lst) == 1:
         lang, path = [None] + lst
     else:
         lang, path = lst
-
-    lst = path.rsplit("/", 1)
-    if len(lst) == 1:
-        item = None
-    else:
-        path, item = lst
 
     if lang and not _valid_lang_rx.search(lang):
         _raise_or_abort("invalid language '%s' in item request '%s'"
@@ -122,22 +130,27 @@ def split_req (langreq, abort=False):
     if item:
         item = item.replace("-", "_")
 
-    return (lang, path, item)
+    return (lang, path, item, args)
 
 
-def get_hook (lang, hmod, func=None, abort=False):
+def get_hook (lang, hmod, func=None, args=None, abort=False):
     """
     Fetch a language-dependent hook function.
 
     Loads the hook function from C{pology.l10n.<lang>.hook.<hmod>} module.
     If C{func} is C{None}, the function name defaults to C{process}.
+    If C{args} is not C{None}, then the loaded function is considered
+    a hook factory, and the hook is created by calling it with C{args} string
+    as argument list (it should have no surrounding parenthesis).
 
     @param lang: language code
     @type lang: string
     @param hmod: hook module
     @type hmod: string
-    @param func: hook function
-    @type func: string of C{None}
+    @param func: hook of hook factory function name
+    @type func: string
+    @param args: argument string to hook factory
+    @type args: string
     @param abort: if the hook is not loadable, abort or report C{None}
     @type abort: bool
 
@@ -152,6 +165,17 @@ def get_hook (lang, hmod, func=None, abort=False):
     if call is None:
         _raise_or_abort("hook module '%s:%s' does not define '%s' function"
                         % (lang, hmod, func), abort)
+    if args is not None:
+        try:
+            call = eval("call(%s)" % args)
+        except Exception, e:
+            if lang:
+                fspec = "%s:%s/%s" % (lang, hmod, func)
+            else:
+                fspec = "%s/%s" % (hmod, func)
+            _raise_or_abort("cannot create hook by applying function '%s' "
+                            "to argument list %s; reported error:\n%s"
+                            % (fspec, repr(args), unicode(e)), abort)
 
     return call
 
@@ -171,8 +195,8 @@ def _by_lreq (langreq, getter, abort=False):
     method, by applying it to parsed language request string.
     """
 
-    lang, path, item = split_req(langreq, abort)
-    return getter(lang, path, item, abort)
+    lang, path, item, args = split_req(langreq, abort)
+    return getter(lang, path, item, args, abort)
 
 
 def _raise_or_abort (errmsg, abort, exc=StandardError):
