@@ -89,7 +89,8 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">(string or <code>None</code>, string, string or <code>None</code>)</span>
+      <span class="summary-type">(string or <code>None</code>, string, string or <code>None</code>, 
+      string or <code>None</code>)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -114,6 +115,7 @@
           <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_hook" class="summary-sig-name">get_hook</a>(<span class="summary-sig-arg">lang</span>,
         <span class="summary-sig-arg">hmod</span>,
         <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Fetch a language-dependent hook function.</td>
           <td align="right" valign="top">
@@ -220,11 +222,13 @@
   
   <p>Split string of the language-dependent item request.</p>
   <p>The language-dependent item request is string of the form 
-  <code>[lang:]path[/item]</code>, which is to be parsed into <code>(lang, 
-  path, item)</code> tuple; if language is not stated, its value in the 
-  tuple will be <code>None</code>, and likewise for the item. The language 
-  should be a proper language code, path a sequence of identifier-like 
-  strings connected by dots, and item also an identifier-like string.</p>
+  <code>[lang:]path[/item][~args]</code>, which is to be parsed into 
+  <code>(lang, path, item, args)</code> tuple. If language is not stated, 
+  its value in the tuple will be <code>None</code>, and likewise for the 
+  item and argument strings. The language should be a proper language code,
+  the path a sequence of identifier-like strings connected by dots, item 
+  also an identifier-like string, and arguments can be an arbitrary 
+  string.</p>
   <p>If the item request cannot be parsed, either the execution is aborted 
   with an error message, or an exception is raised, depending on value of 
   <code>abort</code>.</p>
@@ -234,7 +238,8 @@
         <li><strong class="pname"><code>langreq</code></strong> (string) - request specification</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution or if the request cannot be parsed</li>
     </ul></dd>
-    <dt>Returns: (string or <code>None</code>, string, string or <code>None</code>)</dt>
+    <dt>Returns: (string or <code>None</code>, string, string or <code>None</code>, 
+      string or <code>None</code>)</dt>
         <dd>parsed language and request</dd>
   </dl>
 </td></tr></table>
@@ -249,6 +254,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_hook</span>(<span class="sig-arg">lang</span>,
         <span class="sig-arg">hmod</span>,
         <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">args</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -260,13 +266,17 @@
   <p>Loads the hook function from 
   <code>pology.l10n.&lt;lang&gt;.hook.&lt;hmod&gt;</code> module. If 
   <code>func</code> is <code>None</code>, the function name defaults to 
-  <code>process</code>.</p>
+  <code>process</code>. If <code>args</code> is not <code>None</code>, then
+  the loaded function is considered a hook factory, and the hook is created
+  by calling it with <code>args</code> string as argument list (it should 
+  have no surrounding parenthesis).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
         <li><strong class="pname"><code>hmod</code></strong> (string) - hook module</li>
-        <li><strong class="pname"><code>func</code></strong> (string of <code>None</code>) - hook function</li>
+        <li><strong class="pname"><code>func</code></strong> (string) - hook of hook factory function name</li>
+        <li><strong class="pname"><code>args</code></strong> (string) - argument string to hook factory</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - if the hook is not loadable, abort or report <code>None</code></li>
     </ul></dd>
     <dt>Returns:</dt>

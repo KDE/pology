@@ -538,7 +538,7 @@ pology.misc.rules	pology.misc.rules-module.html
 pology.misc.rules._fancyBool	pology.misc.rules-module.html#_fancyBool
 pology.misc.rules._parseRuleLine	pology.misc.rules-module.html#_parseRuleLine
 pology.misc.rules._filterOnMsgidPure	pology.misc.rules-module.html#_filterOnMsgidPure
-pology.misc.rules._fabricateHook	pology.misc.rules-module.html#_fabricateHook
+pology.misc.rules._filterKnownMsgParts	pology.misc.rules-module.html#_filterKnownMsgParts
 pology.misc.rules._rule_start	pology.misc.rules-module.html#_rule_start
 pology.misc.rules.timed_out	pology.misc.timeout-module.html#timed_out
 pology.misc.rules._triggerFromHook	pology.misc.rules-module.html#_triggerFromHook
@@ -580,7 +580,6 @@ pology.misc.rules._trigger_msgparts	pology.misc.rules-module.html#_trigger_msgpa
 pology.misc.rules.error	pology.misc.report-module.html#error
 pology.misc.rules.warning	pology.misc.report-module.html#warning
 pology.misc.rules._filterOnMsgstr	pology.misc.rules-module.html#_filterOnMsgstr
-pology.misc.rules._filterKnownMsgParts	pology.misc.rules-module.html#_filterKnownMsgParts
 pology.misc.split	pology.misc.split-module.html
 pology.misc.split._mod_on_format_qt	pology.misc.split-module.html#_mod_on_format_qt
 pology.misc.split._remove_xml_rxs	pology.misc.split-module.html#_remove_xml_rxs
@@ -905,10 +904,12 @@ pology.scripts.posummit.collect_system	pology.misc.fsops-module.html#collect_sys
 pology.scripts.posummit.mkdirpath	pology.misc.fsops-module.html#mkdirpath
 pology.sieve	pology.sieve-module.html
 pology.sieve.apply_filter	pology.sieve.apply_filter-module.html
-pology.sieve.apply_filter.report	pology.misc.report-module.html#report
-pology.sieve.apply_filter.warning	pology.misc.report-module.html#warning
 pology.sieve.apply_filter.get_hook_lreq	pology.misc.langdep-module.html#get_hook_lreq
+pology.sieve.apply_filter.setup_sieve	pology.sieve.apply_filter-module.html#setup_sieve
+pology.sieve.apply_filter.warning	pology.misc.report-module.html#warning
+pology.sieve.apply_filter.report_msg_content	pology.misc.msgreport-module.html#report_msg_content
 pology.sieve.apply_filter.error	pology.misc.report-module.html#error
+pology.sieve.apply_filter.report	pology.misc.report-module.html#report
 pology.sieve.bad_patterns	pology.sieve.bad_patterns-module.html
 pology.sieve.bad_patterns.process_patterns	pology.sieve.bad_patterns-module.html#process_patterns
 pology.sieve.bad_patterns.manc_parse_flag_list	pology.misc.comments-module.html#manc_parse_flag_list
