@@ -3,69 +3,97 @@
 """
 Apply filters to translation.
 
-Modify C{msgstr} fields by passing them through a combination of
-filtering L{hooks<hook>} of type F1A (C{(text) -> text})
-or F3* (C{(text/msgstr, msg, cat)->msgstr}).
+Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
+  - F1A (C{(text)->text}) or F3A/C (C{(text/msgstr, msg, cat)->msgstr}),
+    to modify the translation
+  - V1A (C{(text)->spans}) or V3A/C (C{(text/msgstr, msg, cat)->spans}),
+    to validate the translation
+  - S1A (C{(text)->spans}) or S3A/C (C{(text/msgstr, msg, cat)->spans}),
+    for side-effects on translation (e.g. simpler checks which write notes
+    to standard output, rather than reporting erroneous spans as V* hooks)
 
 Sieve parameters:
-  - C{filter:<filter>,...}: comma-separated list of hook specifications
-  - C{factory:<filter>~~...}: double-tilde separated list of factory arguments
-  - C{nosync}: do not request syncing of the catalogs
+  - C{filter:<hookspec>}: hook specification
+  - C{nosync}: do not request syncing of catalogs
 
-Global hooks can be specified just by their module name, e.g. C{foo}
-for C{pology.hook.foo}, if the module defines hook as C{process()} function;
-while using C{foo/bar} for if the hook is given by the C{bar()} function.
-Language specific hooks are preceded by the language code, e.g. C{ll:foo} for
-C{process()} from the C{pology.l10n.ll.hook.foo} module,
-and C{ll:foo/bar} for C{bar()} within the same module.
-Hooks are applied in the order given by the C{filter} parameter.
+For a module C{pology.hook.FOO} which defines the C{process()} hook function,
+the hook specification given by the C{filter} parameter is simply C{FOO}.
+If the hook function is named C{BAR()} instead of C{process()},
+the hook specification is given as C{FOO/BAR}.
+Language specific hooks (C{pology.l10n.LANG.hook.FOO}) are aditionally
+preceded by the language code with colon, as C{LANG:FOO} or C{LANG:FOO/BAR}.
 
-If the specified hook is in fact a hook factory, C{factory} parameter
-is used to specify factory arguments. The number of factory argument strings
-(separated by C{~~}) must be equal to number of filters.
-Each argument string is an ansamble of arguments as would be given
-to the factory call inside Python code (without wrapping parenthesis).
-If an argument string is empty, the hook corresponding to it is considered
-a plain hook rather than factory, and skipped on evaluation of factories.
+If the hook is not a plain hook, but a L{hook factory<hook>} function,
+the factory arguments are supplied after the basic hook specification,
+separated by tilde: C{LANG:FOO/BAR~ARGLIST}
+(with C{LANG:} and C{/BAR} possibly omitted, under the previous conditions).
+Argument list is formatted just like it would be passed in Python code
+to the factory function, omitting the surrounding parenthesis.
 
-Using the C{nosync} parameter, the sieve can be chained with a checker sieve,
-to filter C{msgstr} before sending the checker sieve gets to operate on it.
+Parameter C{filter} can be repeated to chain several hooks,
+which are then applied in the order of appearance in the command line.
+
+Using the C{nosync} parameter, the sieve can request catalog not to be synced.
+This is useful to get faster processing if the user knows that
+none of the hooks will modify the message,
+or to chain the sieve with another checker sieve, such that C{msgstr}
+is modified before the checker sieve gets to operate on it.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
+from pology.sieve import SieveError
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.report import report, warning, error
+from pology.misc.msgreport import report_msg_content
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Apply filters to translation."
+    "\n\n"
+    "Message's msgstr fields are passed through one or composition of "
+    "F1A, F3A/C, V1A, V3A/C, S1A, S3A/C hooks, as filters. "
+    "See documentation on pology.hook for details about hooks."
+    )
+
+    p.add_param("filter", unicode, multival=True,
+                metavar="HOOKSPEC",
+                desc=
+    "Specification of hook through which msgstr fields are to be filtered. "
+    "\n\n"
+    "For a module pology.hook.FOO which defines process() function, "
+    "the hook specification is simply FOO. "
+    "If the hook function is named BAR() instead of process(), then "
+    "the hook specification is FOO/BAR. "
+    "Language specific hooks (pology.l10n.LANG.hook.FOO) are aditionally "
+    "preceded by the language code with colon, as LANG:FOO or LANG:FOO/BAR. "
+    "\n\n"
+    "If the function is actually a hook factory, the arguments for "
+    "the factory are passed separated by tilde: LANG:FOO/BAR~ARGS "
+    "(where LANG: and /BAR may be omitted under previous conditions). "
+    "The ARGS string is a list of arguments as it would appear "
+    "in the function call in Python code, omitting parenthesis. "
+    "\n\n"
+    "Several filters can be given by repeating the parameter, "
+    "when they are applied in the given order."
+    )
+    p.add_param("nosync", bool, defval=False,
+                desc=
+    "Do not request possibly modified catalog to be synced to disk."
+    )
 
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
-        self.tfilters = []
-        if "filter" in options:
-            options.accept("filter")
-            freqs = options["filter"].split(",")
-            self.tfilters = [[get_hook_lreq(x, abort=True), x] for x in freqs]
+        self.tfilters = [[get_hook_lreq(x, abort=True), x]
+                         for x in (params.filter or [])]
 
-        # After filtering hooks have been loaded.
-        if "factory" in options:
-            options.accept("factory")
-            fargs = options["factory"].split("~~")
-            if len(fargs) != len(self.tfilters):
-                error("number of filters (%d) and factories (%d) "
-                      "does not match" % (len(self.tfilters), len(fargs)))
-            for i in range(len(self.tfilters)):
-                if fargs[i]: # empty strings not factories
-                    factory = self.tfilters[i][0]
-                    self.tfilters[i][0] = eval("factory(%s)" % fargs[i])
-
-        # Whether to not request syncing of the catalog.
-        self.nosync = False
-        if "nosync" in options:
-            options.accept("nosync")
-            self.nosync = True
+        self.nosync = params.nosync
 
         # Number of modified messages.
         self.nmod = 0
@@ -82,14 +110,29 @@ class Sieve (object):
 
         for i in range(len(msg.msgstr)):
             for tfilter, tfname in self.tfilters:
-                try: # try as type F1A hook
-                    msg.msgstr[i] = tfilter(msg.msgstr[i])
+                try: # try as type *1A hook
+                    res = tfilter(msg.msgstr[i])
                 except TypeError:
-                    try: # try as type F3* hook
-                        msg.msgstr[i] = tfilter(msg.msgstr[i], msg, cat)
+                    try: # try as type *3* hook
+                        res = tfilter(msg.msgstr[i], msg, cat)
                     except TypeError:
                         warning("cannot execute filter '%s'" % tfname)
                         raise
+
+                # Process result based on hook type.
+                if isinstance(res, basestring):
+                    # Modification hook.
+                    msg.msgstr[i] = res
+                elif isinstance(res, list):
+                    # Validation hook.
+                    if res:
+                        report_msg_content(msg, cat,
+                                           highlight=[("msgstr", i, res)],
+                                           delim=("-" * 20))
+                else:
+                    # Side-effect hook, nothing to do.
+                    # TODO: Perhaps report returned number?
+                    pass
 
         if mcount < msg.modcount:
             self.nmod += 1
