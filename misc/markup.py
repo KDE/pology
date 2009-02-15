@@ -777,7 +777,9 @@ def _escape_amp_accel (text):
             # i.e. if it's an escaped accelerator markup.
             # FIXME: Or perhaps not let the other ampersand pass?
             namp = 1
-            if text[p1 + 1:p1 + 2] == "&":
+            if (    text[p1 + 1:p1 + 2] == "&"
+                and not _simple_ent_rx.match(text[p1 + 2:p2])
+            ):
                 namp += 1
 
             # Escape the marker.
