@@ -470,6 +470,7 @@ valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,okular" msgstr="\bлиниј"
 valid cat="okular" after="leader " msgstr="изводниц"
+valid cat="kppp" # скоро увек телефонска линија
 
 {\blist(s|ed)?\b}i
 id="list"
@@ -706,6 +707,7 @@ hint="service = сервис"
 valid msgstr="\bсервис"
 valid msgstr="&\w*service\w*-\S*;"
 valid before=" provider" msgstr="\bуслуг"
+valid cat="kppp" before=" provider" # често се помиње скраћено
 valid cat="kurifilter" msgid="automatic lookup services"
 valid cat="kcmsamba" msgid="provide.*sharing service"
 valid cat="kcmkio" msgid="provides services"
