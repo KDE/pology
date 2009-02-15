@@ -167,8 +167,8 @@ id="configuration"
 hint="configuration = постава"
 valid before=" file| script"
 valid msgstr="\bпостав[аеиоун]"
-valid msgstr="\bподеш(ава|ен)"
-valid msgstr="\bподесит"
+valid msgstr="\b(прет|пре)?подеш(ава|ен)"
+valid msgstr="\b(прет|пре)?подесит"
 valid msgstr="&\w*config\S*;"
 # дозвољено увек у контексту употребити ‘поставке’
 valid msgstr="\bпоставк"
@@ -395,6 +395,7 @@ hint="host = домаћин"
 valid msgstr="\bдомаћин"
 valid cat="ksysguard" msgid="remote\.host\.org" msgstr="\.domacin\."
 valid cat="kio4" msgid="proxy's hostname" msgstr="име\w* прокси"
+valid cat="kfileshare" msgstr="\bједнодомаћинск"
 
 {\bicon}i
 id="icon"
@@ -491,6 +492,7 @@ valid cat="kopete" after="reverse " msgstr="инверзн\w+ лист\w+"
 valid cat="kopete" after="visible " msgstr="лист\w+ видљивих"
 valid cat="kopete" after="invisible " msgstr="лист\w+ невидљивих"
 valid cat="kopete" srcref="privacy|nscainfoevent" msgstr="лист\w+"
+valid cat="kfileshare" after="write |read " msgstr="лист\w+"
 
 {\blist}i
 id="list3"
@@ -656,9 +658,11 @@ hint="right click = кликнути десним"
 valid msgstr="\bдесн\w+ клик([^нћ]|\b)" # само именички
 valid msgstr="\bклик[нћ]\w+ десним" # глаголски
 
+# Превише гњави, ‘ред’ и ‘врста’ су уобичајени синоними.
 {\brows?\b}i
 id="row"
 hint="row = врста"
+disabled
 valid after="times in a "
 valid msgstr="\bврст"
 valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
