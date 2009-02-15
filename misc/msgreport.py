@@ -20,7 +20,7 @@ from copy import deepcopy
 from pology.misc.report import report, warning, error
 from pology.misc.colors import colors_for_file
 from pology.file.message import Message
-from pology.misc.wrap import wrap_field
+from pology.misc.wrap import wrap_field_fine
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape
 from pology.misc.monitored import Monpair
@@ -181,7 +181,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
 
 
 def report_msg_content (msg, cat,
-                        wrapf=wrap_field, force=False,
+                        wrapf=wrap_field_fine, force=False,
                         note=None, delim=None, highlight=None,
                         showmsg=True, fmsg=None, showfmsg=False,
                         subsrc=None, file=sys.stdout):
