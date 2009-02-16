@@ -412,7 +412,7 @@ removeFilter handle="accel"
 [\(]
 id="style-space1"
 hint="左括弧の前に半角のスペースを入れてください。"
-removeFilter handle="markup, accel, literals, fmtdirs"
+clearFilters
 valid after="[\s]"
 valid after="^"
 valid before="&[A-Za-z\d]\)"
@@ -460,7 +460,7 @@ valid cat="kspread"
 [\)]
 id="style-space2"
 hint="右括弧の後に半角のスペースを入れてください。"
-removeFilter handle="markup, accel, literals, fmtdirs"
+clearFilters
 valid before="[\s]"
 valid before="$"
 valid before="([。？、」”’\"'/<>:|\]]|, |\.\.\.)"
