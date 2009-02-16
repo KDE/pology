@@ -11,39 +11,60 @@ from httplib import HTTPConnection
 from urllib import urlencode
 import socket, sys
 from xml.dom.minidom import parseString
+from pology.sieve import SieveError, SieveCatalogError
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.msgreport import warning_on_msg
+from pology.misc.fsops import get_env_langs
 
 REQUEST="/?language=%s&%s"
 
+def setup_sieve (p):
+
+    p.set_desc(
+    "Check language of translation using the LanguageTool checker."
+    "\n\n"
+    "LanguageTool (http://www.languagetool.org) is an open source "
+    "language checker, which may be used as a standalone application, "
+    "or in server-client mode. "
+    "This sieve makes use of the latter; the server can easily be "
+    "run locally, and can be downloaded from LanguageTools' web site. "
+    "Also check the web site for the list of supported languages, "
+    "and to which extent they are supported (number of rules)."
+    )
+
+    p.add_param("lang", unicode, defval=None,
+                metavar="CODE",
+                desc=
+    "Apply rules for this language. "
+    "If not given, autodetection of language is attempted based on "
+    "catalog headers and environment."
+    )
+    p.add_param("host", unicode, defval=u"localhost",
+                metavar="NAME",
+                desc=
+    "Name of the host where the server is running."
+    )
+    p.add_param("port", unicode, defval=u"8081",
+                metavar="NUMBER",
+                desc=
+    "TCP port on the host which server uses to listen for queries."
+    )
+
+
 class Sieve (object):
-    """Process messages through the LanguageTool grammar checker"""
     
-    def __init__ (self, options):
+    def __init__ (self, params):
     
         self.nmatch = 0 # Number of match for finalize
         self.connection=None # Connection to LanguageTool server
 
-        if "lang" in options:
-            options.accept("lang")
-            self.lang=options["lang"]
-        else:
-            self.lang="fr"
-        
-        # LanguageTool server hostname
-        if "host" in options:
-            options.accept("host")
-            host=options["host"]
-        else:
-            host="localhost"
-        
-        # LanguageTool server tcp port
-        if "port" in options:
-            options.accept("port")
-            port=str(options["port"])
-        else:
-            #TODO: autodetect tcp port by reading LanguageTool config file if host is localhost
-            port="8081"
+        self.setLang=params.lang
+        self.envLang=(get_env_langs() or [None])[0]
+
+        # LanguageTool server parameters.
+        host=params.host
+        port=params.port
+        #TODO: autodetect tcp port by reading LanguageTool config file if host is localhost
         
         # As LT server does not seem to read disabled rules from his config file, we manage exception here
         #TODO: investigate deeper this problem and make a proper bug report to LT devs.
@@ -51,7 +72,16 @@ class Sieve (object):
         
         # Create connection to the LanguageTool server
         self.connection=HTTPConnection(host, port)
-    
+
+
+    def process_header (self, hdr, cat):
+
+        self.lang=(self.setLang or cat.language() or self.envLang)
+        if not self.lang:
+            raise SieveCatalogError("cannot guess language for catalog '%s'"
+                                    % cat.filename)
+
+
     def process (self, msg, cat):
 
         if msg.obsolete:
@@ -59,7 +89,7 @@ class Sieve (object):
 
         try:
             for msgstr in msg.msgstr:
-                self.connection.request("GET", REQUEST % (self.lang, urlencode({"text":msgstr})))
+                self.connection.request("GET", REQUEST % (self.lang, urlencode({"text":msgstr.encode("UTF-8")})))
                 response=self.connection.getresponse()
                 if response:
                     responseData=response.read()
@@ -69,19 +99,18 @@ class Sieve (object):
                             if error.getAttribute("ruleId") in self.disabledRules:
                                 continue
                             self.nmatch+=1
-                            print "-"*(len(msgstr)+8)
-                            print BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET
+                            report("-"*(len(msgstr)+8))
+                            report(BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+RESET)
                             #TODO: create a report function in the right place
                             #TODO: color in red part of context that make the mistake
-                            print BOLD+"Context: "+RESET+error.getAttribute("context")
-                            print "("+error.getAttribute("ruleId")+")"+BOLD+RED+"==>"+RESET+BOLD+error.getAttribute("msg")+RESET
-                            print
+                            report(BOLD+"Context: "+RESET+error.getAttribute("context"))
+                            report("("+error.getAttribute("ruleId")+")"+BOLD+RED+"==>"+RESET+BOLD+error.getAttribute("msg")+RESET)
+                            report("")
         except socket.error:
-            print "Cannot connect to languageTool server. Did you start it ?"
-            sys.exit(1) 
+            raise SieveError("Cannot connect to LanguageTool server. Did you start it?")
                         
 
     def finalize (self):
         if self.nmatch:
-            print "----------------------------------------------------"
-            print "Total matching: %d" % self.nmatch
+            report("----------------------------------------------------")
+            report("Total matching: %d" % self.nmatch)
