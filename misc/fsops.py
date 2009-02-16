@@ -456,3 +456,61 @@ def unicode_to_str (strarg):
             uargs.append(val)
         return uargs
 
+
+def get_env_langs ():
+    """
+    Guess user's preferred languages from the environment.
+
+    Various environment variables are examined to collect
+    the list of languages in which the user may be wanting
+    to read or write in in the environment.
+    The list is ordered from most to least preferred language,
+    and may be empty.
+    Languages are given by their ISO-639 codes.
+
+    @returns: preferred languages
+    @rtype: list of strings
+    """
+
+    langs = []
+
+    # Variables which contain colon-separated language strings.
+    for lenv in ["LANGUAGE"]:
+        langs.extend((os.getenv(lenv, "")).split(":"))
+
+    # Variables which contain locale string:
+    # split into parts, and assemble possible language codes from least to
+    for lenv in ["LC_ALL", "LANG"]:
+        lval = os.getenv(lenv, "")
+        lsplit = []
+        for sep in ("@", ".", "_"): # order is important
+            p = lval.rfind(sep)
+            if p >= 0:
+                el, lval = lval[p + len(sep):], lval[:p]
+            else:
+                el = None
+            lsplit.insert(0, el)
+        lsplit.insert(0, lval)
+        lng, ctr, enc, mod = lsplit
+
+        if lng and ctr and mod:
+            langs.append("%s_%s@%s" % (lng, ctr, mod))
+        if lng and ctr:
+            langs.append("%s_%s" % (lng, ctr))
+        if lng and mod:
+            langs.append("%s@%s" % (lng, mod))
+        if lng:
+            langs.append(lng)
+
+    # Normalize codes, remove empty and any duplicates (but keep order).
+    langs2 = [x.strip() for x in langs]
+    langs2 = [x for x in langs2 if x]
+    seen = set()
+    langs = []
+    for lang in langs2:
+        if lang not in seen:
+            seen.add(lang)
+            langs.append(lang)
+
+    return langs
+
