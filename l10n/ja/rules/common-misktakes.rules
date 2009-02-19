@@ -11,7 +11,7 @@ hint="sign  = 符号 [符合 = ぴったり合うこと]"
 [越え]
 id="exceed"
 hint="exceed (上回る) = 超える"
-valid after="(地平線|セッション|終端|行末|EOF\)? )を"
+valid after="(地平線|境界|セッション|終端|行末|EOF\)? )を"
 
 [([ぁ-ん。、])\1{1,1}]
 id="double"
