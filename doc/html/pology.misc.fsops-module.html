@@ -272,6 +272,23 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#get_env_langs" class="summary-sig-name">get_env_langs</a>()</span><br />
+      Guess user's preferred languages from the environment.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -631,6 +648,31 @@
     </ul></dd>
     <dt>Returns: raw string or list of objects</dt>
         <dd>raw string or sequence of objects</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_env_langs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_env_langs</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Guess user's preferred languages from the environment.</p>
+  <p>Various environment variables are examined to collect the list of 
+  languages in which the user may be wanting to read or write in in the 
+  environment. The list is ordered from most to least preferred language, 
+  and may be empty. Languages are given by their ISO-639 codes.</p>
+  <dl class="fields">
+    <dt>Returns: list of strings</dt>
+        <dd>preferred languages</dd>
   </dl>
 </td></tr></table>
 </div>

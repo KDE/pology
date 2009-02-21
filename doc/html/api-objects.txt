@@ -358,6 +358,7 @@ pology.misc.escape.unescape_strict	pology.misc.escape-module.html#unescape_stric
 pology.misc.fsops	pology.misc.fsops-module.html
 pology.misc.fsops.collect_catalogs_by_env	pology.misc.fsops-module.html#collect_catalogs_by_env
 pology.misc.fsops.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
+pology.misc.fsops.get_env_langs	pology.misc.fsops-module.html#get_env_langs
 pology.misc.fsops.join_ncwd	pology.misc.fsops-module.html#join_ncwd
 pology.misc.fsops.system_wd	pology.misc.fsops-module.html#system_wd
 pology.misc.fsops.error	pology.misc.report-module.html#error
@@ -477,9 +478,9 @@ pology.misc.msgreport.error_on_msg	pology.misc.msgreport-module.html#error_on_ms
 pology.misc.msgreport.warning	pology.misc.report-module.html#warning
 pology.misc.msgreport.rule_xml_error	pology.misc.msgreport-module.html#rule_xml_error
 pology.misc.msgreport.escape	pology.misc.escape-module.html#escape
+pology.misc.msgreport.wrap_field_fine	pology.misc.wrap-module.html#wrap_field_fine
 pology.misc.msgreport.adapt_spans	pology.misc.diff-module.html#adapt_spans
 pology.misc.msgreport.spell_error	pology.misc.msgreport-module.html#spell_error
-pology.misc.msgreport.wrap_field	pology.misc.wrap-module.html#wrap_field
 pology.misc.msgreport.report_msg_content	pology.misc.msgreport-module.html#report_msg_content
 pology.misc.msgreport._highlight_spans	pology.misc.msgreport-module.html#_highlight_spans
 pology.misc.msgreport._escapeCDATA	pology.misc.msgreport-module.html#_escapeCDATA
@@ -921,7 +922,9 @@ pology.sieve.bad_patterns.match_patterns	pology.sieve.bad_patterns-module.html#m
 pology.sieve.bad_patterns.report_on_msg	pology.misc.msgreport-module.html#report_on_msg
 pology.sieve.check_grammar	pology.sieve.check_grammar-module.html
 pology.sieve.check_grammar.warning_on_msg	pology.misc.msgreport-module.html#warning_on_msg
+pology.sieve.check_grammar.get_env_langs	pology.misc.fsops-module.html#get_env_langs
 pology.sieve.check_grammar.REQUEST	pology.sieve.check_grammar-module.html#REQUEST
+pology.sieve.check_grammar.setup_sieve	pology.sieve.check_grammar-module.html#setup_sieve
 pology.sieve.check_rules	pology.sieve.check_rules-module.html
 pology.sieve.check_rules.CACHEDIR	pology.sieve.check_rules-module.html#CACHEDIR
 pology.sieve.check_rules.rule_xml_error	pology.misc.msgreport-module.html#rule_xml_error
@@ -1494,6 +1497,7 @@ pology.sieve.bad_patterns.Sieve.finalize	pology.sieve.bad_patterns.Sieve-class.h
 pology.sieve.bad_patterns.Sieve.process	pology.sieve.bad_patterns.Sieve-class.html#process
 pology.sieve.bad_patterns.Sieve.__init__	pology.sieve.bad_patterns.Sieve-class.html#__init__
 pology.sieve.check_grammar.Sieve	pology.sieve.check_grammar.Sieve-class.html
+pology.sieve.check_grammar.Sieve.process_header	pology.sieve.check_grammar.Sieve-class.html#process_header
 pology.sieve.check_grammar.Sieve.finalize	pology.sieve.check_grammar.Sieve-class.html#finalize
 pology.sieve.check_grammar.Sieve.process	pology.sieve.check_grammar.Sieve-class.html#process
 pology.sieve.check_grammar.Sieve.__init__	pology.sieve.check_grammar.Sieve-class.html#__init__
