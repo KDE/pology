@@ -4,6 +4,10 @@
 """
 Create embedded diffs of PO files.
 
+The concept of embedded diffing for PO files is described in detail at
+U{http://techbase.kde.org/Localization/Tools/Pology/PO_Embedded_Diffing}.
+The usage of this script is also explained in the article.
+
 @warning: This module is a script for end-use. No exposed functionality
 should be considered public API, it is subject to change without notice.
 
