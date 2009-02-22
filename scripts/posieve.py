@@ -231,6 +231,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "the regular expression")
     opars.add_option(
         "-i", "--include-cat", metavar="REGEX",
+        dest="include_cat",
         help="sieve files only when their catalog name (file basename "
              "without .po* extension) matches the regular expression")
     opars.add_option(
