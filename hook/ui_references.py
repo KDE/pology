@@ -706,10 +706,12 @@ def _norm_ui_cat (cat, xmlescape):
     norm_cat = Catalog("", create=True, monitored=False)
     norm_cat.filename = cat.filename + "~norm"
 
+    orig_msgids = {}
     for msg in cat:
         if msg.obsolete:
             continue
 
+        orig_msgid = msg.msgid
         remove_markup_msg(msg, cat) # before accelerator removal
         remove_accel_msg(msg, cat) # after markup removal
 
@@ -723,9 +725,15 @@ def _norm_ui_cat (cat, xmlescape):
                 msg.msgstr[i] = _escape_to_xml(msg.msgstr[i])
 
         # If the message as modified is still valid,
-        # and not already present in the normalized catalog, append it.
-        if msg.msgid and msg not in norm_cat:
+        # and not already present in the normalized catalog
+        # or its original form is shorter than the one previuosly added,
+        # add it to the normalized catalog.
+        if (     msg.msgid
+            and (   msg not in norm_cat
+                 or len(orig_msgid) < len(orig_msgids[msg.msgid]))
+        ):
             norm_cat.add_last(msg)
+            orig_msgids[msg.msgid] = orig_msgid
 
     return norm_cat
 
