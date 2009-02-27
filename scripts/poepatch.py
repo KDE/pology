@@ -320,7 +320,7 @@ def apply_ediff (op):
             rpath = "stdin.%s.po" % rsuff
 
         rcat.filename = rpath
-        rcat.sync(force=True)
+        rcat.sync(force=True, noobsend=True)
         report("*** rejects: %s" % rcat.filename)
 
 
