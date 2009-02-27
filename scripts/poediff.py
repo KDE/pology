@@ -478,7 +478,7 @@ def add_msg_diff (msg1, msg2, ecat, hlto, fnsyn=None):
 
     # Add to the diff catalog.
     if fnsyn is None:
-        ecat.add_last(emsg)
+        ecat.add(emsg, len(ecat))
     else:
         ecat.add(emsg, None, fnsyn)
 
