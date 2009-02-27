@@ -918,7 +918,7 @@ class Catalog (Monitored):
         self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
-    def sync (self, force=False, nosigcap=False, writefh=None):
+    def sync (self, force=False, nosigcap=False, noobsend=False, writefh=None):
         """
         Write catalog file to disk if any message has been modified.
 
@@ -937,6 +937,8 @@ class Catalog (Monitored):
         @type force: bool
         @param nosigcap: do not try to capture signals on file writing
         @type nosigcap: bool
+        @param noobsend: do not reorder messages to group all obsolete at end
+        @type noobsend: bool
         @param writefh: file to write the catalog to
         @type writefh: file-like object
 
@@ -979,7 +981,7 @@ class Catalog (Monitored):
             if msg.get("_remove_on_sync", False):
                 # Removal on sync requested, just skip.
                 i += 1
-            elif msg.obsolete and i < obstop:
+            elif not noobsend and msg.obsolete and i < obstop:
                 # Obsolete message out of order, reinsert and repeat the index.
                 # Reinsertion is such that the relative ordering of obsolete
                 # messages is preserved.
