@@ -131,7 +131,6 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
             #print filename, lno - 1
             loc.msg = _MessageDict()
             loc.field_context = ctx_none
-            loc.life_context = ctx_modern
             # In header-only mode, the first message read is the header.
             # Compose the tail of this and rest of the lines, and
             # set lno to nlines for exit.
@@ -148,6 +147,7 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
             continue
 
         string_follows = True
+        loc.life_context = ctx_modern
         loc.age_context = ctx_current
 
         if line.startswith("#"):
@@ -156,7 +156,6 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
 
             elif line.startswith("#~|"):
                 line = line[3:].lstrip()
-                loc.life_context = ctx_obsolete
                 loc.age_context = ctx_previous
 
             elif line.startswith("#~"):
@@ -165,7 +164,6 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
 
             elif line.startswith("#|"):
                 line = line[2:].lstrip()
-                loc.life_context = ctx_modern
                 loc.age_context = ctx_previous
 
             elif line.startswith("#:"):
