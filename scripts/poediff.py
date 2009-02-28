@@ -94,6 +94,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="do not diff headers and do not write out the top header; "
              "resulting output cannot be used as patch")
     opars.add_option(
+        "-p", "--paired-only",
+        action="store_true", dest="paired_only", default=False,
+        help="when two directories are diffed, ignore catalogs which "
+             "are not present in both directories")
+    opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
         help="no basic wrapping (on column)")
@@ -152,7 +157,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # presented in diff output.
     if not vcs:
         single_input_pair = os.path.isfile(paths[0])
-        fpairs = collect_file_pairs(paths[0], paths[1])
+        fpairs = collect_file_pairs(paths[0], paths[1], op.paired_only)
         pspecs = [(x, x) for x in fpairs]
     else:
         single_input_pair = len(paths) == 1 and os.path.isfile(paths[0])
@@ -620,8 +625,9 @@ def merge_cat (cat, tcat):
 
 
 # Collect and pair catalogs as list [(fpath1, fpath2)].
-# Where a pair cannot be found, empty string is given for path.
-def collect_file_pairs (dpath1, dpath2):
+# Where a pair cannot be found, empty string is given for path
+# (unless paired_only is True, when non-paired catalogs are ignored).
+def collect_file_pairs (dpath1, dpath2, paired_only):
 
     if os.path.isfile(dpath1):
         return [(dpath1, dpath2)]
@@ -641,7 +647,8 @@ def collect_file_pairs (dpath1, dpath2):
         for filename in filenames:
             fpath1 = flinks1.get(filename, "")
             fpath2 = flinks2.get(filename, "")
-            fpairs.append((fpath1, fpath2))
+            if not paired_only or (fpath1 and fpath2):
+                fpairs.append((fpath1, fpath2))
 
     return fpairs
 
