@@ -218,6 +218,12 @@ id="daemon"
 hint="daemon|service = демон"
 valid msgstr="\bдемон"
 
+{\bdata\W?engine}i
+id="dataengine"
+hint="data engine = датомотор"
+valid msgstr="\bдатомотор"
+valid msgstr="&\w+dataengine-\S*;"
+
 {\bdelimiter}i
 id="delimiter"
 hint="delimiter = издвајач"
@@ -411,6 +417,12 @@ id="icontheme"
 hint="icon theme = тема икона"
 valid msgstr="\bтем\w+ икона\b"
 
+{\bk?io\W?slave}i
+id="ioslave"
+hint="ioslave|IO slave|kioslave|KIO slave = У/И захват"
+valid msgstr="\bУ/И захват"
+valid msgstr="&ioslave-\S*;"
+
 {\bitalic}i
 id="italic"
 hint="italic = курзиван"
@@ -431,7 +443,8 @@ disabled
 {\bKonqueror}i
 id="konqueror"
 hint="Konqueror = К-освајач"
-valid msgstr="&konqueror\S*;" !msgstr="\bконк\w?р\w?р|(\bк\W*)?освајач"
+valid msgstr="К-освајач"
+valid msgstr="&konqueror\S*;"
 valid cat="kdmconfig" msgstr="&dolphin\S*;"
 
 {\blabel}i
@@ -579,6 +592,13 @@ id="overwrite"
 hint="overwrite = пребрисати"
 valid msgstr="\bпребри[шс]"
 
+{\bpages?\b}i
+id="page"
+hint="page = страница"
+valid msgstr="\bстрани[цч]"
+# Млак појам, може да се изостави: пуштај ако нема ни ‘страница’ ни ‘страна’.
+valid !msgstr="\bстран"
+
 {\bparse(s|ed|ing)?\b}i
 id="parse"
 hint="parse = рашчланити"
@@ -602,6 +622,18 @@ id="pattern"
 hint="pattern = образац"
 valid msgstr="\bобра(зац|сц)"
 valid cat="desktop_kdebase" msgid="pattern="
+
+{\bPlasma}i
+id="plasma"
+hint="Plasma = Плазма"
+valid msgstr="\bплазма"
+valid msgstr="&\w*plasma\w*-\S*;"
+
+# Све на plasma, колико може.
+{\bPlasma}i
+id="plasma2"
+hint="Plasma = плазма"
+disabled
 
 {\bplugin}i
 id="plugin"
@@ -674,6 +706,12 @@ valid cat="plasma_applet_fileWatcher" msgid="^Max rows:$"
 id="row_db"
 hint="record|row = врста"
 disabled
+
+{\brunner}i
+id="runner"
+hint="runner = извођач"
+valid msgstr="\bизвођач"
+valid msgstr="&\w*runner\w*-\S*;"
 
 # Све провере на save.
 {\bsaving}i
