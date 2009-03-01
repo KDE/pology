@@ -18,7 +18,7 @@ id="double"
 hint="文字が重複しています"
 clearFilters
 valid !after="い" span="いい" before="え"
-valid after="し(まっ|てき)?|され(てき)?|られ|れてい|なかっ|すぎ|だっ|になっ|試み" span="たた" before="め"
+valid after="し(まっ|てき)?|され(てき)?|られ|れてい|なかっ|すぎ|だっ|になっ|試み|取っ|行っ" span="たた" before="め"
 valid !after="こ" span="ここ" before="[がとにのではへを]|まで|から|\W|$"
 valid !after="い" span="いい" before="の?か|かも|でしょう|ので|です"
 valid after="と" span="いい" before="ます"
