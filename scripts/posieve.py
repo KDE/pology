@@ -522,11 +522,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             try:
                 sieve.process_header(cat.header, cat)
             except SieveCatalogError, e:
-                errwarn(u"%s:header: sieving failed: %s" (fname, e))
+                errwarn(u"%s:header: sieving failed: %s" % (fname, e))
                 skip = True
                 break
             except Exception, e:
-                error(u"%s:header: sieving failed: %s" (fname, e))
+                error(u"%s:header: sieving failed: %s" % (fname, e))
         if skip:
             warning(u"skipping catalog due to header sieving failure")
             continue
