@@ -52,11 +52,8 @@
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module set_header</h1><p class="nomargin-top"></p>
 <p>Set elements of the PO header.</p>
-  <p>Sometimes a certain header field needs to be updated throught all POs,
-  and this sieve serves that purpose.</p>
-  <p>For the moment, the only available operation is to set a certain field
-  to a given value. More operation modes may be implemented in the 
-  future.</p>
+  <p>Sometimes a certain header field or comment needs to be updated 
+  throughout POs, and this sieve serves that purpose.</p>
   <p>Sieve parameters for setting a field:</p>
   <ul>
     <li>
@@ -87,8 +84,31 @@
   the end of the header. If the field is present, using the option 
   <code>reorder</code> it can be moved within the header to match the order
   implied by <code>after</code> and <code>before</code>.</p>
-  <p>Field value strings may contain %-directives, which are expanded to 
-  catalog-dependent substrings prior to setting the value. These are:</p>
+  <p>Sieve parameters for setting comments:</p>
+  <ul>
+    <li>
+      <code>title</code>: set the title comment to the given value
+    </li>
+    <li>
+      <code>copyright</code>: set the copyright comment to the given value
+    </li>
+    <li>
+      <code>license</code>: set the license comment to the given value
+    </li>
+    <li>
+      <code>author</code>: set the author comment to the given value
+    </li>
+  </ul>
+  <p>The <code>author</code> parameter can be repeated to set several 
+  authors. All existing authors are removed before setting the new ones 
+  (regardless of the number of each), i.e. the new authors are <i>not</i> 
+  appended to the old.</p>
+  <p>Comment values are checked for some minimal consistency, e.g. author 
+  comments must contain email addresses, licence comments the word 
+  'licence', etc.</p>
+  <p>Value strings (both of fields and comments) may contain %-directives, 
+  which are expanded to catalog-dependent substrings prior to setting the 
+  value. These are:</p>
   <ul>
     <li>
       <code>%poname</code>: catalog name (equal to file name without 
