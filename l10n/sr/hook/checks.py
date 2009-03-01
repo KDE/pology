@@ -32,7 +32,7 @@ _no_check_lat_rxs = (
         bcode command envar filename icode shortcut placeholder style code tt
         literal screen option keycap userinput systemitem prompt function
         foreignphrase varname programlisting token markup parameter keysym
-        methodname
+        methodname replaceable
     """.split()), re.U|re.I|re.S),
     # - some tags are requested without attributes, as otherwise
     # Latin-content is allowed inside attributes only.
@@ -72,7 +72,7 @@ _naked_latin_rx = re.compile(r"[a-z][a-z\W]*", re.U|re.I)
 
 # Messages to skip by tags in auto comments.
 _auto_cmnt_tag_rx = re.compile(r"^\s*Tag:\s*(%s)\s*$" % "|".join("""
-    filename envar programlisting screen command option
+    filename envar programlisting screen command option userinput
 """.split()), re.U|re.I)
 
 # The hook worker.
@@ -123,10 +123,7 @@ def naked_latin (msgstr, msg, cat):
     [type V3C hook].
 
     Latin segments are allowed within:
-      - the following XML-like tags: C{bcode}, C{command}, C{email}, C{envar},
-        C{filename}, C{icode}, C{link}, C{shortcut}, C{placeholder}, C{style},
-        C{code}, C{tt}, C{literal}, C{screen}, C{option}, C{keycap},
-        C{userinput}
+      - some XML-like tags, e.g. C{tt}, C{code}, C{email}, C{envar}, etc.
       - XML-like entities, e.g. C{&foo;} or C{&#x00a0;}
       - format directives starting with %-character
       - command line options, e.g. C{-o} or C{--foo-bar}
