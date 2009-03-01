@@ -245,6 +245,7 @@ hint="Utiliser la forme « en suivant votre PATH »"
 [chemins?]i
 valid before=" équestre| de randonnée| de bézier"
 valid cat="klines"
+valid cat="kgoldrunner"
 hint="Traduisez « path » par « emplacement »"
 
 [désinitialiser]i
@@ -300,7 +301,7 @@ hint="Choix de l'équipe : « paquetage »"
 
 [montrer]i
 valid before=" l'afficheur"
-valid after="lui "
+valid after="lui |vous |leur "
 hint="Traduire « show » par « afficher »"
 
 [messages? électronique]i
