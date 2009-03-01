@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9c7a7d4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8604924&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -383,6 +383,7 @@
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#sync" class="summary-sig-name">sync</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">nosigcap</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">noobsend</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">writefh</span>=<span class="summary-sig-default">None</span>)</span><br />
       Write catalog file to disk if any message has been modified.</td>
           <td align="right" valign="top">
@@ -777,7 +778,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9c7a7d4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8604924&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1246,6 +1247,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">sync</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">nosigcap</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">noobsend</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">writefh</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -1266,6 +1268,7 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to reformat unmodified messages</li>
         <li><strong class="pname"><code>nosigcap</code></strong> (bool) - do not try to capture signals on file writing</li>
+        <li><strong class="pname"><code>noobsend</code></strong> (bool) - do not reorder messages to group all obsolete at end</li>
         <li><strong class="pname"><code>writefh</code></strong> (file-like object) - file to write the catalog to</li>
     </ul></dd>
     <dt>Returns: bool</dt>
