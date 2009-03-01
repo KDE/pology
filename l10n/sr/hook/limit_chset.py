@@ -45,6 +45,8 @@ translit_ascii = {
     u"€": "EUR",
     u"©": "c",
     u"×": "x",
+    u"\u2011": "-", # non-breaking hyphen
+    u"\u200b": "", # zero-width space
     # TODO: Add more.
     #u"": "",
 }
