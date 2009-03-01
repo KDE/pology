@@ -349,4 +349,8 @@ valid before="-papier"
 valid cat="ppdtranslations4" before=" pour"
 hint="Traduisez « press » avec les verbes « cliquer » ou « appuyer »"
 
+{\bcrop\b}i
+valid msgstr="rogn"
+hint="Traduisez « crop » avec le verbe « rogner »"
+
 # End of rule file
