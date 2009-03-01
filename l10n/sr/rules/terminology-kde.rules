@@ -278,6 +278,23 @@ hint="email address = адреса е-поште"
 valid msgstr="\bадрес\w+ е-поште"
 valid msgstr="е-поштом .*\bадрес"
 
+{\bembed(s|d?ing|\b)}i
+id="embed"
+hint="embed = угњездити"
+valid msgstr="\bугње(зд|жђ|жд)"
+
+{\bembeddable}i
+id="embeddable"
+hint="embeddable = угњездив"
+valid msgstr="\bугњездив"
+
+{\bembedded}i
+id="embedded"
+hint="embedded = угњежден"
+valid msgstr="\bугњежден"
+valid msgstr="\bугњезди[лот]" # прошло време
+valid msgstr="&embedded\w*-\S*;"
+
 {\b(character set|char\W?set|encoding)}i
 id="encoding"
 hint="character set|charset|encoding = кодирање"
@@ -826,6 +843,23 @@ valid msgstr="\bсличиц"
 id="thunderbird"
 hint="Thunderbird = Тандерберд"
 valid msgstr="&thunderbird\S*;" !msgstr="\bТанд\w?рб\w?рд"
+
+{\btools?\b}i
+id="tool"
+hint="tool = алатка"
+valid msgstr="\bалат[кн]"
+# Често може да се изостави или замени прецизнијим,
+# зато проверити само још да нема ‘алат’.
+valid !msgstr="\bалат"
+
+# \btools? већ оверава tool
+{\butilit(y|ies)\b}i
+id="tool2"
+hint="tool|utility = алатка"
+valid msgstr="\bалат[кн]"
+valid msgstr="\bнаредб" # може некад ‘наредба’ уместо
+valid cat="kcmkwm,kcmkwinrules" before=" window"
+valid cat="kmix" msgid="kmixctrl"
 
 {\btoolbar}i
 id="toolbar"
