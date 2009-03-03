@@ -18,7 +18,7 @@ Pology comes with many internal sieves, but users can write their own too.
 For example, here is how one could run the internal L{C{stats}<sieve.stats>}
 sieve, to collect statistics on all PO files in C{frobaz} directory::
 
-    $ posieve.py stats frobaz/
+    $ posieve stats frobaz/
     ... (after some time, a table with stats appears) ...
 
 Assuming that C{frobaz} contains a lot of PO files, user would wait some time
@@ -36,7 +36,7 @@ by an exclamation mark followed by the catalog path. An example of such
 internal sieve is L{tag-incomplete<sieve.tag_incomplete>}, which will add
 C{incomplete} flag to each fuzzy or untranslated message::
 
-    $ posieve.py tag-incomplete frobaz/
+    $ posieve tag-incomplete frobaz/
     ! frobaz/alfa.po
     ! frobaz/bravo.po
     ! frobaz/charlie.po
@@ -54,7 +54,7 @@ previous sieve is input to the next -- before moving to the next message.
 This order is important to bear in mind when two sieves in the chain can both
 modify a message. For example::
 
-    $ posieve.py stats,tag-incomplete frobaz/
+    $ posieve stats,tag-incomplete frobaz/
     ! frobaz/alfa.po
     ! frobaz/bravo.po
     ! frobaz/charlie.po
@@ -72,12 +72,12 @@ C{parameter:value} pair. As many of these as needed can be given.
 For example, C{stats} sieve could be instructed to take into account only
 messages with at most 5 words, like this::
 
-    $ posieve.py stats -s maxwords:5 frobaz/
+    $ posieve stats -s maxwords:5 frobaz/
 
 Sieve parameters can also be switches, when only the parameter name is given.
 C{stats} can be instructed to show statistics in greater detail like this::
 
-    $ posieve.py stats -s detail frobaz/
+    $ posieve stats -s detail frobaz/
 
 In case a sieve chain is specified, sieve parameters are routed to sieves as they
 will accept them. If two sieves in the chain have a same-named parameters, when
@@ -89,14 +89,14 @@ a sieve for the French language that replaces ordinary with non-breaking spaces
 in some interpunction scenarios, the L{setUbsp<l10n.fr.sieve.setUbsp>},
 which is invoked like this::
 
-    $ posieve.py fr:setUbsp frobaz-fr/
+    $ posieve fr:setUbsp frobaz-fr/
 
 In case the user has written a custom sieve, it can be run by simply stating
 its path as sieve name. For C{posieve} to acknowledge it as external sieve,
 the file name has to end in C{.py}. Custom sieves can be chained as any other. For example::
 
-    $ posieve.py ../custom/my_count.py frobaz/
-    $ posieve.py stats,../custom/my_count.py frobaz/
+    $ posieve ../custom/my_count.py frobaz/
+    $ posieve stats,../custom/my_count.py frobaz/
 
 The list of all internal sieves is given within the L{sieve} module, as well
 as instructions on how to write custom sieves. The list of internal language-specific sieves can be found within C{l10n.<lang>.sieve} module of
