@@ -17,6 +17,7 @@ from pology.misc.report import error
 from pology import rootdir
 from pology.misc.diff import adapt_spans
 from pology.misc.entities import read_entities
+from pology.misc.multi import Multidict
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -1069,62 +1070,6 @@ def check_placeholder_els (orig, trans):
     return spans
 
 
-# Class for making several dictionaries readable as one,
-# without creating a single one with the union of keys from all other.
-class _Multidict (object):
-
-    def __init__ (self, dicts):
-        # Order of dictionaries in the list matters,
-        # firstmost has higher priority when looking for key.
-        self.dicts = dicts
-
-    def __contains__ (self, key):
-        for d in self.dicts:
-            if key in d:
-                return True
-        return False
-
-    def __getitem__ (self, key):
-        for d in self.dicts:
-            if key in d:
-                return d[key]
-        raise KeyError, key
-
-    def __iter__ (self):
-        return self.iterkeys()
-
-    def get (self, key, defval=None):
-        for d in self.dicts:
-            if key in d:
-                return d[key]
-        return defval
-
-    def iterkeys (self):
-        return self._Iterator(dict.iterkeys, self.dicts)
-
-    def itervalues (self):
-        return self._Iterator(dict.itervalues, self.dicts)
-
-    def iteritems (self):
-        return self._Iterator(dict.iteritems, self.dicts)
-
-    class _Iterator (object):
-
-        def __init__ (self, getit, dicts):
-            self._iters = [getit(d) for d in dicts]
-
-        def __iter__ (self):
-            return self
-
-        def next (self):
-            while self._iters:
-                try:
-                    return self._iters[0].next()
-                except StopIteration:
-                    self._iters.pop(0)
-            raise StopIteration
-
-
 _entpath_html = os.path.join(rootdir(), "spec", "html.entities")
 html_entities = read_entities(_entpath_html)
 
@@ -1157,7 +1102,7 @@ def check_xml_qtrich_l1 (text, ents=None):
         _qtrich_l1 = collect_xml_spec_l1(specpath)
 
     if ents is not None:
-        ents = _Multidict([ents, html_entities])
+        ents = Multidict([ents, html_entities])
 
     return check_xml_l1(text, spec=_qtrich_l1, xmlfmt="Qt-rich", ents=ents,
                         accelamp=True, casesens=False)
@@ -1225,7 +1170,7 @@ def check_xml_kde4_l1 (text, ents=None):
         _kde4_ents = html_entities.copy()
 
     if ents is not None:
-        ents = _Multidict([ents, _kde4_ents])
+        ents = Multidict([ents, _kde4_ents])
 
     return check_xml_l1(text, spec=_kde4_l1, xmlfmt="KDE4", ents=ents,
                         accelamp=True, casesens=False)
