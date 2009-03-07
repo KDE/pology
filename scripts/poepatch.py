@@ -129,13 +129,16 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         except ImportError:
             pass
 
+    # Wrap function to use for all possibly modified and synced catalogs.
+    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
+
     if not op.unembed:
         if free_args:
             error("too many arguments in command line: %s"
                    % " ".join(free_args))
         if op.strip and not op.strip.isdigit():
             error("option %s expect integer argument" % "--strip")
-        apply_ediff(op)
+        apply_ediff(op, wrapf)
     else:
         paths = []
         for path in free_args:
@@ -146,10 +149,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             else:
                 paths.append(path)
         for path in paths:
-            unembed_ediff(path)
+            unembed_ediff(path, wrapf)
 
 
-def apply_ediff (op):
+def apply_ediff (op, wrapf):
 
     # Read the ediff PO.
     if op.input:
@@ -214,7 +217,6 @@ def apply_ediff (op):
             cemsgs.append(emsg)
 
     # Prepare catalog for rejects and merges.
-    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     rcat = Catalog("", create=True, monitored=False, wrapf=wrapf)
     ED.init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
 
@@ -229,7 +231,7 @@ def apply_ediff (op):
                         % fpath1)
                 continue
             try:
-                cat = Catalog(fpath1)
+                cat = Catalog(fpath1, wrapf=wrapf)
             except:
                 warning("error reading catalog '%s', skipping" % fpath1)
                 continue
@@ -237,7 +239,7 @@ def apply_ediff (op):
             # New catalog added in diff, create it (or open if it exists).
             try:
                 mkdirpath(os.path.dirname(fpath2))
-                cat = Catalog(fpath2, create=True)
+                cat = Catalog(fpath2, create=True, wrapf=wrapf)
             except:
                 if os.path.isfile(fpath2):
                     warning("error reading catalog '%s', skipping" % fpath1)
@@ -705,19 +707,17 @@ def reduce_header_fields (hdr):
     return rhdr
 
 
-def unembed_ediff (path, all=False, old=False):
+def unembed_ediff (path, wrapf, all=False, old=False):
 
     try:
-        cat = Catalog(path)
+        cat = Catalog(path, wrapf=wrapf)
     except:
         warning("error reading catalog '%s', skipping" % path)
         return
 
     hmsgctxt = cat.header.get_field_value(ED._hmsgctxt_field)
-    if hmsgctxt is None:
-        # No embedded differences, skip.
-        return
-    cat.header.remove_field(ED._hmsgctxt_field)
+    if hmsgctxt is not None:
+        cat.header.remove_field(ED._hmsgctxt_field)
 
     uehmsg = None
     unembedded = {}
@@ -734,7 +734,7 @@ def unembed_ediff (path, all=False, old=False):
             # For split-difference embeddings, throw away the current-to-new;
             # this effectively rejects the patch, which is safest thing to do.
             cat.remove_on_sync(msg)
-        elif msg.msgctxt == hmsgctxt:
+        elif hmsgctxt is not None and msg.msgctxt == hmsgctxt:
             if uehmsg:
                 warning_on_msg("unembedding results in duplicate header, "
                                "previous header at %d(#%d); skipping"
