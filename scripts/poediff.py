@@ -177,7 +177,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                     if path.endswith(".po") or path.endswith(".pot"):
                         paths_nc.append(path)
             paths = paths_nc
-        pspecs = collect_pspecs_from_vcs(vcs, paths, revs)
+        pspecs = collect_pspecs_from_vcs(vcs, paths, revs, op.paired_only)
 
     # Create the diff.
     wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
@@ -671,7 +671,7 @@ def collect_and_split_fpaths (dpath):
     return bysub
 
 
-def collect_pspecs_from_vcs (vcs, paths, revs):
+def collect_pspecs_from_vcs (vcs, paths, revs, paired_only):
 
     pspecs = []
     # FIXME: Use tempfile module.
@@ -693,7 +693,7 @@ def collect_pspecs_from_vcs (vcs, paths, revs):
                 record_tmppath(expath)
                 expaths[rev] = expath
         expaths = [os.path.normpath(expaths[x]) for x in revs]
-        fpairs = collect_file_pairs(expaths[0], expaths[1])
+        fpairs = collect_file_pairs(expaths[0], expaths[1], paired_only)
         for fpair in fpairs:
             fpaths = []
             vpaths = []
