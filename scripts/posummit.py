@@ -150,6 +150,7 @@ class Project (object):
             "vivify_on_merge" : False,
             "vivify_w_translator" : "Simulacrum",
             "vivify_w_langteam" : "Nevernessian",
+            "vivify_w_language" : "",
             "vivify_w_charset" : "UTF-8",
             "vivify_w_plurals" : "",
 
@@ -1612,6 +1613,9 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         hdr.set_field(u"PO-Revision-Date", unicode(rdate))
         hdr.set_field(u"Last-Translator", unicode(project.vivify_w_translator))
         hdr.set_field(u"Language-Team", unicode(project.vivify_w_langteam))
+        if project.vivify_w_language:
+            hdr.set_field(u"Language", unicode(project.vivify_w_language),
+                          after="Language-Team", reorder=True)
         hdr.set_field(u"Content-Type",
                       u"text/plain; charset=%s" % project.vivify_w_charset)
         hdr.set_field(u"Content-Transfer-Encoding", u"8bit")
