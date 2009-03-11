@@ -37,12 +37,12 @@ class Multidict (object):
         @type dicts: list of dict
         """
 
-        self.dicts = dicts
+        self._dicts = dicts
 
 
     def __contains__ (self, key):
 
-        for d in self.dicts:
+        for d in self._dicts:
             if key in d:
                 return True
 
@@ -51,7 +51,7 @@ class Multidict (object):
 
     def __getitem__ (self, key):
 
-        for d in self.dicts:
+        for d in self._dicts:
             if key in d:
                 return d[key]
 
@@ -65,7 +65,7 @@ class Multidict (object):
 
     def get (self, key, defval=None):
 
-        for d in self.dicts:
+        for d in self._dicts:
             if key in d:
                 return d[key]
 
@@ -74,23 +74,23 @@ class Multidict (object):
 
     def iterkeys (self):
 
-        return self._Iterator(dict.iterkeys, self.dicts)
+        return self._Iterator(lambda x: x.iterkeys())
 
 
     def itervalues (self):
 
-        return self._Iterator(dict.itervalues, self.dicts)
+        return self._Iterator(lambda x: x.itervalues())
 
 
     def iteritems (self):
 
-        return self._Iterator(dict.iteritems, self.dicts)
+        return self._Iterator(lambda x: x.iteritems())
 
 
     class _Iterator (object):
 
-        def __init__ (self, getit, dicts):
-            self._iters = [getit(d) for d in dicts]
+        def __init__ (self, getit):
+            self._iters = [getit(d) for d in self._dicts]
 
         def __iter__ (self):
             return self
