@@ -35,8 +35,8 @@ _dict_c2a_stripped.update({
 
 # Transliteration table Serbian Latin->ASCII, basic stripped.
 _dict_l2a_stripped = {
-    u'đ':u'dj', u'ž':u'z', u'ć':u'c', u'č':u'c', u'dž':u'dz', u'š':u's',
-    u'Đ':u'Dj', u'Ž':u'Z', u'Ć':u'C', u'Č':u'C', u'Dž':u'Dz', u'Š':u'S',
+    u'đ':u'dj', u'ž':u'z', u'ć':u'c', u'č':u'c', u'š':u's',
+    u'Đ':u'Dj', u'Ž':u'Z', u'Ć':u'C', u'Č':u'C', u'Š':u'S',
 }
 
 # Transliteration table Serbian any->ASCII, basic stripped.
