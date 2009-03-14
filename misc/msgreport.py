@@ -22,7 +22,7 @@ from pology.misc.colors import colors_for_file
 from pology.file.message import Message
 from pology.misc.wrap import wrap_field_fine
 from pology.misc.diff import adapt_spans
-from pology.misc.escape import escape
+from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
 
 

@@ -12,7 +12,7 @@ while the header entry is handled by L{pology.file.header}.
 @license: GPLv3
 """
 
-from pology.misc.escape import escape
+from pology.misc.escape import escape_c as escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
 

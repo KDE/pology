@@ -31,7 +31,7 @@ L{find-messages<sieve.find_messages>}.
 
 from pology.sieve import SieveError
 from pology.misc.msgreport import warning_on_msg
-from pology.misc.escape import unescape
+from pology.misc.escape import unescape_c as unescape
 
 
 def setup_sieve (p):

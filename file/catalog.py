@@ -7,7 +7,8 @@ Collection of PO entries.
 @license: GPLv3
 """
 
-from pology.misc.escape import escape, unescape
+from pology.misc.escape import escape_c as escape
+from pology.misc.escape import unescape_c as unescape
 from pology.misc.wrap import wrap_field
 from pology.misc.monitored import Monitored
 from pology.misc.fsops import mkdirpath

@@ -9,117 +9,88 @@ Escaping texts in various contexts.
 
 import re
 
-_escape_seqs = {
-    "\n" : "\\n",
-    "\t" : "\\t",
-    "\"" : "\\\"",
-    # do not try to handle \\, ambiguous!
+from pology.misc.report import warning
+
+_escapes_c = {
+    "\a" : "a",
+    "\b" : "b",
+    "\f" : "f",
+    "\n" : "n",
+    "\r" : "r",
+    "\t" : "t",
+    "\v" : "v",
+    "\\" : "\\",
 }
 
-_unescp_seqs = dict([(_escape_seqs[x], x) for x in _escape_seqs.keys()])
-_rx_unescp_g = re.compile(r"(.*?)(\\.)")
-_rx_escapes_g = re.compile(r"(.*?)(" + r"|".join(_escape_seqs.keys()) + r")")
+_unescapes_c = dict([(y, x) for x, y in _escapes_c.items()])
 
-def unescape_strict (s):
+def unescape_c (s):
     """
-    Strictly unescape text for double-quoted strings.
+    Unescape text for C-style quoted strings.
 
-    Exactly reverses result of L{escape_strict}.
+    Octal and hex sequences (C{\\0OO}, C{\\xHH}) are converted into
+    the corresponding ASCII characters if less than 128, or else
+    thrown out (with a warning).
 
-    @param s: text to unescape (no wrapping double-quotes)
+    Invalid escape sequences raise exception.
+
+    @param s: text to unescape (without wrapping quotes)
     @type s: string
 
     @returns: unescaped text
     @rtype: string
 
-    @see: L{escape_strict}
+    @see: L{escape_c}
     """
 
-    ns = ""
-    ie = 0
-    for m in _rx_unescp_g.finditer(s):
-        ie += len(m.group(1)) + len(m.group(2))
-        ns += m.group(1)
-        if _unescp_seqs.has_key(m.group(2)):
-            ns += _unescp_seqs[m.group(2)]
+    segs = []
+    p = 0
+    while True:
+        pp = p
+        p = s.find("\\", p)
+        if p < 0:
+            segs.append(s[pp:])
+            break
+        segs.append(s[pp:p])
+        p += 1
+        c = s[p:p + 1]
+        ec = None
+        if c in ("x", "0"):
+            dd = s[p + 1:p + 3]
+            if len(dd) == 2:
+                try:
+                    ec = chr(int(dd, c == "x" and 16 or 8))
+                    p += 3
+                except:
+                    pass
         else:
-            ns += m.group(2)
-    ns += s[ie:]
-    return ns
+            ec = _unescapes_c.get(c)
+            if ec is not None:
+                p += 1
+        if ec is None:
+            raise StandardError("invalid C escape sequence after {{%s}}"
+                                % s[:p])
+        segs.append(ec)
+
+    return type(s)().join(segs)
 
 
-def unescape (s):
+_escapes_c_wpref = dict([(x, "\\" + y) for x, y in _escapes_c.items()])
+
+def escape_c (s):
     """
-    Non-strictly unescape text for double-quoted strings.
-
-    This will do the wrong thing upon e.g. \\n, but much faster,
-    and usually sufficient.
-
-    Exactly reverses the result of L{escape}.
-
-    @param s: text to unescape (no wrapping double-quotes)
-    @type s: string
-
-    @returns: unescaped text
-    @rtype: string
-
-    @see: L{escape}
-    """
-
-    ns = s;
-    ns = ns.replace(r"\"", "\"")
-    ns = ns.replace(r"\n", "\n")
-    ns = ns.replace(r"\t", "\t")
-    return ns;
-
-
-def escape_strict (s):
-    """
-    Strictly escape text for double-quoted strings.
-
-    Exactly reverses the result of L{unescape_strict}.
+    Escape text for C-style quoted strings.
 
     @param s: text to escape
     @type s: string
 
-    @returns: escaped text (no wrapping double-quotes)
+    @returns: escaped text (without wrapping quotes)
     @rtype: string
 
-    @see: L{unescape_strict}
+    @see: L{unescape_c}
     """
 
-    ns = ""
-    ie = 0
-    for m in _rx_escapes_g.finditer(s):
-        ie += len(m.group(1)) + len(m.group(2))
-        ns += m.group(1) + _escape_seqs[m.group(2)]
-    ns += s[ie:]
-    return ns
-
-
-def escape (s):
-    """
-    Non-strictly escape text for double-quoted strings.
-
-    This will do the wrong thing upon e.g. \\n, but much faster,
-    and usually sufficient.
-
-    Exactly reverses the result of L{unescape}.
-
-    @param s: text to escape
-    @type s: string
-
-    @returns: escaped text (no wrapping double-quotes)
-    @rtype: string
-
-    @see: L{unescape}
-    """
-
-    ns = s;
-    ns = ns.replace("\"", r"\"")
-    ns = ns.replace("\n", r"\n")
-    ns = ns.replace("\t", r"\t")
-    return ns;
+    return type(s)().join([_escapes_c_wpref.get(c, c) for c in s])
 
 
 def split_escaped (text, sep):
