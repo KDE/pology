@@ -233,7 +233,7 @@ class Header (Monitored):
         if force or self.field_modcount or self.field.modcount:
             m.msgstr = Monlist([u""])
             for field in self.field:
-                m.msgstr[0] += "%s: %s\\n" % tuple(field)
+                m.msgstr[0] += "%s: %s\n" % tuple(field)
 
         if force or self.modcount:
             if m.fuzzy and self.initialized:
