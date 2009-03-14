@@ -27,9 +27,9 @@ def get_module (lang, path, abort=False):
 
     will try to import the C{pology.l10n.sr.cyr2lat} module, while::
 
-        get_module(None, ["hook", "normctx-ooo"])
+        get_module(None, ["hook", "remove-subs"])
 
-    will try to import the C{pology.hook.normctx_ooo}.
+    will try to import the C{pology.hook.remove_subs}.
 
     The elements of the module path can also contain hyphens, which will
     be converted into underscores when looking for the module.
@@ -209,4 +209,55 @@ def _raise_or_abort (errmsg, abort, exc=StandardError):
         error(errmsg)
     else:
         raise exc, errmsg
+
+
+def get_result (lang, mod, func=None, args="", abort=False):
+    """
+    Fetch a result of language-dependent function evaluation.
+
+    Executes function loaded from a C{pology.l10n.<lang>.<mod>} module
+    and returns its result.
+    If C{func} is not given, the function name defaults to C{run}.
+    C{args} is the string representing the argument list
+    to the function call (without surrounding parenthesis).
+
+    @param lang: language code
+    @type lang: string
+    @param mod: language-dependent module
+    @type mod: string
+    @param func: function name within the module
+    @type func: string
+    @param args: argument string to function call
+    @type args: string
+    @param abort: if the function is not found, abort or report C{None}
+    @type abort: bool
+
+    @returns: the value returned by the function call
+    """
+
+    path = mod.split(".")
+    lmod = get_module(lang, path, abort)
+    func = func or "run"
+    call = getattr(lmod, func, None)
+    if call is None:
+        _raise_or_abort("module '%s' does not define function '%s'"
+                        % (lmod, func), abort)
+    try:
+        res = eval("call(%s)" % args)
+    except Exception, e:
+        fspec = "%s/%s" % (lmod, func)
+        _raise_or_abort("evaluating function '%s' (in module '%s')"
+                        "with argument list %s failed; reported error:\n%s"
+                        % (func, lmod, repr(args), unicode(e)), abort)
+
+    return res
+
+
+def get_result_lreq (langreq, abort=False):
+    """
+    Like L{get_result}, but the function is specified as
+    L{language request<split_req>}.
+    """
+
+    return _by_lreq(langreq, get_result, abort=abort)
 
