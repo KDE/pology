@@ -148,6 +148,48 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.langdep-module.html#get_result" class="summary-sig-name">get_result</a>(<span class="summary-sig-arg">lang</span>,
+        <span class="summary-sig-arg">mod</span>,
+        <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Fetch a result of language-dependent function evaluation.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_result_lreq"></a><span class="summary-sig-name">get_result_lreq</span>(<span class="summary-sig-arg">langreq</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Like <a href="pology.misc.langdep-module.html#get_result" 
+      class="link">get_result</a>, but the function is specified as <a 
+      href="pology.misc.langdep-module.html#split_req" 
+      class="link">language request</a>.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -185,9 +227,9 @@
   <p>will try to import the <code>pology.l10n.sr.cyr2lat</code> module, 
   while:</p>
 <pre class="literalblock">
-   get_module(None, [&quot;hook&quot;, &quot;normctx-ooo&quot;])
+   get_module(None, [&quot;hook&quot;, &quot;remove-subs&quot;])
 </pre>
-  <p>will try to import the <code>pology.hook.normctx_ooo</code>.</p>
+  <p>will try to import the <code>pology.hook.remove_subs</code>.</p>
   <p>The elements of the module path can also contain hyphens, which will 
   be converted into underscores when looking for the module.</p>
   <p>If the module cannot be imported, if <code>abort</code> is 
@@ -281,6 +323,44 @@
     </ul></dd>
     <dt>Returns:</dt>
         <dd>the hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_result"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_result</span>(<span class="sig-arg">lang</span>,
+        <span class="sig-arg">mod</span>,
+        <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">args</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fetch a result of language-dependent function evaluation.</p>
+  <p>Executes function loaded from a 
+  <code>pology.l10n.&lt;lang&gt;.&lt;mod&gt;</code> module and returns its 
+  result. If <code>func</code> is not given, the function name defaults to 
+  <code>run</code>. <code>args</code> is the string representing the 
+  argument list to the function call (without surrounding parenthesis).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lang</code></strong> (string) - language code</li>
+        <li><strong class="pname"><code>mod</code></strong> (string) - language-dependent module</li>
+        <li><strong class="pname"><code>func</code></strong> (string) - function name within the module</li>
+        <li><strong class="pname"><code>args</code></strong> (string) - argument string to function call</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - if the function is not found, abort or report <code>None</code></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the value returned by the function call</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.escape</title>
+  <title>pology.l10n.sr.hook.nobr</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,8 +38,10 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        Module&nbsp;escape
+        <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
+        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
+        <a href="pology.l10n.sr.hook-module.html">Package&nbsp;hook</a> ::
+        Module&nbsp;nobr
       </span>
     </td>
     <td>
@@ -50,8 +52,13 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module escape</h1><p class="nomargin-top"></p>
-<p>Escaping texts in various contexts.</p>
+<h1 class="epydoc">Module nobr</h1><p class="nomargin-top"></p>
+<p>Equip text with no-break characters where possibly helpful.</p>
+  <p>The way text is wrapped in UI, by a general wrapping algorithm, is 
+  sometimes really not appropriate for Serbian ortography. For example, 
+  hyphen-separated case ending should not be wrapped. This module contains 
+  functions to heuristically replace ordinary with no-break characters, 
+  where such bad breaks can be expected.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -70,48 +77,13 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type"><code>(text) -&gt; text</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.escape-module.html#unescape_c" class="summary-sig-name">unescape_c</a>(<span class="summary-sig-arg">s</span>)</span><br />
-      Unescape text for C-style quoted strings.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.misc.escape-module.html#escape_c" class="summary-sig-name">escape_c</a>(<span class="summary-sig-arg">s</span>)</span><br />
-      Escape text for C-style quoted strings.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.misc.escape-module.html#split_escaped" class="summary-sig-name">split_escaped</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">sep</span>)</span><br />
-      Like <code>split()</code>, but double-separator is treated as an 
-      escape of itself.</td>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.nobr-module.html#to_nobr_hyphens" class="summary-sig-name">to_nobr_hyphens</a>(<span class="summary-sig-arg">wchars</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">unsafe</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Replace some ordinary with no-break hyphens [hook factory].</td>
           <td align="right" valign="top">
             
             
@@ -134,14 +106,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="x"></a><span class="summary-name">x</span> = <code title="'\\'"><code class="variable-quote">'</code><code class="variable-string">\\</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="y"></a><span class="summary-name">y</span> = <code title="'\\'"><code class="variable-quote">'</code><code class="variable-string">\\</code><code class="variable-quote">'</code></code>
+        <a name="nobrhyp_char"></a><span class="summary-name">nobrhyp_char</span> = <code title="u'&#8209;'"><code class="variable-quote">u'</code><code class="variable-string">&#8209;</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -154,93 +119,39 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="unescape_c"></a>
+<a name="to_nobr_hyphens"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">unescape_c</span>(<span class="sig-arg">s</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">to_nobr_hyphens</span>(<span class="sig-arg">wchars</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">unsafe</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Unescape text for C-style quoted strings.</p>
-  <p>Octal and hex sequences (<code>\0OO</code>, <code>\xHH</code>) are 
-  converted into the corresponding ASCII characters if less than 128, or 
-  else thrown out (with a warning).</p>
-  <p>Invalid escape sequences raise exception.</p>
+  <p>Replace some ordinary with no-break hyphens [hook factory].</p>
+  <p>The ordinary hyphen is replaced if it is in between two letters, and 
+  either preceded or followed by at most four letters. Using the 
+  <code>wchars</code> parameter, some extra characters other than letters 
+  can be treated as equal to letters.</p>
+  <p>Note that the function by default substitutes the hyphen only if there
+  are some Cyrillic letters (or an extra character) in the context, as 
+  otherwise the hyphen may be a part of URL, command, etc. This can be 
+  relaxed by setting <code>unsafe</code> to <code>True</code>, when all 
+  letters are treated equally.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>s</code></strong> (string) - text to unescape (without wrapping quotes)</li>
+        <li><strong class="pname"><code>wchars</code></strong> (string) - extra characters to consider parts of the word</li>
+        <li><strong class="pname"><code>unsafe</code></strong> (bool) - whether to replace hyphen even if no Cyrillic letters nearby</li>
     </ul></dd>
-    <dt>Returns: string</dt>
-        <dd>unescaped text</dd>
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.escape-module.html#escape_c" 
-        class="link">escape_c</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="escape_c"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">escape_c</span>(<span class="sig-arg">s</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Escape text for C-style quoted strings.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>s</code></strong> (string) - text to escape</li>
-    </ul></dd>
-    <dt>Returns: string</dt>
-        <dd>escaped text (without wrapping quotes)</dd>
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.escape-module.html#unescape_c" 
-        class="link">unescape_c</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="split_escaped"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">split_escaped</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">sep</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Like <code>split()</code>, but double-separator is treated as an 
-  escape of itself.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - the text to split</li>
-        <li><strong class="pname"><code>sep</code></strong> (string) - the separator</li>
-    </ul></dd>
-    <dt>Returns: list of strings</dt>
-        <dd>parsed elements</dd>
+    <dt>Returns: <code>(text) -&gt; text</code></dt>
+        <dd>type F1A hook</dd>
   </dl>
 </td></tr></table>
 </div>
