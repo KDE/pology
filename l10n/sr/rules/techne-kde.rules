@@ -39,24 +39,27 @@ addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
 
 # ...in KDE4 UI POs.
 *hook name="check-markup/check-xml-kde4-sp" \
-      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
-               mkeyw='kde4'" \
+      factory=!strict=True, \
+               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               mkeyw='kde4'! \
       on="msgstr"
 id="x-markup-k"
 hint="грешке у обележавању"
 
 # ...in pure Qt UI POs.
 *hook name="check-markup/check-xml-qtrich-sp" \
-      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
-               mkeyw='qtrich'" \
+      factory=!strict=True, \
+               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               mkeyw='qtrich'! \
       on="msgstr"
 id="x-markup-q"
 hint="грешке у обележавању"
 
 # ...in KDE documentation POs.
 *hook name="check-markup/check-xml-docbook4-sp" \
-      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
-               mkeyw='docbook4'" \
+      factory=!strict=True, \
+               entities='sr:mdec/build_declinator_docbook4_by_env~"FORMDEFS_KDE4_SR"', \
+               mkeyw='docbook4'! \
       on="msgstr"
 # Remove entities used as-is KDE documentation.
 addFilterRegex match="&\S+\.\S+\.mail;" on="pmsgid,pmsgstr"
@@ -68,8 +71,9 @@ hint="грешке у обележавању"
 
 # ...in POs which have no markup, but in summit have XML-like entities.
 *hook name="check-markup/check-xmlents-sp" \
-      factory="strict=True, entpathenv='ENTDEFS_KDE4_SR', fcap=True, \
-               mkeyw='xmlents'" \
+      factory=!strict=True, \
+               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               mkeyw='xmlents'! \
       on="msgstr"
 id="x-markup-e"
 hint="грешке у обележавању"
