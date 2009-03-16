@@ -191,12 +191,13 @@ def build_declinator (mdfiles,
 
     # Import macrodec files into appropriate declinators.
     for mdfile in mdfiles:
-        ekeyitf1 = None
-        dvaltf1 = None
+        ekeyitf1, dvaltf1, phrasetf1 = [None] * 3
         if is_pn_source(mdfile):
+            phrasetf1 = lambda x: _compose_person_name(x, markup=_markup_plain)
             ekeyitf1 = lambda x: _compose_person_name(x, markup=_markup_plain)
         mdec = (lmod and lmod in mdfile) and mdecs[1] or mdecs[0]
-        mdec.import_file(mdfile, ekeyitf1=ekeyitf1, dvaltf1=dvaltf1)
+        mdec.import_file(mdfile, ekeyitf1=ekeyitf1, dvaltf1=dvaltf1,
+                                 phrasetf1=phrasetf1)
 
     # Combine declinators if dual script in effect.
     if lmod:
