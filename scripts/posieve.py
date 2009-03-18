@@ -115,6 +115,8 @@ The following user configuration fields are considered
         processing error and go to next, if possible (default C{yes})
   - C{[posieve]/msgfmt-check}: whether to check catalog file by C{msgfmt -c}
         before sieving (default C{no})
+  - C{[posieve]/skip-obsolete}: whether to avoid sending obsolete messages
+        to sieves (default C{no})
   - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
         if available (default C{yes})
 
@@ -157,6 +159,7 @@ def main ():
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_do_skip = cfgsec.boolean("skip-on-error", True)
     def_msgfmt_check = cfgsec.boolean("msgfmt-check", False)
+    def_skip_obsolete = cfgsec.boolean("skip-obsolete", False)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -211,6 +214,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "--no-skip",
         action="store_false", dest="do_skip", default=def_do_skip,
         help="do not try to skip catalogs which signal errors")
+    opars.add_option(
+        "--skip-obsolete",
+        action="store_true", dest="skip_obsolete", default=def_skip_obsolete,
+        help="do not sieve obsolete messages")
     opars.add_option(
         "-m", "--output-modified", metavar="FILE",
         action="store", dest="output_modified", default=None,
@@ -534,6 +541,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         # unless processing only the header.
         if not use_headonly:
             for msg in cat:
+                if op.skip_obsolete and msg.obsolete:
+                    continue
                 if op.announce_entry:
                     report(u"sieving %s:%d(#%d) ..."
                            % (fname, msg.refline, msg.refentry))
