@@ -65,6 +65,14 @@ If the order were C{tag-incomplete,stats} in this case the effect on the
 catalogs would be the same, but number of tagged messages would be the first
 in output, followed by the table with statistics.
 
+Frequently it is necessary to modify a message before doing a check on it,
+such that an earlier sieve in the chain does the modification,
+and a later sieve does the check.
+If the modifications are performed only for the sake of the checks,
+C{--no-sync} option can be used to prevent actually writing out
+any modifications back to catalogs on disk.
+This option is likewise useful for making "dry runs" when testing sieves.
+
 C{posieve} takes a few options, which you can list with the usual C{--help}
 option. However, more interesting is that sieves themselves can be sent some
 I{parameters}, using the C{-s} option, which takes as argument a
@@ -198,6 +206,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
         help="force rewrite of all messages, modified or not")
+    opars.add_option(
+        "--no-sync",
+        action="store_false", dest="do_sync", default=True,
+        help="do not write any modifications to catalogs")
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
@@ -415,12 +427,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("--> Not monitoring messages")
 
     # Get the sync indicator from the sieves.
-    # Sync unless all sieves have requested otherwise.
+    # Sync unless all sieves have requested otherwise,
+    # and unless syncing is disabled globally in command line.
     do_sync = False
     for sieve in sieves:
         if getattr(sieve, "caller_sync", True):
             do_sync = True
             break
+    if not op.do_sync:
+        do_sync = False
     if op.verbose and not do_sync:
         report("--> Not syncing after sieving")
 
