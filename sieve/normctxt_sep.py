@@ -14,13 +14,6 @@ the separator string is the pipe character (C{|}).
 
 Sieve options:
   - C{sep} (mandatory): string used as context separator
-  - C{nosync}: do not request to sync modified catalogs to disk
-
-Parameter C{nosync} tells the sieve not to issue request to sync the catalogs,
-which means that the files on disk will not be modified unless another sieve in
-the chain requests syncing. In this way, the sieve can be used to normalize
-contexts for other non-syncing sieves, like L{stats<sieve.stats>} or
-L{find-messages<sieve.find_messages>}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -42,10 +35,6 @@ def setup_sieve (p):
                 desc=
     "Separator between the context and the text in msgid field."
     )
-    p.add_param("nosync", bool, defval=False,
-                desc=
-    "Do not request modified catalog to be synced to disk."
-    )
 
 
 class Sieve (object):
@@ -57,10 +46,6 @@ class Sieve (object):
         self.csep = unescape(params.sep)
         if not self.csep:
             raise SieveError("context separator cannot be empty string")
-
-        if params.nosync:
-            self.caller_sync = False
-            self.caller_monitored = False
 
 
     def process (self, msg, cat):

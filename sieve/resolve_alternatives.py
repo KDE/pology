@@ -32,11 +32,6 @@ class Sieve (object):
         else:
             error("need alternatives specification (-salt:<select>,<total>t)")
 
-        if "nosync" in options:
-            options.accept("nosync")
-            self.caller_sync = False
-            self.caller_monitored = False
-
 
     def process (self, msg, cat):
 

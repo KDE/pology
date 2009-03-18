@@ -14,7 +14,6 @@ Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
 
 Sieve parameters:
   - C{filter:<hookspec>}: hook specification
-  - C{nosync}: do not request syncing of catalogs
 
 For a module C{pology.hook.FOO} which defines the C{process()} hook function,
 the hook specification given by the C{filter} parameter is simply C{FOO}.
@@ -32,12 +31,6 @@ to the factory function, omitting the surrounding parenthesis.
 
 Parameter C{filter} can be repeated to chain several hooks,
 which are then applied in the order of appearance in the command line.
-
-Using the C{nosync} parameter, the sieve can request catalog not to be synced.
-This is useful to get faster processing if the user knows that
-none of the hooks will modify the message,
-or to chain the sieve with another checker sieve, such that C{msgstr}
-is modified before the checker sieve gets to operate on it.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -80,10 +73,6 @@ def setup_sieve (p):
     "Several filters can be given by repeating the parameter, "
     "when they are applied in the given order."
     )
-    p.add_param("nosync", bool, defval=False,
-                desc=
-    "Do not request possibly modified catalog to be synced to disk."
-    )
 
 
 class Sieve (object):
@@ -93,15 +82,8 @@ class Sieve (object):
         self.tfilters = [[get_hook_lreq(x, abort=True), x]
                          for x in (params.filter or [])]
 
-        self.nosync = params.nosync
-
         # Number of modified messages.
         self.nmod = 0
-
-        # Do not request syncing of the catalog if requested.
-        if self.nosync:
-            self.caller_sync = False
-            self.caller_monitored = False
 
 
     def process (self, msg, cat):
