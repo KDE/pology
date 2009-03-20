@@ -1669,12 +1669,13 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         shutil.move(tmp_path, catalog_path)
 
         # Add to version control if not already added.
-        if project.vcs and not project.vcs.is_versioned(catalog_path):
+        if (    project.vcs
+            and not project.bdict[branch_id].skip_version_control
+            and not project.vcs.is_versioned(catalog_path)
+        ):
             if not project.vcs.add(catalog_path):
                 warning(  "cannot add '%s' to version control"
                         % catalog_path)
-            else:
-                added = True
 
         if options.verbose:
             if added:
