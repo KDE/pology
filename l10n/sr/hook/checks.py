@@ -58,6 +58,8 @@ _no_check_lat_rxs = (
     re.compile(r"\[\[[^\]]*(\||\])", re.U|re.I),
     re.compile(r"\[[^\s]*", re.U|re.I),
     re.compile(r"\{\{.*?(\||\}\})", re.U|re.I),
+    # - double escapings
+    re.compile(r"\\[nt]"),
 )
 _no_check_lat_origui_rxs = (
     # - automatic by tags
