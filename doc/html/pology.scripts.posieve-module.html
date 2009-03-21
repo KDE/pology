@@ -115,6 +115,13 @@
   <p>If the order were <code>tag-incomplete,stats</code> in this case the 
   effect on the catalogs would be the same, but number of tagged messages 
   would be the first in output, followed by the table with statistics.</p>
+  <p>Frequently it is necessary to modify a message before doing a check on
+  it, such that an earlier sieve in the chain does the modification, and a 
+  later sieve does the check. If the modifications are performed only for 
+  the sake of the checks, <code>--no-sync</code> option can be used to 
+  prevent actually writing out any modifications back to catalogs on disk. 
+  This option is likewise useful for making &quot;dry runs&quot; when 
+  testing sieves.</p>
   <p><code>posieve</code> takes a few options, which you can list with the 
   usual <code>--help</code> option. However, more interesting is that 
   sieves themselves can be sent some <i>parameters</i>, using the 
@@ -181,6 +188,10 @@
     <li>
       <code>[posieve]/msgfmt-check</code>: whether to check catalog file by
       <code>msgfmt -c</code> before sieving (default <code>no</code>)
+    </li>
+    <li>
+      <code>[posieve]/skip-obsolete</code>: whether to avoid sending 
+      obsolete messages to sieves (default <code>no</code>)
     </li>
     <li>
       <code>[posieve]/use-psyco</code>: whether to use Psyco specializing 

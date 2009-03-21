@@ -65,17 +65,7 @@
     <li>
       <code>sep</code> (mandatory): string used as context separator
     </li>
-    <li>
-      <code>nosync</code>: do not request to sync modified catalogs to disk
-    </li>
   </ul>
-  <p>Parameter <code>nosync</code> tells the sieve not to issue request to 
-  sync the catalogs, which means that the files on disk will not be 
-  modified unless another sieve in the chain requests syncing. In this way,
-  the sieve can be used to normalize contexts for other non-syncing sieves,
-  like <a href="pology.sieve.stats-module.html" class="link">stats</a> or 
-  <a href="pology.sieve.find_messages-module.html" 
-  class="link">find-messages</a>.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

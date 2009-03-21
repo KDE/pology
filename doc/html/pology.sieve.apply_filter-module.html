@@ -75,9 +75,6 @@
     <li>
       <code>filter:&lt;hookspec&gt;</code>: hook specification
     </li>
-    <li>
-      <code>nosync</code>: do not request syncing of catalogs
-    </li>
   </ul>
   <p>For a module <code>pology.hook.FOO</code> which defines the 
   <code>process()</code> hook function, the hook specification given by the
@@ -98,11 +95,6 @@
   <p>Parameter <code>filter</code> can be repeated to chain several hooks, 
   which are then applied in the order of appearance in the command 
   line.</p>
-  <p>Using the <code>nosync</code> parameter, the sieve can request catalog
-  not to be synced. This is useful to get faster processing if the user 
-  knows that none of the hooks will modify the message, or to chain the 
-  sieve with another checker sieve, such that <code>msgstr</code> is 
-  modified before the checker sieve gets to operate on it.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
