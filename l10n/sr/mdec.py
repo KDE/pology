@@ -41,7 +41,7 @@ def build_declinator (mdfiles,
                       pnfnend=None, pnodkey=None,
                       nobrhyp=False,
                       ndkeyto=None,
-                      lmod=None):
+                      lmod=None, altmin=False):
     """
     Main declinator builder, covering all options.
 
@@ -118,7 +118,7 @@ def build_declinator (mdfiles,
         Combined declination will actually contain alternative directives
         only if the transliteration of the Cyrillic version does not produce
         the Latin version, and may not envelope both complete declinations
-        (some minimization is done).
+        if C{altmin} is set to C{True} (some minimization is done).
         If an entry phrase does not exist in both files, it is dropped
         (i.e. entry keys are produced as set intersection).
 
@@ -144,6 +144,8 @@ def build_declinator (mdfiles,
     @type ndkeyto: string or (string, [strings])
     @param lmod: modifier for Latin-version macrodec files, to engage combining
     @type lmod: string
+    @param altmin: whether to minimize alternative directives when combining
+    @type altmin: bool
 
     @returns: declinator
     @rtype: L{Declinator<misc.macrodec.Declinator>} or
@@ -201,7 +203,7 @@ def build_declinator (mdfiles,
 
     # Combine declinators if dual script in effect.
     if lmod:
-        dvalcf = _md_dval_combf()
+        dvalcf = altmin and _md_dval_combf_altmin() or _md_dval_combf()
         mdec = Combinator(mdecs, dvalcf)
     else:
         mdec = mdecs[0]
@@ -209,7 +211,7 @@ def build_declinator (mdfiles,
     return mdec
 
 
-def build_declinator_ui (mdfiles):
+def build_declinator_ui (mdfiles, altmin=False):
     """
     Builds a declinator suitable for application UI texts.
 
@@ -236,6 +238,8 @@ def build_declinator_ui (mdfiles):
 
     @param mdfiles: macrodec file paths
     @type mdfiles: list of strings
+    @param altmin: whether to minimize alternative directives when combining
+    @type altmin: bool
 
     @returns: declinator
     """
@@ -479,6 +483,17 @@ def _md_dkey_transf (ndkeyto, ndkey_eqdkeys):
 # Combining of Cyrillic and Latin declinations into alternative directives.
 def _md_dval_combf ():
 
+    def combf (values):
+
+        return autoalt_head + autoalt_sep.join([""] + values + [""])
+
+    return combf
+
+
+# Combining of Cyrillic and Latin declinations into alternative directives,
+# with minimization of alternative directives.
+def _md_dval_combf_altmin ():
+
     jchars = "".join([" ", nobrhyp_char, "-"])
 
     if "-" in jchars:
@@ -491,11 +506,6 @@ def _md_dval_combf ():
     getstrf = lambda x, i: i < len(x) and x[i] or ""
 
     def combf (values):
-
-        # Simple and sufficient solution would be:
-        #   return autoalt_head + autoalt_sep.join([""] + values + [""])
-        # but instead, for good looks, try to minimize the wrapping
-        # in a certain sense (e.g. don't include tags, etc.)
 
         vsplits = map(splitf, values)
         # Modified splits, where Cyrillic version is transliterated to Latin.
