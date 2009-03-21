@@ -41,7 +41,7 @@ def build_declinator (mdfiles,
                       pnfnend=None, pnodkey=None,
                       nobrhyp=False,
                       ndkeyto=None,
-                      lmod=None, altmin=False):
+                      lmod=None):
     """
     Main declinator builder, covering all options.
 
@@ -115,10 +115,6 @@ def build_declinator (mdfiles,
         The C{lmod} parameter is used to give the modifier to file name
         for Latin script (usually C{"@latin"}) which engages combining
         for each file that has counterpart with this modifier.
-        Combined declination will actually contain alternative directives
-        only if the transliteration of the Cyrillic version does not produce
-        the Latin version, and may not envelope both complete declinations
-        if C{altmin} is set to C{True} (some minimization is done).
         If an entry phrase does not exist in both files, it is dropped
         (i.e. entry keys are produced as set intersection).
 
@@ -144,8 +140,6 @@ def build_declinator (mdfiles,
     @type ndkeyto: string or (string, [strings])
     @param lmod: modifier for Latin-version macrodec files, to engage combining
     @type lmod: string
-    @param altmin: whether to minimize alternative directives when combining
-    @type altmin: bool
 
     @returns: declinator
     @rtype: L{Declinator<misc.macrodec.Declinator>} or
@@ -203,7 +197,7 @@ def build_declinator (mdfiles,
 
     # Combine declinators if dual script in effect.
     if lmod:
-        dvalcf = altmin and _md_dval_combf_altmin() or _md_dval_combf()
+        dvalcf = _md_dval_combf()
         mdec = Combinator(mdecs, dvalcf)
     else:
         mdec = mdecs[0]
@@ -211,7 +205,7 @@ def build_declinator (mdfiles,
     return mdec
 
 
-def build_declinator_ui (mdfiles, altmin=False):
+def build_declinator_ui (mdfiles):
     """
     Builds a declinator suitable for application UI texts.
 
@@ -238,8 +232,6 @@ def build_declinator_ui (mdfiles, altmin=False):
 
     @param mdfiles: macrodec file paths
     @type mdfiles: list of strings
-    @param altmin: whether to minimize alternative directives when combining
-    @type altmin: bool
 
     @returns: declinator
     """
@@ -486,63 +478,6 @@ def _md_dval_combf ():
     def combf (values):
 
         return autoalt_head + autoalt_sep.join([""] + values + [""])
-
-    return combf
-
-
-# Combining of Cyrillic and Latin declinations into alternative directives,
-# with minimization of alternative directives.
-def _md_dval_combf_altmin ():
-
-    jchars = "".join([" ", nobrhyp_char, "-"])
-
-    if "-" in jchars:
-        jchars = jchars.replace("-", "") + "-"
-    split_rx = re.compile(r"([\w%(e)s]*)([^\w%(e)s]*)" % dict(e=jchars), re.U)
-    splitf = lambda x: reduce(lambda s, y: s.extend(y) or s,
-                              split_rx.findall(x), [])
-    transpf = lambda x: [[x[i][j] for i in range(len(x))]
-                         for j in range(len(x[0]))]
-    getstrf = lambda x, i: i < len(x) and x[i] or ""
-
-    def combf (values):
-
-        vsplits = map(splitf, values)
-        # Modified splits, where Cyrillic version is transliterated to Latin.
-        # Used later for checking equality-under-transliteration per word.
-        mvsplits = [map(sr_c2l, vsplits[0]), vsplits[1]]
-
-        # Split into segments equal/non-equal under transliteration.
-        segs = []
-        for i in range(max(map(len, vsplits))):
-            alleq = reduce(lambda s, x: s == x,
-                            [getstrf(x, i) for x in mvsplits])
-            if alleq:
-                seg = getstrf(vsplits[0], i)
-            else:
-                seg = [getstrf(x, i) for x in vsplits]
-            segs.append(seg)
-
-        # Combine such as to group all contiguous segments of same equality.
-        segs.append(isinstance(segs[-1], basestring) and [1] or "1") # sentry
-        csegs = []
-        segs_cg = []
-        prev_eq = True
-        for seg in segs:
-            eq = isinstance(seg, basestring)
-            if eq != prev_eq:
-                if prev_eq:
-                    cval = "".join(segs_cg)
-                else:
-                    tsegs = ["".join(x) for x in transpf(segs_cg)]
-                    cval = autoalt_head + autoalt_sep.join([""] + tsegs + [""])
-                csegs.append(cval)
-                segs_cg = []
-                prev_eq = eq
-            segs_cg.append(seg)
-        cvalue = "".join(csegs)
-
-        return cvalue
 
     return combf
 
