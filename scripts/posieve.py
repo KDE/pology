@@ -603,7 +603,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     if op.output_modified:
         ofh = open(op.output_modified, "w")
-        ofh.write("\n".join(modified_files))
+        ofh.write("\n".join(modified_files) + "\n")
         ofh.close
 
 
