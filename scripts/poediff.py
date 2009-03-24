@@ -35,6 +35,7 @@ from pology.misc.wrap import select_field_wrapper
 from pology.misc.diff import msg_ediff
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
+from pology.misc.colors import set_coloring_globals
 
 _hmsgctxt_field = u"X-Ediff-Header-Context"
 _hmsgctxt_el = u"~"
@@ -110,6 +111,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
+    opars.add_option(
+        "-R", "--raw-colors",
+        action="store_true", dest="raw_colors", default=False,
+        help="coloring independent of output destination (terminal, file)")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -120,6 +125,9 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             psyco.full()
         except ImportError:
             pass
+
+    if op.raw_colors:
+        set_coloring_globals(outdep=False)
 
     # Create VCS.
     vcs = None

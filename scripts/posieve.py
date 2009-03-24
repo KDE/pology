@@ -155,6 +155,7 @@ import pology.misc.config as pology_config
 from pology import rootdir
 from pology.misc.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
+from pology.misc.colors import set_coloring_globals
 
 
 def main ():
@@ -266,6 +267,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
+    opars.add_option(
+        "-R", "--raw-colors",
+        action="store_true", dest="raw_colors", default=False,
+        help="coloring independent of output destination (terminal, file)")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -285,6 +290,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             psyco.full()
         except ImportError:
             pass
+
+    if op.raw_colors:
+        set_coloring_globals(outdep=False)
 
     # Parse sieve options.
     # FIXME: Temporary, until all sieves are switched to new style.
