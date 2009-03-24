@@ -43,8 +43,24 @@ def colors_for_file (file):
     @rtype: object with color names as instance variables
     """
 
-    if file.isatty():
+    if not _cglobals.outdep or file.isatty():
         return _shell_colors
     else:
         return _noop_colors
+
+
+def set_coloring_globals (outdep=True):
+    """
+    Set global options for coloring.
+
+    @param outdep: whether coloring depends on output file descriptor
+    @type outdep: bool
+    """
+
+    _cglobals.outdep = outdep
+
+
+class _Data: pass
+_cglobals = _Data()
+set_coloring_globals()
 

@@ -273,9 +273,8 @@ def report_msg_content (msg, cat,
                     ftext = hspec[3]
                 aspans = adapt_spans(text, ftext, spans, merge=False)
                 notes_data.append((text, name, item, aspans))
-                if file.isatty():
-                    text = _highlight_spans(text, spans, C.RED, C.RESET,
-                                            ftext=ftext)
+                text = _highlight_spans(text, spans, C.RED, C.RESET,
+                                        ftext=ftext)
                 return text
 
             if name == "msgctxt":
@@ -494,7 +493,7 @@ def _highlight_spans (text, spans, color_s, color_e, ftext=None):
     @rtype: string
     """
 
-    if not spans:
+    if not spans or (not color_s and not color_e):
         return text
 
     # Adapt spans regardless if filtered text has been given or not,
