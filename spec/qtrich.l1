@@ -3,12 +3,12 @@
 # FIXME: Attributes are only partially listed, add more.
 
 # Tags which are subset of HTML.
-html;
+html: dir;
 a: href title;
 b;
 big;
 blockquote;
-body;
+body: dir;
 br;
 center;
 cite;
@@ -42,7 +42,7 @@ style: type;
 sub;
 sup;
 table: align bgcolor border cellspacing cellpadding width;
-td: align valign colspan rowspan width bgcolor;
+td: align valign colspan rowspan width bgcolor dir;
 th: align valign colspan rowspan width bgcolor;
 tr;
 tt;
