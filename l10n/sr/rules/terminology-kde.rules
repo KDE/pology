@@ -207,7 +207,7 @@ id="create"
 hint="create|make = направити|створити"
 valid !msgstr="креира"
 
-{\bcustom(?!i)}i
+{\bcustom(?!i|er)}i
 id="custom"
 hint="custom = посебан"
 valid msgstr="\bпосеб(н|ан)"
@@ -377,6 +377,7 @@ id="form"
 hint="form = формулар"
 valid msgstr="\bформулар"
 valid msgstr="\bобли[кцч]"
+valid msgstr="\bвид\b"
 valid after="in (the |a )?" span="form\b" msgstr="\bу виду\b"
 valid msgid="normal(ization|ized)? form" msgstr="\bформ([аеиу]|ом|ама)\b"
 valid cat="kcmlocale" msgid="declined form.*month name" msgstr="деклин"
