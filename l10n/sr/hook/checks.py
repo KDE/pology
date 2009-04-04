@@ -32,7 +32,7 @@ _no_check_lat_rxs = (
         bcode command envar filename icode shortcut placeholder style code tt
         literal screen option keycap userinput systemitem prompt function
         foreignphrase varname programlisting token markup parameter keysym
-        methodname replaceable
+        methodname replaceable sgmltag
     """.split()), re.U|re.I|re.S),
     # - some tags are requested without attributes, as otherwise
     # Latin-content is allowed inside attributes only.
