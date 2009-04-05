@@ -423,6 +423,7 @@ def derive_project_data (project, options):
                 p.direct_map[branch_id][branch_name].append(branch_name)
 
     # Add or complain about missing summit catalogs.
+    halting_pairs = []
     for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
             summit_names = project.direct_map[branch_id][branch_name]
@@ -441,17 +442,20 @@ def derive_project_data (project, options):
 
                     # Add missing summit catalog if the mode is gather
                     # and creation is enabled.
-                    # Abort on missing summit catalog if the mode is gather
-                    # and creation is not enabled.
+                    # Record missing summit catalogs as halting the operation
+                    # if the mode is gather and creation is not enabled.
                     if "gather" in options.modes:
                         if not options.do_create:
-                            error("missing summit catalog '%s' for branch "
-                                  "catalog '%s'" % (summit_path, branch_path))
+                            halting_pairs.append((branch_path, summit_path))
 
                         # Add summit catalog into list of existing catalogs;
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
                                                                summit_subdir)]
+
+    if halting_pairs:
+        error("missing summit catalogs per branch catalog:\n"
+              "%s" % "\n".join("%s --> %s" % x for x in halting_pairs))
 
     # Initialize inverse mappings.
     # - part inverse:
