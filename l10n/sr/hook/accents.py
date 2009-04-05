@@ -11,18 +11,18 @@ Process letter accents in Serbian Cyrillic text.
 _accents = {
     u"а": (u"а̀", u"а́", u"а̏", u"а̑", u"а̄", u"а̂", u"â"),
     u"А": (u"А̀", u"А́", u"А̏", u"А̑", u"А̄", u"А̂", u"Â"),
-    # ...with Latin genitive a, used sometimes as makeshift
-    u"е": (u"ѐ", u"е́", u"е̏", u"е̑", u"е̄"),
-    u"Е": (u"Ѐ", u"Е́", u"Е̏", u"Е̑", u"Е̄"),
-    u"и": (u"ѝ", u"и́", u"и̏", u"и̑", u"ӣ"),
-    u"И": (u"Ѝ", u"И́", u"И̏", u"И̑", u"Ӣ"),
-    u"о": (u"о̀", u"о́", u"о̏", u"о̑", u"о̄", u"о̂", u"ô"),
-    u"О": (u"О̀", u"О́", u"О̏", u"О̑", u"О̄", u"О̂", u"Ô"),
-    # ...with Latin genitive o, used sometimes as makeshift
-    u"у": (u"у̀", u"у́", u"у̏", u"у̑", u"ӯ"),
-    u"У": (u"У̀", u"У́", u"У̏", u"У̑", u"Ӯ"),
-    u"р": (u"р̀", u"р́", u"р̏", u"р̑", u"р̄"),
-    u"Р": (u"Р̀", u"Р́", u"Р̏", u"Р̑", u"Р̄"),
+    # ...with Latin genitive a in NFC, used sometimes as makeshift
+    u"е": (u"ѐ", u"е́", u"е̏", u"е̑", u"е̄", u"е̂"),
+    u"Е": (u"Ѐ", u"Е́", u"Е̏", u"Е̑", u"Е̄", u"Е̂"),
+    u"и": (u"ѝ", u"и́", u"и̏", u"и̑", u"ӣ", u"и̂"),
+    u"И": (u"Ѝ", u"И́", u"И̏", u"И̑", u"Ӣ", u"И̂"),
+    u"о": (u"о̀", u"о́", u"о̏", u"о̑", u"о̄", u"о̂", u"ȏ", u"ô"),
+    u"О": (u"О̀", u"О́", u"О̏", u"О̑", u"О̄", u"О̂", u"Ȏ", u"Ô"),
+    # ...with Latin long-falling/genitive o in NFC, used sometimes as makeshift
+    u"у": (u"у̀", u"у́", u"у̏", u"у̑", u"ӯ", u"у̂"),
+    u"У": (u"У̀", u"У́", u"У̏", u"У̑", u"Ӯ", u"У̂"),
+    u"р": (u"р̀", u"р́", u"р̏", u"р̑", u"р̄", u"р̂"),
+    u"Р": (u"Р̀", u"Р́", u"Р̏", u"Р̑", u"Р̄", u"Р̂"),
 }
 
 # All accented letters bunched together,
@@ -111,14 +111,14 @@ _agraphs_unused = {
 
 _agraphs = {
     #ur"^а": ur"а̂",
-    #ur"^о": ur"о̂",
+    #ur"^о": ur"о̑",
     #ur"^А": ur"А̂",
-    #ur"^О": ur"О̂",
-    # ...use Latin single-char letters at places for the moment.
+    #ur"^О": ur"О̑",
+    # ...use Latin NFC forms at places for the moment.
     ur"^а" : ur"â",
-    ur"^о" : ur"ô",
+    ur"^о" : ur"ȏ",
     ur"^А" : ur"Â",
-    ur"^О" : ur"Ô",
+    ur"^О" : ur"Ȏ",
 }
 
 _max_agraph_len = max(map(len, _agraphs.keys()))
