@@ -197,12 +197,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="show help for applied sieves")
     opars.add_option(
         "-f", "--files-from", metavar="FILE",
-        dest="files_from",
-        help="get list of input files from FILE (one file per line)")
+        action="append", dest="files_from", default=[],
+        help="get list of input files from FILE, which contains one file path "
+             "per line; can be repeated to collect paths from several files")
     opars.add_option(
-        "-s", "--sieve-option", metavar="NAME[:VALUE]",
+        "-s", "--sieve-param", metavar="NAME[:VALUE]",
         action="append", dest="sieve_params", default=[],
-        help="pass an option to the sieves")
+        help="pass a parameter to sieves")
     opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
@@ -464,11 +465,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Assemble list of files.
     file_or_dir_paths = op.raw_paths
     if op.files_from:
-        flines = open(op.files_from, "r").readlines()
-        for fline in flines:
-            fline = fline.rstrip("\n")
-            if fline:
-                file_or_dir_paths.append(fline)
+        for paths_file in op.files_from:
+            flines = open(paths_file, "r").readlines()
+            for fline in flines:
+                fline = fline.rstrip("\n")
+                if fline:
+                    file_or_dir_paths.append(fline)
     elif not file_or_dir_paths:
         file_or_dir_paths = ["."]
     fnames = collect_catalogs(file_or_dir_paths)
