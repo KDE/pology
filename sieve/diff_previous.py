@@ -100,6 +100,8 @@ class Sieve (object):
             msg.msgid_plural_previous = None
             return
 
+        oldcount = msg.modcount
+
         msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
                                           msg.format)
         msg.msgid_previous = self._diff(msg.msgid_previous, msg.msgid,
@@ -107,7 +109,8 @@ class Sieve (object):
         msg.msgid_plural_previous = self._diff(msg.msgid_plural_previous,
                                                msg.msgid_plural, msg.format)
 
-        self.nmod += 1
+        if msg.modcount > oldcount:
+            self.nmod += 1
 
 
     def finalize (self):

@@ -13,7 +13,7 @@ Note that C{incomplete} flags, being custom, will be lost when the PO file
 is merged with the template next time. This is intentional: the only purpose
 of the flag is for immediate editing, and the translator may forget to remove
 some. There is no reason for the flags to persist in that case. Also, if an
-C{incomplete} tag is forgotten when the message is translated, the subsequent
+C{incomplete} flag is forgotten when the message is translated, the subsequent
 run of this sieve will remove the flag.
 
 Sieve options:
@@ -35,7 +35,8 @@ class Sieve (object):
 
     def __init__ (self, options):
 
-        self.nmatch = 0
+        self.ntagged = 0
+        self.ncleared = 0
 
         # Strip the present flags instead?
         self.strip = False
@@ -48,10 +49,6 @@ class Sieve (object):
         if "branch" in options:
             self.branches = set(options["branch"].split(","))
             options.accept("branch")
-
-        # Indicators to the caller:
-        # - monitor to avoid unnecessary reformatting when unfuzzied
-        self.caller_monitored = True
 
 
     def process (self, msg, cat):
@@ -70,26 +67,20 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                may_tag = False
 
-        # Remove the flag if stripping required and the message may be tagged.
-        if self.strip and may_tag and flag_incomplete in msg.flag:
-            msg.flag.remove(flag_incomplete)
-            msg.modcount = 1 # in case of non-monitored messages
-
-        # Add flag if message may be tagged and is not translated.
-        elif may_tag and not msg.translated:
-            msg.flag.add(flag_incomplete)
-            self.nmatch += 1
-            msg.modcount = 1 # in case of non-monitored messages
-
-        # Remove flag if already there, but the message is either
-        # not to be tagged or no longer incomplete.
-        elif flag_incomplete in msg.flag and (not may_tag or msg.translated):
-            msg.flag.remove(flag_incomplete)
-            msg.modcount = 1 # in case of non-monitored messages
+        if not self.strip and may_tag and not msg.translated:
+            if flag_incomplete not in msg.flag:
+                msg.flag.add(flag_incomplete)
+                self.ntagged += 1
+        else:
+            if flag_incomplete in msg.flag:
+                msg.flag.remove(flag_incomplete)
+                self.ncleared += 1
 
 
     def finalize (self):
 
-        if self.nmatch > 0:
-            print "Total incomplete tagged: %d" % (self.nmatch,)
+        if self.ntagged > 0:
+            print "Total incomplete flags added: %d" % (self.ntagged,)
+        if self.ncleared > 0:
+            print "Total incomplete flags removed: %d" % (self.ncleared,)
 
