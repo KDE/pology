@@ -343,6 +343,7 @@ class ParamParser (object):
         class ParamsTemp (object): pass
         params = {}
         for subcmd in subcmds:
+            scview = self._scviews[subcmd]
             params[subcmd] = ParamsTemp()
             for param, val in param_vals[subcmd].iteritems():
                 # Construct valid attribute name out of parameter name.
