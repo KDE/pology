@@ -743,12 +743,17 @@ class Sieve (object):
             data.insert(ins, compr)
 
         if self.p.detail:
-            # Derived data: word and character ratios.
-            for o, t, ins in ((1, 2, 7), (3, 4, 8)):
+            # Derived data: word and character expansion factors.
+            for o, t, ins, incsp in ((1, 2, 7, None), (3, 4, 8, (1, 2, 0.0))):
                 ratio = []
                 for tkey, tname in selected_cats:
                     if count[tkey][o] > 0 and count[tkey][t] > 0:
-                        r = float(count[tkey][t]) / count[tkey][o]
+                        inct, inco = 0.0, 0.0
+                        if incsp:
+                            co, ct, fact = incsp
+                            inco = (count[tkey][co] - 1) * fact
+                            inct = (count[tkey][ct] - 1) * fact
+                        r = (count[tkey][t] + inct) / (count[tkey][o] + inco)
                         ratio.append((r - 1) * 100)
                     else:
                         ratio.append(None)
