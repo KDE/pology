@@ -18,7 +18,7 @@ Usage::
 
 import re
 import sys
-from os.path import abspath
+from os.path import abspath, basename
 from codecs import open
 import locale
 
@@ -30,11 +30,15 @@ def main():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    if len(sys.argv)!=2:
+    if len(sys.argv)<2:
         usage()
-    
-    #TODO: check file is writable
-    dictPath=abspath(sys.argv[1])
+
+    for path in sys.argv[1:]:
+        organize(path)
+
+
+def organize (dictPath):
+
     print dictPath
     dictEncDefault = "UTF-8"
     dictFile=open(dictPath, "r", dictEncDefault)
@@ -59,7 +63,7 @@ def main():
         if word.startswith("personal_ws"):
             continue
         if word in words:
-            print "Remove duplicate: %s" % word.rstrip("\n")
+            print "  removed duplicate: %s" % word.rstrip("\n")
         else:
             words.add(word)
     words=list(words)
@@ -74,10 +78,13 @@ def main():
     dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
     dictFile.writelines(words)
     dictFile.close()
-    print "Write %s words" % len(words)
+    print "  written %s words" % len(words)
+
+
 def usage():
-    print "\t%s <dict file>" % sys.argv[0]
+    print "usage: %s DICTFILE..." % basename(sys.argv[0])
     sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
