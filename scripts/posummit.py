@@ -136,6 +136,7 @@ class Project (object):
             "version_control" : "",
 
             "hook_on_scatter_msgstr" : [],
+            "hook_on_scatter_msg" : [],
             "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
             "hook_on_gather_cat" : [],
@@ -1221,6 +1222,9 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
         if summit_msg is not None:
             if summit_msg.translated:
+                exec_hook_msg(branch_id, branch_name,
+                              summit_msg, summit_cat,
+                              project.hook_on_scatter_msg)
                 if (   (    summit_msg.msgid_plural is not None
                         and branch_msg.msgid_plural is not None)
                     or (   summit_msg.msgid_plural is None
@@ -1363,6 +1367,16 @@ def exec_hook_msgstr (branch_id, branch_name, msgstr, msg, cat, hooks):
                 piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
+
+
+# Pipe message through hook calls,
+# for which branch id and catalog name match hook specification.
+def exec_hook_msg (branch_id, branch_name, msg, cat, hooks):
+
+    # Apply all hooks to the message.
+    for call, branch_ch, name_ch in hooks:
+        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+            call(msg, cat)
 
 
 # Pipe header through hook calls,
