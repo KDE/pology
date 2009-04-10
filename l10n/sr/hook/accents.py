@@ -9,9 +9,9 @@ Process letter accents in Serbian Cyrillic text.
 
 # All accented letters in Serbian Cyrillic, for a given non-accented letter.
 _accents = {
-    u"а": (u"а̀", u"а́", u"а̏", u"а̑", u"а̄", u"а̂", u"â"),
-    u"А": (u"А̀", u"А́", u"А̏", u"А̑", u"А̄", u"А̂", u"Â"),
-    # ...with Latin genitive a in NFC, used sometimes as makeshift
+    u"а": (u"а̀", u"а́", u"а̏", u"а̑", u"а̄", u"а̂", u"â", u"ȃ"),
+    u"А": (u"А̀", u"А́", u"А̏", u"А̑", u"А̄", u"А̂", u"Â", u"Ȃ"),
+    # ...with Latin long-falling/genitive a in NFC, used sometimes as makeshift
     u"е": (u"ѐ", u"е́", u"е̏", u"е̑", u"е̄", u"е̂"),
     u"Е": (u"Ѐ", u"Е́", u"Е̏", u"Е̑", u"Е̄", u"Е̂"),
     u"и": (u"ѝ", u"и́", u"и̏", u"и̑", u"ӣ", u"и̂"),
@@ -111,14 +111,14 @@ _agraphs_unused = {
 
 _agraphs = {
     #ur"^а": ur"а̂",
-    #ur"^о": ur"о̑",
+    #ur"^о": ur"о̂",
     #ur"^А": ur"А̂",
-    #ur"^О": ur"О̑",
+    #ur"^О": ur"О̂",
     # ...use Latin NFC forms at places for the moment.
     ur"^а" : ur"â",
-    ur"^о" : ur"ȏ",
+    ur"^о" : ur"ô",
     ur"^А" : ur"Â",
-    ur"^О" : ur"Ȏ",
+    ur"^О" : ur"Ô",
 }
 
 _max_agraph_len = max(map(len, _agraphs.keys()))
