@@ -1245,7 +1245,7 @@ class Catalog (Monitored):
         # Get plural definition from the header.
         plforms = self._header.get_field_value("Plural-Forms")
         if not plforms: # no plural definition, assume 0
-            return 0
+            return [0]
         plustr = plforms.split(";")[1]
 
         lst = re.findall(r"\bn\s*==\s*\d+\s*\)?\s*\?\s*(\d+)", plustr)
