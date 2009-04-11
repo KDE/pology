@@ -1249,7 +1249,7 @@ class Catalog (Monitored):
         plustr = plforms.split(";")[1]
 
         lst = re.findall(r"\bn\s*==\s*\d+\s*\)?\s*\?\s*(\d+)", plustr)
-        if not lst and re.search(r"\bn\s*!=\s*\d+\s*([^?]|$)", plustr):
+        if not lst and re.search(r"\bn\s*(!=|>|<)\s*\d+\s*([^?]|$)", plustr):
             lst = ["0"]
 
         return [int(x) for x in lst]
