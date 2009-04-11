@@ -6,6 +6,7 @@ import fallback_import_paths
 from pology.misc.fsops import str_to_unicode
 from pology.misc.wrap import select_field_wrapper
 from pology.file.catalog import Catalog
+from pology.file.message import Message
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import error, warning
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
@@ -949,9 +950,7 @@ def summit_gather_single (summit_name, project, options,
                     exec_hook_file(branch_id, branch_name, tmp_path,
                                    project.hook_on_gather_file_branch)
 
-                # Open monitored, as otherwise the summit catalog will
-                # refuse to insert new message from the branch.
-                branch_cat = Catalog(tmp_path or path)
+                branch_cat = Catalog(tmp_path or path, monitored=False)
                 if tmp_path: # as soon as catalog is opened, no longer needed
                     os.unlink(tmp_path)
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
@@ -1076,6 +1075,19 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         if msg.obsolete:
             continue
 
+        # Normalizations when gathering templates,
+        # in case extraction tool needs to have its sanity checked.
+        if options.lang == project.templates_lang:
+            # There should be no manual comments,
+            # convert them to automatic if present.
+            if msg.manual_comment:
+                for cmnt in msg.manual_comment:
+                    msg.auto_comment.append(cmnt)
+                msg.manual_comment = type(msg.manual_comment)()
+            # There should be no translations, discard if any.
+            for i in range(len(msg.msgstr)):
+                msg.msgstr[i] = u""
+
         # Do not gather messages belonging to depending summit catalogs.
         in_dep = False
         for dep_summit_cat in dep_summit_cats:
@@ -1095,7 +1107,9 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             # Equip any new summit tags to the merged message.
             summit_set_tags(summit_msg, branch_ids_cats, project)
         else:
-            msgs_to_insert.append(msg)
+            # Make a copy of branch message, to insert later.
+            summit_msg = Message(msg)
+            msgs_to_insert.append(summit_msg)
 
     # If there are any messages awaiting insertion, collect possible source
     # file synonyms to those in the summit catalog.
