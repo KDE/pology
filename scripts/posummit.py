@@ -543,8 +543,11 @@ def collect_catalogs (topdir, catext, by_lang, project, options):
                     spath = root[len(topdir) + 1:]
             else:
                 if file == by_lang + ".po": # cannot be .pot, so no catext
-                    catn = os.path.basename(root)
-                    spath = os.path.dirname(root)[len(topdir) + 1:]
+                    mroot = root
+                    if os.path.basename(root) == "po":
+                        mroot = os.path.dirname(root)
+                    catn = os.path.basename(mroot)
+                    spath = os.path.dirname(mroot)[len(topdir) + 1:]
 
             if catn:
                 fpath = os.path.normpath(fpath)
