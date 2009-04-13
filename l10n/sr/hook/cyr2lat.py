@@ -22,8 +22,11 @@ _dict_c2l = {
     u'Л':u'L', u'Љ':u'Lj',u'М':u'M', u'Н':u'N', u'Њ':u'Nj',u'О':u'O',
     u'П':u'P', u'Р':u'R', u'С':u'S', u'Т':u'T', u'Ћ':u'Ć', u'У':u'U',
     u'Ф':u'F', u'Х':u'H', u'Ц':u'C', u'Ч':u'Č', u'Џ':u'Dž',u'Ш':u'Š',
-    # accented (the keys are now 2-char):
-    u'а̑':u'â', u'о̑':u'ô',
+    # accented NFC:
+    u'ѐ':u'è', u'ѝ':u'ì', u'ӣ':u'ī', u'ӯ':u'ū',
+    u'Ѐ':u'È', u'Ѝ':u'Ì', u'Ӣ':u'Ī', u'Ӯ':u'Ū',
+    # frequent accented from NFD to NFC (keys now 2-char):
+    u'а̂':u'â', u'о̂':u'ô', u'а̑':u'ȃ', u'о̑':u'ȏ',
 }
 
 # Transliteration table Serbian Cyrillic->ASCII, basic stripped.
