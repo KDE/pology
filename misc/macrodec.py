@@ -15,7 +15,7 @@ import re
 import locale
 
 from pology.misc.report import warning
-from pology.misc.resolve import first_to_upper
+from pology.misc.resolve import first_to_upper, first_to_lower
 
 def _p (x, y): # FIXME: temporary
     return y
@@ -37,6 +37,7 @@ _ch_hidden = "|"
 _ch_cut = "!"
 _ch_prop = "_"
 _ch_caps = "^"
+_ch_nocaps = "`"
 _ch_mask = "."
 _ch_override = "`" # FIXME: Legacy, remove.
 
@@ -408,30 +409,33 @@ def _parse_string_w (ifs, srcname=None, encoding=None):
                     raise _EndLoop
 
                 # Step once or twice, depending on the presence of caps marker.
-                caps = False
+                caps = None
                 for q in range(2):
-                    if ifs[pos] != _ch_exp_open: # unbraced expander
+                    if q == 0:
+                        braced = ifs[pos] == _ch_exp_open
+                        if braced:
+                            pos += 1 # skip open brace
+                    if not braced: # unbraced expander
                         exp_ends = [_ch_exp, _ch_exp_mask, _ch_body_sep,
                                     _ch_entry_end, " ", "\t", "\n"]
                     else: # braced expander
-                        pos += 1 # skip open brace
                         exp_ends = [_ch_exp_mask, _ch_exp_close]
-                    # Add caps marker if first pass.
+                    # Add caps and nocaps markers if first pass.
                     if q == 0:
-                        exp_ends.append(_ch_caps)
+                        exp_ends.extend((_ch_caps, _ch_nocaps))
 
                     tok, pos, sep, lcount = \
                         _tosep(ifs, pos, exp_ends, lcount, _EndLoop)
 
                     # If caps marker found, possibly take the second pass.
                     # Otherwise, no second pass.
-                    if sep == _ch_caps:
+                    if sep in (_ch_caps, _ch_nocaps):
                         # If token is all whitespace, indicate capitalization
                         # and take second pass.
                         # Otherwise, no second pass and put caps marker back
                         # as part of the token.
                         if not tok.strip():
-                            caps = True
+                            caps = sep == _ch_caps
                         else:
                             tok += sep
                             break
@@ -722,9 +726,11 @@ def _declinate (entry, dkey):
                     dvseg = (None, False)
                 # Do not break if dvseg[0] is None, as the key may be cut.
 
-                # Capitalize first letter of referenced value if requested.
-                if seg.caps and dvseg[0] is not None:
-                    dvseg = (first_to_upper(dvseg[0]), dvseg[1])
+                # Capitalize or decapitalize first letter
+                # of referenced value if requested.
+                if seg.caps is not None and dvseg[0] is not None:
+                    f = seg.caps and first_to_upper or first_to_lower
+                    dvseg = (f(dvseg[0]), dvseg[1])
 
             else:
                 raise MacrodecError(
