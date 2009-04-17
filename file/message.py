@@ -914,19 +914,19 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self.assert_spec_init(_Message_spec)
 
         # Line caches.
-        self._lines_all = init.get("lines_all", [])[:]
-        self._lines_manual_comment = init.get("lines_manual_comment", [])[:]
-        self._lines_auto_comment = init.get("lines_auto_comment", [])[:]
-        self._lines_source = init.get("lines_source", [])[:]
-        self._lines_flag = init.get("lines_flag", [])[:]
-        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])[:]
-        self._lines_msgid_previous = init.get("lines_msgid_previous", [])[:]
+        self._lines_all = init.get("_lines_all", [])[:]
+        self._lines_manual_comment = init.get("_lines_manual_comment", [])[:]
+        self._lines_auto_comment = init.get("_lines_auto_comment", [])[:]
+        self._lines_source = init.get("_lines_source", [])[:]
+        self._lines_flag = init.get("_lines_flag", [])[:]
+        self._lines_msgctxt_previous = init.get("_lines_msgctxt_previous", [])[:]
+        self._lines_msgid_previous = init.get("_lines_msgid_previous", [])[:]
         self._lines_msgid_plural_previous = \
-            init.get("lines_msgid_plural_previous", [])[:]
-        self._lines_msgctxt = init.get("lines_msgctxt", [])[:]
-        self._lines_msgid = init.get("lines_msgid", [])[:]
-        self._lines_msgid_plural = init.get("lines_msgid_plural", [])[:]
-        self._lines_msgstr = init.get("lines_msgstr", [])[:]
+            init.get("_lines_msgid_plural_previous", [])[:]
+        self._lines_msgctxt = init.get("_lines_msgctxt", [])[:]
+        self._lines_msgid = init.get("_lines_msgid", [])[:]
+        self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
+        self._lines_msgstr = init.get("_lines_msgstr", [])[:]
 
 
     def _renew_lines (self, wrapf=wrap_field, force=False):
@@ -1012,19 +1012,19 @@ class MessageUnsafe (Message_base):
         self.refentry = init.get("refentry", -1)
 
         # Line caches.
-        self._lines_all = init.get("lines_all", [])[:]
-        self._lines_manual_comment = init.get("lines_manual_comment", [])[:]
-        self._lines_auto_comment = init.get("lines_auto_comment", [])[:]
-        self._lines_source = init.get("lines_source", [])[:]
-        self._lines_flag = init.get("lines_flag", [])[:]
-        self._lines_msgctxt_previous = init.get("lines_msgctxt_previous", [])[:]
-        self._lines_msgid_previous = init.get("lines_msgid_previous", [])[:]
+        self._lines_all = init.get("_lines_all", [])[:]
+        self._lines_manual_comment = init.get("_lines_manual_comment", [])[:]
+        self._lines_auto_comment = init.get("_lines_auto_comment", [])[:]
+        self._lines_source = init.get("_lines_source", [])[:]
+        self._lines_flag = init.get("_lines_flag", [])[:]
+        self._lines_msgctxt_previous = init.get("_lines_msgctxt_previous", [])[:]
+        self._lines_msgid_previous = init.get("_lines_msgid_previous", [])[:]
         self._lines_msgid_plural_previous = \
-            init.get("lines_msgid_plural_previous", [])[:]
-        self._lines_msgctxt = init.get("lines_msgctxt", [])[:]
-        self._lines_msgid = init.get("lines_msgid", [])[:]
-        self._lines_msgid_plural = init.get("lines_msgid_plural", [])[:]
-        self._lines_msgstr = init.get("lines_msgstr", [])[:]
+            init.get("_lines_msgid_plural_previous", [])[:]
+        self._lines_msgctxt = init.get("_lines_msgctxt", [])[:]
+        self._lines_msgid = init.get("_lines_msgid", [])[:]
+        self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
+        self._lines_msgstr = init.get("_lines_msgstr", [])[:]
 
         self.modcount = 0
 

@@ -50,18 +50,18 @@ class _MessageDict:
         self.refline = -1
         self.refentry = -1
 
-        self.lines_all = []
-        self.lines_manual_comment = []
-        self.lines_auto_comment = []
-        self.lines_source = []
-        self.lines_flag = []
-        self.lines_msgctxt_previous = []
-        self.lines_msgid_previous = []
-        self.lines_msgid_plural_previous = []
-        self.lines_msgctxt = []
-        self.lines_msgid = []
-        self.lines_msgid_plural = []
-        self.lines_msgstr = []
+        self._lines_all = []
+        self._lines_manual_comment = []
+        self._lines_auto_comment = []
+        self._lines_source = []
+        self._lines_flag = []
+        self._lines_msgctxt_previous = []
+        self._lines_msgid_previous = []
+        self._lines_msgid_plural_previous = []
+        self._lines_msgctxt = []
+        self._lines_msgid = []
+        self._lines_msgid_plural = []
+        self._lines_msgstr = []
 
 
 def _read_lines_and_encoding (file):
@@ -298,35 +298,35 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
                                      % (filename, lno)
 
         # Update line caches.
-        loc.msg.lines_all.append(line_raw)
+        loc.msg._lines_all.append(line_raw)
         if 0: pass
         elif line_raw.startswith("#:"):
-            loc.msg.lines_source.append(line_raw)
+            loc.msg._lines_source.append(line_raw)
         elif line_raw.startswith("#,"):
-            loc.msg.lines_flag.append(line_raw)
+            loc.msg._lines_flag.append(line_raw)
         elif line_raw.startswith("#."):
-            loc.msg.lines_auto_comment.append(line_raw)
+            loc.msg._lines_auto_comment.append(line_raw)
         elif line_raw.startswith("#") and line_raw[1:2] not in ("~", "|"):
-            loc.msg.lines_manual_comment.append(line_raw)
+            loc.msg._lines_manual_comment.append(line_raw)
         elif loc.age_context == ctx_previous:
             if loc.field_context == ctx_msgctxt:
-                loc.msg.lines_msgctxt_previous.append(line_raw)
+                loc.msg._lines_msgctxt_previous.append(line_raw)
             elif loc.field_context == ctx_msgid:
-                loc.msg.lines_msgid_previous.append(line_raw)
+                loc.msg._lines_msgid_previous.append(line_raw)
             elif loc.field_context == ctx_msgid_plural:
-                loc.msg.lines_msgid_plural_previous.append(line_raw)
+                loc.msg._lines_msgid_plural_previous.append(line_raw)
             else:
                 raise StandardError,   "internal problem (11) at %s:%d" \
                                      % (filename, lno)
         elif loc.age_context == ctx_current:
             if loc.field_context == ctx_msgctxt:
-                loc.msg.lines_msgctxt.append(line_raw)
+                loc.msg._lines_msgctxt.append(line_raw)
             elif loc.field_context == ctx_msgid:
-                loc.msg.lines_msgid.append(line_raw)
+                loc.msg._lines_msgid.append(line_raw)
             elif loc.field_context == ctx_msgid_plural:
-                loc.msg.lines_msgid_plural.append(line_raw)
+                loc.msg._lines_msgid_plural.append(line_raw)
             elif loc.field_context == ctx_msgstr:
-                loc.msg.lines_msgstr.append(line_raw)
+                loc.msg._lines_msgstr.append(line_raw)
             else:
                 raise StandardError,   "internal problem (12) at %s:%d" \
                                      % (filename, lno)
