@@ -159,6 +159,7 @@ class Project (object):
             "compendium_on_merge" : "",
 
             "scatter_min_completeness" : 0.0,
+            "scatter_acc_completeness" : 0.0,
         })
         self.__dict__["locked"] = False
 
@@ -1222,11 +1223,15 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     branch_cat = Catalog(branch_path_mod, wrapf=wrapf)
     summit_cats = [Catalog(x) for x in summit_paths]
 
-    # Go through messages in the branch catalog.
+    # Pair branch messages with summit messages.
+    msgs_total = 0
+    msgs_translated = 0
+    msg_links = []
     for branch_msg in branch_cat:
         # Skip obsolete messages.
         if branch_msg.obsolete:
             continue
+        msgs_total += 1
 
         # Find first summit catalog which has this message translated.
         summit_cat = None
@@ -1238,6 +1243,26 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                 break
 
         if summit_msg is not None:
+            if summit_msg.translated:
+                msgs_translated += 1
+            msg_links.append((branch_msg, summit_msg, summit_cat))
+        else:
+            print   "%s:%d(%d): message not in the summit" \
+                  % (branch_path, branch_msg.refline, branch_msg.refentry)
+
+    # If completeness less than minimal acceptable, remove all translations.
+    completeness_ratio = float(msgs_translated) / msgs_total
+    if completeness_ratio < project.scatter_acc_completeness:
+        for branch_msg in branch_cat:
+            if branch_msg.obsolete:
+                continue
+            branch_msg.manual_comment = Monlist()
+            branch_msg.unfuzzy()
+            branch_msg.msgstr = Monlist([u""] * len(branch_msg.msgstr))
+
+    # If complete enough, scatter from summit to branch messages.
+    else:
+        for branch_msg, summit_msg, summit_cat in msg_links:
             if summit_msg.translated:
                 exec_hook_msg(branch_id, branch_name,
                               summit_msg, summit_cat,
@@ -1277,9 +1302,6 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     # Branch is plural, summit is not: should not happen.
                     print   "%s: summit message needs plurals: {%s}" \
                           % (branch_path, branch_msg.msgid)
-        else:
-            print   "%s:%d(%d): message not in the summit" \
-                  % (branch_path, branch_msg.refline, branch_msg.refentry)
 
     # Update header only if the branch catalog was otherwise modified,
     # or if the branch catalog header is not initialized.
