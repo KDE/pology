@@ -46,24 +46,231 @@ if max(_tmp_wrlen) != 1 or min(_tmp_wrlen) != 1:
     error("internal: all ediff wrapper elements must be of unit length")
 
 
-def _tagged_diff (seq1, seq2):
+class _Sequence_diff_wrapper:
+
+    def __init__ (self, obj, reductf=None):
+        self.obj = obj
+        self._robj = (reductf or (lambda x: x))(obj)
+
+    def __hash__ (self):
+        return hash(self._robj)
+
+    def __iter__ (self):
+        return iter(self._robj)
+
+    def __eq__ (self, other):
+        return self._robj == other._robj
+
+
+def tdiff (seq_old, seq_new, reductf=None, diffr=False):
+    """
+    Create tagged difference of two sequences.
+
+    Difference is presented as a list of tuples,
+    with each tuple composed of a difference tag and a sequence element.
+    Difference tag is string C{"+"}, C{"-"}, or C{" "}, for elements which
+    belong to the old, the new, or to both sequences, respectively.
+
+    The list is ordered such that collecting all elements not tagged
+    as old will reconstruct the new sequence, and collecting all not tagged
+    as new will reconstruct the old sequence.
+
+    If requested by the C{diffr} parameter, also reported is the
+    I{difference ratio}, a heuristic measure of difference between two texts.
+    0.0 means no difference, and 1.0 that sequences are completely different.
+
+    Examples::
+
+        >>> s1 = "A type of foo".split()
+        >>> s2 = "A kind of foo".split()
+        >>> tdiff(s1, s2)
+        [(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')]
+        >>> word_diff(s1, s2, diffr=True)
+        ([(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')],
+        0.25)
+
+    To be able to diff them, sequence elements only need to be hashable.
+    However, for compound elements it may be better to diff them
+    only by some subset, e.g. by one of their string attributes.
+    Parameter C{reductf} can be used to specify a reduction function, which
+    will be called on each element to produce its diffing representative.
+
+    @param seq_old: sequence to diff from
+    @type seq_old: sequence with hashable elements
+    @param seq_new: sequence to diff to
+    @type seq_new: sequence with hashable elements
+    @param reductf: function to produce diffing representatives
+    @type reductf: (sequence element) -> diffing representative
+    @param diffr: whether to report difference ratio
+    @type diffr: bool
+
+    @returns: difference list and possibly difference ratio
+    @rtype: [(string, element)...] or ([(string, element)...], float)
+    """
+
+    if reductf is not None:
+        seq_old = [_Sequence_diff_wrapper(x, reductf) for x in seq_old]
+        seq_new = [_Sequence_diff_wrapper(x, reductf) for x in seq_new]
 
     dlist = []
-    opcodes = SequenceMatcher(None, seq1, seq2).get_opcodes()
+    seqmatch = SequenceMatcher(None, seq_old, seq_new)
+    opcodes = seqmatch.get_opcodes()
+    if diffr:
+        dr = 1.0 - seqmatch.ratio()
     for opcode, i1, i2, j1, j2 in opcodes:
         if opcode == "equal":
-            dlist.extend([(_equ_tag, el) for el in seq1[i1:i2]])
+            dlist.extend([(_equ_tag, el) for el in seq_old[i1:i2]])
         elif opcode == "replace":
-            dlist.extend([(_old_tag, el) for el in seq1[i1:i2]])
-            dlist.extend([(_new_tag, el) for el in seq2[j1:j2]])
+            dlist.extend([(_old_tag, el) for el in seq_old[i1:i2]])
+            dlist.extend([(_new_tag, el) for el in seq_new[j1:j2]])
         elif opcode == "delete":
-            dlist.extend([(_old_tag, el) for el in seq1[i1:i2]])
+            dlist.extend([(_old_tag, el) for el in seq_old[i1:i2]])
         elif opcode == "insert":
-            dlist.extend([(_new_tag, el) for el in seq2[j1:j2]])
+            dlist.extend([(_new_tag, el) for el in seq_new[j1:j2]])
         else:
             error("unknown opcode '%s' from sequence matcher" % opcode)
 
+    if reductf is not None:
+        dlist = [(tag, el.obj) for tag, el in dlist]
+
+    return diffr and (dlist, dr) or dlist
+
+
+def itdiff (seq_old, seq_new, reductf=None, cutoff=0.6, diffr=False):
+    """
+    Create interleaved tagged difference of two sequences.
+
+    Similar to L{tdiff}, except that blocks of added/removed elements
+    are further heuristically interleaved by similarity, such that
+    each removed element may be followed by a similar added element,
+    if such has been determined.
+    This is useful e.g. to be able to afterwards make inner difference
+    of each two paired similar elements (e.g. word diff within line diff).
+
+    Example::
+
+        >>> s1 = "Two blue airplanes".split()
+        >>> s2 = "Two bluish ships".split()
+        >>> D.tdiff(s1, s2)
+        [(' ', 'Two'), ('-', 'blue'), ('-', 'airplanes'), ('+', 'bluish'),
+         ('+', 'ships')]
+        >>> D.itdiff(s1, s2)
+        [(' ', 'Two'), ('-', 'blue'), ('+', 'bluish'), ('-', 'airplanes'),
+         ('+', 'ships')]
+
+    To be able to interleave blocks, each element in turn must be
+    a sequence in its own. This means that function supplied by C{reductf},
+    otherwise of same semantics as in L{tdiff}, here must also produce
+    a sequence as diffing representative (e.g. a string).
+
+    Parameter C{cutoff} states the minimal similarity between
+    two elements needed for them to be considered similar at all.
+
+    @param seq_old: sequence to diff from
+    @type seq_old: sequence with hashable elements
+    @param seq_new: sequence to diff to
+    @type seq_new: sequence with hashable elements
+    @param reductf: function to produce diffing representatives
+    @type reductf: (sequence element) -> representative sequence
+    @param cutoff: minimal similarity to consider elements similar
+    @type cutoff: float [0, 1]
+    @param diffr: whether to report difference ratio
+    @type diffr: bool
+
+    @returns: interleaved difference list and possibly difference ratio
+    @rtype: [(string, element)...] or ([(string, element)...], float)
+    """
+
+    dres = tdiff(seq_old, seq_new, reductf=reductf, diffr=diffr)
+    if diffr:
+        dlist, dr = dres
+    else:
+        dlist = dres
+    lendl = len(dlist)
+    idlist = []
+    i = 0
+    while True:
+        while i < lendl and dlist[i][0] == _equ_tag:
+            idlist.append(dlist[i])
+            i += 1
+        if i >= lendl:
+            break
+        els_old = []
+        els_new = []
+        while i < lendl and dlist[i][0] != _equ_tag:
+            if dlist[i][0] == _old_tag:
+                els_old.append(dlist[i][1])
+            else:
+                els_new.append(dlist[i][1])
+            i += 1
+        if els_old and els_new:
+            idlist.extend(_dinterleave(els_old, els_new, reductf, cutoff))
+        else:
+            idlist.extend([(_old_tag, x) for x in els_old])
+            idlist.extend([(_new_tag, x) for x in els_new])
+
+    return diffr and (idlist, dr) or idlist
+
+
+def _dinterleave (els_old, els_new, reductf, cutoff):
+
+    reductf = reductf or (lambda x: x)
+
+    #plf = _plinds_full # too expensive
+    plf = _plinds_cont
+    pls_old = plf(len(els_old), len(els_old) + len(els_new), 0)
+    pls_new = plf(len(els_new), len(els_old) + len(els_new), 0)
+    pls_old.reverse() # so that last old-new pair is top-bottom
+    maxsim = 0.0
+    opt_pairs = (pls_old[-1], pls_new[-1])
+    i = 0
+    for pl_old in pls_old:
+        for pl_new in pls_new:
+            i += 1
+            sim = 0.0
+            pairs = zip(pl_old, pl_new)
+            for i_old, i_new in pairs:
+                if i_old is None or i_new is None:
+                    continue
+                seq_old = reductf(els_old[i_old])
+                seq_new = reductf(els_new[i_new])
+                r = SequenceMatcher(None, seq_old, seq_new).ratio()
+                if r < cutoff:
+                    r = 0.0
+                sim += r
+            if sim >= maxsim: # >= so that last equal wins
+                maxsim = sim
+                opt_pairs = pairs
+    dlist = []
+    for i_old, i_new in opt_pairs:
+        if i_old is not None:
+            dlist.append((_old_tag, els_old[i_old]))
+        if i_new is not None:
+            dlist.append((_new_tag, els_new[i_new]))
+
     return dlist
+
+
+def _plinds_full (ninds, nplaces, baseind):
+
+    if nplaces < ninds:
+        return []
+    if ninds <= 0:
+        return [(None,) * nplaces]
+    else:
+        return (  [(baseind,) + x
+                   for x in _plinds_full(ninds - 1, nplaces - 1, baseind + 1)]
+                + [(None,) + x
+                   for x in _plinds_full(ninds, nplaces - 1, baseind)])
+
+
+def _plinds_cont (ninds, nplaces, baseind):
+
+    pls = []
+    insinds = tuple(range(ninds))
+    for i in range(nplaces - ninds + 1):
+        pls.append((None,) * i + insinds + (None,) * (nplaces - ninds - i))
+    return pls
 
 
 def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
@@ -152,7 +359,7 @@ def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
         map(add_segment, li, lw + [''])
 
     # Create the tagged difference.
-    dlist = _tagged_diff(segments[0], segments[1])
+    dlist = tdiff(segments[0], segments[1])
 
     # Recompute which elements of the difference are intersections.
     dlist_isintr = []
@@ -381,7 +588,7 @@ def line_diff (lines_old, lines_new, markup=False, format=None, diffr=False):
     """
 
     # Create the difference.
-    dlist = _tagged_diff(lines_old, lines_new)
+    dlist = tdiff(lines_old, lines_new)
 
     # Reshuffle so that all consecutive old-new lines are grouped into
     # all old followed by all new.
@@ -690,7 +897,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
         fspans.append((start, end) + span[2:])
 
     # Create character-level difference from original to filtered text.
-    dlist = _tagged_diff(otext, ftext)
+    dlist = tdiff(otext, ftext)
 
     # For each span, go through the difference and... do some magic.
     aspans = []
