@@ -1664,3 +1664,30 @@ class Catalog (Monitored):
         else:
             self._lang = None
 
+
+    def messages_by_source (self):
+        """
+        Get messages grouped as lists by source.
+
+        All messages sharing the same primary source file
+        (their first source reference) are grouped
+        and filed under that source file path.
+        Grouping is represented by list of tuples of
+        (source, list of messages), with both sources and
+        messages within partial lists ordered by appearance.
+
+        @return: messages grouped by sources
+        @rtype: [(string, [L{Message_base}])]
+        """
+
+        msgs_by_src = {}
+        sources = []
+        for msg in self._messages:
+            src = msg.source and msg.source[0][0] or ""
+            if src not in msgs_by_src:
+                msgs_by_src[src] = []
+                sources.append(src)
+            msgs_by_src[src].append(msg)
+
+        return [(x, msgs_by_src[x]) for x in sources]
+
