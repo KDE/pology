@@ -293,10 +293,12 @@ pology.misc.colors._color_names	pology.misc.colors-module.html#_color_names
 pology.misc.colors.color	pology.misc.colors-module.html#color
 pology.misc.colors.GREEN	pology.misc.colors-module.html#GREEN
 pology.misc.colors._noop_colors	pology.misc.colors-module.html#_noop_colors
+pology.misc.colors.set_coloring_globals	pology.misc.colors-module.html#set_coloring_globals
 pology.misc.colors.ORANGE	pology.misc.colors-module.html#ORANGE
 pology.misc.colors.CYAN	pology.misc.colors-module.html#CYAN
 pology.misc.colors._shell_colors	pology.misc.colors-module.html#_shell_colors
 pology.misc.colors.RED	pology.misc.colors-module.html#RED
+pology.misc.colors._cglobals	pology.misc.colors-module.html#_cglobals
 pology.misc.comments	pology.misc.comments-module.html
 pology.misc.comments.parse_list	pology.misc.comments-module.html#parse_list
 pology.misc.comments.autoc_parse_list	pology.misc.comments-module.html#autoc_parse_list
@@ -312,7 +314,9 @@ pology.misc.config.strbool	pology.misc.config-module.html#strbool
 pology.misc.diff	pology.misc.diff-module.html
 pology.misc.diff._ctxtpad_sep	pology.misc.diff-module.html#_ctxtpad_sep
 pology.misc.diff.msg_diff	pology.misc.diff-module.html#msg_diff
+pology.misc.diff.split_text	pology.misc.split-module.html#split_text
 pology.misc.diff._msg_currprev_fields	pology.misc.diff-module.html#_msg_currprev_fields
+pology.misc.diff.tdiff	pology.misc.diff-module.html#tdiff
 pology.misc.diff._tagext_none_len	pology.misc.diff-module.html#_tagext_none_len
 pology.misc.diff._old_vtag	pology.misc.diff-module.html#_old_vtag
 pology.misc.diff._dcmnt_head	pology.misc.diff-module.html#_dcmnt_head
@@ -327,7 +331,7 @@ pology.misc.diff._msg_ediff_to_x	pology.misc.diff-module.html#_msg_ediff_to_x
 pology.misc.diff._word_ediff_to_oldnew	pology.misc.diff-module.html#_word_ediff_to_oldnew
 pology.misc.diff.word_ediff_to_new	pology.misc.diff-module.html#word_ediff_to_new
 pology.misc.diff._new_tag	pology.misc.diff-module.html#_new_tag
-pology.misc.diff.split_text	pology.misc.split-module.html#split_text
+pology.misc.diff._plinds_cont	pology.misc.diff-module.html#_plinds_cont
 pology.misc.diff._unescape_ewraps	pology.misc.diff-module.html#_unescape_ewraps
 pology.misc.diff.line_ediff_to_new	pology.misc.diff-module.html#line_ediff_to_new
 pology.misc.diff._ctxtpad_alnums	pology.misc.diff-module.html#_ctxtpad_alnums
@@ -336,7 +340,6 @@ pology.misc.diff._capt_new_rx	pology.misc.diff-module.html#_capt_new_rx
 pology.misc.diff._escunesc_ewraps	pology.misc.diff-module.html#_escunesc_ewraps
 pology.misc.diff._dcmnt_asep	pology.misc.diff-module.html#_dcmnt_asep
 pology.misc.diff._dcmnt_ind_state	pology.misc.diff-module.html#_dcmnt_ind_state
-pology.misc.diff._tagged_diff	pology.misc.diff-module.html#_tagged_diff
 pology.misc.diff._ctxtpad_noctxt	pology.misc.diff-module.html#_ctxtpad_noctxt
 pology.misc.diff._line_ediff_to_oldnew	pology.misc.diff-module.html#_line_ediff_to_oldnew
 pology.misc.diff._msg_dpart_types	pology.misc.diff-module.html#_msg_dpart_types
@@ -355,12 +358,14 @@ pology.misc.diff._assemble_ediff	pology.misc.diff-module.html#_assemble_ediff
 pology.misc.diff._dcmnt_field	pology.misc.diff-module.html#_dcmnt_field
 pology.misc.diff._old_tag	pology.misc.diff-module.html#_old_tag
 pology.misc.diff.msg_ediff_to_new	pology.misc.diff-module.html#msg_ediff_to_new
-pology.misc.diff._capt_old_rx	pology.misc.diff-module.html#_capt_old_rx
+pology.misc.diff._dinterleave	pology.misc.diff-module.html#_dinterleave
 pology.misc.diff._dcmnt_ind_ctxtpad	pology.misc.diff-module.html#_dcmnt_ind_ctxtpad
 pology.misc.diff.x	pology.misc.diff-module.html#x
 pology.misc.diff._ediff_esc_len	pology.misc.diff-module.html#_ediff_esc_len
 pology.misc.diff.word_ediff	pology.misc.diff-module.html#word_ediff
+pology.misc.diff.word_ediff_to_old	pology.misc.diff-module.html#word_ediff_to_old
 pology.misc.diff._old_opn	pology.misc.diff-module.html#_old_opn
+pology.misc.diff._capt_old_rx	pology.misc.diff-module.html#_capt_old_rx
 pology.misc.diff._fsep_minlen	pology.misc.diff-module.html#_fsep_minlen
 pology.misc.diff._escape_ewraps	pology.misc.diff-module.html#_escape_ewraps
 pology.misc.diff._new_vtag	pology.misc.diff-module.html#_new_vtag
@@ -368,13 +373,14 @@ pology.misc.diff.msg_ediff_to_old	pology.misc.diff-module.html#msg_ediff_to_old
 pology.misc.diff._old_opnc	pology.misc.diff-module.html#_old_opnc
 pology.misc.diff.colors_for_file	pology.misc.colors-module.html#colors_for_file
 pology.misc.diff._ediff_esc	pology.misc.diff-module.html#_ediff_esc
+pology.misc.diff.itdiff	pology.misc.diff-module.html#itdiff
 pology.misc.diff._fsep_el	pology.misc.diff-module.html#_fsep_el
 pology.misc.diff._tmp_wr	pology.misc.diff-module.html#_tmp_wr
 pology.misc.diff._tagext_none	pology.misc.diff-module.html#_tagext_none
 pology.misc.diff.line_diff	pology.misc.diff-module.html#line_diff
 pology.misc.diff._assemble_ewraps	pology.misc.diff-module.html#_assemble_ewraps
 pology.misc.diff.error	pology.misc.report-module.html#error
-pology.misc.diff.word_ediff_to_old	pology.misc.diff-module.html#word_ediff_to_old
+pology.misc.diff._plinds_full	pology.misc.diff-module.html#_plinds_full
 pology.misc.diff._dcmnt_all_inds	pology.misc.diff-module.html#_dcmnt_all_inds
 pology.misc.diff._dcmnt_sep	pology.misc.diff-module.html#_dcmnt_sep
 pology.misc.diff.line_ediff_to_old	pology.misc.diff-module.html#line_ediff_to_old
@@ -434,9 +440,11 @@ pology.misc.macrodec._ch_exp_close	pology.misc.macrodec-module.html#_ch_exp_clos
 pology.misc.macrodec._parse_string_w	pology.misc.macrodec-module.html#_parse_string_w
 pology.misc.macrodec._wsseq_rx	pology.misc.macrodec-module.html#_wsseq_rx
 pology.misc.macrodec.identify	pology.misc.macrodec-module.html#identify
+pology.misc.macrodec.first_to_lower	pology.misc.resolve-module.html#first_to_lower
 pology.misc.macrodec._parse_string	pology.misc.macrodec-module.html#_parse_string
 pology.misc.macrodec._ch_caps	pology.misc.macrodec-module.html#_ch_caps
 pology.misc.macrodec._rawparse_by_source	pology.misc.macrodec-module.html#_rawparse_by_source
+pology.misc.macrodec.simplify	pology.misc.macrodec-module.html#simplify
 pology.misc.macrodec.xentitize	pology.misc.macrodec-module.html#xentitize
 pology.misc.macrodec._ch_body_sep	pology.misc.macrodec-module.html#_ch_body_sep
 pology.misc.macrodec._ch_mask	pology.misc.macrodec-module.html#_ch_mask
@@ -457,7 +465,7 @@ pology.misc.macrodec._ch_entry_end	pology.misc.macrodec-module.html#_ch_entry_en
 pology.misc.macrodec._ch_head_sep	pology.misc.macrodec-module.html#_ch_head_sep
 pology.misc.macrodec._ch_hidden	pology.misc.macrodec-module.html#_ch_hidden
 pology.misc.macrodec._ch_exp_open	pology.misc.macrodec-module.html#_ch_exp_open
-pology.misc.macrodec.simplify	pology.misc.macrodec-module.html#simplify
+pology.misc.macrodec._ch_nocaps	pology.misc.macrodec-module.html#_ch_nocaps
 pology.misc.macrodec._tosep	pology.misc.macrodec-module.html#_tosep
 pology.misc.macrodec._ch_comment	pology.misc.macrodec-module.html#_ch_comment
 pology.misc.macrodec._ch_key_sep	pology.misc.macrodec-module.html#_ch_key_sep
@@ -735,6 +743,7 @@ pology.scripts.create_rules_from_koffice_autocorrect.main	pology.scripts.create_
 pology.scripts.fallback_import_paths	pology.scripts.fallback_import_paths-module.html
 pology.scripts.fallback_import_paths.pologypath	pology.scripts.fallback_import_paths-module.html#pologypath
 pology.scripts.organizeDict	pology.scripts.organizeDict-module.html
+pology.scripts.organizeDict.organize	pology.scripts.organizeDict-module.html#organize
 pology.scripts.organizeDict.error	pology.misc.report-module.html#error
 pology.scripts.organizeDict.usage	pology.scripts.organizeDict-module.html#usage
 pology.scripts.organizeDict.main	pology.scripts.organizeDict-module.html#main
@@ -873,6 +882,7 @@ pology.scripts.poediff.msg_cleanup	pology.scripts.poediff-module.html#msg_cleanu
 pology.scripts.poediff.msg_eq_fields	pology.scripts.poediff-module.html#msg_eq_fields
 pology.scripts.poediff.diff_cats	pology.scripts.poediff-module.html#diff_cats
 pology.scripts.poediff._hmsgctxt_field	pology.scripts.poediff-module.html#_hmsgctxt_field
+pology.scripts.poediff.set_coloring_globals	pology.misc.colors-module.html#set_coloring_globals
 pology.scripts.poediff.fuzzy_match_source_files	pology.scripts.posummit-module.html#fuzzy_match_source_files
 pology.scripts.poediff.main	pology.scripts.poediff-module.html#main
 pology.scripts.poediff.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
@@ -937,6 +947,7 @@ pology.scripts.posieve.report_on_msg	pology.misc.msgreport-module.html#report_on
 pology.scripts.posieve.error_on_msg	pology.misc.msgreport-module.html#error_on_msg
 pology.scripts.posieve.warning	pology.misc.report-module.html#warning
 pology.scripts.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
+pology.scripts.posieve.set_coloring_globals	pology.misc.colors-module.html#set_coloring_globals
 pology.scripts.posieve.main	pology.scripts.posieve-module.html#main
 pology.scripts.posieve.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.scripts.posieve.warning_on_msg	pology.misc.msgreport-module.html#warning_on_msg
@@ -953,6 +964,7 @@ pology.scripts.posummit.set_summit_comment	pology.scripts.posummit-module.html#s
 pology.scripts.posummit.make_vcs	pology.misc.vcs-module.html#make_vcs
 pology.scripts.posummit.select_branches	pology.scripts.posummit-module.html#select_branches
 pology.scripts.posummit.collect_catalogs	pology.scripts.posummit-module.html#collect_catalogs
+pology.scripts.posummit.exec_hook_msg	pology.scripts.posummit-module.html#exec_hook_msg
 pology.scripts.posummit.split_summit_comments	pology.scripts.posummit-module.html#split_summit_comments
 pology.scripts.posummit.assert_system	pology.misc.fsops-module.html#assert_system
 pology.scripts.posummit.join_ncwd	pology.misc.fsops-module.html#join_ncwd
@@ -1182,6 +1194,7 @@ pology.file.catalog.Catalog.header	pology.file.catalog.Catalog-class.html#header
 pology.file.catalog.Catalog.plural_indices_single	pology.file.catalog.Catalog-class.html#plural_indices_single
 pology.file.catalog.Catalog.find	pology.file.catalog.Catalog-class.html#find
 pology.file.catalog.Catalog.__init__	pology.file.catalog.Catalog-class.html#__init__
+pology.file.catalog.Catalog.messages_by_source	pology.file.catalog.Catalog-class.html#messages_by_source
 pology.misc.monitored.Monitored.__setattr__	pology.misc.monitored.Monitored-class.html#__setattr__
 pology.misc.monitored.Monitored.assert_spec_getitem	pology.misc.monitored.Monitored-class.html#assert_spec_getitem
 pology.file.catalog.Catalog.__contains__	pology.file.catalog.Catalog-class.html#__contains__

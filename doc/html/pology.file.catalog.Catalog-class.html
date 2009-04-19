@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x87989cc&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -682,6 +682,24 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, [<a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a>])]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#messages_by_source" class="summary-sig-name">messages_by_source</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get messages grouped as lists by source.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a></code></b>:
@@ -778,7 +796,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x87989cc&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1809,6 +1827,32 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string or <code>None</code>) - language code</li>
     </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="messages_by_source"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">messages_by_source</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get messages grouped as lists by source.</p>
+  <p>All messages sharing the same primary source file (their first source 
+  reference) are grouped and filed under that source file path. Grouping is
+  represented by list of tuples of (source, list of messages), with both 
+  sources and messages within partial lists ordered by appearance.</p>
+  <dl class="fields">
+    <dt>Returns: [(string, [<a href="pology.file.message.Message_base-class.html" 
+      class="link">Message_base</a>])]</dt>
+        <dd>messages grouped by sources</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -71,6 +71,47 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, element)...] or ([(string, element)...], float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#tdiff" class="summary-sig-name">tdiff</a>(<span class="summary-sig-arg">seq_old</span>,
+        <span class="summary-sig-arg">seq_new</span>,
+        <span class="summary-sig-arg">reductf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create tagged difference of two sequences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, element)...] or ([(string, element)...], float)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#itdiff" class="summary-sig-name">itdiff</a>(<span class="summary-sig-arg">seq_old</span>,
+        <span class="summary-sig-arg">seq_new</span>,
+        <span class="summary-sig-arg">reductf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">cutoff</span>=<span class="summary-sig-default">0.6</span>,
+        <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Create interleaved tagged difference of two sequences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">[(string, string)...] or ([(string, string)...], float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -358,6 +399,123 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="tdiff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">tdiff</span>(<span class="sig-arg">seq_old</span>,
+        <span class="sig-arg">seq_new</span>,
+        <span class="sig-arg">reductf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create tagged difference of two sequences.</p>
+  <p>Difference is presented as a list of tuples, with each tuple composed 
+  of a difference tag and a sequence element. Difference tag is string 
+  <code>&quot;+&quot;</code>, <code>&quot;-&quot;</code>, or <code>&quot; 
+  &quot;</code>, for elements which belong to the old, the new, or to both 
+  sequences, respectively.</p>
+  <p>The list is ordered such that collecting all elements not tagged as 
+  old will reconstruct the new sequence, and collecting all not tagged as 
+  new will reconstruct the old sequence.</p>
+  <p>If requested by the <code>diffr</code> parameter, also reported is the
+  <i>difference ratio</i>, a heuristic measure of difference between two 
+  texts. 0.0 means no difference, and 1.0 that sequences are completely 
+  different.</p>
+  <p>Examples:</p>
+<pre class="literalblock">
+   &gt;&gt;&gt; s1 = &quot;A type of foo&quot;.split()
+   &gt;&gt;&gt; s2 = &quot;A kind of foo&quot;.split()
+   &gt;&gt;&gt; tdiff(s1, s2)
+   [(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')]
+   &gt;&gt;&gt; word_diff(s1, s2, diffr=True)
+   ([(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')],
+   0.25)
+</pre>
+  <p>To be able to diff them, sequence elements only need to be hashable. 
+  However, for compound elements it may be better to diff them only by some
+  subset, e.g. by one of their string attributes. Parameter 
+  <code>reductf</code> can be used to specify a reduction function, which 
+  will be called on each element to produce its diffing representative.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>seq_old</code></strong> (sequence with hashable elements) - sequence to diff from</li>
+        <li><strong class="pname"><code>seq_new</code></strong> (sequence with hashable elements) - sequence to diff to</li>
+        <li><strong class="pname"><code>reductf</code></strong> ((sequence element) -&gt; diffing representative) - function to produce diffing representatives</li>
+        <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
+    </ul></dd>
+    <dt>Returns: [(string, element)...] or ([(string, element)...], float)</dt>
+        <dd>difference list and possibly difference ratio</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="itdiff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">itdiff</span>(<span class="sig-arg">seq_old</span>,
+        <span class="sig-arg">seq_new</span>,
+        <span class="sig-arg">reductf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">cutoff</span>=<span class="sig-default">0.6</span>,
+        <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create interleaved tagged difference of two sequences.</p>
+  <p>Similar to <a href="pology.misc.diff-module.html#tdiff" 
+  class="link">tdiff</a>, except that blocks of added/removed elements are 
+  further heuristically interleaved by similarity, such that each removed 
+  element may be followed by a similar added element, if such has been 
+  determined. This is useful e.g. to be able to afterwards make inner 
+  difference of each two paired similar elements (e.g. word diff within 
+  line diff).</p>
+  <p>Example:</p>
+<pre class="literalblock">
+   &gt;&gt;&gt; s1 = &quot;Two blue airplanes&quot;.split()
+   &gt;&gt;&gt; s2 = &quot;Two bluish ships&quot;.split()
+   &gt;&gt;&gt; D.tdiff(s1, s2)
+   [(' ', 'Two'), ('-', 'blue'), ('-', 'airplanes'), ('+', 'bluish'),
+    ('+', 'ships')]
+   &gt;&gt;&gt; D.itdiff(s1, s2)
+   [(' ', 'Two'), ('-', 'blue'), ('+', 'bluish'), ('-', 'airplanes'),
+    ('+', 'ships')]
+</pre>
+  <p>To be able to interleave blocks, each element in turn must be a 
+  sequence in its own. This means that function supplied by 
+  <code>reductf</code>, otherwise of same semantics as in <a 
+  href="pology.misc.diff-module.html#tdiff" class="link">tdiff</a>, here 
+  must also produce a sequence as diffing representative (e.g. a 
+  string).</p>
+  <p>Parameter <code>cutoff</code> states the minimal similarity between 
+  two elements needed for them to be considered similar at all.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>seq_old</code></strong> (sequence with hashable elements) - sequence to diff from</li>
+        <li><strong class="pname"><code>seq_new</code></strong> (sequence with hashable elements) - sequence to diff to</li>
+        <li><strong class="pname"><code>reductf</code></strong> ((sequence element) -&gt; representative sequence) - function to produce diffing representatives</li>
+        <li><strong class="pname"><code>cutoff</code></strong> (float [0, 1]) - minimal similarity to consider elements similar</li>
+        <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
+    </ul></dd>
+    <dt>Returns: [(string, element)...] or ([(string, element)...], float)</dt>
+        <dd>interleaved difference list and possibly difference ratio</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="word_diff"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
