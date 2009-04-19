@@ -18,6 +18,7 @@ from optparse import OptionParser
 import filecmp
 import locale
 import time
+from difflib import SequenceMatcher
 
 SUMMIT_ID = "+"
 
@@ -1072,7 +1073,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
     # Do not insert new messages immediately, as source references may be
     # updated by merging, which reflects on heuristic insertion.
     # Ignore messages present in dependent summit catalogs.
-    msgs_to_insert = []
+    msgs_to_insert = set()
     for msg in branch_cat:
 
         # Do not gather obsolete messages.
@@ -1111,27 +1112,75 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             # Equip any new summit tags to the merged message.
             summit_set_tags(summit_msg, branch_ids_cats, project)
         else:
-            # Make a copy of branch message, to insert later.
-            summit_msg = Message(msg)
-            msgs_to_insert.append(summit_msg)
+            # Record branch message, to insert later.
+            msgs_to_insert.add(msg)
 
-    # If there are any messages awaiting insertion, collect possible source
-    # file synonyms to those in the summit catalog.
+    # If there are any messages awaiting insertion, heuristically insert them.
     if msgs_to_insert:
+
+        # Pair messages to insert from branch with summit messages
+        # having common source files.
+        msgs_by_src = branch_cat.messages_by_source()
+        summit_msgs_by_src_dict = dict(summit_cat.messages_by_source())
+
+        # Collect possible source file synonyms to those in the summit catalog.
         fnsyn = fuzzy_match_source_files(branch_cat, [summit_cat])
 
-    # Go through messages collected for insertion and heuristically insert.
-    for msg in msgs_to_insert:
-        # Avoid expensive heuristic insertion if the summit catalog is
-        # newly created and this is the primary branch catalog.
-        if summit_cat.created() and is_primary:
-            pos_added = summit_cat.add_last(msg)
-        else:
-            pos, weight = summit_cat.insertion_inquiry(msg, fnsyn)
-            pos_added = summit_cat.add(msg, pos)
+        # Prepare messages for insertion into summit.
+        summit_msg_by_msg = {}
+        for msg in msgs_to_insert:
+            summit_msg = Message(msg)
+            summit_set_tags(summit_msg, branch_ids_cats, project)
+            summit_msg_by_msg[msg] = summit_msg
 
-        # Equip summit tags to the added message.
-        summit_set_tags(summit_cat[pos_added], branch_ids_cats, project)
+        # Insert branch messages into summit source by source.
+        for src, msgs in msgs_by_src:
+
+            # Try to find collection of summit messages from same source file.
+            for osrc in [src] + fnsyn.get(src, []):
+                summit_msgs = summit_msgs_by_src_dict.get(osrc)
+                if summit_msgs:
+                    break
+
+            # If corresponding source in summit found,
+            # insert branch messages around those summit messages.
+            # Otherwise, just append them at the end.
+            if summit_msgs:
+                # Insert each new message after the most similar existing.
+                inserted_summit_msgs = set()
+                for msg in msgs:
+                    new_summit_msg = summit_msg_by_msg.get(msg)
+                    if new_summit_msg is None:
+                        continue
+                    seqmatch = SequenceMatcher(None, msg.key, "")
+                    maxr = 0.0
+                    for i in range(len(summit_msgs)):
+                        summit_msg = summit_msgs[i]
+                        seqmatch.set_seq2(summit_msg.key)
+                        r = seqmatch.ratio()
+                        if maxr <= r: # <= to push to the end if no similarity
+                            maxr = r
+                            maxr_summit_msg = summit_msg
+                    # If enough similarity, insert after the most similar,
+                    # (skipping all previously inserted at that anchor).
+                    # Otherwise, insert by source reference ordering number.
+                    if maxr > 0.6:
+                        pos = summit_cat.find(maxr_summit_msg) + 1
+                        while (    pos < len(summit_cat)
+                               and summit_cat[pos] in inserted_summit_msgs
+                        ):
+                            pos += 1
+                        summit_cat.add(new_summit_msg, pos)
+                        inserted_summit_msgs.add(new_summit_msg)
+                    else:
+                        pos, dummy = summit_cat.insertion_inquiry(msg, fnsyn)
+                        summit_cat.add(new_summit_msg, pos)
+
+            else:
+                for msg in msgs:
+                    new_summit_msg = summit_msg_by_msg.get(msg)
+                    if new_summit_msg is not None:
+                        summit_cat.add_last(new_summit_msg)
 
 
 def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
