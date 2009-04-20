@@ -8,7 +8,7 @@ from pology.misc.wrap import select_field_wrapper
 from pology.file.catalog import Catalog
 from pology.file.message import Message
 from pology.misc.monitored import Monpair, Monlist
-from pology.misc.report import error, warning
+from pology.misc.report import report, error, warning
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
@@ -108,7 +108,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Invoke the appropriate operations on collected bundles.
     for mode in options.modes:
         if options.verbose:
-            print "-----> Processing mode: %s" % mode
+            report("-----> Processing mode: %s" % mode)
         if mode == "gather":
             summit_gather(project, options)
         elif mode == "scatter":
@@ -367,7 +367,6 @@ def derive_project_data (project, options):
                                 poname = branch_name + ".po"
                             path = join_ncwd(branch.topdir, subdir, poname)
                             # Add this file to catalog entry.
-                            #print "----->", branch_name, path, subdir
                             branch_catalogs.append((path, subdir))
                             # Record later initialization from template.
                             p.add_on_scatter[path] = template[0]
@@ -576,7 +575,7 @@ def summit_gather (project, options):
     # Gather all selected catalogs.
     for name in summit_names:
         if options.verbose:
-            print "gathering %s ..." % project.catalogs[SUMMIT_ID][name][0][0]
+            report("gathering %s ..." % project.catalogs[SUMMIT_ID][name][0][0])
         summit_gather_single(name, project, options)
 
 
@@ -599,7 +598,7 @@ def summit_scatter (project, options):
         # Go through all selected catalogs in this branch.
         for branch_name, branch_path, branch_subdir in branch_catalogs:
             if options.verbose:
-                print "scattering to %s ..." % branch_path
+                report("scattering to %s ..." % branch_path)
 
             # Collect names of all the summit catalogs which this branch
             # catalog supplies messages to.
@@ -895,9 +894,9 @@ def summit_gather_single (summit_name, project, options,
 
         if not os.path.isfile(summit_path):
             if options.verbose:
-                print "-   (gathered-removed) %s  %s" % summit_path
+                report("-   (gathered-removed) %s  %s" % summit_path)
             else:
-                print "-    %s" % summit_path
+                report("-    %s" % summit_path)
 
         # Skip the rest, nothing to gather.
         return fresh_cat
@@ -1043,16 +1042,16 @@ def summit_gather_single (summit_name, project, options,
 
         if options.verbose:
             if added:
-                print ">+   (gathered-added) %s  %s" % (summit_cat.filename,
-                                                        paths_str)
+                report(">+   (gathered-added) %s  %s" % (summit_cat.filename,
+                                                         paths_str))
             else:
-                print ">    (gathered) %s  %s" % (summit_cat.filename,
-                                                  paths_str)
+                report(">    (gathered) %s  %s" % (summit_cat.filename,
+                                                   paths_str))
         else:
             if added:
-                print ">+   %s  %s" % (summit_cat.filename, paths_str)
+                report(">+   %s  %s" % (summit_cat.filename, paths_str))
             else:
-                print ">    %s  %s" % (summit_cat.filename, paths_str)
+                report(">    %s  %s" % (summit_cat.filename, paths_str))
 
     return summit_cat
 
@@ -1289,8 +1288,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                 msgs_translated += 1
             msg_links.append((branch_msg, summit_msg, summit_cat))
         else:
-            print   "%s:%d(%d): message not in the summit" \
-                  % (branch_path, branch_msg.refline, branch_msg.refentry)
+            report(   "%s:%d(%d): message not in the summit"
+                   % (branch_path, branch_msg.refline, branch_msg.refentry))
 
     # If completeness less than minimal acceptable, remove all translations.
     completeness_ratio = float(msgs_translated) / msgs_total
@@ -1342,8 +1341,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
                 else:
                     # Branch is plural, summit is not: should not happen.
-                    print   "%s: summit message needs plurals: {%s}" \
-                          % (branch_path, branch_msg.msgid)
+                    report(   "%s: summit message needs plurals: {%s}"
+                           % (branch_path, branch_msg.msgid))
 
     # Update header only if the branch catalog was otherwise modified,
     # or if the branch catalog header is not initialized.
@@ -1405,16 +1404,16 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
         paths_str = " ".join(summit_paths)
         if options.verbose:
             if new_from_template:
-                print "<+   (scattered-added) %s  %s" % (branch_cat.filename,
-                                                         paths_str)
+                report("<+   (scattered-added) %s  %s" % (branch_cat.filename,
+                                                          paths_str))
             else:
-                print "<    (scattered) %s  %s" % (branch_cat.filename,
-                                                   paths_str)
+                report("<    (scattered) %s  %s" % (branch_cat.filename,
+                                                    paths_str))
         else:
             if new_from_template:
-                print "<+   %s  %s" % (branch_cat.filename, paths_str)
+                report("<+   %s  %s" % (branch_cat.filename, paths_str))
             else:
-                print "<    %s  %s" % (branch_cat.filename, paths_str)
+                report("<    %s  %s" % (branch_cat.filename, paths_str))
 
 
 def hook_applicable (branch_check, branch_id, name_check, name):
@@ -1684,8 +1683,6 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     if header_prop_fields or project.hook_on_merge_head or vivified:
         monitored = True
 
-    #print do_open, do_open_template, headonly, monitored
-
     # Open catalogs as necessary.
     if do_open:
         wrapf = select_field_wrapper(not unwrap, fine_wrap)
@@ -1779,14 +1776,14 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
         if options.verbose:
             if added:
-                print ".+   (merged-added) %s" % catalog_path
+                report(".+   (merged-added) %s" % catalog_path)
             else:
-                print ".    (merged) %s" % catalog_path
+                report(".    (merged) %s" % catalog_path)
         else:
             if added:
-                print ".+   %s" % catalog_path
+                report(".+   %s" % catalog_path)
             else:
-                print ".    %s" % catalog_path
+                report(".    %s" % catalog_path)
     else:
         # Remove the temporary merged catalog.
         os.unlink(tmp_path)
