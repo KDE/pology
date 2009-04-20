@@ -968,33 +968,27 @@ def summit_gather_single (summit_name, project, options,
             branch_ids_cats.append((branch_id, branch_cat))
 
     # Gather messages through branch catalogs.
-    # Also add summit messages to a fresh catalog, such that if no
+    # Add summit messages to a fresh catalog, such that if no
     # summit messages were changed by themselves, but their order changed,
-    # the fresh catalog can be synced in place of the original.
-    if not phony:
-        summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
-        summit_created = summit_cat.created() # preserve created state
+    # the fresh catalog will still replace the original.
     for branch_id in src_branch_ids:
         for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
             summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
                                       fresh_cat, dep_summit_cats, is_primary,
                                       project, options)
-            if phony: # gather only fresh catalog in phony-gather
-                continue
-            summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
-                                      summit_cat, dep_summit_cats, is_primary,
-                                      project, options)
 
     # If phony-gather, stop here and return fresh catalog for reference.
     if phony:
         return fresh_cat
 
-    # If there was any reordering or plurality changes,
-    # or some summit messages are obsoleted,
+    # If there were any modified messages, or their order changed,
     # replace the original with the fresh catalog.
+    summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
+    summit_created = summit_cat.created() # preserve created state
     replace = False
-    # Check for obsolete messages by comparing totals.
+    # Quick preliminary check by total number of messages,
+    # go into full check only if of same lengths.
     if len(summit_cat) != len(fresh_cat):
         replace = True
     else:
@@ -1005,9 +999,8 @@ def summit_gather_single (summit_name, project, options,
             if pos != fpos:
                 replace = True
                 break
-            # Check plurality changes.
-            fmsg = fresh_cat[fpos]
-            if (msg.msgid_plural is None) != (fmsg.msgid_plural is None):
+            # Check equality.
+            if msg != fresh_cat[fpos]:
                 replace = True
                 break
             pos += 1
