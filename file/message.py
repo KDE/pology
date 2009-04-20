@@ -388,7 +388,7 @@ class Message_base (object):
 
     def __eq__ (self, omsg):
         """
-        Reports wheter messages are equal in all apparent parts.
+        Reports whether messages are equal in all apparent parts.
 
         "Apparent" parts include all those which are visible in the PO file.
         I.e. the check will ignore internal states, like line caches, etc.
@@ -402,6 +402,19 @@ class Message_base (object):
                 return False
 
         return True
+
+
+    def __ne__ (self, omsg):
+        """
+        Reports whether messages are not equal in some apparent parts.
+
+        Equivalent to C{not (self == omsg)}.
+
+        @returns: C{False} if messages are equal in all apparent parts
+        @rtype: bool
+        """
+
+        return not self.__eq__(omsg)
 
 
     def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False):
