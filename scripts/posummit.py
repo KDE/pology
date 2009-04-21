@@ -1128,24 +1128,28 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         # Insert branch messages into summit source by source.
         for src, msgs in msgs_by_src:
 
-            # Try to find collection of summit messages from same source file.
+            # Assemble collection of summit messages from same source file.
+            summit_msgs = []
             for osrc in [src] + fnsyn.get(src, []):
-                summit_msgs = summit_msgs_by_src_dict.get(osrc)
-                if summit_msgs:
-                    break
+                summit_msgs.extend(summit_msgs_by_src_dict.get(osrc, []))
 
-            # If corresponding source in summit found,
+            # If existing summit messages from same source found,
             # insert branch messages around those summit messages.
             # Otherwise, just append them at the end.
             if summit_msgs:
-                # Insert each new message after the most similar existing.
                 inserted_summit_msgs = set()
                 for msg in msgs:
                     new_summit_msg = summit_msg_by_msg.get(msg)
                     if new_summit_msg is None:
                         continue
+
+                    # Find the most similar existing summit message,
+                    # if there is such subject to minimal similarity.
+                    # Also find summit_message with first greater
+                    # source reference line number, if any.
                     seqmatch = SequenceMatcher(None, msg.key, "")
                     maxr = 0.0
+                    lno_summit_msg = None
                     for i in range(len(summit_msgs)):
                         summit_msg = summit_msgs[i]
                         seqmatch.set_seq2(summit_msg.key)
@@ -1153,20 +1157,32 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                         if maxr <= r: # <= to push to the end if no similarity
                             maxr = r
                             maxr_summit_msg = summit_msg
-                    # If enough similarity, insert after the most similar,
-                    # (skipping all previously inserted at that anchor).
-                    # Otherwise, insert by source reference ordering number.
+                        if (    src and not lno_summit_msg
+                            and (msg.source[0][1] < summit_msg.source[0][1])
+                        ):
+                            lno_summit_msg = summit_msg
+
+                    # If similar enough summit message has been found,
+                    # set insertion position after it.
+                    # Otherwise, set position before the summit_message with
+                    # first greater source reference line number,
+                    # or after last if none such.
                     if maxr > 0.6:
                         pos = summit_cat.find(maxr_summit_msg) + 1
-                        while (    pos < len(summit_cat)
-                               and summit_cat[pos] in inserted_summit_msgs
-                        ):
-                            pos += 1
-                        summit_cat.add(new_summit_msg, pos)
-                        inserted_summit_msgs.add(new_summit_msg)
                     else:
-                        pos, dummy = summit_cat.insertion_inquiry(msg, fnsyn)
-                        summit_cat.add(new_summit_msg, pos)
+                        if lno_summit_msg:
+                            pos = summit_cat.find(lno_summit_msg)
+                        else:
+                            pos = summit_cat.find(summit_msgs[-1]) + 1
+
+                    # Insert at the determined position, but skipping
+                    # all contiguous previously inserted at that position.
+                    while (    pos < len(summit_cat)
+                           and summit_cat[pos] in inserted_summit_msgs
+                    ):
+                        pos += 1
+                    summit_cat.add(new_summit_msg, pos)
+                    inserted_summit_msgs.add(new_summit_msg)
 
             else:
                 for msg in msgs:
