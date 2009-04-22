@@ -279,7 +279,7 @@ class Monlist (Monitored):
         return len(self.__dict__["*"])
 
 
-    def __getitem__ (self, i, j=None):
+    def __getitem__ (self, i):
 
         self.assert_spec_getitem()
         if not isinstance(i, slice):
