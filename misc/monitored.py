@@ -279,17 +279,33 @@ class Monlist (Monitored):
         return len(self.__dict__["*"])
 
 
-    def __getitem__ (self, i):
+    def __getitem__ (self, i, j=None):
 
         self.assert_spec_getitem()
-        return self.__dict__["*"][i]
+        if not isinstance(i, slice):
+            return self.__dict__["*"][i]
+        else:
+            return Monlist(self.__dict__["*"][i])
 
 
     def __setitem__ (self, i, val):
 
-        self.assert_spec_setitem(val)
+        if not isinstance(i, slice):
+            self.assert_spec_setitem(val)
+        else:
+            for v in val:
+                self.assert_spec_setitem(v)
         if self.__dict__["*"][i] != val:
             self.__dict__["*"][i] = val
+            self.__dict__["#"]["*"] += 1
+
+
+    def __delitem__ (self, i):
+
+        self.assert_spec_getitem()
+        nitems = len(self.__dict__["*"])
+        del self.__dict__["*"][i]
+        if len(self.__dict__["*"]) != nitems:
             self.__dict__["#"]["*"] += 1
 
 
