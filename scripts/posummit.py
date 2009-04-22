@@ -1098,7 +1098,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         summit_msg = summit_cat.get(msg)
         if summit_msg is not None:
             # Merge the message.
-            summit_msg.merge(msg)
+            gather_merge_msg(summit_msg, msg)
             # Update automatic comments.
             summit_override_auto(summit_msg, msg, branch_id, is_primary)
             # Equip any new summit tags to the merged message.
@@ -1189,6 +1189,56 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                     new_summit_msg = summit_msg_by_msg.get(msg)
                     if new_summit_msg is not None:
                         summit_cat.add_last(new_summit_msg)
+
+
+def gather_merge_msg (summit_msg, msg):
+
+    if summit_msg.key != msg.key:
+        error("internal: cannot merge messages with different keys")
+
+    # Plural always overrides non-plural, regardless of summit/branch state.
+    if summit_msg.msgid_plural is None and msg.msgid_plural is not None:
+        if msg.manual_comment:
+            summit_msg.manual_comment = Monlist(msg.manual_comment)
+        if msg.fuzzy:
+            summit_msg.msgctxt_previous = msg.msgctxt_previous
+            summit_msg.msgid_previous = msg.msgid_previous
+            summit_msg.msgid_plural_previous = msg.msgid_plural_previous
+        summit_msg.msgid_plural = msg.msgid_plural
+        summit_msg.msgstr = Monlist(msg.msgstr)
+        summit_msg.fuzzy = msg.fuzzy
+
+    else:
+        if (   (summit_msg.translated and msg.translated)
+            or (summit_msg.fuzzy and msg.fuzzy)
+            or (summit_msg.untranslated and msg.untranslated)
+        ):
+            if not summit_msg.manual_comment:
+                summit_msg.manual_comment = Monlist(msg.manual_comment)
+            if msg.msgid_plural is not None:
+                summit_msg.msgid_plural = msg.msgid_plural
+            summit_msg.msgstr = Monlist(msg.msgstr)
+
+        elif summit_msg.fuzzy and msg.translated:
+            summit_msg.manual_comment = Monlist(msg.manual_comment)
+            if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
+                if msg.msgid_plural is not None:
+                    summit_msg.msgid_plural = msg.msgid_plural
+                summit_msg.msgstr = Monlist(msg.msgstr)
+                if summit_msg.msgid_plural == msg.msgid_plural:
+                    summit_msg.unfuzzy()
+
+        elif summit_msg.untranslated and (msg.translated or msg.fuzzy):
+            summit_msg.manual_comment = Monlist(msg.manual_comment)
+            if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
+                if msg.fuzzy:
+                    summit_msg.msgctxt_previous = msg.msgctxt_previous
+                    summit_msg.msgid_previous = msg.msgid_previous
+                    summit_msg.msgid_plural_previous = msg.msgid_plural_previous
+                if msg.msgid_plural is not None:
+                    summit_msg.msgid_plural = msg.msgid_plural
+                summit_msg.msgstr = Monlist(msg.msgstr)
+                summit_msg.fuzzy = msg.fuzzy
 
 
 def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,

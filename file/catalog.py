@@ -747,7 +747,7 @@ class Catalog (Monitored):
         O(n - pos) if the position is given and the message is not present;
         O(n) if the position is not given and the message is not present.
 
-        @param msg: message to insert or merge
+        @param msg: message to insert
         @type msg: subclass of L{Message_base}
 
         @param pos: position index to insert at
