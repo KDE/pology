@@ -69,7 +69,7 @@ _Message_set_fields = (
     "flag",
 )
 _Message_state_fields = (
-    "obsolete",
+    "fuzzy", "obsolete",
 )
 
 # Convenience groupings.
@@ -328,18 +328,18 @@ class Message_base (object):
         fmtvals = []
         for field in fields:
             val = self.get(field)
-            if val is None:
-                fval = u"\x00"
-            elif isinstance(val, bool):
+            if field in _Message_state_fields:
                 fval = val and u"1" or u"0"
-            elif isinstance(val, (list, Monlist)):
+            elif field in _Message_list_fields:
                 fval = u"\x02".join([u"%s" % x for x in val])
-            elif isinstance(val, (set, Monset)):
+            elif field in _Message_list2_fields:
+                fval = u"\x02".join([u"%s:%s" % tuple(x) for x in val])
+            elif field in _Message_set_fields:
                 vlst = [u"%s" % x for x in val]
                 vlst.sort()
                 fval = u"\x02".join(vlst)
             else:
-                fval = u"%s" % val
+                fval = val is None and u"\x00" or u"%s" % val
             fmtvals.append(fval)
         return "\x04".join(fmtvals)
 
