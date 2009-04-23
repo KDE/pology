@@ -40,7 +40,6 @@ import time
 
 import pology.misc.config as config
 from pology.misc.report import error, warning
-from pology.misc.monitored import Monlist
 
 
 class Sieve (object):
@@ -141,10 +140,10 @@ class Sieve (object):
                 break
         if not hdr.title or reset_title:
             if self.language:
-                hdr.title = Monlist([  u"Translation of %s into %s." \
-                                     % (cat.name, self.language)])
+                hdr.title[:] = [u"Translation of %s into %s."
+                                % (cat.name, self.language)]
             else:
-                hdr.title = Monlist([u"Translation of %s." % (cat.name)])
+                hdr.title[:] = [u"Translation of %s." % (cat.name)]
 
         # - project ID
         fval = hdr.get_field_value("Project-Id-Version")

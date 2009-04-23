@@ -30,7 +30,6 @@ from pology.misc.report import report
 from pology.sieve import SieveError
 from pology.file.catalog import Catalog
 from pology.file.header import Header
-from pology.misc.monitored import Monlist
 
 
 def setup_sieve (p):
@@ -108,7 +107,7 @@ class Sieve (object):
             # Take over all extraction-invariant parts
             # and set cleaned up comments.
             msg.set_inv(corr_msg)
-            msg.manual_comment = Monlist(corr_manual_comment)
+            msg.manual_comment[:] = corr_manual_comment
 
             if msg.modcount > oldcount:
                 self.ncorr += 1

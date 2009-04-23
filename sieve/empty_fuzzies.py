@@ -16,8 +16,6 @@ Obsolete fuzzy messages are completely removed.
 @license: GPLv3
 """
 
-from pology.misc.monitored import Monlist
-
 
 class Sieve (object):
 
@@ -37,9 +35,9 @@ class Sieve (object):
         if msg.fuzzy:
             if not msg.obsolete:
                 msg.unfuzzy()
-                msg.msgstr = Monlist()
+                msg.msgstr[:] = []
                 if self.rmcomments:
-                    msg.manual_comment = Monlist()
+                    msg.manual_comment[:] = []
                 self.nemptied += 1
             else:
                 cat.remove_on_sync(msg)

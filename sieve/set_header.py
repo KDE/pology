@@ -57,7 +57,7 @@ import time
 from pology.sieve import SieveError
 from pology.misc.report import report, warning
 from pology.misc.resolve import expand_vars
-from pology.misc.monitored import Monlist
+
 
 def setup_sieve (p):
 
@@ -172,11 +172,11 @@ class Sieve (object):
                               reorder=self.p.reorder)
 
         if self.p.title is not None:
-            hdr.title = Monlist([expand_vars(self.p.title, pvars)])
+            hdr.title[:] = [expand_vars(self.p.title, pvars)]
         if self.p.copyright is not None:
             hdr.copyright = expand_vars(self.p.copyright, pvars)
         if self.p.license is not None:
             hdr.license = expand_vars(self.p.license, pvars)
         if self.p.author is not None:
-            hdr.author = Monlist([expand_vars(x, pvars) for x in self.p.author])
+            hdr.author[:] = [expand_vars(x, pvars) for x in self.p.author]
 
