@@ -986,23 +986,17 @@ def summit_gather_single (summit_name, project, options,
     summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
     summit_created = summit_cat.created() # preserve created state
     replace = False
-    # Quick preliminary check by total number of messages,
-    # go into full check only if of same lengths.
-    if len(summit_cat) != len(fresh_cat):
-        replace = True
-    else:
-        pos = 0
-        for msg in summit_cat:
-            # Check reordering.
-            fpos = fresh_cat.find(msg)
-            if pos != fpos:
+    for pos in range(len(fresh_cat)):
+        old_pos = summit_cat.find(fresh_cat[pos])
+        if pos != old_pos:
+            replace = True
+        if old_pos >= 0:
+            if fresh_cat[pos] != summit_cat[old_pos]:
                 replace = True
-                break
-            # Check equality.
-            if msg != fresh_cat[fpos]:
-                replace = True
-                break
-            pos += 1
+            else:
+                # Replace newly gathered with old message,
+                # to avoid reformatting.
+                fresh_cat[pos] = summit_cat[old_pos]
     if replace:
         # Set path and header to that of the original.
         fresh_cat.filename = summit_path
