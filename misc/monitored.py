@@ -124,7 +124,7 @@ class Monitored (object):
                 attp = "_" + att
                 if self.__dict__[attp] != val:
                     self.__dict__["#"][att] += 1
-                    self.__dict__[attp] = val
+                self.__dict__[attp] = val
 
     def __str__ (self):
         return str(self.data())
@@ -296,8 +296,8 @@ class Monlist (Monitored):
             for v in val:
                 self.assert_spec_setitem(v)
         if self.__dict__["*"][i] != val:
-            self.__dict__["*"][i] = val
             self.__dict__["#"]["*"] += 1
+        self.__dict__["*"][i] = val
 
 
     def __delitem__ (self, i):

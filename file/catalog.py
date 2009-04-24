@@ -644,8 +644,8 @@ class Catalog (Monitored):
         self.assert_spec_setitem(msg)
         if not isinstance(ident, int):
             ident = self._msgpos[ident.key]
-        if self._messages[ident] != msg:
-            self._messages[ident] = msg
+        self._messages[ident] = msg
+        if self._messages[ident] is not msg:
             self.__dict__["#"]["*"] += 1
         return self._messages[ident]
 
