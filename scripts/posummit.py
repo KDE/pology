@@ -1147,16 +1147,23 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                     # if there is such subject to minimal similarity.
                     # Also find summit_message with first greater
                     # source reference line number, if any.
-                    seqmatch = SequenceMatcher(None, msg.key, "")
-                    maxr = 0.0
+                    matts = ["key", "msgid"] # priority of fuzzy matching
+                    seqms = []
+                    maxrs = []
+                    maxr_summit_msgs = []
+                    for matt in matts:
+                        seqms.append(SequenceMatcher(None, msg.get(matt), ""))
+                        maxrs.append(0.0)
+                        maxr_summit_msgs.append(None)
                     lno_summit_msg = None
                     for i in range(len(summit_msgs)):
                         summit_msg = summit_msgs[i]
-                        seqmatch.set_seq2(summit_msg.key)
-                        r = seqmatch.ratio()
-                        if maxr <= r: # <= to push to the end if no similarity
-                            maxr = r
-                            maxr_summit_msg = summit_msg
+                        for i in range(len(matts)):
+                            seqms[i].set_seq2(summit_msg.get(matts[i]))
+                            r = seqms[i].ratio()
+                            if maxrs[i] <= r:
+                                maxrs[i] = r
+                                maxr_summit_msgs[i] = summit_msg
                         if (    src and not lno_summit_msg
                             and (msg.source[0][1] < summit_msg.source[0][1])
                         ):
@@ -1167,9 +1174,13 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                     # Otherwise, set position before the summit_message with
                     # first greater source reference line number,
                     # or after last if none such.
-                    if maxr > 0.6:
-                        pos = summit_cat.find(maxr_summit_msg) + 1
-                    else:
+                    similar_found = False
+                    for i in range(len(matts)):
+                        if maxrs[i] > 0.6:
+                            pos = summit_cat.find(maxr_summit_msgs[i]) + 1
+                            similar_found = True
+                            break
+                    if not similar_found:
                         if lno_summit_msg:
                             pos = summit_cat.find(lno_summit_msg)
                         else:
