@@ -1031,25 +1031,48 @@ class Catalog (Monitored):
         self._messages.pop(0)
         self._header._committed = True
 
-        # Execute pending removals on the sequence as well.
-        # Indicate for each message that it has been committed.
-        newlst = []
-        for msg in self._messages:
-            if not msg.get("_remove_on_sync", False):
-                msg._committed = True
-                newlst.append(msg)
-        self.__dict__["*"] = newlst
-        self._messages = self.__dict__["*"]
+        # Update message map.
+        self.sync_map()
 
-        # Rebuild key-position links due to any reordered/removed messages.
-        self._msgpos = {}
-        for i in range(len(self._messages)):
-            self._msgpos[self._messages[i].key] = i
+        # Indicate for each message that it has been committed.
+        for msg in self._messages:
+            msg._committed = True
 
         # Reset modification state throughout.
         self.modcount = 0
 
         return True
+
+
+    def sync_map (self):
+        """
+        Update message map.
+
+        In case there were any modifications to message keys,
+        or any pending removals issued, this function will update
+        the sequence of messages such that membership operations
+        work properly again.
+        Referent line and entry numbers will remain invalid,
+        as catalog will not be written out,
+        and there will also be no reordering of obsolete messages.
+
+        This is a less expensive alternative to syncing the catalog,
+        when it is only necessary to continue using it in synced state,
+        rather than actually writing it out.
+        """
+
+        # Execute pending removals.
+        newlst = []
+        for msg in self._messages:
+            if not msg.get("_remove_on_sync", False):
+                newlst.append(msg)
+        self.__dict__["*"] = newlst
+        self._messages = self.__dict__["*"]
+
+        # Rebuild key-position links messages.
+        self._msgpos = {}
+        for i in range(len(self._messages)):
+            self._msgpos[self._messages[i].key] = i
 
 
     def insertion_inquiry (self, msg, srefsyn={}):
