@@ -692,9 +692,9 @@ class Sieve (object):
         if self.p.minwords is not None and self.p.maxwords is not None:
             print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
         if self.p.lspan:
-            print ">>> line-range: %s" % self.p.lspan
+            print ">>> line-span: %s" % self.p.lspan
         if self.p.espan:
-            print ">>> entry-range: %s" % self.p.espan
+            print ">>> entry-span: %s" % self.p.espan
         if self.p.fexpr:
             print ">>> selected-by-expr: %s" % self.p.fexpr
         if self.p.ondiff:
