@@ -84,6 +84,14 @@
       most this many words
     </li>
     <li>
+      <code>lspan:&lt;from&gt;:&lt;to&gt;</code>: include only messages in 
+      this range of lines
+    </li>
+    <li>
+      <code>espan:&lt;from&gt;:&lt;to&gt;</code>: include only messages in 
+      this range of entries
+    </li>
+    <li>
       <code>fexpr:&lt;expr&gt;</code>: consider only messages matching the 
       search expression
     </li>
@@ -141,6 +149,16 @@
       <code>minwords</code> and <code>maxwords</code> restrict counting to 
       messages satisfying these word limits, in <i>either</i> the original 
       or translation.
+    </li>
+    <li>
+      Counting may be restricted to a range of messages, given by 
+      parameters <code>lspan</code> (by referent line numbers) and 
+      <code>espan</code> (by entry numbers). The span is inclusive by start
+      value, exclusive by end value (e.g. <code>espan:4:8</code> includes 
+      messages with entry numbers 4, 5, 6, 7). If start value is omitted 
+      (e.g. <code>lspan::100</code>), 0 is assumed; if end value is omitted
+      (e.g. <code>lspan:100:</code>), total number of lines or entries is 
+      assumed.
     </li>
     <li>
       <code>fexpr</code> restricts counting to messages matched by the 

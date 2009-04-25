@@ -182,7 +182,25 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#__eq__" class="summary-sig-name">__eq__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">omsg</span>)</span><br />
-      Reports wheter messages are equal in all apparent parts.</td>
+      Reports whether messages are equal in all apparent parts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#__ne__" class="summary-sig-name">__ne__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">omsg</span>)</span><br />
+      Reports whether messages are not equal in some apparent parts.</td>
           <td align="right" valign="top">
             
             
@@ -199,7 +217,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the message.</td>
           <td align="right" valign="top">
@@ -218,7 +236,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the message.</td>
           <td align="right" valign="top">
@@ -238,24 +256,6 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#unfuzzy" class="summary-sig-name">unfuzzy</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Thoroughly unfuzzy the message.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.file.message.Message_base-class.html#merge" class="summary-sig-name">merge</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">other</span>)</span><br />
-      Merge in the contents of the other message with the same key.</td>
           <td align="right" valign="top">
             
             
@@ -709,13 +709,36 @@ object --+
     </td>
   </tr></table>
   
-  <p>Reports wheter messages are equal in all apparent parts.</p>
+  <p>Reports whether messages are equal in all apparent parts.</p>
   <p>&quot;Apparent&quot; parts include all those which are visible in the 
   PO file. I.e. the check will ignore internal states, like line caches, 
   etc.</p>
   <dl class="fields">
     <dt>Returns: bool</dt>
         <dd><code>True</code> if messages are equal in apparent parts</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__ne__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__ne__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">omsg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reports whether messages are not equal in some apparent parts.</p>
+  <p>Equivalent to <code>not (self == omsg)</code>.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>False</code> if messages are equal in all apparent parts</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -727,7 +750,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -765,7 +788,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x85c5c6c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -817,36 +840,6 @@ object --+
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>True if the message was unfuzzied, false otherwise</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="merge"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">merge</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">other</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Merge in the contents of the other message with the same key.</p>
-  <p>Merging is basically riddled with heuristics, depending on the state 
-  of this and the other message (translated/fuzzy/...) When tight control 
-  is desired, the merging should be done manually.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>other</code></strong> (object containing all the needed instance variables) - the message to merge the contents from</li>
-    </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd>True if any changes were made by merging, False otherwise (but 
-          the reliability of this depends on the subclass).</dd>
   </dl>
 </td></tr></table>
 </div>
