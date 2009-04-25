@@ -6,7 +6,7 @@ import fallback_import_paths
 from pology.misc.fsops import str_to_unicode
 from pology.misc.wrap import select_field_wrapper
 from pology.file.catalog import Catalog
-from pology.file.message import Message
+from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import report, error, warning
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
@@ -141,6 +141,7 @@ class Project (object):
             "hook_on_scatter_msg" : [],
             "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
+            "hook_on_gather_msg" : [],
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
             "hook_on_gather_file_branch" : [],
@@ -1079,6 +1080,9 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             for i in range(len(msg.msgstr)):
                 msg.msgstr[i] = u""
 
+        exec_hook_msg(branch_id, branch_cat.name, msg, branch_cat,
+                      project.hook_on_gather_msg)
+
         # Do not gather messages belonging to depending summit catalogs.
         in_dep = False
         for dep_summit_cat in dep_summit_cats:
@@ -1103,6 +1107,12 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 
     # If there are any messages awaiting insertion, heuristically insert them.
     if msgs_to_insert:
+
+        # If there were message hooks, they may have modified message keys,
+        # and that requires branch catalog to be synced for further logic.
+        if project.hook_on_gather_msg:
+            # Sync only message map, do not modify catalog on disk.
+            branch_cat.sync_map()
 
         # Pair messages to insert from branch with summit messages
         # having common source files.
@@ -1345,13 +1355,20 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
             continue
         msgs_total += 1
 
+        # If there is a hook on branch messages on gather,
+        # it must be used here to prepare branch message for lookup
+        # in summit catalog, as the hook may modify the key.
+        branch_msg_lkp = branch_msg
+        if project.hook_on_gather_msg:
+            branch_msg_lkp = MessageUnsafe(branch_msg)
+            exec_hook_msg(branch_id, branch_name, branch_msg_lkp, branch_cat,
+                          project.hook_on_gather_msg)
+
         # Find first summit catalog which has this message translated.
-        summit_cat = None
         summit_msg = None
         for summit_cat in summit_cats:
-            if branch_msg in summit_cat:
-                summit_cat = summit_cat
-                summit_msg = summit_cat[branch_msg]
+            if branch_msg_lkp in summit_cat:
+                summit_msg = summit_cat[branch_msg_lkp]
                 break
 
         if summit_msg is not None:
@@ -1376,8 +1393,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     else:
         for branch_msg, summit_msg, summit_cat in msg_links:
             if summit_msg.translated:
-                exec_hook_msg(branch_id, branch_name,
-                              summit_msg, summit_cat,
+                exec_hook_msg(branch_id, branch_name, summit_msg, summit_cat,
                               project.hook_on_scatter_msg)
                 if (   (    summit_msg.msgid_plural is not None
                         and branch_msg.msgid_plural is not None)
