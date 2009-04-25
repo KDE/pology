@@ -15,6 +15,8 @@ Sieve parameters:
   - C{templates:<spec>}: compare translation with templates (see below)
   - C{minwords:<number>}: count only messages with at least this many words
   - C{maxwords:<number>}: count only messages with at most this many words
+  - C{lspan:<from>:<to>}: include only messages in this range of lines
+  - C{espan:<from>:<to>}: include only messages in this range of entries
   - C{fexpr:<expr>}: consider only messages matching the search expression
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{bydir}: display report by each leaf directory, followed by totals
@@ -49,6 +51,14 @@ a certain criterion:
 
   - C{minwords} and C{maxwords} restrict counting to messages satisfying
     these word limits, in I{either} the original or translation.
+
+  - Counting may be restricted to a range of messages, given by parameters
+    C{lspan} (by referent line numbers) and C{espan} (by entry numbers).
+    The span is inclusive by start value, exclusive by end value
+    (e.g. C{espan:4:8} includes messages with entry numbers 4, 5, 6, 7).
+    If start value is omitted (e.g. C{lspan::100}), 0 is assumed;
+    if end value is omitted (e.g. C{lspan:100:}), total number of lines
+    or entries is assumed.
 
   - C{fexpr} restricts counting to messages matched by the search expression
     of the type defined by the L{find-messages<sieve.find_messages>} sieve
@@ -204,6 +214,7 @@ import sys
 import codecs
 import locale
 
+from pology.sieve import SieveError
 from pology.misc.fsops import collect_catalogs
 from pology.misc.tabulate import tabulate
 from pology.misc.split import proper_words
@@ -276,6 +287,20 @@ def setup_sieve (p):
                 desc=
     "Count in only messages which have at least this many words, "
     "either in original or translation."
+    )
+    p.add_param("lspan", unicode,
+                metavar="FROM:TO",
+                desc=
+    "Count in only messages at or after line FROM, and before line TO. "
+    "If FROM is empty, 0 is assumed; "
+    "if TO is empty, total number of lines is assumed."
+    )
+    p.add_param("espan", unicode,
+                metavar="FROM:TO",
+                desc=
+    "Count in only messages at or after entry FROM, and before entry TO. "
+    "If FROM is empty, 0 is assumed; "
+    "if TO is empty, total number of entries is assumed."
     )
     p.add_param("fexpr", unicode,
                 metavar="EXPRESSION",
@@ -361,6 +386,26 @@ class Sieve (object):
             mopts = dict(case=False)
             self.matcher = build_msg_fmatcher(self.p.fexpr, mopts, abort=True)
 
+        # Parse line/entry spans.
+        def parse_span (spanspec):
+            lst = spanspec is not None and spanspec.split(":") or ("", "")
+            if len(lst) != 2:
+                raise SieveError("wrong number of elements in span "
+                                 "specification '%s'" % self.p.lspan)
+            nlst = []
+            for el in lst:
+                if not el:
+                    nlst.append(None)
+                else:
+                    try:
+                        nlst.append(int(el))
+                    except:
+                        raise SieveError("not an integer in span "
+                                         "specification '%s'" % self.p.lspan)
+            return tuple(nlst)
+        self.lspan = parse_span(self.p.lspan)
+        self.espan = parse_span(self.p.espan)
+
         # Number of counts per category:
         # messages, words in original, words in translation,
         # characters in original, characters in translation.
@@ -445,6 +490,16 @@ class Sieve (object):
                 return
 
         if self.matcher and not self.matcher(msg, cat):
+            return
+
+        # If line/entry spans given, skip message if not in range.
+        if self.lspan[0] is not None and msg.refline < self.lspan[0]:
+            return
+        if self.lspan[1] is not None and msg.refline >= self.lspan[1]:
+            return
+        if self.espan[0] is not None and msg.refentry < self.espan[0]:
+            return
+        if self.espan[1] is not None and msg.refentry >= self.espan[1]:
             return
 
         # Decide if a metamessage:
@@ -636,6 +691,10 @@ class Sieve (object):
             print ">>> at-least-words: %d" % self.p.minwords
         if self.p.minwords is not None and self.p.maxwords is not None:
             print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
+        if self.p.lspan:
+            print ">>> line-range: %s" % self.p.lspan
+        if self.p.espan:
+            print ">>> entry-range: %s" % self.p.espan
         if self.p.fexpr:
             print ">>> selected-by-expr: %s" % self.p.fexpr
         if self.p.ondiff:
