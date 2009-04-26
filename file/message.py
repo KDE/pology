@@ -550,8 +550,8 @@ class Message_base (object):
         @see: L{pology.misc.wrap}
         """
 
-        # Renew lines automatically if no lines formed yet.
-        if force or self.modcount or not self._lines_all:
+        # Renew lines if forced, no lines formed yet, or no modcounter.
+        if force or not self._lines_all or getattr(self, "modcount", True):
             self._renew_lines(wrapf, force)
 
         return self._lines_all
