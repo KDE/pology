@@ -959,6 +959,16 @@ def summit_gather_single (summit_name, project, options,
                 branch_cat = Catalog(tmp_path or path, monitored=False)
                 if tmp_path: # as soon as catalog is opened, no longer needed
                     os.unlink(tmp_path)
+
+                # Apply hooks to all branch catalog messages here,
+                # as they may modify message keys.
+                if project.hook_on_gather_msg:
+                    for msg in branch_cat:
+                        exec_hook_msg(branch_id, branch_name, msg, branch_cat,
+                                      project.hook_on_gather_msg)
+                    # Sync only message map, do not write catalog on disk.
+                    branch_cat.sync_map()
+
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
 
     # Select primary branch catalog and list of all catalogs with branch ids.
@@ -1081,9 +1091,6 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             for i in range(len(msg.msgstr)):
                 msg.msgstr[i] = u""
 
-        exec_hook_msg(branch_id, branch_cat.name, msg, branch_cat,
-                      project.hook_on_gather_msg)
-
         # Do not gather messages belonging to depending summit catalogs.
         in_dep = False
         for dep_summit_cat in dep_summit_cats:
@@ -1108,12 +1115,6 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 
     # If there are any messages awaiting insertion, heuristically insert them.
     if msgs_to_insert:
-
-        # If there were message hooks, they may have modified message keys,
-        # and that requires branch catalog to be synced for further logic.
-        if project.hook_on_gather_msg:
-            # Sync only message map, do not modify catalog on disk.
-            branch_cat.sync_map()
 
         # Pair messages to insert from branch with summit messages
         # having common source files.
