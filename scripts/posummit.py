@@ -20,7 +20,7 @@ import locale
 import time
 from difflib import SequenceMatcher
 
-SUMMIT_ID = "+"
+SUMMIT_ID = "+" # must not start with word-character (\w)
 
 def main ():
 
@@ -146,6 +146,7 @@ class Project (object):
             "hook_on_gather_file" : [],
             "hook_on_gather_file_branch" : [],
             "hook_on_merge_head" : [],
+            "hook_on_merge_cat" : [],
             "hook_on_merge_file" : [],
 
             "header_propagate_fields_summed" : [],
@@ -1754,7 +1755,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     # Should merged catalog be opened, and in what mode?
     do_open = False
     headonly = False
-    if fine_wrap:
+    if fine_wrap or project.hook_on_merge_cat:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
@@ -1767,7 +1768,9 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Is monitored or non-monitored opening required?
     monitored = False
-    if header_prop_fields or project.hook_on_merge_head or vivified:
+    if (   header_prop_fields or vivified
+        or project.hook_on_merge_cat  or project.hook_on_merge_head
+    ):
         monitored = True
 
     # Open catalogs as necessary.
@@ -1829,6 +1832,10 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     if project.hook_on_merge_head:
         exec_hook_head(branch_id, cat.name, cat.header, cat,
                        project.hook_on_merge_head)
+
+    # Execute catalog hooks.
+    if project.hook_on_merge_cat:
+        exec_hook_cat(branch_id, cat.name, cat, project.hook_on_merge_cat)
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
