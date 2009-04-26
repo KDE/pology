@@ -427,17 +427,17 @@ class Message_base (object):
             prefix["curr"] = ""
             prefix["prev"] = "#| "
 
-        if mod["manual_comment"] or not self._lines_manual_comment or force:
+        if force or mod["manual_comment"] or not self._lines_manual_comment:
             self._lines_manual_comment = []
             for manc in self.manual_comment:
                 self._lines_manual_comment.extend(wrap_comment_unwrap("", manc))
 
-        if mod["auto_comment"] or not self._lines_auto_comment or force:
+        if force or mod["auto_comment"] or not self._lines_auto_comment:
             self._lines_auto_comment = []
             for autoc in self.auto_comment:
                 self._lines_auto_comment.extend(wrap_comment_unwrap(".", autoc))
 
-        if mod["source"] or not self._lines_source or force:
+        if force or mod["source"] or not self._lines_source:
             self._lines_source = []
             srcrefs = []
             for src in self.source:
@@ -448,7 +448,7 @@ class Message_base (object):
             if srcrefs:
                 self._lines_source = wrap_comment(":", " ".join(srcrefs))
 
-        if mod["flag"] or not self._lines_flag or force:
+        if force or mod["flag"] or not self._lines_flag:
             self._lines_flag = []
             # Rearange so that fuzzy is first, if present.
             flst = []
@@ -462,7 +462,7 @@ class Message_base (object):
 
         for att in _Message_single_fields:
             att_lins = "_lines_" + att
-            if mod[att] or not self.__dict__[att_lins] or force:
+            if force or mod[att] or not self.__dict__[att_lins]:
                 # modcount of this string > 0 or lines not cached or forced
                 self.__dict__[att_lins] = []
                 msgsth = getattr(self, att)
@@ -485,7 +485,7 @@ class Message_base (object):
                               or (    self.msgid_plural is not None
                                   and "msgstr[" not in self._lines_msgstr[0])))
 
-        if mod["msgstr"] or not self._lines_msgstr or new_plurality or force:
+        if force or mod["msgstr"] or not self._lines_msgstr or new_plurality:
             self._lines_msgstr = []
             msgstr = self.msgstr or [u""]
             if self.msgid_plural is None:
@@ -965,20 +965,9 @@ class MessageUnsafe (Message_base):
         self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
         self._lines_msgstr = init.get("_lines_msgstr", [])[:]
 
-        self.modcount = 0
-
 
     def _renew_lines (self, wrapf=wrap_field, force=False):
 
-        mod = {}
-        cond = self.modcount
-        mod["manual_comment"] = cond
-        mod["auto_comment"] = cond
-        mod["source"] = cond
-        mod["flag"] = cond
-        for att in _Message_single_fields:
-            mod[att] = cond
-        mod["msgstr"] = cond
-
-        return self._renew_lines_bymod(mod, wrapf, force)
+        # No monitoring, content must always be reformatted.
+        return self._renew_lines_bymod(None, wrapf, True)
 
