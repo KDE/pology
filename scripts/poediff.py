@@ -190,7 +190,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Create the diff.
     wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     hlto = not op.output and sys.stdout or None
-    ecat, ndiffed = diff_pairs(pspecs, op.do_merge, wrapf, hlto)
+    ecat, ndiffed = diff_pairs(pspecs, op.do_merge, wrapf,
+                               hlto=hlto, shdr=op.strip_headers)
 
     # Write out the diff, if any messages diffed.
     if ndiffed > 0:
@@ -220,7 +221,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     cleanup_tmppaths()
 
 
-def diff_pairs (pspecs, merge, wrapf, hlto=False, wrem=True, wadd=True):
+def diff_pairs (pspecs, merge, wrapf,
+                hlto=False, wrem=True, wadd=True, shdr=False):
 
     # Create diffs of messages.
     # Note: Headers will be collected and diffed after all messages,
@@ -258,7 +260,9 @@ def diff_pairs (pspecs, merge, wrapf, hlto=False, wrem=True, wadd=True):
         if anydiff or cndiffed:
             ecat.add(ehmsg, pos + incpos)
             incpos += 1
-    ndiffed += incpos
+    # Add diffed headers to total count only if header stripping not in effect.
+    if not shdr:
+        ndiffed += incpos
 
     return ecat, ndiffed
 
