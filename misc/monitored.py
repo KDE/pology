@@ -122,8 +122,13 @@ class Monitored (object):
             else:
                 self.assert_spec_setattr(att, val)
                 attp = "_" + att
-                if self.__dict__[attp] != val:
+                cval = self.__dict__[attp]
+                if cval != val:
                     self.__dict__["#"][att] += 1
+                if hasattr(cval, "modcount"):
+                    mc_diff = cval.modcount - val.modcount
+                    if mc_diff > 0:
+                        self.__dict__["#"][att] += mc_diff
                 self.__dict__[attp] = val
 
     def __str__ (self):
@@ -295,8 +300,13 @@ class Monlist (Monitored):
         else:
             for v in val:
                 self.assert_spec_setitem(v)
-        if self.__dict__["*"][i] != val:
+        cval = self.__dict__["*"][i]
+        if cval != val:
             self.__dict__["#"]["*"] += 1
+        if hasattr(cval, "modcount"):
+            mc_diff = cval.modcount - val.modcount
+            if mc_diff > 0:
+                self.__dict__["#"]["*"] += mc_diff
         self.__dict__["*"][i] = val
 
 
