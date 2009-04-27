@@ -389,7 +389,7 @@ class VcsSubversion (VcsBase):
     def revision (self, path):
         # Base override.
 
-        res = collect_system("svn info %s" % path)
+        res = collect_system("svn info %s@" % path)
         rx = re.compile(r"^Last Changed Rev: *([0-9]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -419,7 +419,7 @@ class VcsSubversion (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
-        res = collect_system("svn info %s" % path)
+        res = collect_system("svn info %s@" % path)
         rx = re.compile(r"^Repository", re.I)
         for line in res[0].split("\n"):
             if rx.search(line):
@@ -432,12 +432,12 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            cmdline = "svn export %s -r BASE %s" % (path, dstpath)
+            cmdline = "svn export %s@ -r BASE %s" % (path, dstpath)
             if collect_system(cmdline)[-1] != 0:
                 return False
             return True
 
-        res = collect_system("svn info %s" % path)
+        res = collect_system("svn info %s@" % path)
         if res[-1] != 0:
             return False
         rx = re.compile(r"^URL:\s*(\S+)", re.I)
@@ -453,7 +453,7 @@ class VcsSubversion (VcsBase):
         if rewrite:
             rempath = rewrite(rempath, rev)
 
-        cmdline = "svn export %s -r %s %s" % (rempath, rev, dstpath)
+        cmdline = "svn export %s@ -r %s %s" % (rempath, rev, dstpath)
         if collect_system(cmdline)[-1] != 0:
             return False
 
@@ -479,7 +479,7 @@ class VcsSubversion (VcsBase):
     def log (self, path, rev1=None, rev2=None):
         # Base override.
 
-        res = collect_system("svn log %s" % path)
+        res = collect_system("svn log %s@" % path)
         if res[-1] != 0:
             return []
         rev = ""
