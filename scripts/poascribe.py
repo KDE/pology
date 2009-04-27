@@ -701,7 +701,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
-        if clear_review_msg(msg):
+        clear_review_msg(msg)
+        if msg.modcount > 0:
             ncleared += 1
 
     sync_and_rep(cat)
@@ -780,8 +781,6 @@ def show_history_cat (options, config, catpath, acatpath, stest):
 
 def clear_review_msg (msg, clrevd=True):
 
-    oldcount = msg.modcount
-
     # Clear possible review flags.
     diffed = False
     for flag in list(msg.flag): # modified inside
@@ -794,8 +793,6 @@ def clear_review_msg (msg, clrevd=True):
     # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
-
-    return msg.modcount > oldcount
 
 
 # Exclusive states of a message, as reported by Message.state().
