@@ -782,7 +782,7 @@ valid msgstr="подешавање->"
 valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
 valid span="preference\b" msgstr="пожеља?н|првенств"
 valid span="settings" before=" menu" # „мени Подешавање“
-valid span="settings" after="system " msgstr="&systemsettings-\S*;"
+valid span="settings" after="system " msgstr="&systemsettings\S*;"
 valid cat="kio_smtp,kio_pop3" msgid="crypto settings module" msgstr="модул\w* за шифровање"
 valid cat="kdelibs4" msgid="original color setting"
 valid cat="kdelibs4" msgid="setting if you want this entry" msgstr="опциј"
