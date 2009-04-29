@@ -47,6 +47,9 @@ translit_ascii = {
     u"×": "x",
     u"\u2011": "-", # non-breaking hyphen
     u"\u200b": "", # zero-width space
+    u"ä": "ae",
+    u"ö": "oe",
+    u"ü": "ue",
     # TODO: Add more.
     #u"": "",
 }
