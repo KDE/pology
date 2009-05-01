@@ -136,7 +136,10 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
             # Compose the tail of this and rest of the lines, and
             # set lno to nlines for exit.
             if headonly:
-                loc.tail = "".join(lines[loc.lno-1:])
+                # If not at end of file, current line is part of
+                # first message and should be retained in the tail.
+                offset = loc.lno < nlines and 1 or 0
+                loc.tail = "".join(lines[loc.lno - offset:])
                 loc.lno = nlines
 
     while loc.lno < nlines: # sentry for last entry
