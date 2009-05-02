@@ -64,7 +64,7 @@ hint="грешке у обележавању"
 # Remove entities used as-is KDE documentation.
 addFilterRegex match="&\S+\.\S+\.mail;" on="pmsgid,pmsgstr"
 addFilterRegex match="&\S+\.\S+\.documentation;" on="pmsgid,pmsgstr"
-addFilterRegex match="&under(FDL|GPL|BSDLicense);" on="pmsgid,pmsgstr"
+addFilterRegex match="&under(FDL|GPL|\w+License);" on="pmsgid,pmsgstr"
 addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
 id="x-markup-db"
 hint="грешке у обележавању"

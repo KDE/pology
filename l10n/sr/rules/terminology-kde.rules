@@ -233,7 +233,7 @@ valid msgstr="\bиздвајач" !msgstr="издвајачом"
 
 validGroup desktop-extras
 valid before=" publishing"
-valid msgid="K Desktop Environment" msgstr="\bkde\b"
+valid after="K " before=" Environment" msgstr="\bkde(\b|_)"
 valid after="\." msgstr="\.desktop"
 valid msgstr="&\w*desktop\S*;"
 valid cat="nepomuk" msgid="Strigi.*Desktop File Indexer" msgstr="\bstrigi\b"
