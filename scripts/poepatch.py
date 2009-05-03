@@ -155,13 +155,14 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 def apply_ediff (op, wrapf):
 
     # Read the ediff PO.
+    dummy_stream_path = "<stdin>"
     if op.input:
         if not os.path.isfile(op.input):
             error("path not a file or does not exist: %s" % op.input)
         edfpath = op.input
         readfh = None
     else:
-        edfpath = "<stdin>"
+        edfpath = dummy_stream_path
         readfh = sys.stdin
     try:
         ecat = Catalog(edfpath, monitored=False, readfh=readfh)
@@ -312,7 +313,7 @@ def apply_ediff (op, wrapf):
     if len(rcat) > 0:
         # Construct paths for embedded diffs of rejects.
         rsuff = "rej"
-        if ecat.filename:
+        if ecat.filename != dummy_stream_path:
             rpath = ecat.filename
             p = rpath.rfind(".")
             if p < 0:
