@@ -235,6 +235,11 @@ class Monpair (Monitored):
         self.assert_spec_init(_Monpair_spec)
 
 
+    def __len__ (self):
+
+        return 2
+
+
     def __iter__ (self):
 
         return iter((self._first, self._second))
