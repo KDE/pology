@@ -10,6 +10,23 @@ from pology.misc.msgreport import report_on_msg, report_on_msg_hl
 from pology.misc.markup import check_xml_kde4_l1, check_xml_qtrich_l1
 from pology.hook.check_markup import flag_no_check_xml
 
+
+_tsfence = "|/|"
+
+
+def _check_plain (text, ents):
+
+    res = []
+
+    # No Transcript.
+    p = text.find(_tsfence)
+    if p >= 0:
+        res.append((p, p + len(_tsfence),
+                    "plain text POs cannot contain scripted messages"))
+
+    return res
+
+
 # Pure Qt POs in KDE repository.
 qt_catnames = (
     "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
@@ -37,10 +54,9 @@ def _check_qt_w_adds (text, ents):
     res.extend(check_xml_qtrich_l1(text, ents))
 
     # No Transcript.
-    tsfence = "|/|"
-    p = text.find(tsfence)
+    p = text.find(_tsfence)
     if p >= 0:
-        res.append((p, p + len(tsfence),
+        res.append((p, p + len(_tsfence),
                     "Qt POs cannot contain scripted messages"))
 
     return res
@@ -94,7 +110,7 @@ class Sieve (object):
 
         # Select type of markup to check based on catalog name.
         if cat.name.startswith("desktop_") or cat.name.startswith("xml_"):
-            self.check_xml = lambda text, ents=None: []
+            self.check_xml = _check_plain
         elif is_qt_cat(cat.name):
             self.check_xml = _check_qt_w_adds
         else:
