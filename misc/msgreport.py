@@ -186,7 +186,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
 
     if not lokalize: return
 
-    if msg.refentry>=cat.obspos(): return
+    if msg.obsolete: return
 
     try:
         try: globals()['lokalizeobj']
@@ -200,19 +200,16 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
                 globals()['visitedcats']={}
             except: return
 
-
         index=globals()['openFileInEditor'](os.path.abspath(cat.filename))
         editorobj=dbus.SessionBus().get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant/Editor/%d' % index)
 
         if cat.filename not in globals()['visitedcats']:
-            globals()['visitedcats']=1
+            globals()['visitedcats'][cat.filename]=1
 
             gotoEntry=editorobj.get_dbus_method('gotoEntry','org.kde.Lokalize.Editor')
             gotoEntry(msg.refentry-1)
 
-            entryCount=editorobj.get_dbus_method('entryCount','org.kde.Lokalize.Editor')    
             setEntriesFilteredOut=editorobj.get_dbus_method('setEntriesFilteredOut','org.kde.Lokalize.Editor')    
-
             setEntriesFilteredOut(True)
 
         setEntryFilteredOut=editorobj.get_dbus_method('setEntryFilteredOut','org.kde.Lokalize.Editor')    
