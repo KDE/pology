@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 import sys, os, re
 import locale
@@ -84,6 +84,10 @@ def setup_sieve (p):
     "of whether original itself is valid (default is to check translation "
     "only if original passes checks)."
     )
+    p.add_param("lokalize", bool, defval=False,
+                desc=
+    "Show reported messages in Lokalize."
+    )
 
 
 class Sieve (object):
@@ -105,6 +109,7 @@ class Sieve (object):
         self.caller_sync = False # no need to sync catalogs to the caller
         self.caller_monitored = False # no need for monitored messages
 
+        self.lokalize = params.lokalize
 
     def process_header (self, hdr, cat):
 
@@ -144,7 +149,7 @@ class Sieve (object):
 
         if highlight:
             self.nbad += 1
-            report_on_msg_hl(highlight, msg, cat)
+            report_on_msg_hl(highlight, msg, cat, lokalize=self.lokalize)
 
 
     def finalize (self):

@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 """
 Report info, warning and error messages.
@@ -14,8 +14,12 @@ in different contexts and scenario. May colorize some output.
 # as that would cause circular module dependencies.
 
 import sys
+import os
 import re
 from copy import deepcopy
+
+try: import dbus
+except: print "please, install python-dbus package (for communication with Lokalize)"
 
 from pology.misc.report import report, warning, error
 from pology.misc.colors import colors_for_file
@@ -101,7 +105,7 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
 
 
 def report_on_msg_hl (highlight, msg, cat, fmsg=None,
-                      subsrc=None, file=sys.stdout):
+                      subsrc=None, file=sys.stdout, lokalize=False):
     """
     Report on parts of a PO message.
 
@@ -178,6 +182,45 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             refstr = tfmt % (cat.filename, msg.refline, msg.refentry)
             rtext = "%s[%s]: %s" % (refstr, posinfo, snote)
             report(rtext, subsrc=subsrc, showcmd=False)
+
+
+    if not lokalize: return
+
+    if msg.refentry>=cat.obspos(): return
+
+    try:
+        try: globals()['lokalizeobj']
+        except:
+            bus = dbus.SessionBus()
+            lokalize_dbus_instances=lambda:filter(lambda name: name.startswith('org.kde.lokalize'),bus.list_names())
+            try:
+                globals()['lokalizeinst']=lokalize_dbus_instances()[0]
+                globals()['lokalizeobj']=bus.get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant')
+                globals()['openFileInEditor']=globals()['lokalizeobj'].get_dbus_method('openFileInEditor','org.kde.Lokalize.MainWindow')
+                globals()['visitedcats']={}
+            except: return
+
+
+        index=globals()['openFileInEditor'](os.path.abspath(cat.filename))
+        editorobj=dbus.SessionBus().get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant/Editor/%d' % index)
+
+        if cat.filename not in globals()['visitedcats']:
+            globals()['visitedcats']=1
+
+            gotoEntry=editorobj.get_dbus_method('gotoEntry','org.kde.Lokalize.Editor')
+            gotoEntry(msg.refentry-1)
+
+            entryCount=editorobj.get_dbus_method('entryCount','org.kde.Lokalize.Editor')    
+            setEntriesFilteredOut=editorobj.get_dbus_method('setEntriesFilteredOut','org.kde.Lokalize.Editor')    
+
+            setEntriesFilteredOut(True)
+
+        setEntryFilteredOut=editorobj.get_dbus_method('setEntryFilteredOut','org.kde.Lokalize.Editor')    
+        setEntryFilteredOut(msg.refentry-1,False)
+
+    except:
+        return
+
 
 
 def report_msg_content (msg, cat,
