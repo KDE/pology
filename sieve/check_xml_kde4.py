@@ -7,6 +7,7 @@ from pology.misc.entities import read_entities
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg, report_on_msg_hl
+from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.markup import check_xml_kde4_l1, check_xml_qtrich_l1
 from pology.hook.check_markup import flag_no_check_xml
 
@@ -149,7 +150,9 @@ class Sieve (object):
 
         if highlight:
             self.nbad += 1
-            report_on_msg_hl(highlight, msg, cat, lokalize=self.lokalize)
+            report_on_msg_hl(highlight, msg, cat)
+            if self.lokalize:
+                report_msg_to_lokalize(msg, cat)
 
 
     def finalize (self):

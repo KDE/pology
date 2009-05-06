@@ -7,6 +7,7 @@ Functions for Pology tools to report PO messages to the user at runtime,
 in different contexts and scenario. May colorize some output.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@author: Nick Shaforostoff (Николай Шафоростов) <shaforostoff@kde.ru>
 @license: GPLv3
 """
 
@@ -18,9 +19,6 @@ import os
 import re
 from copy import deepcopy
 
-try: import dbus
-except: print "please, install python-dbus package (for communication with Lokalize)"
-
 from pology.misc.report import report, warning, error
 from pology.misc.colors import colors_for_file
 from pology.file.message import Message
@@ -28,6 +26,14 @@ from pology.misc.wrap import wrap_field_fine
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
+
+
+try:
+    import dbus
+    _have_dbus = True
+except:
+    warning("python-dbus package not found (no communication with Lokalize)")
+    _have_dbus = False
 
 
 def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
@@ -184,7 +190,23 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             report(rtext, subsrc=subsrc, showcmd=False)
 
 
-    if not lokalize: return
+def report_msg_to_lokalize (msg, cat):
+    """
+    Open catalog in Lokalize and jump to message.
+
+    Lokalize is a CAT tool for KDE 4, U{http://userbase.kde.org/Lokalize}.
+    This function opens the catalog in Lokalize (if not already open)
+    and jumps to the given message within it.
+
+    If the message is obsolete, it will be ignored.
+
+    @param msg: the message which should be jumped to in Lokalize
+    @type msg: L{Message_base}
+    @param cat: the catalog in which the message resides
+    @type cat: L{Catalog}
+    """
+
+    if not _have_dbus: return
 
     if msg.obsolete: return
 
@@ -217,7 +239,6 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
 
     except:
         return
-
 
 
 def report_msg_content (msg, cat,
