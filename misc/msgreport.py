@@ -121,7 +121,7 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
 
 
 def report_on_msg_hl (highlight, msg, cat, fmsg=None,
-                      subsrc=None, file=sys.stdout, lokalize=False):
+                      subsrc=None, file=sys.stdout):
     """
     Report on parts of a PO message.
 
