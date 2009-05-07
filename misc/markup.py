@@ -793,8 +793,8 @@ def _escape_amp_accel (text):
                 p1 += len(escseg)
                 if namp == 1:
                     found_accel = True
-
-            p1 += namp
+            else:
+                p1 += namp
 
         elif p2 > p1:
             p1 = p2
