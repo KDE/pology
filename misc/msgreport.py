@@ -28,12 +28,22 @@ from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
 
 
-try:
-    import dbus
-    _have_dbus = True
-except:
-    warning("python-dbus package not found (no communication with Lokalize)")
-    _have_dbus = False
+# FIXME: Make this a public function in some appropriate module.
+_modules_on_request = {}
+def _get_module (name, cmsg=None):
+
+    if name not in _modules_on_request:
+        try:
+            _modules_on_request[name] = __import__(name)
+        except:
+            if cmsg:
+                warning("cannot import module '%s'; consequence:\n"
+                        "%s" % (name, cmsg))
+            else:
+                warning("cannot import module '%s'" % name)
+            _modules_on_request[name] = None
+
+    return _modules_on_request[name]
 
 
 def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
@@ -206,7 +216,10 @@ def report_msg_to_lokalize (msg, cat):
     @type cat: L{Catalog}
     """
 
-    if not _have_dbus: return
+    dbus = _get_module("dbus",
+                       "Communication with Lokalize not possible. "
+                       "Try installing the python-dbus package.")
+    if not dbus: return
 
     if msg.obsolete: return
 
