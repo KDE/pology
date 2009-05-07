@@ -756,14 +756,16 @@ def _escape_amp_accel (text):
     in_script = False
 
     p1 = 0
+    found_accel = False
     while True:
 
         # Bracket possible entity reference.
         p1 = text.find("&", p1)
         if p1 < 0:
             break
-        if p_ts >= 0 and p1 > p_ts:
+        if not in_script and p_ts >= 0 and p1 > p_ts:
             in_script = True
+            found_accel = False
         p2 = text.find(";", p1)
 
         # An accelerator marker if no semicolon in rest of the text
@@ -775,29 +777,24 @@ def _escape_amp_accel (text):
             and ((nc.isalnum() or nc == "~") or nc == "&")
         ):
             # Check if the next one is an ampersand too,
-            # i.e. if it's an escaped accelerator markup.
-            # FIXME: Or perhaps not let the other ampersand pass?
+            # i.e. if it's a self-escaped accelerator marker.
             namp = 1
             if (    text[p1 + 1:p1 + 2] == "&"
                 and not _simple_ent_rx.match(text[p1 + 2:p2])
             ):
                 namp += 1
 
-            # Escape the marker.
-            escseg = "&amp;" * namp
-            text = text[:p1] + escseg + text[p1 + namp:]
-            p1 += len(escseg)
+            # Escape the marker if first or self-escaped,
+            # or currently in scripted part (in which there can be
+            # any number of non-escaped markers).
+            if not found_accel or namp > 1 or in_script:
+                escseg = "&amp;" * namp
+                text = text[:p1] + escseg + text[p1 + namp:]
+                p1 += len(escseg)
+                if namp == 1:
+                    found_accel = True
 
-            if not in_script:
-                # If there is a Transcript fence in front, jump to it.
-                # Otherwise jump out (allow only one marker in ordinary text),
-                # unless the marker was escaped.
-                # Allow any number of markers in the scripted part.
-                if p_ts >= 0:
-                    p2 = p_ts
-                    in_script = True
-                elif namp == 1:
-                    break
+            p1 += namp
 
         elif p2 > p1:
             p1 = p2
