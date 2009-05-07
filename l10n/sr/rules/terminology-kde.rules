@@ -207,7 +207,7 @@ id="create"
 hint="create|make = направити|створити"
 valid !msgstr="креира"
 
-{\bcustom(?!i|er)}i
+{\bcustom(?!i|er|ary)}i
 id="custom"
 hint="custom = посебан"
 valid msgstr="\bпосеб(н|ан)"
@@ -465,7 +465,7 @@ valid msgstr="К-освајач"
 valid msgstr="&konqueror\S*;"
 valid cat="kdmconfig" msgstr="&dolphin\S*;"
 
-{\blabel}i
+{\blabels?\b}i
 id="label"
 hint="label = етикета"
 valid msgstr="\bетикет"
@@ -764,6 +764,7 @@ hint="service = сервис"
 valid msgstr="\bсервис"
 valid msgstr="&\w*service\w*-\S*;"
 valid before=" provider" msgstr="\bуслуг"
+valid after="internet " before=" provider" # проследи на internetprovider
 valid cat="kppp" before=" provider" # често се помиње скраћено
 valid cat="kurifilter" msgid="automatic lookup services"
 valid cat="kcmsamba" msgid="provide.*sharing service"
