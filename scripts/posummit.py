@@ -1118,8 +1118,13 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 
         # Pair messages to insert from branch with summit messages
         # having common source files.
-        msgs_by_src = branch_cat.messages_by_source()
+        # If summit is empty, this is primary branch catalog, so make
+        # only one dummy pair to preserve original ordering of messages.
         summit_msgs_by_src_dict = dict(summit_cat.messages_by_source())
+        if summit_msgs_by_src_dict:
+            msgs_by_src = branch_cat.messages_by_source()
+        else:
+            msgs_by_src = [("", branch_cat)]
 
         # Collect possible source file synonyms to those in the summit catalog.
         fnsyn = fuzzy_match_source_files(branch_cat, [summit_cat])
