@@ -346,7 +346,7 @@ valid after="S\.u\.S\.E"
 valid cat="kregexpeditor" after="\("
 valid cat="kspread"
 valid cat="kstars"
-valid after="etc|min|sec|s"
+valid after="etc|min|sec|s|appl|p"
 valid after="\.\."
 hint="Le point doit être après la parenthèse (et non avant)"
 

@@ -39,6 +39,7 @@ valid before="&unbsp;» en anglais"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
 [^[Ii]ci]
+valid cat="kamala" before="\s/"
 hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournure de la forme : « Vous pouvez ici... » "
 
 [manettes?]i
