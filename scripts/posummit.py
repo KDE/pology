@@ -474,36 +474,18 @@ def derive_project_data (project, options):
         for branch_id in p.branch_ids:
             p.full_inverse_map[summit_name][branch_id] = []
 
-    # Add explicit inverse mappings.
-    for mapping in p.mappings:
-        branch_id, branch_name = mapping[:2]
-        summit_names = mapping[2:]
-        # - part inverse:
-        for summit_name in summit_names:
-            if summit_name not in p.part_inverse_map[branch_id]:
-                p.part_inverse_map[branch_id][summit_name] = []
-            p.part_inverse_map[branch_id][summit_name].append(branch_name)
-        # - full inverse:
-        for summit_name in summit_names:
-            if summit_name not in p.full_inverse_map:
-                p.full_inverse_map[summit_name] = {}
-            if branch_id not in p.full_inverse_map[summit_name]:
-                p.full_inverse_map[summit_name][branch_id] = []
-            p.full_inverse_map[summit_name][branch_id].append(branch_name)
-
-    # Add implicit inverse mappings.
-    # - part inverse:
+    # Add existing inverse mappings.
     for branch_id in p.branch_ids:
-        for summit_name in p.catalogs[SUMMIT_ID]:
-            if p.part_inverse_map[branch_id][summit_name] == [] \
-            and summit_name in p.catalogs[branch_id]:
-                p.part_inverse_map[branch_id][summit_name].append(summit_name)
-    # - full inverse:
-    for summit_name in p.catalogs[SUMMIT_ID]:
-        for branch_id in p.branch_ids:
-            if p.full_inverse_map[summit_name][branch_id] == [] \
-            and summit_name in p.catalogs[branch_id]:
-                p.full_inverse_map[summit_name][branch_id].append(summit_name)
+        for branch_name in p.catalogs[branch_id]:
+            for summit_name in p.direct_map[branch_id][branch_name]:
+                # - part inverse:
+                pinv = p.part_inverse_map[branch_id][summit_name]
+                if branch_name not in pinv:
+                    pinv.append(branch_name)
+                # - full inverse:
+                finv = p.full_inverse_map[summit_name][branch_id]
+                if branch_name not in finv:
+                    finv.append(branch_name)
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
