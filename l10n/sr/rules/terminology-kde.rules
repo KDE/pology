@@ -670,7 +670,7 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 {\b(cursor|pointer)}i
 id="pointer"
 hint="cursor|pointer = показивач"
-valid cat="kate,katefiletemplates,katepart4,konsole,kwrite,okteta,oktetapart"
+valid cat="kate,katefiletemplates,katepart4,konsole,kwrite,okteta,oktetapart,kcontrol_kcmkonsole"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="&\w*pointer\w*-\S*;"
 valid span="cursor" after="text " msgstr="курсор"

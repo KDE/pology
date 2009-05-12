@@ -98,7 +98,7 @@ valid cat="kate" msgid="configured\s*for the document type"
 {\bcursor}i
 id="cursor"
 hint="cursor = курсор"
-valid !cat="kate,katefiletemplates,katepart4,konsole,kwrite,okteta,oktetapart"
+valid !cat="kate,katefiletemplates,katepart4,konsole,kwrite,okteta,oktetapart,kcontrol_kcmkonsole"
 valid after="mouse " msgstr="\bпоказивач"
 valid before=" theme" msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="\bкурсор"
