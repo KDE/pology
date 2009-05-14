@@ -67,6 +67,7 @@ Other sieve parameters:
   - C{mark}: mark each matched message with a flag
   - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
   - C{nowrap}: do not wrap long messages when writing them to output
+  - C{lokalize}: open catalogs at matched messages in Lokalize
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
@@ -101,6 +102,7 @@ import locale
 from pology.sieve import SieveError
 from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
+from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.wrap import select_field_wrapper
 from pology.file.message import MessageUnsafe
@@ -280,6 +282,10 @@ def setup_sieve (p):
                 desc=
     "Do not wrap long messages when writing them to output."
     )
+    p.add_param("lokalize", bool, defval=False,
+                desc=
+    "Open catalogs at matched messages in Lokalize."
+    )
 
 
 _flag_mark = u"pattern-match"
@@ -421,6 +427,9 @@ class Sieve (object):
                                    delim=delim, highlight=hl_spec)
             else:
                 msg.flag.add(_flag_mark)
+
+            if self.p.lokalize:
+                report_msg_to_lokalize(msg, cat)
 
         elif self.p.mark and _flag_mark in msg.flag:
             # Remove the flag if present but the message does not match.
