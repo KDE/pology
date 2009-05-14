@@ -575,9 +575,6 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     return counts
 
 
-_revdflags = ("revd", "reviewed")
-_revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
-
 def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
     # Open current catalog and ascription catalog.
@@ -588,6 +585,11 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     rev_msgs_tags = []
     non_mod_asc_msgs = []
     for msg in cat:
+        # Remove any review scaffolding, collecting any review-done tags.
+        tags = clear_review_msg(msg)
+        if not tags and options.tag:
+            tags.append(options.tag)
+
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to ascribe review to pristine messages.
         if not history and msg.untranslated:
@@ -596,28 +598,10 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             continue
         # Message cannot be ascribed as reviewed if it has not been
         # already ascribed as modified.
-        # Message equality must be tested without review scaffolding.
-        cmsg = MessageUnsafe(msg)
-        clear_review_msg(cmsg)
-        if not history or not asc_eq(cmsg, history[0].msg):
+        if not history or not asc_eq(msg, history[0].msg):
             # Collect to report later.
             non_mod_asc_msgs.append(msg)
-            # Clear only flags to-review, and not explicit review-done.
-            clear_review_msg(msg, clrevd=False)
             continue
-
-        # Collect any tags in explicit reviewed-flags.
-        tags = []
-        for flag in msg.flag:
-            m = _revdflag_rx.search(flag)
-            if m:
-                tags.append(m.group(1).strip() or None)
-                # Do not break, several review flags possible.
-        if not tags and options.tag:
-            tags.append(options.tag)
-
-        # Clear review state.
-        clear_review_msg(msg)
 
         rev_msgs_tags.append((msg, tags))
 
@@ -779,20 +763,35 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-def clear_review_msg (msg, clrevd=True):
+_revdflags = ("revd", "reviewed")
+_revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
-    # Clear possible review flags.
+def clear_review_msg (msg):
+
+    # Clear possible review flags, collect all remove-done tags.
     diffed = False
+    tags = []
     for flag in list(msg.flag): # modified inside
-        if flag == _diffflag or (clrevd and _revdflag_rx.search(flag)):
+        mantagged = _revdflag_rx.search(flag)
+        if flag == _diffflag or mantagged:
             if flag == _diffflag:
                 diffed = True
+            if mantagged:
+                tags.append(mantagged.group(1).strip() or None)
             msg.flag.remove(flag)
             # Do not break, other review flags possible.
+
+        for flag in msg.flag:
+            m = _revdflag_rx.search(flag)
+            if m:
+                tags.append(m.group(1).strip() or None)
+                # Do not break, several review flags possible.
 
     # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
+
+    return tags
 
 
 # Exclusive states of a message, as reported by Message.state().
