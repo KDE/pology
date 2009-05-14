@@ -1161,6 +1161,31 @@ def flt_eq (msg1, msg2, pfilter):
     return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] > 0.0
 
 
+def amrg_eq (msg1, msg2):
+    """
+    Whether two messages may be considered equal but
+    for changes possibly induced by merging.
+    """
+
+    if msg1.manual_comment != msg2.manual_comment:
+        return False
+
+    # Simple check on translation if plurality same, special check otherwise.
+    if (msg1.msgid_plural is None) == (msg2.msgid_plural is None):
+        if msg1.msgstr != msg2.msgstr:
+            return False
+    else:
+        if msg1.msgid_plural is not None:
+            mp, m = msg1, msg2
+        else:
+            mp, m = msg2, msg1
+        for msgstr in mp.msgstr:
+            if m.msgstr[0] != msgstr:
+                return False
+
+    return True
+
+
 fld_sep = ":"
 
 def asc_append_field (msg, field, value):
@@ -1812,46 +1837,95 @@ def selector_mod (user_spec=None):
 def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
     cid = "selector:modar"
 
+    return w_selector_modax(cid, False, True,
+                            muser_spec, ruser_spec, atag_req)
+
+
+# Select first modification (any or by m-users, and not by mm-users)
+# after last modification (any or by mm-users, and not by m-users).
+def selector_modam (muser_spec=None, mmuser_spec=None):
+    cid = "selector:modam"
+
+    return w_selector_modax(cid, True, False,
+                            muser_spec, mmuser_spec, atag_req)
+
+
+# Select first modification (any or by m-users, and not by rm-users)
+# after last review or modification (any or by m-users, and not by rm-users).
+def selector_modarm (muser_spec=None, rmuser_spec=None, atag_req=None):
+    cid = "selector:modarm"
+
+    return w_selector_modax(cid, True, True,
+                            muser_spec, rmuser_spec, atag_req)
+
+
+# Worker for builders of moda* selectors.
+def w_selector_modax (cid, amod, arev,
+                      muser_spec=None, rmuser_spec=None, atag_req=None):
+
     cache = _Cache()
 
     def selector (msg, cat, history, config, options):
 
-        rusers = cached_users(cache, ruser_spec, config, cid, utype="r")
         musers = cached_users(cache, muser_spec, config, cid, utype="m")
+        rmusers = cached_users(cache, rmuser_spec, config, cid, utype="rm")
 
         i_sel = None
         i_cand = None
         for i in range(len(history)):
             a = history[i]
-            if (     a.type == _atype_rev and a.tag == atag_req
-                and (not rusers or a.user in rusers)
+            # Check if this message cancels candidate.
+            if (    (   (amod and a.type == _atype_mod)
+                     or (arev and a.type == _atype_rev and a.tag == atag_req))
+                and (not rmusers or a.user in rmusers)
                 and (not musers or a.user not in musers)
             ):
                 if i_cand is None:
-                    # Review found before candidate modification.
+                    # Cancelling message found before candidate,
+                    # no match possible.
                     break
                 else:
-                    # Candidate modification is good
-                    # unless filter is in effect and the modification
-                    # is equal under it to current review.
-                    mm, mr = history[i_cand].msg, a.msg
-                    pfilter = options.tfilter or config.tfilter
-                    if pfilter and flt_eq(mr, mm, pfilter):
+                    # Candidate is good unless:
+                    # - either message is by fuzzy user and
+                    #   only original texts have changed in between, or
+                    # - filter is in effect and candidate is equal
+                    #   to current message under the filter.
+                    mm, mrm = history[i_cand].msg, a.msg
+                    good = True
+                    if history[i_cand].user == UFUZZ or a.user == UFUZZ:
+                        if amrg_eq(mm, mrm):
+                            good = False
+                    else:
+                        pfilter = options.tfilter or config.tfilter
+                        if pfilter and flt_eq(mrm, mm, pfilter):
+                            good = False
+                    print good
+                    # If not good, look for next candidate, else match found.
+                    if not good:
                         i_cand = None
                     else:
                         i_sel = i_cand
                         break
+            # Check if this message can be a candidate.
             if (    a.type == _atype_mod
                 and (not musers or a.user in musers)
-                and (not rusers or a.user not in rusers)
+                and (not rmusers or a.user not in rmusers)
             ):
-                # Modification found, make it candidate.
-                i_cand = i
+                # Cannot be candidate if made by fuzzy user and
+                # there are no differences to earlier message by
+                # fields normally in translator's domain.
+                good = True
+                if a.user == UFUZZ and i + 1 < len(history):
+                    if amrg_eq(a.msg, history[i + 1].msg):
+                        good = False
+                # Compliant modification found, make it candidate.
+                if good:
+                    i_cand = i
 
         if i_cand is not None:
-            # There was no review after modification candidate, so use it,
-            # unless filter is in effect and candidate is equal under it
-            # to the first earlier modification
+            # There was no cancelling message after candidate modification,
+            # so use it, unless filter is in effect and candidate
+            # is equal under it to the first earlier modification
             # (any, or not by m-users).
             pfilter = options.tfilter or config.tfilter
             if pfilter and i_cand + 1 < len(history):
@@ -1980,6 +2054,8 @@ xm_selector_factories = {
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
     "modar": (selector_modar, True),
+    "modam": (selector_modam, True),
+    "modarm": (selector_modarm, True),
     "rev": (selector_rev, True),
     "revbm": (selector_revbm, True),
     "modafter": (selector_modafter, True),
