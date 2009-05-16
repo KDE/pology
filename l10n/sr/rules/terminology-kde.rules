@@ -242,6 +242,7 @@ valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
 valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
 valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
 valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
+valid cat="kcontrol_autostart" # увек у смислу .десктоп датотека, ређе desktop2
 
 {\bdesktop}i
 id="desktop"

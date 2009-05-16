@@ -73,6 +73,7 @@ id="commandline"
 hint="command line = командна линија"
 valid msgstr="\bкомандн\w+ линиј"
 valid env="kde" msgstr="command[ -]?line"
+valid env="kde" msgstr="команднолинијск"
 
 {\bcomputer}i
 id="computer"
