@@ -266,7 +266,6 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
             while pl > 1 and text[p + pl - 1] == "\\":
                 pl -= 1
                 ple -= cwidth[p + pl]
-                print p, pl
 
         if nlines == 0 \
         and ((femp and p + pl < lentext) or (ewcol <= 0 and wcol > 0)):
