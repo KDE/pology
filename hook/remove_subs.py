@@ -531,3 +531,67 @@ def _rm_ent_in_text (text, entities):
 
     return text
 
+
+def rewrite_msgid (msg, cat):
+    """
+    Rewrite parts of msgid based on translator comments [type F4A hook].
+
+    Translator comments may issue C{rewrite-msgid} directives
+    to modify parts of C{msgid} (as well as C{msgid_plural}) fields
+    by applying a search regular expression and replace pattern.
+    The search and replace pattern are wrapped and separated
+    by any character consistently used, such as slashes.
+    Examples:
+
+        # rewrite-msgid: /foo/bar/
+        # rewrite-msgid: /foo (\\w+) fam/bar \\1 bam/
+        # rewrite-msgid: :foo/bar:foo/bam:
+
+    If a search pattern is not valid, a warning on message is issued.
+
+    Search pattern is case-sensitive.
+
+    @return: number of errors
+    """
+
+    nerrors = 0
+
+    # Collect and compile regular expressions.
+    fname = "rewrite-msgid"
+    rwspecs = manc_parse_field_values(msg, fname)
+    rwrxs = []
+    for rwspec in rwspecs:
+        sep = rwspec[0:1]
+        if not sep:
+            warning_on_msg("no patterns "
+                           "in rewrite directive", msg, cat)
+            nerrors += 1
+            continue
+        lst = rwspec.split(sep)
+        if len(lst) != 4 or lst[0] or lst[3]:
+            warning_on_msg("wrongly separated patterns in "
+                           "rewrite directive: %s" % rwspec, msg, cat)
+            nerrors += 1
+            continue
+        srch, repl = lst[1], lst[2]
+        try:
+            rx = re.compile(srch, re.U)
+        except:
+            warning_on_msg("invalid search pattern in "
+                           "rewrite directive: %s" % rwspec, msg, cat)
+            nerrors += 1
+            continue
+        rwrxs.append((rx, repl, rwspec))
+
+    for rx, repl, rwspec in rwrxs:
+        try:
+            msg.msgid = rx.sub(repl, msg.msgid)
+            if msg.msgid_plural is not None:
+                msg.msgid_plural = rx.sub(repl, msg.msgid_plural)
+        except:
+            warning_on_msg("error in application of "
+                           "rewrite directive: %s" % rwspec, msg, cat)
+            nerrors += 1
+
+    return nerrors
+
