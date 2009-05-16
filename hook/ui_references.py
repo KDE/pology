@@ -618,14 +618,16 @@ def _collect_ui_catpaths (uicpaths, uicpathenv):
 
     # Convert into dictionary by catalog name.
     # If there are several catalogs with the same name among paths,
-    # the result is undefined (UI catalogs should be unique!)
+    # store them under that name in undefined order.
     uicpath_dict = {}
     for uicpath in all_uicpaths:
         catname = os.path.basename(uicpath)
         p = catname.rfind(".")
         if p >= 0:
             catname = catname[:p]
-        uicpath_dict[catname] = uicpath
+        if catname not in uicpath_dict:
+            uicpath_dict[catname] = []
+        uicpath_dict[catname].append(uicpath)
 
     return uicpath_dict
 
@@ -677,20 +679,20 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
     uicats = []
     chkeys = set()
     for catname in uniq_catnames:
-        catpath = uicpaths.get(catname)
-        if catpath is None:
+        catpaths = uicpaths.get(catname)
+        if not catpaths:
             warning("UI catalog '%s' associated to '%s' "
                     "not among known catalog paths" % (catname, cat.name))
             continue
-        chkey = (xmlescape, catpath)
-        chkeys.add(chkey)
-        uicat = _norm_cats_cache.get(chkey)
-        if uicat is None:
-            #print "Loading and normalizing UI catalog '%s'..." % list(chkey)
-            uicat_raw = Catalog(catpath, monitored=False)
-            uicat = _norm_ui_cat(uicat_raw, xmlescape)
-            _norm_cats_cache[chkey] = uicat
-        uicats.append(uicat)
+        for catpath in catpaths:
+            chkey = (xmlescape, catpath)
+            chkeys.add(chkey)
+            uicat = _norm_cats_cache.get(chkey)
+            if uicat is None:
+                uicat_raw = Catalog(catpath, monitored=False)
+                uicat = _norm_ui_cat(uicat_raw, xmlescape)
+                _norm_cats_cache[chkey] = uicat
+            uicats.append(uicat)
 
     # Remove previous catalogs not reused by this call.
     # TODO: Better strategy for removing from cache.
