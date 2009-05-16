@@ -5,9 +5,6 @@ class Sieve (object):
 
     def __init__ (self, options):
         self.nmatch = 0
-        # Indicators to the caller:
-        # - no need for monitored messages, removing only
-        self.caller_monitored = False
 
     def process (self, msg, cat):
         if msg.obsolete:
