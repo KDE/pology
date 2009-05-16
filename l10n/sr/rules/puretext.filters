@@ -4,6 +4,9 @@
 
 # Order of filter addition is significant.
 
+# Rewrite parts of original text based on directives in translator comments.
+addFilterHook name="remove-subs/rewrite-msgid" on="msg"
+
 # Resolve UI references.
 # Translation may contain UI references, original UI strings which
 # are supposed to be automatically resolved into translated UI when
