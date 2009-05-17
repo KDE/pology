@@ -25,6 +25,7 @@ Sieve parameters:
   - C{wbar}: show statistics as ASCII bar of word counts
   - C{absolute}: make bars show absolute rather than relative info
   - C{ondiff}: reduce number of words in fuzzy messages by difference ratio
+  - C{mincomp}: include only catalogs with sufficient completeness
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
@@ -46,8 +47,8 @@ For example::
     my_lang  templates
     $ posieve.py stats -stemplates:my_lang:templates my_lang/
 
-Several parameters are used to restrict counting to messages satisfying
-a certain criterion:
+Several parameters are used to restrict counting to catalogs and messages
+satisfying a certain criterion:
 
   - C{minwords} and C{maxwords} restrict counting to messages satisfying
     these word limits, in I{either} the original or translation.
@@ -74,8 +75,15 @@ a certain criterion:
     of fuzzy messages is multiplied by the difference ratio between current
     and previous C{msgid} fields (if previous C{msgid} is available).
 
+  - Parameter C{mincomp} can be used to restrict counting only to catalogs
+    of completeness equal to or higher than this (measured by ratio of
+    translated to all messages, excluding obsolete).
+    This may be especially useful when there are no templates around,
+    instead all catalogs being initialized as empty, to include only
+    those catalogs which have been actually worked on.
+
 If more than one restriction parameter is used, all must be satisfied for
-the message to be taken into account.
+the catalog or message to be taken into account.
 
 
 Custom Contexts
@@ -335,6 +343,12 @@ def setup_sieve (p):
                 desc=
     "Multiply word counts in fuzzy messages by difference ratio between "
     "current and previous original text."
+    )
+    p.add_param("mincomp", float, defval=None,
+                metavar="RATIO",
+                desc=
+    "Include into statistics only catalogs with sufficient completeness, "
+    "as ratio of translated to other messages (real value between 0 and 1)."
     )
 
 
@@ -628,6 +642,15 @@ class Sieve (object):
                 tsubdir = os.path.dirname(tpath)
                 subdir = tsubdir.replace(self.tspec_repl, self.tspec_srch, 1)
                 self.mapped_template_subdirs[tsubdir] = subdir
+
+        # If completeness limit in effect, eliminate catalogs not passing it.
+        if self.p.mincomp is not None:
+            ncounts = {}
+            for filename, count in self.counts.iteritems():
+                cr = float(count["trn"][0]) / count["tot"][0]
+                if cr >= self.p.mincomp:
+                    ncounts[filename] = count
+            self.counts = ncounts
 
         # Assemble sets of total counts by requested divisions.
         count_overall = self._count_zero()
