@@ -440,7 +440,7 @@ valid msgstr="\bтем\w+ икона\b"
 id="ioslave"
 hint="ioslave|IO slave|kioslave|KIO slave = У/И захват"
 valid msgstr="\bУ/И захват"
-valid msgstr="&ioslave-\S*;"
+valid msgstr="&ioslave\w*-\S*;"
 
 {\bitalic}i
 id="italic"
