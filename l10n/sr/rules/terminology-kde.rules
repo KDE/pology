@@ -80,15 +80,19 @@ valid msgstr="&\w*bookmark\S*;"
 {\bbrowse(?!r)}i
 id="browse"
 hint="browse = прегледати"
-# /browse for/ се изузима, и *не* треба да преведено са „прегледати...“
+# /browse for/ се изузима, и *не* треба преведено са „прегледати...“
 valid before="d? for" msgstr="\b(по)?траж|пронађ|изабер"
 valid !before="d? for" msgstr="\bпрегледа(\b|[њтјол])"
+valid comment="@option" msgstr="\bпреглед"
+valid ctx="@option" msgstr="\bпреглед"
 # в. коментар у каталогу (документационом)
 valid cat="dolphin" msgid="the user can toggle the browse button"
 
 {^Browse\W*$}
 id="browse_button"
 hint="Browse = Прегледај"
+valid ctx="@option"
+valid comment="@option"
 valid msgstr="^Прегледај\W*$"
 
 {\bbrowser}i
@@ -965,5 +969,6 @@ id="zoom"
 hint="zoom = увеличати"
 valid before="[ -]out"
 valid msgstr="\bувелича"
+valid before=" to fit" msgstr="\bукл[ао]п\w+ величин"
 
 # End of rules
