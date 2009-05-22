@@ -954,10 +954,12 @@ def summit_gather_single (summit_name, project, options,
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
 
     # Select primary branch catalog and list of all catalogs with branch ids.
-    prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
+    prim_branch_cat = None
     branch_ids_cats = []
     for branch_id in src_branch_ids:
         for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
+            if prim_branch_cat is None:
+                prim_branch_cat = branch_cat
             branch_ids_cats.append((branch_id, branch_cat))
 
     # Gather messages through branch catalogs.
