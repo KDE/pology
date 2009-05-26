@@ -479,13 +479,15 @@ def derive_project_data (project, options):
         for branch_name in p.catalogs[branch_id]:
             for summit_name in p.direct_map[branch_id][branch_name]:
                 # - part inverse:
-                pinv = p.part_inverse_map[branch_id][summit_name]
-                if branch_name not in pinv:
-                    pinv.append(branch_name)
+                if summit_name in p.part_inverse_map[branch_id]:
+                    pinv = p.part_inverse_map[branch_id][summit_name]
+                    if branch_name not in pinv:
+                        pinv.append(branch_name)
                 # - full inverse:
-                finv = p.full_inverse_map[summit_name][branch_id]
-                if branch_name not in finv:
-                    finv.append(branch_name)
+                if summit_name in p.full_inverse_map:
+                    finv = p.full_inverse_map[summit_name][branch_id]
+                    if branch_name not in finv:
+                        finv.append(branch_name)
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
