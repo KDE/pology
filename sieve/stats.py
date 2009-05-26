@@ -647,7 +647,7 @@ class Sieve (object):
         if self.p.mincomp is not None:
             ncounts = {}
             for filename, count in self.counts.iteritems():
-                cr = float(count["trn"][0]) / count["tot"][0]
+                cr = float(count["trn"][0]) / (count["tot"][0] or 1)
                 if cr >= self.p.mincomp:
                     ncounts[filename] = count
             self.counts = ncounts
