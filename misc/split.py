@@ -12,9 +12,10 @@ import re
 from pology.misc.resolve import remove_accelerator
 
 
-_split_rx = re.compile(r"[^\w]+|\w+", re.U)
+_word_rxp = r"(?:\w+[']\w+|\w+)"
+_split_rx = re.compile(r"[^\w]+|%s" % _word_rxp, re.U)
 _split_rx_markup = re.compile(r"[^\w]*(<.*?>|&[\w.:-]+;|&#x?\d+;)[^\w<&]*"
-                              r"|[^\w]+|\w+", re.U)
+                              r"|[^\w]+|%s" % _word_rxp, re.U)
 _word_rx = re.compile(r"^\w", re.U)
 
 
