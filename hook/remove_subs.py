@@ -541,7 +541,7 @@ def rewrite_msgid (msg, cat):
     by applying a search regular expression and replace pattern.
     The search and replace pattern are wrapped and separated
     by any character consistently used, such as slashes.
-    Examples:
+    Examples::
 
         # rewrite-msgid: /foo/bar/
         # rewrite-msgid: /foo (\\w+) fam/bar \\1 bam/
