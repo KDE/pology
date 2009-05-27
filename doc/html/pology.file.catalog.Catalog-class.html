@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa1211ec&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -386,6 +386,23 @@
         <span class="summary-sig-arg">noobsend</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">writefh</span>=<span class="summary-sig-default">None</span>)</span><br />
       Write catalog file to disk if any message has been modified.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#sync_map" class="summary-sig-name">sync_map</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Update message map.</td>
           <td align="right" valign="top">
             
             
@@ -796,7 +813,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa375c34&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa1211ec&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1292,6 +1309,33 @@
     <dt>Returns: bool</dt>
         <dd><code>True</code> if the file was modified, <code>False</code> 
           otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="sync_map"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sync_map</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Update message map.</p>
+  <p>In case there were any modifications to message keys, or any pending 
+  removals issued, this function will update the sequence of messages such 
+  that membership operations work properly again. Referent line and entry 
+  numbers will remain invalid, as catalog will not be written out, and 
+  there will also be no reordering of obsolete messages.</p>
+  <p>This is a less expensive alternative to syncing the catalog, when it 
+  is only necessary to continue using it in synced state, rather than 
+  actually writing it out.</p>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>

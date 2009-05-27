@@ -121,6 +121,10 @@
       <code>ondiff</code>: reduce number of words in fuzzy messages by 
       difference ratio
     </li>
+    <li>
+      <code>mincomp</code>: include only catalogs with sufficient 
+      completeness
+    </li>
   </ul>
   <p>The accelerator characters should be removed from the messages before 
   counting, in order not to introduce word splits where there are none. If 
@@ -142,8 +146,8 @@
    my_lang  templates
    $ posieve.py stats -stemplates:my_lang:templates my_lang/
 </pre>
-  <p>Several parameters are used to restrict counting to messages 
-  satisfying a certain criterion:</p>
+  <p>Several parameters are used to restrict counting to catalogs and 
+  messages satisfying a certain criterion:</p>
   <ul>
     <li>
       <code>minwords</code> and <code>maxwords</code> restrict counting to 
@@ -181,9 +185,17 @@
       between current and previous <code>msgid</code> fields (if previous 
       <code>msgid</code> is available).
     </li>
+    <li>
+      Parameter <code>mincomp</code> can be used to restrict counting only 
+      to catalogs of completeness equal to or higher than this (measured by
+      ratio of translated to all messages, excluding obsolete). This may be
+      especially useful when there are no templates around, instead all 
+      catalogs being initialized as empty, to include only those catalogs 
+      which have been actually worked on.
+    </li>
   </ul>
   <p>If more than one restriction parameter is used, all must be satisfied 
-  for the message to be taken into account.</p>
+  for the catalog or message to be taken into account.</p>
   <h1 class="heading">Custom Contexts</h1>
     <p>Some older PO files will have message contexts embedded into the 
     <code>msgid</code> field, instead of using the Gettext proper 

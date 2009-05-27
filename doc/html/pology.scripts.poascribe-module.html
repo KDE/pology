@@ -328,8 +328,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">clrevd</span>=<span class="summary-sig-default">True</span>)</span></td>
+          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -602,6 +601,25 @@
         <span class="summary-sig-arg">msg2</span>,
         <span class="summary-sig-arg">pfilter</span>)</span><br />
       Whether two messages are equal under translation filter.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="amrg_eq"></a><span class="summary-sig-name">amrg_eq</span>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>)</span><br />
+      Whether two messages may be considered equal but for changes possibly
+      induced by merging.</td>
           <td align="right" valign="top">
             
             
@@ -1074,6 +1092,62 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="selector_modam"></a><span class="summary-sig-name">selector_modam</span>(<span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">mmuser_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="selector_modarm"></a><span class="summary-sig-name">selector_modarm</span>(<span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rmuser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="w_selector_modax"></a><span class="summary-sig-name">w_selector_modax</span>(<span class="summary-sig-arg">cid</span>,
+        <span class="summary-sig-arg">amod</span>,
+        <span class="summary-sig-arg">arev</span>,
+        <span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rmuser_spec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="selector_rev"></a><span class="summary-sig-name">selector_rev</span>(<span class="summary-sig-arg">user_spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
@@ -1167,8 +1241,9 @@
 selector_xrevd, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(selector\
 _e, False), &quot;l&quot;:(selector_l, False), &quot;hexpr&quot;:(selector_hexpr, True), &quot;\
 asc&quot;:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(select\
-or_modar, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, \
-True), &quot;modafter&quot;:(selector_modafter, True),}">{&quot;any&quot;:(selector_any, False), &quot;wasc&quot;:(<code class="variable-ellipsis">...</code></code>
+or_modar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_mo\
+darm, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, True\
+), &quot;modafter&quot;:(selector_modafter, True),}">{&quot;any&quot;:(selector_any, False), &quot;wasc&quot;:(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -1262,8 +1337,9 @@ True), &quot;modafter&quot;:(selector_modafter, True),}">{&quot;any&quot;:(selec
 selector_xrevd, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(selector<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 _e, False), &quot;l&quot;:(selector_l, False), &quot;hexpr&quot;:(selector_hexpr, True), &quot;<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 asc&quot;:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(select<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-or_modar, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-True), &quot;modafter&quot;:(selector_modafter, True),}
+or_modar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_mo<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+darm, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, True<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+), &quot;modafter&quot;:(selector_modafter, True),}
 </pre></td></tr></table>
 </dd>
   </dl>

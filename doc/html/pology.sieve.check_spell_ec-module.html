@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.sieve.check_spell_ec</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
+        Module&nbsp;check_spell_ec
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module check_spell_ec</h1><p class="nomargin-top"></p>
+<p>Spell-check translation using Enchant.</p>
+  <p>This sieve uses the Enchant library (<a 
+  href="http://www.abisource.com/projects/enchant/" 
+  target="_top">www.abisource.com/projects/enchant/</a>), through PyEnchant
+  module (<a href="http://pyenchant.sourceforge.net" 
+  target="_top">pyenchant.sourceforge.net</a>) to provide uniform access to
+  different spell-checkers, such as Aspell, Ispell, etc.</p>
+  <p>Text is first split into words, possibly eliminating markup and other 
+  verbatim content, which are then fed to the spell-checker one by one.</p>
+  <p>Sieve parameters:</p>
+  <ul>
+    <li>
+      <code>provider:&lt;pkeyword&gt;</code>: keyword of the spell-checker 
+      to use
+    </li>
+    <li>
+      <code>lang:&lt;code&gt;</code>: language code of the spelling 
+      dictionary
+    </li>
+    <li>
+      <code>env:&lt;environment&gt;</code>: environment of internal word 
+      lists
+    </li>
+    <li>
+      <code>accel:&lt;chars&gt;</code>: strip these characters as 
+      accelerator markers
+    </li>
+    <li>
+      <code>markup:&lt;mkeywords&gt;</code>: markup types by keywords 
+      (comma-separated)
+    </li>
+    <li>
+      <code>skip:&lt;regex&gt;</code>: do not check words which match given
+      regular expression
+    </li>
+    <li>
+      <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
+      prior to spell-checking
+    </li>
+    <li>
+      <code>suponly</code>: do not use system dictionary, only internal 
+      supplements
+    </li>
+  </ul>
+  <p>If the spell-checking provider is not given by the 
+  <code>provider</code> parameter, it is first looked for in Pology user 
+  configuration, and then by user and system configuration of Enchant. List
+  of spell-checking providers known to Enchant, to be used as values to 
+  <code>provider</code> parameter, can be obtained by the 
+  <code>enchant-lsmod</code> command. Value of <code>provider</code> (and 
+  the corresponding user configuration field) can also be a comma-separated
+  list in the order of decreasing priority.</p>
+  <p>When the dictionary language is not given by the <code>lang</code> 
+  parameter, it is first looked for in the current PO file, then in Pology 
+  user configuration, and finaly by current system locale.</p>
+  <p>If accelerator marker is not given by <code>accel</code> parameter, 
+  the sieve will try to guess it; it may choose wrongly or decide that 
+  there are no accelerators. See <a 
+  href="pology.file.catalog.Catalog-class.html#accelerator" 
+  class="link">file.catalog.Catalog.accelerator</a> method for ways of 
+  specifying accelerator marker in catalogs.</p>
+  <p>If markup types are not given by <code>markup</code> parameter, the 
+  sieve will try to guess them; it may choose wrongly or decide that there 
+  is no markup. See <a 
+  href="pology.file.catalog.Catalog-class.html#set_markup" 
+  class="link">file.catalog.Catalog.set_markup</a> method for known markup 
+  types, and <a href="pology.file.catalog.Catalog-class.html#markup" 
+  class="link">file.catalog.Catalog.markup</a> for how they may be 
+  specified in catalogs.</p>
+  <p>The <code>filter</code> parameter specifies F1A or F3A/F3C filter 
+  hooks to apply to msgstr before it is checked. The hooks are found in 
+  <code>pology.hook</code> and <code>pology.l10n.&lt;lang&gt;.hook</code> 
+  modules, and are specified as comma-separated list of 
+  <code>[&lt;lang&gt;:]&lt;name&gt;[/&lt;function&gt;]</code>; language is 
+  stated when a hook is language-specific, and function when it is not the 
+  default <code>process()</code> within the hook module.</p>
+  <p>Pology internally collects language-specific word lists as supplements
+  to system spelling dictionaries, within 
+  <code>l10n/&lt;lang&gt;/spell/</code> directory. These contain either the
+  words that should enter the default dictionary but have not been added 
+  yet, or, more importantly, the words that are specific to a given 
+  translation environment, i.e. too specific to enter the general 
+  dictionary. The <code>env</code> parameter is used to specify the 
+  environment for which word lists are loaded, as a subpath 
+  <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>: all word lists in that 
+  subpath and above will be loaded. This means that the word lists are 
+  hierarchical, so that all-environment lists (loaded even when 
+  <code>env</code> parameter is not given) reside directly in 
+  <code>l10n/&lt;lang&gt;/spell/</code>, and the more specific ones in 
+  subdirectories below it. The system dictionary can be avoided 
+  alltogether, only supplement word lists used instead, by giving the 
+  <code>suponly</code> parameter.</p>
+  <p>Word list files are in Aspell format, and must have 
+  <code>.aspell</code> extension. This is a simple plain text format 
+  listing one correct word per line, except for the first line, the header,
+  which states the language code, number of words in the list and encoding 
+  of the file:</p>
+<pre class="literalblock">
+   personal_ws-1.1 fr 1234 UTF-8
+   apricot
+   banana
+   cherry
+   ...
+</pre>
+  <p>The only significant parameter in the header is in fact the encoding. 
+  Language code and number of words can be arbitrary, as this sieve will 
+  not use them. To maintain alphabetic ordering of word list files (and put
+  the correct number of words in the header, even if not important) you can
+  use the <a href="pology.scripts.organizeDict-module.html" 
+  class="link">organizeDict.py</a> script.</p>
+  <p>It is possible to selectively disable spell-checking for a message, or
+  certain words within a message, by adding a special manual comment. The 
+  whole message is skipped by the no-sieve flag 
+  <code>no-check-spell</code>:</p>
+<pre class="literalblock">
+   # |, no-check-spell
+</pre>
+  <p>and only some words within the message by listing them in 
+  <code>well-spelled:</code> embedded list:</p>
+<pre class="literalblock">
+   # well-spelled: word1, word2, ...
+</pre>
+  <p>Which of these two methods to use depends on the nature of the message
+  and specifics of spelling checks for given language/environment. For 
+  example, if most of the message consists of valid words, but there are 
+  only one or two which are special in some way, it is probably better to 
+  list them explicitly, so that all other words are checked.</p>
+  <p>The following user configuration fields are considered:</p>
+  <ul>
+    <li>
+      <code>[enchant]/provider</code>: spell-checker to use
+    </li>
+    <li>
+      <code>[enchant]/language</code>: language of the spelling dictionary
+    </li>
+    <li>
+      <code>[enchant]/environment</code>: environment of dictionary 
+      supplements
+    </li>
+    <li>
+      <code>[enchant]/supplements-only</code>: use only internal supplement
+      word lists
+    </li>
+  </ul>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.check_spell_ec.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

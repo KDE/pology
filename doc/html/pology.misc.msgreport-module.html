@@ -57,9 +57,13 @@
   output.</p>
 
 <hr />
-<div class="fields">      <p><strong>Author:</strong>
-        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
-      </p>
+<div class="fields">      <dl><dt>Authors:</dt>
+        <dd>
+          Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;,
+          Nick Shaforostoff (&#1053;&#1080;&#1082;&#1086;&#1083;&#1072;&#1081; &#1064;&#1072;&#1092;&#1086;&#1088;&#1086;&#1089;&#1090;&#1086;&#1074;) 
+          &lt;shaforostoff@kde.ru&gt;
+        </dd>
+      </dl>
       <p><strong>License:</strong>
         GPLv3
       </p>
@@ -163,9 +167,27 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_to_lokalize" class="summary-sig-name">report_msg_to_lokalize</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Open catalog in Lokalize and jump to message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0xa375a3c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0xa12117c&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
@@ -429,6 +451,39 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="report_msg_to_lokalize"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_to_lokalize</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Open catalog in Lokalize and jump to message.</p>
+  <p>Lokalize is a CAT tool for KDE 4, <a 
+  href="http://userbase.kde.org/Lokalize" 
+  target="_top">http://userbase.kde.org/Lokalize</a>. This function opens 
+  the catalog in Lokalize (if not already open) and jumps to the given 
+  message within it.</p>
+  <p>If the message is obsolete, it will be ignored.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.file.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message which should be jumped to in Lokalize</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog in which the message resides</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="report_msg_content"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -438,7 +493,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0xa375a3c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0xa12117c&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,

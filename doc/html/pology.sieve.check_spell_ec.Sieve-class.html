@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.monitored.Monpair</title>
+  <title>pology.sieve.check_spell_ec.Sieve</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.monitored-module.html">Module&nbsp;monitored</a> ::
-        Class&nbsp;Monpair
+        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
+        <a href="pology.sieve.check_spell_ec-module.html">Module&nbsp;check_spell_ec</a> ::
+        Class&nbsp;Sieve
       </span>
     </td>
     <td>
@@ -51,18 +51,14 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Monpair</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class Sieve</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-object --+    
-         |    
- <a href="pology.misc.monitored.Monitored-class.html">Monitored</a> --+
-             |
-            <strong class="uidshort">Monpair</strong>
+object --+
+         |
+        <strong class="uidshort">Sieve</strong>
 </pre>
 
 <hr />
-<p>Monitored pair (counterpart to two-element <code>tuple</code>).</p>
-
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -77,9 +73,9 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.monitored.Monpair-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">init</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Create a pair with two elements.</td>
+          <td><span class="summary-sig"><a href="pology.sieve.check_spell_ec.Sieve-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">params</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             
             
@@ -95,7 +91,9 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__len__"></a><span class="summary-sig-name">__len__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="process_header"></a><span class="summary-sig-name">process_header</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hdr</span>,
+        <span class="summary-sig-arg">cat</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -111,7 +109,9 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__iter__"></a><span class="summary-sig-name">__iter__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="process"></a><span class="summary-sig-name">process</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -127,8 +127,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__getitem__"></a><span class="summary-sig-name">__getitem__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">i</span>)</span></td>
+          <td><span class="summary-sig"><a name="finalize"></a><span class="summary-sig-name">finalize</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -140,53 +139,17 @@ object --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">Monitored</a></code></b>:
-      <code><a href="pology.misc.monitored.Monitored-class.html#__eq__">__eq__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__getattr__">__getattr__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__ne__">__ne__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__str__">__str__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_getattr">assert_spec_getattr</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_getitem">assert_spec_getitem</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_init">assert_spec_init</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_setattr">assert_spec_setattr</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#assert_spec_setitem">assert_spec_setitem</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#data">data</a></code>
-      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
       <code>__reduce__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
       </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== INSTANCE VARIABLES ==================== -->
-<a name="section-InstanceVariables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Instance Variables</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="first"></a><span class="summary-name">first</span><br />
-      the first element of the pair
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="second"></a><span class="summary-name">second</span><br />
-      the second element of the pair
     </td>
   </tr>
 </table>
@@ -223,7 +186,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">init</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">params</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -231,17 +194,12 @@ object --+
     </td>
   </tr></table>
   
-  <p>Create a pair with two elements.</p>
-  <p>All methods behave as their namesakes in standard 
-  <code>tuple</code>.</p>
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>init</code></strong> - 2-element sequence or another pair</li>
-        <li><strong class="pname"><code>init</code></strong> - tuple, list,... or Monpair</li>
-    </ul></dd>
     <dt>Overrides:
         object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
