@@ -19,6 +19,7 @@ Sieve parameters:
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell-checking
   - C{suponly}: do not use system dictionary, only internal supplements
+  - C{lokalize}: open catalogs at failed messages in Lokalize
 
 If the spell-checking provider is not given by the C{provider} parameter,
 it is first looked for in Pology user configuration,
@@ -122,6 +123,7 @@ from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
 from pology.misc.msgreport import report_on_msg
+from pology.misc.msgreport import report_msg_to_lokalize
 
 
 def setup_sieve (p):
@@ -177,6 +179,10 @@ def setup_sieve (p):
                 desc=
     "Use only internal supplement word lists, and not the system dictionary."
     )
+    p.add_param("lokalize", bool, defval=False,
+                desc=
+    "Open catalogs at failed messages in Lokalize."
+    )
 
 
 class Sieve (object):
@@ -215,6 +221,7 @@ class Sieve (object):
                 warning("Cannot load filter '%s'." % hreq)
 
         self.suponly = params.suponly
+        self.lokalize = params.lokalize
 
         # Language-dependent elements built along the way.
         self.checkers = {}
@@ -275,6 +282,8 @@ class Sieve (object):
         if not msg.translated:
             return
 
+        failed = False
+
         for msgstr in msg.msgstr:
 
             # Skip message if explicitly requested.
@@ -306,6 +315,7 @@ class Sieve (object):
 
             for word in words:
                 if not self.checker.check(word):
+                    failed = True
                     self.nunknown += 1
                     suggs = self.checker.suggest(word)
                     if suggs > 5: # do not put out too many words
@@ -316,6 +326,10 @@ class Sieve (object):
                     else:
                         report_on_msg("unknown word: %s" % word,
                                       msg, cat)
+
+        if failed:
+            if self.lokalize:
+                report_msg_to_lokalize(msg, cat)
 
 
     def finalize (self):
