@@ -66,7 +66,15 @@ class _MessageDict:
 
 def _read_lines_and_encoding (file):
 
-    lines = [x + "\n" for x in re.split(r"\r\n|\r|\n", file.read())]
+    fstr = file.read()
+    # Determine line ending.
+    maxlno = 0
+    for clend in ("\r\n", "\n", "\r"): # "\r\n" should be checked first
+        lno = len(fstr.split(clend))
+        if maxlno < lno:
+            maxlno = lno
+            lend = clend
+    lines = [x + "\n" for x in fstr.split(lend)]
     if lines[-1] == "\n":
         lines.pop()
 
