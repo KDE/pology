@@ -19,6 +19,7 @@ Sieve options:
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
   - C{env:<environment>}: environment of internal dictionary supplements
   - C{suponly}: do not use default dictionary, only internal supplements
+  - C{lokalize}: open catalogs at failed messages in Lokalize
 
 When dictionary language, encoding, or variety are not explicitly given,
 they are extracted, in the following order of priority, from: 
@@ -87,6 +88,7 @@ import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.misc.msgreport import report_msg_to_lokalize
 import os, re, sys
 from os.path import abspath, basename, dirname, isfile, isdir, join
 from codecs import open
@@ -211,6 +213,11 @@ class Sieve (object):
         if not self.simsp:
             self.simsp = cfgs.boolean("simple-split", False)
 
+        self.lokalize = False
+        if "lokalize" in options:
+            options.accept("lokalize")
+            self.lokalize = True
+
         # Language-dependent elements built along the way.
         self.aspells = {}
         self.ignoredContexts = {}
@@ -310,6 +317,7 @@ class Sieve (object):
             return
 
         id=0 # Count msgstr plural forms
+        failed=False # Whether there is any misspelled word
 
         for msgstr in msg.msgstr:
             # Skip message with context in the ignoredContext list
@@ -357,6 +365,7 @@ class Sieve (object):
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
+                        failed=True
                         self.nmatch+=1
                         if self.list is not None:
                             if word not in self.list:
@@ -373,6 +382,9 @@ class Sieve (object):
                         warning("Cannot encode this word in your codec (%s)" % self.encoding)
             id+=1 # Increase msgstr id count
 
+        if failed:
+            if self.lokalize:
+                report_msg_to_lokalize(msg, cat)
 
     def finalize (self):
         # Remove composited personal dictionaries.
