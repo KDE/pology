@@ -349,11 +349,11 @@ def _create_checker (providers, langtag, words):
                             "python-enchant).")
 
     if langtag is not None:
-        broker = enchant.Broker()
-        if providers is not None:
-            broker.set_ordering(langtag, providers)
-        checker = broker.request_dict(langtag)
         try:
+            broker = enchant.Broker()
+            if providers is not None:
+                broker.set_ordering(langtag, providers)
+            checker = broker.request_dict(langtag)
             checker.check(".")
         except:
             checker = None
