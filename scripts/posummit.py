@@ -257,6 +257,30 @@ def derive_project_data (project, options):
         b.skip_version_control = bd.pop("skip_version_control", False)
         b.merge_locally = bd.pop("merge_locally", False)
 
+        ignores = bd.pop("ignores", [])
+
+        def ignrx_to_func (rxstr):
+            try:
+                rx = re.compile(rxstr, re.U)
+            except:
+                error("invalid ignoring regular expression "
+                      "in branch '%s': %s" % (b.id, rxstr))
+            return lambda x: bool(rx.search(x))
+
+        def chain_ignores ():
+            ignfs = []
+            for ign in ignores:
+                if isinstance(ign, basestring):
+                    ignfs.append(ignrx_to_func(ign))
+                elif callable(ign):
+                    ignfs.append(ign)
+                else:
+                    error("invalid ignoring type "
+                        "in branch '%s': %s" % (b.id, ign))
+            return lambda x: reduce(lambda s, y: s or y(x), ignfs, False)
+
+        b.ignored = chain_ignores()
+
         # Assert that there are no misnamed keys in the dictionary.
         if bd:
             error(  "unknown keys in specification of branch '%s': %s"
@@ -293,10 +317,11 @@ def derive_project_data (project, options):
     p.catalogs = {}
     for b in p.branches:
         p.catalogs[b.id] = collect_catalogs(b.topdir, options.catext,
-                                            b.by_lang, project, options)
+                                            b.by_lang, b.ignored,
+                                            project, options)
     # ...and from the summit.
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
-                                             None, project, options)
+                                             None, None, project, options)
 
     # Assure that summit catalogs are unique.
     for name, spec in p.catalogs[SUMMIT_ID].items():
@@ -333,6 +358,7 @@ def derive_project_data (project, options):
             # Collect all templates for this branch.
             branch_templates = collect_catalogs(branch.topdir_templates,
                                                 ".pot", branch.by_lang,
+                                                branch.ignored,
                                                 project, options)
 
             # Go through all summit catalogs.
@@ -385,7 +411,7 @@ def derive_project_data (project, options):
     ):
         # Collect all summit templates.
         summit_templates = collect_catalogs(p.summit.topdir_templates,
-                                            ".pot", False,
+                                            ".pot", False, None,
                                             project, options)
 
         # Go through all summit templates, recording missing summit catalogs.
@@ -519,7 +545,7 @@ def hook_fill_defaults (specs):
 # name, the value is the list of tuples of file path and subdirectory
 # relative to top (list in case there are several same-named catalogs in
 # different subdirectories).
-def collect_catalogs (topdir, catext, by_lang, project, options):
+def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
 
     catalogs = {}
     topdir = os.path.normpath(topdir)
@@ -542,9 +568,10 @@ def collect_catalogs (topdir, catext, by_lang, project, options):
             if catn:
                 fpath = os.path.normpath(fpath)
                 spath = os.path.normpath(spath)
-                if catn not in catalogs:
-                    catalogs[catn] = []
-                catalogs[catn].append((fpath, spath))
+                if not ignored or not ignored(fpath):
+                    if catn not in catalogs:
+                        catalogs[catn] = []
+                    catalogs[catn].append((fpath, spath))
 
     return catalogs
 
@@ -629,7 +656,8 @@ def summit_merge (project, options):
 
         # Collect template catalogs to use.
         template_catalogs = collect_catalogs(project.summit.topdir_templates,
-                                             ".pot", None, project, options)
+                                             ".pot", None, None,
+                                             project, options)
 
         # Merge selected summit catalogs.
         for name in summit_names:
@@ -658,7 +686,8 @@ def summit_merge (project, options):
 
         # Collect template catalogs to use.
         template_catalogs = collect_catalogs(branch.topdir_templates, ".pot",
-                                             branch.by_lang, project, options)
+                                             branch.by_lang, branch.ignored,
+                                             project, options)
 
         # Merge selected branch catalogs.
         for name, branch_path, branch_subdir in branch_catalogs:
