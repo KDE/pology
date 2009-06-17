@@ -100,6 +100,10 @@ class Sieve (object):
             msg.msgid_plural_previous = None
             return
 
+        # Skip message if obsolete fuzzy.
+        if msg.obsolete:
+            return
+
         oldcount = msg.modcount
 
         msg.msgctxt_previous = self._diff(msg.msgctxt_previous, msg.msgctxt,
