@@ -1441,6 +1441,8 @@ def format_datetime (dt=None):
 
 _parse_date_rxs = [re.compile(x) for x in (
     r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *([+-]\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+)() *([+-]\d+) *$",
+    # ...needs empty group to differentiate from the next case.
     r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *$",
     r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+) *$",
     r"^ *(\d+)-(\d+)-(\d+) *$",
@@ -1448,6 +1450,7 @@ _parse_date_rxs = [re.compile(x) for x in (
     r"^ *(\d+) *$",
 )]
 
+# FIXME: Imported by posummit.py, move out of here.
 def parse_datetime (dstr):
     # NOTE: Timezone offset is lost, the datetime object becomes UTC.
     # NOTE: Can we use dateutil module in here?
@@ -1458,7 +1461,7 @@ def parse_datetime (dstr):
             break
     if not m:
         raise StandardError, "cannot parse date string '%s'" % dstr
-    pgroups = list([int(x) for x in m.groups()])
+    pgroups = list([int(x or 0) for x in m.groups()])
     pgroups.extend([1] * (3 - len(pgroups)))
     pgroups.extend([0] * (7 - len(pgroups)))
     year, month, day, hour, minute, second, off = pgroups
