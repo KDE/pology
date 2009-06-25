@@ -108,7 +108,10 @@ class Header (Monitored):
                 elif not self._copyright and re.search("copyright", c, re.I):
                     self._copyright = c
                     intitle = False
-                elif not self._license and re.search("license", c, re.I):
+                elif (    not self._license
+                      and (    re.search("license", c, re.I)
+                           and not re.search("^translation *of.* to", c, re.I))
+                ):
                     self._license = c
                     intitle = False
                 elif re.search("<.*@.*>", c):
