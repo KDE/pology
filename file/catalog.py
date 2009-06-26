@@ -33,7 +33,7 @@ def _parse_quoted (s):
 
 class _MessageDict:
 
-    def __init__ (self):
+    def __init__ (self, lcache=True):
 
         self.manual_comment = []
         self.auto_comment = []
@@ -50,18 +50,19 @@ class _MessageDict:
         self.refline = -1
         self.refentry = -1
 
-        self._lines_all = []
-        self._lines_manual_comment = []
-        self._lines_auto_comment = []
-        self._lines_source = []
-        self._lines_flag = []
-        self._lines_msgctxt_previous = []
-        self._lines_msgid_previous = []
-        self._lines_msgid_plural_previous = []
-        self._lines_msgctxt = []
-        self._lines_msgid = []
-        self._lines_msgid_plural = []
-        self._lines_msgstr = []
+        if lcache:
+            self._lines_all = []
+            self._lines_manual_comment = []
+            self._lines_auto_comment = []
+            self._lines_source = []
+            self._lines_flag = []
+            self._lines_msgctxt_previous = []
+            self._lines_msgid_previous = []
+            self._lines_msgid_plural_previous = []
+            self._lines_msgctxt = []
+            self._lines_msgid = []
+            self._lines_msgid_plural = []
+            self._lines_msgstr = []
 
 
 def _read_lines_and_encoding (file):
@@ -97,7 +98,8 @@ def _read_lines_and_encoding (file):
     return enclines, enc
 
 
-def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
+def _parse_po_file (file, MessageType=MessageMonitored,
+                    headonly=False, lcache=True):
 
     if isinstance(file, basestring):
         filename = file
@@ -125,7 +127,7 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
     loc = Namespace()
     loc.lno = 0
     loc.tail = None
-    loc.msg = _MessageDict()
+    loc.msg = _MessageDict(lcache)
     loc.life_context = ctx_modern
     loc.field_context = ctx_none
     loc.age_context = ctx_current
@@ -138,7 +140,7 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
         if loc.field_context == ctx_msgstr:
             messages1.append(loc.msg)
             #print filename, lno - 1
-            loc.msg = _MessageDict()
+            loc.msg = _MessageDict(lcache)
             loc.field_context = ctx_none
             # In header-only mode, the first message read is the header.
             # Compose the tail of this and rest of the lines, and
@@ -309,41 +311,42 @@ def _parse_po_file (file, MessageType=MessageMonitored, headonly=False):
                                      % (filename, lno)
 
         # Update line caches.
-        loc.msg._lines_all.append(line_raw)
-        if 0: pass
-        elif line_raw.startswith("#:"):
-            loc.msg._lines_source.append(line_raw)
-        elif line_raw.startswith("#,"):
-            loc.msg._lines_flag.append(line_raw)
-        elif line_raw.startswith("#."):
-            loc.msg._lines_auto_comment.append(line_raw)
-        elif line_raw.startswith("#") and line_raw[1:2] not in ("~", "|"):
-            loc.msg._lines_manual_comment.append(line_raw)
-        elif loc.age_context == ctx_previous:
-            if loc.field_context == ctx_msgctxt:
-                loc.msg._lines_msgctxt_previous.append(line_raw)
-            elif loc.field_context == ctx_msgid:
-                loc.msg._lines_msgid_previous.append(line_raw)
-            elif loc.field_context == ctx_msgid_plural:
-                loc.msg._lines_msgid_plural_previous.append(line_raw)
+        if lcache:
+            loc.msg._lines_all.append(line_raw)
+            if 0: pass
+            elif line_raw.startswith("#:"):
+                loc.msg._lines_source.append(line_raw)
+            elif line_raw.startswith("#,"):
+                loc.msg._lines_flag.append(line_raw)
+            elif line_raw.startswith("#."):
+                loc.msg._lines_auto_comment.append(line_raw)
+            elif line_raw.startswith("#") and line_raw[1:2] not in ("~", "|"):
+                loc.msg._lines_manual_comment.append(line_raw)
+            elif loc.age_context == ctx_previous:
+                if loc.field_context == ctx_msgctxt:
+                    loc.msg._lines_msgctxt_previous.append(line_raw)
+                elif loc.field_context == ctx_msgid:
+                    loc.msg._lines_msgid_previous.append(line_raw)
+                elif loc.field_context == ctx_msgid_plural:
+                    loc.msg._lines_msgid_plural_previous.append(line_raw)
+                else:
+                    raise StandardError, ("internal problem (11) at %s:%d"
+                                          % (filename, lno))
+            elif loc.age_context == ctx_current:
+                if loc.field_context == ctx_msgctxt:
+                    loc.msg._lines_msgctxt.append(line_raw)
+                elif loc.field_context == ctx_msgid:
+                    loc.msg._lines_msgid.append(line_raw)
+                elif loc.field_context == ctx_msgid_plural:
+                    loc.msg._lines_msgid_plural.append(line_raw)
+                elif loc.field_context == ctx_msgstr:
+                    loc.msg._lines_msgstr.append(line_raw)
+                else:
+                    raise StandardError, ("internal problem (12) at %s:%d"
+                                          % (filename, lno))
             else:
-                raise StandardError,   "internal problem (11) at %s:%d" \
-                                     % (filename, lno)
-        elif loc.age_context == ctx_current:
-            if loc.field_context == ctx_msgctxt:
-                loc.msg._lines_msgctxt.append(line_raw)
-            elif loc.field_context == ctx_msgid:
-                loc.msg._lines_msgid.append(line_raw)
-            elif loc.field_context == ctx_msgid_plural:
-                loc.msg._lines_msgid_plural.append(line_raw)
-            elif loc.field_context == ctx_msgstr:
-                loc.msg._lines_msgstr.append(line_raw)
-            else:
-                raise StandardError,   "internal problem (12) at %s:%d" \
-                                     % (filename, lno)
-        else:
-            raise StandardError,   "internal problem (10) at %s:%d" \
-                                 % (filename, lno)
+                raise StandardError, ("internal problem (10) at %s:%d"
+                                      % (filename, lno))
 
     try_finish() # the last message
 
@@ -511,7 +514,7 @@ class Catalog (Monitored):
         # Read messages or create empty catalog.
         if not truncate and (os.path.exists(filename) or readfh):
             file = readfh or filename
-            m, e, t = _parse_po_file(file, message_type, headonly)
+            m, e, t = _parse_po_file(file, message_type, headonly, monitored)
             self._encoding = e
             self._created_from_scratch = False
             if not m[0].msgctxt and not m[0].msgid:

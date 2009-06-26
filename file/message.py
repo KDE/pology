@@ -950,22 +950,7 @@ class MessageUnsafe (Message_base):
         self.refline = init.get("refline", -1)
         self.refentry = init.get("refentry", -1)
 
-        # Line caches.
-        self._lines_all = list(init.get("_lines_all", []))
-        self._lines_manual_comment = list(init.get("_lines_manual_comment", []))
-        self._lines_auto_comment = list(init.get("_lines_auto_comment", []))
-        self._lines_source = list(init.get("_lines_source", []))
-        self._lines_flag = list(init.get("_lines_flag", []))
-        self._lines_msgctxt_previous = \
-            list(init.get("_lines_msgctxt_previous", []))
-        self._lines_msgid_previous = \
-            list(init.get("_lines_msgid_previous", []))
-        self._lines_msgid_plural_previous = \
-            list(init.get("_lines_msgid_plural_previous", []))
-        self._lines_msgctxt = list(init.get("_lines_msgctxt", []))
-        self._lines_msgid = list(init.get("_lines_msgid", []))
-        self._lines_msgid_plural = list(init.get("_lines_msgid_plural", []))
-        self._lines_msgstr = list(init.get("_lines_msgstr", []))
+        # No need to look for line caches, as lines must always be reformatted.
 
 
     def _renew_lines (self, wrapf=wrap_field, force=False):
