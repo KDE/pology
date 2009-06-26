@@ -1770,6 +1770,12 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         cmdline += "--compendium %s " % project.compendium_on_merge
     assert_system(cmdline)
 
+    # If the catalog had only header and no messages,
+    # msgfmt will not write out anything.
+    # In such case, just copy over existing.
+    if not os.path.isfile(tmp_path):
+        shutil.copyfile(catalog_path_mod, tmp_path)
+
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
 
