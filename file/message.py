@@ -931,9 +931,9 @@ class MessageUnsafe (Message_base):
 
         Message_base.__init__(self, object)
 
-        self.manual_comment = init.get("manual_comment", [])[:]
-        self.auto_comment = init.get("auto_comment", [])[:]
-        self.source = init.get("source", [])[:]
+        self.manual_comment = list(init.get("manual_comment", []))
+        self.auto_comment = list(init.get("auto_comment", []))
+        self.source = [tuple(x) for x in init.get("source", [])]
         self.flag = set(init.get("flag", []))
 
         self.obsolete = init.get("obsolete", False)
@@ -945,25 +945,27 @@ class MessageUnsafe (Message_base):
         self.msgctxt = init.get("msgctxt", None)
         self.msgid = init.get("msgid", u"")
         self.msgid_plural = init.get("msgid_plural", None)
-        self.msgstr = init.get("msgstr", [u""])[:]
+        self.msgstr = list(init.get("msgstr", [u""]))
 
         self.refline = init.get("refline", -1)
         self.refentry = init.get("refentry", -1)
 
         # Line caches.
-        self._lines_all = init.get("_lines_all", [])[:]
-        self._lines_manual_comment = init.get("_lines_manual_comment", [])[:]
-        self._lines_auto_comment = init.get("_lines_auto_comment", [])[:]
-        self._lines_source = init.get("_lines_source", [])[:]
-        self._lines_flag = init.get("_lines_flag", [])[:]
-        self._lines_msgctxt_previous = init.get("_lines_msgctxt_previous", [])[:]
-        self._lines_msgid_previous = init.get("_lines_msgid_previous", [])[:]
+        self._lines_all = list(init.get("_lines_all", []))
+        self._lines_manual_comment = list(init.get("_lines_manual_comment", []))
+        self._lines_auto_comment = list(init.get("_lines_auto_comment", []))
+        self._lines_source = list(init.get("_lines_source", []))
+        self._lines_flag = list(init.get("_lines_flag", []))
+        self._lines_msgctxt_previous = \
+            list(init.get("_lines_msgctxt_previous", []))
+        self._lines_msgid_previous = \
+            list(init.get("_lines_msgid_previous", []))
         self._lines_msgid_plural_previous = \
-            init.get("_lines_msgid_plural_previous", [])[:]
-        self._lines_msgctxt = init.get("_lines_msgctxt", [])[:]
-        self._lines_msgid = init.get("_lines_msgid", [])[:]
-        self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
-        self._lines_msgstr = init.get("_lines_msgstr", [])[:]
+            list(init.get("_lines_msgid_plural_previous", []))
+        self._lines_msgctxt = list(init.get("_lines_msgctxt", []))
+        self._lines_msgid = list(init.get("_lines_msgid", []))
+        self._lines_msgid_plural = list(init.get("_lines_msgid_plural", []))
+        self._lines_msgstr = list(init.get("_lines_msgstr", []))
 
 
     def _renew_lines (self, wrapf=wrap_field, force=False):
