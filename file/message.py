@@ -479,7 +479,7 @@ class Message_base (object):
                                                     prefix[pstat])
 
         # msgstr must be renewed if the plurality of the message changed.
-        new_plurality = (    self._lines_msgstr
+        new_plurality = (    getattr(self, "_lines_msgstr", [])
                          and (   (    self.msgid_plural is None
                                   and "msgstr[" in self._lines_msgstr[0])
                               or (    self.msgid_plural is not None
@@ -551,7 +551,7 @@ class Message_base (object):
         """
 
         # Renew lines if forced, no lines formed yet, or no modcounter.
-        if force or not self._lines_all or getattr(self, "modcount", True):
+        if force or getattr(self, "modcount", True) or not self._lines_all:
             self._renew_lines(wrapf, force)
 
         return self._lines_all
