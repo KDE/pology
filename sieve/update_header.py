@@ -24,7 +24,8 @@ in the project's section. All the used config fields are:
   - C{[project-*]/team-email}: team's email
   - C{[project-*]/encoding}: encoding of PO files
   - C{[project-*]/plural-forms}: the PO plural header (C{nplurals=...; ...;})
-  - C{[project-*]/generator}: the tool used to translate PO files
+  - C{[project-*]/generator} or C{[user]/generator}: the tool used
+        to translate PO files
 
 Non-default header fields are not touched, except the revision date and
 the last translator which are always updated (including the comment
@@ -84,7 +85,8 @@ class Sieve (object):
         if not self.plforms:
             warning("'plural-forms' not set in project configuration")
         self.lemail = prjcfg.string("team-email") # ok not to be present
-        self.generator = prjcfg.string("generator") # ok not to be present
+        self.generator = (   prjcfg.string("generator")
+                          or usrcfg.string("generator")) # ok not to be present
 
 
     def process_header (self, hdr, cat):
