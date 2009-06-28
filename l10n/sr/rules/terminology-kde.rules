@@ -900,6 +900,7 @@ valid msgstr="\bвиртуелн\w+ површ(?!ин)"
 id="wallpaper"
 hint="wallpaper = тапет"
 valid msgstr="\bтапет"
+valid msgstr="&\w*wallpaper\S*;"
 
 {\bweb(\w+|\b)}i
 id="web"
