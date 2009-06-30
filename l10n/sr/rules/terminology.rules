@@ -408,6 +408,7 @@ hint="server = сервер"
 valid after="proxy "
 valid msgstr="\bсервер"
 valid cat="nepomuk" msgid="^Nepomuk Server -" !msgstr=" [-—]"
+valid cat="libplasmaweather" msgstr="метеосервер"
 
 {\bshortcut}i
 id="shortcut"
