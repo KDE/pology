@@ -325,7 +325,8 @@ valid before="fond"
 hint="En deux mots, c'est mieux (dela -> de la)"
 
 [digital] 
-valid before=" CDE" 
+valid before=" CDE"
+valid before="podcast" 
 valid after="Compact Disc " before=" Audio"
 valid after="@"
 valid after="[Ee]mpreinte " 

@@ -229,7 +229,7 @@ hint="Mettre une espace avant et une espace insécable après"
 
 [`]
 valid cat="amarok" after="prefix"
-valid cat="amarok" before="kde-config"
+valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
@@ -280,7 +280,7 @@ valid after="="
 valid after="=\S+" # HTML
 valid msgid="DOCTYPE HTML PUBLIC "
 valid cat="amarok" after="install"
-valid cat="amarok" before="make install"
+valid cat="amarok" before="make (un)?install"
 valid cat="kioclient" before="Mount"
 valid cat="kioclient" after="default"
 valid cat="kspread"
