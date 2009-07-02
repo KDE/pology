@@ -1394,7 +1394,10 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
         for summit_cat in summit_cats:
             if branch_msg_lkp in summit_cat:
                 summit_msg = summit_cat[branch_msg_lkp]
-                break
+                if summit_msg.obsolete:
+                    summit_msg = None
+                else:
+                    break
 
         if summit_msg is not None:
             if summit_msg.translated:
