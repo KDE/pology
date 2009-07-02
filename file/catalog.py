@@ -560,6 +560,11 @@ class Catalog (Monitored):
         # None means the language has not been determined.
         self._lang = None
 
+        # Cached environments.
+        # None means the environments have not been determined,
+        # empty means there are none.
+        self._envs = None
+
         # Cached accelerator markers.
         # None means the accelerator markers have not been determined,
         # empty means there are none.
@@ -1558,8 +1563,9 @@ class Catalog (Monitored):
         The header fields are tried in this order: C{Text-Markup},
         C{X-Text-Markup}.
         In each field, several markup types can be stated as
-        comma-separated list, or there may be several fields;
-        the union of all parsed types is reported.
+        comma-separated list.
+        If there are several fields, it is undefined from whic one
+        the markups are collected.
 
         If empty set is returned, it was determined that there is
         no markup in the catalog;
@@ -1594,13 +1600,10 @@ class Catalog (Monitored):
             "Text-Markup",
             "X-Text-Markup",
         ):
-            fields = self._header.select_fields(fname)
-            for fname, fval in fields:
-                if mtypes is None:
-                    mtypes = set()
-                mtypes.update([x.strip().lower() for x in fval.split(",")])
-        if mtypes:
-            mtypes.discard("")
+            fval = self._header.get_field_value(fname)
+            if fval is not None:
+                mtypes = set([x.strip().lower() for x in fval.split(",")])
+                mtypes.discard("")
 
         # Skip analyzing messages if not necessary or not requested.
         if mtypes is not None or not bymsgs:
@@ -1700,6 +1703,98 @@ class Catalog (Monitored):
             self._lang = unicode(lang)
         else:
             self._lang = None
+
+
+    def environment (self):
+        """
+        Report environments which the catalog is part of.
+
+        Sometimes the language alone is not enough to determine all
+        the non-technical aspects of translation.
+        For example, in a given language but different translation domains,
+        one translator may decide to use one of the two synonyms naming a
+        concept, and the other translator the other synonym.
+        I{Environments} are a way to specify such sets of choices,
+        so that automatic tools (e.g. terminology checker) can
+        detect how to process a given catalog.
+
+        An environment can represent anything.
+        It may be a single translator, who applies own set of choices
+        to all the catalogs under own maintenance;
+        it may be a translation project, with many cooperating translators;
+        and so on.
+        Each environment is named by an alphanumeric keyword
+        (such as normalized project name, translator's name, etc.),
+        and should be unique within a given language.
+
+        Environments are read from one of the following header fieldsE{:}
+        C{Environment}, C{X-Environment}.
+        The value the field should be comma-separated list of
+        environment keywords.
+        If there are several environment fields, it is undefined
+        from which the environments are read.
+
+        If more than one environment is stated, then wherever the conventions
+        of two environments conflict, the environment mentioned later
+        in the list should take precedence.
+        For example, environment list such as C{"footp, jdoe"}
+        would mean to apply conventions of FOO translation project,
+        ammended by that of translator Johnas Doemann.
+
+        It there is no environment header field, C{None} is reported.
+        Empty list is reported if such field exists, but its value is empty.
+
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes (most probably not).
+        if you want to set environments after the catalog has been
+        opened, use L{set_environment} method.
+
+        @returns: environment keywords
+        @rtype: list of strings or C{None}
+        """
+
+        # Check if environment types have been already determined.
+        if self._envs is not None:
+            return self._envs
+
+        envs = None
+
+        # Check the fields which may contain environment keywords.
+        for fname in (
+            "Environment",
+            "X-Environment",
+        ):
+            fval = self._header.get_field_value(fname)
+            if fval is not None:
+                envs = [x.strip().lower() for x in fval.split(",")]
+                while "" in envs:
+                    envs.remove("")
+                break
+
+        self._envs = envs
+        return envs
+
+
+    def set_environment (self, envs):
+        """
+        Set environemnts which the catalog is part of.
+
+        Environments set by this method will later be readable by
+        the L{environment} method. This will not modify the catalog header
+        in any way; if that is desired, it must be done manually by
+        manipulating the header fields.
+
+        If C{envs} is given as C{None}, it means that the environments
+        are undetermined; if empty, the catalog belongs to no environment.
+
+        @param envs: environment keywords
+        @type envs: sequence of strings or C{None}
+        """
+
+        if envs is not None:
+            self._envs = set([x.lower() for x in envs])
+        else:
+            self._envs = None
 
 
     def messages_by_source (self):
