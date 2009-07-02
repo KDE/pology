@@ -225,13 +225,13 @@ Rule Environments
 When there are no C{environment} directives in a rule file, either global or
 as subdirectives, then all rules loaded from it are considered as being
 environment-agnostic. This comes into picture when applying a rule, using
-L{Rule.process} method, which may take an "operating environment" as argument.
-If the operating environment is given and the rule is environment-agnostic,
-it will try to fail or pass the message ignoring the operating environment.
+L{Rule.process} method, which may take I{operating environments} as argument.
+If operating environments are given and the rule is environment-agnostic,
+it will operate on the message ignoring those environments.
 However, if there was an C{environment} directive in the file which covered
-the rule, i.e. the rule itself is now environment-specific, then it will try
-to fail the message only if its environment matches the operating environment,
-and otherwise it will pass it unconditionally.
+the rule, i.e. the rule itself is environment-specific, then it will operate
+on the message only if its environment matches one of the operating
+environments, and otherwise it will pass the message unconditionally.
 
 Rule environments are used to control application of rules between
 diverse translation environments, where some rules may be common, some
@@ -246,8 +246,8 @@ Sometimes it may be organizationally convenient to keep in a single file
 rules from different environments, but still similar in some way;
 then the environment can either be switched by a global directive in the middle
 of the file, or rules may be given their own environment directives.
-At other times, the rules are wholly similar, needing only a C{valid}
-subdirective or two different across environments; then the C{valid}
+At other times, the rules are wholly similar, needing only one or few C{valid}
+subdirectives different across environments; then the C{valid}
 directives for specific environments may be started with the C{env} test.
 
 When mixing environment-agnostic and environment-specific rules, the rule
@@ -255,15 +255,17 @@ identifier, given by C{id} property subdirective, plays a special role.
 If an environment-specific rule has the same identifier as
 an environment-agnostic rule, and the operating environment is same as
 that of the environment-specific rule, than L{loadRules} will "shadow"
-the environment-agnostic rule, excluding it from its returned list of rules.
+the environment-agnostic rule, excluding it from its returned list of rules
+(if several environments are loaded, the last environment's, as given by
+the parameter C{envs}, rule with same identifier takes precedence).
 This is used when there is a rule common to most translation environments,
 except for one or few outliers -- the outliers' rule and the common rule
 to be shadowed should be given same identifiers.
 
 The L{check-rules<sieve.check_rules>} sieve has the C{env} parameter to
-specify the operating environment, when it will apply the rules according
-to previous passages. This means that if the operating environment
-is not specified, from sieve user's point of view all environment-specific
+specify the operating environments, when it will apply the rules according
+to previous passages. This means that if operating environments
+are not specified, from sieve's point of view all environment-specific
 rules are simply ignored.
 
 Message Filtering
@@ -559,12 +561,12 @@ def printStat(rules, nmatch):
                % (totTimeMsg*1000))
 
 
-def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
+def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
     """Load rules for a given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
-    @param env: also load rules applicable in this environment
-    @param envOnly: load only rules applicable in the given environment
+    @param envs: also load rules applicable in these environments
+    @param envOnly: load only rules applicable in given environments
     @param ruleFiles: a list of rule files to load instead of internal
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
@@ -604,33 +606,41 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
     
     seenMsgFilters = {}
     for ruleFile in ruleFiles:
-        rules.extend(loadRulesFromFile(ruleFile, stat, env, seenMsgFilters))
+        rules.extend(loadRulesFromFile(ruleFile, stat, set(envs), seenMsgFilters))
 
-    # Remove rules with specific but different to given environment,
-    # or any rule not in given environment in environment-only mode.
+    # Remove rules with specific but different to given environments,
+    # or any rule not in given environments in environment-only mode.
     # FIXME: This should be moved to loadRulesFromFile.
     srules=[]
     for rule in rules:
-        if envOnly and rule.environ!=env:
+        if envOnly and rule.environ not in envs:
             continue
-        elif rule.environ and rule.environ!=env:
+        elif rule.environ and rule.environ not in envs:
             continue
         srules.append(rule)
     rules=srules
 
-    # When operating in a specific environment, for two rules with
-    # same identifiers consider that the one in operating environment
-    # overrides the one in different or non-specific environment.
-    if env:
-        identsThisEnv=set()
+    # When operating in specific environments, for rules with
+    # equal identifiers eliminate all but the one in the last environment.
+    if envs:
+        envsByIdent={}
         for rule in rules:
-            if rule.ident and rule.environ==env:
-                identsThisEnv.add(rule.ident)
+            if rule.ident:
+                if rule.ident not in envsByIdent:
+                    envsByIdent[rule.ident]=set()
+                envsByIdent[rule.ident].add(rule.environ)
         srules=[]
         for rule in rules:
-            if rule.ident and rule.environ!=env and rule.ident in identsThisEnv:
-                continue
-            srules.append(rule)
+            eliminate=False
+            if rule.ident and len(envsByIdent[rule.ident])>1:
+                iEnv=((rule.environ is None and -1) or envs.index(rule.environ))
+                for env in envsByIdent[rule.ident]:
+                    iEnvOther=((env is None and -1) or envs.index(env))
+                    if iEnv<iEnvOther:
+                        eliminate=True
+                        break
+            if not eliminate:
+                srules.append(rule)
         rules=srules
 
     return rules
@@ -638,11 +648,11 @@ def loadRules(lang, stat, env=None, envOnly=False, ruleFiles=None):
 
 _rule_start = "*"
 
-def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
+def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
-    @param env: environment in which the rules are to be applied
+    @param envs: environments in which the rules are to be applied
     @param seenMsgFilters: dictionary of previously encountered message
         filter functions, by their signatures; to avoid constructing
         same filters over different files
@@ -859,13 +869,13 @@ def loadRulesFromFile(filePath, stat, env=None, seenMsgFilters={}):
                         totFunc, totSig = _msgFilterSetOnParts(msgParts, func, sig)
                         currentMsgFilters.append([handles, fenvs, totFunc, totSig])
                     ruleParts = set(parts).difference(_filterKnownMsgParts)
-                    if ruleParts and (env is None or env in fenvs):
+                    if ruleParts and (not envs or envs.intersection(fenvs)):
                         totFunc, totSig = _ruleFilterSetOnParts(ruleParts, func, sig)
                         currentRuleFilters.append([handles, fenvs, totFunc, totSig])
 
                 elif fields[0][0] == ("removeFilter"):
                     _filterRemove(fields[1:],
-                                  (currentMsgFilters, currentRuleFilters), env)
+                                  (currentMsgFilters, currentRuleFilters), envs)
 
                 else: # remove all filters
                     if len(fields) != 1:
@@ -946,7 +956,7 @@ def _includeFile (fields, includingFilePath):
     return lines, filePath, 0
 
 
-def _filterRemove (fields, filterLists, env):
+def _filterRemove (fields, filterLists, envs):
 
     _checkFields("removeFilter", fields, ["handle", "env"], ["handle"])
     fieldDict = dict(fields)
@@ -956,9 +966,9 @@ def _filterRemove (fields, filterLists, env):
     fenvStr = fieldDict.get("env")
     if fenvStr is not None:
         fenvs = [x.strip() for x in fenvStr.split(",")]
-        if not env or env not in fenvs:
-            # We are operating in no environment, or operating environment
-            # is not listed among the selected; skip removal.
+        if not envs or not envs.intersection(fenvs):
+            # We are operating in no environment, or no operating environment
+            # is listed among the selected; skip removal.
             return
 
     handles = set([x.strip() for x in handleStr.split(",")])
@@ -1060,11 +1070,11 @@ def _msgFilterComposeFinal (filterList):
 
     fenvs_funcs = [(x[1], x[2]) for x in filterList]
 
-    def composition (msg, cat, env):
+    def composition (msg, cat, envs):
 
         for fenvs, func in fenvs_funcs:
-            # Apply filter if environment-agnostic or in operating environment.
-            if fenvs is None or env in fenvs:
+            # Apply filter if environment-agnostic or in an operating environment.
+            if fenvs is None or envs.intersection(fenvs):
                 func(msg, cat)
 
     return composition
@@ -1359,11 +1369,11 @@ class Rule(object):
         @param environ: environment in which the rule applies
         @type environ: string or C{None}
         @param mfilter: filter to apply to message before checking
-        @type mfilter: (msg, cat, env) -> <anything>
+        @type mfilter: (msg, cat, envs) -> <anything>
         @param rfilter: filter to apply to rule strings (e.g. on regex patterns)
         @type rfilter: (string) -> string
         @param trigger: function to act as trigger instead of C{pattern} applied to C{msgpart}
-        @type trigger: (msg, cat, env) -> L{highlight<misc.msgreport.report_msg_content>}
+        @type trigger: (msg, cat, envs) -> L{highlight<misc.msgreport.report_msg_content>}
         """
 
         # Define instance variable
@@ -1422,7 +1432,7 @@ class Rule(object):
         Use trigger function instead of pattern.
 
         @param trigger: function to act as trigger
-        @type trigger: (msg, cat, env) -> {highlight<misc.msgreport.report_msg_content>}
+        @type trigger: (msg, cat, envs) -> {highlight<misc.msgreport.report_msg_content>}
         """
         self.trigger=trigger
         self.pattern=None # invalidate any pattern
@@ -1467,7 +1477,7 @@ class Rule(object):
                 continue
 
     #@timed_out(TIMEOUT)
-    def process (self, msg, cat, env=None, nofilter=False):
+    def process (self, msg, cat, envs=set(), nofilter=False):
         """
         Apply rule to the message.
 
@@ -1484,8 +1494,8 @@ class Rule(object):
         @type msg: instance of L{Message_base}
         @param cat: catalog to which the message belongs
         @type cat: L{Catalog}
-        @param env: environment in which the rule is applied
-        @type env: string
+        @param envs: environments in which the rule is applied
+        @type envs: set
         @param nofilter: avoid filtering the message if C{True}
         @type nofilter: bool
 
@@ -1497,9 +1507,9 @@ class Rule(object):
             return []
 
         # If this rule belongs to a specific environment,
-        # and the operating environment is different from it,
+        # and it is not among operating environments,
         # cancel the rule immediately.
-        if self.environ and env != self.environ:
+        if self.environ and self.environ not in envs:
             return []
 
         # Cancel immediately if the rule is disabled.
@@ -1511,12 +1521,12 @@ class Rule(object):
 
         # Apply own filters to the message if not filtered already.
         if not nofilter:
-            msg = self._filter_message(msg, cat, env)
+            msg = self._filter_message(msg, cat, envs)
 
         if self.pattern:
-            failed_spans = self._processWithPattern(msg, cat, env)
+            failed_spans = self._processWithPattern(msg, cat, envs)
         else:
-            failed_spans = self._processWithTrigger(msg, cat, env)
+            failed_spans = self._processWithTrigger(msg, cat, envs)
 
         # Update stats for matched rules.
         self.count += 1
@@ -1556,7 +1566,7 @@ class Rule(object):
         return text_spec
 
 
-    def _processWithPattern (self, msg, cat, env):
+    def _processWithPattern (self, msg, cat, envs):
 
         text_spec = self._create_text_spec(self.msgpart, msg)
 
@@ -1576,7 +1586,7 @@ class Rule(object):
                 for entry in self.valid:
                     if self._is_valid(pmatch.group(0),
                                       pmatch.start(), pmatch.end(),
-                                      text, entry, msg, cat, env):
+                                      text, entry, msg, cat, envs):
                         cancel = True
                         break
                 if not cancel:
@@ -1589,7 +1599,7 @@ class Rule(object):
         return failed_spans.values()
 
 
-    def _processWithTrigger (self, msg, cat, env):
+    def _processWithTrigger (self, msg, cat, envs):
 
         # Apply trigger.
         possibly_failed_spans = self.trigger(msg, cat)
@@ -1613,7 +1623,7 @@ class Rule(object):
                 cancel = False
                 for entry in self.valid:
                     if self._is_valid(pmatch, mstart, mend,
-                                      ftext, entry, msg, cat, env):
+                                      ftext, entry, msg, cat, envs):
                         cancel = True
                         break
                 if not cancel:
@@ -1626,17 +1636,17 @@ class Rule(object):
         return failed_spans.values()
 
 
-    def _filter_message (self, msg, cat, env):
+    def _filter_message (self, msg, cat, envs):
 
         fmsg = msg
         if self.mfilter is not None:
             fmsg = MessageUnsafe(msg)
-            self.mfilter(fmsg, cat, env)
+            self.mfilter(fmsg, cat, envs)
 
         return fmsg
 
 
-    def _is_valid (self, match, mstart, mend, text, ventry, msg, cat, env):
+    def _is_valid (self, match, mstart, mend, text, ventry, msg, cat, envs):
 
         # All keys within a validity entry must match for the
         # entry to match as whole.
@@ -1649,7 +1659,7 @@ class Rule(object):
                 invert = True
 
             if bkey == "env":
-                match = env in value
+                match = envs.intersection(value)
                 if invert: match = not match
                 if not match:
                     valid = False

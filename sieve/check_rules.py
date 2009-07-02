@@ -15,10 +15,10 @@ rules and create rule files in the L{misc.rules} module documentation.
 
 The sieve parameters are:
    - C{lang:<language>}: language for which to fetch and apply the rules
-   - C{env:<environment>}: specific environment within the given language;
-        if not given, only environment-agnostic rules are applied
-   - C{envonly}: when a specific environment is given, apply only the rules
-        explicitly belonging to it (ignoring environment-agnostic ones)
+   - C{env:<environment>}: comma-separated list of specific environments
+        within the given language for which to apply the rules
+   - C{envonly}: when specific environments are given, apply only the rules
+        explicitly belonging to them (ignoring environment-agnostic ones)
    - C{rule:<ruleid>}: comma-separated list of specific rules to apply,
         by their identifiers; also enables any disabled rule among the selected
    - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
@@ -39,6 +39,14 @@ does nothing, it is only forced on catalogs (overriding what their headers
 state, if anything) such that filter and validation hooks can properly
 process messages. See documentation to L{rules<misc.rules>} for setting
 up these in rule files.
+
+If language and environment are not given by C{lang} and C{env} parameters,
+the sieve will try to read them from each catalog in turn.
+See catalog L{language()<file.catalog.Catalog.language>} and
+L{environment()<file.catalog.Catalog.environment>} methods for the ways
+these can be specified in catalog header.
+If in the end no environment is selected, only environment-agnostic rules
+are applied.
 
 Certain rules may be selectively disabled on a given message, by listing
 their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
@@ -85,11 +93,14 @@ def setup_sieve (p):
     "Load rules for this language "
     "(if not given, a language is automatically guessed)."
     )
-    p.add_param("env", unicode,
+    p.add_param("env", unicode, seplist=True,
                 metavar="CODE",
                 desc=
-    "Load rules for this environment within language "
-    "(if not given, only environment-agnostic rules are loaded)."
+    "Load rules for this environment within language. "
+    "If not given, environments may be read from the catalog header. "
+    "If no environment is given or found, only environment-agnostic rules "
+    "are loaded. "
+    "Several environments can be given as comma-separated list."
     )
     p.add_param("stat", bool, defval=False,
                 desc=
@@ -164,99 +175,21 @@ class Sieve (object):
         self.filename=""     # File name we are processing
         self.cached=False    # Flag to indicate if process result is already is cache
 
-        lang=params.lang
-
-        self.env=params.env
-        envOnly=params.envonly
-        if envOnly and params.env is None:
-            warning("'envonly' parameter has no effect when 'env' not given")
+        self.globalLang=params.lang
+        self.globalEnvs=params.env
+        self.envOnly=params.envonly
+        self.customRuleFiles=params.rfile
+        self._rulesCache={}
 
         self.accels=params.accel
         self.markup=params.markup
 
-        stat=params.stat
+        self.ruleChoice=params.rule
+        self.ruleChoiceRx=params.rulerx
+
+        self.stat=params.stat
         self.showfmsg=params.showfmsg
         self.showmsg=params.showmsg
-
-        # Load rules
-        customRuleFiles=params.rfile
-        self.rules=loadRules(lang, stat, self.env, envOnly, customRuleFiles)
-
-        # Perhaps retain only those rules explicitly requested
-        # in the command line, by their identifiers.
-        selectedRules=[]
-        selectedRulesRx=[]
-        srules=[]
-        if params.rule:
-            selectedRules=set([x.strip() for x in params.rule])
-            foundRules=set()
-            for rule in self.rules:
-                if rule.ident in selectedRules:
-                    srules.append(rule)
-                    foundRules.add(rule.ident)
-                    rule.disabled = False
-            if foundRules!=selectedRules:
-                missingRules=list(selectedRules-foundRules)
-                missingRules.sort()
-                error("some explicitly selected rules are missing: %s"
-                      % ", ".join(missingRules))
-            selectedRules=list(selectedRules)
-            selectedRules.sort()
-        if params.rulerx:
-            foundRulesRx=set()
-            identRxs=[re.compile(x, re.U) for x in params.rulerx]
-            for rule in self.rules:
-                if (    rule.ident
-                    and reduce(lambda s, x: s and x.search(rule.ident),
-                               identRxs, True)
-                ):
-                    srules.append(rule)
-                    foundRulesRx.add(rule.ident)
-            selectedRulesRx=list(foundRulesRx)
-            selectedRulesRx.sort()
-        if params.rule or params.rulerx:
-            self.rules=srules
-
-        if len(self.rules)==0:
-            warning("No rule loaded or selected. Exiting")
-            sys.exit(1)
-
-        ntot=len(self.rules)
-        ndis=len([x for x in self.rules if x.disabled])
-        nact=ntot-ndis
-        if ndis and self.env:
-            if envOnly:
-                report("Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis))
-            else:
-                report("Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, self.env, nact, ndis))
-        elif ndis:
-            report("Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis))
-        elif self.env:
-            if envOnly:
-                report("Loaded %s rules [only %s]" % (ntot, self.env))
-            else:
-                report("Loaded %s rules [%s]" % (ntot, self.env))
-        else:
-            report("Loaded %s rules" % (ntot))
-
-        if selectedRules:
-            report("(explicitly selected: %s)" % ", ".join(selectedRules))
-        if selectedRulesRx:
-            n = len(selectedRulesRx)
-            if n <= 5:
-                report("(selected by regular expression: %s)"
-                       % ", ".join(selectedRulesRx))
-            else:
-                report("(selected by regular expression: [%d rules])" % n)
-
-        # Collect all distinct filters from rules.
-        self.ruleFilters=set()
-        for rule in self.rules:
-            if not rule.disabled:
-                self.ruleFilters.add(rule.mfilter)
-        nflt = len([x for x in self.ruleFilters if x is not None])
-        if nflt:
-            report("Active rules define %s distinct filter sets" % nflt)
 
         # Also output in XML file ?
         if params.xml:
@@ -292,6 +225,14 @@ class Sieve (object):
         # Force explicitly given markup.
         if self.markup is not None:
             cat.set_markup(self.markup)
+
+        # Choose (possibly loading) appropriate rules for this catalog.
+        self.lang = self.globalLang or cat.language()
+        self.envs = self.globalEnvs or cat.environment() or []
+        rkey = (self.lang, tuple(self.envs))
+        if rkey not in self._rulesCache:
+            self._rulesCache[rkey] = self._loadRules(self.lang, self.envs)
+        self.rules, self.ruleFilters = self._rulesCache[rkey]
 
 
     def process (self, msg, cat):
@@ -358,11 +299,12 @@ class Sieve (object):
         locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
 
         # Prepare filtered messages for checking.
+        envSet=set(self.envs)
         msgByFilter={}
         for mfilter in self.ruleFilters:
             if mfilter is not None:
                 msgf=MessageUnsafe(msg)
-                mfilter(msgf, cat, self.env)
+                mfilter(msgf, cat, envSet)
             else:
                 msgf=msg
             msgByFilter[mfilter]=msgf
@@ -371,13 +313,13 @@ class Sieve (object):
         for rule in self.rules:
             if rule.disabled:
                 continue
-            if rule.environ and rule.environ!=self.env:
+            if rule.environ and rule.environ not in envSet:
                 continue
             if rule.ident in locally_ignored:
                 continue
             msgf = msgByFilter[rule.mfilter]
             try:
-                spans=rule.process(msgf, cat, env=self.env, nofilter=True)
+                spans=rule.process(msgf, cat, envs=envSet, nofilter=True)
             except TimedOutException:
                 warning("Rule %s timed out. Skipping." % rule.rawPattern)
                 continue
@@ -413,4 +355,86 @@ class Sieve (object):
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
         printStat(self.rules, self.nmatch)
+
+
+    def _loadRules (self, lang, envs):
+
+        # Load rules.
+        rules=loadRules(lang, self.stat, envs,
+                        self.envOnly, self.customRuleFiles)
+
+        # Perhaps retain only those rules explicitly requested
+        # in the command line, by their identifiers.
+        selectedRules=[]
+        selectedRulesRx=[]
+        srules=[]
+        if self.ruleChoice:
+            selectedRules=set([x.strip() for x in self.ruleChoice])
+            foundRules=set()
+            for rule in rules:
+                if rule.ident in selectedRules:
+                    srules.append(rule)
+                    foundRules.add(rule.ident)
+                    rule.disabled = False
+            if foundRules!=selectedRules:
+                missingRules=list(selectedRules-foundRules)
+                missingRules.sort()
+                error("some explicitly selected rules are missing: %s"
+                      % ", ".join(missingRules))
+            selectedRules=list(selectedRules)
+            selectedRules.sort()
+        if self.ruleChoiceRx:
+            foundRulesRx=set()
+            identRxs=[re.compile(x, re.U) for x in self.ruleChoiceRx]
+            for rule in rules:
+                if (    rule.ident
+                    and reduce(lambda s, x: s and x.search(rule.ident),
+                               identRxs, True)
+                ):
+                    srules.append(rule)
+                    foundRulesRx.add(rule.ident)
+            selectedRulesRx=list(foundRulesRx)
+            selectedRulesRx.sort()
+        if self.ruleChoice or self.ruleChoiceRx:
+            rules=srules
+
+        ntot=len(rules)
+        ndis=len([x for x in rules if x.disabled])
+        nact=ntot-ndis
+        envfmt=", ".join(envs)
+        if ndis and envs:
+            if self.envOnly:
+                report("Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, envfmt, nact, ndis))
+            else:
+                report("Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, envfmt, nact, ndis))
+        elif ndis:
+            report("Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis))
+        elif envs:
+            if self.envOnly:
+                report("Loaded %s rules [only %s]" % (ntot, envfmt))
+            else:
+                report("Loaded %s rules [%s]" % (ntot, envfmt))
+        else:
+            report("Loaded %s rules" % (ntot))
+
+        if selectedRules:
+            report("(explicitly selected: %s)" % ", ".join(selectedRules))
+        if selectedRulesRx:
+            n = len(selectedRulesRx)
+            if n <= 5:
+                report("(selected by regular expression: %s)"
+                       % ", ".join(selectedRulesRx))
+            else:
+                report("(selected by regular expression: [%d rules])" % n)
+
+        # Collect all distinct filters from rules.
+        ruleFilters=set()
+        for rule in rules:
+            if not rule.disabled:
+                ruleFilters.add(rule.mfilter)
+        nflt = len([x for x in ruleFilters if x is not None])
+        if nflt:
+            report("Active rules define %s distinct filter sets" % nflt)
+
+        return rules, ruleFilters
 
