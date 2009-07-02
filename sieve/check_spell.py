@@ -8,7 +8,7 @@ to Aspell one by one. Misspelled words can be reported to stdout
 (either verbosely with suggestions, or succinctly as pure list),
 or into a rich XML file with a lot of context information.
 
-Sieve options:
+Sieve parameters:
   - C{lang:<language>}: language of the Aspell dictionary
   - C{enc:<encoding>}: encoding for text sent to Aspell
   - C{var:<variety>}: variety of the Aspell dictionary
@@ -17,7 +17,8 @@ Sieve options:
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
-  - C{env:<environment>}: environment of internal dictionary supplements
+  - C{env:<environment>}: comma-separated list of environments of
+        internal dictionary supplements
   - C{suponly}: do not use default dictionary, only internal supplements
   - C{lokalize}: open catalogs at failed messages in Lokalize
 
@@ -26,12 +27,12 @@ they are extracted, in the following order of priority, from:
 current PO file (language only), user configuration, current system locale
 (language and encoding only).
 
-If accelerator character is not given by C{accel} option, the sieve will try
+If accelerator character is not given by C{accel} parameter, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
-The C{filter} option specifies filter hooks (F1A, F3C) to apply to
+The C{filter} parameter specifies filter hooks (F1A, F3C) to apply to
 msgstr before it is checked. The hooks are found in C{pology.hook}
 and C{pology.l10n.<lang>.hook} modules, and are specified
 as comma-separated list of C{[<lang>:]<name>[/<function>]};
@@ -43,15 +44,19 @@ to default Aspell dictionaries, under C{l10n/<lang>/spell/} directory.
 These contain either the words that should enter the default dictionary
 but have not been added yet, or, more importantly, the words that are
 specific to a given translation environment, i.e. too specific to enter
-the default dictionary. The C{env} option is used to specify the environment
-for which the supplementary word lists are loaded, as a subpath
-C{l10n/<lang>/spell/<env>}: all word lists in that subpath and above
-will be loaded. This means that the word lists are hierarchical, so that
-all-environment lists (loaded even when C{env} option is not given)
-reside directly in C{l10n/<lang>/spell/}, and the more specific ones in
-subdirectories below it.
-The defaul dictionary can be avoided alltogether, and only supplementary
-used instead, by giving the C{suponly} option.
+the default dictionary.
+The C{env} parameter is used to specify one or more environments for which
+word lists are loaded. Each environment is taken to be a subpath within C{l10n/<lang>/spell/<env>}: all word lists in that subpath and
+parent directories will be loaded.
+This means that the word lists are hierarchical, so that all-environment lists (loaded even when C{env} parameter is not given) reside directly in
+C{l10n/<lang>/spell/}, and the more specific ones in subdirectories below it.
+If environment is not given by C{env} parameter, and also not in Pology
+user configuration, the sieve will try to read it from each catalog in turn.
+See L{environment()<file.catalog.Catalog.environment>} method of catalog
+object for the way environments can be specified in catalog header.
+
+The system dictionary can be avoided alltogether, and only supplemental
+word lists used instead, by giving the C{suponly} parameter.
 
 It is possible to selectively disable spell checking for a message,
 or certain words within a message, by adding a special manual comment.
@@ -136,14 +141,9 @@ class Sieve (object):
         if not self.variety:
             self.variety = cfgs.string("variety")
 
-        loc_lang, loc_encoding = locale.getlocale()
-        if not self.lang:
-            self.lang = loc_lang
+        loc_encoding = locale.getlocale()[1]
         if not self.encoding:
             self.encoding = loc_encoding
-
-        if not self.lang:
-            self.lang = "fr" # historical default
         if not self.encoding:
             self.encoding = "UTF-8"
 
@@ -191,10 +191,15 @@ class Sieve (object):
             self.pfilters = zip(freqs, filters)
 
         # Environment for dictionary supplements.
-        self.env = None
-        if "env" in options:
+        self.envs = None
+        if self.envs is None and "env" in options:
             options.accept("env")
-            self.env = options["env"]
+            self.envs = options["env"].split(",")
+        if self.envs is None and cfgs.string("environment") is not None:
+            self.envs = cfgs.string("environment").split(",")
+        if self.envs is None:
+            self.envs = []
+        self.envs = [x.strip() for x in self.envs]
 
         # Use only internal supplemental dictionaries?
         self.suponly = False
@@ -234,14 +239,16 @@ class Sieve (object):
         # Check if the catalog itself states the language, and if yes,
         # create the language-dependent stuff if not already created
         # for this language.
-        clang = cat.language() or self.lang
-        if clang not in self.aspells:
+        clang = self.lang or cat.language() or locale.getlocale()[0] or "fr"
+        cenvs = self.envs or cat.environment() or []
+        ckey = (clang, tuple(cenvs))
+        if ckey not in self.aspells:
             # New language.
             self.aspellOptions["lang"] = str(clang)
 
-            # Get Pology's internal personal dictonary for this language.
-            if clang not in self.personalDicts:
-                self.personalDicts[clang] = None
+            # Get Pology's internal personal dictonary for this langenv.
+            if ckey not in self.personalDicts:
+                self.personalDicts[ckey] = None
                 pd_langs = [clang] # language codes to try
                 # - also try with bare language code,
                 # unless the language came from the PO itself.
@@ -249,12 +256,12 @@ class Sieve (object):
                 if p > 0 and not cat.language():
                     pd_langs.append(clang[:p])
                 for pd_lang in pd_langs:
-                    personalDict = self._get_personal_dict(pd_lang)
+                    personalDict = self._get_personal_dict(pd_lang, cenvs)
                     if personalDict:
-                        self.personalDicts[clang] = personalDict
+                        self.personalDicts[ckey] = personalDict
                         break
-            if self.personalDicts[clang]:
-                self.aspellOptions["personal-path"] = str(self.personalDicts[clang])
+            if self.personalDicts[ckey]:
+                self.aspellOptions["personal-path"] = str(self.personalDicts[ckey])
             else:
                 self.aspellOptions.pop("personal-path", None) # remove previous
 
@@ -262,7 +269,7 @@ class Sieve (object):
                 # Create Aspell object.
                 import pology.external.pyaspell as A
                 try:
-                    self.aspells[clang] = A.Aspell(self.aspellOptions.items())
+                    self.aspells[ckey] = A.Aspell(self.aspellOptions.items())
                 except A.AspellConfigError, e:
                     error("Aspell configuration error:\n"
                           "%s" % e)
@@ -274,14 +281,14 @@ class Sieve (object):
             else:
                 # Create simple internal checker that only checks against
                 # internal supplemental dictionaries.
-                personalDict=self.personalDicts[clang]
+                personalDict=self.personalDicts[ckey]
                 if not personalDict:
                     error("no supplemental dictionaries found for language '%s'"
                           % clang)
-                self.aspells[clang]=_QuasiSpell(personalDict, self.encoding)
+                self.aspells[ckey]=_QuasiSpell(personalDict, self.encoding)
 
             # Load list of contexts by which to ignore messages.
-            self.ignoredContexts[clang] = []
+            self.ignoredContexts[ckey] = []
             ignoredContextFile=join(rootdir(), "l10n", clang, "spell", "ignoredContext")
             if isfile(ignoredContextFile):
                 for line in open(ignoredContextFile, "r", "utf-8"):
@@ -289,11 +296,11 @@ class Sieve (object):
                     if line.startswith("#") or line=="":
                         continue
                     else:
-                        self.ignoredContexts[clang].append(line.lower())
+                        self.ignoredContexts[ckey].append(line.lower())
 
         # Get language-dependent stuff.
-        self.aspell = self.aspells[clang]
-        self.ignoredContext = self.ignoredContexts[clang]
+        self.aspell = self.aspells[ckey]
+        self.ignoredContext = self.ignoredContexts[ckey]
 
         # Force explicitly given accelerators.
         if self.accels is not None:
@@ -415,22 +422,16 @@ class Sieve (object):
         return enc
 
 
-    def _get_personal_dict (self, lang):
+    def _get_personal_dict (self, lang, envs):
         # Collect all personal dictionaries found for given
         # language/environment and composit them into one to pass to Aspell.
 
-        # Collect all applicable dictionaries.
         dictFiles=set()
-        spellRoot=join(rootdir(), "l10n", lang, "spell")
-        spellSub=join(".", (self.env or ""))
-        while spellSub:
-            spellDir=join(spellRoot, spellSub)
-            if isdir(spellDir):
-                for item in os.listdir(spellDir):
-                    if item.endswith(".aspell"):
-                        dictFiles.add(join(spellDir, item))
-            spellSub=dirname(spellSub)
+        for env in (envs or [""]):
+            dictFiles.update(self._get_word_list_files(lang, env))
         dictFiles=list(dictFiles)
+        dictFiles.sort()
+        print "\n".join(dictFiles)
 
         if not dictFiles:
             return None
@@ -450,6 +451,22 @@ class Sieve (object):
         file.writelines([x+"\n" for x in words])
         file.close()
         return tmpDictFile
+
+
+    def _get_word_list_files (self, lang, env):
+        # Collect all applicable dictionaries.
+
+        dictFiles=set()
+        spellRoot=join(rootdir(), "l10n", lang, "spell")
+        spellSub=join(".", (env or ""))
+        while spellSub:
+            spellDir=join(spellRoot, spellSub)
+            if isdir(spellDir):
+                for item in os.listdir(spellDir):
+                    if item.endswith(".aspell"):
+                        dictFiles.add(join(spellDir, item))
+            spellSub=dirname(spellSub)
+        return dictFiles
 
 
 # Read words from an Aspell personal dictionary.

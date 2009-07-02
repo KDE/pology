@@ -13,7 +13,8 @@ verbatim content, which are then fed to the spell-checker one by one.
 Sieve parameters:
   - C{provider:<pkeyword>}: keyword of the spell-checker to use
   - C{lang:<code>}: language code of the spelling dictionary
-  - C{env:<environment>}: environment of internal word lists
+  - C{env:<environment>}: comma-separated list of environments of
+        internal word lists
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{markup:<mkeywords>}: markup types by keywords (comma-separated)
   - C{skip:<regex>}: do not check words which match given regular expression
@@ -56,13 +57,18 @@ These contain either the words that should enter the default dictionary
 but have not been added yet, or, more importantly, the words that are
 specific to a given translation environment, i.e. too specific to enter
 the general dictionary.
-The C{env} parameter is used to specify the environment for which word lists
-are loaded, as a subpath C{l10n/<lang>/spell/<env>}: all word lists in that
-subpath and above will be loaded.
+The C{env} parameter is used to specify one or more environments for which
+word lists are loaded. Each environment is taken to be a subpath within C{l10n/<lang>/spell/<env>}: all word lists in that subpath and
+parent directories will be loaded.
 This means that the word lists are hierarchical, so that all-environment lists (loaded even when C{env} parameter is not given) reside directly in
 C{l10n/<lang>/spell/}, and the more specific ones in subdirectories below it.
-The system dictionary can be avoided alltogether, only supplement word lists
-used instead, by giving the C{suponly} parameter.
+If environment is not given by C{env} parameter, and also not in Pology
+user configuration, the sieve will try to read it from each catalog in turn.
+See L{environment()<file.catalog.Catalog.environment>} method of catalog
+object for the way environments can be specified in catalog header.
+
+The system dictionary can be avoided alltogether, and only supplemental
+word lists used instead, by giving the C{suponly} parameter.
 
 Word list files are in Aspell format, and must have C{.aspell} extension.
 This is a simple plain text format listing one correct word per line,
@@ -102,7 +108,8 @@ list them explicitly, so that all other words are checked.
 The following user configuration fields are considered:
   - C{[enchant]/provider}: spell-checker to use
   - C{[enchant]/language}: language of the spelling dictionary
-  - C{[enchant]/environment}: environment of dictionary supplements
+  - C{[enchant]/environment}: comma-separate list of environments
+        of dictionary supplements
   - C{[enchant]/supplements-only}: use only internal supplement word lists
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
@@ -144,12 +151,16 @@ def setup_sieve (p):
                 metavar="CODE",
                 desc=
     "The language dictionary to use."
+    "If a catalog header specifies language itself, this parameter takes "
+    "precedence over it."
     )
-    p.add_param("env", unicode,
+    p.add_param("env", unicode, seplist=True,
                 metavar="CODE",
                 desc=
-    "Use supplement word lists for this environment within given language "
-    "(if not given, only environment-agnostic supplements are used)."
+    "Use supplement word lists for this environment within given language. "
+    "Pology configuration and catalog headers may also specify environments, "
+    "this parameter takes precedence over them. "
+    "Several environments can be given as comma-separated list."
     )
     p.add_param("accel", unicode, multival=True,
                 metavar="CHAR",
@@ -197,12 +208,14 @@ class Sieve (object):
 
         self.lang = (   params.lang
                      or cfgs.string("language")
-                     or locale.getlocale()[0]
                      or None)
 
-        self.env = (   params.env
-                    or cfgs.string("environment")
-                    or None)
+        self.envs = params.env
+        if self.envs is None and cfgs.string("environment") is not None:
+            self.envs = cfgs.string("environment").split(",")
+        if self.envs is None:
+            self.envs = []
+        self.envs = [x.strip() for x in self.envs]
 
         self.accel = params.accel
 
@@ -223,7 +236,7 @@ class Sieve (object):
         self.suponly = params.suponly
         self.lokalize = params.lokalize
 
-        # Language-dependent elements built along the way.
+        # Langenv-dependent elements built along the way.
         self.checkers = {}
         self.word_lists = {}
 
@@ -239,12 +252,14 @@ class Sieve (object):
 
         # Check if the catalog itself states the language, and if yes,
         # create the language-dependent stuff if not already created
-        # for this language.
-        clang = cat.language() or self.lang
-        if clang not in self.checkers:
-            # Get Pology's internal word list for this language+environment.
+        # for this langenv.
+        clang = self.lang or cat.language() or locale.getlocale()[0] or None
+        cenvs = self.envs or cat.environment() or []
+        ckey = (clang, tuple(cenvs))
+        if ckey not in self.checkers:
+            # Get Pology's internal word list for this langenv.
             if clang not in self.word_lists:
-                self.word_lists[clang] = None
+                self.word_lists[ckey] = None
                 pd_langs = [clang] # language codes to try
                 # - also try with bare language code,
                 # unless the language came from the PO itself.
@@ -252,23 +267,23 @@ class Sieve (object):
                 if p > 0 and not cat.language():
                     pd_langs.append(clang[:p])
                 for pd_lang in pd_langs:
-                    word_list = _compose_word_list(pd_lang, self.env)
+                    word_list = _compose_word_list(pd_lang, cenvs)
                     if word_list:
-                        self.word_lists[clang] = word_list
+                        self.word_lists[ckey] = word_list
                         break
 
             # Create spell-checker object.
             clang_mod = (self.suponly and [None] or [clang])[0]
             checker = _create_checker(self.providers, clang_mod,
-                                      self.word_lists[clang])
+                                      self.word_lists[ckey])
             if not checker:
                 raise StandardError("No spelling dictionary for "
                                     "language '%s' and provider '%s'."
                                     % (clang, self.providers))
-            self.checkers[clang] = checker
+            self.checkers[ckey] = checker
 
         # Get language-dependent stuff.
-        self.checker = self.checkers[clang]
+        self.checker = self.checkers[ckey]
 
         # Force explicitly given accelerators and markup.
         if self.accel is not None:
@@ -372,7 +387,23 @@ def _create_checker (providers, langtag, words):
 
 # Collect words from all internal word lists
 # available for given language+environment.
-def _compose_word_list (lang, env):
+def _compose_word_list (lang, envs):
+
+    # Collect all applicable word list files.
+    wlist_files = set()
+    for env in (envs or [""]):
+        wlist_files.update(_get_word_list_files(lang, env))
+    wlist_files = list(wlist_files)
+    wlist_files.sort()
+
+    # Read words.
+    words = []
+    for wlist_file in wlist_files:
+        words.extend(_read_wlist_aspell(wlist_file))
+    return words
+
+
+def _get_word_list_files (lang, env):
 
     # Collect word list paths.
     wlist_files = set()
@@ -385,13 +416,7 @@ def _compose_word_list (lang, env):
                 if item.endswith(".aspell"):
                     wlist_files.add(os.path.join(spell_dir, item))
         spell_subdir = os.path.dirname(spell_subdir)
-    wlist_files = list(wlist_files)
-
-    # Read words.
-    words = []
-    for wlist_file in wlist_files:
-        words.extend(_read_wlist_aspell(wlist_file))
-    return words
+    return wlist_files
 
 
 # Read words from an Aspell word list.
