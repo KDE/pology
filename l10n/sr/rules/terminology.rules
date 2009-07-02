@@ -8,7 +8,7 @@ include file="puretext.filters"
 id="account"
 hint="account = налог"
 valid before="ing" # рачуновођство
-valid after="take( \w+){,2} into " # „узети у обзир“
+valid after="(takes|taking|took)( \w+){,2} into " # „узети у обзир“
 valid msgstr="\bнало(г|зи)"
 valid cat="khelpcenter_support" msgid="Account-Nr" msgstr="Account-Nr"
 
