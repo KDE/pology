@@ -161,7 +161,7 @@ object --+
           <td><span class="summary-sig"><a href="pology.misc.rules.Rule-class.html#process" class="summary-sig-name">process</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="summary-sig-arg">nofilter</span>=<span class="summary-sig-default">False</span>)</span><br />
       Apply rule to the message.</td>
           <td align="right" valign="top">
@@ -253,9 +253,9 @@ object --+
         <li><strong class="pname"><code>ident</code></strong> (unicode or <code>None</code>) - rule identifier</li>
         <li><strong class="pname"><code>disabled</code></strong> (bool) - whether rule is disabled</li>
         <li><strong class="pname"><code>environ</code></strong> (string or <code>None</code>) - environment in which the rule applies</li>
-        <li><strong class="pname"><code>mfilter</code></strong> ((msg, cat, env) -&gt; &lt;anything&gt;) - filter to apply to message before checking</li>
+        <li><strong class="pname"><code>mfilter</code></strong> ((msg, cat, envs) -&gt; &lt;anything&gt;) - filter to apply to message before checking</li>
         <li><strong class="pname"><code>rfilter</code></strong> ((string) -&gt; string) - filter to apply to rule strings (e.g. on regex patterns)</li>
-        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; <a 
+        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, envs) -&gt; <a 
           href="pology.misc.msgreport-module.html#report_msg_content" 
           class="link">highlight</a>) - function to act as trigger instead of <code>pattern</code> 
           applied to <code>msgpart</code></li>
@@ -309,7 +309,7 @@ object --+
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, env) -&gt; 
+        <li><strong class="pname"><code>trigger</code></strong> ((msg, cat, envs) -&gt; 
           {highlight&lt;misc.msgreport.report_msg_content&gt;}) - function to act as trigger</li>
     </ul></dd>
   </dl>
@@ -349,7 +349,7 @@ object --+
   <h3 class="epydoc"><span class="sig"><span class="sig-name">process</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envs</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="sig-arg">nofilter</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -373,7 +373,7 @@ object --+
           class="link">Message_base</a>) - message to which the texts belong</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - catalog to which the message belongs</li>
-        <li><strong class="pname"><code>env</code></strong> (string) - environment in which the rule is applied</li>
+        <li><strong class="pname"><code>envs</code></strong> (set) - environments in which the rule is applied</li>
         <li><strong class="pname"><code>nofilter</code></strong> (bool) - avoid filtering the message if <code>True</code></li>
     </ul></dd>
     <dt>Returns:</dt>

@@ -71,8 +71,8 @@
       dictionary
     </li>
     <li>
-      <code>env:&lt;environment&gt;</code>: environment of internal word 
-      lists
+      <code>env:&lt;environment&gt;</code>: comma-separated list of 
+      environments of internal word lists
     </li>
     <li>
       <code>accel:&lt;chars&gt;</code>: strip these characters as 
@@ -93,6 +93,9 @@
     <li>
       <code>suponly</code>: do not use system dictionary, only internal 
       supplements
+    </li>
+    <li>
+      <code>lokalize</code>: open catalogs at failed messages in Lokalize
     </li>
   </ul>
   <p>If the spell-checking provider is not given by the 
@@ -133,16 +136,22 @@
   words that should enter the default dictionary but have not been added 
   yet, or, more importantly, the words that are specific to a given 
   translation environment, i.e. too specific to enter the general 
-  dictionary. The <code>env</code> parameter is used to specify the 
-  environment for which word lists are loaded, as a subpath 
-  <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>: all word lists in that 
-  subpath and above will be loaded. This means that the word lists are 
-  hierarchical, so that all-environment lists (loaded even when 
-  <code>env</code> parameter is not given) reside directly in 
-  <code>l10n/&lt;lang&gt;/spell/</code>, and the more specific ones in 
-  subdirectories below it. The system dictionary can be avoided 
-  alltogether, only supplement word lists used instead, by giving the 
-  <code>suponly</code> parameter.</p>
+  dictionary. The <code>env</code> parameter is used to specify one or more
+  environments for which word lists are loaded. Each environment is taken 
+  to be a subpath within <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>: 
+  all word lists in that subpath and parent directories will be loaded. 
+  This means that the word lists are hierarchical, so that all-environment 
+  lists (loaded even when <code>env</code> parameter is not given) reside 
+  directly in <code>l10n/&lt;lang&gt;/spell/</code>, and the more specific 
+  ones in subdirectories below it. If environment is not given by 
+  <code>env</code> parameter, and also not in Pology user configuration, 
+  the sieve will try to read it from each catalog in turn. See <a 
+  href="pology.file.catalog.Catalog-class.html#environment" 
+  class="link">environment()</a> method of catalog object for the way 
+  environments can be specified in catalog header.</p>
+  <p>The system dictionary can be avoided alltogether, and only 
+  supplemental word lists used instead, by giving the <code>suponly</code> 
+  parameter.</p>
   <p>Word list files are in Aspell format, and must have 
   <code>.aspell</code> extension. This is a simple plain text format 
   listing one correct word per line, except for the first line, the header,
@@ -187,8 +196,8 @@
       <code>[enchant]/language</code>: language of the spelling dictionary
     </li>
     <li>
-      <code>[enchant]/environment</code>: environment of dictionary 
-      supplements
+      <code>[enchant]/environment</code>: comma-separate list of 
+      environments of dictionary supplements
     </li>
     <li>
       <code>[enchant]/supplements-only</code>: use only internal supplement

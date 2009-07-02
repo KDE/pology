@@ -324,14 +324,15 @@
     are considered as being environment-agnostic. This comes into picture 
     when applying a rule, using <a 
     href="pology.misc.rules.Rule-class.html#process" 
-    class="link">Rule.process</a> method, which may take an &quot;operating
-    environment&quot; as argument. If the operating environment is given 
-    and the rule is environment-agnostic, it will try to fail or pass the 
-    message ignoring the operating environment. However, if there was an 
+    class="link">Rule.process</a> method, which may take <i>operating 
+    environments</i> as argument. If operating environments are given and 
+    the rule is environment-agnostic, it will operate on the message 
+    ignoring those environments. However, if there was an 
     <code>environment</code> directive in the file which covered the rule, 
-    i.e. the rule itself is now environment-specific, then it will try to 
-    fail the message only if its environment matches the operating 
-    environment, and otherwise it will pass it unconditionally.</p>
+    i.e. the rule itself is environment-specific, then it will operate on 
+    the message only if its environment matches one of the operating 
+    environments, and otherwise it will pass the message 
+    unconditionally.</p>
     <p>Rule environments are used to control application of rules between 
     diverse translation environments, where some rules may be common, some 
     may be somewhat common, and some not common at all. In such a scenario,
@@ -344,9 +345,9 @@
     from different environments, but still similar in some way; then the 
     environment can either be switched by a global directive in the middle 
     of the file, or rules may be given their own environment directives. At
-    other times, the rules are wholly similar, needing only a 
-    <code>valid</code> subdirective or two different across environments; 
-    then the <code>valid</code> directives for specific environments may be
+    other times, the rules are wholly similar, needing only one or few 
+    <code>valid</code> subdirectives different across environments; then 
+    the <code>valid</code> directives for specific environments may be 
     started with the <code>env</code> test.</p>
     <p>When mixing environment-agnostic and environment-specific rules, the
     rule identifier, given by <code>id</code> property subdirective, plays 
@@ -355,15 +356,18 @@
     as that of the environment-specific rule, than <a 
     href="pology.misc.rules-module.html#loadRules" 
     class="link">loadRules</a> will &quot;shadow&quot; the 
-    environment-agnostic rule, excluding it from its returned list of 
-    rules. This is used when there is a rule common to most translation 
-    environments, except for one or few outliers -- the outliers' rule and 
-    the common rule to be shadowed should be given same identifiers.</p>
+    environment-agnostic rule, excluding it from its returned list of rules
+    (if several environments are loaded, the last environment's, as given 
+    by the parameter <code>envs</code>, rule with same identifier takes 
+    precedence). This is used when there is a rule common to most 
+    translation environments, except for one or few outliers -- the 
+    outliers' rule and the common rule to be shadowed should be given same 
+    identifiers.</p>
     <p>The <a href="pology.sieve.check_rules-module.html" 
     class="link">check-rules</a> sieve has the <code>env</code> parameter 
-    to specify the operating environment, when it will apply the rules 
-    according to previous passages. This means that if the operating 
-    environment is not specified, from sieve user's point of view all 
+    to specify the operating environments, when it will apply the rules 
+    according to previous passages. This means that if operating 
+    environments are not specified, from sieve's point of view all 
     environment-specific rules are simply ignored.</p>
   <h1 class="heading">Message Filtering</h1>
     <p>It is frequently advantageous for a set of rules not to act on raw 
@@ -668,7 +672,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>,
         <span class="summary-sig-arg">stat</span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">envOnly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">ruleFiles</span>=<span class="summary-sig-default">None</span>)</span><br />
       Load rules for a given language</td>
@@ -689,7 +693,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.rules-module.html#loadRulesFromFile" class="summary-sig-name">loadRulesFromFile</a>(<span class="summary-sig-arg">filePath</span>,
         <span class="summary-sig-arg">stat</span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="summary-sig-arg">seenMsgFilters</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Load rule file and return list of Rule objects</td>
           <td align="right" valign="top">
@@ -761,7 +765,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>,
         <span class="sig-arg">stat</span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">envOnly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">ruleFiles</span>=<span class="sig-default">None</span>)</span>
   </h3>
@@ -778,8 +782,8 @@
           to autodetect language</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
-        <li><strong class="pname"><code>env</code></strong> - also load rules applicable in this environment</li>
-        <li><strong class="pname"><code>envOnly</code></strong> - load only rules applicable in the given environment</li>
+        <li><strong class="pname"><code>envs</code></strong> - also load rules applicable in these environments</li>
+        <li><strong class="pname"><code>envOnly</code></strong> - load only rules applicable in given environments</li>
         <li><strong class="pname"><code>ruleFiles</code></strong> - a list of rule files to load instead of internal</li>
     </ul></dd>
     <dt>Returns:</dt>
@@ -797,7 +801,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRulesFromFile</span>(<span class="sig-arg">filePath</span>,
         <span class="sig-arg">stat</span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envs</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="sig-arg">seenMsgFilters</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -812,7 +816,7 @@
         <li><strong class="pname"><code>filePath</code></strong> - full path to rule file</li>
         <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
           time execution</li>
-        <li><strong class="pname"><code>env</code></strong> - environment in which the rules are to be applied</li>
+        <li><strong class="pname"><code>envs</code></strong> - environments in which the rules are to be applied</li>
         <li><strong class="pname"><code>seenMsgFilters</code></strong> - dictionary of previously encountered message filter functions, by
           their signatures; to avoid constructing same filters over 
           different files</li>

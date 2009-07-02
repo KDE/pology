@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0xa1211ec&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x9124614&gt;</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -701,6 +701,41 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of strings or <code>None</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#environment" class="summary-sig-name">environment</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Report environments which the catalog is part of.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_environment" class="summary-sig-name">set_environment</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">envs</span>)</span><br />
+      Set environemnts which the catalog is part of.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">[(string, [<a href="pology.file.message.Message_base-class.html" 
       class="link">Message_base</a>])]</span>
     </td><td class="summary">
@@ -813,7 +848,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0xa1211ec&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x9124614&gt;</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -1733,8 +1768,8 @@
   throughout Pology modules to influence behavior on processing.</p>
   <p>The header fields are tried in this order: <code>Text-Markup</code>, 
   <code>X-Text-Markup</code>. In each field, several markup types can be 
-  stated as comma-separated list, or there may be several fields; the union
-  of all parsed types is reported.</p>
+  stated as comma-separated list. If there are several fields, it is 
+  undefined from whic one the markups are collected.</p>
   <p>If empty set is returned, it was determined that there is no markup in
   the catalog; if <code>None</code>, that there is no determination about 
   markup.</p>
@@ -1870,6 +1905,91 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> (string or <code>None</code>) - language code</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="environment"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">environment</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report environments which the catalog is part of.</p>
+  <p>Sometimes the language alone is not enough to determine all the 
+  non-technical aspects of translation. For example, in a given language 
+  but different translation domains, one translator may decide to use one 
+  of the two synonyms naming a concept, and the other translator the other 
+  synonym. <i>Environments</i> are a way to specify such sets of choices, 
+  so that automatic tools (e.g. terminology checker) can detect how to 
+  process a given catalog.</p>
+  <p>An environment can represent anything. It may be a single translator, 
+  who applies own set of choices to all the catalogs under own maintenance;
+  it may be a translation project, with many cooperating translators; and 
+  so on. Each environment is named by an alphanumeric keyword (such as 
+  normalized project name, translator's name, etc.), and should be unique 
+  within a given language.</p>
+  <p>Environments are read from one of the following header fields: 
+  <code>Environment</code>, <code>X-Environment</code>. The value the field
+  should be comma-separated list of environment keywords. If there are 
+  several environment fields, it is undefined from which the environments 
+  are read.</p>
+  <p>If more than one environment is stated, then wherever the conventions 
+  of two environments conflict, the environment mentioned later in the list
+  should take precedence. For example, environment list such as 
+  <code>&quot;footp, jdoe&quot;</code> would mean to apply conventions of 
+  FOO translation project, ammended by that of translator Johnas 
+  Doemann.</p>
+  <p>It there is no environment header field, <code>None</code> is 
+  reported. Empty list is reported if such field exists, but its value is 
+  empty.</p>
+  <p>It is not defined when the header will be examined, or if it will be 
+  reexamined when it changes (most probably not). if you want to set 
+  environments after the catalog has been opened, use <a 
+  href="pology.file.catalog.Catalog-class.html#set_environment" 
+  class="link">set_environment</a> method.</p>
+  <dl class="fields">
+    <dt>Returns: list of strings or <code>None</code></dt>
+        <dd>environment keywords</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_environment"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_environment</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">envs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set environemnts which the catalog is part of.</p>
+  <p>Environments set by this method will later be readable by the <a 
+  href="pology.file.catalog.Catalog-class.html#environment" 
+  class="link">environment</a> method. This will not modify the catalog 
+  header in any way; if that is desired, it must be done manually by 
+  manipulating the header fields.</p>
+  <p>If <code>envs</code> is given as <code>None</code>, it means that the 
+  environments are undetermined; if empty, the catalog belongs to no 
+  environment.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>envs</code></strong> (sequence of strings or <code>None</code>) - environment keywords</li>
     </ul></dd>
   </dl>
 </td></tr></table>

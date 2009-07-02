@@ -70,13 +70,13 @@
       apply the rules
     </li>
     <li>
-      <code>env:&lt;environment&gt;</code>: specific environment within the
-      given language; if not given, only environment-agnostic rules are 
-      applied
+      <code>env:&lt;environment&gt;</code>: comma-separated list of 
+      specific environments within the given language for which to apply 
+      the rules
     </li>
     <li>
-      <code>envonly</code>: when a specific environment is given, apply 
-      only the rules explicitly belonging to it (ignoring 
+      <code>envonly</code>: when specific environments are given, apply 
+      only the rules explicitly belonging to them (ignoring 
       environment-agnostic ones)
     </li>
     <li>
@@ -125,6 +125,15 @@
   properly process messages. See documentation to <a 
   href="pology.misc.rules-module.html" class="link">rules</a> for setting 
   up these in rule files.</p>
+  <p>If language and environment are not given by <code>lang</code> and 
+  <code>env</code> parameters, the sieve will try to read them from each 
+  catalog in turn. See catalog <a 
+  href="pology.file.catalog.Catalog-class.html#language" 
+  class="link">language()</a> and <a 
+  href="pology.file.catalog.Catalog-class.html#environment" 
+  class="link">environment()</a> methods for the ways these can be 
+  specified in catalog header. If in the end no environment is selected, 
+  only environment-agnostic rules are applied.</p>
   <p>Certain rules may be selectively disabled on a given message, by 
   listing their identifiers (<code>id=</code> rule property) in 
   <code>skip-rule:</code> embedded list:</p>
