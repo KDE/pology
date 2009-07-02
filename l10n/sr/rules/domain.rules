@@ -1,0 +1,31 @@
+# Domain-specific checks for translation into Serbian.
+# Serbian KDE translation team <kde-i18n-sr@kde.org>
+# License: GPLv3
+#
+# Notes:
+#
+# - Rule IDs it should start with ds-*.
+#
+# - Environment can be automatically engaged for a given catalog by
+#   adding "X-Rules-Environment: <envname>\n" to its header.
+#
+
+include file="puretext.filters"
+
+# ====================
+# Lokalize (CAT tool)
+environment lokalize
+
+{\b(entr(y|ies)|message|units?\b)}i
+id="ds-entry"
+hint="entry, message, unit = јединица [у датотеци превода или ТМ-у]"
+valid msgstr="једини[цч]"
+valid srcref="glossary"
+valid after="glossary |term "
+valid before=" term"
+
+{\b(entr(y|ies)|items?)\b}i
+id="ds-entry2"
+hint="entry, item = унос [у појмовнику]"
+valid !srcref="glossary" !after="glossary |term " !before=" term"
+valid msgstr="унос"
