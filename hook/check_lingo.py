@@ -10,6 +10,7 @@ Check linguistic, language-dependent correctness of text.
 import os
 import codecs
 import re
+import tempfile
 
 from pology import rootdir
 from pology.misc.report import warning, error
@@ -24,8 +25,8 @@ flag_no_check_spell = "no-check-spell"
 elist_well_spelled = "well-spelled:"
 
 
-def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
-                 env=None, suponly=False, maxsugg=5):
+def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
+                 envs=None, suponly=False, maxsugg=5):
     """
     Check spelling using Aspell [hook factory].
 
@@ -42,10 +43,19 @@ def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
     picked up. Any subdirectories in C{l10n/<lang>/spell/} are considered
     as to contain supplemental dictionaries in special "environments"
     (e.g. jargon, certain projects, etc.), and are not included by default.
-    A certain environment can be included by the C{env} parameter, which
-    is a relative path of subdirectory, i.e. C{l10n/<lang>/spell/<env>}.
-    When environment is selected, all supplemental dictionaries in its
-    directory and all parent directories are included.
+    Such environments can be included by the C{envs} parameter, which
+    is a list of relative paths added to C{l10n/<lang>/spell/} directory.
+    All supplemental dictionaries from such paths are included, as well as
+    from all their parent directories up to C{l10n/<lang>/spell/}
+    (this makes supplemental dictionaries hierarchical, e.g.
+    environment C{foo/bar} is a child of C{foo}, and thus when C{foo/bar}
+    is requested, both its and supplements of C{foo} are used).
+
+    If C{lang} is C{None}, then automatic detection of the language based
+    on the catalog of the message is attempted
+    (see catalog L{language()<file.catalog.Catalog.language>} method).
+    Similar is attempted for environments if C{env} is C{None}
+    (see L{environment()<file.catalog.Catalog.environment>} method).
 
     Aspell's system dictionary can be completely excluded from the check
     by the C{suponly} parameter, when the check will use only internal
@@ -69,8 +79,8 @@ def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
     @type variety: string
     @param extopts: additional options to send to Aspell
     @type extopts: dict
-    @param env: environment for supplemental dictionaries
-    @type env: string
+    @param envs: environments for supplemental dictionaries
+    @type envs: list of strings
     @param suponly: whether to use only supplemental dictionaries
     @type suponly: bool
     @param maxsugg: maximum number of suggestions to show for misspelled word
@@ -81,11 +91,11 @@ def check_spell (lang, encoding="UTF-8", variety=None, extopts={},
     """
 
     return _check_spell_w(lang, encoding, variety, extopts,
-                          env, suponly, maxsugg, False)
+                          envs, suponly, maxsugg, False)
 
 
-def check_spell_sp (lang, encoding="UTF-8", variety=None, extopts={},
-                    env=None, suponly=False, maxsugg=5):
+def check_spell_sp (lang=None, encoding="UTF-8", variety=None, extopts={},
+                    envs=None, suponly=False, maxsugg=5):
     """
     Like L{check_spell}, except that erroneous spans are returned
     instead of reporting problems to stdout [hook factory].
@@ -95,51 +105,14 @@ def check_spell_sp (lang, encoding="UTF-8", variety=None, extopts={},
     """
 
     return _check_spell_w(lang, encoding, variety, extopts,
-                          env, suponly, maxsugg, True)
+                          envs, suponly, maxsugg, True)
 
 
 def _check_spell_w (lang, encoding, variety, extopts,
-                    env, suponly, maxsugg, spanrep):
+                    envs, suponly, maxsugg, spanrep):
     """
     Worker for C{check_spell*} hook factories.
     """
-
-    # Get Pology's internal personal dictonary for this language.
-    dictpath, temporary = _compose_personal_dict(lang, env)
-
-    if not suponly:
-        # Prepare Aspell options.
-        aopts = {}
-        aopts["lang"] = lang
-        aopts["encoding"] = encoding
-        if variety:
-            aopts["variety"] = variety
-        if dictpath:
-            aopts["personal-path"] = dictpath
-        if extopts:
-            aopts.update(extopts)
-
-        aopts = dict([(x, y.encode(encoding)) for x, y in aopts.items()])
-
-        # Create Aspell object.
-        import pology.external.pyaspell as A
-        try:
-            checker = A.Aspell(aopts.items())
-        except A.AspellConfigError, e:
-            error("Aspell configuration error:\n%s" % e)
-        except A.AspellError, e:
-            error("cannot initialize Aspell:\n%s" % e)
-    else:
-        # Create simple internal checker that only checks against
-        # internal supplemental dictionaries.
-        if not dictpath:
-            error("no supplemental dictionaries found")
-            raise Exception
-        checker = _QuasiSpell(dictpath, encoding)
-
-    # Composited dictionary read by now, remove if temporary file.
-    if temporary:
-        os.unlink(dictpath)
 
     # FIXME: It is said that no fancy word-splitting is done on the text,
     # but still, best to split it assuming plain text?
@@ -152,9 +125,27 @@ def _check_spell_w (lang, encoding, variety, extopts,
         # ...could have been a single comprehension, but may need expansion.
         return word_spans
 
+    # Cache for constructed checkers.
+    checkers = {}
+
     # The hook itself.
     def hook (text, msg, cat):
 
+        # Check if new spell checker should be constructed.
+        clang = lang or cat.language()
+        if envs is not None:
+            cenvs = envs
+        elif cat.environment() is not None:
+            cenvs = cat.environment()
+        else:
+            cenvs = []
+        ckey = (clang, tuple(cenvs))
+        if ckey not in checkers:
+            checkers[ckey] = _construct_aspell(clang, cenvs, encoding, variety,
+                                               extopts, suponly)
+        checker = checkers[ckey]
+
+        # Prepare shortcut reports.
         if spanrep: defret = []
         else: defret = 0
 
@@ -196,6 +187,49 @@ def _check_spell_w (lang, encoding, variety, extopts,
     return hook
 
 
+# Construct Aspell checker for given langenv.
+def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
+
+    # Get Pology's internal personal dictonary for this language.
+    dictpath, temporary = _compose_personal_dict(lang, envs)
+
+    if not suponly:
+        # Prepare Aspell options.
+        aopts = {}
+        aopts["lang"] = lang
+        aopts["encoding"] = encoding
+        if variety:
+            aopts["variety"] = variety
+        if dictpath:
+            aopts["personal-path"] = dictpath
+        if extopts:
+            aopts.update(extopts)
+
+        aopts = dict([(x, y.encode(encoding)) for x, y in aopts.items()])
+
+        # Create Aspell object.
+        import pology.external.pyaspell as A
+        try:
+            checker = A.Aspell(aopts.items())
+        except A.AspellConfigError, e:
+            error("Aspell configuration error:\n%s" % e)
+        except A.AspellError, e:
+            error("cannot initialize Aspell:\n%s" % e)
+    else:
+        # Create simple internal checker that only checks against
+        # internal supplemental dictionaries.
+        if not dictpath:
+            error("no supplemental dictionaries found")
+            raise Exception
+        checker = _QuasiSpell(dictpath, encoding)
+
+    # Composited dictionary read by now, remove if temporary file.
+    if temporary:
+        os.unlink(dictpath)
+
+    return checker
+
+
 # Collect all personal dictionaries found for given language/environment
 # and composit them into one file to pass to Aspell.
 # Environment is given as a relative subpath into the language directory;
@@ -203,21 +237,23 @@ def _check_spell_w (lang, encoding, variety, extopts,
 # pointed by the subpath, or any of the parent directories.
 # Return the path to composited file or None if there were no dictionaries,
 # and whether the file is really a temporary composition or not.
-def _compose_personal_dict (lang, env=None):
+def _compose_personal_dict (lang, envs):
 
-    # Collect all applicable dictionary files.
-    # those in the given environment subdirectory and all above it.
+    # Collect all applicable dictionary files
+    # (for a given environment, in its subdirectiory and all above).
     dictpaths = set()
     spell_root = os.path.join(rootdir(), "l10n", lang, "spell")
-    spell_sub = os.path.join(".", (env or ""))
-    while spell_sub:
-        spell_dir = os.path.join(spell_root, spell_sub)
-        if os.path.isdir(spell_dir):
-            for item in os.listdir(spell_dir):
-                if item.endswith(".aspell"):
-                    dictpaths.add(os.path.join(spell_dir, item))
-        spell_sub = os.path.dirname(spell_sub)
+    for env in (envs or [""]):
+        spell_sub = os.path.join(".", env)
+        while spell_sub:
+            spell_dir = os.path.join(spell_root, spell_sub)
+            if os.path.isdir(spell_dir):
+                for item in os.listdir(spell_dir):
+                    if item.endswith(".aspell"):
+                        dictpaths.add(os.path.join(spell_dir, item))
+            spell_sub = os.path.dirname(spell_sub)
     dictpaths = list(dictpaths)
+    dictpaths.sort()
 
     if not dictpaths:
         return None, False
@@ -230,18 +266,18 @@ def _compose_personal_dict (lang, env=None):
     words = []
     for dictpath in dictpaths:
         words.extend(_read_dict_file(dictpath))
-    # FIXME: A better location/name for the temporary file?
-    dictpath_comp = ".comp-pers-dict.aspell"
+    tmpf = tempfile.NamedTemporaryFile()
+    tmpf.close()
     try:
-        file = codecs.open(dictpath_comp, "w", "UTF-8")
-        file.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
-        file.writelines([x + "\n" for x in words])
-        file.close()
+        tmpf = codecs.open(tmpf.name, "w", "UTF-8")
+        tmpf.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
+        tmpf.writelines([x + "\n" for x in words])
+        tmpf.close()
     except Exception, e:
         error("cannot create composited spelling dictionary "
               "in current working directory:\n%s" % e)
 
-    return dictpath_comp, True
+    return tmpf.name, True
 
 
 # Read words from Aspell personal dictionary.
