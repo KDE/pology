@@ -138,9 +138,11 @@ class Sieve (object):
                 raise SieveError("invalid specification of header field "
                                  "and value: %s" % field_value_str)
             self.fields_values.append(field_value)
+
         # Set fields in reverse, so that 'after' and 'before' parameters
         # are followed by the order of appearance of fields in command line.
-        self.fields_values.reverse()
+        if params.after or params.before:
+            self.fields_values.reverse()
 
         # Check validity of comment values.
         if params.copyright is not None:
