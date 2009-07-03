@@ -133,6 +133,8 @@ def _check_spell_w (lang, encoding, variety, extopts,
 
         # Check if new spell checker should be constructed.
         clang = lang or cat.language()
+        if not clang:
+            error("cannot determine language of catalog %s" % cat.filename)
         if envs is not None:
             cenvs = envs
         elif cat.environment() is not None:
