@@ -601,3 +601,35 @@ def rewrite_msgid (msg, cat):
 
     return nerrors
 
+
+_ent_rx = re.compile(r"&[a-zA-Z0-9_.:-]+;")
+
+def remove_paired_ents (msg, cat):
+    """
+    Remove all XML-like entities from original, and from translation
+    all that are also found in original [type F4A hook].
+
+    To remove all entities from original, and all entitities from translation
+    that also exist in original, may be useful prior to markup checks,
+    when list of known entities is not available.
+
+    @return: number of errors
+    """
+
+    ents_orig = set()
+    ents_orig.update(_ent_rx.findall(msg.msgid))
+    for ent in ents_orig:
+        msg.msgid = msg.msgid.replace(ent, "")
+
+    if msg.msgid_plural:
+        ents_orig.update(_ent_rx.findall(msg.msgid_plural))
+        for ent in ents_orig:
+            msg.msgid_plural = msg.msgid_plural.replace(ent, "")
+
+    for i in range(len(msg.msgstr)):
+        ents_trans = set(_ent_rx.findall(msg.msgstr[i]))
+        for ent in ents_trans.intersection(ents_orig):
+            msg.msgstr[i] = msg.msgstr[i].replace(ent, "")
+
+    return 0
+
