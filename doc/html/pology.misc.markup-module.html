@@ -113,6 +113,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#html_plain" class="summary-sig-name">html_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Convert HTML markup to plain text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#qtrich_to_plain" class="summary-sig-name">qtrich_to_plain</a>(<span class="summary-sig-arg">text</span>)</span><br />
       Convert Qt rich-text markup to plain text.</td>
           <td align="right" valign="top">
@@ -297,6 +314,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_html_l1" class="summary-sig-name">check_xml_html_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate HTML markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_qtrich_l1" class="summary-sig-name">check_xml_qtrich_l1</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
       Validate Qt rich-text markup in text against <a 
@@ -390,7 +427,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="html_entities"></a><span class="summary-name">html_entities</span> = <code title="{u'nbsp': u'&#160;', u'reg': u'&#174;', u'tm': u'&#8482;'}"><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">nbsp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#160;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">reg</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#174;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">tm</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#8482;</code><code class="variable-quote">'</code><code class="variable-group">}</code></code>
+        <a href="pology.misc.markup-module.html#html_entities" class="summary-name">html_entities</a> = <code title="{u'AElig': u'&#198;',
+ u'Aacute': u'&#193;',
+ u'Acirc': u'&#194;',
+ u'Agrave': u'&#192;',
+ u'Aring': u'&#197;',
+ u'Atilde': u'&#195;',
+ u'Auml': u'&#196;',
+ u'Ccedil': u'&#199;',
+..."><code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">AElig</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#198;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">Aacute</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#193;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">Acirc</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -519,6 +564,31 @@
         <li><strong class="pname"><code>ents</code></strong> (dictionary) - known entities and their values</li>
         <li><strong class="pname"><code>keepws</code></strong> (sequence of strings) - tags of elements in which to preserve whitespace</li>
         <li><strong class="pname"><code>ignels</code></strong> (sequence of strings and (string, string) tuples) - tags or tag/types or elements to completely remove</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>plain text version</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="html_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">html_plain</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert HTML markup to plain text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - HTML text to convert to plain</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>plain text version</dd>
@@ -861,6 +931,40 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="check_xml_html_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_html_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate HTML markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>At the moment, this function can only check HTML markup if well-formed
+  in the XML sense, although HTML allows omission of some closing tags.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="check_xml_qtrich_l1"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -984,6 +1088,32 @@
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
 <code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">amp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">apos</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">gt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">lt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">quot</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="html_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">html_entities</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">u'</code><code class="variable-string">AElig</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#198;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Aacute</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#193;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Acirc</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#194;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Agrave</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#192;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Aring</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#197;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Atilde</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#195;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Auml</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#196;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">u'</code><code class="variable-string">Ccedil</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&#199;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>

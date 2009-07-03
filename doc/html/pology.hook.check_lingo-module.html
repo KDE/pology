@@ -74,11 +74,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.check_lingo-module.html#check_spell" class="summary-sig-name">check_spell</a>(<span class="summary-sig-arg">lang</span>,
+          <td><span class="summary-sig"><a href="pology.hook.check_lingo-module.html#check_spell" class="summary-sig-name">check_spell</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">variety</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">extopts</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">suponly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">maxsugg</span>=<span class="summary-sig-default">5</span>)</span><br />
       Check spelling using Aspell [hook factory].</td>
@@ -97,11 +97,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.hook.check_lingo-module.html#check_spell_sp" class="summary-sig-name">check_spell_sp</a>(<span class="summary-sig-arg">lang</span>,
+          <td><span class="summary-sig"><a href="pology.hook.check_lingo-module.html#check_spell_sp" class="summary-sig-name">check_spell_sp</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">variety</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">extopts</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">suponly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">maxsugg</span>=<span class="summary-sig-default">5</span>)</span><br />
       Like <a href="pology.hook.check_lingo-module.html#check_spell" 
@@ -156,11 +156,11 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_spell</span>(<span class="sig-arg">lang</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_spell</span>(<span class="sig-arg">lang</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">variety</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">extopts</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envs</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">suponly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">maxsugg</span>=<span class="sig-default">5</span>)</span>
   </h3>
@@ -183,12 +183,22 @@
   are automatically picked up. Any subdirectories in 
   <code>l10n/&lt;lang&gt;/spell/</code> are considered as to contain 
   supplemental dictionaries in special &quot;environments&quot; (e.g. 
-  jargon, certain projects, etc.), and are not included by default. A 
-  certain environment can be included by the <code>env</code> parameter, 
-  which is a relative path of subdirectory, i.e. 
-  <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>. When environment is 
-  selected, all supplemental dictionaries in its directory and all parent 
-  directories are included.</p>
+  jargon, certain projects, etc.), and are not included by default. Such 
+  environments can be included by the <code>envs</code> parameter, which is
+  a list of relative paths added to <code>l10n/&lt;lang&gt;/spell/</code> 
+  directory. All supplemental dictionaries from such paths are included, as
+  well as from all their parent directories up to 
+  <code>l10n/&lt;lang&gt;/spell/</code> (this makes supplemental 
+  dictionaries hierarchical, e.g. environment <code>foo/bar</code> is a 
+  child of <code>foo</code>, and thus when <code>foo/bar</code> is 
+  requested, both its and supplements of <code>foo</code> are used).</p>
+  <p>If <code>lang</code> is <code>None</code>, then automatic detection of
+  the language based on the catalog of the message is attempted (see 
+  catalog <a href="pology.file.catalog.Catalog-class.html#language" 
+  class="link">language()</a> method). Similar is attempted for 
+  environments if <code>env</code> is <code>None</code> (see <a 
+  href="pology.file.catalog.Catalog-class.html#environment" 
+  class="link">environment()</a> method).</p>
   <p>Aspell's system dictionary can be completely excluded from the check 
   by the <code>suponly</code> parameter, when the check will use only 
   internal supplemental dictionaries.</p>
@@ -209,7 +219,7 @@
         <li><strong class="pname"><code>encoding</code></strong> (string) - encoding used by the dictionary</li>
         <li><strong class="pname"><code>variety</code></strong> (string) - variety of dictionary</li>
         <li><strong class="pname"><code>extopts</code></strong> (dict) - additional options to send to Aspell</li>
-        <li><strong class="pname"><code>env</code></strong> (string) - environment for supplemental dictionaries</li>
+        <li><strong class="pname"><code>envs</code></strong> (list of strings) - environments for supplemental dictionaries</li>
         <li><strong class="pname"><code>suponly</code></strong> (bool) - whether to use only supplemental dictionaries</li>
         <li><strong class="pname"><code>maxsugg</code></strong> (int) - maximum number of suggestions to show for misspelled word</li>
     </ul></dd>
@@ -225,11 +235,11 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_spell_sp</span>(<span class="sig-arg">lang</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_spell_sp</span>(<span class="sig-arg">lang</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">variety</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">extopts</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="sig-arg">env</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envs</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">suponly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">maxsugg</span>=<span class="sig-default">5</span>)</span>
   </h3>
