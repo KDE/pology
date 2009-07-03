@@ -31,6 +31,7 @@ The sieve parameters are:
         Pology's internal rule files
    - C{showfmsg}: show filtered message too when a rule fails a message
    - C{nomsg}: do not show message content, only problem descriptions
+   - C{lokalize}: open catalogs at failed messages in Lokalize
 
 Parameters C{accel} and C{markup} set accelerator markers (e.g. C{_}, C{&},
 etc.) and markup types by keyword (e.g. C{xml}, C{qtrich}, etc.) that may
@@ -71,6 +72,7 @@ from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
+from pology.misc.msgreport import report_msg_to_lokalize
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -160,6 +162,10 @@ def setup_sieve (p):
                 desc=
     "Write rule failures into an XML file instead of stdout."
     )
+    p.add_param("lokalize", bool, defval=False,
+                desc=
+    "Open catalogs at failed messages in Lokalize."
+    )
 
 
 class Sieve (object):
@@ -190,6 +196,7 @@ class Sieve (object):
         self.stat=params.stat
         self.showfmsg=params.showfmsg
         self.showmsg=params.showmsg
+        self.lokalize=params.lokalize
 
         # Also output in XML file ?
         if params.xml:
@@ -310,6 +317,7 @@ class Sieve (object):
             msgByFilter[mfilter]=msgf
 
         # Now the sieve itself. Check message with every rules
+        passed=True
         for rule in self.rules:
             if rule.disabled:
                 continue
@@ -325,6 +333,7 @@ class Sieve (object):
                 continue
             if spans:
                 self.nmatch+=1
+                passed=False
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
                     # as it considers matching to always be on msgstr
@@ -341,6 +350,10 @@ class Sieve (object):
                     if not self.showfmsg:
                         msgf=None
                     rule_error(msg, cat, rule, spans, msgf, self.showmsg)
+
+        if not passed and self.lokalize:
+            report_msg_to_lokalize(msg, cat)
+
 
     def finalize (self):
         
