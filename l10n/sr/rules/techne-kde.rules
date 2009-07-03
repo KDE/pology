@@ -131,9 +131,7 @@ clearFilters
 include file="puretext.filters"
 
 # Check spelling.
-*hook name="check-lingo/check-spell-sp" \
-      factory="lang='sr', env='kde'" \
-      on="msgstr"
+*hook name="check-lingo/check-spell-sp" factory="" on="msgstr"
 # Remove Latin-only words.
 # There may also be non-Latin case endings, remove them too.
 addFilterRegex match="[a-zđžćčš]+(-\w+)?" on="pmsgid,pmsgstr"
