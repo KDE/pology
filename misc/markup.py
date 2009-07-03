@@ -415,6 +415,47 @@ def _unmask_ws (text):
         text = text.replace(mask, ws)
     return text
 
+_html_tags = set("""
+    a address applet area b base basefont big blockquote body br button
+    caption center cite code col colgroup dd del dfn dir div dl dt
+    em fieldset font form frame frameset h1 head hr html
+    i iframe img input ins isindex kbd label legend li link map menu meta
+    noframes noscript ol option p param pre
+    s samp script select small span strike strong style sub sup
+    table tbody td textarea tfoot th thead title tr tt u ul var xmp
+""".split())
+_html_subs = {
+    "_nows" : ("", "", None),
+    "_parabr": (WS_NEWLINE*2, WS_NEWLINE*2, None),
+}
+_html_subs.update([(x, _html_subs["_nows"]) for x in _html_tags])
+_html_subs.update([(x, _html_subs["_parabr"]) for x in
+                   "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre td th tr"
+                   "".split()])
+_html_ents = { # in addition to default XML entities
+    "nbsp": u"\xa0",
+}
+_html_keepws = set("""
+    code pre xmp
+""".split())
+_html_ignels = set([
+    ("style", "text/css"),
+])
+
+def html_plain (text):
+    """
+    Convert HTML markup to plain text.
+
+    @param text: HTML text to convert to plain
+    @type text: string
+
+    @returns: plain text version
+    @rtype: string
+    """
+
+    return xml_to_plain(text, _html_tags, _html_subs, _html_ents,
+                              _html_keepws, _html_ignels)
+
 
 _qtrich_tags = set("""
     qt html
@@ -1069,6 +1110,40 @@ def check_placeholder_els (orig, trans):
 
 _entpath_html = os.path.join(rootdir(), "spec", "html.entities")
 html_entities = read_entities(_entpath_html)
+
+_html_l1 = None
+
+def check_xml_html_l1 (text, ents=None):
+    """
+    Validate HTML markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    At the moment, this function can only check HTML markup if well-formed
+    in the XML sense, although HTML allows omission of some closing tags.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _html_l1
+    if _html_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        _html_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, html_entities])
+
+    return check_xml_l1(text, spec=_html_l1, xmlfmt="HTML", ents=ents,
+                        accelamp=True, casesens=False)
+
 
 _qtrich_l1 = None
 

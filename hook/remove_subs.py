@@ -108,6 +108,8 @@ def _rm_markup_in_text (text, mtypes):
     for mtype in mtypes:
         mtype = mtype.lower()
         if 0: pass
+        elif mtype == "html":
+            text = M.html_to_plain(text)
         elif mtype == "kde4":
             text = M.kde4_to_plain(text)
         elif mtype == "qtrich":
@@ -462,6 +464,10 @@ def _marlit_tags (mtype):
 
     tags = ""
     if 0: pass
+    elif mtype == "html":
+        tags = """
+            tt code
+        """
     elif mtype == "kde4":
         tags = """
             icode bcode filename envar command numid

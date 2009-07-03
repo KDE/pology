@@ -1632,6 +1632,7 @@ class Catalog (Monitored):
 
         The following markup types are currently used by various parts
         of Pology to influence behavior on processing:
+          - C{html}: HTML 4.01
           - C{qtrich}: Qt rich-text, (almost) a subset of HTML
           - C{kuit}: UI semantic markup in KDE4
           - C{kde4}: markup in KDE4 UI POs, a mix of Qt rich-text and KUIT

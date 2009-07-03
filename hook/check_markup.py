@@ -123,6 +123,33 @@ def check_xml_docbook4_sp (strict=False, entities={}, mkeyw=None):
     return _check_xml_w(M.check_xml_docbook4_l1, strict, entities, mkeyw, True)
 
 
+def check_xml_html (strict=False, entities={}, mkeyw=None):
+    """
+    Check HTML markup in translations [hook factory].
+
+    See L{check_xml} for description of parameters.
+    See notes on checking HTML markup to
+    L{check_xml_html_l1<misc.markup.check_xml_html_l1>}.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(M.check_xml_html_l1, strict, entities, mkeyw, False)
+
+
+def check_xml_html_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_xml_html}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(M.check_xml_html_l1, strict, entities, mkeyw, True)
+
+
 def check_xml_qtrich (strict=False, entities={}, mkeyw=None):
     """
     Check Qt rich-text markup in translations [hook factory].
