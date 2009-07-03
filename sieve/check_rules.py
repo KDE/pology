@@ -34,7 +34,7 @@ The sieve parameters are:
    - C{lokalize}: open catalogs at failed messages in Lokalize
 
 Parameters C{accel} and C{markup} set accelerator markers (e.g. C{_}, C{&},
-etc.) and markup types by keyword (e.g. C{xml}, C{qtrich}, etc.) that may
+etc.) and markup types by keyword (e.g. C{xml}, C{html}, etc.) that may
 be present in sieved catalogs. However, providing this information by itself
 does nothing, it is only forced on catalogs (overriding what their headers
 state, if anything) such that filter and validation hooks can properly
