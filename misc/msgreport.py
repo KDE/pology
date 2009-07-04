@@ -200,7 +200,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             report(rtext, subsrc=subsrc, showcmd=False)
 
 
-def report_msg_to_lokalize (msg, cat):
+def report_msg_to_lokalize (msg, cat, report=None):
     """
     Open catalog in Lokalize and jump to message.
 
@@ -214,6 +214,8 @@ def report_msg_to_lokalize (msg, cat):
     @type msg: L{Message_base}
     @param cat: the catalog in which the message resides
     @type cat: L{Catalog}
+    @param report: simple text or highlight specification
+    @type report: string or L{highlight<report_msg_content>}
     """
 
     dbus = _get_module("dbus",
@@ -222,6 +224,16 @@ def report_msg_to_lokalize (msg, cat):
     if not dbus: return
 
     if msg.obsolete: return
+
+    # If report is a highlight specification,
+    # flatten it into lines of notes by spans.
+    if isinstance(report, list):
+        notes=[]
+        for hspec in report:
+            for span in hspec[2]:
+                if len(span) > 2:
+                    notes.append(span[2])
+        report = "\n".join(notes)
 
     try:
         try: globals()['lokalizeobj']
@@ -249,6 +261,9 @@ def report_msg_to_lokalize (msg, cat):
 
         setEntryFilteredOut=editorobj.get_dbus_method('setEntryFilteredOut','org.kde.Lokalize.Editor')    
         setEntryFilteredOut(msg.refentry-1,False)
+        if False:#report:
+            addEntryNote=editorobj.get_dbus_method('addEntryNote','org.kde.Lokalize.Editor')
+            addEntryNote(msg.refentry-1,report)
 
     except:
         return
