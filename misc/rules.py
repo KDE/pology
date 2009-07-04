@@ -1423,7 +1423,7 @@ class Rule(object):
         self.rawPattern=pattern
         self.trigger=None # invalidate any trigger function
         if self.ident:
-            self.displayName="<id=%s>" % self.ident
+            self.displayName="[id=%s]" % self.ident
         else:
             self.displayName="(%s)" % pattern
         
