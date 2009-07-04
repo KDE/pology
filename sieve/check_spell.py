@@ -324,7 +324,7 @@ class Sieve (object):
             return
 
         id=0 # Count msgstr plural forms
-        failed=False # Whether there is any misspelled word
+        failedSuggs=[] # pairs of wrong words and suggestions
 
         for msgstr in msg.msgstr:
             # Skip message with context in the ignoredContext list
@@ -372,7 +372,6 @@ class Sieve (object):
                 spell=self.aspell.check(encodedWord)
                 if spell is False:
                     try:
-                        failed=True
                         self.nmatch+=1
                         if self.list is not None:
                             if word not in self.list:
@@ -380,6 +379,7 @@ class Sieve (object):
                         else:
                             encodedSuggestions=self.aspell.suggest(encodedWord)
                             suggestions=[i.decode(self.encoding) for i in encodedSuggestions]
+                            failedSuggs.append((word, suggestions))
                             if self.xmlFile:
                                 xmlError=spell_xml_error(msg, cat, word, suggestions, id)
                                 self.xmlFile.writelines(xmlError)
@@ -389,9 +389,16 @@ class Sieve (object):
                         warning("Cannot encode this word in your codec (%s)" % self.encoding)
             id+=1 # Increase msgstr id count
 
-        if failed:
-            if self.lokalize:
-                report_msg_to_lokalize(msg, cat)
+        if failedSuggs and self.lokalize:
+            repls=["Spelling errors:"]
+            for word, suggs in failedSuggs:
+                if suggs:
+                    repls.append("%s (suggestions: %s)"
+                                 % (word, ", ".join(suggs)))
+                else:
+                    repls.append("%s" % (word))
+            report_msg_to_lokalize(msg, cat, "\n".join(repls))
+
 
     def finalize (self):
         # Remove composited personal dictionaries.

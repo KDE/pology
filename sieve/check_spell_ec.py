@@ -297,7 +297,7 @@ class Sieve (object):
         if not msg.translated:
             return
 
-        failed = False
+        failed_w_suggs = []
 
         for msgstr in msg.msgstr:
 
@@ -341,10 +341,17 @@ class Sieve (object):
                     else:
                         report_on_msg("unknown word: %s" % word,
                                       msg, cat)
+                    failed_w_suggs.append((word, suggs))
 
-        if failed:
-            if self.lokalize:
-                report_msg_to_lokalize(msg, cat)
+        if failed_w_suggs and self.lokalize:
+            repls = ["Spelling errors:"]
+            for word, suggs in failed_w_suggs:
+                if suggs:
+                    repls.append("%s (suggestions: %s)"
+                                 % (word, ", ".join(suggs)))
+                else:
+                    repls.append("%s" % (word))
+            report_msg_to_lokalize(msg, cat, "\n".join(repls))
 
 
     def finalize (self):

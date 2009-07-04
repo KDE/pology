@@ -317,7 +317,7 @@ class Sieve (object):
             msgByFilter[mfilter]=msgf
 
         # Now the sieve itself. Check message with every rules
-        passed=True
+        failedRules=[]
         for rule in self.rules:
             if rule.disabled:
                 continue
@@ -333,7 +333,7 @@ class Sieve (object):
                 continue
             if spans:
                 self.nmatch+=1
-                passed=False
+                failedRules.append(rule)
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
                     # as it considers matching to always be on msgstr
@@ -351,8 +351,11 @@ class Sieve (object):
                         msgf=None
                     rule_error(msg, cat, rule, spans, msgf, self.showmsg)
 
-        if not passed and self.lokalize:
-            report_msg_to_lokalize(msg, cat)
+        if failedRules and self.lokalize:
+            repls = ["Failed rules:"]
+            for rule in failedRules:
+                repls.append("rule %s ==> %s" % (rule.displayName, rule.hint))
+            report_msg_to_lokalize(msg, cat, "\n".join(repls))
 
 
     def finalize (self):
