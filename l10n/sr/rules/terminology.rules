@@ -404,9 +404,10 @@ disabled
 {\bserver}i
 id="server"
 hint="server = сервер"
-# посебно правило за /proxy server/
-valid after="proxy "
+valid after="proxy " # на proxyserver
+valid before="-?less" # на serverless
 valid msgstr="\bсервер"
+valid env="kde" msgstr="&\w*server\S*;"
 valid cat="nepomuk" msgid="^Nepomuk Server -" !msgstr=" [-—]"
 valid cat="libplasmaweather" msgstr="метеосервер"
 

@@ -531,6 +531,7 @@ valid cat="kopete" after="buddy " msgstr="лист\w+ другара"
 valid cat="kopete" after="reverse " msgstr="инверзн\w+ лист\w+"
 valid cat="kopete" after="visible " msgstr="лист\w+ видљивих"
 valid cat="kopete" after="invisible " msgstr="лист\w+ невидљивих"
+valid cat="kopete" after="Skype " msgstr="лист\w+ &skype"
 valid cat="kopete" srcref="privacy|nscainfoevent" msgstr="лист\w+"
 valid cat="kfileshare" after="write |read " msgstr="лист\w+"
 
