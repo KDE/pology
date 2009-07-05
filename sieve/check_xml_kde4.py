@@ -152,7 +152,7 @@ class Sieve (object):
             self.nbad += 1
             report_on_msg_hl(highlight, msg, cat)
             if self.lokalize:
-                report_msg_to_lokalize(msg, cat)
+                report_msg_to_lokalize(msg, cat, highlight)
 
 
     def finalize (self):

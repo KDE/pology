@@ -22,6 +22,7 @@ import locale
 import xml.parsers.expat
 from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg_hl, report_msg_content
+from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology import rootdir
 
@@ -45,6 +46,11 @@ class Sieve (object):
         if "showmsg" in options:
             options.accept("showmsg")
             self.showmsg = True
+
+        self.lokalize = False
+        if "lokalize" in options:
+            options.accept("lokalize")
+            self.lokalize = True
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs to the caller
@@ -83,6 +89,8 @@ class Sieve (object):
                                    highlight=highlight, delim=("-" * 20))
             else:
                 report_on_msg_hl(highlight, msg, cat)
+            if self.lokalize:
+                report_msg_to_lokalize(msg, cat, highlight)
             self.nbad += 1
 
 
