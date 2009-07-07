@@ -136,59 +136,54 @@ def main ():
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
         error("operation mode not given")
-    modenames = free_args.pop(0).split(",")
+    modename = free_args.pop(0)
     needuser = False
     class _Mode: pass
-    modes = []
-    for modename in modenames:
-        mode = _Mode()
-        mode.name = modename
-        if 0: pass
-        elif mode.name in ("status", "st"):
-            mode.execute = examine_state
-            mode.selector = selector or build_selector(options, ["any"])
-        elif mode.name in ("modified", "mo"):
-            mode.execute = ascribe_modified
-            mode.selector = selector or build_selector(options, ["any"])
-            needuser = True
-        elif mode.name in ("reviewed", "re"):
-            mode.execute = ascribe_reviewed
-            # Default selector for review ascription must match
-            # default selector for review selection.
-            mode.selector = selector or build_selector(options, ["nwasc"])
-            needuser = True
-        elif mode.name in ("modreviewed", "mr"):
-            mode.execute = ascribe_modreviewed
-            needuser = True
-        elif mode.name in ("diff", "di"):
-            mode.execute = diff_select
-            # Default selector for review selection must match
-            # default selector for review ascription.
-            mode.selector = selector or build_selector(options, ["nwasc"])
-            # Build default ascription selector only if neither selector
-            # is explicitly given, since explicit basic selector may be used for
-            # ascription selection in a suitable sense (see diff_select_cat()).
-            if not selector and not aselector:
-                mode.aselector = build_selector(options, ["asc"], hist=True)
-            else:
-                mode.aselector = aselector
-        elif mode.name in ("clear-review", "cr"):
-            mode.execute = clear_review
-            mode.selector = selector or build_selector(options, ["any"])
-        elif mode.name in ("history", "hi"):
-            mode.execute = show_history
-            mode.selector = selector or build_selector(options, ["nwasc"])
+    mode = _Mode()
+    mode.name = modename
+    if 0: pass
+    elif mode.name in ("status", "st"):
+        mode.execute = examine_state
+        mode.selector = selector or build_selector(options, ["any"])
+    elif mode.name in ("modified", "mo"):
+        mode.execute = ascribe_modified
+        mode.selector = selector or build_selector(options, ["any"])
+        needuser = True
+    elif mode.name in ("reviewed", "re"):
+        mode.execute = ascribe_reviewed
+        # Default selector for review ascription must match
+        # default selector for review selection.
+        mode.selector = selector or build_selector(options, ["nwasc"])
+        needuser = True
+    elif mode.name in ("modreviewed", "mr"):
+        mode.execute = ascribe_modreviewed
+        needuser = True
+    elif mode.name in ("diff", "di"):
+        mode.execute = diff_select
+        # Default selector for review selection must match
+        # default selector for review ascription.
+        mode.selector = selector or build_selector(options, ["nwasc"])
+        # Build default ascription selector only if neither selector
+        # is explicitly given, since explicit basic selector may be used for
+        # ascription selection in a suitable sense (see diff_select_cat()).
+        if not selector and not aselector:
+            mode.aselector = build_selector(options, ["asc"], hist=True)
         else:
-            error("unknown operation mode '%s'" % mode.name)
-        modes.append(mode)
+            mode.aselector = aselector
+    elif mode.name in ("clear-review", "cr"):
+        mode.execute = clear_review
+        mode.selector = selector or build_selector(options, ["any"])
+    elif mode.name in ("history", "hi"):
+        mode.execute = show_history
+        mode.selector = selector or build_selector(options, ["nwasc"])
+    else:
+        error("unknown operation mode '%s'" % mode.name)
 
     mode.user = None
     if needuser:
         if len(free_args) < 1:
             error("issued operations require a user to be specified")
-        user = free_args.pop(0).strip()
-        for mode in modes:
-            mode.user = user
+        mode.user = free_args.pop(0).strip()
 
     # For each path:
     # - determine its associated ascription config,
@@ -245,9 +240,8 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    # Execute operations.
-    for mode in modes:
-        mode.execute(options, configs_catpaths, mode)
+    # Execute operation.
+    mode.execute(options, configs_catpaths, mode)
 
 
 def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
@@ -1910,7 +1904,6 @@ def w_selector_modax (cid, amod, arev,
                         pfilter = options.tfilter or config.tfilter
                         if pfilter and flt_eq(mrm, mm, pfilter):
                             good = False
-                    print good
                     # If not good, look for next candidate, else match found.
                     if not good:
                         i_cand = None
