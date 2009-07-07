@@ -138,6 +138,8 @@ def main ():
         error("operation mode not given")
     modename = free_args.pop(0)
     needuser = False
+    canselect = False
+    canaselect = False
     class _Mode: pass
     mode = _Mode()
     mode.name = modename
@@ -145,15 +147,18 @@ def main ():
     elif mode.name in ("status", "st"):
         mode.execute = examine_state
         mode.selector = selector or build_selector(options, ["any"])
+        canselect = True
     elif mode.name in ("modified", "mo"):
         mode.execute = ascribe_modified
         mode.selector = selector or build_selector(options, ["any"])
+        canselect = True
         needuser = True
     elif mode.name in ("reviewed", "re"):
         mode.execute = ascribe_reviewed
         # Default selector for review ascription must match
         # default selector for review selection.
         mode.selector = selector or build_selector(options, ["nwasc"])
+        canselect = True
         needuser = True
     elif mode.name in ("modreviewed", "mr"):
         mode.execute = ascribe_modreviewed
@@ -170,20 +175,28 @@ def main ():
             mode.aselector = build_selector(options, ["asc"], hist=True)
         else:
             mode.aselector = aselector
+        canselect = True
+        canaselect = True
     elif mode.name in ("clear-review", "cr"):
         mode.execute = clear_review
         mode.selector = selector or build_selector(options, ["any"])
+        canselect = True
     elif mode.name in ("history", "hi"):
         mode.execute = show_history
         mode.selector = selector or build_selector(options, ["nwasc"])
+        canselect = True
     else:
         error("unknown operation mode '%s'" % mode.name)
 
     mode.user = None
     if needuser:
         if len(free_args) < 1:
-            error("issued operations require a user to be specified")
+            error("operation mode requires a user to be specified")
         mode.user = free_args.pop(0).strip()
+    if not canselect and selector:
+        error("operation mode does not accept selectors")
+    if not canaselect and aselector:
+        error("operation mode does not accept history selectors")
 
     # For each path:
     # - determine its associated ascription config,
