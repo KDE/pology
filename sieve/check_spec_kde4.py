@@ -111,7 +111,7 @@ class Sieve (object):
                 msgscript = lst[1]
 
             # Check Qt datetime format.
-            spans = check_qtdt_sp(cat, msg, msgstr)
+            spans = check_qtdt_sp(msgstr, msg, cat)
             if spans:
                 self.nbad += 1
                 report_on_msg(spans[0][-1], msg, cat)
