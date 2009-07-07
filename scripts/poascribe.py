@@ -1477,29 +1477,30 @@ def parse_users (userstr, config, cid=None):
     """
     Parse users from comma-separated list, verifying that they exist.
 
+    If the list starts with tilde (~), all users found in the config
+    but for the listed will be selected (inverted selection).
+
     C{cid} is the string identifying the caller, for error report in
     case the a parsed user does not exist.
     """
 
-    users = set()
-    if userstr:
-        xusers = set()
-        for user in userstr.split(","):
-            user = user.strip()
-            if not user.startswith("~"):
-                users.add(user)
-            else:
-                user = user[1:]
-                if user in users:
-                    users.remove(user)
-                xusers.add(user)
-                for ouser in config.users:
-                    if ouser not in xusers:
-                        users.add(ouser)
+    if not userstr:
+        return set()
+
+    userstr = userstr.replace(" ", "")
+    inverted = False
+    if userstr.startswith("~"):
+        inverted = True
+        userstr = userstr[1:]
+
+    users = set(userstr.split(","))
     for user in users:
         if user not in config.users:
             error("unknown user '%s' in config '%s'" % (user, config.path),
                   subsrc=cid)
+    if inverted:
+        users = set(config.users).difference(users)
+    print users
 
     return users
 
