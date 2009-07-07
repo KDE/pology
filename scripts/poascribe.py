@@ -1500,7 +1500,6 @@ def parse_users (userstr, config, cid=None):
                   subsrc=cid)
     if inverted:
         users = set(config.users).difference(users)
-    print users
 
     return users
 
