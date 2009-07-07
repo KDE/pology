@@ -796,12 +796,6 @@ def clear_review_msg (msg):
             msg.flag.remove(flag)
             # Do not break, other review flags possible.
 
-        for flag in msg.flag:
-            m = _revdflag_rx.search(flag)
-            if m:
-                tags.append(m.group(1).strip() or None)
-                # Do not break, several review flags possible.
-
     # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
