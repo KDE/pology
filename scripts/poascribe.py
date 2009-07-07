@@ -157,6 +157,9 @@ def main ():
             # default selector for review selection.
             mode.selector = selector or build_selector(options, ["nwasc"])
             needuser = True
+        elif mode.name in ("modreviewed", "mr"):
+            mode.execute = ascribe_modreviewed
+            needuser = True
         elif mode.name in ("diff", "di"):
             mode.execute = diff_select
             # Default selector for review selection must match
@@ -427,7 +430,6 @@ def ascribe_modified (options, configs_catpaths, mode):
 
     counts = dict([(x, 0) for x in _all_states])
     for config, catpaths in configs_catpaths:
-
         for catpath, acatpath in catpaths:
             ccounts = ascribe_modified_cat(options, config, mode.user,
                                            catpath, acatpath, mode.selector)
@@ -470,6 +472,22 @@ def ascribe_reviewed (options, configs_catpaths, mode):
                         mode.user)
 
 
+def ascribe_modreviewed (options, configs_catpaths, mode):
+
+    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+
+    mode.selector = build_selector(options, ["any"])
+    cleared_by_cat = clear_review(options, configs_catpaths, mode)
+
+    mode.selector = build_selector(options, ["any"])
+    ascribe_modified(options, configs_catpaths, mode)
+
+    def stest (msg, cat, d1, d2, d3):
+        return (msg.refentry in cleared_by_cat[cat.filename]) or None
+    mode.selector = stest
+    ascribe_reviewed(options, configs_catpaths, mode)
+
+
 def diff_select (options, configs_catpaths, mode):
 
     ndiffed = 0
@@ -485,14 +503,18 @@ def diff_select (options, configs_catpaths, mode):
 
 def clear_review (options, configs_catpaths, mode):
 
-    ncleared = 0
+    cleared_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
-            ncleared += clear_review_cat(options, config, catpath, acatpath,
-                                         mode.selector)
+            cleared = clear_review_cat(options, config, catpath, acatpath,
+                                       mode.selector)
+            cleared_by_cat[catpath] = cleared
 
+    ncleared = sum(map(len, cleared_by_cat.values()))
     if ncleared > 0:
         report("===! Cleared review states: %d" % ncleared)
+
+    return cleared_by_cat
 
 
 def show_history (options, configs_catpaths, mode):
@@ -673,18 +695,18 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    ncleared = 0
+    cleared = []
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         if stest(msg, cat, history, config, options) is None:
             continue
         clear_review_msg(msg)
         if msg.modcount > 0:
-            ncleared += 1
+            cleared.append(msg.refentry)
 
     sync_and_rep(cat)
 
-    return ncleared
+    return cleared
 
 
 def show_history_cat (options, config, catpath, acatpath, stest):
