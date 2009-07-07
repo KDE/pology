@@ -90,7 +90,7 @@ def main ():
         "-c", "--commit",
         action="store_true", dest="commit", default=False,
         help="automatically commit original and ascription catalogs, "
-             "in proper order")
+             "in proper order (relevand in some modes)")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
@@ -242,18 +242,9 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    # Commit modifications to original catalogs if requested.
-    if options.commit:
-        commit_catalogs(configs_catpaths, False, options.message)
-
     # Execute operations.
     for mode in modes:
         mode.execute(options, configs_catpaths, mode)
-
-    # Commit modifications to ascription catalogs if requested.
-    if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message,
-                        mode.user)
 
 
 def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
@@ -353,9 +344,16 @@ class Config:
         udat.email = None
 
 
-def examine_state (options, configs_catpaths, mode):
+def assert_mode_user (configs_catpaths, mode, nousers=[]):
 
-    stest = mode.selector
+    if mode.user in nousers:
+        error("user '%s' not allowed in mode '%s'" % (mode.user, mode.name))
+    for config, catpaths in configs_catpaths:
+        if mode.user not in config.users:
+            error("user '%s' not defined in '%s'" % (mode.user, config.path))
+
+
+def examine_state (options, configs_catpaths, mode):
 
     # Count unascribed messages through catalogs.
     counts = dict([(x, {}) for x in _all_states])
@@ -375,7 +373,7 @@ def examine_state (options, configs_catpaths, mode):
                 history = asc_collect_history(msg, acat, config)
                 if not history and msg.untranslated:
                     continue # pristine
-                if stest(msg, cat, history, config, options) is None:
+                if mode.selector(msg, cat, history, config, options) is None:
                     continue # not selected
                 if not history or not asc_eq(msg, history[0].msg):
                     st = msg.state()
@@ -422,15 +420,16 @@ def examine_state (options, configs_catpaths, mode):
 
 def ascribe_modified (options, configs_catpaths, mode):
 
-    user = mode.user
+    assert_mode_user(configs_catpaths, mode)
+
+    if options.commit:
+        commit_catalogs(configs_catpaths, False, options.message)
 
     counts = dict([(x, 0) for x in _all_states])
     for config, catpaths in configs_catpaths:
-        if user not in config.users:
-            error("unknown user '%s' in config '%s'" % (user, config.path))
 
         for catpath, acatpath in catpaths:
-            ccounts = ascribe_modified_cat(options, config, user,
+            ccounts = ascribe_modified_cat(options, config, mode.user,
                                            catpath, acatpath, mode.selector)
             for st, val in ccounts.items():
                 counts[st] += val
@@ -448,39 +447,37 @@ def ascribe_modified (options, configs_catpaths, mode):
     if counts[_st_ountran] > 0:
         report("===! Obsolete untranslated: %d" % counts[_st_ountran])
 
+    if options.commit:
+        commit_catalogs(configs_catpaths, True, options.ascript_message,
+                        mode.user)
+
 
 def ascribe_reviewed (options, configs_catpaths, mode):
 
-    user = mode.user
-    stest = mode.selector
-
-    if user == UFUZZ:
-        error("cannot ascribe reviews to reserved user '%s'" % UFUZZ)
+    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
 
     nasc = 0
     for config, catpaths in configs_catpaths:
-        if user not in config.users:
-            error("unknown user '%s' in config '%s'" % (user, config.path))
-
         for catpath, acatpath in catpaths:
-            nasc += ascribe_reviewed_cat(options, config, user,
-                                         catpath, acatpath, stest)
+            nasc += ascribe_reviewed_cat(options, config, mode.user,
+                                         catpath, acatpath, mode.selector)
 
     if nasc > 0:
         report("===! Reviewed: %d" % nasc)
 
+    if options.commit:
+        commit_catalogs(configs_catpaths, True, options.ascript_message,
+                        mode.user)
+
 
 def diff_select (options, configs_catpaths, mode):
-
-    stest = mode.selector
-    aselect = mode.aselector
 
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             pfilter = options.tfilter or config.tfilter
             ndiffed += diff_select_cat(options, config, catpath, acatpath,
-                                       stest, aselect, pfilter)
+                                       mode.selector, mode.aselector, pfilter)
 
     if ndiffed > 0:
         report("===! Diffed from history: %d" % ndiffed)
@@ -488,13 +485,11 @@ def diff_select (options, configs_catpaths, mode):
 
 def clear_review (options, configs_catpaths, mode):
 
-    stest = mode.selector
-
     ncleared = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             ncleared += clear_review_cat(options, config, catpath, acatpath,
-                                         stest)
+                                         mode.selector)
 
     if ncleared > 0:
         report("===! Cleared review states: %d" % ncleared)
@@ -502,13 +497,11 @@ def clear_review (options, configs_catpaths, mode):
 
 def show_history (options, configs_catpaths, mode):
 
-    stest = mode.selector
-
     nshown = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             nshown += show_history_cat(options, config, catpath, acatpath,
-                                       stest)
+                                       mode.selector)
 
     if nshown > 0:
         report("===> Computed histories: %d" % nshown)
@@ -1496,7 +1489,7 @@ def parse_users (userstr, config, cid=None):
     users = set(userstr.split(","))
     for user in users:
         if user not in config.users:
-            error("unknown user '%s' in config '%s'" % (user, config.path),
+            error("user '%s' not defined in '%s'" % (user, config.path),
                   subsrc=cid)
     if inverted:
         users = set(config.users).difference(users)
