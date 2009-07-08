@@ -435,6 +435,15 @@ def ascribe_modified (options, configs_catpaths, mode):
     if options.commit:
         commit_catalogs(configs_catpaths, False, options.message)
 
+    ascribe_modified_w(options, configs_catpaths, mode)
+
+    if options.commit:
+        commit_catalogs(configs_catpaths, True, options.ascript_message,
+                        mode.user)
+
+
+def ascribe_modified_w (options, configs_catpaths, mode):
+
     counts = dict([(x, 0) for x in _all_states])
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -456,14 +465,19 @@ def ascribe_modified (options, configs_catpaths, mode):
     if counts[_st_ountran] > 0:
         report("===! Obsolete untranslated: %d" % counts[_st_ountran])
 
+
+def ascribe_reviewed (options, configs_catpaths, mode):
+
+    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+
+    ascribe_reviewed_w(options, configs_catpaths, mode)
+
     if options.commit:
         commit_catalogs(configs_catpaths, True, options.ascript_message,
                         mode.user)
 
 
-def ascribe_reviewed (options, configs_catpaths, mode):
-
-    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+def ascribe_reviewed_w (options, configs_catpaths, mode):
 
     nasc = 0
     for config, catpaths in configs_catpaths:
@@ -474,10 +488,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     if nasc > 0:
         report("===! Reviewed: %d" % nasc)
 
-    if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message,
-                        mode.user)
-
 
 def ascribe_modreviewed (options, configs_catpaths, mode):
 
@@ -485,16 +495,23 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
 
     mode.selector = build_selector(options, ["any"])
 
-    cleared_by_cat = clear_review(options, configs_catpaths, mode)
+    cleared_by_cat = clear_review_w(options, configs_catpaths, mode)
     ncleared = sum(map(len, cleared_by_cat.values()))
 
-    ascribe_modified(options, configs_catpaths, mode)
+    if options.commit:
+        commit_catalogs(configs_catpaths, False, options.message)
+
+    ascribe_modified_w(options, configs_catpaths, mode)
 
     if ncleared > 0:
         def stest (msg, cat, d1, d2, d3):
             return (msg.refentry in cleared_by_cat[cat.filename]) or None
         mode.selector = stest
-    ascribe_reviewed(options, configs_catpaths, mode)
+    ascribe_reviewed_w(options, configs_catpaths, mode)
+
+    if options.commit:
+        commit_catalogs(configs_catpaths, True, options.ascript_message,
+                        mode.user)
 
 
 def diff_select (options, configs_catpaths, mode):
@@ -511,6 +528,11 @@ def diff_select (options, configs_catpaths, mode):
 
 
 def clear_review (options, configs_catpaths, mode):
+
+    clear_review_w(options, configs_catpaths, mode)
+
+
+def clear_review_w (options, configs_catpaths, mode):
 
     cleared_by_cat = {}
     for config, catpaths in configs_catpaths:
