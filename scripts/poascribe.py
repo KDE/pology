@@ -208,12 +208,19 @@ def main ():
     if not canaselect and aselector:
         error("operation mode does not accept history selectors")
 
-    # For each path:
-    # - determine its associated ascription config,
-    # - collect all catalogs.
-    paths = [join_ncwd(x) for x in free_args]
-    if not paths:
-        paths = ["."]
+    # Collect the config which covers each path, and all catalogs inside it.
+    configs_catpaths = collect_configs_catpaths(free_args or ["."])
+
+    # Execute operation.
+    mode.execute(options, configs_catpaths, mode)
+
+
+# For each path:
+# - determine its associated ascription config
+# - collect all catalogs
+def collect_configs_catpaths (paths):
+
+    paths = map(join_ncwd, paths)
     configs_loaded = {}
     configs_catpaths = []
     for path in paths:
@@ -263,8 +270,7 @@ def main ():
         # Collect the config and corresponding catalogs.
         configs_catpaths.append((config, catpaths))
 
-    # Execute operation.
-    mode.execute(options, configs_catpaths, mode)
+    return configs_catpaths
 
 
 def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
