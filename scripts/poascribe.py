@@ -503,9 +503,11 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
 
-    # Try to remove review diffs.
-    # If any are removed, ascribe reviews only on them.
-    # If there were none, use supplied selector to ascribe reviews.
+    # Remove any review diffs.
+    # If any were actually removed, ascribe reviews only on them,
+    # providing they also pass the selector.
+    # If there were no diffs removed, ascribe reviews for all messages
+    # that pass the selector.
     # In both cases, ascribe modifications to all modified messages.
 
     stest_orig = mode.selector
@@ -522,12 +524,13 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
     ascribe_modified_w(options, configs_catpaths, mode)
 
     if ncleared > 0:
-        def stest (msg, cat, d1, d2, d3):
-            return (msg.refentry in cleared_by_cat[cat.filename]) or None
+        def stest (msg, cat, hist, conf, opts):
+            if msg.refentry not in cleared_by_cat[cat.filename]:
+                return None
+            if stest_orig and stest_orig(msg, cat, hist, conf, opts) is None:
+                return None
+            return True
         mode.selector = stest
-        if stest_orig:
-            warning("ignoring issued selector, "
-                    "ascribing as reviewed only messages with review states")
     else:
         mode.selector = stest_orig or stest_any
     ascribe_reviewed_w(options, configs_catpaths, mode)
