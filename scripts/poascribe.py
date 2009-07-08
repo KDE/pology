@@ -162,6 +162,8 @@ def main ():
         needuser = True
     elif mode.name in ("modreviewed", "mr"):
         mode.execute = ascribe_modreviewed
+        mode.selector = selector
+        canselect = True
         needuser = True
     elif mode.name in ("diff", "di"):
         mode.execute = diff_select
@@ -493,20 +495,33 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
 
-    mode.selector = build_selector(options, ["any"])
+    # Try to remove review diffs.
+    # If any are removed, ascribe reviews only on them.
+    # If there were none, use supplied selector to ascribe reviews.
+    # In both cases, ascribe modifications to all modified messages.
 
+    stest_orig = mode.selector
+    stest_any = build_selector(options, ["any"])
+
+    mode.selector = stest_any
     cleared_by_cat = clear_review_w(options, configs_catpaths, mode)
     ncleared = sum(map(len, cleared_by_cat.values()))
 
     if options.commit:
         commit_catalogs(configs_catpaths, False, options.message)
 
+    mode.selector = stest_any
     ascribe_modified_w(options, configs_catpaths, mode)
 
     if ncleared > 0:
         def stest (msg, cat, d1, d2, d3):
             return (msg.refentry in cleared_by_cat[cat.filename]) or None
         mode.selector = stest
+        if stest_orig:
+            warning("ignoring issued selector, "
+                    "ascribing as reviewed only messages with review states")
+    else:
+        mode.selector = stest_orig or stest_any
     ascribe_reviewed_w(options, configs_catpaths, mode)
 
     if options.commit:
