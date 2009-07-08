@@ -1741,7 +1741,8 @@ def selector_e (entry=None):
     cid = "selector:e"
 
     if not entry or not entry.isdigit():
-        error("message reference by entry must be an integer", subsrc=cid)
+        error("message reference by entry must be a positive integer",
+              subsrc=cid)
     refentry = int(entry)
 
     def selector (msg, cat, history, config, options):
@@ -1758,7 +1759,8 @@ def selector_l (line=None):
     cid = "selector:l"
 
     if not line or not line.isdigit():
-        error("message reference by line must be an integer", subsrc=cid)
+        error("message reference by line must be a positive integer",
+              subsrc=cid)
     refline = int(line)
 
     def selector (msg, cat, history, config, options):
@@ -1767,6 +1769,64 @@ def selector_l (line=None):
             return True
 
         return None
+
+    return selector
+
+
+# Select messages between and including first and last reference by entry.
+# If first entry is not given, all messages to the last entry are selected.
+# If last entry is not given, all messages from the first entry are selected.
+def selector_espan (first=None, last=None):
+    cid = "selector:espan"
+
+    if not first and not last:
+        error("at least one of the first and last reference by entry "
+              "must be given", subsrc=cid)
+    if first and not first.isdigit():
+        error("first message reference by entry must be a positive integer",
+              subsrc=cid)
+    if last and not last.isdigit():
+        error("last message reference by entry must be a positive integer",
+              subsrc=cid)
+    first_entry = (first and [int(first)] or [None])[0]
+    last_entry = (last and [int(last)] or [None])[0]
+
+    def selector (msg, cat, history, config, options):
+
+        if first_entry is not None and msg.refentry < first_entry:
+            return None
+        if last_entry is not None and msg.refentry > last_entry:
+            return None
+        return True
+
+    return selector
+
+
+# Select messages between and including first and last reference by line.
+# If first line is not given, all messages to the last line are selected.
+# If last line is not given, all messages from the first line are selected.
+def selector_lspan (first=None, last=None):
+    cid = "selector:lspan"
+
+    if not first and not last:
+        error("at least one of the first and last reference by line "
+              "must be given", subsrc=cid)
+    if first and not first.isdigit():
+        error("first message reference by line must be a positive integer",
+              subsrc=cid)
+    if last and not last.isdigit():
+        error("last message reference by line must be a positive integer",
+              subsrc=cid)
+    first_line = (first and [int(first)] or [None])[0]
+    last_line = (last and [int(last)] or [None])[0]
+
+    def selector (msg, cat, history, config, options):
+
+        if first_line is not None and msg.refline < first_line:
+            return None
+        if last_line is not None and msg.refline > last_line:
+            return None
+        return True
 
     return selector
 
@@ -2091,6 +2151,8 @@ xm_selector_factories = {
     "fexpr": (selector_fexpr, False),
     "e": (selector_e, False),
     "l": (selector_l, False),
+    "espan": (selector_espan, False),
+    "lspan": (selector_lspan, False),
     "hexpr": (selector_hexpr, True),
     "asc": (selector_asc, True),
     "mod": (selector_mod, True),
