@@ -29,6 +29,7 @@ from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
 from pology.misc.resolve import expand_vars
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
+import pology.misc.config as pology_config
 
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
@@ -49,11 +50,18 @@ def main ():
         u"Copyright © 2008 Chusslove Illich (Часлав Илић) "
         u"<caslav.ilic@gmx.net>\n")
 
+    cfgsec = pology_config.section("poascribe")
+
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
+    opars.add_option(
+        "-u", "--user", metavar="USER",
+        action="store", dest="user", default=None,
+        help="user in the focus of the operation "
+             "(relevant in some modes)")
     opars.add_option(
         "-s", "--select", metavar="SELECTOR[:ARGS]",
         action="append", dest="selectors", default=[],
@@ -90,7 +98,7 @@ def main ():
         "-c", "--commit",
         action="store_true", dest="commit", default=False,
         help="automatically commit original and ascription catalogs, "
-             "in proper order (relevand in some modes)")
+             "in proper order (relevant in some modes)")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
@@ -191,10 +199,10 @@ def main ():
         error("unknown operation mode '%s'" % mode.name)
 
     mode.user = None
-    if needuser:
-        if len(free_args) < 1:
-            error("operation mode requires a user to be specified")
-        mode.user = free_args.pop(0).strip()
+    if needuser and not options.user and not cfgsec.string("user"):
+        error("operation mode requires a user to be specified "
+              "(either in command line or in Pology configuration)")
+    mode.user = options.user or cfgsec.string("user")
     if not canselect and selector:
         error("operation mode does not accept selectors")
     if not canaselect and aselector:
