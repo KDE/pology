@@ -484,18 +484,16 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
 
     mode.selector = build_selector(options, ["any"])
+
     cleared_by_cat = clear_review(options, configs_catpaths, mode)
     ncleared = sum(map(len, cleared_by_cat.values()))
 
-    mode.selector = build_selector(options, ["any"])
     ascribe_modified(options, configs_catpaths, mode)
 
     if ncleared > 0:
         def stest (msg, cat, d1, d2, d3):
             return (msg.refentry in cleared_by_cat[cat.filename]) or None
         mode.selector = stest
-    else:
-        mode.selector = build_selector(options, ["modar:~%s" % mode.user])
     ascribe_reviewed(options, configs_catpaths, mode)
 
 
