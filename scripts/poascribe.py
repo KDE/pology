@@ -1202,8 +1202,9 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
 
 
 # FIXME: Imported by others, factor out.
-ATYPE_MOD = 1
-ATYPE_REV = 2
+# NOTE: These string are written and read from ascription files.
+ATYPE_MOD = "modified"
+ATYPE_REV = "reviewed"
 
 
 def ascribe_msg_mod (msg, acat, catrev, user, config):
