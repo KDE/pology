@@ -1444,7 +1444,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
 
         if project.ascription_filters and not options.force:
             aconf, acat = aconfs_acats[summit_cat.name]
-            ahist = ASC.asc_collect_history(summit_msg, acat, aconf)
+            ahist = ASC.asc_collect_history(summit_msg, acat, aconf, nomrg=True)
             afname, afilter = project.ascription_filters[options.asc_filter]
             if not afilter(summit_msg, summit_cat, ahist, aconf):
                 asc_stopped += 1
