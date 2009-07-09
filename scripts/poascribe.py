@@ -815,7 +815,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             else:
                 anote = "not ascribed yet"
             hinfo += [ihead + anote]
-            if not a.type == _atype_mod or a.msg.fuzzy:
+            if not a.type == ATYPE_MOD or a.msg.fuzzy:
                 # Nothing more to show if this ascription is not modification,
                 # or a fuzzy message is associated to it.
                 continue
@@ -1202,18 +1202,18 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
 
 
 # FIXME: Imported by others, factor out.
-_atype_mod = "modified"
-_atype_rev = "reviewed"
+ATYPE_MOD = 1
+ATYPE_REV = 2
 
 
 def ascribe_msg_mod (msg, acat, catrev, user, config):
 
-    ascribe_msg_any(msg, acat, _atype_mod, [], catrev, user, config)
+    ascribe_msg_any(msg, acat, ATYPE_MOD, [], catrev, user, config)
 
 
 def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
 
-    ascribe_msg_any(msg, acat, _atype_rev, tags, catrev, user, config)
+    ascribe_msg_any(msg, acat, ATYPE_REV, tags, catrev, user, config)
 
 
 # FIXME: Imported by others, factor out.
@@ -1323,7 +1323,7 @@ def asc_collect_history (msg, acat, config, nomrg=False):
     # add it in front as modified by unknown user.
     if not history or not asc_eq(msg, history[0].msg):
         a = _Ascription()
-        a.type = _atype_mod
+        a.type = ATYPE_MOD
         a.user = None
         a.msg = msg
         history.insert(0, a)
@@ -2024,7 +2024,7 @@ def selector_mod (user_spec=None):
             a = history[i]
             if not a.user:
                 continue
-            if a.type == _atype_mod and (not users or a.user in users):
+            if a.type == ATYPE_MOD and (not users or a.user in users):
                 i_sel = i
                 break
 
@@ -2079,8 +2079,8 @@ def w_selector_modax (cid, amod, arev,
         for i in range(len(history)):
             a = history[i]
             # Check if this message cancels candidate.
-            if (    (   (amod and a.type == _atype_mod)
-                     or (arev and a.type == _atype_rev and a.tag == atag_req))
+            if (    (   (amod and a.type == ATYPE_MOD)
+                     or (arev and a.type == ATYPE_REV and a.tag == atag_req))
                 and (not rmusers or a.user in rmusers)
                 and (not musers or a.user not in musers)
             ):
@@ -2110,7 +2110,7 @@ def w_selector_modax (cid, amod, arev,
                         i_sel = i_cand
                         break
             # Check if this message can be a candidate.
-            if (    a.type == _atype_mod
+            if (    a.type == ATYPE_MOD
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
@@ -2134,7 +2134,7 @@ def w_selector_modax (cid, amod, arev,
             if pfilter and i_cand + 1 < len(history):
                 mm = history[i_cand].msg
                 for a in history[i_cand + 1:]:
-                    if (    a.type == _atype_mod
+                    if (    a.type == ATYPE_MOD
                         and (not musers or a.user not in musers)
                         and flt_eq(mm, a.msg, pfilter)
                     ):
@@ -2164,7 +2164,7 @@ def selector_rev (user_spec=None, atag_req=None):
         i_sel = None
         for i in range(len(history)):
             a = history[i]
-            if (    a.type == _atype_rev and a.tag == atag_req
+            if (    a.type == ATYPE_REV and a.tag == atag_req
                 and (not users or a.user in users)
             ):
                 i_sel = i
@@ -2196,13 +2196,13 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
         can_select = False
         for i in range(len(history)):
             a = history[i]
-            if (     a.type == _atype_mod
+            if (     a.type == ATYPE_MOD
                 and (not musers or a.user in musers)
                 and (not rusers or a.user not in rusers)
             ):
                 # Modification found, enable selection of review.
                 can_select = True
-            if (    a.type == _atype_rev and a.tag == atag_req
+            if (    a.type == ATYPE_REV and a.tag == atag_req
                 and (not rusers or a.user in rusers)
                 and (not musers or a.user not in musers)
             ):
@@ -2242,7 +2242,7 @@ def selector_modafter (time_spec=None, user_spec=None):
         i_sel = None
         for i in range(len(history) - 1, -1, -1):
             a = history[i]
-            if (    a.type == _atype_mod and (not users or a.user in users)
+            if (    a.type == ATYPE_MOD and (not users or a.user in users)
                 and (not date or a.date >= date)
                 and (not rev or not config.vcs.is_older(a.rev, rev))
             ):
