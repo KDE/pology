@@ -12,6 +12,7 @@ from pology.misc.report import report, error, warning
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
+import pology.scripts.poascribe as ASC
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -55,6 +56,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
+    opars.add_option(
+        "-a", "--asc-filter",
+        action="store", dest="asc_filter", default=None,
+        help="select a non-default ascription filter on scatter")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -163,6 +168,8 @@ class Project (object):
 
             "scatter_min_completeness" : 0.0,
             "scatter_acc_completeness" : 0.0,
+
+            "ascription_filters" : [],
         })
         self.__dict__["locked"] = False
 
@@ -322,6 +329,28 @@ def derive_project_data (project, options):
     # ...and from the summit.
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
                                              None, None, project, options)
+
+    # Link summit and ascription catalogs.
+    if project.ascription_filters:
+        tmp0 = [(x, y[0][0]) for x, y in p.catalogs[SUMMIT_ID].items()]
+        tmp1 = [x[0] for x in tmp0]
+        tmp2 = ASC.collect_configs_catpaths([x[1] for x in tmp0])
+        tmp3 = [(x, y[0][1]) for x, y in tmp2]
+        p.asc_configs_acatpaths = dict(zip(tmp1, tmp3))
+
+    # Resolve non-default ascription filters from name to index.
+    if options.asc_filter is not None:
+        if not project.ascription_filters:
+            error("project does not define any ascription filters")
+        for i in range(len(project.ascription_filters)):
+            if project.ascription_filters[i][0] == options.asc_filter:
+                options.asc_filter = i
+                break
+        if i == len(project.ascription_filters):
+            error("project does not define ascription filter '%s'"
+                  % options.asc_filter)
+    else:
+        options.asc_filter = 0
 
     # Assure that summit catalogs are unique.
     for name, spec in p.catalogs[SUMMIT_ID].items():
@@ -1370,10 +1399,19 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     branch_cat = Catalog(branch_path_mod, wrapf=wrapf)
     summit_cats = [Catalog(x) for x in summit_paths]
 
+    # Open ascription catalogs.
+    if project.ascription_filters:
+        aconfs_acats = {}
+        for summit_cat in summit_cats:
+            aconf, acatpath = project.asc_configs_acatpaths[summit_cat.name]
+            acat = Catalog(acatpath, monitored=False)
+            aconfs_acats[summit_cat.name] = (aconf, acat)
+
     # Pair branch messages with summit messages.
     msgs_total = 0
     msgs_translated = 0
     msg_links = []
+    asc_stopped = 0
     for branch_msg in branch_cat:
         # Skip obsolete messages.
         if branch_msg.obsolete:
@@ -1399,17 +1437,32 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                 else:
                     break
 
-        if summit_msg is not None:
-            if summit_msg.translated:
-                msgs_translated += 1
-            msg_links.append((branch_msg, summit_msg, summit_cat))
-        else:
-            report(   "%s:%d(%d): message not in the summit"
+        if summit_msg is None:
+            report("%s:%d(%d): message not in the summit"
                    % (branch_path, branch_msg.refline, branch_msg.refentry))
+            continue
+
+        if project.ascription_filters and not options.force:
+            aconf, acat = aconfs_acats[summit_cat.name]
+            ahist = ASC.asc_collect_history(summit_msg, acat, aconf)
+            afname, afilter = project.ascription_filters[options.asc_filter]
+            if not afilter(summit_msg, summit_cat, ahist, aconf):
+                asc_stopped += 1
+                continue
+
+        if summit_msg.translated:
+            msgs_translated += 1
+        msg_links.append((branch_msg, summit_msg, summit_cat))
+
+    if asc_stopped > 0:
+        report("%s: %d messages stopped by ascription filter"
+               % (branch_path, asc_stopped))
 
     # If completeness less than minimal acceptable, remove all translations.
     completeness_ratio = float(msgs_translated) / msgs_total
-    if completeness_ratio < project.scatter_acc_completeness:
+    if (   completeness_ratio < project.scatter_acc_completeness
+        and not options.force
+    ):
         for branch_msg in branch_cat:
             if branch_msg.obsolete:
                 continue
