@@ -41,7 +41,7 @@ def main ():
 
     # Setup options and parse the command line.
     usage = (
-        u"%prog [OPTIONS] [MODE] [MODEARGS] [PATHS...]")
+        u"%prog [OPTIONS] [MODE] [PATHS...]")
     description = (
         u"Keep track of who, when, and how, has translated, modified, "
         u"or reviewed messages in a collection of PO files.")
@@ -964,6 +964,9 @@ _nonid_fields = (
 _fields_previous = (
     "msgctxt_previous", "msgid_previous", "msgid_plural_previous",
 )
+_fields_current = (
+    "msgctxt", "msgid", "msgid_plural",
+)
 _fields_comment = (
     "manual_comment", "auto_comment",
 )
@@ -1235,27 +1238,47 @@ def flt_eq (msg1, msg2, pfilter):
     return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] > 0.0
 
 
-def amrg_eq (msg1, msg2):
+def merge_modified (msg1, msg2):
     """
-    Whether two messages may be considered equal but
-    for changes possibly induced by merging.
+    Whether second message may be considered derived from first by merging.
     """
 
+    # Manual comments do not change on merge.
     if msg1.manual_comment != msg2.manual_comment:
         return False
 
-    # Simple check on translation if plurality same, special check otherwise.
+    # Current and previous original fields may have changed on merge,
+    # depending on whether both messages are fuzzy, or only one, and which.
+    if msg1.fuzzy == msg2.fuzzy:
+        fields = msg1.fuzzy and _fields_previous or _fields_current
+        for field in fields:
+            if msg1.get(field) != msg2.get(field):
+                return False
+    else:
+        fields = (msg1.fuzzy and zip(_fields_previous, _fields_current)
+                              or zip(_fields_current, _fields_previous))
+        for field1, field2 in fields:
+            if msg1.get(field1) != msg2.get(field2):
+                return False
+
+    # Translation does not change on merge,
+    # except for multiplication/reduction when plurality differs.
     if (msg1.msgid_plural is None) == (msg2.msgid_plural is None):
         if msg1.msgstr != msg2.msgstr:
             return False
     else:
+        if not msg1.fuzzy and not msg2.fuzzy:
+            # Plurality cannot change between two non-fuzzy messages.
+            return False
         if msg1.msgid_plural is not None:
-            mp, m = msg1, msg2
-        else:
-            mp, m = msg2, msg1
-        for msgstr in mp.msgstr:
-            if m.msgstr[0] != msgstr:
+            # Reduction to non-plural.
+            if msg1.msgstr[0] != msg2.msgstr[0]:
                 return False
+        else:
+            # Multiplication to plural.
+            for msgstr in msg2.msgstr:
+                if msgstr != msg1.msgstr[0]:
+                    return False
 
     return True
 
@@ -1302,7 +1325,7 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg):
             if not before or asc_age_cmp(a, before, config) < 0:
                 history.append(a)
 
-    # Continue into the past by pivoting around first message if fuzzy.
+    # Continue into the past by pivoting around earliest message if fuzzy.
     amsg = history and history[-1].msg or msg
     if amsg.fuzzy and amsg.msgid_previous:
         pmsg = MessageUnsafe()
@@ -2030,7 +2053,7 @@ def w_selector_modax (cid, amod, arev,
                     mm, mrm = history[i_cand].msg, a.msg
                     good = True
                     if history[i_cand].user == UFUZZ or a.user == UFUZZ:
-                        if amrg_eq(mm, mrm):
+                        if merge_modified(mrm, mm):
                             good = False
                     else:
                         pfilter = options.tfilter or config.tfilter
@@ -2052,7 +2075,7 @@ def w_selector_modax (cid, amod, arev,
                 # fields normally in translator's domain.
                 good = True
                 if a.user == UFUZZ and i + 1 < len(history):
-                    if amrg_eq(a.msg, history[i + 1].msg):
+                    if merge_modified(history[i + 1].msg, a.msg):
                         good = False
                 # Compliant modification found, make it candidate.
                 if good:
