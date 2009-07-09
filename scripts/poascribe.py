@@ -398,11 +398,11 @@ def examine_state (options, configs_catpaths, mode):
             # Count non-ascribed by original catalog.
             for msg in cat:
                 history = asc_collect_history(msg, acat, config)
-                if not history and msg.untranslated:
+                if history[0].user is None and msg.untranslated:
                     continue # pristine
                 if mode.selector(msg, cat, history, config, options) is None:
                     continue # not selected
-                if not history or not asc_eq(msg, history[0].msg):
+                if history[0].user is None:
                     st = msg.state()
                     if catpath not in counts[st]:
                         counts[st][catpath] = 0
@@ -606,11 +606,11 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     counts0 = counts.copy()
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
-        if not history and msg.untranslated:
+        if history[0].user is None and msg.untranslated:
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
             continue # not selected
-        if not (history and asc_eq(msg, history[0].msg)):
+        if history[0].user is None:
             toasc_msgs.append(msg)
             counts[msg.state()] += 1
 
@@ -671,13 +671,13 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to ascribe review to pristine messages.
-        if not history and msg.untranslated:
+        if history[0].user is None and msg.untranslated:
             continue
         if stest(msg, cat, history, config, options) is None:
             continue
         # Message cannot be ascribed as reviewed if it has not been
         # already ascribed as modified.
-        if not history or not asc_eq(msg, history[0].msg):
+        if history[0].user is None:
             # Collect to report later.
             non_mod_asc_msgs.append(msg)
             continue
@@ -725,7 +725,7 @@ def diff_select_cat (options, config, catpath, acatpath,
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
         # Makes no sense to review pristine messages.
-        if not history and msg.untranslated:
+        if history[0].user is None and msg.untranslated:
             continue
         sres = stest(msg, cat, history, config, options)
         if sres is None:
@@ -792,6 +792,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         hlevels = len(history)
         if options.depth is not None:
             hlevels = int(options.depth)
+            if history[0].user is None:
+                hlevels += 1
             if hlevels > len(history):
                 hlevels = len(history)
 
@@ -808,8 +810,10 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date, rev=a.rev)
             if a.rev:
                 anote = "%(mod)s by %(usr)s on %(dat)s (rev %(rev)s)" % anote_d
-            else:
+            elif a.user:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
+            else:
+                anote = "not ascribed yet"
             hinfo += [ihead + anote]
             if not a.type == _atype_mod or a.msg.fuzzy:
                 # Nothing more to show if this ascription is not modification,
@@ -1291,32 +1295,60 @@ def asc_append_field (msg, field, value):
     msg.auto_comment.append(stext)
 
 
+_asc_attrs = (
+    "rmsg", "msg",
+    "user", "type", "tag", "date", "rev",
+    "slen", "fuzz", "obs",
+)
+
 class _Ascription (object):
+
+    def __init__ (self):
+
+        for attr in _asc_attrs:
+            self.__dict__[attr] = None
 
     def __setattr__ (self, attr, val):
 
-        if attr not in ("rmsg", "msg", "user", "type", "tag", "date", "rev",
-                        "slen", "fuzz", "obs"):
-            raise KeyError, \
-                  "trying to set invalid ascription field '%s'" % attr
+        if attr not in self.__dict__:
+            raise KeyError, "trying to set unknown ascription field '%s'" % attr
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acat, config):
+def asc_collect_history (msg, acat, config, nomrg=False):
 
-    return asc_collect_history_w(msg, acat, config, None, {})
+    history = asc_collect_history_w(msg, acat, config, None, set())
+
+    # If the message is not ascribed,
+    # add it in front as modified by unknown user.
+    if not history or not asc_eq(msg, history[0].msg):
+        a = _Ascription()
+        a.type = _atype_mod
+        a.user = None
+        a.msg = msg
+        history.insert(0, a)
+
+    # Eliminate clean merges from history.
+    if nomrg:
+        history_r = []
+        for i in range(len(history) - 1):
+            a, ao = history[i], history[i + 1]
+            if not a.user == UFUZZ or not merge_modified(ao.msg, a.msg):
+                history_r.append(a)
+        history_r.append(history[-1])
+        history = history_r
+
+    return history
 
 
 def asc_collect_history_w (msg, acat, config, before, seenmsg):
 
     history = []
-    if not seenmsg:
-        seenmsg = {}
 
     # Avoid circular paths.
     if msg.key in seenmsg:
         return history
-    seenmsg[msg.key] = True
+    seenmsg.add(msg.key)
 
     # Collect history from all ascription catalogs.
     if msg in acat:
@@ -1742,18 +1774,16 @@ def selector_wasc ():
 
         pfilter = options.tfilter or config.tfilter
 
-        if history:
-            amsg = history[0].msg
-            if asc_eq(msg, amsg):
-                return True
-            elif pfilter:
-                # Also consider ascribed if equal to last ascription
-                # under the filter in effect.
-                if flt_eq(amsg, msg, pfilter):
-                    return True
+        if history[0].user is not None:
+            return True
         elif msg.untranslated:
             # Also consider pristine messages ascribed.
             return True
+        elif pfilter and len(history) > 1:
+            # Also consider ascribed if equal to last ascription
+            # under the filter in effect.
+            if flt_eq(msg, history[1].msg, pfilter):
+                return True
 
         return None
 
@@ -1899,6 +1929,9 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 
     def selector (msg, cat, history, config, options):
 
+        if history[0].user is None:
+            return None
+
         matcher = cached_matcher(cache, expr, config, options, cid)
         users = cached_users(cache, user_spec, config, cid)
 
@@ -1956,6 +1989,9 @@ def selector_asc (user_spec=None):
 
     def selector (msg, cat, history, config, options):
 
+        if history[0].user is None:
+            return None
+
         users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
@@ -1978,11 +2014,16 @@ def selector_mod (user_spec=None):
 
     def selector (msg, cat, history, config, options):
 
+        if history[0].user is None:
+            return None
+
         users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
             a = history[i]
+            if not a.user:
+                continue
             if a.type == _atype_mod and (not users or a.user in users):
                 i_sel = i
                 break
@@ -2026,6 +2067,9 @@ def w_selector_modax (cid, amod, arev,
     cache = _Cache()
 
     def selector (msg, cat, history, config, options):
+
+        if history[0].user is None:
+            return None
 
         musers = cached_users(cache, muser_spec, config, cid, utype="m")
         rmusers = cached_users(cache, rmuser_spec, config, cid, utype="rm")
@@ -2112,6 +2156,9 @@ def selector_rev (user_spec=None, atag_req=None):
 
     def selector (msg, cat, history, config, options):
 
+        if history[0].user is None:
+            return None
+
         users = cached_users(cache, user_spec, config, cid)
 
         i_sel = None
@@ -2136,6 +2183,9 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
     cache = _Cache()
 
     def selector (msg, cat, history, config, options):
+
+        if history[0].user is None:
+            return None
 
         rusers = cached_users(cache, ruser_spec, config, cid, utype="r")
         musers = cached_users(cache, muser_spec, config, cid, utype="m")
@@ -2183,6 +2233,9 @@ def selector_modafter (time_spec=None, user_spec=None):
         rev = time_spec.strip()
 
     def selector (msg, cat, history, config, options):
+
+        if history[0].user is None:
+            return None
 
         users = cached_users(cache, user_spec, config, cid)
 
