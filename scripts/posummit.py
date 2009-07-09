@@ -1404,7 +1404,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
         aconfs_acats = {}
         for summit_cat in summit_cats:
             aconf, acatpath = project.asc_configs_acatpaths[summit_cat.name]
-            acat = Catalog(acatpath, monitored=False)
+            acat = Catalog(acatpath, monitored=False, create=True)
             aconfs_acats[summit_cat.name] = (aconf, acat)
 
     # Pair branch messages with summit messages.
