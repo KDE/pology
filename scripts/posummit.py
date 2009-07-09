@@ -1442,7 +1442,9 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                    % (branch_path, branch_msg.refline, branch_msg.refentry))
             continue
 
-        if project.ascription_filters and not options.force:
+        if (    project.ascription_filters and not options.force
+            and not (summit_msg.untranslated and branch_msg.untranslated)
+        ):
             aconf, acat = aconfs_acats[summit_cat.name]
             ahist = ASC.asc_collect_history(summit_msg, acat, aconf, nomrg=True)
             afname, afilter = project.ascription_filters[options.asc_filter]
