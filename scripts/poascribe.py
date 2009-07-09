@@ -218,6 +218,7 @@ def main ():
 # For each path:
 # - determine its associated ascription config
 # - collect all catalogs
+# FIXME: Imported by others, factor out.
 def collect_configs_catpaths (paths):
 
     paths = map(join_ncwd, paths)
@@ -1193,20 +1194,22 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         amsg.obsolete = False
 
 
+# FIXME: Imported by others, factor out.
 _atype_mod = "modified"
+_atype_rev = "reviewed"
+
 
 def ascribe_msg_mod (msg, acat, catrev, user, config):
 
     ascribe_msg_any(msg, acat, _atype_mod, [], catrev, user, config)
 
 
-_atype_rev = "reviewed"
-
 def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
 
     ascribe_msg_any(msg, acat, _atype_rev, tags, catrev, user, config)
 
 
+# FIXME: Imported by others, factor out.
 def asc_eq (msg1, msg2):
     """
     Whether two messages are equal from the ascription viewpoint.
