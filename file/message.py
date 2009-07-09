@@ -44,6 +44,7 @@ _Message_spec = {
     "key" : {"type" : unicode, "derived" : True},
     "fmt" : {"type" : unicode, "derived" : True},
     "inv" : {"type" : unicode, "derived" : True},
+    "trn" : {"type" : unicode, "derived" : True},
     "fuzzy" : {"type" : bool},
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
@@ -207,6 +208,15 @@ class Message_base (object):
         C{msgctxt_previous}, C{msgid_previous}, C{msgid_plural_previous}.
     @type inv: string
 
+    @ivar trn: (read-only) translator-controlled composition
+
+        Translator-controlled parts of the message are those that are
+        normally modified by a translator when working on a PO file.
+
+        The value is an undefined serialization of: C{msgstr}, C{fuzzy},
+        C{manual_comment}.
+    @type trn: string
+
     @ivar fuzzy:
         whether the message is fuzzy
 
@@ -307,6 +317,9 @@ class Message_base (object):
                                   "fuzzy", "obsolete",
                                   "manual_comment", "msgctxt_previous",
                                   "msgid_previous", "msgid_plural_previous"])
+
+        elif att == "trn":
+            return self._compose(["msgstr", "fuzzy", "manual_comment"])
 
         elif att == "format":
             format_flag = ""
