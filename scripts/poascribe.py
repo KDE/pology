@@ -14,7 +14,7 @@ import imp
 from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 
-from pology.misc.fsops import str_to_unicode
+from pology.misc.fsops import str_to_unicode, unicode_to_str
 from pology.misc.report import report, warning, error
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
@@ -27,7 +27,6 @@ from pology.misc.tabulate import tabulate
 from pology.misc.langdep import get_hook_lreq
 from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
-from pology.misc.resolve import expand_vars
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 import pology.misc.config as pology_config
 
@@ -274,8 +273,7 @@ def collect_configs_catpaths (paths):
     return configs_catpaths
 
 
-def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
-                     user=None):
+def commit_catalogs (configs_catpaths, user, message=None, ascriptions=True):
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -293,17 +291,74 @@ def commit_catalogs (configs_catpaths, ascriptions=True, message=None,
     # Commit by config.
     for config in configs:
         cmsg = message
-        if message is None:
+        cmsgfile = None
+        if not cmsg:
             if ascriptions:
-                if user and config.ascript_commit_message_w_user:
-                    cmsg = config.ascript_commit_message_w_user
-                    cmsg = expand_vars(cmsg, dict(user=user), head="%")
-                else:
-                    cmsg = config.ascript_commit_message
+                cmsg = config.ascript_commit_message
             else:
                 cmsg = config.commit_message
-        if not config.vcs.commit(catpaths_byconf[config], cmsg):
-            error("VCS reports that catalogs cannot be committed")
+        if not cmsg:
+            cmsgfile, cmsgfile_orig = get_commit_message_file_path(user)
+        else:
+            cmsg += " " + fmt_commit_user(user)
+        if not config.vcs.commit(catpaths_byconf[config],
+                                 message=cmsg, msgfile=cmsgfile):
+            if not cmsgfile:
+                error("VCS reports that catalogs cannot be committed")
+            else:
+                os.unlink(cmsgfile)
+                error("VCS reports that catalogs cannot be committed "
+                      "(commit message preserved in %s)" % cmsgfile_orig)
+        if cmsgfile:
+            os.unlink(cmsgfile)
+            os.unlink(cmsgfile_orig)
+
+
+def fmt_commit_user (user):
+
+    return "[>%s]" % user
+
+
+def get_commit_message_file_path (user):
+
+    while True:
+        tfmt = time.strftime("%Y-%m-%d-%H-%M-%S")
+        prefix = "poascribe-commit-message"
+        ext = "txt"
+        fpath = "%s-%s.%s" % (prefix, tfmt, ext)
+        fpath_asc = "%s-%s-asc.%s" % (prefix, tfmt, ext)
+        if not os.path.isfile(fpath) and not os.path.isfile(fpath_asc):
+            break
+
+    edcmd = None
+    if not edcmd:
+        edcmd = os.getenv("ASC_EDITOR")
+    if not edcmd:
+        edcmd = pology_config.section("poascribe").string("editor")
+    if not edcmd:
+        edcmd = os.getenv("EDITOR")
+    if not edcmd:
+        edcmd = "/usr/bin/vi"
+
+    cmd = "%s %s" % (edcmd, fpath)
+    if os.system(cmd):
+        error("error from editor command for commit message: %s" % cmd)
+    if not os.path.isfile(fpath):
+        error("editor command did not produce a file: %s" % cmd)
+
+    cmsg = open(fpath, "r").read()
+    if not cmsg.endswith("\n"):
+        cmsg += "\n"
+    fmt_user = unicode_to_str(fmt_commit_user(user))
+    if cmsg.count("\n") == 1:
+        cmsg = cmsg[:-1] + " " + fmt_user + "\n"
+    else:
+        cmsg += fmt_user + "\n"
+    fh = open(fpath_asc, "w")
+    fh.write(cmsg)
+    fh.close()
+
+    return fpath_asc, fpath
 
 
 class Config:
@@ -337,8 +392,6 @@ class Config:
 
         self.commit_message = gsect.get("commit-message", None)
         self.ascript_commit_message = gsect.get("ascript-commit-message", None)
-        self.ascript_commit_message_w_user = \
-            gsect.get("ascript-commit-message-w-user", None)
 
         class UserData: pass
         self.udata = {}
@@ -450,13 +503,14 @@ def ascribe_modified (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode)
 
     if options.commit:
-        commit_catalogs(configs_catpaths, False, options.message)
+        commit_catalogs(configs_catpaths, mode.user,
+                        options.message, False)
 
     ascribe_modified_w(options, configs_catpaths, mode)
 
     if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message,
-                        mode.user)
+        commit_catalogs(configs_catpaths, mode.user,
+                        options.ascript_message, True)
 
 
 def ascribe_modified_w (options, configs_catpaths, mode):
@@ -490,8 +544,8 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     ascribe_reviewed_w(options, configs_catpaths, mode)
 
     if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message,
-                        mode.user)
+        commit_catalogs(configs_catpaths, mode.user,
+                        options.ascript_message, True)
 
 
 def ascribe_reviewed_w (options, configs_catpaths, mode):
@@ -525,7 +579,8 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
     ncleared = sum(map(len, cleared_by_cat.values()))
 
     if options.commit:
-        commit_catalogs(configs_catpaths, False, options.message)
+        commit_catalogs(configs_catpaths, mode.user,
+                        options.message, False)
 
     mode.selector = stest_any
     ascribe_modified_w(options, configs_catpaths, mode)
@@ -543,8 +598,8 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
     ascribe_reviewed_w(options, configs_catpaths, mode)
 
     if options.commit:
-        commit_catalogs(configs_catpaths, True, options.ascript_message,
-                        mode.user)
+        commit_catalogs(configs_catpaths, mode.user,
+                        options.ascript_message, True)
 
 
 def diff_select (options, configs_catpaths, mode):
