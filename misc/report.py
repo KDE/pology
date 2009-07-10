@@ -30,7 +30,7 @@ def encwrite (file, text):
     @type text: string or unicode
     """
 
-    enc = file.encoding or locale.getpreferredencoding()
+    enc = getattr(file, "encoding", None) or locale.getpreferredencoding()
     text = text.encode(enc, "replace")
     file.write(text)
 
