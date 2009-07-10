@@ -215,7 +215,7 @@ class VcsBase (object):
               "fetching a versioned path")
 
 
-    def commit (self, paths, message=None):
+    def commit (self, paths, message=None, msgfile=None):
         """
         Commit paths to the repository.
 
@@ -224,13 +224,19 @@ class VcsBase (object):
         but in general it should be the earliest level at which
         modifications are recorded in the repository history.
 
+        Commit message can be given either directly, through C{message}
+        parameter, or read from a file with path given by C{msgfile}.
+        If both C{message} and C{msgfile} are given,
+        C{message} takes precedence and C{msgfile} is ignored.
         If the commit message is not given, VCS should ask for one as usual
         (pop an editor window, or whatever the user has configured).
 
         @param paths: paths to commit
         @type paths: list of strings
         @param message: commit message
-        @type message: string or None
+        @type message: string
+        @param msgfile: path to file with the commit message
+        @type msgfile: string
 
         @return: C{True} if committing succeeded, C{False} otherwise
         @rtype: bool
@@ -341,7 +347,7 @@ class VcsNoop (VcsBase):
         return True
 
 
-    def commit (self, paths, message=None):
+    def commit (self, paths, message=None, msgfile=None):
         # Base override.
 
         return True
@@ -460,12 +466,14 @@ class VcsSubversion (VcsBase):
         return True
 
 
-    def commit (self, paths, message=None):
+    def commit (self, paths, message=None, msgfile=None):
         # Base override.
 
         cmdline = "svn commit "
         if message is not None:
             cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+        elif msgfile is not None:
+            cmdline += "-F \"%s\" " % msgfile.replace("\"", "\\\"")
         cmdline += " ".join(paths)
 
         # Do not use collect_system(), user may need to input stuff.
@@ -702,7 +710,7 @@ class VcsGit (VcsBase):
         return ret
 
 
-    def commit (self, paths, message=None):
+    def commit (self, paths, message=None, msgfile=None):
         # Base override.
 
         if not paths:
@@ -734,6 +742,8 @@ class VcsGit (VcsBase):
         cmdline = "git commit "
         if message is not None:
             cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+        elif msgfile is not None:
+            cmdline += "-F \"%s\" " % msgfile.replace("\"", "\\\"")
 
         # Do not use collect_system(), user may need to input stuff.
         #report(cmdline)
