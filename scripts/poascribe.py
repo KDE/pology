@@ -1614,7 +1614,6 @@ _dt_str_now = time.strftime(_dt_fmt)
 
 def format_datetime (dt=None):
 
-    fmt = "%Y-%m-%d %H:%M:%S%z"
     if dt is not None:
         dtstr = dt.strftime(_dt_fmt)
         # NOTE: If timezone offset is lost, the datetime object is UTC.
