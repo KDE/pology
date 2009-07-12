@@ -157,8 +157,9 @@ def resolve_entities_simple (text, entities, ignored_entities=set(),
                             althead=althead)[0]
 
 
-def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
-                          condf=None, althead=DEFAULT_ALTHEAD):
+def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
+                          altfilter=None, outfilter=None, condf=None,
+                          srcname=None):
     """
     Replace alternatives directives in the text with the selected alternative.
 
@@ -172,9 +173,11 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
     itself, but is provided as an external parameter.
 
     Alternative directive is resolved into one of the alternative substrings
-    by given index of the alternative (one-based). Optionally, before
-    substituting the directive, the selected alternative can be filtered
-    through a string containing C{%s} format directive.
+    by given index of the alternative (one-based).
+    Before substituting the directive, the selected alternative can be filtered
+    through function given by C{altfilter} parameter.
+    Text outside of directives can be filtered as well, piece by piece,
+    through the function given by C{outfilter} parameter.
 
     If an alternatives directive is malformed (e.g. to little alternatives),
     it may be reported to standard output. Unless all encountered directives
@@ -183,30 +186,24 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
 
     @param text: the text to transform
     @type text: string
-
     @param select: index of the alternative to select (one-based)
     @type select: int > 0
-
     @param total: number of alternatives per directive
     @type total: int > 0
-
-    @param fmtstr:
-        if not None, filter string containing single C{%s} format directive
-    @type fmtstr: None or string
-
-    @param srcname:
-        if not None, report malformed directives to standard output,
-        with this string as source identifier
-    @type srcname: None or string
-
+    @param althead: directive head to use instead of the default one
+    @type althead: string
+    @param altfilter: filter to apply to chosen alternatives
+    @type altfilter: (string) -> string
+    @param outfilter: filter to apply to text outside of directives
+    @type outfilter: (string) -> string
     @param condf:
         resolve current alternative directive only when this function
         returns C{True} on call with each alternative as argument
     @type condf: None or C{(x_1, ..., x_n) -> True/False}
-
-    @param althead: directive head to use instead of the default one
-    @type althead: string
-
+    @param srcname:
+        if not None, report malformed directives to standard output,
+        with this string as source identifier
+    @type srcname: None or string
     @returns:
         resulting text, number of resolved alternatives, and an indicator
         of well-formedness (C{True} if all directives well-formed)
@@ -217,6 +214,11 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
     alt_head = althead
     alt_hlen = len(althead)
 
+    if outfilter is None:
+        outfilter = lambda x: x
+    if altfilter is None:
+        altfilter = lambda x: x
+
     original_text = text
     new_text = u""
     nresolved = 0
@@ -226,12 +228,12 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         pp = p + 1
         p = text.find(alt_head, pp)
         if p < 0:
-            new_text += text[pp:]
+            new_text += outfilter(text[pp:])
             break
         ps = p
 
         # Append segment prior to alternatives directive to the result.
-        new_text += text[pp:p]
+        new_text += outfilter(text[pp:p])
         rep_text = text[p:] # text segment for error reporting
 
         # Must have at least 2 characters after the head.
@@ -266,10 +268,7 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
         # Replace the alternative if admissible, or leave directive untouched.
         isel = select - 1
         if isel < len(alts) and (not condf or condf(*alts)):
-            alt = alts[isel]
-            if fmtstr is not None:
-                alt = fmtstr % alt
-            new_text += alt
+            new_text += altfilter(alts[isel])
             nresolved += 1
         else:
             new_text += text[ps:p+1]
@@ -281,9 +280,9 @@ def resolve_alternatives (text, select, total, fmtstr=None, srcname=None,
     return new_text, nresolved, not malformed
 
 
-def resolve_alternatives_simple (text, select, total, fmtstr=None,
-                                 srcname=None, condf=None,
-                                 althead=DEFAULT_ALTHEAD):
+def resolve_alternatives_simple (text, select, total, althead=DEFAULT_ALTHEAD,
+                                 altfilter=None, outfilter=None, condf=None,
+                                 srcname=None):
     """
     As L{resolve_alternatives}, but return only the resolved text.
 
@@ -293,9 +292,10 @@ def resolve_alternatives_simple (text, select, total, fmtstr=None,
     @see: L{resolve_alternatives}
     """
 
-    ntext, d1, valid = resolve_alternatives(text, select, total,
-                                            fmtstr=fmtstr, srcname=srcname,
-                                            condf=condf, althead=althead)
+    res = resolve_alternatives(text, select, total, althead,
+                               altfilter, outfilter, condf,
+                               srcname)
+    ntext, d1, valid = res
     if not valid:
         return text
     return ntext
