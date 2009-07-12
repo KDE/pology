@@ -168,7 +168,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_to_lokalize" class="summary-sig-name">report_msg_to_lokalize</a>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">cat</span>)</span><br />
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">report</span>=<span class="summary-sig-default">None</span>)</span><br />
       Open catalog in Lokalize and jump to message.</td>
           <td align="right" valign="top">
             
@@ -187,7 +188,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0x8f1a72c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0x8d590d4&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
@@ -459,7 +460,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_to_lokalize</span>(<span class="sig-arg">msg</span>,
-        <span class="sig-arg">cat</span>)</span>
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">report</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -480,6 +482,9 @@
           class="link">Message_base</a>) - the message which should be jumped to in Lokalize</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.file.catalog.Catalog-class.html" 
           class="link">Catalog</a>) - the catalog in which the message resides</li>
+        <li><strong class="pname"><code>report</code></strong> (string or <a 
+          href="pology.misc.msgreport-module.html#report_msg_content" 
+          class="link">highlight</a>) - simple text or highlight specification</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -493,7 +498,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0x8f1a72c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0x8d590d4&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,

@@ -127,10 +127,11 @@
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_alternatives" class="summary-sig-name">resolve_alternatives</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">select</span>,
         <span class="summary-sig-arg">total</span>,
-        <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">altfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">outfilter</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
       Replace alternatives directives in the text with the selected 
       alternative.</td>
           <td align="right" valign="top">
@@ -151,10 +152,11 @@
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_alternatives_simple" class="summary-sig-name">resolve_alternatives_simple</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">select</span>,
         <span class="summary-sig-arg">total</span>,
-        <span class="summary-sig-arg">fmtstr</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">altfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">outfilter</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
       As <a href="pology.misc.resolve-module.html#resolve_alternatives" 
       class="link">resolve_alternatives</a>, but return only the resolved 
       text.</td>
@@ -438,10 +440,11 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">select</span>,
         <span class="sig-arg">total</span>,
-        <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">altfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">outfilter</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">condf</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -460,10 +463,11 @@
   command). The number of alternatives per directive is not defined by the 
   directive itself, but is provided as an external parameter.</p>
   <p>Alternative directive is resolved into one of the alternative 
-  substrings by given index of the alternative (one-based). Optionally, 
-  before substituting the directive, the selected alternative can be 
-  filtered through a string containing <code>%s</code> format 
-  directive.</p>
+  substrings by given index of the alternative (one-based). Before 
+  substituting the directive, the selected alternative can be filtered 
+  through function given by <code>altfilter</code> parameter. Text outside 
+  of directives can be filtered as well, piece by piece, through the 
+  function given by <code>outfilter</code> parameter.</p>
   <p>If an alternatives directive is malformed (e.g. to little 
   alternatives), it may be reported to standard output. Unless all 
   encountered directives were well-formed, the original text is returned 
@@ -474,14 +478,14 @@
         <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
         <li><strong class="pname"><code>select</code></strong> (int &gt; 0) - index of the alternative to select (one-based)</li>
         <li><strong class="pname"><code>total</code></strong> (int &gt; 0) - number of alternatives per directive</li>
-        <li><strong class="pname"><code>fmtstr</code></strong> (None or string) - if not None, filter string containing single <code>%s</code> 
-          format directive</li>
-        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report malformed directives to standard output, with
-          this string as source identifier</li>
+        <li><strong class="pname"><code>althead</code></strong> (string) - directive head to use instead of the default one</li>
+        <li><strong class="pname"><code>altfilter</code></strong> ((string) -&gt; string) - filter to apply to chosen alternatives</li>
+        <li><strong class="pname"><code>outfilter</code></strong> ((string) -&gt; string) - filter to apply to text outside of directives</li>
         <li><strong class="pname"><code>condf</code></strong> (None or <code>(x_1, ..., x_n) -&gt; True/False</code>) - resolve current alternative directive only when this function 
           returns <code>True</code> on call with each alternative as 
           argument</li>
-        <li><strong class="pname"><code>althead</code></strong> (string) - directive head to use instead of the default one</li>
+        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report malformed directives to standard output, with
+          this string as source identifier</li>
     </ul></dd>
     <dt>Returns: string, int, bool</dt>
         <dd>resulting text, number of resolved alternatives, and an indicator
@@ -500,10 +504,11 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives_simple</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">select</span>,
         <span class="sig-arg">total</span>,
-        <span class="sig-arg">fmtstr</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">altfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">outfilter</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">condf</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;

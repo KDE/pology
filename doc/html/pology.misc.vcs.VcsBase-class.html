@@ -213,7 +213,8 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.vcs.VcsBase-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">paths</span>,
-        <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">msgfile</span>=<span class="summary-sig-default">None</span>)</span><br />
       Commit paths to the repository.</td>
           <td align="right" valign="top">
             
@@ -525,7 +526,8 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">commit</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">paths</span>,
-        <span class="sig-arg">message</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">message</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">msgfile</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -537,13 +539,19 @@ object --+
   the particular VCS what committing means, but in general it should be the
   earliest level at which modifications are recorded in the repository 
   history.</p>
-  <p>If the commit message is not given, VCS should ask for one as usual 
-  (pop an editor window, or whatever the user has configured).</p>
+  <p>Commit message can be given either directly, through 
+  <code>message</code> parameter, or read from a file with path given by 
+  <code>msgfile</code>. If both <code>message</code> and 
+  <code>msgfile</code> are given, <code>message</code> takes precedence and
+  <code>msgfile</code> is ignored. If the commit message is not given, VCS 
+  should ask for one as usual (pop an editor window, or whatever the user 
+  has configured).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>paths</code></strong> (list of strings) - paths to commit</li>
-        <li><strong class="pname"><code>message</code></strong> (string or None) - commit message</li>
+        <li><strong class="pname"><code>message</code></strong> (string) - commit message</li>
+        <li><strong class="pname"><code>msgfile</code></strong> (string) - path to file with the commit message</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if committing succeeded, <code>False</code> 
