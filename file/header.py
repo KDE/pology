@@ -105,7 +105,9 @@ class Header (Monitored):
             intitle = True
             for c in msg.manual_comment:
                 if 0: pass
-                elif not self._copyright and re.search("copyright", c, re.I):
+                elif (    not self._copyright
+                      and re.search(ur"copyright|\(C\)|©", c, re.I)
+                ):
                     self._copyright = c
                     intitle = False
                 elif (    not self._license
