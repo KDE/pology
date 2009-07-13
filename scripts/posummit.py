@@ -260,7 +260,7 @@ def derive_project_data (project, options):
         b.by_lang = bd.pop("by_lang", None)
         if b.by_lang:
             b.by_lang = interpolate(b.by_lang, {"lang" : options.lang})
-        b.scatter_create_filter = bd.pop("scatter_create_filter", r"")
+        b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
         b.merge_locally = bd.pop("merge_locally", False)
 
@@ -407,9 +407,15 @@ def derive_project_data (project, options):
                 # branch templates and collect if not already collected.
                 for branch_name in branch_names:
 
-                    # Skip this catalog if excluded from auto-addition.
-                    if not re.search(branch.scatter_create_filter, branch_name):
-                        continue
+                    # Skip this catalog if excluded from auto-addition,
+                    # by filter on catalog name (False -> excluded).
+                    scf = branch.scatter_create_filter
+                    if scf is not None:
+                        if isinstance(scf, basestring):
+                            if not re.search(scf, branch_name):
+                                continue
+                        elif not scf(branch_name):
+                            continue
 
                     if (    branch_name not in p.catalogs[branch.id]
                         and branch_name in branch_templates):
