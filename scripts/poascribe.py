@@ -29,6 +29,8 @@ from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 import pology.misc.config as pology_config
+from pology.misc.tabulate import tabulate
+import pology.misc.colors as C
 
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
@@ -435,13 +437,9 @@ def assert_mode_user (configs_catpaths, mode, nousers=[]):
 
 def examine_state (options, configs_catpaths, mode):
 
-    # Count unascribed messages through catalogs.
-    counts = dict([(x, {}) for x in _all_states])
-    def accu(countdict, catpath):
-        if catpath not in countdict:
-            countdict[catpath] = 0
-        countdict[catpath] += 1
-        return countdict[catpath]
+    # Count ascribed and unascribed messages through catalogs.
+    counts_a = dict([(x, {}) for x in _all_states])
+    counts_na = dict([(x, {}) for x in _all_states])
 
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -455,11 +453,11 @@ def examine_state (options, configs_catpaths, mode):
                     continue # pristine
                 if mode.selector(msg, cat, history, config, options) is None:
                     continue # not selected
-                if history[0].user is None:
-                    st = msg.state()
-                    if catpath not in counts[st]:
-                        counts[st][catpath] = 0
-                    counts[st][catpath] += 1
+                counts = history[0].user is None and counts_na or counts_a
+                st = msg.state()
+                if catpath not in counts[st]:
+                    counts[st][catpath] = 0
+                counts[st][catpath] += 1
             # Count non-ascribed by ascription catalog.
             for amsg in acat:
                 if amsg not in cat:
@@ -472,30 +470,42 @@ def examine_state (options, configs_catpaths, mode):
                     elif ast == _st_untran:
                         st = _st_ountran
                     if st:
-                        if catpath not in counts[st]:
-                            counts[st][catpath] = 0
-                        counts[st][catpath] += 1
+                        if catpath not in counts_na[st]:
+                            counts_na[st][catpath] = 0
+                        counts_na[st][catpath] += 1
 
-    # Present findings.
-    for st, chead in (
-        (_st_tran, "Unascribed translated"),
-        (_st_fuzzy, "Unascribed fuzzy"),
-        (_st_untran, "Unascribed untranslated"),
-        (_st_otran, "Unascribed obsolete translated"),
-        (_st_ofuzzy, "Unascribed obsolete fuzzy"),
-        (_st_ountran, "Unascribed obsolete untranslated"),
-    ):
-        unasc_cnts = counts[st]
-        if not unasc_cnts:
-            continue
-        nunasc = reduce(lambda s, x: s + x, unasc_cnts.itervalues())
-        ncats = len(unasc_cnts)
-        report("===? %s: %d entries in %d catalogs" % (chead, nunasc, ncats))
-        catnames = unasc_cnts.keys()
-        catnames.sort()
-        rown = catnames
-        data = [[unasc_cnts[x] for x in catnames]]
-        report(tabulate(data=data, rown=rown, indent="  "))
+    # Some general data for tabulation of output.
+    coln = ["msg/t", "msg/f", "msg/u", "msg/ot", "msg/of", "msg/ou"]
+    can_color = sys.stdout.isatty()
+    none="-"
+
+    # Present totals of ascribed and unascribed messages.
+    totals_a, totals_na = {}, {}
+    for totals, counts in ((totals_a, counts_a), (totals_na, counts_na)):
+        for st, cnt_per_cat in counts.items():
+            totals[st] = sum(cnt_per_cat.values())
+    rown = ["ascribed", "unascribed"]
+    data = [[totals_a[x] or None, totals_na[x] or None] for x in _all_states]
+    report(tabulate(data=data, coln=coln, rown=rown,
+                    none=none, colorized=can_color))
+
+    # Present totals of unascribed messages per catalog.
+    totals_na_pc = {}
+    for st, cnt_per_cat in counts_na.items():
+        for catpath, nunasc in cnt_per_cat.items():
+            if catpath not in totals_na_pc:
+                totals_na_pc[catpath] = dict([(x, None) for x in _all_states])
+            totals_na_pc[catpath][st] = nunasc
+    if totals_na_pc:
+        report(none)
+        catpaths = totals_na_pc.keys()
+        catpaths.sort()
+        coln.insert(0, "unascribed-by-catalog")
+        data = [[totals_na_pc[x][y] for x in catpaths] for y in _all_states]
+        data.insert(0, catpaths)
+        dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
+        report(tabulate(data=data, coln=coln, dfmt=dfmt,
+                        none=none, colorized=can_color))
 
 
 def ascribe_modified (options, configs_catpaths, mode):
