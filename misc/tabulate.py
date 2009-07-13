@@ -12,7 +12,8 @@ import pology.misc.colors as C
 
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
-              rotated=False, colorized=False, indent=""):
+              rotated=False, colorized=False, indent="",
+              colnra=False, rownra=False, colw=0):
     """
     Tabulate data in plain text.
 
@@ -54,6 +55,15 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
 
     @param indent: indent string for the whole table
     @type indent: string
+
+    @param colnra: right align column names
+    @type colnra: bool
+
+    @param rownra: right align row names
+    @type rownra: bool
+
+    @param colw: minimal column width
+    @type colw: integer
 
     @returns: plain text representation of the table (no trailing newline)
     @rtype: string
@@ -155,7 +165,7 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         sdata = sdata_r
 
     # Calculate maximum lengths per screen column.
-    maxlen = [0] * (ncols + co)
+    maxlen = [colw] * (ncols + co)
     for c in range(ncols + co):
         for r in range(nrows + ro):
             l = len(sdata[c][r])
@@ -167,15 +177,21 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         lfmt = u"%" + str(maxlen[c]) + "s"
         for r in range(ro, nrows + ro):
             sdata[c][r] = lfmt % (sdata[c][r],)
-        # ...but column names left aligned:
+        # ...but column names aligned as requested:
         if _coln is not None:
-            lfmt = u"%-" + str(maxlen[c]) + "s"
+            if colnra:
+                lfmt = u"%" + str(maxlen[c]) + "s"
+            else:
+                lfmt = u"%-" + str(maxlen[c]) + "s"
             sdata[c][0] = lfmt % (sdata[c][0],)
             if colorized:
                 sdata[c][0] = C.PURPLE + sdata[c][0] + C.RESET
-    # ...but row names left aligned:
+    # ...but row names aligned as requested:
     if _rown is not None:
-        lfmt = u"%-" + str(maxlen[0]) + "s"
+        if rownra:
+            lfmt = u"%" + str(maxlen[0]) + "s"
+        else:
+            lfmt = u"%-" + str(maxlen[0]) + "s"
         for r in range(nrows + ro):
             sdata[0][r] = lfmt % (sdata[0][r],)
             if colorized:
