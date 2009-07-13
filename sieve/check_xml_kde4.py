@@ -29,19 +29,19 @@ def _check_plain (text, ents):
 
 
 # Pure Qt POs in KDE repository.
-qt_catnames = (
+_qt_catnames = (
     "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
     "kdgantt1", "kdgantt",
 )
-qt_catname_ends = (
+_qt_catname_ends = (
     "_qt",
 )
 
 def is_qt_cat (name):
 
-    if name in qt_catnames:
+    if name in _qt_catnames:
         return True
-    for end in qt_catname_ends:
+    for end in _qt_catname_ends:
         if name.endswith(end):
             return True
     return False
