@@ -37,7 +37,7 @@ _qt_catname_ends = (
     "_qt",
 )
 
-def is_qt_cat (name):
+def is_qt_cat (name, subdir=None):
 
     if name in _qt_catnames:
         return True
