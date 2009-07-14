@@ -646,11 +646,16 @@ class Sieve (object):
         # If completeness limit in effect, eliminate catalogs not passing it.
         if self.p.mincomp is not None:
             ncounts = {}
+            ninccats = {}
             for filename, count in self.counts.iteritems():
                 cr = float(count["trn"][0]) / (count["tot"][0] or 1)
                 if cr >= self.p.mincomp:
                     ncounts[filename] = count
+                    inccat = self.incomplete_catalogs.get(filename)
+                    if inccat is not None:
+                        ninccats[filename] = inccat
             self.counts = ncounts
+            self.incomplete_catalogs = ninccats
 
         # Assemble sets of total counts by requested divisions.
         count_overall = self._count_zero()
