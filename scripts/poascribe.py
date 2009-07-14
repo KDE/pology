@@ -1832,6 +1832,16 @@ def selector_any ():
     return selector
 
 
+def selector_active ():
+    cid = "selector:active"
+
+    def selector (msg, cat, history, config, options):
+
+        return (msg.translated and not msg.obsolete) or None
+
+    return selector
+
+
 def selector_wasc ():
     cid = "selector:wasc"
 
@@ -2322,6 +2332,7 @@ def selector_modafter (time_spec=None, user_spec=None):
 xm_selector_factories = {
     # key: (function, can_be_used_as_history_selector)
     "any": (selector_any, False),
+    "active": (selector_active, False),
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
