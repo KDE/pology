@@ -662,8 +662,8 @@ def summit_scatter (project, options):
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
 
             # Merge messages from the summit catalogs into branch catalog.
-            summit_scatter_single(branch_id, branch_name, branch_path,
-                                  summit_paths, project, options)
+            summit_scatter_single(branch_id, branch_name, branch_subdir,
+                                  branch_path, summit_paths, project, options)
 
     # Assure no empty partial selections by summit subdirs.
     for subdir in n_selected_by_summit_subdir:
@@ -699,7 +699,8 @@ def summit_merge (project, options):
                 continue
             for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
                 template_path = template_catalogs[name][0][0]
-                summit_merge_single(SUMMIT_ID, summit_path, template_path,
+                summit_merge_single(SUMMIT_ID, name, summit_subdir,
+                                    summit_path, template_path,
                                     project.summit_unwrap,
                                     project.summit_fine_wrap,
                                     project, options)
@@ -735,7 +736,8 @@ def summit_merge (project, options):
             if not exact:
                 warning("no exact template for branch catalog '%s'" % name)
                 continue
-            summit_merge_single(branch_id, branch_path, template_path,
+            summit_merge_single(branch_id, name, branch_subdir,
+                                branch_path, template_path,
                                 project.branches_unwrap,
                                 project.branches_fine_wrap,
                                 project, options)
@@ -915,6 +917,7 @@ def summit_gather_single (summit_name, project, options,
                                  project.summit_fine_wrap)
 
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+    summit_subdir = project.catalogs[SUMMIT_ID][summit_name][0][1]
 
     fresh_cat = Catalog("", wrapf=wrapf, create=True)
     fresh_cat.filename = summit_path
@@ -989,11 +992,7 @@ def summit_gather_single (summit_name, project, options,
 
             # Open all branch catalogs of this name, ordered by path,
             # link them to the same dependent summit catalogs.
-            branch_paths = []
             for path, subdir in project.catalogs[branch_id][branch_name]:
-                branch_paths.append(path)
-            branch_paths.sort()
-            for path in branch_paths:
                 # Apply hooks to branch catalog file, creating temporaries.
                 tmp_path = None
                 if project.hook_on_gather_file_branch:
@@ -1002,7 +1001,7 @@ def summit_gather_single (summit_name, project, options,
                     # a part of the name).
                     tmp_path = path + "~mod"
                     shutil.copyfile(path, tmp_path)
-                    exec_hook_file(branch_id, branch_name, tmp_path,
+                    exec_hook_file(branch_id, branch_name, subdir, tmp_path,
                                    project.hook_on_gather_file_branch)
 
                 branch_cat = Catalog(tmp_path or path, monitored=False)
@@ -1013,7 +1012,8 @@ def summit_gather_single (summit_name, project, options,
                 # as they may modify message keys.
                 if project.hook_on_gather_msg:
                     for msg in branch_cat:
-                        exec_hook_msg(branch_id, branch_name, msg, branch_cat,
+                        exec_hook_msg(branch_id, branch_name, subdir,
+                                      msg, branch_cat,
                                       project.hook_on_gather_msg)
                     # Sync only message map, do not write catalog on disk.
                     branch_cat.sync_map()
@@ -1071,15 +1071,15 @@ def summit_gather_single (summit_name, project, options,
                                 project, options)
 
     # Apply hooks to the summit catalog.
-    exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_cat,
+    exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_subdir, summit_cat,
                   project.hook_on_gather_cat)
 
     # Sync to disk.
     if summit_cat.sync():
 
         # Apply hooks to summit catalog file.
-        exec_hook_file(SUMMIT_ID, summit_cat.name, summit_cat.filename,
-                        project.hook_on_gather_file)
+        exec_hook_file(SUMMIT_ID, summit_cat.name, summit_subdir,
+                       summit_cat.filename, project.hook_on_gather_file)
 
         added = False
         if summit_created:
@@ -1382,8 +1382,8 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
                 summit_cat.header.field.append(field)
 
 
-def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
-                           project, options):
+def summit_scatter_single (branch_id, branch_name, branch_subdir,
+                           branch_path, summit_paths, project, options):
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = select_field_wrapper(not project.branches_unwrap,
@@ -1428,7 +1428,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
         branch_msg_lkp = branch_msg
         if project.hook_on_gather_msg:
             branch_msg_lkp = MessageUnsafe(branch_msg)
-            exec_hook_msg(branch_id, branch_name, branch_msg_lkp, branch_cat,
+            exec_hook_msg(branch_id, branch_name, branch_subdir,
+                          branch_msg_lkp, branch_cat,
                           project.hook_on_gather_msg)
 
         # Find first summit catalog which has this message translated.
@@ -1480,7 +1481,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     else:
         for branch_msg, summit_msg, summit_cat in msg_links:
             if summit_msg.translated:
-                exec_hook_msg(branch_id, branch_name, summit_msg, summit_cat,
+                exec_hook_msg(branch_id, branch_name, branch_subdir,
+                              summit_msg, summit_cat,
                               project.hook_on_scatter_msg)
                 if (   (    summit_msg.msgid_plural is not None
                         and branch_msg.msgid_plural is not None)
@@ -1490,7 +1492,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     # Both messages have same plurality.
                     for i in range(len(summit_msg.msgstr)):
                         piped_msgstr = exec_hook_msgstr(
-                            branch_id, branch_name,
+                            branch_id, branch_name, branch_subdir,
                             summit_msg.msgstr[i], summit_msg, summit_cat,
                             project.hook_on_scatter_msgstr)
                         if i < len(branch_msg.msgstr):
@@ -1507,7 +1509,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                     # singular, so copy plural form for n==1.
                     index = summit_cat.plural_index(1)
                     branch_msg.msgstr[0] = exec_hook_msgstr(
-                        branch_id, branch_name,
+                        branch_id, branch_name, branch_subdir,
                         summit_msg.msgstr[index], summit_msg, summit_cat,
                         project.hook_on_scatter_msgstr)
                     branch_msg.unfuzzy()
@@ -1541,7 +1543,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
             branch_cat.header.set_field(name, value)
 
     # Apply hooks to the branch catalog.
-    exec_hook_cat(branch_id, branch_name, branch_cat,
+    exec_hook_cat(branch_id, branch_name, branch_subdir, branch_cat,
                   project.hook_on_scatter_cat)
 
     # If the branch catalog has been newly created,
@@ -1564,8 +1566,8 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
     if not skip_write and (branch_cat.sync() or options.force):
 
         # Apply hooks to branch catalog file.
-        exec_hook_file(branch_id, branch_name, branch_cat.filename,
-                       project.hook_on_scatter_file)
+        exec_hook_file(branch_id, branch_name, branch_subdir,
+                       branch_cat.filename, project.hook_on_scatter_file)
 
         # Add to version control if new file.
         if (    new_from_template and project.vcs
@@ -1590,7 +1592,7 @@ def summit_scatter_single (branch_id, branch_name, branch_path, summit_paths,
                 report("<    %s  %s" % (branch_cat.filename, paths_str))
 
 
-def hook_applicable (branch_check, branch_id, name_check, name):
+def hook_applicable (branch_check, branch_id, name_check, name, subdir):
 
     if hasattr(branch_check, "__call__"):
         if not branch_check(branch_id):
@@ -1600,7 +1602,7 @@ def hook_applicable (branch_check, branch_id, name_check, name):
             return False
 
     if hasattr(name_check, "__call__"):
-        if not name_check(name):
+        if not name_check(name, subdir):
             return False
     else:
         if not re.search(name_check, name):
@@ -1611,11 +1613,13 @@ def hook_applicable (branch_check, branch_id, name_check, name):
 
 # Pipe msgstr through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_msgstr (branch_id, branch_name, msgstr, msg, cat, hooks):
+def exec_hook_msgstr (branch_id, branch_name, branch_subdir,
+                      msgstr, msg, cat, hooks):
 
     piped_msgstr = msgstr
     for call, branch_ch, name_ch in hooks:
-        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+        if hook_applicable(branch_ch, branch_id, name_ch,
+                           branch_name, branch_subdir):
             piped_msgstr_tmp = call(piped_msgstr, msg, cat)
             if isinstance(piped_msgstr_tmp, basestring):
                 piped_msgstr = piped_msgstr_tmp
@@ -1625,37 +1629,40 @@ def exec_hook_msgstr (branch_id, branch_name, msgstr, msg, cat, hooks):
 
 # Pipe message through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_msg (branch_id, branch_name, msg, cat, hooks):
+def exec_hook_msg (branch_id, branch_name, branch_subdir, msg, cat, hooks):
 
     # Apply all hooks to the message.
     for call, branch_ch, name_ch in hooks:
-        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+        if hook_applicable(branch_ch, branch_id, name_ch,
+                           branch_name, branch_subdir):
             call(msg, cat)
 
 
 # Pipe header through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_head (branch_id, branch_name, hdr, cat, hooks):
+def exec_hook_head (branch_id, branch_name, branch_subdir, hdr, cat, hooks):
 
     # Apply all hooks to the header.
     for call, branch_ch, name_ch in hooks:
-        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+        if hook_applicable(branch_ch, branch_id, name_ch,
+                           branch_name, branch_subdir):
             call(hdr, cat)
 
 
 # Pipe catalog through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_cat (branch_id, branch_name, cat, hooks):
+def exec_hook_cat (branch_id, branch_name, branch_subdir, cat, hooks):
 
     # Apply all hooks to the catalog.
     for call, branch_ch, name_ch in hooks:
-        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+        if hook_applicable(branch_ch, branch_id, name_ch,
+                           branch_name, branch_subdir):
             call(cat)
 
 
 # Pipe catalog file through hook calls,
 # for which branch id and catalog name match hook specification.
-def exec_hook_file (branch_id, branch_name, filepath, hooks):
+def exec_hook_file (branch_id, branch_name, branch_subdir, filepath, hooks):
 
     # Make temporary backup of the file.
     bckppath = "/tmp/backup%s-%s" % (os.getpid(), os.path.basename(filepath))
@@ -1664,7 +1671,8 @@ def exec_hook_file (branch_id, branch_name, filepath, hooks):
     # Apply all hooks to the file, but stop if one does not return True.
     failed = False
     for call, branch_ch, name_ch in hooks:
-        if hook_applicable(branch_ch, branch_id, name_ch, branch_name):
+        if hook_applicable(branch_ch, branch_id, name_ch,
+                           branch_name, branch_subdir):
             if call(filepath) != 0:
                 failed = True
                 break
@@ -1801,7 +1809,8 @@ def split_summit_comments (msg):
     return non_summit_comments, summit_comments
 
 
-def summit_merge_single (branch_id, catalog_path, template_path,
+def summit_merge_single (branch_id, catalog_name, catalog_subdir,
+                         catalog_path, template_path,
                          unwrap, fine_wrap, project, options):
 
     tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
@@ -1885,7 +1894,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
         # if it gives default value, use catalog name instead.
         projid = tcat.header.get_field_value("Project-Id-Version")
         if not projid or "PACKAGE" in projid:
-            projid = cat.name
+            projid = catalog_name
         hdr.set_field(u"Project-Id-Version", unicode(projid))
         rdate = time.strftime("%Y-%m-%d %H:%M%z")
         hdr.set_field(u"PO-Revision-Date", unicode(rdate))
@@ -1922,12 +1931,13 @@ def summit_merge_single (branch_id, catalog_path, template_path,
 
     # Execute header hooks.
     if project.hook_on_merge_head:
-        exec_hook_head(branch_id, cat.name, cat.header, cat,
-                       project.hook_on_merge_head)
+        exec_hook_head(branch_id, catalog_name, catalog_subdir,
+                       cat.header, cat, project.hook_on_merge_head)
 
     # Execute catalog hooks.
     if project.hook_on_merge_cat:
-        exec_hook_cat(branch_id, cat.name, cat, project.hook_on_merge_cat)
+        exec_hook_cat(branch_id, catalog_name, catalog_subdir,
+                      cat, project.hook_on_merge_cat)
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
@@ -1937,7 +1947,7 @@ def summit_merge_single (branch_id, catalog_path, template_path,
     if project.hook_on_merge_file:
         cat_name = os.path.basename(tmp_path)
         cat_name = cat_name[:cat_name.rfind(".po")]
-        exec_hook_file(branch_id, cat_name, tmp_path,
+        exec_hook_file(branch_id, cat_name, catalog_subdir, tmp_path,
                        project.hook_on_merge_file)
 
     # If there is any difference between merged and old catalog.
