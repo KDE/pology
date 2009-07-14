@@ -17,7 +17,7 @@ include file="puretext.filters"
 environment lokalize
 
 {\b(entr(y|ies)|message|units?\b)}i
-id="ds-entry"
+id="entry"
 hint="entry, message, unit = јединица [у датотеци превода или ТМ-у]"
 valid msgstr="једини[цч]"
 valid srcref="glossary"
@@ -25,7 +25,7 @@ valid after="glossary |term "
 valid before=" term"
 
 {\b(entr(y|ies)|items?)\b}i
-id="ds-entry2"
+id="entry2"
 hint="entry, item = унос [у појмовнику]"
 valid !srcref="glossary" !after="glossary |term " !before=" term"
 valid msgstr="унос"
