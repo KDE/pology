@@ -469,6 +469,19 @@ class VcsSubversion (VcsBase):
     def commit (self, paths, message=None, msgfile=None):
         # Base override.
 
+        # Move up any path that needs its parent committed too.
+        paths_up = []
+        for path in paths:
+            path_up = path
+            while not self.revision(path_up):
+                path_up = os.path.dirname(path_up)
+                if not path_up or not self.is_versioned(path_up):
+                    # Let simply Subversion complain.
+                    path_up = path
+                    break
+            paths_up.append(path_up)
+        paths = paths_up
+
         cmdline = "svn commit "
         if message is not None:
             cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
