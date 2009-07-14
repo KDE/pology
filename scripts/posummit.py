@@ -407,16 +407,6 @@ def derive_project_data (project, options):
                 # branch templates and collect if not already collected.
                 for branch_name in branch_names:
 
-                    # Skip this catalog if excluded from auto-addition,
-                    # by filter on catalog name (False -> excluded).
-                    scf = branch.scatter_create_filter
-                    if scf is not None:
-                        if isinstance(scf, basestring):
-                            if not re.search(scf, branch_name):
-                                continue
-                        elif not scf(branch_name):
-                            continue
-
                     if (    branch_name not in p.catalogs[branch.id]
                         and branch_name in branch_templates):
                         # Assemble all branch catalog entries.
@@ -429,6 +419,14 @@ def derive_project_data (project, options):
                             else:
                                 poname = branch_name + ".po"
                             path = join_ncwd(branch.topdir, subdir, poname)
+
+                            # Skip this catalog if excluded from creation on
+                            # scatter, by filter on catalog name and subdir
+                            # (False -> excluded).
+                            scf = branch.scatter_create_filter
+                            if scf and not scf(branch_name, subdir):
+                                continue
+
                             # Add this file to catalog entry.
                             branch_catalogs.append((path, subdir))
                             # Record later initialization from template.
