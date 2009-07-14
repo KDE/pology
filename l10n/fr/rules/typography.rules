@@ -113,6 +113,7 @@ valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley
 valid after=";" 
+valid before=";"
 valid cat="kspread" after="^\S+\(\S+"
 valid cat="kspread" after=";\S+"
 valid cat="kspread" before="\S+;"
