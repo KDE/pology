@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Initialize and update the header of a PO file.
+Initialize and update the PO header with own translation data.
 
 When work on a pristine PO starts, or an existing PO is to be revised with
 new translations, this sieve can be used to automatically set PO header
@@ -41,29 +41,43 @@ import re
 import time
 
 import pology.misc.config as config
-from pology.misc.report import error, warning
+from pology.misc.report import warning
+from pology.sieve import SieveError
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Initialize or update the PO header with own translator data."
+    )
+    p.add_param("proj", unicode, mandatory=True,
+                metavar="ID",
+                desc=
+    "Project ID in Pology configuration file, "
+    "which contains the necessary project data to update the header."
+    )
+    p.add_param("init", bool, defval=False,
+                desc=
+    "Consider header as uninitialized, removing any existing information "
+    "before adding own and project data."
+    )
 
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
         # Collect user and project configuration.
-        prjsect = ""
-        if "proj" in options:
-            prjsect = "project-" + options["proj"]
-            self.prjcfg = config.section(prjsect)
-            options.accept("proj")
-        else:
-            error("project ID must be provided (-s proj:<ID>)")
+        prjsect = "project-" + params.proj
+        if not config.has_section(prjsect):
+            raise SieveError("project '%s' not defined in configuration"
+                             % params.proj)
+        self.prjcfg = config.section(prjsect)
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
 
         # Whether to force initialization of all fields.
-        self.init = False
-        if "init" in options:
-            self.init = True
-            options.accept("init")
+        self.init = params.init
 
         # Collect project data.
         self.tname = prjcfg.string("name") or usrcfg.string("name")
