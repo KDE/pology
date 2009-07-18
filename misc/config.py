@@ -64,6 +64,20 @@ def _parse_config ():
 _parse_config()
 
 
+def has_section (name):
+    """
+    Check if the section of the configuration exists already.
+
+    @param name: name of the section
+    @type name: string
+
+    @returns: C{True} if the section exists, C{False} otherwise
+    @rtype: bool
+    """
+
+    return _config.has_section(name)
+
+
 class section:
     """
     Section of the configuration.
