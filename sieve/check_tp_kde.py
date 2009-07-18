@@ -80,6 +80,7 @@ import re
 
 from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg_hl
+from pology.misc.msgreport import report_msg_to_lokalize
 from pology.sieve import SieveError, SieveCatalogError
 from pology.hook.check_markup import flag_no_check_markup
 from pology.misc.markup import check_xml_kde4_l1
