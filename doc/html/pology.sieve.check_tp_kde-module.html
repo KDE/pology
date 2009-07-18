@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.sieve.check_tp_kde</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
+        Module&nbsp;check_tp_kde
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module check_tp_kde</h1><p class="nomargin-top"></p>
+<p>Check validity of messages in catalogs within KDE Translation 
+  Project.</p>
+  <p>KDE Translation Project contains a great number of PO catalogs 
+  extracted from various types of sources. This results in that for each 
+  message, there are things that the translation can, must or must not 
+  contain, for the translation to be technically valid. When run over 
+  catalogs within KDE TP, this sieve will first try to determine the type 
+  of each message and then apply appropriate technical checks to it. 
+  Message type is determined based on catalog location, catalog header, 
+  message flags and contexts; even a particular message in a particular 
+  catalog may be specifically checked, for some very special library code 
+  messages.</p>
+  <p>&quot;Technical&quot; issues are those which should be fixed 
+  regardless of the language and style of translation, because they can 
+  lead to loss of functionality, information or presentation to the user. 
+  For example, a technical issue would be badly paired XML tags in 
+  translation, when in the original they were well paired; a non-technical 
+  issue (and thus not checked) would be when the original ends with a 
+  certain punctuation, but translation does not -- whether such details are
+  errors or not, depends on the target language and translation style.</p>
+  <p>For the sieve to function properly, it needs to detect the project 
+  subdirectory of each catalog up to topmost division within the branch, 
+  e.g. <code>messages/kdebase</code> or <code>docmessages/kdegames</code>. 
+  This means that the local working copy of the translation files needs to 
+  follow the repository layout up to this point, e.g. 
+  <code>kde-trunk-ui/kdebase</code> and <code>kde-trunk-doc/kdegames</code>
+  would not be valid local paths.</p>
+  <p>Sieve parameters:</p>
+  <ul>
+    <li>
+      <code>strict</code>: require translation to be valid even if original
+      is not
+    </li>
+    <li>
+      <code>checks</code>: select only some checks to be applied, instead 
+      of all
+    </li>
+    <li>
+      <code>lokalize</code>: open catalogs at problematic messages in 
+      Lokalize
+    </li>
+  </ul>
+  <p>Sometimes the original text itself may not be valid against a certain 
+  check. If this is the case, by default translation is not expected to be 
+  valid either, so the check is skipped. This behavior can be canceled by 
+  issuing the <code>strict</code> sieve parameter, when the translation is 
+  reported problematic even if the original is such. If <code>strict</code>
+  is used, some checks can be ignored on a particular, irreparable through 
+  translation only message, by adding to it an appropriate <a 
+  href="pology.sieve-module.html#parse_sieve_flags" class="link">sieve 
+  flag</a>.</p>
+  <p>To apply only one or a few, instead of all the checks, parameter 
+  <code>check</code> may be used. It takes comma-separated list of check 
+  keywords, which are provided in the list of checks that follows.</p>
+  <p>Currently available checks are:</p>
+  <ul>
+    <li>
+      KDE4 markup checking (<code>kde4markup</code>). Skipped on a message 
+      by <code>no-check-markup</code> sieve flag.
+    </li>
+    <li>
+      Qt markup checking (<code>qtmarkup</code>). Skipped on a message by 
+      <code>no-check-markup</code> sieve flag.
+    </li>
+    <li>
+      Docbook markup checking (<code>dbmarkup</code>). Skipped on a message
+      by <code>no-check-markup</code> sieve flag.
+    </li>
+    <li>
+      No translation scripting in dumb messages (<code>nots</code>). 
+      Message passing through KDE4 i18n at runtime may make use of <a 
+      href="http://techbase.kde.org/Localization/Concepts/Transcript" 
+      target="_top">translation scripting</a>; this check will make sure 
+      that scripting is not attempted for other types of messages (those 
+      used by Qt-only code, etc.)
+    </li>
+    <li>
+      Qt datetime format messages (<code>qtdt</code>). A message is 
+      considered to be in this format if it contains 
+      &quot;qtdt-format&quot; in <code>msgctxt</code> or among flags.
+    </li>
+  </ul>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.sieve.check_tp_kde.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="is_txt_cat"></a><span class="summary-sig-name">is_txt_cat</span>(<span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">subdir</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="is_qt_cat"></a><span class="summary-sig-name">is_qt_cat</span>(<span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">subdir</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="is_docbook_cat"></a><span class="summary-sig-name">is_docbook_cat</span>(<span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">subdir</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.sieve.check_tp_kde-module.html#check_qtdt" class="summary-sig-name">check_qtdt</a>(<span class="summary-sig-arg">msgstr</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Check validity of translation if the message is a Qt date-time format
+      [type S3C hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.sieve.check_tp_kde-module.html#check_qtdt_sp" class="summary-sig-name">check_qtdt_sp</a>(<span class="summary-sig-arg">msgstr</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Check validity of translation if the message is a Qt date-time format
+      [type V3C hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="check_qtdt"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_qtdt</span>(<span class="sig-arg">msgstr</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check validity of translation if the message is a Qt date-time format 
+  [type S3C hook].</p>
+  <p>TODO: Document further.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_qtdt_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_qtdt_sp</span>(<span class="sig-arg">msgstr</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check validity of translation if the message is a Qt date-time format 
+  [type V3C hook].</p>
+  <p>Span reporting version of <a 
+  href="pology.sieve.check_tp_kde-module.html#check_qtdt" 
+  class="link">check_qtdt</a>.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

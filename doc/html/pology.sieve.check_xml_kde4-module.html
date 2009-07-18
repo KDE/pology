@@ -51,7 +51,40 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module check_xml_kde4</h1><p class="nomargin-top"></p>
-<!-- ==================== CLASSES ==================== -->
+<p>Check validity of markup that can be encountered in native KDE4 
+  catalogs.</p>
+  <p>KDE4 catalogs can contain a mix of KUIT and Qt rich text markup.</p>
+  <p>Sieve parameters:</p>
+  <ul>
+    <li>
+      <code>strict</code>: require translation to be valid even if original
+      is not
+    </li>
+    <li>
+      <code>entdef</code>: file with entity definitions other than the 
+      default HTML
+    </li>
+    <li>
+      <code>lokalize</code>: open catalogs at failed messages in Lokalize
+    </li>
+  </ul>
+  <p>By default, translation is checked for validity only if the original 
+  passes the same check, which need not be the case always. This can be 
+  changed by issuing the <code>strict</code> parameter, when translation 
+  will be checked regardless of the original. If this is used, check can be
+  skipped for a particular message by adding <code>no-check-markup</code> 
+  <a href="pology.sieve-module.html#parse_sieve_flags" class="link">sieve 
+  flag</a>.</p>
+  <p>If entities other thand</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -81,22 +114,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="is_qt_cat"></a><span class="summary-sig-name">is_qt_cat</span>(<span class="summary-sig-arg">name</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
           <td align="right" valign="top">
             
@@ -108,67 +125,6 @@
     </td>
   </tr>
 </table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="pology.sieve.check_xml_kde4-module.html#qt_catnames" class="summary-name">qt_catnames</a> = <code title="('kdeqt',
- 'libphonon',
- 'phonon_gstreamer',
- 'phonon-xine',
- 'kdgantt1',
- 'kdgantt')"><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">kdeqt</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">libphonon</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">phonon_gstreamer</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">phon</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="qt_catname_ends"></a><span class="summary-name">qt_catname_ends</span> = <code title="('_qt')"><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">_qt</code><code class="variable-quote">'</code><code class="variable-group">)</code></code>
-    </td>
-  </tr>
-</table>
-<!-- ==================== VARIABLES DETAILS ==================== -->
-<a name="section-VariablesDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables Details</span></td>
-</tr>
-</table>
-<a name="qt_catnames"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">qt_catnames</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">kdeqt</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">libphonon</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">phonon_gstreamer</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">phonon-xine</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">kdgantt1</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">kdgantt</code><code class="variable-quote">'</code><code class="variable-group">)</code>
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

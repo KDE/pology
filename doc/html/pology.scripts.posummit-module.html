@@ -354,6 +354,7 @@
         <tr>
           <td><span class="summary-sig"><a name="summit_scatter_single"></a><span class="summary-sig-name">summit_scatter_single</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">branch_path</span>,
         <span class="summary-sig-arg">summit_paths</span>,
         <span class="summary-sig-arg">project</span>,
@@ -376,7 +377,8 @@
           <td><span class="summary-sig"><a name="hook_applicable"></a><span class="summary-sig-name">hook_applicable</span>(<span class="summary-sig-arg">branch_check</span>,
         <span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">name_check</span>,
-        <span class="summary-sig-arg">name</span>)</span></td>
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">subdir</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -394,6 +396,7 @@
         <tr>
           <td><span class="summary-sig"><a name="exec_hook_msgstr"></a><span class="summary-sig-name">exec_hook_msgstr</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">msgstr</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
@@ -415,6 +418,7 @@
         <tr>
           <td><span class="summary-sig"><a name="exec_hook_msg"></a><span class="summary-sig-name">exec_hook_msg</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">hooks</span>)</span></td>
@@ -435,6 +439,7 @@
         <tr>
           <td><span class="summary-sig"><a name="exec_hook_head"></a><span class="summary-sig-name">exec_hook_head</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">hdr</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">hooks</span>)</span></td>
@@ -455,6 +460,7 @@
         <tr>
           <td><span class="summary-sig"><a name="exec_hook_cat"></a><span class="summary-sig-name">exec_hook_cat</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">hooks</span>)</span></td>
           <td align="right" valign="top">
@@ -474,6 +480,7 @@
         <tr>
           <td><span class="summary-sig"><a name="exec_hook_file"></a><span class="summary-sig-name">exec_hook_file</span>(<span class="summary-sig-arg">branch_id</span>,
         <span class="summary-sig-arg">branch_name</span>,
+        <span class="summary-sig-arg">branch_subdir</span>,
         <span class="summary-sig-arg">filepath</span>,
         <span class="summary-sig-arg">hooks</span>)</span></td>
           <td align="right" valign="top">
@@ -614,6 +621,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="summit_merge_single"></a><span class="summary-sig-name">summit_merge_single</span>(<span class="summary-sig-arg">branch_id</span>,
+        <span class="summary-sig-arg">catalog_name</span>,
+        <span class="summary-sig-arg">catalog_subdir</span>,
         <span class="summary-sig-arg">catalog_path</span>,
         <span class="summary-sig-arg">template_path</span>,
         <span class="summary-sig-arg">unwrap</span>,
