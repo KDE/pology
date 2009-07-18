@@ -39,8 +39,8 @@ def check_xml (strict=False, entities={}, mkeyw=None):
       - otherwise, C{entities} is considered to be a
         (name, value) dictionary-like object as it is
 
-    If a message has L{pipe flag<pology.misc.comments.manc_parse_flag_list>}
-    C{no-check-xml}, the check is skipped for that message.
+    If a message has L{sieve flag<pology.sieve.parse_sieve_flags>}
+    C{no-check-markup}, the check is skipped for that message.
     If one or several markup keywords are given as C{mkeyw} parameter,
     check is skipped for all messages in a catalog which does not report
     one of the given keywords by its L{markup()<file.catalog.Catalog.markup>}

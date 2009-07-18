@@ -198,6 +198,7 @@ Miscellaneous Remarks
 import locale
 
 from pology.misc.subcmd import ParamParser
+from pology.misc.comments import manc_parse_flag_list
 
 
 class SieveError (Exception):
@@ -249,4 +250,25 @@ class SieveCatalogError (SieveError):
     """
 
     pass
+
+
+def parse_sieve_flags (msg):
+    """
+    Extract sieve flags embedded in manual comments.
+
+    Sieve flags are put into manual comments with the following syntax::
+
+        # |, flag1, flag2, ...
+
+    Some sieves will define certain sieve flags by which their behavior
+    can be altered on a particular message.
+
+    @param msg: message to parse
+    @type msg: Message
+
+    @returns: parsed flags
+    @rtype: set of strings
+    """
+
+    return set(manc_parse_flag_list(msg, "|"))
 
