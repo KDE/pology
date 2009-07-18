@@ -55,7 +55,7 @@ Currently available checks are:
 import re
 
 from pology.misc.report import report
-from pology.misc.msgreport import report_on_msg_hl
+from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.sieve import SieveError
 from pology.file.message import MessageUnsafe
@@ -76,6 +76,10 @@ def setup_sieve (p):
     "Run only this check instead of all (currently available: %s). "
     "Several checks can be specified as a comma-separated list."
     % (", ".join(chnames))
+    )
+    p.add_param("showmsg", bool, defval=False,
+                desc=
+    "Also show the full message that had some problems."
     )
     p.add_param("lokalize", bool, defval=False,
                 desc=
@@ -98,6 +102,7 @@ class Sieve (object):
                                  % ", ".join(unknown_checks))
             self.selected_checks = set(params.check)
 
+        self.showmsg = params.showmsg
         self.lokalize = params.lokalize
 
         # Indicators to the caller:
@@ -144,7 +149,11 @@ class Sieve (object):
             self.nproblems += check(msg, cat, False, highlight)
 
         if highlight:
-            report_on_msg_hl(highlight, msg, cat)
+            if self.showmsg:
+                report_msg_content(msg, cat, highlight=highlight,
+                                   delim=("-" * 20))
+            else:
+                report_on_msg_hl(highlight, msg, cat)
             if self.lokalize:
                 report_msg_to_lokalize(msg, cat, highlight)
 

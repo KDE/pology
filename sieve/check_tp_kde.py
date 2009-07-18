@@ -33,7 +33,8 @@ would not be valid local paths.
 
 Sieve parameters:
   - C{strict}: require translation to be valid even if original is not
-  - C{checks}: select only some checks to be applied, instead of all
+  - C{check}: select only one or few checks to be applied, instead of all
+  - C{showmsg}: show content of the message, with errors highlighted
   - C{lokalize}: open catalogs at problematic messages in Lokalize
 
 Sometimes the original text itself may not be valid against a certain check.
@@ -45,8 +46,7 @@ If C{strict} is used, some checks can be ignored on a particular, irreparable
 through translation only message, by adding to it an appropriate
 L{sieve flag<sieve.parse_sieve_flags>}.
 
-To apply only one or a few, instead of all the checks, parameter C{check}
-may be used.
+Parameter C{check} may be used to to apply only some instead of all checks.
 It takes comma-separated list of check keywords, which are provided in
 the list of checks that follows.
 
@@ -79,13 +79,12 @@ import os
 import re
 
 from pology.misc.report import report
-from pology.misc.msgreport import report_on_msg_hl
+from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.sieve import SieveError, SieveCatalogError
 from pology.hook.check_markup import flag_no_check_markup
 from pology.misc.markup import check_xml_kde4_l1
 from pology.misc.markup import check_xml_qtrich_l1
-from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology.sieve import parse_sieve_flags
 
 
@@ -109,6 +108,10 @@ def setup_sieve (p):
     "Several checks can be specified as a comma-separated list."
     % (", ".join(chnames))
     )
+    p.add_param("showmsg", bool, defval=False,
+                desc=
+    "Also show the full message that had some problems."
+    )
     p.add_param("lokalize", bool, defval=False,
                 desc=
     "Open catalogs on problematic messages in Lokalize."
@@ -120,6 +123,7 @@ class Sieve (object):
     def __init__ (self, params):
 
         self.strict = params.strict
+        self.showmsg = params.showmsg
         self.lokalize = params.lokalize
 
         self.selected_checks = None
@@ -177,7 +181,11 @@ class Sieve (object):
             self.nproblems += check(msg, cat, self.strict, highlight)
 
         if highlight:
-            report_on_msg_hl(highlight, msg, cat)
+            if self.showmsg:
+                report_msg_content(msg, cat, highlight=highlight,
+                                   delim=("-" * 20))
+            else:
+                report_on_msg_hl(highlight, msg, cat)
             if self.lokalize:
                 report_msg_to_lokalize(msg, cat, highlight)
 
