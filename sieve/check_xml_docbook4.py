@@ -27,20 +27,9 @@ from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology import rootdir
 
 
-_meta_msg_msgctxt = set((
-))
-_meta_msg_msgid = set((
-    "translator-credits",
-))
-_meta_msg_msgid_sw = (
-    "@@image:",
-)
-
 class Sieve (object):
 
     def __init__ (self, options):
-
-        self.nbad = 0
 
         self.showmsg = False
         if "showmsg" in options:
@@ -56,6 +45,8 @@ class Sieve (object):
         self.caller_sync = False # no need to sync catalogs to the caller
         self.caller_monitored = False # no need for monitored messages
 
+        self.nproblems = 0
+
 
     def process (self, msg, cat):
 
@@ -63,24 +54,8 @@ class Sieve (object):
         if not msg.translated:
             return
 
-        # Skip some known meta-messages.
-        if msg.msgctxt in _meta_msg_msgctxt or msg.msgid in _meta_msg_msgid:
-            return
-        if msg.msgid.startswith(_meta_msg_msgid_sw):
-            return
-
-        # Check XML in translation.
         highlight = []
-        for i in range(len(msg.msgstr)):
-            errspans = []
-            # Basic Docbook validity.
-            errspans.extend(check_xml_docbook4_l1(msg.msgstr[i]))
-            # Congruence of placeholder elements, for POs created by xml2po.
-            errspans.extend(check_placeholder_els(msg.msgid, msg.msgstr[i]))
-
-            # Add to bad spans.
-            if errspans:
-                highlight.append(("msgstr", i, errspans))
+        self.nproblems += _check_dbmarkup(msg, cat, False, highlight)
 
         # Report problems.
         if highlight:
@@ -91,11 +66,41 @@ class Sieve (object):
                 report_on_msg_hl(highlight, msg, cat)
             if self.lokalize:
                 report_msg_to_lokalize(msg, cat, highlight)
-            self.nbad += 1
 
 
     def finalize (self):
 
-        if self.nbad > 0:
-            report("Total translations with invalid Docbook: %d" % self.nbad)
+        if self.nproblems > 0:
+            report("Total Docbook problems in translation: %d"
+                   % self.nproblems)
+
+
+_meta_msg_msgctxt = set((
+))
+_meta_msg_msgid = set((
+    "translator-credits",
+))
+_meta_msg_msgid_sw = (
+    "@@image:",
+)
+
+# NOTE: Also used by check_kde_tp
+def _check_dbmarkup (msg, cat, strict, hl):
+
+    # Skip some known meta-messages.
+    if msg.msgctxt in _meta_msg_msgctxt or msg.msgid in _meta_msg_msgid:
+        return 0
+    if msg.msgid.startswith(_meta_msg_msgid_sw):
+        return 0
+
+    nproblems = 0
+    for i in range(len(msg.msgstr)):
+        spans = []
+        spans.extend(check_xml_docbook4_l1(msg.msgstr[i]))
+        spans.extend(check_placeholder_els(msg.msgid, msg.msgstr[i]))
+        if spans:
+            nproblems += len(spans)
+            hl.append(("msgstr", i, spans))
+
+    return nproblems
 

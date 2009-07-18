@@ -1,74 +1,53 @@
 # -*- coding: utf-8 -*-
 
+"""
+Check validity of markup that can be encountered in native KDE4 catalogs.
+
+KDE4 catalogs can contain a mix of KUIT and Qt rich text markup.
+
+Sieve parameters:
+  - C{strict}: require translation to be valid even if original is not
+  - C{entdef}: file with entity definitions other than the default HTML
+  - C{lokalize}: open catalogs at failed messages in Lokalize
+
+By default, translation is checked for validity only if the original passes
+the same check, which need not be the case always.
+This can be changed by issuing the C{strict} parameter, when translation
+will be checked regardless of the original.
+If this is used, check can be skipped for a particular message by adding
+C{no-check-markup} L{sieve flag<sieve.parse_sieve_flags>}.
+
+If entities other thand 
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
 import sys, os, re
 import locale
 import xml.parsers.expat
 from pology.misc.entities import read_entities
-from pology.misc.comments import manc_parse_flag_list
 from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg, report_on_msg_hl
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.markup import check_xml_kde4_l1, check_xml_qtrich_l1
+from pology.misc.markup import check_xml_kde4_l1
 from pology.hook.check_markup import flag_no_check_markup
+from pology.sieve import parse_sieve_flags
 
 
 _tsfence = "|/|"
 
 
-def _check_plain (text, ents):
-
-    res = []
-
-    # No Transcript.
-    p = text.find(_tsfence)
-    if p >= 0:
-        res.append((p, p + len(_tsfence),
-                    "plain text POs cannot contain scripted messages"))
-
-    return res
-
-
-# Pure Qt POs in KDE repository.
-_qt_catnames = (
-    "kdeqt", "libphonon", "phonon_gstreamer", "phonon-xine",
-    "kdgantt1", "kdgantt",
-)
-_qt_catname_ends = (
-    "_qt",
-)
-
-def is_qt_cat (name, subdir=None):
-
-    if name in _qt_catnames:
-        return True
-    for end in _qt_catname_ends:
-        if name.endswith(end):
-            return True
-    return False
-
-
-def _check_qt_w_adds (text, ents):
-
-    res = []
-
-    # Basic Qt check.
-    res.extend(check_xml_qtrich_l1(text, ents))
-
-    # No Transcript.
-    p = text.find(_tsfence)
-    if p >= 0:
-        res.append((p, p + len(_tsfence),
-                    "Qt POs cannot contain scripted messages"))
-
-    return res
-
-
 def setup_sieve (p):
 
     p.set_desc(
-    "Validate text markup and few other details in KDE4 POs. "
-    "These include full-bread KDE4 POs (most are such), "
-    "pure Qt POs (e.g. in qt module), and pure text POs (e.g. desktop_*)."
+    "Validate text markup in translation in native KDE4 catalogs."
+    )
+    p.add_param("strict", bool, defval=False,
+                desc=
+    "Check for problems in translation regardless of whether the original "
+    "itself is free of problems (default is to check translation only if "
+    "the original has no problems)."
     )
     p.add_param("entdef", unicode, multival=True,
                 metavar="FILE",
@@ -78,12 +57,6 @@ def setup_sieve (p):
     "defines entities one per line, in the format:"
     "\n\n"
     "<!ENTITY entname 'entvalue'>"
-    )
-    p.add_param("strict", bool, defval=False,
-                desc=
-    "Check translations strictly: report problems in translation regardless "
-    "of whether original itself is valid (default is to check translation "
-    "only if original passes checks)."
     )
     p.add_param("lokalize", bool, defval=False,
                 desc=
@@ -95,32 +68,18 @@ class Sieve (object):
 
     def __init__ (self, params):
 
-        self.nbad = 0
-
-        # Whether to strictly check translations.
         self.strict = params.strict
 
-        # Files defining external entities.
         self.entity_files = params.entdef or []
-
-        # Read definitions of external entities.
         self.entities = read_entities(self.entity_files)
+
+        self.lokalize = params.lokalize
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs to the caller
         self.caller_monitored = False # no need for monitored messages
 
-        self.lokalize = params.lokalize
-
-    def process_header (self, hdr, cat):
-
-        # Select type of markup to check based on catalog name.
-        if cat.name.startswith("desktop_") or cat.name.startswith("xml_"):
-            self.check_xml = _check_plain
-        elif is_qt_cat(cat.name):
-            self.check_xml = _check_qt_w_adds
-        else:
-            self.check_xml = check_xml_kde4_l1
+        self.nproblems = 0
 
 
     def process (self, msg, cat):
@@ -130,26 +89,25 @@ class Sieve (object):
             return
 
         # Do not check messages when told so.
-        if flag_no_check_markup in manc_parse_flag_list(msg, "|"):
+        if flag_no_check_markup in parse_sieve_flags(msg):
             return
 
         # In in non-strict mode, check XML of translation only if the
         # original itself is valid XML.
         if not self.strict:
-            if (   self.check_xml(msg.msgid, ents=self.entities)
-                or self.check_xml(msg.msgid_plural or u"", ents=self.entities)
+            if (   check_xml_kde4_l1(msg.msgid, ents=self.entities)
+                or check_xml_kde4_l1(msg.msgid_plural or u"", ents=self.entities)
             ):
                 return
 
-        # Check XML in translation.
         highlight = []
         for i in range(len(msg.msgstr)):
-            spans = self.check_xml(msg.msgstr[i], ents=self.entities)
+            spans = check_xml_kde4_l1(msg.msgstr[i], ents=self.entities)
             if spans:
+                self.nproblems += 1
                 highlight.append(("msgstr", i, spans, msg.msgstr[i]))
 
         if highlight:
-            self.nbad += 1
             report_on_msg_hl(highlight, msg, cat)
             if self.lokalize:
                 report_msg_to_lokalize(msg, cat, highlight)
@@ -157,10 +115,11 @@ class Sieve (object):
 
     def finalize (self):
 
-        if self.nbad > 0:
+        if self.nproblems > 0:
             if self.strict:
-                report("Total translations with problems (strict): %d"
-                       % self.nbad)
+                report("Total KDE4 markup problems in translation (strict): %d"
+                       % self.nproblems)
             else:
-                report("Total translations with problems: %d" % self.nbad)
+                report("Total KDE4 markup problems in translation: %d"
+                       % self.nproblems)
 
