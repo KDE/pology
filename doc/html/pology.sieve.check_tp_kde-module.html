@@ -85,8 +85,12 @@
       is not
     </li>
     <li>
-      <code>checks</code>: select only some checks to be applied, instead 
-      of all
+      <code>check</code>: select only one or few checks to be applied, 
+      instead of all
+    </li>
+    <li>
+      <code>showmsg</code>: show content of the message, with errors 
+      highlighted
     </li>
     <li>
       <code>lokalize</code>: open catalogs at problematic messages in 
@@ -102,9 +106,9 @@
   translation only message, by adding to it an appropriate <a 
   href="pology.sieve-module.html#parse_sieve_flags" class="link">sieve 
   flag</a>.</p>
-  <p>To apply only one or a few, instead of all the checks, parameter 
-  <code>check</code> may be used. It takes comma-separated list of check 
-  keywords, which are provided in the list of checks that follows.</p>
+  <p>Parameter <code>check</code> may be used to to apply only some instead
+  of all checks. It takes comma-separated list of check keywords, which are
+  provided in the list of checks that follows.</p>
   <p>Currently available checks are:</p>
   <ul>
     <li>
