@@ -9,7 +9,7 @@ from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg, report_on_msg_hl
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.markup import check_xml_kde4_l1, check_xml_qtrich_l1
-from pology.hook.check_markup import flag_no_check_xml
+from pology.hook.check_markup import flag_no_check_markup
 
 
 _tsfence = "|/|"
@@ -130,7 +130,7 @@ class Sieve (object):
             return
 
         # Do not check messages when told so.
-        if flag_no_check_xml in manc_parse_flag_list(msg, "|"):
+        if flag_no_check_markup in manc_parse_flag_list(msg, "|"):
             return
 
         # In in non-strict mode, check XML of translation only if the

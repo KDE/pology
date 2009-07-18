@@ -15,7 +15,7 @@ from pology.misc.langdep import get_result_lreq
 
 
 # Pipe flag used to manually prevent check for a particular message.
-flag_no_check_xml = "no-check-xml"
+flag_no_check_markup = "no-check-markup"
 
 
 def check_xml (strict=False, entities={}, mkeyw=None):
@@ -230,7 +230,7 @@ def _check_xml_w (check, strict, entities, mkeyw, spanrep):
             eval_ldata()
         entities = ldata["entities"]
 
-        if (   flag_no_check_xml in manc_parse_flag_list(msg, "|")
+        if (   flag_no_check_markup in manc_parse_flag_list(msg, "|")
             or (    not strict
                 and (   check(msg.msgid, ents=entities)
                      or check(msg.msgid_plural or u"", ents=entities)))
