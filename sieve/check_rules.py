@@ -23,6 +23,8 @@ The sieve parameters are:
         by their identifiers; also enables any disabled rule among the selected
    - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
         the regular expression
+   - C{norule:<ruleid>}: comma-separated list of specific rules not to apply
+   - C{norulerx:<ruleid>}: regular expression for specific rules not to apply
    - C{stat}: show statistics of rule matching at the end
    - C{accel:<characters>}: characters to consider as accelerator markers
    - C{markup:<mkeywords>}: markup types by keyword (comma separated)
@@ -154,8 +156,19 @@ def setup_sieve (p):
                 metavar="REGEX",
                 desc=
     "Apply only the rules with identifiers matching this regular expression. "
-    "Several patterns can be given by repeating the parameter, in which case "
-    "a rule is matched if all patterns match."
+    "Several patterns can be given by repeating the parameter."
+    )
+    p.add_param("norule", unicode, seplist=True,
+                metavar="RULEID",
+                desc=
+    "Do not apply rule given by this identifier. "
+    "Several identifiers can be given as comma-separated list."
+    )
+    p.add_param("norulerx", unicode, multival=True,
+                metavar="REGEX",
+                desc=
+    "Do not apply the rules with identifiers matching this regular expression. "
+    "Several patterns can be given by repeating the parameter."
     )
     p.add_param("xml", unicode,
                 metavar="PATH",
@@ -192,6 +205,8 @@ class Sieve (object):
 
         self.ruleChoice=params.rule
         self.ruleChoiceRx=params.rulerx
+        self.ruleChoiceInv=params.norule
+        self.ruleChoiceInvRx=params.norulerx
 
         self.stat=params.stat
         self.showfmsg=params.showfmsg
@@ -381,38 +396,62 @@ class Sieve (object):
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
-        selectedRules=[]
-        selectedRulesRx=[]
-        srules=[]
+        selectedRules=set()
+        srules=set()
         if self.ruleChoice:
-            selectedRules=set([x.strip() for x in self.ruleChoice])
+            requestedRules=set([x.strip() for x in self.ruleChoice])
             foundRules=set()
             for rule in rules:
-                if rule.ident in selectedRules:
-                    srules.append(rule)
+                if rule.ident in requestedRules:
+                    srules.add(rule)
                     foundRules.add(rule.ident)
                     rule.disabled = False
-            if foundRules!=selectedRules:
-                missingRules=list(selectedRules-foundRules)
+            if foundRules!=requestedRules:
+                missingRules=list(requestedRules-foundRules)
                 missingRules.sort()
                 error("some explicitly selected rules are missing: %s"
                       % ", ".join(missingRules))
-            selectedRules=list(selectedRules)
-            selectedRules.sort()
+            selectedRules.update(foundRules)
         if self.ruleChoiceRx:
-            foundRulesRx=set()
             identRxs=[re.compile(x, re.U) for x in self.ruleChoiceRx]
             for rule in rules:
                 if (    rule.ident
-                    and reduce(lambda s, x: s and x.search(rule.ident),
-                               identRxs, True)
+                    and reduce(lambda s, x: s or x.search(rule.ident),
+                               identRxs, False)
                 ):
-                    srules.append(rule)
-                    foundRulesRx.add(rule.ident)
-            selectedRulesRx=list(foundRulesRx)
-            selectedRulesRx.sort()
+                    srules.add(rule)
+                    selectedRules.add(rule.ident)
         if self.ruleChoice or self.ruleChoiceRx:
-            rules=srules
+            rules=list(srules)
+
+        selectedRulesInv=set()
+        srules=set(rules)
+        if self.ruleChoiceInv:
+            requestedRules=set([x.strip() for x in self.ruleChoiceInv])
+            foundRules=set()
+            for rule in rules:
+                if rule.ident in requestedRules:
+                    if rule in srules:
+                        srules.remove(rule)
+                    foundRules.add(rule.ident)
+            if foundRules!=requestedRules:
+                missingRules=list(requestedRules-foundRules)
+                missingRules.sort()
+                error("some explicitly excluded rules are missing: %s"
+                      % ", ".join(missingRules))
+            selectedRulesInv.update(foundRules)
+        if self.ruleChoiceInvRx:
+            identRxs=[re.compile(x, re.U) for x in self.ruleChoiceInvRx]
+            for rule in rules:
+                if (    rule.ident
+                    and reduce(lambda s, x: s or x.search(rule.ident),
+                               identRxs, False)
+                ):
+                    if rule in srules:
+                        srules.remove(rule)
+                    selectedRulesInv.add(rule.ident)
+        if self.ruleChoiceInv or self.ruleChoiceInvRx:
+            rules=list(srules)
 
         ntot=len(rules)
         ndis=len([x for x in rules if x.disabled])
@@ -434,14 +473,22 @@ class Sieve (object):
             report("Loaded %s rules" % (ntot))
 
         if selectedRules:
-            report("(explicitly selected: %s)" % ", ".join(selectedRules))
-        if selectedRulesRx:
-            n = len(selectedRulesRx)
-            if n <= 5:
-                report("(selected by regular expression: %s)"
-                       % ", ".join(selectedRulesRx))
+            selectedRules=selectedRules.difference(selectedRulesInv)
+            n=len(selectedRules)
+            if n<=10:
+                rlst=list(selectedRules)
+                rlst.sort()
+                report("(selected rules: %s)" % ", ".join(rlst))
             else:
-                report("(selected by regular expression: [%d rules])" % n)
+                report("(selected rules: [%d rules])" % n)
+        elif selectedRulesInv:
+            n=len(selectedRulesInv)
+            if n<=10:
+                rlst=list(selectedRulesInv)
+                rlst.sort()
+                report("(excluded rules: %s)" % ", ".join(rlst))
+            else:
+                report("(excluded rules: [%d rules])" % n)
 
         # Collect all distinct filters from rules.
         ruleFilters=set()
