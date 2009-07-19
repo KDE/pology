@@ -390,7 +390,7 @@ def diff_cats (cat1, cat2, ecat, merge, hlto=False, wrem=True, wadd=True):
 
     for msg2 in cat2:
         msg1 = get_msg_pair(msg2, cat1, icat1, mcat12)
-        if msg1:
+        if msg1 and msg1 not in msgs1_paired:
             # Record pairing.
             msgs1_paired.add(msg1)
             msgs2_paired.add(msg2)
@@ -400,7 +400,7 @@ def diff_cats (cat1, cat2, ecat, merge, hlto=False, wrem=True, wadd=True):
         if msg1 in msgs1_paired:
             continue
         msg2 = get_msg_pair(msg1, cat2, icat2, mcat21)
-        if msg2:
+        if msg2 and msg2 not in msgs2_paired:
             # Record pairing.
             msgs1_paired.add(msg1)
             msgs2_paired.add(msg2)
