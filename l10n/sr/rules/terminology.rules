@@ -112,6 +112,7 @@ valid msgstr="прилаго[дђ]" !msgstr="прилагодив"
 {\bcut(s|ting)?\b}i
 id="cut"
 hint="cut = исећи"
+valid span="cutting" before=" edge"
 valid msgstr="\bисе[кцчћ]"
 valid cat="klipper" msgid="cut\W*paste" msgstr="копи.{,9}налеп"
 valid cat="dolphin" msgid="ctrl.*\bc\b.*cut" msgstr="copy"

@@ -21,7 +21,7 @@ id="entry"
 hint="entry, message, unit = јединица [у датотеци превода или ТМ-у]"
 valid msgstr="једини[цч]"
 valid srcref="glossary"
-valid after="glossary |term "
+valid after="glossary |term |menu "
 valid before=" term"
 
 {\b(entr(y|ies)|items?)\b}i
@@ -29,3 +29,8 @@ id="entry2"
 hint="entry, item = унос [у појмовнику]"
 valid !srcref="glossary" !after="glossary |term " !before=" term"
 valid msgstr="унос"
+
+{translation file}i
+id="translationfile"
+hint="translation file = фајл превода"
+valid msgstr="фајл\w* превода"
