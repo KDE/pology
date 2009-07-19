@@ -145,6 +145,7 @@ def self_merge_catalog (catpath, wrapf):
 
     # Overwrite original with temporary catalog.
     shutil.move(catpath_mod, catpath)
+    os.unlink(potpath)
 
 
 if __name__ == '__main__':
