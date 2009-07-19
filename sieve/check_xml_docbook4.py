@@ -93,6 +93,9 @@ def _check_dbmarkup (msg, cat, strict, hl):
     if msg.msgid.startswith(_meta_msg_msgid_sw):
         return 0
 
+    if not strict and check_xml_docbook4_l1(msg.msgid):
+        return 0
+
     nproblems = 0
     for i in range(len(msg.msgstr)):
         spans = []
