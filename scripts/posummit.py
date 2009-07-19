@@ -1462,8 +1462,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         msg_links.append((branch_msg, summit_msg, summit_cat))
 
     if asc_stopped > 0:
-        report("%s: %d messages stopped by ascription filter"
-               % (branch_path, asc_stopped))
+        warning("%s: %d messages stopped by ascription filter"
+                % (branch_path, asc_stopped))
 
     # If completeness less than minimal acceptable, remove all translations.
     completeness_ratio = float(msgs_translated) / msgs_total
