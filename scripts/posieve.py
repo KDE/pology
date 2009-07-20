@@ -528,7 +528,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     maxfnlen = max(map(len, fnames))
     pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
               % (len(str(len(fnames))), len(fnames), maxfnlen))
-    pfmt_out = "\r%s\r" % (" " * len(pfmt % ("", 0, " " * maxfnlen)))
     pspins = ["-", "\\", "|", "/", "-", "\\", "|", "/"]
     i_spin = [0]
     def next_pspin ():
@@ -627,7 +626,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             modified_files.append(fname)
 
     if not op.verbose: # clear last progress line, if any
-        encwrite(sys.stdout, pfmt_out)
+        encwrite(sys.stdout, "")
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
