@@ -144,12 +144,13 @@ import locale
 import re
 from optparse import OptionParser
 import glob
+import time
 
 from pology.misc.fsops import str_to_unicode
 from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
-from pology.misc.report import error, warning, report
+from pology.misc.report import error, warning, report, encwrite
 from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
@@ -499,16 +500,14 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         errwarn = error
         errwarn_on_msg = error_on_msg
 
-    # Sieve the messages throughout the files.
-    modified_files = []
+    # Eliminate or include specific catalogs.
+    fnames_mod = []
     for fname in fnames:
         # Construct catalog name by stripping final .po* from file basename.
         cname = os.path.basename(fname)
         p = cname.rfind(".po")
         if p > 0:
             cname = cname[:p]
-
-        # Check if the catalog should be sieved
         do_sieve = True
         if do_sieve and exclude_cat_rx:
             do_sieve = exclude_cat_rx.search(cname) is None
@@ -521,10 +520,32 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if not do_sieve:
             if op.verbose:
                 report("skipping on request: %s" % fname)
-            continue
+        else:
+            fnames_mod.append(fname)
+    fnames = fnames_mod
+
+    # Prepare stuff for inline progress indicator.
+    maxfnlen = max(map(len, fnames))
+    pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
+              % (len(str(len(fnames))), len(fnames), maxfnlen))
+    pfmt_out = "\r%s\r" % (" " * len(pfmt % ("", 0, " " * maxfnlen)))
+    pspins = ["-", "\\", "|", "/", "-", "\\", "|", "/"]
+    i_spin = [0]
+    def next_pspin ():
+        i_spin[0] = (i_spin[0] + 1) % len(pspins)
+        return pspins[i_spin[0]]
+
+    # Sieve catalogs.
+    modified_files = []
+    fno = 0
+    for fname in fnames:
+        fno += 1
 
         if op.verbose:
             report("sieving %s ..." % fname)
+        else:
+            encwrite(sys.stdout, pfmt % (next_pspin(), fno, fname))
+            sys.stdout.flush()
 
         if op.msgfmt_check:
             # TODO: Make it more portable?
@@ -565,12 +586,21 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         # Then run all message sieves on each message,
         # unless processing only the header.
         if not use_headonly:
+            time_prev = time.time()
             for msg in cat:
                 if op.skip_obsolete and msg.obsolete:
                     continue
+
+                dtime = time.time() - time_prev
+                if not op.verbose and not op.announce_entry and dtime > 0.5:
+                    time_prev += dtime
+                    encwrite(sys.stdout, pfmt % (next_pspin(), fno, fname))
+                    sys.stdout.flush()
+
                 if op.announce_entry:
                     report(u"sieving %s:%d(#%d) ..."
                            % (fname, msg.refline, msg.refentry))
+
                 for sieve in message_sieves:
                     try:
                         sieve.process(msg, cat)
@@ -595,6 +625,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             else:
                 report("! %s" % fname)
             modified_files.append(fname)
+
+    if not op.verbose: # clear last progress line, if any
+        encwrite(sys.stdout, pfmt_out)
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
