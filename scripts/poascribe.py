@@ -779,6 +779,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
 # Flag used to mark diffed messages.
 _diffflag = u"ediff"
+_diffflag_tot = u"ediff-total"
+_diffflags = (_diffflag, _diffflag_tot)
 
 def diff_select_cat (options, config, catpath, acatpath,
                      stest, aselect, pfilter):
@@ -808,10 +810,15 @@ def diff_select_cat (options, config, catpath, acatpath,
 
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
-        msg_ediff(amsg, msg, emsg=msg, pfilter=pfilter)
-        # NOTE: Do NOT think of avoiding to flag the message if there is
-        # no difference to history, must be symmetric to review ascription.
-        msg.flag.add(_diffflag)
+        if amsg is not None:
+            msg_ediff(amsg, msg, emsg=msg, pfilter=pfilter)
+            # NOTE: Do NOT think of avoiding to flag the message if there is
+            # no difference to history, must be symmetric to review ascription.
+            msg.flag.add(_diffflag)
+        else:
+            # If no previous ascription selected, add special flag
+            # to denote that the whole message is to be reviewed.
+            msg.flag.add(_diffflag_tot)
         nflagged += 1
 
     sync_and_rep(cat)
@@ -921,8 +928,8 @@ def clear_review_msg (msg):
     tags = []
     for flag in list(msg.flag): # modified inside
         mantagged = _revdflag_rx.search(flag)
-        if flag == _diffflag or mantagged:
-            if flag == _diffflag:
+        if flag in _diffflags or mantagged:
+            if flag in _diffflags:
                 diffed = True
             if mantagged:
                 tags.append(mantagged.group(1).strip() or None)
