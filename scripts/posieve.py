@@ -525,14 +525,27 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     fnames = fnames_mod
 
     # Prepare stuff for inline progress indicator.
-    maxfnlen = max(map(len, fnames))
-    pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
-              % (len(str(len(fnames))), len(fnames), maxfnlen))
-    pspins = ["-", "\\", "|", "/", "-", "\\", "|", "/"]
-    i_spin = [0]
-    def next_pspin ():
-        i_spin[0] = (i_spin[0] + 1) % len(pspins)
-        return pspins[i_spin[0]]
+    progress_stream = sys.stderr
+    inline_progress = not op.verbose and progress_stream.isatty()
+    if inline_progress:
+        maxfnlen = max(map(len, fnames))
+        pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
+                % (len(str(len(fnames))), len(fnames), maxfnlen))
+        pspins = ["-", "\\", "|", "/"]
+        i_spin = [0]
+        i_file = [0]
+        seen_files = set()
+        def update_progress (fname=None):
+            if fname:
+                i_spin[0] = (i_spin[0] + 1) % len(pspins)
+                if fname not in seen_files:
+                    seen_files.add(fname)
+                    i_file[0] += 1
+                encwrite(progress_stream,
+                         pfmt % (pspins[i_spin[0]], i_file[0], fname))
+            else:
+                encwrite(progress_stream, "")
+            progress_stream.flush()
 
     # Sieve catalogs.
     modified_files = []
@@ -542,9 +555,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
         if op.verbose:
             report("sieving %s ..." % fname)
-        else:
-            encwrite(sys.stdout, pfmt % (next_pspin(), fno, fname))
-            sys.stdout.flush()
+        elif inline_progress:
+            update_progress(fname)
 
         if op.msgfmt_check:
             # TODO: Make it more portable?
@@ -590,11 +602,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 if op.skip_obsolete and msg.obsolete:
                     continue
 
-                dtime = time.time() - time_prev
-                if not op.verbose and not op.announce_entry and dtime > 0.5:
-                    time_prev += dtime
-                    encwrite(sys.stdout, pfmt % (next_pspin(), fno, fname))
-                    sys.stdout.flush()
+                if inline_progress:
+                    dtime = time.time() - time_prev
+                    if dtime > 0.5:
+                        time_prev += dtime
+                        update_progress(fname)
 
                 if op.announce_entry:
                     report(u"sieving %s:%d(#%d) ..."
@@ -625,8 +637,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 report("! %s" % fname)
             modified_files.append(fname)
 
-    if not op.verbose: # clear last progress line, if any
-        encwrite(sys.stdout, "")
+    if inline_progress:
+        update_progress() # clear last progress line, if any
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
