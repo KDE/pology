@@ -549,10 +549,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Sieve catalogs.
     modified_files = []
-    fno = 0
     for fname in fnames:
-        fno += 1
-
         if op.verbose:
             report("sieving %s ..." % fname)
         elif inline_progress:
