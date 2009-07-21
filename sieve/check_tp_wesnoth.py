@@ -204,12 +204,12 @@ def _check_interp (msg, cat, strict, hl):
             if interps_missing and len(interps_missing) > n_can_miss:
                 vfmt = " ".join(interps_missing)
                 hl.append(("msgstr", index,
-                           [(0, 0, "missing interpolations: %s" % vfmt)]))
+                           [(None, None, "missing interpolations: %s" % vfmt)]))
                 nproblems += 1
             elif interps_unknown:
                 vfmt = " ".join(interps_unknown)
                 hl.append(("msgstr", index,
-                           [(0, 0, "unknown interpolations: %s" % vfmt)]))
+                           [(None, None, "unknown interpolations: %s" % vfmt)]))
                 nproblems += 1
         return nproblems
 
@@ -265,12 +265,12 @@ def _check_wml (msg, cat, strict, hl):
             if links_missing:
                 vfmt = " ".join(["'%s'" % x for x in links_missing])
                 hl.append(("msgstr", i,
-                           [(0, 0, "missing links: %s" % vfmt)]))
+                           [(None, None, "missing links: %s" % vfmt)]))
                 nproblems += 1
             elif links_unknown:
                 vfmt = " ".join(["'%s'" % x for x in links_unknown])
                 hl.append(("msgstr", i,
-                           [(0, 0, "unknown links: %s" % vfmt)]))
+                           [(None, None, "unknown links: %s" % vfmt)]))
                 nproblems += 1
 
     return nproblems
