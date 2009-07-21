@@ -548,9 +548,6 @@ def _add_cat_check (check, catspecs):
 
 def _check_cat_libkleopatra (msg, cat, pcache, hl):
 
-    if not msg.active:
-        return 0
-
     errors = []
 
     if "'yes' or 'no'" in (msg.msgctxt or ""):
