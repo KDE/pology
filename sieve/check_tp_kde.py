@@ -72,9 +72,13 @@ Currently available checks are:
     it contains "qtdt-format" in C{msgctxt} or among flags.
 
   - Validity of translator credits (C{trcredits}).
-    Catalogs may contain metamessages to input translator credits;
-    translations these messages should have a particular form on their own,
-    as well as certain congruence between them.
+    Catalogs may contain meta-messages to input translator credits;
+    translations of these messages should be valid on on their own,
+    but also have some congruence between them.
+
+  - Catalog-specific checking (C{catspec}).
+    Certain messages in certain catalogs have special validity requirements,
+    and this check activates all such catalog-specific checks.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -158,22 +162,24 @@ class Sieve (object):
             raise SieveCatalogError("%s: cannot determine project subdirectory "
                                     "of the catalog" % cat.filename)
 
-        # Select applicable checks based on catalog type.
-        def set_checks (names):
-            self.current_checks = []
+        # Select checks applicable to current catalog.
+        self.current_checks = []
+
+        def add_checks (names):
             if self.selected_checks is not None:
                 names = set(names).intersection(self.selected_checks)
             for name in names:
                 self.current_checks.append(_known_checks[name])
 
         if is_txt_cat(cname, csubdir):
-            set_checks(["nots"])
+            add_checks(["nots"])
         elif is_qt_cat(cname, csubdir):
-            set_checks(["qtmarkup", "qtdt", "nots"])
+            add_checks(["qtmarkup", "qtdt", "nots"])
         elif is_docbook_cat(cname, csubdir):
-            set_checks(["dbmarkup", "nots"])
+            add_checks(["dbmarkup", "nots"])
         else: # default to native KDE4 catalog
-            set_checks(["kde4markup", "qtdt", "trcredits"])
+            add_checks(["kde4markup", "qtdt", "trcredits"])
+        add_checks(["catspec"]) # to all catalogs, will select internally
 
         # Reset catalog progress cache, available to checks.
         self.pcache = {
@@ -225,6 +231,10 @@ def _get_catalog_project_subdir (path):
 
     return subdir
 
+
+# Map of checks by name,
+# updated at point of definition of the check.
+_known_checks = {}
 
 # --------------------------------------
 # Catalog classification.
@@ -304,6 +314,7 @@ def _check_kde4markup (msg, cat, pcache, hl):
 
     return nproblems
 
+_known_checks["kde4markup"] = _check_kde4markup
 
 # --------------------------------------
 # Check for Qt markup.
@@ -329,12 +340,14 @@ def _check_qtmarkup (msg, cat, pcache, hl):
 
     return nproblems
 
+_known_checks["qtmarkup"] = _check_qtmarkup
 
 # --------------------------------------
 # Check for Docbook markup.
 
 from pology.sieve.check_xml_docbook4 import _check_dbmarkup
 
+_known_checks["dbmarkup"] = _check_dbmarkup
 
 # --------------------------------------
 # Check for no scripting in dumb messages.
@@ -353,6 +366,7 @@ def _check_nots (msg, cat, pcache, hl):
 
     return nproblems
 
+_known_checks["nots"] = _check_nots
 
 # --------------------------------------
 # Qt datetime format messages.
@@ -448,6 +462,7 @@ def _check_qtdt (msg, cat, pcache, hl):
 
     return nproblems
 
+_known_checks["qtdt"] = _check_qtdt
 
 # --------------------------------------
 # Check for runtime translator data.
@@ -464,7 +479,7 @@ _valid_email_rx = re.compile(r"^\s*\S+@\S+\.\S+\s*\b", re.U)
 
 def _check_trcredits (msg, cat, pcache, hl):
 
-    if not msg.translated or msg.obsolete:
+    if not msg.active:
         return 0
     if msg.msgctxt not in _trcredit_ctxts:
         return 0
@@ -514,15 +529,48 @@ def _check_trcredits (msg, cat, pcache, hl):
 
     return len(errors)
 
+_known_checks["trcredits"] = _check_trcredits
 
 # --------------------------------------
-# Map of all existing checks.
+# Catalog-specific checks.
 
-_known_checks = {
-    "kde4markup": _check_kde4markup,
-    "qtmarkup": _check_qtmarkup,
-    "dbmarkup": _check_dbmarkup,
-    "nots": _check_nots,
-    "qtdt": _check_qtdt,
-    "trcredits": _check_trcredits,
-}
+# Use this function to add a catalog-specific checks to one or more
+# catalogs, selected by name. For example:
+#   _add_cat_check(_check_cat_xyz, ["catfoo", "catbar"])
+_known_checks_by_cat = {}
+def _add_cat_check (check, catspecs):
+    for catspec in catspecs:
+        if catspec not in _known_checks_by_cat:
+            _known_checks_by_cat[catspec] = []
+        if check not in _known_checks_by_cat[catspec]:
+            _known_checks_by_cat[catspec].append(check)
+
+
+def _check_cat_libkleopatra (msg, cat, pcache, hl):
+
+    if not msg.active:
+        return 0
+
+    errors = []
+
+    if "'yes' or 'no'" in (msg.msgctxt or ""):
+        if msg.msgstr[0] not in ("yes", "no"):
+            errors.append("translation must be exactly 'yes' or 'no'")
+
+    hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+    return len(errors)
+
+_add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
+
+
+# Global check to apply appropriate catalog-specific checks.
+def _check_catspec (msg, cat, pcache, hl):
+
+    nproblems = 0
+    for check in _known_checks_by_cat.get(cat.name, []):
+        nproblems += check(msg, cat, pcache, hl)
+
+    return nproblems
+
+_known_checks["catspec"] = _check_catspec
+
