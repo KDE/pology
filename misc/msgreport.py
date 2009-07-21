@@ -606,7 +606,7 @@ def _highlight_spans (text, spans, color_s, color_e, ftext=None):
     ctext = ""
     cstart = 0
     for span in spans:
-        if not isinstance(span[0], integer) or not isinstance(span[1], integer):
+        if not isinstance(span[0], int) or not isinstance(span[1], int):
             continue
         ctext += text[cstart:span[0]]
         ctext += color_s + text[span[0]:span[1]] + color_e
