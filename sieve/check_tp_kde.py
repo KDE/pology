@@ -71,6 +71,11 @@ Currently available checks are:
     A message is considered to be in this format if
     it contains "qtdt-format" in C{msgctxt} or among flags.
 
+  - Validity of translator credits (C{trcredits}).
+    Catalogs may contain metamessages to input translator credits;
+    translations these messages should have a particular form on their own,
+    as well as certain congruence between them.
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
@@ -168,7 +173,12 @@ class Sieve (object):
         elif is_docbook_cat(cname, csubdir):
             set_checks(["dbmarkup", "nots"])
         else: # default to native KDE4 catalog
-            set_checks(["kde4markup", "qtdt"])
+            set_checks(["kde4markup", "qtdt", "trcredits"])
+
+        # Reset catalog progress cache, available to checks.
+        self.pcache = {
+            "strict": self.strict,
+        }
 
 
     def process (self, msg, cat):
@@ -178,7 +188,7 @@ class Sieve (object):
 
         highlight = []
         for check in self.current_checks:
-            self.nproblems += check(msg, cat, self.strict, highlight)
+            self.nproblems += check(msg, cat, self.pcache, highlight)
 
         if highlight:
             if self.showmsg:
@@ -261,7 +271,9 @@ def is_docbook_cat (name, subdir):
 
 _tsfence = "|/|"
 
-def _check_kde4markup (msg, cat, strict, hl):
+def _check_kde4markup (msg, cat, pcache, hl):
+
+    strict = pcache.get("strict", False)
 
     # Do not check markup if:
     # - the check is explicitly skipped for this message
@@ -296,7 +308,9 @@ def _check_kde4markup (msg, cat, strict, hl):
 # --------------------------------------
 # Check for Qt markup.
 
-def _check_qtmarkup (msg, cat, strict, hl):
+def _check_qtmarkup (msg, cat, pcache, hl):
+
+    strict = pcache.get("strict", False)
 
     if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
@@ -325,7 +339,7 @@ from pology.sieve.check_xml_docbook4 import _check_dbmarkup
 # --------------------------------------
 # Check for no scripting in dumb messages.
 
-def _check_nots (msg, cat, strict, hl):
+def _check_nots (msg, cat, pcache, hl):
 
     nproblems = 0
     for i in range(len(msg.msgstr)):
@@ -384,7 +398,7 @@ def _check_qtdt_w (msgstr, msg, cat):
         errmsg = ("Qt date-format mismatch, "
                   "msgid has fields (%s) while msgstr has (%s)"
                   % (_qtdt_fjoin(msgid_fmts), _qtdt_fjoin(msgstr_fmts)))
-        spans.append((0, 0, errmsg))
+        spans.append((None, None, errmsg))
 
     return spans
 
@@ -419,7 +433,7 @@ def check_qtdt_sp (msgstr, msg, cat):
 
 
 # Internal check for this sieve's use.
-def _check_qtdt (msg, cat, strict, hl):
+def _check_qtdt (msg, cat, pcache, hl):
 
     if not _is_qtdt_msg(msg):
         return 0
@@ -436,6 +450,72 @@ def _check_qtdt (msg, cat, strict, hl):
 
 
 # --------------------------------------
+# Check for runtime translator data.
+
+_trcredit_name_ctxt = "NAME OF TRANSLATORS"
+_trcredit_email_ctxt = "EMAIL OF TRANSLATORS"
+
+_trcredit_ctxts = set((
+    _trcredit_name_ctxt,
+    _trcredit_email_ctxt,
+))
+
+_valid_email_rx = re.compile(r"^\s*\S+@\S+\.\S+\s*\b", re.U)
+
+def _check_trcredits (msg, cat, pcache, hl):
+
+    if not msg.translated or msg.obsolete:
+        return 0
+    if msg.msgctxt not in _trcredit_ctxts:
+        return 0
+
+    errors = []
+
+    if msg.msgctxt == _trcredit_name_ctxt:
+        names = msg.msgstr[0].split(",")
+        pcache["trnames"] = names
+
+        # Check that there is no whitespace around commas.
+        for name in names:
+            if name.lstrip() != name:
+                emsg = "leading whitespace in translator name '%s'" % name
+                errors.append(emsg)
+            if name.rstrip() != name:
+                emsg = "trailing whitespace in translator name '%s'" % name
+                errors.append(emsg)
+
+    elif msg.msgctxt == _trcredit_email_ctxt:
+        emails = msg.msgstr[0].split(",")
+        pcache["tremails"] = emails
+
+        for email in emails:
+            # Check that there is no whitespace around commas.
+            if email.lstrip() != email:
+                emsg = "leading whitespace in email address '%s'" % email
+                errors.append(emsg)
+            if email.rstrip() != email:
+                emsg = "trailing whitespace in email address '%s'" % email
+                errors.append(emsg)
+            # Check minimal validity of address.
+            if not _valid_email_rx.match(email):
+                emsg = "invalid email address '%s'" % email
+                errors.append(emsg)
+
+    # Check congruence between names and emails.
+    names = pcache.get("trnames")
+    emails = pcache.get("tremails")
+    if emails and len(names) != len(emails):
+        emsg = ("different number of translator names (%d) "
+                "and email addresses (%d)" % (len(names), len(emails)))
+        errors.append(emsg)
+
+    if errors:
+        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+
+    return len(errors)
+
+
+# --------------------------------------
 # Map of all existing checks.
 
 _known_checks = {
@@ -444,4 +524,5 @@ _known_checks = {
     "dbmarkup": _check_dbmarkup,
     "nots": _check_nots,
     "qtdt": _check_qtdt,
+    "trcredits": _check_trcredits,
 }
