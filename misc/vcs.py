@@ -370,6 +370,14 @@ class VcsSubversion (VcsBase):
     VCS: Subversion.
     """
 
+    def __init__ (self):
+
+        # Environment to cancel any localization in output of operations,
+        # for methods which need to parse the output.
+        self._env = os.environ.copy()
+        self._env["LC_ALL"] = "C"
+
+
     def add (self, path):
         # Base override.
 
@@ -395,7 +403,7 @@ class VcsSubversion (VcsBase):
     def revision (self, path):
         # Base override.
 
-        res = collect_system("svn info %s@" % path)
+        res = collect_system("svn info %s@" % path, env=self._env)
         rx = re.compile(r"^Last Changed Rev: *([0-9]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -410,7 +418,7 @@ class VcsSubversion (VcsBase):
     def is_clear (self, path):
         # Base override.
 
-        res = collect_system("svn status %s" % path)
+        res = collect_system("svn status %s" % path, env=self._env)
         clear = not re.search(r"^\S", res[0])
 
         return clear
@@ -425,7 +433,7 @@ class VcsSubversion (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
-        res = collect_system("svn info %s@" % path)
+        res = collect_system("svn info %s@" % path, env=self._env)
         rx = re.compile(r"^Repository", re.I)
         for line in res[0].split("\n"):
             if rx.search(line):
@@ -443,7 +451,7 @@ class VcsSubversion (VcsBase):
                 return False
             return True
 
-        res = collect_system("svn info %s@" % path)
+        res = collect_system("svn info %s@" % path, env=self._env)
         if res[-1] != 0:
             return False
         rx = re.compile(r"^URL:\s*(\S+)", re.I)
@@ -500,7 +508,7 @@ class VcsSubversion (VcsBase):
     def log (self, path, rev1=None, rev2=None):
         # Base override.
 
-        res = collect_system("svn log %s@" % path)
+        res = collect_system("svn log %s@" % path, env=self._env)
         if res[-1] != 0:
             return []
         rev = ""
@@ -530,7 +538,7 @@ class VcsSubversion (VcsBase):
     def to_commit (self, path):
         # Base override.
 
-        res = collect_system("svn status %s" % path)
+        res = collect_system("svn status %s" % path, env=self._env)
         if res[-1] != 0:
             return []
 
@@ -547,6 +555,14 @@ class VcsGit (VcsBase):
     """
     VCS: Git.
     """
+
+    def __init__ (self):
+
+        # Environment to cancel any localization in output of operations,
+        # for methods which need to parse the output.
+        self._env = os.environ.copy()
+        self._env["LC_ALL"] = "C"
+
 
     def _gitroot (self, paths):
 
@@ -619,7 +635,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git log %s" % path, wdir=root)
+        res = collect_system("git log %s" % path, wdir=root, env=self._env)
         rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -636,7 +652,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git status %s" % path, wdir=root)
+        res = collect_system("git status %s" % path, wdir=root, env=self._env)
         rx = re.compile(r"\bmodified:\s*(\S.*)", re.I)
         for line in res[0].split("\n"):
             m = rx.search(line)
@@ -657,7 +673,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git log %s" % rev2, wdir=root)
+        res = collect_system("git log %s" % rev2, wdir=root, env=self._env)
         rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
         first = True
         for line in res[0].split("\n"):
@@ -771,7 +787,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git log %s" % path, wdir=root)
+        res = collect_system("git log %s" % path, wdir=root, env=self._env)
         if res[-1] != 0:
             return []
         rev = ""
@@ -819,7 +835,7 @@ class VcsGit (VcsBase):
             cmdline = "git status %s" % path
         else:
             cmdline = "git status"
-        res = collect_system(cmdline, wdir=root)
+        res = collect_system(cmdline, wdir=root, env=self._env)
 
         sect_rx = re.compile(r"^# (\S.*):$", re.I)
         file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
