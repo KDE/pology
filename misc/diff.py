@@ -867,7 +867,8 @@ def adapt_spans (otext, ftext, spans, merge=True):
     extra elements will be preserved for only the frontmost of
     the overlapping spans (undefined for which if there are several).
 
-    If any of the input spans are invalid, the results are undefined.
+    If an input span is invalid in any way,
+    it is carried over verbatim into result.
 
     @param otext: original text
     @type otext: string
@@ -886,15 +887,30 @@ def adapt_spans (otext, ftext, spans, merge=True):
         return spans
 
     # Resolve negative spans.
+    # Select out spans with invalid start or end.
     flen = len(ftext)
     fspans = []
+    invalid_spans = []
     for span in spans:
         start, end = span[:2]
-        if start < 0:
-            start = flen - start
-        if end < 0:
-            end = flen - end
-        fspans.append((start, end) + span[2:])
+        valid = True
+
+        if isinstance(start, int):
+            if start < 0:
+                start = flen - start
+        else:
+            valid = False
+
+        if isinstance(end, int):
+            if end < 0:
+                end = flen - end
+        else:
+            valid = False
+
+        if valid:
+            fspans.append((start, end) + span[2:])
+        else:
+            invalid_spans.append(span)
 
     # Create character-level difference from original to filtered text.
     dlist = tdiff(otext, ftext)
@@ -952,6 +968,9 @@ def adapt_spans (otext, ftext, spans, merge=True):
         # Sort by start index.
         maspans.sort(lambda x, y: cmp(x[0], y[0]))
         aspans = maspans
+
+    # Put invalid spans back.
+    aspans.extend(invalid_spans)
 
     return aspans
 

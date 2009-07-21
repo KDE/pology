@@ -185,14 +185,17 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             if len(span) < 3:
                 continue
             start, end, snote = span
-            seglen = end - start
-            if seglen > 0:
-                segtext = text[start:end]
-                if len(segtext) > 30:
-                    segtext = segtext[:27] + "..."
-                posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+            if isinstance(start, int) and isinstance(end, int):
+                seglen = end - start
+                if seglen > 0:
+                    segtext = text[start:end]
+                    if len(segtext) > 30:
+                        segtext = segtext[:27] + "..."
+                    posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+                else:
+                    posinfo = "%s:%d" % (name, start)
             else:
-                posinfo = "%s:%d" % (name, start)
+                posinfo = "%s" % name
             posinfo = C.GREEN + posinfo + C.RESET
 
             refstr = tfmt % (cat.filename, msg.refline, msg.refentry)
@@ -299,6 +302,8 @@ def report_msg_content (msg, cat,
     Span tuples can have a third element, following the indices, which is
     the note about why the particular span is highlighted;
     there may be more elements after the note, and these are all ignored.
+    If start or end index of a span is not an integer,
+    then the note is taken as relating to the complete field.
 
     Sometimes the match to which the spans correspond has been made on a
     filtered value of the message field (e.g. after accelerator markers
@@ -414,14 +419,17 @@ def report_msg_content (msg, cat,
                 if len(span) < 3:
                     continue
                 start, end, snote = span
-                seglen = end - start
-                if seglen > 0:
-                    segtext = text[start:end]
-                    if len(segtext) > 30:
-                        segtext = segtext[:27] + "..."
-                    posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+                if isinstance(start, int) and isinstance(end, int):
+                    seglen = end - start
+                    if seglen > 0:
+                        segtext = text[start:end]
+                        if len(segtext) > 30:
+                            segtext = segtext[:27] + "..."
+                        posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
+                    else:
+                        posinfo = "%s:%d" % (name, start)
                 else:
-                    posinfo = "%s:%d" % (name, start)
+                    posinfo = "%s" % name
                 posinfo = C.GREEN + posinfo + C.RESET
                 rsegs.append("[%s]: %s" % (posinfo, snote))
                 note_ord += 1
@@ -486,7 +494,8 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     for begin, end in span:
-        xmlError.append("\t\t<highlight begin='%s' end='%s'/>\n" % (begin, end))
+        if isinstance(begin, int) and isinstance(end, int):
+            xmlError.append("\t\t<highlight begin='%s' end='%s'/>\n" % (begin, end))
     #xmlError.append("\t\t<start>%s</start>\n" % span[0])
     #xmlError.append("\t\t<end>%s</end>\n" % span[1])
     xmlError.append("\t\t<pattern><![CDATA[%s]]></pattern>\n" % rule.rawPattern)
@@ -562,6 +571,7 @@ def _highlight_spans (text, spans, color_s, color_e, ftext=None):
     start and end index have standard Python semantics.
     Span tuples can have more than two elements, with indices followed by
     additional elements, which are ignored by this function.
+    If start or end index in a span is not an integer, the span is ignored.
 
     If C{ftext} is not C{None} spans are understood as relative to it,
     and the function will try to adapt them to the main text
@@ -596,6 +606,8 @@ def _highlight_spans (text, spans, color_s, color_e, ftext=None):
     ctext = ""
     cstart = 0
     for span in spans:
+        if not isinstance(span[0], integer) or not isinstance(span[1], integer):
+            continue
         ctext += text[cstart:span[0]]
         ctext += color_s + text[span[0]:span[1]] + color_e
         cstart = span[1]
