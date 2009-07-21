@@ -200,7 +200,7 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 
 [proxy]i
 valid before="\)" after="\(&?"
-valid after="http_"
+valid after="http_|HTTP_|FTP_|HTTPS_"
 valid after="no_|no &|mon"
 valid cat="kmail" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
