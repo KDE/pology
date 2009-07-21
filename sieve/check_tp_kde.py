@@ -554,7 +554,9 @@ def _check_cat_libkleopatra (msg, cat, pcache, hl):
         if msg.msgstr[0] not in ("yes", "no"):
             errors.append("translation must be exactly 'yes' or 'no'")
 
-    hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+    if errors:
+        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+
     return len(errors)
 
 _add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
