@@ -48,6 +48,7 @@ _Message_spec = {
     "fuzzy" : {"type" : bool},
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
+    "active" : {"type" : bool, "derived" : True},
     "format" : {"type" : unicode, "derived" : True},
 
     "refline" : {"type" : int},
@@ -234,6 +235,11 @@ class Message_base (object):
         whether the message is translated (False for fuzzy messages)
     @type translated: bool
 
+    @ivar active: (read-only)
+        whether the translation of the message is used at destination
+        (False for fuzzy and obsolete messages)
+    @type active: bool
+
     @ivar format: (read-only)
         the format flag of the message (e.g. C{c-format}) or empty string
     @type format: string
@@ -302,6 +308,9 @@ class Message_base (object):
                 if val:
                     return False
             return True
+
+        elif att == "active":
+            return self.translated and not self.obsolete
 
         elif att == "key":
             return self._compose(["msgctxt", "msgid"])
