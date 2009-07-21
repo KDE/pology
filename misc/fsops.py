@@ -12,6 +12,7 @@ import os
 import codecs
 import re
 import locale
+import subprocess
 
 from pology.misc.report import error, warning
 
@@ -258,10 +259,11 @@ def assert_system (cmdline, echo=False, wdir=None):
             error("non-zero exit from:\n%s" % cmdline)
 
 
-_execid = 0
-def collect_system (cmdline, echo=False, wdir=None):
+def collect_system (cmdline, echo=False, wdir=None, env=None):
     """
     Execute command line and collect stdout, stderr, and return code.
+
+    Normally the output will 
 
     @param cmdline: command line to execute
     @type cmdline: string
@@ -269,31 +271,25 @@ def collect_system (cmdline, echo=False, wdir=None):
     @type echo: bool
     @param wdir: working directory for the command (CWD if none given)
     @type wdir: path
+    @param env: environment for the execution (variable name-value pairs)
+    @type env: {string: string}
 
     @returns: tuple of stdout, stderr, and exit code
     @rtype: (string, string, int)
     """
 
-    # Create temporary files.
-    global _execid
-    tmpout = "/tmp/exec%s-%d-out" % (os.getpid(), _execid)
-    tmperr = "/tmp/exec%s-%d-err" % (os.getpid(), _execid)
-    _execid += 1
-
-    # Execute.
     if echo:
         print cmdline
-    cmdline_mod = cmdline + (" 1>%s 2>%s " % (tmpout, tmperr))
     if wdir is not None:
         cwd = os.getcwd()
         os.chdir(wdir)
-    ret = os.system(unicode_to_str(cmdline_mod))
+    p = subprocess.Popen(unicode_to_str(cmdline), shell=True, env=env,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    strout, strerr = map(str_to_unicode, p.communicate())
+    ret = p.returncode
     if wdir is not None:
         os.chdir(cwd)
 
-    # Collect stdout and stderr.
-    strout = str_to_unicode("".join(open(tmpout).readlines()))
-    strerr = str_to_unicode("".join(open(tmperr).readlines()))
     if echo:
         if strout:
             sys.stdout.write("===== stdout from the command ^^^ =====\n")
@@ -301,10 +297,6 @@ def collect_system (cmdline, echo=False, wdir=None):
         if strerr:
             sys.stderr.write("***** stderr from the command ^^^ *****\n")
             sys.stderr.write(strerr)
-
-    # Clean up.
-    os.unlink(tmpout)
-    os.unlink(tmperr)
 
     return (strout, strerr, ret)
 
