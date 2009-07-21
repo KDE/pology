@@ -22,7 +22,7 @@ in the project's section. All the used config fields are:
   - C{[project-*]/language}: language code (IS0 639)
   - C{[project-*]/language-team}: human-readable language name
   - C{[project-*]/team-email}: team's email
-  - C{[project-*]/encoding}: encoding of PO files
+  - C{[project-*]/encoding}: encoding of PO files (UTF-8 assumed if not set)
   - C{[project-*]/plural-forms}: the PO plural header (C{nplurals=...; ...;})
   - C{[project-*]/generator} or C{[user]/generator}: the tool used
         to translate PO files
@@ -92,9 +92,7 @@ class Sieve (object):
         self.lang = prjcfg.string("language")
         if not self.lang:
             warning("'language' not set in project configuration")
-        self.encoding = prjcfg.string("encoding")
-        if not self.encoding:
-            warning("'encoding' not set in project configuration")
+        self.encoding = prjcfg.string("encoding", "UTF-8")
         self.plforms = prjcfg.string("plural-forms")
         if not self.plforms:
             warning("'plural-forms' not set in project configuration")
