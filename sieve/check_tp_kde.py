@@ -562,6 +562,22 @@ def _check_cat_libkleopatra (msg, cat, pcache, hl):
 _add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
 
 
+def _check_cat_kplatolibs (msg, cat, pcache, hl):
+
+    errors = []
+
+    if "Letter(s) only" in (msg.msgctxt or ""):
+        if not msg.msgstr[0].isalpha():
+            errors.append("translation must contain only letters")
+
+    if errors:
+        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+
+    return len(errors)
+
+_add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
+
+
 # Global check to apply appropriate catalog-specific checks.
 def _check_catspec (msg, cat, pcache, hl):
 
