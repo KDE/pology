@@ -36,7 +36,7 @@ def encwrite (file, text):
     text = text.encode(enc, "replace")
 
     # If last output was returning to line start with CR, clean up the line.
-    if _prev_text_cr[0] is not None:
+    if _prev_text_cr[0] is not None and not _prev_text_cr[1].closed:
         cstr = "\r%s\r" % (" " * len(_prev_text_cr[0]))
         _prev_text_cr[0] = None
         _prev_text_cr[1].write(cstr)
