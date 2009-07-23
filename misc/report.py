@@ -17,7 +17,7 @@ import locale
 import pology.misc.colors as C
 
 
-_prev_text_cr = [None]
+_prev_text_cr = [None, None]
 
 def encwrite (file, text):
     """
@@ -39,7 +39,7 @@ def encwrite (file, text):
     if _prev_text_cr[0] is not None:
         cstr = "\r%s\r" % (" " * len(_prev_text_cr[0]))
         _prev_text_cr[0] = None
-        file.write(cstr)
+        _prev_text_cr[1].write(cstr)
 
     # If current output is returning to line start with CR, record it.
     if text.endswith("\r"):
@@ -47,6 +47,7 @@ def encwrite (file, text):
         if "\n" in cstr:
             cstr = cstr[cstr.rfind("\n") + 1:]
         _prev_text_cr[0] = cstr
+        _prev_text_cr[1] = file
 
     file.write(text)
 
