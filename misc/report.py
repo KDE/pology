@@ -40,6 +40,7 @@ def encwrite (file, text):
         cstr = "\r%s\r" % (" " * len(_prev_text_cr[0]))
         _prev_text_cr[0] = None
         _prev_text_cr[1].write(cstr)
+        _prev_text_cr[1] = None
 
     # If current output is returning to line start with CR, record it.
     if text.endswith("\r"):
