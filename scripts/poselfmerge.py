@@ -61,6 +61,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
         help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
+        "-C", "--compendium",  metavar="POFILE",
+        action="append", dest="compendiums", default=[],
+        help="catalog with existing translations, to additionally use for "
+             "direct and fuzzy matches (can be repeated)")
+    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
@@ -95,10 +100,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for fname in fnames:
         if op.verbose:
             report("Self-merging %s ..." % fname)
-        self_merge_catalog(fname, wrap_func)
+        self_merge_catalog(fname, wrap_func, op.compendiums)
 
 
-def self_merge_catalog (catpath, wrapf):
+def self_merge_catalog (catpath, wrapf, compendiums=[]):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -137,6 +142,8 @@ def self_merge_catalog (catpath, wrapf):
     # Merge.
     cmdline = ("msgmerge --quiet --previous --update --backup none %s %s"
                % (catpath_mod, potpath))
+    if compendiums:
+        cmdline += " " + " ".join(["-C '%s'" % x for x in compendiums])
     assert_system(cmdline)
 
     # Open merged catalog to wrap properly.
