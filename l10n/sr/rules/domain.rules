@@ -34,3 +34,52 @@ valid msgstr="унос"
 id="translationfile"
 hint="translation file = фајл превода"
 valid msgstr="фајл\w* превода"
+
+# ====================
+# KSirk (game)
+environment ksirk
+
+{\bturns?\b}i
+id="turn"
+hint="turn = потез"
+valid msgstr="\bпотез"
+
+{\bcountr(y|es)\b}i
+id="country"
+hint="country = земља"
+valid msgstr="\bземљ"
+
+{\bmaps?\b}i
+id="map"
+hint="map = карта"
+valid msgstr="\bкарт[аеиоу]"
+
+# ====================
+# Kubrick (game)
+environment kubrick
+
+{\bviews?\b}i
+id="view"
+hint="view = поглед"
+valid msgstr="\bпоглед"
+
+{\b(layers?|slices?)\b}i
+id="layer"
+hint="layer, slice = слој"
+valid msgstr="\bслој"
+
+{\bwatch}i
+id="watch"
+hint="watch = анимирати [пребачено на радњу из угла рачунара]"
+valid msgstr="\bанимир"
+
+{\bfaces?\b}i
+id="face"
+hint="face = страница"
+valid msgstr="\bстрани[цч]"
+
+{\bbrick}i
+id="brick"
+hint="brick = квадар"
+valid msgstr="\bквада?р" !msgstr='\bцигл'
+
