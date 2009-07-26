@@ -519,7 +519,7 @@ def _check_trcredits (msg, cat, pcache, hl):
     # Check congruence between names and emails.
     names = pcache.get("trnames")
     emails = pcache.get("tremails")
-    if emails and len(names) != len(emails):
+    if emails and names and len(names) != len(emails):
         emsg = ("different number of translator names (%d) "
                 "and email addresses (%d)" % (len(names), len(emails)))
         errors.append(emsg)
