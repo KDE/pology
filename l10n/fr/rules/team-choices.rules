@@ -355,4 +355,10 @@ hint="Traduisez « press » avec les verbes « cliquer » ou « appuyer »"
 valid msgstr="rogn"
 hint="Traduisez « crop » avec le verbe « rogner »"
 
+{controller}i
+valid msgstr="contrôleur"
+valid before="::"
+valid cat="step" msgstr="régulateur"
+hint="Traduisez « controller » par « contrôleur »"
+
 # End of rule file
