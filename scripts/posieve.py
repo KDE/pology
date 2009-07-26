@@ -526,7 +526,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Prepare stuff for inline progress indicator.
     progress_stream = sys.stderr
-    inline_progress = not op.verbose and progress_stream.isatty()
+    inline_progress = not op.verbose and progress_stream.isatty() and fnames
     if inline_progress:
         maxfnlen = max(map(len, fnames))
         pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
