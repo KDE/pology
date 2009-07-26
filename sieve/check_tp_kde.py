@@ -490,27 +490,11 @@ def _check_trcredits (msg, cat, pcache, hl):
         names = msg.msgstr[0].split(",")
         pcache["trnames"] = names
 
-        # Check that there is no whitespace around commas.
-        for name in names:
-            if name.lstrip() != name:
-                emsg = "leading whitespace in translator name '%s'" % name
-                errors.append(emsg)
-            if name.rstrip() != name:
-                emsg = "trailing whitespace in translator name '%s'" % name
-                errors.append(emsg)
-
     elif msg.msgctxt == _trcredit_email_ctxt:
         emails = msg.msgstr[0].split(",")
         pcache["tremails"] = emails
 
         for email in emails:
-            # Check that there is no whitespace around commas.
-            if email.lstrip() != email:
-                emsg = "leading whitespace in email address '%s'" % email
-                errors.append(emsg)
-            if email.rstrip() != email:
-                emsg = "trailing whitespace in email address '%s'" % email
-                errors.append(emsg)
             # Check minimal validity of address.
             if not _valid_email_rx.match(email):
                 emsg = "invalid email address '%s'" % email
