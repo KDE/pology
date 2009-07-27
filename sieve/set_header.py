@@ -146,7 +146,7 @@ class Sieve (object):
 
         # Check validity of comment values.
         if params.copyright is not None:
-            if not re.search("copyright", params.copyright, re.I):
+            if not re.search("copyright|©", params.copyright, re.I|re.U):
                 raise SieveError("invalid value for copyright comment "
                                  "(missing word 'copyright'?): %s"
                                  % params.copyright)
