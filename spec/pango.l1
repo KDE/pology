@@ -1,0 +1,44 @@
+# Lightweight specification of Pango TAM.
+
+# The general tag.
+span :
+    font
+    font_desc
+    font_family
+    face
+    font_size=/^(xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger)$/
+    size=/^(xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger)$/
+    font_style=/^(normal|oblique|italic)$/
+    style=/^(normal|oblique|italic)$/
+    font_weight=/^(ultralight|light|normal|bold|ultrabold|heavy)$/
+    weight=/^(ultralight|light|normal|bold|ultrabold|heavy)$/
+    font_variant=/^(normal|smallcaps)$/
+    variant=/^(normal|smallcaps)$/
+    font_stretch=/^(ultracondensed|extracondensed|condensed|semicondensed|normal|semiexpanded|expanded|extraexpanded|ultraexpanded)$/
+    stretch=/^(ultracondensed|extracondensed|condensed|semicondensed|normal|semiexpanded|expanded|extraexpanded|ultraexpanded)$/
+    foreground=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    fgcolor=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    color=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    background=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    bgcolor=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    underline=/^(none|single|double|low|error)$/
+    underline_color=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    rise=/^-?\d+$/
+    strikethrough=/^(true|false)$/
+    strikethrough_color=/^(#[0-9a-fA-F]{6}|[a-z]+[0-9]?)$/
+    fallback=/^(true|false)$/
+    lang=/^.*$/
+    letter_spacing=/^(\d+)$/
+    gravity=/^(natural|strong|line)$/
+    gravity_hint=/^(natural|strong|line)$/;
+
+# Convenience tags.
+b :;
+big :;
+i :;
+s :;
+sub :;
+sup :;
+small :;
+tt :;
+u :;
