@@ -241,11 +241,6 @@ def _check_wml (msg, cat, strict, hl):
 
     nproblems = 0
 
-    # Check embedded WML only in .cfg files (others inconclusive).
-    if not reduce(lambda s, x: s or x[0].endswith(".cfg"),
-                  msg.source, False):
-        return 0
-
     # Validate WML in original and collect links.
     # If the original is not valid, do not check translation.
     spans_orig, links_orig = _check_wml_text(msg.msgid)
