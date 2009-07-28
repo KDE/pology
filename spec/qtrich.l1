@@ -1,59 +1,59 @@
-# Informal listing of Qt rich-text tags and their attributes.
+# Lightweight specification of Qt rich text.
 
-# FIXME: Attributes are only partially listed, add more.
+# FIXME : Attributes are only partially listed, add more.
 
 # Tags which are subset of HTML.
-html: dir;
-a: href title;
-b;
-big;
-blockquote;
-body: dir;
-br;
-center;
-cite;
-code;
-dd;
-div: align dir;
-dl: align dir;
-dt: align dir;
-em;
-font: color face size;
-h1: align dir;
-h2: align dir;
-h3: align dir;
-h4: align dir;
-h5: align dir;
-h6: align dir;
-head;
-hr;
-i;
-img: src width height alt name;
-li;
-meta: content name;
-nobr;
-ol: type;
-p: align dir;
-pre;
-s;
-small;
-span;
-strong;
-style: type;
-sub;
-sup;
-table: align bgcolor border cellspacing cellpadding width;
-td: align valign colspan rowspan width bgcolor dir;
-th: align valign colspan rowspan width bgcolor;
-tr;
-tt;
-u;
-ul: type;
-var;
+html : dir;
+a : href title;
+b :;
+big :;
+blockquote :;
+body : dir;
+br :;
+center :;
+cite :;
+code :;
+dd :;
+div : align dir;
+dl : align dir;
+dt : align dir;
+em :;
+font : color face size;
+h1 : align dir;
+h2 : align dir;
+h3 : align dir;
+h4 : align dir;
+h5 : align dir;
+h6 : align dir;
+head :;
+hr :;
+i :;
+img : src width height alt name;
+li :;
+meta : content name;
+nobr :;
+ol : type;
+p : align dir;
+pre :;
+s :;
+small :;
+span :;
+strong :;
+style : type;
+sub :;
+sup :;
+table : align bgcolor border cellspacing cellpadding width;
+td : align valign colspan rowspan width bgcolor dir;
+th : align valign colspan rowspan width bgcolor;
+tr :;
+tt :;
+u :;
+ul : type;
+var :;
 
 # Dummy tag for common attributes.
-# FIXME: Really all have title attribute?
-pe-common-attrib: style title;
+# FIXME : Really all have title attribute?
+pe-common-attrib : style title;
 
-# Qt's rich-text top level tag (deprecated in Qt 4.x?)
-qt;
+# Old top level tag (deprecated in Qt 4.x in favor of <html>?)
+qt :;

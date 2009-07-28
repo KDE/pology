@@ -1,500 +1,500 @@
-# Informal listing of all Docbook tags and their attributes.
+# Lightweight specification of Docbook.
 # Mined from Docbook TDG (4.5).
 
-abbrev;
-abstract;
-accel;
-ackno;
-acronym;
-action: moreinfo;
-address: continuation format language linenumbering startinglinenumber;
-affiliation;
-alt;
-anchor:
+abbrev :;
+abstract :;
+accel :;
+ackno :;
+acronym :;
+action : moreinfo;
+address : continuation format language linenumbering startinglinenumber;
+affiliation :;
+alt :;
+anchor :
   arch condition conformance pagenum remap revision revisionflag role
   security userlevel vendor wordsize xreflabel;
-answer;
-appendix: label status;
-appendixinfo;
-application: class moreinfo;
-area: coords label linkends otherunits units;
-areaset: coords label otherunits units;
-areaspec: otherunits units;
-arg: choice rep;
-article: class parentbook status;
-articleinfo;
-artpagenums;
-attribution;
-audiodata: entityref fileref format srccredit;
-audioobject;
-author;
-authorblurb;
-authorgroup;
-authorinitials;
-beginpage: pagenum;
-bibliocoverage: otherspatial othertemporal spatial temporal;
-bibliodiv: status;
-biblioentry;
-bibliography: status;
-bibliographyinfo;
-biblioid: class otherclass;
-bibliolist;
-bibliomisc;
-bibliomixed;
-bibliomset: relation;
-biblioref: begin end endterm linkend units xrefstyle;
-bibliorelation: class otherclass othertype type;
-biblioset: relation;
-bibliosource: class otherclass;
-blockinfo;
-blockquote;
-book: fpi label status;
-bookinfo: contents;
-bridgehead: renderas;
-callout: arearefs;
-calloutlist;
-caption:
+answer :;
+appendix : label status;
+appendixinfo :;
+application : class moreinfo;
+area : coords label linkends otherunits units;
+areaset : coords label otherunits units;
+areaspec : otherunits units;
+arg : choice rep;
+article : class parentbook status;
+articleinfo :;
+artpagenums :;
+attribution :;
+audiodata : entityref fileref format srccredit;
+audioobject :;
+author :;
+authorblurb :;
+authorgroup :;
+authorinitials :;
+beginpage : pagenum;
+bibliocoverage : otherspatial othertemporal spatial temporal;
+bibliodiv : status;
+biblioentry :;
+bibliography : status;
+bibliographyinfo :;
+biblioid : class otherclass;
+bibliolist :;
+bibliomisc :;
+bibliomixed :;
+bibliomset : relation;
+biblioref : begin end endterm linkend units xrefstyle;
+bibliorelation : class otherclass othertype type;
+biblioset : relation;
+bibliosource : class otherclass;
+blockinfo :;
+blockquote :;
+book : fpi label status;
+bookinfo : contents;
+bridgehead : renderas;
+callout : arearefs;
+calloutlist :;
+caption :
   align class onclick ondblclick onkeydown onkeypress onkeyup
   onmousedown onmousemove onmouseout onmouseover onmouseup style title;
-caution;
-chapter: label status;
-chapterinfo;
-citation;
-citebiblioid: class otherclass;
-citerefentry;
-citetitle: pubwork;
-city;
-classname;
-classsynopsis: class language;
-classsynopsisinfo:
+caution :;
+chapter : label status;
+chapterinfo :;
+citation :;
+citebiblioid : class otherclass;
+citerefentry :;
+citetitle : pubwork;
+city :;
+classname :;
+classsynopsis : class language;
+classsynopsisinfo :
   continuation format language linenumbering startinglinenumber;
-cmdsynopsis: cmdlength label sepchar;
-co: label linkends;
-code: language;
-col:
+cmdsynopsis : cmdlength label sepchar;
+co : label linkends;
+code : language;
+col :
   align arch char charoff class condition conformance dir lang onclick
   ondblclick onkeydown onkeypress onkeyup onmousedown onmousemove
   onmouseout onmouseover onmouseup remap revision revisionflag
   security span style title userlevel valign vendor width wordsize
   xreflabel;
-colgroup:
+colgroup :
   align arch char charoff class condition conformance dir lang onclick
   ondblclick onkeydown onkeypress onkeyup onmousedown onmousemove
   onmouseout onmouseover onmouseup remap revision revisionflag
   security span style title userlevel valign vendor width wordsize
   xreflabel;
-collab;
-collabname;
-colophon: status;
-colspec: align char charoff colname colnum colsep colwidth rowsep;
-command: moreinfo;
-computeroutput: moreinfo;
-confdates;
-confgroup;
-confnum;
-confsponsor;
-conftitle;
-constant: class;
-constraint: linkend;
-constraintdef;
-constructorsynopsis: language;
-contractnum;
-contractsponsor;
-contrib;
-copyright;
-coref: label linkend;
-corpauthor;
-corpcredit: class;
-corpname;
-country;
-database: class moreinfo;
-date;
-dedication: status;
-destructorsynopsis: language;
-edition;
-editor;
-email;
-emphasis;
-entry:
+collab :;
+collabname :;
+colophon : status;
+colspec : align char charoff colname colnum colsep colwidth rowsep;
+command : moreinfo;
+computeroutput : moreinfo;
+confdates :;
+confgroup :;
+confnum :;
+confsponsor :;
+conftitle :;
+constant : class;
+constraint : linkend;
+constraintdef :;
+constructorsynopsis : language;
+contractnum :;
+contractsponsor :;
+contrib :;
+copyright :;
+coref : label linkend;
+corpauthor :;
+corpcredit : class;
+corpname :;
+country :;
+database : class moreinfo;
+date :;
+dedication : status;
+destructorsynopsis : language;
+edition :;
+editor :;
+email :;
+emphasis :;
+entry :
   align char charoff class colname colsep morerows nameend namest
   onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup rotate rowsep spanname
   style title valign;
-entrytbl:
+entrytbl :
   align char charoff class colname cols colsep nameend namest onclick
   ondblclick onkeydown onkeypress onkeyup onmousedown onmousemove
   onmouseout onmouseover onmouseup rowsep spanname style tgroupstyle
   title;
-envar;
-epigraph;
-equation: floatstyle label;
-errorcode: moreinfo;
-errorname;
-errortext;
-errortype;
-example: floatstyle label width;
-exceptionname;
-fax;
-fieldsynopsis: language;
-figure: float floatstyle label pgwide;
-filename: class moreinfo path;
-firstname;
-firstterm: baseform linkend;
-footnote: label;
-footnoteref: bar foo label linkend;
-foreignphrase;
-formalpara;
-funcdef;
-funcparams;
-funcprototype;
-funcsynopsis: label;
-funcsynopsisinfo:
+envar :;
+epigraph :;
+equation : floatstyle label;
+errorcode : moreinfo;
+errorname :;
+errortext :;
+errortype :;
+example : floatstyle label width;
+exceptionname :;
+fax :;
+fieldsynopsis : language;
+figure : float floatstyle label pgwide;
+filename : class moreinfo path;
+firstname :;
+firstterm : baseform linkend;
+footnote : label;
+footnoteref : bar foo label linkend;
+foreignphrase :;
+formalpara :;
+funcdef :;
+funcparams :;
+funcprototype :;
+funcsynopsis : label;
+funcsynopsisinfo :
   continuation format language linenumbering startinglinenumber;
-function: moreinfo;
-glossary: status;
-glossaryinfo;
-glossdef: subject;
-glossdiv: status;
-glossentry: sortas;
-glosslist;
-glosssee: otherterm;
-glossseealso: otherterm;
-glossterm: baseform linkend;
-graphic:
+function : moreinfo;
+glossary : status;
+glossaryinfo :;
+glossdef : subject;
+glossdiv : status;
+glossentry : sortas;
+glosslist :;
+glosssee : otherterm;
+glossseealso : otherterm;
+glossterm : baseform linkend;
+graphic :
   align contentdepth contentwidth depth entityref fileref format scale
   scalefit srccredit valign width;
-graphicco;
-group: choice rep;
-guibutton: moreinfo;
-guiicon: moreinfo;
-guilabel: moreinfo;
-guimenu: moreinfo;
-guimenuitem: moreinfo;
-guisubmenu: moreinfo;
-hardware: moreinfo;
-highlights;
-holder;
-honorific;
-imagedata:
+graphicco :;
+group : choice rep;
+guibutton : moreinfo;
+guiicon : moreinfo;
+guilabel : moreinfo;
+guimenu : moreinfo;
+guimenuitem : moreinfo;
+guisubmenu : moreinfo;
+hardware : moreinfo;
+highlights :;
+holder :;
+honorific :;
+imagedata :
   align contentdepth contentwidth depth entityref fileref format scale
   scalefit specified srccredit unspecified valign width;
-imageobject;
-imageobjectco;
-important;
-index: type;
-indexdiv;
-indexentry;
-indexinfo;
-indexterm: class pagenum scope significance startref type zone;
-informalequation: floatstyle;
-informalexample: floatstyle width;
-informalfigure: float floatstyle label pgwide;
-informaltable:
+imageobject :;
+imageobjectco :;
+important :;
+index : type;
+indexdiv :;
+indexentry :;
+indexinfo :;
+indexterm : class pagenum scope significance startref type zone;
+informalequation : floatstyle;
+informalexample : floatstyle width;
+informalfigure : float floatstyle label pgwide;
+informaltable :
   align bgcolor border cellpadding cellspacing class colsep floatstyle
   frame label onclick ondblclick onkeydown onkeypress onkeyup
   onmousedown onmousemove onmouseout onmouseover onmouseup orient
   pgwide rowheader rowsep rules shortentry style summary tabstyle
   title tocentry width;
-initializer;
-inlineequation;
-inlinegraphic:
+initializer :;
+inlineequation :;
+inlinegraphic :
   align contentdepth contentwidth depth entityref fileref format scale
   scalefit srccredit valign width;
-inlinemediaobject;
-interface: moreinfo;
-interfacename;
-invpartnumber;
-isbn;
-issn;
-issuenum;
-itemizedlist: mark spacing;
-itermset;
-jobtitle;
-keycap: function moreinfo otherfunction;
-keycode;
-keycombo: action moreinfo otheraction;
-keysym;
-keyword;
-keywordset;
-label;
-legalnotice;
-lhs;
-lineage;
-lineannotation;
-link: endterm linkend type xrefstyle;
-listitem: override;
-literal: moreinfo;
-literallayout:
+inlinemediaobject :;
+interface : moreinfo;
+interfacename :;
+invpartnumber :;
+isbn :;
+issn :;
+issuenum :;
+itemizedlist : mark spacing;
+itermset :;
+jobtitle :;
+keycap : function moreinfo otherfunction;
+keycode :;
+keycombo : action moreinfo otheraction;
+keysym :;
+keyword :;
+keywordset :;
+label :;
+legalnotice :;
+lhs :;
+lineage :;
+lineannotation :;
+link : endterm linkend type xrefstyle;
+listitem : override;
+literal : moreinfo;
+literallayout :
   class continuation format language linenumbering startinglinenumber
   width;
-lot: label;
-lotentry: linkend pagenum srccredit;
-manvolnum;
-markup;
-mathphrase;
-medialabel: class;
-mediaobject;
-mediaobjectco;
-member;
-menuchoice: moreinfo;
-methodname;
-methodparam: choice rep;
-methodsynopsis: language;
-modespec: application;
-modifier;
-mousebutton: moreinfo;
-msg;
-msgaud;
-msgentry;
-msgexplan;
-msginfo;
-msglevel;
-msgmain;
-msgorig;
-msgrel;
-msgset;
-msgsub;
-msgtext;
-nonterminal: def;
-note;
-objectinfo;
-olink:
+lot : label;
+lotentry : linkend pagenum srccredit;
+manvolnum :;
+markup :;
+mathphrase :;
+medialabel : class;
+mediaobject :;
+mediaobjectco :;
+member :;
+menuchoice : moreinfo;
+methodname :;
+methodparam : choice rep;
+methodsynopsis : language;
+modespec : application;
+modifier :;
+mousebutton : moreinfo;
+msg :;
+msgaud :;
+msgentry :;
+msgexplan :;
+msginfo :;
+msglevel :;
+msgmain :;
+msgorig :;
+msgrel :;
+msgset :;
+msgsub :;
+msgtext :;
+nonterminal : def;
+note :;
+objectinfo :;
+olink :
   linkmode localinfo targetdoc targetdocent targetptr type xrefstyle;
-ooclass;
-ooexception;
-oointerface;
-option;
-optional;
-orderedlist: continuation inheritnum numeration spacing;
-orgdiv;
-orgname: class otherclass;
-otheraddr;
-othercredit: class;
-othername;
-package;
-pagenums;
-para;
-paramdef: choice;
-parameter: class moreinfo;
-part: label status;
-partinfo;
-partintro: label;
-personblurb;
-personname;
-phone;
-phrase;
-pob;
-postcode;
-preface: status;
-prefaceinfo;
-primary: sortas;
-primaryie: linkends;
-printhistory;
-procedure;
-production;
-productionrecap: linkend;
-productionset;
-productname: class;
-productnumber;
-programlisting:
+ooclass :;
+ooexception :;
+oointerface :;
+option :;
+optional :;
+orderedlist : continuation inheritnum numeration spacing;
+orgdiv :;
+orgname : class otherclass;
+otheraddr :;
+othercredit : class;
+othername :;
+package :;
+pagenums :;
+para :;
+paramdef : choice;
+parameter : class moreinfo;
+part : label status;
+partinfo :;
+partintro : label;
+personblurb :;
+personname :;
+phone :;
+phrase :;
+pob :;
+postcode :;
+preface : status;
+prefaceinfo :;
+primary : sortas;
+primaryie : linkends;
+printhistory :;
+procedure :;
+production :;
+productionrecap : linkend;
+productionset :;
+productname : class;
+productnumber :;
+programlisting :
   continuation format language linenumbering startinglinenumber width;
-programlistingco;
-prompt: moreinfo;
-property: moreinfo;
-pubdate;
-publisher;
-publishername;
-pubsnumber;
-qandadiv;
-qandaentry;
-qandaset: defaultlabel;
-question;
-quote;
-refclass;
-refdescriptor;
-refentry: status;
-refentryinfo;
-refentrytitle;
-reference: label status;
-referenceinfo;
-refmeta;
-refmiscinfo: class;
-refname;
-refnamediv;
-refpurpose;
-refsect1: status;
-refsect1info;
-refsect2: status;
-refsect2info;
-refsect3: status;
-refsect3info;
-refsection: status;
-refsectioninfo;
-refsynopsisdiv;
-refsynopsisdivinfo;
-releaseinfo;
-remark;
-replaceable: class;
-returnvalue;
-revdescription;
-revhistory;
-revision;
-revnumber;
-revremark;
-rhs;
-row:
+programlistingco :;
+prompt : moreinfo;
+property : moreinfo;
+pubdate :;
+publisher :;
+publishername :;
+pubsnumber :;
+qandadiv :;
+qandaentry :;
+qandaset : defaultlabel;
+question :;
+quote :;
+refclass :;
+refdescriptor :;
+refentry : status;
+refentryinfo :;
+refentrytitle :;
+reference : label status;
+referenceinfo :;
+refmeta :;
+refmiscinfo : class;
+refname :;
+refnamediv :;
+refpurpose :;
+refsect1 : status;
+refsect1info :;
+refsect2 : status;
+refsect2info :;
+refsect3 : status;
+refsect3info :;
+refsection : status;
+refsectioninfo :;
+refsynopsisdiv :;
+refsynopsisdivinfo :;
+releaseinfo :;
+remark :;
+replaceable : class;
+returnvalue :;
+revdescription :;
+revhistory :;
+revision :;
+revnumber :;
+revremark :;
+rhs :;
+row :
   class onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup rowsep style title
   valign;
-sbr;
-screen:
+sbr :;
+screen :
   continuation format language linenumbering startinglinenumber width;
-screenco;
-screeninfo;
-screenshot;
-secondary: sortas;
-secondaryie: linkends;
-sect1: label renderas status;
-sect1info;
-sect2: label renderas status;
-sect2info;
-sect3: label renderas status;
-sect3info;
-sect4: label renderas status;
-sect4info;
-sect5: label renderas status;
-sect5info;
-section: label status;
-sectioninfo;
-see;
-seealso;
-seealsoie: linkends;
-seeie: linkend;
-seg;
-seglistitem;
-segmentedlist;
-segtitle;
-seriesvolnums;
-set: fpi status;
-setindex;
-setindexinfo;
-setinfo: contents;
-sgmltag: class namespace;
-shortaffil;
-shortcut: action moreinfo otheraction;
-sidebar;
-sidebarinfo;
-simpara;
-simplelist: columns type;
-simplemsgentry: audience level origin;
-simplesect;
-spanspec: align char charoff colsep nameend namest rowsep spanname;
-state;
-step: performance;
-stepalternatives: performance;
-street;
-structfield;
-structname;
-subject: weight;
-subjectset: scheme;
-subjectterm;
-subscript;
-substeps: performance;
-subtitle;
-superscript;
-surname;
-symbol: class;
-synopfragment;
-synopfragmentref: linkend;
-synopsis:
+screenco :;
+screeninfo :;
+screenshot :;
+secondary : sortas;
+secondaryie : linkends;
+sect1 : label renderas status;
+sect1info :;
+sect2 : label renderas status;
+sect2info :;
+sect3 : label renderas status;
+sect3info :;
+sect4 : label renderas status;
+sect4info :;
+sect5 : label renderas status;
+sect5info :;
+section : label status;
+sectioninfo :;
+see :;
+seealso :;
+seealsoie : linkends;
+seeie : linkend;
+seg :;
+seglistitem :;
+segmentedlist :;
+segtitle :;
+seriesvolnums :;
+set : fpi status;
+setindex :;
+setindexinfo :;
+setinfo : contents;
+sgmltag : class namespace;
+shortaffil :;
+shortcut : action moreinfo otheraction;
+sidebar :;
+sidebarinfo :;
+simpara :;
+simplelist : columns type;
+simplemsgentry : audience level origin;
+simplesect :;
+spanspec : align char charoff colsep nameend namest rowsep spanname;
+state :;
+step : performance;
+stepalternatives : performance;
+street :;
+structfield :;
+structname :;
+subject : weight;
+subjectset : scheme;
+subjectterm :;
+subscript :;
+substeps : performance;
+subtitle :;
+superscript :;
+surname :;
+symbol : class;
+synopfragment :;
+synopfragmentref : linkend;
+synopsis :
   continuation format label language linenumbering startinglinenumber;
-systemitem: class moreinfo;
-table:
+systemitem : class moreinfo;
+table :
   align bgcolor border cellpadding cellspacing class colsep floatstyle
   frame label onclick ondblclick onkeydown onkeypress onkeyup
   onmousedown onmousemove onmouseout onmouseover onmouseup orient
   pgwide rowheader rowsep rules shortentry style summary tabstyle
   title tocentry width;
-task;
-taskprerequisites;
-taskrelated;
-tasksummary;
-tbody:
+task :;
+taskprerequisites :;
+taskrelated :;
+tasksummary :;
+tbody :
   class onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup style title valign;
-td:
+td :
   abbr align arch axis bgcolor char charoff class colspan condition
   conformance dir headers height lang nowrap onclick ondblclick
   onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout
   onmouseover onmouseup remap revision revisionflag rowspan scope
   security style title userlevel valign vendor width wordsize
   xreflabel;
-term;
-termdef;
-tertiary: sortas;
-tertiaryie: linkends;
-textdata: encoding entityref fileref format srccredit;
-textobject;
-tfoot:
+term :;
+termdef :;
+tertiary : sortas;
+tertiaryie : linkends;
+textdata : encoding entityref fileref format srccredit;
+textobject :;
+tfoot :
   class onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup style title valign;
-tgroup:
+tgroup :
   align char charoff class cols colsep onclick ondblclick onkeydown
   onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover
   onmouseup rowsep style tgroupstyle title;
-th:
+th :
   abbr align arch axis bgcolor char charoff class colspan condition
   conformance dir headers height lang nowrap onclick ondblclick
   onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout
   onmouseover onmouseup remap revision revisionflag rowspan scope
   security style title userlevel valign vendor width wordsize
   xreflabel;
-thead:
+thead :
   class onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup style title valign;
-tip;
-title: pagenum;
-titleabbrev;
-toc: pagenum;
-tocback: label linkend pagenum;
-tocchap: label;
-tocentry: linkend pagenum;
-tocfront: label linkend pagenum;
-toclevel1;
-toclevel2;
-toclevel3;
-toclevel4;
-toclevel5;
-tocpart;
-token;
-tr:
+tip :;
+title : pagenum;
+titleabbrev :;
+toc : pagenum;
+tocback : label linkend pagenum;
+tocchap : label;
+tocentry : linkend pagenum;
+tocfront : label linkend pagenum;
+toclevel1 :;
+toclevel2 :;
+toclevel3 :;
+toclevel4 :;
+toclevel5 :;
+tocpart :;
+token :;
+tr :
   align arch bgcolor char charoff class condition conformance dir lang
   onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup remap revision
   revisionflag security style title userlevel valign vendor wordsize
   xreflabel;
-trademark: class;
-type;
-ulink: type url xrefstyle;
-uri: type;
-userinput: moreinfo;
-varargs;
-variablelist: spacing termlength;
-varlistentry;
-varname;
-videodata:
+trademark : class;
+type :;
+ulink : type url xrefstyle;
+uri : type;
+userinput : moreinfo;
+varargs :;
+variablelist : spacing termlength;
+varlistentry :;
+varname :;
+videodata :
   align contentdepth contentwidth depth entityref fileref format scale
   scalefit srccredit valign width;
-videoobject;
-void;
-volumenum;
-warning;
-wordasword;
-xref: endterm linkend xrefstyle;
-year;
+videoobject :;
+void :;
+volumenum :;
+warning :;
+wordasword :;
+xref : endterm linkend xrefstyle;
+year :;
 
 # Dummy tag for common attributes.
-pe-common-attrib:
+pe-common-attrib :
   arch condition conformance dir lang remap revision revisionflag
   security userlevel vendor wordsize xreflabel
   # manually added:

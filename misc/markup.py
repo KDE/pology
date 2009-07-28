@@ -575,9 +575,8 @@ def _prep_docbook4_to_plain ():
     global _dbk_tags, _dbk_subs, _dbk_ents, _dbk_keepws, _dbk_ignels
 
     specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
-    docbook4_tagattrs = collect_xml_spec_l1(specpath)
-
-    _dbk_tags = set(docbook4_tagattrs.keys())
+    docbook4_l1 = collect_xml_spec_l1(specpath)
+    _dbk_tags = set(docbook4_l1.keys())
 
     _dbk_subs = {
         "_nows" : ("", "", None),
@@ -623,22 +622,38 @@ def docbook4_to_plain (text):
 
 def collect_xml_spec_l1 (specpath):
     """
-    Collect informal XML format specification, level 1.
+    Collect lightweight XML format specification, level 1.
 
-    Level 1 specification is the dictionary of all known tags, with
-    allowed attributes (by name only) for each.
+    Level 1 specification is the dictionary of all known tags,
+    with allowed attributes and subtags for each.
 
     File of the level 1 specification is in the following format::
 
         # A comment.
-        tagA;  # tag without any attributes
-        tagB: attr1, attr2;  # tag having some attributes
-        tagC: attr1, attr2, attr3, attr4,
-              attr5, attr6;  # tag with many attributes, split over lines
+        # Tag with unconstrained attributes and subtags:
+        tagA;
+        # Tag with constrained attributes and unconstrained subtags:
+        tagF : attr1 attr2 ...;
+        # Tag with unconstrained attributes and constrained subtags:
+        tagF > stag1 stag2 ...;
+        # Tag with constrained attributes and subtags:
+        tagF : attr1 attr2 ... > stag1 stag2 ...;
+        # Tag with no attributes and unconstrained subtags:
+        tagA :;
+        # Tag with unconstrained attributes and no subtags:
+        tagA >;
+        # Tag with no attributes and no subtags:
+        tagA :>;
+        # Attribute value constrained by a regular expression:
+        .... attr1=/^(val1|val2|val3)$/i ...
+        # Reserved dummy tag specifying attributes common to all tags:
+        pe-common-attrib : attrX attrY;
 
     The specification can contain a dummy tag named C{pe-common-attrib},
     stating attributes which are common to all tags, instead of having to
     list them with each and every tag.
+    To make an attribute mandatory, it's name should be prefixed by
+    exclamation sign (!).
 
     Specification file must be UTF-8 encoded.
 
@@ -649,28 +664,204 @@ def collect_xml_spec_l1 (specpath):
     @rtype: dict
     """
 
-    ifl = codecs.open(specpath, "r", "UTF-8")
-    stripc_rx = re.compile(r"#.*")
-    specstr = "".join([stripc_rx.sub('', x) for x in ifl.readlines()])
-    ifl.close()
-    tagattrs = {}
-    for elspec in specstr.split(";"):
-        lst = elspec.split(":")
-        tag = lst.pop(0).strip()
-        if not tag:
-            continue
-        tagattrs[tag] = {}
-        if lst:
-            attrs = lst[0].split()
-            tagattrs[tag] = dict([(attr, True) for attr in attrs])
+    ch_comm = "#"
+    ch_attr = ":"
+    ch_attre = "="
+    ch_mattr = "!"
+    ch_stag = ">"
+    ch_end = ";"
+
+    dtag_attr = "pe-common-attrib"
+
+    valid_tag_rx = re.compile("^[\w-]+$")
+    valid_attr_rx = re.compile("^[\w-]+$")
+
+    c_tag, c_attr, c_attre, c_stag = range(4)
+
+    ifs = codecs.open(specpath, "r", "UTF-8").read()
+    lenifs = len(ifs)
+
+    pos = [0, 1, 1]
+
+    def signal (msg, bpos):
+
+        emsg = "[L1-spec] %s:%d:%d: %s" % (specpath, bpos[0], bpos[1], msg)
+        raise StandardError(emsg)
+
+    def advance (stoptest, cmnt=True):
+
+        ind = pos[0]
+        oind = ind
+        substr = []
+        sep = None
+        while ind < lenifs and sep is None:
+            if cmnt and ifs[ind] == ch_comm:
+                ind = ifs.find("\n", ind)
+                if ind < 0:
+                    break
+            else:
+                sep = stoptest(ind)
+                if sep is None:
+                    substr.append(ifs[ind])
+                    ind += 1
+                else:
+                    ind += len(sep)
+
+        pos[0] = ind
+        rawsubstr = ifs[oind:ind]
+        p = rawsubstr.rfind("\n")
+        if p >= 0:
+            pos[1] += rawsubstr.count("\n")
+            pos[2] = len(rawsubstr) - p
+        else:
+            pos[2] += len(rawsubstr)
+
+        return "".join(substr), sep
+
+    def make_rx_lint (rx_str, rx_flags, wch, lincol):
+        try:
+            rx = re.compile(rx_str, rx_flags)
+        except:
+            signal("cannot compile regular expression %s%s%s"
+                    % (wch, rx_str, wch), lincol)
+        return lambda x: rx.search(x) is not None
+
+    spec = {}
+    ctx = c_tag
+    entry = None
+    while pos[0] < lenifs:
+        if ctx == c_tag:
+            t = lambda i: (    ifs[i] in (ch_attr, ch_stag, ch_end)
+                           and ifs[i] or None)
+            tag, sep = advance(t)
+            tag = tag.strip()
+            if tag:
+                if sep is None:
+                    signal("entry not terminated after initial tag", lincol)
+                if not valid_tag_rx.search(tag) and tag != dtag_attr:
+                    signal("invalid tag name '%s'" % tag, lincol)
+                entry = _L1Element(tag)
+                spec[tag] = entry
+
+            if sep == ch_attr:
+                ctx = c_attr
+            elif sep == ch_stag:
+                ctx = c_stag
+            elif sep == ch_end:
+                ctx = c_tag
+            else:
+                break
+
+        elif ctx == c_attr:
+            if entry.attrs is None:
+                entry.attrs = set()
+
+            lincol = tuple(pos[1:])
+            t = lambda i: (    (   ifs[i].isspace()
+                                or ifs[i] in (ch_attre, ch_stag, ch_end))
+                           and ifs[i] or [None])[0]
+            attr, sep = advance(t)
+            attr = attr.strip()
+            if attr:
+                if attr.startswith(ch_mattr):
+                    attr = attr[len(ch_mattr):]
+                    entry.mattrs.add(attr)
+                if attr in entry.attrs:
+                    signal("duplicate attribute '%s'" % attr, lincol)
+                if not valid_attr_rx.search(attr):
+                    signal("invalid attribute name '%s'" % attr, lincol)
+                entry.attrs.add(attr)
+                lastattr = attr
+
+            if sep.isspace():
+                ctx = c_attr
+            elif sep == ch_attre:
+                ctx = c_attre
+            elif sep == ch_stag:
+                ctx = c_stag
+            elif sep == ch_end:
+                ctx = c_tag
+            else:
+                signal("entry not terminated after attribute list", lincol)
+
+        elif ctx == c_attre:
+            lincol = tuple(pos[1:])
+            t = lambda i: not ifs[i].isspace() and ifs[i] or None
+            sub, wch = advance(t)
+            if wch is None:
+                signal("end of input inside value constraint", lincol)
+            t = lambda i: ifs[i] == wch and ifs[i] or None
+            rx_str, sep = advance(t, cmnt=False)
+            if sep is None:
+                signal("end of input inside value constraint", lincol)
+            t = lambda i: (not ifs[i].isalpha() and [""] or [None])[0]
+            rx_flag_spec, sep = advance(t)
+            rx_flags = re.U
+            seen_flags = set()
+            lincol = tuple(pos[1:])
+            for c in rx_flag_spec:
+                if c in seen_flags:
+                    signal("regex flag '%s' already seen" % c, lincol)
+                if c == "i":
+                    rx_flags |= re.I
+                else:
+                    signal("unknown regex flag '%s'" % c, lincol)
+                seen_flags.add(c)
+            entry.avlints[lastattr] = make_rx_lint(rx_str, rx_flags,
+                                                   wch, lincol)
+            ctx = c_attr
+
+        elif ctx == c_stag:
+            if entry.stags is None:
+                entry.stags = set()
+
+            lincol = tuple(pos[1:])
+            t = lambda i: (    (ifs[i].isspace() or ifs[i] == ch_end)
+                           and ifs[i] or [None])[0]
+            stag, sep = advance(t)
+            stag = stag.strip()
+            if stag:
+                if stag in entry.stags:
+                    signal("repeated subtag '%s'" % stag, lincol)
+                entry.stags.add(stag)
+
+            if sep == ch_end:
+                ctx = c_tag
+            else:
+                signal("entry not terminated after subtag list", lincol)
 
     # Add common attributes to each tag.
-    cattrs = tagattrs.pop("pe-common-attrib", [])
-    if cattrs:
-        for attrs in tagattrs.itervalues():
-            attrs.update(cattrs)
+    dentry_attr = spec.pop(dtag_attr, [])
+    if dentry_attr:
+        for attr in dentry_attr.attrs:
+            attre = dentry_attr.avlints.get(attr)
+            for entry in spec.values():
+                if entry.attrs is None:
+                    entry.attrs = set()
+                if attr not in entry.attrs:
+                    entry.attrs.add(attr)
+                    if attre:
+                        entry.avlints[attr] = attre
 
-    return tagattrs
+    return spec
+
+
+class _L1Element:
+
+    def __init__ (self, tag=None, attrs=None, mattrs=set(), avlints={},
+                  stags=None):
+
+        # The tag of this element (string).
+        self.tag = tag
+        # Possible attributes (set, or None meaning any).
+        self.attrs = attrs
+        # Mandatory attributes (set).
+        self.mattrs = mattrs
+        # Validator functions for attribute values, per attribute (dict).
+        # Validator does not have to be defined for each attribute.
+        self.avlints = avlints
+        # Possible subelements by tag (set, or None meaning any).
+        self.stags = stags
 
 
 # Simplified matching of XML entity name (sans ampersand and semicolon).
@@ -764,6 +955,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     g.parser = parser
     g.errcnt = 0
     g.spans = []
+    g.tagstack = []
 
     # Parse and check.
     try:
@@ -855,7 +1047,7 @@ def _handler_start_element (tag, attrs):
     # Normalize names to lower case if allowed.
     if not g.casesens:
         tag = tag.lower()
-        attrs = [x.lower() for x in attrs]
+        attrs = dict([(x.lower(), y) for x, y in attrs.items()])
 
     # Check existence of the tag.
     if tag not in g.spec and tag != _dummy_top:
@@ -868,15 +1060,38 @@ def _handler_start_element (tag, attrs):
     if tag == _dummy_top:
         return
 
-    # Check applicability of attributes.
-    known_attrs = g.spec[tag]
-    for attr in attrs:
-        if attr not in known_attrs:
-            errmsg = ((_ehfmt + "invalid attribute '%s' to tag '%s'")
-                      % (g.xmlfmt, attr, tag))
-            span = _make_span(g.text, g.parser.CurrentLineNumber,
-                              g.parser.CurrentColumnNumber + 1, errmsg)
-            g.spans.append(span)
+    elspec = g.spec[tag]
+    errmsgs = []
+
+    # Check applicability of attributes and validity of their values.
+    if elspec.attrs is not None:
+        for attr, aval in attrs.items():
+            if attr not in elspec.attrs:
+                errmsgs.append("invalid attribute '%s' to tag '%s'"
+                               % (attr, tag))
+            else:
+                avlint = elspec.avlints.get(attr)
+                if avlint and not avlint(aval):
+                    errmsgs.append("invalid value '%s' to attribute '%s'"
+                                   % (aval, attr))
+
+    # Check proper parentage.
+    if g.tagstack:
+        ptag = g.tagstack[-1]
+        pelspec = g.spec.get(ptag)
+        if (    pelspec is not None and pelspec.stags is not None
+            and tag not in pelspec.stags
+        ):
+            errmsgs.append("tag '%s' cannot be subtag of '%s'" % (tag, ptag))
+
+    # Record element stack.
+    g.tagstack.append(tag)
+
+    for errmsg in errmsgs:
+        errmsg = _ehfmt % g.xmlfmt + errmsg
+        span = _make_span(g.text, g.parser.CurrentLineNumber,
+                          g.parser.CurrentColumnNumber + 1, errmsg)
+        g.spans.append(span)
 
 
 def _handler_default (text):
@@ -1245,5 +1460,36 @@ def check_xml_kde4_l1 (text, ents=None):
         ents = Multidict([ents, _kde4_ents])
 
     return check_xml_l1(text, spec=_kde4_l1, xmlfmt="KDE4", ents=ents,
+                        accelamp=True, casesens=False)
+
+
+_pango_l1 = None
+
+def check_xml_pango_l1 (text, ents=None):
+    """
+    Validate Pango markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    See L{check_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _pango_l1
+    if _pango_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "pango.l1")
+        _pango_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, html_entities])
+
+    return check_xml_l1(text, spec=_pango_l1, xmlfmt="Pango", ents=ents,
                         accelamp=True, casesens=False)
 

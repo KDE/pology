@@ -1,27 +1,30 @@
-# Informal listing of KUIT tags and their attributes.
+# Lightweight specification of KUIT.
 
-kuit: ctx;
-kuil: ctx;
-title;
-subtitle;
-para;
-list;
-item;
-note: label;
-warning: label;
-filename;
-link: url;
-application;
-command: section;
-resource;
-icode;
-bcode;
-shortcut;
-interface;
-emphasis: strong;
-placeholder;
-email: address;
-envar;
-message;
-numid;
-nl;
+kuit : ctx;
+kuil : ctx;
+
+para :;
+title :;
+subtitle :;
+list :;
+item :;
+
+note : label;
+warning : label;
+
+filename :;
+link : url;
+application :;
+command : section;
+resource :;
+icode :;
+bcode :;
+shortcut :;
+interface :;
+emphasis : strong;
+placeholder :;
+email : address;
+envar :;
+message :;
+numid :;
+nl :;
