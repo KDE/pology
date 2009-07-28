@@ -304,7 +304,11 @@ def _check_kde4markup (msg, cat, pcache, hl):
         msgstr = lst[0]
         msgscript = ""
         if len(lst) == 2:
-            msgscript = lst[1]
+            # FIXME: No point in checking the scripted part as it is,
+            # since calls may be used to modify markup in special ways.
+            # Perhaps it would work to remove calls and check what's left?
+            #msgscript = lst[1]
+            pass
 
         for text in (msgstr, msgscript):
             spans = check_xml_kde4_l1(text)
