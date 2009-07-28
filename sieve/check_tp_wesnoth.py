@@ -34,12 +34,15 @@ Currently available checks are:
     artifacts. Also, WML links must match between original and translation,
     to avoid loss of information.
 
+  - Pango markup validity (C{pango}).
+    Just like check for WML markup, only for Pango markup instead.
+
   - Congruence of leading and trailing space (C{space}).
     For many languages, significant leading and trailing space from the
     original should be preserved. Heuristics is used to determine such places.
     Only explicitly listed languages are checked for this.
 
-  - Docbook validity (C{dbmarkup}).
+  - Docbook validity (C{docbook}).
     Wesnoth manual is written in Docbook, and this check will raise
     alarm if the translation got Docbook markup wrong.
     A bit superfluous and less thorough then what the Docbook processor
@@ -52,6 +55,7 @@ Currently available checks are:
 @license: GPLv3
 """
 
+import os
 import re
 
 from pology.misc.report import report
@@ -124,11 +128,11 @@ class Sieve (object):
         # Determine applicable checks by characteristic message.
         # Ugly, but no catalog name and nothing in header.
         if cat.select_by_key(None, "en"):
-            set_checks(["dbmarkup"])
+            set_checks(["docbook"])
         elif cat.select_by_key(None, "wesnothd"):
-            set_checks(["manmarkup"])
+            set_checks(["man"])
         else:
-            set_checks(["ctxtsep", "interp", "wml", "space"])
+            set_checks(["ctxtsep", "interp", "wml", "pango", "space"])
 
 
     def process (self, msg, cat):
@@ -239,7 +243,8 @@ def _collect_interps (text):
 
 def _check_wml (msg, cat, strict, hl):
 
-    nproblems = 0
+    if _detect_markup(msg, cat) != "wml":
+        return 0
 
     # Validate WML in original and collect links.
     # If the original is not valid, do not check translation.
@@ -408,6 +413,31 @@ def _check_wml_att (tag, content):
 
 
 # --------------------------------------
+# Check for Pango markup.
+
+from pology.misc.markup import check_xml_pango_l1
+
+def _check_pango (msg, cat, strict, hl):
+
+    if _detect_markup(msg, cat) != "pango":
+        return 0
+
+    # If the original is not valid, do not check translation.
+    spans_orig = check_xml_pango_l1(msg.msgid)
+    if spans_orig:
+        return 0
+
+    nproblems = 0
+    for i in range(len(msg.msgstr)):
+        spans = check_xml_pango_l1(msg.msgstr[i])
+        if spans:
+            hl.append(("msgstr", i, spans))
+            nproblems += len(spans)
+
+    return nproblems
+
+
+# --------------------------------------
 # Check for congruence of spaces.
 
 _langs_w_outspc = (
@@ -475,7 +505,7 @@ from pology.sieve.check_xml_docbook4 import _check_dbmarkup
 # --------------------------------------
 # Check for man markup.
 
-def _check_manmarkup (msg, cat, strict, hl):
+def _check_man (msg, cat, strict, hl):
 
     # TODO.
 
@@ -489,7 +519,52 @@ _known_checks = {
     "ctxtsep": _check_ctxtsep,
     "interp": _check_interp,
     "wml": _check_wml,
+    "pango": _check_pango,
     "space": _check_space,
-    "dbmarkup": _check_dbmarkup,
-    "manmarkup": _check_manmarkup,
+    "docbook": _check_dbmarkup,
+    "man": _check_man,
 }
+
+# --------------------------------------
+# Utilities.
+
+# Try to heuristically detect which type of markup is used in the message.
+# Detection is conservative: better report no markup, than wrong markup.
+
+from pology.misc.markup import collect_xml_spec_l1
+from pology import rootdir
+
+_tags_wml = _known_tags
+_specpath = os.path.join(rootdir(), "spec", "pango.l1")
+_tags_pango = collect_xml_spec_l1(_specpath).keys()
+
+_first_tag_rx = re.compile(r"<\s*(\w+)[^>]*>", re.U)
+
+
+# Return keyword of markup detected in the text.
+def _detect_markup_in_text (text):
+
+    m = _first_tag_rx.search(text)
+    if m:
+        tag = m.group(1)
+        if tag in _tags_wml:
+            return "wml"
+        elif tag in _tags_pango:
+            return "pango"
+        else:
+            return "unknown"
+    else:
+        return None
+
+
+# Return keyword of markup detected in the message.
+def _detect_markup (msg, cat):
+
+    # First look into original text.
+    # If no markup determined from there, look into translation.
+    markup_type = _detect_markup_in_text(msg.msgid)
+    if markup_type is None:
+        markup_type = _detect_markup_in_text(msg.msgstr[0])
+
+    return markup_type
+
