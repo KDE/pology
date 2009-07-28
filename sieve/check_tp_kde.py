@@ -475,7 +475,7 @@ _trcredit_ctxts = set((
     _trcredit_email_ctxt,
 ))
 
-_valid_email_rx = re.compile(r"^\s*\S+@\S+\.\S+\s*\b", re.U)
+_valid_email_rx = re.compile(r"^\S+@\S+\.\S+$", re.U)
 
 def _check_trcredits (msg, cat, pcache, hl):
 
@@ -487,26 +487,33 @@ def _check_trcredits (msg, cat, pcache, hl):
     errors = []
 
     if msg.msgctxt == _trcredit_name_ctxt:
-        names = msg.msgstr[0].split(",")
+        names = [x.strip() for x in msg.msgstr[0].split(",")]
         pcache["trnames"] = names
 
     elif msg.msgctxt == _trcredit_email_ctxt:
-        emails = msg.msgstr[0].split(",")
+        emails = [x.strip() for x in msg.msgstr[0].split(",")]
         pcache["tremails"] = emails
 
         for email in emails:
             # Check minimal validity of address.
-            if not _valid_email_rx.match(email):
+            if email and not _valid_email_rx.match(email):
                 emsg = "invalid email address '%s'" % email
                 errors.append(emsg)
 
     # Check congruence between names and emails.
     names = pcache.get("trnames")
     emails = pcache.get("tremails")
-    if emails and names and len(names) != len(emails):
-        emsg = ("different number of translator names (%d) "
-                "and email addresses (%d)" % (len(names), len(emails)))
-        errors.append(emsg)
+    if emails and names:
+        if len(names) != len(emails):
+            emsg = ("different number of translator names (%d) "
+                    "and email addresses (%d)" % (len(names), len(emails)))
+            errors.append(emsg)
+        else:
+            for name, email, i in zip(names, emails, range(1, len(names) + 1)):
+                if not name and not email:
+                    emsg = ("both name and email address "
+                            "of translator no. %d empty" % i)
+                    errors.append(emsg)
 
     if errors:
         hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
