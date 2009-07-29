@@ -493,8 +493,8 @@ id="view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
 valid cat="kcmcolors" msgstr="приказ"
-valid ctx="action"
-valid comment="action"
+valid ctx="[Aa]ction|[Ss]hortcut"
+valid comment="[Aa]ction|[Ss]hortcut"
 
 {\bwildcard}i
 id="wildcard"
