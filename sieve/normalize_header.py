@@ -63,8 +63,8 @@ class Sieve (object):
 
             years = []
             for yspec in yearstr.split(","):
-                m = (   re.search("^\s*(\d{4}|\d{2})\s*$", yspec)
-                     or re.search("^\s*(\d{4}|\d{2})-(\d{4}|\d{2})\s*$", yspec))
+                m = (   re.search(ur"^\s*(\d{4}|\d{2})\s*$", yspec)
+                     or re.search(ur"^\s*(\d{4}|\d{2})\s*[-—–]\s*(\d{4}|\d{2})\s*$", yspec))
                 if not m:
                     warning("%s: cannot parse years in translator comment: %s"
                             % (cat.filename, a))
