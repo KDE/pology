@@ -192,7 +192,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_system" class="summary-sig-name">collect_system</a>(<span class="summary-sig-arg">cmdline</span>,
         <span class="summary-sig-arg">echo</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wdir</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">wdir</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>)</span><br />
       Execute command line and collect stdout, stderr, and return code.</td>
           <td align="right" valign="top">
             
@@ -501,7 +502,8 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_system</span>(<span class="sig-arg">cmdline</span>,
         <span class="sig-arg">echo</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wdir</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">wdir</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">env</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -509,12 +511,14 @@
   </tr></table>
   
   <p>Execute command line and collect stdout, stderr, and return code.</p>
+  <p>Normally the output will</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
         <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the command line, as well as stdout/stderr</li>
         <li><strong class="pname"><code>wdir</code></strong> (path) - working directory for the command (CWD if none given)</li>
+        <li><strong class="pname"><code>env</code></strong> ({string: string}) - environment for the execution (variable name-value pairs)</li>
     </ul></dd>
     <dt>Returns: (string, string, int)</dt>
         <dd>tuple of stdout, stderr, and exit code</dd>

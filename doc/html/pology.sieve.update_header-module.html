@@ -51,7 +51,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module update_header</h1><p class="nomargin-top"></p>
-<p>Initialize and update the header of a PO file.</p>
+<p>Initialize and update the PO header with own translation data.</p>
   <p>When work on a pristine PO starts, or an existing PO is to be revised 
   with new translations, this sieve can be used to automatically set PO 
   header fields to proper values. The revision date is taken as current, 
@@ -91,7 +91,8 @@
       <code>[project-*]/team-email</code>: team's email
     </li>
     <li>
-      <code>[project-*]/encoding</code>: encoding of PO files
+      <code>[project-*]/encoding</code>: encoding of PO files (UTF-8 
+      assumed if not set)
     </li>
     <li>
       <code>[project-*]/plural-forms</code>: the PO plural header 
@@ -128,6 +129,31 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.update_header.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>

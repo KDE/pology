@@ -136,6 +136,17 @@
       considered to be in this format if it contains 
       &quot;qtdt-format&quot; in <code>msgctxt</code> or among flags.
     </li>
+    <li>
+      Validity of translator credits (<code>trcredits</code>). Catalogs may
+      contain meta-messages to input translator credits; translations of 
+      these messages should be valid on on their own, but also have some 
+      congruence between them.
+    </li>
+    <li>
+      Catalog-specific checking (<code>catspec</code>). Certain messages in
+      certain catalogs have special validity requirements, and this check 
+      activates all such catalog-specific checks.
+    </li>
   </ul>
 
 <hr />

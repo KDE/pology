@@ -188,7 +188,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.msgreport-module.html#report_msg_content" class="summary-sig-name">report_msg_content</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0x8deacdc&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field_fine at 0x905cd84&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">note</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delim</span>=<span class="summary-sig-default">None</span>,
@@ -498,7 +498,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report_msg_content</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0x8deacdc&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field_fine at 0x905cd84&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">note</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">delim</span>=<span class="sig-default">None</span>,
@@ -538,7 +538,9 @@
   used, but 0 should be given for consistency (may be enforced later). Span
   tuples can have a third element, following the indices, which is the note
   about why the particular span is highlighted; there may be more elements 
-  after the note, and these are all ignored.</p>
+  after the note, and these are all ignored. If start or end index of a 
+  span is not an integer, then the note is taken as relating to the 
+  complete field.</p>
   <p>Sometimes the match to which the spans correspond has been made on a 
   filtered value of the message field (e.g. after accelerator markers or 
   tags have been removed). In that case, the filtered text can be given as 

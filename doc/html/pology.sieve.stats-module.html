@@ -209,12 +209,12 @@
     such PO files is desired, the <code>stats</code> sieve should be 
     preceeded in the chain by the context conversion sieve:</p>
 <pre class="literalblock">
-   $ posieve.py normctx-ooo,stats openoffice-fr/
+   $ posieve.py --no-sync normctx-ooo,stats openoffice-fr/
 </pre>
-    <p>Note that <code>normctx-*</code> sieves, while they modify the 
-    messages, by default do not request synchronization of catalogs to 
-    disk. This is precisely so that they may be run as prefilters to 
-    non-modifying sieves such as <code>stats</code>.</p>
+    <p>Note that <code>normctx-*</code> sieves, since they modify messages,
+    would by default cause the catalogs to be modified on disk. Option 
+    <code>--no-sync</code> is therefore used to prevent modified catalogs 
+    from being synced to disk.</p>
   <h1 class="heading">Output Legend</h1>
     <p>The basic output is the table where rows present statistics for a 
     category of messages, and columns the statistical bits of data:</p>

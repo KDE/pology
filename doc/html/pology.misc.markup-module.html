@@ -199,7 +199,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#collect_xml_spec_l1" class="summary-sig-name">collect_xml_spec_l1</a>(<span class="summary-sig-arg">specpath</span>)</span><br />
-      Collect informal XML format specification, level 1.</td>
+      Collect lightweight XML format specification, level 1.</td>
           <td align="right" valign="top">
             
             
@@ -377,6 +377,26 @@
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_kde4_l1" class="summary-sig-name">check_xml_kde4_l1</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
       Validate markup in texts used in KDE4 GUI.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xml_pango_l1" class="summary-sig-name">check_xml_pango_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate Pango markup in text against <a 
+      href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
           <td align="right" valign="top">
             
             
@@ -715,20 +735,36 @@
     </td>
   </tr></table>
   
-  <p>Collect informal XML format specification, level 1.</p>
+  <p>Collect lightweight XML format specification, level 1.</p>
   <p>Level 1 specification is the dictionary of all known tags, with 
-  allowed attributes (by name only) for each.</p>
+  allowed attributes and subtags for each.</p>
   <p>File of the level 1 specification is in the following format:</p>
 <pre class="literalblock">
    # A comment.
-   tagA;  # tag without any attributes
-   tagB: attr1, attr2;  # tag having some attributes
-   tagC: attr1, attr2, attr3, attr4,
-         attr5, attr6;  # tag with many attributes, split over lines
+   # Tag with unconstrained attributes and subtags:
+   tagA;
+   # Tag with constrained attributes and unconstrained subtags:
+   tagF : attr1 attr2 ...;
+   # Tag with unconstrained attributes and constrained subtags:
+   tagF &gt; stag1 stag2 ...;
+   # Tag with constrained attributes and subtags:
+   tagF : attr1 attr2 ... &gt; stag1 stag2 ...;
+   # Tag with no attributes and unconstrained subtags:
+   tagA :;
+   # Tag with unconstrained attributes and no subtags:
+   tagA &gt;;
+   # Tag with no attributes and no subtags:
+   tagA :&gt;;
+   # Attribute value constrained by a regular expression:
+   .... attr1=/^(val1|val2|val3)$/i ...
+   # Reserved dummy tag specifying attributes common to all tags:
+   pe-common-attrib : attrX attrY;
 </pre>
   <p>The specification can contain a dummy tag named 
   <code>pe-common-attrib</code>, stating attributes which are common to all
-  tags, instead of having to list them with each and every tag.</p>
+  tags, instead of having to list them with each and every tag. To make an 
+  attribute mandatory, it's name should be prefixed by exclamation sign 
+  (!).</p>
   <p>Specification file must be UTF-8 encoded.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -1051,6 +1087,38 @@
   <p>Validate markup in texts used in KDE4 GUI.</p>
   <p>KDE4 GUI texts may contain both Qt rich-text and KUIT markup, even 
   mixed in the same text.</p>
+  <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
+  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_pango_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_pango_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate Pango markup in text against <a 
+  href="pology.misc.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
   <p>See <a href="pology.misc.markup-module.html#check_xml_l1" 
   class="link">check_xml_l1</a> for description of the <code>ents</code> 
   parameter and the return value.</p>
