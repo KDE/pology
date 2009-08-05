@@ -431,6 +431,11 @@ class Sieve (object):
         # Collections of all confirmed templates and tentative template subdirs.
         self.matched_templates = {}
         self.template_subdirs = []
+        for rpath in params.root_paths:
+            if os.path.isfile(rpath):
+                rpath = os.path.dirname(rpath)
+            rpath = rpath.replace(self.tspec_srch, self.tspec_repl, 1)
+            self.template_subdirs.append(rpath)
         # Map of template to translation subdirs.
         self.mapped_template_subdirs = {}
 
@@ -485,9 +490,6 @@ class Sieve (object):
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
-            # Collect this template subdirectory to later look in it for
-            # templates the translation of which has not started yet.
-            self.template_subdirs.append(os.path.dirname(tpath))
 
         # Force explicitly given accelerators.
         if self.p.accel is not None:

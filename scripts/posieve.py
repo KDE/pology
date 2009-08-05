@@ -406,6 +406,24 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         #error("parameters not expected by any of the issued subcommands: %s"
               #% (" ".join(nacc_params)))
 
+    # Assemble list of paths to be searched for catalogs.
+    file_or_dir_paths = op.raw_paths
+    if op.files_from:
+        for paths_file in op.files_from:
+            flines = open(paths_file, "r").readlines()
+            for fline in flines:
+                fline = fline.rstrip("\n")
+                if fline:
+                    file_or_dir_paths.append(fline)
+    elif not file_or_dir_paths:
+        file_or_dir_paths = ["."]
+
+    # Add paths from which the catalogs are collected
+    # as special parameter to each sieve.
+    # FIXME: Think of something less ugly.
+    for p in sparams.values():
+        p.root_paths = file_or_dir_paths[:]
+
     # Create sieves.
     sieves = []
     for name, mod in sieve_modules:
@@ -463,17 +481,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if op.verbose and use_headonly:
         report("--> Opening catalogs in header-only mode")
 
-    # Assemble list of files.
-    file_or_dir_paths = op.raw_paths
-    if op.files_from:
-        for paths_file in op.files_from:
-            flines = open(paths_file, "r").readlines()
-            for fline in flines:
-                fline = fline.rstrip("\n")
-                if fline:
-                    file_or_dir_paths.append(fline)
-    elif not file_or_dir_paths:
-        file_or_dir_paths = ["."]
+    # Collect catalog paths.
     fnames = collect_catalogs(file_or_dir_paths)
 
     # Decide on wrapping policy for modified messages.
