@@ -100,11 +100,11 @@ where C{*} usually names the translation environment in question. When the
 statistics on such PO files is desired, the C{stats} sieve should be
 preceeded in the chain by the context conversion sieve::
 
-    $ posieve.py normctx-ooo,stats openoffice-fr/
+    $ posieve.py --no-sync normctx-ooo,stats openoffice-fr/
 
-Note that C{normctx-*} sieves, while they modify the messages, by default
-do not request synchronization of catalogs to disk. This is precisely so
-that they may be run as prefilters to non-modifying sieves such as C{stats}.
+Note that C{normctx-*} sieves, since they modify messages, would by default
+cause the catalogs to be modified on disk. Option C{--no-sync} is therefore
+used to prevent modified catalogs from being synced to disk.
 
 Output Legend
 =============
