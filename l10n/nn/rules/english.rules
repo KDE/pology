@@ -1,0 +1,13 @@
+# Frequently-used English words that should be replaced by Norwegian Nynorsk words.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+[printer]i
+hint="printer → skrivar"
+valid after="system-config-"
+
+[\bserver(en|ar)?\b]i
+hint="server → tenar"
+
+[\bURL-]i
+hint="URL → (nett)adresse (med nokre unntak)"

@@ -1,0 +1,230 @@
+# Team choices for Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+# Test av e-infinitiv for nokre av dei
+# vanligaste verba (men for eksempel
+# «flytte» kan ikkje vera med, då dette
+# finst som adjektiv òg).
+[\b(vert|bruk|endr|lagr|avslutt|velj|slett|rediger|start|køyr)e\b]i
+id="e-infinitiv"
+hint="Bruk konsekvent a-infinitiv."
+
+# Fang opp nokre e-infinitiv som òg
+# finst som adjektiv.
+[å (flytt|opn|skriv)e\b]i
+id="e-infinitiv2"
+hint="Bruk konsekvent a-infinitiv."
+
+[\bfjerne\b]i
+id="e-infinitiv3"
+hint="Bruk konsekvent a-infinitiv."
+valid after="(den|det|dei) "
+
+[\bbruker]i
+hint="bruker → -ar"
+
+[(slådd|slegen|slegne)]
+hint="slådd/slegen → slått"
+
+[fådd]
+hint="fådd → fått"
+
+[gådd]
+hint="gådd → gått"
+
+[stådd]
+hint="(for)stådd → (for)stått"
+
+[hevde?\b]i
+hint="hevd(e) → heva"
+valid after="i "
+
+[å tinga]i
+hint="tinga → abonnera"
+
+[behandl]i
+hint="behandla → handsama"
+
+[bede\b]
+hint="bede → be/bedt"
+
+[\bbare\b]i
+hint="bare → berre"
+
+[\bføre(bokstav|namn)]i
+hint="føre- → for-"
+
+[viljug]i
+hint="viljug → villig"
+
+[fyrst]i
+hint="fyrst → først"
+valid before="ikk"
+
+[gjennomsynleg]i
+hint="gjennomsynleg → gjennomsiktig"
+
+[giss]i
+hint="gissa → gjetta"
+
+[\bgi(tt)?\b]
+hint="gi → gje"
+
+[hyrne]i
+hint="hyrne → hjørne"
+
+[(høra|kjør)]i
+hint="høra/kjøra → høyra/køyra"
+
+[\blata\b]i
+hint="lata → la"
+
+[\b(line|lina|liner|linene)\b]i
+hint="line → linje"
+valid after="On-?"
+
+[ljos]i
+hint="ljos → lys"
+
+[laup]
+hint="laup → løp"
+valid after="[Bb]ryl"
+
+[lykk[ae]]i
+hint="(mis|vel)lykka → -lukka"
+
+[\bvi\b]i
+hint="vi → me"
+valid before="-"
+valid before=" IMproved"
+
+[m(ogeleg|uleg)]i
+hint="mogeleg/muleg → mogleg"
+
+[\bmye\b]i
+hint="mye → mykje"
+
+[granne]i
+hint="granne → nabo"
+valid after="lite "
+
+[nyhend]i
+hint="nyhende → nyheit"
+
+[\bnoe\b]
+hint="noe → noko"
+
+[oversyn]i
+hint="oversyn → oversikt"
+
+[(turvande|naudsyn)]i
+hint="turvande/naudsynt → nødvendig"
+
+[resurs]i
+hint="resurs → ressurs"
+
+[samstundes]i
+hint="samstundes → samtidig"
+
+[skjul]i
+hint="skjula/skjult → gøyma/gøymd"
+
+[skuva]i
+hint="skuva → skyva"
+
+[attende]i
+hint="attende → tilbake"
+
+[verkty]i
+hint="-ty → -tøy"
+
+[unnatak]i
+hint="unnatak → unntak"
+
+[velkomen]i
+hint="velkomen → velkommen"
+
+[\bbli(r|tt)?\b]i
+hint="bli → vert(a)/vorte(n)"
+
+[fellesskapen]i
+hint="fellesskap reknar med som inkjekjønn"
+
+[(vis|tolk)ning]i
+hint="-ning → -ing"
+
+[skjemspar]i
+hint="skjermsparar → pauseskjerm"
+
+[dømes?\b]i
+hint="(til) døme(s) → (for) eksempel"
+valid after="herre"
+
+[\bt\.d\.\b]i
+hint="t.d. → for eksempel [ikkje bruk forkortingar]"
+
+[\bfora\b]i
+hint="fora → forum(a)"
+
+[\bklarar\b]i
+hint="klarar → klarer"
+
+[\b(opn|lagr)\b]i
+hint="Bruk imperativformene «opna», «lagra», ikkje «opn» og «lagr»"
+
+[\b(CapsLock|Control|AltGr|PageUp|PgUp|PageDown|PgDown|PrintScreen|ScrollLock|NumLock)\b]i
+hint="Sjå avsnittet «Tastar» i retningslinjene"
+
+[\b(enter|Alt gr|[Ii]ns|DEL|ESC|Esc|f[1-9])\b]
+hint="Sjå avsnittet «Tastar» i retningslinjene"
+
+[\b(Ctrl|Alt|Alt Gr|Shift)\+\b]
+hint="Sjå avsnittet «Tastar» i retningslinjene"
+
+[…»]
+hint="Kutt ut ellipseteiknet ved referering til kommandoar"
+
+[(klarer|klarte) ikkje å]i
+hint="klarte ikkje å → klarte ikkje"
+
+[aktiver\w]i
+hint="aktiver → slå på, gjer verksam, bruk, vis, …"
+
+[eksister\w]i
+hint="eksistera → finnast"
+valid before="ande"
+
+[inkluder\w+]i
+hint="inkluder → ta med, inkludert → medrekna, …"
+
+[konfigur\w+]i
+hint="konfigurasjon → oppsett, konfigurera → setja opp"
+
+[lokasjon\w+]i
+hint="lokasjon → stad, adresse, plassering"
+
+[originale\b]i
+hint="originale → opphavlege"
+
+[preferans\w+]i
+hint="preferansar → innstillingar, oppsett"
+
+[sesjon]i
+hint="sesjon → økt [sesjon er noko ein gjer i militæret]"
+
+[dialog(boks)?(en|ane)\b]i
+hint="dialogboks → vindauge eller dialogvindauge"
+
+[(sikkerheitskopi|tryggleikskopi|tryggingskopi|backup)]i
+hint="sikkerheitskopi, tryggingskopi, tryggleikskopi → reservekopi [og tilhøyrande verb]"
+
+[eigen?definer\w+]i
+hint="eigendefinert → sjølvvald, tilpassa"
+
+[opplysing(a|ar|ane)?]i
+hint="opplysing → opplysning"
+
+# End of rules

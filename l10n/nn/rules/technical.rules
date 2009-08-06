@@ -1,0 +1,20 @@
+# Technical mistakes in Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+*msgctxt/(NAME|EMAIL) OF TRANSLATORS/
+id="omsetjar-komma"
+hint="Ikkje bruk mellomrom etter komma i lista over omsetjarar/e-postadresser"
+valid !msgstr=", "
+
+*msgctxt/NAME OF TRANSLATORS/
+id="omsetjar-namn"
+hint="Skriv inn namnet på omsetjarane, ikkje set om originalteksten."
+valid !msgstr="[Nn]a[mv]n"
+
+*msgctxt/EMAIL OF TRANSLATORS/
+id="omsetjar-epost"
+hint="Skriv inn e-adressa til omsetjarane, ikkje set om originalteksten."
+valid !msgstr="[Aa]dd?ress"
+
+# End of rules

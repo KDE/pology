@@ -1,0 +1,90 @@
+# Frequent ortography mistakes in Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+[gong(ar|ane)\b]i
+hint="gongar/-ane → -er/-ene [unntak: musikkinstrumentet gong + verbet (men det heiter «6 gonger 7»)]"
+
+[applikasjon]i
+hint="applikasjon → program [unntak: XML-applikasjon o.l.]"
+
+[nad(ar|ane)\b]
+hint="-nadar/-nadane → -nader/-ene"
+
+# Endinga -elig til -eleg. (Men kan ikkje ha
+# den generelle regelen -lig → -leg, då for
+# eksempel «forskjellig» er unntak.)
+[elig\b]
+hint="-lig → -leg"
+
+[stad(ar|ane)\b]i
+hint="stadar/-ane → -er/-ene"
+
+[lest]i
+id="lest"
+hint="lest → lesen/lese/lesne [og verbet leste → las]"
+valid after="\b[Ff]"
+valid after="[pP]a" before="in(sk|a)e?\b"
+valid after="Cho" before="erol\b"
+valid after="e\b" before="\bCe"
+
+[bærbar]i
+hint="bærbar → berbar"
+
+[setting]i
+hint="setting → setjing"
+valid after="@System" before="s\b"
+valid after="Documents and " before="s\b"
+
+[\bsetta\b]i
+hint="setta → setja"
+
+[(kolonna[^rn]|ei kolonne\b)]i
+hint="kolonne er hankjønnsord"
+
+[(attributten|ein attributt)]i
+hint="attributt er inkjekjønnsord"
+
+[\bikke\b]i
+hint="ikke → ikkje"
+
+[\bjeg\b]i
+hint="jeg → eg"
+
+[\b (!|:|\?)]
+hint="Aldri mellomrom før utropsteikn, kolon eller spørjeteikn [det er det franskmenna som har]"
+valid before="q"
+
+[ér\b]
+hint="-ér → -er [imperativ har aldri -ér på norsk]"
+
+[\b-?(cd|pc)-]
+hint="cd/pc → CD/PC"
+
+[(CD|PC)('’|en|ar|ane)]
+hint="CDen → CD-en, PCane → PC-ane, osv."
+
+[utskiftning]i
+hint="utskiftning → utskifting"
+
+[\btillet\b]i
+hint="tillet → tillèt (presens) eller tillét (preteritum)"
+
+[\butvidelsar\b]
+hint="utvidelsar → utvidingar"
+
+[\btreig]
+hint="treig → treg"
+
+[oppløysning]i
+hint="oppløysning → oppløysing"
+
+[virituell\w+]
+hint="virituell → virtuell"
+
+
+
+
+# End of rules

@@ -1,0 +1,54 @@
+# Grammar rules for Norwegian Nynorsk.
+# Based on "http://i18n.skolelinux.no/retningslinjer.html".
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+{\bplease\b}i
+hint="Ikkje bruk venlegst / ver så snill e.l. på norsk [avsnittet «Høflegheit» i retningslinjene"
+valid !msgstr="[Vv]enn?leg"
+valid !msgstr="[Vv]er (så )?snill"
+
+{\bmy\b}i
+id="personifisering"
+hint="Unngå mi/min [avsnittet «Personifisering» i retningslinjene»]"
+valid !msgstr="\b[Mm]i(n|tt)?\b"
+
+[\b(vart ikkje|har vorten?|har oppstått)\b]
+id="passiv"
+hint="Skriv om til aktiv form [Søkjeteksten vart ikkje funnen → Fann ikkje søkjeteksten]"
+
+[\bvil (verta|gå)\b]
+hint="vil verta/gå → vert/går"
+valid after="du "
+
+[Kunne ikkje]
+hint="kunne ikkje → klarte ikkje [men ofte omskriving: Klarte ikkje finna fila → Fann ikkje fila]"
+
+{(If this option is enabled|Check to enable|Check this box|Enable this to|If checked|If enabled|When enabled|Select this option)}
+hint="Vel éin av «Viss det er kryssa av her,» og «Kryss av her (for å|viss)»"
+valid msgstr="Viss det er kryssa av her,"
+valid msgstr="Kryss av her (for å|viss)"
+
+{(J(ohn|\.?) Doe|jdoe)}
+hint="John Doe → Kari Nordmann, brukarnamn: knordmann, e-post: kari.nordmann@eksempel.no"
+valid msgstr="[Nn]ordmann"
+
+[\bKB\b]
+hint="KB → kB eller KiB [avhengig av tydinga – sjekk kjeldekoden]"
+
+[\bm[bB]\b]
+hint="mb → MiB, Mib, MB eller Mb [avhengig av tydinga – sjekk kjeldekoden]"
+
+[\bm[gb]\b]
+hint="gb → GiB, Gib, GB eller Gb [avhengig av tydinga – sjekk kjeldekoden]"
+
+[\bkbps\b]
+hint="kbps → kb/s eller kB/s eller KiB/s [avhengig av tydinga – sjekk kjeldekoden]"
+
+[° C]
+hint="° C → °C [men mellomrom før gradteiknet]"
+
+[[0-9]+ ?x ?[0-9]+]
+hint="Bruk ×, ikkje x, for å markera skjermoppløysing, biletstorleik og liknande"
+valid span="\b0x"
+
