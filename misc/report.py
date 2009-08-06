@@ -53,11 +53,12 @@ def encwrite (file, text):
     file.write(text)
 
 
-def report (text, showcmd=False, subsrc=None, file=sys.stdout):
+def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
     """
     Generic report.
 
-    Text is output to the file descriptor, with one newline appended.
+    Text is output to the file descriptor,
+    with one newline appended by default.
 
     @param text: text to report
     @type text: string
@@ -67,6 +68,8 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout):
     @type subsrc: C{None} or string
     @param file: send output to this file descriptor
     @type file: C{file}
+    @param newline: whether to append newline to output
+    @type newline: bool
     """
 
     cmdname = None
@@ -92,7 +95,10 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout):
                 head = ""
         lines[i] = head + lines[i]
 
-    text = "\n".join(lines) + "\n"
+    if newline:
+        lines.append("")
+
+    text = "\n".join(lines)
     encwrite(file, text)
 
 
