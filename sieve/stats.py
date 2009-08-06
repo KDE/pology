@@ -228,7 +228,7 @@ from pology.misc.tabulate import tabulate
 from pology.misc.split import proper_words
 from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
-from pology.misc.report import warning
+from pology.misc.report import report, warning
 import pology.misc.colors as C
 from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.diff import word_ediff
@@ -715,21 +715,21 @@ class Sieve (object):
 
         # Indicate conspicuously up front restrictions to counted messages.
         if self.p.branch:
-            print ">>> selected-branches: %s" % " ".join(self.p.branch)
+            report(">>> selected-branches: %s" % " ".join(self.p.branch))
         if self.p.maxwords is not None and self.p.minwords is None:
-            print ">>> at-most-words: %d" % self.p.maxwords
+            report(">>> at-most-words: %d" % self.p.maxwords)
         if self.p.minwords is not None and self.p.maxwords is None:
-            print ">>> at-least-words: %d" % self.p.minwords
+            report(">>> at-least-words: %d" % self.p.minwords)
         if self.p.minwords is not None and self.p.maxwords is not None:
-            print ">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords)
+            report(">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords))
         if self.p.lspan:
-            print ">>> line-span: %s" % self.p.lspan
+            report(">>> line-span: %s" % self.p.lspan)
         if self.p.espan:
-            print ">>> entry-span: %s" % self.p.espan
+            report(">>> entry-span: %s" % self.p.espan)
         if self.p.fexpr:
-            print ">>> selected-by-expr: %s" % self.p.fexpr
+            report(">>> selected-by-expr: %s" % self.p.fexpr)
         if self.p.ondiff:
-            print ">>> scaled-fuzzy-counts"
+            report(">>> scaled-fuzzy-counts")
 
         # Should titles be output in-line or on separate lines.
         self.inline = False
@@ -754,9 +754,9 @@ class Sieve (object):
                     # Must color after padding, to avoid it seeing the colors.
                     ntitle = C.BOLD + ntitle + C.RESET
                 if self.inline:
-                    print ntitle,
+                    report(ntitle, newline=False)
                 else:
-                    print ntitle
+                    report(ntitle)
 
             if self.p.table:
                 self._tabular_stats(counts, title, count, can_color)
@@ -788,9 +788,9 @@ class Sieve (object):
             maxfl = max([len(x) for x in filenames])
             dfmt = ["%%-%ds" % maxfl, "%d", "%d", "%d", "%d", "%d", "%d"]
             # Output.
-            print "-"
-            print tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
-                           colorized=can_color)
+            report("-")
+            report(tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
+                            colorized=can_color))
 
         # Write file names of catalogs which are not fully translated
         # into a file, if requested.
@@ -875,8 +875,8 @@ class Sieve (object):
                          "%.1f", "%.1f", "%.1f", "%.1f"])
 
         # Output the table.
-        print tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                       space="   ", none=u"-", colorized=can_color)
+        report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
+                        space="   ", none=u"-", colorized=can_color))
 
 
     def _msg_bar_stats (self, counts, title, count, can_color):
@@ -1039,7 +1039,7 @@ class Sieve (object):
         if showbar:
             if count["tot"][dcolumn] == 0:
                 fmt_bar = ""
-            print "%s %s |%s|" % (fmt_counts, dlabel, fmt_bar)
+            report("%s %s |%s|" % (fmt_counts, dlabel, fmt_bar))
         else:
-            print "%s %s" % (fmt_counts, dlabel)
+            report("%s %s" % (fmt_counts, dlabel))
 
