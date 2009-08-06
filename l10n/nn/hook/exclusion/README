@@ -1,0 +1,16 @@
+Exclusion dictionaries for Norwegian Nynorsk
+────────────────────────────────────────────
+
+The file ‘klammeformer.dat’ is generated from ‘fullform_nn.txt’
+from Norsk ordbank (http://www.edd.uio.no/prosjekt/ordbanken/)
+using these commands:
+
+grep -v '^*' fullform_nn.txt > alle.txt
+grep -Fv "unormert" alle.txt |
+grep -Fv " klammeform" > hovudformer.txt
+
+cut -f3 -d'	' alle.txt | sort | uniq > alle.dat
+cut -f3 -d'	' hovudformer.txt | sort | uniq > hovudformer.dat
+comm -3 alle.dat hovudformer.dat > klammeformer.dat
+
+rm -f alle.* hovudformer.*
