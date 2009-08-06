@@ -31,6 +31,8 @@ The sieve parameters are:
    - C{xml:<filename>}: output results of the run in XML format file
    - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
+   - C{rdir:<directory>}: read rules from this directory, instead of from
+        Pology's internal rule files
    - C{showfmsg}: show filtered message too when a rule fails a message
    - C{nomsg}: do not show message content, only problem descriptions
    - C{lokalize}: open catalogs at failed messages in Lokalize
@@ -75,6 +77,7 @@ from pology.misc.timeout import TimedOutException
 from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
 from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.fsops import collect_files_by_ext
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -138,6 +141,12 @@ def setup_sieve (p):
     "Load rules from a file, rather than internal Pology rules. "
     "Several rule files can be given by repeating the parameter."
     )
+    p.add_param("rdir", unicode, multival=True,
+                metavar="DIRPATH",
+                desc=
+    "Load rules from a directory, rather than internal Pology rules."
+    "Several rule directories can be given by repeating the parameter."
+    )
     p.add_param("showfmsg", bool, defval=False,
                 desc=
     "Show filtered message too when reporting message failed by a rule."
@@ -197,7 +206,6 @@ class Sieve (object):
         self.globalLang=params.lang
         self.globalEnvs=params.env
         self.envOnly=params.envonly
-        self.customRuleFiles=params.rfile
         self._rulesCache={}
 
         self.accels=params.accel
@@ -212,6 +220,17 @@ class Sieve (object):
         self.showfmsg=params.showfmsg
         self.showmsg=params.showmsg
         self.lokalize=params.lokalize
+
+        # Collect non-internal rule files.
+        self.customRuleFiles=None
+        if params.rfile or params.rdir:
+            self.customRuleFiles=[]
+            if params.rfile:
+                self.customRuleFiles.extend(params.rfile)
+            if params.rdir:
+                for rdir in params.rdir:
+                    rfiles=collect_files_by_ext(rdir, "rules")
+                    self.customRuleFiles.extend(rfiles)
 
         # Also output in XML file ?
         if params.xml:
