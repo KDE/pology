@@ -111,11 +111,11 @@ def _mod_on_format_qt (words, intrs):
 
 # Regexes for text removals to get proper words.
 # Second member of the tuple is the replacement string.
-_r_url_rx = (re.compile(r"\w+://[^\s]*"
-                        r"|www\.[\w.-]+"
-                        r"|[\w.-]+\.[a-z]{2,3}\b"
+_r_url_rx = (re.compile(r"[a-zA-Z0-9.+-]+://[^\s]*"
+                        r"|www\.[\w.-]{1,250}"
+                        r"|\b[\w.-]+\.[a-z]{2,3}\b"
                        , re.I|re.U), "")
-_r_email_rx = (re.compile(r"[\w.-]+@[\w.-]+", re.U), "")
+_r_email_rx = (re.compile(r"\b[\w.-]+@[\w.-]+", re.U), "")
 _r_shvar_rx = (re.compile(r"\$(\w+|\{.*?\})", re.U), "")
 _r_shopt_rx = (re.compile(r"(^|[^\w])(--|-|/)[\w-]+", re.U), "")
 _r_tags_rx = (re.compile(r"<.*?>"), " ")
