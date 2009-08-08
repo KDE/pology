@@ -29,6 +29,9 @@ valid after="\b[Ff]"
 valid after="[pP]a" before="in(sk|a)e?\b"
 valid after="Cho" before="erol\b"
 valid after="e\b" before="\bCe"
+valid after="\b[Bb]ob" before="iging"
+valid after="\b[Cc]el" before="orleik"
+valid after="\b[Ss]til" before="åande"
 
 [bærbar]i
 hint="bærbar → berbar"
@@ -53,9 +56,11 @@ hint="ikke → ikkje"
 [\bjeg\b]i
 hint="jeg → eg"
 
-[\b (!|:|\?)]
+[\b\s(!|:|\?)]
+id="mellomrom-før"
 hint="Aldri mellomrom før utropsteikn, kolon eller spørjeteikn [det er det franskmenna som har]"
-valid before="q"
+valid span=":" before="q"
+valid before="[-–][()]"
 
 [ér\b]
 hint="-ér → -er [imperativ har aldri -ér på norsk]"
