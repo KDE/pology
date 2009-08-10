@@ -1520,27 +1520,40 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                     report(   "%s: summit message needs plurals: {%s}"
                            % (branch_path, branch_msg.msgid))
 
-    # Update header only if the branch catalog was otherwise modified,
-    # or if the branch catalog header is not initialized.
-    if branch_cat.modcount or not branch_cat.header.initialized:
-        # Give priority to the first summit catalog.
-        summit_cat = summit_cats[0]
-
-        # Overwrite everything except these fields.
-        preserved_fields = []
-        for name in [u"Report-Msgid-Bugs-To",
-                     u"POT-Creation-Date",
-                    ]:
-            selected_fields = branch_cat.header.select_fields(name)
-            if selected_fields:
-                preserved_fields.append(selected_fields[0])
-
-        # Overwrite branch with summit header.
-        branch_cat.header = summit_cat.header
-
-        # Put back the preserved fields.
-        for name, value in preserved_fields:
-            branch_cat.header.set_field(name, value)
+    # Update branch header based on primary summit catalog.
+    # Copy over all header parts from summit to branch,
+    # except for those copied from template on merging.
+    hdr = branch_cat.header
+    shdr = summit_cats[0].header
+    # Fields to keep due to being copied over on merging.
+    merge_fields = [
+        "Report-Msgid-Bugs-To",
+        "POT-Creation-Date",
+    ]
+    # Fields to keep if no branch message was modified.
+    if not branch_cat.modcount and branch_cat.header.initialized:
+        merge_fields.extend([
+            "PO-Revision-Date",
+        ])
+    # Update comments.
+    hdr.title = shdr.title
+    hdr.copyright = shdr.copyright
+    hdr.license = shdr.license
+    hdr.author = shdr.author
+    hdr.comment = shdr.comment
+    # Update fields only if normalized lists of fields do not match.
+    if normhf(hdr.field, merge_fields) != normhf(shdr.field, merge_fields):
+        # Collect branch fields to be preserved.
+        preserved_fs = []
+        for fnam in merge_fields:
+            selected_fs = branch_cat.header.select_fields(fnam)
+            if selected_fs:
+                preserved_fs.append(selected_fs[0])
+        # Overwrite branch with summit header fields.
+        hdr.field = shdr.field
+        # Put back the preserved branch fields.
+        for fnam, fval in preserved_fs:
+            hdr.set_field(fnam, fval)
 
     # Apply hooks to the branch catalog.
     exec_hook_cat(branch_id, branch_name, branch_subdir, branch_cat,
@@ -2056,6 +2069,21 @@ def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
                     syns.pop(file)
 
     return syns
+
+
+# Put header fields in canonical form, for equality checking.
+# Returns ordered list of (field name, field value).
+def normhf (fields, excluded=[]):
+
+    nfs = []
+
+    for fnam, fval in fields:
+        if fnam not in excluded:
+            nfs.append((fnam, fval))
+
+    nfs.sort(lambda a, b: cmp(a[0], b[0]) or cmp(a[1], b[1]))
+
+    return nfs
 
 
 if __name__ == '__main__':
