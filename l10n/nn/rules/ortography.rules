@@ -89,7 +89,25 @@ hint="oppløysning → oppløysing"
 [virituell\w+]
 hint="virituell → virtuell"
 
-
+*hook name="nn:exclusion/inofficial-forms" on="msgstr"
+id="klammeform"
+hint="Bruk av eit ord som er klammeform eller unormert."
+valid ctx="\.kgm$"
+valid ctx="^(City|star|Constellation) name"
+valid span="Internett"
+valid span="ANSI"
+valid span="API"
+valid span="DOI"
+valid span="NOT"
+valid span="AVI"
+valid span="ToME"
+valid span="tar" before="\.gz"
+valid span="tar" before="\.bz2"
+valid span="[Kk]ari"
+valid span="KARI"
+valid span="Saudi" before="-Arabia"
+valid span="pH-verdi"
+valid span="[Kk]rets"
 
 
 # End of rules
