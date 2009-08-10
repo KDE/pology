@@ -103,7 +103,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
     if isinstance(file, basestring):
         filename = file
-        file = open(filename, "r")
+        file = open(filename, "rb")
         close_later = True
     else:
         if hasattr(file, "name"):
