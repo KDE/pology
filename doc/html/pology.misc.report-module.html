@@ -97,7 +97,8 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report" class="summary-sig-name">report</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">newline</span>=<span class="summary-sig-default">True</span>)</span><br />
       Generic report.</td>
           <td align="right" valign="top">
             
@@ -196,7 +197,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>,
+        <span class="sig-arg">newline</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -204,7 +206,8 @@
   </tr></table>
   
   <p>Generic report.</p>
-  <p>Text is output to the file descriptor, with one newline appended.</p>
+  <p>Text is output to the file descriptor, with one newline appended by 
+  default.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -212,6 +215,7 @@
         <li><strong class="pname"><code>showcmd</code></strong> (bool) - whether to show the command name</li>
         <li><strong class="pname"><code>subsrc</code></strong> (<code>None</code> or string) - more detailed source of the text</li>
         <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
+        <li><strong class="pname"><code>newline</code></strong> (bool) - whether to append newline to output</li>
     </ul></dd>
   </dl>
 </td></tr></table>

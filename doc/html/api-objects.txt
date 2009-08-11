@@ -173,6 +173,18 @@ pology.l10n.ja.hook	pology.l10n.ja.hook-module.html
 pology.l10n.ja.hook.katakana	pology.l10n.ja.hook.katakana-module.html
 pology.l10n.ja.hook.katakana.process	pology.l10n.ja.hook.katakana-module.html#process
 pology.l10n.ja.hook.katakana._is_katakana	pology.l10n.ja.hook.katakana-module.html#_is_katakana
+pology.l10n.nn	pology.l10n.nn-module.html
+pology.l10n.nn.hook	pology.l10n.nn.hook-module.html
+pology.l10n.nn.hook.exclusion	pology.l10n.nn.hook.exclusion-module.html
+pology.l10n.nn.hook.exclusion._maxwords	pology.l10n.nn.hook.exclusion-module.html#_maxwords
+pology.l10n.nn.hook.exclusion.split_text	pology.misc.split-module.html#split_text
+pology.l10n.nn.hook.exclusion._phrases	pology.l10n.nn.hook.exclusion-module.html#_phrases
+pology.l10n.nn.hook.exclusion.rootdir	pology-module.html#rootdir
+pology.l10n.nn.hook.exclusion._init_phrases	pology.l10n.nn.hook.exclusion-module.html#_init_phrases
+pology.l10n.nn.hook.exclusion._wsseq_rx	pology.l10n.nn.hook.exclusion-module.html#_wsseq_rx
+pology.l10n.nn.hook.exclusion.inofficial_forms	pology.l10n.nn.hook.exclusion-module.html#inofficial_forms
+pology.l10n.nn.hook.exclusion._normph	pology.l10n.nn.hook.exclusion-module.html#_normph
+pology.l10n.nn.hook.exclusion.collect_files_by_ext	pology.misc.fsops-module.html#collect_files_by_ext
 pology.l10n.sr	pology.l10n.sr-module.html
 pology.l10n.sr.hook	pology.l10n.sr.hook-module.html
 pology.l10n.sr.hook.accents	pology.l10n.sr.hook.accents-module.html
@@ -1025,6 +1037,7 @@ pology.scripts.posummit.summit_gather_single_bcat	pology.scripts.posummit-module
 pology.scripts.posummit._summit_tag_branchid	pology.scripts.posummit-module.html#_summit_tag_branchid
 pology.scripts.posummit.warning	pology.misc.report-module.html#warning
 pology.scripts.posummit.summit_set_tags	pology.scripts.posummit-module.html#summit_set_tags
+pology.scripts.posummit.normhf	pology.scripts.posummit-module.html#normhf
 pology.scripts.posummit.exec_hook_file	pology.scripts.posummit-module.html#exec_hook_file
 pology.scripts.posummit.exec_hook_cat	pology.scripts.posummit-module.html#exec_hook_cat
 pology.scripts.posummit.summit_scatter	pology.scripts.posummit-module.html#summit_scatter
@@ -1087,6 +1100,7 @@ pology.sieve.check_rules.MARSHALL	pology.sieve.check_rules-module.html#MARSHALL
 pology.sieve.check_rules.printStat	pology.misc.rules-module.html#printStat
 pology.sieve.check_rules.setup_sieve	pology.sieve.check_rules-module.html#setup_sieve
 pology.sieve.check_rules.report	pology.misc.report-module.html#report
+pology.sieve.check_rules.collect_files_by_ext	pology.misc.fsops-module.html#collect_files_by_ext
 pology.sieve.check_rules.loadRules	pology.misc.rules-module.html#loadRules
 pology.sieve.check_rules.report_msg_to_lokalize	pology.misc.msgreport-module.html#report_msg_to_lokalize
 pology.sieve.check_rules.manc_parse_list	pology.misc.comments-module.html#manc_parse_list
@@ -1228,6 +1242,12 @@ pology.sieve.diff_previous.setup_sieve	pology.sieve.diff_previous-module.html#se
 pology.sieve.diff_previous.report	pology.misc.report-module.html#report
 pology.sieve.diff_previous.parse_summit_branches	pology.misc.comments-module.html#parse_summit_branches
 pology.sieve.empty_fuzzies	pology.sieve.empty_fuzzies-module.html
+pology.sieve.equip_header_tp_kde	pology.sieve.equip_header_tp_kde-module.html
+pology.sieve.equip_header_tp_kde.is_qt_cat	pology.sieve.check_tp_kde-module.html#is_qt_cat
+pology.sieve.equip_header_tp_kde.is_docbook_cat	pology.sieve.check_tp_kde-module.html#is_docbook_cat
+pology.sieve.equip_header_tp_kde.is_txt_cat	pology.sieve.check_tp_kde-module.html#is_txt_cat
+pology.sieve.equip_header_tp_kde.setup_sieve	pology.sieve.equip_header_tp_kde-module.html#setup_sieve
+pology.sieve.equip_header_tp_kde._get_catalog_project_subdir	pology.sieve.check_tp_kde-module.html#_get_catalog_project_subdir
 pology.sieve.fancy_quote	pology.sieve.fancy_quote-module.html
 pology.sieve.fancy_quote._spec_msgctxt	pology.sieve.fancy_quote-module.html#_spec_msgctxt
 pology.sieve.fancy_quote.flag_no_fancy_quote	pology.sieve.fancy_quote-module.html#flag_no_fancy_quote
@@ -1307,6 +1327,7 @@ pology.sieve.stats.proper_words	pology.misc.split-module.html#proper_words
 pology.sieve.stats.word_ediff	pology.misc.diff-module.html#word_ediff
 pology.sieve.stats.warning	pology.misc.report-module.html#warning
 pology.sieve.stats.parse_summit_branches	pology.misc.comments-module.html#parse_summit_branches
+pology.sieve.stats.report	pology.misc.report-module.html#report
 pology.sieve.stats.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.sieve.stats.tabulate	pology.misc.tabulate-module.html#tabulate
 pology.sieve.tag_incomplete	pology.sieve.tag_incomplete-module.html
@@ -1858,6 +1879,9 @@ pology.sieve.empty_fuzzies.Sieve	pology.sieve.empty_fuzzies.Sieve-class.html
 pology.sieve.empty_fuzzies.Sieve.finalize	pology.sieve.empty_fuzzies.Sieve-class.html#finalize
 pology.sieve.empty_fuzzies.Sieve.process	pology.sieve.empty_fuzzies.Sieve-class.html#process
 pology.sieve.empty_fuzzies.Sieve.__init__	pology.sieve.empty_fuzzies.Sieve-class.html#__init__
+pology.sieve.equip_header_tp_kde.Sieve	pology.sieve.equip_header_tp_kde.Sieve-class.html
+pology.sieve.equip_header_tp_kde.Sieve.process_header	pology.sieve.equip_header_tp_kde.Sieve-class.html#process_header
+pology.sieve.equip_header_tp_kde.Sieve.__init__	pology.sieve.equip_header_tp_kde.Sieve-class.html#__init__
 pology.sieve.fancy_quote.Sieve	pology.sieve.fancy_quote.Sieve-class.html
 pology.sieve.fancy_quote.Sieve.finalize	pology.sieve.fancy_quote.Sieve-class.html#finalize
 pology.sieve.fancy_quote.Sieve.process	pology.sieve.fancy_quote.Sieve-class.html#process
