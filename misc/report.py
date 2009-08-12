@@ -14,6 +14,7 @@ import os
 import sys
 import locale
 import time
+import curses
 
 import pology.misc.colors as C
 
@@ -216,9 +217,8 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     if not fpaths or not stream.isatty():
         return lambda x=None: x
 
-    maxcplen = max(map(len, fpaths))
-    pfmt = ("%%1s %%%dd/%d %%-%ds"
-            % (len(str(len(fpaths))), len(fpaths), maxcplen))
+    pfmt = ("%%1s %%%dd/%d %%s"
+            % (len(str(len(fpaths))), len(fpaths)))
     pspins = ["-", "\\", "|", "/"]
     i_spin = [0]
     i_file = [0]
@@ -238,11 +238,20 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
             if fpath not in seen_fpaths:
                 seen_fpaths.add(fpath)
                 i_file[0] += 1
+
             pstr = pfmt % (pspins[i_spin[0]], i_file[0], fpath)
             if callable(addfmt):
                 pstr = addfmt(pstr)
             elif addfmt:
                 pstr = addfmt % pstr
+
+            curses.setupterm()
+            ncol = curses.tigetnum("cols")
+            if len(pstr) >= ncol - 2:
+                pstr = pstr[:ncol - 2 - 3] + "..."
+            else:
+                pstr += " " * (ncol - len(pstr) - 2)
+
             encwrite(stream, "\r%s\r" % pstr)
         else:
             encwrite(stream, "")
