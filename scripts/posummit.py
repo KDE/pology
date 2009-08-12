@@ -57,6 +57,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
     opars.add_option(
+        "-q", "--quiet",
+        action="store_true", dest="quiet", default=False,
+        help="output less detailed progress info")
+    opars.add_option(
         "-a", "--asc-filter",
         action="store", dest="asc_filter", default=None,
         help="select a non-default ascription filter on scatter")
@@ -949,7 +953,7 @@ def summit_gather_single (summit_name, project, options,
         if not os.path.isfile(summit_path):
             if options.verbose:
                 report("-   (gathered-removed) %s  %s" % summit_path)
-            else:
+            elif not options.quiet:
                 report("-    %s" % summit_path)
 
         # Skip the rest, nothing to gather.
@@ -1104,7 +1108,7 @@ def summit_gather_single (summit_name, project, options,
             else:
                 report(">    (gathered) %s  %s" % (summit_cat.filename,
                                                    paths_str))
-        else:
+        elif not options.quiet:
             if added:
                 report(">+   %s  %s" % (summit_cat.filename, paths_str))
             else:
@@ -1598,7 +1602,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
             else:
                 report("<    (scattered) %s  %s" % (branch_cat.filename,
                                                     paths_str))
-        else:
+        elif not options.quiet:
             if new_from_template:
                 report("<+   %s  %s" % (branch_cat.filename, paths_str))
             else:
@@ -1988,7 +1992,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 report(".+   (merged-added) %s" % catalog_path)
             else:
                 report(".    (merged) %s" % catalog_path)
-        else:
+        elif not options.quiet:
             if added:
                 report(".+   %s" % catalog_path)
             else:
