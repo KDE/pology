@@ -9,6 +9,7 @@ from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import report, error, warning
+from pology.misc.report import init_file_progress
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
@@ -625,11 +626,19 @@ def summit_gather (project, options):
     # Collect names of summit catalogs to gather.
     summit_names = select_summit_names(project, options)
 
+    # Setup progress indicator.
+    catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
+    update_progress = init_file_progress(catpaths, addfmt="Gathering: %s")
+
     # Gather all selected catalogs.
     for name in summit_names:
+        catpath = project.catalogs[SUMMIT_ID][name][0][0]
         if options.verbose:
-            report("gathering %s ..." % project.catalogs[SUMMIT_ID][name][0][0])
+            report("Gathering %s ..." % catpath)
+        else:
+            update_progress(catpath)
         summit_gather_single(name, project, options)
+    update_progress()
 
 
 def summit_scatter (project, options):
@@ -638,20 +647,19 @@ def summit_scatter (project, options):
         error(  "template summit mode: scattering not possible on '%s'"
               % project.templates_lang)
 
+    scatter_specs = []
+
     # Select branches to go through.
     branch_ids = select_branches(project, options)
 
-    # Go through all selected branches.
+    # Collect catalogs to scatter through all selected branches.
     n_selected_by_summit_subdir = {}
     for branch_id in branch_ids:
 
         branch_catalogs = select_branch_catalogs(branch_id, project, options,
                                                  n_selected_by_summit_subdir)
 
-        # Go through all selected catalogs in this branch.
         for branch_name, branch_path, branch_subdir in branch_catalogs:
-            if options.verbose:
-                report("scattering to %s ..." % branch_path)
 
             # Collect names of all the summit catalogs which this branch
             # catalog supplies messages to.
@@ -665,14 +673,26 @@ def summit_scatter (project, options):
                 summit_paths.append(
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
 
-            # Merge messages from the summit catalogs into branch catalog.
-            summit_scatter_single(branch_id, branch_name, branch_subdir,
-                                  branch_path, summit_paths, project, options)
+            scatter_specs.append((branch_id, branch_name, branch_subdir,
+                                  branch_path, summit_paths))
 
     # Assure no empty partial selections by summit subdirs.
     for subdir in n_selected_by_summit_subdir:
         if not n_selected_by_summit_subdir[subdir]:
             error("no catalogs to scatter by summit subdir '%s'" % subdir)
+
+    # Setup progress indicator.
+    catpaths = [x[3] for x in scatter_specs]
+    update_progress = init_file_progress(catpaths, addfmt="Scattering: %s")
+
+    # Scatter to branch catalogs.
+    for scatter_spec in scatter_specs:
+        if options.verbose:
+            report("Scattering to %s ..." % branch_path)
+        else:
+            update_progress(branch_path)
+        summit_scatter_single(*(scatter_spec + (project, options)))
+    update_progress()
 
 
 def summit_merge (project, options):
@@ -680,6 +700,8 @@ def summit_merge (project, options):
     if project.templates_lang and options.lang == project.templates_lang:
         error(  "template summit mode: merging not possible on '%s'"
               % project.templates_lang)
+
+    merge_specs = []
 
     # Select branches to merge.
     branch_ids = select_branches(project, options)
@@ -696,18 +718,17 @@ def summit_merge (project, options):
                                              ".pot", None, None,
                                              project, options)
 
-        # Merge selected summit catalogs.
+        # Collect data for summit catalogs to merge.
         for name in summit_names:
-            if not name in template_catalogs:
+            if name not in template_catalogs:
                 warning("no template for summit catalog '%s'" % name)
                 continue
-            for summit_path, summit_subdir in project.catalogs[SUMMIT_ID][name]:
-                template_path = template_catalogs[name][0][0]
-                summit_merge_single(SUMMIT_ID, name, summit_subdir,
-                                    summit_path, template_path,
-                                    project.summit_unwrap,
-                                    project.summit_fine_wrap,
-                                    project, options)
+            summit_path, summit_subdir = project.catalogs[SUMMIT_ID][name][0]
+            template_path = template_catalogs[name][0][0]
+            merge_specs.append((SUMMIT_ID, name, summit_subdir,
+                                summit_path, template_path,
+                                project.summit_unwrap,
+                                project.summit_fine_wrap))
 
     # Go through selected branches.
     n_selected_by_summit_subdir = {}
@@ -727,7 +748,7 @@ def summit_merge (project, options):
                                              branch.by_lang, branch.ignored,
                                              project, options)
 
-        # Merge selected branch catalogs.
+        # Collect data for branch catalogs to merge.
         for name, branch_path, branch_subdir in branch_catalogs:
             if not name in template_catalogs:
                 warning("no template for branch catalog '%s'" % name)
@@ -740,11 +761,24 @@ def summit_merge (project, options):
             if not exact:
                 warning("no exact template for branch catalog '%s'" % name)
                 continue
-            summit_merge_single(branch_id, name, branch_subdir,
+            merge_specs.append((branch_id, name, branch_subdir,
                                 branch_path, template_path,
                                 project.branches_unwrap,
-                                project.branches_fine_wrap,
-                                project, options)
+                                project.branches_fine_wrap))
+
+    # Setup progress indicator.
+    catpaths = [x[3] for x in merge_specs]
+    update_progress = init_file_progress(catpaths, addfmt="Merging: %s")
+
+    # Merge catalogs.
+    for merge_spec in merge_specs:
+        catpath = merge_spec[3]
+        if options.verbose:
+            report("Merging %s ..." % catpath)
+        else:
+            update_progress(catpath)
+        summit_merge_single(*(merge_spec + (project, options)))
+    update_progress()
 
 
 def select_branches (project, options):
