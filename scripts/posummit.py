@@ -687,10 +687,11 @@ def summit_scatter (project, options):
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
+        catpath = scatter_specs[3]
         if options.verbose:
-            report("Scattering to %s ..." % branch_path)
+            report("Scattering to %s ..." % catpath)
         else:
-            update_progress(branch_path)
+            update_progress(catpath)
         summit_scatter_single(*(scatter_spec + (project, options)))
     update_progress()
 
