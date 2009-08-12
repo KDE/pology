@@ -627,18 +627,19 @@ def summit_gather (project, options):
     summit_names = select_summit_names(project, options)
 
     # Setup progress indicator.
-    catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
-    update_progress = init_file_progress(catpaths, addfmt="Gathering: %s")
+    upprog = lambda x: x
+    if not options.verbose:
+        catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
+        upprog = init_file_progress(catpaths, addfmt="Gathering: %s")
 
     # Gather all selected catalogs.
     for name in summit_names:
         catpath = project.catalogs[SUMMIT_ID][name][0][0]
         if options.verbose:
             report("Gathering %s ..." % catpath)
-        else:
-            update_progress(catpath)
-        summit_gather_single(name, project, options)
-    update_progress()
+        upprogc = lambda: upprog(catpath)
+        summit_gather_single(name, project, options, update_progress=upprogc)
+    upprog()
 
 
 def summit_scatter (project, options):
@@ -682,18 +683,19 @@ def summit_scatter (project, options):
             error("no catalogs to scatter by summit subdir '%s'" % subdir)
 
     # Setup progress indicator.
-    catpaths = [x[3] for x in scatter_specs]
-    update_progress = init_file_progress(catpaths, addfmt="Scattering: %s")
+    upprog = lambda x: x
+    if not options.verbose:
+        catpaths = [x[3] for x in scatter_specs]
+        upprog = init_file_progress(catpaths, addfmt="Scattering: %s")
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
         catpath = scatter_spec[3]
         if options.verbose:
             report("Scattering to %s ..." % catpath)
-        else:
-            update_progress(catpath)
-        summit_scatter_single(*(scatter_spec + (project, options)))
-    update_progress()
+        upprogc = lambda: upprog(catpath)
+        summit_scatter_single(*(scatter_spec + (project, options, upprogc)))
+    upprog()
 
 
 def summit_merge (project, options):
@@ -768,18 +770,19 @@ def summit_merge (project, options):
                                 project.branches_fine_wrap))
 
     # Setup progress indicator.
-    catpaths = [x[3] for x in merge_specs]
-    update_progress = init_file_progress(catpaths, addfmt="Merging: %s")
+    upprog = lambda x: x
+    if not options.verbose:
+        catpaths = [x[3] for x in merge_specs]
+        upprog = init_file_progress(catpaths, addfmt="Merging: %s")
 
     # Merge catalogs.
     for merge_spec in merge_specs:
         catpath = merge_spec[3]
         if options.verbose:
             report("Merging %s ..." % catpath)
-        else:
-            update_progress(catpath)
-        summit_merge_single(*(merge_spec + (project, options)))
-    update_progress()
+        upprogc = lambda: upprog(catpath)
+        summit_merge_single(*(merge_spec + (project, options, upprogc)))
+    upprog()
 
 
 def select_branches (project, options):
@@ -949,7 +952,8 @@ def select_summit_names (project, options):
 
 
 def summit_gather_single (summit_name, project, options,
-                          phony=False, pre_summit_names=[]):
+                          phony=False, pre_summit_names=[],
+                          update_progress=(lambda: None)):
 
     # Decide on wrapping function for message fields in the summit.
     wrapf = select_field_wrapper(not project.summit_unwrap,
@@ -1026,12 +1030,15 @@ def summit_gather_single (summit_name, project, options,
                 # FIXME: Can we get into circles here?
                 dep_summit_cat = summit_gather_single(dep_summit_name,
                                                       project, options,
-                                                      True, pre_summit_names_m)
+                                                      True, pre_summit_names_m,
+                                                      update_progress)
                 dep_summit_cats.append(dep_summit_cat)
 
             # Open all branch catalogs of this name, ordered by path,
             # link them to the same dependent summit catalogs.
             for path, subdir in project.catalogs[branch_id][branch_name]:
+                update_progress()
+
                 # Apply hooks to branch catalog file, creating temporaries.
                 tmp_path = None
                 if project.hook_on_gather_file_branch:
@@ -1051,6 +1058,7 @@ def summit_gather_single (summit_name, project, options,
                 # as they may modify message keys.
                 if project.hook_on_gather_msg:
                     for msg in branch_cat:
+                        update_progress()
                         exec_hook_msg(branch_id, branch_name, subdir,
                                       msg, branch_cat,
                                       project.hook_on_gather_msg)
@@ -1077,7 +1085,7 @@ def summit_gather_single (summit_name, project, options,
             is_primary = branch_cat is prim_branch_cat
             summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
                                       fresh_cat, dep_summit_cats, is_primary,
-                                      project, options)
+                                      project, options, update_progress)
 
     # If phony-gather, stop here and return fresh catalog for reference.
     if phony:
@@ -1089,6 +1097,7 @@ def summit_gather_single (summit_name, project, options,
     summit_created = summit_cat.created() # preserve created state
     replace = False
     for pos in range(len(fresh_cat)):
+        update_progress()
         old_pos = summit_cat.find(fresh_cat[pos])
         if pos != old_pos:
             replace = True
@@ -1154,7 +1163,7 @@ def summit_gather_single (summit_name, project, options,
 
 def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                                summit_cat, dep_summit_cats, is_primary,
-                               project, options):
+                               project, options, update_progress):
 
     # Go through messages in the branch catalog, merging them with
     # existing summit messages, or collecting for later insertion.
@@ -1163,6 +1172,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
     # Ignore messages present in dependent summit catalogs.
     msgs_to_insert = set()
     for msg in branch_cat:
+        update_progress()
 
         # Do not gather obsolete messages.
         if msg.obsolete:
@@ -1222,6 +1232,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         # Prepare messages for insertion into summit.
         summit_msg_by_msg = {}
         for msg in msgs_to_insert:
+            update_progress()
             summit_msg = Message(msg)
             summit_set_tags(summit_msg, branch_ids_cats, project)
             summit_msg_by_msg[msg] = summit_msg
@@ -1240,6 +1251,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             if summit_msgs:
                 inserted_summit_msgs = set()
                 for msg in msgs:
+                    update_progress()
                     new_summit_msg = summit_msg_by_msg.get(msg)
                     if new_summit_msg is None:
                         continue
@@ -1298,6 +1310,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 
             else:
                 for msg in msgs:
+                    update_progress()
                     new_summit_msg = summit_msg_by_msg.get(msg)
                     if new_summit_msg is not None:
                         summit_cat.add_last(new_summit_msg)
@@ -1422,7 +1435,8 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
 
 
 def summit_scatter_single (branch_id, branch_name, branch_subdir,
-                           branch_path, summit_paths, project, options):
+                           branch_path, summit_paths,
+                           project, options, update_progress):
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = select_field_wrapper(not project.branches_unwrap,
@@ -1456,6 +1470,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     msg_links = []
     asc_stopped = 0
     for branch_msg in branch_cat:
+        update_progress()
+
         # Skip obsolete messages.
         if branch_msg.obsolete:
             continue
@@ -1519,6 +1535,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     # If complete enough, scatter from summit to branch messages.
     else:
         for branch_msg, summit_msg, summit_cat in msg_links:
+            update_progress()
+
             if summit_msg.translated:
                 exec_hook_msg(branch_id, branch_name, branch_subdir,
                               summit_msg, summit_cat,
@@ -1863,7 +1881,10 @@ def split_summit_comments (msg):
 
 def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                          catalog_path, template_path,
-                         unwrap, fine_wrap, project, options):
+                         unwrap, fine_wrap,
+                         project, options, update_progress):
+
+    update_progress()
 
     tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
     mkdirpath(tmp_dir)
@@ -1928,6 +1949,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
 
     # Open catalogs as necessary.
     if do_open:
+        update_progress()
         wrapf = select_field_wrapper(not unwrap, fine_wrap)
         cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
                       headonly=headonly)
