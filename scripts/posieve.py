@@ -144,13 +144,13 @@ import locale
 import re
 from optparse import OptionParser
 import glob
-import time
 
 from pology.misc.fsops import str_to_unicode
 from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report, encwrite
+from pology.misc.report import init_file_progress
 from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
@@ -532,35 +532,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             fnames_mod.append(fname)
     fnames = fnames_mod
 
-    # Prepare stuff for inline progress indicator.
-    progress_stream = sys.stderr
-    inline_progress = not op.verbose and progress_stream.isatty() and fnames
-    if inline_progress:
-        maxfnlen = max(map(len, fnames))
-        pfmt = ("\r%%1s %%%dd/%d %%-%ds\r"
-                % (len(str(len(fnames))), len(fnames), maxfnlen))
-        pspins = ["-", "\\", "|", "/"]
-        i_spin = [0]
-        i_file = [0]
-        seen_files = set()
-        def update_progress (fname=None):
-            if fname:
-                i_spin[0] = (i_spin[0] + 1) % len(pspins)
-                if fname not in seen_files:
-                    seen_files.add(fname)
-                    i_file[0] += 1
-                encwrite(progress_stream,
-                         pfmt % (pspins[i_spin[0]], i_file[0], fname))
-            else:
-                encwrite(progress_stream, "")
-            progress_stream.flush()
+    # Prepare inline progress indicator.
+    update_progress = init_file_progress(fnames)
 
     # Sieve catalogs.
     modified_files = []
     for fname in fnames:
         if op.verbose:
             report("sieving %s ..." % fname)
-        elif inline_progress:
+        else:
             update_progress(fname)
 
         if op.msgfmt_check:
@@ -602,16 +582,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         # Then run all message sieves on each message,
         # unless processing only the header.
         if not use_headonly:
-            time_prev = time.time()
             for msg in cat:
                 if op.skip_obsolete and msg.obsolete:
                     continue
 
-                if inline_progress:
-                    dtime = time.time() - time_prev
-                    if dtime > 0.5:
-                        time_prev += dtime
-                        update_progress(fname)
+                update_progress(fname)
 
                 if op.announce_entry:
                     report(u"sieving %s:%d(#%d) ..."
@@ -642,8 +617,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 report("! %s" % fname)
             modified_files.append(fname)
 
-    if inline_progress:
-        update_progress() # clear last progress line, if any
+    update_progress() # clear last progress line, if any
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
