@@ -13,6 +13,7 @@ May colorize some output.
 import os
 import sys
 import locale
+import time
 
 import pology.misc.colors as C
 
@@ -164,4 +165,88 @@ def _nonws_after_colreset (text):
         return p
     else:
         return 0
+
+
+def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
+    """
+    Create a function to output progress bar while processing files.
+
+    When a collection of files is about to be processed,
+    this function can be used to construct a progress update function,
+    which shows and updates the progress bar in the terminal.
+    The progress update function can be called as frequently as desired
+    during processing of a particular file, with file path as argument.
+    For example::
+
+        update_progress == init_file_progress(file_paths)
+        for file_path in file_paths:
+            for line in open(file_path).readlines():
+                update_progress(file_path)
+                # ...
+                # Processing.
+                # ...
+        update_progress() # clears last progress line
+
+    Parameter C{timeint} determines the frequency of update, in seconds.
+    It should be chosen such that the progress updates themselves
+    (formatting, writing out to shell) are only a small fraction
+    of total processing time.
+
+    The output stream for the progress bar can be specified
+    by the C{stream} parameter.
+
+    Additional formatting for the progress bar may be supplied
+    by the C{addfmt} parameter. It can be either a function taking one
+    string parameter (the basic progress bar) and returning a string,
+    or a string with single C{%s} formatting directive.
+
+    @param fpaths: collection of file paths
+    @type fpaths: list of strings
+    @param timeint: update interval in seconds
+    @type timeint: float
+    @param stream: the stream to output progress to
+    @type stream: file
+    @param addfmt: additional format for the progress line
+    @type addfmt: (text) -> text or string
+
+    @returns: progress updating function
+    @rtype: (file_path, last_time, time_interval) -> new_last_time
+    """
+
+    if not fpaths or not stream.isatty():
+        return lambda x=None: x
+
+    maxcplen = max(map(len, fpaths))
+    pfmt = ("%%1s %%%dd/%d %%-%ds"
+            % (len(str(len(fpaths))), len(fpaths), maxcplen))
+    pspins = ["-", "\\", "|", "/"]
+    i_spin = [0]
+    i_file = [0]
+    seen_fpaths = set()
+    otime = [-timeint]
+
+    def update_progress (fpath=None):
+
+        ntime = time.time()
+        if ntime - otime[0] >= timeint:
+            otime[0] = ntime
+        elif fpath in seen_fpaths:
+            return
+
+        if fpath:
+            i_spin[0] = (i_spin[0] + 1) % len(pspins)
+            if fpath not in seen_fpaths:
+                seen_fpaths.add(fpath)
+                i_file[0] += 1
+            pstr = pfmt % (pspins[i_spin[0]], i_file[0], fpath)
+            if callable(addfmt):
+                pstr = addfmt(pstr)
+            elif addfmt:
+                pstr = addfmt % pstr
+            encwrite(stream, "\r%s\r" % pstr)
+        else:
+            encwrite(stream, "")
+        stream.flush()
+
+    return update_progress
 
