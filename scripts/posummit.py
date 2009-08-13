@@ -1966,7 +1966,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
                       headonly=headonly)
         if do_open_template:
-            tcat = Catalog(template_path, monitored=False, headonly=False)
+            tcat = Catalog(template_path, monitored=False, headonly=True)
 
     # Initialize header if the catalog has been vivified from template.
     if vivified:
