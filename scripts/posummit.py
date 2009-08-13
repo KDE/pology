@@ -1941,7 +1941,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Should merged catalog be opened, and in what mode?
     do_open = False
     headonly = False
-    if (fine_wrap and not do_msgmerge) or project.hook_on_merge_cat:
+    if fine_wrap or project.hook_on_merge_cat:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
