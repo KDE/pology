@@ -1890,35 +1890,47 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     mkdirpath(tmp_dir)
     tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
 
-    use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
-
     # Whether to create pristine catalog from template.
     vivified = catalog_path in project.add_on_merge
 
-    # Call msgmerge to create the temporary merged catalog.
-    catalog_path_mod = catalog_path
-    if vivified:
-        if use_compendium:
-            catalog_path_mod = "/dev/null"
-        else:
-            catalog_path_mod = tmp_path
-            shutil.copyfile(template_path, tmp_path)
-    cmdline = ("msgmerge --quiet --previous %s %s -o %s "
-            % (catalog_path_mod, template_path, tmp_path))
-    if unwrap:
-        cmdline += "--no-wrap "
-    if use_compendium:
-        if not os.path.isfile(project.compendium_on_merge):
-            error("compendium not found at expected path '%s'"
-                % project.compendium_on_merge)
-        cmdline += "--compendium %s " % project.compendium_on_merge
-    assert_system(cmdline)
+    # Skip calling msgmerge if template creation dates are equal.
+    do_msgmerge = True
+    if not vivified and not options.force:
+        hdr = Catalog(catalog_path, monitored=False, headonly=True).header
+        thdr = Catalog(template_path, monitored=False, headonly=True).header
+        fname = "POT-Creation-Date"
+        do_msgmerge = hdr.get_field_value(fname) != thdr.get_field_value(fname)
 
-    # If the catalog had only header and no messages,
-    # msgfmt will not write out anything.
-    # In such case, just copy over existing.
-    if not os.path.isfile(tmp_path):
-        shutil.copyfile(catalog_path_mod, tmp_path)
+    if do_msgmerge:
+        # Call msgmerge to create the temporary merged catalog.
+        use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
+        catalog_path_mod = catalog_path
+        if vivified:
+            if use_compendium:
+                catalog_path_mod = "/dev/null"
+            else:
+                catalog_path_mod = tmp_path
+                shutil.copyfile(template_path, tmp_path)
+        cmdline = ("msgmerge --quiet --previous %s %s -o %s "
+                   % (catalog_path_mod, template_path, tmp_path))
+        if unwrap:
+            cmdline += "--no-wrap "
+        if use_compendium:
+            if not os.path.isfile(project.compendium_on_merge):
+                error("compendium not found at expected path '%s'"
+                      % project.compendium_on_merge)
+            cmdline += "--compendium %s " % project.compendium_on_merge
+        assert_system(cmdline)
+
+        # If the catalog had only header and no messages,
+        # msgmerge will not write out anything.
+        # In such case, just copy over existing.
+        if not os.path.isfile(tmp_path):
+            shutil.copyfile(catalog_path_mod, tmp_path)
+
+    else:
+        # Copy current to temporary catalog, to be processed by hooks, etc.
+        shutil.copyfile(catalog_path, tmp_path)
 
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
@@ -1929,7 +1941,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Should merged catalog be opened, and in what mode?
     do_open = False
     headonly = False
-    if fine_wrap or project.hook_on_merge_cat:
+    if (fine_wrap and not do_msgmerge) or project.hook_on_merge_cat:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
