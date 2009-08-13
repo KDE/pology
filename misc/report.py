@@ -14,7 +14,6 @@ import os
 import sys
 import locale
 import time
-import curses
 
 import pology.misc.colors as C
 
@@ -217,13 +216,27 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     if not fpaths or not stream.isatty():
         return lambda x=None: x
 
-    pfmt = ("%%1s %%%dd/%d %%s"
-            % (len(str(len(fpaths))), len(fpaths)))
+    try:
+        import curses
+        curses.setupterm()
+    except:
+        return lambda x=None: x
+
+    def postfmt (pstr):
+        if callable(addfmt):
+            pstr = addfmt(pstr)
+        elif addfmt:
+            pstr = addfmt % pstr
+        return pstr
+
+    pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
     pspins = ["-", "\\", "|", "/"]
     i_spin = [0]
     i_file = [0]
     seen_fpaths = set()
     otime = [-timeint]
+    enc = getattr(stream, "encoding", None) or locale.getpreferredencoding()
+    minenclen = len(postfmt(pfmt % (pspins[0], 0, "")).encode(enc, "replace"))
 
     def update_progress (fpath=None):
 
@@ -239,19 +252,18 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
                 seen_fpaths.add(fpath)
                 i_file[0] += 1
 
-            pstr = pfmt % (pspins[i_spin[0]], i_file[0], fpath)
-            if callable(addfmt):
-                pstr = addfmt(pstr)
-            elif addfmt:
-                pstr = addfmt % pstr
-
+            # Squeeze file path to fit into the terminal width.
             curses.setupterm()
-            ncol = curses.tigetnum("cols")
-            if len(pstr) >= ncol - 2:
-                pstr = pstr[:ncol - 2 - 3] + "..."
-            else:
-                pstr += " " * (ncol - len(pstr) - 2)
+            acolfp = curses.tigetnum("cols") - minenclen - 2 # 2 for \r\r
+            rfpath = fpath
+            infix = "..."
+            lenred = 1
+            while len(rfpath.encode(enc, "replace")) > acolfp:
+                hlfp = (len(fpath) - len(infix)) // 2 - lenred
+                lenred += 1
+                rfpath = fpath[:hlfp] + infix + fpath[-hlfp:]
 
+            pstr = postfmt(pfmt % (pspins[i_spin[0]], i_file[0], rfpath))
             encwrite(stream, "\r%s\r" % pstr)
         else:
             encwrite(stream, "")
