@@ -230,7 +230,7 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
         return pstr
 
     pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
-    pspins = ["-", "\\", "|", "/"]
+    pspins = [u"–", u"\\", u"|", u"/"]
     i_spin = [0]
     i_file = [0]
     seen_fpaths = set()
