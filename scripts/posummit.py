@@ -959,6 +959,8 @@ def summit_gather_single (summit_name, project, options,
                           phony=False, pre_summit_names=[],
                           update_progress=(lambda: None)):
 
+    update_progress()
+
     # Decide on wrapping function for message fields in the summit.
     wrapf = select_field_wrapper(not project.summit_unwrap,
                                  project.summit_fine_wrap)
@@ -1001,6 +1003,22 @@ def summit_gather_single (summit_name, project, options,
 
         # Skip the rest, nothing to gather.
         return fresh_cat
+
+    # Skip gathering if all branch catalog have older template creation dates.
+    if os.path.isfile(summit_path) and not options.force:
+        potcrdtf = u"POT-Creation-Date"
+        shdr = Catalog(summit_path, monitored=False, headonly=True).header
+        sdt = ASC.parse_datetime(shdr.get_field_value(potcrdtf))
+        uptodate = True
+        for branch_id in src_branch_ids:
+            for branch_name in project.full_inverse_map[summit_name][branch_id]:
+                for path, subdir in project.catalogs[branch_id][branch_name]:
+                    hdr = Catalog(path, monitored=False, headonly=True).header
+                    dt = ASC.parse_datetime(hdr.get_field_value(potcrdtf))
+                    if dt > sdt:
+                        uptodate = False
+        if uptodate:
+            return Catalog(summit_path, monitored=False)
 
     # Open all corresponding branch catalogs.
     # For each branch catalog, also phony-gather any dependent summit
@@ -1378,13 +1396,14 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
     if summit_cat.created():
         summit_cat.header = prim_branch_cat.header
 
-    # Copy over some fields from the primary branch catalog
-    # if the summit catalog was otherwise modified.
-    if summit_cat.modcount:
-        fname = u"POT-Creation-Date"
-        fval = prim_branch_cat.header.get_field_value(fname)
-        if fval:
-            summit_cat.header.set_field(fname, fval)
+    # Update template creation date to latest from branch.
+    potcrdtf = u"POT-Creation-Date"
+    potcrdtl = prim_branch_cat.header.get_field_value(potcrdtf)
+    for branch_id, branch_cat in branch_ids_cats:
+        potcrdt = branch_cat.header.get_field_value(potcrdtf)
+        if ASC.parse_datetime(potcrdtl) < ASC.parse_datetime(potcrdt):
+            potcrdtl = potcrdt
+    summit_cat.header.set_field(potcrdtf, potcrdtl)
 
     # Copy over some fields unconditionally from the primary branch catalog.
     fname = u"Report-Msgid-Bugs-To"
@@ -1441,6 +1460,8 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
 def summit_scatter_single (branch_id, branch_name, branch_subdir,
                            branch_path, summit_paths,
                            project, options, update_progress):
+
+    update_progress()
 
     # Decide on wrapping function for message fields in the brances.
     wrapf = select_field_wrapper(not project.branches_unwrap,
