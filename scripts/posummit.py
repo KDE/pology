@@ -611,6 +611,10 @@ def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
                         catalogs[catn] = []
                     catalogs[catn].append((fpath, spath))
 
+    for catpaths in catalogs.values():
+        if len(catpaths) > 1:
+            catpaths.sort(lambda x, y: cmp(x[0], y[0]))
+
     return catalogs
 
 
