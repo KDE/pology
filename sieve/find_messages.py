@@ -18,6 +18,7 @@ Sieve parameters for matching:
   - C{flag:<regex>}: regular expression to match against flags
   - C{plural}: the message must be plural
   - C{maxchar}: messages must have no more than this number of characters
+  - C{branch:<branch_id>}: match only messages from this branch (summit)
   - C{fexpr}: logical expression made out of any previous matching typs
   - C{or}: use OR- instead of AND-matching for text fields
 
@@ -107,6 +108,7 @@ from pology.misc.langdep import get_hook_lreq
 from pology.misc.wrap import select_field_wrapper
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
+from pology.misc.comments import parse_summit_branches
 
 
 def setup_sieve (p):
@@ -219,6 +221,17 @@ def setup_sieve (p):
                 desc=
     "Matches if either the msgid or msgstr field have more than this many "
     "characters (0 or less means any number of characters)."
+    )
+    p.add_param("branch", unicode, seplist=True,
+                metavar="BRANCH",
+                desc=
+    "In summited catalogs, match only messages belonging to given branch. "
+    "Several branches can be given as comma-separated list."
+    )
+    p.add_param("nbranch", unicode, seplist=True,
+                metavar="BRANCH",
+                desc=
+    "Match only messages not belonging to given branch."
     )
     p.add_param("fexpr", unicode,
                 metavar="EXPRESSION",
@@ -354,7 +367,7 @@ class Sieve (object):
 
         # - first matchers which are always AND
         expr_and = create_match_group([
-            "transl", "obsol", "plural", "maxchar", "flag",
+            "transl", "obsol", "plural", "maxchar", "flag", "branch",
         ], negatable=True, orlinked=False)
 
         # - then matchers which can be AND or OR
@@ -862,6 +875,10 @@ def _create_matcher (name, value, mods, params, neg=False):
             onchar = sum([len(x) for x in otexts]) // len(otexts)
             tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
             return onchar <= value and tnchar <= value
+
+    elif name == "branch":
+        def matcher (msgf, msg, cat, hl=[]):
+            return value in parse_summit_branches(msg)
 
     elif name == "flag":
         def matcher (msgf, msg, cat, hl=[]):
