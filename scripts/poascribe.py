@@ -1627,18 +1627,28 @@ def asc_sync_and_rep (acat):
 
 
 _dt_fmt = "%Y-%m-%d %H:%M:%S%z"
+_dt_fmt_nosec = "%Y-%m-%d %H:%M%z"
 _dt_str_now = time.strftime(_dt_fmt)
+_dt_str_now_nosec = time.strftime(_dt_fmt_nosec)
 
-def format_datetime (dt=None):
+def format_datetime (dt=None, wsec=True):
 
     if dt is not None:
-        dtstr = dt.strftime(_dt_fmt)
+        if wsec:
+            dtstr = dt.strftime(_dt_fmt)
+        else:
+            dtstr = dt.strftime(_dt_fmt_nosec)
         # NOTE: If timezone offset is lost, the datetime object is UTC.
         tail = datestr[datestr.rfind(":"):]
         if "+" not in tail and "-" not in tail:
             dtstr += "+0000"
     else:
-        return _dt_str_now
+        if wsec:
+            dtstr = _dt_str_now
+        else:
+            dtstr = _dt_str_now_nosec
+
+    return unicode(dtstr)
 
 
 _parse_date_rxs = [re.compile(x) for x in (
