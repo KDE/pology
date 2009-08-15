@@ -85,21 +85,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if mode not in ("gather", "scatter", "merge"):
             error("unknown mode '%s'" % mode)
 
-    # Collect partial processing specs.
-    options.branches = []
-    options.partspecs = {}
-    for part_spec in free_args:
-        lst = part_spec.split(":")
-        if len(lst) < 2:
-            lst.insert(0, SUMMIT_ID)
-        branch_id, part_spec = lst
-        if branch_id not in options.branches:
-            options.branches.append(branch_id)
-        if part_spec:
-            if not branch_id in options.partspecs:
-                options.partspecs[branch_id] = []
-            options.partspecs[branch_id].append(part_spec)
-
     # Could use some speedup.
     if options.use_psyco:
         try:
@@ -114,6 +99,26 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Derive some project data.
     project = derive_project_data(project, options)
+
+    # Collect partial processing specs.
+    options.branches = []
+    options.partspecs = {}
+    for part_spec in free_args:
+        lst = part_spec.split(":", 1)
+        if len(lst) < 2:
+            part_spec, = lst
+            branch_id = None
+        else:
+            branch_id, part_spec = lst
+            if branch_id not in project.branch_ids and branch_id != SUMMIT_ID:
+                error("branch '%s' not in the project" % branch_id)
+        if branch_id and branch_id not in options.branches:
+            options.branches.append(branch_id)
+        if part_spec:
+            brsum_id = branch_id or SUMMIT_ID
+            if brsum_id not in options.partspecs:
+                options.partspecs[brsum_id] = []
+            options.partspecs[brsum_id].append(part_spec)
 
     # Invoke the appropriate operations on collected bundles.
     for mode in options.modes:
@@ -654,8 +659,11 @@ def summit_scatter (project, options):
 
     scatter_specs = []
 
-    # Select branches to go through.
-    branch_ids = select_branches(project, options)
+    # Select branches to scatter to.
+    if not options.branches or SUMMIT_ID in options.branches:
+        branch_ids = project.branch_ids
+    else:
+        branch_ids = options.branches
 
     # Collect catalogs to scatter through all selected branches.
     n_selected_by_summit_subdir = {}
@@ -711,11 +719,14 @@ def summit_merge (project, options):
     merge_specs = []
 
     # Select branches to merge.
-    branch_ids = select_branches(project, options)
+    if not options.branches:
+        branch_ids = project.branch_ids + [SUMMIT_ID]
+    else:
+        branch_ids = options.branches
 
-    # Assume the summit should be merged too if all branches selected,
-    # and the template summit is defined.
-    if project.branch_ids == branch_ids and project.summit.topdir_templates:
+    # Merge template summit selected and exists.
+    if SUMMIT_ID in branch_ids and project.summit.topdir_templates:
+        branch_ids.remove(SUMMIT_ID)
 
         # Collect names of summit catalogs to merge.
         summit_names = select_summit_names(project, options)
@@ -737,7 +748,7 @@ def summit_merge (project, options):
                                 project.summit_unwrap,
                                 project.summit_fine_wrap))
 
-    # Go through selected branches.
+    # Merge selected branches.
     n_selected_by_summit_subdir = {}
     for branch_id in branch_ids:
         branch = project.bdict[branch_id]
@@ -787,22 +798,6 @@ def summit_merge (project, options):
         upprogc = lambda: upprog(catpath)
         summit_merge_single(*(merge_spec + (project, options, upprogc)))
     upprog()
-
-
-def select_branches (project, options):
-
-    # Select either all branches, or those mentioned in the command line.
-    # If any command line spec points to the summit, must take all branches.
-    if not options.branches or SUMMIT_ID in options.branches:
-        branch_ids = project.branch_ids
-    else:
-        branch_ids = options.branches
-        # Assure that these branches actually exist in the project.
-        for branch_id in branch_ids:
-            if not branch_id in project.branch_ids:
-                error("branch '%s' not in the project" % branch_id)
-
-    return branch_ids
 
 
 def select_branch_catalogs (branch_id, project, options,
