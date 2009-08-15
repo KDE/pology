@@ -1004,22 +1004,6 @@ def summit_gather_single (summit_name, project, options,
         # Skip the rest, nothing to gather.
         return fresh_cat
 
-    # Skip gathering if all branch catalog have older template creation dates.
-    if os.path.isfile(summit_path) and not options.force:
-        potcrdtf = u"POT-Creation-Date"
-        shdr = Catalog(summit_path, monitored=False, headonly=True).header
-        sdt = ASC.parse_datetime(shdr.get_field_value(potcrdtf))
-        uptodate = True
-        for branch_id in src_branch_ids:
-            for branch_name in project.full_inverse_map[summit_name][branch_id]:
-                for path, subdir in project.catalogs[branch_id][branch_name]:
-                    hdr = Catalog(path, monitored=False, headonly=True).header
-                    dt = ASC.parse_datetime(hdr.get_field_value(potcrdtf))
-                    if dt > sdt:
-                        uptodate = False
-        if uptodate:
-            return Catalog(summit_path, monitored=False)
-
     # Open all corresponding branch catalogs.
     # For each branch catalog, also phony-gather any dependent summit
     # catalogs. Phony means not to take into account branch catalogs which
@@ -1396,14 +1380,16 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
     if summit_cat.created():
         summit_cat.header = prim_branch_cat.header
 
-    # Update template creation date to latest from branch.
-    potcrdtf = u"POT-Creation-Date"
-    potcrdtl = prim_branch_cat.header.get_field_value(potcrdtf)
-    for branch_id, branch_cat in branch_ids_cats:
-        potcrdt = branch_cat.header.get_field_value(potcrdtf)
-        if ASC.parse_datetime(potcrdtl) < ASC.parse_datetime(potcrdt):
-            potcrdtl = potcrdt
-    summit_cat.header.set_field(potcrdtf, potcrdtl)
+    # Update template creation date to latest from branch,
+    # if there were any changes to the catalog otherwise.
+    if summit_cat.modcount:
+        potcrdtf = u"POT-Creation-Date"
+        potcrdtl = prim_branch_cat.header.get_field_value(potcrdtf)
+        for branch_id, branch_cat in branch_ids_cats:
+            potcrdt = branch_cat.header.get_field_value(potcrdtf)
+            if ASC.parse_datetime(potcrdtl) < ASC.parse_datetime(potcrdt):
+                potcrdtl = potcrdt
+        summit_cat.header.set_field(potcrdtf, potcrdtl)
 
     # Copy over some fields unconditionally from the primary branch catalog.
     fname = u"Report-Msgid-Bugs-To"
