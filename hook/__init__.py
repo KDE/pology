@@ -143,8 +143,8 @@ L{misc.langdep.get_hook()}. In particular, Pology utilities allowing users to
 insert hooks into processing will expect hooks to be in these locations,
 such that L{misc.langdep.get_hook_lreq()} function can fetch the hook from
 a string specification.
-If a hook module implements a single hook, and the hook function is named
-C{process()}, users can select it by giving only the hook module name,
+If the hook module implements a single hook function named same as module,
+users can select it by giving only the hook module name,
 without the function name.
 
 Annotated parts for PO messages returned by hooks are a reduced version,

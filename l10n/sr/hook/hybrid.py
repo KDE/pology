@@ -43,5 +43,5 @@ def alts_to_lat (text):
     See L{alts_to_cyr()}.
     """
 
-    return resolve_alternatives_simple(text, 2, 2, outfilter=C2L.process)
+    return resolve_alternatives_simple(text, 2, 2, outfilter=C2L.cyr2lat)
 

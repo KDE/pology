@@ -54,27 +54,27 @@ _dict_c2a_englay.update({
     u'Љ':u'Q', u'Њ':u'W', u'Ж':u'Y', u'Џ':u'X',
 })
 
-def process (text):
+def cyr2lat (text):
     """
     Transliterate from Cyrillic to proper Latin [type F1A hook].
 
     @return: text
     """
 
-    return _process_w(text, _dict_c2l)
+    return _cyr2lat_w(text, _dict_c2l)
 
 
-def process_to_stripped (text):
+def cyr2lat_stripped (text):
     """
     Transliterate from Cyrillic or Latin to stripped ASCII [type F1A hook].
 
     @return: text
     """
 
-    return _process_w(text, _dict_cl2a_stripped)
+    return _cyr2lat_w(text, _dict_cl2a_stripped)
 
 
-def process_to_englay (text):
+def cyr2lat_englay (text):
     """
     Transliterate from English in Cyrillic by keyboard layout to proper English
     [type F1A hook].
@@ -82,10 +82,10 @@ def process_to_englay (text):
     @return: text
     """
 
-    return _process_w(text, _dict_c2a_englay)
+    return _cyr2lat_w(text, _dict_c2a_englay)
 
 
-def _process_w (text, trdict):
+def _cyr2lat_w (text, trdict):
 
     # NOTE: Converted directly from C++ code,
     # perhaps something more efficient is possible.

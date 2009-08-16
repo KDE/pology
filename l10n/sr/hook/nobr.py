@@ -15,7 +15,7 @@ with no-break characters, where such bad breaks can be expected.
 
 import re
 
-from pology.l10n.sr.hook.cyr2lat import process as sr_c2l
+from pology.l10n.sr.hook.cyr2lat import cyr2lat
 
 nobrhyp_char = u"\u2011"
 
@@ -56,7 +56,7 @@ def to_nobr_hyphens (wchars="", unsafe=False):
         def nobrhyp_repl (m):
             # Replace hyphen with no-break hyphen only if there is at least one
             # Cyrillic letter in the match, or one of extra characters.
-            if sr_c2l(m.group()) != m.group() or m.group(1) in wchars:
+            if cyr2lat(m.group()) != m.group() or m.group(1) in wchars:
                 return m.group(1) + nobrhyp_char + m.group(3)
             else:
                 return m.group()

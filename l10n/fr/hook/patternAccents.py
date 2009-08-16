@@ -23,7 +23,7 @@ accents[u"û"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
 accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
 
 
-def process(pattern):
+def patternAccents(pattern):
     """Replace every C{@x} in the pattern by the value C{accents["x"]}."""
 
     for accentMatch in accentPattern.finditer(pattern):

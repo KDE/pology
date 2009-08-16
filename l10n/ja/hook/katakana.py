@@ -8,7 +8,7 @@ Retain only Katakana words in the text, separated by spaces.
 """
 
 
-def process (text):
+def katakana (text):
     """
     Type F1A hook.
 

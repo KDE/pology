@@ -11,8 +11,7 @@ import os
 import re
 
 from pology.misc.macrodec import Declinator, Combinator, identify, xentitize
-from pology.l10n.sr.hook.cyr2lat import process as sr_c2l
-from pology.l10n.sr.hook.cyr2lat import process_to_stripped as sr_c2a
+from pology.l10n.sr.hook.cyr2lat import cyr2lat_stripped
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
 from pology.misc.resolve import first_to_upper
@@ -56,7 +55,7 @@ def build_declinator (mdfiles,
         should probably be given dummy additional pure-ASCII phrases.
 
       - All declination keys are transliterated into
-        L{stripped-ASCII<l10n.sr.hook.cyr2lat.process_to_stripped>} forms.
+        L{stripped-ASCII<l10n.sr.hook.cyr2lat.cyr2lat_stripped>} forms.
 
       - Conflict resolution is relaxed (see documentation on
         L{declinator construction<misc.macrodec.Declinator.__init__>}).
@@ -179,7 +178,7 @@ def build_declinator (mdfiles,
     pnodkeys = pnodkey and [pnodkey] or []
     mdecs = [Declinator(edsep="-",
                         ekeyitf=identify,
-                        dkeyitf=sr_c2a,
+                        dkeyitf=cyr2lat_stripped,
                         ekeytf=ekeytf,
                         dkeytf=(dkeytf, False, False, False, exdkeys),
                         dvaltf=(dvaltf, True, True, True, True, pnodkeys))

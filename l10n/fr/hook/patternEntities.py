@@ -22,7 +22,7 @@ entities["unbsp"]=u"\xa0"
 entities["nbsp"]=u" "
 
 
-def process(pattern):
+def patternEntities(pattern):
     """Convert entities in pattern."""
 
     return resolve_entities_simple(pattern, entities)
