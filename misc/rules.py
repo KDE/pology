@@ -410,7 +410,7 @@ C{addFilterHook}
     C{[lang:]hook-module[/hook-function]}; optional C{lang} is given when
     the hook is language specific, in one of the C{pology.l10n.<lang>.hook}
     modules, and C{hook-function} when the function name in the hook module
-    is not the default C{process()}.
+    is not equal to module name.
     For example, to remove accelerator markers from GUI POs, possibly
     based on what each PO itself states the marker character to be,
     the following hook filter can be used::

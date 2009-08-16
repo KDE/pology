@@ -88,8 +88,8 @@ The C{filter} option specifies pure text hooks to apply to
 msgstr before it is checked. The hooks are found in C{pology.hook}
 and C{pology.l10n.<lang>.hook} modules, and are specified
 as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific, and function
-when it is not the default C{process()} within the hook module.
+language is stated when a hook is language-specific,
+and function when its name is not same as hook module name.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

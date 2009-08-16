@@ -48,8 +48,8 @@ The C{filter} parameter specifies F1A or F3A/F3C filter hooks to apply to
 msgstr before it is checked. The hooks are found in C{pology.hook}
 and C{pology.l10n.<lang>.hook} modules, and are specified
 as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific, and function
-when it is not the default C{process()} within the hook module.
+language is stated when a hook is language-specific,
+and function when its name is not same as hook module name.
 
 Pology internally collects language-specific word lists as supplements
 to system spelling dictionaries, within C{l10n/<lang>/spell/} directory.

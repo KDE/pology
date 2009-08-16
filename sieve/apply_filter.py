@@ -15,9 +15,9 @@ Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
 Sieve parameters:
   - C{filter:<hookspec>}: hook specification
 
-For a module C{pology.hook.FOO} which defines the C{process()} hook function,
+For a module C{pology.hook.FOO} which defines the C{FOO()} hook function,
 the hook specification given by the C{filter} parameter is simply C{FOO}.
-If the hook function is named C{BAR()} instead of C{process()},
+If the hook function is named C{BAR()} instead of C{FOO()},
 the hook specification is given as C{FOO/BAR}.
 Language specific hooks (C{pology.l10n.LANG.hook.FOO}) are aditionally
 preceded by the language code with colon, as C{LANG:FOO} or C{LANG:FOO/BAR}.
@@ -57,9 +57,9 @@ def setup_sieve (p):
                 desc=
     "Specification of hook through which msgstr fields are to be filtered. "
     "\n\n"
-    "For a module pology.hook.FOO which defines process() function, "
+    "For a module pology.hook.FOO which defines FOO() function, "
     "the hook specification is simply FOO. "
-    "If the hook function is named BAR() instead of process(), then "
+    "If the hook function is named BAR() instead of FOO(), then "
     "the hook specification is FOO/BAR. "
     "Language specific hooks (pology.l10n.LANG.hook.FOO) are aditionally "
     "preceded by the language code with colon, as LANG:FOO or LANG:FOO/BAR. "
