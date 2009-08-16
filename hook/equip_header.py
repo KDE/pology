@@ -19,13 +19,13 @@ def equip_header_tp_kde (hdr, cat):
     Equip headers in catalogs within KDE Translation Project [type F4B hook].
 
     The following header fields are set:
-    - C{Language}: the language code of translation;
+      - C{Language}: the language code of translation;
             set only if the language can be determined
-    - C{X-Environment}: linguistic subset of the language of translation
+      - C{X-Environment}: linguistic subset of the language of translation
             (team choices on terminology, ortography...); set to C{kde}
-    - C{X-Accelerator-Marker}: accelerator marker character which may
+      - C{X-Accelerator-Marker}: accelerator marker character which may
             be encountered in text
-    - C{X-Text-Markup}: text markups (e.g. Qt rich text, Docbook...) which
+      - C{X-Text-Markup}: text markups (e.g. Qt rich text, Docbook...) which
             may be encountered in text, as keywords
 
     For the hook to function properly, the local checkout of language catalogs
