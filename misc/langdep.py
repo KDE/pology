@@ -138,7 +138,9 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
     Fetch a language-dependent hook function.
 
     Loads the hook function from C{pology.l10n.<lang>.hook.<hmod>} module.
-    If C{func} is C{None}, the function name defaults to module name.
+    If C{func} is C{None}, the function name defaults to module name;
+    if C{func} is not C{None}, but function of that name is not found,
+    then the function named C{<hmod>_<func>} is additionally tried.
     If C{args} is not C{None}, then the loaded function is considered
     a hook factory, and the hook is created by calling it with C{args} string
     as argument list (it should have no surrounding parenthesis).
@@ -161,7 +163,10 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
     lmod = get_module(lang, path, abort)
     if func is None:
         func = hmod
-    call = getattr(lmod, func, None)
+        func2 = "\0"
+    else:
+        func2 = "%s_%s" % (hmod, func)
+    call = getattr(lmod, func, None) or getattr(lmod, func2, None)
     if call is None:
         _raise_or_abort("hook module '%s:%s' does not define '%s' function"
                         % (lang, hmod, func), abort)
@@ -188,7 +193,9 @@ def get_hook_lreq (langreq, abort=False):
     For a module C{pology.hook.FOO} which defines the C{FOO()} hook function,
     the hook specification is simply C{FOO}.
     If the hook function is named C{BAR()} instead of C{FOO()},
-    the hook specification is given as C{FOO/BAR}.
+    the hook specification is given as C{FOO/BAR};
+    if the hook function is named C{FOO_BAR()}, i.e. the specification
+    would be C{FOO/FOO_BAR}, it can be folded to C{FOO/BAR}.
     Language-specific hooks (C{pology.l10n.LANG.hook.FOO}) are aditionally
     preceded by the language code with colon, as C{LANG:FOO} or C{LANG:FOO/BAR}.
 
