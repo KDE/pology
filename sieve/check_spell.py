@@ -438,7 +438,6 @@ class Sieve (object):
             dictFiles.update(self._get_word_list_files(lang, env))
         dictFiles=list(dictFiles)
         dictFiles.sort()
-        print "\n".join(dictFiles)
 
         if not dictFiles:
             return None
