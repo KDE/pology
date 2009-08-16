@@ -87,8 +87,11 @@
       regular expression
     </li>
     <li>
-      <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
-      prior to spell-checking
+      <code>filter:&lt;hookspec&gt;,...</code>: apply F1A or F3A/C hook 
+      prior to spell checking (see <a 
+      href="pology.misc.langdep-module.html#get_hook_lreq" 
+      class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
+      specification)
     </li>
     <li>
       <code>suponly</code>: do not use system dictionary, only internal 
@@ -123,13 +126,6 @@
   types, and <a href="pology.file.catalog.Catalog-class.html#markup" 
   class="link">file.catalog.Catalog.markup</a> for how they may be 
   specified in catalogs.</p>
-  <p>The <code>filter</code> parameter specifies F1A or F3A/F3C filter 
-  hooks to apply to msgstr before it is checked. The hooks are found in 
-  <code>pology.hook</code> and <code>pology.l10n.&lt;lang&gt;.hook</code> 
-  modules, and are specified as comma-separated list of 
-  <code>[&lt;lang&gt;:]&lt;name&gt;[/&lt;function&gt;]</code>; language is 
-  stated when a hook is language-specific, and function when it is not the 
-  default <code>process()</code> within the hook module.</p>
   <p>Pology internally collects language-specific word lists as supplements
   to system spelling dictionaries, within 
   <code>l10n/&lt;lang&gt;/spell/</code> directory. These contain either the

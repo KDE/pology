@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.l10n.sr.hook.cyr2lat</title>
+  <title>pology.sieve.apply_header_filter.Sieve</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,10 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
-        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
-        <a href="pology.l10n.sr.hook-module.html">Package&nbsp;hook</a> ::
-        Module&nbsp;cyr2lat
+        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
+        <a href="pology.sieve.apply_header_filter-module.html">Module&nbsp;apply_header_filter</a> ::
+        Class&nbsp;Sieve
       </span>
     </td>
     <td>
@@ -51,26 +50,22 @@
     </td>
   </tr>
 </table>
-<!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module cyr2lat</h1><p class="nomargin-top"></p>
-<p>Transliterate Cyrillic text into Latin.</p>
-  <p>Properly converts uppercase digraphs, e.g. &#1033;&#1091;&#1073;&#1113;&#1072;&#1085;&#1072;&#8594;Ljubljana, but 
-  &#1033;&#1059;&#1041;&#1033;&#1040;&#1053;&#1040;&#8594;LJUBLJANA.</p>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Sieve</h1><p class="nomargin-top"></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Sieve</strong>
+</pre>
 
 <hr />
-<div class="fields">      <p><strong>Author:</strong>
-        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
-      </p>
-      <p><strong>License:</strong>
-        GPLv3
-      </p>
-</div><!-- ==================== FUNCTIONS ==================== -->
-<a name="section-Functions"></a>
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Functions</span></td>
+    <span class="table-header">Instance Methods</span></td>
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
@@ -78,8 +73,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.cyr2lat-module.html#cyr2lat" class="summary-sig-name">cyr2lat</a>(<span class="summary-sig-arg">text</span>)</span><br />
-      Transliterate from Cyrillic to proper Latin [type F1A hook].</td>
+          <td><span class="summary-sig"><a href="pology.sieve.apply_header_filter.Sieve-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">params</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             
             
@@ -95,9 +91,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.cyr2lat-module.html#cyr2lat_stripped" class="summary-sig-name">cyr2lat_stripped</a>(<span class="summary-sig-arg">text</span>)</span><br />
-      Transliterate from Cyrillic or Latin to stripped ASCII [type F1A 
-      hook].</td>
+          <td><span class="summary-sig"><a name="process_header"></a><span class="summary-sig-name">process_header</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hdr</span>,
+        <span class="summary-sig-arg">cat</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -113,9 +109,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.cyr2lat-module.html#cyr2lat_englay" class="summary-sig-name">cyr2lat_englay</a>(<span class="summary-sig-arg">text</span>)</span><br />
-      Transliterate from English in Cyrillic by keyboard layout to proper 
-      English [type F1A hook].</td>
+          <td><span class="summary-sig"><a name="finalize"></a><span class="summary-sig-name">finalize</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -123,80 +117,72 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
     </td>
   </tr>
 </table>
-<!-- ==================== FUNCTION DETAILS ==================== -->
-<a name="section-FunctionDetails"></a>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Function Details</span></td>
+    <span class="table-header">Method Details</span></td>
 </tr>
 </table>
-<a name="cyr2lat"></a>
+<a name="__init__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">cyr2lat</span>(<span class="sig-arg">text</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">params</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Transliterate from Cyrillic to proper Latin [type F1A hook].</p>
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature</p>
   <dl class="fields">
-    <dt>Returns:</dt>
-        <dd>text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="cyr2lat_stripped"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">cyr2lat_stripped</span>(<span class="sig-arg">text</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Transliterate from Cyrillic or Latin to stripped ASCII [type F1A 
-  hook].</p>
-  <dl class="fields">
-    <dt>Returns:</dt>
-        <dd>text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="cyr2lat_englay"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">cyr2lat_englay</span>(<span class="sig-arg">text</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Transliterate from English in Cyrillic by keyboard layout to proper 
-  English [type F1A hook].</p>
-  <dl class="fields">
-    <dt>Returns:</dt>
-        <dd>text</dd>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
   </dl>
 </td></tr></table>
 </div>

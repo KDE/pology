@@ -517,10 +517,10 @@
       <code>lang</code> is given when the hook is language specific, in one
       of the <code>pology.l10n.&lt;lang&gt;.hook</code> modules, and 
       <code>hook-function</code> when the function name in the hook module 
-      is not the default <code>process()</code>. For example, to remove 
-      accelerator markers from GUI POs, possibly based on what each PO 
-      itself states the marker character to be, the following hook filter 
-      can be used:</p>
+      is not equal to module name. For example, to remove accelerator 
+      markers from GUI POs, possibly based on what each PO itself states 
+      the marker character to be, the following hook filter can be 
+      used:</p>
 <pre class="literalblock">
    addFilterHook name=&quot;remove-subs/remove-accel-msg&quot; on=&quot;msg&quot;
 </pre>

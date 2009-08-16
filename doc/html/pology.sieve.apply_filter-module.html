@@ -73,25 +73,12 @@
   <p>Sieve parameters:</p>
   <ul>
     <li>
-      <code>filter:&lt;hookspec&gt;</code>: hook specification
+      <code>filter:&lt;hookspec&gt;</code>: hook specification (see <a 
+      href="pology.misc.langdep-module.html#get_hook_lreq" 
+      class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
+      specifications)
     </li>
   </ul>
-  <p>For a module <code>pology.hook.FOO</code> which defines the 
-  <code>process()</code> hook function, the hook specification given by the
-  <code>filter</code> parameter is simply <code>FOO</code>. If the hook 
-  function is named <code>BAR()</code> instead of <code>process()</code>, 
-  the hook specification is given as <code>FOO/BAR</code>. Language 
-  specific hooks (<code>pology.l10n.LANG.hook.FOO</code>) are aditionally 
-  preceded by the language code with colon, as <code>LANG:FOO</code> or 
-  <code>LANG:FOO/BAR</code>.</p>
-  <p>If the hook is not a plain hook, but a <a 
-  href="pology.hook-module.html" class="link">hook factory</a> function, 
-  the factory arguments are supplied after the basic hook specification, 
-  separated by tilde: <code>LANG:FOO/BAR~ARGLIST</code> (with 
-  <code>LANG:</code> and <code>/BAR</code> possibly omitted, under the 
-  previous conditions). Argument list is formatted just like it would be 
-  passed in Python code to the factory function, omitting the surrounding 
-  parenthesis.</p>
   <p>Parameter <code>filter</code> can be repeated to chain several hooks, 
   which are then applied in the order of appearance in the command 
   line.</p>

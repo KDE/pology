@@ -53,30 +53,10 @@
 <h1 class="epydoc">Module equip_header_tp_kde</h1><p class="nomargin-top"></p>
 <p>Equip catalog headers within KDE Translation Project with extra 
   information.</p>
-  <p>The following header fields are set:</p>
-  <ul>
-    <li>
-      <code>Language</code>: the language code of translation; set only if 
-      the language can be determined
-    </li>
-    <li>
-      <code>X-Environment</code>: linguistic subset of the language of 
-      translation (team choices on terminology, ortography...); set to 
-      <code>kde</code>
-    </li>
-    <li>
-      <code>X-Accelerator-Marker</code>: accelerator marker character which
-      may be encountered in text
-    </li>
-    <li>
-      <code>X-Text-Markup</code>: text markups (e.g. Qt rich text, 
-      Docbook...) which may be encountered in text, as keywords
-    </li>
-  </ul>
-  <p>For the sieve to function properly, the local checkout of language 
-  catalogs must match the repository structure up to a certain level. See 
-  the documentation on <a href="pology.sieve.check_tp_kde-module.html" 
-  class="link">check-tp-kde</a> sieve for details.</p>
+  <p>This sieve applies <a 
+  href="pology.hook.equip_header-module.html#equip_header_tp_kde" 
+  class="link">hook.equip_header.equip_header_tp_kde</a> to catalog 
+  headers.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

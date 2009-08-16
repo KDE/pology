@@ -252,10 +252,9 @@
     hooks to be in these locations, such that <a 
     href="pology.misc.langdep-module.html#get_hook_lreq" 
     class="link">misc.langdep.get_hook_lreq()</a> function can fetch the 
-    hook from a string specification. If a hook module implements a single 
-    hook, and the hook function is named <code>process()</code>, users can 
-    select it by giving only the hook module name, without the function 
-    name.</p>
+    hook from a string specification. If the hook module implements a 
+    single hook function named same as module, users can select it by 
+    giving only the hook module name, without the function name.</p>
     <p>Annotated parts for PO messages returned by hooks are a reduced 
     version, but a valid instance of highlight specifications used by 
     reporting functions, e.g. <a 
@@ -302,7 +301,9 @@
     <li> <strong class="uidlink"><a href="pology.hook.bad_patterns-module.html">pology.hook.bad_patterns</a></strong>: <em class="summary">Detect unwanted patterns in translation.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.check_lingo-module.html">pology.hook.check_lingo</a></strong>: <em class="summary">Check linguistic, language-dependent correctness of text.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.check_markup-module.html">pology.hook.check_markup</a></strong>: <em class="summary">Check validity of text markup.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.hook.equip_header-module.html">pology.hook.equip_header</a></strong>: <em class="summary">Equip catalog headers with extra information.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.gettext_tools-module.html">pology.hook.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.hook.normalize_header-module.html">pology.hook.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.remove_subs-module.html">pology.hook.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.ui_references-module.html">pology.hook.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
         texts.</em>    </li>

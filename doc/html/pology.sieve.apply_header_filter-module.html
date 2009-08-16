@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.normalize_header</title>
+  <title>pology.sieve.apply_header_filter</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        Module&nbsp;normalize_header
+        Module&nbsp;apply_header_filter
       </span>
     </td>
     <td>
@@ -50,11 +50,34 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module normalize_header</h1><p class="nomargin-top"></p>
-<p>Check and rearrange content of PO header into canonical form.</p>
-  <p>This sieve applies the <a 
-  href="pology.hook.normalize_header-module.html" 
-  class="link">normalize_header</a> hook to catalog headers.</p>
+<h1 class="epydoc">Module apply_header_filter</h1><p class="nomargin-top"></p>
+<p>Apply filters to headers.</p>
+  <p>Pass catalog headers through a combination of <a 
+  href="pology.hook-module.html" class="link">hooks</a>, of types:</p>
+  <ul>
+    <li>
+      F4B (<code>(hdr, cat)-&gt;numerr</code>) to modify the header
+    </li>
+    <li>
+      V4B (<code>(hdr, cat)-&gt;spans</code>) to validate the header
+    </li>
+    <li>
+      S4B (<code>(hdr, cat)-&gt;numerr</code>) for side-effects on the 
+      header
+    </li>
+  </ul>
+  <p>Sieve parameters:</p>
+  <ul>
+    <li>
+      <code>filter:&lt;hookspec&gt;</code>: hook specification (see <a 
+      href="pology.misc.langdep-module.html#get_hook_lreq" 
+      class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
+      specifications)
+    </li>
+  </ul>
+  <p>Parameter <code>filter</code> can be repeated to chain several hooks, 
+  which are then applied in the order of appearance in the command 
+  line.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -75,7 +98,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.sieve.normalize_header.Sieve-class.html" class="summary-name">Sieve</a>
+        <a href="pology.sieve.apply_header_filter.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
 </table>

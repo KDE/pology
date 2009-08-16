@@ -82,8 +82,11 @@
       regular expression
     </li>
     <li>
-      <code>filter:[&lt;lang&gt;:]&lt;name&gt;,...</code>: apply filters 
-      prior to spell checking
+      <code>filter:&lt;hookspec&gt;,...</code>: apply F1A or F3A/C hook 
+      prior to spell checking (see <a 
+      href="pology.misc.langdep-module.html#get_hook_lreq" 
+      class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
+      specification)
     </li>
     <li>
       <code>env:&lt;environment&gt;</code>: comma-separated list of 
@@ -106,13 +109,6 @@
   decide that there are no accelerators. E.g. an 
   <code>X-Accelerator-Marker</code> header field is checked for the 
   accelerator character.</p>
-  <p>The <code>filter</code> parameter specifies filter hooks (F1A, F3C) to
-  apply to msgstr before it is checked. The hooks are found in 
-  <code>pology.hook</code> and <code>pology.l10n.&lt;lang&gt;.hook</code> 
-  modules, and are specified as comma-separated list of 
-  <code>[&lt;lang&gt;:]&lt;name&gt;[/&lt;function&gt;]</code>; language is 
-  stated when a hook is language-specific, and function when it is not the 
-  default <code>process()</code> within the hook module.</p>
   <p>Pology internally collects language-specific supplementary word lists 
   to default Aspell dictionaries, under 
   <code>l10n/&lt;lang&gt;/spell/</code> directory. These contain either the

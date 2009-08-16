@@ -97,7 +97,7 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#report" class="summary-sig-name">report</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>,
         <span class="summary-sig-arg">newline</span>=<span class="summary-sig-default">True</span>)</span><br />
       Generic report.</td>
           <td align="right" valign="top">
@@ -118,7 +118,7 @@
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#warning" class="summary-sig-name">warning</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Generic warning.</td>
           <td align="right" valign="top">
             
@@ -139,8 +139,28 @@
         <span class="summary-sig-arg">code</span>=<span class="summary-sig-default">1</span>,
         <span class="summary-sig-arg">showcmd</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">subsrc</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
       Generic error (aborts the execution).</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(file_path, last_time, time_interval) -&gt; new_last_time</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.report-module.html#init_file_progress" class="summary-sig-name">init_file_progress</a>(<span class="summary-sig-arg">fpaths</span>,
+        <span class="summary-sig-arg">timeint</span>=<span class="summary-sig-default">0.5</span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stderr</span>,
+        <span class="summary-sig-arg">addfmt</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Create a function to output progress bar while processing files.</td>
           <td align="right" valign="top">
             
             
@@ -197,7 +217,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">report</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>,
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>,
         <span class="sig-arg">newline</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -230,7 +250,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">warning</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -260,7 +280,7 @@
         <span class="sig-arg">code</span>=<span class="sig-default">1</span>,
         <span class="sig-arg">showcmd</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">subsrc</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">file</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">file</span>=<span class="sig-default">sys.stderr</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -277,6 +297,62 @@
         <li><strong class="pname"><code>showcmd</code></strong> (bool) - whether to show the command name</li>
         <li><strong class="pname"><code>file</code></strong> (<code>file</code>) - send output to this file descriptor</li>
     </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="init_file_progress"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">init_file_progress</span>(<span class="sig-arg">fpaths</span>,
+        <span class="sig-arg">timeint</span>=<span class="sig-default">0.5</span>,
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stderr</span>,
+        <span class="sig-arg">addfmt</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create a function to output progress bar while processing files.</p>
+  <p>When a collection of files is about to be processed, this function can
+  be used to construct a progress update function, which shows and updates 
+  the progress bar in the terminal. The progress update function can be 
+  called as frequently as desired during processing of a particular file, 
+  with file path as argument. For example:</p>
+<pre class="literalblock">
+   update_progress == init_file_progress(file_paths)
+   for file_path in file_paths:
+       for line in open(file_path).readlines():
+           update_progress(file_path)
+           # ...
+           # Processing.
+           # ...
+   update_progress() # clears last progress line
+</pre>
+  <p>Parameter <code>timeint</code> determines the frequency of update, in 
+  seconds. It should be chosen such that the progress updates themselves 
+  (formatting, writing out to shell) are only a small fraction of total 
+  processing time.</p>
+  <p>The output stream for the progress bar can be specified by the 
+  <code>stream</code> parameter.</p>
+  <p>Additional formatting for the progress bar may be supplied by the 
+  <code>addfmt</code> parameter. It can be either a function taking one 
+  string parameter (the basic progress bar) and returning a string, or a 
+  string with single <code>%s</code> formatting directive.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>fpaths</code></strong> (list of strings) - collection of file paths</li>
+        <li><strong class="pname"><code>timeint</code></strong> (float) - update interval in seconds</li>
+        <li><strong class="pname"><code>stream</code></strong> (file) - the stream to output progress to</li>
+        <li><strong class="pname"><code>addfmt</code></strong> ((text) -&gt; text or string) - additional format for the progress line</li>
+    </ul></dd>
+    <dt>Returns: (file_path, last_time, time_interval) -&gt; new_last_time</dt>
+        <dd>progress updating function</dd>
   </dl>
 </td></tr></table>
 </div>
