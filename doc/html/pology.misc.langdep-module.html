@@ -308,10 +308,13 @@
   <p>Loads the hook function from 
   <code>pology.l10n.&lt;lang&gt;.hook.&lt;hmod&gt;</code> module. If 
   <code>func</code> is <code>None</code>, the function name defaults to 
-  module name. If <code>args</code> is not <code>None</code>, then the 
-  loaded function is considered a hook factory, and the hook is created by 
-  calling it with <code>args</code> string as argument list (it should have
-  no surrounding parenthesis).</p>
+  module name; if <code>func</code> is not <code>None</code>, but function 
+  of that name is not found, then the function named 
+  <code>&lt;hmod&gt;_&lt;func&gt;</code> is additionally tried. If 
+  <code>args</code> is not <code>None</code>, then the loaded function is 
+  considered a hook factory, and the hook is created by calling it with 
+  <code>args</code> string as argument list (it should have no surrounding 
+  parenthesis).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -349,10 +352,12 @@
   <code>FOO()</code> hook function, the hook specification is simply 
   <code>FOO</code>. If the hook function is named <code>BAR()</code> 
   instead of <code>FOO()</code>, the hook specification is given as 
-  <code>FOO/BAR</code>. Language-specific hooks 
-  (<code>pology.l10n.LANG.hook.FOO</code>) are aditionally preceded by the 
-  language code with colon, as <code>LANG:FOO</code> or 
-  <code>LANG:FOO/BAR</code>.</p>
+  <code>FOO/BAR</code>; if the hook function is named 
+  <code>FOO_BAR()</code>, i.e. the specification would be 
+  <code>FOO/FOO_BAR</code>, it can be folded to <code>FOO/BAR</code>. 
+  Language-specific hooks (<code>pology.l10n.LANG.hook.FOO</code>) are 
+  aditionally preceded by the language code with colon, as 
+  <code>LANG:FOO</code> or <code>LANG:FOO/BAR</code>.</p>
   <p>If the hook is not a plain hook, but a <a 
   href="pology.hook-module.html" class="link">hook factory</a> function, 
   the factory arguments are supplied after the basic hook specification, 
