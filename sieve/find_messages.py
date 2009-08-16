@@ -66,7 +66,9 @@ Other sieve parameters:
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with a flag
-  - C{filter:[<lang>:]<name>,...}: apply filters to msgstr prior to matching
+  - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
+        to matching (see L{misc.langdep.get_hook_lreq} for the format
+        of hook specifications)
   - C{nowrap}: do not wrap long messages when writing them to output
   - C{lokalize}: open catalogs at matched messages in Lokalize
 
@@ -83,13 +85,6 @@ performed in order to modify something in matched messages, but doing so
 automatically using C{replace} option is not possible or safe enough.
 Option C{-m} of C{posieve.py} is useful here to send the names of
 modified POs to a separate file.
-
-The C{filter} option specifies pure text hooks to apply to
-msgstr before it is checked. The hooks are found in C{pology.hook}
-and C{pology.l10n.<lang>.hook} modules, and are specified
-as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific,
-and function when its name is not same as hook module name.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -277,13 +272,12 @@ def setup_sieve (p):
     "Add '%(flag)s' flag to each matched message."
     % dict(flag=_flag_mark)
     )
-    p.add_param("filter", unicode, multival=True, seplist=True,
-                metavar="HOOKSPEC,...",
+    p.add_param("filter", unicode, multival=True,
+                metavar="HOOKSPEC",
                 desc=
     "F1A hook specification, to filter the msgstr fields through "
     "before matching them. "
-    "Several hooks can be specified either as a comma-separated list, "
-    "or by repeating the parameter."
+    "Several hooks can be specified either by repeating the parameter."
     )
     p.add_param("replace", unicode,
                 metavar="REPLSTR",

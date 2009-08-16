@@ -13,21 +13,8 @@ Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
     to standard output, rather than reporting erroneous spans as V* hooks)
 
 Sieve parameters:
-  - C{filter:<hookspec>}: hook specification
-
-For a module C{pology.hook.FOO} which defines the C{FOO()} hook function,
-the hook specification given by the C{filter} parameter is simply C{FOO}.
-If the hook function is named C{BAR()} instead of C{FOO()},
-the hook specification is given as C{FOO/BAR}.
-Language specific hooks (C{pology.l10n.LANG.hook.FOO}) are aditionally
-preceded by the language code with colon, as C{LANG:FOO} or C{LANG:FOO/BAR}.
-
-If the hook is not a plain hook, but a L{hook factory<hook>} function,
-the factory arguments are supplied after the basic hook specification,
-separated by tilde: C{LANG:FOO/BAR~ARGLIST}
-(with C{LANG:} and C{/BAR} possibly omitted, under the previous conditions).
-Argument list is formatted just like it would be passed in Python code
-to the factory function, omitting the surrounding parenthesis.
+  - C{filter:<hookspec>}: hook specification (see L{misc.langdep.get_hook_lreq}
+        for the format of hook specifications)
 
 Parameter C{filter} can be repeated to chain several hooks,
 which are then applied in the order of appearance in the command line.
@@ -40,6 +27,7 @@ from pology.sieve import SieveError
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.report import report, warning, error
 from pology.misc.msgreport import report_msg_content
+from pology.misc.stdsvpar import add_param_filter
 
 
 def setup_sieve (p):
@@ -52,26 +40,8 @@ def setup_sieve (p):
     "See documentation on pology.hook for details about hooks."
     )
 
-    p.add_param("filter", unicode, multival=True,
-                metavar="HOOKSPEC",
-                desc=
-    "Specification of hook through which msgstr fields are to be filtered. "
-    "\n\n"
-    "For a module pology.hook.FOO which defines FOO() function, "
-    "the hook specification is simply FOO. "
-    "If the hook function is named BAR() instead of FOO(), then "
-    "the hook specification is FOO/BAR. "
-    "Language specific hooks (pology.l10n.LANG.hook.FOO) are aditionally "
-    "preceded by the language code with colon, as LANG:FOO or LANG:FOO/BAR. "
-    "\n\n"
-    "If the function is actually a hook factory, the arguments for "
-    "the factory are passed separated by tilde: LANG:FOO/BAR~ARGS "
-    "(where LANG: and /BAR may be omitted under previous conditions). "
-    "The ARGS string is a list of arguments as it would appear "
-    "in the function call in Python code, omitting parenthesis. "
-    "\n\n"
-    "Several filters can be given by repeating the parameter, "
-    "when they are applied in the given order."
+    add_param_filter(p,
+    "Specification of hook through which msgstr fields are to be filtered."
     )
 
 

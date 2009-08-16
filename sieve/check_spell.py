@@ -16,7 +16,8 @@ Sieve parameters:
   - C{xml:<filename>}: build XML report file
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{skip:<regex>}: do not check words which match given regular expression
-  - C{filter:[<lang>:]<name>,...}: apply filters prior to spell checking
+  - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
+        (see L{misc.langdep.get_hook_lreq} for the format of hook specification)
   - C{env:<environment>}: comma-separated list of environments of
         internal dictionary supplements
   - C{suponly}: do not use default dictionary, only internal supplements
@@ -31,13 +32,6 @@ If accelerator character is not given by C{accel} parameter, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
-
-The C{filter} parameter specifies filter hooks (F1A, F3C) to apply to
-msgstr before it is checked. The hooks are found in C{pology.hook}
-and C{pology.l10n.<lang>.hook} modules, and are specified
-as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific,
-and function when its name is not same as hook module name.
 
 Pology internally collects language-specific supplementary word lists
 to default Aspell dictionaries, under C{l10n/<lang>/spell/} directory.
@@ -186,7 +180,9 @@ class Sieve (object):
         self.pfilters = []
         if "filter" in options:
             options.accept("filter")
-            freqs = options["filter"].split(",")
+            # FIXME: When sieve gets updated to new style,
+            # really use several hooks if given.
+            freqs = [options["filter"]]
             filters = [get_hook_lreq(x, abort=True) for x in freqs]
             self.pfilters = zip(freqs, filters)
 

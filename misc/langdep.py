@@ -184,6 +184,20 @@ def get_hook_lreq (langreq, abort=False):
     """
     Like L{get_hook}, but the hook is specified as
     L{language request<split_req>}.
+
+    For a module C{pology.hook.FOO} which defines the C{FOO()} hook function,
+    the hook specification is simply C{FOO}.
+    If the hook function is named C{BAR()} instead of C{FOO()},
+    the hook specification is given as C{FOO/BAR}.
+    Language-specific hooks (C{pology.l10n.LANG.hook.FOO}) are aditionally
+    preceded by the language code with colon, as C{LANG:FOO} or C{LANG:FOO/BAR}.
+
+    If the hook is not a plain hook, but a L{hook factory<hook>} function,
+    the factory arguments are supplied after the basic hook specification,
+    separated by tilde: C{LANG:FOO/BAR~ARGLIST}
+    (where LANG: and /BAR may be omitted under previous conditions).
+    Argument list is formatted just like it would be passed in Python code
+    to the factory function, omitting the surrounding parenthesis.
     """
 
     return _by_lreq(langreq, get_hook, abort=abort)

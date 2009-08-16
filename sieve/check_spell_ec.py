@@ -18,7 +18,8 @@ Sieve parameters:
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{markup:<mkeywords>}: markup types by keywords (comma-separated)
   - C{skip:<regex>}: do not check words which match given regular expression
-  - C{filter:[<lang>:]<name>,...}: apply filters prior to spell-checking
+  - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
+        (see L{misc.langdep.get_hook_lreq} for the format of hook specification)
   - C{suponly}: do not use system dictionary, only internal supplements
   - C{lokalize}: open catalogs at failed messages in Lokalize
 
@@ -43,13 +44,6 @@ If markup types are not given by C{markup} parameter, the sieve will try
 to guess them; it may choose wrongly or decide that there is no markup.
 See L{file.catalog.Catalog.set_markup} method for known markup types,
 and L{file.catalog.Catalog.markup} for how they may be specified in catalogs.
-
-The C{filter} parameter specifies F1A or F3A/F3C filter hooks to apply to
-msgstr before it is checked. The hooks are found in C{pology.hook}
-and C{pology.l10n.<lang>.hook} modules, and are specified
-as comma-separated list of C{[<lang>:]<name>[/<function>]};
-language is stated when a hook is language-specific,
-and function when its name is not same as hook module name.
 
 Pology internally collects language-specific word lists as supplements
 to system spelling dictionaries, within C{l10n/<lang>/spell/} directory.
@@ -178,13 +172,12 @@ def setup_sieve (p):
                 desc=
     "Regular expression to eliminate from spell-checking words that match it."
     )
-    p.add_param("filter", unicode, multival=True, seplist=True,
+    p.add_param("filter", unicode, multival=True,
                 metavar="HOOKSPEC",
                 desc=
     "F1A or F3A/C hook specification, to filter the translation through "
     "before spell-checking it. "
-    "Several hooks can be specified either as a comma-separated list, "
-    "or by repeating the parameter."
+    "Several hooks can be specified by repeating the parameter."
     )
     p.add_param("suponly", bool, defval=False,
                 desc=
