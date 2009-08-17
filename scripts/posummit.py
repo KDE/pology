@@ -2021,6 +2021,10 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
             for tfield in tfields:
                 cat.header.field.append(tfield)
 
+    # Set original instead of temporary file path -- hooks may expect it.
+    if do_open:
+        cat.filename = catalog_path
+
     # Execute header hooks.
     if project.hook_on_merge_head:
         exec_hook_head(branch_id, catalog_name, catalog_subdir,
@@ -2033,6 +2037,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
 
     # Synchronize merged catalog if it has been opened.
     if do_open:
+        cat.filename = tmp_path # not to overwrite original file
         cat.sync(force=fine_wrap)
 
     # Execute file hooks.
