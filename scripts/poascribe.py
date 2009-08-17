@@ -2140,7 +2140,7 @@ def selector_modam (muser_spec=None, mmuser_spec=None):
     cid = "selector:modam"
 
     return w_selector_modax(cid, True, False,
-                            muser_spec, mmuser_spec, atag_req)
+                            muser_spec, mmuser_spec, None)
 
 
 # Select first modification (any or by m-users, and not by rm-users)
