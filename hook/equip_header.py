@@ -10,6 +10,8 @@ Equip catalog headers with extra information.
 import os
 import re
 
+from pology.misc.report import warning
+
 
 from pology.sieve.check_tp_kde import is_qt_cat, is_txt_cat, is_docbook_cat
 from pology.sieve.check_tp_kde import _get_catalog_project_subdir
@@ -36,6 +38,10 @@ def equip_header_tp_kde (hdr, cat):
 
     cname = cat.name
     csubdir = _get_catalog_project_subdir(cat.filename)
+    if not csubdir:
+        warning("%s: cannot determine KDE TP subdirectory "
+                "of the catalog, skipping header updates" % cat.filename)
+        return 1
 
     pathels = os.path.abspath(cat.filename).split(os.path.sep)
     lang_rx = re.compile(r"^[a-z]{2}(_[A-Z]{2}|@[a-z]+)?$")
