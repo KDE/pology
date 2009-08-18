@@ -768,6 +768,10 @@ def summit_merge (project, options):
 
         # Collect data for branch catalogs to merge.
         for name, branch_path, branch_subdir in branch_catalogs:
+            if not os.path.isfile(branch_path):
+                # Catalog has been selected due to another operation mode,
+                # which can create catalogs from scratch.
+                continue
             if not name in template_catalogs:
                 warning("no template for branch catalog '%s'" % name)
                 continue
