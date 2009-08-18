@@ -230,7 +230,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_false", dest="do_skip", default=def_do_skip,
         help="do not try to skip catalogs which signal errors")
     opars.add_option(
-        "--skip-obsolete",
+        "-b", "--skip-obsolete",
         action="store_true", dest="skip_obsolete", default=def_skip_obsolete,
         help="do not sieve obsolete messages")
     opars.add_option(
