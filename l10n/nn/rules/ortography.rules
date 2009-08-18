@@ -13,6 +13,9 @@ hint="applikasjon → program [unntak: XML-applikasjon o.l.]"
 [nad(ar|ane)\b]
 hint="-nadar/-nadane → -nader/-ene"
 
+[dataane]i
+hint="dataane → dataa"
+
 # Endinga -elig til -eleg. (Men kan ikkje ha
 # den generelle regelen -lig → -leg, då for
 # eksempel «forskjellig» er unntak.)
