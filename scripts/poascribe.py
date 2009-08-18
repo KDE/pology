@@ -52,6 +52,7 @@ def main ():
         u"<caslav.ilic@gmx.net>\n")
 
     cfgsec = pology_config.section("poascribe")
+    def_commit = cfgsec.boolean("commit", False)
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
@@ -97,7 +98,7 @@ def main ():
              "(selectors, etc.)")
     opars.add_option(
         "-c", "--commit",
-        action="store_true", dest="commit", default=False,
+        action="store_true", dest="commit", default=def_commit,
         help="automatically commit original and ascription catalogs, "
              "in proper order (relevant in some modes)")
     opars.add_option(
