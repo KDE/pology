@@ -100,6 +100,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="when two directories are diffed, ignore catalogs which "
              "are not present in both directories")
     opars.add_option(
+        "-b", "--skip-obsolete",
+        action="store_true", dest="skip_obsolete", default=False,
+        help="do not diff obsolete messages")
+    opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
         help="no basic wrapping (on column)")
@@ -191,7 +195,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     hlto = not op.output and sys.stdout or None
     ecat, ndiffed = diff_pairs(pspecs, op.do_merge, wrapf,
-                               hlto=hlto, shdr=op.strip_headers)
+                               hlto=hlto, shdr=op.strip_headers,
+                               noobs=op.skip_obsolete)
 
     # Write out the diff, if any messages diffed.
     if ndiffed > 0:
@@ -222,7 +227,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
 
 def diff_pairs (pspecs, merge, wrapf,
-                hlto=False, wrem=True, wadd=True, shdr=False):
+                hlto=False, wrem=True, wadd=True, shdr=False, noobs=False):
 
     # Create diffs of messages.
     # Note: Headers will be collected and diffed after all messages,
@@ -241,7 +246,8 @@ def diff_pairs (pspecs, merge, wrapf,
             except:
                 error_wcl("cannot parse catalog: %s" % fpath, norem=[fpath])
         tpos = len(ecat)
-        cndiffed = diff_cats(cats[0], cats[1], ecat, merge, hlto, wrem, wadd)
+        cndiffed = diff_cats(cats[0], cats[1], ecat,
+                             merge, hlto, wrem, wadd, noobs)
         hspecs.append(([not x.created() and x.header or None
                         for x in cats], vpaths, tpos, cndiffed))
         ndiffed += cndiffed
@@ -338,7 +344,13 @@ _msg_currprev_fields = zip(_msg_curr_fields, _msg_prev_fields)
 _msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
 
 
-def diff_cats (cat1, cat2, ecat, merge, hlto=False, wrem=True, wadd=True):
+def diff_cats (cat1, cat2, ecat,
+               merge=True, hlto=False, wrem=True, wadd=True, noobs=False):
+
+    # Remove obsolete messages if they are not to be diffed.
+    if noobs:
+        for cat in (cat1, cat2):
+            rmobs_no_sync(cat)
 
     # Clean up inconsistencies in messages.
     for cat in (cat1, cat2):
@@ -370,6 +382,8 @@ def diff_cats (cat1, cat2, ecat, merge, hlto=False, wrem=True, wadd=True):
             # Merge is done if requested and both catalogs exist.
             if merge and not cat1.created() and not cat2.created():
                 mcat_pack[0] = merge_cat(cat1, cat2)
+                if noobs:
+                    rmobs_no_sync(mcat_pack[0])
             else:
                 mcat_pack[0] = {} # only tested for membership
         return mcat_pack[0]
@@ -754,6 +768,14 @@ def error_wcl (msg, norem=set()):
         norem = set(norem)
     cleanup_tmppaths(norem)
     error(msg)
+
+
+def rmobs_no_sync (cat):
+
+    for msg in cat:
+        if msg.obsolete:
+            cat.remove_on_sync(msg)
+    cat.sync_map()
 
 
 if __name__ == '__main__':
