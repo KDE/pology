@@ -711,7 +711,7 @@ class Sieve (object):
             counts.append((None, count_overall))
 
         # See if the output will admit color sequences.
-        can_color = sys.stdout.isatty()
+        can_color = sys.stdout.isatty() or self.p.raw_colors
 
         # Indicate conspicuously up front restrictions to counted messages.
         if self.p.branch:

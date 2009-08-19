@@ -418,11 +418,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     elif not file_or_dir_paths:
         file_or_dir_paths = ["."]
 
-    # Add paths from which the catalogs are collected
-    # as special parameter to each sieve.
+    # Add as special parameter to each sieve:
+    # - paths from which the catalogs are collected
+    # - whether destination independent coloring is in effect
     # FIXME: Think of something less ugly.
     for p in sparams.values():
         p.root_paths = file_or_dir_paths[:]
+        p.raw_colors = op.raw_colors
 
     # Create sieves.
     sieves = []
