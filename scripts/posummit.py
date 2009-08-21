@@ -147,8 +147,10 @@ class Project (object):
 
             "summit_unwrap" : True,
             "summit_fine_wrap" : True,
+            "summit_fuzzy_merging" : True,
             "branches_unwrap" : False,
             "branches_fine_wrap" : True,
+            "branches_fuzzy_merging" : True,
 
             "version_control" : "",
 
@@ -746,7 +748,8 @@ def summit_merge (project, options):
             merge_specs.append((SUMMIT_ID, name, summit_subdir,
                                 summit_path, template_path,
                                 project.summit_unwrap,
-                                project.summit_fine_wrap))
+                                project.summit_fine_wrap,
+                                project.summit_fuzzy_merging))
 
     # Merge selected branches.
     n_selected_by_summit_subdir = {}
@@ -786,7 +789,8 @@ def summit_merge (project, options):
             merge_specs.append((branch_id, name, branch_subdir,
                                 branch_path, template_path,
                                 project.branches_unwrap,
-                                project.branches_fine_wrap))
+                                project.branches_fine_wrap,
+                                project.branches_fuzzy_merging))
 
     # Setup progress indicator.
     upprog = lambda x: x
@@ -1891,7 +1895,7 @@ def split_summit_comments (msg):
 
 def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                          catalog_path, template_path,
-                         unwrap, fine_wrap,
+                         unwrap, fine_wrap, fuzzy_merging,
                          project, options, update_progress):
 
     update_progress()
@@ -1913,7 +1917,9 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
 
     if do_msgmerge:
         # Call msgmerge to create the temporary merged catalog.
+
         use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
+
         catalog_path_mod = catalog_path
         if vivified:
             if use_compendium:
@@ -1921,15 +1927,24 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
             else:
                 catalog_path_mod = tmp_path
                 shutil.copyfile(template_path, tmp_path)
-        cmdline = ("msgmerge --quiet --previous %s %s -o %s "
-                   % (catalog_path_mod, template_path, tmp_path))
+
+        opts = ["--quiet"]
+        if fuzzy_merging:
+            opts.append("--previous")
+        else:
+            opts.append("--no-fuzzy-matching")
         if unwrap:
-            cmdline += "--no-wrap "
+            opts.append("--no-wrap")
         if use_compendium:
             if not os.path.isfile(project.compendium_on_merge):
                 error("compendium not found at expected path '%s'"
                       % project.compendium_on_merge)
-            cmdline += "--compendium %s " % project.compendium_on_merge
+            opts.append("--compendium %s" % project.compendium_on_merge)
+
+        fmtopts = " ".join(opts)
+        print fmtopts
+        cmdline = ("msgmerge %s %s %s -o %s "
+                   % (fmtopts, catalog_path_mod, template_path, tmp_path))
         assert_system(cmdline)
 
         # If the catalog had only header and no messages,
