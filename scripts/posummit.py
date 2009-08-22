@@ -1942,7 +1942,6 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
             opts.append("--compendium %s" % project.compendium_on_merge)
 
         fmtopts = " ".join(opts)
-        print fmtopts
         cmdline = ("msgmerge %s %s %s -o %s "
                    % (fmtopts, catalog_path_mod, template_path, tmp_path))
         assert_system(cmdline)
