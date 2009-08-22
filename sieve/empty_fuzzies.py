@@ -35,7 +35,7 @@ class Sieve (object):
         if msg.fuzzy:
             if not msg.obsolete:
                 msg.unfuzzy()
-                msg.msgstr[:] = []
+                msg.msgstr[:] = [u""] * len(msg.msgstr)
                 if self.rmcomments:
                     msg.manual_comment[:] = []
                 self.nemptied += 1
