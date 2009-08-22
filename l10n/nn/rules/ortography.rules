@@ -116,7 +116,7 @@ valid span="Pasi" before="Lalinaho"
 valid span="Sitter" after="Harald "
 valid span="Saudi" before="-Arabia"
 valid span="pH-verdi"
-valid span="^[Kk]rets(en|ar|ane)?$"
+valid span="\b[Kk]rets(en|ar|ane)?\b"
 
 
 # End of rules
