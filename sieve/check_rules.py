@@ -367,7 +367,7 @@ class Sieve (object):
                 continue
             if spans:
                 self.nmatch+=1
-                failedRules.append(rule)
+                failedRules.append((rule, spans))
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
                     # as it considers matching to always be on msgstr
@@ -387,8 +387,10 @@ class Sieve (object):
 
         if failedRules and self.lokalize:
             repls = ["Failed rules:"]
-            for rule in failedRules:
+            for rule, hl in failedRules:
                 repls.append("rule %s ==> %s" % (rule.displayName, rule.hint))
+                for part, item, spans, fval in hl:
+                    repls.extend([u"↳ %s" % x[2] for x in spans if len(x) > 2])
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
 
 
