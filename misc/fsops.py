@@ -259,7 +259,7 @@ def assert_system (cmdline, echo=False, wdir=None):
             error("non-zero exit from:\n%s" % cmdline)
 
 
-def collect_system (cmdline, echo=False, wdir=None, env=None):
+def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     """
     Execute command line and collect stdout, stderr, and return code.
 
@@ -273,6 +273,8 @@ def collect_system (cmdline, echo=False, wdir=None, env=None):
     @type wdir: path
     @param env: environment for the execution (variable name-value pairs)
     @type env: {string: string}
+    @param instr: string to pass to the command stdin
+    @type instr: string
 
     @returns: tuple of stdout, stderr, and exit code
     @rtype: (string, string, int)
@@ -283,8 +285,12 @@ def collect_system (cmdline, echo=False, wdir=None, env=None):
     if wdir is not None:
         cwd = os.getcwd()
         os.chdir(wdir)
+    stdin = instr is not None and subprocess.PIPE or None
     p = subprocess.Popen(unicode_to_str(cmdline), shell=True, env=env,
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         stdin=stdin)
+    if instr is not None:
+        p.stdin.write(instr.encode(locale.getpreferredencoding()))
     strout, strerr = map(str_to_unicode, p.communicate())
     ret = p.returncode
     if wdir is not None:
