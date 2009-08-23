@@ -29,6 +29,29 @@ particular needs, by their collection of features and levels of complexity.
 
 I{"Pology -- the study of POs."}
 
+Requirements
+============
+
+Minimum Python version is 2.5.
+
+Required external Python modules:
+  - none
+
+Required general software:
+  - Gettext, minimum version 0.17.
+
+Optional external Python packages:
+  - C{python-dbus}: communication with various external applications,
+        e.g. U{Lokalize<http://userbase.kde.org/Lokalize>} CAT tool.
+  - C{python-enchant}: frontend to various spell-checkers,
+        used by most of Pology's spell checking functionality
+
+Optional general software:
+  - LanguageTool (U{http://www.languagetool.org/}): open source language checker,
+        used by the L{check-grammar<sieve.check_grammar>} sieve
+  - Apertium (U{http://www.apertium.org/}): a free/open-source machine
+        translation platform, used by the L{pomtrans<scripts.pomtrans>} script
+
 Setup
 =====
 
