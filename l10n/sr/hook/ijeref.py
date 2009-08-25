@@ -31,19 +31,32 @@ from pology.misc.resolve import resolve_alternatives
 _reflex_map = {
     # - basic
     u"ије": u"е",
+    u"ИЈЕ": u"Е",
     u"иј": u"е",
+    u"ИЈ": u"Е",
     u"је": u"е",
+    u"ЈЕ": u"Е",
     u"ље": u"ле",
+    u"ЉЕ": u"ЛЕ",
     u"ње": u"не",
+    u"ЊЕ": u"НЕ",
     u"ио": u"ео",
+    u"ИО": u"ЕО",
     u"иљ": u"ел",
+    u"ИЉ": u"ЕЛ",
 
     # - special cases (include one prev. letter)
     u"лије": u"ли",
+    u"ЛИЈЕ": u"ЛИ",
     u"лијен": u"лењ",
+    u"Лијен": u"Лењ",
+    u"ЛИЈЕН": u"ЛЕЊ",
     u"мија": u"меја",
+    u"МИЈА": u"МЕЈА",
     u"мије": u"мејe",
+    u"МИЈЕ": u"МЕЈE",
     u"није": u"ни",
+    u"НИЈЕ": u"НИ",
 }
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 # ...using map() instead of [] to avoid x in global environment.
