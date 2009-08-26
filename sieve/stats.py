@@ -630,6 +630,7 @@ class Sieve (object):
         if self.template_subdirs:
             # Collect all catalogs in template subdirs.
             tpaths = collect_catalogs(self.template_subdirs)
+            tpaths = filter(self.p.is_cat_included, tpaths)
             # Filter to have only POTs remain.
             tpaths = [x for x in tpaths if x.endswith(".pot")]
             # Filter to leave out matched templates.
