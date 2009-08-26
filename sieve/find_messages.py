@@ -65,7 +65,7 @@ The C{replace} option must go together with the C{msgstr} match. As usual for re
 Other sieve parameters:
   - C{accel:<chars>}: strip these characters as accelerator markers
   - C{case}: case-sensitive match (insensitive by default)
-  - C{mark}: mark each matched message with a flag
+  - C{mark}: mark each matched message with C{match} flag
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
         to matching (see L{misc.langdep.get_hook_lreq} for the format
         of hook specifications)
@@ -77,7 +77,7 @@ to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
-Using the C{mark} option, C{pattern-match} flag will be added to each
+Using the C{mark} option, C{match} flag will be added to each
 matched message, in the PO file itself; the messages will not be sent to
 standard output. The modified files can then be opened in an editor,
 and messages looked up by this flag. This is for cases when the search is
@@ -295,7 +295,7 @@ def setup_sieve (p):
     )
 
 
-_flag_mark = u"pattern-match"
+_flag_mark = u"match"
 
 
 # Matchers taking a value.
