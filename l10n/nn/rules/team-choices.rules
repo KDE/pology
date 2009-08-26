@@ -227,4 +227,10 @@ hint="eigendefinert → sjølvvald, tilpassa"
 [opplysing(a|ar|ane)?]i
 hint="opplysing → opplysning"
 
+[\blata?\b]i
+id="lata"
+hint="lata → la, lat → la"
+valid span="[Ll]at" msgid="[Ll]azy"
+valid ctx="\.kgm$"
+
 # End of rules
