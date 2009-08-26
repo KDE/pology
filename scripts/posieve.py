@@ -418,6 +418,37 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     elif not file_or_dir_paths:
         file_or_dir_paths = ["."]
 
+    # Prepare exclusion-inclusion test.
+    exclude_cat_rx = None
+    if op.exclude_cat:
+        exclude_cat_rx = re.compile(op.exclude_cat, re.I|re.U)
+    exclude_path_rx = None
+    if op.exclude_path:
+        exclude_path_rx = re.compile(op.exclude_path, re.I|re.U)
+    include_cat_rx = None
+    if op.include_cat:
+        include_cat_rx = re.compile(op.include_cat, re.I|re.U)
+    include_path_rx = None
+    if op.include_path:
+        include_path_rx = re.compile(op.include_path, re.I|re.U)
+
+    def is_cat_included (fname):
+        # Construct catalog name by stripping final .po* from file basename.
+        cname = os.path.basename(fname)
+        p = cname.rfind(".po")
+        if p > 0:
+            cname = cname[:p]
+        included = True
+        if included and exclude_cat_rx:
+            included = exclude_cat_rx.search(cname) is None
+        if included and exclude_path_rx:
+            included = exclude_path_rx.search(fname) is None
+        if included and include_cat_rx:
+            included = include_cat_rx.search(cname) is not None
+        if included and include_path_rx:
+            included = include_path_rx.search(fname) is not None
+        return included
+
     # Add as special parameter to each sieve:
     # - paths from which the catalogs are collected
     # - whether destination independent coloring is in effect
@@ -425,6 +456,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for p in sparams.values():
         p.root_paths = file_or_dir_paths[:]
         p.raw_colors = op.raw_colors
+        p.is_cat_included = is_cat_included
 
     # Create sieves.
     sieves = []
@@ -489,20 +521,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Decide on wrapping policy for modified messages.
     wrap_func = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
 
-    # Prepare selection regexes.
-    exclude_cat_rx = None
-    if op.exclude_cat:
-        exclude_cat_rx = re.compile(op.exclude_cat, re.I|re.U)
-    exclude_path_rx = None
-    if op.exclude_path:
-        exclude_path_rx = re.compile(op.exclude_path, re.I|re.U)
-    include_cat_rx = None
-    if op.include_cat:
-        include_cat_rx = re.compile(op.include_cat, re.I|re.U)
-    include_path_rx = None
-    if op.include_path:
-        include_path_rx = re.compile(op.include_path, re.I|re.U)
-
     if op.do_skip:
         errwarn = warning
         errwarn_on_msg = warning_on_msg
@@ -513,21 +531,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Eliminate or include specific catalogs.
     fnames_mod = []
     for fname in fnames:
-        # Construct catalog name by stripping final .po* from file basename.
-        cname = os.path.basename(fname)
-        p = cname.rfind(".po")
-        if p > 0:
-            cname = cname[:p]
-        do_sieve = True
-        if do_sieve and exclude_cat_rx:
-            do_sieve = exclude_cat_rx.search(cname) is None
-        if do_sieve and exclude_path_rx:
-            do_sieve = exclude_path_rx.search(fname) is None
-        if do_sieve and include_cat_rx:
-            do_sieve = include_cat_rx.search(cname) is not None
-        if do_sieve and include_path_rx:
-            do_sieve = include_path_rx.search(fname) is not None
-        if not do_sieve:
+        if not is_cat_included(fname):
             if op.verbose:
                 report("skipping on request: %s" % fname)
         else:
