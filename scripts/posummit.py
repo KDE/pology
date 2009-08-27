@@ -1258,64 +1258,92 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             # insert branch messages around those summit messages.
             # Otherwise, just append them at the end.
             if summit_msgs:
-                inserted_summit_msgs = set()
+
+                # Assemble groups of messages by same msgid and same msgctxt.
+                smsgs_by_msgid = {}
+                smsgs_by_msgctxt = {}
+                for smsg in summit_msgs:
+                    if smsg.msgid not in smsgs_by_msgid:
+                        smsgs_by_msgid[smsg.msgid] = []
+                    smsgs_by_msgid[smsg.msgid].append(smsg)
+                    if smsg.msgctxt is not None:
+                        if smsg.msgctxt not in smsgs_by_msgctxt:
+                            smsgs_by_msgctxt[smsg.msgctxt] = []
+                        smsgs_by_msgctxt[smsg.msgctxt].append(smsg)
+
+                insertions = []
                 for msg in msgs:
                     update_progress()
                     new_summit_msg = summit_msg_by_msg.get(msg)
                     if new_summit_msg is None:
                         continue
 
-                    # Find the most similar existing summit message,
-                    # if there is such subject to minimal similarity.
-                    # Also find summit_message with first greater
-                    # source reference line number, if any.
-                    matts = ["key", "msgid"] # priority of fuzzy matching
-                    seqms = []
-                    maxrs = []
-                    maxr_summit_msgs = []
-                    for matt in matts:
-                        seqms.append(SequenceMatcher(None, msg.get(matt), ""))
-                        maxrs.append(0.0)
-                        maxr_summit_msgs.append(None)
-                    lno_summit_msg = None
-                    for i in range(len(summit_msgs)):
-                        summit_msg = summit_msgs[i]
-                        for i in range(len(matts)):
-                            seqms[i].set_seq2(summit_msg.get(matts[i]))
-                            r = seqms[i].ratio()
-                            if maxrs[i] <= r:
-                                maxrs[i] = r
-                                maxr_summit_msgs[i] = summit_msg
-                        if (    src and not lno_summit_msg
-                            and (msg.source[0][1] < summit_msg.source[0][1])
-                        ):
-                            lno_summit_msg = summit_msg
+                    # Existing summit message to where (after or before)
+                    # current message is to be inserted.
+                    summit_msg_ref = None
+                    before = False
 
-                    # If similar enough summit message has been found,
-                    # set insertion position after it.
-                    # Otherwise, set position before the summit_message with
-                    # first greater source reference line number,
-                    # or after last if none such.
-                    similar_found = False
-                    for i in range(len(matts)):
-                        if maxrs[i] > 0.6:
-                            pos = summit_cat.find(maxr_summit_msgs[i]) + 1
-                            similar_found = True
-                            break
-                    if not similar_found:
-                        if lno_summit_msg:
-                            pos = summit_cat.find(lno_summit_msg)
-                        else:
-                            pos = summit_cat.find(summit_msgs[-1]) + 1
-
-                    # Insert at the determined position, but skipping
-                    # all contiguous previously inserted at that position.
-                    while (    pos < len(summit_cat)
-                           and summit_cat[pos] in inserted_summit_msgs
+                    # Try to insert message by similarity.
+                    # Similarity is checked by groups,
+                    # such that for each group there is a message part
+                    # which is compared for similarity.
+                    for summit_msgs_group, matt, forceins in (
+                        (smsgs_by_msgid.get(msg.msgid), "msgctxt", True),
+                        (smsgs_by_msgctxt.get(msg.msgctxt), "msgid", True),
+                        (summit_msgs, "key", False),
                     ):
+                        if not summit_msgs_group:
+                            continue
+
+                        # Shortcut: if only one summit message in the group
+                        # and insertion forced, insert after it.
+                        if len(summit_msgs_group) == 1 and forceins:
+                            summit_msg_ref = summit_msgs_group[-1]
+                            break
+
+                        # Find existing message with the most similar
+                        # matching attribute.
+                        seqm = SequenceMatcher(None, msg.get(matt, ""), "")
+                        maxr = 0.0
+                        for summit_msg in summit_msgs_group:
+                            seqm.set_seq2(summit_msg.get(matt, ""))
+                            r = seqm.ratio()
+                            if maxr <= r:
+                                maxr = r
+                                maxr_summit_msg = summit_msg
+                        # If similar enough message has been found,
+                        # set insertion position after it.
+                        # Otherwise, insert after last summit message
+                        # in the group if insertion forced.
+                        if maxr > 0.6:
+                            summit_msg_ref = maxr_summit_msg
+                            break
+                        elif forceins:
+                            summit_msg_ref = summit_msgs_group[-1]
+                            break
+
+                    # If no similar existing message, set position before
+                    # the summit message with first greater source reference
+                    # line number, if any such.
+                    if summit_msg_ref is None and src:
+                        for summit_msg in summit_msgs:
+                            if msg.source[0][1] < summit_msg.source[0][1]:
+                                summit_msg_ref = summit_msg
+                                before = True
+                                break
+
+                    # If not insertion by source references, insert last.
+                    if summit_msg_ref is None:
+                        summit_msg_ref = summit_msgs[-1]
+
+                    # Record insertion.
+                    pos = summit_cat.find(summit_msg_ref)
+                    if not before:
                         pos += 1
-                    summit_cat.add(new_summit_msg, pos)
-                    inserted_summit_msgs.add(new_summit_msg)
+                    insertions.append((new_summit_msg, pos))
+
+                # Insert ordered messages into catalog.
+                summit_cat.add_more(insertions)
 
             else:
                 for msg in msgs:
