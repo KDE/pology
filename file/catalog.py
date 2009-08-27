@@ -779,45 +779,119 @@ class Catalog (Monitored):
         @rtype: int or None
         """
 
+        return self.add_more([(msg, pos)], srefsyn=srefsyn)[0]
+
+
+    def add_more (self, msgpos, cumulative=False, srefsyn={}):
+        """
+        Add more than one message to the catalog.
+
+        Like L{add}, except that several messages are added in one call.
+        This significantly speeds up insertion when insertion positions of
+        all messages are known beforehand.
+
+        Insertion positions can be given relative to state before the call,
+        or cumulative to earlier insertions in the list.
+        For example, if insertions are given as C{[(msg1, 2), (msg2, 5)]} and
+        not cumulative, then the resulting position for C{msg1} will be 2,
+        and for C{msg2} 6 (assuming that both messages actually got inserted).
+        This behavior can be toggled by the C{cumulative} parameter.
+
+        @param msgpos: messages with target insertion positions
+        @type msgpos: [(L{Message_base}, int), ...]
+        @param cumulative: whether input positions are cumulative
+        @type cumulative: bool
+        @param srefsyn: synonymous names to some of the source files
+        @type srefsyn: {string: list of strings}
+
+        @returns: positions where inserted, or None where replaced
+        @rtype: [int or None, ...]
+        """
+
         self._assert_headonly()
-        self.assert_spec_setitem(msg)
+        for msg, pos in msgpos:
+            self.assert_spec_setitem(msg)
+            if not msg.msgid and msg.msgctxt is None:
+                raise StandardError(
+                    "trying to insert message with empty key into catalog")
 
-        if not msg.msgid and msg.msgctxt is None:
-            raise StandardError, \
-                  "trying to insert message with empty key into the catalog"
-
-        if not msg.key in self._msgpos:
-            # The message is new, insert.
-            if pos is None:
-                # Find best insertion position.
-                ip, weight = self._pick_insertion_point(msg, srefsyn)
-            elif pos >= 0:
-                # Take given position as exact insertion point.
-                ip = pos
+        # Resolve backward positions, set aside automatic positions,
+        # set aside replacements.
+        msgpos_ins = []
+        msgs_auto = []
+        msgs_repl = []
+        for msg, pos in msgpos:
+            if msg.key not in self._msgpos:
+                if pos is not None:
+                    if pos < 0:
+                        pos = len(self._messages) + pos
+                    msgpos_ins.append((msg, pos))
+                else:
+                    msgs_auto.append(msg)
             else:
-                # Count backward from the last message.
-                ip = len(self._messages) + pos
+                msgs_repl.append(msg)
 
-            # Update key-position links for the index to be added.
-            for i in range(ip, len(self._messages)):
-                ckey = self._messages[i].key
-                self._msgpos[ckey] = i + 1
+        # Sort messages to be inserted by resolved positions.
+        msgpos_ins = sorted(msgpos_ins, key=lambda x: x[1])
 
-            # Store the message.
-            self._messages.insert(ip, msg)
-            self._messages[ip]._remove_on_sync = False # no pending removal
-            self._messages[ip]._committed = False # write it on sync
-            self._msgpos[msg.key] = ip # store new key-position link
+        # Resolve messages to be inserted by automatic positions.
+        for msg in msgs_auto:
+            pos, d1 = self._pick_insertion_point(msg, srefsyn)
+            i = 0
+            while i < len(msgpos_ins):
+                omsg, opos = msgpos_ins[i]
+                if pos < opos:
+                    break
+                elif cumulative:
+                    pos += 1
+            msgpos_ins.insert(i, (msg, pos))
+
+        # Accumulate insertion positions if not cumulative.
+        if not cumulative and len(msgpos_ins) > 1:
+            off = 0
+            msgpos_tmp = []
+            for msg, pos in msgpos_ins:
+                msgpos_tmp.append((msg, pos + off))
+                off += 1
+            msgpos_ins = msgpos_tmp
+
+        # Update key-position links for the index to be added.
+        off = 0
+        for i in range(len(msgpos_ins)):
+            pos1 = msgpos_ins[i][1] - off
+            if i + 1 < len(msgpos_ins):
+                pos2 = msgpos_ins[i + 1][1] - (off + 1)
+            else:
+                pos2 = len(self._messages)
+            for j in range(pos1, pos2):
+                ckey = self._messages[j].key
+                self._msgpos[ckey] = j + (off + 1)
+            off += 1
+
+        # Insert messages at computed positions.
+        for msg, pos in msgpos_ins:
+            self._messages.insert(pos, msg)
+            self._messages[pos]._remove_on_sync = False # no pending removal
+            self._messages[pos]._committed = False # write it on sync
+            self._msgpos[msg.key] = pos # store new key-position link
             self.__dict__["#"]["*"] += 1 # indicate sequence change
 
-            return ip
+        # Replace existing messages.
+        for msg in msgs_repl:
+            pos = self._msgpos[msg.key]
+            self._messages[pos] = msg
 
-        else:
-            # The message exists, replace the original message.
-            ip = self._msgpos[msg.key]
-            self._messages[ip] = msg
+        # Recover insertion/replacement positions.
+        pos_res = []
+        msgpos_ins_d = dict(msgpos_ins)
+        for msg, pos in msgpos:
+            ipos = msgpos_ins_d.get(msg)
+            if ipos is not None:
+                pos_res.append(ipos)
+            else:
+                pos_res.append(None)
 
-            return None
+        return pos_res
 
 
     def obspos (self):
