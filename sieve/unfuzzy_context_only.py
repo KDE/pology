@@ -103,6 +103,9 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
+        if msg.obsolete:
+            return
+
         if (    msg.fuzzy
             and msg.msgid == msg.msgid_previous
             and msg.msgid_plural == msg.msgid_plural_previous
@@ -119,7 +122,7 @@ class Sieve (object):
             if self.p.eqmsgid:
                 self.unfuzz_msgids.add(msg.msgid)
 
-        if self.p.eqmsgid:
+        if self.p.eqmsgid and msg.translated:
             if msg.msgid not in self.msgs_by_msgid:
                 self.msgs_by_msgid[msg.msgid] = []
             self.msgs_by_msgid[msg.msgid].append(msg)
