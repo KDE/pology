@@ -106,10 +106,12 @@ class Sieve (object):
         if msg.obsolete:
             return
 
+        if self.matcher and not self.matcher(msg, cat):
+            return
+
         if (    msg.fuzzy
             and msg.msgid == msg.msgid_previous
             and msg.msgid_plural == msg.msgid_plural_previous
-            and (not self.matcher or self.matcher(msg, cat))
         ):
             msg.unfuzzy()
             self.nunfuzz += 1
