@@ -1301,16 +1301,25 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                             summit_msg_ref = summit_msgs_group[-1]
                             break
 
+                        # Does the message have the part to be matched?
+                        mval = msg.get(matt)
+                        if mval is None:
+                            continue
+
                         # Find existing message with the most similar
                         # matching attribute.
-                        seqm = SequenceMatcher(None, msg.get(matt, ""), "")
+                        seqm = SequenceMatcher(None, mval, "")
                         maxr = 0.0
                         for summit_msg in summit_msgs_group:
-                            seqm.set_seq2(summit_msg.get(matt, ""))
+                            smval = summit_msg.get(matt)
+                            if smval is None:
+                                continue
+                            seqm.set_seq2(smval)
                             r = seqm.ratio()
                             if maxr <= r:
                                 maxr = r
                                 maxr_summit_msg = summit_msg
+
                         # If similar enough message has been found,
                         # set insertion position after it.
                         # Otherwise, insert after last summit message
