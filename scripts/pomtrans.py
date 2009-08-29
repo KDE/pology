@@ -15,7 +15,9 @@ import os
 from optparse import OptionParser
 import locale
 
+from pology import rootdir
 from pology.file.catalog import Catalog
+from pology.file.message import MessageUnsafe
 from pology.misc.report import report, error, warning
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.misc.fsops import str_to_unicode
@@ -23,7 +25,7 @@ import pology.misc.config as pology_config
 from pology.misc.wrap import select_field_wrapper
 from pology.misc.entities import read_entities
 from pology.misc.resolve import resolve_entities_simple
-from pology import rootdir
+from pology.hook.remove_subs import remove_accel_msg
 
 
 def main ():
@@ -60,6 +62,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-t", "--target-lang", dest="tlang",
         metavar="LANG",
         help="Target language code (detected from catalogs if not given).")
+    opars.add_option(
+        "-a", "--accelerator", dest="accel",
+        metavar="CHAR",
+        help="Accelerator marker character used in messages "
+             "(detected from catalogs if not given).")
     opars.add_option(
         "-p", "--parallel-catalogs", dest="parcats",
         metavar="SEARCH:REPLACE",
@@ -138,13 +145,17 @@ def translate_direct (paths, wrapf, tsbuilder, options):
 
         # Collect messages and texts to translate.
         cat = Catalog(catpath, wrapf=wrapf)
+        if options.accel is not None: # force explicitly given accelerator
+            cat.set_accelerator(options.accel)
         texts = []
         msgs = []
         for msg in cat:
             if to_translate(msg, options):
-                texts.append(msg.msgid)
+                msgf = MessageUnsafe(msg)
+                remove_accel_msg(msgf, cat)
+                texts.append(msgf.msgid)
                 if msg.msgid_plural is not None:
-                    texts.append(msg.msgid_plural)
+                    texts.append(msgf.msgid_plural)
                 msgs.append(msg)
 
         # Translate collected texts.
