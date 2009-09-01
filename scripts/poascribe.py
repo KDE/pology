@@ -34,6 +34,7 @@ import pology.misc.colors as C
 
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
+DATAG = "-"
 
 
 def main ():
@@ -83,7 +84,7 @@ def main ():
              "(relevant in some modes)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
-        action="store", dest="tag", default=None,
+        action="store", dest="tag", default=DATAG,
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
@@ -401,6 +402,7 @@ class Config:
             self.review_tags = set(cval.split())
         else:
             self.review_tags = set()
+        self.review_tags.add(DATAG)
 
         class UserData: pass
         self.udata = {}
@@ -444,11 +446,9 @@ def assert_mode_user (configs_catpaths, mode, nousers=[]):
 
 def assert_review_tag (configs_catpaths, tag):
 
-    if tag is not None:
-        for config, catpaths in configs_catpaths:
-            if tag not in config.review_tags:
-                error("review tag '%s' not defined in '%s'"
-                      % (tag, config.path))
+    for config, catpaths in configs_catpaths:
+        if tag not in config.review_tags:
+            error("review tag '%s' not defined in '%s'" % (tag, config.path))
 
 
 def examine_state (options, configs_catpaths, mode):
@@ -894,7 +894,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         for i in range(hlevels):
             a = history[i]
             typewtag = a.type
-            if a.tag:
+            if a.tag != DATAG:
                 typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date, rev=a.rev)
@@ -1266,9 +1266,9 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         if wsep:
             modstr_wsep += " | " + wsep
     first = True
-    for atag in atags or [None]:
+    for atag in atags or [DATAG]:
         field = atype
-        if atag:
+        if atag != DATAG:
             field += _atag_sep + atag
         if first:
             asc_append_field(amsg, field, modstr_wsep)
@@ -1550,7 +1550,7 @@ def asc_parse_ascriptions (amsg, acat, config):
                            "(no ascription type)" % cmnt, amsg, acat)
             continue
         atype = cmnt[:p].strip()
-        atag = None
+        atag = DATAG
         lst = atype.split(_atag_sep, 1)
         if len(lst) == 2:
             atype = lst[0].strip()
@@ -1714,24 +1714,48 @@ def parse_users (userstr, config, cid=None):
     case the a parsed user does not exist.
     """
 
-    if not userstr:
+    return parse_fixed_set(userstr, config, config.users,
+                           "user '%s' not defined in '%s'", cid)
+
+
+def parse_tags (tagstr, config, cid=None):
+    """
+    Parse tags from comma-separated list, verifying that they exist.
+
+    If the list starts with tilde (~), all tags found in the config
+    but for the listed will be selected (inverted selection).
+
+    C{cid} is the string identifying the caller, for error report in
+    case the a parsed user does not exist.
+    """
+
+    tags = parse_fixed_set(tagstr, config, config.review_tags,
+                           "review tag '%s' not defined in '%s'", cid)
+    if not tags:
+        tags = set([DATAG])
+
+    return tags
+
+
+def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
+
+    if not elstr:
         return set()
 
-    userstr = userstr.replace(" ", "")
+    elstr = elstr.replace(" ", "")
     inverted = False
-    if userstr.startswith("~"):
+    if elstr.startswith("~"):
         inverted = True
-        userstr = userstr[1:]
+        elstr = elstr[1:]
 
-    users = set(userstr.split(","))
-    for user in users:
-        if user not in config.users:
-            error("user '%s' not defined in '%s'" % (user, config.path),
-                  subsrc=cid)
+    els = set(elstr.split(","))
+    for el in els:
+        if el not in knownels:
+            error(errfmt % (tag, config.path), subsrc=cid)
     if inverted:
-        users = set(config.users).difference(users)
+        els = set(knownels).difference(els)
 
-    return users
+    return els
 
 
 # Build compound selector out of list of specifications.
@@ -1805,47 +1829,37 @@ def negate_selector (selector):
 # -----------------------------------------------------------------------------
 # Caching for selectors.
 
-class _Cache (object):
+_cache = {}
 
-    def __init__ (self, dict={}):
+def cached_matcher (expr, config, options, cid):
 
-        for key, val in dict.iteritems():
-            self.__dict__[key] = val
-
-    pass
-
-
-def cached_matcher (cache, expr, config, options, cid):
-
-    if (   getattr(cache, "options", None) is not options
-        or getattr(cache, "config", None) is not config
-    ):
-        cache.options = options
-        cache.config = config
+    key = ("matcher", expr, config, options)
+    if key not in _cache:
         pfilter = options.tfilter or config.tfilter
         filters = []
         if pfilter:
             filters = [pfilter]
-        mopts = _Cache(dict(case=False))
-        cache.matcher = build_msg_fmatcher(expr, filters=filters, mopts=mopts,
-                                           abort=True)
+        _cache[key] = build_msg_fmatcher(expr, filters=filters, abort=True)
 
-    return cache.matcher
+    return _cache[key]
 
 
-def cached_users (cache, user_spec, config, cid, utype=None):
+def cached_users (user_spec, config, cid, utype=None):
 
-    if (   getattr(cache, "config", None) is not config
-        or utype not in getattr(cache, "users", {})
-    ):
-        cache.config = config
-        if not hasattr(cache, "users"):
-            cache.users = {}
-        cache.users[utype] = []
-        if user_spec:
-            cache.users[utype] = parse_users(user_spec, config, cid)
+    key = ("users", user_spec, config, utype)
+    if key not in _cache:
+        _cache[key] = parse_users(user_spec, config, cid)
 
-    return cache.users[utype]
+    return _cache[key]
+
+
+def cached_tags (tag_spec, config, cid):
+
+    key = ("tags", tag_spec, config)
+    if key not in _cache:
+        _cache[key] = parse_tags(tag_spec, config, cid)
+
+    return _cache[key]
 
 
 # -----------------------------------------------------------------------------
@@ -1922,11 +1936,9 @@ def selector_fexpr (expr=None):
     if not (expr or "").strip():
         error("matching expression cannot be empty", subsrc=cid)
 
-    cache = _Cache()
-
     def selector (msg, cat, history, config, options):
 
-        matcher = cached_matcher(cache, expr, config, options, cid)
+        matcher = cached_matcher(expr, config, options, cid)
         if matcher(msg, cat):
             return True
 
@@ -2035,15 +2047,13 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
     if not (expr or "").strip():
         error("matching expression cannot be empty", subsrc=cid)
 
-    cache = _Cache()
-
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        matcher = cached_matcher(cache, expr, config, options, cid)
-        users = cached_users(cache, user_spec, config, cid)
+        matcher = cached_matcher(expr, config, options, cid)
+        users = cached_users(user_spec, config, cid)
 
         if not addrem:
             i = 0
@@ -2095,14 +2105,12 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 def selector_asc (user_spec=None):
     cid = "selector:asc"
 
-    cache = _Cache()
-
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        users = cached_users(cache, user_spec, config, cid)
+        users = cached_users(user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
@@ -2120,14 +2128,12 @@ def selector_asc (user_spec=None):
 def selector_mod (user_spec=None):
     cid = "selector:mod"
 
-    cache = _Cache()
-
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        users = cached_users(cache, user_spec, config, cid)
+        users = cached_users(user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
@@ -2145,11 +2151,11 @@ def selector_mod (user_spec=None):
 
 # Select first modification (any or by m-users, and not by r-users)
 # after last review (any or by r-users, and not by m-users).
-def selector_modar (muser_spec=None, ruser_spec=None, atag_req=None):
+def selector_modar (muser_spec=None, ruser_spec=None, atag_spec=None):
     cid = "selector:modar"
 
     return w_selector_modax(cid, False, True,
-                            muser_spec, ruser_spec, atag_req)
+                            muser_spec, ruser_spec, atag_spec)
 
 
 # Select first modification (any or by m-users, and not by mm-users)
@@ -2163,26 +2169,25 @@ def selector_modam (muser_spec=None, mmuser_spec=None):
 
 # Select first modification (any or by m-users, and not by rm-users)
 # after last review or modification (any or by m-users, and not by rm-users).
-def selector_modarm (muser_spec=None, rmuser_spec=None, atag_req=None):
+def selector_modarm (muser_spec=None, rmuser_spec=None, atag_spec=None):
     cid = "selector:modarm"
 
     return w_selector_modax(cid, True, True,
-                            muser_spec, rmuser_spec, atag_req)
+                            muser_spec, rmuser_spec, atag_spec)
 
 
 # Worker for builders of moda* selectors.
 def w_selector_modax (cid, amod, arev,
-                      muser_spec=None, rmuser_spec=None, atag_req=None):
-
-    cache = _Cache()
+                      muser_spec=None, rmuser_spec=None, atag_spec=None):
 
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        musers = cached_users(cache, muser_spec, config, cid, utype="m")
-        rmusers = cached_users(cache, rmuser_spec, config, cid, utype="rm")
+        musers = cached_users(muser_spec, config, cid, utype="m")
+        rmusers = cached_users(rmuser_spec, config, cid, utype="rm")
+        atags = cached_tags(atag_spec, config, cid)
 
         i_sel = None
         i_cand = None
@@ -2190,7 +2195,7 @@ def w_selector_modax (cid, amod, arev,
             a = history[i]
             # Check if this message cancels candidate.
             if (    (   (amod and a.type == ATYPE_MOD)
-                     or (arev and a.type == ATYPE_REV and a.tag == atag_req))
+                     or (arev and a.type == ATYPE_REV and a.tag in atags))
                 and (not rmusers or a.user in rmusers)
                 and (not musers or a.user not in musers)
             ):
@@ -2259,22 +2264,21 @@ def w_selector_modax (cid, amod, arev,
 
 
 # Select last review (any or by users).
-def selector_rev (user_spec=None, atag_req=None):
+def selector_rev (user_spec=None, atag_spec=None):
     cid = "selector:rev"
-
-    cache = _Cache()
 
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        users = cached_users(cache, user_spec, config, cid)
+        users = cached_users(user_spec, config, cid)
+        atags = cached_tags(atag_spec, config, cid)
 
         i_sel = None
         for i in range(len(history)):
             a = history[i]
-            if (    a.type == ATYPE_REV and a.tag == atag_req
+            if (    a.type == ATYPE_REV and a.tag in atags
                 and (not users or a.user in users)
             ):
                 i_sel = i
@@ -2287,18 +2291,17 @@ def selector_rev (user_spec=None, atag_req=None):
 
 # Select first review (any or by r-users, and not by m-users)
 # before last modification (any or by m-users, and not by r-users).
-def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
+def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
     cid = "selector:revbm"
-
-    cache = _Cache()
 
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
             return None
 
-        rusers = cached_users(cache, ruser_spec, config, cid, utype="r")
-        musers = cached_users(cache, muser_spec, config, cid, utype="m")
+        rusers = cached_users(ruser_spec, config, cid, utype="r")
+        musers = cached_users(muser_spec, config, cid, utype="m")
+        atags = cached_tags(atag_spec, config, cid)
 
         # TODO: Make it filter-sensitive like :modar.
 
@@ -2312,7 +2315,7 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
             ):
                 # Modification found, enable selection of review.
                 can_select = True
-            if (    a.type == ATYPE_REV and a.tag == atag_req
+            if (    a.type == ATYPE_REV and a.tag in atags
                 and (not rusers or a.user in rusers)
                 and (not musers or a.user not in musers)
             ):
@@ -2330,8 +2333,6 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_req=None):
 def selector_modafter (time_spec=None, user_spec=None):
     cid = "selector:modafter"
 
-    cache = _Cache()
-
     if not time_spec:
         error("time/revision specification cannot be empty", subsrc=cid)
 
@@ -2347,7 +2348,7 @@ def selector_modafter (time_spec=None, user_spec=None):
         if history[0].user is None:
             return None
 
-        users = cached_users(cache, user_spec, config, cid)
+        users = cached_users(user_spec, config, cid)
 
         i_sel = None
         for i in range(len(history) - 1, -1, -1):
