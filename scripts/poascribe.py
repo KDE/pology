@@ -396,6 +396,12 @@ class Config:
         self.commit_message = gsect.get("commit-message", None)
         self.ascript_commit_message = gsect.get("ascript-commit-message", None)
 
+        cval = gsect.get("review-tags", None)
+        if cval is not None:
+            self.review_tags = set(cval.split())
+        else:
+            self.review_tags = set()
+
         class UserData: pass
         self.udata = {}
         self.users = []
@@ -434,6 +440,15 @@ def assert_mode_user (configs_catpaths, mode, nousers=[]):
     for config, catpaths in configs_catpaths:
         if mode.user not in config.users:
             error("user '%s' not defined in '%s'" % (mode.user, config.path))
+
+
+def assert_review_tag (configs_catpaths, tag):
+
+    if tag is not None:
+        for config, catpaths in configs_catpaths:
+            if tag not in config.review_tags:
+                error("review tag '%s' not defined in '%s'"
+                      % (tag, config.path))
 
 
 def examine_state (options, configs_catpaths, mode):
@@ -551,6 +566,7 @@ def ascribe_modified_w (options, configs_catpaths, mode):
 def ascribe_reviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+    assert_review_tag(configs_catpaths, options.tag)
 
     ascribe_reviewed_w(options, configs_catpaths, mode)
 
@@ -574,6 +590,7 @@ def ascribe_reviewed_w (options, configs_catpaths, mode):
 def ascribe_modreviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+    assert_review_tag(configs_catpaths, options.tag)
 
     # Remove any review diffs.
     # If any were actually removed, ascribe reviews only on them,
