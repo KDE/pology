@@ -14,7 +14,7 @@ hint="Bruk konsekvent a-infinitiv."
 
 # Fang opp nokre e-infinitiv som òg
 # finst som adjektiv.
-[å (flytt|opn|skriv)e\b]i
+[å (flytt|opn|skriv|kunn)e\b]i
 id="e-infinitiv2"
 hint="Bruk konsekvent a-infinitiv."
 
