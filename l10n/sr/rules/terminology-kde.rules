@@ -478,6 +478,7 @@ hint="label = етикета"
 valid msgstr="\bетикет"
 valid msgstr="\bознач"
 valid cat="kcmsamba" msgid="Mounted under"
+valid cat="amarok" after="record "
 
 {\blayout}i
 id="layout"
