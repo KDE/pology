@@ -76,7 +76,7 @@ def main ():
              "(relevant in some modes). "
              "Can be repeated, AND-semantics.")
     opars.add_option(
-        "-f", "--filter", metavar="NAME",
+        "-F", "--filter", metavar="NAME",
         action="store", dest="text_filter", default=None,
         help="pass relevent message text fields through a filter before "
              "matching or comparing them "
