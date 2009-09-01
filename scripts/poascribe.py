@@ -1426,7 +1426,8 @@ def asc_collect_history (msg, acat, config, nomrg=False):
             a, ao = history[i], history[i + 1]
             if not a.user == UFUZZ or not merge_modified(ao.msg, a.msg):
                 history_r.append(a)
-        history_r.append(history[-1])
+        if history[-1].user != UFUZZ:
+            history_r.append(history[-1])
         history = history_r
 
     return history
