@@ -1554,7 +1554,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
             continue
 
         if (    project.ascription_filters and not options.force
-            and not (summit_msg.untranslated and branch_msg.untranslated)
+            and do_scatter(summit_msg, branch_msg)
         ):
             aconf, acat = aconfs_acats[summit_cat.name]
             ahist = ASC.asc_collect_history(summit_msg, acat, aconf, nomrg=True)
@@ -1588,7 +1588,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         for branch_msg, summit_msg, summit_cat in msg_links:
             update_progress()
 
-            if summit_msg.translated:
+            if do_scatter(summit_msg, branch_msg):
                 exec_hook_msg(branch_id, branch_name, branch_subdir,
                               summit_msg, summit_cat,
                               project.hook_on_scatter_msg)
@@ -1711,6 +1711,11 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                 report("<+   %s  %s" % (branch_cat.filename, paths_str))
             else:
                 report("<    %s  %s" % (branch_cat.filename, paths_str))
+
+
+def do_scatter (smsg, bmsg):
+
+    return smsg.translated
 
 
 def hook_applicable (branch_check, branch_id, name_check, name, subdir):
