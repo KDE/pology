@@ -49,7 +49,7 @@ id="backup"
 hint="backup = резерва"
 valid msgstr="\bрезерв" !msgstr="\bрезервн\w+ копиј"
 
-{\bback up}i
+{\bback(ed|s)? up}i
 id="backup2"
 hint="back up = направити резерву"
 disabled

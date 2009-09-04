@@ -83,3 +83,31 @@ id="brick"
 hint="brick = квадар"
 valid msgstr="\bквада?р" !msgstr='\bцигл'
 
+# ====================
+# Partition Manager (KDE disk partitioning tool)
+environment partitionmanager
+
+{\bbackup}i
+id="backup"
+hint="backup = архивa"
+valid msgstr="\bархив"
+
+{\bback(ed|s)? up}i
+id="backup2"
+hint="back up = архивирати"
+valid msgstr="\bархивир"
+
+{\b(re)?create}i
+id="create"
+hint="create = направити, правити"
+valid msgstr="\bнаправ|\bправи|\bправљењ"
+
+{\brestore}i
+id="restore"
+hint="restore = повратити, враћати"
+valid msgstr="\bповрат|\bвраћ[ае]"
+
+{\btarget}i
+id="target"
+hint="target = одредиште"
+valid msgstr="\bодредиш[тн]"
