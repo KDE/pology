@@ -103,6 +103,10 @@ def main ():
         help="automatically commit original and ascription catalogs, "
              "in proper order (relevant in some modes)")
     opars.add_option(
+        "-C", "--no-commit",
+        action="store_false", dest="commit", default=(not def_commit),
+        help="do not commit automatically (opposite of %s option)" % "-c")
+    opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
         help="commit message for original catalogs, when %(option)s "
