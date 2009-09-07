@@ -1756,7 +1756,7 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
     els = set(elstr.split(","))
     for el in els:
         if el not in knownels:
-            error(errfmt % (tag, config.path), subsrc=cid)
+            error(errfmt % (el, config.path), subsrc=cid)
     if inverted:
         els = set(knownels).difference(els)
 
