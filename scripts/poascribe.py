@@ -104,7 +104,7 @@ def main ():
              "in proper order (relevant in some modes)")
     opars.add_option(
         "-C", "--no-commit",
-        action="store_false", dest="commit", default=(not def_commit),
+        action="store_false", dest="commit", default=def_commit,
         help="do not commit automatically (opposite of %s option)" % "-c")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
