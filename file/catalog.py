@@ -499,7 +499,9 @@ class Catalog (Monitored):
 
         @see: L{pology.misc.wrap}
         """
+
         self._wrapf = wrapf
+        self._monitored = monitored
 
         # Select type of message object to use.
         if monitored:
@@ -1044,8 +1046,12 @@ class Catalog (Monitored):
         if not self._filename.strip():
             raise StandardError, "trying to sync nameless catalog"
 
+        # If catalog is not monitored, force syncing.
+        if not self._monitored:
+            force = True
+
         # If no modifications throughout and sync not forced, return.
-        if not self.modcount and not force:
+        if not force and not self.modcount:
             return False
 
         # No need to indicate sequence changes here, as after sync the
