@@ -68,7 +68,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="catalog with existing translations, to additionally use for "
              "direct and fuzzy matches (can be repeated)")
     opars.add_option(
-        "-M", "--min-words-no-fuzzy",  metavar="NUMBER",
+        "-W", "--min-words-no-fuzzy",  metavar="NUMBER",
         action="store", dest="min_words_no_fuzzy", default=def_minwnfuzz,
         help="when using compendium catalog, in case of exact match, "
              "minimum number of words that original text must have "
