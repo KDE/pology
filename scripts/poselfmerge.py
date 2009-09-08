@@ -32,6 +32,7 @@ def main ():
 
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poselfmerge")
+    def_minwnfuzz = cfgsec.integer("min-words-no-fuzzy", 0)
     def_do_wrap = cfgsec.boolean("wrap", True)
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
@@ -68,7 +69,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "direct and fuzzy matches (can be repeated)")
     opars.add_option(
         "-M", "--min-words-no-fuzzy",  metavar="NUMBER",
-        action="store", dest="min_words_no_fuzzy", default=0,
+        action="store", dest="min_words_no_fuzzy", default=def_minwnfuzz,
         help="when using compendium catalog, in case of exact match, "
              "minimum number of words that original text must have "
              "to accept translation without making it fuzzy")
