@@ -1020,7 +1020,8 @@ class Catalog (Monitored):
         All activities scheduled for sync-time are performed, such as
         delayed message removal.
 
-        Unmodified messages are not reformatted, unless forced.
+        If catalog is monitored, unmodified messages (and message parts)
+        are not reformatted unless forced.
 
         Instead of opening and writing into catalog's filename,
         catalog can be written to a file-like object provided by
