@@ -17,6 +17,7 @@ from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.misc.fsops import assert_system
+from pology.misc.split import proper_words
 
 import sys
 import os
@@ -66,6 +67,12 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="catalog with existing translations, to additionally use for "
              "direct and fuzzy matches (can be repeated)")
     opars.add_option(
+        "-M", "--min-words-no-fuzzy",  metavar="NUMBER",
+        action="store", dest="min_words_no_fuzzy", default=0,
+        help="when using compendium catalog, in case of exact match, "
+             "minimum number of words that original text must have "
+             "to accept translation without making it fuzzy")
+    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
@@ -96,14 +103,22 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Decide on wrapping policy.
     wrap_func = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
 
+    # Convert non-string options to needed types.
+    try:
+        op.min_words_no_fuzzy = int(op.min_words_no_fuzzy)
+    except:
+        error("Value to option %s must be integer (given: %s)."
+              % ("--min-words-no-fuzzy", op.min_words_no_fuzzy))
+
     # Self-merge all catalogs.
     for fname in fnames:
         if op.verbose:
             report("Self-merging %s ..." % fname)
-        self_merge_catalog(fname, wrap_func, op.compendiums)
+        self_merge_catalog(fname, wrap_func,
+                           op.compendiums, op.min_words_no_fuzzy)
 
 
-def self_merge_catalog (catpath, wrapf, compendiums=[]):
+def self_merge_catalog (catpath, wrapf, compendiums=[], minwnfuzz=0):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -115,28 +130,45 @@ def self_merge_catalog (catpath, wrapf, compendiums=[]):
     shutil.copyfile(catpath, catpath_mod)
     shutil.copyfile(catpath, potpath)
 
+    # Open file to be merged for pre-processing.
+    cat = Catalog(catpath_mod, monitored=False)
+
+    # From the file to be merged, in case compendium is being used,
+    # collect keys of all non-translated messages,
+    # to later check which exact matches need to be fuzzied.
+    if compendiums:
+        nontrkeys = set()
+        for msg in cat:
+            if not msg.translated:
+                nontrkeys.add(msg.key)
+
     # From the file to be merged, remove all untranslated messages,
     # and every fuzzy for which the previous fields define a message
     # still existing in the catalog.
     # This way, untranslated messages will get fuzzy matched again,
     # and fuzzy messages may get updated translation.
-    cat = Catalog(catpath_mod, monitored=False)
     for msg in cat:
         if (    msg.untranslated
             or (    msg.fuzzy and msg.msgid_previous
                 and cat.select_by_key(msg.msgctxt_previous, msg.msgid_previous))
         ):
             cat.remove_on_sync(msg)
+
+    # File to be merge ready.
     cat.sync()
+
+    # Open file to be the template for pre-processing.
+    cat = Catalog(potpath, monitored=False)
 
     # From the file to be the template,
     # remove all obsolete messages.
     # (Not even this needs to be done with newer version of msgmerge,
     # but just in case.)
-    cat = Catalog(potpath, monitored=False)
     for msg in cat:
         if msg.obsolete:
             cat.remove_on_sync(msg)
+
+    # File to be the template ready.
     cat.sync()
 
     # Merge.
@@ -146,9 +178,21 @@ def self_merge_catalog (catpath, wrapf, compendiums=[]):
         cmdline += " " + " ".join(["-C '%s'" % x for x in compendiums])
     assert_system(cmdline)
 
-    # Open merged catalog to wrap properly.
+    # Open merged catalog for post-processing.
+    # (Not monitoring because full reformatting is desired for proper wrapping.)
     cat = Catalog(catpath_mod, monitored=False, wrapf=wrapf)
-    cat.sync(force=True)
+
+    # In case compendium is being used,
+    # make fuzzy exact matches which do not pass the word limit.
+    if compendiums:
+        for msg in cat:
+            if (    msg.key in nontrkeys and msg.translated
+                and len(proper_words(msg.msgid)) < minwnfuzz
+            ):
+                msg.fuzzy = True
+
+    # Merged catalog ready.
+    cat.sync()
 
     # Overwrite original with temporary catalog.
     shutil.move(catpath_mod, catpath)
