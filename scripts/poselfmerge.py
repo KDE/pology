@@ -18,6 +18,7 @@ from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.misc.fsops import assert_system
 from pology.misc.split import proper_words
+from pology.misc.diff import editprob
 
 import sys
 import os
@@ -32,7 +33,8 @@ def main ():
 
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poselfmerge")
-    def_minwnfuzz = cfgsec.integer("min-words-no-fuzzy", 0)
+    def_minwnex = cfgsec.integer("min-words-exact", 0)
+    def_minasfz = cfgsec.real("min-adjsim-fuzzy", 0.0)
     def_do_wrap = cfgsec.boolean("wrap", True)
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
@@ -68,11 +70,17 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="catalog with existing translations, to additionally use for "
              "direct and fuzzy matches (can be repeated)")
     opars.add_option(
-        "-W", "--min-words-no-fuzzy",  metavar="NUMBER",
-        action="store", dest="min_words_no_fuzzy", default=def_minwnfuzz,
+        "-W", "--min-words-exact",  metavar="NUMBER",
+        action="store", dest="min_words_exact", default=def_minwnex,
         help="when using compendium catalog, in case of exact match, "
              "minimum number of words that original text must have "
              "to accept translation without making it fuzzy")
+    opars.add_option(
+        "-A", "--min-adjsim-fuzzy",  metavar="NUMBER",
+        action="store", dest="min_adjsim_fuzzy", default=def_minasfz,
+        help="when using compendium catalog, in case of fuzzy match, "
+             "minimum adjusted similarity to accept the match "
+             "(range 0.0-1.0, a resonable value is 0.6-0.8)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -106,20 +114,25 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Convert non-string options to needed types.
     try:
-        op.min_words_no_fuzzy = int(op.min_words_no_fuzzy)
+        op.min_words_exact = int(op.min_words_exact)
     except:
         error("Value to option %s must be integer (given: %s)."
-              % ("--min-words-no-fuzzy", op.min_words_no_fuzzy))
+              % ("--min-words-exact", op.min_words_exact))
+    try:
+        op.min_adjsim_fuzzy = float(op.min_adjsim_fuzzy)
+    except:
+        error("Value to option %s must be real (given: %s)."
+              % ("--min-adjsim-fuzzy", op.min_ajdsim_fuzzy))
 
     # Self-merge all catalogs.
     for fname in fnames:
         if op.verbose:
             report("Self-merging %s ..." % fname)
-        self_merge_catalog(fname, wrap_func,
-                           op.compendiums, op.min_words_no_fuzzy)
+        self_merge_catalog(fname, wrap_func, op.compendiums,
+                           op.min_words_exact, op.min_adjsim_fuzzy)
 
 
-def self_merge_catalog (catpath, wrapf, compendiums=[], minwnfuzz=0):
+def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -188,9 +201,16 @@ def self_merge_catalog (catpath, wrapf, compendiums=[], minwnfuzz=0):
     if compendiums:
         for msg in cat:
             if (    msg.key in nontrkeys and msg.translated
-                and len(proper_words(msg.msgid)) < minwnfuzz
+                and len(proper_words(msg.msgid)) < minwnex
             ):
                 msg.fuzzy = True
+
+    # Eliminate fuzzy matches not passing the adjusted similarity limit.
+    if minasfz > 0.0:
+        for msg in cat:
+            if msg.fuzzy and msg.msgid_previous is not None:
+                if editprob(msg.msgid_previous, msg.msgid) < minasfz:
+                    msg.clear()
 
     # Merged catalog ready.
     cat.sync()
