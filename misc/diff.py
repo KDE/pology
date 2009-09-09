@@ -91,7 +91,7 @@ def tdiff (seq_old, seq_new, reductf=None, diffr=False):
 
     To be able to diff them, sequence elements only need to be hashable.
     However, for compound elements it may be better to diff them
-    only by some subset, e.g. by one of their string attributes.
+    only by some subset of data, e.g. by one of their string attributes.
     Parameter C{reductf} can be used to specify a reduction function, which
     will be called on each element to produce its diffing representative.
 
@@ -1535,4 +1535,66 @@ def _msg_ediff_to_x (emsg, rmsg, new):
         setattr(rmsg, att, val)
 
     return rmsg
+
+
+def editprob (oldtext, newtext):
+    """
+    Compute the probability that a human would rather edit the old text
+    to obtain the new text, then write it from scratch.
+
+    Classical algorithms to compute similarity ratio between two texts
+    sometimes produce high ratios for texts which a human would unlikely
+    consider similar enough to make one text by editing the other,
+    and vice versa.
+    This functions uses some heuristics to derive the probability
+    that one text was really edited by a human into the other.
+
+    Not commutative in general.
+
+    If one of the texts is given as C{None}, the result is 0.0;
+    if both are C{None}, the result is 1.0.
+
+    @param oldtext: candidate for initial text
+    @type oldtext: string
+    @param newtext: current text
+    @type newtext: string
+
+    @returns: the probability of editing the old into the new text [0, 1]
+    @rtype: float
+    """
+
+    if oldtext == newtext:
+        return 1.0
+    if not oldtext or not newtext:
+        return 0.0
+
+    # Consider always the case of editing from longer to shorter text.
+    if len(oldtext) < len(newtext):
+        shorttext, longtext = oldtext, newtext
+    else:
+        shorttext, longtext = newtext, oldtext
+
+    # Construct diff.
+    sm = SequenceMatcher(None, longtext, shorttext)
+    mblocks = sm.get_matching_blocks()
+    mblocks = sorted(mblocks, key=lambda x: x[1])
+    mblocks.insert(0, (0, 0, 0))
+
+    # Acummulate probability.
+    ep = 0.0
+    for i in range(1, len(mblocks) - 1):
+        lm = mblocks[i][2]
+        ld1 = mblocks[i][1] - (mblocks[i - 1][1] + mblocks[i - 1][2])
+        ld2 = mblocks[i + 1][1] - (mblocks[i][1] + mblocks[i][2])
+        cf = (float(lm) / (lm + ld1 + ld2))**2
+        # ...if cf would be set to 1, probability would be equal
+        # to ordinary similarity ratio.
+        ep += lm * cf
+    ep /= len(shorttext)
+
+    # Correct for different lengths of texts.
+    rl = float(len(shorttext)) / len(longtext)
+    ep *= 1 - (rl - 1)**4
+
+    return ep
 
