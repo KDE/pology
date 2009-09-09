@@ -652,6 +652,22 @@ class Message_base (object):
         return True
 
 
+    def clear (self):
+        """
+        Revert message to pristine untranslated state.
+
+        Reverting to untranslated state removes translator comments,
+        C{fuzzy} flag, and previous fields, and clears C{msgstr} fields.
+        """
+
+        self.manual_comment = type(self.manual_comment)()
+        self.fuzzy = False # also removes fuzzy flag
+        self.msgctxt_previous = None
+        self.msgid_previous = None
+        self.msgid_plural_previous = None
+        self.msgstr = type(self.msgstr)(u"" * len(self.msgstr))
+
+
     def state (self):
         """
         Coded description of the translation state of the message.
