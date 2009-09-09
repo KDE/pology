@@ -10,7 +10,8 @@ Constructors of macro-declinators.
 import os
 import re
 
-from pology.misc.macrodec import Declinator, Combinator, identify, xentitize
+from pology.misc.macrodec import Declinator, Combinator
+from pology.misc.normalize import identify, xentitize
 from pology.l10n.sr.hook.cyr2lat import cyr2lat_stripped
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char

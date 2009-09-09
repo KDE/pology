@@ -11,6 +11,7 @@ import re
 
 from pology.misc.report import warning
 from pology.misc.monitored import Monlist
+from pology.misc.normalize import simplify
 
 
 def normalize_header (hdr, cat):
@@ -45,8 +46,8 @@ def _fix_authors (hdr, cat):
             nerr += 1
             continue
         name, email, rest = m.groups()
-        name = _simplify(name)
-        email = _simplify(email)
+        name = simplify(name)
+        email = simplify(email)
 
         m = re.search(r"^\s*,(.+?)\.?\s*$", rest)
         if not m:
@@ -108,12 +109,4 @@ def _fix_authors (hdr, cat):
     hdr.author = authcmnts
 
     return nerr
-
-
-def _simplify (s):
-
-    s = re.sub(r"\s+", " ", s)
-    s = re.sub(r"^\s+|\s+$", "", s)
-
-    return s
 
