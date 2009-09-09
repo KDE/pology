@@ -7,6 +7,10 @@ Various normalizations for strings.
 @license: GPLv3
 """
 
+import unicodedata
+import re
+
+
 _wsseq_rx = re.compile(r"[ \t\n]+", re.U)
 
 def simplify (s):
@@ -79,7 +83,8 @@ def identify (s):
     Construct an uniform-case ASCII-identifier out of the string.
 
     ASCII-identifier is constructed in the following order:
-      - the string is lowercased
+      - string is decomposed into Unicode NFKD
+      - string is lowercased
       - every character that is neither an ASCII alphanumeric nor
         the underscore is removed
       - if the string starts with a digit, underscore is prepended
@@ -92,6 +97,9 @@ def identify (s):
     """
 
     ns = s
+
+    # Decompose.
+    ns = unicodedata.normalize("NFKD", ns)
 
     # Lowercase.
     ns = ns.lower()
