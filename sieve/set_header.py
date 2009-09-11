@@ -12,6 +12,8 @@ Sieve parameters for setting a field:
   - C{after:<name>}: when adding a field, add it after the given field
   - C{before:<name>}: when adding a field, add it before the given field
   - C{reorder}: reinsert the field to match implied order
+  - C{remove:<name>}: remove the named field (all, if more than one)
+  - C{removerx:<name>}: remove fields matched by regex (not case-sensitive)
 
 The C{field} parameter takes the exact name of the header field and
 a value to set it to. But, by itself it will set the field only if it
@@ -102,6 +104,17 @@ def setup_sieve (p):
     "'%(after)s' and '%(before)s' parameters, reinsert it accordingly."
     % dict(after="after", before="before")
     )
+    p.add_param("remove", unicode, multival=True,
+                metavar="FIELD",
+                desc=
+    "Remove the field."
+    )
+    p.add_param("removerx", unicode, multival=True,
+                metavar="REGEX",
+                desc=
+    "Remove all fields matching the regular expression. "
+    "Matching is not case-sensitive."
+    )
     p.add_param("title", unicode,
                 metavar="VALUE",
                 desc=
@@ -144,6 +157,18 @@ class Sieve (object):
         if params.after or params.before:
             self.fields_values.reverse()
 
+        # Prepare matching for field removal.
+        if params.removerx is not None:
+            rxs = []
+            for rxstr in params.removerx:
+                try:
+                    rx = re.compile(rxstr, re.U|re.I)
+                except:
+                    raise SieveError("invalid regular expression for removing "
+                                     "fields: %s" % rxstr)
+                rxs.append(rx)
+            params.removerx = rxs
+
         # Check validity of comment values.
         if params.copyright is not None:
             if not re.search("copyright|©", params.copyright, re.I|re.U):
@@ -172,6 +197,16 @@ class Sieve (object):
                 hdr.set_field(field, expand_vars(value, pvars),
                               after=self.p.after, before=self.p.before,
                               reorder=self.p.reorder)
+
+        for rmname in self.p.remove or []:
+            hdr.remove_field(rmname)
+        for rmrx in self.p.removerx or []:
+            to_remove = set()
+            for name, value in hdr.field:
+                if name not in to_remove and rmrx.search(name):
+                    to_remove.add(name)
+            for name in to_remove:
+                hdr.remove_field(name)
 
         if self.p.title is not None:
             hdr.title[:] = [expand_vars(self.p.title, pvars)]
