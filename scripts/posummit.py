@@ -388,7 +388,7 @@ def derive_project_data (project, options):
             for summit_name in summit_names:
                 if not summit_name in mapped_summit_names[branch_id]:
                     mapped_summit_names[branch_id][summit_name] = []
-                mapped_summit_names[branch_id][summit_name].extend(branch_name)
+                mapped_summit_names[branch_id][summit_name].append(branch_name)
 
         # Go through all branches.
         for branch in p.branches:
