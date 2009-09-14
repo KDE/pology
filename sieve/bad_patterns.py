@@ -27,6 +27,7 @@ for defining, matching, and reporting problems.
 @license: GPLv3
 """
 
+from pology.misc.report import report
 from pology.hook.bad_patterns import bad_patterns_msg
 
 
@@ -94,5 +95,5 @@ class Sieve (object):
     def finalize (self):
 
         if self.nbad > 0:
-            print "Total bad patterns detected in translation: %d" % self.nbad
+            report("Total bad patterns detected in translation: %d" % self.nbad)
 
