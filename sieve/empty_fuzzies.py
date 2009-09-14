@@ -24,7 +24,7 @@ def setup_sieve (p):
     "Make all fuzzy messages untranslated."
     )
 
-    p.add_param("rmcomments", bool,
+    p.add_param("rmcomments", bool, defval=False,
                 desc=
     "Also remove translator comments from fuzzy messages."
     )
@@ -43,10 +43,7 @@ class Sieve (object):
 
         if msg.fuzzy:
             if not msg.obsolete:
-                msg.unfuzzy()
-                msg.msgstr[:] = [u""] * len(msg.msgstr)
-                if self.rmcomments:
-                    msg.manual_comment[:] = []
+                msg.clear(keepmanc=(not self.rmcomments))
                 self.nemptied += 1
             else:
                 cat.remove_on_sync(msg)
