@@ -1,33 +1,42 @@
 # -*- coding: UTF-8 -*-
 
 """
-Make all fuzzy entries untranslated.
+Make all fuzzy messages untranslated.
 
-For every fuzzy message the translation and fuzzy info (the flag itself,
+For every fuzzy message, the translation and fuzzy data (the flag,
 previous fields) are removed. Manual (translator) comments are left in
 by default, but can be removed as well.
+Obsolete fuzzy messages are completely removed.
 
 Sieve options:
   - C{rmcomments}: also remove manual comments
-
-Obsolete fuzzy messages are completely removed.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
+from pology.misc.report import report
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Make all fuzzy messages untranslated."
+    )
+
+    p.add_param("rmcomments", bool,
+                desc=
+    "Also remove translator comments from fuzzy messages."
+    )
+
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
+
+        self.rmcomments = params.rmcomments
 
         self.nemptied = 0
-
-        # Remove manual comments when emptying?
-        self.rmcomments = False
-        if "rmcomments" in options:
-            options.accept("rmcomments")
-            self.rmcomments = True
 
 
     def process (self, msg, cat):
@@ -46,5 +55,5 @@ class Sieve (object):
     def finalize (self):
 
         if self.nemptied > 0:
-            print "Total fuzzy messages emptied: %d" % (self.nemptied,)
+            report("Total fuzzy messages emptied: %d" % self.nemptied)
 
