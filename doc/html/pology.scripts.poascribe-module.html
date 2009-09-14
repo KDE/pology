@@ -182,6 +182,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="assert_review_tag"></a><span class="summary-sig-name">assert_review_tag</span>(<span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">tag</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="examine_state"></a><span class="summary-sig-name">examine_state</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
@@ -994,6 +1011,45 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#parse_tags" class="summary-sig-name">parse_tags</a>(<span class="summary-sig-arg">tagstr</span>,
+        <span class="summary-sig-arg">config</span>,
+        <span class="summary-sig-arg">cid</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Parse tags from comma-separated list, verifying that they exist.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parse_fixed_set"></a><span class="summary-sig-name">parse_fixed_set</span>(<span class="summary-sig-arg">elstr</span>,
+        <span class="summary-sig-arg">config</span>,
+        <span class="summary-sig-arg">knownels</span>,
+        <span class="summary-sig-arg">errfmt</span>,
+        <span class="summary-sig-arg">cid</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="build_selector"></a><span class="summary-sig-name">build_selector</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">selspecs</span>,
         <span class="summary-sig-arg">hist</span>=<span class="summary-sig-default">False</span>)</span></td>
@@ -1028,8 +1084,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="cached_matcher"></a><span class="summary-sig-name">cached_matcher</span>(<span class="summary-sig-arg">cache</span>,
-        <span class="summary-sig-arg">expr</span>,
+          <td><span class="summary-sig"><a name="cached_matcher"></a><span class="summary-sig-name">cached_matcher</span>(<span class="summary-sig-arg">expr</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">cid</span>)</span></td>
@@ -1048,11 +1103,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="cached_users"></a><span class="summary-sig-name">cached_users</span>(<span class="summary-sig-arg">cache</span>,
-        <span class="summary-sig-arg">user_spec</span>,
+          <td><span class="summary-sig"><a name="cached_users"></a><span class="summary-sig-name">cached_users</span>(<span class="summary-sig-arg">user_spec</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">cid</span>,
         <span class="summary-sig-arg">utype</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="cached_tags"></a><span class="summary-sig-name">cached_tags</span>(<span class="summary-sig-arg">tag_spec</span>,
+        <span class="summary-sig-arg">config</span>,
+        <span class="summary-sig-arg">cid</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1266,7 +1338,7 @@
         <tr>
           <td><span class="summary-sig"><a name="selector_modar"></a><span class="summary-sig-name">selector_modar</span>(<span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ruser_spec</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">atag_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1301,7 +1373,7 @@
         <tr>
           <td><span class="summary-sig"><a name="selector_modarm"></a><span class="summary-sig-name">selector_modarm</span>(<span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rmuser_spec</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">atag_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1322,7 +1394,7 @@
         <span class="summary-sig-arg">arev</span>,
         <span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rmuser_spec</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">atag_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1339,7 +1411,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="selector_rev"></a><span class="summary-sig-name">selector_rev</span>(<span class="summary-sig-arg">user_spec</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">atag_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1357,7 +1429,7 @@
         <tr>
           <td><span class="summary-sig"><a name="selector_revbm"></a><span class="summary-sig-name">selector_revbm</span>(<span class="summary-sig-arg">ruser_spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">muser_spec</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">atag_req</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">atag_spec</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1414,6 +1486,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="UFUZZ"></a><span class="summary-name">UFUZZ</span> = <code title="'fuzzy'"><code class="variable-quote">'</code><code class="variable-string">fuzzy</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DATAG"></a><span class="summary-name">DATAG</span> = <code title="'-'"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -1512,6 +1591,31 @@ m, True), &quot;modarm&quot;:(selector_modarm, True), &quot;rev&quot;:(selector_
   
   <p>Parse users from comma-separated list, verifying that they exist.</p>
   <p>If the list starts with tilde (~), all users found in the config but 
+  for the listed will be selected (inverted selection).</p>
+  <p><code>cid</code> is the string identifying the caller, for error 
+  report in case the a parsed user does not exist.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_tags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_tags</span>(<span class="sig-arg">tagstr</span>,
+        <span class="sig-arg">config</span>,
+        <span class="sig-arg">cid</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse tags from comma-separated list, verifying that they exist.</p>
+  <p>If the list starts with tilde (~), all tags found in the config but 
   for the listed will be selected (inverted selection).</p>
   <p><code>cid</code> is the string identifying the caller, for error 
   report in case the a parsed user does not exist.</p>

@@ -165,7 +165,8 @@
       <code>case</code>: case-sensitive match (insensitive by default)
     </li>
     <li>
-      <code>mark</code>: mark each matched message with a flag
+      <code>mark</code>: mark each matched message with <code>match</code> 
+      flag
     </li>
     <li>
       <code>filter:&lt;hookspec&gt;</code>: apply F1A filtering hook to 
@@ -187,13 +188,13 @@
   decide that there are no accelerators. E.g. an 
   <code>X-Accelerator-Marker</code> header field is checked for the 
   accelerator character.</p>
-  <p>Using the <code>mark</code> option, <code>pattern-match</code> flag 
-  will be added to each matched message, in the PO file itself; the 
-  messages will not be sent to standard output. The modified files can then
-  be opened in an editor, and messages looked up by this flag. This is for 
-  cases when the search is performed in order to modify something in 
-  matched messages, but doing so automatically using <code>replace</code> 
-  option is not possible or safe enough. Option <code>-m</code> of 
+  <p>Using the <code>mark</code> option, <code>match</code> flag will be 
+  added to each matched message, in the PO file itself; the messages will 
+  not be sent to standard output. The modified files can then be opened in 
+  an editor, and messages looked up by this flag. This is for cases when 
+  the search is performed in order to modify something in matched messages,
+  but doing so automatically using <code>replace</code> option is not 
+  possible or safe enough. Option <code>-m</code> of 
   <code>posieve.py</code> is useful here to send the names of modified POs 
   to a separate file.</p>
 

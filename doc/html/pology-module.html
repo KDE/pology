@@ -74,6 +74,49 @@
   particular needs, by their collection of features and levels of 
   complexity.</p>
   <p><i>&quot;Pology -- the study of POs.&quot;</i></p>
+  <h1 class="heading">Requirements</h1>
+    <p>Minimum Python version is 2.5.</p>
+    <p>Required external Python modules:</p>
+    <ul>
+      <li>
+        none
+      </li>
+    </ul>
+    <p>Required general software:</p>
+    <ul>
+      <li>
+        Gettext, minimum version 0.17.
+      </li>
+    </ul>
+    <p>Optional external Python packages:</p>
+    <ul>
+      <li>
+        <code>python-dbus</code>: communication with various external 
+        applications, e.g. <a href="http://userbase.kde.org/Lokalize" 
+        target="_top">Lokalize</a> CAT tool.
+      </li>
+      <li>
+        <code>python-enchant</code>: frontend to various spell-checkers, 
+        used by most of Pology's spell checking functionality
+      </li>
+    </ul>
+    <p>Optional general software:</p>
+    <ul>
+      <li>
+        LanguageTool (<a href="http://www.languagetool.org/" 
+        target="_top">http://www.languagetool.org/</a>): open source 
+        language checker, used by the <a 
+        href="pology.sieve.check_grammar-module.html" 
+        class="link">check-grammar</a> sieve
+      </li>
+      <li>
+        Apertium (<a href="http://www.apertium.org/" 
+        target="_top">http://www.apertium.org/</a>): a free/open-source 
+        machine translation platform, used by the <a 
+        href="pology.scripts.pomtrans-module.html" 
+        class="link">pomtrans</a> script
+      </li>
+    </ul>
   <h1 class="heading">Setup</h1>
     <p>Although already useful for many day-to-day needs, Pology is 
     currently in experimental stage of development, and therefore lacks 
@@ -215,6 +258,7 @@
     <li> <strong class="uidlink"><a href="pology.misc.monitored-module.html">pology.misc.monitored</a></strong>: <em class="summary">Framework for monitored classes.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.msgreport-module.html">pology.misc.msgreport</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.multi-module.html">pology.misc.multi</a></strong>: <em class="summary">Collections of multiple sequences.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.normalize-module.html">pology.misc.normalize</a></strong>: <em class="summary">Various normalizations for strings.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.report-module.html">pology.misc.report</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.resolve-module.html">pology.misc.resolve</a></strong>: <em class="summary">Replacement of segments in text which define some underlying 
         values.</em>    </li>
@@ -237,6 +281,7 @@
     <li> <strong class="uidlink"><a href="pology.scripts.poascribe-module.html">pology.scripts.poascribe</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.scripts.poediff-module.html">pology.scripts.poediff</a></strong>: <em class="summary">Create embedded diffs of PO files.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.scripts.poepatch-module.html">pology.scripts.poepatch</a></strong>: <em class="summary">Patch PO files from an embedded diff.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.scripts.pomtrans-module.html">pology.scripts.pomtrans</a></strong>: <em class="summary">Perform machine translation of PO files.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.scripts.porewrap-module.html">pology.scripts.porewrap</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.scripts.poselfmerge-module.html">pology.scripts.poselfmerge</a></strong>: <em class="summary">Merge PO file with itself, to produce fuzzy matches on similar 
         messages.</em>    </li>
@@ -248,7 +293,7 @@
     <ul>
     <li> <strong class="uidlink"><a href="pology.sieve.apply_filter-module.html">pology.sieve.apply_filter</a></strong>: <em class="summary">Apply filters to translation.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.apply_header_filter-module.html">pology.sieve.apply_header_filter</a></strong>: <em class="summary">Apply filters to headers.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.bad_patterns-module.html">pology.sieve.bad_patterns</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.bad_patterns-module.html">pology.sieve.bad_patterns</a></strong>: <em class="summary">Check for presence of bad patterns in translation.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.check_grammar-module.html">pology.sieve.check_grammar</a></strong>: <em class="summary">Sieves messages with the LanguageTool grammar checker 
         (http://www.languagetool.org)</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.check_rules-module.html">pology.sieve.check_rules</a></strong>: <em class="summary">Try to fail messages by rules and warn when that happens.</em>    </li>
@@ -263,7 +308,7 @@
     <li> <strong class="uidlink"><a href="pology.sieve.count_ctxmark-module.html">pology.sieve.count_ctxmark</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.diff_previous-module.html">pology.sieve.diff_previous</a></strong>: <em class="summary">Embed differences in original text in fuzzy messages into previous 
         fields.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.empty_fuzzies-module.html">pology.sieve.empty_fuzzies</a></strong>: <em class="summary">Make all fuzzy entries untranslated.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.empty_fuzzies-module.html">pology.sieve.empty_fuzzies</a></strong>: <em class="summary">Make all fuzzy messages untranslated.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.equip_header_tp_kde-module.html">pology.sieve.equip_header_tp_kde</a></strong>: <em class="summary">Equip catalog headers within KDE Translation Project with extra 
         information.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.fancy_quote-module.html">pology.sieve.fancy_quote</a></strong>: <em class="summary">Transform ASCII single and double quotes into fancy counterparts.</em>    </li>
@@ -275,7 +320,7 @@
     <li> <strong class="uidlink"><a href="pology.sieve.normctxt_delim-module.html">pology.sieve.normctxt_delim</a></strong>: <em class="summary">Convert delimitor-embedded context to Gettext context.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.normctxt_sep-module.html">pology.sieve.normctxt_sep</a></strong>: <em class="summary">Convert separator-embedded context to Gettext context.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.remove_fuzzy_comments-module.html">pology.sieve.remove_fuzzy_comments</a></strong>: <em class="summary">Remove selected manual comments in fuzzy messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.remove_obsolete-module.html">pology.sieve.remove_obsolete</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve.remove_obsolete-module.html">pology.sieve.remove_obsolete</a></strong>: <em class="summary">Remove obsolete messages from catalogs.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.remove_previous-module.html">pology.sieve.remove_previous</a></strong>: <em class="summary">Remove previous fields (<code>#|...</code>) from messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.resolve_alternatives-module.html">pology.sieve.resolve_alternatives</a></strong>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve.resolve_entities-module.html">pology.sieve.resolve_entities</a></strong>    </li>

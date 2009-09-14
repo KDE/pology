@@ -373,6 +373,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#editprob" class="summary-sig-name">editprob</a>(<span class="summary-sig-arg">oldtext</span>,
+        <span class="summary-sig-arg">newtext</span>)</span><br />
+      Compute the probability that a human would rather edit the old text 
+      to obtain the new text, then write it from scratch.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -441,7 +460,7 @@
 </pre>
   <p>To be able to diff them, sequence elements only need to be hashable. 
   However, for compound elements it may be better to diff them only by some
-  subset, e.g. by one of their string attributes. Parameter 
+  subset of data, e.g. by one of their string attributes. Parameter 
   <code>reductf</code> can be used to specify a reduction function, which 
   will be called on each element to produce its diffing representative.</p>
   <dl class="fields">
@@ -1148,6 +1167,42 @@
   href="pology.misc.diff-module.html#msg_ediff_to_new" 
   class="link">msg_ediff_to_new</a> for parameters and return values.</p>
   <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="editprob"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">editprob</span>(<span class="sig-arg">oldtext</span>,
+        <span class="sig-arg">newtext</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute the probability that a human would rather edit the old text to
+  obtain the new text, then write it from scratch.</p>
+  <p>Classical algorithms to compute similarity ratio between two texts 
+  sometimes produce high ratios for texts which a human would unlikely 
+  consider similar enough to make one text by editing the other, and vice 
+  versa. This functions uses some heuristics to derive the probability that
+  one text was really edited by a human into the other.</p>
+  <p>Not commutative in general.</p>
+  <p>If one of the texts is given as <code>None</code>, the result is 0.0; 
+  if both are <code>None</code>, the result is 1.0.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>oldtext</code></strong> (string) - candidate for initial text</li>
+        <li><strong class="pname"><code>newtext</code></strong> (string) - current text</li>
+    </ul></dd>
+    <dt>Returns: float</dt>
+        <dd>the probability of editing the old into the new text [0, 1]</dd>
   </dl>
 </td></tr></table>
 </div>

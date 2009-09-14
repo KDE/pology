@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.remove_obsolete.Sieve</title>
+  <title>pology.scripts.pomtrans.Translator_apertium</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        <a href="pology.sieve.remove_obsolete-module.html">Module&nbsp;remove_obsolete</a> ::
-        Class&nbsp;Sieve
+        <a href="pology.scripts-module.html">Package&nbsp;scripts</a> ::
+        <a href="pology.scripts.pomtrans-module.html">Module&nbsp;pomtrans</a> ::
+        Class&nbsp;Translator_apertium
       </span>
     </td>
     <td>
@@ -51,11 +51,11 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Sieve</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class Translator_apertium</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
 object --+
          |
-        <strong class="uidshort">Sieve</strong>
+        <strong class="uidshort">Translator_apertium</strong>
 </pre>
 
 <hr />
@@ -73,8 +73,10 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.sieve.remove_obsolete.Sieve-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">params</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.scripts.pomtrans.Translator_apertium-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">slang</span>,
+        <span class="summary-sig-arg">tlang</span>,
+        <span class="summary-sig-arg">options</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             
@@ -91,25 +93,8 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="process"></a><span class="summary-sig-name">process</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">cat</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="finalize"></a><span class="summary-sig-name">finalize</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="translate"></a><span class="summary-sig-name">translate</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">texts</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -168,7 +153,9 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">params</span>)</span>
+        <span class="sig-arg">slang</span>,
+        <span class="sig-arg">tlang</span>,
+        <span class="sig-arg">options</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"

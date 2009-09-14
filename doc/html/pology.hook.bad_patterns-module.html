@@ -69,9 +69,49 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.bad_patterns-module.html#bad_patterns" class="summary-sig-name">bad_patterns</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
+        <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
       Detect unwanted patterns in text [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msg, cat)-&gt;numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.bad_patterns-module.html#bad_patterns_msg" class="summary-sig-name">bad_patterns_msg</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Detect unwanted patterns in translation [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msg, cat)-&gt;parts</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.bad_patterns-module.html#bad_patterns_msg_sp" class="summary-sig-name">bad_patterns_msg_sp</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Detect unwanted patterns in translation, report spans [hook factory].</td>
           <td align="right" valign="top">
             
             
@@ -100,8 +140,8 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">bad_patterns</span>(<span class="sig-arg">rxmatch</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">patterns</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
-        <span class="sig-arg">fromfiles</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
+        <span class="sig-arg">patterns</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fromfiles</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -128,6 +168,61 @@
     </ul></dd>
     <dt>Returns: <code>(text, msg, cat)-&gt;numerr</code></dt>
         <dd>type S3A hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="bad_patterns_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">bad_patterns_msg</span>(<span class="sig-arg">rxmatch</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">patterns</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fromfiles</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Detect unwanted patterns in translation [hook factory].</p>
+  <p>Like <a href="pology.hook.bad_patterns-module.html#bad_patterns" 
+  class="link">bad_patterns</a>, but checks and reports on all 
+  <code>msgstr</code> fields in the message.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msg, cat)-&gt;numerr</code></dt>
+        <dd>type S4A hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="bad_patterns_msg_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">bad_patterns_msg_sp</span>(<span class="sig-arg">rxmatch</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">casesens</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">patterns</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">fromfiles</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Detect unwanted patterns in translation, report spans [hook 
+  factory].</p>
+  <p>Like <a href="pology.hook.bad_patterns-module.html#bad_patterns_msg" 
+  class="link">bad_patterns_msg</a>, but reports parts instead of writing 
+  to stdout.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msg, cat)-&gt;parts</code></dt>
+        <dd>type V4A hook</dd>
   </dl>
 </td></tr></table>
 </div>
