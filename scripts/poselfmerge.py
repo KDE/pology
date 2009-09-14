@@ -150,7 +150,7 @@ def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
     # From the file to be merged, in case compendium is being used,
     # collect keys of all non-translated messages,
     # to later check which exact matches need to be fuzzied.
-    if compendiums:
+    if compendiums and minwnex > 0:
         nontrkeys = set()
         for msg in cat:
             if not msg.translated:
@@ -198,7 +198,7 @@ def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
 
     # In case compendium is being used,
     # make fuzzy exact matches which do not pass the word limit.
-    if compendiums:
+    if compendiums and minwnex > 0:
         for msg in cat:
             if (    msg.key in nontrkeys and msg.translated
                 and len(proper_words(msg.msgid)) < minwnex
