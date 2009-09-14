@@ -1,136 +1,85 @@
 # -*- coding: UTF-8 -*-
 
-import os, re, codecs
-from pology.misc.escape import split_escaped
-from pology.misc.comments import manc_parse_flag_list
-from pology.misc.report import error
-from pology.misc.msgreport import report_on_msg
+"""
+Check for presence of bad patterns in translation.
+
+Sometimes there are simply definable patterns that should never appear
+in translation, such as common grammar or orthographical errors.
+This sieve allows checking for such patterns, either through substring
+matching or regular expressions.
+Patterns can be given as parameters, or, more conveniently, read from files.
+
+Sieve parameters:
+  - C{pattern:<string>}: pattern to check against
+  - C{fromfile:<path>}: file from which to read patterns
+  - C{rxmatch}: patterns should be treated as regular expressions
+  - C{casesens}: patterns should be treated as case-sensitive
+
+Any number of C{pattern} and C{fromfile} parameters may be given.
+By default, patterns are matched as substrings, and C{rxmatch} parameter
+can be issued to consider patterns as regular expressions.
+
+@note: This sieve is deprecated; instead use the
+L{check-rules<misc.sieve.check_rules}, which provides much more options
+for defining, matching, and reporting problems.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
+"""
+
+from pology.hook.bad_patterns import bad_patterns_msg
 
 
-# Pipe flag used to manually prevent matching for a particular message.
-flag_no_bad_patterns = "no-bad-patterns"
+def setup_sieve (p):
 
+    p.set_desc(
+    "Check for presence of bad patterns in translation."
+    )
 
-# Load pattern string from the file:
-# one pattern per non-empty line in the file,
-# leading and trailing whitespace stripped,
-# #-comments possible.
-def load_patterns (filepath):
-
-    ifl = codecs.open(filepath, "r", "UTF-8")
-
-    rem_cmnt_rx = re.compile(r"#.*")
-    patterns = []
-    for line in ifl.readlines():
-        line = rem_cmnt_rx.sub("", line).strip()
-        if line:
-            patterns.append(line)
-
-    return patterns
-
-
-# Process given list of pattern strings.
-# If rxmatch is True, patterns are compiled into regexes.
-# If casesens is False, re.I flag is used in regex compilation, or
-# if regex patterns are not requested, patterns are lower-cased.
-def process_patterns (patterns, rxmatch=False, casesens=True):
-
-    patterns_cmp = []
-    if rxmatch:
-        rx_flags = re.U
-        if not casesens:
-            rx_flags |= re.I
-        for pattern in patterns:
-            patterns_cmp.append(re.compile(pattern, rx_flags))
-    else:
-        for pattern in patterns:
-            if not casesens:
-                patterns_cmp.append(pattern.lower())
-            else:
-                patterns_cmp.append(pattern)
-
-    return patterns_cmp
-
-
-# Try to match the text by all patterns in the list.
-# If rxmatch is False, the patterns are considered plain substrings,
-# otherwise compiled regexes.
-# If mhandle is not None, for each matched pattern it is called with an
-# empty string if pnames is empty, or with pnames[i] where pnames is
-# list of pattern names of same length as the pattern list.
-# Return the list of patterns that matched if pnames is empty,
-# otherwise the list of (pattern, patname) tuples for patterns that matched.
-def match_patterns (text, patterns, rxmatch=False, mhandle=None, pnames=[]):
-
-    matched_patterns = []
-    for i in range(len(patterns)):
-        pattern = patterns[i]
-
-        matched = False
-        if rxmatch:
-            if pattern.search(text):
-                matched = True
-        else:
-            if text.find(pattern) >= 0:
-                matched = True
-
-        if matched:
-            if pnames:
-                matched_patterns.append((pattern, pnames[i]))
-                if mhandle:
-                    mhandle(pnames[i])
-            else:
-                matched_patterns.append(pattern)
-                if mhandle:
-                    mhandle("")
-
-    return matched_patterns
+    p.add_param("pattern", unicode, multival=True,
+                metavar="STRING",
+                desc=
+    "A pattern to check against. "
+    "The pattern can be a substring or regular expression, "
+    "depending on the '%s' parameter. "
+    "This parameter can be repeated to add several patterns."
+    )
+    p.add_param("fromfile", unicode, multival=True,
+                metavar="PATH",
+                desc=
+    "Read patterns to check against from a file. "
+    "The file format is as follows: "
+    "each line contains one pattern, "
+    "leading and trailing whitespace is removed, "
+    "empty lines are ignored; "
+    "# denotes start of comment, which extends to end of line."
+    "This parameter can be repeated to add several files."
+    )
+    p.add_param("rxmatch", bool, defval=False,
+                desc=
+    "Treat patterns as regular expressions; default is substring matching."
+    )
+    p.add_param("casesens", bool, defval=False,
+                desc=
+    "Set case-sensitive matching; default is case-insensitive."
+    )
 
 
 class Sieve (object):
-    """Check for presence of deprecated patterns in translation."""
 
-    def __init__ (self, options):
-
-        self.nbad = 0
-
-        # Patterns given by the command line.
-        self.patterns = []
-        if "pattern" in options:
-            self.patterns = split_escaped(options["pattern"], ",")
-            options.accept("pattern")
-
-        # The patterns given by files (comma-separated list of paths):
-        # one pattern per non-empty line in the file,
-        # leading and trailing whitespace stripped, #-comments possible.
-        if "fromfile" in options:
-            files = split_escaped(options["fromfile"], ",")
-            for file in files:
-                if not os.path.isfile(file):
-                    error("given path '%s' does not point to a file" % file)
-                self.patterns.extend(load_patterns(file))
-            options.accept("fromfile")
-
-        # Whether pattern matching is case-sensitive.
-        self.casesens = False
-        if "casesens" in options:
-            self.casesens = True
-            options.accept("casesens")
-
-        # Whether the patterns are regexes instead of plain substrings.
-        self.rxmatch = False
-        if "rxmatch" in options:
-            self.rxmatch = True
-            options.accept("rxmatch")
-
-        # Process patterns.
-        self.patterns_cmp = process_patterns(self.patterns,
-                                             rxmatch=self.rxmatch,
-                                             casesens=self.casesens)
+    def __init__ (self, params):
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs to the caller
         self.caller_monitored = False # no need for monitored messages
+
+        # Create checker hook.
+        self.check = bad_patterns_msg(rxmatch=params.rxmatch,
+                                      casesens=params.casesens,
+                                      patterns=params.pattern,
+                                      fromfiles=params.fromfile)
+
+        self.nbad = 0
 
 
     def process (self, msg, cat):
@@ -139,27 +88,7 @@ class Sieve (object):
         if not msg.translated:
             return
 
-        # Do not check messages when told so.
-        if flag_no_bad_patterns in manc_parse_flag_list(msg, "|"):
-            return
-
-        # Report-handler for bad patterns.
-        def badhandle (name):
-            if name:
-                report_on_msg("bad pattern detected in translation: %s" % name,
-                              msg, cat)
-            else:
-                report_on_msg("bad pattern detected in translation" % name,
-                              msg, cat)
-
-        # Match patterns in all msgstr.
-        for msgstr in msg.msgstr:
-            if not self.casesens:
-                msgstr = msgstr.lower()
-            self.nbad += len(match_patterns(msgstr, self.patterns_cmp,
-                                            rxmatch=self.rxmatch,
-                                            mhandle=badhandle,
-                                            pnames=self.patterns))
+        self.nbad += self.check(msg, cat)
 
 
     def finalize (self):
