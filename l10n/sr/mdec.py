@@ -50,7 +50,7 @@ def build_declinator (mdfiles,
       - The entry and declination key separator is ASCII hyphen (C{-}).
 
       - All entry phrases are turned into entry keys by applying
-        the L{identify()<misc.macrodec.identify>} function.
+        the L{identify()<misc.normalize.identify>} function.
         Of particular note is that any non-ASCII characters will be
         eliminated from the key, therefore entries with such phrases
         should probably be given dummy additional pure-ASCII phrases.

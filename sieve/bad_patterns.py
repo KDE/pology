@@ -20,7 +20,7 @@ By default, patterns are matched as substrings, and C{rxmatch} parameter
 can be issued to consider patterns as regular expressions.
 
 @note: This sieve is deprecated; instead use the
-L{check-rules<misc.sieve.check_rules}, which provides much more options
+L{check-rules<sieve.check_rules>}, which provides much more options
 for defining, matching, and reporting problems.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
