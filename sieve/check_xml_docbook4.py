@@ -4,12 +4,14 @@
 Lightweight validity checking of POs containing Docbook XML.
 
 Docbook is a complex XML application, and nothing short of full validation
-of XML files generated from translated POs can show it correct for sure.
+of XML files generated from translated POs can show if markup is valid.
 This sieve just checks for well-formedness and mere existance of a tag in
-Docbook subset, and on a single PO entry level.
+Docbook subset, and on the level of single PO message.
+But this is already enough to catch most of the typical translation errors.
 
 Sieve options:
   - C{showmsg}: show content of the message, with errors highlighted
+  - C{lokalize}: open catalogs at failed messages in Lokalize
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -27,19 +29,28 @@ from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology import rootdir
 
 
+def setup_sieve (p):
+
+    p.set_desc(
+    "Validate text markup in translation in Docbook 4 catalogs."
+    )
+
+    p.add_param("showmsg", bool, defval=False,
+                desc=
+    "Also show the full message which has a problem."
+    )
+    p.add_param("lokalize", bool, defval=False,
+                desc=
+    "Show reported messages in Lokalize."
+    )
+
+
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
-        self.showmsg = False
-        if "showmsg" in options:
-            options.accept("showmsg")
-            self.showmsg = True
-
-        self.lokalize = False
-        if "lokalize" in options:
-            options.accept("lokalize")
-            self.lokalize = True
+        self.showmsg = params.showmsg
+        self.lokalize = params.lokalize
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs to the caller
