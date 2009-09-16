@@ -448,7 +448,9 @@ def _read_wlist_aspell (fname):
     header = fl.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        error("malformed header in dictionary file: %s" % fname)
+        warning("Malformed header in dictionary file '%s', skipping reading."
+                % fname)
+        return []
     enc = m.group(4)
     # Reopen in correct encoding if not the default.
     if enc.lower() != defenc.lower():

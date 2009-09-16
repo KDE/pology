@@ -69,8 +69,9 @@ from time import strftime, strptime, mktime
 from locale import getpreferredencoding
 import re
 
+from pology.sieve import SieveError
 from pology.misc.rules import loadRules, printStat
-from pology.misc.report import report, error, warning
+from pology.misc.report import report, warning
 from pology.misc.msgreport import rule_error, rule_xml_error, report_msg_content
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
@@ -248,7 +249,8 @@ class Sieve (object):
             try:
                 os.mkdir(CACHEDIR)
             except IOError, e:
-                error("Cannot create cache directory (%s):\n%s" % (CACHEDIR, e))
+                raise SieveError("Cannot create cache directory (%s):\n%s"
+                                 % (CACHEDIR, e))
 
         report("-"*40)
 
@@ -430,8 +432,7 @@ class Sieve (object):
             if foundRules!=requestedRules:
                 missingRules=list(requestedRules-foundRules)
                 missingRules.sort()
-                error("some explicitly selected rules are missing: %s"
-                      % ", ".join(missingRules))
+                raise SieveError("Some explicitly selected rules are missing: %s" % ", ".join(missingRules))
             selectedRules.update(foundRules)
         if self.ruleChoiceRx:
             identRxs=[re.compile(x, re.U) for x in self.ruleChoiceRx]
@@ -458,8 +459,7 @@ class Sieve (object):
             if foundRules!=requestedRules:
                 missingRules=list(requestedRules-foundRules)
                 missingRules.sort()
-                error("some explicitly excluded rules are missing: %s"
-                      % ", ".join(missingRules))
+                raise SieveError("Some explicitly excluded rules are missing: %s" % ", ".join(missingRules))
             selectedRulesInv.update(foundRules)
         if self.ruleChoiceInvRx:
             identRxs=[re.compile(x, re.U) for x in self.ruleChoiceInvRx]

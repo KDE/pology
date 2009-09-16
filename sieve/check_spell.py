@@ -28,7 +28,8 @@ The following user configuration fields are considered:
 @license: GPLv3
 """
 
-from pology.misc.report import report, warning, error
+from pology.sieve import SieveError
+from pology.misc.report import report, warning
 from pology.misc.msgreport import spell_error, spell_xml_error
 from pology.misc.split import proper_words
 from pology import rootdir
@@ -214,20 +215,21 @@ class Sieve (object):
                 try:
                     self.aspells[ckey] = A.Aspell(self.aspellOptions.items())
                 except A.AspellConfigError, e:
-                    error("Aspell configuration error:\n"
-                          "%s" % e)
+                    raise SieveError("Aspell configuration error:\n"
+                                     "%s" % e)
                 except A.AspellError, e:
-                    error("cannot initialize Aspell for language '%s':\n"
-                          "\t- check if Aspell and the language dictionary are correctly installed\n"
-                          "\t- check if there are any special characters in the personal dictionary\n"
-                          % clang)
+                    raise SieveError(
+                        "Cannot initialize Aspell for language '%s':\n"
+                        "\t- check if Aspell and the language dictionary are correctly installed\n"
+                        "\t- check if there are any special characters in the personal dictionary\n"
+                        % clang)
             else:
                 # Create simple internal checker that only checks against
                 # internal supplemental dictionaries.
                 personalDict=self.personalDicts[ckey]
                 if not personalDict:
-                    error("no supplemental dictionaries found for language '%s'"
-                          % clang)
+                    raise SieveError("No supplemental dictionaries found for language '%s'."
+                                     % clang)
                 self.aspells[ckey]=_QuasiSpell(personalDict, self.encoding)
 
             # Load list of contexts by which to ignore messages.
@@ -428,7 +430,8 @@ def _read_dict_file (fname):
     header=file.readline()
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        error("malformed header in dictionary file: %s" % fname)
+        warning("Malformed header in dictionary file '%s', skipping reading." % fname)
+        return []
     enc=m.group(4)
     # Reopen in correct encoding if not the default.
     if enc.lower() != encDefault.lower():
