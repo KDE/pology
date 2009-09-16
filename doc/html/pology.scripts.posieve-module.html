@@ -82,20 +82,20 @@
   modified, the catalog with changes will be saved over old catalog, and 
   the user will be informed by an exclamation mark followed by the catalog 
   path. An example of such internal sieve is <a 
-  href="pology.sieve.tag_incomplete-module.html" 
-  class="link">tag-incomplete</a>, which will add <code>incomplete</code> 
-  flag to each fuzzy or untranslated message:</p>
+  href="pology.sieve.tag_untranslated-module.html" 
+  class="link">tag-untranslated</a>, which will add the 
+  <code>untranslated</code> flag to each untranslated message:</p>
 <pre class="literalblock">
-   $ posieve tag-incomplete frobaz/
+   $ posieve tag-untranslated frobaz/
    ! frobaz/alfa.po
    ! frobaz/bravo.po
    ! frobaz/charlie.po
-   Total incomplete tagged: 42
+   Total untranslated messages tagged: 42
 </pre>
   <p><code>posieve</code> itself monitors and informs about changed 
   catalogs, whereas the final line in the example above has been output by 
-  the <code>tag-incomplete</code> sieve. Sieves will frequently issue such 
-  final reports.</p>
+  the <code>tag-untranslated</code> sieve. Sieves will frequently issue 
+  such final reports.</p>
   <p>More than one sieve can be applied to the catalog collection in one 
   pass. This is called the &quot;sieve chain&quot;, and is specified as 
   comma-separated list of sieve names instead of a lone sieve name. Each 
@@ -105,14 +105,14 @@
   mind when two sieves in the chain can both modify a message. For 
   example:</p>
 <pre class="literalblock">
-   $ posieve stats,tag-incomplete frobaz/
+   $ posieve stats,tag-untranslated frobaz/
    ! frobaz/alfa.po
    ! frobaz/bravo.po
    ! frobaz/charlie.po
    ... (table with stats) ...
-   Total incomplete tagged: 42
+   Total untranslated messages tagged: 42
 </pre>
-  <p>If the order were <code>tag-incomplete,stats</code> in this case the 
+  <p>If the order were <code>tag-untranslated,stats</code> in this case the
   effect on the catalogs would be the same, but number of tagged messages 
   would be the first in output, followed by the table with statistics.</p>
   <p>Frequently it is necessary to modify a message before doing a check on

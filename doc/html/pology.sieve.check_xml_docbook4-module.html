@@ -53,14 +53,19 @@
 <h1 class="epydoc">Module check_xml_docbook4</h1><p class="nomargin-top"></p>
 <p>Lightweight validity checking of POs containing Docbook XML.</p>
   <p>Docbook is a complex XML application, and nothing short of full 
-  validation of XML files generated from translated POs can show it correct
-  for sure. This sieve just checks for well-formedness and mere existance 
-  of a tag in Docbook subset, and on a single PO entry level.</p>
+  validation of XML files generated from translated POs can show if markup 
+  is valid. This sieve just checks for well-formedness and mere existance 
+  of a tag in Docbook subset, and on the level of single PO message. But 
+  this is already enough to catch most of the typical translation 
+  errors.</p>
   <p>Sieve options:</p>
   <ul>
     <li>
       <code>showmsg</code>: show content of the message, with errors 
       highlighted
+    </li>
+    <li>
+      <code>lokalize</code>: open catalogs at failed messages in Lokalize
     </li>
   </ul>
 
@@ -84,6 +89,31 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.sieve.check_xml_docbook4.Sieve-class.html" class="summary-name">Sieve</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>

@@ -51,16 +51,20 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module check_spell</h1><p class="nomargin-top"></p>
-<p>Spell-check messages using GNU Aspell (http://aspell.net/).</p>
-  <p>For spell-checking, messages are split into words, which are then fed 
-  to Aspell one by one. Misspelled words can be reported to stdout (either 
-  verbosely with suggestions, or succinctly as pure list), or into a rich 
-  XML file with a lot of context information.</p>
-  <p>Sieve parameters:</p>
+<p>Spell-check messages using GNU Aspell (<a href="http://aspell.net/" 
+  target="_top">http://aspell.net/</a>).</p>
+  <p>This sieve is a more specific counterpart to <a 
+  href="pology.sieve.check_spell_ec-module.html" 
+  class="link">check-spell-ec</a>, which deals only with GNU Aspell spell 
+  checker. Compared to <code>check-spell-ec</code>, it exposes some options
+  specific to Aspell, and requires no external Python modules, only Aspell 
+  installation.</p>
+  <p>This sieve behaves mostly same as <code>check-spell-ec</code>, and 
+  accepts all the same parameters with same meanings; the exception is the 
+  <code>provider</code> parameter, which is not present here since Aspell 
+  is the fixed provider.</p>
+  <p>Sieve parameters specific to this sieve:</p>
   <ul>
-    <li>
-      <code>lang:&lt;language&gt;</code>: language of the Aspell dictionary
-    </li>
     <li>
       <code>enc:&lt;encoding&gt;</code>: encoding for text sent to Aspell
     </li>
@@ -68,86 +72,9 @@
       <code>var:&lt;variety&gt;</code>: variety of the Aspell dictionary
     </li>
     <li>
-      <code>list</code>: only report wrong words to stdout, one per line
-    </li>
-    <li>
       <code>xml:&lt;filename&gt;</code>: build XML report file
     </li>
-    <li>
-      <code>accel:&lt;chars&gt;</code>: strip these characters as 
-      accelerator markers
-    </li>
-    <li>
-      <code>skip:&lt;regex&gt;</code>: do not check words which match given
-      regular expression
-    </li>
-    <li>
-      <code>filter:&lt;hookspec&gt;,...</code>: apply F1A or F3A/C hook 
-      prior to spell checking (see <a 
-      href="pology.misc.langdep-module.html#get_hook_lreq" 
-      class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
-      specification)
-    </li>
-    <li>
-      <code>env:&lt;environment&gt;</code>: comma-separated list of 
-      environments of internal dictionary supplements
-    </li>
-    <li>
-      <code>suponly</code>: do not use default dictionary, only internal 
-      supplements
-    </li>
-    <li>
-      <code>lokalize</code>: open catalogs at failed messages in Lokalize
-    </li>
   </ul>
-  <p>When dictionary language, encoding, or variety are not explicitly 
-  given, they are extracted, in the following order of priority, from: 
-  current PO file (language only), user configuration, current system 
-  locale (language and encoding only).</p>
-  <p>If accelerator character is not given by <code>accel</code> parameter,
-  the sieve will try to guess the accelerator; it may choose wrongly or 
-  decide that there are no accelerators. E.g. an 
-  <code>X-Accelerator-Marker</code> header field is checked for the 
-  accelerator character.</p>
-  <p>Pology internally collects language-specific supplementary word lists 
-  to default Aspell dictionaries, under 
-  <code>l10n/&lt;lang&gt;/spell/</code> directory. These contain either the
-  words that should enter the default dictionary but have not been added 
-  yet, or, more importantly, the words that are specific to a given 
-  translation environment, i.e. too specific to enter the default 
-  dictionary. The <code>env</code> parameter is used to specify one or more
-  environments for which word lists are loaded. Each environment is taken 
-  to be a subpath within <code>l10n/&lt;lang&gt;/spell/&lt;env&gt;</code>: 
-  all word lists in that subpath and parent directories will be loaded. 
-  This means that the word lists are hierarchical, so that all-environment 
-  lists (loaded even when <code>env</code> parameter is not given) reside 
-  directly in <code>l10n/&lt;lang&gt;/spell/</code>, and the more specific 
-  ones in subdirectories below it. If environment is not given by 
-  <code>env</code> parameter, and also not in Pology user configuration, 
-  the sieve will try to read it from each catalog in turn. See <a 
-  href="pology.file.catalog.Catalog-class.html#environment" 
-  class="link">environment()</a> method of catalog object for the way 
-  environments can be specified in catalog header.</p>
-  <p>The system dictionary can be avoided alltogether, and only 
-  supplemental word lists used instead, by giving the <code>suponly</code> 
-  parameter.</p>
-  <p>It is possible to selectively disable spell checking for a message, or
-  certain words within a message, by adding a special manual comment. The 
-  whole message is skipped by the no-sieve flag 
-  <code>no-check-spell</code>:</p>
-<pre class="literalblock">
-   # |, no-check-spell
-</pre>
-  <p>and only some words within the message by listing them in 
-  <code>well-spelled:</code> embedded list:</p>
-<pre class="literalblock">
-   # well-spelled: word1, word2, ...
-</pre>
-  <p>Which of these two methods to use depends on the nature of the message
-  and specifics of spelling checks for given language/environment. For 
-  example, if most of the message consists of valid words, but there are 
-  only one or two which are special in some way, it is probably better to 
-  list them explicitly, so that all other words are checked.</p>
   <p>The following user configuration fields are considered:</p>
   <ul>
     <li>
@@ -186,6 +113,31 @@
     </td><td class="summary">
         <a href="pology.sieve.check_spell.Sieve-class.html" class="summary-name">Sieve</a><br />
       Process messages through the Aspell spell checker
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setup_sieve"></a><span class="summary-sig-name">setup_sieve</span>(<span class="summary-sig-arg">p</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
