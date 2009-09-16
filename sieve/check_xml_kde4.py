@@ -17,8 +17,6 @@ will be checked regardless of the original.
 If this is used, check can be skipped for a particular message by adding
 C{no-check-markup} L{sieve flag<sieve.parse_sieve_flags>}.
 
-If entities other thand 
-
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
