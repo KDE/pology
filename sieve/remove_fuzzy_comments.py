@@ -8,16 +8,16 @@ messages on merge. Depending on the intent behind the particular comments,
 translator may want to automatically remove them for fuzzied messages
 (possibly adding them manually again when revisiting messages).
 
-Sieve options for selecting manual comments for removal:
+Sieve parameters for selecting manual comments for removal:
   - C{all}: all manual comments
   - C{nopipe}: embedded lists of no-pipe flags (C{# |, foo, ...})
   - C{pattern:<regex>}: comments matching the regular expression
   - C{exclude:<regex>}: comments not matching the regular expression
 
-Other sieve options:
+Other sieve parameters:
   - C{case}: do case-sensitive matching (insensitive by default)
 
-The comments are selected for removal by first applying specific criteria
+Comments are selected for removal by first applying specific criteria
 in an unspecified order, then the C{pattern} match, and finally the
 C{exclude} match.
 
@@ -27,50 +27,66 @@ C{exclude} match.
 
 import re
 
+from pology.misc.report import report
 
-def _accept_negation (options, key, default):
 
-    if key in options:
-        options.accept(key)
-        return not default
-    else:
-        return default
+def setup_sieve (p):
+
+    p.set_desc(
+    "Remove selected manual comments in fuzzy messages."
+    )
+
+    p.add_param("all", bool, defval=False,
+                desc=
+    "Remove all manual comments."
+    )
+    p.add_param("nopipe", bool, defval=False,
+                desc=
+    "Remove embedded lists of no-pipe flags (# |, foo, ...)."
+    )
+    p.add_param("pattern", unicode,
+                metavar="REGEX",
+                desc=
+    "Remove comments matching the regular expression."
+    )
+    p.add_param("exclude", unicode,
+                metavar="REGEX",
+                desc=
+    "Remove comments not matching the regular expression."
+    )
+    p.add_param("case", bool, defval=False,
+                desc=
+    "Use case-sensitive pattern matching."
+    )
+
 
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
-        # Number of modified messages.
-        self.nmod = 0
+        self.sel_all = params.all
+        self.sel_nopipe = params.nopipe
 
-        # Select comments by specific features.
-        self.sel_all = _accept_negation(options, "all", False)
-        self.sel_nopipe = _accept_negation(options, "nopipe", False)
-
-        # Matching flags for regular expressions.
         self.rxflags = re.U
-        if "case" in options:
-            options.accept("case")
-        else:
+        if not params.case:
             self.rxflags |= re.I
 
-        # Select comments matching the regex.
         self.pattern = None
-        if "pattern" in options:
-            self.pattern = options["pattern"]
+        if params.pattern:
+            self.pattern = params.pattern
             self.pattern_rx = re.compile(self.pattern, self.rxflags)
-            options.accept("pattern")
 
-        # Exclude comments matching the regex.
         self.exclude = None
-        if "exclude" in options:
-            self.exclude = options["exclude"]
+        if params.exclude:
+            self.exclude = params.exclude
             self.exclude_rx = re.compile(self.exclude, self.rxflags)
-            options.accept("exclude")
 
         # Regex for matching no-pipe flag lists.
         self.nopipe_rx = re.compile(r"^\s*\|,")
+
+        # Number of modified messages.
+        self.nmod = 0
 
 
     def process (self, msg, cat):
@@ -115,5 +131,5 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmod > 0:
-            print "Total with some comments removed: %d" % (self.nmod,)
+            report("Total messages with some comments removed: %d" % self.nmod)
 
