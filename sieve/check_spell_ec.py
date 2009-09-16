@@ -128,20 +128,8 @@ from pology.misc.msgreport import report_on_msg
 from pology.misc.msgreport import report_msg_to_lokalize
 
 
-def setup_sieve (p):
+def add_general_spellcheck_params (p):
 
-    p.set_desc(
-    "Spell-check translation using Enchant."
-    "\n\n"
-    "See documentation to pology.sieve.check_spell_ec for details."
-    )
-
-    p.add_param("provider", unicode, seplist=True,
-                metavar="NAME",
-                desc=
-    "The spell-checking provider to use. "
-    "Several provider can be given as comma-separated list."
-    )
     p.add_param("lang", unicode,
                 metavar="CODE",
                 desc=
@@ -192,6 +180,22 @@ def setup_sieve (p):
                 desc=
     "Open catalogs at failed messages in Lokalize."
     )
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Spell-check translation using Enchant."
+    )
+
+    p.add_param("provider", unicode, seplist=True,
+                metavar="NAME",
+                desc=
+    "The spell-checking provider to use. "
+    "Several provider can be given as comma-separated list."
+    )
+
+    add_general_spellcheck_params(p)
 
 
 class Sieve (object):
