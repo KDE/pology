@@ -40,7 +40,7 @@ def _norm_inpl (text):
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
         self.caller_monitored = True
 
