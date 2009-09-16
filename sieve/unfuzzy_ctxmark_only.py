@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Unfuzzy those messages fuzzied only due to a change in context marker.
+Unfuzzy messages fuzzied only due to a change in context marker.
 
 This sieve is similar to L{unfuzzy-context-only<unfuzzy_context_only>},
 but it unfuzzies the message when the only change is in a specific part
@@ -26,10 +26,10 @@ and ending with the first whitespace. This sieve will unfuzzy the message
 if only the context marker has changed (or was added or removed), but not if
 the change was in the rest of the context, after the first whitespace.
 
-Sieve options:
-  - C{no-review}: do not add comment about unreviewed context (I{not advised!})
+Sieve parameters:
+  - C{noreview}: do not add comment about unreviewed context (I{not advised})
 
-@see: L{unfuzzy-context-only<unfuzzy_context_only>}
+@see: L{unfuzzy-context-only<sieve.unfuzzy_context_only>}
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -37,11 +37,32 @@ Sieve options:
 
 import re
 
+from pology.misc.report import report
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Unfuzzy messages which got fuzzy only due to changed context marker."
+    "\n\n"
+    "(Possible only if catalogs were merged with --previous option.)"
+    "\n\n"
+    "By default, unfuzzied messages will get a translator comment with "
+    "the string '%s', so that they can be reviewed later."
+    % "unreviewed-context"
+    )
+
+    p.add_param("noreview", bool, defval=False,
+                desc=
+    "Do not add translator comment indicating unreviewed context."
+    )
+
 
 _strip_rx = re.compile(r"^\s*@[^\s]+(.*)", re.U)
 _norm_rx = re.compile(r"[^\w]", re.U)
+
+# Strip the KUIT context marker, and normalize rest of the string.
 def _stripped (ctxt):
-    """Strip the KUIT context marker, and normalize rest of the string."""
     m = _strip_rx.search(ctxt)
     if m: stripped = m.group(1)
     else: stripped = ctxt
@@ -49,17 +70,12 @@ def _stripped (ctxt):
 
 
 class Sieve (object):
-    """Unfuzzy when only a KUIT context mark difference to previous."""
 
-    def __init__ (self, options):
+    def __init__ (self, params):
+
+        self.flag_review = not params.noreview
 
         self.nmatch = 0
-
-        # Add flag indicating unreviewed context?
-        self.flag_review = True
-        if "no-review" in options:
-            options.accept("no-review")
-            self.flag_review = False
 
 
     def process (self, msg, cat):
@@ -81,5 +97,6 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            print "Total unfuzzied due to context marker: %d" % (self.nmatch,)
+            report("Total unfuzzied due to context marker: %d"
+                   % self.nmatch)
 
