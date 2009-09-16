@@ -13,7 +13,7 @@ Sieve parameters:
         can be repeated to add several files
   - C{ignore:<entname1>,...}: entities to ignore when resolving
 
-Entity definition files are plain text files of the following format:
+Entity definition files are plain text files of the following format::
 
     <!-- This is a commment. -->
     <!ENTITY name1 'value1'>

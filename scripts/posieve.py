@@ -33,18 +33,18 @@ Sieves need not only collect data (such as the C{stats} above) or do checks,
 but may also modify messages. Whenever a message is modified, the catalog
 with changes will be saved over old catalog, and the user will be informed
 by an exclamation mark followed by the catalog path. An example of such
-internal sieve is L{tag-incomplete<sieve.tag_incomplete>}, which will add
-C{incomplete} flag to each fuzzy or untranslated message::
+internal sieve is L{tag-untranslated<sieve.tag_untranslated>}, which will add
+the C{untranslated} flag to each untranslated message::
 
-    $ posieve tag-incomplete frobaz/
+    $ posieve tag-untranslated frobaz/
     ! frobaz/alfa.po
     ! frobaz/bravo.po
     ! frobaz/charlie.po
-    Total incomplete tagged: 42
+    Total untranslated messages tagged: 42
 
 C{posieve} itself monitors and informs about changed catalogs, whereas the
-final line in the example above has been output by the C{tag-incomplete} sieve.
-Sieves will frequently issue such final reports.
+final line in the example above has been output by the C{tag-untranslated}
+sieve. Sieves will frequently issue such final reports.
 
 More than one sieve can be applied to the catalog collection in one pass.
 This is called the "sieve chain", and is specified as comma-separated list
@@ -54,14 +54,14 @@ previous sieve is input to the next -- before moving to the next message.
 This order is important to bear in mind when two sieves in the chain can both
 modify a message. For example::
 
-    $ posieve stats,tag-incomplete frobaz/
+    $ posieve stats,tag-untranslated frobaz/
     ! frobaz/alfa.po
     ! frobaz/bravo.po
     ! frobaz/charlie.po
     ... (table with stats) ...
-    Total incomplete tagged: 42
+    Total untranslated messages tagged: 42
 
-If the order were C{tag-incomplete,stats} in this case the effect on the
+If the order were C{tag-untranslated,stats} in this case the effect on the
 catalogs would be the same, but number of tagged messages would be the first
 in output, followed by the table with statistics.
 
