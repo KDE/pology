@@ -71,14 +71,12 @@ class Sieve (object):
             ):
                 msg.unfuzzy()
                 self.nunfuzz += 1
-                msg.modcount = 1 # in case of non-monitored messages
 
         # Replace any <...> with <.../> in the msgstr.
         for i in range(len(msg.msgstr)):
             if _open_inpl_rx.search(msg.msgstr[i]):
                 msg.msgstr[i] = _open_inpl_rx.sub(r"<\1/>", msg.msgstr[i])
                 self.nmodinpl += 1
-                msg.modcount = 1 # in case of non-monitored messages
 
 
     def finalize (self):
