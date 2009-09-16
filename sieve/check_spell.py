@@ -1,73 +1,22 @@
 # -*- coding: UTF-8 -*-
 
 """
-Spell-check messages using GNU Aspell (http://aspell.net/).
+Spell-check messages using GNU Aspell (U{http://aspell.net/}).
 
-For spell-checking, messages are split into words, which are then fed
-to Aspell one by one. Misspelled words can be reported to stdout
-(either verbosely with suggestions, or succinctly as pure list),
-or into a rich XML file with a lot of context information.
+This sieve is a more specific counterpart to
+L{check-spell-ec<sieve.check_spell_ec>}, which deals only with GNU Aspell
+spell checker. Compared to C{check-spell-ec}, it exposes some options specific
+to Aspell, and requires no external Python modules, only Aspell installation.
 
-Sieve parameters:
-  - C{lang:<language>}: language of the Aspell dictionary
+This sieve behaves mostly same as C{check-spell-ec},
+and accepts all the same parameters with same meanings;
+the exception is the C{provider} parameter,
+which is not present here since Aspell is the fixed provider.
+
+Sieve parameters specific to this sieve:
   - C{enc:<encoding>}: encoding for text sent to Aspell
   - C{var:<variety>}: variety of the Aspell dictionary
-  - C{list}: only report wrong words to stdout, one per line
   - C{xml:<filename>}: build XML report file
-  - C{accel:<chars>}: strip these characters as accelerator markers
-  - C{skip:<regex>}: do not check words which match given regular expression
-  - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
-        (see L{misc.langdep.get_hook_lreq} for the format of hook specification)
-  - C{env:<environment>}: comma-separated list of environments of
-        internal dictionary supplements
-  - C{suponly}: do not use default dictionary, only internal supplements
-  - C{lokalize}: open catalogs at failed messages in Lokalize
-
-When dictionary language, encoding, or variety are not explicitly given,
-they are extracted, in the following order of priority, from: 
-current PO file (language only), user configuration, current system locale
-(language and encoding only).
-
-If accelerator character is not given by C{accel} parameter, the sieve will try
-to guess the accelerator; it may choose wrongly or decide that there are no
-accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
-accelerator character.
-
-Pology internally collects language-specific supplementary word lists
-to default Aspell dictionaries, under C{l10n/<lang>/spell/} directory.
-These contain either the words that should enter the default dictionary
-but have not been added yet, or, more importantly, the words that are
-specific to a given translation environment, i.e. too specific to enter
-the default dictionary.
-The C{env} parameter is used to specify one or more environments for which
-word lists are loaded. Each environment is taken to be a subpath within C{l10n/<lang>/spell/<env>}: all word lists in that subpath and
-parent directories will be loaded.
-This means that the word lists are hierarchical, so that all-environment lists (loaded even when C{env} parameter is not given) reside directly in
-C{l10n/<lang>/spell/}, and the more specific ones in subdirectories below it.
-If environment is not given by C{env} parameter, and also not in Pology
-user configuration, the sieve will try to read it from each catalog in turn.
-See L{environment()<file.catalog.Catalog.environment>} method of catalog
-object for the way environments can be specified in catalog header.
-
-The system dictionary can be avoided alltogether, and only supplemental
-word lists used instead, by giving the C{suponly} parameter.
-
-It is possible to selectively disable spell checking for a message,
-or certain words within a message, by adding a special manual comment.
-The whole message is skipped by the no-sieve flag C{no-check-spell}::
-
-    # |, no-check-spell
-
-and only some words within the message by listing them in C{well-spelled:}
-embedded list::
-
-    # well-spelled: word1, word2, ...
-
-Which of these two methods to use depends on the nature of the message and
-specifics of spelling checks for given language/environment.
-For example, if most of the message consists of valid words, but there are
-only one or two which are special in some way, it is probably better to
-list them explicitly, so that all other words are checked.
 
 The following user configuration fields are considered:
   - C{[aspell]/language}: language of the Aspell dictionary
@@ -94,16 +43,46 @@ from codecs import open
 from time import strftime
 import locale
 
+from pology.sieve.check_spell_ec import add_general_spellcheck_params
 
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Spell-check translation using Aspell."
+    )
+
+    add_general_spellcheck_params(p)
+
+    p.add_param("enc", unicode,
+                metavar="ENCODING",
+                desc=
+    "Encoding for text sent to Aspell."
+    )
+    p.add_param("var", unicode,
+                metavar="VARIETY",
+                desc=
+    "Variety of the Aspell dictionary."
+    )
+    p.add_param("xml", unicode,
+                metavar="FILENAME",
+                desc=
+    "Build XML report file at given path."
+    )
+    p.add_param("simsp", bool, defval=False,
+                desc=
+    "Split text into words in a simpler way "
+    "(deprecated, may be removed in the future)."
+    )
 
 
 class Sieve (object):
     """Process messages through the Aspell spell checker"""
     
-    def __init__ (self, options):
+    def __init__ (self, params):
     
         self.nmatch = 0 # Number of match for finalize
-        self.list=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
+        self.unknownWords=None # If not None, only list of faulty word is display (to ease copy/paste into personal dictionary)
         self.filename=""     # File name we are processing
         self.xmlFile=None # File handle to write XML output
 
@@ -114,18 +93,9 @@ class Sieve (object):
         self.aspellOptions["mode"] = "sgml"
         # FIXME: In fact not needed? The words are sent parsed to checker.
 
-        # - dictionary specifiers (by priority)
-        self.lang, self.encoding, self.variety = [None] * 3
-
-        if "lang" in options:
-            options.accept("lang")
-            self.lang = options["lang"]
-        if "enc" in options:
-            options.accept("enc")
-            self.encoding = options["enc"]
-        if "var" in options:
-            options.accept("var")
-            self.variety = options["var"]
+        self.lang = params.lang
+        self.encoding = params.enc
+        self.variety = params.var
 
         cfgs = cfg.section("aspell")
         if not self.lang:
@@ -147,15 +117,12 @@ class Sieve (object):
         if self.variety:
             self.aspellOptions["variety"] = str(self.variety)
 
-        # Simple list output of misspelled words?
-        if "list" in options:
-            options.accept("list")
-            self.list = []
+        self.unknownWords = None
+        if params.list:
+            self.unknownWords = set()
 
-        # Also output in XML file ?
-        if "xml" in options:
-            options.accept("xml")
-            xmlPath=options["xml"]
+        if params.xml:
+            xmlPath=params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 #TODO: create nice api to manage xml file and move it to misc/
                 self.xmlFile=open(xmlPath, "w", "utf-8")
@@ -164,60 +131,40 @@ class Sieve (object):
             else:
                 warning("Cannot open %s file. XML output disabled" % xmlPath)
 
-        # Explicit accelerator markers.
-        self.accels = None
-        if "accel" in options:
-            options.accept("accel")
-            self.accels = list(options["accel"])
+        self.accel = params.accel
+        self.markup = params.markup
 
-        # Pattern for words to skip.
         self.skipRx = None
-        if "skip" in options:
-            options.accept("skip")
-            self.skipRx = re.compile(options["skip"], re.U|re.I)
+        if params.skip:
+            self.skipRx = re.compile(params.skip, re.U|re.I)
 
-        # Precheck filters for message text.
         self.pfilters = []
-        if "filter" in options:
-            options.accept("filter")
-            # FIXME: When sieve gets updated to new style,
-            # really use several hooks if given.
-            freqs = [options["filter"]]
-            filters = [get_hook_lreq(x, abort=True) for x in freqs]
-            self.pfilters = zip(freqs, filters)
+        for hreq in params.filter or []:
+            pfilter = get_hook_lreq(hreq)
+            if pfilter:
+                self.pfilters.append((pfilter, hreq))
+            else:
+                warning("Cannot load filter '%s'." % hreq)
 
-        # Environment for dictionary supplements.
         self.envs = None
-        if self.envs is None and "env" in options:
-            options.accept("env")
-            self.envs = options["env"].split(",")
+        if self.envs is None and params.env is not None:
+            self.envs = params.env.split(",")
         if self.envs is None and cfgs.string("environment") is not None:
             self.envs = cfgs.string("environment").split(",")
         if self.envs is None:
             self.envs = []
         self.envs = [x.strip() for x in self.envs]
 
-        # Use only internal supplemental dictionaries?
-        self.suponly = False
-        if "suponly" in options:
-            options.accept("suponly")
-            self.suponly = True
+        self.suponly = params.suponly
         if not self.suponly:
             self.suponly = cfgs.boolean("supplements-only", False)
 
-        # Split text into words in a simple way?
         # NOTE: Temporary hack, remove when word splitting becomes smarter.
-        self.simsp = False
-        if "simsp" in options:
-            options.accept("simsp")
-            self.simsp = True
+        self.simsp = params.simsp
         if not self.simsp:
             self.simsp = cfgs.boolean("simple-split", False)
 
-        self.lokalize = False
-        if "lokalize" in options:
-            options.accept("lokalize")
-            self.lokalize = True
+        self.lokalize = params.lokalize
 
         # Language-dependent elements built along the way.
         self.aspells = {}
@@ -298,9 +245,11 @@ class Sieve (object):
         self.aspell = self.aspells[ckey]
         self.ignoredContext = self.ignoredContexts[ckey]
 
-        # Force explicitly given accelerators.
-        if self.accels is not None:
-            cat.set_accelerator(self.accels)
+        # Force explicitly given accelerators and markup.
+        if self.accel is not None:
+            cat.set_accelerator(self.accel)
+        if self.markup is not None:
+            cat.set_markup(self.markup)
 
         # Close previous/open new XML section.
         if self.xmlFile:
@@ -369,9 +318,8 @@ class Sieve (object):
                 if spell is False:
                     try:
                         self.nmatch+=1
-                        if self.list is not None:
-                            if word not in self.list:
-                                self.list.append(word)
+                        if self.unknownWords is not None:
+                            self.unknownWords.add(word)
                         else:
                             encodedSuggestions=self.aspell.suggest(encodedWord)
                             suggestions=[i.decode(self.encoding) for i in encodedSuggestions]
@@ -402,8 +350,8 @@ class Sieve (object):
             if isfile(tmpDictFile):
                 os.unlink(tmpDictFile)
 
-        if self.list is not None:
-            slist = self.list
+        if self.unknownWords is not None:
+            slist = list(self.unknownWords)
             if slist:
                 slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
                 report("\n".join(slist))
