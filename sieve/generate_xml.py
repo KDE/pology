@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Generate a XML output from the input PO files.
+Generate an XML tree from the input PO files.
 
 This sieve allows the generation of an XML representation of a PO file or
 a list of PO files (depending on options of the posieve.py command line).
@@ -19,7 +19,7 @@ The C{<msg>} tag contains the classical entries describing a PO message :
 Please note that if the translated message contains plural forms, they will be
 described as C{<plural>} subtags of C{<msgstr>} tag.
 
-The sieve options are:
+The sieve parameters are:
   - C{xml:<filename>}: Export the input PO files into the file instead
     of the standard output
   - C{translatedOnly}: Only export translated entries (and so, ignore obsolete,
@@ -39,10 +39,29 @@ from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
 
-class Sieve (object):
-    """Find messages matching given rules."""
+def setup_sieve (p):
 
-    def __init__ (self, options):
+    p.set_desc(
+    "Generate an XML tree from the input PO files."
+    "\n\n"
+    "See documentation for the description of the XML format used."
+    )
+
+    p.add_param("xml", unicode,
+                metavar="FILENAME",
+                desc=
+    "Write the generated XML tree into a file instead to standard output."
+    )
+    # FIXME: Parameter name out of style.
+    p.add_param("translatedOnly", bool, defval=False,
+                desc=
+    "Consider only translated messages."
+    )
+
+
+class Sieve (object):
+
+    def __init__ (self, params):
 
         self.xmlFile = None # File handle to write XML output
         self.filename = ""     # File name we are processing
@@ -50,17 +69,14 @@ class Sieve (object):
         
         
         # Also output in XML file ?
-        if "xml" in options:
-            options.accept("xml")
-            xmlPath = options["xml"]
+        if params.xml:
+            xmlPath = params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 self.xmlFile=open(xmlPath, "w", "utf-8")
             else:
                 report("Cannot open %s file. XML output disabled" % xmlPath)
         
-        if "translatedOnly" in options:
-            options.accept("translatedOnly")
-            self.translatedOnly = True
+        self.translatedOnly = params.translatedOnly
         
 
         self.output('<?xml version="1.0" encoding="UTF-8"?>\n')

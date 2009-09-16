@@ -10,11 +10,12 @@ moved to use ASCII quotes instead of the fancy quotes appropriate for their
 language. Use this sieve to replace ASCII quotes in the translation with
 selected fancy quotes.
 
-Sieve options for simple, character-to-character quote replacement:
+Sieve parameters for simple, character-to-character quote replacement:
   - C{single:<quotes>}: opening and closing single qoute (two characters)
   - C{double:<quotes>}: opening and closing double qoute (two characters)
 
-Sieve options for character-to-string quote replacement, useful e.g. when target quotes are tags or wiki markup:
+Sieve parameters for character-to-string quote replacement,
+useful e.g. when target quotes are tags or wiki markup:
   - C{longsingle:<open>,<close>}: opening and closing single quotes
   - C{longdouble:<open>,<close>}: opening and closing double quotes
 
@@ -22,68 +23,95 @@ Sieve options for character-to-string quote replacement, useful e.g. when target
 @license: GPLv3
 """
 
-import os, re
+import os
+import re
+
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.escape import split_escaped
-from pology.misc.report import error
+from pology.misc.report import report
+from pology.sieve import SieveError
+
+
+def setup_sieve (p):
+
+    p.set_desc(
+    "Transform ASCII single and double quotes into fancy counterparts."
+    )
+
+    p.add_param("single", unicode,
+                metavar="QUOTES",
+                desc=
+    "Opening and closing single quote (two characters)."
+    )
+    p.add_param("double", unicode,
+                metavar="QUOTES",
+                desc=
+    "Opening and closing double quote (two characters)."
+    )
+    p.add_param("longsingle", unicode,
+                metavar="OPEN,CLOSED",
+                desc=
+    "Opening and closing single quote longer than single character."
+    )
+    p.add_param("longdouble", unicode,
+                metavar="OPEN,CLOSED",
+                desc=
+    "Opening and closing double quote longer than single character."
+    )
 
 
 # Pipe flag used to manually prevent transformation into fancy quotes.
-flag_no_fancy_quote = "no-fancy-quote"
+_flag_no_fancy_quote = "no-fancy-quote"
 
 
 class Sieve (object):
 
-    def __init__ (self, options):
+    def __init__ (self, params):
 
         self.nrepl_single = 0
         self.nrepl_double = 0
 
         # Pair of single quotes.
         self.singles = ()
-        if "single" in options and "longsingle" in options:
-            error("cannot specify both character and string replacement "
-                  "of single quotes")
-        if "single" in options:
-            quotes = options["single"]
+        if params.single is not None and params.longsingle is not None:
+            raise SieveError("Both single- and multi-character replacement of "
+                            "single quotes issued.")
+        if params.single is not None:
+            quotes = params.single
             if len(quotes) != 2:
-                error("invalid specification of single quotes '%s', "
-                      "expected two characters" % quotes)
+                raise SieveError("Invalid specification of single quotes (%s), "
+                                 "expected two characters." % quotes)
             self.singles = (quotes[0], quotes[1])
-            options.accept("single")
-        elif "longsingle" in options:
-            quotes = split_escaped(options["longsingle"], ",")
+        elif params.longsingle is not None:
+            quotes = split_escaped(params.longsingle, ",")
             if len(quotes) != 2:
-                error("invalid specification of single quotes '%s', "
-                      "expected two strings" % quotes)
+                raise SieveError("Invalid specification of single quotes (%s), "
+                                 "expected two strings." % quotes)
             self.singles = (quotes[0], quotes[1])
-            options.accept("longsingle")
 
         # Pair of double quotes.
         self.doubles = ()
-        if "double" in options and "longdouble" in options:
-            error("cannot specify both character and string replacement "
-                  "of double quotes")
-        if "double" in options:
-            quotes = options["double"]
+        if params.double is not None and params.longdouble is not None:
+            raise SieveError("Both single- and multi-character replacement of "
+                             "double quotes issued.")
+        if params.double is not None:
+            quotes = params.double
             if len(quotes) != 2:
-                error("invalid specification of double quotes '%s', "
-                      "expected two characters" % quotes)
+                raise SieveError("Invalid specification of double quotes '%s', "
+                                 "expected two characters." % quotes)
             self.doubles = (quotes[0], quotes[1])
-            options.accept("double")
-        elif "longdouble" in options:
-            quotes = split_escaped(options["longdouble"], ",")
+        elif params.longdouble is not None:
+            quotes = split_escaped(params.longdouble, ",")
             if len(quotes) != 2:
-                error("invalid specification of double quotes '%s', "
-                      "expected two strings" % quotes)
+                raise SieveError("Invalid specification of double quotes '%s', "
+                                 "expected two strings." % quotes)
             self.doubles = (quotes[0], quotes[1])
-            options.accept("longdouble")
 
 
     def process (self, msg, cat):
 
         # Skip the message when told so.
-        if flag_no_fancy_quote in manc_parse_flag_list(msg, "|"):
+        if _flag_no_fancy_quote in manc_parse_flag_list(msg, "|"):
             return
 
         # Skip the message if special by context (one of meta-messages).
@@ -114,8 +142,8 @@ class Sieve (object):
     def finalize (self):
 
         if self.nrepl_single > 0 or self.nrepl_double > 0:
-            print   "Total quote pairs replaced (single+double): %d+%d" \
-                  % (self.nrepl_single, self.nrepl_double)
+            report("Total quote pairs replaced (single+double): %d+%d"
+                   % (self.nrepl_single, self.nrepl_double))
 
 
 # Regular expression for matching special messages by context.
