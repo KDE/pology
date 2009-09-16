@@ -21,6 +21,7 @@ Sieve parameters:
   - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
         (see L{misc.langdep.get_hook_lreq} for the format of hook specification)
   - C{suponly}: do not use system dictionary, only internal supplements
+  - C{list}: only report unknown words to stdout, one per line
   - C{lokalize}: open catalogs at failed messages in Lokalize
 
 If the spell-checking provider is not given by the C{provider} parameter,
@@ -183,6 +184,10 @@ def setup_sieve (p):
                 desc=
     "Use only internal supplement word lists, and not the system dictionary."
     )
+    p.add_param("list", bool, defval=False,
+                desc=
+    "Output only a simple sorted list of unknown words."
+    )
     p.add_param("lokalize", bool, defval=False,
                 desc=
     "Open catalogs at failed messages in Lokalize."
@@ -227,6 +232,8 @@ class Sieve (object):
                 warning("Cannot load filter '%s'." % hreq)
 
         self.suponly = params.suponly
+
+        self.words_only = params.list
         self.lokalize = params.lokalize
 
         # Langenv-dependent elements built along the way.
@@ -234,7 +241,7 @@ class Sieve (object):
         self.word_lists = {}
 
         # Tracking of unknown words.
-        self.nunknown = 0
+        self.unknown_words = set()
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
@@ -324,19 +331,23 @@ class Sieve (object):
             for word in words:
                 if not self.checker.check(word):
                     failed = True
-                    self.nunknown += 1
-                    suggs = self.checker.suggest(word)
-                    if suggs > 5: # do not put out too many words
-                        suggs = suggs[:5] + ["..."]
-                    if suggs:
-                        report_on_msg("unknown word: %s (suggestions: %s)"
-                                      % (word, ", ".join(suggs)), msg, cat)
-                    else:
-                        report_on_msg("unknown word: %s" % word,
-                                      msg, cat)
-                    failed_w_suggs.append((word, suggs))
+                    self.unknown_words.add(word)
 
-        if failed_w_suggs and self.lokalize:
+                    if not self.words_only or self.lokalize:
+                        suggs = self.checker.suggest(word)
+                        if suggs > 5: # do not put out too many words
+                            suggs = suggs[:5] + ["..."]
+                        failed_w_suggs.append((word, suggs))
+
+                    if not self.words_only:
+                        if suggs:
+                            report_on_msg("unknown word: %s (suggestions: %s)"
+                                          % (word, ", ".join(suggs)), msg, cat)
+                        else:
+                            report_on_msg("unknown word: %s" % word,
+                                          msg, cat)
+
+        if self.lokalize and failed_w_suggs:
             repls = ["Spelling errors:"]
             for word, suggs in failed_w_suggs:
                 if suggs:
@@ -349,8 +360,13 @@ class Sieve (object):
 
     def finalize (self):
 
-        if self.nunknown > 0:
-            report("Total unknown words: %d" % self.nunknown)
+        if self.unknown_words:
+            if not self.words_only:
+                report("Total unknown words: %d" % len(self.unknown_words))
+            else:
+                wlist = list(self.unknown_words)
+                wlist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+                report("\n".join(wlist))
 
 
 # Get checker object from Enchant.
