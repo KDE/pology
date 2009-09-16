@@ -32,7 +32,7 @@ The Sieve Layout
 
             def finalize (self):
 
-                print "Total translated: %d" % self.ntranslated
+                report("Total translated: %d" % self.ntranslated)
 
 
     The constructor takes as argument an object specifying any sieve parameters

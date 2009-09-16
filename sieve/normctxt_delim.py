@@ -23,6 +23,7 @@ Sieve options:
 """
 
 from pology.sieve import SieveError
+from pology.misc.report import report
 from pology.misc.msgreport import warning_on_msg
 from pology.misc.escape import unescape_c as unescape
 
@@ -89,5 +90,5 @@ class Sieve (object):
     def finalize (self):
 
         if self.nconv > 0:
-            print "Total contexts converted: %d" % (self.nconv,)
+            report("Total contexts converted: %d" % self.nconv)
 
