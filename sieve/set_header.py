@@ -24,16 +24,23 @@ by default the new field is appended at the end of the header.
 If the field is present, using the option C{reorder} it can be moved within
 the header to match the order implied by C{after} and C{before}.
 
-Sieve parameters for setting comments:
-  - C{title}: set the title comment to the given value
-  - C{copyright}: set the copyright comment to the given value
-  - C{license}: set the license comment to the given value
-  - C{author}: set the author comment to the given value
+Sieve parameters for setting and removing comments:
+  - C{title:<value>}: set title comment to the given value
+  - C{rmtitle}: remove title comments
+  - C{copyright:<value>}: set copyright comment to the given value
+  - C{rmcopyright}: remove copyright comment
+  - C{license:<value>}: set the license comment to the given value
+  - C{rmlicense}: remove license comment
+  - C{author:<value>}: set author comment to the given value
+  - C{rmauthor}: remove author comments
+  - C{comment:<value>}: set free comment to the given value
+  - C{rmcomment}: remove free comments
+  - C{rmallcomm}: remove all header comments
 
-The C{author} parameter can be repeated to set several authors.
-All existing authors are removed before setting the new ones
-(regardless of the number of each),
-i.e. the new authors are I{not} appended to the old.
+Parameters C{title}, C{author}, and C{comment} can be repeated to set
+several of each, as they are multi-valued properties.
+All existing comments of given type are removed before setting the new ones,
+i.e. the new comments are I{not} appended to the existing.
 
 Comment values are checked for some minimal consistency,
 e.g. author comments must contain email addresses,
@@ -115,27 +122,59 @@ def setup_sieve (p):
     "Remove all fields matching the regular expression. "
     "Matching is not case-sensitive."
     )
-    p.add_param("title", unicode,
+    p.add_param("title", unicode, multival=True,
                 metavar="VALUE",
                 desc=
     "Set title comment to the given value."
+    "Can be repeated to set several title lines. "
+    "All existing title lines are removed before setting the new ones."
+    )
+    p.add_param("rmtitle", bool, defval=False,
+                desc=
+    "Remove title comments."
     )
     p.add_param("copyright", unicode,
-                metavar="VALUE",
                 desc=
     "Set copyright comment to the given value."
+    )
+    p.add_param("rmcopyright", bool, defval=False,
+                desc=
+    "Remove the copyright comment."
     )
     p.add_param("license", unicode,
                 metavar="VALUE",
                 desc=
     "Set license comment to the given value."
     )
+    p.add_param("rmlicense", bool, defval=False,
+                desc=
+    "Remove the license comment."
+    )
     p.add_param("author", unicode, multival=True,
                 metavar="VALUE",
                 desc=
     "Set author comment to the given value. "
-    "This parameter can be repeated to set several authors. "
+    "Can be repeated to set several authors. "
     "All existing authors are removed before setting the new ones."
+    )
+    p.add_param("rmauthor", bool, defval=False,
+                desc=
+    "Remove author comments."
+    )
+    p.add_param("comment", unicode, multival=True,
+                metavar="VALUE",
+                desc=
+    "Set free comment to the given value. "
+    "Can be repeated to set several free comment lines. "
+    "All existing comment lines are removed before setting the new ones."
+    )
+    p.add_param("rmcomment", bool, defval=False,
+                desc=
+    "Remove free comments."
+    )
+    p.add_param("rmallcomm", bool, defval=False,
+                desc=
+    "Remove all header comments."
     )
 
 
@@ -170,18 +209,25 @@ class Sieve (object):
             params.removerx = rxs
 
         # Check validity of comment values.
+        for title in (params.title or []):
+            if re.search(r"copyright|©|\(C\)|license|<.*?@.*?>",
+                         title, re.I|re.U):
+                raise SieveError("invalid value for title comment "
+                                 "(contains some elements appropriate "
+                                 "for other types of comments): %s"
+                                 % title)
         if params.copyright is not None:
-            if not re.search("copyright|©", params.copyright, re.I|re.U):
+            if not re.search(r"copyright|©|\(C\)", params.copyright, re.I|re.U):
                 raise SieveError("invalid value for copyright comment "
                                  "(missing word 'copyright'?): %s"
                                  % params.copyright)
         if params.license is not None:
-            if not re.search("license", params.license, re.I):
+            if not re.search(r"license", params.license, re.I):
                 raise SieveError("invalid value for license comment "
                                  "(missing word 'license'?): %s"
                                  % params.license)
         for author in (params.author or []):
-            if not re.search("<.*@.*>", author):
+            if not re.search(r"<.*?@.*?>", author):
                 raise SieveError("invalid value for author comment "
                                  "(missing email address?): %s"
                                  % author)
@@ -208,12 +254,24 @@ class Sieve (object):
             for name in to_remove:
                 hdr.remove_field(name)
 
+        if self.p.rmtitle or self.p.rmallcomm:
+            hdr.title[:] = []
         if self.p.title is not None:
-            hdr.title[:] = [expand_vars(self.p.title, pvars)]
+            hdr.title[:] = [expand_vars(x, pvars) for x in self.p.title]
+        if self.p.rmcopyright or self.p.rmallcomm:
+            hdr.copyright = None
         if self.p.copyright is not None:
             hdr.copyright = expand_vars(self.p.copyright, pvars)
+        if self.p.rmlicense or self.p.rmallcomm:
+            hdr.license = None
         if self.p.license is not None:
             hdr.license = expand_vars(self.p.license, pvars)
+        if self.p.rmauthor or self.p.rmallcomm:
+            hdr.author[:] = []
         if self.p.author is not None:
             hdr.author[:] = [expand_vars(x, pvars) for x in self.p.author]
+        if self.p.rmcomment or self.p.rmallcomm:
+            hdr.comment[:] = []
+        if self.p.comment is not None:
+            hdr.comment[:] = [expand_vars(x, pvars) for x in self.p.comment]
 
