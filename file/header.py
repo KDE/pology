@@ -17,8 +17,8 @@ import re
 _Header_spec = {
     "title" : {"type" : Monlist,
                "spec" : {"*" : {"type" : unicode}}},
-    "copyright" : {"type" : unicode},
-    "license" : {"type" : unicode},
+    "copyright" : {"type" : (unicode, type(None))},
+    "license" : {"type" : (unicode, type(None))},
     "author" : {"type" : Monlist,
                 "spec" : {"*" : {"type" : unicode}}},
     "comment" : {"type" : Monlist,
