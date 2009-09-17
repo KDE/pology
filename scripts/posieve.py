@@ -270,6 +270,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
     opars.add_option(
+        "-q", "--quiet",
+        action="store_true", dest="quiet", default=False,
+        help="do not display any progress info "
+             "(does not influence sieves themselves)")
+    opars.add_option(
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
         help="coloring independent of output destination (terminal, file)")
@@ -539,14 +544,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     fnames = fnames_mod
 
     # Prepare inline progress indicator.
-    update_progress = init_file_progress(fnames)
+    if not op.quiet:
+        update_progress = init_file_progress(fnames)
 
     # Sieve catalogs.
     modified_files = []
     for fname in fnames:
         if op.verbose:
             report("sieving %s ..." % fname)
-        else:
+        elif not op.quiet:
             update_progress(fname)
 
         if op.msgfmt_check:
@@ -592,7 +598,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 if op.skip_obsolete and msg.obsolete:
                     continue
 
-                update_progress(fname)
+                if not op.quiet:
+                    update_progress(fname)
 
                 if op.announce_entry:
                     report(u"sieving %s:%d(#%d) ..."
@@ -619,11 +626,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if do_sync and cat.sync(op.force_sync):
             if op.verbose:
                 report("! (MODIFIED) %s" % fname)
-            else:
+            elif not op.quiet:
                 report("! %s" % fname)
             modified_files.append(fname)
 
-    update_progress() # clear last progress line, if any
+    if not op.quiet:
+        update_progress() # clear last progress line, if any
 
     for sieve in sieves:
         if hasattr(sieve, "finalize"):
