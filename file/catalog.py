@@ -40,12 +40,12 @@ class _MessageDict:
         self.source = []
         self.flag = []
         self.obsolete = False
-        self.msgctxt_previous = None
-        self.msgid_previous = None
-        self.msgid_plural_previous = None
-        self.msgctxt = None
-        self.msgid = u""
-        self.msgid_plural = None
+        self.msgctxt_previous = []
+        self.msgid_previous = []
+        self.msgid_plural_previous = []
+        self.msgctxt = []
+        self.msgid = []
+        self.msgid_plural = []
         self.msgstr = []
         self.refline = -1
         self.refentry = -1
@@ -271,7 +271,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                                              % (filename, lno)
                 # Add missing msgstr entries.
                 for i in range(len(loc.msg.msgstr), msgstr_i + 1):
-                    loc.msg.msgstr.append(u"")
+                    loc.msg.msgstr.append([])
 
             elif not line.startswith("\""):
                 raise StandardError,   "unknown field name at %s:%d" \
@@ -282,30 +282,20 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 s = _parse_quoted(line)
                 if loc.age_context == ctx_previous:
                     if loc.field_context == ctx_msgctxt:
-                        if loc.msg.msgctxt_previous is None:
-                            loc.msg.msgctxt_previous = u""
-                        loc.msg.msgctxt_previous += s
+                        loc.msg.msgctxt_previous.append(s)
                     elif loc.field_context == ctx_msgid:
-                        if loc.msg.msgid_previous is None:
-                            loc.msg.msgid_previous = u""
-                        loc.msg.msgid_previous += s
+                        loc.msg.msgid_previous.append(s)
                     elif loc.field_context == ctx_msgid_plural:
-                        if loc.msg.msgid_plural_previous is None:
-                            loc.msg.msgid_plural_previous = u""
-                        loc.msg.msgid_plural_previous += s
+                        loc.msg.msgid_plural_previous.append(s)
                 else:
                     if loc.field_context == ctx_msgctxt:
-                        if loc.msg.msgctxt is None:
-                            loc.msg.msgctxt = u""
-                        loc.msg.msgctxt += s
+                        loc.msg.msgctxt.append(s)
                     elif loc.field_context == ctx_msgid:
-                        loc.msg.msgid += s
+                        loc.msg.msgid.append(s)
                     elif loc.field_context == ctx_msgid_plural:
-                        if loc.msg.msgid_plural is None:
-                            loc.msg.msgid_plural = u""
-                        loc.msg.msgid_plural += s
+                        loc.msg.msgid_plural.append(s)
                     elif loc.field_context == ctx_msgstr:
-                        loc.msg.msgstr[msgstr_i] += s
+                        loc.msg.msgstr[msgstr_i].append(s)
             else:
                 raise StandardError,   "expected string continuation at %s:%d" \
                                      % (filename, lno)
@@ -349,6 +339,17 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                                       % (filename, lno))
 
     try_finish() # the last message
+
+    # Join fields.
+    join_or_none = lambda x: "".join(x) if x else None
+    for msg in messages1:
+        msg.msgctxt_previous = join_or_none(msg.msgctxt_previous)
+        msg.msgid_previous = join_or_none(msg.msgid_previous)
+        msg.msgid_plural_previous = join_or_none(msg.msgid_plural_previous)
+        msg.msgctxt = join_or_none(msg.msgctxt_previous)
+        msg.msgid = join_or_none(msg.msgid)
+        msg.msgid_plural = join_or_none(msg.msgid_plural)
+        msg.msgstr = [join_or_none(x) for x in msg.msgstr]
 
     # Repack raw dictionaries as message objects.
     messages2 = []
