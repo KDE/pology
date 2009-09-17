@@ -238,12 +238,6 @@ class Sieve (object):
 
         pvars = {"poname" : cat.name}
 
-        for field, value in self.fields_values:
-            if self.p.create or hdr.select_fields(field):
-                hdr.set_field(field, expand_vars(value, pvars),
-                              after=self.p.after, before=self.p.before,
-                              reorder=self.p.reorder)
-
         for rmname in self.p.remove or []:
             hdr.remove_field(rmname)
         for rmrx in self.p.removerx or []:
@@ -253,6 +247,12 @@ class Sieve (object):
                     to_remove.add(name)
             for name in to_remove:
                 hdr.remove_field(name)
+
+        for field, value in self.fields_values:
+            if self.p.create or hdr.select_fields(field):
+                hdr.set_field(field, expand_vars(value, pvars),
+                              after=self.p.after, before=self.p.before,
+                              reorder=self.p.reorder)
 
         if self.p.rmtitle or self.p.rmallcomm:
             hdr.title[:] = []
