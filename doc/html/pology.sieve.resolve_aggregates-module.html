@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.sieve.empty_fuzzies</title>
+  <title>pology.sieve.resolve_aggregates</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.sieve-module.html">Package&nbsp;sieve</a> ::
-        Module&nbsp;empty_fuzzies
+        Module&nbsp;resolve_aggregates
       </span>
     </td>
     <td>
@@ -50,22 +50,72 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module empty_fuzzies</h1><p class="nomargin-top"></p>
-<p>Make all fuzzy messages untranslated.</p>
-  <p>For every fuzzy message, the translation and fuzzy data (the flag, 
-  previous fields) are removed. Manual (translator) comments are left in by
-  default, but can be removed as well. Obsolete fuzzy messages are 
-  completely removed.</p>
-  <p>Sieve options:</p>
+<h1 class="epydoc">Module resolve_aggregates</h1><p class="nomargin-top"></p>
+<p>Resolve aggregate messages produced by <code>msgcat</code>.</p>
+  <p>In default mode of operation, <code>msgcat</code> produces an 
+  aggregate message when in different catalogs it encounters a message with
+  the same key, but different translation or manual or automatic comments. 
+  A general aggregate message looks like this:</p>
+<pre class="literalblock">
+   # #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
+   # manual-comments-1
+   # #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
+   # manual-comments-2
+   # ...
+   # #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
+   # manual-comments-n
+   #. #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
+   #. automatic-comments-1
+   #. #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
+   #. automatic-comments-2
+   #. ...
+   #. #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
+   #. automatic-comments-n
+   #: source-refs-1 source-refs-2 ... source-refs-n
+   #, fuzzy, other-flags
+   msgctxt &quot;context&quot;
+   msgid &quot;original-text&quot;
+   msgstr &quot;&quot;
+   &quot;#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\n&quot;
+   &quot;translated-text-1\n&quot;
+   &quot;#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\n&quot;
+   &quot;translated-text-2\n&quot;
+   &quot;...&quot;
+   &quot;#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\n&quot;
+   &quot;translated-text-n&quot;
+</pre>
+  <p>Each message part is aggregated only if different in at least one 
+  message in the group. E.g. automatic comments may be aggregated while 
+  translations not.</p>
+  <p>This sieve is used to resolve such aggregate messages into normal 
+  messages, picking one variant from each aggregated part.</p>
+  <p>Sieve parameters:</p>
   <ul>
     <li>
-      <code>rmcomments</code>: also remove manual comments
+      <code>first</code>: always pick the first variant
     </li>
     <li>
-      <code>noprev</code>: clear only fuzzy messages not having previous 
-      fields
+      <code>unfuzzy</code>: unfuzzy resolved messages (<i>dangerous</i>, 
+      see below)
+    </li>
+    <li>
+      <code>keepsrc</code>: keep all source references instead of removing 
+      them
     </li>
   </ul>
+  <p>By default, the variant picked is the one with most occurences, or the
+  first of the several with same number of occurences. If 
+  <code>first</code> is issued, the first variant is picked 
+  unconditionally.</p>
+  <p>Since there is no information to split the aggregated source 
+  references into original groups, they are entirely removed unless 
+  requested otherwise by issuing the <code>keeps</code> parameter.</p>
+  <p>Aggregated messages are always made fuzzy, leaving no way to determine
+  if and which of the original messages were fuzzy. Therefore, by default, 
+  the resolved message is left fuzzy too. If, however, it is known 
+  beforehand that none of the original messages were fuzzy, resolved 
+  messages can be unfuzzied by issuing the <code>unfuzzy</code> 
+  parameter.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -86,7 +136,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.sieve.empty_fuzzies.Sieve-class.html" class="summary-name">Sieve</a>
+        <a href="pology.sieve.resolve_aggregates.Sieve-class.html" class="summary-name">Sieve</a>
     </td>
   </tr>
 </table>
