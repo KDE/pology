@@ -12,7 +12,7 @@ import fallback_import_paths
 
 from pology.misc.report import report, error
 import pology.misc.config as pology_config
-from pology.misc.wrap import select_field_wrapper
+from pology.misc.wrap import select_field_wrapper, wrap_field_fine
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
@@ -82,6 +82,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "minimum adjusted similarity to accept the match "
              "(range 0.0-1.0, a resonable value is 0.6-0.8)")
     opars.add_option(
+        "-b", "--rebase-fuzzies",
+        action="store_true", dest="rebase_fuzzies", default=False,
+        help="before merging, clear those fuzzy messages whose predecessor "
+             "(determined by previous fields) is still in the catalog")
+    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
@@ -129,10 +134,12 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if op.verbose:
             report("Self-merging %s ..." % fname)
         self_merge_catalog(fname, wrap_func, op.compendiums,
-                           op.min_words_exact, op.min_adjsim_fuzzy)
+                           op.min_words_exact, op.min_adjsim_fuzzy,
+                           op.rebase_fuzzies)
 
 
-def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
+def self_merge_catalog (catpath, wrapf=wrap_field_fine, compendiums=[],
+                        minwnex=0, minasfz=0.0, refuzz=False):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -161,12 +168,14 @@ def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
     # still existing in the catalog.
     # This way, untranslated messages will get fuzzy matched again,
     # and fuzzy messages may get updated translation.
-    for msg in cat:
-        if (    msg.untranslated
-            or (    msg.fuzzy and msg.msgid_previous
-                and cat.select_by_key(msg.msgctxt_previous, msg.msgid_previous))
-        ):
-            cat.remove_on_sync(msg)
+    if refuzz:
+        for msg in cat:
+            if (    msg.untranslated
+                or (    msg.fuzzy and msg.msgid_previous
+                    and cat.select_by_key(msg.msgctxt_previous,
+                                          msg.msgid_previous))
+            ):
+                cat.remove_on_sync(msg)
 
     # File to be merge ready.
     cat.sync()
