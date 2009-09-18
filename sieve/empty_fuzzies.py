@@ -10,6 +10,7 @@ Obsolete fuzzy messages are completely removed.
 
 Sieve options:
   - C{rmcomments}: also remove manual comments
+  - C{noprev}: clear only fuzzy messages not having previous fields
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -28,6 +29,10 @@ def setup_sieve (p):
                 desc=
     "Also remove translator comments from fuzzy messages."
     )
+    p.add_param("noprev", bool, defval=False,
+                desc=
+    "Clear only fuzzy messages which do not have previous fields."
+    )
 
 
 class Sieve (object):
@@ -35,13 +40,16 @@ class Sieve (object):
     def __init__ (self, params):
 
         self.rmcomments = params.rmcomments
+        self.noprev = params.noprev
 
         self.nemptied = 0
 
 
     def process (self, msg, cat):
 
-        if msg.fuzzy:
+        if (   (not self.noprev and msg.fuzzy)
+            or (self.noprev and msg.fuzzy and msg.msgid_previous is None)
+        ):
             if not msg.obsolete:
                 msg.clear(keepmanc=(not self.rmcomments))
                 self.nemptied += 1
