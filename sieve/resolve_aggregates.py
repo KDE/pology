@@ -27,12 +27,12 @@ A general aggregate message looks like this::
     msgctxt "context"
     msgid "original-text"
     msgstr ""
-    "#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\n"
-    "translated-text-1\n"
-    "#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\n"
-    "translated-text-2\n"
+    "#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\\n"
+    "translated-text-1\\n"
+    "#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\\n"
+    "translated-text-2\\n"
     "..."
-    "#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\n"
+    "#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\\n"
     "translated-text-n"
 
 Each message part is aggregated only if different in at least one message

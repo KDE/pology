@@ -15,7 +15,7 @@ An example entry, with grammatical declinations of a city name::
     =/Athens/Atina/nom=Atina/gen=Atine/dat=Atini/acc=Atinu//
 
 The first two characters define, respectively, the key-value separator
-(here C{=}} and the property separator (here C{/}) for the current entry,
+(here C{=}) and the property separator (here C{/}) for the current entry,
 and must not be alphanumeric.
 This is followed by a number of entry keys delimited by property separators,
 and then by a number of key-value properties each internaly delimited by
@@ -70,7 +70,7 @@ Validating Entries
 
 The C{propcons} parameter can be used to provide a file defining
 constraints on acceptable property keys, and values by each key.
-Its format is the following:
+Its format is the following::
 
     # Full-line comment.
     /key-regex-1/value-regex-1/flags # a trailing comment
