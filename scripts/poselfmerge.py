@@ -174,13 +174,13 @@ def self_merge_catalog (catpath, wrapf, compendiums=[], minwnex=0, minasfz=0.0):
     # Open file to be the template for pre-processing.
     cat = Catalog(potpath, monitored=False)
 
-    # From the file to be the template,
+    # From the file to be the template, clean all active messages and
     # remove all obsolete messages.
-    # (Not even this needs to be done with newer version of msgmerge,
-    # but just in case.)
     for msg in cat:
         if msg.obsolete:
             cat.remove_on_sync(msg)
+        else:
+            msg.clear()
 
     # File to be the template ready.
     cat.sync()
