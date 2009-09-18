@@ -215,18 +215,19 @@ class Sieve (object):
                         pkey, pval = elspec.split(kvsep, 1)
                         props.add((pkey, pval))
                     else:
+                        ekey = elspec
                         if not self.p.extrakeys:
-                            warning_on_msg("Additional entry keys defined "
-                                           "but not allowed for "
+                            warning_on_msg("Additional entry key '%(ekey)s' "
+                                           "defined but not allowed for "
                                            "property map entry in comment "
                                            "%(ind)d." % locals(),
                                             msg, cat)
                             return
-                        ekeys.add(elspec)
+                        ekeys.add(ekey)
 
         if not props:
             if ekeys:
-                warning_on_msg("Some non-default entry keys "
+                warning_on_msg("Some additional entry keys "
                                "defined for property map entry, "
                                "but there are no properties.",
                                msg, cat)
