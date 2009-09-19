@@ -271,3 +271,33 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
 
     return update_progress
 
+
+def list_options (optparser, noshort=False):
+    """
+    Simple list of all option names found in the option parser.
+
+    The list is composed of option names delimited by newlines.
+    For options having both short and long form, first listed is the short form.
+
+    @param optparser: option parser
+    @type optparser: OptionParser
+    @param noshort: leave out short name if option is having long name too
+    @type noshort: bool
+
+    @returns: formated list of option names
+    @rtype: string
+    """
+
+    optnames = []
+    for opt in optparser.option_list:
+        if noshort:
+            onames = [opt.get_opt_string()]
+        else:
+            onames = str(opt).split("/")
+        optnames.append(onames)
+
+    optnames.sort(key=lambda x: x[-1])
+    fmtlist = "\n".join(sum(optnames, []))
+
+    return fmtlist
+
