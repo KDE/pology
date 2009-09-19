@@ -35,6 +35,7 @@ def main ():
     cfgsec = pology_config.section("poselfmerge")
     def_minwnex = cfgsec.integer("min-words-exact", 0)
     def_minasfz = cfgsec.real("min-adjsim-fuzzy", 0.0)
+    def_refuzz = cfgsec.real("rebase-fuzzies", False)
     def_do_wrap = cfgsec.boolean("wrap", True)
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
@@ -83,7 +84,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "(range 0.0-1.0, a resonable value is 0.6-0.8)")
     opars.add_option(
         "-b", "--rebase-fuzzies",
-        action="store_true", dest="rebase_fuzzies", default=False,
+        action="store_true", dest="rebase_fuzzies", default=def_refuzz,
         help="before merging, clear those fuzzy messages whose predecessor "
              "(determined by previous fields) is still in the catalog")
     opars.add_option(
