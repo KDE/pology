@@ -272,17 +272,29 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     return update_progress
 
 
-def list_options (optparser, noshort=False):
+def list_options (optparser, short=False, both=False):
     """
     Simple list of all option names found in the option parser.
 
     The list is composed of option names delimited by newlines.
-    For options having both short and long form, first listed is the short form.
+
+    If an option is having both short and long name, the behavior
+    is determined by parameters C{short} and C{both}.
+    If neither is C{True}, only the long name is added to list.
+    If only C{short} is C{True}, only the short name is added to list.
+    If C{both} is C{True} both names are added to the list, in the order
+    determined by C{short} -- if C{True}, short name is listed first.
+
+    The list is sorted by long option names where available,
+    with short name listed before or after the long name,
+    depending on C{short} (C{True} for before).
 
     @param optparser: option parser
     @type optparser: OptionParser
-    @param noshort: leave out short name if option is having long name too
-    @type noshort: bool
+    @param short: whether to prefer short names
+    @type short: bool
+    @param both: whether to show both long and short name of an option
+    @type both: bool
 
     @returns: formated list of option names
     @rtype: string
@@ -290,13 +302,18 @@ def list_options (optparser, noshort=False):
 
     optnames = []
     for opt in optparser.option_list:
-        if noshort:
-            onames = [opt.get_opt_string()]
+        if str(opt) != opt.get_opt_string():
+            sname, lname = str(opt).split("/")
+            if both:
+                onames = [sname, lname] if short else [lname, sname]
+            else:
+                onames = [sname] if short else [lname]
         else:
-            onames = str(opt).split("/")
+            onames = [opt.get_opt_string()]
         optnames.append(onames)
 
-    optnames.sort(key=lambda x: x[-1])
+    elind = -1 if short else 0
+    optnames.sort(key=lambda x: x[elind].lstrip("-"))
     fmtlist = "\n".join(sum(optnames, []))
 
     return fmtlist
