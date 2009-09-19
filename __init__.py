@@ -78,6 +78,10 @@ Later on, Pology can be updated to the latest repository version by running::
     $ cd <parent_dir>/pology
     $ svn up
 
+Custom shell completion for Pology scripts is also available::
+
+    $ . <parent_dir>/pology/completion/bash/pology # Bash
+
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
