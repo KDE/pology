@@ -151,6 +151,7 @@ from pology.misc.fsops import collect_catalogs, collect_system
 from pology.file.catalog import Catalog
 from pology.misc.report import error, warning, report, encwrite
 from pology.misc.report import init_file_progress
+from pology.misc.report import list_options
 from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 import pology.misc.config as pology_config
 from pology import rootdir
@@ -294,11 +295,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     if op.list_options:
-        optnames = []
-        for opar in opars.option_list:
-            optnames.append(str(opar).split("/"))
-        optnames.sort(key=lambda x: x[-1])
-        report("\n".join(sum(optnames, [])))
+        report(list_options(opars))
         sys.exit(0)
 
     if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
