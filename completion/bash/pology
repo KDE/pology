@@ -2,14 +2,14 @@
 
 _posieve()
 {
-    local i cur prev opts sieves osieve
+    local i cur prev opts sieves osieve psieves
     COMPREPLY=()
 
     # Check if sieves were already issued.
     sieves=
     for i in `seq 0 $((${#COMP_WORDS[*]} - 2))`; do
         prev="${COMP_WORDS[i]}"
-        if [[ ${prev/,/} != $prev ]] || [[ $prev == *.py ]]; then
+        if [[ $prev =~ , ]] || [[ $prev == *.py ]]; then
             sieves=$prev
         else
             for osieve in $posieve_sieves; do
@@ -24,22 +24,27 @@ _posieve()
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
-    if [[ $cur == -s* ]] && [[ -n "$sieves" ]]; then
-        params=`posieve $sieves -P | sed 's/^/-s/'`
-        COMPREPLY=( $(compgen -W "$params" -- $cur) )
+    if [[ $cur == -s* ]] && [[ $cur != *: ]] && [[ -n "$sieves" ]]; then
+        opts=`posieve $sieves -P | sed 's/^/-s/'`
+        COMPREPLY=( $(compgen -W "$opts" -- $cur) )
         return 0
-    elif [[ $prev == -s ]] && [[ -n "$sieves" ]]; then
-        params=`posieve $sieves -P`
-        COMPREPLY=( $(compgen -W "$params" -- $cur) )
+    elif [[ $prev == -s ]] && [[ $cur != *: ]] && [[ -n "$sieves" ]]; then
+        opts=`posieve $sieves -P`
+        COMPREPLY=( $(compgen -W "$opts" -- $cur) )
         return 0
     elif [[ $cur == -* ]] ; then
-        posieve_options=`posieve -O`
-        COMPREPLY=($(compgen -W "$posieve_options" -- $cur))
+        opts=`posieve -O`
+        COMPREPLY=($(compgen -W "$opts" -- $cur))
         return 0
     else
         if [[ -z "$sieves" ]] ; then
-            posieve_sieves=`posieve -L`
-            COMPREPLY=( $(compgen -W "$posieve_sieves" -- $cur) )
+            opts=`posieve -L`
+            psieves=
+            if [[ $cur =~ , ]]; then
+                psieves=${cur%,*},
+                cur=${cur##*,}
+            fi
+            COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -- $cur) )
             return 0
         fi
     fi
