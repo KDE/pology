@@ -286,8 +286,20 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-P", "--list-sieve-params",
         action="store_true", dest="list_sieve_params", default=False,
         help="list just the parameters known to issued sieves")
+    opars.add_option(
+        "-O", "--list-options",
+        action="store_true", dest="list_options", default=False,
+        help="list just the names of available options")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+
+    if op.list_options:
+        optnames = []
+        for opar in opars.option_list:
+            optnames.append(str(opar).split("/"))
+        optnames.sort(key=lambda x: x[-1])
+        report("\n".join(sum(optnames, [])))
+        sys.exit(0)
 
     if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
         opars.error("must provide sieve to apply")
