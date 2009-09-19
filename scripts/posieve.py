@@ -278,10 +278,18 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
         help="coloring independent of output destination (terminal, file)")
+    opars.add_option(
+        "-L", "--list-sieve-names",
+        action="store_true", dest="list_sieve_names", default=False,
+        help="list just the names of available internal sieves")
+    opars.add_option(
+        "-P", "--list-sieve-params",
+        action="store_true", dest="list_sieve_params", default=False,
+        help="list just the parameters known to issued sieves")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
-    if len(free_args) < 1 and not op.list_sieves:
+    if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
         opars.error("must provide sieve to apply")
 
     op.raw_sieves = []
@@ -326,7 +334,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Dummy-set all internal sieves as requested if sieve listing required.
     sieves_requested = []
-    if op.list_sieves:
+    if op.list_sieves or op.list_sieve_names:
         # Global sieves.
         modpaths = glob.glob(os.path.join(rootdir(), "sieve", "[a-z]*.py"))
         modpaths.sort()
@@ -343,6 +351,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             sname = sname.replace("_", "-")
             lang = os.path.basename(os.path.dirname(os.path.dirname(modpath)))
             sieves_requested.append(lang + ":" + sname)
+
+    # No need to load and setup sieves if only listing sieve names requested.
+    if op.list_sieve_names:
+        report("\n".join(sieves_requested))
+        sys.exit(0)
 
     # Load sieve modules from supplied names in the command line.
     if not sieves_requested:
@@ -397,7 +410,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("Available internal sieves:")
         report(pp.listcmd(snames))
         sys.exit(0)
-    if op.help_sieves:
+    if op.list_sieve_params:
+        params = set()
+        for scview in pp.cmdviews():
+            params.update(scview.params(addcol=True))
+        report("\n".join(sorted(params)))
+        sys.exit(0)
+    elif op.help_sieves:
         report("Help for sieves:")
         report("")
         report(pp.help(snames))
