@@ -1392,7 +1392,7 @@ def asc_append_field (msg, field, value):
 
 _asc_attrs = (
     "rmsg", "msg",
-    "user", "type", "tag", "date", "rev",
+    "user", "type", ("tag", DATAG), "date", "rev",
     "slen", "fuzz", "obs",
 )
 
@@ -1401,7 +1401,10 @@ class _Ascription (object):
     def __init__ (self):
 
         for attr in _asc_attrs:
-            self.__dict__[attr] = None
+            if isinstance(attr, tuple):
+                self.__dict__[attr[0]] = attr[1]
+            else:
+                self.__dict__[attr] = None
 
     def __setattr__ (self, attr, val):
 
