@@ -309,29 +309,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if op.raw_colors:
         set_coloring_globals(outdep=False)
 
-    # Parse sieve options.
-    # FIXME: Temporary, until all sieves are switched to new style.
-    class _Sieve_options (dict):
-        def __init__ (self):
-            self._accepted = []
-        def accept (self, opt):
-            # Sieves should call this method on each accepted option.
-            self._accepted.append(opt)
-        def unaccepted (self):
-            noadm = {}
-            for opt, val in dict.items(self):
-                if not opt in self._accepted:
-                    noadm[opt] = val
-            return noadm
-    sopts = _Sieve_options()
-    for swspec in op.sieve_params:
-        if swspec.find(":") >= 0:
-            sopt, value = swspec.split(":", 1)
-        else:
-            sopt = swspec
-            value = ""
-        sopts[sopt] = value
-
     # Dummy-set all internal sieves as requested if sieve listing required.
     sieves_requested = []
     if op.list_sieves or op.list_sieve_names:
@@ -389,16 +366,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sieve_modules.append((sieve_name, sieve_mod))
         if not hasattr(sieve_mod, "Sieve"):
             error("module does not define Sieve class: %s" % sieve_path)
-        # FIXME: Check that module has setup_sieve function,
-        # once all sieves are switched to new style.
 
     # Define and parse sieve parameters.
     pp = ParamParser()
     snames = []
     for name, mod in sieve_modules:
-        # FIXME: Remove when all sieves are switched to new style.
-        if not hasattr(mod, "setup_sieve"):
-            continue
         try:
             scview = pp.add_subcmd(name)
         except Exception, e:
@@ -425,10 +397,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sparams, nacc_params = pp.parse(op.sieve_params, snames)
     except Exception, e:
         error(unicode(e))
-    # FIXME: Really abort when all sieves are switched to new style.
-    #if nacc_params:
-        #error("parameters not expected by any of the issued subcommands: %s"
-              #% (" ".join(nacc_params)))
+    if nacc_params:
+        error("parameters not expected by any of the issued subcommands: %s"
+              % (" ".join(nacc_params)))
 
     # Assemble list of paths to be searched for catalogs.
     file_or_dir_paths = op.raw_paths
@@ -486,21 +457,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     sieves = []
     for name, mod in sieve_modules:
         try:
-            # FIXME: Remove when all sieves are switched to new style.
-            if not hasattr(mod, "setup_sieve"):
-                sieves.append(mod.Sieve(sopts))
-                continue
             sieves.append(mod.Sieve(sparams[name]))
         except Exception, e:
             error(unicode(e))
-
-    # Old-style sieves will have marked options that they have accepted.
-    # FIXME: Remove when all sieves are switched to new style.
-    all_nacc_params = set(sopts.unaccepted().keys())
-    all_nacc_params = all_nacc_params.intersection(set(nacc_params))
-    if all_nacc_params:
-        error("no sieve has accepted these parameters: %s"
-              % ", ".join(all_nacc_params))
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.
