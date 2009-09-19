@@ -248,6 +248,8 @@ class Sieve (object):
                 return
 
         # Entry parsed.
+        ekeys = sorted(ekeys)
+        props = sorted(props)
         self.entries.append((ekeys, props, psep, kvsep, msg, cat))
 
 
@@ -280,7 +282,7 @@ class Sieve (object):
             return
 
         # Serialize entries.
-        good_entries.sort(lambda x, y: cmp(x[0], y[0]))
+        good_entries.sort(key=lambda x: x[0])
         lines = []
         for ekeys, props, psep, kvsep in good_entries:
             # Do Unicode, locale-unaware sorting,
