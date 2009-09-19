@@ -192,6 +192,28 @@ class ParamParser (object):
         return "\n".join(fmts)
 
 
+    def cmdnames (self):
+        """
+        Get the list of all defined subcommands by name.
+
+        @returns: list of subcommands
+        @rtype: [string]
+        """
+
+        return sorted(self._scviews.keys())
+
+
+    def cmdviews (self):
+        """
+        Get the list of all defined subcommand views.
+
+        @returns: list of subcommand views
+        @rtype: [L{SubcmdView}]
+        """
+
+        return [x[1] for x in sorted(self._scviews.items())]
+
+
     def parse (self, rawpars, subcmds):
         """
         Parse the list of parameters collected from the command line.
@@ -682,6 +704,17 @@ class SubcmdView (object):
         return "\n".join(ls).strip("\n")
 
 
+    def name (self):
+        """
+        Get subcommand name.
+
+        @returns: subcommand name
+        @rtype: string
+        """
+
+        return self._subcmd
+
+
     def shdesc (self):
         """
         Get short description of the subcommand.
@@ -705,6 +738,28 @@ class SubcmdView (object):
             if shdesc.endswith("."):
                 shdesc = shdesc[:-1]
             return shdesc
+
+
+    def params (self, addcol=False):
+        """
+        Get the list of subcommand parameters.
+
+        @param addcol: append colon (C{:}) to non-flag parameters
+        @type addcol: bool
+
+        @returns: list of subcommand parameters
+        @rtype: [string]
+        """
+
+        pnames = self._ptypes.keys()
+        fmtnames = dict(zip(pnames, pnames))
+
+        if addcol:
+            for pname in pnames:
+                if self._ptypes[pname] is not bool:
+                    fmtnames[pname] += ":"
+
+        return [x[1] for x in sorted(fmtnames.items())]
 
 
 # Check if all elements in a list are instances of given type
