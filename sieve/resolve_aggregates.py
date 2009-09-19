@@ -165,8 +165,7 @@ def _selvar_frequent (texts):
         if text not in tinds_by_text:
             tinds_by_text[text] = []
         tinds_by_text[text].append(tind)
-    tinds = sorted(tinds_by_text.values(),
-                   cmp=lambda x, y: cmp(len(y), len(x)) or cmp(x, y))
+    tinds = sorted(tinds_by_text.values(), key=lambda x: (-len(x), x))
 
     return texts[tinds[0][0]]
 

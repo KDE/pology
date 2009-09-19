@@ -96,8 +96,7 @@ def _fix_authors (hdr, cat):
         adata["name"] = name
         authlst.append(adata)
 
-    authlst.sort(lambda x, y:    cmp(min(x["years"]), min(y["years"]))
-                                or cmp(x["pos"], y["pos"]))
+    authlst.sort(key=lambda x: (min(x["years"]), x["pos"]))
 
     # Construct new author comments.
     authcmnts = Monlist()

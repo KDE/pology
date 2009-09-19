@@ -1622,7 +1622,8 @@ def asc_age_cmp (a1, a2, config):
     Compare age of two ascriptions in history by their date/revision.
 
     See L{asc_collect_history} for the composition of C{hist*} arguments.
-    Return value has the same semantics as with built-in C{cmp} function.
+    Return value is -1 if a1 comes before a2, 1 if a1 comes after a2,
+    and 0 if the order cannot be determined.
     """
 
     if a1.rev and a2.rev and a1.rev != a2.rev:
@@ -1631,7 +1632,7 @@ def asc_age_cmp (a1, a2, config):
         else:
             return 1
     else:
-        return cmp(a1.date, a2.date)
+        return (a1.date > a2.date) - (a1.date < a2.date)
 
 
 def sync_and_rep (cat):

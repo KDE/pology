@@ -435,7 +435,7 @@ def diff_cats (cat1, cat2, ecat,
     # renamings of source files, and then insert diffed messages
     # according to source references of old messages.
     dpairs_by2 = [x for x in dpairs if x[1]]
-    dpairs_by2.sort(lambda x, y: cmp(x[1].refentry, y[1].refentry))
+    dpairs_by2.sort(key=lambda x: x[1].refentry)
     dpairs_by1 = [x for x in dpairs if not x[1]]
     fnsyn = None
     if dpairs_by1:

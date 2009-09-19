@@ -620,8 +620,7 @@ class Sieve (object):
             else:
                 return x
 
-        filenames.sort(lambda x, y: cmp(equiv_template_path(x),
-                                        equiv_template_path(y)))
+        filenames.sort(key=lambda x: equiv_template_path(x))
 
 
     def finalize (self):

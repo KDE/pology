@@ -620,7 +620,7 @@ def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
 
     for catpaths in catalogs.values():
         if len(catpaths) > 1:
-            catpaths.sort(lambda x, y: cmp(x[0], y[0]))
+            catpaths.sort(key=lambda x: x[0])
 
     return catalogs
 
@@ -907,7 +907,7 @@ def select_branch_catalogs (branch_id, project, options,
     branch_catalogs = list(set(branch_catalogs))
 
     # Sort by path.
-    branch_catalogs.sort(cmp=lambda x, y: cmp(x[1], y[1]))
+    branch_catalogs.sort(key=lambda x: x[1])
         # ...sorting is not only for looks, but to establish priority of
         # supplying comments to summit messages.
 
@@ -951,9 +951,7 @@ def select_summit_names (project, options):
 
     # Make names unique and sort by path.
     summit_names = list(set(summit_names))
-    summit_names.sort(
-        cmp=lambda x, y: cmp(project.catalogs[SUMMIT_ID][x][0][0],
-                             project.catalogs[SUMMIT_ID][y][0][0]))
+    summit_names.sort(key=lambda x: project.catalogs[SUMMIT_ID][x][0][0])
 
     return summit_names
 
@@ -2197,7 +2195,7 @@ def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
                 if share >= minshare:
                     shares.append((ofile, share))
             if shares:
-                shares.sort(lambda x, y: cmp(x[1], y[1])) # not necessary atm
+                shares.sort(key=lambda x: x[1]) # not necessary atm
                 fuzzies[file] = [f for f, s in shares]
 
         # Update the dictionary of synonyms.
@@ -2224,8 +2222,7 @@ def normhf (fields, excluded=[]):
     for fnam, fval in fields:
         if fnam not in excluded:
             nfs.append((fnam, fval))
-
-    nfs.sort(lambda a, b: cmp(a[0], b[0]) or cmp(a[1], b[1]))
+    nfs.sort()
 
     return nfs
 

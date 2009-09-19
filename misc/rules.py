@@ -542,7 +542,7 @@ def printStat(rules, nmatch):
         report("Total problems detected by rules: %d" % nmatch)
     statRules=[r for r in rules if r.count!=0 and r.stat is True]
     if statRules:
-        statRules.sort(lambda x, y: cmp(x.time, y.time))
+        statRules.sort(key=lambda x: x.time)
         data=[]
         rown=[r.displayName for r in statRules]
         data.append([r.count for r in statRules])

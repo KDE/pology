@@ -947,7 +947,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
     # Merge spans if requested.
     if merge:
         # Sort by start index immediately, for priority of extra elements.
-        aspans.sort(lambda x, y: cmp(x[0], y[0]))
+        aspans.sort(key=lambda x: x[0])
         maspans = []
         while len(aspans) > 0:
             cstart, cend = aspans[0][:2]
@@ -966,7 +966,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
                     i += 1
             maspans.append((cstart, cend) + extras)
         # Sort by start index.
-        maspans.sort(lambda x, y: cmp(x[0], y[0]))
+        maspans.sort(key=lambda x: x[0])
         aspans = maspans
 
     # Put invalid spans back.

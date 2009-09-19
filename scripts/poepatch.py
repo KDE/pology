@@ -360,8 +360,7 @@ def patch_messages (cat, emsgs, ecat, options):
                 rejected_emsgs_flags.append((emsg_m, flag))
 
     # Sort accepted patches by position of application.
-    cmp_spec = lambda x, y: cmp(x[3], y[3])
-    patch_specs.sort(cmp_spec)
+    patch_specs.sort(key=lambda x: x[3])
 
     # Add accepted patches to catalog.
     incpos = 0
