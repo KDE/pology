@@ -22,7 +22,6 @@ _posieve()
     [[ -z "$_posieve_options" ]] && _posieve_options=`posieve --list-options`
 
     # Check if sieves were already issued.
-    sieves=
     i=0
     while [[ $i -lt $COMP_CWORD ]]; do
         prev="${COMP_WORDS[i]}"
@@ -62,7 +61,6 @@ _posieve()
     elif [[ $cur == -* ]] ; then
         COMPREPLY=($(compgen -W "$_posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
-        prefix=
         if [[ $cur =~ , ]]; then
             prefix=${cur%,*},
             cur=${cur##*,}
@@ -88,7 +86,6 @@ _poediff()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
     if [[ $cur == -*([[:alnum:]])c* ]] || [[ $prev == -*([[:alnum:]])c ]]; then
-        prefix=
         if [[ $cur == -* ]]; then
             prefix=${cur%%c*}c
             cur=${cur#*c}
