@@ -43,21 +43,23 @@ _posieve()
     if [[ -n "$sieves" ]] && [[ $_posieve_prevsieves != $sieves ]]; then
         _posieve_prevsieves=$sieves
         _posieve_params=`posieve $sieves --list-sieve-params`
-        # List of parameters with non-colon parameters given trailing space.
+        # Add trailing space to non-colon ending parameters.
         _posieve_params=${_posieve_params//$'\n'/ $'\n'}' '
         _posieve_params=${_posieve_params//: /:}
-        # List of parameters with all parameters prefixed by issuing option.
-        _posieve_cparams=-s${_posieve_params//$'\n'/$'\n'-s}
     fi
 
     [[ $_wcompopt == 1 ]] && compopt -o nospace
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
-    if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        COMPREPLY=($(compgen -W "$_posieve_cparams" -- $cur))
-    elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        COMPREPLY=($(compgen -W "$_posieve_params" -- $cur))
+    if    ( [[ $cur == -s* ]] || [[ $prev == -s ]] ) && [[ $cur != *:* ]] \
+       && [[ -n "$sieves" ]]; \
+    then
+        if [[ $cur == -* ]]; then
+            prefix=${cur%%s*}s
+            cur=${cur#*s}
+        fi
+        COMPREPLY=($(compgen -W "$_posieve_params" -P "$prefix" -- $cur))
     elif [[ $cur == -* ]] ; then
         COMPREPLY=($(compgen -W "$_posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
