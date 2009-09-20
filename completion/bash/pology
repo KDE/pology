@@ -1,11 +1,11 @@
 # Bash completion for Pology scripts.
 
 # Functionality depending on Bash version.
-wcompopt=0
-globnospace="-o nospace"
+_wcompopt=0
+_globnospace="-o nospace"
 if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
-    wcompopt=1
-    globnospace=
+    _wcompopt=1
+    _globnospace=
 fi
 
 _posieve()
@@ -15,8 +15,8 @@ _posieve()
     local i cur prev opts prefix sieves sieve
     local IFS=$'\n'
 
-    [[ -z "$posieve_sieves" ]] && posieve_sieves=`posieve -L`
-    [[ -z "$posieve_options" ]] && posieve_options=`posieve -O`
+    [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve -L`
+    [[ -z "$_posieve_options" ]] && _posieve_options=`posieve -O`
 
     # Check if sieves were already issued.
     sieves=
@@ -26,7 +26,7 @@ _posieve()
         if [[ $prev =~ , ]] || [[ $prev == *.py ]]; then
             sieves=$prev
         else
-            for sieve in $posieve_sieves; do
+            for sieve in $_posieve_sieves; do
                 if [[ $sieve == $prev ]]; then
                     sieves=$prev
                     break
@@ -38,37 +38,37 @@ _posieve()
     done
 
     # Reassemble parameters if current sieve chain is different from previous.
-    if [[ -n "$sieves" ]] && [[ $posieve_prevsieves != $sieves ]]; then
-        posieve_prevsieves=$sieves
-        posieve_params=`posieve $sieves -P`
+    if [[ -n "$sieves" ]] && [[ $_posieve_prevsieves != $sieves ]]; then
+        _posieve_prevsieves=$sieves
+        _posieve_params=`posieve $sieves -P`
         # List of parameters with non-colon parameters given trailing space.
-        posieve_params=${posieve_params//$'\n'/ $'\n'}' '
-        posieve_params=${posieve_params//: /:}
+        _posieve_params=${_posieve_params//$'\n'/ $'\n'}' '
+        _posieve_params=${_posieve_params//: /:}
         # List of parameters with all parameters prefixed by issuing option.
-        posieve_cparams=-s${posieve_params//$'\n'/$'\n'-s}
+        _posieve_cparams=-s${_posieve_params//$'\n'/$'\n'-s}
     fi
 
-    [[ $wcompopt == 1 ]] && compopt -o nospace
+    [[ $_wcompopt == 1 ]] && compopt -o nospace
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        COMPREPLY=($(compgen -W "$posieve_cparams" -- $cur))
+        COMPREPLY=($(compgen -W "$_posieve_cparams" -- $cur))
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        COMPREPLY=($(compgen -W "$posieve_params" -- $cur))
+        COMPREPLY=($(compgen -W "$_posieve_params" -- $cur))
     elif [[ $cur == -* ]] ; then
-        COMPREPLY=($(compgen -W "$posieve_options" -S " " -- $cur))
+        COMPREPLY=($(compgen -W "$_posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
         prefix=
         if [[ $cur =~ , ]]; then
             prefix=${cur%,*},
             cur=${cur##*,}
         fi
-        COMPREPLY=($(compgen -W "$posieve_sieves" -P "$prefix" -S " " -- $cur))
+        COMPREPLY=($(compgen -W "$_posieve_sieves" -P "$prefix" -S " " -- $cur))
     else
         # Turn on trailing space after completion on files.
-        [[ $wcompopt == 1 ]] && compopt +o nospace
+        [[ $_wcompopt == 1 ]] && compopt +o nospace
     fi
 }
-complete -F _posieve -o default $globnospace posieve
+complete -F _posieve -o default $_globnospace posieve
 
