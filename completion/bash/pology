@@ -15,8 +15,8 @@ _posieve()
     local i cur prev opts prefix sieves sieve
     local IFS=$'\n'
 
-    [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve -L`
-    [[ -z "$_posieve_options" ]] && _posieve_options=`posieve -O`
+    [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve --list-sieve-names`
+    [[ -z "$_posieve_options" ]] && _posieve_options=`posieve --list-options`
 
     # Check if sieves were already issued.
     sieves=
@@ -40,7 +40,7 @@ _posieve()
     # Reassemble parameters if current sieve chain is different from previous.
     if [[ -n "$sieves" ]] && [[ $_posieve_prevsieves != $sieves ]]; then
         _posieve_prevsieves=$sieves
-        _posieve_params=`posieve $sieves -P`
+        _posieve_params=`posieve $sieves --list-sieve-params`
         # List of parameters with non-colon parameters given trailing space.
         _posieve_params=${_posieve_params//$'\n'/ $'\n'}' '
         _posieve_params=${_posieve_params//: /:}

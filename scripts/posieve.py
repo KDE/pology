@@ -280,17 +280,17 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="raw_colors", default=False,
         help="coloring independent of output destination (terminal, file)")
     opars.add_option(
-        "-L", "--list-sieve-names",
+        "--list-options",
+        action="store_true", dest="list_options", default=False,
+        help="list just the names of available options")
+    opars.add_option(
+        "--list-sieve-names",
         action="store_true", dest="list_sieve_names", default=False,
         help="list just the names of available internal sieves")
     opars.add_option(
-        "-P", "--list-sieve-params",
+        "--list-sieve-params",
         action="store_true", dest="list_sieve_params", default=False,
         help="list just the parameters known to issued sieves")
-    opars.add_option(
-        "-O", "--list-options",
-        action="store_true", dest="list_options", default=False,
-        help="list just the names of available options")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
