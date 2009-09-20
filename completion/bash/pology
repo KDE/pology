@@ -1,10 +1,19 @@
 # Bash completion for Pology scripts.
 
+# Functionality depending on Bash version.
+wcompopt=0
+globnospace="-o nospace"
+if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
+    wcompopt=1
+    globnospace=
+fi
+
 _posieve()
 {
     COMPREPLY=()
 
-    local i cur prev opts sieves osieve psieves
+    local i cur prev opts prefix sieves sieve
+    local IFS=$'\n'
 
     # Check if sieves were already issued.
     sieves=
@@ -14,8 +23,8 @@ _posieve()
         if [[ $prev =~ , ]] || [[ $prev == *.py ]]; then
             sieves=$prev
         else
-            for osieve in $posieve_sieves; do
-                if [[ $osieve == $prev ]]; then
+            for sieve in $posieve_sieves; do
+                if [[ $sieve == $prev ]]; then
                     sieves=$prev
                     break
                 fi
@@ -25,27 +34,31 @@ _posieve()
         i=$((i + 1))
     done
 
+    [[ $wcompopt == 1 ]] && compopt -o nospace
+
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
-    local IFS=$'\n'
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
         opts=`posieve $sieves -P | sed -e 's/^/-s/' -e 's/\([^:]\)$/\1 /'`
-        COMPREPLY=( $(compgen -W "$opts" -- $cur) )
+        COMPREPLY=($(compgen -W "$opts" -- $cur))
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
         opts=`posieve $sieves -P | sed 's/\([^:]\)$/\1 /'`
-        COMPREPLY=( $(compgen -W "$opts" -- $cur) )
+        COMPREPLY=($(compgen -W "$opts" -- $cur))
     elif [[ $cur == -* ]] ; then
-        opts=`posieve -O`
-        COMPREPLY=($(compgen -W "$opts" -S " " -- $cur))
+        COMPREPLY=($(compgen -W "$posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
-        opts=`posieve -L`
-        psieves=
+        prefix=
         if [[ $cur =~ , ]]; then
-            psieves=${cur%,*},
+            prefix=${cur%,*},
             cur=${cur##*,}
         fi
-        COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -S " " -- $cur) )
+        COMPREPLY=($(compgen -W "$posieve_sieves" -P "$prefix" -S " " -- $cur))
+    else
+        # Turn on trailing space after completion on files.
+        [[ $wcompopt == 1 ]] && compopt +o nospace
     fi
 }
-complete -F _posieve -o default -o nospace posieve
+posieve_sieves=`posieve -L`
+posieve_options=`posieve -O`
+complete -F _posieve -o default $globnospace posieve
 
