@@ -15,6 +15,9 @@ _posieve()
     local i cur prev opts prefix sieves sieve
     local IFS=$'\n'
 
+    [[ -z "$posieve_sieves" ]] && posieve_sieves=`posieve -L`
+    [[ -z "$posieve_options" ]] && posieve_options=`posieve -O`
+
     # Check if sieves were already issued.
     sieves=
     i=0
@@ -34,16 +37,25 @@ _posieve()
         i=$((i + 1))
     done
 
+    # Reassemble parameters if current sieve chain is different from previous.
+    if [[ -n "$sieves" ]] && [[ $posieve_prevsieves != $sieves ]]; then
+        posieve_prevsieves=$sieves
+        posieve_params=`posieve $sieves -P`
+        # List of parameters with non-colon parameters given trailing space.
+        posieve_params=${posieve_params//$'\n'/ $'\n'}' '
+        posieve_params=${posieve_params//: /:}
+        # List of parameters with all parameters prefixed by issuing option.
+        posieve_cparams=-s${posieve_params//$'\n'/$'\n'-s}
+    fi
+
     [[ $wcompopt == 1 ]] && compopt -o nospace
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        opts=`posieve $sieves -P | sed -e 's/^/-s/' -e 's/\([^:]\)$/\1 /'`
-        COMPREPLY=($(compgen -W "$opts" -- $cur))
+        COMPREPLY=($(compgen -W "$posieve_cparams" -- $cur))
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        opts=`posieve $sieves -P | sed 's/\([^:]\)$/\1 /'`
-        COMPREPLY=($(compgen -W "$opts" -- $cur))
+        COMPREPLY=($(compgen -W "$posieve_params" -- $cur))
     elif [[ $cur == -* ]] ; then
         COMPREPLY=($(compgen -W "$posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
@@ -58,7 +70,5 @@ _posieve()
         [[ $wcompopt == 1 ]] && compopt +o nospace
     fi
 }
-posieve_sieves=`posieve -L`
-posieve_options=`posieve -O`
 complete -F _posieve -o default $globnospace posieve
 
