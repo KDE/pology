@@ -10,6 +10,7 @@ from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import report, error, warning
 from pology.misc.report import init_file_progress
+from pology.misc.msgreport import report_on_msg
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
@@ -1547,8 +1548,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                     break
 
         if summit_msg is None:
-            report("%s:%d(%d): message not in the summit"
-                   % (branch_path, branch_msg.refline, branch_msg.refentry))
+            report_on_msg("message not in the summit", branch_msg, branch_cat)
             continue
 
         if (    project.ascription_filters and not options.force
