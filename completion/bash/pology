@@ -3,7 +3,6 @@
 _posieve()
 {
     local i cur prev opts sieves osieve psieves
-    COMPREPLY=()
 
     # Check if sieves were already issued.
     sieves=
@@ -29,15 +28,12 @@ _posieve()
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
         opts=`posieve $sieves -P | sed 's/^/-s/'`
         COMPREPLY=( $(compgen -W "$opts" -- $cur) )
-        return 0
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
         opts=`posieve $sieves -P`
         COMPREPLY=( $(compgen -W "$opts" -- $cur) )
-        return 0
     elif [[ $cur == -* ]] ; then
         opts=`posieve -O`
         COMPREPLY=($(compgen -W "$opts" -- $cur))
-        return 0
     elif [[ -z "$sieves" ]] ; then
         opts=`posieve -L`
         psieves=
@@ -46,8 +42,8 @@ _posieve()
             cur=${cur##*,}
         fi
         COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -- $cur) )
-        return 0
     fi
+    COMPREPLY=()
 }
 complete -F _posieve -o default posieve
 
