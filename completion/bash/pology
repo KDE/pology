@@ -8,12 +8,15 @@ if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
     _globnospace=
 fi
 
+LC_ALL=C
+shopt -s extglob
+
 _posieve()
 {
-    COMPREPLY=()
-
     local i cur prev opts prefix sieves sieve
     local IFS=$'\n'
+
+    COMPREPLY=()
 
     [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve --list-sieve-names`
     [[ -z "$_posieve_options" ]] && _posieve_options=`posieve --list-options`
@@ -71,4 +74,29 @@ _posieve()
     fi
 }
 complete -F _posieve -o default $_globnospace posieve
+
+
+_poediff()
+{
+    local i cur prev opts prefix
+
+    COMPREPLY=()
+
+    [[ -z "$_poediff_vcs" ]] && _poediff_vcs=`poediff --list-vcs`
+    [[ -z "$_poediff_options" ]] && _poediff_options=`poediff --list-options`
+
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD - 1]}"
+    if [[ $cur == -*([[:alnum:]])c* ]] || [[ $prev == -*([[:alnum:]])c ]]; then
+        prefix=
+        if [[ $cur == -* ]]; then
+            prefix=${cur%c*}c
+            cur=${cur##*c}
+        fi
+        COMPREPLY=($(compgen -W "$_poediff_vcs" -P "$prefix" -- $cur))
+    elif [[ $cur == -* ]] ; then
+        COMPREPLY=($(compgen -W "$_poediff_options" -- $cur))
+    fi
+}
+complete -F _poediff -o default poediff
 

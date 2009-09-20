@@ -36,6 +36,7 @@ from pology.misc.diff import msg_ediff
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
 from pology.misc.colors import set_coloring_globals
+from pology.misc.report import list_options
 
 _hmsgctxt_field = u"X-Ediff-Header-Context"
 _hmsgctxt_el = u"~"
@@ -76,7 +77,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         dest="output",
         help="output diff catalog to a file instead of stdout")
     opars.add_option(
-        "-c", "--version-control", metavar="VCS",
+        "-c", "--vcs", metavar="VCS",
         dest="version_control",
         help="paths are under version control by given VCS; "
              "can be one of: %s" % ", ".join(showvcs))
@@ -119,8 +120,23 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
         help="coloring independent of output destination (terminal, file)")
+    opars.add_option(
+        "--list-options",
+        action="store_true", dest="list_options", default=False,
+        help="list just the names of available options")
+    opars.add_option(
+        "--list-vcs",
+        action="store_true", dest="list_vcs", default=False,
+        help="list just the keywords of known version control systems")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+
+    if op.list_options:
+        report(list_options(opars))
+        sys.exit(0)
+    if op.list_vcs:
+        report("\n".join(showvcs))
+        sys.exit(0)
 
     # Could use some speedup.
     if op.use_psyco:
