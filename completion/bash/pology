@@ -42,8 +42,9 @@ _posieve()
             cur=${cur##*,}
         fi
         COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -- $cur) )
+    else
+        COMPREPLY=()
     fi
-    COMPREPLY=()
 }
 complete -F _posieve -o default posieve
 
