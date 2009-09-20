@@ -90,8 +90,8 @@ _poediff()
     if [[ $cur == -*([[:alnum:]])c* ]] || [[ $prev == -*([[:alnum:]])c ]]; then
         prefix=
         if [[ $cur == -* ]]; then
-            prefix=${cur%c*}c
-            cur=${cur##*c}
+            prefix=${cur%%c*}c
+            cur=${cur#*c}
         fi
         COMPREPLY=($(compgen -W "$_poediff_vcs" -P "$prefix" -- $cur))
     elif [[ $cur == -* ]] ; then
