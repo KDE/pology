@@ -34,28 +34,27 @@ _posieve()
         i=$((i + 1))
     done
 
-    [[ $wcompopt == 1 ]] && compopt -o nospace
+    [[ $wcompopt == 1 ]] && compopt +o nospace
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
+        [[ $wcompopt == 1 ]] && compopt -o nospace
         opts=`posieve $sieves -P | sed -e 's/^/-s/' -e 's/\([^:]\)$/\1 /'`
         COMPREPLY=($(compgen -W "$opts" -- $cur))
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
+        [[ $wcompopt == 1 ]] && compopt -o nospace
         opts=`posieve $sieves -P | sed 's/\([^:]\)$/\1 /'`
         COMPREPLY=($(compgen -W "$opts" -- $cur))
     elif [[ $cur == -* ]] ; then
-        COMPREPLY=($(compgen -W "$posieve_options" -S " " -- $cur))
+        COMPREPLY=($(compgen -W "$posieve_options" -- $cur))
     elif [[ -z "$sieves" ]] ; then
         prefix=
         if [[ $cur =~ , ]]; then
             prefix=${cur%,*},
             cur=${cur##*,}
         fi
-        COMPREPLY=($(compgen -W "$posieve_sieves" -P "$prefix" -S " " -- $cur))
-    else
-        # Turn on trailing space after completion on files.
-        [[ $wcompopt == 1 ]] && compopt +o nospace
+        COMPREPLY=($(compgen -W "$posieve_sieves" -P "$prefix" -- $cur))
     fi
 }
 posieve_sieves=`posieve -L`
