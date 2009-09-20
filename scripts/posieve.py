@@ -203,7 +203,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="get list of input files from FILE, which contains one file path "
              "per line; can be repeated to collect paths from several files")
     opars.add_option(
-        "-s", "--sieve-param", metavar="NAME[:VALUE]",
+        "-s", metavar="NAME[:VALUE]",
         action="append", dest="sieve_params", default=[],
         help="pass a parameter to sieves")
     opars.add_option(
