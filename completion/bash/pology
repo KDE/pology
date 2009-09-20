@@ -2,6 +2,8 @@
 
 _posieve()
 {
+    COMPREPLY=()
+
     local i cur prev opts sieves osieve psieves
 
     # Check if sieves were already issued.
@@ -25,15 +27,16 @@ _posieve()
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
+    local IFS=$'\n'
     if [[ $cur == -s* ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        opts=`posieve $sieves -P | sed 's/^/-s/'`
+        opts=`posieve $sieves -P | sed -e 's/^/-s/' -e 's/\([^:]\)$/\1 /'`
         COMPREPLY=( $(compgen -W "$opts" -- $cur) )
     elif [[ $prev == -s ]] && [[ $cur != *:* ]] && [[ -n "$sieves" ]]; then
-        opts=`posieve $sieves -P`
+        opts=`posieve $sieves -P | sed 's/\([^:]\)$/\1 /'`
         COMPREPLY=( $(compgen -W "$opts" -- $cur) )
     elif [[ $cur == -* ]] ; then
         opts=`posieve -O`
-        COMPREPLY=($(compgen -W "$opts" -- $cur))
+        COMPREPLY=($(compgen -W "$opts" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then
         opts=`posieve -L`
         psieves=
@@ -41,10 +44,8 @@ _posieve()
             psieves=${cur%,*},
             cur=${cur##*,}
         fi
-        COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -- $cur) )
-    else
-        COMPREPLY=()
+        COMPREPLY=( $(compgen -W "$opts" -P "$psieves" -S " " -- $cur) )
     fi
 }
-complete -F _posieve -o default posieve
+complete -F _posieve -o default -o nospace posieve
 
