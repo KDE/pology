@@ -130,7 +130,7 @@
     <p>and set up for use by exporting environment variables:</p>
 <pre class="literalblock">
    $ export PYTHONPATH=&lt;parent_dir&gt;:$PYTHONPATH
-   $ export PATH=&lt;parent_dir&gt;/pology/scripts:$PATH
+   $ export PATH=&lt;parent_dir&gt;/pology/bin:$PATH
 </pre>
     <p>(if the intent is only to use Pology's scripts, and they remain in 
     their default location within Pology's directory tree, 
@@ -140,6 +140,10 @@
 <pre class="literalblock">
    $ cd &lt;parent_dir&gt;/pology
    $ svn up
+</pre>
+    <p>Custom shell completion for Pology scripts is also available:</p>
+<pre class="literalblock">
+   $ . &lt;parent_dir&gt;/pology/completion/bash/pology # Bash
 </pre>
 
 <hr />

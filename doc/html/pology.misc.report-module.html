@@ -170,6 +170,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.report-module.html#list_options" class="summary-sig-name">list_options</a>(<span class="summary-sig-arg">optparser</span>,
+        <span class="summary-sig-arg">short</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">both</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Simple list of all option names found in the option parser.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -353,6 +372,46 @@
     </ul></dd>
     <dt>Returns: (file_path, last_time, time_interval) -&gt; new_last_time</dt>
         <dd>progress updating function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="list_options"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">list_options</span>(<span class="sig-arg">optparser</span>,
+        <span class="sig-arg">short</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">both</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Simple list of all option names found in the option parser.</p>
+  <p>The list is composed of option names delimited by newlines.</p>
+  <p>If an option is having both short and long name, the behavior is 
+  determined by parameters <code>short</code> and <code>both</code>. If 
+  neither is <code>True</code>, only the long name is added to list. If 
+  only <code>short</code> is <code>True</code>, only the short name is 
+  added to list. If <code>both</code> is <code>True</code> both names are 
+  added to the list, in the order determined by <code>short</code> -- if 
+  <code>True</code>, short name is listed first.</p>
+  <p>The list is sorted by long option names where available, with short 
+  name listed before or after the long name, depending on 
+  <code>short</code> (<code>True</code> for before).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>optparser</code></strong> (OptionParser) - option parser</li>
+        <li><strong class="pname"><code>short</code></strong> (bool) - whether to prefer short names</li>
+        <li><strong class="pname"><code>both</code></strong> (bool) - whether to show both long and short name of an option</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>formated list of option names</dd>
   </dl>
 </td></tr></table>
 </div>

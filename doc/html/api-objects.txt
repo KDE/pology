@@ -644,6 +644,7 @@ pology.misc.normalize.identify	pology.misc.normalize-module.html#identify
 pology.misc.normalize.usimplify	pology.misc.normalize-module.html#usimplify
 pology.misc.normalize.shrink	pology.misc.normalize-module.html#shrink
 pology.misc.report	pology.misc.report-module.html
+pology.misc.report.list_options	pology.misc.report-module.html#list_options
 pology.misc.report._nonws_after_colreset	pology.misc.report-module.html#_nonws_after_colreset
 pology.misc.report.encwrite	pology.misc.report-module.html#encwrite
 pology.misc.report.warning	pology.misc.report-module.html#warning
@@ -1062,6 +1063,7 @@ pology.scripts.poselfmerge.select_field_wrapper	pology.misc.wrap-module.html#sel
 pology.scripts.poselfmerge.editprob	pology.misc.diff-module.html#editprob
 pology.scripts.poselfmerge.proper_words	pology.misc.split-module.html#proper_words
 pology.scripts.poselfmerge.self_merge_catalog	pology.scripts.poselfmerge-module.html#self_merge_catalog
+pology.scripts.poselfmerge.wrap_field_fine	pology.misc.wrap-module.html#wrap_field_fine
 pology.scripts.poselfmerge.error	pology.misc.report-module.html#error
 pology.scripts.poselfmerge.report	pology.misc.report-module.html#report
 pology.scripts.poselfmerge.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
@@ -1072,6 +1074,7 @@ pology.scripts.posieve.report_on_msg	pology.misc.msgreport-module.html#report_on
 pology.scripts.posieve.error_on_msg	pology.misc.msgreport-module.html#error_on_msg
 pology.scripts.posieve.warning	pology.misc.report-module.html#warning
 pology.scripts.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
+pology.scripts.posieve.list_options	pology.misc.report-module.html#list_options
 pology.scripts.posieve.encwrite	pology.misc.report-module.html#encwrite
 pology.scripts.posieve.set_coloring_globals	pology.misc.colors-module.html#set_coloring_globals
 pology.scripts.posieve.main	pology.scripts.posieve-module.html#main
@@ -1829,7 +1832,9 @@ pology.misc.rules.Rule._is_valid	pology.misc.rules.Rule-class.html#_is_valid
 pology.misc.rules.Rule.setValid	pology.misc.rules.Rule-class.html#setValid
 pology.misc.rules.Rule._twoRegexKeywords	pology.misc.rules.Rule-class.html#_twoRegexKeywords
 pology.misc.subcmd.ParamParser	pology.misc.subcmd.ParamParser-class.html
+pology.misc.subcmd.ParamParser.cmdnames	pology.misc.subcmd.ParamParser-class.html#cmdnames
 pology.misc.subcmd.ParamParser._fmt_admvals	pology.misc.subcmd.ParamParser-class.html#_fmt_admvals
+pology.misc.subcmd.ParamParser.cmdviews	pology.misc.subcmd.ParamParser-class.html#cmdviews
 pology.misc.subcmd.ParamParser.get_view	pology.misc.subcmd.ParamParser-class.html#get_view
 pology.misc.subcmd.ParamParser.help	pology.misc.subcmd.ParamParser-class.html#help
 pology.misc.subcmd.ParamParser.parse	pology.misc.subcmd.ParamParser-class.html#parse
@@ -1845,8 +1850,10 @@ pology.misc.subcmd.SubcmdView.set_desc	pology.misc.subcmd.SubcmdView-class.html#
 pology.misc.subcmd.SubcmdView.help	pology.misc.subcmd.SubcmdView-class.html#help
 pology.misc.subcmd.SubcmdView.set_shdesc	pology.misc.subcmd.SubcmdView-class.html#set_shdesc
 pology.misc.subcmd.SubcmdView.add_param	pology.misc.subcmd.SubcmdView-class.html#add_param
+pology.misc.subcmd.SubcmdView.params	pology.misc.subcmd.SubcmdView-class.html#params
 pology.misc.subcmd.SubcmdView.shdesc	pology.misc.subcmd.SubcmdView-class.html#shdesc
 pology.misc.subcmd.SubcmdView.__init__	pology.misc.subcmd.SubcmdView-class.html#__init__
+pology.misc.subcmd.SubcmdView.name	pology.misc.subcmd.SubcmdView-class.html#name
 pology.misc.timeout.TimedOutException	pology.misc.timeout.TimedOutException-class.html
 pology.misc.timeout.TimedOutException.__str__	pology.misc.timeout.TimedOutException-class.html#__str__
 pology.misc.timeout.TimedOutException.__init__	pology.misc.timeout.TimedOutException-class.html#__init__

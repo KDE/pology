@@ -177,8 +177,43 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.misc.subcmd.SubcmdView-class.html#name" class="summary-sig-name">name</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get subcommand name.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.misc.subcmd.SubcmdView-class.html#shdesc" class="summary-sig-name">shdesc</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Get short description of the subcommand.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.subcmd.SubcmdView-class.html#params" class="summary-sig-name">params</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">addcol</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Get the list of subcommand parameters.</td>
           <td align="right" valign="top">
             
             
@@ -359,6 +394,27 @@ object --+
   </dl>
 </td></tr></table>
 </div>
+<a name="name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">name</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get subcommand name.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>subcommand name</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="shdesc"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -380,6 +436,32 @@ object --+
   <dl class="fields">
     <dt>Returns: string</dt>
         <dd>short description</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="params"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">params</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">addcol</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of subcommand parameters.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>addcol</code></strong> (bool) - append colon (<code>:</code>) to non-flag parameters</li>
+    </ul></dd>
+    <dt>Returns: [string]</dt>
+        <dd>list of subcommand parameters</dd>
   </dl>
 </td></tr></table>
 </div>
