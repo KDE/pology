@@ -67,7 +67,7 @@ Pology can be checked out from KDE's Subversion repository::
 and set up for use by exporting environment variables::
 
     $ export PYTHONPATH=<parent_dir>:$PYTHONPATH
-    $ export PATH=<parent_dir>/pology/scripts:$PATH
+    $ export PATH=<parent_dir>/pology/bin:$PATH
 
 (if the intent is only to use Pology's scripts, and they remain in their
 default location within Pology's directory tree, C{PYTHONPATH} actually
