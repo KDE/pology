@@ -17,7 +17,6 @@ Sieve parameters:
   - C{noreview}: do not add comments about unreviewed context
   - C{eqmsgid}: report messages with C{msgid} equal to an unfuzzied message
   - C{lokalize}: report messages by opening them in Lokalize
-  - C{fexpr:<expr>}: process only messages matching the search expression
 
 By default, unfuzzied messages will also be given a translator comment
 with C{unreviewed-context} string, so that translator may later find and
@@ -42,7 +41,6 @@ C{noreview} parameter may be useful here too.
 from pology.misc.report import report
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.sieve.find_messages import build_msg_fmatcher
 
 
 def setup_sieve (p):
@@ -69,12 +67,6 @@ def setup_sieve (p):
                 desc=
     "Open reported messages in lokalize."
     )
-    p.add_param("fexpr", unicode,
-                metavar="EXPRESSION",
-                desc=
-    "Consider only messages matched by the search expression. "
-    "See description of the same parameter to '%s' sieve." % ("find-messages")
-    )
 
 
 class Sieve (object):
@@ -82,11 +74,6 @@ class Sieve (object):
     def __init__ (self, params):
 
         self.p = params
-
-        # Create message matcher if requested.
-        self.matcher = None
-        if self.p.fexpr:
-            self.matcher = build_msg_fmatcher(self.p.fexpr, abort=True)
 
         self.nunfuzz = 0
         self.msgs_by_msgid_per_cat = []
@@ -104,9 +91,6 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if msg.obsolete:
-            return
-
-        if self.matcher and not self.matcher(msg, cat):
             return
 
         if (    msg.fuzzy

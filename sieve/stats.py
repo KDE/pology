@@ -17,7 +17,6 @@ Sieve parameters:
   - C{maxwords:<number>}: count only messages with at most this many words
   - C{lspan:<from>:<to>}: include only messages in this range of lines
   - C{espan:<from>:<to>}: include only messages in this range of entries
-  - C{fexpr:<expr>}: consider only messages matching the search expression
   - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{bydir}: display report by each leaf directory, followed by totals
   - C{byfile}: display report by each catalog, followed by totals
@@ -60,10 +59,6 @@ satisfying a certain criterion:
     If start value is omitted (e.g. C{lspan::100}), 0 is assumed;
     if end value is omitted (e.g. C{lspan:100:}), total number of lines
     or entries is assumed.
-
-  - C{fexpr} restricts counting to messages matched by the search expression
-    of the type defined by the L{find-messages<sieve.find_messages>} sieve
-    (see description of its same-named parameter).
 
   - For L{summited<scripts.posummit>} catalogs, C{branch} parameter is used to
     count only messages from the given branch (several branch IDs may
@@ -231,7 +226,6 @@ from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
 from pology.misc.report import report, warning
 import pology.misc.colors as C
-from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.diff import word_ediff
 
 
@@ -311,12 +305,6 @@ def setup_sieve (p):
     "If FROM is empty, 0 is assumed; "
     "if TO is empty, total number of entries is assumed."
     )
-    p.add_param("fexpr", unicode,
-                metavar="EXPRESSION",
-                desc=
-    "Count in only messages matched by the search expression. "
-    "See description of the same parameter to '%s' sieve." % ("find-messages")
-    )
     p.add_param("bydir", bool, defval=False,
                 desc=
     "Report statistics per leaf directory in searched paths."
@@ -394,12 +382,6 @@ class Sieve (object):
         # FIXME: After parameter parser can deliver requested sequence type.
         if self.p.branch is not None:
             self.p.branch = set(self.p.branch)
-
-        # Create message matcher if requested.
-        self.matcher = None
-        if self.p.fexpr:
-            mopts = dict(case=False)
-            self.matcher = build_msg_fmatcher(self.p.fexpr, mopts, abort=True)
 
         # Parse line/entry spans.
         def parse_span (spanspec):
@@ -506,9 +488,6 @@ class Sieve (object):
             msg_branches = parse_summit_branches(msg)
             if not set.intersection(self.p.branch, msg_branches):
                 return
-
-        if self.matcher and not self.matcher(msg, cat):
-            return
 
         # If line/entry spans given, skip message if not in range.
         if self.lspan[0] is not None and msg.refline < self.lspan[0]:
@@ -727,8 +706,6 @@ class Sieve (object):
             report(">>> line-span: %s" % self.p.lspan)
         if self.p.espan:
             report(">>> entry-span: %s" % self.p.espan)
-        if self.p.fexpr:
-            report(">>> selected-by-expr: %s" % self.p.fexpr)
         if self.p.ondiff:
             report(">>> scaled-fuzzy-counts")
 
