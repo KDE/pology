@@ -188,6 +188,7 @@ from pology import rootdir
 from pology.misc.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
 from pology.misc.colors import set_coloring_globals
+from pology.misc.escape import escape_sh
 
 
 def main ():
@@ -457,7 +458,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # If assembly of issued parameters requested, report and exit.
     if op.issued_params:
-        fmtparams = " ".join(["-s%s" % x for x in sorted(sieve_params)])
+        escparams = []
+        for parspec in sieve_params:
+            if ":" in parspec:
+                param, value = parspec.split(":", 1)
+                escparam = "%s:%s" % (param, escape_sh(value))
+            else:
+                escparam = parspec
+            escparams.append(escparam)
+        fmtparams = " ".join(["-s%s" % x for x in sorted(escparams)])
         if fmtparams:
             report(fmtparams)
         sys.exit(0)
