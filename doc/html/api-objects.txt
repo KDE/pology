@@ -970,6 +970,7 @@ pology.scripts.poediff.msg_ediff	pology.misc.diff-module.html#msg_ediff
 pology.scripts.poediff.collect_file_pairs	pology.scripts.poediff-module.html#collect_file_pairs
 pology.scripts.poediff.create_special_diff_pair	pology.scripts.poediff-module.html#create_special_diff_pair
 pology.scripts.poediff.collect_pspecs_from_vcs	pology.scripts.poediff-module.html#collect_pspecs_from_vcs
+pology.scripts.poediff.list_options	pology.misc.report-module.html#list_options
 pology.scripts.poediff.get_msgctxt_for_headers	pology.scripts.poediff-module.html#get_msgctxt_for_headers
 pology.scripts.poediff.msg_cleanup	pology.scripts.poediff-module.html#msg_cleanup
 pology.scripts.poediff.msg_eq_fields	pology.scripts.poediff-module.html#msg_eq_fields
@@ -1085,8 +1086,10 @@ pology.scripts.posieve.report	pology.misc.report-module.html#report
 pology.scripts.posieve.init_file_progress	pology.misc.report-module.html#init_file_progress
 pology.scripts.posieve.select_field_wrapper	pology.misc.wrap-module.html#select_field_wrapper
 pology.scripts.posieve.collect_system	pology.misc.fsops-module.html#collect_system
+pology.scripts.posieve.read_config_params	pology.scripts.posieve-module.html#read_config_params
 pology.scripts.posieve.error	pology.misc.report-module.html#error
 pology.scripts.posummit	pology.scripts.posummit-module.html
+pology.scripts.posummit.report_on_msg	pology.misc.msgreport-module.html#report_on_msg
 pology.scripts.posummit.hook_fill_defaults	pology.scripts.posummit-module.html#hook_fill_defaults
 pology.scripts.posummit.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
 pology.scripts.posummit.hook_applicable	pology.scripts.posummit-module.html#hook_applicable
@@ -1680,6 +1683,7 @@ pology.l10n.fr.sieve.setUbsp.Sieve.__init__	pology.l10n.fr.sieve.setUbsp.Sieve-c
 pology.misc.config.section	pology.misc.config.section-class.html
 pology.misc.config.section.real	pology.misc.config.section-class.html#real
 pology.misc.config.section.string	pology.misc.config.section-class.html#string
+pology.misc.config.section.fields	pology.misc.config.section-class.html#fields
 pology.misc.config.section._value	pology.misc.config.section-class.html#_value
 pology.misc.config.section.boolean	pology.misc.config.section-class.html#boolean
 pology.misc.config.section.integer	pology.misc.config.section-class.html#integer

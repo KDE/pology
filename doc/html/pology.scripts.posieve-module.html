@@ -198,6 +198,34 @@
       compiler, if available (default <code>yes</code>)
     </li>
   </ul>
+  <p>Sieve parameters can also be issued through configurations fields. For
+  example, to issue parameters <code>transl</code> (a switch) and 
+  <code>accel</code> (valued) for all sieves that accept them:</p>
+<pre class="literalblock">
+   [posieve]
+   param-transl = yes
+   param-accel = &amp;
+</pre>
+  <p>To issue parameters only for certain sieves, parameter name is 
+  followed by <code>/sieve1,sieve2,...</code>; to avoid issuing parameter 
+  for certain sieves, a tilde is prepended to sieve list. For example:</p>
+<pre class="literalblock">
+   [posieve]
+   param-transl/find-messages = &amp;   # only for find-messages
+   param-accel/~stats = yes         # not for stats
+</pre>
+  <p>Same-named fields cannot be used in configuration to provide several 
+  values (they override each other), so several same-named parameters are 
+  issued by appending a dot and a unique string (within the sequence) to 
+  parameter name:</p>
+<pre class="literalblock">
+   [posieve]
+   param-accel.0 = &amp;
+   param-accel.1 = _
+</pre>
+  <p>If a sieve parameter is set to be issued from configuration, option 
+  <code>-S</code> followed by parameter name can be used to leave out that 
+  parameter for one particular sieve run.</p>
 
 <hr />
 <div class="fields">      <p><strong>Warning:</strong>
@@ -226,6 +254,23 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="main"></a><span class="summary-sig-name">main</span>()</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="read_config_params"></a><span class="summary-sig-name">read_config_params</span>(<span class="summary-sig-arg">scviews</span>,
+        <span class="summary-sig-arg">cmdline_parspecs</span>)</span></td>
           <td align="right" valign="top">
             
             
