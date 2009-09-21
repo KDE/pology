@@ -109,109 +109,110 @@ used to prevent modified catalogs from being synced to disk.
 Output Legend
 =============
 
-    The basic output is the table where rows present statistics for
-    a category of messages, and columns the statistical bits of data::
+The basic output is the table where rows present statistics for
+a category of messages, and columns the statistical bits of data::
 
-        $ posieve.py stats frobaz/
-        -              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
-        translated     ...    ...    ...     ...     ...    ...    ...
-        fuzzy          ...    ...    ...     ...     ...    ...    ...
-        untranslated   ...    ...    ...     ...     ...    ...    ...
-        total          ...    ...    ...     ...     ...    ...    ...
-        obsolete       ...    ...    ...     ...     ...    ...    ...
+    $ posieve.py stats frobaz/
+    -              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
+    translated     ...    ...    ...     ...     ...    ...    ...
+    fuzzy          ...    ...    ...     ...     ...    ...    ...
+    untranslated   ...    ...    ...     ...     ...    ...    ...
+    total          ...    ...    ...     ...     ...    ...    ...
+    obsolete       ...    ...    ...     ...     ...    ...    ...
 
-    The C{total} row is the sum of C{translated}, C{fuzzy}, and
-    C{untranslated}, but not C{obsolete}. The columns are as follows:
-      - C{msg}: number of messages
-      - C{msg/tot}: percentage of messages relative to C{total}
-      - C{w-or}: number of words in original
-      - C{w/tot-or}: percentage of words in original relative to C{total}
-      - C{w-tr}: number of words in translation
-      - C{ch-or}: number of characters in original
-      - C{ch-tr}: number of characters in translation
+The C{total} row is the sum of C{translated}, C{fuzzy}, and
+C{untranslated}, but not C{obsolete}. The columns are as follows:
+  - C{msg}: number of messages
+  - C{msg/tot}: percentage of messages relative to C{total}
+  - C{w-or}: number of words in original
+  - C{w/tot-or}: percentage of words in original relative to C{total}
+  - C{w-tr}: number of words in translation
+  - C{ch-or}: number of characters in original
+  - C{ch-tr}: number of characters in translation
 
-    The output with C{detail} parameter in effect is the same, with
-    several columns of derived data appended to the table:
-      - C{w-ef}: word expansion factor
-            (increase in words from original to translation)
-      - C{ch-ef}: character expansion factor
-            (increase in characters from original to translation)
-      - C{w/msg-or}: average of words per message in original
-      - C{w/msg-tr}: average of words per message in translation
-      - C{ch/w-or}: average of characters per message in original
-      - C{ch/w-tr}: average of characters per message in translation
+The output with C{detail} parameter in effect is the same, with
+several columns of derived data appended to the table:
+  - C{w-ef}: word expansion factor
+        (increase in words from original to translation)
+  - C{ch-ef}: character expansion factor
+        (increase in characters from original to translation)
+  - C{w/msg-or}: average of words per message in original
+  - C{w/msg-tr}: average of words per message in translation
+  - C{ch/w-or}: average of characters per message in original
+  - C{ch/w-tr}: average of characters per message in translation
 
-    If any of the sieve parameters that restrict counting to certain messages
-    have been supplied, this is confirmed in output by a C{>>>} message
-    before the table. For example::
+If any of the sieve parameters that restrict counting to certain messages
+have been supplied, this is confirmed in output by a C{>>>} message
+before the table. For example::
 
-        $ posieve.py stats -smaxwords:5 frobaz/
-        >>> at-most-words: 5
-        (...the stats table follows...)
+    $ posieve.py stats -smaxwords:5 frobaz/
+    >>> at-most-words: 5
+    (...the stats table follows...)
 
-    When C{incomplete} parameter is given, the statistics table is followed by
-    a table of not fully translated catalogs, with counts of fuzzy and
-    untranslated messages and words::
+When C{incomplete} parameter is given, the statistics table is followed by
+a table of not fully translated catalogs, with counts of fuzzy and
+untranslated messages and words::
 
-        $ posieve.py stats -sincomplete frobaz/
-        (...the stats table...)
-        incomplete-catalog   msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
-        frobaz/foxtrot.po        0      11        11     0   123     123
-        frobaz/november.po      19      14        33    85    47     132
-        frobaz/sierra.po        22       0        22   231     0     231
+    $ posieve.py stats -sincomplete frobaz/
+    (...the stats table...)
+    incomplete-catalog   msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
+    frobaz/foxtrot.po        0      11        11     0   123     123
+    frobaz/november.po      19      14        33    85    47     132
+    frobaz/sierra.po        22       0        22   231     0     231
 
-    In the column names, C{msg/*} and C{w/*} stand for messages and words;
-    C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
-    two summed.
+In the column names, C{msg/*} and C{w/*} stand for messages and words;
+C{*/f}, C{*/u}, and C{*/f+u} stand for fuzzy, untranslated, and the
+two summed.
 
-    When parameters C{msgbar} or C{wbar} are in effect, statistics is given
-    in the form of an ASCII bar, giving visual relation between numbers of
-    translated, fuzzy, and untranslated messages or words::
+When parameters C{msgbar} or C{wbar} are in effect, statistics is given
+in the form of an ASCII bar, giving visual relation between numbers of
+translated, fuzzy, and untranslated messages or words::
 
-        $ posieve.py stats -swbar frobaz/
-        4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
+    $ posieve.py stats -swbar frobaz/
+    4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
 
-    A typical condensed overview of translation state is obtained by::
+A typical condensed overview of translation state is obtained by::
 
-        $ posieve.py stats -sbyfile -smsgbar frobaz/
-        --- frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
-        --- frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
-        --- frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
-        === (overall)          147/41/25 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤××××···|
+    $ posieve.py stats -sbyfile -smsgbar frobaz/
+    --- frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
+    --- frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
+    --- frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
+    === (overall)          147/41/25 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤××××···|
 
-    though one may want to use C{-swbar} instead, as word counts are more
-    representative of amount of work needed to complete the translation.
-    The rounding for bars is such that while there is at least one fuzzy
-    or untranslated message or word, the bar will show one incomplete cell.
+though one may want to use C{-swbar} instead, as word counts are more
+representative of amount of work needed to complete the translation.
+The rounding for bars is such that while there is at least one fuzzy
+or untranslated message or word, the bar will show one incomplete cell.
 
-    By default bars are presenting relative information, i.e. the percentages
-    of translated, fuzzy, and untranslated messages. This can be changed
-    into absolute display using the C{absolute} parameter, where single bar-cell
-    stands for a fixed number of messages or words, determined by taking
-    into account the stats across all bars in the run. When absolute mode
-    is engaged, the bars are shown only for the most specific count level
-    (e.g. only for files if C{byfile} in effect).
+By default bars are presenting relative information, i.e. the percentages
+of translated, fuzzy, and untranslated messages. This can be changed
+into absolute display using the C{absolute} parameter, where single bar-cell
+stands for a fixed number of messages or words, determined by taking
+into account the stats across all bars in the run. When absolute mode
+is engaged, the bars are shown only for the most specific count level
+(e.g. only for files if C{byfile} in effect).
 
 Notes on Counting
 =================
 
-    The word and character counts for a given message field are obtained
-    in the following way:
-      - accelerator marker, if defined, is removed
-      - XML-like markup is eliminated (C{<...>})
-      - special tokens, such as format directives, are also eliminated
-        (e.g. C{%s} in a message marked as C{c-format})
-      - the text is split into words by taking all contiguous sequences of
-        C{word} characters, as defined by C{\w} regular expression class
-        (this means letters, numbers, underscore)
-      - all words not starting with a letter are eliminated
-      - the words that remain count into statistics
+The word and character counts for a given message field are obtained
+in the following way:
+  - accelerator marker, if defined, is removed
+  - XML-like markup is eliminated (C{<...>})
+  - special tokens, such as format directives, are also eliminated
+    (e.g. C{%s} in a message marked as C{c-format})
+  - the text is split into words by taking all contiguous sequences of
+    C{word} characters, as defined by C{\w} regular expression class
+    (this means letters, numbers, underscore)
+  - all words not starting with a letter are eliminated
+  - the words that remain count into statistics
 
-    In plural messages, the counts of the original are those of C{msgid}
-    and C{msgid_plural} fields I{averaged}, and so for the translation,
-    the averages of all C{msgstr} fields. In this way, the comparative
-    statistics between the original and the translation is not skewed for
-    languages that have other than two plural forms.
+In plural messages, the counts of the original are those of C{msgid}
+and C{msgid_plural} fields I{averaged}, and so for the translation,
+the averages of all C{msgstr} fields. In this way, the comparative
+statistics between the original and the translation is not skewed for
+languages that have other than two plural forms.
+
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
