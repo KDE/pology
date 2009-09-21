@@ -155,6 +155,8 @@ appending a dot and a unique string (within the sequence) to parameter name::
 If a sieve parameter is set to be issued from configuration,
 option C{-S} followed by parameter name can be used to leave out
 that parameter for one particular sieve run.
+To see which parameters will be issued after both the command line and
+the configuration have been considered, use C{--issued-params} option.
 
 @warning: This module is a script for end-use. No exposed functionality
 should be considered public API, it is subject to change without notice.
@@ -238,6 +240,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-S", metavar="NAME[:VALUE]",
         action="append", dest="sieve_no_params", default=[],
         help="remove a parameter to sieves")
+    opars.add_option(
+        "--issued-params",
+        action="store_true", dest="issued_params", default=False,
+        help="show all issued params (from command line and configuration)")
     opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
@@ -448,6 +454,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             if parspec.split(":", 1)[0] not in op.sieve_no_params:
                 sieve_params_mod.append(parspec)
         sieve_params = sieve_params_mod
+
+    # If assembly of issued parameters requested, report and exit.
+    if op.issued_params:
+        fmtparams = " ".join(["-s%s" % x for x in sorted(sieve_params)])
+        if fmtparams:
+            report(fmtparams)
+        sys.exit(0)
 
     # Parse sieve parameters.
     try:
