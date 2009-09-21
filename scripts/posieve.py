@@ -726,7 +726,7 @@ def read_config_params (scviews, cmdline_parspecs):
             if add_param:
                 if param in acc_flag_params:
                     if cfgsec.boolean(field):
-                        sel_params.add(param)
+                        sel_params.append(param)
                 else:
                     sel_params.append("%s:%s" % (param, cfgsec.string(field)))
 
