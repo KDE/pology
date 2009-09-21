@@ -113,6 +113,9 @@ class section:
         @rtype: set(string)
         """
 
+        if not _config.has_section(self.name):
+            return set()
+
         return set(_config.options(self.name))
 
 
