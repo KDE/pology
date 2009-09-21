@@ -15,6 +15,7 @@ Sieve parameters for matching:
   - C{comment:<regex>}: regular expression to match against comments
   - C{transl}: the message must be translated
   - C{obsol}: the message must be obsolete
+  - C{active}: the message must be active (translated and not obsolete)
   - C{flag:<regex>}: regular expression to match against flags
   - C{plural}: the message must be plural
   - C{maxchar}: messages must have no more than this number of characters
@@ -197,6 +198,14 @@ def setup_sieve (p):
                 desc=
     "Matches if the message is not obsolete."
     )
+    p.add_param("active", bool,
+                desc=
+    "Matches if the message is active (translated and not obsolete)."
+    )
+    p.add_param("nactive", bool,
+                desc=
+    "Matches if the message is not active (not translated or obsolete)."
+    )
     p.add_param("flag", unicode, multival=True,
                 metavar="REGEX",
                 desc=
@@ -320,7 +329,7 @@ _flag_mark = u"match"
 # Matchers taking a value.
 _op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
 # Matchers not taking a value.
-_nop_matchers = set(["transl", "obsol", "plural"])
+_nop_matchers = set(["transl", "obsol", "active", "plural"])
 
 # Matchers which produce a regular expression out of their value.
 _rx_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
@@ -380,7 +389,7 @@ class Sieve (object):
 
         # - first matchers which are always AND
         expr_and = create_match_group([
-            "transl", "obsol", "plural", "maxchar", "flag", "branch",
+            "transl", "obsol", "active", "plural", "maxchar", "flag", "branch",
         ], negatable=True, orlinked=False)
 
         # - then matchers which can be AND or OR
@@ -875,6 +884,13 @@ def _create_matcher (name, value, mods, params, neg=False):
                 return msg.obsolete
             else:
                 return not msg.obsolete
+
+    elif name == "active":
+        def matcher (msgf, msg, cat, hl=[]):
+            if value is None or value:
+                return msg.translated and not msg.obsolete
+            else:
+                return not msg.translated or msg.obsolete
 
     elif name == "plural":
         def matcher (msgf, msg, cat, hl=[]):
