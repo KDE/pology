@@ -94,6 +94,33 @@ def escape_c (s):
     return type(s)().join([_escapes_c_wpref.get(c, c) for c in s])
 
 
+_special_chars_sh = set(r" ~`#$&*()\|[]{};'\"<>?!")
+
+def escape_sh (s):
+
+    """
+    Escape text for Unix sh-like shell.
+
+    Escaped text may be used as a fixed argument in command line,
+    i.e. the shell will not interpret any part of it in a special way.
+    It is undefined which of the possible ways to escape are used
+    (single quotes, double quotes, backslashes).
+
+    @param s: text to escape
+    @type s: string
+
+    @returns: escaped text
+    @rtype: string
+    """
+
+    if bool(set(s).intersection(_special_chars_sh)):
+        quote = "'" if "'" not in s else '"'
+        s = s.replace(quote, "\\" + quote)
+        s = quote + s + quote
+
+    return s
+
+
 def split_escaped (text, sep):
     """
     Like C{split()}, but double-separator is treated as an escape of itself.
