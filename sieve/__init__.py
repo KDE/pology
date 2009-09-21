@@ -12,8 +12,8 @@ passages describe how sieves are written, but also how clients that use them
 should behave.
 
 
-The Sieve Layout
-================
+Sieve Layout
+============
 
 Every sieve module must define the C{Sieve} class, with some mandatory and
 some optional interface methods and instance variables. Here is a simple
@@ -57,9 +57,6 @@ messages from the given catalog. I.e. it is illegal for the client to
 switch a catalog between two calls to C{process}, without calling
 C{process_header} in between if it exists.
 
-The client ignores return values from all sieve methods, C{process},
-C{process_header}, and C{finalize} alike.
-
 Sieve methods should not abort the program execution in case of errors,
 but throw an exception instead. In particular, if C{process} method
 throws an instance of L{SieveMessageError}, it means that the sieve
@@ -69,6 +66,11 @@ in the same catalog must be skipped, but other catalogs may be processed.
 Similarly, if C{process_header} throws L{SieveCatalogError},
 then other catalogs may be processed. Any other type of exception
 means that the sieve should no longer be used.
+
+C{process} and C{process_header} methods should return C{None} or
+an integer exit code. Return value which is neither C{None} nor 0
+indicates that while processing was successfull (no exception thrown),
+the processed entry should not be passed further along in a sieve chain.
 
 
 Parameter Handling
@@ -177,11 +179,13 @@ C{remove()} method. This is because C{remove()} will probably ruin the
 client's iteration over the catalog, so if it must be used, the sieve
 documentation should state it clearly.
 
-The sieves should be properly documented in their module comment, while
-the C{Sieve} class itself should not be documented. The module comment
-should contain the short one line description of the sieve, followed by
-paragraphs explaining its functionality, followed by list of sieve
-parameters. Check existing sieves for examples.
+The sieves should be properly documented in their module comment.
+The module comment should contain a short one line description of the sieve,
+followed by paragraphs explaining its functionality, followed by list of
+sieve parameters.
+The C{Sieve} class itself should not be documented in general.
+Only if C{process} and C{process_header} methods are returning an exit code,
+this should be documented in their own comments.
 
 All methods of the C{Sieve} class other than the above stated standard
 interface methods should be kept private. If the sieve module contains

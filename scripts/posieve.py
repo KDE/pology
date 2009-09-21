@@ -73,7 +73,7 @@ C{--no-sync} option can be used to prevent actually writing out
 any modifications back to catalogs on disk.
 This option is likewise useful for making "dry runs" when testing sieves.
 
-C{posieve} takes a few options, which you can list with the usual C{--help}
+C{posieve} takes a few options, which can be listed with the usual C{--help}
 option. However, more interesting is that sieves themselves can be sent some
 I{parameters}, using the C{-s} option, which takes as argument a
 C{parameter:value} pair. As many of these as needed can be given.
@@ -90,6 +90,15 @@ C{stats} can be instructed to show statistics in greater detail like this::
 In case a sieve chain is specified, sieve parameters are routed to sieves as they
 will accept them. If two sieves in the chain have a same-named parameters, when
 given on the command line it will be sent to both.
+
+Some sieves have the capability to prevent further sieving of a message in
+a sieve chain. They may do this by default, or when requested by a parameter.
+For example, L{C{find-messages}<sieve.find_messages>} sieve will by default
+prevent further sieving of messages which do not match the condition;
+statistics on all messages which have the number C{42} in original text
+can be computed using::
+
+    $ posieve find-messages,stats -smsgid:'\b42\b'
 
 Pology also collects language-specific internal sieves. These are run by
 prefixing sieve name with the language code and a colon. For example, there is
@@ -128,7 +137,7 @@ The following user configuration fields are considered
   - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
         if available (default C{yes})
 
-Sieve parameters can also be issued through configurations fields.
+User configuration can also be used to issue sieve parameters.
 For example, to issue parameters C{transl} (a switch) and C{accel} (valued)
 for all sieves that accept them::
 
@@ -141,8 +150,8 @@ by C{/sieve1,sieve2,...}; to avoid issuing parameter for certain sieves,
 a tilde is prepended to sieve list. For example::
 
     [posieve]
-    param-transl/find-messages = &   # only for find-messages
-    param-accel/~stats = yes         # not for stats
+    param-transl/find-messages = yes   # only for find-messages
+    param-accel/~stats = &             # not for stats
 
 Same-named fields cannot be used in configuration to provide several values
 (they override each other), so several same-named parameters are issued by
@@ -638,13 +647,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             report(u"sieving %s:header ..." % fname)
         for sieve in header_sieves:
             try:
-                sieve.process_header(cat.header, cat)
+                ret = sieve.process_header(cat.header, cat)
             except SieveCatalogError, e:
                 errwarn(u"%s:header: sieving failed: %s" % (fname, e))
                 skip = True
                 break
             except Exception, e:
                 error(u"%s:header: sieving failed: %s" % (fname, e))
+            if ret not in (None, 0):
+                break
         if skip:
             warning(u"skipping catalog due to header sieving failure")
             continue
@@ -664,7 +675,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
                 for sieve in message_sieves:
                     try:
-                        sieve.process(msg, cat)
+                        ret = sieve.process(msg, cat)
                     except SieveMessageError, e:
                         errwarn_on_msg(u"sieving failed: %s" % e, msg, cat)
                         break
@@ -674,6 +685,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                         break
                     except Exception, e:
                         error_on_msg(u"sieving failed: %s" % e, msg, cat)
+                    if ret not in (None, 0):
+                        break
                 if skip:
                     break
         if skip:
