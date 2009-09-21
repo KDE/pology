@@ -106,6 +106,16 @@ class section:
         self.name = name
 
 
+    def fields (self):
+        """
+        Get all configuration field names in this section.
+
+        @rtype: set(string)
+        """
+
+        return set(_config.options(self.name))
+
+
     def _value (self, typ, name, default=None, typename=None):
 
         if not _config.has_option(self.name, name):
