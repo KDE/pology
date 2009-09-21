@@ -429,9 +429,6 @@ class Sieve (object):
         Returns 0 if the message is matched, 1 otherwise.
         """
 
-        if msg.obsolete:
-            return 1
-
         # Prepare filtered message for matching.
         msgf = _prepare_filtered_msg(msg, cat, filters=self.pfilters)
 
