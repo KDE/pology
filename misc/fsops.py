@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Operations with file system and external commands.
+Operations with environment, file system and external commands.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -511,4 +511,35 @@ def get_env_langs ():
             langs.append(lang)
 
     return langs
+
+
+def term_width (stream=sys.stdout, default=None):
+    """
+    Get number of columns in the terminal of output stream.
+
+    If the output stream is not linked to the terminal, 0 is returned.
+    If the output stream is linked to the terminal, but the number of columns
+    cannot be determined, the supplied default value is returned instead.
+
+    @param stream: output stream for which the terminal is looked up
+    @type stream: file
+    @param default: value to return if width cannot be determined
+    @type default: int
+
+    @returns: width of the terminal in columns
+    @rtype: int
+    """
+
+    if not stream.isatty():
+        return 0
+
+    try:
+        import curses
+        curses.setupterm()
+    except:
+        return default
+
+    ncols = curses.tigetnum("cols")
+
+    return ncols if ncols >= 0 else default
 
