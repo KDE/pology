@@ -43,11 +43,14 @@ is not guaranteed. Always name them in calls.
 # Actually, the main reason for not using Divergloss' module directly
 # is to avoid dependency.
 
+import sys
 import os
 import re
 from textwrap import TextWrapper
 import fnmatch
 import locale
+
+from pology.misc.fsops import term_width
 
 def _p_ (x, y):
     return y
@@ -114,14 +117,17 @@ class ParamParser (object):
         return scview
 
 
-    def help (self, subcmds=None, wcol=79):
+    def help (self, subcmds=None, wcol=None, stream=sys.stdout):
         """
         Formatted help for subcommands.
 
         @param subcmds: subcommand names (all subcommands if C{None})
         @type subcmds: list of strings
-        @param wcol: column to wrap text at (<= 0 for no wrapping)
+        @param wcol: column to wrap text at (<= 0 for no wrapping,
+            C{None} for automatic according to output stream)
         @type wcol: int
+        @param stream: intended output stream for the text
+        @type stream: file
 
         @return: formatted help
         @rtype: string
@@ -139,20 +145,23 @@ class ParamParser (object):
                     _p_("error message",
                         "trying to get help for an unknown "
                         "subcommand '%(cmd)s'") % dict(cmd=subcmd))
-            fmts.append(scview.help(wcol))
+            fmts.append(scview.help(wcol, stream))
             fmts.append("")
 
         return "\n".join(fmts)
 
 
-    def listcmd (self, subcmds=None, wcol=79):
+    def listcmd (self, subcmds=None, wcol=None, stream=sys.stdout):
         """
         Formatted listing of subcommands with short descriptions.
 
         @param subcmds: subcommand names (all subcommands if C{None})
         @type subcmds: list of strings
-        @param wcol: column to wrap text at (<= 0 for no wrapping)
+        @param wcol: column to wrap text at (<= 0 for no wrapping,
+            C{None} for automatic according to output stream)
         @type wcol: int
+        @param stream: intended output stream for the text
+        @type stream: file
 
         @return: formatted listing
         @rtype: string
@@ -170,6 +179,8 @@ class ParamParser (object):
 
         initin = " " * 2
         subsin = initin + " " * (maxsclen + 3)
+        if wcol is None:
+            wcol = (term_width(stream=stream) or 80) - 1
         wrapper = TextWrapper(initial_indent=initin,
                               subsequent_indent=subsin,
                               width=wcol)
@@ -598,12 +609,15 @@ class SubcmdView (object):
         self._ordered.append(param)
 
 
-    def help (self, wcol=79):
+    def help (self, wcol=None, stream=sys.stdout):
         """
         Formatted help for the subcommand.
 
-        @param wcol: column to wrap text at (<= 0 for no wrapping)
+        @param wcol: column to wrap text at (<= 0 for no wrapping,
+            C{None} for automatic according to output stream)
         @type wcol: int
+        @param stream: intended output stream for the text
+        @type stream: file
 
         @return: formatted help
         @rtype: string
@@ -619,6 +633,9 @@ class SubcmdView (object):
                 o_params.append(param)
 
         # Format output.
+
+        if wcol is None:
+            wcol = (term_width(stream=stream) or 80) - 1
 
         def fmt_wrap (text, indent=""):
             wrapper = TextWrapper(initial_indent=indent,
