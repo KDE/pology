@@ -10,6 +10,7 @@ fi
 
 shopt -s extglob
 
+
 _posieve()
 {
     local i cur prev opts prefix sieves sieve
@@ -17,11 +18,11 @@ _posieve()
 
     COMPREPLY=()
 
-    [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve --list-sieve-names`
     [[ -z "$_posieve_options" ]] && _posieve_options=`posieve --list-options`
+    [[ -z "$_posieve_sieves" ]] && _posieve_sieves=`posieve --list-sieve-names`
 
     # Check if sieves were already issued.
-    i=0
+    i=1
     while [[ $i -lt $COMP_CWORD ]]; do
         prev="${COMP_WORDS[i]}"
         if [[ $prev =~ , ]] || [[ $prev == *.py ]]; then
@@ -39,8 +40,8 @@ _posieve()
     done
 
     # Reassemble parameters if current sieve chain is different from previous.
-    if [[ -n "$sieves" ]] && [[ $_posieve_prevsieves != $sieves ]]; then
-        _posieve_prevsieves=$sieves
+    if [[ -n "$sieves" ]] && [[ $_posieve_lastsieves != $sieves ]]; then
+        _posieve_lastsieves=$sieves
         _posieve_params=`posieve $sieves --list-sieve-params`
         # Add trailing space to non-colon ending parameters.
         _posieve_params=${_posieve_params//$'\n'/ $'\n'}' '
@@ -80,7 +81,10 @@ _posieve()
         [[ $_wcompopt == 1 ]] && compopt +o nospace
     fi
 }
-complete -F _posieve -o default $_globnospace posieve
+_posieve_options=
+_posieve_sieves=
+_posieve_lastsieves=
+complete -F _posieve -o default $_globnospace posieve posieve.py
 
 
 _poediff()
@@ -89,8 +93,8 @@ _poediff()
 
     COMPREPLY=()
 
-    [[ -z "$_poediff_vcs" ]] && _poediff_vcs=`poediff --list-vcs`
     [[ -z "$_poediff_options" ]] && _poediff_options=`poediff --list-options`
+    [[ -z "$_poediff_vcs" ]] && _poediff_vcs=`poediff --list-vcs`
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD - 1]}"
@@ -104,5 +108,7 @@ _poediff()
         COMPREPLY=($(compgen -W "$_poediff_options" -- $cur))
     fi
 }
-complete -F _poediff -o default poediff
+_poediff_options=
+_poediff_vcs=
+complete -F _poediff -o default poediff poediff.py
 
