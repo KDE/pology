@@ -46,6 +46,8 @@ _posieve()
         # Add trailing space to non-colon ending parameters.
         _posieve_params=${_posieve_params//$'\n'/ $'\n'}' '
         _posieve_params=${_posieve_params//: /:}
+        # Clean parameters, without trailing colons.
+        _posieve_cparams=${_posieve_params//:/}
     fi
 
     [[ $_wcompopt == 1 ]] && compopt -o nospace
@@ -60,6 +62,12 @@ _posieve()
             cur=${cur#*s}
         fi
         COMPREPLY=($(compgen -W "$_posieve_params" -P "$prefix" -- $cur))
+    elif ( [[ $cur == -S* ]] || [[ $prev == -S ]] ) && [[ -n "$sieves" ]]; then
+        if [[ $cur == -* ]]; then
+            prefix=${cur%%S*}S
+            cur=${cur#*S}
+        fi
+        COMPREPLY=($(compgen -W "$_posieve_cparams" -P "$prefix" -- $cur))
     elif [[ $cur == -* ]] ; then
         COMPREPLY=($(compgen -W "$_posieve_options" -S " " -- $cur))
     elif [[ -z "$sieves" ]] ; then

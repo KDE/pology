@@ -128,6 +128,34 @@ The following user configuration fields are considered
   - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
         if available (default C{yes})
 
+Sieve parameters can also be issued through configurations fields.
+For example, to issue parameters C{transl} (a switch) and C{accel} (valued)
+for all sieves that accept them::
+
+    [posieve]
+    param-transl = yes
+    param-accel = &
+
+To issue parameters only for certain sieves, parameter name is followed
+by C{/sieve1,sieve2,...}; to avoid issuing parameter for certain sieves,
+a tilde is prepended to sieve list. For example::
+
+    [posieve]
+    param-transl/find-messages = &   # only for find-messages
+    param-accel/~stats = yes         # not for stats
+
+Same-named fields cannot be used in configuration to provide several values
+(they override each other), so several same-named parameters are issued by
+appending a dot and a unique string (within the sequence) to parameter name::
+
+    [posieve]
+    param-accel.0 = &
+    param-accel.1 = _
+
+If a sieve parameter is set to be issued from configuration,
+option C{-S} followed by parameter name can be used to leave out
+that parameter for one particular sieve run.
+
 @warning: This module is a script for end-use. No exposed functionality
 should be considered public API, it is subject to change without notice.
 
@@ -206,6 +234,10 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-s", metavar="NAME[:VALUE]",
         action="append", dest="sieve_params", default=[],
         help="pass a parameter to sieves")
+    opars.add_option(
+        "-S", metavar="NAME[:VALUE]",
+        action="append", dest="sieve_no_params", default=[],
+        help="remove a parameter to sieves")
     opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
@@ -376,7 +408,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if not hasattr(sieve_mod, "Sieve"):
             error("module does not define Sieve class: %s" % sieve_path)
 
-    # Define and parse sieve parameters.
+    # Setup sieves (description, known parameters...)
     pp = ParamParser()
     snames = []
     for name, mod in sieve_modules:
@@ -387,11 +419,13 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if hasattr(mod, "setup_sieve"):
             mod.setup_sieve(scview)
         snames.append(name)
+
+    # If info on sieves requested, report and exit.
     if op.list_sieves:
         report("Available internal sieves:")
         report(pp.listcmd(snames))
         sys.exit(0)
-    if op.list_sieve_params:
+    elif op.list_sieve_params:
         params = set()
         for scview in pp.cmdviews():
             params.update(scview.params(addcol=True))
@@ -402,12 +436,26 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("")
         report(pp.help(snames))
         sys.exit(0)
+
+    # Prepare sieve parameters for parsing.
+    sieve_params = list(op.sieve_params)
+    # - append paramaters according to configuration
+    sieve_params.extend(read_config_params(pp.cmdviews(), sieve_params))
+    # - remove paramaters according to command line
+    if op.sieve_no_params:
+        sieve_params_mod = []
+        for parspec in sieve_params:
+            if parspec.split(":", 1)[0] not in op.sieve_no_params:
+                sieve_params_mod.append(parspec)
+        sieve_params = sieve_params_mod
+
+    # Parse sieve parameters.
     try:
-        sparams, nacc_params = pp.parse(op.sieve_params, snames)
+        sparams, nacc_params = pp.parse(sieve_params, snames)
     except Exception, e:
         error(unicode(e))
     if nacc_params:
-        error("parameters not expected by any of the issued subcommands: %s"
+        error("parameters not accepted by any of issued subcommands: %s"
               % (" ".join(nacc_params)))
 
     # Assemble list of paths to be searched for catalogs.
@@ -631,6 +679,58 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         ofh = open(op.output_modified, "w")
         ofh.write("\n".join(modified_files) + "\n")
         ofh.close
+
+
+def read_config_params (scviews, cmdline_parspecs):
+
+    # Collect parameters defined in the config.
+    cfgsec = pology_config.section("posieve")
+    pref = "param-"
+    config_params = []
+    for field in cfgsec.fields():
+        if field.startswith(pref):
+            parspec = field[len(pref):]
+            only_sieves = None
+            inverted = False
+            if "/" in parspec:
+                param, svspec = parspec.split("/", 1)
+                if svspec.startswith("~"):
+                    inverted = True
+                    svspec = svspec[1:]
+                only_sieves = set(svspec.split(","))
+            else:
+                param = parspec
+            if "." in param:
+                param, d1 = param.split(".", 1)
+            config_params.append((field, param, only_sieves, inverted))
+
+    if not config_params:
+        return []
+
+    # Collect parameters known to issued sieves and issued in command line.
+    sieves = set([x.name() for x in scviews])
+    acc_raw_params = set(sum([x.params(addcol=True) for x in scviews], []))
+    acc_params = set([x.rstrip(":") for x in acc_raw_params])
+    acc_flag_params = set([x for x in acc_raw_params if not x.endswith(":")])
+    cmd_params = set([x.split(":", 1)[0] for x in cmdline_parspecs])
+
+    # Select parameters based on issued sieves.
+    sel_params = []
+    for field, param, only_sieves, inverted in config_params:
+        if param in acc_params and param not in cmd_params:
+            if only_sieves is not None:
+                overlap = bool(sieves.intersection(only_sieves))
+                add_param = overlap if not inverted else not overlap
+            else:
+                add_param = True
+            if add_param:
+                if param in acc_flag_params:
+                    if cfgsec.boolean(field):
+                        sel_params.add(param)
+                else:
+                    sel_params.append("%s:%s" % (param, cfgsec.string(field)))
+
+    return sel_params
 
 
 if __name__ == '__main__':
