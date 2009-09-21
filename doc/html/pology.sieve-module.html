@@ -58,7 +58,7 @@
   class="link">scripts.posieve</a> script, but may also export public 
   methods for use in other clients. The following passages describe how 
   sieves are written, but also how clients that use them should behave.</p>
-  <h1 class="heading">The Sieve Layout</h1>
+  <h1 class="heading">Sieve Layout</h1>
     <p>Every sieve module must define the <code>Sieve</code> class, with 
     some mandatory and some optional interface methods and instance 
     variables. Here is a simple sieve which just counts the number of 
@@ -105,9 +105,6 @@
     catalog. I.e. it is illegal for the client to switch a catalog between 
     two calls to <code>process</code>, without calling 
     <code>process_header</code> in between if it exists.</p>
-    <p>The client ignores return values from all sieve methods, 
-    <code>process</code>, <code>process_header</code>, and 
-    <code>finalize</code> alike.</p>
     <p>Sieve methods should not abort the program execution in case of 
     errors, but throw an exception instead. In particular, if 
     <code>process</code> method throws an instance of <a 
@@ -122,6 +119,11 @@
     class="link">SieveCatalogError</a>, then other catalogs may be 
     processed. Any other type of exception means that the sieve should no 
     longer be used.</p>
+    <p><code>process</code> and <code>process_header</code> methods should 
+    return <code>None</code> or an integer exit code. Return value which is
+    neither <code>None</code> nor 0 indicates that while processing was 
+    successfull (no exception thrown), the processed entry should not be 
+    passed further along in a sieve chain.</p>
   <h1 class="heading">Parameter Handling</h1>
     <p>The <code>params</code> argument to the sieve constructor is an 
     object with data attributes that specify parameters influencing the 
@@ -223,11 +225,13 @@
     <code>remove()</code> will probably ruin the client's iteration over 
     the catalog, so if it must be used, the sieve documentation should 
     state it clearly.</p>
-    <p>The sieves should be properly documented in their module comment, 
-    while the <code>Sieve</code> class itself should not be documented. The
-    module comment should contain the short one line description of the 
+    <p>The sieves should be properly documented in their module comment. 
+    The module comment should contain a short one line description of the 
     sieve, followed by paragraphs explaining its functionality, followed by
-    list of sieve parameters. Check existing sieves for examples.</p>
+    list of sieve parameters. The <code>Sieve</code> class itself should 
+    not be documented in general. Only if <code>process</code> and 
+    <code>process_header</code> methods are returning an exit code, this 
+    should be documented in their own comments.</p>
     <p>All methods of the <code>Sieve</code> class other than the above 
     stated standard interface methods should be kept private. If the sieve 
     module contains some more widely applicable methods, they should be 

@@ -435,8 +435,10 @@ pology.misc.entities.read_entities_by_env	pology.misc.entities-module.html#read_
 pology.misc.entities.read_entities	pology.misc.entities-module.html#read_entities
 pology.misc.entities.collect_files_by_ext	pology.misc.fsops-module.html#collect_files_by_ext
 pology.misc.escape	pology.misc.escape-module.html
+pology.misc.escape.escape_sh	pology.misc.escape-module.html#escape_sh
 pology.misc.escape.y	pology.misc.escape-module.html#y
 pology.misc.escape._escapes_c_wpref	pology.misc.escape-module.html#_escapes_c_wpref
+pology.misc.escape._special_chars_sh	pology.misc.escape-module.html#_special_chars_sh
 pology.misc.escape.escape_c	pology.misc.escape-module.html#escape_c
 pology.misc.escape._escapes_c	pology.misc.escape-module.html#_escapes_c
 pology.misc.escape.warning	pology.misc.report-module.html#warning
@@ -1072,7 +1074,7 @@ pology.scripts.poselfmerge.main	pology.scripts.poselfmerge-module.html#main
 pology.scripts.poselfmerge.assert_system	pology.misc.fsops-module.html#assert_system
 pology.scripts.posieve	pology.scripts.posieve-module.html
 pology.scripts.posieve.report_on_msg	pology.misc.msgreport-module.html#report_on_msg
-pology.scripts.posieve.error_on_msg	pology.misc.msgreport-module.html#error_on_msg
+pology.scripts.posieve.report	pology.misc.report-module.html#report
 pology.scripts.posieve.warning	pology.misc.report-module.html#warning
 pology.scripts.posieve.collect_catalogs	pology.misc.fsops-module.html#collect_catalogs
 pology.scripts.posieve.list_options	pology.misc.report-module.html#list_options
@@ -1080,9 +1082,10 @@ pology.scripts.posieve.encwrite	pology.misc.report-module.html#encwrite
 pology.scripts.posieve.set_coloring_globals	pology.misc.colors-module.html#set_coloring_globals
 pology.scripts.posieve.main	pology.scripts.posieve-module.html#main
 pology.scripts.posieve.str_to_unicode	pology.misc.fsops-module.html#str_to_unicode
+pology.scripts.posieve.escape_sh	pology.misc.escape-module.html#escape_sh
 pology.scripts.posieve.warning_on_msg	pology.misc.msgreport-module.html#warning_on_msg
 pology.scripts.posieve.rootdir	pology-module.html#rootdir
-pology.scripts.posieve.report	pology.misc.report-module.html#report
+pology.scripts.posieve.error_on_msg	pology.misc.msgreport-module.html#error_on_msg
 pology.scripts.posieve.init_file_progress	pology.misc.report-module.html#init_file_progress
 pology.scripts.posieve.select_field_wrapper	pology.misc.wrap-module.html#select_field_wrapper
 pology.scripts.posieve.collect_system	pology.misc.fsops-module.html#collect_system
@@ -1415,7 +1418,6 @@ pology.sieve.set_header.setup_sieve	pology.sieve.set_header-module.html#setup_si
 pology.sieve.set_header.report	pology.misc.report-module.html#report
 pology.sieve.stats	pology.sieve.stats-module.html
 pology.sieve.stats.setup_sieve	pology.sieve.stats-module.html#setup_sieve
-pology.sieve.stats.build_msg_fmatcher	pology.sieve.find_messages-module.html#build_msg_fmatcher
 pology.sieve.stats.proper_words	pology.misc.split-module.html#proper_words
 pology.sieve.stats.word_ediff	pology.misc.diff-module.html#word_ediff
 pology.sieve.stats.warning	pology.misc.report-module.html#warning
@@ -1429,11 +1431,10 @@ pology.sieve.tag_untranslated.parse_summit_branches	pology.misc.comments-module.
 pology.sieve.tag_untranslated._flag_untranslated	pology.sieve.tag_untranslated-module.html#_flag_untranslated
 pology.sieve.tag_untranslated.setup_sieve	pology.sieve.tag_untranslated-module.html#setup_sieve
 pology.sieve.unfuzzy_context_only	pology.sieve.unfuzzy_context_only-module.html
-pology.sieve.unfuzzy_context_only.build_msg_fmatcher	pology.sieve.find_messages-module.html#build_msg_fmatcher
+pology.sieve.unfuzzy_context_only.report	pology.misc.report-module.html#report
 pology.sieve.unfuzzy_context_only.report_msg_to_lokalize	pology.misc.msgreport-module.html#report_msg_to_lokalize
 pology.sieve.unfuzzy_context_only.report_msg_content	pology.misc.msgreport-module.html#report_msg_content
 pology.sieve.unfuzzy_context_only.setup_sieve	pology.sieve.unfuzzy_context_only-module.html#setup_sieve
-pology.sieve.unfuzzy_context_only.report	pology.misc.report-module.html#report
 pology.sieve.unfuzzy_ctxmark_only	pology.sieve.unfuzzy_ctxmark_only-module.html
 pology.sieve.unfuzzy_ctxmark_only._strip_rx	pology.sieve.unfuzzy_ctxmark_only-module.html#_strip_rx
 pology.sieve.unfuzzy_ctxmark_only._stripped	pology.sieve.unfuzzy_ctxmark_only-module.html#_stripped

@@ -102,6 +102,9 @@
     <li>
       <code>or</code>: use OR- instead of AND-matching for text fields
     </li>
+    <li>
+      <code>invert</code>: report messages not matching the condition
+    </li>
   </ul>
   <p>If more than one of the matching parameters are given (e.g. both 
   <code>msgid</code> and <code>msgstr</code>), the message matches only if 
@@ -111,7 +114,9 @@
   the message matches if any of text fields match. In case of plural 
   messages, <code>msgid</code> is considered matched if either 
   <code>msgid</code> or <code>msgid_plural</code> fields match, and 
-  <code>msgstr</code> if any of the <code>msgstr</code> fields match.</p>
+  <code>msgstr</code> if any of the <code>msgstr</code> fields match. If 
+  <code>invert</code> parameter is issued, messages are reported if they do
+  not match the condition assembled by other parameters.</p>
   <p>Every matching option has a counterpart with prepended 
   <code>n*</code>, by which the meaning of the match is inverted; for 
   example, if both <code>msgid:foo</code> and <code>nmsgid:bar</code> are 
@@ -182,6 +187,10 @@
     <li>
       <code>lokalize</code>: open catalogs at matched messages in Lokalize
     </li>
+    <li>
+      <code>nomsg</code>: do not report messages (to only count the number 
+      of matches)
+    </li>
   </ul>
   <p>If accelerator character is not given by <code>accel</code> option, 
   the sieve will try to guess the accelerator; it may choose wrongly or 
@@ -189,14 +198,18 @@
   <code>X-Accelerator-Marker</code> header field is checked for the 
   accelerator character.</p>
   <p>Using the <code>mark</code> option, <code>match</code> flag will be 
-  added to each matched message, in the PO file itself; the messages will 
-  not be sent to standard output. The modified files can then be opened in 
-  an editor, and messages looked up by this flag. This is for cases when 
-  the search is performed in order to modify something in matched messages,
-  but doing so automatically using <code>replace</code> option is not 
-  possible or safe enough. Option <code>-m</code> of 
-  <code>posieve.py</code> is useful here to send the names of modified POs 
-  to a separate file.</p>
+  added to each matched message, modifying the PO file. Modified files can 
+  then be opened in an editor, and messages looked up by this flag. This is
+  for cases when the search is performed in order to modify something in 
+  matched messages, but doing so automatically using <code>replace</code> 
+  option is not possible or safe enough. (Also useful here is the option 
+  <code>-m</code> of <code>posieve</code>, to write out the paths of 
+  modified POs into a separate file.)</p>
+  <p>When used in a sieve chain, this sieve will stop further sieving of 
+  messages which do not match. This makes it useful as a filter for 
+  selecting subsets of messages on which other sieves should operate. 
+  Parameter <code>nomsg</code> can be used here to prevent reporting of 
+  matched messages to standard output.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>

@@ -104,6 +104,23 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.escape-module.html#escape_sh" class="summary-sig-name">escape_sh</a>(<span class="summary-sig-arg">s</span>)</span><br />
+      Escape text for Unix sh-like shell.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">list of strings</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -215,6 +232,35 @@
         class="link">unescape_c</a>
       </p>
 </div></td></tr></table>
+</div>
+<a name="escape_sh"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">escape_sh</span>(<span class="sig-arg">s</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Escape text for Unix sh-like shell.</p>
+  <p>Escaped text may be used as a fixed argument in command line, i.e. the
+  shell will not interpret any part of it in a special way. It is undefined
+  which of the possible ways to escape are used (single quotes, double 
+  quotes, backslashes).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>s</code></strong> (string) - text to escape</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>escaped text</dd>
+  </dl>
+</td></tr></table>
 </div>
 <a name="split_escaped"></a>
 <div>

@@ -122,7 +122,7 @@
   prevent actually writing out any modifications back to catalogs on disk. 
   This option is likewise useful for making &quot;dry runs&quot; when 
   testing sieves.</p>
-  <p><code>posieve</code> takes a few options, which you can list with the 
+  <p><code>posieve</code> takes a few options, which can be listed with the
   usual <code>--help</code> option. However, more interesting is that 
   sieves themselves can be sent some <i>parameters</i>, using the 
   <code>-s</code> option, which takes as argument a 
@@ -142,6 +142,17 @@
   sieves as they will accept them. If two sieves in the chain have a 
   same-named parameters, when given on the command line it will be sent to 
   both.</p>
+  <p>Some sieves have the capability to prevent further sieving of a 
+  message in a sieve chain. They may do this by default, or when requested 
+  by a parameter. For example, <a 
+  href="pology.sieve.find_messages-module.html" 
+  class="link"><code>find-messages</code></a> sieve will by default prevent
+  further sieving of messages which do not match the condition; statistics 
+  on all messages which have the number <code>42</code> in original text 
+  can be computed using:</p>
+<pre class="literalblock">
+   $ posieve find-messages,stats -smsgid:'42'
+</pre>
   <p>Pology also collects language-specific internal sieves. These are run 
   by prefixing sieve name with the language code and a colon. For example, 
   there is a sieve for the French language that replaces ordinary with 
@@ -198,7 +209,7 @@
       compiler, if available (default <code>yes</code>)
     </li>
   </ul>
-  <p>Sieve parameters can also be issued through configurations fields. For
+  <p>User configuration can also be used to issue sieve parameters. For 
   example, to issue parameters <code>transl</code> (a switch) and 
   <code>accel</code> (valued) for all sieves that accept them:</p>
 <pre class="literalblock">
@@ -211,8 +222,8 @@
   for certain sieves, a tilde is prepended to sieve list. For example:</p>
 <pre class="literalblock">
    [posieve]
-   param-transl/find-messages = &amp;   # only for find-messages
-   param-accel/~stats = yes         # not for stats
+   param-transl/find-messages = yes   # only for find-messages
+   param-accel/~stats = &amp;             # not for stats
 </pre>
   <p>Same-named fields cannot be used in configuration to provide several 
   values (they override each other), so several same-named parameters are 
@@ -225,7 +236,9 @@
 </pre>
   <p>If a sieve parameter is set to be issued from configuration, option 
   <code>-S</code> followed by parameter name can be used to leave out that 
-  parameter for one particular sieve run.</p>
+  parameter for one particular sieve run. To see which parameters will be 
+  issued after both the command line and the configuration have been 
+  considered, use <code>--issued-params</code> option.</p>
 
 <hr />
 <div class="fields">      <p><strong>Warning:</strong>
