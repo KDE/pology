@@ -21,6 +21,7 @@ Sieve parameters for matching:
   - C{branch:<branch_id>}: match only messages from this branch (summit)
   - C{fexpr}: logical expression made out of any previous matching typs
   - C{or}: use OR- instead of AND-matching for text fields
+  - C{invert}: report messages not matching the condition
 
 If more than one of the matching parameters are given (e.g. both C{msgid} and
 C{msgstr}), the message matches only if all of them match.
@@ -30,6 +31,8 @@ such that the message matches if any of text fields match.
 In case of plural messages, C{msgid} is considered matched if either C{msgid}
 or C{msgid_plural} fields match, and C{msgstr} if any of the C{msgstr}
 fields match.
+If C{invert} parameter is issued, messages are reported if they do not match
+the condition assembled by other parameters.
 
 Every matching option has a counterpart with prepended C{n*},
 by which the meaning of the match is inverted; for example, if both
@@ -71,20 +74,27 @@ Other sieve parameters:
         of hook specifications)
   - C{nowrap}: do not wrap long messages when writing them to output
   - C{lokalize}: open catalogs at matched messages in Lokalize
+  - C{nomsg}: do not report messages (to only count the number of matches)
 
 If accelerator character is not given by C{accel} option, the sieve will try
 to guess the accelerator; it may choose wrongly or decide that there are no
 accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
 accelerator character.
 
-Using the C{mark} option, C{match} flag will be added to each
-matched message, in the PO file itself; the messages will not be sent to
-standard output. The modified files can then be opened in an editor,
-and messages looked up by this flag. This is for cases when the search is
-performed in order to modify something in matched messages, but doing so
-automatically using C{replace} option is not possible or safe enough.
-Option C{-m} of C{posieve.py} is useful here to send the names of
-modified POs to a separate file.
+Using the C{mark} option, C{match} flag will be added to each matched message,
+modifying the PO file. Modified files can then be opened in an editor,
+and messages looked up by this flag.
+This is for cases when the search is performed in order to modify something
+in matched messages, but doing so automatically using C{replace} option
+is not possible or safe enough.
+(Also useful here is the option C{-m} of C{posieve}, to write out
+the paths of modified POs into a separate file.)
+
+When used in a sieve chain, this sieve will stop further sieving of messages
+which do not match. This makes it useful as a filter for selecting subsets
+of messages on which other sieves should operate.
+Parameter C{nomsg} can be used here to prevent reporting of
+matched messages to standard output.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -255,6 +265,10 @@ def setup_sieve (p):
     "Use OR-semantics for matching text fields: if any of "
     "the patterns matches, the message is matched as whole."
     )
+    p.add_param("invert", bool, defval=False,
+                desc=
+    "Invert the condition: report messages which do not match."
+    )
     p.add_param("case", bool, defval=False,
                 desc=
     "Use case-sensitive text matching."
@@ -292,6 +306,11 @@ def setup_sieve (p):
     p.add_param("lokalize", bool, defval=False,
                 desc=
     "Open catalogs at matched messages in Lokalize."
+    )
+    p.add_param("nomsg", bool, defval=False,
+                desc=
+    "Do not report message to standard output "
+    "(when only the number of matches is wanted)."
     )
 
 
@@ -406,9 +425,12 @@ class Sieve (object):
 
 
     def process (self, msg, cat):
+        """
+        Returns 0 if the message is matched, 1 otherwise.
+        """
 
         if msg.obsolete:
-            return
+            return 1
 
         # Prepare filtered message for matching.
         msgf = _prepare_filtered_msg(msg, cat, filters=self.pfilters)
@@ -416,6 +438,8 @@ class Sieve (object):
         # Match the message.
         hl_spec = []
         match = self.matcher(msgf, msg, cat, hl_spec)
+        if self.p.invert:
+            match = not match
 
         if match:
             self.nmatch += 1
@@ -426,7 +450,7 @@ class Sieve (object):
                 for i in range(len(msg.msgstr)):
                     msg.msgstr[i] = regex.sub(self.p.replace, msg.msgstr[i])
 
-            if not self.p.mark:
+            if not self.p.nomsg:
                 delim = "-" * 20
                 if self.nmatch == 1:
                     report(delim)
@@ -441,6 +465,8 @@ class Sieve (object):
         elif self.p.mark and _flag_mark in msg.flag:
             # Remove the flag if present but the message does not match.
             msg.flag.remove(_flag_mark)
+
+        return 0 if match else 1
 
 
     def finalize (self):
