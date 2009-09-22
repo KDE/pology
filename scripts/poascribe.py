@@ -88,6 +88,11 @@ def main ():
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
+        "-k", "--keep-flags",
+        action="store_true", dest="keep_flags", default=False,
+        help="do not remove ascription significant flags from messages "
+             "(relevant in some modes)")
+    opars.add_option(
         "-d", "--depth", metavar="LEVEL",
         action="store", dest="depth", default=None,
         help="consider ascription history up to this level into the past "
@@ -607,6 +612,7 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
     stest_any = build_selector(options, ["any"])
 
     mode.selector = stest_any
+    options.keep_flags = False # deactivate this option if issued
     cleared_by_cat = clear_review_w(options, configs_catpaths, mode)
     ncleared = sum(map(len, cleared_by_cat.values()))
 
@@ -663,7 +669,10 @@ def clear_review_w (options, configs_catpaths, mode):
 
     ncleared = sum(map(len, cleared_by_cat.values()))
     if ncleared > 0:
-        report("===! Cleared review states: %d" % ncleared)
+        if not options.keep_flags:
+            report("===! Cleared review states: %d" % ncleared)
+        else:
+            report("===! Cleared review states (flags kept): %d" % ncleared)
 
     return cleared_by_cat
 
@@ -855,10 +864,12 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
 
     cleared = []
     for msg in cat:
-        history = asc_collect_history(msg, acat, config)
-        if stest(msg, cat, history, config, options) is None:
+        cmsg = MessageUnsafe(msg)
+        clear_review_msg(cmsg)
+        history = asc_collect_history(cmsg, acat, config)
+        if stest(cmsg, cat, history, config, options) is None:
             continue
-        clear_review_msg(msg)
+        clear_review_msg(msg, keepflags=options.keep_flags)
         if msg.modcount > 0:
             cleared.append(msg.refentry)
 
@@ -943,7 +954,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
 _revdflags = ("revd", "reviewed")
 _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
 
-def clear_review_msg (msg):
+def clear_review_msg (msg, keepflags=False):
 
     # Clear possible review flags, collect all remove-done tags.
     diffed = False
@@ -955,7 +966,8 @@ def clear_review_msg (msg):
                 diffed = True
             if mantagged:
                 tags.append(mantagged.group(1).strip() or None)
-            msg.flag.remove(flag)
+            if not keepflags:
+                msg.flag.remove(flag)
             # Do not break, other review flags possible.
 
     # Clear embedded diffs.
