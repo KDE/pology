@@ -918,12 +918,13 @@ def adapt_spans (otext, ftext, spans, merge=True):
     # For each span, go through the difference and... do some magic.
     aspans = []
     for fspan in fspans:
-        #print "======> span to adapt:", fspan
         aspan = []
-        for filtered_index, end_extra in zip(fspan[:2], (0, 1)):
-            #print ">>> index to adapt:", filtered_index
+        for filtered_index, first in zip(fspan[:2], (True, False)):
             original_index = 0
+            original_index_atdiff = 0
             track_index = 0
+            adapted_index = None
+            stop_at_next_eq = False
             for dtag, dseg in dlist:
                 slen = len(dseg)
                 if dtag == _new_tag:
@@ -933,16 +934,28 @@ def adapt_spans (otext, ftext, spans, merge=True):
                 else:
                     original_index += slen
                     track_index += slen
-                #print dtag, dseg, track_index, original_index
-                if dtag == _equ_tag:
-                    if track_index + end_extra > filtered_index:
-                        original_index -= track_index - filtered_index
+                    original_index_atdiff = original_index
+                    if stop_at_next_eq:
                         break
-            #print "<<< adapted index:", original_index
-            aspan.append(original_index)
-        aspan.extend(fspan[2:])
-
-        aspans.append(tuple(aspan))
+                if track_index >= filtered_index:
+                    exlen = track_index - filtered_index # 0 if char-level diff
+                    if dtag == _equ_tag:
+                        adapted_index = original_index - exlen
+                        break
+                    else: # dtag must be _new_tag
+                        if first:
+                            adapted_index = original_index_atdiff
+                            break
+                        else:
+                            stop_at_next_eq = True
+            if stop_at_next_eq:
+                adapted_index = original_index
+            if adapted_index is None:
+                break
+            aspan.append(adapted_index)
+        if adapted_index is not None:
+            aspan.extend(fspan[2:])
+            aspans.append(tuple(aspan))
 
     # Merge spans if requested.
     if merge:
