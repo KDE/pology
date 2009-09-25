@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kate: space-indent on; indent-width 2; -->
+
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+  <!ENTITY escmnt "
+    <LineContinue context='#stay'/>
+    <DetectChar char='\' attribute='escape' context='escape'/>
+    <DetectChar char='#' attribute='comment' context='comment'/>
+  ">
+]>
+
+<language name="Synder" version="1.0" section="Other" kateversion="2.4"
+          extensions="*.sd;" casesensitive="1"
+          author="Chusslove Illich (Часлав Илић) &lt;caslav.ilic@gmx.net&gt;"
+          license="LGPL" >
+
+  <highlighting>
+
+    <contexts>
+
+      <context name="void" lineEndContext="#stay">
+        <DetectSpaces/>
+        <DetectChar char='#' attribute='comment' context='comment'/>
+        <DetectChar char=">" attribute="include" context="include"/>
+        <DetectChar char="@" attribute="env" context="env"/>
+        <DetectChar char=":" attribute="separator" context="prop"/>
+        <RegExpr String="." lookAhead="true" context="syn0"/>
+      </context>
+
+      <context name="comment" attribute="comment" lineEndContext="#pop">
+      </context>
+      <context name="escape" attribute="escape" lineEndContext="#stay">
+        <RegExpr String="." attribute="escape" context="#pop"/>
+      </context>
+
+      <context name="env" attribute="env" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char=":" attribute="separator" context="prop"/>
+      </context>
+
+      <context name="syn0" lineEndContext="#pop">
+        <DetectSpaces/>
+        &escmnt;
+        <DetectChar char="|" attribute="synhd"/>
+        <RegExpr String="." lookAhead="true" context="syn"/>
+      </context>
+      <context name="syn" attribute="syn" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char="," attribute="separator" context="syn0"/>
+        <DetectChar char=":" attribute="separator" context="prop"/>
+        <StringDetect String="~{" attribute="tag" context="tagc"/>
+        <DetectChar char="~" attribute="tag" context="tag"/>
+      </context>
+
+      <context name="prop" lineEndContext="#pop">
+        <DetectSpaces/>
+        &escmnt;
+        <RegExpr String="[^,~|\\=]*=" lookAhead="true" context="propkey"/>
+        <RegExpr String="." lookAhead="true" context="propval"/>
+      </context>
+      <context name="propkey" attribute="propkey" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char="&amp;" attribute="separator"/>
+        <RegExpr String="!(?==)" attribute="propkeycut"/>
+        <DetectChar char="=" attribute="propkey" context="propval"/>
+      </context>
+      <context name="propval" attribute="propval" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char="," attribute="separator" context="prop"/>
+        <StringDetect String="|{" attribute="expander" context="expanderc0"/>
+        <DetectChar char="|" attribute="expander" context="expander0"/>
+        <StringDetect String="~{" attribute="tag" context="tagc"/>
+        <DetectChar char="~" attribute="tag" context="tag"/>
+      </context>
+
+      <context name="expander0" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="^`" attribute="expanderul"/>
+        <RegExpr String="." lookAhead="true" context="expander"/>
+      </context>
+      <context name="expander" attribute="expander" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String=" 	,|" lookAhead="true" context="#pop#pop"/>
+        <DetectChar char="~" attribute="expmask" context="expmask"/>
+        <DetectChar char="%" attribute="expkext" context="expkext"/>
+      </context>
+      <context name="expanderc0" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="^`" attribute="expanderul"/>
+        <RegExpr String="." lookAhead="true" context="expanderc"/>
+      </context>
+      <context name="expanderc" attribute="expander" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char="}" attribute="expander" context="#pop#pop"/>
+        <DetectChar char="~" attribute="expmask" context="expmaskc"/>
+        <DetectChar char="%" attribute="expkext" context="expkextc"/>
+      </context>
+      <context name="expmask" attribute="expmask" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="% 	,|" lookAhead="true" context="#pop"/>
+        <DetectChar char="." attribute="expmaskpl"/>
+      </context>
+      <context name="expmaskc" attribute="expmask" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="%}" lookAhead="true" context="#pop"/>
+        <DetectChar char="." attribute="expmaskpl"/>
+      </context>
+      <context name="expkext" attribute="expkext" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="~ 	,|" lookAhead="true" context="#pop"/>
+        <DetectChar char="*" attribute="expkextpl"/>
+      </context>
+      <context name="expkextc" attribute="expkext" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="~}" lookAhead="true" context="#pop"/>
+        <DetectChar char="*" attribute="expkextpl"/>
+      </context>
+
+      <context name="tag" attribute="tag" lineEndContext="#pop">
+        &escmnt;
+        <AnyChar String="% 	,|" lookAhead="true" context="#pop"/>
+        <DetectChar char="&amp;" attribute="separator"/>
+      </context>
+      <context name="tagc" attribute="tag" lineEndContext="#pop">
+        &escmnt;
+        <DetectChar char="}" attribute="tag" context="#pop"/>
+        <DetectChar char="&amp;" attribute="separator"/>
+      </context>
+
+      <context name="include" attribute="include" lineEndContext="#pop">
+        &escmnt;
+      </context>
+
+    </contexts>
+
+    <itemDatas>
+      <itemData name="comment" color="#888888" italic="true"/>
+      <itemData name="escape" color="#00aaaa" selColor="#ddffff"/>
+      <itemData name="env" color="#0088ff" selColor="#ddff00"/>
+      <itemData name="syn" color="#0000aa" selColor="#ddddff"/>
+      <itemData name="synhd" color="#00aa00" selColor="#ddffdd"/>
+      <itemData name="separator" color="#ff0000" selColor="#ffdddd"/>
+      <itemData name="propkey" color="#aa00aa" selColor="#ffddff"/>
+      <itemData name="propkeycut" color="#aa00aa" selColor="#ffddff" bold="true"/>
+      <itemData name="propval" color="#000000" selColor="#ffffff"/>
+      <itemData name="expander" color="#aa0000" selColor="#ffdddd"/>
+      <itemData name="expanderul" color="#aa0000" selColor="#ffdddd" underline="true"/>
+      <itemData name="expmask" color="#00aa00" selColor="#ddffdd"/>
+      <itemData name="expmaskpl" color="#00aa00" selColor="#ddffdd" underline="true"/>
+      <itemData name="expkext" color="#005500" selColor="#ddddff"/>
+      <itemData name="expkextpl" color="#005500" selColor="#ddddff" underline="true"/>
+      <itemData name="tag" color="#008888" selColor="#ddffff"/>
+      <itemData name="include" color="#00aa00" selColor="#ddffdd"/>
+    </itemDatas>
+
+  </highlighting>
+
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" position="afterwhitespace"/>
+    </comments>
+  </general>
+
+</language>
