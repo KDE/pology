@@ -35,7 +35,6 @@ from pology.misc.comments import parse_summit_branches
 
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
-DATAG = "-"
 
 
 def main ():
@@ -85,7 +84,7 @@ def main ():
              "(relevant in some modes)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
-        action="store", dest="tag", default=DATAG,
+        action="store", dest="tag", default="",
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
@@ -412,7 +411,7 @@ class Config:
             self.review_tags = set(cval.split())
         else:
             self.review_tags = set()
-        self.review_tags.add(DATAG)
+        self.review_tags.add("")
 
         class UserData: pass
         self.udata = {}
@@ -910,7 +909,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         for i in range(hlevels):
             a = history[i]
             typewtag = a.type
-            if a.tag != DATAG:
+            if a.tag != "":
                 typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date, rev=a.rev)
@@ -966,7 +965,7 @@ def clear_review_msg (msg, keepflags=False):
             if flag in _diffflags:
                 diffed = True
             if mantagged:
-                tags.append(mantagged.group(1).strip() or None)
+                tags.append(mantagged.group(1).strip())
             if not keepflags:
                 msg.flag.remove(flag)
             # Do not break, other review flags possible.
@@ -1283,9 +1282,9 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
         if wsep:
             modstr_wsep += " | " + wsep
     first = True
-    for atag in atags or [DATAG]:
+    for atag in atags or [""]:
         field = atype
-        if atag != DATAG:
+        if atag != "":
             field += _atag_sep + atag
         if first:
             asc_append_field(amsg, field, modstr_wsep)
@@ -1405,7 +1404,7 @@ def asc_append_field (msg, field, value):
 
 _asc_attrs = (
     "rmsg", "msg",
-    "user", "type", ("tag", DATAG), "date", "rev",
+    "user", "type", ("tag", ""), "date", "rev",
     "slen", "fuzz", "obs",
 )
 
@@ -1571,7 +1570,7 @@ def asc_parse_ascriptions (amsg, acat, config):
                            "(no ascription type)" % cmnt, amsg, acat)
             continue
         atype = cmnt[:p].strip()
-        atag = DATAG
+        atag = ""
         lst = atype.split(_atag_sep, 1)
         if len(lst) == 2:
             atype = lst[0].strip()
@@ -1754,7 +1753,7 @@ def parse_tags (tagstr, config, cid=None):
     tags = parse_fixed_set(tagstr, config, config.review_tags,
                            "review tag '%s' not defined in '%s'", cid)
     if not tags:
-        tags = set([DATAG])
+        tags = set([""])
 
     return tags
 
