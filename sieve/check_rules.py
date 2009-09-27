@@ -14,28 +14,29 @@ translation environments within a given language. Read about how to write
 rules and create rule files in the L{misc.rules} module documentation.
 
 The sieve parameters are:
-   - C{lang:<language>}: language for which to fetch and apply the rules
-   - C{env:<environment>}: comma-separated list of specific environments
+  - C{lang:<language>}: language for which to fetch and apply the rules
+  - C{env:<environment>}: comma-separated list of specific environments
         within the given language for which to apply the rules
-   - C{envonly}: when specific environments are given, apply only the rules
+  - C{envonly}: when specific environments are given, apply only the rules
         explicitly belonging to them (ignoring environment-agnostic ones)
-   - C{rule:<ruleid>}: comma-separated list of specific rules to apply,
+  - C{rule:<ruleid>}: comma-separated list of specific rules to apply,
         by their identifiers; also enables any disabled rule among the selected
-   - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
+  - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
         the regular expression
-   - C{norule:<ruleid>}: comma-separated list of specific rules not to apply
-   - C{norulerx:<ruleid>}: regular expression for specific rules not to apply
-   - C{stat}: show statistics of rule matching at the end
-   - C{accel:<characters>}: characters to consider as accelerator markers
-   - C{markup:<mkeywords>}: markup types by keyword (comma separated)
-   - C{xml:<filename>}: output results of the run in XML format file
-   - C{rfile:<filename>}: read rules from this file, instead of from
+  - C{norule:<ruleid>}: comma-separated list of specific rules not to apply
+  - C{norulerx:<ruleid>}: regular expression for specific rules not to apply
+  - C{stat}: show statistics of rule matching at the end
+  - C{accel:<characters>}: characters to consider as accelerator markers
+  - C{markup:<mkeywords>}: markup types by keyword (comma separated)
+  - C{xml:<filename>}: output results of the run in XML format file
+  - C{rfile:<filename>}: read rules from this file, instead of from
         Pology's internal rule files
-   - C{rdir:<directory>}: read rules from this directory, instead of from
+  - C{rdir:<directory>}: read rules from this directory, instead of from
         Pology's internal rule files
-   - C{showfmsg}: show filtered message too when a rule fails a message
-   - C{nomsg}: do not show message content, only problem descriptions
-   - C{lokalize}: open catalogs at failed messages in Lokalize
+  - C{branch:<branch_id>}: check only messages from this branch (summit)
+  - C{showfmsg}: show filtered message too when a rule fails a message
+  - C{nomsg}: do not show message content, only problem descriptions
+  - C{lokalize}: open catalogs at failed messages in Lokalize
 
 Parameters C{accel} and C{markup} set accelerator markers (e.g. C{_}, C{&},
 etc.) and markup types by keyword (e.g. C{xml}, C{html}, etc.) that may
@@ -79,6 +80,7 @@ from pology.misc.comments import manc_parse_list
 from pology.file.message import MessageUnsafe
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.fsops import collect_files_by_ext
+from pology.misc.comments import parse_summit_branches
 
 # Pattern used to marshall path of cached files
 MARSHALL="+++"
@@ -180,6 +182,12 @@ def setup_sieve (p):
     "Do not apply the rules with identifiers matching this regular expression. "
     "Several patterns can be given by repeating the parameter."
     )
+    p.add_param("branch", unicode, seplist=True,
+                metavar="BRANCH",
+                desc=
+    "In summited catalogs, consider only messages belonging to given branch. "
+    "Several branches can be given as comma-separated list."
+    )
     p.add_param("xml", unicode,
                 metavar="PATH",
                 desc=
@@ -221,6 +229,8 @@ class Sieve (object):
         self.showfmsg=params.showfmsg
         self.showmsg=params.showmsg
         self.lokalize=params.lokalize
+
+        self.branches=params.branch and set(params.branch) or None
 
         # Collect non-internal rule files.
         self.customRuleFiles=None
@@ -283,6 +293,12 @@ class Sieve (object):
         # Apply rules only on translated messages.
         if not msg.translated:
             return
+
+        # Apply rules only to messages from selected branches.
+        if self.branches:
+            msg_branches = parse_summit_branches(msg)
+            if not set.intersection(self.branches, msg_branches):
+                return
 
         filename=basename(cat.filename)
   
