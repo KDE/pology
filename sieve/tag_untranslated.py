@@ -20,8 +20,9 @@ the flag is left in after the message has been translated, the subsequent
 run of this sieve will remove the flag.
 
 Sieve options:
-  - C{branch:<branch_id>}: consider only messages from this branch (summit)
   - C{strip}: instead of adding, strip any C{untranslated} flags
+  - C{wfuzzy}: add C{untranslated} flags to fuzzy messages too
+  - C{branch:<branch_id>}: consider only messages from this branch (summit)
 
 For L{summited<scripts.posummit>} catalogs, the C{branch} option is used to
 restrict modifications to messages from the given branch only.
@@ -38,12 +39,16 @@ from pology.misc.comments import parse_summit_branches
 def setup_sieve (p):
 
     p.set_desc(
-    "Tag all untranslated messages."
+    "Tag all untranslated messages with '%s' flag." % _flag_untranslated
     )
 
     p.add_param("strip", bool,
                 desc=
-    "Remove tags from untranslated messages."
+    "Remove tags from messages."
+    )
+    p.add_param("wfuzzy", bool,
+                desc=
+    "Also add tags to fuzzy messages."
     )
     p.add_param("branch", unicode, seplist=True,
                 metavar="BRANCH",
@@ -60,6 +65,7 @@ class Sieve (object):
     def __init__ (self, params):
 
         self.strip = params.strip
+        self.wfuzzy = params.wfuzzy
         self.branches = set(params.branch or [])
 
         self.ntagged = 0
@@ -80,7 +86,11 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                may_tag = False
 
-        if not self.strip and may_tag and msg.untranslated:
+        ok_msg = msg.untranslated
+        if self.wfuzzy and not ok_msg:
+            ok_msg = msg.fuzzy
+
+        if not self.strip and may_tag and ok_msg:
             if _flag_untranslated not in msg.flag:
                 msg.flag.add(_flag_untranslated)
                 self.ntagged += 1
