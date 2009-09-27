@@ -1918,10 +1918,11 @@ def selector_branch (branch=None):
 
     if not branch:
         error("branch ID not given", subsrc=cid)
+    branches = set(branch.split(","))
 
     def selector (msg, cat, history, config, options):
 
-        if branch in parse_summit_branches(msg):
+        if branches.intersection(parse_summit_branches(msg)):
             return True
 
         return None
