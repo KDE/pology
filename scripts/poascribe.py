@@ -31,6 +31,7 @@ from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 import pology.misc.config as pology_config
 from pology.misc.tabulate import tabulate
 import pology.misc.colors as C
+from pology.misc.comments import parse_summit_branches
 
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
@@ -1912,6 +1913,22 @@ def selector_active ():
     return selector
 
 
+def selector_branch (branch=None):
+    cid = "selector:branch"
+
+    if not branch:
+        error("branch ID not given", subsrc=cid)
+
+    def selector (msg, cat, history, config, options):
+
+        if branch in parse_summit_branches(msg):
+            return True
+
+        return None
+
+    return selector
+
+
 def selector_wasc ():
     cid = "selector:wasc"
 
@@ -2390,6 +2407,7 @@ xm_selector_factories = {
     # key: (function, can_be_used_as_history_selector)
     "any": (selector_any, False),
     "active": (selector_active, False),
+    "branch": (selector_branch, False),
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
