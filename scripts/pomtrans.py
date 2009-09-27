@@ -33,7 +33,7 @@ def main ():
     locale.setlocale(locale.LC_ALL, "")
 
     # Get defaults for command line options from global config.
-    cfgsec = pology_config.section("pomachtrans")
+    cfgsec = pology_config.section("pomtrans")
     def_do_wrap = cfgsec.boolean("wrap", True)
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
