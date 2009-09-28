@@ -558,6 +558,8 @@ class Sieve (object):
             # Texts more different than the threshold need full review.
             drth = 0.4
             dr2 = dr / drth
+            if dr2 > 1.0:
+                dr2 = 1.0
             # Difference ratio of 0 can happen if the new and old texts
             # are the same, normally when only the context has changed.
             # Word count should not be totally eliminated then,
