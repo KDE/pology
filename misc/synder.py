@@ -1203,7 +1203,7 @@ class Synder (object):
             for pkey, (pval, key) in props.items():
                 nprops[pkey] = ([_SDText(None, None, pval)], key)
         else:
-            nprops = [_SDText(None, None, nprops.values()[0][0])]
+            nprops = [_SDText(None, None, props.values()[0][0])]
         props = nprops
 
         return props
