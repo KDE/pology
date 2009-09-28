@@ -226,7 +226,7 @@ from pology.misc.comments import parse_summit_branches
 from pology.file.catalog import Catalog
 from pology.misc.report import report, warning
 import pology.misc.colors as C
-from pology.misc.diff import word_ediff
+from pology.misc.diff import tdiff
 
 
 def setup_sieve (p):
@@ -553,10 +553,19 @@ class Sieve (object):
 
         # Scale word and character counts in fuzzy original if requested.
         if self.p.ondiff and msg.msgid_previous is not None:
-            diff, dr = word_ediff(msg.msgid_previous, msg.msgid,
-                                  markup=True, format=msg.format, diffr=True)
-            nwords["orig"] = int(dr * nwords["orig"])
-            nchars["orig"] = int(dr * nchars["orig"])
+            diff, dr = tdiff(msg.msgid_previous, msg.msgid, diffr=True)
+            # Reduce difference ratio to a smaller range by some threshold.
+            # Texts more different than the threshold need full review.
+            drth = 0.4
+            dr2 = dr / drth
+            # Difference ratio of 0 can happen if the new and old texts
+            # are the same, normally when only the context has changed.
+            # Word count should not be totally eliminated then,
+            # as it should be seen in statistics that message needs updating.
+            if dr2 == 0.0:
+                dr2 = 0.1
+            nwords["orig"] = int(dr2 * nwords["orig"])
+            nchars["orig"] = int(dr2 * nchars["orig"])
 
         # Detect categories and add the counts.
         categories = []
