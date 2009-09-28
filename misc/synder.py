@@ -121,6 +121,7 @@ _ch_pkey_sep        = "&"
 _ch_pval            = "="
 _ch_exp             = "|"
 _ch_cutprop         = "!"
+_ch_termprop        = "."
 _ch_exp_mask        = "~"
 _ch_exp_mask_pl     = "."
 _ch_exp_kext        = "%"
@@ -203,7 +204,7 @@ def _parse_file (path):
 
 
 _compfile_suff = "c"
-_compfile_dver = "0000"
+_compfile_dver = "0001"
 _compfile_hlen = hashlib.md5().digest_size * 2
 
 def _write_parsed_file (source):
@@ -382,10 +383,15 @@ def _ctx_handler_pkey (prop, instr, pos, bpos):
 
     if sep in (_ch_pkey_sep, _ch_pval):
         substr = substr.strip()
-        cut = substr.endswith(_ch_cutprop)
-        if cut:
-            substr = substr[:-len(_ch_cutprop)]
-        key = _SDKey(prop, obpos, substr, cut)
+        cut, terminal = False, False
+        while substr.endswith((_ch_cutprop, _ch_termprop)):
+            if substr.endswith(_ch_cutprop):
+                cut = True
+                substr = substr[:-len(_ch_cutprop)]
+            elif substr.endswith(_ch_termprop):
+                terminal = True
+                substr = substr[:-len(_ch_termprop)]
+        key = _SDKey(prop, obpos, substr, cut, terminal)
         prop.keys.append(key)
 
     if sep == _ch_pkey_sep:
@@ -743,17 +749,19 @@ class _SDProp:
 # Property key.
 class _SDKey:
 
-    def __init__ (self, parent, pos, name="", cut=None):
+    def __init__ (self, parent, pos, name="", cut=False, terminal=False):
 
         # Parent property and position in source.
         self.parent = parent
         self.pos = pos
-        # Key name, cutting behavior.
+        # Key name, cutting and terminal behaviors.
         self.name = name
         self.cut = cut
+        self.terminal = terminal
 
     def __unicode__ (self):
-        return "{k:%d:%d:%s|%s}" % (self.pos + (self.name, self.cut))
+        return "{k:%d:%d:%s|%s&%s}" % (self.pos + (self.name,
+                                                   self.cut, self.terminal))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -1140,11 +1148,18 @@ class Synder (object):
         # Derive the referenced entry.
         props = self._derive(entry, env1)
 
+        # Drop terminal properties.
+        nprops = []
+        for pkey, (pval, key) in props.items():
+            if not key.terminal:
+                nprops.append((pkey, (pval, key)))
+        props = dict(nprops)
+
         # Apply expansion mask.
         if exp.mask is not None:
             # Eliminate all obtained keys not matching the mask.
             # Reduce by mask those that match.
-            nprops = {}
+            nprops = []
             for pkey, pvalskey in props.items():
                 if len(pkey) != len(exp.mask):
                     continue
@@ -1157,16 +1172,16 @@ class Synder (object):
                     else:
                         mpkey += c
                 if mpkey is not None:
-                    nprops[mpkey] = pvalskey
-            props = nprops
+                    nprops.append((mpkey, pvalskey))
+            props = dict(nprops)
 
         # Apply key extension.
         if exp.kext is not None:
-            nprops = {}
+            nprops = []
             for pkey, (pval, key) in props.items():
                 npkey = exp.kext.replace(_ch_exp_kext_pl, pkey)
-                nprops[npkey] = (pval, key)
-            props = nprops
+                nprops.append((npkey, (pval, key)))
+            props = dict(nprops)
 
         # Apply capitalization.
         if exp.caps is not None:
