@@ -163,6 +163,10 @@ def _parse_string (instr, srcname=None):
         elif ctx_stack:
             ctx, dobj = ctx_stack.pop()
         else:
+            # Load included sources.
+            for i in range(len(dobj.incsources)):
+                dobj.incsources[i] = _parse_file(dobj.incsources[i])
+
             return dobj
 
 
@@ -191,10 +195,6 @@ def _parse_file (path):
 
         # Write out parsed file.
         _write_parsed_file(source)
-
-    # Load included sources.
-    for i in range(len(source.incsources)):
-        source.incsources[i] = _parse_file(source.incsources[i])
 
     # Cache the source by absolute path.
     _parsed_sources[apath] = source
@@ -850,15 +850,17 @@ class Synder (object):
         self._imported_srcnames = set()
         self._entry_by_srcname_iekey = {}
         self._visible_entry_by_ekey = {}
-        self._derivation_by_entry = {}
-        self._raw_derivation_by_entry = {}
+        self._derivation_by_entry_env1 = {}
+        self._raw_derivation_by_entry_env1 = {}
 
 
     def _normenv (self, env):
 
         if isinstance(env, (tuple, list)):
             if not env or not isinstance(env[0], (tuple, list)):
-                env = (env,)
+                env = (tuple(env),)
+            else:
+                env = tuple(map(tuple, env))
         else:
             env = ((env,),)
 
@@ -988,23 +990,10 @@ class Synder (object):
                     kmap.pop(key)
 
 
-    def get3 (self, ekey, pkey, env, defval=None):
-        """
-        FIXME: Write doc.
-        """
-
-        return self._get3_w(ekey, pkey, self._normenv(env), defval)
-
-
     def get2 (self, ekey, pkey, defval=None):
         """
         FIXME: Write doc.
         """
-
-        return self._get3_w(ekey, pkey, self._env, defval)
-
-
-    def _get3_w (self, ekey, pkey, env, defval):
 
         if self._ekeytf:
             ekey = self._pkeytf(ekey)
@@ -1021,8 +1010,8 @@ class Synder (object):
                 return defval
 
         pvals = []
-        for env1 in env:
-            pval = self._getpval(entry, env1, pkey)
+        for env1 in self._env:
+            pval = self._getprops(entry, env1).get(pkey)
             pvals.append(pval)
 
         if self._mvaltf:
@@ -1035,70 +1024,52 @@ class Synder (object):
         return pval if pval is not None else defval
 
 
-    def _getpval (self, entry, env1, pkey):
-
-        props = self._getprops(entry)
-
-        # Fetch the value falling through environments.
-        pval = None
-        for env0 in env1:
-            props1 = props.get(env0)
-            if props1 is not None:
-                pval = props1.get(pkey)
-                if pval is not None:
-                    break
-
-        return pval
-
-
-    def _getprops (self, entry):
+    def _getprops (self, entry, env1):
 
         # Try to fetch derivation from cache.
-        props = self._derivation_by_entry.get(entry)
+        props = self._derivation_by_entry_env1.get((entry, env1))
         if props is not None:
             return props
 
         # Construct raw derivation and extract key-value pairs.
-        rprops = self._derive(entry)
-        props = {}
-        for oenv0, oprops1 in rprops.items():
-            props[oenv0] = dict([(x, y[0]) for x, y in oprops1.items()])
+        rprops = self._derive(entry, env1)
+        props = dict([(x, y[0]) for x, y in rprops.items()])
 
         # Internally transform keys if requested.
         if self._pkeyitf:
-            for oenv0, oprops1 in props.items():
-                nprops1 = []
-                for opkey, opval in oprops1.items():
-                    opkey = self._pkeyitf(opkey)
-                    if opkey is not None:
-                        nprops1.append((opkey, opval))
-                props[oenv0] = dict(nprops1)
+            nprops = []
+            for pkey, pval in props.items():
+                pkey = self._pkeyitf(pkey)
+                if pkey is not None:
+                    nprops.append((pkey, pval))
+            props = dict(nprops)
 
-        self._derivation_by_entry[entry] = props
+        self._derivation_by_entry_env1[(entry, env1)] = props
         return props
 
 
-    def _derive (self, entry):
+    def _derive (self, entry, env1):
 
         # Try to fetch raw derivation from cache.
-        dprops = self._raw_derivation_by_entry.get(entry)
+        dprops = self._raw_derivation_by_entry_env1.get((entry, env1))
         if dprops:
             return dprops
 
-        # Macro expander core.
+        # Derivator core.
         dprops = {}
-        for env in entry.base.envs:
-            dprops0 = {}
+        env = None
+        envs_by_name = dict([(x.name, x) for x in entry.base.envs])
+        for env0 in reversed(env1):
+            env = envs_by_name.get(env0)
+            if env is None:
+                continue
             for prop in env.props:
                 fsegs = []
                 cprops = dict([(simplify(x.name), ([], x)) for x in prop.keys])
                 ownpkeys = set(cprops.keys())
                 for seg in prop.segs:
                     if isinstance(seg, _SDExp):
-                        eprops = self._expand(seg, entry, env.name)
-                        if not eprops:
-                            self._raw_derivation_by_entry[entry] = {}
-                            return {}
+                        eprops = self._expand(seg, entry, env1)
                         if isinstance(eprops, dict):
                             if cprops:
                                 for cpkey, csegskey in list(cprops.items()):
@@ -1133,23 +1104,22 @@ class Synder (object):
                                 csegs.append(seg)
                     else:
                         fsegs.append(seg)
-                dprops0.update(cprops)
-            dprops[env.name] = dprops0
+                dprops.update(cprops)
 
         # Process tags and normalize values.
-        for env0, dprops0 in dprops.items():
-            ndprops0 = []
-            for pkey, (segs, key) in dprops0.items():
-                pval = self._segs_to_string(segs, pkey, self._pvaltf)
-                if pval is not None:
-                    ndprops0.append((pkey, (pval, key)))
-            dprops[env0] = dict(ndprops0)
+        ndprops = []
+        for pkey, (segs, key) in dprops.items():
+            pval = self._segs_to_string(segs, pkey, self._pvaltf)
+            if pval is not None:
+                ndprops.append((pkey, (pval, key)))
+        dprops = dict(ndprops)
 
-        self._raw_derivation_by_entry[entry] = dprops
+        self._raw_derivation_by_entry_env1[(entry, env1)] = dprops
         return dprops
 
 
-    def _expand (self, exp, entry, env0):
+    def _expand (self, exp, entry, env1):
+        # TODO: Discover circular expansion paths.
 
         # Fetch the entry pointed to by the expansion.
         iekey = simplify(exp.ref)
@@ -1162,21 +1132,13 @@ class Synder (object):
                     break
         if entry is None:
             warning(_p("error message",
-                       "Expansion '%(ref)s' does reference a known entry "
+                       "Expansion '%(ref)s' does not reference a known entry "
                        "at %(file)s:%(line)s.")
-                    % dict(ref=exp.ref, file=srcname, line=exp.pos[0]))
+                    % dict(ref=exp.ref, file=source.name, line=exp.pos[0]))
             return {}
 
-        # Derive the referenced entry
-        # and select properties for requested environment.
-        props = self._derive(entry).get(env0)
-        if not props:
-            srcname = exp.parent.parent.parent.name
-            warning(_p("error message",
-                       "Expansion '%(ref)s' yields nothing "
-                       "at %(file)s:%(line)s.")
-                    % dict(ref=exp.ref, file=srcname, line=exp.pos[0]))
-            return {}
+        # Derive the referenced entry.
+        props = self._derive(entry, env1)
 
         # Apply expansion mask.
         if exp.mask is not None:
@@ -1271,21 +1233,13 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        # Split the serialized key into environments, entry and property keys.
-        p = key.rfind(self._envsep)
-        if p >= 0:
-            env = []
-            for env1spec in key[:p].split(self._envsep):
-                env.append(env1spec.split("."))
-            key = key[p + len(self._envsep):]
-        else:
-            env = self._env
-        p = key.find(self._pkeysep)
-        if p < 0:
+        # Split the serialized key into entry and property keys.
+        lst = key.split(self._pkeysep, 1)
+        if len(lst) < 2:
             return defval
-        ekey, pkey = key.split(self._pkeysep, 1)
+        ekey, pkey = lst
 
-        return self.get3(ekey, pkey, env, defval)
+        return self.get2(ekey, pkey, defval)
 
 
     def ekeys (self):
@@ -1324,19 +1278,6 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        return self._pkeys_w(ekey, self._env)
-
-
-    def pkeys2 (self, ekey, env):
-        """
-        FIXME: Write doc.
-        """
-
-        return self._pkeys_w(ekey, self._normenv(env))
-
-
-    def _pkeys_w (self, ekey, env):
-
         if self._ekeytf:
             ekey = self._ekeytf(ekey)
         if ekey is None:
@@ -1346,7 +1287,7 @@ class Synder (object):
             return []
 
         props = self._getprops(entry)
-        for env1 in env:
+        for env1 in self._env:
             pkeys = set()
             for env0 in env1:
                 props0 = props.get(env0)
