@@ -1012,8 +1012,12 @@ class Synder (object):
         if entry is None:
             return defval
 
+        has_pkrest = False
         if self._pkeytf:
             pkey = self._pkeytf(pkey)
+            if isinstance(pkey, tuple):
+                pkey, pkrest = pkey[0], pkey[1:]
+                has_pkrest = True
             if pkey is None:
                 return defval
 
@@ -1023,7 +1027,8 @@ class Synder (object):
             pvals.append(pval)
 
         if self._mvaltf:
-            pval = self._mvaltf(pvals)
+            args = (pvals,) + pkrest if has_pkrest else (pvals,)
+            pval = self._mvaltf(*args)
         else:
             for pval in pvals:
                 if pval is not None:
@@ -1117,7 +1122,7 @@ class Synder (object):
         # Process tags and normalize values.
         ndprops = []
         for pkey, (segs, key) in dprops.items():
-            pval = self._segs_to_string(segs, pkey, self._pvaltf)
+            pval = self._segs_to_string(segs, self._pvaltf, (pkey, env1))
             if pval is not None:
                 ndprops.append((pkey, (pval, key)))
         dprops = dict(ndprops)
@@ -1204,7 +1209,7 @@ class Synder (object):
         return props
 
 
-    def _segs_to_string (self, segs, pkey, segstf):
+    def _segs_to_string (self, segs, segstf=None, rest=None):
 
         if segstf:
             # Add sentries.
@@ -1231,7 +1236,10 @@ class Synder (object):
                 tsegs.append((tags, text))
 
             # Process value (may return None).
-            text = segstf(tsegs, pkey)
+            if rest is not None:
+                text = segstf(*((tsegs,) + rest))
+            else:
+                text = segstf(tsegs)
 
         else:
             # Collect all text segments, ignoring tags.
@@ -1281,7 +1289,7 @@ class Synder (object):
         rsyns = []
         for syn in entry.base.syns:
             if not syn.hidden:
-                rsyn = self._segs_to_string(syn.segs, None, self._esyntf)
+                rsyn = self._segs_to_string(syn.segs, self._esyntf)
                 if rsyn is not None:
                     rsyns.append(rsyn)
 
