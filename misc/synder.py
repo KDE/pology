@@ -190,7 +190,6 @@ def _parse_file (path):
     apath = os.path.abspath(path)
     if apath in _parsed_sources:
         return _parsed_sources[apath]
-    print path
 
     # Try to load parsed source from disk.
     source = _read_parsed_file(path)
@@ -874,6 +873,8 @@ class Synder (object):
         self._strictkey = strictkey
 
         self._imported_srcnames = set()
+        self._visible_srcnames = set()
+        self._entries_by_srcname = {}
         self._entry_by_srcname_iekey = {}
         self._visible_entry_by_ekey = {}
         self._derivation_by_entry_env1 = {}
@@ -899,8 +900,7 @@ class Synder (object):
         """
 
         source = _parse_string(string)
-
-        return self._process_import(source, visible=True)
+        return self._process_import_visible(source)
 
 
     def import_file (self, filename):
@@ -909,18 +909,25 @@ class Synder (object):
         """
 
         source = _parse_file(filename)
+        return self._process_import_visible(source)
 
-        return self._process_import(source, visible=True)
+
+    def _process_import_visible (self, source):
+
+        nnew = self._process_import(source)
+        nvis = self._make_visible(source)
+        return (nvis, nnew)
 
 
-    def _process_import (self, source, visible):
+    def _process_import (self, source):
 
         if source.name in self._imported_srcnames:
             return 0
 
         self._imported_srcnames.add(source.name)
 
-        vemap = self._visible_entry_by_ekey
+        ientries = []
+        self._entries_by_srcname[source.name] = ientries
         iemap = {}
         self._entry_by_srcname_iekey[source.name] = iemap
 
@@ -931,27 +938,47 @@ class Synder (object):
             # Create wrapper entry for the raw entry.
             entry = self._Entry(rawentry, self._ekeyitf)
 
-            # Eliminate key conflicts of this entry to existing entries.
-            # Conflicts are checked by internal keys in the current source,
-            # and by external keys in all visible sources if source is visible.
+            # Eliminate internal key conflicts of this entry.
             self._eliminate_conflicts(entry, iemap, lambda x: x.iekeys)
-            if visible:
-                self._eliminate_conflicts(entry, vemap, lambda x: x.ekeys)
 
-            # Register entry in this source by keys.
-            if entry.ekeys:
+            # Register internal entry in this source.
+            if entry.iekeys:
+                ientries.append(entry)
                 for iekey in entry.iekeys:
                     iemap[iekey] = entry
-                if visible and not all([x.hidden for x in entry.base.syns]):
-                    for ekey in entry.ekeys:
-                        vemap[ekey] = entry
                 nadded += 1
 
         # Import included sources.
         for incsource in source.incsources:
-            self._process_import(incsource, visible=False)
+            nadded += self._process_import(incsource)
 
         return nadded
+
+
+    def _make_visible (self, source):
+
+        if source.name in self._visible_srcnames:
+            return 0
+
+        self._visible_srcnames.add(source.name)
+
+        nvis = 0
+
+        for entry in self._entries_by_srcname[source.name]:
+            if all([x.hidden for x in entry.base.syns]):
+                continue
+
+            # Eliminate external key conflicts of this entry.
+            self._eliminate_conflicts(entry, self._visible_entry_by_ekey,
+                                      lambda x: x.ekeys)
+
+            # Register visible entry in this source.
+            if entry.ekeys:
+                for ekey in entry.ekeys:
+                    self._visible_entry_by_ekey[ekey] = entry
+                nvis += 1
+
+        return nvis
 
 
     class _Entry:
