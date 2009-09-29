@@ -1,0 +1,313 @@
+>base/aff.sd
+>ztmp-apps.sd
+
+# ----------------------------------------------------------------------------
+# Рачунарски језици
+# (имена малим словом: http://forum.vokabular.org/index.php?topic=880.0)
+
+4GL, |_4gl: 4ГЛ|-, 4ГЛ|-ов, 4ГЛ|>
+4GL-PER: 4ГЛ-ПЕР|-, 4ГЛ-ПЕР|-ов, 4ГЛ-ПЕР|>
+ABC: АБЦ|-, АБЦ|-ов, АБЦ|>
+ABAP: АБАП|-, АБАП|-ов, АБАП|>
+ActionScript: акцискрипт|, акцискрипт|ов, акцискрипт|ни
+    @л: ActionScript|, ActionScript|ov, actionscript|>
+Ada: ад|а, ад|ин, ада|>
+    @л: Ad|a, Ad|in
+AHDL: АХДЛ|-, АХДЛ|-ов, АХДЛ|>
+Alerts: алертс|, алертс|ов, алертс|>
+    @л: Alerts|, Alerts|ov
+ANSI C89: АНСИ Ц89|*, АНСИ Ц89|>, _род!=м
+Ansys: ансис|, ансис|ов, ансис|>
+    @л: Ansys|, Ansys|ov, ansys|>
+Apache Config: апачи-постав|а
+    @л: Apache-postav|a
+Asm6502: асм6502|*, асм6502|>, _род!=м
+    @л: Asm6502|*, Asm6502|>
+ASN.1, ASN1: АСН.1|*, АСН.1|>, _род!=м
+ASP: АСП|-, АСП|-ов, АСП|>
+Asterisk: астериск|, астериск|ов, астериск|>
+    @л: Asterisk|, Asterisk|ov
+AVR Assembler: АВР асемблер|, АВР асемблер|ов, АВР асемблер|ски
+AWK: авк|, авк|ов, авк|>
+    @л: awk|, awk|ov, awk|>
+Bash, |bashlang: басх|, басх|ов, басх|>
+    @л: Bash|, Bash|ov
+Basic: бејзик|, бејзик|ов, бејзик|>
+    @л: Basic|, Basic|ov, basic|>
+BibTeX: бибтех|, бибтех|ов, бибтех|>
+    @л: BibTeX|-, BibTeX|-ov, bibtex|>
+Bison: бизон|, бизон|ов, бизон|ски
+    @л: Bison|, Bison|ov, bison|ski
+B-Method: б-метод|, б-метод|ов, б-метод|ски
+    @л: B-Method|, B-Method|ov, B-Method|ski
+Boo: бу|, бу|ов, бу|>
+    @л: Boo|, Boo|ov, boo|>
+C, |clang: Ц|-, Ц|-ов, Ц|>
+C++, |cpp: Ц++|, Ц++|ов, Ц++|>
+Cg: Цг|-, Цг|-ов, цг|>
+CGiS: ЦГиС|-, ЦГиС|-ов, ЦГиС|>
+ChangeLog: дневник| измена
+Cisco: сиск|о, сиск|ов, сиско|>, _род!=м
+    @л: Cisc|o, Cisc|ov, cisco|>
+Clipper: клипер|, клипер|ов, клипер|ски
+    @л: Clipper|, Clipper|ov, clipper|ski
+CMake: цмејк|, цмејк|ов, цмејк|>
+    @л: CMake|, CMake|ov, cmake|>
+ColdFusion: колдфјужн|, колдфјужн|ов, колдфјужн|>
+    @л: ColdFusion|, ColdFusion|ov, coldfusion|>
+Common Lisp: комон-лисп|, комон-лисп|ов, комон-лисп|>
+    @л: Common Lisp|, Common Lisp|ov, common lisp|>
+Component-Pascal: комонент-паскал|, компнент-паскал|ов, компонент-паскал|>
+    @л: Component-Pascal|, Component-Pascal|ov, component-pascal|>
+C\#, |csharp: Ц\#|-, Ц\#|-ов, Ц\#|>
+CSS: ЦСС|-, ЦСС|-ов, ЦСС|>
+CSS/PHP: |{CSS~н}-|{PHP}
+    @л: |{CSS~n}/|{PHP}
+CUE Sheet: ЦУЕ лист|, ЦУЕ-лист|>
+D, |dlang: Д|-, Д|-ов, Д|>
+Debian Changelog: |{Debian~.мп} дневник| измена
+Debian Control: |{Debian~.жп} контрол|а
+.desktop, |dotdesktop: .десктоп|, .десктоп|ов, .десктоп|>
+Diff: диф|, диф|ов, диф|>
+    @л: diff|, diff|ov, diff|>
+Django HTML Template: Ђанг|ов> ХТМЛ шаблон|
+    @л: Djang|ov> HTML šablon|
+DocBook: докбук|, докбук|ов, докбук|>
+    @л: DocBook|, DocBook|ov, docbook|>
+Doxygen: доксиген|, доксиген|ов, доксиген|>
+    @л: Doxygen|, Doxygen|ov, doxygen|>
+DoxygenLua: |{Doxygen}-|{Lua}
+DTD: ДТД|-, ДТД|-ов, ДТД|>
+E: Е|-, Е|-ов, Е|>
+Eiffel: ајфел|, ајфел|ов, ајфел|ски
+    @л: Eiffel|, Eiffel|ov, eiffel|ski
+Email: е-пошт|а, е-поштан|ски
+Erlang: ерланг|, ерланг|ов, ерланг|>
+    @л: Erlang|, Erlang|ov
+Euphoria: еуфориј|а, еуфориј|ин, еуфориј|ски
+    @л: Euphorij|a, Euphorij|in, euphorij|ski, _n=Euphoria
+Ferite: ферит|, ферит|ов, ферит|ски
+    @л: Ferite|, Ferite|ov
+FictionBook: фикшнбук|, фикшнбук|ов, фикшнбук|>
+    @л: FictionBook|, FictionBook|ov, fictionbook|>
+Flex: флекс|, флекс|ов, флекс|>
+    @л: Flex|, Flex|ov, flex|>
+Fortran: фортран|, фортран|ов, фортран|ски
+    @л: Fortran|, Fortran|ov
+FreeBASIC: фрибејзик|, фрибејзик|ов, фрибејзик|>
+    @л: FreeBASIC|, FreeBASIC|-ov, FreeBASIC|>
+fstab: фстаб|, фстаб|ов, фстаб|>
+GAP: ГАП|-, ГАП|-ов, ГАП|>
+GDL: ГДЛ|-, ГДЛ|-ов, ГДЛ|>
+GNU Gettext: Гну|ов> геттекст|
+    @л: GNU Gettext|
+GLSL: ГЛСЛ|-, ГЛСЛ|-ов, ГЛСЛ|>
+GNU Assembler: Гну|ов> асемблер|
+    @л: GNU asembler|
+Haskell: хаскел|, хаскел|ов, хаскел|ски
+    @л: Haskell|, Haskell|ov, haskell|ski
+Haxe: хекс|, хекс|ов, хекс|>
+    @л: Haxe|, Haxe|ov, haxe|>
+HTML: ХТМЛ|-, ХТМЛ|-ов, ХТМЛ|>
+IDL: ИДЛ|-, ИДЛ|-ов, ИДЛ|>
+ILERPG: ИЛЕРПГ|-, ИЛЕРПГ|-ов, ИЛЕРПГ|>
+Inform: информ|, информ|ов, информ|ски
+    @л: Inform|, Inform|ov
+INI Files: ИНИ датотек|а
+    @л: INI postavk|e-
+Java: јав|а, јав|ин, јаван|ски
+    @л: Jav|a, Jav|in
+Javadoc: јавадок|, јавадок|ов, јавадок|>
+    @л: Javadoc|, Javadoc|ov, javadoc|>
+JavaScript: јаваскрипт|, јаваскрипт|ов, јаваскрипт|ни
+    @л: JavaScript|, JavaScript|ov, javascript|>
+JavaScript/PHP: |{JavaScript~н}-|PHP
+    @л: |{JavaScript~n}/|PHP
+JSON: џејсон|, џејсон|ов, џејсон|ски
+    @л: JSON|-, JSON|-ov, JSON|>
+JSP: ЈСП|-, ЈСП|-ов, ЈСП|>
+Kate File Template: |{Kate~.мп} шаблон| фајла
+KBasic: к-бејзик|, к-бејзик|ов, к-бејзик|>
+    @л: KBasic|, KBasic|ov, kbasic|>
+LaTeX: латех|, латех|ов, латех|>
+    @л: LaTeX|, LaTeX|ov, latex|>
+LDIF: ЛДИФ|-, ЛДИФ|-ов, ЛДИФ|>
+Lex: лекс|, лекс|ов, лекс|>
+    @л: Lex|, Lex|ov, lex|>
+Lex/Flex: лекс/флекс|, лекс/флекс|ов, лекс/флекс|>
+    @л: Lex/Flex|, Lex/Flex|ov, lex/flex|>
+Lisp: лисп|, лисп|ов, лисп|овски
+    @л: Lisp|, Lisp|ov
+LilyPond: лилипонд|, лилипонд|ов, лилипонд|ски
+    @л: LilyPond|, LilyPond|ov, lilypond|ski
+Literate Haskell: писмен|и> хаскел|
+    @л: pismen|i> Haskell|
+Logo: лого|, лого|ов, лого|>
+    @л: Logo|, Logo|ov
+Logtalk: логток|, логток|ов, логток|>
+    @л: Logtalk|, Logtalk|ov, logtalk|>
+LPC: ЛПЦ|-, ЛПЦ|-ов, ЛПЦ|>
+LSL: ЛСЛ|-, ЛСЛ|-ов, ЛСЛ|>
+Lua: лу|а, лу|ин, луа|>
+    @л: Lu|a, Lu|in
+M3U: М3У|-, М3У|-ов, М3У|>
+MAB-DB: МАД-ДБ|-, МАД-ДБ|-ов, МАД-ДБ|>
+    @л: MAB-DB|-, MAB-DB|-ov, MAB-DB|>
+Makefile: справифајл|
+Mason: мејсон|, мејсон|ов, мејсон|ски
+    @л: Mason|, Mason|ov, mason|>
+Matlab, |matlablang: матлабск|и>, матлаб|ски
+    @л: matlab|ski
+Maxima, |maxima_: максимск|и>, максим|ски # „максима“ би било исто као програм
+    @л: maximsk|i>, maxim|ski
+MediaWiki: медијавик|и, медијавик|ијев, медијавики|>
+    @л: MediaWik|i, MediaWik|ijev, mediawiki|>
+mergetag text: мерџтаг текст|, мерџтаг текст|ов, мерџтаг текст|>
+    @л: mergetag text|, mergetag text|ov, mergetag text|>
+MIPS Assembler: МИПС асемблер|, МИПС асемблер|ов, МИПС асемблер|ски
+    @л: MIPS аsembler|, MIPS аsembler|ov, MIPS аsembler|ski
+Modelica: моделик|а, моделик|ин, моделика|>
+    @л: Modelic|a, Modelic|in, modelica|>
+Modula: модул|а, модул|ин, модула|>
+    @л: Modul|a, Modul|in
+Modula-2: модул|{а}-2, модул|{ин}-2, модула-2|>
+    @л: Modul|{a}-2, Modul|{in}-2
+MonoBasic: монобејзик|, монобејзик|ов, монобејзик|>
+    @л: MonoBasic|, MonoBasic|ov, MonoBasic|>
+Music Publisher: издавач| музике
+Intel x86 (NASM), intelx86nasm: интел| икс86 (НАСМ)
+    @л: Intel| x86 (NASM)
+Nemerle: немерле|, немерле|ов, немерле|>
+    @л: Nemerle|, Nemerle|ov
+noweb: новеб|, новеб|ов, новеб|>
+    @л: noweb|, noweb|ov, noweb|>
+Objective-C: објектив-Ц|-, објектив-Ц|-ов, објектив-Ц|>
+    @л: Objective-C|-, Objective-C|-ov, objective-c|>
+Objective-C++, |objectivecpp: објектив-Ц++|-, објектив-Ц++|-ов, објектив-Ц++|>
+    @л: Objective-C++|-, Objective-C++|-ov, Objective-C++|>
+Objective-Caml: објектив-камл|, објектив-камл|ов, објектив-камл|>
+    @л: Objective-Caml|, Objective-Caml|ov, objective-caml|>
+Octave, |octavelang: октавск|и>, октав|ски
+    @л: octavsk|i>, octav|ski
+OPAL: ОПАЛ|-, ОПАЛ|-ов, ОПАЛ|>
+Pascal: паскал|, паскал|ов, паскал|ски
+    @л: Pascal|, Pascal|ov, pascal|ski
+Perl: перл|, перл|ов, перл|овски
+    @л: Perl|, Perl|ov, perl|>
+PHP: ПХП|-, ПХП|-ов, ПХП|>
+PHP (HTML), |phphtml: |{PHP} (|{HTML~н})
+PicAsm: пикасм|, пикасм|ов, пикасм|>
+    @л: PicAsm|, PicAsm|ov, picasm|>
+Pike: пајк|, пајк|ов, пајк|>
+    @л: Pike|, Pike|ov, pike|>
+PostScript: постскрипт|, постскрипт|ов, постскрипт|>
+    @л: PostScript|, PostScript|ov, postscript|>
+POV-Ray: повреј|, повреј|ев, повреј|>
+    @л: POV-Ray|, POV-Ray|ev, POV-ray|>
+progress: прогрес|, прогрес|ов, прогрес|>
+    @л: progress|, progress|ov, progress|>
+Prolog: пролог|, пролог|ов, проло|шки
+    @л: Prolog|, Prolog|ov
+PureBasic: пјурбејзик|, пјурбејзик|ов, пјурбејзик|>
+    @л: PureBasic|, PureBasic|ov, PureBasic|>
+Python: питон|, питон|ов, питон|ски
+    @л: Python|, Python|ov, python|>
+QMake: Ку-мејк|, Ку-мејк|ов, ку-мејк|>
+    @л: QMake|, QMake|ov, QMake|>
+QtScript: КуТ-скрипт|, КуТ-скрипт|ов, КуТ-скрипт|ни
+    @л: QtScript|, QtScript|ov, QtScript|ni
+Quake Script: квејкскрипт|, квејкскрипт|ов, квејкскрипт|>
+    @л: Quake Script|, Quake Script|ov, Quake Script|>
+R Script: р-скрипт|, р-скрипт|ов, р-скрипт|ни
+    @л: R Script|, R Script|ov, R script|ni
+RapidQ: рапид-ку|, рапид-ку|ов, рапид-ку|>
+    @л: RapidQ|-, RapidQ|-ov, RapidQ|>
+REXX: рекс|, рекс|ов, рекс|>
+    @л: REXX|-, REXX|-ov, REXX|>
+RenderMan RIB: рендерман-РИБ|-, рендерман-РИБ|-ов, рендерман-РИБ|>
+    @л: RenderMan-RIB|-, RenderMan-RIB|-ov
+Roff: роф|, роф|ов, роф|>
+    @л: Roff|, Roff|ov, roff|>
+RPM Spec: РПМ навод|
+RSI IDL: РСИ ИДЛ|-, РСИ ИДЛ|-ов, РСИ ИДЛ|>
+Ruby: руб|и, руб|ијев, руб|ијевски
+    @л: Rub|y, Rub|yjev, ruby|>
+Ruby/Rails/RHTML: |{Ruby~н}-рејлс-РХТМЛ|-
+    @л: |{Ruby~n}/Rails/RHTML|-
+Sather: сатер|, сатер|ов, сатер|ски
+    @л: Sather|, Sather|ov, sather|ski
+Scala: скал|а, скал|ин, скал|ски
+    @л: Scal|a, Scal|in, scal|ski
+Scheme: шем|а, шем|ин, шем|ски
+    @л: Schem|a, n=Scheme, Schem|in, scheme|>
+Scilab, |scilablang: сцилабск|и>, сцилаб|ски
+    @л: scilab|ski
+SGML: СГМЛ|-, СГМЛ|-ов, СГМЛ|>
+Sieve: сит|о, сито|>, _род!=с
+SiSU: СиСУ|-, СиСУ|-ов, СиСУ|>
+Smalltalk: смолток|, смолток|ов, смолток|>
+    @л: Smalltalk|, Smalltalk|ov, Smalltalk|>
+SML: СМЛ|-, СМЛ|-ов, СМЛ|>
+Spice: спајс|, спајс|ов, спајс|>
+    @л: Spice|, Spice|ov, spice|>
+SQL: СКуЛ|-, СКуЛ|-ов, СКуЛ|>
+    @л: SQL|-, SQL|-ov, SQL|>
+SQL (MySQL), |sqlmysql: |*|SQL (|{MySQL~н})
+    @л: SQL|- (|{MySQL~n})
+SQL (PostgreSQL), |sqlpostgresql: |*|SQL (|{PostgreSQL~н})
+    @л: SQL|- (|{PostgreSQL~n})
+SSML: ССМЛ|-, ССМЛ|-ов, ССМЛ|>
+Stata: стат|а, стат|ин, стат|ски
+    @л: Stat|a, Stat|in
+SystemC: систем-|C
+    @л: System|C
+Tcl: тцл|-, тцл|-ов, тцл|>
+    @л: Tcl|-, Tcl|-ov
+Tcl/Tk: тцл-тк|-, тцл-тк|-ов, тцл-тк|>
+    @л: Tcl/Tk|-, Tcl/Tk|-ov, tcl/tk|>
+TeX: тех|, тех|ов, тех|>
+    @л: TeX|-, TeX|-ov, tex|>
+TeXinfo: техинфо|, техинфо|ов, техинфо|>
+    @л: TeXinfo|, TeXinfo|ov, texinfo|>
+TI Basic: ТИ-бејзик|, ТИ-бејзик|ов, ТИ-бејзик|>
+    @л: TI Basic|, TI Basic|ov, TI basic|>
+txt2tags: текст2тагс|, текст2тагс|ов, текст2тагс|>
+    @л: txt2tags|, txt2tags|ov, txt2tags|>
+Troff Mandoc: троф упутн|а> стран|а
+    @л: Troff uputn|a> stran|a
+UnrealScript: анрилскрипт|, анрилскрипт|ов, анрилскрипт|>
+    @л: UnrealScript|, UnrealScript|ov, unrealscript|>
+Velocity: велосит|и, велосит|ијев, велосити|>
+    @л: Velocit|y, Velocit|yjev, velocity|>
+Verilog: верилог|, верилог|ов, верилог|>
+    @л: Verilog|, Verilog|ov
+VHDL: ВХДЛ|-, ВХДЛ|-ов, ВХДЛ|>
+VRML: ВРМЛ|-, ВРМЛ|-ов, ВРМЛ|>
+WINE Config: вине-постав|а
+    @л: WINE-postav|a
+xHarbour: икс-харбор|, икс-харбор|ов, икс-харбор|>
+    @л: xHarbour|, xHarbour|ov, xharbour|>
+XHTML: ИксХТМЛ|-, ИксХТМЛ|-ов, ИксХТМЛ|>
+    @л: XHTML|-, XHTML|-ov, XHTML|>
+XML: ИксМЛ|-, ИксМЛ|-ов, ИксМЛ|>
+    @л: XML|-, XML|-ov, XML|>
+XML (Debug), |xmldebug: ИксМЛ|- (исправљање)
+    @л: XML|- (ispravljanje)
+x.org Config: икс.орг-постав|а
+    @л: x.org-postav|a
+XQuery: икс-упит|, икс-упит|ов, икс-упит|ни
+    @л: XQuer|y, XQuer|yjev, XQuery|>
+XSLT: ИксСЛТ|-, ИксСЛТ|-ов, ИксСЛТ|>
+    @л: XSLT|-, XSLT|-ov, XSLT|>
+XUL: ИксУЛ|-, ИксУЛ|-ов, ИксУЛ|>
+    @л: XUL|-, XUL|-ov, XUL|>
+yacas: јакас|, јакас|ов, јакас|>
+    @л: yacas|, yacas|ov, yacas|>
+Yacc: јац|, јац|ов, јац|>
+    @л: Yacc|, Yacc|ov, yacc|>
+Yacc/Bison: јац/бизон|, јац/бизон|ов, јацц/бизон|>
+    @л: Yacc/Bison|, Yacc/Bison|ov, Yacc/Bison|>
+YAML: ЈАМЛ|, ЈАМЛ|-ов, ЈАМЛ|>
+    @л: YAML|, YAML|-ov, YAML|>
+Zonnon: зонон|, зонон|ов, зонон|ски
+    @л: Zonnon|, Zonnon|ov, zonnon|ski

@@ -1,0 +1,587 @@
+>base/aff.sd
+>ztmp-apps.sd
+
+# ----------------------------------------------------------------------------
+# Ливнице
+
+B&H: Б&Х|-, Б&Х|-ов
+Bitstream: Битстрим|, Битстрим|ов
+    @л: Bitstream|, Bitstream|ov
+DEC: ДЕЦ|-, ДЕЦ|-ов
+Efont: Ефонт|, Ефонт|ов
+ETL: ЕТЛ|-, ЕТЛ|-ов
+Misc: разн|и>
+Monotype: Монотајп|, Монотајп|ов
+    @л: Monotype|, Monotype|ov
+MS: МС|-, МС|-ов
+Sony: Сон|и, Сон|ијев
+    @л: Son|y, Sony|yjev
+
+# ----------------------------------------------------------------------------
+# Фонтови
+
+Sans Serif: бесерифн|и>
+Serif: серифн|и>
+Monospace: једноширинск|и>
+
+Abberancy: Аберацј|а # намерно испуштено и
+AirCut: Ер-кат|
+    @л: AirCut|
+Airmole: Ермоул|
+    @л: Airmole|
+Airmole Antique: |Airmole античк|и>
+Airmole Shaded: |Airmole заклоњен|и>
+Airmole Stripe: |Airmole пругаст|и>
+Albany: Олбен|и
+    @л: Alban|y
+Albany AMT: |Albany АМТ
+Almonte: Алмонте|
+Almonte Snow: |Almonte снежн|и>
+Almonte Woodgrain: |Almonte у годовима
+Andale: Андале|
+Andale Mono: |Andale моно
+Andale Sans: |Andale санс
+Andy: Енд|и
+    @л: And|y
+Andy MT: |Andy МТ
+Anglepoise Lampshade: Енглпоис| лампшејд|
+    @л: Anglepoise| Lampshade|
+Angostura: Ангостур|а
+Angostura Black: Ангостур|а црн|а>
+Anklepants: Енклпентс|
+    @л: Anklepants|
+Arabic Newspaper: Арапск|и> новинск|и>
+Arial: Аријел|
+Arial Black: |Arial црн|и>
+Arial Narrow: |Arial уск|и>
+Arnprior: Арнпрајор|
+    @л: Arnprior|
+Astron Boy: Астрон-дечак|
+Astron Boy Video: |{Astron Boy} видео
+Astron Boy Wonder: |{Astron Boy} чудесн|и>
+Axaxax: Аксаксакс|
+    @л: Axaxax|
+Balcony Angels: Балконск|и-> анђел|и-
+Balker: Бокер|
+    @л: Balker|
+Baltar: Балтар|
+Barbatrick: Барбатрик|
+    @л: Barbatrick|
+Baveuse: Бејвјуз|
+    @л: Baveuse|
+Baveuse 3D: |Baveuse 3Д
+Bell: Бел|
+    @л: Bell|
+Bell MT: |Bell МТ
+Berylium: Берилијум|
+    @л: Berylium|
+Birdland Aeroplane: Птицоземн|и> авион|
+Biting My Nails: Грицкам нокте|*, _род!=м
+Biting My Nails Outline: |{Biting My Nails} контурн|и>
+Bitstream Charter: |Bitstream~.мп Чартер|
+    @л: |Bitstream~.mp Charter|
+Bitstream Vera Sans: |Bitstream~.жп Вер|а санс
+Bitstream Vera Sans Mono: |Bitstream~.жп Вер|а санс-моно
+Bitstream Vera Serif: |Bitstream~.жп Вер|а сериф
+Biwidth: Двоширинск|и>
+Blue Highway: Плав|и> аутопут|
+Blue Highway Condensed: |{Blue Highway} |condensed~.м, _род!=м
+Blue Highway D Type: |{Blue Highway} типа Д
+Blue Highway Linocut: |{Blue Highway} линорез
+Book Antiqua: Бук антикв|а
+    @л: Book Antiqu|a
+Bookman Old Style: Букмен| олд стајл|
+    @л: Bookman| Old Style|
+Borg9: Борг| 9
+    @л: Borg|{}9
+Braeside Lumberboy: Брдостран|и> пилан|ац
+Bramalea Beauty: Брамалејск|а> лепотиц|а
+Budmo Jiggler: Будмо-џиглер|
+    @л: Budmo Jiggler|
+Bullpen: Булпен|
+    @л: Bullpen|
+Bullpen 3D: Булпен| 3Д
+    @л: Bullpen| 3D
+Butterbelly: Батербел|и
+    @л: Butterbell|y
+Carbon Block: Угљеничн|и> блок|
+Carbon Phyber: Угљеничн|о> влакн|о, _род!=м
+Century Gothic: Сенчер|и готичк|и>
+    @л: Centur|y gotičk|i>
+Century Schoolbook L: Сенчер|и скулбук| Л
+    @л: Centur|y Schoolbook| L
+Charles in Charge: Чарлс командује|*, _род!=м
+Charter: Чартер|
+    @л: Charter|
+Chicken Wire Lady: Чикен вајер леди|*, _род!=ж
+    @л: Chicken Wire Lady|*
+Chinese Rocks: Кинеск|о> камењ|е3, _род!=с
+Clean: Чист|и>
+ClearlyU: КлирлиЈу|
+    @л: ClearlyU|-
+ClearlyU Alternate Glyphs: |ClearlyU с алт. глифовима
+ClearlyU PUA: |ClearlyU ПУА
+cmex10: цмекс|{}-10
+    @л: cmex|{}10
+cmmi10: цмм|{и}-10
+    @л: cmm|{i}10
+cmr10: цмр|{}-10
+    @л: cmr|{}10
+cmsy10: цмс|{и}-10
+    @л: cms|{y}10
+Colourbars: Колор-врпц|е-
+Comic Sans MS: Комик| санс |MS~.мп, _род!=м
+    @л: Comic| sans |MS~.mp
+Contour Generator: Генератор| контура
+Coolvetica: Кулвети|ка
+    @л: Coolvetic|a
+Courier, |courierfont: Курир|
+    @л: Courier|
+Courier 10 Pitch: Курир| 10-тачкаст|и>
+    @л: Courier| 10-tačkast|i>
+Courier New: Курир| Њу
+    @л: Courier| New
+CrackMan: Крекмен|
+    @л: CrackMan|
+Cranberry Gin: Кренбери џин|
+    @л: Cranberry Gin|
+Crapola: Крапол|а
+    @л: Crapol|a
+Credit River: Кредитн|а> ре|ка
+Credit Valley: Кредитн|а> долин|а
+Cretino: Кретин|о, _род!=м
+    @л: Cretin|o
+Crystal Radio Kit: Кристалн|и> радио прибор|
+Cumberland: Камберланд|
+    @л: Cumberland|
+Cumberland AMT: |Cumberland АМТ
+Cursor: Курсор|
+    @л: Cursor|
+Deftone Stylus: Дефтон| стилус|
+    @л: Deftone| Stylus|
+DejaVu: Дежав|и
+    @л: DejaVu|
+DejaVu Sans: |DejaVu санс
+DejaVu Sans Mono: |DejaVu санс-моно
+DejaVu Serif: |DejaVu сериф
+DejaVu Sans Condensed: |DejaVu санс |condensed~.м, _род!=м
+DejaVu Sans Light: |DejaVu санс |light~.м, _род!=м
+DejaVu Serif Condensed: |DejaVu сериф |condensed~.м, _род!=м
+Delphine: Делфине|
+    @л: Delphine|
+Delta Hey Max Nine: Делта хеј макс најн|
+    @л: Delta Hey Max Nine|
+Dendritic Voltage: Дендритск|а> волтаж|а
+Deportees: Депортован|и-
+Die Nasty: Умри гадно|*, _род!=м
+Dingbats: Дингбат|и-
+DirtyBakersDozen: Дванаест|* Бејкерових жигосаних, _род!=м
+Domestic Manners: Домаћ|и-> манир|и-
+Dream Orphans: Снен|и> сирочић|и-
+Droid: Дроид|
+Duality: Дуалитет|
+Dustismo: _род!=м, Дастизм|о
+    @л: Dustism|o
+Dustismo Roman: _род!=м, Дастизм|о римск|и>
+    @л: Dustism|o rimsk|i>
+Dyspepsia: Диспепсиј|а
+    @л: Dyspeps|ia
+Echelon Condensed: Ешелон| |condensed~.м, _род!=м
+    @л: Echelon| |condensed~.m
+Eden Mills: Еден милс|
+    @л: Eden Mills|
+Edmunds: Едмундс|
+Edmunds Distressed: |{Edmunds} испрепадан|и>
+Effloresce: Ефлоресценциј|а
+Effloresce Antique: |Effloresce античк|а>
+El Abogado Loco: _род!=м, Ел абогад|о лок|о
+    @л: El Abogad|o Loc|o
+Electorate: Електорат|
+    @л: Electorate|
+Electorate Blue: |{Electorate} блу|
+    @л: |{Electorate} Blue|
+Electorate Boogaloo: |{Electorate} бугал|о, _род!=м
+    @л: |{Electorate} Boogalo|o
+Electorate Boogie: |{Electorate} буг|и
+    @л: |{Electorate} Boogie|
+Engebrechtre: Енгебрехтре|
+    @л: Engebrechtre|
+Engebrechtre Expanded: |Engebrechtre |{expanded~.м}, _род!=м
+Ethnocentric: Етноцентрик|
+    @л: Ethnocentric|
+Euphorigenic: Еуфоригеник|
+    @л: Euphorigenic|
+Eye Rhyme: Очн|а> рим|а
+Fabian: Фабијан|
+    @л: Fabian|
+Failed Attempt: Неуспел|и> покушај|2
+Fake Receipt: Лажн|а> признаниц|а
+Field Day Filter: Излетничк|и> филтер|
+First Blind: Прв|и> наслепо
+Fixed: Фиксн|и>
+Fixed Wide: |Fixed широк|и>
+Flatline: Равнолинијск|и>
+Fluoride Beings: Флуоридн|а-> бић|а-
+Forgotten Futurist: Заборављен|и> футурист|
+Forgotten Futurist College: |{Forgotten Futurist} колеџ|
+Forgotten Futurist Shadow: |{Forgotten Futurist} у сенци
+Forgotten Futurist Rotten: |{Forgotten Futurist} натрул|и>
+Fragile Bombers: Ломљив|и-> бомбардер|и-
+FreeMono: Фри-моно|
+    @л: FreeMono|
+FreeSans: Фри-санс|
+    @л: FreeSans|
+FreeSerif: Фри-сериф|
+    @л: FreeSerif|
+Garamond: Гарамонд|
+Georgia, |georgiafont: Џорџиј|а
+    @л: Georgij|a, n=Georgia
+Ghostmeat: Духомесн|и>
+Goha-Tibeb Zemen: Гоха-Тибеб| Земен|
+Goodfish: Гудфиш|
+    @л: Goodfish|
+Good Times: Добр|а-> времен|а-
+Got No Heart: Нема срца|*, _род!=м
+Guanine: Гуанин|
+    @л: Guanine|
+Gunplay: Револвераштв|о, _род!=с
+Gunplay 3D: |Gunplay 3Д
+Gyparody: Гипародиј|а
+Haettenschweiler: Хетеншвајлер|
+    @л: Haettenschweiler|
+Helvetica: Хелвети|ка
+    @л: Helvetic|a
+Hemi Head 426: Хем|и хед| 426
+    @л: Hem|i Head| 426
+Hurontario: Хуронтари|о, _род!=м
+Hurry Up: Пожури|*, _род!=с
+Impact: Импакт|
+    @л: Impact|
+Inflammable Age: Запаљив|о> доб|а-с
+InstantTunes: Брз|е-> мелодиј|е-
+Iomanoid: Иоманоид|
+It wasn't me: _род!=м, Не бих ја|*
+Jingopop: Џингопоп|
+    @л: Jingopop|
+Johnny Fever: Џон|и Грозниц|а, _род!=м
+Joy Circuit: Кол|о уживања, _род!=с
+Joystix: Џојстикс|
+    @л: Joystix|
+Junkyard: Слупан|и
+Karma Suture: Карм|а сутуре
+    @л: Karm|a Suture
+Kenyan Coffee: Кенијск|а> каф|а
+Kimberley: Кимберл|и
+    @л: Kimberley|
+King Richard: Краљ|2 Ричард|
+Kirsty: Кирсти|*, _род!=ж
+    @л: Kirsty|*
+Kirsty Ink: |{Kirsty} у мастилу
+Kleptocracy: Клептократиј|а
+Knuckle Down: Шаком на патос|*, _род!=м
+Kochi Gothic: Кох|и готичк|и>
+    @л: Koch|i gotičk|i>
+Kredit: Кредит|
+Larabiefont: Ларабифонт|
+    @л: Larabiefont|
+Lesser Concern: Мањ|а> бриг|а
+Let's Eat: Да презалогајимо|*, _род!=м
+Libel Suit: Тужб|а за клевету
+Liberation: Либерациј|а
+Liberation Mono: |Liberation моно
+Liberation Sans: |Liberation санс
+Liberation Serif: |Liberation сериф
+Linux Biolinum: |Linux биолинум|
+    @л: |Linux Biolinum|
+Linux Biolinum O: |{Linux Biolinum} О
+Linux Libertine: |Linux либертин|ац
+    @л: |Linux Libertine|
+Linux Libertine O: |{Linux Libertine} О
+Linux Libertine O C: |{Linux Libertine} О Ц
+Living by Numbers: Живети по бројевима|*, _род!=м
+Lockergnome: Ормарск|и> патуљ|ак
+Lucida: Луцид|а
+Lucida Console: |Lucida конзолн|а>
+LucidaBright: |Lucida светл|а>
+LucidaTypewriter: |Lucida машинск|а>
+LunaEclipsed: Лун|а помрачен|а>
+Lunasequent: Лунасеквент|
+    @л: Lunasequent|
+Lunasol: Лунасол|
+Lunaurora: Лунаурор|а
+Luxi Mono: Лукс|и моно
+    @л: Lux|i mono
+Luxi Sans: Лукс|и санс
+    @л: Lux|i sans
+Luxi Serif: Лукс|и сериф
+    @л: Lux|i serif
+Mail Ray Stuff: Мејл реј стаф|
+    @л: Mail Ray Stuff|
+Malache Crunch: Малачи кранч|
+    @л: Malache Crunch|
+Marked Fool: Знан|а> будал|а
+Marquee Moon: Марки мун|
+    @л: Marquee Moon|
+MassiveRetaliation: Масивн|а> одмазд|а
+Minya: Мињ|а
+    @л: Miny|a
+Minya Nouvelle: |Minya новел
+    @л: |Minya Nouvelle
+Mississauga: Мисисауг|а
+    @л: Mississaug|a
+Mexcellent: Мекселент|
+    @л: Mexcellent|
+Mexcellent 3D: |Mexcellent 3Д
+Misirlou: Мисирлу|*, _род!=ж
+    @л: Misirlou|*
+Misirlou Day: |Misirlou деј
+    @л: |Misirlou Day
+Mister Firley: Гдин| Фирл|и
+    @л: Gdin| Firley|
+Mold Papa: Молд пап|а, _род!=м
+    @л: Mold Pap|a
+Monofonto: Монофонто|
+Monotype Corsiva: |Monotype~.жп Корзив|а
+    @л: |Monotype~.žp Corsiv|a
+Monotype Sorts: |Monotype~.мп Сортс|
+Motorcade: Моторн|а> повор|ка
+MPH 2B Damase: МПХ 2Б Дамазе|
+    @л: MPH 2B Damase|
+MS Outlook: |MS~.мп Аутлук|
+    @л: |MS~.mp Outlook|
+msam10: мсам|{}-10
+    @л: msam|{}10
+msbm10: мсбм|{}-10
+    @л: msbm|{}10
+Mufferaw: Маферо|
+    @л: Mufferaw|
+NAFTAlene: НАФТАлин|
+    @л: NAFTAlene|
+Nasal: Назал|
+Nasalization: Назализациј|а
+Neurochrome: Неурохром|
+    @л: Neurochrome|
+Neuropol: Неуропол|
+Neuropolitical: Неурополитичк|и>
+New Century Schoolbook: Њу сенчери скулбук|
+    @л: New Century Schoolbook|
+New Brilliant: Њу брилијант|
+    @л: New Brilliant|
+Newspaper: Новинск|и>
+Nimbus Mono L: Нимбус| моно Л
+Nimbus Roman No9 L: Нимбус| римск|и> бр9 Л
+Nimbus Sans L: Нимбус| санс Л
+Octoville: Октовил|
+    @л: Octoville|
+Oliver's Barney: Оливер|ов> Барн|и
+    @л: Oliver|ov> Barney|
+OpenSymbol: Опен-симбол|
+    @л: OpenSymbol|
+Operational Amplifier: Операцион|и> појачив|ач
+Ouijadork: Оуиђадорк|
+    @л: Ouijadork|
+Overload: Преоптерећењ|е2, _род!=с
+Paint Boy: Бојадиш|а, _род!=м
+Pakenham: Пакенхам|
+ParaAminobenzoic: Парааминобензоик|
+    @л: ParaAminobenzoic|
+PenguinAttack: Пингвинск|и> напад|
+Plain Cred: Плејн кред|
+    @л: Plain Cred|
+Plain Cred 1978: |{Plain Cred} 1978
+Planet Benson 2: Планет|а Бенсон 2
+Port Credit: Порт кредит|
+    @л: Port Credit|
+PresidentGas: Председничк|и> гас|
+Pricedown: Обарањ|е3 цене, _род!=с
+Prime Minister of Canada: Канадск|и> премијер|
+Primer Apples: Почетничк|е-> јабук|е-
+Primer Print: Почетничк|а> штамп|а
+Progenisis: Прогениз|а
+Pupcat: Папкет|
+    @л: Pupcat|
+QSwitch Ax: Кјусвич акс|
+    @л: QSwitch Ax|
+Quadaptor: Квадаптор|
+Quadrangle: Четвороуг|ао
+Quantity: Квантитет|
+Radio Stars: Радио звезд|е-
+Relish Gargler: Релиш гарглер|
+    @л: Relish Gargler|
+Razor Keen: Жилетск|и> настрој|ен>
+Rina: Рин|а
+RoboKoz: Робокоз|
+    @л: RoboKoz|
+Rothwell: Ротвел|
+    @л: Rothwell|
+Rustproof Body: Нерђајућ|е> тел|о
+Sad Films: Тужн|и-> филмов|и-
+Sandoval: Сандовал|
+Saved By Zero: Спас|ен> нулом
+Sazanami Gothic: Сазанам|и готичк|и>
+Screengem: Екранск|и> драгуљ|2
+Segoe: Сигоу|
+    @л: Segoe|
+Segoe UI: |Segoe УИ
+    @л: |Segoe УИ
+Sexsmith: Сексмит|
+    @л: Sexsmith|
+Shifty Chica: Врдав|а> циц|а
+Should've Known: Требало је да знам|*, _род!=м
+Should've Known Shaded: |{Should've Known} заклоњен|и>
+Silicon Carne: Силиконск|и> карне|
+Snidely: Презрив|и>
+Sofachrome: Софахром|
+    @л: Sofachrome|
+Soul Mama: Соул мам|а
+    @л: Soul Mam|a
+Soul Papa: Соул пап|а, _род!=м
+    @л: Soul Pap|a
+Spongy: Сунђераст|и>
+Squealer: Сквилер|
+    @л: Squealer|
+Squealer Embossed: |{Squealer} рељефн|и>
+Standard Symbols L: Стандардн|и-> симбол|и- Л
+Stasmic: Стазмичк|и>
+Steelfish: Челичн|а> риб|а
+Steve: Стив|
+    @л: Steve|
+Still Time: Непомичн|о> врем|е-н
+STOMP_Zeroes: ГАЗИ нул|е-
+Street Cred: Уличн|и> углед|
+Strenuous: Напор|ан>
+Styrofoam Feelings: Стиропорск|а-> осећањ|а-
+Subpear: Сабпир|
+    @л: Subpear|
+Sudbury Basin: Кратер| Садбери
+Sudbury Basin 3D: |{Sudbury Basin} 3Д
+Sui Generis: Суи генерис|
+    @л: Sui Generis|
+Superglue: Суперлеп|ак
+SuSE Sans: |SuSE~.мп санс|
+SuSE Sans Mono: |SuSE~.мп санс-моно|
+SuSE Serif: |SuSE~.мп сериф|
+Swift: Свифт|
+    @л: Swift|
+Symbol: Симбол|
+Tahoma: Тахом|а
+Teen: Тинејџ|
+Teen Light: |Teen |light~.м, _род!=м
+Terminal: Терминал|
+Terminus: Терминус|
+Thorndale: Торндејл|
+    @л: Thorndale|
+Thorndale AMT: |Thorndale АМТ
+Times: Тајмс|
+    @л: Times|
+Times New Roman: Тајмс| њу роман|
+    @л: Times| New Roman|
+Tofu: Тофу|
+TommyGun: Томпсонк|а
+Tork: Торк|
+TrapperJohn: Трапер| Џон|
+Trebuchet MS: Требушет| |MS~.мп, _род!=м
+    @л: Trebuchet| |MS~.mp
+TriacSeventyone: Тријак| седамдесетједан
+    @л: Triac| sedamdesetjedan
+Typodermic: Типодермичк|и>
+Unifont: Унифонт|
+Unifont Mono: |Unifont моно
+Unispace: Унипростор|
+Univox: Унивокс|
+    @л: Унивокс|
+Urkelian Television Dynasty: Уркелске телевизије Династиј|а
+Utopia: Утопиј|а
+    @л: Utop|ia
+URW Bookman L: УРВ Букмен| Л
+    @л: URW Bookman| L
+URW Chancery L: УРВ Чансер|и Л
+    @л: URW Chancer|y L
+URW Gothic L: УРВ Готичк|и> Л
+    @л: URW Gothic| L
+URW Palladio L: _род!=м, УРВ Палад|ио
+    @л: URW Pallad|io
+Vademecum: Вадемекум|
+    @л: Vademecum|
+Vahika: Вахик|а
+Vanilla Whale: Ванила кит|
+VDub: В-даб|
+    @л: VDub|
+Vectroid: Вектроид|
+    @л: Vectroid|
+Velvenda Megablack: Велвендск|и> мегацрн|и>
+Venus Rising: Освит| Венере
+Verdana: Вердан|а
+Vibrocentric: Виброцентричк|и>
+Vipnagorgialla: Випнагоргијал|а
+    @л: Vipnagorgiall|a
+Walshes: Волшес|
+    @л: Walshes|
+Walshes Outline: |Walshes контурн|и>
+Wargames: Ратн|е-> игр|е-
+wasy10: вас|{и}-10
+    @л: was|{y}10
+Webdings: Вебдингов|и-
+    @л: Webdingov|i-
+Webster World: Вебстер|ов> свет|
+Wingdings: Вингдингов|и-
+    @л: Wingdingov|i-
+Wingdings 2: |Wingdings 2
+Wingdings 3: |Wingdings 3
+Winks: Винкс|
+    @л: Winks|
+Wintermute: Винтермут|
+    @л: Wintermute|
+World of Water: Свет| воде
+Xtraflexidisc: Екстрафлексидиск|
+    @л: Xtraflexidisc|
+Yadou: Јаду|
+    @л: Yadou|
+YBandTuner: Ипсилон-појасни подешив|ач
+    @л: Y-pojasni podešiv|ač
+You're Gone: Нема те више|*, _род!=м
+Zekton: Зектон|
+Zekton Dots: Зектон-тачк|е-
+ZeroHour: Нулт|и> час|
+Zero Threes: Нула-тројк|е-
+Zero Twos: Нула-двојк|е-
+Zodillinstrisstirust: Зодилинстристируст|
+    @л: Zodillinstrisstirust|
+Zrnic: Зрник|
+    @л: Zrnic|
+
+# ----------------------------------------------------------------------------
+# Стилови фонтова
+# !!! размак у преводу ни за живу главу (већ цртица, штогод...)
+
+black: цр|ни
+bold: подебља|ни
+    @л: _k=podebljan
+condensed: згусну|ти
+demi: деми|>
+demi bold: демиподебља|ни
+expanded: растегну|ти
+extra condensed: екстразгусну|ти
+extra bold: екстраподебља|ни
+extra expanded: екстрарастегну|ти
+extra light: екстрала|ки
+heavy: теш|ки
+italic: курзив|ни
+    @л: _k=kurzivan
+light: ла|ки
+medium: сред|њи
+normal: нормал|ни
+    @л: _k=normalan
+oblique: искоше|ни
+    @л: _k=iskošen
+regular: основ|ни
+    @л: _k=osnovan
+roman: римс|ки
+semi bold: полуподебља|ни
+semi condensed: полузгусну|ти
+semi expanded: полурастегну|ти
+thin: тан|ки
+ultra bold: ултраподебља|ни
+ultra condensed: ултразгусну|ти
+ultra expanded: ултрарастегну|ти
+ultra light: ултрала|ки

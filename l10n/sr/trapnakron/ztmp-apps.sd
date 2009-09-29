@@ -1,0 +1,2806 @@
+>base/aff.sd
+>ztmp-languages.sd
+>ztmp-acronyms.sd
+
+# ----------------------------------------------------------------------------
+# Оперативни системи, језгра, окружења радне површи, дистрибуције
+
+AIX: Аикс|, Аикс|ов
+    @л: AIX|-, AIX|-ov
+AmigaDOS: АмигаДОС|-, АмигаДОС|-ов
+Android: Андроид|, Андроид|ов, андроид|>
+BeOS: БеОС|-, БеОС|-ов
+BSD: БСД|-, БСД|-ов, БСД|>
+CDE: ЦДЕ|-, ЦДЕ|-ов, ЦДЕ|>
+Cygwin: Сигвин|, Сигвин|ов, сигвин|ски
+    @л: Cygwin|, Cygwin|ov, cygwin|ski
+Cygwin/X: |*|{Cygwin}-икс
+    @л: |*|{Cygwin}/X
+Debian: Дебијан|, Дебијан|ов, дебијан|ски
+    @л: Debian|, Debian|ov, debian|ski
+DOS: ДОС|-, ДОС|-ов, ДОС|>
+EveX: Ив-икс|, Ив-икс|ов
+    @л: EveX|-, EveX|-ov
+Fedora: Федор|а, Федор|ин
+FreeBSD: ФриБСД|-, ФриБСД|-ов
+    @л: FreeBSD|-, FreeBSD|-ov
+Gentoo: Џенту|, Џенту|ов
+    @л: Gentoo|, Gentoo|ov
+Geos: Геос|, Геос|ов
+Gnome: Гном|, Гном|ов, гном|ски
+    @л: Gnome|, Gnome|ov, gnome|ski
+GNU/Linux: |*|{GNU~.}-|Linux
+    @л: |*|{GNU~n}/|Linux
+HP-UX: ХП-Укс|, ХП-Укс|ов
+    @л: HP-UX|-, HP-UX|-ov
+iPhoneOS: |{^iPhone~н} ОС|-, |{^iPhone~н} ОС|-ов, |{`iPhone~н} ОС|>
+    @л: iPhoneOS|-, iPhoneOS|-ov, iPhoneOS|>
+Irix: Ајрикс|, Ајрикс|ов
+    @л: Irix|, Irix|ov
+KDE: КДЕ|-, КДЕ|-ов, КДЕ|>
+Kubuntu: Кубунту|, Кубунту|ов
+Linux: Линукс|, Линукс|ов, линукс|>
+    @л: Linux|, Linux|ov, linux|>
+MacOS: МекОС|-, МекОС|-ов, МекОС|>
+    @л: MacOS|-, MacOS|-ov, MacOS|>
+MacOS X: |*|MacOS X
+Minix: Миникс|, Миникс|ов, миникс|>
+    @л: Minix|, Minix|ov, minix|>
+NetBSD: НетБСД|-, НетБСД|-ов
+NeXT: Некст|, Некст|ов
+    @л: NeXT|-, NeXT|-ov
+NeXTStep: Некстстеп|, Некстстеп|ов
+    @л: NeXTStep|, NeXTStep|ov
+NT: НТ|-, НТ|-ов, НТ|>
+NT Workstation: НТ воркстејшон|
+    @л: NT Workstation|
+OpenBSD: ОпенБСД|-, ОпенБСД|-ов
+OpenLook: Опенлук|, Опенлук|ов
+    @л: OpenLook|, OpenLook|ov
+OS/2: _род!=м, ОС/2|*
+Plan 9: План| 9
+RiscOS: РискОС|-, РискОС|-ов
+    @л: RiscOS|-, RiscOS|-ov
+Solaris: Соларис|, Соларис|ов
+SunOS: СанОС|-, СанОС|-ов
+    @л: SunOS|-, SunOS|-ov
+SuSE: СуСЕ|, СуСЕ|-ов
+System++, |systempp: Систем++|, Систем++|ов
+    @л: System++|, System++|ov
+Ubuntu: Убунту|, Убунту|ов
+Unix: Уникс|, уникс|+, Уникс|ов, уникс|>
+    @л: Unix|, unix|+, Unix|ov, unix|>
+Vista: Вист|а, Вист|ин
+WfW: ВфВ|-, ВфВ|-ов
+    @л: WfW|-, WfW|-ov
+Windows: Виндоуз|, Виндоуз|ов, виндоуз|>
+    @л: Windows|, Windows|ov, windows|>
+Windows 2000: |*|Windows 2000
+Windows 95: |*|Windows 95
+Windows 98: |*|Windows 98
+Windows CE: |*|Windows ЦЕ
+Windows ME: |*|Windows МЕ
+Windows NT: |*|Windows НТ
+Windows XP: |*|Windows |XP~н
+Windows Server: |*|Windows сервер|
+    @л: |*|Windows Server|
+Windows Vista: |*|Windows |Vista~., _род!=м
+XFce: Иксефце|, Иксефце|ов
+    @л: XFce|, XFce|ov
+XP: ИксП|-, ИксП|-ов
+    @л: XP|-, XP|-ov
+
+# ----------------------------------------------------------------------------
+# Уређивачи текста
+
+Bluefish: Блуфиш|, Блуфиш|ов
+    @л: Bluefish|, Bluefish|ov
+Emacs: Емакс|, Емакс|ов, емакс|овски
+    @л: Emacs|, Emacs|ov, emacs|ovski
+EmacsClient: |{Emacs~.}-клијент|
+Embedded Advanced Text Editor: Угњежден|и> напредн|и> уређив|ач текста
+Embedded Text Editor: Угњежден|и> уређив|ач текста
+Gedit: Г-едит|, Г-едит|ов
+    @л: Gedit|, Gedit|ov
+Gvim: Г-вим|, Г-вим|ов
+    @л: Gvim|, Gvim|ov
+Kate: _род!=ж, Кејт|*, Кејт|ин
+    @л: Kate|*, Kate|in
+KEdit: К-уређива|ње
+KVim: К-вим|, К-вим|ов
+    @л: KVim|, KVim|ov
+KWrite: К-писа|ње
+Lucid Emacs: Луцид|ов> |Emacs
+Nano: Нано|, Нано|ов
+Nedit: Недит|, Недит|ов
+Notepad: Бележниц|а, Бележниц|ин
+Pico: Пико|, Пико|ов
+    @л: Pico|, Pico|ov
+SciTE: СциТЕ|, СциТЕ|-ов
+Vi: В|и, В|ијев, в|ијевски
+Vim: Вим|, Вим|ов
+X Editor: Икс-уређив|ач, Икс-уређивач|ев
+    @л: X-uređiv|ač, X-uređivač|ev
+XEmacs: Икс-емакс|, Икс-емакс|ов
+    @л: XEmacs|, XEmacs|ov
+
+# ----------------------------------------------------------------------------
+# Прегледачи
+
+Chrome: Кроум|, Кроум|ов
+    @л: Chrome|, Chrome|ov
+Epiphany: Спознај|а, Спознај|ин
+Firefox: Фајерфокс|, Фајерфокс|ов
+    @л: Firefox|, Firefox|ov
+Galeon: Галиј|а, Галиј|ин
+GoogleBot: Гуглбот|, Гуглбот|ов
+    @л: GoogleBot|, GoogleBot|ov
+Google Chrome: Гугл| кроум|
+    @л: Google| Chrome|
+IE: ИЕ|-, ИЕ|-ов
+Iceweasel: Ледоласиц|а # Дебијанов Фајерфокс
+Internet Explorer: Интернет експлорер|, Интернет експлорер|ов
+    @л: Internet Explorer|, Internet Explorer|ov
+Konqueror: К-освај|ач, К-освајач|ев
+Links: Линкс|, Линкс|ов
+Lynx: Линкс|, Линкс|ов
+    @л: Lynx|, Lynx|ov
+Mozilla: Мозил|а, Мозил|ин
+    @л: Mozill|a, Mozill|in
+Navigator: Навигатор|, Навигатор|ов
+Netscape: Нетскејп|, Нетскејп|ов
+    @л: Netscape|, Netscape|ov
+Netscape Navigator: |Netscape~.мп |Navigator
+Netscape6: |*|Netscape 6
+NN: НН|-, НН|-ов
+Opera: Опер|а, Опер|ин
+Safari: Сафар|и, Сафар|ијев
+
+# ----------------------------------------------------------------------------
+# Менаџери датотека
+
+BitTorrent Python Curses GUI: Питонск|и> битторент| са курсес сучељем
+    @л: Python BitTorrent| sa Curses sučeljem
+BitTorrent Python wxGTK GUI: Питонск|и> битторент| са виксГТК сучељем
+    @л: Python BitTorrent| sa wxGTK sučeljem
+DCTC: ДЦТЦ|-, ДЦТЦ|-ов
+Direct Connect: Директконект|, Директконект|ов
+    @л: Direct Connect|, Direct Connect|ov
+Dolphin: Делфин|, Делфин|ов
+    @л: Dolphin|, Dolphin|ov
+Dpsftp: Дпсфтп|, Дпсфтп|ов
+DrakSync: Драксинх|, Драксинх|ов
+    @л: DrakSync|, DrakSync|ov
+eDonkey2000: Едонк|и 2000
+    @л: eDonke|y 2000
+gFTP: гФТП|-, гФТП|-ов
+KFM: КФМ|-, КФМ|-ов
+KGet: К-гет|, К-гет|ов
+    @л: KGet|, KGet|ov
+KMLDonkey: К-МЛдонк|и, К-МЛдонк|ијев
+    @л: KMLDonke|y, KMLDonke|yjev
+KPF: КПФ|-, КПФ|-ов
+Krusader: Крусејдер|, Крусејдер|ов
+    @л: Krusader|, Krusader|ov
+KTorrent: К-торент|, К-торент|ов
+    @л: KTorrent|, KTorrent|ov
+Lftp: Лфтп|, Лфтп|ов
+Midnight Commander: Поноћн|и> командир|
+MLDonkey: МЛдонк|и, МЛдонк|ијев
+    @л: MLDonke|y, MLDonke|yjev
+Nautilus: Наутилус|, Наутилус|ов
+NcFTP: НцФТП|-, НцФТП|-ов
+Thunar: Тунар|, Тунар|ов
+    @л: Thunar|, Thunar|ov
+uTorrent, µTorrent: Микроторент|, Микроторент|ов
+    @л: µTorrent|, µTorrent|ov
+wget: Вгет|, Вгет|ов
+    @л: wget|, wget|ov
+Windows Explorer: |*|^Windows~.м експлорер|
+    @л: |^Windows~.m Explorer|
+XFTP: ИксФТП|-, ИксФТП|-ов
+    @л: XFTP|-, XFTP|-ov
+
+# ----------------------------------------------------------------------------
+# Приказивачи
+
+Electric Eyes: Електричн|е-> оч|и-с
+Eye of Gnome: _род!=с, Ок|о |Gnome~г
+GPhoto: Гфото|, Гфото|ов
+    @л: GPhoto|, GPhoto|ov
+GQview: ГКуВју|, ГКуВју|ов
+    @л: GQview|, GQview|ov
+GwenView: Гвенвју|, Гвенвју|ов
+    @л: GwenView|, GwenView|ov
+KIconEdit: К-уређива|ње икона
+KolourPaint: Колор-слика|ње
+KPhotoAlbum: К-фотоалбум|, К-фотоалбум|ов
+    @л: KPhotoAlbum|, KPhotoAlbum|ov
+Kuickshow: Квикшоу|, Квикшоу|ов
+    @л: Kuickshow|, Kuickshow|ov
+KView: К-приказ|, К-приказ|ов
+XV: ИксВ|-, ИксВ|-ов
+    @л: XV|-, XV|-ov
+
+# ----------------------------------------------------------------------------
+# Читачи
+
+Acrobat Reader: Акробат| чит|ач
+GhostView: Гоствју|, Гоствју|ов
+    @л: GhostView|, GhostView|ov
+GGV: ГГВ|-, ГГВ|-ов
+GV: ГВ|-, ГВ|-ов
+KDVI: КДВ|И-, КДВ|И-јев
+KGhostView: К-гоствју|, К-гоствју|ов
+    @л: KGhostView|, KGhostView|ov
+KPDF: КПДФ|-, КПДФ|-ов
+Mobipocket: Мобипокет|, Мобипокет|ов, мобипокет|>
+    @л: Mobipocket|, Mobipocket|ov, Mobipocket|>
+Okular: Окулар|, Окулар|ов
+Plucker: Плакер|, Плакер|ов, плакер|>
+    @л: Plucker|, Plucker|ov, Plucker|>
+PS Viewer: ПС приказив|ач
+XDVI: ИксДВ|И-, ИксДВ|И-јев
+    @л: XDV|I-, XDV|I-jev
+XPDF: ИксПДФ|-, ИксПДФ|-ов
+    @л: XPDF|-, XPDF|-ov
+
+# ----------------------------------------------------------------------------
+# Комуникација
+
+Adium: Адијум|, Адијум|ов
+    @л: Adium|, Adium|ov
+Akregator: Акрегатор|, Акрегатор|ов
+Arena: Арен|а, Арен|ин
+    @л: Arena|in
+Balsa: Балс|а, Балс|ин
+Coolmail: Кулмејл|, Кулмејл|ов
+    @л: Coolmail|, Coolmail|ov
+Evolution: Еволуциј|а, Еволуциј|ин
+Faces: Фејсес|, Фејсес|ов
+    @л: Faces|, Faces|ov
+Fetchmail: Фечмејл|, Фечмејл|ов
+    @л: Fetchmail|, Fetchmail|ov
+Fetchmailconf: Фечмејлконф|, Фечмејлконф|ов
+    @л: Fetchmailconf|, Fetchmailconf|ov
+Gabber: Габер|, Габер|ов
+    @л: Gabber|, Gabber|ov
+Gaim: Гаим|, Гаим|ов
+GnomeICU: |{Gnome~н}-ајсију|, |{Gnome~н}-ајсију|ов
+    @л: GnomeICU|-, GnomeICU|-ov
+GnomeMeeting: |{Gnome~н}-састан|ак, |{Gnome~н}-састанк|ов
+Gnome Talk: |Gnome~.мп разговор|
+Gnome Telnet: |Gnome~.мп телнет|
+Google Talk: |*|{Google~н}-разговор|
+GroupWise Messenger: |^GroupWise~.м месинџер|
+    @л: |^GroupWise~.m Messenger|
+HylaFAX: Хилафакс|, Хилафакс|ов
+    @л: HylaFAX|--, HylaFAX|-ov
+Icedove: Ледоголубиц|а # Дебијанов Тандерберд
+ickle: Икл|, Икл|ов
+    @л: ickle|, ickle|ov
+Irssi: Ирс|и, Ирс|ијев
+    @л: Irss|i, Irss|ijev
+KMail: К-пошт|а, К-пошт|ин
+KMerlin: К-мерлин|, К-мерлин|ов
+    @л: KMerlin|, KMerlin|ov
+KNemo: К-нем|о, К-нем|ов, _род!=м
+    @л: KNem|o, KNem|ov
+KNews: К-вест|и-ж
+    @л: К-vest|i-ž
+KNode: К-чвор|, К-чвор|ов
+Konversation: Конверзациј|а, Конверзациј|ин
+Kopete: Копете|, Копете|ов
+KPPP: КППП|-, КППП|-ов
+KSirc: Ксирц|, Ксирц|ов
+    @л: KSirc|, KSirc|ov
+Licq: Л-ајсикју|, Л-ајсикју|ов
+    @л: Licq|, Licq|ov
+Minicom: Миником|, Миником|ов
+    @л: Minicom|, Minicom|ov
+mIRC: мИРЦ|-, мИРЦ|-ов
+Mutt: Мат|, Мат|ов
+    @л: Mutt|, Mutt|ov
+MSN Messenger: МСН месинџер|, МСН месинџер|ов
+    @л: MSN Messenger|, MSN Messenger|ov
+MSN Mobile: МСН мобил|, МСН мобил|ов
+    @л: MSN Mobile|, MSN Mobile|ov
+Netscape Messenger: |Netscape~.мп Гласник|
+Outlook: Аутлук|, Аутлук|ов
+    @л: Outlook|, Outlook|ov
+Pan: Пан|, Пан|ов
+Pidgin: Пиџин|, Пиџин|ов
+    @л: Pidgin|, Pidgin|ov
+Pine: Пајн|, Пајн|ов
+    @л: Pine|, Pine|ov
+Psi: Пс|и, Пс|ијев
+QQ Messenger: |^QQ~.м месинџер|, |^QQ~.м месинџер|ов
+SIMP: СИМП|, СИМП|-ов
+Slrn: Слрн|, Слрн|ов
+SMSClient: СМС-клијент|, СМС-клијент|ов
+    @л: SMSClient|, SMSClient|ov
+SMSSend: СМС-сенд|, СМС-сенд|ов
+    @л: SMSSend|, SMSSend|ov
+Skype: Скајп|, Скајп|ов
+    @л: Skype|, Skype|ov
+SkypeOut: Скајпаут|, Скајпаут|ов, скајпаут|>
+    @л: SkypeOut|, SkypeOut|ov, SkypeOut|>
+Sylpheed: Силфид|, Силфид|ов
+    @л: Sylpheed|, Sylpheed|ov
+Thunderbird: Тандерберд|, Тандерберд|ов
+    @л: Thunderbird|, Thunderbird|ov
+w3m: в3м|-, в3м|-ов
+    @л: w3m|-, w3m|-ov
+Web Messenger: Веб месинџер|, Веб месинџер|ов
+    @л: Web Messenger|, Web Messenger|ov
+Windows Live Messenger: |^Windows~.м лајв месинџер|
+    @л: |^Windows~.m Live Messenger|
+WLM: ВЛМ|-, ВЛМ|-ов, ВЛМ|> # скр. Windows Live Messenger
+    @л: WLM|-, WLM|-ov, WLM|>
+Windows Mobile: |^Windows~.м мобил|
+    @л: |^Windows~.m Mobile|
+XBiff: Икс-биф|, Икс-биф|ов
+    @л: XBiff|, XBiff|ov
+XChat: Икс-ћаска|ње
+    @л: X-ćaska|nje
+XFMail: ИксФ-пошт|а, ИксФ-пошт|ин
+    @л: XF-pošt|a, XF-pošt|in
+
+# ----------------------------------------------------------------------------
+# Цртање и моделирање
+
+AutoCAD: Аутокед|, Аутокед|ов, Аутокед|>
+    @л: АutoCAD|, АutoCAD|-ov, АutoCAD|>
+Blender: Блендер|, Блендер|ов
+Cabri: Кабр|и, Кабр|ијев
+    @л: Cabr|i, Cabr|ijev
+Dia: Диј|а, Диј|ин
+    @л: D|ia
+Digikam: Дигикам|, Дигикам|ов
+Dr. Geo: Др Ге|о, Др Ге|ов, _род!=м
+Gimp: Гимп|, Гимп|ов, гимп|овски
+Gnome Icon Editor: |Gnome~.мп уређив|ач икона
+Illustrator: Илустратор|, Илустратор|ов
+    @л: Illustrator|, Illustrator|ov
+ImageMagick: Имејџмеџик|, Имејџмеџик|ов
+    @л: ImageMagick|, ImageMagick|ov
+Inkscape: Инкскејп|, Инкскејп|ов
+    @л: Inkscape|, Inkscape|ov
+Kamera: Камер|а, Камер|ин
+Karbon14: Карбон|{}-14
+    @л: Karbon|{}14
+KColorEdit: К-уређива|{ње}-боја
+KGeo: К-ге|о, К-ге|ов, _род!=м
+    @л: KGe|o, KGe|ov
+KimDaBa: Кимдаб|а, Кимдаб|ин
+    @л: KimDaB|a, KimDaB|in
+KMag: К-увелича|ње
+Kontour: Контур|а, Контур|ин
+Kooka: Кук|а, Кук|ин
+    @л: Kook|a, Kook|in
+KPaint: К-слика|ње
+Krita: Крит|а, Крит|ин
+KRuler: К-лењир|, К-лењир|ов
+KSeg: К-сег|, К-сег|ов
+    @л: KSeg|, KSeg|ov
+PhotoCD: ФотоЦД|-, ФотоЦД|-ов
+    @л: PhotoCD|-, PhotoCD|-ov
+Photoshop: Фотошоп|, Фотошоп|ов
+    @л: Photoshop|, Photoshop|ov
+Sced: Сцед|, Сцед|ов
+ShowImg: Сликоприказ|, Сликоприказ|ов
+Sketch: Скиц|а, Скиц|ин
+Sodipodi: Содипод|и, Содипод|ијев
+TGif: Тгиф|, Тгиф|ов
+    @л: TGif|, TGif|ov
+XBitmap: Икс-битмап|, Икс-битмап|ов
+    @л: X Bitmap|, X Bitmap|ov
+XFig: Икс-фиг|, Икс-фиг|ов
+    @л: XFig|, XFig|ov
+XMag: Икс-увелича|ње
+    @л: X-uveliča|nje
+XPaint: Икс-слика|ње
+    @л: X-slika|nje
+Xpcd: Икс-пцд|, Икс-пцд|ов
+    @л: Xpcd|, Xpcd|ov
+
+# ----------------------------------------------------------------------------
+# Канцеларија
+
+Abiword: Абиворд|, Абиворд|ов
+    @л: Abiword|, Abiword|ov
+Access, |accessapp: Аксес|, Аксес|ов
+    @л: Access|, Access|ov
+Applix: Апликс|, Апликс|ов
+    @л: Applix|, Applix|ov
+Calc: Рачун|, Рачун|ов
+Excel: Ексел|, Ексел|ов
+    @л: Excel|, Excel|ov
+GnuCash: Гну-кеш|, Гну-кеш|ов
+    @л: GnuCash|, GnuCash|ov
+Gnome-Cal: |{Gnome~н}-кал|, |{Gnome~н}-кал|ов
+    @л: |{Gnome~n}-Cal|, |{Gnome~n}-Cal|ov
+Gnome-Card: |{Gnome~н}-кард|, |{Gnome~н}-кард|ов
+    @л: |{Gnome~n}-Card|, |{Gnome~n}-Card|ov
+Gnome Time Tracker: |Gnome~.мп прати|лац времена
+Gnumeric: Гнумерик|, Гнумерик|ов
+    @л: Gnumeric|, Gnumeric|ov
+Guppi: Гап|и, Гап|ијев
+    @л: Gupp|i, Gupp|ijev
+iCal: Икал|, Икал|ов
+    @л: Ical|, Ical|ov
+Impress: Презентациј|а, Презентациј|ин
+KAddressBook: К-адрес|ар, К-адресар|ов
+KChart: К-графикон|, К-графикон|ов
+KDE PIM: КДЕ-ПИМ|-, КДЕ-ПИМ|-ов
+Kexi: Кекс|и, Кекс|ијев
+    @л: Kex|i, Kex|ijev
+KFormula: К-формул|а, К-формул|ин
+    @л: KFormul|a, KFormul|in
+Kile: Кајл|, Кајл|ов
+    @л: Kile|, Kile|ov
+Kivio: Кив|ио, Киви|ов
+KNotes: К-беле|шке-
+Kontact: Контакт|, Контакт|ов
+    @л: Kontact|, Kontact|ov
+KOffice: К-офис|, К-офис|ов
+    @л: KOffice|, KOffice|ov
+KOrganizer: К-организатор|, К-организатор|ов
+KPilot: К-пилот|, К-пилот|ов
+    @л: KPilot|, KPilot|ov
+KPlato: К-плато|, К-плато|ов
+    @л: KPlato|, KPlato|ov
+KPresenter: К-презентер|, К-презентер|ов
+    @л: KPresenter|, KPresenter|ov
+Kroupware: Крупвер|, Крупвер|ов
+    @л: Kroupware|, Kroupware|ov
+KSpread: К-спред|, К-спред|ов
+    @л: KSpread|, KSpread|ov
+Kugar: Кугар|, Кугар|ов
+KWord: К-ворд|, К-ворд|ов
+    @л: KWord|, KWord|ov
+MrProject: Мр-пројект|, Мр-пројект|ов
+    @л: MrProject|, MrProject|ov
+Netscape Addressbook: |Netscape~.мп адрес|ар
+OpenOffice: Опенофис|, Опенофис|ов
+    @л: OpenOffice|, OpenOffice|ov
+OpenOffice.org: |*|{OpenOffice}.орг
+Plan: План|, План|ов
+PowerPoint: Пауерпоинт|, Пауерпоинт|ов
+    @л: PowerPoint|, PowerPoint|ov
+Pybliographic: Пиблиографик|, Пиблиографик|ов
+    @л: Pybliographic|, Pybliographic|ov
+Scribus: Скрибус|, Скрибус|ов
+    @л: Scribus|, Scribus|ov
+Troff: Троф|, Троф|ов
+    @л: Troff|, Troff|ov
+Word: Ворд|, Ворд|ов
+    @л: Word|, Word|ov
+WordPerfect: Вордперфект|, Вордперфект|ов
+    @л: WordPerfect|, WordPerfect|ov
+WordPerfect 2000: |*|WordPerfect 2000
+Writer: Пис|ац, Пишч|ев
+    @л: Pisac|
+xacc: Икс-ац|, Икс-ац|ов
+    @л: xacc|, xacc|ov
+XsLite: Ексес-лајт|, Ексес-лајт|ов
+    @л: XsLite|, XsLite|ov
+LyX: Ликс|, Ликс|ов
+    @л: LyX|, LyX|ov
+
+# ----------------------------------------------------------------------------
+# Развој
+
+Amarok Nightly: |Amarok поноћн|и>
+Anjuta: Анјут|а, Анјут|ин
+Bugzilla: Бубаждај|а, Бубаждај|ин
+Cachegrind: Кешгринд|, Кешгринд|ов
+    @л: Cachegrind|, Cachegrind|ov
+Callgrind: Колгринд|, Колгринд|ов
+    @л: Callgrind|, Callgrind|ov
+Cervisia: Цервисиј|а, Цервисиј|ин
+    @л: Cervis|ia
+ClearCase: Клиркејс|, Клиркејс|ов
+    @л: ClearCase|, ClearCase|ov
+CTags: Ц-тагс|, Ц-тагс|ов, ц-тагс|>
+    @л: CTags|, CTags|ov, CTags|>
+CVS: ЦВС|-, ЦВС|-ов, ЦВС|>
+DDD: ДДД|-, ДДД|-ов
+Eclipse: Еклипс|, Еклипс|ов
+    @л: Eclipse|, Eclipse|ov
+FormDesigner: Дизајнер| формулара
+Forte: Форте|, Форте|ов
+GCC: ГЦЦ|--, ГЦЦ|-ов, ГЦЦ|>
+Gettext: Геттекст|, Геттекст|ов
+    @л: Gettext|, Gettext|ov
+Helgrind: Хелгринд|, Хелгринд|ов
+J2ME: Ј2МЕ|-, Ј2МЕ|-ов
+Kafka: Кафк|а, Кафк|ин
+KBugBuster: К-буболов|ац, К-буболовч|ев
+KCacheGrind: К-кешгринд|, К-кешгринд|ов
+    @л: KCacheGrind|, KCacheGrind|ov
+KDE Nightly: КДЕ| поноћн|и>
+KDevelop: К-девелоп|, К-девелоп|ов
+    @л: KDevelop|, KDevelop|ov
+KUIViewer: К-|{UI~н}-приказив|ач
+Kommander: Командер|, Командер|ов
+    @л: Kommander|, Kommander|ov
+Massif: Масиф|, Масиф|ов
+    @л: Massif|, Massif|ov
+Memcheck: Мемчек|, Мемчек|ов
+    @л: Memcheck|, Memcheck|ov
+Neon: Неон|, Неон|ов
+Pose: Поуз|, Поуз|ов
+    @л: Pose|, Pose|ov
+Qt Assistant: |{Qt~н}-асистент|, |{Qt~н}-асистент|ов
+    @л: |{Qt~n}Assistant|, |{Qt~n}Assistant|ov
+Qt Designer: |{Qt~н}-дизајнер|, |{Qt~н}-дизајнер|ов
+    @л: |{Qt~n}Designer|, |{Qt~n}Designer|ov
+Qt DlgEdit: |{Qt~н}-длгедит|, |{Qt~н}-длгедит|ов
+    @л: |{Qt~n}DlgEdit|, |{Qt~n}DlgEdit|ov
+Qt Linguist: |{Qt~н}-лингвист|, |{Qt~н}-лингвист|ов
+    @л: |{Qt~n}Linguist|, |{Qt~n}Linguist|ov
+Quanta: Квант|а, Квант|ин
+    @л: Quant|a, Quant|in
+Quanta Plus: Квант|а Плус
+    @л: Quant|a Plus
+Scheck: С-провер|а
+SVN: СВН|-, СВН|-ов, СВН|>
+Subversion: Субверзиј|а, Субверзиј|ин, субверзиј|ски
+    @л: Subversion|, Subversion|ov, subversion|>
+Umbrello: Умбрел|о, Умбрел|ов, _род!=м
+    @л: Umbrell|o, Umbrell|ov
+Valgrind: Валгринд|, Валгринд|ов
+
+# ----------------------------------------------------------------------------
+# Преводиоци
+
+KBabel: К-бабел|, К-бабел|ов
+    @л: KBabel|, KBabel|ov
+Lokalize: Локализуј|2, Локализуј|ев
+GTranslator: Г-преводи|лац, Г-преводи|очев
+Poedit: Поедит|, Поедит|ов
+    @л: Pоedit|, Pоedit|ov
+Pology: Пологиј|а, Пологиј|ин
+    @л: Polog|y, Polog|yjev
+Translate Toolkit: Преводилачк|и> прибор|
+
+# ----------------------------------------------------------------------------
+# Математика
+
+Octave, |octaveapp: Октав|а, Октав|ин
+    @л: Octave|, Octave|ov
+Scilab, |scilabapp: Сцилаб|, Сцилаб|ов
+Matlab, |matlabapp: Матлаб|, Матлаб|ов
+Maple: Мепл|, Мепл|ов
+    @л: Maple|, Maple|ov
+Mathematica: Математ|ика, Математ|икин
+    @л: Mathematic|a, Mathematic|in
+
+# ----------------------------------------------------------------------------
+# Мултимедија
+
+Akode: Акод|, Акод|ов
+    @л: Akode|, Akode|ov
+Arts: Артс|, Артс|ов
+AleVT: АлеВТ|-, АлеВТ|-ов
+AlsaMixerGui: Алса-миксер-ГУ|И-
+    @л: AlsaMixerGU|I-
+Amarok: Амарок|, Амарок|ов
+ams: Амс|, Амс|ов
+    @л: ams|, ams|ov
+amSynth: Амсинт|, Амсинт|ов
+    @л: amSynth|, amSynth|ov
+Ardour: Ардур|, Ардур|ов
+    @л: Ardour|, Ardour|ov
+AuCDtect: АуЦДтект|, АуЦДтект|ов
+    @л: AuCDtect|, AuCDtect|ov
+Audacity: Одасит|и, Одасит|ијев
+    @л: Audacit|y, Audacit|yjev
+Audacious: Одејшус|, Одејшус|ов
+    @л: Audacious|, Audacious|ov
+Aumix: Аумикс|, Аумикс|ов
+    @л: Aumix|, Aumix|ov
+Aviplay: Авиплеј|, Авиплеј|ев
+    @л: Aviplay|, Aviplay|ev
+Banshee: Банш|и, Банш|ијев
+    @л: Banshe|e-ij, Banshe|ejev
+Broadcast 2000: Броудкаст| 2000
+    @л: Broadcast| 2000
+DirectShow: Директшоу|, Директшоу|ов
+    @л: DirectShow|, DirectShow|ov
+DirectShow9: |{DirectShow}-9
+DJPlay: Диџејплеј|, Диџејплеј|ев
+    @л: DJPlay|, DJPlay|ev
+Dragon Player: Змај|ев> плејер|
+EcaMegaPedal: Екамегапедал|, Екамегапедал|ов
+    @л: EcaMegaPedal|, EcaMegaPedal|ov
+Ecasound: Екасаунд|, Екасаунд|ов
+    @л: Ecasound|, Ecasound|ov
+EnjoyMPEG: ЕнџојМПЕГ|-, ЕнџојМПЕГ|-ов
+    @л: EnjoyMPEG|-, EnjoyMPEG|-ov
+ESD: ЕСД|-, ЕСД|-ов
+Esound: Есаунд|, Есаунд|ов
+    @л: Esound|, Esound|ov
+FluidSynth: Флуидсинт|, Флуидсинт|ов
+    @л: FluidSynth|, FluidSynth|ov
+FreeBirth: Фриберт|, Фриберт|ов
+    @л: FreeBirth|, FreeBirth|ov
+FreqTweak: Фректвик|, Фректвик|ов
+    @л: FreqTweak|, FreqTweak|ov
+gAlan: Г-алан|, Г-алан|ов
+    @л: gAlan|, gAlan|ov
+Grip: Грип|, Грип|ов
+GStreamer: Гстример|, Гстример|ов
+    @л: GStreamer|, GStreamer|ov
+GTV: ГТВ|-, ГТВ|-ов
+Hydrogen: Хидроген|, Хидроген|ов
+    @л: Hydrogen|, Hydrogen|ov
+iTunes: и-Тјунс|, и-Тјунс|ов
+    @л: iTunes|, iTunes|ov
+Jack: Џек|, Џек|ов
+    @л: Jack|, Jack|ov
+Jack-Rack: Џек-рек|, Џек-рек|ов
+    @л: Jack-Rack|, Jack-Rack|ov
+Jamin: Џемин|, Џемин|ов
+    @л: Jamin|, Jamin|ov
+Jazz: Џез|, Џез|ов
+    @л: Jazz|, Jazz|ov
+Juk: Џук|, Џук|ов
+    @л: Juk|, Juk|ov
+K3b: К3б|, К3б|-ов
+    @л: K3b|ov
+Kaboodle: Кабудл|, Кабудл|ов
+    @л: Kaboodle|, Kaboodle|ov
+Kaffeine: Кафеин|, Кафеин|ов
+    @л: Kaffeine|, Kaffeine|ov
+KAudioCreator: К-аудио-ствара|лац, К-аудио-ствараоч|ев
+KMix: К-мискет|а, К-миксет|ин
+    @л: K-mikset|a
+KMixCtrl: К-миксконтрол|а
+KMPlayer: КМ-плејер|, КМ-плејер|ов
+    @л: KMPlayer|, KMPlayer|ov
+KsCD: КсЦД|-, КсЦД|-ов
+Lame: Лејм|, Лејм|ов
+    @л: Lame|, Lame|ov
+MAS: МАС|-, МАС|-ов
+Meterbridge: Метербриџ|, Метербриџ|ов
+    @л: Meterbridge|, Meterbridge|ov
+Mixxx: Миксикс|, Миксикс|ов
+    @л: Mixxx|, Mixxx|ov
+MP3 Info: МП3 инфо|, МП3 инфо|ов
+    @л: MP3 Info|, MP3 Info|ov
+MpegTV: МпегТВ|-, МпегТВ|-ов
+MPlayer: М-плејер|, М-плејер|ов
+    @л: MPlayer|, MPlayer|ov
+MusE: Мјуз|, Мјуз|ов
+    @л: MusE|, MusE|ov
+Nero: Нер|о, Нер|ов
+NMM: НММ|-, НММ|-ов
+Noatun: Ноатун|, Ноатун|ов
+Ogle: Огл|, Огл|ов
+    @л: Ogle|, Ogle|ov
+OQTPlayer: ОКуТ-плејер|, ОКуТ-плејер|ев
+    @л: OQTPlayer|, OQTPlayer|ev
+QJackCtl: КуЏекЦтл|
+    @л: QJackCtl|
+QSynth: КуСинт|, КуСинт|ов
+    @л: QSynth|, QSynth|ov
+Quod Libet: Кводлибет|, Кводлибет|ов
+    @л: Quod Libet|, Quod Libet|ov
+PulseAudio: Пулс-ауд|ио, Пулс-ауд|ијев
+    @л: PulseAud|io, PulseAud|ijev
+RealPlayer: Рилплејер|, Рилплејер|ев
+    @л: RealPlayer|, RealPlayer|ev
+reZound: Резаунд|, Резаунд|ов
+    @л: reZound|, reZound|ov
+Rhythmbox: Ритам машин|а, Ритам машин|ин
+Slab: Слаб|, Слаб|ов
+Softsynth: Софтсинт|, Софтсинт|ов
+    @л: Softsynth|, Softsynth|ov
+Sweep: Свип|, Свип|ов
+    @л: Sweep|, Sweep|ov
+TightVNC: ТајтВНЦ|-, ТајтВНЦ|-ов
+    @л: TightVNC|-, TightVNC|-ov
+Totem: Тотем|, Тотем|ов
+vkeybd: Вкибд|, Вкибд|ов
+    @л: vkeybd|, vkeybd|ov
+Vorbis: Ворбис|, Ворбис|ов, ворбис|>
+    @л: Vorbis|>
+Winamp: Винамп|, Винамп|ов
+    @л: Winamp|, Winamp|ov
+WorkMan: Воркман|, Воркман|ов
+    @л: WorkMan|, WorkMan|ov
+XawTV: КсавТВ|-, КсавТВ|-ов
+    @л: XawTV|-, XawTV|-ov
+XCam: Икс-камер|а, Икс-камер|ин
+    @л: X-kamer|a, X-kamer|in
+XMMS: ИксММС|-, ИксММС|-ов
+    @л: XMMS|-, XMMS|-ov
+Xine: Ксине|, Ксине|ов
+    @л: Xine|, Xine|ov
+Xing: Ксинг|, Ксинг|ов
+    @л: Xing|, Xing|ov
+XMovie: Икс-филм|, Икс-филм|ов
+    @л: X-film|, X-film|ov
+ZLib: Злиб|, Злиб|ов, злиб|>
+    @л: ZLib|, ZLib|ov
+ZynaddsubFX: Зинадсуб-ФИкс|, Зинадсуб-ФИкс|ов
+    @л: ZynaddsubFX|-, ZynaddsubFX|-ov
+
+# ----------------------------------------------------------------------------
+# Игре
+
+AisleRiot: Ајлрајот|, Ајлрајот|ов
+    @л: AisleRiot|, AisleRiot|ov
+Alephone: Алефон|а, Алефон|ин
+    @л: Alephon|a, Alephon|in, n=Alephone
+Angband: Ангбанд|, Ангбанд|ов
+Batallion: Батаљон|, Батаљон|ов
+    @л: Batallion|, Batallion|ov
+Battleball: Бојолопт|а, Бојолопт|ин
+Battle for Wesnoth: Бој| за Веснот
+Beneath a Steel Sky: _род!=м, Под челичним небом|*
+Bomber: Бомбардер|, Бомбардер|ов
+Bovo: Бово|, Бово|ов
+Breakout: Пробој|2, Пробој|ев
+ChessMail: Шах-пошт|а, Шах-пошт|ин
+ClanBomber: Кланбомбер|, Кланбомбер|ов
+    @л: ClanBomber|, ClanBomber|ov
+Crimson Fields: Гримизн|а-> пољ|а-
+cxhextris: ЦИкс-хекстрис|, ЦИкс-хекстрис|ов
+    @л: CXHextris|, CXHextris|ov
+Daleks: Дале|ци-к2
+Defendguin: Бранигвин|, Бранигвин|ов
+Flight of the Amazon Queen: Лет| Амазонске краљице
+FreeCell, |freecellapp: Фрисел|, Фрисел|ов
+    @л: FreeCell|, FreeCell|ov
+Freeciv: Фрицив|, Фрицив|ов
+    @л: Freeciv|, Freeciv|ov
+Frozen Bubble: Смрзмехур|, Смрзмехур|ов
+Gataxx: Гатакс|, Гатакс|ов
+    @л: Gataxx|, Gataxx|ov
+Glines: Глиниј|е-
+Gnibbles: Г-змијиц|е-
+Gnobots II: Гнобот|и- II
+Gnome Chess: |Gnome~.мп шах|
+Gnome Mahjongg: |Gnome~.мп |Mahjongg
+Gnome Mines: |Gnome~.жкп миниц|е-
+Gnome Stones: _род!=с, |Gnome~.сп камењ|е3
+Gnotravex: Гнотравекс|, Гнотравекс|ов
+    @л: Gnotravex|, Gnotravex|ov
+Gnotski: Гнотск|и, Гнотск|ијев
+Gomoku: Гомоку|, Гомоку|ов
+GTali: Гтал|и, Гтал|ијев
+    @л: GTal|i, GTal|ijev
+Iagno: _род!=м, Ијањ|о, Ијањ|ов
+    @л: Iagn|o, Iagn|ov
+KAtomic: К-атомик|а, К-атомик|ин
+Kapman: Капмен|, Капмен|ов
+    @л: Kapman|, Kapman|ov
+KBattleship: К-подморниц|е-
+KBlackBox: К-црн|{а>}-кутиј|а
+KBlocks: К-блоков|и-
+KBomber: К-бомбардер|, К-бомбардер|ов
+KBounce: К-одбој|, К-одбој|ев
+KBreakout: К-пробој|2, К-пробој|ев
+KDiamond: К-дијамант|, К-дијамант|ов
+KFourInLine: К-четири-у-низу|*, _род!=м
+KGame: К-игр|а, К-игр|ин, к-игра|чки
+KGoldRunner: К-златобој|ац, К-златобојч|ев
+KHangman: К-вешал|а-
+Killbots: К-злобот|и-
+Kiriki: Кирик|и, Кирик|ијев
+KJumpingCube: К-скочикоцк|а, К-скочикоцк|ин
+Klotski: Клотск|и, Клотск|ијев
+KMahjongg: К-|Mahjongg|**
+KMines: К-мин|е-
+KNetWalk: К-мрежоход|, К-мрежоход|ов
+Kolf: Колф|, Колф|ов
+Kollision: Колизиј|а, Колизиј|ин
+Kolor Lines: Обојен|е-> линиј|е-
+Konquest: К-осваја|ње
+KPatience: К-пасијанс|, К-пасијанс|ов
+KReversi: К-|Reversi|**
+KSame: К-|SameGame|**
+KSirk: К-сирк|, К-сирк|ов
+    @л: KSirk|, KSirk|ov
+KSnake: К-змијиц|е-
+KSpaceDuel: К-свемирск|{и>}-двобој|2
+KSquares: К-квадрат|и-
+KSudoku: К-|Sudoku|**
+KTeaTime: К-чајанк|а, К-чајанк|ин
+KTron: К-|Tron|**
+KTuberling: |{Potato Guy}
+KTux: К-тукс|, К-тукс|ов
+    @л: KTux|, KTux|ov
+Kubrick: Кубрик|, Кубрик|ов
+LSkat: П-скат|, П-скат|ов # П од поручник
+Marathon Infinity: Маратон| бескрај|
+    @л: Marathon| beskraj|
+Marble Madness: Кликерск|о> лудил|о, _род!=с
+Minesweeper: Минолов|ац, Миноловч|ев
+Missile Command: Ракетн|а> команд|а
+Moria: Мориј|а, Мориј|ин
+    @л: Mor|ia
+Mures: Самур|и-
+NetHack: Нетхак|, Нетхак|ов
+    @л: NetHack|, NetHack|ov
+Nibbles: Змијиц|е-
+Pacman: Пакмен|, Пакмен|ов
+    @л: Pacman|, Pacman|ov
+Penguin Command: Пингвинск|а> команд|а
+Pingus: Пингус|, Пингус|ов
+Potato Guy: Кромпирк|о, Кромпирк|ов, _род!=м
+PySol: Писол|, Писол|ов
+    @л: PySol|, PySol|ov
+Q*bert: Кјуберт|, Кјуберт|ов
+    @л: Q*bert|, Q*bert|ov
+Qmamecat: Ку-мамекат|, Ку-мамекат|ов
+    @л: Qmamecat|, Qmamecat|ov
+Oneko: Онек|о, Онек|ов, _род!=м
+Quake: Квејк|, Квејк|ов, квејк|овски
+    @л: Quake|, Quake|ov, quake|ovski
+Rocks n Diamonds: _род!=с, Камењ|е3 и дијама|нти-
+Rogue: Роуг|, Роуг|ов
+    @л: Rogue|, Rogue|ov
+Same Gnome: |Gnome~.сп исто-исто, _род!=с
+Shisen-Sho: Шисен-шо|, Шисен-шо|ов
+Scavenger: Лешинар|, Лешинар|ев
+Scorched Earth: Спаљен|а> земљ|а
+Sokoban: Сокобан|, Сокобан|ов
+Super Methane Brothers: Супер метанск|а> браћ|а
+Tetris, |tetrisorig: Тетрис|, Тетрис|ов
+ToME: Том|, Том|ов
+    @л: Tome|, Tome|ov
+Trophy: Трофеј|, Трофеј|ев
+    @л: Troph|y, Troph|yjev
+TuxRacer: Тукс-трк|ач, Тукс-тркач|ев
+    @л: Tux-trk|ač, Tux-trkač|ev
+Xboard: Икс-табл|а, Икс-табл|ин
+    @л: X-tabl|a, X-tabl|in
+Xgammon: Икс-гамон|, Икс-гамон|ов
+    @л: Xgammon|, Xgammon|ov
+XKobo: Икс-кобо|, Икс-кобо|ов
+    @л: XKobo|, XKobo|ov
+XPat 2: Икспат| 2
+    @л: XPat| 2
+XScorch: Икс-скорч|, Икс-скорч|ов
+    @л: XScorch|, XScorch|ov
+XShipWars: Икс-бродск|{и>}-ратов|и-
+    @л: X-brodsk|{i>}-ratov|i-
+XSkat: Икс-скат|, Икс-скат|ов
+    @л: X-skat|, X-skat|ov
+XSoldier: Икс-војник|, Икс-војник|ов
+    @л: X-vojnik|, X-vojnik|ov
+XSudoku: Икс-|Sudoku|**
+    @л: X-|Sudoku|**
+XTron: Икс-|Tron|**
+    @л: X-|Tron|**
+ZAngband: Зангбанд|, Зангбанд|ов
+    @л: ZAngband|, ZAngband|ov
+
+# ----------------------------------------------------------------------------
+# Типови игара.
+
+FreeCell, |freecellgame: фрисел|, фрисел|ов
+Klondike: клондајк|, клондајк|ов, клондајк|>
+Lieutenant Skat: поручник| Скат|
+Mahjongg: махђонг|, махђонг|ов, махђонг|>
+SameGame: исто-исто|, исто-исто|>
+Sudoku: судоку|, судоку|ов, судоку|>
+Reversi: реверс|и, реверс|ијев, реверси|>
+Roxdoku: роксдоку|, роксдоку|ов, роксдоку|>
+Tetris, |tetrisgame: тетрис|, тетрис|ов
+Tron: трон|, трон|ов, трон|>
+
+# ----------------------------------------------------------------------------
+# Терминали и шкољке
+
+Aterm: Атерм|, Атерм|ов
+Bash, |bashapp: Басх|, Басх|ов, басх|>
+Konsole: Конзол|а, Конзол|ин
+    @л: Konsol|a, Konsol|in, n=Konsole
+Kvt: Квт|, Квт|ов
+RXVT: РИксВТ|-, РИксВТ|-ов
+    @л: RXVT|-, RXVT|-ov
+Tcsh: Тцсх|, Тцсх|-ов, тцсх|>
+XTerm: Икс-терм|, Икс-терм|ов
+    @л: XTerm|, XTerm|ov
+
+# ----------------------------------------------------------------------------
+# Менаџери прозора
+
+9WM: 9ВМ|-, 9ВМ|-ов
+    @л: 9WM|-, 9WM|-ov
+AEWM: АЕВМ|-, АЕВМ|-ов
+    @л: AEWM|-, AEWM|-ov
+AEWM++, |aewmpp: АЕВМ++|, АЕВМ++|ов
+    @л: AEWM++|, AEWM++|ov
+AfterStep: Афтерстеп|, Афтерстеп|ов
+    @л: AfterStep|, AfterStep|ov
+AMATERUS: Аматерус|, Аматерус|ов
+    @л: AMATERUS|-, AMATERUS|-ov
+AmiWM: АмиВМ|-, АмиВМ|-ов
+    @л: AmiWM|-, AmiWM|-ov
+ASClassic: АСКласик|, АСКласик|ов
+    @л: ASClassic|, ASClassic|ov
+awesome: Осом|, Осом|ов
+    @л: awesome|, awesome|ov
+B II: Б| II
+Blackbox: Блекбокс|, Блекбокс|ов
+    @л: Blackbox|, Blackbox|ov
+Compiz: Компиз|, Компиз|ов
+    @л: Compiz|, Compiz|ov
+CTWM: ЦТВМ|-, ЦТВМ|-ов
+    @л: CTWM|-, CTWM|-ov
+CWWM: ЦВВМ|-, ЦВВМ|-ов
+    @л: CWWM|-, CWWM|-ov
+deKorator: Декоратор|, Декоратор|ов
+    @л: deKorator|, deKorator|ov
+Enlightenment: Енлајтенмент|, Енлајтенмент|ов
+    @л: Enlightenment|, Enlightenment|ov
+Enlightenment DR16: |Enlightenment ДР16|*
+EvilWM: ИвилВМ|-, ИвилВМ|-ов
+    @л: EvilWM|-, EvilWM|-ov
+Fluxbox: Флуксбокс|, Флуксбокс|ов
+    @л: Fluxbox|, Fluxbox|ov
+FLWM: ФЛВМ|-, ФЛВМ|-ов
+    @л: FLWM|-, FLWM|-ov
+FVWM: ФВВМ|-, ФВВМ|-ов
+    @л: FVWM|-, FVWM|-ov
+FVWM95: _род!=м, ФВВМ95|*
+    @л: FVWM95|*
+Golem: Голем|, Голем|ов
+IceWM: АјсВМ|-, АјсВМ|-ов
+    @л: IceWM|-, IceWM|-ov
+Ion: Јон|, Јон|ов
+    @л: Ion|, Ion|ov
+KWin: К-вин|, К-вин|ов
+    @л: KWin|, KWin|ov
+KWM: КВМ|-, КВМ|-ов
+    @л: KWM|-, KWM|-ov
+LarsWM: ЛарсВМ|-, ЛарсВМ|-ов
+    @л: LarsWM|-, LarsWM|-ov
+LWM: ЛВМ|-, ЛВМ|-ов
+    @л: LWM|-, LWM|-ov
+Matchbox: Мечбокс|, Мечбокс|ов
+    @л: Matchbox|, Matchbox|ov
+Metacity: Метасит|и, Метасит|ијев
+    @л: Metacit|y, Metacit|yjev
+MWM: МВМ|-, МВМ|-ов
+    @л: MWM|-, MWM|-ov
+OLVWM: ОЛВВМ|-, ОЛВВМ|-ов
+    @л: OLVWM|-, OLVWM|-ov
+OLWM: ОЛВМ|-, ОЛВМ|-ов
+    @л: OLWM|-, OLWM|-ov
+Openbox: Опенбокс|, Опенбокс|ов
+    @л: Openbox|, Openbox|ov
+Oroborus: Уроборос|, Уроборос|ов
+    @л: Oroborus|, Oroborus|ov
+Phluid: Флуид|, Флуид|ов
+    @л: Phluid|, Phluid|ov
+PWM: ПВМ|-, ПВМ|-ов
+    @л: PWM|-, PWM|-ov
+QVWM: КуВВМ|-, КуВВМ|-ов
+    @л: QVWM|-, QVWM|-ov
+Ratpoison: Ретпојзон|, Ретпојзон|ов
+    @л: Ratpoison|, Ratpoison|ov
+Sapphire: Сафир|, Сафир|ов
+    @л: Sapphire|, Sapphire|ov
+Sawfish: Софиш|, Софиш|ев
+    @л: Sawfish|, Sawfish|ev
+Screen: Скрин|, Скрин|ов
+    @л: Screen|, Screen|ov
+TWM: ТВМ|-, ТВМ|-ов
+    @л: TWM|-, TWM|-ov
+UDE: УДЕ|-, УДЕ|-ов
+VTWM: ВТВМ|-, ВТВМ|-ов
+    @л: VTWM|-, VTWM|-ov
+W9WM: В9ВМ|-, В9ВМ|-ов
+    @л: W9WM|-, W9WM|-ov
+Waimea: Вајмеј|а, Вајмеј|ин
+    @л: Waime|a, Waime|in
+WM2: _род!=м, ВМ2|*
+    @л: WM2|*
+WindowMaker: Виндоумејкер|, Виндоумејкер|ов
+    @л: WindowMaker|, WindowMaker|ov
+
+# ----------------------------------------------------------------------------
+# Алатке
+
+AdBlock: Адблок|, Адблок|ов
+    @л: AdBlock|, AdBlock|ov
+Ark: Арк|, Арк|ов
+Bourne Shell: Борнов|а> шкољк|а
+    @л: Bourneov|a> školjk|a
+Calctool: Калктул|, Калктул|ов
+    @л: Calctool|, Calctool|ov
+CvsService: ЦВС-сервис|, ЦВС-сервис|ов
+cron: крон|, крон|ов, крон|>
+    @л: cron|, cron|ov, cron|>
+D-Bus Viewer: Приказив|ач |D-Bus~г
+DrKonqi: Др Конк|и, Др Конк|ијев
+    @л: DrKonq|i, DrKonq|ijev
+EditXRes: Едит-Иксрес|, Едит-Иксрес|ов
+    @л: EditXRes|, EditXRes|ov
+E-Notes: Е-беле|шке-
+Emoticons: КЦМ-емотикон|и-
+Enscript: Енскрипт|, Енскрипт|ов
+    @л: Enscript|, Enscript|ov
+Ethereal: Етереал|, Етереал|ов
+    @л: Ethereal|, Ethereal|ov
+Filelight: Фајлајт|, Фајлајт|ов
+    @л: Filelight|, Filelight|ov
+Filesystem Viewer: Приказив|ач фајл система
+Finder: Налаз|ач, Налазач|ев
+Font Installer: Инсталатер| фонтова
+Font Viewer: Приказив|ач фонтова
+FSView: ФС-вју|, ФС-вју|ов
+    @л: FSView|, FSView|ov
+GDM: ГДМ|-, ГДМ|-ов
+GhostScript: Гостскрипт|, Гостскрипт|ов
+    @л: GhostScript|, GhostScript|ov
+GKrellM: Гкрелм|, Гкрелм|ов
+    @л: GKrellM|, GKrellM|ov
+Gnome Color Selector: |Gnome~.мп бир|ач боја
+    @л: Gnom|ov> bir|ač boja
+Gnome Who: |Gnome~.мп ко|
+GnuPG: ГнуПГ|--, ГнуПГ|-ов, гнуПГ|>
+GPG: ГПГ|--, ГПГ|-ов, ГПГ|>
+Grub: Груб|, Груб|ов
+Icon Finder: Налаз|ач икона
+Imlib: Имлиб|, Имлиб|ов, имлиб|>
+Irkick: Иркик|, Иркик|ов
+    @л: Irkick|, Irkick|ov
+Java Web Start: |^Java~.мп веб-почет|ак
+KABC: КАБЦ|-, КАБЦ|-ов
+KAccess: К-приступ|, К-приступ|ов
+KAlarm: К-аларм|, К-аларм|ов
+KAppFinder: К-налаз|{ач}-програма
+KAppTemplate: К-шаблон|{}-програма
+Karamba: Карамб|а, Карамб|ин, карамба|>
+KBackgroundSnapshot: К-сним|{ак}-позадине
+KBlankScreen: К-праз|{ан>}-екран|
+KBookmarkMerger: К-стап|{ач}-маркера
+KBuildSycoca: К-градњ|{а}-|Sycoca~г
+    @л: К-gradnj|{a}-|Sycoca~g
+KCalc: К-калк|, К-калк|ов
+    @л: KCalc|, KCalc|ov
+KCardChooser: К-бир|{ач}-картица
+KCharSelect: К-бир|{ач}-знакова
+# Имена КЦМ-ова се углавном нигде не виде, али за сваки случај...
+KCMAccessiblity: КЦМ-приступачн|ост
+KCMAudioCD: КЦМ-аудиоЦД|
+KCMBackground: КЦМ-позадин|а
+KCMBell: _род!=с, КЦМ-звон|о
+KCMCGI: КЦМ-ЦГ|И-
+KCMClock: КЦМ-сат|
+KCMComponentChooser: КЦМ-бир|{ач}-компоненти
+KCMEmoticons: КЦМ-емотикон|и->
+KCMInfo: КЦМ-инфо|
+KCMInit: КЦМ-почет|ак
+KCMKDED: КЦМ-КДЕД|-
+KCMKDM: КЦМ-КДМ|-
+KCMKDNSSD: КЦМ-КДНССД|-
+KCMKonqHtml: КЦМ-конкХТМЛ|-
+    @л: KCM-KonqHTML|-
+KCMKttsMgr: КЦМ-КТТС-менаџер|
+KCMKResources: КЦМ-К-ресурс|и-
+KCMKWinCompositing: КЦМ-слагањ|{ње}-прозора
+KCMKWinDecoration: КЦМ-декорациј|{а}-прозора
+KCMKWinRules: КЦМ-правил|{а-}-прозора
+KCMKWinOptions: КЦМ-опциј|{е-}-прозора
+KCMLocale: КЦМ-локалитет|
+KCMMemory: КЦМ-мемориј|а
+KCMOpenGL: КЦМ-|OpenGL
+KCMPCI: КЦМ-|PCI
+KCMSamba: КЦМ-Самб|а
+    @л: КЦМ-Samb|a
+KCMScreensaver: КЦМ-чувар|{}-екрана
+KCMSmartcard: КЦМ-смарткартиц|а
+KCMSOCKS: КЦМ-СОКС|-
+    @л: KCM-SOCKS|-
+KCMStyle: КЦМ-стил|
+KCMTaskbar: КЦМ-тра|{ка}-задатака
+KCMUSB: КЦМ-УСБ|-
+KCMUserAccount: КЦМ-корисничк|{и>}-налог|
+KCMWeather: КЦМ-врем|е-н
+KCMXinerama: КЦМ-ксинерам|а
+    @л: KCM-Xinerama|a
+KColorChooser: К-бир|{ач}-боја
+KControl: К-контрол|а
+KControlCenter: Контролн|и> цент|ар
+KControlEdit: Уређив|ач |KControl~г
+KDCOP: К-|DCOP
+KDE Autostart Manager: |{KDE~.мп} менаџер| самопокретања
+KDebugDialog: К-исправљачк|{и>}-дијалог|
+KDE Help Center: Цент|ар помоћи |{KDE~г}
+KDesktop: К-површ|-ж
+KDEpasswd: К-лозинк|а
+KDEPrint: К-штампа|ње
+KDE ssh: |{KDE~.м} ссх|
+KDE su: |{KDE~.м} су|
+KDE Wallet Service: |KDE~.мп сервис| новчаника
+KDialog: К-дијалог|, К-дијалог|ов
+KDict: К-речник|, К-речник|ов
+KDiskFree: К-диск-простор|, К-диск-простор|ов
+KDM: КДМ|-, КДМ|-ов
+KEditFileType: |{KDE~.мп} уређив|ач типа фајла
+KFind: К-налаз|ач, К-налазач|ев
+KFloppy: К-флоп|и, К-флоп|ијев
+KFontInst: К-инсталатор|{}-фонтова
+KFontView: К-приказив|{ач}-фонтова
+KGPG: КГПГ|-, КГПГ|-ов
+KHelpCenter: К-цент|{ар}-помоћи
+KHotNewStuff: К-свеж|{е->}-новотариј|е-
+Kicker: Кикер|, Кикер|ов
+    @л: Kicker|, Kicker|ov
+Kickoff: Одскок|, Одскок|ов
+KImageMapEditor: К-уређив|ач мапе слике
+KInetD: КинетД|-, КинетД|-ов
+    @л: KInetD|-, KInetD|-ov
+KInfoCenter: К-инфоцент|ар, К-инфоцентр|ов
+KIOSK Admin tool: Админ-алатк|а |Kiosk~г
+KJSCmd: КЈСкмд|-, КЈСкмд|-ов
+    @л: KJSCmd|-, KJSCmd|-ov
+KLaptopDaemon: К-лаптоп-демон|
+Kleopatra: Клеопатр|а, Клеопатр|ин
+Klipper: Клипер|, Клипер|ов
+    @л: Klipper|, Klipper|ov
+KLock: К-закључава|ње
+KMagnifier: К-увеличав|ач
+KMan: К-упут|и-
+KManPart: К-упут-д|ео
+KMenu: К-мен|и, К-мен|ијев
+    @л: KMen|i, n=KMenu, a=KMenu, KMen|ijev
+KMenuEdit: Уређив|ач |KMenu~г
+KMouseTool: К-мишоклик|
+KMouth: К-уст|а-
+KNetAttach: К-мрежохват|, К-мрежохват|ов
+Kompare: К-поређе|ње
+KPackage: К-пакет|, К-пакет|ов
+KPPPLogview: |{KPPP~н}-приказ|{}-дневника
+KPrinter: К-штамп|ач, К-штампач|ев
+KPyBrowser: К-пи-преглед|ач
+    @л: K-Py-pregled|ač
+KRandR: К-рандр|, К-рандр|ов
+    @л: K-RandR|-, K-RandR|-ov
+KRandRTray: К-рандр-касет|а, К-рандр-касет|ин
+    @л: K-RandR-kaset|a, K-RandR-kaset|in
+KRegexpEditor: К-уређив|{ач}-региза
+Krell: Крел|, Крел|ов
+    @л: Krell|, Krell|ov
+KRDC: КРДЦ|-, КРДЦ|-ов
+KRFB: КРФБ|-, КРФБ|-ов
+KRootImage: К-корен|{а>}-сли|ка
+KSayIt: К-изговор|, К-изговор|ов
+KScan: К-скен|, К-скен|ов
+    @л: KScan|, KScan|ov
+KSendFax: К-сендфакс|, К-сендфакс|ов
+    @л: KSendFax|, KSendFax|ov
+KSMServer: КСМ-сервер|, КСМ-сервер|ов
+    @л: KSMServer|, KSMServer|ov
+KSnapShot: К-сним|ак, К-снимк|ов
+KSpeak: К-говор|, К-говор|ов
+KSplash: К-сплеш|, К-сплеш|ов
+    @л: KSplash|, KSplash|ov
+KStart: К-покрет|, К-покрет|ов
+KSycoca: К-|Sycoca
+    @л: K|Sycoca
+KSysGuard: К-систембран|, К-систембран|ов
+KSysTrayCmd: К-касетнаредб|а, К-касетнаредб|ин
+KTimer: К-одбројав|ач, К-одбројавач|ев
+KTimeTracker: К-прати|{лац}-времена
+KTip: К-савет|, К-савет|ов
+KTTS: КТТС|-, КТТС|-ов
+KTTSD: КТТСД|-, КТТСД|-ов
+kttsjobmgr: |*|kttsmgr послова
+kttsjobmgrpart: |*|kttsjobmgr д|ео
+kttsmgr: КТТС-менаџер|, КТТС-менаџер|ов
+KUIServer: КУИ-сервер|, КУИ-сервер|ов
+    @л: KUIServer|, KUIServer|ov
+KUser: К-корисник|, К-корисник|ов
+KWallet: К-новчаник|, К-новчаник|ов
+KWalletManager: Менаџер| |KWallet~г
+KWeather: К-врем|е-н
+KWebDesktop: К-вебповрш|-ж
+KwikDisk: Квикдиск|, Квикдиск|ов
+    @л: KwikDisk|, KwikDisk|ov
+Kwlan: К-влан|, К-влан|ов
+    @л: Kwlan|, Kwlan|ov
+KXKB: КИксКБ|-, КИксКБ|-ов
+    @л: KXKB|-, KXKB|-ov
+KXSConfig: К-ИксС-конфиг|, К-ИксС-конфиг|ов
+    @л: KXSConfig|, KXSConfig|ov
+KXSRun: К-ИксС-покрет|, К-ИксС-покрет|ов
+    @л: KXSRun|, KXSRun|ov
+Lancelot: Ланселот|, Ланселот|ов
+    @л: Lancelot|, Lancelot|ov
+Lilo: Лило|, Лило|ов
+LocalDomainFilter: Филтер| локалног домена
+Luna: Лун|а, Лун|ин
+MiniTerm: Минитерм|, Минитерм|ов
+    @л: MiniTerm|, MiniTerm|ov
+Minitools: Миниалатк|е-
+MiniUPnP: МиниУПнП|-, МиниУПнП|-ов
+MouseTool: Мишоклик|
+Nmapfe: Нмапфе|, Нмапфе|ов
+OClock: О-сат|, О-сат|ов
+Okteta: Октет|а, Октет|ин
+PCSCLite: ПЦСЦлајт|, ПЦСЦлајт|ов
+    @л: PCSCLite|, PCSCLite|ov
+PeerGuardian: Пиргардијан|, Пиргардијан|ов
+    @л: PeerGuardian|, PeerGuardian|ov
+PGP: ПГП|--, ПГП|-ов, ПГП|>
+Plasma Applet Viewer: |{Plasma~.мп} приказив|ач аплета
+Plasma Package Manager: |{Plasma~.мп} менаџер| пакета
+Plasma for the Screensaver: |*|Plasma за чувар екрана
+Plasma Wallpaper Viewer: |{Plasma~.мп} приказив|ач тапета
+Plasma Widget Viewer: |{Plasma~.мп} приказив|ач виџета
+PowerDevil: Струјн|и!> ђав|о-л!
+Procinfo: Процинфо|, Процинфо|ов
+PwManager: Лозменаџер|, Лозменаџер|ов
+Raptor: Раптор|, Раптор|ов
+SAM: САМ|-, САМ|-ов
+Scrollkeeper: Чувар| свитака
+ShortURIFilter: Филтер| кратких УРИ-ја
+Solid Browser: |Solid~.мп преглед|ач
+Spell Checker: Правописар|
+SuperKaramba: Суперкарамб|а, Суперкарамб|ин, суперкарамба|>
+    @л: SuperKaramb|a, SuperKaramb|in
+Sweeper: Чист|ач, Чистач|ев
+Synaptic: Синаптик|, Синаптик|ов
+    @л: Synaptic|, Synaptic|ov
+System Settings: Системск|е-> поставк|е-и
+udev: удев|, удев|ов, удев|>
+Vmstat: Вмстат|, Вмстат|ов
+Wicd: Вицд|, Вицд|ов
+    @л: Wicd|, Wicd|ov
+Wine: Вине|, Вине|ов
+    @л: Wine|, Wine|ov
+WinPopup: Винпопап|, Винпопап|ов, винпопап|>
+    @л: WinPopup|, WinPopup|ov, winpopup|>
+WinZip: Винзип|, Винзип|ов
+    @л: WinZip|, WinZip|ov
+Wireshark: Вајершарк|, Вајершарк|ов
+    @л: Wireshark|, Wireshark|ov
+X-Gnokii: Икс-гнок|и, Икс-гнок|ијев
+    @л: X-Gnoki|i, X-Gnoki|ijev
+XCalc: Икс-калк|, Икс-калк|ов
+    @л: XCalc|, XCalc|ov
+XClipboard: Икс-исеч|ци-к
+    @л: X-iseč|ci-k
+XClock: Икс-сат|, Икс-сат|ов
+    @л: X-sat|, X-sat|ov
+XConsole: Икс-конзол|а, Икс-конзол|ин
+    @л: XConsol|a, n=XConsole, XConsol|in
+XDM: ИксДМ|-, ИксДМ|-ов
+    @л: XDM|-, XDM|-ov
+Xesam: Ксезам|, Ксезам|ов
+    @л: Xesam|, Xesam|ov
+Xesam Search: |{Xesam~.жп} претра|га
+XKill: _род!=м, Икс-убиј|*
+    @л: X-ubij|*
+XLoad: Икс-оптереће|ње
+    @л: X-optereće|nje
+XLock: Икс-закључава|ње
+    @л: X-zaključava|nje
+XMagnifier: Икс-увеличав|ач, Икс-увеличавач|ев
+    @л: X-uveličav|ač, X-uveličavač|ev
+XMessage: Икс-пору|ка, Икс-порук|ин
+    @л: X-poru|ka, X-poruk|in
+Xosview: Икс-освју|, Икс-освју|ов
+    @л: Xosview|, Xosview|ov
+XRefresh: _род!=м, Икс-освежи|*
+    @л: X-osveži|*
+XTraceroute: Икс-трејсрут|, Икс-трејсрут|ов
+    @л: XTraceroute|, XTraceroute|ov
+Xwpick: Икс-впик|, Икс-впик|ов
+    @л: Xwpick|, Xwpick|ov
+ZModem: З-модем|, З-модем|ов
+    @л: ZModem|, ZModem|ov
+
+# ----------------------------------------------------------------------------
+# Угњеждени програмчићи
+
+3D Earth Model: 3Д-модел| Земље
+Activity Bar: тра|ка активности
+Analog Clock: аналогн|и> сат|
+Application Launcher: покрет|ач програма
+Application Launcher Menu: мен|и за покретање програма
+Application Notifications: обавештењ|а- програма
+Applications: програм|и-
+Applications Runner: извођ|ач програмâ
+Battery Monitor: надзор| батерије
+Bball: скочилопт|а
+Binary Clock: бинарн|и> сат|
+BitFinder: налаз|ач битова|
+Blue Marble: плав|и> кликер|
+Bookmark Runner: извођ|ач маркера
+Bookmarks: маркер|и-
+Bubblemon: облакмон|
+Calculator: калкулатор|
+Calculator Runner: извођ|ач калкулатора
+Calendar: календар|
+Character Selector: бир|ач знакова
+Collection: збир|ка
+Color Picker: бир|ач боја
+Comic Data Engine: датомотор| стрипова
+Comic: стрип|
+Comic Strip: |{Comic Strips}
+Comic Strips: стрипов|и-
+Command: наредб|а
+Command Line: командн|а линија
+Command line runner: извођ|ач командне линије
+Contacts: контакт|и-
+Dashboard: инструмент-табл|а
+Dashboard Widget: виџет| |Dashboard~г
+Date and Time: датум| и врем|е-н
+DBpedia queries: упит|и- |DBpedia~г
+Default Plasma Animator: подразумеван|и> |Plasma~.мп аниматор|
+Device Information: пода|ци-т о уређајима
+Device Notifier: обавештава|ње о уређајима
+Desktop Search: претра|га радне површи
+Desktop Sessions: сесиј|е- радне површи
+Desktop Sessions Runner: извођ|ач сесија радне површи
+Dictionary: речник|
+Dictionary Data Engine: датомотор| речника
+Digital Clock: дигиталн|и> сат|
+Eyes: оч|и-с
+Favicons: фавикон|е-
+Fifteen Puzzle: петнаестиц|а
+File and Directory Browser Engine: мотор| прегледања фајлова и фасцикли
+File Watcher: надзир|ач фајлова
+Files and Directories: фајлов|и- и фасцикл|е-
+Folder View: приказ| фасцикле
+Fuzzy Clock: одокативн|и> сат|
+Geolocation: геолокациј|а
+Geolocation GPS: |Geolocation ГПС
+Geolocation IP: |Geolocation ИП
+Google Gadgets: |Google~.жкп справиц|е-
+Hotplug Event Data Engine: датомотор| врућег укључивања
+Hotplug Events: догађај|и- врућег укључивања
+Icon: икон|а
+Imagebin: корп|а слика
+Incoming Message: долазећ|а> пору|ка
+Internal Extender Container: унутрашњ|и> садржа|лац проширивача
+JavaScript DataEngine: |JavaScript~.м датомотор|, _род!=м
+JavaScript Engine: |JavaScript~.м мотор|, _род!=м
+JavaScript Runner: |JavaScript~.м извођ|ач, _род!=м
+JavaScript Widget: |JavaScript~.м виџет|, _род!=м
+Kate Session Applet: |{Kate Sessions}
+Kate Sessions: |{Kate~.жкп} сесиј|е-
+Keyboard and Mouse State: ста|ње тастатуре и миша
+Keyboard Map Tool: распоред|и- тастатуре
+KGet barchart applet: тракаст|и> графикон| |KGet~г
+KGet panelbar applet: панелск|а> тра|ка |KGet~г
+KGet piechart applet: питаст|и> графикон| |KGet~г
+KGet Data Engine: датомотор| |KGet~г
+Konq Profiles Applet: |Konqueror~.мкп профил|и-
+Konqueror Profiles: |{Konq Profiles Applet}
+Konqueror Sessions: |{Konqueror~.жкп} сесиј|е-
+Konsole Profiles Applet: |Konsole~.мкп профил|и-
+Konsole Profiles: |{Konsole Profiles Applet}
+Konsole Sessions: |{Konsole~.жкп} сесиј|е-
+KopeteTeX: |*|{Kopete~н}-|TeX
+Lancelot Launcher: |Lancelot покрет|ач
+Lancelot Menu: |Lancelot мен|и
+LCD Weather Station: ЛЦД метеостаниц|а
+Leave A Note: оставља|ње поруке
+Life: живот|
+Locations: локациј|е-
+Locations Runner: извођ|ач локација
+Lock/Logout: закључава|{ње}/одјав|а, _род!=с
+MacOS Dashboard Widgets: виџет|и- инструмент-табле |MacOS~г
+Magnifique: магнифик|
+Media Player: медија плејер|
+Meta Data: метаподац|и-
+Microblogging: микроблогова|ње
+minicli: миникл|и
+    @л: minicl|i
+Mouse Data Engine: датомотор| стања миша
+MPlayerThumbs: сличиц|е- |MPlayer~и
+My Bookmarks: мој|и-> маркер|и-
+Navigation Panel: навигацион|и> панел|
+Nepomuk Desktop Search Runner: извођ|ач |Nepomuk~гжп претраге површи
+Networking: умрежава|ње
+New Device Notifier: обавештава|ње о новим уређајима
+News: вест|и-ж
+News Ticker: куц|ач вести
+Notes: беле|шке-
+Now Playing: тренутн|а> свир|ка
+Now Playing Engine: мотор| тренутне свирке
+Pager: пејџер|
+Panel: панел|
+Paste: налепљива|ње
+Pastebin: корп|а налепака
+Picture Frame: урамљен|а> сли|ка
+Picture of the Day: сли|ка дана
+Places: мест|а-
+Places Data Engine: датомотор| местâ
+Pointer Position: положај|2 показивача
+Powermanagement: управља|ње напајањем
+Powermanagement Data Engine: датомотор| управљања напајањем
+Previewer: преглед| # не ‘прегледач’, то је /browser/
+Python Clock: |Python~.м сат|, _род!=м
+Python data engine: |Python~.м датомотор, _род!=м
+Python Date and Time: |Python~.м датум| и врем|е-н, _род!=м
+Python Widget: |Python~.м виџет|, _род!=м
+QEdje Gadgets: |QEdje~.жк справиц|е-
+QuickLaunch: брзокрет|
+Recent Documents: скорашњ|и-> докуме|нти-
+Rellinks: Релвез|е-
+Remember The Milk Engine: датомотор| |{Remember The Milk~г}
+Resize and Rotate: Величин|а и ротациј|а
+RSSNow: |{RSS~н}-одмах|*, _род!=м
+Ruby Analog Clock: |Ruby~.м |{Analog Clock}, _род!=м
+Ruby Extender Tutorial: |Ruby~.м продужет|ак (туторијал)
+Ruby Web Browser: |Ruby~.м веб преглед|ач, _род!=м
+Ruby Widget: |Ruby~.м виџет|, _род!=м
+Run Commands: извршава|ње наредби
+SaverDesktop: чувар| на површи
+Search: претра|га
+Search Runner: извођ|ач претраге
+Sessions: сесиј|е-
+Shell Runner Config: постав|а извођача шкољке
+Show Desktop: приказ| површи
+Show Dashboard: приказ| инструмент-табле
+Show Widget Dashboard: приказ| инструмент-табле виџета
+SolidDevice Data Engine: датомотор| |Solid~г
+Spell Checker Runner: извођ|ач провере правописа
+System Monitor: системск|и> монитор|
+System Load Viewer: приказив|ач оптерећења система
+System Monitor - CPU: |{System Monitor} (ЦПУ)
+System Monitor - Hard Disk: |{System Monitor} (хард-диск)
+System Monitor - Hardware Info: |{System Monitor} (о хардверу)
+System Monitor - Network: |{System Monitor} (мрежа)
+System Monitor - RAM: |{System Monitor} (РАМ)
+System Monitor - Temperature: |{System Monitor} (температура)
+System Tray: системск|а> касет|а
+Task Management Data Engine: датомотор| управљања задацима
+Task Manager: менаџер| задатака
+Terminal Emulator: емулатор| терминала
+Test Data Engine: пробн|и> датомотор| података
+Tiger: тиг|ар
+Time Data Engine: датомотор| датума и времена
+Timer: одбројав|ач
+Trashcan: корп|а за смеће
+Twitter Data Engine: датомотор| |Twitter~г
+Twitter Microblogging: микроблогов|и- са |Twitter~г
+Unit Converter: претвар|ач јединица
+URLPicPreview: преглед| слике с |URL~г
+Weather: врем|е-н
+Weather Data Engine: датомотор| метеоролошких услова
+Weather Forecast: временск|а> прогноз|а
+Web Browser: веб преглед|ач
+Webbrowser History: историјат| веб прегледача
+Web Shortcut: веб пречиц|а
+Web Shortcuts: веб пречиц|е-
+Web Widget: веб виџет|
+Web Widgets: веб виџет|и-
+Webshortcut runner: извођ|ач веб пречица
+Window Information: пода|ци-т о прозорима
+
+# ----------------------------------------------------------------------------
+# Играчке
+
+Abstractile: Апстраплочиц|а
+Amor: Амор|, Амор|ов
+Anemone: Анемон|а
+Anemotaxis: Анемотакс|а
+Ant: Мрав|
+Apollonian: Аполонск|и>
+Asciiquarium: Аскикваријум|, Аскикваријум|ов
+    @л: Asciiquarium|, Asciiquarium|ov
+Attraction: Привлаче|ње
+Bitmap Wave: Битмапск|и> талас|
+Blaster: Бластер|
+BlitSpin: Блит-окрет|
+Bouboule: Бубуле|
+    @л: Bouboule|
+Boxed: Кутијаст|о>
+Braid: Плетениц|а
+Bubbles: Балончић|и-
+Bumps: Избочин|е-
+C Curve: Ц-крив|а
+Circuit: Кол|о, _род!=с
+Clock: Сат|, Сат|ов
+Compass: Компас|
+Coral: Корал|
+Critical: Критичн|о>
+Crystal: Кристал|
+Cubenetic: Коцкастичн|о>
+Cynosure: Циносур|а
+DangerBall: Смртолопт|а
+DecayScreen: Распадн|и> екран|
+Deco: Дек|о, _род!=с
+Deluxe: Делукс|
+    @л: Deluxe|
+Demon: Демон|
+Discrete: Дискретн|о>
+Distort: Изобличе|ње
+Drift: Плута|ње
+Engine: Мотор|
+Epicycle: Епициклус|
+Euler2d: Ојлер| 2Д
+Extrusion: Извлаче|ње
+Fireworks 3D (GL), fireworks3dgl: Ватромет|и- 3Д (ГЛ)
+Flag: Застав|а
+Flame: Пламен|
+Flipscreen3d: Окрет-екран| 3Д
+Flow: Ток|
+FluidBalls: Флуидн|е-> лопт|е
+Flux: Флукс|, Флукс|ов
+    @л: Flux|, Flux|ov
+Forest: Шум|а
+Galaxy: Галаксиј|а
+GFlux: Г-флукс|
+    @л: GFlux|
+GLForestFire: ГЛ шумск|и> пожар|
+GLText: ГЛ текст|
+Goop: Гуп|
+    @л: Goop|
+Gravity: Гравитациј|а
+Greynetic: Грејнетик|
+    @л: Greynetic|
+Halo: Ореол|
+Helix: Завојниц|а
+Hopalong: Хупалонг|
+    @л: Hopalong|
+Hyperball: Хиперлопт|а
+Hypercube: Хиперкоцк|а
+Interference: Интерференциј|а
+Jigsaw: Слагалиц|а
+Juggle: Жонглер|
+Julia: Џулиј|а
+Kaleidescope: Калеидоскоп|
+KBanner: К-барјак|, К-барјак|ов
+KBlob: К-блоб|, К-блоб|ов
+    @л: KBlob|, KBlob|ov
+KFireSaver: К-ватрочувар|, К-ватрочувар|ов
+KFortune: К-изрек|е-
+KLines: К-линиј|е-
+KLorenz: К-лоренц|, К-лоренц|ов
+KPendulum: К-клатн|о, К-клатн|ов, _род!=с
+KPolygon: К-полигон|, К-полигон|ов
+KRotation: К-ротациј|а, К-ротациј|ин
+KSlideShow: К-слајдшоу|, К-слајдшоу|ов
+KSpace: К-свемир|, К-свемир|ов
+Kumppa: Камп|а
+KWorldClock: К-светск|{и>}-сат|
+Laser: Ласер|
+Lavalite: Лавалајт|, Лавалајт|ов
+    @л: Lavalite|, Lavalite|ov
+Lightning: Муњ|е-
+Lines: Линиј|е-
+Lissie: Лиси|*, _род!=ж
+    @л: Lissie|*
+Loop: Петљ|а
+Maze: Лавиринт|
+Media Screen Saver: Медијск|и> чувар| екрана
+Menger: Менгер|
+Moire2: Муар|{}-2
+    @л: Moire|{}-2
+Moire: Муар|
+    @л: Moire|
+Molecule: Молекул|
+Morph3D: Морф|{}-3Д
+    @л: Morph|{}-3D
+Mountain: Планин|а
+Munch: Њам|
+NerveRot: Покидан|и-> живц|и-
+Noseguy: Носоњ|а, _род!=м
+Particle Fountain: Фонтан|а честица
+Particle Gravity: Честичн|а> гравитациј|а
+Pedal: Педал|а
+Penetrate: Пробој|
+Penrose: Пенроуз|!
+    @л: Penrose|!
+Petri: Петр|и!
+Phosphor: Фосфор|
+Polygons: Полигон|и-
+Polyominoes: Полиомин|е-
+Pyro: Пир|о, _род!=с
+Qix: Квикс|, Квикс|ов, квиксоли|ки
+    @л: Qix|, Qix|ov, qixoli|ki
+RD-Bomb: РД-бомб|а
+Ripples: Таласић|и-
+Rocks: Сте|ње
+Rorschach: Роршах|!
+Rotor: Ротор|
+RotZoomer: Ротозумер|
+    @л: RotZoomer|
+Sballs: С-лопт|е-
+Science: Нау|ка, Наук|ин
+ShadeBobs: Неонк|е-
+Sierpinski3D: Сјерпинск|{и>}-3Д
+Sierpinski: Сјерпинск|и>
+SlideScreen: Клизоекран|
+Slip: Склиз|
+Solar Winds: Соларн|и-> Ветров|и-
+Sonar: Сонар|
+SpeedMine: Окнаст|а> јурњав|а
+Spheremonics: Сферомони|ци-к
+Sphere: Сфер|а
+Spiral: Спирал|а
+Spotlight: Рефлектор|
+Squiral: Квирал|а
+Starfish: Морск|а> звезд|а
+StarWars: Ратов|и- звезда
+StonerView: Сонер|ов> поглед|
+Strange: Чудн|о>
+Swarm: Рој|, Рој|ев
+Swirl: Вртлог|
+Thornbird: Трноптиц|а
+Triangle: Троуга|о, _род!=м
+Truchet: Труше|
+    @л: Truchet|
+Tux: Тукс|, Тукс|ов
+    @л: Tux|, Tux|ov
+Twang: Тванг|
+    @л: Twang|
+Vermiculate: Црволик|о>
+Vines: Пузавиц|е-
+Virtual Machine: Виртуелн|а> машин|а
+Wander: Лута|ње
+WhirlwindWarp: Вихорн|и> увој|
+WhirlyGig: Вијуг-тачк|а
+Worm: Црв|
+XEarth: Икс-земљ|а, Икс-земљ|ин
+    @л: X-zemlj|a, X-zemlj|in
+XEyes: Икс-оч|и-с
+    @л: X-oč|i-s
+XFishtank: Икс-рибњак|, Икс-рибњак|ов
+XFlame: Икс-пламен|, Икс-пламен|ов
+    @л: X-plamen|, X-plamen|ov
+XGlobe: Икс-глобус|, Икс-глобус|ов
+    @л: X-globus|, X-globus|ov
+XJack: Икс-Џек|, Икс-Џек|ов
+    @л: XJack|, XJack|ov
+XLyap: Икс-љап|, Икс-љап|ов
+    @л: XLyap|, XLyap|ov
+XMatrix: Икс-матрикс|, Икс-матрикс|ов
+    @л: XMatrix|, XMatrix|ov
+XMountains: Икс-планин|е-
+    @л: X-planin|e-
+XPlanet: Икс-планет|а, Икс-планет|ин
+    @л: X-planet|a, X-planet|in
+XRaySwarm: Икс-зрачн|{и>}-рој|
+    @л: X-zračn|{i>}-roj|
+XScreenSaver: Икс-чувар|{}-екрана
+    @л: X-čuvar|{}-ekrana
+XSnow: Икс-снег|, Икс-снег|ов
+    @л: X-sneg|, X-sneg|ov
+XSpirograph: Икс-спирограф|, Икс-спирограф|ов
+    @л: XSpirograph|, XSpirograph|ov
+XTeeVee: Икс-те-ве|, Икс-те-ве|ов
+    @л: XTeeVee|, XTeeVee|ov
+Zoom: Зум|
+    @л: Zoom|
+
+# ----------------------------------------------------------------------------
+# Наука и образовање
+
+Blinken: К-трептај|2, К-трептај|ев
+    @л: treptaj|ev
+Celestia: Целестиј|а, Целестиј|ин
+    @л: Celest|ia
+Edict: Е-дикт|, Е-дикт|ов
+    @л: Edict|, Edict|ov
+Kalzium: Калцијум|, Калцијум|ов
+KAnagram: К-анаграм|, К-анаграм|ов
+Kanjidic: Канђидик|, Канђидик|ов
+    @л: Kanjidic|, Kanjidic|ov
+KBruch: К-разлом|ак, К-разломк|ов
+KEduca: К-едук|а, К-едук|ин
+    @л: KEduc|a, KEduc|in
+KGeography: К-географиј|а, К-географиј|ин
+KIG: КИГ|-, КИГ|-ов
+Kiten: Китен|, Китен|ов
+KLatin: К-латинск|и>
+KLettres: К-слов|а-
+KMPlot: К-матцрт|, К-матцрт|ов
+KPercentage: К-процен|ат, К-процент|ов
+KRecipes: К-рецепт|и-
+KStars: К-звезд|е-
+KTouch: К-додир|, К-додир|ов
+KTurtle: К-корњач|а, К-корњач|ин
+KVerbos: К-вербос|, К-вербос|ов
+    @л: KVerbos|, KVerbos|ov
+KVocTrain: К-вежб|{а}-речи
+KWordQuiz: К-квиз|{}-речи
+OpenUniverse: Отворен|и> универзум|
+SSystem: С-систем|, С-систем|ов
+    @л: SSystem|, SSystem|ov
+
+# ----------------------------------------------------------------------------
+# Правописари
+
+Aspell: Аспел|, Аспел|ов
+    @л: Aspell|, Aspell|ov
+Enchant: Енчант|, Енчант|ов
+    @л: Enchant|, Enchant|ov
+Hspell: Хспел|, Хспел|ов
+    @л: Hspell|, Hspell|ov
+International Ispell: Међународн|и> |Ispell
+Ispell: Испел|, Испел|ов
+    @л: Ispell|, Ispell|ov
+Kspell: Кспел|, Кспел|ов
+    @л: Kspell|, Kspell|ov
+Zemberek: Земберек|, Земберек|ов
+
+# ----------------------------------------------------------------------------
+# Мотори
+
+Akonadi: Аконад|и, Аконад|ијев
+Alib: Алиб|, Алиб|ов, алиб|>
+Alsa: Алс|а, Алс|ин, алса|>
+Avahi: Авах|и, Авах|ијев, авахи|>
+Blackdown: Блекдаун|, Блекдаун|ов
+    @л: Blackdown|, Blackdown|ov
+BlueZ: БлуЗ|-, БлуЗ|-ов
+    @л: BlueZ|-, BlueZ|-ov
+Bonjour: Бонжур|, Бонжур|ов, бонжур|>
+    @л: Bonjour|, Bonjour|ov, bonjour|>
+ConsoleKit: Консолкит|, Консолкит|ов, конзолкит|>
+    @л: ConsoleKit|, ConsoleKit|ov, ConsoleKit|>
+CUPS: ЦУПС|-, ЦУПС|-ов, ЦУПС|>
+Curses: Курсес|, Курсес|ов, курсес|
+    @л: Curses|, Curses|ov, curses|>
+DCOP: ДКОП|-, ДКОП|-ов, ДКОП|>
+    @л: DCOP|-, DCOP|-ov, DCOP|>
+Edje: Едје|, Едје|ов, едје|>
+Epos: Епос|, Епос|ов
+Festival: Фестивал|, Фестивал|ов
+Festival Interactive: |*|Festival интерактивн|и>
+Festival Lite: |*|Festival лајт
+    @л: |*|Festival Lite
+Flite: Флајт|, Флајт|ов
+    @л: Flite|, Flite|ov
+FontConfig: Фонтконфиг|, Фонтконфиг|ов
+    @л: FontConfig|, FontConfig|ov
+Foomatic: Фуматик|, Фуматик|ов
+    @л: Foomatic|, Foomatic|ov
+FreeTTS: ФриТТС|--, ФриТТС|-ов
+    @л: FreeTTS|--, FreeTTS|-ov
+GLextrusion: ГЛ-извлаче|ње
+Growl: Граул|, Граул|ов, граул|>
+    @л: Growl|, Growl|ov, Growl|>
+GSMLib: ГСМ-либ|, ГСМ-либ|ов
+    @л: GSMLib|, GSMLib|ov
+GTK: ГТК|-, ГТК|-ов, ГТК|>
+GTK+, |gtkp: ГТК+|-, ГТК+|-ов, ГТК+|>
+Hadifix: Хадификс|, Хадификс|ов
+    @л: Hadifix|, Hadifix|ov
+ht\://dig: хт\://диг|, хт\://диг|ов
+HTS: ХТС|--, ХТС|-ов, ХТС|>
+IOslave: У/И захват|, У/И захват|+, У/И захват|ни
+Iris: Ајрис|, Ајрис|ов
+    @л: Iris|, Iris|ov
+JasPer: Џаспер|, Џаспер|ов
+    @л: JasPer|, JasPer|ov
+KConf: К-конф|, К-конф|ов
+    @л: KConf|, KConf|ov
+KConfig: К-конфиг|
+    @л: KConfig|
+KConfigXT: К-конфиг-ИксТ|-
+    @л: KConfigXT|-
+KDE2: |{KDE~.} 2, н=|{KDE~н}-2, а=|{KDE~н}-2, |{KDE~н}-2|>, _род!=м
+    @л: KDE|- 2, n=KDE2, a=KDE2, KDE2|>
+KDE3: |{KDE~.} 3, н=|{KDE~н}-3, а=|{KDE~н}-3, |{KDE~н}-3|>, _род!=м
+    @л: KDE|- 3, n=KDE3, a=KDE3, KDE3|>
+KDE4: |{KDE~.} 4, н=|{KDE~н}-4, а=|{KDE~н}-4, |{KDE~н}-4|>, _род!=м
+    @л: KDE|- 4, n=KDE4, a=KDE4, KDE4|>
+KDED: КДЕД|-, КДЕД|-ов, КДЕД|>
+KDXSView: КДИксСвју|, КДИксСвју|ов
+    @л: KDXSView|, KDXSView|ov
+Kerfuffle: Керфафл|, Керфафл|ов
+    @л: Kerfuffle|, Kerfuffle|ov
+KFile: к-фајл|, к-фајл|>
+    @л: KFile|, KFile|>
+KGlobalAccel: К-глобалн|{е->}-пречиц|е-
+KHTML: КХТМЛ|-, КХТМЛ|-ов
+    @л: KTHML|-, KTHML|-ov
+KHotKeys: К-пречиц|е-
+KIOexec: К-У/И-извршав|ач
+Kiosk: Киоск|, Киоск|ов
+KIOslave: |IOslave
+KIPI: КИП|И-, КИП|И-јев, КИПИ|>
+KJSEmbed: КЈСЕмбед|, КЈСЕмбед|ов
+KLauncher: К-лансер|, К-лансер|ов
+    @л: KLauncher|, KLauncher|ov
+KMultiPart: К-мултидео|
+    @л: KMultiPart|
+KNewStuff: К-новотариј|е-
+    @л: К-novotarij|e-
+KNotify: К-обавештењ|а-
+Korundum: Корундум|, Корундум|ов
+Korundum4: |{Korundum~.}-4, _род!=|Korundum~_род!
+    @л: |{Korundum~.}4
+KPart: к-д|ео, к-дел|ови+, к-део|ни
+KResource: к-ресурс|, к-ресурс|+, к-ресурс|ни
+Kross: Крос|, Крос|ов
+    @л: Kross|, Kross|ov
+KRunner: К-извођ|ач, К-извођач|ев
+KSSL: КССЛ|-, КССЛ|ов, КССЛ|>
+KUnitTest: КЈунитТест|, КЈунитТест|ов
+    @л: KUnitTest|, KUnitTest|ov
+LibParted: Либпартед|, Либпартед|ов
+    @л: LibParted|, LibParted|ov
+LIRC: ЛИРЦ|-, ЛИРЦ|-ов, ЛИРЦ|>
+Lisa: Лиз|а, Лиз|ин
+    @л: Lis|a, Lis|in
+MBROLA: МБРОЛ|А
+Mesa: Мес|а, Мес|ин
+Mesa3D: |*|{Mesa}3Д
+Motif: Мотиф|, Мотиф|ов, мотиф|>
+MP3tunes Harmony: Хармон|и за |MP3Tunes~а
+    @л: Harmon|y za |MP3Tunes~a
+MultiSyn: Мултисин|, Мултисин|ов, мултисин|>
+    @л: MultiSyn|, MultiSyn|ov, multisyn|>
+MySQL: МајСКуЛ|-, МајСКуЛ|-ов, мајСКуЛ|>
+    @л: MySQL|-, MySQL|-ov, MySQL|>
+MySQLe: МајСКуЛe|-, МајСКуЛe|-ов, мајСКуЛe|>
+    @л: MySQLe|-, MySQLe|-ov, MySQLe|>
+Nepomuk: Непомук|, Непомук|ов, непомук|>
+    @л: Nepomuk|>
+NepomukFileWatch: |Nepomuk~.мп надзор| фајлова
+.NET, |dotnet: Дот-нет|, Дот-нет|ов, дот-нет|>
+    @л: .NET|, .NET|-ov, .NET|>
+NetworkManager: Менаџер| мреже
+OpenSSL: ОпенССЛ|-, ОпенССЛ|-ов
+OSS: ОСС|-, ОСС|-ов, ОСС|>
+Phonon: Фонон|, Фонон|ов
+    @л: Phonon|, Phonon|ov
+Plasma: Плазм|а, Плазм|ин, плазма|>
+    @л: Plasm|a, Plasm|in, plasma|>
+PolicyKit: Полисикит|, Полисикит|ов, полисикит|>
+    @л: PolicyKit|, PolicyKit|ov, PolicyKit|>
+PolicyKit-KDE: |*|{PolicyKit}-|KDE~н
+PolicyKit KDE Authorization: Овлашћива|ње |{PolicyKit-KDE~и}
+Polkit KDE Authorizations: |{PolicyKit KDE Authorization}
+Poppler: Поплер|, Поплер|ов
+    @л: Poppler|, Poppler|ov
+PostgreSQL: ПостгреСКуЛ|-, ПостгреСКуЛ|-ов, постгреСКуЛ|>
+    @л: PostgreSQL|-, PostgreSQL|-ov, PostgreSQL|>
+PyKDE: Пи|{KDE}
+    @л: Py|KDE
+PyKDE4: Пи|{KDE4}
+    @л: PyKDE4|*, PyKDE4|>, _rod!=m
+PyQt: Пи|{Qt}
+    @л: Py|Qt
+PyQt4: Пи|{Qt4}
+    @л: PyQt4|*, PyQt4|>, _rod!=m
+QCA: КуЦА|-, КуЦА|-ов, КуЦА|>
+    @л: QCA|-, QCA|-ov, QCA|>
+QEdje: Ку|Edje
+    @л: Q|Edje
+QScript: Ку-скрипт|, Ку-скрипт|ов, ку-скрипт|ни
+    @л: QScript|, QScript|ov, QScript|ni
+Qt: КуТ|-, КуТ|-ов, КуТ|>
+    @л: Qt|-, Qt|-ov, Qt|>
+Qt4: |{Qt~.}-4, |{Qt~н}-4|>, _род!=м
+    @л: |{Qt}4
+Qt Embedded: |Qt~. угњежден|и>, _род!=м
+Qt For Linux Embedded: |Qt~. за угњеждени |Linux~а, _род!=м
+Qt For Windows CE: |Qt~. за |{Windows CE~а}, _род!=м
+Qtopia: Кутопиј|а, Кутопиј|ин, кутопиј|ски
+    @л: Qtop|ia, Qtopij|in, qtopij|ski
+Qtopia Core: _род!=с, |{Qtopia}-језгр|о
+QtSQL: |*|{Qt~н}-|SQL, |{Qt~н}-|SQL~н|-ов
+    @л: QtSQL|-, QtSQL|-ov
+Redland: Редланд|, Редланд|ов, редланд|>
+    @л: Redland|>
+Reslisa: Реслиз|а, Реслиз|ин
+    @л: Reslis|a, Reslis|in
+SDL: СДЛ|-, СДЛ|-ов, СДЛ|>
+SELinux: СЕ-|Linux
+    @л: SE|Linux
+Social Desktop: Друштвен|а> површ|-ж
+Solid: Солид|, Солид|ов
+Sonnet: Сонет|, Сонет|ов
+    @л: Sonnet|, Sonnet|ov
+Soprano: Сопран|о, Сопран|ов
+SQLite: СКуЛајт|, СКуЛајт|ов
+    @л: SQLite|, SQLite|ov
+Strigi: Стриг|и, Стриг|ијев
+Sycoca: Сикок|а, Сикок|ин
+    @л: Sycoc|a, Sycoc|in
+TagLib: Таглиб|, Таглиб|ов
+    @л: TagLib|, TagLib|ov
+Telepathy: Телепатиј|а, Телепатиј|ин, телепатиј|ски
+    @л: Telepathyj|a, n=Telepathy, Telepathyj|in, telepathyj|ski
+ThreadWeaver: Тредвивер|, Тредвивер|ов
+    @л: ThreadWeaver|, ThreadWeaver|ov
+Weaver: Вивер|, Вивер|ов
+    @л: Weaver|, Weaver|ov
+Winbind: Винбинд|, Винбинд|ов
+    @л: Winbind|, Winbind|ov
+WM_NET, WMNET: ВМ_НЕТ|-, ВМ_НЕТ|-ов
+    @л: WM_NET|-, WM_NET|-ov
+wxGTK: виксГТК|-, виксГТК|-ов, виксГТК|>
+    @л: wxGTK|-, wxGTK|-ov, wxGTK|>
+XComposite: Икс-композит|, Икс-композит|ов
+    @л: XComposite|, XComposite|ov
+XDamage: Икс-демиџ|, Икс-демиџ|ов
+    @л: XDamage|, XDamage|ov
+XFixes: Икс-фиксес|, Икс-фиксес|ов
+    @л: XFixes|, XFixes|ov
+XFree86: _род!=м, Икс-фри86|*
+    @л: XFree86|*
+Xft: Иксфт|, Иксфт|ов, иксфт|>
+    @л: Xft|, Xft|ov, Xft|>
+Xinerama: Ксинерам|а, Ксинерам|ин
+    @л: Xineram|a, Xineram|in
+XKB: ИксКБ|-, ИксКБ|-ов
+    @л: XKB|-, XKB|-ov
+XOrg, X.Org: Икс-орг|, Икс-орг|ов
+    @л: XOrg|, XOrg|ov
+XRandr: Икс-рандр|, Икс-рандр|ов
+    @л: XRandr|, XRandr|ov
+XRender: Икс-рендер|, Икс-рендер|ов
+    @л: XRender|, XRender|ov
+XSync: Икс-синх|, Икс-синх|ов
+    @л: XSync|, XSync|ov
+Xt: ИксТ|, ИксТ|-ов, ИксТ|>
+    @л: Xt|, Xt|-ov, Xt|>
+XTest: Икс-тест|, Икс-тест|ов
+    @л: XTest|, XTest|ov
+Xvfb: Икс-вфб|, Икс-вфб|ов
+    @л: Xvfb|, Xvfb|-ov
+X Window: Икс-прозор|и-
+    @л: X-prozor|i-
+
+# ----------------------------------------------------------------------------
+# Сервери
+
+Apache: Апач|, Апач|ев
+    @л: Apach|e-ij, Apach|ejev
+Ampache: Ампач|, Ампач|ев
+    @л: Ampach|e-ij, Ampach|ejev
+Courier, |couriersrv: Курир|, Курир|ов
+    @л: Courier|, Courier|ov
+Cyrus: Сајрус|, Сајрус|ов
+    @л: Cyrus|, Cyrus|ov
+INN: ИНН|, ИНН|-ов
+JunkBuster: Џанкбастер|, Џанкбастер|ов
+    @л: JunkBuster|, JunkBuster|ov
+Kolab: Колаб|, Колаб|ов
+Leafnode: Лифноуд|, Лифноуд|ов
+    @л: Leafnode|, Leafnode|ov
+OpenLDAP: ОпенЛДАП|-, ОпенЛДАП|-ов
+Samba: Самб|а, Самб|ин, самба|>
+    @л: Samba|>
+SHOUTcast: Шауткаст|, Шауткаст|ов, шауткаст|>
+    @л: SHOUTcast|, SHOUTcast|ov, SHOUTcast|>
+UW: УВ|-, УВ|-ов
+    @л: UW|-, UW|-ov
+WWWOfle: ВВВ-офле|, ВВВ-офле|ов
+    @л: WWWOfle|, WWWOfle|ov
+
+# ----------------------------------------------------------------------------
+# Претраживачи и остало на Мрежи
+
+Alexa: Алекс|а, Алекс|ин, _род!=м
+    @л: Alex|a, Alex|in
+Alexa URL: Алекса-УРЛ|-
+    @л: Alexa URL|-
+AllTheWeb fast: Ол'д'веб| брз|и>
+    @л: AllTheWeb| brz|i>
+AltaVista: Алтавист|а, Алтавист|ин
+    @л: AltaVist|a, AltaVist|in
+All Music Guide: Свемузичк|и> водич|
+Amazon: Амазон|, Амазон|ов
+Ask Jeeves: _род!=м, Питај Џивса|*
+    @л: Pitaj Jeevesа|*
+Audioscrobbler: Аудиоскроблер|, Аудиоскроблер|ов
+    @л: Audioscrobbler|, Audioscrobbler|ov
+AustroNaut: Аустронаут|, Аустронаут|ов
+    @л: AustroNaut|, AustroNaut|ov
+Babelfish: Бабелфиш|, Бабелфиш|ов
+    @л: Babelfish|, Babelfish|ov
+Byte: Бајт|, Бајт|ов
+    @л: Byte|, Byte|ov
+CDDB: ЦДДБ|-, ЦДДБ|-ов, ЦДДБ|>
+CIA World Fact Book: Цијин|а> Књи|га светских података
+CiteSeer\: Scientific Literature Digital Library: Сајтсир|{}\: дигиталн|а> библиоте|ка научне литературе
+    @л: CiteSeer|{}\: digitaln|a> bibliote|ka naučne literature
+ComputerUser.com High-Tech Dictionary: Високотехнолошк|и> речник| Компјутерјузер.кома
+    @л: Visokotehnološk|i> rečnik| ComputerUser.coma
+CPAN - Comprehensive Perl Archive Network: ЦПАН|- — свеобухватн|а> архив|а перла
+    @л: CPAN|- — sveobuhvatn|a> arhiv|a Perla
+CTAN Catalog: ЦТАН|-ов> каталог|
+CTAN - Comprehensive TeX Archive Network: ЦТАН|- — свеобухватн|а> архив|а теха
+    @л: CTAN|- — sveobuhvatn|a> arhiv|a TeX-a
+DBpedia: ДБ-педиј|а
+    @л: DBped|ia
+Dailymotion: Дејлимошон|, Дејлимошон|ов
+    @л: Dailymotion|, Dailymotion|ov
+Debian Backports Search: Дебијанов|и-> бекпортов|и-
+    @л: Debianov|i-> bekportov|i-
+Debian BTS Bug Search: Дебијанов|а-> баз|а грешака
+    @л: Debianov|a-> baz|a grešaka
+Debian Package Search: Дебијанов|и-> пакет|и-
+    @л: Debianov|i-> paket|i-
+dict.cc Translation\: German to English: дикт.цц|{-}\: са немачког на енглески
+    @л: dict.cc|{-}\: sa nemačkog na engleski
+dict.cc Translation\: English to German: дикт.цц|{-}\: са енглеског на немачки
+    @л: dict.cc|{-}\: sa engleskog na nemački
+Dictionary of the Spanish Academy (RAE), dictionaryofthespanishacademyrae: Речник| Шпанске академије (РАЕ)
+Digital Object Identifier: Дигиталн|и> идентификатор| објеката
+Dilbert: Дилберт|
+DocBook - The Definitive Guide: Докбук|{}\: коначн|и> водич|2
+    @л: DocBook|{}\: konačn|i> vodič|2
+Echo Nest: Ехо нест|, Ехо нест|ов
+    @л: Echo Nest|, Echo Nest|ov
+Ethicle: Етикл|, Етикл|ов
+    @л: Ethicle|, Ethicle|ov
+Excite: Ексајт|, Ексајт|ов
+    @л: Excite|, Excite|ov
+Feedster: Фидстер|, Фидстер|ов
+    @л: Feedster|, Feedster|ov
+Flickr: Фликр|, Фликр|ов, фликр|>
+    @л: Flickr|, Flickr|ov, Flickr|>
+FreeDB: ФриДБ|-, ФриДБ|-ов
+    @л: FreeDB|-, FreeDB|-ov
+Free On-Line Dictionary of Computing: Слободн|и> речник| рачунарства на вези
+Freenode: Фринод|, Фринод|ов
+    @л: Freenode|, Freenode|ov
+Freshmeat: Фрешмит|, Фрешмит|ов
+    @л: Freshmeat|, Freshmeat|ov
+Froogle: Фрогл|, Фрогл|ов
+    @л: Froogle|, Froogle|ov
+FSF/UNESCO Free Software Directory: Именик| слободног софтвера ЗСС/Унеско
+    @л: Imenik| slobodnog softvera ZSS/Unesco
+Garfield: Гарфилд|
+Gmane: Гмејн|, Гмејн|ов
+    @л: Gmane|, Gmane|ov
+Google Advanced Search: Гугл| (детаљно)
+    @л: Google| (detaljno)
+Google Groups: Гугл-груп|е-
+    @л: Google-grup|e-
+Google Image Search: Гугл-слик|е-
+    @л: Google-slik|e-
+Google (I'm Feeling Lucky), googleimfeelinglucky: Гугл| (из прве руке)
+    @л: Google| (iz prve ruke)
+Google Movies: Гугл-филмов|и-
+    @л: Google-filmov|i-
+Google News: Гугл-вест|и-ж
+    @л: Google-vest|i-ž
+GO.com: Го.ком|, Го.ком|ов
+    @л: GO.com|, GO.com|ov
+Gracenote: Грејсноут|, Грејсноут|ов
+    @л: Gracenote|, Gracenote|ov
+Great Dictionary of the Catalan Language (GRan Enciclopèdia  Catalana), grecdictcatalana: Велик|и> речник| каталонског језика (GRan Enciclopèdia Catalana)
+    @л: Velik|i> rečnik| katalonskog jezika (GRan Enciclopèdia  Catalana)
+Hotbot: Хотбот|, Хотбот|ов
+Hotmail: Хотмејл|, Хотмејл|ов, хотмејл|>
+    @л: Hotmail|, Hotmail|ov, hotmail|>
+HyperDictionary.com: Хиперречник|, Хиперречник|ов
+    @л: HyperDictionar|y, HyperDictionar|yjev
+HyperDictionary.com Thesaurus: Хиперречник| (синонимар)
+    @л: HyperDictionar|y (sinonimar)
+identi.ca: Идентик|а, Идентик|ин
+    @л: identi.c|a, identi.c|in
+IETF Requests for Comments: ИЕТФ-ов|и-> захтев|и- за коментаре
+Internet Book List: Интернет спис|ак књига
+Internet Movie Database: Интернет баз|а филмова
+Jamendo: Џеменд|о, Џеменд|ов
+    @л: Jamend|o, Jamend|ov
+KataTudo: _род!=м, Кататуд|о, Кататуд|ов
+    @л: KataTud|o, KataTud|ov
+KDE API Documentation: КДЕ АПИ документациј|а
+KDE App Search: КДЕ програм|и-
+KDE Apps: |{KDE App Search}
+KDE Bug Database Fulltext Search: КДЕ-ов|а> баз|а грешака (текстуално)
+KDE Bug Database Bug Number Search: КДЕ-ов|а> баз|а грешака (по броју)
+KDE-Look: |{KDE~н}-изглед|
+KDE WebSVN: КДЕ|-ов> вебСВН|-
+    @л: KDE|-ov> WebSVN|-
+last.fm: Ласт-ФМ|-, Ласт-ФМ|-ов
+    @л: last.fm|-, last.fm|-ov
+Latest Qt Online Documentation: Најновиј|а> документациј|а КуТ-а на вези
+    @л: Najnovij|a> dokumentacij|a Qt-a na vezi
+LEO-Translate: Лео-превод|, Лео-превод|ов
+LEO - Translate Between German and French: _род!=м, Ле|{о}\: са немачког на француски
+LEO - Translate Between French and German: _род!=м, Ле|{о}\: са француског на немачки
+Lycos: Ликос|, Ликос|ов
+.Mac, |dotmac: Дот-мек|, Дот-мек|ов
+    @л: .Mac|, .Mac|ov
+Magnatune: Магнатјун|, Магнатјун|ов
+    @л: Magnatune|, Magnatune|ov
+Mamma - Mother of all Search Engines: Мам|а - мај|ка свих претраживачких мотора
+Merriam-Webster Thesaurus: Меријам-Вебстер| (синонимар)
+Merriam-Webster Dictionary: Меријам-Вебстер| (речник)
+MetaCrawler: Метакроулер|, Метакроулер|ов
+Microsoft Developer Network Search: Мајкрософтов|а> развојн|а> мреж|а (МСДН)
+Mirror Search: Претра|га огледала
+MP3Tunes: МП3-тјунс|, МП3-тјунс|ов
+    @л: MP3Tunes|, MP3Tunes|ov
+Multitran - Translate Between Dutch and Russian: Мултитран|{}\: са холандског на руски
+Multitran - Translate Between English and Russian: Мултитран|{}\: са енглеског на руски
+Multitran - Translate Between French and Russian: Мултитран|{}\: са француског на руски
+Multitran - Translate Between German and Russian: Мултитран|{}\: са немачког на руски
+Multitran - Translate Between Italian and Russian: Мултитран|{}\: са италијанског на руски
+Multitran - Translate Between Spanish and Russian: Мултитран|{}\: са шпанског на руски
+MusicBrainz: Мјузикбрејнз|, Мјузикбрејнз|ов
+    @л: MusicBrainz|, MusicBrainz|ov
+Netcraft: Неткрафт|, Неткрафт|ов
+    @л: Netcraft|, Netcraft|ov
+NewzBin: Њузбин|, Њузбин|ов
+    @л: NewzBin|, NewzBin|ov
+openDesktop: Отворен|а> површ|-ж
+Open Directory: Отворен|и> именик|
+OpenPGP Key Search: ОпенПГП кључев|и-
+OpenSearch: Отворен|а> претра|га
+OSNews: ОС-њуз|
+    @л: OSNews|
+PayPal: Пејпал|, Пејпал|ов, пејпал|>
+    @л: PayPal|, PayPal|ov, PayPal|>
+PhD Comics: Постдиплом|ци-ц
+PHP Search: Приручник| за ПХП
+Python Reference Manual: Референтн|и> приручник| питона
+    @л: Referentn|i> priručnik| Pythona
+QRZ.com Callsign Database: КуРЗ.ком| баз|а позивника
+    @л: QRZ.com| baz|a pozivnika
+Qt3 Online Documentation: Документациј|а |Qt~г 3 на вези
+RPM-Find: РПМ-траже|ње
+Remember The Milk: Не заборави млек|о, _род!=с
+Ruby Application Archive: Архив|а рубијевских програма
+    @л: Arhiv|a ruby programa
+Scientific American: Сајентифик Америкен|
+    @л: Scientific American|
+Snoopy: Снуп|и
+Songkick: Сонгкик|, Сонгкик|ов
+    @л: Songkick|, Songkick|ov
+SourceForge: Сорсфорџ|, Сорсфорџ|ов
+    @л: SourceForge|, SourceForge|ov
+Techbase: Техбаз|а, Техбаз|ин
+    @л: Techbas|a, Techbas|in, n=Techbase
+Technorati: Технорат|и, Технорат|ијев
+    @л: Technorat|i, Technorat|ijev
+Technorati Tags: Техноратијев|е-> ознак|е-
+    @л: Technoratijev|e-> oznak|e-
+Telephonebook Search Provider: Телефонск|и> именик| (Холандија)
+Teletekst Search Provider: Телетекст| (Холандија)
+TV Tome: ТВ-том|, ТВ-том|ов
+    @л: TV Tome|, TV Tome|ov
+Twitter: Твитер|, Твитер|ов
+    @л: Twitter|, Twitter|ov
+UserFriendly: Предусретљив|и-
+U.S. Patent Database: Баз|а патената САД
+Vivisimo: _род!=м, Вивисим|о, Вивисим|ов
+Voila: Воил|а, Воил|ин
+Web: Веб| # намерно само именица
+    @л: Web|
+Whatis Query: Шта-је упит|
+Wikipedia: Википедиј|а, Википедиј|ин
+    @л: Wikiped|ia, Wikipedij|in
+Wikipedia - The Free Encyclopedia: |Wikipedia — слободн|а> енциклопедиј|а
+Wiktionary: Викиречник|, Викиречник|ов
+    @л: Wikirečnik|, Wikirečnik|ov
+Wiktionary - The Free Dictionary: |Wiktionary — слободн|и> речник|
+WordReference.com Translation\: English to French: Вордреференс|{}\: са енглеског на француски
+    @л: WordReference|{}\: sa engleskog na francuski
+WordReference.com Translation\: English to Italian: Вордреференс|{}\: са енглеског на италијански
+    @л: WordReference|{}\: sa engleskog na italijanski
+WordReference.com Translation\: English to Spanish: Вордреференс|{}\: са енглеског на шпански
+    @л: WordReference|{}\: sa engleskog na španski
+WordReference.com Translation\: French to English: Вордреференс|{}\: са француског на енглески
+    @л: WordReference|{}\: sa francuskog na engleski
+WordReference.com Translation\: Italian to English: Вордреференс|{}\: са италијанског на енглески
+    @л: WordReference|{}\: sa italijanskog na engleski
+WordReference.com Translation\: Spanish to English: Вордреференс|{}\: са шпанског на енглески
+    @л: WordReference|{}\: sa španskog na engleski
+WordReference.com English Dictionary: Вордреференс|{}\: енглеск|и> речник|
+    @л: WordReference|{}\: englesk|i> rečnik|
+XKCD: ИксКЦД|-
+    @л: XKCD|-
+YouTube: Јутјуб|, Јутјуб|ов
+    @л: YouTube|, YouTube|ov
+YouTube HQ: |*|YouTube ХКу
+    @л: |*|YouTube HQ
+
+# ----------------------------------------------------------------------------
+# Компаније и организације
+
+4Front, _4front: Фоурфронт|, Фоурфронт|ов
+    @л: 4Front|, 4Front|ov
+Adobe: Адоуб|и, Адоуб|ијев
+    @л: Adob|e-ij, Adob|ejev
+AOL: АОЛ|-, АОЛ|-ов, АОЛ|> # описни придев јер може бити и протокол
+Apple: Епл|, Епл|ов
+    @л: Apple|, Apple|ov
+AT&T, |atnt: АТ&Т|-, АТ&Т|-ов
+Canonical: Каноникал|, Каноникал|ов
+    @л: Canonical|, Canonical|ov
+Citrix: Ситрикс|, Ситрикс|ов
+    @л: Citrix|, Citrix|ov
+Commodore: Комодор|, Комодор|ов
+    @л: Commodore|, Commodore|ov
+Corel: Корел|, Корел|ов
+    @л: Corel|, Corel|ov
+Dante: Данте|, Данте|ов
+Digital: Диџитал|, Диџитал|ов
+    @л: Digital|, Digital|ov
+ECMA: Екм|а, Екм|ин
+    @л: Ecm|a, Ecm|in
+Environment Canada: Енвајронмент| Канада
+    @л: Environment| Canada
+Epson: Епсон|, Епсон|ов
+Google: Гугл|, Гугл|ов
+    @л: Google|, Google|ov
+Hayes, |hayesco: Хејс|, Хејс|ов
+    @л: Hayes|, Hayes|ov
+heXoNet: Хексонет|, Хексонет|ов
+    @л: heXoNet|, heXoNet|ov
+Hewlett-Packard: Хјулит-Пакард|, Хјулит-Пакард|ов
+    @л: Hewlett-Packard|, Hewlett-Packard|ov
+HP: ХП|-, ХП|-ов
+IBM: ИБМ|-, ИБМ|-ов
+IETF: ИЕТФ|-, ИЕТФ|-ов
+Intel: Интел|, Интел|ов, интел|>
+    @л: Intel|>
+Juniper Networks: Џунипер нетворкс|, Џунипер нетворкс|ов
+    @л: Juniper Networks|, Juniper Networks|ov
+Logitech: Логитех|, Логитех|ов
+    @л: Logitech|, Logitech|ov
+Macromedia: Макромедиј|а, Макромедиј|ин
+    @л: Macromed|ia, Macromedij|in
+Microsoft: Мајкрософт|, Мајкрософт|ов
+    @л: Microsoft|, Microsoft|ov
+MSFT: МСФТ|-, МСФТ|-ов, МСФТ|>
+NCD: НЦД|-, НЦД|-ов
+NEC: НЕЦ|-, НЕЦ|-ов
+NOAA National Weather Service: Националн|а> временск|а> служб|а НОАА
+Nokia: Нокиј|а, Нокиј|ин
+    @л: Nok|ia
+NoMachine: Номашин|, Номашин|ов
+    @л: NoMachine|, NoMachine|ov
+Novell: Новел|, Новел|ов
+    @л: Novell|, Novell|ov
+Oasis: Оејзис|, Оејзис|ов
+    @л: Oasis|, Oasis|ov
+OGC: ОГЦ|--, ОГЦ|-ов
+OSEI: ОСЕ|И-, ОСЕ|И-јев, ОСЕИ|>
+PICMG: ПИЦМГ|, ПИЦМГ|-ов, ПИГМГ|>
+    @л: PICMG|>
+Real: Реал|, Реал|ов
+RedHat: Редхет|, Редхет|ов
+    @л: RedHat|, RedHat|ov
+Rio: Р|ио, Р|ијев
+Saitek: Сајтек|, Сајтек|ов
+    @л: Saitek|, Saitek|ov
+Tridia: Тридиј|а, Тридиј|ин
+    @л: Trid|ia
+SCO: СЦО|-, СЦО|-ов
+SGI: СГ|И-, СГ|И-јев, СГИ|>
+Sinclair: Синклер|, Синклер|ов
+    @л: Sinclair|, Sinclair|ov
+Sun: Сан|, Сан|ов
+    @л: Sun|, Sun|ov
+Trolltech: Тролтех|, Тролтех|ов
+    @л: Trolltech|, Trolltech|ov
+TÜBİTAK UEKAE: ТИБИТАК|-- УЕКАЕ|--
+    @л: TUBITAK|-- UEKAE|--
+UK MET Office: Метеоролошк|и> офис| УК
+W3C: В3Ц|-, В3Ц|-ов
+    @л: W3C|-, W3C|-ov
+WorldFip: Ворлдфип|, Ворлдфип|ов, ворлдфип|>
+    @л: WorldFip|, WorldFip|ov, WorldFip|>
+Xerox: Зирокс|, Зирокс|ов, зирокс|>
+    @л: Xerox|, Xerox|ov, Xerox|>
+Yahoo: Јаху|, Јаху|ов, јаху|>
+    @л: Yahoo|, Yahoo|ov, Yahoo|>
+
+# ----------------------------------------------------------------------------
+# Пројекти
+
+Rokymotion: Рокимоциј|а, рокимоциј|ски
+    @л: Rokymocij|a, rokymocij|ski
+
+# ----------------------------------------------------------------------------
+# Припадници и учесници
+
+Rokymoter, |rokymoterxy: Рокимотер|, Рокимотер|ов, рокимотер|ски
+    @л: Rokymoter|, Rokymoter|ov, rokymoter|ski
+Rokymoter, |rokymoterxx: Рокимотерк|а, Рокимотерк|ин
+    @л: Rokymoterk|a, Rokymoterk|in
+
+# ----------------------------------------------------------------------------
+# Уређаји
+
+Alpha: алф|а, алф|ин, алфа|>
+    @л: Alph|a, Alph|in, Alpha|>
+Amiga: амиг|а, амиг|ин
+    @л: Amig|a, Amig|in
+Atari: атар|и, атар|ијев
+    @л: Atar|i, Atar|ijev
+Cyborg: сајборг|, сајборг|ов
+    @л: Cyborg|, Cyborg|ov
+CD-ROM: ЦД-РОМ|-, ЦД-РОМ|-ов, ЦД-РОМ|>
+DVD-ROM: ДВД-РОМ|-, ДВД-РОМ|-ов, ДВД-РОМ|>
+CDWRITER: ЦД-рез|ач, ЦД-резач|ев, ЦД-реза|чки
+EMU10k1: ЕМУ10к1|*, _род!=м
+Hayes, |hayesdev: хејс|, хејс|ов, хејс|>
+    @л: Hayes|, Hayes|ov, Hayes|>
+iPhone: и-фон|, и-фон|ов, и-фон|>
+    @л: iPhone|, iPhone|ov, iPhone|>
+iPod: и-под|, и-под|ов, и-под|>
+    @л: iPod|, iPod|ov, iPod|>
+iTouch: и-тач|, и-тач|ов, и-тач|>
+    @л: iTouch|, iTouch|ov, iTouch|>
+Jaz: џез|, џез|ов, џез|>
+    @л: Jaz|, Jaz|ov, jaz|>
+m6502: м6502|*, _род!=м
+Mac, |maccomp: мек|, мек|ов
+    @л: Mac|, Mac|ov
+Macintosh: мекинтош|, мекинтош|ев, мекинтош|>
+    @л: Macintosh|, Macintosh|ev, Macintosh|>
+MIPS: МИПС|-, МИПС|-ов, МИПС|>
+MO: МО|-, МО|-ов
+MouseMan: маусмен|, маусмен|ов
+    @л: MouseMan|, MouseMan|ov
+MX700: _род!=м, МИкс700|*
+    @л: MX700|*
+Palm: палм|, палм|ов
+    @л: Palm|, Palm|ov
+PDP-1: ПДП|- 1
+PDP-10: ПДП|- 10
+PDP-11: ПДП|- 11
+Pentium: пентијум|, пентијум|ов, пентијум|>
+    @л: Pentium|, Pentium|ov, Pentium|>
+PowerPC: пауерПЦ|-, пауерПЦ|-јев, пауерПЦ|>
+    @л: PowerPC|-, PowerPC|-jev, PowerPC|>
+Rio Karma: |`Rio карм|а, |`Rio~н карм|ин
+    @л: |Rio karm|a, |Rio~n Karm|in
+Sparc: Спарк|, Спарк|ов
+    @л: Sparc|, Sparc|ov
+Thinkpad: тинкпад|, тинкпад|+, тинкпад|ов
+    @л: Thinkpad|, Thinkpad|+, Thinkpad|ov
+TrackMan: трекман|, трекман|ов
+    @л: TrackMan|, TrackMan|ov
+TrackMan FX: |TrackMan еф-икс
+    @л: |TrackMan FX
+TrackMan Live: |TrackMan лајв
+    @л: |TrackMan Live
+Vaio: вај|о, вај|ови+, вај|ов
+    @л: Va|io, Vai|ovi+, Vai|ov
+Xerox Star: зирокс| стар|
+    @л: Xerox| Star|
+Zip, |zipdev: зип|, зип|ов, зип|>
+    @л: Zip|, Zip|ov
+ZX Spectrum: ЗИкс спектрум|, ЗИкс спектрум|ов
+    @л: ZX Spectrum|, ZX Spectrum|ov
+
+# ----------------------------------------------------------------------------
+# Технологије
+
+ACCESS, |accessbus: аксес|, аксес|>
+    @л: ACCESS|, ACCESS|>
+AccessX: аксес-икс|, аксес-икс|>
+    @л: AccessX|-, accessX|>
+ActiveX: актив-икс|, актив-икс|>
+    @л: ActiveX|-, ActiveX|>
+BiDir: би-дир|, би-дир|>
+    @л: BiDir|, BiDir|>
+Bluetooth: блутут|, блутут|>
+    @л: Bluetooth|, bluetooth|>
+CAN-bus: канбус|, канбус|>
+    @л: CAN-bus|, CAN-bus|>
+CardBus: кардбас|, кардбас|>
+    @л: CardBus|, CardBus|>
+CID Truetype: ЦИД |{Truetype}
+CID Truetype (OT), |cidtruetypeot: |{CID Truetype} (ОТ)
+CID Type0: ЦИД тип|{}-0, ЦИД тип-0|>
+    @л: CID Type|{}0, CID type0|>
+CID Type0C: |{CID Type0}Ц
+CID Type0C (OT), cidtype0cot: |{CID Type0C} (ОТ)
+ClearType: клиртајп|, клиртајп|>
+    @л: ClearType|, cleartype|>
+CompactPCI: компактПЦ|И-, компактПЦИ|>
+    @л: CompactPC|I-, CompactPCI|>
+DirectDraw: директдроу|, директдроу|ов, директдроу|>
+    @л: DirectDraw|, DirectDraw|ov, DirectDraw|>
+Energy Star: енерџи стар|
+    @л: Energy Star|
+Ethernet: етернет|, етернет|ски
+    @л: Ethernet|, ethernet|ski
+EuroISDN: евроИСДН|-, евроИСДН|>
+    @л: EuroISDN|-, euroISDN|>
+ext2: екст-2|*, екст-2|>, _род!=м
+    @л: ext2|*, ext2|>
+ext3: екст-3|*, екст-3|>, _род!=м
+    @л: ext3|*, ext3|>
+ext4: екст-4|*, екст-4|>, _род!=м
+    @л: ext4|*, ext4|>
+Firewire: фајервајер|, фајервајер|>
+    @л: Firewire|, firewire|>
+FLASH, |flashmem: флеш|, флеш|>
+    @л: FLASH|-, FLASH|>
+HFS: ХФС|-, ХФС|-ов, ХФС|>
+HFS Plus: ХФС|- плус, ХФС плус|>
+    @л: HFS|- Plus, HFS Plus|>
+HP Service: ХП-сервис|, ХП-сервис|-ов, ХП-сервис|>
+    @л: HP Service|, HP Service|-ov, HP Service|>
+HyperTransport: хипертранспорт|, хипертранспорт|>
+    @л: HyperTransport|, HyperTransport|>
+InfiniBand: инфинибанд|, инфинибанд|ов, инфинибанд|>
+    @л: InfiniBand|, InfiniBand|ov, InfiniBand|>
+JFS: ЈФС|-, ЈФС|-ов, ЈФС|>
+LVM: ЛВМ|-, ЛВМ|-ов, ЛВМ|>
+LBA: ЛБА|-, ЛБА|>
+MicroChannel: микрочанел|, микрочанел|ов, микрочанел|>
+    @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
+mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
+    @л: mini-ITX|-, mini-ITX|>
+NTFS: НТФС|-, НТФС|-ов, НТФС|>
+NuBus: нубус|, нубус|ов, нубус|>
+    @л: NuBus|, NuBus|ov, NuBus|>
+OpenEXR: опенЕКСР|-, опенЕКСР|>
+    @л: OpenEXR|-, OpenEXR|>
+OpenGL: опенГЛ|-, опенГЛ|-ов, опенГЛ|>
+    @л: OpenGL|-, OpenGL|-ov
+PALO: ПАЛО|-, ПАЛО|-ов, ПАЛО|>
+PCI Express: ПЦИ-експрес|, ПЦИ-експрес|>
+    @л: PCI Express|, PCI Express|>
+PReP: ПРеП|-, ПРеП|-ов, ПРеП|>
+RACEway: рејсвеј|, рејсвеј|ев, рејсвеј|>
+    @л: RACEway|, RACEway|ev, RACEway|>
+reiser: рајзер|, рајзер|ов, рајзер|>
+    @л: reiser|, reiser|ov, reiser|>
+reiser4: |{reiser}-4|*%
+sendmail: сендмејл|, сендмејл|>
+    @л: sendmail|, sendmail|>
+SERCOS: СЕРКОС|-, СЕРКОС|>
+    @л: SERCOS|-, SERCOS|>
+SMBFS: СМБФС|-, СМБФС|>
+SMBus: СМбус|, СМбус|>
+    @л: SMBus|, SMBus|>
+Truetype: трутајп|, трутајп|>
+    @л: Truetype|, truetype|>
+Truetype (OT), |truetypeot: |{Truetype} (ОТ)
+Type1: тип|{}-1, тип-1|>
+    @л: Type|{}1, type1|>
+Type1C: |{Type1}Ц
+Type1C (OT), type1cot: |Type1C (ОТ)
+Type3: тип|{}-3, тип-3|>
+    @л: Type|{}3, type3|>
+ZeroConf: зироконф|, зироконф|>
+    @л: ZeroConf|, zeroconf|>
+
+# ----------------------------------------------------------------------------
+# Протоколи
+
+AIM: АИМ|-, АИМ|>
+Atom: атом|, атом|>
+    @л: Atom|, Atom|>
+Bittorrent: битторент|, битторент|ов, битторент|>
+    @л: Bittorrent|, Bittorrent|ov, bittorrent|>
+CTCP: ЦТЦП|-, ЦТЦП|>
+DAAP: ДААП|-, ДААП|>
+D-Bus: д-бус|, д-бус|ов, д-бус|>
+    @л: D-Bus|, D-Bus|ov, D-Bus|>
+DCC: ДЦЦ|-, ДЦЦ|-ов, ДЦЦ|>
+DICT: ДИКТ|-, ДИКТ|>
+    @л: DICT|-, DICT|>
+eDonkey: Едонк|и, Едонк|ијев, едонки|>
+    @л: eDonke|y, eDonke|yjev, eDonkey|>
+Finger: фингер|, фингер|>
+Gadu-Gadu: гаду-гаду|, гаду-гаду|ов, гаду-гаду|>
+    @л: Gadu-Gadu|, Gadu-Gadu|ov
+Gopher: гофер|, гофер|>
+    @л: gopher|, gopher|>
+GroupWise: групвајз|, групвајз|>
+    @л: GroupWise|, GroupWise|>
+iCalendar: и-календар|, и-календар|ски
+ICQ: ајсикју|, ајсикју|ов, ајсикју|>
+    @л: ICQ|-, ICQ|-ov, ICQ|>
+ICQ2000: ајсикју| 2000, ајсикју 2000|>
+    @л: ICQ| 2000, ICQ 2000|>
+IRC: ИРЦ|-, ИРЦ|>
+IRC2000: ИРЦ|- 2000, ИРЦ 2000|>
+Jabber: џабер|, џабер|ов, џабер|>
+    @л: Jabber|, Jabber|ov, jabber|>
+Jingle: џингл|, џингл|ов, џингл|>
+    @л: Jingle|, Jingle|ov, jingle|>
+Kademlia: кадемлиј|а, кадемлиј|ин, кадемлиј|ски
+    @л: Kademl|ia, Kademlij|in
+Kerberos: кербер|, кербер|ов, кербер|>
+    @л: Kerberos|, Kerberos|ov, kerberos|>
+Kerberos4: |{Kerberos}-4
+    @л: |{Kerberos}4
+Kerberos5: |{Kerberos}-5
+    @л: |{Kerberos}5
+LanManager: ланменаџер|, ланменаџер|ов, ланменаџер|ски
+    @л: LanManager|, LanManager|ov, lanmanager|>
+Meanwhile: минвајл|, минвајл|ов, минвајл|>
+    @л: Meanwhile|, Meanwhile|ov, meanwhile|>
+MetaLink: металинк|, металинк|ов, металинк|>
+    @л: MetaLink|, MetaLink|ov
+MSN: МСН|-, МСН|-ов, МСН|>
+MTP: МТП|-, МТП|-ов, МТП|>
+MultiSegment KIO: вишесегментн|и> |KIO, вишесегмент|ни |KIO
+NetBIOS: нетБИОС|, нетБИОС|-ов, нетБИОС|>
+    @л: NetBIOS|, NetBIOS|-ov
+NLM: НЛМ|-, НЛМ|-ов, НЛМ|>
+Off-The-Record: оф-д-рекорд|, оф-д-рекорд|ов, оф-д-рекорд|>
+    @л: Off-The-Record|, Off-The-Record|ov, off-the-record|>
+Oscar: оскар|, оскар|ов, оскар|>
+    @л: Oscar|, Oscar|ov, oscar|>
+OTR: ОТР|-, ОТР|-ов, ОТР|>
+PPP: ППП|-, ППП|-ов, ППП|>
+QQ: ку-ку|, ку-ку|ов, ку-ку|>
+    @л: QQ|, QQ|-ov, QQ|>
+rlogin: рлогин|, рлогин|ов, рлогин|>
+Sametime: сејмтајм|, сејмтајм|ов, сејмтајм|>
+    @л: Sametime|, Sametime|ov, sametime|>
+SILC: СИЛЦ|-, СИЛЦ|>
+Usenet: јузнет|, јузнет|ов, јузнет|> # ђене-ђене
+    @л: Usenet|, Usenet|ov, usenet|>
+vCalendar: в-календар|, в-календар|ски
+vCard: в-кард|, в-кард|>
+    @л: vCard|, vCard|>
+WebDAV: вебДАВ|-, вебДАВ|>
+    @л: WebDAV|-, webDAV|>
+WebDAVs: вебДАВс|-, вебДАВс|>
+    @л: WebDAVs|-, webDAVs|>
+XMPP: ИксМПП|, ИксМПП|-ов, ИксМПП|>
+    @л: XMPP|, XMPP|-ov, XMPP|>
+
+# ----------------------------------------------------------------------------
+# Алгоритми
+
+Adler-32: адлер|{}-32, адлер-32|>
+    @л: Adler|{}-32, Adler-32|>
+base64: баз|{а}64
+    @л: base64|*, _rod!=ž
+Blowfish: блоуфиш|, блоуфиш|ов
+    @л: Blowfish|, Blowfish|ov
+ElGamal: елгамал|, елгамал|ов
+    @л: ElGamal|, ElGamal|ov
+Latin1: латиниц|{а}-1
+Latin2: латиниц|{а}-2
+quoted-printable: навод-читк|о>
+Replay Gain: поновљив|о> појача|ње
+Unicode: уникод|, уникод|ов, уникод|ски
+    @л: Unicode|, Unicode|ov, Unicode|>
+Whirlpool: вирлпул|, вирлпул|ов
+    @л: Whirlpool|, Whirlpool|ov
+
+# ----------------------------------------------------------------------------
+# Формати датотека
+
+ComicBook: комикбук|, комикбук|ов, комикбук|>
+    @л: ComicBook|, ComicBook|ov, ComicBook|>
+Flash, |flashfmt: флеш|, флеш|>
+    @л: Flash|, Flash|ov, Flash|>
+Musepack: мјузпак|, мјузпак|ов, мјузпак|>
+    @л: Musepack|, Musepack|ov, Musepack|>
+RealAudio: |*|{`Real~н}ауд|ио, |{Real~н}аудио|>
+    @л: RealAud|io, RealАudio|>
+RealVideo: _род!=м, |*|{`Real~н}виде|о, |{Real~н}видео|>
+    @л: RealVide|o, RealVideo|>
+Theora: теор|а, теор|ин, теора|>
+    @л: Theor|a, Theor|in, Theora|>
+WinHelp: винхелп|, винхелп|ов, винхелп|>
+    @л: WinHelp|, WinHelp|ov, WinHelp|>
+OGG Vorbis: ОГГ |Vorbis
+OpenDocument: отворен|и> документ|, отворенодокумент|ски
+OpenRaster: опенрастер|, опенрастер|ов, опенрастер|>
+    @л: OpenRaster|, OpenRaster|ov, OpenRaster|>
+Relax NG: релакс| НГ, релакс НГ|-ов, релакс НГ|>
+    @л: Relax| NG, Relax NG|-ov, Relax NG|>
+TriG: три-Г|, три-Г|-ов, три-Г|>
+    @л: TriG|, TriG|-ov, TriG|>
+Turtle: туртл|, туртл|ов, туртл|>
+    @л: Turtle|, Turtle|ov, Turtle|>
+ZIP, |zipfmt: ЗИП|-, ЗИП|>
+
+# ----------------------------------------------------------------------------
+# Теме, стилови и слично
+
+Air: Ваздух|
+Aurorae: Аурор|е-
+Aya: Ај|а
+    @л: Ay|a
+B3/KDE: Б3/КДЕ|-
+Blend: Стапа|ње
+Clean Blend: Чист|о> стапа|ње
+Cleanlooks: Чистин|а
+Crystal SVG: Кристал СВГ|-
+    @л: Crystal SVG|-
+Elegance: Елеганциј|а
+Glow: Сјај|2
+Heron: Херон|
+HighColor Classic: Класичн|и> висококолорн|и>
+HighContrast: Висок|и> контраст|
+iKons: иКон|е-
+Infadel: Инфејдел|
+    @л: Infadel|
+KDE Classic, KDE-Classic: Класичн|и> КДЕ|-
+KDE-LoColor: КДЕ| с мало боја
+Keramik: Керами|ка
+Kids: Дечј|е->
+KStep: К-степ|
+    @л: KStep|
+Light Style\, 2nd revision: Лак|и> стил|{}\, 2. ревизија
+Light Style\, 3rd revision: Лак|и> стил|{}\, 3. ревизија
+MegaGradient highcolor style: Мегаградијент| висококолорн|и>
+Modern System: Модерн|и> систем|
+Motif Plus: Мотиф| плус
+MS Windows 9x: МС Виндоуз| 9х
+    @л: MS Windows| 9x
+Nuvola: Нувол|а
+Nuvola theme: |Nuvola
+Oxygen: Кисеоник|, Кисеоник|ов, кисеони|чки
+Ozone: Озон|, Озон|ов
+    @л: Ozone|, Ozone|ov
+Plastik: Пласти|ка
+Plastique: Пласти|ка КуТ
+    @л: Plasti|ka Qt
+Platinum: Платин|а
+Primary: Примарн|е->
+Quartz: Кварц|
+Redmond: Редмонд|
+Silicon: Силицијум|
+Slick Icons: Углађен|е-> икон|е-
+Slim Glow: Нежн|и> сјај|2
+Web style: Веб-стил|
+    @л: Web-stil|
+
+# ----------------------------------------------------------------------------
+# Тастери
+
+Alt: Alt|--
+    @л: Alt|
+AltGr: AltGr|--
+    @л: AltGr|
+Esc: Esc|--
+    @л: Esc|
+Escape: Escape|--
+    @л: Escape|
+Backspace: Backspace|--
+    @л: Backspace|
+Backtab: Backtab|--
+    @л: Backtab|
+CapsLock: CapsLock|--
+    @л: CapsLock|
+Control: Control|--
+    @л: Control|
+Ctrl: Ctrl|--
+    @л: Ctrl|
+Del, Delete: Delete|--
+    @л: Delete|
+Down: _род!=м, доле|*
+    @л: Dole|*
+Fk: _род!=м, F|* # слово у функцијском тастеру
+F1: |{Fk}1
+F2: |{Fk}2
+F3: |{Fk}3
+F4: |{Fk}4
+F5: |{Fk}5
+F6: |{Fk}6
+F7: |{Fk}7
+F8: |{Fk}8
+F9: |{Fk}9
+F10: |{Fk}10
+F11: |{Fk}11
+F12: |{Fk}12
+End: End|--
+    @л: End|
+Enter: Enter|--
+    @л: Enter|
+Home, |homekey: Home|--
+    @л: Home|
+Hyper: Hyper|--
+    @л: Hyper|
+Ins, Insert: Insert|--
+    @л: Insert|
+Left: _род!=м, лево|*
+    @л: Levo|*
+Menu: Menu|--
+    @л: Menu|
+Meta: _род!=м, Meta|*
+NumLock: NumLock|--
+    @л: NumLock|
+PgDown, PageDown: _род!=м, PageDown|*
+PgUp, PageUp: _род!=м, PageUp|*
+PauseBreak: PauseBreak|--
+    @л: PauseBreak|
+PrtScr, PrintScreen: PrintScreen|--
+    @л: PrintScreen|
+Return: Return|--
+    @л: Return|
+Right: _род!=м, десно|*
+    @л: Desno|*
+ScrollLock: ScrollLock|--
+    @л: ScrollLock|
+Shift: Shift|--
+    @л: Shift|
+Space: Space|--
+    @л: Space|
+Super: Super|--
+    @л: Super|
+SysReq: SysReq|--
+    @л: SysReq|
+Tab: Tab|--
+    @л: Tab|
+Up: _род!=м, горе|*
+    @л: Gore|*
+Win: Win|--
+    @л: Win|
+XFer: XFer|--
+    @л: XFer|
+
+# ----------------------------------------------------------------------------
+# Имена с „презименима“
+
+Mozilla Firefox: |Mozilla |Firefox
+Mozilla Thunderbird: |Mozilla |Thunderbird
+
+OpenOffice Writer, OpenOffice.org Writer: |OpenOffice~.мп |Writer
+OpenOffice Calc, OpenOffice.org Calc: |OpenOffice~.мп |Calc
+OpenOffice Impress, OpenOffice.org Impress: |OpenOffice~.жп |Impress
+
+# ----------------------------------------------------------------------------
+# Из .desktop датотека
+
+Abiword Word Processor: |{Abiword}\, обрађив|ач текста, _род!=|Abiword~_род!
+Bluefish Editor: |{Bluefish}\, уређив|ач, _род!=|Bluefish~_род!
+Epiphany Web Browser: |{Epiphany}\, веб преглед|ач, _род!=|Epiphany~_род!
+Firefox Web Browser: |{Firefox}\, веб преглед|ач, _род!=|Firefox~_род!
+Icedove Mail/News: |{Icedove}\, пошт|а и вест|и-ж, _род!=|Icedove~_род!
+Iceweasel Web Browser: |{Iceweasel}\, веб преглед|ач, _род!=|Iceweasel~_род!
+Galeon Web Browser: |{Galeon}\, веб преглед|ач, _род!=|Galeon~_род!
+Gimp Image Editor: |{Gimp}\, уређив|ач слика, _род!=|Gimp~_род!
+Gnumeric Spreadsheet: |{Gnumeric}\, табеларн|и> рачун|, _род!=|Gnumeric~_род!
+Image Viewer: Приказив|ач слика
+PDF Viewer: Чит|ач ПДФ-а
+Text Editor: Уређив|ач текста
+Thunderbird Mail/News: |{Thunderbird}\, пошт|а и вест|и-ж, _род!=|Thunderbird~_род!
+
+# ----------------------------------------------------------------------------
+# Документи
+
+APOD: АПОД|-
+EPOD: ЕПОД|-
+KDE Quick Start Guide: Водич|2 за брзи почетак с |KDE~и
+KDE User Guide: Корисничк|и> водич|2 за |KDE~а
+KDE User's Manual: Корисничк|и> приручник| |KDE~г
+Wcpotd: ВпПОД|-
+    @л: WpPOD|-
+
+# ----------------------------------------------------------------------------
+# Систем
+
+CONT, |s_cont: КОНТ|-
+    @л: CONT|-
+HUP, |s_hup: ХУП|-
+INT, |s_int: ИНТ|-
+KILL, |s_kill: КИЛ|-
+    @л: KILL|-
+STOP, |s_stop: СТОП|-
+TERM, |s_term: ТЕРМ|-
+USR1, |s_usr1: _род!=м, УСР1|*
+USR2, |s_usr2: _род!=м, УСР2|*
+
+SIGABRT: СИГАБРТ|-
+SIGCONT: СИГКОНТ|-
+    @л: SIGCONT|-
+SIGFPE: СИГФПЕ|-
+SIGHUP: СИГХУП|-
+SIGILL: СИГИЛЛ|-
+SIGINT: СИГИНТ|-
+SIGKILL: СИГКИЛ|-
+    @л: SIGKILL|-
+SIGSEGV: СИГСЕГВ|-
+SIGSTOP: СИГСТОП|-
+SIGTERM: СИГТЕРМ|-
+SIGUSR1: _род!=м, СИГУСР1|*
+SIGUSR2: _род!=м, СИГУСР2|*
+
+# ----------------------------------------------------------------------------
+# Пребројати уносе:
+# sed "s/#.*//" file.txt | grep -v "^ *|" | grep ":" | wc -l
