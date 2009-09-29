@@ -85,8 +85,8 @@ def identify (s):
     ASCII-identifier is constructed in the following order:
       - string is decomposed into Unicode NFKD
       - string is lowercased
-      - every character that is not an ASCII alphanumeric is converted
-        into underscore
+      - every character that is neither an ASCII alphanumeric nor
+        the underscore is removed
       - if the string starts with a digit, underscore is prepended
 
     @param s: string to normalize
@@ -104,8 +104,8 @@ def identify (s):
     # Lowercase.
     ns = ns.lower()
 
-    # Convert non-identifier chars into underscores.
-    ns = _non_ascii_ident_rx.sub("_", ns) 
+    # Remove non-identifier chars.
+    ns = _non_ascii_ident_rx.sub("", ns) 
 
     # Prefix with underscore if first char is digit.
     if ns[0:1].isdigit():
