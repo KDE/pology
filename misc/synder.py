@@ -138,16 +138,8 @@ _strict_ws = " \t\n" #set((" ", "\t", "\n"))
 _ch_nl = "\n"
 
 
-_anonsrc_count = [0]
+def _parse_string_w (instr, srcname):
 
-def _parse_string (instr, srcname=None):
-
-    if srcname is None:
-        srcname = _p("automatic name for anonymous input stream",
-                     "<stream-%(num)s>") % dict(num=_anonsrc_count[0])
-        _anonsrc_count[0] += 1
-
-    indent = None
     ctx = _ctx_void
     dobj = _SDSource(srcname)
     ctx_stack = []
@@ -164,11 +156,32 @@ def _parse_string (instr, srcname=None):
         elif ctx_stack:
             ctx, dobj = ctx_stack.pop()
         else:
-            # Load included sources.
-            for i in range(len(dobj.incsources)):
-                dobj.incsources[i] = _parse_file(dobj.incsources[i])
-
             return dobj
+
+
+_anonsrc_count = [0]
+
+def _parse_string (instr, srcname=None):
+
+    # Try to return parsed source from cache.
+    if srcname in _parsed_sources:
+        return _parsed_sources[srcname]
+
+    if srcname is None:
+        srcname = _p("automatic name for anonymous input stream",
+                     "<stream-%(num)s>") % dict(num=_anonsrc_count[0])
+        _anonsrc_count[0] += 1
+
+    source = _parse_string_w(instr, srcname)
+
+    # Cache the source by name (before procesing includes).
+    _parsed_sources[srcname] = source
+
+    # Load included sources.
+    for i in range(len(source.incsources)):
+        source.incsources[i] = _parse_file(source.incsources[i])
+
+    return source
 
 
 def _parse_file (path):
@@ -177,6 +190,7 @@ def _parse_file (path):
     apath = os.path.abspath(path)
     if apath in _parsed_sources:
         return _parsed_sources[apath]
+    print path
 
     # Try to load parsed source from disk.
     source = _read_parsed_file(path)
@@ -192,13 +206,17 @@ def _parse_file (path):
         lines = [x.decode(enc) for x in lines]
 
         instr = "".join(lines)
-        source = _parse_string(instr, path)
+        source = _parse_string_w(instr, path)
 
         # Write out parsed file.
         _write_parsed_file(source)
 
-    # Cache the source by absolute path.
+    # Cache the source by absolute path (before procesing includes).
     _parsed_sources[apath] = source
+
+    # Load included sources.
+    for i in range(len(source.incsources)):
+        source.incsources[i] = _parse_file(source.incsources[i])
 
     return source
 
