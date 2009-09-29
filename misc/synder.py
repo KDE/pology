@@ -835,7 +835,8 @@ class Synder (object):
                   ekeytf=None, ekeyitf=None,
                   pkeytf=None, pkeyitf=None,
                   pvaltf=None, mvaltf=None,
-                  esyntf=None):
+                  esyntf=None,
+                  strictkey=False):
         """
         FIXME: Write doc.
         """
@@ -851,6 +852,8 @@ class Synder (object):
         self._pvaltf = pvaltf
         self._mvaltf = mvaltf
         self._esyntf = esyntf
+
+        self._strictkey = strictkey
 
         self._imported_srcnames = set()
         self._entry_by_srcname_iekey = {}
@@ -967,7 +970,7 @@ class Synder (object):
                 to_remove_keys_other[oentry].add(key)
 
         noconfres_oentries = []
-        if to_remove_keys == keyf(entry):
+        if self._strictkey or to_remove_keys == keyf(entry):
             noconfres_oentries.extend(to_remove_keys_other.keys())
         else:
             for oentry, keys in to_remove_keys_other.items():
@@ -978,12 +981,13 @@ class Synder (object):
             # Clear both internal and external keys.
             entry.ekeys.clear()
             entry.iekeys.clear()
-            pos1 = "%s:%d" % (entry.base.parent.name, entry.base.syns[0].pos[0])
-            pos2s = ["%s:%d" % (x.base.parent.name, x.base.syns[0].pos[0])
-                     for x in noconfres_oentries]
+            eposf = lambda x: (x.base.parent.name, x.base.syns[0].pos[0])
+            noconfres_oentries.sort(key=eposf)
+            pos1 = "%s:%d" % eposf(entry)
+            pos2s = ["%s:%d" % eposf(x) for x in noconfres_oentries]
             pos2s = "\n".join(pos2s)
             warning(_p("error message",
-                       "Entry at %(pos1)s eliminated due to irreconcilable "
+                       "Entry at %(pos1)s eliminated due to "
                        "key conflict with the following entries:\n"
                        "%(pos2s)s") % locals())
         else:
