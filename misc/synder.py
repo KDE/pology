@@ -1350,22 +1350,17 @@ class Synder (object):
         if self._ekeytf:
             ekey = self._ekeytf(ekey)
         if ekey is None:
-            return []
+            return set()
         entry = self._visible_entry_by_ekey.get(ekey)
         if entry is None:
-            return []
+            return set()
 
-        props = self._getprops(entry)
+        pkeys = set()
         for env1 in self._env:
-            pkeys = set()
-            for env0 in env1:
-                props0 = props.get(env0)
-                if props0 is not None:
-                    pkeys.update(props0.keys())
-            if pkeys:
-                return pkeys
+            props = self._getprops(entry, env1)
+            pkeys.update(props.keys())
 
-        return []
+        return pkeys
 
 
     def keys (self):
