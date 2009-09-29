@@ -831,20 +831,17 @@ class Synder (object):
 
     def __init__ (self,
                   env="",
-                  pkeysep="-", envsep=":", inenvsep=".",
+                  pkeysep="-",
                   ekeytf=None, ekeyitf=None,
                   pkeytf=None, pkeyitf=None,
-                  pvaltf=None,
-                  esyntf=None,
-                  mvaltf=None):
+                  pvaltf=None, mvaltf=None,
+                  esyntf=None):
         """
         FIXME: Write doc.
         """
 
         self._env = self._normenv(env)
 
-        self._envsep = envsep
-        self._inenvsep = inenvsep
         self._pkeysep = pkeysep
 
         self._ekeytf = ekeytf
@@ -852,8 +849,8 @@ class Synder (object):
         self._pkeytf = pkeytf
         self._pkeyitf = pkeyitf
         self._pvaltf = pvaltf
-        self._esyntf = esyntf
         self._mvaltf = mvaltf
+        self._esyntf = esyntf
 
         self._imported_srcnames = set()
         self._entry_by_srcname_iekey = {}
