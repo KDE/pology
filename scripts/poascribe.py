@@ -2267,34 +2267,26 @@ def w_selector_modax (cid, amod, arev,
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
+                good = True
                 # Cannot be candidate if made by fuzzy user and
                 # there are no differences to earlier message by
                 # fields normally in translator's domain.
-                good = True
-                if a.user == UFUZZ and i + 1 < len(history):
+                if good and a.user == UFUZZ and i + 1 < len(history):
                     if merge_modified(history[i + 1].msg, a.msg):
+                        good = False
+                # Cannot be candidate if equal to the previous message
+                # under the filter in effect.
+                pfilter = options.tfilter or config.tfilter
+                if good and pfilter and i + 1 < len(history):
+                    if flt_eq(history[i + 1].msg, a.msg, pfilter):
                         good = False
                 # Compliant modification found, make it candidate.
                 if good:
                     i_cand = i
 
-        if i_cand is not None:
-            # There was no cancelling message after candidate modification,
-            # so use it, unless filter is in effect and candidate
-            # is equal under it to the first earlier modification
-            # (any, or not by m-users).
-            pfilter = options.tfilter or config.tfilter
-            if pfilter and i_cand + 1 < len(history):
-                mm = history[i_cand].msg
-                for a in history[i_cand + 1:]:
-                    if (    a.type == ATYPE_MOD
-                        and (not musers or a.user not in musers)
-                        and flt_eq(mm, a.msg, pfilter)
-                    ):
-                        i_cand = None
-                        break
-            if i_cand is not None:
-                i_sel = i_cand
+        if i_sel is None and i_cand is not None:
+            # No canceling message after the candidate modification, so use it.
+            i_sel = i_cand
 
         return i_sel
 
