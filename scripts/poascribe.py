@@ -1346,7 +1346,7 @@ def flt_eq (msg1, msg2, pfilter):
     Whether two messages are equal under translation filter.
     """
 
-    return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] > 0.0
+    return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] == 0.0
 
 
 def merge_modified (msg1, msg2):
