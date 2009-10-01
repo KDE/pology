@@ -862,13 +862,14 @@ class Synder (object):
 
         self._pkeysep = pkeysep
 
-        self._ekeytf = ekeytf
-        self._ekeyitf = ekeyitf
-        self._pkeytf = pkeytf
-        self._pkeyitf = pkeyitf
-        self._pvaltf = pvaltf
-        self._mvaltf = mvaltf
-        self._esyntf = esyntf
+        self._ekeytf = self._resolve_tf(ekeytf, ["pkey", "self"])
+        self._ekeyitf = self._resolve_tf(ekeyitf, [])
+        self._pkeytf = self._resolve_tf(pkeytf, ["ekey", "self"])
+        self._pkeyitf = self._resolve_tf(pkeyitf, [])
+        self._pvaltf = self._resolve_tf(pvaltf, ["pkey", "env1", "self"])
+        self._mvaltf = self._resolve_tf(mvaltf, ["pkey", "ekey", "ekrest",
+                                                 "pkrest", "self"])
+        self._esyntf = self._resolve_tf(esyntf, ["ekey", "ekrest", "self"])
 
         self._strictkey = strictkey
 
@@ -892,6 +893,33 @@ class Synder (object):
             env = ((env,),)
 
         return env
+
+
+    def _resolve_tf (self, tfspec, kneargs):
+
+        eaords = [0]
+        if isinstance(tfspec, (tuple, list)):
+            tf0, eargs = tfspec[0], list(tfspec[1:])
+            unkeargs = set(eargs).difference(kneargs)
+            if unkeargs:
+                arglist = " ".join(sorted(unkeargs))
+                raise StandardError(
+                    _p("error message",
+                       "Unknown extra arguments for transformation function "
+                       "requested in derivator constructor: %(arglist)s")
+                    % locals())
+            eaords.extend([kneargs.index(x) + 1 for x in eargs])
+        else:
+            tf0 = tfspec
+
+        if tf0 is None:
+            return None
+
+        def tf (*args):
+            args0 = [args[x] for x in eaords]
+            return tf0(*args0)
+
+        return tf
 
 
     def import_string (self, string):
@@ -1044,28 +1072,44 @@ class Synder (object):
                     kmap.pop(key)
 
 
+    def _resolve_ekey (self, ekey, pkey):
+
+        ekrest = ()
+        if self._ekeytf:
+            ekey = self._ekeytf(ekey, pkey, self)
+            if isinstance(ekey, tuple):
+                ekey, ekrest = ekey[0], ekey[1:]
+
+        return ekey, ekrest
+
+
+    def _resolve_pkey (self, pkey, ekey):
+
+        pkrest = ()
+        if self._pkeytf:
+            pkey = self._pkeytf(pkey, ekey, self)
+            if isinstance(pkey, tuple):
+                pkey, pkrest = pkey[0], pkey[1:]
+
+        return pkey, pkrest
+
+
     def get2 (self, ekey, pkey, defval=None):
         """
         FIXME: Write doc.
         """
 
-        if self._ekeytf:
-            ekey = self._pkeytf(ekey)
-            if ekey is None:
-                return defval
+        ekey, ekrest = self._resolve_ekey(ekey, pkey)
+        if ekey is None:
+            return defval
 
         entry = self._visible_entry_by_ekey.get(ekey)
         if entry is None:
             return defval
 
-        has_pkrest = False
-        if self._pkeytf:
-            pkey = self._pkeytf(pkey)
-            if isinstance(pkey, tuple):
-                pkey, pkrest = pkey[0], pkey[1:]
-                has_pkrest = True
-            if pkey is None:
-                return defval
+        pkey, pkrest = self._resolve_pkey(pkey, ekey)
+        if pkey is None:
+            return defval
 
         pvals = []
         for env1 in self._env:
@@ -1073,8 +1117,7 @@ class Synder (object):
             pvals.append(pval)
 
         if self._mvaltf:
-            args = (pvals,) + pkrest if has_pkrest else (pvals,)
-            pval = self._mvaltf(*args)
+            pval = self._mvaltf(pvals, pkey, ekey, ekrest, pkrest, self)
         else:
             for pval in pvals:
                 if pval is not None:
@@ -1168,7 +1211,7 @@ class Synder (object):
         # Process tags and normalize values.
         ndprops = []
         for pkey, (segs, key) in dprops.items():
-            pval = self._segs_to_string(segs, self._pvaltf, (pkey, env1))
+            pval = self._segs_to_string(segs, self._pvaltf, (pkey, env1, self))
             if pval is not None:
                 ndprops.append((pkey, (pval, key)))
         dprops = dict(ndprops)
@@ -1255,7 +1298,7 @@ class Synder (object):
         return props
 
 
-    def _segs_to_string (self, segs, segstf=None, rest=None):
+    def _segs_to_string (self, segs, segstf=None, tfeargs=None):
 
         if segstf:
             # Add sentries.
@@ -1282,10 +1325,10 @@ class Synder (object):
                 tsegs.append((tags, text))
 
             # Process value (may return None).
-            if rest is not None:
-                text = segstf(*((tsegs,) + rest))
-            else:
-                text = segstf(tsegs)
+            args = (tsegs,)
+            if tfeargs:
+                args = args + tuple(tfeargs)
+            text = segstf(*args)
 
         else:
             # Collect all text segments, ignoring tags.
@@ -1324,10 +1367,10 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        if self._ekeytf:
-            ekey = self._ekeytf(ekey)
+        ekey, ekrest = self._resolve_ekey(ekey, pkey)
         if ekey is None:
             return []
+
         entry = self._visible_entry_by_ekey.get(ekey)
         if entry is None:
             return []
@@ -1335,7 +1378,8 @@ class Synder (object):
         rsyns = []
         for syn in entry.base.syns:
             if not syn.hidden:
-                rsyn = self._segs_to_string(syn.segs, self._esyntf)
+                rsyn = self._segs_to_string(syn.segs, self._esyntf,
+                                            (ekey, ekrest, self))
                 if rsyn is not None:
                     rsyns.append(rsyn)
 
@@ -1347,10 +1391,10 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        if self._ekeytf:
-            ekey = self._ekeytf(ekey)
+        ekey, ekrest = self._resolve_ekey(ekey, pkey)
         if ekey is None:
             return set()
+
         entry = self._visible_entry_by_ekey.get(ekey)
         if entry is None:
             return set()
