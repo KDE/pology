@@ -851,7 +851,7 @@ class Synder (object):
                   pkeysep="-",
                   ekeytf=None, ekeyitf=None,
                   pkeytf=None, pkeyitf=None,
-                  pvaltf=None, mvaltf=None,
+                  pvaltf=None,
                   esyntf=None,
                   strictkey=False):
         """
@@ -862,13 +862,12 @@ class Synder (object):
 
         self._pkeysep = pkeysep
 
-        self._ekeytf = self._resolve_tf(ekeytf, ["pkey", "self"])
+        self._ekeytf = self._resolve_tf(ekeytf, ["self"])
         self._ekeyitf = self._resolve_tf(ekeyitf, [])
         self._pkeytf = self._resolve_tf(pkeytf, ["ekey", "self"])
         self._pkeyitf = self._resolve_tf(pkeyitf, [])
-        self._pvaltf = self._resolve_tf(pvaltf, ["pkey", "env1", "self"])
-        self._mvaltf = self._resolve_tf(mvaltf, ["pkey", "ekey", "ekrest",
-                                                 "pkrest", "self"])
+        self._pvaltf = self._resolve_tf(pvaltf, ["pkey", "ekey", "env",
+                                                 "ekrest", "pkrest", "self"])
         self._esyntf = self._resolve_tf(esyntf, ["ekey", "ekrest", "self"])
 
         self._strictkey = strictkey
@@ -1072,11 +1071,11 @@ class Synder (object):
                     kmap.pop(key)
 
 
-    def _resolve_ekey (self, ekey, pkey):
+    def _resolve_ekey (self, ekey):
 
         ekrest = ()
         if self._ekeytf:
-            ekey = self._ekeytf(ekey, pkey, self)
+            ekey = self._ekeytf(ekey, self)
             if isinstance(ekey, tuple):
                 ekey, ekrest = ekey[0], ekey[1:]
 
@@ -1099,7 +1098,7 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey, pkey)
+        ekey, ekrest = self._resolve_ekey(ekey)
         if ekey is None:
             return defval
 
@@ -1111,16 +1110,19 @@ class Synder (object):
         if pkey is None:
             return defval
 
-        pvals = []
+        mtsegs = []
         for env1 in self._env:
-            pval = self._getprops(entry, env1).get(pkey)
-            pvals.append(pval)
+            tsegs = self._getprops(entry, env1).get(pkey)
+            mtsegs.append(tsegs)
 
-        if self._mvaltf:
-            pval = self._mvaltf(pvals, pkey, ekey, ekrest, pkrest, self)
+        if self._pvaltf:
+            pval = self._pvaltf(mtsegs, pkey, ekey, self._env,
+                                ekrest, pkrest, self)
         else:
-            for pval in pvals:
-                if pval is not None:
+            pval = None
+            for tsegs in mtsegs:
+                if tsegs is not None:
+                    pval = simplify("".join([x[0] for x in tsegs]))
                     break
 
         return pval if pval is not None else defval
@@ -1135,15 +1137,15 @@ class Synder (object):
 
         # Construct raw derivation and extract key-value pairs.
         rprops = self._derive(entry, env1)
-        props = dict([(x, y[0]) for x, y in rprops.items()])
+        props = dict([(x, self._simple_segs(y[0])) for x, y in rprops.items()])
 
         # Internally transform keys if requested.
         if self._pkeyitf:
             nprops = []
-            for pkey, pval in props.items():
+            for pkey, segs in props.items():
                 pkey = self._pkeyitf(pkey)
                 if pkey is not None:
-                    nprops.append((pkey, pval))
+                    nprops.append((pkey, segs))
             props = dict(nprops)
 
         self._derivation_by_entry_env1[(entry, env1)] = props
@@ -1154,7 +1156,7 @@ class Synder (object):
 
         # Try to fetch raw derivation from cache.
         dprops = self._raw_derivation_by_entry_env1.get((entry, env1))
-        if dprops:
+        if dprops is not None:
             return dprops
 
         # Derivator core.
@@ -1172,7 +1174,7 @@ class Synder (object):
                 for seg in prop.segs:
                     if isinstance(seg, _SDExp):
                         eprops = self._expand(seg, entry, env1)
-                        if isinstance(eprops, dict):
+                        if len(eprops) != 1 or eprops.keys()[0]:
                             if cprops:
                                 for cpkey, csegskey in list(cprops.items()):
                                     esegskey = eprops.get(cpkey)
@@ -1188,12 +1190,13 @@ class Synder (object):
                                 if not cprops:
                                     break
                             else:
-                                cprops = eprops
-                                for (csegs, key) in cprops.values():
+                                for pkey, (esegs, key) in eprops.items():
+                                    csegs = esegs[:]
                                     if not key.cut:
                                         csegs[:0] = fsegs
+                                    cprops[pkey] = (csegs, key)
                         else:
-                            esegs = eprops
+                            esegs = eprops.values()[0]
                             if cprops:
                                 for pkey, (csegs, key) in cprops.items():
                                     if not key.cut or pkey in ownpkeys:
@@ -1207,14 +1210,6 @@ class Synder (object):
                     else:
                         fsegs.append(seg)
                 dprops.update(cprops)
-
-        # Process tags and normalize values.
-        ndprops = []
-        for pkey, (segs, key) in dprops.items():
-            pval = self._segs_to_string(segs, self._pvaltf, (pkey, env1, self))
-            if pval is not None:
-                ndprops.append((pkey, (pval, key)))
-        dprops = dict(ndprops)
 
         self._raw_derivation_by_entry_env1[(entry, env1)] = dprops
         return dprops
@@ -1244,9 +1239,9 @@ class Synder (object):
 
         # Drop terminal properties.
         nprops = []
-        for pkey, (pval, key) in props.items():
+        for pkey, (tsegs, key) in props.items():
             if not key.terminal:
-                nprops.append((pkey, (pval, key)))
+                nprops.append((pkey, (tsegs, key)))
         props = dict(nprops)
 
         # Apply expansion mask.
@@ -1254,7 +1249,7 @@ class Synder (object):
             # Eliminate all obtained keys not matching the mask.
             # Reduce by mask those that match.
             nprops = []
-            for pkey, pvalskey in props.items():
+            for pkey, tsegskey in props.items():
                 if len(pkey) != len(exp.mask):
                     continue
                 mpkey = ""
@@ -1266,78 +1261,54 @@ class Synder (object):
                     else:
                         mpkey += c
                 if mpkey is not None:
-                    nprops.append((mpkey, pvalskey))
+                    nprops.append((mpkey, tsegskey))
             props = dict(nprops)
 
         # Apply key extension.
         if exp.kext is not None:
             nprops = []
-            for pkey, (pval, key) in props.items():
+            for pkey, (tsegs, key) in props.items():
                 npkey = exp.kext.replace(_ch_exp_kext_pl, pkey)
-                nprops.append((npkey, (pval, key)))
+                nprops.append((npkey, (tsegs, key)))
             props = dict(nprops)
 
         # Apply capitalization.
         if exp.caps is not None:
             chcaps = first_to_upper if exp.caps else first_to_lower
             nprops = {}
-            for pkey, (pval, key) in props.items():
-                nprops[pkey] = (chcaps(pval), key)
+            for pkey, (tsegs, key) in props.items():
+                nprops[pkey] = (chcaps(tsegs), key)
             props = nprops
-
-        # Put into segs-key form.
-        pkeys = props.keys()
-        if len(pkeys) != 1 or pkeys[0]:
-            nprops = {}
-            for pkey, (pval, key) in props.items():
-                nprops[pkey] = ([_SDText(None, None, pval)], key)
-        else:
-            nprops = [_SDText(None, None, props.values()[0][0])]
-        props = nprops
 
         return props
 
 
-    def _segs_to_string (self, segs, segstf=None, tfeargs=None):
+    def _simple_segs (self, segs):
 
-        if segstf:
-            # Add sentries.
-            if not segs:
-                segs = [_SDText(None, None, "")]
-            if not isinstance(segs[0], _SDTag):
-                segs = [_SDTag(None, None)] + segs
-            if not isinstance(segs[-1], _SDText):
-                segs = segs + [_SDText(None, None, "")]
+        # Add sentries.
+        if not segs:
+            segs = [_SDText(None, None, "")]
+        if not isinstance(segs[0], _SDTag):
+            segs = [_SDTag(None, None)] + segs
+        if not isinstance(segs[-1], _SDText):
+            segs = segs + [_SDText(None, None, "")]
 
-            # Construct simplified segments: [([tagname...], text)]
-            tsegs = []
-            i = 0
-            while i < len(segs):
-                # Tag names for the next piece of text.
-                tags = segs[i].names
-                # Join contiguous text segments into single plain text.
+        # Construct simplified segments: [(text, [tagname...])...]
+        tsegs = []
+        i = 0
+        while i < len(segs):
+            # Tag names for the next piece of text.
+            tags = segs[i].names
+            # Join contiguous text segments into single plain text.
+            i += 1
+            i0 = i
+            while i < len(segs) and isinstance(segs[i], _SDText):
                 i += 1
-                i0 = i
-                while i < len(segs) and isinstance(segs[i], _SDText):
-                    i += 1
-                text = "".join([x.text for x in segs[i0:i]])
-                # Collect simplified segment.
-                tsegs.append((tags, text))
+            text = "".join([x.text for x in segs[i0:i]])
+            # Collect simplified segment.
+            tsegs.append((text, tags))
 
-            # Process value (may return None).
-            args = (tsegs,)
-            if tfeargs:
-                args = args + tuple(tfeargs)
-            text = segstf(*args)
-
-        else:
-            # Collect all text segments, ignoring tags.
-            text = "".join([x.text for x in segs if isinstance(x, _SDText)])
-
-        if text is not None:
-            text = simplify(text)
-
-        return text
+        return tsegs
 
 
     def get (self, key, defval=None):
@@ -1367,7 +1338,7 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey, pkey)
+        ekey, ekrest = self._resolve_ekey(ekey)
         if ekey is None:
             return []
 
@@ -1378,8 +1349,11 @@ class Synder (object):
         rsyns = []
         for syn in entry.base.syns:
             if not syn.hidden:
-                rsyn = self._segs_to_string(syn.segs, self._esyntf,
-                                            (ekey, ekrest, self))
+                tsegs = self._simple_segs(syn.segs)
+                if self._esyntf:
+                    rsyn = self._esyntf(tsegs, ekey, ekrest, self)
+                else:
+                    rsyn = "".join([x[0] for x in tsegs])
                 if rsyn is not None:
                     rsyns.append(rsyn)
 
@@ -1391,7 +1365,7 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey, pkey)
+        ekey, ekrest = self._resolve_ekey(ekey)
         if ekey is None:
             return set()
 
