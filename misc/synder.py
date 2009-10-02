@@ -1353,7 +1353,7 @@ class Synder (object):
                 if self._esyntf:
                     rsyn = self._esyntf(tsegs, ekey, ekrest, self)
                 else:
-                    rsyn = "".join([x[0] for x in tsegs])
+                    rsyn = simplify("".join([x[0] for x in tsegs]))
                 if rsyn is not None:
                     rsyns.append(rsyn)
 
