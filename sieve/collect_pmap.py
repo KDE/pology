@@ -289,32 +289,34 @@ class Sieve (object):
                     sdexpr = ">" + self.p.derivs + "\n" + sdexpr
                 try:
                     self.synder.import_string(sdexpr)
+                    cprops = self.synder.props(sdkey)
                 except Exception, e:
                     errmsg = unicode(e)
                     warning_on_msg("Invalid derivation '%(sddef)s':\n"
                                    "%(errmsg)s" % locals(),
                                    msg, cat)
+                    return
+
+                jumble = "".join(["".join(x) for x in cprops.items()])
+                if not psep:
+                    psep = self._pick_sep(jumble, u"/|¦")
+                    kvsep = self._pick_sep(jumble, u"=:→")
+                    if not psep or not kvsep:
+                        warning_on_msg("No known separator applicable to "
+                                       "keys and values derived from "
+                                       "'%(sddef)s'." % locals(),
+                                       msg, cat)
+                        return
                 else:
-                    cprops = self.synder.props(sdkey)
-                    jumble = "".join(["".join(x) for x in cprops.items()])
-                    if not psep:
-                        psep = self._pick_sep(jumble, u"/|¦")
-                        kvsep = self._pick_sep(jumble, u"=:→")
-                        if not psep or not kvsep:
-                            warning_on_msg("No known separator applicable to "
-                                           "keys and values derived from "
-                                           "'%(sddef)s'." % locals(),
-                                            msg, cat)
-                            return
-                    else:
-                        if psep in jumble or kvsep in jumble:
-                            warning_on_msg("Previously selected separators "
-                                           "not applicable to "
-                                           "keys and values derived from "
-                                           "'%(sddef)s'." % locals(),
-                                            msg, cat)
-                            return
-                    props.update(cprops)
+                    if psep in jumble or kvsep in jumble:
+                        warning_on_msg("Previously selected separators "
+                                       "not applicable to "
+                                       "keys and values derived from "
+                                       "'%(sddef)s'." % locals(),
+                                       msg, cat)
+                        return
+
+                props.update(cprops)
 
         if not props:
             if ekeys:
