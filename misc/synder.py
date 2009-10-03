@@ -1381,6 +1381,17 @@ class Synder (object):
         return pkeys
 
 
+    def props (self, ekey):
+        """
+        FIXME: Write doc.
+        """
+
+        # TODO: Implement more efficiently.
+        props = dict([(x, self.get2(ekey, x)) for x in self.pkeys(ekey)])
+
+        return props
+
+
     def keys (self):
         """
         FIXME: Write doc.
