@@ -59,6 +59,8 @@ Sieve parameters:
         used to validate parsed entries
   - C{extrakeys}: allow defining extra entry keys
   - C{derivs:<file>}: path to the file defining derivators for synder entries
+  - C{pmhead}: prefix for pmap entries (instead of default C{pmap:})
+  - C{sdhead}: prefix for synder entries (instead of default C{synder:})
 
 If output file is not specified by C{outfile} parameter,
 nothing is written out. Such runs are useful for validation of entries.
@@ -193,10 +195,17 @@ def setup_sieve (p):
                 desc=
     "File defining the derivators used in derived entries."
     )
+    p.add_param("pmhead", unicode, defval=u"pmap:",
+                metavar="STRING",
+                desc=
+    "Prefix which starts property map entries in comments."
+    )
+    p.add_param("sdhead", unicode, defval=u"synder:",
+                metavar="STRING",
+                desc=
+    "Prefix which starts syntagma derivator entries in comments."
+    )
 
-
-_pmhead = "pmap:"
-_sdhead = "synder:"
 
 class Sieve (object):
 
@@ -210,6 +219,13 @@ class Sieve (object):
             self.propcons = self._read_propcons(params.propcons)
 
         self.p = params
+
+        if not params.pmhead:
+            raise SieveError("Prefix which starts property map entries "
+                             "in comments cannot be empty.")
+        if not params.sdhead:
+            raise SieveError("Prefix which starts syntagma derivator entries "
+                             "in comments cannot be empty.")
 
         # Collected entries.
         # Each element is a tuple of the form:
@@ -235,9 +251,9 @@ class Sieve (object):
         for i in range(len(msg.manual_comment)):
             ind = i + 1
             manc = (msg.manual_comment[i]).strip()
-            if manc.startswith(_pmhead):
+            if manc.startswith(self.p.pmhead):
                 # Parse and check consistency of separators.
-                espec = manc[len(_pmhead):].lstrip()
+                espec = manc[len(self.p.pmhead):].lstrip()
                 lkvsep, lpsep = espec[:2]
                 if lkvsep.isalnum() or lpsep.isalnum():
                     warning_on_msg("An alphanumeric separator used for "
@@ -281,8 +297,8 @@ class Sieve (object):
                             return
                         ekeys.add(ekey)
 
-            elif manc.startswith(_sdhead):
-                sddef = manc[len(_sdhead):].lstrip()
+            elif manc.startswith(self.p.sdhead):
+                sddef = manc[len(self.p.sdhead):].lstrip()
                 sdkey = str(self.sdord)
                 sdexpr = sdkey + ":" + sddef
                 if self.p.derivs:
