@@ -178,8 +178,7 @@ def _parse_string (instr, srcname=None):
     _parsed_sources[srcname] = source
 
     # Load included sources.
-    for i in range(len(source.incsources)):
-        source.incsources[i] = _parse_file(source.incsources[i])
+    source.incsources = _include_sources(source, source.incsources)
 
     return source
 
@@ -192,7 +191,10 @@ def _parse_file (path):
         return _parsed_sources[apath]
 
     # Try to load parsed source from disk.
-    source = _read_parsed_file(path)
+    source = _read_parsed_file(apath)
+    if source:
+        # Set attributes discarded on compiling.
+        source.name = path
 
     if source is None:
         # Parse the file.
@@ -208,27 +210,52 @@ def _parse_file (path):
         source = _parse_string_w(instr, path)
 
         # Write out parsed file.
-        _write_parsed_file(source)
+        # Temporarily discard attributes relative to importing.
+        iname = source.name
+        source.name = None
+        _write_parsed_file(source, apath)
+        source.name = iname
 
     # Cache the source by absolute path (before procesing includes).
     _parsed_sources[apath] = source
 
     # Load included sources.
-    for i in range(len(source.incsources)):
-        source.incsources[i] = _parse_file(source.incsources[i])
+    source.incsources = _include_sources(source, source.incsources)
 
     return source
+
+
+def _include_sources (source, incpaths):
+
+    incsources = []
+    incroot = os.path.dirname(os.path.abspath(source.name))
+    for incpath in incpaths:
+        # If included path relative, make it relative to current source.
+        if not incpath.startswith(os.path.sep):
+            path = os.path.join(incroot, incpath)
+        else:
+            path = incpath
+        if not os.path.isfile(path):
+            # FIXME: Position of include directive in the file lost,
+            # propagate it to this place to report error properly.
+            raise SynderError(
+                _p("error message",
+                   "Included file '%(incpath)s' not found at '%(path)s'.")
+                   % locals(),
+                1101, source.name)
+        incsource = _parse_file(path)
+        incsources.append(incsource)
+
+    return incsources
 
 
 _compfile_suff = "c"
 _compfile_dver = "0001"
 _compfile_hlen = hashlib.md5().digest_size * 2
 
-def _write_parsed_file (source):
+def _write_parsed_file (source, path):
 
-    path = source.name
-    cpath = source.name + _compfile_suff
-
+    cpath = path + _compfile_suff
     try:
         fhc = open(cpath, "wb")
         fh = open(path, "rb")
@@ -263,6 +290,7 @@ def _read_parsed_file (path):
     if fhash != fhashc:
         return None
 
+    # Load the compiled source.
     source = pickle.load(fhc)
 
     return source
@@ -539,21 +567,9 @@ def _ctx_handler_inc (source, instr, pos, bpos):
                "Empty target path in include directive."),
             1100, source.name, obpos)
 
-    # If included path relative, make it relative to current source.
-    if not incpath.startswith(os.path.sep):
-        path = os.path.join(os.path.dirname(source.name), incpath)
-    else:
-        path = incpath
-    if not os.path.isfile(path):
-        raise SynderError(
-            _p("error message",
-               "No such file '%(path)s'.")
-            % dict(path=path),
-            1101, source.name, obpos)
-
     # Add to included sources of this source.
     # Temporarily store paths, to be resolved into full sources later.
-    source.incsources.append(path)
+    source.incsources.append(incpath)
 
     return None, None, False, pos, bpos
 
