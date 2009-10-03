@@ -1215,12 +1215,12 @@ class Synder (object):
         return dprops
 
 
-    def _expand (self, exp, entry, env1):
+    def _expand (self, exp, pentry, env1):
         # TODO: Discover circular expansion paths.
 
         # Fetch the entry pointed to by the expansion.
         iekey = simplify(exp.ref)
-        source = entry.base.parent
+        source = pentry.base.parent
         entry = self._entry_by_srcname_iekey[source.name].get(iekey)
         if entry is None:
             for isource in reversed(source.incsources):
@@ -1228,11 +1228,11 @@ class Synder (object):
                 if entry is not None:
                     break
         if entry is None:
-            warning(_p("error message",
-                       "Expansion '%(ref)s' does not reference a known entry "
-                       "at %(file)s:%(line)s.")
-                    % dict(ref=exp.ref, file=source.name, line=exp.pos[0]))
-            return {}
+            raise SynderError(
+                _p("error message",
+                   "Expansion '%(ref)s' does not reference a known entry.")
+                % dict(ref=exp.ref, file=source.name, line=exp.pos[0]),
+                5010, source.name, exp.pos)
 
         # Derive the referenced entry.
         props = self._derive(entry, env1)
