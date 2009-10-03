@@ -937,28 +937,28 @@ class Synder (object):
         return tf
 
 
-    def import_string (self, string):
+    def import_string (self, string, ignhid=False):
         """
         FIXME: Write doc.
         """
 
         source = _parse_string(string)
-        return self._process_import_visible(source)
+        return self._process_import_visible(source, ignhid)
 
 
-    def import_file (self, filename):
+    def import_file (self, filename, ignhid=False):
         """
         FIXME: Write doc.
         """
 
         source = _parse_file(filename)
-        return self._process_import_visible(source)
+        return self._process_import_visible(source, ignhid)
 
 
-    def _process_import_visible (self, source):
+    def _process_import_visible (self, source, ignhid):
 
         nnew = self._process_import(source)
-        nvis = self._make_visible(source)
+        nvis = self._make_visible(source, ignhid)
         return (nvis, nnew)
 
 
@@ -998,7 +998,7 @@ class Synder (object):
         return nadded
 
 
-    def _make_visible (self, source):
+    def _make_visible (self, source, ignhid):
 
         if source.name in self._visible_srcnames:
             return 0
@@ -1008,7 +1008,7 @@ class Synder (object):
         nvis = 0
 
         for entry in self._entries_by_srcname[source.name]:
-            if all([x.hidden for x in entry.base.syns]):
+            if not ignhid and all([x.hidden for x in entry.base.syns]):
                 continue
 
             # Eliminate external key conflicts of this entry.
