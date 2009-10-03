@@ -284,8 +284,9 @@ class Sieve (object):
             elif manc.startswith(_sdhead):
                 sddef = manc[len(_sdhead):].lstrip()
                 sdkey = str(self.sdord)
-                sdinc = ">" + self.p.derivs
-                sdexpr = sdinc + "\n" + sdkey + ":" + sddef
+                sdexpr = sdkey + ":" + sddef
+                if self.p.derivs:
+                    sdexpr = ">" + self.p.derivs + "\n" + sdexpr
                 try:
                     self.synder.import_string(sdexpr)
                 except Exception, e:
