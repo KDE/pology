@@ -58,12 +58,57 @@ Sieve parameters:
   - C{propcons}: file defining constraints on property keys and values,
         used to validate parsed entries
   - C{extrakeys}: allow defining extra entry keys
+  - C{derivs:<file>}: path to the file defining derivators for synder entries
 
 If output file is not specified by C{outfile} parameter,
 nothing is written out. Such runs are useful for validation of entries.
 
 Defining additional entry keys (other than C{msgid} and C{msgstr})
 is by default not allowed; issuing the C{extrakeys} parameter allows it.
+
+Derivating Entries
+==================
+
+There is another, more succint way to define pmap entries in comments.
+Instead of writting out all key-value combinations, it is possible instead
+to generate them through use of I{syntagma derivators}, or synders for short.
+In the earlier example::
+
+    # pmap: =/nom=Atina/gen=Atine/dat=Atini/acc=Atinu/
+
+it can be observed that each form has the same root, C{Atin}, followed
+by the appropriate ending for the given form. This makes it convenient
+to reformulate it as syntagma derivation::
+
+    # synder: Atin|a
+
+Here C{|a} is a I{derivator}; all such derivators are defined in
+a separate synder file (having {.sd} extension by convention),
+and made known to the sieve through the C{derivs} parameter.
+The derivator in this example would be defined like this::
+
+    |a: nom=a, gen=e, dat=i, acc=u
+
+After the derivator name, the definition lists the keys as in the pmap,
+but followed only by the appropriate endings for the given declination.
+For details about syntagma derivation, see documentation to
+L{pology.misc.synder>} module.
+
+It is possible to mix pmap (C{# pmap: ...}) and synder C{# synder: ...} entries
+throughout comments, in a single or collection of PO files.
+For example, synder entries may be used to cover majority of cases, which
+follow the general rules, while pmap entries can be used for exceptions.
+
+On the other hand, a pmap entry can also be directly reformulated as
+a synder entry, without using a derivator::
+
+    # synder: nom=Atina, gen=Atine, dat=Atini, acc=Atinu
+
+A question may come to mind here: why have pmap entries at all,
+if synder entries can be used in the same capacity and beyond?
+Because syntagma derivations have a lot of special syntax and rules
+(e.g. what if the phrase itself contains a comma?) to keep in mind,
+while raw pmaps have none past what was described above.
 
 Validating Entries
 ==================
@@ -119,6 +164,7 @@ import re
 from pology.sieve import SieveError
 from pology.misc.report import report
 from pology.misc.msgreport import warning_on_msg
+from pology.misc.synder import Synder
 
 
 def setup_sieve (p):
@@ -142,9 +188,15 @@ def setup_sieve (p):
                 desc=
     "Allow defining additional entry keys."
     )
+    p.add_param("derivs", unicode,
+                metavar="FILE",
+                desc=
+    "File defining the derivators used in derived entries."
+    )
 
 
-_ehead = "pmap:"
+_pmhead = "pmap:"
+_sdhead = "synder:"
 
 class Sieve (object):
 
@@ -164,6 +216,10 @@ class Sieve (object):
         # (ekeys, props, psep, kvsep, msg, cat)
         self.entries = []
 
+        # Syntagma derivator, for synder entries.
+        self.synder = Synder()
+        self.sdord = 0
+
 
     def process (self, msg, cat):
 
@@ -175,13 +231,13 @@ class Sieve (object):
         # Parse property map entries from the message.
         psep, kvsep = None, None
         ekeys = set()
-        props = set()
+        props = {}
         for i in range(len(msg.manual_comment)):
             ind = i + 1
             manc = (msg.manual_comment[i]).strip()
-            if manc.startswith(_ehead):
+            if manc.startswith(_pmhead):
                 # Parse and check consistency of separators.
-                espec = manc[len(_ehead):].lstrip()
+                espec = manc[len(_pmhead):].lstrip()
                 lkvsep, lpsep = espec[:2]
                 if lkvsep.isalnum() or lpsep.isalnum():
                     warning_on_msg("An alphanumeric separator used for "
@@ -213,7 +269,7 @@ class Sieve (object):
                 for elspec in respec.split(psep):
                     if kvsep in elspec:
                         pkey, pval = elspec.split(kvsep, 1)
-                        props.add((pkey, pval))
+                        props[pkey] = pval
                     else:
                         ekey = elspec
                         if not self.p.extrakeys:
@@ -225,6 +281,40 @@ class Sieve (object):
                             return
                         ekeys.add(ekey)
 
+            elif manc.startswith(_sdhead):
+                sddef = manc[len(_sdhead):].lstrip()
+                sdkey = str(self.sdord)
+                sdinc = ">" + self.p.derivs
+                sdexpr = sdinc + "\n" + sdkey + ":" + sddef
+                try:
+                    self.synder.import_string(sdexpr)
+                except Exception, e:
+                    errmsg = unicode(e)
+                    warning_on_msg("Invalid derivation '%(sddef)s':\n"
+                                   "%(errmsg)s" % locals(),
+                                   msg, cat)
+                else:
+                    cprops = self.synder.props(sdkey)
+                    jumble = "".join(["".join(x) for x in cprops.items()])
+                    if not psep:
+                        psep = self._pick_sep(jumble, u"/|¦")
+                        kvsep = self._pick_sep(jumble, u"=:→")
+                        if not psep or not kvsep:
+                            warning_on_msg("No known separator applicable to "
+                                           "keys and values derived from "
+                                           "'%(sddef)s'." % locals(),
+                                            msg, cat)
+                            return
+                    else:
+                        if psep in jumble or kvsep in jumble:
+                            warning_on_msg("Previously selected separators "
+                                           "not applicable to "
+                                           "keys and values derived from "
+                                           "'%(sddef)s'." % locals(),
+                                            msg, cat)
+                            return
+                    props.update(cprops)
+
         if not props:
             if ekeys:
                 warning_on_msg("Some additional entry keys "
@@ -232,6 +322,7 @@ class Sieve (object):
                                "but there are no properties.",
                                msg, cat)
             return
+        props = sorted(props.items()) # no need for dictionary any more
 
         # Add default keys.
         ekeys.add(msg.msgid)
@@ -303,6 +394,16 @@ class Sieve (object):
 
         report("Total entries collected for the property map: %(n)s"
                % dict(n=len(good_entries)))
+
+
+    def _pick_sep (self, teststr, seps):
+
+        good = False
+        for sep in seps:
+            if sep not in teststr:
+                good = True
+                break
+        return sep if good else None
 
 
     def _read_propcons (self, fpath):
