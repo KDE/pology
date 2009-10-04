@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.macrodec</title>
+  <title>pology.misc.synder</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        Module&nbsp;macrodec
+        Module&nbsp;synder
       </span>
     </td>
     <td>
@@ -50,9 +50,9 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module macrodec</h1><p class="nomargin-top"></p>
-<p>Declinations of words and phrases by macro expansion.</p>
-  <p>FIXME: Describe macrodec file format and usage of Declinator.</p>
+<h1 class="epydoc">Module synder</h1><p class="nomargin-top"></p>
+<p>Derive forms and properties of syntagmas by macro expansion.</p>
+  <p>FIXME: Write documentation (incl. synder format).</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -73,27 +73,78 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.misc.macrodec.MacrodecError-class.html" class="summary-name">MacrodecError</a><br />
-      Exception for problems in macro declinations.
+        <a href="pology.misc.synder.SynderError-class.html" class="summary-name">SynderError</a>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.misc.macrodec.Declinator-class.html" class="summary-name">Declinator</a><br />
-      FIXME: Write doc.
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="pology.misc.macrodec.Combinator-class.html" class="summary-name">Combinator</a><br />
+        <a href="pology.misc.synder.Synder-class.html" class="summary-name">Synder</a><br />
       FIXME: Write doc.
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.synder-module.html#empty_source_cache" class="summary-sig-name">empty_source_cache</a>()</span><br />
+      Clear all cached sources.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="empty_source_cache"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">empty_source_cache</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clear all cached sources.</p>
+  <p>When a synder file is loaded, its parsed form is stored in a cache, 
+  such that future load instructions on that same path (e.g. when the path 
+  is included from another file) do not waste any extra time and memory. 
+  This function erases all sources from the cache, when loading files anew 
+  on future load instructions is desired.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

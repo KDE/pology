@@ -133,7 +133,8 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.subcmd.ParamParser-class.html#help" class="summary-sig-name">help</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">subcmds</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">79</span>)</span><br />
+        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
       Formatted help for subcommands.</td>
           <td align="right" valign="top">
             
@@ -152,7 +153,8 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.subcmd.ParamParser-class.html#listcmd" class="summary-sig-name">listcmd</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">subcmds</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">79</span>)</span><br />
+        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
       Formatted listing of subcommands with short descriptions.</td>
           <td align="right" valign="top">
             
@@ -349,7 +351,8 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">help</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">subcmds</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">wcol</span>=<span class="sig-default">79</span>)</span>
+        <span class="sig-arg">wcol</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -361,7 +364,9 @@ object --+
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>subcmds</code></strong> (list of strings) - subcommand names (all subcommands if <code>None</code>)</li>
-        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap text at (&lt;= 0 for no wrapping)</li>
+        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap text at (&lt;= 0 for no wrapping, 
+          <code>None</code> for automatic according to output stream)</li>
+        <li><strong class="pname"><code>stream</code></strong> (file) - intended output stream for the text</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>formatted help</dd>
@@ -377,7 +382,8 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">listcmd</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">subcmds</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">wcol</span>=<span class="sig-default">79</span>)</span>
+        <span class="sig-arg">wcol</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -389,7 +395,9 @@ object --+
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>subcmds</code></strong> (list of strings) - subcommand names (all subcommands if <code>None</code>)</li>
-        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap text at (&lt;= 0 for no wrapping)</li>
+        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap text at (&lt;= 0 for no wrapping, 
+          <code>None</code> for automatic according to output stream)</li>
+        <li><strong class="pname"><code>stream</code></strong> (file) - intended output stream for the text</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>formatted listing</dd>

@@ -51,7 +51,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module fsops</h1><p class="nomargin-top"></p>
-<p>Operations with file system and external commands.</p>
+<p>Operations with environment, file system and external commands.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -282,6 +282,24 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#get_env_langs" class="summary-sig-name">get_env_langs</a>()</span><br />
       Guess user's preferred languages from the environment.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#term_width" class="summary-sig-name">term_width</a>(<span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get number of columns in the terminal of output stream.</td>
           <td align="right" valign="top">
             
             
@@ -680,6 +698,36 @@
   <dl class="fields">
     <dt>Returns: list of strings</dt>
         <dd>preferred languages</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="term_width"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">term_width</span>(<span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get number of columns in the terminal of output stream.</p>
+  <p>If the output stream is not linked to the terminal, 0 is returned. If 
+  the output stream is linked to the terminal, but the number of columns 
+  cannot be determined, the supplied default value is returned instead.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>stream</code></strong> (file) - output stream for which the terminal is looked up</li>
+        <li><strong class="pname"><code>default</code></strong> (int) - value to return if width cannot be determined</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>width of the terminal in columns</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.macrodec.MacrodecError</title>
+  <title>pology.misc.synder.SynderError</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,8 +39,8 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.macrodec-module.html">Module&nbsp;macrodec</a> ::
-        Class&nbsp;MacrodecError
+        <a href="pology.misc.synder-module.html">Module&nbsp;synder</a> ::
+        Class&nbsp;SynderError
       </span>
     </td>
     <td>
@@ -51,7 +51,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class MacrodecError</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class SynderError</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
               object --+        
                        |        
@@ -59,12 +59,10 @@ exceptions.BaseException --+
                            |    
         exceptions.Exception --+
                                |
-                              <strong class="uidshort">MacrodecError</strong>
+                              <strong class="uidshort">SynderError</strong>
 </pre>
 
 <hr />
-<p>Exception for problems in macro declinations.</p>
-
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -79,11 +77,11 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.MacrodecError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">code</span>,
         <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">line</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
       Constructor.</td>
           <td align="right" valign="top">
             
@@ -116,7 +114,7 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.MacrodecError-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
       str(x)</td>
           <td align="right" valign="top">
             
@@ -189,7 +187,7 @@ exceptions.BaseException --+
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">code</span>,
         <span class="sig-arg">source</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">line</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -199,14 +197,14 @@ exceptions.BaseException --+
   
   <p>Constructor.</p>
   <p>All the parameters are made available as instance variables.</p>
-  <p>Codes guide: &lt; 1000 user errors, &gt;= 1000 internal errors.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>msg</code></strong> (string) - a description of what went wrong</li>
+        <li><strong class="pname"><code>msg</code></strong> (string) - description of what went wrong</li>
         <li><strong class="pname"><code>code</code></strong> (int) - numerical ID of the problem</li>
-        <li><strong class="pname"><code>source</code></strong> (string or None) - name of the source in which the problem occured</li>
-        <li><strong class="pname"><code>line</code></strong> (int or None) - line in the source in which the problem occured</li>
+        <li><strong class="pname"><code>source</code></strong> (string) - name of the source in which the problem occured</li>
+        <li><strong class="pname"><code>pos</code></strong> (int or (int, int)) - line or line and column in the source in which the problem 
+          occured</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__

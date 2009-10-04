@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.macrodec.Combinator</title>
+  <title>pology.misc.synder.Synder</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,8 +39,8 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.macrodec-module.html">Module&nbsp;macrodec</a> ::
-        Class&nbsp;Combinator
+        <a href="pology.misc.synder-module.html">Module&nbsp;synder</a> ::
+        Class&nbsp;Synder
       </span>
     </td>
     <td>
@@ -51,18 +51,15 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Combinator</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class Synder</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
 object --+
          |
-        <strong class="uidshort">Combinator</strong>
+        <strong class="uidshort">Synder</strong>
 </pre>
 
 <hr />
 <p>FIXME: Write doc.</p>
-  <p>All methods named same as in <a 
-  href="pology.misc.macrodec.Declinator-class.html" 
-  class="link">Declinator</a> have same semantics too.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -78,9 +75,16 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">decs</span>,
-        <span class="summary-sig-arg">dvalcf</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.misc.synder.Synder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">pkeysep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">ekeytf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ekeyitf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pkeytf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pkeyitf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pvaltf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">esyntf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">strictkey</span>=<span class="summary-sig-default">False</span>)</span><br />
       FIXME: Write doc.</td>
           <td align="right" valign="top">
             
@@ -97,11 +101,49 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#get2" class="summary-sig-name">get2</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="import_string"></a><span class="summary-sig-name">import_string</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">string</span>,
+        <span class="summary-sig-arg">ignhid</span>=<span class="summary-sig-default">False</span>)</span><br />
+      FIXME: Write doc.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="import_file"></a><span class="summary-sig-name">import_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">ignhid</span>=<span class="summary-sig-default">False</span>)</span><br />
+      FIXME: Write doc.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get2"></a><span class="summary-sig-name">get2</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">ekey</span>,
-        <span class="summary-sig-arg">dkey</span>,
+        <span class="summary-sig-arg">pkey</span>,
         <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Combined value by entry and declination key.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -117,10 +159,10 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">edkey</span>,
+          <td><span class="summary-sig"><a name="get"></a><span class="summary-sig-name">get</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">key</span>,
         <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Combined value by compound key.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -136,8 +178,8 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#ekeys" class="summary-sig-name">ekeys</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Entry keys present in all declinators.</td>
+          <td><span class="summary-sig"><a name="ekeys"></a><span class="summary-sig-name">ekeys</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -153,9 +195,9 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#phrases" class="summary-sig-name">phrases</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="syns"></a><span class="summary-sig-name">syns</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">ekey</span>)</span><br />
-      Phrases by entry key present in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -171,9 +213,27 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.macrodec.Combinator-class.html#dkeys" class="summary-sig-name">dkeys</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="pkeys"></a><span class="summary-sig-name">pkeys</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">ekey</span>)</span><br />
-      Declination keys by entry key present in all declinators.</td>
+      FIXME: Write doc.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="props"></a><span class="summary-sig-name">props</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ekey</span>)</span><br />
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -190,7 +250,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="keys"></a><span class="summary-sig-name">keys</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Compound keys present in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -207,7 +267,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="values"></a><span class="summary-sig-name">values</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Combined values reachable by same compound key in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -224,8 +284,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="items"></a><span class="summary-sig-name">items</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Compound keys and combined values reachable by same compound key in 
-      all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -242,8 +301,8 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__contains__"></a><span class="summary-sig-name">__contains__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">edkey</span>)</span><br />
-      Whether the compound key is contained in every declinator.</td>
+        <span class="summary-sig-arg">key</span>)</span><br />
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -260,8 +319,8 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__getitem__"></a><span class="summary-sig-name">__getitem__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">edkey</span>)</span><br />
-      Combinaton of values from all declinators.</td>
+        <span class="summary-sig-arg">key</span>)</span><br />
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -278,7 +337,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__iter__"></a><span class="summary-sig-name">__iter__</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Iterator through compound keys present in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -295,7 +354,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="iterkeys"></a><span class="summary-sig-name">iterkeys</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Iterator through compound keys present in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -312,8 +371,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="itervalues"></a><span class="summary-sig-name">itervalues</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Iterator through combined values reachable by same compound key in 
-      all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -330,8 +388,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="iteritems"></a><span class="summary-sig-name">iteritems</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Iterator through compound keys and combined values reachable by same 
-      compound key in all declinators.</td>
+      FIXME: Write doc.</td>
           <td align="right" valign="top">
             
             
@@ -390,8 +447,15 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">decs</span>,
-        <span class="sig-arg">dvalcf</span>)</span>
+        <span class="sig-arg">env</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">pkeysep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">ekeytf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ekeyitf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pkeytf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pkeyitf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pvaltf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">esyntf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">strictkey</span>=<span class="sig-default">False</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -406,128 +470,6 @@ object --+
     </dt>
   </dl>
 </td></tr></table>
-</div>
-<a name="get2"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get2</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ekey</span>,
-        <span class="sig-arg">dkey</span>,
-        <span class="sig-arg">defval</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Combined value by entry and declination key.</p>
-  <dl class="fields">
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.macrodec.Declinator-class.html#get2" 
-        class="link">Declinator.get2</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="get"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">edkey</span>,
-        <span class="sig-arg">defval</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Combined value by compound key.</p>
-  <dl class="fields">
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.macrodec.Declinator-class.html#get" 
-        class="link">Declinator.get</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="ekeys"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">ekeys</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Entry keys present in all declinators.</p>
-  <dl class="fields">
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.macrodec.Declinator-class.html#ekeys" 
-        class="link">Declinator.ekeys</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="phrases"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">phrases</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ekey</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Phrases by entry key present in all declinators.</p>
-  <dl class="fields">
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.macrodec.Declinator-class.html#ekeys" 
-        class="link">Declinator.ekeys</a>
-      </p>
-</div></td></tr></table>
-</div>
-<a name="dkeys"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">dkeys</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ekey</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Declination keys by entry key present in all declinators.</p>
-  <dl class="fields">
-  </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.macrodec.Declinator-class.html#dkeys" 
-        class="link">Declinator.dkeys</a>
-      </p>
-</div></td></tr></table>
 </div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->

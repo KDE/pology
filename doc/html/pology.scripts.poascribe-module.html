@@ -483,7 +483,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>)</span></td>
+          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">keepflags</span>=<span class="summary-sig-default">False</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1172,6 +1173,22 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="selector_branch"></a><span class="summary-sig-name">selector_branch</span>(<span class="summary-sig-arg">branch</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="selector_wasc"></a><span class="summary-sig-name">selector_wasc</span>()</span></td>
           <td align="right" valign="top">
             
@@ -1492,13 +1509,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DATAG"></a><span class="summary-name">DATAG</span> = <code title="'-'"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a name="ATYPE_MOD"></a><span class="summary-name">ATYPE_MOD</span> = <code title="'modified'"><code class="variable-quote">'</code><code class="variable-string">modified</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
@@ -1520,14 +1530,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.scripts.poascribe-module.html#xm_selector_factories" class="summary-name">xm_selector_factories</a> = <code title="{&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;wasc\
-&quot;:(selector_wasc, False), &quot;xrevd&quot;:(selector_xrevd, False), &quot;fexpr&quot;:(se\
-lector_fexpr, False), &quot;e&quot;:(selector_e, False), &quot;l&quot;:(selector_l, False)\
-, &quot;espan&quot;:(selector_espan, False), &quot;lspan&quot;:(selector_lspan, False), &quot;h\
-expr&quot;:(selector_hexpr, True), &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(selec\
-tor_mod, True), &quot;modar&quot;:(selector_modar, True), &quot;modam&quot;:(selector_moda\
-m, True), &quot;modarm&quot;:(selector_modarm, True), &quot;rev&quot;:(selector_rev, True)\
-, &quot;revbm&quot;:(selector_revbm, True), &quot;modafter&quot;:(selector_modafter, True)\
+        <a href="pology.scripts.poascribe-module.html#xm_selector_factories" class="summary-name">xm_selector_factories</a> = <code title="{&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;bran\
+ch&quot;:(selector_branch, False), &quot;wasc&quot;:(selector_wasc, False), &quot;xrevd&quot;:(\
+selector_xrevd, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(selector\
+_e, False), &quot;l&quot;:(selector_l, False), &quot;espan&quot;:(selector_espan, False), \
+&quot;lspan&quot;:(selector_lspan, False), &quot;hexpr&quot;:(selector_hexpr, True), &quot;asc&quot;\
+:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(selector_m\
+odar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_modarm\
+, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, True), &quot;\
 ...">{&quot;any&quot;:(selector_any, False), &quot;active&quot;<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
@@ -1645,14 +1655,14 @@ m, True), &quot;modarm&quot;:(selector_modarm, True), &quot;rev&quot;:(selector_
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;wasc<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-&quot;:(selector_wasc, False), &quot;xrevd&quot;:(selector_xrevd, False), &quot;fexpr&quot;:(se<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-lector_fexpr, False), &quot;e&quot;:(selector_e, False), &quot;l&quot;:(selector_l, False)<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-, &quot;espan&quot;:(selector_espan, False), &quot;lspan&quot;:(selector_lspan, False), &quot;h<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-expr&quot;:(selector_hexpr, True), &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(selec<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-tor_mod, True), &quot;modar&quot;:(selector_modar, True), &quot;modam&quot;:(selector_moda<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-m, True), &quot;modarm&quot;:(selector_modarm, True), &quot;rev&quot;:(selector_rev, True)<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-, &quot;revbm&quot;:(selector_revbm, True), &quot;modafter&quot;:(selector_modafter, True)<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+{&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;bran<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ch&quot;:(selector_branch, False), &quot;wasc&quot;:(selector_wasc, False), &quot;xrevd&quot;:(<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+selector_xrevd, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(selector<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+_e, False), &quot;l&quot;:(selector_l, False), &quot;espan&quot;:(selector_espan, False), <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+&quot;lspan&quot;:(selector_lspan, False), &quot;hexpr&quot;:(selector_hexpr, True), &quot;asc&quot;<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(selector_m<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+odar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_modarm<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+, True), &quot;rev&quot;:(selector_rev, True), &quot;revbm&quot;:(selector_revbm, True), &quot;<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
