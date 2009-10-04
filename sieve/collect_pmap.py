@@ -94,7 +94,7 @@ The derivator in this example would be defined like this::
 After the derivator name, the definition lists the keys as in the pmap,
 but followed only by the appropriate endings for the given declination.
 For details about syntagma derivation, see documentation to
-L{pology.misc.synder>} module.
+L{pology.misc.synder} module.
 
 It is possible to mix pmap (C{# pmap: ...}) and synder C{# synder: ...} entries
 throughout comments, in a single or collection of PO files.
