@@ -71,6 +71,8 @@ def collect_files_by_ext (dirpath, extension,
                 ):
                     filepath = os.path.normpath(os.path.join(root, file))
                     filepaths.append(filepath)
+            if not recurse:
+                dirs[:] = []
 
     if sort:
         if unique:
