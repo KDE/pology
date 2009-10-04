@@ -362,6 +362,8 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp):
 
         pvals = []
         for tsegs, (env1, islatin) in zip(mtsegs, envspec):
+            if tsegs is None:
+                return None
             pval1 = _compose_text(tsegs, markup, nobrhyp, fcap, tag, ltmarkup,
                                   islatin)
             pvals.append(pval1)
