@@ -35,7 +35,7 @@ addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
 # ...in KDE4 UI POs.
 *hook name="check-markup/check-xml-kde4-sp" \
       factory=!strict=True, \
-               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               entities='sr:trapnakron/trapnakron_ui~', \
                mkeyw='kde4'! \
       on="msgstr"
 id="x-markup-k"
@@ -44,7 +44,7 @@ hint="грешке у обележавању"
 # ...in pure Qt UI POs.
 *hook name="check-markup/check-xml-qtrich-sp" \
       factory=!strict=True, \
-               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               entities='sr:trapnakron/trapnakron_ui~', \
                mkeyw='qtrich'! \
       on="msgstr"
 id="x-markup-q"
@@ -53,7 +53,7 @@ hint="грешке у обележавању"
 # ...in KDE documentation POs.
 *hook name="check-markup/check-xml-docbook4-sp" \
       factory=!strict=True, \
-               entities='sr:mdec/build_declinator_docbook4_by_env~"FORMDEFS_KDE4_SR"', \
+               entities='sr:trapnakron/trapnakron_docbook4~', \
                mkeyw='docbook4'! \
       on="msgstr"
 # Remove entities used as-is KDE documentation.
@@ -67,7 +67,7 @@ hint="грешке у обележавању"
 # ...in POs which have no markup, but in summit have XML-like entities.
 *hook name="check-markup/check-xmlents-sp" \
       factory=!strict=True, \
-               entities='sr:mdec/build_declinator_ui_by_env~"FORMDEFS_KDE4_SR"', \
+               entities='sr:trapnakron/trapnakron_ui~', \
                mkeyw='xmlents'! \
       on="msgstr"
 id="x-markup-e"
