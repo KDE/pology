@@ -26,6 +26,7 @@ where any character may be consistently used instead of C{/}.
 from pology.misc.report import warning
 from pology.misc.resolve import resolve_alternatives_simple
 from pology.misc.resolve import resolve_alternatives
+from pology.l10n.sr.hook.cyr2lat import cyr2lat
 
 
 _reflex_map = {
@@ -58,6 +59,7 @@ _reflex_map = {
     u"није": u"ни",
     u"НИЈЕ": u"НИ",
 }
+_reflex_map.update([map(cyr2lat, x) for x in _reflex_map.items()])
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 # ...using map() instead of [] to avoid x in global environment.
 
