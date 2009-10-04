@@ -332,7 +332,7 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
                 alleq = False
                 break
             if ref_pval is None:
-                ref_pval =pdval
+                ref_pval = pval
             elif ref_pval != pval:
                 alleq = False
                 break
