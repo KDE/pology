@@ -628,7 +628,7 @@ def _move_to_sep (instr, pos, bpos, testsep, wesc=True, repesc=False):
             if p < 0:
                 pos += len(instr) - pos
             else:
-                pos = p + len(_ch_nl)
+                pos = p
         elif wesc and c == _ch_escape:
             pos += 1
             if pos < len(instr):
