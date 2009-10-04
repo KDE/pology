@@ -280,6 +280,18 @@
      н =И,    г= И-ја, д= И-ју,   а =И,    и =И-јем,  л =И-ју, \
      нк=И-ји, гк=И-ја, дк=И-јима, ак=И-је, ик=И-јима, лк=И-јима
 
+# Izgovoriva skraćenica prividnog muškog roda -Y
+|Y:
+    @л: _род!=м, \
+    n =Y,   g =Yja, d =Yju,   a =Y,   i =Yjem,  l =Yju, \
+    nk=Yji, gk=Yja, dk=Yjima, ak=Yje, ik=Yjima, lk=Yjima
+
+# Izgovoriva skraćenica prividnog muškog roda -Y, s crticom
+|Y-:
+    @л: _род!=м, \
+    n =Y,    g =Y-ja, d =Y-ju,   a =Y,    i =Y-jem,  l =Y-ju, \
+    nk=Y-ji, gk=Y-ja, dk=Y-jima, ak=Y-je, ik=Y-jima, lk=Y-jima
+
 # Изговорива скраћеница привидног женског рода -А
 |А, |A: _род!=ж, \
     н =А, г =е, д =и,   а =у, и =ом,  л =и, \
@@ -321,6 +333,10 @@
 # Присвојни придев -И-јев
 |И-јев, |I-jev: Иј|ев
 
+# Prisvojni pridev -yjev
+|yjev:
+    @л: yj|ev
+
 # Prisvojni pridev -Yjev
 |Yjev:
     @л: Yj|ev
@@ -328,6 +344,9 @@
 # Prisvojni pridev -Y-jev
 |Y-jev:
     @л: Y-j|ev
+
+# Присвојни придев -ејев
+|ејев, |ejev: еј|ев
 
 # Присвојни придев -очев
 |очев, |očev: оч|ев
