@@ -429,20 +429,25 @@ def _compose_text (tsegs, markup, nobrhyp, fcap, tag, ltmarkup, tolatin=False):
 def _compose_althyb (env, envl, envij, envijl, pvals):
 
     if env and envl and envij and envijl:
-        raise StandardError("Ekavian/ijekavian hybridization not implemented.")
-    elif env and envij:
-        raise StandardError("Ekavian/ijekavian hybridization not implemented.")
-    elif envl and envijl:
-        raise StandardError("Ekavian/ijekavian hybridization not implemented.")
+        # FIXME: Really implement.
+        cval = _fold_cyrlat(pvals[:2])
+    elif (env and envij) or (envl and envijl):
+        # FIXME: Really implement.
+        cval = pvals[0]
     elif (env and envl) or (envij and envijl):
-        if cyr2lat(pvals[0]) != pvals[1]:
-            cval = _alt_head + _alt_sep.join([""] + pvals + [""])
-        else:
-            cval = pvals[0]
+        cval = _fold_cyrlat(pvals)
     else:
         cval = pvals[0]
 
     return cval
+
+
+def _fold_cyrlat (pvals):
+
+    if cyr2lat(pvals[0]) == pvals[1]:
+        return pvals[0]
+    else:
+        return _alt_head + _alt_sep.join([""] + pvals + [""])
 
 
 # Convert tagged person name into destination markup.
