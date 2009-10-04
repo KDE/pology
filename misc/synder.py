@@ -417,8 +417,7 @@ def _ctx_handler_env (env, instr, pos, bpos):
         1020, env.parent.parent.name, bpos)
 
 
-_seps_pkey = set((_ch_pkey_sep, _ch_pval, _ch_prop_sep,
-                  _ch_exp, _ch_tag, _ch_nl))
+_seps_pkey = set((_ch_pval, _ch_prop_sep, _ch_exp, _ch_tag, _ch_nl))
 
 def _ctx_handler_pkey (prop, instr, pos, bpos):
 
@@ -426,22 +425,19 @@ def _ctx_handler_pkey (prop, instr, pos, bpos):
     testsep = lambda c: c in _seps_pkey and c or None
     substr, sep, pos, bpos = _move_to_sep(instr, pos, bpos, testsep)
 
-    if sep in (_ch_pkey_sep, _ch_pval):
-        substr = substr.strip()
-        cut, terminal = False, False
-        while substr.endswith((_ch_cutprop, _ch_termprop)):
-            if substr.endswith(_ch_cutprop):
-                cut = True
-                substr = substr[:-len(_ch_cutprop)]
-            elif substr.endswith(_ch_termprop):
-                terminal = True
-                substr = substr[:-len(_ch_termprop)]
-        key = _SDKey(prop, obpos, substr, cut, terminal)
-        prop.keys.append(key)
-
-    if sep == _ch_pkey_sep:
-        return _ctx_pkey, prop, False, pos, bpos
     if sep == _ch_pval:
+        substr = substr.strip()
+        for rawkey in substr.split(_ch_pkey_sep):
+            cut, terminal = False, False
+            while rawkey.endswith((_ch_cutprop, _ch_termprop)):
+                if rawkey.endswith(_ch_cutprop):
+                    cut = True
+                    rawkey = rawkey[:-len(_ch_cutprop)]
+                elif rawkey.endswith(_ch_termprop):
+                    terminal = True
+                    rawkey = rawkey[:-len(_ch_termprop)]
+            key = _SDKey(prop, obpos, rawkey, cut, terminal)
+            prop.keys.append(key)
         return _ctx_pval, prop, False, pos, bpos
     else:
         # Backtrack and go into value context.
