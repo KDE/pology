@@ -1525,7 +1525,7 @@ Engine: Мотор|
 Epicycle: Епициклус|
 Euler2d: Ојлер| 2Д
 Extrusion: Извлаче|ње
-Fireworks 3D (GL), fireworks3dgl: Ватромет|и- 3Д (ГЛ)
+Fireworks 3D (GL), |fireworks3dgl: Ватромет|и- 3Д (ГЛ)
 Flag: Застав|а
 Flame: Пламен|
 Flipscreen3d: Окрет-екран| 3Д
@@ -2027,7 +2027,7 @@ dict.cc Translation\: German to English: дикт.цц|{-}\: са немачко
     @л: dict.cc|{-}\: sa nemačkog na engleski
 dict.cc Translation\: English to German: дикт.цц|{-}\: са енглеског на немачки
     @л: dict.cc|{-}\: sa engleskog na nemački
-Dictionary of the Spanish Academy (RAE), dictionaryofthespanishacademyrae: Речник| Шпанске академије (РАЕ)
+Dictionary of the Spanish Academy (RAE), |dictionaryofthespanishacademyrae: Речник| Шпанске академије (РАЕ)
 Digital Object Identifier: Дигиталн|и> идентификатор| објеката
 Dilbert: Дилберт|
 DocBook - The Definitive Guide: Докбук|{}\: коначн|и> водич|2
@@ -2062,7 +2062,7 @@ Google Groups: Гугл-груп|е-
     @л: Google-grup|e-
 Google Image Search: Гугл-слик|е-
     @л: Google-slik|e-
-Google (I'm Feeling Lucky), googleimfeelinglucky: Гугл| (из прве руке)
+Google (I'm Feeling Lucky), |googleimfeelinglucky: Гугл| (из прве руке)
     @л: Google| (iz prve ruke)
 Google Movies: Гугл-филмов|и-
     @л: Google-filmov|i-
@@ -2072,7 +2072,7 @@ GO.com: Го.ком|, Го.ком|ов
     @л: GO.com|, GO.com|ov
 Gracenote: Грејсноут|, Грејсноут|ов
     @л: Gracenote|, Gracenote|ov
-Great Dictionary of the Catalan Language (GRan Enciclopèdia  Catalana), grecdictcatalana: Велик|и> речник| каталонског језика (GRan Enciclopèdia Catalana)
+Great Dictionary of the Catalan Language (GRan Enciclopèdia  Catalana), |grecdictcatalana: Велик|и> речник| каталонског језика (GRan Enciclopèdia Catalana)
     @л: Velik|i> rečnik| katalonskog jezika (GRan Enciclopèdia  Catalana)
 Hotbot: Хотбот|, Хотбот|ов
 Hotmail: Хотмејл|, Хотмејл|ов, хотмејл|>
@@ -2205,7 +2205,7 @@ YouTube HQ: |*|YouTube ХКу
 # ----------------------------------------------------------------------------
 # Компаније и организације
 
-4Front, _4front: Фоурфронт|, Фоурфронт|ов
+4Front: Фоурфронт|, Фоурфронт|ов
     @л: 4Front|, 4Front|ov
 Adobe: Адоуб|и, Адоуб|ијев
     @л: Adob|e-ij, Adob|ejev
@@ -2334,12 +2334,12 @@ iTouch: и-тач|, и-тач|ов, и-тач|>
 Jaz: џез|, џез|ов, џез|>
     @л: Jaz|, Jaz|ov, jaz|>
 m6502: м6502|*, _род!=м
-Mac, |maccomp: мек|, мек|ов
+Mac, |macdev: мек|, мек|ов
     @л: Mac|, Mac|ov
 Macintosh: мекинтош|, мекинтош|ев, мекинтош|>
     @л: Macintosh|, Macintosh|ev, Macintosh|>
 MIPS: МИПС|-, МИПС|-ов, МИПС|>
-MO: МО|-, МО|-ов
+MO, |modev: МО|-, МО|-ов
 MouseMan: маусмен|, маусмен|ов
     @л: MouseMan|, MouseMan|ov
 MX700: _род!=м, МИкс700|*
@@ -2396,7 +2396,7 @@ CID Truetype (OT), |cidtruetypeot: |{CID Truetype} (ОТ)
 CID Type0: ЦИД тип|{}-0, ЦИД тип-0|>
     @л: CID Type|{}0, CID type0|>
 CID Type0C: |{CID Type0}Ц
-CID Type0C (OT), cidtype0cot: |{CID Type0C} (ОТ)
+CID Type0C (OT), |cidtype0cot: |{CID Type0C} (ОТ)
 ClearType: клиртајп|, клиртајп|>
     @л: ClearType|, cleartype|>
 CompactPCI: компактПЦ|И-, компактПЦИ|>
@@ -2464,7 +2464,7 @@ Truetype (OT), |truetypeot: |{Truetype} (ОТ)
 Type1: тип|{}-1, тип-1|>
     @л: Type|{}1, type1|>
 Type1C: |{Type1}Ц
-Type1C (OT), type1cot: |Type1C (ОТ)
+Type1C (OT), |type1cot: |Type1C (ОТ)
 Type3: тип|{}-3, тип-3|>
     @л: Type|{}3, type3|>
 ZeroConf: зироконф|, зироконф|>
@@ -2576,6 +2576,7 @@ ComicBook: комикбук|, комикбук|ов, комикбук|>
     @л: ComicBook|, ComicBook|ov, ComicBook|>
 Flash, |flashfmt: флеш|, флеш|>
     @л: Flash|, Flash|ov, Flash|>
+MO, |mofmt: МО|-, МО|>
 Musepack: мјузпак|, мјузпак|ов, мјузпак|>
     @л: Musepack|, Musepack|ov, Musepack|>
 RealAudio: |*|{`Real~н}ауд|ио, |{Real~н}аудио|>
