@@ -61,8 +61,8 @@ Component-Pascal: комонент-паскал|, компнент-паскал|
     @л: Component-Pascal|, Component-Pascal|ov, component-pascal|>
 C\#, |csharp: Ц\#|-, Ц\#|-ов, Ц\#|>
 CSS: ЦСС|-, ЦСС|-ов, ЦСС|>
-CSS/PHP: |{CSS~н}-|{PHP}
-    @л: |{CSS~n}/|{PHP}
+CSS/PHP: |{CSS~н}-|PHP
+    @л: CSS/|PHP
 CUE Sheet: ЦУЕ лист|, ЦУЕ-лист|>
 D, |dlang: Д|-, Д|-ов, Д|>
 Debian Changelog: |{Debian~.мп} дневник| измена
@@ -122,7 +122,7 @@ Javadoc: јавадок|, јавадок|ов, јавадок|>
 JavaScript: јаваскрипт|, јаваскрипт|ов, јаваскрипт|ни
     @л: JavaScript|, JavaScript|ov, javascript|>
 JavaScript/PHP: |{JavaScript~н}-|PHP
-    @л: |{JavaScript~n}/|PHP
+    @л: |{JavaScript~н}/|PHP
 JSON: џејсон|, џејсон|ов, џејсон|ски
     @л: JSON|-, JSON|-ov, JSON|>
 JSP: ЈСП|-, ЈСП|-ов, ЈСП|>
@@ -233,7 +233,7 @@ RSI IDL: РСИ ИДЛ|-, РСИ ИДЛ|-ов, РСИ ИДЛ|>
 Ruby: руб|и, руб|ијев, руб|ијевски
     @л: Rub|y, Rub|yjev, ruby|>
 Ruby/Rails/RHTML: |{Ruby~н}-рејлс-РХТМЛ|-
-    @л: |{Ruby~n}/Rails/RHTML|-
+    @л: Ruby/Rails/RHTML|-
 Sather: сатер|, сатер|ов, сатер|ски
     @л: Sather|, Sather|ov, sather|ski
 Scala: скал|а, скал|ин, скал|ски
@@ -253,9 +253,9 @@ Spice: спајс|, спајс|ов, спајс|>
 SQL: СКуЛ|-, СКуЛ|-ов, СКуЛ|>
     @л: SQL|-, SQL|-ov, SQL|>
 SQL (MySQL), |sqlmysql: |*|SQL (|{MySQL~н})
-    @л: SQL|- (|{MySQL~n})
+    @л: SQL|- (MySQL)
 SQL (PostgreSQL), |sqlpostgresql: |*|SQL (|{PostgreSQL~н})
-    @л: SQL|- (|{PostgreSQL~n})
+    @л: SQL|- (PostgreSQ)
 SSML: ССМЛ|-, ССМЛ|-ов, ССМЛ|>
 Stata: стат|а, стат|ин, стат|ски
     @л: Stat|a, Stat|in
