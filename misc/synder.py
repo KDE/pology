@@ -1212,7 +1212,7 @@ class Synder (object):
                                         csegs[:0] = fsegs
                                     cprops[pkey] = (csegs, key)
                         else:
-                            esegs = eprops.values()[0]
+                            esegs = eprops.values()[0][0]
                             if cprops:
                                 for pkey, (csegs, key) in cprops.items():
                                     if not key.cut or pkey in ownpkeys:
@@ -1228,19 +1228,7 @@ class Synder (object):
                 dprops.update(cprops)
 
         # Eliminate leading and trailing empty text segments.
-        for pkey, (csegs, key) in dprops.items():
-            for i0, di, cond in (
-                (0, 1, lambda i: i < len(csegs)),
-                (len(csegs) - 1, -1, lambda i: i >= 0),
-            ):
-                i = i0
-                while cond(i):
-                    if isinstance(csegs[i], _SDText):
-                        if not csegs[i].text.strip():
-                            csegs[i].text = ""
-                        else:
-                            break
-                    i += di
+        map(self._trim_segs, [x[0] for x in dprops.values()])
 
         self._raw_derivation_by_entry_env1[(entry, env1)] = dprops
         return dprops
@@ -1306,12 +1294,28 @@ class Synder (object):
         # Apply capitalization.
         if exp.caps is not None:
             chcaps = first_to_upper if exp.caps else first_to_lower
-            nprops = {}
             for pkey, (segs, key) in props.items():
-                nprops[pkey] = (chcaps(segs), key)
-            props = nprops
+                for seg in segs:
+                    if isinstance(seg, _SDText) and seg.text.strip():
+                        seg.text = chcaps(seg.text)
+                        break
 
         return props
+
+
+    def _trim_segs (self, segs):
+
+        for i0, di, stripf in (
+            (0, 1, unicode.lstrip),
+            (len(segs) - 1, -1, unicode.rstrip),
+        ):
+            i = i0
+            while i >= 0 and i < len(segs):
+                if isinstance(segs[i], _SDText):
+                    segs[i].text = stripf(segs[i].text)
+                    if segs[i].text:
+                        break
+                i += di
 
 
     def _simple_segs (self, segs):
