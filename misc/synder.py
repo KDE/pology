@@ -1227,6 +1227,21 @@ class Synder (object):
                         fsegs.append(seg)
                 dprops.update(cprops)
 
+        # Eliminate leading and trailing empty text segments.
+        for pkey, (csegs, key) in dprops.items():
+            for i0, di, cond in (
+                (0, 1, lambda i: i < len(csegs)),
+                (len(csegs) - 1, -1, lambda i: i >= 0),
+            ):
+                i = i0
+                while cond(i):
+                    if isinstance(csegs[i], _SDText):
+                        if not csegs[i].text.strip():
+                            csegs[i].text = ""
+                        else:
+                            break
+                    i += di
+
         self._raw_derivation_by_entry_env1[(entry, env1)] = dprops
         return dprops
 
@@ -1255,9 +1270,9 @@ class Synder (object):
 
         # Drop terminal properties.
         nprops = []
-        for pkey, (tsegs, key) in props.items():
+        for pkey, (segs, key) in props.items():
             if not key.terminal:
-                nprops.append((pkey, (tsegs, key)))
+                nprops.append((pkey, (segs, key)))
         props = dict(nprops)
 
         # Apply expansion mask.
@@ -1265,7 +1280,7 @@ class Synder (object):
             # Eliminate all obtained keys not matching the mask.
             # Reduce by mask those that match.
             nprops = []
-            for pkey, tsegskey in props.items():
+            for pkey, segskey in props.items():
                 if len(pkey) != len(exp.mask):
                     continue
                 mpkey = ""
@@ -1277,23 +1292,23 @@ class Synder (object):
                     else:
                         mpkey += c
                 if mpkey is not None:
-                    nprops.append((mpkey, tsegskey))
+                    nprops.append((mpkey, segskey))
             props = dict(nprops)
 
         # Apply key extension.
         if exp.kext is not None:
             nprops = []
-            for pkey, (tsegs, key) in props.items():
+            for pkey, (segs, key) in props.items():
                 npkey = exp.kext.replace(_ch_exp_kext_pl, pkey)
-                nprops.append((npkey, (tsegs, key)))
+                nprops.append((npkey, (segs, key)))
             props = dict(nprops)
 
         # Apply capitalization.
         if exp.caps is not None:
             chcaps = first_to_upper if exp.caps else first_to_lower
             nprops = {}
-            for pkey, (tsegs, key) in props.items():
-                nprops[pkey] = (chcaps(tsegs), key)
+            for pkey, (segs, key) in props.items():
+                nprops[pkey] = (chcaps(segs), key)
             props = nprops
 
         return props
