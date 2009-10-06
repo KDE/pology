@@ -51,6 +51,9 @@ _pn_tag_last = (u"p", u"п")
 _pn_tag_middle = (u"s", u"с")
 _pn_all_tags = set(sum((_pn_tag_first, _pn_tag_last, _pn_tag_middle), ()))
 
+# Disambiguation marker.
+_disamb_marker = u"¶"
+
 # Enumeration of known entry key suffixes, for modifying derived values.
 _suff_pltext = 10
 _suff_ltmarkup = 20
@@ -61,8 +64,8 @@ def trapnakron (env=(u"",),
                 envij=(u"иј", u""),
                 envijl=(u"ијл", u"л", u"иј", u""),
                 markup="plain", tagmap=None,
-                ptsuff=None, ltsuff=None,
-                nobrhyp=False, npkeyto=None):
+                ptsuff=None, ltsuff=None, npkeyto=None,
+                nobrhyp=False, disamb=""):
     """
     Main trapnakron constructor, covering all options.
 
@@ -124,6 +127,13 @@ def trapnakron (env=(u"",),
         property values exist and are equal (see e.g. L{trapnakron_ui}
         for usage of this).
 
+      - Some property values may have been manually decorated with
+        disambiguation markers (C{¶}), to differentiate them from
+        property values of another entry which would otherwise appear
+        the same under a certain normalization.
+        By default such markers are removed, but instead they
+        can be substituted with a string given by C{disamb} parameter.
+
     @param env: environment chain for Ekavian Cyrillic derivation
     @type env: string or (string...) or ((string...)...)
     @param envl: environment chain for Ekavian Latin derivation
@@ -140,10 +150,12 @@ def trapnakron (env=(u"",),
     @type ptsuff: string
     @param ltsuff: entry key suffix to report properties with lighter markup
     @type ltsuff: string
-    @param nobrhyp: whether to convert some ordinary into non-breaking hyphens
-    @type nobrhyp: bool
     @param npkeyto: property key to substitute for empty key, when given
     @type npkeyto: string or (string, [strings])
+    @param nobrhyp: whether to convert some ordinary into non-breaking hyphens
+    @type nobrhyp: bool
+    @param disamb: string to replace each disambiguation marker with
+    @type disamb: string
 
     @returns: trapnakron derivator
     @rtype: L{Synder<misc.synder.Synder>}
@@ -175,7 +187,7 @@ def trapnakron (env=(u"",),
     # Create transformators.
     ekeytf = _sd_ekey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
-    pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp)
+    pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
     esyntf = _sd_esyn_transf(markup, nobrhyp)
 
     # Build the derivator.
@@ -208,12 +220,12 @@ def _get_trapnakron_files (runtime=False):
     return files
 
 
-def trapnakron_ui (env=(u"",),
-                   envl=(u"л", u""),
-                   envij=(u"иј", u""),
-                   envijl=(u"ијл", u"л", u"иј", u"")):
+def trapnakron_plain (env=(u"",),
+                      envl=(u"л", u""),
+                      envij=(u"иј", u""),
+                      envijl=(u"ијл", u"л", u"иј", u"")):
     """
-    Constructs trapnakron suitable for application to UI texts.
+    Constructs trapnakron suitable for application to plain text.
 
     Calls L{trapnakron} with the following setup:
 
@@ -225,17 +237,37 @@ def trapnakron_ui (env=(u"",),
         descriptive adjective), providing that it is equal to C{gm}
         (genitive masculine descriptive adjective);
         i.e. if the descriptive adjective is invariable.
-
-      - Files with C{@latin} modifier are picked up as Latin script variants
-        of same-name ordinary file, and their declinations combined
-        by alternative directives.
     """
 
     return trapnakron(
         env, envl, envij, envijl,
         markup="plain",
-        nobrhyp=True,
         npkeyto=("am", ("am", "gm")),
+        nobrhyp=True,
+    )
+
+
+def trapnakron_ui (env=(u"",),
+                   envl=(u"л", u""),
+                   envij=(u"иј", u""),
+                   envijl=(u"ијл", u"л", u"иј", u"")):
+    """
+    Constructs trapnakron suitable for application to UI texts.
+
+    Like L{trapnakron_plain}, except that disambiguation markers
+    are not removed but substituted with an invisible character.
+    This is useful when a normalized form (typically nominative)
+    is used at runtime as key to fetch other declinations of the entry,
+    and the normalization is such that it would fold two different entries
+    to same keys if the originating forms were left undecorated.
+    """
+
+    return trapnakron(
+        env, envl, envij, envijl,
+        markup="plain",
+        npkeyto=("am", ("am", "gm")),
+        nobrhyp=True,
+        disamb=u"\u2060",
     )
 
 
@@ -268,8 +300,8 @@ def trapnakron_docbook4 (env=(u"",),
         tagmap=tagmap,
         ptsuff="_ot", # for "obican text"
         ltsuff="_lv", # for "laksa varijanta"
-        nobrhyp=True,
         npkeyto=("am", ("am", "gm")),
+        nobrhyp=True,
     )
 
 
@@ -351,7 +383,8 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
 # - resolve known taggings according to selected markup
 # - add outer tags according to selected markup
 # - construct alternatives/hybridized forms out of multiple values
-def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp):
+# - replace disambiguation markers with invisible characters
+def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
 
     envspec = [x for x in ((env, False), (envl, True),
                            (envij, False), (envijl, True)) if x[0]]
@@ -364,8 +397,8 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp):
         for tsegs, (env1, islatin) in zip(mtsegs, envspec):
             if tsegs is None:
                 return None
-            pval1 = _compose_text(tsegs, markup, nobrhyp, fcap, tag, ltmarkup,
-                                  islatin)
+            pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
+                                  fcap, tag, ltmarkup, islatin)
             pvals.append(pval1)
 
         pval = _compose_althyb(env, envl, envij, envijl, pvals)
@@ -391,7 +424,8 @@ def _sd_esyn_transf (markup, nobrhyp):
     return transf, "ekrest", "self"
 
 
-def _compose_text (tsegs, markup, nobrhyp, fcap, tag, ltmarkup, tolatin=False):
+def _compose_text (tsegs, markup, nobrhyp, disamb,
+                   fcap, tag, ltmarkup, tolatin=False):
 
     # Tagging and escaping.
     tagsubs="%(v)s"
@@ -416,6 +450,7 @@ def _compose_text (tsegs, markup, nobrhyp, fcap, tag, ltmarkup, tolatin=False):
         if tag:
             text = tagsubs % dict(t=tag, v=text)
 
+    text = text.replace(_disamb_marker, disamb or "")
     if nobrhyp: # before conversion to Latin
         text = to_nobr_hyphens(unsafe=True)(text)
     if tolatin:
