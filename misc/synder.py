@@ -891,6 +891,7 @@ class Synder (object):
         self._visible_entry_by_ekey = {}
         self._derivation_by_entry_env1 = {}
         self._raw_derivation_by_entry_env1 = {}
+        self._single_ekeys = []
 
 
     def _normenv (self, env):
@@ -1013,6 +1014,7 @@ class Synder (object):
 
             # Register visible entry in this source.
             if entry.ekeys:
+                self._single_ekeys.append(tuple(entry.ekeys)[0])
                 for ekey in entry.ekeys:
                     self._visible_entry_by_ekey[ekey] = entry
                 nvis += 1
@@ -1363,12 +1365,15 @@ class Synder (object):
         return self.get2(ekey, pkey, defval)
 
 
-    def ekeys (self):
+    def ekeys (self, single=False):
         """
         FIXME: Write doc.
         """
 
-        return self._visible_entry_by_ekey.keys()
+        if not single:
+            return self._visible_entry_by_ekey.keys()
+        else:
+            return self._single_ekeys
 
 
     def syns (self, ekey):
