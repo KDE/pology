@@ -1296,6 +1296,13 @@ class Synder (object):
                         seg.text = chcaps(seg.text)
                         break
 
+        if not props:
+            raise SynderError(
+                _p("error message",
+                   "Expansion '%(ref)s' expands into nothing.")
+                % dict(ref=exp.ref, file=source.name, line=exp.pos[0]),
+                5020, source.name, exp.pos)
+
         return props
 
 
