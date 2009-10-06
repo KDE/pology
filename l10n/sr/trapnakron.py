@@ -188,7 +188,7 @@ def trapnakron (env=(u"",),
     ekeytf = _sd_ekey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
     pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
-    esyntf = _sd_esyn_transf(markup, nobrhyp)
+    esyntf = _sd_esyn_transf(markup, nobrhyp, disamb)
 
     # Build the derivator.
     sd = Synder(env=[x for x in envs if x],
@@ -215,7 +215,7 @@ def _get_trapnakron_files (runtime=False):
     if runtime:
         rtroot = os.path.join(root, "runtime")
         rtfiles = collect_files_by_ext(rtroot, ["sd"], recurse=False)
-        files.extend(files)
+        files.extend(rtfiles)
 
     return files
 
@@ -256,10 +256,12 @@ def trapnakron_ui (env=(u"",),
 
     Like L{trapnakron_plain}, except that disambiguation markers
     are not removed but substituted with an invisible character.
-    This is useful when a normalized form (typically nominative)
-    is used at runtime as key to fetch other declinations of the entry,
-    and the normalization is such that it would fold two different entries
-    to same keys if the originating forms were left undecorated.
+
+    Retaining disambiguation markers is useful when a normalized form
+    (typically nominative) is used at runtime as key to fetch
+    other properties of the entry,
+    and the normalization is such that it would fold two different
+    entries to same keys if the originating forms were left undecorated.
     """
 
     return trapnakron(
@@ -411,13 +413,14 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
 # Transformation for entry syntagmas.
 # Like for property value transformation,
 # except for alternatives/hybridization.
-def _sd_esyn_transf (markup, nobrhyp):
+def _sd_esyn_transf (markup, nobrhyp, disamb):
 
     def transf (tsegs, ekrest, sd):
 
         fcap, tag, ltmarkup = ekrest
 
-        esyn = _compose_text(tsegs, markup, nobrhyp, fcap, tag, ltmarkup)
+        esyn = _compose_text(tsegs, markup, nobrhyp, disamb,
+                             fcap, tag, ltmarkup)
 
         return esyn
 
