@@ -1816,8 +1816,8 @@ KNewStuff: К-новотариј|е-
     @л: К-novotarij|e-
 KNotify: К-обавештењ|а-
 Korundum: Корундум|, Корундум|ов
-Korundum4: |{Korundum~.}-4, _род!=|Korundum~_род!
-    @л: |{Korundum~.}4
+Korundum4: |*|{Korundum}-4
+    @л: |*|{Korundum}4
 KPart: к-д|ео, к-дел|ови+, к-део|ни
 KResource: к-ресурс|, к-ресурс|+, к-ресурс|ни
 Kross: Крос|, Крос|ов
@@ -2323,7 +2323,7 @@ CD-ROM: ЦД-РОМ|-, ЦД-РОМ|-ов, ЦД-РОМ|>
 DVD-ROM: ДВД-РОМ|-, ДВД-РОМ|-ов, ДВД-РОМ|>
 CDWRITER: ЦД-рез|ач, ЦД-резач|ев, ЦД-реза|чки
 EMU10k1: ЕМУ10к1|*, _род!=м
-Hayes, |hayesdev: хејс|, хејс|ов, хејс|>
+Hayes, |hayesdev: ¶хејс|, хејс|ов, хејс|>
     @л: Hayes|, Hayes|ov, Hayes|>
 iPhone: и-фон|, и-фон|ов, и-фон|>
     @л: iPhone|, iPhone|ov, iPhone|>
@@ -2746,23 +2746,6 @@ Mozilla Thunderbird: |Mozilla |Thunderbird
 OpenOffice Writer, OpenOffice.org Writer: |OpenOffice~.мп |Writer
 OpenOffice Calc, OpenOffice.org Calc: |OpenOffice~.мп |Calc
 OpenOffice Impress, OpenOffice.org Impress: |OpenOffice~.жп |Impress
-
-# ----------------------------------------------------------------------------
-# Из .desktop датотека
-
-Abiword Word Processor: |{Abiword}\, обрађив|ач текста, _род!=|Abiword~_род!
-Bluefish Editor: |{Bluefish}\, уређив|ач, _род!=|Bluefish~_род!
-Epiphany Web Browser: |{Epiphany}\, веб преглед|ач, _род!=|Epiphany~_род!
-Firefox Web Browser: |{Firefox}\, веб преглед|ач, _род!=|Firefox~_род!
-Icedove Mail/News: |{Icedove}\, пошт|а и вест|и-ж, _род!=|Icedove~_род!
-Iceweasel Web Browser: |{Iceweasel}\, веб преглед|ач, _род!=|Iceweasel~_род!
-Galeon Web Browser: |{Galeon}\, веб преглед|ач, _род!=|Galeon~_род!
-Gimp Image Editor: |{Gimp}\, уређив|ач слика, _род!=|Gimp~_род!
-Gnumeric Spreadsheet: |{Gnumeric}\, табеларн|и> рачун|, _род!=|Gnumeric~_род!
-Image Viewer: Приказив|ач слика
-PDF Viewer: Чит|ач ПДФ-а
-Text Editor: Уређив|ач текста
-Thunderbird Mail/News: |{Thunderbird}\, пошт|а и вест|и-ж, _род!=|Thunderbird~_род!
 
 # ----------------------------------------------------------------------------
 # Документи

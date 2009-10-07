@@ -1,5 +1,6 @@
 >base/aff.sd
 >ztmp-apps.sd
+>runtime/fontsupp.sd
 
 # ----------------------------------------------------------------------------
 # Ливнице
@@ -549,39 +550,3 @@ Zodillinstrisstirust: Зодилинстристируст|
     @л: Zodillinstrisstirust|
 Zrnic: Зрник|
     @л: Zrnic|
-
-# ----------------------------------------------------------------------------
-# Стилови фонтова
-# !!! размак у преводу ни за живу главу (већ цртица, штогод...)
-
-black: цр|ни
-bold: подебља|ни
-    @л: _k=podebljan
-condensed: згусну|ти
-demi: деми|>
-demi bold: демиподебља|ни
-expanded: растегну|ти
-extra condensed: екстразгусну|ти
-extra bold: екстраподебља|ни
-extra expanded: екстрарастегну|ти
-extra light: екстрала|ки
-heavy: теш|ки
-italic: курзив|ни
-    @л: _k=kurzivan
-light: ла|ки
-medium: сред|њи
-normal: нормал|ни
-    @л: _k=normalan
-oblique: искоше|ни
-    @л: _k=iskošen
-regular: основ|ни
-    @л: _k=osnovan
-roman: римс|ки
-semi bold: полуподебља|ни
-semi condensed: полузгусну|ти
-semi expanded: полурастегну|ти
-thin: тан|ки
-ultra bold: ултраподебља|ни
-ultra condensed: ултразгусну|ти
-ultra expanded: ултрарастегну|ти
-ultra light: ултрала|ки
