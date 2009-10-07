@@ -1447,6 +1447,21 @@ class Synder (object):
         return srcname
 
 
+    def source_pos (self, ekey):
+        """
+        FIXME: Write doc.
+        """
+
+        ekey, ekrest, entry = self._resolve_ekey(ekey)
+        if ekey is None:
+            return None
+
+        path = entry.base.parent.name
+        lno, cno = entry.base.pos
+
+        return path, lno, cno
+
+
     def keys (self):
         """
         FIXME: Write doc.
