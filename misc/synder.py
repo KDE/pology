@@ -1093,7 +1093,11 @@ class Synder (object):
             if isinstance(ekey, tuple):
                 ekey, ekrest = ekey[0], ekey[1:]
 
-        return ekey, ekrest
+        entry = None
+        if ekey is not None:
+            entry = self._visible_entry_by_ekey.get(ekey)
+
+        return ekey, ekrest, entry
 
 
     def _resolve_pkey (self, pkey, ekey):
@@ -1112,12 +1116,8 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey)
+        ekey, ekrest, entry = self._resolve_ekey(ekey)
         if ekey is None:
-            return defval
-
-        entry = self._visible_entry_by_ekey.get(ekey)
-        if entry is None:
             return defval
 
         pkey, pkrest = self._resolve_pkey(pkey, ekey)
@@ -1381,12 +1381,8 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey)
+        ekey, ekrest, entry = self._resolve_ekey(ekey)
         if ekey is None:
-            return []
-
-        entry = self._visible_entry_by_ekey.get(ekey)
-        if entry is None:
             return []
 
         rsyns = []
@@ -1408,12 +1404,8 @@ class Synder (object):
         FIXME: Write doc.
         """
 
-        ekey, ekrest = self._resolve_ekey(ekey)
+        ekey, ekrest, entry = self._resolve_ekey(ekey)
         if ekey is None:
-            return set()
-
-        entry = self._visible_entry_by_ekey.get(ekey)
-        if entry is None:
             return set()
 
         pkeys = set()
@@ -1433,6 +1425,21 @@ class Synder (object):
         props = dict([(x, self.get2(ekey, x)) for x in self.pkeys(ekey)])
 
         return props
+
+
+    def source_name (self, ekey):
+        """
+        FIXME: Write doc.
+        """
+
+        ekey, ekrest, entry = self._resolve_ekey(ekey)
+        if ekey is None:
+            return None
+
+        srcname = entry.base.parent.name.split(os.path.sep)[-1]
+        srcname = srcname[:srcname.rfind(".")]
+
+        return srcname
 
 
     def keys (self):
