@@ -891,7 +891,7 @@ class Synder (object):
         self._visible_entry_by_ekey = {}
         self._derivation_by_entry_env1 = {}
         self._raw_derivation_by_entry_env1 = {}
-        self._single_ekeys = []
+        self._single_ekeys = set()
 
 
     def _normenv (self, env):
@@ -979,7 +979,7 @@ class Synder (object):
             entry = self._Entry(rawentry, self._ekeyitf)
 
             # Eliminate internal key conflicts of this entry.
-            self._eliminate_conflicts(entry, iemap, lambda x: x.iekeys)
+            self._eliminate_conflicts(entry, iemap, None, lambda x: x.iekeys)
 
             # Register internal entry in this source.
             if entry.iekeys:
@@ -1010,11 +1010,11 @@ class Synder (object):
 
             # Eliminate external key conflicts of this entry.
             self._eliminate_conflicts(entry, self._visible_entry_by_ekey,
-                                      lambda x: x.ekeys)
+                                      self._single_ekeys, lambda x: x.ekeys)
 
             # Register visible entry in this source.
             if entry.ekeys:
-                self._single_ekeys.append(tuple(entry.ekeys)[0])
+                self._single_ekeys.add(tuple(entry.ekeys)[0])
                 for ekey in entry.ekeys:
                     self._visible_entry_by_ekey[ekey] = entry
                 nvis += 1
@@ -1043,7 +1043,7 @@ class Synder (object):
                     self.ekeys.update(ekeys)
 
 
-    def _eliminate_conflicts (self, entry, kmap, keyf):
+    def _eliminate_conflicts (self, entry, kmap, kskeys, keyf):
 
         to_remove_keys = set()
         to_remove_keys_other = {}
@@ -1083,6 +1083,9 @@ class Synder (object):
                 for key in keys:
                     keyf(oentry).remove(key)
                     kmap.pop(key)
+                    if kskeys is not None and key in kskeys:
+                        kskeys.remove(key)
+                        kskeys.add(tuple(keyf(oentry))[0])
 
 
     def _resolve_ekey (self, ekey):
@@ -1096,6 +1099,8 @@ class Synder (object):
         entry = None
         if ekey is not None:
             entry = self._visible_entry_by_ekey.get(ekey)
+            if entry is None:
+                ekey = None
 
         return ekey, ekrest, entry
 
