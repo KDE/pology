@@ -57,7 +57,7 @@ NT Workstation: НТ воркстејшон|
 OpenBSD: ОпенБСД|-, ОпенБСД|-ов
 OpenLook: Опенлук|, Опенлук|ов
     @л: OpenLook|, OpenLook|ov
-OS/2: _род!=м, ОС/2|*
+OS/2: ОС/2|*, _род!=м
 Plan 9: План| 9
 RiscOS: РискОС|-, РискОС|-ов
     @л: RiscOS|-, RiscOS|-ov
@@ -104,7 +104,7 @@ Gedit: Г-едит|, Г-едит|ов
     @л: Gedit|, Gedit|ov
 Gvim: Г-вим|, Г-вим|ов
     @л: Gvim|, Gvim|ov
-Kate: _род!=ж, Кејт|*, Кејт|ин
+Kate: Кејт|*, Кејт|ин, _род!=ж
     @л: Kate|*, Kate|in
 KEdit: К-уређива|ње
 KVim: К-вим|, К-вим|ов
@@ -197,7 +197,7 @@ uTorrent, µTorrent: Микроторент|, Микроторент|ов
 wget: Вгет|, Вгет|ов
     @л: wget|, wget|ov
 Windows Explorer: |*|^Windows~.м експлорер|
-    @л: |^Windows~.m Explorer|
+    @л: |^Windows~.м Explorer|
 XFTP: ИксФТП|-, ИксФТП|-ов
     @л: XFTP|-, XFTP|-ov
 
@@ -205,7 +205,7 @@ XFTP: ИксФТП|-, ИксФТП|-ов
 # Приказивачи
 
 Electric Eyes: Електричн|е-> оч|и-с
-Eye of Gnome: _род!=с, Ок|о |Gnome~г
+Eye of Gnome: Ок|о |Gnome~г, _род!=с
 GPhoto: Гфото|, Гфото|ов
     @л: GPhoto|, GPhoto|ov
 GQview: ГКуВју|, ГКуВју|ов
@@ -273,7 +273,7 @@ Gnome Talk: |Gnome~.мп разговор|
 Gnome Telnet: |Gnome~.мп телнет|
 Google Talk: |*|{Google~н}-разговор|
 GroupWise Messenger: |^GroupWise~.м месинџер|
-    @л: |^GroupWise~.m Messenger|
+    @л: |^GroupWise~.м Messenger|
 HylaFAX: Хилафакс|, Хилафакс|ов
     @л: HylaFAX|--, HylaFAX|-ov
 Icedove: Ледоголубиц|а # Дебијанов Тандерберд
@@ -334,11 +334,11 @@ w3m: в3м|-, в3м|-ов
 Web Messenger: Веб месинџер|, Веб месинџер|ов
     @л: Web Messenger|, Web Messenger|ov
 Windows Live Messenger: |^Windows~.м лајв месинџер|
-    @л: |^Windows~.m Live Messenger|
+    @л: |^Windows~.м Live Messenger|
 WLM: ВЛМ|-, ВЛМ|-ов, ВЛМ|> # скр. Windows Live Messenger
     @л: WLM|-, WLM|-ov, WLM|>
 Windows Mobile: |^Windows~.м мобил|
-    @л: |^Windows~.m Mobile|
+    @л: |^Windows~.м Mobile|
 XBiff: Икс-биф|, Икс-биф|ов
     @л: XBiff|, XBiff|ov
 XChat: Икс-ћаска|ње
@@ -674,7 +674,7 @@ MPlayer: М-плејер|, М-плејер|ов
     @л: MPlayer|, MPlayer|ov
 MusE: Мјуз|, Мјуз|ов
     @л: MusE|, MusE|ov
-Nero: Нер|о, Нер|ов
+Nero: Нер|о, Нер|ов, _род!=м
 NMM: НММ|-, НММ|-ов
 Noatun: Ноатун|, Ноатун|ов
 Ogle: Огл|, Огл|ов
@@ -739,7 +739,7 @@ Batallion: Батаљон|, Батаљон|ов
     @л: Batallion|, Batallion|ov
 Battleball: Бојолопт|а, Бојолопт|ин
 Battle for Wesnoth: Бој| за Веснот
-Beneath a Steel Sky: _род!=м, Под челичним небом|*
+Beneath a Steel Sky: Под челичним небом|*, _род!=м
 Bomber: Бомбардер|, Бомбардер|ов
 Bovo: Бово|, Бово|ов
 Breakout: Пробој|2, Пробој|ев
@@ -765,14 +765,14 @@ Gnobots II: Гнобот|и- II
 Gnome Chess: |Gnome~.мп шах|
 Gnome Mahjongg: |Gnome~.мп |Mahjongg
 Gnome Mines: |Gnome~.жкп миниц|е-
-Gnome Stones: _род!=с, |Gnome~.сп камењ|е3
+Gnome Stones: |Gnome~.сп камењ|е3, _род!=с
 Gnotravex: Гнотравекс|, Гнотравекс|ов
     @л: Gnotravex|, Gnotravex|ov
 Gnotski: Гнотск|и, Гнотск|ијев
 Gomoku: Гомоку|, Гомоку|ов
 GTali: Гтал|и, Гтал|ијев
     @л: GTal|i, GTal|ijev
-Iagno: _род!=м, Ијањ|о, Ијањ|ов
+Iagno: Ијањ|о, Ијањ|ов, _род!=м
     @л: Iagn|o, Iagn|ov
 KAtomic: К-атомик|а, К-атомик|ин
 Kapman: Капмен|, Капмен|ов
@@ -840,7 +840,7 @@ Qmamecat: Ку-мамекат|, Ку-мамекат|ов
 Oneko: Онек|о, Онек|ов, _род!=м
 Quake: Квејк|, Квејк|ов, квејк|овски
     @л: Quake|, Quake|ov, quake|ovski
-Rocks n Diamonds: _род!=с, Камењ|е3 и дијама|нти-
+Rocks n Diamonds: Камењ|е3 и дијама|нти-, _род!=с
 Rogue: Роуг|, Роуг|ов
     @л: Rogue|, Rogue|ov
 Same Gnome: |Gnome~.сп исто-исто, _род!=с
@@ -948,7 +948,7 @@ FLWM: ФЛВМ|-, ФЛВМ|-ов
     @л: FLWM|-, FLWM|-ov
 FVWM: ФВВМ|-, ФВВМ|-ов
     @л: FVWM|-, FVWM|-ov
-FVWM95: _род!=м, ФВВМ95|*
+FVWM95: ФВВМ95|*, _род!=м
     @л: FVWM95|*
 Golem: Голем|, Голем|ов
 IceWM: АјсВМ|-, АјсВМ|-ов
@@ -1000,7 +1000,7 @@ W9WM: В9ВМ|-, В9ВМ|-ов
     @л: W9WM|-, W9WM|-ov
 Waimea: Вајмеј|а, Вајмеј|ин
     @л: Waime|a, Waime|in
-WM2: _род!=м, ВМ2|*
+WM2: ВМ2|*, _род!=м
     @л: WM2|*
 WindowMaker: Виндоумејкер|, Виндоумејкер|ов
     @л: WindowMaker|, WindowMaker|ov
@@ -1072,7 +1072,7 @@ KCharSelect: К-бир|{ач}-знакова
 KCMAccessiblity: КЦМ-приступачн|ост
 KCMAudioCD: КЦМ-аудиоЦД|
 KCMBackground: КЦМ-позадин|а
-KCMBell: _род!=с, КЦМ-звон|о
+KCMBell: КЦМ-звон|о, _род!=с
 KCMCGI: КЦМ-ЦГ|И-
 KCMClock: КЦМ-сат|
 KCMComponentChooser: КЦМ-бир|{ач}-компоненти
@@ -1279,7 +1279,7 @@ XDM: ИксДМ|-, ИксДМ|-ов
 Xesam: Ксезам|, Ксезам|ов
     @л: Xesam|, Xesam|ov
 Xesam Search: |{Xesam~.жп} претра|га
-XKill: _род!=м, Икс-убиј|*
+XKill: Икс-убиј|*, _род!=м
     @л: X-ubij|*
 XLoad: Икс-оптереће|ње
     @л: X-optereće|nje
@@ -1291,7 +1291,7 @@ XMessage: Икс-пору|ка, Икс-порук|ин
     @л: X-poru|ka, X-poruk|in
 Xosview: Икс-освју|, Икс-освју|ов
     @л: Xosview|, Xosview|ov
-XRefresh: _род!=м, Икс-освежи|*
+XRefresh: Икс-освежи|*, _род!=м
     @л: X-osveži|*
 XTraceroute: Икс-трејсрут|, Икс-трејсрут|ов
     @л: XTraceroute|, XTraceroute|ov
@@ -1886,7 +1886,7 @@ Qt For Linux Embedded: |Qt~. за угњеждени |Linux~а, _род!=м
 Qt For Windows CE: |Qt~. за |{Windows CE~а}, _род!=м
 Qtopia: Кутопиј|а, Кутопиј|ин, кутопиј|ски
     @л: Qtop|ia, Qtopij|in, qtopij|ski
-Qtopia Core: _род!=с, |{Qtopia}-језгр|о
+Qtopia Core: |{Qtopia}-језгр|о, _род!=с
 QtSQL: |*|{Qt~н}-|SQL, |{Qt~н}-|SQL~н|-ов
     @л: QtSQL|-, QtSQL|-ov
 Redland: Редланд|, Редланд|ов, редланд|>
@@ -1900,7 +1900,7 @@ Social Desktop: Друштвен|а> површ|-ж
 Solid: Солид|, Солид|ов
 Sonnet: Сонет|, Сонет|ов
     @л: Sonnet|, Sonnet|ov
-Soprano: Сопран|о, Сопран|ов
+Soprano: Сопран|о, Сопран|ов, _род!=м
 SQLite: СКуЛајт|, СКуЛајт|ов
     @л: SQLite|, SQLite|ov
 Strigi: Стриг|и, Стриг|ијев
@@ -1926,7 +1926,7 @@ XDamage: Икс-демиџ|, Икс-демиџ|ов
     @л: XDamage|, XDamage|ov
 XFixes: Икс-фиксес|, Икс-фиксес|ов
     @л: XFixes|, XFixes|ov
-XFree86: _род!=м, Икс-фри86|*
+XFree86: Икс-фри86|*, _род!=м
     @л: XFree86|*
 Xft: Иксфт|, Иксфт|ов, иксфт|>
     @л: Xft|, Xft|ov, Xft|>
@@ -1991,7 +1991,7 @@ AltaVista: Алтавист|а, Алтавист|ин
     @л: AltaVist|a, AltaVist|in
 All Music Guide: Свемузичк|и> водич|
 Amazon: Амазон|, Амазон|ов
-Ask Jeeves: _род!=м, Питај Џивса|*
+Ask Jeeves: Питај Џивса|*, _род!=м
     @л: Pitaj Jeevesа|*
 Audioscrobbler: Аудиоскроблер|, Аудиоскроблер|ов
     @л: Audioscrobbler|, Audioscrobbler|ov
@@ -2085,9 +2085,9 @@ identi.ca: Идентик|а, Идентик|ин
 IETF Requests for Comments: ИЕТФ-ов|и-> захтев|и- за коментаре
 Internet Book List: Интернет спис|ак књига
 Internet Movie Database: Интернет баз|а филмова
-Jamendo: Џеменд|о, Џеменд|ов
+Jamendo: Џеменд|о, Џеменд|ов, _род!=м
     @л: Jamend|o, Jamend|ov
-KataTudo: _род!=м, Кататуд|о, Кататуд|ов
+KataTudo: Кататуд|о, Кататуд|ов, _род!=м
     @л: KataTud|o, KataTud|ov
 KDE API Documentation: КДЕ АПИ документациј|а
 KDE App Search: КДЕ програм|и-
@@ -2102,8 +2102,8 @@ last.fm: Ласт-ФМ|-, Ласт-ФМ|-ов
 Latest Qt Online Documentation: Најновиј|а> документациј|а КуТ-а на вези
     @л: Najnovij|a> dokumentacij|a Qt-a na vezi
 LEO-Translate: Лео-превод|, Лео-превод|ов
-LEO - Translate Between German and French: _род!=м, Ле|{о}\: са немачког на француски
-LEO - Translate Between French and German: _род!=м, Ле|{о}\: са француског на немачки
+LEO - Translate Between German and French: Ле|{о}\: са немачког на француски, _род!=м
+LEO - Translate Between French and German: Ле|{о}\: са француског на немачки, _род!=м
 Lycos: Ликос|, Ликос|ов
 .Mac, |dotmac: Дот-мек|, Дот-мек|ов
     @л: .Mac|, .Mac|ov
@@ -2169,7 +2169,7 @@ Twitter: Твитер|, Твитер|ов
     @л: Twitter|, Twitter|ov
 UserFriendly: Предусретљив|и-
 U.S. Patent Database: Баз|а патената САД
-Vivisimo: _род!=м, Вивисим|о, Вивисим|ов
+Vivisimo: Вивисим|о, Вивисим|ов, _род!=м
 Voila: Воил|а, Воил|ин
 Web: Веб| # намерно само именица
     @л: Web|
@@ -2341,7 +2341,7 @@ MIPS: МИПС|-, МИПС|-ов, МИПС|>
 MO, |modev: МО|-, МО|-ов
 MouseMan: маусмен|, маусмен|ов
     @л: MouseMan|, MouseMan|ov
-MX700: _род!=м, МИкс700|*
+MX700: МИкс700|*, _род!=м
     @л: MX700|*
 Palm: палм|, палм|ов
     @л: Palm|, Palm|ov
@@ -2582,7 +2582,7 @@ Musepack: мјузпак|, мјузпак|ов, мјузпак|>
     @л: Musepack|, Musepack|ov, Musepack|>
 RealAudio: |*|{`Real~н}ауд|ио, |{Real~н}аудио|>
     @л: RealAud|io, RealАudio|>
-RealVideo: _род!=м, |*|{`Real~н}виде|о, |{Real~н}видео|>
+RealVideo: |*|{`Real~н}виде|о, |{Real~н}видео|>, _род!=м
     @л: RealVide|o, RealVideo|>
 Theora: теор|а, теор|ин, теора|>
     @л: Theor|a, Theor|in, Theora|>
@@ -2675,9 +2675,9 @@ Ctrl: Ctrl|--
     @л: Ctrl|
 Del, Delete: Delete|--
     @л: Delete|
-Down: _род!=м, доле|*
+Down: доле|*, _род!=м
     @л: Dole|*
-Fk: _род!=м, F|* # слово у функцијском тастеру
+Fk: F|*, _род!=м # слово у функцијском тастеру
 F1: |{Fk}1
 F2: |{Fk}2
 F3: |{Fk}3
@@ -2700,22 +2700,22 @@ Hyper: Hyper|--
     @л: Hyper|
 Ins, Insert: Insert|--
     @л: Insert|
-Left: _род!=м, лево|*
+Left: лево|*, _род!=м
     @л: Levo|*
 Menu: Menu|--
     @л: Menu|
-Meta: _род!=м, Meta|*
+Meta: Meta|*, _род!=м
 NumLock: NumLock|--
     @л: NumLock|
-PgDown, PageDown: _род!=м, PageDown|*
-PgUp, PageUp: _род!=м, PageUp|*
+PgDown, PageDown: PageDown|*, _род!=м
+PgUp, PageUp: PageUp|*, _род!=м
 PauseBreak: PauseBreak|--
     @л: PauseBreak|
 PrtScr, PrintScreen: PrintScreen|--
     @л: PrintScreen|
 Return: Return|--
     @л: Return|
-Right: _род!=м, десно|*
+Right: десно|*, _род!=м
     @л: Desno|*
 ScrollLock: ScrollLock|--
     @л: ScrollLock|
@@ -2729,7 +2729,7 @@ SysReq: SysReq|--
     @л: SysReq|
 Tab: Tab|--
     @л: Tab|
-Up: _род!=м, горе|*
+Up: горе|*, _род!=м
     @л: Gore|*
 Win: Win|--
     @л: Win|
@@ -2768,8 +2768,8 @@ KILL, |s_kill: КИЛ|-
     @л: KILL|-
 STOP, |s_stop: СТОП|-
 TERM, |s_term: ТЕРМ|-
-USR1, |s_usr1: _род!=м, УСР1|*
-USR2, |s_usr2: _род!=м, УСР2|*
+USR1, |s_usr1: УСР1|*, _род!=м
+USR2, |s_usr2: УСР2|*, _род!=м
 
 SIGABRT: СИГАБРТ|-
 SIGCONT: СИГКОНТ|-
@@ -2783,5 +2783,5 @@ SIGKILL: СИГКИЛ|-
 SIGSEGV: СИГСЕГВ|-
 SIGSTOP: СИГСТОП|-
 SIGTERM: СИГТЕРМ|-
-SIGUSR1: _род!=м, СИГУСР1|*
-SIGUSR2: _род!=м, СИГУСР2|*
+SIGUSR1: СИГУСР1|*, _род!=м
+SIGUSR2: СИГУСР2|*, _род!=м
