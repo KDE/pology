@@ -51,6 +51,9 @@ _pn_tag_last = (u"p", u"п")
 _pn_tag_middle = (u"s", u"с")
 _pn_all_tags = set(sum((_pn_tag_first, _pn_tag_last, _pn_tag_middle), ()))
 
+# Tag for entries with unimportant keys.
+_nokey_tag = "x"
+
 # Disambiguation marker.
 _disamb_marker = u"¶"
 
@@ -65,7 +68,8 @@ def trapnakron (env=(u"",),
                 envijl=(u"ијл", u"л", u"иј", u""),
                 markup="plain", tagmap=None,
                 ptsuff=None, ltsuff=None, npkeyto=None,
-                nobrhyp=False, disamb=""):
+                nobrhyp=False, disamb="",
+                runtime=False):
     """
     Main trapnakron constructor, covering all options.
 
@@ -130,9 +134,14 @@ def trapnakron (env=(u"",),
       - Some property values may have been manually decorated with
         disambiguation markers (C{¶}), to differentiate them from
         property values of another entry which would otherwise appear
-        the same under a certain normalization.
+        equal under a certain normalization.
         By default such markers are removed, but instead they
         can be substituted with a string given by C{disamb} parameter.
+
+      - Some entries are defined only for purposes of obtaining
+        their declinations in scripted translations at runtime.
+        They are by default not included, but can be by setting
+        the C{runtime} parameter to C{True}.
 
     @param env: environment chain for Ekavian Cyrillic derivation
     @type env: string or (string...) or ((string...)...)
@@ -156,6 +165,8 @@ def trapnakron (env=(u"",),
     @type nobrhyp: bool
     @param disamb: string to replace each disambiguation marker with
     @type disamb: string
+    @param runtime: whether to include runtime-only entries
+    @type runtime: bool
 
     @returns: trapnakron derivator
     @rtype: L{Synder<misc.synder.Synder>}
@@ -199,7 +210,7 @@ def trapnakron (env=(u"",),
                 strictkey=False)
 
     # Collect synder files composing the trapnakron.
-    sdfiles = _get_trapnakron_files()
+    sdfiles = _get_trapnakron_files(runtime)
 
     # Import into derivator.
     for sdfile in sdfiles:
@@ -255,7 +266,8 @@ def trapnakron_ui (env=(u"",),
     Constructs trapnakron suitable for application to UI texts.
 
     Like L{trapnakron_plain}, except that disambiguation markers
-    are not removed but substituted with an invisible character.
+    are not removed but substituted with an invisible character,
+    and runtime-only entries are included too.
 
     Retaining disambiguation markers is useful when a normalized form
     (typically nominative) is used at runtime as key to fetch
@@ -270,6 +282,7 @@ def trapnakron_ui (env=(u"",),
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
         disamb=u"\u2060",
+        runtime=True,
     )
 
 
@@ -446,6 +459,8 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
     else:
         # Ordinary entries.
         text = simplify("".join([x[0] for x in tsegs]))
+        if _nokey_tag in atags and " " in text: # before anything else
+            text = text[text.find(" "):].lstrip()
         if fcap: # before adding outer tags
             text = first_to_upper(text)
         if vescape: # before adding outer tags
