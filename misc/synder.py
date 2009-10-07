@@ -1196,16 +1196,18 @@ class Synder (object):
                         if len(eprops) != 1 or eprops.keys()[0]:
                             if cprops:
                                 for cpkey, csegskey in list(cprops.items()):
-                                    esegskey = eprops.get(cpkey)
-                                    if esegskey is not None:
-                                        if not esegskey[1].cut:
-                                            csegskey[0].extend(esegskey[0])
+                                    if not csegskey[1].cut:
+                                        esegskey = eprops.get(cpkey)
+                                        if esegskey is not None:
+                                            if not esegskey[1].cut:
+                                                csegskey[0].extend(esegskey[0])
                                         else:
-                                            csegskey[0][:] = esegskey[0]
-                                    else:
-                                        cprops.pop(cpkey)
-                                        if not cprops:
-                                            break
+                                            cprops.pop(cpkey)
+                                            if not cprops:
+                                                break
+                                for epkey, esegskey in eprops.items():
+                                    if esegskey[1].cut:
+                                        cprops[epkey] = esegskey
                                 if not cprops:
                                     break
                             else:
