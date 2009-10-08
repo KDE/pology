@@ -159,6 +159,7 @@ class Project (object):
             "hook_on_scatter_msg" : [],
             "hook_on_scatter_cat" : [],
             "hook_on_scatter_file" : [],
+            "hook_on_scatter_branch": [],
             "hook_on_gather_msg" : [],
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
@@ -692,6 +693,9 @@ def summit_scatter (project, options):
             scatter_specs.append((branch_id, branch_name, branch_subdir,
                                   branch_path, summit_paths))
 
+        # Dummy entry to indicate branch switch.
+        scatter_specs.append((branch_id, None, None, None, None))
+
     # Assure no empty partial selections by summit subdirs.
     for subdir in n_selected_by_summit_subdir:
         if not n_selected_by_summit_subdir[subdir]:
@@ -705,11 +709,17 @@ def summit_scatter (project, options):
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
-        catpath = scatter_spec[3]
-        if options.verbose:
-            report("Scattering to %s ..." % catpath)
-        upprogc = lambda: upprog(catpath)
-        summit_scatter_single(*(scatter_spec + (project, options, upprogc)))
+        branch_id, catpath = scatter_spec[0], scatter_spec[3]
+        if catpath is not None:
+            if options.verbose:
+                report("Scattering to %s ..." % catpath)
+            upprogc = lambda: upprog(catpath)
+            summit_scatter_single(*(scatter_spec + (project, options, upprogc)))
+        else:
+            # Apply post-scatter hooks.
+            if options.verbose:
+                report("Applying post-hook to branch %s ..." % branch_id)
+            exec_hook_branch(branch_id, project.hook_on_scatter_branch)
     upprog()
 
 
@@ -1718,19 +1728,21 @@ def do_scatter (smsg, bmsg):
 
 def hook_applicable (branch_check, branch_id, name_check, name, subdir):
 
-    if hasattr(branch_check, "__call__"):
-        if not branch_check(branch_id):
-            return False
-    else:
-        if not re.search(branch_check, branch_id):
-            return False
+    if branch_check is not None:
+        if hasattr(branch_check, "__call__"):
+            if not branch_check(branch_id):
+                return False
+        else:
+            if not re.search(branch_check, branch_id):
+                return False
 
-    if hasattr(name_check, "__call__"):
-        if not name_check(name, subdir):
-            return False
-    else:
-        if not re.search(name_check, name):
-            return False
+    if name_check is not None:
+        if hasattr(name_check, "__call__"):
+            if not name_check(name, subdir):
+                return False
+        else:
+            if not re.search(name_check, name):
+                return False
 
     return True
 
@@ -1792,7 +1804,7 @@ def exec_hook_file (branch_id, branch_name, branch_subdir, filepath, hooks):
     bckppath = "/tmp/backup%s-%s" % (os.getpid(), os.path.basename(filepath))
     shutil.copyfile(filepath, bckppath)
 
-    # Apply all hooks to the file, but stop if one does not return True.
+    # Apply all hooks to the file, but stop if one returns non-zero status.
     failed = False
     for call, branch_ch, name_ch in hooks:
         if hook_applicable(branch_ch, branch_id, name_ch,
@@ -1806,6 +1818,19 @@ def exec_hook_file (branch_id, branch_name, branch_subdir, filepath, hooks):
         shutil.move(bckppath, filepath)
     else:
         os.unlink(bckppath)
+
+
+# Pipe branch through hook calls,
+# for which branch id and matches hook specification.
+def exec_hook_branch (branch_id, hooks):
+
+    # Apply all hooks to the branch, but stop if one returns non-zero status.
+    failed = False
+    for call, branch_ch, d1 in hooks:
+        if hook_applicable(branch_ch, branch_id, None, None, None):
+            if call(branch_id) != 0:
+                failed = True
+                break
 
 
 def find_summit_comment (msg, summit_tag):
