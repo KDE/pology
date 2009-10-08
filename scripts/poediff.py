@@ -87,6 +87,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="revision from which to diff to current working copy, "
              "or from first to second revision (if VCS is given)")
     opars.add_option(
+        "-b", "--skip-obsolete",
+        action="store_true", dest="skip_obsolete", default=False,
+        help="do not diff obsolete messages")
+    opars.add_option(
         "-n", "--no-merge",
         action="store_false", dest="do_merge", default=def_do_merge,
         help="do not try to indirectly pair messages by merging catalogs")
@@ -96,14 +100,14 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="do not diff headers and do not write out the top header; "
              "resulting output cannot be used as patch")
     opars.add_option(
+        "-Q", "--quick",
+        action="store_true", dest="quick", default=False,
+        help="equivalent to %s" % "-bns")
+    opars.add_option(
         "-p", "--paired-only",
         action="store_true", dest="paired_only", default=False,
         help="when two directories are diffed, ignore catalogs which "
              "are not present in both directories")
-    opars.add_option(
-        "-b", "--skip-obsolete",
-        action="store_true", dest="skip_obsolete", default=False,
-        help="do not diff obsolete messages")
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=def_do_wrap,
@@ -148,6 +152,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     if op.raw_colors:
         set_coloring_globals(outdep=False)
+
+    if op.quick:
+        op.do_merge = False
+        op.skip_obsolete = True
+        op.strip_headers = True
 
     # Create VCS.
     vcs = None
