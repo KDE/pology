@@ -55,7 +55,7 @@ _pn_all_tags = set(sum((_pn_tag_first, _pn_tag_last, _pn_tag_middle), ()))
 _nokey_tag = "x"
 
 # Disambiguation marker.
-_disamb_marker = u"¶"
+_disamb_marker = u"¤"
 
 # Enumeration of known entry key suffixes, for modifying derived values.
 _suff_pltext = 10
@@ -132,7 +132,7 @@ def trapnakron (env=(u"",),
         for usage of this).
 
       - Some property values may have been manually decorated with
-        disambiguation markers (C{¶}), to differentiate them from
+        disambiguation markers (C{¤}), to differentiate them from
         property values of another entry which would otherwise appear
         equal under a certain normalization.
         By default such markers are removed, but instead they
