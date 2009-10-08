@@ -704,7 +704,7 @@ def summit_scatter (project, options):
     # Setup progress indicator.
     upprog = lambda x: x
     if not options.verbose:
-        catpaths = [x[3] for x in scatter_specs]
+        catpaths = [x[3] for x in scatter_specs if x[1]]
         upprog = init_file_progress(catpaths, addfmt="Scattering: %s")
 
     # Scatter to branch catalogs.
