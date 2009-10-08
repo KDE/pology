@@ -298,8 +298,7 @@ def trapnakron_docbook4 (env=(u"",),
 
       - Markup is Docbook 4 (C{docbook4}).
 
-      - Suffixes: C{_sp} ("samo prevod") for translation-only properties,
-        C{_ot} ("obican tekst") for plain-text properties,
+      - Suffixes: C{_ot} ("obican tekst") for plain-text properties,
         C{_lv} ("laksa varijanta") for lighter variant of the markup.
         Lighter markup currently applies to: people names
         (no outer C{<personname>}, e.g. when it should be elideded due to
@@ -344,16 +343,16 @@ def _sd_ekey_transf (endings, tagmap):
                 break
         found_reqs = set([endings[x] for x in found_endings])
 
-        # Tag which wraps the properties of this entry.
-        # Do not add tags if manually requested not to.
-        tag = None
-        if tagmap and _suff_pltext not in found_reqs:
-            tag = tagmap.get(ekey)
+        # Tag which wraps the property values of this entry.
+        tag = tagmap.get(ekey) if tagmap else None
+
+        # Whether to use plain text instead of markup, where applicable.
+        pltext = _suff_pltext in found_reqs
 
         # Whether to use lighter variant of the markup, where applicable.
         ltmarkup = _suff_ltmarkup in found_reqs
 
-        return ekey, fcap, tag, ltmarkup
+        return ekey, fcap, tag, ltmarkup, pltext
 
     return transf
 
@@ -406,14 +405,14 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
 
     def transf (mtsegs, ekrest, sd):
 
-        fcap, tag, ltmarkup = ekrest
+        fcap, tag, ltmarkup, pltext = ekrest
 
         pvals = []
         for tsegs, (env1, islatin) in zip(mtsegs, envspec):
             if tsegs is None:
                 return None
             pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
-                                  fcap, tag, ltmarkup, islatin)
+                                  fcap, tag, ltmarkup, pltext, islatin)
             pvals.append(pval1)
 
         pval = _compose_althyb(env, envl, envij, envijl, pvals)
@@ -430,10 +429,10 @@ def _sd_esyn_transf (markup, nobrhyp, disamb):
 
     def transf (tsegs, ekrest, sd):
 
-        fcap, tag, ltmarkup = ekrest
+        fcap, tag, ltmarkup, pltext = ekrest
 
         esyn = _compose_text(tsegs, markup, nobrhyp, disamb,
-                             fcap, tag, ltmarkup)
+                             fcap, tag, ltmarkup, pltext)
 
         return esyn
 
@@ -441,7 +440,7 @@ def _sd_esyn_transf (markup, nobrhyp, disamb):
 
 
 def _compose_text (tsegs, markup, nobrhyp, disamb,
-                   fcap, tag, ltmarkup, tolatin=False):
+                   fcap, tag, ltmarkup, pltext, tolatin=False):
 
     # Tagging and escaping.
     tagsubs="%(v)s"
@@ -455,7 +454,8 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
 
     if atags.intersection(_pn_all_tags):
         # A person name.
-        text = _compose_person_name(tsegs, fcap, markup, ltmarkup)
+        markup_mod = markup if not pltext else "plain"
+        text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup)
     else:
         # Ordinary entries.
         text = simplify("".join([x[0] for x in tsegs]))
@@ -465,7 +465,7 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
             text = first_to_upper(text)
         if vescape: # before adding outer tags
             text = vescape(text)
-        if tag:
+        if tag and not pltext:
             text = tagsubs % dict(t=tag, v=text)
 
     text = text.replace(_disamb_marker, disamb or "")
