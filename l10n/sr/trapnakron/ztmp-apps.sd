@@ -117,7 +117,7 @@ Notepad: Бележниц|а, Бележниц|ин
 Pico: Пико|, Пико|ов
     @л: Pico|, Pico|ov
 SciTE: СциТЕ|, СциТЕ|-ов
-Vi: В|и, В|ијев, в|ијевски
+Vi: ¤В|и, В|ијев, в|ијевски
 Vim: Вим|, Вим|ов
 X Editor: Икс-уређив|ач, Икс-уређивач|ев
     @л: X-uređiv|ač, X-uređivač|ev
@@ -810,7 +810,7 @@ KSquares: К-квадрат|и-
 KSudoku: К-|Sudoku|**
 KTeaTime: К-чајанк|а, К-чајанк|ин
 KTron: К-|Tron|**
-KTuberling: |{Potato Guy}
+KTuberling, Potato Guy: Кромпирк|о, Кромпирк|ов, _род!=м
 KTux: К-тукс|, К-тукс|ов
     @л: KTux|, KTux|ov
 Kubrick: Кубрик|, Кубрик|ов
@@ -830,7 +830,6 @@ Pacman: Пакмен|, Пакмен|ов
     @л: Pacman|, Pacman|ov
 Penguin Command: Пингвинск|а> команд|а
 Pingus: Пингус|, Пингус|ов
-Potato Guy: Кромпирк|о, Кромпирк|ов, _род!=м
 PySol: Писол|, Писол|ов
     @л: PySol|, PySol|ov
 Q*bert: Кјуберт|, Кјуберт|ов
@@ -849,7 +848,7 @@ Scavenger: Лешинар|, Лешинар|ев
 Scorched Earth: Спаљен|а> земљ|а
 Sokoban: Сокобан|, Сокобан|ов
 Super Methane Brothers: Супер метанск|а> браћ|а
-Tetris, |tetrisorig: Тетрис|, Тетрис|ов
+Tetris, |tetrisorig: ¤Тетрис|, Тетрис|ов
 ToME: Том|, Том|ов
     @л: Tome|, Tome|ov
 Trophy: Трофеј|, Трофеј|ев
@@ -1024,7 +1023,6 @@ DrKonqi: Др Конк|и, Др Конк|ијев
 EditXRes: Едит-Иксрес|, Едит-Иксрес|ов
     @л: EditXRes|, EditXRes|ov
 E-Notes: Е-беле|шке-
-Emoticons: КЦМ-емотикон|и-
 Enscript: Енскрипт|, Енскрипт|ов
     @л: Enscript|, Enscript|ov
 Ethereal: Етереал|, Етереал|ов
@@ -1076,7 +1074,7 @@ KCMBell: КЦМ-звон|о, _род!=с
 KCMCGI: КЦМ-ЦГ|И-
 KCMClock: КЦМ-сат|
 KCMComponentChooser: КЦМ-бир|{ач}-компоненти
-KCMEmoticons: КЦМ-емотикон|и->
+KCMEmoticons, Emoticons: КЦМ-емотикон|и->
 KCMInfo: КЦМ-инфо|
 KCMInit: КЦМ-почет|ак
 KCMKDED: КЦМ-КДЕД|-
@@ -1593,7 +1591,7 @@ Noseguy: Носоњ|а, _род!=м
 Particle Fountain: Фонтан|а честица
 Particle Gravity: Честичн|а> гравитациј|а
 Pedal: Педал|а
-Penetrate: Пробој|
+Penetrate: ¤Пробој|
 Penrose: Пенроуз|!
     @л: Penrose|!
 Petri: Петр|и!
@@ -1958,7 +1956,7 @@ Apache: Апач|, Апач|ев
     @л: Apach|e-ij, Apach|ejev
 Ampache: Ампач|, Ампач|ев
     @л: Ampach|e-ij, Ampach|ejev
-Courier, |couriersrv: Курир|, Курир|ов
+Courier, |couriersrv: ¤Курир|, Курир|ов
     @л: Courier|, Courier|ov
 Cyrus: Сајрус|, Сајрус|ов
     @л: Cyrus|, Cyrus|ov
@@ -2322,7 +2320,7 @@ CD-ROM: ЦД-РОМ|-, ЦД-РОМ|-ов, ЦД-РОМ|>
 DVD-ROM: ДВД-РОМ|-, ДВД-РОМ|-ов, ДВД-РОМ|>
 CDWRITER: ЦД-рез|ач, ЦД-резач|ев, ЦД-реза|чки
 EMU10k1: ЕМУ10к1|*, _род!=м
-Hayes, |hayesdev: ¶хејс|, хејс|ов, хејс|>
+Hayes, |hayesdev: ¤хејс|, хејс|ов, хејс|>
     @л: Hayes|, Hayes|ov, Hayes|>
 iPhone: и-фон|, и-фон|ов, и-фон|>
     @л: iPhone|, iPhone|ov, iPhone|>
@@ -2338,7 +2336,7 @@ Mac, |maccomp: мек|, мек|ов
 Macintosh: мекинтош|, мекинтош|ев, мекинтош|>
     @л: Macintosh|, Macintosh|ev, Macintosh|>
 MIPS: МИПС|-, МИПС|-ов, МИПС|>
-MO, |modev: МО|-, МО|-ов
+MO, |modev: ¤МО|-, МО|-ов
 MouseMan: маусмен|, маусмен|ов
     @л: MouseMan|, MouseMan|ov
 MX700: МИкс700|*, _род!=м
@@ -2376,8 +2374,8 @@ ZX Spectrum: ЗИкс спектрум|, ЗИкс спектрум|ов
 # ----------------------------------------------------------------------------
 # Технологије
 
-ACCESS, |accessbus: аксес|, аксес|>
-    @л: ACCESS|, ACCESS|>
+ACCESS, |accessbus: ¤аксес|, аксес|>
+    @л: ×ACCESS|, ACCESS|>
 AccessX: аксес-икс|, аксес-икс|>
     @л: AccessX|-, accessX|>
 ActiveX: актив-икс|, актив-икс|>
@@ -2416,8 +2414,8 @@ ext4: екст-4|*, екст-4|>, _род!=м
     @л: ext4|*, ext4|>
 Firewire: фајервајер|, фајервајер|>
     @л: Firewire|, firewire|>
-FLASH, |flashmem: флеш|, флеш|>
-    @л: FLASH|-, FLASH|>
+FLASH, |flashmem: ¤флеш|, флеш|>
+    @л: ¤FLASH|-, FLASH|>
 HFS: ХФС|-, ХФС|-ов, ХФС|>
 HFS Plus: ХФС|- плус, ХФС плус|>
     @л: HFS|- Plus, HFS Plus|>
