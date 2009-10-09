@@ -46,28 +46,29 @@ and accusative (C{acc}) "Veneru". Then we can write::
 By this point, everything is written out manually, there are no
 "macro derivations" to speak of. But observe the difference between
 different cases of "Venera" -- only the final letter is changing.
-Therefore, we first write the following I{hidden} derivation for
+Therefore, we first write the following I{base} derivation for
 this system of case endings alone, called "declension-1"::
 
     |declension-1: nom=a, gen=e, dat=i, acc=u
 
-The derivation is hidden by prepending a pipe to its syntagma.
-We make it hidden because it is only to be used in other derivations,
-and is not a proper entry in our dictionary: in processing stage,
+A base derivation is normally also I{hidden}, by prepending
+the pipe character to its syntagma. We make it hidden because it should
+be used only in other derivations, and does not represent a proper entry
+in our dictionary example; in the processing stage, derivations with
 hidden syntagmas will not be offered on queries into dictionary.
 We can now use this derivation to shorten the derivation for "Venus"::
 
     Venus: Vener|declension-1
 
 Here C{Vener} is the root, and C{|declension-1} is the expansion,
-referencing the previously defined hidden derivation.
+referencing the previously defined base derivation.
 The final forms are derived by inserting the property values found in
-the expansion (to C{a} in C{nom=a}, to C{e} from C{gen=e}, etc.)
+the expansion (C{a} from C{nom=a}, C{e} from C{gen=e}, etc.)
 at the position where the expansion occurs, for each of the keys
-found in the expansion, thus obtaining the expected key-value pairs
-(C{nom=Venera}, C{gen=Venere}, etc.)
+found in the expansion, thus obtaining the expected properties
+(C{nom=Venera}, C{gen=Venere}, etc.) for current derivation.
 
-Note that C{declension-1} may be an overly verbose name for the expansion.
+Note that C{declension-1} may be a too verbose name for the base derivation.
 If the declension type can be identified by the stem of the nominative case
 (here {a}), to have much more natural looking derivations we could write::
 
@@ -79,7 +80,7 @@ only having the root and nominative stem separated by the pipe.
 
 The big gain of this transformation is, of course, when there are many
 syntagmas having the same declension type.
-Other such source-target pairs in this example are "Earth" and "Zemlja",
+Other such source-target pairs could be "Earth" and "Zemlja",
 "Europe" and "Evropa", "Rhea" and "Reja", so we can write::
 
     |a: nom=a, gen=e, dat=i, acc=u
@@ -100,7 +101,30 @@ the expansion::
 
     Alpha Centauri: Alf|{a}-Kentaur
 
-Derivations definitions may contain the usual # to end of line comments::
+Any character which is special in the current context may be escaped
+with a backslash. Only the second colon here is a separator::
+
+    Destination\\: Void: Odredišt|{e}: ništavilo
+
+A single derivation may state more than one syntagma, comma-separated.
+For example, if the syntagma in source language has several spellings::
+
+    Iapetus, Japetus: Japet|
+
+A syntagma can also be an empty string. This is useful for base derivations
+when nominative-stem naming is used and a nominative stem happens to be null
+-- such as in the previous example.
+The derivation to which this empty expansion refers to would be::
+
+    |: nom=, gen=a, dat=u, acc=
+
+Same-valued properties do not have to be repeated, but instead
+several keys can be linked to one value, ampersand-separated.
+The previous base derivation could thus be defined as::
+
+    |: nom&acc=, gen=a, dat=u
+
+Derivation definitions may contain the # to end of line comments::
 
     # A comment.
     Venus: Vener|a # another comment
@@ -116,17 +140,17 @@ Outer multiple expansion is used when it is advantageous to split
 derivations by grammar classes. The examples so far were only deriving
 grammar cases of nouns, but we may also want to define possesive adjective
 per noun. For "Venera", the possesive adjective in nominative is "Venerin".
-Using the same nominative-stem naming expansions, we could then write::
+Using the same nominative-stem naming of base derivations, we could write::
 
-    |a: ... # as above
-    |in: ... # posessive adjective
+    |a: …  # as above
+    |in: …  # posessive adjective
     Venus: Vener|a, Vener|in
 
 Expansions are resolved from left to right, with the expected effect
 of derived properties accumulating along the way.
-The only question is what happens if more expansions produce properties
+The only question is what happens if two expansions produce properties
 with same keys but different values -- then the value produced by
-the last (rightmost) expansions overrides others.
+the last (rightmost) expansion takes precedence.
 
 Inner multiple expansion is used on multi-word syntagmas, when
 more than one word needs expansion. For example, the target pair
@@ -134,34 +158,187 @@ of "Orion Nebula" is "Orionova maglina", where the first word
 is a possesive adjective, and the second a noun.
 The derivation for this is::
 
-    |a: ... # as above
-    |a>: ... # posessive adjective as noun, > is not special
-    Orion Nebula: Orionov|a> maglin|a
+    |a: …  # as above
+    |ova>: …  # posessive adjective as noun, > is not special
+    Orion Nebula: Orion|ova> maglin|a
 
 Inner expansions are resolved from left to right, such that all expansions
 right of the expansion currently resolved are treated as plain text.
 If all expansions define same properties by key, then the derivation
 will have all those properties, with values derived as expected.
 However, if there is a mismatch between properties, then the derivation
-will get the intersection, i.e. only those common to all expansions.
+will get the intersection of them, i.e. only those common to all expansions.
 
-Both outer and inner expansion may be used in single derivation.
+Both outer and inner expansion may be used in a single derivation.
 
 
 Expansion Masks
 ===============
 
-((Write me.))
+An expansion can be made not to result in all properties of referred to
+derivation, but only a subset of them, and with modification to keys.
+
+Consider again the example of "Orion Nebula" and "Orionova maglina".
+Here the possesive adjective "Orionova" has to be matched in both case
+and gender to the noun "maglina" (feminine).
+Earlier we defined a special adjective-as-noun derivation C{|ova},
+which was also specialized to the feminine gender of "maglina",
+but now we want to make use of full posessive adjective derivation instead.
+Let the property keys of this derivation be of the form C{nommas}
+(nominative masculine), C{genmas} (genitive masculine), …, C{nomfem}
+(nominative feminine), C{genfem} (genitive feminine), ….
+If we use the stem of nominative masculine form, "Orionov", to name
+the possesive adjective base derivation, then we get::
+
+    |ov: nommas=…, genmas=…, …, nomfem=…, genfem=…, …
+    Orion Nebula: Orion|ov~...fem maglin|a
+
+C{|ov~...fem} here is a masked expansion. It states to expand only
+those properties which have keys starting with any three characters
+and ending in C{fem}, as well as to drop C{fem} (being a constant)
+from the resulting keys. This precisely selects only the feminine
+forms of the possesive adjective and transforms their keys into
+noun keys needed to match with those of C{|a} expansion.
+
+We could also use this same masked expansion to produce the earlier
+specialized adjective-as-noun base derivation::
+
+    |ov: nommas=…, genmas=…, …, nomfem=…, genfem=…, …
+    |ova>: |ov~...fem
+    Orion Nebula: Orion|ova> maglin|a
+
+A special case of masked expansion is when there are no variable
+characters in the mask (no dots). In the pair "Constellation of Cassiopeia"
+and "Sazvežđe Kasiopeje", the "of Cassiopeia" is constructed by genitive
+case, "Kasiopeje", avoiding the need for preposition. If "Cassiopeia"
+has its own derivation, then we can use it like this::
+
+    Cassiopeia: Kasiopej|a
+    Constellation of Cassiopeia: Sazvežđ|e |Cassiopeia~gen
+
+The {|e} is the usual nominative-stem expansion.
+The C{|Cassiopeia~gen} expansion produces only the genitive form
+of "Cassiopeia", but with an empty property key.
+If this expansion would be treated as normal inner expansion,
+it would cancel all forms produced by C{|e} expansion,
+since none of them has an empty key.
+Instead, when an expansion produces a single form with empty key,
+its value is treated as raw text and inserted into all forms produced
+to that point. Just as if we had written::
+
+    Constellation of Cassiopeia: Sazvežđ|e Kasiopeje
+
+Sometimes the default modification of propety keys, removal
+of all fixed characters in the mask, is not exactly what we want.
+This should be a rare case, but if it happens, the mask can also
+be given a I{key extender}. For example, if we would want to select
+only feminine forms of {|ov} expansion, but preserve the C{fem} ending
+of the resulting keys, we could write::
+
+    Foobar: Fubar|ov~...fem%*fem
+
+The key extender in this expansion is C{%*fem}.
+For each resulting property, the final key is constructed by substituting
+every asterisk, C{*}, with the key resulting from C{~...fem} mask.
+Thus, here the C{fem} ending is added to every key, as desired.
+
+Expanded values can have their capitalization changed.
+By prepending circumflex (C{^}) or backtick (C{`}) to the expansion
+reference, the first letter in resulting values is uppercased or lowercased,
+respectively. We could derive the pair "Distant Sun" and "Udaljeno sunce"
+by using "Sun" and "Sunce" (note the case difference in "Sunce"/"sunce")
+like this::
+
+    Sun: Sunc|e                  # this defines uppercase first letter
+    Distant Sun: Dalek|o> |`Sun  # this needs lowercase first letter
 
 
-Cutting Properties
+Special Properties
 ==================
 
+Property keys may be given several endings, to make these properties
+behave differently from what was described so far.
+These ending are not treated as part of the property key itself,
+so they should not be given when querying derivations by syntagma
+and property key.
+
+I{Cutting} properties are used to avoid the normal insertion on expansion.
+For example, if we want also to define the gender of nouns in
+through base expansions, we could come up with::
+
+    |a: nom=a, gen=e, dat=i, acc=u, gender=fem
+    Venus: Vener|a
+
+However, this will cause the C{gender} property in expansion to become
+C{Venerafem}. For the C{gender} property to be taken verbatim,
+without adding the segments from the calling derivation around it,
+we add make it a cutting property by appending exclamation mark to its key::
+
+    |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
+
+Now when dictionary is queried for C{Venus} syntagma and C{gender} property,
+we will get the expected C{fem} value.
+
+Cutting properties also behave differently in multiple inner expansions.
+Instead of being canceled when not all inner expansions define it,
+simply the rightmost value is taken -- just like in outer expansions.
+
+I{Terminal} properties are those hidden with respect to expansion,
+i.e. they are not taken into the calling derivation.
+A property is made terminal by appending a dot (C{.}) to its key.
+For example, if some derivations have the short description property C{desc},
+we typically do not want it to propagate into calling derivations
+which happen not to override it by outer expansion::
+
+    Mars: Mars|, desc.=planet
+    Red Mars: Crven|i> Mars|  # a novel
+
+
+Uniqueness, Ordering and Including
+==================================
+
 ((Write me.))
 
 
-Ordering and Including Derivations
-==================================
+Alternative Derivations
+=======================
+
+((Write me.))
+
+
+Tagged Values
+=============
+
+((Write me.))
+
+
+Treatment of Whitespace
+=======================
+
+ASCII whitespace in derivations, namely the space, tab and newline,
+are not preserved as-is, but I{simplified}, in all resulting form.
+The simplification consists of removing all leading and trailing whitespace,
+and replacing all inner sequences of whitespace with a single space.
+These two derivations are equivalent::
+
+    Venus: nom=Venera
+     Venus   :  nom =  Venera
+
+but these two are not::
+
+    Venus: Vener|a
+    Venus: Vener  |a
+
+because the two spaces between the root C{Vener} and expansion {|a} become
+inner spaces in resulting forms, so they get converted into a single space.
+
+Non-ASCII whitespace, on the other hand, is preserved as-is.
+This means that significant whitespace, like non-breaking space,
+zero width space, breaking word joiner, etc. can be used normally.
+
+
+Error Handling
+==============
 
 ((Write me.))
 
@@ -169,22 +346,7 @@ Ordering and Including Derivations
 Miscellaneous Bits
 ==================
 
-A single derivation may state more than one syntagma, separated by commas.
-For example, if the source language has several spellings::
-
-    Iapetus, Japetus: Jo|
-
-A syntagma can also be an empty string. This is useful for hidden derivations
-used for expansions, if the natural naming by nominative stems is used and
-a nominative stem happens to be null -- such as in the previous example.
-The derivation to which this empty expansion refers to would be::
-
-    |: nom=, gen=a, dat=u, acc=
-
-Any character which is special in the current context may be escaped
-with a backslash. Only the second colon here is a separator::
-
-    Destination\: Void: Odredišt|{e}: ništavilo
+C{syntax/} directory in Pology distribution contains syntax highlighting definitions for syntagma derivations for some text editors.
 
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
