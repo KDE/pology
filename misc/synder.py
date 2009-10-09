@@ -3,7 +3,189 @@
 """
 Derive forms and properties of syntagmas by macro expansion.
 
-FIXME: Write documentation (incl. synder format).
+A syntagma, a set of one or several words with a certain meaning,
+in a human language may have many grammar forms and properties.
+When the forms are sufficiently regular small perturbations of
+the original syntagma (e.g. different word endings by grammar case),
+it is possible to construct them by macro derivation,
+rather than having to write out each form in full.
+
+This module provides facilities for such macro derivations on syntagmas.
+It consists of two elements: the text format for defining macro derivations,
+and the derivator class which reads and processes these definitions.
+The derivator class is documented in the usual places, and the rest of
+this text deals with syntax and semantics of derivation definitions.
+
+As an example application, we consider a dictionary of proper names,
+where for each name in source language we want to define the basic name
+and some of its forms and properties in target language.
+
+
+Basic Derivations
+=================
+
+For the name in source language "Venus" and in target language "Venera",
+we could write the following simplest derivation, which defines only
+the basic form in target language::
+
+    Venus: =Venera
+
+C{Venus} is the syntagma of derivation. It is followed by the colon,
+which separates the syntagma from its properties.
+Properties are written as C{key=value} pairs, and separated by commas;
+in C{=Venera}, the key is empty string and the value is C{Venera}.
+
+We would now like to define some grammar cases in target language.
+"Venera" is the nominative (basic) case, so instead of empty string
+we use C{nom} as its key; other cases that we want to define are
+genitive (C{gen}) "Venere", dative (C{dat}) "Veneri",
+and accusative (C{acc}) "Veneru". Then we can write::
+
+    Venus: nom=Venera, gen=Venere, dat=Veneri, acc=Veneru
+
+By this point, everything is written out manually, there are no
+"macro derivations" to speak of. But observe the difference between
+different cases of "Venera" -- only the final letter is changing.
+Therefore, we first write the following I{hidden} derivation for
+this system of case endings alone, called "declension-1"::
+
+    |declension-1: nom=a, gen=e, dat=i, acc=u
+
+The derivation is hidden by prepending a pipe to its syntagma.
+We make it hidden because it is only to be used in other derivations,
+and is not a proper entry in our dictionary: in processing stage,
+hidden syntagmas will not be offered on queries into dictionary.
+We can now use this derivation to shorten the derivation for "Venus"::
+
+    Venus: Vener|declension-1
+
+Here C{Vener} is the root, and C{|declension-1} is the expansion,
+referencing the previously defined hidden derivation.
+The final forms are derived by inserting the property values found in
+the expansion (to C{a} in C{nom=a}, to C{e} from C{gen=e}, etc.)
+at the position where the expansion occurs, for each of the keys
+found in the expansion, thus obtaining the expected key-value pairs
+(C{nom=Venera}, C{gen=Venere}, etc.)
+
+Note that C{declension-1} may be an overly verbose name for the expansion.
+If the declension type can be identified by the stem of the nominative case
+(here {a}), to have much more natural looking derivations we could write::
+
+    |a: nom=a, gen=e, dat=i, acc=u
+    Venus: Vener|a
+
+Now the derivation looks just like the nominative case alone,
+only having the root and nominative stem separated by the pipe.
+
+The big gain of this transformation is, of course, when there are many
+syntagmas having the same declension type.
+Other such source-target pairs in this example are "Earth" and "Zemlja",
+"Europe" and "Evropa", "Rhea" and "Reja", so we can write::
+
+    |a: nom=a, gen=e, dat=i, acc=u
+    Venus: Vener|a
+    Earth: Zemlj|a
+    Europe: Evrop|a
+    Rhea: Rej|a
+
+This is a good point to note that derivations are separated by newlines.
+If necessary, single derivation can be split into several lines
+by putting a backslash at the end of each line but the last.
+
+Expansion is terminated by a whitespace or a comma, or by another expansion.
+If these characters are part of the expansion itself (i.e. of the syntagma
+of the derivation it refers to), or the text continues right after
+the expansion without a whitespace, curly braces can be used to delimit
+the expansion::
+
+    Alpha Centauri: Alf|{a}-Kentaur
+
+Derivations definitions may contain the usual # to end of line comments::
+
+    # A comment.
+    Venus: Vener|a # another comment
+
+
+Multiple Expansions
+===================
+
+A single derivation may contain more than one expansion.
+There are two distinct types of multiple expansion, outer and inner.
+
+Outer multiple expansion is used when it is advantageous to split
+derivations by grammar classes. The examples so far were only deriving
+grammar cases of nouns, but we may also want to define possesive adjective
+per noun. For "Venera", the possesive adjective in nominative is "Venerin".
+Using the same nominative-stem naming expansions, we could then write::
+
+    |a: ... # as above
+    |in: ... # posessive adjective
+    Venus: Vener|a, Vener|in
+
+Expansions are resolved from left to right, with the expected effect
+of derived properties accumulating along the way.
+The only question is what happens if more expansions produce properties
+with same keys but different values -- then the value produced by
+the last (rightmost) expansions overrides others.
+
+Inner multiple expansion is used on multi-word syntagmas, when
+more than one word needs expansion. For example, the target pair
+of "Orion Nebula" is "Orionova maglina", where the first word
+is a possesive adjective, and the second a noun.
+The derivation for this is::
+
+    |a: ... # as above
+    |a>: ... # posessive adjective as noun, > is not special
+    Orion Nebula: Orionov|a> maglin|a
+
+Inner expansions are resolved from left to right, such that all expansions
+right of the expansion currently resolved are treated as plain text.
+If all expansions define same properties by key, then the derivation
+will have all those properties, with values derived as expected.
+However, if there is a mismatch between properties, then the derivation
+will get the intersection, i.e. only those common to all expansions.
+
+Both outer and inner expansion may be used in single derivation.
+
+
+Expansion Masks
+===============
+
+((Write me.))
+
+
+Cutting Properties
+==================
+
+((Write me.))
+
+
+Ordering and Including Derivations
+==================================
+
+((Write me.))
+
+
+Miscellaneous Bits
+==================
+
+A single derivation may state more than one syntagma, separated by commas.
+For example, if the source language has several spellings::
+
+    Iapetus, Japetus: Jo|
+
+A syntagma can also be an empty string. This is useful for hidden derivations
+used for expansions, if the natural naming by nominative stems is used and
+a nominative stem happens to be null -- such as in the previous example.
+The derivation to which this empty expansion refers to would be::
+
+    |: nom=, gen=a, dat=u, acc=
+
+Any character which is special in the current context may be escaped
+with a backslash. Only the second colon here is a separator::
+
+    Destination\: Void: Odredišt|{e}: ništavilo
+
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
