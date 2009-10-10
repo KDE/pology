@@ -30,9 +30,9 @@ the basic form in target language::
 
     Venus: =Venera
 
-C{Venus} is the syntagma of derivation. It is followed by the colon,
-which separates the syntagma from its properties.
-Properties are written as C{key=value} pairs, and separated by commas;
+C{Venus} is the key syntagma or derivation key,
+which is separated by the colon character from its properties.
+Properties are written as C{KEY=VALUE} pairs, and separated by commas;
 in C{=Venera}, the key is empty string and the value is C{Venera}.
 
 We would now like to define some grammar cases in target language.
@@ -93,11 +93,11 @@ This is a good point to note that derivations are separated by newlines.
 If necessary, single derivation can be split into several lines
 by putting a backslash at the end of each line but the last.
 
-Expansion is terminated by a whitespace or a comma, or by another expansion.
-If these characters are part of the expansion itself (i.e. of the syntagma
-of the derivation it refers to), or the text continues right after
-the expansion without a whitespace, curly braces can be used to delimit
-the expansion::
+Expansion is implicitly terminated by a whitespace or a comma, or by
+another expansion. If these characters are part of the expansion itself
+(i.e. of the syntagma of the derivation it refers to), or the text continues
+right after the expansion without a whitespace, braces can be used
+to explicitly delimit the expansion::
 
     Alpha Centauri: Alf|{a}-Kentaur
 
@@ -106,7 +106,7 @@ with a backslash. Only the second colon here is a separator::
 
     Destination\\: Void: Odredišt|{e}: ništavilo
 
-A single derivation may state more than one syntagma, comma-separated.
+A single derivation may state more than one key syntagma, comma-separated.
 For example, if the syntagma in source language has several spellings::
 
     Iapetus, Japetus: Japet|
@@ -249,7 +249,7 @@ respectively. We could derive the pair "Distant Sun" and "Udaljeno sunce"
 by using "Sun" and "Sunce" (note the case difference in "Sunce"/"sunce")
 like this::
 
-    Sun: Sunc|e                  # this defines uppercase first letter
+    Sun: Sunc|e  # this defines uppercase first letter
     Distant Sun: Dalek|o> |`Sun  # this needs lowercase first letter
 
 
@@ -263,7 +263,7 @@ so they should not be given when querying derivations by syntagma
 and property key.
 
 I{Cutting} properties are used to avoid the normal insertion on expansion.
-For example, if we want also to define the gender of nouns in
+For example, if we want also to define the gender of nouns
 through base expansions, we could come up with::
 
     |a: nom=a, gen=e, dat=i, acc=u, gender=fem
@@ -294,35 +294,96 @@ which happen not to override it by outer expansion::
     Red Mars: Crven|i> Mars|  # a novel
 
 
-Uniqueness, Ordering and Including
-==================================
+Text Tags
+=========
 
-((Write me.))
+Key syntagmas and property values can be equipped with simple tags,
+which start with tag name in the form C{~TAG} and extend to next tag
+or end of text.
+For example, when deriving people names, we may want to tag their
+first and last names, using tags C{~fn} and C{~sn} respectively::
+
+    ~fn Isaac ~sn Newton: ~fn Isak| ~sn Njutn|
+
+In default processing, these tags are simply ignored, syntagmas
+and property values are reported as if there were no tags.
+However, derivator objects (which process derivation definitions) can
+take as optional parameters transformation functions for key syntagmas
+and property values, to which  tagged text segments will be passed,
+so that they can act on particular tags when producing the final text.
+
+Tag is implicitly terminated by whitespace or comma (or colon in case of
+key syntagmas), but when none of these characters can be put after a tag,
+tag name can be explicitly delimited by braces (C{~{TAG}}).
 
 
 Alternative Derivations
 =======================
 
-((Write me.))
+Sometimes there may be several alternative derivations to the given syntagma.
+The default (in suitable sense) derivation is written as usual, and
+other derivations are written under named I{environments}::
 
+For example, if deriving a transcribed person's name, there may be several
+versions of the transcription. For "Isaac Newton", the usual, traditional
+transcription may be "Isak Njutn", while the modern transcription
+(i.e. applied to a living person of that name) would be "Ajzak Njuton".
+Then we could have an environment C{modern} and write::
 
-Tagged Values
-=============
+    Isaac Newton: Isak| Njutn|
+        @modern: Ajzak| Njuton|
 
-((Write me.))
+Environment name is preceded with C{@} and ended with colon,
+after which the usual derivation follows.
+There can be any number of non-default environments.
+
+The immediate question that arises is how are expansions treated in
+non-default environments. In the previous example, what does C{|} expansion
+resolve to in C{modern} environment? This depends on processing.
+By default, processing will require that derivations referenced
+by expansions also have matching environments. If C{|} were defined as::
+
+    |: nom=, gen=a, dat=u, acc=
+
+then expansion of "Isaac Newton" in C{modern} environment would fail.
+Instead, it would be necessary to define the base derivations as::
+
+    |: nom=, gen=a, dat=u, acc=
+        @modern: nom=, gen=a, dat=u, acc=
+
+However, this may not be a very useful requirement. As can be seen in this
+example already, in many cases base derivations are likely to be same for
+all environments, so they would be needlessly duplicated.
+It is therefore possible to define environment fallback chain in processing,
+such that when a derivation in certain environment is requested,
+environments in the fallback chain are tried in order.
+In this example, if the chain would be given as C{("modern", "")}
+(name of default environment is empty string), then we could write::
+
+    |: nom=, gen=a, dat=u, acc=
+    Isaac Newton: Isak| Njutn|
+        @modern: Ajzak| Njuton|
+    Charles Messier: Šarl| Mesje|
+
+When derivation of "Isaac Newton" in C{modern} environment is requested,
+the default expansion for C{|} will be used, and the derivation will succeed.
+Derivation of "Charles Messier" in C{modern} environment will succeed too,
+because the environment fallback chain is applied throughout;
+if "Charles Messier" had different C{modern} transcription,
+we would have explicitly provided it.
 
 
 Treatment of Whitespace
 =======================
 
 ASCII whitespace in derivations, namely the space, tab and newline,
-are not preserved as-is, but I{simplified}, in all resulting form.
+are not preserved as-is, but by default I{simplified} in all final forms.
 The simplification consists of removing all leading and trailing whitespace,
 and replacing all inner sequences of whitespace with a single space.
 These two derivations are equivalent::
 
     Venus: nom=Venera
-     Venus   :  nom =  Venera
+    Venus  :  nom =  Venera
 
 but these two are not::
 
@@ -334,13 +395,168 @@ inner spaces in resulting forms, so they get converted into a single space.
 
 Non-ASCII whitespace, on the other hand, is preserved as-is.
 This means that significant whitespace, like non-breaking space,
-zero width space, breaking word joiner, etc. can be used normally.
+zero width space, word joiners, etc. can be used normally.
+
+For property values and key syntagmas it is possible to have different
+treatment of whitespace, through an optional parameter to the derivator object.
+This parameter is a transformation function to which text segments
+with raw whitespace are passed, so it can do with them as desired.
+
+Due to simplifaction of whitespace, indentation of key syntagmas and
+environment names is not significant, but it is enforced to be consistent.
+This will fail parsing::
+
+    Isaac Newton: Isak| Njutn|
+        @modern: Ajzak| Njuton|
+     George Washington: Džordž| Vašington|  # inconsitent indent
+      @modern: Džordž| Vošington|  # inconsitent indent
+
+This is done both in order to enforce a single indentation style when
+several people are working on the same source, as well as to discourage
+indentation schemes unfriendly to version control systems, such as::
+
+    Isaac Newton: Isak| Njutn|
+         @modern: Ajzak| Njuton|
+    George Washington: Džordž| Vašington|
+              @modern: Džordž| Vošington|  # inconsitent indent
+
+(Unfriendliness to VCS comes from the need to reindent lines which are
+otherwise unchanged, merely in order to keep them aligned to lines
+which were actually changed.)
+
+
+Uniqueness, Ordering and Inclusions
+===================================
+
+Within given source of derivations, each derivation must have at least one
+unique key syntagma, because it is used as derivation key on lookups.
+These two derivations are in conflict::
+
+    Mars: Mars|  # the planet
+    Mars: mars|  # the chocholate bar
+
+There are several possibilities to resolve conflicts in derivation keys.
+The simplest possibility is to have keyword-like key syntagmas,
+if key syntagmas themselves do not need to be human readable::
+
+    marsplanet: Mars|
+    marsbar: mars|
+
+If key syntagmas do have to be human readable, then one option is
+to extend them in human readable way as well::
+
+    Mars (planet): Mars|
+    Mars (chocolate bar): mars|
+
+This too is not acceptable if key syntagmas are intended to be of
+equal weight to derived syntagmas, like in a dictionary application.
+In that case, the solution is to add a hidden keyword-like syntagma
+to both derivations::
+
+    Mars, |marsplanet: Mars|
+    Mars, |marsbar: mars|
+
+Processing will now silently eliminate "Mars" as key to either derivation,
+because it is conflicted, and leave only C{marsplanet} as key for the first
+and C{marsbar} as key for the second derivation.
+It is these keys that are also used in expansions, to point
+to appropriate derivation.
+However, when querying the derivator object for key syntagmas
+by derivation key C{marsplanet}, only "Mars" will be returned,
+because C{marsplanet} is hidden; likewise for C{marsbar}.
+
+Ordering of derivations is not important. The following order is valid,
+althoug the expansion C{|Venus~gen} is seen before the derivation of "Venus"::
+
+    Merchants of Venus: Trgovc|i> s |Venus~gen
+    Venus: Vener|a
+
+This enables derivations to be ordered naturally, e.g. alphabetically,
+instead of being forced to perturb the order due to technical demans.
+
+It is possible to include one file with derivations into another.
+A typical case would be to split the base derivations into a separate file,
+and include it into the visible derivations. If basic derivations are
+defined in C{base.sd}::
+
+    |: nom=, gen=a, dat=u, acc=, gender!=mas
+    |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
+    …
+
+then the file C{solarsys.sd}, placed in the same directory, can include
+C{base.sd} and use its derivations in expansions like this::
+
+    >base.sd
+    Mercury: Merkur|
+    Venus: Vener|a
+    Earth: Zemlj|a
+    …
+
+C{>} is the inclusion directive, followed by the absolute or relative path
+to file to be included. If the path is relative, it always relative to
+the including file, and not e.g. to some externaly specified set of
+inclusion paths.
+
+If the including and included file contain a derivation with same key
+syntagmas, that is not a conflict. On expansion, first the derivations
+in the current file are checked, and if the referenced derivation
+is not there, then the included files are checked in reverse
+to the inclusion order. In this way, it is possible to override
+some of base derivations in only one or few including files.
+
+Inclusions are "shallow": only the derivations in the included file
+itself are visible (available for use in expansions) in the including file.
+In other words, if file A includes file B, and file B includes file C,
+then derivations from C are not automatically visible in A; to use them,
+A must explicitly include C.
+
+Shallow inclusion and ordering-independent resolution of expansions
+together make it possible to have mutual inclusions: A can include B,
+while B can include A. This is an important capability when building
+derivations of taxonomies. While derivation of X naturally belongs to A
+and of Y to B, X may nevertheless be used in expansion in another
+derivation in B, and Y in another derivation in A.
+
+When a derivator object is created, files with derivations are imported
+into it one by one, to make them available for queries.
+Derivations from imported files (but not from files included by them,
+according to shallow inclusion principle) all share a single namespace.
+This means that key syntagmas (derivation keys) across imported files
+can conflict, and must be resolved by one of outlined methods.
+
+Design guideline behind the inclusion mechanism was that in each collection
+of derivations, each I{visible} derivation, one which is available
+to queries by the user of the collection, must be accessible by at least
+one unique key, which does not depend on the underlying file hierarchy.
 
 
 Error Handling
 ==============
 
-((Write me.))
+There are three levels of errors which may happen in derivations.
+
+The first level are syntax errors, such as derivation missing a colon which
+separates key syntagma from the rest, unclosed braced expansion, etc.
+These errors are reported as soon as a derivation source is imported into
+the derivator object.
+
+The second level of errors are expansion errors, such as an expansion
+pointing to undefined derivation, or an expansion mask discarding everything.
+These errors are reported by the derivator object lazily,
+when the problematic derivation is actually looked up for the first time.
+
+On the third level are semantic errors, such as if we want every derivation
+to have a certain property, or C{gender} property to have only values C{mas},
+C{fem} and C{neu}, and a derivation violates these requirements.
+At the moment, there is no special way to catch these errors.
+
+In future, a mechanism (in form of file-level directives, perhaps)
+may be introduced to immediately report reference errors on request,
+and to constrain property keys and property values to avoid semantic errors.
+Until then, the way to validate a collection of derivations would be
+to write a piece of Python code which will import all files into
+a derivator object, iterate through derivations (this alone will catch
+expansion errors) and check for semantic errors.
 
 
 Miscellaneous Bits
@@ -441,7 +657,7 @@ def empty_source_cache ():
     """
     Clear all cached sources.
 
-    When a synder file is loaded, its parsed form is stored in a cache,
+    When file with derivations is loaded, its parsed form is cached,
     such that future load instructions on that same path
     (e.g. when the path is included from another file)
     do not waste any extra time and memory.
