@@ -322,7 +322,7 @@ Alternative Derivations
 
 Sometimes there may be several alternative derivations to the given syntagma.
 The default (in suitable sense) derivation is written as usual, and
-other derivations are written under named I{environments}::
+other derivations are written under named I{environments}.
 
 For example, if deriving a transcribed person's name, there may be several
 versions of the transcription. For "Isaac Newton", the usual, traditional
