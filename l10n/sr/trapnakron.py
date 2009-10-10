@@ -199,7 +199,7 @@ def trapnakron (env=(u"",),
     dkeytf = _sd_dkey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
     pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
-    esyntf = _sd_esyn_transf(markup, nobrhyp, disamb)
+    esyntf = _sd_esyn_transf(markup, False, disamb)
 
     # Build the derivator.
     sd = Synder(env=[x for x in envs if x],
