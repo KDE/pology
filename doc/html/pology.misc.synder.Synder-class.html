@@ -78,8 +78,8 @@ object --+
           <td><span class="summary-sig"><a href="pology.misc.synder.Synder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">env</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">pkeysep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">ekeytf</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">ekeyitf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">dkeytf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">dkeyitf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pkeytf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pkeyitf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pvaltf</span>=<span class="summary-sig-default">None</span>,
@@ -140,7 +140,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="get2"></a><span class="summary-sig-name">get2</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ekey</span>,
+        <span class="summary-sig-arg">dkey</span>,
         <span class="summary-sig-arg">pkey</span>,
         <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>)</span><br />
       FIXME: Write doc.</td>
@@ -178,7 +178,8 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ekeys"></a><span class="summary-sig-name">ekeys</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a name="dkeys"></a><span class="summary-sig-name">dkeys</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">single</span>=<span class="summary-sig-default">False</span>)</span><br />
       FIXME: Write doc.</td>
           <td align="right" valign="top">
             
@@ -196,7 +197,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="syns"></a><span class="summary-sig-name">syns</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ekey</span>)</span><br />
+        <span class="summary-sig-arg">dkey</span>)</span><br />
       FIXME: Write doc.</td>
           <td align="right" valign="top">
             
@@ -214,7 +215,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="pkeys"></a><span class="summary-sig-name">pkeys</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ekey</span>)</span><br />
+        <span class="summary-sig-arg">dkey</span>)</span><br />
       FIXME: Write doc.</td>
           <td align="right" valign="top">
             
@@ -232,7 +233,43 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="props"></a><span class="summary-sig-name">props</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ekey</span>)</span><br />
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      FIXME: Write doc.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="source_name"></a><span class="summary-sig-name">source_name</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      FIXME: Write doc.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="source_pos"></a><span class="summary-sig-name">source_pos</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
       FIXME: Write doc.</td>
           <td align="right" valign="top">
             
@@ -449,8 +486,8 @@ object --+
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">env</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">pkeysep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">ekeytf</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">ekeyitf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">dkeytf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">dkeyitf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pkeytf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pkeyitf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pvaltf</span>=<span class="sig-default">None</span>,

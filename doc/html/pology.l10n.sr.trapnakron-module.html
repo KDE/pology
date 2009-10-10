@@ -84,9 +84,31 @@
         <span class="summary-sig-arg">tagmap</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ptsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ltsuff</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">npkeyto</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">nobrhyp</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">npkeyto</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">disamb</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">runtime</span>=<span class="summary-sig-default">False</span>)</span><br />
       Main trapnakron constructor, covering all options.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.trapnakron-module.html#trapnakron_plain" class="summary-sig-name">trapnakron_plain</a>(<span class="summary-sig-arg">env</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="summary-sig-arg">envl</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="summary-sig-arg">envij</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="summary-sig-arg">envijl</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>)</span><br />
+      Constructs trapnakron suitable for application to plain text.</td>
           <td align="right" valign="top">
             
             
@@ -162,8 +184,10 @@
         <span class="sig-arg">tagmap</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ptsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ltsuff</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">npkeyto</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">nobrhyp</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">npkeyto</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">disamb</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">runtime</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -183,26 +207,26 @@
       change the environment chain for deriving the particular form.
     </li>
     <li>
-      The entry and property key separator is ASCII hyphen 
+      The derivation and property key separator is ASCII hyphen 
       (<code>-</code>).
     </li>
     <li>
-      Entry keys are derived from syntagmas by applying the <a 
+      Derivation keys are derived from syntagmas by applying the <a 
       href="pology.misc.normalize-module.html#identify" 
-      class="link">identify()</a> function. In entries where this will 
+      class="link">identify()</a> function. In derivations where this will 
       result in strange keys, additional keys should be defined through 
       hidden syntagmas.
     </li>
     <li>
-      Entry keys are constructed by converting entry syntagmas into <a 
+      Derivation keys are constructed by converting key syntagmas into <a 
       href="pology.misc.normalize-module.html#identify" class="link">ASCII 
       identifiers</a>. Property keys are transliterated into <a 
       href="pology.l10n.sr.hook.cyr2lat-module.html#cyr2lat_stripped" 
       class="link">stripped-ASCII</a>.
     </li>
     <li>
-      Conflict resolution for entry keys is not strict (see documentation 
-      to <a href="pology.misc.synder.Synder-class.html#__init__" 
+      Conflict resolution for derivation keys is not strict (see <a 
+      href="pology.misc.synder.Synder-class.html#__init__" 
       class="link">derivator constructor</a>).
     </li>
   </ul>
@@ -213,16 +237,17 @@
       The markup type is given by <code>markup</code> parameter, and can be
       one of <code>&quot;plain&quot;</code>, <code>&quot;xml&quot;</code>, 
       <code>&quot;docbook4&quot;</code>. The <code>tagmap</code> parameter 
-      contains mapping of entry keys to tags which should wrap properties 
-      of these entries.
+      contains mapping of derivation keys to tags which should wrap 
+      properties of these derivations.
     </li>
     <li>
-      Entry keys can have several suffixes which effect how the properties 
-      are reported. Presence of the suffix given by <code>ptsuff</code> 
-      parameter signals that properties should be forced to plain text, if 
-      another markup is globally in effect. Parameter <code>ltsuff</code> 
-      states the suffix which produces lighter version of the markup, where
-      applicable (e.g. people names in Docbook).
+      Derivation keys can have several suffixes which effect how the 
+      properties are reported. Presence of the suffix given by 
+      <code>ptsuff</code> parameter signals that properties should be 
+      forced to plain text, if another markup is globally in effect. 
+      Parameter <code>ltsuff</code> states the suffix which produces 
+      lighter version of the markup, where applicable (e.g. people names in
+      Docbook).
     </li>
     <li>
       Ordinary hyphens may be converted into non-breaking hyphens by 
@@ -244,6 +269,20 @@
       href="pology.l10n.sr.trapnakron-module.html#trapnakron_ui" 
       class="link">trapnakron_ui</a> for usage of this).
     </li>
+    <li>
+      Some property values may have been manually decorated with 
+      disambiguation markers (<code>&#164;</code>), to differentiate them from 
+      property values of another derivation which would otherwise appear 
+      equal under a certain normalization. By default such markers are 
+      removed, but instead they can be substituted with a string given by 
+      <code>disamb</code> parameter.
+    </li>
+    <li>
+      Some derivations are defined only for purposes of obtaining their 
+      declinations in scripted translations at runtime. They are by default
+      not included, but can be by setting the <code>runtime</code> 
+      parameter to <code>True</code>.
+    </li>
   </ul>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -253,15 +292,55 @@
         <li><strong class="pname"><code>envij</code></strong> (string or (string...) or ((string...)...)) - environment chain for Ijekavian Cyrillic derivation</li>
         <li><strong class="pname"><code>envijl</code></strong> (string or (string...) or ((string...)...)) - environment chain for Ijekavian Latin derivation</li>
         <li><strong class="pname"><code>markup</code></strong> (string) - target markup</li>
-        <li><strong class="pname"><code>tagmap</code></strong> (dict string -&gt; string) - tags to assign to properties by entry keys</li>
-        <li><strong class="pname"><code>ptsuff</code></strong> (string) - entry key suffix to report plain text properties</li>
-        <li><strong class="pname"><code>ltsuff</code></strong> (string) - entry key suffix to report properties with lighter markup</li>
-        <li><strong class="pname"><code>nobrhyp</code></strong> (bool) - whether to convert some ordinary into non-breaking hyphens</li>
+        <li><strong class="pname"><code>tagmap</code></strong> (dict string -&gt; string) - tags to assign to properties by derivation keys</li>
+        <li><strong class="pname"><code>ptsuff</code></strong> (string) - derivation key suffix to report plain text properties</li>
+        <li><strong class="pname"><code>ltsuff</code></strong> (string) - derivation key suffix to report properties in lighter markup</li>
         <li><strong class="pname"><code>npkeyto</code></strong> (string or (string, [strings])) - property key to substitute for empty key, when given</li>
+        <li><strong class="pname"><code>nobrhyp</code></strong> (bool) - whether to convert some ordinary into non-breaking hyphens</li>
+        <li><strong class="pname"><code>disamb</code></strong> (string) - string to replace each disambiguation marker with</li>
+        <li><strong class="pname"><code>runtime</code></strong> (bool) - whether to include runtime-only derivations</li>
     </ul></dd>
     <dt>Returns: <a href="pology.misc.synder.Synder-class.html" 
       class="link">Synder</a></dt>
         <dd>trapnakron derivator</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="trapnakron_plain"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">trapnakron_plain</span>(<span class="sig-arg">env</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="sig-arg">envl</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="sig-arg">envij</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>,
+        <span class="sig-arg">envijl</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">&#1083;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">&#1080;&#1112;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-group">)</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Constructs trapnakron suitable for application to plain text.</p>
+  <p>Calls <a href="pology.l10n.sr.trapnakron-module.html#trapnakron" 
+  class="link">trapnakron</a> with the following setup:</p>
+  <ul>
+    <li>
+      Markup is plain text (<code>plain</code>).
+    </li>
+    <li>
+      Non-breaking hyphens are heuristically replacing ordinary hyphens.
+    </li>
+    <li>
+      Empty declination key is converted into <code>am</code> (accusative 
+      masculine descriptive adjective), providing that it is equal to 
+      <code>gm</code> (genitive masculine descriptive adjective); i.e. if 
+      the descriptive adjective is invariable.
+    </li>
+  </ul>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -283,27 +362,15 @@
   </tr></table>
   
   <p>Constructs trapnakron suitable for application to UI texts.</p>
-  <p>Calls <a href="pology.l10n.sr.trapnakron-module.html#trapnakron" 
-  class="link">trapnakron</a> with the following setup:</p>
-  <ul>
-    <li>
-      Markup is plain text (<code>plain</code>).
-    </li>
-    <li>
-      Non-breaking hyphens are heuristically replacing ordinary hyphens.
-    </li>
-    <li>
-      Empty declination key is converted into <code>am</code> (accusative 
-      masculine descriptive adjective), providing that it is equal to 
-      <code>gm</code> (genitive masculine descriptive adjective); i.e. if 
-      the descriptive adjective is invariable.
-    </li>
-    <li>
-      Files with <code>@latin</code> modifier are picked up as Latin script
-      variants of same-name ordinary file, and their declinations combined 
-      by alternative directives.
-    </li>
-  </ul>
+  <p>Like <a href="pology.l10n.sr.trapnakron-module.html#trapnakron_plain" 
+  class="link">trapnakron_plain</a>, except that disambiguation markers are
+  not removed but substituted with an invisible character, and runtime-only
+  derivations are included too.</p>
+  <p>Retaining disambiguation markers is useful when a normalized form 
+  (typically nominative) is used at runtime as key to fetch other 
+  properties of the derivation, and the normalization is such that it would
+  fold two different derivations to same keys if the originating forms were
+  left undecorated.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -334,13 +401,12 @@
       Markup is Docbook 4 (<code>docbook4</code>).
     </li>
     <li>
-      Suffixes: <code>_sp</code> (&quot;samo prevod&quot;) for 
-      translation-only properties, <code>_ot</code> (&quot;obican 
-      tekst&quot;) for plain-text properties, <code>_lv</code> (&quot;laksa
-      varijanta&quot;) for lighter variant of the markup. Lighter markup 
-      currently applies to: people names (no outer 
-      <code>&lt;personname&gt;</code>, e.g. when it should be elideded due 
-      to particular text segmentation on Docbook-&gt;PO extraction).
+      Suffixes: <code>_ot</code> (&quot;obican tekst&quot;) for plain-text 
+      properties, <code>_lv</code> (&quot;laksa varijanta&quot;) for 
+      lighter variant of the markup. Lighter markup currently applies to: 
+      people names (no outer <code>&lt;personname&gt;</code>, e.g. when it 
+      should be elideded due to particular text segmentation on 
+      Docbook-&gt;PO extraction).
     </li>
     <li>
       Non-breaking hyphens and empty property keys are treated like in <a 
