@@ -51,13 +51,13 @@ _pn_tag_last = (u"p", u"п")
 _pn_tag_middle = (u"s", u"с")
 _pn_all_tags = set(sum((_pn_tag_first, _pn_tag_last, _pn_tag_middle), ()))
 
-# Tag for entries with unimportant keys.
+# Tag for derivations with unimportant keys.
 _nokey_tag = "x"
 
 # Disambiguation marker.
 _disamb_marker = u"¤"
 
-# Enumeration of known entry key suffixes, for modifying derived values.
+# Enumeration of known derivation key suffixes, for modifying derived values.
 _suff_pltext = 10
 _suff_ltmarkup = 20
 
@@ -83,30 +83,30 @@ def trapnakron (env=(u"",),
         C{env*} parameters can also be used to change the environment chain
         for deriving the particular form.
 
-      - The entry and property key separator is ASCII hyphen (C{-}).
+      - The derivation and property key separator is ASCII hyphen (C{-}).
 
-      - Entry keys are derived from syntagmas by applying
+      - Derivation keys are derived from syntagmas by applying
         the L{identify()<misc.normalize.identify>} function.
-        In entries where this will result in strange keys,
+        In derivations where this will result in strange keys,
         additional keys should be defined through hidden syntagmas.
 
-      - Entry keys are constructed by converting entry syntagmas into
+      - Derivation keys are constructed by converting key syntagmas into
         L{ASCII identifiers<misc.normalize.identify>}.
         Property keys are transliterated into
         L{stripped-ASCII<l10n.sr.hook.cyr2lat.cyr2lat_stripped>}.
 
-      - Conflict resolution for entry keys is not strict (see documentation
-        to L{derivator constructor<misc.synder.Synder.__init__>}).
+      - Conflict resolution for derivation keys is not strict (see
+        L{derivator constructor<misc.synder.Synder.__init__>}).
 
     Optional behavior includes:
 
       - Instead of plain text, properties may be reported with some markup.
         The markup type is given by C{markup} parameter, and can be one of
         C{"plain"}, C{"xml"}, C{"docbook4"}.
-        The C{tagmap} parameter contains mapping of entry keys
-        to tags which should wrap properties of these entries.
+        The C{tagmap} parameter contains mapping of derivation keys
+        to tags which should wrap properties of these derivations.
 
-      - Entry keys can have several suffixes which effect how
+      - Derivation keys can have several suffixes which effect how
         the properties are reported.
         Presence of the suffix given by C{ptsuff} parameter signals that
         properties should be forced to plain text, if another markup is
@@ -133,12 +133,12 @@ def trapnakron (env=(u"",),
 
       - Some property values may have been manually decorated with
         disambiguation markers (C{¤}), to differentiate them from
-        property values of another entry which would otherwise appear
+        property values of another derivation which would otherwise appear
         equal under a certain normalization.
         By default such markers are removed, but instead they
         can be substituted with a string given by C{disamb} parameter.
 
-      - Some entries are defined only for purposes of obtaining
+      - Some derivations are defined only for purposes of obtaining
         their declinations in scripted translations at runtime.
         They are by default not included, but can be by setting
         the C{runtime} parameter to C{True}.
@@ -153,11 +153,11 @@ def trapnakron (env=(u"",),
     @type envijl: string or (string...) or ((string...)...)
     @param markup: target markup
     @type markup: string
-    @param tagmap: tags to assign to properties by entry keys
+    @param tagmap: tags to assign to properties by derivation keys
     @type tagmap: dict string -> string
-    @param ptsuff: entry key suffix to report plain text properties
+    @param ptsuff: derivation key suffix to report plain text properties
     @type ptsuff: string
-    @param ltsuff: entry key suffix to report properties with lighter markup
+    @param ltsuff: derivation key suffix to report properties in lighter markup
     @type ltsuff: string
     @param npkeyto: property key to substitute for empty key, when given
     @type npkeyto: string or (string, [strings])
@@ -165,7 +165,7 @@ def trapnakron (env=(u"",),
     @type nobrhyp: bool
     @param disamb: string to replace each disambiguation marker with
     @type disamb: string
-    @param runtime: whether to include runtime-only entries
+    @param runtime: whether to include runtime-only derivations
     @type runtime: bool
 
     @returns: trapnakron derivator
@@ -184,7 +184,7 @@ def trapnakron (env=(u"",),
                             "(known markups: %s)."
                             % (markup, " ".join(_known_markups)))
 
-    # Setup up requests by entry key ending.
+    # Setup up requests by derivation key ending.
     mvends = {}
     if ptsuff:
         mvends[ptsuff] = _suff_pltext
@@ -196,7 +196,7 @@ def trapnakron (env=(u"",),
         npkeyto, expkeys = npkeyto
 
     # Create transformators.
-    ekeytf = _sd_ekey_transf(mvends, tagmap)
+    dkeytf = _sd_dkey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
     pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
     esyntf = _sd_esyn_transf(markup, nobrhyp, disamb)
@@ -204,7 +204,7 @@ def trapnakron (env=(u"",),
     # Build the derivator.
     sd = Synder(env=[x for x in envs if x],
                 pkeysep="-",
-                ekeytf=ekeytf, ekeyitf=identify,
+                dkeytf=dkeytf, dkeyitf=identify,
                 pkeytf=pkeytf, pkeyitf=cyr2lat_stripped,
                 pvaltf=pvaltf, esyntf=esyntf,
                 strictkey=False)
@@ -267,13 +267,13 @@ def trapnakron_ui (env=(u"",),
 
     Like L{trapnakron_plain}, except that disambiguation markers
     are not removed but substituted with an invisible character,
-    and runtime-only entries are included too.
+    and runtime-only derivations are included too.
 
     Retaining disambiguation markers is useful when a normalized form
     (typically nominative) is used at runtime as key to fetch
-    other properties of the entry,
+    other properties of the derivation,
     and the normalization is such that it would fold two different
-    entries to same keys if the originating forms were left undecorated.
+    derivations to same keys if the originating forms were left undecorated.
     """
 
     return trapnakron(
@@ -319,32 +319,32 @@ def trapnakron_docbook4 (env=(u"",),
     )
 
 
-# Transformation for entry keys:
+# Transformation for derivation keys:
 # - lowercase first letter if upper-case, and indicate value uppercasing
 # - strip special endings and indicate value modifications based on them
-def _sd_ekey_transf (endings, tagmap):
+def _sd_dkey_transf (endings, tagmap):
 
-    def transf (ekey):
+    def transf (dkey):
 
         # Whether to uppercase the first letter of properties.
-        fcap = ekey[0:1].isupper()
+        fcap = dkey[0:1].isupper()
         if fcap:
-            ekey = ekey[0].lower() + ekey[1:]
+            dkey = dkey[0].lower() + dkey[1:]
 
         # Collect and strip all known special endings.
         found_endings = set()
         while True:
             plen_endings = len(found_endings)
             for ending in endings:
-                if ekey.endswith(ending):
-                    ekey = ekey[:-len(ending)]
+                if dkey.endswith(ending):
+                    dkey = dkey[:-len(ending)]
                     found_endings.add(ending)
             if len(found_endings) == plen_endings:
                 break
         found_reqs = set([endings[x] for x in found_endings])
 
-        # Tag which wraps the property values of this entry.
-        tag = tagmap.get(ekey) if tagmap else None
+        # Tag which wraps the property values of this derivation.
+        tag = tagmap.get(dkey) if tagmap else None
 
         # Whether to use plain text instead of markup, where applicable.
         pltext = _suff_pltext in found_reqs
@@ -352,7 +352,7 @@ def _sd_ekey_transf (endings, tagmap):
         # Whether to use lighter variant of the markup, where applicable.
         ltmarkup = _suff_ltmarkup in found_reqs
 
-        return ekey, fcap, tag, ltmarkup, pltext
+        return dkey, fcap, tag, ltmarkup, pltext
 
     return transf
 
@@ -361,7 +361,7 @@ def _sd_ekey_transf (endings, tagmap):
 # - try to convert empty into non-empty key
 def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
 
-    def transf (pkey, ekey, sd):
+    def transf (pkey, dkey, sd):
 
         # If key not empty, return it as-is.
         if pkey:
@@ -373,7 +373,7 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
         alleq = True
         ref_pval = None
         for tpkey in npkey_eqpkeys:
-            pval = sd.get2(ekey, tpkey)
+            pval = sd.get2(dkey, tpkey)
             if pval is None:
                 alleq = False
                 break
@@ -387,7 +387,7 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
         else:
             return pkey
 
-    return transf, "ekey", "self"
+    return transf, "dkey", "self"
 
 
 # Transformation for property values:
@@ -403,9 +403,9 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
     envspec = [x for x in ((env, False), (envl, True),
                            (envij, False), (envijl, True)) if x[0]]
 
-    def transf (mtsegs, ekrest, sd):
+    def transf (mtsegs, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext = ekrest
+        fcap, tag, ltmarkup, pltext = dkrest
 
         pvals = []
         for tsegs, (env1, islatin) in zip(mtsegs, envspec):
@@ -419,24 +419,24 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
 
         return pval
 
-    return transf, "ekrest", "self"
+    return transf, "dkrest", "self"
 
 
-# Transformation for entry syntagmas.
+# Transformation for derivation syntagmas.
 # Like for property value transformation,
 # except for alternatives/hybridization.
 def _sd_esyn_transf (markup, nobrhyp, disamb):
 
-    def transf (tsegs, ekrest, sd):
+    def transf (tsegs, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext = ekrest
+        fcap, tag, ltmarkup, pltext = dkrest
 
         esyn = _compose_text(tsegs, markup, nobrhyp, disamb,
                              fcap, tag, ltmarkup, pltext)
 
         return esyn
 
-    return transf, "ekrest", "self"
+    return transf, "dkrest", "self"
 
 
 def _compose_text (tsegs, markup, nobrhyp, disamb,
@@ -457,7 +457,7 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
         markup_mod = markup if not pltext else "plain"
         text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup)
     else:
-        # Ordinary entries.
+        # Ordinary derivations.
         text = simplify("".join([x[0] for x in tsegs]))
         if _nokey_tag in atags and " " in text: # before anything else
             text = text[text.find(" "):].lstrip()
