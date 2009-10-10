@@ -762,7 +762,7 @@ def _parse_file (path):
         lines = ifs.readlines()
         ifs.close()
 
-        m = re.search(r"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0])
+        m = re.search(r"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0]) if lines else None
         enc = m and m.group(1) or "UTF-8"
         lines = [x.decode(enc) for x in lines]
 
