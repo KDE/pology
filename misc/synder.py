@@ -1609,8 +1609,8 @@ class Synder (object):
         self._derivs_by_srcname = {}
         self._deriv_by_srcname_idkey = {}
         self._visible_deriv_by_dkey = {}
-        self._derivation_by_deriv_env1 = {}
-        self._raw_derivation_by_deriv_env1 = {}
+        self._props_by_deriv_env1 = {}
+        self._raw_props_by_deriv_env1 = {}
         self._single_dkeys = set()
 
 
@@ -1896,7 +1896,7 @@ class Synder (object):
     def _getprops (self, deriv, env1):
 
         # Try to fetch derivation from cache.
-        props = self._derivation_by_deriv_env1.get((deriv, env1))
+        props = self._props_by_deriv_env1.get((deriv, env1))
         if props is not None:
             return props
 
@@ -1913,14 +1913,14 @@ class Synder (object):
                     nprops.append((pkey, segs))
             props = dict(nprops)
 
-        self._derivation_by_deriv_env1[(deriv, env1)] = props
+        self._props_by_deriv_env1[(deriv, env1)] = props
         return props
 
 
     def _derive (self, deriv, env1):
 
         # Try to fetch raw derivation from cache.
-        dprops = self._raw_derivation_by_deriv_env1.get((deriv, env1))
+        dprops = self._raw_props_by_deriv_env1.get((deriv, env1))
         if dprops is not None:
             return dprops
 
@@ -1981,7 +1981,7 @@ class Synder (object):
         # Eliminate leading and trailing empty text segments.
         map(self._trim_segs, [x[0] for x in dprops.values()])
 
-        self._raw_derivation_by_deriv_env1[(deriv, env1)] = dprops
+        self._raw_props_by_deriv_env1[(deriv, env1)] = dprops
         return dprops
 
 
@@ -2408,4 +2408,10 @@ class Synder (object):
             return keyf(dkey + self._ckeysep + pkey)
 
         return next
+
+
+    def empty_pcache (self):
+
+        self._props_by_deriv_env1 = {}
+        self._raw_props_by_deriv_env1 = {}
 
