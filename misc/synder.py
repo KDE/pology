@@ -1415,7 +1415,69 @@ class _SDText:
 
 class Synder (object):
     """
-    FIXME: Write doc.
+    Derivator objects import sources of derivations
+    and get queried for properties of syntagmas.
+
+    Lookup can be done by derivation key and property key,
+    but also by single compound key (serialization of the previous two),
+    to have interface and behavior similar to built-in dictionaries.
+
+    Basic usage is rather simple. If there are derivation files
+    C{planets.sd} and {moons.sd}, they can be used like this::
+
+        >>> sd = Synder()
+        >>> sd.import_file("planets.sd")
+        >>> sd.import_file("moons.sd")
+        >>>
+        >>> # Lookup of properties by derivation and property key.
+        >>> sd.get2("Venus", "nom")
+        Venera
+        >>> sd.get2("Callisto", "nom")
+        Kalisto
+        >>> sd.get2("Foobar", "nom")
+        None
+        >>> # Lookup of properties by compound key.
+        >>> sd["Venus-nom"]
+        Venera
+        >>>
+        >>> # Iteration through properties by derivation keys.
+        >>> for dkey in sd.dkeys(): print sd.get2(dkey, "nom")
+        ...
+        Venera
+        Kalisto
+        Merkur
+        Jupiter
+        …
+        >>> # Iteration through properties by compound keys.
+        >>> for ckey in sd: print sd[ckey]
+        ...
+        Venera
+        Veneri
+        Venerom
+        …
+        Merkuru
+        Merkur
+        Merkura
+        …
+        >>> # Querying for key syntagmas.
+        >>> sd.syns("Venus")
+        ['Venus']
+        >>> sd.syns("Iapetus")
+        ['Iapetus', 'Japetus']
+        >>> sd.syns("Japetus")
+        ['Iapetus', 'Japetus']
+        >>>
+        >>> # Querying for property keys.
+        >>> sd.pkeys("Venus")
+        ['gen', 'acc', 'nom', 'dat', 'gender']
+
+    Syntax errors in derivations sources will raise L{SynderError}
+    exceptions on import.
+    Unresolvable conflicts in derivation keys will be reported
+    as warning on import, and conflicted derivations will not be imported.
+    Errors in expansions are not reported on import, but when
+    the problematic derivation is queried; warnings are output,
+    and C{None} (or default value) is returned for all properties.
     """
 
     def __init__ (self,
@@ -1428,69 +1490,6 @@ class Synder (object):
                   ksyntf=None):
         """
         Constructor of syntagma derivators.
-
-        Derivator objects can import sources of derivations
-        (files or strings) and be queried for properties by
-        derivation and property key.
-        They can also be used as ordinary dictionaries, where
-        derivation and property key are serialized into a compound key.
-
-        Basic usage is rather simple. If there are derivation files
-        C{planets.sd} and {moons.sd}, they can be used like this::
-
-            >>> sd = Synder()
-            >>> sd.import_file("planets.sd")
-            >>> sd.import_file("moons.sd")
-            >>>
-            >>> # Lookup of properties by derivation and property key.
-            >>> sd.get2("Venus", "nom")
-            Venera
-            >>> sd.get2("Callisto", "nom")
-            Kalisto
-            >>> sd.get2("Foobar", "nom")
-            None
-            >>> # Lookup of properties by compound key.
-            >>> sd["Venus-nom"]
-            Venera
-            >>>
-            >>> # Iteration through properties by derivation keys.
-            >>> for dkey in sd.dkeys(): print sd.get2(dkey, "nom")
-            ...
-            Venera
-            Kalisto
-            Merkur
-            Jupiter
-            …
-            >>> # Iteration through properties by compound keys.
-            >>> for ckey in sd: print sd[ckey]
-            ...
-            Venera
-            Veneri
-            Venerom
-            …
-            Merkuru
-            Merkur
-            Merkura
-            …
-            >>> # Querying for key syntagmas.
-            >>> sd.syns("Venus")
-            ['Venus']
-            >>> sd.syns("Iapetus")
-            ['Iapetus', 'Japetus']
-            >>> sd.syns("Japetus")
-            ['Iapetus', 'Japetus']
-            >>>
-            >>> # Querying for property keys.
-            >>> sd.pkeys("Venus")
-            ['gen', 'acc', 'nom', 'dat', 'gender']
-
-        Syntax errors in derivations sources will raise L{SynderError}
-        exceptions on import.
-        Unresolvable conflicts in derivation keys will be reported
-        as warning on import, and conflicted derivations will not be imported.
-        Errors in expansions are not reported on import, but when
-        the problematic derivation is queried; warnings are output,
-        and C{None} (or default value) is returned for all properties.
 
         The default resolution of derivation key conflicts,
         as described in module documentation, can be changed
