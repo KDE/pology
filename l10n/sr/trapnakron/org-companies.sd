@@ -1,0 +1,102 @@
+>base/aff.sd
+
+# ----------------------------------------------------------------------------
+# Произвођачи хардвера
+
+Apple: Епл|, Епл|ов
+    @л: Apple|, Apple|ov
+Commodore: Комодор|, Комодор|ов
+    @л: Commodore|, Commodore|ov
+DEC: ДЕЦ|-, ДЕЦ|-ов
+Digital: Диџитал|, Диџитал|ов
+    @л: Digital|, Digital|ov
+Epson: Епсон|, Епсон|ов
+Hayes, |hayesco: Хејс|, Хејс|ов
+    @л: Hayes|, Hayes|ov
+Hewlett-Packard: Хјулит-Пакард|, Хјулит-Пакард|ов
+    @л: Hewlett-Packard|, Hewlett-Packard|ov
+HP: ХП|-, ХП|-ов
+IBM: ИБМ|-, ИБМ|-ов
+Intel: Интел|, Интел|ов, интел|>
+    @л: Intel|>
+Logitech: Логитех|, Логитех|ов
+    @л: Logitech|, Logitech|ov
+NEC: НЕЦ|-, НЕЦ|-ов
+Nokia: Нокиј|а, Нокиј|ин
+    @л: Nok|ia
+Rio: Р|ио, Р|ијев
+Saitek: Сајтек|, Сајтек|ов
+    @л: Saitek|, Saitek|ov
+SGI: СГ|И-, СГ|И-јев, СГИ|>
+Sinclair: Синклер|, Синклер|ов
+    @л: Sinclair|, Sinclair|ov
+Sony: Сон|и, Сон|ијев
+    @л: Son|y, Sony|yjev
+Sun: Сан|, Сан|ов
+    @л: Sun|, Sun|ov
+Xerox: Зирокс|, Зирокс|ов, зирокс|>
+    @л: Xerox|, Xerox|ov, Xerox|>
+
+# ----------------------------------------------------------------------------
+# Издавачи софтвера
+
+4Front: Фоурфронт|, Фоурфронт|ов
+    @л: 4Front|, 4Front|ov
+Adobe: Адоуб|и, Адоуб|ијев
+    @л: Adob|e-ij, Adob|ejev
+Canonical: Каноникал|, Каноникал|ов
+    @л: Canonical|, Canonical|ov
+Corel: Корел|, Корел|ов
+    @л: Corel|, Corel|ov
+Dante: Данте|, Данте|ов
+Macromedia: Макромедиј|а, Макромедиј|ин
+    @л: Macromed|ia, Macromedij|in
+Microsoft: Мајкрософт|, Мајкрософт|ов
+    @л: Microsoft|, Microsoft|ov
+MS: МС|-, МС|-ов, МС|>
+MSFT: МСФТ|-, МСФТ|-ов, МСФТ|>
+Novell: Новел|, Новел|ов
+    @л: Novell|, Novell|ov
+Real: Реал|, Реал|ов
+RedHat: Редхет|, Редхет|ов
+    @л: RedHat|, RedHat|ov
+SCO: СЦО|-, СЦО|-ов
+Trolltech: Тролтех|, Тролтех|ов
+    @л: Trolltech|, Trolltech|ov
+
+# ----------------------------------------------------------------------------
+# Добављачи садржаја
+
+AOL: АОЛ|-, АОЛ|-ов, АОЛ|> # описни придев јер може бити и протокол
+AT&T, |atnt: АТ&Т|-, АТ&Т|-ов
+heXoNet: Хексонет|, Хексонет|ов
+    @л: heXoNet|, heXoNet|ov
+Juniper Networks: Џунипер нетворкс|, Џунипер нетворкс|ов
+    @л: Juniper Networks|, Juniper Networks|ov
+
+# ----------------------------------------------------------------------------
+# Информатичке услуге
+
+Citrix: Ситрикс|, Ситрикс|ов
+    @л: Citrix|, Citrix|ov
+Google: Гугл|, Гугл|ов
+    @л: Google|, Google|ov
+NCD: НЦД|-, НЦД|-ов
+NoMachine: Номашин|, Номашин|ов
+    @л: NoMachine|, NoMachine|ov
+Tridia: Тридиј|а, Тридиј|ин
+    @л: Trid|ia
+Yahoo: Јаху|, Јаху|ов, јаху|>
+    @л: Yahoo|, Yahoo|ov, Yahoo|>
+
+# ----------------------------------------------------------------------------
+# Ливнице фонтова
+
+B&H, |bnh: Б&Х|-, Б&Х|-ов
+Bitstream: Битстрим|, Битстрим|ов
+    @л: Bitstream|, Bitstream|ov
+Efont: Ефонт|, Ефонт|ов
+ETL: ЕТЛ|-, ЕТЛ|-ов
+Misc: разн|и>
+Monotype: Монотајп|, Монотајп|ов
+    @л: Monotype|, Monotype|ov

@@ -1,4 +1,5 @@
 >base/aff.sd
+>org-companies.sd
 >software-comm.sd
 >software-multimedia.sd
 >software-swdevel.sd
@@ -40,112 +41,6 @@ KWordQuiz: К-квиз|{}-речи
 OpenUniverse: Отворен|и> универзум|
 SSystem: С-систем|, С-систем|ов
     @л: SSystem|, SSystem|ov
-
-# ----------------------------------------------------------------------------
-# Компаније и организације
-
-4Front: Фоурфронт|, Фоурфронт|ов
-    @л: 4Front|, 4Front|ov
-Adobe: Адоуб|и, Адоуб|ијев
-    @л: Adob|e-ij, Adob|ejev
-AOL: АОЛ|-, АОЛ|-ов, АОЛ|> # описни придев јер може бити и протокол
-Apple: Епл|, Епл|ов
-    @л: Apple|, Apple|ov
-AT&T, |atnt: АТ&Т|-, АТ&Т|-ов
-Canonical: Каноникал|, Каноникал|ов
-    @л: Canonical|, Canonical|ov
-Citrix: Ситрикс|, Ситрикс|ов
-    @л: Citrix|, Citrix|ov
-Commodore: Комодор|, Комодор|ов
-    @л: Commodore|, Commodore|ov
-Corel: Корел|, Корел|ов
-    @л: Corel|, Corel|ov
-Dante: Данте|, Данте|ов
-Digital: Диџитал|, Диџитал|ов
-    @л: Digital|, Digital|ov
-ECMA: Екм|а, Екм|ин
-    @л: Ecm|a, Ecm|in
-Environment Canada: Енвајронмент| Канада
-    @л: Environment| Canada
-Epson: Епсон|, Епсон|ов
-Google: Гугл|, Гугл|ов
-    @л: Google|, Google|ov
-Hayes, |hayesco: Хејс|, Хејс|ов
-    @л: Hayes|, Hayes|ov
-heXoNet: Хексонет|, Хексонет|ов
-    @л: heXoNet|, heXoNet|ov
-Hewlett-Packard: Хјулит-Пакард|, Хјулит-Пакард|ов
-    @л: Hewlett-Packard|, Hewlett-Packard|ov
-HP: ХП|-, ХП|-ов
-IBM: ИБМ|-, ИБМ|-ов
-IETF: ИЕТФ|-, ИЕТФ|-ов
-Intel: Интел|, Интел|ов, интел|>
-    @л: Intel|>
-Juniper Networks: Џунипер нетворкс|, Џунипер нетворкс|ов
-    @л: Juniper Networks|, Juniper Networks|ov
-Logitech: Логитех|, Логитех|ов
-    @л: Logitech|, Logitech|ov
-Macromedia: Макромедиј|а, Макромедиј|ин
-    @л: Macromed|ia, Macromedij|in
-Microsoft: Мајкрософт|, Мајкрософт|ов
-    @л: Microsoft|, Microsoft|ov
-MSFT: МСФТ|-, МСФТ|-ов, МСФТ|>
-NCD: НЦД|-, НЦД|-ов
-NEC: НЕЦ|-, НЕЦ|-ов
-NOAA National Weather Service: Националн|а> временск|а> служб|а НОАА
-Nokia: Нокиј|а, Нокиј|ин
-    @л: Nok|ia
-NoMachine: Номашин|, Номашин|ов
-    @л: NoMachine|, NoMachine|ov
-Novell: Новел|, Новел|ов
-    @л: Novell|, Novell|ov
-Oasis: Оејзис|, Оејзис|ов
-    @л: Oasis|, Oasis|ov
-OGC: ОГЦ|--, ОГЦ|-ов
-OSEI: ОСЕ|И-, ОСЕ|И-јев, ОСЕИ|>
-PICMG: ПИЦМГ|, ПИЦМГ|-ов, ПИГМГ|>
-    @л: PICMG|>
-Real: Реал|, Реал|ов
-RedHat: Редхет|, Редхет|ов
-    @л: RedHat|, RedHat|ov
-Rio: Р|ио, Р|ијев
-Saitek: Сајтек|, Сајтек|ов
-    @л: Saitek|, Saitek|ov
-Tridia: Тридиј|а, Тридиј|ин
-    @л: Trid|ia
-SCO: СЦО|-, СЦО|-ов
-SGI: СГ|И-, СГ|И-јев, СГИ|>
-Sinclair: Синклер|, Синклер|ов
-    @л: Sinclair|, Sinclair|ov
-Sun: Сан|, Сан|ов
-    @л: Sun|, Sun|ov
-Trolltech: Тролтех|, Тролтех|ов
-    @л: Trolltech|, Trolltech|ov
-TÜBİTAK UEKAE: ТИБИТАК|-- УЕКАЕ|--
-    @л: TUBITAK|-- UEKAE|--
-UK MET Office: Метеоролошк|и> офис| УК
-W3C: В3Ц|-, В3Ц|-ов
-    @л: W3C|-, W3C|-ov
-WorldFip: Ворлдфип|, Ворлдфип|ов, ворлдфип|>
-    @л: WorldFip|, WorldFip|ov, WorldFip|>
-Xerox: Зирокс|, Зирокс|ов, зирокс|>
-    @л: Xerox|, Xerox|ov, Xerox|>
-Yahoo: Јаху|, Јаху|ов, јаху|>
-    @л: Yahoo|, Yahoo|ov, Yahoo|>
-
-# ----------------------------------------------------------------------------
-# Пројекти
-
-Rokymotion: Рокимоциј|а, рокимоциј|ски
-    @л: Rokymocij|a, rokymocij|ski
-
-# ----------------------------------------------------------------------------
-# Припадници и учесници
-
-Rokymoter, |rokymoterxy: Рокимотер|, Рокимотер|ов, рокимотер|ски
-    @л: Rokymoter|, Rokymoter|ov, rokymoter|ski
-Rokymoter, |rokymoterxx: Рокимотерк|а, Рокимотерк|ин
-    @л: Rokymoterk|a, Rokymoterk|in
 
 # ----------------------------------------------------------------------------
 # Уређаји
