@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import sys
 import os
 import re
+from optparse import OptionParser
 
 from pology.misc.report import warning
+from pology.misc.fsops import str_to_unicode
 from pology.l10n.sr.trapnakron import trapnakron_ui
 from pology.l10n.sr.hook.cyr2lat import cyr2lat as c2l
 from pology.l10n.sr.hook.cyr2lat import cyr2lat_stripped as c2a
 from pology.misc.resolve import resolve_alternatives_simple as resalts
 
 
-def validate (tp):
+def validate (tp, onlysrcs=None, onlykeys=None):
 
     nom_pkeys = (
         normkey_tp([u"н"]),
@@ -32,8 +35,29 @@ def validate (tp):
 
     nproblems = 0
 
+    onlysrcs = onlysrcs or set()
+    onlykeys = onlykeys or set()
+    unmatched_srcs = set(onlysrcs)
+    unmatched_keys = set(onlykeys)
+
     for dkey in dkeys:
+        srcname = tp.source_name(dkey)
         path, lno, cno = tp.source_pos(dkey)
+
+        check = True
+        if onlysrcs is not None:
+            if srcname not in onlysrcs:
+                check = False
+            if srcname in unmatched_srcs:
+                unmatched_srcs.remove(srcname)
+        if onlykeys is not None:
+            if dkey not in onlykeys:
+                check = False
+            if dkey in unmatched_keys:
+                unmatched_keys.remove(dkey)
+        if not check:
+            continue
+
         try:
             props = tp.props(dkey)
         except Exception, e:
@@ -76,6 +100,13 @@ def validate (tp):
 
         tp.empty_pcache()
 
+    if unmatched_srcs:
+        warning("Sources requested by name not found: %s"
+                % " ".join(sorted(unmatched_srcs)))
+    if unmatched_keys:
+        warning("Derivations requested by key not found: %s"
+                % " ".join(sorted(unmatched_keys)))
+
     return nproblems
 
 
@@ -111,15 +142,43 @@ def resalthyb (text):
 
 def _main ():
 
+    usage = u"""
+  %prog [OPTIONS]
+  %prog [OPTIONS] SRCNAME...
+  %prog [OPTIONS] :DKEY...
+""".rstrip()
+    description = u"""
+Check validity of internal trapnakron.
+""".strip()
+    version = u"""
+%prog (Pology) experimental
+Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+""".strip()
+
+    opars = OptionParser(usage=usage, description=description, version=version)
+
+    (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+
     try:
         import psyco
         psyco.full()
     except ImportError:
         pass
 
+    onlysrcs = set()
+    onlykeys = set()
+    sksep = ":"
+    for arg in free_args:
+        if arg.startswith(sksep):
+            onlykeys.add(arg[len(sksep):])
+        else:
+            onlysrcs.add(arg)
+    onlysrcs = onlysrcs or None
+    onlykeys = onlykeys or None
+
     # Create and validate the trapnakron.
     tp = trapnakron_ui()
-    validate(tp)
+    validate(tp, onlysrcs, onlykeys)
 
 
 if __name__ == '__main__':
