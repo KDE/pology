@@ -1515,6 +1515,9 @@ class Synder (object):
         Compound keys, for single-key lookups, are built by joining
         the derivation and property keys with a separator.
         This separator can be chosen through C{ckeysep} parameter.
+        The separator string can be contained inside a derivation key,
+        but it must not be found inside any property key
+        (the compound key is split from the back).
 
         A myriad of I{transformation functions} can be applied by
         derivator object to imported derivations, through C{*tf} parameters.
@@ -1556,11 +1559,11 @@ class Synder (object):
                 of input list to C{pvaltf}).
 
         Transformation functions can take more input arguments than
-        those described above, on demand.
-        Default inputs are sent if the transformation function
-        is supplied directly, e.g. C{pvalf=somefunc}, and extra
-        inputs are requested by supplying a tuple where the first
-        element is the transformation function, and the following
+        the default described above, on demand.
+        If transformation function  is supplied directly,
+        e.g. C{pvaltf=somefunc}, it is sent default inputs.
+        Extra inputs are requested by supplying instead a tuple, where
+        the first element is the transformation function, and the following
         elements are predefined keywords of available extra inputs,
         e.g. C{pvalf=(somefunc, "dkey", "pkrest")}.
         Available extra inputs by transformation function are:
@@ -1573,6 +1576,19 @@ class Synder (object):
                 C{"dkrest"} the second object returned by C{dkeytf},
                 C{"pkrest"} the second object returned by C{pkeytf}.
           - C{ksyntf}: C{"self"}, C{"dkey"}, C{"dkrest"}.
+
+        @param env: environment for derivations
+        @type env: string, (string*), ((string*)*)
+        @param ckeysep: derivation-property key separator in compound keys
+        @type ckeysep: string
+        @param strictkey: whether all key syntagmas must be unique to
+            avoid conflicts
+        @param dkeytf: transformation function for lookup derivation keys
+        @param dkeyitf: transformation function for imported derivation keys
+        @param pkeytf: transformation function for lookup property keys
+        @param pkeyitf: transformation function for imported property keys
+        @param pvaltf: transformation fucntion for property values
+        @param ksyntf: transformation fucntion for key syntagamas
         """
 
         self._env = self._normenv(env)
@@ -1641,7 +1657,15 @@ class Synder (object):
 
     def import_string (self, string, ignhid=False):
         """
-        FIXME: Write doc.
+        Import string with derivations.
+
+        @param string: the string to parse
+        @type string: string
+        @param ignhid: also make hidden derivations visible if C{True}
+        @type ignhid: bool
+
+        @returns: number of newly imported visible derivations
+        @rtype: int
         """
 
         source = _parse_string(string)
@@ -1650,7 +1674,15 @@ class Synder (object):
 
     def import_file (self, filename, ignhid=False):
         """
-        FIXME: Write doc.
+        Import file with derivations.
+
+        @param filename: the path to file to parse
+        @type filename: string
+        @param ignhid: also make hidden derivations visible if C{True}
+        @type ignhid: bool
+
+        @returns: number of newly imported visible derivations
+        @rtype: int
         """
 
         source = _parse_file(filename)
@@ -1823,7 +1855,17 @@ class Synder (object):
 
     def get2 (self, dkey, pkey, defval=None):
         """
-        FIXME: Write doc.
+        Get property value by derivation key and property key.
+
+        @param dkey: derivation key
+        @type dkey: string
+        @param pkey: property key
+        @type pkey: string
+        @param defval: the value to return if the property does not exist
+        @type defval: string
+
+        @returns: the property value
+        @rtype: string
         """
 
         dkey, dkrest, deriv = self._resolve_dkey(dkey)
@@ -2063,13 +2105,21 @@ class Synder (object):
         return tsegs
 
 
-    def get (self, key, defval=None):
+    def get (self, ckey, defval=None):
         """
-        FIXME: Write doc.
+        Get property value by compound key.
+
+        @param ckey: compound key
+        @type ckey: string
+        @param defval: the value to return if the property does not exist
+        @type defval: string
+
+        @returns: the property value
+        @rtype: string
         """
 
-        # Split the serialized key into derivation and property keys.
-        lst = key.split(self._ckeysep, 1)
+        # Split the compound key into derivation and property keys.
+        lst = ckey.rsplit(self._ckeysep, 1)
         if len(lst) < 2:
             return defval
         dkey, pkey = lst
@@ -2079,7 +2129,19 @@ class Synder (object):
 
     def dkeys (self, single=False):
         """
-        FIXME: Write doc.
+        Get list of all derivation keys.
+
+        For derivations accessible through more than one derivation
+        key, by default all of them are included in the result.
+        If instead only a single random of those keys is wanted
+        (i.e. strictly one key per derivation), C{single} can
+        be set to C{True}.
+
+        @param single: whether to return a single key for each derivation
+        @type single: param
+
+        @returns: list of derivation keys
+        @rtype: [string*]
         """
 
         if not single:
@@ -2090,7 +2152,18 @@ class Synder (object):
 
     def syns (self, dkey):
         """
-        FIXME: Write doc.
+        Get list of key syntagmas by derivation key.
+
+        Key syntagmas are always returned in the order in which
+        they appear in the derivation.
+        If no derivation is found for the given key,
+        an empty list is returned.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: key syntagmas
+        @rtype: [string*]
         """
 
         dkey, dkrest, deriv = self._resolve_dkey(dkey)
@@ -2113,7 +2186,16 @@ class Synder (object):
 
     def pkeys (self, dkey):
         """
-        FIXME: Write doc.
+        Get set of property keys available for given derivation key.
+
+        If no derivation is found for the given key,
+        an empty set is returned.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: property keys
+        @rtype: set(string*)
         """
 
         dkey, dkrest, deriv = self._resolve_dkey(dkey)
@@ -2130,7 +2212,17 @@ class Synder (object):
 
     def props (self, dkey):
         """
-        FIXME: Write doc.
+        Get dictionary of property values by property keys for
+        given derivation key.
+
+        If no derivation is found for the given key,
+        an empty dictionary is returned.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: property dictionary
+        @rtype: {(string, string)*}
         """
 
         # TODO: Implement more efficiently.
@@ -2141,7 +2233,15 @@ class Synder (object):
 
     def source_name (self, dkey):
         """
-        FIXME: Write doc.
+        Get the name of the source in which the derivation is found.
+
+        If no derivation is found for the given key, C{None} is returned.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: name of the source
+        @rtype: string
         """
 
         dkey, dkrest, deriv = self._resolve_dkey(dkey)
@@ -2156,7 +2256,16 @@ class Synder (object):
 
     def source_pos (self, dkey):
         """
-        FIXME: Write doc.
+        Get the position in the source where the derivation is found.
+
+        Position is a 3-tuple of file path, line and column numbers.
+        If no derivation is found for the given key, C{None} is returned.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: source position
+        @rtype: (string, int, int)
         """
 
         dkey, dkrest, deriv = self._resolve_dkey(dkey)
@@ -2171,7 +2280,10 @@ class Synder (object):
 
     def keys (self):
         """
-        FIXME: Write doc.
+        Get the list of all compound keys.
+
+        @returns: compound keys
+        @rtype: [string*]
         """
 
         return list(self.iterkeys())
@@ -2179,7 +2291,10 @@ class Synder (object):
 
     def values (self):
         """
-        FIXME: Write doc.
+        Get the list of all property values.
+
+        @returns: property values
+        @rtype: [string*]
         """
 
         return list(self.itervalues())
@@ -2187,35 +2302,49 @@ class Synder (object):
 
     def items (self):
         """
-        FIXME: Write doc.
+        Get the list of all pairs of compound keys and property values.
+
+        @returns: compound keys and property values
+        @rtype: [(string, string)*]
         """
 
         return list(self.iteritems())
 
 
-    def __contains__ (self, key):
+    def __contains__ (self, ckey):
         """
-        FIXME: Write doc.
-        """
+        Check if the compound key is present in the derivator.
 
-        return self.get(key) is not None
-
-
-    def __getitem__ (self, key):
-        """
-        FIXME: Write doc.
+        @returns: C{True} if present, C{False} otherwie
+        @rtype: bool
         """
 
-        res = self.get(key)
+        return self.get(ckey) is not None
+
+
+    def __getitem__ (self, ckey):
+        """
+        Get property value by compound key, in dictionary notation.
+
+        Like L{get}, but raises C{KeyError} if key is not found.
+
+        @returns: property value
+        @rtype: string
+        """
+
+        res = self.get(ckey)
         if res is None:
-            raise KeyError, key
+            raise KeyError, ckey
 
         return res
 
 
     def __iter__ (self):
         """
-        FIXME: Write doc.
+        Iterate through all compound keys, in random order.
+
+        @returns: iterator through compound keys
+        @rtype: iterator(string)
         """
 
         return self.iterkeys()
@@ -2223,7 +2352,10 @@ class Synder (object):
 
     def iterkeys (self):
         """
-        FIXME: Write doc.
+        Iterate through all compound keys, in random order.
+
+        @returns: iterator through compound keys
+        @rtype: iterator(string)
         """
 
         return self._Iterator(self._make_iter(lambda x: x))
@@ -2231,7 +2363,10 @@ class Synder (object):
 
     def itervalues (self):
         """
-        FIXME: Write doc.
+        Iterate through all property values, in random order.
+
+        @returns: iterator through property values
+        @rtype: iteratorstring)
         """
 
         return self._Iterator(self._make_iter(lambda x: self.get(x)))
@@ -2239,7 +2374,11 @@ class Synder (object):
 
     def iteritems (self):
         """
-        FIXME: Write doc.
+        Iterate through all pairs of compound key and property value,
+        in random order.
+
+        @returns: iterator through compound key property value pairs
+        @rtype: iterator((string, string))
         """
 
         return self._Iterator(self._make_iter(lambda x: (x, self.get(x))))
