@@ -294,11 +294,11 @@ pology.l10n.sr.trapnakron.identify	pology.misc.normalize-module.html#identify
 pology.l10n.sr.trapnakron.trapnakron_ui	pology.l10n.sr.trapnakron-module.html#trapnakron_ui
 pology.l10n.sr.trapnakron._pn_tag_last	pology.l10n.sr.trapnakron-module.html#_pn_tag_last
 pology.l10n.sr.trapnakron._sd_pval_transf	pology.l10n.sr.trapnakron-module.html#_sd_pval_transf
+pology.l10n.sr.trapnakron._sd_ksyn_transf	pology.l10n.sr.trapnakron-module.html#_sd_ksyn_transf
 pology.l10n.sr.trapnakron._suff_ltmarkup	pology.l10n.sr.trapnakron-module.html#_suff_ltmarkup
 pology.l10n.sr.trapnakron._hyb_tag	pology.l10n.sr.trapnakron-module.html#_hyb_tag
 pology.l10n.sr.trapnakron._known_markups	pology.l10n.sr.trapnakron-module.html#_known_markups
 pology.l10n.sr.trapnakron._suff_pltext	pology.l10n.sr.trapnakron-module.html#_suff_pltext
-pology.l10n.sr.trapnakron._sd_esyn_transf	pology.l10n.sr.trapnakron-module.html#_sd_esyn_transf
 pology.l10n.sr.trapnakron._disamb_marker	pology.l10n.sr.trapnakron-module.html#_disamb_marker
 pology.l10n.sr.trapnakron._compose_text	pology.l10n.sr.trapnakron-module.html#_compose_text
 pology.l10n.sr.trapnakron._compose_person_name	pology.l10n.sr.trapnakron-module.html#_compose_person_name
@@ -740,7 +740,6 @@ pology.misc.subcmd.term_width	pology.misc.fsops-module.html#term_width
 pology.misc.subcmd._isinstance_els	pology.misc.subcmd-module.html#_isinstance_els
 pology.misc.synder	pology.misc.synder-module.html
 pology.misc.synder._ch_termprop	pology.misc.synder-module.html#_ch_termprop
-pology.misc.synder._seps_esyn	pology.misc.synder-module.html#_seps_esyn
 pology.misc.synder._ch_grp_cls	pology.misc.synder-module.html#_ch_grp_cls
 pology.misc.synder._parse_file	pology.misc.synder-module.html#_parse_file
 pology.misc.synder._ch_pval	pology.misc.synder-module.html#_ch_pval
@@ -755,8 +754,9 @@ pology.misc.synder._include_sources	pology.misc.synder-module.html#_include_sour
 pology.misc.synder._ch_cutprop	pology.misc.synder-module.html#_ch_cutprop
 pology.misc.synder._ch_tag	pology.misc.synder-module.html#_ch_tag
 pology.misc.synder._write_parsed_file	pology.misc.synder-module.html#_write_parsed_file
+pology.misc.synder.empty_source_cache	pology.misc.synder-module.html#empty_source_cache
 pology.misc.synder._ctx_exp	pology.misc.synder-module.html#_ctx_exp
-pology.misc.synder._ctx_esyn	pology.misc.synder-module.html#_ctx_esyn
+pology.misc.synder._seps_ksyn	pology.misc.synder-module.html#_seps_ksyn
 pology.misc.synder._seps_exp	pology.misc.synder-module.html#_seps_exp
 pology.misc.synder._ctx_handler_void	pology.misc.synder-module.html#_ctx_handler_void
 pology.misc.synder._ch_exp_upc	pology.misc.synder-module.html#_ch_exp_upc
@@ -765,10 +765,11 @@ pology.misc.synder._ch_inc	pology.misc.synder-module.html#_ch_inc
 pology.misc.synder._ch_env	pology.misc.synder-module.html#_ch_env
 pology.misc.synder.first_to_upper	pology.misc.resolve-module.html#first_to_upper
 pology.misc.synder._p	pology.misc.synder-module.html#_p
+pology.misc.synder._ctx_handler_ksyn	pology.misc.synder-module.html#_ctx_handler_ksyn
 pology.misc.synder._ctx_handler_pkey	pology.misc.synder-module.html#_ctx_handler_pkey
 pology.misc.synder._ctx_handler_exp	pology.misc.synder-module.html#_ctx_handler_exp
 pology.misc.synder._compfile_dver	pology.misc.synder-module.html#_compfile_dver
-pology.misc.synder._ctx_pval	pology.misc.synder-module.html#_ctx_pval
+pology.misc.synder._ctx_ksyn	pology.misc.synder-module.html#_ctx_ksyn
 pology.misc.synder._move_to_sep	pology.misc.synder-module.html#_move_to_sep
 pology.misc.synder._anonsrc_count	pology.misc.synder-module.html#_anonsrc_count
 pology.misc.synder._compfile_hlen	pology.misc.synder-module.html#_compfile_hlen
@@ -786,7 +787,7 @@ pology.misc.synder._ch_exp_kext	pology.misc.synder-module.html#_ch_exp_kext
 pology.misc.synder._parse_string	pology.misc.synder-module.html#_parse_string
 pology.misc.synder._ctx_handlers	pology.misc.synder-module.html#_ctx_handlers
 pology.misc.synder.warning	pology.misc.report-module.html#warning
-pology.misc.synder._ctx_handler_esyn	pology.misc.synder-module.html#_ctx_handler_esyn
+pology.misc.synder._ch_ksyn_hd	pology.misc.synder-module.html#_ch_ksyn_hd
 pology.misc.synder._ch_exp_mask_pl	pology.misc.synder-module.html#_ch_exp_mask_pl
 pology.misc.synder._ctx_inc	pology.misc.synder-module.html#_ctx_inc
 pology.misc.synder.simplify	pology.misc.normalize-module.html#simplify
@@ -797,9 +798,7 @@ pology.misc.synder._ch_comment	pology.misc.synder-module.html#_ch_comment
 pology.misc.synder._ch_grp_opn	pology.misc.synder-module.html#_ch_grp_opn
 pology.misc.synder._ctx_handler_tag	pology.misc.synder-module.html#_ctx_handler_tag
 pology.misc.synder._ctx_handler_env	pology.misc.synder-module.html#_ctx_handler_env
-pology.misc.synder.empty_source_cache	pology.misc.synder-module.html#empty_source_cache
-pology.misc.synder._ch_esyn_hd	pology.misc.synder-module.html#_ch_esyn_hd
-pology.misc.synder.identify	pology.misc.normalize-module.html#identify
+pology.misc.synder._ctx_pval	pology.misc.synder-module.html#_ctx_pval
 pology.misc.synder._ch_exp_lwc	pology.misc.synder-module.html#_ch_exp_lwc
 pology.misc.synder._seps_tag	pology.misc.synder-module.html#_seps_tag
 pology.misc.synder._ch_exp_mask	pology.misc.synder-module.html#_ch_exp_mask
