@@ -1,0 +1,189 @@
+>base/aff.sd
+>places-internet.sd
+>software-communication.sd
+>software-system.sd
+>ztmp-acronyms.sd
+>ztmp-apps.sd
+>ztmp-languages.sd
+
+# ----------------------------------------------------------------------------
+# Угњеждени програмчићи
+
+3D Earth Model: 3Д-модел| Земље
+Activity Bar: тра|ка активности
+Analog Clock: аналогн|и> сат|
+Application Launcher: покрет|ач програма
+Application Launcher Menu: мен|и за покретање програма
+Application Notifications: обавештењ|а- програма
+Applications: програм|и-
+Applications Runner: извођ|ач програмâ
+Battery Monitor: надзор| батерије
+Bball: скочилопт|а
+Binary Clock: бинарн|и> сат|
+BitFinder: налаз|ач битова|
+Blue Marble: плав|и> кликер|
+Bookmark Runner: извођ|ач маркера
+Bookmarks: маркер|и-
+Bubblemon: облакмон|
+Calculator: калкулатор|
+Calculator Runner: извођ|ач калкулатора
+Calendar: календар|
+Character Selector: бир|ач знакова
+Collection: збир|ка
+Color Picker: бир|ач боја
+Comic Data Engine: датомотор| стрипова
+Comic: стрип|
+Comic Strip: |{Comic Strips}
+Comic Strips: стрипов|и-
+Command: наредб|а
+Command Line: командн|а линија
+Command line runner: извођ|ач командне линије
+Contacts: контакт|и-
+Dashboard: инструмент-табл|а
+Dashboard Widget: виџет| |Dashboard~г
+Date and Time: датум| и врем|е-н
+DBpedia queries: упит|и- |DBpedia~г
+Default Plasma Animator: подразумеван|и> |Plasma~.мп аниматор|
+Device Information: пода|ци-т о уређајима
+Device Notifier: обавештава|ње о уређајима
+Desktop Search: претра|га радне површи
+Desktop Sessions: сесиј|е- радне површи
+Desktop Sessions Runner: извођ|ач сесија радне површи
+Dictionary: речник|
+Dictionary Data Engine: датомотор| речника
+Digital Clock: дигиталн|и> сат|
+Eyes: оч|и-с
+Favicons: фавикон|е-
+Fifteen Puzzle: петнаестиц|а
+File and Directory Browser Engine: мотор| прегледања фајлова и фасцикли
+File Watcher: надзир|ач фајлова
+Files and Directories: фајлов|и- и фасцикл|е-
+Folder View: приказ| фасцикле
+Fuzzy Clock: одокативн|и> сат|
+Geolocation: геолокациј|а
+Geolocation GPS: |Geolocation ГПС
+Geolocation IP: |Geolocation ИП
+Google Gadgets: |Google~.жкп справиц|е-
+Hotplug Event Data Engine: датомотор| врућег укључивања
+Hotplug Events: догађај|и- врућег укључивања
+Icon: икон|а
+Imagebin: корп|а слика
+Incoming Message: долазећ|а> пору|ка
+Internal Extender Container: унутрашњ|и> садржа|лац проширивача
+JavaScript DataEngine: |JavaScript~.м датомотор|, _род!=м
+JavaScript Engine: |JavaScript~.м мотор|, _род!=м
+JavaScript Runner: |JavaScript~.м извођ|ач, _род!=м
+JavaScript Widget: |JavaScript~.м виџет|, _род!=м
+Kate Session Applet: |{Kate Sessions}
+Kate Sessions: |{Kate~.жкп} сесиј|е-
+Keyboard and Mouse State: ста|ње тастатуре и миша
+Keyboard Map Tool: распоред|и- тастатуре
+KGet barchart applet: тракаст|и> графикон| |KGet~г
+KGet panelbar applet: панелск|а> тра|ка |KGet~г
+KGet piechart applet: питаст|и> графикон| |KGet~г
+KGet Data Engine: датомотор| |KGet~г
+Konq Profiles Applet: |Konqueror~.мкп профил|и-
+Konqueror Profiles: |{Konq Profiles Applet}
+Konqueror Sessions: |{Konqueror~.жкп} сесиј|е-
+Konsole Profiles Applet: |Konsole~.мкп профил|и-
+Konsole Profiles: |{Konsole Profiles Applet}
+Konsole Sessions: |{Konsole~.жкп} сесиј|е-
+KopeteTeX: |*|{Kopete~н}-|TeX
+Lancelot Launcher: |Lancelot покрет|ач
+Lancelot Menu: |Lancelot мен|и
+LCD Weather Station: ЛЦД метеостаниц|а
+Leave A Note: оставља|ње поруке
+Life: живот|
+Locations: локациј|е-
+Locations Runner: извођ|ач локација
+Lock/Logout: закључава|{ње}/одјав|а, _род!=с
+MacOS Dashboard Widgets: виџет|и- инструмент-табле |MacOS~г
+Magnifique: магнифик|
+Media Player: медија плејер|
+Meta Data: метаподац|и-
+Microblogging: микроблогова|ње
+minicli: миникл|и
+    @л: minicl|i
+Mouse Data Engine: датомотор| стања миша
+MPlayerThumbs: сличиц|е- |MPlayer~и
+My Bookmarks: мој|и-> маркер|и-
+Navigation Panel: навигацион|и> панел|
+Nepomuk Desktop Search Runner: извођ|ач |Nepomuk~гжп претраге површи
+Networking: умрежава|ње
+New Device Notifier: обавештава|ње о новим уређајима
+News: вест|и-ж
+News Ticker: куц|ач вести
+Notes: беле|шке-
+Now Playing: тренутн|а> свир|ка
+Now Playing Engine: мотор| тренутне свирке
+Pager: пејџер|
+Panel: панел|
+Paste: налепљива|ње
+Pastebin: корп|а налепака
+Picture Frame: урамљен|а> сли|ка
+Picture of the Day: сли|ка дана
+Places: мест|а-
+Places Data Engine: датомотор| местâ
+Pointer Position: положај|2 показивача
+Powermanagement: управља|ње напајањем
+Powermanagement Data Engine: датомотор| управљања напајањем
+Previewer: преглед| # не ‘прегледач’, то је /browser/
+Python Clock: |Python~.м сат|, _род!=м
+Python data engine: |Python~.м датомотор, _род!=м
+Python Date and Time: |Python~.м датум| и врем|е-н, _род!=м
+Python Widget: |Python~.м виџет|, _род!=м
+QEdje Gadgets: |QEdje~.жк справиц|е-
+QuickLaunch: брзокрет|
+Recent Documents: скорашњ|и-> докуме|нти-
+Rellinks: Релвез|е-
+Remember The Milk Engine: датомотор| |{Remember The Milk~г}
+Resize and Rotate: Величин|а и ротациј|а
+RSSNow: |{RSS~н}-одмах|*, _род!=м
+Ruby Analog Clock: |Ruby~.м |{Analog Clock}, _род!=м
+Ruby Extender Tutorial: |Ruby~.м продужет|ак (туторијал)
+Ruby Web Browser: |Ruby~.м веб преглед|ач, _род!=м
+Ruby Widget: |Ruby~.м виџет|, _род!=м
+Run Commands: извршава|ње наредби
+SaverDesktop: чувар| на површи
+Search: претра|га
+Search Runner: извођ|ач претраге
+Sessions: сесиј|е-
+Shell Runner Config: постав|а извођача шкољке
+Show Desktop: приказ| површи
+Show Dashboard: приказ| инструмент-табле
+Show Widget Dashboard: приказ| инструмент-табле виџета
+SolidDevice Data Engine: датомотор| |Solid~г
+Spell Checker Runner: извођ|ач провере правописа
+System Monitor: системск|и> монитор|
+System Load Viewer: приказив|ач оптерећења система
+System Monitor - CPU: |{System Monitor} (ЦПУ)
+System Monitor - Hard Disk: |{System Monitor} (хард-диск)
+System Monitor - Hardware Info: |{System Monitor} (о хардверу)
+System Monitor - Network: |{System Monitor} (мрежа)
+System Monitor - RAM: |{System Monitor} (РАМ)
+System Monitor - Temperature: |{System Monitor} (температура)
+System Tray: системск|а> касет|а
+Task Management Data Engine: датомотор| управљања задацима
+Task Manager: менаџер| задатака
+Terminal Emulator: емулатор| терминала
+Test Data Engine: пробн|и> датомотор| података
+Tiger: тиг|ар
+Time Data Engine: датомотор| датума и времена
+Timer: одбројав|ач
+Trashcan: корп|а за смеће
+Twitter Data Engine: датомотор| |Twitter~г
+Twitter Microblogging: микроблогов|и- са |Twitter~г
+Unit Converter: претвар|ач јединица
+URLPicPreview: преглед| слике с |URL~г
+Weather: врем|е-н
+Weather Data Engine: датомотор| метеоролошких услова
+Weather Forecast: временск|а> прогноз|а
+Web Browser: веб преглед|ач
+Webbrowser History: историјат| веб прегледача
+Web Shortcut: веб пречиц|а
+Web Shortcuts: веб пречиц|е-
+Web Widget: веб виџет|
+Web Widgets: веб виџет|и-
+Webshortcut runner: извођ|ач веб пречица
+Window Information: пода|ци-т о прозорима
+

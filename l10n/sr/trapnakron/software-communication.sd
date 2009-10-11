@@ -1,0 +1,125 @@
+>base/aff.sd
+>software-system.sd
+>ztmp-apps.sd
+
+# ----------------------------------------------------------------------------
+# Клијенти е-поште
+
+Balsa: Балс|а, Балс|ин
+Coolmail: Кулмејл|, Кулмејл|ов
+    @л: Coolmail|, Coolmail|ov
+Evolution: Еволуциј|а, Еволуциј|ин
+Fetchmail: Фечмејл|, Фечмејл|ов
+    @л: Fetchmail|, Fetchmail|ov
+Fetchmailconf: Фечмејлконф|, Фечмејлконф|ов
+    @л: Fetchmailconf|, Fetchmailconf|ov
+Icedove: Ледоголубиц|а # Дебијанов Тандерберд
+KMail: К-пошт|а, К-пошт|ин
+Mutt: Мат|, Мат|ов
+    @л: Mutt|, Mutt|ov
+Outlook: Аутлук|, Аутлук|ов
+    @л: Outlook|, Outlook|ov
+Pine: Пајн|, Пајн|ов
+    @л: Pine|, Pine|ov
+Sylpheed: Силфид|, Силфид|ов
+    @л: Sylpheed|, Sylpheed|ov
+Thunderbird: Тандерберд|, Тандерберд|ов
+    @л: Thunderbird|, Thunderbird|ov
+XBiff: Икс-биф|, Икс-биф|ов
+    @л: XBiff|, XBiff|ov
+XFMail: ИксФ-пошт|а, ИксФ-пошт|ин
+    @л: XF-pošt|a, XF-pošt|in
+
+# ----------------------------------------------------------------------------
+# Клијенти вести
+
+KNews: К-вест|и-ж
+    @л: К-vest|i-ž
+KNode: К-чвор|, К-чвор|ов
+
+# ----------------------------------------------------------------------------
+# Брзи гласници
+
+Adium: Адијум|, Адијум|ов
+    @л: Adium|, Adium|ov
+Gabber: Габер|, Габер|ов
+    @л: Gabber|, Gabber|ov
+Gaim: Гаим|, Гаим|ов
+GnomeICU: |{Gnome~н}-ајсију|, |{Gnome~н}-ајсију|ов
+    @л: GnomeICU|-, GnomeICU|-ov
+GnomeMeeting: |{Gnome~н}-састан|ак, |{Gnome~н}-састанк|ов
+Gnome Talk: |Gnome~.мп разговор|
+Google Talk: |*|{Google~н}-разговор|
+GroupWise Messenger: |^GroupWise~.м месинџер|
+    @л: |^GroupWise~.м Messenger|
+Irssi: Ирс|и, Ирс|ијев
+    @л: Irss|i, Irss|ijev
+ickle: Икл|, Икл|ов
+    @л: ickle|, ickle|ov
+KMerlin: К-мерлин|, К-мерлин|ов
+    @л: KMerlin|, KMerlin|ov
+Konversation: Конверзациј|а, Конверзациј|ин
+Kopete: Копете|, Копете|ов
+KSirc: Ксирц|, Ксирц|ов
+    @л: KSirc|, KSirc|ov
+Licq: Л-ајсикју|, Л-ајсикју|ов
+    @л: Licq|, Licq|ov
+mIRC: мИРЦ|-, мИРЦ|-ов
+MSN Messenger: МСН месинџер|, МСН месинџер|ов
+    @л: MSN Messenger|, MSN Messenger|ov
+MSN Mobile: МСН мобил|, МСН мобил|ов
+    @л: MSN Mobile|, MSN Mobile|ov
+Netscape Messenger: |Netscape~.мп Гласник|
+Pan: Пан|, Пан|ов
+Pidgin: Пиџин|, Пиџин|ов
+    @л: Pidgin|, Pidgin|ov
+Psi: Пс|и, Пс|ијев
+QQ Messenger: |^QQ~.м месинџер|, |^QQ~.м месинџер|ов
+Skype: Скајп|, Скајп|ов
+    @л: Skype|, Skype|ov
+SkypeOut: Скајпаут|, Скајпаут|ов, скајпаут|>
+    @л: SkypeOut|, SkypeOut|ov, SkypeOut|>
+Web Messenger: Веб месинџер|, Веб месинџер|ов
+    @л: Web Messenger|, Web Messenger|ov
+Windows Live Messenger: |^Windows~.м лајв месинџер|
+    @л: |^Windows~.м Live Messenger|
+WLM: ВЛМ|-, ВЛМ|-ов, ВЛМ|> # скр. Windows Live Messenger
+    @л: WLM|-, WLM|-ov, WLM|>
+Windows Mobile: |^Windows~.м мобил|
+    @л: |^Windows~.м Mobile|
+XChat: Икс-ћаска|ње
+    @л: X-ćaska|nje
+
+# ----------------------------------------------------------------------------
+# Агрегатори
+
+Akregator: Акрегатор|, Акрегатор|ов
+
+# ----------------------------------------------------------------------------
+# Терминали
+
+Gnome Telnet: |Gnome~.мп телнет|
+KPPP: КППП|-, КППП|-ов
+Minicom: Миником|, Миником|ов
+    @л: Minicom|, Minicom|ov
+
+# ----------------------------------------------------------------------------
+# Разно
+
+Arena: Арен|а, Арен|ин
+    @л: Arena|in
+Faces: Фејсес|, Фејсес|ов
+    @л: Faces|, Faces|ov
+HylaFAX: Хилафакс|, Хилафакс|ов
+    @л: HylaFAX|--, HylaFAX|-ov
+KNemo: К-нем|о, К-нем|ов, _род!=м
+    @л: KNem|o, KNem|ov
+SIMP: СИМП|, СИМП|-ов
+Slrn: Слрн|, Слрн|ов
+SMSClient: СМС-клијент|, СМС-клијент|ов
+    @л: SMSClient|, SMSClient|ov
+SMSSend: СМС-сенд|, СМС-сенд|ов
+    @л: SMSSend|, SMSSend|ov
+w3m: в3м|-, в3м|-ов
+    @л: w3m|-, w3m|-ov
+

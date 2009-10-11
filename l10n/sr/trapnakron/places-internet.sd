@@ -1,0 +1,250 @@
+>base/aff.sd
+>software-system.sd
+
+# ----------------------------------------------------------------------------
+# Претраживачи
+
+AllTheWeb fast: Ол'д'веб| брз|и>
+    @л: AllTheWeb| brz|i>
+AltaVista: Алтавист|а, Алтавист|ин
+    @л: AltaVist|a, AltaVist|in
+AustroNaut: Аустронаут|, Аустронаут|ов
+    @л: AustroNaut|, AustroNaut|ov
+Debian Backports Search: Дебијанов|и-> бекпортов|и-
+    @л: Debianov|i-> bekportov|i-
+Debian BTS Bug Search: Дебијанов|а-> баз|а грешака
+    @л: Debianov|a-> baz|a grešaka
+Debian Package Search: Дебијанов|и-> пакет|и-
+    @л: Debianov|i-> paket|i-
+Froogle: Фрогл|, Фрогл|ов
+    @л: Froogle|, Froogle|ov
+Google Advanced Search: Гугл| (детаљно)
+    @л: Google| (detaljno)
+Google Image Search: Гугл-слик|е-
+    @л: Google-slik|e-
+Google (I'm Feeling Lucky), |googleimfeelinglucky: Гугл| (из прве руке)
+    @л: Google| (iz prve ruke)
+KDE Apps, KDE App Search: КДЕ програм|и-
+KDE Bug Database Fulltext Search: КДЕ-ов|а> баз|а грешака (текстуално)
+KDE Bug Database Bug Number Search: КДЕ-ов|а> баз|а грешака (по броју)
+Lycos: Ликос|, Ликос|ов
+Mamma - Mother of all Search Engines: Мам|а - мај|ка свих претраживачких мотора
+OpenPGP Key Search: ОпенПГП кључев|и-
+OpenSearch: Отворен|а> претра|га
+RPM-Find: РПМ-траже|ње
+Telephonebook Search Provider: Телефонск|и> именик| (Холандија)
+Teletekst Search Provider: Телетекст| (Холандија)
+
+# ----------------------------------------------------------------------------
+# Продавнице и посредници
+
+Amazon: Амазон|, Амазон|ов
+Jamendo: Џеменд|о, Џеменд|ов, _род!=м
+    @л: Jamend|o, Jamend|ov
+Magnatune: Магнатјун|, Магнатјун|ов
+    @л: Magnatune|, Magnatune|ov
+PayPal: Пејпал|, Пејпал|ов, пејпал|>
+    @л: PayPal|, PayPal|ov, PayPal|>
+
+# ----------------------------------------------------------------------------
+# Дружење, сарадња, комуникација
+
+Freenode: Фринод|, Фринод|ов
+    @л: Freenode|, Freenode|ov
+Audioscrobbler: Аудиоскроблер|, Аудиоскроблер|ов
+    @л: Audioscrobbler|, Audioscrobbler|ov
+Gmane: Гмејн|, Гмејн|ов
+    @л: Gmane|, Gmane|ov
+Google Groups: Гугл-груп|е-
+    @л: Google-grup|e-
+Google News: Гугл-вест|и-ж
+    @л: Google-vest|i-ž
+Hotmail: Хотмејл|, Хотмејл|ов, хотмејл|>
+    @л: Hotmail|, Hotmail|ov, hotmail|>
+identi.ca: Идентик|а, Идентик|ин
+    @л: identi.c|a, identi.c|in
+KataTudo: Кататуд|о, Кататуд|ов, _род!=м
+    @л: KataTud|o, KataTud|ov
+last.fm: Ласт-ФМ|-, Ласт-ФМ|-ов
+    @л: last.fm|-, last.fm|-ov
+MusicBrainz: Мјузикбрејнз|, Мјузикбрејнз|ов
+    @л: MusicBrainz|, MusicBrainz|ov
+Technorati: Технорат|и, Технорат|ијев
+    @л: Technorat|i, Technorat|ijev
+Technorati Tags: Техноратијев|е-> ознак|е-
+    @л: Technoratijev|e-> oznak|e-
+Twitter: Твитер|, Твитер|ов
+    @л: Twitter|, Twitter|ov
+
+# ----------------------------------------------------------------------------
+# Ризнице
+
+CPAN - Comprehensive Perl Archive Network: ЦПАН|- — свеобухватн|а> архив|а перла
+    @л: CPAN|- — sveobuhvatn|a> arhiv|a Perla
+CTAN Catalog: ЦТАН|-ов> каталог|
+CTAN - Comprehensive TeX Archive Network: ЦТАН|- — свеобухватн|а> архив|а теха
+    @л: CTAN|- — sveobuhvatn|a> arhiv|a TeX-a
+Flickr: Фликр|, Фликр|ов, фликр|>
+    @л: Flickr|, Flickr|ov, Flickr|>
+Freshmeat: Фрешмит|, Фрешмит|ов
+    @л: Freshmeat|, Freshmeat|ov
+Google Movies: Гугл-филмов|и-
+    @л: Google-filmov|i-
+KDE API Documentation: КДЕ АПИ документациј|а
+KDE-Look: |{KDE~н}-изглед|
+KDE WebSVN: КДЕ|-ов> вебСВН|-
+    @л: KDE|-ov> WebSVN|-
+Ruby Application Archive: Архив|а рубијевских програма
+    @л: Arhiv|a ruby programa
+SourceForge: Сорсфорџ|, Сорсфорџ|ов
+    @л: SourceForge|, SourceForge|ov
+YouTube: Јутјуб|, Јутјуб|ов
+    @л: YouTube|, YouTube|ov
+YouTube HQ: |*|YouTube ХКу
+    @л: |*|YouTube HQ
+
+# ----------------------------------------------------------------------------
+# Извори података
+
+All Music Guide: Свемузичк|и> водич|
+Babelfish: Бабелфиш|, Бабелфиш|ов
+    @л: Babelfish|, Babelfish|ov
+CDDB: ЦДДБ|-, ЦДДБ|-ов, ЦДДБ|>
+CIA World Fact Book: Цијин|а> Књи|га светских података
+CiteSeer\: Scientific Literature Digital Library: Сајтсир|{}\: дигиталн|а> библиоте|ка научне литературе
+    @л: CiteSeer|{}\: digitaln|a> bibliote|ka naučne literature
+ComputerUser.com High-Tech Dictionary: Високотехнолошк|и> речник| Компјутерјузер.кома
+    @л: Visokotehnološk|i> rečnik| ComputerUser.coma
+DBpedia: ДБ-педиј|а
+    @л: DBped|ia
+dict.cc Translation\: German to English: дикт.цц|{-}\: са немачког на енглески
+    @л: dict.cc|{-}\: sa nemačkog na engleski
+dict.cc Translation\: English to German: дикт.цц|{-}\: са енглеског на немачки
+    @л: dict.cc|{-}\: sa engleskog na nemački
+Dictionary of the Spanish Academy (RAE), |dictionaryofthespanishacademyrae: Речник| Шпанске академије (РАЕ)
+DocBook - The Definitive Guide: Докбук|{}\: коначн|и> водич|2
+    @л: DocBook|{}\: konačn|i> vodič|2
+FreeDB: ФриДБ|-, ФриДБ|-ов
+    @л: FreeDB|-, FreeDB|-ov
+Free On-Line Dictionary of Computing: Слободн|и> речник| рачунарства на вези
+FSF/UNESCO Free Software Directory: Именик| слободног софтвера ЗСС/Унеско
+    @л: Imenik| slobodnog softvera ZSS/Unesco
+Great Dictionary of the Catalan Language (GRan Enciclopèdia  Catalana), |grecdictcatalana: Велик|и> речник| каталонског језика (GRan Enciclopèdia Catalana)
+    @л: Velik|i> rečnik| katalonskog jezika (GRan Enciclopèdia  Catalana)
+IETF Requests for Comments: ИЕТФ-ов|и-> захтев|и- за коментаре
+Internet Book List: Интернет спис|ак књига
+Internet Movie Database: Интернет баз|а филмова
+HyperDictionary.com: Хиперречник|, Хиперречник|ов
+    @л: HyperDictionar|y, HyperDictionar|yjev
+HyperDictionary.com Thesaurus: Хиперречник| (синонимар)
+    @л: HyperDictionar|y (sinonimar)
+Latest Qt Online Documentation: Најновиј|а> документациј|а КуТ-а на вези
+    @л: Najnovij|a> dokumentacij|a Qt-a na vezi
+LEO-Translate: Лео-превод|, Лео-превод|ов
+LEO - Translate Between German and French: Ле|{о}\: са немачког на француски, _род!=м
+LEO - Translate Between French and German: Ле|{о}\: са француског на немачки, _род!=м
+Merriam-Webster Thesaurus: Меријам-Вебстер| (синонимар)
+Merriam-Webster Dictionary: Меријам-Вебстер| (речник)
+MetaCrawler: Метакроулер|, Метакроулер|ов
+Microsoft Developer Network Search: Мајкрософтов|а> развојн|а> мреж|а (МСДН)
+Mirror Search: Претра|га огледала
+MP3Tunes: МП3-тјунс|, МП3-тјунс|ов
+    @л: MP3Tunes|, MP3Tunes|ov
+Multitran - Translate Between Dutch and Russian: Мултитран|{}\: са холандског на руски
+Multitran - Translate Between English and Russian: Мултитран|{}\: са енглеског на руски
+Multitran - Translate Between French and Russian: Мултитран|{}\: са француског на руски
+Multitran - Translate Between German and Russian: Мултитран|{}\: са немачког на руски
+Multitran - Translate Between Italian and Russian: Мултитран|{}\: са италијанског на руски
+Multitran - Translate Between Spanish and Russian: Мултитран|{}\: са шпанског на руски
+Open Directory: Отворен|и> именик|
+PHP Search: Приручник| за ПХП
+Python Reference Manual: Референтн|и> приручник| питона
+    @л: Referentn|i> priručnik| Pythona
+QRZ.com Callsign Database: КуРЗ.ком| баз|а позивника
+    @л: QRZ.com| baz|a pozivnika
+Qt3 Online Documentation: Документациј|а |Qt~г 3 на вези
+Techbase: Техбаз|а, Техбаз|ин
+    @л: Techbas|a, Techbas|in, n=Techbase
+U.S. Patent Database: Баз|а патената САД
+Wikipedia: Википедиј|а, Википедиј|ин
+    @л: Wikiped|ia, Wikipedij|in
+Wikipedia - The Free Encyclopedia: |Wikipedia — слободн|а> енциклопедиј|а
+Wiktionary: Викиречник|, Викиречник|ов
+    @л: Wikirečnik|, Wikirečnik|ov
+Wiktionary - The Free Dictionary: |Wiktionary — слободн|и> речник|
+WordReference.com Translation\: English to French: Вордреференс|{}\: са енглеског на француски
+    @л: WordReference|{}\: sa engleskog na francuski
+WordReference.com Translation\: English to Italian: Вордреференс|{}\: са енглеског на италијански
+    @л: WordReference|{}\: sa engleskog na italijanski
+WordReference.com Translation\: English to Spanish: Вордреференс|{}\: са енглеског на шпански
+    @л: WordReference|{}\: sa engleskog na španski
+WordReference.com Translation\: French to English: Вордреференс|{}\: са француског на енглески
+    @л: WordReference|{}\: sa francuskog na engleski
+WordReference.com Translation\: Italian to English: Вордреференс|{}\: са италијанског на енглески
+    @л: WordReference|{}\: sa italijanskog na engleski
+WordReference.com Translation\: Spanish to English: Вордреференс|{}\: са шпанског на енглески
+    @л: WordReference|{}\: sa španskog na engleski
+WordReference.com English Dictionary: Вордреференс|{}\: енглеск|и> речник|
+    @л: WordReference|{}\: englesk|i> rečnik|
+
+# ----------------------------------------------------------------------------
+# Електронска издања и вести
+
+Byte: Бајт|, Бајт|ов
+    @л: Byte|, Byte|ov
+Dilbert: Дилберт|
+Garfield: Гарфилд|
+OSNews: ОС-њуз|
+    @л: OSNews|
+PhD Comics: Постдиплом|ци-ц
+Scientific American: Сајентифик Америкен|
+    @л: Scientific American|
+Slashdot: Слешдот|, Слешдот|ов
+    @л: Slashdot|, Slashdot|ov
+UserFriendly: Предусретљив|и-
+XKCD: ИксКЦД|-
+    @л: XKCD|-
+
+# ----------------------------------------------------------------------------
+# Разно
+
+Alexa: Алекс|а, Алекс|ин, _род!=м
+    @л: Alex|a, Alex|in, _род!=м
+Alexa URL: Алекса-УРЛ|-
+    @л: Alexa URL|-
+Ask Jeeves: Питај Џивса|*, _род!=м
+    @л: Pitaj Jeevesа|*
+Dailymotion: Дејлимошон|, Дејлимошон|ов
+    @л: Dailymotion|, Dailymotion|ov
+Digital Object Identifier: Дигиталн|и> идентификатор| објеката
+Echo Nest: Ехо нест|, Ехо нест|ов
+    @л: Echo Nest|, Echo Nest|ov
+Ethicle: Етикл|, Етикл|ов
+    @л: Ethicle|, Ethicle|ov
+Excite: Ексајт|, Ексајт|ов
+    @л: Excite|, Excite|ov
+Feedster: Фидстер|, Фидстер|ов
+    @л: Feedster|, Feedster|ov
+GO.com: Го.ком|, Го.ком|ов
+    @л: GO.com|, GO.com|ov
+Gracenote: Грејсноут|, Грејсноут|ов
+    @л: Gracenote|, Gracenote|ov
+Hotbot: Хотбот|, Хотбот|ов
+.Mac, |dotmac: Дот-мек|, Дот-мек|ов
+    @л: .Mac|, .Mac|ov
+Netcraft: Неткрафт|, Неткрафт|ов
+    @л: Netcraft|, Netcraft|ov
+NewzBin: Њузбин|, Њузбин|ов
+    @л: NewzBin|, NewzBin|ov
+openDesktop: Отворен|а> површ|-ж
+Remember The Milk: Не заборави млек|о, _род!=с
+Snoopy: Снуп|и
+Songkick: Сонгкик|, Сонгкик|ов
+    @л: Songkick|, Songkick|ov
+TV Tome: ТВ-том|, ТВ-том|ов
+    @л: TV Tome|, TV Tome|ov
+Vivisimo: Вивисим|о, Вивисим|ов, _род!=м
+Voila: Воил|а, Воил|ин
+Web: Веб| # намерно само именица
+    @л: Web|
+Whatis Query: Шта-је упит|

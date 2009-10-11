@@ -1,0 +1,158 @@
+>base/aff.sd
+>games-cards.sd
+>games-table.sd
+>games-abstract.sd
+>software-system.sd
+>ztmp-apps.sd
+
+# ----------------------------------------------------------------------------
+# Игре
+
+AisleRiot: Ајлрајот|, Ајлрајот|ов
+    @л: AisleRiot|, AisleRiot|ov
+Alephone: Алефон|а, Алефон|ин
+    @л: Alephon|a, Alephon|in, n=Alephone
+Angband: Ангбанд|, Ангбанд|ов
+Batallion: Батаљон|, Батаљон|ов
+    @л: Batallion|, Batallion|ov
+Battleball: Бојолопт|а, Бојолопт|ин
+Battle for Wesnoth: Бој| за Веснот
+Beneath a Steel Sky: Под челичним небом|*, _род!=м
+Bomber: Бомбардер|, Бомбардер|ов
+Bovo: Бово|, Бово|ов
+Breakout: Пробој|2, Пробој|ев
+ChessMail: Шах-пошт|а, Шах-пошт|ин
+ClanBomber: Кланбомбер|, Кланбомбер|ов
+    @л: ClanBomber|, ClanBomber|ov
+Crimson Fields: Гримизн|а-> пољ|а-
+cxhextris: ЦИкс-хекстрис|, ЦИкс-хекстрис|ов
+    @л: CXHextris|, CXHextris|ov
+Daleks: Дале|ци-к2
+Defendguin: Бранигвин|, Бранигвин|ов
+Flight of the Amazon Queen: Лет| Амазонске краљице
+FreeCell, |freecellapp: Фрисел|, Фрисел|ов
+    @л: FreeCell|, FreeCell|ov
+Freeciv: Фрицив|, Фрицив|ов
+    @л: Freeciv|, Freeciv|ov
+Frozen Bubble: Смрзмехур|, Смрзмехур|ов
+Gataxx: Гатакс|, Гатакс|ов
+    @л: Gataxx|, Gataxx|ov
+Glines: Глиниј|е-
+Gnibbles: Г-змијиц|е-
+Gnobots II: Гнобот|и- II
+Gnome Chess: |Gnome~.мп шах|
+Gnome Mahjongg: |Gnome~.мп |Mahjongg
+Gnome Mines: |Gnome~.жкп миниц|е-
+Gnome Stones: |Gnome~.сп камењ|е3, _род!=с
+Gnotravex: Гнотравекс|, Гнотравекс|ов
+    @л: Gnotravex|, Gnotravex|ov
+Gnotski: Гнотск|и, Гнотск|ијев
+Gomoku: Гомоку|, Гомоку|ов
+GTali: Гтал|и, Гтал|ијев
+    @л: GTal|i, GTal|ijev
+Iagno: Ијањ|о, Ијањ|ов, _род!=м
+    @л: Iagn|o, Iagn|ov
+KAtomic: К-атомик|а, К-атомик|ин
+Kapman: Капмен|, Капмен|ов
+    @л: Kapman|, Kapman|ov
+KBattleship: К-подморниц|е-
+KBlackBox: К-црн|{а>}-кутиј|а
+KBlocks: К-блоков|и-
+KBomber: К-бомбардер|, К-бомбардер|ов
+KBounce: К-одбој|, К-одбој|ев
+KBreakout: К-пробој|2, К-пробој|ев
+KDiamond: К-дијамант|, К-дијамант|ов
+KFourInLine: К-четири-у-низу|*, _род!=м
+KGame: К-игр|а, К-игр|ин, к-игра|чки
+KGoldRunner: К-златобој|ац, К-златобојч|ев
+KHangman: К-вешал|а-
+Killbots: К-злобот|и-
+Kiriki: Кирик|и, Кирик|ијев
+KJumpingCube: К-скочикоцк|а, К-скочикоцк|ин
+Klotski: Клотск|и, Клотск|ијев
+KMahjongg: К-|Mahjongg|**
+KMines: К-мин|е-
+KNetWalk: К-мрежоход|, К-мрежоход|ов
+Kolf: Колф|, Колф|ов
+Kollision: Колизиј|а, Колизиј|ин
+Kolor Lines: Обојен|е-> линиј|е-
+Konquest: К-осваја|ње
+KPatience: К-пасијанс|, К-пасијанс|ов
+KReversi: К-|Reversi|**
+KSame: К-|SameGame|**
+KSirk: К-сирк|, К-сирк|ов
+    @л: KSirk|, KSirk|ov
+KSnake: К-змијиц|е-
+KSpaceDuel: К-свемирск|{и>}-двобој|2
+KSquares: К-квадрат|и-
+KSudoku: К-|Sudoku|**
+KTeaTime: К-чајанк|а, К-чајанк|ин
+KTron: К-|Tron|**
+KTuberling, Potato Guy: Кромпирк|о, Кромпирк|ов, _род!=м
+KTux: К-тукс|, К-тукс|ов
+    @л: KTux|, KTux|ov
+Kubrick: Кубрик|, Кубрик|ов
+LSkat: П-скат|, П-скат|ов # П од поручник
+Marathon Infinity: Маратон| бескрај|
+    @л: Marathon| beskraj|
+Marble Madness: Кликерск|о> лудил|о, _род!=с
+Minesweeper: Минолов|ац, Миноловч|ев
+Missile Command: Ракетн|а> команд|а
+Moria: Мориј|а, Мориј|ин
+    @л: Mor|ia
+Mures: Самур|и-
+NetHack: Нетхак|, Нетхак|ов
+    @л: NetHack|, NetHack|ov
+Nibbles: Змијиц|е-
+Pacman: Пакмен|, Пакмен|ов
+    @л: Pacman|, Pacman|ov
+Penguin Command: Пингвинск|а> команд|а
+Pingus: Пингус|, Пингус|ов
+PySol: Писол|, Писол|ов
+    @л: PySol|, PySol|ov
+Q*bert: Кјуберт|, Кјуберт|ов
+    @л: Q*bert|, Q*bert|ov
+Qmamecat: Ку-мамекат|, Ку-мамекат|ов
+    @л: Qmamecat|, Qmamecat|ov
+Oneko: Онек|о, Онек|ов, _род!=м
+Quake: Квејк|, Квејк|ов, квејк|овски
+    @л: Quake|, Quake|ov, quake|ovski
+Rocks n Diamonds: Камењ|е3 и дијама|нти-, _род!=с
+Rogue: Роуг|, Роуг|ов
+    @л: Rogue|, Rogue|ov
+Same Gnome: |Gnome~.сп исто-исто, _род!=с
+Shisen-Sho: Шисен-шо|, Шисен-шо|ов
+Scavenger: Лешинар|, Лешинар|ев
+Scorched Earth: Спаљен|а> земљ|а
+Sokoban: Сокобан|, Сокобан|ов
+Super Methane Brothers: Супер метанск|а> браћ|а
+Tetris, |tetrisorig: ¤Тетрис|, Тетрис|ов
+ToME: Том|, Том|ов
+    @л: Tome|, Tome|ov
+Trophy: Трофеј|, Трофеј|ев
+    @л: Troph|y, Troph|yjev
+TuxRacer: Тукс-трк|ач, Тукс-тркач|ев
+    @л: Tux-trk|ač, Tux-trkač|ev
+Xboard: Икс-табл|а, Икс-табл|ин
+    @л: X-tabl|a, X-tabl|in
+Xgammon: Икс-гамон|, Икс-гамон|ов
+    @л: Xgammon|, Xgammon|ov
+XKobo: Икс-кобо|, Икс-кобо|ов
+    @л: XKobo|, XKobo|ov
+XPat 2: Икспат| 2
+    @л: XPat| 2
+XScorch: Икс-скорч|, Икс-скорч|ов
+    @л: XScorch|, XScorch|ov
+XShipWars: Икс-бродск|{и>}-ратов|и-
+    @л: X-brodsk|{i>}-ratov|i-
+XSkat: Икс-скат|, Икс-скат|ов
+    @л: X-skat|, X-skat|ov
+XSoldier: Икс-војник|, Икс-војник|ов
+    @л: X-vojnik|, X-vojnik|ov
+XSudoku: Икс-|Sudoku|**
+    @л: X-|Sudoku|**
+XTron: Икс-|Tron|**
+    @л: X-|Tron|**
+ZAngband: Зангбанд|, Зангбанд|ов
+    @л: ZAngband|, ZAngband|ov
+

@@ -1,0 +1,103 @@
+>base/aff.sd
+>software-system.sd
+
+# ----------------------------------------------------------------------------
+# Приказивачи
+
+Electric Eyes: Електричн|е-> оч|и-с
+Eye of Gnome: Ок|о |Gnome~г, _род!=с
+GPhoto: Гфото|, Гфото|ов
+    @л: GPhoto|, GPhoto|ov
+GQview: ГКуВју|, ГКуВју|ов
+    @л: GQview|, GQview|ov
+GwenView: Гвенвју|, Гвенвју|ов
+    @л: GwenView|, GwenView|ov
+KIconEdit: К-уређива|ње икона
+KolourPaint: Колор-слика|ње
+KPhotoAlbum: К-фотоалбум|, К-фотоалбум|ов
+    @л: KPhotoAlbum|, KPhotoAlbum|ov
+Kuickshow: Квикшоу|, Квикшоу|ов
+    @л: Kuickshow|, Kuickshow|ov
+KView: К-приказ|, К-приказ|ов
+XV: ИксВ|-, ИксВ|-ов
+    @л: XV|-, XV|-ov
+
+# ----------------------------------------------------------------------------
+# Читачи
+
+Acrobat Reader: Акробат| чит|ач
+GhostView: Гоствју|, Гоствју|ов
+    @л: GhostView|, GhostView|ov
+GGV: ГГВ|-, ГГВ|-ов
+GV: ГВ|-, ГВ|-ов
+KDVI: КДВ|И-, КДВ|И-јев
+KGhostView: К-гоствју|, К-гоствју|ов
+    @л: KGhostView|, KGhostView|ov
+KPDF: КПДФ|-, КПДФ|-ов
+Mobipocket: Мобипокет|, Мобипокет|ов, мобипокет|>
+    @л: Mobipocket|, Mobipocket|ov, Mobipocket|>
+Okular: Окулар|, Окулар|ов
+Plucker: Плакер|, Плакер|ов, плакер|>
+    @л: Plucker|, Plucker|ov, Plucker|>
+PS Viewer: ПС приказив|ач
+XDVI: ИксДВ|И-, ИксДВ|И-јев
+    @л: XDV|I-, XDV|I-jev
+XPDF: ИксПДФ|-, ИксПДФ|-ов
+    @л: XPDF|-, XPDF|-ov
+
+# ----------------------------------------------------------------------------
+# Цртање и моделирање
+
+Blender: Блендер|, Блендер|ов
+Cabri: Кабр|и, Кабр|ијев
+    @л: Cabr|i, Cabr|ijev
+Dia: Диј|а, Диј|ин
+    @л: D|ia
+Digikam: Дигикам|, Дигикам|ов
+Dr. Geo: Др Ге|о, Др Ге|ов, _род!=м
+Gimp: Гимп|, Гимп|ов, гимп|овски
+Gnome Icon Editor: |Gnome~.мп уређив|ач икона
+Illustrator: Илустратор|, Илустратор|ов
+    @л: Illustrator|, Illustrator|ov
+ImageMagick: Имејџмеџик|, Имејџмеџик|ов
+    @л: ImageMagick|, ImageMagick|ov
+Inkscape: Инкскејп|, Инкскејп|ов
+    @л: Inkscape|, Inkscape|ov
+Kamera: Камер|а, Камер|ин
+Karbon14: Карбон|{}-14
+    @л: Karbon|{}14
+KColorEdit: К-уређива|{ње}-боја
+KGeo: К-ге|о, К-ге|ов, _род!=м
+    @л: KGe|o, KGe|ov
+KimDaBa: Кимдаб|а, Кимдаб|ин
+    @л: KimDaB|a, KimDaB|in
+KMag: К-увелича|ње
+Kontour: Контур|а, Контур|ин
+Kooka: Кук|а, Кук|ин
+    @л: Kook|a, Kook|in
+KPaint: К-слика|ње
+Krita: Крит|а, Крит|ин
+KRuler: К-лењир|, К-лењир|ов
+KSeg: К-сег|, К-сег|ов
+    @л: KSeg|, KSeg|ov
+PhotoCD: ФотоЦД|-, ФотоЦД|-ов
+    @л: PhotoCD|-, PhotoCD|-ov
+Photoshop: Фотошоп|, Фотошоп|ов
+    @л: Photoshop|, Photoshop|ov
+Sced: Сцед|, Сцед|ов
+ShowImg: Сликоприказ|, Сликоприказ|ов
+Sketch: Скиц|а, Скиц|ин
+Sodipodi: Содипод|и, Содипод|ијев
+TGif: Тгиф|, Тгиф|ов
+    @л: TGif|, TGif|ov
+XBitmap: Икс-битмап|, Икс-битмап|ов
+    @л: X Bitmap|, X Bitmap|ov
+XFig: Икс-фиг|, Икс-фиг|ов
+    @л: XFig|, XFig|ov
+XMag: Икс-увелича|ње
+    @л: X-uveliča|nje
+XPaint: Икс-слика|ње
+    @л: X-slika|nje
+Xpcd: Икс-пцд|, Икс-пцд|ов
+    @л: Xpcd|, Xpcd|ov
+

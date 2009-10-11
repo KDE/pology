@@ -1,0 +1,93 @@
+>base/aff.sd
+>languages-programming.sd
+>software-system.sd
+>ztmp-acronyms.sd
+>ztmp-apps.sd
+>ztmp-languages.sd
+
+# ----------------------------------------------------------------------------
+# Развојна окружења
+
+Anjuta: Анјут|а, Анјут|ин
+Eclipse: Еклипс|, Еклипс|ов
+    @л: Eclipse|, Eclipse|ov
+Forte: Форте|, Форте|ов
+Kafka: Кафк|а, Кафк|ин
+J2ME: Ј2МЕ|-, Ј2МЕ|-ов
+KDevelop: К-девелоп|, К-девелоп|ов
+    @л: KDevelop|, KDevelop|ov
+Quanta: Квант|а, Квант|ин
+    @л: Quant|a, Quant|in
+Quanta Plus: Квант|а Плус
+    @л: Quant|a Plus
+
+# ----------------------------------------------------------------------------
+# Визуелна помагала
+
+CTags: Ц-тагс|, Ц-тагс|ов, ц-тагс|>
+    @л: CTags|, CTags|ov, CTags|>
+FormDesigner: Дизајнер| формулара
+Kommander: Командер|, Командер|ов
+    @л: Kommander|, Kommander|ov
+KUIViewer: К-|{UI~н}-приказив|ач
+Qt Assistant: |{Qt~н}-асистент|, |{Qt~н}-асистент|ов
+    @л: QtAssistant|, QtAssistant|ov
+Qt Designer: |{Qt~н}-дизајнер|, |{Qt~н}-дизајнер|ов
+    @л: QtDesigner|, QtDesigner|ov
+Qt DlgEdit: |{Qt~н}-длгедит|, |{Qt~н}-длгедит|ов
+    @л: QtDlgEdit|, QtDlgEdit|ov
+Umbrello: Умбрел|о, Умбрел|ов, _род!=м
+    @л: Umbrell|o, Umbrell|ov
+
+# ----------------------------------------------------------------------------
+# Системи за управљање верзијама
+
+Cervisia: Цервисиј|а, Цервисиј|ин
+    @л: Cervis|ia
+ClearCase: Клиркејс|, Клиркејс|ов
+    @л: ClearCase|, ClearCase|ov
+CVS: ЦВС|-, ЦВС|-ов, ЦВС|>
+Git: Гит|, Гит|ов, гит|>
+SVN: СВН|-, СВН|-ов, СВН|>
+Subversion: Субверзиј|а, Субверзиј|ин, субверзиј|ски
+    @л: Subversion|, Subversion|ov, subversion|>
+
+# ----------------------------------------------------------------------------
+# Компилатори и интерпретатори
+
+CPython: Ц-|Python
+    @л: CPython|, CPython|ov
+GCC: ГЦЦ|--, ГЦЦ|-ов, ГЦЦ|>
+
+# ----------------------------------------------------------------------------
+# Исправљачи и профилизатори
+
+Cachegrind: Кешгринд|, Кешгринд|ов
+    @л: Cachegrind|, Cachegrind|ov
+Callgrind: Колгринд|, Колгринд|ов
+    @л: Callgrind|, Callgrind|ov
+DDD: ДДД|-, ДДД|-ов
+Helgrind: Хелгринд|, Хелгринд|ов
+KCacheGrind: К-кешгринд|, К-кешгринд|ов
+    @л: KCacheGrind|, KCacheGrind|ov
+Massif: Масиф|, Масиф|ов
+    @л: Massif|, Massif|ov
+Memcheck: Мемчек|, Мемчек|ов
+    @л: Memcheck|, Memcheck|ov
+Scheck: С-провер|а
+Valgrind: Валгринд|, Валгринд|ов
+
+# ----------------------------------------------------------------------------
+# Сарадња
+
+Bugzilla: Бубаждај|а, Бубаждај|ин
+KBugBuster: К-буболов|ац, К-буболовч|ев
+
+# ----------------------------------------------------------------------------
+# Разно
+
+Amarok Nightly: |Amarok поноћн|и>
+KDE Nightly: КДЕ| поноћн|и>
+Neon: Неон|, Неон|ов
+Pose: Поуз|, Поуз|ов
+    @л: Pose|, Pose|ov
