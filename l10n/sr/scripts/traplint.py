@@ -30,6 +30,8 @@ def validate (tp):
         return path.count(os.path.sep), path, lno, cno
     dkeys = sorted(dkeys, key=sortkey)
 
+    nproblems = 0
+
     for dkey in dkeys:
         path, lno, cno = tp.source_pos(dkey)
         try:
@@ -53,6 +55,7 @@ def validate (tp):
                     warning("Derivation at %s:%d:%d has normalized nominative "
                             "equal to derivation at %s:%d:%d."
                             % (path, lno, cno, opath, olno, ocno))
+                    nproblems += 1
             for rtkey in rtkeys: # must be in new loop
                 dkeys_by_rtkey[rtkey] = dkey
 
@@ -62,14 +65,18 @@ def validate (tp):
             if gender is None:
                 warning("Derivation at %s:%d:%d does not define gender."
                         % (path, lno, cno))
+                nproblems += 1
             else:
                 for gender in resalthyb(gender):
                     if gender not in known_genders:
                         warning("Derivation at %s:%d:%d defines "
                                 "unknown gender '%s'."
                                 % (path, lno, cno, gender))
+                        nproblems += 1
 
         tp.empty_pcache()
+
+    return nproblems
 
 
 # Normalize property keys in the same way as in trapnakron derivator.
@@ -103,6 +110,12 @@ def resalthyb (text):
 
 
 def _main ():
+
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Create and validate the trapnakron.
     tp = trapnakron_ui()
