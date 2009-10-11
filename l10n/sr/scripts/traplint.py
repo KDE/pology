@@ -35,10 +35,8 @@ def validate (tp, onlysrcs=None, onlykeys=None):
 
     nproblems = 0
 
-    onlysrcs = onlysrcs or set()
-    onlykeys = onlykeys or set()
-    unmatched_srcs = set(onlysrcs)
-    unmatched_keys = set(onlykeys)
+    unmatched_srcs = set(onlysrcs) if onlysrcs is not None else None
+    unmatched_keys = set(onlykeys) if onlykeys is not None else None
 
     for dkey in dkeys:
         srcname = tp.source_name(dkey)
