@@ -573,6 +573,7 @@ import os
 import locale
 import re
 import hashlib
+import copy
 import cPickle as pickle
 
 from pology.misc.report import warning
@@ -2045,11 +2046,22 @@ class Synder (object):
         # Apply capitalization.
         if exp.caps is not None:
             chcaps = first_to_upper if exp.caps else first_to_lower
+            nprops = []
             for pkey, (segs, key) in props.items():
+                chcapsed = False
+                nsegs = []
                 for seg in segs:
-                    if isinstance(seg, _SDText) and seg.text.strip():
-                        seg.text = chcaps(seg.text)
-                        break
+                    if (    not chcapsed
+                        and isinstance(seg, _SDText) and seg.text.strip()
+                    ):
+                        nseg = copy.copy(seg)
+                        nseg.text = chcaps(seg.text)
+                        chcapsed = True
+                        nsegs.append(nseg)
+                    else:
+                        nsegs.append(seg)
+                nprops.append((pkey, (nsegs, key)))
+            props = dict(nprops)
 
         if not props:
             raise SynderError(
