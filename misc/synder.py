@@ -576,7 +576,7 @@ import hashlib
 import cPickle as pickle
 
 from pology.misc.report import warning
-from pology.misc.normalize import simplify, identify
+from pology.misc.normalize import simplify
 from pology.misc.resolve import first_to_upper, first_to_lower
 
 
@@ -675,7 +675,7 @@ _ch_escape          = "\\"
 _ch_comment         = "#"
 _ch_props           = ":"
 _ch_env             = "@"
-_ch_esyn_hd         = "|"
+_ch_ksyn_hd         = "|"
 _ch_prop_sep        = ","
 _ch_pkey_sep        = "&"
 _ch_pval            = "="
@@ -896,54 +896,54 @@ def _ctx_handler_void (source, instr, pos, bpos):
                     1001, source.name, bpos)
             deriv = _SDDeriv(source, bpos)
             source.derivs.append(deriv)
-            esyn = _SDSyn(deriv, bpos)
-            deriv.syns.append(esyn)
-            return _ctx_esyn, esyn, True, pos, bpos
+            ksyn = _SDSyn(deriv, bpos)
+            deriv.syns.append(ksyn)
+            return _ctx_ksyn, ksyn, True, pos, bpos
     else:
         return None, None, False, pos, bpos
 
 
-_seps_esyn = set((_ch_prop_sep, _ch_props, _ch_tag, _ch_nl))
+_seps_ksyn = set((_ch_prop_sep, _ch_props, _ch_tag, _ch_nl))
 
-def _ctx_handler_esyn (esyn, instr, pos, bpos):
+def _ctx_handler_ksyn (ksyn, instr, pos, bpos):
 
     opos, obpos = pos, bpos
-    testsep = lambda c: c in _seps_esyn and c or None
+    testsep = lambda c: c in _seps_ksyn and c or None
     substr, sep, pos, bpos, isesc = _move_to_sep(instr, pos, bpos, testsep,
                                                  repesc=True)
 
     substrls = substr.lstrip(_strict_ws)
-    if (    not esyn.segs and substrls.startswith(_ch_esyn_hd)
+    if (    not ksyn.segs and substrls.startswith(_ch_ksyn_hd)
         and not isesc[len(substr) - len(substrls)]
     ):
-        esyn.hidden = True
-        substr = substr.lstrip()[len(_ch_esyn_hd):]
+        ksyn.hidden = True
+        substr = substr.lstrip()[len(_ch_ksyn_hd):]
 
-    if substr or not esyn.segs:
-        esyn.segs.append(_SDText(esyn, obpos, substr))
+    if substr or not ksyn.segs:
+        ksyn.segs.append(_SDText(ksyn, obpos, substr))
 
     if sep == _ch_props:
-        deriv = esyn.parent
+        deriv = ksyn.parent
         env = _SDEnv(deriv, bpos)
         deriv.envs.append(env)
         prop = _SDProp(env, bpos)
         env.props.append(prop)
         return _ctx_pkey, prop, False, pos, bpos
     elif sep == _ch_prop_sep:
-        deriv = esyn.parent
-        esyn = _SDSyn(deriv, bpos)
-        deriv.syns.append(esyn)
-        return _ctx_esyn, esyn, False, pos, bpos
+        deriv = ksyn.parent
+        ksyn = _SDSyn(deriv, bpos)
+        deriv.syns.append(ksyn)
+        return _ctx_ksyn, ksyn, False, pos, bpos
     elif sep == _ch_tag:
-        tag = _SDTag(esyn, bpos)
-        esyn.segs.append(tag)
+        tag = _SDTag(ksyn, bpos)
+        ksyn.segs.append(tag)
         return _ctx_tag, tag, True, pos, bpos
     else:
         raise SynderError(
             _p("error message",
                "Unexpected end of derivation head started at %(lin)d:%(col)d.")
             % dict(lin=obpos[0], col=obpos[1]),
-            1010, esyn.parent.parent.name, bpos)
+            1010, ksyn.parent.parent.name, bpos)
 
 
 def _ctx_handler_env (env, instr, pos, bpos):
@@ -1137,7 +1137,7 @@ def _ctx_handler_inc (source, instr, pos, bpos):
 
 (
     _ctx_void,
-    _ctx_esyn,
+    _ctx_ksyn,
     _ctx_env,
     _ctx_pkey,
     _ctx_pval,
@@ -1148,7 +1148,7 @@ def _ctx_handler_inc (source, instr, pos, bpos):
 
 _ctx_handlers = (
     _ctx_handler_void,
-    _ctx_handler_esyn,
+    _ctx_handler_ksyn,
     _ctx_handler_env,
     _ctx_handler_pkey,
     _ctx_handler_pval,
@@ -1420,19 +1420,164 @@ class Synder (object):
 
     def __init__ (self,
                   env="",
-                  pkeysep="-",
+                  ckeysep="-",
+                  strictkey=False,
                   dkeytf=None, dkeyitf=None,
                   pkeytf=None, pkeyitf=None,
                   pvaltf=None,
-                  esyntf=None,
-                  strictkey=False):
+                  ksyntf=None):
         """
-        FIXME: Write doc.
+        Constructor of syntagma derivators.
+
+        Derivator objects can import sources of derivations
+        (files or strings) and be queried for properties by
+        derivation and property key.
+        They can also be used as ordinary dictionaries, where
+        derivation and property key are serialized into a compound key.
+
+        Basic usage is rather simple. If there are derivation files
+        C{planets.sd} and {moons.sd}, they can be used like this::
+
+            >>> sd = Synder()
+            >>> sd.import_file("planets.sd")
+            >>> sd.import_file("moons.sd")
+            >>>
+            >>> # Lookup of properties by derivation and property key.
+            >>> sd.get2("Venus", "nom")
+            Venera
+            >>> sd.get2("Callisto", "nom")
+            Kalisto
+            >>> sd.get2("Foobar", "nom")
+            None
+            >>> # Lookup of properties by compound key.
+            >>> sd["Venus-nom"]
+            Venera
+            >>>
+            >>> # Iteration through properties by derivation keys.
+            >>> for dkey in sd.dkeys(): print sd.get2(dkey, "nom")
+            ...
+            Venera
+            Kalisto
+            Merkur
+            Jupiter
+            …
+            >>> # Iteration through properties by compound keys.
+            >>> for ckey in sd: print sd[ckey]
+            ...
+            Venera
+            Veneri
+            Venerom
+            …
+            Merkuru
+            Merkur
+            Merkura
+            …
+            >>> # Querying for key syntagmas.
+            >>> sd.syns("Venus")
+            ['Venus']
+            >>> sd.syns("Iapetus")
+            ['Iapetus', 'Japetus']
+            >>> sd.syns("Japetus")
+            ['Iapetus', 'Japetus']
+            >>>
+            >>> # Querying for property keys.
+            >>> sd.pkeys("Venus")
+            ['gen', 'acc', 'nom', 'dat', 'gender']
+
+        Syntax errors in derivations sources will raise L{SynderError}
+        exceptions on import.
+        Unresolvable conflicts in derivation keys will be reported
+        as warning on import, and conflicted derivations will not be imported.
+        Errors in expansions are not reported on import, but when
+        the problematic derivation is queried; warnings are output,
+        and C{None} (or default value) is returned for all properties.
+
+        The default resolution of derivation key conflicts,
+        as described in module documentation, can be changed
+        to strict resolution through C{strictkey} parameter.
+        If C{strictkey} is C{True}, all key syntagmas must be unique.
+
+        Parameter C{env} is used to specify the environment from which
+        the derivations are taken. In case no non-default environments
+        have been used in derivations, C{env} is simply empty string.
+        Otherwise, it can be:
+          - a string specifying a non-default environment
+          - a tuple specifying an environment fallback chain
+          - a tuple of tuples, specifying more than one environment chain
+
+        If several environment fallback chains are given, when a property
+        is requrested they are tried in the order of specification,
+        and the first yielded property is returned.
+        It is also possible to combine properties from different
+        environment chains in a custom way, by supplying a property
+        value transformation function (C{pvaltf} parameter).
+
+        Compound keys, for single-key lookups, are built by joining
+        the derivation and property keys with a separator.
+        This separator can be chosen through C{ckeysep} parameter.
+
+        A myriad of I{transformation functions} can be applied by
+        derivator object to imported derivations, through C{*tf} parameters.
+        They are as follows (stating only default inputs, see below
+        for more possibilities):
+          - C{dkeytf}: applied to derivation key supplied on lookups
+                (e.g. in L{get} or L{get2} methods). Takes the derivation
+                key as parameter, returns either the derivation key
+                or a tuple of the derivation key and another object.
+          - C{dkeyitf}: applied to all derivation keys on import.
+                Same default input-output as C{dkey}.
+          - C{pkeytf}: like C{dkeytf}, only working analogously on
+                property key instead of derivation key.
+          - C{pkeyitf}: like C{dkeyitf}, only working analogously on
+                property key instead of derivation key.
+          - C{pvaltf}: applied to tagged segments of property values.
+                The input to this function is a list of lists
+                by each environment fallback chain;
+                list for one environemnt chain consists of 2-tuples,
+                each tuple having a list of tags as the first element,
+                and a text segment as the second element.
+                For example, if there is only one environment chain
+                (e.g. C{evn=""} or C{env=("someenv", "")},
+                and the property value is derived to be C{foo ~tag bar}
+                in this environment, then the argument to the function
+                will be C{[[([''], "foo "), (['tag'], " bar")]]}.
+                If an environemnt chain yielded no property value,
+                its element will be C{None} instead of list of 2-tuples.
+                The return value is the final property value string.
+                Note that simplification will not be applied to this
+                value afterwards, so if desired,
+                L{simplify()<pology.misc.normalize.simplify>}
+                should be manually called inside the function.
+          - C{ksyntf}: quite similar to C{pvaltf}, only applied to
+                tagged segments of key syntagmas.
+                The difference is that there are no multiple environments
+                for key syntagmas, so the input value is just one list
+                of tagged text segments (what would be the first element
+                of input list to C{pvaltf}).
+
+        Transformation functions can take more input arguments than
+        those described above, on demand.
+        Default inputs are sent if the transformation function
+        is supplied directly, e.g. C{pvalf=somefunc}, and extra
+        inputs are requested by supplying a tuple where the first
+        element is the transformation function, and the following
+        elements are predefined keywords of available extra inputs,
+        e.g. C{pvalf=(somefunc, "dkey", "pkrest")}.
+        Available extra inputs by transformation function are:
+          - C{dkeytf}: C{"self"} the derivation object.
+          - C{pkeytf}: C{"self"}, C{"dkey"} the derivation key
+                (original or that returned by C{dkeytf}).
+          - C{pvaltf}: C{"self"}, C{"dkey"}, C{"pkey"} the property
+                key (original or that returned by C{pkeytf}),
+                C{"env"} the tuple of environment chains,
+                C{"dkrest"} the second object returned by C{dkeytf},
+                C{"pkrest"} the second object returned by C{pkeytf}.
+          - C{ksyntf}: C{"self"}, C{"dkey"}, C{"dkrest"}.
         """
 
         self._env = self._normenv(env)
 
-        self._pkeysep = pkeysep
+        self._ckeysep = ckeysep
 
         self._dkeytf = self._resolve_tf(dkeytf, ["self"])
         self._dkeyitf = self._resolve_tf(dkeyitf, [])
@@ -1440,7 +1585,7 @@ class Synder (object):
         self._pkeyitf = self._resolve_tf(pkeyitf, [])
         self._pvaltf = self._resolve_tf(pvaltf, ["pkey", "dkey", "env",
                                                  "dkrest", "pkrest", "self"])
-        self._esyntf = self._resolve_tf(esyntf, ["dkey", "dkrest", "self"])
+        self._ksyntf = self._resolve_tf(ksyntf, ["dkey", "dkrest", "self"])
 
         self._strictkey = strictkey
 
@@ -1924,7 +2069,7 @@ class Synder (object):
         """
 
         # Split the serialized key into derivation and property keys.
-        lst = key.split(self._pkeysep, 1)
+        lst = key.split(self._ckeysep, 1)
         if len(lst) < 2:
             return defval
         dkey, pkey = lst
@@ -1956,8 +2101,8 @@ class Synder (object):
         for syn in deriv.base.syns:
             if not syn.hidden:
                 tsegs = self._simple_segs(syn.segs)
-                if self._esyntf:
-                    rsyn = self._esyntf(tsegs, dkey, dkrest, self)
+                if self._ksyntf:
+                    rsyn = self._ksyntf(tsegs, dkey, dkrest, self)
                 else:
                     rsyn = simplify("".join([x[0] for x in tsegs]))
                 if rsyn is not None:
@@ -2122,7 +2267,7 @@ class Synder (object):
                 gdat[1] = self.pkeys(gdat[0])
             dkey = gdat[0]
             pkey = gdat[1].pop()
-            return keyf(dkey + self._pkeysep + pkey)
+            return keyf(dkey + self._ckeysep + pkey)
 
         return next
 

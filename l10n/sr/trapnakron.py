@@ -199,14 +199,14 @@ def trapnakron (env=(u"",),
     dkeytf = _sd_dkey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
     pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
-    esyntf = _sd_esyn_transf(markup, False, disamb)
+    ksyntf = _sd_ksyn_transf(markup, False, disamb)
 
     # Build the derivator.
     sd = Synder(env=[x for x in envs if x],
-                pkeysep="-",
+                ckeysep="-",
                 dkeytf=dkeytf, dkeyitf=identify,
                 pkeytf=pkeytf, pkeyitf=cyr2lat_stripped,
-                pvaltf=pvaltf, esyntf=esyntf,
+                pvaltf=pvaltf, ksyntf=ksyntf,
                 strictkey=False)
 
     # Collect synder files composing the trapnakron.
@@ -425,16 +425,16 @@ def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
 # Transformation for derivation syntagmas.
 # Like for property value transformation,
 # except for alternatives/hybridization.
-def _sd_esyn_transf (markup, nobrhyp, disamb):
+def _sd_ksyn_transf (markup, nobrhyp, disamb):
 
     def transf (tsegs, dkrest, sd):
 
         fcap, tag, ltmarkup, pltext = dkrest
 
-        esyn = _compose_text(tsegs, markup, nobrhyp, disamb,
+        ksyn = _compose_text(tsegs, markup, nobrhyp, disamb,
                              fcap, tag, ltmarkup, pltext)
 
-        return esyn
+        return ksyn
 
     return transf, "dkrest", "self"
 
