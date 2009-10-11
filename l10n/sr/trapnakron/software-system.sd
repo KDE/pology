@@ -1,6 +1,6 @@
 >base/aff.sd
 >places-internet.sd
->software-communication.sd
+>software-comm.sd
 >ztmp-acronyms.sd
 >ztmp-apps.sd
 >ztmp-languages.sd
@@ -150,6 +150,7 @@ Lynx: Линкс|, Линкс|ов
     @л: Lynx|, Lynx|ov
 Mozilla: Мозил|а, Мозил|ин
     @л: Mozill|a, Mozill|in
+Mozilla Firefox: |Mozilla |Firefox
 Navigator: Навигатор|, Навигатор|ов
 Netscape: Нетскејп|, Нетскејп|ов
     @л: Netscape|, Netscape|ov
@@ -483,6 +484,7 @@ Krell: Крел|, Крел|ов
 KRDC: КРДЦ|-, КРДЦ|-ов
 KRFB: КРФБ|-, КРФБ|-ов
 KRootImage: К-корен|{а>}-сли|ка
+KRuler: К-лењир|, К-лењир|ов
 KSayIt: К-изговор|, К-изговор|ов
 KScan: К-скен|, К-скен|ов
     @л: KScan|, KScan|ov
@@ -562,6 +564,8 @@ Sweeper: Чист|ач, Чистач|ев
 Synaptic: Синаптик|, Синаптик|ов
     @л: Synaptic|, Synaptic|ov
 System Settings: Системск|е-> поставк|е-и
+TightVNC: ТајтВНЦ|-, ТајтВНЦ|-ов
+    @л: TightVNC|-, TightVNC|-ov
 udev: удев|, удев|ов, удев|>
 Vmstat: Вмстат|, Вмстат|ов
 Wicd: Вицд|, Вицд|ов
@@ -613,9 +617,12 @@ ZModem: З-модем|, З-модем|ов
 # ----------------------------------------------------------------------------
 # Мотори
 
+Akode: Акод|, Акод|ов
+    @л: Akode|, Akode|ov
 Akonadi: Аконад|и, Аконад|ијев
 Alib: Алиб|, Алиб|ов, алиб|>
 Alsa: Алс|а, Алс|ин, алса|>
+Arts: Артс|, Артс|ов
 Avahi: Авах|и, Авах|ијев, авахи|>
 Blackdown: Блекдаун|, Блекдаун|ов
     @л: Blackdown|, Blackdown|ov
@@ -630,8 +637,14 @@ Curses: Курсес|, Курсес|ов, курсес|
     @л: Curses|, Curses|ov, curses|>
 DCOP: ДКОП|-, ДКОП|-ов, ДКОП|>
     @л: DCOP|-, DCOP|-ov, DCOP|>
+DirectShow: Директшоу|, Директшоу|ов
+    @л: DirectShow|, DirectShow|ov
+DirectShow9: |{DirectShow}-9
 Edje: Едје|, Едје|ов, едје|>
 Epos: Епос|, Епос|ов
+ESD: ЕСД|-, ЕСД|-ов
+Esound: Есаунд|, Есаунд|ов
+    @л: Esound|, Esound|ov
 Festival: Фестивал|, Фестивал|ов
 Festival Interactive: |*|Festival интерактивн|и>
 Festival Lite: |*|Festival лајт
@@ -649,6 +662,8 @@ Growl: Граул|, Граул|ов, граул|>
     @л: Growl|, Growl|ov, Growl|>
 GSMLib: ГСМ-либ|, ГСМ-либ|ов
     @л: GSMLib|, GSMLib|ov
+GStreamer: Гстример|, Гстример|ов
+    @л: GStreamer|, GStreamer|ov
 GTK, |gtk_: ГТК|-, ГТК|-ов, ГТК|>
 GTK+, |gtkp: ГТК+|-, ГТК+|-ов, ГТК+|>
 Hadifix: Хадификс|, Хадификс|ов
@@ -658,6 +673,8 @@ HTS: ХТС|--, ХТС|-ов, ХТС|>
 IOslave: У/И захват|, У/И захват|+, У/И захват|ни
 Iris: Ајрис|, Ајрис|ов
     @л: Iris|, Iris|ov
+Jack: Џек|, Џек|ов
+    @л: Jack|, Jack|ov
 JasPer: Џаспер|, Џаспер|ов
     @л: JasPer|, JasPer|ov
 KConf: К-конф|, К-конф|ов
@@ -712,6 +729,7 @@ LIRC: ЛИРЦ|-, ЛИРЦ|-ов, ЛИРЦ|>
 Lisa: Лиз|а, Лиз|ин
     @л: Lis|a, Lis|in
 MBROLA: МБРОЛ|А
+MAS: МАС|-, МАС|-ов
 Mesa: Мес|а, Мес|ин
 Mesa3D: |*|{Mesa}3Д
 Motif: Мотиф|, Мотиф|ов, мотиф|>
@@ -729,6 +747,7 @@ NepomukFileWatch: |Nepomuk~.мп надзор| фајлова
 .NET, |dotnet: Дот-нет|, Дот-нет|ов, дот-нет|>
     @л: .NET|, .NET|-ov, .NET|>
 NetworkManager: Менаџер| мреже
+NMM: НММ|-, НММ|-ов
 OpenSSL: ОпенССЛ|-, ОпенССЛ|-ов
 OSS: ОСС|-, ОСС|-ов, ОСС|>
 Phonon: Фонон|, Фонон|ов
@@ -744,6 +763,8 @@ Poppler: Поплер|, Поплер|ов
     @л: Poppler|, Poppler|ov
 PostgreSQL: ПостгреСКуЛ|-, ПостгреСКуЛ|-ов, постгреСКуЛ|>
     @л: PostgreSQL|-, PostgreSQL|-ov, PostgreSQL|>
+PulseAudio: Пулс-ауд|ио, Пулс-ауд|ијев
+    @л: PulseAud|io, PulseAud|ijev
 PyKDE: Пи|{KDE}
     @л: Py|KDE
 PyKDE4: Пи|{KDE4}
@@ -811,6 +832,8 @@ XFree86: Икс-фри86|*, _род!=м
     @л: XFree86|*
 Xft: Иксфт|, Иксфт|ов, иксфт|>
     @л: Xft|, Xft|ov, Xft|>
+Xine: Ксине|, Ксине|ов
+    @л: Xine|, Xine|ov
 Xinerama: Ксинерам|а, Ксинерам|ин
     @л: Xineram|a, Xineram|in
 XKB: ИксКБ|-, ИксКБ|-ов
@@ -831,6 +854,8 @@ Xvfb: Икс-вфб|, Икс-вфб|ов
     @л: Xvfb|, Xvfb|-ov
 X Window: Икс-прозор|и-
     @л: X-prozor|i-
+ZLib: Злиб|, Злиб|ов, злиб|>
+    @л: ZLib|, ZLib|ov
 
 # ----------------------------------------------------------------------------
 # Сервери
@@ -875,3 +900,8 @@ Kspell: Кспел|, Кспел|ов
     @л: Kspell|, Kspell|ov
 Zemberek: Земберек|, Земберек|ов
 
+# ----------------------------------------------------------------------------
+# Претварачи
+
+XsLite: Ексес-лајт|, Ексес-лајт|ов
+    @л: XsLite|, XsLite|ov

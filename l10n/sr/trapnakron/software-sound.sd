@@ -1,0 +1,52 @@
+>base/aff.sd
+
+# ПЛАН: Поделити у категорије, ко се разуме.
+
+# ----------------------------------------------------------------------------
+# Аудио обрада
+
+ams: Амс|, Амс|ов
+    @л: ams|, ams|ov
+amSynth: Амсинт|, Амсинт|ов
+    @л: amSynth|, amSynth|ov
+Audacious: Одејшус|, Одејшус|ов
+    @л: Audacious|, Audacious|ov
+Ardour: Ардур|, Ардур|ов
+    @л: Ardour|, Ardour|ov
+EcaMegaPedal: Екамегапедал|, Екамегапедал|ов
+    @л: EcaMegaPedal|, EcaMegaPedal|ov
+Ecasound: Екасаунд|, Екасаунд|ов
+    @л: Ecasound|, Ecasound|ov
+FluidSynth: Флуидсинт|, Флуидсинт|ов
+    @л: FluidSynth|, FluidSynth|ov
+FreeBirth: Фриберт|, Фриберт|ов
+    @л: FreeBirth|, FreeBirth|ov
+FreqTweak: Фректвик|, Фректвик|ов
+    @л: FreqTweak|, FreqTweak|ov
+gAlan: Г-алан|, Г-алан|ов
+    @л: gAlan|, gAlan|ov
+Hydrogen: Хидроген|, Хидроген|ов
+    @л: Hydrogen|, Hydrogen|ov
+Jack-Rack: Џек-рек|, Џек-рек|ов
+    @л: Jack-Rack|, Jack-Rack|ov
+Jamin: Џемин|, Џемин|ов
+    @л: Jamin|, Jamin|ov
+Jazz: Џез|, Џез|ов
+    @л: Jazz|, Jazz|ov
+Meterbridge: Метербриџ|, Метербриџ|ов
+    @л: Meterbridge|, Meterbridge|ov
+MusE: Мјуз|, Мјуз|ов
+    @л: MusE|, MusE|ov
+QJackCtl: КуЏекЦтл|
+    @л: QJackCtl|
+QSynth: КуСинт|, КуСинт|ов
+    @л: QSynth|, QSynth|ov
+Slab: Слаб|, Слаб|ов
+Softsynth: Софтсинт|, Софтсинт|ов
+    @л: Softsynth|, Softsynth|ov
+Sweep: Свип|, Свип|ов
+    @л: Sweep|, Sweep|ov
+vkeybd: Вкибд|, Вкибд|ов
+    @л: vkeybd|, vkeybd|ov
+ZynaddsubFX: Зинадсуб-ФИкс|, Зинадсуб-ФИкс|ов
+    @л: ZynaddsubFX|-, ZynaddsubFX|-ov

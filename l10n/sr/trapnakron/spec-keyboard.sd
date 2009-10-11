@@ -1,0 +1,89 @@
+>base/aff.sd
+
+# ----------------------------------------------------------------------------
+# Општи тастери
+
+Alt: Alt|--
+    @л: Alt|
+AltGr: AltGr|--
+    @л: AltGr|
+Esc: Esc|--
+    @л: Esc|
+Escape: Escape|--
+    @л: Escape|
+Backspace: Backspace|--
+    @л: Backspace|
+Backtab: Backtab|--
+    @л: Backtab|
+CapsLock: CapsLock|--
+    @л: CapsLock|
+Control: Control|--
+    @л: Control|
+Ctrl: Ctrl|--
+    @л: Ctrl|
+Del, Delete: Delete|--
+    @л: Delete|
+Down: доле|*, _род!=м
+    @л: Dole|*
+Fk: F|*, _род!=м # слово у функцијском тастеру
+F1: |{Fk}1
+F2: |{Fk}2
+F3: |{Fk}3
+F4: |{Fk}4
+F5: |{Fk}5
+F6: |{Fk}6
+F7: |{Fk}7
+F8: |{Fk}8
+F9: |{Fk}9
+F10: |{Fk}10
+F11: |{Fk}11
+F12: |{Fk}12
+End: End|--
+    @л: End|
+Enter: Enter|--
+    @л: Enter|
+Home, |homekey: Home|--
+    @л: Home|
+Hyper: Hyper|--
+    @л: Hyper|
+Ins, Insert: Insert|--
+    @л: Insert|
+Left: лево|*, _род!=м
+    @л: Levo|*
+Menu: Menu|--
+    @л: Menu|
+Meta: Meta|*, _род!=м
+NumLock: NumLock|--
+    @л: NumLock|
+PgDown, PageDown: PageDown|*, _род!=м
+PgUp, PageUp: PageUp|*, _род!=м
+PauseBreak: PauseBreak|--
+    @л: PauseBreak|
+PrtScr, PrintScreen: PrintScreen|--
+    @л: PrintScreen|
+Return: Return|--
+    @л: Return|
+Right: десно|*, _род!=м
+    @л: Desno|*
+ScrollLock: ScrollLock|--
+    @л: ScrollLock|
+Shift: Shift|--
+    @л: Shift|
+Space: Space|--
+    @л: Space|
+Super: Super|--
+    @л: Super|
+SysReq: SysReq|--
+    @л: SysReq|
+Tab: Tab|--
+    @л: Tab|
+Up: горе|*, _род!=м
+    @л: Gore|*
+Win: Win|--
+    @л: Win|
+
+# ----------------------------------------------------------------------------
+# Наменски тастери
+
+XFer: XFer|--
+    @л: XFer|

@@ -1,0 +1,30 @@
+>base/aff.sd
+
+# ----------------------------------------------------------------------------
+# Систем
+
+CONT, |s_cont: КОНТ|-
+    @л: CONT|-
+HUP, |s_hup: ХУП|-
+INT, |s_int: ИНТ|-
+KILL, |s_kill: КИЛ|-
+    @л: KILL|-
+STOP, |s_stop: СТОП|-
+TERM, |s_term: ТЕРМ|-
+USR1, |s_usr1: УСР1|*, _род!=м
+USR2, |s_usr2: УСР2|*, _род!=м
+
+SIGABRT: СИГАБРТ|-
+SIGCONT: СИГКОНТ|-
+    @л: SIGCONT|-
+SIGFPE: СИГФПЕ|-
+SIGHUP: СИГХУП|-
+SIGILL: СИГИЛЛ|-
+SIGINT: СИГИНТ|-
+SIGKILL: СИГКИЛ|-
+    @л: SIGKILL|-
+SIGSEGV: СИГСЕГВ|-
+SIGSTOP: СИГСТОП|-
+SIGTERM: СИГТЕРМ|-
+SIGUSR1: СИГУСР1|*, _род!=м
+SIGUSR2: СИГУСР2|*, _род!=м

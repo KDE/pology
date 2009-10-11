@@ -1,0 +1,118 @@
+>base/aff.sd
+>software-system.sd
+
+# ----------------------------------------------------------------------------
+# Окружења
+
+KOffice: К-офис|, К-офис|ов
+    @л: KOffice|, KOffice|ov
+MS Office: МС Офис|, МС Офис|ов
+    @л: MS Office|, MS Office|ov
+OpenOffice: Опенофис|, Опенофис|ов
+    @л: OpenOffice|, OpenOffice|ov
+OpenOffice.org: |*|{OpenOffice}.орг
+
+# ----------------------------------------------------------------------------
+# Обрађивачи текста
+
+Abiword: Абиворд|, Абиворд|ов
+    @л: Abiword|, Abiword|ov
+OpenOffice Writer, OpenOffice.org Writer: |OpenOffice~.мп |Writer
+Writer: Пис|ац, Пишч|ев
+    @л: Pisac|
+LyX: Ликс|, Ликс|ов
+    @л: LyX|, LyX|ov
+Kile: Кајл|, Кајл|ов
+    @л: Kile|, Kile|ov
+KWord: К-ворд|, К-ворд|ов
+    @л: KWord|, KWord|ov
+Scribus: Скрибус|, Скрибус|ов
+    @л: Scribus|, Scribus|ov
+Troff: Троф|, Троф|ов
+    @л: Troff|, Troff|ov
+Word: Ворд|, Ворд|ов
+    @л: Word|, Word|ov
+WordPerfect: Вордперфект|, Вордперфект|ов
+    @л: WordPerfect|, WordPerfect|ov
+WordPerfect 2000: |*|WordPerfect 2000
+
+# ----------------------------------------------------------------------------
+# Табличари
+
+Calc: Рачун|, Рачун|ов
+Excel: Ексел|, Ексел|ов
+    @л: Excel|, Excel|ov
+Gnumeric: Гнумерик|, Гнумерик|ов
+    @л: Gnumeric|, Gnumeric|ov
+KSpread: К-спред|, К-спред|ов
+    @л: KSpread|, KSpread|ov
+OpenOffice Calc, OpenOffice.org Calc: |OpenOffice~.мп |Calc
+
+# ----------------------------------------------------------------------------
+# Презентатори
+
+Impress: Презентациј|а, Презентациј|ин
+KPresenter: К-презентер|, К-презентер|ов
+    @л: KPresenter|, KPresenter|ov
+OpenOffice Impress, OpenOffice.org Impress: |OpenOffice~.жп |Impress
+PowerPoint: Пауерпоинт|, Пауерпоинт|ов
+    @л: PowerPoint|, PowerPoint|ov
+
+# ----------------------------------------------------------------------------
+# Базе
+
+Access, |accessapp: Аксес|, Аксес|ов
+    @л: Access|, Access|ov
+Applix: Апликс|, Апликс|ов
+    @л: Applix|, Applix|ov
+Kexi: Кекс|и, Кекс|ијев
+    @л: Kex|i, Kex|ijev
+Pybliographic: Пиблиографик|, Пиблиографик|ов
+    @л: Pybliographic|, Pybliographic|ov
+
+# ----------------------------------------------------------------------------
+# Финансије
+
+GnuCash: Гну-кеш|, Гну-кеш|ов
+    @л: GnuCash|, GnuCash|ov
+xacc: Икс-ац|, Икс-ац|ов
+    @л: xacc|, xacc|ov
+
+# ----------------------------------------------------------------------------
+# Организатори, планери, адресари
+
+Gnome-Cal: |{Gnome~н}-кал|, |{Gnome~н}-кал|ов
+    @л: |{Gnome~н}-Cal|, |{Gnome~н}-Cal|ov
+Gnome-Card: |{Gnome~н}-кард|, |{Gnome~н}-кард|ов
+    @л: |{Gnome~н}-Card|, |{Gnome~н}-Card|ov
+Gnome Time Tracker: |Gnome~.мп прати|лац времена
+iCal: Икал|, Икал|ов
+    @л: Ical|, Ical|ov
+KAddressBook: К-адрес|ар, К-адресар|ов
+KDE PIM: КДЕ-ПИМ|-, КДЕ-ПИМ|-ов
+KFormula: К-формул|а, К-формул|ин
+    @л: KFormul|a, KFormul|in
+KNotes: К-беле|шке-
+Kontact: Контакт|, Контакт|ов
+    @л: Kontact|, Kontact|ov
+KOrganizer: К-организатор|, К-организатор|ов
+KPilot: К-пилот|, К-пилот|ов
+    @л: KPilot|, KPilot|ov
+KPlato: К-плато|, К-плато|ов
+    @л: KPlato|, KPlato|ov
+Kroupware: Крупвер|, Крупвер|ов
+    @л: Kroupware|, Kroupware|ov
+Netscape Addressbook: |Netscape~.мп адрес|ар
+MrProject: Мр-пројект|, Мр-пројект|ов
+    @л: MrProject|, MrProject|ov
+Plan: План|, План|ов
+
+# ----------------------------------------------------------------------------
+# Формуле, дијаграми, извештаји
+
+Guppi: Гап|и, Гап|ијев
+    @л: Gupp|i, Gupp|ijev
+KChart: К-графикон|, К-графикон|ов
+Kivio: Кив|ио, Киви|ов
+Kugar: Кугар|, Кугар|ов
+
