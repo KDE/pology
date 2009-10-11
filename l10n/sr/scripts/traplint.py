@@ -16,11 +16,17 @@ from pology.misc.resolve import resolve_alternatives_simple as resalts
 
 def validate (tp, onlysrcs=None, onlykeys=None):
 
+    needed_pkeys = set()
+
     nom_pkeys = (
         normkey_tp([u"н"]),
         normkey_tp([u"нм", u"нж", u"нс", u"ну"]),
     )
+    needed_pkeys.update(sum(nom_pkeys, []))
+
     gender_pkey = normkey_tp(u"_род")
+    needed_pkeys.add(gender_pkey)
+
     known_genders = set((u"м", u"ж", u"с", u"у"))
     known_genders.update(map(c2l, known_genders))
 
@@ -57,9 +63,10 @@ def validate (tp, onlysrcs=None, onlykeys=None):
             continue
 
         try:
-            props = tp.props(dkey)
+            props = dict([(x, tp.get2(dkey, x)) for x in needed_pkeys])
         except Exception, e:
             warning(unicode(e))
+            nproblems += 1
             continue
 
         # Assure all nominative forms are unique.
