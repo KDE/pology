@@ -59,7 +59,68 @@ object --+
 </pre>
 
 <hr />
-<p>FIXME: Write doc.</p>
+<p>Derivator objects import sources of derivations and get queried for 
+  properties of syntagmas.</p>
+  <p>Lookup can be done by derivation key and property key, but also by 
+  single compound key (serialization of the previous two), to have 
+  interface and behavior similar to built-in dictionaries.</p>
+  <p>Basic usage is rather simple. If there are derivation files 
+  <code>planets.sd</code> and {moons.sd}, they can be used like this:</p>
+<pre class="literalblock">
+   &gt;&gt;&gt; sd = Synder()
+   &gt;&gt;&gt; sd.import_file(&quot;planets.sd&quot;)
+   &gt;&gt;&gt; sd.import_file(&quot;moons.sd&quot;)
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Lookup of properties by derivation and property key.
+   &gt;&gt;&gt; sd.get2(&quot;Venus&quot;, &quot;nom&quot;)
+   Venera
+   &gt;&gt;&gt; sd.get2(&quot;Callisto&quot;, &quot;nom&quot;)
+   Kalisto
+   &gt;&gt;&gt; sd.get2(&quot;Foobar&quot;, &quot;nom&quot;)
+   None
+   &gt;&gt;&gt; # Lookup of properties by compound key.
+   &gt;&gt;&gt; sd[&quot;Venus-nom&quot;]
+   Venera
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Iteration through properties by derivation keys.
+   &gt;&gt;&gt; for dkey in sd.dkeys(): print sd.get2(dkey, &quot;nom&quot;)
+   ...
+   Venera
+   Kalisto
+   Merkur
+   Jupiter
+   &#8230;
+   &gt;&gt;&gt; # Iteration through properties by compound keys.
+   &gt;&gt;&gt; for ckey in sd: print sd[ckey]
+   ...
+   Venera
+   Veneri
+   Venerom
+   &#8230;
+   Merkuru
+   Merkur
+   Merkura
+   &#8230;
+   &gt;&gt;&gt; # Querying for key syntagmas.
+   &gt;&gt;&gt; sd.syns(&quot;Venus&quot;)
+   ['Venus']
+   &gt;&gt;&gt; sd.syns(&quot;Iapetus&quot;)
+   ['Iapetus', 'Japetus']
+   &gt;&gt;&gt; sd.syns(&quot;Japetus&quot;)
+   ['Iapetus', 'Japetus']
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Querying for property keys.
+   &gt;&gt;&gt; sd.pkeys(&quot;Venus&quot;)
+   ['gen', 'acc', 'nom', 'dat', 'gender']
+</pre>
+  <p>Syntax errors in derivations sources will raise <a 
+  href="pology.misc.synder.SynderError-class.html" 
+  class="link">SynderError</a> exceptions on import. Unresolvable conflicts
+  in derivation keys will be reported as warning on import, and conflicted 
+  derivations will not be imported. Errors in expansions are not reported 
+  on import, but when the problematic derivation is queried; warnings are 
+  output, and <code>None</code> (or default value) is returned for all 
+  properties.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -503,67 +564,6 @@ object --+
   </tr></table>
   
   <p>Constructor of syntagma derivators.</p>
-  <p>Derivator objects can import sources of derivations (files or strings)
-  and be queried for properties by derivation and property key. They can 
-  also be used as ordinary dictionaries, where derivation and property key 
-  are serialized into a compound key.</p>
-  <p>Basic usage is rather simple. If there are derivation files 
-  <code>planets.sd</code> and {moons.sd}, they can be used like this:</p>
-<pre class="literalblock">
-   &gt;&gt;&gt; sd = Synder()
-   &gt;&gt;&gt; sd.import_file(&quot;planets.sd&quot;)
-   &gt;&gt;&gt; sd.import_file(&quot;moons.sd&quot;)
-   &gt;&gt;&gt;
-   &gt;&gt;&gt; # Lookup of properties by derivation and property key.
-   &gt;&gt;&gt; sd.get2(&quot;Venus&quot;, &quot;nom&quot;)
-   Venera
-   &gt;&gt;&gt; sd.get2(&quot;Callisto&quot;, &quot;nom&quot;)
-   Kalisto
-   &gt;&gt;&gt; sd.get2(&quot;Foobar&quot;, &quot;nom&quot;)
-   None
-   &gt;&gt;&gt; # Lookup of properties by compound key.
-   &gt;&gt;&gt; sd[&quot;Venus-nom&quot;]
-   Venera
-   &gt;&gt;&gt;
-   &gt;&gt;&gt; # Iteration through properties by derivation keys.
-   &gt;&gt;&gt; for dkey in sd.dkeys(): print sd.get2(dkey, &quot;nom&quot;)
-   ...
-   Venera
-   Kalisto
-   Merkur
-   Jupiter
-   &#8230;
-   &gt;&gt;&gt; # Iteration through properties by compound keys.
-   &gt;&gt;&gt; for ckey in sd: print sd[ckey]
-   ...
-   Venera
-   Veneri
-   Venerom
-   &#8230;
-   Merkuru
-   Merkur
-   Merkura
-   &#8230;
-   &gt;&gt;&gt; # Querying for key syntagmas.
-   &gt;&gt;&gt; sd.syns(&quot;Venus&quot;)
-   ['Venus']
-   &gt;&gt;&gt; sd.syns(&quot;Iapetus&quot;)
-   ['Iapetus', 'Japetus']
-   &gt;&gt;&gt; sd.syns(&quot;Japetus&quot;)
-   ['Iapetus', 'Japetus']
-   &gt;&gt;&gt;
-   &gt;&gt;&gt; # Querying for property keys.
-   &gt;&gt;&gt; sd.pkeys(&quot;Venus&quot;)
-   ['gen', 'acc', 'nom', 'dat', 'gender']
-</pre>
-  <p>Syntax errors in derivations sources will raise <a 
-  href="pology.misc.synder.SynderError-class.html" 
-  class="link">SynderError</a> exceptions on import. Unresolvable conflicts
-  in derivation keys will be reported as warning on import, and conflicted 
-  derivations will not be imported. Errors in expansions are not reported 
-  on import, but when the problematic derivation is queried; warnings are 
-  output, and <code>None</code> (or default value) is returned for all 
-  properties.</p>
   <p>The default resolution of derivation key conflicts, as described in 
   module documentation, can be changed to strict resolution through 
   <code>strictkey</code> parameter. If <code>strictkey</code> is 
