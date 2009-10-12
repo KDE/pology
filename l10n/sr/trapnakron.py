@@ -12,6 +12,7 @@ import re
 
 from pology.misc.synder import Synder
 from pology.misc.normalize import identify, xentitize, simplify
+from pology.misc.resolve import resolve_alternatives_simple as resalts
 from pology.l10n.sr.hook.cyr2lat import cyr2lat, cyr2lat_stripped
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
@@ -58,8 +59,29 @@ _nokey_tag = "x"
 _disamb_marker = u"¤"
 
 # Enumeration of known derivation key suffixes, for modifying derived values.
-_suff_pltext = 10
-_suff_ltmarkup = 20
+_suff_pltext = "_ot" # for "obican tekst"
+_suff_pltext_id = 10
+_suff_ltmarkup = "_lv" # for "laksa varijanta"
+_suff_ltmarkup_id = 20
+_suff_gematch_m = "_rm" # for "rod muski"
+_suff_gematch_m_id = 30
+_suff_gematch_z = "_rz" # for "rod zenski"
+_suff_gematch_z_id = 31
+_suff_gematch_s = "_rs" # for "rod srednji"
+_suff_gematch_s_id = 32
+_suff_gematch_u = "_ru" # for "rod muski zivi"
+_suff_gematch_u_id = 33
+_gematch_suffs = [_suff_gematch_m, _suff_gematch_z,
+                  _suff_gematch_s, _suff_gematch_u]
+_gematch_suff_ids = [_suff_gematch_m_id, _suff_gematch_z_id,
+                     _suff_gematch_s_id, _suff_gematch_u_id]
+_gematch_suff_ids_set = set(_gematch_suff_ids)
+_gematch_suffs_genders = [
+    (_suff_gematch_m_id, (u"м", u"m")),
+    (_suff_gematch_z_id, (u"ж", u"ž")),
+    (_suff_gematch_s_id, (u"с", u"s")),
+    (_suff_gematch_u_id, (u"у", u"u")),
+]
 
 
 def trapnakron (env=(u"",),
@@ -67,7 +89,7 @@ def trapnakron (env=(u"",),
                 envij=(u"иј", u""),
                 envijl=(u"ијл", u"л", u"иј", u""),
                 markup="plain", tagmap=None,
-                ptsuff=None, ltsuff=None, npkeyto=None,
+                ptsuff=None, ltsuff=None, gesuff=None, npkeyto=None,
                 nobrhyp=False, disamb="",
                 runtime=False):
     """
@@ -113,6 +135,12 @@ def trapnakron (env=(u"",),
         globally in effect.
         Parameter C{ltsuff} states the suffix which produces lighter version
         of the markup, where applicable (e.g. people names in Docbook).
+        When fetching a property within a sentence (with keys given e.g.
+        as XML entities), sentence construction may require that
+        the resolved value is of certain gender; parameter C{gesuff}
+        can be used to provide a tuple of 4 gender suffixes,
+        such that the property will resolve only if the value of gender
+        matches the gender suffix.
 
       - Ordinary hyphens may be converted into non-breaking hyphens
         by setting the C{nobrhyp} parameter to C{True}.
@@ -128,7 +156,7 @@ def trapnakron (env=(u"",),
         In the more complex version, the value is a tuple containing
         the key to substitute and the list of two or more supplemental
         property keys: empty key is replaced only if all supplemental
-        property values exist and are equal (see e.g. L{trapnakron_ui}
+        property values exist and are equal (see e.g. L{trapnakron_plain}
         for usage of this).
 
       - Some property values may have been manually decorated with
@@ -139,7 +167,7 @@ def trapnakron (env=(u"",),
         can be substituted with a string given by C{disamb} parameter.
 
       - Some derivations are defined only for purposes of obtaining
-        their declinations in scripted translations at runtime.
+        their properties in scripted translations at runtime.
         They are by default not included, but can be by setting
         the C{runtime} parameter to C{True}.
 
@@ -159,8 +187,10 @@ def trapnakron (env=(u"",),
     @type ptsuff: string
     @param ltsuff: derivation key suffix to report properties in lighter markup
     @type ltsuff: string
+    @param gesuff: suffixes by gender, to have no resolution if gender is wrong
+    @type gesuff: [(string, string)*]
     @param npkeyto: property key to substitute for empty key, when given
-    @type npkeyto: string or (string, [strings])
+    @type npkeyto: string or (string, [string*])
     @param nobrhyp: whether to convert some ordinary into non-breaking hyphens
     @type nobrhyp: bool
     @param disamb: string to replace each disambiguation marker with
@@ -187,9 +217,14 @@ def trapnakron (env=(u"",),
     # Setup up requests by derivation key ending.
     mvends = {}
     if ptsuff:
-        mvends[ptsuff] = _suff_pltext
+        mvends[ptsuff] = _suff_pltext_id
     if ltsuff:
-        mvends[ltsuff] = _suff_ltmarkup
+        mvends[ltsuff] = _suff_ltmarkup_id
+    if gesuff:
+        if len(gesuff) != 4:
+            raise StandardError("Sequence of gender suffixes must have "
+                                "exactly 4 elements.")
+        mvends.update(zip(gesuff, _gematch_suff_ids))
 
     expkeys = []
     if isinstance(npkeyto, tuple):
@@ -242,9 +277,12 @@ def trapnakron_plain (env=(u"",),
 
       - Markup is plain text (C{plain}).
 
+      - Suffixes: C{_rm} ("rod muski") for resolving the property value only
+        if it is of masculine gender, C{_rz} for feminine, C{_rs} for neuter.
+
       - Non-breaking hyphens are heuristically replacing ordinary hyphens.
 
-      - Empty declination key is converted into C{am} (accusative masculine
+      - Empty property key is converted into C{am} (accusative masculine
         descriptive adjective), providing that it is equal to C{gm}
         (genitive masculine descriptive adjective);
         i.e. if the descriptive adjective is invariable.
@@ -253,6 +291,7 @@ def trapnakron_plain (env=(u"",),
     return trapnakron(
         env, envl, envij, envijl,
         markup="plain",
+        gesuff=_gematch_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -279,6 +318,7 @@ def trapnakron_ui (env=(u"",),
     return trapnakron(
         env, envl, envij, envijl,
         markup="plain",
+        gesuff=_gematch_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
         disamb=u"\u2060",
@@ -303,17 +343,19 @@ def trapnakron_docbook4 (env=(u"",),
         Lighter markup currently applies to: people names
         (no outer C{<personname>}, e.g. when it should be elideded due to
         particular text segmentation on Docbook->PO extraction).
+        Also the suffixes as for L{trapnakron_plain}.
 
       - Non-breaking hyphens and empty property keys
-        are treated like in L{trapnakron_ui}.
+        are treated like in L{trapnakron_plain}.
     """
 
     return trapnakron(
         env, envl, envij, envijl,
         markup="docbook4",
         tagmap=tagmap,
-        ptsuff="_ot", # for "obican text"
-        ltsuff="_lv", # for "laksa varijanta"
+        ptsuff=_suff_pltext,
+        ltsuff=_suff_ltmarkup,
+        gesuff=_gematch_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -321,40 +363,49 @@ def trapnakron_docbook4 (env=(u"",),
 
 # Transformation for derivation keys:
 # - lowercase first letter if upper-case, and indicate value uppercasing
-# - strip special endings and indicate value modifications based on them
-def _sd_dkey_transf (endings, tagmap):
+# - strip special suffixes and indicate value modifications based on them
+def _sd_dkey_transf (suffspec, tagmap):
 
-    def transf (dkey):
+    def transf (dkey, sd):
 
         # Whether to uppercase the first letter of properties.
         fcap = dkey[0:1].isupper()
         if fcap:
             dkey = dkey[0].lower() + dkey[1:]
 
-        # Collect and strip all known special endings.
-        found_endings = set()
+        # Collect and strip all known special suffixes.
+        found_suff_ids = set()
         while True:
-            plen_endings = len(found_endings)
-            for ending in endings:
-                if dkey.endswith(ending):
-                    dkey = dkey[:-len(ending)]
-                    found_endings.add(ending)
-            if len(found_endings) == plen_endings:
+            plen_suff_ids = len(found_suff_ids)
+            for suff, suff_id in suffspec.items():
+                if dkey.endswith(suff):
+                    dkey = dkey[:-len(suff)]
+                    found_suff_ids.add(suff_id)
+            if len(found_suff_ids) == plen_suff_ids:
                 break
-        found_reqs = set([endings[x] for x in found_endings])
 
         # Tag which wraps the property values of this derivation.
         tag = tagmap.get(dkey) if tagmap else None
 
         # Whether to use plain text instead of markup, where applicable.
-        pltext = _suff_pltext in found_reqs
+        pltext = _suff_pltext_id in found_suff_ids
 
         # Whether to use lighter variant of the markup, where applicable.
-        ltmarkup = _suff_ltmarkup in found_reqs
+        ltmarkup = _suff_ltmarkup_id in found_suff_ids
+
+        # Whether the gender is matching.
+        if _gematch_suff_ids_set.intersection(found_suff_ids):
+            genderstr = sd.get2(dkey, "_rod")
+            genders = split_althyb(genderstr) if genderstr else []
+            if (   not (len(genders) == 1)
+                or not all([(x[0] not in found_suff_ids or genders[0] in x[1])
+                            for x in _gematch_suffs_genders])
+            ):
+                dkey = None
 
         return dkey, fcap, tag, ltmarkup, pltext
 
-    return transf
+    return transf, "self"
 
 
 # Transformation for property keys:
@@ -367,7 +418,7 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
         if pkey:
             return pkey
 
-        # Empty ending allowed if all declinations requested
+        # Empty ending allowed if all properties requested
         # by supplementary keys are both existing and equal.
         # In that case, report the indicated key instead of empty.
         alleq = True
@@ -527,4 +578,24 @@ def _compose_person_name (tsegs, fcap, markup, light):
         name = simplify("".join([seg for seg, tags in tsegs]))
 
     return name
+
+
+def split_althyb (text):
+    """
+    Split text into forms obtained by resolving alternatives and hybridization.
+
+    @param text: text to split
+    @type text: string
+
+    @returns: list of resolved forms
+    @rtype: [string] or [string*2] or [string*4]
+    """
+
+    # TODO: Resolve hybridization.
+
+    if "~@" in text:
+        return (resalts(text, 1, 2), resalts(text, 2, 2))
+    else:
+        return (text,)
+
 
