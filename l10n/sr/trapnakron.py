@@ -3,6 +3,63 @@
 """
 Constructors of syntagma derivators for trapnakron.
 
+Trapnakron -- transcriptions and translation of names and acronyms --
+is a collection of syntagma derivator definitions residing in
+C{pology/l10n/sr/trapnakron/}.
+Its purpose is to support translation efforts in Serbian language,
+where proper nouns and acronyms are frequently transcribed,
+and sometimes translated.
+For translators, it can be a manual reference, or even directly sourced
+in translated material (see below).
+For readers, it is a way to obtain original forms of transcribed and
+translated phrases.
+
+Trapnakron web pages are built based on trapnakron source in Pology.
+This makes links between original and localized forms readily
+available through internet search engines.
+Adding C{trapnakron} or C{трапнакрон} keyword to the search phrase
+causes the relevant trapnakron page to appear within top few hits,
+and the desired other form will be shown already in the excerpt of the hit,
+such that is not even necessary to follow it.
+This frees translators from the burden of providing original forms
+in parenthesis to the first mentioning (or some similar method),
+and frees the text of the clutter caused by this.
+
+While trapnakron definitions may be manually collected and imported into
+a basic L{Synder<pology.misc.synder.Synder>} object, this module provides
+wrappers which free the user of this manual work, as well as appropriate
+transformation functions (C{*tf} parameters to C{Synder} constructor)
+to produce various special behaviors on lookups.
+Trapnakron constructors are defined by type of textual material,
+e.g. for plain text or Docbook documentation.
+Documentation of each constructor states what special lookup behaviors
+will be available through C{Synder} objects created by it.
+
+For a short demonstration, consider this derivation of a person's name::
+
+    钱学森, Qián Xuésēn, Tsien Hsue-shen: Ћен| Сјуесен|
+
+Suppose that a translator wants to source it directly in the text,
+rather than to manually copy the transcription (e.g. to avoid having
+to update the text should the transcription be modified in the future).
+The translator therefore writes, using XML entity syntax::
+
+    ...пројектовању ракета &qianxuesen-g; привукле су идеје...
+
+where C{-g} denotes genitive case.
+This text can be easily processed into the final form (before going out
+to readers), using a script based on these few lines::
+
+    >>> from pology.l10n.sr.trapnakron import trapnakron_plain
+    >>> from pology.misc.resolve import resolve_entities_simple as resents
+    >>> tp = trapnakron_plain()
+    >>>
+    >>> s = u"...пројектовању ракета &qianxuesen-g; привукле су идеје..."
+    >>> print resents(s, tp)
+    ...пројектовању ракета Ћена Сјуесена привукле су идеје...
+    >>>
+
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
