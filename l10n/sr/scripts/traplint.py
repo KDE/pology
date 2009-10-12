@@ -9,9 +9,9 @@ from optparse import OptionParser
 from pology.misc.report import warning
 from pology.misc.fsops import str_to_unicode
 from pology.l10n.sr.trapnakron import trapnakron_ui
-from pology.l10n.sr.hook.cyr2lat import cyr2lat as c2l
-from pology.l10n.sr.hook.cyr2lat import cyr2lat_stripped as c2a
-from pology.misc.resolve import resolve_alternatives_simple as resalts
+from pology.l10n.sr.trapnakron import split_althyb
+from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
+from pology.l10n.sr.hook.cyr2lat import cyr2lat
 
 
 def validate (tp, onlysrcs=None, onlykeys=None):
@@ -19,16 +19,16 @@ def validate (tp, onlysrcs=None, onlykeys=None):
     needed_pkeys = set()
 
     nom_pkeys = (
-        normkey_tp([u"н"]),
-        normkey_tp([u"нм", u"нж", u"нс", u"ну"]),
+        norm_pkey([u"н"]),
+        norm_pkey([u"нм", u"нж", u"нс", u"ну"]),
     )
     needed_pkeys.update(sum(nom_pkeys, []))
 
-    gender_pkey = normkey_tp(u"_род")
+    gender_pkey = norm_pkey(u"_род")
     needed_pkeys.add(gender_pkey)
 
     known_genders = set((u"м", u"ж", u"с", u"у"))
-    known_genders.update(map(c2l, known_genders))
+    known_genders.update(map(cyr2lat, known_genders))
 
     dkeys_by_rtkey = {}
 
@@ -76,7 +76,7 @@ def validate (tp, onlysrcs=None, onlykeys=None):
             if noms:
                 break
         if noms:
-            rtkeys = map(normkey_rt, noms)
+            rtkeys = map(norm_rtkey, noms)
             for rtkey in rtkeys:
                 odkey = dkeys_by_rtkey.get(rtkey)
                 if odkey is not None and tp.props(dkey) != tp.props(odkey):
@@ -96,7 +96,7 @@ def validate (tp, onlysrcs=None, onlykeys=None):
                         % (path, lno, cno))
                 nproblems += 1
             else:
-                for gender in resalthyb(gender):
+                for gender in split_althyb(gender):
                     if gender not in known_genders:
                         warning("Derivation at %s:%d:%d defines "
                                 "unknown gender '%s'."
@@ -113,36 +113,6 @@ def validate (tp, onlysrcs=None, onlykeys=None):
                 % " ".join(sorted(unmatched_keys)))
 
     return nproblems
-
-
-# Normalize property keys in the same way as in trapnakron derivator.
-def normkey_tp (pkey):
-
-    if isinstance(pkey, list):
-        return map(c2a, pkey)
-    elif isinstance(pkey, tuple):
-        return tuple(map(c2a, pkey))
-    else:
-        return c2a(pkey)
-
-
-# Normalize pmap keys in the same way as at runtime (Transcript).
-_normkey_rt_rx = re.compile("\s", re.U)
-
-def normkey_rt (key):
-
-    return _normkey_rt_rx.sub("", key).lower()
-
-
-# Return list with resolved forms from text with alternatives/hybridization.
-def resalthyb (text):
-
-    # TODO: Resolve hybridization.
-
-    if "~@" in text:
-        return (resalts(text, 1, 2), resalts(text, 2, 2))
-    else:
-        return (text,)
 
 
 def _main ():

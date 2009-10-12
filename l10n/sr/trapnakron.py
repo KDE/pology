@@ -240,7 +240,7 @@ def trapnakron (env=(u"",),
     sd = Synder(env=[x for x in envs if x],
                 ckeysep="-",
                 dkeytf=dkeytf, dkeyitf=identify,
-                pkeytf=pkeytf, pkeyitf=cyr2lat_stripped,
+                pkeytf=pkeytf, pkeyitf=norm_pkey,
                 pvaltf=pvaltf, ksyntf=ksyntf,
                 strictkey=False)
 
@@ -578,6 +578,44 @@ def _compose_person_name (tsegs, fcap, markup, light):
         name = simplify("".join([seg for seg, tags in tsegs]))
 
     return name
+
+
+def norm_pkey (pkey):
+    """
+    Normalize internal property keys in trapnakron.
+
+    @param pkey: property key or keys to normalize
+    @type pkey: string or (string*) or [string*]
+
+    @returns: normalized keys
+    @rtype: as input
+    """
+
+    if isinstance(pkey, basestring):
+        return cyr2lat_stripped(pkey)
+    elif isinstance(pkey, tuple):
+        return tuple(map(cyr2lat_stripped, pkey))
+    elif isinstance(pkey, list):
+        return map(cyr2lat_stripped, pkey)
+    else:
+        raise StandardError("Cannot normalize property keys given "
+                            "as type '%s'." % type(pkey))
+
+
+_norm_rtkey_rx = re.compile("\s", re.U)
+
+def norm_rtkey (text):
+    """
+    Normalize text into runtime key for translation scripting.
+
+    @param text: text to normalize into runtime key
+    @type text: string
+
+    @returns: runtime key
+    @rtype: string
+    """
+
+    return _norm_rtkey_rx.sub("", text).lower()
 
 
 def split_althyb (text):
