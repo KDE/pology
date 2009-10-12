@@ -629,7 +629,7 @@ def split_althyb (text):
     @rtype: [string] or [string*2] or [string*4]
     """
 
-    # TODO: Resolve hybridization.
+    # FIXME: Resolve hybridization.
 
     if "~@" in text:
         return (resalts(text, 1, 2), resalts(text, 2, 2))
