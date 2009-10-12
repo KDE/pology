@@ -8,41 +8,6 @@
 >ztmp-acronyms.sd
 
 # ----------------------------------------------------------------------------
-# Наука и образовање
-
-Blinken: К-трептај|2, К-трептај|ев
-    @л: treptaj|ev
-Celestia: Целестиј|а, Целестиј|ин
-    @л: Celest|ia
-Edict: Е-дикт|, Е-дикт|ов
-    @л: Edict|, Edict|ov
-Kalzium: Калцијум|, Калцијум|ов
-KAnagram: К-анаграм|, К-анаграм|ов
-Kanjidic: Канђидик|, Канђидик|ов
-    @л: Kanjidic|, Kanjidic|ov
-KBruch: К-разлом|ак, К-разломк|ов
-KEduca: К-едук|а, К-едук|ин
-    @л: KEduc|a, KEduc|in
-KGeography: К-географиј|а, К-географиј|ин
-KIG: КИГ|-, КИГ|-ов
-Kiten: Китен|, Китен|ов
-KLatin: К-латинск|и>
-KLettres: К-слов|а-
-KMPlot: К-матцрт|, К-матцрт|ов
-KPercentage: К-процен|ат, К-процент|ов
-KRecipes: К-рецепт|и-
-KStars: К-звезд|е-
-KTouch: К-додир|, К-додир|ов
-KTurtle: К-корњач|а, К-корњач|ин
-KVerbos: К-вербос|, К-вербос|ов
-    @л: KVerbos|, KVerbos|ov
-KVocTrain: К-вежб|{а}-речи
-KWordQuiz: К-квиз|{}-речи
-OpenUniverse: Отворен|и> универзум|
-SSystem: С-систем|, С-систем|ов
-    @л: SSystem|, SSystem|ov
-
-# ----------------------------------------------------------------------------
 # Уређаји
 
 Alpha: алф|а, алф|ин, алфа|>
@@ -149,6 +114,11 @@ ext3: екст-3|*, екст-3|>, _род!=м
     @л: ext3|*, ext3|>
 ext4: екст-4|*, екст-4|>, _род!=м
     @л: ext4|*, ext4|>
+FAT: ФАТ|-, ФАТ|>
+FAT16: ФАТ|- 16, н=ФАТ-16, а=ФАТ-16, ФАТ-16|>
+    @л: n=FAT16, a=FAT16, FAT16|>
+FAT32: ФАТ|- 32, н=ФАТ-32, а=ФАТ-32, ФАТ-32|>
+    @л: n=FAT32, a=FAT32, FAT32|>
 Firewire: фајервајер|, фајервајер|>
     @л: Firewire|, firewire|>
 FLASH, |flashmem: ¤флеш|, флеш|>
@@ -169,6 +139,7 @@ MicroChannel: микрочанел|, микрочанел|ов, микрочан
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
 mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
     @л: mini-ITX|-, mini-ITX|>
+NFS: НФС|-, НФС|>
 NTFS: НТФС|-, НТФС|-ов, НТФС|>
 NuBus: нубус|, нубус|ов, нубус|>
     @л: NuBus|, NuBus|ov, NuBus|>
@@ -201,6 +172,12 @@ Type1C: |{Type1}Ц
 Type1C (OT), |type1cot: |Type1C (ОТ)
 Type3: тип|{}-3, тип-3|>
     @л: Type|{}3, type3|>
+UDF: УДФ|-, УДФ|>
+UFS: УФС|-, УФС|>
+VFAT: ВФАТ|-, ВФАТ|>
+VFS: ВФС|-, ВФС|>
+XFS: ИксФС|-, ИксФС|>
+    @л: XFS|-, XFS|>
 ZeroConf: зироконф|, зироконф|>
     @л: ZeroConf|, zeroconf|>
 
@@ -222,6 +199,7 @@ DICT: ДИКТ|-, ДИКТ|>
 eDonkey: Едонк|и, Едонк|ијев, едонки|>
     @л: eDonke|y, eDonke|yjev, eDonkey|>
 Finger: фингер|, фингер|>
+FTP: ФТП|-, ФТП|>
 Gadu-Gadu: гаду-гаду|, гаду-гаду|ов, гаду-гаду|>
     @л: Gadu-Gadu|, Gadu-Gadu|ov
 Gopher: гофер|, гофер|>
@@ -235,6 +213,12 @@ ICQ: ајсикју|, ајсикју|ов, ајсикју|>
     @л: ICQ|-, ICQ|-ov, ICQ|>
 ICQ2000: ајсикју| 2000, ајсикју 2000|>
     @л: ICQ| 2000, ICQ 2000|>
+IMAP: ИМАП|-, ИМАП|>
+IMAPS: ИМАПС|-, ИМАПС|>
+IMAP4: ИМАП4|*, ИМАП4|>, _род!=м
+IMAP4rev1: ИМАП4рев1|*, ИМАП4рев1|>, _род!=м
+IPv4: ИПв4|*, ИПв4|>, _род!=м
+IPv6: ИПв6|*, ИПв6|>, _род!=м
 IRC: ИРЦ|-, ИРЦ|>
 IRC2000: ИРЦ|- 2000, ИРЦ 2000|>
 Jabber: џабер|, џабер|ов, џабер|>
@@ -251,6 +235,8 @@ Kerberos5: |{Kerberos}-5
     @л: |{Kerberos}5
 LanManager: ланменаџер|, ланменаџер|ов, ланменаџер|ски
     @л: LanManager|, LanManager|ov, lanmanager|>
+LOGIN: ЛОГИН|-, ЛОГИН|>
+MAPI: МАП|И-, МАПИ|>
 Meanwhile: минвајл|, минвајл|ов, минвајл|>
     @л: Meanwhile|, Meanwhile|ov, meanwhile|>
 MetaLink: металинк|, металинк|ов, металинк|>
@@ -261,20 +247,42 @@ MultiSegment KIO: вишесегментн|и> |KIO, вишесегмент|ни
 NetBIOS: нетБИОС|, нетБИОС|-ов, нетБИОС|>
     @л: NetBIOS|, NetBIOS|-ov
 NLM: НЛМ|-, НЛМ|-ов, НЛМ|>
+NNTP: ННТП|-, ННТП|>
+NTP: НТП|-, НТП|>
 Off-The-Record: оф-д-рекорд|, оф-д-рекорд|ов, оф-д-рекорд|>
     @л: Off-The-Record|, Off-The-Record|ov, off-the-record|>
 Oscar: оскар|, оскар|ов, оскар|>
     @л: Oscar|, Oscar|ov, oscar|>
 OTR: ОТР|-, ОТР|-ов, ОТР|>
+PLAIN: ПЛЕЈН|-, ПЛЕЈН|>
+    @л: PLAIN|-, PLAIN|>
+POP: ПОП|-, ПОП|>
+POP3: ПОП3|*, ПОП3|>, _род!=м
+POP3S: ПОП3С|*, ПОП3С|>, _род!=м
 PPP: ППП|-, ППП|-ов, ППП|>
 QQ: ку-ку|, ку-ку|ов, ку-ку|>
     @л: QQ|, QQ|-ov, QQ|>
 rlogin: рлогин|, рлогин|ов, рлогин|>
 Sametime: сејмтајм|, сејмтајм|ов, сејмтајм|>
     @л: Sametime|, Sametime|ov, sametime|>
+SFTP: СФТП|-, СФТП|>
 SILC: СИЛЦ|-, СИЛЦ|>
+SMB: СМБ|-, СМБ|>
+SMS: СМС|-, СМС|>
+SMTP: СМТП|-, СМТП|>
+SOCKS: СОКС|-, СОКС|>
+    @л: SOCKS|-, SOCKS|>
+SOCKS4: СОКС|- 4, н=СОКС-4, а=СОКС-4, СОКС-4|>
+    @л: SOCKS|- 4, n=SOCKS4, a=SOCKS4, SOCKS4|>
+SOCKS5: СОКС|- 5, н=СОКС-5, а=СОКС-5, СОКС-5|>
+    @л: SOCKS|- 5, n=SOCKS5, a=SOCKS5, SOCKS5|>
+TCP: ТЦП|-, ТЦП|>
+TELNET: ТЕЛНЕТ|-, ТЕЛНЕТ|>
 Usenet: јузнет|, јузнет|ов, јузнет|> # ђене-ђене
     @л: Usenet|, Usenet|ov, usenet|>
+V.120: В.120|*, В.120|>, _род!=м
+V.24: В.24|*, В.24|>, _род!=м
+V.42bis: В.42бис|*, В.42бис|>, _род!=м
 vCalendar: в-календар|, в-календар|ски
 vCard: в-кард|, в-кард|>
     @л: vCard|, vCard|>
@@ -298,92 +306,19 @@ ElGamal: елгамал|, елгамал|ов
     @л: ElGamal|, ElGamal|ov
 Latin1: латиниц|{а}-1
 Latin2: латиниц|{а}-2
+MD2: МД2|*, МД2|>, _род!=м
+MD4: МД4|*, МД4|>, _род!=м
+MD5: МД5|*, МД5|>, _род!=м
 quoted-printable: навод-читк|о>
 Replay Gain: поновљив|о> појача|ње
+SHA-0: СХА-0|*, СХА-0|>, _род!=м
+SHA-1: СХА-1|*, СХА-1|>, _род!=м
+SHA-224: СХА-224|*, СХА-224|>, _род!=м
+SHA-256: СХА-256|*, СХА-256|>, _род!=м
+SHA-384: СХА-384|*, СХА-384|>, _род!=м
+SHA-512: СХА-512|*, СХА-512|>, _род!=м
 Unicode: уникод|, уникод|ов, уникод|ски
     @л: Unicode|, Unicode|ov, Unicode|>
 Whirlpool: вирлпул|, вирлпул|ов
     @л: Whirlpool|, Whirlpool|ov
-
-# ----------------------------------------------------------------------------
-# Формати датотека
-
-ComicBook: комикбук|, комикбук|ов, комикбук|>
-    @л: ComicBook|, ComicBook|ov, ComicBook|>
-Flash, |flashfmt: флеш|, флеш|>
-    @л: Flash|, Flash|ov, Flash|>
-MO, |mofmt: МО|-, МО|>
-Musepack: мјузпак|, мјузпак|ов, мјузпак|>
-    @л: Musepack|, Musepack|ov, Musepack|>
-RealAudio: |*|{`Real~н}ауд|ио, |{Real~н}аудио|>
-    @л: RealAud|io, RealАudio|>
-RealVideo: |*|{`Real~н}виде|о, |{Real~н}видео|>, _род!=м
-    @л: RealVide|o, RealVideo|>
-Theora: теор|а, теор|ин, теора|>
-    @л: Theor|a, Theor|in, Theora|>
-WinHelp: винхелп|, винхелп|ов, винхелп|>
-    @л: WinHelp|, WinHelp|ov, WinHelp|>
-OGG Vorbis: ОГГ |Vorbis
-OpenDocument: отворен|и> документ|, отворенодокумент|ски
-OpenRaster: опенрастер|, опенрастер|ов, опенрастер|>
-    @л: OpenRaster|, OpenRaster|ov, OpenRaster|>
-Relax NG: релакс| НГ, релакс НГ|-ов, релакс НГ|>
-    @л: Relax| NG, Relax NG|-ov, Relax NG|>
-TriG: три-Г|, три-Г|-ов, три-Г|>
-    @л: TriG|, TriG|-ov, TriG|>
-Turtle: туртл|, туртл|ов, туртл|>
-    @л: Turtle|, Turtle|ov, Turtle|>
-ZIP, |zipfmt: ЗИП|-, ЗИП|>
-
-# ----------------------------------------------------------------------------
-# Теме, стилови и слично
-
-Air: Ваздух|
-Aurorae: Аурор|е-
-Aya: Ај|а
-    @л: Ay|a
-B3/KDE: Б3/КДЕ|-
-Blend: Стапа|ње
-Clean Blend: Чист|о> стапа|ње
-Cleanlooks: Чистин|а
-Crystal SVG: Кристал СВГ|-
-    @л: Crystal SVG|-
-Elegance: Елеганциј|а
-Glow: Сјај|2
-Heron: Херон|
-HighColor Classic: Класичн|и> висококолорн|и>
-HighContrast: Висок|и> контраст|
-iKons: иКон|е-
-Infadel: Инфејдел|
-    @л: Infadel|
-KDE Classic, KDE-Classic: Класичн|и> КДЕ|-
-KDE-LoColor: КДЕ| с мало боја
-Keramik: Керами|ка
-Kids: Дечј|е->
-KStep: К-степ|
-    @л: KStep|
-Light Style\, 2nd revision: Лак|и> стил|{}\, 2. ревизија
-Light Style\, 3rd revision: Лак|и> стил|{}\, 3. ревизија
-MegaGradient highcolor style: Мегаградијент| висококолорн|и>
-Modern System: Модерн|и> систем|
-Motif Plus: Мотиф| плус
-MS Windows 9x: МС Виндоуз| 9х
-    @л: MS Windows| 9x
-Nuvola: Нувол|а
-Nuvola theme: |Nuvola
-Oxygen: Кисеоник|, Кисеоник|ов, кисеони|чки
-Ozone: Озон|, Озон|ов
-    @л: Ozone|, Ozone|ov
-Plastik: Пласти|ка
-Plastique: Пласти|ка КуТ
-    @л: Plasti|ka Qt
-Platinum: Платин|а
-Primary: Примарн|е->
-Quartz: Кварц|
-Redmond: Редмонд|
-Silicon: Силицијум|
-Slick Icons: Углађен|е-> икон|е-
-Slim Glow: Нежн|и> сјај|2
-Web style: Веб-стил|
-    @л: Web-stil|
 
