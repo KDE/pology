@@ -367,22 +367,31 @@ class Sieve (object):
 
         # Check cross-entry validity, select valid.
         msgs_by_seen_msgstr = {}
-        for d1, d2, d3, d4, msg, cat in self.entries:
+        unique_entries = []
+        for entry in self.entries:
+            d1, props, d3, d4, msg, cat = entry
             msgstr = msg.msgstr[0]
             if msgstr not in msgs_by_seen_msgstr:
                 msgs_by_seen_msgstr[msgstr] = []
-            msgs_by_seen_msgstr[msgstr].append((msg, cat))
+            else:
+                for d1, d2, oprops in msgs_by_seen_msgstr[msgstr]:
+                    if props == oprops:
+                        props = None
+                        break
+            if props:
+                unique_entries.append(entry)
+                msgs_by_seen_msgstr[msgstr].append((msg, cat, props))
         good_entries = []
-        for ekeys, props, psep, kvsep, msg, cat in self.entries:
+        for ekeys, props, psep, kvsep, msg, cat in unique_entries:
             eq_msgstr_set = msgs_by_seen_msgstr.get(msg.msgstr[0])
             if eq_msgstr_set is not None:
                 if len(eq_msgstr_set) > 1:
                     cmsgcats = msgs_by_seen_msgstr.pop(msg.msgstr[0])
-                    msg0, cat0 = cmsgcats[0]
+                    msg0, cat0, d3 = cmsgcats[0]
                     warning_on_msg("Property map entries removed due "
                                    "to translation conflict with...",
                                    msg0, cat0)
-                    for msg, cat in cmsgcats[1:]:
+                    for msg, cat, d3 in cmsgcats[1:]:
                         warning_on_msg("...this message.", msg, cat)
                 else:
                     good_entries.append((ekeys, props, psep, kvsep))
