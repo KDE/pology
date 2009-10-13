@@ -1,7 +1,7 @@
 >base/aff.sd
+>languages-prog.sd
 >places-internet.sd
 >software-system.sd
->ztmp-languages.sd
 
 # ----------------------------------------------------------------------------
 # Графички
@@ -57,6 +57,10 @@ XTest: Икс-тест|, Икс-тест|ов
     @л: XTest|, XTest|ov
 Xvfb: Икс-вфб|, Икс-вфб|ов
     @л: Xvfb|, Xvfb|-ov
+X: Икс|, Икс|ов, икс|>
+    @л: X|-, X|-ov, X|>
+X11: Икс|{}11, икс11|>
+    @л: X11|*, X11|>
 X Window: Икс-прозор|и-
     @л: X-prozor|i-
 
