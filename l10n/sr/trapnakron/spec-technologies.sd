@@ -1,0 +1,100 @@
+>base/aff.sd
+
+# ----------------------------------------------------------------------------
+# Хардверске
+
+ACCESS, |accessbus: ¤аксес|, аксес|>
+    @л: ×ACCESS|, ACCESS|>
+Bluetooth: блутут|, блутут|>
+    @л: Bluetooth|, bluetooth|>
+CAN-bus: канбус|, канбус|>
+    @л: CAN-bus|, CAN-bus|>
+CardBus: кардбас|, кардбас|>
+    @л: CardBus|, CardBus|>
+CompactPCI: компактПЦ|И-, компактПЦИ|>
+    @л: CompactPC|I-, CompactPCI|>
+Energy Star: енерџи стар|
+    @л: Energy Star|
+Ethernet: етернет|, етернет|ски
+    @л: Ethernet|, ethernet|ski
+EuroISDN: евроИСДН|-, евроИСДН|>
+    @л: EuroISDN|-, euroISDN|>
+Firewire: фајервајер|, фајервајер|>
+    @л: Firewire|, firewire|>
+FLASH, |flashmem: ¤флеш|, флеш|>
+    @л: ¤FLASH|-, FLASH|>
+HyperTransport: хипертранспорт|, хипертранспорт|>
+    @л: HyperTransport|, HyperTransport|>
+InfiniBand: инфинибанд|, инфинибанд|ов, инфинибанд|>
+    @л: InfiniBand|, InfiniBand|ov, InfiniBand|>
+ISA: ИС|А, ИСА|>
+LBA: ЛБА|-, ЛБА|>
+MicroChannel: микрочанел|, микрочанел|ов, микрочанел|>
+    @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
+mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
+    @л: mini-ITX|-, mini-ITX|>
+NuBus: нубус|, нубус|ов, нубус|>
+    @л: NuBus|, NuBus|ov, NuBus|>
+PCI: ПЦ|И-, ПЦИ|>
+PCI-E: ПЦИ-Е|-, ПЦИ-Е|>
+PCI-X: ПЦИ-Икс|, ПЦИ-Икс|>
+    @л: PCI-X|-, PCI-X|>
+PCI Express: ПЦИ-експрес|, ПЦИ-експрес|>
+    @л: PCI Express|, PCI Express|>
+PCMCIA: ПЦМЦИА|-, ПЦМЦИА|>
+RACEway: рејсвеј|, рејсвеј|ев, рејсвеј|>
+    @л: RACEway|, RACEway|ev, RACEway|>
+SERCOS: СЕРКОС|-, СЕРКОС|>
+    @л: SERCOS|-, SERCOS|>
+SMBus: СМбус|, СМбус|>
+    @л: SMBus|, SMBus|>
+ZeroConf: зироконф|, зироконф|>
+    @л: ZeroConf|, zeroconf|>
+
+# ----------------------------------------------------------------------------
+# Софтверске
+
+AccessX: аксес-икс|, аксес-икс|>
+    @л: AccessX|-, accessX|>
+ActiveX: актив-икс|, актив-икс|>
+    @л: ActiveX|-, ActiveX|>
+BiDir: би-дир|, би-дир|>
+    @л: BiDir|, BiDir|>
+CID Truetype: ЦИД |{Truetype}
+CID Truetype (OT), |cidtruetypeot: |{CID Truetype} (ОТ)
+CID Type0: ЦИД тип|{}-0, ЦИД тип-0|>
+    @л: CID Type|{}0, CID type0|>
+CID Type0C: |{CID Type0}Ц
+CID Type0C (OT), |cidtype0cot: |{CID Type0C} (ОТ)
+ClearType: клиртајп|, клиртајп|>
+    @л: ClearType|, cleartype|>
+iCalendar: и-календар|, и-календар|ски
+ODF: ОДФ|-, ОДФ|>
+OpenEXR: опенЕКСР|-, опенЕКСР|>
+    @л: OpenEXR|-, OpenEXR|>
+OpenGL: опенГЛ|-, опенГЛ|-ов, опенГЛ|>
+    @л: OpenGL|-, OpenGL|-ov
+sendmail: сендмејл|, сендмејл|>
+    @л: sendmail|, sendmail|>
+Truetype: трутајп|, трутајп|>
+    @л: Truetype|, truetype|>
+Truetype (OT), |truetypeot: |{Truetype} (ОТ)
+Type1: тип|{}-1, тип-1|>
+    @л: Type|{}1, type1|>
+Type1C: |{Type1}Ц
+Type1C (OT), |type1cot: |Type1C (ОТ)
+Type3: тип|{}-3, тип-3|>
+    @л: Type|{}3, type3|>
+POSIX: ПОСИКС|-, ПОСИКС|>
+    @л: POSIX|-, POSIX|>
+vCalendar: в-календар|, в-календар|ски
+vCard: в-кард|, в-кард|>
+    @л: vCard|, vCard|>
+
+# ----------------------------------------------------------------------------
+# Комуникационе
+
+ADSL: АДСЛ|-, АДСЛ|>
+DSL: ДСЛ|-, ДСЛ|>
+ISDN: ИСДН|-, ИСДН|>
+
