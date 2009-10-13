@@ -119,6 +119,7 @@ def _main ():
 
     usage = u"""
   %prog [OPTIONS]
+  %prog [OPTIONS] FILEPATH...
   %prog [OPTIONS] SRCNAME...
   %prog [OPTIONS] :DKEY...
 """.rstrip()
@@ -147,7 +148,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if arg.startswith(sksep):
             onlykeys.add(arg[len(sksep):])
         else:
-            onlysrcs.add(arg)
+            name = os.path.splitext(arg.split(os.path.sep)[-1])[0]
+            onlysrcs.add(name)
     onlysrcs = onlysrcs or None
     onlykeys = onlykeys or None
 
