@@ -119,15 +119,23 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
 
     if unmatched_srcs:
         warning("Sources requested by name not found: %s"
-                % " ".join(sorted(unmatched_srcs)))
+                % " ".join(sorted([getattr(x, "pattern", x)
+                                   for x in unmatched_srcs])))
     if unmatched_keys:
         warning("Derivations requested by key not found: %s"
-                % " ".join(sorted(unmatched_keys)))
+                % " ".join(sorted([getattr(x, "pattern", x)
+                                   for x in unmatched_keys])))
 
     return nproblems
 
 
-_re_type = type(re.compile(r""))
+class _Wre (object):
+
+    def __init__ (self, pattern):
+
+        self.regex = re.compile(pattern, re.U)
+        self.pattern = pattern
+
 
 def _match_text (text, tests, unmatched_tests=None):
 
@@ -137,8 +145,8 @@ def _match_text (text, tests, unmatched_tests=None):
             if test == text:
                 match = True
                 break
-        elif isinstance(test, _re_type):
-            if test.search(text):
+        elif isinstance(test, _Wre):
+            if test.regex.search(text):
                 match = True
                 break
         elif callable(test):
@@ -208,9 +216,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     sksep = ":"
     for arg in free_args:
         if arg.startswith(sksep):
-            test = identify(arg[len(sksep):])
+            test = arg[len(sksep):]
             if options.regex:
-                test = re.compile(test, re.U)
+                test = _Wre(test)
+            else:
+                test = identify(test)
             onlykeys.add(test)
         else:
             if os.path.isfile(arg):
@@ -219,7 +229,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             else:
                 test = arg
                 if options.regex:
-                    test = re.compile(test, re.U)
+                    test = _Wre(test)
                 onlysrcs.add(test)
     onlysrcs = onlysrcs or None
     onlykeys = onlykeys or None
