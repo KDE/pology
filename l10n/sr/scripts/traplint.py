@@ -6,34 +6,41 @@ import os
 import re
 from optparse import OptionParser
 
-from pology.misc.report import warning
+from pology.misc.report import report, warning
 from pology.misc.fsops import str_to_unicode
 from pology.l10n.sr.trapnakron import trapnakron_ui
 from pology.l10n.sr.trapnakron import split_althyb
 from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
 from pology.l10n.sr.hook.cyr2lat import cyr2lat
+from pology.misc.normalize import identify
 
 
-def validate (tp, onlysrcs=None, onlykeys=None):
+def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
 
     needed_pkeys = set()
 
     nom_pkeys = (
-        norm_pkey([u"н"]),
-        norm_pkey([u"нм", u"нж", u"нс", u"ну"]),
+        [u"н"],
+        [u"нм", u"нж", u"нс", u"ну"],
     )
     needed_pkeys.update(sum(nom_pkeys, []))
 
-    gender_pkey = norm_pkey(u"_род")
+    gender_pkey = u"_род"
     needed_pkeys.add(gender_pkey)
 
     known_genders = set((u"м", u"ж", u"с", u"у"))
     known_genders.update(map(cyr2lat, known_genders))
 
+    if demoexp:
+        demoexp_pkeys = [u"н", u"г", u"д", u"а", u"в", u"и",
+                         u"нк", u"гк", u"дк", u"ак", u"вк",
+                         u"нм", u"нмп"]
+        needed_pkeys.update(demoexp_pkeys)
+
     dkeys_by_rtkey = {}
 
     # Sort keys such that derivations are checked by file and position.
-    dkeys = tp.dkeys(single=True)
+    dkeys = tp.dkeys(single=onlykeys is None)
     def sortkey (x):
         path, lno, cno = tp.source_pos(x)
         return path.count(os.path.sep), path, lno, cno
@@ -47,26 +54,21 @@ def validate (tp, onlysrcs=None, onlykeys=None):
     for dkey in dkeys:
         srcname = tp.source_name(dkey)
         path, lno, cno = tp.source_pos(dkey)
+        cnproblems = 0
 
-        check = True
-        if onlysrcs is not None:
-            if srcname not in onlysrcs:
-                check = False
-            if srcname in unmatched_srcs:
-                unmatched_srcs.remove(srcname)
-        if onlykeys is not None:
-            if dkey not in onlykeys:
-                check = False
-            if dkey in unmatched_keys:
-                unmatched_keys.remove(dkey)
-        if not check:
+        if (   (    onlysrcs is not None
+                and not _match_text(srcname, onlysrcs, unmatched_srcs))
+            or (    onlykeys is not None
+                and not _match_text(dkey, onlykeys, unmatched_keys))
+        ):
             continue
 
         try:
-            props = dict([(x, tp.get2(dkey, x)) for x in needed_pkeys])
+            props = dict([(x, tp.get2(dkey, norm_pkey(x)))
+                          for x in needed_pkeys])
         except Exception, e:
             warning(unicode(e))
-            nproblems += 1
+            cnproblems += 1
             continue
 
         # Assure all nominative forms are unique.
@@ -84,7 +86,7 @@ def validate (tp, onlysrcs=None, onlykeys=None):
                     warning("Derivation at %s:%d:%d has normalized nominative "
                             "equal to derivation at %s:%d:%d."
                             % (path, lno, cno, opath, olno, ocno))
-                    nproblems += 1
+                    cnproblems += 1
             for rtkey in rtkeys: # must be in new loop
                 dkeys_by_rtkey[rtkey] = dkey
 
@@ -94,15 +96,25 @@ def validate (tp, onlysrcs=None, onlykeys=None):
             if gender is None:
                 warning("Derivation at %s:%d:%d does not define gender."
                         % (path, lno, cno))
-                nproblems += 1
+                cnproblems += 1
             else:
                 for gender in split_althyb(gender):
                     if gender not in known_genders:
                         warning("Derivation at %s:%d:%d defines "
                                 "unknown gender '%s'."
                                 % (path, lno, cno, gender))
-                        nproblems += 1
+                        cnproblems += 1
 
+        # Show selection of expanded properties if requested.
+        if demoexp and not cnproblems:
+            demoprops = [(x, props.get(x)) for x in demoexp_pkeys]
+            demoprops = filter(lambda x: x[1] is not None, demoprops)
+            fmtprops = ["%s=%s" % (x[0], _escape_pval(x[1])) for x in demoprops]
+            fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
+            fmtexp = ", ".join(fmtsyns) + ": " + ", ".join(fmtprops)
+            report(fmtexp)
+
+        nproblems += cnproblems
         tp.empty_pcache()
 
     if unmatched_srcs:
@@ -113,6 +125,47 @@ def validate (tp, onlysrcs=None, onlykeys=None):
                 % " ".join(sorted(unmatched_keys)))
 
     return nproblems
+
+
+_re_type = type(re.compile(r""))
+
+def _match_text (text, tests, unmatched_tests=None):
+
+    match = False
+    for test in tests:
+        if isinstance(test, basestring):
+            if test == text:
+                match = True
+                break
+        elif isinstance(test, _re_type):
+            if test.search(text):
+                match = True
+                break
+        elif callable(test):
+            if test(text):
+                match = True
+                break
+        else:
+            raise StandardError("Unknown matcher type '%s'." % type(test))
+
+    if unmatched_tests is not None:
+        if match and test in unmatched_tests:
+            unmatched_tests.remove(test)
+
+    return match
+
+
+def _escape_pval (pval):
+
+    pval = pval.replace(",", "\,")
+    return pval
+
+
+def _escape_syn (pval):
+
+    pval = pval.replace(",", "\,")
+    pval = pval.replace(":", "\:")
+    return pval
 
 
 def _main ():
@@ -132,6 +185,15 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 """.strip()
 
     opars = OptionParser(usage=usage, description=description, version=version)
+    opars.add_option(
+        "-e", "--expansion-sample",
+        action="store_true", dest="demoexp", default=False,
+        help="Show a sample of expanded properties for each valid derivation.")
+    opars.add_option(
+        "-r", "--regex",
+        action="store_true", dest="regex", default=False,
+        help="Source names and derivation keys given in command line "
+             "are regular expressions.")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -146,16 +208,25 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     sksep = ":"
     for arg in free_args:
         if arg.startswith(sksep):
-            onlykeys.add(arg[len(sksep):])
+            test = identify(arg[len(sksep):])
+            if options.regex:
+                test = re.compile(test, re.U)
+            onlykeys.add(test)
         else:
-            name = os.path.splitext(arg.split(os.path.sep)[-1])[0]
-            onlysrcs.add(name)
+            if os.path.isfile(arg):
+                test = os.path.splitext(arg.split(os.path.sep)[-1])[0]
+                onlysrcs.add(test)
+            else:
+                test = arg
+                if options.regex:
+                    test = re.compile(test, re.U)
+                onlysrcs.add(test)
     onlysrcs = onlysrcs or None
     onlykeys = onlykeys or None
 
     # Create and validate the trapnakron.
     tp = trapnakron_ui()
-    validate(tp, onlysrcs, onlykeys)
+    validate(tp, onlysrcs, onlykeys, options.demoexp)
 
 
 if __name__ == '__main__':
