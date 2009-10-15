@@ -17,69 +17,65 @@ import subprocess
 from pology.misc.report import error, warning
 
 
-def collect_files_by_ext (dirpath, extension,
-                          recurse=True, sort=True, unique=True):
+def collect_files (paths,
+                   recurse=True, sort=True, unique=True, relcwd=True,
+                   selectf=None):
     """
-    Collect list of files having given extension from given directory path.
+    Collect list of files from given directory and file paths.
 
-    Single path or a sequence of paths may be given as C{dirpath} parameter.
-    Similarly, a single extension or sequence of extensions may be given
-    in place of C{extension} parameter. If extensions are given as empty
-    sequence, then files with no extensions are collected.
+    C{paths} can be any sequence of strings, or a single string.
     Directories can be searched for files recursively or non-resursively,
     as requested by the C{recurse} parameter.
+    Parameters C{sort} and C{unique} determine if the resulting paths
+    are sorted alphabetically increasing and if duplicate paths are removed.
+    If C{relcwd} is set to C{True}, absolute file paths which point to files
+    within the current working directory are made relative to it.
 
-    Collected file paths are by default sorted and any duplicates eliminated,
-    but this can be controlled using the C{sort} and C{unique} parameters.
+    Only selected files may be collected by supplying
+    a selection function through C{selectf} parameter.
+    It takes a file path as argument and returns a boolean,
+    C{True} to select the file or C{False} to discard it.
 
-    @param dirpath: path to search for files
-    @type dirpath: string or sequence of strings
-    @param extension: extension of files to collect
-    @type extension: string or sequence of strings
+    @param paths: paths to search for files
+    @type paths: string or iter(string*)
     @param recurse: whether to search for files recursively
     @type recurse: bool
     @param sort: whether to sort collected paths
     @type sort: bool
-    @param unique: whether to eliminate duplicates from collected paths
+    @param unique: whether to eliminate duplicate collected paths
     @type unique: bool
+    @param relcwd: whether to make collected absolute paths within
+        current working directory relative to it
+    @param relcwd: bool
+    @param selectf: test to select or discard a file path
+    @type selectf: (string)->bool
 
-    @returns: list of collected file paths
-    @rtype: list of strings
+    @returns: collected file paths
+    @rtype: [string*]
     """
 
-    if isinstance(dirpath, basestring):
-        dirpaths = [dirpath]
-    else:
-        dirpaths = dirpath
-
-    if isinstance(extension, basestring):
-        extensions = [extension]
-    else:
-        extensions = extension
-    # Tuple for matching file paths with str.endswith().
-    dot_exts = tuple(["." + x for x in extensions])
+    if isinstance(paths, basestring):
+        paths = [paths]
 
     filepaths = []
-    for dirpath in dirpaths:
-        if not os.path.isdir(dirpath):
-            warning("path '%s' is not a directory path" % dirpath)
-            continue
-        for root, dirs, files in os.walk(dirpath):
-            for file in files:
-                if (   file.endswith(dot_exts)
-                    or (not dot_exts and "." not in file)
-                ):
+    for path in paths:
+        if os.path.isdir(path):
+            for root, dirs, files in os.walk(path):
+                for file in files:
                     filepath = os.path.normpath(os.path.join(root, file))
-                    filepaths.append(filepath)
-            if not recurse:
-                dirs[:] = []
+                    if not selectf or selectf(filepath):
+                        filepaths.append(filepath)
+                if not recurse:
+                    dirs[:] = []
+        else:
+            filepaths.append(dir)
 
     if sort:
         if unique:
             filepaths = list(set(filepaths))
         filepaths.sort()
     elif unique:
-        # To preserve the order, reinsert catalogs avoiding duplicates.
+        # To preserve the order, reinsert paths avoiding duplicates.
         seen = {}
         unique = []
         for filepath in filepaths:
@@ -88,101 +84,81 @@ def collect_files_by_ext (dirpath, extension,
                 unique.append(filepath)
         filepaths = unique
 
+    if relcwd:
+        filepaths = map(join_ncwd, filepaths)
+
     return filepaths
 
 
-def collect_catalogs (file_or_dir_paths, sort=True, unique=True):
+def collect_files_by_ext (paths, extension,
+                          recurse=True, sort=True, unique=True, relcwd=True):
     """
-    Collect list of catalog file paths from given file/directory paths.
+    Collect list of files having given extension from given paths.
 
-    When the given path is a directory path, the directory is recursively
-    searched for C{.po} and C{.pot} files. Otherwise, the path is taken
-    verbatim as single catalog file path (even if it does not exist).
+    The C{extension} parameter can be a single extension or
+    a sequence of extensions, without the leading dot.
+    Files with empty extension (i.e. dot at the end of path)
+    are collected by supplying empty string for C{extension},
+    and files with no extension by supplying another empty sequence.
 
-    Collected paths are by default sorted and any duplicates eliminated,
-    but this can be controlled using the C{sort} and C{unique} parameters.
+    Other parameters behave in the same way as in L{collect_files}.
 
-    @param file_or_dir_paths: paths to search for catalogs
-    @type file_or_dir_paths: list of strings
+    @param extension: extension of files to collect
+    @type extension: string or sequence of strings
 
-    @param sort: whether to sort the list of collected paths
-    @type sort: bool
-
-    @param unique: whether to eliminate duplicates among collected paths
-    @type unique: bool
-
-    @returns: collected catalog paths
-    @rtype: string or list of strings
+    @see: L{collect_files}
     """
 
-    if isinstance(file_or_dir_paths, (str, unicode)):
-        file_or_dir_paths = [file_or_dir_paths]
+    if isinstance(extension, basestring):
+        extensions = [extension]
+    else:
+        extensions = extension
 
-    catalog_files = []
-    for path in file_or_dir_paths:
-        if os.path.isdir(path):
-            for root, dirs, files in os.walk(path):
-                for file in files:
-                    if file.endswith(".po") or file.endswith(".pot"):
-                        catalog_files.append(os.path.join(root, file))
-        else:
-            catalog_files.append(path)
+    def selectf (fpath):
 
-    if sort:
-        if unique:
-            catalog_files = list(set(catalog_files))
-        catalog_files.sort()
-    elif unique:
-        # To preserve the order, reinsert catalogs avoiding duplicates.
-        seen = {}
-        unique = []
-        for catalog_file in catalog_files:
-            if catalog_file not in seen:
-                seen[catalog_file] = True
-                unique.append(catalog_file)
-        catalog_files = unique
+        ext = os.path.splitext(fpath)[1]
+        if ext not in ("", "."):
+            return ext[1:] in extensions
+        elif ext == ".":
+            return extensions == ""
+        else: # ext == ""
+            return not extensions
 
-    return catalog_files
+    return collect_files(paths, recurse, sort, unique, relcwd, selectf)
 
 
-def collect_catalogs_by_env (catpathenv, sort=True, unique=True, relcwd=True):
+def collect_catalogs (paths,
+                      recurse=True, sort=True, unique=True, relcwd=True):
+    """
+    Collect list of catalog file paths from given paths.
+
+    Applies C{collect_files_by_ext} with extensions set to C{("po", "pot")}.
+    """
+
+    catexts = ("po", "pot")
+
+    return collect_files_by_ext(paths, catexts, recurse, sort, unique, relcwd)
+
+
+def collect_catalogs_by_env (catpathenv,
+                             recurse=True, sort=True, unique=True, relcwd=True):
     """
     Collect list of catalog file paths from directories given
     by an environment variable.
 
-    @param sort: whether to sort the list of collected paths
-    @type sort: bool
-    @param unique: whether to eliminate duplicates among collected paths
-    @type unique: bool
-    @param relcwd: whether to make paths relative to current working directory
-        when they point to a file within it
-    @param relcwd: bool
+    Other parameters behave in the same way as in L{collect_catalogs}.
 
-    @returns: collected catalog paths
-    @rtype: list of strings
+    @param catpathenv: environment variable name
+    @type catpathenv: string
     """
 
     catpath = os.getenv(catpathenv)
     if catpath is None:
-        warning("environment variable with catalog paths '%s' "
-                "not set" % catpath)
         return []
 
     catdirs = catpath.split(":")
-    catfiles = collect_catalogs(catdirs, sort, unique)
 
-    if relcwd:
-        cwd = os.getcwd()
-        catfiles_rel = []
-        for catfile in catfiles:
-            if catfile.startswith(cwd):
-                catfile = catfile[len(cwd):]
-                while catfile.startswith(os.path.sep):
-                    catfile = catfile[len(os.path.sep):]
-            catfiles_rel.append(catfile)
-        catfiles = catfiles_rel
-
-    return catfiles
+    return collect_catalogs(catdirs, recurse, sort, unique, relcwd)
 
 
 def mkdirpath (dirpath):
