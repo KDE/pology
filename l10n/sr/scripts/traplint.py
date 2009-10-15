@@ -13,6 +13,9 @@ from pology.l10n.sr.trapnakron import split_althyb
 from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
 from pology.l10n.sr.hook.cyr2lat import cyr2lat
 from pology.misc.normalize import identify
+from pology.l10n.sr.trapnakron import rootdir
+from pology.misc.fsops import collect_files_by_ext
+from pology.misc.vcs import VcsSubversion
 
 
 def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
@@ -47,9 +50,9 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
     dkeys = sorted(dkeys, key=sortkey)
 
     nproblems = 0
-
     unmatched_srcs = set(onlysrcs) if onlysrcs is not None else None
     unmatched_keys = set(onlykeys) if onlykeys is not None else None
+    reported_fmtexps = set()
 
     for dkey in dkeys:
         srcname = tp.source_name(dkey)
@@ -112,7 +115,9 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
             fmtprops = ["%s=%s" % (x[0], _escape_pval(x[1])) for x in demoprops]
             fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
             fmtexp = ", ".join(fmtsyns) + ": " + ", ".join(fmtprops)
-            report(fmtexp)
+            if fmtexp not in reported_fmtexps:
+                report(fmtexp)
+                reported_fmtexps.add(fmtexp)
 
         nproblems += cnproblems
         tp.empty_pcache()
@@ -176,6 +181,86 @@ def _escape_syn (pval):
     return pval
 
 
+def _collect_mod_dkeys (tp, onlysrcs=None, onlykeys=None):
+
+    # Collect all modified lines.
+    vcs = VcsSubversion()
+    mlines = []
+    fpaths = collect_files_by_ext(rootdir(), ["sd"])
+    for fpath in fpaths:
+        if not vcs.is_versioned(fpath):
+            continue
+        if onlysrcs is not None:
+            srcname = os.path.splitext(os.path.basename(fpath))[0]
+            if not _match_text(srcname, onlysrcs):
+                continue
+        mlines.extend(vcs.mod_lines(fpath))
+
+    # Remove lines only moved between files and removed lines.
+    mlines_added = set([x[1] for x in mlines if x[0] == "+"])
+    mlines_removed = set([x[1] for x in mlines if x[0] == "-"])
+    mlines_mod = []
+    for mline in mlines:
+        if mline[1] in mlines_added and not mline[1] in mlines_removed:
+            mlines_mod.append(mline)
+    mlines = mlines_mod
+
+    # Collect derivation keys from new lines.
+    onlykeys_mod = set()
+    dkeys_in_tp = set(tp.dkeys(single=True))
+    for tag, line in mlines:
+        dkeys = map(identify, _parse_syns(line))
+        if onlykeys is not None:
+            dkeys = filter(lambda x: _match_text(x, onlykeys), dkeys)
+        dkeys = filter(lambda x: x in dkeys_in_tp, dkeys)
+        onlykeys_mod.update(dkeys)
+
+    return None, onlykeys_mod
+
+
+def _parse_syns (line):
+
+    if line.strip().startswith(("#", ">")):
+        return []
+
+    llen = len(line)
+    pos = 0
+    syns = []
+    csyn = ""
+    intag = False
+    while pos < llen:
+        c = line[pos]
+        if c == "\\":
+            pos += 1
+            csyn += line[pos]
+        elif intag:
+            if cltag:
+                if c == cltag:
+                    intag = False
+            else:
+                cn = line[pos + 1:pos + 2]
+                if cn in (",", ":") or cn.isspace():
+                    intag = False
+        elif c == "~":
+            intag = True
+            cltag = "}" if line[pos + 1:pos + 2] == "{" else ""
+        elif c in (",", ":"):
+            csyn = csyn.strip()
+            if csyn.startswith("|"):
+                csyn = csyn[1:]
+            syns.append(csyn)
+            if c == ":":
+                break
+            else:
+                csyn = ""
+                spos = pos + 1
+        else:
+            csyn += line[pos]
+        pos += 1
+
+    return syns
+
+
 def _main ():
 
     usage = u"""
@@ -202,6 +287,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="regex", default=False,
         help="Source names and derivation keys given in command line "
              "are regular expressions.")
+    opars.add_option(
+        "-m", "--modified",
+        action="store_true", dest="modified", default=False,
+        help="Validate only modified derivations.")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -236,6 +325,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Create and validate the trapnakron.
     tp = trapnakron_ui()
+    if options.modified:
+        onlysrcs, onlykeys = _collect_mod_dkeys(tp, onlysrcs, onlykeys)
     validate(tp, onlysrcs, onlykeys, options.demoexp)
 
 
