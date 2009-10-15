@@ -188,12 +188,12 @@ def _collect_mod_dkeys (tp, onlysrcs=None, onlykeys=None):
     mlines = []
     fpaths = collect_files_by_ext(rootdir(), ["sd"])
     for fpath in fpaths:
-        if not vcs.is_versioned(fpath):
-            continue
-        if onlysrcs is not None:
+        if onlysrcs is not None: # cheaper than vcs.is_versioned
             srcname = os.path.splitext(os.path.basename(fpath))[0]
             if not _match_text(srcname, onlysrcs):
                 continue
+        if not vcs.is_versioned(fpath):
+            continue
         mlines.extend(vcs.mod_lines(fpath))
 
     # Remove lines only moved between files and removed lines.
