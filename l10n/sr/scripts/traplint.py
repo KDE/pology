@@ -261,6 +261,36 @@ def _parse_syns (line):
     return syns
 
 
+def _statistics (tp, onlysrcs, onlykeys):
+
+    dkeys = set()
+    fpaths = {}
+    for dkey in tp.dkeys(single=True):
+        srcname = tp.source_name(dkey)
+        fpath, lno, cno = tp.source_pos(dkey)
+
+        if (   (onlysrcs is not None and not _match_text(srcname, onlysrcs))
+            or (onlykeys is not None and not _match_text(dkey, onlykeys))
+        ):
+            continue
+
+        dkeys.add(dkey)
+        if fpath not in fpaths:
+            fpaths[fpath] = [srcname, 0]
+        fpaths[fpath][1] += 1
+
+    report("-" * 40)
+    if onlysrcs is not None or onlykeys is not None:
+        report("(Selection active.)")
+    report("Total derivations: %d" % len(dkeys))
+    if len(fpaths) > 0:
+        report("Total files: %d" % len(fpaths))
+        report("Average derivations per file: %.1f"
+            % (float(len(dkeys)) / len(fpaths)))
+        bydif = sorted([(v[1], v[0]) for k, v in fpaths.items()])
+        report("Maximum derivations in a file: %d (%s)" % bydif[-1])
+
+
 def _main ():
 
     usage = u"""
@@ -291,6 +321,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-m", "--modified",
         action="store_true", dest="modified", default=False,
         help="Validate only modified derivations.")
+    opars.add_option(
+        "-s", "--statistics",
+        action="store_true", dest="statistics", default=False,
+        help="Show various statistics.")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -328,6 +362,9 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if options.modified:
         onlysrcs, onlykeys = _collect_mod_dkeys(tp, onlysrcs, onlykeys)
     validate(tp, onlysrcs, onlykeys, options.demoexp)
+
+    if options.statistics:
+        _statistics(tp, onlysrcs, onlykeys)
 
 
 if __name__ == '__main__':
