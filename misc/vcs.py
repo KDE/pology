@@ -922,6 +922,43 @@ class VcsGit (VcsBase):
         return ipaths
 
 
+    def mod_lines (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        root, path = self._gitroot(path)
+
+        if rev1 is not None and rev2 is not None:
+            rspec = "%s..%s" % (rev1, rev2)
+        elif rev1 is not None:
+            rspec = "%s" % rev1
+        elif rev2 is not None:
+            raise StandardError("Git cannot diff from non-staged paths "
+                                "to a commit.")
+        else:
+            rspec = ""
+
+        res = collect_system("git diff %s %s" % (rspec, path),
+                             wdir=root, env=self._env)
+        if res[-1] != 0:
+            warning("Cannot diff path '%s', Git reports:\n"
+                    "%s" % (path, res[1]))
+            return []
+
+        mlines = []
+        nskip = 0
+        for line in res[0].split("\n"):
+            if nskip > 0:
+                nskip -= 1
+            elif line.startswith("index"):
+                nskip = 3
+            elif line.startswith("-"):
+                mlines.append(("-", line[1:]))
+            elif line.startswith("+"):
+                mlines.append(("+", line[1:]))
+
+        return mlines
+
+
 def _crop_log (entries, rev1, rev2):
 
     start = 0
