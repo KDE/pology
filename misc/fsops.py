@@ -68,7 +68,7 @@ def collect_files (paths,
                 if not recurse:
                     dirs[:] = []
         else:
-            filepaths.append(dir)
+            filepaths.append(path)
 
     if sort:
         if unique:
@@ -77,12 +77,12 @@ def collect_files (paths,
     elif unique:
         # To preserve the order, reinsert paths avoiding duplicates.
         seen = {}
-        unique = []
+        ufilepaths = []
         for filepath in filepaths:
             if filepath not in seen:
                 seen[filepath] = True
-                unique.append(filepath)
-        filepaths = unique
+                ufilepaths.append(filepath)
+        filepaths = ufilepaths
 
     if relcwd:
         filepaths = map(join_ncwd, filepaths)
