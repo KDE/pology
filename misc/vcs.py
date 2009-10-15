@@ -49,7 +49,7 @@ def available_vcs (flat=False):
     If C{flat} is C{True}, all keywords are returned in a flat tuple.
 
     @return: VCS keywords, as dictionary by primary or as a flat list of all
-    @rtype: {string: (string)} or [string]
+    @rtype: {(string, string)*} or [string*]
     """
 
     if flat:
@@ -272,7 +272,7 @@ class VcsBase (object):
         @type rev2: string
 
         @return: revision ID, committer name, date string, commit message
-        @rtype: list of (string, string, string, string)
+        @rtype: [(string*4)*]
         """
 
         error("selected version control system does not define "
@@ -292,11 +292,39 @@ class VcsBase (object):
         @type path: string
 
         @return: non-committed paths
-        @rtype: list of strings
+        @rtype: [string*]
         """
 
         error("selected version control system does not define "
               "listing of non-committed paths")
+
+
+    def mod_lines (self, path, rev1=None, rev2=None):
+        """
+        Get lines modified between revisions of the given path.
+
+        Modified lines are reported as list of 2-tuples,
+        where the first element of the tuple is C{"+"} or C{"-"},
+        and the second the line itself (without newline).
+
+        Modifications can be collected between specific revisions.
+        If both C{rev1} and C{rev2} are C{None},
+        diff is taken from last known commit to working copy.
+        If only C{rev2} is C{None} diff is taken from C{rev1} to working copy.
+
+        @param path: path to query for modified lines
+        @type path: string
+        @param rev1: diff from this revision
+        @type rev1: string
+        @param rev2: diff to this revision
+        @type rev2: string
+
+        @return: tagged modified lines
+        @rtype: [(string, string)*]
+        """
+
+        error("selected version control system does not define "
+              "determination of modified lines")
 
 
 class VcsNoop (VcsBase):
@@ -434,6 +462,9 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         res = collect_system("svn info %s@" % path, env=self._env)
+        if res[-1] != 0:
+            return False
+
         rx = re.compile(r"^Repository", re.I)
         for line in res[0].split("\n"):
             if rx.search(line):
@@ -549,6 +580,40 @@ class VcsSubversion (VcsBase):
                 ncpaths.append(path)
 
         return ncpaths
+
+
+    def mod_lines (self, path, rev1=None, rev2=None):
+        # Base override.
+
+        if rev1 is not None and rev2 is not None:
+            rspec = "-r %s:%s" % (rev1, rev2)
+        elif rev1 is not None:
+            rspec = "-r %s" % rev1
+        elif rev2 is not None:
+            raise StandardError("Subversion cannot diff from working copy "
+                                "to a named revision.")
+        else:
+            rspec = ""
+
+        res = collect_system("svn diff %s %s" % (path, rspec), env=self._env)
+        if res[-1] != 0:
+            warning("Cannot diff path '%s', Subversion reports:\n"
+                    "%s" % (path, res[1]))
+            return []
+
+        mlines = []
+        nskip = 0
+        for line in res[0].split("\n"):
+            if nskip > 0:
+                nskip -= 1
+            elif line.startswith("="):
+                nskip = 3
+            elif line.startswith("-"):
+                mlines.append(("-", line[1:]))
+            elif line.startswith("+"):
+                mlines.append(("+", line[1:]))
+
+        return mlines
 
 
 class VcsGit (VcsBase):
