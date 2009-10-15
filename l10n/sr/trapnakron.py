@@ -75,7 +75,7 @@ from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
 from pology.misc.resolve import first_to_upper
 from pology.misc.fsops import collect_files_by_ext
-from pology import rootdir
+import pology
 
 
 # Allowed environment compositions, out of, in order:
@@ -311,9 +311,20 @@ def trapnakron (env=(u"",),
     return sd
 
 
+def rootdir ():
+    """
+    Get root directory to trapnakron derivation files.
+
+    @returns: root directory path
+    @rtype: string
+    """
+
+    return os.path.join(pology.rootdir(), "l10n", "sr", "trapnakron")
+
+
 def _get_trapnakron_files (runtime=False):
 
-    root = os.path.join(rootdir(), "l10n", "sr", "trapnakron")
+    root = rootdir()
     files = collect_files_by_ext(root, ["sd"], recurse=False)
     if runtime:
         rtroot = os.path.join(root, "runtime")
