@@ -1,0 +1,70 @@
+body {
+    font-family: sans-serif;
+    margin: 1em 5% 1em 5%;
+}
+
+a {
+    color: green;
+    text-decoration: underline;
+}
+a:visited {
+    color: maroon;
+}
+
+div.toc {
+}
+
+h2, h3, h4 {
+    font-family: sans-serif;
+    color: seagreen;
+}
+
+h2 {
+    border-bottom: 2px solid silver;
+}
+
+div.sect1 {
+    margin-top: 2em;
+}
+
+.literal {
+    color: darkgreen;
+}
+
+.programlisting {
+    color: darkgreen;
+    background-color: #f4f4f4;
+    padding: 0.5em;
+
+    border: thin solid silver;
+}
+
+.remark {
+}
+.remark:before {
+    content: "[[";
+}
+.remark:after {
+    content: "]]";
+}
+
+div.toc > dl > dt { /* sect1 entry */
+    margin-top: 0.75em;
+    margin-bottom: 0.5em;
+}
+div.toc > dl > dd > dl { /* sect2 block */
+    margin-top: 0em;
+    margin-bottom: 0.0em;
+}
+div.toc > dl > dd > dl > dt { /* sect2 entry */
+    margin-top: 0.0em;
+    margin-bottom: 0.25em;
+}
+
+p > sup { /* footnote; damn it, no class */
+    font-size: 75%;
+    vertical-align: top;
+}
+p > sup > a {
+    vertical-align: top;
+}
