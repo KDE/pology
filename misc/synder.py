@@ -1917,7 +1917,7 @@ class Synder (object):
             mtsegs.append(tsegs)
 
         if self._pvaltf:
-            pval = self._pvaltf(mtsegs, pkey, dkey, self._env,
+            pval = self._pvaltf(mtsegs, pkey, dkey, env,
                                 dkrest, pkrest, self)
         else:
             pval = None
