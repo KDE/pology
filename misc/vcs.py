@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 
-from pology.misc.report import report, error, warning
+from pology.misc.report import report, warning
 from pology.misc.fsops import collect_system, system_wd, unicode_to_str
 
 
@@ -101,7 +101,8 @@ class VcsBase (object):
         @return: C{True} if addition successful
         @rtype: bool
         """
-        error("selected version control system does not define adding")
+        raise StandardError(
+            "Selected version control system does not define adding.")
 
 
     def remove (self, path):
@@ -119,7 +120,8 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define removing")
+        raise StandardError(
+            "Selected version control system does not define removing.")
 
 
     def revision (self, path):
@@ -133,7 +135,8 @@ class VcsBase (object):
         @rtype: string
         """
 
-        error("selected version control system does not define revision query")
+        raise StandardError(
+            "Selected version control system does not define revision query.")
 
 
     def is_clear (self, path):
@@ -149,7 +152,8 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define state query")
+        raise StandardError(
+            "Selected version control system does not define state query.")
 
 
     def is_older (self, rev1, rev2):
@@ -165,8 +169,9 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define "
-              "revision age comparison")
+        raise StandardError(
+            "Selected version control system does not define "
+            "revision age comparison.")
 
 
     def is_versioned (self, path):
@@ -180,8 +185,9 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define "
-              "checking whether a path is version controlled")
+        raise StandardError(
+            "Selected version control system does not define "
+            "checking whether a path is version controlled.")
 
 
     def export (self, path, rev, dstpath, rewrite=None):
@@ -211,8 +217,9 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define "
-              "fetching a versioned path")
+        raise StandardError(
+            "Selected version control system does not define "
+            "fetching a versioned path.")
 
 
     def commit (self, paths, message=None, msgfile=None):
@@ -242,8 +249,9 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        error("selected version control system does not define "
-              "committing of paths")
+        raise StandardError(
+            "Selected version control system does not define "
+            "committing of paths.")
 
 
     def log (self, path, rev1=None, rev2=None):
@@ -275,8 +283,9 @@ class VcsBase (object):
         @rtype: [(string*4)*]
         """
 
-        error("selected version control system does not define "
-              "revision history query")
+        raise StandardError(
+            "Selected version control system does not define "
+            "revision history query.")
 
 
     def to_commit (self, path):
@@ -295,8 +304,9 @@ class VcsBase (object):
         @rtype: [string*]
         """
 
-        error("selected version control system does not define "
-              "listing of non-committed paths")
+        raise StandardError(
+            "Selected version control system does not define "
+            "listing of non-committed paths.")
 
 
     def diff (self, path, rev1=None, rev2=None):
@@ -328,8 +338,8 @@ class VcsBase (object):
         @rtype: [(string, string or (int, int, int, int))*]
         """
 
-        error("selected version control system does not define "
-              "diffing")
+        raise StandardError(
+            "Selected version control system does not define diffing.")
 
 
 class VcsNoop (VcsBase):
