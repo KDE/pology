@@ -34,6 +34,14 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
     known_genders = set((u"м", u"ж", u"с", u"у"))
     known_genders.update(map(cyr2lat, known_genders))
 
+    known_alts = [
+        ("", u""),
+        ("_s", u"сист"),
+        ("_a", u"алт"),
+        ("_a2", u"алт2"),
+        ("_a3", u"алт3"),
+    ]
+
     if demoexp:
         demoexp_pkeys = [u"н", u"г", u"д", u"а", u"в", u"и",
                          u"нк", u"гк", u"дк", u"ак", u"вк",
@@ -67,57 +75,67 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
             continue
 
         try:
-            props = dict([(x, tp.get2(dkey, norm_pkey(x)))
-                          for x in needed_pkeys])
+            aprops = []
+            for ksuff, esuff in known_alts:
+                dkeym = dkey + ksuff
+                props = dict([(x, tp.get2(dkeym, norm_pkey(x)))
+                               for x in needed_pkeys])
+                aprops.append((esuff, props))
         except Exception, e:
             warning(unicode(e))
             cnproblems += 1
             continue
 
-        # Assure all nominative forms are unique.
-        for pkeys in nom_pkeys: # select first nominative set by priority
-            pvals = [props.get(x) for x in pkeys]
-            noms = filter(lambda x: x is not None, pvals)
+        for esuff, props in aprops:
+            # Assure all nominative forms are unique.
+            for pkeys in nom_pkeys: # select first nominative set by priority
+                pvals = [props.get(x) for x in pkeys]
+                noms = filter(lambda x: x is not None, pvals)
+                if noms:
+                    break
             if noms:
-                break
-        if noms:
-            rtkeys = map(norm_rtkey, noms)
-            for rtkey in rtkeys:
-                odkey = dkeys_by_rtkey.get(rtkey)
-                if odkey is not None and tp.props(dkey) != tp.props(odkey):
-                    opath, olno, ocno = tp.source_pos(odkey)
-                    warning("Derivation at %s:%d:%d has normalized nominative "
-                            "equal to derivation at %s:%d:%d."
-                            % (path, lno, cno, opath, olno, ocno))
-                    cnproblems += 1
-            for rtkey in rtkeys: # must be in new loop
-                dkeys_by_rtkey[rtkey] = dkey
-
-        # Assure presence of gender on noun derivations.
-        if props.get(nom_pkeys[0][0]) is not None:
-            gender = props.get(gender_pkey)
-            if gender is None:
-                warning("Derivation at %s:%d:%d does not define gender."
-                        % (path, lno, cno))
-                cnproblems += 1
-            else:
-                for gender in split_althyb(gender):
-                    if gender not in known_genders:
-                        warning("Derivation at %s:%d:%d defines "
-                                "unknown gender '%s'."
-                                % (path, lno, cno, gender))
+                rtkeys = map(norm_rtkey, noms)
+                for rtkey in rtkeys:
+                    odkey = dkeys_by_rtkey.get(rtkey)
+                    if odkey is not None and tp.props(dkey) != tp.props(odkey):
+                        opath, olno, ocno = tp.source_pos(odkey)
+                        warning("Derivation at %s:%d:%d has normalized "
+                                "nominative equal to derivation at %s:%d:%d."
+                                % (path, lno, cno, opath, olno, ocno))
                         cnproblems += 1
+                for rtkey in rtkeys: # must be in new loop
+                    dkeys_by_rtkey[rtkey] = dkey
 
-        # Show selection of expanded properties if requested.
-        if demoexp and not cnproblems:
-            demoprops = [(x, props.get(x)) for x in demoexp_pkeys]
-            demoprops = filter(lambda x: x[1] is not None, demoprops)
-            fmtprops = ["%s=%s" % (x[0], _escape_pval(x[1])) for x in demoprops]
-            fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
-            fmtexp = ", ".join(fmtsyns) + ": " + ", ".join(fmtprops)
-            if fmtexp not in reported_fmtexps:
-                report(fmtexp)
-                reported_fmtexps.add(fmtexp)
+            # Assure presence of gender on noun derivations.
+            if props.get(nom_pkeys[0][0]) is not None:
+                gender = props.get(gender_pkey)
+                if gender is None:
+                    warning("Derivation at %s:%d:%d does not define gender."
+                            % (path, lno, cno))
+                    cnproblems += 1
+                else:
+                    for gender in split_althyb(gender):
+                        if gender not in known_genders:
+                            warning("Derivation at %s:%d:%d defines "
+                                    "unknown gender '%s'."
+                                    % (path, lno, cno, gender))
+                            cnproblems += 1
+
+            # Show selection of expanded properties if requested.
+            if demoexp and not cnproblems:
+                demoprops = [(x, props.get(x)) for x in demoexp_pkeys]
+                demoprops = filter(lambda x: x[1] is not None, demoprops)
+                fmtprops = ["%s=%s" % (x[0], _escape_pval(x[1]))
+                            for x in demoprops]
+                fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
+                fmtexp = ", ".join(fmtsyns) + ": " + ", ".join(fmtprops)
+                if fmtexp not in reported_fmtexps:
+                    if not esuff:
+                        report(fmtexp)
+                        reported_fmtexps.add(fmtexp)
+                    else:
+                        afmtexp = "    @" + esuff + ": " + ", ".join(fmtprops)
+                        report(afmtexp)
 
         nproblems += cnproblems
         tp.empty_pcache()
