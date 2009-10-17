@@ -141,10 +141,8 @@ _gematch_suffs_genders = [
 ]
 
 
-def trapnakron (env=(u"",),
-                envl=(u"л", u""),
-                envij=(u"иј", u""),
-                envijl=(u"ијл", u"л", u"иј", u""),
+def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
+                esuffsyst=u"сист", esuffalt=u"алт",
                 markup="plain", tagmap=None,
                 ptsuff=None, ltsuff=None, gesuff=None, npkeyto=None,
                 nobrhyp=False, disamb="",
@@ -159,10 +157,11 @@ def trapnakron (env=(u"",),
         forms, as applicable.
         Any of these forms can be excluded from derivation by setting
         its C{env*} parameter to C{None}.
-        C{env*} parameters can also be used to change the environment chain
-        for deriving the particular form.
+        C{env*} parameters can also be used to change the priority environment
+        from which the particular form is derived.
 
-      - The derivation and property key separator is ASCII hyphen (C{-}).
+      - Derivation and property key separator in compound keys
+        is ASCII hyphen (C{-}).
 
       - Derivation keys are derived from syntagmas by applying
         the L{identify()<misc.normalize.identify>} function.
@@ -228,14 +227,14 @@ def trapnakron (env=(u"",),
         They are by default not included, but can be by setting
         the C{runtime} parameter to C{True}.
 
-    @param env: environment chain for Ekavian Cyrillic derivation
-    @type env: string or (string...) or ((string...)...)
-    @param envl: environment chain for Ekavian Latin derivation
-    @type envl: string or (string...) or ((string...)...)
-    @param envij: environment chain for Ijekavian Cyrillic derivation
-    @type envij: string or (string...) or ((string...)...)
-    @param envijl: environment chain for Ijekavian Latin derivation
-    @type envijl: string or (string...) or ((string...)...)
+    @param envec: primary environment for Ekavian Cyrillic derivation
+    @type envec: string or C{None}
+    @param envel: primary environment for Ekavian Latin derivation
+    @type envel: string or C{None}
+    @param envic: primary environment for Ijekavian Cyrillic derivation
+    @type envic: string or C{None}
+    @param envil: primary environment for Ijekavian Latin derivation
+    @type envil: string or C{None}
     @param markup: target markup
     @type markup: string
     @param tagmap: tags to assign to properties by derivation keys
@@ -259,8 +258,8 @@ def trapnakron (env=(u"",),
     @rtype: L{Synder<misc.synder.Synder>}
     """
 
-    envs = [env, envl, envij, envijl]
-    combo =  "".join([(x and "1" or "0") for x in envs])
+    env0s = [envec, envel, envic, envil]
+    combo =  "".join([(x is not None and "1" or "0") for x in env0s])
     if combo not in _good_eicl_combos:
         raise StandardError("Invalid combination of Ekavian/Ijekavian "
                             "Cyrillic/Latin environments "
@@ -270,6 +269,22 @@ def trapnakron (env=(u"",),
         raise StandardError("Unknown markup '%s' to trapnakron derivator "
                             "(known markups: %s)."
                             % (markup, " ".join(_known_markups)))
+
+    # Compose environment fallback chains.
+    env = []
+    envprops = [] # [(islatin, isije)*]
+    if envec is not None:
+        env.append((envec,))
+        envprops.append((False, False))
+    if envel is not None:
+        env.append((envel, envec))
+        envprops.append((True, False))
+    if envic is not None:
+        env.append((envic, envec))
+        envprops.append((False, True))
+    if envil is not None:
+        env.append((envil, envel, envic, envec))
+        envprops.append((True, True))
 
     # Setup up requests by derivation key ending.
     mvends = {}
@@ -290,11 +305,11 @@ def trapnakron (env=(u"",),
     # Create transformators.
     dkeytf = _sd_dkey_transf(mvends, tagmap)
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
-    pvaltf = _sd_pval_transf(env, envl, envij, envijl, markup, nobrhyp, disamb)
+    pvaltf = _sd_pval_transf(envprops, markup, nobrhyp, disamb)
     ksyntf = _sd_ksyn_transf(markup, False, disamb)
 
     # Build the derivator.
-    sd = Synder(env=[x for x in envs if x],
+    sd = Synder(env=env,
                 ckeysep="-",
                 dkeytf=dkeytf, dkeyitf=identify,
                 pkeytf=pkeytf, pkeyitf=norm_pkey,
@@ -334,10 +349,7 @@ def _get_trapnakron_files (runtime=False):
     return files
 
 
-def trapnakron_plain (env=(u"",),
-                      envl=(u"л", u""),
-                      envij=(u"иј", u""),
-                      envijl=(u"ијл", u"л", u"иј", u"")):
+def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
     """
     Constructs trapnakron suitable for application to plain text.
 
@@ -357,7 +369,7 @@ def trapnakron_plain (env=(u"",),
     """
 
     return trapnakron(
-        env, envl, envij, envijl,
+        envec, envel, envic, envil,
         markup="plain",
         gesuff=_gematch_suffs,
         npkeyto=("am", ("am", "gm")),
@@ -365,10 +377,7 @@ def trapnakron_plain (env=(u"",),
     )
 
 
-def trapnakron_ui (env=(u"",),
-                   envl=(u"л", u""),
-                   envij=(u"иј", u""),
-                   envijl=(u"ијл", u"л", u"иј", u"")):
+def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
     """
     Constructs trapnakron suitable for application to UI texts.
 
@@ -384,7 +393,7 @@ def trapnakron_ui (env=(u"",),
     """
 
     return trapnakron(
-        env, envl, envij, envijl,
+        envec, envel, envic, envil,
         markup="plain",
         gesuff=_gematch_suffs,
         npkeyto=("am", ("am", "gm")),
@@ -394,10 +403,7 @@ def trapnakron_ui (env=(u"",),
     )
 
 
-def trapnakron_docbook4 (env=(u"",),
-                         envl=(u"л", u""),
-                         envij=(u"иј", u""),
-                         envijl=(u"ијл", u"л", u"иј", u""),
+def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                          tagmap=None):
     """
     Constructs trapnakron suitable for application to Docbook 4 texts.
@@ -418,7 +424,7 @@ def trapnakron_docbook4 (env=(u"",),
     """
 
     return trapnakron(
-        env, envl, envij, envijl,
+        envec, envel, envic, envil,
         markup="docbook4",
         tagmap=tagmap,
         ptsuff=_suff_pltext,
@@ -517,24 +523,21 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
 # - add outer tags according to selected markup
 # - construct alternatives/hybridized forms out of multiple values
 # - replace disambiguation markers with invisible characters
-def _sd_pval_transf (env, envl, envij, envijl, markup, nobrhyp, disamb):
-
-    envspec = [x for x in ((env, False), (envl, True),
-                           (envij, False), (envijl, True)) if x[0]]
+def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
 
     def transf (mtsegs, dkrest, sd):
 
         fcap, tag, ltmarkup, pltext = dkrest
 
         pvals = []
-        for tsegs, (env1, islatin) in zip(mtsegs, envspec):
+        for tsegs, (islatin, isije) in zip(mtsegs, envprops):
             if tsegs is None:
                 return None
             pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
                                   fcap, tag, ltmarkup, pltext, islatin)
             pvals.append(pval1)
 
-        pval = _compose_althyb(env, envl, envij, envijl, pvals)
+        pval = _compose_althyb(envprops, pvals)
 
         return pval
 
@@ -598,16 +601,17 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
 
 # Combine Ekavian/Ijekavian Cyrillic/Latin forms
 # into alternatives and hybridization directives.
-def _compose_althyb (env, envl, envij, envijl, pvals):
+def _compose_althyb (envprops, pvals):
 
-    if env and envl and envij and envijl:
+    if len(envprops) == 4:
         # FIXME: Really implement.
         cval = _fold_cyrlat(pvals[:2])
-    elif (env and envij) or (envl and envijl):
-        # FIXME: Really implement.
-        cval = pvals[0]
-    elif (env and envl) or (envij and envijl):
-        cval = _fold_cyrlat(pvals)
+    elif len(envprops) == 2:
+        if envprops[0][0] == envprops[1][0]: # same scripts
+            # FIXME: Really implement.
+            cval = pvals[0]
+        else: # different scripts
+            cval = _fold_cyrlat(pvals)
     else:
         cval = pvals[0]
 
