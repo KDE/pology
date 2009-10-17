@@ -139,57 +139,76 @@ _gematch_suffs_genders = [
     (_suff_gematch_s_id, (u"с", u"s")),
     (_suff_gematch_u_id, (u"у", u"u")),
 ]
+_suff_systr = "_s" # for "sistemska transkripcija"
+_suff_systr_id = 40
+_systr_ksuff_esuff = (_suff_systr, u"сист")
+_suff_altdv1 = "_a" # for "alternativno izvodjenje"
+_suff_altdv1_id = 50
+_suff_altdv2 = "_a2" # second alternative
+_suff_altdv2_id = 51
+_suff_altdv3 = "_a3" # third alternative
+_suff_altdv3_id = 52
+_altdv_ksuffs_esuffs = [
+    (_suff_altdv1, u"алт"),
+    (_suff_altdv2, u"алт2"),
+    (_suff_altdv3, u"алт3"),
+]
+_aenv_suff_ids = [_suff_systr_id, # order of elements significant
+                  _suff_altdv1_id, _suff_altdv2_id, _suff_altdv3_id]
+_aenv_suff_ids_set = set(_aenv_suff_ids)
 
 
 def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
-                esuffsyst=u"сист", esuffalt=u"алт",
                 markup="plain", tagmap=None,
-                ptsuff=None, ltsuff=None, gesuff=None, npkeyto=None,
-                nobrhyp=False, disamb="",
+                ptsuff=None, ltsuff=None, gesuff=None,
+                stsuff=None, adsuff=None,
+                npkeyto=None, nobrhyp=False, disamb="",
                 runtime=False):
     """
     Main trapnakron constructor, covering all options.
 
-    The trapnakron derivator automatically sets and behaves as follows:
+    The trapnakron constructor sets, either by default or optionally,
+    various transformations to enhance queries to the resulting derivator.
 
-      - Values are returned as alternatives/hybridized compositions of
-        Ekavian Cyrillic, Ekavian Latin, Ijekavian Cyrillic, and Ijekavian Latin
-        forms, as applicable.
-        Any of these forms can be excluded from derivation by setting
-        its C{env*} parameter to C{None}.
-        C{env*} parameters can also be used to change the priority environment
-        from which the particular form is derived.
+    Default Behavior
+    ================
 
-      - Derivation and property key separator in compound keys
-        is ASCII hyphen (C{-}).
+    Property values are returned as alternatives/hybridized compositions of
+    Ekavian Cyrillic, Ekavian Latin, Ijekavian Cyrillic, and Ijekavian Latin
+    forms, as applicable.
+    Any of these forms can be excluded from derivation by setting
+    its C{env*} parameter to C{None}.
+    C{env*} parameters can also be used to change the priority environment
+    from which the particular form is derived.
 
-      - Derivation keys are derived from syntagmas by applying
-        the L{identify()<misc.normalize.identify>} function.
-        In derivations where this will result in strange keys,
-        additional keys should be defined through hidden syntagmas.
+    Derivation and property key separator in compound keys is
+    the ASCII hyphen (C{-}).
 
-      - Derivation keys are constructed by converting key syntagmas into
-        L{ASCII identifiers<misc.normalize.identify>}.
-        Property keys are transliterated into
-        L{stripped-ASCII<l10n.sr.hook.cyr2lat.cyr2lat_stripped>}.
+    Derivation keys are derived from syntagmas by applying
+    the L{identify()<misc.normalize.identify>} function.
+    In derivations where this will result in strange keys,
+    additional keys should be defined through hidden syntagmas.
+    Property keys are transliterated into
+    L{stripped-ASCII<l10n.sr.hook.cyr2lat.cyr2lat_stripped>}.
 
-      - Conflict resolution for derivation keys is not strict (see
-        L{derivator constructor<misc.synder.Synder.__init__>}).
+    Conflict resolution for derivation keys is not strict
+    (see L{derivator constructor<misc.synder.Synder.__init__>}).
 
-    Optional behavior includes:
+    Optional behavior
+    =================
 
-      - Instead of plain text, properties may be reported with some markup.
-        The markup type is given by C{markup} parameter, and can be one of
-        C{"plain"}, C{"xml"}, C{"docbook4"}.
-        The C{tagmap} parameter contains mapping of derivation keys
-        to tags which should wrap properties of these derivations.
+    Instead of plain text, properties may be reported with some markup.
+    The markup type is given by C{markup} parameter, and can be one of
+    C{"plain"}, C{"xml"}, C{"docbook4"}.
+    The C{tagmap} parameter contains mapping of derivation keys
+    to tags which should wrap properties of these derivations.
 
-      - Derivation keys can have several suffixes which effect how
-        the properties are reported.
-        Presence of the suffix given by C{ptsuff} parameter signals that
+    Derivation keys can have several suffixes which effect how
+    the properties are reported:
+      - Presence of the suffix given by C{ptsuff} parameter signals that
         properties should be forced to plain text, if another markup is
         globally in effect.
-        Parameter C{ltsuff} states the suffix which produces lighter version
+      - Parameter C{ltsuff} states the suffix which produces lighter version
         of the markup, where applicable (e.g. people names in Docbook).
         When fetching a property within a sentence (with keys given e.g.
         as XML entities), sentence construction may require that
@@ -197,35 +216,43 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         can be used to provide a tuple of 4 gender suffixes,
         such that the property will resolve only if the value of gender
         matches the gender suffix.
+      - Parameters C{stsuff} and C{adsuff} provide suffixes through
+        which systematic transcription and alternative derivations
+        are requested.
+        They are actually tuples, where the first element is the key suffix,
+        and the second element the suffix to primary environment
+        which produces the systematic/alternative environment.
+        C{adsuff} can also be a tuple of tuples, if several alternative
+        derivations should be reachable.
 
-      - Ordinary hyphens may be converted into non-breaking hyphens
-        by setting the C{nobrhyp} parameter to C{True}.
-        Non-breaking hyphens are added heuristically, see
-        the L{to_nobr_hyphens()<l10n.sr.hook.nobr.to_nobr_hyphens>} hook.
-        Useful e.g. to avoid wrapping on hyphen-separated case endings.
+    Ordinary hyphens may be converted into non-breaking hyphens
+    by setting the C{nobrhyp} parameter to C{True}.
+    Non-breaking hyphens are added heuristically, see
+    the L{to_nobr_hyphens()<l10n.sr.hook.nobr.to_nobr_hyphens>} hook.
+    Useful e.g. to avoid wrapping on hyphen-separated case endings.
 
-      - Property key normally cannot be empty, but C{npkeyto} parameter
-        can be used to automatically substitute another property key
-        when empty property key is seen in request for properties.
-        In the simpler version, value of C{npkeyto} is just a string
-        of the key to substitute for empty.
-        In the more complex version, the value is a tuple containing
-        the key to substitute and the list of two or more supplemental
-        property keys: empty key is replaced only if all supplemental
-        property values exist and are equal (see e.g. L{trapnakron_plain}
-        for usage of this).
+    A property key normally cannot be empty, but C{npkeyto} parameter
+    can be used to automatically substitute another property key
+    when empty property key is seen in request for properties.
+    In the simpler version, value of C{npkeyto} is just a string
+    of the key to substitute for empty.
+    In the more complex version, the value is a tuple containing
+    the key to substitute and the list of two or more supplemental
+    property keys: empty key is replaced only if all supplemental
+    property values exist and are equal (see e.g. L{trapnakron_plain}
+    for usage of this).
 
-      - Some property values may have been manually decorated with
-        disambiguation markers (C{¤}), to differentiate them from
-        property values of another derivation which would otherwise appear
-        equal under a certain normalization.
-        By default such markers are removed, but instead they
-        can be substituted with a string given by C{disamb} parameter.
+    Some property values may have been manually decorated with
+    disambiguation markers (C{¤}), to differentiate them from
+    property values of another derivation which would otherwise appear
+    equal under a certain normalization.
+    By default such markers are removed, but instead they
+    can be substituted with a string given by C{disamb} parameter.
 
-      - Some derivations are defined only for purposes of obtaining
-        their properties in scripted translations at runtime.
-        They are by default not included, but can be by setting
-        the C{runtime} parameter to C{True}.
+    Some derivations are defined only for purposes of obtaining
+    their properties in scripted translations at runtime.
+    They are by default not included, but can be by setting
+    the C{runtime} parameter to C{True}.
 
     @param envec: primary environment for Ekavian Cyrillic derivation
     @type envec: string or C{None}
@@ -245,6 +272,12 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     @type ltsuff: string
     @param gesuff: suffixes by gender, to have no resolution if gender is wrong
     @type gesuff: [(string, string)*]
+    @param stsuff: derivation key and environment name suffixes
+        to report systematic transcriptions
+    @type stsuff: (string, string)
+    @param adsuff: derivation key and environment name suffixes
+        to report alternative derivations
+    @type adsuff: (string, string) or ((string, string)*)
     @param npkeyto: property key to substitute for empty key, when given
     @type npkeyto: string or (string, [string*])
     @param nobrhyp: whether to convert some ordinary into non-breaking hyphens
@@ -286,7 +319,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         env.append((envil, envel, envic, envec))
         envprops.append((True, True))
 
-    # Setup up requests by derivation key ending.
+    # Setup up requests by derivation key suffix.
     mvends = {}
     if ptsuff:
         mvends[ptsuff] = _suff_pltext_id
@@ -297,7 +330,27 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
             raise StandardError("Sequence of gender suffixes must have "
                                 "exactly 4 elements.")
         mvends.update(zip(gesuff, _gematch_suff_ids))
+    aenvs = {}
+    if adsuff or stsuff:
+        kesuffs = [] # must have same order as _aenv_suff_ids
+        if stsuff is not None:
+            kesuffs.append(stsuff)
+        if not isinstance(adsuff[0], tuple):
+            kesuffs.append(adsuff)
+        else:
+            kesuffs.extend(adsuff)
+        for (ksuff, esuff), suff_id in zip(kesuffs, _aenv_suff_ids):
+            mvends[ksuff] = suff_id
+            # Compose environment fallback chain for this suffix.
+            aenv = []
+            for env1 in env:
+                aenv1 = []
+                for env0 in env1:
+                    aenv1.extend((env0 + esuff, env0))
+                aenv.append(tuple(aenv1))
+            aenvs[suff_id] = tuple(aenv)
 
+    # Setup substitution of empty property keys.
     expkeys = []
     if isinstance(npkeyto, tuple):
         npkeyto, expkeys = npkeyto
@@ -307,6 +360,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     pkeytf = _sd_pkey_transf(npkeyto, expkeys)
     pvaltf = _sd_pval_transf(envprops, markup, nobrhyp, disamb)
     ksyntf = _sd_ksyn_transf(markup, False, disamb)
+    envtf = _sd_env_transf(aenvs)
 
     # Build the derivator.
     sd = Synder(env=env,
@@ -314,6 +368,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                 dkeytf=dkeytf, dkeyitf=identify,
                 pkeytf=pkeytf, pkeyitf=norm_pkey,
                 pvaltf=pvaltf, ksyntf=ksyntf,
+                envtf=envtf,
                 strictkey=False)
 
     # Collect synder files composing the trapnakron.
@@ -358,7 +413,9 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
       - Markup is plain text (C{plain}).
 
       - Suffixes: C{_rm} ("rod muski") for resolving the property value only
-        if it is of masculine gender, C{_rz} for feminine, C{_rs} for neuter.
+        if it is of masculine gender, C{_rz} for feminine, C{_rs} for neuter;
+        C{_s} for systematic transcription, C{_a}, C{_a2} and C{_a3} for
+        other alternatives.
 
       - Non-breaking hyphens are heuristically replacing ordinary hyphens.
 
@@ -372,6 +429,8 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         envec, envel, envic, envil,
         markup="plain",
         gesuff=_gematch_suffs,
+        stsuff=_systr_ksuff_esuff,
+        adsuff=_altdv_ksuffs_esuffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -396,6 +455,8 @@ def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         envec, envel, envic, envil,
         markup="plain",
         gesuff=_gematch_suffs,
+        stsuff=_systr_ksuff_esuff,
+        adsuff=_altdv_ksuffs_esuffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
         disamb=u"\u2060",
@@ -430,6 +491,8 @@ def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         ptsuff=_suff_pltext,
         ltsuff=_suff_ltmarkup,
         gesuff=_gematch_suffs,
+        stsuff=_systr_ksuff_esuff,
+        adsuff=_altdv_ksuffs_esuffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -477,7 +540,13 @@ def _sd_dkey_transf (suffspec, tagmap):
             ):
                 dkey = None
 
-        return dkey, fcap, tag, ltmarkup, pltext
+        # Whether to use one of alternative environments.
+        esuffid = None
+        found_aenv_suff_ids = _aenv_suff_ids_set.intersection(found_suff_ids)
+        if found_aenv_suff_ids:
+            esuffid = tuple(found_aenv_suff_ids)[0]
+
+        return dkey, fcap, tag, ltmarkup, pltext, esuffid
 
     return transf, "self"
 
@@ -527,7 +596,7 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
 
     def transf (mtsegs, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext = dkrest
+        fcap, tag, ltmarkup, pltext, d5 = dkrest
 
         pvals = []
         for tsegs, (islatin, isije) in zip(mtsegs, envprops):
@@ -551,7 +620,7 @@ def _sd_ksyn_transf (markup, nobrhyp, disamb):
 
     def transf (tsegs, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext = dkrest
+        fcap, tag, ltmarkup, pltext, d5 = dkrest
 
         ksyn = _compose_text(tsegs, markup, nobrhyp, disamb,
                              fcap, tag, ltmarkup, pltext)
@@ -559,6 +628,22 @@ def _sd_ksyn_transf (markup, nobrhyp, disamb):
         return ksyn
 
     return transf, "dkrest", "self"
+
+
+# Transformation for derivation environments.
+# Returns a non-default environment on request from keys processing.
+def _sd_env_transf (aenvs):
+
+    def transf (env, dkrest):
+
+        d1, d2, d3, d4, esuffid = dkrest
+
+        if esuffid is not None:
+            return aenvs[esuffid]
+        else:
+            return env
+
+    return transf, "dkrest"
 
 
 def _compose_text (tsegs, markup, nobrhyp, disamb,
