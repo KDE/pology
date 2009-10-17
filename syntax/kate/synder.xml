@@ -62,7 +62,7 @@
       <context name="propkey" attribute="propkey" lineEndContext="#pop">
         &escmnt;
         <DetectChar char="&amp;" attribute="separator"/>
-        <RegExpr String="[!.]+(?==)" attribute="propkeycut"/>
+        <RegExpr String="[!.^]+(?==)" attribute="propkeycut"/>
         <DetectChar char="=" attribute="propkey" context="propval"/>
       </context>
       <context name="propval" attribute="propval" lineEndContext="#pop">
