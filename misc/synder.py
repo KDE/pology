@@ -1520,6 +1520,7 @@ class Synder (object):
           - a string specifying a non-default environment
           - a tuple specifying an environment fallback chain
           - a tuple of tuples, specifying more than one environment chain
+        (Lists can also be used instead of tuples.)
 
         If several environment fallback chains are given, when a property
         is requrested they are tried in the order of specification,
@@ -1640,10 +1641,8 @@ class Synder (object):
     def _normenv (self, env):
 
         if isinstance(env, (tuple, list)):
-            if not env or not isinstance(env[0], (tuple, list)):
-                env = (tuple(env),)
-            else:
-                env = tuple(map(tuple, env))
+            if not env or isinstance(env[0], basestring):
+                env = (env,)
         else:
             env = ((env,),)
 
