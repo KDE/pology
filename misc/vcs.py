@@ -299,15 +299,20 @@ class VcsBase (object):
               "listing of non-committed paths")
 
 
-    def mod_lines (self, path, rev1=None, rev2=None):
+    def diff (self, path, rev1=None, rev2=None):
         """
-        Get lines modified between revisions of the given path.
+        Get diff between revisions of the given path.
 
-        Modified lines are reported as list of 2-tuples,
-        where the first element of the tuple is C{"+"} or C{"-"},
-        and the second the line itself (without newline).
+        Unified diff is computed and reported as list of 2-tuples,
+        where the first element is a tag, and the second the payload.
+        For tags C{" "}, C{"+"}, and C{"-"}, the payload is the line
+        (without newline) which was equal, added or removed, respectively.
+        Payload for tag C{":"} is the path of the diffed file,
+        and for C{"@"} the 4-tuple of old start line, old number of lines,
+        new start line, and new number of lines, which are represented
+        by the following difference segment.
 
-        Modifications can be collected between specific revisions.
+        Diffs can be requested between specific revisions.
         If both C{rev1} and C{rev2} are C{None},
         diff is taken from last known commit to working copy.
         If only C{rev2} is C{None} diff is taken from C{rev1} to working copy.
@@ -319,12 +324,12 @@ class VcsBase (object):
         @param rev2: diff to this revision
         @type rev2: string
 
-        @return: tagged modified lines
-        @rtype: [(string, string)*]
+        @return: tagged unified diff
+        @rtype: [(string, string or (int, int, int, int))*]
         """
 
         error("selected version control system does not define "
-              "determination of modified lines")
+              "diffing")
 
 
 class VcsNoop (VcsBase):
@@ -582,7 +587,7 @@ class VcsSubversion (VcsBase):
         return ncpaths
 
 
-    def mod_lines (self, path, rev1=None, rev2=None):
+    def diff (self, path, rev1=None, rev2=None):
         # Base override.
 
         if rev1 is not None and rev2 is not None:
@@ -601,19 +606,28 @@ class VcsSubversion (VcsBase):
                     "%s" % (path, res[1]))
             return []
 
-        mlines = []
+        udiff = []
         nskip = 0
         for line in res[0].split("\n"):
             if nskip > 0:
                 nskip -= 1
-            elif line.startswith("="):
-                nskip = 3
-            elif line.startswith("-"):
-                mlines.append(("-", line[1:]))
-            elif line.startswith("+"):
-                mlines.append(("+", line[1:]))
+                continue
 
-        return mlines
+            if line.startswith("Index:"):
+                udiff.append((":", line[line.find(":") + 1:].strip()))
+                nskip = 3
+            elif line.startswith("@@"):
+                m = re.search(r"-(\d+),(\d+) *\+(\d+),(\d+)", line)
+                spans = tuple(map(int, m.groups())) if m else (0, 0, 0, 0)
+                udiff.append(("@", spans))
+            elif line.startswith(" "):
+                udiff.append((" ", line[1:]))
+            elif line.startswith("-"):
+                udiff.append(("-", line[1:]))
+            elif line.startswith("+"):
+                udiff.append(("+", line[1:]))
+
+        return udiff
 
 
 class VcsGit (VcsBase):
@@ -922,7 +936,7 @@ class VcsGit (VcsBase):
         return ipaths
 
 
-    def mod_lines (self, path, rev1=None, rev2=None):
+    def diff (self, path, rev1=None, rev2=None):
         # Base override.
 
         root, path = self._gitroot(path)
@@ -944,19 +958,29 @@ class VcsGit (VcsBase):
                     "%s" % (path, res[1]))
             return []
 
-        mlines = []
+        udiff = []
         nskip = 0
         for line in res[0].split("\n"):
             if nskip > 0:
                 nskip -= 1
-            elif line.startswith("index"):
-                nskip = 3
-            elif line.startswith("-"):
-                mlines.append(("-", line[1:]))
-            elif line.startswith("+"):
-                mlines.append(("+", line[1:]))
+                continue
 
-        return mlines
+            if line.startswith("diff"):
+                m = re.search(r"a/(.*?) *b/", line)
+                udiff.append((":", m.group(1) if m else ""))
+                nskip = 3
+            elif line.startswith("@@"):
+                m = re.search(r"-(\d+),(\d+) *\+(\d+),(\d+)", line)
+                spans = tuple(map(int, m.groups())) if m else (0, 0, 0, 0)
+                udiff.append(("@", spans))
+            elif line.startswith(" "):
+                udiff.append((" ", line[1:]))
+            elif line.startswith("-"):
+                udiff.append(("-", line[1:]))
+            elif line.startswith("+"):
+                udiff.append(("+", line[1:]))
+
+        return udiff
 
 
 def _crop_log (entries, rev1, rev2):
