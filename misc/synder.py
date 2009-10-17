@@ -272,7 +272,7 @@ through base expansions, we could come up with::
 However, this will cause the C{gender} property in expansion to become
 C{Venerafem}. For the C{gender} property to be taken verbatim,
 without adding the segments from the calling derivation around it,
-we add make it a cutting property by appending exclamation mark to its key::
+we add make it a cutting property by appending exclamation ({!}) to its key::
 
     |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
 
@@ -292,6 +292,14 @@ which happen not to override it by outer expansion::
 
     Mars: Mars|, desc.=planet
     Red Mars: Crven|i> Mars|  # a novel
+
+I{Canceling} properties will cause a previously defined property with
+the same key to be removed from the collection of properties.
+Canceling property is indicated by ending its key with a circumflex (C{^}).
+The value of canceling property has no meaning, and can be anything.
+Canceling is useful in expansions and alternative derivations (see below),
+where some properties introduced by expansion or alternative fallback
+should be removed from the final collection of properties.
 
 
 Text Tags
@@ -683,6 +691,7 @@ _ch_pval            = "="
 _ch_exp             = "|"
 _ch_cutprop         = "!"
 _ch_termprop        = "."
+_ch_remprop         = "^"
 _ch_exp_mask        = "~"
 _ch_exp_mask_pl     = "."
 _ch_exp_kext        = "%"
@@ -811,7 +820,7 @@ def _include_sources (source, incpaths):
 
 
 _compfile_suff = "c"
-_compfile_dver = "0002"
+_compfile_dver = "0003"
 _compfile_hlen = hashlib.md5().digest_size * 2
 
 def _write_parsed_file (source, path):
@@ -989,15 +998,18 @@ def _ctx_handler_pkey (prop, instr, pos, bpos):
     if sep == _ch_pval:
         substr = substr.strip()
         for rawkey in substr.split(_ch_pkey_sep):
-            cut, terminal = False, False
-            while rawkey.endswith((_ch_cutprop, _ch_termprop)):
+            cut, terminal, canceling = [False] * 3
+            while rawkey.endswith((_ch_cutprop, _ch_termprop, _ch_remprop)):
                 if rawkey.endswith(_ch_cutprop):
                     cut = True
                     rawkey = rawkey[:-len(_ch_cutprop)]
                 elif rawkey.endswith(_ch_termprop):
                     terminal = True
                     rawkey = rawkey[:-len(_ch_termprop)]
-            key = _SDKey(prop, obpos, rawkey, cut, terminal)
+                elif rawkey.endswith(_ch_remprop):
+                    canceling = True
+                    rawkey = rawkey[:-len(_ch_remprop)]
+            key = _SDKey(prop, obpos, rawkey, cut, terminal, canceling)
             prop.keys.append(key)
         return _ctx_pval, prop, False, pos, bpos
     else:
@@ -1339,19 +1351,22 @@ class _SDProp:
 # Property key.
 class _SDKey:
 
-    def __init__ (self, parent, pos, name="", cut=False, terminal=False):
+    def __init__ (self, parent, pos, name="",
+                  cut=False, terminal=False, canceling=False):
 
         # Parent property and position in source.
         self.parent = parent
         self.pos = pos
-        # Key name, cutting and terminal behaviors.
+        # Key behaviors.
         self.name = name
         self.cut = cut
         self.terminal = terminal
+        self.canceling = canceling
 
     def __unicode__ (self):
         return "{k:%d:%d:%s|%s&%s}" % (self.pos + (self.name,
-                                                   self.cut, self.terminal))
+                                                   self.cut, self.terminal,
+                                                   self.canceling))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -1903,7 +1918,8 @@ class Synder (object):
 
         # Construct raw derivation and extract key-value pairs.
         rprops = self._derive(deriv, env1)
-        props = dict([(x, self._simple_segs(y[0])) for x, y in rprops.items()])
+        props = dict([(x, self._simple_segs(y[0])) for x, y in rprops.items()
+                                                   if not y[1].canceling])
 
         # Internally transform keys if requested.
         if self._pkeyitf:
@@ -1977,6 +1993,12 @@ class Synder (object):
                                 csegs.append(seg)
                     else:
                         fsegs.append(seg)
+                for pkey, (segs, key) in list(cprops.items()):
+                    if key.canceling and pkey in dprops:
+                        osegskey = dprops.get(pkey)
+                        if osegskey is not None and not osegskey[1].canceling:
+                            dprops.pop(pkey)
+                            cprops.pop(pkey)
                 dprops.update(cprops)
 
         # Eliminate leading and trailing empty text segments.
