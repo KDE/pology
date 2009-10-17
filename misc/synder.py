@@ -1503,7 +1503,8 @@ class Synder (object):
                   dkeytf=None, dkeyitf=None,
                   pkeytf=None, pkeyitf=None,
                   pvaltf=None,
-                  ksyntf=None):
+                  ksyntf=None,
+                  envtf=None):
         """
         Constructor of syntagma derivators.
 
@@ -1572,6 +1573,10 @@ class Synder (object):
                 for key syntagmas, so the input value is just one list
                 of tagged text segments (what would be the first element
                 of input list to C{pvaltf}).
+          - C{envtf}: applied to environment fallback chain on lookups.
+                Takes original environment chain as argument,
+                returns new environment chain
+                (in one of the forms acceptable as C{env} parameter).
 
         Transformation functions can take more input arguments than
         the default described above, on demand.
@@ -1584,13 +1589,14 @@ class Synder (object):
         Available extra inputs by transformation function are:
           - C{dkeytf}: C{"self"} the derivation object.
           - C{pkeytf}: C{"self"}, C{"dkey"} the derivation key
-                (original or that returned by C{dkeytf}).
+                (original or that returned by C{dkeytf}),
+                C{"dkrest"} the second object returned by C{dkeytf}.
           - C{pvaltf}: C{"self"}, C{"dkey"}, C{"pkey"} the property
                 key (original or that returned by C{pkeytf}),
-                C{"env"} the tuple of environment chains,
-                C{"dkrest"} the second object returned by C{dkeytf},
+                C{"env"} the tuple of environment chains, C{"dkrest"},
                 C{"pkrest"} the second object returned by C{pkeytf}.
           - C{ksyntf}: C{"self"}, C{"dkey"}, C{"dkrest"}.
+          - C{envtf}: C{"self"}, C{"dkey"}, C{"dkrest"}.
 
         @param env: environment for derivations
         @type env: string, (string*), ((string*)*)
@@ -1612,11 +1618,12 @@ class Synder (object):
 
         self._dkeytf = self._resolve_tf(dkeytf, ["self"])
         self._dkeyitf = self._resolve_tf(dkeyitf, [])
-        self._pkeytf = self._resolve_tf(pkeytf, ["dkey", "self"])
+        self._pkeytf = self._resolve_tf(pkeytf, ["dkey", "dkrest", "self"])
         self._pkeyitf = self._resolve_tf(pkeyitf, [])
         self._pvaltf = self._resolve_tf(pvaltf, ["pkey", "dkey", "env",
                                                  "dkrest", "pkrest", "self"])
         self._ksyntf = self._resolve_tf(ksyntf, ["dkey", "dkrest", "self"])
+        self._envtf = self._resolve_tf(envtf, ["dkey", "dkrest", "self"])
 
         self._strictkey = strictkey
 
@@ -1857,15 +1864,25 @@ class Synder (object):
         return dkey, dkrest, deriv
 
 
-    def _resolve_pkey (self, pkey, dkey):
+    def _resolve_pkey (self, pkey, dkey, dkrest):
 
         pkrest = ()
         if self._pkeytf:
-            pkey = self._pkeytf(pkey, dkey, self)
+            pkey = self._pkeytf(pkey, dkey, dkrest, self)
             if isinstance(pkey, tuple):
                 pkey, pkrest = pkey[0], pkey[1:]
 
         return pkey, pkrest
+
+
+    def _resolve_env (self, env, dkey, dkrest):
+
+        if self._envtf:
+            env = self._envtf(env, dkey, dkrest, self)
+            if env is not None:
+                env = self._normenv(env)
+
+        return env
 
 
     def get2 (self, dkey, pkey, defval=None):
@@ -1887,12 +1904,16 @@ class Synder (object):
         if dkey is None:
             return defval
 
-        pkey, pkrest = self._resolve_pkey(pkey, dkey)
+        pkey, pkrest = self._resolve_pkey(pkey, dkey, dkrest)
         if pkey is None:
             return defval
 
+        env = self._resolve_env(self._env, dkey, dkrest)
+        if env is None:
+            return defval
+
         mtsegs = []
-        for env1 in self._env:
+        for env1 in env:
             tsegs = self._getprops(deriv, env1).get(pkey)
             mtsegs.append(tsegs)
 
@@ -2235,8 +2256,12 @@ class Synder (object):
         if dkey is None:
             return set()
 
+        env = self._resolve_env(self._env, dkey, dkrest)
+        if env is None:
+            return set()
+
         pkeys = set()
-        for env1 in self._env:
+        for env1 in env:
             props = self._getprops(deriv, env1)
             pkeys.update(props.keys())
 
