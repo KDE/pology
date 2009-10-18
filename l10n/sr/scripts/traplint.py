@@ -14,7 +14,6 @@ from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
 from pology.l10n.sr.hook.cyr2lat import cyr2lat
 from pology.misc.normalize import identify
 from pology.l10n.sr.trapnakron import rootdir
-from pology.misc.fsops import collect_files_by_ext
 from pology.misc.vcs import VcsSubversion
 
 
@@ -201,39 +200,113 @@ def _escape_syn (pval):
 
 def _collect_mod_dkeys (tp, onlysrcs=None, onlykeys=None):
 
-    # Collect all modified lines.
+    # Collect the unified diff of trapnakron root.
     vcs = VcsSubversion()
-    mlines = []
-    fpaths = collect_files_by_ext(rootdir(), ["sd"])
-    for fpath in fpaths:
-        if onlysrcs is not None: # cheaper than vcs.is_versioned
-            srcname = os.path.splitext(os.path.basename(fpath))[0]
-            if not _match_text(srcname, onlysrcs):
-                continue
-        if not vcs.is_versioned(fpath):
+    udiff = vcs.diff(rootdir())
+    udiff = _elim_moved_blocks(udiff)
+
+    # Collect key syntagmas related to added lines.
+    asyns = set()
+    skip_file = True
+    prev_syns = None
+    for tag, data in udiff:
+        if tag == "@":
             continue
-        mlines.extend(vcs.mod_lines(fpath))
 
-    # Remove lines only moved between files and removed lines.
-    mlines_added = set([x[1] for x in mlines if x[0] == "+"])
-    mlines_removed = set([x[1] for x in mlines if x[0] == "-"])
-    mlines_mod = []
-    for mline in mlines:
-        if mline[1] in mlines_added and not mline[1] in mlines_removed:
-            mlines_mod.append(mline)
-    mlines = mlines_mod
+        fpath = data
+        if tag == ":":
+            if not fpath.endswith(".sd"):
+                skip_file = True
+            else:
+                srcname = os.path.splitext(os.path.basename(fpath))[0]
+                if onlysrcs is None:
+                    skip_file = False
+                else:
+                    skip_file = not _match_text(srcname, onlysrcs)
+        if skip_file:
+            continue
 
-    # Collect derivation keys from new lines.
+        line = data.strip()
+        if line.startswith(("#", ">")) or not line:
+            continue
+        if tag == " ":
+            if not line.startswith("@"):
+                prev_syns = _parse_syns(line)
+        elif tag == "+":
+            if not line.startswith("@"):
+                syns = _parse_syns(line)
+            elif prev_syns:
+                syns = prev_syns
+            asyns.update(syns)
+            prev_syns = []
+
+    # Collect derivation keys from syntagmas.
     onlykeys_mod = set()
     dkeys_in_tp = set(tp.dkeys(single=True))
-    for tag, line in mlines:
-        dkeys = map(identify, _parse_syns(line))
-        if onlykeys is not None:
-            dkeys = filter(lambda x: _match_text(x, onlykeys), dkeys)
-        dkeys = filter(lambda x: x in dkeys_in_tp, dkeys)
-        onlykeys_mod.update(dkeys)
+    for syn in asyns:
+        dkey = identify(syn)
+        if (    dkey and dkey in dkeys_in_tp
+            and (onlykeys is None or _match_text(dkey, onlykeys))
+        ):
+            onlykeys_mod.add(dkey)
 
     return None, onlykeys_mod
+
+
+# Eliminate difference blocks due to pure moving between and within files.
+def _elim_moved_blocks (udiff):
+
+    segcnt_ad = {}
+    segcnt_rm = {}
+    ctag = ""
+    cseg = []
+    for tag, data in udiff + [("@", None)]: # sentry
+        if tag == "@":
+            if ctag in ("+", "-"):
+                cskey = "".join(cseg)
+                segcnt = segcnt_ad if ctag == "+" else segcnt_rm
+                if cskey not in segcnt:
+                    segcnt[cskey] = 0
+                segcnt[cskey] += 1
+            ctag = ""
+            cseg = []
+        elif tag in ("+", "-"):
+            if ctag and ctag != tag:
+                ctag = "xxx"
+            else:
+                ctag = tag
+                cseg.append(data)
+
+    udiff_mod = []
+    subdiff = []
+    ctag = ""
+    cseg = []
+    for tag, data in udiff + [("@", None)]:
+        if tag in (":", "@"):
+            if subdiff:
+                cskey = "".join(cseg)
+                if (   ctag not in ("+", "-")
+                    or segcnt_ad.get(cskey, 0) != 1
+                    or segcnt_rm.get(cskey, 0) != 1
+                ):
+                    udiff_mod.extend(subdiff)
+            subdiff = []
+            cseg = []
+            ctag = ""
+            if tag == ":":
+                udiff_mod.append((tag, data))
+            else:
+                subdiff = [(tag, data)]
+        else:
+            subdiff.append((tag, data))
+            if tag in ("+", "-"):
+                if ctag and ctag != tag:
+                    ctag = "xxx"
+                else:
+                    ctag = tag
+                    cseg.append(data)
+
+    return udiff_mod
 
 
 def _parse_syns (line):
