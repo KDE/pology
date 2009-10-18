@@ -566,8 +566,8 @@ class Sieve (object):
             # as it should be seen in statistics that message needs updating.
             if dr2 == 0.0:
                 dr2 = 0.1
-            nwords["orig"] = int(dr2 * nwords["orig"])
-            nchars["orig"] = int(dr2 * nchars["orig"])
+            nwords["orig"] = int(round(dr2 * nwords["orig"] + 0.5)) # round up
+            nchars["orig"] = int(round(dr2 * nchars["orig"] + 0.5)) # round up
 
         # Detect categories and add the counts.
         categories = []
