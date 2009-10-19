@@ -177,6 +177,7 @@ hint="Bruk imperativformene «opna», «lagra», ikkje «opn» og «lagr»"
 
 [\b(CapsLock|Control|AltGr|PageUp|PgUp|PageDown|PgDown|PrintScreen|ScrollLock|NumLock)\b]i
 hint="Sjå avsnittet «Tastar» i retningslinjene"
+valid msgstr="^<Control>\w$"
 
 [\b(enter|Alt gr|[Ii]ns|DEL|ESC|Esc|f[1-9])\b]
 hint="Sjå avsnittet «Tastar» i retningslinjene"
@@ -194,11 +195,12 @@ hint="klarte ikkje å → klarte ikkje"
 hint="aktiver → slå på, gjer verksam, bruk, vis, …"
 
 [eksister\w]i
+id="eksistera"
 hint="eksistera → finnast"
 valid before="ande"
 
 [inkluder\w+]i
-hint="inkluder → ta med, inkludert → medrekna, …"
+hint="inkluder → ta med, inkludert, medrekna, òg …"
 
 [konfigur\w+]i
 hint="konfigurasjon → oppsett, konfigurera → setja opp"
