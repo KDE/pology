@@ -14,6 +14,7 @@ from xml.dom.minidom import parseString
 from pology.sieve import SieveError, SieveCatalogError
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.msgreport import warning_on_msg
+from pology.misc.report import report, warning
 from pology.misc.fsops import get_env_langs
 
 REQUEST="/?language=%s&%s"
@@ -39,12 +40,12 @@ def setup_sieve (p):
     "If not given, autodetection of language is attempted based on "
     "catalog headers and environment."
     )
-    p.add_param("host", unicode, defval=u"localhost",
+    p.add_param("host", str, defval="localhost",
                 metavar="NAME",
                 desc=
     "Name of the host where the server is running."
     )
-    p.add_param("port", unicode, defval=u"8081",
+    p.add_param("port", str, defval="8081",
                 metavar="NUMBER",
                 desc=
     "TCP port on the host which server uses to listen for queries."
