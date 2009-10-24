@@ -34,7 +34,6 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
     known_genders.update(map(cyr2lat, known_genders))
 
     known_alts = [
-        ("", u""),
         ("_s", u"сист"),
         ("_a", u"алт"),
         ("_a2", u"алт2"),
@@ -75,11 +74,27 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
 
         try:
             aprops = []
-            for ksuff, esuff in known_alts:
-                dkeym = dkey + ksuff
-                props = dict([(x, tp.get2(dkeym, norm_pkey(x)))
-                               for x in needed_pkeys])
-                aprops.append((esuff, props))
+            cenvs = tp.envs(dkey)
+            for cenv in cenvs:
+                if cenv != "":
+                    envmatched = False
+                    for ksuff, esuff in known_alts:
+                        if cenv.endswith(esuff):
+                            envmatched = True
+                            break
+                else:
+                    envmatched = True
+                    ksuff, esuff = "", ""
+                if envmatched:
+                    dkeym = dkey + ksuff
+                    props = dict([(x, tp.get2(dkeym, norm_pkey(x)))
+                                   for x in needed_pkeys])
+                    aprops.append((esuff, props))
+                else:
+                    warning("Derivation at %s:%d:%d defines "
+                            "unknown environment '%s'."
+                            % (path, lno, cno, cenv))
+                    cnproblems += 1
         except Exception, e:
             warning(unicode(e))
             cnproblems += 1
