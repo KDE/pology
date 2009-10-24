@@ -2306,6 +2306,27 @@ class Synder (object):
         return props
 
 
+    def envs (self, dkey):
+        """
+        Get list of all explicitly defined environments in given derivation.
+
+        "Explicitly" means environments mentioned in the derivation itself,
+        and not those inherited through expansions.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: explicit environment names
+        @rtype: [string*]
+        """
+
+        dkey, dkrest, deriv = self._resolve_dkey(dkey)
+        if dkey is None:
+            return []
+
+        return [x.name for x in deriv.base.envs]
+
+
     def source_name (self, dkey):
         """
         Get the name of the source in which the derivation is found.
