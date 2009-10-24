@@ -385,13 +385,10 @@ def _statistics (tp, onlysrcs, onlykeys):
 def _main ():
 
     usage = u"""
-  %prog [OPTIONS]
-  %prog [OPTIONS] DKEY...
-  %prog [OPTIONS] SRCPATH...
-  %prog [OPTIONS] :SRCNAME...
+  %prog [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...
 """.rstrip()
     description = u"""
-Check validity of internal trapnakron.
+Check validity and expand derivations from internal trapnakron.
 """.strip()
     version = u"""
 %prog (Pology) experimental
