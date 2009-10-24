@@ -157,7 +157,7 @@ OpenSSL: ОпенССЛ|-, ОпенССЛ|-ов
 Reslisa: Реслиз|а, Реслиз|ин
     @л: Reslis|a, Reslis|in
 Telepathy: Телепатиј|а, Телепатиј|ин, телепатиј|ски
-    @л: Telepathyj|a, n=Telepathy, Telepathyj|in, telepathyj|ski
+    @л: Telepath|y, Telepath|yjev, Telepathy|>
 Winbind: Винбинд|, Винбинд|ов
     @л: Winbind|, Winbind|ov
 WM_NET, WMNET: ВМ_НЕТ|-, ВМ_НЕТ|-ов
@@ -188,12 +188,12 @@ KConfig: К-конфиг|
     @л: KConfig|
 KConfigXT: К-конфиг-ИксТ|-
     @л: KConfigXT|-
-KDE2: |{KDE~.} 2, н=|{KDE~н}-2, а=|{KDE~н}-2, |{KDE~н}-2|>, _род!=м
-    @л: KDE|- 2, n=KDE2, a=KDE2, KDE2|>
-KDE3: |{KDE~.} 3, н=|{KDE~н}-3, а=|{KDE~н}-3, |{KDE~н}-3|>, _род!=м
-    @л: KDE|- 3, n=KDE3, a=KDE3, KDE3|>
-KDE4: |{KDE~.} 4, н=|{KDE~н}-4, а=|{KDE~н}-4, |{KDE~н}-4|>, _род!=м
-    @л: KDE|- 4, n=KDE4, a=KDE4, KDE4|>
+KDE2: |{KDE~.} 2, н&а=|{KDE~н}-2, |{KDE~н}-2|>, _род!=м
+    @л: KDE|- 2, н&а=KDE2, KDE2|>
+KDE3: |{KDE~.} 3, н&а=|{KDE~н}-3, |{KDE~н}-3|>, _род!=м
+    @л: KDE|- 3, н&а=KDE3, KDE3|>
+KDE4: |{KDE~.} 4, н&а=|{KDE~н}-4, |{KDE~н}-4|>, _род!=м
+    @л: KDE|- 4, н&а=KDE4, KDE4|>
 KDED: КДЕД|-, КДЕД|-ов, КДЕД|>
 KFile: к-фајл|, к-фајл|>
     @л: KFile|, KFile|>
