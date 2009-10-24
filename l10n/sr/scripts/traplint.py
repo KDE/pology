@@ -17,7 +17,7 @@ from pology.l10n.sr.trapnakron import rootdir
 from pology.misc.vcs import VcsSubversion
 
 
-def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
+def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
 
     needed_pkeys = set()
 
@@ -128,6 +128,9 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False):
                             for x in demoprops]
                 fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
                 fmtexp = ", ".join(fmtsyns) + ": " + ", ".join(fmtprops)
+                if expwkeys:
+                    fmtdkeys = ", ".join(sorted(tp.altdkeys(dkey)))
+                    fmtexp = "# " + fmtdkeys + "\n" + fmtexp
                 if fmtexp not in reported_fmtexps:
                     if not esuff:
                         report(fmtexp)
@@ -401,14 +404,18 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="demoexp", default=False,
         help="Show a sample of expanded properties for each valid derivation.")
     opars.add_option(
+        "-k", "--show-keys",
+        action="store_true", dest="expwkeys", default=False,
+        help="When expanding, also show all derivation keys by derivation.")
+    opars.add_option(
+        "-m", "--modified",
+        action="store_true", dest="modified", default=False,
+        help="Validate or expand only modified derivations.")
+    opars.add_option(
         "-r", "--regex",
         action="store_true", dest="regex", default=False,
         help="Source names and derivation keys given in command line "
              "are regular expressions.")
-    opars.add_option(
-        "-m", "--modified",
-        action="store_true", dest="modified", default=False,
-        help="Validate only modified derivations.")
     opars.add_option(
         "-s", "--statistics",
         action="store_true", dest="statistics", default=False,
@@ -448,7 +455,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     tp = trapnakron_ui()
     if options.modified:
         onlysrcs, onlykeys = _collect_mod_dkeys(tp, onlysrcs, onlykeys)
-    validate(tp, onlysrcs, onlykeys, options.demoexp)
+    validate(tp, onlysrcs, onlykeys, options.demoexp, options.expwkeys)
 
     if options.statistics:
         _statistics(tp, onlysrcs, onlykeys)
