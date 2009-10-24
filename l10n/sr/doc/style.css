@@ -68,3 +68,16 @@ p > sup { /* footnote; damn it, no class */
 p > sup > a {
     vertical-align: top;
 }
+
+div.authorgroup {
+    margin-bottom: 1em;
+}
+div.author {
+    margin-bottom: 0.5em;
+}
+h3.author {
+    display:inline;
+    font-size: 100%;
+    color: black;
+    margin: 0;
+}
