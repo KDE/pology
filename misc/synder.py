@@ -2237,6 +2237,24 @@ class Synder (object):
         return rsyns
 
 
+    def altdkeys (self, dkey):
+        """
+        Get list of all derivation keys pointing to same entry as given key.
+
+        @param dkey: derivation key
+        @type dkey: string
+
+        @returns: alternative derivation keys
+        @rtype: [string*]
+        """
+
+        dkey, dkrest, deriv = self._resolve_dkey(dkey)
+        if dkey is None:
+            return []
+
+        return deriv.dkeys
+
+
     def pkeys (self, dkey):
         """
         Get set of property keys available for given derivation key.
