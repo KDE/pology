@@ -145,7 +145,8 @@ object --+
         <span class="summary-sig-arg">pkeytf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pkeyitf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pvaltf</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">ksyntf</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">ksyntf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envtf</span>=<span class="summary-sig-default">None</span>)</span><br />
       Constructor of syntagma derivators.</td>
           <td align="right" valign="top">
             
@@ -271,6 +272,24 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.synder.Synder-class.html#altdkeys" class="summary-sig-name">altdkeys</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get list of all derivation keys pointing to same entry as given key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">set(string*)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -297,6 +316,24 @@ object --+
         <span class="summary-sig-arg">dkey</span>)</span><br />
       Get dictionary of property values by property keys for given 
       derivation key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.synder.Synder-class.html#envs" class="summary-sig-name">envs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get list of all explicitly defined environments in given derivation.</td>
           <td align="right" valign="top">
             
             
@@ -571,7 +608,8 @@ object --+
         <span class="sig-arg">pkeytf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pkeyitf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">pvaltf</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">ksyntf</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">ksyntf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envtf</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -599,6 +637,7 @@ object --+
       a tuple of tuples, specifying more than one environment chain
     </li>
   </ul>
+  <p>(Lists can also be used instead of tuples.)</p>
   <p>If several environment fallback chains are given, when a property is 
   requrested they are tried in the order of specification, and the first 
   yielded property is returned. It is also possible to combine properties 
@@ -662,6 +701,11 @@ object --+
       value is just one list of tagged text segments (what would be the 
       first element of input list to <code>pvaltf</code>).
     </li>
+    <li>
+      <code>envtf</code>: applied to environment fallback chain on lookups.
+      Takes original environment chain as argument, returns new environment
+      chain (in one of the forms acceptable as <code>env</code> parameter).
+    </li>
   </ul>
   <p>Transformation functions can take more input arguments than the 
   default described above, on demand. If transformation function  is 
@@ -679,19 +723,23 @@ object --+
     <li>
       <code>pkeytf</code>: <code>&quot;self&quot;</code>, 
       <code>&quot;dkey&quot;</code> the derivation key (original or that 
-      returned by <code>dkeytf</code>).
+      returned by <code>dkeytf</code>), <code>&quot;dkrest&quot;</code> the
+      second object returned by <code>dkeytf</code>.
     </li>
     <li>
       <code>pvaltf</code>: <code>&quot;self&quot;</code>, 
       <code>&quot;dkey&quot;</code>, <code>&quot;pkey&quot;</code> the 
       property key (original or that returned by <code>pkeytf</code>), 
       <code>&quot;env&quot;</code> the tuple of environment chains, 
-      <code>&quot;dkrest&quot;</code> the second object returned by 
-      <code>dkeytf</code>, <code>&quot;pkrest&quot;</code> the second 
-      object returned by <code>pkeytf</code>.
+      <code>&quot;dkrest&quot;</code>, <code>&quot;pkrest&quot;</code> the 
+      second object returned by <code>pkeytf</code>.
     </li>
     <li>
       <code>ksyntf</code>: <code>&quot;self&quot;</code>, 
+      <code>&quot;dkey&quot;</code>, <code>&quot;dkrest&quot;</code>.
+    </li>
+    <li>
+      <code>envtf</code>: <code>&quot;self&quot;</code>, 
       <code>&quot;dkey&quot;</code>, <code>&quot;dkrest&quot;</code>.
     </li>
   </ul>
@@ -887,6 +935,33 @@ object --+
   </dl>
 </td></tr></table>
 </div>
+<a name="altdkeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">altdkeys</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of all derivation keys pointing to same entry as given 
+  key.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>alternative derivation keys</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="pkeys"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -941,6 +1016,35 @@ object --+
     </ul></dd>
     <dt>Returns: {(string, string)*}</dt>
         <dd>property dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="envs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">envs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of all explicitly defined environments in given 
+  derivation.</p>
+  <p>&quot;Explicitly&quot; means environments mentioned in the derivation 
+  itself, and not those inherited through expansions.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>explicit environment names</dd>
   </dl>
 </td></tr></table>
 </div>

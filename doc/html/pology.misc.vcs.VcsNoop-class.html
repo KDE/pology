@@ -205,7 +205,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (string, string, string, string)</span>
+      <span class="summary-type">[(string*4)*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -225,7 +225,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
+      <span class="summary-type">[string*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -244,6 +244,7 @@ object --+
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.vcs.VcsBase-class.html">VcsBase</a></code></b>:
+      <code><a href="pology.misc.vcs.VcsBase-class.html#diff">diff</a></code>,
       <code><a href="pology.misc.vcs.VcsBase-class.html#is_older">is_older</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
@@ -577,7 +578,7 @@ object --+
         <li><strong class="pname"><code>rev1</code></strong> - entries starting from this revision (inclusive)</li>
         <li><strong class="pname"><code>rev2</code></strong> - entries up to this revision (exclusive)</li>
     </ul></dd>
-    <dt>Returns: list of (string, string, string, string)</dt>
+    <dt>Returns: [(string*4)*]</dt>
         <dd>revision ID, committer name, date string, commit message</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#log">VcsBase.log</a>
@@ -610,7 +611,7 @@ object --+
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>path</code></strong> - path to query for non-committed paths</li>
     </ul></dd>
-    <dt>Returns: list of strings</dt>
+    <dt>Returns: [string*]</dt>
         <dd>non-committed paths</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#to_commit">VcsBase.to_commit</a>

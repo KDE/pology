@@ -70,17 +70,39 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
+      <span class="summary-type">[string*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_files_by_ext" class="summary-sig-name">collect_files_by_ext</a>(<span class="summary-sig-arg">dirpath</span>,
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_files" class="summary-sig-name">collect_files</a>(<span class="summary-sig-arg">paths</span>,
+        <span class="summary-sig-arg">recurse</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">sort</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">relcwd</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">selectf</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Collect list of files from given directory and file paths.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_files_by_ext" class="summary-sig-name">collect_files_by_ext</a>(<span class="summary-sig-arg">paths</span>,
         <span class="summary-sig-arg">extension</span>,
         <span class="summary-sig-arg">recurse</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">sort</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>)</span><br />
-      Collect list of files having given extension from given directory 
-      path.</td>
+        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">relcwd</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Collect list of files having given extension from given paths.</td>
           <td align="right" valign="top">
             
             
@@ -92,14 +114,16 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string or list of strings</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_catalogs" class="summary-sig-name">collect_catalogs</a>(<span class="summary-sig-arg">file_or_dir_paths</span>,
+          <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_catalogs" class="summary-sig-name">collect_catalogs</a>(<span class="summary-sig-arg">paths</span>,
+        <span class="summary-sig-arg">recurse</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">sort</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>)</span><br />
-      Collect list of catalog file paths from given file/directory paths.</td>
+        <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">relcwd</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Collect list of catalog file paths from given paths.</td>
           <td align="right" valign="top">
             
             
@@ -111,11 +135,12 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_catalogs_by_env" class="summary-sig-name">collect_catalogs_by_env</a>(<span class="summary-sig-arg">catpathenv</span>,
+        <span class="summary-sig-arg">recurse</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">sort</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">unique</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">relcwd</span>=<span class="summary-sig-default">True</span>)</span><br />
@@ -319,6 +344,55 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
+<a name="collect_files"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_files</span>(<span class="sig-arg">paths</span>,
+        <span class="sig-arg">recurse</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">sort</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">relcwd</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">selectf</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Collect list of files from given directory and file paths.</p>
+  <p><code>paths</code> can be any sequence of strings, or a single string.
+  Directories can be searched for files recursively or non-resursively, as 
+  requested by the <code>recurse</code> parameter. Parameters 
+  <code>sort</code> and <code>unique</code> determine if the resulting 
+  paths are sorted alphabetically increasing and if duplicate paths are 
+  removed. If <code>relcwd</code> is set to <code>True</code>, absolute 
+  file paths which point to files within the current working directory are 
+  made relative to it.</p>
+  <p>Only selected files may be collected by supplying a selection function
+  through <code>selectf</code> parameter. It takes a file path as argument 
+  and returns a boolean, <code>True</code> to select the file or 
+  <code>False</code> to discard it.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>paths</code></strong> (string or iter(string*)) - paths to search for files</li>
+        <li><strong class="pname"><code>recurse</code></strong> (bool) - whether to search for files recursively</li>
+        <li><strong class="pname"><code>sort</code></strong> (bool) - whether to sort collected paths</li>
+        <li><strong class="pname"><code>unique</code></strong> (bool) - whether to eliminate duplicate collected paths</li>
+        <li><strong class="pname"><code>relcwd</code></strong> - whether to make collected absolute paths within current working 
+          directory relative to it</li>
+        <li><strong class="pname"><code>relcwd</code></strong> - bool</li>
+        <li><strong class="pname"><code>selectf</code></strong> ((string)-&gt;bool) - test to select or discard a file path</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>collected file paths</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="collect_files_by_ext"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -326,41 +400,38 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_files_by_ext</span>(<span class="sig-arg">dirpath</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_files_by_ext</span>(<span class="sig-arg">paths</span>,
         <span class="sig-arg">extension</span>,
         <span class="sig-arg">recurse</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">sort</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">relcwd</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Collect list of files having given extension from given directory 
-  path.</p>
-  <p>Single path or a sequence of paths may be given as 
-  <code>dirpath</code> parameter. Similarly, a single extension or sequence
-  of extensions may be given in place of <code>extension</code> parameter. 
-  If extensions are given as empty sequence, then files with no extensions 
-  are collected. Directories can be searched for files recursively or 
-  non-resursively, as requested by the <code>recurse</code> parameter.</p>
-  <p>Collected file paths are by default sorted and any duplicates 
-  eliminated, but this can be controlled using the <code>sort</code> and 
-  <code>unique</code> parameters.</p>
+  <p>Collect list of files having given extension from given paths.</p>
+  <p>The <code>extension</code> parameter can be a single extension or a 
+  sequence of extensions, without the leading dot. Files with empty 
+  extension (i.e. dot at the end of path) are collected by supplying empty 
+  string for <code>extension</code>, and files with no extension by 
+  supplying another empty sequence.</p>
+  <p>Other parameters behave in the same way as in <a 
+  href="pology.misc.fsops-module.html#collect_files" 
+  class="link">collect_files</a>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>dirpath</code></strong> (string or sequence of strings) - path to search for files</li>
         <li><strong class="pname"><code>extension</code></strong> (string or sequence of strings) - extension of files to collect</li>
-        <li><strong class="pname"><code>recurse</code></strong> (bool) - whether to search for files recursively</li>
-        <li><strong class="pname"><code>sort</code></strong> (bool) - whether to sort collected paths</li>
-        <li><strong class="pname"><code>unique</code></strong> (bool) - whether to eliminate duplicates from collected paths</li>
     </ul></dd>
-    <dt>Returns: list of strings</dt>
-        <dd>list of collected file paths</dd>
   </dl>
-</td></tr></table>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.fsops-module.html#collect_files" 
+        class="link">collect_files</a>
+      </p>
+</div></td></tr></table>
 </div>
 <a name="collect_catalogs"></a>
 <div>
@@ -369,33 +440,21 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_catalogs</span>(<span class="sig-arg">file_or_dir_paths</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_catalogs</span>(<span class="sig-arg">paths</span>,
+        <span class="sig-arg">recurse</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">sort</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">unique</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">relcwd</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Collect list of catalog file paths from given file/directory 
-  paths.</p>
-  <p>When the given path is a directory path, the directory is recursively 
-  searched for <code>.po</code> and <code>.pot</code> files. Otherwise, the
-  path is taken verbatim as single catalog file path (even if it does not 
-  exist).</p>
-  <p>Collected paths are by default sorted and any duplicates eliminated, 
-  but this can be controlled using the <code>sort</code> and 
-  <code>unique</code> parameters.</p>
+  <p>Collect list of catalog file paths from given paths.</p>
+  <p>Applies <code>collect_files_by_ext</code> with extensions set to 
+  <code>(&quot;po&quot;, &quot;pot&quot;)</code>.</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>file_or_dir_paths</code></strong> (list of strings) - paths to search for catalogs</li>
-        <li><strong class="pname"><code>sort</code></strong> (bool) - whether to sort the list of collected paths</li>
-        <li><strong class="pname"><code>unique</code></strong> (bool) - whether to eliminate duplicates among collected paths</li>
-    </ul></dd>
-    <dt>Returns: string or list of strings</dt>
-        <dd>collected catalog paths</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -407,6 +466,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_catalogs_by_env</span>(<span class="sig-arg">catpathenv</span>,
+        <span class="sig-arg">recurse</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">sort</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">unique</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">relcwd</span>=<span class="sig-default">True</span>)</span>
@@ -418,17 +478,14 @@
   
   <p>Collect list of catalog file paths from directories given by an 
   environment variable.</p>
+  <p>Other parameters behave in the same way as in <a 
+  href="pology.misc.fsops-module.html#collect_catalogs" 
+  class="link">collect_catalogs</a>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>sort</code></strong> (bool) - whether to sort the list of collected paths</li>
-        <li><strong class="pname"><code>unique</code></strong> (bool) - whether to eliminate duplicates among collected paths</li>
-        <li><strong class="pname"><code>relcwd</code></strong> - whether to make paths relative to current working directory when 
-          they point to a file within it</li>
-        <li><strong class="pname"><code>relcwd</code></strong> - bool</li>
+        <li><strong class="pname"><code>catpathenv</code></strong> (string) - environment variable name</li>
     </ul></dd>
-    <dt>Returns: list of strings</dt>
-        <dd>collected catalog paths</dd>
   </dl>
 </td></tr></table>
 </div>

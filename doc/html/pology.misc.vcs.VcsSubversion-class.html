@@ -240,7 +240,7 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (string, string, string, string)</span>
+      <span class="summary-type">[(string*4)*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -260,13 +260,33 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
+      <span class="summary-type">[string*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#to_commit" class="summary-sig-name">to_commit</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>)</span><br />
       Get paths which need to be committed within the given path.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, string or (int, int, int, int))*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#diff" class="summary-sig-name">diff</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">rev1</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rev2</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get diff between revisions of the given path.</td>
           <td align="right" valign="top">
             
             
@@ -665,7 +685,7 @@ object --+
         <li><strong class="pname"><code>rev1</code></strong> - entries starting from this revision (inclusive)</li>
         <li><strong class="pname"><code>rev2</code></strong> - entries up to this revision (exclusive)</li>
     </ul></dd>
-    <dt>Returns: list of (string, string, string, string)</dt>
+    <dt>Returns: [(string*4)*]</dt>
         <dd>revision ID, committer name, date string, commit message</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#log">VcsBase.log</a>
@@ -698,10 +718,58 @@ object --+
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>path</code></strong> - path to query for non-committed paths</li>
     </ul></dd>
-    <dt>Returns: list of strings</dt>
+    <dt>Returns: [string*]</dt>
         <dd>non-committed paths</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#to_commit">VcsBase.to_commit</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="diff"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">diff</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">rev1</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rev2</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get diff between revisions of the given path.</p>
+  <p>Unified diff is computed and reported as list of 2-tuples, where the 
+  first element is a tag, and the second the payload. For tags <code>&quot;
+  &quot;</code>, <code>&quot;+&quot;</code>, and 
+  <code>&quot;-&quot;</code>, the payload is the line (without newline) 
+  which was equal, added or removed, respectively. Payload for tag 
+  <code>&quot;:&quot;</code> is the path of the diffed file, and for 
+  <code>&quot;@&quot;</code> the 4-tuple of old start line, old number of 
+  lines, new start line, and new number of lines, which are represented by 
+  the following difference segment.</p>
+  <p>Diffs can be requested between specific revisions. If both 
+  <code>rev1</code> and <code>rev2</code> are <code>None</code>, diff is 
+  taken from last known commit to working copy. If only <code>rev2</code> 
+  is <code>None</code> diff is taken from <code>rev1</code> to working 
+  copy.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - path to query for modified lines</li>
+        <li><strong class="pname"><code>rev1</code></strong> - diff from this revision</li>
+        <li><strong class="pname"><code>rev2</code></strong> - diff to this revision</li>
+    </ul></dd>
+    <dt>Returns: [(string, string or (int, int, int, int))*]</dt>
+        <dd>tagged unified diff</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#diff">VcsBase.diff</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>

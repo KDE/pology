@@ -141,6 +141,13 @@
    $ cd &lt;parent_dir&gt;/pology
    $ svn up
 </pre>
+    <p>In addition to general scripts, Pology comes with scripts specific 
+    to certain languages. These are made available by:</p>
+<pre class="literalblock">
+   $ export PATH=&lt;parent_dir&gt;/pology/l10n/LANG/bin:$PATH
+</pre>
+    <p>where <code>LANG</code> should be replaced by desired language 
+    code.</p>
     <p>Custom shell completion for Pology scripts is also available:</p>
 <pre class="literalblock">
    $ . &lt;parent_dir&gt;/pology/completion/bash/pology # Bash

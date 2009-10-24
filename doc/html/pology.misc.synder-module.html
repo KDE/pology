@@ -314,7 +314,7 @@
     expansion to become <code>Venerafem</code>. For the <code>gender</code>
     property to be taken verbatim, without adding the segments from the 
     calling derivation around it, we add make it a cutting property by 
-    appending exclamation mark to its key:</p>
+    appending exclamation ({!}) to its key:</p>
 <pre class="literalblock">
    |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
 </pre>
@@ -336,6 +336,14 @@
    Mars: Mars|, desc.=planet
    Red Mars: Crven|i&gt; Mars|  # a novel
 </pre>
+    <p><i>Canceling</i> properties will cause a previously defined property
+    with the same key to be removed from the collection of properties. 
+    Canceling property is indicated by ending its key with a circumflex 
+    (<code>^</code>). The value of canceling property has no meaning, and 
+    can be anything. Canceling is useful in expansions and alternative 
+    derivations (see below), where some properties introduced by expansion 
+    or alternative fallback should be removed from the final collection of 
+    properties.</p>
   <h1 class="heading">Text Tags</h1>
     <p>Key syntagmas and property values can be equipped with simple tags, 
     which start with tag name in the form <code>~TAG</code> and extend to 
