@@ -72,6 +72,10 @@
 |e-ij:
     @л: _род!=м, н=e, г=eja, д=eju, а=e, и=ejem, л=eju
 
+# Imenica muškog roda -u sa promenom -i u jednini
+|u-i:
+    @л: _род!=м, н=u, г=uja, д=uju, а=u, и=ujem, л=uju
+
 # Именица мушког рода -ио у једнини (ненаглашено -о)
 |ио, |io: _род!=м, н=ио, г=ија, д=ију, а=ио, и=ијом, л=ију
 
@@ -223,6 +227,10 @@
 |ia:
     @л: ij|a, н=ia
 
+# Imenica ženskog roda u jednini strana -e sa promenom -a
+|e-a:
+    @л: |a, н=e
+
 # Атрибут уз именицу женског рода у једнини
 |а>, |a>: _род!=ж, н=а, г=е, д=ој, а=у, и=ом, л=ој
 
@@ -335,6 +343,10 @@
 
 # Присвојни придев -И-јев
 |И-јев, |I-jev: Иј|ев
+
+# Prisvojni pridev -ujev
+|ujev:
+    @л: uj|ev
 
 # Prisvojni pridev -yjev
 |yjev:
