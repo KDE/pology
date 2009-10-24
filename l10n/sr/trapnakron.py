@@ -306,17 +306,18 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     # Compose environment fallback chains.
     env = []
     envprops = [] # [(islatin, isije)*]
+    vd = lambda e, d: e if e is not None else d
     if envec is not None:
         env.append((envec,))
         envprops.append((False, False))
     if envel is not None:
-        env.append((envel, envec))
+        env.append((envel, vd(envec, u"")))
         envprops.append((True, False))
     if envic is not None:
-        env.append((envic, envec))
+        env.append((envic, vd(envec, u"")))
         envprops.append((False, True))
     if envil is not None:
-        env.append((envil, envel, envic, envec))
+        env.append((envil, vd(envel, u"л"), vd(envic, u"иј"), vd(envec, u"")))
         envprops.append((True, True))
 
     # Setup up requests by derivation key suffix.
