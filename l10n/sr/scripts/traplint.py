@@ -386,9 +386,9 @@ def _main ():
 
     usage = u"""
   %prog [OPTIONS]
-  %prog [OPTIONS] FILEPATH...
-  %prog [OPTIONS] SRCNAME...
-  %prog [OPTIONS] :DKEY...
+  %prog [OPTIONS] DKEY...
+  %prog [OPTIONS] SRCPATH...
+  %prog [OPTIONS] :SRCNAME...
 """.rstrip()
     description = u"""
 Check validity of internal trapnakron.
@@ -429,22 +429,21 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     onlykeys = set()
     sksep = ":"
     for arg in free_args:
-        if arg.startswith(sksep):
+        if os.path.isfile(arg):
+            test = os.path.splitext(arg.split(os.path.sep)[-1])[0]
+            onlysrcs.add(test)
+        elif arg.startswith(sksep):
             test = arg[len(sksep):]
             if options.regex:
                 test = _Wre(test)
-            else:
-                test = identify(test)
-            onlykeys.add(test)
+            onlysrcs.add(test)
         else:
-            if os.path.isfile(arg):
-                test = os.path.splitext(arg.split(os.path.sep)[-1])[0]
-                onlysrcs.add(test)
+            if options.regex:
+                arg = _Wre(arg)
             else:
-                test = arg
-                if options.regex:
-                    test = _Wre(test)
-                onlysrcs.add(test)
+                arg = identify(arg)
+            onlykeys.add(arg)
+
     onlysrcs = onlysrcs or None
     onlykeys = onlykeys or None
 
