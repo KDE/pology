@@ -78,6 +78,13 @@ Later on, Pology can be updated to the latest repository version by running::
     $ cd <parent_dir>/pology
     $ svn up
 
+In addition to general scripts, Pology comes with scripts specific to
+certain languages. These are made available by::
+
+    $ export PATH=<parent_dir>/pology/l10n/LANG/bin:$PATH
+
+where C{LANG} should be replaced by desired language code.
+
 Custom shell completion for Pology scripts is also available::
 
     $ . <parent_dir>/pology/completion/bash/pology # Bash
