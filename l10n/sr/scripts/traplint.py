@@ -39,6 +39,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
         ("_a2", u"алт2"),
         ("_a3", u"алт3"),
     ]
+    known_envs = set([u"", u"л", u"иј", u"ијл"] + [x[1] for x in known_alts])
 
     if demoexp:
         demoexp_pkeys = [u"н", u"г", u"д", u"а", u"в", u"и",
@@ -90,7 +91,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                     props = dict([(x, tp.get2(dkeym, norm_pkey(x)))
                                    for x in needed_pkeys])
                     aprops.append((esuff, props))
-                else:
+                elif cenv not in known_envs:
                     warning("Derivation at %s:%d:%d defines "
                             "unknown environment '%s'."
                             % (path, lno, cno, cenv))
