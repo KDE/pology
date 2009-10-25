@@ -1094,16 +1094,15 @@ class Catalog (Monitored):
                 committed = msg.get("_committed", False)
                 flines.extend(msg.to_lines(self._wrapf,
                                            force or not committed))
-                # Message should finish with an empty line,
-                # unless it is the last one.
-                if i < nmsgs - 1 and flines[-1] != "\n":
+                # Message should finish with one empty line.
+                if flines[-1] != "\n":
                     flines.append("\n")
                 i += 1
 
-        # Remove one trailing newline from the last message,
-        # unless there is a tail.
-        if not self._tail and flines[-1] == "\n":
-            flines.pop(-1)
+        # Remove trailing newlines unless there is a tail.
+        if not self._tail:
+            while flines and flines[-1] == "\n":
+                flines.pop(-1)
         # Encode lines and any tail.
         enclines = [x.encode(self._encoding) for x in flines]
         if self._tail:
