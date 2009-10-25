@@ -488,7 +488,12 @@ $ traplint -me
 ]]></programlisting>
         </para>
 
-        <para>У могућности оверавања, путем назнака при уређивању, може се убројати и истицање синтаксе. Тренутно је дефинисано за КДЕ уређиваче К-писање и Кејт, у стаблу Пологије смештено под <filename>syntax/kate/synder.xml</filename>; у погон се ставља убацивањем (најбоље симвезом) у директоријум <filename class="directory">~/.kde/share/apps/katepart/syntax/</filename>.</para>
+        <para>У могућности оверавања, путем назнака при уређивању, може се убројати и истицање синтаксе. Тренутно је дефинисано за КДЕ уређиваче К-писање и Кејт, у стаблу Пологије смештено под <filename>syntax/kate/synder.xml</filename>; у погон се ставља убацивањем (најбоље симвезом) у директоријум <filename class="directory">~/.kde/share/apps/katepart/syntax/</filename>. Истицање овако изгледа у акцији:
+        <figure id="f-katesyn">
+            <title>Истицање формата дериватора синтагми у Кејт</title>
+            <graphic fileref="kate-syntax-synder.png" align="center"/>
+        </figure>
+        </para>
 
     </sect2>
 
