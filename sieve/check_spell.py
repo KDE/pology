@@ -149,7 +149,7 @@ class Sieve (object):
 
         self.envs = None
         if self.envs is None and params.env is not None:
-            self.envs = params.env.split(",")
+            self.envs = params.env
         if self.envs is None and cfgs.string("environment") is not None:
             self.envs = cfgs.string("environment").split(",")
         if self.envs is None:
@@ -288,7 +288,7 @@ class Sieve (object):
                 continue
 
             # Apply precheck filters.
-            for pfname, pfilter in self.pfilters:
+            for pfilter, pfname in self.pfilters:
                 try: # try as type F1A hook
                     msgstr = pfilter(msgstr)
                 except TypeError:

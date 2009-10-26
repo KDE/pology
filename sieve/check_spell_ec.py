@@ -398,8 +398,8 @@ def _create_checker (providers, langtag, words):
         checker = enchant.request_pwl_dict(tmpf.name)
         os.unlink(tmpf.name)
 
-    if words is not None:
-        for word in words:
+    if checker:
+        for word in words or []:
             checker.add_to_session(word)
 
     return checker
