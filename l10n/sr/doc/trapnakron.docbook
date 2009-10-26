@@ -517,7 +517,7 @@ $ svn diff >patch.diff
 
         <para>Уместо простог дописивања е-поштом, може се употребити и <ulink url="http://codereview.appspot.com/">Гуглов Преглед кода</ulink>. Овај начин обједињује претходне (шаљу се поруке и одржаваоцу и Сорти), али и омогућава брже и прецизније коментарисање измена и ажурирање предлога. Да би се овоме приступило, прво треба отворити налог на Гуглу (уколико већ није отворен другом приликом), а затим преузети и убацити у путању скрипту <ulink url="http://code.google.com/p/rietveld/wiki/UploadPyUsage"><command>upload.py</command></ulink>, за слање захтева за преглед непосредно из командне линије. Ако је Пера Перић изменио датотеку <filename>people-scientists.sd</filename>, закрпу може послати на преглед овиме:
 <programlisting><![CDATA[
-$ cd $TRAPNAKRON
+$ cd $TRAPDIR
 $ svn status
 M       people-scientists.sd
 $ upload.py -e pera.peric@negde.net \
@@ -530,7 +530,7 @@ Uploading base file for people-scientists.sd
 ]]></programlisting>
         Опција <option>-e</option> задаје уредникову адресу е-поште са којом је отворио налог на Гуглу. Опција <option>-r</option> задаје адресу одржаваоца, а <option>--cc</option> Сорте, који треба да буду обавештени о захтеву за преглед. <option>--send_mail</option> чини да им поруке буду одмах послате, насловљене текстом уз опцију <option>-m</option> и са садржајем закрпе. У излазу се добија веза ка захтеву за преглед (горе <literal>http://codereview.appspot.com/141054</literal>), где се налази веб сучеље за даљу обраду захтева. Ако се закрпа накнадно измени, на основу коментара размењених са одржаваоцем и другима, за слање је довољно:
 <programlisting><![CDATA[
-$ cd $TRAPNAKRON
+$ cd $TRAPDIR
 $ upload.py -e pera.peric@negde.net -i 141054 --send_mail \
             -m "Поправке према коментарима."
 Upload server: codereview.appspot.com (change with -s/--server)
