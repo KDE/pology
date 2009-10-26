@@ -494,6 +494,55 @@ $ traplint -me
 
     </sect2>
 
+    <sect2 id="s-edcoop">
+        <title>Сарадња</title>
+
+        <para>Уредници могу на више начина обезбедити да њихове допуне и измене трапнакрона буду увршћене у ризницу Пологије. У основи свих је, наравно, прослеђивање закрпе коју пријављује систем за управљање верзијама (СУВ) на праву адресу.</para>
+
+        <para>Ако је променљива окружења <envar>TRAPDIR</envar> постављена на корени директоријум трапнакрона, нпр. <filename class="directory">/home/pperic/repos/pology/l10n/sr/trapnakron/</filename>, онда се закрпа која укључује све измене прави једноставним:
+<programlisting><![CDATA[
+$ cd $TRAPDIR
+$ svn diff >patch.diff
+]]></programlisting>
+        (Уколико је додата цела нова датотека, треба је прво пријавити СУВ-у помоћу <code>svn add datoteka.sd</code>). Потом се закрпа може послати е-поштом на једну од ових адреса:
+        <itemizedlist>
+            <listitem>
+                <para>директно Чаславу Илићу <email>caslav.ilic@gmx.net</email>, одржаваоцу трапнакрона у Пологији;</para>
+            </listitem>
+            <listitem>
+                <para>на поштанску листу Сорти <email>sorta@googlegroups.com</email>, која се бави питањима рачунарске терминологије на српском језику. Ово је боља варијанта, јер поред одржаваоца и други могу прокоментарисати измене (нпр. ваљаност транскрипција).</para>
+            </listitem>
+        </itemizedlist>
+        </para>
+
+        <para>Уместо простог дописивања е-поштом, може се употребити и <ulink url="http://codereview.appspot.com/">Гуглов Преглед кода</ulink>. Овај начин обједињује претходне (шаљу се поруке и одржаваоцу и Сорти), али и омогућава брже и прецизније коментарисање измена и ажурирање предлога. Да би се овоме приступило, прво треба отворити налог на Гуглу (уколико већ није отворен другом приликом), а затим преузети и убацити у путању скрипту <ulink url="http://code.google.com/p/rietveld/wiki/UploadPyUsage"><command>upload.py</command></ulink>, за слање захтева за преглед непосредно из командне линије. Ако је Пера Перић изменио датотеку <filename>people-scientists.sd</filename>, закрпу може послати на преглед овиме:
+<programlisting><![CDATA[
+$ cd $TRAPNAKRON
+$ svn status
+M       people-scientists.sd
+$ upload.py -e pera.peric@negde.net \
+            -r caslav.ilic@gmx.net --cc sorta@googlegroups.com --send_mail \
+            -m "Допуне трапнакрона."
+Upload server: codereview.appspot.com (change with -s/--server)
+Loaded authentication cookies from /home/pperic/.codereview_upload_cookies
+Issue created. URL: http://codereview.appspot.com/141054
+Uploading base file for people-scientists.sd
+]]></programlisting>
+        Опција <option>-e</option> задаје уредникову адресу е-поште са којом је отворио налог на Гуглу. Опција <option>-r</option> задаје адресу одржаваоца, а <option>--cc</option> Сорте, који треба да буду обавештени о захтеву за преглед. <option>--send_mail</option> чини да им поруке буду одмах послате, насловљене текстом уз опцију <option>-m</option> и са садржајем закрпе. У излазу се добија веза ка захтеву за преглед (горе <literal>http://codereview.appspot.com/141054</literal>), где се налази веб сучеље за даљу обраду захтева. Ако се закрпа накнадно измени, на основу коментара размењених са одржаваоцем и другима, за слање је довољно:
+<programlisting><![CDATA[
+$ cd $TRAPNAKRON
+$ upload.py -e pera.peric@negde.net -i 141054 --send_mail \
+            -m "Поправке према коментарима."
+Upload server: codereview.appspot.com (change with -s/--server)
+Loaded authentication cookies from /home/pperic/.codereview_upload_cookies
+Issue updated. URL: http://codereview.appspot.com/141054
+]]></programlisting>
+        Опција <option>-i</option> задаје број постојећег захтева за предлог, како би се нова закрпа надовезала на стару.</para>
+
+        <para>Опција <option>--send_mail</option> може и да се не изда, с намером да се поруке пошаљу касније, преко веб сучеља. Ово је корисно када уредник жели додатно да опише измене, у глобалу или додајући коментаре уз неке од њих.</para>
+
+    </sect2>
+
 </sect1>
 
 </article>
