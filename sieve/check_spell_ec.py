@@ -339,7 +339,7 @@ class Sieve (object):
 
                     if not self.words_only or self.lokalize:
                         suggs = self.checker.suggest(word)
-                        if suggs > 5: # do not put out too many words
+                        if len(suggs) > 5: # do not put out too many words
                             suggs = suggs[:5] + ["..."]
                         failed_w_suggs.append((word, suggs))
 
