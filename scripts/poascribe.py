@@ -36,7 +36,6 @@ from pology.misc.comments import parse_summit_branches
 WRAPF = wrap_field_fine_unwrap
 UFUZZ = "fuzzy"
 
-
 def main ():
 
     locale.setlocale(locale.LC_ALL, "")
@@ -1032,7 +1031,7 @@ def init_asc_cat (acatpath, config):
 
     rfv("Project-Id-Version", unicode(acat.name))
     rfv("Report-Msgid-Bugs-To", unicode(config.team_email or ""))
-    rfv("PO-Revision-Date", unicode(format_datetime()))
+    rfv("PO-Revision-Date", unicode(format_datetime(_dt_start)))
     rfv("Content-Type", u"text/plain; charset=UTF-8")
     rfv("Content-Transfer-Encoding", u"8bit")
 
@@ -1062,7 +1061,7 @@ def init_asc_cat (acatpath, config):
 def update_asc_hdr (acat):
 
     acat.header.replace_field_value("PO-Revision-Date",
-                                    unicode(format_datetime()))
+                                    unicode(format_datetime(_dt_start)))
 
 
 _id_fields = (
@@ -1266,7 +1265,7 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
     hasdiff = hasdiff_nonid or hasdiff_state
 
     # Add ascription comment.
-    modstr = user + " | " + format_datetime(dt)
+    modstr = user + " | " + format_datetime(dt, wsec=True)
     if arev or hasdiff:
         modstr += " | " + (arev or "")
     modstr_wsep = modstr
@@ -1315,12 +1314,12 @@ ATYPE_REV = "reviewed"
 
 def ascribe_msg_mod (msg, acat, catrev, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_MOD, [], catrev, user, config)
+    ascribe_msg_any(msg, acat, ATYPE_MOD, [], catrev, user, config, _dt_start)
 
 
 def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_REV, tags, catrev, user, config)
+    ascribe_msg_any(msg, acat, ATYPE_REV, tags, catrev, user, config, _dt_start)
 
 
 # FIXME: Imported by others, factor out.
@@ -1665,27 +1664,54 @@ def asc_sync_and_rep (acat):
     return sync_and_rep(acat)
 
 
+class _TZInfo (datetime.tzinfo):
+
+    def __init__ (self, hours=None, minutes=None):
+
+        self._isdst = time.localtime()[-1]
+        if hours is None and minutes is None:
+            tzoff_sec = -(time.altzone if self._isdst else time.timezone)
+            tzoff_hr = tzoff_sec // 3600
+            tzoff_min = (tzoff_sec - tzoff_hr * 3600) // 60
+        else:
+            tzoff_hr = hours or 0
+            tzoff_min = minutes or 0
+
+        self._dst = datetime.timedelta(0)
+        self._utcoffset = datetime.timedelta(hours=tzoff_hr, minutes=tzoff_min)
+
+    def utcoffset (self, dt):
+        return self._utcoffset
+
+    def dst (self, dt):
+        return self._dst
+
+    def tzname (self, dt):
+        return time.tzname[self._isdst]
+
+
+_dt_start = datetime.datetime(*(time.localtime()[:6] + (0, _TZInfo())))
+
 _dt_fmt = "%Y-%m-%d %H:%M:%S%z"
 _dt_fmt_nosec = "%Y-%m-%d %H:%M%z"
-_dt_str_now = time.strftime(_dt_fmt)
-_dt_str_now_nosec = time.strftime(_dt_fmt_nosec)
 
-def format_datetime (dt=None, wsec=True):
+
+# FIXME: Imported by other scripts, move out of here.
+def format_datetime (dt=None, wsec=False):
 
     if dt is not None:
         if wsec:
             dtstr = dt.strftime(_dt_fmt)
         else:
             dtstr = dt.strftime(_dt_fmt_nosec)
-        # NOTE: If timezone offset is lost, the datetime object is UTC.
-        tail = datestr[datestr.rfind(":"):]
-        if "+" not in tail and "-" not in tail:
+        # If timezone is not present, assume UTC.
+        if dt.tzinfo is None:
             dtstr += "+0000"
     else:
         if wsec:
-            dtstr = _dt_str_now
+            dtstr = time.strftime(_dt_fmt)
         else:
-            dtstr = _dt_str_now_nosec
+            dtstr = time.strftime(_dt_fmt_nosec)
 
     return unicode(dtstr)
 
@@ -1701,10 +1727,8 @@ _parse_date_rxs = [re.compile(x) for x in (
     r"^ *(\d+) *$",
 )]
 
-# FIXME: Imported by posummit.py, move out of here.
+# FIXME: Imported by other scripts, move out of here.
 def parse_datetime (dstr):
-    # NOTE: Timezone offset is lost, the datetime object becomes UTC.
-    # NOTE: Can we use dateutil module in here?
 
     for parse_date_rx in _parse_date_rxs:
         m = parse_date_rx.search(dstr)
@@ -1716,11 +1740,11 @@ def parse_datetime (dstr):
     pgroups.extend([1] * (3 - len(pgroups)))
     pgroups.extend([0] * (7 - len(pgroups)))
     year, month, day, hour, minute, second, off = pgroups
-    dt0 = datetime.datetime(year=year, month=month, day=day,
-                            hour=hour, minute=minute, second=second)
-    offmin = (off // 100) * 60 + (abs(off) % 100)
-    tzd = datetime.timedelta(minutes=offmin)
-    dt = dt0 - tzd
+    offhr = off // 100
+    offmin = off % 100
+    dt = datetime.datetime(year=year, month=month, day=day,
+                           hour=hour, minute=minute, second=second,
+                           tzinfo=_TZInfo(hours=offhr, minutes=offmin))
     return dt
 
 
