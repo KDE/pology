@@ -1429,16 +1429,10 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
     if summit_cat.created():
         summit_cat.header = prim_branch_cat.header
 
-    # Update template creation date to latest from branch,
+    # Update template creation date
     # if there were any changes to the catalog otherwise.
     if summit_cat.modcount:
-        potcrdtf = u"POT-Creation-Date"
-        potcrdtl = prim_branch_cat.header.get_field_value(potcrdtf)
-        for branch_id, branch_cat in branch_ids_cats:
-            potcrdt = branch_cat.header.get_field_value(potcrdtf)
-            if ASC.parse_datetime(potcrdtl) < ASC.parse_datetime(potcrdt):
-                potcrdtl = potcrdt
-        summit_cat.header.set_field(potcrdtf, potcrdtl)
+        summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
 
     # Copy over some fields unconditionally from the primary branch catalog.
     fname = u"Report-Msgid-Bugs-To"
