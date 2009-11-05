@@ -151,7 +151,7 @@
   on all messages which have the number <code>42</code> in original text 
   can be computed using:</p>
 <pre class="literalblock">
-   $ posieve find-messages,stats -smsgid:'42'
+   $ posieve find-messages,stats -smsgid:'\b42\b'
 </pre>
   <p>Pology also collects language-specific internal sieves. These are run 
   by prefixing sieve name with the language code and a colon. For example, 
@@ -180,7 +180,8 @@
   replaced with dashes in the <code>posieve</code> command line. The dashes
   will be converted back to underscores before trying to resolve the 
   location of the internal sieve.</p>
-  <p>The following user configuration fields are considered (they may be 
+  <p>The following <a href="pology.misc.config-module.html" 
+  class="link">user configuration</a> fields are considered (they may be 
   overridden by command line options):</p>
   <ul>
     <li>

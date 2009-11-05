@@ -52,20 +52,24 @@
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module config</h1><p class="nomargin-top"></p>
 <p>Access user configuration for Pology.</p>
-  <p>User can modify default aspects of Pology's behavior through a 
-  configuration file named <code>.pologyrc</code> and residing in the 
-  user's home directory. This file is divided into sections and fileds in 
-  the INI-style format, for example:</p>
+  <p>The user can modify default aspects of Pology's behavior through the 
+  Pology's global configuration file <code>~/.pologyrc</code>. This file is
+  divided into sections and fields in the INI-style format, for 
+  example:</p>
 <pre class="literalblock">
    # let's have some apples for the moment
    [fruit]
    sort = apples
    amount = 10
 </pre>
-  <p>The configuration file is expected to be UTF-8 encoded.</p>
-  <p>This module as whole is treated as the single object for accessing the
-  configuration. The API reflects division into sections, with each section
-  containing configuration fields:</p>
+  <p>When refering to global configuration within Pology documentation 
+  (e.g. in documentation for scripts), fields are written shorthand as 
+  <code>[section]/name</code> (e.g. <code>[fruit]/sort</code> and 
+  <code>[fruit]/amount</code>).</p>
+  <p>The configuration file must be UTF-8 encoded.</p>
+  <p>For accessing the configuration within Pology code, this module as 
+  whole is treated as single object. The API reflects division into 
+  sections, with each section containing configuration fields:</p>
 <pre class="literalblock">
    &gt;&gt;&gt; import pology.misc.config as config
    &gt;&gt;&gt; fruit = config.section(&quot;fruit&quot;)

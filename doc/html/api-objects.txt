@@ -952,7 +952,6 @@ pology.scripts.poascribe.tabulate	pology.misc.tabulate-module.html#tabulate
 pology.scripts.poascribe.ascribe_msg_any	pology.scripts.poascribe-module.html#ascribe_msg_any
 pology.scripts.poascribe._st_otran	pology.scripts.poascribe-module.html#_st_otran
 pology.scripts.poascribe._trsep_mod_none	pology.scripts.poascribe-module.html#_trsep_mod_none
-pology.scripts.poascribe._dt_str_now_nosec	pology.scripts.poascribe-module.html#_dt_str_now_nosec
 pology.scripts.poascribe.build_msg_fmatcher	pology.sieve.find_messages-module.html#build_msg_fmatcher
 pology.scripts.poascribe.commit_catalogs	pology.scripts.poascribe-module.html#commit_catalogs
 pology.scripts.poascribe.collect_configs_catpaths	pology.scripts.poascribe-module.html#collect_configs_catpaths
@@ -968,7 +967,6 @@ pology.scripts.poascribe._revdflags	pology.scripts.poascribe-module.html#_revdfl
 pology.scripts.poascribe.selector_xrevd	pology.scripts.poascribe-module.html#selector_xrevd
 pology.scripts.poascribe.ATYPE_MOD	pology.scripts.poascribe-module.html#ATYPE_MOD
 pology.scripts.poascribe.format_datetime	pology.scripts.poascribe-module.html#format_datetime
-pology.scripts.poascribe._dt_str_now	pology.scripts.poascribe-module.html#_dt_str_now
 pology.scripts.poascribe._diffflag_tot	pology.scripts.poascribe-module.html#_diffflag_tot
 pology.scripts.poascribe._fields_current	pology.scripts.poascribe-module.html#_fields_current
 pology.scripts.poascribe.selector_espan	pology.scripts.poascribe-module.html#selector_espan
@@ -1013,6 +1011,7 @@ pology.scripts.poascribe.assert_review_tag	pology.scripts.poascribe-module.html#
 pology.scripts.poascribe.show_history_cat	pology.scripts.poascribe-module.html#show_history_cat
 pology.scripts.poascribe._nonid_fields	pology.scripts.poascribe-module.html#_nonid_fields
 pology.scripts.poascribe.build_selector	pology.scripts.poascribe-module.html#build_selector
+pology.scripts.poascribe.selector_active	pology.scripts.poascribe-module.html#selector_active
 pology.scripts.poascribe.make_vcs	pology.misc.vcs-module.html#make_vcs
 pology.scripts.poascribe._st_ofuzzy	pology.scripts.poascribe-module.html#_st_ofuzzy
 pology.scripts.poascribe.clear_review_cat	pology.scripts.poascribe-module.html#clear_review_cat
@@ -1032,7 +1031,7 @@ pology.scripts.poascribe.get_hook_lreq	pology.misc.langdep-module.html#get_hook_
 pology.scripts.poascribe._nonid_fields_eq_fuzzy	pology.scripts.poascribe-module.html#_nonid_fields_eq_fuzzy
 pology.scripts.poascribe.parse_fixed_set	pology.scripts.poascribe-module.html#parse_fixed_set
 pology.scripts.poascribe.asc_parse_ascriptions	pology.scripts.poascribe-module.html#asc_parse_ascriptions
-pology.scripts.poascribe.selector_active	pology.scripts.poascribe-module.html#selector_active
+pology.scripts.poascribe._dt_start	pology.scripts.poascribe-module.html#_dt_start
 pology.scripts.poascribe._st_fuzzy	pology.scripts.poascribe-module.html#_st_fuzzy
 pology.scripts.poascribe.ascribe_msg_rev	pology.scripts.poascribe-module.html#ascribe_msg_rev
 pology.scripts.poascribe.ascribe_reviewed_w	pology.scripts.poascribe-module.html#ascribe_reviewed_w
