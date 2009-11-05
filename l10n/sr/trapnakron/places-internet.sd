@@ -42,7 +42,7 @@ Teletekst Search Provider: Телетекст| (Холандија)
 Amazon: Амазон|, Амазон|ов
 Jamendo: Џеменд|о, Џеменд|ов, _род!=м
     @л: Jamend|o, Jamend|ov
-Magnatune: Магнатјун|, Магнатјун|ов
+Magnatune, Magnatune.com: Магнатјун|, Магнатјун|ов
     @л: Magnatune|, Magnatune|ov
 PayPal: Пејпал|, Пејпал|ов, пејпал|>
     @л: PayPal|, PayPal|ov, PayPal|>
@@ -54,6 +54,11 @@ Freenode: Фринод|, Фринод|ов
     @л: Freenode|, Freenode|ov
 Audioscrobbler: Аудиоскроблер|, Аудиоскроблер|ов
     @л: Audioscrobbler|, Audioscrobbler|ov
+Delicious: Делишус|, Делишус|ов
+    @л: Delicious|, Delicious|ov
+Digg: Диг|, Диг|ов
+Facebook: Фејсбук|, Фејсбук|ов
+    @л: Facebook|, Facebook|ov
 Gmane: Гмејн|, Гмејн|ов
     @л: Gmane|, Gmane|ov
 Google Groups: Гугл-груп|е-
@@ -66,10 +71,20 @@ identi.ca: Идентик|а, Идентик|ин
     @л: identi.c|a, identi.c|in
 KataTudo: Кататуд|о, Кататуд|ов, _род!=м
     @л: KataTud|o, KataTud|ov
-last.fm: Ласт-ФМ|-, Ласт-ФМ|-ов
+last.fm: ЛастФМ|-, ЛастФМ|-ов
     @л: last.fm|-, last.fm|-ov
+Libre.fm: ЛибреФМ|-, ЛибреФМ|-ов
+    @л: Libre.fm|-, Libre.fm|-ov
+LinkedIn: Линкедин|, Линкедин|ов, _тр=!
+    @л: LinkedIn|, LinkedIn|ov
 MusicBrainz: Мјузикбрејнз|, Мјузикбрејнз|ов
     @л: MusicBrainz|, MusicBrainz|ov
+MySpace: Мајспејс|, Мајспејс|ов
+    @л: MySpace|, MySpace|ov
+Reddit: Редит|, Редит|ов
+    @л: Reddit|, Reddit|ov
+StackOverflow: Стековерфлоу|, Стековерфлоу|ов
+    @л: StackOverflow|, StackOverflow|ov
 Technorati: Технорат|и, Технорат|ијев
     @л: Technorat|i, Technorat|ijev
 Technorati Tags: Техноратијев|е-> ознак|е-
@@ -237,7 +252,7 @@ Netcraft: Неткрафт|, Неткрафт|ов
     @л: Netcraft|, Netcraft|ov
 NewzBin: Њузбин|, Њузбин|ов
     @л: NewzBin|, NewzBin|ov
-openDesktop: Отворен|а> површ|-ж
+openDesktop, openDesktop.org: Отворен|а> површ|-ж
 Remember The Milk: Не заборави млек|о, _род!=с
 Snoopy: Снуп|и
 Songkick: Сонгкик|, Сонгкик|ов
