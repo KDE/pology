@@ -3,9 +3,9 @@
 """
 Access user configuration for Pology.
 
-User can modify default aspects of Pology's behavior through a configuration
-file named C{.pologyrc} and residing in the user's home directory.
-This file is divided into sections and fileds in the INI-style format,
+The user can modify default aspects of Pology's behavior through
+the Pology's global configuration file C{~/.pologyrc}.
+This file is divided into sections and fields in the INI-style format,
 for example::
 
     # let's have some apples for the moment
@@ -13,11 +13,15 @@ for example::
     sort = apples
     amount = 10
 
-The configuration file is expected to be UTF-8 encoded.
+When refering to global configuration within Pology documentation
+(e.g. in documentation for scripts), fields are written shorthand
+as C{[section]/name} (e.g. C{[fruit]/sort} and C{[fruit]/amount}).
 
-This module as whole is treated as the single object for accessing the
-configuration. The API reflects division into sections, with each section
-containing configuration fields::
+The configuration file must be UTF-8 encoded.
+
+For accessing the configuration within Pology code, this module as whole
+is treated as single object. The API reflects division into sections,
+with each section containing configuration fields::
 
     >>> import pology.misc.config as config
     >>> fruit = config.section("fruit")

@@ -98,7 +98,7 @@ prevent further sieving of messages which do not match the condition;
 statistics on all messages which have the number C{42} in original text
 can be computed using::
 
-    $ posieve find-messages,stats -smsgid:'\b42\b'
+    $ posieve find-messages,stats -smsgid:'\\b42\\b'
 
 Pology also collects language-specific internal sieves. These are run by
 prefixing sieve name with the language code and a colon. For example, there is
@@ -123,7 +123,7 @@ If an internal sieve contains underscores in its name, they can be replaced
 with dashes in the C{posieve} command line. The dashes will be converted back
 to underscores before trying to resolve the location of the internal sieve.
 
-The following user configuration fields are considered
+The following L{user configuration<misc.config>} fields are considered
 (they may be overridden by command line options):
   - C{[posieve]/wrap}: whether to wrap message fields (default C{yes})
   - C{[posieve]/fine-wrap}: whether to wrap message fields more finely

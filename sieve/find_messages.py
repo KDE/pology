@@ -64,7 +64,7 @@ Available modifiers to matchers are:
 Sieve parameters for replacement:
   - C{replace:<string>}: string to replace matched part of translation
 
-The C{replace} option must go together with the C{msgstr} match. As usual for regular expression replacement, the replacement string may contain C{\<number>} references to groups defined by C{msgstr} match.
+The C{replace} option must go together with the C{msgstr} match. As usual for regular expression replacement, the replacement string may contain C{\\<number>} references to groups defined by C{msgstr} match.
 
 Other sieve parameters:
   - C{accel:<chars>}: strip these characters as accelerator markers
