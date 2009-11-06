@@ -117,8 +117,8 @@
     etc.) for current derivation.</p>
     <p>Note that <code>declension-1</code> may be a too verbose name for 
     the base derivation. If the declension type can be identified by the 
-    stem of the nominative case (here {a}), to have much more natural 
-    looking derivations we could write:</p>
+    stem of the nominative case (here <code>a</code>), to have much more 
+    natural looking derivations we could write:</p>
 <pre class="literalblock">
    |a: nom=a, gen=e, dat=i, acc=u
    Venus: Vener|a
@@ -262,7 +262,7 @@
    Cassiopeia: Kasiopej|a
    Constellation of Cassiopeia: Sazve&#382;&#273;|e |Cassiopeia~gen
 </pre>
-    <p>The {|e} is the usual nominative-stem expansion. The 
+    <p><code>|e</code> is the usual nominative-stem expansion. The 
     <code>|Cassiopeia~gen</code> expansion produces only the genitive form 
     of &quot;Cassiopeia&quot;, but with an empty property key. If this 
     expansion would be treated as normal inner expansion, it would cancel 
@@ -277,8 +277,8 @@
     fixed characters in the mask, is not exactly what we want. This should 
     be a rare case, but if it happens, the mask can also be given a <i>key 
     extender</i>. For example, if we would want to select only feminine 
-    forms of {|ov} expansion, but preserve the <code>fem</code> ending of 
-    the resulting keys, we could write:</p>
+    forms of the <code>|ov</code> expansion, but preserve the 
+    <code>fem</code> ending of the resulting keys, we could write:</p>
 <pre class="literalblock">
    Foobar: Fubar|ov~...fem%*fem
 </pre>
@@ -314,7 +314,7 @@
     expansion to become <code>Venerafem</code>. For the <code>gender</code>
     property to be taken verbatim, without adding the segments from the 
     calling derivation around it, we add make it a cutting property by 
-    appending exclamation ({!}) to its key:</p>
+    appending an exclamation mark (<code>!</code>) to its key:</p>
 <pre class="literalblock">
    |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
 </pre>
@@ -435,8 +435,8 @@
    Venus: Vener  |a
 </pre>
     <p>because the two spaces between the root <code>Vener</code> and 
-    expansion {|a} become inner spaces in resulting forms, so they get 
-    converted into a single space.</p>
+    expansion <code>|a</code> become inner spaces in resulting forms, so 
+    they get converted into a single space.</p>
     <p>Non-ASCII whitespace, on the other hand, is preserved as-is. This 
     means that significant whitespace, like non-breaking space, zero width 
     space, word joiners, etc. can be used normally.</p>
