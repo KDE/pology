@@ -475,16 +475,16 @@ by derivation key C{marsplanet}, only "Mars" will be returned,
 because C{marsplanet} is hidden; likewise for C{marsbar}.
 
 Ordering of derivations is not important. The following order is valid,
-althoug the expansion C{|Venus~gen} is seen before the derivation of "Venus"::
+although the expansion C{|Venus~gen} is seen before the derivation of "Venus"::
 
     Merchants of Venus: Trgovc|i> s |Venus~gen
     Venus: Vener|a
 
 This enables derivations to be ordered naturally, e.g. alphabetically,
-instead of being forced to perturb the order due to technical demans.
+instead of the order being imposed by technicalities.
 
 It is possible to include one file with derivations into another.
-A typical case would be to split the base derivations into a separate file,
+A typical use case would be to split the base derivations into a separate file,
 and include it into the visible derivations. If basic derivations are
 defined in C{base.sd}::
 
