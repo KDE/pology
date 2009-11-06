@@ -292,7 +292,7 @@ we typically do not want it to propagate into calling derivations
 which happen not to override it by outer expansion::
 
     Mars: Mars|, desc.=planet
-    Red Mars: Crven|i> Mars|  # a novel
+    Red Mars: Crven|i> |Mars  # a novel
 
 I{Canceling} properties will cause a previously defined property with
 the same key to be removed from the collection of properties.
