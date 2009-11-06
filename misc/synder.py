@@ -70,7 +70,7 @@ found in the expansion, thus obtaining the expected properties
 
 Note that C{declension-1} may be a too verbose name for the base derivation.
 If the declension type can be identified by the stem of the nominative case
-(here {a}), to have much more natural looking derivations we could write::
+(here C{a}), to have much more natural looking derivations we could write::
 
     |a: nom=a, gen=e, dat=i, acc=u
     Venus: Vener|a
@@ -216,7 +216,7 @@ has its own derivation, then we can use it like this::
     Cassiopeia: Kasiopej|a
     Constellation of Cassiopeia: Sazvežđ|e |Cassiopeia~gen
 
-The {|e} is the usual nominative-stem expansion.
+C{|e} is the usual nominative-stem expansion.
 The C{|Cassiopeia~gen} expansion produces only the genitive form
 of "Cassiopeia", but with an empty property key.
 If this expansion would be treated as normal inner expansion,
@@ -232,7 +232,7 @@ Sometimes the default modification of propety keys, removal
 of all fixed characters in the mask, is not exactly what we want.
 This should be a rare case, but if it happens, the mask can also
 be given a I{key extender}. For example, if we would want to select
-only feminine forms of {|ov} expansion, but preserve the C{fem} ending
+only feminine forms of the C{|ov} expansion, but preserve the C{fem} ending
 of the resulting keys, we could write::
 
     Foobar: Fubar|ov~...fem%*fem
@@ -272,7 +272,8 @@ through base expansions, we could come up with::
 However, this will cause the C{gender} property in expansion to become
 C{Venerafem}. For the C{gender} property to be taken verbatim,
 without adding the segments from the calling derivation around it,
-we add make it a cutting property by appending exclamation ({!}) to its key::
+we add make it a cutting property by appending an exclamation mark (C{!})
+to its key::
 
     |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
 
@@ -398,7 +399,7 @@ but these two are not::
     Venus: Vener|a
     Venus: Vener  |a
 
-because the two spaces between the root C{Vener} and expansion {|a} become
+because the two spaces between the root C{Vener} and expansion C{|a} become
 inner spaces in resulting forms, so they get converted into a single space.
 
 Non-ASCII whitespace, on the other hand, is preserved as-is.
