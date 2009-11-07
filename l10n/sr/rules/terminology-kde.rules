@@ -77,6 +77,22 @@ hint="bookmark = маркер"
 valid msgstr="\bмарк[ие]р"
 valid msgstr="&\w*bookmark\S*;"
 
+{boot}i
+id="boot"
+hint="boot = подићи [придев: подизни]"
+valid before=".?(manager|loader)"
+valid msgstr="\bподи[гжзћ]" !msgstr="подизачк"
+
+{\bboot}i
+id="boot2"
+hint="boot = подизни"
+disabled # на boot
+
+{\b(boot.?loader|boot.?manager)}i
+id="bootloader"
+hint="bootloader|boot manager = подизни учитавач"
+valid msgstr="\bподизн\w+ учитавач"
+
 {\bbrowse(?!r)}i
 id="browse"
 hint="browse = прегледати"
