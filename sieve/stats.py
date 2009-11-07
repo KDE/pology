@@ -743,7 +743,7 @@ class Sieve (object):
                     # Must color after padding, to avoid it seeing the colors.
                     ntitle = C.BOLD + ntitle + C.RESET
                 if self.inline:
-                    report(ntitle, newline=False)
+                    report(ntitle + " ", newline=False)
                 else:
                     report(ntitle)
 
