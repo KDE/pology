@@ -390,6 +390,7 @@ valid msgid="(every|after|for|from|to|of|at|except|named|is|at least|more than|b
 id="colon2"
 hint="「:」を付け忘れていませんか？"
 valid msgstr=": ?$"
+valid after=":q"
 valid msgstr="[。？]$"
 
 [ +\(&[A-Z\d]\)]
