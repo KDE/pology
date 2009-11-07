@@ -262,6 +262,12 @@ hint="desktop = радна површ"
 valid msgstr="\bповрш(?!ин)"
 validGroup desktop-extras
 
+{\bdeveloper}i
+id="developer"
+hint="developer = програмер"
+valid msgstr="програмер"
+valid msgstr="&\S+developer\S+;"
+
 {\bdialog(ue)?}i
 id="dialog"
 hint="dialog = дијалог"
@@ -441,6 +447,12 @@ valid cat="kcminput" msgid="icons on first click"
 id="icontheme"
 hint="icon theme = тема икона"
 valid msgstr="\bтем\w+ икона\b"
+
+{\binvalid\b}i
+id="invalid2"
+hint="invalid = неваљан [криптокључ, сертификат]"
+valid !msgid="\bkey|certificate|\bCA\b|authorit"
+valid msgstr="неваљан|није ваљан"
 
 {\bk?io\W?slave}i
 id="ioslave"
@@ -886,6 +898,22 @@ valid cat="kcmstyle" msgid="cursor remains over items in the toolbar"
 id="tooltip"
 hint="tooltip = облачић"
 valid msgstr="\bоблачић"
+
+{\btrusted}i
+id="trusted"
+hint="trusted = поуздан"
+valid msgstr="\bпоуздан"
+
+{\buntrusted}i
+id="untrusted"
+hint="untrusted = непоуздан"
+valid msgstr="\bнепоуздан"
+
+{\bvalid\b}i
+id="valid2"
+hint="valid = ваљан [криптокључ, сертификат]"
+valid !msgid="\bkey|certificate|\bCA\b|authorit"
+valid msgstr="\bваљан|\bважи(о|ла|ти|ће)?"
 
 {\bviewer}i
 id="viewer"
