@@ -20,9 +20,7 @@ DEFAULT_ALTHEAD = "~@"
 
 _entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
 
-def resolve_entities (text, entities, ignored_entities=set(),
-                      srcname=None, numeric=True, fcap=False,
-                      nalts=0, althead=DEFAULT_ALTHEAD):
+def resolve_entities (text, entities, ignored_entities=set(), srcname=None):
     """
     Replace XML entities in the text with their values.
 
@@ -31,48 +29,20 @@ def resolve_entities (text, entities, ignored_entities=set(),
     If an entity is neither defined nor ignored, a warning may be reported
     to standard output.
 
-    Special services on request:
-
-      - if the entity name starts with a capital letter, and is not among
-        defined entities, the lookup is tried with the lowercased initial
-        letter, and if found, the first letter in the value is uppercased
-
-      - when the auto-uppercasing is in effect, and the entity value starts
-        with an alternatives directive, the starting letter of each of the
-        alternatives is uppercased (see L{resolve_alternatives})
-
     @param text: the text to transform
     @type text: string
-
     @param entities: entity name-value pairs
     @type entities: dict
-
     @param ignored_entities: entity names to ignore
-    @type ignored_entities:
-        any sequence that can be tested by C{in} for entity name
-
-    @param srcname:
-        if not None, report unknown entities to standard output,
+    @type ignored_entities: any sequence that can be tested by C{in} for
+        entity name
+    @param srcname: if not None, report unknown entities to standard output,
         with this parameter as source identifier
     @type srcname: None or string
 
-    @param fcap: whether auto-uppercasing is in effect
-    @type fcap: bool
-
-    @param nalts:
-        non-zero indicate possible presence of alternatives directives,
-        with this many alternatives per directive (when fcap is in effect)
-    @type nalts: int >= 0
-
-    @param althead: alternatives directive head instead of the default one
-    @type althead: string
-
-    @returns:
-        the resulting text, resolved entities names, and unknown entity names
-    @rtype:
-        string, list of strings, list of strings
-
-    @see: L{resolve_alternatives}
+    @returns: the resulting text, resolved entities names,
+        and unknown entity names
+    @rtype: (string, [string...], [string...])
     """
 
     unknown = []
@@ -90,17 +60,9 @@ def resolve_entities (text, entities, ignored_entities=set(),
         if m:
             entname = m.group(1)
             if entname not in ignored_entities:
-
-                entname_orig = entname
-                if fcap and not entname in entities:
-                    # Allowed to also try entity with first letter lowercased.
-                    entname = first_to_lower(entname)
-
-                if entname in entities:
+                entval = entities.get(entname)
+                if entval is not None:
                     resolved.append(entname)
-                    entval = entities[entname]
-                    if fcap and entname_orig != entname:
-                        entval = first_to_upper(entval, nalts, althead)
                     new_text = new_text[:-1] + entval
                     text = text[len(m.group(0)):]
                 else:
@@ -110,30 +72,18 @@ def resolve_entities (text, entities, ignored_entities=set(),
                         #nears = difflib.get_close_matches(entname, entities)
                         # FIXME: Too slow for a lot entities.
                         nears = []
-                        if fcap and entname_orig != entname:
-                            if nears:
-                                warning("%s: unknown entity, either '%s' "
-                                        "or '%s' (near matches: %s)"
-                                        % (srcname, entname_orig, entname,
-                                         ", ".join(nears)))
-                            else:
-                                warning("%s: unknown entity, either '%s' "
-                                        "or '%s'"
-                                        % (srcname, entname_orig, entname))
+                        if nears:
+                            warning("%s: unknown entity '%s' "
+                                    "(near matches: %s)"
+                                    % (srcname, entname, ", ".join(nears)))
                         else:
-                            if nears:
-                                warning("%s: unknown entity '%s' "
-                                        "(near matches: %s)"
-                                        % (srcname, entname, ", ".join(nears)))
-                            else:
-                                warning("%s: unknown entity '%s'"
-                                        % (srcname, entname))
+                            warning("%s: unknown entity '%s'"
+                                    % (srcname, entname))
 
     # Recursive resolving if at least one entity has been resolved.
     if len(resolved) > 0:
         new_text, resolved_extra, unknown_extra \
-            = resolve_entities(new_text, entities, ignored_entities, srcname,
-                               fcap, nalts, althead)
+            = resolve_entities(new_text, entities, ignored_entities, srcname)
         resolved.extend(resolved_extra)
         unknown.extend(unknown_extra)
 
@@ -141,8 +91,7 @@ def resolve_entities (text, entities, ignored_entities=set(),
 
 
 def resolve_entities_simple (text, entities, ignored_entities=set(),
-                             srcname=None, fcap=False,
-                             nalts=0, althead=DEFAULT_ALTHEAD):
+                             srcname=None):
     """
     As L{resolve_entities}, but returns only the resolved text.
 
@@ -153,8 +102,7 @@ def resolve_entities_simple (text, entities, ignored_entities=set(),
     """
 
     return resolve_entities(text, entities, ignored_entities,
-                            srcname=srcname, fcap=fcap, nalts=nalts,
-                            althead=althead)[0]
+                            srcname=srcname)[0]
 
 
 def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
