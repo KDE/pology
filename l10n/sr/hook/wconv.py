@@ -270,7 +270,7 @@ def cltoh (textc, textl, delims=u"/|¦", full=False):
     @type full: bool
 
     @returns: hybrid Cyrillic text
-    @type: string
+    @rtype: string
     """
 
     if not full:
@@ -496,7 +496,7 @@ def eitoh (texte, texti, delims=u"/|¦"):
     @type delims: string
 
     @returns: hybrid Ijekavian text
-    @type: string
+    @rtype: string
     """
 
     lene = len(texte)
