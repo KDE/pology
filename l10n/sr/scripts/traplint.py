@@ -9,9 +9,8 @@ from optparse import OptionParser
 from pology.misc.report import report, warning
 from pology.misc.fsops import str_to_unicode
 from pology.l10n.sr.trapnakron import trapnakron_ui
-from pology.l10n.sr.trapnakron import split_althyb
 from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
-from pology.l10n.sr.hook.wconv import ctol
+from pology.l10n.sr.hook.wconv import ctol, hictoall
 from pology.misc.normalize import identify
 from pology.l10n.sr.trapnakron import rootdir
 from pology.misc.vcs import VcsSubversion
@@ -129,7 +128,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                             % (path, lno, cno))
                     cnproblems += 1
                 else:
-                    for gender in split_althyb(gender):
+                    for gender in hictoall(gender):
                         if gender not in known_genders:
                             warning("Derivation at %s:%d:%d defines "
                                     "unknown gender '%s'."

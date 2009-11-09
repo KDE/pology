@@ -69,8 +69,9 @@ import re
 
 from pology.misc.synder import Synder
 from pology.misc.normalize import identify, xentitize, simplify
-from pology.misc.resolve import resolve_alternatives_simple as resalts
 from pology.l10n.sr.hook.wconv import ctol, cltoa
+from pology.l10n.sr.hook.wconv import hctoc, hctol, hitoe, hitoi, hctocl
+from pology.l10n.sr.hook.wconv import cltoh, eitoh
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
 from pology.misc.resolve import first_to_upper
@@ -88,8 +89,8 @@ _good_eicl_combos = set((
 ))
 
 # Elements for composing alternatives directives.
-_alt_head = u"~@" # must match runtime
-_alt_sep = u"¦"
+_alt_sep_scr = u"¦|/"
+_alt_sep_dlc = u"¦|/"
 
 # Elements for composing hybridization directives.
 _hyb_tag = u"›" # must match runtime
@@ -533,8 +534,8 @@ def _sd_dkey_transf (suffspec, tagmap):
 
         # Whether the gender is matching.
         if _gematch_suff_ids_set.intersection(found_suff_ids):
-            genderstr = sd.get2(dkey, "_rod")
-            genders = split_althyb(genderstr) if genderstr else []
+            gstr = sd.get2(dkey, "_rod")
+            genders = list(set(map(ctol, hctocl(gstr)))) if gstr else []
             if (   not (len(genders) == 1)
                 or not all([(x[0] not in found_suff_ids or genders[0] in x[1])
                             for x in _gematch_suffs_genders])
@@ -607,7 +608,7 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
                                   fcap, tag, ltmarkup, pltext, islatin)
             pvals.append(pval1)
 
-        pval = _compose_althyb(envprops, pvals)
+        pval = _hybridize(envprops, pvals)
 
         return pval
 
@@ -686,30 +687,25 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
 
 
 # Combine Ekavian/Ijekavian Cyrillic/Latin forms
-# into alternatives and hybridization directives.
-def _compose_althyb (envprops, pvals):
+# into hybrid Ijekavian Cyrillic text.
+def _hybridize (envprops, pvals):
 
-    if len(envprops) == 4:
-        # FIXME: Really implement.
-        cval = _fold_cyrlat(pvals[:2])
+    if len(envprops) == 4: # different scripts and dialects
+        cvalc = eitoh(pvals[0], pvals[2], delims=_alt_sep_dlc)
+        cvall = eitoh(pvals[1], pvals[3], delims=_alt_sep_dlc)
+        if ctol(cvalc) != cvall:
+            cval = cltoh(cvalc, cvall, delims=_alt_sep_scr, full=True)
+        else:
+            cval = cvalc
     elif len(envprops) == 2:
-        if envprops[0][0] == envprops[1][0]: # same scripts
-            # FIXME: Really implement.
-            cval = pvals[0]
+        if envprops[0][0] == envprops[1][0]: # different dialects
+            cval = eitoh(pvals[0], pvals[1], delims=_alt_sep_dlc)
         else: # different scripts
-            cval = _fold_cyrlat(pvals)
+            cval = cltoh(pvals[0], pvals[1], delims=_alt_sep_scr, full=True)
     else:
         cval = pvals[0]
 
     return cval
-
-
-def _fold_cyrlat (pvals):
-
-    if ctol(pvals[0]) == pvals[1]:
-        return pvals[0]
-    else:
-        return _alt_head + _alt_sep.join([""] + pvals + [""])
 
 
 # Convert tagged person name into destination markup.
@@ -774,24 +770,4 @@ def norm_rtkey (text):
     """
 
     return _norm_rtkey_rx.sub("", text).lower()
-
-
-def split_althyb (text):
-    """
-    Split text into forms obtained by resolving alternatives and hybridization.
-
-    @param text: text to split
-    @type text: string
-
-    @returns: list of resolved forms
-    @rtype: [string] or [string*2] or [string*4]
-    """
-
-    # FIXME: Resolve hybridization.
-
-    if "~@" in text:
-        return (resalts(text, 1, 2), resalts(text, 2, 2))
-    else:
-        return (text,)
-
 
