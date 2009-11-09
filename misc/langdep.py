@@ -23,9 +23,9 @@ def get_module (lang, path, abort=False):
     Language can also be C{None}, in which case a language-independent
     module is looked for. For example::
 
-        get_module("sr", ["hook", "cyr2lat"])
+        get_module("sr", ["hook", "wconv"])
 
-    will try to import the C{pology.l10n.sr.cyr2lat} module, while::
+    will try to import the C{pology.l10n.sr.wconv} module, while::
 
         get_module(None, ["hook", "remove-subs"])
 

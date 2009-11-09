@@ -70,7 +70,7 @@ import re
 from pology.misc.synder import Synder
 from pology.misc.normalize import identify, xentitize, simplify
 from pology.misc.resolve import resolve_alternatives_simple as resalts
-from pology.l10n.sr.hook.cyr2lat import cyr2lat, cyr2lat_stripped
+from pology.l10n.sr.hook.wconv import ctol, cltoa
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
 from pology.misc.resolve import first_to_upper
@@ -189,7 +189,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     In derivations where this will result in strange keys,
     additional keys should be defined through hidden syntagmas.
     Property keys are transliterated into
-    L{stripped-ASCII<l10n.sr.hook.cyr2lat.cyr2lat_stripped>}.
+    L{stripped-ASCII<l10n.sr.hook.wconv.cltoa>}.
 
     Conflict resolution for derivation keys is not strict
     (see L{derivator constructor<misc.synder.Synder.__init__>}).
@@ -680,7 +680,7 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
     if nobrhyp: # before conversion to Latin
         text = to_nobr_hyphens(unsafe=True)(text)
     if tolatin:
-        text = cyr2lat(text)
+        text = ctol(text)
 
     return text
 
@@ -706,7 +706,7 @@ def _compose_althyb (envprops, pvals):
 
 def _fold_cyrlat (pvals):
 
-    if cyr2lat(pvals[0]) == pvals[1]:
+    if ctol(pvals[0]) == pvals[1]:
         return pvals[0]
     else:
         return _alt_head + _alt_sep.join([""] + pvals + [""])
@@ -750,11 +750,11 @@ def norm_pkey (pkey):
     """
 
     if isinstance(pkey, basestring):
-        return cyr2lat_stripped(pkey)
+        return cltoa(pkey)
     elif isinstance(pkey, tuple):
-        return tuple(map(cyr2lat_stripped, pkey))
+        return tuple(map(cltoa, pkey))
     elif isinstance(pkey, list):
-        return map(cyr2lat_stripped, pkey)
+        return map(cltoa, pkey)
     else:
         raise StandardError("Cannot normalize property keys given "
                             "as type '%s'." % type(pkey))
