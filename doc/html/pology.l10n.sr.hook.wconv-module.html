@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.l10n.sr.hook.wconv</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
+        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
+        <a href="pology.l10n.sr.hook-module.html">Package&nbsp;hook</a> ::
+        Module&nbsp;wconv
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module wconv</h1><p class="nomargin-top"></p>
+<p>Conversions between scripts and dialects in Serbian.</p>
+  <p>Serbian standard literary language can be written in two dialects, 
+  Ekavian and Ijekavian, and two scripts, Cyrillic and Latin. Dialects and 
+  scripts can be freely combined, resulting in four official writing 
+  standards: Ekavian Cyrillic, Ekavian Latin, Ijekavian Cyrillic, and 
+  Ijekavian Latin. Some automatic and semi-automatic conversions between 
+  them are possible.</p>
+  <h1 class="heading">Script Transliteration</h1>
+    <p>For plain text containing only Serbian words (including well adapted
+    loans), it is trivial to transliterate from Cyrillic to Latin script. 
+    It is only necessary to take care when converting Cyrillic &#1033;, &#1034;, &#1039; into
+    Latin digraphs Lj, Nj, D&#382;, because sometimes they should be full 
+    upper-case (e.g. &#1033;&#1091;&#1073;&#1113;&#1072;&#1085;&#1072;&#8594;Ljubljana, &#1033;&#1059;&#1041;&#1033;&#1040;&#1053;&#1040;&#8594;LJUBLJANA). But this is 
+    easily algorithmically resolvable, by checking if the previous or the 
+    next letter are upper-case too.</p>
+    <p>To transliterate from Latin to Cyrillic is somewhat harder, because 
+    in rare cases digraphs nj, lj, d&#382; may not be single, but standalone 
+    letters; i.e. they do not map Cyrillic to &#1113;, &#1114;, &#1119;, but to &#1083;&#1112;, &#1085;&#1112;, &#1076;&#1078; 
+    (dablju&#8594;&#1076;&#1072;&#1073;&#1083;&#1112;&#1091;, konjunkcija&#8594;&#1082;&#1086;&#1085;&#1112;&#1091;&#1085;&#1082;&#1094;&#1080;&#1112;&#1072;, nad&#382;iveti&#8594;&#1085;&#1072;&#1076;&#1078;&#1080;&#1074;&#1077;&#1090;&#1080;). The only
+    way to handle this is by having a dictionary of special cases.</p>
+    <p>Furthermore, in today's practice texts are rarely clean as assumed 
+    above. They are frequently riddled with foreign Latin phrases (such as 
+    proper names) quasiphrases (such as electronic addresses), and 
+    constructive elements (such as markup tags). On the other hand, foreign
+    Cyrillic phrases are quite infrequent (may be found e.g. in texts on 
+    linguistic topics). This means that in practice transliteration from 
+    Cyrillic to Latin remains straightforward, but from Latin to Cyrillic 
+    decidedly not so.</p>
+  <h1 class="heading">Script Hybridization</h1>
+    <p>Sometimes the result of direct transliteration from Cyrillic to 
+    Latin is against the established Latin practice in a certain field, 
+    even if valid according to official orthography. Then it becomes 
+    necessary to specially handle some parts of the text (e.g. 
+    transliterations or lack thereof of foreign proper names).</p>
+    <p>Alternatives directives are a way to compose &quot;hybrid&quot; 
+    Cyrillic-Latin text, out of which both ordinary Cyrillic and 
+    non-directly transliterated Latin texts can be automatically derived. 
+    For example, this hybrid text:</p>
+<pre class="literalblock">
+   &#1056;&#1072;&#1079;&#1083;&#1080;&#1095;&#1080;&#1090;&#1077; ~@/&#1083;&#1080;&#1085;&#1091;&#1082;&#1089;/Linux/ &#1076;&#1080;&#1089;&#1090;&#1088;&#1080;&#1073;&#1091;&#1094;&#1080;&#1112;&#1077;...
+</pre>
+    <p>can be automatically resolved into:</p>
+<pre class="literalblock">
+   &#1056;&#1072;&#1079;&#1083;&#1080;&#1095;&#1080;&#1090;&#1077; &#1083;&#1080;&#1085;&#1091;&#1082;&#1089; &#1076;&#1080;&#1089;&#1090;&#1088;&#1080;&#1073;&#1091;&#1094;&#1080;&#1112;&#1077;...
+   Razli&#269;ite Linux distribucije...
+</pre>
+    <p>String <code>~@</code> is the head of alternatives directive. It is 
+    followed by a single character, which is then used to delimit Cyrillic 
+    and Latin parts, in that order, out of surrounding text. (For all 
+    details on format of alternatives directives, see <a 
+    href="pology.misc.resolve-module.html#resolve_alternatives" 
+    class="link">resolve_alternatives()</a>). Transliteration from Cyrillic
+    to Latin is performed only on text outside of alternatives 
+    directives.</p>
+  <h1 class="heading">Dialect Hybridization</h1>
+    <p>Both Ekavian and Ijekavian dialect may be represented within single 
+    text. Such hybrid text is basically Ijekavian, but jat-reflexes are 
+    marked by inserting a reflex mark character, <code>&#8250;</code>, just 
+    before the part of the word that differs from Ekavian form:</p>
+<pre class="literalblock">
+   &#1044;&#8250;&#1080;&#1086; &#1073;&#8250;&#1080;&#1113;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#8250;&#1112;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#8250;&#1080;&#1112;&#1077;&#1094;&#1080;.
+</pre>
+    <p>Straight Ijekavian text is then obtained by just removing reflex 
+    marks, and Ekavian by applying rules such as &#1112;&#1077;&#8594;&#1077;, &#1080;&#1112;&#1077;&#8594;&#1077;, &#1080;&#1086;&#8594;&#1077;&#1086;, 
+    etc.:</p>
+<pre class="literalblock">
+   &#1044;&#1080;&#1086; &#1073;&#1080;&#1113;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#1112;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#1080;&#1112;&#1077;&#1094;&#1080;.
+   &#1044;&#1077;&#1086; &#1073;&#1077;&#1083;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#1077;&#1094;&#1080;.
+</pre>
+    <p>In some special cases this does not work. For example:</p>
+<pre class="literalblock">
+   &#1051;&#8250;&#1080;&#1112;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#1084;&#8250;&#1080;&#1112;&#1072;.
+</pre>
+    <p>would resolve into part unusual part wrong Ekavian form:</p>
+<pre class="literalblock">
+   &#1051;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#1084;&#1077;&#1072;.
+</pre>
+    <p>In such cases, reflex mark is simply inserted one letter 
+    earlier:</p>
+<pre class="literalblock">
+   &#8250;&#1051;&#1080;&#1112;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#8250;&#1084;&#1080;&#1112;&#1072;.
+</pre>
+    <p>and special-case rules (such as &#1084;&#1080;&#1112;&#1072;&#8594;&#1084;&#1077;&#1112;&#1072;, etc.) are applied 
+    instead.</p>
+    <p>For extremely rare special cases, it is possible to directly provide
+    different forms for Ekavian and Ijekavian, in that order, by using 
+    alternatives directive:</p>
+<pre class="literalblock">
+   &#1043;&#1076;&#8250;&#1112;&#1077; &#1089;' ~#/&#1090;&#1086;/&#1073;&#1072;/ &#1087;&#1086;&#1096;&#1086;&#785;?
+</pre>
+    <p>Compared to alternatives directives for scripts, the only difference
+    is that here the directive head is <code>~#</code>. Alternatives 
+    directives for script and dialect can thus be mixed without conflicts, 
+    in single text and even interwoven (when interweaving, different 
+    delimiters must be used).</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ctol"></a><span class="summary-sig-name">ctol</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Transliterate text from Cyrillic to proper Latin [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="cltoa"></a><span class="summary-sig-name">cltoa</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Transliterate text from Cyrillic or Latin to stripped ASCII [type F1A
+      hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ectol"></a><span class="summary-sig-name">ectol</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Transliterate text from English in Cyrillic by keyboard layout to 
+      proper English [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hctoc"></a><span class="summary-sig-name">hctoc</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Resolve hybrid Cyrillic text with script alternatives into plain 
+      Cyrillic text [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hctol"></a><span class="summary-sig-name">hctol</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Resolve hybrid Cyrillic text with script alternatives into plain 
+      Latin text [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.wconv-module.html#hctocl" class="summary-sig-name">hctocl</a>(<span class="summary-sig-arg">htext</span>)</span><br />
+      Resolve hybrid Cyrillic-Latin text into clean Cyrillic and clean 
+      Latin.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.wconv-module.html#cltoh" class="summary-sig-name">cltoh</a>(<span class="summary-sig-arg">textc</span>,
+        <span class="summary-sig-arg">textl</span>,
+        <span class="summary-sig-arg">delims</span>=<span class="summary-sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">full</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Construct hybrid Cyrillic text out of clean Cyrillic and Latin texts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hitoi"></a><span class="summary-sig-name">hitoi</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Resolve hybrid Ijekavian text with reflex marks and dialect 
+      alternatives into plain Ijekavian text [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hitoe"></a><span class="summary-sig-name">hitoe</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Resolve hybrid Ijekavian text with reflex marks and dialect 
+      alternatives into plain Ekavian text [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate_dhyb"></a><span class="summary-sig-name">validate_dhyb</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Check whether dialect-hybrid text is valid [type V1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.wconv-module.html#hitoei" class="summary-sig-name">hitoei</a>(<span class="summary-sig-arg">htext</span>)</span><br />
+      Resolve hybrid Ijekavian-Ekavain text into clean Ekavian and 
+      Ijekavian.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.wconv-module.html#eitoh" class="summary-sig-name">eitoh</a>(<span class="summary-sig-arg">texte</span>,
+        <span class="summary-sig-arg">texti</span>,
+        <span class="summary-sig-arg">delims</span>=<span class="summary-sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>)</span><br />
+      Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian 
+      texts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string, string, string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.wconv-module.html#hictoall" class="summary-sig-name">hictoall</a>(<span class="summary-sig-arg">htext</span>)</span><br />
+      Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into all four 
+      clean variants.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="hctocl"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hctocl</span>(<span class="sig-arg">htext</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Resolve hybrid Cyrillic-Latin text into clean Cyrillic and clean 
+  Latin.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>htext</code></strong> (string) - hybrid text</li>
+    </ul></dd>
+    <dt>Returns: (string, string)</dt>
+        <dd>Cyrillic and Latin texts</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cltoh"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cltoh</span>(<span class="sig-arg">textc</span>,
+        <span class="sig-arg">textl</span>,
+        <span class="sig-arg">delims</span>=<span class="sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">full</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Construct hybrid Cyrillic text out of clean Cyrillic and Latin 
+  texts.</p>
+  <p>Hybridization is performed by inserting alternatives directives for 
+  parts which cannot be resolved by direct transliteration. If 
+  <code>full</code> is set to <code>True</code>, complete texts are 
+  unconditionally wrapped into single alternatives directive.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>textc</code></strong> (string) - Cyrillic text</li>
+        <li><strong class="pname"><code>textl</code></strong> (string) - Latin text</li>
+        <li><strong class="pname"><code>delims</code></strong> (string) - possible delimiter characters</li>
+        <li><strong class="pname"><code>full</code></strong> (bool) - whether to wraf full texts as single alternatives directive</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>hybrid Cyrillic text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="hitoei"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hitoei</span>(<span class="sig-arg">htext</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Resolve hybrid Ijekavian-Ekavain text into clean Ekavian and 
+  Ijekavian.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>htext</code></strong> (string) - hybrid text</li>
+    </ul></dd>
+    <dt>Returns: (string, string)</dt>
+        <dd>Ekavian and Ijekavian text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="eitoh"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">eitoh</span>(<span class="sig-arg">texte</span>,
+        <span class="sig-arg">texti</span>,
+        <span class="sig-arg">delims</span>=<span class="sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian 
+  texts.</p>
+  <p>Hybridization is performed by inserting reflex marks where possible, 
+  and alternatives directives by dialect otherwise. Both input texts should
+  be in same script, Cyrillic or Latin.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>texte</code></strong> (string) - Ekavian text</li>
+        <li><strong class="pname"><code>texti</code></strong> (string) - Ijekavian text</li>
+        <li><strong class="pname"><code>delims</code></strong> (string) - possible delimiter characters</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>hybrid Ijekavian text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="hictoall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">hictoall</span>(<span class="sig-arg">htext</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into all four 
+  clean variants.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>htext</code></strong> (string) - hybrid text</li>
+    </ul></dd>
+    <dt>Returns: (string, string, string, string)</dt>
+        <dd>Ekavian Cyrillic, Ekavian Latin, Ijekavian Cyrillic, and 
+          Ijekavian Latin text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

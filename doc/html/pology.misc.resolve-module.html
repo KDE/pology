@@ -71,18 +71,14 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string, list of strings, list of strings</span>
+      <span class="summary-type">(string, [string...], [string...])</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities" class="summary-sig-name">resolve_entities</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
         <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">fcap</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
       Replace XML entities in the text with their values.</td>
           <td align="right" valign="top">
             
@@ -102,10 +98,7 @@
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities_simple" class="summary-sig-name">resolve_entities_simple</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
         <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">fcap</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
       As <a href="pology.misc.resolve-module.html#resolve_entities" 
       class="link">resolve_entities</a>, but returns only the resolved 
       text.</td>
@@ -341,11 +334,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
         <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">numeric</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">fcap</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -357,21 +346,6 @@
   pairs. Not all entities need be replaced, some can be explicitly ignored.
   If an entity is neither defined nor ignored, a warning may be reported to
   standard output.</p>
-  <p>Special services on request:</p>
-  <ul>
-    <li>
-      if the entity name starts with a capital letter, and is not among 
-      defined entities, the lookup is tried with the lowercased initial 
-      letter, and if found, the first letter in the value is uppercased
-    </li>
-    <li>
-      when the auto-uppercasing is in effect, and the entity value starts 
-      with an alternatives directive, the starting letter of each of the 
-      alternatives is uppercased (see <a 
-      href="pology.misc.resolve-module.html#resolve_alternatives" 
-      class="link">resolve_alternatives</a>)
-    </li>
-  </ul>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -381,21 +355,12 @@
           name) - entity names to ignore</li>
         <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report unknown entities to standard output, with 
           this parameter as source identifier</li>
-        <li><strong class="pname"><code>fcap</code></strong> (bool) - whether auto-uppercasing is in effect</li>
-        <li><strong class="pname"><code>nalts</code></strong> (int &gt;= 0) - non-zero indicate possible presence of alternatives directives, 
-          with this many alternatives per directive (when fcap is in 
-          effect)</li>
-        <li><strong class="pname"><code>althead</code></strong> (string) - alternatives directive head instead of the default one</li>
     </ul></dd>
-    <dt>Returns: string, list of strings, list of strings</dt>
+    <dt>Returns: (string, [string...], [string...])</dt>
         <dd>the resulting text, resolved entities names, and unknown entity 
           names</dd>
   </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.resolve-module.html#resolve_alternatives" 
-        class="link">resolve_alternatives</a>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="resolve_entities_simple"></a>
 <div>
@@ -407,10 +372,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities_simple</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
         <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">fcap</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
