@@ -117,6 +117,7 @@ without conflicts, in single text and even interwoven
 from pology.misc.report import warning
 from pology.misc.resolve import resolve_alternatives_simple
 from pology.misc.resolve import resolve_alternatives
+from pology.misc.diff import word_diff
 
 
 # Transliteration table Serbian Cyrillic->Latin.
@@ -236,38 +237,127 @@ def hctol (text):
                                        outfilter=ctol)
 
 
+def hctocl (htext):
+    """
+    Resolve hybrid Cyrillic-Latin text into clean Cyrillic and clean Latin.
+
+    @param htext: hybrid text
+    @type htext: string
+
+    @returns: Cyrillic and Latin texts
+    @rtype: (string, string)
+    """
+
+    return hctoc(htext), hctol(htext)
+
+
+def cltoh (textc, textl, delims=u"/|¦", full=False):
+    """
+    Construct hybrid Cyrillic text out of clean Cyrillic and Latin texts.
+
+    Hybridization is performed by inserting alternatives directives
+    for parts which cannot be resolved by direct transliteration.
+    If C{full} is set to C{True}, complete texts are unconditionally
+    wrapped into single alternatives directive.
+
+    @param textc: Cyrillic text
+    @type textc: string
+    @param textl: Latin text
+    @type textl: string
+    @param delims: possible delimiter characters
+    @type delims: string
+    @param full: whether to wraf full texts as single alternatives directive
+    @type full: bool
+
+    @returns: hybrid Cyrillic text
+    @type: string
+    """
+
+    if not full:
+        wdiff = word_diff(ctol(textc), textl)
+        textc = _padc(textc)
+        segs = []
+        i = 0
+        ic = 0
+        while i < len(wdiff):
+            tag, seg = wdiff[i]
+            segc = textc[ic:ic + len(seg)]
+            if tag == " ":
+                segs.append(segc)
+            else:
+                segl = wdiff[i + 1][1]
+                i += 1
+                segs.append(_shyb_althead + _delimit([segc, segl], delims))
+            ic += len(seg)
+            i += 1
+        return _unpadc("".join(segs))
+
+    else:
+        return _shyb_althead + _delimit([textc, textl], delims)
+
+    return "".join(segs)
+
+
+_padc_chr = u"\u0004"
+_padc_alphas = (u"љ", u"њ", u"џ", u"Љ", u"Њ", u"Џ")
+
+def _padc (text):
+
+    for alpha in _padc_alphas:
+        text = text.replace(alpha, _padc_chr + alpha)
+    return text
+
+def _unpadc (text):
+
+    for alpha in _padc_alphas:
+        text = text.replace(_padc_chr + alpha, alpha)
+    return text
+
+
 # Jat-reflex map Cyrillic->Cyrillic and Latin->Latin.
 _reflex_map = {
     # - basic
     u"ије": u"е",
+    u"Ије": u"Е",
     u"ИЈЕ": u"Е",
     u"иј": u"е",
+    u"Иј": u"Е",
     u"ИЈ": u"Е",
     u"је": u"е",
+    u"Је": u"Е",
     u"ЈЕ": u"Е",
     u"ље": u"ле",
+    u"Ље": u"Ле",
     u"ЉЕ": u"ЛЕ",
     u"ње": u"не",
+    u"Ње": u"Не",
     u"ЊЕ": u"НЕ",
     u"ио": u"ео",
+    u"Ио": u"Ео",
     u"ИО": u"ЕО",
     u"иљ": u"ел",
+    u"Иљ": u"Ел",
     u"ИЉ": u"ЕЛ",
 
     # - special cases
     u"лије": u"ли",
+    u"Лије": u"Ли",
     u"ЛИЈЕ": u"ЛИ",
     u"лијен": u"лењ",
     u"Лијен": u"Лењ",
     u"ЛИЈЕН": u"ЛЕЊ",
     u"мија": u"меја",
+    u"Мија": u"Меја",
     u"МИЈА": u"МЕЈА",
     u"мије": u"мејe",
+    u"Мије": u"Мејe",
     u"МИЈЕ": u"МЕЈE",
     u"није": u"ни",
+    u"Није": u"Ни",
     u"НИЈЕ": u"НИ",
 }
 _reflex_map.update(map(lambda x: map(ctol, x), _reflex_map.items()))
+_max_reflex_btrk = 1 # at most one previous character for special cases
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 
 _reflex_mark = u"›"
@@ -374,4 +464,123 @@ def validate_dhyb (text):
         spans.append((0, 0, errmsg))
 
     return spans
+
+
+def hitoei (htext):
+    """
+    Resolve hybrid Ijekavian-Ekavain text into clean Ekavian and Ijekavian.
+
+    @param htext: hybrid text
+    @type htext: string
+
+    @returns: Ekavian and Ijekavian text
+    @rtype: (string, string)
+    """
+
+    return hitoe(htext), hitoi(htext)
+
+
+def eitoh (texte, texti, delims=u"/|¦"):
+    """
+    Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian texts.
+
+    Hybridization is performed by inserting reflex marks where possible,
+    and alternatives directives by dialect otherwise.
+    Both input texts should be in same script, Cyrillic or Latin.
+
+    @param texte: Ekavian text
+    @type texte: string
+    @param texti: Ijekavian text
+    @type texti: string
+    @param delims: possible delimiter characters
+    @type delims: string
+
+    @returns: hybrid Ijekavian text
+    @type: string
+    """
+
+    lene = len(texte)
+    leni = len(texti)
+    ie = 0
+    iep = 0
+    ii = 0
+    iip = 0
+    segs = []
+    while ie < lene and ii < leni:
+        while ie < lene and ii < leni and texte[ie] == texti[ii]:
+            ie += 1
+            ii += 1
+        for btrk in range(_max_reflex_btrk, -1, -1):
+            ieb = ie - btrk
+            iib = ii - btrk
+            if ieb < iep or iib < iip:
+                continue
+            maxrlen = _max_reflex_len - _max_reflex_btrk + btrk
+            frme = None
+            for rlen in range(maxrlen, 0, -1):
+                frmi = texti[iib:iib + rlen]
+                frme = _reflex_map.get(frmi)
+                if frme is not None and frme == texte[ieb:ieb + len(frme)]:
+                    break
+            if frme is not None:
+                break
+        if frme is not None:
+            segs.append(texte[iep:ieb])
+            segs.append(_reflex_mark + frmi)
+            iep = ieb + len(frme)
+            iip = iib + len(frmi)
+        else:
+            segs.append(texte[iep:ie])
+            if ie < lene or ii < lene:
+                wdiff = word_diff(texte[ie:], texti[ii:])
+                frme, frmi = wdiff[0][1], wdiff[1][1]
+                segs.append(_dhyb_althead + _delimit([frme, frmi], delims))
+                iep = ie + len(frme)
+                iip = ii + len(frmi)
+            else:
+                iep = ie
+                iip = ii
+        ie = iep
+        ii = iip
+
+    return "".join(segs)
+
+
+def hictoall (htext):
+    """
+    Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
+    all four clean variants.
+
+    @param htext: hybrid text
+    @type htext: string
+
+    @returns: Ekavian Cyrillic, Ekavian Latin, Ijekavian Cyrillic,
+        and Ijekavian Latin text
+    @rtype: (string, string, string, string)
+    """
+
+    htextc = hctoc(htext)
+    htextl = hctol(htext)
+
+    return hitoe(htextc), hitoe(htextl), hitoi(htextc), hitoi(htextl)
+
+
+def _delimit (alts, delims):
+
+    good = False
+    for delim in delims:
+        good = True
+        for alt in alts:
+            if delim in alt:
+                good = False
+                break
+        if good:
+            break
+
+    if not good:
+        raise StandardError("No delimiter from '%s' can be used for "
+                            "alternatives directive on: %s."
+                            % (delims, " ".join(["{%s}" % x for x in alts])))
+
+    return delim + delim.join(alts) + delim
 
