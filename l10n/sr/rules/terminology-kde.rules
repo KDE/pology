@@ -86,7 +86,7 @@ valid msgstr="\bподи[гжзћ]" !msgstr="подизачк"
 {\bboot}i
 id="boot2"
 hint="boot = подизни"
-disabled # на boot
+disabled
 
 {\b(boot.?loader|boot.?manager)}i
 id="bootloader"
@@ -414,6 +414,11 @@ valid cat="libkpimutils" msgid="email.*of the form" msgstr="нешто као"
 valid cat="userguide_playing-audiocds" after="free flowing "
 valid cat="PO_Odyssey" after="plural-"
 
+{\bfront.?end}i
+id="frontend"
+hint="frontend = прочеље"
+valid msgstr="\bпроче(љ|он)"
+
 {\bGCC}
 id="gcc"
 hint="GCC = ГЦЦ"
@@ -463,6 +468,11 @@ valid cat="kcminput" msgid="icons on first click"
 id="icontheme"
 hint="icon theme = тема икона"
 valid msgstr="\bтем\w+ икона\b"
+
+{\binterfaces?\b}i
+id="interface2"
+hint="interface = сучеље"
+valid msgstr="\bсуче(љ|он)"
 
 {\binvalid\b}i
 id="invalid2"

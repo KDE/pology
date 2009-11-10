@@ -250,6 +250,13 @@ valid msgstr="\bистич[еу]"
 valid msgstr="--highlight"
 valid after="non\W?" msgstr="\bнеистакн"
 
+{\b(user )?interfaces?}i
+id="interface"
+hint="interface|user interface = корисничко сучеље|сучеље"
+valid env="kde" # на interface2
+valid after="(programming|network|hardware) " # на interface2
+valid msgstr="\bсуче(љ|он)"
+
 {\blabel}i
 id="label"
 hint="label = ознака"

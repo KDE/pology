@@ -108,8 +108,8 @@ clearFilters
 # No filters, so that to_e filter hook does not spew errors,
 # and to be faster if run standalone.
 
-*hook name="sr:ijeref/validate" on="pmsgstr"
-id="x-ijeref"
+*hook name="sr:wconv/validate_dhyb" on="pmsgstr"
+id="x-dhyblint"
 hint="непознат рефлекс јата (или лош ек-ијек уметак)"
 
 # ----------------------------------------

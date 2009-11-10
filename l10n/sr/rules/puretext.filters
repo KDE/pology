@@ -84,4 +84,4 @@ addFilterHook env="kde" name="sr:accents/resolve_agraphs" on="pmsgstr"
 addFilterHook name="sr:accents/remove_accents" on="pmsgstr"
 
 # Convert hybridized Ekavian-Yekavian text into Ekavian.
-addFilterHook name="sr:ijeref/to_e" on="pmsgstr"
+addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
