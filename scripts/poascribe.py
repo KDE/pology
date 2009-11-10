@@ -1878,7 +1878,7 @@ _cache = {}
 
 def cached_matcher (expr, config, options, cid):
 
-    key = ("matcher", expr, config, options)
+    key = ("matcher", expr, config, id(options))
     if key not in _cache:
         pfilter = options.tfilter or config.tfilter
         filters = []
