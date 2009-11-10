@@ -462,7 +462,8 @@ class Sieve (object):
                     report(delim)
                 report_msg_content(msg, cat, wrapf=self.wrapf, force=True,
                                    delim=delim, highlight=hl_spec)
-            else:
+
+            if self.p.mark:
                 msg.flag.add(_flag_mark)
 
             if self.p.lokalize:
