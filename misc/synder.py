@@ -310,9 +310,9 @@ Key syntagmas and property values can be equipped with simple tags,
 which start with tag name in the form C{~TAG} and extend to next tag
 or end of text.
 For example, when deriving people names, we may want to tag their
-first and last names, using tags C{~fn} and C{~sn} respectively::
+first and last names, using tags C{~fn} and C{~ln} respectively::
 
-    ~fn Isaac ~sn Newton: ~fn Isak| ~sn Njutn|
+    ~fn Isaac ~ln Newton: ~fn Isak| ~ln Njutn|
 
 In default processing, these tags are simply ignored, syntagmas
 and property values are reported as if there were no tags.

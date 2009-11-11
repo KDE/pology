@@ -211,7 +211,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         globally in effect.
       - Parameter C{ltsuff} states the suffix which produces lighter version
         of the markup, where applicable (e.g. people names in Docbook).
-        When fetching a property within a sentence (with keys given e.g.
+      - When fetching a property within a sentence (with keys given e.g.
         as XML entities), sentence construction may require that
         the resolved value is of certain gender; parameter C{gesuff}
         can be used to provide a tuple of 4 gender suffixes,
