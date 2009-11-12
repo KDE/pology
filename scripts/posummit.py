@@ -170,6 +170,7 @@ class Project (object):
 
             "header_propagate_fields_summed" : [],
             "header_propagate_fields_primary" : [],
+            "header_skip_fields_on_scatter" : [],
 
             "vivify_on_merge" : False,
             "vivify_w_translator" : "Simulacrum",
@@ -1636,15 +1637,17 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     hdr = branch_cat.header
     shdr = summit_cats[0].header
     # Fields to keep due to being copied over on merging.
-    merge_fields = [
+    keep_fields = [
         "Report-Msgid-Bugs-To",
         "POT-Creation-Date",
     ]
     # Fields to keep if no branch message was modified.
     if not branch_cat.modcount and branch_cat.header.initialized:
-        merge_fields.extend([
+        keep_fields.extend([
             "PO-Revision-Date",
         ])
+    # Fields to keep due to explicitly being told to.
+    keep_fields.extend(project.header_skip_fields_on_scatter)
     # Update comments.
     hdr.title = shdr.title
     hdr.copyright = shdr.copyright
@@ -1652,10 +1655,10 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     hdr.author = shdr.author
     hdr.comment = shdr.comment
     # Update fields only if normalized lists of fields do not match.
-    if normhf(hdr.field, merge_fields) != normhf(shdr.field, merge_fields):
+    if normhf(hdr.field, keep_fields) != normhf(shdr.field, keep_fields):
         # Collect branch fields to be preserved.
         preserved_fs = []
-        for fnam in merge_fields:
+        for fnam in keep_fields:
             selected_fs = branch_cat.header.select_fields(fnam)
             if selected_fs:
                 preserved_fs.append(selected_fs[0])
