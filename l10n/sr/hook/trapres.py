@@ -22,13 +22,16 @@ def _get_names ():
 _get_names()
 
 
-def froments (name, args=(), kwargs={}, fmtref=None):
+def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
     """
     Resolve trapnakron references in translation using XML entity format
     [hook factory].
 
     If an entity cannot be resolved as trapnakron reference,
-    warning is output and translation is not changed.
+    warning is output and the entity is left unresolved.
+    Instead of leaving the entity unresolved, an illustrative expansion
+    for the property key given by the reference can be substituted
+    by setting the C{testsub} parameter to C{True}.
 
     Entities in a given message can be manually ignored through
     C{ignore-entity:} translation comment, which contains
@@ -47,9 +50,13 @@ def froments (name, args=(), kwargs={}, fmtref=None):
     @type args: tuple
     @param kwargs: keyword arguments to send to the constructor
     @type kwargs: dict
-    @param fmtref: format string (with single C{%s} directive) or function
+    @param vfilter: format string (with single C{%s} directive) or function
         to apply to every resolved reference
-    @type fmtref: string or (string)->string
+    @type vfilter: string or (string)->string
+    @param undefrepl: format string (with single C{%s} directive) or function
+        to apply to every resolved reference
+    @param undefrepl: string or function to substitute undefined references
+    @type undefrepl: string of (string)->string
 
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
@@ -60,6 +67,21 @@ def froments (name, args=(), kwargs={}, fmtref=None):
         raise KeyError("Unknown trapnakron constructor '%s'." % name)
 
     tp = trapcon(*args, **kwargs)
+
+    # Setup dummy replacement for undefined references.
+    undefrepl = None
+    if testsub:
+        dkeysub = "__test1234__"
+        tp.import_string(u"""
+        >%s/base/aff.sd
+        %s: лопт|а, лопт|а+2, лопт|ин, лопта|сти
+        """ % (T.rootdir(), dkeysub))
+        def undefrepl (ref):
+            dkey, pkey = ref.rsplit("-", 1)
+            if pkey == "":
+                pkey = "n"
+            ckeysub = dkeysub + "-" + pkey
+            return tp[ckeysub].upper()
 
     # Entitites normally ignored on resolution.
     # FIXME: This should go by markup type advertised in catalog header.
@@ -79,7 +101,8 @@ def froments (name, args=(), kwargs={}, fmtref=None):
             ignored_refs_mod = ignored_refs
 
         res = resolve_entities(msgstr, tp, ignored_refs_mod,
-                               srcname=srcstr, vfilter=fmtref)
+                               srcname=srcstr, vfilter=vfilter,
+                               undefrepl=undefrepl)
         msgstr, resolved, unknown = res
 
         return msgstr
