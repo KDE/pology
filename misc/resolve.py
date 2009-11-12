@@ -18,17 +18,22 @@ from pology.misc.report import warning
 DEFAULT_ALTHEAD = "~@"
 
 
-_entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
+_entity_name_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
 
 def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
-                      vfilter=None):
+                      vfilter=None, undefrepl=None):
     """
     Replace XML entities in the text with their values.
 
     Entity values are defined by the supplied dictionary of name-value pairs.
-    Not all entities need be replaced, some can be explicitly ignored.
-    If an entity is neither defined nor ignored, a warning may be reported
-    to standard output.
+    Not all entities need to be replaced, some can be explicitly ignored.
+    If an entity is neither defined nor ignored, a warning will be reported
+    to standard output if C{srcname} is given.
+
+    An undefined entity is by default left untouched in the resulting text.
+    Instead, the parameter C{undefrepl} can be used to supply a string to
+    substitute for every undefined entity, or a function which takes
+    the undefined entity name and returns the string to substitute.
 
     @param text: the text to transform
     @type text: string
@@ -43,6 +48,8 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
     @param vfilter: format string (with single C{%s} directive) or function
         to apply to every resolved entity value
     @type vfliter: string or (string)->string
+    @param undefrepl: string or function to use in case of undefined entity
+    @type undefrepl: string of (string)->string
 
     @returns: the resulting text, resolved entities names,
         and unknown entity names
@@ -51,50 +58,67 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
 
     unknown = []
     resolved = []
-    new_text = ""
+    segs = []
+    p = 0
     while True:
-        p = text.find("&")
+        pp = p
+        p = text.find("&", p)
         if p < 0:
-            new_text += text
+            segs.append(text[pp:])
             break
 
-        new_text += text[0:p + 1]
-        text = text[p + 1:]
-        m = _entity_tail_rx.match(text)
+        segs.append(text[pp:p])
+        m = _entity_name_rx.match(text, p)
         if m:
+            entref = m.group(0)
             entname = m.group(1)
             if entname not in ignored_entities:
                 entval = entities.get(entname)
+                entvalr = entval
                 if entval is not None:
-                    if vfilter is not None:
-                        if isinstance(vfilter, basestring):
-                            entval = vfilter % entval
-                        else:
-                            entval = vfilter(entval)
                     resolved.append(entname)
-                    new_text = new_text[:-1] + entval
-                    text = text[len(m.group(0)):]
                 else:
                     unknown.append(entname)
-                    if srcname is not None:
-                        # Try to suggest some near matches.
-                        #nears = difflib.get_close_matches(entname, entities)
-                        # FIXME: Too slow for a lot entities.
-                        nears = []
-                        if nears:
-                            warning("%s: unknown entity '%s' "
-                                    "(near matches: %s)"
-                                    % (srcname, entname, ", ".join(nears)))
+                    if undefrepl is not None:
+                        if isinstance(undefrepl, basestring):
+                            entvalr = undefrepl
                         else:
-                            warning("%s: unknown entity '%s'"
-                                    % (srcname, entname))
+                            entvalr = undefrepl(entname)
 
-    # Recursive resolving if at least one entity has been resolved.
-    if len(resolved) > 0:
-        new_text, resolved_extra, unknown_extra \
-            = resolve_entities(new_text, entities, ignored_entities, srcname)
-        resolved.extend(resolved_extra)
-        unknown.extend(unknown_extra)
+                if entvalr is not None:
+                    if vfilter is not None:
+                        if isinstance(vfilter, basestring):
+                            entvalr = vfilter % entvalr
+                        else:
+                            entvalr = vfilter(entvalr)
+                    # Recurse in case entity resolves into new entities.
+                    res = resolve_entities(entvalr, entities, ignored_entities,
+                                           srcname, vfilter, undefrepl)
+                    entvalr, resolved_extra, unknown_extra = res
+                    resolved.extend(resolved_extra)
+                    unknown.extend(unknown_extra)
+                    segs.append(entvalr)
+                else:
+                    segs.append(entref)
+
+                if entval is None and srcname is not None:
+                    # Try to suggest some near matches.
+                    #nears = difflib.get_close_matches(entname, entities)
+                    # FIXME: Too slow for a lot entities.
+                    nears = []
+                    if nears:
+                        warning("%s: unknown entity '%s' "
+                                "(near matches: %s)"
+                                % (srcname, entname, ", ".join(nears)))
+                    else:
+                        warning("%s: unknown entity '%s'"
+                                % (srcname, entname))
+
+            p += len(entref)
+        else:
+            p += 1
+
+    new_text = "".join(segs)
 
     return new_text, resolved, unknown
 
@@ -510,7 +534,7 @@ def remove_accelerator (text, accels=None, greedy=False):
                 # If the accelerator marker is &, do not remove it if it
                 # looks like an XML entity (less damage than otherwise).
                 if accel == "&":
-                    m = _entity_tail_rx.match(text, p + alen)
+                    m = _entity_name_rx.match(text, p)
                     if m:
                         p = m.span()[1]
                         continue
