@@ -20,7 +20,8 @@ DEFAULT_ALTHEAD = "~@"
 
 _entity_tail_rx = re.compile(r"([\w_:][\w\d._:-]*);")
 
-def resolve_entities (text, entities, ignored_entities=set(), srcname=None):
+def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
+                      vfilter=None):
     """
     Replace XML entities in the text with their values.
 
@@ -39,6 +40,9 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None):
     @param srcname: if not None, report unknown entities to standard output,
         with this parameter as source identifier
     @type srcname: None or string
+    @param vfilter: format string (with single C{%s} directive) or function
+        to apply to every resolved entity value
+    @type vfliter: string or (string)->string
 
     @returns: the resulting text, resolved entities names,
         and unknown entity names
@@ -62,6 +66,11 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None):
             if entname not in ignored_entities:
                 entval = entities.get(entname)
                 if entval is not None:
+                    if vfilter is not None:
+                        if isinstance(vfilter, basestring):
+                            entval = vfilter % entval
+                        else:
+                            entval = vfilter(entval)
                     resolved.append(entname)
                     new_text = new_text[:-1] + entval
                     text = text[len(m.group(0)):]
@@ -91,7 +100,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None):
 
 
 def resolve_entities_simple (text, entities, ignored_entities=set(),
-                             srcname=None):
+                             srcname=None, vfilter=None):
     """
     As L{resolve_entities}, but returns only the resolved text.
 
@@ -102,7 +111,7 @@ def resolve_entities_simple (text, entities, ignored_entities=set(),
     """
 
     return resolve_entities(text, entities, ignored_entities,
-                            srcname=srcname)[0]
+                            srcname=srcname, vfilter=vfilter)[0]
 
 
 def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
