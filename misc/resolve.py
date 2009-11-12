@@ -18,7 +18,7 @@ from pology.misc.report import warning
 DEFAULT_ALTHEAD = "~@"
 
 
-_entity_name_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
+_entity_ref_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
 
 def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
                       vfilter=None, undefrepl=None):
@@ -68,7 +68,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
             break
 
         segs.append(text[pp:p])
-        m = _entity_name_rx.match(text, p)
+        m = _entity_ref_rx.match(text, p)
         if m:
             entref = m.group(0)
             entname = m.group(1)
@@ -534,7 +534,7 @@ def remove_accelerator (text, accels=None, greedy=False):
                 # If the accelerator marker is &, do not remove it if it
                 # looks like an XML entity (less damage than otherwise).
                 if accel == "&":
-                    m = _entity_name_rx.match(text, p)
+                    m = _entity_ref_rx.match(text, p)
                     if m:
                         p = m.span()[1]
                         continue
