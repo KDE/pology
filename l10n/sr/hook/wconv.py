@@ -546,6 +546,42 @@ def eitoh (texte, texti, delims=u"/|¦"):
     return "".join(segs)
 
 
+def hictoec (text):
+    """
+    Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
+    clean Ekavian Cyrillic text [type F1A hook].
+    """
+
+    return hctoc(hitoe(text))
+
+
+def hictoel (text):
+    """
+    Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
+    clean Ekavian Latin text [type F1A hook].
+    """
+
+    return hctol(hitoe(text))
+
+
+def hictoic (text):
+    """
+    Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
+    clean Ijekavian Cyrillic text [type F1A hook].
+    """
+
+    return hctoc(hitoi(text))
+
+
+def hictoil (text):
+    """
+    Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
+    clean Ijekavian Latin text [type F1A hook].
+    """
+
+    return hctol(hitoi(text))
+
+
 def hictoall (htext):
     """
     Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
