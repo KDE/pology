@@ -255,10 +255,19 @@ pology.l10n.sr.hook.nobr	pology.l10n.sr.hook.nobr-module.html
 pology.l10n.sr.hook.nobr.ctol	pology.l10n.sr.hook.wconv-module.html#ctol
 pology.l10n.sr.hook.nobr.to_nobr_hyphens	pology.l10n.sr.hook.nobr-module.html#to_nobr_hyphens
 pology.l10n.sr.hook.nobr.nobrhyp_char	pology.l10n.sr.hook.nobr-module.html#nobrhyp_char
+pology.l10n.sr.hook.trapres	pology.l10n.sr.hook.trapres-module.html
+pology.l10n.sr.hook.trapres._froments1_hook	pology.l10n.sr.hook.trapres-module.html#_froments1_hook
+pology.l10n.sr.hook.trapres.manc_parse_list	pology.misc.comments-module.html#manc_parse_list
+pology.l10n.sr.hook.trapres.resolve_entities	pology.misc.resolve-module.html#resolve_entities
+pology.l10n.sr.hook.trapres._known_cons	pology.l10n.sr.hook.trapres-module.html#_known_cons
+pology.l10n.sr.hook.trapres.froments1	pology.l10n.sr.hook.trapres-module.html#froments1
+pology.l10n.sr.hook.trapres._get_names	pology.l10n.sr.hook.trapres-module.html#_get_names
+pology.l10n.sr.hook.trapres.froments	pology.l10n.sr.hook.trapres-module.html#froments
 pology.l10n.sr.hook.wconv	pology.l10n.sr.hook.wconv-module.html
 pology.l10n.sr.hook.wconv._hitoi_w	pology.l10n.sr.hook.wconv-module.html#_hitoi_w
 pology.l10n.sr.hook.wconv.ctol	pology.l10n.sr.hook.wconv-module.html#ctol
 pology.l10n.sr.hook.wconv.hitoi	pology.l10n.sr.hook.wconv-module.html#hitoi
+pology.l10n.sr.hook.wconv.hictoil	pology.l10n.sr.hook.wconv-module.html#hictoil
 pology.l10n.sr.hook.wconv._shyb_althead	pology.l10n.sr.hook.wconv-module.html#_shyb_althead
 pology.l10n.sr.hook.wconv._dict_c2a_stripped	pology.l10n.sr.hook.wconv-module.html#_dict_c2a_stripped
 pology.l10n.sr.hook.wconv._delimit	pology.l10n.sr.hook.wconv-module.html#_delimit
@@ -279,7 +288,9 @@ pology.l10n.sr.hook.wconv.hictoall	pology.l10n.sr.hook.wconv-module.html#hictoal
 pology.l10n.sr.hook.wconv._dict_cl2a_stripped	pology.l10n.sr.hook.wconv-module.html#_dict_cl2a_stripped
 pology.l10n.sr.hook.wconv.eitoh	pology.l10n.sr.hook.wconv-module.html#eitoh
 pology.l10n.sr.hook.wconv.cltoa	pology.l10n.sr.hook.wconv-module.html#cltoa
+pology.l10n.sr.hook.wconv.hictoec	pology.l10n.sr.hook.wconv-module.html#hictoec
 pology.l10n.sr.hook.wconv.hctocl	pology.l10n.sr.hook.wconv-module.html#hctocl
+pology.l10n.sr.hook.wconv.hictoel	pology.l10n.sr.hook.wconv-module.html#hictoel
 pology.l10n.sr.hook.wconv._reflex_map	pology.l10n.sr.hook.wconv-module.html#_reflex_map
 pology.l10n.sr.hook.wconv._max_reflex_len	pology.l10n.sr.hook.wconv-module.html#_max_reflex_len
 pology.l10n.sr.hook.wconv._hitoe_w	pology.l10n.sr.hook.wconv-module.html#_hitoe_w
@@ -287,6 +298,7 @@ pology.l10n.sr.hook.wconv.hitoei	pology.l10n.sr.hook.wconv-module.html#hitoei
 pology.l10n.sr.hook.wconv._padc_alphas	pology.l10n.sr.hook.wconv-module.html#_padc_alphas
 pology.l10n.sr.hook.wconv.resolve_alternatives	pology.misc.resolve-module.html#resolve_alternatives
 pology.l10n.sr.hook.wconv._dict_c2a_englay	pology.l10n.sr.hook.wconv-module.html#_dict_c2a_englay
+pology.l10n.sr.hook.wconv.hictoic	pology.l10n.sr.hook.wconv-module.html#hictoic
 pology.l10n.sr.hook.wconv._dict_l2a_stripped	pology.l10n.sr.hook.wconv-module.html#_dict_l2a_stripped
 pology.l10n.sr.hook.wconv._unpadc	pology.l10n.sr.hook.wconv-module.html#_unpadc
 pology.l10n.sr.hook.wconv._reflex_mark	pology.l10n.sr.hook.wconv-module.html#_reflex_mark
@@ -689,9 +701,8 @@ pology.misc.report.init_file_progress	pology.misc.report-module.html#init_file_p
 pology.misc.resolve	pology.misc.resolve-module.html
 pology.misc.resolve._remove_fmtdirs_c	pology.misc.resolve-module.html#_remove_fmtdirs_c
 pology.misc.resolve._usual_accels	pology.misc.resolve-module.html#_usual_accels
-pology.misc.resolve._entity_tail_rx	pology.misc.resolve-module.html#_entity_tail_rx
-pology.misc.resolve._fmtdir_tail_qt_rx	pology.misc.resolve-module.html#_fmtdir_tail_qt_rx
 pology.misc.resolve._remove_by_rx	pology.misc.resolve-module.html#_remove_by_rx
+pology.misc.resolve._fmtdir_tail_qt_rx	pology.misc.resolve-module.html#_fmtdir_tail_qt_rx
 pology.misc.resolve._literal_cmdoptlong_rx	pology.misc.resolve-module.html#_literal_cmdoptlong_rx
 pology.misc.resolve._literal_email_rx	pology.misc.resolve-module.html#_literal_email_rx
 pology.misc.resolve._remove_literals_file	pology.misc.resolve-module.html#_remove_literals_file
@@ -701,6 +712,7 @@ pology.misc.resolve.resolve_alternatives_simple	pology.misc.resolve-module.html#
 pology.misc.resolve._fmtdir_tail_c_rx	pology.misc.resolve-module.html#_fmtdir_tail_c_rx
 pology.misc.resolve._literal_cmdopt_rx	pology.misc.resolve-module.html#_literal_cmdopt_rx
 pology.misc.resolve._literal_fileext_rx	pology.misc.resolve-module.html#_literal_fileext_rx
+pology.misc.resolve.warning	pology.misc.report-module.html#warning
 pology.misc.resolve._remove_fmtdirs_qt	pology.misc.resolve-module.html#_remove_fmtdirs_qt
 pology.misc.resolve._literal_filehome_rx	pology.misc.resolve-module.html#_literal_filehome_rx
 pology.misc.resolve.resolve_alternatives	pology.misc.resolve-module.html#resolve_alternatives
@@ -718,7 +730,7 @@ pology.misc.resolve._remove_literals_url	pology.misc.resolve-module.html#_remove
 pology.misc.resolve._literal_web_rx	pology.misc.resolve-module.html#_literal_web_rx
 pology.misc.resolve.first_to_case	pology.misc.resolve-module.html#first_to_case
 pology.misc.resolve.first_to_lower	pology.misc.resolve-module.html#first_to_lower
-pology.misc.resolve.warning	pology.misc.report-module.html#warning
+pology.misc.resolve._entity_ref_rx	pology.misc.resolve-module.html#_entity_ref_rx
 pology.misc.resolve.resolve_entities_simple	pology.misc.resolve-module.html#resolve_entities_simple
 pology.misc.resolve.DEFAULT_ALTHEAD	pology.misc.resolve-module.html#DEFAULT_ALTHEAD
 pology.misc.resolve._literal_cmd_rx	pology.misc.resolve-module.html#_literal_cmd_rx

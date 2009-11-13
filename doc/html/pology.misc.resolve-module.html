@@ -78,7 +78,9 @@
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities" class="summary-sig-name">resolve_entities</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
         <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">undefrepl</span>=<span class="summary-sig-default">None</span>)</span><br />
       Replace XML entities in the text with their values.</td>
           <td align="right" valign="top">
             
@@ -98,7 +100,8 @@
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities_simple" class="summary-sig-name">resolve_entities_simple</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
         <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
       As <a href="pology.misc.resolve-module.html#resolve_entities" 
       class="link">resolve_entities</a>, but returns only the resolved 
       text.</td>
@@ -334,7 +337,9 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
         <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">undefrepl</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -343,9 +348,13 @@
   
   <p>Replace XML entities in the text with their values.</p>
   <p>Entity values are defined by the supplied dictionary of name-value 
-  pairs. Not all entities need be replaced, some can be explicitly ignored.
-  If an entity is neither defined nor ignored, a warning may be reported to
-  standard output.</p>
+  pairs. Not all entities need to be replaced, some can be explicitly 
+  ignored. If an entity is neither defined nor ignored, a warning will be 
+  reported to standard output if <code>srcname</code> is given.</p>
+  <p>An undefined entity is by default left untouched in the resulting 
+  text. Instead, the parameter <code>undefrepl</code> can be used to supply
+  a string to substitute for every undefined entity, or a function which 
+  takes the undefined entity name and returns the string to substitute.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -355,6 +364,9 @@
           name) - entity names to ignore</li>
         <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report unknown entities to standard output, with 
           this parameter as source identifier</li>
+        <li><strong class="pname"><code>vfilter</code></strong> (string or (string)-&gt;string) - format string (with single <code>%s</code> directive) or function
+          to apply to every resolved entity value</li>
+        <li><strong class="pname"><code>undefrepl</code></strong> (string of (string)-&gt;string) - string or function to use in case of undefined entity</li>
     </ul></dd>
     <dt>Returns: (string, [string...], [string...])</dt>
         <dd>the resulting text, resolved entities names, and unknown entity 
@@ -372,7 +384,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities_simple</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
         <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
-        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;

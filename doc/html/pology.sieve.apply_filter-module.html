@@ -76,12 +76,15 @@
       <code>filter:&lt;hookspec&gt;</code>: hook specification (see <a 
       href="pology.misc.langdep-module.html#get_hook_lreq" 
       class="link">misc.langdep.get_hook_lreq</a> for the format of hook 
-      specifications)
+      specifications). Can be repeated to chain several hooks, which are 
+      applied in the order of appearance in the command line.
+    </li>
+    <li>
+      <code>showmsg</code>: report every modified message to standard 
+      output (for validation hooks, message is automatically output if not 
+      valid).
     </li>
   </ul>
-  <p>Parameter <code>filter</code> can be repeated to chain several hooks, 
-  which are then applied in the order of appearance in the command 
-  line.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
