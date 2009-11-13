@@ -14,10 +14,11 @@ Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
 
 Sieve parameters:
   - C{filter:<hookspec>}: hook specification (see L{misc.langdep.get_hook_lreq}
-        for the format of hook specifications)
-
-Parameter C{filter} can be repeated to chain several hooks,
-which are then applied in the order of appearance in the command line.
+        for the format of hook specifications).
+        Can be repeated to chain several hooks, which are applied
+        in the order of appearance in the command line.
+  - C{showmsg}: report every modified message to standard output
+        (for validation hooks, message is automatically output if not valid).
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -43,11 +44,17 @@ def setup_sieve (p):
     add_param_filter(p,
     "Specification of hook through which msgstr fields are to be filtered."
     )
+    p.add_param("showmsg", bool, defval=False,
+                desc=
+    "Report message to standard output if it got modified."
+    )
 
 
 class Sieve (object):
 
     def __init__ (self, params):
+
+        self.p = params
 
         self.tfilters = [[get_hook_lreq(x, abort=True), x]
                          for x in (params.filter or [])]
@@ -88,6 +95,8 @@ class Sieve (object):
 
         if mcount < msg.modcount:
             self.nmod += 1
+            if self.p.showmsg:
+                report_msg_content(msg, cat, delim=("-" * 20))
 
 
     def finalize (self):
