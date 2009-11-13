@@ -114,17 +114,17 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
     return hook
 
 
-_froments1_hook = None
+_froments_t1_hook = None
 
-def froments1 (msgstr, msg, cat):
+def froments_t1 (msgstr, msg, cat):
     """
-    Specialization of L{froments}: C{name="ui"}, C{vfilter="^%s"},
-    C{testsub=True} [type F3C hook].
+    A testing specialization of L{froments}: C{name="ui"},
+    C{vfilter="^%s"}, C{testsub=True} [type F3C hook].
     """
 
-    global _froments1_hook
-    if not _froments1_hook:
-        _froments1_hook = froments("ui", vfilter=u"^%s", testsub=True)
+    global _froments_t1_hook
+    if not _froments_t1_hook:
+        _froments_t1_hook = froments("ui", vfilter=u"^%s", testsub=True)
 
-    return _froments1_hook(msgstr, msg, cat)
+    return _froments_t1_hook(msgstr, msg, cat)
 
