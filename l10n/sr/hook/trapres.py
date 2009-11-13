@@ -53,10 +53,9 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
     @param vfilter: format string (with single C{%s} directive) or function
         to apply to every resolved reference
     @type vfilter: string or (string)->string
-    @param undefrepl: format string (with single C{%s} directive) or function
-        to apply to every resolved reference
-    @param undefrepl: string or function to substitute undefined references
-    @type undefrepl: string of (string)->string
+    @param testsub: whether to substitute test forms in place of
+        undefined references
+    @type testsub: bool
 
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}

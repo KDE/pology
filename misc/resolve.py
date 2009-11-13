@@ -47,7 +47,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
     @type srcname: None or string
     @param vfilter: format string (with single C{%s} directive) or function
         to apply to every resolved entity value
-    @type vfliter: string or (string)->string
+    @type vfilter: string or (string)->string
     @param undefrepl: string or function to use in case of undefined entity
     @type undefrepl: string of (string)->string
 
