@@ -71,15 +71,20 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
     # Setup dummy replacement for undefined references.
     undefrepl = None
     if testsub:
-        dkeysub = "__test1234__"
+        dkeysub1 = "__test1234a__"
+        dkeysub2 = "__test1234b__"
         tp.import_string(u"""
         >%s/base/aff.sd
-        %s: лопт|а, лопт|а+2, лопт|ин, лопта|сти
-        """ % (T.rootdir(), dkeysub))
+        %s: лопт|а, лопт|е+2, лопт|ин, лопта|сти
+        %s: ваљ|ак, ваљ|ци+, ваљк|ов, ваљка|сти
+        """ % (T.rootdir(), dkeysub1, dkeysub2))
         def undefrepl (ref):
             dkey, pkey = ref.rsplit("-", 1)
             if pkey == "":
                 pkey = "n"
+            dkeysub = dkeysub1
+            if len(pkey) == 2 and pkey.endswith("k"):
+                dkeysub = dkeysub2
             ckeysub = dkeysub + "-" + pkey
             return tp[ckeysub].upper()
 
