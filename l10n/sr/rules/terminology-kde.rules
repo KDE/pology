@@ -550,35 +550,17 @@ valid cat="kmix,kxsconfig,desktop_kdeartwork,okular,ksquares" msgstr="\bлини
 valid cat="okular" after="leader " msgstr="изводниц"
 valid cat="kppp" # скоро увек телефонска линија
 
+#! зезнут
 {\blist(s|ed)?\b}i
 id="list"
-hint="list = списак [може бити и ‘листа’, где се изричито дозволи]"
-valid after="(mailing |e?mail |distribution |access control |play\W?|dynamic |white |black |block\W?|podcast )" msgstr="\bлист"
-valid cat="kio_imap4" after="access control " msgstr="\bacl"
-valid cat="juk" after="collection " msgstr="\bлист"
-valid after="free[ /-]busy " !msgstr="\bлист"
-valid !cat="kabc" msgstr="\bсписа?к"
-valid msgstr="\b(набр[оа]?ј|навед|наво[дс]|испи[сш]|приказа[лот])"
-valid msgstr="&(internetbooklist)\S*;"
-valid cat="kabc,userguide_getting-help" msgstr="\bлист"
-valid cat="kabc" msgid="list of emails" msgstr="\bсписак"
-valid cat="kdialog" msgid="^\w+ List dialog$" msgstr="Дијалог са опцијама,"
-valid cat="kget" after="transfers?\W?" msgstr="лист\w+ преноса"
-valid cat="kopete,ksirk" after="contacts?\W?" msgstr="лист\w+ контаката"
-valid cat="kopete" after="privacy " msgstr="лист\w+ приватности"
-valid cat="kopete" after="buddy " msgstr="лист\w+ другара"
-valid cat="kopete" after="reverse " msgstr="инверзн\w+ лист\w+"
-valid cat="kopete" after="visible " msgstr="лист\w+ видљивих"
-valid cat="kopete" after="invisible " msgstr="лист\w+ невидљивих"
-valid cat="kopete" after="Skype " msgstr="лист\w+ &skype"
-valid cat="kopete" srcref="privacy|nscainfoevent" msgstr="лист\w+"
-valid cat="kfileshare" after="write |read " msgstr="лист\w+"
+hint="list = списак"
+disabled
 
+#! зезнут
 {\blist}i
 id="list3"
-hint="list = набројати [заправо само ‘излистати’ мора изричито да се пропусти]"
-valid !msgstr="\bизлист"
-# остало на list
+hint="list = набројати"
+disabled
 
 {\blocation\W?bar}i
 id="locationbar"

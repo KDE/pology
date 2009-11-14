@@ -269,7 +269,7 @@ hint="left click = леви клик"
 valid msgstr="\bлев\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ левим"
 
-# Све провере на list.
+#! зезнут
 {\blist}i
 id="list2"
 hint="list = листа"
