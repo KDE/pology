@@ -35,6 +35,9 @@ _tagbr_normal = (
     "table", "th", "td", "tr", "center", "blockquote", "pre", "dd", "dl", "dt",
     # KUIT
     "title", "subtitle", "para", "list", "item",
+    # Docbook
+    "calloutlist", "glosslist", "itemizedlist", "orderedlist", "segmentedlist",
+    "simplelist", "variablelist", "listitem", "seglistitem", "varlistentry",
 )
 
 # Tags usually closed in-place in strict XML, break before and after.
