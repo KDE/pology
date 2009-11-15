@@ -375,6 +375,7 @@ valid env="kde" msgstr="&\w*reader\S*;"
 id="rename"
 hint="rename = преименовати"
 valid msgstr="\bпреиме[нњ]"
+valid msgstr="\bмења име" # изузеци где је раздвојени облик згоднији
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
