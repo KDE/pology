@@ -672,6 +672,7 @@ def summit_scatter (project, options):
 
     # Collect catalogs to scatter through all selected branches.
     n_selected_by_summit_subdir = {}
+    missing_in_summit = []
     for branch_id in branch_ids:
 
         branch_catalogs = select_branch_catalogs(branch_id, project, options,
@@ -687,7 +688,8 @@ def summit_scatter (project, options):
             summit_paths = []
             for summit_name in summit_names:
                 if not summit_name in project.catalogs[SUMMIT_ID]:
-                    error("catalog '%s' not found in the summit" % summit_name)
+                    missing_in_summit.append(summit_name)
+                    continue
                 summit_paths.append(
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
 
@@ -701,6 +703,11 @@ def summit_scatter (project, options):
     for subdir in n_selected_by_summit_subdir:
         if not n_selected_by_summit_subdir[subdir]:
             error("no catalogs to scatter by summit subdir '%s'" % subdir)
+
+    # Assure all catalogs to scatter have summit counterparts.
+    if missing_in_summit:
+        error("Missing necessary summit catalogs: %s"
+              % " ".join(missing_in_summit))
 
     # Setup progress indicator.
     upprog = lambda x: x
