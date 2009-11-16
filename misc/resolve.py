@@ -20,7 +20,7 @@ DEFAULT_ALTHEAD = "~@"
 
 _entity_ref_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
 
-def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
+def resolve_entities (text, entities, ignored=set(), srcname=None,
                       vfilter=None, undefrepl=None):
     """
     Replace XML entities in the text with their values.
@@ -39,9 +39,9 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
     @type text: string
     @param entities: entity name-value pairs
     @type entities: dict
-    @param ignored_entities: entity names to ignore
-    @type ignored_entities: any sequence that can be tested by C{in} for
-        entity name
+    @param ignored: entities to ignore; a sequence of entity names,
+        or function taking the entity name and returning C{True} if ignored
+    @type ignored: a sequence or (string)->bool
     @param srcname: if not None, report unknown entities to standard output,
         with this parameter as source identifier
     @type srcname: None or string
@@ -55,6 +55,8 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
         and unknown entity names
     @rtype: (string, [string...], [string...])
     """
+
+    ignoredf = ignored if callable(ignored) else lambda x: x in ignored
 
     unknown = []
     resolved = []
@@ -72,7 +74,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
         if m:
             entref = m.group(0)
             entname = m.group(1)
-            if entname not in ignored_entities:
+            if not ignoredf(entname):
                 entval = entities.get(entname)
                 entvalr = entval
                 if entval is not None:
@@ -92,7 +94,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
                         else:
                             entvalr = vfilter(entvalr)
                     # Recurse in case entity resolves into new entities.
-                    res = resolve_entities(entvalr, entities, ignored_entities,
+                    res = resolve_entities(entvalr, entities, ignoredf,
                                            srcname, vfilter, undefrepl)
                     entvalr, resolved_extra, unknown_extra = res
                     resolved.extend(resolved_extra)
@@ -125,7 +127,7 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
     return new_text, resolved, unknown
 
 
-def resolve_entities_simple (text, entities, ignored_entities=set(),
+def resolve_entities_simple (text, entities, ignored=set(),
                              srcname=None, vfilter=None):
     """
     As L{resolve_entities}, but returns only the resolved text.
@@ -136,7 +138,7 @@ def resolve_entities_simple (text, entities, ignored_entities=set(),
     @see: L{resolve_entities}
     """
 
-    return resolve_entities(text, entities, ignored_entities,
+    return resolve_entities(text, entities, ignored,
                             srcname=srcname, vfilter=vfilter)[0]
 
 
