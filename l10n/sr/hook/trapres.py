@@ -78,7 +78,10 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
         %s: ваљ|ак, ваљ|ци+, ваљк|ов, ваљка|сти
         """ % (T.rootdir(), dkeysub1, dkeysub2))
         def undefrepl (ref):
-            dkey, pkey = ref.rsplit("-", 1)
+            res = ref.rsplit("-", 1)
+            if len(res) != 2:
+                return None
+            dkey, pkey = res
             if pkey == "":
                 pkey = "n"
             dkeysub = dkeysub1
