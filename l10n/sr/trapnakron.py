@@ -592,13 +592,18 @@ def _sd_pkey_transf (npkeyto, npkey_eqpkeys):
 # - optionally replace ordinary with no-break hyphens
 # - resolve known taggings according to selected markup
 # - add outer tags according to selected markup
-# - construct alternatives/hybridized forms out of multiple values
 # - replace disambiguation markers with invisible characters
+# - construct hybridized forms out of multiple values
+# If the property key starts with underscore, only hybridization is performed.
 def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
 
-    def transf (mtsegs, dkrest, sd):
+    def transf (mtsegs, pkey, dkrest, sd):
 
         fcap, tag, ltmarkup, pltext, d5 = dkrest
+        if pkey.startswith("_"):
+            fcap = False
+            tag = None
+            pltext = True
 
         pvals = []
         for tsegs, (islatin, isije) in zip(mtsegs, envprops):
@@ -612,7 +617,7 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
 
         return pval
 
-    return transf, "dkrest", "self"
+    return transf, "pkey", "dkrest", "self"
 
 
 # Transformation for derivation syntagmas.
