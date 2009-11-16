@@ -131,3 +131,16 @@ def froments_t1 (msgstr, msg, cat):
 
     return _froments_t1_hook(msgstr, msg, cat)
 
+
+def froments_t1db (msgstr, msg, cat):
+    """
+    A testing specialization of L{froments}: C{name="docbook4"},
+    C{vfilter="^%s"}, C{testsub=True} [type F3C hook].
+    """
+
+    global _froments_t1_hook
+    if not _froments_t1_hook:
+        _froments_t1_hook = froments("docbook4", vfilter=u"^%s", testsub=True)
+
+    return _froments_t1_hook(msgstr, msg, cat)
+
