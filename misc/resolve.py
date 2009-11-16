@@ -113,6 +113,8 @@ def resolve_entities (text, entities, ignored_entities=set(), srcname=None,
                     else:
                         warning("%s: unknown entity '%s'"
                                 % (srcname, entname))
+            else:
+                segs.append(entref)
 
             p += len(entref)
         else:
