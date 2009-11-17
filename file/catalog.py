@@ -564,19 +564,16 @@ class Catalog (Monitored):
         self._lang = None
 
         # Cached environments.
-        # None means the environments have not been determined,
-        # empty means there are none.
         self._envs = None
+        self._envs_determined = False
 
         # Cached accelerator markers.
-        # None means the accelerator markers have not been determined,
-        # empty means there are none.
         self._accels = None
+        self._accels_determined = False
 
         # Cached markup types.
-        # None means the markup types have not been determined,
-        # empty means there are none.
         self._mtypes = None
+        self._mtypes_determined = False
 
 
     def _assert_headonly (self):
@@ -1572,10 +1569,11 @@ class Catalog (Monitored):
         """
 
         # Check if accelerators have been already determined.
-        if self._accels is not None:
+        if self._accels_determined:
             return self._accels
 
         accels = None
+        self._accels_determined = True
 
         # Analyze header.
 
@@ -1669,10 +1667,11 @@ class Catalog (Monitored):
         """
 
         # Check if markup types have been already determined.
-        if self._mtypes is not None:
+        if self._mtypes_determined:
             return self._mtypes
 
         mtypes = None
+        self._mtypes_determined = True
 
         # Analyze header.
 
@@ -1751,10 +1750,11 @@ class Catalog (Monitored):
         """
 
         # Check if language has already been determined.
-        if self._lang is not None:
+        if self._lang_determined:
             return self._lang
 
         lang = None
+        self._lang_determined = True
 
         fval = self._header.get_field_value("Language")
         if fval:
@@ -1836,10 +1836,11 @@ class Catalog (Monitored):
         """
 
         # Check if environment types have been already determined.
-        if self._envs is not None:
+        if self._envs_determined:
             return self._envs
 
         envs = None
+        self._envs_determined = True
 
         # Check the fields which may contain environment keywords.
         for fname in (
