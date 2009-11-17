@@ -281,11 +281,17 @@ def cltoh (textc, textl, delims=u"/|¦", full=False):
         ic = 0
         while i < len(wdiff):
             tag, seg = wdiff[i]
-            segc = textc[ic:ic + len(seg)]
             if tag == " ":
+                segc = textc[ic:ic + len(seg)]
                 segs.append(segc)
             else:
-                segl = wdiff[i + 1][1]
+                seg2 = wdiff[i + 1][1] if i + 1 < len(wdiff) else ""
+                if tag == "-":
+                    segc = textc[ic:ic + len(seg)]
+                    segl = seg2
+                else:
+                    segc = textc[ic:ic + len(seg2)]
+                    segl = seg
                 i += 1
                 segs.append(_shyb_althead + _delimit([segc, segl], delims))
             ic += len(seg)
@@ -531,9 +537,14 @@ def eitoh (texte, texti, delims=u"/|¦"):
             iip = iib + len(frmi)
         else:
             segs.append(texte[iep:ie])
-            if ie < lene or ii < lene:
+            if ie < lene or ii < leni:
                 wdiff = word_diff(texte[ie:], texti[ii:])
-                frme, frmi = wdiff[0][1], wdiff[1][1]
+                tag, seg = wdiff[0]
+                seg2 = wdiff[1][1] if 1 < len(wdiff) else ""
+                if tag == "-":
+                    frme, frmi = seg, seg2
+                else:
+                    frme, frmi = seg2, seg
                 segs.append(_dhyb_althead + _delimit([frme, frmi], delims))
                 iep = ie + len(frme)
                 iip = ii + len(frmi)
