@@ -92,11 +92,6 @@ _good_eicl_combos = set((
 _alt_sep_scr = u"¦|/"
 _alt_sep_dlc = u"¦|/"
 
-# Elements for composing hybridization directives.
-_hyb_tag = u"›" # must match runtime
-_hyb_head = u"~#" # must match runtime
-_hyb_sep = u"⁝"
-
 # Keywords of known target markups.
 _known_markups = (
     "plain",
