@@ -327,7 +327,7 @@ _flag_mark = u"match"
 
 
 # Matchers taking a value.
-_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
+_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag", "branch"])
 # Matchers not taking a value.
 _nop_matchers = set(["transl", "obsol", "active", "plural"])
 
