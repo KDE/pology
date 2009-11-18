@@ -1648,9 +1648,14 @@ def asc_age_cmp (a1, a2, config):
 
 def sync_and_rep (cat):
 
+    nmod = 0
+    for msg in cat:
+        if msg.modcount:
+            nmod += 1
+
     modified = cat.sync()
     if modified:
-        report("!    " + cat.filename)
+        report("!    %s  (%d)" % (cat.filename, nmod))
 
     return modified
 
