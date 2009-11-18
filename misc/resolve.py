@@ -120,6 +120,7 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
 
             p += len(entref)
         else:
+            segs.append("&")
             p += 1
 
     new_text = "".join(segs)
