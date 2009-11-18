@@ -562,6 +562,7 @@ class Catalog (Monitored):
         # Cached language of the translation.
         # None means the language has not been determined.
         self._lang = None
+        self._lang_determined = False
 
         # Cached environments.
         self._envs = None
