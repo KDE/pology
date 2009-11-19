@@ -1664,7 +1664,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     hdr.author = shdr.author
     hdr.comment = shdr.comment
     # Update fields only if normalized lists of fields do not match.
-    reducehf(shdr, branch_id, project.header_propagate_fields_summed)
+    reducehf(shdr, branch_id, project)
     if normhf(hdr.field, keep_fields) != normhf(shdr.field, keep_fields):
         # Collect branch fields to be preserved.
         preserved_fs = []
@@ -2246,12 +2246,15 @@ def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
 
 
 # Reduce summit to branch header.
-def reducehf (shdr, bid, summed_fields=[]):
+def reducehf (shdr, bid, project):
+
 
     fieldmod = Monlist()
     for fpair in shdr.field:
         fnam, fval = fpair
-        if fnam in summed_fields and _summed_fval_sep in fval:
+        if (    fnam in project.header_propagate_fields_summed
+            and _summed_fval_sep in fval
+        ):
             fval0, fbid = map(unicode.strip, fval.rsplit(_summed_fval_sep, 1))
             if fbid == bid:
                 fieldmod.append(Monpair((fnam, fval0)))
