@@ -402,6 +402,8 @@ def _statistics (tp, onlysrcs, onlykeys):
 
 def _main ():
 
+    locale.setlocale(locale.LC_ALL, "")
+
     usage = u"""
   %prog [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...
 """.rstrip()
