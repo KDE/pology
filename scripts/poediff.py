@@ -193,11 +193,9 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # where path* are the real paths, and vpath* the visual paths to be
     # presented in diff output.
     if not vcs:
-        single_input_pair = os.path.isfile(paths[0])
         fpairs = collect_file_pairs(paths[0], paths[1], op.paired_only)
         pspecs = [(x, x) for x in fpairs]
     else:
-        single_input_pair = len(paths) == 1 and os.path.isfile(paths[0])
         lst = op.revision and op.revision.split(":", 1) or []
         if len(lst) > 2:
             error_wcl("too many revisions given: %s" % op.revision)
