@@ -117,7 +117,7 @@ without conflicts, in single text and even interwoven
 from pology.misc.report import warning
 from pology.misc.resolve import resolve_alternatives_simple
 from pology.misc.resolve import resolve_alternatives
-from pology.misc.diff import word_diff
+from pology.misc.diff import word_diff, tdiff
 
 
 # Transliteration table Serbian Cyrillic->Latin.
@@ -486,7 +486,7 @@ def hitoei (htext):
     return hitoe(htext), hitoi(htext)
 
 
-def eitoh (texte, texti, delims=u"/|¦"):
+def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     """
     Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian texts.
 
@@ -494,28 +494,38 @@ def eitoh (texte, texti, delims=u"/|¦"):
     and alternatives directives by dialect otherwise.
     Both input texts should be in same script, Cyrillic or Latin.
 
+    If alternatives directives should not be used, but only reflex marks,
+    C{refonly} is set to C{True}. In that case, segments which cannot be
+    hybridized by reflex marks will be left as they are in Ijekavian text.
+    The intention behind this is that alternatives directives have
+    been added manually where necessary, and that other changes are fixes
+    made during conversion of Ekavian to Ijekavian text
+    which hold for both dialects.
+
     @param texte: Ekavian text
     @type texte: string
     @param texti: Ijekavian text
     @type texti: string
     @param delims: possible delimiter characters
     @type delims: string
+    @param refonly: whether to only use reflex marks
+    @type refonly: bool
 
     @returns: hybrid Ijekavian text
     @rtype: string
     """
 
-    lene = len(texte)
-    leni = len(texti)
-    ie = 0
-    iep = 0
-    ii = 0
-    iip = 0
+    cdiff = tdiff(texte, texti)
+    lenc = len(cdiff)
+    ie = 0; iep = 0; ii = 0; iip = 0; ic = 0
     segs = []
-    while ie < lene and ii < leni:
-        while ie < lene and ii < leni and texte[ie] == texti[ii]:
-            ie += 1
-            ii += 1
+    while True:
+        while ic < lenc and cdiff[ic][0] == " ":
+            ic += 1; ie += 1; ii += 1
+        if ic == lenc:
+            segs.append(texte[iep:])
+            break
+        # Try to hybridize difference by reflex marks.
         for btrk in range(_max_reflex_btrk, -1, -1):
             ieb = ie - btrk
             iib = ii - btrk
@@ -531,26 +541,34 @@ def eitoh (texte, texti, delims=u"/|¦"):
             if frme is not None:
                 break
         if frme is not None:
+            # Hybridization by reflex mark possible.
             segs.append(texte[iep:ieb])
             segs.append(_reflex_mark + frmi)
             iep = ieb + len(frme)
             iip = iib + len(frmi)
+            while ic < lenc and cdiff[ic][0] != " ":
+                if cdiff[ic][0] == "-":
+                    ie += 1
+                ic += 1
+            ic += iep - ie
         else:
+            # Hybridization by reflex mark not possible.
+            # Use alternatives directive, or pure Ijekavian.
+            frme = ""; frmi = ""
             segs.append(texte[iep:ie])
-            if ie < lene or ii < leni:
-                wdiff = word_diff(texte[ie:], texti[ii:])
-                tag, seg = wdiff[0]
-                seg2 = wdiff[1][1] if 1 < len(wdiff) else ""
+            while ic < lenc and cdiff[ic][0] != " ":
+                tag, c = cdiff[ic]
                 if tag == "-":
-                    frme, frmi = seg, seg2
+                    frme += c; ie += 1
                 else:
-                    frme, frmi = seg2, seg
+                    frmi += c; ii += 1
+                ic += 1
+            iep = ie
+            iip = ii
+            if not refonly:
                 segs.append(_dhyb_althead + _delimit([frme, frmi], delims))
-                iep = ie + len(frme)
-                iip = ii + len(frmi)
             else:
-                iep = ie
-                iip = ii
+                segs.append(frmi)
         ie = iep
         ii = iip
 
