@@ -950,8 +950,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-_revdflags = ("revd", "reviewed")
-_revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
+_revdflag = u"reviewed"
+_revdflag_rx = re.compile(r"^%s *[/:]?(.*)" % _revdflag, re.I)
 
 def clear_review_msg (msg, keepflags=False):
 
@@ -967,6 +967,9 @@ def clear_review_msg (msg, keepflags=False):
                 tags.append(mantagged.group(1).strip())
             if not keepflags:
                 msg.flag.remove(flag)
+            elif flag in _diffflags:
+                msg.flag.remove(flag)
+                msg.flag.add(_revdflag)
             # Do not break, other review flags possible.
 
     # Clear embedded diffs.
