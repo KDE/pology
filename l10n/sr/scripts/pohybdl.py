@@ -9,11 +9,12 @@ from tempfile import NamedTemporaryFile
 
 from pology.misc.fsops import str_to_unicode
 from pology.misc.report import report, error
-from pology.misc.msgreport import warning_on_msg
+from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.file.catalog import Catalog
-from pology.misc.diff import msg_ediff_to_new
-from pology.l10n.sr.hook.wconv import eitoh
+from pology.file.message import MessageUnsafe
+from pology.misc.diff import msg_ediff, msg_ediff_to_new
+from pology.l10n.sr.hook.wconv import eitoh, hitoe
 
 
 def _main ():
@@ -32,6 +33,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 """.strip()
 
     opars = OptionParser(usage=usage, description=description, version=version)
+    opars.add_option(
+        "-a", "--accept-changes",
+        action="store_true", dest="accept_changes", default=False,
+        help="Accept messages which have some changes between initial "
+             "and reconstructed Ekavian translation.")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -74,17 +80,17 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         tmpf = NamedTemporaryFile(prefix="pohybdl-export-", suffix=".po")
         if not vcs.export(path, None, tmpf.name):
             error("Version control system cannot export file '%s'." % path)
+        # Hybridize by comparing local head and modified file.
+        hybdl(path, tmpf.name, options.accept_changes)
 
-        hybridize_in_ijekavized(path, tmpf.name)
-        del tmpf
 
-
-def hybridize_in_ijekavized (path, path0):
+def hybdl (path, path0, accekch=False):
 
     cat = Catalog(path)
     cat0 = Catalog(path0, monitored=False)
 
     nhybridized = 0
+    allpass = True
     for msg in cat:
 
         # Unembed diff if message was diffed for review.
@@ -103,23 +109,46 @@ def hybridize_in_ijekavized (path, path0):
         if msg0 is None:
             warning_on_msg("Message does not exist in the original catalog.",
                            msg, cat)
+            allpass = False
             continue
         if len(msg.msgstr) != len(msg0.msgstr):
             warning_on_msg("Number of translations not same as in "
                            "the original message.", msg, cat)
+            allpass = False
+            continue
+        if msg.msgstr == msg0.msgstr:
+            # No changes, nothing new to hybridize.
             continue
 
         # Hybridize translation.
-        oldcount = msg.modcount
-        for i in range(len(msg.msgstr)):
-            text = msg.msgstr[i]
-            text0 = msg0.msgstr[i]
-            msg.msgstr[i] = eitoh(text0, text, refonly=True)
-        if msg.modcount > oldcount:
+        textsh = []
+        texts0e = []
+        texts1e = []
+        for text0, text in zip(msg0.msgstr, msg.msgstr):
+            texth = eitoh(text0, text, refonly=True)
+            textsh.append(texth)
+            if not accekch:
+                texts0e.append(hitoe(text0))
+                texts1e.append(hitoe(texth))
+        if texts0e == texts1e:
+            for i, texth in zip(range(len(msg.msgstr)), textsh):
+                msg.msgstr[i] = texth
             nhybridized += 1
+        else:
+            allpass = False
+            msg1 = MessageUnsafe(msg)
+            msg0.msgstr = texts0e
+            msg1.msgstr = texts1e
+            msg_ediff(msg0, msg1, emsg=msg1, hlto=sys.stdout)
+            report_msg_content(msg1, cat, delim=("-" * 20))
 
-    if cat.sync():
-        report("! %s (%d)" % (path, nhybridized))
+    if allpass:
+        if cat.sync():
+            report("! %s (%d)" % (path, nhybridized))
+    else:
+        nhybridized = 0
+
+    return nhybridized
 
 
 if __name__ == '__main__':
