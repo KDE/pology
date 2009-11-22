@@ -12,7 +12,7 @@ import fallback_import_paths
 
 from pology.misc.report import report, error
 import pology.misc.config as pology_config
-from pology.misc.wrap import select_field_wrapper, wrap_field_fine
+from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
@@ -35,6 +35,7 @@ def main ():
     cfgsec = pology_config.section("poselfmerge")
     def_minwnex = cfgsec.integer("min-words-exact", 0)
     def_minasfz = cfgsec.real("min-adjsim-fuzzy", 0.0)
+    def_fuzzex = cfgsec.real("fuzzy-exact", False)
     def_refuzz = cfgsec.real("rebase-fuzzies", False)
     def_do_wrap = cfgsec.boolean("wrap", True)
     def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
@@ -68,33 +69,39 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "-C", "--compendium",  metavar="POFILE",
         action="append", dest="compendiums", default=[],
-        help="catalog with existing translations, to additionally use for "
-             "direct and fuzzy matches (can be repeated)")
+        help="Catalog with existing translations, to additionally use for "
+             "direct and fuzzy matches (can be repeated).")
     opars.add_option(
         "-W", "--min-words-exact",  metavar="NUMBER",
         action="store", dest="min_words_exact", default=def_minwnex,
-        help="when using compendium catalog, in case of exact match, "
+        help="When using compendium, in case of exact match, "
              "minimum number of words that original text must have "
-             "to accept translation without making it fuzzy")
+             "to accept translation without making it fuzzy. "
+             "Zero means to always accept an exact match.")
     opars.add_option(
         "-A", "--min-adjsim-fuzzy",  metavar="NUMBER",
         action="store", dest="min_adjsim_fuzzy", default=def_minasfz,
-        help="when using compendium catalog, in case of fuzzy match, "
-             "minimum adjusted similarity to accept the match "
-             "(range 0.0-1.0, a resonable value is 0.6-0.8)")
+        help="When using compendium, in case of fuzzy match, "
+             "minimum adjusted similarity to accept the match. "
+             "Range is 0.0-1.0, where 0 means to always accept the match, "
+             "and 1 to never accept; a resonable threshold is 0.6-0.8.")
+    opars.add_option(
+        "-x", "--fuzzy-exact",
+        action="store_true", dest="fuzzy_exact", default=def_fuzzex,
+        help="When using compendium, make all exact matches fuzzy.")
     opars.add_option(
         "-b", "--rebase-fuzzies",
         action="store_true", dest="rebase_fuzzies", default=def_refuzz,
-        help="before merging, clear those fuzzy messages whose predecessor "
-             "(determined by previous fields) is still in the catalog")
+        help="Before merging, clear those fuzzy messages whose predecessor "
+             "(determined by previous fields) is still in the catalog.")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="do not try to use Psyco specializing compiler")
+        help="Do not try to use Psyco specializing compiler.")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
-        help="output more detailed progress info")
+        help="Output more detailed progress info.")
     (op, fargs) = opars.parse_args()
 
     if len(fargs) < 1 and not op.files_from:
@@ -115,9 +122,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
     fnames = collect_catalogs(file_or_dir_paths)
 
-    # Decide on wrapping policy.
-    wrap_func = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
-
     # Convert non-string options to needed types.
     try:
         op.min_words_exact = int(op.min_words_exact)
@@ -134,13 +138,13 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for fname in fnames:
         if op.verbose:
             report("Self-merging %s ..." % fname)
-        self_merge_catalog(fname, wrap_func, op.compendiums,
-                           op.min_words_exact, op.min_adjsim_fuzzy,
-                           op.rebase_fuzzies)
+        self_merge_pofile(fname, op.do_wrap, op.do_fine_wrap, op.compendiums,
+                          op.fuzzy_exact, op.min_words_exact,
+                          op.min_adjsim_fuzzy, op.rebase_fuzzies)
 
 
-def self_merge_catalog (catpath, wrapf=wrap_field_fine, compendiums=[],
-                        minwnex=0, minasfz=0.0, refuzz=False):
+def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
+                       fuzzex=False, minwnex=0, minasfz=0.0, refuzzy=False):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -152,24 +156,49 @@ def self_merge_catalog (catpath, wrapf=wrap_field_fine, compendiums=[],
     shutil.copyfile(catpath, catpath_mod)
     shutil.copyfile(catpath, potpath)
 
-    # Open file to be merged for pre-processing.
-    cat = Catalog(catpath_mod, monitored=False)
+    # From the dummy template, clean all active messages and
+    # remove all obsolete messages.
+    cat = Catalog(potpath, monitored=False)
+    for msg in cat:
+        if msg.obsolete:
+            cat.remove_on_sync(msg)
+        else:
+            msg.clear()
+    cat.sync()
 
-    # From the file to be merged, in case compendium is being used,
+    # Merge with dummy template.
+    merge_pofile(catpath_mod, potpath, wrap=wrap, finewrap=finewrap,
+                 cmppaths=compendiums, fuzzex=fuzzex,
+                 minwnex=minwnex, minasfz=minasfz, refuzzy=refuzzy)
+
+    # Overwrite original with temporary catalog.
+    shutil.move(catpath_mod, catpath)
+    os.unlink(potpath)
+
+
+def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
+                  cmppaths=[], fuzzex=False, minwnex=0, minasfz=0.0,
+                  fuzzymatch=True, refuzzy=False, quiet=True,
+                  getcat=False, monitored=True):
+
+    # Open catalog for pre-processing.
+    cat = Catalog(catpath, monitored=False)
+
+    # In case compendium is being used,
     # collect keys of all non-translated messages,
     # to later check which exact matches need to be fuzzied.
-    if compendiums and minwnex > 0:
+    if cmppaths and (fuzzex or minwnex > 0):
         nontrkeys = set()
         for msg in cat:
             if not msg.translated:
                 nontrkeys.add(msg.key)
 
-    # From the file to be merged, remove all untranslated messages,
-    # and every fuzzy for which the previous fields define a message
+    # If requested, remove all untranslated messages,
+    # and every fuzzy for which previous fields define a message
     # still existing in the catalog.
     # This way, untranslated messages will get fuzzy matched again,
     # and fuzzy messages may get updated translation.
-    if refuzz:
+    if refuzzy and fuzzymatch:
         for msg in cat:
             if (    msg.untranslated
                 or (    msg.fuzzy and msg.msgid_previous
@@ -178,56 +207,66 @@ def self_merge_catalog (catpath, wrapf=wrap_field_fine, compendiums=[],
             ):
                 cat.remove_on_sync(msg)
 
-    # File to be merge ready.
-    cat.sync()
-
-    # Open file to be the template for pre-processing.
-    cat = Catalog(potpath, monitored=False)
-
-    # From the file to be the template, clean all active messages and
-    # remove all obsolete messages.
-    for msg in cat:
-        if msg.obsolete:
-            cat.remove_on_sync(msg)
-        else:
-            msg.clear()
-
-    # File to be the template ready.
     cat.sync()
 
     # Merge.
-    cmdline = ("msgmerge --quiet --previous --update --backup none %s %s"
-               % (catpath_mod, potpath))
-    if compendiums:
-        cmdline += " " + " ".join(["-C '%s'" % x for x in compendiums])
+    opts = []
+    if outpath:
+        opts.append("--output-file %s" % outpath)
+    else:
+        opts.append("--update")
+        opts.append("--backup none")
+    if fuzzymatch:
+        opts.append("--previous")
+    else:
+        opts.append("--no-fuzzy-matching")
+    if not wrap:
+        opts.append("--no-wrap")
+    for cmppath in cmppaths:
+        if not os.path.isfile(cmppath):
+            error("Compendium not found at '%s'." % cmppath)
+        opts.append("--compendium %s" % cmppath)
+    if quiet:
+        opts.append("--quiet")
+    fmtopts = " ".join(opts)
+    cmdline = "msgmerge %s %s %s" % (fmtopts, catpath, tplpath)
     assert_system(cmdline)
 
-    # Open merged catalog for post-processing.
-    # (Not monitoring because full reformatting is desired for proper wrapping.)
-    cat = Catalog(catpath_mod, monitored=False, wrapf=wrapf)
+    # If the catalog had only header and no messages,
+    # msgmerge will not write out anything.
+    # In such case, just copy over existing.
+    if outpath and not os.path.isfile(outpath):
+        shutil.copyfile(catpath, outpath)
 
-    # In case compendium is being used,
-    # make fuzzy exact matches which do not pass the word limit.
-    if compendiums and minwnex > 0:
-        for msg in cat:
-            if (    msg.key in nontrkeys and msg.translated
-                and len(proper_words(msg.msgid)) < minwnex
-            ):
-                msg.fuzzy = True
+    # Post-process merged catalog if necessary.
+    if getcat or finewrap or (cmppaths and (fuzzex or minwnex > 0)) or minasfz:
+        # If fine wrapping requested and catalog should not be returned,
+        # everything has to be reformatted, so no need to monitor the catalog.
+        catpath1 = outpath or catpath
+        monitored1 = monitored if getcat else (not finewrap)
+        wrapf = select_field_wrapper(wrap, finewrap)
+        cat = Catalog(catpath1, monitored=monitored1, wrapf=wrapf)
 
-    # Eliminate fuzzy matches not passing the adjusted similarity limit.
-    if minasfz > 0.0:
-        for msg in cat:
-            if msg.fuzzy and msg.msgid_previous is not None:
-                if editprob(msg.msgid_previous, msg.msgid) < minasfz:
-                    msg.clear()
+        # In case compendium is being used,
+        # make fuzzy exact matches which do not pass the word limit.
+        if cmppaths and (fuzzex or minwnex > 0):
+            for msg in cat:
+                if (    msg.key in nontrkeys and msg.translated
+                    and (fuzzex or len(proper_words(msg.msgid)) < minwnex)
+                ):
+                    msg.fuzzy = True
 
-    # Merged catalog ready.
-    cat.sync()
+        # Eliminate fuzzy matches not passing the adjusted similarity limit.
+        if minasfz > 0.0:
+            for msg in cat:
+                if msg.fuzzy and msg.msgid_previous is not None:
+                    if editprob(msg.msgid_previous, msg.msgid) < minasfz:
+                        msg.clear()
 
-    # Overwrite original with temporary catalog.
-    shutil.move(catpath_mod, catpath)
-    os.unlink(potpath)
+        if not getcat:
+            cat.sync(force=finewrap)
+        else:
+            return cat
 
 
 if __name__ == '__main__':
