@@ -176,38 +176,45 @@ def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
     os.unlink(potpath)
 
 
+# FIXME: Move elsewhere, used externally.
 def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
                   cmppaths=[], fuzzex=False, minwnex=0, minasfz=0.0,
                   fuzzymatch=True, refuzzy=False, quiet=True,
                   getcat=False, monitored=True):
 
-    # Open catalog for pre-processing.
-    cat = Catalog(catpath, monitored=False)
+    # Determine which special operations are to be done.
+    correct_exact_matches = cmppaths and (fuzzex or minwnex > 0)
+    correct_fuzzy_matches = minasfz > 0.0
+    rebase_existing_fuzzies = refuzzy and fuzzymatch
 
-    # In case compendium is being used,
-    # collect keys of all non-translated messages,
-    # to later check which exact matches need to be fuzzied.
-    if cmppaths and (fuzzex or minwnex > 0):
-        nontrkeys = set()
-        for msg in cat:
-            if not msg.translated:
-                nontrkeys.add(msg.key)
+    # Pre-process catalog if necessary.
+    if correct_exact_matches or rebase_existing_fuzzies:
+        cat = Catalog(catpath, monitored=False)
 
-    # If requested, remove all untranslated messages,
-    # and every fuzzy for which previous fields define a message
-    # still existing in the catalog.
-    # This way, untranslated messages will get fuzzy matched again,
-    # and fuzzy messages may get updated translation.
-    if refuzzy and fuzzymatch:
-        for msg in cat:
-            if (    msg.untranslated
-                or (    msg.fuzzy and msg.msgid_previous
-                    and cat.select_by_key(msg.msgctxt_previous,
-                                          msg.msgid_previous))
-            ):
-                cat.remove_on_sync(msg)
+        # In case compendium is being used,
+        # collect keys of all non-translated messages,
+        # to later check which exact matches need to be fuzzied.
+        if correct_exact_matches:
+            nontrkeys = set()
+            for msg in cat:
+                if not msg.translated:
+                    nontrkeys.add(msg.key)
 
-    cat.sync()
+        # If requested, remove all untranslated messages,
+        # and every fuzzy for which previous fields define a message
+        # still existing in the catalog.
+        # This way, untranslated messages will get fuzzy matched again,
+        # and fuzzy messages may get updated translation.
+        if rebase_existing_fuzzies:
+            for msg in cat:
+                if (    msg.untranslated
+                    or (    msg.fuzzy and msg.msgid_previous
+                        and cat.select_by_key(msg.msgctxt_previous,
+                                            msg.msgid_previous))
+                ):
+                    cat.remove_on_sync(msg)
+
+        cat.sync()
 
     # Merge.
     opts = []
@@ -239,7 +246,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
         shutil.copyfile(catpath, outpath)
 
     # Post-process merged catalog if necessary.
-    if getcat or finewrap or (cmppaths and (fuzzex or minwnex > 0)) or minasfz:
+    if getcat or finewrap or correct_exact_matches or correct_fuzzy_matches:
         # If fine wrapping requested and catalog should not be returned,
         # everything has to be reformatted, so no need to monitor the catalog.
         catpath1 = outpath or catpath
@@ -249,7 +256,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
 
         # In case compendium is being used,
         # make fuzzy exact matches which do not pass the word limit.
-        if cmppaths and (fuzzex or minwnex > 0):
+        if correct_exact_matches:
             for msg in cat:
                 if (    msg.key in nontrkeys and msg.translated
                     and (fuzzex or len(proper_words(msg.msgid)) < minwnex)
@@ -257,7 +264,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
                     msg.fuzzy = True
 
         # Eliminate fuzzy matches not passing the adjusted similarity limit.
-        if minasfz > 0.0:
+        if correct_fuzzy_matches:
             for msg in cat:
                 if msg.fuzzy and msg.msgid_previous is not None:
                     if editprob(msg.msgid_previous, msg.msgid) < minasfz:
