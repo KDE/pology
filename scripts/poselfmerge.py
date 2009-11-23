@@ -189,7 +189,8 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
 
     # Pre-process catalog if necessary.
     if correct_exact_matches or rebase_existing_fuzzies:
-        cat = Catalog(catpath, monitored=False)
+        may_modify = rebase_existing_fuzzies
+        cat = Catalog(catpath, monitored=may_modify)
 
         # In case compendium is being used,
         # collect keys of all non-translated messages,
@@ -207,14 +208,18 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
         # and fuzzy messages may get updated translation.
         if rebase_existing_fuzzies:
             for msg in cat:
-                if (    msg.untranslated
-                    or (    msg.fuzzy and msg.msgid_previous
-                        and cat.select_by_key(msg.msgctxt_previous,
-                                            msg.msgid_previous))
-                ):
+                if msg.untranslated:
                     cat.remove_on_sync(msg)
+                elif msg.fuzzy and msg.msgid_previous:
+                    omsgs = cat.select_by_key(msg.msgctxt_previous,
+                                              msg.msgid_previous)
+                    if omsgs:
+                        omsg = omsgs[0]
+                        if omsg.translated and omsg.msgstr != msg.msgstr:
+                            cat.remove_on_sync(msg)
 
-        cat.sync()
+        if may_modify:
+            cat.sync()
 
     # Merge.
     opts = []
