@@ -181,6 +181,10 @@ class Project (object):
             "vivify_w_plurals" : "",
 
             "compendium_on_merge" : "",
+            "compendium_fuzzy_exact" : False,
+            "compendium_min_words_exact" : 0,
+
+            "merge_min_adjsim_fuzzy" : 0.0,
 
             "scatter_min_completeness" : 0.0,
             "scatter_acc_completeness" : 0.0,
@@ -2013,9 +2017,13 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     cat = None
     if do_msgmerge:
         # Create the temporary merged catalog.
-        cmppaths = []
-        if project.compendium_on_merge and branch_id == SUMMIT_ID:
-            cmppaths.append(project.compendium_on_merge)
+        cmppaths, fuzzex, minwnex, minasfz = [], False, 0, 0.0
+        if branch_id == SUMMIT_ID:
+            minasfz = project.merge_min_adjsim_fuzzy
+            if project.compendium_on_merge:
+                cmppaths.append(project.compendium_on_merge)
+                fuzzex = project.compendium_fuzzy_exact
+                minwnex = project.compendium_min_words_exact
         catalog_path_mod = catalog_path
         if vivified:
             if cmppaths:
@@ -2027,6 +2035,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         cat = merge_pofile(catalog_path_mod, template_path, outpath=tmp_path,
                            wrap=(not unwrap), finewrap=fine_wrap,
                            cmppaths=cmppaths, fuzzymatch=fuzzy_merging,
+                           fuzzex=fuzzex, minwnex=minwnex, minasfz=minasfz,
                            getcat=(do_open and not headonly),
                            monitored=monitored)
 
