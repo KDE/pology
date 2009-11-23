@@ -15,6 +15,7 @@ from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
 import pology.scripts.poascribe as ASC
+from pology.scripts.poselfmerge import merge_pofile
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -1987,42 +1988,47 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         fname = "POT-Creation-Date"
         do_msgmerge = hdr.get_field_value(fname) != thdr.get_field_value(fname)
 
+    header_prop_fields = (  project.header_propagate_fields_summed
+                          + project.header_propagate_fields_primary)
+
+    # Should merged catalog be opened, and in what mode?
+    do_open = False
+    headonly = False
+    monitored = False
+    if fine_wrap or project.hook_on_merge_cat:
+        do_open = True
+    elif header_prop_fields or project.hook_on_merge_head or vivified:
+        do_open = True
+        headonly = True
+    if (   header_prop_fields or vivified
+        or project.hook_on_merge_cat or project.hook_on_merge_head
+    ):
+        monitored = True
+
+    # Should template catalog be opened too?
+    do_open_template = False
+    if header_prop_fields or vivified:
+        do_open_template = True
+
+    cat = None
     if do_msgmerge:
-        # Call msgmerge to create the temporary merged catalog.
-
-        use_compendium = project.compendium_on_merge and branch_id == SUMMIT_ID
-
+        # Create the temporary merged catalog.
+        cmppaths = []
+        if project.compendium_on_merge and branch_id == SUMMIT_ID:
+            cmppaths.append(project.compendium_on_merge)
         catalog_path_mod = catalog_path
         if vivified:
-            if use_compendium:
+            if cmppaths:
                 catalog_path_mod = "/dev/null"
             else:
                 catalog_path_mod = tmp_path
                 shutil.copyfile(template_path, tmp_path)
 
-        opts = ["--quiet"]
-        if fuzzy_merging:
-            opts.append("--previous")
-        else:
-            opts.append("--no-fuzzy-matching")
-        if unwrap:
-            opts.append("--no-wrap")
-        if use_compendium:
-            if not os.path.isfile(project.compendium_on_merge):
-                error("compendium not found at expected path '%s'"
-                      % project.compendium_on_merge)
-            opts.append("--compendium %s" % project.compendium_on_merge)
-
-        fmtopts = " ".join(opts)
-        cmdline = ("msgmerge %s %s %s -o %s "
-                   % (fmtopts, catalog_path_mod, template_path, tmp_path))
-        assert_system(cmdline)
-
-        # If the catalog had only header and no messages,
-        # msgmerge will not write out anything.
-        # In such case, just copy over existing.
-        if not os.path.isfile(tmp_path):
-            shutil.copyfile(catalog_path_mod, tmp_path)
+        cat = merge_pofile(catalog_path_mod, template_path, outpath=tmp_path,
+                           wrap=(not unwrap), finewrap=fine_wrap,
+                           cmppaths=cmppaths, fuzzymatch=fuzzy_merging,
+                           getcat=(do_open and not headonly),
+                           monitored=monitored)
 
     else:
         # Copy current to temporary catalog, to be processed by hooks, etc.
@@ -2031,36 +2037,13 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Save good time by opening the merged catalog only if necessary,
     # and only as much as necessary.
 
-    header_prop_fields = (  project.header_propagate_fields_summed
-                          + project.header_propagate_fields_primary)
-
-    # Should merged catalog be opened, and in what mode?
-    do_open = False
-    headonly = False
-    if fine_wrap or project.hook_on_merge_cat:
-        do_open = True
-    elif header_prop_fields or project.hook_on_merge_head or vivified:
-        do_open = True
-        headonly = True
-
-    # Should template catalog be opened too?
-    do_open_template = False
-    if header_prop_fields or vivified:
-        do_open_template = True
-
-    # Is monitored or non-monitored opening required?
-    monitored = False
-    if (   header_prop_fields or vivified
-        or project.hook_on_merge_cat  or project.hook_on_merge_head
-    ):
-        monitored = True
-
     # Open catalogs as necessary.
     if do_open:
         update_progress()
         wrapf = select_field_wrapper(not unwrap, fine_wrap)
-        cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
-                      headonly=headonly)
+        if cat is None:
+            cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
+                          headonly=headonly)
         if do_open_template:
             tcat = Catalog(template_path, monitored=False, headonly=True)
 
@@ -2112,7 +2095,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 cat.header.field.append(tfield)
 
     # Set original instead of temporary file path -- hooks may expect it.
-    if do_open:
+    if cat is not None:
         cat.filename = catalog_path
 
     # Execute header hooks.
@@ -2126,7 +2109,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                       cat, project.hook_on_merge_cat)
 
     # Synchronize merged catalog if it has been opened.
-    if do_open:
+    if cat is not None:
         cat.filename = tmp_path # not to overwrite original file
         cat.sync(force=fine_wrap)
 
