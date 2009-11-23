@@ -4,6 +4,7 @@
 import sys
 import os
 import re
+import locale
 from optparse import OptionParser
 
 from pology.misc.report import report, warning
