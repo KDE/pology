@@ -1610,10 +1610,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                 exec_hook_msg(branch_id, branch_name, branch_subdir,
                               summit_msg, summit_cat,
                               project.hook_on_scatter_msg)
-                if (   (    summit_msg.msgid_plural is not None
-                        and branch_msg.msgid_plural is not None)
-                    or (   summit_msg.msgid_plural is None
-                        or branch_msg.msgid_plural is None)
+                if (   (summit_msg.msgid_plural is None)
+                    == (branch_msg.msgid_plural is None)
                 ):
                     # Both messages have same plurality.
                     for i in range(len(summit_msg.msgstr)):
