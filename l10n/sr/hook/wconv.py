@@ -413,6 +413,9 @@ def _hitoe_w (text, silent=False):
             break
         segs.append(text[pp:p])
         p += _reflex_mark_len
+        if not text[p:p + 1].isalpha():
+            segs.append(_reflex_mark)
+            continue
 
         # Try to resolve jat-reflex.
         for rl in range(_max_reflex_len, 0, -1):
