@@ -176,7 +176,7 @@ valid msgstr="\bшем\w+ боја\b"
 {\bcommands?\b}i
 id="command"
 hint="command = наредба"
-valid before="[ -]?line| shell"
+valid before="[ -]?line| shell| prompt"
 valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
 valid msgstr="\bнаредб"
