@@ -699,7 +699,8 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 {\b(cursor|pointer)}i
 id="pointer"
 hint="cursor|pointer = показивач"
-valid cat="kate,katefiletemplates,katepart4,konsole,kwrite,okteta,oktetapart,liboktetakasten,kcontrol_kcmkonsole"
+valid cat="kwrite,kcontrol_kcmkonsole"
+valid catrx="^kate|konsole|okteta"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="&\w*pointer\w*-\S*;"
 valid span="cursor" after="text " msgstr="курсор"
@@ -908,10 +909,10 @@ id="tooltip"
 hint="tooltip = облачић"
 valid msgstr="\bоблачић"
 
-{\btrusted}i
+{\b(un)?trusted}i
 id="trusted"
 hint="trusted = поуздан"
-valid msgstr="\bпоуздан"
+valid msgstr="\b(не)?поуздан"
 
 {\buntrusted}i
 id="untrusted"
@@ -946,9 +947,10 @@ valid msgstr="&\w*wallpaper\S*;"
 {\bweb(\w+|\b)}i
 id="web"
 hint="Web = Веб [малим словом као придев]"
-valid span="^web$" before="\W?site" # проследи на website
+valid span="^web$" before="\W?site" # на website
 valid span="website" # исто
-valid span="^web$" before="\W?page" # проследи на webpage
+valid span="^web$" before="\W?page" # на webpage
+valid span="^web$" before=" of trust" # на web of trust
 valid span="webpage" # исто
 # Захтевај самостално ‘веб’ у преводу ако је самостално у извору.
 valid span="^web$" msgstr="\bвеб\b"

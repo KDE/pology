@@ -57,7 +57,7 @@ hint="грешке у обележавању"
                mkeyw='docbook4'! \
       on="msgstr"
 # Remove entities used as-is KDE documentation.
-addFilterRegex match="&\S+\.mail;" on="pmsgid,pmsgstr"
+addFilterRegex match="&\S+\.e?mail;" on="pmsgid,pmsgstr"
 addFilterRegex match="&\S+\.documentation;" on="pmsgid,pmsgstr"
 addFilterRegex match="&under(FDL|GPL|\w+License);" on="pmsgid,pmsgstr"
 addFilterRegex match="&reporting.bugs;" on="pmsgid,pmsgstr"
