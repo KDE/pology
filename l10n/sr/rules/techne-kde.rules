@@ -127,6 +127,25 @@ id="x-ediff-t"
 hint="неуклоњене угњеждене разлике у преводу"
 
 # ----------------------------------------
+# Check for appropriate entity variants.
+
+clearFilters
+
+[&\w+-\w*;]i
+id="x-entvar-ot"
+hint="ентитет мора бити варијанте обичног текста (_ot-)"
+valid !comment="\btag:.*(holder|keyword|gui[a-z]+)" \
+      !after="< *(holder|keyword|gui[a-z]+)[^>]*>[^<]*"
+valid span="_ot-"
+
+[&\w+-\w*;]i
+id="x-entvar-lv"
+hint="ентитет мора бити лакше варијанте обележавања (_lv-)"
+valid !msgid="< *(firstname|surname|othername)"
+valid msgid="< *personname"
+valid span="_lv-"
+
+# ----------------------------------------
 # The following rules should be applied on pure text.
 clearFilters
 include file="puretext.filters"
