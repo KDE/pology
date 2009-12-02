@@ -801,7 +801,7 @@ def summit_merge (project, options):
                 # which can create catalogs from scratch.
                 continue
             if not name in template_catalogs:
-                warning("no template for branch catalog '%s'" % name)
+                warning("no template for branch catalog '%s'" % branch_path)
                 continue
             exact = False
             for template_path, template_subdir in template_catalogs[name]:
@@ -809,7 +809,7 @@ def summit_merge (project, options):
                     exact = True
                     break
             if not exact:
-                warning("no exact template for branch catalog '%s'" % name)
+                warning("no exact template for branch catalog '%s'" % branch_path)
                 continue
             merge_specs.append((branch_id, name, branch_subdir,
                                 branch_path, template_path,
