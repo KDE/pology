@@ -767,13 +767,14 @@ def _norm_ui_cat (cat, xmlescape):
 
         # Escape text fields.
         if xmlescape:
-            if msg.msgctxt:
-                msg.msgctxt = _escape_to_xml(msg.msgctxt)
-            msg.msgid = _escape_to_xml(msg.msgid)
-            if msg.msgid_plural:
-                msg.msgid_plural = _escape_to_xml(msg.msgid_plural)
-            for i in range(len(msg.msgstr)):
-                msg.msgstr[i] = _escape_to_xml(msg.msgstr[i])
+            for msg, d1 in msgs:
+                if msg.msgctxt:
+                    msg.msgctxt = _escape_to_xml(msg.msgctxt)
+                msg.msgid = _escape_to_xml(msg.msgid)
+                if msg.msgid_plural:
+                    msg.msgid_plural = _escape_to_xml(msg.msgid_plural)
+                for i in range(len(msg.msgstr)):
+                    msg.msgstr[i] = _escape_to_xml(msg.msgstr[i])
 
         # Add normalized messages to normalized catalog.
         for msg, d1 in msgs:
