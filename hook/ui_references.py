@@ -220,10 +220,11 @@ would be referenced as::
 Hook factories have parameters for specifying type of escaping needed
 for fetched UI texts by target format.
 
-Normalization may flatten two different messages from UI catalog into one.
-Example of this is when two C{msgid} fields are equal but for the accelerator.
-When this happens, a special "tail" is added to the context of such messages,
-consisting of tilde and four or more alphanumeric characters.
+Normalization may flatten several different messages from UI catalog into one.
+Example of this is when C{msgid} fields are equal but for the accelerator.
+If this happens and translations are not the same for all such messages,
+a special "tail" is added to their contexts, consisting of a tilde and
+several alphanumeric characters.
 In this way, the first run of the hook which sees UI reference pointing to
 one of these messages will report the ambiguity and new contexts with tails,
 so that proper context can be copied and pasted over into the reference.
@@ -733,25 +734,36 @@ def _norm_ui_cat (cat, xmlescape):
         msgs_by_normkey[normkey].append((msg, orig_msgkey))
 
     for msgs in msgs_by_normkey.values():
-        # If there are several messages with same normalized key,
-        # add extra disambiguations to context.
-        # These disambiguations must depend on messages alone,
-        # and not on their ordering.
+        # If there are several messages with same normalized key and
+        # different translations, add extra disambiguations to context.
+        # These disambiguations must not depend on message ordering.
         if len(msgs) > 1:
-            tails = set()
-            for msg, (octxt, omsgid) in msgs:
-                if msg.msgctxt is None:
-                    msg.msgctxt = u""
-                tail = hashlib.md5(omsgid).hexdigest()
-                n = 4 # minimum size of the disambiguation tail
-                while tail[:n] in tails:
-                    n += 1
-                    if n > len(tail):
-                        raise StandardError(
-                            "(internal) Hash function seems to have returned "
-                            "same result for two different strings.")
-                tails.add(tail[:n])
-                msg.msgctxt += "~" + tail[:n]
+            # Check equality of translations.
+            msgstr0 = u""
+            for msg, d1 in msgs:
+                if msg.translated:
+                    if not msgstr0:
+                        msgstr0 = msg.msgstr[0]
+                    elif msgstr0 != msg.msgstr[0]:
+                        msgstr0 = None
+                        break
+            if msgstr0 is None: # disambiguation necessary
+                tails = set()
+                for msg, (octxt, omsgid) in msgs:
+                    if msg.msgctxt is None:
+                        msg.msgctxt = u""
+                    tail = hashlib.md5(omsgid).hexdigest()
+                    n = 4 # minimum size of the disambiguation tail
+                    while tail[:n] in tails:
+                        n += 1
+                        if n > len(tail):
+                            raise StandardError(
+                                "(internal) Hash function has returned "
+                                "same result for two different strings.")
+                    tails.add(tail[:n])
+                    msg.msgctxt += "~" + tail[:n]
+            else: # all messages have same translation, use first
+                msgs = msgs[:1]
 
         # Escape text fields.
         if xmlescape:
