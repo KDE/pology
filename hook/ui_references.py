@@ -220,6 +220,16 @@ would be referenced as::
 Hook factories have parameters for specifying type of escaping needed
 for fetched UI texts by target format.
 
+Normalization may flatten two different messages from UI catalog into one.
+Example of this is when two C{msgid} fields are equal but for the accelerator.
+When this happens, a special "tail" is added to the context of such messages,
+consisting of tilde and four or more alphanumeric characters.
+In this way, the first run of the hook which sees UI reference pointing to
+one of these messages will report the ambiguity and new contexts with tails,
+so that proper context can be copied and pasted over into the reference.
+The alphanumeric tail is computed based on the original C{msgid} only,
+so it will not change if messages later get reordered in the UI catalog.
+
 Notes
 =====
 
@@ -239,6 +249,7 @@ catch resolution problems, a sorf of "dry run" before building delivery POs.
 
 import os
 import re
+import hashlib
 
 from pology.misc.report import warning
 from pology.misc.msgreport import warning_on_msg
@@ -708,16 +719,42 @@ def _norm_ui_cat (cat, xmlescape):
     norm_cat = Catalog("", create=True, monitored=False)
     norm_cat.filename = cat.filename + "~norm"
 
-    orig_msgids = {}
+    # Normalize messages and collect them by normalized keys.
+    msgs_by_normkey = {}
     for msg in cat:
         if msg.obsolete:
             continue
-
-        orig_msgid = msg.msgid
+        orig_msgkey = (msg.msgctxt, msg.msgid)
         remove_markup_msg(msg, cat) # before accelerator removal
         remove_accel_msg(msg, cat) # after markup removal
+        normkey = (msg.msgctxt, msg.msgid)
+        if normkey not in msgs_by_normkey:
+            msgs_by_normkey[normkey] = []
+        msgs_by_normkey[normkey].append((msg, orig_msgkey))
 
-        if xmlescape: # after markup removal
+    for msgs in msgs_by_normkey.values():
+        # If there are several messages with same normalized key,
+        # add extra disambiguations to context.
+        # These disambiguations must depend on messages alone,
+        # and not on their ordering.
+        if len(msgs) > 1:
+            tails = set()
+            for msg, (octxt, omsgid) in msgs:
+                if msg.msgctxt is None:
+                    msg.msgctxt = u""
+                tail = hashlib.md5(omsgid).hexdigest()
+                n = 4 # minimum size of the disambiguation tail
+                while tail[:n] in tails:
+                    n += 1
+                    if n > len(tail):
+                        raise StandardError(
+                            "(internal) Hash function seems to have returned "
+                            "same result for two different strings.")
+                tails.add(tail[:n])
+                msg.msgctxt += "~" + tail[:n]
+
+        # Escape text fields.
+        if xmlescape:
             if msg.msgctxt:
                 msg.msgctxt = _escape_to_xml(msg.msgctxt)
             msg.msgid = _escape_to_xml(msg.msgid)
@@ -726,16 +763,9 @@ def _norm_ui_cat (cat, xmlescape):
             for i in range(len(msg.msgstr)):
                 msg.msgstr[i] = _escape_to_xml(msg.msgstr[i])
 
-        # If the message as modified is still valid,
-        # and not already present in the normalized catalog
-        # or its original form is shorter than the one previuosly added,
-        # add it to the normalized catalog.
-        if (     msg.msgid
-            and (   msg not in norm_cat
-                 or len(orig_msgid) < len(orig_msgids[msg.msgid]))
-        ):
+        # Add normalized messages to normalized catalog.
+        for msg, d1 in msgs:
             norm_cat.add_last(msg)
-            orig_msgids[msg.msgid] = orig_msgid
 
     return norm_cat
 
@@ -850,8 +880,8 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
         for uicat in uicats:
             nmsgs = uicat.select_by_msgid_fuzzy(msgid)
             for nmsg in nmsgs:
-                approx.append("{{%s}} at %s:%s(#%s)"
-                              % (_to_uiref(nmsg),
+                approx.append("{{%s}}={{%s}} at %s:%s(#%s)"
+                              % (_to_uiref(nmsg), nmsg.msgstr[0],
                                  uicat.filename, nmsg.refline, nmsg.refentry))
         if approx:
             errmsgs.append("UI reference '%s' cannot be resolved; "
