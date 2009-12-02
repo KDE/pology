@@ -880,9 +880,15 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
         for uicat in uicats:
             nmsgs = uicat.select_by_msgid_fuzzy(msgid)
             for nmsg in nmsgs:
-                approx.append("{{%s}}={{%s}} at %s:%s(#%s)"
-                              % (_to_uiref(nmsg), nmsg.msgstr[0],
-                                 uicat.filename, nmsg.refline, nmsg.refentry))
+                if nmsg.translated:
+                    approx1 = ("{{%s}}={{%s}} at %s:%s(#%s)"
+                               % (_to_uiref(nmsg), nmsg.msgstr[0],
+                                  uicat.filename, nmsg.refline, nmsg.refentry))
+                else:
+                    approx1 = ("{{%s}}=(not-translated) at %s:%s(#%s)"
+                               % (_to_uiref(nmsg),
+                                  uicat.filename, nmsg.refline, nmsg.refentry))
+                approx.append(approx1)
         if approx:
             errmsgs.append("UI reference '%s' cannot be resolved; "
                            "close matches:\n"
