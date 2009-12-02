@@ -778,7 +778,8 @@ def _norm_ui_cat (cat, xmlescape):
 
         # Add normalized messages to normalized catalog.
         for msg, d1 in msgs:
-            norm_cat.add_last(msg)
+            if msg.msgctxt or msg.msgid:
+                norm_cat.add_last(msg)
 
     return norm_cat
 
