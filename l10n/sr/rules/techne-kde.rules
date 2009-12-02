@@ -134,8 +134,8 @@ clearFilters
 [&\w+-\w*;]i
 id="x-entvar-ot"
 hint="ентитет мора бити варијанте обичног текста (_ot-)"
-valid !comment="\btag:.*(holder|keyword|gui[a-z]+)" \
-      !after="< *(holder|keyword|gui[a-z]+)[^>]*>[^<]*"
+valid !comment="\btag:.*(holder|keyword|gui[a-z]+|releaseinfo|\barg\b)" \
+      !after="< *(holder|keyword|gui[a-z]+|releaseinfo|\barg\b)[^>]*>[^<]*"
 valid span="_ot-"
 
 [&\w+-\w*;]i
