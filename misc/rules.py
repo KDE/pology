@@ -129,6 +129,7 @@ The following tests can be used within C{valid} directives:
         is placed exactly after the part matched by this regular expression
   - C{cat}: passes if the PO catalog name is contained in this
         comma-separated list of catalog names
+  - C{catrx}: passes if the PO catalog name matches a regular expression
   - C{env}: passes if the operating environment is contained in this
         comma-separated list of environment names
   - C{head}: passes if the catalog header contains field/value combination;
@@ -1342,8 +1343,8 @@ _trigger_matchmods = [
 class Rule(object):
     """Represent a single rule"""
 
-    _knownKeywords = set(("env", "cat", "span", "after", "before", "ctx", "msgid", "msgstr", "head", "srcref", "comment"))
-    _regexKeywords = set(("span", "after", "before", "ctx", "msgid", "msgstr", "srcref", "comment"))
+    _knownKeywords = set(("env", "cat", "catrx", "span", "after", "before", "ctx", "msgid", "msgstr", "head", "srcref", "comment"))
+    _regexKeywords = set(("catrx", "span", "after", "before", "ctx", "msgid", "msgstr", "srcref", "comment"))
     _twoRegexKeywords = set(("head",))
     _listKeywords = set(("env", "cat"))
 
@@ -1667,6 +1668,13 @@ class Rule(object):
 
             elif bkey == "cat":
                 match = cat.name in value
+                if invert: match = not match
+                if not match:
+                    valid = False
+                    break
+
+            elif bkey == "catrx":
+                match = bool(value.search(cat.name))
                 if invert: match = not match
                 if not match:
                     valid = False
