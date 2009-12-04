@@ -52,7 +52,9 @@ def main ():
         u"<caslav.ilic@gmx.net>\n")
 
     cfgsec = pology_config.section("poascribe")
+    def_user = cfgsec.boolean("user", None)
     def_commit = cfgsec.boolean("commit", False)
+    def_filter = cfgsec.boolean("filter", None)
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
@@ -61,7 +63,7 @@ def main ():
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
         "-u", "--user", metavar="USER",
-        action="store", dest="user", default=None,
+        action="store", dest="user", default=def_user,
         help="user in the focus of the operation "
              "(relevant in some modes)")
     opars.add_option(
@@ -77,7 +79,7 @@ def main ():
              "Can be repeated, AND-semantics.")
     opars.add_option(
         "-F", "--filter", metavar="NAME",
-        action="store", dest="text_filter", default=None,
+        action="store", dest="text_filter", default=def_filter,
         help="pass relevent message text fields through a filter before "
              "matching or comparing them "
              "(relevant in some modes)")
@@ -210,10 +212,8 @@ def main ():
         error("unknown operation mode '%s'" % mode.name)
 
     mode.user = None
-    if needuser and not options.user and not cfgsec.string("user"):
-        error("operation mode requires a user to be specified "
-              "(either in command line or in Pology configuration)")
-    mode.user = options.user or cfgsec.string("user")
+    if needuser and not options.user:
+        error("operation mode requires a user to be specified")
     if not canselect and selector:
         error("operation mode does not accept selectors")
     if not canaselect and aselector:
