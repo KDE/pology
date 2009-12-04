@@ -1876,11 +1876,11 @@ def negate_selector (selector):
 
 _cache = {}
 
-def cached_matcher (expr, config, options, cid):
+def cached_matcher (expr, pfilter, cid):
 
-    key = ("matcher", expr, config, id(options))
+    key = ("matcher", expr, pfilter)
     if key not in _cache:
-        filters = [options.pfilter] if options.pfilter else []
+        filters = [pfilter] if pfilter else []
         _cache[key] = build_msg_fmatcher(expr, filters=filters, abort=True)
 
     return _cache[key]
@@ -1995,7 +1995,7 @@ def selector_fexpr (expr=None):
 
     def selector (msg, cat, history, config, options):
 
-        matcher = cached_matcher(expr, config, options, cid)
+        matcher = cached_matcher(expr, options.pfilter, cid)
         if matcher(msg, cat):
             return True
 
@@ -2109,7 +2109,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
         if history[0].user is None:
             return None
 
-        matcher = cached_matcher(expr, config, options, cid)
+        matcher = cached_matcher(expr, options.pfilter, cid)
         users = cached_users(user_spec, config, cid)
 
         if not addrem:
