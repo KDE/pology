@@ -212,8 +212,10 @@ def main ():
         error("unknown operation mode '%s'" % mode.name)
 
     mode.user = None
-    if needuser and not options.user:
-        error("operation mode requires a user to be specified")
+    if needuser:
+        if not options.user:
+            error("operation mode requires a user to be specified")
+        mode.user = options.user
     if not canselect and selector:
         error("operation mode does not accept selectors")
     if not canaselect and aselector:
