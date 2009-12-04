@@ -548,7 +548,7 @@ valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,okular,ksquares" msgstr="\bлиниј"
 valid cat="okular" after="leader " msgstr="изводниц"
-valid cat="kppp" # скоро увек телефонска линија
+valid catrx="kppp" # скоро увек телефонска линија
 
 #! зезнут
 {\blist(s|ed)?\b}i
@@ -812,7 +812,7 @@ valid msgstr="\bпостав(ц|к|љ|ит)" !srcref="\.rc$"
 valid msgstr="подешавање\b" srcref="\.rc$"
 valid msgstr="->подешавање"
 valid msgstr="подешавање->"
-valid msgid="configure|set? up" msgstr="подешавањ[еуа]"
+valid msgid="configur|set(ting)? up" msgstr="подеси|подешавањ|постављањ|постави"
 valid span="preference\b" msgstr="пожеља?н|првенств"
 valid span="settings" before=" menu" # „мени Подешавање“
 valid span="settings" after="system " msgstr="&systemsettings\S*;"
