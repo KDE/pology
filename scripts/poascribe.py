@@ -52,9 +52,9 @@ def main ():
         u"<caslav.ilic@gmx.net>\n")
 
     cfgsec = pology_config.section("poascribe")
-    def_user = cfgsec.boolean("user", None)
+    def_user = cfgsec.string("user", None)
     def_commit = cfgsec.boolean("commit", False)
-    def_filter = cfgsec.boolean("filter", None)
+    def_filter = cfgsec.string("filter", None)
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
@@ -142,9 +142,9 @@ def main ():
         collect_externals(xmod_path)
 
     # Fetch filter if requested, store it in options.
-    options.tfilter = None
+    options.pfilter = None
     if options.text_filter:
-        options.tfilter = get_hook_lreq(options.text_filter, abort=True)
+        options.pfilter = get_hook_lreq(options.text_filter, abort=True)
 
     # Create selectors if any explicitly given.
     selector = None
@@ -398,10 +398,6 @@ class Config:
 
         self.vcs = make_vcs(gsect.get("version-control", "noop"))
 
-        self.tfilter = gsect.get("text-filter", None)
-        if self.tfilter:
-            self.tfilter = get_hook_lreq(self.tfilter, abort=True)
-
         self.commit_message = gsect.get("commit-message", None)
         self.ascript_commit_message = gsect.get("ascript-commit-message", None)
 
@@ -644,9 +640,8 @@ def diff_select (options, configs_catpaths, mode):
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
-            pfilter = options.tfilter or config.tfilter
             ndiffed += diff_select_cat(options, config, catpath, acatpath,
-                                       mode.selector, mode.aselector, pfilter)
+                                       mode.selector, mode.aselector)
 
     if ndiffed > 0:
         report("===! Diffed from history: %d" % ndiffed)
@@ -812,8 +807,7 @@ _diffflag = u"ediff"
 _diffflag_tot = u"ediff-total"
 _diffflags = (_diffflag, _diffflag_tot)
 
-def diff_select_cat (options, config, catpath, acatpath,
-                     stest, aselect, pfilter):
+def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
     cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
     acat = Catalog(acatpath, create=True, monitored=False)
@@ -841,7 +835,7 @@ def diff_select_cat (options, config, catpath, acatpath,
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
         if amsg is not None:
-            msg_ediff(amsg, msg, emsg=msg, pfilter=pfilter)
+            msg_ediff(amsg, msg, emsg=msg, pfilter=options.pfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
             msg.flag.add(_diffflag)
@@ -883,8 +877,6 @@ def show_history_cat (options, config, catpath, acatpath, stest):
 
     cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
     acat = Catalog(acatpath, create=True, monitored=False)
-
-    pfilter = options.tfilter or config.tfilter
 
     nselected = 0
     for msg in cat:
@@ -932,7 +924,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             if dmsg != nmsg:
                 msg_ediff(nmsg, dmsg, emsg=dmsg,
-                          pfilter=pfilter, hlto=sys.stdout)
+                          pfilter=options.pfilter, hlto=sys.stdout)
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
@@ -943,7 +935,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             msg = Message(msg)
             nmsg = history[i_nfasc].msg
             msg_ediff(nmsg, msg, emsg=msg,
-                      pfilter=pfilter, hlto=sys.stdout)
+                      pfilter=options.pfilter, hlto=sys.stdout)
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=(hinfo or None), delim=("-" * 20))
 
@@ -1888,10 +1880,7 @@ def cached_matcher (expr, config, options, cid):
 
     key = ("matcher", expr, config, id(options))
     if key not in _cache:
-        pfilter = options.tfilter or config.tfilter
-        filters = []
-        if pfilter:
-            filters = [pfilter]
+        filters = [options.pfilter] if options.pfilter else []
         _cache[key] = build_msg_fmatcher(expr, filters=filters, abort=True)
 
     return _cache[key]
@@ -1966,17 +1955,15 @@ def selector_wasc ():
 
     def selector (msg, cat, history, config, options):
 
-        pfilter = options.tfilter or config.tfilter
-
         if history[0].user is not None:
             return True
         elif msg.untranslated:
             # Also consider pristine messages ascribed.
             return True
-        elif pfilter and len(history) > 1:
+        elif options.pfilter and len(history) > 1:
             # Also consider ascribed if equal to last ascription
             # under the filter in effect.
-            if flt_eq(msg, history[1].msg, pfilter):
+            if flt_eq(msg, history[1].msg, options.pfilter):
                 return True
 
         return None
@@ -2157,9 +2144,8 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                             amsg2_value = [u""] * len(amsg2_value)
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
-                pfilter = options.tfilter or config.tfilter
                 msg_ediff(amsg2, amsg, emsg=amsg,
-                          pfilter=pfilter, addrem=addrem)
+                          pfilter=options.pfilter, addrem=addrem)
 
             if matcher(amsg, cat):
                 return i
@@ -2275,19 +2261,17 @@ def w_selector_modax (cid, amod, arev,
                     break
                 else:
                     # Candidate is good unless:
-                    # - either message is by fuzzy user and
-                    #   only original texts have changed in between, or
-                    # - filter is in effect and candidate is equal
+                    # - candidate or current message is by fuzzy user and
+                    #   the difference between them is clean merge, or
+                    # - filter is in effect and candidate message is equal
                     #   to current message under the filter.
-                    mm, mrm = history[i_cand].msg, a.msg
+                    ac = history[i_cand]
+                    mm, mrm = ac.msg, a.msg
                     good = True
-                    if history[i_cand].user == UFUZZ or a.user == UFUZZ:
-                        if merge_modified(mrm, mm):
-                            good = False
-                    else:
-                        pfilter = options.tfilter or config.tfilter
-                        if pfilter and flt_eq(mrm, mm, pfilter):
-                            good = False
+                    if good and (ac.user == UFUZZ or a.user == UFUZZ):
+                        good = not merge_modified(mrm, mm)
+                    if good and options.pfilter:
+                        good = not flt_eq(mrm, mm, options.pfilter)
                     # If not good, look for next candidate, else match found.
                     if not good:
                         i_cand = None
@@ -2308,9 +2292,8 @@ def w_selector_modax (cid, amod, arev,
                         good = False
                 # Cannot be candidate if equal to the previous message
                 # under the filter in effect.
-                pfilter = options.tfilter or config.tfilter
-                if good and pfilter and i + 1 < len(history):
-                    if flt_eq(history[i + 1].msg, a.msg, pfilter):
+                if good and options.pfilter and i + 1 < len(history):
+                    if flt_eq(history[i + 1].msg, a.msg, options.pfilter):
                         good = False
                 # Compliant modification found, make it candidate.
                 if good:
