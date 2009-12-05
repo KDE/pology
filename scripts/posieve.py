@@ -628,7 +628,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 oerr = oerr.strip()
                 errwarn(u"%s: msgfmt check failed:\n"
                         u"%s" % (fname, oerr))
-                warning(u"skipping catalog due to check failure")
+                warning(u"skipping catalog due to syntax check failure")
                 continue
 
         try:
