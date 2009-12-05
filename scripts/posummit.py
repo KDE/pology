@@ -191,6 +191,7 @@ class Project (object):
             "scatter_acc_completeness" : 0.0,
 
             "ascription_filters" : [],
+            "ascription_history_filter" : None,
         })
         self.__dict__["locked"] = False
 
@@ -1575,7 +1576,9 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
             and do_scatter(summit_msg, branch_msg)
         ):
             aconf, acat = aconfs_acats[summit_cat.name]
-            ahist = ASC.asc_collect_history(summit_msg, acat, aconf, nomrg=True)
+            hfilter = project.ascription_history_filter
+            ahist = ASC.asc_collect_history(summit_msg, acat, aconf,
+                                            nomrg=True, hfilter=hfilter)
             afname, afilter = project.ascription_filters[options.asc_filter]
             if not afilter(summit_msg, summit_cat, ahist, aconf):
                 asc_stopped += 1
