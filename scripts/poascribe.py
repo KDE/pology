@@ -141,10 +141,10 @@ def main ():
     for xmod_path in options.externals:
         collect_externals(xmod_path)
 
-    # Fetch filter if requested, store it in options.
-    options.pfilter = None
+    # Fetch history filter if requested, store it in options.
+    options.hfilter = None
     if options.text_filter:
-        options.pfilter = get_hook_lreq(options.text_filter, abort=True)
+        options.hfilter = get_hook_lreq(options.text_filter, abort=True)
 
     # Create selectors if any explicitly given.
     selector = None
@@ -470,7 +470,8 @@ def examine_state (options, configs_catpaths, mode):
             acat = Catalog(acatpath, create=True, monitored=False)
             # Count non-ascribed by original catalog.
             for msg in cat:
-                history = asc_collect_history(msg, acat, config)
+                history = asc_collect_history(msg, acat, config,
+                                              hfilter=options.hfilter)
                 if history[0].user is None and msg.untranslated:
                     continue # pristine
                 if mode.selector(msg, cat, history, config, options) is None:
@@ -697,7 +698,8 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     counts = dict([(x, 0) for x in _all_states])
     counts0 = counts.copy()
     for msg in cat:
-        history = asc_collect_history(msg, acat, config)
+        history = asc_collect_history(msg, acat, config,
+                                      hfilter=options.hfilter)
         if history[0].user is None and msg.untranslated:
             continue # pristine
         if stest(msg, cat, history, config, options) is None:
@@ -761,7 +763,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         if not tags and options.tag:
             tags.append(options.tag)
 
-        history = asc_collect_history(msg, acat, config)
+        history = asc_collect_history(msg, acat, config,
+                                      hfilter=options.hfilter)
         # Makes no sense to ascribe review to pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
@@ -816,7 +819,8 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
     nflagged = 0
     for msg in cat:
-        history = asc_collect_history(msg, acat, config)
+        history = asc_collect_history(msg, acat, config,
+                                      hfilter=options.hfilter)
         # Makes no sense to review pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
@@ -837,7 +841,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
         if amsg is not None:
-            msg_ediff(amsg, msg, emsg=msg, pfilter=options.pfilter)
+            msg_ediff(amsg, msg, emsg=msg, pfilter=options.hfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
             msg.flag.add(_diffflag)
@@ -861,7 +865,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
     for msg in cat:
         cmsg = MessageUnsafe(msg)
         clear_review_msg(cmsg)
-        history = asc_collect_history(cmsg, acat, config)
+        history = asc_collect_history(cmsg, acat, config,
+                                      hfilter=options.hfilter)
         if stest(cmsg, cat, history, config, options) is None:
             continue
         clear_review_msg(msg, keepflags=options.keep_flags)
@@ -882,7 +887,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
 
     nselected = 0
     for msg in cat:
-        history = asc_collect_history(msg, acat, config)
+        history = asc_collect_history(msg, acat, config,
+                                      hfilter=options.hfilter)
         if stest(msg, cat, history, config, options) is None:
             continue
         nselected += 1
@@ -926,7 +932,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             if dmsg != nmsg:
                 msg_ediff(nmsg, dmsg, emsg=dmsg,
-                          pfilter=options.pfilter, hlto=sys.stdout)
+                          pfilter=options.hfilter, hlto=sys.stdout)
                 dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
@@ -937,7 +943,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             msg = Message(msg)
             nmsg = history[i_nfasc].msg
             msg_ediff(nmsg, msg, emsg=msg,
-                      pfilter=options.pfilter, hlto=sys.stdout)
+                      pfilter=options.hfilter, hlto=sys.stdout)
         report_msg_content(msg, cat, wrapf=WRAPF,
                            note=(hinfo or None), delim=("-" * 20))
 
@@ -1421,7 +1427,7 @@ class _Ascription (object):
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acat, config, nomrg=False):
+def asc_collect_history (msg, acat, config, nomrg=False, hfilter=None):
 
     history = asc_collect_history_w(msg, acat, config, None, set())
 
@@ -1433,6 +1439,21 @@ def asc_collect_history (msg, acat, config, nomrg=False):
         a.user = None
         a.msg = msg
         history.insert(0, a)
+
+    # Eliminate modifications equal to prior modification under the filter.
+    if hfilter:
+        history_mod = []
+        a_prevmod = None
+        history.reverse()
+        for a in history:
+            if (   a.type != ATYPE_MOD or not a_prevmod
+                or not flt_eq(a.msg, a_prevmod.msg, hfilter)
+            ):
+                history_mod.append(a)
+                if a.type == ATYPE_MOD:
+                    a_prevmod = a
+        history = history_mod
+        history.reverse()
 
     # Eliminate clean merges from history.
     if nomrg:
@@ -1878,11 +1899,11 @@ def negate_selector (selector):
 
 _cache = {}
 
-def cached_matcher (expr, pfilter, cid):
+def cached_matcher (expr, hfilter, cid):
 
-    key = ("matcher", expr, pfilter)
+    key = ("matcher", expr, hfilter)
     if key not in _cache:
-        filters = [pfilter] if pfilter else []
+        filters = [hfilter] if hfilter else []
         _cache[key] = build_msg_fmatcher(expr, filters=filters, abort=True)
 
     return _cache[key]
@@ -1962,11 +1983,6 @@ def selector_wasc ():
         elif msg.untranslated:
             # Also consider pristine messages ascribed.
             return True
-        elif options.pfilter and len(history) > 1:
-            # Also consider ascribed if equal to last ascription
-            # under the filter in effect.
-            if flt_eq(msg, history[1].msg, options.pfilter):
-                return True
 
         return None
 
@@ -1997,7 +2013,7 @@ def selector_fexpr (expr=None):
 
     def selector (msg, cat, history, config, options):
 
-        matcher = cached_matcher(expr, options.pfilter, cid)
+        matcher = cached_matcher(expr, options.hfilter, cid)
         if matcher(msg, cat):
             return True
 
@@ -2111,7 +2127,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
         if history[0].user is None:
             return None
 
-        matcher = cached_matcher(expr, options.pfilter, cid)
+        matcher = cached_matcher(expr, options.hfilter, cid)
         users = cached_users(user_spec, config, cid)
 
         if not addrem:
@@ -2147,7 +2163,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
                 msg_ediff(amsg2, amsg, emsg=amsg,
-                          pfilter=options.pfilter, addrem=addrem)
+                          pfilter=options.hfilter, addrem=addrem)
 
             if matcher(amsg, cat):
                 return i
@@ -2262,43 +2278,27 @@ def w_selector_modax (cid, amod, arev,
                     # no match possible.
                     break
                 else:
-                    # Candidate is good unless:
-                    # - candidate or current message is by fuzzy user and
-                    #   the difference between them is clean merge, or
-                    # - filter is in effect and candidate message is equal
-                    #   to current message under the filter.
+                    # Candidate is admissible it is not by fuzzy user,
+                    # or if the difference from current to candidate message
+                    # is a clean merge.
                     ac = history[i_cand]
-                    mm, mrm = ac.msg, a.msg
-                    good = True
-                    if good and (ac.user == UFUZZ or a.user == UFUZZ):
-                        good = not merge_modified(mrm, mm)
-                    if good and options.pfilter:
-                        good = not flt_eq(mrm, mm, options.pfilter)
-                    # If not good, look for next candidate, else match found.
-                    if not good:
-                        i_cand = None
-                    else:
+                    if ac.user != UFUZZ or not merge_modified(a.msg, ac.msg):
+                        # Admissible, match found.
                         i_sel = i_cand
                         break
+                    else:
+                        # Not admissible, look for next candidate.
+                        i_cand = None
             # Check if this message can be a candidate.
             if (    a.type == ATYPE_MOD
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
-                good = True
-                # Cannot be candidate if made by fuzzy user and
-                # there are no differences to earlier message by
-                # fields normally in translator's domain.
-                if good and a.user == UFUZZ and i + 1 < len(history):
-                    if merge_modified(history[i + 1].msg, a.msg):
-                        good = False
-                # Cannot be candidate if equal to the previous message
-                # under the filter in effect.
-                if good and options.pfilter and i + 1 < len(history):
-                    if flt_eq(history[i + 1].msg, a.msg, options.pfilter):
-                        good = False
-                # Compliant modification found, make it candidate.
-                if good:
+                # Can be a candidate if not made by fuzzy user,
+                # or if there are non-merge-induced differences
+                # to earlier message.
+                ae = history[i + 1] if i + 1 < len(history) else None
+                if a.user != UFUZZ or (ae and merge_modified(ae.msg, a.msg)):
                     i_cand = i
 
         if i_sel is None and i_cand is not None:
@@ -2349,8 +2349,6 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
         rusers = cached_users(ruser_spec, config, cid, utype="r")
         musers = cached_users(muser_spec, config, cid, utype="m")
         atags = cached_tags(atag_spec, config, cid)
-
-        # TODO: Make it filter-sensitive like :modar.
 
         i_sel = None
         can_select = False
