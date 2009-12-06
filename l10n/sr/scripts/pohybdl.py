@@ -90,7 +90,7 @@ def hybdl (path, path0, accekch=False):
     cat0 = Catalog(path0, monitored=False)
 
     nhybridized = 0
-    allpass = True
+    nstopped = 0
     for msg in cat:
 
         # Unembed diff if message was diffed for review.
@@ -109,12 +109,12 @@ def hybdl (path, path0, accekch=False):
         if msg0 is None:
             warning_on_msg("Message does not exist in the original catalog.",
                            msg, cat)
-            allpass = False
+            nstopped += 1
             continue
         if len(msg.msgstr) != len(msg0.msgstr):
             warning_on_msg("Number of translations not same as in "
                            "the original message.", msg, cat)
-            allpass = False
+            nstopped += 1
             continue
         if msg.msgstr == msg0.msgstr:
             # No changes, nothing new to hybridize.
@@ -135,17 +135,18 @@ def hybdl (path, path0, accekch=False):
                 msg.msgstr[i] = texth
             nhybridized += 1
         else:
-            allpass = False
+            nstopped += 1
             msg1 = MessageUnsafe(msg)
             msg0.msgstr = texts0e
             msg1.msgstr = texts1e
             msg_ediff(msg0, msg1, emsg=msg1, hlto=sys.stdout)
             report_msg_content(msg1, cat, delim=("-" * 20))
 
-    if allpass:
+    if nstopped == 0:
         if cat.sync():
             report("! %s (%d)" % (path, nhybridized))
     else:
+        report("%s: %d suspicious messages." % (path, nstopped))
         nhybridized = 0
 
     return nhybridized
