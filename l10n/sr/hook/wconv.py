@@ -380,6 +380,14 @@ def hitoi (text):
     return _hitoi_w(text)
 
 
+def hitoiq (text):
+    """
+    Like L{hitoi}, but does not output warnings on problems [type F1A hook].
+    """
+
+    return _hitoe_w(text, silent=True)
+
+
 def _hitoi_w (text, silent=False):
 
     ntext = text.replace(_reflex_mark, "")
@@ -399,6 +407,14 @@ def hitoe (text):
     """
 
     return _hitoe_w(text)
+
+
+def hitoeq (text):
+    """
+    Like L{hitoe}, but does not output warnings on problems [type F1A hook].
+    """
+
+    return _hitoe_w(text, silent=True)
 
 
 def _hitoe_w (text, silent=False):
@@ -433,9 +449,12 @@ def _hitoe_w (text, silent=False):
                 dreflex = text[(p - _reflex_mark_len):(p + _max_reflex_len + 1)]
                 warning("Unknown jat-reflex at '%s...', skipped." % dreflex)
 
+    srcname = None
+    if not silent:
+        srcname="<text>"
     ntext = "".join(segs)
     ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_dhyb_althead,
-                                        srcname="<text>")
+                                        srcname=srcname)
 
     return ntext
 
