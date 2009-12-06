@@ -14,6 +14,7 @@ clearFilters
 *hook name="sr:checks/naked_latin_origui" on="msgstr"
 id="x-latin"
 hint="латиница ван дозвољеног контекста"
+valid cat="libkunitconversion"
 
 # ----------------------------------------
 # Detect markup errors.
@@ -160,7 +161,8 @@ hint="непознате или погрешно написане речи"
 # Разне транскрипције и измишљотине, прескачемо док нешто не приправимо.
 valid cat="timezones4,desktop_l10n,kdelibs_colors4"
 valid cat="kdelibs4" ctx="unicode block name"
-valid cat="kdelibs4" srcref="kcalendarsystem(hijri|jalali|hebrew)"
+valid cat="kdelibs4" srcref="kcalendarsystem" !srcref="gregorian"
+valid cat="kdecalendarsystems" !srcref="gregorian"
 valid cat="desktop_kdelibs" srcref="all_languages.desktop"
 valid cat="kdeqt" ctx="QFontDatabase"
 valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
