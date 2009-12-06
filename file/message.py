@@ -669,7 +669,7 @@ class Message_base (object):
         self.msgctxt_previous = None
         self.msgid_previous = None
         self.msgid_plural_previous = None
-        self.msgstr = type(self.msgstr)(u"" * len(self.msgstr))
+        self.msgstr = type(self.msgstr)([u""] * len(self.msgstr))
 
 
     def state (self):
