@@ -518,7 +518,23 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     @rtype: string
     """
 
-    cdiff = tdiff(texte, texti)
+    # If character-level diff is done at once, weird segments may appear.
+    # Instead, first diff on word-level, then on character-level.
+    wdiff = word_diff(texte, texti)
+    cdiff = []
+    i = 0
+    while i < len(wdiff):
+        tag1, seg1 = wdiff[i]
+        tag2, seg2 = wdiff[i + 1] if i + 1 < len(wdiff) else ("", "")
+        if (tag1 == "-" and tag2 == "+") or (tag1 == "+" and tag2 == "-"):
+            if tag1 == "+" and tag2 == "-": # reverse from expected order
+                seg1, seg2 = seg2, seg1
+            cdiff.extend(tdiff(seg1, seg2))
+            i += 2
+        else:
+            cdiff.extend([(tag1, c) for c in seg1])
+            i += 1
+
     lenc = len(cdiff)
     ie = 0; iep = 0; ii = 0; iip = 0; ic = 0
     segs = []
