@@ -2264,31 +2264,19 @@ def w_selector_modax (cid, amod, arev,
         atags = cached_tags(atag_spec, config, cid)
 
         i_sel = None
-        i_cand = None
         for i in range(len(history)):
             a = history[i]
-            # Check if this message cancels candidate.
+
+            # Check if this message can cancel candidate.
             if (    (   (amod and a.type == ATYPE_MOD)
                      or (arev and a.type == ATYPE_REV and a.tag in atags))
                 and (not rmusers or a.user in rmusers)
                 and (not musers or a.user not in musers)
             ):
-                if i_cand is None:
-                    # Cancelling message found before candidate,
-                    # no match possible.
-                    break
-                else:
-                    # Candidate is admissible it is not by fuzzy user,
-                    # or if the difference from current to candidate message
-                    # is a clean merge.
-                    ac = history[i_cand]
-                    if ac.user != UFUZZ or not merge_modified(a.msg, ac.msg):
-                        # Admissible, match found.
-                        i_sel = i_cand
-                        break
-                    else:
-                        # Not admissible, look for next candidate.
-                        i_cand = None
+                i_sel = None
+                # Candidates prior to canceling message are not admissible.
+                break
+
             # Check if this message can be a candidate.
             if (    a.type == ATYPE_MOD
                 and (not musers or a.user in musers)
@@ -2298,12 +2286,8 @@ def w_selector_modax (cid, amod, arev,
                 # or if there are non-merge-induced differences
                 # to earlier message.
                 ae = history[i + 1] if i + 1 < len(history) else None
-                if a.user != UFUZZ or (ae and merge_modified(ae.msg, a.msg)):
-                    i_cand = i
-
-        if i_sel is None and i_cand is not None:
-            # No canceling message after the candidate modification, so use it.
-            i_sel = i_cand
+                if a.user != UFUZZ or (ae and not merge_modified(ae.msg, a.msg)):
+                    i_sel = i
 
         return i_sel
 
