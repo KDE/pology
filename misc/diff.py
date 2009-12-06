@@ -1200,8 +1200,9 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     See L{msg_diff} for description C{pfilter} and C{addrem} parameters,
     and L{word_ediff} for the format of embedded differences.
     Additionally, if C{pfilter} is given, C{msgstr} fields will be diffed
-    both with and without the filter, and both embeddings are going to
-    be presented in the field, suitably visually separated.
+    both with and without the filter, and if the two diffs are not equal,
+    both embeddings are going to be presented in the field,
+    suitably visually separated.
 
     By default, a new message with embedded difference will be constructed,
     of the type of first non-None of C{msg2} and C{msg1}.
@@ -1331,7 +1332,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             lst.extend([u""] * (item + 1 - len(lst)))
             if ediffs_pf:
                 ediff_pf = ediffs_pf[i][2]
-                if ediff_pf:
+                if ediff_pf and ediff_pf != ediff:
                     ediff += "\n" + fsep + "\n" + ediff_pf
             lst[item] = ediff
         elif typ == _dt_state:
