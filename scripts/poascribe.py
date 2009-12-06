@@ -2238,7 +2238,7 @@ def selector_modam (muser_spec=None, mmuser_spec=None):
     cid = "selector:modam"
 
     return w_selector_modax(cid, True, False,
-                            muser_spec, mmuser_spec, None)
+                            muser_spec, mmuser_spec)
 
 
 # Select first modification (any or by m-users, and not by rm-users)
@@ -2250,9 +2250,21 @@ def selector_modarm (muser_spec=None, rmuser_spec=None, atag_spec=None):
                             muser_spec, rmuser_spec, atag_spec)
 
 
-# Worker for builders of moda* selectors.
+# Select first modification of translation
+# (any or by m-users, and not by r-users)
+# after last review (any or by r-users, and not by m-users).
+def selector_tmodar (muser_spec=None, ruser_spec=None, atag_spec=None):
+    cid = "selector:tmodar"
+
+    return w_selector_modax(cid, False, True,
+                            muser_spec, ruser_spec, atag_spec,
+                            True)
+
+
+# Worker for builders of *moda* selectors.
 def w_selector_modax (cid, amod, arev,
-                      muser_spec=None, rmuser_spec=None, atag_spec=None):
+                      muser_spec=None, rmuser_spec=None, atag_spec=None,
+                      tronly=False):
 
     def selector (msg, cat, history, config, options):
 
@@ -2282,12 +2294,17 @@ def w_selector_modax (cid, amod, arev,
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
-                # Can be a candidate if not made by fuzzy user,
-                # or if there are non-merge-induced differences
-                # to earlier message.
+                i_sel = i
+                # Cannot be a candidate if:
+                # - made by fuzzy user and there are only
+                #   merge-induced differences from earlier message
+                # - translation-only mode, and there is no difference
+                #   in translation from earlier message
                 ae = history[i + 1] if i + 1 < len(history) else None
-                if a.user != UFUZZ or (ae and not merge_modified(ae.msg, a.msg)):
-                    i_sel = i
+                if (   (a.user == UFUZZ and ae and merge_modified(ae.msg, a.msg))
+                    or (tronly and ae and ae.msg.msgstr == a.msg.msgstr)
+                ):
+                    i_sel = None
 
         return i_sel
 
@@ -2412,6 +2429,7 @@ xm_selector_factories = {
     "modar": (selector_modar, True),
     "modam": (selector_modam, True),
     "modarm": (selector_modarm, True),
+    "tmodar": (selector_tmodar, True),
     "rev": (selector_rev, True),
     "revbm": (selector_revbm, True),
     "modafter": (selector_modafter, True),
