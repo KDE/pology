@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import fallback_import_paths
+
 import sys
 import os
 import locale
