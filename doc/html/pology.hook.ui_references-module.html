@@ -268,6 +268,17 @@
 </pre>
     <p>Hook factories have parameters for specifying type of escaping 
     needed for fetched UI texts by target format.</p>
+    <p>Normalization may flatten several different messages from UI catalog
+    into one. Example of this is when <code>msgid</code> fields are equal 
+    but for the accelerator. If this happens and translations are not the 
+    same for all such messages, a special &quot;tail&quot; is added to 
+    their contexts, consisting of a tilde and several alphanumeric 
+    characters. In this way, the first run of the hook which sees UI 
+    reference pointing to one of these messages will report the ambiguity 
+    and new contexts with tails, so that proper context can be copied and 
+    pasted over into the reference. The alphanumeric tail is computed based
+    on the original <code>msgid</code> only, so it will not change if 
+    messages later get reordered in the UI catalog.</p>
   <h1 class="heading">Notes</h1>
     <p>If a UI reference cannot be resolved, for whatever reason (not 
     existing, context conflict, not translated, etc.), resolving hooks will

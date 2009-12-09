@@ -77,7 +77,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities" class="summary-sig-name">resolve_entities</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
-        <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="summary-sig-arg">ignored</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">undefrepl</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -99,7 +99,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.resolve-module.html#resolve_entities_simple" class="summary-sig-name">resolve_entities_simple</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">entities</span>,
-        <span class="summary-sig-arg">ignored_entities</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="summary-sig-arg">ignored</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
       As <a href="pology.misc.resolve-module.html#resolve_entities" 
@@ -336,7 +336,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
-        <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="sig-arg">ignored</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">undefrepl</span>=<span class="sig-default">None</span>)</span>
@@ -360,8 +360,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
         <li><strong class="pname"><code>entities</code></strong> (dict) - entity name-value pairs</li>
-        <li><strong class="pname"><code>ignored_entities</code></strong> (any sequence that can be tested by <code>in</code> for entity 
-          name) - entity names to ignore</li>
+        <li><strong class="pname"><code>ignored</code></strong> (a sequence or (string)-&gt;bool) - entities to ignore; a sequence of entity names, or function 
+          taking the entity name and returning <code>True</code> if ignored</li>
         <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report unknown entities to standard output, with 
           this parameter as source identifier</li>
         <li><strong class="pname"><code>vfilter</code></strong> (string or (string)-&gt;string) - format string (with single <code>%s</code> directive) or function
@@ -383,7 +383,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities_simple</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">entities</span>,
-        <span class="sig-arg">ignored_entities</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="sig-arg">ignored</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
         <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>)</span>
   </h3>
