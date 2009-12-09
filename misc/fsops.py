@@ -91,7 +91,8 @@ def collect_files (paths,
 
 
 def collect_files_by_ext (paths, extension,
-                          recurse=True, sort=True, unique=True, relcwd=True):
+                          recurse=True, sort=True, unique=True, relcwd=True,
+                          selectf=None):
     """
     Collect list of files having given extension from given paths.
 
@@ -114,21 +115,26 @@ def collect_files_by_ext (paths, extension,
     else:
         extensions = extension
 
-    def selectf (fpath):
+    def selectf_mod (fpath):
 
         ext = os.path.splitext(fpath)[1]
         if ext not in ("", "."):
-            return ext[1:] in extensions
+            hasext = ext[1:] in extensions
         elif ext == ".":
-            return extensions == ""
+            hasext = extensions == ""
         else: # ext == ""
-            return not extensions
+            hasext = not extensions
+        if selectf and hasext:
+            return selectf(fpath)
+        else:
+            return hasext
 
-    return collect_files(paths, recurse, sort, unique, relcwd, selectf)
+    return collect_files(paths, recurse, sort, unique, relcwd, selectf_mod)
 
 
 def collect_catalogs (paths,
-                      recurse=True, sort=True, unique=True, relcwd=True):
+                      recurse=True, sort=True, unique=True, relcwd=True,
+                      selectf=None):
     """
     Collect list of catalog file paths from given paths.
 
@@ -137,11 +143,13 @@ def collect_catalogs (paths,
 
     catexts = ("po", "pot")
 
-    return collect_files_by_ext(paths, catexts, recurse, sort, unique, relcwd)
+    return collect_files_by_ext(paths, catexts,
+                                recurse, sort, unique, relcwd, selectf)
 
 
 def collect_catalogs_by_env (catpathenv,
-                             recurse=True, sort=True, unique=True, relcwd=True):
+                             recurse=True, sort=True, unique=True, relcwd=True,
+                             selectf=None):
     """
     Collect list of catalog file paths from directories given
     by an environment variable.
@@ -158,7 +166,8 @@ def collect_catalogs_by_env (catpathenv,
 
     catdirs = catpath.split(":")
 
-    return collect_catalogs(catdirs, recurse, sort, unique, relcwd)
+    return collect_catalogs(catdirs,
+                            recurse, sort, unique, relcwd, selectf)
 
 
 def mkdirpath (dirpath):
