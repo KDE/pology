@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x988572c&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -618,8 +618,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#accelerator" class="summary-sig-name">accelerator</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">bymsgs</span>=<span class="summary-sig-default">False</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#accelerator" class="summary-sig-name">accelerator</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Report characters used as accelerator markers in GUI messages.</td>
           <td align="right" valign="top">
             
@@ -654,8 +653,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#markup" class="summary-sig-name">markup</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">bymsgs</span>=<span class="summary-sig-default">False</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#markup" class="summary-sig-name">markup</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Report what types of markup can be expected in messages.</td>
           <td align="right" valign="top">
             
@@ -744,7 +742,42 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_environment" class="summary-sig-name">set_environment</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">envs</span>)</span><br />
-      Set environemnts which the catalog is part of.</td>
+      Set environments which the catalog is part of.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string)-&gt;[string...]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#wrapper" class="summary-sig-name">wrapper</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Report wrapper function for message fields.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_wrapper" class="summary-sig-name">set_wrapper</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wrapf</span>)</span><br />
+      Set wrapping function for message fields.</td>
           <td align="right" valign="top">
             
             
@@ -868,7 +901,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x988572c&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -912,7 +945,10 @@
         <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
           <code>to_lines()</code> method of <a 
           href="pology.file.message.Message_base-class.html" 
-          class="link">Message_base</a> for details.</li>
+          class="link">Message_base</a> for details. If given as 
+          <code>None</code>, it will be deduced from the catalog (see <a 
+          href="pology.file.catalog.Catalog-class.html#wrapper" 
+          class="link">wrapper</a> method).</li>
         <li><strong class="pname"><code>monitored</code></strong> (bool) - whether the message entries are monitored</li>
         <li><strong class="pname"><code>headonly</code></strong> (bool) - whether to open in header-only mode</li>
         <li><strong class="pname"><code>readfh</code></strong> (file-like object) - file to read the catalog from</li>
@@ -921,11 +957,7 @@
         object.__init__
     </dt>
   </dl>
-<div class="fields">      <p><strong>See Also:</strong>
-        <a href="pology.misc.wrap-module.html" 
-        class="link">pology.misc.wrap</a>
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="__getattr__"></a>
 <div>
@@ -1732,8 +1764,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">accelerator</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">bymsgs</span>=<span class="sig-default">False</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">accelerator</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1741,36 +1772,24 @@
   </tr></table>
   
   <p>Report characters used as accelerator markers in GUI messages.</p>
-  <p>Accelerator characters are determined by looking for some header 
-  fields, and if not found, by heuristically examining messages if 
-  <code>bymsgs</code> is <code>True</code>.</p>
-  <p>The header fields are tried in this order: 
-  <code>Accelerator-Marker</code>, <code>X-Accelerator-Marker</code>. In 
-  each field, several accelerator markers can be stated as comma-separated 
-  list, or there may be several fields; the union of all parsed markers is 
-  reported.</p>
+  <p>Accelerator characters are determined by looking for certain header 
+  fields, in this order: <code>Accelerator-Marker</code>, 
+  <code>X-Accelerator-Marker</code>. In each field, several accelerator 
+  markers can be stated as comma-separated list, or there may be several 
+  fields; the union of all parsed markers is reported.</p>
   <p>If empty set is returned, it was determined that there are no 
   accelerator markers in the catalog; if <code>None</code>, that there is 
   no determination about markers.</p>
-  <p>It is not defined when the header or messages will be examined, or if 
-  they will be reexamined when they change (most probably not). If you want
-  to set accelerator markers after the catalog has been opened, use <a 
+  <p>It is not defined when the header will be examined, or if it will be 
+  reexamined when it changes. If you want to set accelerator markers after 
+  the catalog has been opened, use <a 
   href="pology.file.catalog.Catalog-class.html#set_accelerator" 
   class="link">set_accelerator</a>.</p>
-  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity may be
-  O(n).</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>bymsgs</code></strong> (bool) - examine messages if necessary</li>
-    </ul></dd>
     <dt>Returns: set of strings or <code>None</code></dt>
         <dd>accelerator markers</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Heuristic examination of messages not implemented yet.
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="set_accelerator"></a>
 <div>
@@ -1811,8 +1830,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">markup</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">bymsgs</span>=<span class="sig-default">False</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">markup</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1820,41 +1838,31 @@
   </tr></table>
   
   <p>Report what types of markup can be expected in messages.</p>
-  <p>Markup types are determined by looking for some header fields, and if 
-  not found, by heuristically examining messages if <code>bymsgs</code> is 
-  <code>True</code>. Markup types are represented as short symbolic names, 
-  e.g. &quot;html&quot;, &quot;docbook&quot;, &quot;mediawiki&quot;, etc. 
-  These names are always reported in lower-case, regardless of the original
-  casing as provided by the header, etc. See <a 
-  href="pology.file.catalog.Catalog-class.html#set_markup" 
-  class="link">set_markup</a> for list of markup types current used 
-  throughout Pology modules to influence behavior on processing.</p>
-  <p>The header fields are tried in this order: <code>Text-Markup</code>, 
+  <p>Markup types are determined by looking for some header fields, which 
+  state markup types as short symbolic names, e.g. &quot;html&quot;, 
+  &quot;docbook&quot;, &quot;mediawiki&quot;, etc. The header fields are 
+  tried in this order: <code>Text-Markup</code>, 
   <code>X-Text-Markup</code>. In each field, several markup types can be 
   stated as comma-separated list. If there are several fields, it is 
-  undefined from whic one the markups are collected.</p>
+  undefined from which one markup names are collected. Markup names are 
+  always reported in lower-case, regardless of the original casing used in 
+  the header. See <a 
+  href="pology.file.catalog.Catalog-class.html#set_markup" 
+  class="link">set_markup</a> for list of markup types currently observed 
+  by various Pology modules to influence processing behavior.</p>
   <p>If empty set is returned, it was determined that there is no markup in
   the catalog; if <code>None</code>, that there is no determination about 
   markup.</p>
-  <p>It is not defined when the header or messages will be examined, or if 
-  they will be reexamined when they change (most probably not). If you want
-  to set markup types after the catalog has been opened, use <a 
+  <p>It is not defined when the header will be examined, or if it will be 
+  reexamined when it changes. If you want to set markup types after the 
+  catalog has been opened, use <a 
   href="pology.file.catalog.Catalog-class.html#set_markup" 
   class="link">set_markup</a> method.</p>
-  <p>If <code>bymsgs</code> is <code>True</code>, runtime complexity may be
-  O(n).</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>bymsgs</code></strong> (bool) - examine messages if necessary</li>
-    </ul></dd>
     <dt>Returns: set of strings or <code>None</code></dt>
         <dd>markup names</dd>
   </dl>
-<div class="fields">      <p><strong>Note:</strong>
-        Heuristic examination of messages not implemented yet.
-      </p>
-</div></td></tr></table>
+</td></tr></table>
 </div>
 <a name="set_markup"></a>
 <div>
@@ -2043,7 +2051,7 @@
     </td>
   </tr></table>
   
-  <p>Set environemnts which the catalog is part of.</p>
+  <p>Set environments which the catalog is part of.</p>
   <p>Environments set by this method will later be readable by the <a 
   href="pology.file.catalog.Catalog-class.html#environment" 
   class="link">environment</a> method. This will not modify the catalog 
@@ -2056,6 +2064,88 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>envs</code></strong> (sequence of strings or <code>None</code>) - environment keywords</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="wrapper"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrapper</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Report wrapper function for message fields.</p>
+  <p>Long text fields in messages (<code>msgid</code>, <code>msgstr</code>,
+  etc.) may be wrapped in different ways, as wrapping does not influence 
+  their semantics. (This is unlike translator and extracted comments, which
+  are never wrapped, because division into lines may be significant.) PO 
+  processing tools will typically offer wrapping options, but it may be 
+  more convenient to have wrapping policy bound to the catalog, and that 
+  tools respect it. This method will look for wrapping policy in catalog 
+  header.</p>
+  <p>The following header fields are checked for wrapping policy, in given 
+  order: <code>Wrapping</code>, <code>X-Wrapping</code>. Wrapping policy 
+  (i.e. value of these header fields) is an unordered comma-separated list 
+  of wrapping keywords, which may be drawn from the following set:</p>
+  <ul>
+    <li>
+      <code>basic</code>: wrapping on column count
+    </li>
+    <li>
+      <code>fine</code>: wrapping on logical breaks (such as 
+      <code>&lt;p&gt;</code> or <code>&lt;para&gt;</code> XML tags)
+    </li>
+  </ul>
+  <p>Wrapping on newline characters is always engaged. If no wrapping 
+  policy field is found in the header, wrapping is taken to be 
+  <code>basic</code> only. If several such fields are present, it is 
+  undefined which one is used to determine wrapping policy.</p>
+  <p>It is not defined when the header will be examined, or if it will be 
+  reexamined when it changes (most probably not). If you want to set 
+  wrapping after the catalog has been opened, use <a 
+  href="pology.file.catalog.Catalog-class.html#set_wrapper" 
+  class="link">set_wrapper</a> method.</p>
+  <dl class="fields">
+    <dt>Returns: (string)-&gt;[string...]</dt>
+        <dd>wrapping function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_wrapper"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_wrapper</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wrapf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Set wrapping function for message fields.</p>
+  <p>Wrapping function set by this method will later be readable by the <a 
+  href="pology.file.catalog.Catalog-class.html#wrapper" 
+  class="link">wrapper</a> method. This will not modify the catalog header 
+  in any way; if that is desired, it must be done manually by manipulating 
+  the header fields.</p>
+  <p>Wrapping function takes a string as argument, and returns list of 
+  strings of wrapped lines; they must end in newlines.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wrapf</code></strong> ((string)-&gt;[string...]) - wrapping function</li>
     </ul></dd>
   </dl>
 </td></tr></table>
