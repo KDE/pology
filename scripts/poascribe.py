@@ -2289,32 +2289,32 @@ def w_selector_modax (cid, amod, arev,
         for i in range(len(history)):
             a = history[i]
 
-            # Check if this message can cancel candidate.
+            # Check if this message cancels further modifications.
             if (    (   (amod and a.type == ATYPE_MOD)
                      or (arev and a.type == ATYPE_REV and a.tag in atags))
                 and (not rmusers or a.user in rmusers)
                 and (not musers or a.user not in musers)
             ):
-                i_sel = None
-                # Candidates prior to canceling message are not admissible.
                 break
 
-            # Check if this message can be a candidate.
+            # Check if this message is admissible modification.
             if (    a.type == ATYPE_MOD
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
-                i_sel = i
                 # Cannot be a candidate if:
                 # - made by fuzzy user and there are only
                 #   merge-induced differences from earlier message
                 # - translation-only mode, and there is no difference
                 #   in translation from earlier message
                 ae = history[i + 1] if i + 1 < len(history) else None
-                if (   (a.user == UFUZZ and ae and merge_modified(ae.msg, a.msg))
-                    or (tronly and ae and ae.msg.msgstr == a.msg.msgstr)
+                if (    not (    a.user == UFUZZ
+                             and ae and merge_modified(ae.msg, a.msg))
+                    and not (    tronly
+                             and ae and ae.msg.msgstr == a.msg.msgstr)
                 ):
-                    i_sel = None
+                    i_sel = i
+                    break
 
         return i_sel
 
