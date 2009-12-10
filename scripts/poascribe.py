@@ -1956,6 +1956,16 @@ def selector_active ():
     return selector
 
 
+def selector_current ():
+    cid = "selector:current"
+
+    def selector (msg, cat, history, config, options):
+
+        return (not msg.obsolete) or None
+
+    return selector
+
+
 def selector_branch (branch=None):
     cid = "selector:branch"
 
@@ -2415,6 +2425,7 @@ xm_selector_factories = {
     # key: (function, can_be_used_as_history_selector)
     "any": (selector_any, False),
     "active": (selector_active, False),
+    "current": (selector_current, False),
     "branch": (selector_branch, False),
     "wasc": (selector_wasc, False),
     "xrevd": (selector_xrevd, False),
