@@ -1855,7 +1855,7 @@ class Catalog (Monitored):
         This method will look for wrapping policy in catalog header.
 
         The following header fields are checked for wrapping policy,
-        in given order: L{Wrapping}, L{X-Wrapping}.
+        in given order: C{Wrapping}, C{X-Wrapping}.
         Wrapping policy (i.e. value of these header fields) is
         an unordered comma-separated list of wrapping keywords,
         which may be drawn from the following set:
