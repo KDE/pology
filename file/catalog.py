@@ -9,7 +9,7 @@ Collection of PO entries.
 
 from pology.misc.escape import escape_c as escape
 from pology.misc.escape import unescape_c as unescape
-from pology.misc.wrap import wrap_field
+from pology.misc.wrap import select_field_wrapper
 from pology.misc.monitored import Monitored
 from pology.misc.fsops import mkdirpath
 from message import Message as MessageMonitored
@@ -445,7 +445,7 @@ class Catalog (Monitored):
 
     def __init__ (self, filename,
                   create=False, truncate=False,
-                  wrapf=wrap_field, monitored=True,
+                  wrapf=None, monitored=True,
                   headonly=False, readfh=None):
         """
         Build a message catalog by reading from a PO file or creating anew.
@@ -487,6 +487,8 @@ class Catalog (Monitored):
         @param wrapf:
             the function used for wrapping message fields in output.
             See C{to_lines()} method of L{Message_base} for details.
+            If given as C{None}, it will be deduced from the catalog
+            (see L{wrapper} method).
         @type wrapf: string, string, string -> list of strings
 
         @param monitored: whether the message entries are monitored
@@ -497,11 +499,8 @@ class Catalog (Monitored):
 
         @param readfh: file to read the catalog from
         @type readfh: file-like object
-
-        @see: L{pology.misc.wrap}
         """
 
-        self._wrapf = wrapf
         self._monitored = monitored
 
         # Select type of message object to use.
@@ -558,6 +557,14 @@ class Catalog (Monitored):
 
         # Cached plural definition from the header.
         self._plustr = ""
+
+        # Cached wrapping function.
+        if not wrapf:
+            self._wrapf_determined = False
+            self._wrapf = self.wrapper()
+        else:
+            self._wrapf_determined = True
+            self._wrapf = wrapf
 
         # Cached language of the translation.
         # None means the language has not been determined.
@@ -1535,15 +1542,12 @@ class Catalog (Monitored):
         return selected_msgs
 
 
-    def accelerator (self, bymsgs=False):
+    def accelerator (self):
         """
         Report characters used as accelerator markers in GUI messages.
 
-        Accelerator characters are determined by looking for some
-        header fields, and if not found, by heuristically examining
-        messages if C{bymsgs} is C{True}.
-
-        The header fields are tried in this order: C{Accelerator-Marker},
+        Accelerator characters are determined by looking for certain
+        header fields, in this order: C{Accelerator-Marker},
         C{X-Accelerator-Marker}.
         In each field, several accelerator markers can be stated as
         comma-separated list, or there may be several fields;
@@ -1553,32 +1557,21 @@ class Catalog (Monitored):
         no accelerator markers in the catalog;
         if C{None}, that there is no determination about markers.
 
-        It is not defined when the header or messages will be examined,
-        or if they will be reexamined when they change (most probably not).
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes.
         If you want to set accelerator markers after the catalog has been
         opened, use L{set_accelerator}.
 
-        If C{bymsgs} is C{True}, runtime complexity may be O(n).
-
-        @param bymsgs: examine messages if necessary
-        @type bymsgs: bool
-
         @returns: accelerator markers
         @rtype: set of strings or C{None}
-
-        @note: Heuristic examination of messages not implemented yet.
         """
 
-        # Check if accelerators have been already determined.
         if self._accels_determined:
             return self._accels
 
         accels = None
         self._accels_determined = True
 
-        # Analyze header.
-
-        # - check the fields observed in the wild to state accelerators.
         for fname in (
             "Accelerator-Marker",
             "X-Accelerator-Marker",
@@ -1590,15 +1583,6 @@ class Catalog (Monitored):
                 accels.update([x.strip() for x in fval.split(",")])
         if accels:
             accels.discard("")
-
-        # Skip analyzing messages if not necessary or not requested.
-        if accels is not None or not bymsgs:
-            self._accels = accels
-            return accels
-
-        # Analyze messages.
-        # TODO.
-        pass
 
         self._accels = accels
         return accels
@@ -1627,56 +1611,43 @@ class Catalog (Monitored):
             self._accels = None
 
 
-    def markup (self, bymsgs=False):
+    def markup (self):
         """
         Report what types of markup can be expected in messages.
 
         Markup types are determined by looking for some header fields,
-        and if not found, by heuristically examining messages
-        if C{bymsgs} is C{True}. Markup types are represented as
-        short symbolic names, e.g. "html", "docbook", "mediawiki", etc.
-        These names are always reported in lower-case, regardless
-        of the original casing as provided by the header, etc.
-        See L{set_markup} for list of markup types current used throughout
-        Pology modules to influence behavior on processing.
-
+        which state markup types as short symbolic names,
+        e.g. "html", "docbook", "mediawiki", etc.
         The header fields are tried in this order: C{Text-Markup},
         C{X-Text-Markup}.
         In each field, several markup types can be stated as
         comma-separated list.
-        If there are several fields, it is undefined from whic one
-        the markups are collected.
+        If there are several fields, it is undefined from which one
+        markup names are collected.
+        Markup names are always reported in lower-case, regardless
+        of the original casing used in the header.
+        See L{set_markup} for list of markup types currently observed
+        by various Pology modules to influence processing behavior.
 
         If empty set is returned, it was determined that there is
         no markup in the catalog;
         if C{None}, that there is no determination about markup.
 
-        It is not defined when the header or messages will be examined,
-        or if they will be reexamined when they change (most probably not).
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes.
         If you want to set markup types after the catalog has been
         opened, use L{set_markup} method.
 
-        If C{bymsgs} is C{True}, runtime complexity may be O(n).
-
-        @param bymsgs: examine messages if necessary
-        @type bymsgs: bool
-
         @returns: markup names
         @rtype: set of strings or C{None}
-
-        @note: Heuristic examination of messages not implemented yet.
         """
 
-        # Check if markup types have been already determined.
         if self._mtypes_determined:
             return self._mtypes
 
         mtypes = None
         self._mtypes_determined = True
 
-        # Analyze header.
-
-        # - check the fields observed in the wild to state markup types.
         for fname in (
             "Text-Markup",
             "X-Text-Markup",
@@ -1685,15 +1656,6 @@ class Catalog (Monitored):
             if fval is not None:
                 mtypes = set([x.strip().lower() for x in fval.split(",")])
                 mtypes.discard("")
-
-        # Skip analyzing messages if not necessary or not requested.
-        if mtypes is not None or not bymsgs:
-            self._mtypes = mtypes
-            return mtypes
-
-        # Analyze messages.
-        # TODO.
-        pass
 
         self._mtypes = mtypes
         return mtypes
@@ -1750,7 +1712,6 @@ class Catalog (Monitored):
         @rtype: string or C{None}
         """
 
-        # Check if language has already been determined.
         if self._lang_determined:
             return self._lang
 
@@ -1836,14 +1797,12 @@ class Catalog (Monitored):
         @rtype: list of strings or C{None}
         """
 
-        # Check if environment types have been already determined.
         if self._envs_determined:
             return self._envs
 
         envs = None
         self._envs_determined = True
 
-        # Check the fields which may contain environment keywords.
         for fname in (
             "Environment",
             "X-Environment",
@@ -1861,7 +1820,7 @@ class Catalog (Monitored):
 
     def set_environment (self, envs):
         """
-        Set environemnts which the catalog is part of.
+        Set environments which the catalog is part of.
 
         Environments set by this method will later be readable by
         the L{environment} method. This will not modify the catalog header
@@ -1879,6 +1838,84 @@ class Catalog (Monitored):
             self._envs = set([x.lower() for x in envs])
         else:
             self._envs = None
+
+
+    def wrapper (self):
+        """
+        Report wrapper function for message fields.
+
+        Long text fields in messages (C{msgid}, C{msgstr}, etc.) may
+        be wrapped in different ways, as wrapping does not influence
+        their semantics.
+        (This is unlike translator and extracted comments, which are
+        never wrapped, because division into lines may be significant.)
+        PO processing tools will typically offer wrapping options,
+        but it may be more convenient to have wrapping policy
+        bound to the catalog, and that tools respect it.
+        This method will look for wrapping policy in catalog header.
+
+        The following header fields are checked for wrapping policy,
+        in given order: L{Wrapping}, L{X-Wrapping}.
+        Wrapping policy (i.e. value of these header fields) is
+        an unordered comma-separated list of wrapping keywords,
+        which may be drawn from the following set:
+          - C{basic}: wrapping on column count
+          - C{fine}: wrapping on logical breaks (such as C{<p>} or
+                C{<para>} XML tags)
+        Wrapping on newline characters is always engaged.
+        If no wrapping policy field is found in the header,
+        wrapping is taken to be C{basic} only.
+        If several such fields are present, it is undefined which
+        one is used to determine wrapping policy.
+
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes (most probably not).
+        If you want to set wrapping after the catalog has been
+        opened, use L{set_wrapper} method.
+
+        @returns: wrapping function
+        @rtype: (string)->[string...]
+        """
+
+        if self._wrapf_determined:
+            return self._wrapf
+
+        basic = True
+        fine = False
+        self._wrapf_determined = True
+
+        for fname in (
+            "Wrapping",
+            "X-Wrapping",
+        ):
+            fval = self._header.get_field_value(fname)
+            if fval is not None:
+                wkeys = [x.strip().lower() for x in fval.split(",")]
+                basic = "basic" in wkeys
+                fine = "fine" in wkeys
+                break
+
+        self._wrapf = select_field_wrapper(basic, fine)
+        return self._wrapf
+
+
+    def set_wrapper (self, wrapf):
+        """
+        Set wrapping function for message fields.
+
+        Wrapping function set by this method will later be readable by
+        the L{wrapper} method. This will not modify the catalog header
+        in any way; if that is desired, it must be done manually by
+        manipulating the header fields.
+
+        Wrapping function takes a string as argument, and returns
+        list of strings of wrapped lines; they must end in newlines.
+
+        @param wrapf: wrapping function
+        @type wrapf: (string)->[string...]
+        """
+
+        self._wrapf = wrapf
 
 
     def messages_by_source (self):
