@@ -16,7 +16,7 @@ from pology.misc.vcs import available_vcs, make_vcs
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.misc.diff import msg_ediff, msg_ediff_to_new
-from pology.l10n.sr.hook.wconv import eitoh, hitoe
+from pology.l10n.sr.hook.wconv import eitoh, hitoe, hitoi
 
 
 def _main ():
@@ -127,10 +127,12 @@ def hybdl (path, path0, accekch=False):
         texts0e = []
         texts1e = []
         for text0, text in zip(msg0.msgstr, msg.msgstr):
+            text0 = hitoe(text0) # in case there was already some hybridization
+            text = hitoi(text) # ditto
             texth = eitoh(text0, text, refonly=True)
             textsh.append(texth)
             if not accekch:
-                texts0e.append(hitoe(text0))
+                texts0e.append(text0)
                 texts1e.append(hitoe(texth))
         if texts0e == texts1e:
             for i, texth in zip(range(len(msg.msgstr)), textsh):
