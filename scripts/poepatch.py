@@ -31,7 +31,6 @@ from pology.misc.fsops import str_to_unicode, mkdirpath, collect_catalogs
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.file.header import Header
-from pology.misc.wrap import select_field_wrapper
 from pology.misc.diff import msg_ediff, msg_ediff_to_new, msg_ediff_to_old
 
 import pology.scripts.poediff as ED
@@ -54,8 +53,6 @@ def main ():
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poepatch")
     def_do_merge = cfgsec.boolean("merge", True)
-    def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -107,14 +104,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         dest="input",
         help="get embedded difference from file instead of stdout")
     opars.add_option(
-        "--no-wrap",
-        action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="no basic wrapping (on column)")
-    opars.add_option(
-        "--no-fine-wrap",
-        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
-        help="no fine wrapping (on markup tags, etc.)")
-    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="do not try to use Psyco specializing compiler")
@@ -129,16 +118,13 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         except ImportError:
             pass
 
-    # Wrap function to use for all possibly modified and synced catalogs.
-    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
-
     if not op.unembed:
         if free_args:
             error("too many arguments in command line: %s"
                    % " ".join(free_args))
         if op.strip and not op.strip.isdigit():
             error("option %s expect integer argument" % "--strip")
-        apply_ediff(op, wrapf)
+        apply_ediff(op)
     else:
         paths = []
         for path in free_args:
@@ -149,10 +135,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             else:
                 paths.append(path)
         for path in paths:
-            unembed_ediff(path, wrapf)
+            unembed_ediff(path)
 
 
-def apply_ediff (op, wrapf):
+def apply_ediff (op):
 
     # Read the ediff PO.
     dummy_stream_path = "<stdin>"
@@ -218,7 +204,7 @@ def apply_ediff (op, wrapf):
             cemsgs.append(emsg)
 
     # Prepare catalog for rejects and merges.
-    rcat = Catalog("", create=True, monitored=False, wrapf=wrapf)
+    rcat = Catalog("", create=True, monitored=False, wrapping=ecat.wrapping())
     ED.init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
 
     # Apply diff to catalogs.
@@ -232,7 +218,7 @@ def apply_ediff (op, wrapf):
                         % fpath1)
                 continue
             try:
-                cat = Catalog(fpath1, wrapf=wrapf)
+                cat = Catalog(fpath1)
             except:
                 warning("error reading catalog '%s', skipping" % fpath1)
                 continue
@@ -240,7 +226,9 @@ def apply_ediff (op, wrapf):
             # New catalog added in diff, create it (or open if it exists).
             try:
                 mkdirpath(os.path.dirname(fpath2))
-                cat = Catalog(fpath2, create=True, wrapf=wrapf)
+                cat = Catalog(fpath2, create=True)
+                if cat.created():
+                    cat.set_wrapping(ecat.wrapping())
             except:
                 if os.path.isfile(fpath2):
                     warning("error reading catalog '%s', skipping" % fpath1)
@@ -707,10 +695,10 @@ def reduce_header_fields (hdr):
     return rhdr
 
 
-def unembed_ediff (path, wrapf, all=False, old=False):
+def unembed_ediff (path, all=False, old=False):
 
     try:
-        cat = Catalog(path, wrapf=wrapf)
+        cat = Catalog(path)
     except:
         warning("error reading catalog '%s', skipping" % path)
         return

@@ -445,7 +445,7 @@ class Catalog (Monitored):
 
     def __init__ (self, filename,
                   create=False, truncate=False,
-                  wrapf=None, monitored=True,
+                  wrapping=None, monitored=True,
                   headonly=False, readfh=None):
         """
         Build a message catalog by reading from a PO file or creating anew.
@@ -484,12 +484,13 @@ class Catalog (Monitored):
             regardless of whether it is opened or created
         @type truncate: bool
 
-        @param wrapf:
-            the function used for wrapping message fields in output.
+        @param wrapping:
+            sequence of keywords specifying wrapping policy for
+            message text fields (C{msgid}, C{msgstr}, etc.).
             See C{to_lines()} method of L{Message_base} for details.
             If given as C{None}, it will be deduced from the catalog
-            (see L{wrapper} method).
-        @type wrapf: string, string, string -> list of strings
+            (see L{wrapping} method).
+        @type wrapping: sequence of strings
 
         @param monitored: whether the message entries are monitored
         @type monitored: bool
@@ -558,14 +559,6 @@ class Catalog (Monitored):
         # Cached plural definition from the header.
         self._plustr = ""
 
-        # Cached wrapping function.
-        if not wrapf:
-            self._wrapf_determined = False
-            self._wrapf = self.wrapper()
-        else:
-            self._wrapf_determined = True
-            self._wrapf = wrapf
-
         # Cached language of the translation.
         # None means the language has not been determined.
         self._lang = None
@@ -582,6 +575,11 @@ class Catalog (Monitored):
         # Cached markup types.
         self._mtypes = None
         self._mtypes_determined = False
+
+        # Cached wrapping policy.
+        self._wrap_determined = False
+        self._wrapf = None
+        self._wrapkw = None
 
 
     def _assert_headonly (self):
@@ -1079,6 +1077,9 @@ class Catalog (Monitored):
         # by reorderings/removals. To make sure it is not used before the
         # rebuild at the end, delete now.
         del self._msgpos
+
+        if not self._wrap_determined:
+            self.wrapping()
 
         flines = []
         i = 0
@@ -1609,6 +1610,7 @@ class Catalog (Monitored):
             self._accels.discard("")
         else:
             self._accels = None
+        self._accels_determined = True
 
 
     def markup (self):
@@ -1690,6 +1692,7 @@ class Catalog (Monitored):
             self._mtypes = set([x.lower() for x in mtypes])
         else:
             self._mtypes = None
+        self._mtypes_determined = True
 
 
     def language (self):
@@ -1747,6 +1750,7 @@ class Catalog (Monitored):
             self._lang = unicode(lang)
         else:
             self._lang = None
+        self._lang_determined = True
 
 
     def environment (self):
@@ -1838,11 +1842,12 @@ class Catalog (Monitored):
             self._envs = set([x.lower() for x in envs])
         else:
             self._envs = None
+        self._envs_determined = True
 
 
-    def wrapper (self):
+    def wrapping (self):
         """
-        Report wrapper function for message fields.
+        Report wrapping policy for message fields.
 
         Long text fields in messages (C{msgid}, C{msgstr}, etc.) may
         be wrapped in different ways, as wrapping does not influence
@@ -1851,38 +1856,33 @@ class Catalog (Monitored):
         never wrapped, because division into lines may be significant.)
         PO processing tools will typically offer wrapping options,
         but it may be more convenient to have wrapping policy
-        bound to the catalog, and that tools respect it.
-        This method will look for wrapping policy in catalog header.
+        bound to the catalog, which tools respect unless overridden.
 
         The following header fields are checked for wrapping policy,
         in given order: C{Wrapping}, C{X-Wrapping}.
         Wrapping policy (i.e. value of these header fields) is
-        an unordered comma-separated list of wrapping keywords,
-        which may be drawn from the following set:
-          - C{basic}: wrapping on column count
-          - C{fine}: wrapping on logical breaks (such as C{<p>} or
-                C{<para>} XML tags)
-        Wrapping on newline characters is always engaged.
+        an unordered comma-separated list of wrapping keywords.
+        See L{select_field_wrapper<misc.wrap.select_field_wrapper>}
+        for possible keywords.
         If no wrapping policy field is found in the header,
-        wrapping is taken to be C{basic} only.
-        If several such fields are present, it is undefined which
-        one is used to determine wrapping policy.
+        C{None} is returned.
+        If several wrapping policy fields are present,
+        it is undefined which one is taken into account.
 
         It is not defined when the header will be examined,
         or if it will be reexamined when it changes (most probably not).
         If you want to set wrapping after the catalog has been
-        opened, use L{set_wrapper} method.
+        opened, use L{set_wrapping} method.
 
-        @returns: wrapping function
-        @rtype: (string)->[string...]
+        @returns: wrapping keywords
+        @rtype: (string...) or C{None}
         """
 
-        if self._wrapf_determined:
-            return self._wrapf
+        if self._wrap_determined:
+            return self._wrapkw
 
-        basic = True
-        fine = False
-        self._wrapf_determined = True
+        wrapkw = None
+        self._wrap_determined = True
 
         for fname in (
             "Wrapping",
@@ -1890,32 +1890,58 @@ class Catalog (Monitored):
         ):
             fval = self._header.get_field_value(fname)
             if fval is not None:
-                wkeys = [x.strip().lower() for x in fval.split(",")]
-                basic = "basic" in wkeys
-                fine = "fine" in wkeys
+                wrapkw = [x.strip().lower() for x in fval.split(",")]
+                wrapkw = tuple(sorted(wrapkw))
                 break
 
-        self._wrapf = select_field_wrapper(basic, fine)
-        return self._wrapf
+        self._wrapkw = wrapkw
+        self._wrapf = select_field_wrapper(wrapkw)
+
+        return self._wrapkw
 
 
-    def set_wrapper (self, wrapf):
+    def set_wrapping (self, wrapkw):
         """
-        Set wrapping function for message fields.
+        Set wrapping policy for message fields.
 
-        Wrapping function set by this method will later be readable by
-        the L{wrapper} method. This will not modify the catalog header
+        Wrapping policy set by this method will later be readable by
+        the L{wrapping} method. This will not modify the catalog header
         in any way; if that is desired, it must be done manually by
         manipulating the header fields.
 
-        Wrapping function takes a string as argument, and returns
-        list of strings of wrapped lines; they must end in newlines.
+        Wrapping policy is a sequence of keywords.
+        See L{select_field_wrapper<misc.wrap.select_field_wrapper>}
+        for possible keywords.
+        If C{None} is given instead, it is passed directly to
+        L{select_field_wrapper<misc.wrap.select_field_wrapper>},
+        which will construct default wrapper.
 
-        @param wrapf: wrapping function
-        @type wrapf: (string)->[string...]
+        @param wrapkw: wrapping policy
+        @type wrapkw: [string...] or C{None}
         """
 
-        self._wrapf = wrapf
+        self._wrapkw = tuple(sorted(wrapkw)) if wrapkw is not None else None
+        self._wrapf = select_field_wrapper(wrapkw)
+        self._wrap_determined = True
+
+
+    def wrapf (self):
+        """
+        Get wrapping function used for message fields.
+
+        Wrapping function is determined based on wrapping policy
+        (see L{wrapping}, L{set_wrapping}).
+        Wrapping function returned by this method is suitable as
+        C{wrapf} parameter in methods of C{Message} objects.
+
+        @returns: wrapping function
+        @rtype: (string, string, string?)->[string]
+
+        @see: L{wrap_field<misc.wrap.wrap_field>}
+        """
+
+        self.wrapping()
+        return self._wrapf
 
 
     def messages_by_source (self):

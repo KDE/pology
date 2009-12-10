@@ -22,7 +22,6 @@ from copy import deepcopy
 from pology.misc.report import report, warning, error
 from pology.misc.colors import colors_for_file
 from pology.file.message import Message
-from pology.misc.wrap import wrap_field_fine
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
@@ -273,7 +272,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
 
 
 def report_msg_content (msg, cat,
-                        wrapf=wrap_field_fine, force=False,
+                        wrapf=None, force=False,
                         note=None, delim=None, highlight=None,
                         showmsg=True, fmsg=None, showfmsg=False,
                         subsrc=None, file=sys.stdout):
@@ -327,8 +326,10 @@ def report_msg_content (msg, cat,
     @type cat: L{Catalog} or C{None}
     @param wrapf:
         the function used for wrapping message fields in output.
-        See C{to_lines()} method of L{Message_base} for details.
-    @type wrapf: string, string, string -> list of strings
+        See L{Message_base.to_lines} for details.
+        If not given, it will be taken from the catalog
+        (see L{Catalog.wrapf<file.catalog.Catalog.wrapf>}).
+    @type wrapf: (string)->[string...]
     @param force: whether to force reformatting of cached message content
     @type force: bool
     @param note: note about why the content is being reported
@@ -351,6 +352,8 @@ def report_msg_content (msg, cat,
 
     C = colors_for_file(file)
     rsegs = []
+
+    wrapf = wrapf or cat.wrapf()
 
     notes_data = []
     if highlight:

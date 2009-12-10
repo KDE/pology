@@ -4,7 +4,6 @@
 import fallback_import_paths
 
 from pology.misc.fsops import str_to_unicode
-from pology.misc.wrap import select_field_wrapper
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monpair, Monlist
@@ -16,6 +15,7 @@ from pology.misc.fsops import join_ncwd
 from pology.misc.vcs import make_vcs
 import pology.scripts.poascribe as ASC
 from pology.scripts.poselfmerge import merge_pofile
+import pology.scripts.porewrap as REW
 
 import sys, os, imp, shutil, re
 from optparse import OptionParser
@@ -147,10 +147,10 @@ class Project (object):
 
             "templates_lang" : "",
 
-            "summit_unwrap" : True,
+            "summit_wrap" : False,
             "summit_fine_wrap" : True,
             "summit_fuzzy_merging" : True,
-            "branches_unwrap" : False,
+            "branches_wrap" : True,
             "branches_fine_wrap" : True,
             "branches_fuzzy_merging" : True,
 
@@ -335,6 +335,16 @@ def derive_project_data (project, options):
         p.vcs = make_vcs(p.version_control.lower())
     else:
         p.vcs = None
+
+    # Decide wrapping policies.
+    class D: pass
+    dummyopt = D()
+    dummyopt.do_wrap = p.summit_wrap
+    dummyopt.do_fine_wrap = p.summit_fine_wrap
+    p.summit_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
+    dummyopt.do_wrap = p.branches_wrap
+    dummyopt.do_fine_wrap = p.branches_fine_wrap
+    p.branches_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
 
     # Decide the extension of catalogs.
     if p.templates_lang and options.lang == p.templates_lang:
@@ -773,8 +783,7 @@ def summit_merge (project, options):
             template_path = template_catalogs[name][0][0]
             merge_specs.append((SUMMIT_ID, name, summit_subdir,
                                 summit_path, template_path,
-                                project.summit_unwrap,
-                                project.summit_fine_wrap,
+                                project.summit_wrapping,
                                 project.summit_fuzzy_merging))
 
     # Merge selected branches.
@@ -814,8 +823,7 @@ def summit_merge (project, options):
                 continue
             merge_specs.append((branch_id, name, branch_subdir,
                                 branch_path, template_path,
-                                project.branches_unwrap,
-                                project.branches_fine_wrap,
+                                project.branches_wrapping,
                                 project.branches_fuzzy_merging))
 
     # Setup progress indicator.
@@ -988,14 +996,10 @@ def summit_gather_single (summit_name, project, options,
 
     update_progress()
 
-    # Decide on wrapping function for message fields in the summit.
-    wrapf = select_field_wrapper(not project.summit_unwrap,
-                                 project.summit_fine_wrap)
-
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_subdir = project.catalogs[SUMMIT_ID][summit_name][0][1]
 
-    fresh_cat = Catalog("", wrapf=wrapf, create=True)
+    fresh_cat = Catalog("", wrapping=project.summit_wrapping, create=True)
     fresh_cat.filename = summit_path
 
     # Collect branches in which this summit catalog has corresponding
@@ -1126,7 +1130,8 @@ def summit_gather_single (summit_name, project, options,
 
     # If there were any modified messages, or their order changed,
     # replace the original with the fresh catalog.
-    summit_cat = Catalog(summit_path, wrapf=wrapf, create=True)
+    summit_cat = Catalog(summit_path, wrapping=project.summit_wrapping,
+                         create=True)
     summit_created = summit_cat.created() # preserve created state
     replace = False
     for pos in range(len(fresh_cat)):
@@ -1509,10 +1514,6 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
 
     update_progress()
 
-    # Decide on wrapping function for message fields in the brances.
-    wrapf = select_field_wrapper(not project.branches_unwrap,
-                                 project.branches_fine_wrap)
-
     # See if the branch catalog is to be newly created from the template.
     new_from_template = False
     branch_path_mod = branch_path
@@ -1524,7 +1525,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         branch_path_mod = project.add_on_scatter[branch_path]
 
     # Open the branch catalog and all summit catalogs.
-    branch_cat = Catalog(branch_path_mod, wrapf=wrapf)
+    branch_cat = Catalog(branch_path_mod, wrapping=project.branches_wrapping)
     summit_cats = [Catalog(x) for x in summit_paths]
 
     # Open ascription catalogs.
@@ -1974,7 +1975,7 @@ def split_summit_comments (msg):
 
 def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                          catalog_path, template_path,
-                         unwrap, fine_wrap, fuzzy_merging,
+                         wrapping, fuzzy_merging,
                          project, options, update_progress):
 
     update_progress()
@@ -2001,7 +2002,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     do_open = False
     headonly = False
     monitored = False
-    if fine_wrap or project.hook_on_merge_cat:
+    otherwrap = set(wrapping).difference(["basic"])
+    if otherwrap or project.hook_on_merge_cat:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
@@ -2037,8 +2039,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 shutil.copyfile(template_path, tmp_path)
 
         cat = merge_pofile(catalog_path_mod, template_path, outpath=tmp_path,
-                           wrap=(not unwrap), finewrap=fine_wrap,
-                           fuzzymatch=fuzzy_merging,
+                           wrapping=wrapping, fuzzymatch=fuzzy_merging,
                            minasfz=minasfz, refuzzy=refuzzy,
                            cmppaths=cmppaths, fuzzex=fuzzex, minwnex=minwnex,
                            getcat=(do_open and not headonly),
@@ -2054,9 +2055,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Open catalogs as necessary.
     if do_open:
         update_progress()
-        wrapf = select_field_wrapper(not unwrap, fine_wrap)
         if cat is None:
-            cat = Catalog(tmp_path, monitored=monitored, wrapf=wrapf,
+            cat = Catalog(tmp_path, monitored=monitored, wrapping=wrapping,
                           headonly=headonly)
         if do_open_template:
             tcat = Catalog(template_path, monitored=False, headonly=True)
@@ -2125,7 +2125,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Synchronize merged catalog if it has been opened.
     if cat is not None:
         cat.filename = tmp_path # not to overwrite original file
-        cat.sync(force=fine_wrap)
+        cat.sync(force=otherwrap)
 
     # Execute file hooks.
     if project.hook_on_merge_file:

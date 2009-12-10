@@ -73,7 +73,6 @@ Other sieve parameters:
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
         to matching (see L{misc.langdep.get_hook_lreq} for the format
         of hook specifications)
-  - C{nowrap}: do not wrap long messages when writing them to output
   - C{lokalize}: open catalogs at matched messages in Lokalize
   - C{nomsg}: do not report messages (to only count the number of matches)
 
@@ -111,7 +110,6 @@ from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.langdep import get_hook_lreq
-from pology.misc.wrap import select_field_wrapper
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
 from pology.misc.comments import parse_summit_branches
@@ -308,10 +306,6 @@ def setup_sieve (p):
     "Replace all substrings matched by msgstr pattern with REPLSTR. "
     "It can include back-references to matched groups (\\1, \\2, etc.)"
     )
-    p.add_param("nowrap", bool, defval=False,
-                desc=
-    "Do not wrap long messages when writing them to output."
-    )
     p.add_param("lokalize", bool, defval=False,
                 desc=
     "Open catalogs at matched messages in Lokalize."
@@ -422,9 +416,6 @@ class Sieve (object):
             self.caller_sync = False
             self.caller_monitored = False
 
-        # Select wrapping for reporting messages.
-        self.wrapf = select_field_wrapper(not self.p.nowrap, not self.p.nowrap)
-
 
     def process_header (self, hdr, cat):
 
@@ -460,7 +451,7 @@ class Sieve (object):
                 delim = "-" * 20
                 if self.nmatch == 1:
                     report(delim)
-                report_msg_content(msg, cat, wrapf=self.wrapf, force=True,
+                report_msg_content(msg, cat, wrapf=cat.wrapf(), force=True,
                                    delim=delim, highlight=hl_spec)
 
             if self.p.mark:

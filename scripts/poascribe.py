@@ -22,7 +22,6 @@ from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.misc.monitored import Monlist, Monset
-from pology.misc.wrap import wrap_field_fine_unwrap
 from pology.misc.tabulate import tabulate
 from pology.misc.langdep import get_hook_lreq
 from pology.sieve.find_messages import build_msg_fmatcher
@@ -33,7 +32,7 @@ from pology.misc.tabulate import tabulate
 import pology.misc.colors as C
 from pology.misc.comments import parse_summit_branches
 
-WRAPF = wrap_field_fine_unwrap
+ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
 
 def main ():
@@ -751,8 +750,8 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
 def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
     # Open current catalog and ascription catalog.
-    # Monitored, for removal of reviewed-* flags.
-    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    # Monitored, for removal of review flags.
+    cat = Catalog(catpath, monitored=True)
     acat = prep_write_asc_cat(acatpath, config)
 
     rev_msgs_tags = []
@@ -814,7 +813,7 @@ _diffflags = (_diffflag, _diffflag_tot)
 
 def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
-    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     nflagged = 0
@@ -858,7 +857,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
 
-    cat = Catalog(catpath, monitored=True, wrapf=WRAPF)
+    cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     cleared = []
@@ -882,7 +881,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
 
     C = colors_for_file(sys.stdout)
 
-    cat = Catalog(catpath, monitored=False, wrapf=WRAPF)
+    cat = Catalog(catpath, monitored=False)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     nselected = 0
@@ -933,7 +932,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             if dmsg != nmsg:
                 msg_ediff(nmsg, dmsg, emsg=dmsg,
                           pfilter=options.hfilter, hlto=sys.stdout)
-                dmsgfmt = dmsg.to_string(force=True, wrapf=WRAPF).rstrip("\n")
+                dmsgfmt = dmsg.to_string(force=True,
+                                         wrapf=cat.wrapf()).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
         hinfo = "\n".join(hinfo)
@@ -944,7 +944,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_nfasc].msg
             msg_ediff(nmsg, msg, emsg=msg,
                       pfilter=options.hfilter, hlto=sys.stdout)
-        report_msg_content(msg, cat, wrapf=WRAPF,
+        report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 
     return nselected
@@ -1008,12 +1008,12 @@ def prep_write_asc_cat (acatpath, config):
     if not os.path.isfile(acatpath):
         return init_asc_cat(acatpath, config)
     else:
-        return Catalog(acatpath, monitored=True, wrapf=WRAPF)
+        return Catalog(acatpath, monitored=True, wrapping=ASCWRAPPING)
 
 
 def init_asc_cat (acatpath, config):
 
-    acat = Catalog(acatpath, create=True, monitored=True, wrapf=WRAPF)
+    acat = Catalog(acatpath, create=True, monitored=True, wrapping=ASCWRAPPING)
     ahdr = acat.header
 
     ahdr.title = Monlist([u"Ascription shadow for %s.po" % acat.name])

@@ -31,7 +31,6 @@ import pology.misc.config as pology_config
 from pology.misc.fsops import str_to_unicode, collect_system, collect_catalogs
 from pology.file.message import MessageUnsafe
 from pology.file.catalog import Catalog
-from pology.misc.wrap import select_field_wrapper
 from pology.misc.diff import msg_ediff
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
@@ -50,8 +49,6 @@ def main ():
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poediff")
     def_do_merge = cfgsec.boolean("merge", True)
-    def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -108,14 +105,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="paired_only", default=False,
         help="when two directories are diffed, ignore catalogs which "
              "are not present in both directories")
-    opars.add_option(
-        "--no-wrap",
-        action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="no basic wrapping (on column)")
-    opars.add_option(
-        "--no-fine-wrap",
-        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
-        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -215,9 +204,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         pspecs = collect_pspecs_from_vcs(vcs, paths, revs, op.paired_only)
 
     # Create the diff.
-    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     hlto = not op.output and sys.stdout or None
-    ecat, ndiffed = diff_pairs(pspecs, op.do_merge, wrapf,
+    ecat, ndiffed = diff_pairs(pspecs, op.do_merge,
                                hlto=hlto, shdr=op.strip_headers,
                                noobs=op.skip_obsolete)
 
@@ -236,7 +224,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                 lines.extend(["# %s\n" % x for x in sepl])
                 lines.append("\n")
             else:
-                lines.extend(msg.to_lines(force=True, wrapf=wrapf))
+                lines.extend(msg.to_lines(force=True, wrapf=ecat.wrapf()))
         diffstr = "".join(lines)[:-1] # remove last newline
         if op.output:
             file = open(op.output, "w")
@@ -249,13 +237,14 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     cleanup_tmppaths()
 
 
-def diff_pairs (pspecs, merge, wrapf,
+def diff_pairs (pspecs, merge,
                 hlto=False, wrem=True, wadd=True, shdr=False, noobs=False):
 
     # Create diffs of messages.
     # Note: Headers will be collected and diffed after all messages,
     # to be able to check if any decoration to their message keys is needed.
-    ecat = Catalog("", create=True, monitored=False, wrapf=wrapf)
+    wrappings = {}
+    ecat = Catalog("", create=True, monitored=False)
     hspecs = []
     ndiffed = 0
     for fpaths, vpaths in pspecs:
@@ -274,6 +263,11 @@ def diff_pairs (pspecs, merge, wrapf,
         hspecs.append(([not x.created() and x.header or None
                         for x in cats], vpaths, tpos, cndiffed))
         ndiffed += cndiffed
+        # Collect and count wrapping policy used for to-catalog.
+        wrapping = cats[1].wrapping()
+        if wrapping not in wrappings:
+            wrappings[wrapping] = 0
+        wrappings[wrapping] += 1
 
     # Find appropriate length of context for header messages.
     hmsgctxt = get_msgctxt_for_headers(ecat)
@@ -292,6 +286,13 @@ def diff_pairs (pspecs, merge, wrapf,
     # Add diffed headers to total count only if header stripping not in effect.
     if not shdr:
         ndiffed += incpos
+
+    # Set the most used wrapping policy for the ediff catalog.
+    if wrappings:
+        wrapping = sorted(wrappings.items(), key=lambda x: x[1])[-1][0]
+        ecat.set_wrapping(wrapping)
+        if wrapping is not None:
+            ecat.header.set_field(u"X-Wrapping", u", ".join(wrapping))
 
     return ecat, ndiffed
 

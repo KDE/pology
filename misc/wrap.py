@@ -441,26 +441,36 @@ def wrap_field_fine_unwrap (field, text, preseq=""):
                      femp=True)
 
 
-def select_field_wrapper (basic=True, fine=True):
+def select_field_wrapper (wrapkw):
     """
     Select wrap function for PO message fields.
 
-    @param basic: whether to wrap on column
-    @type basic: bool
-    @param fine: whether to wrap on markup elements
-    @type fine: bool
+    Wrap function is selected by specifying a sequence of keywords,
+    from the following set:
+      - C{"basic"}: wrapping on column count
+      - C{"fine"}: wrapping on logical breaks (such as C{<p>} or C{<para>} tags)
+    Wrapping on newline characters is always engaged.
+    If C{wrapkw} is given as C{None}, C{"basic"} only is assumed.
 
-    @returns: wrap function (field, text, preseq="") -> wrapped text
-    @rtype: (string, string, string) -> string
+    @param wrapkw: wrapping keywords
+    @type wrapkw: sequence of strings or C{None}
+
+    @returns: wrapping function
+    @rtype: (string, string, string?)->[string]
+
+    @see: L{wrap_field}
     """
 
-    if basic:
-        if fine:
+    if wrapkw is None:
+        wrapkw = ["basic"]
+
+    if "basic" in wrapkw:
+        if "fine" in wrapkw:
             wrapf = wrap_field_fine
         else:
             wrapf = wrap_field
     else:
-        if fine:
+        if "fine" in wrapkw:
             wrapf = wrap_field_fine_unwrap
         else:
             wrapf = wrap_field_unwrap

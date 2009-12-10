@@ -12,13 +12,13 @@ import fallback_import_paths
 
 from pology.misc.report import report, error
 import pology.misc.config as pology_config
-from pology.misc.wrap import select_field_wrapper
 from pology.misc.fsops import collect_catalogs
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.misc.fsops import assert_system
 from pology.misc.split import proper_words
 from pology.misc.diff import editprob
+import pology.scripts.porewrap as REW
 
 import sys
 import os
@@ -37,8 +37,6 @@ def main ():
     def_minasfz = cfgsec.real("min-adjsim-fuzzy", 0.0)
     def_fuzzex = cfgsec.boolean("fuzzy-exact", False)
     def_refuzz = cfgsec.boolean("rebase-fuzzies", False)
-    def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
@@ -47,7 +45,9 @@ def main ():
 """.strip()
     description = u"""
 Merge PO file with itself, to produce fuzzy matches on similar messages.
-""".strip()
+
+Wrapping behavior and options are same as in '%s' script.
+""".strip() % ("porewrap")
     version = u"""
 %prog (Pology) experimental
 Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
@@ -58,14 +58,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-f", "--files-from", metavar="FILE",
         dest="files_from",
         help="get list of input files from FILE (one file per line)")
-    opars.add_option(
-        "--no-wrap",
-        action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="no basic wrapping (on column)")
-    opars.add_option(
-        "--no-fine-wrap",
-        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
-        help="no fine wrapping (on markup tags, etc.)")
     opars.add_option(
         "-C", "--compendium",  metavar="POFILE",
         action="append", dest="compendiums", default=[],
@@ -94,6 +86,7 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="rebase_fuzzies", default=def_refuzz,
         help="Before merging, clear those fuzzy messages whose predecessor "
              "(determined by previous fields) is still in the catalog.")
+    REW.add_wrapping_options(opars)
     opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
@@ -138,13 +131,15 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     for fname in fnames:
         if op.verbose:
             report("Self-merging %s ..." % fname)
-        self_merge_pofile(fname, op.do_wrap, op.do_fine_wrap, op.compendiums,
+        self_merge_pofile(fname, op.compendiums,
                           op.fuzzy_exact, op.min_words_exact,
-                          op.min_adjsim_fuzzy, op.rebase_fuzzies)
+                          op.min_adjsim_fuzzy, op.rebase_fuzzies,
+                          cfgsec, op)
 
 
-def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
-                       fuzzex=False, minwnex=0, minasfz=0.0, refuzzy=False):
+def self_merge_pofile (catpath, compendiums=[],
+                       fuzzex=False, minwnex=0, minasfz=0.0, refuzzy=False,
+                       cfgsec=None, cmlopt=None):
 
     # Create temporary files for merging.
     ext = ".tmp-selfmerge"
@@ -156,9 +151,14 @@ def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
     shutil.copyfile(catpath, catpath_mod)
     shutil.copyfile(catpath, potpath)
 
+    # Open catalog for pre-processing.
+    cat = Catalog(potpath, monitored=False)
+
+    # Decide wrapping policy.
+    wrapping = REW.select_field_wrapping(cfgsec, cat, cmlopt)
+
     # From the dummy template, clean all active messages and
     # remove all obsolete messages.
-    cat = Catalog(potpath, monitored=False)
     for msg in cat:
         if msg.obsolete:
             cat.remove_on_sync(msg)
@@ -167,7 +167,7 @@ def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
     cat.sync()
 
     # Merge with dummy template.
-    merge_pofile(catpath_mod, potpath, wrap=wrap, finewrap=finewrap,
+    merge_pofile(catpath_mod, potpath, wrapping=wrapping,
                  cmppaths=compendiums, fuzzex=fuzzex,
                  minwnex=minwnex, minasfz=minasfz, refuzzy=refuzzy)
 
@@ -177,10 +177,13 @@ def self_merge_pofile (catpath, wrap=True, finewrap=False, compendiums=[],
 
 
 # FIXME: Move elsewhere, used externally.
-def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
+def merge_pofile (catpath, tplpath, outpath=None, wrapping=None,
                   cmppaths=[], fuzzex=False, minwnex=0, minasfz=0.0,
                   fuzzymatch=True, refuzzy=False, quiet=True,
                   getcat=False, monitored=True):
+
+    wrap = not wrapping or "basic" in wrapping
+    otherwrap = wrapping and set(wrapping).difference(["basic"])
 
     # Determine which special operations are to be done.
     correct_exact_matches = cmppaths and (fuzzex or minwnex > 0)
@@ -232,7 +235,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
         opts.append("--previous")
     else:
         opts.append("--no-fuzzy-matching")
-    if not wrap:
+    if wrap:
         opts.append("--no-wrap")
     for cmppath in cmppaths:
         if not os.path.isfile(cmppath):
@@ -251,13 +254,12 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
         shutil.copyfile(catpath, outpath)
 
     # Post-process merged catalog if necessary.
-    if getcat or finewrap or correct_exact_matches or correct_fuzzy_matches:
+    if getcat or otherwrap or correct_exact_matches or correct_fuzzy_matches:
         # If fine wrapping requested and catalog should not be returned,
         # everything has to be reformatted, so no need to monitor the catalog.
         catpath1 = outpath or catpath
-        monitored1 = monitored if getcat else (not finewrap)
-        wrapf = select_field_wrapper(wrap, finewrap)
-        cat = Catalog(catpath1, monitored=monitored1, wrapf=wrapf)
+        monitored1 = monitored if getcat else (not otherwrap)
+        cat = Catalog(catpath1, monitored=monitored1, wrapping=wrapping)
 
         # In case compendium is being used,
         # make fuzzy exact matches which do not pass the word limit.
@@ -276,7 +278,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrap=True, finewrap=False,
                         msg.clear()
 
         if not getcat:
-            cat.sync(force=finewrap)
+            cat.sync(force=otherwrap)
         else:
             return cat
 

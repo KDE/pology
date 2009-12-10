@@ -22,7 +22,6 @@ from pology.misc.report import report, error, warning
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.misc.fsops import str_to_unicode
 import pology.misc.config as pology_config
-from pology.misc.wrap import select_field_wrapper
 from pology.misc.entities import read_entities
 from pology.misc.resolve import resolve_entities_simple
 from pology.hook.remove_subs import remove_accel_msg
@@ -34,8 +33,6 @@ def main ():
 
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("pomtrans")
-    def_do_wrap = cfgsec.boolean("wrap", True)
-    def_do_fine_wrap = cfgsec.boolean("fine-wrap", True)
     def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     showservs = list()
@@ -93,14 +90,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="Custom path to translation service executable "
              "(where applicable).")
     opars.add_option(
-        "--no-wrap",
-        action="store_false", dest="do_wrap", default=def_do_wrap,
-        help="No basic wrapping (on column).")
-    opars.add_option(
-        "--no-fine-wrap",
-        action="store_false", dest="do_fine_wrap", default=def_do_fine_wrap,
-        help="No fine wrapping (on markup tags, etc).")
-    opars.add_option(
         "--no-psyco",
         action="store_false", dest="use_psyco", default=def_use_psyco,
         help="Do not try to use Psyco specializing compiler.")
@@ -125,18 +114,17 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if transervkey not in _known_transervs:
         error("Translation service '%s' not known." % transervkey)
 
-    wrapf = select_field_wrapper(basic=op.do_wrap, fine=op.do_fine_wrap)
     tsbuilder_wopts = _known_transervs[transervkey]
     tsbuilder = lambda slang, tlang: tsbuilder_wopts(slang, tlang, op)
 
     paths = free_args
     if not op.parcomp and not op.parcats:
-        translate_direct(paths, wrapf, tsbuilder, op)
+        translate_direct(paths, tsbuilder, op)
     else:
-        translate_parallel(paths, wrapf, tsbuilder, op)
+        translate_parallel(paths, tsbuilder, op)
 
 
-def translate_direct (paths, wrapf, tsbuilder, options):
+def translate_direct (paths, tsbuilder, options):
 
     transervs = {}
 
@@ -144,7 +132,7 @@ def translate_direct (paths, wrapf, tsbuilder, options):
     for catpath in catpaths:
 
         # Collect messages and texts to translate.
-        cat = Catalog(catpath, wrapf=wrapf)
+        cat = Catalog(catpath)
         if options.accel is not None: # force explicitly given accelerator
             cat.set_accelerator(options.accel)
         texts = []
@@ -184,7 +172,7 @@ def translate_direct (paths, wrapf, tsbuilder, options):
         sync_rep(cat, msgs)
 
 
-def translate_parallel (paths, wrapf, tsbuilder, options):
+def translate_parallel (paths, tsbuilder, options):
 
     pathrepl = options.parcats
     comppath = options.parcomp
@@ -222,7 +210,7 @@ def translate_parallel (paths, wrapf, tsbuilder, options):
             continue
 
         # Collect messages and texts to translate.
-        cat = Catalog(catpath, wrapf=wrapf)
+        cat = Catalog(catpath)
         pmsgs, psmsgs, ptexts = [], [], []
         cmsgs, csmsgs, ctexts = [], [], []
         for msg in cat:
