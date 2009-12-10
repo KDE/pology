@@ -366,7 +366,7 @@ _reflex_map = {
     u"ГНИЈЕ": u"ГЊЕ",
 }
 _reflex_map.update(map(lambda x: map(ctol, x), _reflex_map.items()))
-_max_reflex_btrk = 1 # at most one previous character for special cases
+_max_reflex_btrk = 2 # at most two previous characters for special cases
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 
 _reflex_mark = u"›"
