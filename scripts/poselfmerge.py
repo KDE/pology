@@ -235,7 +235,7 @@ def merge_pofile (catpath, tplpath, outpath=None, wrapping=None,
         opts.append("--previous")
     else:
         opts.append("--no-fuzzy-matching")
-    if wrap:
+    if not wrap:
         opts.append("--no-wrap")
     for cmppath in cmppaths:
         if not os.path.isfile(cmppath):
