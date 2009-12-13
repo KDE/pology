@@ -487,8 +487,8 @@ class Catalog (Monitored):
         @param wrapping:
             sequence of keywords specifying wrapping policy for
             message text fields (C{msgid}, C{msgstr}, etc.).
-            See L{to_lines()<file.message.Message_base.to_lines>} method
-            of message classes for details.
+            See L{select_field_wrapper<misc.wrap.select_field_wrapper>}
+            function for possible keywords and their effects on wrapping.
             If given as C{None}, it will be deduced from the catalog
             (see L{wrapping} method).
         @type wrapping: sequence of strings
