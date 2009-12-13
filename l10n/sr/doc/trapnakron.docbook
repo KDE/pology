@@ -407,7 +407,7 @@ Eye of Gnome: Ок|о |Gnome~г, _род!=с
 
             <para>Код имена људи треба означити име, презиме и средње име, и у извору и у транскрипцијама, и скраћено навести народност:
 <programlisting><![CDATA[
-~i Arthur ~s C. ~p Clarke, |пис-кларк: ~и Артур| ~п Кларк|, _нр=брит
+~i Arthur ~s C. ~p Clarke: ~и Артур| ~п Кларк|, _нр=брит
 ]]></programlisting>
             <literal>~i</literal> и <literal>~и</literal> су равноправне ознаке за име, <literal>~p</literal> и <literal>~п</literal> за презиме, а <literal>~s</literal> и <literal>~с</literal> за средње име. Својство <literal>_нр</literal> наводи народност; ако се разликује народност на рођењу и каснија, проценити која је битнија.</para>
 
