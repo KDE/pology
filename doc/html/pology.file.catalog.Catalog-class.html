@@ -137,7 +137,7 @@
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">create</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">truncate</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">wrapping</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">headonly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">readfh</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -754,12 +754,12 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">(string)-&gt;[string...]</span>
+      <span class="summary-type">(string...) or <code>None</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#wrapper" class="summary-sig-name">wrapper</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Report wrapper function for message fields.</td>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#wrapping" class="summary-sig-name">wrapping</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Report wrapping policy for message fields.</td>
           <td align="right" valign="top">
             
             
@@ -775,9 +775,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_wrapper" class="summary-sig-name">set_wrapper</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>)</span><br />
-      Set wrapping function for message fields.</td>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#set_wrapping" class="summary-sig-name">set_wrapping</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wrapkw</span>)</span><br />
+      Set wrapping policy for message fields.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, string, string?)-&gt;[string]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#wrapf" class="summary-sig-name">wrapf</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get wrapping function used for message fields.</td>
           <td align="right" valign="top">
             
             
@@ -901,7 +918,7 @@
         <span class="sig-arg">filename</span>,
         <span class="sig-arg">create</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">truncate</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">wrapping</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">headonly</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">readfh</span>=<span class="sig-default">None</span>)</span>
@@ -942,13 +959,14 @@
           already exist, or signal an error</li>
         <li><strong class="pname"><code>truncate</code></strong> (bool) - whether catalog should be empty (and with uninitialized header) 
           regardless of whether it is opened or created</li>
-        <li><strong class="pname"><code>wrapf</code></strong> (string, string, string -&gt; list of strings) - the function used for wrapping message fields in output. See 
-          <code>to_lines()</code> method of <a 
-          href="pology.file.message.Message_base-class.html" 
-          class="link">Message_base</a> for details. If given as 
-          <code>None</code>, it will be deduced from the catalog (see <a 
-          href="pology.file.catalog.Catalog-class.html#wrapper" 
-          class="link">wrapper</a> method).</li>
+        <li><strong class="pname"><code>wrapping</code></strong> (sequence of strings) - sequence of keywords specifying wrapping policy for message text 
+          fields (<code>msgid</code>, <code>msgstr</code>, etc.). See <a 
+          href="pology.file.message.Message_base-class.html#to_lines" 
+          class="link">to_lines()</a> method of message classes for 
+          details. If given as <code>None</code>, it will be deduced from 
+          the catalog (see <a 
+          href="pology.file.catalog.Catalog-class.html#wrapping" 
+          class="link">wrapping</a> method).</li>
         <li><strong class="pname"><code>monitored</code></strong> (bool) - whether the message entries are monitored</li>
         <li><strong class="pname"><code>headonly</code></strong> (bool) - whether to open in header-only mode</li>
         <li><strong class="pname"><code>readfh</code></strong> (file-like object) - file to read the catalog from</li>
@@ -2068,87 +2086,115 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="wrapper"></a>
+<a name="wrapping"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrapper</span>(<span class="sig-arg">self</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrapping</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Report wrapper function for message fields.</p>
+  <p>Report wrapping policy for message fields.</p>
   <p>Long text fields in messages (<code>msgid</code>, <code>msgstr</code>,
   etc.) may be wrapped in different ways, as wrapping does not influence 
   their semantics. (This is unlike translator and extracted comments, which
   are never wrapped, because division into lines may be significant.) PO 
   processing tools will typically offer wrapping options, but it may be 
-  more convenient to have wrapping policy bound to the catalog, and that 
-  tools respect it. This method will look for wrapping policy in catalog 
-  header.</p>
+  more convenient to have wrapping policy bound to the catalog, which tools
+  respect unless overridden.</p>
   <p>The following header fields are checked for wrapping policy, in given 
   order: <code>Wrapping</code>, <code>X-Wrapping</code>. Wrapping policy 
   (i.e. value of these header fields) is an unordered comma-separated list 
-  of wrapping keywords, which may be drawn from the following set:</p>
-  <ul>
-    <li>
-      <code>basic</code>: wrapping on column count
-    </li>
-    <li>
-      <code>fine</code>: wrapping on logical breaks (such as 
-      <code>&lt;p&gt;</code> or <code>&lt;para&gt;</code> XML tags)
-    </li>
-  </ul>
-  <p>Wrapping on newline characters is always engaged. If no wrapping 
-  policy field is found in the header, wrapping is taken to be 
-  <code>basic</code> only. If several such fields are present, it is 
-  undefined which one is used to determine wrapping policy.</p>
+  of wrapping keywords. See <a 
+  href="pology.misc.wrap-module.html#select_field_wrapper" 
+  class="link">select_field_wrapper</a> for possible keywords. If no 
+  wrapping policy field is found in the header, <code>None</code> is 
+  returned. If several wrapping policy fields are present, it is undefined 
+  which one is taken into account.</p>
   <p>It is not defined when the header will be examined, or if it will be 
   reexamined when it changes (most probably not). If you want to set 
   wrapping after the catalog has been opened, use <a 
-  href="pology.file.catalog.Catalog-class.html#set_wrapper" 
-  class="link">set_wrapper</a> method.</p>
+  href="pology.file.catalog.Catalog-class.html#set_wrapping" 
+  class="link">set_wrapping</a> method.</p>
   <dl class="fields">
-    <dt>Returns: (string)-&gt;[string...]</dt>
-        <dd>wrapping function</dd>
+    <dt>Returns: (string...) or <code>None</code></dt>
+        <dd>wrapping keywords</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="set_wrapper"></a>
+<a name="set_wrapping"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_wrapper</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_wrapping</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wrapkw</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Set wrapping function for message fields.</p>
-  <p>Wrapping function set by this method will later be readable by the <a 
-  href="pology.file.catalog.Catalog-class.html#wrapper" 
-  class="link">wrapper</a> method. This will not modify the catalog header 
+  <p>Set wrapping policy for message fields.</p>
+  <p>Wrapping policy set by this method will later be readable by the <a 
+  href="pology.file.catalog.Catalog-class.html#wrapping" 
+  class="link">wrapping</a> method. This will not modify the catalog header
   in any way; if that is desired, it must be done manually by manipulating 
   the header fields.</p>
-  <p>Wrapping function takes a string as argument, and returns list of 
-  strings of wrapped lines; they must end in newlines.</p>
+  <p>Wrapping policy is a sequence of keywords. See <a 
+  href="pology.misc.wrap-module.html#select_field_wrapper" 
+  class="link">select_field_wrapper</a> for possible keywords. If 
+  <code>None</code> is given instead, it is passed directly to <a 
+  href="pology.misc.wrap-module.html#select_field_wrapper" 
+  class="link">select_field_wrapper</a>, which will construct default 
+  wrapper.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>wrapf</code></strong> ((string)-&gt;[string...]) - wrapping function</li>
+        <li><strong class="pname"><code>wrapkw</code></strong> ([string...] or <code>None</code>) - wrapping policy</li>
     </ul></dd>
   </dl>
 </td></tr></table>
+</div>
+<a name="wrapf"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">wrapf</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get wrapping function used for message fields.</p>
+  <p>Wrapping function is determined based on wrapping policy (see <a 
+  href="pology.file.catalog.Catalog-class.html#wrapping" 
+  class="link">wrapping</a>, <a 
+  href="pology.file.catalog.Catalog-class.html#set_wrapping" 
+  class="link">set_wrapping</a>). Wrapping function returned by this method
+  is suitable as <code>wrapf</code> parameter in methods of 
+  <code>Message</code> objects.</p>
+  <dl class="fields">
+    <dt>Returns: (string, string, string?)-&gt;[string]</dt>
+        <dd>wrapping function</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.wrap-module.html#wrap_field" 
+        class="link">wrap_field</a>
+      </p>
+</div></td></tr></table>
 </div>
 <a name="messages_by_source"></a>
 <div>
