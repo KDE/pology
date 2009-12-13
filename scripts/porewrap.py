@@ -26,12 +26,12 @@ Catalogs can state wrapping policy through C{Wrapping} or C{X-Wrapping}
 header fields. The value is a comma-separated list of wrapping type
 keywords, which currently can be: C{basic} (wrapping on column),
 C{fine} (wrapping on logical breaks).
-For example, not to wrap on column but to wrap on logical breaks:
+For example, not to wrap on column but to wrap on logical breaks::
 
     msgid ""
     msgstr ""
     "..."
-    "X-Wrapping: fine\n"
+    "X-Wrapping: fine\\n"
     "..."
 
 To specify wrapping within the catalog is advantageous when more people
