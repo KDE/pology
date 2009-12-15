@@ -324,54 +324,26 @@ def _unpadc (text):
 _reflex_map = {
     # - basic
     u"ије": u"е",
-    u"Ије": u"Е",
-    u"ИЈЕ": u"Е",
     u"иј": u"е",
-    u"Иј": u"Е",
-    u"ИЈ": u"Е",
     u"је": u"е",
-    u"Је": u"Е",
-    u"ЈЕ": u"Е",
     u"ље": u"ле",
-    u"Ље": u"Ле",
-    u"ЉЕ": u"ЛЕ",
     u"ње": u"не",
-    u"Ње": u"Не",
-    u"ЊЕ": u"НЕ",
     u"ио": u"ео",
-    u"Ио": u"Ео",
-    u"ИО": u"ЕО",
     u"иљ": u"ел",
-    u"Иљ": u"Ел",
-    u"ИЉ": u"ЕЛ",
 
     # - special cases
     u"лије": u"ли",
-    u"Лије": u"Ли",
-    u"ЛИЈЕ": u"ЛИ",
     u"лијен": u"лењ",
-    u"Лијен": u"Лењ",
-    u"ЛИЈЕН": u"ЛЕЊ",
     u"мија": u"меја",
-    u"Мија": u"Меја",
-    u"МИЈА": u"МЕЈА",
     u"мије": u"мејe",
-    u"Мије": u"Мејe",
-    u"МИЈЕ": u"МЕЈE",
     u"није": u"ни",
-    u"Није": u"Ни",
-    u"НИЈЕ": u"НИ",
     u"гније": u"гње",
-    u"Гније": u"Гње",
-    u"ГНИЈЕ": u"ГЊЕ",
     u"бијел": u"бео",
-    u"Бијел": u"Бео",
-    u"БИЈЕЛ": u"БЕО",
     u"цијел": u"цео",
-    u"Цијел": u"Цео",
-    u"ЦИЈЕЛ": u"ЦЕО",
 }
-_reflex_map.update(map(lambda x: map(ctol, x), _reflex_map.items()))
+_reflex_map.update([map(ctol, x) for x in _reflex_map.items()]) # must be first
+_reflex_map.update([map(unicode.capitalize, x) for x in _reflex_map.items()])
+_reflex_map.update([map(unicode.upper, x) for x in _reflex_map.items()])
 _max_reflex_btrk = 1 # at most one previous character for special cases
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 
