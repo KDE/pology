@@ -344,7 +344,7 @@ _reflex_map = {
 _reflex_map.update([map(ctol, x) for x in _reflex_map.items()]) # must be first
 # Derive cases with first letter in uppercase.
 _reflex_map.update([map(unicode.capitalize, x) for x in _reflex_map.items()])
-_# Derive cases with all letters in uppercase.
+# Derive cases with all letters in uppercase.
 _reflex_map.update([map(unicode.upper, x) for x in _reflex_map.items()])
 
 _max_reflex_btrk = 1 # at most one previous character for special cases
