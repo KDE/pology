@@ -1678,13 +1678,15 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         preserved_fs = []
         for fnam in keep_fields:
             selected_fs = branch_cat.header.select_fields(fnam)
-            if selected_fs:
-                preserved_fs.append(selected_fs[0])
+            preserved_fs.append(selected_fs[0] if selected_fs else (fnam, None))
         # Overwrite branch with summit header fields.
         hdr.field = shdr.field
         # Put back the preserved branch fields.
         for fnam, fval in preserved_fs:
-            hdr.set_field(fnam, fval)
+            if fval is not None:
+                hdr.set_field(fnam, fval)
+            else:
+                hdr.remove_field(fnam)
 
     # Apply hooks to the branch catalog.
     exec_hook_cat(branch_id, branch_name, branch_subdir, branch_cat,
