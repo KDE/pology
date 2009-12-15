@@ -320,9 +320,9 @@ def _unpadc (text):
     return text
 
 
-# Jat-reflex map Cyrillic->Cyrillic and Latin->Latin.
+# Jat-reflex map (Latin script and letter cases derived afterwards).
 _reflex_map = {
-    # - basic
+    # - basic cases
     u"ије": u"е",
     u"иј": u"е",
     u"је": u"е",
@@ -330,7 +330,6 @@ _reflex_map = {
     u"ње": u"не",
     u"ио": u"ео",
     u"иљ": u"ел",
-
     # - special cases
     u"лије": u"ли",
     u"лијен": u"лењ",
@@ -341,9 +340,13 @@ _reflex_map = {
     u"бијел": u"бео",
     u"цијел": u"цео",
 }
+# Derive Latin cases.
 _reflex_map.update([map(ctol, x) for x in _reflex_map.items()]) # must be first
+# Derive cases with first letter in uppercase.
 _reflex_map.update([map(unicode.capitalize, x) for x in _reflex_map.items()])
+_# Derive cases with all letters in uppercase.
 _reflex_map.update([map(unicode.upper, x) for x in _reflex_map.items()])
+
 _max_reflex_btrk = 1 # at most one previous character for special cases
 _max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
 
