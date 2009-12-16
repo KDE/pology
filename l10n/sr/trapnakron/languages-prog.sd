@@ -13,7 +13,7 @@
 ABC: АБЦ|-, АБЦ|-ов, АБЦ|>
 ABAP: АБАП|-, АБАП|-ов, АБАП|>
 ActionScript: акцискрипт|, акцискрипт|ов, акцискрипт|ни
-    @л: ActionScript|, ActionScript|ov, actionscript|>
+    @л: ActionScript|, ActionScript|ov, ActionScript|>
 Ada: ад|а, ад|ин, ада|>
     @л: Ad|a, Ad|in
 AHDL: АХДЛ|-, АХДЛ|-ов, АХДЛ|>
@@ -21,7 +21,7 @@ Alerts: позор|и-, позор|ни
 Alerts_indent, |alertsindent: позор|и- (увлачење)
 ANSI C89: АНСИ Ц89|*, АНСИ Ц89|>, _род!=м
 Ansys: ансис|, ансис|ов, ансис|>
-    @л: Ansys|, Ansys|ov, ansys|>
+    @л: Ansys|, Ansys|ov, Ansys|>
 Asm6502: асм6502|*, асм6502|>, _род!=м
     @л: Asm6502|*, Asm6502|>
 ASN.1, ASN1: АСН.1|*, АСН.1|>, _род!=м
@@ -34,7 +34,7 @@ AWK: авк|, авк|ов, авк|>
 Bash, |bashlang: басх|, басх|ов, басх|>
     @л: Bash|, Bash|ov
 Basic: бејзик|, бејзик|ов, бејзик|>
-    @л: Basic|, Basic|ov, basic|>
+    @л: Basic|, Basic|ov, Basic|>
 B-Method: б-метод|, б-метод|ов, б-метод|ски
     @л: B-Method|, B-Method|ov, B-Method|ski
 Boo: бу|, бу|ов, бу|>
@@ -49,21 +49,21 @@ ColdFusion: колдфјужн|, колдфјужн|ов, колдфјужн|>
     @л: ColdFusion|, ColdFusion|ov, coldfusion|>
 Common Lisp: комон-лисп|, комон-лисп|ов, комон-лисп|>
     @л: Common Lisp|, Common Lisp|ov, common lisp|>
-Component-Pascal: комонент-паскал|, компнент-паскал|ов, компонент-паскал|>
-    @л: Component-Pascal|, Component-Pascal|ov, component-pascal|>
+Component-Pascal: комонент-паскал|, компнент-паскал|ов, компонент-паскал|ски
+    @л: Component-Pascal|, Component-Pascal|ov, Component-Pascal|>
 C\#, |csharp: Ц\#|-, Ц\#|-ов, Ц\#|>
 D, |dlang: Д|-, Д|-ов, Д|>
 E: Е|-, Е|-ов, Е|>
 Eiffel: ајфел|, ајфел|ов, ајфел|ски
     @л: Eiffel|, Eiffel|ov, eiffel|ski
 Erlang: ерланг|, ерланг|ов, ерланг|>
-    @л: Erlang|, Erlang|ov
+    @л: Erlang|, Erlang|ov, Erlang|>
 Euphoria: еуфориј|а, еуфориј|ин, еуфориј|ски
     @л: Euphor|ia, Euphorij|in, euphorij|ski
 Ferite: ферит|, ферит|ов, ферит|ски
     @л: Ferite|, Ferite|ov
 FictionBook: фикшнбук|, фикшнбук|ов, фикшнбук|>
-    @л: FictionBook|, FictionBook|ov, fictionbook|>
+    @л: FictionBook|, FictionBook|ov, FictionBook|>
 Fortran: фортран|, фортран|ов, фортран|ски
     @л: Fortran|, Fortran|ov
 FreeBASIC: фрибејзик|, фрибејзик|ов, фрибејзик|>
@@ -84,12 +84,12 @@ Inform: информ|, информ|ов, информ|ски
 Java: јав|а, јав|ин, јаван|ски
     @л: Jav|a, Jav|in
 JavaScript: јаваскрипт|, јаваскрипт|ов, јаваскрипт|ни
-    @л: JavaScript|, JavaScript|ov, javascript|>
+    @л: JavaScript|, JavaScript|ov, JavaScript|>
 JavaScript/PHP: |{JavaScript~н}-|PHP
     @л: |{JavaScript~н}/|PHP
 JSP: ЈСП|-, ЈСП|-ов, ЈСП|>
 KBasic: к-бејзик|, к-бејзик|ов, к-бејзик|>
-    @л: KBasic|, KBasic|ov, kbasic|>
+    @л: KBasic|, KBasic|ov, KBasic|>
 KDev-PG Grammar: грамати|ка |KDev-PG~г
 Lisp: лисп|, лисп|ов, лисп|овски
     @л: Lisp|, Lisp|ov
@@ -98,7 +98,7 @@ Literate Haskell: писмен|и> хаскел|
 Logo: лого|, лого|ов, лого|>
     @л: Logo|, Logo|ov
 Logtalk: логток|, логток|ов, логток|>
-    @л: Logtalk|, Logtalk|ov, logtalk|>
+    @л: Logtalk|, Logtalk|ov, Logtalk|>
 LPC: ЛПЦ|-, ЛПЦ|-ов, ЛПЦ|>
 LSL: ЛСЛ|-, ЛСЛ|-ов, ЛСЛ|>
 Lua: лу|а, лу|ин, луа|>
@@ -106,46 +106,46 @@ Lua: лу|а, лу|ин, луа|>
 Mason: мејсон|, мејсон|ов, мејсон|ски
     @л: Mason|, Mason|ov, mason|>
 Matlab, |matlablang: матлабск|и>, матлаб|ски
-    @л: matlab|ski
+    @л: matlabsk|i>, matlab|ski
 Maxima, |maximalang: максимск|и>, максим|ски # „максима“ би било исто као програм
     @л: maximsk|i>, maxim|ski
 MIPS Assembler: МИПС асемблер|, МИПС асемблер|ов, МИПС асемблер|ски
     @л: MIPS аsembler|, MIPS аsembler|ov, MIPS аsembler|ski
 Modelica: моделик|а, моделик|ин, моделика|>
-    @л: Modelic|a, Modelic|in, modelica|>
+    @л: Modelic|a, Modelic|in, Modelica|>
 Modula: модул|а, модул|ин, модула|>
-    @л: Modul|a, Modul|in
+    @л: Modul|a, Modul|in, Modula|>
 Modula-2: модул|{а}-2, модул|{ин}-2, модула-2|>
-    @л: Modul|{a}-2, Modul|{in}-2
+    @л: Modul|{a}-2, Modul|{in}-2, Modula-2|>
 MonoBasic: монобејзик|, монобејзик|ов, монобејзик|>
     @л: MonoBasic|, MonoBasic|ov, MonoBasic|>
 Intel x86 (NASM), |intelx86nasm: интел| икс86 (НАСМ)
     @л: Intel| x86 (NASM)
 Nemerle: немерле|, немерле|ов, немерле|>
-    @л: Nemerle|, Nemerle|ov
+    @л: Nemerle|, Nemerle|ov, Nemerle|>
 noweb: новеб|, новеб|ов, новеб|>
     @л: noweb|, noweb|ov, noweb|>
 Objective-C, |objectivec_: објектив-Ц|-, објектив-Ц|-ов, објектив-Ц|>
-    @л: Objective-C|-, Objective-C|-ov, objective-c|>
+    @л: Objective-C|-, Objective-C|-ov, Objective-c|>
 Objective-C++, |objectivecpp: објектив-Ц++|-, објектив-Ц++|-ов, објектив-Ц++|>
     @л: Objective-C++|-, Objective-C++|-ov, Objective-C++|>
 Objective-Caml: објектив-камл|, објектив-камл|ов, објектив-камл|>
-    @л: Objective-Caml|, Objective-Caml|ov, objective-caml|>
+    @л: Objective-Caml|, Objective-Caml|ov, Objective-caml|>
 Octave, |octavelang: октавск|и>, октав|ски
     @л: octavsk|i>, octav|ski
 OPAL: ОПАЛ|-, ОПАЛ|-ов, ОПАЛ|>
 Pascal: паскал|, паскал|ов, паскал|ски
     @л: Pascal|, Pascal|ov, pascal|ski
 Perl: перл|, перл|ов, перл|овски
-    @л: Perl|, Perl|ov, perl|>
+    @л: Perl|, Perl|ov, Perl|>
 PHP: ПХП|-, ПХП|-ов, ПХП|>
 PHP (HTML), |phphtml: |{PHP} (|{HTML~н})
 PicAsm: пикасм|, пикасм|ов, пикасм|>
-    @л: PicAsm|, PicAsm|ov, picasm|>
+    @л: PicAsm|, PicAsm|ov, PicAsm|>
 Pike: пајк|, пајк|ов, пајк|>
-    @л: Pike|, Pike|ov, pike|>
+    @л: Pike|, Pike|ov, Pike|>
 PostScript: постскрипт|, постскрипт|ов, постскрипт|>
-    @л: PostScript|, PostScript|ov, postscript|>
+    @л: PostScript|, PostScript|ov, PostScript|>
 POV-Ray: повреј|, повреј|ев, повреј|>
     @л: POV-Ray|, POV-Ray|ev, POV-ray|>
 progress: прогрес|, прогрес|ов, прогрес|>
@@ -155,7 +155,7 @@ Prolog: пролог|, пролог|ов, проло|шки
 PureBasic: пјурбејзик|, пјурбејзик|ов, пјурбејзик|>
     @л: PureBasic|, PureBasic|ov, PureBasic|>
 Python: питон|, питон|ов, питон|ски
-    @л: Python|, Python|ov, python|>
+    @л: Python|, Python|ov, Python|>
 QtScript: КуТ-скрипт|, КуТ-скрипт|ов, КуТ-скрипт|ни
     @л: QtScript|, QtScript|ov, QtScript|ni
 Quake Script: квејкскрипт|, квејкскрипт|ов, квејкскрипт|>
@@ -178,14 +178,14 @@ Scala: скал|а, скал|ин, скал|ски
 Scheme: шем|а, шем|ин, шем|ски
     @л: Schem|e-a, Schem|in, Scheme|>
 Scilab, |scilablang: сцилабск|и>, сцилаб|ски
-    @л: scilab|ski
+    @л: scilabsk|i>, scilab|ski
 Sieve: сит|о, сито|>, _род!=с
 SiSU: СиСУ|-, СиСУ|-ов, СиСУ|>
 Smalltalk: смолток|, смолток|ов, смолток|>
     @л: Smalltalk|, Smalltalk|ov, Smalltalk|>
 SML: СМЛ|-, СМЛ|-ов, СМЛ|>
 Spice: спајс|, спајс|ов, спајс|>
-    @л: Spice|, Spice|ov, spice|>
+    @л: Spice|, Spice|ov, Spice|>
 SQL: СКуЛ|-, СКуЛ|-ов, СКуЛ|>
     @л: SQL|-, SQL|-ov, SQL|>
 SQL (MySQL), |sqlmysql: |*|SQL (|{MySQL~н})
@@ -193,7 +193,7 @@ SQL (MySQL), |sqlmysql: |*|SQL (|{MySQL~н})
 SQL (PostgreSQL), |sqlpostgresql: |*|SQL (|{PostgreSQL~н})
     @л: SQL|- (PostgreSQ)
 Stata: стат|а, стат|ин, стат|ски
-    @л: Stat|a, Stat|in
+    @л: Stat|a, Stat|in, Stata|>
 SystemC: систем-|C
     @л: System|C
 Tcl: тцл|-, тцл|-ов, тцл|>
@@ -205,15 +205,15 @@ TI Basic: ТИ-бејзик|, ТИ-бејзик|ов, ТИ-бејзик|>
 txt2tags: текст2тагс|, текст2тагс|ов, текст2тагс|>
     @л: txt2tags|, txt2tags|ov, txt2tags|>
 UnrealScript: анрилскрипт|, анрилскрипт|ов, анрилскрипт|>
-    @л: UnrealScript|, UnrealScript|ov, unrealscript|>
+    @л: UnrealScript|, UnrealScript|ov, UnrealScript|>
 Velocity: велосит|и, велосит|ијев, велосити|>
-    @л: Velocit|y, Velocit|yjev, velocity|>
+    @л: Velocit|y, Velocit|yjev, Velocity|>
 Verilog: верилог|, верилог|ов, верилог|>
-    @л: Verilog|, Verilog|ov
+    @л: Verilog|, Verilog|ov, Verilog|>
 VHDL: ВХДЛ|-, ВХДЛ|-ов, ВХДЛ|>
 VRML: ВРМЛ|-, ВРМЛ|-ов, ВРМЛ|>
 xHarbour: икс-харбор|, икс-харбор|ов, икс-харбор|>
-    @л: xHarbour|, xHarbour|ov, xharbour|>
+    @л: xHarbour|, xHarbour|ov, xHarbour|>
 yacas: јакас|, јакас|ов, јакас|>
     @л: yacas|, yacas|ov, yacas|>
 Zonnon: зонон|, зонон|ов, зонон|ски
@@ -223,14 +223,14 @@ Zonnon: зонон|, зонон|ов, зонон|ски
 # Наменски језици
 
 BibTeX: бибтех|, бибтех|ов, бибтех|>
-    @л: BibTeX|-, BibTeX|-ov, bibtex|>
+    @л: BibTeX|-, BibTeX|-ov, BibTex|>
 Bison: бизон|, бизон|ов, бизон|ски
     @л: Bison|, Bison|ov, bison|ski
 ChangeLog: дневник| измена
 Cisco: сиск|о, сиск|ов, сиско|>, _род!=м
-    @л: Cisc|o, Cisc|ov, cisco|>
+    @л: Cisc|o, Cisc|ov, Cisco|>
 CMake: цмејк|, цмејк|ов, цмејк|>
-    @л: CMake|, CMake|ov, cmake|>
+    @л: CMake|, CMake|ov, CMake|>
 CSS: ЦСС|-, ЦСС|-ов, ЦСС|>
 CSS/PHP: |{CSS~н}-|PHP
     @л: CSS/|PHP
@@ -243,36 +243,36 @@ Diff: диф|, диф|ов, диф|>
 Django HTML Template: Ђанг|ов> ХТМЛ шаблон|
     @л: Djang|ov> HTML šablon|
 DocBook: докбук|, докбук|ов, докбук|>
-    @л: DocBook|, DocBook|ov, docbook|>
+    @л: DocBook|, DocBook|ov, DocBook|>
 Doxygen: доксиген|, доксиген|ов, доксиген|>
-    @л: Doxygen|, Doxygen|ov, doxygen|>
+    @л: Doxygen|, Doxygen|ov, Doxygen|>
 DoxygenLua: |{Doxygen}-|{Lua}
 DTD: ДТД|-, ДТД|-ов, ДТД|>
 Email: е-пошт|а, е-поштан|ски
 Flex: флекс|, флекс|ов, флекс|>
-    @л: Flex|, Flex|ov, flex|>
+    @л: Flex|, Flex|ov, Flex|>
 GNU Gettext: Гну|ов> геттекст|
     @л: GNU Gettext|
 HTML: ХТМЛ|-, ХТМЛ|-ов, ХТМЛ|>
 Javadoc: јавадок|, јавадок|ов, јавадок|>
-    @л: Javadoc|, Javadoc|ov, javadoc|>
+    @л: Javadoc|, Javadoc|ov, Javadoc|>
 JSON: џејсон|, џејсон|ов, џејсон|ски
     @л: JSON|-, JSON|-ov, JSON|>
 Kate File Template: |{Kate~.мп} шаблон| фајла
 LilyPond: лилипонд|, лилипонд|ов, лилипонд|ски
-    @л: LilyPond|, LilyPond|ov, lilypond|ski
+    @л: LilyPond|, LilyPond|ov, LilyPond|ski
 LaTeX: латех|, латех|ов, латех|>
-    @л: LaTeX|, LaTeX|ov, latex|>
+    @л: LaTeX|, LaTeX|ov, LaTeX|>
 Lex: лекс|, лекс|ов, лекс|>
-    @л: Lex|, Lex|ov, lex|>
+    @л: Lex|, Lex|ov, Lex|>
 Lex/Flex: лекс/флекс|, лекс/флекс|ов, лекс/флекс|>
-    @л: Lex/Flex|, Lex/Flex|ov, lex/flex|>
+    @л: Lex/Flex|, Lex/Flex|ov, Lex/Flex|>
 M3U: М3У|-, М3У|-ов, М3У|>
 MAB-DB: МАД-ДБ|-, МАД-ДБ|-ов, МАД-ДБ|>
     @л: MAB-DB|-, MAB-DB|-ov, MAB-DB|>
 Makefile: справифајл|
 MediaWiki: медијавик|и, медијавик|ијев, медијавики|>
-    @л: MediaWik|i, MediaWik|ijev, mediawiki|>
+    @л: MediaWik|i, MediaWik|ijev, MediaWiki|>
 mergetag text: мерџтаг текст|, мерџтаг текст|ов, мерџтаг текст|>
     @л: mergetag text|, mergetag text|ov, mergetag text|>
 Music Publisher: издавач| музике
@@ -280,7 +280,7 @@ OPML: ОПМЛ|-, ОПМЛ|-ов, ОПМЛ|>
 QMake: Ку-мејк|, Ку-мејк|ов, ку-мејк|>
     @л: QMake|, QMake|ov, QMake|>
 RenderMan RIB: рендерман-РИБ|-, рендерман-РИБ|-ов, рендерман-РИБ|>
-    @л: RenderMan-RIB|-, RenderMan-RIB|-ov
+    @л: RenderMan-RIB|-, RenderMan-RIB|-ov, RenderMan-RIB|>
 Roff: роф|, роф|ов, роф|>
     @л: Roff|, Roff|ov, roff|>
 RPM Spec: РПМ навод|
@@ -289,7 +289,7 @@ SSML: ССМЛ|-, ССМЛ|-ов, ССМЛ|>
 TeX: тех|, тех|ов, тех|>
     @л: TeX|-, TeX|-ov, tex|>
 TeXinfo: техинфо|, техинфо|ов, техинфо|>
-    @л: TeXinfo|, TeXinfo|ov, texinfo|>
+    @л: TeXinfo|, TeXinfo|ov, TeXinfo|>
 Troff Mandoc: троф упутн|а> стран|а
     @л: Troff uputn|a> stran|a
 XHTML: ИксХТМЛ|-, ИксХТМЛ|-ов, ИксХТМЛ|>
@@ -309,7 +309,7 @@ XUL: ИксУЛ|-, ИксУЛ|-ов, ИксУЛ|>
 YAML: ЈАМЛ|, ЈАМЛ|-ов, ЈАМЛ|>
     @л: YAML|, YAML|-ov, YAML|>
 Yacc: јац|, јац|ов, јац|>
-    @л: Yacc|, Yacc|ov, yacc|>
+    @л: Yacc|, Yacc|ov, Yacc|>
 Yacc/Bison: јац/бизон|, јац/бизон|ов, јацц/бизон|>
     @л: Yacc/Bison|, Yacc/Bison|ov, Yacc/Bison|>
 
