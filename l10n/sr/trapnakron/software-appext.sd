@@ -16,6 +16,8 @@
 3D Earth Model: 3Д-модел| Земље
 Activity Bar: тра|ка активности
 Analog Clock: аналогн|и> сат|
+Application Information: пода|ци-т о програмима
+Application Job Information: пода|ци-т о пословима програма̂
 Application Launcher: покрет|ач програма
 Application Launcher Menu: мен|и за покретање програма
 Application Notifications: обавештењ|а- програма
@@ -43,6 +45,7 @@ Command: наредб|а
 Command Line: командн|а линија
 Command line runner: извођ|ач командне линије
 Contacts: контакт|и-
+Current Application Control: управља|ње текућим програмом
 Dashboard: инструмент-табл|а
 Dashboard Widget: виџет| |Dashboard~г
 Date and Time: датум| и врем|е-н
@@ -104,7 +107,7 @@ Lock/Logout: закључава|{ње}/одјав|а, _род!=с
 MacOS Dashboard Widgets: виџет|и- инструмент-табле |MacOS~г
 Magnifique: магнифик|
 Media Player: медија плејер|
-Meta Data: метаподац|и-
+Meta Data: метапода|ци-т
 Microblogging: микроблогова|ње
 minicli: миникл|и
     @л: minicl|i
@@ -114,6 +117,8 @@ My Bookmarks: мој|и-> маркер|и-
 Navigation Panel: навигацион|и> панел|
 Nepomuk Desktop Search Runner: извођ|ач |Nepomuk~гжп претраге површи
 Networking: умрежава|ње
+Network interface information: пода|ци-т о мрежном сучељу
+Newspaper activity: новинск|а> активн|ост
 New Device Notifier: обавештава|ње о новим уређајима
 News, |newsapl: вест|и-ж
 News Ticker: куц|ач вести
@@ -122,6 +127,8 @@ Now Playing: тренутн|а> свир|ка
 Now Playing Engine: мотор| тренутне свирке
 Pager: пејџер|
 Panel: панел|
+Panel for Mobile Internet Devices: панел| за мобилне интернет уређаје
+Panel for Netbooks: панел| за нетбуке
 Paste: налепљива|ње
 Pastebin: корп|а налепака
 Picture Frame: урамљен|а> сли|ка
@@ -133,10 +140,12 @@ Pointer Position: положај|2 показивача
 Powermanagement: управља|ње напајањем
 Powermanagement Data Engine: датомотор| управљања напајањем
 Previewer: преглед| # не ‘прегледач’, то је /browser/
-Python Clock: |Python~.м сат|, _род!=м
-Python data engine: |Python~.м датомотор, _род!=м
+Python Clock: |Python~.м сат|
+Python data engine: |Python~.м датомотор|
 Python Date and Time: |Python~.м датум| и врем|е-н, _род!=м
-Python Widget: |Python~.м виџет|, _род!=м
+Python Runner: |Python~.м извођ|ач
+Python Wallpaper: |Python~.м тапет|
+Python Widget: |Python~.м виџет|
 QEdje Gadgets: |QEdje~.жк справиц|е-
 QuickLaunch: брзокрет|
 Recent Documents: скорашњ|и-> докуме|нти-
@@ -151,14 +160,23 @@ Ruby Widget: |Ruby~.м виџет|, _род!=м
 Run Commands: извршава|ње наредби
 SaverDesktop: чувар| на површи
 Search: претра|га
+Search and Launch: претра|га и покрета|ње
+Search and Launch menu: мен|и |{Search and Launch~г}
+Search and Launch engine: мотор| |{Search and Launch~г}
+Search Box: пољ|е3 претраге, _род!=с
 Search Runner: извођ|ач претраге
 Sessions: сесиј|е-
 Shell Runner Config: постав|а извођача шкољке
 Show Desktop: приказ| површи
 Show Dashboard: приказ| инструмент-табле
 Show Widget Dashboard: приказ| инструмент-табле виџета
+Sidebar: бочн|а> тра|ка
 SolidDevice Data Engine: датомотор| |Solid~г
 Spell Checker Runner: извођ|ач провере правописа
+Standard Menu: стандардн|и> мен|и
+Switch Activity: пребацива|ње активности
+Switch Desktop: пребацива|ње површи
+Switch Window: пребацива|ње прозора
 System Monitor: системск|и> монитор|
 System Load Viewer: приказив|ач оптерећења система
 System Monitor - CPU: |{System Monitor} (ЦПУ)
@@ -171,6 +189,7 @@ System Tray: системск|а> касет|а
 Task Management Data Engine: датомотор| управљања задацима
 Task Manager: менаџер| задатака
 Terminal Emulator: емулатор| терминала
+Terminate Applications: обуставља|ње програма
 Test Data Engine: пробн|и> датомотор| података
 Tiger: тиг|ар
 Time Data Engine: датомотор| датума и времена
