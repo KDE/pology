@@ -79,9 +79,6 @@ The order of catalog names is important, as in case a given reference exists
 in two or more catalogs, the translation is taken from the first-most.
 The following header fields, by name collecting order, are considered::
 
-    X-KDE-Associated-UI-Catalogs-H
-    X-KDE-Associated-UI-Catalogs
-    X-KDE-Associated-UI-Catalogs-L
     X-Associated-UI-Catalogs-H
     X-Associated-UI-Catalogs
     X-Associated-UI-Catalogs-L
@@ -663,9 +660,6 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
     # - catalogs listed in some header fields
     # NOTE: Mention in module docustring when adding/removing fields.
     afnames = (
-        "X-KDE-Associated-UI-Catalogs-H",
-        "X-KDE-Associated-UI-Catalogs",
-        "X-KDE-Associated-UI-Catalogs-L",
         "X-Associated-UI-Catalogs-H",
         "X-Associated-UI-Catalogs",
         "X-Associated-UI-Catalogs-L",
