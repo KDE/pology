@@ -169,8 +169,8 @@ class Project (object):
             "hook_on_merge_cat" : [],
             "hook_on_merge_file" : [],
 
-            "header_propagate_fields_summed" : [],
-            "header_propagate_fields_primary" : [],
+            "header_propagate_fields" : [],
+            "header_skip_fields_on_gather" : [],
             "header_skip_fields_on_scatter" : [],
 
             "vivify_on_merge" : False,
@@ -1450,6 +1450,9 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
     # by copying it from the primary branch catalog.
     if summit_cat.created():
         summit_cat.header = prim_branch_cat.header
+        # Skip fields as requested.
+        for fname in project.header_skip_fields_on_gather:
+            summit_cat.header.remove_field(fname)
 
     # Update template creation date
     # if there were any changes to the catalog otherwise.
@@ -1464,10 +1467,10 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
 
     # Copy over fields from the primary branch catalog as requested.
     bfields = []
-    for fname in project.header_propagate_fields_primary:
+    for fname in project.header_propagate_fields:
         bfields.extend(prim_branch_cat.header.select_fields(fname))
     cfields = []
-    for fname in project.header_propagate_fields_primary:
+    for fname in project.header_propagate_fields:
         cfields.extend(summit_cat.header.select_fields(fname))
     # Replace old with new set if not equal.
     if bfields != cfields:
@@ -1475,37 +1478,6 @@ def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
             summit_cat.header.field.remove(cfield)
         for bfield in bfields:
             summit_cat.header.field.append(bfield)
-
-    # Sum requested fields: take the field from each branch header
-    # and add it with the same name (i.e. there will be multiple
-    # same-named fields in the summit header), but change their
-    # values to embed respective branch id:
-    for branch_id, branch_cat in branch_ids_cats:
-
-        # - construct new fields with this branch id from branch catalog,
-        cfields_new = []
-        for fname in project.header_propagate_fields_summed:
-            for field in branch_cat.header.select_fields(fname):
-                cvalue = u"%s %s %s" % (field[1], _summed_fval_sep, branch_id)
-                cfields_new.append(Monpair((field[0], cvalue)))
-
-        # - collect old fields with this branch id from summit catalog,
-        cfields_old = []
-        for fname in project.header_propagate_fields_summed:
-            for field in summit_cat.header.select_fields(fname):
-                m = re.search(r"%s *(.*?) *$" % _summed_fval_sep, field[1])
-                if m and m.group(1) == branch_id:
-                    cfields_old.append(field)
-                elif not m:
-                    # Remove such fields not associated with any branch.
-                    summit_cat.header.field.remove(field)
-
-        # - replace old with new sequence if not equal.
-        if cfields_old != cfields_new:
-            for field in cfields_old:
-                summit_cat.header.field.remove(field)
-            for field in cfields_new:
-                summit_cat.header.field.append(field)
 
 
 def summit_scatter_single (branch_id, branch_name, branch_subdir,
@@ -1672,7 +1644,6 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     hdr.author = shdr.author
     hdr.comment = shdr.comment
     # Update fields only if normalized lists of fields do not match.
-    reducehf(shdr, branch_id, project)
     if normhf(hdr.field, keep_fields) != normhf(shdr.field, keep_fields):
         # Collect branch fields to be preserved.
         preserved_fs = []
@@ -1997,8 +1968,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         fname = "POT-Creation-Date"
         do_msgmerge = hdr.get_field_value(fname) != thdr.get_field_value(fname)
 
-    header_prop_fields = (  project.header_propagate_fields_summed
-                          + project.header_propagate_fields_primary)
+    header_prop_fields = project.header_propagate_fields
 
     # Should merged catalog be opened, and in what mode?
     do_open = False
@@ -2242,25 +2212,6 @@ def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
                     syns.pop(file)
 
     return syns
-
-
-# Reduce summit to branch header.
-def reducehf (shdr, bid, project):
-
-
-    fieldmod = Monlist()
-    for fpair in shdr.field:
-        fnam, fval = fpair
-        if (    fnam in project.header_propagate_fields_summed
-            and _summed_fval_sep in fval
-        ):
-            fval0, fbid = map(unicode.strip, fval.rsplit(_summed_fval_sep, 1))
-            if fbid == bid:
-                fieldmod.append(Monpair((fnam, fval0)))
-        else:
-            fieldmod.append(fpair)
-
-    shdr.field = fieldmod
 
 
 # Put header fields in canonical form, for equality checking.
