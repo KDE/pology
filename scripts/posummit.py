@@ -6,6 +6,7 @@ import fallback_import_paths
 from pology.misc.fsops import str_to_unicode
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
+from pology.file.header import Header
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.report import report, error, warning
 from pology.misc.report import init_file_progress
@@ -170,7 +171,6 @@ class Project (object):
             "hook_on_merge_file" : [],
 
             "header_propagate_fields" : [],
-            "header_skip_fields_on_gather" : [],
             "header_skip_fields_on_scatter" : [],
 
             "vivify_on_merge" : False,
@@ -1441,31 +1441,25 @@ def gather_merge_msg (summit_msg, msg):
                 summit_msg.fuzzy = msg.fuzzy
 
 
-_summed_fval_sep = "~~"
-
 def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
                                  project, options):
-
-    # If the summit catalog was just created, initialize the summit header
-    # by copying it from the primary branch catalog.
-    if summit_cat.created():
-        summit_cat.header = prim_branch_cat.header
-        # Skip fields as requested.
-        for fname in project.header_skip_fields_on_gather:
-            summit_cat.header.remove_field(fname)
 
     # Update template creation date
     # if there were any changes to the catalog otherwise.
     if summit_cat.modcount:
         summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
 
-    # Copy over some fields unconditionally from the primary branch catalog.
-    fname = u"Report-Msgid-Bugs-To"
-    fval = prim_branch_cat.header.get_field_value(fname)
-    if fval:
-        summit_cat.header.set_field(fname, fval)
+    # Copy over standard fields from the primary branch catalog.
+    for fname in [x[0] for x in Header().field]:
+        if fname == "POT-Creation-Date":
+            continue # handled specially above
+        fvalue = prim_branch_cat.header.get_field_value(fname)
+        if fvalue is not None:
+            summit_cat.header.set_field(fname, fvalue)
+        else:
+            summit_cat.header.remove_field(fname)
 
-    # Copy over fields from the primary branch catalog as requested.
+    # Copy over non-standard fields from the primary branch catalog on request.
     bfields = []
     for fname in project.header_propagate_fields:
         bfields.extend(prim_branch_cat.header.select_fields(fname))
