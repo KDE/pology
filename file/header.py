@@ -147,6 +147,7 @@ class Header (Monitored):
                 Monpair((u"PO-Revision-Date", u"YEAR-MO-DA HO:MI+ZONE")),
                 Monpair((u"Last-Translator", u"FULL NAME <EMAIL@ADDRESS>")),
                 Monpair((u"Language-Team", u"LANGUAGE <LL@li.org>")),
+                Monpair((u"Language", u"")),
                 Monpair((u"MIME-Version", u"1.0")),
                 Monpair((u"Content-Type", u"text/plain; charset=CHARSET")),
                 Monpair((u"Content-Transfer-Encoding", u"8bit")),
