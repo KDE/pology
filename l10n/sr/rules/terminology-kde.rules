@@ -384,15 +384,6 @@ id="font"
 hint="font = фонт"
 valid msgstr="\bфонт"
 valid msgstr="&(fontinstaller|fontviewer)\S*;"
-valid cat="plasma_applet_notes" msgid="^Set font size automatically$"
-valid cat="kdelibs4" msgid="^Font style:$"
-valid cat="khelpcenter" msgid="^Font size adjustment:$"
-valid cat="khelpcenter" msgid="^(Fantasy|Italic|Sans serif|Serif|Fixed|Standard) font:$"
-valid cat="khelpcenter" msgid="^(Minimum|Medium) font size:$"
-valid cat="kfontinst" msgid="Abort font scan"
-valid cat="kfontinst" msgid="duplicate fonts found"
-valid cat="kfontinst" msgid="Scanning for duplicate fonts"
-valid cat="kfontinst" msgid="fonts\.\w"
 # глупави угњеждени стилови
 valid msgid="font-\w+:"
 
@@ -583,6 +574,7 @@ valid msgstr="\bпоштанск\w+ лист"
 {\bmanager}i
 id="manager"
 hint="manager = менаџер"
+valid after="boot " # на bootloader
 valid msgstr="\bменаџер"
 valid msgstr="\bуправ" !msgstr="\bуправ(љач|ник)"
 valid msgstr="&\w*manager\S*;"
@@ -837,9 +829,8 @@ valid cat="katefiletemplates" msgid="shellscript" msgstr="skript"
 
 {\bside\W?bar}i
 id="sidebar"
-hint="sidebar = бочна трака [осим /history sidebar/ = бочни историјат]"
-valid !after="history " msgstr="\bбочн\w+ тра(ци|к\w+)\b"
-valid after="history " msgstr="\bбочн\w+ историјат"
+hint="sidebar = бочна трака"
+valid msgstr="\bбочн\w+ тра(ци|к\w+)\b"
 valid msgstr="&\w*sidebar\S*;"
 
 {\bsplash\W?screen}i
