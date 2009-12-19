@@ -121,7 +121,7 @@ valid cat="dolphin" msgid="provide short cuts"
 {\bdefault}i
 id="default"
 hint="default = подразумеван"
-valid msgstr="\bподразумева"
+valid msgstr="\b(не)?подразумева"
 valid env="kde" msgstr="&\w*default\S*;"
 valid cat="kioclient" msgid="Mounts the CDROM"
 valid cat="konsole" msgid="DEFAULTENCODING"
@@ -256,6 +256,7 @@ hint="interface|user interface = корисничко сучеље|сучеље"
 valid env="kde" # на interface2
 valid after="(programming|network|hardware) " # на interface2
 valid msgstr="\bсуче(љ|он)"
+valid env="kde" msgstr="&\w*interface\S*;"
 
 {\blabel}i
 id="label"

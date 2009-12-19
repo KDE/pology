@@ -473,6 +473,7 @@ valid msgstr="\bтем\w+ икона\b"
 id="interface2"
 hint="interface = сучеље"
 valid msgstr="\bсуче(љ|он)"
+valid msgstr="&\w*interface\S*;"
 
 {\binvalid\b}i
 id="invalid2"
@@ -839,6 +840,7 @@ id="sidebar"
 hint="sidebar = бочна трака [осим /history sidebar/ = бочни историјат]"
 valid !after="history " msgstr="\bбочн\w+ тра(ци|к\w+)\b"
 valid after="history " msgstr="\bбочн\w+ историјат"
+valid msgstr="&\w*sidebar\S*;"
 
 {\bsplash\W?screen}i
 id="splashscreen"
