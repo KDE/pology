@@ -16,6 +16,10 @@ AIX: Аикс|, Аикс|ов
     @л: AIX|-, AIX|-ov
 AmigaDOS: АмигаДОС|-, АмигаДОС|-ов
 Android: Андроид|, Андроид|ов, андроид|>
+Arch: Арч|, Арч|ов
+    @л: Arch|, Arch|ov
+Arch Linux: Арч линукс|
+    @л: Arch Linux|
 BeOS: БеОС|-, БеОС|-ов
 BSD: БСД|-, БСД|-ов, БСД|>
 BSD386: БСД|- 386, н&а=БСД-386, БСД-386|>
@@ -30,6 +34,8 @@ Debian: Дебијан|, Дебијан|ов, дебијан|ски
 DOS: ДОС|-, ДОС|-ов, ДОС|>
 EveX: Ив-икс|, Ив-икс|ов
     @л: EveX|-, EveX|-ov
+Exherbo: Ексхерб|о, Ексхерб|ов
+    @л: Exherb|o, Exherb|ov
 Fedora: Федор|а, Федор|ин
 FreeBSD: ФриБСД|-, ФриБСД|-ов
     @л: FreeBSD|-, FreeBSD|-ov
@@ -72,11 +78,16 @@ NT Workstation: НТ воркстејшон|
 OpenBSD: ОпенБСД|-, ОпенБСД|-ов
 OpenLook: Опенлук|, Опенлук|ов
     @л: OpenLook|, OpenLook|ov
+OpenSuSE: Опенсусе|, Опенсусе|ов
+    @л: OpenSuSE|-, OpenSuSE|-ov
 OS/2: ОС/2|*, _род!=м
 OSF/1: ОСФ/1|*, _род!=м
+Pardus: Пардус|, Пардус|ов
 Plan 9: План| 9
 RiscOS: РискОС|-, РискОС|-ов
     @л: RiscOS|-, RiscOS|-ov
+Slackware: Слаквер|, Слаквер|ов
+    @л: Slackware|, Slackware|ov
 Solaris: Соларис|, Соларис|ов
 SunOS: СанОС|-, СанОС|-ов
     @л: SunOS|-, SunOS|-ov
@@ -444,6 +455,7 @@ KControlEdit: Уређив|ач |KControl~г
 KDCOP: К-|DCOP
 KDE Autostart Manager: |{KDE~.мп} менаџер| самопокретања
 KDebugDialog: К-исправљачк|{и>}-дијалог|
+KDE Crash Handler: |{KDE~.мп} рукова|лац падовима
 KDE Help Center: Цент|ар помоћи |{KDE~г}
 KDesktop: К-површ|-ж
 KDEpasswd: К-лозинк|а
@@ -683,3 +695,12 @@ Zemberek: Земберек|, Земберек|ов
 
 XsLite: Ексес-лајт|, Ексес-лајт|ов
     @л: XsLite|, XsLite|ov
+
+# ----------------------------------------------------------------------------
+# Пакетарски системи
+
+APT: АПТ|-, АПТ|-ов, АПТ|>
+Ports: Портс|, Портс|ов, портс|>
+    @л: Ports|, Ports|ov, Ports|>
+pkgsrc: Пкгсрц|, Пкгсрц|ов, пкгсрц|>
+    @л: pkgsrc|, pkgsrc|ov, pkgsrc|>
