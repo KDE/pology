@@ -35,6 +35,14 @@ def _rm_accel_in_msg (msg, accels, greedy=False):
     return 0
 
 
+def _get_accel_marker (msg, cat):
+
+    accels = manc_parse_field_values(msg, "accelerator-marker")
+    if not accels:
+        accels = cat.accelerator()
+    return accels
+
+
 def remove_accel_text (text, msg, cat):
     """
     Remove accelerator marker from one of the text fields of the message
@@ -47,12 +55,19 @@ def remove_accel_text (text, msg, cat):
     in case it does not specify any on its own.
     If catalog reports C{None} for accelerators, text is not touched.
 
+    Accelerator marker can also be specified for a particular message,
+    by embedded C{accelerator-marker} field in manual comments::
+
+        # accelerator-marker: _
+
+    This overrides accelerator marker reported by the catalog.
+
     @return: text
 
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
-    accels = cat.accelerator()
+    accels = _get_accel_marker(msg, cat)
     return _rm_accel_in_text(text, accels)
 
 
@@ -67,7 +82,7 @@ def remove_accel_text_greedy (text, msg, cat):
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
-    accels = cat.accelerator()
+    accels = _get_accel_marker(msg, cat)
     return _rm_accel_in_text(text, accels, greedy=True)
 
 
@@ -81,7 +96,7 @@ def remove_accel_msg (msg, cat):
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
-    accels = cat.accelerator()
+    accels = _get_accel_marker(msg, cat)
     return _rm_accel_in_msg(msg, accels)
 
 
@@ -96,7 +111,7 @@ def remove_accel_msg_greedy (msg, cat):
     @see: L{pology.misc.resolve.remove_accelerator}
     """
 
-    accels = cat.accelerator()
+    accels = _get_accel_marker(msg, cat)
     return _rm_accel_in_msg(msg, accels, greedy=True)
 
 
