@@ -34,7 +34,7 @@ Debian: Дебијан|, Дебијан|ов, дебијан|ски
 DOS: ДОС|-, ДОС|-ов, ДОС|>
 EveX: Ив-икс|, Ив-икс|ов
     @л: EveX|-, EveX|-ov
-Exherbo: Ексхерб|о, Ексхерб|ов
+Exherbo: Ексхерб|о, Ексхерб|ов, _род!=м
     @л: Exherb|o, Exherb|ov
 Fedora: Федор|а, Федор|ин
 FreeBSD: ФриБСД|-, ФриБСД|-ов
@@ -128,6 +128,7 @@ Emacs: Емакс|, Емакс|ов, емакс|овски
     @л: Emacs|, Emacs|ov, emacs|ovski
 EmacsClient: |{Emacs~.}-клијент|
 Embedded Advanced Text Editor: Угњежден|и> напредн|и> уређив|ач текста
+    @иј: Угнијежден|и> напредн|и> уређив|ач текста
 Embedded Text Editor: Угњежден|и> уређив|ач текста
 Gedit: Г-едит|, Г-едит|ов
     @л: Gedit|, Gedit|ov
@@ -465,6 +466,7 @@ KDE su: |{KDE~.м} су|
 KDE Wallet Service: |KDE~.мп сервис| новчаника
 KDialog: К-дијалог|, К-дијалог|ов
 KDict: К-речник|, К-речник|ов
+    @иј: К-рјечник|, К-рјечник|ов
 KDiskFree: К-диск-простор|, К-диск-простор|ов
 KDM: КДМ|-, КДМ|-ов
 KEditFileType: |{KDE~.мп} уређив|ач типа фајла
@@ -493,6 +495,7 @@ KLock: К-закључава|ње
 KMagnifier: К-увеличав|ач
 KMan: К-упут|и-
 KManPart: К-упут-д|ео
+    @иј: К-упут-д|ио-ј
 KMenu: К-мен|и, К-мен|ијев
     @л: KMen|u-i, KMen|ujev
 KMenuEdit: Уређив|ач |KMenu~г
@@ -638,6 +641,7 @@ Xosview: Икс-освју|, Икс-освју|ов
     @л: Xosview|, Xosview|ov
 XRefresh: Икс-освежи|*, _род!=м
     @л: X-osveži|*
+    @иј: Икс-освјежи|*
 XTraceroute: Икс-трејсрут|, Икс-трејсрут|ов
     @л: XTraceroute|, XTraceroute|ov
 Xwpick: Икс-впик|, Икс-впик|ов
