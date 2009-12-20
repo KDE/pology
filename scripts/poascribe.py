@@ -122,6 +122,11 @@ def main ():
         help="commit message for ascription catalogs, when %(option)s "
              "is in effect" % dict(option="-c"))
     opars.add_option(
+        "-w", "--write-modified", metavar="FILE",
+        action="store", dest="write_modified", default=None,
+        help="write paths of all original catalogs modified by "
+             "ascription operations into the given file")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -225,6 +230,14 @@ def main ():
 
     # Execute operation.
     mode.execute(options, configs_catpaths, mode)
+
+    # Write out list of modified original catalogs if requested.
+    if options.write_modified and _modified_cats:
+        lfpath = options.write_modified
+        f = open(lfpath, "w")
+        f.write(("\n".join(sorted(_modified_cats)) + "\n").encode("utf-8"))
+        f.close()
+        report("Written modified catalog paths to: %s" % lfpath)
 
 
 # For each path:
@@ -1664,6 +1677,8 @@ def asc_age_cmp (a1, a2, config):
         return (a1.date > a2.date) - (a1.date < a2.date)
 
 
+_modified_cats = []
+
 def sync_and_rep (cat):
 
     nmod = 0
@@ -1674,6 +1689,7 @@ def sync_and_rep (cat):
     modified = cat.sync()
     if modified:
         report("!    %s  (%d)" % (cat.filename, nmod))
+        _modified_cats.append(cat.filename)
 
     return modified
 
