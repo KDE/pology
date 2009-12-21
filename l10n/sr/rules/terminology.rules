@@ -439,7 +439,7 @@ id="space"
 hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
 valid span="space\b" before=" (available|required|of|left|information)" msgstr="\bпростор"
-valid span="space\b" after="(additional|all|allocate|clear|config|digital|disk|disc|empty|enough|free|little|memory|more|much|no|occup\w+ |out of|remaining|of|save|screen|storage|some|sufficient|take up|total|unallocated|used|work|I/O)\W?" msgstr="\bпростор"
+valid span="space\b" after="(additional|address|all|allocate|clear|config|digital|disk|disc|empty|enough|free|little|memory|more|much|no|occup\w+ |out of|remaining|of|save|screen|storage|some|sufficient|take up|total|unallocated|used|work|I/O)\W?" msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
