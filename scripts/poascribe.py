@@ -79,9 +79,14 @@ def main ():
     opars.add_option(
         "-F", "--filter", metavar="NAME",
         action="store", dest="text_filter", default=def_filter,
-        help="pass relevent message text fields through a filter before "
+        help="pass relevant message text fields through a filter before "
              "matching or comparing them "
              "(relevant in some modes)")
+    opars.add_option(
+        "-G", "--show-filtered",
+        action="store_true", dest="show_filtered", default=False,
+        help="when operating under a filter, also show filtered versions "
+             "of whatever is shown in original (e.g. in diffs)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
         action="store", dest="tag", default="",
@@ -147,8 +152,11 @@ def main ():
 
     # Fetch history filter if requested, store it in options.
     options.hfilter = None
+    options.sfilter = None
     if options.text_filter:
         options.hfilter = get_hook_lreq(options.text_filter, abort=True)
+        if options.show_filtered:
+            options.sfilter = options.hfilter
 
     # Create selectors if any explicitly given.
     selector = None
@@ -853,7 +861,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
         if amsg is not None:
-            msg_ediff(amsg, msg, emsg=msg, pfilter=options.hfilter)
+            msg_ediff(amsg, msg, emsg=msg, pfilter=options.sfilter)
             # NOTE: Do NOT think of avoiding to flag the message if there is
             # no difference to history, must be symmetric to review ascription.
             msg.flag.add(_diffflag)
@@ -944,7 +952,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             if dmsg != nmsg:
                 msg_ediff(nmsg, dmsg, emsg=dmsg,
-                          pfilter=options.hfilter, hlto=sys.stdout)
+                          pfilter=options.sfilter, hlto=sys.stdout)
                 dmsgfmt = dmsg.to_string(force=True,
                                          wrapf=cat.wrapf()).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
@@ -956,7 +964,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             msg = Message(msg)
             nmsg = history[i_nfasc].msg
             msg_ediff(nmsg, msg, emsg=msg,
-                      pfilter=options.hfilter, hlto=sys.stdout)
+                      pfilter=options.sfilter, hlto=sys.stdout)
         report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 
