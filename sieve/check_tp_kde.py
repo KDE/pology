@@ -76,6 +76,10 @@ Currently available checks are:
     translations of these messages should be valid on on their own,
     but also have some congruence between them.
 
+  - Query placeholders in Plasma runners (C{plrunq}).
+    Messages in Plasma runners may contain special query placeholder C{:q:},
+    which should be present in translation too.
+
   - Catalog-specific checking (C{catspec}).
     Certain messages in certain catalogs have special validity requirements,
     and this check activates all such catalog-specific checks.
@@ -178,7 +182,7 @@ class Sieve (object):
         elif is_docbook_cat(cname, csubdir):
             add_checks(["dbmarkup", "nots"])
         else: # default to native KDE4 catalog
-            add_checks(["kde4markup", "qtdt", "trcredits"])
+            add_checks(["kde4markup", "qtdt", "trcredits", "plrunq"])
         add_checks(["catspec"]) # to all catalogs, will select internally
 
         # Reset catalog progress cache, available to checks.
@@ -525,6 +529,24 @@ def _check_trcredits (msg, cat, pcache, hl):
     return len(errors)
 
 _known_checks["trcredits"] = _check_trcredits
+
+# --------------------------------------
+# Check for query placeholders in Plasma runners.
+
+def _check_plrunq (msg, cat, pcache, hl):
+
+    if not msg.active:
+        return 0
+
+    nerrors = 0
+    if ":q:" in msg.msgid and ":q:" not in msg.msgstr[0]:
+        errmsg = "Plasma runner query placeholder :q: missing in translation"
+        hl.append(("msgstr", 0, [(None, None, errmsg)]))
+        nerrors += 1
+
+    return nerrors
+
+_known_checks["plrunq"] = _check_plrunq
 
 # --------------------------------------
 # Catalog-specific checks.
