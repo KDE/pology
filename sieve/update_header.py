@@ -127,7 +127,7 @@ class Sieve (object):
                           or usrcfg.string("po-editor")) # ok not to be present
 
 
-    def process_header (self, hdr, cat):
+    def process_header_last (self, hdr, cat):
 
         if self.p.onmod and cat.modcount == 0:
             return
