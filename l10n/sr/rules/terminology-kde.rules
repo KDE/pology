@@ -308,19 +308,19 @@ valid msgstr="е-поштом .*\bадрес"
 
 {\bembed(s|d?ing|\b)}i
 id="embed"
-hint="embed = угњездити"
-valid msgstr="\bугње(зд|жђ|жд)"
+hint="embed = угнездити"
+valid msgstr="\bугне(зд|жђ)"
 
 {\bembeddable}i
 id="embeddable"
-hint="embeddable = угњездив"
-valid msgstr="\bугњездив"
+hint="embeddable = угнездив"
+valid msgstr="\bугнездив"
 
 {\bembedded}i
 id="embedded"
-hint="embedded = угњежден"
-valid msgstr="\bугњежден"
-valid msgstr="\bугњезди[лот]" # прошло време
+hint="embedded = угнежђен"
+valid msgstr="\bугнежђен"
+valid msgstr="\bугнезди[лот]" # прошло време
 valid msgstr="&embedded\w*-\S*;"
 
 {\b(character set|char\W?set|encoding)}i
@@ -384,7 +384,7 @@ id="font"
 hint="font = фонт"
 valid msgstr="\bфонт"
 valid msgstr="&(fontinstaller|fontviewer)\S*;"
-# глупави угњеждени стилови
+# глупави угнежђени стилови
 valid msgid="font-\w+:"
 
 # Најчешће заправо ‘облик’, али тешко да ће неко тако превести кад
