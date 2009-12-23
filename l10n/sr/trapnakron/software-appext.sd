@@ -2,6 +2,8 @@
 >languages-prog.sd
 >misc-acronyms.sd
 >org-companies.sd
+>org-government.sd
+>org-activist.sd
 >places-internet.sd
 >software-comm.sd
 >software-engines.sd
@@ -11,7 +13,7 @@
 >spec-protocols.sd
 
 # ----------------------------------------------------------------------------
-# Угњеждени програмчићи
+# Угнежђени програмчићи
 
 3D Earth Model: 3Д-модел| Земље
 Activity Bar: тра|ка активности
@@ -24,13 +26,15 @@ Application Notifications: обавештењ|а- програма
     @иј: обавјештењ|а- програма
 Applications: програм|и-
 Applications Runner: извођ|ач програмâ
+Astronomy Picture of the Day: астрономск|а> сли|ка дана
 Battery Monitor: надзор| батерије
-Bball: скочилопт|а
 Binary Clock: бинарн|и> сат|
 BitFinder: налаз|ач битова|
+Black Board: табл|а
 Blue Marble: плав|и> кликер|
 Bookmark Runner: извођ|ач маркера
 Bookmarks: маркер|и-
+Bouncy Ball: скочилопт|а
 Bubblemon: облакмон|
 Calculator: калкулатор|
 Calculator Runner: извођ|ач калкулатора
@@ -46,13 +50,14 @@ Command: наредб|а
 Command Line: командн|а линија
 Command line runner: извођ|ач командне линије
 Contacts: контакт|и-
+Control Audio Player: управља|ње аудио плејером
 Current Application Control: управља|ње текућим програмом
 Dashboard: инструмент-табл|а
 Dashboard Widget: виџет| |Dashboard~г
 Date and Time: датум| и врем|е-н
 DBpedia queries: упит|и- |DBpedia~г
-Default Plasma Animator: подразумеван|и> |Plasma~.мп аниматор|
-    @иј: подразумијеван|и> |Plasma~.мп аниматор|
+Default Plasma Animator: подразумеван|и> |Plasma~.м аниматор|
+    @иј: подразумијеван|и> |Plasma~.м аниматор|
 Device Information: пода|ци-т о уређајима
 Device Notifier: обавештава|ње о уређајима
     @иј: обавјештава|ње о уређајима
@@ -64,12 +69,14 @@ Dictionary: речник|
 Dictionary Data Engine: датомотор| речника
     @иј: датомотор| рјечника
 Digital Clock: дигиталн|и> сат|
+Earth Science Picture of the Day: геонаучн|а> сли|ка дана
 Eyes: оч|и-с
 Favicons: фавикон|е-
 Fifteen Puzzle: петнаестиц|а
 File and Directory Browser Engine: мотор| прегледања фајлова и фасцикли
 File Watcher: надзир|ач фајлова
 Files and Directories: фајлов|и- и фасцикл|е-
+Flickr Picture of the Day: сли|ка дана са |Flickr~г
 Folder View: приказ| фасцикле
 Fuzzy Clock: одокативн|и> сат|
 Geolocation: геолокациј|а
@@ -81,6 +88,7 @@ Hotplug Events: догађај|и- врућег укључивања
 Icon: икон|а
 Imagebin: корп|а слика
 Incoming Message: долазећ|а> пору|ка
+Input Method Panel: панел| метода уноса
 Internal Extender Container: унутрашњ|и> садржа|лац проширивача
 JavaScript DataEngine: |JavaScript~.м датомотор|, _род!=м
 JavaScript Engine: |JavaScript~.м мотор|, _род!=м
@@ -88,18 +96,23 @@ JavaScript Runner: |JavaScript~.м извођ|ач, _род!=м
 JavaScript Widget: |JavaScript~.м виџет|, _род!=м
 Kate Session Applet: |{Kate Sessions}
 Kate Sessions: |{Kate~.жкп} сесиј|е-
+KDE Documentation: документациј|а |KDE~г
+KDE Observatory: опсерваториј|а |KDE~г
+Keyboard: тастатур|а
 Keyboard and Mouse State: ста|ње тастатуре и миша
 Keyboard Map Tool: распоред|и- тастатуре
 KGet barchart applet: тракаст|и> графикон| |KGet~г
 KGet panelbar applet: панелск|а> тра|ка |KGet~г
 KGet piechart applet: питаст|и> графикон| |KGet~г
 KGet Data Engine: датомотор| |KGet~г
+KnowledgeBase: баз|а знања
 Konq Profiles Applet: |Konqueror~.мкп профил|и-
 Konqueror Profiles: |{Konq Profiles Applet}
 Konqueror Sessions: |{Konqueror~.жкп} сесиј|е-
 Konsole Profiles Applet: |Konsole~.мкп профил|и-
 Konsole Profiles: |{Konsole Profiles Applet}
 Konsole Sessions: |{Konsole~.жкп} сесиј|е-
+Kopete Contact Runner: извођ|ач |Kopete~гмкп контаката
 KopeteTeX: |*|{Kopete~н}-|TeX
 Lancelot Launcher: |Lancelot покрет|ач
 Lancelot Menu: |Lancelot мен|и
@@ -134,6 +147,8 @@ Notes: беле|шке-
     @иј: биље|шке-
 Now Playing: тренутн|а> свир|ка
 Now Playing Engine: мотор| тренутне свирке
+openDesktop Activities: дешава|ња са |openDesktop~г
+Operational Significant Event Imagery Picture of the Day, |oseipictureoftheday: |OSEI~.жп сли|ка дана
 Pager: пејџер|
 Panel: панел|
 Panel for Mobile Internet Devices: панел| за мобилне интернет уређаје
@@ -142,6 +157,7 @@ Paste: налепљива|ње
     @иј: наљепљива|ње
 Pastebin: корп|а налепака
     @иј: корп|а наљепака
+Pastebin engine: мотор| |Pastebin~г
 Picture Frame: урамљен|а> сли|ка
 Picture of the Day: сли|ка дана
 Pipes: цев|и-ж
@@ -185,6 +201,7 @@ Show Dashboard: приказ| инструмент-табле
 Show Widget Dashboard: приказ| инструмент-табле виџета
 Sidebar: бочн|а> тра|ка
 SolidDevice Data Engine: датомотор| |Solid~г
+Spell Check: провер|а правописа
 Spell Checker Runner: извођ|ач провере правописа
 Standard Menu: стандардн|и> мен|и
 Switch Activity: пребацива|ње активности
@@ -219,9 +236,10 @@ Web Browser: веб преглед|ач
 Webbrowser History: историјат| веб прегледача
 Web Shortcut: веб пречиц|а
 Web Shortcuts: веб пречиц|е-
+Web Slice: веб исеч|ак
 Web Widget: веб виџет|
 Web Widgets: веб виџет|и-
 Webshortcut runner: извођ|ач веб пречица
+Wikimedia Picture of the Day: |Wikimedia~.жп сли|ка дана
 Window Information: пода|ци-т о прозорима
 Window List: спис|ак прозора
-

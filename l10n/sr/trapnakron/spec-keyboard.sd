@@ -21,7 +21,9 @@ Control: Control|--
     @л: Control|
 Ctrl: Ctrl|--
     @л: Ctrl|
-Del, Delete: Delete|--
+Del: Del|--
+    @л: Del|
+Delete: Delete|--
     @л: Delete|
 Down: доле|*, _род!=м
     @л: Dole|*
@@ -46,20 +48,30 @@ Home, |homekey: Home|--
     @л: Home|
 Hyper: Hyper|--
     @л: Hyper|
-Ins, Insert: Insert|--
+Ins: Ins|--
+    @л: Ins|
+Insert: Insert|--
     @л: Insert|
 Left: лево|*, _род!=м
     @л: Levo|*
 Menu: Menu|--
     @л: Menu|
 Meta: Meta|*, _род!=м
+Num: Num|--
+    @л: Num|
 NumLock: NumLock|--
     @л: NumLock|
-PgDown, PageDown: PageDown|*, _род!=м
-PgUp, PageUp: PageUp|*, _род!=м
+PgDn: PgDn|*, _род!=м
+PageDown: PageDown|*, _род!=м
+PgUp: PgUp|*, _род!=м
+PageUp: PageUp|*, _род!=м
+Pause: Pause|--
+    @л: Pause|
 PauseBreak: PauseBreak|--
     @л: PauseBreak|
-PrtScr, PrintScreen: PrintScreen|--
+PrtScr: PrtScr|--
+    @л: PrtScr|
+PrintScreen: PrintScreen|--
     @л: PrintScreen|
 Return: Return|--
     @л: Return|
