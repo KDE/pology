@@ -11,6 +11,8 @@ the rest of information is pulled from L{Pology's configuration<misc.config>}.
 Sieve options:
   - C{proj:<project_id>}: ID of the project
   - C{init}: treat the header as uninitialized
+  - C{onmod}: update header only if the catalog was otherwise modified
+        (when the sieve is used in chain)
 
 Parameter C{proj} specifies the ID of the project which covers the POs
 about to be operated on. This ID is used as the name of configuration
@@ -81,11 +83,18 @@ def setup_sieve (p):
     "Consider header as uninitialized, removing any existing information "
     "before adding own and project data."
     )
+    p.add_param("onmod", bool, defval=False,
+                desc=
+    "Update header only if the catalog was otherwise modified "
+    "(in sieve chains)."
+    )
 
 
 class Sieve (object):
 
     def __init__ (self, params):
+
+        self.p = params
 
         # Collect user and project configuration.
         prjsect = "project-" + params.proj
@@ -95,9 +104,6 @@ class Sieve (object):
         self.prjcfg = config.section(prjsect)
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
-
-        # Whether to force initialization of all fields.
-        self.init = params.init
 
         # Collect project data.
         self.tname = prjcfg.string("name") or usrcfg.string("name")
@@ -122,6 +128,9 @@ class Sieve (object):
 
 
     def process_header (self, hdr, cat):
+
+        if self.p.onmod and cat.modcount == 0:
+            return
 
         # ---------------------
         # Fields updated always
@@ -172,7 +181,7 @@ class Sieve (object):
         # ------------------------------------------------
         # Fields updated only when at defaults (or forced)
 
-        init = self.init
+        init = self.p.init
 
         # - title
         reset_title = init is True
