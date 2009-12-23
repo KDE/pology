@@ -57,6 +57,13 @@ messages from the given catalog. I.e. it is illegal for the client to
 switch a catalog between two calls to C{process}, without calling
 C{process_header} in between if it exists.
 
+There is also the optional C{process_header_last} method, which is just
+like C{process_header}, except that, if present, clients call it I{after}
+all C{process} calls on the given catalog::
+
+    def process_header_last (self, hdr, cat):
+        # ...
+
 Sieve methods should not abort the program execution in case of errors,
 but throw an exception instead. In particular, if C{process} method
 throws an instance of L{SieveMessageError}, it means that the sieve

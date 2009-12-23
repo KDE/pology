@@ -562,6 +562,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Categorize sieves by the presence of message/header processors.
     use_headonly = True
     header_sieves = []
+    header_sieves_last = []
     message_sieves = []
     for sieve in sieves:
         if hasattr(sieve, "process"):
@@ -569,6 +570,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             message_sieves.append(sieve)
         if hasattr(sieve, "process_header"):
             header_sieves.append(sieve)
+        if hasattr(sieve, "process_header_last"):
+            header_sieves_last.append(sieve)
     if op.verbose and use_headonly:
         report("--> Opening catalogs in header-only mode")
 
@@ -641,6 +644,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if skip:
             warning(u"skipping catalog due to header sieving failure")
             continue
+
         # Then run all message sieves on each message,
         # unless processing only the header.
         if not use_headonly:
@@ -673,6 +677,24 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                     break
         if skip:
             warning(u"skipping catalog due to message sieving failure")
+            continue
+
+        # Finally run all header-last sieves.
+        if header_sieves_last and op.announce_entry:
+            report(u"sieving %s:header(last)..." % fname)
+        for sieve in header_sieves_last:
+            try:
+                ret = sieve.process_header_last(cat.header, cat)
+            except SieveCatalogError, e:
+                errwarn(u"%s:header(last): sieving failed: %s" % (fname, e))
+                skip = True
+                break
+            except Exception, e:
+                error(u"%s:header(last): sieving failed: %s" % (fname, e))
+            if ret not in (None, 0):
+                break
+        if skip:
+            warning(u"skipping catalog due to header (last) sieving failure")
             continue
 
         if do_sync and cat.sync(op.force_sync):
