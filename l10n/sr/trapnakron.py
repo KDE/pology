@@ -632,7 +632,7 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
                 return None
             pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
                                   fcap, tag, ltmarkup, pltext, nsuffid,
-                                  islatin)
+                                  pkey, islatin)
             if pval1 is None:
                 return None
             pvals.append(pval1)
@@ -678,7 +678,8 @@ def _sd_env_transf (aenvs):
 
 
 def _compose_text (tsegs, markup, nobrhyp, disamb,
-                   fcap, tag, ltmarkup, pltext, nsuffid, tolatin=False):
+                   fcap, tag, ltmarkup, pltext, nsuffid,
+                   pkey=None, tolatin=False):
 
     # Tagging and escaping.
     tagsubs="%(v)s"
@@ -693,7 +694,8 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
     if atags.intersection(_pn_all_tags):
         # A person name.
         markup_mod = markup if not pltext else "plain"
-        text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup, nsuffid)
+        text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup, nsuffid,
+                                    pkey)
     else:
         # Ordinary derivations.
         text = simplify("".join([x[0] for x in tsegs]))
@@ -741,7 +743,7 @@ def _hybridize (envprops, pvals):
 
 
 # Convert tagged person name into destination markup.
-def _compose_person_name (tsegs, fcap, markup, light, nsuffid):
+def _compose_person_name (tsegs, fcap, markup, light, nsuffid, pkey):
 
     # Reduce the name to one of its elements if requested.
     # If the reduction results in empty string, revert to full name.
@@ -759,6 +761,26 @@ def _compose_person_name (tsegs, fcap, markup, light, nsuffid):
             # Take care to uppercase title to last name ("von", "al", etc.)
             # if last name alone is selected.
             upperlast = nsuffid == _suff_pname_l_id
+    # Otherwise, if the requested property is of special type,
+    # cancel the derivation if full name contains several name elements.
+    # FIXME: Actually do this once decided how the client should supply
+    # the test for special keys.
+    elif False: #pkey and len(pkey) > 2:
+        seentags = set()
+        for seg, tags in tsegs:
+            if not seg.strip():
+                continue
+            tag = tags[0] if len(tags) > 0 else None
+            if tag in _pn_tag_first:
+                seentags.add(_pn_tag_first[0])
+            elif tag in _pn_tag_last:
+                seentags.add(_pn_tag_last[0])
+            elif tag in _pn_tag_middle:
+                seentags.add(_pn_tag_middle[0])
+            else:
+                seentags.add(None)
+        if len(seentags) > 1:
+            return None
 
     if markup == "docbook4":
         name_segs = []
