@@ -740,6 +740,7 @@ def _compose_person_name (tsegs, fcap, markup, light, nsuffid):
 
     # Reduce the name to one of its elements if requested.
     # If the reduction results in empty string, revert to full name.
+    upperlast = False
     if nsuffid is not None:
         ntsegs = []
         for seg, tags in tsegs:
@@ -750,26 +751,36 @@ def _compose_person_name (tsegs, fcap, markup, light, nsuffid):
                 ntsegs.append((seg, tags))
         if "".join([seg for seg, tags in ntsegs]).strip():
             tsegs = ntsegs
+            # Take care to uppercase title to last name ("von", "al", etc.)
+            # if last name alone is selected.
+            upperlast = nsuffid == _suff_pname_l_id
 
     if markup == "docbook4":
         name_segs = []
         for seg, tags in tsegs:
-            seg = xentitize(seg)
+            seg = xentitize(seg).strip()
+            if not seg:
+                continue
             tag = tags[0] if len(tags) > 0 else None
             if tag in _pn_tag_first:
-                name_segs.append(" <firstname>%s</firstname>" % seg.strip())
+                name_segs.append(" <firstname>%s</firstname>" % seg)
             elif tag in _pn_tag_last:
-                name_segs.append(" <surname>%s</surname>" % seg.strip())
+                if upperlast:
+                    seg = seg[0].upper() + seg[1:]
+                    upperlast = False
+                name_segs.append(" <surname>%s</surname>" % seg)
             elif tag in _pn_tag_middle:
-                name_segs.append(" <othername>%s</othername>" % seg.strip())
+                name_segs.append(" <othername>%s</othername>" % seg)
             else: # untagged
-                name_segs.append(" %s" % seg.strip())
+                name_segs.append(" %s" % seg)
         name = "".join(name_segs).strip()
         if not light:
             name = "<personname>%s</personname>" % name
 
     else:
         name = simplify("".join([seg for seg, tags in tsegs]))
+        if upperlast:
+            name = name[0].upper() + name[1:]
 
     return name
 
