@@ -633,6 +633,8 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
             pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
                                   fcap, tag, ltmarkup, pltext, nsuffid,
                                   islatin)
+            if pval1 is None:
+                return None
             pvals.append(pval1)
 
         pval = _hybridize(envprops, pvals)
@@ -703,6 +705,9 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
             text = vescape(text)
         if tag and not pltext:
             text = tagsubs % dict(t=tag, v=text)
+
+    if text is None:
+        return None
 
     text = text.replace(_disamb_marker, disamb or "")
     if nobrhyp: # before conversion to Latin
