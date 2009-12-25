@@ -203,8 +203,8 @@ valid msgstr="\bподнож[јн]"
 # Делимична провера, не може се разликовати ван контекста.
 {\bforce}i
 id="force"
-hint="force = приморати [или ‘наметнути’]"
-valid msgstr="\bпримора|\bнаме[тћ]"
+hint="force = приморати [или ‘наметнути’, ‘принудити’]"
+valid msgstr="\bпримора|\bнаме[тћ]|\bприну[дђ]"
 valid cat="khotkeys" msgid="force a restart" msgstr="сами .* из почетка"
 
 {\bforce}i
