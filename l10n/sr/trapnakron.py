@@ -152,12 +152,19 @@ _altdv_ksuffs_esuffs = [
 _aenv_suff_ids = [_suff_systr_id, # order of elements significant
                   _suff_altdv1_id, _suff_altdv2_id, _suff_altdv3_id]
 _aenv_suff_ids_set = set(_aenv_suff_ids)
+_suff_pname_f = "_im" # for "ime"
+_suff_pname_f_id = 60
+_suff_pname_l = "_pr" # for "prezime"
+_suff_pname_l_id = 61
+_pname_suffs = [_suff_pname_f, _suff_pname_l]
+_pname_suff_ids = [_suff_pname_f_id, _suff_pname_l_id]
+_pname_suff_ids_set = set(_pname_suff_ids)
 
 
 def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                 markup="plain", tagmap=None,
                 ptsuff=None, ltsuff=None, gesuff=None,
-                stsuff=None, adsuff=None,
+                stsuff=None, adsuff=None, nmsuff=None,
                 npkeyto=None, nobrhyp=False, disamb="",
                 runtime=False):
     """
@@ -220,6 +227,9 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         which produces the systematic/alternative environment.
         C{adsuff} can also be a tuple of tuples, if several alternative
         derivations should be reachable.
+      - In case the entry is a person's name with tagged first and last name,
+        parameter C{nmsuff} can provide a tuple of 2 suffixes by which
+        only the first or last name are requested, respectively.
 
     Ordinary hyphens may be converted into non-breaking hyphens
     by setting the C{nobrhyp} parameter to C{True}.
@@ -274,6 +284,8 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     @param adsuff: derivation key and environment name suffixes
         to report alternative derivations
     @type adsuff: (string, string) or ((string, string)*)
+    @param nmsuff: suffixes for fetching only first or last name of a person
+    @type nmsuff: (string, string)
     @param npkeyto: property key to substitute for empty key, when given
     @type npkeyto: string or (string, [string*])
     @param nobrhyp: whether to convert some ordinary into non-breaking hyphens
@@ -346,6 +358,11 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                     aenv1.extend((env0 + esuff, env0))
                 aenv.append(tuple(aenv1))
             aenvs[suff_id] = tuple(aenv)
+    if nmsuff:
+        if len(nmsuff) != 2:
+            raise StandardError("Sequence of person name suffixes must have "
+                                "exactly 2 elements.")
+        mvends.update(zip(nmsuff, _pname_suff_ids))
 
     # Setup substitution of empty property keys.
     expkeys = []
@@ -412,7 +429,7 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
       - Suffixes: C{_rm} ("rod muski") for resolving the property value only
         if it is of masculine gender, C{_rz} for feminine, C{_rs} for neuter;
         C{_s} for systematic transcription, C{_a}, C{_a2} and C{_a3} for
-        other alternatives.
+        other alternatives; C{_im} and C{_pr} for person's last and first name.
 
       - Non-breaking hyphens are heuristically replacing ordinary hyphens.
 
@@ -428,6 +445,7 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         gesuff=_gematch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
+        nmsuff=_pname_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -454,6 +472,7 @@ def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         gesuff=_gematch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
+        nmsuff=_pname_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
         disamb=u"\u2060",
@@ -490,6 +509,7 @@ def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         gesuff=_gematch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
+        nmsuff=_pname_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
     )
@@ -543,7 +563,13 @@ def _sd_dkey_transf (suffspec, tagmap):
         if found_aenv_suff_ids:
             esuffid = tuple(found_aenv_suff_ids)[0]
 
-        return dkey, fcap, tag, ltmarkup, pltext, esuffid
+        # Whether to select only first or last name (persons).
+        nsuffid = None
+        found_pname_suff_ids = _pname_suff_ids_set.intersection(found_suff_ids)
+        if found_pname_suff_ids:
+            nsuffid = tuple(found_pname_suff_ids)[0]
+
+        return dkey, fcap, tag, ltmarkup, pltext, esuffid, nsuffid
 
     return transf, "self"
 
@@ -594,7 +620,7 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
 
     def transf (mtsegs, pkey, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext, d5 = dkrest
+        fcap, tag, ltmarkup, pltext, d5, nsuffid = dkrest
         if pkey.startswith("_"):
             fcap = False
             tag = None
@@ -605,7 +631,8 @@ def _sd_pval_transf (envprops, markup, nobrhyp, disamb):
             if tsegs is None:
                 return None
             pval1 = _compose_text(tsegs, markup, nobrhyp, disamb,
-                                  fcap, tag, ltmarkup, pltext, islatin)
+                                  fcap, tag, ltmarkup, pltext, nsuffid,
+                                  islatin)
             pvals.append(pval1)
 
         pval = _hybridize(envprops, pvals)
@@ -622,10 +649,10 @@ def _sd_ksyn_transf (markup, nobrhyp, disamb):
 
     def transf (tsegs, dkrest, sd):
 
-        fcap, tag, ltmarkup, pltext, d5 = dkrest
+        fcap, tag, ltmarkup, pltext, d5, nsuffid = dkrest
 
         ksyn = _compose_text(tsegs, markup, nobrhyp, disamb,
-                             fcap, tag, ltmarkup, pltext)
+                             fcap, tag, ltmarkup, pltext, nsuffid)
 
         return ksyn
 
@@ -638,7 +665,7 @@ def _sd_env_transf (aenvs):
 
     def transf (env, dkrest):
 
-        d1, d2, d3, d4, esuffid = dkrest
+        d1, d2, d3, d4, esuffid, d6 = dkrest
 
         if esuffid is not None:
             return aenvs[esuffid]
@@ -649,7 +676,7 @@ def _sd_env_transf (aenvs):
 
 
 def _compose_text (tsegs, markup, nobrhyp, disamb,
-                   fcap, tag, ltmarkup, pltext, tolatin=False):
+                   fcap, tag, ltmarkup, pltext, nsuffid, tolatin=False):
 
     # Tagging and escaping.
     tagsubs="%(v)s"
@@ -664,7 +691,7 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
     if atags.intersection(_pn_all_tags):
         # A person name.
         markup_mod = markup if not pltext else "plain"
-        text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup)
+        text = _compose_person_name(tsegs, fcap, markup_mod, ltmarkup, nsuffid)
     else:
         # Ordinary derivations.
         text = simplify("".join([x[0] for x in tsegs]))
@@ -709,7 +736,20 @@ def _hybridize (envprops, pvals):
 
 
 # Convert tagged person name into destination markup.
-def _compose_person_name (tsegs, fcap, markup, light):
+def _compose_person_name (tsegs, fcap, markup, light, nsuffid):
+
+    # Reduce the name to one of its elements if requested.
+    # If the reduction results in empty string, revert to full name.
+    if nsuffid is not None:
+        ntsegs = []
+        for seg, tags in tsegs:
+            tag = tags[0] if len(tags) > 0 else None
+            if (   (tag in _pn_tag_first and nsuffid == _suff_pname_f_id)
+                or (tag in _pn_tag_last and nsuffid == _suff_pname_l_id)
+            ):
+                ntsegs.append((seg, tags))
+        if "".join([seg for seg, tags in ntsegs]).strip():
+            tsegs = ntsegs
 
     if markup == "docbook4":
         name_segs = []
