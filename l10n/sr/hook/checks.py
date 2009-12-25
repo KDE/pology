@@ -44,7 +44,7 @@ _no_check_lat_rxs = (
     # - entities
     re.compile(r"&[\w_:][\w\d._:-]*;", re.U|re.I),
     # - command line options
-    re.compile(r"(?<!\S)--?\w[\w-]*", re.U|re.I),
+    re.compile(r"(?<!\w)--?\w[\w-]*", re.U|re.I),
     # - hex numbers
     re.compile(r"0x[\dabcdef]*", re.U|re.I),
     # - alternatives directives
