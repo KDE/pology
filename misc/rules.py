@@ -906,9 +906,9 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
               "previously encountered at :%d"
               % (e.args[0], filePath, lno, e.args[1]))
     except IOError, e:
-        error("Cannot read rule file at %s. Error was (%s)" % (filePath, e))
+        error("Cannot read rule file at %s. Error was (%s)" % (filePath, e.msg))
     except SyntaxError, e:
-        error("Syntax error in rule file %s:%d\n%s" % (filePath, lno, e))
+        error("Syntax error in rule file %s:%d\n%s" % (filePath, lno, e.msg))
 
     return rules
 
