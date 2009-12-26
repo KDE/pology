@@ -483,6 +483,7 @@ def examine_state (options, configs_catpaths, mode):
         for catpath, acatpath in catpaths:
             # Open current and ascription catalog.
             cat = Catalog(catpath, monitored=False)
+            clear_review_cat_simple(cat)
             acat = Catalog(acatpath, create=True, monitored=False)
             # Count non-ascribed by original catalog.
             for msg in cat:
@@ -864,6 +865,7 @@ _diffflags = (_diffflag, _diffflag_tot)
 def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
     cat = Catalog(catpath, monitored=True)
+    clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     nflagged = 0
@@ -919,10 +921,21 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         if stest(cmsg, cat, history, config, options) is None:
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
-        if msg.modcount > 0:
+        if any(clres):
             cleared[msg.refentry] = clres
 
     sync_and_rep(cat)
+
+    return cleared
+
+
+def clear_review_cat_simple (cat, keepflags=False):
+
+    cleared = {}
+    for msg in cat:
+        clres = clear_review_msg(msg, keepflags=keepflags)
+        if any(clres):
+            cleared[msg.refentry] = clres
 
     return cleared
 
@@ -932,6 +945,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     C = colors_for_file(sys.stdout)
 
     cat = Catalog(catpath, monitored=False)
+    clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     nselected = 0
