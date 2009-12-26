@@ -368,7 +368,7 @@ def hitoiq (text):
     Like L{hitoi}, but does not output warnings on problems [type F1A hook].
     """
 
-    return _hitoe_w(text, silent=True)
+    return _hitoi_w(text, silent=True)
 
 
 def _hitoi_w (text, silent=False):
@@ -605,6 +605,14 @@ def hictoec (text):
     return hctoc(hitoe(text))
 
 
+def hictoecq (text):
+    """
+    Like L{hictoec}, but does not output warnings on problems [type F1A hook].
+    """
+
+    return hctoc(hitoeq(text))
+
+
 def hictoel (text):
     """
     Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into
@@ -621,6 +629,14 @@ def hictoic (text):
     """
 
     return hctoc(hitoi(text))
+
+
+def hictoicq (text):
+    """
+    Like L{hictoic}, but does not output warnings on problems [type F1A hook].
+    """
+
+    return hctoc(hitoiq(text))
 
 
 def hictoil (text):

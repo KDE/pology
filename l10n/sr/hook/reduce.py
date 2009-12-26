@@ -8,7 +8,7 @@ Reductions of Serbian text convenient in various special uses.
 """
 
 from pology.l10n.sr.hook.accents import remove_accents
-from pology.l10n.sr.hook.wconv import hictoec, hictoic
+from pology.l10n.sr.hook.wconv import hictoecq, hictoicq
 
 
 _srcyr = u"абвгдђежзијклљмнњопрстћуфхцчџШАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"
@@ -27,7 +27,7 @@ def words_ec (text):
     L{remove_accents()<l10n.sr.hook.accents.remove>} to remove them.
     """
 
-    return _words_w(remove_accents(hictoec(text)))
+    return _words_w(remove_accents(hictoecq(text)))
 
 
 def words_ec_lw (text):
@@ -49,7 +49,7 @@ def words_ic (text):
     clean Ijekavian Cyrillic (see L{hictoic()<l10n.sr.hook.wconv.hictoic>}).
     """
 
-    return _words_w(remove_accents(hictoic(text)))
+    return _words_w(remove_accents(hictoicq(text)))
 
 
 def words_ic_lw (text):
