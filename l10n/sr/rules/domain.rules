@@ -93,6 +93,20 @@ hint="brick = квадар"
 valid msgstr="\bквада?р" !msgstr='\bцигл'
 
 # ====================
+# Palapeli (KDE jigsaw puzzle game)
+environment palapeli
+
+{\btable}i
+id="table"
+hint="table = табла [играчка]"
+valid msgstr="\bтабл\w+"
+
+{puzzle table}i
+id="puzzletable"
+hint="puzzle table = слагачка табла"
+valid msgstr="слагачк\w+ табл\w+"
+
+# ====================
 # Partition Manager (KDE disk partitioning tool)
 environment partitionmanager
 
