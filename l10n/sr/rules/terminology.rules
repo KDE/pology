@@ -99,7 +99,7 @@ valid cat="kate" msgid="configured\s*for the document type"
 {\bcursor}i
 id="cursor"
 hint="cursor = курсор"
-valid !cat="kwrite,kcontrol_kcmkonsole" !catrx="^kate|konsole|okteta"
+valid !cat="kwrite,kcontrol_kcmkonsole" !catrx="^kate|konsole|okteta|kasten"
 valid after="mouse " msgstr="\bпоказивач"
 valid before=" theme" msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="\bкурсор"

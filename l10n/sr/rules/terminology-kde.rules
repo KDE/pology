@@ -693,7 +693,7 @@ valid cat="katefiletemplates" !msgid="^Template Plugin$"
 id="pointer"
 hint="cursor|pointer = показивач"
 valid cat="kwrite,kcontrol_kcmkonsole"
-valid catrx="^kate|konsole|okteta"
+valid catrx="^kate|konsole|okteta|kasten"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="&\w*pointer\w*-\S*;"
 valid span="cursor" after="text " msgstr="курсор"
@@ -714,7 +714,7 @@ valid msgstr="\bпрокси"
 {\bquit(s|ted)?\b}i
 id="quit"
 hint="quit = напустити"
-valid msgstr="\bнапу(шта|сти)"
+valid msgstr="\bнапу(шт[ае]|сти)"
 
 {\b(regular expression|regex)}i
 id="regularexpression"
