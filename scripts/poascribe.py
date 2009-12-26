@@ -184,13 +184,6 @@ def main ():
         needuser = True
     elif mode.name in ("reviewed", "re"):
         mode.execute = ascribe_reviewed
-        # Default selector for review ascription must match
-        # default selector for review selection.
-        mode.selector = selector or build_selector(options, ["nwasc"])
-        canselect = True
-        needuser = True
-    elif mode.name in ("modreviewed", "mr"):
-        mode.execute = ascribe_modreviewed
         mode.selector = selector
         canselect = True
         needuser = True
@@ -592,30 +585,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
     assert_review_tag(configs_catpaths, options.tag)
 
-    ascribe_reviewed_w(options, configs_catpaths, mode)
-
-    if options.commit:
-        commit_catalogs(configs_catpaths, mode.user,
-                        options.ascript_message, True)
-
-
-def ascribe_reviewed_w (options, configs_catpaths, mode):
-
-    nasc = 0
-    for config, catpaths in configs_catpaths:
-        for catpath, acatpath in catpaths:
-            nasc += ascribe_reviewed_cat(options, config, mode.user,
-                                         catpath, acatpath, mode.selector)
-
-    if nasc > 0:
-        report("===! Reviewed: %d" % nasc)
-
-
-def ascribe_modreviewed (options, configs_catpaths, mode):
-
-    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
-    assert_review_tag(configs_catpaths, options.tag)
-
     # Remove any review diffs and tags from messages.
     # If any were actually removed, ascribe reviews only to those messages,
     # providing they pass the selector and were not tagged as unreviewed.
@@ -634,6 +603,7 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
         commit_catalogs(configs_catpaths, mode.user,
                         options.message, False)
 
+    # Ascribe modifications.
     mode.selector = stest_any
     ascribe_modified_w(options, configs_catpaths, mode)
 
@@ -678,7 +648,14 @@ def ascribe_modreviewed (options, configs_catpaths, mode):
             return True
         mode.selector = stest
 
-    ascribe_reviewed_w(options, configs_catpaths, mode)
+    # Ascribe reviews.
+    nasc = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            nasc += ascribe_reviewed_cat(options, config, mode.user,
+                                         catpath, acatpath, mode.selector)
+    if nasc > 0:
+        report("===! Reviewed: %d" % nasc)
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
