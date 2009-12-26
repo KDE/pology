@@ -52,7 +52,7 @@ def main ():
 
     cfgsec = pology_config.section("poascribe")
     def_user = cfgsec.string("user", None)
-    def_commit = cfgsec.boolean("commit", False)
+    def_commit = cfgsec.boolean("commit", True)
     def_filter = cfgsec.string("filter", None)
 
     opars = OptionParser(usage=usage, description=description, version=version)
@@ -108,14 +108,10 @@ def main ():
         help="collect optional functionality from an external Python file "
              "(selectors, etc.)")
     opars.add_option(
-        "-c", "--commit",
-        action="store_true", dest="commit", default=def_commit,
-        help="automatically commit original and ascription catalogs, "
-             "in proper order (relevant in some modes)")
-    opars.add_option(
         "-C", "--no-commit",
         action="store_false", dest="commit", default=def_commit,
-        help="do not commit automatically (opposite of %s option)" % "-c")
+        help="do not commit original and ascription catalogs "
+             "when version control is used")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
