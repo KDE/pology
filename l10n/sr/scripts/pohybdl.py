@@ -40,6 +40,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="accept_changes", default=False,
         help="Accept messages which have some changes between initial "
              "and reconstructed Ekavian translation.")
+    opars.add_option(
+        "-f", "--files-from", metavar="FILE",
+        action="append", dest="files_from", default=[],
+        help="get list of input files from FILE, which contains one file path "
+             "per line; can be repeated to collect paths from several files")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -60,14 +65,25 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         error("Unknown version control system '%s'." % vcskey)
     vcs = make_vcs(vcskey)
 
+    # Collect list of raw paths supplied through command line.
+    # If none supplied, assume current working directory.
+    paths = None
+    if free_args:
+        paths = free_args
+    if options.files_from:
+        if paths is None:
+            paths = []
+        for fpath in options.files_from:
+            paths.extend(open(fpath).read().rstrip("\n").split("\n"))
+    if paths is None:
+        paths = ["."]
+
     # Sanity checks on paths.
-    paths = free_args or ["."] # default to CWD if no paths given
     for path in paths:
         if not os.path.exists(path):
             error("Path '%s' does not exist." % path)
         if not vcs.is_versioned(path):
             error("Path '%s' is not under version control." % path)
-
 
     # Collect modified PO files in given paths.
     modpaths = []

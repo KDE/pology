@@ -128,6 +128,11 @@ def main ():
         help="write paths of all original catalogs modified by "
              "ascription operations into the given file")
     opars.add_option(
+        "-f", "--files-from", metavar="FILE",
+        action="append", dest="files_from", default=[],
+        help="get list of input files from FILE, which contains one file path "
+             "per line; can be repeated to collect paths from several files")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -222,8 +227,21 @@ def main ():
     if not canaselect and aselector:
         error("operation mode does not accept history selectors")
 
+    # Collect list of raw paths supplied through command line.
+    # If none supplied, assume current working directory.
+    rawpaths = None
+    if free_args:
+        rawpaths = free_args
+    if options.files_from:
+        if rawpaths is None:
+            rawpaths = []
+        for fpath in options.files_from:
+            rawpaths.extend(open(fpath).read().rstrip("\n").split("\n"))
+    if rawpaths is None:
+        rawpaths = ["."]
+
     # Collect the config which covers each path, and all catalogs inside it.
-    configs_catpaths = collect_configs_catpaths(free_args or ["."])
+    configs_catpaths = collect_configs_catpaths(rawpaths)
 
     # Execute operation.
     mode.execute(options, configs_catpaths, mode)
