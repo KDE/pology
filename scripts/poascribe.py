@@ -453,17 +453,30 @@ class Config:
 def assert_mode_user (configs_catpaths, mode, nousers=[]):
 
     if mode.user in nousers:
-        error("user '%s' not allowed in mode '%s'" % (mode.user, mode.name))
+        error("User '%s' not allowed in mode '%s'." % (mode.user, mode.name))
     for config, catpaths in configs_catpaths:
         if mode.user not in config.users:
-            error("user '%s' not defined in '%s'" % (mode.user, config.path))
+            error("User '%s' not defined in '%s'." % (mode.user, config.path))
 
 
 def assert_review_tag (configs_catpaths, tag):
 
     for config, catpaths in configs_catpaths:
         if tag not in config.review_tags:
-            error("review tag '%s' not defined in '%s'" % (tag, config.path))
+            error("Review tag '%s' not defined in '%s'." % (tag, config.path))
+
+
+def assert_no_review (configs_catpaths):
+
+    wrevs = []
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            cat = Catalog(catpath, monitored=False)
+            if clear_review_cat_simple(cat):
+                wrevs.append(catpath)
+    if wrevs:
+        error("Review elements found but not expected, "
+              "in following catalogs:\n%s" % "\n".join(wrevs))
 
 
 def examine_state (options, configs_catpaths, mode):
@@ -544,6 +557,7 @@ def examine_state (options, configs_catpaths, mode):
 def ascribe_modified (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode)
+    assert_no_review(configs_catpaths)
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
