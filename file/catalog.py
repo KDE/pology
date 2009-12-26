@@ -578,9 +578,14 @@ class Catalog (Monitored):
         self._mtypes_determined = False
 
         # Cached wrapping policy.
-        self._wrap_determined = False
-        self._wrapf = None
-        self._wrapkw = None
+        if wrapping is None:
+            self._wrap_determined = False
+            self._wrapf = None
+            self._wrapkw = None
+        else:
+            self._wrap_determined = True
+            self._wrapf = select_field_wrapper(wrapping)
+            self._wrapkw = tuple(wrapping)
 
 
     def _assert_headonly (self):
