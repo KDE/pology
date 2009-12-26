@@ -25,6 +25,9 @@ Sieve parameters:
   - C{absolute}: make bars show absolute rather than relative info
   - C{ondiff}: reduce number of words in fuzzy messages by difference ratio
   - C{mincomp}: include only catalogs with sufficient completeness
+  - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
+        to matching (see L{misc.langdep.get_hook_lreq} for the format
+        of hook specifications)
 
 The accelerator characters should be removed from the messages before
 counting, in order not to introduce word splits where there are none.
@@ -227,6 +230,8 @@ from pology.file.catalog import Catalog
 from pology.misc.report import report, warning
 import pology.misc.colors as C
 from pology.misc.diff import tdiff
+from pology.file.message import MessageUnsafe
+from pology.misc.langdep import get_hook_lreq
 
 
 def setup_sieve (p):
@@ -339,6 +344,12 @@ def setup_sieve (p):
     "Include into statistics only catalogs with sufficient completeness, "
     "as ratio of translated to other messages (real value between 0 and 1)."
     )
+    p.add_param("filter", unicode, multival=True,
+                metavar="HOOKSPEC",
+                desc=
+    "F1A hook specification, to filter the translation through. "
+    "Several filters can be specified by repeating the parameter."
+    )
 
 
 class Sieve (object):
@@ -431,6 +442,11 @@ class Sieve (object):
         self.kde_meta_msgctxt = dict([(x, True) for x in
             ("NAME OF TRANSLATORS", "EMAIL OF TRANSLATORS")])
 
+        # Resolve filtering hooks.
+        self.pfilters = []
+        for hreq in self.p.filter or []:
+            self.pfilters.append(get_hook_lreq(hreq, abort=True))
+
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
@@ -513,6 +529,18 @@ class Sieve (object):
         # - translator credits in KDE GUI
         if msg.msgctxt in self.kde_meta_msgctxt:
             ismeta = True
+
+        # Prepare filtered message for counting.
+        if self.pfilters:
+            msg = MessageUnsafe(msg)
+            for pfilter in self.pfilters:
+                for i in range(len(msg.msgstr)):
+                    msg.msgstr[i] = pfilter(msg.msgstr[i])
+
+        self.pfilters = []
+        for hreq in self.p.filter or []:
+            self.pfilters.append(get_hook_lreq(hreq, abort=True))
+
 
         # Count the words and characters in original and translation.
         # Remove shortcut markers prior to counting; don't include words
