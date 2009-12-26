@@ -1,5 +1,7 @@
 >base/aff.sd
+>games-social.sd
 >languages-prog.sd
+>org-projects.sd
 >places-internet.sd
 >software-system.sd
 
@@ -290,3 +292,9 @@ XKB: ИксКБ|-, ИксКБ|-ов
     @л: XKB|-, XKB|-ov
 ZLib: Злиб|, Злиб|ов, злиб|>
     @л: ZLib|, ZLib|ov
+
+# ----------------------------------------------------------------------------
+# За игре
+
+GnuGo: |{GNU~н}-|Go|**
+    @л: GnuGo|, GnuGo|ov
