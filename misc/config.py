@@ -139,12 +139,12 @@ class section:
 
         if cvalue is None:
             if typename:
-                error(  "user-config: value '%s' of field '%s' in section '%s' "
-                        "cannot be converted into '%s' type"
+                error("User configuration: value '%s' of field '%s' "
+                      "in section '%s' cannot be converted into '%s' type."
                       % (value, name, self.name, typename))
             else:
-                error(  "user-config: value '%s' of field '%s' in section '%s' "
-                        "cannot be converted into requested type"
+                error("User configuration: value '%s' of field '%s' "
+                      "in section '%s' cannot be converted into requested type."
                       % (value, name, self.name))
 
         return cvalue
@@ -188,6 +188,80 @@ class section:
         """
 
         return self._value(bool, name, default, "boolean")
+
+
+    def strslist (self, name, default=None, sep=","):
+        """
+        Get a configuration field as a list of separated strings.
+
+        Separator character or string is used to split the field value
+        into substrings::
+
+            afield = foo, bar, baz
+
+        Leading and trailing whitespace in list elements is stripped.
+
+        If list elements should be able to contain any characters
+        or whitespace is significant, use delimited list instead (L{strdlist}).
+
+        @param sep: the separator
+        @type sep: string
+
+        @rtype: unicode or as C{default}
+        """
+
+        value = self._value(unicode, name, None, "string")
+        if value is None:
+            return default
+        lst = value.split(sep)
+        lst = [x.strip() for x in lst]
+
+        return lst
+
+
+    def strdlist (self, name, default=None):
+        """
+        Get a configuration field as a list of delimited strings.
+
+        Delimiter is taken to be the non-alphanumeric character with
+        which the field value starts. In this example::
+
+            afield = /foo/bar/baz/
+
+        the delimiter is C{/}.
+
+        If the field value does not start with a non-alphanumeric,
+        or it does not end with the delimiter, error is signalled.
+
+        @rtype: unicode or as C{default}
+        """
+
+        value = self._value(unicode, name, None, "string")
+        if value is None:
+            return default
+        value = value.strip()
+
+        if len(value) < 2:
+            error("User configuration: value '%s' of field '%s' "
+                  "in section '%s' is too short for a delimited list."
+                  % (value, name, self.name))
+        if value[0].isalnum():
+            error("User configuration: value '%s' of field '%s' "
+                  "in section '%s' does not start with "
+                  "a non-alphanumeric delimiter character."
+                  % (value, name, self.name))
+
+        delim = value[0]
+
+        if value[-1] != delim:
+            error("User configuration: value '%s' of field '%s' "
+                  "in section '%s' does not end with the delimiter character "
+                  "with which it starts."
+                  % (value, name, self.name))
+
+        lst = value[1:-1].split(delim)
+
+        return lst
 
 
 def strbool (value):
