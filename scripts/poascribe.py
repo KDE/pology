@@ -39,6 +39,18 @@ def main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
+    mode_spec = (
+        ("status", "st"),
+        ("modified", "mo"),
+        ("reviewed", "re"),
+        ("clear", "cl"),
+        ("diff", "di"),
+        ("history", "hi"),
+    )
+    mode_allnames = set(sum(mode_spec, ()))
+    mode_tolong = dict(map(reversed, mode_spec))
+    mode_tolong.update(dict([(x, x) for x, y in mode_spec]))
+
     # Setup options and parse the command line.
     usage = (
         u"%prog [OPTIONS] [MODE] [PATHS...]")
@@ -50,14 +62,6 @@ def main ():
         u"Copyright © 2008 Chusslove Illich (Часлав Илић) "
         u"<caslav.ilic@gmx.net>\n")
 
-    cfgsec = pology_config.section("poascribe")
-    def_user = cfgsec.string("user", None)
-    def_selectors = cfgsec.strdlist("selectors", [])
-    def_aselectors = cfgsec.strdlist("aselectors", [])
-    def_filters = cfgsec.strslist("filters", [])
-    def_tag = cfgsec.strslist("tag", "")
-    def_commit = cfgsec.boolean("commit", True)
-
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
         "--no-psyco",
@@ -65,7 +69,7 @@ def main ():
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
         "-u", "--user", metavar="USER",
-        action="store", dest="user", default=def_user,
+        action="store", dest="user", default=None,
         help="user in the focus of the operation "
              "(relevant in some modes)")
     opars.add_option(
@@ -92,7 +96,7 @@ def main ():
              "of whatever is shown in original (e.g. in diffs)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
-        action="store", dest="tag", default=def_tag,
+        action="store", dest="tag", default=None,
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
@@ -112,7 +116,7 @@ def main ():
              "(selectors, etc.)")
     opars.add_option(
         "-C", "--no-commit",
-        action="store_false", dest="commit", default=def_commit,
+        action="store_false", dest="commit", default=None,
         help="do not commit original and ascription catalogs "
              "when version control is used")
     opars.add_option(
@@ -150,19 +154,42 @@ def main ():
         except ImportError:
             pass
 
-    # Put default list values for options not issued.
-    if options.selectors is None:
-        options.selectors = def_selectors
-    if options.aselectors is None:
-        options.aselectors = def_aselectors
-    if options.filters is None:
-        options.filters = def_filters
+    # Parse operation mode and its arguments.
+    if len(free_args) < 1:
+        error("Operation mode not given.")
+    rawmodename = free_args.pop(0)
+    modename = mode_tolong.get(rawmodename)
+    if modename is None:
+        error("Unknown operation mode '%s' (known modes: %s)."
+              % (rawmodename, ", ".join(["%s/%s" % x for x in mode_spec])))
+
+    # For options not issued, read values from user configuration.
+    # Configuration values can also be issued by mode using
+    # C{afield/amode = value} syntax, which takes precedence over
+    # general fields (e.g. C{filters/review} vs. C{filters}).
+    cfgsec = pology_config.section("poascribe")
+    for optname, getvalf, defval in (
+        ("user", cfgsec.string, None),
+        ("selectors", cfgsec.strdlist, []),
+        ("aselectors", cfgsec.strdlist, []),
+        ("filters", cfgsec.strslist, []),
+        ("tag", cfgsec.string, ""),
+        ("commit", cfgsec.boolean, True),
+    ):
+        if getattr(options, optname) is None:
+            for fldname in ("%s/%s" % (optname, modename), optname):
+                fldval = getvalf(fldname, None)
+                if fldval is not None:
+                    break
+            if fldval is None:
+                fldval = defval
+            setattr(options, optname, fldval)
 
     # Collect any external functionality.
     for xmod_path in options.externals:
         collect_externals(xmod_path)
 
-    # Fetch history filter if requested, store it in options.
+    # Create history filter if requested, store it in options.
     options.hfilter = None
     options.sfilter = None
     if options.filters:
@@ -185,10 +212,7 @@ def main ():
     if options.aselectors:
         aselector = build_selector(options, options.aselectors, hist=True)
 
-    # Parse operation mode and its arguments.
-    if len(free_args) < 1:
-        error("operation mode not given")
-    modename = free_args.pop(0)
+    # Assemble operation mode.
     needuser = False
     canselect = False
     canaselect = False
@@ -196,21 +220,21 @@ def main ():
     mode = _Mode()
     mode.name = modename
     if 0: pass
-    elif mode.name in ("status", "st"):
+    elif mode.name == "status":
         mode.execute = examine_state
         mode.selector = selector or build_selector(options, ["any"])
         canselect = True
-    elif mode.name in ("modified", "mo"):
+    elif mode.name == "modified":
         mode.execute = ascribe_modified
         mode.selector = selector or build_selector(options, ["any"])
         canselect = True
         needuser = True
-    elif mode.name in ("reviewed", "re"):
+    elif mode.name == "reviewed":
         mode.execute = ascribe_reviewed
         mode.selector = selector
         canselect = True
         needuser = True
-    elif mode.name in ("diff", "di"):
+    elif mode.name == "diff":
         mode.execute = diff_select
         # Default selector for review selection must match
         # default selector for review ascription.
@@ -224,16 +248,16 @@ def main ():
             mode.aselector = aselector
         canselect = True
         canaselect = True
-    elif mode.name in ("clear-review", "cr"):
+    elif mode.name == "clear":
         mode.execute = clear_review
         mode.selector = selector or build_selector(options, ["any"])
         canselect = True
-    elif mode.name in ("history", "hi"):
+    elif mode.name == "history":
         mode.execute = show_history
         mode.selector = selector or build_selector(options, ["nwasc"])
         canselect = True
     else:
-        error("unknown operation mode '%s'" % mode.name)
+        error("Internal problem: unhandled operation mode '%s'." % mode.name)
 
     mode.user = None
     if needuser:
