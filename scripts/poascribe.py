@@ -231,21 +231,13 @@ def main ():
         needuser = True
     elif mode.name == "reviewed":
         mode.execute = ascribe_reviewed
-        mode.selector = selector
+        mode.selector = selector or build_selector(options, ["any"])
         canselect = True
         needuser = True
     elif mode.name == "diff":
         mode.execute = diff_select
-        # Default selector for review selection must match
-        # default selector for review ascription.
-        mode.selector = selector or build_selector(options, ["nwasc"])
-        # Build default ascription selector only if neither selector
-        # is explicitly given, since explicit basic selector may be used for
-        # ascription selection in a suitable sense (see diff_select_cat()).
-        if not selector and not aselector:
-            mode.aselector = build_selector(options, ["asc"], hist=True)
-        else:
-            mode.aselector = aselector
+        mode.selector = selector or build_selector(options, ["modar"])
+        mode.aselector = aselector
         canselect = True
         canaselect = True
     elif mode.name == "clear":
@@ -254,7 +246,7 @@ def main ():
         canselect = True
     elif mode.name == "history":
         mode.execute = show_history
-        mode.selector = selector or build_selector(options, ["nwasc"])
+        mode.selector = selector or build_selector(options, ["any"])
         canselect = True
     else:
         error("Internal problem: unhandled operation mode '%s'." % mode.name)
@@ -701,8 +693,8 @@ def ascribe_reviewed (options, configs_catpaths, mode):
                 diffed, revtags, unrev = revspec
                 if unrev:
                     return None
-            # Exclude if selector given and not message does not pass.
-            if stest_orig and stest_orig(msg, cat, hist, conf, opts) is None:
+            # Exclude if message does not pass selector.
+            if stest_orig(msg, cat, hist, conf, opts) is None:
                 return None
             return True
         mode.selector = stest
@@ -716,8 +708,8 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             diffed, revtags, unrev = revspec
             if unrev:
                 return None
-            # Exclude if selector given and not message does not pass.
-            if stest_orig and stest_orig(msg, cat, hist, conf, opts) is None:
+            # Exclude if message does not pass selector.
+            if stest_orig(msg, cat, hist, conf, opts) is None:
                 return None
             return True
         mode.selector = stest
