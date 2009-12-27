@@ -52,8 +52,11 @@ def main ():
 
     cfgsec = pology_config.section("poascribe")
     def_user = cfgsec.string("user", None)
+    def_selectors = cfgsec.strdlist("selectors", [])
+    def_aselectors = cfgsec.strdlist("aselectors", [])
+    def_filters = cfgsec.strslist("filters", [])
+    def_tag = cfgsec.strslist("tag", "")
     def_commit = cfgsec.boolean("commit", True)
-    def_filter = cfgsec.string("filter", None)
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
@@ -66,22 +69,22 @@ def main ():
         help="user in the focus of the operation "
              "(relevant in some modes)")
     opars.add_option(
-        "-s", "--select", metavar="SELECTOR[:ARGS]",
-        action="append", dest="selectors", default=[],
+        "-s", "--selector", metavar="SELECTOR[:ARGS]",
+        action="append", dest="selectors", default=None,
         help="consider only messages matched by this selector. "
              "Can be repeated, AND-semantics.")
     opars.add_option(
         "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
-        action="append", dest="aselectors", default=[],
+        action="append", dest="aselectors", default=None,
         help="select message from ascription history by this selector "
              "(relevant in some modes). "
              "Can be repeated, AND-semantics.")
     opars.add_option(
         "-F", "--filter", metavar="NAME",
-        action="store", dest="text_filter", default=def_filter,
-        help="pass relevant message text fields through a filter before "
-             "matching or comparing them "
-             "(relevant in some modes)")
+        action="append", dest="filters", default=None,
+        help="Pass relevant message text fields through a filter before "
+             "matching or comparing them (relevant in some modes). "
+             "Can be repeated to add several filters.")
     opars.add_option(
         "-G", "--show-filtered",
         action="store_true", dest="show_filtered", default=False,
@@ -89,7 +92,7 @@ def main ():
              "of whatever is shown in original (e.g. in diffs)")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
-        action="store", dest="tag", default="",
+        action="store", dest="tag", default=def_tag,
         help="tag to add or consider in ascription records "
              "(relevant in some modes)")
     opars.add_option(
@@ -147,6 +150,14 @@ def main ():
         except ImportError:
             pass
 
+    # Put default list values for options not issued.
+    if options.selectors is None:
+        options.selectors = def_selectors
+    if options.aselectors is None:
+        options.aselectors = def_aselectors
+    if options.filters is None:
+        options.filters = def_filters
+
     # Collect any external functionality.
     for xmod_path in options.externals:
         collect_externals(xmod_path)
@@ -154,8 +165,15 @@ def main ():
     # Fetch history filter if requested, store it in options.
     options.hfilter = None
     options.sfilter = None
-    if options.text_filter:
-        options.hfilter = get_hook_lreq(options.text_filter, abort=True)
+    if options.filters:
+        hfilters = []
+        for hspec in options.filters:
+            hfilters.append(get_hook_lreq(hspec, abort=True))
+        def hfilter_composition (text):
+            for hfilter in hfilters:
+                text = hfilter(text)
+            return text
+        options.hfilter = hfilter_composition
         if options.show_filtered:
             options.sfilter = options.hfilter
 
