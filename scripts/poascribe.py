@@ -212,10 +212,10 @@ def main ():
     # Create selectors if any explicitly given.
     selector = None
     if options.selectors:
-        selector = build_selector(options, options.selectors)
+        selector = build_selector(options.selectors)
     aselector = None
     if options.aselectors:
-        aselector = build_selector(options, options.aselectors, hist=True)
+        aselector = build_selector(options.aselectors, hist=True)
 
     # Assemble operation mode.
     needuser = False
@@ -227,31 +227,31 @@ def main ():
     if 0: pass
     elif mode.name == "status":
         mode.execute = examine_state
-        mode.selector = selector or build_selector(options, ["any"])
+        mode.selector = selector or build_selector(["any"])
         canselect = True
     elif mode.name == "modified":
         mode.execute = ascribe_modified
-        mode.selector = selector or build_selector(options, ["any"])
+        mode.selector = selector or build_selector(["any"])
         canselect = True
         needuser = True
     elif mode.name == "reviewed":
         mode.execute = ascribe_reviewed
-        mode.selector = selector or build_selector(options, ["any"])
+        mode.selector = selector or build_selector(["any"])
         canselect = True
         needuser = True
     elif mode.name == "diff":
         mode.execute = diff_select
-        mode.selector = selector or build_selector(options, ["modar"])
+        mode.selector = selector or build_selector(["modar"])
         mode.aselector = aselector
         canselect = True
         canaselect = True
     elif mode.name == "clear":
         mode.execute = clear_review
-        mode.selector = selector or build_selector(options, ["any"])
+        mode.selector = selector or build_selector(["any"])
         canselect = True
     elif mode.name == "history":
         mode.execute = show_history
-        mode.selector = selector or build_selector(options, ["any"])
+        mode.selector = selector or build_selector(["any"])
         canselect = True
     else:
         error("Internal problem: unhandled operation mode '%s'." % mode.name)
@@ -554,7 +554,7 @@ def examine_state (options, configs_catpaths, mode):
                                               hfilter=options.hfilter)
                 if history[0].user is None and msg.untranslated:
                     continue # pristine
-                if not mode.selector(msg, cat, history, config, options):
+                if not mode.selector(msg, cat, history, config):
                     continue # not selected
                 counts = history[0].user is None and counts_na or counts_a
                 st = msg.state()
@@ -681,7 +681,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     # In both cases, ascribe modifications to all modified messages.
 
     stest_orig = mode.selector
-    stest_any = build_selector(options, ["any"])
+    stest_any = build_selector(["any"])
 
     mode.selector = stest_any
     options.keep_flags = False # deactivate this option if issued
@@ -708,7 +708,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             break
 
     if exclusive:
-        def stest (msg, cat, hist, conf, opts):
+        def stest (msg, cat, hist, conf):
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
             revspec = cleared_by_catref[cat.filename].get(msg.refentry)
             if revspec:
@@ -716,12 +716,12 @@ def ascribe_reviewed (options, configs_catpaths, mode):
                 if unrev:
                     return False
             # Exclude if message does not pass selector.
-            if not stest_orig(msg, cat, hist, conf, opts):
+            if not stest_orig(msg, cat, hist, conf):
                 return False
             return True
         mode.selector = stest
     else:
-        def stest (msg, cat, hist, conf, opts):
+        def stest (msg, cat, hist, conf):
             # Exclude unless diffed or tagged as reviewed.
             revspec = cleared_by_catref[cat.filename].get(msg.refentry)
             if not revspec:
@@ -731,7 +731,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             if unrev:
                 return False
             # Exclude if message does not pass selector.
-            if not stest_orig(msg, cat, hist, conf, opts):
+            if not stest_orig(msg, cat, hist, conf):
                 return False
             return True
         mode.selector = stest
@@ -814,7 +814,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
                                       hfilter=options.hfilter)
         if history[0].user is None and msg.untranslated:
             continue # pristine
-        if not stest(msg, cat, history, config, options):
+        if not stest(msg, cat, history, config):
             continue # not selected
         if history[0].user is None:
             toasc_msgs.append(msg)
@@ -883,7 +883,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         # Makes no sense to ascribe review to pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
-        if not stest(msg, cat, history, config, options):
+        if not stest(msg, cat, history, config):
             continue
         # Message cannot be ascribed as reviewed if it has not been
         # already ascribed as modified.
@@ -940,7 +940,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         # Makes no sense to review pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
-        sres = stest(msg, cat, history, config, options)
+        sres = stest(msg, cat, history, config)
         if not sres:
             continue
 
@@ -948,7 +948,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         # (Note that ascription indices returned by selectors are 1-based.)
         i_asc = None
         if aselect:
-            asres = aselect(msg, cat, history, config, options)
+            asres = aselect(msg, cat, history, config)
             i_asc = (asres - 1) if asres else None
         elif isinstance(sres, int):
             # If there is no ascription selector, but basic selector returned
@@ -985,7 +985,7 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         clear_review_msg(cmsg)
         history = asc_collect_history(cmsg, acat, config,
                                       hfilter=options.hfilter)
-        if not stest(cmsg, cat, history, config, options):
+        if not stest(cmsg, cat, history, config):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
         if any(clres):
@@ -1019,7 +1019,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter)
-        if not stest(msg, cat, history, config, options):
+        if not stest(msg, cat, history, config):
             continue
         nselected += 1
 
@@ -1976,7 +1976,7 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
 # Selector specification is a string in format NAME:ARG1:ARG2:...
 # (instead of colon, separator can be any non-alphanumeric excluding
 # underscore and hyphen)
-def build_selector (options, selspecs, hist=False):
+def build_selector (selspecs, hist=False):
 
     # Component selectors.
     selectors = []
