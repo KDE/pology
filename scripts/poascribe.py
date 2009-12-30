@@ -615,13 +615,13 @@ def examine_state (options, configs_catpaths, mode):
                 data[0].append(catpath)
                 data[1].append("asc")
                 for datac, cc in zip(data[2:], cc_a):
-                    datac.append(cc)
+                    datac.append(cc or None)
                 # Unascribed, only if any.
                 if sum(cc_na) > 0:
                     data[0].append("^^^")
                     data[1].append("nasc")
                     for datac, cc in zip(data[2:], cc_na):
-                        datac.append(cc)
+                        datac.append(cc or None)
             dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
             report("-")
             report(tabulate(data=data, coln=coln, dfmt=dfmt,
