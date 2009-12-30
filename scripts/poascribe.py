@@ -554,7 +554,7 @@ def examine_state (options, configs_catpaths, mode):
                                               hfilter=options.hfilter)
                 if history[0].user is None and msg.untranslated:
                     continue # pristine
-                if mode.selector(msg, cat, history, config, options) is None:
+                if not mode.selector(msg, cat, history, config, options):
                     continue # not selected
                 counts = history[0].user is None and counts_na or counts_a
                 st = msg.state()
@@ -714,10 +714,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             if revspec:
                 diffed, revtags, unrev = revspec
                 if unrev:
-                    return None
+                    return False
             # Exclude if message does not pass selector.
-            if stest_orig(msg, cat, hist, conf, opts) is None:
-                return None
+            if not stest_orig(msg, cat, hist, conf, opts):
+                return False
             return True
         mode.selector = stest
     else:
@@ -725,14 +725,14 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             # Exclude unless diffed or tagged as reviewed.
             revspec = cleared_by_catref[cat.filename].get(msg.refentry)
             if not revspec:
-                return None
+                return False
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
             diffed, revtags, unrev = revspec
             if unrev:
-                return None
+                return False
             # Exclude if message does not pass selector.
-            if stest_orig(msg, cat, hist, conf, opts) is None:
-                return None
+            if not stest_orig(msg, cat, hist, conf, opts):
+                return False
             return True
         mode.selector = stest
 
@@ -814,7 +814,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
                                       hfilter=options.hfilter)
         if history[0].user is None and msg.untranslated:
             continue # pristine
-        if stest(msg, cat, history, config, options) is None:
+        if not stest(msg, cat, history, config, options):
             continue # not selected
         if history[0].user is None:
             toasc_msgs.append(msg)
@@ -883,7 +883,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         # Makes no sense to ascribe review to pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
-        if stest(msg, cat, history, config, options) is None:
+        if not stest(msg, cat, history, config, options):
             continue
         # Message cannot be ascribed as reviewed if it has not been
         # already ascribed as modified.
@@ -941,18 +941,20 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         if history[0].user is None and msg.untranslated:
             continue
         sres = stest(msg, cat, history, config, options)
-        if sres is None:
+        if not sres:
             continue
 
         # Try to select ascription to differentiate from.
+        # (Note that ascription indices returned by selectors are 1-based.)
         i_asc = None
         if aselect:
-            i_asc = aselect(msg, cat, history, config, options)
+            asres = aselect(msg, cat, history, config, options)
+            i_asc = (asres - 1) if asres else None
         elif isinstance(sres, int):
             # If there is no ascription selector, but basic selector returned
-            # an ascription index, use first earlier non-fuzzy ascription
-            # for diffing.
-            i_asc = first_nfuzzy(history, sres + 1)
+            # an ascription index, use first earlier non-fuzzy for diffing.
+            i_asc = sres - 1
+            i_asc = first_nfuzzy(history, i_asc + 1)
 
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
@@ -983,7 +985,7 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         clear_review_msg(cmsg)
         history = asc_collect_history(cmsg, acat, config,
                                       hfilter=options.hfilter)
-        if stest(cmsg, cat, history, config, options) is None:
+        if not stest(cmsg, cat, history, config, options):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
         if any(clres):
@@ -1017,7 +1019,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter)
-        if stest(msg, cat, history, config, options) is None:
+        if not stest(msg, cat, history, config, options):
             continue
         nselected += 1
 
@@ -2014,26 +2016,17 @@ def build_selector (options, selspecs, hist=False):
         res = res0
         for selector in selectors:
             res = selector(*a)
-            if res is None:
+            if not res:
                 return res
         return res
 
     return cselector
 
 
-# Negative selector is built to return:
-# - True if the positive selector returns None
-# - None otherwise (the positive selector returns True or ascription index)
-# NOTE: No False as return value because selectors should return
-# one of None, True, or index.
 def negate_selector (selector):
 
     def negative_selector (*args):
-        res = selector(*args)
-        if res is None:
-            return True
-        else:
-            return None
+        return not selector(*args)
 
     return negative_selector
 
@@ -2075,10 +2068,13 @@ def cached_tags (tag_spec, config, cid):
 # Selector factories.
 # Use build_selector() to create selectors.
 
-# NOTE: Selectors should return one of None, True, or
-# a valid index into ascription history.
-# They should never return False, so that non-selection can always be checked
-# by ...is None, since index 0 and False would be same.
+# NOTE:
+# Plain selectors should return True or False.
+# History selectors should return 1-based index into ascription history
+# when the appropriate historical message is found, and 0 otherwise.
+# In this way, when it is only necessary to test if a message is selected,
+# returns from both types of selectors can be tested for simple falsity/truth,
+# and non-zero integer return always indicates history selection.
 
 def selector_any ():
     cid = "selector:any"
@@ -2095,7 +2091,7 @@ def selector_active ():
 
     def selector (msg, cat, history, config, options):
 
-        return (msg.translated and not msg.obsolete) or None
+        return msg.translated and not msg.obsolete
 
     return selector
 
@@ -2105,7 +2101,7 @@ def selector_current ():
 
     def selector (msg, cat, history, config, options):
 
-        return (not msg.obsolete) or None
+        return not msg.obsolete
 
     return selector
 
@@ -2119,10 +2115,7 @@ def selector_branch (branch=None):
 
     def selector (msg, cat, history, config, options):
 
-        if branches.intersection(parse_summit_branches(msg)):
-            return True
-
-        return None
+        return bool(branches.intersection(parse_summit_branches(msg)))
 
     return selector
 
@@ -2132,13 +2125,8 @@ def selector_wasc ():
 
     def selector (msg, cat, history, config, options):
 
-        if history[0].user is not None:
-            return True
-        elif msg.untranslated:
-            # Also consider pristine messages ascribed.
-            return True
-
-        return None
+        # Also consider pristine messages ascribed.
+        return history[0].user is not None or msg.untranslated
 
     return selector
 
@@ -2153,8 +2141,7 @@ def selector_xrevd ():
         for flag in msg.flags:
             if _revdflag_rx.search(flag):
                 return True
-
-        return None
+        return False
 
     return selector
 
@@ -2168,10 +2155,7 @@ def selector_fexpr (expr=None):
     def selector (msg, cat, history, config, options):
 
         matcher = cached_matcher(expr, options.hfilter, cid)
-        if matcher(msg, cat):
-            return True
-
-        return None
+        return bool(matcher(msg, cat))
 
     return selector
 
@@ -2186,10 +2170,7 @@ def selector_e (entry=None):
 
     def selector (msg, cat, history, config, options):
 
-        if msg.refentry == refentry:
-            return True
-
-        return None
+        return msg.refentry == refentry
 
     return selector
 
@@ -2204,10 +2185,7 @@ def selector_l (line=None):
 
     def selector (msg, cat, history, config, options):
 
-        if abs(msg.refline - refline) <= 1:
-            return True
-
-        return None
+        return abs(msg.refline - refline) <= 1
 
     return selector
 
@@ -2233,9 +2211,9 @@ def selector_espan (first=None, last=None):
     def selector (msg, cat, history, config, options):
 
         if first_entry is not None and msg.refentry < first_entry:
-            return None
+            return False
         if last_entry is not None and msg.refentry > last_entry:
-            return None
+            return False
         return True
 
     return selector
@@ -2262,9 +2240,9 @@ def selector_lspan (first=None, last=None):
     def selector (msg, cat, history, config, options):
 
         if first_line is not None and msg.refline < first_line:
-            return None
+            return False
         if last_line is not None and msg.refline > last_line:
-            return None
+            return False
         return True
 
     return selector
@@ -2279,7 +2257,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         matcher = cached_matcher(expr, options.hfilter, cid)
         users = cached_users(user_spec, config, cid)
@@ -2289,7 +2267,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
         else:
             i = first_nfuzzy(history, 0)
             if i is None:
-                return None
+                return 0
 
         while i < len(history):
             a = history[i]
@@ -2320,11 +2298,11 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                           pfilter=options.hfilter, addrem=addrem)
 
             if matcher(amsg, cat):
-                return i
+                return i + 1
 
             i = i_next
 
-        return None
+        return 0
 
     return selector
 
@@ -2336,18 +2314,18 @@ def selector_asc (user_spec=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         users = cached_users(user_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         for i in range(len(history)):
             a = history[i]
             if not users or a.user in users:
-                i_sel = i
+                hi_sel = i + 1
                 break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
@@ -2359,20 +2337,20 @@ def selector_mod (user_spec=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         users = cached_users(user_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         for i in range(len(history)):
             a = history[i]
             if not a.user:
                 continue
             if a.type == ATYPE_MOD and (not users or a.user in users):
-                i_sel = i
+                hi_sel = i + 1
                 break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
@@ -2423,13 +2401,13 @@ def w_selector_modax (cid, amod, arev,
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         musers = cached_users(muser_spec, config, cid, utype="m")
         rmusers = cached_users(rmuser_spec, config, cid, utype="rm")
         atags = cached_tags(atag_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         for i in range(len(history)):
             a = history[i]
 
@@ -2457,10 +2435,10 @@ def w_selector_modax (cid, amod, arev,
                     and not (    tronly
                              and ae and ae.msg.msgstr == a.msg.msgstr)
                 ):
-                    i_sel = i
+                    hi_sel = i + 1
                     break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
@@ -2472,21 +2450,21 @@ def selector_rev (user_spec=None, atag_spec=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         users = cached_users(user_spec, config, cid)
         atags = cached_tags(atag_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         for i in range(len(history)):
             a = history[i]
             if (    a.type == ATYPE_REV and a.tag in atags
                 and (not users or a.user in users)
             ):
-                i_sel = i
+                hi_sel = i + 1
                 break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
@@ -2499,13 +2477,13 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         rusers = cached_users(ruser_spec, config, cid, utype="r")
         musers = cached_users(muser_spec, config, cid, utype="m")
         atags = cached_tags(atag_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         can_select = False
         for i in range(len(history)):
             a = history[i]
@@ -2521,10 +2499,10 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
             ):
                 # Review found, select it if enabled, and stop anyway.
                 if can_select:
-                    i_sel = i
+                    hi_sel = i + 1
                 break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
@@ -2546,21 +2524,21 @@ def selector_modafter (time_spec=None, user_spec=None):
     def selector (msg, cat, history, config, options):
 
         if history[0].user is None:
-            return None
+            return 0
 
         users = cached_users(user_spec, config, cid)
 
-        i_sel = None
+        hi_sel = 0
         for i in range(len(history) - 1, -1, -1):
             a = history[i]
             if (    a.type == ATYPE_MOD and (not users or a.user in users)
                 and (not date or a.date >= date)
                 and (not rev or not config.vcs.is_older(a.rev, rev))
             ):
-                i_sel = i
+                hi_sel = i + 1
                 break
 
-        return i_sel
+        return hi_sel
 
     return selector
 
