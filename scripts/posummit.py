@@ -362,6 +362,20 @@ def derive_project_data (project, options):
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
                                              None, None, project, options)
 
+    # Resolve ascription filter calls.
+    for i in range(len(project.ascription_filters)):
+        afname, afspec = project.ascription_filters[i]
+        if isinstance(afspec, basestring):
+            afcall = ASC.build_selector([afspec])
+        elif isinstance(afspec, (tuple, list)):
+            afcall = ASC.build_selector(afspec)
+        elif callable(afspec):
+            afcall = afspec
+        else:
+            error("Unknown type of definition for ascription filter '%s'."
+                  % afname)
+        project.ascription_filters[i] = (afname, afcall)
+
     # Link summit and ascription catalogs.
     if project.ascription_filters:
         tmp0 = [(x, y[0][0]) for x, y in p.catalogs[SUMMIT_ID].items()]
