@@ -64,30 +64,31 @@ def main ():
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=True,
-        help="do not try to use Psyco specializing compiler")
+        "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
+        action="append", dest="aselectors", default=None,
+        help="select message from ascription history by this selector "
+             "(relevant in some modes). "
+             "Can be repeated, AND-semantics.")
     opars.add_option(
         "-b", "--show-by-file",
         action="store_true", dest="show_by_file", default=False,
         help="next to global summary, also present results by file "
              "(relevant in some modes).")
     opars.add_option(
-        "-u", "--user", metavar="USER",
-        action="store", dest="user", default=None,
-        help="user in the focus of the operation "
+        "-C", "--no-commit",
+        action="store_false", dest="commit", default=None,
+        help="do not commit original and ascription catalogs "
+             "when version control is used")
+    opars.add_option(
+        "-d", "--depth", metavar="LEVEL",
+        action="store", dest="depth", default=None,
+        help="consider ascription history up to this level into the past "
              "(relevant in some modes)")
     opars.add_option(
-        "-s", "--selector", metavar="SELECTOR[:ARGS]",
-        action="append", dest="selectors", default=None,
-        help="consider only messages matched by this selector. "
-             "Can be repeated, AND-semantics.")
-    opars.add_option(
-        "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
-        action="append", dest="aselectors", default=None,
-        help="select message from ascription history by this selector "
-             "(relevant in some modes). "
-             "Can be repeated, AND-semantics.")
+        "-f", "--files-from", metavar="FILE",
+        action="append", dest="files_from", default=[],
+        help="get list of input files from FILE, which contains one file path "
+             "per line; can be repeated to collect paths from several files")
     opars.add_option(
         "-F", "--filter", metavar="NAME",
         action="append", dest="filters", default=None,
@@ -100,30 +101,10 @@ def main ():
         help="when operating under a filter, also show filtered versions "
              "of whatever is shown in original (e.g. in diffs)")
     opars.add_option(
-        "-t", "--tag", metavar="TAG",
-        action="store", dest="tag", default=None,
-        help="tag to add or consider in ascription records "
-             "(relevant in some modes)")
-    opars.add_option(
         "-k", "--keep-flags",
         action="store_true", dest="keep_flags", default=False,
         help="do not remove ascription significant flags from messages "
              "(relevant in some modes)")
-    opars.add_option(
-        "-d", "--depth", metavar="LEVEL",
-        action="store", dest="depth", default=None,
-        help="consider ascription history up to this level into the past "
-             "(relevant in some modes)")
-    opars.add_option(
-        "-x", "--externals", metavar="PYFILE",
-        action="append", dest="externals", default=[],
-        help="collect optional functionality from an external Python file "
-             "(selectors, etc.)")
-    opars.add_option(
-        "-C", "--no-commit",
-        action="store_false", dest="commit", default=None,
-        help="do not commit original and ascription catalogs "
-             "when version control is used")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
@@ -135,19 +116,38 @@ def main ():
         help="commit message for ascription catalogs, when %(option)s "
              "is in effect" % dict(option="-c"))
     opars.add_option(
+        "-s", "--selector", metavar="SELECTOR[:ARGS]",
+        action="append", dest="selectors", default=None,
+        help="consider only messages matched by this selector. "
+             "Can be repeated, AND-semantics.")
+    opars.add_option(
+        "-t", "--tag", metavar="TAG",
+        action="store", dest="tag", default=None,
+        help="tag to add or consider in ascription records "
+             "(relevant in some modes)")
+    opars.add_option(
+        "-u", "--user", metavar="USER",
+        action="store", dest="user", default=None,
+        help="user in the focus of the operation "
+             "(relevant in some modes)")
+    opars.add_option(
+        "-v", "--verbose",
+        action="store_true", dest="verbose", default=False,
+        help="output more detailed progress info")
+    opars.add_option(
         "-w", "--write-modified", metavar="FILE",
         action="store", dest="write_modified", default=None,
         help="write paths of all original catalogs modified by "
              "ascription operations into the given file")
     opars.add_option(
-        "-f", "--files-from", metavar="FILE",
-        action="append", dest="files_from", default=[],
-        help="get list of input files from FILE, which contains one file path "
-             "per line; can be repeated to collect paths from several files")
+        "-x", "--externals", metavar="PYFILE",
+        action="append", dest="externals", default=[],
+        help="collect optional functionality from an external Python file "
+             "(selectors, etc.)")
     opars.add_option(
-        "-v", "--verbose",
-        action="store_true", dest="verbose", default=False,
-        help="output more detailed progress info")
+        "--no-psyco",
+        action="store_false", dest="use_psyco", default=True,
+        help="do not try to use Psyco specializing compiler")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
