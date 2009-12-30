@@ -31,6 +31,7 @@ import pology.misc.config as pology_config
 from pology.misc.tabulate import tabulate
 import pology.misc.colors as C
 from pology.misc.comments import parse_summit_branches
+from pology.misc.report import init_file_progress
 
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
@@ -537,14 +538,22 @@ def assert_no_review (configs_catpaths):
               "in following catalogs:\n%s" % "\n".join(wrevs))
 
 
+def setup_progress (configs_catpaths, addfmt):
+
+    acps = [y[0] for x in configs_catpaths for y in x[1]]
+    return init_file_progress(acps, addfmt=addfmt)
+
+
 def examine_state (options, configs_catpaths, mode):
 
     # Count ascribed and unascribed messages through catalogs.
     counts_a = dict([(x, {}) for x in _all_states])
     counts_na = dict([(x, {}) for x in _all_states])
 
+    upprog = setup_progress(configs_catpaths, "Examining ascription state: %s")
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             # Open current and ascription catalog.
             cat = Catalog(catpath, monitored=False)
             clear_review_cat_simple(cat)
@@ -577,6 +586,7 @@ def examine_state (options, configs_catpaths, mode):
                         if catpath not in counts_na[st]:
                             counts_na[st][catpath] = 0
                         counts_na[st][catpath] += 1
+    upprog()
 
     # Some general data for tabulation of output.
     coln = ["msg/t", "msg/f", "msg/u", "msg/ot", "msg/of", "msg/ou"]
@@ -647,13 +657,16 @@ def ascribe_modified (options, configs_catpaths, mode):
 
 def ascribe_modified_w (options, configs_catpaths, mode):
 
+    upprog = setup_progress(configs_catpaths, "Ascribing modifications: %s")
     counts = dict([(x, 0) for x in _all_states])
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             ccounts = ascribe_modified_cat(options, config, mode.user,
                                            catpath, acatpath, mode.selector)
             for st, val in ccounts.items():
                 counts[st] += val
+    upprog()
 
     if counts[_st_tran] > 0:
         report("===! Translated: %d" % counts[_st_tran])
@@ -738,11 +751,14 @@ def ascribe_reviewed (options, configs_catpaths, mode):
         mode.selector = stest
 
     # Ascribe reviews.
+    upprog = setup_progress(configs_catpaths, "Ascribing reviews: %s")
     nasc = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             nasc += ascribe_reviewed_cat(options, config, mode.user,
                                          catpath, acatpath, mode.selector)
+    upprog()
     if nasc > 0:
         report("===! Reviewed: %d" % nasc)
 
@@ -753,14 +769,16 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
 def diff_select (options, configs_catpaths, mode):
 
+    upprog = setup_progress(configs_catpaths, "Diffing for review: %s")
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             ndiffed += diff_select_cat(options, config, catpath, acatpath,
                                        mode.selector, mode.aselector)
-
+    upprog()
     if ndiffed > 0:
-        report("===! Diffed from history: %d" % ndiffed)
+        report("===! Diffed for review: %d" % ndiffed)
 
 
 def clear_review (options, configs_catpaths, mode):
@@ -770,12 +788,15 @@ def clear_review (options, configs_catpaths, mode):
 
 def clear_review_w (options, configs_catpaths, mode):
 
+    upprog = setup_progress(configs_catpaths, "Clearing review states: %s")
     cleared_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             cleared = clear_review_cat(options, config, catpath, acatpath,
                                        mode.selector)
             cleared_by_cat[catpath] = cleared
+    upprog()
 
     ncleared = sum(map(len, cleared_by_cat.values()))
     if ncleared > 0:
@@ -789,12 +810,14 @@ def clear_review_w (options, configs_catpaths, mode):
 
 def show_history (options, configs_catpaths, mode):
 
+    upprog = setup_progress(configs_catpaths, "Computing histories: %s")
     nshown = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            upprog(catpath)
             nshown += show_history_cat(options, config, catpath, acatpath,
                                        mode.selector)
-
+    upprog()
     if nshown > 0:
         report("===> Computed histories: %d" % nshown)
 
