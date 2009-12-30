@@ -1079,9 +1079,9 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-_revdflags = (u"reviewed", u"revd")
+_revdflags = (u"reviewed", u"revd", u"rev")
 _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
-_urevdflags = (u"unreviewed", u"unrevd")
+_urevdflags = (u"unreviewed", u"unrevd", u"unrev", u"nrevd", u"nrev")
 
 def clear_review_msg (msg, keepflags=False):
 
