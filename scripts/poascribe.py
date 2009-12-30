@@ -2036,12 +2036,11 @@ def negate_selector (selector):
 
 _cache = {}
 
-def cached_matcher (expr, hfilter, cid):
+def cached_matcher (expr, cid):
 
-    key = ("matcher", expr, hfilter)
+    key = ("matcher", expr)
     if key not in _cache:
-        filters = [hfilter] if hfilter else []
-        _cache[key] = build_msg_fmatcher(expr, filters=filters, abort=True)
+        _cache[key] = build_msg_fmatcher(expr, abort=True)
 
     return _cache[key]
 
@@ -2079,7 +2078,7 @@ def cached_tags (tag_spec, config, cid):
 def selector_any ():
     cid = "selector:any"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return True
 
@@ -2089,7 +2088,7 @@ def selector_any ():
 def selector_active ():
     cid = "selector:active"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return msg.translated and not msg.obsolete
 
@@ -2099,7 +2098,7 @@ def selector_active ():
 def selector_current ():
     cid = "selector:current"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return not msg.obsolete
 
@@ -2113,7 +2112,7 @@ def selector_branch (branch=None):
         error("branch ID not given", subsrc=cid)
     branches = set(branch.split(","))
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return bool(branches.intersection(parse_summit_branches(msg)))
 
@@ -2123,7 +2122,7 @@ def selector_branch (branch=None):
 def selector_wasc ():
     cid = "selector:wasc"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         # Also consider pristine messages ascribed.
         return history[0].user is not None or msg.untranslated
@@ -2136,7 +2135,7 @@ def selector_xrevd ():
 
     revdflags_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         for flag in msg.flags:
             if _revdflag_rx.search(flag):
@@ -2152,9 +2151,9 @@ def selector_fexpr (expr=None):
     if not (expr or "").strip():
         error("matching expression cannot be empty", subsrc=cid)
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
-        matcher = cached_matcher(expr, options.hfilter, cid)
+        matcher = cached_matcher(expr, cid)
         return bool(matcher(msg, cat))
 
     return selector
@@ -2168,7 +2167,7 @@ def selector_e (entry=None):
               subsrc=cid)
     refentry = int(entry)
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return msg.refentry == refentry
 
@@ -2183,7 +2182,7 @@ def selector_l (line=None):
               subsrc=cid)
     refline = int(line)
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         return abs(msg.refline - refline) <= 1
 
@@ -2208,7 +2207,7 @@ def selector_espan (first=None, last=None):
     first_entry = (first and [int(first)] or [None])[0]
     last_entry = (last and [int(last)] or [None])[0]
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if first_entry is not None and msg.refentry < first_entry:
             return False
@@ -2237,7 +2236,7 @@ def selector_lspan (first=None, last=None):
     first_line = (first and [int(first)] or [None])[0]
     last_line = (last and [int(last)] or [None])[0]
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if first_line is not None and msg.refline < first_line:
             return False
@@ -2254,12 +2253,12 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
     if not (expr or "").strip():
         error("matching expression cannot be empty", subsrc=cid)
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        matcher = cached_matcher(expr, options.hfilter, cid)
+        matcher = cached_matcher(expr, cid)
         users = cached_users(user_spec, config, cid)
 
         if not addrem:
@@ -2294,8 +2293,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
                             amsg2_value = [u""] * len(amsg2_value)
                     i_next = len(history)
                 amsg = MessageUnsafe(a.msg)
-                msg_ediff(amsg2, amsg, emsg=amsg,
-                          pfilter=options.hfilter, addrem=addrem)
+                msg_ediff(amsg2, amsg, emsg=amsg, addrem=addrem)
 
             if matcher(amsg, cat):
                 return i + 1
@@ -2311,7 +2309,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 def selector_asc (user_spec=None):
     cid = "selector:asc"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
@@ -2334,7 +2332,7 @@ def selector_asc (user_spec=None):
 def selector_mod (user_spec=None):
     cid = "selector:mod"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
@@ -2398,7 +2396,7 @@ def w_selector_modax (cid, amod, arev,
                       muser_spec=None, rmuser_spec=None, atag_spec=None,
                       tronly=False):
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
@@ -2447,7 +2445,7 @@ def w_selector_modax (cid, amod, arev,
 def selector_rev (user_spec=None, atag_spec=None):
     cid = "selector:rev"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
@@ -2474,7 +2472,7 @@ def selector_rev (user_spec=None, atag_spec=None):
 def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
     cid = "selector:revbm"
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
@@ -2521,7 +2519,7 @@ def selector_modafter (time_spec=None, user_spec=None):
         date = None
         rev = time_spec.strip()
 
-    def selector (msg, cat, history, config, options):
+    def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
