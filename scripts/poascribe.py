@@ -275,7 +275,8 @@ def main ():
         if rawpaths is None:
             rawpaths = []
         for fpath in options.files_from:
-            rawpaths.extend(open(fpath).read().rstrip("\n").split("\n"))
+            lines = open(fpath).read().split("\n")
+            rawpaths.extend(filter(lambda x: x, lines))
     if rawpaths is None:
         rawpaths = ["."]
 

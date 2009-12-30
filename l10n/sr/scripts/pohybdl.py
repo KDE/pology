@@ -74,7 +74,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if paths is None:
             paths = []
         for fpath in options.files_from:
-            paths.extend(open(fpath).read().rstrip("\n").split("\n"))
+            lines = open(fpath).read().split("\n")
+            paths.extend(filter(lambda x: x, lines))
     if paths is None:
         paths = ["."]
 
