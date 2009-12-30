@@ -68,6 +68,11 @@ def main ():
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
     opars.add_option(
+        "-b", "--show-by-file",
+        action="store_true", dest="show_by_file", default=False,
+        help="next to global summary, also present results by file "
+             "(relevant in some modes).")
+    opars.add_option(
         "-u", "--user", metavar="USER",
         action="store", dest="user", default=None,
         help="user in the focus of the operation "
@@ -577,33 +582,50 @@ def examine_state (options, configs_catpaths, mode):
     can_color = sys.stdout.isatty()
     none="-"
 
-    # Present totals of ascribed and unascribed messages.
+    # Report totals.
     totals_a, totals_na = {}, {}
     for totals, counts in ((totals_a, counts_a), (totals_na, counts_na)):
         for st, cnt_per_cat in counts.items():
             totals[st] = sum(cnt_per_cat.values())
-    rown = ["ascribed", "unascribed"]
-    data = [[totals_a[x] or None, totals_na[x] or None] for x in _all_states]
+    # Show row for unascribed only if there are any.
+    if sum(totals_na.values()) > 0:
+        rown = ["ascribed", "unascribed"]
+        data = [[totals_a[x] or None, totals_na[x] or None] for x in _all_states]
+    else:
+        rown = ["ascribed"]
+        data = [[totals_a[x] or None] for x in _all_states]
     report(tabulate(data=data, coln=coln, rown=rown,
                     none=none, colorized=can_color))
 
-    # Present totals of unascribed messages per catalog.
-    totals_na_pc = {}
-    for st, cnt_per_cat in counts_na.items():
-        for catpath, nunasc in cnt_per_cat.items():
-            if catpath not in totals_na_pc:
-                totals_na_pc[catpath] = dict([(x, None) for x in _all_states])
-            totals_na_pc[catpath][st] = nunasc
-    if totals_na_pc:
-        report(none)
-        catpaths = totals_na_pc.keys()
-        catpaths.sort()
-        coln.insert(0, "unascribed-by-catalog")
-        data = [[totals_na_pc[x][y] for x in catpaths] for y in _all_states]
-        data.insert(0, catpaths)
-        dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
-        report(tabulate(data=data, coln=coln, dfmt=dfmt,
-                        none=none, colorized=can_color))
+    # Report counts per catalog if requested.
+    if options.show_by_file:
+        catpaths = set()
+        for counts in (counts_a, counts_na):
+            catpaths.update(sum([x.keys() for x in counts.values()], []))
+        catpaths = sorted(catpaths)
+        if catpaths:
+            coln.insert(0, "catalog")
+            coln.insert(1, "st")
+            rown = []
+            data = [[] for x in _all_states]
+            for catpath in catpaths:
+                cc_a = [counts_a[x].get(catpath, 0) for x in _all_states]
+                cc_na = [counts_na[x].get(catpath, 0) for x in _all_states]
+                # Ascribed.
+                data[0].append(catpath)
+                data[1].append("asc")
+                for datac, cc in zip(data[2:], cc_a):
+                    datac.append(cc)
+                # Unascribed, only if any.
+                if sum(cc_na) > 0:
+                    data[0].append("^^^")
+                    data[1].append("nasc")
+                    for datac, cc in zip(data[2:], cc_na):
+                        datac.append(cc)
+            dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
+            report("-")
+            report(tabulate(data=data, coln=coln, dfmt=dfmt,
+                            none=none, colorized=can_color))
 
 
 def ascribe_modified (options, configs_catpaths, mode):
