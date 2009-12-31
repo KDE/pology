@@ -69,9 +69,12 @@ Voodoo: вуду|, вуду|ов
 # ----------------------------------------------------------------------------
 # Складишни медијуми
 
+BD: БД|-, БД|>
 BD-R: БД-Р|-, БД-Р|>
 BD-RE: БД-РЕ|-, БД-РЕ|>
 BD-ROM: БД-РОМ|-, БД-РОМ|-ов, БД-РОМ|>
+Blu-ray: блуреј|2, блуреј|ев, блуреј|>
+    @л: Blu-ray|2, Blu-ray|ev, Blu-ray|>
 CD: ЦД|-, ЦД|>
 CD-ROM: ЦД-РОМ|-, ЦД-РОМ|-ов, ЦД-РОМ|>
 CD-R: ЦД-Р|-, ЦД-Р|>
@@ -80,6 +83,7 @@ CD-RW: ЦД-РВ|-, ЦД-РВ|>
 CDWRITER: ЦД-рез|ач, ЦД-резач|ев, ЦД-реза|чки
 DVD: ДВД|-, ДВД|>
 DVD+R, |dvdpr: ДВД+Р|-, ДВД+Р|>
+DVD+R DL, |dvdprdl: ДВД+Р ДЛ|-, ДВД+Р ДЛ|>
 DVD-R, |dvdmr: ДВД-Р|-, ДВД-Р|>
 DVD±R, |dvdpmr: ДВД±Р|-, ДВД±Р|>
 DVD±R DL, |dvdpmrdl: ДВД±Р ДЛ|-, ДВД±Р ДЛ|>
@@ -87,12 +91,15 @@ DVD-RAM: ДВД-РАМ|-, ДВД-РАМ|>
 DVD-ROM: ДВД-РОМ|-, ДВД-РОМ|-ов, ДВД-РОМ|>
 DVD+RW, |dvdprw: ДВД+РВ|-, ДВД+РВ|>
     @л: DVD+RW|-, DVD+RW|>
+DVD+RW DL, |dvdprwdl: ДВД+РВ ДЛ|-, ДВД+РВ ДЛ|>
+    @л: DVD+RW DL|-, DVD+RW DL|>
 DVD-RW, |dvdmrw: ДВД-РВ|-, ДВД-РВ|>
     @л: DVD-RW|-, DVD-RW|>
 DVD±RW, |dvdpmrw: ДВД±РВ|-, ДВД±РВ|>
     @л: DVD±RW|-, DVD±RW|>
 DVD±RW DL, |dvdpmrwdl: ДВД±РВ ДЛ|-, ДВД±РВ ДЛ|>
     @л: DVD±RW DL|-, DVD±RW DL|>
+HD DVD: ХД |DVD
 HD DVD-ROM: ХД |DVD-ROM
 HD DVD+RW, |hddvdprw: ХД |DVD+RW
 HD DVD-R, |hddvdmr: ХД |DVD-R
@@ -100,6 +107,7 @@ HD DVD-RW, |hddvdmrw: ХД |DVD-RW
 Jaz: џез|, џез|ов, џез|>
     @л: Jaz|, Jaz|ov, jaz|>
 MO, |modev: ¤МО|-, МО|-ов
+SD/MMC: СД/ММЦ|-, СД/ММЦ|-ов, СД/ММЦ|>
 Zip, |zipdev: зип|, зип|ов, зип|>
     @л: Zip|, Zip|ov
 

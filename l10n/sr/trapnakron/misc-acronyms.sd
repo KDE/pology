@@ -77,7 +77,9 @@ DSA: ДСА|-, ДСА|>
 DSCP: ДСЦП|-, ДСЦП|>
 DST: ЧВО|-, ЧВО|> # Daylight Saving Time = чување времена обданице
 DTE: ДТЕ|-, ДТЕ|>, _пр=Data Terminal Equipment
-DVB: ДВБ|-, ДВБ|>
+DVB: ДВБ|-, ДВБ|>, _пр=Digital Video Broadcasting
+DVB-CA: ДВБ-ЦА|-, ДВБ-ЦА|>, _пр=Digital Video Broadcasting\, Conditional Access
+DVR: ДВР|-, ДВР|>, _пр=Digital Video Recorder
 DXS: ДИксС|-, ДИксС|-ов, ДИксС|>
     @л: DXS|-, DXS|-ov, DXS|>
 ECP: ЕЦП|-, ЕЦП|>
@@ -229,6 +231,7 @@ PCM: ПЦМ|-, ПЦМ|>
 PCS: ПЦС|-, ПЦС|>
 PCX: ПЦИкс|-, ПЦИкс|>
     @л: PCX|-, PCX|>
+PDA: ПДА|-, ПДА|>, _пр=personal digital assistant
 PDB: ПДБ|-, ПДБ|>
 PDC: ПДЦ|-, ПДЦ|>
 PGM: ПГМ|-, ПГМ|>
@@ -324,6 +327,7 @@ UIN: УИН|-, УИН|>
 UML: УМЛ|-, УМЛ|>
 UNI: УН|И-, УНИ|>
 UPnP: УПнП|-, УПнП|>
+UPS: УПС|-, УПС|-ов, УПС|>, _пр=uninterruptible power supply
 UTC: УТЦ|-, УТЦ|>
 UUID: УУИД|-, УУИД|>
 VBR: ВБР|-, ВБР|>
