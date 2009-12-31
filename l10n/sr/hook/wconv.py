@@ -563,7 +563,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
                     # and check that it covers both reflexes equally.
                     icn = ic
                     le = len(frme); li = len(frmi)
-                    while le > 0  and li > 0:
+                    while le > 0  or li > 0:
                         if cdiff[icn][0] != "+":
                             le -= 1
                         if cdiff[icn][0] != "-":
