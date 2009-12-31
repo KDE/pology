@@ -2458,7 +2458,6 @@ def w_selector_modax (cid, amod, arev,
                              and ae and ae.msg.msgstr == a.msg.msgstr)
                 ):
                     hi_sel = i + 1
-                    break
 
         return hi_sel
 
