@@ -1747,6 +1747,10 @@ def asc_parse_ascriptions (amsg, acat, config):
     """
 
     ascripts = []
+    # States are switched on modification ascriptions,
+    # to be preserved from last modification on review ascriptions.
+    isfuzz = False
+    isobs = False
     for cmnt in amsg.auto_comment:
         p = cmnt.find(":")
         if p < 0:
@@ -1787,17 +1791,20 @@ def asc_parse_ascriptions (amsg, acat, config):
         if lst:
             revision = lst.pop(0).strip() or None
 
+        # States and separator only make sense on modification ascriptions.
         seplen = 0
-        isfuzz = False
-        isobs = False
-        if lst:
+        if lst and atype == ATYPE_MOD:
             tmp = lst.pop(0).strip()
             if _mark_fuzz in tmp:
                 isfuzz = True
                 tmp = tmp.replace(_mark_fuzz, "", 1)
+            else:
+                isfuzz = False
             if _mark_obs in tmp:
                 isobs = True
                 tmp = tmp.replace(_mark_obs, "", 1)
+            else:
+                isobs = False
             if tmp:
                 try:
                     seplen = int(tmp)
