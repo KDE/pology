@@ -559,7 +559,18 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
                 frmi = texti[iib:iib + rlen]
                 frme = _reflex_map.get(frmi)
                 if frme is not None and frme == texte[ieb:ieb + len(frme)]:
-                    break
+                    # Advance the diff according to this reflex pair
+                    # and check that it covers both reflexes equally.
+                    icn = ic
+                    le = len(frme); li = len(frmi)
+                    while le > 0  and li > 0:
+                        if cdiff[icn][0] != "+":
+                            le -= 1
+                        if cdiff[icn][0] != "-":
+                            li -= 1
+                        icn += 1
+                    if le == 0 and li == 0:
+                        break
             if frme is not None:
                 break
         if frme is not None:
@@ -568,11 +579,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
             segs.append(_reflex_mark + frmi)
             iep = ieb + len(frme)
             iip = iib + len(frmi)
-            while ic < lenc and cdiff[ic][0] != " ":
-                if cdiff[ic][0] == "-":
-                    ie += 1
-                ic += 1
-            ic += iep - ie
+            ic = icn
         else:
             # Hybridization by reflex mark not possible.
             # Use alternatives directive, or pure Ijekavian.
