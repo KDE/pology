@@ -52,6 +52,10 @@ def main ():
     mode_tolong = dict(map(reversed, mode_spec))
     mode_tolong.update(dict([(x, x) for x, y in mode_spec]))
 
+    known_editors = {
+        "lokalize": report_msg_to_lokalize,
+    }
+
     # Setup options and parse the command line.
     usage = (
         u"%prog [OPTIONS] [MODE] [PATHS...]")
@@ -94,6 +98,10 @@ def main ():
         action="store", dest="depth", default=None,
         help="consider ascription history up to this level into the past "
              "(relevant in some modes)")
+    opars.add_option(
+        "-E", "--po-editor", metavar="%s" % "|".join(sorted(known_editors)),
+        action="store", dest="po_editor", default=None,
+        help="Open selected messages in one of the supported PO editors.")
     opars.add_option(
         "-f", "--files-from", metavar="FILE",
         action="append", dest="files_from", default=[],
@@ -178,32 +186,20 @@ def main ():
         error("Unknown operation mode '%s' (known modes: %s)."
               % (rawmodename, ", ".join(["%s/%s" % x for x in mode_spec])))
 
-    # Convert options to non-string types.
-    for optname, valconv in (
-        ("min_adjsim_diff", float),
-    ):
-        valraw = getattr(options, optname, None)
-        if valraw is not None:
-            try:
-                value = valconv(valraw)
-            except:
-                error("Value '%s' to option '%s' is of wrong type."
-                      % (valraw, optname))
-            setattr(options, optname, value)
-
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
     # C{afield/amode = value} syntax, which takes precedence over
     # general fields (e.g. C{filters/review} vs. C{filters}).
     cfgsec = pology_config.section("poascribe")
     for optname, getvalf, defval in (
-        ("user", cfgsec.string, None),
-        ("selectors", cfgsec.strdlist, []),
         ("aselectors", cfgsec.strdlist, []),
-        ("filters", cfgsec.strslist, []),
-        ("tag", cfgsec.string, ""),
         ("commit", cfgsec.boolean, True),
+        ("po-editor", cfgsec.string, None),
+        ("filters", cfgsec.strslist, []),
         ("min-adjsim-diff", cfgsec.real, 0.0),
+        ("selectors", cfgsec.strdlist, []),
+        ("tag", cfgsec.string, ""),
+        ("user", cfgsec.string, None),
     ):
         uoptname = optname.replace("-", "_")
         if getattr(options, uoptname) is None:
@@ -214,6 +210,28 @@ def main ():
             if fldval is None:
                 fldval = defval
             setattr(options, uoptname, fldval)
+
+    # Convert options to non-string types.
+    def valconv_editor (edkey):
+        msgrepf = known_editors.get(edkey)
+        if msgrepf is None:
+            error("PO editor '%s' is not among the supported editors: %s."
+                  % (edkey, ", ".join(sorted(known_editors))))
+        return msgrepf
+
+    for optname, valconv in (
+        ("min-adjsim-diff", float),
+        ("po-editor", valconv_editor),
+    ):
+        uoptname = optname.replace("-", "_")
+        valraw = getattr(options, uoptname, None)
+        if valraw is not None:
+            try:
+                value = valconv(valraw)
+            except TypeError:
+                error("Value '%s' to option '--%s' is of wrong type."
+                      % (valraw, optname))
+            setattr(options, uoptname, value)
 
     # Collect any external functionality.
     for xmod_path in options.externals:
@@ -971,6 +989,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
 
 # Flag used to mark diffed messages.
+# NOTE: All diff flags should start with 'ediff', as some other scripts
+# only need to check if any of them is present.
 _diffflag = u"ediff"
 _diffflag_tot = u"ediff-total"
 _diffflag_ign = u"ediff-ignored"
@@ -982,7 +1002,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    nflagged = 0
+    diffed_msgs = []
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter)
@@ -1017,11 +1037,17 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
             # If no previous ascription selected, add special flag
             # to denote that the whole message is to be reviewed.
             msg.flag.add(_diffflag_tot)
-        nflagged += 1
+
+        diffed_msgs.append(msg)
 
     sync_and_rep(cat)
 
-    return nflagged
+    # Open in the PO editor if requested.
+    if options.po_editor:
+        for msg in diffed_msgs:
+            options.po_editor(msg, cat, report="Selected for review.")
+
+    return len(diffed_msgs)
 
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
