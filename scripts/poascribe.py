@@ -3,36 +3,35 @@
 
 import fallback_import_paths
 
-import os
-import sys
-import re
 import codecs
-import time
-import datetime
-import locale
-import imp
-from optparse import OptionParser
 from ConfigParser import SafeConfigParser
+import datetime
+import imp
+import locale
+from optparse import OptionParser
+import os
+import re
+import sys
+import time
 
-from pology.misc.fsops import str_to_unicode, unicode_to_str
-from pology.misc.report import report, warning, error
-from pology.misc.msgreport import warning_on_msg, report_msg_content
-from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
-from pology.misc.vcs import make_vcs
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
-from pology.misc.monitored import Monlist, Monset
-from pology.misc.tabulate import tabulate
-from pology.misc.langdep import get_hook_lreq
-from pology.sieve.find_messages import build_msg_fmatcher
 from pology.misc.colors import colors_for_file
-from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
-import pology.misc.config as pology_config
-from pology.misc.tabulate import tabulate
-import pology.misc.colors as C
 from pology.misc.comments import parse_summit_branches
-from pology.misc.report import init_file_progress
+import pology.misc.config as pology_config
+from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 from pology.misc.diff import editprob
+from pology.misc.fsops import str_to_unicode, unicode_to_str
+from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
+from pology.misc.langdep import get_hook_lreq
+from pology.misc.monitored import Monlist, Monset
+from pology.misc.msgreport import warning_on_msg, report_msg_content
+from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.report import report, warning, error
+from pology.misc.report import init_file_progress
+from pology.misc.tabulate import tabulate
+from pology.misc.vcs import make_vcs
+from pology.sieve.find_messages import build_msg_fmatcher
 
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
