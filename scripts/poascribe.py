@@ -32,6 +32,7 @@ from pology.misc.tabulate import tabulate
 import pology.misc.colors as C
 from pology.misc.comments import parse_summit_branches
 from pology.misc.report import init_file_progress
+from pology.misc.diff import editprob
 
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
@@ -149,6 +150,15 @@ def main ():
         "--no-psyco",
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
+    opars.add_option(
+        "-A", "--min-adjsim-diff",  metavar="RATIO",
+        action="store", dest="min_adjsim_diff", default=None,
+        help="Minimum adjusted similarity between two versions of a message "
+             "needed to actually show the embedded difference. "
+             "Range is 0.0-1.0, where 0 means to always show the difference, "
+             "and 1 to never show it; a resonable threshold is 0.6-0.8. "
+             "When the difference is not shown, the '%s' flag is still "
+             "added to the message." % _diffflag_ign)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -169,6 +179,19 @@ def main ():
         error("Unknown operation mode '%s' (known modes: %s)."
               % (rawmodename, ", ".join(["%s/%s" % x for x in mode_spec])))
 
+    # Convert options to non-string types.
+    for optname, valconv in (
+        ("min_adjsim_diff", float),
+    ):
+        valraw = getattr(options, optname, None)
+        if valraw is not None:
+            try:
+                value = valconv(valraw)
+            except:
+                error("Value '%s' to option '%s' is of wrong type."
+                    % (valraw, optname))
+            setattr(options, optname, value)
+
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
     # C{afield/amode = value} syntax, which takes precedence over
@@ -181,15 +204,17 @@ def main ():
         ("filters", cfgsec.strslist, []),
         ("tag", cfgsec.string, ""),
         ("commit", cfgsec.boolean, True),
+        ("min-adjsim-diff", cfgsec.real, 0.0),
     ):
-        if getattr(options, optname) is None:
+        uoptname = optname.replace("-", "_")
+        if getattr(options, uoptname) is None:
             for fldname in ("%s/%s" % (optname, modename), optname):
                 fldval = getvalf(fldname, None)
                 if fldval is not None:
                     break
             if fldval is None:
                 fldval = defval
-            setattr(options, optname, fldval)
+            setattr(options, uoptname, fldval)
 
     # Collect any external functionality.
     for xmod_path in options.externals:
@@ -949,7 +974,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 # Flag used to mark diffed messages.
 _diffflag = u"ediff"
 _diffflag_tot = u"ediff-total"
-_diffflags = (_diffflag, _diffflag_tot)
+_diffflag_ign = u"ediff-ignored"
+_diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
 
 def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
@@ -983,10 +1009,11 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         # Differentiate and flag.
         amsg = i_asc is not None and history[i_asc].msg or None
         if amsg is not None:
-            msg_ediff(amsg, msg, emsg=msg, pfilter=options.sfilter)
-            # NOTE: Do NOT think of avoiding to flag the message if there is
-            # no difference to history, must be symmetric to review ascription.
-            msg.flag.add(_diffflag)
+            if editprob(amsg.msgid, msg.msgid) > options.min_adjsim_diff:
+                msg_ediff(amsg, msg, emsg=msg, pfilter=options.sfilter)
+                msg.flag.add(_diffflag)
+            else:
+                msg.flag.add(_diffflag_ign)
         else:
             # If no previous ascription selected, add special flag
             # to denote that the whole message is to be reviewed.
