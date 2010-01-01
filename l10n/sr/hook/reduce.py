@@ -11,7 +11,7 @@ from pology.l10n.sr.hook.accents import remove_accents
 from pology.l10n.sr.hook.wconv import hictoecq, hictoicq
 
 
-_srcyr = u"абвгдђежзијклљмнњопрстћуфхцчџШАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"
+_srcyr = u"абвгдђежзијклљмнњопрстћуфхцчџшАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"
 
 
 def words_ec (text):
