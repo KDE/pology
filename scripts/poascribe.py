@@ -275,7 +275,6 @@ def main ():
     elif mode.name == "modified":
         mode.execute = ascribe_modified
         mode.selector = selector or build_selector(["any"])
-        canselect = True
         needuser = True
     elif mode.name == "reviewed":
         mode.execute = ascribe_reviewed
@@ -705,7 +704,7 @@ def ascribe_modified_w (options, configs_catpaths, mode):
         for catpath, acatpath in catpaths:
             upprog(catpath)
             ccounts = ascribe_modified_cat(options, config, mode.user,
-                                           catpath, acatpath, mode.selector)
+                                           catpath, acatpath)
             for st, val in ccounts.items():
                 counts[st] += val
     upprog()
@@ -864,7 +863,7 @@ def show_history (options, configs_catpaths, mode):
         report("===> Computed histories: %d" % nshown)
 
 
-def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
+def ascribe_modified_cat (options, config, user, catpath, acatpath):
 
     # Open current catalog and ascription catalog.
     cat = Catalog(catpath, monitored=False)
@@ -877,13 +876,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     counts0 = counts.copy()
     for msg in cat:
         history = asc_collect_history(msg, acat, config)
-        # ...no hfilter=options.hfilter here, as modifications
-        # must not pass unascribed due to filter.
-        if history[0].user is None and msg.untranslated:
-            continue # pristine
-        if not stest(msg, cat, history, config):
-            continue # not selected
-        if history[0].user is None:
+        if history[0].user is None and not msg.untranslated:
             toasc_msgs.append(msg)
             counts[msg.state()] += 1
 
