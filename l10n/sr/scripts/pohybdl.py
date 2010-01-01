@@ -9,7 +9,7 @@ import locale
 from optparse import OptionParser
 from tempfile import NamedTemporaryFile
 
-from pology.misc.fsops import str_to_unicode
+from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.report import report, error
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.vcs import available_vcs, make_vcs
@@ -43,8 +43,13 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "-f", "--files-from", metavar="FILE",
         action="append", dest="files_from", default=[],
-        help="get list of input files from FILE, which contains one file path "
-             "per line; can be repeated to collect paths from several files")
+        help="Get list of input files from FILE, which contains one file path "
+             "per line; can be repeated to collect paths from several files.")
+    opars.add_option(
+        "-r", "--base-revision", metavar="REV",
+        action="store", dest="base_revision", default=None,
+        help="Use the given revision as base for hybridization, "
+             "instead of local latest revision.")
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -86,18 +91,14 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if not vcs.is_versioned(path):
             error("Path '%s' is not under version control." % path)
 
-    # Collect modified PO files in given paths.
-    modpaths = []
-    for path in paths:
-        for path in vcs.to_commit(path):
-            if path.endswith(".po"):
-                modpaths.append(path)
+    # Collect PO files in given paths.
+    popaths = collect_catalogs(paths)
 
     # Go by modified PO file and hybridize it.
-    for path in modpaths:
+    for path in popaths:
         # Extract local head counterpart.
         tmpf = NamedTemporaryFile(prefix="pohybdl-export-", suffix=".po")
-        if not vcs.export(path, None, tmpf.name):
+        if not vcs.export(path, options.base_revision, tmpf.name):
             error("Version control system cannot export file '%s'." % path)
         # Hybridize by comparing local head and modified file.
         hybdl(path, tmpf.name, options.accept_changes)
