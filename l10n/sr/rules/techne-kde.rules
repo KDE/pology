@@ -168,3 +168,12 @@ valid cat="kdeqt" ctx="QFontDatabase"
 valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
 # Елементи транскрипта.
 valid span="^(аку)$" after="\$\[[^\]]*"
+
+# ----------------------------------------
+# Check for hybridized scripting calls.
+clearFilters
+
+*msgstr/\$\[\S*›\S*/
+id="x-hybcall"
+hint="хибридизован скриптни позив (_lv-)"
+valid !after="\|/\|.*"
