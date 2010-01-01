@@ -876,8 +876,9 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath, stest):
     counts = dict([(x, 0) for x in _all_states])
     counts0 = counts.copy()
     for msg in cat:
-        history = asc_collect_history(msg, acat, config,
-                                      hfilter=options.hfilter)
+        history = asc_collect_history(msg, acat, config)
+        # ...no hfilter=options.hfilter here, as modifications
+        # must not pass unascribed due to filter.
         if history[0].user is None and msg.untranslated:
             continue # pristine
         if not stest(msg, cat, history, config):
