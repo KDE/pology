@@ -168,8 +168,9 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
         func2 = "%s_%s" % (hmod, func)
     call = getattr(lmod, func, None) or getattr(lmod, func2, None)
     if call is None:
-        _raise_or_abort("hook module '%s:%s' does not define '%s' function"
-                        % (lang, hmod, func), abort)
+        hmodfmt = "%s:%s" % (lang, hmod) if lang else hmod
+        _raise_or_abort("hook module '%s' does not define '%s' function"
+                        % (hmodfmt, func), abort)
     if args is not None:
         try:
             call = eval("call(%s)" % args)
