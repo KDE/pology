@@ -72,6 +72,15 @@ def main ():
              "(relevant in some modes). "
              "Can be repeated, AND-semantics.")
     opars.add_option(
+        "-A", "--min-adjsim-diff",  metavar="RATIO",
+        action="store", dest="min_adjsim_diff", default=None,
+        help="Minimum adjusted similarity between two versions of a message "
+             "needed to actually show the embedded difference. "
+             "Range is 0.0-1.0, where 0 means to always show the difference, "
+             "and 1 to never show it; a resonable threshold is 0.6-0.8. "
+             "When the difference is not shown, the '%s' flag is still "
+             "added to the message." % _diffflag_ign)
+    opars.add_option(
         "-b", "--show-by-file",
         action="store_true", dest="show_by_file", default=False,
         help="next to global summary, also present results by file "
@@ -150,15 +159,6 @@ def main ():
         "--no-psyco",
         action="store_false", dest="use_psyco", default=True,
         help="do not try to use Psyco specializing compiler")
-    opars.add_option(
-        "-A", "--min-adjsim-diff",  metavar="RATIO",
-        action="store", dest="min_adjsim_diff", default=None,
-        help="Minimum adjusted similarity between two versions of a message "
-             "needed to actually show the embedded difference. "
-             "Range is 0.0-1.0, where 0 means to always show the difference, "
-             "and 1 to never show it; a resonable threshold is 0.6-0.8. "
-             "When the difference is not shown, the '%s' flag is still "
-             "added to the message." % _diffflag_ign)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -189,7 +189,7 @@ def main ():
                 value = valconv(valraw)
             except:
                 error("Value '%s' to option '%s' is of wrong type."
-                    % (valraw, optname))
+                      % (valraw, optname))
             setattr(options, optname, value)
 
     # For options not issued, read values from user configuration.
