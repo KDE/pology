@@ -360,12 +360,15 @@ def collect_configs_catpaths (paths):
         parent = os.path.abspath(path)
         if os.path.isfile(parent):
             parent = os.path.dirname(parent)
+        cfgpath = None
         while True:
-            cfgpath = os.path.join(parent, "ascribe")
-            if os.path.isfile(cfgpath):
+            for cfgname in ("ascribe", "ascription-config"):
+                test_cfgpath = os.path.join(parent, cfgname)
+                if os.path.isfile(test_cfgpath):
+                    cfgpath = test_cfgpath
+                    break
+            if cfgpath:
                 break
-            else:
-                cfgpath = ""
             pparent = parent
             parent = os.path.dirname(parent)
             if parent == pparent:
@@ -602,7 +605,7 @@ def examine_state (options, configs_catpaths, mode):
     counts_a = dict([(x, {}) for x in _all_states])
     counts_na = dict([(x, {}) for x in _all_states])
 
-    upprog = setup_progress(configs_catpaths, "Examining ascription state: %s")
+    upprog = setup_progress(configs_catpaths, "Examining state: %s")
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
