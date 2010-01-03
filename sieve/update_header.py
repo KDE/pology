@@ -239,7 +239,7 @@ def update_header (cat, project=None, title=None, copyright=None, license=None,
     if title:
         title = expand_vars(title, varmap, varhead)
         hdr.title[:] = [unicode(title)]
-    elif project == "":
+    elif title == "":
         hdr.title[:] = []
 
     if copyright:
