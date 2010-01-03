@@ -32,6 +32,8 @@ from pology.misc.report import init_file_progress
 from pology.misc.tabulate import tabulate
 from pology.misc.vcs import make_vcs
 from pology.sieve.find_messages import build_msg_fmatcher
+from pology.sieve.update_header import update_header
+
 
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
@@ -149,6 +151,12 @@ def main ():
         help="user in the focus of the operation "
              "(relevant in some modes)")
     opars.add_option(
+        "-U", "--update-headers",
+        action="store_true", dest="update_headers", default=None,
+        help="Update headers in catalogs which contain modifications "
+             "about to be ascribed (before committing the catalogs), "
+             "with user's translator information.")
+    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -200,6 +208,7 @@ def main ():
         ("selectors", cfgsec.strdlist, []),
         ("tag", cfgsec.string, ""),
         ("user", cfgsec.string, None),
+        ("update-headers", cfgsec.boolean, False),
     ):
         uoptname = optname.replace("-", "_")
         if getattr(options, uoptname) is None:
@@ -503,9 +512,11 @@ class Config:
             error("%s: catalog root and ascription root "
                   "resolve to same path: %s" % (cpath, self.catroot))
 
-        self.lang_team = gsect.get("language-team")
-        self.team_email = gsect.get("team-email")
-        self.plural_header = gsect.get("plural-header")
+        self.title = gsect.get("title", None)
+        self.lang_team = gsect.get("language-team", None)
+        self.team_email = gsect.get("team-email", None)
+        self.lang_code = gsect.get("language", None)
+        self.plural_header = gsect.get("plural-header", None)
 
         self.vcs = make_vcs(gsect.get("version-control", "noop"))
 
@@ -685,6 +696,9 @@ def ascribe_modified (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode)
     assert_no_review(configs_catpaths)
 
+    if options.update_headers:
+        update_headers_onmod(configs_catpaths, mode.user)
+
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
                         options.message, False)
@@ -697,6 +711,19 @@ def ascribe_modified (options, configs_catpaths, mode):
 
 
 def ascribe_modified_w (options, configs_catpaths, mode):
+
+    upprog = setup_progress(configs_catpaths, "Checking VCS states: %s")
+    dirty_catpaths = []
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            if not config.vcs.is_clear(catpath):
+                dirty_catpaths.append(catpath)
+    upprog()
+    if dirty_catpaths:
+        error("Ascription aborted because the following files "
+              "do not have clean version control state:\n%s"
+              % "\n".join(dirty_catpaths))
 
     upprog = setup_progress(configs_catpaths, "Ascribing modifications: %s")
     counts = dict([(x, 0) for x in _all_states])
@@ -723,6 +750,43 @@ def ascribe_modified_w (options, configs_catpaths, mode):
         report("===! Obsolete untranslated: %d" % counts[_st_ountran])
 
 
+def update_headers_onmod (configs_catpaths, user):
+
+    upprog = setup_progress(configs_catpaths, "Updating headers: %s")
+    nupdated = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            cat = Catalog(catpath, monitored=False)
+            acat = Catalog(acatpath, monitored=False, create=True)
+            anymod = False
+            for msg in cat:
+                # Shallow history, need only to know if ascribed or not.
+                history = asc_collect_history(msg, acat, config,
+                                              shallow=True)
+                # Message is modified if not ascribed and not translated.
+                if history[0].user is None and not msg.untranslated:
+                    anymod = True
+                    break
+            if anymod:
+                # Must reopen monitored, but only header is needed.
+                cat = Catalog(catpath, headonly=False)
+                update_header(cat,
+                              project=cat.name,
+                              title=config.title,
+                              name=config.udata[user].name,
+                              email=config.udata[user].email,
+                              teamemail=config.team_email,
+                              langname=config.lang_team,
+                              langcode=config.lang_code,
+                              plforms=config.plural_header)
+                if sync_and_rep(cat, shownmod=False):
+                    nupdated += 1
+
+    if nupdated > 0:
+        report("===! Updated headers: %d" % nupdated)
+
+
 def ascribe_reviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
@@ -741,6 +805,9 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     mode.selector = stest_any
     options.keep_flags = False # deactivate this option if issued
     cleared_by_catref = clear_review_w(options, configs_catpaths, mode)
+
+    if options.update_headers:
+        update_headers_onmod(configs_catpaths, mode.user)
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
@@ -875,7 +942,8 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath):
     counts = dict([(x, 0) for x in _all_states])
     counts0 = counts.copy()
     for msg in cat:
-        history = asc_collect_history(msg, acat, config)
+        # Shallow history, need only to know if ascribed or not.
+        history = asc_collect_history(msg, acat, config, shallow=True)
         if history[0].user is None and not msg.untranslated:
             toasc_msgs.append(msg)
             counts[msg.state()] += 1
@@ -900,11 +968,6 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath):
 
     if not toasc_msgs:
         # No messages to ascribe.
-        return counts0
-
-    if not config.vcs.is_clear(cat.filename):
-        warning("%s: VCS state not clear, cannot ascribe modifications"
-                % cat.filename)
         return counts0
 
     # Current VCS revision of the catalog.
@@ -1243,41 +1306,44 @@ def init_asc_cat (acatpath, config):
     ahdr.license = u"License same as for the original catalog."
     ahdr.comment = Monlist([u"===== DO NOT EDIT MANUALLY ====="])
 
-    rfv = ahdr.replace_field_value # shortcut
-
-    rfv("Project-Id-Version", unicode(acat.name))
-    rfv("Report-Msgid-Bugs-To", unicode(config.team_email or ""))
-    rfv("PO-Revision-Date", unicode(format_datetime(_dt_start)))
-    rfv("Content-Type", u"text/plain; charset=UTF-8")
-    rfv("Content-Transfer-Encoding", u"8bit")
+    ahdr.set_field(u"Project-Id-Version", unicode(acat.name))
+    ahdr.set_field(u"Report-Msgid-Bugs-To", unicode(config.team_email or ""))
+    ahdr.set_field(u"PO-Revision-Date", unicode(format_datetime(_dt_start)))
+    ahdr.set_field(u"Content-Type", u"text/plain; charset=UTF-8")
+    ahdr.set_field(u"Content-Transfer-Encoding", u"8bit")
 
     if config.team_email:
         ltr = "%s <%s>" % (translator, config.team_email)
     else:
         ltr = translator
-    rfv("Last-Translator", unicode(ltr))
+    ahdr.set_field(u"Last-Translator", unicode(ltr))
 
     if config.lang_team:
         if config.team_email:
             tline = u"%s <%s>" % (config.lang_team, config.team_email)
         else:
             tline = config.lang_team
-        rfv("Language-Team", unicode(tline))
+        ahdr.set_field(u"Language-Team", unicode(tline))
     else:
         ahdr.remove_field("Language-Team")
 
-    if config.plural_header:
-        rfv("Plural-Forms", unicode(config.plural_header))
+    if config.lang_code:
+        ahdr.set_field(u"Language", unicode(config.lang_code))
     else:
-        ahdr.remove_field("Plural-Forms")
+        ahdr.remove_field("Language")
+
+    if config.plural_header:
+        ahdr.set_field(u"Plural-Forms", unicode(config.plural_header))
+    else:
+        ahdr.remove_field(u"Plural-Forms")
 
     return acat
 
 
 def update_asc_hdr (acat):
 
-    acat.header.replace_field_value("PO-Revision-Date",
-                                    unicode(format_datetime(_dt_start)))
+    acat.header.set_field(u"PO-Revision-Date",
+                          unicode(format_datetime(_dt_start)))
 
 
 _id_fields = (
@@ -1640,9 +1706,10 @@ class _Ascription (object):
         self.__dict__[attr] = val
 
 
-def asc_collect_history (msg, acat, config, nomrg=False, hfilter=None):
+def asc_collect_history (msg, acat, config,
+                         nomrg=False, hfilter=None, shallow=False):
 
-    history = asc_collect_history_w(msg, acat, config, None, set())
+    history = asc_collect_history_w(msg, acat, config, None, set(), shallow)
 
     # If the message is not ascribed,
     # add it in front as modified by unknown user.
@@ -1682,7 +1749,7 @@ def asc_collect_history (msg, acat, config, nomrg=False, hfilter=None):
     return history
 
 
-def asc_collect_history_w (msg, acat, config, before, seenmsg):
+def asc_collect_history_w (msg, acat, config, before, seenmsg, shallow=False):
 
     history = []
 
@@ -1691,15 +1758,18 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg):
         return history
     seenmsg.add(msg.key)
 
-    # Collect history from all ascription catalogs.
+    # Collect history from current ascription message.
     if msg in acat:
         amsg = acat[msg]
         for a in asc_collect_history_single(amsg, acat, config):
             if not before or asc_age_cmp(a, before, config) < 0:
                 history.append(a)
 
+    if shallow:
+        return history
+
     # Continue into the past by pivoting around earliest message if fuzzy.
-    amsg = history and history[-1].msg or msg
+    amsg = history[-1].msg if history else msg
     if amsg.fuzzy and amsg.msgid_previous:
         pmsg = MessageUnsafe()
         for field in _id_fields:
@@ -1882,16 +1952,20 @@ def asc_age_cmp (a1, a2, config):
 
 _modified_cats = []
 
-def sync_and_rep (cat):
+def sync_and_rep (cat, shownmod=True):
 
-    nmod = 0
-    for msg in cat:
-        if msg.modcount:
-            nmod += 1
+    if shownmod:
+        nmod = 0
+        for msg in cat:
+            if msg.modcount:
+                nmod += 1
 
     modified = cat.sync()
     if modified:
-        report("!    %s  (%d)" % (cat.filename, nmod))
+        if shownmod:
+            report("!    %s  (%d)" % (cat.filename, nmod))
+        else:
+            report("!    %s" % cat.filename)
         _modified_cats.append(cat.filename)
 
     return modified
