@@ -648,20 +648,29 @@ def examine_state (options, configs_catpaths, mode):
     can_color = sys.stdout.isatty()
     none="-"
 
+    # NOTE: When reporting, do not show anything if there are
+    # neither ascribed nor non-ascribed messages selected.
+    # If there are some ascribed and none non-ascribed,
+    # show only the row for ascribed.
+    # However, if there are some non-ascribed but none ascribed,
+    # still show the row for ascribed, to not accidentally confuse
+    # non-ascribed for ascribed.
+
     # Report totals.
     totals_a, totals_na = {}, {}
     for totals, counts in ((totals_a, counts_a), (totals_na, counts_na)):
         for st, cnt_per_cat in counts.items():
             totals[st] = sum(cnt_per_cat.values())
-    # Show row for unascribed only if there are any.
-    if sum(totals_na.values()) > 0:
-        rown = ["ascribed", "unascribed"]
-        data = [[totals_a[x] or None, totals_na[x] or None] for x in _all_states]
-    else:
+    # See previous NOTE.
+    if sum(totals_a.values()) > 0 or sum(totals_na.values()) > 0:
         rown = ["ascribed"]
         data = [[totals_a[x] or None] for x in _all_states]
-    report(tabulate(data=data, coln=coln, rown=rown,
-                    none=none, colorized=can_color))
+        if sum(totals_na.values()) > 0:
+            rown.append("unascribed")
+            for i in range(len(_all_states)):
+                data[i].append(totals_na[_all_states[i]] or None)
+        report(tabulate(data=data, coln=coln, rown=rown,
+                        none=none, colorized=can_color))
 
     # Report counts per catalog if requested.
     if options.show_by_file:
@@ -672,26 +681,26 @@ def examine_state (options, configs_catpaths, mode):
         if catpaths:
             coln.insert(0, "catalog")
             coln.insert(1, "st")
-            rown = []
             data = [[] for x in _all_states]
             for catpath in catpaths:
                 cc_a = [counts_a[x].get(catpath, 0) for x in _all_states]
                 cc_na = [counts_na[x].get(catpath, 0) for x in _all_states]
-                # Ascribed.
-                data[0].append(catpath)
-                data[1].append("asc")
-                for datac, cc in zip(data[2:], cc_a):
-                    datac.append(cc or None)
-                # Unascribed, only if any.
-                if sum(cc_na) > 0:
-                    data[0].append("^^^")
-                    data[1].append("nasc")
-                    for datac, cc in zip(data[2:], cc_na):
+                # See previous NOTE.
+                if sum(cc_a) > 0 or sum(cc_na) > 0:
+                    data[0].append(catpath)
+                    data[1].append("asc")
+                    for datac, cc in zip(data[2:], cc_a):
                         datac.append(cc or None)
-            dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
-            report("-")
-            report(tabulate(data=data, coln=coln, dfmt=dfmt,
-                            none=none, colorized=can_color))
+                    if sum(cc_na) > 0:
+                        data[0].append("^^^")
+                        data[1].append("nasc")
+                        for datac, cc in zip(data[2:], cc_na):
+                            datac.append(cc or None)
+            if any(data):
+                dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
+                report("-")
+                report(tabulate(data=data, coln=coln, dfmt=dfmt,
+                                none=none, colorized=can_color))
 
 
 def ascribe_modified (options, configs_catpaths, mode):
