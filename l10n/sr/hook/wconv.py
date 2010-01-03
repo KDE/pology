@@ -324,7 +324,6 @@ def _unpadc (text):
 _reflex_map = {
     # - basic cases
     u"ије": u"е",
-    u"иј": u"е",
     u"је": u"е",
     u"ље": u"ле",
     u"ње": u"не",
