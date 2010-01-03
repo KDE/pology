@@ -59,11 +59,13 @@ into several lines by trailing C{\\} (for better look only).
 @license: GPLv3
 """
 
+import os
 import re
 import time
 
 import pology.misc.config as config
 from pology.misc.report import warning
+from pology.misc.resolve import expand_vars
 from pology.sieve import SieveError
 
 
@@ -106,23 +108,28 @@ class Sieve (object):
         usrcfg = config.section("user")
 
         # Collect project data.
-        self.tname = prjcfg.string("name") or usrcfg.string("name")
-        if not self.tname:
-            warning("'name' not set in project or user configuration")
-        self.temail = prjcfg.string("email") or usrcfg.string("email")
-        if not self.temail:
-            warning("'email' not set in project or user configuration")
-        self.language = prjcfg.string("language-team")
-        if not self.language:
-            warning("'language-team' not set in project configuration")
-        self.lang = prjcfg.string("language")
-        if not self.lang:
-            warning("'language' not set in project configuration")
+        self.name = prjcfg.string("name") or usrcfg.string("name")
+        if not self.name:
+            warning("Field '%s' not set in project or user configuration."
+                    % "name")
+        self.email = prjcfg.string("email") or usrcfg.string("email")
+        if not self.email:
+            warning("Field '%s' not set in project or user configuration."
+                    % "email")
+        self.langteam = prjcfg.string("language-team")
+        if not self.langteam:
+            warning("Field '%s' not set in project configuration."
+                    % "language-team")
+        self.teamemail = prjcfg.string("team-email") # ok not to be present
+        self.langcode = prjcfg.string("language")
+        if not self.langcode:
+            warning("Field '%s' not set in project configuration."
+                    % "language")
         self.encoding = prjcfg.string("encoding", "UTF-8")
         self.plforms = prjcfg.string("plural-forms")
         if not self.plforms:
-            warning("'plural-forms' not set in project configuration")
-        self.lemail = prjcfg.string("team-email") # ok not to be present
+            warning("Field '%s' not set in project configuration."
+                    % "plural-forms")
         self.poeditor = (    prjcfg.string("po-editor")
                           or usrcfg.string("po-editor")) # ok not to be present
 
@@ -132,23 +139,145 @@ class Sieve (object):
         if self.p.onmod and cat.modcount == 0:
             return
 
-        # ---------------------
-        # Fields updated always
+        if self.p.init:
+            # Assemble translation title.
+            if self.langteam:
+                title = (u"Translation of %(title)s into %(lang)s."
+                         % dict(title="%poname", lang="%langname"))
+            else:
+                title = (u"Translation of %(title)s."
+                         % dict(title="%poname"))
+            # Remove some placeholders.
+            if "YEAR" in hdr.copyright:
+                hdr.copyright = None
+            if "PACKAGE" in hdr.license:
+                hdr.license = None
 
-        # - compose translator's and team data
-        tr_ident = None
-        if self.tname and self.temail:
-            tr_ident = "%s <%s>" % (self.tname, self.temail)
-        elif self.tname:
-            tr_ident = self.tname
+            update_header(cat, project=cat.name, title=title,
+                          name=self.name, email=self.email,
+                          teamemail=self.teamemail,
+                          langname=self.langteam, langcode=self.langcode,
+                          encoding=self.encoding, ctenc="8bit",
+                          plforms=self.plforms,
+                          poeditor=self.poeditor)
+        else:
+            update_header(cat,
+                          name=self.name, email=self.email,
+                          poeditor=self.poeditor)
 
-        tm_ident = None
-        if self.language and self.lemail:
-            tm_ident = "%s <%s>" % (self.language, self.lemail)
-        elif self.language:
-            tm_ident = self.language
 
-        # - author comment
+def update_header (cat, project=None, title=None, copyright=None, license=None,
+                   name=None, email=None, teamemail=None,
+                   langname=None, langcode=None, encoding=None, ctenc=None,
+                   plforms=None, poeditor=None):
+    """
+    Update catalog header.
+
+    If a piece of information is not given (i.e. C{None}),
+    the corresponding header field is left unmodified.
+    If it is given as empty string, the corresponding header field is removed.
+    PO revision date is updated always, to current date.
+
+    Some fields (as noted in parameter descriptions) are expanded on variables
+    by applying the L{expand_vars<pology.misc.resolve.expand_vars>) function.
+    For example::
+
+         title="Translation of %project into %langname."
+
+    The following variables are available:
+      - C{%basename}: PO file base name
+      - C{%poname}: PO file base name without .po extension
+      - C{%project}: value of C{project} parameter (if not C{None}/empty)
+      - C{%langname}: value of C{langname} parameter (if not C{None}/empty)
+      - C{%langcode}: value of C{langcode} parameter (if not C{None}/empty)
+
+    @param cat: catalog in which the header is to be updated
+    @type cat: L{Catalog<pology.file.header.Catalog>}
+    @param project: project name
+    @type project: string
+    @param title: translation title (expanded on variables)
+    @type title: string
+    @param copyright: copyright notice (expanded on variables)
+    @type copyright: string
+    @param license: license notice (expanded on variables)
+    @type license: string
+    @param name: translator's name
+    @type name: string
+    @param email: translator's email address
+    @type email: string
+    @param teamemail: language team's email address
+    @type teamemail: string
+    @param langname: full language name
+    @type langname: string
+    @param langcode: language code
+    @type langcode: string
+    @param encoding: text encoding
+    @type encoding: string
+    @param ctenc: content transfer encoding
+    @type ctenc: string
+    @param plforms: plural forms expression
+    @type plforms: string
+    @param poeditor: translator's PO editor
+    @type poeditor: string
+
+    @returns: reference to input header
+    """
+
+    varmap = {}
+    varmap["basename"] = os.path.basename(cat.filename)
+    varmap["poname"] = cat.name
+    if project:
+        varmap["project"] = project
+    if langname:
+        varmap["langname"] = langname
+    if langcode:
+        varmap["langcode"] = langcode
+    varhead="%"
+
+    hdr = cat.header
+
+    if title:
+        title = expand_vars(title, varmap, varhead)
+        hdr.title[:] = [unicode(title)]
+    elif project == "":
+        hdr.title[:] = []
+
+    if copyright:
+        copyright = expand_vars(copyright, varmap, varhead)
+        hdr.copyright = unicode(copyright)
+    elif copyright == "":
+        hdr.copyright = None
+
+    if license:
+        license = expand_vars(license, varmap, varhead)
+        hdr.license = unicode(license)
+    elif license == "":
+        hdr.license = None
+
+    if project:
+        hdr.set_field(u"Project-Id-Version", unicode(project))
+    elif project == "":
+        hdr.remove_field(u"Project-Id-Version")
+
+    rdate = time.strftime("%Y-%m-%d %H:%M%z")
+    hdr.set_field(u"PO-Revision-Date", unicode(rdate))
+
+    if name or email:
+        if name and email:
+            tr_ident = "%s <%s>" % (name, email)
+        elif name:
+            tr_ident = "%s" % name
+        else:
+            tr_ident = "<%s>" % email
+
+        # Remove author placeholder.
+        for i in range(len(hdr.author)):
+            if u"FIRST AUTHOR" in hdr.author[i]:
+                hdr.author.pop(i)
+                break
+
+        # Look for current author in the comments,
+        # to update only years if present.
         cyear = time.strftime("%Y")
         acfmt = u"%s, %s."
         new_author = True
@@ -165,83 +294,46 @@ class Sieve (object):
         if new_author:
             hdr.author.append(acfmt % (tr_ident, cyear))
 
-        # - last translator
         hdr.set_field(u"Last-Translator", unicode(tr_ident))
 
-        # - revision date
-        rdate = time.strftime("%Y-%m-%d %H:%M%z")
-        hdr.set_field(u"PO-Revision-Date", unicode(rdate))
+    elif name == "" or email == "":
+        hdr.remove_field(u"Last-Translator")
 
-        # - PO editor
-        if self.poeditor:
-            hdr.set_field(u"X-Generator", unicode(self.poeditor))
-        else:
-            hdr.remove_field(u"X-Generator")
+    if langname:
+        tm_ident = None
+        if langname and teamemail:
+            tm_ident = "%s <%s>" % (langname, teamemail)
+        elif langname:
+            tm_ident = langname
+        hdr.set_field(u"Language-Team", unicode(tm_ident))
+    elif langname == "":
+        hdr.remove_field(u"Language-Team")
 
-        # ------------------------------------------------
-        # Fields updated only when at defaults (or forced)
+    if langcode:
+        hdr.set_field(u"Language", unicode(langcode), after="Language-Team")
+    elif langcode == "":
+        hdr.remove_field(u"Language")
 
-        init = self.p.init
+    if encoding:
+        ctval = u"text/plain; charset=%s" % encoding
+        hdr.set_field(u"Content-Type", ctval)
+    elif encoding == "":
+        hdr.remove_field(u"Content-Type")
 
-        # - title
-        reset_title = init is True
-        for line in hdr.title:
-            if "TITLE" in line:
-                reset_title = True
-                break
-        if not hdr.title or reset_title:
-            if self.language:
-                hdr.title[:] = [u"Translation of %s into %s."
-                                % (cat.name, self.language)]
-            else:
-                hdr.title[:] = [u"Translation of %s." % (cat.name)]
+    if ctenc:
+        hdr.set_field(u"Content-Transfer-Encoding", unicode(ctenc))
+    elif ctenc == "":
+        hdr.remove_field(u"Content-Transfer-Encoding")
 
-        # - project ID
-        fval = hdr.get_field_value("Project-Id-Version")
-        if fval is not None and ("PACKAGE" in fval or init):
-            hdr.set_field(u"Project-Id-Version", unicode(cat.name))
+    if plforms:
+        hdr.set_field(u"Plural-Forms", unicode(plforms))
+    elif plforms == "":
+        hdr.remove_field(u"Plural-Forms")
 
-        # - language team
-        fval = hdr.get_field_value("Language-Team")
-        if self.language and fval is not None and ("LANGUAGE" in fval or init):
-            hdr.set_field(u"Language-Team", unicode(tm_ident))
+    if poeditor:
+        hdr.set_field(u"X-Generator", unicode(poeditor))
+    elif poeditor == "":
+        hdr.remove_field(u"X-Generator")
 
-        # - language code
-        fval = hdr.get_field_value("Language")
-        if self.lang and fval is not None and (not fval.strip() or init):
-            hdr.set_field(u"Language", unicode(self.lang),
-                          after="Language-Team")
-
-        # - encoding
-        fval = hdr.get_field_value("Content-Type")
-        if self.encoding and fval is not None and ("CHARSET" in fval or init):
-            ctval = u"text/plain; charset=%s" % self.encoding
-            hdr.set_field(u"Content-Type", unicode(ctval))
-
-        # - transfer encoding
-        fval = hdr.get_field_value("Content-Transfer-Encoding")
-        if fval is not None and ("ENCODING" in fval or init):
-            hdr.set_field(u"Content-Transfer-Encoding", u"8bit")
-
-        # - plural forms
-        fval = hdr.get_field_value("Plural-Forms")
-        if self.plforms and fval is not None and ("INTEGER" in fval or init):
-            hdr.set_field(u"Plural-Forms", unicode(self.plforms))
-
-        # ------------------------------
-        # Handle uninitialized defaults
-
-        # - remove author placeholder
-        for i in range(len(hdr.author)):
-            if u"FIRST AUTHOR" in hdr.author[i]:
-                hdr.author.pop(i)
-                break
-
-        # - remove copyright placeholder
-        if "YEAR" in hdr.copyright:
-            hdr.copyright = u""
-
-        # - remove license placeholder
-        if "PACKAGE" in hdr.license:
-            hdr.license = u""
+    return hdr
 
