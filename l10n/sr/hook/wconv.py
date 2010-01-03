@@ -332,13 +332,12 @@ _reflex_map = {
     u"иљ": u"ел",
     # - special cases
     u"лије": u"ли",
-    u"лијен": u"лењ",
-    u"мија": u"меја",
-    u"мије": u"мејe",
-    u"мију": u"меју",
     u"није": u"ни",
+    u"миј": u"меј",
+    u"сиј": u"сеј",
     u"бијел": u"бео",
     u"цијел": u"цео",
+    u"лијен": u"лењ",
 }
 # Derive Latin cases.
 _reflex_map.update([map(ctol, x) for x in _reflex_map.items()]) # must be first
@@ -561,7 +560,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
                 if frme is not None and frme == texte[ieb:ieb + len(frme)]:
                     # Advance the diff according to this reflex pair
                     # and check that it covers both reflexes equally.
-                    icn = ic
+                    icn = ic - btrk
                     le = len(frme); li = len(frmi)
                     while (le > 0  or li > 0) and icn < lenc:
                         if cdiff[icn][0] != "+":
