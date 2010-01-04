@@ -1232,10 +1232,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             if a.tag != "":
                 typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
-            anote_d = dict(usr=a.user, mod=typewtag, dat=a.date, rev=a.rev)
-            if a.rev:
-                anote = "%(mod)s by %(usr)s on %(dat)s (rev %(rev)s)" % anote_d
-            elif a.user:
+            anote_d = dict(usr=a.user, mod=typewtag, dat=a.date)
+            if a.user:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             else:
                 anote = "not ascribed yet"
@@ -1752,7 +1750,8 @@ class _Ascription (object):
     def __setattr__ (self, attr, val):
 
         if attr not in self.__dict__:
-            raise KeyError, "trying to set unknown ascription field '%s'" % attr
+            raise KeyError("Trying to set unknown ascription attributed '%s'."
+                           % attr)
         self.__dict__[attr] = val
 
 
@@ -1812,7 +1811,7 @@ def asc_collect_history_w (msg, acat, config, before, seenmsg, shallow=False):
     if msg in acat:
         amsg = acat[msg]
         for a in asc_collect_history_single(amsg, acat, config):
-            if not before or asc_age_cmp(a, before, config) < 0:
+            if not before or a.date <= before.date:
                 history.append(a)
 
     if shallow:
@@ -1897,10 +1896,12 @@ def asc_collect_history_single (amsg, acat, config):
         a.rmsg, a.msg = amsg, pmsg
         history.append(a)
 
-    #history.sort(lambda x, y: asc_age_cmp(y, x, config))
-    # ...sorting not good, in case several operations were done at once,
-    # e.g. ascribing modification and review at the same time.
-    history.reverse()
+    # Sort history by date and put it in reverse.
+    # If several ascriptions have same time stamps, preserve their order.
+    history_ord = zip(history, range(len(history)))
+    history_ord.sort(key=lambda x: (x[0].date, x[1]))
+    history_ord.reverse()
+    history = [x[0] for x in history_ord]
 
     return history
 
@@ -1980,24 +1981,6 @@ def asc_parse_ascriptions (amsg, acat, config):
                          isfuzz, isobs))
 
     return ascripts
-
-
-def asc_age_cmp (a1, a2, config):
-    """
-    Compare age of two ascriptions in history by their date/revision.
-
-    See L{asc_collect_history} for the composition of C{hist*} arguments.
-    Return value is -1 if a1 comes before a2, 1 if a1 comes after a2,
-    and 0 if the order cannot be determined.
-    """
-
-    if a1.rev and a2.rev and a1.rev != a2.rev:
-        if config.vcs.is_older(a1.rev, a2.rev):
-            return -1
-        else:
-            return 1
-    else:
-        return (a1.date > a2.date) - (a1.date < a2.date)
 
 
 _modified_cats = []
@@ -2701,19 +2684,14 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
     return selector
 
 
-# Select first modification (any or by users) at or after given time/revision.
+# Select first modification (any or by users) at or after given time.
 def selector_modafter (time_spec=None, user_spec=None):
     cid = "selector:modafter"
 
     if not time_spec:
-        error("time/revision specification cannot be empty", subsrc=cid)
+        error("time specification cannot be empty", subsrc=cid)
 
-    if "-" in time_spec:
-        date = parse_datetime(time_spec)
-        rev = None
-    else:
-        date = None
-        rev = time_spec.strip()
+    date = parse_datetime(time_spec)
 
     def selector (msg, cat, history, config):
 
@@ -2726,8 +2704,7 @@ def selector_modafter (time_spec=None, user_spec=None):
         for i in range(len(history) - 1, -1, -1):
             a = history[i]
             if (    a.type == ATYPE_MOD and (not users or a.user in users)
-                and (not date or a.date >= date)
-                and (not rev or not config.vcs.is_older(a.rev, rev))
+                and a.date >= date
             ):
                 hi_sel = i + 1
                 break
