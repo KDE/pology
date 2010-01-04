@@ -78,7 +78,7 @@ the word that differs from Ekavian form and C{‹} just after::
     Д›и‹о б›иљ‹ежака о В›ј‹ештичјој р›иј‹еци.
 
 Straight Ijekavian text is then obtained by just removing difference marks,
-and Ekavian by applying rules such as иј→∅, иј→∅, ио→ео, иљ→ел, etc.::
+and Ekavian by applying rules such as иј→∅, ј→∅, и→е, иљ→ел, etc.::
 
     Дио биљежака о Вјештичјој ријеци.
     Део бележака о Вештичјој реци.
