@@ -131,11 +131,6 @@ def main ():
         help="commit message for original catalogs, when %(option)s "
              "is in effect" % dict(option="-c"))
     opars.add_option(
-        "-M", "--ascript-message", metavar="TEXT",
-        action="store", dest="ascript_message", default=None,
-        help="commit message for ascription catalogs, when %(option)s "
-             "is in effect" % dict(option="-c"))
-    opars.add_option(
         "-s", "--selector", metavar="SELECTOR[:ARGS]",
         action="append", dest="selectors", default=None,
         help="consider only messages matched by this selector. "
@@ -408,8 +403,7 @@ def collect_configs_catpaths (paths):
     return configs_catpaths
 
 
-def commit_catalogs (configs_catpaths, user, message=None, ascriptions=False,
-                     onabortf=None):
+def commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -418,21 +412,17 @@ def commit_catalogs (configs_catpaths, user, message=None, ascriptions=False,
         if config not in catpaths_byconf:
             catpaths_byconf[config] = []
             configs.append(config)
-        for catpath, acatpath in catpaths:
-            if ascriptions:
-                catpath = acatpath
-            if config.vcs.is_versioned(catpath):
-                catpaths_byconf[config].append(catpath)
+        for catpaths2 in catpaths:
+            for catpath in catpaths2:
+                if config.vcs.is_versioned(catpath):
+                    catpaths_byconf[config].append(catpath)
 
     # Commit by config.
     for config in configs:
         cmsg = message
         cmsgfile = None
         if not cmsg:
-            if ascriptions:
-                cmsg = config.ascript_commit_message
-            else:
-                cmsg = config.commit_message
+            cmsg = config.commit_message
         if not cmsg:
             cmsgfile, cmsgfile_orig = get_commit_message_file_path(user)
         else:
@@ -528,7 +518,6 @@ class Config:
         self.vcs = make_vcs(gsect.get("version-control", "noop"))
 
         self.commit_message = gsect.get("commit-message", None)
-        self.ascript_commit_message = gsect.get("ascript-commit-message", None)
 
         cval = gsect.get("review-tags", None)
         if cval is not None:
@@ -715,31 +704,14 @@ def ascribe_modified (options, configs_catpaths, mode):
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
 
-    if options.commit:
-        commit_catalogs(configs_catpaths, mode.user,
-                        message=options.message)
-
     ascribe_modified_w(options, configs_catpaths, mode)
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
-                        message=options.ascript_message, ascriptions=True)
+                        message=options.message)
 
 
 def ascribe_modified_w (options, configs_catpaths, mode):
-
-    upprog = setup_progress(configs_catpaths, "Checking VCS states: %s")
-    dirty_catpaths = []
-    for config, catpaths in configs_catpaths:
-        for catpath, acatpath in catpaths:
-            upprog(catpath)
-            if not config.vcs.is_clear(catpath):
-                dirty_catpaths.append(catpath)
-    upprog()
-    if dirty_catpaths:
-        error("Ascription aborted because the following files "
-              "do not have clean version control state:\n%s"
-              % "\n".join(dirty_catpaths))
 
     upprog = setup_progress(configs_catpaths, "Ascribing modifications: %s")
     counts = dict([(x, 0) for x in _all_states])
@@ -862,12 +834,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
 
-    if options.commit:
-        onabortf = lambda: restore_reviews(configs_catpaths, cleared_by_catref)
-        commit_catalogs(configs_catpaths, mode.user,
-                        message=options.message,
-                        onabortf=onabortf)
-
     # Ascribe modifications.
     mode.selector = stest_any
     ascribe_modified_w(options, configs_catpaths, mode)
@@ -928,8 +894,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     if options.commit:
         onabortf = lambda: restore_reviews(configs_catpaths, cleared_by_catref)
         commit_catalogs(configs_catpaths, mode.user,
-                        message=options.ascript_message, ascriptions=True,
-                        onabortf=onabortf)
+                        message=options.message, onabortf=onabortf)
 
 
 def diff_select (options, configs_catpaths, mode):
