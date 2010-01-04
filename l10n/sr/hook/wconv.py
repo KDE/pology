@@ -71,33 +71,19 @@ Dialect Hybridization
 =====================
 
 Both Ekavian and Ijekavian dialect may be represented within single text.
-Such hybrid text is basically Ijekavian, but jat-reflexes are marked
-by inserting a reflex mark character, C{›}, just before the part of
-the word that differs from Ekavian form::
+Such hybrid text is basically Ijekavian, but differences to Ekavian
+are marked by inserting the C{›} character just before the part of
+the word that differs from Ekavian form and C{‹} just after::
 
-    Д›ио б›иљежака о В›јештичјој р›ијеци.
+    Д›и‹о б›иљ‹ежака о В›ј‹ештичјој р›иј‹еци.
 
-Straight Ijekavian text is then obtained by just removing reflex marks,
-and Ekavian by applying rules such as је→е, ије→е, ио→ео, etc.::
+Straight Ijekavian text is then obtained by just removing difference marks,
+and Ekavian by applying rules such as иј→∅, иј→∅, ио→ео, иљ→ел, etc.::
 
     Дио биљежака о Вјештичјој ријеци.
     Део бележака о Вештичјој реци.
 
-In some special cases this does not work. For example::
-
-    Л›ијено се окрете, па се насм›ија.
-
-would resolve into part unusual part wrong Ekavian form::
-
-    Лено се окрете, па се насмеа.
-
-In such cases, reflex mark is simply inserted one letter earlier::
-
-    ›Лијено се окрете, па се нас›мија.
-
-and special-case rules (such as мија→меја, etc.) are applied instead.
-
-For extremely rare special cases, it is possible to directly provide
+For very rare special cases, it is possible to directly provide
 different forms for Ekavian and Ijekavian, in that order,
 by using alternatives directive::
 
@@ -320,46 +306,47 @@ def _unpadc (text):
     return text
 
 
-# Jat-reflex map (Latin script and letter cases derived afterwards).
-_reflex_map = {
+# Ijekavian to Ekavian map (Latin script and letter cases derived afterwards).
+_iediff_map = {
     # - basic cases
-    u"ије": u"е",
-    u"је": u"е",
-    u"ље": u"ле",
-    u"ње": u"не",
-    u"ио": u"ео",
-    u"иљ": u"ел",
+    u"иј": u"",
+    u"ј": u"",
+    u"и": u"е",
+    u"љ": u"л",
+    u"њ": u"н",
     # - special cases
-    u"лије": u"ли",
-    u"није": u"ни",
-    u"биј": u"беј",
-    u"виј": u"веј",
-    u"миј": u"меј",
-    u"риј": u"реј",
-    u"сиј": u"сеј",
-    u"бијел": u"бео",
-    u"дијел": u"део",
-    u"цијел": u"цео",
-    u"лијен": u"лењ",
+    u"иљ": u"ел",
+    u"је": u"",
+    u"ијел": u"ео",
+    u"ијен": u"ењ",
 }
 # Derive Latin cases.
-_reflex_map.update([map(ctol, x) for x in _reflex_map.items()]) # must be first
+_iediff_map.update([map(ctol, x) for x in _iediff_map.items()]) # must be first
 # Derive cases with first letter in uppercase.
-_reflex_map.update([map(unicode.capitalize, x) for x in _reflex_map.items()])
+_iediff_map.update([map(unicode.capitalize, x) for x in _iediff_map.items()])
 # Derive cases with all letters in uppercase.
-_reflex_map.update([map(unicode.upper, x) for x in _reflex_map.items()])
+_iediff_map.update([map(unicode.upper, x) for x in _iediff_map.items()])
 
-_max_reflex_btrk = 1 # at most one previous character for special cases
-_max_reflex_len = max(map(lambda x: len(x), _reflex_map.keys()))
+_max_ijkform_len = max(map(lambda x: len(x), _iediff_map.keys()))
+_min_ijkform_len = min(map(lambda x: len(x), _iediff_map.keys()))
+_iediff_btrks = set()
+for ijk, ekv in _iediff_map.items():
+    btrk = 0
+    while btrk < len(ijk) and btrk < len(ekv) and ijk[btrk] == ekv[btrk]:
+        btrk += 1
+    _iediff_btrks.add(btrk)
+_iediff_btrks = list(sorted(_iediff_btrks))
 
-_reflex_mark = u"›"
-_reflex_mark_len = len(_reflex_mark)
+_iediff_mark_op = u"›"
+_iediff_mark_cl = u"‹"
+_iediff_mark_op_len = len(_iediff_mark_op)
+_iediff_mark_cl_len = len(_iediff_mark_cl)
 _dhyb_althead = "~#"
 
 
 def hitoi (text):
     """
-    Resolve hybrid Ijekavian text with reflex marks and dialect alternatives
+    Resolve hybrid Ijekavian text with difference marks and dialect alternatives
     into plain Ijekavian text [type F1A hook].
     """
 
@@ -376,10 +363,10 @@ def hitoiq (text):
 
 def _hitoi_w (text, silent=False):
 
-    ntext = text.replace(_reflex_mark, "")
-    srcname = None
-    if not silent:
-        srcname="<text>"
+    ntext = text
+    ntext = ntext.replace(_iediff_mark_op, "")
+    ntext = ntext.replace(_iediff_mark_cl, "")
+    srcname = "<text>" if not silent else None
     ntext = resolve_alternatives_simple(ntext, 2, 2, althead=_dhyb_althead,
                                         srcname=srcname)
 
@@ -388,7 +375,7 @@ def _hitoi_w (text, silent=False):
 
 def hitoe (text):
     """
-    Resolve hybrid Ijekavian text with reflex marks and dialect alternatives
+    Resolve hybrid Ijekavian text with difference marks and dialect alternatives
     into plain Ekavian text [type F1A hook].
     """
 
@@ -403,46 +390,74 @@ def hitoeq (text):
     return _hitoe_w(text, silent=True)
 
 
-def _hitoe_w (text, silent=False):
+def _hitoe_w (text, silent=False, validate=False):
 
     segs = []
+    errspans = []
     p = 0
     while True:
-        pp = p
-        p = text.find(_reflex_mark, p)
+        p1 = p # rest of text start
+
+        p = text.find(_iediff_mark_op, p)
         if p < 0:
-            segs.append(text[pp:])
+            segs.append(text[p1:])
             break
-        segs.append(text[pp:p])
-        p += _reflex_mark_len
+        p2 = p # opening mark start
+
+        segs.append(text[p1:p2])
+
+        p += _iediff_mark_op_len
         if not text[p:p + 1].isalpha():
-            segs.append(_reflex_mark)
+            segs.append(_iediff_mark_op)
             continue
+        p3 = p # difference start
 
-        # Try to resolve jat-reflex.
-        for rl in range(_max_reflex_len, 0, -1):
-            reflex = text[p:(p + rl + 1)]
-            ekvform = _reflex_map.get(reflex)
-            if ekvform is not None:
-                break
-
-        if ekvform:
-            segs.append(ekvform)
-            p += len(reflex)
-        else:
-            segs.append(text[(p - _reflex_mark_len):p])
+        p = text.find(_iediff_mark_cl, p)
+        if p < 0 or p > p3 + _max_ijkform_len:
+            replen = 20
+            el1 = "..." if p2 > 0 else ""
+            el2 = "..." if p3 + replen < len(text) else ""
+            errmsg = ("Unclosed dialect difference at '%s'."
+                      % (el1 + text[p2:p3 + replen] + el2))
             if not silent:
-                dreflex = text[(p - _reflex_mark_len):(p + _max_reflex_len + 1)]
-                warning("Unknown jat-reflex at '%s...', skipped." % dreflex)
+                warning(errmsg)
+            if validate:
+                errspans.append((p2, p3 + replen, errmsg))
+            segs.append(_iediff_mark_op)
+            p = p3
+            continue
+        p4 = p # closing mark start
 
-    srcname = None
-    if not silent:
-        srcname="<text>"
+        p += _iediff_mark_cl_len
+        p5 = p # tail start
+
+        ijkform = text[p3:p4]
+        ekvform = _iediff_map.get(ijkform)
+        if ekvform is not None:
+            segs.append(ekvform)
+        else:
+            segs.append(text[p2:p5])
+            errmsg = "Unknown dialect difference '%s'." % ijkform
+            if not silent:
+                warning(errmsg)
+            if validate:
+                errspans.append((p2, p5, errmsg))
+
     ntext = "".join(segs)
-    ntext = resolve_alternatives_simple(ntext, 1, 2, althead=_dhyb_althead,
-                                        srcname=srcname)
 
-    return ntext
+    srcname = "<text>" if (not silent and not validate) else None
+    ntext, ngood, allgood = resolve_alternatives(ntext, 1, 2,
+                                                 althead=_dhyb_althead,
+                                                 srcname=srcname)
+    if not allgood and validate:
+        errmsg = ("Malformed Ekavian-Ijekavian alternatives directive "
+                  "encountered after %d good directives." % ngood)
+        errspans.append((0, 0, errmsg))
+
+    if not validate:
+        return ntext
+    else:
+        return errspans
 
 
 def validate_dhyb (text):
@@ -450,34 +465,7 @@ def validate_dhyb (text):
     Check whether dialect-hybrid text is valid [type V1A hook].
     """
 
-    spans = []
-    p = 0
-    while True:
-        pp = p
-        p = text.find(_reflex_mark, p)
-        if p < 0:
-            break
-        p += _reflex_mark_len
-
-        # Check if jat-reflex can be resolved.
-        for rl in range(_max_reflex_len, 0, -1):
-            reflex = text[p:(p + rl + 1)]
-            ekvform = _reflex_map.get(reflex)
-            if ekvform is not None:
-                break
-        if not ekvform:
-            start, end = p - _reflex_mark_len, p + _max_reflex_len + 1
-            dreflex = text[start:end]
-            errmsg = "Unknown jat-reflex at '%s...'." % dreflex
-            spans.append((start, end, errmsg))
-
-    d1, ngood, allgood = resolve_alternatives(text, 1, 2, althead=_dhyb_althead)
-    if not allgood:
-        errmsg = ("Malformed Ekavian-Ijekavian alternatives directive "
-                  "encountered after %d good directives." % ngood)
-        spans.append((0, 0, errmsg))
-
-    return spans
+    return _hitoe_w(text, silent=True, validate=True)
 
 
 def hitoei (htext):
@@ -498,13 +486,13 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     """
     Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian texts.
 
-    Hybridization is performed by inserting reflex marks where possible,
+    Hybridization is performed by inserting difference marks where possible,
     and alternatives directives by dialect otherwise.
     Both input texts should be in same script, Cyrillic or Latin.
 
-    If alternatives directives should not be used, but only reflex marks,
+    If alternatives directives should not be used, but only difference marks,
     C{refonly} is set to C{True}. In that case, segments which cannot be
-    hybridized by reflex marks will be left as they are in Ijekavian text.
+    hybridized by difference marks will be left as they are in Ijekavian text.
     The intention behind this is that alternatives directives have
     been added manually where necessary, and that other changes are fixes
     made during conversion of Ekavian to Ijekavian text
@@ -516,7 +504,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     @type texti: string
     @param delims: possible delimiter characters
     @type delims: string
-    @param refonly: whether to only use reflex marks
+    @param refonly: whether to only use difference marks
     @type refonly: bool
 
     @returns: hybrid Ijekavian text
@@ -549,22 +537,21 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
         if ic == lenc:
             segs.append(texte[iep:])
             break
-        # Try to hybridize difference by reflex marks.
-        for btrk in range(_max_reflex_btrk, -1, -1):
+        # Try to hybridize difference by difference marks.
+        for btrk in _iediff_btrks:
             ieb = ie - btrk
             iib = ii - btrk
             if ieb < iep or iib < iip:
                 continue
-            maxrlen = _max_reflex_len - _max_reflex_btrk + btrk
             frme = None
-            for rlen in range(maxrlen, 0, -1):
+            for rlen in range(_max_ijkform_len, _min_ijkform_len - 1, -1):
                 frmi = texti[iib:iib + rlen]
-                frme = _reflex_map.get(frmi)
-                if frme is not None and frme == texte[ieb:ieb + len(frme)]:
-                    # Advance the diff according to this reflex pair
-                    # and check that it covers both reflexes equally.
+                tfrme = _iediff_map.get(frmi)
+                if tfrme is not None and tfrme == texte[ieb:ieb + len(tfrme)]:
+                    # Advance the diff according to this difference pair
+                    # and check that it covers both forms equally.
                     icn = ic - btrk
-                    le = len(frme); li = len(frmi)
+                    le = len(tfrme); li = len(frmi)
                     while (le > 0  or li > 0) and icn < lenc:
                         if cdiff[icn][0] != "+":
                             le -= 1
@@ -572,18 +559,19 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
                             li -= 1
                         icn += 1
                     if le == 0 and li == 0:
+                        frme = tfrme
                         break
             if frme is not None:
                 break
         if frme is not None:
-            # Hybridization by reflex mark possible.
+            # Hybridization by difference marks possible.
             segs.append(texte[iep:ieb])
-            segs.append(_reflex_mark + frmi)
+            segs.append(_iediff_mark_op + frmi + _iediff_mark_cl)
             iep = ieb + len(frme)
             iip = iib + len(frmi)
             ic = icn
         else:
-            # Hybridization by reflex mark not possible.
+            # Hybridization by difference marks not possible.
             # Use alternatives directive, or pure Ijekavian.
             frme = ""; frmi = ""
             segs.append(texte[iep:ie])
