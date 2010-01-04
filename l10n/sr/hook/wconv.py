@@ -482,7 +482,7 @@ def hitoei (htext):
     return hitoe(htext), hitoi(htext)
 
 
-def eitoh (texte, texti, delims=u"/|¦", refonly=False):
+def eitoh (texte, texti, delims=u"/|¦", dfmonly=False):
     """
     Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian texts.
 
@@ -491,7 +491,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     Both input texts should be in same script, Cyrillic or Latin.
 
     If alternatives directives should not be used, but only difference marks,
-    C{refonly} is set to C{True}. In that case, segments which cannot be
+    C{dfmonly} is set to C{True}. In that case, segments which cannot be
     hybridized by difference marks will be left as they are in Ijekavian text.
     The intention behind this is that alternatives directives have
     been added manually where necessary, and that other changes are fixes
@@ -504,8 +504,8 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
     @type texti: string
     @param delims: possible delimiter characters
     @type delims: string
-    @param refonly: whether to only use difference marks
-    @type refonly: bool
+    @param dfmonly: whether to only use difference marks
+    @type dfmonly: bool
 
     @returns: hybrid Ijekavian text
     @rtype: string
@@ -584,7 +584,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
                 ic += 1
             iep = ie
             iip = ii
-            if not refonly:
+            if not dfmonly:
                 segs.append(_dhyb_althead + _delimit([frme, frmi], delims))
             else:
                 segs.append(frmi)

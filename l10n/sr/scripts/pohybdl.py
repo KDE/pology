@@ -147,7 +147,7 @@ def hybdl (path, path0, accekch=False):
         for text0, text in zip(msg0.msgstr, msg.msgstr):
             text0 = hitoe(text0) # in case there was already some hybridization
             text = hitoi(text) # ditto
-            texth = eitoh(text0, text, refonly=True)
+            texth = eitoh(text0, text, dfmonly=True)
             textsh.append(texth)
             if not accekch:
                 texts0e.append(text0)
