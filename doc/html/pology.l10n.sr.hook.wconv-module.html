@@ -109,35 +109,21 @@
     directives.</p>
   <h1 class="heading">Dialect Hybridization</h1>
     <p>Both Ekavian and Ijekavian dialect may be represented within single 
-    text. Such hybrid text is basically Ijekavian, but jat-reflexes are 
-    marked by inserting a reflex mark character, <code>&#8250;</code>, just 
-    before the part of the word that differs from Ekavian form:</p>
+    text. Such hybrid text is basically Ijekavian, but differences to 
+    Ekavian are marked by inserting the <code>&#8250;</code> character just 
+    before the part of the word that differs from Ekavian form and 
+    <code>&#8249;</code> just after:</p>
 <pre class="literalblock">
-   &#1044;&#8250;&#1080;&#1086; &#1073;&#8250;&#1080;&#1113;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#8250;&#1112;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#8250;&#1080;&#1112;&#1077;&#1094;&#1080;.
+   &#1044;&#8250;&#1080;&#8249;&#1086; &#1073;&#8250;&#1080;&#1113;&#8249;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#8250;&#1112;&#8249;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#8250;&#1080;&#1112;&#8249;&#1077;&#1094;&#1080;.
 </pre>
-    <p>Straight Ijekavian text is then obtained by just removing reflex 
-    marks, and Ekavian by applying rules such as &#1112;&#1077;&#8594;&#1077;, &#1080;&#1112;&#1077;&#8594;&#1077;, &#1080;&#1086;&#8594;&#1077;&#1086;, 
+    <p>Straight Ijekavian text is then obtained by just removing difference
+    marks, and Ekavian by applying rules such as &#1080;&#1112;&#8594;&#8709;, &#1112;&#8594;&#8709;, &#1080;&#8594;&#1077;, &#1080;&#1113;&#8594;&#1077;&#1083;, 
     etc.:</p>
 <pre class="literalblock">
    &#1044;&#1080;&#1086; &#1073;&#1080;&#1113;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#1112;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#1080;&#1112;&#1077;&#1094;&#1080;.
    &#1044;&#1077;&#1086; &#1073;&#1077;&#1083;&#1077;&#1078;&#1072;&#1082;&#1072; &#1086; &#1042;&#1077;&#1096;&#1090;&#1080;&#1095;&#1112;&#1086;&#1112; &#1088;&#1077;&#1094;&#1080;.
 </pre>
-    <p>In some special cases this does not work. For example:</p>
-<pre class="literalblock">
-   &#1051;&#8250;&#1080;&#1112;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#1084;&#8250;&#1080;&#1112;&#1072;.
-</pre>
-    <p>would resolve into part unusual part wrong Ekavian form:</p>
-<pre class="literalblock">
-   &#1051;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#1084;&#1077;&#1072;.
-</pre>
-    <p>In such cases, reflex mark is simply inserted one letter 
-    earlier:</p>
-<pre class="literalblock">
-   &#8250;&#1051;&#1080;&#1112;&#1077;&#1085;&#1086; &#1089;&#1077; &#1086;&#1082;&#1088;&#1077;&#1090;&#1077;, &#1087;&#1072; &#1089;&#1077; &#1085;&#1072;&#1089;&#8250;&#1084;&#1080;&#1112;&#1072;.
-</pre>
-    <p>and special-case rules (such as &#1084;&#1080;&#1112;&#1072;&#8594;&#1084;&#1077;&#1112;&#1072;, etc.) are applied 
-    instead.</p>
-    <p>For extremely rare special cases, it is possible to directly provide
+    <p>For very rare special cases, it is possible to directly provide 
     different forms for Ekavian and Ijekavian, in that order, by using 
     alternatives directive:</p>
 <pre class="literalblock">
@@ -298,7 +284,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="hitoi"></a><span class="summary-sig-name">hitoi</span>(<span class="summary-sig-arg">text</span>)</span><br />
-      Resolve hybrid Ijekavian text with reflex marks and dialect 
+      Resolve hybrid Ijekavian text with difference marks and dialect 
       alternatives into plain Ijekavian text [type F1A hook].</td>
           <td align="right" valign="top">
             
@@ -335,7 +321,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="hitoe"></a><span class="summary-sig-name">hitoe</span>(<span class="summary-sig-arg">text</span>)</span><br />
-      Resolve hybrid Ijekavian text with reflex marks and dialect 
+      Resolve hybrid Ijekavian text with difference marks and dialect 
       alternatives into plain Ekavian text [type F1A hook].</td>
           <td align="right" valign="top">
             
@@ -445,6 +431,25 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="hictoecq"></a><span class="summary-sig-name">hictoecq</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Like <a href="pology.l10n.sr.hook.wconv-module.html#hictoec" 
+      class="link">hictoec</a>, but does not output warnings on problems 
+      [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="hictoel"></a><span class="summary-sig-name">hictoel</span>(<span class="summary-sig-arg">text</span>)</span><br />
       Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into clean 
       Ekavian Latin text [type F1A hook].</td>
@@ -466,6 +471,25 @@
           <td><span class="summary-sig"><a name="hictoic"></a><span class="summary-sig-name">hictoic</span>(<span class="summary-sig-arg">text</span>)</span><br />
       Resolve hybrid Ijekavian-Ekavian Cyrillic-Latin text into clean 
       Ijekavian Cyrillic text [type F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hictoicq"></a><span class="summary-sig-name">hictoicq</span>(<span class="summary-sig-arg">text</span>)</span><br />
+      Like <a href="pology.l10n.sr.hook.wconv-module.html#hictoic" 
+      class="link">hictoic</a>, but does not output warnings on problems 
+      [type F1A hook].</td>
           <td align="right" valign="top">
             
             
@@ -509,6 +533,43 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="btrk"></a><span class="summary-name">btrk</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ekv"></a><span class="summary-name">ekv</span> = <code title="u'EO'"><code class="variable-quote">u'</code><code class="variable-string">EO</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ijk"></a><span class="summary-name">ijk</span> = <code title="u'IJEL'"><code class="variable-quote">u'</code><code class="variable-string">IJEL</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="x"></a><span class="summary-name">x</span> = <code title="(u'&#1048;&#1112;&#1077;&#1085;', u'&#1045;&#1114;')"><code class="variable-group">(</code><code class="variable-quote">u'</code><code class="variable-string">&#1048;&#1112;&#1077;&#1085;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">u'</code><code class="variable-string">&#1045;&#1114;</code><code class="variable-quote">'</code><code class="variable-group">)</code></code>
     </td>
   </tr>
 </table>
@@ -628,23 +689,23 @@
   
   <p>Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian 
   texts.</p>
-  <p>Hybridization is performed by inserting reflex marks where possible, 
-  and alternatives directives by dialect otherwise. Both input texts should
-  be in same script, Cyrillic or Latin.</p>
-  <p>If alternatives directives should not be used, but only reflex marks, 
-  <code>refonly</code> is set to <code>True</code>. In that case, segments 
-  which cannot be hybridized by reflex marks will be left as they are in 
-  Ijekavian text. The intention behind this is that alternatives directives
-  have been added manually where necessary, and that other changes are 
-  fixes made during conversion of Ekavian to Ijekavian text which hold for 
-  both dialects.</p>
+  <p>Hybridization is performed by inserting difference marks where 
+  possible, and alternatives directives by dialect otherwise. Both input 
+  texts should be in same script, Cyrillic or Latin.</p>
+  <p>If alternatives directives should not be used, but only difference 
+  marks, <code>refonly</code> is set to <code>True</code>. In that case, 
+  segments which cannot be hybridized by difference marks will be left as 
+  they are in Ijekavian text. The intention behind this is that 
+  alternatives directives have been added manually where necessary, and 
+  that other changes are fixes made during conversion of Ekavian to 
+  Ijekavian text which hold for both dialects.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>texte</code></strong> (string) - Ekavian text</li>
         <li><strong class="pname"><code>texti</code></strong> (string) - Ijekavian text</li>
         <li><strong class="pname"><code>delims</code></strong> (string) - possible delimiter characters</li>
-        <li><strong class="pname"><code>refonly</code></strong> (bool) - whether to only use reflex marks</li>
+        <li><strong class="pname"><code>refonly</code></strong> (bool) - whether to only use difference marks</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>hybrid Ijekavian text</dd>

@@ -139,6 +139,7 @@
         <span class="summary-sig-arg">gesuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">stsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">adsuff</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">nmsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">npkeyto</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">nobrhyp</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">disamb</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
@@ -293,6 +294,7 @@
         <span class="sig-arg">gesuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">stsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">adsuff</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">nmsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">npkeyto</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">nobrhyp</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">disamb</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
@@ -364,6 +366,12 @@
         environment. <code>adsuff</code> can also be a tuple of tuples, if 
         several alternative derivations should be reachable.
       </li>
+      <li>
+        In case the entry is a person's name with tagged first and last 
+        name, parameter <code>nmsuff</code> can provide a tuple of 2 
+        suffixes by which only the first or last name are requested, 
+        respectively.
+      </li>
     </ul>
     <p>Ordinary hyphens may be converted into non-breaking hyphens by 
     setting the <code>nobrhyp</code> parameter to <code>True</code>. 
@@ -407,6 +415,7 @@
           transcriptions</li>
         <li><strong class="pname"><code>adsuff</code></strong> ((string, string) or ((string, string)*)) - derivation key and environment name suffixes to report 
           alternative derivations</li>
+        <li><strong class="pname"><code>nmsuff</code></strong> ((string, string)) - suffixes for fetching only first or last name of a person</li>
         <li><strong class="pname"><code>npkeyto</code></strong> (string or (string, [string*])) - property key to substitute for empty key, when given</li>
         <li><strong class="pname"><code>nobrhyp</code></strong> (bool) - whether to convert some ordinary into non-breaking hyphens</li>
         <li><strong class="pname"><code>disamb</code></strong> (string) - string to replace each disambiguation marker with</li>
@@ -468,7 +477,8 @@
       property value only if it is of masculine gender, <code>_rz</code> 
       for feminine, <code>_rs</code> for neuter; <code>_s</code> for 
       systematic transcription, <code>_a</code>, <code>_a2</code> and 
-      <code>_a3</code> for other alternatives.
+      <code>_a3</code> for other alternatives; <code>_im</code> and 
+      <code>_pr</code> for person's last and first name.
     </li>
     <li>
       Non-breaking hyphens are heuristically replacing ordinary hyphens.

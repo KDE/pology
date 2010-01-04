@@ -496,6 +496,12 @@
   after the catalog has been opened, in case it does not specify any on its
   own. If catalog reports <code>None</code> for accelerators, text is not 
   touched.</p>
+  <p>Accelerator marker can also be specified for a particular message, by 
+  embedded <code>accelerator-marker</code> field in manual comments:</p>
+<pre class="literalblock">
+   # accelerator-marker: _
+</pre>
+  <p>This overrides accelerator marker reported by the catalog.</p>
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>text</dd>

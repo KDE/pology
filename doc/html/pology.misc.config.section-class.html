@@ -177,6 +177,45 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">unicode or as <code>default</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.config.section-class.html#strslist" class="summary-sig-name">strslist</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">,</code><code class="variable-quote">'</code></span>)</span><br />
+      Get a configuration field as a list of separated strings.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">unicode or as <code>default</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.config.section-class.html#strdlist" class="summary-sig-name">strdlist</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get a configuration field as a list of delimited strings.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== INSTANCE VARIABLES ==================== -->
 <a name="section-InstanceVariables"></a>
@@ -229,6 +268,73 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>name</code></strong> (string) - name of the section</li>
     </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="strslist"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">strslist</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">sep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">,</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get a configuration field as a list of separated strings.</p>
+  <p>Separator character or string is used to split the field value into 
+  substrings:</p>
+<pre class="literalblock">
+   afield = foo, bar, baz
+</pre>
+  <p>Leading and trailing whitespace in list elements is stripped.</p>
+  <p>If list elements should be able to contain any characters or 
+  whitespace is significant, use delimited list instead (<a 
+  href="pology.misc.config.section-class.html#strdlist" 
+  class="link">strdlist</a>).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>sep</code></strong> (string) - the separator</li>
+    </ul></dd>
+    <dt>Returns: unicode or as <code>default</code></dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="strdlist"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">strdlist</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get a configuration field as a list of delimited strings.</p>
+  <p>Delimiter is taken to be the non-alphanumeric character with which the
+  field value starts. In this example:</p>
+<pre class="literalblock">
+   afield = /foo/bar/baz/
+</pre>
+  <p>the delimiter is <code>/</code>.</p>
+  <p>If the field value does not start with a non-alphanumeric, or it does 
+  not end with the delimiter, error is signalled.</p>
+  <dl class="fields">
+    <dt>Returns: unicode or as <code>default</code></dt>
   </dl>
 </td></tr></table>
 </div>

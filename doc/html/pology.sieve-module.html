@@ -105,6 +105,14 @@
     catalog. I.e. it is illegal for the client to switch a catalog between 
     two calls to <code>process</code>, without calling 
     <code>process_header</code> in between if it exists.</p>
+    <p>There is also the optional <code>process_header_last</code> method, 
+    which is just like <code>process_header</code>, except that, if 
+    present, clients call it <i>after</i> all <code>process</code> calls on
+    the given catalog:</p>
+<pre class="literalblock">
+   def process_header_last (self, hdr, cat):
+       # ...
+</pre>
     <p>Sieve methods should not abort the program execution in case of 
     errors, but throw an exception instead. In particular, if 
     <code>process</code> method throws an instance of <a 
