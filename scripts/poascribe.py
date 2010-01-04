@@ -1028,12 +1028,9 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath):
         # No messages to ascribe.
         return counts0
 
-    # Current VCS revision of the catalog.
-    catrev = config.vcs.revision(cat.filename)
-
     # Ascribe messages as modified.
     for msg in toasc_msgs:
-        ascribe_msg_mod(msg, acat, catrev, user, config)
+        ascribe_msg_mod(msg, acat, user, config)
 
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
@@ -1089,12 +1086,9 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             sync_and_rep(cat)
         return 0
 
-    # Current VCS revision of the catalog.
-    catrev = config.vcs.revision(cat.filename)
-
     # Ascribe messages as reviewed.
     for msg, tags in rev_msgs_tags:
-        ascribe_msg_rev(msg, acat, tags, catrev, user, config)
+        ascribe_msg_rev(msg, acat, tags, user, config)
 
     sync_and_rep(cat)
     if asc_sync_and_rep(acat):
@@ -1566,8 +1560,7 @@ _atag_sep = u"/"
 _mark_fuzz = u"f"
 _mark_obs = u"o"
 
-def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
-                     dt=None):
+def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
 
     # Create or retrieve ascription message.
     if msg not in acat:
@@ -1596,8 +1589,6 @@ def ascribe_msg_any (msg, acat, atype, atags, arev, user, config,
 
     # Add ascription comment.
     modstr = user + " | " + format_datetime(dt, wsec=True)
-    if arev or hasdiff:
-        modstr += " | " + (arev or "")
     modstr_wsep = modstr
     if hasdiff:
         wsep = ""
@@ -1642,14 +1633,14 @@ ATYPE_MOD = "modified"
 ATYPE_REV = "reviewed"
 
 
-def ascribe_msg_mod (msg, acat, catrev, user, config):
+def ascribe_msg_mod (msg, acat, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_MOD, [], catrev, user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_MOD, [], user, config, _dt_start)
 
 
-def ascribe_msg_rev (msg, acat, tags, catrev, user, config):
+def ascribe_msg_rev (msg, acat, tags, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_REV, tags, catrev, user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_REV, tags, user, config, _dt_start)
 
 
 # FIXME: Imported by others, factor out.
@@ -1733,7 +1724,7 @@ def asc_append_field (msg, field, value):
 
 _asc_attrs = (
     "rmsg", "msg",
-    "user", "type", ("tag", ""), "date", "rev",
+    "user", "type", ("tag", ""), "date",
     "slen", "fuzz", "obs",
 )
 
@@ -1867,7 +1858,7 @@ def asc_collect_history_single (amsg, acat, config):
     pvals = dict([(field, [[]]) for field in _nonid_fields_tracked])
     for asc in asc_parse_ascriptions(amsg, acat, config):
         a = _Ascription()
-        a.user, a.type, a.tag, a.date, a.rev, a.slen, a.fuzz, a.obs = asc
+        a.user, a.type, a.tag, a.date, a.slen, a.fuzz, a.obs = asc
         if a.slen: # separator existing, reconstruct the fields
             shead = field_separator_head(a.slen)
             pmsg = MessageUnsafe()
@@ -1909,7 +1900,7 @@ def asc_collect_history_single (amsg, acat, config):
 def asc_parse_ascriptions (amsg, acat, config):
     """
     Get ascriptions from given ascription message as list of tuples
-    C{(user, type, tag, date, revision, seplen, isfuzzy, isobsolete)},
+    C{(user, type, tag, date, seplen, isfuzzy, isobsolete)},
     with date being a real C{datetime} object.
     """
 
@@ -1927,7 +1918,7 @@ def asc_parse_ascriptions (amsg, acat, config):
             atype = lst[0].strip()
             atag = lst[1].strip()
         lst = cmnt[p+1:].split("|")
-        if len(lst) < 2 or len(lst) > 4:
+        if len(lst) < 2 or len(lst) > 3:
             warning_on_msg("malformed ascription comment '%s' "
                            "(wrong number of descriptors)" % cmnt, amsg, acat)
             continue
@@ -1949,10 +1940,6 @@ def asc_parse_ascriptions (amsg, acat, config):
             warning_on_msg("malformed ascription comment '%s' "
                            "(malformed date string)" % cmnt, amsg, acat)
             continue
-
-        revision = None
-        if lst:
-            revision = lst.pop(0).strip() or None
 
         # States are reset only on modification ascriptions,
         # in order to keep them for the following review ascriptions.
@@ -1977,8 +1964,7 @@ def asc_parse_ascriptions (amsg, acat, config):
                                    % cmnt, amsg, acat)
                     continue
 
-        ascripts.append((auser, atype, atag, date, revision, seplen,
-                         isfuzz, isobs))
+        ascripts.append((auser, atype, atag, date, seplen, isfuzz, isobs))
 
     return ascripts
 
