@@ -156,24 +156,6 @@ class VcsBase (object):
             "Selected version control system does not define state query.")
 
 
-    def is_older (self, rev1, rev2):
-        """
-        Check if revision 1 is older than revision 2.
-
-        @param rev1: revision string
-        @type rev1: string
-        @param rev2: revision string
-        @type rev2: string
-
-        @return: C{True} if first revision older than second
-        @rtype: bool
-        """
-
-        raise StandardError(
-            "Selected version control system does not define "
-            "revision age comparison.")
-
-
     def is_versioned (self, path):
         """
         Check if path is under version control.
@@ -467,12 +449,6 @@ class VcsSubversion (VcsBase):
         return clear
 
 
-    def is_older (self, rev1, rev2):
-        # Base override.
-
-        return int(rev1) < int(rev2)
-
-
     def is_versioned (self, path):
         # Base override.
 
@@ -755,31 +731,6 @@ class VcsGit (VcsBase):
                         return False
 
         return True
-
-
-    def is_older (self, rev1, rev2):
-        # Base override.
-
-        root, path = self._gitroot(path)
-
-        res = collect_system("git log %s" % rev2, wdir=root, env=self._env)
-        rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
-        first = True
-        for line in res[0].split("\n"):
-            m = rx.search(line)
-            if m:
-                if first:
-                    first = False
-                    continue
-                rev = m.group(1)
-                if rev == rev1:
-                    return True
-
-        # FIXME: What to do when one revision is not descendent of the other?
-        # By the current implementation the method is not ordering relation,
-        # as both is_older(r1, r2) and is_older(r2, r1) may be false.
-
-        return False
 
 
     def is_versioned (self, path):
