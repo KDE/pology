@@ -179,7 +179,7 @@ def update_header (cat, project=None, title=None, copyright=None, license=None,
     PO revision date is updated always, to current date.
 
     Some fields (as noted in parameter descriptions) are expanded on variables
-    by applying the L{expand_vars<pology.misc.resolve.expand_vars>) function.
+    by applying the L{expand_vars<pology.misc.resolve.expand_vars>} function.
     For example::
 
          title="Translation of %project into %langname."

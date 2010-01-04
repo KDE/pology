@@ -24,7 +24,7 @@ def words_ec (text):
     it is passed through L{hictoec()<l10n.sr.hook.wconv.hictoic>}
     to resolve it into clean Ekavian Cyrillic.
     In case the text contains accent marks, it is passed through
-    L{remove_accents()<l10n.sr.hook.accents.remove>} to remove them.
+    L{remove_accents()<l10n.sr.hook.accents.remove_accents>} to remove them.
     """
 
     return _words_w(remove_accents(hictoecq(text)))
