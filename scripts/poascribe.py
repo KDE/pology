@@ -408,7 +408,8 @@ def collect_configs_catpaths (paths):
     return configs_catpaths
 
 
-def commit_catalogs (configs_catpaths, user, message=None, ascriptions=True):
+def commit_catalogs (configs_catpaths, user, message=None, ascriptions=False,
+                     onabortf=None):
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -438,12 +439,15 @@ def commit_catalogs (configs_catpaths, user, message=None, ascriptions=True):
             cmsg += " " + fmt_commit_user(user)
         if not config.vcs.commit(catpaths_byconf[config],
                                  message=cmsg, msgfile=cmsgfile):
+            if onabortf:
+                onabortf()
             if not cmsgfile:
-                error("VCS reports that catalogs cannot be committed")
+                error("VCS reports that catalogs cannot be committed.")
             else:
                 os.unlink(cmsgfile)
                 error("VCS reports that catalogs cannot be committed "
-                      "(commit message preserved in %s)" % cmsgfile_orig)
+                      "(commit message preserved in '%s')."
+                      % cmsgfile_orig)
         if cmsgfile:
             os.unlink(cmsgfile)
             os.unlink(cmsgfile_orig)
@@ -713,13 +717,13 @@ def ascribe_modified (options, configs_catpaths, mode):
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
-                        options.message, False)
+                        message=options.message)
 
     ascribe_modified_w(options, configs_catpaths, mode)
 
     if options.commit:
         commit_catalogs(configs_catpaths, mode.user,
-                        options.ascript_message, True)
+                        message=options.ascript_message, ascriptions=True)
 
 
 def ascribe_modified_w (options, configs_catpaths, mode):
@@ -799,6 +803,43 @@ def update_headers_onmod (configs_catpaths, user):
         report("===! Updated headers: %d" % nupdated)
 
 
+def restore_reviews (configs_catpaths, cleared_by_catref):
+
+    upprog = setup_progress(configs_catpaths, "Restoring reviews: %s")
+    nrestored = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            cleared_by_msgref = cleared_by_catref.get(catpath)
+            if cleared_by_msgref:
+                cat = Catalog(catpath, monitored=True)
+                for msgref, revspec in sorted(cleared_by_msgref.items()):
+                    msg = cat[msgref - 1]
+                    diffed, revtags, unrev = revspec
+                    restore_review_flags(msg, diffed, revtags, unrev)
+                    nrestored += 1
+                sync_and_rep(cat)
+
+    if nrestored > 0:
+        report("===! Restored reviews: %d" % nrestored)
+
+
+def restore_review_flags (msg, diffed, revtags, unrev):
+
+    if unrev:
+        msg.flag.add(_urevdflags[0])
+    elif revtags:
+        for revtag in revtags:
+            rflag = _revdflags[0]
+            if revtag:
+                rflag += "/" + revtag
+            msg.flag.add(rflag)
+    elif diffed:
+        msg.flag.add(_revdflags[0])
+
+    return msg
+
+
 def ascribe_reviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
@@ -822,8 +863,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
         update_headers_onmod(configs_catpaths, mode.user)
 
     if options.commit:
+        onabortf = lambda: restore_reviews(configs_catpaths, cleared_by_catref)
         commit_catalogs(configs_catpaths, mode.user,
-                        options.message, False)
+                        message=options.message,
+                        onabortf=onabortf)
 
     # Ascribe modifications.
     mode.selector = stest_any
@@ -844,7 +887,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     if exclusive:
         def stest (msg, cat, hist, conf):
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
-            revspec = cleared_by_catref[cat.filename].get(msg.refentry)
+            revspec = cleared_by_catref.get(cat.filename, {}).get(msg.refentry)
             if revspec:
                 diffed, revtags, unrev = revspec
                 if unrev:
@@ -857,7 +900,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     else:
         def stest (msg, cat, hist, conf):
             # Exclude unless diffed or tagged as reviewed.
-            revspec = cleared_by_catref[cat.filename].get(msg.refentry)
+            revspec = cleared_by_catref.get(cat.filename, {}).get(msg.refentry)
             if not revspec:
                 return False
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
@@ -883,8 +926,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
         report("===! Reviewed: %d" % nasc)
 
     if options.commit:
+        onabortf = lambda: restore_reviews(configs_catpaths, cleared_by_catref)
         commit_catalogs(configs_catpaths, mode.user,
-                        options.ascript_message, True)
+                        message=options.ascript_message, ascriptions=True,
+                        onabortf=onabortf)
 
 
 def diff_select (options, configs_catpaths, mode):
@@ -908,22 +953,23 @@ def clear_review (options, configs_catpaths, mode):
 
 def clear_review_w (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Clearing review states: %s")
+    upprog = setup_progress(configs_catpaths, "Clearing reviews: %s")
     cleared_by_cat = {}
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
             cleared = clear_review_cat(options, config, catpath, acatpath,
                                        mode.selector)
-            cleared_by_cat[catpath] = cleared
+            if cleared:
+                cleared_by_cat[catpath] = cleared
     upprog()
 
     ncleared = sum(map(len, cleared_by_cat.values()))
     if ncleared > 0:
         if not options.keep_flags:
-            report("===! Cleared review states: %d" % ncleared)
+            report("===! Cleared reviews: %d" % ncleared)
         else:
-            report("===! Cleared review states (flags kept): %d" % ncleared)
+            report("===! Cleared reviews (flags kept): %d" % ncleared)
 
     return cleared_by_cat
 
@@ -1039,7 +1085,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     if not rev_msgs_tags:
         # No messages to ascribe.
         if non_mod_asc_msgs:
-            # May have had some review states cleared.
+            # May have had some reviews cleared.
             sync_and_rep(cat)
         return 0
 
@@ -1250,15 +1296,7 @@ def clear_review_msg (msg, keepflags=False):
             # Do not break, other review flags possible.
 
     if keepflags:
-        if unrev:
-            revtags = []
-            msg.flag.add(_urevdflags[0])
-        else:
-            for revtag in revtags:
-                rflag = _revdflags[0]
-                if revtag:
-                    rflag += "/" + revtag
-                msg.flag.add(rflag)
+        restore_review_flags(msg, diffed, revtags, unrev)
 
     # Clear embedded diffs.
     if diffed:
