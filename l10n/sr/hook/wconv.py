@@ -327,8 +327,9 @@ _iediff_map.update([map(unicode.capitalize, x) for x in _iediff_map.items()])
 # Derive cases with all letters in uppercase.
 _iediff_map.update([map(unicode.upper, x) for x in _iediff_map.items()])
 
-_max_ijkform_len = max(map(lambda x: len(x), _iediff_map.keys()))
-_min_ijkform_len = min(map(lambda x: len(x), _iediff_map.keys()))
+_ijkform_lens = list(reversed(sorted(set(map(len, _iediff_map.keys())))))
+_max_ijkform_len = max(_ijkform_lens)
+
 _iediff_btrks = set()
 for ijk, ekv in _iediff_map.items():
     btrk = 0
@@ -538,37 +539,37 @@ def eitoh (texte, texti, delims=u"/|¦", dfmonly=False):
             segs.append(texte[iep:])
             break
         # Try to hybridize difference by difference marks.
+        mapfound = False
         for btrk in _iediff_btrks:
-            ieb = ie - btrk
-            iib = ii - btrk
-            if ieb < iep or iib < iip:
-                continue
-            frme = None
-            for rlen in range(_max_ijkform_len, _min_ijkform_len - 1, -1):
-                frmi = texti[iib:iib + rlen]
-                tfrme = _iediff_map.get(frmi)
-                if tfrme is not None and tfrme == texte[ieb:ieb + len(tfrme)]:
-                    # Advance the diff according to this difference pair
-                    # and check that it covers both forms equally.
-                    icn = ic - btrk
-                    le = len(tfrme); li = len(frmi)
-                    while (le > 0  or li > 0) and icn < lenc:
-                        if cdiff[icn][0] != "+":
-                            le -= 1
-                        if cdiff[icn][0] != "-":
-                            li -= 1
-                        icn += 1
-                    if le == 0 and li == 0:
-                        frme = tfrme
-                        break
-            if frme is not None:
+            for leni in _ijkform_lens:
+                # Advance the diff to cover current Ijekavian segment length,
+                # accumulating Ekavian segment length along the way.
+                icn = ic - btrk
+                lene = 0; cnti = leni
+                while icn < lenc and cnti > 0:
+                    if cdiff[icn][0] != "-":
+                        cnti -= 1
+                    if cdiff[icn][0] != "+":
+                        lene += 1
+                    icn += 1
+                if icn >= lenc:
+                    continue
+                # Check if collected segments correspond to a mapping rule.
+                ieb = ie - btrk
+                frme = texte[ieb:ieb + lene]
+                iib = ii - btrk
+                frmi = texti[iib:iib + leni]
+                if frme == _iediff_map.get(frmi):
+                    mapfound = True
+                    break
+            if mapfound:
                 break
-        if frme is not None:
+        if mapfound:
             # Hybridization by difference marks possible.
             segs.append(texte[iep:ieb])
             segs.append(_iediff_mark_op + frmi + _iediff_mark_cl)
-            iep = ieb + len(frme)
-            iip = iib + len(frmi)
+            iep = ieb + lene
+            iip = iib + leni
             ic = icn
         else:
             # Hybridization by difference marks not possible.
