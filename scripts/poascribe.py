@@ -1173,6 +1173,10 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             continue
         nselected += 1
 
+        unasc = history[0].user is None
+        if unasc:
+            history.pop(0)
+
         hlevels = len(history)
         if options.depth is not None:
             hlevels = int(options.depth)
@@ -1192,10 +1196,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % a.pos + C.RESET + " "
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date)
-            if a.user:
-                anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
-            else:
-                anote = "not ascribed yet"
+            anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             hinfo += [ihead + anote]
             if not a.type == ATYPE_MOD:
                 # Nothing more to show if this ascription is not modification.
@@ -1215,12 +1216,12 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
         hinfo = "\n".join(hinfo)
 
-        if msg.fuzzy:
+        if unasc or msg.fuzzy:
             pmsg = None
             i_nfasc = first_nfuzzy(history)
             if i_nfasc is not None:
                 pmsg = history[i_nfasc].msg
-            elif msg.msgid_previous is not None:
+            elif msg.fuzzy and msg.msgid_previous is not None:
                 pmsg = MessageUnsafe(msg)
                 pmsg.unfuzzy()
                 for fcurr, fprev in zip(_fields_current, _fields_previous):
