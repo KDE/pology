@@ -1216,9 +1216,16 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         hinfo = "\n".join(hinfo)
 
         if msg.fuzzy:
+            pmsg = None
             i_nfasc = first_nfuzzy(history)
             if i_nfasc is not None:
                 pmsg = history[i_nfasc].msg
+            elif msg.msgid_previous is not None:
+                pmsg = MessageUnsafe(msg)
+                pmsg.unfuzzy()
+                for fcurr, fprev in zip(_fields_current, _fields_previous):
+                    setattr(pmsg, fcurr, msg.get(fprev))
+            if pmsg is not None:
                 for fprev in _fields_previous:
                     setattr(msg, fprev, None)
                 msg_ediff(pmsg, msg, emsg=msg,
