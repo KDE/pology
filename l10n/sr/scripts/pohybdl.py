@@ -38,13 +38,17 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     opars.add_option(
         "-a", "--accept-changes",
         action="store_true", dest="accept_changes", default=False,
-        help="Accept messages which have some changes between initial "
-             "and reconstructed Ekavian translation.")
+        help="Accept messages which have some changes between base "
+             "and reconstructed base text.")
     opars.add_option(
         "-f", "--files-from", metavar="FILE",
         action="append", dest="files_from", default=[],
         help="Get list of input files from FILE, which contains one file path "
              "per line; can be repeated to collect paths from several files.")
+    opars.add_option(
+        "-i", "--ijekavian-base",
+        action="store_true", dest="ijekavian_base", default=False,
+        help="Base text is Ijekavian and modified text is Ekavian.")
     opars.add_option(
         "-r", "--base-revision", metavar="REV",
         action="store", dest="base_revision", default=None,
@@ -101,10 +105,10 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if not vcs.export(path, options.base_revision, tmpf.name):
             error("Version control system cannot export file '%s'." % path)
         # Hybridize by comparing local head and modified file.
-        hybdl(path, tmpf.name, options.accept_changes)
+        hybdl(path, tmpf.name, options.accept_changes, options.ijekavian_base)
 
 
-def hybdl (path, path0, accekch=False):
+def hybdl (path, path0, accekch=False, ijekbase=False):
 
     cat = Catalog(path)
     cat0 = Catalog(path0, monitored=False)
@@ -141,28 +145,34 @@ def hybdl (path, path0, accekch=False):
             continue
 
         # Hybridize translation.
+        if not ijekbase:
+            hito0, hito1 = hitoe, hitoi
+            hybf = lambda t0, t1: eitoh(t0, t1, dfmonly=True)
+        else:
+            hito0, hito1 = hitoi, hitoe
+            hybf = lambda t0, t1: eitoh(t1, t0, dfmonly=True)
         textsh = []
-        texts0e = []
-        texts1e = []
+        texts0 = []
+        texts0r = []
         for text0, text in zip(msg0.msgstr, msg.msgstr):
-            text0 = hitoe(text0) # in case there was already some hybridization
-            text = hitoi(text) # ditto
-            texth = eitoh(text0, text, dfmonly=True)
+            text0 = hito0(text0) # if there is already some hybridization
+            text1 = hito1(text) # ditto
+            texth = hybf(text0, text1)
             textsh.append(texth)
             if not accekch:
-                texts0e.append(text0)
-                texts1e.append(hitoe(texth))
-        if texts0e == texts1e:
+                texts0.append(text0)
+                texts0r.append(hito0(texth))
+        if texts0 == texts0r:
             for i, texth in zip(range(len(msg.msgstr)), textsh):
                 msg.msgstr[i] = texth
             nhybridized += 1
         else:
             nstopped += 1
-            msg1 = MessageUnsafe(msg)
-            msg0.msgstr = texts0e
-            msg1.msgstr = texts1e
-            msg_ediff(msg0, msg1, emsg=msg1, hlto=sys.stdout)
-            report_msg_content(msg1, cat, delim=("-" * 20))
+            msg0r = MessageUnsafe(msg)
+            msg0.msgstr = texts0
+            msg0r.msgstr = texts0r
+            msg_ediff(msg0, msg0r, emsg=msg0r, hlto=sys.stdout)
+            report_msg_content(msg0r, cat, delim=("-" * 20))
 
     if nstopped == 0:
         if cat.sync():
