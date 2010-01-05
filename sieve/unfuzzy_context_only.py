@@ -61,11 +61,13 @@ def setup_sieve (p):
     )
     p.add_param("eqmsgid", bool, defval=False,
                 desc=
-    "Report translated messages with msgid equal to an unfuzzied message."
+    "Report all groups of two or more translated messages with "
+    "equal msgid fields where at least one of them is fuzzy, "
+    "and do not unfuzzy messages in such groups."
     )
     p.add_param("lokalize", bool, defval=False,
                 desc=
-    "Open reported messages in lokalize."
+    "Open reported messages in Lokalize."
     )
 
 
@@ -76,16 +78,13 @@ class Sieve (object):
         self.p = params
 
         self.nunfuzz = 0
-        self.msgs_by_msgid_per_cat = []
+        self.nrep = 0
 
 
     def process_header (self, hdr, cat):
 
-        if self.p.eqmsgid:
-            self.msgs_by_msgid = {}
-            self.unfuzz_msgids = set()
-            self.msgs_by_msgid_per_cat.append(
-                (cat, self.msgs_by_msgid, self.unfuzz_msgids))
+        self.msgs_by_msgid = {}
+        self.msgs_to_unfuzzy_by_msgid = {}
 
 
     def process (self, msg, cat):
@@ -93,45 +92,49 @@ class Sieve (object):
         if msg.obsolete:
             return
 
+        if msg.msgid not in self.msgs_by_msgid:
+            self.msgs_by_msgid[msg.msgid] = []
+        self.msgs_by_msgid[msg.msgid].append(msg)
+
         if (    msg.fuzzy
             and msg.msgid == msg.msgid_previous
             and msg.msgid_plural == msg.msgid_plural_previous
         ):
-            msg.unfuzzy()
-            self.nunfuzz += 1
+            if msg.msgid not in self.msgs_to_unfuzzy_by_msgid:
+                self.msgs_to_unfuzzy_by_msgid[msg.msgid] = []
+            self.msgs_to_unfuzzy_by_msgid[msg.msgid].append(msg)
 
-            if not self.p.noreview:
-                # Add as manual comment, as any other type will vanish
-                # when catalog is merged with template.
-                msg.manual_comment.append(u"unreviewed-context")
 
-            if self.p.eqmsgid:
-                self.unfuzz_msgids.add(msg.msgid)
+    def process_header_last (self, hdr, cat):
 
-        if self.p.eqmsgid and msg.translated:
-            if msg.msgid not in self.msgs_by_msgid:
-                self.msgs_by_msgid[msg.msgid] = []
-            self.msgs_by_msgid[msg.msgid].append(msg)
+        msgs_to_report = []
+        keys_of_msgs_to_report = set()
+        if self.p.eqmsgid:
+            for msg in cat:
+                msgs = self.msgs_by_msgid.get(msg.msgid)
+                msgs_to_unfuzzy = self.msgs_to_unfuzzy_by_msgid.get(msg.msgid)
+                if len(msgs) > 1 and msgs_to_unfuzzy:
+                    msgs_to_report.append(msg)
+                    keys_of_msgs_to_report.add(msg.key)
+
+        for msgs in self.msgs_to_unfuzzy_by_msgid.values():
+            for msg in msgs:
+                if msg.key not in keys_of_msgs_to_report:
+                    msg.unfuzzy()
+                    self.nunfuzz += 1
+
+        for msg in msgs_to_report:
+            if self.p.lokalize:
+                report_msg_to_lokalize(msg, cat)
+            else:
+                report_msg_content(msg, cat, delim="-" * 20)
+            self.nrep += 1
 
 
     def finalize (self):
 
-        nrep = 0
-        for cat, msgs_by_msgid, unfuzz_msgids in self.msgs_by_msgid_per_cat:
-            msggrps = [msgs for msgid, msgs in self.msgs_by_msgid.items()
-                            if len(msgs) > 1]
-            for msgs in msggrps:
-                if msgs[0].msgid not in unfuzz_msgids:
-                    continue
-                for msg in sorted(msgs, key=lambda x: x.msgid):
-                    nrep += 1
-                    if self.p.lokalize:
-                        report_msg_to_lokalize(msg, cat)
-                    else:
-                        report_msg_content(msg, cat, delim="-" * 20)
-
         if self.nunfuzz > 0:
             report("Total unfuzzied due to context: %d" % self.nunfuzz)
-        if nrep > 0:
-            report("Total reported due to equality of msgid: %d" % nrep)
+        if self.nrep > 0:
+            report("Total reported due to equality of msgid: %d" % self.nrep)
 
