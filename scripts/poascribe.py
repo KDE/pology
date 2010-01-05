@@ -1168,7 +1168,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     nselected = 0
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
-                                      hfilter=options.hfilter)
+                                      hfilter=options.hfilter, nomrg=True)
         if not stest(msg, cat, history, config):
             continue
         nselected += 1
@@ -1190,21 +1190,19 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             typewtag = a.type
             if a.tag != "":
                 typewtag += "/" + a.tag
-            ihead = C.BOLD + "#%d" % (i + 1) + C.RESET + " "
+            ihead = C.BOLD + "#%d" % a.pos + C.RESET + " "
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date)
             if a.user:
                 anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
             else:
                 anote = "not ascribed yet"
             hinfo += [ihead + anote]
-            if not a.type == ATYPE_MOD or a.msg.fuzzy:
-                # Nothing more to show if this ascription is not modification,
-                # or a fuzzy message is associated to it.
+            if not a.type == ATYPE_MOD:
+                # Nothing more to show if this ascription is not modification.
                 continue
-            # Find first earlier non-fuzzy for diffing.
-            i_next = first_nfuzzy(history, i + 1)
-            if i_next is None:
-                # Nothing more to show without next non-fuzzy.
+            i_next = i + 1
+            if i_next == len(history):
+                # Nothing more to show at end of history.
                 continue
             dmsg = MessageUnsafe(a.msg)
             nmsg = history[i_next].msg
@@ -1217,12 +1215,14 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
         hinfo = "\n".join(hinfo)
 
-        i_nfasc = first_nfuzzy(history)
-        if i_nfasc is not None:
-            msg = Message(msg)
-            nmsg = history[i_nfasc].msg
-            msg_ediff(nmsg, msg, emsg=msg,
-                      pfilter=options.sfilter, hlto=sys.stdout)
+        if msg.fuzzy:
+            i_nfasc = first_nfuzzy(history)
+            if i_nfasc is not None:
+                pmsg = history[i_nfasc].msg
+                for fprev in _fields_previous:
+                    setattr(msg, fprev, None)
+                msg_ediff(pmsg, msg, emsg=msg,
+                        pfilter=options.sfilter, hlto=sys.stdout)
         report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 
@@ -1691,6 +1691,7 @@ _asc_attrs = (
     "rmsg", "msg",
     "user", "type", ("tag", ""), "date",
     "slen", "fuzz", "obs",
+    "pos"
 )
 
 class _Ascription (object):
@@ -1724,6 +1725,13 @@ def asc_collect_history (msg, acat, config,
         a.user = None
         a.msg = msg
         history.insert(0, a)
+
+    # Equip ascriptions with position markers,
+    # to be able to see gaps possibly introduced by removals.
+    pos = 1
+    for a in history:
+        a.pos = pos
+        pos += 1
 
     # Eliminate modifications equal to prior modification under the filter.
     if hfilter:
