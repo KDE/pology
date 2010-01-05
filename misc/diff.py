@@ -1178,15 +1178,15 @@ _dcmnt_sep = u", "
 _dcmnt_asep = u" "
 _dcmnt_ind_state = u"state"
 _dcmnt_ind_ctxtpad = u"ctxtpad"
-_dcmnt_ind_fseplen = u"fseplen"
+_dcmnt_ind_infsep = u"infsep"
 _dcmnt_all_inds = ( # ordered
-    _dcmnt_ind_state, _dcmnt_ind_ctxtpad, _dcmnt_ind_fseplen,
+    _dcmnt_ind_state, _dcmnt_ind_ctxtpad, _dcmnt_ind_infsep,
 )
 _ctxtpad_sep = u"|"
 _ctxtpad_noctxt = u"~"
 _ctxtpad_alnums = u"abcdefghijklmnopqrstuvwxyz0123456789"
-_fsep_el = u"~"
-_fsep_minlen = 10
+_infsep_blk = u"~="
+_infsep_minlen = 20
 
 def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                emsg=None, ecat=None, eokpos=None, enoctxt=None,
@@ -1235,9 +1235,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
       - C{ctxtpad <STRING>}: padding alphanumerics added to the C{msgctxt}
         field to avoid key collision with one of the messages from C{ecat}.
 
-      - C{fseplen <NUMBER>}: if C{pfilter} was used, and the default field
-        separator had to be extended because such substring already existed
-        in the text, this indicator states its length.
+      - C{infsep <BLOCK> <LENGTH>}: if C{pfilter} was used, this indicator
+        states the building block and length in blocks of in-field separators.
 
     By default the difference comment is not added if there are no indicators,
     but it may be forced by setting C{emptydc} parameter to C{True}.
@@ -1307,19 +1306,18 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     indargs = {}
 
     # Determine field separator for raw/filtered differences.
-    # NOTE: This must be done whether the filter is given or not, to know
-    # if there was a filter when resolving old/new version of the message.
-    fseplen = _fsep_minlen
-    fsepinc = 5
-    fseplen_p = fseplen - 1
-    while fseplen_p < fseplen:
-        fsep = _fsep_el * fseplen
-        fseplen_p = fseplen
-        for part, item, ediff, dr in ediffs + ediffs_pf:
-            if ediff and fsep in ediff:
-                fseplen += fsepinc
-                indargs[_dcmnt_ind_fseplen] = [str(fseplen)]
-                break
+    if ediffs_pf:
+        infseplen = _infsep_minlen
+        infsepinc = 5
+        infseplen_p = infseplen - 1
+        while infseplen_p < infseplen:
+            infsep = _infsep_blk * infseplen
+            infseplen_p = infseplen
+            for part, item, ediff, dr in ediffs + ediffs_pf:
+                if ediff and infsep in ediff:
+                    infseplen += infsepinc
+                    break
+        indargs[_dcmnt_ind_infsep] = [_infsep_blk, str(infseplen)]
 
     # Embed differences.
     for i in range(len(ediffs)):
@@ -1333,7 +1331,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             if ediffs_pf:
                 ediff_pf = ediffs_pf[i][2]
                 if ediff_pf and ediff_pf != ediff:
-                    ediff += "\n" + fsep + "\n" + ediff_pf
+                    ediff += "\n" + infsep + "\n" + ediff_pf
             lst[item] = ediff
         elif typ == _dt_state:
             stag, spart = wdiffs[i][2][0]
@@ -1460,7 +1458,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
     # unescape comments which looked like diff comment and were escaped.
     states = {}
     ctxtpad = None
-    fseplen = _fsep_minlen
+    infsep = None
     cmnts = []
     for cmnt in list(emsg.get(_dcmnt_field)):
         scmnt = cmnt.strip()
@@ -1482,8 +1480,8 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                             states[arg] = False
                 elif ind == _dcmnt_ind_ctxtpad:
                     ctxtpad = args[0]
-                elif ind == _dcmnt_ind_fseplen:
-                    fseplen = int(args[0])
+                elif ind == _dcmnt_ind_infsep:
+                    infsep = args[0] * int(args[1])
         else:
             if p > 0 and scmnt[:p] == _dcmnt_head_esc * p:
                 nwp = 0
@@ -1513,7 +1511,6 @@ def _msg_ediff_to_x (emsg, rmsg, new):
         msgctxt_nopad = val
 
     # Resolve parts.
-    fsep = _fsep_el * fseplen
     for part, typ in _msg_diff_parts:
         if ctxtpad and part == "msgctxt":
             val = msgctxt_nopad
@@ -1527,9 +1524,10 @@ def _msg_ediff_to_x (emsg, rmsg, new):
         elif typ == _dt_list:
             lst = []
             for el in val:
-                p = el.find(fsep)
-                if p >= 0: # strip filtered difference
-                    el = el[:p - 1] # -1 to remove newline
+                if infsep:
+                    p = el.find(infsep)
+                    if p >= 0: # strip filtered difference
+                        el = el[:p - 1] # -1 to remove newline
                 lst.append(el)
             nlst = listtype(line_ediff_to_x(lst))
             if nlst == [] and part == "msgstr":
