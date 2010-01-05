@@ -61,9 +61,8 @@ def setup_sieve (p):
     )
     p.add_param("eqmsgid", bool, defval=False,
                 desc=
-    "Report all groups of two or more translated messages with "
-    "equal msgid fields where at least one of them is fuzzy, "
-    "and do not unfuzzy messages in such groups."
+    "Do not unfuzzy messages which have same msgid as another message, "
+    "and report them together with all other messages with the same msgid."
     )
     p.add_param("lokalize", bool, defval=False,
                 desc=
