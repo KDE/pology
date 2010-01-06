@@ -110,6 +110,8 @@ class Sieve (object):
         keys_of_msgs_to_report = set()
         if self.p.eqmsgid:
             for msg in cat:
+                if msg.obsolete:
+                    continue
                 msgs = self.msgs_by_msgid.get(msg.msgid)
                 msgs_to_unfuzzy = self.msgs_to_unfuzzy_by_msgid.get(msg.msgid)
                 if len(msgs) > 1 and msgs_to_unfuzzy:
