@@ -147,10 +147,10 @@ def hybdl (path, path0, accekch=False, ijekbase=False):
         # Hybridize translation.
         if not ijekbase:
             hito0, hito1 = hitoe, hitoi
-            hybf = lambda t0, t1: eitoh(t0, t1, dfmonly=True)
+            hybf = lambda t0, t1: eitoh(t0, t1, refonly=True)
         else:
             hito0, hito1 = hitoi, hitoe
-            hybf = lambda t0, t1: eitoh(t1, t0, dfmonly=True)
+            hybf = lambda t0, t1: eitoh(t1, t0, refonly=True)
         textsh = []
         texts0 = []
         texts0r = []
