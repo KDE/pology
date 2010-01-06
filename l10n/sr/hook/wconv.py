@@ -502,30 +502,36 @@ def hitoei (htext):
     return hitoe(htext), hitoi(htext)
 
 
-def eitoh (texte, texti, delims=u"/|¦", refonly=False):
+def tohi (text1, text2, ekord=None, delims=u"/|¦"):
     """
-    Construct hybrid Ijekavian text out of clean Ekavian and Ijekavian texts.
+    Construct hybrid Ijekavian text out of Ekavian and Ijekavian texts.
 
-    Hybridization is performed by inserting reflex tick where possible,
-    and alternatives directives by dialect otherwise.
-    Both input texts should be in same script, Cyrillic or Latin.
+    Hybridization is performed by merging Ekavian and Ijekavian forms
+    into Ijekavian forms with inserted jat-reflex ticks.
+    Input texts can be both in Cyrillic and Latin, and piecewise so.
+    Texts also do not have to be clean Ekavian and Ijekavian,
+    as hybridization is performed only at difference segments.
+    Order of text arguments is not important as long as all difference
+    segments can be merged (i.e. the function is comutative in that case).
 
-    If alternatives directives should not be used, but only jat-reflex ticks,
-    C{refonly} is set to C{True}. In that case, segments which cannot be
-    hybridized by jat-reflex ticks will be left as they are in Ijekavian text.
-    The intention behind this is that alternatives directives have
-    been added manually where necessary, and that other changes are fixes
-    made during conversion of Ekavian to Ijekavian text
-    which hold for both dialects.
+    If a difference segment cannot be merged by jat-reflex ticks,
+    then the resolution depends on C{ekord} parameter.
+    If it is C{None}, then the segment of C{text2} is taken into result.
+    If it is C{1} or C{2}, then the segments of C{text1} and C{text2}
+    are combined in a dialect alternatives directive (C{~#/.../.../});
+    the number determines which segment is put first in the directive
+    (i.e. considered Ekavian), that of C{text1} or of C{text2}.
+    Any other value of C{ekord} leads to undefined behavior.
 
-    @param texte: Ekavian text
-    @type texte: string
-    @param texti: Ijekavian text
-    @type texti: string
-    @param delims: possible delimiter characters
+    @param text1: first text
+    @type text1: string
+    @param text2: second text
+    @type text2: string
+    @param ekord: enumerates the text to be considered Ekavian
+        when adding alternatives directives
+    @type ekord: None, 1, 2
+    @param delims: possible delimiter characters for alternatives directives
     @type delims: string
-    @param refonly: whether to only use jat-reflex ticks
-    @type refonly: bool
 
     @returns: hybrid Ijekavian text
     @rtype: string
@@ -533,7 +539,7 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
 
     # If character-level diff is done at once, weird segments may appear.
     # Instead, first diff on word-level, then on character-level.
-    wdiff = word_diff(texte, texti)
+    wdiff = word_diff(text1, text2)
     cdiff = []
     i = 0
     while i < len(wdiff):
@@ -549,72 +555,79 @@ def eitoh (texte, texti, delims=u"/|¦", refonly=False):
             i += 1
 
     lenc = len(cdiff)
-    ie = 0; iep = 0; ii = 0; iip = 0; ic = 0
+    cdiff12 = cdiff
+    cdiff21 = [({"+": "-", "-": "+", " ": " "}[t], s) for t, s in cdiff]
+    i1 = 0; i1p = 0; i2 = 0; i2p = 0; ic = 0
     segs = []
     while True:
-        while ic < lenc and cdiff[ic][0] == " ":
-            ic += 1; ie += 1; ii += 1
+        while ic < lenc and cdiff12[ic][0] == " ":
+            ic += 1; i1 += 1; i2 += 1
         if ic == lenc:
-            segs.append(texte[iep:])
+            segs.append(text1[i1p:]) # same as text2[i2p:]
             break
         # Try to hybridize difference by jat-reflex ticks.
         tick = None
-        for leni, subspecs in _reflex_spec_hyb:
-            for btrk, refmap in subspecs:
-                # Advance the diff to cover Ijekavian reflex and -+ span,
-                # accumulating Ekavian reflex length along the way.
-                icn = ic - btrk
-                if icn < 0:
-                    continue
-                lene = 0; cnti = leni
-                while icn < lenc and (cnti > 0 or cdiff[icn][0] != " "):
-                    if cdiff[icn][0] != "-":
-                        cnti -= 1
-                    if cdiff[icn][0] != "+":
-                        lene += 1
-                    icn += 1
-                if cnti != 0:
-                    continue
-                # Check if collected segments correspond to a mapping rule.
-                ieb = ie - btrk
-                frme = texte[ieb:ieb + lene]
-                iib = ii - btrk
-                frmi = texti[iib:iib + leni]
-                for cfrme, ctick in refmap.get(frmi, []):
-                    if cfrme == frme:
-                        tick = ctick
-                        break
-                if tick:
-                    break
-            if tick:
-                break
+        for cdiff, texte, texti, ie, ii, order12 in (
+            (cdiff12, text1, text2, i1, i2, True),
+            (cdiff21, text2, text1, i2, i1, False),
+        ):
+            for leni, subspecs in _reflex_spec_hyb:
+                for btrk, refmap in subspecs:
+                    # Advance the diff to cover Ijekavian reflex and -+ span,
+                    # accumulating Ekavian reflex length along the way.
+                    icn = ic - btrk
+                    if icn < 0:
+                        continue
+                    lene = 0; cnti = leni
+                    while icn < lenc and (cnti > 0 or cdiff[icn][0] != " "):
+                        if cdiff[icn][0] != "-":
+                            cnti -= 1
+                        if cdiff[icn][0] != "+":
+                            lene += 1
+                        icn += 1
+                    if cnti != 0:
+                        continue
+                    # Check if collected segments correspond to a mapping rule.
+                    ieb = ie - btrk
+                    frme = texte[ie - btrk:ie - btrk + lene]
+                    iib = ii - btrk
+                    frmi = texti[iib:iib + leni]
+                    for cfrme, ctick in refmap.get(frmi, []):
+                        if cfrme == frme:
+                            tick = ctick
+                            break
+                    if tick: break
+                if tick: break
+            if tick: break
         if tick:
             # Hybridization by difference marks possible.
-            segs.append(texte[iep:ieb])
+            segs.append(text1[i1p:i1 - btrk]) # same as text2[i2p:i2 - btrk]
             segs.append(tick + frmi)
-            iep = ieb + lene
-            iip = iib + leni
+            i1p = i1 - btrk + (lene if order12 else leni)
+            i2p = i2 - btrk + (leni if order12 else lene)
             ic = icn
         else:
             # Hybridization by difference marks not possible.
             # Use alternatives directive, or pure Ijekavian.
-            frme = ""; frmi = ""
-            segs.append(texte[iep:ie])
-            while ic < lenc and cdiff[ic][0] != " ":
-                tag, c = cdiff[ic]
+            frm1 = ""; frm2 = ""
+            segs.append(text1[i1p:i1])
+            while ic < lenc and cdiff12[ic][0] != " ":
+                tag, c = cdiff12[ic]
                 if tag == "-":
-                    frme += c; ie += 1
+                    frm1 += c; i1 += 1
                 else:
-                    frmi += c; ii += 1
+                    frm2 += c; i2 += 1
                 ic += 1
-            iep = ie
-            iip = ii
-            if not refonly:
-                segs.append(_dhyb_althead + _delimit([frme, frmi], delims))
+            i1p = i1
+            i2p = i2
+            if ekord == 1:
+                segs.append(_dhyb_althead + _delimit([frm1, frm2], delims))
+            elif ekord == 2:
+                segs.append(_dhyb_althead + _delimit([frm2, frm1], delims))
             else:
-                segs.append(frmi)
-        ie = iep
-        ii = iip
+                segs.append(frm2)
+        i1 = i1p
+        i2 = i2p
 
     return "".join(segs)
 
