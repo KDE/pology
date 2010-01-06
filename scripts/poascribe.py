@@ -1634,14 +1634,6 @@ def asc_eq (msg1, msg2):
     return True
 
 
-def flt_eq (msg1, msg2, pfilter):
-    """
-    Whether two messages are equal under translation filter.
-    """
-
-    return msg_diff(msg1, msg2, pfilter=pfilter, diffr=True)[1] == 0.0
-
-
 def merge_modified (msg1, msg2):
     """
     Whether second message may be considered derived from first by merging.
@@ -1745,19 +1737,25 @@ def asc_collect_history (msg, acat, config,
         a.pos = pos
         pos += 1
 
-    # Eliminate modifications equal to prior modification under the filter.
+    # Eliminate contiguous chain of modifications equal under the filter,
+    # except for the earliest in the chain.
     if hfilter:
-        history_mod = []
+        def flt (msg):
+            msg = MessageUnsafe(msg)
+            msg.msgstr = map(hfilter, msg.msgstr)
+            return msg
+        history_r = []
         a_prevmod = None
         history.reverse()
         for a in history:
             if (   a.type != ATYPE_MOD or not a_prevmod
-                or not flt_eq(a.msg, a_prevmod.msg, hfilter)
+                or flt(a.msg).inv != a_prevmod.msg.inv
             ):
-                history_mod.append(a)
+                history_r.append(a)
                 if a.type == ATYPE_MOD:
-                    a_prevmod = a
-        history = history_mod
+                    a_prevmod = _Ascription(a)
+                    a_prevmod.msg = flt(a.msg)
+        history = history_r
         history.reverse()
 
     # Eliminate clean merges from history.
