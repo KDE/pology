@@ -1704,13 +1704,17 @@ _asc_attrs = (
 
 class _Ascription (object):
 
-    def __init__ (self):
+    def __init__ (self, asc=None):
 
         for attr in _asc_attrs:
             if isinstance(attr, tuple):
-                self.__dict__[attr[0]] = attr[1]
+                attr, dval = attr
             else:
-                self.__dict__[attr] = None
+                attr, dval = attr, None
+            if asc is not None:
+                self.__dict__[attr] = asc.__dict__[attr]
+            else:
+                self.__dict__[attr] = dval
 
     def __setattr__ (self, attr, val):
 
