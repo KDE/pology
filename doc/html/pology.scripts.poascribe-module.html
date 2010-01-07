@@ -116,7 +116,7 @@
           <td><span class="summary-sig"><a name="commit_catalogs"></a><span class="summary-sig-name">commit_catalogs</span>(<span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">ascriptions</span>=<span class="summary-sig-default">True</span>)</span></td>
+        <span class="summary-sig-arg">onabortf</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -288,6 +288,42 @@
         <tr>
           <td><span class="summary-sig"><a name="update_headers_onmod"></a><span class="summary-sig-name">update_headers_onmod</span>(<span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">user</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="restore_reviews"></a><span class="summary-sig-name">restore_reviews</span>(<span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">cleared_by_catref</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="restore_review_flags"></a><span class="summary-sig-name">restore_review_flags</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">diffed</span>,
+        <span class="summary-sig-arg">revtags</span>,
+        <span class="summary-sig-arg">unrev</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -704,7 +740,6 @@
         <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">atype</span>,
         <span class="summary-sig-arg">atags</span>,
-        <span class="summary-sig-arg">arev</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">dt</span>=<span class="summary-sig-default">None</span>)</span></td>
@@ -725,7 +760,6 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_msg_mod"></a><span class="summary-sig-name">ascribe_msg_mod</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
-        <span class="summary-sig-arg">catrev</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
@@ -746,7 +780,6 @@
           <td><span class="summary-sig"><a name="ascribe_msg_rev"></a><span class="summary-sig-name">ascribe_msg_rev</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">tags</span>,
-        <span class="summary-sig-arg">catrev</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
@@ -767,25 +800,6 @@
           <td><span class="summary-sig"><a name="asc_eq"></a><span class="summary-sig-name">asc_eq</span>(<span class="summary-sig-arg">msg1</span>,
         <span class="summary-sig-arg">msg2</span>)</span><br />
       Whether two messages are equal from the ascription viewpoint.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="flt_eq"></a><span class="summary-sig-name">flt_eq</span>(<span class="summary-sig-arg">msg1</span>,
-        <span class="summary-sig-arg">msg2</span>,
-        <span class="summary-sig-arg">pfilter</span>)</span><br />
-      Whether two messages are equal under translation filter.</td>
           <td align="right" valign="top">
             
             
@@ -923,28 +937,8 @@
         <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">config</span>)</span><br />
       Get ascriptions from given ascription message as list of tuples 
-      <code>(user, type, tag, date, revision, seplen, isfuzzy, 
-      isobsolete)</code>, with date being a real <code>datetime</code> 
-      object.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.scripts.poascribe-module.html#asc_age_cmp" class="summary-sig-name">asc_age_cmp</a>(<span class="summary-sig-arg">a1</span>,
-        <span class="summary-sig-arg">a2</span>,
-        <span class="summary-sig-arg">config</span>)</span><br />
-      Compare age of two ascriptions in history by their date/revision.</td>
+      <code>(user, type, tag, date, seplen, isfuzzy, isobsolete)</code>, 
+      with date being a real <code>datetime</code> object.</td>
           <td align="right" valign="top">
             
             
@@ -1630,31 +1624,6 @@ dam, True), &quot;modarm&quot;:(selector_modarm, True), &quot;tmodar&quot;:(sele
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="asc_age_cmp"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">asc_age_cmp</span>(<span class="sig-arg">a1</span>,
-        <span class="sig-arg">a2</span>,
-        <span class="sig-arg">config</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Compare age of two ascriptions in history by their date/revision.</p>
-  <p>See <a href="pology.scripts.poascribe-module.html#asc_collect_history"
-  class="link">asc_collect_history</a> for the composition of 
-  <code>hist*</code> arguments. Return value is -1 if a1 comes before a2, 1
-  if a1 comes after a2, and 0 if the order cannot be determined.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="parse_users"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
