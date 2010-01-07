@@ -63,16 +63,17 @@ def words_ic_lw (text):
     return words_ic(text.lower())
 
 
-def words_ic_lw_ei (text):
+def words_ic_lw_dlc (text):
     """
     Reduce text to space-separated Ijekavian Cyrillic words containing
-    at least one letter C{е} or C{и}, in lower case [type F1A hook].
+    at least three letters, one of which is 'е' or 'и', in lower case
+    [type F1A hook].
 
     Like L{words_ic}, but the result is lowercased.
     """
 
     return _words_w(remove_accents(hictoicq(text.lower())),
-                    select=lambda w: u"е" in w or u"и" in w)
+                    select=lambda w: len(w) >= 3 and (u"е" in w or u"и" in w))
 
 
 def _words_w (text, select=None):
