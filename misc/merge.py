@@ -50,6 +50,9 @@ def merge_pofile (catpath, tplpath,
     However, if C{abort} is set to C{True}, if C{msgmerge} fails
     the program aborts with an error message.
 
+    When catalog object is returned, its sync state is undefined.
+    If it needs to be in sync before use, it should be synced manually.
+
     @param catpath: path to PO file to merge
     @type catpath: string
     @param tplpath: path to PO template
