@@ -18,8 +18,8 @@ def words_ec (text):
     """
     Reduce text to space-separated Ekavian Cyrillic words [type F1A hook].
 
-    All non-letter sections are replaced with a space,
-    and all words containing characters not in Serbian Cyrillic are removed.
+    Words containing only Serbian Cyrillic characters are extracted,
+    sorted, and joined by spaces into a string.
     In case the text contains dialect and script hybridization,
     it is passed through L{hictoec()<l10n.sr.hook.wconv.hictoic>}
     to resolve it into clean Ekavian Cyrillic.
@@ -38,7 +38,7 @@ def words_ec_lw (text):
     Like L{words_ec}, but the result is lowercased.
     """
 
-    return words_ec(text).lower()
+    return words_ec(text.lower())
 
 
 def words_ic (text):
@@ -60,10 +60,22 @@ def words_ic_lw (text):
     Like L{words_ic}, but the result is lowercased.
     """
 
-    return words_ic(text).lower()
+    return words_ic(text.lower())
 
 
-def _words_w (text):
+def words_ic_lw_ei (text):
+    """
+    Reduce text to space-separated Ijekavian Cyrillic words containing
+    at least one letter C{е} or C{и}, in lower case [type F1A hook].
+
+    Like L{words_ic}, but the result is lowercased.
+    """
+
+    return _words_w(remove_accents(hictoicq(text.lower())),
+                    select=lambda w: u"е" in w or u"и" in w)
+
+
+def _words_w (text, select=None):
 
     words = []
     tlen = len(text)
@@ -77,8 +89,11 @@ def _words_w (text):
             if text[p] not in _srcyr:
                 allsrcyr = False
             p += 1
-        if pp < p and allsrcyr:
-            words.append(text[pp:p])
+        word = text[pp:p]
+        if word and allsrcyr and (not select or select(word)):
+            words.append(word)
+
+    words.sort()
 
     return " ".join(words)
 
