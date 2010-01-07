@@ -101,6 +101,16 @@ def main ():
         help="consider ascription history up to this level into the past "
              "(relevant in some modes)")
     opars.add_option(
+        "-D", "--diff-reduce-history", metavar="SPEC",
+        action="store", dest="diff_reduce_history", default=None,
+        help="Reduce each message in history to a part of the difference "
+             "from the first earlier modification: to added, removed, or "
+             "equal segments. "
+             "The value begins with one of the characters 'a', 'r', or 'e', "
+             "followed by substring that will be used to separate "
+             "selected difference segments in resulting messages "
+             "(if this substring is empty, space is used).")
+    opars.add_option(
         "-E", "--po-editor", metavar="%s" % "|".join(sorted(known_editors)),
         action="store", dest="po_editor", default=None,
         help="Open selected messages in one of the supported PO editors.")
@@ -186,8 +196,9 @@ def main ():
     rawmodename = free_args.pop(0)
     modename = mode_tolong.get(rawmodename)
     if modename is None:
-        error("Unknown operation mode '%s' (known modes: %s)."
-              % (rawmodename, ", ".join(["%s/%s" % x for x in mode_spec])))
+        error("Unknown operation mode '%(mode)s' (known modes: %(modes)s)."
+              % dict(mode=rawmodename,
+                     modes=", ".join(["%s/%s" % x for x in mode_spec])))
 
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
@@ -204,6 +215,7 @@ def main ():
         ("tag", cfgsec.string, ""),
         ("user", cfgsec.string, None),
         ("update-headers", cfgsec.boolean, False),
+        ("diff-reduce-history", cfgsec.string, None),
     ):
         uoptname = optname.replace("-", "_")
         if getattr(options, uoptname) is None:
@@ -219,10 +231,10 @@ def main ():
     def valconv_editor (edkey):
         msgrepf = known_editors.get(edkey)
         if msgrepf is None:
-            error("PO editor '%s' is not among the supported editors: %s."
-                  % (edkey, ", ".join(sorted(known_editors))))
+            error("PO editor '%(ed)s' is not among "
+                  "the supported editors: %(eds)s."
+                  % dict(ed=edkey, eds=", ".join(sorted(known_editors))))
         return msgrepf
-
     for optname, valconv in (
         ("min-adjsim-diff", float),
         ("po-editor", valconv_editor),
@@ -233,8 +245,8 @@ def main ():
             try:
                 value = valconv(valraw)
             except TypeError:
-                error("Value '%s' to option '--%s' is of wrong type."
-                      % (valraw, optname))
+                error("Value '%(val)s' to option '%(opt)s' is of wrong type."
+                      % dict(val=valraw, opt=("--" + optname)))
             setattr(options, uoptname, value)
 
     # Collect any external functionality.
@@ -255,6 +267,16 @@ def main ():
         options.hfilter = hfilter_composition
         if options.show_filtered:
             options.sfilter = options.hfilter
+
+    # Create specification for reducing historical messages to diffs.
+    options.addrem = None
+    if options.diff_reduce_history:
+        options.addrem = options.diff_reduce_history
+        if options.addrem[:1] not in ("a", "e", "r"):
+            error("Value '%(val)s' to option '%(opt)s' must start "
+                  "with '%(char1)s', '%(char2)s', or '%(char3)s'."
+                  % dict(val=options.addrem, opt="--diff-reduce-history",
+                         char1="a", char2="e", char3="r"))
 
     # Create selectors if any explicitly given.
     selector = None
@@ -609,7 +631,8 @@ def examine_state (options, configs_catpaths, mode):
             # Count non-ascribed by original catalog.
             for msg in cat:
                 history = asc_collect_history(msg, acat, config,
-                                              hfilter=options.hfilter)
+                                              hfilter=options.hfilter,
+                                              addrem=option.addrem)
                 if history[0].user is None and msg.untranslated:
                     continue # pristine
                 if not mode.selector(msg, cat, history, config):
@@ -1022,7 +1045,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             tags.append(options.tag)
 
         history = asc_collect_history(msg, acat, config,
-                                      hfilter=options.hfilter)
+                                      hfilter=options.hfilter,
+                                      addrem=options.addrem)
         # Makes no sense to ascribe review to pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
@@ -1079,7 +1103,8 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     diffed_msgs = []
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
-                                      hfilter=options.hfilter)
+                                      hfilter=options.hfilter,
+                                      addrem=options.addrem)
         # Makes no sense to review pristine messages.
         if history[0].user is None and msg.untranslated:
             continue
@@ -1134,7 +1159,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         cmsg = MessageUnsafe(msg)
         clear_review_msg(cmsg)
         history = asc_collect_history(cmsg, acat, config,
-                                      hfilter=options.hfilter)
+                                      hfilter=options.hfilter,
+                                      addrem=options.addrem)
         if not stest(cmsg, cat, history, config):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
@@ -1168,7 +1194,9 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     nselected = 0
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
-                                      hfilter=options.hfilter, nomrg=True)
+                                      hfilter=options.hfilter,
+                                      addrem=options.addrem,
+                                      nomrg=True)
         if not stest(msg, cat, history, config):
             continue
         nselected += 1
@@ -1230,7 +1258,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                 for fprev in _fields_previous:
                     setattr(msg, fprev, None)
                 msg_ediff(pmsg, msg, emsg=msg,
-                        pfilter=options.sfilter, hlto=sys.stdout)
+                          pfilter=options.sfilter, hlto=sys.stdout)
         report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 
@@ -1717,7 +1745,8 @@ class _Ascription (object):
 
 
 def asc_collect_history (msg, acat, config,
-                         nomrg=False, hfilter=None, shallow=False):
+                         nomrg=False, hfilter=None, shallow=False,
+                         addrem=None):
 
     history = asc_collect_history_w(msg, acat, config, None, set(), shallow)
 
@@ -1768,6 +1797,16 @@ def asc_collect_history (msg, acat, config,
         if history[-1].user != UFUZZ:
             history_r.append(history[-1])
         history = history_r
+
+    # Reduce history to particular segments of diffs between modifications.
+    if addrem:
+        a_nextmod = None
+        for a in history:
+            if a.type == ATYPE_MOD:
+                if a_nextmod is not None:
+                    msg_ediff(a.msg, a_nextmod.msg, emsg=a_nextmod.msg,
+                              addrem=addrem)
+                a_nextmod = a
 
     return history
 
