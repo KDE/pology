@@ -71,7 +71,7 @@ from pology.misc.synder import Synder
 from pology.misc.normalize import identify, xentitize, simplify
 from pology.l10n.sr.hook.wconv import ctol, cltoa
 from pology.l10n.sr.hook.wconv import hctoc, hctol, hitoe, hitoi, hctocl
-from pology.l10n.sr.hook.wconv import cltoh, eitoh
+from pology.l10n.sr.hook.wconv import cltoh, tohi
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens
 from pology.l10n.sr.hook.nobr import nobrhyp_char
 from pology.misc.resolve import first_to_upper
@@ -725,15 +725,15 @@ def _compose_text (tsegs, markup, nobrhyp, disamb,
 def _hybridize (envprops, pvals):
 
     if len(envprops) == 4: # different scripts and dialects
-        cvalc = eitoh(pvals[0], pvals[2], delims=_alt_sep_dlc)
-        cvall = eitoh(pvals[1], pvals[3], delims=_alt_sep_dlc)
+        cvalc = tohi(pvals[0], pvals[2], delims=_alt_sep_dlc)
+        cvall = tohi(pvals[1], pvals[3], delims=_alt_sep_dlc)
         if ctol(cvalc) != cvall:
             cval = cltoh(cvalc, cvall, delims=_alt_sep_scr, full=True)
         else:
             cval = cvalc
     elif len(envprops) == 2:
         if envprops[0][0] == envprops[1][0]: # different dialects
-            cval = eitoh(pvals[0], pvals[1], delims=_alt_sep_dlc)
+            cval = tohi(pvals[0], pvals[1], delims=_alt_sep_dlc)
         else: # different scripts
             cval = cltoh(pvals[0], pvals[1], delims=_alt_sep_scr, full=True)
     else:
