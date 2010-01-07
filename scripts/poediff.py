@@ -15,31 +15,32 @@ should be considered public API, it is subject to change without notice.
 @license: GPLv3
 """
 
+import filecmp
+import locale
+from optparse import OptionParser
+import os
+import shutil
+import sys
+import time
+
 import fallback_import_paths
 
-import sys
-import os
-import locale
-import time
-import shutil
-import filecmp
-from optparse import OptionParser
-from tempfile import NamedTemporaryFile
-
-from pology.misc.report import error, warning, report
-import pology.misc.config as pology_config
-from pology.misc.fsops import str_to_unicode, collect_system, collect_catalogs
-from pology.file.message import MessageUnsafe
 from pology.file.catalog import Catalog
+from pology.file.message import MessageUnsafe
+from pology.misc.colors import set_coloring_globals
+import pology.misc.config as pology_config
+from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.diff import msg_ediff
+from pology.misc.merge import merge_pofile
+from pology.misc.report import error, warning, report
+from pology.misc.report import list_options
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
-from pology.misc.colors import set_coloring_globals
-from pology.misc.report import list_options
 
-_hmsgctxt_field = u"X-Ediff-Header-Context"
-_hmsgctxt_el = u"~"
-_filerev_sep = u" <<< "
+
+_hmsgctxt_field = u"X-Ediff-Header-Context" # by spec
+_hmsgctxt_el = u"~" # by spec
+_filerev_sep = u" <<< " # by spec
 
 
 def main ():
@@ -405,7 +406,9 @@ def diff_cats (cat1, cat2, ecat,
             #print "===> merging: %s -> %s" % (cat1.filename, cat2.filename)
             # Merge is done if requested and both catalogs exist.
             if merge and not cat1.created() and not cat2.created():
-                mcat_pack[0] = merge_cat(cat1, cat2)
+                mcat_pack[0] = merge_pofile(cat1.filename, cat2.filename,
+                                            getcat=True, monitored=False,
+                                            quiet=True, abort=True)
                 if noobs:
                     rmobs_no_sync(mcat_pack[0])
             else:
@@ -655,23 +658,6 @@ def msg_null_fields (m, fields):
 
     for field in fields:
         setattr(m, field, None)
-
-
-def merge_cat (cat, tcat):
-
-    tmpf = NamedTemporaryFile(prefix="poediff-merge-", suffix=".po")
-    cmdline = ("msgmerge --previous %s %s -o %s"
-               % (cat.filename, tcat.filename, tmpf.name))
-    res = collect_system(cmdline)
-    if res[-1] != 0:
-        warning("cannot merge '%s' and '%s'; reported error:\n%s"
-                % (cat.filename, tcat.filename, res[1]))
-        return None
-
-    mcat = Catalog(tmpf.name, monitored=False)
-    del tmpf # merged catalog read, file no longer needed
-
-    return mcat
 
 
 # Collect and pair catalogs as list [(fpath1, fpath2)].

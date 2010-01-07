@@ -1,31 +1,37 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from difflib import SequenceMatcher
+import filecmp
+import imp
+import locale
+from optparse import OptionParser
+import os
+import re
+import shutil
+import sys
+import time
+
 import fallback_import_paths
 
-from pology.misc.fsops import str_to_unicode
 from pology.file.catalog import Catalog
-from pology.file.message import Message, MessageUnsafe
 from pology.file.header import Header
-from pology.misc.monitored import Monpair, Monlist
-from pology.misc.report import report, error, warning
-from pology.misc.report import init_file_progress
-from pology.misc.msgreport import report_on_msg
+from pology.file.message import Message, MessageUnsafe
+from pology.misc.fsops import str_to_unicode
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
+from pology.misc.merge import merge_pofile
+from pology.misc.monitored import Monpair, Monlist
+from pology.misc.msgreport import report_on_msg
+from pology.misc.report import report, error, warning
+from pology.misc.report import init_file_progress
 from pology.misc.vcs import make_vcs
 import pology.scripts.poascribe as ASC
-from pology.scripts.poselfmerge import merge_pofile
 import pology.scripts.porewrap as REW
 
-import sys, os, imp, shutil, re
-from optparse import OptionParser
-import filecmp
-import locale
-import time
-from difflib import SequenceMatcher
 
 SUMMIT_ID = "+" # must not start with word-character (\w)
+
 
 def main ():
 
@@ -2023,7 +2029,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                            minasfz=minasfz, refuzzy=refuzzy,
                            cmppaths=cmppaths, fuzzex=fuzzex, minwnex=minwnex,
                            getcat=(do_open and not headonly),
-                           monitored=monitored)
+                           monitored=monitored,
+                           quiet=True, abort=True)
 
     else:
         # Copy current to temporary catalog, to be processed by hooks, etc.
