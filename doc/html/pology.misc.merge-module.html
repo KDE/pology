@@ -171,6 +171,8 @@
   the merging succedded, and <code>None</code> if not. However, if 
   <code>abort</code> is set to <code>True</code>, if <code>msgmerge</code> 
   fails the program aborts with an error message.</p>
+  <p>When catalog object is returned, its sync state is undefined. If it 
+  needs to be in sync before use, it should be synced manually.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
