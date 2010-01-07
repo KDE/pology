@@ -85,7 +85,7 @@ preceding valid jat-reflexes, and Ekavian by applying the jat-reflex map::
 The jat-reflex mapping rules are as follows, grouped by tick:
   - ›ије→е, ›је→е
   - ‹иј→еј, ‹иљ→ел, ‹ио→ео, ‹ље→ле, ‹ње→не
-  - ▹ије→и, ▹је→и,
+  - ▹ије→и, ▹је→и
   - ◃ијел→ео, ◃јел→ео, ◃ијен→ењ
 
 For very rare special cases, it is possible to directly provide
