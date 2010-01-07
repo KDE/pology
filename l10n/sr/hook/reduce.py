@@ -63,6 +63,11 @@ def words_ic_lw (text):
     return words_ic(text.lower())
 
 
+def _dlc_select (w):
+
+    return len(w) >= 3 and (u"е" in w or u"и" in w)
+
+
 def words_ic_lw_dlc (text):
     """
     Reduce text to space-separated Ijekavian Cyrillic words containing
@@ -73,7 +78,7 @@ def words_ic_lw_dlc (text):
     """
 
     return _words_w(remove_accents(hictoicq(text.lower())),
-                    select=lambda w: len(w) >= 3 and (u"е" in w or u"и" in w))
+                    select=_dlc_select)
 
 
 def _words_w (text, select=None):
