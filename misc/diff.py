@@ -1289,9 +1289,13 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
 
     # Construct list of embedded diffs out of original difference list.
     dwraps = _assemble_ewraps(hlto)
-    mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps), x[3])
-    ediffs = map(mtoe, wdiffs)
-    ediffs_pf = map(mtoe, wdiffs_pf)
+    if not addrem:
+        mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps), x[3])
+        ediffs = map(mtoe, wdiffs)
+        ediffs_pf = map(mtoe, wdiffs_pf)
+    else:
+        ediffs = wdiffs
+        ediffs_pf = wdiffs_pf
 
     # Construct the message to embed differences into.
     if emsg is None:
