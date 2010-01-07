@@ -59,7 +59,7 @@ def merge_pofile (catpath, tplpath,
     @param update: whether to update the PO file in place
     @type update: bool
     @param wrapping: the wrapping policy (see the parameter of the same name
-        to L{catalog constructor<misc.file.catalog.Catalog.__init__>})
+        to L{catalog constructor<misc.file.catalog.Catalog>})
     @type wrapping: sequence of strings
     @param fuzzymatch: whether to perform fuzzy matching
     @type fuzzymatch: bool
