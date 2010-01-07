@@ -76,11 +76,17 @@ by inserting one of the jat-reflex ticks C{›}, C{‹}, C{▹}, C{◃}::
 
     Д‹ио б‹иљежака о В›јештичјој р›ијеци.
 
-Straight Ijekavian text is then obtained by just removing jat-reflex ticks,
-and Ekavian by applying rules such as ›ије→е, ›је→е, ‹ио→ео, ‹иљ→ел, etc::
+Clean Ijekavian text is then obtained by just removing jat-reflex ticks
+preceding valid jat-reflexes, and Ekavian by applying the jat-reflex map::
 
     Дио биљежака о Вјештичјој ријеци.
     Део бележака о Вештичјој реци.
+
+The jat-reflex mapping rules are as follows, grouped by tick:
+  - ›ије→е, ›је→е
+  - ‹иј→еј, ‹иљ→ел, ‹ио→ео, ‹ље→ле, ‹ње→не
+  - ▹ије→е, ▹је→е,
+  - ◃ијел→ео, ◃јел→ео, ◃ијен→ењ
 
 For very rare special cases, it is possible to directly provide
 different forms for Ekavian and Ijekavian, in that order,
