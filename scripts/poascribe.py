@@ -632,7 +632,7 @@ def examine_state (options, configs_catpaths, mode):
             for msg in cat:
                 history = asc_collect_history(msg, acat, config,
                                               hfilter=options.hfilter,
-                                              addrem=option.addrem)
+                                              addrem=options.addrem)
                 if history[0].user is None and msg.untranslated:
                     continue # pristine
                 if not mode.selector(msg, cat, history, config):
@@ -1766,8 +1766,20 @@ def asc_collect_history (msg, acat, config,
         a.pos = pos
         pos += 1
 
+    # Eliminate clean merges from history.
+    if nomrg:
+        history_r = []
+        for i in range(len(history) - 1):
+            a, ao = history[i], history[i + 1]
+            if not a.user == UFUZZ or not merge_modified(ao.msg, a.msg):
+                history_r.append(a)
+        if history[-1].user != UFUZZ:
+            history_r.append(history[-1])
+        history = history_r
+
     # Eliminate contiguous chain of modifications equal under the filter,
     # except for the earliest in the chain.
+    # (After elimination of clean merges.)
     if hfilter:
         def flt (msg):
             msg = MessageUnsafe(msg)
@@ -1787,18 +1799,8 @@ def asc_collect_history (msg, acat, config,
         history = history_r
         history.reverse()
 
-    # Eliminate clean merges from history.
-    if nomrg:
-        history_r = []
-        for i in range(len(history) - 1):
-            a, ao = history[i], history[i + 1]
-            if not a.user == UFUZZ or not merge_modified(ao.msg, a.msg):
-                history_r.append(a)
-        if history[-1].user != UFUZZ:
-            history_r.append(history[-1])
-        history = history_r
-
     # Reduce history to particular segments of diffs between modifications.
+    # (After filtering).
     if addrem:
         a_nextmod = None
         for a in history:
