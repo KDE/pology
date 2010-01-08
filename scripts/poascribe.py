@@ -1550,7 +1550,9 @@ def add_nonid (amsg, msg, slen, rhistory):
                     add = shead + _trsep_mod_eq + str(i_eq)
             else:
                 add = shead + _trsep_mod_none
-            amsg_seq[i] += add + u"\n"
+            if amsg_seq[i]:
+                amsg_seq[i] += u"\n"
+            amsg_seq[i] += add
 
         set_from_sequence(amsg_seq, amsg, field)
 
