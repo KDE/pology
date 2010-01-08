@@ -65,7 +65,8 @@ def words_ic_lw (text):
 
 def _dlc_select (w):
 
-    return len(w) >= 3 and (u"е" in w or u"и" in w)
+    return u"е" in w or u"и" in w
+    # ...no len(w) >= 3 because an accelerator marker may have split the word.
 
 
 def words_ic_lw_dlc (text):
