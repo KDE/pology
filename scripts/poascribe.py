@@ -615,6 +615,8 @@ def assert_no_review (configs_catpaths):
     wrevs = []
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
+            if not may_have_reviews(catpath):
+                continue
             cat = Catalog(catpath, monitored=False)
             if clear_review_cat_simple(cat):
                 wrevs.append(catpath)
@@ -1158,14 +1160,19 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
 _subrestr = "|".join(_all_flags)
 _any_to_clear_rx = re.compile(r"^\s*#,.*\b(%s)" % _subrestr, re.M|re.U)
-def _any_to_clear_quick (catpath):
+
+# Quickly check if it may be that some messages in the PO file
+# have review states (diffs, flags).
+def may_have_reviews (catpath):
+
     return bool(_any_to_clear_rx.search(open(catpath).read()))
+
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
 
     cleared = {}
 
-    if not _any_to_clear_quick(catpath):
+    if not may_have_reviews(catpath):
         return cleared
 
     cat = Catalog(catpath, monitored=True)
