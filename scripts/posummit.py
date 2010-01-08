@@ -2024,13 +2024,17 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 catalog_path_mod = tmp_path
                 shutil.copyfile(template_path, tmp_path)
 
+        getcat = do_open and not headonly
         cat = merge_pofile(catalog_path_mod, template_path, outpath=tmp_path,
                            wrapping=wrapping, fuzzymatch=fuzzy_merging,
                            minasfz=minasfz, refuzzy=refuzzy,
                            cmppaths=cmppaths, fuzzex=fuzzex, minwnex=minwnex,
-                           getcat=(do_open and not headonly),
-                           monitored=monitored,
+                           getcat=getcat, monitored=monitored,
                            quiet=True, abort=True)
+        if not getcat:
+            # Catalog not requested, so the return value is True
+            # indicating that the merge succedded.
+            cat = None
 
     else:
         # Copy current to temporary catalog, to be processed by hooks, etc.
