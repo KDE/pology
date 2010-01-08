@@ -38,6 +38,21 @@ from pology.sieve.update_header import update_header
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
 
+# Flag used to mark diffed messages.
+# NOTE: All diff flags should start with 'ediff', as some other scripts
+# only need to check if any of them is present.
+_diffflag = u"ediff"
+_diffflag_tot = u"ediff-total"
+_diffflag_ign = u"ediff-ignored"
+_diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
+
+# Flags used to explicitly mark messages as reviewed or unreviewed.
+_revdflags = (u"reviewed", u"revd", u"rev") # synonyms
+_urevdflags = (u"unreviewed", u"unrevd", u"unrev", u"nrevd", u"nrev") # ditto
+
+_all_flags = _diffflags + _revdflags + _urevdflags
+
+
 def main ():
 
     locale.setlocale(locale.LC_ALL, "")
@@ -1086,14 +1101,6 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     return len(rev_msgs_tags)
 
 
-# Flag used to mark diffed messages.
-# NOTE: All diff flags should start with 'ediff', as some other scripts
-# only need to check if any of them is present.
-_diffflag = u"ediff"
-_diffflag_tot = u"ediff-total"
-_diffflag_ign = u"ediff-ignored"
-_diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
-
 def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
     cat = Catalog(catpath, monitored=True)
@@ -1149,12 +1156,21 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     return len(diffed_msgs)
 
 
+_subrestr = "|".join(_all_flags)
+_any_to_clear_rx = re.compile(r"^\s*#,.*\b(%s)" % _subrestr, re.M|re.U)
+def _any_to_clear_quick (catpath):
+    return bool(_any_to_clear_rx.search(open(catpath).read()))
+
 def clear_review_cat (options, config, catpath, acatpath, stest):
+
+    cleared = {}
+
+    if not _any_to_clear_quick(catpath):
+        return cleared
 
     cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    cleared = {}
     for msg in cat:
         cmsg = MessageUnsafe(msg)
         clear_review_msg(cmsg)
@@ -1265,9 +1281,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-_revdflags = (u"reviewed", u"revd", u"rev")
 _revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
-_urevdflags = (u"unreviewed", u"unrevd", u"unrev", u"nrevd", u"nrev")
 
 def clear_review_msg (msg, keepflags=False):
 
