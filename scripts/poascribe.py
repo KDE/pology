@@ -38,6 +38,11 @@ from pology.sieve.update_header import update_header
 ASCWRAPPING = ["fine"]
 UFUZZ = "fuzzy"
 
+# Ascription types.
+# NOTE: These string are written and read from ascription files.
+ATYPE_MOD = "modified"
+ATYPE_REV = "reviewed"
+
 # Flag used to mark diffed messages.
 # NOTE: All diff flags should start with 'ediff', as some other scripts
 # only need to check if any of them is present.
@@ -1671,12 +1676,6 @@ def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
         amsg.obsolete = True
     else:
         amsg.obsolete = False
-
-
-# FIXME: Imported by others, factor out.
-# NOTE: These string are written and read from ascription files.
-ATYPE_MOD = "modified"
-ATYPE_REV = "reviewed"
 
 
 def ascribe_msg_mod (msg, acat, user, config):
