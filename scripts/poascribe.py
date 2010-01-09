@@ -44,13 +44,17 @@ UFUZZ = "fuzzy"
 _diffflag = u"ediff"
 _diffflag_tot = u"ediff-total"
 _diffflag_ign = u"ediff-ignored"
-_diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
 
 # Flags used to explicitly mark messages as reviewed or unreviewed.
 _revdflags = (u"reviewed", u"revd", u"rev") # synonyms
 _urevdflags = (u"unreviewed", u"unrevd", u"unrev", u"nrevd", u"nrev") # ditto
 
+# Comment used to show ascription chain in messages marked for review.
+_achncmnt = "~ascto:"
+
+_diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
 _all_flags = _diffflags + _revdflags + _urevdflags
+_all_cmnts = (_achncmnt,)
 
 
 def main ():
@@ -815,20 +819,20 @@ def update_headers_onmod (configs_catpaths, user):
         report("===! Updated headers: %d" % nupdated)
 
 
-def restore_reviews (configs_catpaths, cleared_by_catref):
+def restore_reviews (configs_catpaths, revspecs_by_catmsg):
 
     upprog = setup_progress(configs_catpaths, "Restoring reviews: %s")
     nrestored = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            cleared_by_msgref = cleared_by_catref.get(catpath)
-            if cleared_by_msgref:
+            revspecs_by_msg = revspecs_by_catmsg.get(catpath)
+            if revspecs_by_msg:
                 cat = Catalog(catpath, monitored=True)
-                for msgref, revspec in sorted(cleared_by_msgref.items()):
+                for msgref, revspec in sorted(revspecs_by_msg.items()):
                     msg = cat[msgref - 1]
-                    diffed, revtags, unrev = revspec
-                    restore_review_flags(msg, diffed, revtags, unrev)
+                    revtags, unrev = revspec
+                    restore_review_flags(msg, revtags, unrev)
                     nrestored += 1
                 sync_and_rep(cat)
 
@@ -836,7 +840,7 @@ def restore_reviews (configs_catpaths, cleared_by_catref):
         report("===! Restored reviews: %d" % nrestored)
 
 
-def restore_review_flags (msg, diffed, revtags, unrev):
+def restore_review_flags (msg, revtags, unrev):
 
     if unrev:
         msg.flag.add(_urevdflags[0])
@@ -846,7 +850,7 @@ def restore_review_flags (msg, diffed, revtags, unrev):
             if revtag:
                 rflag += "/" + revtag
             msg.flag.add(rflag)
-    elif diffed:
+    else:
         msg.flag.add(_revdflags[0])
 
     return msg
@@ -869,7 +873,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
     mode.selector = stest_any
     options.keep_flags = False # deactivate this option if issued
-    cleared_by_catref = clear_review_w(options, configs_catpaths, mode)
+    revspecs_by_catmsg = clear_review_w(options, configs_catpaths, mode)
 
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
@@ -880,11 +884,11 @@ def ascribe_reviewed (options, configs_catpaths, mode):
 
     # Check whether inclusive or exclusive mode applies for review.
     exclusive = True
-    for clearspecs in cleared_by_catref.values():
-        for diffed, revtags, unrev in clearspecs.values():
-            if diffed or revtags:
-                # Since there is at least one message diffed
-                # or tagged as reviewed, inclusive mode is in effect.
+    for revspecs in revspecs_by_catmsg.values():
+        for revtags, unrev in revspecs.values():
+            if not unrev:
+                # Since there is at least one reviewed message
+                # not tagged as unreviewed, inclusive mode is in effect.
                 exclusive = False
                 break
         if not exclusive:
@@ -893,9 +897,9 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     if exclusive:
         def stest (msg, cat, hist, conf):
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
-            revspec = cleared_by_catref.get(cat.filename, {}).get(msg.refentry)
+            revspec = revspecs_by_catmsg.get(cat.filename, {}).get(msg.refentry)
             if revspec:
-                diffed, revtags, unrev = revspec
+                revtags, unrev = revspec
                 if unrev:
                     return False
             # Exclude if message does not pass selector.
@@ -905,12 +909,12 @@ def ascribe_reviewed (options, configs_catpaths, mode):
         mode.selector = stest
     else:
         def stest (msg, cat, hist, conf):
-            # Exclude unless diffed or tagged as reviewed.
-            revspec = cleared_by_catref.get(cat.filename, {}).get(msg.refentry)
+            # Exclude if not among reviewed.
+            revspec = revspecs_by_catmsg.get(cat.filename, {}).get(msg.refentry)
             if not revspec:
                 return False
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
-            diffed, revtags, unrev = revspec
+            revtags, unrev = revspec
             if unrev:
                 return False
             # Exclude if message does not pass selector.
@@ -932,7 +936,7 @@ def ascribe_reviewed (options, configs_catpaths, mode):
         report("===! Reviewed: %d" % nasc)
 
     if options.commit:
-        onabortf = lambda: restore_reviews(configs_catpaths, cleared_by_catref)
+        onabortf = lambda: restore_reviews(configs_catpaths, revspecs_by_catmsg)
         commit_catalogs(configs_catpaths, mode.user,
                         message=options.message, onabortf=onabortf)
 
@@ -959,24 +963,25 @@ def clear_review (options, configs_catpaths, mode):
 def clear_review_w (options, configs_catpaths, mode):
 
     upprog = setup_progress(configs_catpaths, "Clearing reviews: %s")
-    cleared_by_cat = {}
+    revspecs_by_catmsg = {}
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            cleared = clear_review_cat(options, config, catpath, acatpath,
-                                       mode.selector)
-            if cleared:
-                cleared_by_cat[catpath] = cleared
+            revspecs_by_msg = clear_review_cat(options, config,
+                                               catpath, acatpath,
+                                               mode.selector)
+            if revspecs_by_msg:
+                revspecs_by_catmsg[catpath] = revspecs_by_msg
     upprog()
 
-    ncleared = sum(map(len, cleared_by_cat.values()))
+    ncleared = sum(map(len, revspecs_by_catmsg.values()))
     if ncleared > 0:
         if not options.keep_flags:
             report("===! Cleared reviews: %d" % ncleared)
         else:
             report("===! Cleared reviews (flags kept): %d" % ncleared)
 
-    return cleared_by_cat
+    return revspecs_by_catmsg
 
 
 def show_history (options, configs_catpaths, mode):
@@ -1054,7 +1059,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     non_mod_asc_msgs = []
     for msg in cat:
         # Remove any review scaffolding, collecting any review-done tags.
-        diffed, tags, unrev = clear_review_msg(msg)
+        tags, unrev = clear_review_msg(msg)[2:4]
         if unrev:
             # Message explicitly set as not reviewed.
             continue
@@ -1158,8 +1163,11 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     return len(diffed_msgs)
 
 
-_subrestr = "|".join(_all_flags)
-_any_to_clear_rx = re.compile(r"^\s*#,.*\b(%s)" % _subrestr, re.M|re.U)
+_subreflags = "|".join(_all_flags)
+_subrecmnts = "|".join(_all_cmnts)
+_any_to_clear_rx = re.compile(r"^\s*(#,.*\b(%s)|#\.\s*(%s))"
+                              % (_subreflags, _subrecmnts),
+                              re.M|re.U)
 
 # Quickly check if it may be that some messages in the PO file
 # have review states (diffs, flags).
@@ -1170,10 +1178,10 @@ def may_have_reviews (catpath):
 
 def clear_review_cat (options, config, catpath, acatpath, stest):
 
-    cleared = {}
+    revspecs_by_msg = {}
 
     if not may_have_reviews(catpath):
-        return cleared
+        return revspecs_by_msg
 
     cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
@@ -1188,22 +1196,24 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
         if any(clres):
-            cleared[msg.refentry] = clres
+            revtags, unrev = clres[2:4]
+            revspecs_by_msg[msg.refentry] = (revtags, unrev)
 
     sync_and_rep(cat)
 
-    return cleared
+    return revspecs_by_msg
 
 
 def clear_review_cat_simple (cat, keepflags=False):
 
-    cleared = {}
+    revspecs_by_msg = {}
     for msg in cat:
         clres = clear_review_msg(msg, keepflags=keepflags)
         if any(clres):
-            cleared[msg.refentry] = clres
+            revtags, unrev = clres[2:4]
+            revspecs_by_msg[msg.refentry] = (revtags, unrev)
 
-    return cleared
+    return revspecs_by_msg
 
 
 def show_history_cat (options, config, catpath, acatpath, stest):
@@ -1309,14 +1319,25 @@ def clear_review_msg (msg, keepflags=False):
             msg.flag.remove(flag)
             # Do not break, other review flags possible.
 
+    # Clear possible review comments.
+    i = 0
+    commented = False
+    while i < len(msg.auto_comment):
+        cmnt = msg.auto_comment[i].strip()
+        if cmnt.startswith(_all_cmnts):
+            msg.auto_comment.pop(i)
+            commented = True
+        else:
+            i += 1
+
     if keepflags:
-        restore_review_flags(msg, diffed, revtags, unrev)
+        restore_review_flags(msg, revtags, unrev)
 
     # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
 
-    return diffed, revtags, unrev
+    return diffed, commented, revtags, unrev
 
 
 # Exclusive states of a message, as reported by Message.state().
