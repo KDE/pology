@@ -655,7 +655,7 @@ def examine_state (options, configs_catpaths, mode):
                 history = asc_collect_history(msg, acat, config,
                                               hfilter=options.hfilter,
                                               addrem=options.addrem)
-                if history[0].user is None and msg.untranslated:
+                if history[0].user is None and not has_tracked_parts(msg):
                     continue # pristine
                 if not mode.selector(msg, cat, history, config):
                     continue # not selected
@@ -797,8 +797,9 @@ def update_headers_onmod (configs_catpaths, user):
                 # Shallow history, need only to know if ascribed or not.
                 history = asc_collect_history(msg, acat, config,
                                               shallow=True)
-                # Message is modified if not ascribed and not translated.
-                if history[0].user is None and not msg.untranslated:
+                # Message is modified if not ascribed
+                # and has some ascription-relevant parts.
+                if history[0].user is None and has_tracked_parts(msg):
                     anymod = True
                     break
             if anymod:
@@ -1007,7 +1008,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath):
     for msg in cat:
         # Shallow history, need only to know if ascribed or not.
         history = asc_collect_history(msg, acat, config, shallow=True)
-        if history[0].user is None and not msg.untranslated:
+        if history[0].user is None and has_tracked_parts(msg):
             toasc_msgs.append(msg)
             counts[msg.state()] += 1
 
@@ -1063,7 +1064,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
                                       hfilter=options.hfilter,
                                       addrem=options.addrem)
         # Makes no sense to ascribe review to pristine messages.
-        if history[0].user is None and msg.untranslated:
+        if history[0].user is None and not has_tracked_parts(msg):
             continue
         if not stest(msg, cat, history, config):
             continue
@@ -1113,7 +1114,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
                                       hfilter=options.hfilter,
                                       addrem=options.addrem)
         # Makes no sense to review pristine messages.
-        if history[0].user is None and msg.untranslated:
+        if history[0].user is None and not has_tracked_parts(msg):
             continue
         sres = stest(msg, cat, history, config)
         if not sres:
@@ -2067,6 +2068,24 @@ def asc_sync_and_rep (acat):
     return sync_and_rep(acat)
 
 
+def has_tracked_parts (msg):
+
+    for part in _nonid_fields_tracked:
+        pval = msg.get(part)
+        if part not in _multiple_fields:
+            if pval is not None:
+                return True
+        elif part == "msgstr":
+            for pval1 in pval:
+                if pval1:
+                    return True
+        else:
+            if pval:
+                return True
+
+    return False
+
+
 class _TZInfo (datetime.tzinfo):
 
     def __init__ (self, hours=None, minutes=None):
@@ -2359,7 +2378,7 @@ def selector_unasc ():
     def selector (msg, cat, history, config):
 
         # Do not consider pristine messages as unascribed.
-        return history[0].user is None and not msg.untranslated
+        return history[0].user is None and has_asc_parts(msg)
 
     return selector
 
