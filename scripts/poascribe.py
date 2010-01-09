@@ -2353,13 +2353,13 @@ def selector_branch (branch=None):
     return selector
 
 
-def selector_wasc ():
-    cid = "selector:wasc"
+def selector_unasc ():
+    cid = "selector:unasc"
 
     def selector (msg, cat, history, config):
 
-        # Also consider pristine messages ascribed.
-        return history[0].user is not None or msg.untranslated
+        # Do not consider pristine messages as unascribed.
+        return history[0].user is None and not msg.untranslated
 
     return selector
 
@@ -2759,7 +2759,7 @@ xm_selector_factories = {
     "active": (selector_active, False),
     "current": (selector_current, False),
     "branch": (selector_branch, False),
-    "wasc": (selector_wasc, False),
+    "unasc": (selector_unasc, False),
     "fexpr": (selector_fexpr, False),
     "e": (selector_e, False),
     "l": (selector_l, False),
