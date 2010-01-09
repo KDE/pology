@@ -47,7 +47,8 @@ _diffflag_ign = u"ediff-ignored"
 
 # Flags used to explicitly mark messages as reviewed or unreviewed.
 _revdflags = (u"reviewed", u"revd", u"rev") # synonyms
-_urevdflags = (u"unreviewed", u"unrevd", u"unrev", u"nrevd", u"nrev") # ditto
+_urevdflags = (u"unreviewed", u"unrevd", u"unrev",
+               u"urevd", u"urev", u"nrevd", u"nrev") # synonyms
 
 # Comment used to show ascription chain in messages marked for review.
 _achncmnt = "~ascto:"
@@ -831,8 +832,8 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
                 cat = Catalog(catpath, monitored=True)
                 for msgref, revspec in sorted(revspecs_by_msg.items()):
                     msg = cat[msgref - 1]
-                    revtags, unrev = revspec
-                    restore_review_flags(msg, revtags, unrev)
+                    revd, unrevd = revspec
+                    restore_review_flags(msg, revd, unrevd)
                     nrestored += 1
                 sync_and_rep(cat)
 
@@ -840,17 +841,11 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
         report("===! Restored reviews: %d" % nrestored)
 
 
-def restore_review_flags (msg, revtags, unrev):
+def restore_review_flags (msg, revd, unrevd):
 
-    if unrev:
+    if unrevd:
         msg.flag.add(_urevdflags[0])
-    elif revtags:
-        for revtag in revtags:
-            rflag = _revdflags[0]
-            if revtag:
-                rflag += "/" + revtag
-            msg.flag.add(rflag)
-    else:
+    elif revd:
         msg.flag.add(_revdflags[0])
 
     return msg
@@ -861,10 +856,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
     assert_review_tag(configs_catpaths, options.tag)
 
-    # Remove any review diffs and tags from messages.
+    # Remove any review diffs and flags from messages.
     # If any were actually removed, ascribe reviews only to those messages,
     # providing they pass the selector and were not tagged as unreviewed.
-    # If there were no diffs and tags removed, ascribe reviews for all messages
+    # If there were no diffs and flags removed, ascribe reviews for all messages
     # that pass the selector, except those tagged as unreviewed.
     # In both cases, ascribe modifications to all modified messages.
 
@@ -885,10 +880,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     # Check whether inclusive or exclusive mode applies for review.
     exclusive = True
     for revspecs in revspecs_by_catmsg.values():
-        for revtags, unrev in revspecs.values():
-            if not unrev:
-                # Since there is at least one reviewed message
-                # not tagged as unreviewed, inclusive mode is in effect.
+        for revd, unrevd in revspecs.values():
+            if revd:
+                # Since there is at least one reviewed message,
+                # inclusive mode is in effect.
                 exclusive = False
                 break
         if not exclusive:
@@ -899,8 +894,8 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
             revspec = revspecs_by_catmsg.get(cat.filename, {}).get(msg.refentry)
             if revspec:
-                revtags, unrev = revspec
-                if unrev:
+                revd, unrevd = revspec
+                if unrevd:
                     return False
             # Exclude if message does not pass selector.
             if not stest_orig(msg, cat, hist, conf):
@@ -914,8 +909,8 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             if not revspec:
                 return False
             # Exclude if tagged as unreviewed (overrides tagging as reviewed).
-            revtags, unrev = revspec
-            if unrev:
+            revd, unrevd = revspec
+            if unrevd:
                 return False
             # Exclude if message does not pass selector.
             if not stest_orig(msg, cat, hist, conf):
@@ -1055,16 +1050,14 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     cat = Catalog(catpath, monitored=True)
     acat = prep_write_asc_cat(acatpath, config)
 
-    rev_msgs_tags = []
+    revd_msgs = []
     non_mod_asc_msgs = []
     for msg in cat:
-        # Remove any review scaffolding, collecting any review-done tags.
-        tags, unrev = clear_review_msg(msg)[2:4]
-        if unrev:
+        # Remove any review scaffolding.
+        unrevd = clear_review_msg(msg)[3]
+        if unrevd:
             # Message explicitly set as not reviewed.
             continue
-        if not tags and options.tag:
-            tags.append(options.tag)
 
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
@@ -1081,7 +1074,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
             non_mod_asc_msgs.append(msg)
             continue
 
-        rev_msgs_tags.append((msg, tags))
+        revd_msgs.append(msg)
 
     if non_mod_asc_msgs:
         fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
@@ -1090,7 +1083,7 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
                 "because they were not ascribed as modified: %s"
                 % (cat.filename, fmtrefs))
 
-    if not rev_msgs_tags:
+    if not revd_msgs:
         # No messages to ascribe.
         if non_mod_asc_msgs:
             # May have had some reviews cleared.
@@ -1098,14 +1091,14 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
         return 0
 
     # Ascribe messages as reviewed.
-    for msg, tags in rev_msgs_tags:
-        ascribe_msg_rev(msg, acat, tags, user, config)
+    for msg in revd_msgs:
+        ascribe_msg_rev(msg, acat, options.tag, user, config)
 
     sync_and_rep(cat)
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
-    return len(rev_msgs_tags)
+    return len(revd_msgs)
 
 
 def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
@@ -1196,8 +1189,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
         if any(clres):
-            revtags, unrev = clres[2:4]
-            revspecs_by_msg[msg.refentry] = (revtags, unrev)
+            diffed, revd, unrevd = clres[1:4]
+            revspecs_by_msg[msg.refentry] = (diffed or revd, unrevd)
 
     sync_and_rep(cat)
 
@@ -1210,8 +1203,8 @@ def clear_review_cat_simple (cat, keepflags=False):
     for msg in cat:
         clres = clear_review_msg(msg, keepflags=keepflags)
         if any(clres):
-            revtags, unrev = clres[2:4]
-            revspecs_by_msg[msg.refentry] = (revtags, unrev)
+            diffed, revd, unrevd = clres[1:4]
+            revspecs_by_msg[msg.refentry] = (diffed or revd, unrevd)
 
     return revspecs_by_msg
 
@@ -1298,26 +1291,22 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-_revdflag_rx = re.compile(r"^(?:%s) *[/:]?(.*)" % "|".join(_revdflags), re.I)
-
 def clear_review_msg (msg, keepflags=False):
 
-    # Clear possible review flags, collect all remove-done tags.
+    # Clear possible review flags.
     diffed = False
-    revtags = []
-    unrev = False
+    revd = False
+    unrevd = False
     for flag in list(msg.flag): # modified inside
-        manrev = _revdflag_rx.search(flag)
-        manurev = flag in _urevdflags
-        if flag in _diffflags or manrev or manurev:
-            if flag in _diffflags:
-                diffed = True
-            if manrev:
-                revtags.append(manrev.group(1).strip())
-            if manurev:
-                unrev = True
+        if flag in _diffflags:
+            diffed = True
             msg.flag.remove(flag)
-            # Do not break, other review flags possible.
+        elif flag in _revdflags:
+            revd = True
+            msg.flag.remove(flag)
+        elif flag in _urevdflags:
+            unrevd = True
+            msg.flag.remove(flag)
 
     # Clear possible review comments.
     i = 0
@@ -1331,13 +1320,13 @@ def clear_review_msg (msg, keepflags=False):
             i += 1
 
     if keepflags:
-        restore_review_flags(msg, revtags, unrev)
+        restore_review_flags(msg, revtags, unrevd)
 
     # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
 
-    return diffed, commented, revtags, unrev
+    return commented, diffed, revd, unrevd
 
 
 # Exclusive states of a message, as reported by Message.state().
@@ -2362,21 +2351,6 @@ def selector_wasc ():
     return selector
 
 
-def selector_xrevd ():
-    cid = "selector:xrevd"
-
-    revdflags_rx = re.compile(r"^(?:revd|reviewed) *[/:]?(.*)", re.I)
-
-    def selector (msg, cat, history, config):
-
-        for flag in msg.flags:
-            if _revdflag_rx.search(flag):
-                return True
-        return False
-
-    return selector
-
-
 def selector_fexpr (expr=None):
     cid = "selector:fexpr"
 
@@ -2773,7 +2747,6 @@ xm_selector_factories = {
     "current": (selector_current, False),
     "branch": (selector_branch, False),
     "wasc": (selector_wasc, False),
-    "xrevd": (selector_xrevd, False),
     "fexpr": (selector_fexpr, False),
     "e": (selector_e, False),
     "l": (selector_l, False),
