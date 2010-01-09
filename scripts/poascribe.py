@@ -1125,7 +1125,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         if aselect:
             asres = aselect(msg, cat, history, config)
             i_asc = (asres - 1) if asres else None
-        elif isinstance(sres, int):
+        elif not isinstance(sres, bool):
             # If there is no ascription selector, but basic selector returned
             # an ascription index, use first earlier non-fuzzy for diffing.
             i_asc = sres - 1
@@ -1143,6 +1143,20 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
             # If no previous ascription selected, add special flag
             # to denote that the whole message is to be reviewed.
             msg.flag.add(_diffflag_tot)
+
+        # Add ascription chain comment.
+        ascfmts = []
+        i_from = (i_asc - 1) if i_asc is not None else len(history) - 1
+        for i in range(i_from, -1, -1):
+            a = history[i]
+            shtype = {ATYPE_MOD: "m", ATYPE_REV: "r"}[a.type]
+            if a.tag:
+                ascfmt = "%s:%s(%s)" % (a.user, shtype, a.tag)
+            else:
+                ascfmt = "%s:%s" % (a.user, shtype)
+            ascfmts.append(ascfmt)
+        achnfmt = _achncmnt + " " + " ".join(ascfmts)
+        msg.auto_comment.append(achnfmt)
 
         diffed_msgs.append(msg)
 
@@ -1319,12 +1333,11 @@ def clear_review_msg (msg, keepflags=False):
         else:
             i += 1
 
-    if keepflags:
-        restore_review_flags(msg, revtags, unrevd)
-
-    # Clear embedded diffs.
     if diffed:
         msg_ediff_to_new(msg, rmsg=msg)
+
+    if keepflags:
+        restore_review_flags(msg, diffed or revd, unrevd)
 
     return commented, diffed, revd, unrevd
 
