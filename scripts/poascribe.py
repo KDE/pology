@@ -2378,7 +2378,7 @@ def selector_unasc ():
     def selector (msg, cat, history, config):
 
         # Do not consider pristine messages as unascribed.
-        return history[0].user is None and has_asc_parts(msg)
+        return history[0].user is None and has_tracked_parts(msg)
 
     return selector
 
