@@ -2073,14 +2073,14 @@ def has_tracked_parts (msg):
     for part in _nonid_fields_tracked:
         pval = msg.get(part)
         if part not in _multiple_fields:
-            if pval is not None:
+            if pval is not None and part != "msgid_plural":
                 return True
-        elif part == "msgstr":
-            for pval1 in pval:
-                if pval1:
-                    return True
         else:
-            if pval:
+            if part == "msgstr":
+                for pval1 in pval:
+                    if pval1:
+                        return True
+            elif pval:
                 return True
 
     return False
