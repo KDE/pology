@@ -790,6 +790,9 @@ def ascribe_modified_w (options, configs_catpaths, mode):
 
 def update_headers_onmod (configs_catpaths, user):
 
+    if user == UFUZZ:
+        return
+
     upprog = setup_progress(configs_catpaths, "Updating headers: %s")
     nupdated = 0
     for config, catpaths in configs_catpaths:
