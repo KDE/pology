@@ -1614,7 +1614,7 @@ _atag_sep = u"/"
 _mark_fuzz = u"f"
 _mark_obs = u"o"
 
-def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
+def ascribe_msg_any (msg, acat, atype, atag, user, config, dt=None):
 
     # Create or retrieve ascription message.
     if msg not in acat:
@@ -1655,16 +1655,10 @@ def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
             wsep += _mark_fuzz
         if wsep:
             modstr_wsep += " | " + wsep
-    first = True
-    for atag in atags or [""]:
-        field = atype
-        if atag != "":
-            field += _atag_sep + atag
-        if first:
-            asc_append_field(amsg, field, modstr_wsep)
-            first = False
-        else:
-            asc_append_field(amsg, field, modstr)
+    field = atype
+    if atag:
+        field += _atag_sep + atag
+    asc_append_field(amsg, field, modstr_wsep)
 
     # Add non-ID fields.
     if hasdiff_nonid:
@@ -1683,12 +1677,12 @@ def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
 
 def ascribe_msg_mod (msg, acat, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_MOD, [], user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_MOD, None, user, config, _dt_start)
 
 
-def ascribe_msg_rev (msg, acat, tags, user, config):
+def ascribe_msg_rev (msg, acat, tag, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_REV, tags, user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_REV, tag, user, config, _dt_start)
 
 
 # FIXME: Imported by others, factor out.
