@@ -53,7 +53,6 @@ def main ():
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poepatch")
     def_do_merge = cfgsec.boolean("merge", True)
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -103,20 +102,15 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-i", "--input", metavar="FILE",
         dest="input",
         help="get embedded difference from file instead of stdout")
-    opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="do not try to use Psyco specializing compiler")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     if not op.unembed:
         if free_args:

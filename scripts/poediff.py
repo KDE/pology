@@ -50,7 +50,6 @@ def main ():
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("poediff")
     def_do_merge = cfgsec.boolean("merge", True)
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -107,10 +106,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="when two directories are diffed, ignore catalogs which "
              "are not present in both directories")
     opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="do not try to use Psyco specializing compiler")
-    opars.add_option(
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
         help="coloring independent of output destination (terminal, file)")
@@ -133,12 +128,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sys.exit(0)
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     if op.raw_colors:
         set_coloring_globals(outdep=False)

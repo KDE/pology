@@ -67,7 +67,6 @@ def main ():
 
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("porewrap")
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -97,10 +96,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="get list of input files from FILE (one file per line)")
     add_wrapping_options(opars)
     opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="do not try to use Psyco specializing compiler")
-    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -110,12 +105,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("Must provide at least one input file.")
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Assemble list of files.
     file_or_dir_paths = fargs

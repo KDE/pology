@@ -35,7 +35,6 @@ def main ():
     def_minasfz = cfgsec.real("min-adjsim-fuzzy", 0.0)
     def_fuzzex = cfgsec.boolean("fuzzy-exact", False)
     def_refuzz = cfgsec.boolean("rebase-fuzzies", False)
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -86,10 +85,6 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "(determined by previous fields) is still in the catalog.")
     REW.add_wrapping_options(opars)
     opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="Do not try to use Psyco specializing compiler.")
-    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="Output more detailed progress info.")
@@ -99,12 +94,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         opars.error("No input files given.")
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Assemble list of files.
     file_or_dir_paths = fargs

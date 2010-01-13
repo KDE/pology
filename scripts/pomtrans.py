@@ -33,7 +33,6 @@ def main ():
 
     # Get defaults for command line options from global config.
     cfgsec = pology_config.section("pomtrans")
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     showservs = list()
     showservs.sort()
@@ -89,20 +88,15 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         metavar="PATH",
         help="Custom path to translation service executable "
              "(where applicable).")
-    opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="Do not try to use Psyco specializing compiler.")
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     if op.list_transervs:
         report("\n".join(sorted(_known_transervs.keys())))
