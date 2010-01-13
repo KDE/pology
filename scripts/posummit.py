@@ -59,10 +59,6 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         action="store_true", dest="force", default=False,
         help="force some operations that are normally not advised")
     opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=True,
-        help="do not try to use Psyco specializing compiler")
-    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help="output more detailed progress info")
@@ -95,12 +91,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             error("unknown mode '%s'" % mode)
 
     # Could use some speedup.
-    if options.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Read project definition.
     project = Project(options)
