@@ -595,6 +595,22 @@ def _check_cat_kplatolibs (msg, cat, pcache, hl):
 _add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
 
 
+def _check_cat_kdeqt (msg, cat, pcache, hl):
+
+    errors = []
+
+    if msg.msgid == "QT_LAYOUT_DIRECTION":
+        if msg.msgstr[0] not in ("LTR", "RTL"):
+            errors.append("translation must be exactly 'LTR' or 'RTL'")
+
+    if errors:
+        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+
+    return len(errors)
+
+_add_cat_check(_check_cat_kdeqt, ["kdeqt"])
+
+
 # Global check to apply appropriate catalog-specific checks.
 def _check_catspec (msg, cat, pcache, hl):
 
