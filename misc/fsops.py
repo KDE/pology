@@ -68,7 +68,8 @@ def collect_files (paths,
                 if not recurse:
                     dirs[:] = []
         else:
-            filepaths.append(path)
+            if not selectf or selectf(path):
+                filepaths.append(path)
 
     if sort:
         if unique:
