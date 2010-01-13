@@ -19,7 +19,7 @@ def add_cmdopt_incexc (opars):
     Regular expressions to include and exclude files and directories
     by matching names and paths.
 
-    @see: L{select_paths()<misc.fsops.select_paths>}
+    @see: L{build_path_selector()<misc.fsops.build_path_selector>}
     """
 
     opars.add_option(
@@ -71,7 +71,7 @@ def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
     @param incexc: whether to enable inclusion/exclusion regexes
     @type incexc: bool
 
-    @see: L{select_paths()<misc.fsops.select_paths>}
+    @see: L{collect_paths_from_file()<misc.fsops.collect_paths_from_file>}
     """
 
     help = ""
