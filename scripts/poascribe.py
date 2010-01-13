@@ -136,10 +136,6 @@ def main ():
              "selected difference segments in resulting messages "
              "(if this substring is empty, space is used).")
     opars.add_option(
-        "-E", "--po-editor", metavar="%s" % "|".join(sorted(known_editors)),
-        action="store", dest="po_editor", default=None,
-        help="Open selected messages in one of the supported PO editors.")
-    opars.add_option(
         "-f", "--files-from", metavar="FILE",
         action="append", dest="files_from", default=[],
         help="get list of input files from FILE, which contains one file path "
@@ -165,6 +161,10 @@ def main ():
         action="store", dest="message", default=None,
         help="commit message for original catalogs, when %(option)s "
              "is in effect" % dict(option="-c"))
+    opars.add_option(
+        "-O", "--po-editor", metavar="%s" % "|".join(sorted(known_editors)),
+        action="store", dest="po_editor", default=None,
+        help="Open selected messages in one of the supported PO editors.")
     opars.add_option(
         "-s", "--selector", metavar="SELECTOR[:ARGS]",
         action="append", dest="selectors", default=None,
