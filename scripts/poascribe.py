@@ -925,7 +925,10 @@ def ascribe_reviewed (options, configs_catpaths, mode):
                                          catpath, acatpath, mode.selector)
     upprog()
     if nasc > 0:
-        report("===! Reviewed: %d" % nasc)
+        if not options.tag:
+            report("===! Reviewed: %d" % nasc)
+        else:
+            report("===! Reviewed (%s): %d" % (options.tag, nasc))
 
     if options.commit:
         onabortf = lambda: restore_reviews(configs_catpaths, revspecs_by_catmsg)
