@@ -159,7 +159,7 @@ def main ():
         help="commit message for original catalogs, when %(option)s "
              "is in effect" % dict(option="-c"))
     opars.add_option(
-        "-O", "--po-editor", metavar="%s" % "|".join(sorted(known_editors)),
+        "-o", "--open-in-editor", metavar=("|".join(sorted(known_editors))),
         action="store", dest="po_editor", default=None,
         help="Open selected messages in one of the supported PO editors.")
     opars.add_option(
