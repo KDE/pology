@@ -77,7 +77,7 @@ def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
     help = ""
     help += ("Collect paths of files and directories from given file, "
              "which contains one path per line. "
-             "If a path is not absolute, it considered relative "
+             "If a path is not absolute, it is considered relative "
              "to current working directory. ")
     if cmnts:
         help += ("Lines starting with '#' are treated as comments "
@@ -89,7 +89,9 @@ def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
                  ":-REGEX excludes by base name without extension; "
                  ":/-REGEX excludes by full path; "
                  ":+REGEX includes by base name without extension; "
-                 ":/+REGEX excludes by full path. ")
+                 ":/+REGEX excludes by full path. "
+                 "If read directories are expanded into subpaths, "
+                 "these directives apply to those paths too. ")
     help += ("The option can be repeated to collect paths from several files.")
 
     opars.add_option(
