@@ -14,8 +14,10 @@ from pology.file.message import MessageUnsafe
 from pology.l10n.sr.hook.wconv import tohi
 from pology.misc.diff import msg_ediff, msg_ediff_to_new
 from pology.misc.fsops import str_to_unicode, collect_catalogs
+from pology.misc.fsops import collect_paths_cmdline
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.report import report, warning, error
+from pology.misc.stdcmdopt import add_cmdopt_filesfrom
 from pology.misc.vcs import available_vcs, make_vcs
 
 
@@ -41,15 +43,11 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         help="Accept messages which have some changes between base "
              "and reconstructed base text.")
     opars.add_option(
-        "-f", "--files-from", metavar="FILE",
-        action="append", dest="files_from", default=[],
-        help="Get list of input files from FILE, which contains one file path "
-             "per line; can be repeated to collect paths from several files.")
-    opars.add_option(
         "-r", "--base-revision", metavar="REV",
         action="store", dest="base_revision", default=None,
         help="Use the given revision as base for hybridization, "
              "instead of local latest revision.")
+    add_cmdopt_filesfrom(opars)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -70,29 +68,16 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         error("Unknown version control system '%s'." % vcskey)
     vcs = make_vcs(vcskey)
 
-    # Collect list of raw paths supplied through command line.
-    # If none supplied, assume current working directory.
-    paths = None
-    if free_args:
-        paths = free_args
-    if options.files_from:
-        if paths is None:
-            paths = []
-        for fpath in options.files_from:
-            lines = open(fpath).read().split("\n")
-            paths.extend(filter(lambda x: x, lines))
-    if paths is None:
-        paths = ["."]
-
-    # Sanity checks on paths.
-    for path in paths:
-        if not os.path.exists(path):
-            error("Path '%s' does not exist." % path)
-        if not vcs.is_versioned(path):
-            error("Path '%s' is not under version control." % path)
-
     # Collect PO files in given paths.
-    popaths = collect_catalogs(paths)
+    popaths = collect_paths_cmdline(rawpaths=free_args,
+                                    filesfrom=options.files_from,
+                                    elsecwd=True,
+                                    respathf=collect_catalogs)
+
+    # Catalogs must be under version control.
+    for path in popaths:
+        if not vcs.is_versioned(path):
+            error("Catalog '%s' is not under version control." % path)
 
     # Go by modified PO file and hybridize it.
     for path in popaths:

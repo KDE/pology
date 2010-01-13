@@ -131,8 +131,6 @@ The following L{user configuration<misc.config>} fields are considered
         before sieving (default C{no})
   - C{[posieve]/skip-obsolete}: whether to avoid sending obsolete messages
         to sieves (default C{no})
-  - C{[posieve]/use-psyco}: whether to use Psyco specializing compiler,
-        if available (default C{yes})
 
 User configuration can also be used to issue sieve parameters.
 For example, to issue parameters C{transl} (a switch) and C{accel} (valued)
@@ -181,19 +179,22 @@ import re
 from optparse import OptionParser
 import glob
 
+from pology import rootdir
+from pology.file.catalog import Catalog
+from pology.misc.colors import set_coloring_globals
+import pology.misc.config as pology_config
+from pology.misc.escape import escape_sh
 from pology.misc.fsops import str_to_unicode
 from pology.misc.fsops import collect_catalogs, collect_system
-from pology.file.catalog import Catalog
+from pology.misc.fsops import build_path_selector, collect_paths_from_file
+from pology.misc.fsops import collect_paths_cmdline
+from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 from pology.misc.report import error, warning, report, encwrite
 from pology.misc.report import init_file_progress
 from pology.misc.report import list_options
-from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
-import pology.misc.config as pology_config
-from pology import rootdir
+from pology.misc.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_incexc
 from pology.misc.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
-from pology.misc.colors import set_coloring_globals
-from pology.misc.escape import escape_sh
 
 
 def main ():
@@ -205,7 +206,6 @@ def main ():
     def_do_skip = cfgsec.boolean("skip-on-error", True)
     def_msgfmt_check = cfgsec.boolean("msgfmt-check", False)
     def_skip_obsolete = cfgsec.boolean("skip-obsolete", False)
-    def_use_psyco = cfgsec.boolean("use-psyco", True)
 
     # Setup options and parse the command line.
     usage = u"""
@@ -224,95 +224,33 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
-        "-l", "--list-sieves",
-        action="store_true", dest="list_sieves", default=False,
-        help="list available internal sieves")
-    opars.add_option(
-        "-H", "--help-sieves",
-        action="store_true", dest="help_sieves", default=False,
-        help="show help for applied sieves")
-    opars.add_option(
-        "-f", "--files-from", metavar="FILE",
-        action="append", dest="files_from", default=[],
-        help="get list of input files from FILE, which contains one file path "
-             "per line; can be repeated to collect paths from several files")
-    opars.add_option(
-        "-s", metavar="NAME[:VALUE]",
-        action="append", dest="sieve_params", default=[],
-        help="pass a parameter to sieves")
-    opars.add_option(
-        "-S", metavar="NAME[:VALUE]",
-        action="append", dest="sieve_no_params", default=[],
-        help="remove a parameter to sieves")
-    opars.add_option(
-        "--issued-params",
-        action="store_true", dest="issued_params", default=False,
-        help="show all issued params (from command line and configuration)")
-    opars.add_option(
-        "--force-sync",
-        action="store_true", dest="force_sync", default=False,
-        help="force rewrite of all messages, modified or not")
-    opars.add_option(
-        "--no-sync",
-        action="store_false", dest="do_sync", default=True,
-        help="do not write any modifications to catalogs")
-    opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=def_use_psyco,
-        help="do not try to use Psyco specializing compiler")
-    opars.add_option(
-        "--no-skip",
-        action="store_false", dest="do_skip", default=def_do_skip,
-        help="do not try to skip catalogs which signal errors")
+        "-a", "--announce-entry",
+        action="store_true", dest="announce_entry", default=False,
+        help="announce that header or message is just about to be sieved")
     opars.add_option(
         "-b", "--skip-obsolete",
         action="store_true", dest="skip_obsolete", default=def_skip_obsolete,
         help="do not sieve obsolete messages")
     opars.add_option(
-        "-m", "--output-modified", metavar="FILE",
-        action="store", dest="output_modified", default=None,
-        help="output names of modified files into FILE")
-    opars.add_option(
         "-c", "--msgfmt-check",
         action="store_true", dest="msgfmt_check", default=def_msgfmt_check,
         help="check catalogs by msgfmt and skip those which do not pass")
     opars.add_option(
-        "-e", "--exclude-cat", metavar="REGEX",
-        dest="exclude_cat",
-        help="do not sieve files when their catalog name (file basename "
-             "without .po* extension) matches the regular expression")
+        "--force-sync",
+        action="store_true", dest="force_sync", default=False,
+        help="force rewrite of all messages, modified or not")
     opars.add_option(
-        "-E", "--exclude-path", metavar="REGEX",
-        dest="exclude_path",
-        help="do not sieve files when their full path matches "
-             "the regular expression")
+        "-H", "--help-sieves",
+        action="store_true", dest="help_sieves", default=False,
+        help="show help for applied sieves")
     opars.add_option(
-        "-i", "--include-cat", metavar="REGEX",
-        dest="include_cat",
-        help="sieve files only when their catalog name (file basename "
-             "without .po* extension) matches the regular expression")
+        "--issued-params",
+        action="store_true", dest="issued_params", default=False,
+        help="show all issued params (from command line and configuration)")
     opars.add_option(
-        "-I", "--include-path", metavar="REGEX",
-        dest="include_path",
-        help="sieve files only when their full path matches "
-             "the regular expression")
-    opars.add_option(
-        "-a", "--announce-entry",
-        action="store_true", dest="announce_entry", default=False,
-        help="announce that header or message is just about to be sieved")
-    opars.add_option(
-        "-v", "--verbose",
-        action="store_true", dest="verbose", default=False,
-        help="output more detailed progress info")
-    opars.add_option(
-        "-q", "--quiet",
-        action="store_true", dest="quiet", default=False,
-        help="do not display any progress info "
-             "(does not influence sieves themselves)")
-    opars.add_option(
-        "-R", "--raw-colors",
-        action="store_true", dest="raw_colors", default=False,
-        help="coloring independent of output destination (terminal, file)")
+        "-l", "--list-sieves",
+        action="store_true", dest="list_sieves", default=False,
+        help="list available internal sieves")
     opars.add_option(
         "--list-options",
         action="store_true", dest="list_options", default=False,
@@ -325,6 +263,41 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "--list-sieve-params",
         action="store_true", dest="list_sieve_params", default=False,
         help="list just the parameters known to issued sieves")
+    opars.add_option(
+        "-m", "--output-modified", metavar="FILE",
+        action="store", dest="output_modified", default=None,
+        help="output names of modified files into FILE")
+    opars.add_option(
+        "--no-skip",
+        action="store_false", dest="do_skip", default=def_do_skip,
+        help="do not try to skip catalogs which signal errors")
+    opars.add_option(
+        "--no-sync",
+        action="store_false", dest="do_sync", default=True,
+        help="do not write any modifications to catalogs")
+    opars.add_option(
+        "-q", "--quiet",
+        action="store_true", dest="quiet", default=False,
+        help="do not display any progress info "
+             "(does not influence sieves themselves)")
+    opars.add_option(
+        "-R", "--raw-colors",
+        action="store_true", dest="raw_colors", default=False,
+        help="coloring independent of output destination (terminal, file)")
+    opars.add_option(
+        "-s", metavar="NAME[:VALUE]",
+        action="append", dest="sieve_params", default=[],
+        help="pass a parameter to sieves")
+    opars.add_option(
+        "-S", metavar="NAME[:VALUE]",
+        action="append", dest="sieve_no_params", default=[],
+        help="remove a parameter to sieves")
+    opars.add_option(
+        "-v", "--verbose",
+        action="store_true", dest="verbose", default=False,
+        help="output more detailed progress info")
+    add_cmdopt_filesfrom(opars)
+    add_cmdopt_incexc(opars)
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -342,12 +315,11 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         op.raw_paths = free_args[1:]
 
     # Could use some speedup.
-    if op.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     if op.raw_colors:
         set_coloring_globals(outdep=False)
@@ -475,57 +447,29 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         error("parameters not accepted by any of issued subcommands: %s"
               % (" ".join(nacc_params)))
 
-    # Assemble list of paths to be searched for catalogs.
-    file_or_dir_paths = op.raw_paths
-    if op.files_from:
-        for paths_file in op.files_from:
-            flines = open(paths_file, "r").readlines()
-            for fline in flines:
-                fline = fline.rstrip("\n")
-                if fline:
-                    file_or_dir_paths.append(fline)
-    elif not file_or_dir_paths:
-        file_or_dir_paths = ["."]
-
-    # Prepare exclusion-inclusion test.
-    exclude_cat_rx = None
-    if op.exclude_cat:
-        exclude_cat_rx = re.compile(op.exclude_cat, re.I|re.U)
-    exclude_path_rx = None
-    if op.exclude_path:
-        exclude_path_rx = re.compile(op.exclude_path, re.I|re.U)
-    include_cat_rx = None
-    if op.include_cat:
-        include_cat_rx = re.compile(op.include_cat, re.I|re.U)
-    include_path_rx = None
-    if op.include_path:
-        include_path_rx = re.compile(op.include_path, re.I|re.U)
-
-    def is_cat_included (fname):
-        # Construct catalog name by stripping final .po* from file basename.
-        cname = os.path.basename(fname)
-        p = cname.rfind(".po")
-        if p > 0:
-            cname = cname[:p]
-        included = True
-        if included and exclude_cat_rx:
-            included = exclude_cat_rx.search(cname) is None
-        if included and exclude_path_rx:
-            included = exclude_path_rx.search(fname) is None
-        if included and include_cat_rx:
-            included = include_cat_rx.search(cname) is not None
-        if included and include_path_rx:
-            included = include_path_rx.search(fname) is not None
-        return included
-
-    # Add as special parameter to each sieve:
-    # - paths from which the catalogs are collected
-    # - whether destination independent coloring is in effect
+    # ========================================
     # FIXME: Think of something less ugly.
+    # Add as special parameter to each sieve:
+    # - root paths from which the catalogs are collected
+    # - whether destination independent coloring is in effect
+    # - test function for catalog selection
+    root_paths = []
+    if op.raw_paths:
+        root_paths.extend(op.raw_paths)
+    if op.files_from:
+        for ffpath in op.files_from:
+            root_paths.extend(collect_paths_from_file(ffpath))
+    if not op.raw_paths and not op.files_from:
+        root_paths = ["."]
+    is_cat_included = build_path_selector(incnames=op.include_names,
+                                          incpaths=op.include_paths,
+                                          excnames=op.exclude_names,
+                                          excpaths=op.exclude_paths)
     for p in sparams.values():
-        p.root_paths = file_or_dir_paths[:]
+        p.root_paths = root_paths
         p.raw_colors = op.raw_colors
         p.is_cat_included = is_cat_included
+    # ========================================
 
     # Create sieves.
     sieves = []
@@ -576,7 +520,14 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("--> Opening catalogs in header-only mode")
 
     # Collect catalog paths.
-    fnames = collect_catalogs(file_or_dir_paths)
+    fnames = collect_paths_cmdline(rawpaths=op.raw_paths,
+                                   incnames=op.include_names,
+                                   incpaths=op.include_paths,
+                                   excnames=op.exclude_names,
+                                   excpaths=op.exclude_paths,
+                                   filesfrom=op.files_from,
+                                   elsecwd=True,
+                                   respathf=collect_catalogs)
 
     if op.do_skip:
         errwarn = warning
@@ -585,19 +536,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         errwarn = error
         errwarn_on_msg = error_on_msg
 
-    # Eliminate or include specific catalogs.
-    fnames_mod = []
-    for fname in fnames:
-        if not is_cat_included(fname):
-            if op.verbose:
-                report("skipping on request: %s" % fname)
-        else:
-            fnames_mod.append(fname)
-    fnames = fnames_mod
-
     # Prepare inline progress indicator.
     if not op.quiet:
-        update_progress = init_file_progress(fnames)
+        update_progress = init_file_progress(fnames, addfmt="Sieving: %s")
 
     # Sieve catalogs.
     modified_files = []

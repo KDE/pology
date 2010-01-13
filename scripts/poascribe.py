@@ -22,13 +22,15 @@ import pology.misc.config as pology_config
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
 from pology.misc.diff import editprob
 from pology.misc.fsops import str_to_unicode, unicode_to_str
-from pology.misc.fsops import collect_catalogs, mkdirpath, join_ncwd
+from pology.misc.fsops import collect_paths_cmdline, collect_catalogs
+from pology.misc.fsops import mkdirpath, join_ncwd
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.report import report, warning, error
 from pology.misc.report import init_file_progress
+from pology.misc.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
 from pology.misc.tabulate import tabulate
 from pology.misc.vcs import make_vcs
 from pology.sieve.find_messages import build_msg_fmatcher
@@ -136,11 +138,6 @@ def main ():
              "selected difference segments in resulting messages "
              "(if this substring is empty, space is used).")
     opars.add_option(
-        "-f", "--files-from", metavar="FILE",
-        action="append", dest="files_from", default=[],
-        help="get list of input files from FILE, which contains one file path "
-             "per line; can be repeated to collect paths from several files")
-    opars.add_option(
         "-F", "--filter", metavar="NAME",
         action="append", dest="filters", default=None,
         help="Pass relevant message text fields through a filter before "
@@ -200,20 +197,17 @@ def main ():
         action="append", dest="externals", default=[],
         help="collect optional functionality from an external Python file "
              "(selectors, etc.)")
-    opars.add_option(
-        "--no-psyco",
-        action="store_false", dest="use_psyco", default=True,
-        help="do not try to use Psyco specializing compiler")
+    add_cmdopt_filesfrom(opars)
+    add_cmdopt_incexc(opars)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     # Could use some speedup.
-    if options.use_psyco:
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
@@ -359,22 +353,20 @@ def main ():
     if not canaselect and aselector:
         error("operation mode does not accept history selectors")
 
-    # Collect list of raw paths supplied through command line.
+    # Collect list of catalogs supplied through command line.
     # If none supplied, assume current working directory.
-    rawpaths = None
-    if free_args:
-        rawpaths = free_args
-    if options.files_from:
-        if rawpaths is None:
-            rawpaths = []
-        for fpath in options.files_from:
-            lines = open(fpath).read().split("\n")
-            rawpaths.extend(filter(lambda x: x, lines))
-    if rawpaths is None:
-        rawpaths = ["."]
+    catpaths = collect_paths_cmdline(rawpaths=free_args,
+                                     incnames=options.include_names,
+                                     incpaths=options.include_paths,
+                                     excnames=options.exclude_names,
+                                     excpaths=options.exclude_paths,
+                                     filesfrom=options.files_from,
+                                     elsecwd=True,
+                                     respathf=collect_catalogs)
 
-    # Collect the config which covers each path, and all catalogs inside it.
-    configs_catpaths = collect_configs_catpaths(rawpaths)
+    # Split catalogs into lists by ascription config,
+    # and link them to their ascription catalogs.
+    configs_catpaths = collect_configs_catpaths(catpaths)
 
     # Execute operation.
     mode.execute(options, configs_catpaths, mode)
@@ -388,20 +380,16 @@ def main ():
         report("Written modified catalog paths to: %s" % lfpath)
 
 
-# For each path:
-# - determine its associated ascription config
-# - collect all catalogs
 # FIXME: Imported by others, factor out.
-def collect_configs_catpaths (paths):
+def collect_configs_catpaths (catpaths):
+    import time
+    t = time.time()
 
-    paths = map(join_ncwd, paths)
-    configs_loaded = {}
-    configs_catpaths = []
-    for path in paths:
+    configs_by_cfgpath = {}
+    catpaths_by_cfgpath = {}
+    for catpath in catpaths:
         # Look for the first config file up the directory tree.
-        parent = os.path.abspath(path)
-        if os.path.isfile(parent):
-            parent = os.path.dirname(parent)
+        parent = os.path.dirname(catpath)
         cfgpath = None
         while True:
             for cfgname in ("ascribe", "ascription-config"):
@@ -416,36 +404,36 @@ def collect_configs_catpaths (paths):
             if parent == pparent:
                 break
         if not cfgpath:
-            error("cannot find ascription configuration for path: %s" % path)
+            error("Cannot find ascription configuration for '%(catpath)s'."
+                  % dict(catpath=catpath))
         cfgpath = join_ncwd(cfgpath) # for nicer message output
-        config = configs_loaded.get(cfgpath, None)
+        config = configs_by_cfgpath.get(cfgpath)
         if not config:
             # New config, load.
             config = Config(cfgpath)
-            configs_loaded[cfgpath] = config
+            configs_by_cfgpath[cfgpath] = config
+            catpaths_by_cfgpath[cfgpath] = []
+        catpaths = catpaths_by_cfgpath.get(cfgpath)
 
-        # Collect PO files.
-        if os.path.isdir(path):
-            catpaths_raw = collect_catalogs(path)
-        else:
-            catpaths_raw = [path]
-        # Determine paths of ascription catalogs.
-        # Pack as (catpath, acatpath) tuples.
-        catpaths = []
+        # Determine path of ascription catalog.
+        # Pack as (catpath, acatpath) tuple.
         absrootpath = os.path.abspath(config.catroot)
         lenarpath = len(absrootpath)
         lenarpathws = lenarpath + len(os.path.sep)
-        for catpath_raw in catpaths_raw:
-            abscatpath = os.path.abspath(catpath_raw)
-            p = abscatpath.find(absrootpath)
-            if p != 0 or abscatpath[lenarpath:lenarpathws] != os.path.sep:
-                error("catalog not in the root given by configuration: %s"
-                      % catpath_raw)
-            acatpath = join_ncwd(config.ascroot, abscatpath[lenarpathws:])
-            catpaths.append((join_ncwd(catpath_raw), acatpath))
+        abscatpath = os.path.abspath(catpath)
+        p = abscatpath.find(absrootpath)
+        if p != 0 or abscatpath[lenarpath:lenarpathws] != os.path.sep:
+            error("Catalog '%(catpath)s' not in the root given "
+                  "by configuration '%(cfgpath)s'."
+                  % dict(catpath=catpath, cfgpath=cfgpath))
+        acatpath = join_ncwd(config.ascroot, abscatpath[lenarpathws:])
+        catpath = join_ncwd(catpath)
+        catpaths.append((catpath, acatpath))
 
-        # Collect the config and corresponding catalogs.
-        configs_catpaths.append((config, catpaths))
+    # Link config objects and catalog paths.
+    configs_catpaths = []
+    for cfgpath in sorted(configs_by_cfgpath):
+        configs_catpaths.append((config, catpaths_by_cfgpath[cfgpath]))
 
     return configs_catpaths
 
