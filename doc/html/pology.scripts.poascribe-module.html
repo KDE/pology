@@ -97,7 +97,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="collect_configs_catpaths"></a><span class="summary-sig-name">collect_configs_catpaths</span>(<span class="summary-sig-arg">paths</span>)</span></td>
+          <td><span class="summary-sig"><a name="collect_configs_catpaths"></a><span class="summary-sig-name">collect_configs_catpaths</span>(<span class="summary-sig-arg">catpaths</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -304,7 +304,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="restore_reviews"></a><span class="summary-sig-name">restore_reviews</span>(<span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">cleared_by_catref</span>)</span></td>
+        <span class="summary-sig-arg">revspecs_by_catmsg</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -321,9 +321,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="restore_review_flags"></a><span class="summary-sig-name">restore_review_flags</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">diffed</span>,
-        <span class="summary-sig-arg">revtags</span>,
-        <span class="summary-sig-arg">unrev</span>)</span></td>
+        <span class="summary-sig-arg">revd</span>,
+        <span class="summary-sig-arg">unrevd</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -476,6 +475,22 @@
         <span class="summary-sig-arg">acatpath</span>,
         <span class="summary-sig-arg">stest</span>,
         <span class="summary-sig-arg">aselect</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="may_have_reviews"></a><span class="summary-sig-name">may_have_reviews</span>(<span class="summary-sig-arg">catpath</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -739,7 +754,7 @@
           <td><span class="summary-sig"><a name="ascribe_msg_any"></a><span class="summary-sig-name">ascribe_msg_any</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">atype</span>,
-        <span class="summary-sig-arg">atags</span>,
+        <span class="summary-sig-arg">atag</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">dt</span>=<span class="summary-sig-default">None</span>)</span></td>
@@ -779,7 +794,7 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_msg_rev"></a><span class="summary-sig-name">ascribe_msg_rev</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
-        <span class="summary-sig-arg">tags</span>,
+        <span class="summary-sig-arg">tag</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
@@ -857,7 +872,8 @@
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">nomrg</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">hfilter</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">shallow</span>=<span class="summary-sig-default">False</span>)</span></td>
+        <span class="summary-sig-arg">shallow</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -972,6 +988,22 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="asc_sync_and_rep"></a><span class="summary-sig-name">asc_sync_and_rep</span>(<span class="summary-sig-arg">acat</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="has_tracked_parts"></a><span class="summary-sig-name">has_tracked_parts</span>(<span class="summary-sig-arg">msg</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1229,23 +1261,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="selector_wasc"></a><span class="summary-sig-name">selector_wasc</span>()</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="selector_xrevd"></a><span class="summary-sig-name">selector_xrevd</span>()</span></td>
+          <td><span class="summary-sig"><a name="selector_unasc"></a><span class="summary-sig-name">selector_unasc</span>()</span></td>
           <td align="right" valign="top">
             
             
@@ -1597,13 +1613,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pology.scripts.poascribe-module.html#xm_selector_factories" class="summary-name">xm_selector_factories</a> = <code title="{&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;curr\
-ent&quot;:(selector_current, False), &quot;branch&quot;:(selector_branch, False), &quot;wa\
-sc&quot;:(selector_wasc, False), &quot;xrevd&quot;:(selector_xrevd, False), &quot;fexpr&quot;:(\
-selector_fexpr, False), &quot;e&quot;:(selector_e, False), &quot;l&quot;:(selector_l, Fals\
-e), &quot;espan&quot;:(selector_espan, False), &quot;lspan&quot;:(selector_lspan, False), \
-&quot;hexpr&quot;:(selector_hexpr, True), &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(sel\
-ector_mod, True), &quot;modar&quot;:(selector_modar, True), &quot;modam&quot;:(selector_mo\
-dam, True), &quot;modarm&quot;:(selector_modarm, True), &quot;tmodar&quot;:(selector_tmoda\
+ent&quot;:(selector_current, False), &quot;branch&quot;:(selector_branch, False), &quot;un\
+asc&quot;:(selector_unasc, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(se\
+lector_e, False), &quot;l&quot;:(selector_l, False), &quot;espan&quot;:(selector_espan, Fa\
+lse), &quot;lspan&quot;:(selector_lspan, False), &quot;hexpr&quot;:(selector_hexpr, True),\
+ &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(sele\
+ctor_modar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_\
+modarm, True), &quot;tmodar&quot;:(selector_tmodar, True), &quot;rev&quot;:(selector_rev, \
 ...">{&quot;any&quot;:(selector_any, False), &quot;active&quot;<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
@@ -1697,13 +1713,13 @@ dam, True), &quot;modarm&quot;:(selector_modarm, True), &quot;tmodar&quot;:(sele
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
 {&quot;any&quot;:(selector_any, False), &quot;active&quot;:(selector_active, False), &quot;curr<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ent&quot;:(selector_current, False), &quot;branch&quot;:(selector_branch, False), &quot;wa<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-sc&quot;:(selector_wasc, False), &quot;xrevd&quot;:(selector_xrevd, False), &quot;fexpr&quot;:(<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-selector_fexpr, False), &quot;e&quot;:(selector_e, False), &quot;l&quot;:(selector_l, Fals<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-e), &quot;espan&quot;:(selector_espan, False), &quot;lspan&quot;:(selector_lspan, False), <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-&quot;hexpr&quot;:(selector_hexpr, True), &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(sel<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ector_mod, True), &quot;modar&quot;:(selector_modar, True), &quot;modam&quot;:(selector_mo<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-dam, True), &quot;modarm&quot;:(selector_modarm, True), &quot;tmodar&quot;:(selector_tmoda<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ent&quot;:(selector_current, False), &quot;branch&quot;:(selector_branch, False), &quot;un<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+asc&quot;:(selector_unasc, False), &quot;fexpr&quot;:(selector_fexpr, False), &quot;e&quot;:(se<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+lector_e, False), &quot;l&quot;:(selector_l, False), &quot;espan&quot;:(selector_espan, Fa<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+lse), &quot;lspan&quot;:(selector_lspan, False), &quot;hexpr&quot;:(selector_hexpr, True),<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ &quot;asc&quot;:(selector_asc, True), &quot;mod&quot;:(selector_mod, True), &quot;modar&quot;:(sele<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ctor_modar, True), &quot;modam&quot;:(selector_modam, True), &quot;modarm&quot;:(selector_<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+modarm, True), &quot;tmodar&quot;:(selector_tmodar, True), &quot;rev&quot;:(selector_rev, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>

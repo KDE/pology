@@ -142,6 +142,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.reduce-module.html#words_ic_lw_dlc" class="summary-sig-name">words_ic_lw_dlc</a>(<span class="summary-sig-arg">text</span>)</span><br />
+      Reduce text to space-separated Ijekavian Cyrillic words containing at
+      least three letters, one of which is '&#1077;' or '&#1080;', in lower case [type 
+      F1A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
@@ -168,9 +187,9 @@
   
   <p>Reduce text to space-separated Ekavian Cyrillic words [type F1A 
   hook].</p>
-  <p>All non-letter sections are replaced with a space, and all words 
-  containing characters not in Serbian Cyrillic are removed. In case the 
-  text contains dialect and script hybridization, it is passed through <a 
+  <p>Words containing only Serbian Cyrillic characters are extracted, 
+  sorted, and joined by spaces into a string. In case the text contains 
+  dialect and script hybridization, it is passed through <a 
   href="pology.l10n.sr.hook.wconv-module.html#hictoic" 
   class="link">hictoec()</a> to resolve it into clean Ekavian Cyrillic. In 
   case the text contains accent marks, it is passed through <a 
@@ -243,6 +262,29 @@
   
   <p>Reduce text to space-separated Ijekavian Cyrillic words, in lower case
   [type F1A hook].</p>
+  <p>Like <a href="pology.l10n.sr.hook.reduce-module.html#words_ic" 
+  class="link">words_ic</a>, but the result is lowercased.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="words_ic_lw_dlc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">words_ic_lw_dlc</span>(<span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reduce text to space-separated Ijekavian Cyrillic words containing at 
+  least three letters, one of which is '&#1077;' or '&#1080;', in lower case [type F1A 
+  hook].</p>
   <p>Like <a href="pology.l10n.sr.hook.reduce-module.html#words_ic" 
   class="link">words_ic</a>, but the result is lowercased.</p>
   <dl class="fields">
