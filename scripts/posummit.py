@@ -1581,13 +1581,13 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     ):
         for branch_msg in branch_cat:
             if branch_msg.obsolete:
-                continue
-            branch_msg.manual_comment = Monlist()
-            branch_msg.unfuzzy()
-            branch_msg.msgstr = Monlist([u""] * len(branch_msg.msgstr))
+                branch_cat.remove_on_sync(branch_msg)
+            else:
+                clear_msg(branch_msg)
 
     # If complete enough, scatter from summit to branch messages.
     else:
+        scattered_branch_msgs = set()
         for branch_msg, summit_msg, summit_cat in msg_links:
             update_progress()
 
@@ -1610,6 +1610,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                             branch_msg.msgstr.append(piped_msgstr)
                     branch_msg.unfuzzy()
                     branch_msg.manual_comment = summit_msg.manual_comment
+                    scattered_branch_msgs.add(branch_msg)
 
                 elif (    summit_msg.msgid_plural is not None
                       and branch_msg.msgid_plural is None
@@ -1623,11 +1624,18 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                         project.hook_on_scatter_msgstr)
                     branch_msg.unfuzzy()
                     branch_msg.manual_comment = summit_msg.manual_comment
+                    scattered_branch_msgs.add(branch_msg)
 
                 else:
                     # Branch is plural, summit is not: should not happen.
                     report(   "%s: summit message needs plurals: {%s}"
                            % (branch_path, branch_msg.msgid))
+
+        # Fuzzy all active messages which were not scattered,
+        # in order to avoid stale translations in branches.
+        for branch_msg in branch_cat:
+            if branch_msg.active and branch_msg not in scattered_branch_msgs:
+                branch_msg.fuzzy = True
 
     # Update branch header based on primary summit catalog.
     # Copy over all header parts from summit to branch,
@@ -2240,6 +2248,16 @@ def normhf (fields, excluded=[]):
     nfs.sort()
 
     return nfs
+
+
+# Remove all translator-related elements from the message.
+def clear_msg (msg):
+
+    msg.unfuzzy()
+    msg.msgstr[:] = [u""] * len(msg.msgstr)
+    msg.manual_comment[:] = []
+
+    return msg
 
 
 if __name__ == '__main__':
