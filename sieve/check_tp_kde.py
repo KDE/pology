@@ -146,7 +146,7 @@ class Sieve (object):
                 if chname not in _known_checks:
                     unknown_checks.append(chname)
             if unknown_checks:
-                raise SieveError("unknown checks selected: %s"
+                raise SieveError("Unknown checks selected: %s."
                                  % ", ".join(unknown_checks))
             self.selected_checks = set(params.check)
 
@@ -163,8 +163,8 @@ class Sieve (object):
         cname = cat.name
         csubdir = _get_catalog_project_subdir(cat.filename)
         if not csubdir:
-            raise SieveCatalogError("%s: cannot determine project subdirectory "
-                                    "of the catalog" % cat.filename)
+            raise SieveCatalogError("Cannot determine project subdirectory "
+                                    "of the catalog '%s'." % cat.filename)
 
         # Select checks applicable to current catalog.
         self.current_checks = []
@@ -370,7 +370,7 @@ def _check_nots (msg, cat, pcache, hl):
             nproblems += 1
             hl.append(("msgstr", i,
                        [(p, p + len(_tsfence),
-                         "dumb message, translation cannot be scripted")]))
+                         "Dumb message, translation cannot be scripted.")]))
 
     return nproblems
 
@@ -418,7 +418,7 @@ def _check_qtdt_w (msgstr, msg, cat):
     spans = []
     if set(msgid_fmts) != set(msgstr_fmts):
         errmsg = ("Qt date-format mismatch, "
-                  "msgid has fields (%s) while msgstr has (%s)"
+                  "msgid has fields (%s) while msgstr has (%s)."
                   % (_qtdt_fjoin(msgid_fmts), _qtdt_fjoin(msgstr_fmts)))
         spans.append((None, None, errmsg))
 
@@ -505,7 +505,7 @@ def _check_trcredits (msg, cat, pcache, hl):
         for email in emails:
             # Check minimal validity of address.
             if email and not _valid_email_rx.match(email):
-                emsg = "invalid email address '%s'" % email
+                emsg = "Invalid email address '%s'." % email
                 errors.append(emsg)
 
     # Check congruence between names and emails.
@@ -513,14 +513,14 @@ def _check_trcredits (msg, cat, pcache, hl):
     emails = pcache.get("tremails")
     if emails and names:
         if len(names) != len(emails):
-            emsg = ("different number of translator names (%d) "
-                    "and email addresses (%d)" % (len(names), len(emails)))
+            emsg = ("Different number of translator names (%d) "
+                    "and email addresses (%d)." % (len(names), len(emails)))
             errors.append(emsg)
         else:
             for name, email, i in zip(names, emails, range(1, len(names) + 1)):
                 if not name and not email:
-                    emsg = ("both name and email address "
-                            "of translator no. %d empty" % i)
+                    emsg = ("Both name and email address "
+                            "of translator no. %d empty." % i)
                     errors.append(emsg)
 
     if errors:
@@ -540,7 +540,7 @@ def _check_plrunq (msg, cat, pcache, hl):
 
     nerrors = 0
     if ":q:" in msg.msgid and ":q:" not in msg.msgstr[0]:
-        errmsg = "Plasma runner query placeholder :q: missing in translation"
+        errmsg = "Plasma runner query placeholder :q: missing in translation."
         hl.append(("msgstr", 0, [(None, None, errmsg)]))
         nerrors += 1
 
@@ -549,13 +549,13 @@ def _check_plrunq (msg, cat, pcache, hl):
 _known_checks["plrunq"] = _check_plrunq
 
 # --------------------------------------
-# Catalog-specific checks.
+# Helpers for catalog-specific checks.
 
-# Use this function to add a catalog-specific checks to one or more
-# catalogs, selected by name. For example:
+# Add a catalog-specific checks to one or more catalogs, selected by name.
+# For example:
 #   _add_cat_check(_check_cat_xyz, ["catfoo", "catbar"])
 _known_checks_by_cat = {}
-def _add_cat_check (check, catspecs):
+def _add_cat_check_hl (check, catspecs):
     for catspec in catspecs:
         if catspec not in _known_checks_by_cat:
             _known_checks_by_cat[catspec] = []
@@ -563,52 +563,19 @@ def _add_cat_check (check, catspecs):
             _known_checks_by_cat[catspec].append(check)
 
 
-def _check_cat_libkleopatra (msg, cat, pcache, hl):
-
-    errors = []
-
-    if "'yes' or 'no'" in (msg.msgctxt or ""):
-        if msg.msgstr[0] not in ("yes", "no"):
-            errors.append("translation must be exactly 'yes' or 'no'")
-
-    if errors:
-        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
-
-    return len(errors)
-
-_add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
-
-
-def _check_cat_kplatolibs (msg, cat, pcache, hl):
-
-    errors = []
-
-    if "Letter(s) only" in (msg.msgctxt or ""):
-        if not msg.msgstr[0].isalpha():
-            errors.append("translation must contain only letters")
-
-    if errors:
-        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
-
-    return len(errors)
-
-_add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
-
-
-def _check_cat_kdeqt (msg, cat, pcache, hl):
-
-    errors = []
-
-    if msg.msgid == "QT_LAYOUT_DIRECTION":
-        if msg.msgstr[0] not in ("LTR", "RTL"):
-            errors.append("translation must be exactly 'LTR' or 'RTL'")
-
-    if errors:
-        hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
-
-    return len(errors)
-
-_add_cat_check(_check_cat_kdeqt, ["kdeqt"])
+# Like _add_cat_check_hl, except that instead of updating the highlight,
+# check function returns a single error message or a list of error messages.
+def _add_cat_check (check, catspecs):
+    def check_mod (msg, cat, pcache, hl):
+        errors = check(msg, cat, pcache)
+        if errors:
+            if isinstance(errors, basestring):
+                errors = [errors]
+            hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
+            return len(errors)
+        else:
+            return 0
+    _add_cat_check_hl(check_mod, catspecs)
 
 
 # Global check to apply appropriate catalog-specific checks.
@@ -621,4 +588,34 @@ def _check_catspec (msg, cat, pcache, hl):
     return nproblems
 
 _known_checks["catspec"] = _check_catspec
+
+
+# --------------------------------------
+# Catalog-specific checks.
+
+def _check_cat_libkleopatra (msg, cat, pcache):
+
+    if "'yes' or 'no'" in (msg.msgctxt or ""):
+        if msg.msgstr[0] not in ("yes", "no"):
+            return "Translation must be exactly 'yes' or 'no'."
+
+_add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
+
+
+def _check_cat_kplatolibs (msg, cat, pcache):
+
+    if "Letter(s) only" in (msg.msgctxt or ""):
+        if not msg.msgstr[0].isalpha():
+            return "Translation must contain only letters."
+
+_add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
+
+
+def _check_cat_kdeqt (msg, cat, pcache):
+
+    if msg.msgid == "QT_LAYOUT_DIRECTION":
+        if msg.msgstr[0] not in ("LTR", "RTL"):
+            return "Translation must be exactly 'LTR' or 'RTL'."
+
+_add_cat_check(_check_cat_kdeqt, ["kdeqt"])
 
