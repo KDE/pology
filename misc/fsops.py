@@ -840,10 +840,13 @@ def collect_paths_cmdline (rawpaths=None,
     paths = filter(selectf, paths)
 
     if getsel:
-        if ormatch:
-            selftot = lambda p: selectf(p) or any([x(p) for x in ffselfs])
+        if ffselfs:
+            if ormatch:
+                selftot = lambda p: selectf(p) or any([x(p) for x in ffselfs])
+            else:
+                selftot = lambda p: selectf(p) and all([x(p) for x in ffselfs])
         else:
-            selftot = lambda p: selectf(p) and all([x(p) for x in ffselfs])
+            selftot = selectf
         return paths, selftot
     else:
         return paths
