@@ -592,6 +592,7 @@ def build_path_selector (incnames=None, incpaths=None,
     sumf = any if ormatch else all
 
     def selector (path):
+        path = os.path.abspath(path)
         name = None
         if incnames_tf or excnames_tf:
             name = os.path.basename(os.path.normpath(path))
