@@ -105,24 +105,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     project = derive_project_data(project, options)
 
     # Collect partial processing specs.
-    options.branches = []
-    options.partspecs = {}
-    for part_spec in free_args:
-        lst = part_spec.split(":", 1)
-        if len(lst) < 2:
-            part_spec, = lst
-            branch_id = None
-        else:
-            branch_id, part_spec = lst
-            if branch_id not in project.branch_ids and branch_id != SUMMIT_ID:
-                error("branch '%s' not in the project" % branch_id)
-        if branch_id and branch_id not in options.branches:
-            options.branches.append(branch_id)
-        if part_spec:
-            brsum_id = branch_id or SUMMIT_ID
-            if brsum_id not in options.partspecs:
-                options.partspecs[brsum_id] = []
-            options.partspecs[brsum_id].append(part_spec)
+    options.partspecs, options.partbids = collect_partspecs(project, free_args)
 
     # Invoke the appropriate operations on collected bundles.
     for mode in options.modes:
@@ -259,6 +242,7 @@ def derive_project_data (project, options):
     class Summit: pass
     s = Summit()
     sd = p.summit
+    s.id = SUMMIT_ID
     s.topdir = sd.pop("topdir", None)
     s.topdir_templates = sd.pop("topdir_templates", None)
     # Assert that there are no misnamed keys in the dictionary.
@@ -606,6 +590,80 @@ def derive_project_data (project, options):
     return p
 
 
+def split_path_in_project (project, path):
+
+    # Split the path into directory and catalog name.
+    if os.path.isfile(path):
+        if not path.endswith((".po", ".pot")):
+            error("Non-PO file '%(path)s' given as project catalog."
+                  % dict(path=path))
+        dirpath = os.path.dirname(path)
+        basename = os.path.basename(path)
+        catname = basename[:basename.rfind(".")]
+    elif os.path.isdir(path):
+        dirpath = path
+        catname = None
+
+    # Deduce project branch and relative path of the directory within it.
+    bid = None
+    breldir = None
+    dirpath = os.path.abspath(dirpath)
+    for b in [project.summit] + project.branches:
+        broot = os.path.abspath(b.topdir)
+        if dirpath.startswith(broot):
+            cbreldir = dirpath[len(broot):]
+            if not cbreldir or cbreldir.startswith(os.path.sep):
+                if not cbreldir:
+                    cbreldir = None
+                else:
+                    cbreldir = cbreldir[len(os.path.sep):]
+                bid = b.id
+                breldir = cbreldir
+                break
+    if not bid:
+        error("Path '%(path)s' is not covered by the project."
+              % dict(path=path))
+
+    return bid, breldir, catname
+
+
+def collect_partspecs (project, specargs):
+
+    partbids = []
+    partspecs = {}
+    for specarg in specargs:
+        # If the partial specification is a valid path,
+        # convert it to operation target.
+        if os.path.exists(specarg):
+            bid, breldir, catname = split_path_in_project(project, specarg)
+            if catname:
+                optarget = bid + ":" + catname
+            elif breldir:
+                optarget = bid + ":" + breldir + os.path.sep
+            else:
+                optarget = bid + ":"
+        else:
+            optarget = specarg
+
+        lst = optarget.split(":", 1)
+        if len(lst) < 2:
+            fdname, = lst
+            bid = None
+        else:
+            bid, fdname = lst
+            if bid not in project.branch_ids and bid != SUMMIT_ID:
+                error("Branch '%s' not defined in the project." % bid)
+        if bid and bid not in partbids:
+            partbids.append(bid)
+        if fdname:
+            bsid = bid or SUMMIT_ID
+            if bsid not in partspecs:
+                partspecs[bsid] = []
+            partspecs[bsid].append(fdname)
+
+    return partspecs, partbids
+
+
 # Fill in defaults for missing fields in hook specs.
 def hook_fill_defaults (specs):
 
@@ -697,10 +755,10 @@ def summit_scatter (project, options):
     scatter_specs = []
 
     # Select branches to scatter to.
-    if not options.branches or SUMMIT_ID in options.branches:
+    if not options.partbids or SUMMIT_ID in options.partbids:
         branch_ids = project.branch_ids
     else:
-        branch_ids = options.branches
+        branch_ids = options.partbids
 
     # Collect catalogs to scatter through all selected branches.
     n_selected_by_summit_subdir = {}
@@ -772,10 +830,10 @@ def summit_merge (project, options):
     merge_specs = []
 
     # Select branches to merge.
-    if not options.branches:
+    if not options.partbids:
         branch_ids = project.branch_ids + [SUMMIT_ID]
     else:
-        branch_ids = options.branches
+        branch_ids = options.partbids
 
     # Merge template summit selected and exists.
     if SUMMIT_ID in branch_ids and project.summit.topdir_templates:
