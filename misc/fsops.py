@@ -536,7 +536,8 @@ def term_width (stream=sys.stdout, default=None):
 
 
 def build_path_selector (incnames=None, incpaths=None,
-                         excnames=None, excpaths=None):
+                         excnames=None, excpaths=None,
+                         ormatch=False):
     """
     Build a path selection function based on inclusion-exclusion condition.
 
@@ -557,6 +558,14 @@ def build_path_selector (incnames=None, incpaths=None,
     (e.g. compiled regular expression), or a general function taking string
     and returning true or false value.
 
+    If C{ormatch} is C{False}, the path is included if there are
+    no inclusion conditions or all inclusion conditions match;
+    the path is excluded if there is at least one exclusion condition
+    and all exclusion conditions match.
+    If C{ormatch} is C{True}, the path is included if there are
+    no inclusion conditions or at least one of them matches;
+    the path is excluded if at least one exclusion condition match.
+
     @param incnames: conditions for inclusion by base name without extension
     @type incnames: sequence (see description)
     @param incpaths: conditions for inclusion by full path
@@ -565,6 +574,8 @@ def build_path_selector (incnames=None, incpaths=None,
     @type excnames: sequence (see description)
     @param excpaths: conditions for exclusion by full path
     @type excpaths: sequence (see description)
+    @param ormatch: whether conditions are linked with OR
+    @type ormatch: bool
 
     @returns: path selection function
     @rtype: (string)->bool
@@ -578,28 +589,46 @@ def build_path_selector (incnames=None, incpaths=None,
     incpaths_tf = _build_path_selector_type(incpaths)
     excnames_tf = _build_path_selector_type(excnames)
     excpaths_tf = _build_path_selector_type(excpaths)
+    sumf = any if ormatch else all
 
     def selector (path):
+        name = None
         if incnames_tf or excnames_tf:
             name = os.path.basename(os.path.normpath(path))
             p = name.rfind(".")
             if p > 0:
                 name = name[:p]
-        for tf in incnames_tf:
-            if not tf(name):
-                return False
-        for tf in incpaths_tf:
-            if not tf(path):
-                return False
-        for tf in excnames_tf:
-            if tf(name):
-                return False
-        for tf in excpaths_tf:
-            if tf(path):
-                return False
-        return True
+        incargs = (  zip(incnames_tf, [name] * len(incnames_tf))
+                   + zip(incpaths_tf, [path] * len(incpaths_tf)))
+        incress = [x(y) for x, y in incargs]
+        excargs = (  zip(excnames_tf, [name] * len(excnames_tf))
+                   + zip(excpaths_tf, [path] * len(excpaths_tf)))
+        excress = [x(y) for x, y in excargs]
+        return (    (not incress or sumf(incress))
+                and (not excress or not sumf(excress)))
 
     return selector
+
+
+def _build_path_selector_type (sels):
+
+    sels_tf = []
+    if not sels:
+        return sels_tf
+    def tofunc (sel):
+        if hasattr(sel, "search"):
+            return lambda x: bool(sel.search(x))
+        elif isinstance(sel, basestring):
+            sel_rx = re.compile(sel, re.U)
+            return lambda x: bool(sel_rx.search(x))
+        elif callable(sel):
+            return sel
+        else:
+            raise TypeError("Cannot convert object '%s' into "
+                            "a string matcher." % sel)
+    sels_tf = map(tofunc, sels)
+
+    return sels_tf
 
 
 _dhead = ":"
@@ -631,9 +660,13 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
       - C{:+REGEX}: includes path only if its base name without extension
             matches the regular expression
       - C{:/+REGEX}: includes path only if it matches the regular expression
+    The path is included if there are no inclusion directives,
+    or it matches at least one inclusion directive;
+    the path is excluded if it matches at least one exclusion directive.
     Inclusion-exclusion directives are given to L{build_path_selector}
-    to create the path selection function, and this function is used
-    to filter collected paths (after application of C{respathf}, if given).
+    to create the path selection function (with C{ormatch} set to C{True}),
+    which is then used to filter collected paths
+    (after application of C{respathf}, if given).
 
     The C{respathf} parameter provides a function to be applied to each path
     and return a list of paths, which then substitute the original path.
@@ -695,7 +728,8 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
 
     if incnames or incpaths or excnames or excpaths:
         selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
-                                      excnames=excnames, excpaths=excpaths)
+                                      excnames=excnames, excpaths=excpaths,
+                                      ormatch=True)
         paths = filter(selectf, paths)
 
     return paths
@@ -704,6 +738,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
 def collect_paths_cmdline (rawpaths=None,
                            incnames=None, incpaths=None,
                            excnames=None, excpaths=None,
+                           ormatch=False,
                            filesfrom=None, cmnts=True, incexc=True,
                            elsecwd=False, respathf=None):
     """
@@ -723,9 +758,10 @@ def collect_paths_cmdline (rawpaths=None,
     The C{rawpaths} parameter provides a list of directly supplied
     paths, e.g. from command line arguments.
     C{incnames}, C{incpaths}, C{excnames}, and C{excpaths} are
-    lists of inclusion and exclusion expressions, out of which
-    single path selection function is constructed, see
-    L{build_path_selector} for details.
+    lists of inclusion and exclusion expressions out of which
+    single path selection function is constructed,
+    with C{ormatch} determining how conditions are linked,
+    see L{build_path_selector} for details.
     C{filesfrom} is a list of files containing lists of paths,
     and C{cmnts} and C{incexc} are options for the file format,
     see L{collect_paths_from_file} for details.
@@ -776,29 +812,9 @@ def collect_paths_cmdline (rawpaths=None,
 
     if incnames or incpaths or excnames or excpaths:
         selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
-                                      excnames=excnames, excpaths=excpaths)
+                                      excnames=excnames, excpaths=excpaths,
+                                      ormatch=ormatch)
         paths = filter(selectf, paths)
 
     return paths
-
-
-def _build_path_selector_type (sels):
-
-    sels_tf = []
-    if not sels:
-        return sels_tf
-    for sel in sels:
-        if hasattr(sel, "search"):
-            sel_tf = lambda x: bool(sel.search(x))
-        elif isinstance(sel, basestring):
-            sel_rx = re.compile(sel, re.U)
-            sel_tf = lambda x: bool(sel_rx.search(x))
-        elif callable(sel):
-            sel_tf = sel
-        else:
-            raise TypeError("Cannot convert object '%s' into "
-                            "a string matcher." % sel)
-        sels_tf.append(sel_tf)
-
-    return sels_tf
 
