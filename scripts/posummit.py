@@ -20,11 +20,13 @@ from pology.file.message import Message, MessageUnsafe
 from pology.misc.fsops import str_to_unicode
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
+from pology.misc.fsops import collect_paths_cmdline
 from pology.misc.merge import merge_pofile
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.msgreport import report_on_msg
 from pology.misc.report import report, error, warning
 from pology.misc.report import init_file_progress
+from pology.misc.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
 from pology.misc.vcs import make_vcs
 import pology.scripts.poascribe as ASC
 import pology.scripts.porewrap as REW
@@ -70,6 +72,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         "-a", "--asc-filter",
         action="store", dest="asc_filter", default=None,
         help="select a non-default ascription filter on scatter")
+    add_cmdopt_filesfrom(opars)
+    add_cmdopt_incexc(opars)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -104,8 +108,16 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Derive some project data.
     project = derive_project_data(project, options)
 
-    # Collect partial processing specs.
-    options.partspecs, options.partbids = collect_partspecs(project, free_args)
+    # Collect partial processing specs and inclusion-exclusion test.
+    res = collect_paths_cmdline(rawpaths=free_args,
+                                incnames=options.include_names,
+                                incpaths=options.include_paths,
+                                excnames=options.exclude_names,
+                                excpaths=options.exclude_paths,
+                                filesfrom=options.files_from,
+                                getsel=True)
+    options.partspecs, options.partbids = collect_partspecs(project, res[0])
+    options.selcatf = res[1]
 
     # Invoke the appropriate operations on collected bundles.
     for mode in options.modes:
@@ -931,7 +943,8 @@ def select_branch_catalogs (branch_id, project, options,
         branch_catalogs = []
         for name, spec in pbcats.items():
             for path, subdir in spec:
-                branch_catalogs.append((name, path, subdir))
+                if options.selcatf(path):
+                    branch_catalogs.append((name, path, subdir))
     else:
         # Select branch catalogs by command line specification.
         branch_catalogs = []
@@ -949,7 +962,9 @@ def select_branch_catalogs (branch_id, project, options,
                         for path, subdir in spec:
                             if sel_subdir == subdir:
                                 one_found = True
-                                branch_catalogs_l.append((name, path, subdir))
+                                if options.selcatf(path):
+                                    branch_catalogs_l.append(
+                                        (name, path, subdir))
                     if not one_found:
                         error(  "no catalogs in branch '%s' subdir '%s'" \
                               % (branch_id, sel_subdir))
@@ -960,8 +975,10 @@ def select_branch_catalogs (branch_id, project, options,
                     for name, spec in pbcats.items():
                         if sel_name == name:
                             for path, subdir in spec:
-                                branch_catalogs_l.append((name, path, subdir))
                                 one_found = True
+                                if options.selcatf(path):
+                                    branch_catalogs_l.append(
+                                        (name, path, subdir))
                             break
                     if not one_found:
                         error(  "no catalog named '%s' in branch '%s'" \
@@ -978,8 +995,9 @@ def select_branch_catalogs (branch_id, project, options,
                             if summit_name in pimap:
                                 for name in pimap[summit_name]:
                                     for path, subdir in pbcats[name]:
-                                        branch_catalogs_l2.append(
-                                            (name, path, subdir))
+                                        if options.selcatf(path):
+                                            branch_catalogs_l2.append(
+                                                (name, path, subdir))
 
                 branch_catalogs.extend(branch_catalogs_l)
                 branch_catalogs.extend(branch_catalogs_l2)
@@ -1000,7 +1018,8 @@ def select_branch_catalogs (branch_id, project, options,
                             for bname in bnames:
                                 if bname in pbcats:
                                     for bpath, bsubdir in pbcats[bname]:
-                                        cats.append((bname, bpath, bsubdir))
+                                        if options.selcatf(bpath):
+                                            cats.append((bname, bpath, bsubdir))
                     branch_catalogs.extend(cats)
                     n_selected_by_summit_subdir[sel_subdir] += len(cats)
                 else:
@@ -1012,7 +1031,9 @@ def select_branch_catalogs (branch_id, project, options,
                     for bname in bnames:
                         if bname in pbcats:
                             for bpath, bsubdir in pbcats[bname]:
-                                branch_catalogs.append((bname, bpath, bsubdir))
+                                if options.selcatf(bpath):
+                                    branch_catalogs.append(
+                                        (bname, bpath, bsubdir))
 
     # Same catalogs may have been selected multiple times, remove.
     branch_catalogs = list(set(branch_catalogs))
@@ -1030,8 +1051,10 @@ def select_summit_names (project, options):
     # Collect all summit catalogs selected explicitly or implicitly.
     summit_names = []
     if not options.partspecs:
-        for name in project.catalogs[SUMMIT_ID]:
-            summit_names.append(name)
+        for name, spec in project.catalogs[SUMMIT_ID].items():
+            path, subdir = spec[0] # summit catalogs are unique
+            if options.selcatf(path):
+                summit_names.append(name)
     else:
         for branch_id in options.partspecs:
             for part_spec in options.partspecs[branch_id]:
@@ -1039,26 +1062,50 @@ def select_summit_names (project, options):
                 if branch_id == SUMMIT_ID: # explicit by summit reference
                     if part_spec.find(os.sep) >= 0: # whole subdir
                         sel_subdir = os.path.normpath(part_spec)
+                        one_found = False
                         for name, spec in project.catalogs[SUMMIT_ID].items():
                             path, subdir = spec[0] # summit catalogs are unique
                             if sel_subdir == subdir:
-                                summit_names.append(name)
+                                one_found = True
+                                if options.selcatf(path):
+                                    summit_names.append(name)
+                        if not one_found:
+                            error("no summit directory named '%s'" % sel_subdir)
                     else: # single name
                         sel_name = part_spec
-                        summit_names.append(sel_name)
+                        spec = project.catalogs[SUMMIT_ID].get(sel_name)
+                        if not sel_name:
+                            error("no summit catalog named '%s'" % sel_name)
+                        path, subdir = spec[0] # summit catalogs are unique
+                        if options.selcatf(path):
+                            summit_names.append(sel_name)
 
                 else: # implicit by branch reference
                     if part_spec.find(os.sep) >= 0: # whole subdir
                         sel_subdir = os.path.normpath(part_spec)
+                        one_found = False
                         for name, spec in project.catalogs[branch_id].items():
                             for path, subdir in spec:
                                 if sel_subdir == subdir:
-                                    summit_names.extend(
-                                        project.direct_map[branch_id][name])
+                                    one_found = True
+                                    if options.selcatf(path):
+                                        summit_names.extend(
+                                            project.direct_map[branch_id][name])
+                                    break
+                        if not one_found:
+                            error("no directory named '%s' in branch '%s'"
+                                  % (sel_subdir, branch_id))
                     else: # single name
                         sel_name = part_spec
-                        summit_names.extend(
-                            project.direct_map[branch_id][sel_name])
+                        spec = project.catalogs[branch_id].get(sel_name)
+                        if not spec:
+                            error("no catalog named '%s' in branch '%s'"
+                                  % (sel_name, branch_id))
+                        for path, subdir in spec:
+                            if options.selcatf(path):
+                                summit_names.extend(
+                                    project.direct_map[branch_id][sel_name])
+                            break
 
     # Make names unique and sort by path.
     summit_names = list(set(summit_names))
