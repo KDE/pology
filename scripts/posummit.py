@@ -410,16 +410,20 @@ def derive_project_data (project, options):
                 mapped_summit_names[branch_id][summit_name].append(branch_name)
 
         # Go through all branches.
+        bt_cache = {}
         for branch in p.branches:
             # Skip this branch if no templates.
             if not branch.topdir_templates:
                 continue
 
             # Collect all templates for this branch.
-            branch_templates = collect_catalogs(branch.topdir_templates,
-                                                ".pot", branch.by_lang,
-                                                branch.ignored,
-                                                project, options)
+            branch_templates = bt_cache.get(branch.topdir_templates)
+            if branch_templates is None:
+                branch_templates = collect_catalogs(branch.topdir_templates,
+                                                    ".pot", branch.by_lang,
+                                                    branch.ignored,
+                                                    project, options)
+                bt_cache[branch.topdir_templates] = branch_templates
 
             # Go through all summit catalogs.
             for summit_name in p.catalogs[SUMMIT_ID]:
