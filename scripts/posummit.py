@@ -777,12 +777,10 @@ def summit_scatter (project, options):
         branch_ids = options.partbids
 
     # Collect catalogs to scatter through all selected branches.
-    n_selected_by_summit_subdir = {}
     missing_in_summit = []
     for branch_id in branch_ids:
 
-        branch_catalogs = select_branch_catalogs(branch_id, project, options,
-                                                 n_selected_by_summit_subdir)
+        branch_catalogs = select_branch_catalogs(branch_id, project, options)
 
         for branch_name, branch_path, branch_subdir in branch_catalogs:
 
@@ -804,11 +802,6 @@ def summit_scatter (project, options):
 
         # Dummy entry to indicate branch switch.
         scatter_specs.append((branch_id, None, None, None, None))
-
-    # Assure no empty partial selections by summit subdirs.
-    for subdir in n_selected_by_summit_subdir:
-        if not n_selected_by_summit_subdir[subdir]:
-            error("no catalogs to scatter by summit subdir '%s'" % subdir)
 
     # Assure all catalogs to scatter have summit counterparts.
     if missing_in_summit:
@@ -876,7 +869,6 @@ def summit_merge (project, options):
                                 project.summit_fuzzy_merging))
 
     # Merge selected branches.
-    n_selected_by_summit_subdir = {}
     for branch_id in branch_ids:
         branch = project.bdict[branch_id]
 
@@ -885,8 +877,7 @@ def summit_merge (project, options):
             continue
 
         # Collect branch catalogs to merge.
-        branch_catalogs = select_branch_catalogs(branch_id, project, options,
-                                                 n_selected_by_summit_subdir)
+        branch_catalogs = select_branch_catalogs(branch_id, project, options)
 
         # Collect template catalogs to use.
         template_catalogs = collect_catalogs(branch.topdir_templates, ".pot",
@@ -931,8 +922,7 @@ def summit_merge (project, options):
     upprog()
 
 
-def select_branch_catalogs (branch_id, project, options,
-                            n_selected_by_summit_subdir):
+def select_branch_catalogs (branch_id, project, options):
 
     # Shortcuts.
     pbcats = project.catalogs[branch_id]
@@ -1008,8 +998,6 @@ def select_branch_catalogs (branch_id, project, options,
                 if part_spec.find(os.sep) >= 0:
                     # Complete subdir.
                     sel_subdir = os.path.normpath(part_spec)
-                    if sel_subdir not in n_selected_by_summit_subdir:
-                        n_selected_by_summit_subdir[sel_subdir] = 0
                     cats = []
                     for name, spec in project.catalogs[SUMMIT_ID].items():
                         path, subdir = spec[0] # all summit catalogs unique
@@ -1021,7 +1009,6 @@ def select_branch_catalogs (branch_id, project, options,
                                         if options.selcatf(bpath):
                                             cats.append((bname, bpath, bsubdir))
                     branch_catalogs.extend(cats)
-                    n_selected_by_summit_subdir[sel_subdir] += len(cats)
                 else:
                     # Specific catalog.
                     sel_name = part_spec
