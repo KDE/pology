@@ -637,7 +637,8 @@ _dincpath = "/+"
 _dexcname = "-"
 _dexcpath = "/-"
 
-def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
+def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
+                             getsel=False):
     """
     Collect list of paths from the file.
 
@@ -645,6 +646,11 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
     and empty lines are skipped.
     If C{cmnts} is C{True}, then also the lines starting with C{'#'}
     are skipped as comments.
+
+    The C{respathf} parameter provides a function to be applied to each path
+    and return a list of paths, which then substitute the original path.
+    This function can be used, for example, to recursively collect files
+    from listed directories, or to exclude paths by an external condition.
 
     If C{incexc} is C{True}, then the lines starting with C{':'}
     define directives by which files and directories are included
@@ -668,10 +674,11 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
     which is then used to filter collected paths
     (after application of C{respathf}, if given).
 
-    The C{respathf} parameter provides a function to be applied to each path
-    and return a list of paths, which then substitute the original path.
-    This function can be used, for example, to recursively collect files
-    from listed directories, or to exclude paths by an external condition.
+    If C{getsel} is set to C{True}, the selection function is returned
+    as well (if necessary to apply it later, e.g. if files are collected
+    from directories externally, instead with C{respathf}).
+    If there were no inclusion-exclusion directives in the file,
+    the resulting selection function will return C{True} for any path.
 
     @param fpath: the path to file which contains paths
     @type fpath: string
@@ -681,9 +688,11 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
     @type incexc: boolean
     @param respathf: function to resolve collected paths
     @type respathf: (string)->[string...]
+    @param getsel: whether to also return constructed path selection function
+    @type getsel: bool
 
-    @returns: collected paths
-    @rtype: [string...]
+    @returns: collected paths, possibly with path selection function
+    @rtype: [string...] or ([string...], (string)->bool)
     """
 
     paths = []
@@ -726,13 +735,15 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None):
     if respathf:
         paths = sum(map(respathf, paths), [])
 
-    if incnames or incpaths or excnames or excpaths:
-        selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
-                                      excnames=excnames, excpaths=excpaths,
-                                      ormatch=True)
-        paths = filter(selectf, paths)
+    selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
+                                  excnames=excnames, excpaths=excpaths,
+                                  ormatch=True)
+    paths = filter(selectf, paths)
 
-    return paths
+    if getsel:
+        return paths, selectf
+    else:
+        return paths
 
 
 def collect_paths_cmdline (rawpaths=None,
@@ -740,7 +751,8 @@ def collect_paths_cmdline (rawpaths=None,
                            excnames=None, excpaths=None,
                            ormatch=False,
                            filesfrom=None, cmnts=True, incexc=True,
-                           elsecwd=False, respathf=None):
+                           elsecwd=False, respathf=None,
+                           getsel=False):
     """
     Collect list of paths from usual sources given on command line.
 
@@ -758,12 +770,12 @@ def collect_paths_cmdline (rawpaths=None,
     The C{rawpaths} parameter provides a list of directly supplied
     paths, e.g. from command line arguments.
     C{incnames}, C{incpaths}, C{excnames}, and C{excpaths} are
-    lists of inclusion and exclusion expressions out of which
+    lists of inclusion and exclusion conditions out of which
     single path selection function is constructed,
     with C{ormatch} determining how conditions are linked,
     see L{build_path_selector} for details.
     C{filesfrom} is a list of files containing lists of paths,
-    and C{cmnts} and C{incexc} are options for the file format,
+    C{cmnts} and C{incexc} are options for the file format,
     see L{collect_paths_from_file} for details.
     If both C{rawpaths} and C{filesfrom} are not given or empty,
     C{elsecwd} determines if current working directory is added
@@ -783,11 +795,19 @@ def collect_paths_cmdline (rawpaths=None,
     if no inclusion tests are given, then all files are included
     unless excluded by an exclusion test.
 
+    If C{getsel} is set to C{True}, the path selection function
+    is returned too.
+    This function will also include path selection functions
+    constructed from inclusion-exclusion directives found in C{filesfrom},
+    linked with the top conditions according to C{ormatch}.
+
     @param respathf: function to resolve collected paths
     @type respathf: (string)->[string...]
+    @param getsel: whether to also return constructed path selection function
+    @type getsel: bool
 
-    @returns: collected paths
-    @rtype: [string...]
+    @returns: collected paths, possibly with path selection function
+    @rtype: [string...] or ([string...], (string)->bool)
     """
 
     paths = []
@@ -797,10 +817,13 @@ def collect_paths_cmdline (rawpaths=None,
         if respathf:
             rawpaths = sum(map(respathf, rawpaths), [])
         paths.extend(rawpaths)
+    ffselfs = []
     if filesfrom:
         for ffpath in filesfrom:
-            paths.extend(collect_paths_from_file(ffpath, cmnts, incexc,
-                                                 respathf))
+            cpaths, cself = collect_paths_from_file(ffpath, cmnts, incexc,
+                                                    respathf, getsel=True)
+            paths.extend(cpaths)
+            ffselfs.append(cself)
     # If neither direct paths nor files to read paths from were given,
     # add current working directory if requested.
     if elsecwd and not rawpaths and not filesfrom:
@@ -810,11 +833,17 @@ def collect_paths_cmdline (rawpaths=None,
         else:
             paths.append(cwd)
 
-    if incnames or incpaths or excnames or excpaths:
-        selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
-                                      excnames=excnames, excpaths=excpaths,
-                                      ormatch=ormatch)
-        paths = filter(selectf, paths)
+    selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
+                                  excnames=excnames, excpaths=excpaths,
+                                  ormatch=ormatch)
+    paths = filter(selectf, paths)
 
-    return paths
+    if getsel:
+        if ormatch:
+            selftot = lambda p: selectf(p) or any([x(p) for x in ffselfs])
+        else:
+            selftot = lambda p: selectf(p) and all([x(p) for x in ffselfs])
+        return paths, selftot
+    else:
+        return paths
 
