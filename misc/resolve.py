@@ -295,15 +295,15 @@ def first_to_case (text, upper=True, nalts=0, althead=DEFAULT_ALTHEAD):
     In that case, if the first letter is found within an alternative, change
     cases for first letters in other alternatives of the same directive too.
 
+    If lowercasing is requested, it is not done if both the first and
+    the second letter are uppercase (e.g. acronyms, all-caps writting).
+
     @param text: the text to transform
     @type text: string
-
     @param upper: whether to transform to uppercase (lowercase otherwise)
     @type upper: bool
-
     @param nalts: if non-zero, the number of alternatives per directive
-    @type nalts: int >= 0
-
+    @type nalts: int
     @param althead: alternatives directive head instead of the default one
     @type althead: string
 
@@ -370,8 +370,17 @@ def first_to_case (text, upper=True, nalts=0, althead=DEFAULT_ALTHEAD):
         cseg = text[i0:i]
         if cchange:
             ncchanged += 1
-            if upper: textcc += cseg.upper()
-            else:     textcc += cseg.lower()
+            if upper:
+                textcc += cseg.upper()
+            else:
+                # Find first next letter, for two-uppercase check.
+                i1 = i
+                while i1 < tlen and not text[i1].isalpha():
+                    i1 += 1
+                if i1 == tlen or not cseg.isupper() or not text[i1].isupper():
+                    textcc += cseg.lower()
+                else:
+                    textcc += cseg
         else:
             textcc += cseg
 
