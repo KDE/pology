@@ -47,6 +47,8 @@ Xerox: Зирокс|, Зирокс|ов, зирокс|>
     @л: 4Front|, 4Front|ov
 Adobe: Адоуб|и, Адоуб|ијев
     @л: Adob|e-ij, Adob|ejev
+Berkeley Systems: Беркли системс|, Беркли системс|ов
+    @л: Berkeley Systems|, Berkeley Systems|ov
 BSDi: БСД|и, БСД|ијев
 Canonical: Каноникал|, Каноникал|ов
     @л: Canonical|, Canonical|ov
@@ -110,3 +112,21 @@ ETL: ЕТЛ|-, ЕТЛ|-ов
 Misc: разн|и>
 Monotype: Монотајп|, Монотајп|ов
     @л: Monotype|, Monotype|ov
+
+# ----------------------------------------------------------------------------
+# Аутомобилска индустрија
+
+Audi: Ауд|и, Ауд|ијев, _нр=нем
+BMW: БМВ|-, БМВ|-ов, _нр=нем
+    @л: BMW|-, BMW|-ov
+Dodge: Доџ|, Доџ|ов, _нр=амер
+    @л: Dodge|, Dodge|ov
+Honda: Хонд|а, Хонд|ин, _нр=јап
+Jaguar: Јагуар|, Јагуар|ов, _нр=брит
+Porsche: Порше|, Порше|ов, _нр=нем
+    @л: Porsche|, Porsche|ov
+Subaru: Субару|, Субару|ов, _нр=јап
+Volkswagen: Фолксваген|, Фолксваген|ов, _нр=нем
+    @л: Volkswagen|, Volkswagen|ov
+VW, |vwco: ФВ|-, ФВ|-ов, _пр=Volkswagen, _нр=нем
+    @л: VW|-, VW|-ov
