@@ -1037,6 +1037,7 @@ def ascribe_modified_cat (options, config, user, catpath, acatpath):
     for msg in toasc_msgs:
         ascribe_msg_mod(msg, acat, user, config)
 
+    config.vcs.add(cat.filename)
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
