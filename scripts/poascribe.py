@@ -389,7 +389,7 @@ def collect_configs_catpaths (catpaths):
     catpaths_by_cfgpath = {}
     for catpath in catpaths:
         # Look for the first config file up the directory tree.
-        parent = os.path.dirname(catpath)
+        parent = os.path.dirname(os.path.abspath(catpath))
         cfgpath = None
         while True:
             for cfgname in ("ascribe", "ascription-config"):
