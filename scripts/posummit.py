@@ -191,9 +191,7 @@ class Project (object):
         })
         self.__dict__["locked"] = False
 
-        # Root dir for path resolution:
-        # all paths considered relative to project file location.
-        self._rootdir = os.path.dirname(self.options.fproj)
+        self.inclusion_trail = []
 
     def __setattr__ (self, att, val):
 
@@ -219,22 +217,24 @@ class Project (object):
         new_path = self.resolve_path(new_path)
 
         # Resolve relative paths as relative to current root dir.
+        rootdir = os.path.dirname(self.inclusion_trail[-1])
         if not os.path.isabs(path):
-            new_path = join_ncwd(self._rootdir, new_path)
+            new_path = join_ncwd(rootdir, new_path)
 
         return new_path
 
     def include (self, path):
 
-        backup_rootdir = self._rootdir
-        self._rootdir = os.path.dirname(path)
+        path = os.path.abspath(path)
+        if path in self.inclusion_trail:
+            error("Circular inclusion of '%(path)s' attempted "
+                  "in summit configuration."
+                  % dict(path=path))
+        self.inclusion_trail.append(path)
         self.locked = True
-        ifs = open(path)
-        execdict = {"S" : self}
-        exec ifs in execdict
-        ifs.close()
+        exec open(path) in {"S" : self}
         self.locked = False
-        self._rootdir = backup_rootdir
+        self.inclusion_trail.pop()
 
 
 def interpolate (text, dict):
