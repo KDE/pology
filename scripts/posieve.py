@@ -520,17 +520,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("--> Opening catalogs in header-only mode")
 
     # Collect catalog paths.
-    try:
-        fnames = collect_paths_cmdline(rawpaths=op.raw_paths,
-                                       incnames=op.include_names,
-                                       incpaths=op.include_paths,
-                                       excnames=op.exclude_names,
-                                       excpaths=op.exclude_paths,
-                                       filesfrom=op.files_from,
-                                       elsecwd=True,
-                                       respathf=collect_catalogs)
-    except Exception, e:
-        error(unicode(e))
+    fnames = collect_paths_cmdline(rawpaths=op.raw_paths,
+                                   incnames=op.include_names,
+                                   incpaths=op.include_paths,
+                                   excnames=op.exclude_names,
+                                   excpaths=op.exclude_paths,
+                                   filesfrom=op.files_from,
+                                   elsecwd=True,
+                                   respathf=collect_catalogs,
+                                   abort=True)
 
     if op.do_skip:
         errwarn = warning

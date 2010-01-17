@@ -111,7 +111,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Collect partial processing specs and inclusion-exclusion test.
     specargs, ffself = collect_paths_cmdline(rawpaths=free_args,
                                              filesfrom=options.files_from,
-                                             getsel=True)
+                                             getsel=True, abort=True)
     options.partspecs, options.partbids = collect_partspecs(project, specargs)
     cmdself = build_path_selector(incnames=options.include_names,
                                   incpaths=options.include_paths,

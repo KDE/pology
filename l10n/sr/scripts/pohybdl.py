@@ -72,7 +72,8 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     popaths = collect_paths_cmdline(rawpaths=free_args,
                                     filesfrom=options.files_from,
                                     elsecwd=True,
-                                    respathf=collect_catalogs)
+                                    respathf=collect_catalogs,
+                                    abort=True)
 
     # Catalogs must be under version control.
     for path in popaths:

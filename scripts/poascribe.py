@@ -362,7 +362,8 @@ def main ():
                                      excpaths=options.exclude_paths,
                                      filesfrom=options.files_from,
                                      elsecwd=True,
-                                     respathf=collect_catalogs)
+                                     respathf=collect_catalogs,
+                                     abort=True)
 
     # Split catalogs into lists by ascription config,
     # and link them to their ascription catalogs.
