@@ -676,7 +676,9 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
     (after application of C{respathf}, if given).
 
     If C{getsel} is set to C{True}, the selection function is returned
-    as well (if necessary to apply it later, e.g. if files are collected
+    instead of being applied to read paths immediately.
+    This is useful in case the C{respathf} parameter is not sufficient
+    to resolve paths, but more complex processing is required.
     from directories externally, instead with C{respathf}).
     If there were no inclusion-exclusion directives in the file,
     the resulting selection function will return C{True} for any path.
@@ -689,7 +691,8 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
     @type incexc: boolean
     @param respathf: function to resolve collected paths
     @type respathf: (string)->[string...]
-    @param getsel: whether to also return constructed path selection function
+    @param getsel: whether to return constructed path selection function
+        instead of applying it
     @type getsel: bool
 
     @returns: collected paths, possibly with path selection function
@@ -739,11 +742,10 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
     selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
                                   excnames=excnames, excpaths=excpaths,
                                   ormatch=True)
-    paths = filter(selectf, paths)
-
     if getsel:
         return paths, selectf
     else:
+        paths = filter(selectf, paths)
         return paths
 
 
@@ -797,14 +799,15 @@ def collect_paths_cmdline (rawpaths=None,
     unless excluded by an exclusion test.
 
     If C{getsel} is set to C{True}, the path selection function
-    is returned too.
+    is returned instead of being applied to collected paths.
     This function will also include path selection functions
     constructed from inclusion-exclusion directives found in C{filesfrom},
     linked with the top conditions according to C{ormatch}.
 
     @param respathf: function to resolve collected paths
     @type respathf: (string)->[string...]
-    @param getsel: whether to also return constructed path selection function
+    @param getsel: whether to return constructed path selection function
+        instead of applying it
     @type getsel: bool
 
     @returns: collected paths, possibly with path selection function
@@ -838,8 +841,6 @@ def collect_paths_cmdline (rawpaths=None,
     selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
                                   excnames=excnames, excpaths=excpaths,
                                   ormatch=ormatch)
-    paths = filter(selectf, paths)
-
     if getsel:
         if ffselfs:
             if ormatch:
@@ -850,5 +851,6 @@ def collect_paths_cmdline (rawpaths=None,
             selftot = selectf
         return paths, selftot
     else:
+        paths = filter(selectf, paths)
         return paths
 
