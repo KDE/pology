@@ -642,7 +642,7 @@ _dexcname = "-"
 _dexcpath = "/-"
 
 def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
-                             getsel=False):
+                             getsel=False, abort=False):
     """
     Collect list of paths from the file.
 
@@ -697,10 +697,20 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
     @param getsel: whether to return constructed path selection function
         instead of applying it
     @type getsel: bool
+    @param abort: whether to abort the execution on exceptions from
+        path resolution or selection functions
+    @type abort: bool
 
     @returns: collected paths, possibly with path selection function
     @rtype: [string...] or ([string...], (string)->bool)
     """
+
+    if abort:
+        def abort_or_raise (e):
+            error(unicode(e))
+    else:
+        def abort_or_raise (e):
+            raise
 
     paths = []
     incnames = []
@@ -740,7 +750,10 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
             paths.append(line)
 
     if respathf:
-        paths = sum(map(respathf, paths), [])
+        try:
+            paths = sum(map(respathf, paths), [])
+        except Exception, e:
+            abort_or_raise(e)
 
     selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
                                   excnames=excnames, excpaths=excpaths,
@@ -748,7 +761,10 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
     if getsel:
         return paths, selectf
     else:
-        paths = filter(selectf, paths)
+        try:
+            paths = filter(selectf, paths)
+        except Exception, e:
+            abort_or_raise(e)
         return paths
 
 
@@ -758,7 +774,8 @@ def collect_paths_cmdline (rawpaths=None,
                            ormatch=False,
                            filesfrom=None, cmnts=True, incexc=True,
                            elsecwd=False, respathf=None,
-                           getsel=False):
+                           getsel=False,
+                           abort=False):
     """
     Collect list of paths from usual sources given on command line.
 
@@ -812,6 +829,9 @@ def collect_paths_cmdline (rawpaths=None,
     @param getsel: whether to return constructed path selection function
         instead of applying it
     @type getsel: bool
+    @param abort: whether to abort the execution on exceptions from
+        path resolution or selection functions
+    @type abort: bool
 
     @returns: collected paths, possibly with path selection function
     @rtype: [string...] or ([string...], (string)->bool)
@@ -819,17 +839,28 @@ def collect_paths_cmdline (rawpaths=None,
 
     paths = []
 
+    if abort:
+        def abort_or_raise (e):
+            error(unicode(e))
+    else:
+        def abort_or_raise (e):
+            raise
+
     # First add paths given directly, then add paths read from files.
     if rawpaths:
         rawpaths2 = rawpaths
         if respathf:
-            rawpaths2 = sum(map(respathf, rawpaths), [])
+            try:
+                rawpaths2 = sum(map(respathf, rawpaths), [])
+            except Exception, e:
+                abort_or_raise(e)
         paths.extend(rawpaths2)
     ffselfs = []
     if filesfrom:
         for ffpath in filesfrom:
             cpaths, cself = collect_paths_from_file(ffpath, cmnts, incexc,
-                                                    respathf, getsel=True)
+                                                    respathf, getsel=True,
+                                                    abort=abort)
             paths.extend(cpaths)
             ffselfs.append(cself)
     # If neither direct paths nor files to read paths from were given,
@@ -837,7 +868,10 @@ def collect_paths_cmdline (rawpaths=None,
     if elsecwd and not rawpaths and not filesfrom:
         cwd = os.getcwd()
         if respathf:
-            paths.extend(respathf(cwd))
+            try:
+                paths.extend(respathf(cwd))
+            except Exception, e:
+                abort_or_raise(e)
         else:
             paths.append(cwd)
 
@@ -854,6 +888,9 @@ def collect_paths_cmdline (rawpaths=None,
             selftot = selectf
         return paths, selftot
     else:
-        paths = filter(selectf, paths)
+        try:
+            paths = filter(selectf, paths)
+        except Exception, e:
+            abort_or_raise(e)
         return paths
 
