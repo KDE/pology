@@ -1799,10 +1799,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         exec_hook_file(branch_id, branch_name, branch_subdir,
                        branch_cat.filename, project.hook_on_scatter_file)
 
-        # Add to version control if new file.
-        if (    new_from_template and project.vcs
-            and not project.bdict[branch_id].skip_version_control
-        ):
+        # Add to version control.
+        if project.vcs and not project.bdict[branch_id].skip_version_control:
             if not project.vcs.add(branch_cat.filename):
                 warning(  "cannot add '%s' to version control"
                         % branch_cat.filename)
