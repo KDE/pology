@@ -57,7 +57,7 @@ Deco: Деко|, _род!=м
 Deluxe: Делукс|
     @л: Deluxe|
 Demon: Демон|
-Discrete: Дискретн|о>
+Discrete, |discretess: Дискретн|о>
 Distort: Изобличе|ње
 Drift: Плута|ње
 Engine: Мотор|
@@ -89,7 +89,11 @@ GLBlur: ГЛ замуће|ње
 GLCells: ГЛ ћелије|
 Gleidescope: Глеидоскоп|
 GLForestFire: ГЛ шумск|и> пожар|
+GLHanoi: ГЛ ханојск|е-
+GLKnots: ГЛ чворов|и-
 GLMatrix: ГЛ Матрикс|
+GLSchool: ГЛ јат|о, _род!=с
+GLSlideshow: ГЛ слајдшоу|
 GLSnake: ГЛ змиј|а
 GLText: ГЛ текст|
 Goop: Гуп|
@@ -97,24 +101,31 @@ Goop: Гуп|
 Gravity: Гравитациј|а
 Greynetic: Грејнетик|
     @л: Greynetic|
+Halftone, |halftoness: Полутон|
 Halo: Ореол|
 Helix: Завојниц|а
 Hopalong: Хупалонг|
     @л: Hopalong|
-Hyperball: Хиперлопт|а
-Hypercube: Хиперкоцк|а
+HyperBall: Хиперлопт|а
+HyperCube: Хиперкоцк|а
+Hypertorus: Хиперторус|
+Hypnowheel: Хипноточ|ак
+IMSMap: ИМС мап|а
 Interaggregate: Интерагрегациј|а
 Interference: Интерференциј|а
-Jigsaw: Слагалиц|а
+Intermomentary: Интермоменталн|о>
+JigglyPuff: Џиги пуфн|а
+Jigsaw, |jigsawss: Слагалиц|а
 Juggle: Жонглер|
 Juggler3D: Жонглер| 3Д
-Julia: Џулиј|а
+Julia, |juliass: Жилија| # в. Gaston Julia
 Kaleidescope: Калеидоскоп|
 KBanner: К-барјак|, К-барјак|ов
 KBlob: К-блоб|, К-блоб|ов
     @л: KBlob|, KBlob|ov
 KFireSaver: К-ватрочувар|, К-ватрочувар|ов
 KFortune: К-изрек|е-
+Klein, |kleinss: Клајн| # в. Felix Klein
 KLines: К-линиј|е-
 KLorenz: К-лоренц|, К-лоренц|ов
 KPendulum: К-клатн|о, К-клатн|ов, _род!=с
@@ -163,6 +174,7 @@ Phosphor: Фосфор|
 Pinion: Зупчаст|и> точ|ак
 Polygons: Полигон|и-
 Polyominoes: Полиомин|е-
+Polytopes: Политоп|и-
 Pyro, |pyross: Пир|о, _род!=м
 Qix: Квикс|, Квикс|ов, квиксоли|ки
     @л: Qix|, Qix|ov, qixoli|ki
@@ -176,7 +188,7 @@ RotZoomer: Ротозумер|
     @л: RotZoomer|
 Rubik, |rubikss: Рубик|
 Sballs: С-лопт|е-
-Science: Нау|ка, Наук|ин
+Science, |sciencess: Нау|ка, Наук|ин
 ShadeBobs: Неонк|е-
 Sierpinski3D: Сјерпињск|{и>}-3Д
 Sierpinski, |sierpinskiss: Сјерпињск|и>
