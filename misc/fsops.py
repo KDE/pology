@@ -70,6 +70,9 @@ def collect_files (paths,
         elif os.path.isfile(path):
             if not selectf or selectf(path):
                 filepaths.append(path)
+        elif not os.path.exists(path):
+            raise StandardError("Path '%(path)s' does not exist."
+                                % dict(path=path))
         else:
             raise StandardError("'%(path)s' not a file or directory path."
                                 % dict(path=path))
