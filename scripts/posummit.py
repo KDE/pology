@@ -20,7 +20,7 @@ from pology.file.message import Message, MessageUnsafe
 from pology.misc.fsops import str_to_unicode
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
-from pology.misc.fsops import collect_paths_cmdline
+from pology.misc.fsops import collect_paths_cmdline, build_path_selector
 from pology.misc.merge import merge_pofile
 from pology.misc.monitored import Monpair, Monlist
 from pology.misc.msgreport import report_on_msg
@@ -109,15 +109,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     project = derive_project_data(project, options)
 
     # Collect partial processing specs and inclusion-exclusion test.
-    res = collect_paths_cmdline(rawpaths=free_args,
-                                incnames=options.include_names,
-                                incpaths=options.include_paths,
-                                excnames=options.exclude_names,
-                                excpaths=options.exclude_paths,
-                                filesfrom=options.files_from,
-                                getsel=True)
-    options.partspecs, options.partbids = collect_partspecs(project, res[0])
-    options.selcatf = res[1]
+    specargs, ffself = collect_paths_cmdline(rawpaths=free_args,
+                                             filesfrom=options.files_from,
+                                             getsel=True)
+    options.partspecs, options.partbids = collect_partspecs(project, specargs)
+    cmdself = build_path_selector(incnames=options.include_names,
+                                  incpaths=options.include_paths,
+                                  excnames=options.exclude_names,
+                                  excpaths=options.exclude_paths)
+    options.selcatf = lambda x: cmdself(x) and ffself(x)
 
     # Invoke the appropriate operations on collected bundles.
     for mode in options.modes:
