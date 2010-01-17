@@ -815,9 +815,10 @@ def collect_paths_cmdline (rawpaths=None,
 
     # First add paths given directly, then add paths read from files.
     if rawpaths:
+        rawpaths2 = rawpaths
         if respathf:
-            rawpaths = sum(map(respathf, rawpaths), [])
-        paths.extend(rawpaths)
+            rawpaths2 = sum(map(respathf, rawpaths), [])
+        paths.extend(rawpaths2)
     ffselfs = []
     if filesfrom:
         for ffpath in filesfrom:
