@@ -255,6 +255,7 @@ def derive_project_data (project, options):
     s = Summit()
     sd = p.summit
     s.id = SUMMIT_ID
+    s.by_lang = None
     s.topdir = sd.pop("topdir", None)
     s.topdir_templates = sd.pop("topdir_templates", None)
     # Assert that there are no misnamed keys in the dictionary.
@@ -608,39 +609,53 @@ def derive_project_data (project, options):
 
 def split_path_in_project (project, path):
 
-    # Split the path into directory and catalog name.
     if os.path.isfile(path):
         if not path.endswith((".po", ".pot")):
             error("Non-PO file '%(path)s' given as project catalog."
                   % dict(path=path))
-        dirpath = os.path.dirname(path)
-        basename = os.path.basename(path)
-        catname = basename[:basename.rfind(".")]
-    elif os.path.isdir(path):
-        dirpath = path
-        catname = None
 
-    # Deduce project branch and relative path of the directory within it.
-    bid = None
-    breldir = None
-    dirpath = os.path.abspath(dirpath)
+    splits = []
     for b in [project.summit] + project.branches:
+        # Split the path into directory and catalog name.
+        apath = os.path.abspath(path)
+        if os.path.isfile(path):
+            dirpath = os.path.dirname(apath)
+            basename = os.path.basename(apath)
+            catname = basename[:basename.rfind(".")]
+            if b.by_lang:
+                # If this is by-language mode,
+                # then catalog path can be split only if of proper language,
+                # and directory and catalog name should backtrack by one.
+                if catname != b.by_lang:
+                    continue
+                catname = os.path.basename(dirpath)
+                dirpath = os.path.dirname(dirpath)
+        elif os.path.isdir(path):
+            dirpath = apath
+            catname = None
+            if b.by_lang:
+                # If this is a leaf directory in by-language mode,
+                # then actually a catalog has been selected,
+                # and directory and catalog name should backtrack by one.
+                apath2 = os.path.join(dirpath, b.by_lang + ".po")
+                if os.path.isfile(apath2):
+                    catname = os.path.basename(dirpath)
+                    dirpath = os.path.dirname(dirpath)
+        # Deduce project branch and relative path of the directory within it.
         broot = os.path.abspath(b.topdir)
         if dirpath.startswith(broot):
-            cbreldir = dirpath[len(broot):]
-            if not cbreldir or cbreldir.startswith(os.path.sep):
-                if not cbreldir:
-                    cbreldir = None
+            breldir = dirpath[len(broot):]
+            if not breldir or breldir.startswith(os.path.sep):
+                if not breldir:
+                    breldir = None
                 else:
-                    cbreldir = cbreldir[len(os.path.sep):]
-                bid = b.id
-                breldir = cbreldir
-                break
-    if not bid:
+                    breldir = breldir[len(os.path.sep):]
+                splits.append((b.id, breldir, catname))
+    if not splits:
         error("Path '%(path)s' is not covered by the project."
               % dict(path=path))
 
-    return bid, breldir, catname
+    return splits
 
 
 def collect_partspecs (project, specargs):
@@ -650,32 +665,36 @@ def collect_partspecs (project, specargs):
     for specarg in specargs:
         # If the partial specification is a valid path,
         # convert it to operation target.
+        optargets = []
         if os.path.exists(specarg):
-            bid, breldir, catname = split_path_in_project(project, specarg)
-            if catname:
-                optarget = bid + ":" + catname
-            elif breldir:
-                optarget = bid + ":" + breldir + os.path.sep
-            else:
-                optarget = bid + ":"
+            splits = split_path_in_project(project, specarg)
+            for bid, breldir, catname in splits:
+                if catname:
+                    optarget = bid + ":" + catname
+                elif breldir:
+                    optarget = bid + ":" + breldir + os.path.sep
+                else:
+                    optarget = bid + ":"
+                optargets.append(optarget)
         else:
-            optarget = specarg
+            optargets = [specarg]
 
-        lst = optarget.split(":", 1)
-        if len(lst) < 2:
-            fdname, = lst
-            bid = None
-        else:
-            bid, fdname = lst
-            if bid not in project.branch_ids and bid != SUMMIT_ID:
-                error("Branch '%s' not defined in the project." % bid)
-        if bid and bid not in partbids:
-            partbids.append(bid)
-        if fdname:
-            bsid = bid or SUMMIT_ID
-            if bsid not in partspecs:
-                partspecs[bsid] = []
-            partspecs[bsid].append(fdname)
+        for optarget in optargets:
+            lst = optarget.split(":", 1)
+            if len(lst) < 2:
+                fdname, = lst
+                bid = None
+            else:
+                bid, fdname = lst
+                if bid not in project.branch_ids and bid != SUMMIT_ID:
+                    error("Branch '%s' not defined in the project." % bid)
+            if bid and bid not in partbids:
+                partbids.append(bid)
+            if fdname:
+                bsid = bid or SUMMIT_ID
+                if bsid not in partspecs:
+                    partspecs[bsid] = []
+                partspecs[bsid].append(fdname)
 
     return partspecs, partbids
 
