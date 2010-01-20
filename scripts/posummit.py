@@ -409,18 +409,24 @@ def derive_project_data (project, options):
         and "scatter" in options.modes):
 
         # Go through all mappings and collect branch names mapped to
-        # summit catalogs per branch id and summit name.
+        # summit catalogs per branch id and summit name, and vice versa.
         mapped_summit_names = {}
+        mapped_branch_names = {}
         for mapping in p.mappings:
             branch_id = mapping[0]
             branch_name = mapping[1]
             summit_names = mapping[2:]
             if not branch_id in mapped_summit_names:
                 mapped_summit_names[branch_id] = {}
+            if not branch_id in mapped_branch_names:
+                mapped_branch_names[branch_id] = {}
             for summit_name in summit_names:
                 if not summit_name in mapped_summit_names[branch_id]:
                     mapped_summit_names[branch_id][summit_name] = []
                 mapped_summit_names[branch_id][summit_name].append(branch_name)
+                if not branch_name in mapped_branch_names[branch_id]:
+                    mapped_branch_names[branch_id][branch_name] = []
+                mapped_branch_names[branch_id][branch_name].append(summit_name)
 
         # Go through all branches.
         bt_cache = {}
@@ -452,11 +458,17 @@ def derive_project_data (project, options):
                     branch_names.append(summit_name)
 
                 # For each collected branch name, check if it exists in
-                # branch templates and collect if not already collected.
+                # branch templates and collect if not already collected
+                # and (in case of explicit mapping) all summit catalogs
+                # needed for scattering are available.
                 for branch_name in branch_names:
 
                     if (    branch_name not in p.catalogs[branch.id]
-                        and branch_name in branch_templates):
+                        and branch_name in branch_templates
+                        and all(map(lambda x: x in p.catalogs[SUMMIT_ID],
+                                    mapped_branch_names.get(branch.id, {})
+                                                       .get(branch_name, [])))
+                    ):
                         # Assemble all branch catalog entries.
                         branch_catalogs = []
                         for template in branch_templates[branch_name]:
@@ -584,6 +596,7 @@ def derive_project_data (project, options):
     # Add existing inverse mappings.
     for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
+            missing_summmit_names = []
             for summit_name in p.direct_map[branch_id][branch_name]:
                 if summit_name in p.full_inverse_map:
                     # - part inverse:
@@ -595,9 +608,11 @@ def derive_project_data (project, options):
                     if branch_name not in finv:
                         finv.append(branch_name)
                 else:
-                    for bpath, bdir in p.catalogs[branch_id][branch_name]:
-                        warning("no summit catalog for branch catalog '%s'"
-                                % bpath)
+                    missing_summmit_names.append(summit_name)
+            for summit_name in missing_summmit_names:
+                for bpath, bdir in p.catalogs[branch_id][branch_name]:
+                    warning("Missing expected summit catalog '%s' for "
+                            "branch catalog '%s'." % (summit_name, bpath))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -975,7 +990,7 @@ def select_branch_catalogs (branch_id, project, options):
                                     branch_catalogs_l.append(
                                         (name, path, subdir))
                     if not one_found:
-                        error(  "no catalogs in branch '%s' subdir '%s'" \
+                        error(  "No catalogs in branch '%s' subdir '%s'." \
                               % (branch_id, sel_subdir))
                 else:
                     # Otherwise, specific catalog is selected.
@@ -990,7 +1005,7 @@ def select_branch_catalogs (branch_id, project, options):
                                         (name, path, subdir))
                             break
                     if not one_found:
-                        error(  "no catalog named '%s' in branch '%s'" \
+                        error(  "No catalog named '%s' in branch '%s'." \
                             % (sel_name, branch_id))
 
                 # Also select all branch catalogs which contribute to same
@@ -1032,7 +1047,7 @@ def select_branch_catalogs (branch_id, project, options):
                     # Specific catalog.
                     sel_name = part_spec
                     if not sel_name in project.catalogs[SUMMIT_ID]:
-                        error("no summit catalog named '%s'" % sel_name)
+                        error("No summit catalog named '%s'." % sel_name)
                     bnames = project.full_inverse_map[sel_name][branch_id]
                     for bname in bnames:
                         if bname in pbcats:
@@ -1076,12 +1091,13 @@ def select_summit_names (project, options):
                                 if options.selcatf(path):
                                     summit_names.append(name)
                         if not one_found:
-                            error("no summit directory named '%s'" % sel_subdir)
+                            error("No summit directory named '%s'."
+                                  % sel_subdir)
                     else: # single name
                         sel_name = part_spec
                         spec = project.catalogs[SUMMIT_ID].get(sel_name)
-                        if not sel_name:
-                            error("no summit catalog named '%s'" % sel_name)
+                        if not spec:
+                            error("No summit catalog named '%s'." % sel_name)
                         path, subdir = spec[0] # summit catalogs are unique
                         if options.selcatf(path):
                             summit_names.append(sel_name)
@@ -1099,13 +1115,13 @@ def select_summit_names (project, options):
                                             project.direct_map[branch_id][name])
                                     break
                         if not one_found:
-                            error("no directory named '%s' in branch '%s'"
+                            error("No directory named '%s' in branch '%s'."
                                   % (sel_subdir, branch_id))
                     else: # single name
                         sel_name = part_spec
                         spec = project.catalogs[branch_id].get(sel_name)
                         if not spec:
-                            error("no catalog named '%s' in branch '%s'"
+                            error("No catalog named '%s' in branch '%s'."
                                   % (sel_name, branch_id))
                         for path, subdir in spec:
                             if options.selcatf(path):
