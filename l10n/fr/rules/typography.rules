@@ -13,6 +13,7 @@ valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>"
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?ul>" 
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</qt>"
+valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*<nl/>"
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*&unbsp;»"
 valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</interface"
 
