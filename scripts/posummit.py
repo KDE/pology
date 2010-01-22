@@ -464,9 +464,7 @@ def derive_project_data (project, options):
                 # If this is the case, set missing paths for scattering.
                 for branch_name in branch_names:
 
-                    # FIXME: Better test for template correspondence?
-                    if (    (   len(p.catalogs[branch.id].get(branch_name, []))
-                             != len(branch_templates.get(branch_name, [])))
+                    if (    branch_name in branch_templates
                         and all(map(lambda x: x in p.catalogs[SUMMIT_ID],
                                     mapped_branch_names.get(branch.id, {})
                                                        .get(branch_name, [])))
