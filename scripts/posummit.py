@@ -457,20 +457,21 @@ def derive_project_data (project, options):
                 if not branch_names:
                     branch_names.append(summit_name)
 
-                # For each collected branch name, check if it exists in
-                # branch templates and collect if not already collected
-                # and (in case of explicit mapping) all summit catalogs
-                # needed for scattering are available.
+                # For each collected branch name, check if there are some
+                # branch templates for which the corresponding branch path
+                # does not exit and (in case of explicit mapping) whether
+                # all summit catalogs needed for scattering are available.
+                # If this is the case, set missing paths for scattering.
                 for branch_name in branch_names:
 
-                    if (    branch_name not in p.catalogs[branch.id]
-                        and branch_name in branch_templates
+                    # FIXME: Better test for template correspondence?
+                    if (    (   len(p.catalogs[branch.id].get(branch_name, []))
+                             != len(branch_templates.get(branch_name, [])))
                         and all(map(lambda x: x in p.catalogs[SUMMIT_ID],
                                     mapped_branch_names.get(branch.id, {})
                                                        .get(branch_name, [])))
                     ):
                         # Assemble all branch catalog entries.
-                        branch_catalogs = []
                         for template in branch_templates[branch_name]:
                             # Compose the branch catalog subdir and path.
                             subdir = template[1]
@@ -487,13 +488,17 @@ def derive_project_data (project, options):
                             if scf and not scf(branch_name, subdir):
                                 continue
 
-                            # Add this file to catalog entry.
-                            branch_catalogs.append((path, subdir))
-                            # Record later initialization from template.
-                            p.add_on_scatter[path] = template[0]
+                            # If not there already, add this path
+                            # to branch catalog entry,
+                            # and record later initialization from template.
+                            brcats = p.catalogs[branch.id].get(branch_name)
+                            if brcats is None:
+                                brcats = []
+                                p.catalogs[branch.id][branch_name] = brcats
+                            if (path, subdir) not in brcats:
+                                brcats.append((path, subdir))
+                                p.add_on_scatter[path] = template[0]
 
-                        # Add branch catalog entry.
-                        p.catalogs[branch.id][branch_name] = branch_catalogs
 
     # At merge in template-summit mode,
     # if automatic vivification of summit catalogs requested,
