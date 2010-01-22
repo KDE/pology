@@ -92,6 +92,9 @@ hint="oppløysning → oppløysing"
 [virituell\w+]
 hint="virituell → virtuell"
 
+[ved sidan av]i
+hint="ved sidan av → ved sida av"
+
 *hook name="nn:exclusion/inofficial-forms" on="msgstr"
 id="klammeform"
 hint="Bruk av eit ord som er klammeform eller unormert."
