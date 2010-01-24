@@ -162,6 +162,7 @@ class Project (object):
             "hook_on_gather_cat" : [],
             "hook_on_gather_file" : [],
             "hook_on_gather_file_branch" : [],
+            "hook_on_merge_msg" : [],
             "hook_on_merge_head" : [],
             "hook_on_merge_cat" : [],
             "hook_on_merge_file" : [],
@@ -2124,13 +2125,14 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     headonly = False
     monitored = False
     otherwrap = set(wrapping).difference(["basic"])
-    if otherwrap or project.hook_on_merge_cat:
+    if otherwrap or project.hook_on_merge_msg or project.hook_on_merge_cat:
         do_open = True
     elif header_prop_fields or project.hook_on_merge_head or vivified:
         do_open = True
         headonly = True
     if (   header_prop_fields or vivified
-        or project.hook_on_merge_cat or project.hook_on_merge_head
+        or project.hook_on_merge_head or project.hook_on_merge_msg
+        or project.hook_on_merge_cat
     ):
         monitored = True
 
@@ -2242,6 +2244,12 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     if project.hook_on_merge_head:
         exec_hook_head(branch_id, catalog_name, catalog_subdir,
                        cat.header, cat, project.hook_on_merge_head)
+
+    # Execute message hooks.
+    if project.hook_on_merge_msg:
+        for msg in cat:
+            exec_hook_msg(branch_id, catalog_name, catalog_subdir,
+                          msg, cat, project.hook_on_merge_msg)
 
     # Execute catalog hooks.
     if project.hook_on_merge_cat:
