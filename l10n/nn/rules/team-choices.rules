@@ -8,7 +8,7 @@ include file="puretext.filters"
 # vanligaste verba (men for eksempel
 # «flytte» kan ikkje vera med, då dette
 # finst som adjektiv òg).
-[\b(vert|bruk|endr|lagr|avslutt|velj|slett|rediger|start|køyr)e\b]i
+[\b(vert|bruk|endr|lagr|lag|avslutt|velj|slett|rediger|start|køyr)e\b]i
 id="e-infinitiv"
 hint="Bruk konsekvent a-infinitiv."
 
@@ -17,11 +17,18 @@ hint="Bruk konsekvent a-infinitiv."
 [å (flytt|opn|skriv|kunn)e\b]i
 id="e-infinitiv2"
 hint="Bruk konsekvent a-infinitiv."
+valid after="p"
 
 [\bfjerne\b]i
 id="e-infinitiv3"
 hint="Bruk konsekvent a-infinitiv."
 valid after="(den|det|dei) "
+
+[\bhalde\b]i
+id="halde"
+hint="Bruk konsekvent a-infinitiv."
+valid after="(har|er|vert) \w+ "
+valid after="har "
 
 [\bbruker]i
 hint="bruker → -ar"
@@ -83,6 +90,7 @@ hint="høra/kjøra → høyra/køyra"
 hint="lata → la"
 
 [\b(line|lina|liner|linene)\b]i
+id="line"
 hint="line → linje"
 valid after="On-?"
 
@@ -97,6 +105,7 @@ valid after="[Bb]ryl"
 hint="(mis|vel)lykka → -lukka"
 
 [\bvi\b]i
+id="vi"
 hint="vi → me"
 valid before="-"
 valid before=" IMproved"
@@ -176,13 +185,16 @@ hint="klarar → klarer"
 hint="Bruk imperativformene «opna», «lagra», ikkje «opn» og «lagr»"
 
 [\b(CapsLock|Control|AltGr|PageUp|PgUp|PageDown|PgDown|PrintScreen|ScrollLock|NumLock)\b]i
+id="tastar1"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
 valid msgstr="^<Control>\w$"
 
 [\b(enter|Alt gr|[Ii]ns|DEL|ESC|Esc|f[1-9])\b]
+id="tastar2"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
 
 [\b(Ctrl|Alt|Alt Gr|Shift)\+\b]
+id="tastar3"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
 
 […»]
@@ -234,5 +246,9 @@ id="lata"
 hint="lata → la, lat → la"
 valid span="[Ll]at" msgid="[Ll]azy"
 valid ctx="\.kgm$"
+valid after="for "
+
+[skru (på|av)]i
+hint="skru på/av → slå på/av"
 
 # End of rules
