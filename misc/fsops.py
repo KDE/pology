@@ -878,18 +878,19 @@ def collect_paths_cmdline (rawpaths=None,
     selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
                                   excnames=excnames, excpaths=excpaths,
                                   ormatch=ormatch)
-    if getsel:
-        if ffselfs:
-            if ormatch:
-                selftot = lambda p: selectf(p) or any([x(p) for x in ffselfs])
-            else:
-                selftot = lambda p: selectf(p) and all([x(p) for x in ffselfs])
+    if ffselfs:
+        if ormatch:
+            selftot = lambda p: selectf(p) or any([x(p) for x in ffselfs])
         else:
-            selftot = selectf
+            selftot = lambda p: selectf(p) and all([x(p) for x in ffselfs])
+    else:
+        selftot = selectf
+
+    if getsel:
         return paths, selftot
     else:
         try:
-            paths = filter(selectf, paths)
+            paths = filter(selftot, paths)
         except Exception, e:
             abort_or_raise(e)
         return paths
