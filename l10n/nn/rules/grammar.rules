@@ -24,7 +24,7 @@ valid after="du "
 [Kunne ikkje]
 hint="kunne ikkje → klarte ikkje [men ofte omskriving: Klarte ikkje finna fila → Fann ikkje fila]"
 
-{(If this option is enabled|If you enable this option|If you check this box|Check to enable|Check this box|Enable this to|If checked|If enabled|When enabled|Select this option)}
+{(If this option is enabled|If you enable this option|If this checkbox is enabled|If you check this box|Check to enable|Check this box|Enable this to|If checked|If enabled|When enabled|Select this option)}
 hint="Vel éin av «Viss det er kryssa av her,» og «Kryss av her (for å|dersom)»"
 valid msgstr="Viss det er kryssa av her,"
 valid msgstr="Kryss av her (for å|dersom)"
@@ -39,7 +39,7 @@ hint="KB → kB eller KiB [avhengig av tydinga – sjekk kjeldekoden]"
 [\bm[bB]\b]
 hint="mb → MiB, Mib, MB eller Mb [avhengig av tydinga – sjekk kjeldekoden]"
 
-[\bm[gb]\b]
+[\bgb\b]
 hint="gb → GiB, Gib, GB eller Gb [avhengig av tydinga – sjekk kjeldekoden]"
 
 [\bkbps\b]
