@@ -24,6 +24,12 @@ clearFilters
 # Remove local entities which are to be left as-is in the message.
 addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
 
+# So that markup checker can properly escape &-accelerators:
+# - convert hybridized Ekavian-Yekavian text into Ekavian
+addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
+# - remove naked Latin wrappings
+addFilterRegex match="~!(.)(.*?)\1" repl="\2" on="pmsgid,pmsgstr"
+
 # Strict mode means to request valid translation even if the original is not.
 # Catalogs must announce markup in the header, using markup type keyword in
 # X-Text-Markup field (see markup= parameters in factories below);
