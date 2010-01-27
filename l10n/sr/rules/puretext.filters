@@ -59,6 +59,11 @@ addFilterHook name="remove-subs/remove-marlits-msg" on="msg"
 # (-> before literals removal)
 addFilterHook name="remove-subs/remove-markup-msg" on="msg"
 
+# Convert hybridized Ekavian-Yekavian text into Ekavian.
+# (-> after resolving UI references)
+# (-> before accelerator removal)
+addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
+
 # Remove accelerator markers.
 # For this to work, POs need to specify the marker character through
 # the X-Accelerator-Marker header field.
@@ -82,6 +87,3 @@ addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
 # then remove accents from letters alltogether.
 addFilterHook env="kde" name="sr:accents/resolve_agraphs" on="pmsgstr"
 addFilterHook name="sr:accents/remove_accents" on="pmsgstr"
-
-# Convert hybridized Ekavian-Yekavian text into Ekavian.
-addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
