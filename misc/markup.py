@@ -983,10 +983,6 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
 
 _ts_fence = "|/|"
 
-_pre_accel_ch_kde4 = set()
-# Alternatives directives and dialect ticks (see l10n.sr.hook.wconv).
-_pre_accel_ch_kde4.update((u"~", u"›", u"‹", u"▹", u"◃"))
-
 def _escape_amp_accel (text):
 
     p_ts = text.find(_ts_fence)
@@ -1007,11 +1003,10 @@ def _escape_amp_accel (text):
 
         # An accelerator marker if no semicolon in rest of the text
         # or the bracketed segment does not look like an entity,
-        # and it is in front of an alphanumeric or itself
-        # (or in front of some characters special by environment).
+        # and it is in front of an alphanumeric or itself.
         nc = text[p1 + 1:p1 + 2]
         if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
-            and ((nc.isalnum() or nc in _pre_accel_ch_kde4) or nc == "&")
+            and (nc.isalnum() or nc == "&")
         ):
             # Check if the next one is an ampersand too,
             # i.e. if it's a self-escaped accelerator marker.

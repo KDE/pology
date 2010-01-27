@@ -498,10 +498,6 @@ def expand_vars (text, varmap, head="%"):
 
 
 _usual_accels = list("_&~^")
-# Characters that can appear between the accelerator marker and the accelerator.
-_pre_accel_ch = set()
-# - alternatives directives and dialect ticks (see l10n.sr.hook.wconv)
-_pre_accel_ch.update((u"~", u"›", u"‹", u"▹", u"◃"))
 
 def remove_accelerator (text, accels=None, greedy=False):
     """
@@ -548,10 +544,7 @@ def remove_accelerator (text, accels=None, greedy=False):
             if p < 0:
                 break
 
-            pa = p + alen
-            while text[pa:pa + 1] and text[pa:pa + 1] in _pre_accel_ch:
-                pa += 1
-            if text[pa:pa + 1].isalnum():
+            if text[p + alen:p + alen + 1].isalnum():
                 # If the accelerator marker is &, do not remove it if it
                 # looks like an XML entity (less damage than otherwise).
                 if accel == "&":
