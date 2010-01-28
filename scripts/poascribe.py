@@ -38,7 +38,6 @@ from pology.sieve.update_header import update_header
 
 
 ASCWRAPPING = ["fine"]
-UFUZZ = "fuzzy"
 
 # Ascription types.
 # NOTE: These string are written and read from ascription files.
@@ -578,25 +577,13 @@ class Config:
                 if "name" not in usect:
                     error("%s: user '%s' misses the name" % (cpath, user))
                 udat.name = usect.get("name")
-                if udat.name == UFUZZ:
-                    error("%s: user name '%s' is reserved" % (cpath, UFUZZ))
                 udat.oname = usect.get("original-name")
                 udat.email = usect.get("email")
         self.users.sort()
 
-        # Create merging user.
-        udat = UserData()
-        self.udata[UFUZZ] = udat
-        self.users.append(UFUZZ)
-        udat.name = "UFUZZ"
-        udat.oname = None
-        udat.email = None
 
+def assert_mode_user (configs_catpaths, mode):
 
-def assert_mode_user (configs_catpaths, mode, nousers=[]):
-
-    if mode.user in nousers:
-        error("User '%s' not allowed in mode '%s'." % (mode.user, mode.name))
     for config, catpaths in configs_catpaths:
         if mode.user not in config.users:
             error("User '%s' not defined in '%s'." % (mode.user, config.path))
@@ -779,9 +766,6 @@ def ascribe_modified_w (options, configs_catpaths, mode):
 
 def update_headers_onmod (configs_catpaths, user):
 
-    if user == UFUZZ:
-        return
-
     upprog = setup_progress(configs_catpaths, "Updating headers: %s")
     nupdated = 0
     for config, catpaths in configs_catpaths:
@@ -797,8 +781,19 @@ def update_headers_onmod (configs_catpaths, user):
                 # Message is modified if not ascribed
                 # and has some ascription-relevant parts.
                 if history[0].user is None and has_tracked_parts(msg):
-                    anymod = True
-                    break
+                    # Also check if the modification is a clean merge,
+                    # in which case it does not trigger header update.
+                    pmsg = None
+                    if msg.fuzzy and msg.msgid_previous:
+                        pamsgs = acat.select_by_key(msg.msgctxt_previous,
+                                                    msg.msgid_previous,
+                                                    wobs=True)
+                        if pamsgs:
+                            pmsg = asc_collect_history_single(pamsgs[0], acat,
+                                                              config)[0].msg
+                    if not pmsg or not merge_modified(pmsg, msg):
+                        anymod = True
+                        break
             if anymod:
                 # Must reopen monitored, but only header is needed.
                 cat = Catalog(catpath, headonly=False)
@@ -851,7 +846,7 @@ def restore_review_flags (msg, revd, unrevd):
 
 def ascribe_reviewed (options, configs_catpaths, mode):
 
-    assert_mode_user(configs_catpaths, mode, nousers=[UFUZZ])
+    assert_mode_user(configs_catpaths, mode)
     assert_review_tag(configs_catpaths, options.tag)
 
     # Remove any review diffs and flags from messages.
@@ -1805,10 +1800,9 @@ def asc_collect_history (msg, acat, config,
         history_r = []
         for i in range(len(history) - 1):
             a, ao = history[i], history[i + 1]
-            if not a.user == UFUZZ or not merge_modified(ao.msg, a.msg):
+            if a.type != ATYPE_MOD or not merge_modified(ao.msg, a.msg):
                 history_r.append(a)
-        if history[-1].user != UFUZZ:
-            history_r.append(history[-1])
+        history_r.append(history[-1])
         history = history_r
 
     # Eliminate contiguous chain of modifications equal under the filter,
@@ -2650,15 +2644,12 @@ def w_selector_modax (cid, amod, arev,
                 and (not rmusers or a.user not in rmusers)
             ):
                 # Cannot be a candidate if:
-                # - made by fuzzy user and there are only
-                #   merge-induced differences from earlier message
+                # - there are only merge-induced differences to earlier message
                 # - translation-only mode, and there is no difference
                 #   in translation from earlier message
                 ae = history[i + 1] if i + 1 < len(history) else None
-                if (    not (    a.user == UFUZZ
-                             and ae and merge_modified(ae.msg, a.msg))
-                    and not (    tronly
-                             and ae and ae.msg.msgstr == a.msg.msgstr)
+                if (    not (ae and merge_modified(ae.msg, a.msg))
+                    and not (tronly and ae and ae.msg.msgstr == a.msg.msgstr)
                 ):
                     hi_sel = i + 1
 
