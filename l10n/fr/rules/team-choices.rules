@@ -364,4 +364,9 @@ hint="Traduisez « controller » par « contrôleur »"
 [effets? du bureau]i
 hint="Traduisez « Desktop effects » par « Effets de bureau »"
 
+{activity|activities}i
+valid msgstr="activité"
+valid cat="konsole"
+hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau plasma"
+
 # End of rule file
