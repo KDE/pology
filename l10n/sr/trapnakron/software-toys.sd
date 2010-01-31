@@ -1,4 +1,5 @@
 >base/aff.sd
+>misc-products.sd
 
 # ----------------------------------------------------------------------------
 # Чувари екрана
@@ -135,12 +136,13 @@ KSlideShow: К-слајдшоу|, К-слајдшоу|ов
 KSpace: К-свемир|, К-свемир|ов
 Kumppa: Камп|а
 KWorldClock: К-светск|{и>}-сат|
-Laser: Ласер|
-Lavalite: Лавалајт|, Лавалајт|ов
-    @л: Lavalite|, Lavalite|ov
+Lament, |lamentss: Јадиковк|а
+Laser, |laserss: Ласер|
+Lavalite, |lavalitess: |^lavalitepd
 LCDscrub: ЛЦД брис|ач
 Lightning: Муњ|е-
 Lines: Линиј|е-
+Lisa, |lisass: Лиса| # в. Jules Antoine Lissajous
 Lissie: Лиси|*, _род!=ж
     @л: Lissie|*
 Lockward: Окрет| браве
