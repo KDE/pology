@@ -365,7 +365,8 @@ hint="Traduisez « controller » par « contrôleur »"
 hint="Traduisez « Desktop effects » par « Effets de bureau »"
 
 {activity|activities}i
-valid msgstr="activité"
+valid msgstr="agencement"
+valid before="For|By"
 valid cat="konsole"
 hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau plasma"
 
