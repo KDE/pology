@@ -783,16 +783,30 @@ def update_headers_onmod (configs_catpaths, user):
                 if history[0].user is None and has_tracked_parts(msg):
                     # Also check if the modification is a clean merge,
                     # in which case it does not trigger header update.
-                    pmsg = None
-                    if msg.fuzzy and msg.msgid_previous:
+                    anymod = True
+                    pamsg = acat.get(msg)
+                    if pamsg:
+                        # May have been obsoleted or recovered on merge.
+                        if pamsg.obsolete != msg.obsolete:
+                            pmsg = asc_collect_history_single(pamsg, acat,
+                                                              config)[0].msg
+                            m = MessageUnsafe(msg)
+                            m.obsolete = False
+                            pm = MessageUnsafe(pmsg)
+                            pm.obsolete = False
+                            if m.inv == pm.inv:
+                                anymod = False
+                    elif not msg.obsolete and msg.fuzzy and msg.msgid_previous:
+                        # May have been fuzzied on merge.
                         pamsgs = acat.select_by_key(msg.msgctxt_previous,
                                                     msg.msgid_previous,
                                                     wobs=True)
                         if pamsgs:
                             pmsg = asc_collect_history_single(pamsgs[0], acat,
                                                               config)[0].msg
-                    if not pmsg or not merge_modified(pmsg, msg):
-                        anymod = True
+                            if merge_modified(pmsg, msg):
+                                anymod = False
+                    if anymod:
                         break
             if anymod:
                 # Must reopen monitored, but only header is needed.
