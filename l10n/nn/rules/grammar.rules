@@ -18,6 +18,7 @@ id="passiv"
 hint="Skriv om til aktiv form [Søkjeteksten vart ikkje funnen → Fann ikkje søkjeteksten]"
 
 [\bvil (verta|gå)\b]
+id="verta"
 hint="vil verta/gå → vert/går"
 valid after="du "
 

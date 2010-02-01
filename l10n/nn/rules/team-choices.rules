@@ -204,6 +204,7 @@ hint="Kutt ut ellipseteiknet ved referering til kommandoar"
 hint="klarte ikkje å → klarte ikkje"
 
 [aktiver\w]i
+id="aktiver"
 hint="aktiver → slå på, gjer verksam, bruk, vis, …"
 
 [eksister\w]i
@@ -249,6 +250,7 @@ valid ctx="\.kgm$"
 valid after="for "
 
 [skru (på|av)]i
+id="skru"
 hint="skru på/av → slå på/av"
 
 # End of rules
