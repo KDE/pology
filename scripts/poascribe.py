@@ -1160,6 +1160,11 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         i_from = (i_asc - 1) if i_asc is not None else len(history) - 1
         for i in range(i_from, -1, -1):
             a = history[i]
+            # Skip merges.
+            if (    i + 1 < len(history)
+                and merge_modified(history[i + 1].msg, a.msg)
+            ):
+                continue
             shtype = {ATYPE_MOD: "m", ATYPE_REV: "r"}[a.type]
             if a.tag:
                 ascfmt = "%s:%s(%s)" % (a.user, shtype, a.tag)
