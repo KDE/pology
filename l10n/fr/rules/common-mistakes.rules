@@ -91,9 +91,9 @@ hint="Mettre un accent aigu sur le « e »"
 [r[éeê]gle\b]i
 hint="Mettre un accent grave (et non circonflexe) sur le « e »"
 
-[compl[ée]tem]i
-valid after="du |le |auto-"
-valid before=" du"
+[compl[ée]tement]i
+valid after="du |les? |auto-|style de |zone de "
+valid before=" du| des| automatique| minimal| de texte| d'une sous| suivante| précédente"
 hint="Mettre un accent grave"
 
 [echec]i
