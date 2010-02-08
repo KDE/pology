@@ -50,6 +50,7 @@ hint="kbps → kb/s eller kB/s eller KiB/s [avhengig av tydinga – sjekk kjelde
 hint="° C → °C [men mellomrom før gradteiknet]"
 
 [[0-9]+ ?x ?[0-9]+]
+id="gongeteikn"
 hint="Bruk ×, ikkje x, for å markera skjermoppløysing, biletstorleik og liknande"
 valid span="\b0x"
 

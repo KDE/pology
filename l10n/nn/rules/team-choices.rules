@@ -78,6 +78,7 @@ hint="gjennomsynleg → gjennomsiktig"
 hint="gissa → gjetta"
 
 [\bgi(tt)?\b]
+id="gi"
 hint="gi → gje"
 
 [hyrne]i
@@ -198,6 +199,7 @@ id="tastar3"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
 
 […»]
+id="ellipse"
 hint="Kutt ut ellipseteiknet ved referering til kommandoar"
 
 [(klarer|klarte) ikkje å]i
@@ -213,6 +215,7 @@ hint="eksistera → finnast"
 valid before="ande"
 
 [inkluder\w+]i
+id="inkluder"
 hint="inkluder → ta med, inkludert, medrekna, òg …"
 
 [konfigur\w+]i
@@ -234,6 +237,7 @@ hint="sesjon → økt [sesjon er noko ein gjer i militæret]"
 hint="dialogboks → vindauge eller dialogvindauge"
 
 [(sikkerheitskopi|tryggleikskopi|tryggingskopi|backup)]i
+id="backup"
 hint="sikkerheitskopi, tryggingskopi, tryggleikskopi → reservekopi [og tilhøyrande verb]"
 
 [eigen?definer\w+]i
