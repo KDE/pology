@@ -764,6 +764,48 @@ def ascribe_modified_w (options, configs_catpaths, mode):
         report("===! Obsolete untranslated: %d" % counts[_st_ountran])
 
 
+def msg_to_previous (msg, copy=True):
+
+    if msg.fuzzy and msg.msgid_previous is not None:
+        pmsg = MessageUnsafe(msg) if copy else msg
+        for fcurr, fprev in zip(_fields_current, _fields_previous):
+            setattr(pmsg, fcurr, pmsg.get(fprev))
+        pmsg.unfuzzy()
+        return pmsg
+
+
+def frozen_cat_asc (acat, config):
+
+    def catf (msg):
+
+        pmsg = None
+        amsg = acat.get(msg)
+        if amsg:
+            pmsg = asc_collect_history_single(amsg, acat, config)[0].msg
+        return pmsg
+
+    return catf
+
+
+def frozen_cat_asc_prev (acat, config):
+
+    pcat = [None]
+
+    def catf (msg):
+
+        if pcat[0] is None:
+            pcat[0] = Catalog("", create=True, monitored=False)
+            for amsg in acat:
+                pmsg = asc_collect_history_single(amsg, acat, config)[0].msg
+                ppmsg = msg_to_previous(pmsg, copy=False)
+                if ppmsg:
+                    pcat[0].add_last(ppmsg)
+
+        return pcat[0].get(msg)
+
+    return catf
+
+
 def update_headers_onmod (configs_catpaths, user):
 
     upprog = setup_progress(configs_catpaths, "Updating headers: %s")
@@ -773,6 +815,8 @@ def update_headers_onmod (configs_catpaths, user):
             upprog(catpath)
             cat = Catalog(catpath, monitored=False)
             acat = Catalog(acatpath, monitored=False, create=True)
+            catf_curr = frozen_cat_asc(acat, config)
+            catf_prev = frozen_cat_asc_prev(acat, config)
             anymod = False
             for msg in cat:
                 # Shallow history, need only to know if ascribed or not.
@@ -781,31 +825,25 @@ def update_headers_onmod (configs_catpaths, user):
                 # Message is modified if not ascribed
                 # and has some ascription-relevant parts.
                 if history[0].user is None and has_tracked_parts(msg):
-                    # Also check if the modification is a clean merge,
-                    # in which case it does not trigger header update.
+                    # Check if this message is found in catalog with
+                    # current or previous versions of all ascribed messages.
+                    # If yes, and the modification is a clean merge,
+                    # do not trigger header update.
                     anymod = True
-                    pamsg = acat.get(msg)
-                    if pamsg:
-                        # May have been obsoleted or recovered on merge.
-                        if pamsg.obsolete != msg.obsolete:
-                            pmsg = asc_collect_history_single(pamsg, acat,
-                                                              config)[0].msg
-                            m = MessageUnsafe(msg)
-                            m.obsolete = False
-                            pm = MessageUnsafe(pmsg)
-                            pm.obsolete = False
-                            if m.inv == pm.inv:
+                    for catf in (catf_curr, catf_prev):
+                        for kmsg in (msg, msg_to_previous(msg)):
+                            pmsg = catf(kmsg)
+                            if pmsg and merge_modified(pmsg, msg):
                                 anymod = False
-                    elif not msg.obsolete and msg.fuzzy and msg.msgid_previous:
-                        # May have been fuzzied on merge.
-                        pamsgs = acat.select_by_key(msg.msgctxt_previous,
-                                                    msg.msgid_previous,
-                                                    wobs=True)
-                        if pamsgs:
-                            pmsg = asc_collect_history_single(pamsgs[0], acat,
-                                                              config)[0].msg
-                            if merge_modified(pmsg, msg):
-                                anymod = False
+                                break
+                        if not anymod:
+                            break
+                    # If message is fuzzy and has no previous fields,
+                    # also consider it clean merge.
+                    # This can happen if there are legacy fuzzy messages,
+                    # made before --previous was introduced to msgmerge.
+                    if msg.fuzzy and msg.msgid_previous is None:
+                        anymod = False
                     if anymod:
                         break
             if anymod:
@@ -1306,10 +1344,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
             if i_nfasc is not None:
                 pmsg = history[i_nfasc].msg
             elif msg.fuzzy and msg.msgid_previous is not None:
-                pmsg = MessageUnsafe(msg)
-                pmsg.unfuzzy()
-                for fcurr, fprev in zip(_fields_current, _fields_previous):
-                    setattr(pmsg, fcurr, msg.get(fprev))
+                pmsg = msg_to_previous(msg)
             if pmsg is not None:
                 for fprev in _fields_previous:
                     setattr(msg, fprev, None)
