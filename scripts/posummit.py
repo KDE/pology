@@ -3,6 +3,7 @@
 
 from difflib import SequenceMatcher
 import filecmp
+import hashlib
 import imp
 import locale
 from optparse import OptionParser
@@ -1349,6 +1350,30 @@ def summit_gather_single (summit_name, project, options,
     return summit_cat
 
 
+def extkey_msg (msg):
+
+    # NOTE: If computation of context pad is modified,
+    # padded messages in existing summit catalogs will get fuzzy
+    # on next merge with newly gathered templates.
+
+    msg = MessageUnsafe(msg)
+    if msg.msgid_plural is not None:
+        h = hashlib.md5()
+        h.update(msg.msgid_plural.encode("UTF-8"))
+        ctxtpad = h.hexdigest()
+    else:
+        # Something that looks like a hex digest but slightly shorter,
+        # so that it does not match any real digest.
+        ctxtpad = "abcd1234efgh5665hgfe4321dcba"
+    msg.auto_comment.append(u"+: msgctxt-pad %s" % ctxtpad)
+    if msg.msgctxt is None:
+        msg.msgctxt = u"%s" % ctxtpad
+    else:
+        msg.msgctxt = u"%s|%s" % (msg.msgctxt, ctxtpad)
+
+    return msg
+
+
 def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
                                summit_cat, dep_summit_cats, is_primary,
                                project, options, update_progress):
@@ -1359,6 +1384,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
     # updated by merging, which reflects on heuristic insertion.
     # Ignore messages present in dependent summit catalogs.
     msgs_to_insert = set()
+    xkpairs = []
     for msg in branch_cat:
         update_progress()
 
@@ -1379,17 +1405,28 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             for i in range(len(msg.msgstr)):
                 msg.msgstr[i] = u""
 
+        # Construct branch message with extended key.
+        xkmsg = extkey_msg(msg)
+
         # Do not gather messages belonging to depending summit catalogs.
         in_dep = False
         for dep_summit_cat in dep_summit_cats:
-            if msg in dep_summit_cat:
+            if msg in dep_summit_cat or xkmsg in dep_summit_cat:
                 in_dep = True
                 break
         if in_dep:
             continue
 
-        # Merge the branch message or collect for insertion.
+        # If the summit message for the original branch message exists,
+        # but their extended keys do not match,
+        # switch to branch message with extended key.
         summit_msg = summit_cat.get(msg)
+        if summit_msg and extkey_msg(summit_msg).key != xkmsg.key:
+            xkpairs.append((msg, xkmsg))
+            msg = xkmsg
+            summit_msg = summit_cat.get(msg)
+
+        # Merge the branch message or collect for insertion.
         if summit_msg is not None:
             # Merge the message.
             gather_merge_msg(summit_msg, msg)
@@ -1403,6 +1440,13 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 
     # If there are any messages awaiting insertion, heuristically insert them.
     if msgs_to_insert:
+
+        # If some messages had to have extended keys, update branch catalog.
+        if xkpairs:
+            for msg, xkmsg in xkpairs:
+                branch_cat.remove_on_sync(msg)
+                branch_cat.add_last(xkmsg)
+            branch_cat.sync_map()
 
         # Pair messages to insert from branch with summit messages
         # having common source files.
@@ -1544,51 +1588,40 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
 def gather_merge_msg (summit_msg, msg):
 
     if summit_msg.key != msg.key:
-        error("internal: cannot merge messages with different keys")
+        error("[internal] Cannot gather messages with different keys.")
+    if (summit_msg.msgid_plural is None) != (msg.msgid_plural is None):
+        error("[internal] Cannot gather messages with different plurality.")
 
-    # Plural always overrides non-plural, regardless of summit/branch state.
-    if summit_msg.msgid_plural is None and msg.msgid_plural is not None:
-        if msg.manual_comment:
+    if (   (summit_msg.translated and msg.translated)
+        or (summit_msg.fuzzy and msg.fuzzy)
+        or (summit_msg.untranslated and msg.untranslated)
+    ):
+        if not summit_msg.manual_comment:
             summit_msg.manual_comment = Monlist(msg.manual_comment)
-        if msg.fuzzy:
-            summit_msg.msgctxt_previous = msg.msgctxt_previous
-            summit_msg.msgid_previous = msg.msgid_previous
-            summit_msg.msgid_plural_previous = msg.msgid_plural_previous
-        summit_msg.msgid_plural = msg.msgid_plural
+        if msg.msgid_plural is not None:
+            summit_msg.msgid_plural = msg.msgid_plural
         summit_msg.msgstr = Monlist(msg.msgstr)
-        summit_msg.fuzzy = msg.fuzzy
 
-    else:
-        if (   (summit_msg.translated and msg.translated)
-            or (summit_msg.fuzzy and msg.fuzzy)
-            or (summit_msg.untranslated and msg.untranslated)
-        ):
-            if not summit_msg.manual_comment:
-                summit_msg.manual_comment = Monlist(msg.manual_comment)
+    elif summit_msg.fuzzy and msg.translated:
+        summit_msg.manual_comment = Monlist(msg.manual_comment)
+        if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
             if msg.msgid_plural is not None:
                 summit_msg.msgid_plural = msg.msgid_plural
             summit_msg.msgstr = Monlist(msg.msgstr)
+            if summit_msg.msgid_plural == msg.msgid_plural:
+                summit_msg.unfuzzy()
 
-        elif summit_msg.fuzzy and msg.translated:
-            summit_msg.manual_comment = Monlist(msg.manual_comment)
-            if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
-                if msg.msgid_plural is not None:
-                    summit_msg.msgid_plural = msg.msgid_plural
-                summit_msg.msgstr = Monlist(msg.msgstr)
-                if summit_msg.msgid_plural == msg.msgid_plural:
-                    summit_msg.unfuzzy()
-
-        elif summit_msg.untranslated and (msg.translated or msg.fuzzy):
-            summit_msg.manual_comment = Monlist(msg.manual_comment)
-            if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
-                if msg.fuzzy:
-                    summit_msg.msgctxt_previous = msg.msgctxt_previous
-                    summit_msg.msgid_previous = msg.msgid_previous
-                    summit_msg.msgid_plural_previous = msg.msgid_plural_previous
-                if msg.msgid_plural is not None:
-                    summit_msg.msgid_plural = msg.msgid_plural
-                summit_msg.msgstr = Monlist(msg.msgstr)
-                summit_msg.fuzzy = msg.fuzzy
+    elif summit_msg.untranslated and (msg.translated or msg.fuzzy):
+        summit_msg.manual_comment = Monlist(msg.manual_comment)
+        if summit_msg.msgid_plural is None or msg.msgid_plural is not None:
+            if msg.fuzzy:
+                summit_msg.msgctxt_previous = msg.msgctxt_previous
+                summit_msg.msgid_previous = msg.msgid_previous
+                summit_msg.msgid_plural_previous = msg.msgid_plural_previous
+            if msg.msgid_plural is not None:
+                summit_msg.msgid_plural = msg.msgid_plural
+            summit_msg.msgstr = Monlist(msg.msgstr)
+            summit_msg.fuzzy = msg.fuzzy
 
 
 def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
@@ -1675,15 +1708,22 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                           branch_msg_lkp, branch_cat,
                           project.hook_on_gather_msg)
 
+        # Construct branch message for lookup with extended key.
+        branch_xkmsg_lkp = extkey_msg(branch_msg_lkp)
+
         # Find first summit catalog which has this message translated.
         summit_msg = None
         for summit_cat in summit_cats:
-            if branch_msg_lkp in summit_cat:
-                summit_msg = summit_cat[branch_msg_lkp]
-                if summit_msg.obsolete:
-                    summit_msg = None
-                else:
-                    break
+            # Branch message with extended key must be looked up first.
+            for bmsg_lkp in [branch_xkmsg_lkp, branch_msg_lkp]:
+                if bmsg_lkp in summit_cat:
+                    summit_msg = summit_cat[bmsg_lkp]
+                    if summit_msg.obsolete:
+                        summit_msg = None
+                    else:
+                        break
+            if summit_msg is not None:
+                break
 
         if summit_msg is None:
             report_on_msg("message not in the summit", branch_msg, branch_cat)
@@ -1730,41 +1770,26 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                 exec_hook_msg(branch_id, branch_name, branch_subdir,
                               summit_msg, summit_cat,
                               project.hook_on_scatter_msg)
-                if (   (summit_msg.msgid_plural is None)
-                    == (branch_msg.msgid_plural is None)
-                ):
-                    # Both messages have same plurality.
-                    for i in range(len(summit_msg.msgstr)):
-                        piped_msgstr = exec_hook_msgstr(
-                            branch_id, branch_name, branch_subdir,
-                            summit_msg.msgstr[i], summit_msg, summit_cat,
-                            project.hook_on_scatter_msgstr)
-                        if i < len(branch_msg.msgstr):
-                            branch_msg.msgstr[i] = piped_msgstr
-                        else:
-                            branch_msg.msgstr.append(piped_msgstr)
-                    branch_msg.unfuzzy()
-                    branch_msg.manual_comment = summit_msg.manual_comment
-                    scattered_branch_msgs.add(branch_msg)
 
-                elif (    summit_msg.msgid_plural is not None
-                      and branch_msg.msgid_plural is None
-                ):
-                    # Summit is plural, branch is not: means that branch is
-                    # singular, so copy plural form for n==1.
-                    index = summit_cat.plural_index(1)
-                    branch_msg.msgstr[0] = exec_hook_msgstr(
+                # NOTE: Same plurality and equal msgid_plural fields
+                # between summit and branch message are enforced,
+                # so only assert this for robustness.
+                if summit_msg.msgid_plural != branch_msg.msgid_plural:
+                    error("[internal] Cannot scatter messages with "
+                          "different plurality.")
+
+                for i in range(len(summit_msg.msgstr)):
+                    piped_msgstr = exec_hook_msgstr(
                         branch_id, branch_name, branch_subdir,
-                        summit_msg.msgstr[index], summit_msg, summit_cat,
+                        summit_msg.msgstr[i], summit_msg, summit_cat,
                         project.hook_on_scatter_msgstr)
-                    branch_msg.unfuzzy()
-                    branch_msg.manual_comment = summit_msg.manual_comment
-                    scattered_branch_msgs.add(branch_msg)
-
-                else:
-                    # Branch is plural, summit is not: should not happen.
-                    report(   "%s: summit message needs plurals: {%s}"
-                           % (branch_path, branch_msg.msgid))
+                    if i < len(branch_msg.msgstr):
+                        branch_msg.msgstr[i] = piped_msgstr
+                    else:
+                        branch_msg.msgstr.append(piped_msgstr)
+                branch_msg.unfuzzy()
+                branch_msg.manual_comment = summit_msg.manual_comment
+                scattered_branch_msgs.add(branch_msg)
 
         # Fuzzy all active messages which were not scattered,
         # in order to avoid stale translations in branches.
