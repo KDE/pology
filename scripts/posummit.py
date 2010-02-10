@@ -1255,14 +1255,8 @@ def summit_gather_single (summit_name, project, options,
 
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
 
-    # Select primary branch catalog and list of all catalogs with branch ids.
-    prim_branch_cat = None
-    branch_ids_cats = []
-    for branch_id in src_branch_ids:
-        for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
-            if prim_branch_cat is None:
-                prim_branch_cat = branch_cat
-            branch_ids_cats.append((branch_id, branch_cat))
+    # Select primary branch catalog.
+    prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
 
     # Gather messages through branch catalogs.
     # Add summit messages to a fresh catalog, such that if no
@@ -1271,8 +1265,8 @@ def summit_gather_single (summit_name, project, options,
     for branch_id in src_branch_ids:
         for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
-            summit_gather_single_bcat(branch_id, branch_cat, branch_ids_cats,
-                                      fresh_cat, dep_summit_cats, is_primary,
+            summit_gather_single_bcat(branch_id, branch_cat, is_primary,
+                                      fresh_cat, dep_summit_cats,
                                       project, options, update_progress)
 
     # If phony-gather, stop here and return fresh catalog for reference.
@@ -1304,8 +1298,7 @@ def summit_gather_single (summit_name, project, options,
         summit_cat = fresh_cat
 
     # Update the summit header.
-    summit_gather_single_header(summit_cat, prim_branch_cat, branch_ids_cats,
-                                project, options)
+    summit_gather_single_header(summit_cat, prim_branch_cat, project, options)
 
     # Apply hooks to the summit catalog.
     exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_subdir, summit_cat,
@@ -1330,8 +1323,9 @@ def summit_gather_single (summit_name, project, options,
                 added = True
 
         branch_paths = []
-        for branch_id, branch_cat in branch_ids_cats:
-            branch_paths.append(branch_cat.filename)
+        for branch_id in src_branch_ids:
+            for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
+                branch_paths.append(branch_cat.filename)
         paths_str = " ".join(branch_paths)
 
         if options.verbose:
@@ -1365,7 +1359,8 @@ def extkey_msg (msg):
         # Something that looks like a hex digest but slightly shorter,
         # so that it does not match any real digest.
         ctxtpad = "abcd1234efgh5665hgfe4321dcba"
-    msg.auto_comment.append(u"+: msgctxt-pad %s" % ctxtpad)
+    msg.auto_comment.append(u"%s msgctxt-pad %s"
+                            % (_summit_tag_kwprop, ctxtpad))
     if msg.msgctxt is None:
         msg.msgctxt = u"%s" % ctxtpad
     else:
@@ -1374,8 +1369,8 @@ def extkey_msg (msg):
     return msg
 
 
-def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
-                               summit_cat, dep_summit_cats, is_primary,
+def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
+                               summit_cat, dep_summit_cats,
                                project, options, update_progress):
 
     # Go through messages in the branch catalog, merging them with
@@ -1383,7 +1378,8 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
     # Do not insert new messages immediately, as source references may be
     # updated by merging, which reflects on heuristic insertion.
     # Ignore messages present in dependent summit catalogs.
-    msgs_to_insert = set()
+    msgs_to_merge = []
+    msgs_to_insert = []
     xkpairs = []
     for msg in branch_cat:
         update_progress()
@@ -1426,28 +1422,31 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
             msg = xkmsg
             summit_msg = summit_cat.get(msg)
 
-        # Merge the branch message or collect for insertion.
+        # Collect the branch message for merging or insertion.
         if summit_msg is not None:
+            msgs_to_merge.append((msg, summit_msg))
+        else:
+            msgs_to_insert.append(msg)
+
+    # If some messages had to have extended keys, update branch catalog.
+    if xkpairs:
+        for msg, xkmsg in xkpairs:
+            branch_cat.remove_on_sync(msg)
+            branch_cat.add_last(xkmsg)
+        branch_cat.sync_map()
+
+    # Merge messages already in the summit catalog.
+    if msgs_to_merge:
+        for msg, summit_msg in msgs_to_merge:
             # Merge the message.
             gather_merge_msg(summit_msg, msg)
             # Update automatic comments.
             summit_override_auto(summit_msg, msg, branch_id, is_primary)
             # Equip any new summit tags to the merged message.
-            summit_set_tags(summit_msg, branch_ids_cats, project)
-        else:
-            # Record branch message, to insert later.
-            msgs_to_insert.add(msg)
+            summit_set_tags(summit_msg, branch_id, project)
 
-    # If there are any messages awaiting insertion, heuristically insert them.
+    # Insert messages not already in the summit catalog.
     if msgs_to_insert:
-
-        # If some messages had to have extended keys, update branch catalog.
-        if xkpairs:
-            for msg, xkmsg in xkpairs:
-                branch_cat.remove_on_sync(msg)
-                branch_cat.add_last(xkmsg)
-            branch_cat.sync_map()
-
         # Pair messages to insert from branch with summit messages
         # having common source files.
         # If summit is empty, this is primary branch catalog, so make
@@ -1466,7 +1465,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, branch_ids_cats,
         for msg in msgs_to_insert:
             update_progress()
             summit_msg = Message(msg)
-            summit_set_tags(summit_msg, branch_ids_cats, project)
+            summit_set_tags(summit_msg, branch_id, project)
             summit_msg_by_msg[msg] = summit_msg
 
         # Insert branch messages into summit source by source.
@@ -1624,7 +1623,7 @@ def gather_merge_msg (summit_msg, msg):
             summit_msg.fuzzy = msg.fuzzy
 
 
-def summit_gather_single_header (summit_cat, prim_branch_cat, branch_ids_cats,
+def summit_gather_single_header (summit_cat, prim_branch_cat,
                                  project, options):
 
     # Update template creation date
@@ -2025,49 +2024,20 @@ def set_summit_comment (msg, summit_tag, text):
         msg.auto_comment.append(ctext)
 
 
-if sys.version_info[:2] >= (2, 5):
-    import hashlib
-    _makehash = hashlib.md5
-else:
-    import md5
-    _makehash = md5.new
-
-def msg_ident (msg):
-
-    h = _makehash()
-    h.update(msg.key.encode("UTF-8"))
-    return "_" + h.hexdigest() + "_"
-
-
-# NOTE: If changed, also change in stats sieve.
-#_summit_tag_ident = "+="
 _summit_tag_branchid = "+>"
+_summit_tag_kwprop = "+:"
 _summit_tags = (
-    #_summit_tag_ident,
     _summit_tag_branchid,
+    _summit_tag_kwprop,
 )
 
-def summit_set_tags (msg, bids_cats, project):
+def summit_set_tags (msg, branch_id, project):
 
-    ## Add hash ident.
-    #ident = msg_ident(msg)
-    #set_summit_comment(msg, _summit_tag_ident, ident)
-
-    # Get branch IDs of any branch catalog which contains this message.
-    branch_ids = []
-    for bid, bcat in bids_cats:
-        if msg in bcat:
-            branch_ids.append(bid)
-
-    # Order branch IDs by the global order, to preserve priorites.
-    ordered_branch_ids = []
-    for branch_id in project.branch_ids:
-        if branch_id in branch_ids:
-            ordered_branch_ids.append(branch_id)
-
-    # Set branch IDs.
-    set_summit_comment(msg, _summit_tag_branchid,
-                       " ".join(ordered_branch_ids))
+    # Add branch ID.
+    branch_ids = get_summit_comment(msg, _summit_tag_branchid, "").split()
+    if branch_id not in branch_ids:
+        branch_ids.append(branch_id)
+    set_summit_comment(msg, _summit_tag_branchid, " ".join(branch_ids))
 
 
 def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
