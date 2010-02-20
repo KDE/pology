@@ -94,8 +94,12 @@ def merge_pofile (catpath, tplpath,
     @rtype: bool or L{Catalog<misc.file.catalog.Catalog>} or C{None}
     """
 
-    wrap = not wrapping or "basic" in wrapping
-    otherwrap = wrapping and set(wrapping).difference(["basic"])
+    if wrapping is not None:
+        wrap = "basic" in wrapping
+        otherwrap = set(wrapping).difference(["basic"])
+    else:
+        wrap = True
+        otherwrap = False
 
     # Determine which special operations are to be done.
     correct_exact_matches = cmppaths and (fuzzex or minwnex > 0)
