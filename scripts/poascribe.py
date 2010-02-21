@@ -795,10 +795,11 @@ def frozen_cat_asc_prev (acat, config):
 
         if pcat[0] is None:
             pcat[0] = Catalog("", create=True, monitored=False)
+            empty_key = MessageUnsafe().key
             for amsg in acat:
                 pmsg = asc_collect_history_single(amsg, acat, config)[0].msg
                 ppmsg = msg_to_previous(pmsg, copy=False)
-                if ppmsg:
+                if ppmsg and ppmsg.key != empty_key:
                     pcat[0].add_last(ppmsg)
 
         return pcat[0].get(msg)
