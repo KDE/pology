@@ -1210,7 +1210,7 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
             else:
                 ascfmt = "%s:%s" % (a.user, shtype)
             ascfmts.append(ascfmt)
-        achnfmt = _achncmnt + " " + " ".join(ascfmts)
+        achnfmt = u"%s %s" % (_achncmnt, " ".join(ascfmts))
         msg.auto_comment.append(achnfmt)
 
         diffed_msgs.append(msg)
