@@ -359,7 +359,8 @@ def _derive_reflex_specs (reflex_spec):
         reflex_spec_dehyb.append((tick, refmap, reflen_min, reflen_max))
 
         # Derive data for hybridization:
-        # [(reflen, [(btrk, {ijkfrm: [(ekvfrm, tick)...]})...])...]
+        # [(reflen, [(btrk, [(ekvlen,
+        #                     {ijkfrm: [(ekvfrm, tick)...]})...])...])...]
         for ijkfrm, ekvfrm in refmap.items():
             reflen = len(ijkfrm)
             if reflen not in reflex_spec_hyb:
@@ -373,16 +374,22 @@ def _derive_reflex_specs (reflex_spec):
                 btrk += 1
             if btrk not in subspec:
                 subspec[btrk] = {}
-            if ijkfrm not in subspec[btrk]:
-                subspec[btrk][ijkfrm] = []
-            subspec[btrk][ijkfrm].append((ekvfrm, tick))
+            ekvlen = len(ekvfrm)
+            if ekvlen not in subspec[btrk]:
+                subspec[btrk][ekvlen] = {}
+            if ijkfrm not in subspec[btrk][ekvlen]:
+                subspec[btrk][ekvlen][ijkfrm] = []
+            subspec[btrk][ekvlen][ijkfrm].append((ekvfrm, tick))
 
     # Put hybridization data into list of pairs up to required depth.
     # Sort such that on hybridization reflexes are tried by decreasing length
     # and increasing backtrack.
     tmplst = []
     for reflen, subspec in reflex_spec_hyb.items():
-        tmplst.append((reflen, list(sorted(subspec.items()))))
+        tmplst2 = []
+        for ekvlen, subspec2 in subspec.items():
+            tmplst2.append((ekvlen, list(sorted(subspec2.items()))))
+        tmplst.append((reflen, list(sorted(tmplst2))))
     reflex_spec_hyb = list(reversed(sorted(tmplst)))
 
     return reflex_spec_dehyb, reflex_spec_hyb
@@ -546,65 +553,35 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
     @rtype: string
     """
 
-    # If character-level diff is done at once, weird segments may appear.
-    # Instead, first diff on word-level, then on character-level.
-    wdiff = word_diff(text1, text2)
-    cdiff = []
-    i = 0
-    while i < len(wdiff):
-        tag1, seg1 = wdiff[i]
-        tag2, seg2 = wdiff[i + 1] if i + 1 < len(wdiff) else ("", "")
-        if (tag1 == "-" and tag2 == "+") or (tag1 == "+" and tag2 == "-"):
-            if tag1 == "+" and tag2 == "-": # reverse from expected order
-                seg1, seg2 = seg2, seg1
-            cdiff.extend(tdiff(seg1, seg2))
-            i += 2
-        else:
-            cdiff.extend([(tag1, c) for c in seg1])
-            i += 1
-
-    lenc = len(cdiff)
-    cdiff12 = cdiff
-    cdiff21 = [({"+": "-", "-": "+", " ": " "}[t], s) for t, s in cdiff]
-    i1 = 0; i1p = 0; i2 = 0; i2p = 0; ic = 0
+    len1 = len(text1); len2 = len(text2)
+    i1 = 0; i1p = 0; i2 = 0; i2p = 0
     segs = []
     while True:
-        while ic < lenc and cdiff12[ic][0] == " ":
-            ic += 1; i1 += 1; i2 += 1
-        if ic == lenc:
+        while i1 < len1 and i2 < len2 and text1[i1] == text2[i2]:
+            i1 += 1; i2 += 1
+        if i1 == len1 and i2 == len2:
             segs.append(text1[i1p:]) # same as text2[i2p:]
             break
         # Try to hybridize difference by jat-reflex ticks.
         tick = None
-        for cdiff, texte, texti, ie, ii, order12 in (
-            (cdiff12, text1, text2, i1, i2, True),
-            (cdiff21, text2, text1, i2, i1, False),
+        for texte, texti, ie, ii, order12 in (
+            (text1, text2, i1, i2, True),
+            (text2, text1, i2, i1, False),
         ):
             for leni, subspecs in _reflex_spec_hyb:
-                for btrk, refmap in subspecs:
-                    # Advance the diff to cover Ijekavian reflex and -+ span,
-                    # accumulating Ekavian reflex length along the way.
-                    icn = ic - btrk
-                    if icn < 0:
+                for btrk, subspecs2 in subspecs:
+                    iec = ie - btrk
+                    iic = ii - btrk
+                    if iec < 0 or iic < 0:
                         continue
-                    lene = 0; cnti = leni
-                    while icn < lenc and (cnti > 0 or cdiff[icn][0] != " "):
-                        if cdiff[icn][0] != "-":
-                            cnti -= 1
-                        if cdiff[icn][0] != "+":
-                            lene += 1
-                        icn += 1
-                    if cnti != 0:
-                        continue
-                    # Check if collected segments correspond to a mapping rule.
-                    ieb = ie - btrk
-                    frme = texte[ie - btrk:ie - btrk + lene]
-                    iib = ii - btrk
-                    frmi = texti[iib:iib + leni]
-                    for cfrme, ctick in refmap.get(frmi, []):
-                        if cfrme == frme:
-                            tick = ctick
-                            break
+                    for lene, refmap in subspecs2:
+                        frme = texte[ie - btrk:ie - btrk + lene]
+                        frmi = texti[ii - btrk:ii - btrk + leni]
+                        for cfrme, ctick in refmap.get(frmi, []):
+                            if cfrme == frme:
+                                tick = ctick
+                                break
+                        if tick: break
                     if tick: break
                 if tick: break
             if tick: break
@@ -614,21 +591,21 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             segs.append(tick + frmi)
             i1p = i1 - btrk + (lene if order12 else leni)
             i2p = i2 - btrk + (leni if order12 else lene)
-            ic = icn
         else:
             # Hybridization by difference marks not possible.
             # Use alternatives directive, or pure Ijekavian.
-            frm1 = ""; frm2 = ""
-            segs.append(text1[i1p:i1])
-            while ic < lenc and cdiff12[ic][0] != " ":
-                tag, c = cdiff12[ic]
-                if tag == "-":
-                    frm1 += c; i1 += 1
-                else:
-                    frm2 += c; i2 += 1
-                ic += 1
-            i1p = i1
-            i2p = i2
+            i1b = i1; i2b = i2
+            while i1b >= 0 and text1[i1b].isalpha(): # same as *2*
+                i1b -= 1; i2b -= 1
+            i1b += 1; i2b += 1
+            segs.append(text1[i1p:i1b])
+            wdiff = word_diff(text1[i1b:], text2[i2b:])
+            if wdiff[0][0] == "-":
+                frm1 = wdiff[0][1]; frm2 = wdiff[1][1]
+            else:
+                frm1 = wdiff[1][1]; frm2 = wdiff[0][1]
+            i1p = i1b + len(frm1)
+            i2p = i2b + len(frm2)
             if ekord == 1:
                 segs.append(_dhyb_althead + _delimit([frm1, frm2], delims))
             elif ekord == 2:
