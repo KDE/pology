@@ -635,7 +635,8 @@ def examine_state (options, configs_catpaths, mode):
             for msg in cat:
                 history = asc_collect_history(msg, acat, config,
                                               hfilter=options.hfilter,
-                                              addrem=options.addrem)
+                                              addrem=options.addrem,
+                                              nomrg=True)
                 if history[0].user is None and not has_tracked_parts(msg):
                     continue # pristine
                 if not mode.selector(msg, cat, history, config):
@@ -1111,7 +1112,8 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
-                                      addrem=options.addrem)
+                                      addrem=options.addrem,
+                                      nomrg=True)
         # Makes no sense to ascribe review to pristine messages.
         if history[0].user is None and not has_tracked_parts(msg):
             continue
@@ -1161,7 +1163,8 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
-                                      addrem=options.addrem)
+                                      addrem=options.addrem,
+                                      nomrg=True)
         # Makes no sense to review pristine messages.
         if history[0].user is None and not has_tracked_parts(msg):
             continue
@@ -1199,11 +1202,6 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         i_from = (i_asc - 1) if i_asc is not None else len(history) - 1
         for i in range(i_from, -1, -1):
             a = history[i]
-            # Skip merges.
-            if (    i + 1 < len(history)
-                and merge_modified(history[i + 1].msg, a.msg)
-            ):
-                continue
             shtype = {ATYPE_MOD: "m", ATYPE_REV: "r"}[a.type]
             if a.tag:
                 ascfmt = "%s:%s(%s)" % (a.user, shtype, a.tag)
@@ -1253,7 +1251,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
         clear_review_msg(cmsg)
         history = asc_collect_history(cmsg, acat, config,
                                       hfilter=options.hfilter,
-                                      addrem=options.addrem)
+                                      addrem=options.addrem,
+                                      nomrg=True)
         if not stest(cmsg, cat, history, config):
             continue
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
@@ -2698,14 +2697,10 @@ def w_selector_modax (cid, amod, arev,
                 and (not musers or a.user in musers)
                 and (not rmusers or a.user not in rmusers)
             ):
-                # Cannot be a candidate if:
-                # - there are only merge-induced differences to earlier message
-                # - translation-only mode, and there is no difference
-                #   in translation from earlier message
+                # Cannot be a candidate if in translation-only mode and
+                # there is no difference in translation to earlier message.
                 ae = history[i + 1] if i + 1 < len(history) else None
-                if (    not (ae and merge_modified(ae.msg, a.msg))
-                    and not (tronly and ae and ae.msg.msgstr == a.msg.msgstr)
-                ):
+                if not (tronly and ae and ae.msg.msgstr == a.msg.msgstr):
                     hi_sel = i + 1
 
         return hi_sel
