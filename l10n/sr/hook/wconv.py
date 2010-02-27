@@ -354,43 +354,35 @@ def _derive_reflex_specs (reflex_spec):
         # Derive cases with all letters in uppercase.
         refmap.update([map(unicode.upper, x) for x in refmap.items()])
         # Compute minimum and maximum reflex lengths.
-        reflen_min = min(map(len, refmap.keys()))
-        reflen_max = max(map(len, refmap.keys()))
-        reflex_spec_dehyb.append((tick, refmap, reflen_min, reflen_max))
+        ijklen_min = min(map(len, refmap.keys()))
+        ijklen_max = max(map(len, refmap.keys()))
+        reflex_spec_dehyb.append((tick, refmap, ijklen_min, ijklen_max))
 
         # Derive data for hybridization:
-        # [(reflen, [(btrk, [(ekvlen,
-        #                     {ijkfrm: [(ekvfrm, tick)...]})...])...])...]
+        # {(ekvlen, ijklen, btrk): {ijkfrm: [(ekvfrm, tick)...]}}
         for ijkfrm, ekvfrm in refmap.items():
-            reflen = len(ijkfrm)
-            if reflen not in reflex_spec_hyb:
-                reflex_spec_hyb[reflen] = {}
-            subspec = reflex_spec_hyb[reflen]
             # Compute backtracking from position of jat-reflex difference.
             btrk = 0
             while (    btrk < len(ijkfrm) and btrk < len(ekvfrm)
                    and ijkfrm[btrk] == ekvfrm[btrk]
             ):
                 btrk += 1
-            if btrk not in subspec:
-                subspec[btrk] = {}
-            ekvlen = len(ekvfrm)
-            if ekvlen not in subspec[btrk]:
-                subspec[btrk][ekvlen] = {}
-            if ijkfrm not in subspec[btrk][ekvlen]:
-                subspec[btrk][ekvlen][ijkfrm] = []
-            subspec[btrk][ekvlen][ijkfrm].append((ekvfrm, tick))
+            pkey = (btrk, len(ekvfrm), len(ijkfrm))
+            if pkey not in reflex_spec_hyb:
+                reflex_spec_hyb[pkey] = {}
+            if ijkfrm not in reflex_spec_hyb[pkey]:
+                reflex_spec_hyb[pkey][ijkfrm] = []
+            reflex_spec_hyb[pkey][ijkfrm].append((ekvfrm, tick))
 
-    # Put hybridization data into list of pairs up to required depth.
-    # Sort such that on hybridization reflexes are tried by decreasing length
-    # and increasing backtrack.
+    # Convert hybridization data into list of pairs.
+    # Sort such that on hybridization reflexes are tried by
+    # increasing backtrack,
+    # decreasing smaller length of the two reflexes,
+    # decreasing greater lenght of the two reflexes.
     tmplst = []
-    for reflen, subspec in reflex_spec_hyb.items():
-        tmplst2 = []
-        for ekvlen, subspec2 in subspec.items():
-            tmplst2.append((ekvlen, list(sorted(subspec2.items()))))
-        tmplst.append((reflen, list(sorted(tmplst2))))
-    reflex_spec_hyb = list(reversed(sorted(tmplst)))
+    pkeys = reflex_spec_hyb.keys()
+    pkeys.sort(key=lambda x: (x[0], -min(x[1], x[2]), -max(x[1], x[2])))
+    reflex_spec_hyb = [k + (reflex_spec_hyb[k],) for k in pkeys]
 
     return reflex_spec_dehyb, reflex_spec_hyb
 
@@ -437,8 +429,8 @@ def hitoiq (text):
 def _hito_w (text, toijek=False, silent=False, validate=False):
 
     errspans = [] if validate else None
-    for tick, refmap, reflen_min, reflen_max in _reflex_spec_dehyb:
-        text = _hito_w_simple(text, tick, refmap, reflen_min, reflen_max,
+    for tick, refmap, ijklen_min, ijklen_max in _reflex_spec_dehyb:
+        text = _hito_w_simple(text, tick, refmap, ijklen_min, ijklen_max,
                               toijek, silent, errspans)
 
     srcname = "<text>" if (not silent and not validate) else None
@@ -457,7 +449,7 @@ def _hito_w (text, toijek=False, silent=False, validate=False):
         return errspans
 
 
-def _hito_w_simple (text, tick, refmap, reflen_min, reflen_max,
+def _hito_w_simple (text, tick, refmap, ijklen_min, ijklen_max,
                     toijek, silent, errspans):
 
     segs = []
@@ -475,12 +467,12 @@ def _hito_w_simple (text, tick, refmap, reflen_min, reflen_max,
             segs.append(tick)
             continue
 
-        reflen = reflen_min
+        ijklen = ijklen_min
         ekvfrm = None
-        while reflen <= reflen_max and ekvfrm is None:
-            ijkfrm = text[p:p + reflen]
+        while ijklen <= ijklen_max and ekvfrm is None:
+            ijkfrm = text[p:p + ijklen]
             ekvfrm = refmap.get(ijkfrm)
-            reflen += 1
+            ijklen += 1
 
         if ekvfrm is not None:
             segs.append(ekvfrm if not toijek else ijkfrm)
@@ -491,7 +483,7 @@ def _hito_w_simple (text, tick, refmap, reflen_min, reflen_max,
             if not silent:
                 warning(errmsg)
             if errspans is not None:
-                errspans.append((pp, pp + reflen_max, errmsg))
+                errspans.append((pp, pp + ijklen_max, errmsg))
 
     return "".join(segs)
 
@@ -568,21 +560,18 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             (text1, text2, i1, i2, True),
             (text2, text1, i2, i1, False),
         ):
-            for leni, subspecs in _reflex_spec_hyb:
-                for btrk, subspecs2 in subspecs:
-                    ieb = ie - btrk
-                    iib = ii - btrk
-                    if ieb < 0 or iib < 0:
-                        continue
-                    for lene, refmap in subspecs2:
-                        frme = texte[ieb:ieb + lene]
-                        frmi = texti[iib:iib + leni]
-                        for cfrme, ctick in refmap.get(frmi, []):
-                            if cfrme == frme:
-                                tick = ctick
-                                break
-                        if tick: break
-                    if tick: break
+            frms = []
+            for btrk, lene, leni, refmap in _reflex_spec_hyb:
+                ieb = ie - btrk
+                iib = ii - btrk
+                if ieb < 0 or iib < 0:
+                    continue
+                frme = texte[ieb:ieb + lene]
+                frmi = texti[iib:iib + leni]
+                for cfrme, ctick in refmap.get(frmi, []):
+                    if cfrme == frme:
+                        tick = ctick
+                        break
                 if tick: break
             if tick: break
         if tick:
