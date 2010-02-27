@@ -570,13 +570,13 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
         ):
             for leni, subspecs in _reflex_spec_hyb:
                 for btrk, subspecs2 in subspecs:
-                    iec = ie - btrk
-                    iic = ii - btrk
-                    if iec < 0 or iic < 0:
+                    ieb = ie - btrk
+                    iib = ii - btrk
+                    if ieb < 0 or iib < 0:
                         continue
                     for lene, refmap in subspecs2:
-                        frme = texte[ie - btrk:ie - btrk + lene]
-                        frmi = texti[ii - btrk:ii - btrk + leni]
+                        frme = texte[ieb:ieb + lene]
+                        frmi = texti[iib:iib + leni]
                         for cfrme, ctick in refmap.get(frmi, []):
                             if cfrme == frme:
                                 tick = ctick
@@ -595,7 +595,7 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             # Hybridization by difference marks not possible.
             # Use alternatives directive, or pure Ijekavian.
             i1b = i1; i2b = i2
-            while i1b >= 0 and text1[i1b].isalpha(): # same as *2*
+            while i1b >= i1p and text1[i1b].isalpha(): # same as *2*
                 i1b -= 1; i2b -= 1
             i1b += 1; i2b += 1
             segs.append(text1[i1p:i1b])
