@@ -600,10 +600,16 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             i1b += 1; i2b += 1
             segs.append(text1[i1p:i1b])
             wdiff = word_diff(text1[i1b:], text2[i2b:])
-            if wdiff[0][0] == "-":
-                frm1 = wdiff[0][1]; frm2 = wdiff[1][1]
-            else:
-                frm1 = wdiff[1][1]; frm2 = wdiff[0][1]
+            frm1s = []
+            frm2s = []
+            while (not frm1s or not frm2s) and wdiff:
+                tag, seg = wdiff.pop(0)
+                if tag != "+":
+                    frm1s.append(seg)
+                if tag != "-":
+                    frm2s.append(seg)
+            frm1 = "".join(frm1s)
+            frm2 = "".join(frm2s)
             i1p = i1b + len(frm1)
             i2p = i2b + len(frm2)
             if ekord == 1:
