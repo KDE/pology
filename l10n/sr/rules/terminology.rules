@@ -55,7 +55,7 @@ valid msgstr="\bкућиц"
 id="client"
 hint="client = клијент"
 valid msgstr="\bклијена?т"
-valid env="kde" msgstr="&(emacsclient)-\S*;"
+valid env="kde" msgstr="&\w*client\S*;"
 
 {\bcolumn}i
 id="column"

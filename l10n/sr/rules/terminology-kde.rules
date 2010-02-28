@@ -529,6 +529,7 @@ id="line"
 hint="line = ред [‘линија’ где се не ради о тексту]"
 valid after="command[ -]"
 valid after="on-|off-"
+valid after="input "
 valid before=" (edit|input)"
 valid before=" up\b" msgstr="\b(по)?равна"
 valid msgstr="\bред(а|у|ом|ов(а|и|е|има)|н[иао])?\b"
@@ -541,6 +542,7 @@ valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,okular,ksquares" msgstr="\bлиниј"
 valid cat="okular" after="leader " msgstr="изводниц"
 valid catrx="kppp" # скоро увек телефонска линија
+valid catrx="konversation" # скоро увек линија подсећања или улазна линија
 
 #! зезнут
 {\blist(s|ed)?\b}i
