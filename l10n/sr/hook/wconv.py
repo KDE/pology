@@ -592,12 +592,14 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             wdiff = word_diff(text1[i1b:], text2[i2b:])
             frm1s = []
             frm2s = []
-            while (not frm1s or not frm2s) and wdiff:
+            stags = set()
+            while ("+" not in stags or "-" not in stags) and wdiff:
                 tag, seg = wdiff.pop(0)
                 if tag != "+":
                     frm1s.append(seg)
                 if tag != "-":
                     frm2s.append(seg)
+                stags.add(tag)
             frm1 = "".join(frm1s)
             frm2 = "".join(frm2s)
             i1p = i1b + len(frm1)
