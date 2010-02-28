@@ -585,7 +585,9 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
             # Hybridization by difference marks not possible.
             # Use alternatives directive, or pure Ijekavian.
             i1b = i1; i2b = i2
-            while i1b >= i1p and text1[i1b].isalpha(): # same as *2*
+            while (    i1b >= i1p and i2b >= i2p
+                   and (text1[i1b].isalpha() or text2[i2b].isalpha())
+            ):
                 i1b -= 1; i2b -= 1
             i1b += 1; i2b += 1
             segs.append(text1[i1p:i1b])
