@@ -86,7 +86,7 @@ The jat-reflex mapping rules are as follows, grouped by tick:
   - ›ије→е, ›је→е
   - ‹иј→еј, ‹иљ→ел, ‹ио→ео, ‹ље→ле, ‹ње→не
   - ▹ије→и, ▹је→и
-  - ◃ијел→ео, ◃ијен→ењ, ◃ит→ет, ◃ил→ел, ◃јел→ео, ◃тн→тњ
+  - ◃ијел→ео, ◃ијен→ењ, ◃ит→ет, ◃ил→ел, ◃јел→ео, ◃тн→тњ, ◃шње→сне
 
 For very rare special cases, it is possible to directly provide
 different forms for Ekavian and Ijekavian, in that order,
