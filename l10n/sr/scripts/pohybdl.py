@@ -12,6 +12,7 @@ from tempfile import NamedTemporaryFile
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.l10n.sr.hook.wconv import tohi
+from pology.misc.comments import manc_parse_flag_list
 from pology.misc.diff import msg_ediff, msg_ediff_to_new
 from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.fsops import collect_paths_cmdline
@@ -98,6 +99,9 @@ def hybdl (path, path0, accnohyb=False):
     nhybridized = 0
     nstopped = 0
     for msg in cat:
+
+        if "no-hybdl" in manc_parse_flag_list(msg, "|"):
+            continue
 
         # Unembed diff if message was diffed for review.
         # Replace ediff with manual review flag.
