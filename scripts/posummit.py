@@ -362,41 +362,32 @@ def derive_project_data (project, options):
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
                                              None, None, project, options)
 
-    # Resolve ascription filter calls.
-    for i in range(len(project.ascription_filters)):
-        afname, afspec = project.ascription_filters[i]
-        if isinstance(afspec, basestring):
-            afcall = ASC.build_selector([afspec])
-        elif isinstance(afspec, (tuple, list)):
-            afcall = ASC.build_selector(afspec)
-        elif callable(afspec):
-            afcall = afspec
-        else:
-            error("Unknown type of definition for ascription filter '%s'."
-                  % afname)
-        project.ascription_filters[i] = (afname, afcall)
+    # Resolve ascription filter.
+    project.ascription_filter = None
+    for afname, afspec in project.ascription_filters:
+        if options.asc_filter is None or afname == options.asc_filter:
+            if isinstance(afspec, basestring):
+                afcall = ASC.build_selector([afspec])
+            elif isinstance(afspec, (tuple, list)):
+                afcall = ASC.build_selector(afspec)
+            elif callable(afspec):
+                afcall = afspec
+            else:
+                error("Unknown type of definition for ascription filter '%s'."
+                      % afname)
+            project.ascription_filter = afcall
+            break
+    if options.asc_filter is not None and project.ascription_filter is None:
+        error("Project does not define ascription filter '%s'."
+              % options.asc_filter)
 
     # Link summit and ascription catalogs.
-    if project.ascription_filters:
+    if project.ascription_filter:
         tmp0 = [(x, y[0][0]) for x, y in p.catalogs[SUMMIT_ID].items()]
         tmp1 = [x[0] for x in tmp0]
         tmp2 = ASC.collect_configs_catpaths([x[1] for x in tmp0])
         tmp3 = zip([tmp2[0][0]] * len(tmp1), [x[1] for x in tmp2[0][1]])
         p.asc_configs_acatpaths = dict(zip(tmp1, tmp3))
-
-    # Resolve non-default ascription filters from name to index.
-    if options.asc_filter is not None:
-        if not project.ascription_filters:
-            error("project does not define any ascription filters")
-        for i in range(len(project.ascription_filters)):
-            if project.ascription_filters[i][0] == options.asc_filter:
-                options.asc_filter = i
-                break
-        if i == len(project.ascription_filters):
-            error("project does not define ascription filter '%s'"
-                  % options.asc_filter)
-    else:
-        options.asc_filter = 0
 
     # Assure that summit catalogs are unique.
     for name, spec in p.catalogs[SUMMIT_ID].items():
@@ -1677,7 +1668,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     summit_cats = [Catalog(x) for x in summit_paths]
 
     # Open ascription catalogs.
-    if project.ascription_filters:
+    if project.ascription_filter:
         aconfs_acats = {}
         for summit_cat in summit_cats:
             aconf, acatpath = project.asc_configs_acatpaths[summit_cat.name]
@@ -1728,14 +1719,14 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
             report_on_msg("message not in the summit", branch_msg, branch_cat)
             continue
 
-        if (    project.ascription_filters and not options.force
+        if (    project.ascription_filter and not options.force
             and do_scatter(summit_msg, branch_msg)
         ):
             aconf, acat = aconfs_acats[summit_cat.name]
             hfilter = project.ascription_history_filter
             ahist = ASC.asc_collect_history(summit_msg, acat, aconf,
                                             nomrg=True, hfilter=hfilter)
-            afname, afilter = project.ascription_filters[options.asc_filter]
+            afilter = project.ascription_filter
             if not afilter(summit_msg, summit_cat, ahist, aconf):
                 asc_stopped += 1
                 continue
