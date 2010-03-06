@@ -604,7 +604,7 @@ def assert_no_review (configs_catpaths):
             if not may_have_reviews(catpath):
                 continue
             cat = Catalog(catpath, monitored=False)
-            if clear_review_cat_simple(cat):
+            if clear_review_cat_simple(cat, dryrun=True):
                 wrevs.append(catpath)
     if wrevs:
         error("Review elements found but not expected, "
@@ -1265,11 +1265,11 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
     return revspecs_by_msg
 
 
-def clear_review_cat_simple (cat, keepflags=False):
+def clear_review_cat_simple (cat, keepflags=False, dryrun=False):
 
     revspecs_by_msg = {}
     for msg in cat:
-        clres = clear_review_msg(msg, keepflags=keepflags)
+        clres = clear_review_msg(msg, keepflags=keepflags, dryrun=dryrun)
         if any(clres):
             diffed, revd, unrevd = clres[1:4]
             revspecs_by_msg[msg.refentry] = (diffed or revd, unrevd)
@@ -1356,7 +1356,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     return nselected
 
 
-def clear_review_msg (msg, keepflags=False):
+def clear_review_msg (msg, keepflags=False, dryrun=False):
 
     # Clear possible review flags.
     diffed = False
@@ -1365,13 +1365,16 @@ def clear_review_msg (msg, keepflags=False):
     for flag in list(msg.flag): # modified inside
         if flag in _diffflags:
             diffed = True
-            msg.flag.remove(flag)
+            if not dryrun:
+                msg.flag.remove(flag)
         elif flag in _revdflags:
             revd = True
-            msg.flag.remove(flag)
+            if not dryrun:
+                msg.flag.remove(flag)
         elif flag in _urevdflags:
             unrevd = True
-            msg.flag.remove(flag)
+            if not dryrun:
+                msg.flag.remove(flag)
 
     # Clear possible review comments.
     i = 0
@@ -1379,15 +1382,16 @@ def clear_review_msg (msg, keepflags=False):
     while i < len(msg.auto_comment):
         cmnt = msg.auto_comment[i].strip()
         if cmnt.startswith(_all_cmnts):
-            msg.auto_comment.pop(i)
             commented = True
+            if not dryrun:
+                msg.auto_comment.pop(i)
         else:
             i += 1
 
-    if diffed:
+    if diffed and not dryrun:
         msg_ediff_to_new(msg, rmsg=msg)
 
-    if keepflags:
+    if keepflags and not dryrun:
         restore_review_flags(msg, diffed or revd, unrevd)
 
     return commented, diffed, revd, unrevd
