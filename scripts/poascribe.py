@@ -1385,6 +1385,8 @@ def clear_review_msg (msg, keepflags=False, dryrun=False):
             commented = True
             if not dryrun:
                 msg.auto_comment.pop(i)
+            else:
+                i += 1
         else:
             i += 1
 
