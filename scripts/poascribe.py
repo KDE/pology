@@ -16,6 +16,7 @@ import time
 
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
+from pology.hook.gettext_tools import msgfmt
 from pology.misc.colors import colors_for_file
 from pology.misc.comments import parse_summit_branches
 import pology.misc.config as pology_config
@@ -611,6 +612,17 @@ def assert_no_review (configs_catpaths):
               "in following catalogs:\n%s" % "\n".join(wrevs))
 
 
+def assert_syntax (configs_catpaths):
+
+    checkf = msgfmt(options="--check")
+    numerr = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            numerr = checkf(catpath)
+    if numerr:
+        error("Invalid syntax in some files, see the reports above.")
+
+
 def setup_progress (configs_catpaths, addfmt):
 
     acps = [y[0] for x in configs_catpaths for y in x[1]]
@@ -727,7 +739,9 @@ def ascribe_modified (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode)
     assert_no_review(configs_catpaths)
+    assert_syntax(configs_catpaths)
 
+    remove_previous_fields(configs_catpaths)
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
 
@@ -806,6 +820,32 @@ def frozen_cat_asc_prev (acat, config):
         return pcat[0].get(msg)
 
     return catf
+
+
+# Quickly check if it may be that some messages in the PO file
+# have previous fields (#| ...).
+def may_have_previous (catpath):
+
+    for line in open(catpath):
+        if line.strip().startswith("#|"):
+            return True
+    return False
+
+
+def remove_previous_fields (configs_catpaths):
+
+    upprog = setup_progress(configs_catpaths, "Removing previous fields: %s")
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            if not may_have_previous(catpath):
+                continue
+            cat = Catalog(catpath)
+            for msg in cat:
+                if msg.translated:
+                    for fprev in _fields_previous:
+                        setattr(msg, fprev, None)
+            sync_and_rep(cat)
 
 
 def update_headers_onmod (configs_catpaths, user):
@@ -917,10 +957,9 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     options.keep_flags = False # deactivate this option if issued
     revspecs_by_catmsg = clear_review_w(options, configs_catpaths, mode)
 
+    # Ascribe modifications.
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
-
-    # Ascribe modifications.
     mode.selector = stest_any
     ascribe_modified_w(options, configs_catpaths, mode)
 
