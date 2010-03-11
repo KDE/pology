@@ -612,7 +612,7 @@ def assert_no_review (configs_catpaths):
               "in following catalogs:\n%s" % "\n".join(wrevs))
 
 
-def assert_syntax (configs_catpaths):
+def assert_syntax (configs_catpaths, onabortf=None):
 
     checkf = msgfmt(options="--check")
     numerr = 0
@@ -620,7 +620,11 @@ def assert_syntax (configs_catpaths):
         for catpath, acatpath in catpaths:
             numerr = checkf(catpath)
     if numerr:
-        error("Invalid syntax in some files, see the reports above.")
+        if onabortf:
+            onabortf()
+        error("Invalid syntax in some files, see the reports above. "
+              "Ascription aborted.")
+    return numerr
 
 
 def setup_progress (configs_catpaths, addfmt):
@@ -956,8 +960,11 @@ def ascribe_reviewed (options, configs_catpaths, mode):
     mode.selector = stest_any
     options.keep_flags = False # deactivate this option if issued
     revspecs_by_catmsg = clear_review_w(options, configs_catpaths, mode)
+    onabortf = lambda: restore_reviews(configs_catpaths, revspecs_by_catmsg)
 
     # Ascribe modifications.
+    assert_syntax(configs_catpaths, onabortf=onabortf)
+    remove_previous_fields(configs_catpaths)
     if options.update_headers:
         update_headers_onmod(configs_catpaths, mode.user)
     mode.selector = stest_any
@@ -1020,7 +1027,6 @@ def ascribe_reviewed (options, configs_catpaths, mode):
             report("===! Reviewed (%s): %d" % (options.tag, nasc))
 
     if options.commit:
-        onabortf = lambda: restore_reviews(configs_catpaths, revspecs_by_catmsg)
         commit_catalogs(configs_catpaths, mode.user,
                         message=options.message, onabortf=onabortf)
 
