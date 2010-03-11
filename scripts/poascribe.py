@@ -839,6 +839,7 @@ def may_have_previous (catpath):
 def remove_previous_fields (configs_catpaths):
 
     upprog = setup_progress(configs_catpaths, "Removing previous fields: %s")
+    nremoved = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
@@ -849,7 +850,11 @@ def remove_previous_fields (configs_catpaths):
                 if msg.translated:
                     for fprev in _fields_previous:
                         setattr(msg, fprev, None)
+                    if msg.modcount:
+                        nremoved += 1
             sync_and_rep(cat)
+    if nremoved > 0:
+        report("===! Removed previous fields: %d" % nremoved)
 
 
 def update_headers_onmod (configs_catpaths, user):
