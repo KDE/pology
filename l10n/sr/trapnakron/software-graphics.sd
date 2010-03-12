@@ -1,5 +1,6 @@
 >base/aff.sd
 >software-system.sd
+>spec-formats.sd
 
 # ----------------------------------------------------------------------------
 # Приказивачи
@@ -28,6 +29,8 @@ XV: ИксВ|-, ИксВ|-ов
 # Читачи
 
 Acrobat Reader: Акробат| чит|ач
+DjVuLibre: |{DjVu~н}-либре|, |{DjVu~н}-либре|ов
+    @л: DjVuLibre|, DjVuLibre|ov
 GhostView: Гоствју|, Гоствју|ов
     @л: GhostView|, GhostView|ov
 GGV: ГГВ|-, ГГВ|-ов
