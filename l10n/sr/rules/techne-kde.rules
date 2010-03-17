@@ -21,9 +21,6 @@ valid cat="libkunitconversion"
 
 clearFilters
 
-# Remove local entities which are to be left as-is in the message.
-addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
-
 # So that markup checker can properly escape &-accelerators:
 # - convert hybridized Ekavian-Yekavian text into Ekavian
 addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
@@ -34,52 +31,65 @@ addFilterRegex match="~!(.)(.*?)\1" repl="\2" on="pmsgid,pmsgstr"
 # Catalogs must announce markup in the header, using markup type keyword in
 # X-Text-Markup field (see markup= parameters in factories below);
 # when the hook and catalog markup types do not match, the check is skipped.
-# To check custom entities resolved when KDE summits are scattered,
-# environment variable ENTDEFS_KDE4_SR must provide directory paths of
-# entity definitions (*.entities files); these can be found in KDE repository,
-# trunk/l10n-support/sr/entities/.
+# Whether non-default XML entities are defined is checked separately,
+# so that checks can be performed separately.
 
-# ...in KDE4 UI POs.
+# Markup in KDE4 UI POs.
 *hook name="check-markup/check-xml-kde4-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_ui~', \
-               mkeyw='kde4'! \
+      factory=!strict=True, entities=None, mkeyw='kde4'! \
       on="msgstr"
 id="x-markup-k"
-hint="грешке у обележавању"
+hint="грешка у обележавању"
 
-# ...in pure Qt UI POs.
+# Markup in pure Qt UI POs.
 *hook name="check-markup/check-xml-qtrich-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_ui~', \
-               mkeyw='qtrich'! \
+      factory=!strict=True, entities=None, mkeyw='qtrich'! \
       on="msgstr"
 id="x-markup-q"
-hint="грешке у обележавању"
+hint="грешка у обележавању"
 
-# ...in KDE documentation POs.
+# Markup in Docbook POs.
 *hook name="check-markup/check-xml-docbook4-sp" \
+      factory=!strict=True, entities=None, mkeyw='docbook4'! \
+      on="msgstr"
+id="x-markup-db"
+hint="грешка у обележавању"
+
+# Remove local entities which are to be left as-is in the message.
+addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+
+# Entities in UI POs with XML-like markup.
+*hook name="check-markup/check-xmlents-sp" \
       factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_docbook4~', \
+               entities='sr:trapnakron/trapnakron_ui~', default=True, \
+               mkeyw=['kde4', 'qtrich']! \
+      on="msgstr"
+id="x-entities-uix"
+hint="недефинисани ентитет"
+
+# Entities in UI POs with otherwise plain text.
+*hook name="check-markup/check-xmlents-sp" \
+      factory=!strict=True, \
+               entities='sr:trapnakron/trapnakron_ui~', \
+               mkeyw=['xmlents']! \
+      on="msgstr"
+id="x-entities-uit"
+hint="недефинисани ентитет"
+
+# Entities in Docbook POs.
+*hook name="check-markup/check-xmlents-sp" \
+      factory=!strict=True, \
+               entities='sr:trapnakron/trapnakron_docbook4~', default=True, \
                mkeyw='docbook4'! \
       on="msgstr"
-# Remove entities used as-is KDE documentation.
+# Remove entities used as-is in KDE documentation.
 addFilterRegex match="&\S+\.e?mail;" on="pmsgid,pmsgstr"
 addFilterRegex match="&\S+\.documentation;" on="pmsgid,pmsgstr"
 addFilterRegex match="&under(FDL|GPL|\w+License);" on="pmsgid,pmsgstr"
 addFilterRegex match="&reporting.bugs;" on="pmsgid,pmsgstr"
 addFilterRegex match="&kde-(ftp|http);" on="pmsgid,pmsgstr"
-id="x-markup-db"
-hint="грешке у обележавању"
-
-# ...in POs which have no markup, but in summit have XML-like entities.
-*hook name="check-markup/check-xmlents-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_ui~', \
-               mkeyw='xmlents'! \
-      on="msgstr"
-id="x-markup-e"
-hint="грешке у обележавању"
+id="x-entities-db"
+hint="недефинисани ентитет"
 
 # ----------------------------------------
 # Detect problems with UI references.
