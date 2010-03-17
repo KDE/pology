@@ -1226,7 +1226,7 @@ def nument_to_char (nument):
     return unichr(int(numstr, base))
 
 
-def check_xmlents (text, ents={}, numeric=False):
+def check_xmlents (text, ents={}, default=False, numeric=False):
     """
     Check whether XML-like entities in the text are among known.
 
@@ -1237,6 +1237,8 @@ def check_xmlents (text, ents={}, numeric=False):
     @type text: string
     @param ents: known entities
     @type ents: sequence
+    @param default: whether default XML entities are allowed (C{&amp;}, etc.)
+    @type default: bool
     @param numeric: whether numeric character entities are allowed
     @type numeric: bool
 
@@ -1260,7 +1262,7 @@ def check_xmlents (text, ents={}, numeric=False):
             if numeric and ent.startswith("#"):
                 if nument_to_char(ent) is None:
                     errmsg = ("invalid numeric entity '%s'" % ent)
-            elif ent not in ents:
+            elif ent not in ents and (not default or ent not in xml_entities):
                 nearents = [] #difflib.get_close_matches(ent, ents)
                 if nearents:
                     if len(nearents) > 5: # do not overwhelm message

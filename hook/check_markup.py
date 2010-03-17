@@ -177,22 +177,28 @@ def check_xml_qtrich_sp (strict=False, entities={}, mkeyw=None):
     return _check_xml_w(M.check_xml_qtrich_l1, strict, entities, mkeyw, True)
 
 
-def check_xmlents (strict=False, entities={}, mkeyw=None, numeric=False):
+def check_xmlents (strict=False, entities={}, mkeyw=None,
+                   default=False, numeric=False):
     """
     Check existence of XML entities in translations [hook factory].
 
-    See L{check_xml} for description of parameters.
-    See notes on checking of entities to
-    L{check_xmlents<misc.markup.check_xmlents>}.
+    See L{check_xml} for description of parameters C{strict}, C{entities},
+    and C{mkeyw}. See L{check_xmlents<misc.markup.check_xmlents>} for
+    parameters C{default} and C{numeric}, and for general notes on
+    checking entities.
 
     @return: type S3C hook
     @rtype: C{(msgstr, msg, cat) -> numerr}
     """
 
-    return _check_xml_w(M.check_xmlents, strict, entities, mkeyw, False)
+    def check (text, ents):
+        return M.check_xmlents(text, ents, default=default, numeric=numeric)
+
+    return _check_xml_w(check, strict, entities, mkeyw, False)
 
 
-def check_xmlents_sp (strict=False, entities={}, mkeyw=None):
+def check_xmlents_sp (strict=False, entities={}, mkeyw=None,
+                      default=False, numeric=False):
     """
     Like L{check_xmlents}, except that erroneous spans are returned
     instead of reporting problems to stdout [hook factory].
@@ -201,7 +207,10 @@ def check_xmlents_sp (strict=False, entities={}, mkeyw=None):
     @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
-    return _check_xml_w(M.check_xmlents, strict, entities, mkeyw, True)
+    def check (text, ents):
+        return M.check_xmlents(text, ents, default=default, numeric=numeric)
+
+    return _check_xml_w(check, strict, entities, mkeyw, True)
 
 
 def _check_xml_w (check, strict, entities, mkeyw, spanrep):
