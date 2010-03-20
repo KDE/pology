@@ -8,7 +8,7 @@ include file="puretext.filters"
 id="account"
 hint="account = налог"
 valid before="ing" # рачуновођство
-valid after=~(takes|taking|took)( \w[\w'"/-]*)* into ~ # „узети у обзир“
+valid after=~(takes|taken|taking|took)( \w[\w'"/-]*)* into ~ # „узети у обзир“
 valid msgstr="\bнало(г|зи)"
 valid cat="khelpcenter_support" msgid="Account-Nr" msgstr="Account-Nr"
 
@@ -122,6 +122,7 @@ valid cat="dolphin" msgid="provide short cuts"
 id="default"
 hint="default = подразумеван"
 valid msgstr="\b(не)?подразумева"
+valid msgstr="\bподраз\." # скр.
 valid env="kde" msgstr="&\w*default\S*;"
 valid cat="kioclient" msgid="Mounts the CDROM"
 valid cat="konsole" msgid="DEFAULTENCODING"
