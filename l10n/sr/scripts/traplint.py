@@ -344,7 +344,8 @@ def _parse_syns (line):
         c = line[pos]
         if c == "\\":
             pos += 1
-            csyn += line[pos]
+            if pos < llen:
+                csyn += line[pos]
         elif intag:
             if cltag:
                 if c == cltag:
