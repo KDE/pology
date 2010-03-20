@@ -27,6 +27,7 @@ Nokia: Нокиј|а, Нокиј|ин
     @л: Nok|ia
 Nvidia: Енвидиј|а, Енвидиј|ин
     @л: Nvid|ia, Nvidij|in
+Psion, |psionco: Псион|, Псион|ов
 Rio: Р|ио, Р|ијев
 Saitek: Сајтек|, Сајтек|ов
     @л: Saitek|, Saitek|ov
@@ -37,8 +38,12 @@ Sony: Сон|и, Сон|ијев
     @л: Son|y, Sony|yjev
 Sun: Сан|, Сан|ов
     @л: Sun|, Sun|ov
+Turtle Beach: Туртл бич|, Туртл бич|ов
+    @л: Turtle Beach|, Turtle Beach|ov
 Xerox: Зирокс|, Зирокс|ов, зирокс|>
     @л: Xerox|, Xerox|ov, Xerox|>
+Yamaha: Јамах|а, Јамах|ин
+    @л: Yamah|a, Yamah|in
 
 # ----------------------------------------------------------------------------
 # Издавачи софтвера
@@ -61,7 +66,7 @@ Microsoft: Мајкрософт|, Мајкрософт|ов
     @л: Microsoft|, Microsoft|ov
 Mozilla Messaging: Мозил|а месиџинг|
     @л: Mozill|a Messaging|
-MS: МС|-, МС|-ов, МС|>
+MS: МС|-, МС|-ов, МС|>, _син=|Microsoft~н
 MSFT: МСФТ|-, МСФТ|-ов, МСФТ|>
 Novell: Новел|, Новел|ов
     @л: Novell|, Novell|ov

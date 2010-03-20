@@ -147,11 +147,13 @@ DCOP: ДКОП|-, ДКОП|-ов, ДКОП|>
 GTP: ГТП|-, ГТП|-ов, ГТП|>, _пр=Go Text Protocol
 KIO: К-У/|И-, К-У/И|>
 LanManager: ланменаџер|, ланменаџер|ов, ланменаџер|ски
-    @л: LanManager|, LanManager|ov, lanmanager|>
+    @л: LanManager|, LanManager|ov, LanManager|>
 MPRIS: МПРИС|-, МПРИС|-ов, МПРИС|>
 MultiSegment KIO: вишесегментн|и> |KIO, вишесегмент|ни |KIO
 NetBIOS: нетБИОС|, нетБИОС|-ов, нетБИОС|>
-    @л: NetBIOS|, NetBIOS|-ov
+    @л: NetBIOS|, NetBIOS|-ov, NetBIOS|>
+OBEX: ОБЕКС|-, ОБЕКС|-ов, ОБЕКС|>
+    @л: OBEX|-, OBEX|-ov, OBEX|>
 
 # ----------------------------------------------------------------------------
 # Сигнали

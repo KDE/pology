@@ -1,5 +1,6 @@
 >base/aff.sd
 >org-companies.sd
+>org-comitees.sd
 >software-system.sd
 >software-multimedia.sd
 
@@ -7,8 +8,18 @@
 # Датотеке
 
 7z: 7з|-, 7з|>
+8SVX: 8СВИкс|-, 8СВИкс|>
+    @л: 8SVX|-, 8SVX|>
+AC3: АЦ-3|*, АЦ-3|>, _род!=м
+    @л: AC3|*, AC3|>
 ACE: АЦЕ|-, АЦЕ|>
+AIFF: АИФФ|-, АИФФ|>
+AU: АУ|-, АУ|>
 AVI: АВ|И-, АВИ|>
+AVR: АВР|-, АВР|>, _пр=Audio Visual Research
+bin: бин|-, бин|>
+cue/bin: кју/бин|, кју/бин|>
+    @л: cue/bin|, cue/bin|>
 BMP: БМП|-, БМП|>
 bzip: бзип|, бзип|>
 bzip2: бзип|{}2, бзип2|>
@@ -16,6 +27,8 @@ CHM: ЦХМ|-, ЦХМ|>
 ComicBook: комикбук|, комикбук|ов, комикбук|>
     @л: ComicBook|, ComicBook|ov, ComicBook|>
 CSV: ЦСВ|-, ЦСВ|>
+cue: кју|, кју|>
+    @л: cue|, cue|>
 DivX: дивИкс|, дивИкс|>
     @л: DivX|-, DivX|>
 DjVu: ДјВу|, ДјВу|>
@@ -31,12 +44,16 @@ G4 Fax: Г4 факс|, Г4 факс|>
     @л: G3 Fax|, G3 Fax|>
 GIF: ГИФ|-, ГИФ|>
 gzip: гзип|, гзип|>
+HCOM: ХКОМ|-, ХКОМ|>
+    @л: HCOM|-, HCOM|>
 HP-GL: ХП-ГЛ|, ХП-ГЛ|>
 HP-GL/2: ХП-ГЛ/2|*, ХП-ГЛ/2|>, _род!=м
+IFF: ИФФ|-, ИФФ|>
 JPG: ЈПГ|-, ЈПГ|>
 JPEG: ЈПЕГ|-, ЈПЕГ|>
 LDIF: ЛДИФ|-, ЛДИФ|-ов, ЛДИФ|>
 LHA: ЛХА|-, ЛХА|>
+MAUD: МАУД|-, МАУД|>
 MIME: МИМЕ|-, МИМЕ|>
 MNG: МНГ|-, МНГ|>
 MO, |mofmt: МО|-, МО|>
@@ -45,6 +62,8 @@ MP2: МП2|*, МП2|>, _род!=м
 MP3: МП3|*, МП3|>, _род!=м
 MP4: МП4|*, МП4|>, _род!=м
 MPEG: МПЕГ|-, МПЕГ|>
+MPEG-1: МПЕГ|- 1, н&а=МПЕГ-1, МПЕГ-1|>
+MPEG-2: МПЕГ|- 2, н&а=МПЕГ-2, МПЕГ-2|>
 Musepack: мјузпак|, мјузпак|ов, мјузпак|>
     @л: Musepack|, Musepack|ov, Musepack|>
 ODT: ОДТ|-, ОДТ|>
@@ -70,6 +89,7 @@ tar: тар|, тар|>
 TBX: ТБИкс|-, ТБИкс|>
     @л: TBX|-, TBX|>
 TGA: ТГА|-, ТГА|>
+TOC: ТОЦ|-, ТОЦ|>
 Theora: теор|а, теор|ин, теора|>
     @л: Theor|a, Theor|in, Theora|>
 TIFF: ТИФФ|-, ТИФФ|>
@@ -88,23 +108,36 @@ TriG: три-Г|, три-Г|-ов, три-Г|>
     @л: TriG|, TriG|-ov, TriG|>
 Turtle: туртл|, туртл|ов, туртл|>
     @л: Turtle|, Turtle|ov, Turtle|>
+VOB: ВОБ|-, ВОБ|>
+VOC: ВОЦ|-, ВОЦ|>
 WAV: ВАВ|-, ВАВ|>
     @л: WAV|-, WAV|>
 XCF: ИксЦФ|-, ИксЦФ|>
     @л: XCF|-, XCF|>
 XLIFF: ИксЛИФФ|-, ИксЛИФФ|>
     @л: XLIFF|-, XLIFF|>
+Xvid: Иксвид|, Иксвид|ов, иксвид|>
+    @л: Xvid|, Xvid|ov, Xvid|>
 ZIP, |zipfmt: ЗИП|-, ЗИП|>
 
 # ----------------------------------------------------------------------------
-# Датотечни системи
+# Датотечни системи и проширења
 
+Blue Book, |bluebookfmt: блубук|, блубук|ов, блубук|>
+    @л: Blue Book|, Blue Book|ov, Blue Book|>
+CD-Extra: ЦД-екстра|*, ЦД-екстра|>, _род!=м, _син=|bluebookfmt~н
+    @л: CD-Extra|*, CD-Extra|>
+CD-Plus: ЦД-плус|, ЦД-плус|>, _син=|bluebookfmt~н
+    @л: CD-Plus|*, CD-Plus|>
+CD-Text: ЦД-текст|, ЦД-текст|>
+    @л: CD-Text|, CD-Text|>
 ext2: екст-2|*, екст-2|>, _род!=м
     @л: ext2|*, ext2|>
 ext3: екст-3|*, екст-3|>, _род!=м
     @л: ext3|*, ext3|>
 ext4: екст-4|*, екст-4|>, _род!=м
     @л: ext4|*, ext4|>
+Extended Audio CD: проширен|и> аудио ЦД|-, _син=|bluebookfmt~н
 FAT: ФАТ|-, ФАТ|>
 FAT16: ФАТ|- 16, н&а=ФАТ-16, ФАТ-16|>
     @л: н&а=FAT16, FAT16|>
@@ -114,9 +147,16 @@ GPT: ГПТ|-, ГПТ|>
 HFS: ХФС|-, ХФС|-ов, ХФС|>
 HFS Plus: ХФС|- плус, ХФС плус|>
     @л: HFS|- Plus, HFS Plus|>
+High Quality Video CD: |*|{Video CD} високог квалитета
 HP Service: ХП-сервис|, ХП-сервис|-ов, ХП-сервис|>
     @л: HP Service|, HP Service|-ov, HP Service|>
+HQ-VCD: ХКу-ВЦД|-, ХКу-ВЦД|>, _пр=High Quality Video CD, _син=|{High Quality Video CD}~н
+    @л: HQ-VCD|-, HQ-VCD|>
+IEEE P1282: |*|IEEE П1282
+ISO-9660: ИСО|- 9660, н&а=ИСО-9660, ИСО-9660|>
 JFS: ЈФС|-, ЈФС|-ов, ЈФС|>
+Joliet: џолијет|, џолијет|ов, џолијет|>
+    @л: Joliet|, Joliet|ov, Joliet|>
 linuxswap: |{`Linux~н}-размен|а
     @иј: |{`Linux~н}-размијен|а
 LVM: ЛВМ|-, ЛВМ|-ов, ЛВМ|>
@@ -127,11 +167,22 @@ PReP: ПРеП|-, ПРеП|-ов, ПРеП|>
 reiser: рајзер|, рајзер|ов, рајзер|>
     @л: reiser|, reiser|ov, reiser|>
 reiser4: |{reiser}-4|*%
+Rock Ridge: рокриџ|, рокриџ|ов, рокриџ|>
+    @л: Rock Ridge|, Rock Ridge|ov, Rock Ridge|>
 SMBFS: СМБФС|-, СМБФС|>
+Super Video CD: супер видео ЦД|-, супер видео ЦД|-ов, супер видео ЦД|>
+    @л: Super Video CD|-, Super Video CD|-ov, Super Video CD|>
+SUSP: СУСП|-, СУСП|>, _пр=System Use Sharing Protocol
+SVCD: СВЦД|-, СВЦД|>, _пр=Super Video CD
 UDF: УДФ|-, УДФ|>
 UFS: УФС|-, УФС|>
+VCD: ВЦД|-, ВЦД|>, _пр=Video CD
 VFAT: ВФАТ|-, ВФАТ|>
 VFS: ВФС|-, ВФС|>
+Video CD: видео ЦД|-, видео ЦД|-ов, видео ЦД|>
+    @л: Video CD|-, Video CD|-ov, Video CD|>
+Video DVD: видео ДВД|-, видео ДВД|-ов, видео ДВД|>
+    @л: Video DVD|-, Video DVD|-ov, Video DVD|>
 XFS: ИксФС|-, ИксФС|>
     @л: XFS|-, XFS|>
 ZFS: ЗФС|-, ЗФС|>
@@ -169,3 +220,10 @@ UPC-E: УПЦ|- Е, н&а=УПЦ-Е, УПЦ-Е|>
 EAN: ЕАН|-, ЕАН|>, _пр=European Article Number
 EAN-8: ЕАН|- 8, н&а=ЕАН-8, ЕАН-8|>
 EAN-13: ЕАН|- 13, н&а=ЕАН-13, ЕАН-13|>
+
+# ----------------------------------------------------------------------------
+# Сигнали
+
+NTSC: НТСЦ|-, НТСЦ|>
+PAL: ПАЛ|-, ПАЛ|>
+

@@ -25,6 +25,7 @@ BSD: БСД|-, БСД|-ов, БСД|>
 BSD386: БСД|- 386, н&а=БСД-386, БСД-386|>
     @л: BSD|- 386, н&а=BSD386, BSD386|>
 CDE: ЦДЕ|-, ЦДЕ|-ов, ЦДЕ|>
+CDrtos: ЦДртос|, ЦДртос|ов
 Cygwin: Сигвин|, Сигвин|ов, сигвин|ски
     @л: Cygwin|, Cygwin|ov, cygwin|ski
 Cygwin/X: |*|{Cygwin}-икс
@@ -32,6 +33,8 @@ Cygwin/X: |*|{Cygwin}-икс
 Debian: Дебијан|, Дебијан|ов, дебијан|ски
     @л: Debian|, Debian|ov, debian|ski
 DOS: ДОС|-, ДОС|-ов, ДОС|>
+eMoviX: Емувикс|, Емувикс|ов, емувикс|>
+    @л: eMoviX|-, eMoviX|-ov, eMoviX|>
 EveX: Ив-икс|, Ив-икс|ов
     @л: EveX|-, EveX|-ov
 Exherbo: Ексхерб|о, Ексхерб|ов, _род!=м
@@ -420,6 +423,9 @@ KAppTemplate: К-шаблон|{}-програма
 Karamba: Карамб|а, Карамб|ин, карамба|>
 KBackgroundSnapshot: К-сним|{ак}-позадине
 KBlankScreen: К-праз|{ан>}-екран|
+KBluetooth: К-|*|Bluetooth, К-|{Bluetooth~н}|ов
+KBlueLock: К-блулок|, К-блулок|ов
+    @л: KBlueLock|, KBlueLock|ov
 KBookmarkMerger: К-стап|{ач}-маркера
 KBuildSycoca: К-градњ|{а}-|Sycoca~г
     @л: К-gradnj|{a}-|Sycoca~г
@@ -543,6 +549,8 @@ KScan: К-скен|, К-скен|ов
     @л: KScan|, KScan|ov
 KSendFax: К-сендфакс|, К-сендфакс|ов
     @л: KSendFax|, KSendFax|ov
+KSig: К-сиг|, К-сиг|ов
+    @л: KSig|, KSig|ov
 KSMServer: КСМ-сервер|, КСМ-сервер|ов
     @л: KSMServer|, KSMServer|ov
 KSnapShot: К-сним|ак, К-снимк|ов

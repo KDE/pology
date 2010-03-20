@@ -9,8 +9,11 @@ ACPI: АЦП|И-, АЦПИ|>
 APIC: АПИЦ|-, АПИЦ|>
 APM: АПМ|-, АПМ|>
 ATA: АТ|А, АТА|>
+ATAPI: АТАП|И, АТАПИ|>
 Bluetooth: блутут|, блутут|>
     @л: Bluetooth|, bluetooth|>
+BurnFree: бернфр|и, бернфри|>
+    @л: BurnFre|e-ij, BurnFree|>
 CAN-bus: канбус|, канбус|>
     @л: CAN-bus|, CAN-bus|>
 CardBus: кардбас|, кардбас|>
@@ -32,9 +35,11 @@ Firewire: фајервајер|, фајервајер|>
     @л: Firewire|, firewire|>
 FLASH, |flashmem: ¤флеш|, флеш|>
     @л: ¤FLASH|-, FLASH|>
+GSM: ГСМ|-, ГСМ|>
 HDR: ХДР|-, ХДР|>
 HyperTransport: хипертранспорт|, хипертранспорт|>
     @л: HyperTransport|, HyperTransport|>
+IDE: ИДЕ|-, ИДЕ|>
 IEC 958: ИЕЦ|- 958, ИЕЦ 958|>
     @л: IEC|- 958, IEC 958|>
 INDI: ИНД|И-, ИНДИ|>
@@ -61,6 +66,8 @@ RACEway: рејсвеј|, рејсвеј|ев, рејсвеј|>
     @л: RACEway|, RACEway|ev, RACEway|>
 RAID: РАИД|-, РАИД|>
 S-ATA, SATA: С-АТ|А, С-АТА|>
+SCSI: сказ|и, скази|>
+    @л: SCS|I-, SCSI|>
 SERCOS: СЕРКОС|-, СЕРКОС|>
     @л: SERCOS|-, SERCOS|>
 SMBus: СМбус|, СМбус|>

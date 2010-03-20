@@ -1,33 +1,34 @@
 >base/aff.sd
+>org-companies.sd
 
 # ----------------------------------------------------------------------------
 # Стони рачунари
 
-Amiga: амиг|а, амиг|ин
-    @л: Amig|a, Amig|in
-Apple II: епл| II
-    @л: Apple| II
+Amiga: амиг|а, амиг|е+, амиг|ин
+    @л: Amig|a, Amig|e+, Amig|in
+Apple II: епл| II, епл|ови+ II
+    @л: Apple| II, Apple|ovi+ II
 Apple II Plus: |{Apple II} плус
     @л: |{Apple II} Plus
-Atari, |ataricomp: ¤атар|и, атар|ијев
-    @л: Atar|i, Atar|ijev
+Atari, |ataricomp: ¤атар|и, атар|ији+, атар|ијев
+    @л: Atar|i, Atar|iji+, Atar|ijev
 C64: Ц64|*, _род!=м
-Commodore 64: комодор| 64
-    @л: Commodore| 64
-Mac, |maccomp: мек|, мек|ов
-    @л: Mac|, Mac|ov
-Macintosh: мекинтош|, мекинтош|ев, мекинтош|>
-    @л: Macintosh|, Macintosh|ev, Macintosh|>
-NEWS, |newscomp: њуз|, њуз|ов
-    @л: NEWS|-, NEWS|-ov
-PC: ПЦ|-, ПЦ|-јев, ПЦ|>
-PET, |petcomp: ¤ПЕТ|-, ПЕТ|-ов
-VIC-20: ВИК|- 20|, н&а=ВИК-20, ВИК-20|>
-    @л: VIC|- 20|, н&а=VIC-20, VIC-20|>
-Xerox Star: зирокс| стар|
-    @л: Xerox| Star|
-ZX Spectrum: ЗИкс спектрум|, ЗИкс спектрум|ов
-    @л: ZX Spectrum|, ZX Spectrum|ov
+Commodore 64: комодор| 64, комодор|и+ 64
+    @л: Commodore| 64, Commodore|i+ 64
+Mac, |maccomp: мек|, мек|ови+, мек|ов
+    @л: Mac|, Mac|ovi+, Mac|ov
+Macintosh: мекинтош|, мекинтош|еви+, мекинтош|ев, мекинтош|>
+    @л: Macintosh|, Macintosh|evi+, Macintosh|ev, Macintosh|>
+NEWS, |newscomp: њуз|, њуз|ови+, њуз|ов
+    @л: NEWS|-, NEWS|-ovi+, NEWS|-ov
+PC: ПЦ|-, ПЦ|-ији+, ПЦ|-јев, ПЦ|>
+PET, |petcomp: ¤ПЕТ|-, ПЕТ|-ови+, ПЕТ|-ов
+VIC-20: ВИК|- 20|, н&а=ВИК-20, ВИК|-ови+ 20|, ВИК-20|>
+    @л: VIC|- 20|, н&а=VIC-20, VIC|-ovi+ 20|, VIC-20|>
+Xerox Star: зирокс| стар|, зирокс|и+ стар|ови+
+    @л: Xerox| Star|, Xerox|i+ Star|ovi+
+ZX Spectrum: ЗИкс спектрум|, ЗИкс спектрум|и+, ЗИкс спектрум|ов
+    @л: ZX Spectrum|, ZX Spectrum|i+, ZX Spectrum|ov
 
 # ----------------------------------------------------------------------------
 # Преносни рачунари
@@ -47,32 +48,41 @@ PDP-11: ПДП|- 11
 # ----------------------------------------------------------------------------
 # Играчке конзоле
 
-NES, |nescons: НЕС|-, НЕС|ов, НЕС|>
+NES, |nescons: НЕС|-, НЕС|-ови+, НЕС|ов, НЕС|>
+
+# ----------------------------------------------------------------------------
+# Мултимедија
+
+CD-i: ЦД-|и, ЦД-|ијеви+, ЦД-|ијев
 
 # ----------------------------------------------------------------------------
 # Процесори
 
-Alpha: алф|а, алф|ин, алфа|>
-    @л: Alph|a, Alph|in, Alpha|>
+Alpha: алф|а, алф|е+, алф|ин, алфа|>
+    @л: Alph|a, Alph|e+, Alph|in, Alpha|>
 EMU10k1: ЕМУ10к1|*, _род!=м
-龙芯, lóngxīn, Loongson: лунгсин|, лунгсин|ов, лунгсин|>
-    @л: Loongson|, Loongson|ov, Loongson|>
-MIPS: МИПС|-, МИПС|-ов, МИПС|>
+龙芯, lóngxīn, Loongson: лунгсин|, лунгсин|и+, лунгсин|ов, лунгсин|>
+    @л: Loongson|, Loongson|i+, Loongson|ov, Loongson|>
+MIPS: МИПС|-, МИПС|-ови+, МИПС|-ов, МИПС|>
 m6502: м6502|*, _род!=м
-Pentium: пентијум|, пентијум|ов, пентијум|>
-    @л: Pentium|, Pentium|ov, Pentium|>
-PowerPC: пауерПЦ|-, пауерПЦ|-јев, пауерПЦ|>
-    @л: PowerPC|-, PowerPC|-jev, PowerPC|>
-Sparc: Спарк|, Спарк|ов
+Pentium: пентијум|, пентијум|и+, пентијум|ов, пентијум|>, _од=|Intel~н
+    @л: Pentium|, Pentium|i+, Pentium|ov, Pentium|>
+PowerPC: пауерПЦ|-, пауерПЦ|-ији+, пауерПЦ|-јев, пауерПЦ|>
+    @л: PowerPC|-, PowerPC|-iji+, PowerPC|-jev, PowerPC|>
+Sparc: спарк|, спарк|ови+, спарк|ов
     @л: Sparc|, Sparc|ov
 
 # ----------------------------------------------------------------------------
 # Графика и звук
 
-Radeon: радеон|, радеон|ов
-    @л: Radeon|, Radeon|ov
-Voodoo: вуду|, вуду|ов
-    @л: Voodoo|, Voodoo|ov
+Audigy: одиџ|и, одиџ|ији+, одиџ|ијев
+    @л: Audig|y, Audig|yji+, Audig|yjev
+Radeon: радеон|, радеон|и+, радеон|ов
+    @л: Radeon|, Radeon|i+, Radeon|ov
+Sound Blaster: саунд бластер|, саунд бластер|и, саунд бластер|ов
+    @л: Sound Blaster|, Sound Blaster|i+, Sound Blaster|ov
+Voodoo: вуду|, вуду|и+, вуду|ов
+    @л: Voodoo|, Voodoo|i+, Voodoo|ov
 
 # ----------------------------------------------------------------------------
 # Складишни медијуми
@@ -81,8 +91,8 @@ BD: БД|-, БД|>
 BD-R: БД-Р|-, БД-Р|>
 BD-RE: БД-РЕ|-, БД-РЕ|>
 BD-ROM: БД-РОМ|-, БД-РОМ|-ов, БД-РОМ|>
-Blu-ray: блуреј|2, блуреј|ев, блуреј|>
-    @л: Blu-ray|2, Blu-ray|ev, Blu-ray|>
+Blu-ray: блуреј|2, блуреј|еви+, блуреј|ев, блуреј|>
+    @л: Blu-ray|2, Blu-ray|evi+, Blu-ray|ev, Blu-ray|>
 CD: ЦД|-, ЦД|>
 CD-ROM: ЦД-РОМ|-, ЦД-РОМ|-ов, ЦД-РОМ|>
 CD-R: ЦД-Р|-, ЦД-Р|>
@@ -112,24 +122,24 @@ HD DVD-ROM: ХД |DVD-ROM
 HD DVD+RW, |hddvdprw: ХД |DVD+RW
 HD DVD-R, |hddvdmr: ХД |DVD-R
 HD DVD-RW, |hddvdmrw: ХД |DVD-RW
-Jaz: џез|, џез|ов, џез|>
-    @л: Jaz|, Jaz|ov, jaz|>
+Jaz: џез|, џез|еви+, џез|ов, џез|>
+    @л: Jaz|, Jax|ovi+, Jaz|ov, jaz|>
 MO, |modev: ¤МО|-, МО|-ов
 SD/MMC: СД/ММЦ|-, СД/ММЦ|-ов, СД/ММЦ|>
-Zip, |zipdev: зип|, зип|ов, зип|>
-    @л: Zip|, Zip|ov
+Zip, |zipdev: зип|, зип|ови+, зип|ов, зип|>
+    @л: Zip|, Zip|ovi+, Zip|ov
 
 # ----------------------------------------------------------------------------
 # Улазне периферије
 
-Cyborg: сајборг|, сајборг|ов
-    @л: Cyborg|, Cyborg|ov
-MouseMan: маусман|, маусман|ов
-    @л: MouseMan|, MouseMan|ov
-MX700: МИкс700|*, _род!=м
+Cyborg: сајборг|, сајборз|и+, сајборг|ов
+    @л: Cyborg|, Cyborz|i+, Cyborg|ov
+MouseMan: маусман|, маусман|и+, маусман|ов, _од=|Logitech~н
+    @л: MouseMan|, MouseMan|i+, MouseMan|ov
+MX700: МИкс700|*, _род!=м, _од=|Logitech~н
     @л: MX700|*
-TrackMan: трекман|, трекман|ов
-    @л: TrackMan|, TrackMan|ov
+TrackMan: трекман|, трекман|и+, трекман|ов
+    @л: TrackMan|, TrackMan|i+, TrackMan|ov
 TrackMan FX: |TrackMan еф-икс
     @л: |TrackMan FX
 TrackMan Live: |TrackMan лајв
@@ -138,10 +148,10 @@ TrackMan Live: |TrackMan лајв
 # ----------------------------------------------------------------------------
 # Комуникациони уређаји
 
-Hayes, |hayesdev: ¤хејс|, хејс|ов, хејс|>
-    @л: Hayes|, Hayes|ov, Hayes|>
-Smartmodem: смартмодем|, смартмодем|ов
-    @л: Smartmodem|, Smartmodem|ov
+Hayes, |hayesdev: ¤хејс|, хејс|ови+, хејс|ов, хејс|>
+    @л: Hayes|, Hayes|ovi+, Hayes|ov, Hayes|>
+Smartmodem: смартмодем|, смартмодем|и+, смартмодем|ов
+    @л: Smartmodem|, Smartmodem|i+, Smartmodem|ov
 
 # ----------------------------------------------------------------------------
 # Монитори
@@ -150,3 +160,8 @@ Smartmodem: смартмодем|, смартмодем|ов
 # ----------------------------------------------------------------------------
 # Штампачи и скенери
 
+# ----------------------------------------------------------------------------
+# Аудиовидео продукција
+
+TX16W: ТИкс16В|-, ТИкс16В|-ови+, ТИкс16В|-ов, _од=|Yamaha~н
+    @л: TX16W|-, TX16W|-ovi+, TX16W|-ov
