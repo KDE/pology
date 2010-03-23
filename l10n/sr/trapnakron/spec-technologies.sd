@@ -1,4 +1,5 @@
 >base/aff.sd
+>org-companies.sd
 
 # ----------------------------------------------------------------------------
 # Хардверске
@@ -14,6 +15,8 @@ Bluetooth: блутут|, блутут|>
     @л: Bluetooth|, bluetooth|>
 BurnFree: бернфр|и, бернфри|>
     @л: BurnFre|e-ij, BurnFree|>
+BurnProof: бернпруф|, бернпруф|>, _син=|BurnFree~н
+    @л: BurnProof|, BurnProof|>
 CAN-bus: канбус|, канбус|>
     @л: CAN-bus|, CAN-bus|>
 CardBus: кардбас|, кардбас|>
@@ -47,6 +50,8 @@ INDI: ИНД|И-, ИНДИ|>
 InfiniBand: инфинибанд|, инфинибанд|ов, инфинибанд|>
     @л: InfiniBand|, InfiniBand|ov, InfiniBand|>
 ISA: ИС|А, ИСА|>
+JustLink: џастлинк|, џастлинк|>, _син=|BurnFree~н
+    @л: JustLink|, JustLink|>
 LBA: ЛБА|-, ЛБА|>
 MicroChannel: микрочанел|, микрочанел|ов, микрочанел|>
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
@@ -55,6 +60,7 @@ mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
 NuBus: нубус|, нубус|ов, нубус|>
     @л: NuBus|, NuBus|ov, NuBus|>
 OHCI: ОХЦ|И-, ОХЦИ|>
+OPC: ОПЦ|-, ОПЦ|>, _пр=Optimum Power Calibration
 PCI: ПЦ|И-, ПЦИ|>
 PCI-E: ПЦИ-Е|-, ПЦИ-Е|>
 PCI-X: ПЦИ-Икс|, ПЦИ-Икс|>
@@ -94,9 +100,12 @@ CID Type0C: |{CID Type0}Ц
 CID Type0C (OT), |cidtype0cot: |{CID Type0C} (ОТ)
 ClearType: клиртајп|, клиртајп|>
     @л: ClearType|, cleartype|>
+Dolby Digital: |`Dolby~н диџитал|, |`Dolby~н диџитал|>
+    @л: Dolby Digital|, Dolby Digital|>
 DRI: ДР|И-, ДРИ|>
 HAL: ХАЛ|-, ХАЛ|>
 iCalendar: и-календар|, и-календар|ски
+MMC, |mmccmd: ММЦ|-, ММЦ|>, _пр=MultiMedia Commands
 ODF: ОДФ|-, ОДФ|>
 Open Collaboration Services: сервис|и- отворене сарадње
 OpenEXR: опенЕКСР|-, опенЕКСР|>
