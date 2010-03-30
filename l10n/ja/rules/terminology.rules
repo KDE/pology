@@ -1864,6 +1864,7 @@ valid msgstr="有線"
 id="wireless"
 hint="wireless = ワイヤレス"
 valid msgstr="ワイヤレス"
+valid after="802-11-"
 
 {\bwizards?\b}i
 id="wizard"

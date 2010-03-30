@@ -20,6 +20,7 @@ hint="executable (file) = 実行ファイル"
 id="trayicon-j"
 hint="(system) tray icon = システムトレイアイコン [略さずに]"
 valid after="システム"
+disabled
 
 [アプリ]
 id="application-j"
@@ -30,6 +31,11 @@ valid ctx="kgm"
 [復号化]
 id="decrypt-j"
 hint="復号 (Decrypt) には「化」は付けません"
+
+[新規]
+id="new-j"
+hint="あとに単語が続くときは「新規ウィンドウ」ではなく「新しいウィンドウ」のようにしてください。Create New は「新規作成」、単独の New は「新規」。"
+valid before="$|\.\.\.|:|作成|ボタン|を|または|のみ"
 
 [タイプ]
 id="type-j"
