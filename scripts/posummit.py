@@ -1647,6 +1647,8 @@ def summit_gather_single_header (summit_cat, prim_branch_cat,
             summit_cat.header.field.append(bfield)
 
 
+_asc_check_cache = {}
+
 def summit_scatter_single (branch_id, branch_name, branch_subdir,
                            branch_path, summit_paths,
                            project, options, update_progress):
@@ -1667,13 +1669,15 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     branch_cat = Catalog(branch_path_mod, wrapping=project.branches_wrapping)
     summit_cats = [Catalog(x) for x in summit_paths]
 
-    # Open ascription catalogs.
+    # Collect and link ascription catalogs to summit catalogs.
+    # (Do not open them here, but only later when a check is not cached.)
     if project.ascription_filter:
         aconfs_acats = {}
         for summit_cat in summit_cats:
             aconf, acatpath = project.asc_configs_acatpaths[summit_cat.name]
-            acat = Catalog(acatpath, monitored=False, create=True)
-            aconfs_acats[summit_cat.name] = (aconf, acat)
+            aconfs_acats[summit_cat.name] = (aconf, None, acatpath)
+            if acatpath not in _asc_check_cache:
+                _asc_check_cache[acatpath] = {}
 
     # Pair branch messages with summit messages.
     msgs_total = 0
@@ -1722,12 +1726,18 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         if (    project.ascription_filter and not options.force
             and do_scatter(summit_msg, branch_msg)
         ):
-            aconf, acat = aconfs_acats[summit_cat.name]
-            hfilter = project.ascription_history_filter
-            ahist = ASC.asc_collect_history(summit_msg, acat, aconf,
-                                            nomrg=True, hfilter=hfilter)
-            afilter = project.ascription_filter
-            if not afilter(summit_msg, summit_cat, ahist, aconf):
+            aconf, acat, acatpath = aconfs_acats[summit_cat.name]
+            if summit_msg.key not in _asc_check_cache[acatpath]:
+                if acat is None:
+                    acat = Catalog(acatpath, monitored=False, create=True)
+                    aconfs_acats[summit_cat.name] = (aconf, acat, acatpath)
+                hfilter = project.ascription_history_filter
+                ahist = ASC.asc_collect_history(summit_msg, acat, aconf,
+                                                nomrg=True, hfilter=hfilter)
+                afilter = project.ascription_filter
+                res = afilter(summit_msg, summit_cat, ahist, aconf)
+                _asc_check_cache[acatpath][summit_msg.key] = res
+            if not _asc_check_cache[acatpath][summit_msg.key]:
                 asc_stopped += 1
                 continue
 
