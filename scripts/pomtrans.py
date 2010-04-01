@@ -226,7 +226,7 @@ def translate_parallel (paths, tsbuilder, options):
         texts_tr = []
         for texts, scat in ((ptexts, pcat), (ctexts, ccat)):
             transerv = get_transerv(slang, tlang, scat, cat, tsbuilder)
-            texts_tr.append(transerv.translate(texts))
+            texts_tr.append(transerv.translate(texts) if texts else [])
             if texts_tr[-1] is None:
                 texts_tr = None
                 break
@@ -324,9 +324,6 @@ class Translator_apertium (object):
 
     def translate (self, texts):
 
-        if len(texts) == 0:
-            return []
-
         # Serialize texts to send to Apertium in one go.
         # Separate texts with an inplace tag followed by dot,
         # to have each text interpreted as standalone sentence.
@@ -357,6 +354,51 @@ class Translator_apertium (object):
             return None
 
         texts_tr = [resolve_entities_simple(x, self.htmlents) for x in texts_tr]
+
+        return texts_tr
+
+
+# ----------------------------------------
+# Google Translate
+# http://translate.google.com
+
+# Communication code derived from py-gtranslate library
+# http://code.google.com/p/py-gtranslate/
+
+
+class Translator_google (object):
+
+    def __init__ (self, slang, tlang, options):
+
+        self.slang = slang
+        self.tlang = tlang
+
+
+    def translate (self, texts):
+
+        import urllib
+        try:
+            import simplejson
+        except:
+            error("'simplejson' Python module not available. "
+                  "Try installing the python-simplejson package.")
+
+        baseurl = "http://ajax.googleapis.com/ajax/services/language/translate"
+        langpair = "%s|%s" % (self.slang, self.tlang)
+        baseparams = (("v", "1.0"), ("langpair", langpair), ("ie", "utf8"))
+
+        texts_tr = []
+        for text in texts:
+            params = baseparams + (("q", text.encode("utf8")),)
+            parfmt = "&".join(["%s=%s" % (p, urllib.quote_plus(v))
+                               for p, v in params])
+            execurl = "%s?%s" % (baseurl, parfmt)
+            res = simplejson.load(urllib.FancyURLopener().open(execurl))
+            try:
+                text_tr = res["responseData"]["translatedText"]
+            except:
+                text_tr = u""
+            texts_tr.append(text_tr)
 
         return texts_tr
 
