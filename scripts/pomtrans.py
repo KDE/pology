@@ -51,18 +51,31 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
-        "-f", "--source-lang", dest="slang",
-        metavar="LANG",
-        help="Source language code (detected from catalogs if not given).")
-    opars.add_option(
-        "-t", "--target-lang", dest="tlang",
-        metavar="LANG",
-        help="Target language code (detected from catalogs if not given).")
-    opars.add_option(
         "-a", "--accelerator", dest="accel",
         metavar="CHAR",
         help="Accelerator marker character used in messages "
              "(detected from catalogs if not given).")
+    opars.add_option(
+        "-c", "--parallel-compendium", dest="parcomp",
+        metavar="FILE",
+        help="Translate from translation to another language, "
+             "found in compendium file at the given path.")
+    opars.add_option(
+        "-f", "--source-lang", dest="slang",
+        metavar="LANG",
+        help="Source language code (detected from catalogs if not given).")
+    opars.add_option(
+        "-l", "--list-transervs",
+        action="store_true", dest="list_transervs", default=False,
+        help="List available translation services.")
+    opars.add_option(
+        "-m", "--flag-%s" % _flag_mtrans,
+        action="store_true", dest="flag_mtrans", default=False,
+        help="Add '%s' flag to translated messages." % _flag_mtrans)
+    opars.add_option(
+        "-n", "--no-fuzzy-flag",
+        action="store_false", dest="flag_fuzzy", default=True,
+        help="Do not add '%s' flag to translated messages." % "fuzzy")
     opars.add_option(
         "-p", "--parallel-catalogs", dest="parcats",
         metavar="SEARCH:REPLACE",
@@ -71,18 +84,9 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
              "For given target catalog path, the path to parallel catalog "
              "is constructed by replacing once SEARCH with REPLACE.")
     opars.add_option(
-        "-c", "--parallel-compendium", dest="parcomp",
-        metavar="FILE",
-        help="Translate from translation to another language, "
-             "found in compendium file at the given path.")
-    opars.add_option(
-        "-m", "--flag-%s" % _flag_mtrans,
-        action="store_true", dest="flag_mtrans", default=False,
-        help="Also add flag '%s' to translated messages." % _flag_mtrans)
-    opars.add_option(
-        "-l", "--list-transervs",
-        action="store_true", dest="list_transervs", default=False,
-        help="List available translation services.")
+        "-t", "--target-lang", dest="tlang",
+        metavar="LANG",
+        help="Target language code (detected from catalogs if not given).")
     opars.add_option(
         "-T", "--transerv-bin", dest="transerv_bin",
         metavar="PATH",
@@ -263,7 +267,8 @@ _flag_mtrans = u"mtrans"
 def decorate (msg, options):
 
     msg.unfuzzy() # clear any previous fuzzy stuff
-    msg.fuzzy = True
+    if options.flag_fuzzy:
+        msg.fuzzy = True
     if options.flag_mtrans:
         msg.flag.add(_flag_mtrans)
 
@@ -297,7 +302,7 @@ def get_transerv (slang, tlang, scat, tcat, tsbuilder):
 def sync_rep (cat, mmsgs):
 
     if cat.sync():
-        report("%s (%s)" % (cat.filename, len(mmsgs)))
+        report("! %s (%s)" % (cat.filename, len(mmsgs)))
 
 
 # ----------------------------------------
