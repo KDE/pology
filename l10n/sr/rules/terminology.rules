@@ -17,6 +17,12 @@ id="addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
+{\bbookmark}i
+id="bookmark"
+hint="bookmark = обележивач"
+valid msgstr="\bобележ(и|ен|авањ)"
+valid env="kde" msgstr="&\w*bookmark\S*;"
+
 {\bborder}i
 id="border"
 hint="border = ивица"
@@ -192,7 +198,7 @@ valid !msgstr="\bфајл"
 
 {\bfile ?names?\b}i
 id="filename"
-hint="filename|file name = име датотеке"
+hint="filename = име датотеке"
 valid msgstr="\bиме\w* .*\bдатоте|датоте\w* .*\bиме" !msgstr="датотеч\w+ име"
 
 {\bfooter}i

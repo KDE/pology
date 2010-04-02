@@ -71,12 +71,6 @@ hint="bold = подебљан"
 valid msgstr="\bподебља"
 valid msgstr="&(demi|semi|extra|ultra)?bold\S*;"
 
-{\bbookmark}i
-id="bookmark"
-hint="bookmark = маркер"
-valid msgstr="\bмарк[ие]р"
-valid msgstr="&\w*bookmark\S*;"
-
 {boot}i
 id="boot"
 hint="boot = подићи [придев: подизни]"
@@ -363,12 +357,12 @@ valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразу
 
 {\bfile ?names?\b}i
 id="filename"
-hint="filename|file name = име фајла"
+hint="filename = име фајла"
 valid msgstr="\bиме\w* .*\bфајл|фајл\w* .*\bиме" !msgstr="фајл име"
 
 {\bfile[ -]?system}i
 id="filesystem"
-hint="filesystem|file system = фајл систем"
+hint="file system = фајл систем"
 valid before=" browser"
 valid msgstr="\bфајл систем"
 valid msgstr="&\w*filesystem\S+;"
@@ -474,7 +468,7 @@ valid msgstr="неваљан|није ваљан"
 
 {\bk?io\W?slave}i
 id="ioslave"
-hint="ioslave|IO slave|kioslave|KIO slave = У/И захват"
+hint="ioslave|kioslave = У/И захват"
 valid msgstr="\bУ/И захват"
 valid msgstr="&ioslave\w*-\S*;"
 
@@ -842,7 +836,7 @@ valid msgstr="\bуводн\w+ екран"
 
 {\b(status ?bar)}i
 id="statusbar"
-hint="statusbar|status bar = трака стања"
+hint="status bar = трака стања"
 valid msgstr="\bтра[кц]\w+ стања"
 
 {\bstring}i
