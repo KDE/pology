@@ -3,7 +3,7 @@
 """
 Version control operations.
 
-Collections of PO files are usually kept under some sort of version control.
+Collections of PO files are frequently kept under some sort of version control.
 This module provides typical version control operations, abstracted across
 various version control systems.
 
@@ -884,7 +884,9 @@ class VcsGit (VcsBase):
         for line in res[0].split("\n"):
             m = sect_rx.search(line)
             if m:
-                if m.group(1).endswith("to be committed"):
+                if (   m.group(1).endswith("to be committed") # git 1.6.x
+                    or m.group(1).endswith("but not updated") # git 1.7.x
+                ):
                     inlist = True
                 else:
                     break
