@@ -74,7 +74,7 @@ hint="-ér → -er [imperativ har aldri -ér på norsk]"
 [\b-?(cd|pc)-]
 hint="cd/pc → CD/PC"
 
-[(CD|PC)('’|en|ar|ane)]
+[(CD|PC)('’|en|ar|ane)]i
 hint="CDen → CD-en, PCane → PC-ane, osv."
 
 [utskiftning]i
@@ -86,16 +86,19 @@ hint="skall → skal"
 [\btillet\b]i
 hint="tillet → tillèt (presens) eller tillét (preteritum)"
 
-[\butvidelsar\b]
+[\butvidelsar\b]i
 hint="utvidelsar → utvidingar"
 
-[\btreig]
+[\btreig]i
 hint="treig → treg"
+
+[\bitl\b]
+hint="itl → til"
 
 [oppløysning]i
 hint="oppløysning → oppløysing"
 
-[virituell\w+]
+[virituell\w+]i
 hint="virituell → virtuell"
 
 [ved sidan av]i
