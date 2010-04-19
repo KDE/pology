@@ -858,11 +858,15 @@ def collect_paths_cmdline (rawpaths=None,
     ffselfs = []
     if filesfrom:
         for ffpath in filesfrom:
-            cpaths, cself = collect_paths_from_file(ffpath, cmnts, incexc,
-                                                    respathf, getsel=True,
-                                                    abort=abort)
-            paths.extend(cpaths)
-            ffselfs.append(cself)
+            res = collect_paths_from_file(ffpath, cmnts, incexc,
+                                          respathf, getsel=getsel,
+                                          abort=abort)
+            if getsel:
+                cpaths, cself = res
+                paths.extend(cpaths)
+                ffselfs.append(cself)
+            else:
+                paths.extend(res)
     # If neither direct paths nor files to read paths from were given,
     # add current working directory if requested.
     if elsecwd and not rawpaths and not filesfrom:
