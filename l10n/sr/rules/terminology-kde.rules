@@ -796,11 +796,10 @@ valid cat="desktop_kdebase" msgid="National Weather Service" msgstr="\bслуж�
 {\b(preference|setting)s?}i
 id="setting"
 hint="preference|setting = поставка [‘Подешавање’ као наслов менија /Settings/]"
-valid msgid="^settings$" msgstr="^подешавање$"
-valid msgstr="\bпостав(ц|к|љ|ит)" !srcref="\.rc$"
-valid msgstr="подешавање\b" srcref="\.rc$"
-valid msgstr="->подешавање"
-valid msgstr="подешавање->"
+valid msgid="^settings$" msgstr="^подешавање$" srcref="\.rc$"
+valid msgstr="\bпостав(ц|к|љ|ит)"
+valid msgstr="(->|→)подешавање"
+valid msgstr="подешавање(->|→)"
 valid msgid="configur|set(ting)? up" msgstr="подеси|подешавањ|постављањ|постави"
 valid span="preference\b" msgstr="пожеља?н|првенств"
 valid span="settings" before=" menu" # „мени Подешавање“
