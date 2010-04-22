@@ -63,6 +63,8 @@ DEB: ДЕБ|-, ДЕБ|>
 DER: ДЕР|-, ДЕР|>
 DHCP: ДХЦП|-, ДХЦП|>
 DHT: ДХТ|-, ДХТ|>
+DiSEqC: дајсек|, дајсек|>, _пр=digital satellite equipment control
+    @л: DiSEqC|-, DiSEqC|>
 DLE: ДЛЕ|-, ДЛЕ|>
 DLP: ДЛП|-, ДЛП|>
 DN: ДН|-, ДН|>
@@ -75,31 +77,38 @@ DPIO: ДПИО|-, ДПИО|>
 DPMS: ДПМС|-, ДПМС|>
 DSA: ДСА|-, ДСА|>
 DSCP: ДСЦП|-, ДСЦП|>
-DST: ЧВО|-, ЧВО|> # Daylight Saving Time = чување времена обданице
-DTE: ДТЕ|-, ДТЕ|>, _пр=Data Terminal Equipment
-DVB: ДВБ|-, ДВБ|>, _пр=Digital Video Broadcasting
-DVB-CA: ДВБ-ЦА|-, ДВБ-ЦА|>, _пр=Digital Video Broadcasting\, Conditional Access
-DVR: ДВР|-, ДВР|>, _пр=Digital Video Recorder
+DST: ЧВО|-, ЧВО|>, _пр=чување времена обданице, _про=daylight saving time
+DTE: ДТЕ|-, ДТЕ|>, _пр=data terminal equipment
+DVB: ДВБ|-, ДВБ|>, _пр=digital video broadcasting
+DVB-C: ДВБ|- Ц, н&а=ДВБ-Ц, ДВБ-Ц|>, _пр=digital video broadcasting\, cable
+DVB-CA: ДВБ|- ЦА, н&а=ДВБ-ЦА, ДВБ-ЦА|>, _пр=digital video broadcasting\, conditional access
+DVB-H: ДВБ|- Х, н&а=ДВБ-Х, ДВБ-Х|>, _пр=digital video broadcasting\, handheld
+DVB-S: ДВБ|- С, н&а=ДВБ-С, ДВБ-С|>, _пр=digital video broadcasting\, satelite
+DVB-S2: ДВБ|- С2, н&а=ДВБ-С2, ДВБ-С2|>, _пр=digital video broadcasting\, satelite 2nd generation
+DVB-SH: ДВБ|- СХ, н&а=ДВБ-СХ, ДВБ-СХ|>, _пр=digital video broadcasting\, satelite handheld
+DVB-T: ДВБ|- Т, н&а=ДВБ-Т, ДВБ-Т|>, _пр=digital video broadcasting\, terrestrial
+DVR: ДВР|-, ДВР|>, _пр=digital video recorder
 DXS: ДИксС|-, ДИксС|-ов, ДИксС|>
     @л: DXS|-, DXS|-ov, DXS|>
 ECC: ЕЦЦ|-, ЕЦЦ|>, _пр=error correction coding
 ECP: ЕЦП|-, ЕЦП|>
 EDC: ЕДЦ|-, ЕДЦ|>, _пр=error detection coding
 EGD: ЕГД|-, ЕГД|>
-EOF: ЕОФ|-, ЕОФ|>
-EPG: ЕПГ|-, ЕПГ|>, _пр=Electronic Program Guide
+EOF: ЕОФ|-, ЕОФ|>, _пр=end of file
+EPG: ЕПГ|-, ЕПГ|>, _пр=electronic program guide
 ESSID: ЕССИД|-, ЕССИД|>
 EXIF: ЕКСИФ|-, ЕКСИФ|>
     @л: EXIF|-, EXIF|>
 EXR: ЕИксР|-, ЕИксР|>
     @л: EXR|-, EXR|>
-FAQ: ЧПП|-, ЧПП|>
+FAQ: ЧПП|-, ЧПП|>, _пр=често постављана питања, _про=frequently asked questions
 FDDI: ФДД|И-, ФДДИ|>
+FEC: ФЕЦ|-, ФЕЦ|>, _пр=forward error correction
 FHT: ФХТ|-, ФХТ|>
-FIFO: ФИФО|-, ФИФО|>
+FIFO: ФИФО|-, ФИФО|>, _пр=first in\, first out
 FLAC: ФЛАЦ|-, ФЛАЦ|>
 FLV: ФЛВ|-, ФЛВ|>
-FPU: ФПУ|-, ФПУ|>
+FPU: ФПУ|-, ФПУ|>, _пр=floating-point processing unit
 g11n: г11н|*, _род!=м
 G3: Г3|*, Г3|>, _род!=м
 G4: Г4|*, Г4|>, _род!=м
@@ -107,7 +116,7 @@ GART: ГАРТ|-, ГАРТ|>
 GB18030: ГБ18030|*, ГБ18030|>, _род!=м
 GB-2312: ГБ-2312|*, ГБ-2312|>, _род!=м
 GBK: ГБК|-, ГБК|>
-GID: ГИД|-, ГИД|>
+GID: ГИД|-, ГИД|>, _пр=group identifier
 GL: ГЛ|-, ГЛ|-ов, ГЛ|>
 GLX: ГЛИкс|-, ГЛИкс|-ов, ГЛИкс|>
     @л: GLX|-, GLX|-ov, GLX|>
@@ -116,10 +125,10 @@ GMT: ГМТ|-, ГМТ|>
 GNKSA: ГНКС|А, ГНКСА|>
 GOP: ГОП|-, ГОП|>, _пр=group of pictures
 GPIB: ГПИБ|-, ГПИБ|>
-GPS: ГПС|-, ГПС|>
-GPU: ГПУ|-, ГПУ|>
+GPS: ГПС|-, ГПС|>, _пр=Global Positioning System
+GPU: ГПУ|-, ГПУ|>, _пр=graphics processing unit
 GSSAPI: ГССАП|И-, ГССАПИ|>
-GUI: ГУ|И-, ГУИ|>
+GUI: ГУ|И-, ГУИ|>, _пр=graphical user interface
 GUID: ГУИД|-, ГУИД|>
 HDLC: ХДЛЦ|-, ХДЛЦ|>
 i18n: и18н|*, _род!=м
@@ -130,7 +139,7 @@ ICA: ИЦА|-, ИЦА|>
 ICCCM: ИЦЦЦМ|-, ИЦЦЦМ|>
 ICMP: ИЦМП|-, ИЦМП|>
 ICO: ИЦО|-, ИЦО|>
-ID: ИД|-, ИД|>
+ID: ИД|-, ИД|>, _пр=идентификатор
 ID3: ИД3|*, ИД3|>, _род!=м
 IDEAl: ИДЕАл|-, ИДЕАл|>
 IDMAP: ИДМАП|-, ИДМАП|>
@@ -140,7 +149,7 @@ IIR: ИИР|-, ИИР|>
 IM: ИМ|-, ИМ|>
 iMIP: иМИП|-, иМИП|>
 IMS: ИМС|-, ИМС|>
-IO: У/|И-, У/И|>
+IO: У/|И-, У/И|>, _пр=улаз/излаз
 IO(X), |io_x: У/|{И-}(икс), У/И(икс)|>
     @л: U/|{I-}(X), U/I(X)|>
 IPA: ИПА|-, ИПА|>
@@ -175,7 +184,9 @@ LAN: ЛАН|-, ЛАН|>
 LCD: ЛЦД|-, ЛЦД|>
 LF: ЛФ|-, ЛФ|>, _пр=Line Feed
 LM: ЛМ|-, ЛМ|>
+LNB: ЛНБ|-, ЛНБ|>, _пр=low-noise block converter
 LOD: ЛОД|-, ЛОД|>
+LOF: ЛОФ|-, ЛОФ|>, _пр=local oscillator frequency
 LPD: ЛПД|-, ЛПД|>
 LPQ: ЛПКу|-, ЛПКу|>
     @л: LPQ|-, LPQ|>
@@ -247,6 +258,7 @@ PIM: ПИМ|-, ПИМ|>
 PIN: ПИН|-, ПИН|>
 PME: ПМЕ|-, ПМЕ|>
 PM: ПМ|-, ПМ|>
+PMT: ПМТ|-, ПМТ|>, _пр=program map table
 POST: ПОСТ|-, ПОСТ|>
 POW: ПОВ|-, ПОВ|>, _пр=pseudo overwrite
 PPC: ППЦ|-, ППЦ|>
@@ -270,9 +282,9 @@ Q.932: Ку.932|*, Ку.932|>, _род!=м
     @л: Q.932|*, Q.932|>
 QWS: КуВС|-, КуВС|>
     @л: QWS|-, QWS|>
-R16: Р16|*, Р16|>, _род=!м
-R96P: Р96Р|*, Р96Р|>, _род=!м
-R96R: Р96П|*, Р96П|>, _род=!м
+R16: Р16|*, Р16|>, _род!=м
+R96P: Р96Р|*, Р96Р|>, _род!=м
+R96R: Р96П|*, Р96П|>, _род!=м
 RAM: РАМ|-, РАМ|>, _пр=random access memory
 RAS: РАС|-, РАС|>, _пр=Remote Access Services
 RDF: РДФ|-, РДФ|>
@@ -313,6 +325,7 @@ SLP: СЛП|-, СЛП|>
 SLPv2: СЛПв2|*, СЛПв2|>, _род!=м
 SMIC: СМИЦ|-, СМИЦ|>
 SNF: СНФ|-, СНФ|>
+SNR: СНР|-, СНР|>, _пр=signal-to-noise ratio
 SPNEGO: СПНЕГО|-, СПНЕГО|>
 SPP: СПП|-, СПП|>
 SRM: СРМ|-, СРМ|-, _пр=sequential recording mode
@@ -338,6 +351,7 @@ UML: УМЛ|-, УМЛ|>
 UNI: УН|И-, УНИ|>
 UPnP: УПнП|-, УПнП|>
 UPS: УПС|-, УПС|-ов, УПС|>, _пр=uninterruptible power supply
+USALS: УСАЛС|-, УСАЛС|>, _пр=universal satellite automatic location system
 UTC: УТЦ|-, УТЦ|>
 UUID: УУИД|-, УУИД|>
 VBR: ВБР|-, ВБР|>

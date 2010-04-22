@@ -38,6 +38,7 @@ Firewire: фајервајер|, фајервајер|>
     @л: Firewire|, firewire|>
 FLASH, |flashmem: ¤флеш|, флеш|>
     @л: ¤FLASH|-, FLASH|>
+GS, |gsmidi: ГС|-, ГС|-ов, ГС|>
 GSM: ГСМ|-, ГСМ|>
 HDR: ХДР|-, ХДР|>
 HyperTransport: хипертранспорт|, хипертранспорт|>
@@ -80,6 +81,8 @@ SMBus: СМбус|, СМбус|>
     @л: SMBus|, SMBus|>
 UHCI: УХЦ|И-, УХЦИ|>
 USB: УСБ|-, УСБ|>
+XG, |xgmidi: ИксГ|-, ИксГ|-ов, ИксГ|>
+    @л: XG|-, XG|-ov, XG|>
 ZeroConf: зироконф|, зироконф|>
     @л: ZeroConf|, zeroconf|>
 
@@ -100,18 +103,25 @@ CID Type0C: |{CID Type0}Ц
 CID Type0C (OT), |cidtype0cot: |{CID Type0C} (ОТ)
 ClearType: клиртајп|, клиртајп|>
     @л: ClearType|, cleartype|>
+Direct3D: дајрект3Д|, дајрект3Д|-јев, дајрект3Д|>
+    @л: Direct3D|, Direct3D|-jev, Direct3D|>
+DirectX: дајректекс|, дајректекс|ов, дајректекс|>
+    @л: DirectX|, DirectX|-ov, DirectX|>
 Dolby Digital: |`Dolby~н диџитал|, |`Dolby~н диџитал|>
     @л: Dolby Digital|, Dolby Digital|>
 DRI: ДР|И-, ДРИ|>
 HAL: ХАЛ|-, ХАЛ|>
 iCalendar: и-календар|, и-календар|ски
-MMC, |mmccmd: ММЦ|-, ММЦ|>, _пр=MultiMedia Commands
+MMC, |mmccmd: ¤ММЦ|-, ММЦ|>, _пр=MultiMedia Commands
 ODF: ОДФ|-, ОДФ|>
 Open Collaboration Services: сервис|и- отворене сарадње
+OpenAL: опенАЛ|-, опенАЛ|-ов, опенАЛ|>
+    @л: OpenAL|-, OpenAL|-ov, OpenAL|>
 OpenEXR: опенЕКСР|-, опенЕКСР|>
     @л: OpenEXR|-, OpenEXR|>
 OpenGL: опенГЛ|-, опенГЛ|-ов, опенГЛ|>
-    @л: OpenGL|-, OpenGL|-ov
+    @л: OpenGL|-, OpenGL|-ov, OpenGL|>
+OpenGL MT: |OpenGL МТ, |<пп
 PK, |pkfnt: ПК|-, ПК|>
 sendmail: сендмејл|, сендмејл|>
     @л: sendmail|, sendmail|>

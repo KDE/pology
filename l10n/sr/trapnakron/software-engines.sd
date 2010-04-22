@@ -9,12 +9,15 @@
 # Графички
 
 Appearance Manager: Менаџер| изгледа
-DirectDraw: директдроу|, директдроу|ов, директдроу|>
+DirectDraw: Дајректдроу|, Дајректдроу|ов, дајректдроу|>
     @л: DirectDraw|, DirectDraw|ov, DirectDraw|>
-DirectShow: Директшоу|, Директшоу|ов
+DirectMedia: Дајректмедиј|а, Дајректмедиј|ин, дајректмедија|>
+    @л: DirectMed|ia, DirectMedij|in, DirectMedia|>
+DirectShow: Дајректшоу|, Дајректшоу|ов
     @л: DirectShow|, DirectShow|ov
 DirectShow9: |{DirectShow}-9
 FFmpeg: ФФмпег|, ФФмпег|ов, ФФмпег|>
+FFserver: ФФсервер|, ФФсервер|ов, ФФсервер|>
 Flake: Флејк|, Флејк|ов, флејк|>
     @л: Flake|, Flake|ov, Flake|>
 FontConfig: Фонтконфиг|, Фонтконфиг|ов
@@ -22,6 +25,8 @@ FontConfig: Фонтконфиг|, Фонтконфиг|ов
 FreeType: Фритајп|, Фритајп|ов
     @л: FreeType|, FreeType|ov
 GLextrusion: ГЛ-извлаче|ње
+Ice Ape, |iceapevid: Ајс ејп|, Ајс ејп|ов
+    @л: Ice Ape|, Ice Ape|ov
 JasPer: Џаспер|, Џаспер|ов
     @л: JasPer|, JasPer|ov
 KDXSView: КДИксСвју|, КДИксСвју|ов
@@ -75,16 +80,24 @@ XShm: Икс-схм|, Икс-схм|ов
     @л: XShm|, XShm|ov
 XSync: Икс-синх|, Икс-синх|ов
     @л: XSync|, XSync|ov
+X: Икс|, Икс|ов, икс|>
+    @л: X|-, X|-ov, X|>
+X11: Икс|{}11, икс11|>
+    @л: X11|*, X11|>
+X11Shm: Икс11-схм|, Икс11-схм|ов
+    @л: X11Shm|, X11Shm|ov
 Xt: ИксТ|, ИксТ|-ов, ИксТ|>
     @л: Xt|, Xt|-ov, Xt|>
 XTest: Икс-тест|, Икс-тест|ов
     @л: XTest|, XTest|ov
 Xvfb: Икс-вфб|, Икс-вфб|ов
     @л: Xvfb|, Xvfb|-ov
-X: Икс|, Икс|ов, икс|>
-    @л: X|-, X|-ov, X|>
-X11: Икс|{}11, икс11|>
-    @л: X11|*, X11|>
+XVideo: Икс-видео|, Икс-виде|ов
+    @л: XVideo|, XVide|ov
+XVidix: Икс-видикс|, Икс-видикс|ов
+    @л: XVidix|, XVidix|ov
+XvMC: ИксвМЦ|-, ИксвМЦ|-ов
+    @л: XvMC|-, XvMC|-ov
 X Window: Икс-прозор|и-
     @л: X-prozor|i-
 
