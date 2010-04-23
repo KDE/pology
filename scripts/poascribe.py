@@ -163,6 +163,12 @@ def main ():
         action="store", dest="po_editor", default=None,
         help="Open selected messages in one of the supported PO editors.")
     opars.add_option(
+        "-R", "--max-fraction-select", metavar="FRACTION",
+        action="store", dest="max_fraction_select", default=None,
+        help="Select messages in a catalog only if the total number "
+             "of selected messages in that catalog would be at most "
+             "the given fraction (0.0-1.0) of total number of messages.")
+    opars.add_option(
         "-s", "--selector", metavar="SELECTOR[:ARGS]",
         action="append", dest="selectors", default=None,
         help="consider only messages matched by this selector. "
@@ -235,6 +241,7 @@ def main ():
         ("user", cfgsec.string, None),
         ("update-headers", cfgsec.boolean, False),
         ("diff-reduce-history", cfgsec.string, None),
+        ("max-fraction-select", cfgsec.real, 1.01),
     ):
         uoptname = optname.replace("-", "_")
         if getattr(options, uoptname) is None:
@@ -255,6 +262,7 @@ def main ():
                   % dict(ed=edkey, eds=", ".join(sorted(known_editors))))
         return msgrepf
     for optname, valconv in (
+        ("max-fraction-select", float),
         ("min-adjsim-diff", float),
         ("po-editor", valconv_editor),
     ):
@@ -647,7 +655,8 @@ def examine_state (options, configs_catpaths, mode):
             cat = Catalog(catpath, monitored=False)
             clear_review_cat_simple(cat)
             acat = Catalog(acatpath, create=True, monitored=False)
-            # Count non-ascribed by original catalog.
+            # Count ascribed and non-ascribed by original catalog.
+            nselected = 0
             for msg in cat:
                 history = asc_collect_history(msg, acat, config,
                                               hfilter=options.hfilter,
@@ -662,6 +671,7 @@ def examine_state (options, configs_catpaths, mode):
                 if catpath not in counts[st]:
                     counts[st][catpath] = 0
                 counts[st][catpath] += 1
+                nselected += 1
             # Count non-ascribed by ascription catalog.
             for amsg in acat:
                 if amsg not in cat:
@@ -677,6 +687,12 @@ def examine_state (options, configs_catpaths, mode):
                         if catpath not in counts_na[st]:
                             counts_na[st][catpath] = 0
                         counts_na[st][catpath] += 1
+            # Cancel counts if maximum selection fraction exceeded.
+            if float(nselected) / len(cat) > options.max_fraction_select:
+                for counts in (counts_a, counts_na):
+                    for st in _all_states:
+                        if catpath in counts[st]:
+                            counts[st].pop(catpath)
     upprog()
 
     # Some general data for tabulation of output.
@@ -1154,12 +1170,6 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
     revd_msgs = []
     non_mod_asc_msgs = []
     for msg in cat:
-        # Remove any review scaffolding.
-        unrevd = clear_review_msg(msg)[3]
-        if unrevd:
-            # Message explicitly set as not reviewed.
-            continue
-
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
                                       addrem=options.addrem,
@@ -1178,6 +1188,13 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
 
         revd_msgs.append(msg)
 
+    # Cancel selection if maximum fraction exceeded.
+    if (  float(len(revd_msgs) + len(non_mod_asc_msgs)) / len(cat)
+        > options.max_fraction_select
+    ):
+        revd_msgs = []
+        non_mod_asc_msgs = []
+
     if non_mod_asc_msgs:
         fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
                              for x in non_mod_asc_msgs])
@@ -1186,17 +1203,12 @@ def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
                 % (cat.filename, fmtrefs))
 
     if not revd_msgs:
-        # No messages to ascribe.
-        if non_mod_asc_msgs:
-            # May have had some reviews cleared.
-            sync_and_rep(cat)
         return 0
 
     # Ascribe messages as reviewed.
     for msg in revd_msgs:
         ascribe_msg_rev(msg, acat, options.tag, user, config)
 
-    sync_and_rep(cat)
     if asc_sync_and_rep(acat):
         config.vcs.add(acat.filename)
 
@@ -1209,7 +1221,8 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
     clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    diffed_msgs = []
+    # Select messages for diffing.
+    msgs_to_diff = []
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
@@ -1221,6 +1234,18 @@ def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
         sres = stest(msg, cat, history, config)
         if not sres:
             continue
+        msgs_to_diff.append((msg, history, sres))
+
+    # Cancel selection if maximum fraction exceeded.
+    if float(len(msgs_to_diff)) / len(cat) > options.max_fraction_select:
+        msgs_to_diff = []
+
+    if not msgs_to_diff:
+        return 0
+
+    # Diff selected messages.
+    diffed_msgs = []
+    for msg, history, sres in msgs_to_diff:
 
         # Try to select ascription to differentiate from.
         # (Note that ascription indices returned by selectors are 1-based.)
@@ -1296,6 +1321,8 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
     cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
 
+    # Select messages to clear.
+    msgs_to_clear = []
     for msg in cat:
         cmsg = MessageUnsafe(msg)
         clear_review_msg(cmsg)
@@ -1305,6 +1332,14 @@ def clear_review_cat (options, config, catpath, acatpath, stest):
                                       nomrg=True)
         if not stest(cmsg, cat, history, config):
             continue
+        msgs_to_clear.append(msg)
+
+    # Cancel selection if maximum fraction exceeded.
+    if float(len(msgs_to_clear)) / len(cat) > options.max_fraction_select:
+        msgs_to_clear = []
+
+    # Clear selected messages.
+    for msg in msgs_to_clear:
         clres = clear_review_msg(msg, keepflags=options.keep_flags)
         if any(clres):
             diffed, revd, unrevd = clres[1:4]
@@ -1335,7 +1370,8 @@ def show_history_cat (options, config, catpath, acatpath, stest):
     clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    nselected = 0
+    # Select messages for which to compute histories.
+    msgs_to_hist = []
     for msg in cat:
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
@@ -1343,7 +1379,14 @@ def show_history_cat (options, config, catpath, acatpath, stest):
                                       nomrg=True)
         if not stest(msg, cat, history, config):
             continue
-        nselected += 1
+        msgs_to_hist.append((msg, history))
+
+    # Cancel selection if maximum fraction exceeded.
+    if float(len(msgs_to_hist)) / len(cat) > options.max_fraction_select:
+        msgs_to_hist = []
+
+    # Compute histories for selected messages.
+    for msg, history in msgs_to_hist:
 
         unasc = history[0].user is None
         if unasc:
@@ -1403,7 +1446,7 @@ def show_history_cat (options, config, catpath, acatpath, stest):
         report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 
-    return nselected
+    return len(msgs_to_hist)
 
 
 def clear_review_msg (msg, keepflags=False, dryrun=False):
