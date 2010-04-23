@@ -450,7 +450,7 @@ valid span="space\b" after="(additional|address|all|allocate|clear|config|digita
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"
 valid msgstr="\bразма[кц]"
-valid env="kde" msgstr="\bspace\b" # може и као ентитет и у <shortcut>
+valid env="kde" msgstr="\bspace(key)?\b" # може и као ентитет и у <shortcut>
 valid cat="kcm_pci" msgid="^Space$"
 
 {\bsyntax\W?highlight}i
