@@ -19,6 +19,8 @@ Sieve parameters for matching:
   - C{flag:<regex>}: regular expression to match against flags
   - C{plural}: the message must be plural
   - C{maxchar}: messages must have no more than this number of characters
+  - C{lspan:<start>:<end>}: the message line number must be in this range
+  - C{espan:<start>:<end>}: the message entry number must be in this range
   - C{branch:<branch_id>}: match only messages from this branch (summit)
   - C{fexpr}: logical expression made out of any previous matching typs
   - C{or}: use OR- instead of AND-matching for text fields
@@ -234,6 +236,30 @@ def setup_sieve (p):
     "Matches if either the msgid or msgstr field have more than this many "
     "characters (0 or less means any number of characters)."
     )
+    p.add_param("lspan", unicode,
+                metavar="START:END",
+                desc=
+    "Matches if the message line number is in the given range "
+    "(including starting line, excluding ending line)."
+    )
+    p.add_param("nlspan", unicode,
+                metavar="START:END",
+                desc=
+    "Matches if the message line number is not in the given range "
+    "(including starting line, excluding ending line)."
+    )
+    p.add_param("espan", unicode,
+                metavar="START:END",
+                desc=
+    "Matches if the message entry number is in the given range "
+    "(including starting entry, excluding ending entry)."
+    )
+    p.add_param("nespan", unicode,
+                metavar="START:END",
+                desc=
+    "Matches if the message entry number is not in the given range "
+    "(including starting entry, excluding ending entry)."
+    )
     p.add_param("branch", unicode, seplist=True,
                 metavar="BRANCH",
                 desc=
@@ -383,7 +409,8 @@ class Sieve (object):
 
         # - first matchers which are always AND
         expr_and = create_match_group([
-            "transl", "obsol", "active", "plural", "maxchar", "flag", "branch",
+            "transl", "obsol", "active", "plural", "maxchar", "lspan", "espan",
+            "flag", "branch",
         ], negatable=True, orlinked=False)
 
         # - then matchers which can be AND or OR
@@ -900,6 +927,28 @@ def _create_matcher (name, value, mods, params, neg=False):
             onchar = sum([len(x) for x in otexts]) // len(otexts)
             tnchar = sum([len(x) for x in ttexts]) // len(ttexts)
             return onchar <= value and tnchar <= value
+
+    elif name == "lspan":
+        def matcher (msgf, msg, cat, hl=[]):
+            try:
+                start, end = value.split(":", 1)
+                start = int(start) if start else 0
+                end = int(end) if end else (cat[-1].refline + 1)
+            except:
+                raise StandardError("Invalid line span specification '%s'."
+                                    % value)
+            return msg.refline >= start and msg.refline < end
+
+    elif name == "espan":
+        def matcher (msgf, msg, cat, hl=[]):
+            try:
+                start, end = value.split(":", 1)
+                start = int(start) if start else 0
+                end = int(end) if end else (cat[-1].refentry + 1)
+            except:
+                raise StandardError("Invalid entry span specification '%s'."
+                                    % value)
+            return msg.refentry >= start and msg.refentry < end
 
     elif name == "branch":
         def matcher (msgf, msg, cat, hl=[]):
