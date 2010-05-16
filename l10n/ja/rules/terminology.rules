@@ -525,7 +525,7 @@ id="edit"
 hint="Edit = 編集"
 valid msgstr="編集"
 
-{\beject(s|ed|ing)?\b}i
+{\beject(s|ed|ing|or)?\b}i
 hint="eject = イジェクト"
 id="eject"
 valid msgstr="イジェクト"
