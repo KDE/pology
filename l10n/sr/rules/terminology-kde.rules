@@ -58,7 +58,7 @@ disabled
 id="bitmap"
 hint="bitmap|pixmap = битмапа"
 valid msgstr="\b(не)?битмап(ск)?[аеиоу]"
-valid msgstr="&(xbitmap|bitmapwave)-\S*;"
+valid msgstr="&(xbitmap|bitmapwave|pixmapsss)-\S*;"
 
 {\bbitmap}i
 id="bitmap2"
@@ -1003,6 +1003,7 @@ id="zoom"
 hint="zoom = увеличати"
 valid before="[ -]out"
 valid msgstr="\bувелича"
+valid msgstr="&\w*zoom\S*;"
 valid before=" to fit" msgstr="\bукл[ао]п\w+ величин"
 
 # End of rules
