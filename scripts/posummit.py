@@ -1622,6 +1622,15 @@ def summit_gather_single_header (summit_cat, prim_branch_cat,
     if summit_cat.modcount:
         summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
 
+    # Copy over comments from the primary branch catalog.
+    hdr = summit_cat.header
+    bhdr = prim_branch_cat.header
+    hdr.title = bhdr.title
+    hdr.copyright = bhdr.copyright
+    hdr.license = bhdr.license
+    hdr.author = bhdr.author
+    hdr.comment = bhdr.comment
+
     # Copy over standard fields from the primary branch catalog.
     for fname in [x[0] for x in Header().field]:
         if fname == "POT-Creation-Date":
