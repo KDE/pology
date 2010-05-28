@@ -324,6 +324,25 @@ class VcsBase (object):
             "Selected version control system does not define diffing.")
 
 
+    def revert (self, path):
+        """
+        Revert a versioned file or directory.
+
+        The path is reverted to the clean version of itself according
+        to current local repository state.
+
+        @param path: path of the versioned file or directory in local repository
+        @type path: string
+
+        @return: C{True} if reverting succeeded, C{False} otherwise
+        @rtype: bool
+        """
+
+        raise StandardError(
+            "Selected version control system does not define "
+            "reverting a versioned path.")
+
+
 class VcsNoop (VcsBase):
     """
     VCS: Dummy VCS which silently passes any operation and does nothing.
@@ -388,6 +407,12 @@ class VcsNoop (VcsBase):
         # Base override.
 
         return []
+
+
+    def revert (self, path):
+        # Base override.
+
+        return True
 
 
 class VcsSubversion (VcsBase):
@@ -614,6 +639,18 @@ class VcsSubversion (VcsBase):
                 udiff.append(("+", line[1:]))
 
         return udiff
+
+
+    def revert (self, path):
+        # Base override.
+
+        res = collect_system("svn revert -R %s" % path, env=self._env)
+        if res[-1] != 0:
+            warning("Cannot revert path '%s', Subversion reports:\n"
+                    "%s" % (path, res[1]))
+            return False
+
+        return True
 
 
 class VcsGit (VcsBase):
@@ -944,6 +981,19 @@ class VcsGit (VcsBase):
                 udiff.append(("+", line[1:]))
 
         return udiff
+
+
+    def revert (self, path):
+        # Base override.
+
+        res = collect_system("git checkout %s" % path,
+                             wdir=root, env=self._env)
+        if res[-1] != 0:
+            warning("Cannot revert path '%s', Git reports:\n"
+                    "%s" % (path, res[1]))
+            return []
+
+        return True
 
 
 def _crop_log (entries, rev1, rev2):
