@@ -54,13 +54,11 @@ _diffflag_ign = u"ediff-ignored"
 
 # Flags used to explicitly mark messages as reviewed or unreviewed.
 _revdflags = (u"reviewed", u"revd", u"rev") # synonyms
-_urevdflags = (u"unreviewed", u"nrevd", u"nrev") # synonyms
+_urevdflags = (u"unreviewed", u"unrevd", u"unrev",
+               u"urevd", u"urev", u"nrevd", u"nrev") # synonyms
 
 # Comment used to show ascription chain in messages marked for review.
 _achncmnt = "~ascto:"
-
-# String used to separate tags to review flags.
-_flagtagsep = "/"
 
 _diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
 _all_flags = _diffflags + _revdflags + _urevdflags
@@ -72,19 +70,16 @@ def main ():
     locale.setlocale(locale.LC_ALL, "")
 
     mode_spec = (
-        ("status", ("st",)),
-        ("commit", ("co", "ci", "mo")),
-        ("diff", ("di",)),
-        ("purge", ("pu",)),
-        ("history", ("hi",)),
+        ("status", "st"),
+        ("modified", "mo"),
+        ("reviewed", "re"),
+        ("clear", "cl"),
+        ("diff", "di"),
+        ("history", "hi"),
     )
-    mode_allnames = set()
-    mode_tolong = {}
-    for name, syns in mode_spec:
-        mode_allnames.add(name)
-        mode_allnames.update(syns)
-        mode_tolong[name] = name
-        mode_tolong.update((s, name) for s in syns)
+    mode_allnames = set(sum(mode_spec, ()))
+    mode_tolong = dict(map(reversed, mode_spec))
+    mode_tolong.update(dict([(x, x) for x, y in mode_spec]))
 
     known_editors = {
         "lokalize": report_msg_to_lokalize,
@@ -105,7 +100,8 @@ def main ():
     opars.add_option(
         "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
         action="append", dest="aselectors", default=None,
-        help="Select message from ascription history by this selector. "
+        help="select message from ascription history by this selector "
+             "(relevant in some modes). "
              "Can be repeated, AND-semantics.")
     opars.add_option(
         "-A", "--min-adjsim-diff",  metavar="RATIO",
@@ -119,16 +115,18 @@ def main ():
     opars.add_option(
         "-b", "--show-by-file",
         action="store_true", dest="show_by_file", default=False,
-        help="Next to global summary, also present results by file.")
+        help="next to global summary, also present results by file "
+             "(relevant in some modes).")
     opars.add_option(
-        "-C", "--no-vcs-commit",
-        action="store_false", dest="vcs_commit", default=None,
-        help="Do not commit catalogs to version control "
-             "(when version control is used).")
+        "-C", "--no-commit",
+        action="store_false", dest="commit", default=None,
+        help="do not commit original and ascription catalogs "
+             "when version control is used")
     opars.add_option(
         "-d", "--depth", metavar="LEVEL",
         action="store", dest="depth", default=None,
-        help="Consider ascription history up to this level into the past.")
+        help="consider ascription history up to this level into the past "
+             "(relevant in some modes)")
     opars.add_option(
         "-D", "--diff-reduce-history", metavar="SPEC",
         action="store", dest="diff_reduce_history", default=None,
@@ -148,18 +146,18 @@ def main ():
     opars.add_option(
         "-G", "--show-filtered",
         action="store_true", dest="show_filtered", default=False,
-        help="When operating under a filter, also show filtered versions "
-             "of whatever is shown in original (e.g. in diffs).")
+        help="when operating under a filter, also show filtered versions "
+             "of whatever is shown in original (e.g. in diffs)")
     opars.add_option(
         "-k", "--keep-flags",
         action="store_true", dest="keep_flags", default=False,
-        help="Do not remove review significant flags from messages "
-             "(possibly convert them as appropriate).")
+        help="do not remove ascription significant flags from messages "
+             "(relevant in some modes)")
     opars.add_option(
         "-m", "--message", metavar="TEXT",
         action="store", dest="message", default=None,
-        help="Version control commit message for original catalogs, "
-             "when %(option)s is in effect." % dict(option="-c"))
+        help="commit message for original catalogs, when %(option)s "
+             "is in effect" % dict(option="-c"))
     opars.add_option(
         "-o", "--open-in-editor", metavar=("|".join(sorted(known_editors))),
         action="store", dest="po_editor", default=None,
@@ -173,49 +171,49 @@ def main ():
     opars.add_option(
         "-s", "--selector", metavar="SELECTOR[:ARGS]",
         action="append", dest="selectors", default=None,
-        help="Consider only messages matched by this selector. "
+        help="consider only messages matched by this selector. "
              "Can be repeated, AND-semantics.")
     opars.add_option(
         "-t", "--tag", metavar="TAG",
-        action="store", dest="tags", default=None,
-        help="Tag to add or consider in ascription records. "
-             "Several tags may be given separated by commas.")
+        action="store", dest="tag", default=None,
+        help="tag to add or consider in ascription records "
+             "(relevant in some modes)")
     opars.add_option(
         "-u", "--user", metavar="USER",
         action="store", dest="user", default=None,
-        help="User in whose name the operation is performed.")
+        help="user in the focus of the operation "
+             "(relevant in some modes)")
     opars.add_option(
         "-U", "--update-headers",
         action="store_true", dest="update_headers", default=None,
         help="Update headers in catalogs which contain modifications "
-             "before committing them, with user's translator information.")
+             "about to be ascribed (before committing the catalogs), "
+             "with user's translator information.")
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
-        help="Output more detailed progress info.")
+        help="output more detailed progress info")
     opars.add_option(
         "-w", "--write-modified", metavar="FILE",
         action="store", dest="write_modified", default=None,
-        help="Write paths of all original catalogs modified by "
-             "ascription operations into the given file.")
+        help="write paths of all original catalogs modified by "
+             "ascription operations into the given file")
     opars.add_option(
         "-x", "--externals", metavar="PYFILE",
         action="append", dest="externals", default=[],
-        help="Collect optional functionality from an external Python file "
-             "(selectors, etc).")
-    opars.add_option(
-        "--all-reviewed",
-        action="store_true", dest="all_reviewed", default=False,
-        help="Ascribe all messages as reviewed on commit, "
-             "overriding any existing review elements. "
-             "Tags given by %(opt)s apply. "
-             "This should not be done in day to day practice; "
-             "the primary use is initial review ascription."
-             % dict(opt="--tag"))
+        help="collect optional functionality from an external Python file "
+             "(selectors, etc.)")
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+
+    # Could use some speedup.
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
 
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
@@ -234,12 +232,12 @@ def main ():
     cfgsec = pology_config.section("poascribe")
     for optname, getvalf, defval in (
         ("aselectors", cfgsec.strdlist, []),
-        ("vcs-commit", cfgsec.boolean, True),
+        ("commit", cfgsec.boolean, True),
         ("po-editor", cfgsec.string, None),
         ("filters", cfgsec.strslist, []),
         ("min-adjsim-diff", cfgsec.real, 0.0),
         ("selectors", cfgsec.strdlist, []),
-        ("tags", cfgsec.string, ""),
+        ("tag", cfgsec.string, ""),
         ("user", cfgsec.string, None),
         ("update-headers", cfgsec.boolean, False),
         ("diff-reduce-history", cfgsec.string, None),
@@ -263,13 +261,10 @@ def main ():
                   "the supported editors: %(eds)s."
                   % dict(ed=edkey, eds=", ".join(sorted(known_editors))))
         return msgrepf
-    def valconv_tags (cstr):
-        return set(x.strip() for x in cstr.split(","))
     for optname, valconv in (
         ("max-fraction-select", float),
         ("min-adjsim-diff", float),
         ("po-editor", valconv_editor),
-        ("tags", valconv_tags),
     ):
         uoptname = optname.replace("-", "_")
         valraw = getattr(options, uoptname, None)
@@ -327,26 +322,30 @@ def main ():
     mode.name = modename
     if 0: pass
     elif mode.name == "status":
-        mode.execute = status
+        mode.execute = examine_state
         mode.selector = selector or build_selector(["any"])
         canselect = True
-    elif mode.name == "commit":
-        mode.execute = commit
+    elif mode.name == "modified":
+        mode.execute = ascribe_modified
         mode.selector = selector or build_selector(["any"])
         needuser = True
+    elif mode.name == "reviewed":
+        mode.execute = ascribe_reviewed
+        mode.selector = selector or build_selector(["any"])
         canselect = True
+        needuser = True
     elif mode.name == "diff":
-        mode.execute = diff
+        mode.execute = diff_select
         mode.selector = selector or build_selector(["modar"])
         mode.aselector = aselector
         canselect = True
         canaselect = True
-    elif mode.name == "purge":
-        mode.execute = purge
+    elif mode.name == "clear":
+        mode.execute = clear_review
         mode.selector = selector or build_selector(["any"])
         canselect = True
     elif mode.name == "history":
-        mode.execute = history
+        mode.execute = show_history
         mode.selector = selector or build_selector(["any"])
         canselect = True
     else:
@@ -355,12 +354,12 @@ def main ():
     mode.user = None
     if needuser:
         if not options.user:
-            error("Current operation mode requires a user to be specified.")
+            error("operation mode requires a user to be specified")
         mode.user = options.user
     if not canselect and selector:
-        error("Current operation mode does not accept selectors.")
+        error("operation mode does not accept selectors")
     if not canaselect and aselector:
-        error("Current operation mode does not accept history selectors.")
+        error("operation mode does not accept history selectors")
 
     # Collect list of catalogs supplied through command line.
     # If none supplied, assume current working directory.
@@ -377,7 +376,6 @@ def main ():
     # Split catalogs into lists by ascription config,
     # and link them to their ascription catalogs.
     configs_catpaths = collect_configs_catpaths(catpaths)
-    assert_review_tags(configs_catpaths, options.tags)
 
     # Execute operation.
     mode.execute(options, configs_catpaths, mode)
@@ -388,7 +386,7 @@ def main ():
         f = open(lfpath, "w")
         f.write(("\n".join(sorted(_modified_cats)) + "\n").encode("utf-8"))
         f.close()
-        report("Written paths of modified catalogs: %s" % lfpath)
+        report("Written modified catalog paths to: %s" % lfpath)
 
 
 # FIXME: Imported by others, factor out.
@@ -449,9 +447,7 @@ def collect_configs_catpaths (catpaths):
     return configs_catpaths
 
 
-def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
-
-    report("VCS is committing catalogs:")
+def commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -460,10 +456,10 @@ def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
         if config not in catpaths_byconf:
             catpaths_byconf[config] = []
             configs.append(config)
-        for catpath, acatpath in catpaths:
-            catpaths_byconf[config].append(catpath)
-            if os.path.isfile(acatpath):
-                catpaths_byconf[config].append(acatpath)
+        for catpaths2 in catpaths:
+            for catpath in catpaths2:
+                if config.vcs.is_versioned(catpath):
+                    catpaths_byconf[config].append(catpath)
 
     # Commit by config.
     for config in configs:
@@ -475,33 +471,20 @@ def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
             cmsgfile, cmsgfile_orig = get_commit_message_file_path(user)
         else:
             cmsg += " " + fmt_commit_user(user)
-        t1 = time.time() #!!!
-        added, apaths = config.vcs.add(catpaths_byconf[config], repadd=True)
-        if not added:
-            if onabortf:
-                onabortf()
-            error("VCS reports that '%s' some catalogs cannot be added."
-                  % catpath)
-        t2 = time.time() #!!!
-        report("VCS finished adding in %.1f sec." % (t2 - t1)) #!!!
-        t1 = t2 #!!!
-        if not config.vcs.commit(apaths, message=cmsg, msgfile=cmsgfile,
-                                 incparents=False):
+        if not config.vcs.commit(catpaths_byconf[config],
+                                 message=cmsg, msgfile=cmsgfile):
             if onabortf:
                 onabortf()
             if not cmsgfile:
-                error("VCS reports that some catalogs cannot be committed.")
+                error("VCS reports that catalogs cannot be committed.")
             else:
-                os.remove(cmsgfile)
-                error("VCS reports that some catalogs cannot be committed "
+                os.unlink(cmsgfile)
+                error("VCS reports that catalogs cannot be committed "
                       "(commit message preserved in '%s')."
                       % cmsgfile_orig)
-        t2 = time.time() #!!!
-        report("VCS finished committing in %.1f sec." % (t2 - t1)) #!!!
-        t1 = t2 #!!!
         if cmsgfile:
-            os.remove(cmsgfile)
-            os.remove(cmsgfile_orig)
+            os.unlink(cmsgfile)
+            os.unlink(cmsgfile_orig)
 
 
 def fmt_commit_user (user):
@@ -615,13 +598,26 @@ def assert_mode_user (configs_catpaths, mode):
             error("User '%s' not defined in '%s'." % (mode.user, config.path))
 
 
-def assert_review_tags (configs_catpaths, tags):
+def assert_review_tag (configs_catpaths, tag):
 
     for config, catpaths in configs_catpaths:
-        for tag in tags:
-            if tag not in config.review_tags:
-                error("Review tag '%s' not defined in '%s'."
-                      % (tag, config.path))
+        if tag not in config.review_tags:
+            error("Review tag '%s' not defined in '%s'." % (tag, config.path))
+
+
+def assert_no_review (configs_catpaths):
+
+    wrevs = []
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            if not may_have_reviews(catpath):
+                continue
+            cat = Catalog(catpath, monitored=False)
+            if clear_review_cat_simple(cat, dryrun=True):
+                wrevs.append(catpath)
+    if wrevs:
+        error("Review elements found but not expected, "
+              "in following catalogs:\n%s" % "\n".join(wrevs))
 
 
 def assert_syntax (configs_catpaths, onabortf=None):
@@ -645,7 +641,7 @@ def setup_progress (configs_catpaths, addfmt):
     return init_file_progress(acps, addfmt=addfmt)
 
 
-def status (options, configs_catpaths, mode):
+def examine_state (options, configs_catpaths, mode):
 
     # Count ascribed and unascribed messages through catalogs.
     counts_a = dict([(x, {}) for x in _all_states])
@@ -657,11 +653,11 @@ def status (options, configs_catpaths, mode):
             upprog(catpath)
             # Open current and ascription catalog.
             cat = Catalog(catpath, monitored=False)
+            clear_review_cat_simple(cat)
             acat = Catalog(acatpath, create=True, monitored=False)
             # Count ascribed and non-ascribed by original catalog.
             nselected = 0
             for msg in cat:
-                purge_msg(msg)
                 history = asc_collect_history(msg, acat, config,
                                               hfilter=options.hfilter,
                                               addrem=options.addrem,
@@ -759,6 +755,50 @@ def status (options, configs_catpaths, mode):
                                 none=none, colorized=can_color))
 
 
+def ascribe_modified (options, configs_catpaths, mode):
+
+    assert_mode_user(configs_catpaths, mode)
+    assert_no_review(configs_catpaths)
+    assert_syntax(configs_catpaths)
+
+    remove_previous_fields(configs_catpaths)
+    if options.update_headers:
+        update_headers_onmod(configs_catpaths, mode.user)
+
+    ascribe_modified_w(options, configs_catpaths, mode)
+
+    if options.commit:
+        commit_catalogs(configs_catpaths, mode.user,
+                        message=options.message)
+
+
+def ascribe_modified_w (options, configs_catpaths, mode):
+
+    upprog = setup_progress(configs_catpaths, "Ascribing modifications: %s")
+    counts = dict([(x, 0) for x in _all_states])
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            ccounts = ascribe_modified_cat(options, config, mode.user,
+                                           catpath, acatpath)
+            for st, val in ccounts.items():
+                counts[st] += val
+    upprog()
+
+    if counts[_st_tran] > 0:
+        report("===! Translated: %d" % counts[_st_tran])
+    if counts[_st_fuzzy] > 0:
+        report("===! Fuzzy: %d" % counts[_st_fuzzy])
+    if counts[_st_untran] > 0:
+        report("===! Untranslated: %d" % counts[_st_untran])
+    if counts[_st_otran] > 0:
+        report("===! Obsolete translated: %d" % counts[_st_otran])
+    if counts[_st_ofuzzy] > 0:
+        report("===! Obsolete fuzzy: %d" % counts[_st_ofuzzy])
+    if counts[_st_ountran] > 0:
+        report("===! Obsolete untranslated: %d" % counts[_st_ountran])
+
+
 def msg_to_previous (msg, copy=True):
 
     if msg.fuzzy and msg.msgid_previous is not None:
@@ -769,6 +809,129 @@ def msg_to_previous (msg, copy=True):
         return pmsg
 
 
+def frozen_cat_asc (acat, config):
+
+    def catf (msg):
+
+        pmsg = None
+        amsg = acat.get(msg)
+        if amsg:
+            pmsg = asc_collect_history_single(amsg, acat, config)[0].msg
+        return pmsg
+
+    return catf
+
+
+def frozen_cat_asc_prev (acat, config):
+
+    pcat = [None]
+
+    def catf (msg):
+
+        if pcat[0] is None:
+            pcat[0] = Catalog("", create=True, monitored=False)
+            empty_key = MessageUnsafe().key
+            for amsg in acat:
+                pmsg = asc_collect_history_single(amsg, acat, config)[0].msg
+                ppmsg = msg_to_previous(pmsg, copy=False)
+                if ppmsg and ppmsg.key != empty_key:
+                    pcat[0].add_last(ppmsg)
+
+        return pcat[0].get(msg)
+
+    return catf
+
+
+# Quickly check if it may be that some messages in the PO file
+# have previous fields (#| ...).
+def may_have_previous (catpath):
+
+    for line in open(catpath):
+        if line.strip().startswith("#|"):
+            return True
+    return False
+
+
+def remove_previous_fields (configs_catpaths):
+
+    upprog = setup_progress(configs_catpaths, "Removing previous fields: %s")
+    nremoved = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            if not may_have_previous(catpath):
+                continue
+            cat = Catalog(catpath)
+            for msg in cat:
+                if msg.translated:
+                    for fprev in _fields_previous:
+                        setattr(msg, fprev, None)
+                    if msg.modcount:
+                        nremoved += 1
+            sync_and_rep(cat)
+    if nremoved > 0:
+        report("===! Removed previous fields: %d" % nremoved)
+
+
+def update_headers_onmod (configs_catpaths, user):
+
+    upprog = setup_progress(configs_catpaths, "Updating headers: %s")
+    nupdated = 0
+    for config, catpaths in configs_catpaths:
+        for catpath, acatpath in catpaths:
+            upprog(catpath)
+            cat = Catalog(catpath, monitored=False)
+            acat = Catalog(acatpath, monitored=False, create=True)
+            catf_curr = frozen_cat_asc(acat, config)
+            catf_prev = frozen_cat_asc_prev(acat, config)
+            anymod = False
+            for msg in cat:
+                # Shallow history, need only to know if ascribed or not.
+                history = asc_collect_history(msg, acat, config,
+                                              shallow=True)
+                # Message is modified if not ascribed
+                # and has some ascription-relevant parts.
+                if history[0].user is None and has_tracked_parts(msg):
+                    # Check if this message is found in catalog with
+                    # current or previous versions of all ascribed messages.
+                    # If yes, and the modification is a clean merge,
+                    # do not trigger header update.
+                    anymod = True
+                    for catf in (catf_curr, catf_prev):
+                        for kmsg in (msg, msg_to_previous(msg)):
+                            pmsg = catf(kmsg)
+                            if pmsg and merge_modified(pmsg, msg):
+                                anymod = False
+                                break
+                        if not anymod:
+                            break
+                    # If message is fuzzy and has no previous fields,
+                    # also consider it clean merge.
+                    # This can happen if there are legacy fuzzy messages,
+                    # made before --previous was introduced to msgmerge.
+                    if msg.fuzzy and msg.msgid_previous is None:
+                        anymod = False
+                    if anymod:
+                        break
+            if anymod:
+                # Must reopen monitored, but only header is needed.
+                cat = Catalog(catpath, headonly=False)
+                update_header(cat,
+                              project=cat.name,
+                              title=config.title,
+                              name=config.udata[user].name,
+                              email=config.udata[user].email,
+                              teamemail=config.team_email,
+                              langname=config.lang_team,
+                              langcode=config.lang_code,
+                              plforms=config.plural_header)
+                if sync_and_rep(cat, shownmod=False):
+                    nupdated += 1
+
+    if nupdated > 0:
+        report("===! Updated headers: %d" % nupdated)
+
+
 def restore_reviews (configs_catpaths, revspecs_by_catmsg):
 
     upprog = setup_progress(configs_catpaths, "Restoring reviews: %s")
@@ -776,208 +939,193 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            revels_by_msg = revspecs_by_catmsg.get(catpath)
-            if revels_by_msg:
+            revspecs_by_msg = revspecs_by_catmsg.get(catpath)
+            if revspecs_by_msg:
                 cat = Catalog(catpath, monitored=True)
-                for msgref, revels in sorted(revels_by_msg.items()):
+                for msgref, revspec in sorted(revspecs_by_msg.items()):
                     msg = cat[msgref - 1]
-                    revtags, unrevd, revok = revels
-                    restore_review_flags(msg, revtags, unrevd)
+                    revd, unrevd = revspec
+                    restore_review_flags(msg, revd, unrevd)
                     nrestored += 1
-                sync_and_rep(cat, shownmod=False)
-                if config.vcs.is_versioned(acatpath):
-                    config.vcs.revert(acatpath)
-                # ...no else: because revert may cause the file
-                # not to be versioned any more.
-                if not config.vcs.is_versioned(acatpath):
-                    os.remove(acatpath)
+                sync_and_rep(cat)
 
     if nrestored > 0:
         report("===! Restored reviews: %d" % nrestored)
 
 
-def restore_review_flags (msg, revtags, unrevd):
+def restore_review_flags (msg, revd, unrevd):
 
-    for tag in revtags:
-        flag = _revdflags[0]
-        if tag:
-            flag += _flagtagsep + tag
-        msg.flag.add(flag)
     if unrevd:
         msg.flag.add(_urevdflags[0])
+    elif revd:
+        msg.flag.add(_revdflags[0])
 
     return msg
 
 
-def commit (options, configs_catpaths, mode):
+def ascribe_reviewed (options, configs_catpaths, mode):
 
     assert_mode_user(configs_catpaths, mode)
+    assert_review_tag(configs_catpaths, options.tag)
 
-    # Ascribe modifications and reviews.
-    upprog = setup_progress(configs_catpaths, "Ascribing: %s")
-    revels = {}
-    counts = dict([(x, [0, 0]) for x in _all_states])
-    configs_catpaths_ascmod = []
-    config_by_catpath = {}
+    # Remove any review diffs and flags from messages.
+    # If any were actually removed, ascribe reviews only to those messages,
+    # providing they pass the selector and were not tagged as unreviewed.
+    # If there were no diffs and flags removed, ascribe reviews for all messages
+    # that pass the selector, except those tagged as unreviewed.
+    # In both cases, ascribe modifications to all modified messages.
+
+    stest_orig = mode.selector
+    stest_any = build_selector(["any"])
+
+    mode.selector = stest_any
+    options.keep_flags = False # deactivate this option if issued
+    revspecs_by_catmsg = clear_review_w(options, configs_catpaths, mode)
+    onabortf = lambda: restore_reviews(configs_catpaths, revspecs_by_catmsg)
+
+    # Ascribe modifications.
+    assert_syntax(configs_catpaths, onabortf=onabortf)
+    remove_previous_fields(configs_catpaths)
+    if options.update_headers:
+        update_headers_onmod(configs_catpaths, mode.user)
+    mode.selector = stest_any
+    ascribe_modified_w(options, configs_catpaths, mode)
+
+    # Check whether inclusive or exclusive mode applies for review.
+    exclusive = True
+    for revspecs in revspecs_by_catmsg.values():
+        for revd, unrevd in revspecs.values():
+            if revd:
+                # Since there is at least one reviewed message,
+                # inclusive mode is in effect.
+                exclusive = False
+                break
+        if not exclusive:
+            break
+
+    if exclusive:
+        def stest (msg, cat, hist, conf):
+            # Exclude if tagged as unreviewed (overrides tagging as reviewed).
+            revspec = revspecs_by_catmsg.get(cat.filename, {}).get(msg.refentry)
+            if revspec:
+                revd, unrevd = revspec
+                if unrevd:
+                    return False
+            # Exclude if message does not pass selector.
+            if not stest_orig(msg, cat, hist, conf):
+                return False
+            return True
+        mode.selector = stest
+    else:
+        def stest (msg, cat, hist, conf):
+            # Exclude if not among reviewed.
+            revspec = revspecs_by_catmsg.get(cat.filename, {}).get(msg.refentry)
+            if not revspec:
+                return False
+            # Exclude if tagged as unreviewed (overrides tagging as reviewed).
+            revd, unrevd = revspec
+            if unrevd:
+                return False
+            # Exclude if message does not pass selector.
+            if not stest_orig(msg, cat, hist, conf):
+                return False
+            return True
+        mode.selector = stest
+
+    # Ascribe reviews.
+    upprog = setup_progress(configs_catpaths, "Ascribing reviews: %s")
+    nasc = 0
     for config, catpaths in configs_catpaths:
-        configs_catpaths_ascmod.append((config, []))
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            res = commit_cat(options, config, mode.user, catpath, acatpath,
-                             mode.selector)
-            ccounts, crevels, catmod = res
-            for st, (nmod, nrev) in ccounts.items():
-                counts[st][0] += nmod
-                counts[st][1] += nrev
-            revels[catpath] = crevels
-            if catmod:
-                configs_catpaths_ascmod[-1][1].append((catpath, acatpath))
-            config_by_catpath[catpath] = config
+            nasc += ascribe_reviewed_cat(options, config, mode.user,
+                                         catpath, acatpath, mode.selector)
     upprog()
+    if nasc > 0:
+        if not options.tag:
+            report("===! Reviewed: %d" % nasc)
+        else:
+            report("===! Reviewed (%s): %d" % (options.tag, nasc))
 
-    onabortf = lambda: restore_reviews(configs_catpaths_ascmod, revels)
-
-    # Assert that all reviews were good.
-    unknown_revtags = []
-    for catpath, revels1 in sorted(revels.items()):
-        config = config_by_catpath[catpath]
-        for msgref, (revtags, unrevd, revok) in sorted(revels1.items()):
-            if not revok:
-                onabortf()
-                error("Ascription aborted due to earlier warnings.")
-
-    assert_syntax(configs_catpaths_ascmod, onabortf=onabortf)
-    # ...must be done after committing, to have all review elements purged
-
-    coln = ["modified"]
-    rown = []
-    data = [[]]
-    for st, stlabel in (
-        (_st_tran, "translated"),
-        (_st_fuzzy, "fuzzy"),
-        (_st_untran, "untranslated"),
-        (_st_otran, "obsolete/t"),
-        (_st_ofuzzy, "obsolete/f"),
-        (_st_ountran, "obsolete/u"),
-    ):
-        if counts[st][1] > 0 and len(coln) < 2:
-            coln.append("reviewed")
-            data.append([])
-        if counts[st][0] > 0 or counts[st][1] > 0:
-            rown.append(stlabel)
-            data[0].append(counts[st][0] or None)
-            if len(coln) >= 2:
-                data[1].append(counts[st][1] or None)
-    if rown:
-        report("===! Ascription summary:")
-        report(tabulate(data, coln=coln, rown=rown, none="-",
-                        colorized=sys.stdout.isatty()))
-
-    if options.vcs_commit:
-        vcs_commit_catalogs(configs_catpaths, mode.user,
-                            message=options.message, onabortf=onabortf)
-        # ...not configs_catpaths_ascmod, as non-ascription relevant
-        # modifications may exist (e.g. new pristine catalog added).
+    if options.commit:
+        commit_catalogs(configs_catpaths, mode.user,
+                        message=options.message, onabortf=onabortf)
 
 
-def diff (options, configs_catpaths, mode):
+def diff_select (options, configs_catpaths, mode):
 
     upprog = setup_progress(configs_catpaths, "Diffing for review: %s")
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            ndiffed += diff_cat(options, config, catpath, acatpath,
-                                mode.selector, mode.aselector)
+            ndiffed += diff_select_cat(options, config, catpath, acatpath,
+                                       mode.selector, mode.aselector)
     upprog()
     if ndiffed > 0:
         report("===! Diffed for review: %d" % ndiffed)
 
 
-def purge (options, configs_catpaths, mode):
+def clear_review (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Purging review elements: %s")
-    npurged = 0
+    clear_review_w(options, configs_catpaths, mode)
+
+
+def clear_review_w (options, configs_catpaths, mode):
+
+    upprog = setup_progress(configs_catpaths, "Clearing reviews: %s")
+    revspecs_by_catmsg = {}
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            npurged += purge_cat(options, config, catpath, acatpath,
-                                 mode.selector)
+            revspecs_by_msg = clear_review_cat(options, config,
+                                               catpath, acatpath,
+                                               mode.selector)
+            if revspecs_by_msg:
+                revspecs_by_catmsg[catpath] = revspecs_by_msg
     upprog()
 
-    if npurged > 0:
+    ncleared = sum(map(len, revspecs_by_catmsg.values()))
+    if ncleared > 0:
         if not options.keep_flags:
-            report("===! Purged review elements: %d" % npurged)
+            report("===! Cleared reviews: %d" % ncleared)
         else:
-            report("===! Purged review elements (flags kept): %d" % npurged)
+            report("===! Cleared reviews (flags kept): %d" % ncleared)
 
-    return npurged
+    return revspecs_by_catmsg
 
 
-def history (options, configs_catpaths, mode):
+def show_history (options, configs_catpaths, mode):
 
     upprog = setup_progress(configs_catpaths, "Computing histories: %s")
     nshown = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
-            nshown += history_cat(options, config, catpath, acatpath,
-                                  mode.selector)
+            nshown += show_history_cat(options, config, catpath, acatpath,
+                                       mode.selector)
     upprog()
     if nshown > 0:
         report("===> Computed histories: %d" % nshown)
 
 
-def commit_cat (options, config, user, catpath, acatpath, stest):
+def ascribe_modified_cat (options, config, user, catpath, acatpath):
 
     # Open current catalog and ascription catalog.
-    # Monitored, for removal of review elements.
-    cat = Catalog(catpath, monitored=True)
+    cat = Catalog(catpath, monitored=False)
     acat = prep_write_asc_cat(acatpath, config)
-
-    revtags_ovr = None
-    if options.all_reviewed:
-        revtags_ovr = options.tags
 
     # Collect unascribed messages, but ignoring pristine ones
     # (those which are both untranslated and without history).
-    # Collect and purge any review elements.
-    # Check if any modification cannot be due to merging
-    # (if header update is requested).
-    mod_msgs = []
-    rev_msgs = []
-    revels_by_msg = {}
-    counts = dict([(x, [0, 0]) for x in _all_states])
+    toasc_msgs = []
+    counts = dict([(x, 0) for x in _all_states])
     counts0 = counts.copy()
-    any_nonmerges = False
     for msg in cat:
-        mod, revtags, unrevd = purge_msg(msg)
-        if mod:
-            revels_by_msg[msg.refentry] = [revtags, unrevd, True]
-        history = asc_collect_history(msg, acat, config) # after purging
-        selected = stest(msg, cat, history, config)
-        # Do not ascribe review if the message does not pass the selector,
-        # but unconditionally ascribe modification.
-        if selected and (mod or revtags_ovr):
-            if revtags_ovr:
-                revtags = revtags_ovr
-                unrevd = False
-            if revtags and not unrevd: # unreviewed flag overrides
-                rev_msgs.append((msg, revtags))
-                counts[msg.state()][1] += 1
-                # Check and record if review tags are not valid.
-                unknown_revtags = revtags.difference(config.review_tags)
-                if unknown_revtags:
-                    revels_by_msg[msg.refentry][-1] = False
-                    tagfmt = ", ".join(sorted(unknown_revtags))
-                    warning_on_msg("Unknown review tags: %s." % tagfmt,
-                                   msg, cat)
+        # Shallow history, need only to know if ascribed or not.
+        history = asc_collect_history(msg, acat, config, shallow=True)
         if history[0].user is None and has_tracked_parts(msg):
-            mod_msgs.append(msg)
-            counts[msg.state()][0] += 1
-            if options.update_headers and not any_nonmerges:
-                if len(history) > 1 and not merge_modified(history[1].msg, msg):
-                    any_nonmerges = True
+            toasc_msgs.append(msg)
+            counts[msg.state()] += 1
 
     # Collect non-obsolete ascribed messages that no longer have
     # original counterpart, to ascribe as obsolete.
@@ -994,55 +1142,88 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
             if st:
                 msg = asc_collect_history_single(amsg, acat, config)[0].msg
                 msg.obsolete = True
-                mod_msgs.append(msg)
-                counts[st][0] += 1
+                toasc_msgs.append(msg)
+                counts[st] += 1
 
-    # Shortcut if nothing to do, because sync_and_rep later are expensive.
-    if not mod_msgs and not revels_by_msg:
-        # No messages to commit.
-        return counts0, revels_by_msg, False
+    if not toasc_msgs:
+        # No messages to ascribe.
+        return counts0
 
-    # Ascribe modifications.
-    for msg in mod_msgs:
+    # Ascribe messages as modified.
+    for msg in toasc_msgs:
         ascribe_msg_mod(msg, acat, user, config)
 
-    # Ascribe reviews.
-    for msg, revtags in rev_msgs:
-        ascribe_msg_rev(msg, acat, revtags, user, config)
+    config.vcs.add(cat.filename)
+    if asc_sync_and_rep(acat):
+        config.vcs.add(acat.filename)
 
-    # Update header if requested and translator's modifications detected.
-    if options.update_headers and any_nonmerges:
-        update_header(cat,
-                      project=cat.name,
-                      title=config.title,
-                      name=config.udata[user].name,
-                      email=config.udata[user].email,
-                      teamemail=config.team_email,
-                      langname=config.lang_team,
-                      langcode=config.lang_code,
-                      plforms=config.plural_header)
-
-    nmod = [len(mod_msgs)]
-    if len(rev_msgs) > 0:
-        nmod.append(len(rev_msgs))
-    catmod = False
-    if sync_and_rep(cat, nmod=nmod):
-        catmod = True
-    if asc_sync_and_rep(acat, shownmod=False, nmod=[0]):
-        catmod = True
-
-    return counts, revels_by_msg, catmod
+    return counts
 
 
-def diff_cat (options, config, catpath, acatpath, stest, aselect):
+def ascribe_reviewed_cat (options, config, user, catpath, acatpath, stest):
+
+    # Open current catalog and ascription catalog.
+    # Monitored, for removal of review flags.
+    cat = Catalog(catpath, monitored=True)
+    acat = prep_write_asc_cat(acatpath, config)
+
+    revd_msgs = []
+    non_mod_asc_msgs = []
+    for msg in cat:
+        history = asc_collect_history(msg, acat, config,
+                                      hfilter=options.hfilter,
+                                      addrem=options.addrem,
+                                      nomrg=True)
+        # Makes no sense to ascribe review to pristine messages.
+        if history[0].user is None and not has_tracked_parts(msg):
+            continue
+        if not stest(msg, cat, history, config):
+            continue
+        # Message cannot be ascribed as reviewed if it has not been
+        # already ascribed as modified.
+        if history[0].user is None:
+            # Collect to report later.
+            non_mod_asc_msgs.append(msg)
+            continue
+
+        revd_msgs.append(msg)
+
+    # Cancel selection if maximum fraction exceeded.
+    if (  float(len(revd_msgs) + len(non_mod_asc_msgs)) / len(cat)
+        > options.max_fraction_select
+    ):
+        revd_msgs = []
+        non_mod_asc_msgs = []
+
+    if non_mod_asc_msgs:
+        fmtrefs = ", ".join(["%s(#%s)" % (x.refline, x.refentry)
+                             for x in non_mod_asc_msgs])
+        warning("%s: some messages cannot be ascribed as reviewed "
+                "because they were not ascribed as modified: %s"
+                % (cat.filename, fmtrefs))
+
+    if not revd_msgs:
+        return 0
+
+    # Ascribe messages as reviewed.
+    for msg in revd_msgs:
+        ascribe_msg_rev(msg, acat, options.tag, user, config)
+
+    if asc_sync_and_rep(acat):
+        config.vcs.add(acat.filename)
+
+    return len(revd_msgs)
+
+
+def diff_select_cat (options, config, catpath, acatpath, stest, aselect):
 
     cat = Catalog(catpath, monitored=True)
+    clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     # Select messages for diffing.
     msgs_to_diff = []
     for msg in cat:
-        purge_msg(msg)
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
                                       addrem=options.addrem,
@@ -1064,7 +1245,6 @@ def diff_cat (options, config, catpath, acatpath, stest, aselect):
 
     # Diff selected messages.
     diffed_msgs = []
-    tagfmt = _flagtagsep.join(options.tags)
     for msg, history, sres in msgs_to_diff:
 
         # Try to select ascription to differentiate from.
@@ -1084,16 +1264,13 @@ def diff_cat (options, config, catpath, acatpath, stest, aselect):
         if amsg is not None:
             if editprob(amsg.msgid, msg.msgid) > options.min_adjsim_diff:
                 msg_ediff(amsg, msg, emsg=msg, pfilter=options.sfilter)
-                flag = _diffflag
+                msg.flag.add(_diffflag)
             else:
-                # If to great difference, add special flag and do not diff.
-                flag = _diffflag_ign
+                msg.flag.add(_diffflag_ign)
         else:
-            # If no previous ascription selected, add special flag.
-            flag = _diffflag_tot
-        if tagfmt:
-            flag += _flagtagsep + tagfmt
-        msg.flag.add(flag)
+            # If no previous ascription selected, add special flag
+            # to denote that the whole message is to be reviewed.
+            msg.flag.add(_diffflag_tot)
 
         # Add ascription chain comment.
         ascfmts = []
@@ -1123,67 +1300,79 @@ def diff_cat (options, config, catpath, acatpath, stest, aselect):
 
 _subreflags = "|".join(_all_flags)
 _subrecmnts = "|".join(_all_cmnts)
-_any_to_purge_rx = re.compile(r"^\s*(#,.*\b(%s)|#\.\s*(%s))"
+_any_to_clear_rx = re.compile(r"^\s*(#,.*\b(%s)|#\.\s*(%s))"
                               % (_subreflags, _subrecmnts),
                               re.M|re.U)
 
 # Quickly check if it may be that some messages in the PO file
-# have review elements (diffs, flags).
-def may_have_revels (catpath):
+# have review states (diffs, flags).
+def may_have_reviews (catpath):
 
-    return bool(_any_to_purge_rx.search(open(catpath).read()))
+    return bool(_any_to_clear_rx.search(open(catpath).read()))
 
 
-def purge_cat (options, config, catpath, acatpath, stest):
+def clear_review_cat (options, config, catpath, acatpath, stest):
 
-    if not may_have_revels(catpath):
-        return 0
+    revspecs_by_msg = {}
+
+    if not may_have_reviews(catpath):
+        return revspecs_by_msg
 
     cat = Catalog(catpath, monitored=True)
     acat = Catalog(acatpath, create=True, monitored=False)
 
-    # Select messages to purge.
-    msgs_to_purge = []
+    # Select messages to clear.
+    msgs_to_clear = []
     for msg in cat:
         cmsg = MessageUnsafe(msg)
-        purge_msg(cmsg)
+        clear_review_msg(cmsg)
         history = asc_collect_history(cmsg, acat, config,
                                       hfilter=options.hfilter,
                                       addrem=options.addrem,
                                       nomrg=True)
         if not stest(cmsg, cat, history, config):
             continue
-        msgs_to_purge.append(msg)
+        msgs_to_clear.append(msg)
 
-    # Does observing options.max_fraction_select makes sense for purging?
-    ## Cancel selection if maximum fraction exceeded.
-    #if float(len(msgs_to_purge)) / len(cat) > options.max_fraction_select:
-        #msgs_to_purge = []
+    # Cancel selection if maximum fraction exceeded.
+    if float(len(msgs_to_clear)) / len(cat) > options.max_fraction_select:
+        msgs_to_clear = []
 
-    # Purge selected messages.
-    npurged = 0
-    for msg in msgs_to_purge:
-        res = purge_msg(msg, keepflags=options.keep_flags)
-        mod, revtags, unrevd = res
-        if mod:
-            npurged += 1
+    # Clear selected messages.
+    for msg in msgs_to_clear:
+        clres = clear_review_msg(msg, keepflags=options.keep_flags)
+        if any(clres):
+            diffed, revd, unrevd = clres[1:4]
+            revspecs_by_msg[msg.refentry] = (diffed or revd, unrevd)
 
     sync_and_rep(cat)
 
-    return npurged
+    return revspecs_by_msg
 
 
-def history_cat (options, config, catpath, acatpath, stest):
+def clear_review_cat_simple (cat, keepflags=False, dryrun=False):
+
+    revspecs_by_msg = {}
+    for msg in cat:
+        clres = clear_review_msg(msg, keepflags=keepflags, dryrun=dryrun)
+        if any(clres):
+            diffed, revd, unrevd = clres[1:4]
+            revspecs_by_msg[msg.refentry] = (diffed or revd, unrevd)
+
+    return revspecs_by_msg
+
+
+def show_history_cat (options, config, catpath, acatpath, stest):
 
     C = colors_for_file(sys.stdout)
 
     cat = Catalog(catpath, monitored=False)
+    clear_review_cat_simple(cat)
     acat = Catalog(acatpath, create=True, monitored=False)
 
     # Select messages for which to compute histories.
     msgs_to_hist = []
     for msg in cat:
-        purge_msg(msg)
         history = asc_collect_history(msg, acat, config,
                                       hfilter=options.hfilter,
                                       addrem=options.addrem,
@@ -1219,7 +1408,7 @@ def history_cat (options, config, catpath, acatpath, stest):
             a = history[i]
             typewtag = a.type
             if a.tag != "":
-                typewtag += _flagtagsep + a.tag
+                typewtag += "/" + a.tag
             ihead = C.BOLD + "#%d" % a.pos + C.RESET + " "
             anote_d = dict(usr=a.user, mod=typewtag, dat=a.date)
             anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
@@ -1260,54 +1449,47 @@ def history_cat (options, config, catpath, acatpath, stest):
     return len(msgs_to_hist)
 
 
-_revflags_rx = re.compile(r"^(%s)(?: */(.*))?" % "|".join(_all_flags), re.I)
+def clear_review_msg (msg, keepflags=False, dryrun=False):
 
-def purge_msg (msg, keepflags=False):
-
-    modified = False
-
-    # Remove review flags.
+    # Clear possible review flags.
     diffed = False
-    revtags = set()
+    revd = False
     unrevd = False
     for flag in list(msg.flag): # modified inside
-        m = _revflags_rx.search(flag)
-        if m:
-            sflag = m.group(1)
-            tagstr = m.group(2) or ""
-            tags = [x.strip() for x in tagstr.split(_flagtagsep)]
-            if sflag not in _urevdflags:
-                revtags.update(tags)
-                if sflag in _diffflags:
-                    diffed = True
-            else:
-                unrevd = True
-            msg.flag.remove(flag)
-            modified = True
+        if flag in _diffflags:
+            diffed = True
+            if not dryrun:
+                msg.flag.remove(flag)
+        elif flag in _revdflags:
+            revd = True
+            if not dryrun:
+                msg.flag.remove(flag)
+        elif flag in _urevdflags:
+            unrevd = True
+            if not dryrun:
+                msg.flag.remove(flag)
 
-    # Remove review comments.
+    # Clear possible review comments.
     i = 0
+    commented = False
     while i < len(msg.auto_comment):
         cmnt = msg.auto_comment[i].strip()
         if cmnt.startswith(_all_cmnts):
-            msg.auto_comment.pop(i)
-            modified = True
+            commented = True
+            if not dryrun:
+                msg.auto_comment.pop(i)
+            else:
+                i += 1
         else:
             i += 1
 
-    # Remove any leftover previous fields.
-    if msg.translated:
-        for fprev in _fields_previous:
-            if msg.get(fprev) is not None:
-                setattr(msg, fprev, None)
-                modified = True
-
-    if diffed:
+    if diffed and not dryrun:
         msg_ediff_to_new(msg, rmsg=msg)
-    if keepflags:
-        restore_review_flags(msg, revtags, unrevd)
 
-    return modified, revtags, unrevd
+    if keepflags and not dryrun:
+        restore_review_flags(msg, diffed or revd, unrevd)
+
+    return commented, diffed, revd, unrevd
 
 
 # Exclusive states of a message, as reported by Message.state().
@@ -1433,10 +1615,6 @@ _nonid_fields_eq_fuzzy = (()
     + _nonid_fields_eq_nonfuzzy
     + _fields_previous
 )
-_translator_parts = (
-    "manual_comment", "fuzzy", "msgstr",
-)
-
 
 _trsep_head = u"|"
 _trsep_head_ext = u"~"
@@ -1577,7 +1755,7 @@ _atag_sep = u"/"
 _mark_fuzz = u"f"
 _mark_obs = u"o"
 
-def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
+def ascribe_msg_any (msg, acat, atype, atag, user, config, dt=None):
 
     # Create or retrieve ascription message.
     if msg not in acat:
@@ -1618,16 +1796,10 @@ def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
             wsep += _mark_fuzz
         if wsep:
             modstr_wsep += " | " + wsep
-    first = True
-    for atag in atags or [""]:
-        field = atype
-        if atag != "":
-            field += _atag_sep + atag
-        if first:
-            asc_append_field(amsg, field, modstr_wsep)
-            first = False
-        else:
-            asc_append_field(amsg, field, modstr)
+    field = atype
+    if atag:
+        field += _atag_sep + atag
+    asc_append_field(amsg, field, modstr_wsep)
 
     # Add non-ID fields.
     if hasdiff_nonid:
@@ -1646,12 +1818,12 @@ def ascribe_msg_any (msg, acat, atype, atags, user, config, dt=None):
 
 def ascribe_msg_mod (msg, acat, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_MOD, [], user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_MOD, None, user, config, _dt_start)
 
 
-def ascribe_msg_rev (msg, acat, tags, user, config):
+def ascribe_msg_rev (msg, acat, tag, user, config):
 
-    ascribe_msg_any(msg, acat, ATYPE_REV, tags, user, config, _dt_start)
+    ascribe_msg_any(msg, acat, ATYPE_REV, tag, user, config, _dt_start)
 
 
 # FIXME: Imported by others, factor out.
@@ -1677,10 +1849,6 @@ def merge_modified (msg1, msg2):
     Whether second message may be considered derived from first by merging.
     """
 
-    # Anything can happen on merge when going from obsolete to current.
-    if msg1.obsolete and not msg2.obsolete:
-        return True
-
     # Manual comments do not change on merge.
     if msg1.manual_comment != msg2.manual_comment:
         return False
@@ -1699,9 +1867,12 @@ def merge_modified (msg1, msg2):
             if msg1.get(field1) != msg2.get(field2):
                 return False
 
-    # Translation does not change on merge, except
-    # on multiplication/reduction when plurality differs.
-    if (msg1.msgid_plural is None) != (msg2.msgid_plural is None):
+    # Translation does not change on merge,
+    # except for multiplication/reduction when plurality differs.
+    if (msg1.msgid_plural is None) == (msg2.msgid_plural is None):
+        if msg1.msgstr != msg2.msgstr:
+            return False
+    else:
         if not msg1.fuzzy and not msg2.fuzzy:
             # Plurality cannot change between two non-fuzzy messages.
             return False
@@ -1714,9 +1885,6 @@ def merge_modified (msg1, msg2):
             for msgstr in msg2.msgstr:
                 if msgstr != msg1.msgstr[0]:
                     return False
-    else:
-        if msg1.msgstr != msg2.msgstr:
-            return False
 
     return True
 
@@ -2008,19 +2176,18 @@ def asc_parse_ascriptions (amsg, acat, config):
 
 _modified_cats = []
 
-def sync_and_rep (cat, shownmod=True, nmod=None):
+def sync_and_rep (cat, shownmod=True):
 
-    if shownmod and nmod is None:
-        nmod = [0]
+    if shownmod:
+        nmod = 0
         for msg in cat:
             if msg.modcount:
-                nmod[0] += 1
+                nmod += 1
 
     modified = cat.sync()
-    if sum(nmod) > 0: # DO NOT check instead modified == True
+    if modified:
         if shownmod:
-            nmodfmt = "/".join("%d" % x for x in nmod)
-            report("!    %s  (%s)" % (cat.filename, nmodfmt))
+            report("!    %s  (%d)" % (cat.filename, nmod))
         else:
             report("!    %s" % cat.filename)
         _modified_cats.append(cat.filename)
@@ -2028,13 +2195,13 @@ def sync_and_rep (cat, shownmod=True, nmod=None):
     return modified
 
 
-def asc_sync_and_rep (acat, shownmod=True, nmod=None):
+def asc_sync_and_rep (acat):
 
     if acat.modcount:
         update_asc_hdr(acat)
         mkdirpath(os.path.dirname(acat.filename))
 
-    return sync_and_rep(acat, shownmod=shownmod, nmod=nmod)
+    return sync_and_rep(acat)
 
 
 def has_tracked_parts (msg):
@@ -2151,7 +2318,7 @@ def parse_users (userstr, config, cid=None):
     """
 
     return parse_fixed_set(userstr, config, config.users,
-                           "User '%s' not defined in '%s'.", cid)
+                           "user '%s' not defined in '%s'", cid)
 
 
 def parse_tags (tagstr, config, cid=None):
@@ -2166,7 +2333,7 @@ def parse_tags (tagstr, config, cid=None):
     """
 
     tags = parse_fixed_set(tagstr, config, config.review_tags,
-                           "Review tag '%s' not defined in '%s'.", cid)
+                           "review tag '%s' not defined in '%s'", cid)
     if not tags:
         tags = set([""])
 
