@@ -88,7 +88,7 @@ class VcsBase (object):
     Abstract base for VCS objects.
     """
 
-    def add (self, paths):
+    def add (self, paths, repadd=False):
         """
         Add paths to version control.
 
@@ -98,11 +98,19 @@ class VcsBase (object):
 
         Also a single path can be given instead of sequence of paths.
 
+        Acutally added paths may be different then input paths,
+        e.g. if a path is already version controlled,
+        or path's parent directory was added as well.
+        List of added paths can be requested with C{repadd} parameter,
+        and it will become the second element of return value.
+
         @param paths: paths to add
         @type paths: <string*> or string
+        @param repadd: whether to report which paths were actually added
+        @type repadd: bool
 
-        @return: C{True} if addition successful
-        @rtype: bool
+        @return: C{True} if addition successful, possibly list of added paths
+        @rtype: bool or (bool, [string*])
         """
         raise StandardError(
             "Selected version control system does not define adding.")
@@ -207,11 +215,12 @@ class VcsBase (object):
             "fetching a versioned path.")
 
 
-    def commit (self, paths, message=None, msgfile=None):
+    def commit (self, paths, message=None, msgfile=None, incparents=True):
         """
         Commit paths to the repository.
 
         Paths can include any number of files and directories.
+        Also a single path string can be given instead of a sequence.
         It depends on the particular VCS what committing means,
         but in general it should be the earliest level at which
         modifications are recorded in the repository history.
@@ -223,7 +232,13 @@ class VcsBase (object):
         If the commit message is not given, VCS should ask for one as usual
         (pop an editor window, or whatever the user has configured).
 
-        Also a single path can be given instead of sequence of paths.
+        Some VCS require that the parent directory of a path to be committed
+        has been committed itself or included in the commit list if not.
+        If that is the case, C{incparents} parameter determines if
+        this function should assure that non-committed parents are included
+        into the commit list too. This may be expensive to check,
+        so it is good to disable it if all parents are known to be
+        committed or included in the input paths.
 
         @param paths: paths to commit
         @type paths: <string*> or string
@@ -231,6 +246,9 @@ class VcsBase (object):
         @type message: string
         @param msgfile: path to file with the commit message
         @type msgfile: string
+        @param incparents: whether to automatically include non-committed
+            parents in the commit list
+        @type incparents: bool
 
         @return: C{True} if committing succeeded, C{False} otherwise
         @rtype: bool
@@ -353,10 +371,10 @@ class VcsNoop (VcsBase):
     VCS: Dummy VCS which silently passes any operation and does nothing.
     """
 
-    def add (self, paths):
+    def add (self, paths, repadd=False):
         # Base override.
 
-        return True
+        return True if not repadd else [True, paths]
 
 
     def remove (self, path):
@@ -396,7 +414,7 @@ class VcsNoop (VcsBase):
         return True
 
 
-    def commit (self, paths, message=None, msgfile=None):
+    def commit (self, paths, message=None, msgfile=None, incparents=True):
         # Base override.
 
         return True
@@ -433,7 +451,7 @@ class VcsSubversion (VcsBase):
         self._env["LC_ALL"] = "C"
 
 
-    def add (self, paths):
+    def add (self, paths, repadd=False):
         # Base override.
 
         if isinstance(paths, basestring):
@@ -442,11 +460,19 @@ class VcsSubversion (VcsBase):
             return True
 
         tmppath = _temp_paths_file(paths)
-        success = (collect_system("svn add --parents --targets %s"
-                                  % tmppath)[2] == 0)
+        res = collect_system("svn add --parents --targets %s" % tmppath,
+                             env=self._env)
+        success = (res[2] == 0)
         os.remove(tmppath)
 
-        return success
+        if repadd:
+            apaths = []
+            for line in res[0].split("\n"):
+                if line.startswith("A"):
+                    apaths.append(line[1:].strip())
+            return success, apaths
+        else:
+            return success
 
 
     def remove (self, path):
@@ -529,24 +555,25 @@ class VcsSubversion (VcsBase):
         return True
 
 
-    def commit (self, paths, message=None, msgfile=None):
+    def commit (self, paths, message=None, msgfile=None, incparents=True):
         # Base override.
 
         if isinstance(paths, basestring):
             paths = [paths]
 
-        # Move up any path that needs its parent committed too.
-        paths_up = []
-        for path in paths:
-            path_up = path
-            while not self.revision(path_up):
-                path_up = os.path.dirname(path_up)
-                if not path_up or not self.is_versioned(path_up):
-                    # Let simply Subversion complain.
-                    path_up = path
-                    break
-            paths_up.append(path_up)
-        paths = paths_up
+        if incparents:
+            # Move up any path that needs its parent committed too.
+            paths_up = []
+            for path in paths:
+                path_up = path
+                while not self.revision(path_up):
+                    path_up = os.path.dirname(path_up)
+                    if not path_up or not self.is_versioned(path_up):
+                        # Let simply Subversion complain.
+                        path_up = path
+                        break
+                paths_up.append(path_up)
+            paths = paths_up
 
         cmdline = "svn commit "
         if message is not None:
@@ -718,7 +745,7 @@ class VcsGit (VcsBase):
             return root, rpaths
 
 
-    def add (self, paths):
+    def add (self, paths, repadd=False):
         # Base override.
 
         if isinstance(paths, basestring):
@@ -728,11 +755,15 @@ class VcsGit (VcsBase):
 
         root, paths = self._gitroot(paths)
 
+        success = True
+        apaths = []
         for path in paths:
             if collect_system("git add %s" % path, wdir=root)[2] != 0:
-                return False
+                success = False
+                break
+            apaths.append(path)
 
-        return True
+        return success if not repadd else [success, apaths]
 
 
     def remove (self, path):
@@ -834,7 +865,7 @@ class VcsGit (VcsBase):
         return ret
 
 
-    def commit (self, paths, message=None, msgfile=None):
+    def commit (self, paths, message=None, msgfile=None, incparents=True):
         # Base override.
 
         if isinstance(paths, basestring):
