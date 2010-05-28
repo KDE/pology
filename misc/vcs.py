@@ -14,6 +14,7 @@ various version control systems.
 import os
 import re
 import shutil
+import tempfile
 
 from pology.misc.report import report, warning
 from pology.misc.fsops import collect_system, system_wd, unicode_to_str
@@ -87,16 +88,18 @@ class VcsBase (object):
     Abstract base for VCS objects.
     """
 
-    def add (self, path):
+    def add (self, paths):
         """
-        Add path to version control.
+        Add paths to version control.
 
         It depends on the particular VCS what adding means,
         but in general it should be the point where the subsequent L{commit()}
         on the same path will record addition in the repository history.
 
-        @param path: path to add
-        @type path: string
+        Also a single path can be given instead of sequence of paths.
+
+        @param paths: paths to add
+        @type paths: <string*> or string
 
         @return: C{True} if addition successful
         @rtype: bool
@@ -220,8 +223,10 @@ class VcsBase (object):
         If the commit message is not given, VCS should ask for one as usual
         (pop an editor window, or whatever the user has configured).
 
+        Also a single path can be given instead of sequence of paths.
+
         @param paths: paths to commit
-        @type paths: list of strings
+        @type paths: <string*> or string
         @param message: commit message
         @type message: string
         @param msgfile: path to file with the commit message
@@ -348,7 +353,7 @@ class VcsNoop (VcsBase):
     VCS: Dummy VCS which silently passes any operation and does nothing.
     """
 
-    def add (self, path):
+    def add (self, paths):
         # Base override.
 
         return True
@@ -428,17 +433,20 @@ class VcsSubversion (VcsBase):
         self._env["LC_ALL"] = "C"
 
 
-    def add (self, path):
+    def add (self, paths):
         # Base override.
 
-        # Try adding by backtracking.
-        cpath = path
-        while collect_system("svn add %s" % cpath)[2] != 0:
-            cpath = os.path.dirname(cpath)
-            if not cpath:
-                return False
+        if isinstance(paths, basestring):
+            paths = [paths]
+        if not paths:
+            return True
 
-        return True
+        tmppath = _temp_paths_file(paths)
+        success = (collect_system("svn add --parents --targets %s"
+                                  % tmppath)[2] == 0)
+        os.remove(tmppath)
+
+        return success
 
 
     def remove (self, path):
@@ -524,6 +532,9 @@ class VcsSubversion (VcsBase):
     def commit (self, paths, message=None, msgfile=None):
         # Base override.
 
+        if isinstance(paths, basestring):
+            paths = [paths]
+
         # Move up any path that needs its parent committed too.
         paths_up = []
         for path in paths:
@@ -542,14 +553,15 @@ class VcsSubversion (VcsBase):
             cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
         elif msgfile is not None:
             cmdline += "-F \"%s\" " % msgfile.replace("\"", "\\\"")
-        cmdline += " ".join(paths)
+        tmppath = _temp_paths_file(paths)
+        cmdline += "--targets %s " % tmppath
 
         # Do not use collect_system(), user may need to input stuff.
         #report(cmdline)
-        if os.system(unicode_to_str(cmdline)) != 0:
-            return False
+        success = (os.system(unicode_to_str(cmdline)) == 0)
+        os.remove(tmppath)
 
-        return True
+        return success
 
 
     def log (self, path, rev1=None, rev2=None):
@@ -706,13 +718,19 @@ class VcsGit (VcsBase):
             return root, rpaths
 
 
-    def add (self, path):
+    def add (self, paths):
         # Base override.
 
-        root, path = self._gitroot(path)
+        if isinstance(paths, basestring):
+            paths = [paths]
+        if not paths:
+            return True
 
-        if collect_system("git add %s" % path, wdir=root)[2] != 0:
-            return False
+        root, paths = self._gitroot(paths)
+
+        for path in paths:
+            if collect_system("git add %s" % path, wdir=root)[2] != 0:
+                return False
 
         return True
 
@@ -818,6 +836,9 @@ class VcsGit (VcsBase):
 
     def commit (self, paths, message=None, msgfile=None):
         # Base override.
+
+        if isinstance(paths, basestring):
+            paths = [paths]
 
         if not paths:
             return True
@@ -1013,6 +1034,15 @@ def _crop_log (entries, rev1, rev2):
                 break
 
     return entries[start:end]
+
+
+def _temp_paths_file (paths):
+
+    content = unicode_to_str("\n".join(paths) + "\n")
+    tmpf, tmppath = tempfile.mkstemp()
+    os.write(tmpf, content)
+    os.close(tmpf)
+    return tmppath
 
 
 _register_vcs()
