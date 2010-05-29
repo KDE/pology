@@ -949,10 +949,13 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
         if mod:
             revels_by_msg[msg.refentry] = [revtags, unrevd, True]
         history = asc_collect_history(msg, acat, config) # after purging
-        selected = stest(msg, cat, history, config)
-        # Do not ascribe review if the message does not pass the selector,
-        # but unconditionally ascribe modification.
-        if selected and (mod or revtags_ovr):
+        # Do not ascribe anything if the message is new and untranslated.
+        if (    history[0].user is None and len(history) == 1
+            and not has_tracked_parts(msg)
+        ):
+            continue
+        # Possibly ascribe review only if the message passes the selector.
+        if stest(msg, cat, history, config) and (mod or revtags_ovr):
             if revtags_ovr:
                 revtags = revtags_ovr
                 unrevd = False
@@ -966,7 +969,8 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
                     tagfmt = ", ".join(sorted(unknown_revtags))
                     warning_on_msg("Unknown review tags: %s." % tagfmt,
                                    msg, cat)
-        if history[0].user is None and has_tracked_parts(msg):
+        # Ascribe modification regardless of the selector.
+        if history[0].user is None:
             mod_msgs.append(msg)
             counts[msg.state()][0] += 1
             if options.update_headers and not any_nonmerges:
