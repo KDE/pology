@@ -451,7 +451,7 @@ def collect_configs_catpaths (catpaths):
 
 def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
 
-    report("VCS is committing catalogs:")
+    report(">>>>> VCS is committing catalogs:")
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
