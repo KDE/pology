@@ -787,7 +787,7 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
                     os.remove(acatpath)
 
     if nrestored > 0:
-        report("===! Restored reviews: %d" % nrestored)
+        report("===== Restored reviews: %d" % nrestored)
 
 
 def restore_review_flags (msg, revtags, unrevd):
@@ -863,7 +863,7 @@ def commit (options, configs_catpaths, mode):
             if len(coln) >= 2:
                 data[1].append(counts[st][1] or None)
     if rown:
-        report("===! Ascription summary:")
+        report("===== Ascription summary:")
         report(tabulate(data, coln=coln, rown=rown, none="-",
                         colorized=sys.stdout.isatty()))
 
@@ -885,7 +885,7 @@ def diff (options, configs_catpaths, mode):
                                 mode.selector, mode.aselector)
     upprog()
     if ndiffed > 0:
-        report("===! Diffed for review: %d" % ndiffed)
+        report("===== Diffed for review: %d" % ndiffed)
 
 
 def purge (options, configs_catpaths, mode):
@@ -901,9 +901,9 @@ def purge (options, configs_catpaths, mode):
 
     if npurged > 0:
         if not options.keep_flags:
-            report("===! Purged review elements: %d" % npurged)
+            report("===== Purged review elements: %d" % npurged)
         else:
-            report("===! Purged review elements (flags kept): %d" % npurged)
+            report("===== Purged review elements (flags kept): %d" % npurged)
 
     return npurged
 
@@ -919,7 +919,7 @@ def history (options, configs_catpaths, mode):
                                   mode.selector)
     upprog()
     if nshown > 0:
-        report("===> Computed histories: %d" % nshown)
+        report("===== Computed histories: %d" % nshown)
 
 
 def commit_cat (options, config, user, catpath, acatpath, stest):
@@ -2014,9 +2014,9 @@ def sync_and_rep (cat, shownmod=True, nmod=None):
     if sum(nmod) > 0: # DO NOT check instead modified == True
         if shownmod:
             nmodfmt = "/".join("%d" % x for x in nmod)
-            report("!    %s  (%s)" % (cat.filename, nmodfmt))
+            report("%s  (%s)" % (cat.filename, nmodfmt))
         else:
-            report("!    %s" % cat.filename)
+            report("%s" % cat.filename)
         _modified_cats.append(cat.filename)
 
     return modified
