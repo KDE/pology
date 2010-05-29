@@ -98,7 +98,7 @@ class VcsBase (object):
 
         Also a single path can be given instead of sequence of paths.
 
-        Acutally added paths may be different from input paths,
+        Actually added paths may be different from input paths,
         e.g. if an input path is already version controlled,
         or input path's parent directory was added as well.
         List of added paths can be requested with C{repadd} parameter,
