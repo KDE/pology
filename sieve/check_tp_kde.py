@@ -91,6 +91,7 @@ Currently available checks are:
 import os
 import re
 
+from pology.misc.escape import escape_c
 from pology.misc.report import report
 from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
@@ -505,7 +506,7 @@ def _check_trcredits (msg, cat, pcache, hl):
         for email in emails:
             # Check minimal validity of address.
             if email and not _valid_email_rx.match(email):
-                emsg = "Invalid email address '%s'." % email
+                emsg = "Invalid email address '%s'." % escape_c(email)
                 errors.append(emsg)
 
     # Check congruence between names and emails.
