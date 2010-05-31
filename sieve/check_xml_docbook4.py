@@ -13,6 +13,9 @@ Sieve options:
   - C{showmsg}: show content of the message, with errors highlighted
   - C{lokalize}: open catalogs at failed messages in Lokalize
 
+A message can be excluded from checking by adding C{no-check-markup}
+L{sieve flag<sieve.parse_sieve_flags>}.
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
@@ -22,11 +25,14 @@ import os
 import re
 import locale
 import xml.parsers.expat
-from pology.misc.report import report
+
+from pology import rootdir
+from pology.hook.check_markup import flag_no_check_markup
+from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
-from pology import rootdir
+from pology.misc.report import report
+from pology.sieve import parse_sieve_flags
 
 
 def setup_sieve (p):
@@ -102,6 +108,10 @@ def _check_dbmarkup (msg, cat, strict, hl):
     if msg.msgctxt in _meta_msg_msgctxt or msg.msgid in _meta_msg_msgid:
         return 0
     if msg.msgid.startswith(_meta_msg_msgid_sw):
+        return 0
+
+    # Explicit skipping.
+    if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
 
     if not strict and check_xml_docbook4_l1(msg.msgid):
