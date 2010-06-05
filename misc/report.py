@@ -320,12 +320,14 @@ def list_options (optparser, short=False, both=False):
     return fmtlist
 
 
-def format_item_list (items):
+def format_item_list (items, incmp=False):
     """
     Format inline item list, for insertion into text.
 
     @param items: items to list
     @type items: sequence of elements convertible to string by unicode()
+    @param incmp: whether some items are omitted from the list
+    @type incmp: bool
     @returns: inline formatted list of items
     @rtype: string
     """
@@ -339,13 +341,19 @@ def format_item_list (items):
     sep_two = _("@item:intext separator for inline list of exactly two items, "
                  "e.g. \" and \" in \"apples and bananas\"",
                  " and ")
+    ellipsis = _("@item:intext trailing string for incomplete lists, "
+                 "e.g. \"...\" in \"apples, bananas, cherries...\"",
+                 "...")
     itemstrs = map(unicode, items)
-    if len(itemstrs) == 0:
-        return u""
-    elif len(itemstrs) == 1:
-        return itemstrs[0]
-    elif len(itemstrs) == 2:
-        return sep_two.join(itemstrs)
+    if not incmp:
+        if len(itemstrs) == 0:
+            return u""
+        elif len(itemstrs) == 1:
+            return itemstrs[0]
+        elif len(itemstrs) == 2:
+            return sep_two.join(itemstrs)
+        else:
+            return sep.join(itemstrs[:-1]) + sep_last + itemstr[-1]
     else:
-        return sep.join(itemstrs[:-1]) + sep_last + itemstr[-1]
+        return sep.join(itemstrs) + ellipsis
 
