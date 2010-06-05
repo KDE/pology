@@ -7,6 +7,7 @@ Limit character set in Serbian texts, by conversion and transliteration.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.report import warning
 
 
@@ -100,8 +101,10 @@ def _limit_to_chset (text, chset, translit, cname):
         if ct:
             ltext.append(ct)
             continue
-        warning("character '%s' cannot be transliterated "
-                "into character set '%s', removing" % (c, cname))
+        warning(_("@info",
+                  "Character '%(char)s' cannot be transliterated "
+                  "into character set %(charset)s, removing it.")
+                % dict(char=c, charset=cname))
         ltext.append("?")
 
     return "".join(ltext)

@@ -62,7 +62,10 @@ def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
         # Catching possible replacement by text after hyphen.
         nobrhyp_rxstrs.append(ur"([\w%s])(-)(\w{1})\b" % wchars)
     else:
-        raise StandardError("Unknown hyphen replacement mode %(mode)s." % mode)
+        raise StandardError(
+            _("@info",
+              "Unknown hyphen replacement mode %(mode)s.")
+            % dict(mode=mode))
     nobrhyp_rxs = [re.compile(x, re.U) for x in nobrhyp_rxstrs]
 
     # Function to produce replacement for matched pattern.

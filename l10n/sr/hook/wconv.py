@@ -105,10 +105,11 @@ without conflicts, in single text and even interwoven
 @license: GPLv3
 """
 
-from pology.misc.report import warning
+from pology import _, n_
+from pology.misc.diff import word_diff, tdiff
+from pology.misc.report import warning, format_item_list
 from pology.misc.resolve import resolve_alternatives_simple
 from pology.misc.resolve import resolve_alternatives
-from pology.misc.diff import word_diff, tdiff
 
 
 # Transliteration table Serbian Cyrillic->Latin.
@@ -440,8 +441,13 @@ def _hito_w (text, toijek=False, silent=False, validate=False):
                                                 althead=_dhyb_althead,
                                                 srcname=srcname)
     if not allgood and validate:
-        errmsg = ("Malformed Ekavian-Ijekavian alternatives directive "
-                  "encountered after %d good directives." % ngood)
+        errmsg = (n_("@info \"alternatives directive\" is a term",
+                     "Malformed Ekavian-Ijekavian alternatives directive "
+                     "encountered after %(num)d good directive.",
+                     "Malformed Ekavian-Ijekavian alternatives directive "
+                     "encountered after %(num)d good directives.",
+                     ngood)
+                  % dict(num=ngood))
         errspans.append((0, 0, errmsg))
 
     if not validate:
@@ -480,7 +486,9 @@ def _hito_w_simple (text, tick, refmap, ijklen_min, ijklen_max,
             p += len(ijkfrm)
         else:
             segs.append(tick)
-            errmsg = "Unknown jat-reflex starting from '%s'." % text[pp:pp + 20]
+            errmsg = (_("@info \"jat\" is the name of an old Serbian letter",
+                        "Unknown jat-reflex starting from '%(snippet)s'.")
+                      % dict(snippet=text[pp:pp + 20]))
             if not silent:
                 warning(errmsg)
             if errspans is not None:
@@ -699,9 +707,12 @@ def _delimit (alts, delims):
             break
 
     if not good:
-        raise StandardError("No delimiter from '%s' can be used for "
-                            "alternatives directive on: %s."
-                            % (delims, " ".join(["{%s}" % x for x in alts])))
+        fmtalts = format_item_list(["{%s}" % x for x in alts])
+        raise StandardError(
+            _("@info",
+              "No delimiter from '%(delimstr)s' can be used for "
+              "alternatives directive containing: %(snippetlist)s.")
+            % dict(delimstr=delims, snippetlist=fmtalts))
 
     return delim + delim.join(alts) + delim
 

@@ -63,7 +63,12 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
 
     trapcon = _known_cons.get(name)
     if trapcon is None:
-        raise KeyError("Unknown trapnakron constructor '%s'." % name)
+        raise KeyError(
+            _("@info \"trapnakron\" is a shorthand for "
+              "\"Transcriptions and Translations of Names and Acronyms\" "
+              "in Serbian",
+              "Unknown trapnakron constructor '%(name)s'.")
+            % dict(name=name))
 
     tp = trapcon(*args, **kwargs)
 

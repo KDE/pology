@@ -6,9 +6,14 @@
 
 import re
 
+from pology import _, n_
+from pology.misc.report import report
+
+
 def setup_sieve (p):
 
-    p.set_desc("Replace normal space by non-breaking space where needed.")
+    p.set_desc(_("@info sieve description",
+                 "Replace normal space by non-breaking space where needed."))
 
 
 class Sieve (object):
@@ -33,7 +38,11 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            print "Total messages changed: %d" % (self.nmatch,)
+            report(n_("@info",
+                      "Non-breaking spaces added in %(num)d message.",
+                      "Non-breaking spaces added in %(num)d messages.",
+                      self.nmatch)
+                   % dict(num=self.nmatch))
 
     def setUbsp(self, text):
         """Set correctly unbreakable spaces"""

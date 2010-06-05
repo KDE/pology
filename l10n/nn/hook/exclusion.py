@@ -15,7 +15,7 @@ import os
 import re
 import codecs
 
-from pology import rootdir
+from pology import rootdir, _, n_
 from pology.misc.fsops import collect_files_by_ext
 from pology.misc.split import split_text
 
@@ -56,7 +56,9 @@ def inofficial_forms (msgstr, msg, cat):
                         + sum(map(len, interps[:phstart + off1])))
                     p2 = (  sum(map(len, words[:phstart + phlen]))
                         + sum(map(len, interps[:phstart + phlen + off2])))
-                    emsg = "inofficial form: %s" % msgstr[p1:p2].strip()
+                    emsg = (_("@info",
+                              "Inofficial form '%(word)s'.")
+                            % dict(word=msgstr[p1:p2].strip()))
                     spans.append((p1, p2, emsg))
                     break
 

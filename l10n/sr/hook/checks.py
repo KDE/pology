@@ -9,8 +9,9 @@ Various checks for translations into Serbian.
 
 import re
 
-from pology.misc.msgreport import warning_on_msg
+from pology import _, n_
 from pology.misc.diff import adapt_spans
+from pology.misc.msgreport import warning_on_msg
 
 # ----------------------------------------
 # Checks for presence of naked Latin segments.
@@ -111,7 +112,9 @@ def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
     if sideeffect:
         # Report if any Latin text remained in stripped msgstr.
         for m in matches:
-            warning_on_msg("naked-Latin segment: %s" % m.group(0), msg, cat)
+            warning_on_msg(_("@info",
+                             "Naked Latin segment '%(snippet)s'.")
+                           % dict(snippet=m.group(0)), msg, cat)
         return len(matches)
     else:
         # Collect and adapt offending spans.
