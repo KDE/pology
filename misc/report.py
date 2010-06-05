@@ -353,7 +353,7 @@ def format_item_list (items, incmp=False):
         elif len(itemstrs) == 2:
             return sep_two.join(itemstrs)
         else:
-            return sep.join(itemstrs[:-1]) + sep_last + itemstr[-1]
+            return sep.join(itemstrs[:-1]) + sep_last + itemstrs[-1]
     else:
         return sep.join(itemstrs) + ellipsis
 
