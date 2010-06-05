@@ -218,22 +218,22 @@ class SieveError (Exception):
     Base exception class for sieve errors with special meaning.
     """
 
-    def __init__ (self, msg):
+    def __init__ (self, message):
         """
         Constructor.
 
         All the parameters are made available as instance variables.
 
-        @param msg: a description of what went wrong
-        @type msg: string
+        @param message: a description of what went wrong
+        @type message: string
         """
 
-        self.msg = msg
+        self.message = message
 
 
     def  __unicode__ (self):
 
-        return unicode(self.msg)
+        return unicode(self.message)
 
 
     def  __str__ (self):
