@@ -47,7 +47,8 @@ valid msgstr="\bовла(ст|шћ)"
 {\bbackup}i
 id="backup"
 hint="backup = резерва"
-valid msgstr="\bрезерв" !msgstr="\bрезервн\w+ копиј"
+valid before=" copy" msgstr="\bрезервн\w+ копиј"
+valid msgstr="\bрезерв\w+(?! копиј)"
 
 {\bback(ed|s)? up}i
 id="backup2"
