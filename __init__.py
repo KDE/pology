@@ -99,7 +99,8 @@ Custom shell completion for Pology scripts is also available::
 @license: GPLv3
 """
 
-def rootdir():
+
+def rootdir ():
     """
     Get root directory of Pology installation.
 
@@ -108,3 +109,63 @@ def rootdir():
     """
 
     return __path__[0]
+
+
+# Collect data paths.
+# Either as installed, when the _paths.py module will be available,
+# or assume locations within the repository.
+import os
+try:
+    import pology._paths as _paths
+    _mo_dir = _paths.mo
+except ImportError:
+    _mo_dir = os.path.join(rootdir(), "mo")
+
+
+# Setup translations.
+import gettext
+try:
+    _tr = gettext.translation("pology", _mo_dir)
+except IOError:
+    _tr = gettext.NullTranslations()
+
+
+def _ (ctxt, text):
+    """
+    Get translation of the text into user's language.
+
+    @param ctxt: the context in which the text is used
+    @type ctxt: string
+    @param text: the text to translate
+    @type text: string
+    @return: translated text if available, otherwise original
+    @rtype: string
+    """
+
+    trf = _tr.ugettext # camouflaged against xgettext
+    trtext = trf("%s\x04%s" % (ctxt, text))
+    if "\x04" in trtext:
+        trtext = text
+    return trtext
+
+
+def n_ (ctxt, stext, ptext, n):
+    """
+    Get translation of the singular/plural text into user's language.
+
+    @param ctxt: the context in which the text is used
+    @type ctxt: string
+    @param stext: the text to translate for the singular case
+    @type stext: string
+    @param ptext: the text to translate for the plural case
+    @type ptext: string
+    @return: translated text if available, otherwise original
+    @rtype: string
+    """
+
+    trf = _tr.ungettext # camouflaged against xgettext
+    trtext = trf("%s\x04%s" % (ctxt, stext), ptext, n)
+    if "\x04" in trtext:
+        trtext = text
+    return trtext
+
