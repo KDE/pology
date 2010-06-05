@@ -179,7 +179,7 @@ import re
 from optparse import OptionParser
 import glob
 
-from pology import rootdir
+from pology import rootdir, _, n_
 from pology.file.catalog import Catalog
 from pology.misc.colors import set_coloring_globals
 import pology.misc.config as pology_config
@@ -192,6 +192,7 @@ from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
 from pology.misc.report import error, warning, report, encwrite
 from pology.misc.report import init_file_progress
 from pology.misc.report import list_options
+from pology.misc.report import format_item_list
 from pology.misc.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_incexc
 from pology.misc.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
@@ -208,94 +209,122 @@ def main ():
     def_skip_obsolete = cfgsec.boolean("skip-obsolete", False)
 
     # Setup options and parse the command line.
-    usage = u"""
-%prog [options] sieve [POPATHS...]
-""".strip()
-    description = u"""
-Apply sieves to PO paths, which may be either single PO files or directories
-to search recursively for PO files. Some of the sieves only examine PO files,
-while other can modify them. The first non-option argument is the sieve name;
-a list of several comma-separated sieves can be given too.
-""".strip()
-    version = u"""
-%prog (Pology) experimental
-Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
-""".strip()
+    usage = (_("@info command usage",
+               "%(cmd)s [OPTIONS] SIEVE [POPATHS...]")
+             % dict(cmd="%prog"))
+    description = (
+        _("@info command description",
+          "Apply sieves to PO paths, which may be either single PO files or "
+          "directories to search recursively for PO files. "
+          "Some of the sieves only examine PO files, while others "
+          "modify them as well. "
+          "The first non-option argument is the sieve name; "
+          "a list of several comma-separated sieves can be given too."))
+    version = (
+        _("@info command version",
+          u"%(cmd)s (Pology) experimental\n"
+          u"Copyright © 2007 Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", email="caslav.ilic@gmx.net"))
 
     opars = OptionParser(usage=usage, description=description, version=version)
     opars.add_option(
         "-a", "--announce-entry",
         action="store_true", dest="announce_entry", default=False,
-        help="announce that header or message is just about to be sieved")
+        help=_("@info command line option description",
+               "Announce that header or message just about to be sieved."))
     opars.add_option(
         "-b", "--skip-obsolete",
         action="store_true", dest="skip_obsolete", default=def_skip_obsolete,
-        help="do not sieve obsolete messages")
+        help=_("@info command line option description",
+               "Do not sieve obsolete messages."))
     opars.add_option(
         "-c", "--msgfmt-check",
         action="store_true", dest="msgfmt_check", default=def_msgfmt_check,
-        help="check catalogs by msgfmt and skip those which do not pass")
+        help=(_("@info command line option description",
+                "Check catalogs by %(cmd)s and skip those which do not pass.")
+              % dict(cmd="msgfmt -c")))
     opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
-        help="force rewrite of all messages, modified or not")
+        help=_("@info command line option description",
+               "Force rewriting of all messages, whether modified or not."))
     opars.add_option(
         "-H", "--help-sieves",
         action="store_true", dest="help_sieves", default=False,
-        help="show help for applied sieves")
+        help=_("@info command line option description",
+               "Show help for applied sieves."))
     opars.add_option(
         "--issued-params",
         action="store_true", dest="issued_params", default=False,
-        help="show all issued params (from command line and configuration)")
+        help=_("@info command line option description",
+               "Show all issued sieve parameters "
+               "(from command line and user configuration)."))
     opars.add_option(
         "-l", "--list-sieves",
         action="store_true", dest="list_sieves", default=False,
-        help="list available internal sieves")
+        help=_("@info command line option description",
+               "List available internal sieves."))
     opars.add_option(
         "--list-options",
         action="store_true", dest="list_options", default=False,
-        help="list just the names of available options")
+        help=_("@info command line option description",
+               "List just the names of available options."))
     opars.add_option(
         "--list-sieve-names",
         action="store_true", dest="list_sieve_names", default=False,
-        help="list just the names of available internal sieves")
+        help=_("@info command line option description",
+               "List just the names of available internal sieves."))
     opars.add_option(
         "--list-sieve-params",
         action="store_true", dest="list_sieve_params", default=False,
-        help="list just the parameters known to issued sieves")
+        help=_("@info command line option description",
+               "List just the parameters known to issued sieves."))
     opars.add_option(
-        "-m", "--output-modified", metavar="FILE",
+        "-m", "--output-modified",
+        metavar=_("@info command line value placeholder", "FILE"),
         action="store", dest="output_modified", default=None,
-        help="output names of modified files into FILE")
+        help=_("@info command line option description",
+               "Output names of modified files into FILE."))
     opars.add_option(
         "--no-skip",
         action="store_false", dest="do_skip", default=def_do_skip,
-        help="do not try to skip catalogs which signal errors")
+        help=_("@info command line option description",
+               "Do not try to skip catalogs which signal errors."))
     opars.add_option(
         "--no-sync",
         action="store_false", dest="do_sync", default=True,
-        help="do not write any modifications to catalogs")
+        help=_("@info command line option description",
+               "Do not write any modifications to catalogs."))
     opars.add_option(
         "-q", "--quiet",
         action="store_true", dest="quiet", default=False,
-        help="do not display any progress info "
-             "(does not influence sieves themselves)")
+        help=_("@info command line option description",
+               "Do not display any progress info "
+               "(does not influence sieves themselves)."))
     opars.add_option(
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
-        help="coloring independent of output destination (terminal, file)")
+        help=_("@info command line option description",
+               "Syntax coloring independent of output destination "
+               "(terminal or file)."))
     opars.add_option(
-        "-s", metavar="NAME[:VALUE]",
+        "-s",
+        metavar=_("@info command line value placeholder", "NAME[:VALUE]"),
         action="append", dest="sieve_params", default=[],
-        help="pass a parameter to sieves")
+        help=_("@info command line option description",
+               "Pass a parameter to sieves."))
     opars.add_option(
-        "-S", metavar="NAME[:VALUE]",
+        "-S",
+        metavar=_("@info command line value placeholder", "NAME[:VALUE]"),
         action="append", dest="sieve_no_params", default=[],
-        help="remove a parameter to sieves")
+        help=_("@info command line option description",
+               "Remove a parameter to sieves "
+               "(e.g. if it was issued through user configuration)."))
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
-        help="output more detailed progress info")
+        help=_("@info command line option description",
+               "Output more detailed progress information."))
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
@@ -306,7 +335,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sys.exit(0)
 
     if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
-        opars.error("must provide sieve to apply")
+        opars.error(_("@info error", "No sieve to apply given."))
 
     op.raw_sieves = []
     op.raw_paths = []
@@ -380,7 +409,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         sieve_modules.append((sieve_name, sieve_mod))
         if not hasattr(sieve_mod, "Sieve"):
-            error("module does not define Sieve class: %s" % sieve_path)
+            error(_("@info error",
+                    "Module '%(file)s' does not define %(classname)s class.")
+                  % dict(file=sieve_path, classname="Sieve"))
 
     # Setup sieves (description, known parameters...)
     pp = ParamParser()
@@ -396,7 +427,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # If info on sieves requested, report and exit.
     if op.list_sieves:
-        report("Available internal sieves:")
+        report(_("@info", "Available internal sieves:"))
         report(pp.listcmd(snames))
         sys.exit(0)
     elif op.list_sieve_params:
@@ -406,7 +437,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         report("\n".join(sorted(params)))
         sys.exit(0)
     elif op.help_sieves:
-        report("Help for sieves:")
+        report(_("@info", "Help for sieves:"))
         report("")
         report(pp.help(snames))
         sys.exit(0)
@@ -442,10 +473,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     try:
         sparams, nacc_params = pp.parse(sieve_params, snames)
     except Exception, e:
-        error(unicode(e))
+        error(e.message)
     if nacc_params:
-        error("parameters not accepted by any of issued subcommands: %s"
-              % (" ".join(nacc_params)))
+        error(_("@info error",
+                "Parameters not accepted by any of issued subcommands: "
+                "%(paramlist)s.")
+              % dict(paramlist=format_item_list(nacc_params)))
 
     # ========================================
     # FIXME: Think of something less ugly.
@@ -477,7 +510,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         try:
             sieves.append(mod.Sieve(sparams[name]))
         except Exception, e:
-            error(unicode(e))
+            error(e.message)
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.
@@ -487,7 +520,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             use_monitored = True
             break
     if op.verbose and not use_monitored:
-        report("--> Not monitoring messages")
+        report(_("@info:progress", "--> Not monitoring messages."))
 
     # Get the sync indicator from the sieves.
     # Sync unless all sieves have requested otherwise,
@@ -500,7 +533,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if not op.do_sync:
         do_sync = False
     if op.verbose and not do_sync:
-        report("--> Not syncing after sieving")
+        report(_("@info:progress", "--> Not syncing after sieving."))
 
     # Open in header-only mode if no sieve has message processor.
     # Categorize sieves by the presence of message/header processors.
@@ -517,7 +550,7 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if hasattr(sieve, "process_header_last"):
             header_sieves_last.append(sieve)
     if op.verbose and use_headonly:
-        report("--> Opening catalogs in header-only mode")
+        report(_("@info:progress", "--> Opening catalogs in header-only mode."))
 
     # Collect catalog paths.
     fnames = collect_paths_cmdline(rawpaths=op.raw_paths,
@@ -539,13 +572,15 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 
     # Prepare inline progress indicator.
     if not op.quiet:
-        update_progress = init_file_progress(fnames, addfmt="Sieving: %s")
+        update_progress = init_file_progress(fnames,
+            addfmt=_("@info:progress", "Sieving: %(file)s"))
 
     # Sieve catalogs.
     modified_files = []
     for fname in fnames:
         if op.verbose:
-            report("sieving %s ..." % fname)
+            report(_("@info:progress",
+                     "Sieving %(file)s...") % dict(file=fname))
         elif not op.quiet:
             update_progress(fname)
 
@@ -554,9 +589,12 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             d1, oerr, ret = collect_system("msgfmt -o/dev/null -c %s" % fname)
             if ret != 0:
                 oerr = oerr.strip()
-                errwarn(u"%s: msgfmt check failed:\n"
-                        u"%s" % (fname, oerr))
-                warning(u"skipping catalog due to syntax check failure")
+                errwarn(_("@info:progress",
+                          "%(file)s: %(cmd)s check failed:\n"
+                          "%(msg)s")
+                        % dict(file=fname, cmd="msgfmt -c", msg=oerr))
+                warning(_("@info:progress",
+                          "Skipping catalog due to syntax check failure."))
                 continue
 
         try:
@@ -564,27 +602,36 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         except KeyboardInterrupt:
             sys.exit(130)
         except Exception, e:
-            errwarn(u"%s: parsing failed: %s" % (fname, e))
-            warning(u"skipping catalog due to parsing failure")
+            errwarn(_("@info:progress",
+                      "%(file)s: parsing failed: %(msg)s")
+                    % dict(file=fname, msg=e.message))
+            warning(_("@info:progress",
+                      "Skipping catalog due to parsing failure."))
             continue
 
         skip = False
         # First run all header sieves.
         if header_sieves and op.announce_entry:
-            report(u"sieving %s:header ..." % fname)
+            report(_("@info:progress",
+                     "Sieving header of %(file)s...") % dict(file=fname))
         for sieve in header_sieves:
             try:
                 ret = sieve.process_header(cat.header, cat)
             except SieveCatalogError, e:
-                errwarn(u"%s:header: sieving failed: %s" % (fname, e))
+                errwarn(_("@info:progress",
+                          "%(file)s:header: sieving failed: %(msg)s")
+                        % dict(file=fname, msg=e.message))
                 skip = True
                 break
             except Exception, e:
-                error(u"%s:header: sieving failed: %s" % (fname, e))
+                error(_("@info:progress",
+                        "%(file)s:header: sieving failed: %(msg)s")
+                      % dict(file=fname, msg=e.message))
             if ret not in (None, 0):
                 break
         if skip:
-            warning(u"skipping catalog due to header sieving failure")
+            warning(_("@info:progress",
+                      "Skipping catalog due to header sieving failure."))
             continue
 
         # Then run all message sieves on each message,
@@ -598,52 +645,75 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
                     update_progress(fname)
 
                 if op.announce_entry:
-                    report(u"sieving %s:%d(#%d) ..."
-                           % (fname, msg.refline, msg.refentry))
+                    report(_("@info:progress",
+                             "Sieving %(file)s:%(line)d(#%(entry)d)...")
+                           % dict(file=fname,
+                                  line=msg.refline, entry=msg.refentry))
 
                 for sieve in message_sieves:
                     try:
                         ret = sieve.process(msg, cat)
                     except SieveMessageError, e:
-                        errwarn_on_msg(u"sieving failed: %s" % e, msg, cat)
+                        errwarn_on_msg(_("@info:progress",
+                                         "Sieving failed: %(msg)s")
+                                       % dict(msg=e.message), msg, cat)
                         break
                     except SieveCatalogError, e:
-                        errwarn_on_msg(u"sieving failed: %s" % e, msg, cat)
+                        errwarn_on_msg(_("@info:progress",
+                                         "Sieving failed: %(msg)s")
+                                       % dict(msg=e.message), msg, cat)
                         skip = True
                         break
                     except Exception, e:
-                        error_on_msg(u"sieving failed: %s" % e, msg, cat)
+                        errwarn_on_msg(_("@info:progress",
+                                         "Sieving failed: %(msg)s")
+                                       % dict(msg=e.message), msg, cat)
                     if ret not in (None, 0):
                         break
                 if skip:
                     break
         if skip:
-            warning(u"skipping catalog due to message sieving failure")
+            warning(_("@info:progress",
+                      "Skipping catalog due to message sieving failure."))
             continue
 
         # Finally run all header-last sieves.
         if header_sieves_last and op.announce_entry:
-            report(u"sieving %s:header(last)..." % fname)
+            report(_("@info:progress",
+                     "Sieving header (after messages) in %(file)s...")
+                   % dict(file=fname))
         for sieve in header_sieves_last:
             try:
                 ret = sieve.process_header_last(cat.header, cat)
             except SieveCatalogError, e:
-                errwarn(u"%s:header(last): sieving failed: %s" % (fname, e))
+                errwarn(_("@info:progress",
+                          "%(file)s:header: sieving (after messages) "
+                          "failed: %(msg)s")
+                        % dict(file=fname, msg=e.message))
                 skip = True
                 break
             except Exception, e:
-                error(u"%s:header(last): sieving failed: %s" % (fname, e))
+                error(_("@info:progress",
+                        "%(file)s:header: sieving (after messages) "
+                        "failed: %(msg)s")
+                      % dict(file=fname, msg=e.message))
             if ret not in (None, 0):
                 break
         if skip:
-            warning(u"skipping catalog due to header (last) sieving failure")
+            warning(_("@info:progress",
+                      "Skipping catalog due to header sieving "
+                      "(after messages) failure."))
             continue
 
         if do_sync and cat.sync(op.force_sync):
             if op.verbose:
-                report("! (MODIFIED) %s" % fname)
+                report(_("@info:progress leading ! is a shorthand "
+                         "state indicator",
+                         "! (MODIFIED) %(file)s") % dict(file=fname))
             elif not op.quiet:
-                report("! %s" % fname)
+                report(_("@info:progress leading ! is a shorthand "
+                         "state indicator",
+                         "! %(file)s") % dict(file=fname))
             modified_files.append(fname)
 
     if not op.quiet:
@@ -654,7 +724,9 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
             try:
                 sieve.finalize()
             except Exception, e:
-                warning(u"finalization failed: %s" % e)
+                warning(_("@info:progress",
+                          "Finalization failed: %(msg)s")
+                        % dict(msg=e.message))
 
     if op.output_modified:
         ofh = open(op.output_modified, "w")

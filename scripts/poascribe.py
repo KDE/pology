@@ -645,7 +645,7 @@ def status (options, configs_catpaths, mode):
     counts_a = dict([(x, {}) for x in _all_states])
     counts_na = dict([(x, {}) for x in _all_states])
 
-    upprog = setup_progress(configs_catpaths, "Examining state: %s")
+    upprog = setup_progress(configs_catpaths, "Examining state: %(file)s")
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
@@ -765,7 +765,7 @@ def msg_to_previous (msg, copy=True):
 
 def restore_reviews (configs_catpaths, revspecs_by_catmsg):
 
-    upprog = setup_progress(configs_catpaths, "Restoring reviews: %s")
+    upprog = setup_progress(configs_catpaths, "Restoring reviews: %(file)s")
     nrestored = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -808,7 +808,7 @@ def commit (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode)
 
     # Ascribe modifications and reviews.
-    upprog = setup_progress(configs_catpaths, "Ascribing: %s")
+    upprog = setup_progress(configs_catpaths, "Ascribing: %(file)s")
     revels = {}
     counts = dict([(x, [0, 0]) for x in _all_states])
     configs_catpaths_ascmod = []
@@ -876,7 +876,7 @@ def commit (options, configs_catpaths, mode):
 
 def diff (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Diffing for review: %s")
+    upprog = setup_progress(configs_catpaths, "Diffing for review: %(file)s")
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -890,7 +890,8 @@ def diff (options, configs_catpaths, mode):
 
 def purge (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Purging review elements: %s")
+    upprog = setup_progress(configs_catpaths,
+                            "Purging review elements: %(file)s")
     npurged = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -910,7 +911,7 @@ def purge (options, configs_catpaths, mode):
 
 def history (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Computing histories: %s")
+    upprog = setup_progress(configs_catpaths, "Computing histories: %(file)s")
     nshown = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:

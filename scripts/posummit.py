@@ -780,7 +780,7 @@ def summit_gather (project, options):
     upprog = lambda x: x
     if not options.verbose:
         catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
-        upprog = init_file_progress(catpaths, addfmt="Gathering: %s")
+        upprog = init_file_progress(catpaths, addfmt="Gathering: %(file)s")
 
     # Gather all selected catalogs.
     for name in summit_names:
@@ -842,7 +842,7 @@ def summit_scatter (project, options):
     upprog = lambda x: x
     if not options.verbose:
         catpaths = [x[3] for x in scatter_specs if x[1]]
-        upprog = init_file_progress(catpaths, addfmt="Scattering: %s")
+        upprog = init_file_progress(catpaths, addfmt="Scattering: %(file)s")
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
@@ -940,7 +940,7 @@ def summit_merge (project, options):
     upprog = lambda x: x
     if not options.verbose:
         catpaths = [x[3] for x in merge_specs]
-        upprog = init_file_progress(catpaths, addfmt="Merging: %s")
+        upprog = init_file_progress(catpaths, addfmt="Merging: %(file)s")
 
     # Merge catalogs.
     for merge_spec in merge_specs:

@@ -15,6 +15,7 @@ import sys
 import locale
 import time
 
+from pology import _, n_
 import pology.misc.colors as C
 
 
@@ -198,7 +199,7 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     Additional formatting for the progress bar may be supplied
     by the C{addfmt} parameter. It can be either a function taking one
     string parameter (the basic progress bar) and returning a string,
-    or a string with single C{%s} formatting directive.
+    or a string with single C{%(file)s} formatting directive.
 
     @param fpaths: collection of file paths
     @type fpaths: list of strings
@@ -226,7 +227,7 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
         if callable(addfmt):
             pstr = addfmt(pstr)
         elif addfmt:
-            pstr = addfmt % pstr
+            pstr = addfmt % dict(file=pstr)
         return pstr
 
     pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
@@ -317,4 +318,34 @@ def list_options (optparser, short=False, both=False):
     fmtlist = "\n".join(sum(optnames, []))
 
     return fmtlist
+
+
+def format_item_list (items):
+    """
+    Format inline item list, for insertion into text.
+
+    @param items: items to list
+    @type items: sequence of elements convertible to string by unicode()
+    @returns: inline formatted list of items
+    @rtype: string
+    """
+
+    sep = _("@item:intext general separator for inline lists of items, "
+            "e.g. \", \" in \"apples, bananas, cherries, and plums\"",
+            ", ")
+    sep_last = _("@item:intext last separator for inline lists of items, "
+                 "e.g. \", and \" in \"apples, bananas, cherries, and plums\"",
+                 ", and ")
+    sep_two = _("@item:intext separator for inline list of exactly two items, "
+                 "e.g. \" and \" in \"apples and bananas\"",
+                 " and ")
+    itemstrs = map(unicode, items)
+    if len(itemstrs) == 0:
+        return u""
+    elif len(itemstrs) == 1:
+        return itemstrs[0]
+    elif len(itemstrs) == 2:
+        return sep_two.join(itemstrs)
+    else:
+        return sep.join(itemstrs[:-1]) + sep_last + itemstr[-1]
 
