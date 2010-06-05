@@ -7,21 +7,22 @@ Collection of PO entries.
 @license: GPLv3
 """
 
-from pology.misc.escape import escape_c as escape
-from pology.misc.escape import unescape_c as unescape
-from pology.misc.wrap import select_field_wrapper
-from pology.misc.monitored import Monitored
-from pology.misc.fsops import mkdirpath
-from message import Message as MessageMonitored
-from message import MessageUnsafe as MessageUnsafe
-from header import Header
-
+import copy
+import difflib
 import os
 import re
-import types
 import signal
-import difflib
-import copy
+import types
+
+from pology import _, n_
+from pology.file.header import Header
+from pology.file.message import Message as MessageMonitored
+from pology.file.message import MessageUnsafe as MessageUnsafe
+from pology.misc.escape import escape_c as escape
+from pology.misc.escape import unescape_c as unescape
+from pology.misc.fsops import mkdirpath
+from pology.misc.monitored import Monitored
+from pology.misc.wrap import select_field_wrapper
 
 
 def _parse_quoted (s):
@@ -109,7 +110,9 @@ def _parse_po_file (file, MessageType=MessageMonitored,
         if hasattr(file, "name"):
             filename = file.name
         else:
-            filename = "<stream>"
+            filename = _("@item generic name for the source or destination "
+                         "of data being read or written",
+                         "<stream>")
         close_later = False
     lines, fenc = _read_lines_and_encoding(file)
     if close_later:
@@ -218,8 +221,10 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
             else:
                 # Cannot reach, all unknown comments treated as manual above.
-                raise StandardError,   "unknown comment type at %s:%d" \
-                                     % (filename, lno)
+                raise StandardError (
+                    _("@info error",
+                      "Unknown comment type at %(file)s:%(line)d.")
+                    % dict(file=filename, line=lno))
 
         if line and string_follows: # for starting fields
             if 0: pass
@@ -260,22 +265,28 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     while p < llen and line[p].isdigit():
                         p += 1
                     if p == 0:
-                        raise StandardError,   "malformed msgstr id at %s:%d" \
-                                             % (filename, lno)
+                        raise StandardError(
+                            _("@info error",
+                              "Malformed msgstr ordinal at %(file)s:%(line)d.")
+                            % dict(file=filename, line=lno))
                     msgstr_i = int(line[:p])
                     line = line[p:].lstrip()
                     if line.startswith("]"):
                         line = line[1:].lstrip()
                     else:
-                        raise StandardError,   "malformed msgstr id at %s:%d" \
-                                             % (filename, lno)
+                        raise StandardError(
+                            _("@info error",
+                              "Malformed msgstr ordinal at %(file)s:%(line)d.")
+                            % dict(file=filename, line=lno))
                 # Add missing msgstr entries.
                 for i in range(len(loc.msg.msgstr), msgstr_i + 1):
                     loc.msg.msgstr.append([])
 
             elif not line.startswith("\""):
-                raise StandardError,   "unknown field name at %s:%d" \
-                                     % (filename, lno)
+                raise StandardError(
+                    _("@info error",
+                      "Unknown field name at %(file)s:%(line)d.")
+                    % dict(file=filename, line=lno))
 
         if line and string_follows: # for continuing fields
             if line.startswith("\""):
@@ -297,8 +308,10 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     elif loc.field_context == ctx_msgstr:
                         loc.msg.msgstr[msgstr_i].append(s)
             else:
-                raise StandardError,   "expected string continuation at %s:%d" \
-                                     % (filename, lno)
+                raise StandardError(
+                    _("@info error",
+                      "Expected string continuation at %(file)s:%(line)d.")
+                    % dict(file=filename, line=lno))
 
         # Update line caches.
         if lcache:
@@ -320,8 +333,10 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 elif loc.field_context == ctx_msgid_plural:
                     loc.msg._lines_msgid_plural_previous.append(line_raw)
                 else:
-                    raise StandardError, ("internal problem (11) at %s:%d"
-                                          % (filename, lno))
+                    raise StandardError(
+                        _("@info error",
+                          "Internal problem (%(id)d) at %(file)s:%(line)d.")
+                        % dict(id=11, file=filename, line=lno))
             elif loc.age_context == ctx_current:
                 if loc.field_context == ctx_msgctxt:
                     loc.msg._lines_msgctxt.append(line_raw)
@@ -332,11 +347,15 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 elif loc.field_context == ctx_msgstr:
                     loc.msg._lines_msgstr.append(line_raw)
                 else:
-                    raise StandardError, ("internal problem (12) at %s:%d"
-                                          % (filename, lno))
+                    raise StandardError(
+                        _("@info error",
+                          "Internal problem (%(id)d) at %(file)s:%(line)d.")
+                        % dict(id=12, file=filename, line=lno))
             else:
-                raise StandardError, ("internal problem (10) at %s:%d"
-                                      % (filename, lno))
+                raise StandardError(
+                    _("@info error",
+                      "Internal problem (%(id)d) at %(file)s:%(line)d.")
+                    % dict(id=10, file=filename, line=lno))
 
     try_finish() # the last message
 
@@ -513,7 +532,10 @@ class Catalog (Monitored):
 
         # Signal if catalog should exist on disk but does not.
         if not create and not (os.path.exists(filename) or readfh):
-            raise StandardError, "file '%s' does not exist" % filename
+            raise StandardError(
+                _("@info error",
+                  "File '%(file)s' does not exist.")
+                % dict(file=filename))
 
         # Read messages or create empty catalog.
         if not truncate and (os.path.exists(filename) or readfh):
@@ -591,8 +613,9 @@ class Catalog (Monitored):
     def _assert_headonly (self):
 
         if self._tail:
-            raise StandardError, \
-                  "trying to access messages in header-only mode"
+            raise StandardError(
+                _("@info error",
+                  "Trying to access catalog messages in header-only mode."))
 
 
     def __getattr__ (self, att):
@@ -825,7 +848,8 @@ class Catalog (Monitored):
             self.assert_spec_setitem(msg)
             if not msg.msgid and msg.msgctxt is None:
                 raise StandardError(
-                    "trying to insert message with empty key into catalog")
+                    _("@info error",
+                      "Trying to insert message with empty key into catalog."))
 
         # Resolve backward positions, set aside automatic positions,
         # set aside replacements.
@@ -1055,7 +1079,9 @@ class Catalog (Monitored):
         # Cannot sync catalogs which have been given no path
         # (usually temporary catalogs).
         if not self._filename.strip():
-            raise StandardError, "trying to sync nameless catalog"
+            raise StandardError(
+                _("@info error",
+                  "Trying to sync unnamed catalog."))
 
         # If catalog is not monitored, force syncing.
         if not self._monitored:
