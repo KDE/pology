@@ -7,6 +7,7 @@ Detect unwanted patterns in translation.
 import re
 import codecs
 
+from pology import _, n_
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.msgreport import report_on_msg, report_msg_content
 
@@ -53,7 +54,9 @@ def bad_patterns (rxmatch=False, casesens=True, patterns=None, fromfiles=None):
         indspans = _match_patterns(text, patterns_cmp)
         for pind, span in indspans:
             pstr = patterns_str[pind]
-            report_on_msg("Bad pattern detected: %s" % pstr, msg, cat)
+            report_on_msg(_("@info",
+                            "Bad pattern '%(pattern)s' detected.")
+                          % dict(pattern=pstr), msg, cat)
         return len(indspans)
 
     return hook
@@ -108,7 +111,9 @@ def _bad_patterns_msg_w (rxmatch, casesens, patterns, fromfiles, partrep):
             indspans = _match_patterns(msg.msgstr[i], patterns_cmp)
             spans = []
             for pind, span in indspans:
-                emsg = "Bad pattern detected: %s" % patterns_str[pind]
+                emsg = (_("@info",
+                          "Bad pattern '%(pattern)s' detected.")
+                        % dict(pattern=patterns_str[pind]))
                 spans.append(span + (emsg,))
                 nbad += 1
             if spans:

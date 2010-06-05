@@ -9,9 +9,10 @@ Check and rearrange content of PO header into canonical form.
 
 import re
 
-from pology.misc.report import warning
+from pology import _, n_
 from pology.misc.monitored import Monlist
 from pology.misc.normalize import simplify
+from pology.misc.report import warning
 
 
 def normalize_header (hdr, cat):
@@ -39,9 +40,10 @@ def _fix_authors (hdr, cat):
 
         m = re.search(r"(.*?)<(.*?)>(.*)$", a)
         if not m:
-            warning("%s: cannot parse name and email address "
-                    "from translator comment: %s"
-                    % (cat.filename, a))
+            warning(_("@info",
+                      "%(file)s: Cannot parse name and email address "
+                      "from translator comment '%(cmnt)s'.")
+                    % dict(file=cat.filename, cmnt=a))
             problems = True
             nerr += 1
             continue
@@ -51,8 +53,10 @@ def _fix_authors (hdr, cat):
 
         m = re.search(r"^\s*,(.+?)\.?\s*$", rest)
         if not m:
-            warning("%s: missing years in translator comment: %s"
-                    % (cat.filename, a))
+            warning(_("@info",
+                      "%(file)s: Missing years in "
+                      "translator comment '%(cmnt)s'.")
+                    % dict(file=cat.filename, cmnt=a))
             problems = True
             nerr += 1
             continue
@@ -62,8 +66,10 @@ def _fix_authors (hdr, cat):
         for yspec in yearstr.split(","):
             m = _yr1_rx.search(yspec) or _yr2_rx.search(yspec)
             if not m:
-                warning("%s: cannot parse years in translator comment: %s"
-                        % (cat.filename, a))
+                warning(_("@info",
+                          "%(file)s: Cannot parse years in "
+                          "translator comment '%(cmnt)s'.")
+                        % dict(file=cat.filename, cmnt=a))
                 problems = True
                 nerr += 1
                 break

@@ -10,6 +10,7 @@ Equip catalog headers with extra information.
 import os
 import re
 
+from pology import _, n_
 from pology.misc.report import warning
 
 
@@ -39,8 +40,10 @@ def equip_header_tp_kde (hdr, cat):
     cname = cat.name
     csubdir = _get_catalog_project_subdir(cat.filename)
     if not csubdir:
-        warning("%s: cannot determine KDE TP subdirectory "
-                "of the catalog, skipping header updates" % cat.filename)
+        warning(_("@info TP stands for Translation Project",
+                  "Cannot determine KDE TP subdirectory "
+                  "of '%(file)s', skipping header updates.")
+                % dict(file=cat.filename))
         return 1
 
     pathels = os.path.abspath(cat.filename).split(os.path.sep)

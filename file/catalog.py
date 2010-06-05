@@ -222,7 +222,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
             else:
                 # Cannot reach, all unknown comments treated as manual above.
                 raise StandardError (
-                    _("@info error",
+                    _("@info",
                       "Unknown comment type at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
 
@@ -266,7 +266,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                         p += 1
                     if p == 0:
                         raise StandardError(
-                            _("@info error",
+                            _("@info",
                               "Malformed msgstr ordinal at %(file)s:%(line)d.")
                             % dict(file=filename, line=lno))
                     msgstr_i = int(line[:p])
@@ -275,7 +275,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                         line = line[1:].lstrip()
                     else:
                         raise StandardError(
-                            _("@info error",
+                            _("@info",
                               "Malformed msgstr ordinal at %(file)s:%(line)d.")
                             % dict(file=filename, line=lno))
                 # Add missing msgstr entries.
@@ -284,7 +284,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
             elif not line.startswith("\""):
                 raise StandardError(
-                    _("@info error",
+                    _("@info",
                       "Unknown field name at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
 
@@ -309,7 +309,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                         loc.msg.msgstr[msgstr_i].append(s)
             else:
                 raise StandardError(
-                    _("@info error",
+                    _("@info",
                       "Expected string continuation at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
 
@@ -334,7 +334,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     loc.msg._lines_msgid_plural_previous.append(line_raw)
                 else:
                     raise StandardError(
-                        _("@info error",
+                        _("@info",
                           "Internal problem (%(id)d) at %(file)s:%(line)d.")
                         % dict(id=11, file=filename, line=lno))
             elif loc.age_context == ctx_current:
@@ -348,12 +348,12 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     loc.msg._lines_msgstr.append(line_raw)
                 else:
                     raise StandardError(
-                        _("@info error",
+                        _("@info",
                           "Internal problem (%(id)d) at %(file)s:%(line)d.")
                         % dict(id=12, file=filename, line=lno))
             else:
                 raise StandardError(
-                    _("@info error",
+                    _("@info",
                       "Internal problem (%(id)d) at %(file)s:%(line)d.")
                     % dict(id=10, file=filename, line=lno))
 
@@ -533,7 +533,7 @@ class Catalog (Monitored):
         # Signal if catalog should exist on disk but does not.
         if not create and not (os.path.exists(filename) or readfh):
             raise StandardError(
-                _("@info error",
+                _("@info",
                   "File '%(file)s' does not exist.")
                 % dict(file=filename))
 
@@ -614,7 +614,7 @@ class Catalog (Monitored):
 
         if self._tail:
             raise StandardError(
-                _("@info error",
+                _("@info",
                   "Trying to access catalog messages in header-only mode."))
 
 
@@ -848,7 +848,7 @@ class Catalog (Monitored):
             self.assert_spec_setitem(msg)
             if not msg.msgid and msg.msgctxt is None:
                 raise StandardError(
-                    _("@info error",
+                    _("@info",
                       "Trying to insert message with empty key into catalog."))
 
         # Resolve backward positions, set aside automatic positions,
@@ -1080,7 +1080,7 @@ class Catalog (Monitored):
         # (usually temporary catalogs).
         if not self._filename.strip():
             raise StandardError(
-                _("@info error",
+                _("@info",
                   "Trying to sync unnamed catalog."))
 
         # If catalog is not monitored, force syncing.

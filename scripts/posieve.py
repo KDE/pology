@@ -335,7 +335,7 @@ def main ():
         sys.exit(0)
 
     if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
-        opars.error(_("@info error", "No sieve to apply given."))
+        opars.error(_("@info", "No sieve to apply given."))
 
     op.raw_sieves = []
     op.raw_paths = []
@@ -409,7 +409,7 @@ def main ():
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         sieve_modules.append((sieve_name, sieve_mod))
         if not hasattr(sieve_mod, "Sieve"):
-            error(_("@info error",
+            error(_("@info",
                     "Module '%(file)s' does not define %(classname)s class.")
                   % dict(file=sieve_path, classname="Sieve"))
 
@@ -475,7 +475,7 @@ def main ():
     except Exception, e:
         error(e.message)
     if nacc_params:
-        error(_("@info error",
+        error(_("@info",
                 "Parameters not accepted by any of issued subcommands: "
                 "%(paramlist)s.")
               % dict(paramlist=format_item_list(nacc_params)))
@@ -603,7 +603,7 @@ def main ():
             sys.exit(130)
         except Exception, e:
             errwarn(_("@info:progress",
-                      "%(file)s: parsing failed: %(msg)s")
+                      "%(file)s: Parsing failed: %(msg)s")
                     % dict(file=fname, msg=e.message))
             warning(_("@info:progress",
                       "Skipping catalog due to parsing failure."))
@@ -619,13 +619,13 @@ def main ():
                 ret = sieve.process_header(cat.header, cat)
             except SieveCatalogError, e:
                 errwarn(_("@info:progress",
-                          "%(file)s:header: sieving failed: %(msg)s")
+                          "%(file)s:header: Sieving failed: %(msg)s")
                         % dict(file=fname, msg=e.message))
                 skip = True
                 break
             except Exception, e:
                 error(_("@info:progress",
-                        "%(file)s:header: sieving failed: %(msg)s")
+                        "%(file)s:header: Sieving failed: %(msg)s")
                       % dict(file=fname, msg=e.message))
             if ret not in (None, 0):
                 break
@@ -687,14 +687,14 @@ def main ():
                 ret = sieve.process_header_last(cat.header, cat)
             except SieveCatalogError, e:
                 errwarn(_("@info:progress",
-                          "%(file)s:header: sieving (after messages) "
+                          "%(file)s:header: Sieving (after messages) "
                           "failed: %(msg)s")
                         % dict(file=fname, msg=e.message))
                 skip = True
                 break
             except Exception, e:
                 error(_("@info:progress",
-                        "%(file)s:header: sieving (after messages) "
+                        "%(file)s:header: Sieving (after messages) "
                         "failed: %(msg)s")
                       % dict(file=fname, msg=e.message))
             if ret not in (None, 0):

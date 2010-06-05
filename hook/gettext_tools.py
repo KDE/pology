@@ -9,6 +9,7 @@ Pipe PO files through Gettext commands.
 
 import os
 
+from pology import _, n_
 from pology.misc.report import warning
 
 
@@ -43,9 +44,11 @@ def msgfilter (filtr, options=""):
         cmdline = base_cmdline + "-i %s -o %s " % (filepath, filepath) + filtr
         ret = os.system(cmdline)
         if ret:
-            warning("%s: msgfilter failed with exit code %d "
-                    "(filter: '%s', options: '%s')"
-                    % (filepath, ret, filtr, options))
+            warning(_("@info",
+                      "%(file)s: %(cmd)s failed with exit code %(num)d "
+                      "(filter: '%(filter)s', options: '%(options)s')")
+                    % dict(file=filepath, cmd="msgfilter", num=ret,
+                           filter=filtr, options=options))
             return 1
         return 0
 
@@ -81,8 +84,11 @@ def msgfmt (options=""):
         cmdline = base_cmdline + filepath
         ret = os.system(cmdline)
         if ret:
-            warning("%s: msgfmt failed with exit code %d "
-                    "(options: '%s')" % (filepath, ret, options))
+            warning(_("@info",
+                      "%(file)s: %(cmd)s failed with exit code %(num)d "
+                      "(options: '%(options)s')")
+                    % dict(file=filepath, cmd="msgfmt", num=ret,
+                           options=options))
             return 1
         return 0
 

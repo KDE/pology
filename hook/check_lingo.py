@@ -12,10 +12,10 @@ import codecs
 import re
 import tempfile
 
-from pology import rootdir
-from pology.misc.report import warning, error
+from pology import rootdir, _, n_
 from pology.misc.comments import manc_parse_flag_list, manc_parse_list
 from pology.misc.msgreport import report_on_msg
+from pology.misc.report import warning, error, format_item_list
 
 
 # Pipe flag to manually prevent spellcheck for a particular message.
@@ -134,7 +134,9 @@ def _check_spell_w (lang, encoding, variety, extopts,
         # Check if new spell checker should be constructed.
         clang = lang or cat.language()
         if not clang:
-            error("cannot determine language of catalog %s" % cat.filename)
+            error(_("@info",
+                    "Cannot determine language of the catalog '%(file)s'.")
+                  % dict(file=cat.filename))
         if envs is not None:
             cenvs = envs
         elif cat.environment() is not None:
@@ -168,14 +170,20 @@ def _check_spell_w (lang, encoding, variety, extopts,
             if not checker.check(encword):
                 encsuggs = checker.suggest(encword)
                 maxsugg = 5 # limit to some reasonable number
+                incmp = False
                 if maxsugg > 0 and len(encsuggs) > maxsugg:
-                    encsuggs = encsuggs[:maxsugg] + ["..."]
+                    encsuggs = encsuggs[:maxsugg]
+                    incmp = True
                 suggs = [x.decode(encoding) for x in encsuggs]
                 if maxsugg != 0 and suggs:
-                    snote = ("unknown word '%s' (suggestions: %s)"
-                             % (word, ", ".join(suggs)))
+                    fmtsuggs = format_item_list(suggs, incmp=incmp)
+                    snote = (_("@info",
+                               "Unknown word '%(word)s' "
+                               "(suggestions: %(wordlist)s).")
+                             % dict(word=word, wordlist=fmtsuggs))
                 else:
-                    snote = ("unknown word '%s'" % word)
+                    snote = (_("@info",
+                               "Unknown word '%(word)s'.") % dict(word=word))
                 spans.append(span + (snote,))
 
         if spanrep:
@@ -214,14 +222,19 @@ def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
         try:
             checker = A.Aspell(aopts.items())
         except A.AspellConfigError, e:
-            error("Aspell configuration error:\n%s" % e)
+            error(_("@info",
+                    "Aspell configuration error:\n%(msg)s")
+                  % dict(msg=e.messages))
         except A.AspellError, e:
-            error("cannot initialize Aspell:\n%s" % e)
+            error(_("@info",
+                    "Cannot initialize Aspell:\n%(msg)s")
+                  % dict(msg=e.messages))
     else:
         # Create simple internal checker that only checks against
         # internal supplemental dictionaries.
         if not dictpath:
-            error("no supplemental dictionaries found")
+            error(_("@info",
+                    "No supplemental dictionaries found."))
             raise Exception
         checker = _QuasiSpell(dictpath, encoding)
 
@@ -276,8 +289,10 @@ def _compose_personal_dict (lang, envs):
         tmpf.writelines([x + "\n" for x in words])
         tmpf.close()
     except Exception, e:
-        error("cannot create composited spelling dictionary "
-              "in current working directory:\n%s" % e)
+        error(_("@info",
+                "Cannot create composited spelling dictionary "
+                "in current working directory:\n%(msg)s")
+              % dict(msg=e.messages))
 
     return tmpf.name, True
 
@@ -291,7 +306,9 @@ def _read_dict_file (filepath):
     header = file.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        error("malformed header in dictionary file '%s'" % filepath)
+        error(_("@info",
+                "Malformed header in dictionary file '%(file)s'.")
+              % dict(file=filepath))
     enc = m.group(4)
     # Reopen in correct encoding if not the default.
     if enc.lower() != enc_def.lower():

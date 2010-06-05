@@ -9,13 +9,14 @@ Remove special substrings from parts of the message.
 
 import re
 
+from pology import _, n_
+from pology.misc.comments import manc_parse_field_values, manc_parse_list
+import pology.misc.markup as M
+from pology.misc.msgreport import warning_on_msg
 from pology.misc.resolve import remove_accelerator as _rm_accel_in_text
 from pology.misc.resolve import remove_fmtdirs as _rm_fmtd_in_text_single
 from pology.misc.resolve import remove_literals as _rm_lit_in_text_single
 from pology.misc.resolve import resolve_entities_simple
-import pology.misc.markup as M
-from pology.misc.comments import manc_parse_field_values, manc_parse_list
-from pology.misc.msgreport import warning_on_msg
 
 
 def _rm_accel_in_msg (msg, accels, greedy=False):
@@ -298,8 +299,10 @@ def _literals_spec (msg, cat):
             try:
                 rxs.append(re.compile(rx_str, re.U|re.S))
             except:
-                warning_on_msg("field %s states malformed regex: %s"
-                               % (fname, rx_str), msg, cat)
+                warning_on_msg(_("@info",
+                                 "Field %(field)s states "
+                                 "malformed regex '%(re)s'.")
+                               % dict(field=fname, re=rx_str), msg, cat)
         else:
             heuristic = False
 
@@ -584,22 +587,26 @@ def rewrite_msgid (msg, cat):
     for rwspec in rwspecs:
         sep = rwspec[0:1]
         if not sep:
-            warning_on_msg("no patterns "
-                           "in rewrite directive", msg, cat)
+            warning_on_msg(_("@info",
+                             "No patterns in rewrite directive."), msg, cat)
             nerrors += 1
             continue
         lst = rwspec.split(sep)
         if len(lst) != 4 or lst[0] or lst[3]:
-            warning_on_msg("wrongly separated patterns in "
-                           "rewrite directive: %s" % rwspec, msg, cat)
+            warning_on_msg(_("@info",
+                             "Wrongly separated patterns in "
+                             "rewrite directive '%(dir)s'.")
+                           % dict(dir=rwspec), msg, cat)
             nerrors += 1
             continue
         srch, repl = lst[1], lst[2]
         try:
             rx = re.compile(srch, re.U)
         except:
-            warning_on_msg("invalid search pattern in "
-                           "rewrite directive: %s" % rwspec, msg, cat)
+            warning_on_msg(_("@info",
+                             "Invalid search pattern in "
+                             "rewrite directive '%(dir)s'.")
+                           % dict(dir=rwspec), msg, cat)
             nerrors += 1
             continue
         rwrxs.append((rx, repl, rwspec))
@@ -610,8 +617,10 @@ def rewrite_msgid (msg, cat):
             if msg.msgid_plural is not None:
                 msg.msgid_plural = rx.sub(repl, msg.msgid_plural)
         except:
-            warning_on_msg("error in application of "
-                           "rewrite directive: %s" % rwspec, msg, cat)
+            warning_on_msg(_("@info",
+                             "Error in application of "
+                             "rewrite directive '%(dir)s'.")
+                           % dict(dir=rwspec), msg, cat)
             nerrors += 1
 
     return nerrors
