@@ -166,6 +166,6 @@ def n_ (ctxt, stext, ptext, n):
     trf = _tr.ungettext # camouflaged against xgettext
     trtext = trf("%s\x04%s" % (ctxt, stext), ptext, n)
     if "\x04" in trtext:
-        trtext = text
+        trtext = (stext if n == 1 else ptext)
     return trtext
 
