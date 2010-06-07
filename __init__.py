@@ -111,6 +111,17 @@ def rootdir ():
     return __path__[0]
 
 
+def version ():
+    """
+    Get Pology version string.
+
+    @return: version string
+    @rtype: string
+    """
+
+    return "0.0.0"
+
+
 # Collect data paths.
 # Either as installed, when the _paths.py module will be available,
 # or assume locations within the repository.

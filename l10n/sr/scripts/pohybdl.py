@@ -9,6 +9,7 @@ import locale
 from optparse import OptionParser
 from tempfile import NamedTemporaryFile
 
+from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.l10n.sr.hook.wconv import tohi
@@ -17,7 +18,7 @@ from pology.misc.diff import msg_ediff, msg_ediff_to_new
 from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.fsops import collect_paths_cmdline
 from pology.misc.msgreport import warning_on_msg, report_msg_content
-from pology.misc.report import report, warning, error
+from pology.misc.report import report, warning, error, format_item_list
 from pology.misc.stdcmdopt import add_cmdopt_filesfrom
 from pology.misc.vcs import available_vcs, make_vcs
 
@@ -26,28 +27,34 @@ def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage = u"""
-  %prog [OPTIONS] VCS [IJPATHS...]
-""".rstrip()
-    description = u"""
-Compose hybridized Ijekavian-Ekavian translation out of clean translations.
-""".strip()
-    version = u"""
-%prog (Pology) experimental
-Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
-""".strip()
+    usage= (_("@info command usage",
+               "%(cmd)s [OPTIONS] VCS [POPATHS...]")
+             % dict(cmd="%prog"))
+    desc = (
+        _("@info command description",
+          "Compose hybridized Ijekavian-Ekavian translation out of "
+          "translation modified from Ekavian to Ijekavian or vice-versa."))
+    ver = (
+        _("@info command version",
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2009, 2010, "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--accept-changes",
         action="store_true", dest="accept_changes", default=False,
-        help="Accept messages which have some changes between base "
-             "and reconstructed base text.")
+        help=_("@info command line option description",
+               "Accept messages which have some changes between base "
+               "and reconstructed base text."))
     opars.add_option(
-        "-r", "--base-revision", metavar="REV",
+        "-r", "--base-revision",
+        metavar=_("@info command line value placeholder", "REVISION"),
         action="store", dest="base_revision", default=None,
-        help="Use the given revision as base for hybridization, "
-             "instead of local latest revision.")
+        help=_("@info command line option description",
+               "Use the given revision as base for hybridization, "
+               "instead of local latest revision."))
     add_cmdopt_filesfrom(opars)
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
@@ -62,11 +69,15 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     if len(free_args) < 1:
         showvcs = list(set(available_vcs()).difference(["none"]))
         showvcs.sort()
-        error("Version control system not given (can be one of: %s)."
-              % ", ".join(showvcs))
+        error(_("@info",
+                "Version control system not given "
+                "(can be one of: %(vcslist)s).")
+              % dict(vcslist=format_item_list(showvcs)))
     vcskey = free_args.pop(0)
     if vcskey not in available_vcs(flat=True):
-        error("Unknown version control system '%s'." % vcskey)
+        error(_("@info",
+                "Unknown version control system '%(vcs)s'.")
+              % dict(vcs=vcskey))
     vcs = make_vcs(vcskey)
 
     # Collect PO files in given paths.
@@ -79,14 +90,18 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Catalogs must be under version control.
     for path in popaths:
         if not vcs.is_versioned(path):
-            error("Catalog '%s' is not under version control." % path)
+            error(_("@info",
+                    "Catalog '%(file)s' is not under version control.")
+                  % dict(file=path))
 
     # Go by modified PO file and hybridize it.
     for path in popaths:
         # Extract local head counterpart.
         tmpf = NamedTemporaryFile(prefix="pohybdl-export-", suffix=".po")
         if not vcs.export(path, options.base_revision, tmpf.name):
-            error("Version control system cannot export file '%s'." % path)
+            error(_("@info",
+                    "Version control system cannot export file '%(file)s'.")
+                  % dict(file=path))
         # Hybridize by comparing local head and modified file.
         hybdl(path, tmpf.name, options.accept_changes)
 
@@ -117,13 +132,15 @@ def hybdl (path, path0, accnohyb=False):
         # Fetch original message.
         msg0 = cat0.get(msg)
         if msg0 is None:
-            warning_on_msg("Message does not exist in the original catalog.",
+            warning_on_msg(_("@info",
+                             "Message does not exist in the original catalog."),
                            msg, cat)
             nstopped += 1
             continue
         if len(msg.msgstr) != len(msg0.msgstr):
-            warning_on_msg("Number of translations not same as in "
-                           "the original message.", msg, cat)
+            warning_on_msg(_("@info",
+                             "Number of translations not same as in "
+                             "the original message."), msg, cat)
             nstopped += 1
             continue
         if msg.msgstr == msg0.msgstr:
@@ -156,8 +173,13 @@ def hybdl (path, path0, accnohyb=False):
         if cat.sync():
             report("! %s (%d)" % (path, nhybridized))
     else:
-        warning("%d messages in '%s' cannot be cleanly hybridized."
-                % (nstopped, path))
+        warning(n_("@info",
+                   "%(num)d message in '%(file)s' cannot be "
+                   "cleanly hybridized.",
+                   "%(num)d messages in '%(file)s' cannot be "
+                   "cleanly hybridized.",
+                   nstopped)
+                % dict(num=nstopped, file=path))
         nhybridized = 0
 
     return nhybridized

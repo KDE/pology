@@ -179,7 +179,7 @@ import re
 from optparse import OptionParser
 import glob
 
-from pology import rootdir, _, n_
+from pology import rootdir, version, _, n_
 from pology.file.catalog import Catalog
 from pology.misc.colors import set_coloring_globals
 import pology.misc.config as pology_config
@@ -212,7 +212,7 @@ def main ():
     usage = (_("@info command usage",
                "%(cmd)s [OPTIONS] SIEVE [POPATHS...]")
              % dict(cmd="%prog"))
-    description = (
+    desc = (
         _("@info command description",
           "Apply sieves to PO paths, which may be either single PO files or "
           "directories to search recursively for PO files. "
@@ -220,13 +220,14 @@ def main ():
           "modify them as well. "
           "The first non-option argument is the sieve name; "
           "a list of several comma-separated sieves can be given too."))
-    version = (
+    ver = (
         _("@info command version",
-          u"%(cmd)s (Pology) experimental\n"
-          u"Copyright © 2007 Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", email="caslav.ilic@gmx.net"))
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2007, 2008, 2009, 2010, "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--announce-entry",
         action="store_true", dest="announce_entry", default=False,

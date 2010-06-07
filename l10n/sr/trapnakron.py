@@ -67,16 +67,17 @@ to readers), using a script based on these few lines::
 import os
 import re
 
-from pology.misc.synder import Synder
-from pology.misc.normalize import identify, xentitize, simplify
+import pology
+from pology import _, n_
+from pology.l10n.sr.hook.nobr import to_nobr_hyphens, nobrhyp_char
 from pology.l10n.sr.hook.wconv import ctol, cltoa
 from pology.l10n.sr.hook.wconv import hctoc, hctol, hitoe, hitoi, hctocl
 from pology.l10n.sr.hook.wconv import cltoh, tohi
-from pology.l10n.sr.hook.nobr import to_nobr_hyphens
-from pology.l10n.sr.hook.nobr import nobrhyp_char
-from pology.misc.resolve import first_to_upper
 from pology.misc.fsops import collect_files_by_ext
-import pology
+from pology.misc.normalize import identify, xentitize, simplify
+from pology.misc.report import format_item_list
+from pology.misc.resolve import first_to_upper
+from pology.misc.synder import Synder
 
 
 # Allowed environment compositions, out of, in order:
@@ -302,14 +303,18 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     env0s = [envec, envel, envic, envil]
     combo =  "".join([(x is not None and "1" or "0") for x in env0s])
     if combo not in _good_eicl_combos:
-        raise StandardError("Invalid combination of Ekavian/Ijekavian "
-                            "Cyrillic/Latin environments "
-                            "to trapnakron derivator.")
+        raise StandardError(_("@info",
+                              "Invalid combination of Ekavian/Ijekavian "
+                              "Cyrillic/Latin environments "
+                              "to trapnakron derivator."))
 
     if markup not in _known_markups:
-        raise StandardError("Unknown markup '%s' to trapnakron derivator "
-                            "(known markups: %s)."
-                            % (markup, " ".join(_known_markups)))
+        raise StandardError(_("@info",
+                              "Unknown markup type '%(mtype)s' to "
+                              "trapnakron derivator "
+                              "(known markups: %(mtypelist)s).")
+                            % dict(mtype=markup,
+                                   mtypelist=format_item_list(_known_markups)))
 
     # Compose environment fallback chains.
     env = []
@@ -336,8 +341,9 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         mvends[ltsuff] = _suff_ltmarkup_id
     if gesuff:
         if len(gesuff) != 4:
-            raise StandardError("Sequence of gender suffixes must have "
-                                "exactly 4 elements.")
+            raise StandardError(_("@info",
+                                  "Sequence of gender suffixes must have "
+                                  "exactly 4 elements."))
         mvends.update(zip(gesuff, _gematch_suff_ids))
     aenvs = {}
     if adsuff or stsuff:
@@ -360,8 +366,9 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
             aenvs[suff_id] = tuple(aenv)
     if nmsuff:
         if len(nmsuff) != 2:
-            raise StandardError("Sequence of person name suffixes must have "
-                                "exactly 2 elements.")
+            raise StandardError(_("@info",
+                                  "Sequence of person name suffixes must have "
+                                  "exactly 2 elements."))
         mvends.update(zip(nmsuff, _pname_suff_ids))
 
     # Setup substitution of empty property keys.
@@ -830,8 +837,10 @@ def norm_pkey (pkey):
     elif isinstance(pkey, list):
         return map(cltoa, pkey)
     else:
-        raise StandardError("Cannot normalize property keys given "
-                            "as type '%s'." % type(pkey))
+        raise StandardError(_("@info",
+                              "Normalization of property keys requested "
+                              "on unsupported data type '%(type)s'.")
+                            % dict(type=type(pkey)))
 
 
 _norm_rtkey_rx = re.compile("\s", re.U)

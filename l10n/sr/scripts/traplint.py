@@ -9,13 +9,14 @@ import re
 import locale
 from optparse import OptionParser
 
-from pology.misc.report import report, warning
-from pology.misc.fsops import str_to_unicode
+from pology import version, _, n_
+from pology.l10n.sr.hook.wconv import ctol, hictoall
+from pology.l10n.sr.trapnakron import rootdir
 from pology.l10n.sr.trapnakron import trapnakron_ui
 from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
-from pology.l10n.sr.hook.wconv import ctol, hictoall
+from pology.misc.fsops import str_to_unicode
 from pology.misc.normalize import identify
-from pology.l10n.sr.trapnakron import rootdir
+from pology.misc.report import report, warning, format_item_list
 from pology.misc.vcs import VcsSubversion
 
 
@@ -94,9 +95,10 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                                    for x in needed_pkeys])
                     aprops.append((esuff, props))
                 elif cenv not in known_envs:
-                    warning("Derivation at %s:%d:%d defines "
-                            "unknown environment '%s'."
-                            % (path, lno, cno, cenv))
+                    warning(_("@info",
+                              "Derivation at %(file)s:%(line)d:%(col)d "
+                              "defines unknown environment '%(env)s'.")
+                            % dict(file=path, line=lno, col=cno, env=cenv))
                     cnproblems += 1
         except Exception, e:
             warning(unicode(e))
@@ -116,9 +118,12 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                     odkey = dkeys_by_rtkey.get(rtkey)
                     if odkey is not None and tp.props(dkey) != tp.props(odkey):
                         opath, olno, ocno = tp.source_pos(odkey)
-                        warning("Derivation at %s:%d:%d has normalized "
-                                "nominative equal to derivation at %s:%d:%d."
-                                % (path, lno, cno, opath, olno, ocno))
+                        warning(_("@info",
+                                  "Derivation at %(file1)s:%(line1)d:%(col1)d "
+                                  "has normalized nominative equal to "
+                                  "derivation at %(file2)s:%(line2)d:%(col2)d.")
+                                % dict(file1=path, line1=lno, col1=cno,
+                                       file2=opath, line2=olno, col2=ocno))
                         cnproblems += 1
                 for rtkey in rtkeys: # must be in new loop
                     dkeys_by_rtkey[rtkey] = dkey
@@ -127,15 +132,19 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
             if props.get(nom_pkeys[0][0]) is not None:
                 gender = props.get(gender_pkey)
                 if gender is None:
-                    warning("Derivation at %s:%d:%d does not define gender."
-                            % (path, lno, cno))
+                    warning(_("@info",
+                              "Derivation at %(file)s:%(line)d:%(col)d "
+                              "does not define gender.")
+                            % dict(file=path, line=lno, col=cno))
                     cnproblems += 1
                 else:
                     for gender in hictoall(gender):
                         if gender not in known_genders:
-                            warning("Derivation at %s:%d:%d defines "
-                                    "unknown gender '%s'."
-                                    % (path, lno, cno, gender))
+                            warning(_("@info",
+                                      "Derivation at %(file)s:%(line)d:%(col)d "
+                                      "defines unknown gender '%(gen)s'.")
+                                    % dict(file=path, line=lno, col=cno,
+                                           gen=gender))
                             cnproblems += 1
 
             # Show selection of expanded properties if requested.
@@ -161,13 +170,17 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
         tp.empty_pcache()
 
     if unmatched_srcs:
-        warning("Sources requested by name not found: %s"
-                % " ".join(sorted([getattr(x, "pattern", x)
-                                   for x in unmatched_srcs])))
+        fmtsrcs = format_item_list(sorted(getattr(x, "pattern", x)
+                                          for x in unmatched_srcs))
+        warning(_("@info",
+                  "Sources requested by name not found: %(srclist)s.")
+                % dict(srclist=fmtsrcs))
     if unmatched_keys:
-        warning("Derivations requested by key not found: %s"
-                % " ".join(sorted([getattr(x, "pattern", x)
-                                   for x in unmatched_keys])))
+        fmtkeys = format_item_list(sorted(getattr(x, "pattern", x)
+                                          for x in unmatched_keys))
+        warning(_("@info",
+                  "Derivations requested by key not found: %(keylist)s.")
+                % dict(keylist=fmtkeys))
 
     return nproblems
 
@@ -197,7 +210,9 @@ def _match_text (text, tests, unmatched_tests=None):
                 match = True
                 break
         else:
-            raise StandardError("Unknown matcher type '%s'." % type(test))
+            raise StandardError(_("@info",
+                                  "Unknown matcher type '%(type)s'.")
+                                % dict(type=type(test)))
 
     if unmatched_tests is not None:
         if match and test in unmatched_tests:
@@ -394,53 +409,70 @@ def _statistics (tp, onlysrcs, onlykeys):
 
     report("-" * 40)
     if onlysrcs is not None or onlykeys is not None:
-        report("(Selection active.)")
-    report("Total derivations: %d" % len(dkeys))
+        report(_("@info statistics; side note stating that not all entries "
+                 "have been taken into account, but only some selected",
+                 "(Selection active.)"))
+    report(_("@info statistics",
+             "Total derivations: %(num)d")
+           % dict(num=len(dkeys)))
     if len(fpaths) > 0:
-        report("Total files: %d" % len(fpaths))
-        report("Average derivations per file: %.1f"
-            % (float(len(dkeys)) / len(fpaths)))
+        report(_("@info statistics",
+                 "Total files: %(num)d")
+               % dict(num=len(fpaths)))
+        report(_("@info statistics",
+                 "Average derivations per file: %(num).1f")
+            % dict(num=(float(len(dkeys)) / len(fpaths))))
         bydif = sorted([(v[1], v[0]) for k, v in fpaths.items()])
-        report("Maximum derivations in a file: %d (%s)" % bydif[-1])
+        report(_("@info statistics",
+                 "Most derivations in a file: %(num)d (%(file)s)")
+               % dict(num=bydif[-1][0], file=bydif[-1][1]))
 
 
 def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage = u"""
-  %prog [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...
-""".rstrip()
-    description = u"""
-Check validity and expand derivations from internal trapnakron.
-""".strip()
-    version = u"""
-%prog (Pology) experimental
-Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
-""".strip()
+    usage= (_("@info command usage",
+               "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...")
+             % dict(cmd="%prog"))
+    desc = (
+        _("@info command description",
+          "Check validity and expand derivations from internal trapnakron."))
+    ver = (
+        _("@info command version",
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2009, 2010, "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-e", "--expansion-sample",
         action="store_true", dest="demoexp", default=False,
-        help="Show a sample of expanded properties for each valid derivation.")
+        help=_("@info command line option description",
+               "Show a sample of expanded properties for "
+               "each valid derivation."))
     opars.add_option(
         "-k", "--show-keys",
         action="store_true", dest="expwkeys", default=False,
-        help="When expanding, also show all derivation keys by derivation.")
+        help=_("@info command line option description",
+               "When expanding, also show all derivation keys by derivation."))
     opars.add_option(
         "-m", "--modified",
         action="store_true", dest="modified", default=False,
-        help="Validate or expand only modified derivations.")
+        help=_("@info command line option description",
+               "Validate or expand only modified derivations."))
     opars.add_option(
         "-r", "--regex",
         action="store_true", dest="regex", default=False,
-        help="Source names and derivation keys given in command line "
-             "are regular expressions.")
+        help=_("@info command line option description",
+               "Source names and derivation keys given in command line "
+               "are regular expressions."))
     opars.add_option(
         "-s", "--statistics",
         action="store_true", dest="statistics", default=False,
-        help="Show various statistics.")
+        help=_("@info command line option description",
+               "Show statistics."))
 
     (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
