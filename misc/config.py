@@ -39,10 +39,11 @@ how they are used, and what is the behavior when they are not set.
 @license: GPLv3
 """
 
-import os
 import codecs
+import os
 from ConfigParser import SafeConfigParser
 
+from pology import _, n_
 from pology.misc.report import error
 
 
@@ -139,13 +140,18 @@ class section:
 
         if cvalue is None:
             if typename:
-                error("User configuration: value '%s' of field '%s' "
-                      "in section '%s' cannot be converted into '%s' type."
-                      % (value, name, self.name, typename))
+                error(_("@info",
+                        "User configuration: value '%(val)s' "
+                        "of field '%(field)s' in section '%(sec)s' "
+                        "cannot be converted into '%(type)s' type.")
+                      % dict(val=value, field=name, sec=self.name,
+                             type=typename))
             else:
-                error("User configuration: value '%s' of field '%s' "
-                      "in section '%s' cannot be converted into requested type."
-                      % (value, name, self.name))
+                error(_("@info",
+                        "User configuration: value '%(val)s' "
+                        "of field '%(field)s' in section '%(sec)s' "
+                        "cannot be converted into requested type.")
+                      % dict(val=value, field=name, sec=self.name))
 
         return cvalue
 
@@ -242,22 +248,25 @@ class section:
         value = value.strip()
 
         if len(value) < 2:
-            error("User configuration: value '%s' of field '%s' "
-                  "in section '%s' is too short for a delimited list."
-                  % (value, name, self.name))
+            error(_("@info",
+                    "User configuration: value '%(val)s' of field '%(field)s' "
+                    "in section '%(sec)s' is too short for a delimited list.")
+                  % dict(val=value, field=name, sec=self.name))
         if value[0].isalnum():
-            error("User configuration: value '%s' of field '%s' "
-                  "in section '%s' does not start with "
-                  "a non-alphanumeric delimiter character."
-                  % (value, name, self.name))
+            error(_("@info",
+                    "User configuration: value '%(val)s' of field '%(field)s' "
+                    "in section '%(sec)s' does not start with "
+                    "a non-alphanumeric delimiter character.")
+                  % dict(val=value, field=name, sec=self.name))
 
         delim = value[0]
 
         if value[-1] != delim:
-            error("User configuration: value '%s' of field '%s' "
-                  "in section '%s' does not end with the delimiter character "
-                  "with which it starts."
-                  % (value, name, self.name))
+            error(_("@info",
+                    "User configuration: value '%(val)s' of field '%(field)s' "
+                    "in section '%(sec)s' does not end with "
+                    "the delimiter character with which it starts.")
+                  % dict(val=value, field=name, sec=self.name))
 
         lst = value[1:-1].split(delim)
 

@@ -11,10 +11,10 @@ import os
 import shutil
 from tempfile import NamedTemporaryFile
 
+from pology import _, n_
 from pology.file.catalog import Catalog
 from pology.misc.diff import editprob
 from pology.misc.fsops import unicode_to_str
-from pology.misc.report import error
 from pology.misc.split import proper_words
 
 
@@ -160,7 +160,10 @@ def merge_pofile (catpath, tplpath,
         opts.append("--no-wrap")
     for cmppath in (cmppaths or []):
         if not os.path.isfile(cmppath):
-            error("Compendium not found at '%s'." % cmppath)
+            raise StandardError(
+                _("@info",
+                  "Compendium does not exist at '%(path)s'.")
+                % dict(path=cmppath))
         opts.append("--compendium %s" % cmppath)
     if quiet:
         opts.append("--quiet")
@@ -169,8 +172,10 @@ def merge_pofile (catpath, tplpath,
     mrgres = os.system(unicode_to_str(cmdline))
     if mrgres != 0:
         if abort:
-            error("Cannot merge PO file '%(po)s' with template '%(pot)s'."
-                  % dict(po=catpath, pot=tplpath))
+            raise StandardError(
+                _("@info",
+                  "Cannot merge PO file '%(file1)s' with template '%(file2)s'.")
+                % dict(file1=catpath, file2=tplpath))
         return None if getcat else False
 
     # If the catalog had only header and no messages,

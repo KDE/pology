@@ -118,12 +118,15 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    pref = "warning"
     if file.isatty():
         np = _nonws_after_colreset(text)
-        text = text[:np] + C.ORANGE + text[np:] + C.RESET
-        pref = C.BOLD + pref + C.RESET
-    report("%s: %s" % (pref, text), showcmd=showcmd, subsrc=subsrc, file=file)
+        rtext = (_("@info %(c*)s are color tags",
+                   "%(c1)swarning:%(c2)s %(msghead)s%(c3)s%(msgtail)s%(c4)s")
+                 % dict(msghead=text[:np], msgtail=text[np:],
+                        c1=C.BOLD, c2=C.RESET, c3=C.ORANGE, c4=C.RESET))
+    else:
+        rtext = (_("@info", "warning: %(msg)s") % dict(msg=text))
+    report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
 
 def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
@@ -142,12 +145,15 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    pref = "error"
     if file.isatty():
         np = _nonws_after_colreset(text)
-        text = text[:np] + C.RED + text[np:] + C.RESET
-        pref = C.BOLD + pref + C.RESET
-    report("%s: %s" % (pref, text), showcmd=showcmd, subsrc=subsrc, file=file)
+        rtext = (_("@info %(c*)s are color tags",
+                   "%(c1)serror:%(c2)s %(msghead)s%(c3)s%(msgtail)s%(c4)s")
+                 % dict(msghead=text[:np], msgtail=text[np:],
+                        c1=C.BOLD, c2=C.RESET, c3=C.RED, c4=C.RESET))
+    else:
+        rtext = (_("@info", "error: %(msg)s") % dict(msg=text))
+    report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
     sys.exit(code)
 
 

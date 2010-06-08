@@ -7,8 +7,8 @@ Various normalizations for strings.
 @license: GPLv3
 """
 
-import unicodedata
 import re
+import unicodedata
 
 
 _wsseq_rx = re.compile(r"[ \t\n]+", re.U)

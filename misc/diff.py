@@ -7,14 +7,15 @@ Produce special diffs between strings and other interesting objects.
 @license: GPLv3
 """
 
-import re
 from difflib import SequenceMatcher
 import random
+import re
 
-from pology.misc.report import error
-from pology.misc.split import split_text
+from pology import _, n_
 from pology.misc.colors import colors_for_file
 from pology.file.message import MessageUnsafe
+from pology.misc.report import error
+from pology.misc.split import split_text
 
 
 _new_tag = "+"
@@ -43,7 +44,8 @@ _all_wrappers = set((_new_opn, _new_cls, _old_opn, _old_cls))
 _tmp_wr = (_new_vtag, _new_opnc, _new_clsc, _old_vtag, _old_opnc, _old_clsc)
 _tmp_wrlen = map(len, _tmp_wr)
 if max(_tmp_wrlen) != 1 or min(_tmp_wrlen) != 1:
-    error("internal: all ediff wrapper elements must be of unit length")
+    error(_("@info \"ediff\" is shorthand for \"embedded difference\"",
+            "All ediff wrapper elements must be of unit length."))
 
 
 class _Sequence_diff_wrapper:
@@ -128,7 +130,10 @@ def tdiff (seq_old, seq_new, reductf=None, diffr=False):
         elif opcode == "insert":
             dlist.extend([(_new_tag, el) for el in seq_new[j1:j2]])
         else:
-            error("unknown opcode '%s' from sequence matcher" % opcode)
+            raise StandardError(
+                _("@info \"opcode\" is shorthand for \"operation code\"",
+                  "Unknown opcode '%(code)s' from sequence matcher.")
+                % dict(code=opcode))
 
     if reductf is not None:
         dlist = [(tag, el.obj) for tag, el in dlist]
@@ -1093,8 +1098,10 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
         elif mode in ("-", "r"):
             ar_dtyp = _old_tag
         else:
-            raise StandardError, ("unknown selection mode '%s' for "
-                                  "partial differencing" % mode)
+            raise StandardError(
+                _("@info",
+                  "Unknown selection mode '%(mode)s' for partial differencing.")
+                % dict(mode=mode))
 
     # Diff two texts under the given diffing options.
     def _twdiff (text1, text2, islines=False, cpfilter=None):
@@ -1161,8 +1168,11 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
             sumdr += dr * 1.0
             sumw += 1.0
         else:
-            raise StandardError, ("internal: unknown part '%s' "
-                                  "in differencing" % part)
+            raise StandardError(
+                _("@info",
+                  "Unhandled message part '%(part)s' encountered "
+                  "while differencing.")
+                % dict(part=part))
 
     if diffr:
         dr = sumw and sumdr / sumw or 0.0
@@ -1346,8 +1356,11 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             sval = bool(stag in (_new_tag, _equ_tag) and spart)
             setattr(emsg, part, sval)
         else:
-            raise StandardError, ("internal: unknown part '%s' "
-                                  "in differencing" % part)
+            raise StandardError(
+                _("@info",
+                  "Unhandled message part '%(part)s' encountered "
+                  "while differencing.")
+                % dict(part=part))
 
     # Pad context to avoid conflicts.
     if (   (ecat is not None and emsg in ecat and ecat.find(emsg) != eokpos)
@@ -1507,7 +1520,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
             or val[p - len(_ctxtpad_sep):p] != _ctxtpad_sep
             or val[p + len(ctxtpad):] not in (_ctxtpad_noctxt, "")
         ):
-            raise StandardError, "malformed padded context"
+            raise StandardError(_("@info", "Malformed padded context."))
         if val[p + len(ctxtpad):] != _ctxtpad_noctxt:
             val = val[:p - len(_ctxtpad_sep)]
         else:
@@ -1543,8 +1556,11 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 if val is not None:
                     atts_vals.append((part, val))
         else:
-            raise StandardError, ("internal: unknown part '%s' "
-                                  "in resolving difference" % part)
+            raise StandardError(
+                _("@info",
+                  "Unhandled message part '%(part)s' encountered "
+                  "while resolving difference.")
+                % dict(part=part))
 
     # Set resolved parts for real.
     for att, val in atts_vals:

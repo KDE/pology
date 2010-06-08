@@ -13,11 +13,11 @@ import codecs
 import xml.parsers.expat
 import difflib
 
-from pology.misc.report import error
-from pology import rootdir
+from pology import rootdir, _, n_
 from pology.misc.diff import adapt_spans
 from pology.misc.entities import read_entities
 from pology.misc.multi import Multidict
+from pology.misc.report import format_item_list
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -685,7 +685,10 @@ def collect_xml_spec_l1 (specpath):
 
     def signal (msg, bpos):
 
-        emsg = "[L1-spec] %s:%d:%d: %s" % (specpath, bpos[0], bpos[1], msg)
+        emsg = (_("@info \"L1-spec\" is shorthand for "
+                  "\"level 1 specification\"",
+                  "[L1-spec] %(file)s:%(line)d:%(col)d: %(msg)s")
+                % dict(file=specpath, line=bpos[0], col=bpos[1], msg=msg))
         raise StandardError(emsg)
 
     def advance (stoptest, cmnt=True):
@@ -722,8 +725,9 @@ def collect_xml_spec_l1 (specpath):
         try:
             rx = re.compile(rx_str, rx_flags)
         except:
-            signal("cannot compile regular expression %s%s%s"
-                    % (wch, rx_str, wch), lincol)
+            signal(_("@info the regex is already quoted when inserted",
+                     "Cannot compile regular expression %(regex)s.")
+                    % dict(regex=(wch + rx_str + wch)), lincol)
         return lambda x: rx.search(x) is not None
 
     spec = {}
@@ -737,9 +741,13 @@ def collect_xml_spec_l1 (specpath):
             tag = tag.strip()
             if tag:
                 if sep is None:
-                    signal("entry not terminated after initial tag", lincol)
+                    signal(_("@info",
+                             "Entry not terminated after the initial tag."),
+                           lincol)
                 if not valid_tag_rx.search(tag) and tag != dtag_attr:
-                    signal("invalid tag name '%s'" % tag, lincol)
+                    signal(_("@info",
+                             "Invalid tag name '%(tag)s'.")
+                           % dict(tag=tag), lincol)
                 entry = _L1Element(tag)
                 spec[tag] = entry
 
@@ -767,9 +775,13 @@ def collect_xml_spec_l1 (specpath):
                     attr = attr[len(ch_mattr):]
                     entry.mattrs.add(attr)
                 if attr in entry.attrs:
-                    signal("duplicate attribute '%s'" % attr, lincol)
+                    signal(_("@info",
+                             "Duplicate attribute '%(attr)s'.")
+                           % dict(attr=attr), lincol)
                 if not valid_attr_rx.search(attr):
-                    signal("invalid attribute name '%s'" % attr, lincol)
+                    signal(_("@info",
+                             "Invalid attribute name '%(attr)s'.")
+                           % dict(attr=attr), lincol)
                 entry.attrs.add(attr)
                 lastattr = attr
 
@@ -782,18 +794,24 @@ def collect_xml_spec_l1 (specpath):
             elif sep == ch_end:
                 ctx = c_tag
             else:
-                signal("entry not terminated after attribute list", lincol)
+                signal(_("@info",
+                         "Entry not terminated after the attribute list."),
+                       lincol)
 
         elif ctx == c_attre:
             lincol = tuple(pos[1:])
             t = lambda i: not ifs[i].isspace() and ifs[i] or None
             sub, wch = advance(t)
             if wch is None:
-                signal("end of input inside value constraint", lincol)
+                signal(_("@info",
+                         "End of input inside the value constraint."),
+                       lincol)
             t = lambda i: ifs[i] == wch and ifs[i] or None
             rx_str, sep = advance(t, cmnt=False)
             if sep is None:
-                signal("end of input inside value constraint", lincol)
+                signal(_("@info",
+                         "End of input inside the value constraint."),
+                       lincol)
             t = lambda i: (not ifs[i].isalpha() and [""] or [None])[0]
             rx_flag_spec, sep = advance(t)
             rx_flags = re.U
@@ -801,11 +819,15 @@ def collect_xml_spec_l1 (specpath):
             lincol = tuple(pos[1:])
             for c in rx_flag_spec:
                 if c in seen_flags:
-                    signal("regex flag '%s' already seen" % c, lincol)
+                    signal(_("@info",
+                             "Regex flag '%(flag)s' is already issued.")
+                           % dict(flag=c), lincol)
                 if c == "i":
                     rx_flags |= re.I
                 else:
-                    signal("unknown regex flag '%s'" % c, lincol)
+                    signal(_("@info",
+                             "Unknown regex flag '%(flag)s'.")
+                           % dict(flag=c), lincol)
                 seen_flags.add(c)
             entry.avlints[lastattr] = make_rx_lint(rx_str, rx_flags,
                                                    wch, lincol)
@@ -822,13 +844,17 @@ def collect_xml_spec_l1 (specpath):
             stag = stag.strip()
             if stag:
                 if stag in entry.stags:
-                    signal("repeated subtag '%s'" % stag, lincol)
+                    signal(_("@info",
+                             "Repeated subtag '%(tag)s'.")
+                           % dict(tag=stag), lincol)
                 entry.stags.add(stag)
 
             if sep == ch_end:
                 ctx = c_tag
             else:
-                signal("entry not terminated after subtag list", lincol)
+                signal(_("@info",
+                         "Entry not terminated after the subtag list."),
+                       lincol)
 
     # Add common attributes to each tag.
     dentry_attr = spec.pop(dtag_attr, [])
@@ -873,8 +899,6 @@ _lin_col_rx = re.compile(r":\s*line\s*\d+,\s*column\s*\d+", re.I)
 # Dummy top tag for topless texts.
 _dummy_top = "_"
 
-# Formatting for head of XML error messages.
-_ehfmt = "(%s markup) "
 
 # Global data for XML checking.
 class _Global: pass
@@ -961,7 +985,10 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     try:
         parser.Parse(text.encode(xenc), True)
     except xml.parsers.expat.ExpatError, e:
-        errmsg = (_ehfmt + "%s") % (g.xmlfmt, e)
+        errmsg = (_("@info a problem in the given type of markup "
+                    "(e.g. HTML, Docbook)",
+                    "%(mtype)s markup: %(snippet)s.")
+                  % dict(mtype=g.xmlfmt, snippet=e.message))
         span = _make_span(text, e.lineno, e.offset, errmsg)
         g.spans.append(span)
 
@@ -1050,7 +1077,9 @@ def _handler_start_element (tag, attrs):
 
     # Check existence of the tag.
     if tag not in g.spec and tag != _dummy_top:
-        errmsg = (_ehfmt + "unrecognized tag '%s'") % (g.xmlfmt, tag)
+        errmsg = (_("@info",
+                    "%(mtype)s markup: unrecognized tag '%(tag)s'.")
+                  % dict(mtype=g.xmlfmt, tag=tag))
         span = _make_span(g.text, g.parser.CurrentLineNumber,
                           g.parser.CurrentColumnNumber + 1, errmsg)
         g.spans.append(span)
@@ -1066,13 +1095,17 @@ def _handler_start_element (tag, attrs):
     if elspec.attrs is not None:
         for attr, aval in attrs.items():
             if attr not in elspec.attrs:
-                errmsgs.append("invalid attribute '%s' to tag '%s'"
-                               % (attr, tag))
+                errmsgs.append(_("@info",
+                                 "%(mtype)s markup: invalid attribute "
+                                 "'%(attr)s' to tag '%(tag)s'.")
+                               % dict(mtype=g.xmlfmt, attr=attr, tag=tag))
             else:
                 avlint = elspec.avlints.get(attr)
                 if avlint and not avlint(aval):
-                    errmsgs.append("invalid value '%s' to attribute '%s'"
-                                   % (aval, attr))
+                    errmsgs.append(_("@info",
+                                     "%(mtype)s markup: invalid value "
+                                     "'%(val)s' to attribute '%(attr)s'.")
+                                   % dict(mtype=g.xmlfmt, val=aval, attr=attr))
 
     # Check proper parentage.
     if g.tagstack:
@@ -1081,13 +1114,15 @@ def _handler_start_element (tag, attrs):
         if (    pelspec is not None and pelspec.stags is not None
             and tag not in pelspec.stags
         ):
-            errmsgs.append("tag '%s' cannot be subtag of '%s'" % (tag, ptag))
+            errmsgs.append(_("@info",
+                             "%(mtype)s markup: tag '%(tag1)s' cannot be "
+                             "a subtag of '%(tag2)s'.")
+                           % dict(mtype=g.xmlfmt, tag1=tag, tag2=ptag))
 
     # Record element stack.
     g.tagstack.append(tag)
 
     for errmsg in errmsgs:
-        errmsg = _ehfmt % g.xmlfmt + errmsg
         span = _make_span(g.text, g.parser.CurrentLineNumber,
                           g.parser.CurrentColumnNumber + 1, errmsg)
         g.spans.append(span)
@@ -1102,16 +1137,25 @@ def _handler_default (text):
         errmsg = None
         if ent.startswith("#"):
             if nument_to_char(ent) is None:
-                errmsg = ("invalid numeric entity '%s'" % ent)
+                errmsg = (_("@info",
+                            "%(mtype)s markup: invalid numeric "
+                            "entity '%(ent)s'.")
+                          % dict(mtype=g.xmlfmt, ent=ent))
         elif ent not in g.ents and ent not in xml_entities:
             nearents = [] #difflib.get_close_matches(ent, g.ents)
             if nearents:
                 if len(nearents) > 5: # do not overwhelm message
-                    nearents = nearents[:5] + ["..."]
-                errmsg = ((_ehfmt + "unknown entity '%s' (suggestions: %s)")
-                          % (g.xmlfmt, ent, ", ".join(nearents)))
+                    fmtents = format_item_list(nearents[:5], incmp=True)
+                else:
+                    fmtents = format_item_list(nearents)
+                errmsg = (_("@info",
+                            "%(mtype)s markup: unknown entity '%(ent)s' "
+                            "(suggestions: %(entlist)s).")
+                          % dict(mtype=g.xmlfmt, ent=ent, entlist=fmtents))
             else:
-                errmsg = (_ehfmt + "unknown entity '%s'") % (g.xmlfmt, ent)
+                errmsg = (_("@info",
+                            "%(mtype)s markup: unknown entity '%(ent)s'.")
+                          % dict(mtype=g.xmlfmt, ent=ent))
 
         if errmsg is not None:
             span = _make_span(g.text, g.parser.CurrentLineNumber,
@@ -1177,7 +1221,8 @@ def check_xml_docbook4_l1 (text, ents=None):
         specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
         _docbook4_l1 = collect_xml_spec_l1(specpath)
 
-    return check_xml_l1(text, spec=_docbook4_l1, xmlfmt="Docbook4", ents=ents)
+    xmlfmt = _("@item markup type", "Docbook4")
+    return check_xml_l1(text, spec=_docbook4_l1, xmlfmt=xmlfmt, ents=ents)
 
 
 _digits_dec = set("0123456789")
@@ -1261,16 +1306,24 @@ def check_xmlents (text, ents={}, default=False, numeric=False):
             errmsg = None
             if numeric and ent.startswith("#"):
                 if nument_to_char(ent) is None:
-                    errmsg = ("invalid numeric entity '%s'" % ent)
+                    errmsg = (_("@info",
+                                "Invalid numeric entity '%(ent)s'.")
+                              % dict(ent=ent))
             elif ent not in ents and (not default or ent not in xml_entities):
                 nearents = [] #difflib.get_close_matches(ent, ents)
                 if nearents:
                     if len(nearents) > 5: # do not overwhelm message
-                        nearents = nearents[:5] + ["..."]
-                    errmsg = ("unknown entity '%s' (suggestions: %s)"
-                              % (ent, ", ".join(nearents)))
+                        fmtents = format_item_list(nearents[:5], incmp=True)
+                    else:
+                        fmtents = format_item_list(nearents)
+                    errmsg = (_("@info",
+                                "Unknown entity '%(ent)s' "
+                                "(suggestions: %(entlist)s).")
+                              % dict(ent=ent, entlist=fmtents))
                 else:
-                    errmsg = ("unknown entity '%s'" % ent)
+                    errmsg = (_("@info",
+                                "Unknown entity '%(ent)s'.")
+                              % dict(ent=ent))
 
             if errmsg is not None:
                 spans.append((pp, p, errmsg))
@@ -1314,11 +1367,15 @@ def check_placeholder_els (orig, trans):
     extra_plnums = list(trans_plnums.difference(orig_plnums))
     if missing_plnums:
         tags = "".join(["<placeholder-%s/>" % x for x in missing_plnums])
-        errmsg = ("Missing placeholder tags in translation: %s" % tags)
+        errmsg = (_("@info",
+                    "Missing placeholder tags in translation: %(taglist)s.")
+                  % dict(taglist=format_item_list(tags)))
         spans.append((0, 0, errmsg))
     elif extra_plnums: # do not report both, single glitch may cause them
         tags = "".join(["<placeholder-%s/>" % x for x in extra_plnums])
-        errmsg = ("Extra placeholder tags in translation: %s" % tags)
+        errmsg = (_("@info",
+                    "Superfluous placeholder tags in translation: %(taglist)s.")
+                  % dict(taglist=format_item_list(tags)))
         spans.append((0, 0, errmsg))
 
     return spans
@@ -1357,7 +1414,8 @@ def check_xml_html_l1 (text, ents=None):
     if ents is not None:
         ents = Multidict([ents, html_entities])
 
-    return check_xml_l1(text, spec=_html_l1, xmlfmt="HTML", ents=ents,
+    xmlfmt = _("@item markup type", "HTML")
+    return check_xml_l1(text, spec=_html_l1, xmlfmt=xmlfmt, ents=ents,
                         accelamp=True, casesens=False)
 
 
@@ -1392,7 +1450,8 @@ def check_xml_qtrich_l1 (text, ents=None):
     if ents is not None:
         ents = Multidict([ents, html_entities])
 
-    return check_xml_l1(text, spec=_qtrich_l1, xmlfmt="Qt-rich", ents=ents,
+    xmlfmt = _("@item markup type", "Qt-rich")
+    return check_xml_l1(text, spec=_qtrich_l1, xmlfmt=xmlfmt, ents=ents,
                         accelamp=True, casesens=False)
 
 
@@ -1422,7 +1481,8 @@ def check_xml_kuit_l1 (text, ents=None):
         specpath = os.path.join(rootdir(), "spec", "kuit.l1")
         _kuit_l1 = collect_xml_spec_l1(specpath)
 
-    return check_xml_l1(text, spec=_kuit_l1, xmlfmt="KUIT", ents=ents,
+    xmlfmt = _("@item markup type", "KUIT")
+    return check_xml_l1(text, spec=_kuit_l1, xmlfmt=xmlfmt, ents=ents,
                         accelamp=True)
 
 
@@ -1460,7 +1520,8 @@ def check_xml_kde4_l1 (text, ents=None):
     if ents is not None:
         ents = Multidict([ents, _kde4_ents])
 
-    return check_xml_l1(text, spec=_kde4_l1, xmlfmt="KDE4", ents=ents,
+    xmlfmt = _("@item markup type", "KDE4")
+    return check_xml_l1(text, spec=_kde4_l1, xmlfmt=xmlfmt, ents=ents,
                         accelamp=True, casesens=False)
 
 
@@ -1491,6 +1552,7 @@ def check_xml_pango_l1 (text, ents=None):
     if ents is not None:
         ents = Multidict([ents, html_entities])
 
-    return check_xml_l1(text, spec=_pango_l1, xmlfmt="Pango", ents=ents,
+    xmlfmt = _("@item markup type", "Pango")
+    return check_xml_l1(text, spec=_pango_l1, xmlfmt=xmlfmt, ents=ents,
                         accelamp=True, casesens=False)
 

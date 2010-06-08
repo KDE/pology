@@ -14,17 +14,18 @@ in different contexts and scenario. May colorize some output.
 # NOTE: These functions are not in pology.misc.report module,
 # as that would cause circular module dependencies.
 
-import sys
+from copy import deepcopy
 import os
 import re
-from copy import deepcopy
+import sys
 
-from pology.misc.report import report, warning, error
-from pology.misc.colors import colors_for_file
+from pology import _, n_
 from pology.file.message import Message
+from pology.misc.colors import colors_for_file
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
+from pology.misc.report import report, warning, error, format_item_list
 
 
 # FIXME: Make this a public function in some appropriate module.
@@ -36,10 +37,14 @@ def _get_module (name, cmsg=None):
             _modules_on_request[name] = __import__(name)
         except:
             if cmsg:
-                warning("cannot import module '%s'; consequence:\n"
-                        "%s" % (name, cmsg))
+                warning(_("@info",
+                          "Cannot import module '%(mod)s'; consequence:\n"
+                          "%(msg)s")
+                        % dict(mod=name, msg=cmsg))
             else:
-                warning("cannot import module '%s'" % name)
+                warning(_("@info",
+                          "Cannot import module '%(mod)s'.")
+                        % dict(mod=name))
             _modules_on_request[name] = None
 
     return _modules_on_request[name]
@@ -167,7 +172,10 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
             ftext = fmsg.msgstr[item]
         # TODO: Add more fields.
         else:
-            warning("unknown field '%s' in highlight specification" % name)
+            warning(_("@info",
+                      "Unknown field '%(field)s' "
+                      "in highlighting specification.")
+                    % dict(field=name))
             continue
 
         if len(hspec) > 3:
@@ -221,8 +229,10 @@ def report_msg_to_lokalize (msg, cat, report=None):
     """
 
     dbus = _get_module("dbus",
-                       "Communication with Lokalize not possible. "
-                       "Try installing the python-dbus package.")
+                       _("@info",
+                         "Communication with Lokalize not possible. "
+                         "Try installing the '%(pkg)s' package.")
+                       % dict(pkg="python-dbus"))
     if not dbus: return
 
     if msg.obsolete: return
@@ -398,7 +408,10 @@ def report_msg_content (msg, cat,
             elif name == "flag":
                 pass # FIXME: How to do this?
             else:
-                warning("unknown field '%s' in highlight specification" % name)
+                warning(_("@info",
+                          "Unknown field '%(field)s' "
+                          "in highlighting specification.")
+                        % dict(field=name))
 
     # Report the message.
     mstr = ""
@@ -412,7 +425,9 @@ def report_msg_content (msg, cat,
 
     # Report notes.
     if note is not None: # global
-        notestr = (C.BOLD + "note:" + C.RESET + " " + note)
+        notestr = (_("@info %(c*)s are color tags",
+                     "%(c1)sNote:%(c2)s %(msg)s")
+                   % dict(c1=C.BOLD, c2=C.RESET, msg=note))
         rsegs.append(notestr)
     if notes_data: # span notes
         note_ord = 1
@@ -428,19 +443,23 @@ def report_msg_content (msg, cat,
                     if seglen > 0:
                         segtext = text[start:end]
                         if len(segtext) > 30:
-                            segtext = segtext[:27] + "..."
+                            segtext = (_("@item:intext shortened longer text",
+                                         "%(snippet)s...")
+                                       % dict(snippet=segtext[:27]))
                         posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
                     else:
                         posinfo = "%s:%d" % (name, start)
                 else:
                     posinfo = "%s" % name
                 posinfo = C.GREEN + posinfo + C.RESET
-                rsegs.append("[%s]: %s" % (posinfo, snote))
+                rsegs.append(_("@info",
+                               "[%(pos)s]: %(msg)s")
+                            % dict(pos=posinfo, msg=snote))
                 note_ord += 1
 
     # Report the filtered message, if given and requested.
     if fmsg and showfmsg:
-        fmtnote = C.GREEN + ">>> filtered message was:" + C.RESET
+        fmtnote = C.GREEN + _("@info", ">>> Filtered message was:") + C.RESET
         rsegs.append(fmtnote)
         mstr = fmsg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
         rsegs.append(mstr.rstrip())
@@ -467,10 +486,10 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
     C = colors_for_file(sys.stdout)
 
     # Some info on the rule.
-    rinfo = (  ""
-             + "rule %s" % rule.displayName + " "
-             + C.BOLD + C.RED + " ==> " + C.RESET
-             + C.BOLD + rule.hint + C.RESET)
+    rinfo = (_("@info %(c*)s are color tags; %(rule)s is inserted quoted",
+               "rule %(rule)s %(c1)s==>%(c2)s %(c3)s%(msg)s%(c4)s")
+             % dict(rule=rule.displayName, msg=rule.hint,
+                    c1=(C.BOLD + C.RED), c2=C.RESET, c3=C.BOLD, c4=C.RESET))
 
     if showmsg:
         report_msg_content(msg, cat,
@@ -507,6 +526,7 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     xmlError.append("\t</error>\n")
     return xmlError
 
+
 def spell_error(msg, cat, faultyWord, suggestions):
     """Print formated rule error message on screen
     @param msg: pology.file.message.Message object
@@ -517,12 +537,20 @@ def spell_error(msg, cat, faultyWord, suggestions):
     report("-"*40)
     report(C.BOLD+"%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)+C.RESET)
     if msg.msgctxt:
-        report(C.BOLD+"Context: "+C.RESET+msg.msgctxt)
+        report(_("@info %(c*)s are color tags",
+                 "%(c1)sContext:%(c2)s %(snippet)s")
+               % dict(snippet=msg.msgctxt, c1=C.BOLD, c2=C.RESET))
     #TODO: color in red part of context that make the mistake
-    report(C.BOLD+"Faulty word: "+C.RESET+C.RED+faultyWord+C.RESET)
+    report(_("@info %(c*)s are color tags",
+             "%(c1)sFaulty word:%(c2)s %(c3)s%(word)s%(c4)s")
+           % dict(word=faultyWord, c1=C.BOLD, c2=C.RESET, c3=C.RED, c4=C.RESET))
     if suggestions:
-        report(C.BOLD+"Suggestions: "+C.RESET+", ".join(suggestions))
-    
+        report(_("@info %(c*)s are color tags",
+                 "%(c1)sSuggestions:%(c2)s %(wordlist)s")
+               % dict(wordlist=format_item_list(suggestions),
+                      c1=C.BOLD, c2=C.RESET))
+
+
 def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     """Create and returns spell error message in XML format
     @param msg: pology.file.message.Message object
@@ -543,7 +571,8 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
         xmlError.append("\t\t<suggestion>%s</suggestion>\n" % suggestion)
     xmlError.append("\t</error>\n")
     return xmlError
-    
+
+
 # Format string for message reference, based on the file descriptor.
 def _msg_ref_fmtstr (file=sys.stdout):
 

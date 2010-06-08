@@ -10,6 +10,7 @@ Handle entity definitions.
 import os
 import xml.parsers.expat
 
+from pology import _, n_
 from pology.misc.fsops import collect_files_by_ext
 from pology.misc.report import warning
 
@@ -45,7 +46,7 @@ def parse_entities (defstr, src=None):
     # Parse entities.
     entities = {}
     def handler (name, is_parameter_entity, value,
-                    base, systemId, publicId, notationName):
+                 base, systemId, publicId, notationName):
         entities[name] = value
     p = xml.parsers.expat.ParserCreate()
     p.EntityDeclHandler = handler
@@ -53,9 +54,15 @@ def parse_entities (defstr, src=None):
         p.Parse(defstr, True)
     except xml.parsers.expat.ExpatError, inst:
         if src:
-            raise StandardError ("%s: %s\n" % (src, inst))
+            raise StandardError(
+                _("@info error report for a named source",
+                  "%(src)s: %(msg)s")
+                % dict(src=src, msg=inst))
         else:
-            raise StandardError ("<STRING>: %s\n" % inst)
+            raise StandardError(
+                _("@info error report for a string",
+                  "<string>: %(msg)s")
+                % dict(msg=inst))
 
     return entities
 
@@ -131,8 +138,10 @@ def read_entities_by_env (entpathenv, recurse=True, fcap=False):
 
     entpath = os.getenv(entpathenv)
     if entpath is None:
-        warning("environment variable with entity definition paths '%s' "
-                "not set" % entpathenv)
+        warning(_("@info",
+                  "Environment variable with paths to entity definitions "
+                  "'%(envar)s' is not set.")
+                % dict(envar=entpathenv))
         return entities
 
     entfilepaths = collect_files_by_ext(entpath.split(":"), "entities")

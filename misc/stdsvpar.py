@@ -10,6 +10,8 @@ for adding to their parameter lists.
 @license: GPLv3
 """
 
+from pology import _, n_
+
 
 def add_param_filter (p, intro=None):
     """
@@ -19,7 +21,7 @@ def add_param_filter (p, intro=None):
     @type intro: string
     """
 
-    desc = (
+    desc = _("@info sieve parameter description",
     "For a module pology.hook.FOO which defines FOO() function, "
     "the hook specification is simply FOO. "
     "If the hook function is named BAR() instead of FOO(), then "
@@ -33,13 +35,14 @@ def add_param_filter (p, intro=None):
     "The ARGS string is a list of arguments as it would appear "
     "in the function call in Python code, omitting parenthesis. "
     "\n\n"
-    "Several filters can be given by repeating the parameter, "
+    "Several hooks can be given by repeating the parameter, "
     "when they are applied in the given order."
     )
     if intro:
         desc = "%s\n\n%s" % (intro, desc)
 
     p.add_param("filter", unicode, multival=True,
-                metavar="HOOKSPEC",
+                metavar=_("@info sieve parameter value placeholder",
+                          "HOOKSPEC"),
                 desc=desc)
 

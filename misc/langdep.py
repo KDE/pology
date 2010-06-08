@@ -11,6 +11,7 @@ import sys
 import os
 import re
 
+from pology import _, n_
 from pology.misc.report import error, warning
 
 
@@ -57,7 +58,9 @@ def get_module (lang, path, abort=False):
     try:
         module = __import__(modpath, globals(), locals(), [""])
     except ImportError:
-        _raise_or_abort("cannot import module '%s'" % modpath, abort)
+        _raise_or_abort(_("@info",
+                          "Cannot import module '%(mod)s'.")
+                        % dict(mod=modpath), abort)
 
     # TODO: Make more detailed analysis why importing fails:
     # is there  such a language, is there such a file, etc.
@@ -117,14 +120,18 @@ def split_req (langreq, abort=False):
         lang, path = lst
 
     if lang and not _valid_lang_rx.search(lang):
-        _raise_or_abort("invalid language '%s' in item request '%s'"
-                        % (lang, langreq), abort)
+        _raise_or_abort(_("@info",
+                          "Invalid language '%(langcode)s' "
+                          "in item request '%(req)s.'")
+                        % dict(langcode=lang, req=langreq), abort)
     if not _valid_path_rx.search(path):
-        _raise_or_abort("invalid path '%s' in item request '%s'"
-                        % (path, langreq), abort)
+        _raise_or_abort(_("@info",
+                          "Invalid path '%(path)s' in item request '%(req)s'.")
+                        % dict(path=path, req=langreq), abort)
     if item and not _valid_item_rx.search(item):
-        _raise_or_abort("invalid item '%s' in item request '%s'"
-                        % (item, langreq), abort)
+        _raise_or_abort(_("@info",
+                          "Invalid item '%(item)s' in item request '%(req)s'.")
+                        % dict(item=item, req=langreq), abort)
 
     path = path.replace("-", "_")
     if item:
@@ -169,8 +176,10 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
     call = getattr(lmod, func, None) or getattr(lmod, func2, None)
     if call is None:
         hmodfmt = "%s:%s" % (lang, hmod) if lang else hmod
-        _raise_or_abort("hook module '%s' does not define '%s' function"
-                        % (hmodfmt, func), abort)
+        _raise_or_abort(_("@info",
+                          "Hook module '%(mod)s' does not define "
+                          "'%(func)s' function.")
+                        % dict(mod=hmodfmt, func=func), abort)
     if args is not None:
         try:
             call = eval("call(%s)" % args)
@@ -179,9 +188,12 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
                 fspec = "%s:%s/%s" % (lang, hmod, func)
             else:
                 fspec = "%s/%s" % (hmod, func)
-            _raise_or_abort("cannot create hook by applying function '%s' "
-                            "to argument list %s; reported error:\n%s"
-                            % (fspec, repr(args), unicode(e)), abort)
+            _raise_or_abort(_("@info",
+                              "Cannot create hook by applying function "
+                              "'%(func)s' to argument list %(args)s; "
+                              "reported error:\n%(msg)s")
+                            % dict(func=fspec, args=repr(args), msg=e.message),
+                            abort)
 
     return call
 
@@ -262,15 +274,20 @@ def get_result (lang, mod, func=None, args="", abort=False):
     func = func or "run"
     call = getattr(lmod, func, None)
     if call is None:
-        _raise_or_abort("module '%s' does not define function '%s'"
-                        % (lmod, func), abort)
+        _raise_or_abort(_("@info",
+                          "Module '%(mod)s' does not define "
+                          "function '%(func)s'.")
+                        % dict(mod=lmod, func=func), abort)
     try:
         res = eval("call(%s)" % args)
     except Exception, e:
         fspec = "%s/%s" % (lmod, func)
-        _raise_or_abort("evaluating function '%s' (in module '%s')"
-                        "with argument list %s failed; reported error:\n%s"
-                        % (func, lmod, repr(args), unicode(e)), abort)
+        _raise_or_abort(_("@info",
+                          "Evaluating function '%(func)s' in module '%(mod)s' "
+                          "with argument list %(args)s failed; "
+                          "reported error:\n%(msg)s")
+                        % dict(func=func, mod=lmod, args=repr(args),
+                               msg=e.message), abort)
 
     return res
 

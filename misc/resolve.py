@@ -7,11 +7,12 @@ Replacement of segments in text which define some underlying values.
 @license: GPLv3
 """
 
+import difflib
 import os
 import re
-import difflib
 
-from pology.misc.report import warning
+from pology import _, n_
+from pology.misc.report import warning, format_item_list
 
 
 # Defult starting string of alternatives directives.
@@ -109,12 +110,15 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
                     # FIXME: Too slow for a lot entities.
                     nears = []
                     if nears:
-                        warning("%s: unknown entity '%s' "
-                                "(near matches: %s)"
-                                % (srcname, entname, ", ".join(nears)))
+                        warning(_("@info",
+                                  "%(file)s: Unknown entity '%(ent)s' "
+                                  "(near matches: %(entlist)s).")
+                                % dict(file=srcname, ent=entname,
+                                       entlist=format_item_list(nears)))
                     else:
-                        warning("%s: unknown entity '%s'"
-                                % (srcname, entname))
+                        warning(_("@info",
+                                  "%(file)s: Unknown entity '%(ent)s'.")
+                                % dict(file=srcname, ent=entname))
             else:
                 segs.append(entref)
 
@@ -226,8 +230,10 @@ def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
         if len(text) < p + alt_hlen + 2:
             malformed = True
             if srcname is not None:
-                warning("%s: malformed directive: "
-                        "\"...%s\"" % (srcname, rep_text))
+                warning(_("@info",
+                          "%(file)s: Malformed alternatives directive "
+                          "'...%(snippet)s'.")
+                        % dict(file=srcname, snippet=rep_text))
             break
 
         # Read the separating character.
@@ -244,8 +250,10 @@ def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
             if p < 0:
                 malformed = True
                 if srcname is not None:
-                    warning("%s: too little alternatives in the directive: "
-                            "\"...%s\"" % (srcname, rep_text))
+                    warning(_("@info",
+                              "%(file)s: Too few alternatives in "
+                              "the alternatives directive '...%(snippet)s'.")
+                            % dict(file=srcname, snippet=rep_text))
                 break
             alts.append(text[pp:p])
         if malformed:
@@ -464,9 +472,11 @@ def expand_vars (text, varmap, head="%"):
             p += hlen
             continue
         if p == tlen:
-            raise NameError, \
-                  ("variable expansion: trailing-off expansion directive "
-                   "at column %d in string '%s'" % (p - hlen, text))
+            raise StandardError(
+                _("@info",
+                  "Empty variable expansion directive "
+                  "at column %(col)d in string '%(str)s'.")
+                % dict(col=(p - hlen), str=text))
         braced = False
         if text[p] == "{":
             braced = True
@@ -480,18 +490,22 @@ def expand_vars (text, varmap, head="%"):
                 break
             p += 1
         if braced and p == tlen:
-            raise NameError, \
-                  ("variable expansion: unclosed expansion directive "
-                   "at column %d in string '%s'" % (pp - 1 - hlen, text))
+            raise StandardError(
+                _("@info",
+                  "Unclosed variable expansion directive "
+                  "at column %(col)d in string '%(str)s'.")
+                % dict(col=(pp - 1 - hlen), str=text))
         varname = text[pp:p]
         if braced:
             p += 1
 
         varvalue = varmap.get(varname)
         if varvalue is None:
-            raise NameError, \
-                  ("variable expansion: unknown variable '%s' "
-                   "at column %d in string '%s'" % (varname, pp, text))
+            raise StandardError(
+                _("@info",
+                  "Unknown variable '%(var)s' in variable expansion directive "
+                  "at column %(col)d in string '%(str)s'.")
+                % dict(var=varname, col=pp, str=text))
         ntext.append("%s" % varvalue)
 
     return type(text)("").join(ntext)

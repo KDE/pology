@@ -7,13 +7,14 @@ Operations with environment, file system and external commands.
 @license: GPLv3
 """
 
-import sys
-import os
 import codecs
-import re
 import locale
+import os
+import re
 import subprocess
+import sys
 
+from pology import _, n_
 from pology.misc.report import report, error, warning
 
 
@@ -71,11 +72,15 @@ def collect_files (paths,
             if not selectf or selectf(path):
                 filepaths.append(path)
         elif not os.path.exists(path):
-            raise StandardError("Path '%(path)s' does not exist."
-                                % dict(path=path))
+            raise StandardError(
+                _("@info",
+                  "Path '%(path)s' does not exist.")
+                % dict(path=path))
         else:
-            raise StandardError("'%(path)s' not a file or directory path."
-                                % dict(path=path))
+            raise StandardError(
+                _("@info",
+                  "Path '%(path)s' is neither a file nor a directory.")
+                % dict(path=path))
 
     if sort:
         if unique:
@@ -248,9 +253,12 @@ def assert_system (cmdline, echo=False, wdir=None):
         os.chdir(cwd)
     if ret:
         if echo:
-            error("non-zero exit from previous command")
+            error(_("@info",
+                    "Non-zero exit from the previous command."))
         else:
-            error("non-zero exit from:\n%s" % cmdline)
+            error(_("@info",
+                    "Non-zero exit from the command:\n%(cmdline)s")
+                  % dict(cmdline=cmdline))
 
 
 def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
@@ -292,10 +300,14 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
 
     if echo:
         if strout:
-            sys.stdout.write("===== stdout from the command ^^^ =====\n")
+            sys.stdout.write(
+                _("@info ^^^ points to the earlier output in the terminal",
+                  "===== stdout from the command above =====") + "\n")
             sys.stdout.write(strout)
         if strerr:
-            sys.stderr.write("***** stderr from the command ^^^ *****\n")
+            sys.stderr.write(
+                _("@info ^^^ points to the earlier output in the terminal",
+                  "***** stderr from the command ^^^ *****") + "\n")
             sys.stderr.write(strerr)
 
     return (strout, strerr, ret)
@@ -326,13 +338,16 @@ def lines_from_file (filepath, encoding=None):
     try:
         ifl = codecs.open(filepath, "r", encoding)
     except:
-        warning("cannot open '%s' for reading" % filepath)
+        warning(_("@info",
+                  "Cannot open '%(file)s' for reading.")
+                % dict(file=filepath))
         raise
     try:
         content = ifl.read()
     except:
-        warning("cannot read content of '%s' using %s encoding"
-                % (filepath, encoding))
+        warning(_("@info",
+                  "Cannot read content of '%(file)s' using %(enc)s encoding.")
+                % dict(file=filepath, enc=encoding))
         raise
     ifl.close()
 
@@ -628,8 +643,10 @@ def _build_path_selector_type (sels):
         elif callable(sel):
             return sel
         else:
-            raise TypeError("Cannot convert object '%s' into "
-                            "a string matcher." % sel)
+            raise TypeError(
+                _("@info",
+                  "Cannot convert object '%(obj)s' into a string matcher.")
+                % dict(obj=sel))
     sels_tf = map(tofunc, sels)
 
     return sels_tf
@@ -736,16 +753,19 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
                     try:
                         rx = re.compile(dstr, re.U)
                     except:
-                        raise StandardError("Invalid regular expression in "
-                                            "inclusion/exclusion directive "
-                                            "at %(file)s:%(line)s."
-                                            % dict(file=fpath, line=lno))
+                        raise StandardError(
+                            _("@info",
+                              "Invalid regular expression in inclusion/"
+                              "exclusion directive at %(file)s:%(line)d.")
+                            % dict(file=fpath, line=lno))
                     sels.append(rx)
                     break
             if dstr is None:
-                raise StandardError("Unknown inclusion/exclusion directive "
-                                    "at %(file)s:%(line)s."
-                                    % dict(file=fpath, line=lno))
+                raise StandardError(
+                    _("@info",
+                      "Unknown inclusion/exclusion directive "
+                      "at %(file)s:%(line)d.")
+                    % dict(file=fpath, line=lno))
         else:
             paths.append(line)
 
