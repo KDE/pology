@@ -585,21 +585,16 @@ import locale
 import os
 import re
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.normalize import simplify
 from pology.misc.report import warning, format_item_list
 from pology.misc.resolve import first_to_upper, first_to_lower
 
 
-# FIXME: Temporary until i18n ready.
-def _p (x, y):
-    return y
-
-
 # ----------------------------------------
 # Error handling.
 
-class SynderError (Exception):
+class SynderError (PologyError):
 
     def __init__ (self, message, code, source=None, pos=None):
         """
@@ -627,6 +622,8 @@ class SynderError (Exception):
             self.line = pos
             self.col = None
 
+        PologyError.__init__(self, unicode(self))
+
 
     def __unicode__ (self):
 
@@ -650,11 +647,6 @@ class SynderError (Exception):
                         line=self.line, col=self.col))
 
         return unicode(s)
-
-
-    def __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # ----------------------------------------
@@ -1658,7 +1650,7 @@ class Synder (object):
             tf0, eargs = tfspec[0], list(tfspec[1:])
             unkeargs = set(eargs).difference(kneargs)
             if unkeargs:
-                raise StandardError(
+                raise SynderError(
                     _("@info",
                       "Unknown extra arguments for transformation function "
                       "requested in derivator constructor: %(arglist)s")
@@ -2432,7 +2424,7 @@ class Synder (object):
 
         res = self.get(ckey)
         if res is None:
-            raise KeyError, ckey
+            raise KeyError(ckey)
 
         return res
 

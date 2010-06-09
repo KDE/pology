@@ -14,7 +14,7 @@ import re
 import sys
 import time
 
-from pology import version, _, n_
+from pology import PologyError, version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.hook.gettext_tools import msgfmt
@@ -1753,8 +1753,9 @@ class _Ascription (object):
     def __setattr__ (self, attr, val):
 
         if attr not in self.__dict__:
-            raise KeyError("Trying to set unknown ascription attributed '%s'."
-                           % attr)
+            raise PologyError(
+                "Trying to set unknown ascription attributed '%s'."
+                % attr)
         self.__dict__[attr] = val
 
 
@@ -2126,7 +2127,7 @@ def parse_datetime (dstr):
         if m:
             break
     if not m:
-        raise StandardError, "cannot parse date string '%s'" % dstr
+        raise PologyError("cannot parse date string '%s'" % dstr)
     pgroups = list([int(x or 0) for x in m.groups()])
     pgroups.extend([1] * (3 - len(pgroups)))
     pgroups.extend([0] * (7 - len(pgroups)))

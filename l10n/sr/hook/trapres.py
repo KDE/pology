@@ -7,10 +7,11 @@ Resolve trapnakron references in translations.
 @license: GPLv3
 """
 
+from pology import PologyError
+import pology.l10n.sr.trapnakron as T
+from pology.misc.comments import manc_parse_list
 from pology.misc.markup import xml_entities, html_entities
 from pology.misc.resolve import resolve_entities
-from pology.misc.comments import manc_parse_list
-import pology.l10n.sr.trapnakron as T
 
 
 _known_cons = {}
@@ -63,7 +64,7 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
 
     trapcon = _known_cons.get(name)
     if trapcon is None:
-        raise KeyError(
+        raise PologyError(
             _("@info \"trapnakron\" is a shorthand for "
               "\"Transcriptions and Translations of Names and Acronyms\" "
               "in Serbian",

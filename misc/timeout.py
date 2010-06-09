@@ -12,16 +12,17 @@ U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871}.
 
 import signal
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.report import report
 
 
-class TimedOutException (Exception):
+class TimedOutException (PologyError):
 
     def __init__ (self, value="timed-out"):
 
-        Exception.__init__(self)
         self.value = value
+
+        PologyError.__init__(str(self))
 
     def __str__ (self):
 

@@ -209,36 +209,17 @@ level, outside of the C{Sieve} class, and properly documented.
 
 import locale
 
-from pology.misc.subcmd import ParamParser
+from pology import PologyError
 from pology.misc.comments import manc_parse_flag_list
+from pology.misc.subcmd import ParamParser
 
 
-class SieveError (Exception):
+class SieveError (PologyError):
     """
     Base exception class for sieve errors with special meaning.
     """
 
-    def __init__ (self, message):
-        """
-        Constructor.
-
-        All the parameters are made available as instance variables.
-
-        @param message: a description of what went wrong
-        @type message: string
-        """
-
-        self.message = message
-
-
-    def  __unicode__ (self):
-
-        return unicode(self.message)
-
-
-    def  __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
+    pass
 
 
 class SieveMessageError (SieveError):

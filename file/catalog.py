@@ -14,7 +14,7 @@ import re
 import signal
 import types
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.file.header import Header
 from pology.file.message import Message as MessageMonitored
 from pology.file.message import MessageUnsafe as MessageUnsafe
@@ -221,7 +221,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
             else:
                 # Cannot reach, all unknown comments treated as manual above.
-                raise StandardError (
+                raise PologyError(
                     _("@info",
                       "Unknown comment type at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
@@ -265,7 +265,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     while p < llen and line[p].isdigit():
                         p += 1
                     if p == 0:
-                        raise StandardError(
+                        raise PologyError(
                             _("@info",
                               "Malformed msgstr ordinal at %(file)s:%(line)d.")
                             % dict(file=filename, line=lno))
@@ -274,7 +274,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     if line.startswith("]"):
                         line = line[1:].lstrip()
                     else:
-                        raise StandardError(
+                        raise PologyError(
                             _("@info",
                               "Malformed msgstr ordinal at %(file)s:%(line)d.")
                             % dict(file=filename, line=lno))
@@ -283,7 +283,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     loc.msg.msgstr.append([])
 
             elif not line.startswith("\""):
-                raise StandardError(
+                raise PologyError(
                     _("@info",
                       "Unknown field name at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
@@ -308,7 +308,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     elif loc.field_context == ctx_msgstr:
                         loc.msg.msgstr[msgstr_i].append(s)
             else:
-                raise StandardError(
+                raise PologyError(
                     _("@info",
                       "Expected string continuation at %(file)s:%(line)d.")
                     % dict(file=filename, line=lno))
@@ -333,7 +333,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 elif loc.field_context == ctx_msgid_plural:
                     loc.msg._lines_msgid_plural_previous.append(line_raw)
                 else:
-                    raise StandardError(
+                    raise PologyError(
                         _("@info",
                           "Internal problem (%(id)d) at %(file)s:%(line)d.")
                         % dict(id=11, file=filename, line=lno))
@@ -347,12 +347,12 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 elif loc.field_context == ctx_msgstr:
                     loc.msg._lines_msgstr.append(line_raw)
                 else:
-                    raise StandardError(
+                    raise PologyError(
                         _("@info",
                           "Internal problem (%(id)d) at %(file)s:%(line)d.")
                         % dict(id=12, file=filename, line=lno))
             else:
-                raise StandardError(
+                raise PologyError(
                     _("@info",
                       "Internal problem (%(id)d) at %(file)s:%(line)d.")
                     % dict(id=10, file=filename, line=lno))
@@ -532,7 +532,7 @@ class Catalog (Monitored):
 
         # Signal if catalog should exist on disk but does not.
         if not create and not (os.path.exists(filename) or readfh):
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "File '%(file)s' does not exist.")
                 % dict(file=filename))
@@ -613,7 +613,7 @@ class Catalog (Monitored):
     def _assert_headonly (self):
 
         if self._tail:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Trying to access catalog messages in header-only mode."))
 
@@ -847,7 +847,7 @@ class Catalog (Monitored):
         for msg, pos in msgpos:
             self.assert_spec_setitem(msg)
             if not msg.msgid and msg.msgctxt is None:
-                raise StandardError(
+                raise PologyError(
                     _("@info",
                       "Trying to insert message with empty key into catalog."))
 
@@ -1079,7 +1079,7 @@ class Catalog (Monitored):
         # Cannot sync catalogs which have been given no path
         # (usually temporary catalogs).
         if not self._filename.strip():
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Trying to sync unnamed catalog."))
 

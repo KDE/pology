@@ -16,7 +16,7 @@ import re
 import shutil
 import tempfile
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.fsops import collect_system, system_wd, unicode_to_str
 from pology.misc.report import report, warning
 
@@ -79,7 +79,7 @@ def make_vcs (vcskey):
     nkey = vcskey.strip().lower()
     vcstype = _vcstypes_by_akey.get(nkey)
     if not vcstype:
-        raise TypeError(
+        raise PologyError(
             _("@info",
               "Unknown version control system requested by key '%(key)s'.")
             % dict(key=vcskey))
@@ -115,7 +115,7 @@ class VcsBase (object):
         @return: C{True} if addition successful, possibly list of added paths
         @rtype: bool or (bool, [string*])
         """
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define adding."))
 
@@ -135,7 +135,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define removing."))
 
@@ -151,7 +151,7 @@ class VcsBase (object):
         @rtype: string
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "revision query."))
@@ -170,7 +170,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define state query."))
 
@@ -186,7 +186,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "checking whether a path is version controlled."))
@@ -219,7 +219,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "fetching of a versioned path."))
@@ -264,7 +264,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "committing of paths."))
@@ -299,7 +299,7 @@ class VcsBase (object):
         @rtype: [(string*4)*]
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "revision history query."))
@@ -321,7 +321,7 @@ class VcsBase (object):
         @rtype: [string*]
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "listing of non-committed paths."))
@@ -356,7 +356,7 @@ class VcsBase (object):
         @rtype: [(string, string or (int, int, int, int))*]
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define diffing."))
 
@@ -375,7 +375,7 @@ class VcsBase (object):
         @rtype: bool
         """
 
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Selected version control system does not define "
               "reverting a versioned path."))
@@ -662,7 +662,7 @@ class VcsSubversion (VcsBase):
         elif rev1 is not None:
             rspec = "-r %s" % rev1
         elif rev2 is not None:
-            raise StandardError(
+            raise PologyError(
                 _("@info \"Subversion\" is a version control system",
                   "Subversion cannot diff from working copy "
                   "to a named revision."))
@@ -754,7 +754,7 @@ class VcsGit (VcsBase):
                 break
 
         if root is None:
-            raise StandardError(
+            raise PologyError(
                 _("@info \"Git\" is a version control system",
                   "Cannot find Git repository for '%(path)s'.")
                 % dict(path=path))
@@ -1031,7 +1031,7 @@ class VcsGit (VcsBase):
         elif rev1 is not None:
             rspec = "%s" % rev1
         elif rev2 is not None:
-            raise StandardError(
+            raise PologyError(
                 _("@info"
                   "Git cannot diff from non-staged paths to a commit."))
         else:

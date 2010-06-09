@@ -157,7 +157,7 @@ def _ (ctxt, text):
     trtext = trf("%s\x04%s" % (ctxt, text))
     if "\x04" in trtext:
         trtext = text
-    return trtext
+    return unicode(trtext)
 
 
 def n_ (ctxt, stext, ptext, n):
@@ -178,5 +178,33 @@ def n_ (ctxt, stext, ptext, n):
     trtext = trf("%s\x04%s" % (ctxt, stext), ptext, n)
     if "\x04" in trtext:
         trtext = (stext if n == 1 else ptext)
-    return trtext
+    return unicode(trtext)
+
+
+import locale
+
+class PologyError (Exception):
+    """
+    Base exception class for errors in Pology.
+    """
+
+    def __init__ (self, msg):
+        """
+        Constructor.
+
+        @param msg: a description of what went wrong
+        @type msg: string
+        """
+
+        self._msg = msg
+
+
+    def  __unicode__ (self):
+
+        return unicode(self._msg)
+
+
+    def  __str__ (self):
+
+        return self.__unicode__().encode(locale.getpreferredencoding())
 

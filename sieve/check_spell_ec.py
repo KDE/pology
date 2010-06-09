@@ -119,7 +119,7 @@ import tempfile
 
 from pology.misc.report import report, warning
 from pology.misc.split import proper_words
-from pology import rootdir
+from pology import PologyError, rootdir
 import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
@@ -281,9 +281,9 @@ class Sieve (object):
             checker = _create_checker(self.providers, clang_mod,
                                       self.word_lists[ckey])
             if not checker:
-                raise StandardError("No spelling dictionary for "
-                                    "language '%s' and provider '%s'."
-                                    % (clang, self.providers))
+                raise SieveError("No spelling dictionary for "
+                                 "language '%s' and provider '%s'."
+                                 % (clang, self.providers))
             self.checkers[ckey] = checker
 
         # Get language-dependent stuff.
@@ -379,9 +379,9 @@ def _create_checker (providers, langtag, words):
     try:
         import enchant
     except ImportError:
-        raise StandardError("Python wrapper for Enchant not found, "
-                            "please install it (possible package names: "
-                            "python-enchant).")
+        raise PologyError("Python wrapper for Enchant not found, "
+                          "please install it (possible package names: "
+                          "python-enchant).")
 
     if langtag is not None:
         try:

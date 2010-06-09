@@ -105,7 +105,7 @@ without conflicts, in single text and even interwoven
 @license: GPLv3
 """
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.diff import word_diff, tdiff
 from pology.misc.report import warning, format_item_list
 from pology.misc.resolve import resolve_alternatives_simple
@@ -708,7 +708,7 @@ def _delimit (alts, delims):
 
     if not good:
         fmtalts = format_item_list(["{%s}" % x for x in alts])
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "No delimiter from '%(delimstr)s' can be used for "
               "alternatives directive containing: %(snippetlist)s.")

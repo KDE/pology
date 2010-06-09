@@ -16,7 +16,7 @@ not meet your exact needs.
 import re
 import unicodedata
 
-from pology import _, n_
+from pology import PologyError, _, n_
 
 
 # Regex for splitting C{<...>} into tag name and few other elements.
@@ -156,7 +156,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                 cwidth[i] = 2
 
     if wcol > 0 and lenlead + lentrail + 1 >= wcol:
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Wrapping is too tight, cannot fit leading and trailing text."))
 

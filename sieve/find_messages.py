@@ -620,7 +620,7 @@ def build_msg_matcher (exprstr, mopts=None, abort=False):
             raise ExprError(exprstr, "premature end of expression")
     except ExprError, e:
         if abort:
-            error(str(e))
+            error(unicode(e))
         else:
             raise
     return expr
@@ -935,8 +935,8 @@ def _create_matcher (name, value, mods, params, neg=False):
                 start = int(start) if start else 0
                 end = int(end) if end else (cat[-1].refline + 1)
             except:
-                raise StandardError("Invalid line span specification '%s'."
-                                    % value)
+                raise ExprError("Invalid line span specification '%s'."
+                                % value)
             return msg.refline >= start and msg.refline < end
 
     elif name == "espan":
@@ -946,8 +946,8 @@ def _create_matcher (name, value, mods, params, neg=False):
                 start = int(start) if start else 0
                 end = int(end) if end else (cat[-1].refentry + 1)
             except:
-                raise StandardError("Invalid entry span specification '%s'."
-                                    % value)
+                raise ExprError("Invalid entry span specification '%s'."
+                                % value)
             return msg.refentry >= start and msg.refentry < end
 
     elif name == "branch":

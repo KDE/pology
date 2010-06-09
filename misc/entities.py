@@ -10,7 +10,7 @@ Handle entity definitions.
 import os
 import xml.parsers.expat
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.fsops import collect_files_by_ext
 from pology.misc.report import warning
 
@@ -54,12 +54,12 @@ def parse_entities (defstr, src=None):
         p.Parse(defstr, True)
     except xml.parsers.expat.ExpatError, inst:
         if src:
-            raise StandardError(
+            raise PologyError(
                 _("@info error report for a named source",
                   "%(src)s: %(msg)s")
                 % dict(src=src, msg=inst))
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info error report for a string",
                   "<string>: %(msg)s")
                 % dict(msg=inst))

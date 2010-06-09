@@ -474,7 +474,7 @@ def main ():
     try:
         sparams, nacc_params = pp.parse(sieve_params, snames)
     except Exception, e:
-        error(e.message)
+        error(unicode(e))
     if nacc_params:
         error(_("@info",
                 "Parameters not accepted by any of issued subcommands: "
@@ -511,7 +511,7 @@ def main ():
         try:
             sieves.append(mod.Sieve(sparams[name]))
         except Exception, e:
-            error(e.message)
+            error(unicode(e))
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.
@@ -605,7 +605,7 @@ def main ():
         except Exception, e:
             errwarn(_("@info:progress",
                       "%(file)s: Parsing failed: %(msg)s")
-                    % dict(file=fname, msg=e.message))
+                    % dict(file=fname, msg=e))
             warning(_("@info:progress",
                       "Skipping catalog due to parsing failure."))
             continue
@@ -621,13 +621,13 @@ def main ():
             except SieveCatalogError, e:
                 errwarn(_("@info:progress",
                           "%(file)s:header: Sieving failed: %(msg)s")
-                        % dict(file=fname, msg=e.message))
+                        % dict(file=fname, msg=e))
                 skip = True
                 break
             except Exception, e:
                 error(_("@info:progress",
                         "%(file)s:header: Sieving failed: %(msg)s")
-                      % dict(file=fname, msg=e.message))
+                      % dict(file=fname, msg=e))
             if ret not in (None, 0):
                 break
         if skip:
@@ -657,18 +657,18 @@ def main ():
                     except SieveMessageError, e:
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s")
-                                       % dict(msg=e.message), msg, cat)
+                                       % dict(msg=e), msg, cat)
                         break
                     except SieveCatalogError, e:
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s")
-                                       % dict(msg=e.message), msg, cat)
+                                       % dict(msg=e), msg, cat)
                         skip = True
                         break
                     except Exception, e:
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s")
-                                       % dict(msg=e.message), msg, cat)
+                                       % dict(msg=e), msg, cat)
                     if ret not in (None, 0):
                         break
                 if skip:
@@ -690,14 +690,14 @@ def main ():
                 errwarn(_("@info:progress",
                           "%(file)s:header: Sieving (after messages) "
                           "failed: %(msg)s")
-                        % dict(file=fname, msg=e.message))
+                        % dict(file=fname, msg=e))
                 skip = True
                 break
             except Exception, e:
                 error(_("@info:progress",
                         "%(file)s:header: Sieving (after messages) "
                         "failed: %(msg)s")
-                      % dict(file=fname, msg=e.message))
+                      % dict(file=fname, msg=e))
             if ret not in (None, 0):
                 break
         if skip:
@@ -727,7 +727,7 @@ def main ():
             except Exception, e:
                 warning(_("@info:progress",
                           "Finalization failed: %(msg)s")
-                        % dict(msg=e.message))
+                        % dict(msg=e))
 
     if op.output_modified:
         ofh = open(op.output_modified, "w")

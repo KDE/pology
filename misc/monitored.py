@@ -22,7 +22,7 @@ in standard data types are available through their monitored counterparts
 @license: GPLv3
 """
 
-from pology import _, n_
+from pology import PologyError, _, n_
 
 # =============================================================================
 # Internal functions.
@@ -59,13 +59,13 @@ def _assert_spec_single (att, obj, spec):
     if "type" in spec:
         if not isinstance(obj, spec["type"]):
             if att != "*":
-                raise TypeError(
+                raise PologyError(
                     _("@info",
                       "Expected %(type1)s for attribute '%(attr)s', "
                       "got %(type2)s.")
                      % dict(type1=spec["type"], attr=att, type2=type(obj)))
             else:
-                raise TypeError(
+                raise PologyError(
                     _("@info",
                       "Expected %(type1)s for sequence element, "
                       "got %(type2)s.")
@@ -173,20 +173,20 @@ class Monitored (object):
         if att in self._spec:
             spec = self._spec[att]
             if spec.get("derived", False):
-                raise AttributeError(
+                raise PologyError(
                     _("@info",
                       "Derived attribute '%(attr)s' is read-only.")
                     % dict(attr=att))
             _assert_spec_single(att, subobj, spec)
         elif att.endswith("_modcount"):
             if not isinstance(subobj, int):
-                raise TypeError(
+                raise PologyError(
                     _("@info",
                       "Expected %(type1)s for attribute '%(attr)s', "
                       "got %(type2)s.")
                     % dict(type1=int, attr=att, type2=type(subobj)))
         else:
-            raise AttributeError(
+            raise PologyError(
                 _("@info",
                   "Attribute '%(attr)s' is not among specified.")
                 % dict(attr=att))
@@ -195,7 +195,7 @@ class Monitored (object):
         if not hasattr(self, "_spec"):
             return
         if att not in self._spec:
-            raise AttributeError(
+            raise PologyError(
                 _("@info",
                   "Attribute '%(attr)s' is not among specified.")
                 % dict(attr=att))
@@ -206,7 +206,7 @@ class Monitored (object):
         if "*" in self._spec:
             _assert_spec_single("*", itemobj, self._spec["*"])
         else:
-            raise TypeError(
+            raise PologyError(
                 _("@info",
                   "Object '%(obj)s' is not specified to be a sequence.")
                 % dict(obj=self))
@@ -215,7 +215,7 @@ class Monitored (object):
         if not hasattr(self, "_spec"):
             return
         if "*" not in self._spec:
-            raise TypeError(
+            raise PologyError(
                 _("@info",
                   "Object '%(obj)s' is not specified to be a sequence.")
                 % dict(obj=self))
@@ -249,7 +249,7 @@ class Monpair (Monitored):
         if not isinstance(init, Monpair):
             pair = tuple(init)
             if len(pair) != 2:
-                raise TypeError(
+                raise PologyError(
                     _("@info",
                       "Initializer sequence for a pair must contain "
                       "exactly two elements."))

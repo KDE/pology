@@ -760,7 +760,7 @@ def _norm_ui_cat (cat, xmlescape):
                     while tail[:n] in tails:
                         n += 1
                         if n > len(tail):
-                            raise StandardError(
+                            raise PologyError(
                                 _("@info",
                                   "Hash function has returned same result "
                                   "for two different strings."))

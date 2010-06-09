@@ -14,7 +14,7 @@ import re
 import subprocess
 import sys
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.report import report, error, warning
 
 
@@ -72,12 +72,12 @@ def collect_files (paths,
             if not selectf or selectf(path):
                 filepaths.append(path)
         elif not os.path.exists(path):
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Path '%(path)s' does not exist.")
                 % dict(path=path))
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Path '%(path)s' is neither a file nor a directory.")
                 % dict(path=path))
@@ -643,7 +643,7 @@ def _build_path_selector_type (sels):
         elif callable(sel):
             return sel
         else:
-            raise TypeError(
+            raise PologyError(
                 _("@info",
                   "Cannot convert object '%(obj)s' into a string matcher.")
                 % dict(obj=sel))
@@ -753,7 +753,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
                     try:
                         rx = re.compile(dstr, re.U)
                     except:
-                        raise StandardError(
+                        raise PologyError(
                             _("@info",
                               "Invalid regular expression in inclusion/"
                               "exclusion directive at %(file)s:%(line)d.")
@@ -761,7 +761,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
                     sels.append(rx)
                     break
             if dstr is None:
-                raise StandardError(
+                raise PologyError(
                     _("@info",
                       "Unknown inclusion/exclusion directive "
                       "at %(file)s:%(line)d.")

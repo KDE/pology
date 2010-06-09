@@ -15,9 +15,12 @@ with no-break characters, where such bad breaks can be expected.
 
 import re
 
+from pology import PologyError
 from pology.l10n.sr.hook.wconv import ctol
 
+
 nobrhyp_char = u"\u2011"
+
 
 def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
     """
@@ -62,7 +65,7 @@ def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
         # Catching possible replacement by text after hyphen.
         nobrhyp_rxstrs.append(ur"([\w%s])(-)(\w{1})\b" % wchars)
     else:
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Unknown hyphen replacement mode %(mode)s.")
             % dict(mode=mode))

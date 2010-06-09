@@ -11,7 +11,7 @@ import os
 import shutil
 from tempfile import NamedTemporaryFile
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.file.catalog import Catalog
 from pology.misc.diff import editprob
 from pology.misc.fsops import unicode_to_str
@@ -160,7 +160,7 @@ def merge_pofile (catpath, tplpath,
         opts.append("--no-wrap")
     for cmppath in (cmppaths or []):
         if not os.path.isfile(cmppath):
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Compendium does not exist at '%(path)s'.")
                 % dict(path=cmppath))
@@ -172,7 +172,7 @@ def merge_pofile (catpath, tplpath,
     mrgres = os.system(unicode_to_str(cmdline))
     if mrgres != 0:
         if abort:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Cannot merge PO file '%(file1)s' with template '%(file2)s'.")
                 % dict(file1=catpath, file2=tplpath))

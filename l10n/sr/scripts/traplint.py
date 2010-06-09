@@ -9,7 +9,7 @@ import re
 import locale
 from optparse import OptionParser
 
-from pology import version, _, n_
+from pology import PologyError, version, _, n_
 from pology.l10n.sr.hook.wconv import ctol, hictoall
 from pology.l10n.sr.trapnakron import rootdir
 from pology.l10n.sr.trapnakron import trapnakron_ui
@@ -210,9 +210,10 @@ def _match_text (text, tests, unmatched_tests=None):
                 match = True
                 break
         else:
-            raise StandardError(_("@info",
-                                  "Unknown matcher type '%(type)s'.")
-                                % dict(type=type(test)))
+            raise PologyError(
+                _("@info",
+                  "Unknown matcher type '%(type)s'.")
+                % dict(type=type(test)))
 
     if unmatched_tests is not None:
         if match and test in unmatched_tests:

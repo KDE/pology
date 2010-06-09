@@ -13,7 +13,7 @@ import codecs
 import xml.parsers.expat
 import difflib
 
-from pology import rootdir, _, n_
+from pology import PologyError, rootdir, _, n_
 from pology.misc.diff import adapt_spans
 from pology.misc.entities import read_entities
 from pology.misc.multi import Multidict
@@ -689,7 +689,7 @@ def collect_xml_spec_l1 (specpath):
                   "\"level 1 specification\"",
                   "[L1-spec] %(file)s:%(line)d:%(col)d: %(msg)s")
                 % dict(file=specpath, line=bpos[0], col=bpos[1], msg=msg))
-        raise StandardError(emsg)
+        raise PologyError(emsg)
 
     def advance (stoptest, cmnt=True):
 
@@ -988,7 +988,7 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
         errmsg = (_("@info a problem in the given type of markup "
                     "(e.g. HTML, Docbook)",
                     "%(mtype)s markup: %(snippet)s.")
-                  % dict(mtype=g.xmlfmt, snippet=e.message))
+                  % dict(mtype=g.xmlfmt, snippet=e.args[0]))
         span = _make_span(text, e.lineno, e.offset, errmsg)
         g.spans.append(span)
 

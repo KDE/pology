@@ -68,7 +68,7 @@ import os
 import re
 
 import pology
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.l10n.sr.hook.nobr import to_nobr_hyphens, nobrhyp_char
 from pology.l10n.sr.hook.wconv import ctol, cltoa
 from pology.l10n.sr.hook.wconv import hctoc, hctol, hitoe, hitoi, hctocl
@@ -303,18 +303,17 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     env0s = [envec, envel, envic, envil]
     combo =  "".join([(x is not None and "1" or "0") for x in env0s])
     if combo not in _good_eicl_combos:
-        raise StandardError(_("@info",
-                              "Invalid combination of Ekavian/Ijekavian "
-                              "Cyrillic/Latin environments "
-                              "to trapnakron derivator."))
+        raise PologyError(
+            _("@info",
+              "Invalid combination of Ekavian/Ijekavian Cyrillic/Latin "
+              "environments to trapnakron derivator."))
 
     if markup not in _known_markups:
-        raise StandardError(_("@info",
-                              "Unknown markup type '%(mtype)s' to "
-                              "trapnakron derivator "
-                              "(known markups: %(mtypelist)s).")
-                            % dict(mtype=markup,
-                                   mtypelist=format_item_list(_known_markups)))
+        raise PologyError(
+            _("@info",
+              "Unknown markup type '%(mtype)s' to trapnakron derivator "
+              "(known markups: %(mtypelist)s).")
+            % dict(mtype=markup, mtypelist=format_item_list(_known_markups)))
 
     # Compose environment fallback chains.
     env = []
@@ -341,9 +340,10 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         mvends[ltsuff] = _suff_ltmarkup_id
     if gesuff:
         if len(gesuff) != 4:
-            raise StandardError(_("@info",
-                                  "Sequence of gender suffixes must have "
-                                  "exactly 4 elements."))
+            raise PologyError(
+                _("@info",
+                  "Sequence of gender suffixes must have "
+                  "exactly 4 elements."))
         mvends.update(zip(gesuff, _gematch_suff_ids))
     aenvs = {}
     if adsuff or stsuff:
@@ -366,9 +366,10 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
             aenvs[suff_id] = tuple(aenv)
     if nmsuff:
         if len(nmsuff) != 2:
-            raise StandardError(_("@info",
-                                  "Sequence of person name suffixes must have "
-                                  "exactly 2 elements."))
+            raise PologyError(
+                _("@info",
+                  "Sequence of person name suffixes must have "
+                  "exactly 2 elements."))
         mvends.update(zip(nmsuff, _pname_suff_ids))
 
     # Setup substitution of empty property keys.
@@ -837,10 +838,11 @@ def norm_pkey (pkey):
     elif isinstance(pkey, list):
         return map(cltoa, pkey)
     else:
-        raise StandardError(_("@info",
-                              "Normalization of property keys requested "
-                              "on unsupported data type '%(type)s'.")
-                            % dict(type=type(pkey)))
+        raise PologyError(
+            _("@info",
+              "Normalization of property keys requested "
+              "on unsupported data type '%(type)s'.")
+            % dict(type=type(pkey)))
 
 
 _norm_rtkey_rx = re.compile("\s", re.U)

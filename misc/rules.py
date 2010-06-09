@@ -522,7 +522,7 @@ import re
 import sys
 from time import time
 
-from pology import rootdir, _, n_
+from pology import PologyError, rootdir, _, n_
 from pology.file.message import MessageUnsafe
 from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.config import strbool
@@ -587,7 +587,7 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
     #TODO: use PO language header once it has been implemented
     if ruleFiles is not None:
         if not lang:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Language must be explicitly given "
                   "when using external rules."))
@@ -624,7 +624,7 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
         if isdir(ruleDir):
             ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "The rule directory '%(dir)s' is not a directory "
                   "or is not accessible.")
@@ -674,6 +674,10 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
 
 _rule_start = "*"
 
+class _IdentError (Exception): pass
+class _SyntaxError (Exception): pass
+
+
 def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
     """Load rule file and return list of Rule objects
     @param filePath: full path to rule file
@@ -683,8 +687,6 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
         filter functions, by their signatures; to avoid constructing
         same filters over different files
     @return: list of Rule object"""
-
-    class IdentError (Exception): pass
 
     rules=[]
     inRule=False #Flag that indicate we are currently parsing a rule bloc
@@ -788,7 +790,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                     pattern=fields[1][0]
                     for mmod in fields[1][1]:
                         if mmod not in _trigger_matchmods:
-                            raise SyntaxError(
+                            raise _SyntaxError(
                                 _("@info",
                                   "Unknown match modifier '%(mod)s' "
                                   "in trigger pattern.")
@@ -799,7 +801,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                     if keyword == "hook":
                         triggerFunc = _triggerFromHook(rest)
                 else:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Unknown keyword '%(kw)s' in rule trigger.")
                         % dict(kw=keyword))
@@ -807,7 +809,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # valid line (for rule ou validGroup)
             elif fields[0][0]=="valid":
                 if not inRule and not inGroup:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' outside of rule or "
                           "validity group.")
@@ -817,7 +819,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # Rule hint
             elif fields[0][0]=="hint":
                 if not inRule:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' outside of rule.")
                         % dict(dir="hint"))
@@ -826,7 +828,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # Rule identifier
             elif fields[0][0]=="id":
                 if not inRule:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' outside of rule.")
                         % dict(dir="id"))
@@ -834,13 +836,13 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                 if ident in identLines:
                     (prevLine, prevEnviron)=identLines[ident]
                     if prevEnviron==globalEnviron:
-                        raise IdentError(ident, prevLine)
+                        raise _IdentError(ident, prevLine)
                 identLines[ident]=(lno, globalEnviron)
             
             # Whether rule is disabled
             elif fields[0][0]=="disabled":
                 if not inRule:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' outside of rule.")
                         % dict(dir="disabled"))
@@ -849,7 +851,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # Validgroup 
             elif fields[0][0]=="validGroup":
                 if inGroup:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' inside validity group.")
                         % dict(dir="validGroup"))
@@ -865,7 +867,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # Switch rule environment
             elif fields[0][0]=="environment":
                 if inGroup:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' inside validity group.")
                         % dict(dir="environment"))
@@ -904,7 +906,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                     elif filterType == "Hook":
                         func, sig = _filterCreateHook(rest)
                     else:
-                        raise SyntaxError(
+                        raise _SyntaxError(
                             _("@info",
                               "Unknown filter directive '%(dir)s'.")
                             % dict(dir=fields[0][0]))
@@ -923,7 +925,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
 
                 else: # remove all filters
                     if len(fields) != 1:
-                        raise SyntaxError(
+                        raise _SyntaxError(
                             _("@info",
                               "Expected no fields in "
                               "all-filter removal directive."))
@@ -936,7 +938,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
             # Include another file
             elif fields[0][0] == "include":
                 if inRule or inGroup:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Directive '%(dir)s' inside a rule or group.")
                         % dict(dir="include"))
@@ -944,27 +946,27 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                 lines, filePath, lno = _includeFile(fields[1:], filePath)
 
             else:
-                raise SyntaxError(
+                raise _SyntaxError(
                     _("@info",
                       "Unknown directive '%(dir)s'.")
                     % dict(dir=fields[0][0]))
 
-    except IdentError, e:
-        raise StandardError(
+    except _IdentError, e:
+        raise PologyError(
             _("@info",
               "Identifier '%(id)s' at %(file)s:%(line)d "
               "previously encountered at %(pos)s.")
             % dict(id=e.args[0], file=filePath, line=lno, pos=e.args[1]))
     except IOError, e:
-        raise IOError(
+        raise PologyError(
             _("@info",
               "Cannot read rule file '%(file)s'. The error was: %(msg)s")
-            % dict(file=filePath, msg=e.message))
-    except SyntaxError, e:
-        raise SyntaxError(
+            % dict(file=filePath, msg=e.args[0]))
+    except _SyntaxError, e:
+        raise PologyError(
             _("@info",
               "Syntax error at %(file)s:%(line)d:\n%(msg)s")
-            % dict(file=filePath, line=lno, msg=e.message))
+            % dict(file=filePath, line=lno, msg=e.args[0]))
 
     return rules
 
@@ -974,7 +976,7 @@ def _checkFields (directive, fields, knownFields, mandatoryFields=set(),
 
     fieldDict = dict(fields)
     if unique and len(fieldDict) != len(fields):
-        raise SyntaxError(
+        raise _SyntaxError(
             _("@info",
               "Duplicate fields in '%(dir)s' directive.")
             % dict(dir=directive))
@@ -983,14 +985,14 @@ def _checkFields (directive, fields, knownFields, mandatoryFields=set(),
         knownFields = set(knownFields)
     unknownFields = set(fieldDict).difference(knownFields)
     if unknownFields:
-        raise SyntaxError(
+        raise _SyntaxError(
             _("@info",
               "Unknown fields in '%(dir)s' directive: %(fieldlist)s.")
             % dict(dir=directive, fieldlist=format_item_list(unknownFields)))
 
     for name in mandatoryFields:
         if name not in fieldDict:
-            raise SyntaxError(
+            raise _SyntaxError(
                 _("@info",
                   "Mandatory field '%(field)s' missing in '%(dir)s' directive.")
                 % dict(field=name, dir=directive))
@@ -1047,7 +1049,7 @@ def _filterRemove (fields, filterLists, envs):
                 k += 1
     unseenHandles = handles.difference(seenHandles)
     if unseenHandles:
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "No filters with these handles to remove: %(handlelist)s.")
             % dict(handlelist=format_item_list(unseenHandles)))
@@ -1077,7 +1079,7 @@ def _filterParseGeneral (fields):
             parts = [x.strip() for x in value.split(",")]
             unknownParts = set(parts).difference(_filterKnownParts)
             if unknownParts:
-                raise SyntaxError(
+                raise _SyntaxError(
                     _("@info",
                       "Unknown message parts for the filter to act on: "
                       "%(partlist)s.")
@@ -1088,7 +1090,7 @@ def _filterParseGeneral (fields):
             rest.append(field)
 
     if not parts:
-        raise SyntaxError(
+        raise _SyntaxError(
             _("@info",
               "No message parts specified for the filter to act on."))
 
@@ -1216,7 +1218,7 @@ def _ruleFilterSetOnParts (parts, func, sig):
     def composition (value, part):
 
         if part not in _filterKnownRuleParts:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unknown rule part '%(part)s' for the filter to act on.")
                 % dict(part=part))
@@ -1346,7 +1348,7 @@ def _triggerFromHook (fields):
 
     msgpart = fieldDict["on"].strip()
     if msgpart not in _triggerKnownMsgParts:
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Unknown message part '%(part)s' for trigger to act on.")
             % dict(part=msgpart))
@@ -1388,7 +1390,7 @@ def _fancyBool (string):
 
     value = strbool(string)
     if value is None:
-        raise StandardError(
+        raise PologyError(
             _("@info",
               "Cannot convert '%(val)s' to a boolean value.")
             % dict(val=string))
@@ -1466,7 +1468,7 @@ class Rule(object):
         self.trigger=None # Function to use as trigger instead of pattern
 
         if trigger is None and msgpart not in _trigger_msgparts:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unknown message part '%(part)s' set for the rule's "
                   "trigger pattern.")
@@ -1497,7 +1499,7 @@ class Rule(object):
             warning(_("@info",
                       "Invalid pattern '%(pattern)s', disabling rule:\n"
                       "%(msg)s")
-                    % dict(pattern=pattern, msg=e.message))
+                    % dict(pattern=pattern, msg=e))
             self.disabled=True
         self.rawPattern=pattern
         self.trigger=None # invalidate any trigger function
@@ -1566,7 +1568,7 @@ class Rule(object):
                 warning(_("@info",
                           "Invalid validity definition '%(dfn)s', skipped. "
                           "The error was:\n%(msg)s")
-                        % dict(dfn=item, msg=e.message))
+                        % dict(dfn=item, msg=e))
                 continue
 
     #@timed_out(TIMEOUT)
@@ -1654,7 +1656,7 @@ class Rule(object):
             item = int(msgpart.split("_")[1])
             text_spec = [("msgstr", item, msg.msgstr[item])]
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unknown message part '%(part)s' referenced in the rule.")
                 % dict(part=msgpart))
@@ -1934,7 +1936,7 @@ def _parseRuleLine (lines, lno):
                 elif line[p] == brcls:
                     balance -= 1
             if balance > 0:
-                raise SyntaxError(
+                raise _SyntaxError(
                     _("@info",
                       "Unbalanced '%(delim)s' in shorthand trigger pattern.")
                     % dict(delim=bropn))
@@ -1950,7 +1952,7 @@ def _parseRuleLine (lines, lno):
             while p < llen and line[p].isspace():
                 p += 1
             if p >= llen:
-                raise SyntaxError(
+                raise _SyntaxError(
                     _("@info",
                       "Missing '%(kw)s' keyword in the rule trigger.")
                     % dict(kw="match"))
@@ -1960,7 +1962,7 @@ def _parseRuleLine (lines, lno):
             while line[p].isalnum() or line[p] == "_":
                 p += 1
                 if p >= llen:
-                    raise SyntaxError(
+                    raise _SyntaxError(
                         _("@info",
                           "Malformed rule trigger."))
             tkeyw = line[p1:p]
@@ -1971,7 +1973,7 @@ def _parseRuleLine (lines, lno):
                 while line[p].isspace():
                     p += 1
                     if p >= llen:
-                        raise SyntaxError(
+                        raise _SyntaxError(
                             _("@info",
                               "No pattern after the trigger keyword '%(kw)s'.")
                             % dict(kw=tkeyw))
@@ -2006,7 +2008,7 @@ def _parseRuleLine (lines, lno):
                     break
             fname = line[p1:p]
             if not re.match(r"^!?[a-z][\w-]*$", fname):
-                raise SyntaxError(
+                raise _SyntaxError(
                     _("@info",
                       "Invalid field name '%(field)s'.")
                     % dict(field=fname))
@@ -2067,7 +2069,7 @@ def _findEndQuote (line, pos=0):
         epos += 1
 
     if epos == llen:
-        raise SyntaxError(
+        raise _SyntaxError(
             _("@info",
               "Non-terminated quoted string '%(snippet)s'.")
             % dict(snippet=line[pos:]))

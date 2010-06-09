@@ -11,7 +11,7 @@ from difflib import SequenceMatcher
 import random
 import re
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.colors import colors_for_file
 from pology.file.message import MessageUnsafe
 from pology.misc.report import error
@@ -130,7 +130,7 @@ def tdiff (seq_old, seq_new, reductf=None, diffr=False):
         elif opcode == "insert":
             dlist.extend([(_new_tag, el) for el in seq_new[j1:j2]])
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info \"opcode\" is shorthand for \"operation code\"",
                   "Unknown opcode '%(code)s' from sequence matcher.")
                 % dict(code=opcode))
@@ -1098,7 +1098,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
         elif mode in ("-", "r"):
             ar_dtyp = _old_tag
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unknown selection mode '%(mode)s' for partial differencing.")
                 % dict(mode=mode))
@@ -1168,7 +1168,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
             sumdr += dr * 1.0
             sumw += 1.0
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
                   "while differencing.")
@@ -1356,7 +1356,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             sval = bool(stag in (_new_tag, _equ_tag) and spart)
             setattr(emsg, part, sval)
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
                   "while differencing.")
@@ -1520,7 +1520,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
             or val[p - len(_ctxtpad_sep):p] != _ctxtpad_sep
             or val[p + len(ctxtpad):] not in (_ctxtpad_noctxt, "")
         ):
-            raise StandardError(_("@info", "Malformed padded context."))
+            raise PologyError(_("@info", "Malformed padded context."))
         if val[p + len(ctxtpad):] != _ctxtpad_noctxt:
             val = val[:p - len(_ctxtpad_sep)]
         else:
@@ -1556,7 +1556,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
                 if val is not None:
                     atts_vals.append((part, val))
         else:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
                   "while resolving difference.")

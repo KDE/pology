@@ -50,7 +50,7 @@ import re
 import sys
 from textwrap import TextWrapper
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.fsops import term_width
 from pology.misc.report import format_item_list
 
@@ -765,12 +765,12 @@ def _isinstance_els (lst, typ):
     return reduce(lambda x, y: x and isinstance(y, typ), lst, True)
 
 
-class SubcmdError (Exception):
+class SubcmdError (PologyError):
     """
     Exception for errors on defining subcommands and parsing their parameters.
     """
 
-    def __init__ (self, message):
+    def __init__ (self, msg):
         """
         Constructor.
 
@@ -780,15 +780,7 @@ class SubcmdError (Exception):
         @type msg: string
         """
 
-        self.message = message
+        self.msg = msg
 
-
-    def  __unicode__ (self):
-
-        return unicode(self.message)
-
-
-    def  __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
+        PologyError.__init__(self, msg)
 

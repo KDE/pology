@@ -11,7 +11,7 @@ import difflib
 import os
 import re
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.report import warning, format_item_list
 
 
@@ -472,7 +472,7 @@ def expand_vars (text, varmap, head="%"):
             p += hlen
             continue
         if p == tlen:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Empty variable expansion directive "
                   "at column %(col)d in string '%(str)s'.")
@@ -490,7 +490,7 @@ def expand_vars (text, varmap, head="%"):
                 break
             p += 1
         if braced and p == tlen:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unclosed variable expansion directive "
                   "at column %(col)d in string '%(str)s'.")
@@ -501,7 +501,7 @@ def expand_vars (text, varmap, head="%"):
 
         varvalue = varmap.get(varname)
         if varvalue is None:
-            raise StandardError(
+            raise PologyError(
                 _("@info",
                   "Unknown variable '%(var)s' in variable expansion directive "
                   "at column %(col)d in string '%(str)s'.")

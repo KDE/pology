@@ -9,7 +9,7 @@ Escaping texts in various contexts.
 
 import re
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.report import warning
 
 
@@ -71,7 +71,7 @@ def unescape_c (s):
             if ec is not None:
                 p += 1
         if ec is None:
-            raise StandardError(
+            raise PologyError(
                 _("@info \"C\" is the C programming language",
                   "Invalid C escape sequence after '%(snippet)s'.")
                 % dict(snippet=s[:p]))

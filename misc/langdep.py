@@ -11,7 +11,7 @@ import sys
 import os
 import re
 
-from pology import _, n_
+from pology import PologyError, _, n_
 from pology.misc.report import error, warning
 
 
@@ -192,7 +192,7 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
                               "Cannot create hook by applying function "
                               "'%(func)s' to argument list %(args)s; "
                               "reported error:\n%(msg)s")
-                            % dict(func=fspec, args=repr(args), msg=e.message),
+                            % dict(func=fspec, args=repr(args), msg=e.args[0]),
                             abort)
 
     return call
@@ -233,7 +233,7 @@ def _by_lreq (langreq, getter, abort=False):
     return getter(lang, path, item, args, abort)
 
 
-def _raise_or_abort (errmsg, abort, exc=StandardError):
+def _raise_or_abort (errmsg, abort, exc=PologyError):
     """
     Raise an exception or abort execution with given error message,
     based on the value of C{abort}.
@@ -242,7 +242,7 @@ def _raise_or_abort (errmsg, abort, exc=StandardError):
     if abort:
         error(errmsg)
     else:
-        raise exc, errmsg
+        raise exc(errmsg)
 
 
 def get_result (lang, mod, func=None, args="", abort=False):
@@ -287,7 +287,7 @@ def get_result (lang, mod, func=None, args="", abort=False):
                           "with argument list %(args)s failed; "
                           "reported error:\n%(msg)s")
                         % dict(func=func, mod=lmod, args=repr(args),
-                               msg=e.message), abort)
+                               msg=e.args[0]), abort)
 
     return res
 

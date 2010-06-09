@@ -224,18 +224,17 @@ def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
         except A.AspellConfigError, e:
             error(_("@info",
                     "Aspell configuration error:\n%(msg)s")
-                  % dict(msg=e.messages))
+                  % dict(msg=e))
         except A.AspellError, e:
             error(_("@info",
                     "Cannot initialize Aspell:\n%(msg)s")
-                  % dict(msg=e.messages))
+                  % dict(msg=e))
     else:
         # Create simple internal checker that only checks against
         # internal supplemental dictionaries.
         if not dictpath:
             error(_("@info",
                     "No supplemental dictionaries found."))
-            raise Exception
         checker = _QuasiSpell(dictpath, encoding)
 
     # Composited dictionary read by now, remove if temporary file.
@@ -292,7 +291,7 @@ def _compose_personal_dict (lang, envs):
         error(_("@info",
                 "Cannot create composited spelling dictionary "
                 "in current working directory:\n%(msg)s")
-              % dict(msg=e.messages))
+              % dict(msg=e.args[0]))
 
     return tmpf.name, True
 

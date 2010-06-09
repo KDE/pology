@@ -55,7 +55,7 @@ class Multidict (object):
             if key in d:
                 return d[key]
 
-        raise KeyError, key
+        raise KeyError(key)
 
 
     def __iter__ (self):
