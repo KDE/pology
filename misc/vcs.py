@@ -16,8 +16,9 @@ import re
 import shutil
 import tempfile
 
-from pology.misc.report import report, warning
+from pology import _, n_
 from pology.misc.fsops import collect_system, system_wd, unicode_to_str
+from pology.misc.report import report, warning
 
 
 _vcskeys_by_pkey = {}
@@ -78,8 +79,10 @@ def make_vcs (vcskey):
     nkey = vcskey.strip().lower()
     vcstype = _vcstypes_by_akey.get(nkey)
     if not vcstype:
-        raise TypeError("unknown version control system requested "
-                        "by key '%s'" % vcskey)
+        raise TypeError(
+            _("@info",
+              "Unknown version control system requested by key '%(key)s'.")
+            % dict(key=vcskey))
     return vcstype()
 
 
@@ -113,7 +116,8 @@ class VcsBase (object):
         @rtype: bool or (bool, [string*])
         """
         raise StandardError(
-            "Selected version control system does not define adding.")
+            _("@info",
+              "Selected version control system does not define adding."))
 
 
     def remove (self, path):
@@ -132,7 +136,8 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define removing.")
+            _("@info",
+              "Selected version control system does not define removing."))
 
 
     def revision (self, path):
@@ -147,7 +152,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define revision query.")
+            _("@info",
+              "Selected version control system does not define "
+              "revision query."))
 
 
     def is_clear (self, path):
@@ -164,7 +171,8 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define state query.")
+            _("@info",
+              "Selected version control system does not define state query."))
 
 
     def is_versioned (self, path):
@@ -179,8 +187,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "checking whether a path is version controlled.")
+            _("@info",
+              "Selected version control system does not define "
+              "checking whether a path is version controlled."))
 
 
     def export (self, path, rev, dstpath, rewrite=None):
@@ -211,8 +220,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "fetching a versioned path.")
+            _("@info",
+              "Selected version control system does not define "
+              "fetching of a versioned path."))
 
 
     def commit (self, paths, message=None, msgfile=None, incparents=True):
@@ -255,8 +265,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "committing of paths.")
+            _("@info",
+              "Selected version control system does not define "
+              "committing of paths."))
 
 
     def log (self, path, rev1=None, rev2=None):
@@ -289,8 +300,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "revision history query.")
+            _("@info",
+              "Selected version control system does not define "
+              "revision history query."))
 
 
     def to_commit (self, path):
@@ -310,8 +322,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "listing of non-committed paths.")
+            _("@info",
+              "Selected version control system does not define "
+              "listing of non-committed paths."))
 
 
     def diff (self, path, rev1=None, rev2=None):
@@ -344,7 +357,8 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define diffing.")
+            _("@info",
+              "Selected version control system does not define diffing."))
 
 
     def revert (self, path):
@@ -362,8 +376,9 @@ class VcsBase (object):
         """
 
         raise StandardError(
-            "Selected version control system does not define "
-            "reverting a versioned path.")
+            _("@info",
+              "Selected version control system does not define "
+              "reverting a versioned path."))
 
 
 class VcsNoop (VcsBase):
@@ -647,15 +662,19 @@ class VcsSubversion (VcsBase):
         elif rev1 is not None:
             rspec = "-r %s" % rev1
         elif rev2 is not None:
-            raise StandardError("Subversion cannot diff from working copy "
-                                "to a named revision.")
+            raise StandardError(
+                _("@info \"Subversion\" is a version control system",
+                  "Subversion cannot diff from working copy "
+                  "to a named revision."))
         else:
             rspec = ""
 
         res = collect_system("svn diff %s %s" % (path, rspec), env=self._env)
         if res[-1] != 0:
-            warning("Cannot diff path '%s', Subversion reports:\n"
-                    "%s" % (path, res[1]))
+            warning(_("@info",
+                      "Subversion reports it cannot diff path '%(path)s':\n"
+                       "%(msg)s")
+                    % dict(path=path, msg=res[1]))
             return []
 
         udiff = []
@@ -687,8 +706,10 @@ class VcsSubversion (VcsBase):
 
         res = collect_system("svn revert -R %s" % path, env=self._env)
         if res[-1] != 0:
-            warning("Cannot revert path '%s', Subversion reports:\n"
-                    "%s" % (path, res[1]))
+            warning(_("@info",
+                      "Subversion reports it cannot revert path '%(path)s':\n"
+                      "%(msg)s")
+                    % dict(path=path, msg=res[1]))
             return False
 
         return True
@@ -733,7 +754,10 @@ class VcsGit (VcsBase):
                 break
 
         if root is None:
-            raise StandardError, "cannot find Git repository for '%s'" % path
+            raise StandardError(
+                _("@info \"Git\" is a version control system",
+                  "Cannot find Git repository for '%(path)s'.")
+                % dict(path=path))
 
         rpaths = []
         for path in paths:
@@ -772,7 +796,9 @@ class VcsGit (VcsBase):
         # Base override.
 
         if os.path.isdir(path):
-            warning("cannot remove directories: %s" % path)
+            warning(_("@info",
+                      "Git cannot remove directories (tried on '%(path)s').")
+                    % dict(path=path))
             return False
 
         root, path = self._gitroot(path)
@@ -882,17 +908,23 @@ class VcsGit (VcsBase):
         # Add to index any modified paths that have not been added.
         for opath in opaths:
             if not self.is_versioned(opath):
-                warning("cannot commit non-versioned path: %s" % opath)
+                warning(_("@info"
+                          "Git cannot commit non-versioned path '%(path)s'.")
+                        % dict(path=opath))
                 return False
             if os.path.exists(opath) and not self.add(opath):
-                warning("cannot add path to index: %s" % opath)
+                warning(_("@info"
+                          "Git cannot add path '%(path)s' to index.")
+                        % dict(path=opath))
                 return False
 
         # Reset all paths in index which have not been given to commit.
         ipaths = self._paths_to_commit(root)
         rpaths = list(set(ipaths).difference(paths))
         if rpaths:
-            warning("resetting paths in index which are not to be committed")
+            warning(_("@info"
+                      "Git is resetting paths in index which are "
+                      "not to be committed."))
             cmdline = "git reset %s" % " ".join(rpaths)
             system_wd(unicode_to_str(cmdline), root)
             # ...seems to return != 0 even if it did what it was told to.
@@ -999,16 +1031,19 @@ class VcsGit (VcsBase):
         elif rev1 is not None:
             rspec = "%s" % rev1
         elif rev2 is not None:
-            raise StandardError("Git cannot diff from non-staged paths "
-                                "to a commit.")
+            raise StandardError(
+                _("@info"
+                  "Git cannot diff from non-staged paths to a commit."))
         else:
             rspec = ""
 
         res = collect_system("git diff %s %s" % (rspec, path),
                              wdir=root, env=self._env)
         if res[-1] != 0:
-            warning("Cannot diff path '%s', Git reports:\n"
-                    "%s" % (path, res[1]))
+            warning(_("@info"
+                      "Git reports it cannot diff path '%(path)s':\n"
+                      "%(msg)s")
+                    % dict(path=path, msg=res[1]))
             return []
 
         udiff = []
@@ -1042,8 +1077,10 @@ class VcsGit (VcsBase):
         res = collect_system("git checkout %s" % path,
                              wdir=root, env=self._env)
         if res[-1] != 0:
-            warning("Cannot revert path '%s', Git reports:\n"
-                    "%s" % (path, res[1]))
+            warning(_("@info"
+                      "Git reports it cannot revert path '%(path)s':\n"
+                      "%(msg)s")
+                    % dict(path=path, msg=res[1]))
             return []
 
         return True

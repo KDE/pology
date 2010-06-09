@@ -8,6 +8,7 @@ Pretty-printing of tabular data.
 """
 
 import copy
+
 import pology.misc.colors as C
 
 
@@ -30,41 +31,29 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         r2   4   -   6
 
     @param data: column entries (cells) by column
-    @type data: list of lists of strings
-
+    @type data: [[string*]*]
     @param coln: column names
-    @type coln: list of strings
-
+    @type coln: [string*]
     @param rown: row names
-    @type rown: list of strings
-
+    @type rown: [string*]
     @param dfmt: format strings per column (e.g. C{"%+.2f"} for floats)
-    @type dfmt: list of strings
-
+    @type dfmt: [string*]
     @param space: fill-in for spacing between cells
     @type space: string
-
     @param none: fill-in for displaying empty cells (i.e. C{None}-valued)
     @type none: string
-
     @param rotated: whether the table should be transposed
     @type rotated: bool
-
     @param colorized: whether the table should be colorized for shell output
     @type colorized: bool
-
     @param indent: indent string for the whole table
     @type indent: string
-
     @param colnra: right align column names
     @type colnra: bool
-
     @param rownra: right align row names
     @type rownra: bool
-
     @param colw: minimal column width
     @type colw: integer
-
     @returns: plain text representation of the table (no trailing newline)
     @rtype: string
     """

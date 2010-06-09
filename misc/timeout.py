@@ -12,20 +12,32 @@ U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871}.
 
 import signal
 
-class TimedOutException(Exception):
-    def __init__(self, value = "Timed Out"):
+from pology import _, n_
+from pology.misc.report import report
+
+
+class TimedOutException (Exception):
+
+    def __init__ (self, value="timed-out"):
+
         Exception.__init__(self)
         self.value = value
-    def __str__(self):
+
+    def __str__ (self):
+
         return repr(self.value)
 
-def timed_out(timeout):
-    def decorate(f):
-        def handler(signum, frame):
-            print ">>>> Got timeout ! <<<<<"
+
+def timed_out (timeout):
+
+    def decorate (f):
+
+        def handler (signum, frame):
+            report(_("@info:progress",
+                     ">>>>> Timed out! <<<<<"))
             raise TimedOutException()
-        
-        def new_f(*args, **kwargs):
+
+        def new_f (*args, **kwargs):
             old = signal.signal(signal.SIGALRM, handler)
             signal.alarm(timeout)
             try:
@@ -33,10 +45,10 @@ def timed_out(timeout):
             finally:
                 signal.alarm(0)
                 signal.signal(signal.SIGALRM, old)
-                
             return result
-        
+
         new_f.func_name = f.func_name
         return new_f
 
     return decorate
+

@@ -16,6 +16,8 @@ not meet your exact needs.
 import re
 import unicodedata
 
+from pology import _, n_
+
 
 # Regex for splitting C{<...>} into tag name and few other elements.
 _tag_split_rx = re.compile(r"^\s*<\s*(/?)\s*(\w+)[^/>]*(/?)\s*>\s*$")
@@ -63,7 +65,6 @@ def _tag_split (tag):
 
     @param tag: the tag proper, C{<...>}
     @type tag: string
-
     @returns: tag name and state
     @rtype: string, string
     """
@@ -100,56 +101,42 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
     @param text: the text to wrap
     @type text: string
-
     @param wcol: column to wrap at
     @type wcol: int
-
     @param lead: prefix for each line
     @type lead: string
-
     @param trail: suffix for each line
     @type trail: string
-
     @param flead:
         special suffix for the first line. Normal suffix is used if this is
         given as C{None}
     @type flead: C{None} or string
-
     @param femp:
         C{True} to leave the first line empty if the complete text would not
         fit into it, C{False} for normal use of the first line
     @type femp: bool
-
     @param natbr: characters other than space to naturally break at
     @type natbr: string
-
     @param prebr: character sequences to unconditionally break before
-    @type prebr: tuple of strings
-
+    @type prebr: (string*)
     @param postbr: character sequences to unconditionally break after
-    @type postbr: tuple of strings
-
+    @type postbr: (string*)
     @param tagbr: tag names to break before opening and after closing
-    @type tagbr: tuple of strings
-
+    @type tagbr: (string*)
     @param tagbr2: tag names to always break after (like <br>)
-    @type tagbr2: tuple of strings
-
+    @type tagbr2: (string*)
     @param wcolmin: minimal column to allow natural breaks at
     @type wcolmin: int
-
     @param midbr:
         C{True} to allow break in the middle of a word if no usual break
         found before C{wcol} has been exceeded
     @type midbr: bool
-
     @param remtrws:
         whether to strictly remove any trailing whitespace in wrapped lines
         (otherwise trailing whitespace may be left in under certain conditions)
     @type remtrws: bool
-
     @returns: wrapped lines (each ends with a newline)
-    @rtype: list of strings
+    @rtype: [string*]
     """
 
     if flead is None:
@@ -169,7 +156,9 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                 cwidth[i] = 2
 
     if wcol > 0 and lenlead + lentrail + 1 >= wcol:
-        raise StandardError, "too tight wrapping, cannot fit lead and trail"
+        raise StandardError(
+            _("@info",
+              "Wrapping is too tight, cannot fit leading and trailing text."))
 
     lines = [] # list of lines
     nlines = 0
