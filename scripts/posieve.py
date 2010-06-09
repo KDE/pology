@@ -223,7 +223,7 @@ def main ():
     ver = (
         _("@info command version",
           u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2007, 2008, 2009, 2010, "
+          u"Copyright © 2007, 2008, 2009, 2010 "
           u"Chusslove Illich (Часлав Илић) <%(email)s>")
         % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 

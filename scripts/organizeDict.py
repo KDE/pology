@@ -16,14 +16,15 @@ Usage::
 @license: GPLv3
 """
 
+import locale
+from codecs import open
+from os.path import abspath, basename
 import re
 import sys
-from os.path import abspath, basename
-from codecs import open
-import locale
 
 import fallback_import_paths
-from pology.misc.report import error
+from pology import _, n_
+from pology.misc.report import report, error
 
 
 def main():
@@ -39,7 +40,7 @@ def main():
 
 def organize (dictPath):
 
-    print dictPath
+    report(dictPath)
     dictEncDefault = "UTF-8"
     dictFile=open(dictPath, "r", dictEncDefault)
 
@@ -47,7 +48,9 @@ def organize (dictPath):
     header=dictFile.readline()
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        error("malformed header of the dictionary file")
+        error(_("@info",
+                "Malformed header of the dictionary file '%(file)s'.")
+              % dict(file=dictPath))
     dictType, dictLang, numWords, dictEnc=m.groups()
 
     # Reopen in correct encoding if not the default.
@@ -63,7 +66,9 @@ def organize (dictPath):
         if word.startswith("personal_ws"):
             continue
         if word in words:
-            print "  removed duplicate: %s" % word.rstrip("\n")
+            report("  " + (_("@item:inlist",
+                            "removed duplicate: %(word)s")
+                           % dict(word=word.rstrip("\n"))))
         else:
             words.add(word)
     words=list(words)
@@ -78,11 +83,17 @@ def organize (dictPath):
     dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
     dictFile.writelines(words)
     dictFile.close()
-    print "  written %s words" % len(words)
+    report("  " + (n_("@item:inlist",
+                      "written %(num)d word",
+                      "written %(num)d words",
+                      len(words))
+                   % dict(num=len(words))))
 
 
 def usage():
-    print "usage: %s DICTFILE..." % basename(sys.argv[0])
+    report(_("@info",
+             "Usage: %(cmd)s DICTFILE...")
+           % dict(cmd=basename(sys.argv[0])))
     sys.exit(1)
 
 

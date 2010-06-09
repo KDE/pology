@@ -14,6 +14,7 @@ import re
 import sys
 import time
 
+from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.hook.gettext_tools import msgfmt
@@ -41,7 +42,7 @@ from pology.sieve.update_header import update_header
 ASCWRAPPING = ["fine"]
 
 # Ascription types.
-# NOTE: These string are written and read from ascription files.
+# NOTE: These string are written into and read from ascription files.
 ATYPE_MOD = "modified"
 ATYPE_REV = "reviewed"
 
@@ -93,15 +94,15 @@ def main ():
     # Setup options and parse the command line.
     usage = (
         u"%prog [OPTIONS] [MODE] [PATHS...]")
-    description = (
+    desc = (
         u"Keep track of who, when, and how, has translated, modified, "
         u"or reviewed messages in a collection of PO files.")
-    version = (
+    ver = (
         u"%prog (Pology) experimental\n"
         u"Copyright © 2008 Chusslove Illich (Часлав Илић) "
         u"<caslav.ilic@gmx.net>\n")
 
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
         action="append", dest="aselectors", default=None,
