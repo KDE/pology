@@ -30,7 +30,7 @@ from pology.misc.langdep import get_hook_lreq
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, warning, error
+from pology.misc.report import report, warning, error, format_item_list
 from pology.misc.report import init_file_progress
 from pology.misc.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
 from pology.misc.tabulate import tabulate
@@ -93,126 +93,168 @@ def main ():
 
     # Setup options and parse the command line.
     usage = (
-        u"%prog [OPTIONS] [MODE] [PATHS...]")
+        _("@info command usage",
+          "%(cmd)s MODE [OPTIONS] [PATHS...]")
+        % dict(cmd="%prog"))
     desc = (
-        u"Keep track of who, when, and how, has translated, modified, "
-        u"or reviewed messages in a collection of PO files.")
+        _("@info command description",
+          "Keep track of who, when, and how, has translated, modified, "
+          "or reviewed messages in a collection of PO files."))
     ver = (
-        u"%prog (Pology) experimental\n"
-        u"Copyright © 2008 Chusslove Illich (Часлав Илић) "
-        u"<caslav.ilic@gmx.net>\n")
+        _("@info command version",
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2008, 2009, 2010 "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-a", "--select-ascription", metavar="SELECTOR[:ARGS]",
+        "-a", "--select-ascription",
+        metavar=_("@info command line value placeholder", "SELECTOR[:ARGS]"),
         action="append", dest="aselectors", default=None,
-        help="Select message from ascription history by this selector. "
-             "Can be repeated, AND-semantics.")
+        help=_("@info command line option description",
+               "Select a message from ascription history by this selector. "
+               "Can be repeated, in which case the message is selected "
+               "if all selectors match it."))
     opars.add_option(
-        "-A", "--min-adjsim-diff",  metavar="RATIO",
+        "-A", "--min-adjsim-diff",
+        metavar=_("@info command line value placeholder", "RATIO"),
         action="store", dest="min_adjsim_diff", default=None,
-        help="Minimum adjusted similarity between two versions of a message "
-             "needed to actually show the embedded difference. "
-             "Range is 0.0-1.0, where 0 means to always show the difference, "
-             "and 1 to never show it; a resonable threshold is 0.6-0.8. "
-             "When the difference is not shown, the '%s' flag is still "
-             "added to the message." % _diffflag_ign)
+        help=(_("@info command line option description",
+                "Minimum adjusted similarity between two versions of a message "
+                "needed to show the embedded difference. "
+                "Range 0.0-1.0, where 0 means always to show the difference, "
+                "and 1 never to show it; a convenient range is 0.6-0.8. "
+                "When the difference is not shown, the '%(flag)s' flag is "
+                "added to the message.")
+              % dict(flag=_diffflag_ign)))
     opars.add_option(
         "-b", "--show-by-file",
         action="store_true", dest="show_by_file", default=False,
-        help="Next to global summary, also present results by file.")
+        help=_("@info command line option description",
+               "Next to global summary, also present results by file."))
     opars.add_option(
         "-C", "--no-vcs-commit",
         action="store_false", dest="vcs_commit", default=None,
-        help="Do not commit catalogs to version control "
-             "(when version control is used).")
+        help=_("@info command line option description",
+               "Do not commit catalogs to version control "
+               "(when version control is used)."))
     opars.add_option(
-        "-d", "--depth", metavar="LEVEL",
+        "-d", "--depth",
+        metavar=_("@info command line value placeholder", "LEVEL"),
         action="store", dest="depth", default=None,
-        help="Consider ascription history up to this level into the past.")
+        help=_("@info command line option description",
+               "Consider ascription history up to this level into the past."))
     opars.add_option(
-        "-D", "--diff-reduce-history", metavar="SPEC",
+        "-D", "--diff-reduce-history",
+        metavar=_("@info command line value placeholder", "SPEC"),
         action="store", dest="diff_reduce_history", default=None,
-        help="Reduce each message in history to a part of the difference "
-             "from the first earlier modification: to added, removed, or "
-             "equal segments. "
-             "The value begins with one of the characters 'a', 'r', or 'e', "
-             "followed by substring that will be used to separate "
-             "selected difference segments in resulting messages "
-             "(if this substring is empty, space is used).")
+        help=_("@info command line option description",
+               "Reduce each message in history to a part of the difference "
+               "from the first earlier modification: to added, removed, or "
+               "equal segments. "
+               "The value begins with one of the characters 'a', 'r', or 'e', "
+               "followed by substring that will be used to separate "
+               "selected difference segments in resulting messages "
+               "(if this substring is empty, space is used)."))
     opars.add_option(
-        "-F", "--filter", metavar="NAME",
+        "-F", "--filter",
+        metavar=_("@info command line value placeholder", "NAME"),
         action="append", dest="filters", default=None,
-        help="Pass relevant message text fields through a filter before "
-             "matching or comparing them (relevant in some modes). "
-             "Can be repeated to add several filters.")
+        help=_("@info command line option description",
+               "Pass relevant message text fields through a filter before "
+               "matching or comparing them (relevant in some modes). "
+               "Can be repeated to add several filters."))
     opars.add_option(
         "-G", "--show-filtered",
         action="store_true", dest="show_filtered", default=False,
-        help="When operating under a filter, also show filtered versions "
-             "of whatever is shown in original (e.g. in diffs).")
+        help=_("@info command line option description",
+               "When operating under a filter, also show filtered versions "
+               "of whatever is shown in original (e.g. in diffs)."))
     opars.add_option(
         "-k", "--keep-flags",
         action="store_true", dest="keep_flags", default=False,
-        help="Do not remove review significant flags from messages "
-             "(possibly convert them as appropriate).")
+        help=_("@info command line option description",
+               "Do not remove review-significant flags from messages "
+               "(possibly convert them as appropriate)."))
     opars.add_option(
-        "-m", "--message", metavar="TEXT",
+        "-m", "--message",
+        metavar=_("@info command line value placeholder", "TEXT"),
         action="store", dest="message", default=None,
-        help="Version control commit message for original catalogs, "
-             "when %(option)s is in effect." % dict(option="-c"))
+        help=(_("@info command line option description",
+                "Version control commit message for original catalogs, "
+                "when %(opt)s is in effect.")
+              % dict(opt="-c")))
     opars.add_option(
-        "-o", "--open-in-editor", metavar=("|".join(sorted(known_editors))),
+        "-o", "--open-in-editor",
+        metavar=("|".join(sorted(known_editors))),
         action="store", dest="po_editor", default=None,
-        help="Open selected messages in one of the supported PO editors.")
+        help=_("@info command line option description",
+               "Open selected messages in one of the supported PO editors."))
     opars.add_option(
-        "-R", "--max-fraction-select", metavar="FRACTION",
+        "-R", "--max-fraction-select",
+        metavar=_("@info command line value placeholder", "FRACTION"),
         action="store", dest="max_fraction_select", default=None,
-        help="Select messages in a catalog only if the total number "
-             "of selected messages in that catalog would be at most "
-             "the given fraction (0.0-1.0) of total number of messages.")
+        help=_("@info command line option description",
+               "Select messages in a catalog only if the total number "
+               "of selected messages in that catalog would be at most "
+               "the given fraction (0.0-1.0) of total number of messages."))
     opars.add_option(
-        "-s", "--selector", metavar="SELECTOR[:ARGS]",
+        "-s", "--selector",
+        metavar=_("@info command line value placeholder", "SELECTOR[:ARGS]"),
         action="append", dest="selectors", default=None,
-        help="Consider only messages matched by this selector. "
-             "Can be repeated, AND-semantics.")
+        help=_("@info command line option description",
+               "Consider only messages matched by this selector. "
+               "Can be repeated, in which case the message is selected "
+               "if all selectors match it."))
     opars.add_option(
-        "-t", "--tag", metavar="TAG",
+        "-t", "--tag",
+        metavar=_("@info command line value placeholder", "TAG"),
         action="store", dest="tags", default=None,
-        help="Tag to add or consider in ascription records. "
-             "Several tags may be given separated by commas.")
+        help=_("@info command line option description",
+               "Tag to add or consider in ascription records. "
+               "Several tags may be given separated by commas."))
     opars.add_option(
-        "-u", "--user", metavar="USER",
+        "-u", "--user",
+        metavar=_("@info command line value placeholder", "USER"),
         action="store", dest="user", default=None,
-        help="User in whose name the operation is performed.")
+        help=_("@info command line option description",
+               "User in whose name the operation is performed."))
     opars.add_option(
         "-U", "--update-headers",
         action="store_true", dest="update_headers", default=None,
-        help="Update headers in catalogs which contain modifications "
-             "before committing them, with user's translator information.")
+        help=_("@info command line option description",
+               "Update headers in catalogs which contain modifications "
+               "before committing them, with user's translator information."))
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
-        help="Output more detailed progress info.")
+        help=_("@info command line option description",
+               "Output more detailed progress info."))
     opars.add_option(
-        "-w", "--write-modified", metavar="FILE",
+        "-w", "--write-modified",
+        metavar=_("@info command line value placeholder", "FILE"),
         action="store", dest="write_modified", default=None,
-        help="Write paths of all original catalogs modified by "
-             "ascription operations into the given file.")
+        help=_("@info command line option description",
+               "Write paths of all original catalogs modified by "
+               "ascription operations into the given file."))
     opars.add_option(
-        "-x", "--externals", metavar="PYFILE",
+        "-x", "--externals",
+        metavar=_("@info command line value placeholder", "PYFILE"),
         action="append", dest="externals", default=[],
-        help="Collect optional functionality from an external Python file "
-             "(selectors, etc).")
+        help=_("@info command line option description",
+               "Collect optional functionality from an external Python file "
+               "(selectors, etc)."))
     opars.add_option(
         "--all-reviewed",
         action="store_true", dest="all_reviewed", default=False,
-        help="Ascribe all messages as reviewed on commit, "
-             "overriding any existing review elements. "
-             "Tags given by %(opt)s apply. "
-             "This should not be done in day to day practice; "
-             "the primary use is initial review ascription."
-             % dict(opt="--tag"))
+        help=(_("@info command line option description",
+                "Ascribe all messages as reviewed on commit, "
+                "overriding any existing review elements. "
+                "Tags given by %(opt)s apply. "
+                "This should not be done in day-to-day practice; "
+                "the primary use is initial review ascription.")
+              % dict(opt="--tag")))
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
@@ -220,13 +262,15 @@ def main ():
 
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
-        error("Operation mode not given.")
+        error(_("@info", "Operation mode not given."))
     rawmodename = free_args.pop(0)
     modename = mode_tolong.get(rawmodename)
     if modename is None:
-        error("Unknown operation mode '%(mode)s' (known modes: %(modes)s)."
+        error(_("@info",
+                "Unknown operation mode '%(mode)s' "
+                "(known modes: %(modelist)s).")
               % dict(mode=rawmodename,
-                     modes=", ".join(["%s/%s" % x for x in mode_spec])))
+                     modes=format_item_list("%s/%s" % x for x in mode_spec)))
 
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
@@ -260,9 +304,11 @@ def main ():
     def valconv_editor (edkey):
         msgrepf = known_editors.get(edkey)
         if msgrepf is None:
-            error("PO editor '%(ed)s' is not among "
-                  "the supported editors: %(eds)s."
-                  % dict(ed=edkey, eds=", ".join(sorted(known_editors))))
+            error(_("@info",
+                    "PO editor '%(ed)s' is not among "
+                    "the supported editors: %(edlist)s.")
+                  % dict(ed=edkey,
+                         edlist=format_item_list(sorted(known_editors))))
         return msgrepf
     def valconv_tags (cstr):
         return set(x.strip() for x in cstr.split(","))
@@ -278,7 +324,8 @@ def main ():
             try:
                 value = valconv(valraw)
             except TypeError:
-                error("Value '%(val)s' to option '%(opt)s' is of wrong type."
+                error(_("@info",
+                        "Value '%(val)s' to option '%(opt)s' is of wrong type.")
                       % dict(val=valraw, opt=("--" + optname)))
             setattr(options, uoptname, value)
 
@@ -306,8 +353,9 @@ def main ():
     if options.diff_reduce_history:
         options.addrem = options.diff_reduce_history
         if options.addrem[:1] not in ("a", "e", "r"):
-            error("Value '%(val)s' to option '%(opt)s' must start "
-                  "with '%(char1)s', '%(char2)s', or '%(char3)s'."
+            error(_("@info",
+                    "Value '%(val)s' to option '%(opt)s' must start "
+                    "with '%(char1)s', '%(char2)s', or '%(char3)s'.")
                   % dict(val=options.addrem, opt="--diff-reduce-history",
                          char1="a", char2="e", char3="r"))
 
@@ -351,17 +399,26 @@ def main ():
         mode.selector = selector or build_selector(["any"])
         canselect = True
     else:
-        error("Internal problem: unhandled operation mode '%s'." % mode.name)
+        error(_("@info",
+                "Unhandled operation mode '%(mode)s'.")
+              % dict(mode=mode.name))
 
     mode.user = None
     if needuser:
         if not options.user:
-            error("Current operation mode requires a user to be specified.")
+            error(_("@info",
+                    "Operation mode '%(mode)s' requires a user "
+                    "to be specified.")
+                  % dict(mode=mode.name))
         mode.user = options.user
     if not canselect and selector:
-        error("Current operation mode does not accept selectors.")
+        error(_("@info",
+                "Operation mode '%(mode)s' does not accept selectors.")
+              % dict(mode=mode.name))
     if not canaselect and aselector:
-        error("Current operation mode does not accept history selectors.")
+        error(_("@info",
+                "Operation mode '%(mode)s' does not accept history selectors.")
+              % dict(mode=mode.name))
 
     # Collect list of catalogs supplied through command line.
     # If none supplied, assume current working directory.
@@ -389,7 +446,9 @@ def main ():
         f = open(lfpath, "w")
         f.write(("\n".join(sorted(_modified_cats)) + "\n").encode("utf-8"))
         f.close()
-        report("Written paths of modified catalogs: %s" % lfpath)
+        report(_("@info",
+                 "Paths of modified catalogs written to '%(file)s'.")
+               % dict(file=lfpath))
 
 
 # FIXME: Imported by others, factor out.
@@ -416,8 +475,9 @@ def collect_configs_catpaths (catpaths):
             if parent == pparent:
                 break
         if not cfgpath:
-            error("Cannot find ascription configuration for '%(catpath)s'."
-                  % dict(catpath=catpath))
+            error(_("@info",
+                    "Cannot find ascription configuration for '%(file)s'.")
+                  % dict(file=catpath))
         cfgpath = join_ncwd(cfgpath) # for nicer message output
         config = configs_by_cfgpath.get(cfgpath)
         if not config:
@@ -435,9 +495,10 @@ def collect_configs_catpaths (catpaths):
         abscatpath = os.path.abspath(catpath)
         p = abscatpath.find(absrootpath)
         if p != 0 or abscatpath[lenarpath:lenarpathws] != os.path.sep:
-            error("Catalog '%(catpath)s' not in the root given "
-                  "by configuration '%(cfgpath)s'."
-                  % dict(catpath=catpath, cfgpath=cfgpath))
+            error(_("@info",
+                    "Catalog '%(file1)s' not in the root given "
+                    "by configuration '%(file2)s'.")
+                  % dict(file1=catpath, file2=cfgpath))
         acatpath = join_ncwd(config.ascroot, abscatpath[lenarpathws:])
         catpath = join_ncwd(catpath)
         catpaths.append((catpath, acatpath))
@@ -452,7 +513,8 @@ def collect_configs_catpaths (catpaths):
 
 def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
 
-    report(">>>>> VCS is committing catalogs:")
+    report(_("@info:progress VCS is acronym for \"version control system\"",
+             ">>>>> VCS is committing catalogs:"))
 
     # Attach paths to each distinct config, to commit them all at once.
     configs = []
@@ -480,20 +542,22 @@ def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
         if not added:
             if onabortf:
                 onabortf()
-            error("VCS reports that '%s' some catalogs cannot be added."
-                  % catpath)
+            error(_("@info",
+                    "VCS reports that some catalogs cannot be added."))
         cpaths = sorted(set(map(join_ncwd, catpaths_byconf[config] + apaths)))
         if not config.vcs.commit(cpaths, message=cmsg, msgfile=cmsgfile,
                                  incparents=False):
             if onabortf:
                 onabortf()
             if not cmsgfile:
-                error("VCS reports that some catalogs cannot be committed.")
+                error(_("@info",
+                        "VCS reports that some catalogs cannot be committed."))
             else:
                 os.remove(cmsgfile)
-                error("VCS reports that some catalogs cannot be committed "
-                      "(commit message preserved in '%s')."
-                      % cmsgfile_orig)
+                error(_("@info",
+                        "VCS reports that some catalogs cannot be committed "
+                        "(commit message preserved in '%(file)s').")
+                      % dict(file=cmsgfile_orig))
         if cmsgfile:
             os.remove(cmsgfile)
             os.remove(cmsgfile_orig)
@@ -527,9 +591,13 @@ def get_commit_message_file_path (user):
 
     cmd = "%s %s" % (edcmd, fpath)
     if os.system(cmd):
-        error("error from editor command for commit message: %s" % cmd)
+        error(_("@info",
+                "Еrror from editor command '%(cmd)s' for commit message.")
+              % dict(cmd=cmd))
     if not os.path.isfile(fpath):
-        error("editor command did not produce a file: %s" % cmd)
+        error(_("@info",
+                "Editor command '%(cmd)s' did not produce a file.")
+              % dict(cmd=cmd))
 
     cmsg = open(fpath, "r").read()
     if not cmsg.endswith("\n"):
@@ -562,8 +630,10 @@ class Config:
         self.catroot = join_ncwd(cpathdir, gsect.get("catalog-root", ""))
         self.ascroot = join_ncwd(cpathdir, gsect.get("ascript-root", ""))
         if self.catroot == self.ascroot:
-            error("%s: catalog root and ascription root "
-                  "resolve to same path: %s" % (cpath, self.catroot))
+            error(_("@info",
+                    "Catalog root and ascription root for '%(file)s' "
+                    "resolve to same path '%(dir)s'.")
+                  % dict(file=cpath, dir=self.catroot))
 
         self.title = gsect.get("title", None)
         self.lang_team = gsect.get("language-team", None)
@@ -591,12 +661,17 @@ class Config:
                 user = section[len(userst):]
                 usect = dict(config.items(section))
                 if user in self.users:
-                    error("%s: repeated user: %s" % (cpath, user))
+                    error(_("@info",
+                            "Repeated user '%(user)s' in '%(file)s'.")
+                          % dict(user=user, file=cpath))
                 udat = UserData()
                 self.udata[user] = udat
                 self.users.append(user)
                 if "name" not in usect:
-                    error("%s: user '%s' misses the name" % (cpath, user))
+                    error(_("@info",
+                            "The name is missing for "
+                            "user '%(user)s' in '%(file)s'.")
+                          % dict(user=user, file=cpath))
                 udat.name = usect.get("name")
                 udat.oname = usect.get("original-name")
                 udat.email = usect.get("email")
@@ -607,7 +682,9 @@ def assert_mode_user (configs_catpaths, mode):
 
     for config, catpaths in configs_catpaths:
         if mode.user not in config.users:
-            error("User '%s' not defined in '%s'." % (mode.user, config.path))
+            error(_("@info",
+                    "User '%(user)s' not defined in '%(file)s'.")
+                  % dict(user=mode.user, file=config.path))
 
 
 def assert_review_tags (configs_catpaths, tags):
@@ -615,8 +692,9 @@ def assert_review_tags (configs_catpaths, tags):
     for config, catpaths in configs_catpaths:
         for tag in tags:
             if tag not in config.review_tags:
-                error("Review tag '%s' not defined in '%s'."
-                      % (tag, config.path))
+                error(_("@info",
+                        "Review tag '%(tag)s' not defined in '%(file)s'.")
+                      % dict(tag=tag, file=config.path))
 
 
 def assert_syntax (configs_catpaths, onabortf=None):
@@ -629,8 +707,9 @@ def assert_syntax (configs_catpaths, onabortf=None):
     if numerr:
         if onabortf:
             onabortf()
-        error("Invalid syntax in some files, see the reports above. "
-              "Ascription aborted.")
+        error(_("@info",
+                "Invalid syntax in some files, see the reports above. "
+                "Ascription aborted."))
     return numerr
 
 
@@ -646,7 +725,9 @@ def status (options, configs_catpaths, mode):
     counts_a = dict([(x, {}) for x in _all_states])
     counts_na = dict([(x, {}) for x in _all_states])
 
-    upprog = setup_progress(configs_catpaths, "Examining state: %(file)s")
+    upprog = setup_progress(configs_catpaths,
+                            _("@info:progress",
+                              "Examining state: %(file)s"))
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
@@ -695,7 +776,12 @@ def status (options, configs_catpaths, mode):
     upprog()
 
     # Some general data for tabulation of output.
-    coln = ["msg/t", "msg/f", "msg/u", "msg/ot", "msg/of", "msg/ou"]
+    coln = [_("@title:column translated messages", "msg/t"),
+            _("@title:column fuzzy messages", "msg/f"),
+            _("@title:column untranslated messages", "msg/u"),
+            _("@title:column obsolete translated messages", "msg/ot"),
+            _("@title:column obsolete fuzzy messages", "msg/of"),
+            _("@title:column obsolete untranslated messages", "msg/ou")]
     can_color = sys.stdout.isatty()
     none="-"
 
@@ -714,10 +800,10 @@ def status (options, configs_catpaths, mode):
             totals[st] = sum(cnt_per_cat.values())
     # See previous NOTE.
     if sum(totals_a.values()) > 0 or sum(totals_na.values()) > 0:
-        rown = ["ascribed"]
+        rown = [_("@title:row ascribed messages", "ascribed")]
         data = [[totals_a[x] or None] for x in _all_states]
         if sum(totals_na.values()) > 0:
-            rown.append("unascribed")
+            rown.append(_("@title:row unascribed messages", "unascribed"))
             for i in range(len(_all_states)):
                 data[i].append(totals_na[_all_states[i]] or None)
         report(tabulate(data=data, coln=coln, rown=rown,
@@ -730,8 +816,8 @@ def status (options, configs_catpaths, mode):
             catpaths.update(sum([x.keys() for x in counts.values()], []))
         catpaths = sorted(catpaths)
         if catpaths:
-            coln.insert(0, "catalog")
-            coln.insert(1, "st")
+            coln.insert(0, _("@title:column", "catalog"))
+            coln.insert(1, _("@title:column state (asc/nasc)", "st"))
             data = [[] for x in _all_states]
             for catpath in catpaths:
                 cc_a = [counts_a[x].get(catpath, 0) for x in _all_states]
@@ -739,12 +825,12 @@ def status (options, configs_catpaths, mode):
                 # See previous NOTE.
                 if sum(cc_a) > 0 or sum(cc_na) > 0:
                     data[0].append(catpath)
-                    data[1].append("asc")
+                    data[1].append(_("@item:intable ascribed", "asc"))
                     for datac, cc in zip(data[2:], cc_a):
                         datac.append(cc or None)
                     if sum(cc_na) > 0:
                         data[0].append("^^^")
-                        data[1].append("nasc")
+                        data[1].append(_("@item:intable unascribed", "nasc"))
                         for datac, cc in zip(data[2:], cc_na):
                             datac.append(cc or None)
             if any(data):
@@ -766,7 +852,9 @@ def msg_to_previous (msg, copy=True):
 
 def restore_reviews (configs_catpaths, revspecs_by_catmsg):
 
-    upprog = setup_progress(configs_catpaths, "Restoring reviews: %(file)s")
+    upprog = setup_progress(configs_catpaths,
+                            _("@info:progress",
+                              "Restoring reviews: %(file)s"))
     nrestored = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -788,7 +876,11 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
                     os.remove(acatpath)
 
     if nrestored > 0:
-        report("===== Restored reviews: %d" % nrestored)
+        report(n_("@info:progress",
+                  "===== Review elements restored to %(num)d message.",
+                  "===== Review elements restored to %(num)d messages.",
+                  nrestored)
+               % dict(num=nrestored))
 
 
 def restore_review_flags (msg, revtags, unrevd):
@@ -809,7 +901,9 @@ def commit (options, configs_catpaths, mode):
     assert_mode_user(configs_catpaths, mode)
 
     # Ascribe modifications and reviews.
-    upprog = setup_progress(configs_catpaths, "Ascribing: %(file)s")
+    upprog = setup_progress(configs_catpaths,
+                            _("@info:progress",
+                              "Ascribing: %(file)s"))
     revels = {}
     counts = dict([(x, [0, 0]) for x in _all_states])
     configs_catpaths_ascmod = []
@@ -864,7 +958,7 @@ def commit (options, configs_catpaths, mode):
             if len(coln) >= 2:
                 data[1].append(counts[st][1] or None)
     if rown:
-        report("===== Ascription summary:")
+        report(_("@info:progress", "===== Ascription summary:"))
         report(tabulate(data, coln=coln, rown=rown, none="-",
                         colorized=sys.stdout.isatty()))
 
@@ -886,13 +980,18 @@ def diff (options, configs_catpaths, mode):
                                 mode.selector, mode.aselector)
     upprog()
     if ndiffed > 0:
-        report("===== Diffed for review: %d" % ndiffed)
+        report(n_("@info:progress",
+                  "===== %(num)d message diffed for review.",
+                  "===== %(num)d messages diffed for review.",
+                  ndiffed)
+               % dict(num=ndiffed))
 
 
 def purge (options, configs_catpaths, mode):
 
     upprog = setup_progress(configs_catpaths,
-                            "Purging review elements: %(file)s")
+                            _("@info:progress",
+                              "Purging review elements: %(file)s"))
     npurged = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -903,9 +1002,19 @@ def purge (options, configs_catpaths, mode):
 
     if npurged > 0:
         if not options.keep_flags:
-            report("===== Purged review elements: %d" % npurged)
+            report(n_("@info:progress",
+                      "===== Review elements purged from %(num)d message.",
+                      "===== Review elements purged from %(num)d messages.",
+                      npurged)
+                   % dict(num=npurged))
         else:
-            report("===== Purged review elements (flags kept): %d" % npurged)
+            report(n_("@info:progress",
+                      "===== Review elements purged from %(num)d message "
+                      "(flags kept).",
+                      "===== Review elements purged from %(num)d messages "
+                      "(flags kept).",
+                      npurged)
+                   % dict(num=npurged))
 
     return npurged
 
@@ -921,7 +1030,11 @@ def history (options, configs_catpaths, mode):
                                   mode.selector)
     upprog()
     if nshown > 0:
-        report("===== Computed histories: %d" % nshown)
+        report(n_("@info:progress",
+                  "===== Histories computed for %(num)d message.",
+                  "===== Histories computed for %(num)d messages.",
+                  nshown)
+               % dict(num=nshown))
 
 
 def commit_cat (options, config, user, catpath, acatpath, stest):
@@ -968,9 +1081,10 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
                 unknown_revtags = revtags.difference(config.review_tags)
                 if unknown_revtags:
                     revels_by_msg[msg.refentry][-1] = False
-                    tagfmt = ", ".join(sorted(unknown_revtags))
-                    warning_on_msg("Unknown review tags: %s." % tagfmt,
-                                   msg, cat)
+                    tagfmt = format_item_list(sorted(unknown_revtags))
+                    warning_on_msg(_("@info",
+                                     "Unknown review tags: %(taglist)s.")
+                                   % dict(taglist=tagfmt), msg, cat)
         # Ascribe modification regardless of the selector.
         if history[0].user is None:
             mod_msgs.append(msg)
@@ -1116,7 +1230,9 @@ def diff_cat (options, config, catpath, acatpath, stest, aselect):
     # Open in the PO editor if requested.
     if options.po_editor:
         for msg in diffed_msgs:
-            options.po_editor(msg, cat, report="Selected for review.")
+            options.po_editor(msg, cat,
+                              report=_("@info note on selected message",
+                                       "Selected for review."))
 
     return len(diffed_msgs)
 
@@ -1213,16 +1329,32 @@ def history_cat (options, config, catpath, acatpath, stest):
 
         hinfo = []
         if hlevels > 0:
-            hinfo += [C.GREEN + ">>> history follows:" + C.RESET]
+            hinfo += [C.GREEN + _("@info:progress",
+                                  ">>> History follows:") + C.RESET]
             hfmt = "%%%dd" % len(str(hlevels))
         for i in range(hlevels):
             a = history[i]
-            typewtag = a.type
-            if a.tag != "":
-                typewtag += _flagtagsep + a.tag
             ihead = C.BOLD + "#%d" % a.pos + C.RESET + " "
-            anote_d = dict(usr=a.user, mod=typewtag, dat=a.date)
-            anote = "%(mod)s by %(usr)s on %(dat)s" % anote_d
+            anote_d = dict(user=a.user, tag=a.tag, date=a.date)
+            if a.type == ATYPE_MOD:
+                anote = (_("@item:intable",
+                          "modified by %(user)s on %(date)s")
+                         % anote_d)
+            elif a.type == ATYPE_REV:
+                if not a.tag:
+                    anote = (_("@item:intable",
+                               "reviewed by %(user)s on %(date)s")
+                             % anote_d)
+                else:
+                    anote = (_("@item:intable",
+                               "reviewed (%(tag)s) by %(user)s on %(date)s")
+                             % anote_d)
+            else:
+                warning_on_msg(
+                    _("@info",
+                      "Unknown ascription type '%(type)s' found in history.")
+                    % dict(type=a.type), msg, cat)
+                continue
             hinfo += [ihead + anote]
             if not a.type == ATYPE_MOD:
                 # Nothing more to show if this ascription is not modification.
@@ -1754,8 +1886,9 @@ class _Ascription (object):
 
         if attr not in self.__dict__:
             raise PologyError(
-                "Trying to set unknown ascription attributed '%s'."
-                % attr)
+                _("@info",
+                  "Trying to set unknown ascription attribute '%(attr)s'.")
+                % dict(attr=attr))
         self.__dict__[attr] = val
 
 
@@ -1946,8 +2079,10 @@ def asc_parse_ascriptions (amsg, acat, config):
     for cmnt in amsg.auto_comment:
         p = cmnt.find(":")
         if p < 0:
-            warning_on_msg("malformed ascription comment '%s' "
-                           "(no ascription type)" % cmnt, amsg, acat)
+            warning_on_msg(_("@info",
+                             "No type "
+                             "in ascription comment '%(cmnt)s'.")
+                           % dict(cmnt=cmnt), amsg, acat)
             continue
         atype = cmnt[:p].strip()
         atag = ""
@@ -1957,26 +2092,34 @@ def asc_parse_ascriptions (amsg, acat, config):
             atag = lst[1].strip()
         lst = cmnt[p+1:].split("|")
         if len(lst) < 2 or len(lst) > 3:
-            warning_on_msg("malformed ascription comment '%s' "
-                           "(wrong number of descriptors)" % cmnt, amsg, acat)
+            warning_on_msg(_("@info",
+                             "Wrong number of descriptors "
+                             "in ascription comment '%(cmnt)s'.")
+                           % dict(cmnt=cmnt), amsg, acat)
             continue
 
         auser = lst.pop(0).strip()
         if not auser:
-            warning_on_msg("malformed ascription comment '%s' "
-                           "(malformed user string)" % cmnt, amsg, acat)
+            warning_on_msg(_("@info",
+                             "Malformed user string "
+                             "in ascription comment '%(cmnt)s'.")
+                           % dict(cmnt=cmnt), amsg, acat)
             continue
         if auser not in config.users:
-            warning_on_msg("malformed ascription comment '%s' "
-                           "(unknown user)" % cmnt, amsg, acat)
+            warning_on_msg(_("@info",
+                             "Unknown user "
+                             "in ascription comment '%(cmnt)s'.")
+                           % dict(cmnt=cmnt), amsg, acat)
             continue
 
         datestr = lst.pop(0).strip()
         try:
             date = parse_datetime(datestr)
         except:
-            warning_on_msg("malformed ascription comment '%s' "
-                           "(malformed date string)" % cmnt, amsg, acat)
+            warning_on_msg(_("@info",
+                             "Malformed date string "
+                             "in ascription comment '%(cmnt)s'.")
+                           % dict(cmnt=cmnt), amsg, acat)
             continue
 
         # States are reset only on modification ascriptions,
@@ -1997,9 +2140,10 @@ def asc_parse_ascriptions (amsg, acat, config):
                 try:
                     seplen = int(tmp)
                 except:
-                    warning_on_msg("malformed ascription comment '%s' "
-                                   "(malformed separator length)"
-                                   % cmnt, amsg, acat)
+                    warning_on_msg(_("@info",
+                                     "Malformed separator length "
+                                     "in ascription comment '%(cmnt)s'.")
+                                   % dict(cmnt=cmnt), amsg, acat)
                     continue
 
         ascripts.append((auser, atype, atag, date, seplen, isfuzz, isobs))
@@ -2127,7 +2271,9 @@ def parse_datetime (dstr):
         if m:
             break
     if not m:
-        raise PologyError("cannot parse date string '%s'" % dstr)
+        raise PologyError(_("@info",
+                            "Cannot parse date string '%(str)s'.")
+                          % dict(str=dstr))
     pgroups = list([int(x or 0) for x in m.groups()])
     pgroups.extend([1] * (3 - len(pgroups)))
     pgroups.extend([0] * (7 - len(pgroups)))
@@ -2152,7 +2298,9 @@ def parse_users (userstr, config, cid=None):
     """
 
     return parse_fixed_set(userstr, config, config.users,
-                           "User '%s' not defined in '%s'.", cid)
+                           _("@info",
+                             "User '%(name)s' not defined in '%(file)s'."),
+                           cid)
 
 
 def parse_tags (tagstr, config, cid=None):
@@ -2167,7 +2315,10 @@ def parse_tags (tagstr, config, cid=None):
     """
 
     tags = parse_fixed_set(tagstr, config, config.review_tags,
-                           "Review tag '%s' not defined in '%s'.", cid)
+                           _("@info",
+                             "Review tag '%(name)s' "
+                             "not defined in '%(file)s'."),
+                           cid)
     if not tags:
         tags = set([""])
 
@@ -2188,7 +2339,7 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
     els = set(elstr.split(","))
     for el in els:
         if el not in knownels:
-            error(errfmt % (el, config.path), subsrc=cid)
+            error(errfmt % dict(name=el, file=config.path), subsrc=cid)
     if inverted:
         els = set(knownels).difference(els)
 
@@ -2217,14 +2368,20 @@ def build_selector (selspecs, hist=False):
             negated = True
         sfactory, can_hist = xm_selector_factories.get(sname, (None, False))
         if not sfactory:
-            error("unknown selector '%s'" % sname)
+            error(_("@info",
+                    "Unknown selector '%(sel)s'.")
+                  % dict(sel=sname))
         if hist:
             if not can_hist:
-                error("selector '%s' cannot be used "
-                      "as history selector" % sname)
+                error(_("@info",
+                        "Selector '%(sel)s' cannot be used "
+                        "as history selector.")
+                      % dict(sel=sname))
             if negated:
-                error("negated selectors (here '%s') cannot be used "
-                      "as history selectors" % sname)
+                error(_("@info",
+                        "Negated selectors (here '%(sel)s') cannot be used "
+                        "as history selectors.")
+                      % dict(sel=sname))
         selector = sfactory(*sargs)
         if negated:
             selector = negate_selector(selector)
@@ -2299,7 +2456,7 @@ def cached_tags (tag_spec, config, cid):
 # and non-zero integer return always indicates history selection.
 
 def selector_any ():
-    cid = "selector:any"
+    cid = "s:any"
 
     def selector (msg, cat, history, config):
 
@@ -2309,7 +2466,7 @@ def selector_any ():
 
 
 def selector_active ():
-    cid = "selector:active"
+    cid = "s:active"
 
     def selector (msg, cat, history, config):
 
@@ -2319,7 +2476,7 @@ def selector_active ():
 
 
 def selector_current ():
-    cid = "selector:current"
+    cid = "s:current"
 
     def selector (msg, cat, history, config):
 
@@ -2329,10 +2486,10 @@ def selector_current ():
 
 
 def selector_branch (branch=None):
-    cid = "selector:branch"
+    cid = "s:branch"
 
     if not branch:
-        error("branch ID not given", subsrc=cid)
+        error(_("@info", "Branch ID not given."), subsrc=cid)
     branches = set(branch.split(","))
 
     def selector (msg, cat, history, config):
@@ -2343,7 +2500,7 @@ def selector_branch (branch=None):
 
 
 def selector_unasc ():
-    cid = "selector:unasc"
+    cid = "s:unasc"
 
     def selector (msg, cat, history, config):
 
@@ -2354,10 +2511,10 @@ def selector_unasc ():
 
 
 def selector_fexpr (expr=None):
-    cid = "selector:fexpr"
+    cid = "s:fexpr"
 
     if not (expr or "").strip():
-        error("matching expression cannot be empty", subsrc=cid)
+        error(_("@info", "Match expression cannot be empty."), subsrc=cid)
 
     def selector (msg, cat, history, config):
 
@@ -2368,10 +2525,11 @@ def selector_fexpr (expr=None):
 
 
 def selector_e (entry=None):
-    cid = "selector:e"
+    cid = "s:e"
 
     if not entry or not entry.isdigit():
-        error("message reference by entry must be a positive integer",
+        error(_("@info",
+                "Message entry number must be a positive integer."),
               subsrc=cid)
     refentry = int(entry)
 
@@ -2383,10 +2541,11 @@ def selector_e (entry=None):
 
 
 def selector_l (line=None):
-    cid = "selector:l"
+    cid = "s:l"
 
     if not line or not line.isdigit():
-        error("message reference by line must be a positive integer",
+        error(_("@info",
+                "Message line number must be a positive integer."),
               subsrc=cid)
     refline = int(line)
 
@@ -2401,16 +2560,20 @@ def selector_l (line=None):
 # If first entry is not given, all messages to the last entry are selected.
 # If last entry is not given, all messages from the first entry are selected.
 def selector_espan (first=None, last=None):
-    cid = "selector:espan"
+    cid = "s:espan"
 
     if not first and not last:
-        error("at least one of the first and last reference by entry "
-              "must be given", subsrc=cid)
+        error(_("@info",
+                "At least one of the first and last message entry numbers "
+                "must be given."),
+              subsrc=cid)
     if first and not first.isdigit():
-        error("first message reference by entry must be a positive integer",
+        error(_("@info",
+                "First message entry number must be a positive integer."),
               subsrc=cid)
     if last and not last.isdigit():
-        error("last message reference by entry must be a positive integer",
+        error(_("@info",
+                "Last message entry number must be a positive integer."),
               subsrc=cid)
     first_entry = (first and [int(first)] or [None])[0]
     last_entry = (last and [int(last)] or [None])[0]
@@ -2430,16 +2593,20 @@ def selector_espan (first=None, last=None):
 # If first line is not given, all messages to the last line are selected.
 # If last line is not given, all messages from the first line are selected.
 def selector_lspan (first=None, last=None):
-    cid = "selector:lspan"
+    cid = "s:lspan"
 
     if not first and not last:
-        error("at least one of the first and last reference by line "
-              "must be given", subsrc=cid)
+        error(_("@info",
+                "At least one of the first and last message line numbers "
+                "must be given."),
+              subsrc=cid)
     if first and not first.isdigit():
-        error("first message reference by line must be a positive integer",
+        error(_("@info",
+                "First message line number must be a positive integer."),
               subsrc=cid)
     if last and not last.isdigit():
-        error("last message reference by line must be a positive integer",
+        error(_("@info",
+                "Last message line number must be a positive integer."),
               subsrc=cid)
     first_line = (first and [int(first)] or [None])[0]
     last_line = (last and [int(last)] or [None])[0]
@@ -2456,10 +2623,10 @@ def selector_lspan (first=None, last=None):
 
 
 def selector_hexpr (expr=None, user_spec=None, addrem=None):
-    cid = "selector:hexpr"
+    cid = "s:hexpr"
 
     if not (expr or "").strip():
-        error("matching expression cannot be empty", subsrc=cid)
+        error(_("@info", "Match expression cannot be empty."), subsrc=cid)
 
     def selector (msg, cat, history, config):
 
@@ -2515,7 +2682,7 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 
 # Select last ascription (any, or by users).
 def selector_asc (user_spec=None):
-    cid = "selector:asc"
+    cid = "s:asc"
 
     def selector (msg, cat, history, config):
 
@@ -2538,7 +2705,7 @@ def selector_asc (user_spec=None):
 
 # Select last modification (any or by users).
 def selector_mod (user_spec=None):
-    cid = "selector:mod"
+    cid = "s:mod"
 
     def selector (msg, cat, history, config):
 
@@ -2564,7 +2731,7 @@ def selector_mod (user_spec=None):
 # Select first modification (any or by m-users, and not by r-users)
 # after last review (any or by r-users, and not by m-users).
 def selector_modar (muser_spec=None, ruser_spec=None, atag_spec=None):
-    cid = "selector:modar"
+    cid = "s:modar"
 
     return w_selector_modax(cid, False, True,
                             muser_spec, ruser_spec, atag_spec)
@@ -2573,7 +2740,7 @@ def selector_modar (muser_spec=None, ruser_spec=None, atag_spec=None):
 # Select first modification (any or by m-users, and not by mm-users)
 # after last modification (any or by mm-users, and not by m-users).
 def selector_modam (muser_spec=None, mmuser_spec=None):
-    cid = "selector:modam"
+    cid = "s:modam"
 
     return w_selector_modax(cid, True, False,
                             muser_spec, mmuser_spec)
@@ -2582,7 +2749,7 @@ def selector_modam (muser_spec=None, mmuser_spec=None):
 # Select first modification (any or by m-users, and not by rm-users)
 # after last review or modification (any or by m-users, and not by rm-users).
 def selector_modarm (muser_spec=None, rmuser_spec=None, atag_spec=None):
-    cid = "selector:modarm"
+    cid = "s:modarm"
 
     return w_selector_modax(cid, True, True,
                             muser_spec, rmuser_spec, atag_spec)
@@ -2592,7 +2759,7 @@ def selector_modarm (muser_spec=None, rmuser_spec=None, atag_spec=None):
 # (any or by m-users, and not by r-users)
 # after last review (any or by r-users, and not by m-users).
 def selector_tmodar (muser_spec=None, ruser_spec=None, atag_spec=None):
-    cid = "selector:tmodar"
+    cid = "s:tmodar"
 
     return w_selector_modax(cid, False, True,
                             muser_spec, ruser_spec, atag_spec,
@@ -2643,7 +2810,7 @@ def w_selector_modax (cid, amod, arev,
 
 # Select last review (any or by users).
 def selector_rev (user_spec=None, atag_spec=None):
-    cid = "selector:rev"
+    cid = "s:rev"
 
     def selector (msg, cat, history, config):
 
@@ -2670,7 +2837,7 @@ def selector_rev (user_spec=None, atag_spec=None):
 # Select first review (any or by r-users, and not by m-users)
 # before last modification (any or by m-users, and not by r-users).
 def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
-    cid = "selector:revbm"
+    cid = "s:revbm"
 
     def selector (msg, cat, history, config):
 
@@ -2707,10 +2874,10 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
 
 # Select first modification (any or by users) at or after given time.
 def selector_modafter (time_spec=None, user_spec=None):
-    cid = "selector:modafter"
+    cid = "s:modafter"
 
     if not time_spec:
-        error("time specification cannot be empty", subsrc=cid)
+        error(_("@info", "Time specification cannot be empty."), subsrc=cid)
 
     date = parse_datetime(time_spec)
 
@@ -2769,7 +2936,9 @@ def collect_externals (xmod_path):
     try:
         xmod_file = open(xmod_path)
     except IOError:
-        error("cannot load external module: %s" % xmod_path)
+        error(_("@info",
+                "Cannot load external module '%(file)s'.")
+              % dict(file=xmod_path))
     # Load file into new module.
     xmod_name = "xmod_" + str(len(_external_mods))
     xmod = imp.new_module(xmod_name)
@@ -2790,8 +2959,10 @@ def collect_externals (xmod_path):
     known_xms = set(xms)
     for xm in filter(lambda x: x.startswith("xm_"), dir(xmod)):
         if xm not in known_xms:
-            warning("unknown external resource '%s' in module '%s'"
-                    % (xm, xmod_path))
+            warning(_("@info",
+                      "Unknown external resource '%(res)s' "
+                      "in module '%(file)s'.")
+                    % dict(res=xm, file=xmod_path))
 
 
 # -----------------------------------------------------------------------------

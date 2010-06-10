@@ -209,9 +209,10 @@ def main ():
     def_skip_obsolete = cfgsec.boolean("skip-obsolete", False)
 
     # Setup options and parse the command line.
-    usage = (_("@info command usage",
-               "%(cmd)s [OPTIONS] SIEVE [POPATHS...]")
-             % dict(cmd="%prog"))
+    usage = (
+        _("@info command usage",
+          "%(cmd)s [OPTIONS] SIEVE [POPATHS...]")
+        % dict(cmd="%prog"))
     desc = (
         _("@info command description",
           "Apply sieves to PO paths, which may be either single PO files or "
@@ -269,17 +270,17 @@ def main ():
         "--list-options",
         action="store_true", dest="list_options", default=False,
         help=_("@info command line option description",
-               "List just the names of available options."))
+               "List the names of available options."))
     opars.add_option(
         "--list-sieve-names",
         action="store_true", dest="list_sieve_names", default=False,
         help=_("@info command line option description",
-               "List just the names of available internal sieves."))
+               "List the names of available internal sieves."))
     opars.add_option(
         "--list-sieve-params",
         action="store_true", dest="list_sieve_params", default=False,
         help=_("@info command line option description",
-               "List just the parameters known to issued sieves."))
+               "List the parameters known to issued sieves."))
     opars.add_option(
         "-m", "--output-modified",
         metavar=_("@info command line value placeholder", "FILE"),

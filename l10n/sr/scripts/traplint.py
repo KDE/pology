@@ -433,16 +433,17 @@ def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage= (_("@info command usage",
-               "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...")
-             % dict(cmd="%prog"))
+    usage= (
+        _("@info command usage",
+          "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...")
+        % dict(cmd="%prog"))
     desc = (
         _("@info command description",
           "Check validity and expand derivations from internal trapnakron."))
     ver = (
         _("@info command version",
           u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010, "
+          u"Copyright © 2009, 2010 "
           u"Chusslove Illich (Часлав Илић) <%(email)s>")
         % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 

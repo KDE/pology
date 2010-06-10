@@ -25,6 +25,7 @@ import time
 
 import fallback_import_paths
 
+from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.misc.colors import set_coloring_globals
@@ -32,7 +33,7 @@ import pology.misc.config as pology_config
 from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.diff import msg_ediff
 from pology.misc.merge import merge_pofile
-from pology.misc.report import error, warning, report
+from pology.misc.report import error, warning, report, format_item_list
 from pology.misc.report import list_options
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
@@ -52,71 +53,90 @@ def main ():
     def_do_merge = cfgsec.boolean("merge", True)
 
     # Setup options and parse the command line.
-    usage = u"""
-  %prog [OPTIONS] FILE1 FILE2
-  %prog [OPTIONS] DIR1 DIR2
-  %prog -c VCS [OPTIONS] [PATHS...]
-""".rstrip()
-    description = u"""
-Create embedded diffs of PO files.
-""".strip()
-    version = u"""
-%prog (Pology) experimental
-Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
-""".strip()
+    usage = (
+        _("@info command usage",
+          "%(cmd)s [OPTIONS] FILE1 FILE2\n"
+          "%(cmd)s [OPTIONS] DIR1 DIR2\n"
+          "%(cmd)s -c VCS [OPTIONS] [PATHS...]")
+        % dict(cmd="%prog"))
+    desc = (
+        _("@info command description",
+          "Create embedded diffs of PO files."))
+    ver = (
+        _("@info command version",
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2009, 2010 "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
     showvcs = list(set(available_vcs()).difference(["none"]))
     showvcs.sort()
 
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-o", "--output", metavar="POFILE",
+        "-o", "--output",
+        metavar=_("@info command line value placeholder", "POFILE"),
         dest="output",
-        help="output diff catalog to a file instead of stdout")
+        help=_("@info command line option description",
+               "Output diff catalog to a file instead of stdout."))
     opars.add_option(
-        "-c", "--vcs", metavar="VCS",
+        "-c", "--vcs",
+        metavar=_("@info command line value placeholder", "VCS"),
         dest="version_control",
-        help="paths are under version control by given VCS; "
-             "can be one of: %s" % ", ".join(showvcs))
+        help=(_("@info command line option description",
+                "Paths are under version control by given VCS; "
+                "can be one of: %(vcslist)s.")
+              % dict(vcslist=format_item_list(showvcs))))
     opars.add_option(
-        "-r", "--revision", metavar="REV1[:REV2]",
+        "-r", "--revision",
+        metavar=_("@info command line value placeholder", "REV1[:REV2]"),
         dest="revision",
-        help="revision from which to diff to current working copy, "
-             "or from first to second revision (if VCS is given)")
+        help=_("@info command line option description",
+               "Revision from which to diff to current working copy, "
+               "or from first to second revision (if VCS is given)."))
     opars.add_option(
         "-b", "--skip-obsolete",
         action="store_true", dest="skip_obsolete", default=False,
-        help="do not diff obsolete messages")
+        help=_("@info command line option description",
+               "Do not diff obsolete messages."))
     opars.add_option(
         "-n", "--no-merge",
         action="store_false", dest="do_merge", default=def_do_merge,
-        help="do not try to indirectly pair messages by merging catalogs")
+        help=_("@info command line option description",
+               "Do not try to indirectly pair messages by merging catalogs."))
     opars.add_option(
         "-s", "--strip-headers",
         action="store_true", dest="strip_headers", default=False,
-        help="do not diff headers and do not write out the top header; "
-             "resulting output cannot be used as patch")
+        help=_("@info command line option description",
+               "Do not diff headers and do not write out the top header "
+               "(resulting output cannot be used as patch)."))
     opars.add_option(
         "-Q", "--quick",
         action="store_true", dest="quick", default=False,
-        help="equivalent to %s" % "-bns")
+        help=(_("@info command line option description",
+                "Equivalent to %(opt)s.")
+              % dict(opt="-bns")))
     opars.add_option(
         "-p", "--paired-only",
         action="store_true", dest="paired_only", default=False,
-        help="when two directories are diffed, ignore catalogs which "
-             "are not present in both directories")
+        help=_("@info command line option description",
+               "When two directories are diffed, ignore catalogs which "
+               "are not present in both directories."))
     opars.add_option(
         "-R", "--raw-colors",
         action="store_true", dest="raw_colors", default=False,
-        help="coloring independent of output destination (terminal, file)")
+        help=_("@info command line option description",
+               "Coloring independent of output destination (terminal, file)."))
     opars.add_option(
         "--list-options",
         action="store_true", dest="list_options", default=False,
-        help="list just the names of available options")
+        help=_("@info command line option description",
+               "List the names of available options."))
     opars.add_option(
         "--list-vcs",
         action="store_true", dest="list_vcs", default=False,
-        help="list just the keywords of known version control systems")
+        help=_("@info command line option description",
+               "List the keywords of known version control systems."))
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -146,14 +166,17 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     vcs = None
     if op.version_control:
         if op.version_control not in available_vcs(flat=True):
-            error_wcl("unknown VCS: %s" % op.version_control)
+            error_wcl(_("@info",
+                        "Unknown VCS '%(vcs)s' selected.")
+                      % dict(vcs=op.version_control))
         vcs = make_vcs(op.version_control)
 
     # Sanity checks on paths.
     paths = free_args
     if not vcs:
         if len(paths) != 2:
-            error_wcl("need exactly two paths to diff")
+            error_wcl(_("@info",
+                        "Exactly two paths are needed for diffing."))
         for path in paths:
             if not os.path.exists(path):
                 error_wcl("path does not exist: %s" % path)
@@ -161,15 +184,20 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
         if (not (   (os.path.isfile(p1) and (os.path.isfile(p2)))
                  or (os.path.isdir(p1) and (os.path.isdir(p2))))
         ):
-            error_wcl("both paths must be either files or directories")
+            error_wcl(_("@info",
+                        "Both paths must be either files or directories."))
     else:
         # Default to current working dir if no paths given.
         paths = paths or ["."]
         for path in paths:
             if not os.path.exists(path):
-                error_wcl("path does not exist: %s" % path)
+                error_wcl(_("@info",
+                            "Path '%(path)s' does not exist.")
+                          % dict(path=path))
             if not vcs.is_versioned(path):
-                error_wcl("path is not under version control: %s" % path)
+                error_wcl(_("@info",
+                            "Path '%(path)s' is not under version control.")
+                          % dict(path=path))
 
     # Collect and pair PO files in given paths.
     # Each pair specification is in the form of
@@ -182,7 +210,9 @@ Copyright © 2009 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     else:
         lst = op.revision and op.revision.split(":", 1) or []
         if len(lst) > 2:
-            error_wcl("too many revisions given: %s" % op.revision)
+            error_wcl(_("@info",
+                        "Too many revisions given: %(revlist)s.")
+                      % dict(revspec=format_item_list(lst)))
         elif len(lst) == 2:
             revs = lst # diff between revisions
         elif len(lst) == 1:
@@ -251,7 +281,9 @@ def diff_pairs (pspecs, merge,
             try:
                 cats.append(Catalog(fpath, create=True, monitored=False))
             except:
-                error_wcl("cannot parse catalog: %s" % fpath, norem=[fpath])
+                error_wcl(_("@info",
+                            "Cannot parse catalog '%(file)s'.")
+                          % dict(file=fpath), norem=[fpath])
         tpos = len(ecat)
         cndiffed = diff_cats(cats[0], cats[1], ecat,
                              merge, hlto, wrem, wadd, noobs)
@@ -692,7 +724,8 @@ def collect_and_split_fpaths (dpath):
     bysub = {}
     for fpath in fpaths:
         if not fpath.startswith(dpath):
-            error_wcl("internal: problem with path collection (200)")
+            error_wcl(_("@info",
+                        "Internal problem with path collection (200)."))
         subdir = os.path.dirname(fpath[len(dpath):])
         if subdir not in bysub:
             bysub[subdir] = {}
@@ -718,8 +751,10 @@ def collect_pspecs_from_vcs (vcs, paths, revs, paired_only):
                 if os.path.isfile(path):
                     expath += ".po"
                 if not vcs.export(path, rev or None, expath):
-                    error_wcl("cannot export path '%s' in revision '%s'"
-                                     % (path, rev))
+                    error_wcl(_("@info",
+                                "Cannot export path '%(path)s' "
+                                "in revision '%(rev)s'.")
+                              % dict(path=path, rev=rev))
                 record_tmppath(expath)
                 expaths[rev] = expath
         expaths = [os.path.normpath(expaths[x]) for x in revs]

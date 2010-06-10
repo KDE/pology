@@ -27,9 +27,10 @@ def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage= (_("@info command usage",
-               "%(cmd)s [OPTIONS] VCS [POPATHS...]")
-             % dict(cmd="%prog"))
+    usage= (
+        _("@info command usage",
+          "%(cmd)s [OPTIONS] VCS [POPATHS...]")
+        % dict(cmd="%prog"))
     desc = (
         _("@info command description",
           "Compose hybridized Ijekavian-Ekavian translation out of "

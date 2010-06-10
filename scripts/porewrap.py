@@ -49,16 +49,18 @@ and header).
 @license: GPLv3
 """
 
+import locale
+from optparse import OptionParser
+import os
+import sys
+
 import fallback_import_paths
 
+from pology import version, _, n_
+from pology.file.catalog import Catalog
 import pology.misc.config as pology_config
 from pology.misc.fsops import collect_catalogs
-from pology.file.catalog import Catalog
 from pology.misc.report import report, error
-
-import sys, os
-from optparse import OptionParser
-import locale
 
 
 def main ():
@@ -69,40 +71,38 @@ def main ():
     cfgsec = pology_config.section("porewrap")
 
     # Setup options and parse the command line.
-    usage = u"""
-%prog [options] POFILE...
-""".strip()
-    description = u"""
-Rewrap keyword text fields in PO files.
+    usage = (
+        _("@info command usage",
+          "%(cmd)s [options] POFILE...")
+        % dict(cmd="%prog"))
+    desc = (
+        _("@info command description",
+          "Rewrap keyword text fields in PO files."))
+    ver = (
+        _("@info command version",
+          u"%(cmd)s (Pology) %(version)s\n"
+          u"Copyright © 2007, 2008, 2009, 2010 "
+          u"Chusslove Illich (Часлав Илић) <%(email)s>")
+        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
 
-There are more ways to wrap keyword text fields (msgid, msgstr, etc.).
-They can be wrapped on newline characters only, on certain column width,
-and on various logical breaks (e.g. paragraph tags in markup text).
-
-By default, this script applies all wrapping types known to Pology,
-but this can be controlled through Pology user configuration,
-through catalog headers, and by command line options.
-See documentation for details.
-""".strip()
-    version = u"""
-%prog (Pology) experimental
-Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
-""".strip()
-
-    opars = OptionParser(usage=usage, description=description, version=version)
+    opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-f", "--files-from", metavar="FILE",
+        "-f", "--files-from",
+        metavar=_("@info command line value placeholder", "FILE"),
         dest="files_from",
-        help="get list of input files from FILE (one file per line)")
+        help=_("@info command line option description",
+               "Get list of input files from a file (one path per line)."))
     add_wrapping_options(opars)
     opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
-        help="output more detailed progress info")
+        help=_("@info command line option description",
+               "Output more detailed progress info."))
+
     (op, fargs) = opars.parse_args()
 
     if len(fargs) < 1 and not op.files_from:
-        opars.error("Must provide at least one input file.")
+        opars.error(_("@info", "No input files given."))
 
     # Could use some speedup.
     try:
@@ -121,7 +121,8 @@ Copyright © 2007 Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
     # Rewrap all catalogs.
     for fname in fnames:
         if op.verbose:
-            report("Rewrapping %s ..." % fname)
+            report(_("@info:progress", "Rewrapping: %(file)s")
+                   % dict(file=fname))
         cat = Catalog(fname, monitored=False)
         wrapping = select_field_wrapping(cfgsec, cat, op)
         cat.set_wrapping(wrapping)
@@ -133,19 +134,23 @@ def add_wrapping_options (opars):
     opars.add_option(
         "--wrap",
         action="store_true", dest="do_wrap", default=None,
-        help="Basic wrapping (on colum count).")
+        help=_("@info command line option description",
+               "Basic wrapping: on colum count."))
     opars.add_option(
         "--no-wrap",
         action="store_false", dest="do_wrap", default=None,
-        help="No basic wrapping (on column count).")
+        help=_("@info command line option description",
+               "No basic wrapping."))
     opars.add_option(
         "--fine-wrap",
         action="store_true", dest="do_fine_wrap", default=None,
-        help="Fine wrapping (on logical breaks, like some markup tags).")
+        help=_("@info command line option description",
+               "Fine wrapping: on logical breaks, like some markup tags."))
     opars.add_option(
         "--no-fine-wrap",
         action="store_false", dest="do_fine_wrap", default=None,
-        help="No fine wrapping (on logical breaks, like some markup tags).")
+        help=_("@info command line option description",
+               "No fine wrapping."))
 
 
 def select_field_wrapping (cfgsec=None, cat=None, cmlopt=None):
