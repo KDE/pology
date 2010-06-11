@@ -8,6 +8,10 @@ mode=all
 if test -n "$1"; then
     mode=$1
 fi
+lang=
+if test -n "$2"; then
+    lang=$2
+fi
 
 if test $mode = all || test $mode = extract; then
     echo ">>> Extracting template..."
@@ -23,7 +27,11 @@ fi
 if test $mode = all || test $mode = merge; then
     echo ">>> Merging catalogs..."
     potfile=$cdir/$potbase.pot
-    pofiles=`find $cdir -iname \*.po`
+    if [ -z "$lang" ]; then
+        pofiles=`find $cdir -iname \*.po`
+    else
+        pofiles=`find $cdir -iname $lang.po`
+    fi
     for pofile in $pofiles; do
         echo -n "$pofile  "
         msgmerge -U --backup=none --no-wrap --previous $pofile $potfile
@@ -49,7 +57,11 @@ if test $mode = all || test $mode = compile; then
         exit 1
     fi
 
-    pofiles=`find $cdir -iname \*.po`
+    if [ -z "$lang" ]; then
+        pofiles=`find $cdir -iname \*.po`
+    else
+        pofiles=`find $cdir -iname $lang.po`
+    fi
     for pofile in $pofiles; do
         echo -n "$pofile  "
         pobase=`basename $pofile`

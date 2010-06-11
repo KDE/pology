@@ -5,7 +5,9 @@ Running the update-po.sh without arguments will do the following:
   - compile translations
 
 Each of this phases can be run separately by giving as argument one of:
-extract, merge, compile.
+extract, merge, compile. When merge or compile phase are run,
+the second argument can be the particular language code on which to operate
+(by default all languages are processed). 
 
 Compiled catalogs are put into ../mo, using proper locale hierarchy
 such that they get picked up automatically by Pology scripts
