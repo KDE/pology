@@ -189,7 +189,7 @@ valid msgstr="\bшифр(ова|уј|арск)"
 {\bencryption}i
 id="encryption2"
 hint="encryption = шифрарски"
-valid msgstr="\bшифр(арск|овањ)"
+valid msgstr="\bшифр(арск|ова)"
 valid cat="knetattach" msgid="^use encryption" msgstr="^шифруј"
 
 {\bfile}i
