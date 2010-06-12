@@ -534,15 +534,10 @@ from pology.misc.timeout import timed_out
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 
 
-def printStat(rules, nmatch):
+def printStat(rules):
     """Print rules match statistics
     @param rules: list of rule files
-    @param nmatch: total number of matched items
     """
-    if nmatch:
-        report(_("@info statistics",
-                 "Total problems detected by rules: %(num)d")
-               % dict(num=nmatch))
     statRules=[r for r in rules if r.count!=0 and r.stat is True]
     if statRules:
         statRules.sort(key=lambda x: x.time)
@@ -554,7 +549,7 @@ def printStat(rules, nmatch):
         data.append([r.time for r in statRules])
         totTime=sum(data[-1])
         data.append([r.time/totTime*100 for r in statRules])
-        report(_("@info", "Rule application statistics:"))
+        report(_("@label", "Rule application statistics:"))
         coln=[_("@title:column", "calls"),
               _("@title:column avg = average", "avg-time [ms]"),
               _("@title:column tot = total", "tot-time [s]"),
@@ -592,13 +587,13 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
                   "Language must be explicitly given "
                   "when using external rules."))
         report(_("@info:progress",
-                 "Using external rules for %(langcode)s language...")
+                 "Using external rules for %(langcode)s language.")
                % dict(langcode=lang))
     else:
         if lang:
             ruleDir=join(l10nDir, lang, "rules")
             report(_("@info:progress",
-                     "Using rules for language %(langcode)s...")
+                     "Using rules for language %(langcode)s.")
                    % dict(langcode=lang))
         else:
             # Try to autodetect language
@@ -616,7 +611,7 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
 
         if not ruleDir:
             report(_("@info:progress",
-                     "Using default rule files (%(langcode)s)...")
+                     "Using default rule files (%(langcode)s).")
                    % dict(langcode="fr"))
             lang="fr"
             ruleDir=join(l10nDir, lang, "rules")

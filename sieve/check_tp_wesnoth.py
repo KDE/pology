@@ -58,37 +58,38 @@ Currently available checks are:
 import os
 import re
 
-from pology.misc.report import report
+from pology import _, n_
+from pology.misc.report import report, format_item_list
 from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.stdsvpar import add_param_poeditors
 from pology.sieve import SieveError
 from pology.file.message import MessageUnsafe
+
 
 _ctxtsep = "^"
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Check validity of messages in catalogs of The Battle for Wesnoth."
-    )
+    ))
     chnames = _known_checks.keys()
     chnames.sort()
     p.add_param("check", unicode, seplist=True,
-                metavar="KEYWORD,...",
-                desc=
-    "Run only this check instead of all (currently available: %s). "
+                metavar=_("@info sieve parameter value placeholder",
+                          "KEYWORD,..."),
+                desc=_("@info sieve parameter discription",
+    "Run only this check instead of all (currently available: %(chklist)s). "
     "Several checks can be specified as a comma-separated list."
-    % (", ".join(chnames))
     )
+    % dict(chklist=format_item_list(chnames)))
     p.add_param("showmsg", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Also show the full message that had some problems."
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open catalogs on problematic messages in Lokalize."
-    )
+    ))
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -102,8 +103,11 @@ class Sieve (object):
                 if chname not in _known_checks:
                     unknown_checks.append(chname)
             if unknown_checks:
-                raise SieveError("unknown checks selected: %s"
-                                 % ", ".join(unknown_checks))
+                fmtchecks = format_item_list(unknown_checks)
+                raise SieveError(
+                    _("@info",
+                      "Unknown checks selected: %(chklist)s.")
+                    % dict(chklist=fmtchecks))
             self.selected_checks = set(params.check)
 
         self.showmsg = params.showmsg
@@ -165,7 +169,12 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            report("Total BfW problems in translation: %d" % self.nproblems)
+            msg = (n_("@info:progress BfW stands for \"Battle for Wesnoth\"",
+                      "Found %(num)d problem in BfW translations.",
+                      "Found %(num)d problems in BfW translations.",
+                      self.nproblems)
+                   % dict(num=self.nproblems))
+            report("===== %s" % msg)
 
 
 # --------------------------------------
@@ -178,7 +187,8 @@ def _check_ctxtsep (msg, cat, strict, hl):
         p = msg.msgstr[i].find(_ctxtsep)
         if p >= 0:
             hl.append(("msgstr", i,
-                       [(p, p + len(_ctxtsep), "stray context separator")]))
+                       [(p, p + len(_ctxtsep),
+                         _("@info", "Stray context separator."))]))
             nproblems += 1
 
     return nproblems
@@ -206,14 +216,20 @@ def _check_interp (msg, cat, strict, hl):
                             interps_missing.remove(interp)
             interps_unknown = interps_trans.difference(interps_orig)
             if interps_missing and len(interps_missing) > n_can_miss:
-                vfmt = " ".join(interps_missing)
+                vfmt = format_item_list(interps_missing)
                 hl.append(("msgstr", index,
-                           [(None, None, "missing interpolations: %s" % vfmt)]))
+                           [(None, None,
+                             _("@info",
+                               "Missing interpolations: %(interplist)s.")
+                             % dict(interplist=vfmt))]))
                 nproblems += 1
             elif interps_unknown:
-                vfmt = " ".join(interps_unknown)
+                vfmt = format_item_list(interps_unknown)
                 hl.append(("msgstr", index,
-                           [(None, None, "unknown interpolations: %s" % vfmt)]))
+                           [(None, None,
+                             _("@info",
+                               "Unknown interpolations: %(interplist)s.")
+                             % dict(interplist=vfmt))]))
                 nproblems += 1
         return nproblems
 
@@ -263,14 +279,20 @@ def _check_wml (msg, cat, strict, hl):
             links_missing = links_orig.difference(links)
             links_unknown = links.difference(links_orig)
             if links_missing:
-                vfmt = " ".join(["'%s'" % x for x in links_missing])
+                vfmt = format_item_list(links_missing)
                 hl.append(("msgstr", i,
-                           [(None, None, "missing links: %s" % vfmt)]))
+                           [(None, None,
+                             _("@info",
+                               "Missing links: %(linklist)s.")
+                             % dict(linklist=vfmt))]))
                 nproblems += 1
             elif links_unknown:
-                vfmt = " ".join(["'%s'" % x for x in links_unknown])
+                vfmt = format_item_list(links_unknown)
                 hl.append(("msgstr", i,
-                           [(None, None, "unknown links: %s" % vfmt)]))
+                           [(None, None,
+                             _("@info",
+                               "Unknown links: %(linklist)s.")
+                             % dict(linklist=vfmt))]))
                 nproblems += 1
 
     return nproblems
@@ -322,28 +344,31 @@ def _check_wml_text (text):
             break
         p2 = text.find(">", p)
         if p2 < 0:
-            spans.append((p, len(text), "end of string within tag"))
+            spans.append((p, len(text),
+                          _("@info", "End of string within tag.")))
             break
         tag = text[p + 1:p2]
         if not _is_tag(tag):
-            spans.append((p, p2, "invalid tag syntax"))
+            spans.append((p, p2, _("@info",  "Invalid tag syntax.")))
             break
         if tag not in _known_tags:
-            spans.append((p, p2, "unknown tag"))
+            spans.append((p, p2, _("@info", "Unknown tag.")))
             break
         p3 = text.find("</", p2 + 1)
         if p3 < 0:
-            spans.append((p - 1, p2 + 10, "unclosed tag"))
+            spans.append((p - 1, p2 + 10, _("@info", "Unclosed tag.")))
             break
         p4 = text.find(">", p3)
         if p4 < 0:
-            spans.append((p3, len(text), "unterminated closing tag"))
+            spans.append((p3, len(text),
+                          _("@info", "Unterminated closing tag.")))
             break
         tag2 = text[p3 + 2:p4]
         # Any further errors do not terminate checking.
         p = p4 + 1 # start position for next loop
         if tag2 != tag:
-            spans.append((p3, p4, "mismatched opening and closing tags"))
+            spans.append((p3, p4,
+                          _("@info", "Mismatched opening and closing tags.")))
             continue
         spans_att, links_att = _check_wml_att(tag, text[p2 + 1:p3])
         spans.extend([(p2 + 1 + pi1, p2 + 1 + pi2, note)
@@ -370,18 +395,24 @@ def _check_wml_att (tag, content):
         while p2 < lenc and content[p2].isalpha():
             p2 += 1
         if p2 >= lenc:
-            spans.append((p, lenc, "end of tag content within attribute"))
+            spans.append((p, lenc,
+                          _("@info", "End of tag content within attribute.")))
             break
         att = content[p:p2]
         if att not in _known_tags[tag]:
-            spans.append((p, p2 + 1, "'%s' is not an attribute of "
-                                     "tag '%s'" % (att, tag)))
+            spans.append((p, p2 + 1,
+                          _("@info",
+                            "'%(attr)s' is not an attribute of "
+                            "tag '%(tag)s'.") % dict(attr=att, tag=tag)))
             break
         if content[p2] != "=":
-            spans.append((p, p2 + 1, "no equal sign after attribute"))
+            spans.append((p, p2 + 1,
+                         _("@info", "No equal sign after attribute.")))
             break
         if att in have_atts:
-            spans.append((p, p2 + 1, "attribute '%s' repeated" % att))
+            spans.append((p, p2 + 1,
+                          _("@info", "Attribute '%(attr)s' repeated.")
+                          % dict(attr=att)))
             break
         have_atts.add(att)
         # Parse value.
@@ -398,7 +429,9 @@ def _check_wml_att (tag, content):
             p4 += 1
         val = content[p3:p4]
         if not _att_val_check[att](val):
-            spans.append((p3, p4, "invalid value to attribute '%s'" % att))
+            spans.append((p3, p4,
+                          _("@info", "Invalid value to attribute '%(attr)s'.")
+                          % dict(attr=att)))
         if att in _link_atts:
             links.add(val)
         # Prepare next loop.
@@ -407,7 +440,10 @@ def _check_wml_att (tag, content):
     if not spans:
         for att, mandatory in _known_tags[tag].items():
             if mandatory and att not in have_atts:
-                spans.append((0, 0, "missing mandatory attribute '%s'" % att))
+                spans.append((0, 0,
+                              _("@info",
+                                "Missing mandatory attribute '%(attr)s'.")
+                              % dict(attr=att)))
 
     return spans, links
 
@@ -470,12 +506,14 @@ def _check_space (msg, cat, strict, hl):
         if (    hastail_o and not hastail_t
             and (outspcsig or haslead_o or tailnspc_o in ":")
         ):
-            hl.append(("msgstr", i, [(-1, 0, "missing trailing space")]))
+            hl.append(("msgstr", i, [(-1, 0,
+                                      _("@info", "Missing trailing space."))]))
             nproblems += 1
 
         # Consider leading space always significant.
         if haslead_o and not haslead_t:
-            hl.append(("msgstr", i, [(0, 0, "missing leading space")]))
+            hl.append(("msgstr", i, [(0, 0,
+                                      _("@info", "Missing leading space."))]))
             nproblems += 1
 
         """
@@ -490,7 +528,8 @@ def _check_space (msg, cat, strict, hl):
         # If original has no leading space,
         # translation should also have none.
         if not haslead_o and haslead_t:
-            hl.append(("msgstr", i, [(0, 0, "extra leading space")]))
+            hl.append(("msgstr", i, [(0, 0,
+                                      _("@info", "Extra leading space."))]))
             nproblems += 1
 
     return nproblems

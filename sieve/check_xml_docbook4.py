@@ -26,29 +26,27 @@ import re
 import locale
 import xml.parsers.expat
 
-from pology import rootdir
+from pology import rootdir, _, n_
 from pology.hook.check_markup import flag_no_check_markup
 from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
 from pology.misc.msgreport import report_on_msg_hl, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.report import report
+from pology.misc.stdsvpar import add_param_poeditors
 from pology.sieve import parse_sieve_flags
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Validate text markup in translation in Docbook 4 catalogs."
-    )
+    ))
 
     p.add_param("showmsg", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Also show the full message which has a problem."
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Show reported messages in Lokalize."
-    )
+    ))
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -88,8 +86,14 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            report("Total Docbook problems in translation: %d"
-                   % self.nproblems)
+            msg = (n_("@info:progress",
+                      "Found %(num)d problem in Docbook markup "
+                      "in translations.",
+                      "Found %(num)d problems in Docbook markup "
+                      "in translations.",
+                      self.nproblems)
+                   % dict(num=self.nproblems))
+            report("===== %s" % msg)
 
 
 _meta_msg_msgctxt = set((

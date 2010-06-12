@@ -163,48 +163,49 @@ Constraint definition file must be UTF-8 encoded.
 import os
 import re
 
+from pology import _, n_
 from pology.sieve import SieveError
-from pology.misc.report import report
 from pology.misc.msgreport import warning_on_msg
+from pology.misc.report import report, format_item_list
 from pology.misc.synder import Synder
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Assemble a property map from entries embedded into manual comments."
-    )
+    ))
 
     p.add_param("outfile", unicode,
-                metavar="FILE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
     "File to output the property map into. "
     "If not given, nothing is output (useful for validation runs)."
-    )
+    ))
     p.add_param("propcons", unicode,
-                metavar="FILE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
     "File defining the constraints on property keys and values."
-    )
+    ))
     p.add_param("extrakeys", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Allow defining additional entry keys."
-    )
+    ))
     p.add_param("derivs", unicode,
-                metavar="FILE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
     "File defining the derivators used in derived entries."
-    )
+    ))
     p.add_param("pmhead", unicode, defval=u"pmap:",
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "Prefix which starts property map entries in comments."
-    )
+    ))
     p.add_param("sdhead", unicode, defval=u"synder:",
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "Prefix which starts syntagma derivator entries in comments."
-    )
+    ))
 
 
 class Sieve (object):
@@ -221,11 +222,13 @@ class Sieve (object):
         self.p = params
 
         if not params.pmhead:
-            raise SieveError("Prefix which starts property map entries "
-                             "in comments cannot be empty.")
+            raise SieveError(_("@info",
+                               "Prefix which starts property map entries "
+                               "in comments cannot be empty."))
         if not params.sdhead:
-            raise SieveError("Prefix which starts syntagma derivator entries "
-                             "in comments cannot be empty.")
+            raise SieveError(_("@info",
+                               "Prefix which starts syntagma derivator entries "
+                               "in comments cannot be empty."))
 
         # Collected entries.
         # Each element is a tuple of the form:
@@ -256,18 +259,20 @@ class Sieve (object):
                 espec = manc[len(self.p.pmhead):].lstrip()
                 lkvsep, lpsep = espec[:2]
                 if lkvsep.isalnum() or lpsep.isalnum():
-                    warning_on_msg("An alphanumeric separator used for "
-                                   "property map entry in comment "
-                                   "%(ind)d." % locals(),
-                                   msg, cat)
+                    warning_on_msg(_("@info",
+                                     "An alphanumeric separator is used for "
+                                     "property map entry in comment "
+                                     "no. %(ord)d.")
+                                   % dict(ord=ind), msg, cat)
                     return
                 if not psep:
                     psep, kvsep = lpsep, lkvsep
                 elif (psep, kvsep) != (lpsep, lkvsep):
-                    warning_on_msg("Inconsistent separators for "
-                                   "continued property map entry in comment "
-                                   "%(ind)d." % locals(),
-                                   msg, cat)
+                    warning_on_msg(_("@info",
+                                     "Inconsistent separators for "
+                                     "continued property map entry in comment "
+                                     "no. %(ord)d.")
+                                   % dict(ord=ind), msg, cat)
                     return
                 # Remove leading and trailing separators.
                 respec = espec[2:]
@@ -276,10 +281,11 @@ class Sieve (object):
                 elif respec.endswith(psep):
                     respec = respec[:-1]
                 else:
-                    warning_on_msg("Missing terminating separator for "
-                                   "property map entry in comment "
-                                   "%(ind)d." % locals(),
-                                   msg, cat)
+                    warning_on_msg(_("@info",
+                                     "Missing terminating separator for "
+                                     "property map entry in comment "
+                                     "no. %(ord)d.")
+                                   % dict(ord=ind), msg, cat)
                     return
                 # Parse entry keys and key-value pairs.
                 for elspec in respec.split(psep):
@@ -289,11 +295,12 @@ class Sieve (object):
                     else:
                         ekey = elspec
                         if not self.p.extrakeys:
-                            warning_on_msg("Additional entry key '%(ekey)s' "
-                                           "defined but not allowed for "
-                                           "property map entry in comment "
-                                           "%(ind)d." % locals(),
-                                            msg, cat)
+                            warning_on_msg(_("@info",
+                                             "Additional entry key '%(key)s' "
+                                             "is defined but not allowed for "
+                                             "property map entry in comment "
+                                             "no. %(ord)d.")
+                                           % dict(key=ekey, ord=ind), msg, cat)
                             return
                         ekeys.add(ekey)
 
@@ -308,9 +315,10 @@ class Sieve (object):
                     cprops = self.synder.props(sdkey)
                 except Exception, e:
                     errmsg = unicode(e)
-                    warning_on_msg("Invalid derivation '%(sddef)s':\n"
-                                   "%(errmsg)s" % locals(),
-                                   msg, cat)
+                    warning_on_msg(_("@info",
+                                     "Invalid derivation '%(deriv)s':\n"
+                                     "%(msg)s")
+                                   % dict(deriv=sddef, msg=errmsg), msg, cat)
                     return
 
                 jumble = "".join(["".join(x) for x in cprops.items()])
@@ -318,27 +326,30 @@ class Sieve (object):
                     psep = self._pick_sep(jumble, u"/|¦")
                     kvsep = self._pick_sep(jumble, u"=:→")
                     if not psep or not kvsep:
-                        warning_on_msg("No known separator applicable to "
-                                       "keys and values derived from "
-                                       "'%(sddef)s'." % locals(),
-                                       msg, cat)
+                        warning_on_msg(_("@info",
+                                         "No known separator are applicable "
+                                         "to keys and values derived from "
+                                         "'%(deriv)s'.")
+                                       % dict(deriv=sddef), msg, cat)
                         return
                 else:
                     if psep in jumble or kvsep in jumble:
-                        warning_on_msg("Previously selected separators "
-                                       "not applicable to "
-                                       "keys and values derived from "
-                                       "'%(sddef)s'." % locals(),
-                                       msg, cat)
+                        warning_on_msg(_("@info",
+                                         "Previously selected separators "
+                                         "are not applicable to "
+                                         "keys and values derived from "
+                                         "'%(deriv)s'.")
+                                       % dict(deriv=sddef), msg, cat)
                         return
 
                 props.update(cprops)
 
         if not props:
             if ekeys:
-                warning_on_msg("Some additional entry keys "
-                               "defined for property map entry, "
-                               "but there are no properties.",
+                warning_on_msg(_("@info",
+                                 "Some additional entry keys "
+                                 "are defined for property map entry, "
+                                 "but there are no properties."),
                                msg, cat)
             return
         props = sorted(props.items()) # no need for dictionary any more
@@ -351,10 +362,11 @@ class Sieve (object):
         if self.propcons:
             errs = self._validate_props(props, msg, cat, self.propcons)
             if errs:
-                problems = "\n".join(["  - %s" % x for x in errs])
-                warning_on_msg("Property map entry fails validation:\n"
-                               "%(problems)s" % locals(),
-                               msg, cat)
+                problems = "\n".join(["  %s" % x for x in errs])
+                warning_on_msg(_("@info",
+                                 "Property map entry fails validation:\n"
+                                 "%(msgs)s")
+                               % dict(msgs=problems), msg, cat)
                 return
 
         # Entry parsed.
@@ -388,11 +400,14 @@ class Sieve (object):
                 if len(eq_msgstr_set) > 1:
                     cmsgcats = msgs_by_seen_msgstr.pop(msg.msgstr[0])
                     msg0, cat0, d3 = cmsgcats[0]
-                    warning_on_msg("Property map entries removed due "
-                                   "to translation conflict with...",
-                                   msg0, cat0)
+                    warning_on_msg(_("@info split to link below",
+                                     "Property map entries removed due "
+                                     "to translation conflict with..."),
+                                     msg0, cat0)
                     for msg, cat, d3 in cmsgcats[1:]:
-                        warning_on_msg("...this message.", msg, cat)
+                        warning_on_msg(_("@info continuation from above",
+                                         "...this message."),
+                                       msg, cat)
                 else:
                     good_entries.append((ekeys, props, psep, kvsep))
 
@@ -420,8 +435,12 @@ class Sieve (object):
         fh.write(fstr)
         fh.close()
 
-        report("Total entries collected for the property map: %(n)s"
-               % dict(n=len(good_entries)))
+        msg = (n_("@info:progress",
+                  "Collected %(num)d entry for the property map.",
+                  "Collected %(num)d entries for the property map.",
+                  len(good_entries))
+                % dict(num=len(good_entries)))
+        report("===== %s" % msg)
 
 
     def _pick_sep (self, teststr, seps):
@@ -437,8 +456,10 @@ class Sieve (object):
     def _read_propcons (self, fpath):
 
         if not os.path.isfile(fpath):
-            raise SieveError("Property constraint file '%(fpath)s' "
-                             "does not exist." % locals())
+            raise SieveError(_("@info",
+                               "Property constraint file '%(file)s' "
+                               "does not exist.")
+                             % dict(file=fpath))
         lines = open(fpath).read().decode("UTF-8").split("\n")
         if not lines[-1]:
             lines.pop()
@@ -451,9 +472,10 @@ class Sieve (object):
         propcons = []
         lno = 0
         def mkerr (problem):
-            return ("Invalid property map constraint "
-                    "at %(file)s:%(line)d: %(problem)s"
-                    % dict(file=fpath, line=lno, problem=problem))
+            return (_("@info",
+                      "Invalid property map constraint "
+                      "at %(file)s:%(line)d: %(snippet)s.")
+                    % dict(file=fpath, line=lno, snippet=problem))
         known_flags = set(("i", "I", "t", "r"))
         for line in lines:
             lno += 1
@@ -463,20 +485,25 @@ class Sieve (object):
 
             sep = line[0]
             if sep.isalnum():
-                raise SieveError(mkerr("alphanumeric separators not allowed"))
+                raise SieveError(mkerr(_("@item:intext",
+                                         "alphanumeric separators "
+                                         "not allowed")))
             lst = line.split(sep)
             if len(lst) < 4:
-                raise SieveError(mkerr("too few separators"))
+                raise SieveError(mkerr(_("@item:intext",
+                                         "too few separators")))
             elif len(lst) > 4:
-                raise SieveError(mkerr("too many separators"))
+                raise SieveError(mkerr(_("@item:intext",
+                                         "too many separators")))
 
             d1, keyrxstr, valrxstr, flags = lst
 
             unknown_flags = set(flags).difference(known_flags)
             if unknown_flags:
-                fmtflags = "".join(sorted(unknown_flags))
-                raise SieveError(mkerr("unknown flags '%(flags)s'"
-                                       % dict(flags=fmtflags)))
+                fmtflags = format_item_list(sorted(unknown_flags))
+                raise SieveError(mkerr(_("@item:intext",
+                                         "unknown flags %(flaglist)s")
+                                       % dict(flaglist=fmtflags)))
 
             rxs = []
             for rxstr, iflag in ((keyrxstr, "I"), (valrxstr, "i")):
@@ -487,8 +514,9 @@ class Sieve (object):
                 try:
                     rx = re.compile(wrxstr, rxfls)
                 except:
-                    raise SieveError(mkerr("invalid regular expression "
-                                           "'%(regex)s'"
+                    raise SieveError(mkerr(_("@item:intext",
+                                             "invalid regular expression "
+                                             "'%(regex)s'")
                                            % dict(regex=rxstr)))
                 rxs.append(rx)
             keyrx, valrx = rxs
@@ -513,25 +541,32 @@ class Sieve (object):
                     matched_cons.add(ic)
                     if not valrx.search(val):
                         pattern = valrx
-                        adderr("value '%(val)s' to key '%(key)s' does not "
-                               "match '%(pattern)s'" % locals())
+                        adderr(_("@info",
+                                 "Value '%(val)s' to key '%(key)s' "
+                                 "does not match '%(pattern)s'.")
+                               % dict(val=val, key=key, pattern=pattern))
                     if "t" in flags:
                         if "i" in flags:
                             eq = (val.lower() == msg.msgstr[0].lower())
                         else:
                             eq = (val == msg.msgstr[0])
                         if not eq:
-                            adderr("value '%(val)s' to key '%(key)s' does not "
-                                   "match translation of the message"
-                                   % locals())
+                            adderr(_("@info",
+                                     "Value '%(val)s' to key '%(key)s' "
+                                     "does not match translation "
+                                     "of the message.")
+                                   % dict(val=val, key=key))
             if not key_matched:
-                adderr("key '%(key)s' does not match any constraint" % locals())
+                adderr(_("@info",
+                         "Key '%(key)s' does not match any constraint.")
+                       % dict(key=key))
 
         for propcon, ic in zip(propcons, range(len(propcons))):
             pattern, rlags = propcon[1], propcon[-1]
             if "r" in flags and ic not in matched_cons:
-                adderr("no key matched required constraint '%(pattern)s'"
-                       % locals())
+                adderr(_("@info",
+                         "No key matched required constraint '%(pattern)s'.")
+                       % dict(pattern=pattern))
 
         return errs
 

@@ -27,27 +27,28 @@ for defining, matching, and reporting problems.
 @license: GPLv3
 """
 
-from pology.misc.report import report
+from pology import _, n_
 from pology.hook.bad_patterns import bad_patterns_msg
+from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Check for presence of bad patterns in translation."
-    )
+    ))
 
     p.add_param("pattern", unicode, multival=True,
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "A pattern to check against. "
     "The pattern can be a substring or regular expression, "
     "depending on the '%s' parameter. "
     "This parameter can be repeated to add several patterns."
-    )
+    ))
     p.add_param("fromfile", unicode, multival=True,
-                metavar="PATH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "PATH"),
+                desc=_("@info sieve parameter discription",
     "Read patterns to check against from a file. "
     "The file format is as follows: "
     "each line contains one pattern, "
@@ -55,15 +56,15 @@ def setup_sieve (p):
     "empty lines are ignored; "
     "# denotes start of comment, which extends to end of line."
     "This parameter can be repeated to add several files."
-    )
+    ))
     p.add_param("rxmatch", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Treat patterns as regular expressions; default is substring matching."
-    )
+    ))
     p.add_param("casesens", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Set case-sensitive matching; default is case-insensitive."
-    )
+    ))
 
 
 class Sieve (object):
@@ -95,5 +96,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nbad > 0:
-            report("Total bad patterns detected in translation: %d" % self.nbad)
+            msg = (n_("@info:progress",
+                      "Detected %(num)d bad pattern in translation.",
+                      "Detected %(num)d bad patterns in translation.",
+                      self.nbad)
+                   % dict(num=self.nbad))
+            report("===== %s" % msg)
 

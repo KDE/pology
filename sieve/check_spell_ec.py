@@ -111,91 +111,89 @@ The following user configuration fields are considered:
 @license: GPLv3
 """
 
-import os
-import re
 import codecs
 import locale
+import os
+import re
 import tempfile
 
-from pology.misc.report import report, warning
-from pology.misc.split import proper_words
-from pology import PologyError, rootdir
+from pology import PologyError, rootdir, _, n_
+from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
-from pology.misc.comments import manc_parse_list, manc_parse_flag_list
-from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
 from pology.misc.msgreport import report_on_msg
 from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.report import report, warning, format_item_list
+from pology.misc.split import proper_words
+from pology.misc.stdsvpar import add_param_poeditors
+
+
+def setup_sieve (p):
+
+    p.set_desc(_("@info sieve discription",
+    "Spell-check translation using Enchant."
+    ))
+
+    p.add_param("provider", unicode, seplist=True,
+                metavar=_("@info sieve parameter value placeholder", "NAME"),
+                desc=_("@info sieve parameter discription",
+    "The spell-checking provider to use. "
+    "Several provider can be given as comma-separated list."
+    ))
+
+    add_general_spellcheck_params(p)
 
 
 def add_general_spellcheck_params (p):
 
     p.add_param("lang", unicode,
-                metavar="CODE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=_("@info sieve parameter discription",
     "The language dictionary to use."
     "If a catalog header specifies language itself, this parameter takes "
     "precedence over it."
-    )
+    ))
     p.add_param("env", unicode, seplist=True,
-                metavar="CODE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=_("@info sieve parameter discription",
     "Use supplement word lists for this environment within given language. "
     "Pology configuration and catalog headers may also specify environments, "
     "this parameter takes precedence over them. "
     "Several environments can be given as comma-separated list."
-    )
+    ))
     p.add_param("accel", unicode, multival=True,
-                metavar="CHAR",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CHAR"),
+                desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields."
-    )
+    ))
     p.add_param("markup", unicode, seplist=True,
-                metavar="KEYWORD",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
+                desc=_("@info sieve parameter discription",
     "Markup that can be expected in text fields, as special keyword. "
     "Several markups can be given as comma-separated list."
-    )
+    ))
     p.add_param("skip", unicode,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Regular expression to eliminate from spell-checking words that match it."
-    )
+    ))
     p.add_param("filter", unicode, multival=True,
-                metavar="HOOKSPEC",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "HOOK"),
+                desc=_("@info sieve parameter discription",
     "F1A or F3A/C hook specification, to filter the translation through "
     "before spell-checking it. "
     "Several hooks can be specified by repeating the parameter."
-    )
+    ))
     p.add_param("suponly", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Use only internal supplement word lists, and not the system dictionary."
-    )
+    ))
     p.add_param("list", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Output only a simple sorted list of unknown words."
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open catalogs at failed messages in Lokalize."
-    )
-
-
-def setup_sieve (p):
-
-    p.set_desc(
-    "Spell-check translation using Enchant."
-    )
-
-    p.add_param("provider", unicode, seplist=True,
-                metavar="NAME",
-                desc=
-    "The spell-checking provider to use. "
-    "Several provider can be given as comma-separated list."
-    )
-
-    add_general_spellcheck_params(p)
+    ))
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -233,7 +231,9 @@ class Sieve (object):
             if pfilter:
                 self.pfilters.append((pfilter, hreq))
             else:
-                warning("Cannot load filter '%s'." % hreq)
+                warning(_("@info",
+                          "Cannot load filter '%(filt)s'.")
+                        % dict(filt=hreq))
 
         self.suponly = params.suponly
 
@@ -281,9 +281,11 @@ class Sieve (object):
             checker = _create_checker(self.providers, clang_mod,
                                       self.word_lists[ckey])
             if not checker:
-                raise SieveError("No spelling dictionary for "
-                                 "language '%s' and provider '%s'."
-                                 % (clang, self.providers))
+                raise SieveError(_("@info",
+                                   "No spelling dictionary for "
+                                   "language '%(lang)s' and "
+                                   "provider '%(prov)s'.")
+                                 % dict(lang=clang, prov=self.providers))
             self.checkers[ckey] = checker
 
         # Get language-dependent stuff.
@@ -317,8 +319,10 @@ class Sieve (object):
                     try: # try as type F3* hook
                         msgstr = pfilter(msgstr, msg, cat)
                     except TypeError:
-                        warning("Cannot execute filter '%s'." % hreq)
-                        raise
+                        raise SieveError(
+                            _("@info",
+                              "Cannot execute filter '%(filt)s'.")
+                            % dict(filt=hreq))
 
             # Split text into words.
             # TODO: See to use markup types somehow.
@@ -339,24 +343,34 @@ class Sieve (object):
 
                     if not self.words_only or self.lokalize:
                         suggs = self.checker.suggest(word)
+                        incmp = False
                         if len(suggs) > 5: # do not put out too many words
-                            suggs = suggs[:5] + ["..."]
+                            suggs = suggs[:5]
+                            incmp = True
                         failed_w_suggs.append((word, suggs))
 
                     if not self.words_only:
                         if suggs:
-                            report_on_msg("unknown word: %s (suggestions: %s)"
-                                          % (word, ", ".join(suggs)), msg, cat)
+                            fsuggs = format_item_list(suggs, incmp=incmp)
+                            report_on_msg(_("@info",
+                                            "Unknown word '%(word)s' "
+                                            "(suggestions: %(wordlist)s).")
+                                            % dict(word=word, wordlist=fsuggs),
+                                          msg, cat)
                         else:
-                            report_on_msg("unknown word: %s" % word,
+                            report_on_msg(_("@info",
+                                            "Unknown word '%(word)s'.")
+                                          % dict(word=word),
                                           msg, cat)
 
         if self.lokalize and failed_w_suggs:
-            repls = ["Spelling errors:"]
+            repls = [_("@label", "Spelling errors:")]
             for word, suggs in failed_w_suggs:
                 if suggs:
-                    repls.append("%s (suggestions: %s)"
-                                 % (word, ", ".join(suggs)))
+                    fmtsuggs=format_item_list(suggs, incmp=incmp)
+                    repls.append(_("@item",
+                                   "%(word)s (suggestions: %(wordlist)s)")
+                                 % dict(word=word, wordlist=fmtsuggs))
                 else:
                     repls.append("%s" % (word))
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
@@ -366,7 +380,13 @@ class Sieve (object):
 
         if self.unknown_words:
             if not self.words_only:
-                report("Total unknown words: %d" % len(self.unknown_words))
+                nwords = len(self.unknown_words)
+                msg = (n_("@info:progress",
+                          "Encountered %(num)d unknown word.",
+                          "Encountered %(num)d unknown words.",
+                          nwords)
+                       % dict(num=nwords))
+                report("===== %s" % msg)
             else:
                 wlist = list(self.unknown_words)
                 wlist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
@@ -379,9 +399,12 @@ def _create_checker (providers, langtag, words):
     try:
         import enchant
     except ImportError:
-        raise PologyError("Python wrapper for Enchant not found, "
-                          "please install it (possible package names: "
-                          "python-enchant).")
+        pkgs = ["python-enchant"]
+        raise PologyError(_("@info",
+                            "Python wrapper for Enchant not found, "
+                            "please install it (possible package names: "
+                            "%(pkglist)s).")
+                          % dict(pkglist=format_item_list(pkgs)))
 
     if langtag is not None:
         try:
@@ -448,8 +471,9 @@ def _read_wlist_aspell (fname):
     header = fl.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        warning("Malformed header in dictionary file '%s', skipping reading."
-                % fname)
+        warning(_("@info",
+                  "Malformed header in dictionary file '%(file)s'.")
+                % dict(file=fname))
         return []
     enc = m.group(4)
     # Reopen in correct encoding if not the default.

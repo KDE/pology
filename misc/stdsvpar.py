@@ -46,3 +46,32 @@ def add_param_filter (p, intro=None):
                           "HOOKSPEC"),
                 desc=desc)
 
+
+def add_param_poeditors (p):
+    """
+    Add sieve parameters which open messages in known editors.
+    """
+
+    p.add_param("lokalize", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Open catalogs on reported messages in Lokalize."
+    ))
+
+
+def add_param_entdef (p):
+    """
+    Add C{entdef} parameter to sieve parameters.
+    """
+
+    p.add_param("entdef", unicode, multival=True,
+                metavar="FILE",
+                desc=_("@info sieve parameter discription "
+                       "only 'entname' and 'entvalue' in the last line "
+                       "should be translated",
+    "File defining the entities used in messages "
+    "(parameter can be repeated to add more files). Entity file "
+    "defines entities one per line, in the format:"
+    "\n\n"
+    "<!ENTITY entname 'entvalue'>"
+    ))
+

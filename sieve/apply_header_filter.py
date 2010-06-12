@@ -19,24 +19,26 @@ which are then applied in the order of appearance in the command line.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.report import report, warning
 from pology.misc.stdsvpar import add_param_filter
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Apply filters to header."
     "\n\n"
     "Catalog header is passed through one or composition of "
     "F4B, V4B, S4B hooks. "
     "See documentation on pology.hook for details about hooks."
-    )
+    ))
 
-    add_param_filter(p,
+    add_param_filter(p, _("@info sieve parameter discription",
     "Specification of hook through which headers are to be filtered."
-    )
+    ))
 
 
 class Sieve (object):
@@ -58,8 +60,10 @@ class Sieve (object):
             try:
                 res = tfilter(hdr, cat)
             except TypeError:
-                warning("cannot execute filter '%s'" % tfname)
-                raise
+                raise SieveError(
+                    _("@info",
+                      "Cannot execute filter '%(filt)s'.")
+                    % dict(filt=tfname))
 
             # Process result based on hook type.
             if isinstance(res, list):
@@ -82,5 +86,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmod:
-            report("Total headers modified by filtering: %d" % self.nmod)
+            msg = (n_("@info:progress",
+                      "Modified %(num)d header by filtering.",
+                      "Modified %(num)d headers by filtering.",
+                      self.nmod)
+                   % dict(num=self.nmod))
+            report("===== %s" % msg)
 

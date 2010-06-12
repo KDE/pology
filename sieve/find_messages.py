@@ -112,6 +112,7 @@ from pology.misc.report import report, error, warning
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
 from pology.misc.langdep import get_hook_lreq
+from pology.misc.stdsvpar import add_param_poeditors
 from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
 from pology.misc.comments import parse_summit_branches
@@ -332,15 +333,12 @@ def setup_sieve (p):
     "Replace all substrings matched by msgstr pattern with REPLSTR. "
     "It can include back-references to matched groups (\\1, \\2, etc.)"
     )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open catalogs at matched messages in Lokalize."
-    )
     p.add_param("nomsg", bool, defval=False,
                 desc=
     "Do not report message to standard output "
     "(when only the number of matches is wanted)."
     )
+    add_param_poeditors(p)
 
 
 _flag_mark = u"match"

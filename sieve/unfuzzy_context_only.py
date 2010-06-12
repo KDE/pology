@@ -41,6 +41,7 @@ C{noreview} parameter may be useful here too.
 from pology.misc.report import report
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.stdsvpar import add_param_poeditors
 
 
 def setup_sieve (p):
@@ -64,10 +65,7 @@ def setup_sieve (p):
     "Do not unfuzzy messages which have same msgid as another message, "
     "and report them together with all other messages with the same msgid."
     )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open reported messages in Lokalize."
-    )
+    add_param_poeditors(p)
 
 
 class Sieve (object):

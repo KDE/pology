@@ -91,45 +91,44 @@ Currently available checks are:
 import os
 import re
 
-from pology.misc.escape import escape_c
-from pology.misc.report import report
-from pology.misc.msgreport import report_on_msg_hl, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.sieve import SieveError, SieveCatalogError
+from pology import _, n_
 from pology.hook.check_markup import flag_no_check_markup
+from pology.misc.escape import escape_c
 from pology.misc.markup import check_xml_kde4_l1
 from pology.misc.markup import check_xml_qtrich_l1
-from pology.sieve import parse_sieve_flags
+from pology.misc.msgreport import report_on_msg_hl, report_msg_content
+from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.report import report, format_item_list
+from pology.misc.stdsvpar import add_param_poeditors
+from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Check validity of messages in catalogs within KDE Translation Project."
-    )
+    ))
     p.add_param("strict", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Check translations strictly: report problems in translation regardless "
     "of whether original itself is valid (default is to check translation "
     "only if original passes checks)."
-    )
+    ))
     chnames = _known_checks.keys()
     chnames.sort()
     p.add_param("check", unicode, seplist=True,
-                metavar="KEYWORD,...",
-                desc=
-    "Run only this check instead of all (currently available: %s). "
+                metavar=_("@info sieve parameter value placeholder",
+                          "KEYWORD,..."),
+                desc=_("@info sieve parameter discription",
+    "Run only this check instead of all (currently available: %(chklist)s). "
     "Several checks can be specified as a comma-separated list."
-    % (", ".join(chnames))
     )
+    % dict(chklist=format_item_list(chnames)))
     p.add_param("showmsg", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Also show the full message that had some problems."
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open catalogs on problematic messages in Lokalize."
-    )
+    ))
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -147,8 +146,11 @@ class Sieve (object):
                 if chname not in _known_checks:
                     unknown_checks.append(chname)
             if unknown_checks:
-                raise SieveError("Unknown checks selected: %s."
-                                 % ", ".join(unknown_checks))
+                fmtchecks = format_item_list(unknown_checks)
+                raise SieveError(
+                    _("@info",
+                      "Unknown checks selected: %(chklist)s.")
+                    % dict(chklist=fmtchecks))
             self.selected_checks = set(params.check)
 
         # Indicators to the caller:
@@ -164,8 +166,11 @@ class Sieve (object):
         cname = cat.name
         csubdir = _get_catalog_project_subdir(cat.filename)
         if not csubdir:
-            raise SieveCatalogError("Cannot determine project subdirectory "
-                                    "of the catalog '%s'." % cat.filename)
+            raise SieveCatalogError(
+                _("@info",
+                  "Cannot determine project subdirectory "
+                  "of the catalog '%(file)s'.")
+                % dict(file=cat.filename))
 
         # Select checks applicable to current catalog.
         self.current_checks = []
@@ -214,12 +219,21 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            if self.strict:
-                report("Total KDE TP problems in translation (strict): %d"
-                       % self.nproblems)
+            if not self.strict:
+                msg = (n_("@info:progress TP stands for Translation Project",
+                          "Found %(num)d problem in KDE TP translations.",
+                          "Found %(num)d problems in KDE TP translations.",
+                          self.nproblems)
+                       % dict(num=self.nproblems))
             else:
-                report("Total KDE TP problems in translation: %d"
-                       % self.nproblems)
+                msg = (n_("@info:progress TP stands for Translation Project",
+                          "Found %(num)d problem in "
+                          "KDE TP translations (strict mode).",
+                          "Found %(num)d problems in "
+                          "KDE TP translations (strict mode).",
+                          self.nproblems)
+                       % dict(num=self.nproblems))
+            report("===== %s" % msg)
 
 
 def _get_catalog_project_subdir (path):
@@ -371,7 +385,8 @@ def _check_nots (msg, cat, pcache, hl):
             nproblems += 1
             hl.append(("msgstr", i,
                        [(p, p + len(_tsfence),
-                         "Dumb message, translation cannot be scripted.")]))
+                         _("@info",
+                           "Dumb message, translation cannot be scripted."))]))
 
     return nproblems
 
@@ -390,13 +405,6 @@ def _qtdt_parse (text):
     text = _qtdt_clean_rx.sub("", text)
     fields = [x for x in _qtdt_split_rx.split(text) if x]
     return fields
-
-
-def _qtdt_fjoin (fields):
-
-    lst = list(fields)
-    lst.sort()
-    return ", ".join(lst)
 
 
 def _is_qtdt_msg (msg):
@@ -418,9 +426,12 @@ def _check_qtdt_w (msgstr, msg, cat):
     msgstr_fmts = _qtdt_parse(msgstr)
     spans = []
     if set(msgid_fmts) != set(msgstr_fmts):
-        errmsg = ("Qt date-format mismatch, "
-                  "msgid has fields (%s) while msgstr has (%s)."
-                  % (_qtdt_fjoin(msgid_fmts), _qtdt_fjoin(msgstr_fmts)))
+        errmsg = (_("@info",
+                    "Qt date-format mismatch: "
+                    "original contains fields {%(fieldlist1)s} "
+                    "while translation contains {%(fieldlist2)s}.")
+                  % dict(fieldlist1=format_item_list(sorted(msgid_fmts)),
+                         fieldlist2=format_item_list(sorted(msgstr_fmts))))
         spans.append((None, None, errmsg))
 
     return spans
@@ -506,7 +517,9 @@ def _check_trcredits (msg, cat, pcache, hl):
         for email in emails:
             # Check minimal validity of address.
             if email and not _valid_email_rx.match(email):
-                emsg = "Invalid email address '%s'." % escape_c(email)
+                emsg = (_("@info",
+                          "Invalid email address '%(email)s'.")
+                        % dict(email=escape_c(email)))
                 errors.append(emsg)
 
     # Check congruence between names and emails.
@@ -514,14 +527,18 @@ def _check_trcredits (msg, cat, pcache, hl):
     emails = pcache.get("tremails")
     if emails and names:
         if len(names) != len(emails):
-            emsg = ("Different number of translator names (%d) "
-                    "and email addresses (%d)." % (len(names), len(emails)))
+            emsg = (_("@info",
+                      "Different number of translator names (%(num1)d) "
+                      "and email addresses (%(num2)d).")
+                    % dict(num1=len(names), num2=len(emails)))
             errors.append(emsg)
         else:
             for name, email, i in zip(names, emails, range(1, len(names) + 1)):
                 if not name and not email:
-                    emsg = ("Both name and email address "
-                            "of translator no. %d empty." % i)
+                    emsg = (_("@info",
+                              "Both name and email address "
+                              "of translator no. %(ord)d are empty.")
+                            % dict(ord=i))
                     errors.append(emsg)
 
     if errors:
@@ -541,7 +558,10 @@ def _check_plrunq (msg, cat, pcache, hl):
 
     nerrors = 0
     if ":q:" in msg.msgid and ":q:" not in msg.msgstr[0]:
-        errmsg = "Plasma runner query placeholder :q: missing in translation."
+        errmsg = (_("@info",
+                    "Plasma runner query placeholder '%(plhold)s' "
+                    "is missing in translation.")
+                  % dict(plhold=":q:"))
         hl.append(("msgstr", 0, [(None, None, errmsg)]))
         nerrors += 1
 
@@ -598,7 +618,9 @@ def _check_cat_libkleopatra (msg, cat, pcache):
 
     if "'yes' or 'no'" in (msg.msgctxt or ""):
         if msg.msgstr[0] not in ("yes", "no"):
-            return "Translation must be exactly 'yes' or 'no'."
+            return (_("@info",
+                      "Translation must be exactly '%(text1)s' or '%(text2)s'.")
+                    % dict(text1="yes", text2="no"))
 
 _add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
 
@@ -607,7 +629,8 @@ def _check_cat_kplatolibs (msg, cat, pcache):
 
     if "Letter(s) only" in (msg.msgctxt or ""):
         if not msg.msgstr[0].isalpha():
-            return "Translation must contain only letters."
+            return _("@info",
+                     "Translation must contain only letters.")
 
 _add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
 
@@ -616,7 +639,9 @@ def _check_cat_kdeqt (msg, cat, pcache):
 
     if msg.msgid == "QT_LAYOUT_DIRECTION":
         if msg.msgstr[0] not in ("LTR", "RTL"):
-            return "Translation must be exactly 'LTR' or 'RTL'."
+            return (_("@info",
+                      "Translation must be exactly '%(text1)s' or '%(text2)s'.")
+                    % dict(text1="LTR", text2="RTL"))
 
 _add_cat_check(_check_cat_kdeqt, ["kdeqt"])
 

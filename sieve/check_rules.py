@@ -63,140 +63,138 @@ their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
 @license: GPLv3
 """
 
-import sys, os
-from os.path import abspath, basename, dirname, exists, expandvars, join
 from codecs import open
-from time import strftime, strptime, mktime
 from locale import getpreferredencoding
+import os
+from os.path import abspath, basename, dirname, exists, expandvars, join
 import re
+import sys
+from time import strftime, strptime, mktime
 
-from pology.sieve import SieveError
-from pology.misc.rules import loadRules, printStat
-from pology.misc.report import report, warning
-from pology.misc.msgreport import rule_error, rule_xml_error, report_msg_content
+from pology import _, n_
 from pology.misc.colors import BOLD, RED, RESET
-from pology.misc.timeout import TimedOutException
-from pology.misc.comments import manc_parse_list
-from pology.file.message import MessageUnsafe
-from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.comments import manc_parse_list, parse_summit_branches
 from pology.misc.fsops import collect_files_by_ext
-from pology.misc.comments import parse_summit_branches
+from pology.file.message import MessageUnsafe
+from pology.misc.msgreport import rule_error, rule_xml_error, report_msg_content
+from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.report import report, warning, format_item_list
+from pology.misc.rules import loadRules, printStat
+from pology.misc.stdsvpar import add_param_poeditors
+from pology.misc.timeout import TimedOutException
+from pology.sieve import SieveError
+
 
 # Pattern used to marshall path of cached files
-MARSHALL="+++"
+_MARSHALL="+++"
 # Cache directory (for xml processing only)
-CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
+# FIXME: More portable location of cache.
+_CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Apply rules to messages and report those that do not pass."
-    "\n\n"
-    "See documentation to pology.sieve.check_rules for details."
-    % dict(par1="or")
-    )
+    ))
 
     p.add_param("lang", unicode,
-                metavar="CODE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=_("@info sieve parameter discription",
     "Load rules for this language "
     "(if not given, a language is automatically guessed)."
-    )
+    ))
     p.add_param("env", unicode, seplist=True,
-                metavar="CODE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=_("@info sieve parameter discription",
     "Load rules for this environment within language. "
     "If not given, environments may be read from the catalog header. "
     "If no environment is given or found, only environment-agnostic rules "
     "are loaded. "
     "Several environments can be given as comma-separated list."
-    )
+    ))
     p.add_param("stat", bool, defval=False,
-                desc=
-    "Output some statistics on application of rules."
-    )
+                desc=_("@info sieve parameter discription",
+    "Output statistics on application of rules."
+    ))
     p.add_param("envonly", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Load only rules explicitly belonging to environment given by '%(par)s'."
-    % dict(par="env")
     )
+    % dict(par="env"))
     p.add_param("accel", unicode, multival=True,
-                metavar="CHAR",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CHAR"),
+                desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields. "
     "If a catalog defines accelerator marker in the header, "
     "this value overrides it."
-    )
+    ))
     p.add_param("markup", unicode, seplist=True,
-                metavar="KEYWORD",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
+                desc=_("@info sieve parameter discription",
     "Markup that can be expected in text fields, as special keyword "
     "(see documentation to pology.file.catalog, Catalog.set_markup(), "
     "for markup keywords currently known to Pology). "
     "If a catalog defines markup type in the header, "
     "this value overrides it."
     "Several markups can be given as comma-separated list."
-    )
+    ))
     p.add_param("rfile", unicode, multival=True,
-                metavar="PATH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "PATH"),
+                desc=_("@info sieve parameter discription",
     "Load rules from a file, rather than internal Pology rules. "
     "Several rule files can be given by repeating the parameter."
-    )
+    ))
     p.add_param("rdir", unicode, multival=True,
-                metavar="DIRPATH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "DIRPATH"),
+                desc=_("@info sieve parameter discription",
     "Load rules from a directory, rather than internal Pology rules."
     "Several rule directories can be given by repeating the parameter."
-    )
+    ))
     p.add_param("showfmsg", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Show filtered message too when reporting message failed by a rule."
-    )
+    ))
     p.add_param("nomsg", bool, attrname="showmsg", defval=True,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Do not show message content at all when reporting failures."
-    )
+    ))
     p.add_param("rule", unicode, seplist=True,
-                metavar="RULEID",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "RULEID"),
+                desc=_("@info sieve parameter discription",
     "Apply only the rule given by this identifier. "
     "Several identifiers can be given as comma-separated list."
-    )
+    ))
     p.add_param("rulerx", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Apply only the rules with identifiers matching this regular expression. "
     "Several patterns can be given by repeating the parameter."
-    )
+    ))
     p.add_param("norule", unicode, seplist=True,
-                metavar="RULEID",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "RULEID"),
+                desc=_("@info sieve parameter discription",
     "Do not apply rule given by this identifier. "
     "Several identifiers can be given as comma-separated list."
-    )
+    ))
     p.add_param("norulerx", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Do not apply the rules with identifiers matching this regular expression. "
     "Several patterns can be given by repeating the parameter."
-    )
+    ))
     p.add_param("branch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
     "In summited catalogs, consider only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
-    )
+    ))
     p.add_param("xml", unicode,
-                metavar="PATH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "PATH"),
+                desc=_("@info sieve parameter discription",
     "Write rule failures into an XML file instead of stdout."
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Open catalogs at failed messages in Lokalize."
-    )
+    ))
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -252,15 +250,19 @@ class Sieve (object):
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
             else:
-                warning("Cannot open %s file. XML output disabled" % xmlPath)
+                warning(_("@info",
+                          "Cannot open file '%(file)s'. XML output disabled.")
+                        % dict(file=xmlPath))
 
-        if not exists(CACHEDIR) and self.xmlFile:
+        if not exists(_CACHEDIR) and self.xmlFile:
             #Create cache dir (only if we want wml output)
             try:
-                os.mkdir(CACHEDIR)
+                os.mkdir(_CACHEDIR)
             except IOError, e:
-                raise SieveError("Cannot create cache directory (%s):\n%s"
-                                 % (CACHEDIR, e))
+                raise SieveError(_("@info",
+                                   "Cannot create cache directory '%(dir)s':\n"
+                                   "%(msg)s")
+                                 % dict(dir=_CACHEDIR, msg=e))
 
         report("-"*40)
 
@@ -304,10 +306,11 @@ class Sieve (object):
   
         # New file handling
         if self.xmlFile and self.filename!=filename:
-            report("(Processing %s)" % filename)
+            report(_("@info:progress", "(Processing '%(file)s'.)")
+                   % dict(file=filename))
             newFile=True
             self.cached=False # Reset flag
-            self.cachePath=join(CACHEDIR, abspath(cat.filename).replace("/", MARSHALL))
+            self.cachePath=join(_CACHEDIR, abspath(cat.filename).replace("/", _MARSHALL))
             if self.cacheFile:
                 self.cacheFile.close()
             if self.filename!="":
@@ -334,13 +337,13 @@ class Sieve (object):
             #Convert in sec since epoch time format
             poDate=mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
             if os.stat(self.cachePath)[8]>poDate:
-                report("Using cache")
+                report(_("@info:progress", "Using cache."))
                 self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
                 self.cached=True
         
         # No cache available, create it for next time
         if self.xmlFile and newFile and not self.cached:
-            report("No cache available, processing file")
+            report(_("@info", "No cache available, processing file."))
             self.cacheFile=open(self.cachePath, "w", "utf-8")
         
         # Handle start/end of files for XML output (not needed for text output)
@@ -381,7 +384,9 @@ class Sieve (object):
             try:
                 spans=rule.process(msgf, cat, envs=envSet, nofilter=True)
             except TimedOutException:
-                warning("Rule %s timed out. Skipping." % rule.rawPattern)
+                warning(_("@info:progress",
+                          "Rule '%(rule)s' timed out, skipping it.")
+                        % dict(rule=rule.rawPattern))
                 continue
             if spans:
                 self.nmatch+=1
@@ -404,9 +409,11 @@ class Sieve (object):
                     rule_error(msg, cat, rule, spans, msgf, self.showmsg)
 
         if failedRules and self.lokalize:
-            repls = ["Failed rules:"]
+            repls = [_("@label", "Failed rules:")]
             for rule, hl in failedRules:
-                repls.append("rule %s ==> %s" % (rule.displayName, rule.hint))
+                repls.append(_("@item",
+                               "rule %(rule)s ==> %(msg)s")
+                             % dict(rule=rule.displayName, msg=rule.hint))
                 for part, item, spans, fval in hl:
                     repls.extend([u"↳ %s" % x[2] for x in spans if len(x) > 2])
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
@@ -424,7 +431,13 @@ class Sieve (object):
                 self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
-        printStat(self.rules, self.nmatch)
+        msg = (n_("@info:progress",
+                  "Rules detected %(num)d problem.",
+                  "Rules detected %(num)d problems.",
+                  self.nmatch)
+               % dict(num=self.nmatch))
+        report("===== %s" % msg)
+        printStat(self.rules)
 
 
     def _loadRules (self, lang, envs):
@@ -447,8 +460,11 @@ class Sieve (object):
                     rule.disabled = False
             if foundRules!=requestedRules:
                 missingRules=list(requestedRules-foundRules)
-                missingRules.sort()
-                raise SieveError("Some explicitly selected rules are missing: %s" % ", ".join(missingRules))
+                fmtMissingRules=format_item_list(sorted(missingRules))
+                raise SieveError(_("@info",
+                                   "Some explicitly selected rules "
+                                   "are missing: %(rulelist)s.")
+                                 % dict(rulelist=fmtMissingRules))
             selectedRules.update(foundRules)
         if self.ruleChoiceRx:
             identRxs=[re.compile(x, re.U) for x in self.ruleChoiceRx]
@@ -474,8 +490,11 @@ class Sieve (object):
                     foundRules.add(rule.ident)
             if foundRules!=requestedRules:
                 missingRules=list(requestedRules-foundRules)
-                missingRules.sort()
-                raise SieveError("Some explicitly excluded rules are missing: %s" % ", ".join(missingRules))
+                fmtMissingRules=format_item_list(sorted(missingRules))
+                raise SieveError(_("@info",
+                                   "Some explicitly excluded rules "
+                                   "are missing: %(rulelist)s.")
+                                 % dict(rulelist=fmtMissingRules))
             selectedRulesInv.update(foundRules)
         if self.ruleChoiceInvRx:
             identRxs=[re.compile(x, re.U) for x in self.ruleChoiceInvRx]
@@ -493,39 +512,62 @@ class Sieve (object):
         ntot=len(rules)
         ndis=len([x for x in rules if x.disabled])
         nact=ntot-ndis
-        envfmt=", ".join(envs)
-        if ndis and envs:
-            if self.envOnly:
-                report("Loaded %s rules [only %s] (%d active, %d disabled)" % (ntot, envfmt, nact, ndis))
-            else:
-                report("Loaded %s rules [%s] (%d active, %d disabled)" % (ntot, envfmt, nact, ndis))
-        elif ndis:
-            report("Loaded %s rules (%d active, %d disabled)" % (ntot, nact, ndis))
-        elif envs:
-            if self.envOnly:
-                report("Loaded %s rules [only %s]" % (ntot, envfmt))
-            else:
-                report("Loaded %s rules [%s]" % (ntot, envfmt))
+        totfmt=(n_("@item:intext inserted below as %(tot)s",
+                   "Loaded %(num)d rule", "Loaded %(num)d rules", ntot)
+                 % dict(num=ntot))
+        if self.envOnly:
+            envfmt=(_("@item:intext inserted below as %(env)s",
+                      "[only: %(envlist)s]")
+                    % dict(envlist=format_item_list(envs)))
         else:
-            report("Loaded %s rules" % (ntot))
+            envfmt=(_("@item:intext inserted below as %(env)s",
+                      "[%(envlist)s]")
+                    % dict(envlist=format_item_list(envs)))
+        actfmt=(n_("@item:intext inserted below as %(act)s",
+                   "%(num)d active", "%(num)d active", nact)
+                % dict(num=nact))
+        disfmt=(n_("@item:intext inserted below as %(dis)s",
+                   "%(num)d disabled", "%(num)d disabled", ndis)
+                % dict(num=ndis))
+        subs=dict(tot=totfmt, env=envfmt, act=actfmt, dis=disfmt)
+        if ndis and envs:
+            report(_("@info:progress insertions from above",
+                     "%(tot)s %(env)s (%(act)s, %(dis)s).") % subs)
+        elif ndis:
+            report(_("@info:progress insertions from above",
+                     "%(tot)s (%(act)s, %(dis)s).") % subs)
+        elif envs:
+            report(_("@info:progress insertions from above",
+                     "%(tot)s %(env)s.") % subs)
+        else:
+            report(_("@info:progress insertions from above",
+                     "%(tot)s.") % subs)
 
         if selectedRules:
             selectedRules=selectedRules.difference(selectedRulesInv)
             n=len(selectedRules)
             if n<=10:
                 rlst=list(selectedRules)
-                rlst.sort()
-                report("(selected rules: %s)" % ", ".join(rlst))
+                report(_("@info:progress",
+                         "Selected rules: %(rulelist)s.")
+                       % dict(rulelist=format_item_list(sorted(rlst))))
             else:
-                report("(selected rules: [%d rules])" % n)
+                report(n_("@info:progress",
+                          "Selected %(num)d rule.",
+                          "Selected %(num)d rules.",
+                          n) % dict(num=n))
         elif selectedRulesInv:
             n=len(selectedRulesInv)
             if n<=10:
                 rlst=list(selectedRulesInv)
-                rlst.sort()
-                report("(excluded rules: %s)" % ", ".join(rlst))
+                report(_("@info:progress",
+                         "Excluded rules: %(rulelist)s.")
+                       % dict(rulelist=format_item_list(sorted(rlst))))
             else:
-                report("(excluded rules: [%d rules])" % n)
+                report(n_("@info:progress",
+                          "Excluded %(num)d rule.",
+                          "Excluded %(num)d rules.",
+                          n) % dict(num=n))
 
         # Collect all distinct filters from rules.
         ruleFilters=set()
@@ -534,7 +576,10 @@ class Sieve (object):
                 ruleFilters.add(rule.mfilter)
         nflt = len([x for x in ruleFilters if x is not None])
         if nflt:
-            report("Active rules define %s distinct filter sets" % nflt)
+            report(n_("@info:progress",
+                      "Active rules define %(num)d distinct filter set.",
+                      "Active rules define %(num)d distinct filter sets.",
+                      nflt) % dict(num=nflt))
 
         return rules, ruleFilters
 

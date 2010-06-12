@@ -211,7 +211,6 @@ import locale
 
 from pology import PologyError
 from pology.misc.comments import manc_parse_flag_list
-from pology.misc.subcmd import ParamParser
 
 
 class SieveError (PologyError):

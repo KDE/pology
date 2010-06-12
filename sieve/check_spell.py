@@ -28,53 +28,56 @@ The following user configuration fields are considered:
 @license: GPLv3
 """
 
-from pology.sieve import SieveError
-from pology.misc.report import report, warning
-from pology.misc.msgreport import spell_error, spell_xml_error
-from pology.misc.split import proper_words
-from pology import rootdir
+from codecs import open
+import locale
+import os
+from os.path import abspath, basename, dirname, isfile, isdir, join
+import re
+import sys
+from time import strftime
+
+from pology import rootdir, _, n_
+from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
-from pology.misc.comments import manc_parse_list, manc_parse_flag_list
-from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.misc.msgreport import spell_error, spell_xml_error
 from pology.misc.msgreport import report_msg_to_lokalize
-import os, re, sys
-from os.path import abspath, basename, dirname, isfile, isdir, join
-from codecs import open
-from time import strftime
-import locale
-
+from pology.misc.report import report, warning, format_item_list
+from pology.misc.split import proper_words
+from pology.sieve import SieveError
 from pology.sieve.check_spell_ec import add_general_spellcheck_params
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Spell-check translation using Aspell."
-    )
+    ))
 
     add_general_spellcheck_params(p)
 
     p.add_param("enc", unicode,
-                metavar="ENCODING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "ENCODING"),
+                desc=_("@info sieve parameter discription",
     "Encoding for text sent to Aspell."
-    )
+    ))
     p.add_param("var", unicode,
-                metavar="VARIETY",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "VARIETY"),
+                desc=_("@info sieve parameter discription",
     "Variety of the Aspell dictionary."
-    )
+    ))
     p.add_param("xml", unicode,
-                metavar="FILENAME",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
     "Build XML report file at given path."
-    )
+    ))
     p.add_param("simsp", bool, defval=False,
-                desc=
-    "Split text into words in a simpler way "
-    "(deprecated, may be removed in the future)."
-    )
+                desc=_("@info sieve parameter discription",
+    "Split text into words in a simpler way (deprecated,)."
+    ))
 
 
 class Sieve (object):
@@ -130,7 +133,9 @@ class Sieve (object):
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
             else:
-                warning("Cannot open %s file. XML output disabled" % xmlPath)
+                warning(_("@info",
+                          "Cannot open file '%(file)s'. XML output disabled.")
+                        % dict(file=xmlPath))
 
         self.accel = params.accel
         self.markup = params.markup
@@ -145,7 +150,9 @@ class Sieve (object):
             if pfilter:
                 self.pfilters.append((pfilter, hreq))
             else:
-                warning("Cannot load filter '%s'." % hreq)
+                warning(_("@info",
+                          "Cannot load filter '%(filt)s'.")
+                        % dict(filt=hreq))
 
         self.envs = None
         if self.envs is None and params.env is not None:
@@ -215,21 +222,22 @@ class Sieve (object):
                 try:
                     self.aspells[ckey] = A.Aspell(self.aspellOptions.items())
                 except A.AspellConfigError, e:
-                    raise SieveError("Aspell configuration error:\n"
-                                     "%s" % e)
+                    raise SieveError(
+                        _("@info",
+                          "Aspell configuration error:\n%(msg)s")
+                        % dict(msg=e))
                 except A.AspellError, e:
                     raise SieveError(
-                        "Cannot initialize Aspell for language '%s':\n"
-                        "\t- check if Aspell and the language dictionary are correctly installed\n"
-                        "\t- check if there are any special characters in the personal dictionary\n"
-                        % clang)
+                        _("@info",
+                          "Cannot initialize Aspell:\n%(msg)s")
+                        % dict(msg=e))
             else:
                 # Create simple internal checker that only checks against
                 # internal supplemental dictionaries.
                 personalDict=self.personalDicts[ckey]
                 if not personalDict:
-                    raise SieveError("No supplemental dictionaries found for language '%s'."
-                                     % clang)
+                    raise SieveError(_("@info",
+                                       "No supplemental dictionaries found."))
                 self.aspells[ckey]=_QuasiSpell(personalDict, self.encoding)
 
             # Load list of contexts by which to ignore messages.
@@ -295,8 +303,10 @@ class Sieve (object):
                     try: # try as type F3* hook
                         msgstr = pfilter(msgstr, msg, cat)
                     except TypeError:
-                        warning("cannot execute filter '%s'" % pfname)
-                        raise
+                        raise SieveError(
+                            _("@info",
+                              "Cannot execute filter '%(filt)s'.")
+                            % dict(filt=pfname))
 
             # Split text into words.
             if not self.simsp:
@@ -332,15 +342,20 @@ class Sieve (object):
                             else:
                                 spell_error(msg, cat, word, suggestions)
                     except UnicodeEncodeError:
-                        warning("Cannot encode this word in your codec (%s)" % self.encoding)
+                        warning(_("@info",
+                                  "Cannot encode word '%(word)s' in "
+                                  "selected encoding '%(enc)s'.")
+                                % dict(word=word, enc=self.encoding))
             id+=1 # Increase msgstr id count
 
         if failedSuggs and self.lokalize:
-            repls=["Spelling errors:"]
+            repls=[_("@label", "Spelling errors:")]
             for word, suggs in failedSuggs:
                 if suggs:
-                    repls.append("%s (suggestions: %s)"
-                                 % (word, ", ".join(suggs)))
+                    fmtsuggs=format_item_list(suggs)
+                    repls.append(_("@item",
+                                   "%(word)s (suggestions: %(wordlist)s)")
+                                 % dict(word=word, wordlist=fmtsuggs))
                 else:
                     repls.append("%s" % (word))
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
@@ -359,8 +374,12 @@ class Sieve (object):
                 report("\n".join(slist))
         else:
             if self.nmatch:
-                report("-"*40)
-                report("Total matching: %d" % self.nmatch)
+                msg = (n_("@info:progress",
+                          "Encountered %(num)d unknown word.",
+                          "Encountered %(num)d unknown words.",
+                          self.nmatch)
+                       % dict(num=self.nmatch))
+                report("===== %s" % msg)
         if self.xmlFile:
             self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
@@ -430,7 +449,9 @@ def _read_dict_file (fname):
     header=file.readline()
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        warning("Malformed header in dictionary file '%s', skipping reading." % fname)
+        warning(_("@info",
+                  "Malformed header in dictionary file '%(file)s'.")
+                % dict(file=filepath))
         return []
     enc=m.group(4)
     # Reopen in correct encoding if not the default.

@@ -21,15 +21,20 @@ C{no-check-markup} L{sieve flag<sieve.parse_sieve_flags>}.
 @license: GPLv3
 """
 
-import sys, os, re
 import locale
+import os
+import re
+import sys
 import xml.parsers.expat
+
+from pology import _, n_
+from pology.hook.check_markup import flag_no_check_markup
 from pology.misc.entities import read_entities
-from pology.misc.report import report
+from pology.misc.markup import check_xml_kde4_l1
 from pology.misc.msgreport import report_on_msg, report_on_msg_hl
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.markup import check_xml_kde4_l1
-from pology.hook.check_markup import flag_no_check_markup
+from pology.misc.report import report
+from pology.misc.stdsvpar import add_param_poeditors, add_param_entdef
 from pology.sieve import parse_sieve_flags
 
 
@@ -38,28 +43,17 @@ _tsfence = "|/|"
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Validate text markup in translation in native KDE4 catalogs."
-    )
+    ))
     p.add_param("strict", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Check for problems in translation regardless of whether the original "
     "itself is free of problems (default is to check translation only if "
     "the original has no problems)."
-    )
-    p.add_param("entdef", unicode, multival=True,
-                metavar="FILE",
-                desc=
-    "File defining any external entities used in messages "
-    "(parameter can be repeated to add more files). Entity file "
-    "defines entities one per line, in the format:"
-    "\n\n"
-    "<!ENTITY entname 'entvalue'>"
-    )
-    p.add_param("lokalize", bool, defval=False,
-                desc=
-    "Show reported messages in Lokalize."
-    )
+    ))
+    add_param_entdef(p)
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -114,10 +108,21 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            if self.strict:
-                report("Total KDE4 markup problems in translation (strict): %d"
-                       % self.nproblems)
+            if not self.strict:
+                msg = (n_("@info:progress",
+                          "Found %(num)d problem in KDE4 markup "
+                          "in translations.",
+                          "Found %(num)d problems in KDE4 markup "
+                          "in translations.",
+                          self.nproblems)
+                       % dict(num=self.nproblems))
             else:
-                report("Total KDE4 markup problems in translation: %d"
-                       % self.nproblems)
+                msg = (n_("@info:progress",
+                          "Found %(num)d problem in KDE4 markup "
+                          "in translations (strict mode).",
+                          "Found %(num)d problems in KDE4 markup "
+                          "in translations (strict mode).",
+                          self.nproblems)
+                       % dict(num=self.nproblems))
+            report("===== %s" % msg)
 

@@ -29,8 +29,9 @@ are ignored by default.
 """
 
 from pology.misc.entities import read_entities
-from pology.misc.resolve import resolve_entities
 from pology.misc.report import report
+from pology.misc.resolve import resolve_entities
+from pology.misc.stdsvpar import add_param_entdef
 
 
 def setup_sieve (p):
@@ -39,12 +40,7 @@ def setup_sieve (p):
     "Resolve XML entities in translation."
     )
 
-    p.add_param("entdef", unicode, multival=True,
-                metavar="FILE",
-                desc=
-    "File with entity definitions. "
-    "Can be repeated to add several files."
-    )
+    add_param_entdef(p)
     p.add_param("ignore", unicode, seplist=True,
                 metavar="ENTNAME1,...",
                 desc=
