@@ -326,7 +326,7 @@ def list_options (optparser, short=False, both=False):
     return fmtlist
 
 
-def format_item_list (items, incmp=False):
+def format_item_list (items, incmp=False, quoted=False):
     """
     Format inline item list, for insertion into text.
 
@@ -334,6 +334,8 @@ def format_item_list (items, incmp=False):
     @type items: sequence of elements convertible to string by unicode()
     @param incmp: whether some items are omitted from the list
     @type incmp: bool
+    @param quoted: whether each item should be quoted
+    @type quoted: bool
     @returns: inline formatted list of items
     @rtype: string
     """
@@ -350,7 +352,11 @@ def format_item_list (items, incmp=False):
     ellipsis = _("@item:intext trailing string for incomplete lists, "
                  "e.g. \"...\" in \"apples, bananas, cherries...\"",
                  "...")
+    quoting = _("@item:intext quotes around each element in the list",
+                "'%(el)s'")
     itemstrs = map(unicode, items)
+    if quoted:
+        itemstrs = [quoting % dict(el=x) for x in items]
     if not incmp:
         if len(itemstrs) == 0:
             return u""
