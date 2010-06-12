@@ -34,30 +34,31 @@ Sieve parameters:
 @license: GPLv3
 """
 
-from pology.misc.report import report
-from pology.misc.diff import word_ediff, word_ediff_to_old
-from pology.misc.comments import parse_summit_branches
-
 import re
+
+from pology import _, n_
+from pology.misc.comments import parse_summit_branches
+from pology.misc.diff import word_ediff, word_ediff_to_old
+from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Diff previous to current fields in fuzzy messages."
-    )
+    ))
 
     p.add_param("strip", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove embedded differences from previous fields."
-    )
+    ))
 
     p.add_param("branch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
-    "In summited catalogs, process only messages belonging to given branch. "
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
+    "In summit catalogs, process only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
-    )
+    ))
 
 
 class Sieve (object):
@@ -121,8 +122,16 @@ class Sieve (object):
 
         if self.nmod > 0:
             if not self.strip:
-                report("Total fuzzy messages with differences: %d" % self.nmod)
+                msg = (n_("@info:progress",
+                          "Added differences to %(num)d fuzzy message.",
+                          "Added differences to %(num)d fuzzy messages.",
+                          self.nmod)
+                       % dict(num=self.nmod))
             else:
-                report("Total fuzzy messages stripped of differences: %d"
-                       % self.nmod)
+                msg = (n_("@info:progress",
+                          "Stripped differences from %(num)d fuzzy message.",
+                          "Stripped differences from %(num)d fuzzy messages.",
+                          self.nmod)
+                       % dict(num=self.nmod))
+            report("===== %s" % msg)
 

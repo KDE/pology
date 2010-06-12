@@ -26,6 +26,7 @@ useful e.g. when target quotes are tags or wiki markup:
 import os
 import re
 
+from pology import _, n_
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.escape import split_escaped
 from pology.misc.report import report
@@ -34,30 +35,32 @@ from pology.sieve import SieveError
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Transform ASCII single and double quotes into fancy counterparts."
-    )
+    ))
 
     p.add_param("single", unicode,
-                metavar="QUOTES",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "QUOTES"),
+                desc=_("@info sieve parameter discription",
     "Opening and closing single quote (two characters)."
-    )
+    ))
     p.add_param("double", unicode,
-                metavar="QUOTES",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "QUOTES"),
+                desc=_("@info sieve parameter discription",
     "Opening and closing double quote (two characters)."
-    )
+    ))
     p.add_param("longsingle", unicode,
-                metavar="OPEN,CLOSED",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "OPEN,CLOSED"),
+                desc=_("@info sieve parameter discription",
     "Opening and closing single quote longer than single character."
-    )
+    ))
     p.add_param("longdouble", unicode,
-                metavar="OPEN,CLOSED",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", 
+                          "OPEN,CLOSED"),
+                desc=_("@info sieve parameter discription",
     "Opening and closing double quote longer than single character."
-    )
+    ))
 
 
 # Pipe flag used to manually prevent transformation into fancy quotes.
@@ -74,37 +77,53 @@ class Sieve (object):
         # Pair of single quotes.
         self.singles = ()
         if params.single is not None and params.longsingle is not None:
-            raise SieveError("Both single- and multi-character replacement of "
-                            "single quotes issued.")
+            raise SieveError(
+                _("@info",
+                  "Both single- and multi-character replacement of "
+                  "single quotes issued."))
         if params.single is not None:
             quotes = params.single
             if len(quotes) != 2:
-                raise SieveError("Invalid specification of single quotes (%s), "
-                                 "expected two characters." % quotes)
+                raise SieveError(
+                    _("@info",
+                      "Invalid specification of single quotes (%(quotes)s), "
+                      "expected two characters.")
+                    % dict(quotes=quotes))
             self.singles = (quotes[0], quotes[1])
         elif params.longsingle is not None:
             quotes = split_escaped(params.longsingle, ",")
             if len(quotes) != 2:
-                raise SieveError("Invalid specification of single quotes (%s), "
-                                 "expected two strings." % quotes)
+                raise SieveError(
+                    _("@info",
+                      "Invalid specification of single quotes (%(quotes)s), "
+                      "expected two strings.")
+                    % dict(quotes=quotes))
             self.singles = (quotes[0], quotes[1])
 
         # Pair of double quotes.
         self.doubles = ()
         if params.double is not None and params.longdouble is not None:
-            raise SieveError("Both single- and multi-character replacement of "
-                             "double quotes issued.")
+            raise SieveError(
+                _("@info",
+                  "Both single- and multi-character replacement of "
+                  "double quotes issued."))
         if params.double is not None:
             quotes = params.double
             if len(quotes) != 2:
-                raise SieveError("Invalid specification of double quotes '%s', "
-                                 "expected two characters." % quotes)
+                raise SieveError(
+                    _("@info",
+                      "Invalid specification of double quotes (%(quotes)s), "
+                      "expected two characters.")
+                    % dict(quotes=quotes))
             self.doubles = (quotes[0], quotes[1])
         elif params.longdouble is not None:
             quotes = split_escaped(params.longdouble, ",")
             if len(quotes) != 2:
-                raise SieveError("Invalid specification of double quotes '%s', "
-                                 "expected two strings." % quotes)
+                raise SieveError(
+                    _("@info",
+                      "Invalid specification of double quotes '%(quotes)s', "
+                      "expected two strings.")
+                    % dict(quotes=quotes))
             self.doubles = (quotes[0], quotes[1])
 
 
@@ -141,9 +160,17 @@ class Sieve (object):
 
     def finalize (self):
 
-        if self.nrepl_single > 0 or self.nrepl_double > 0:
-            report("Total quote pairs replaced (single+double): %d+%d"
-                   % (self.nrepl_single, self.nrepl_double))
+        nrepl_both = self.nrepl_single + self.nrepl_double
+        if nrepl_both > 0:
+            msg = (n_("@info:progress",
+                      "Replaced %(num)d pair of quotes in translation "
+                      "(single+double: %(nums)d+%(numd)d).",
+                      "Replaced %(num)d pairs of quotes in translation "
+                      "(single+double: %(nums)d+%(numd)d).",
+                      nrepl_both)
+                   % dict(num=nrepl_both,
+                          nums=self.nrepl_single, numd=self.nrepl_double))
+            report("===== %s" % msg)
 
 
 # Regular expression for matching special messages by context.

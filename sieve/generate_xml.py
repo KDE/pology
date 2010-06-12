@@ -29,34 +29,37 @@ The sieve parameters are:
 @license: GPLv3
 """
 
-import sys, os, locale
-from os.path import abspath, basename, dirname, isdir, isfile, join
 from codecs import open
+import locale
+import os
+from os.path import abspath, basename, dirname, isdir, isfile, join
+import sys
 
+from pology import _, n_
+from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.report import report
 from pology.misc.rules import loadRules, Rule
-from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.timeout import TimedOutException
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Generate an XML tree from the input PO files."
     "\n\n"
     "See documentation for the description of the XML format used."
-    )
+    ))
 
     p.add_param("xml", unicode,
-                metavar="FILENAME",
-                desc=
-    "Write the generated XML tree into a file instead to standard output."
-    )
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
+    "Write the XML tree into a file instead to standard output."
+    ))
     # FIXME: Parameter name out of style.
     p.add_param("translatedOnly", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Consider only translated messages."
-    )
+    ))
 
 
 class Sieve (object):
@@ -74,7 +77,9 @@ class Sieve (object):
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 self.xmlFile=open(xmlPath, "w", "utf-8")
             else:
-                report("Cannot open %s file. XML output disabled" % xmlPath)
+                warning(_("@info",
+                          "Cannot open file '%(file)s'. XML output disabled.")
+                        % dict(file=xmlPath))
         
         self.translatedOnly = params.translatedOnly
         

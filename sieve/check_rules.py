@@ -120,8 +120,7 @@ def setup_sieve (p):
     p.add_param("envonly", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Load only rules explicitly belonging to environment given by '%(par)s'."
-    )
-    % dict(par="env"))
+    ) % dict(par="env"))
     p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=_("@info sieve parameter discription",

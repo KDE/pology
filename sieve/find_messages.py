@@ -102,184 +102,191 @@ matched messages to standard output.
 @license: GPLv3
 """
 
-import sys
+import locale
 import os
 import re
-import locale
+import sys
 
-from pology.sieve import SieveError
-from pology.misc.report import report, error, warning
+from pology import _, n_
+from pology.file.message import MessageUnsafe
+from pology.misc.comments import parse_summit_branches
+from pology.misc.langdep import get_hook_lreq
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.stdsvpar import add_param_poeditors
-from pology.file.message import MessageUnsafe
 from pology.hook.remove_subs import remove_accel_msg
-from pology.misc.comments import parse_summit_branches
+from pology.misc.report import report, error, warning, format_item_list
+from pology.misc.stdsvpar import add_param_poeditors
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Find and display messages."
     "\n\n"
     "Each message is matched according to one or several criteria, "
-    "and if it matches as whole, its content is displayed to output device, "
-    "along with originating catalog and referent line and entry number."
+    "and if it matches as whole, it is displayed to standard output, "
+    "along with the catalog path and referent line and entry number."
     "\n\n"
     "When several matching parameters are given, by default a message "
-    "is matched if all of them match (AND-semantics). "
-    "This can be changed to OR-semantics for matching in text fields "
-    "(msgctxt, msgid, msgstr, comment) "
-    "using the '%(par1)s' parameter. "
-    "Any matching parameter can be repeated if it makes sense (e.g. two "
-    "matches on msgid)."
-    "\n\n"
-    "See documentation to pology.sieve.find_messages for details."
-    % dict(par1="or")
+    "is matched if all of them match (AND-relation). "
+    "This can be changed to OR-relation for matching in text fields "
+    "(%(fieldlist)s) using the '%(par)s' parameter. "
+    "Any matching parameter can be repeated when it makes sense "
+    "(e.g. two matches on msgid)."
     )
+    % dict(fieldlist=format_item_list(["msgctxt", "msgid", "msgstr",
+                                       "comment"]),
+           par="or"))
 
     # NOTE: Do not add default values for matchers,
     # we need None to see if they were issued or not.
     p.add_param("msgid", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgid field matches the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field matches the regular expression."
+    ) % dict(field="msgid"))
     p.add_param("nmsgid", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgid field does not match the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field does not match the regular expression."
+    ) % dict(field="msgid"))
     p.add_param("msgstr", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgstr field matches the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field matches the regular expression."
+    ) % dict(field="msgstr"))
     p.add_param("nmsgstr", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgstr field does not match the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field does not match the regular expression."
+    ) % dict(field="msgstr"))
     p.add_param("msgctxt", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgctxt field matches the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field matches the regular expression."
+    ) % dict(field="msgctxt"))
     p.add_param("nmsgctxt", unicode, multival=True,
-                metavar="REGEX",
-                desc=
-    "Matches if the msgctxt field does not match the regular expression."
-    )
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the '%(field)s' field does not match the regular expression."
+    ) % dict(field="msgctxt"))
     p.add_param("comment", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Matches if a comment line (extracted or translator) "
     "matches the regular expression."
-    )
+    ))
     p.add_param("ncomment", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Matches if a comment line (extracted or translator) "
     "does not match the regular expression."
-    )
+    ))
     p.add_param("transl", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is translated."
-    )
+    ))
     p.add_param("ntransl", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is not translated."
-    )
+    ))
     p.add_param("obsol", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is obsolete."
-    )
+    ))
     p.add_param("nobsol", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is not obsolete."
-    )
+    ))
     p.add_param("active", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is active (translated and not obsolete)."
-    )
+    ))
     p.add_param("nactive", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is not active (not translated or obsolete)."
-    )
+    ))
     p.add_param("flag", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Matches if one of the flags matches the regular expression."
-    )
+    ))
     p.add_param("nflag", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Matches if none of the flags matches the regular expression."
-    )
+    ))
     p.add_param("plural", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is plural."
-    )
+    ))
     p.add_param("nplural", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Matches if the message is not plural."
-    )
+    ))
     p.add_param("maxchar", int,
-                metavar="NUM",
-                desc=
-    "Matches if both the msgid and msgstr field have at most this many "
-    "characters (0 or less means any number of characters)."
-    )
+                metavar=_("@info sieve parameter value placeholder", "NUM"),
+                desc=_("@info sieve parameter discription",
+    "Matches if both the '%(field1)s' and '%(field2)s' field "
+    "have at most this many characters "
+    "(0 or less means any number of characters)."
+    ) % dict(field1="msgid", field2="msgstr"))
     p.add_param("nmaxchar", int,
-                metavar="NUM",
-                desc=
-    "Matches if either the msgid or msgstr field have more than this many "
-    "characters (0 or less means any number of characters)."
-    )
+                metavar=_("@info sieve parameter value placeholder", "NUM"),
+                desc=_("@info sieve parameter discription",
+    "Matches if either the '%(field1)s' or '%(field2)s' field "
+    "have more than this many characters "
+    "(0 or less means any number of characters)."
+    ) % dict(field1="msgid", field2="msgstr"))
     p.add_param("lspan", unicode,
-                metavar="START:END",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "START:END"),
+                desc=_("@info sieve parameter discription",
     "Matches if the message line number is in the given range "
     "(including starting line, excluding ending line)."
-    )
+    ))
     p.add_param("nlspan", unicode,
-                metavar="START:END",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "START:END"),
+                desc=_("@info sieve parameter discription",
     "Matches if the message line number is not in the given range "
     "(including starting line, excluding ending line)."
-    )
+    ))
     p.add_param("espan", unicode,
-                metavar="START:END",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "START:END"),
+                desc=_("@info sieve parameter discription",
     "Matches if the message entry number is in the given range "
     "(including starting entry, excluding ending entry)."
-    )
+    ))
     p.add_param("nespan", unicode,
-                metavar="START:END",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "START:END"),
+                desc=_("@info sieve parameter discription",
     "Matches if the message entry number is not in the given range "
     "(including starting entry, excluding ending entry)."
-    )
+    ))
     p.add_param("branch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
-    "In summited catalogs, match only messages belonging to given branch. "
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
+    "In summit catalogs, match only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
-    )
+    ))
     p.add_param("nbranch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
     "Match only messages not belonging to given branch."
-    )
+    ))
     p.add_param("fexpr", unicode,
-                metavar="EXPRESSION",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "EXPRESSION"),
+                desc=_("@info sieve parameter discription",
     "Matches if the logical expression matches. "
     "The expression is composed of direct matchers (not starting with n*), "
     "explicitly linked with AND, OR, and NOT operators, and parenthesis. "
     "Base matchers taking parameters are given as MATCHER/VALUE/, "
-    "where slash can be replaced with another character sed-style. "
+    "where slash can be replaced consistently with any other character. "
     "Global matching modifiers can be overriden using MATCHER/VALUE/MODS, or "
     "MATCHER/MODS for parameterless matchers "
     "(currently available: c/i for case-sensitive/insensitive). "
@@ -288,56 +295,57 @@ def setup_sieve (p):
     "fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'"
     "\n\n"
     "fexpr:'msgid/quuk/ and msgstr/Qaak/c'"
-    )
+    ))
     p.add_param("nfexpr", unicode,
-                metavar="EXPRESSION",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "EXPRESSION"),
+                desc=_("@info sieve parameter discription",
     "Matches if the logical expression does not match."
-    )
+    ))
     p.add_param("or", bool, defval=False, attrname="or_match",
-                desc=
-    "Use OR-semantics for matching text fields: if any of "
+                desc=_("@info sieve parameter discription",
+    "Use OR-relation for matching text fields: if any of "
     "the patterns matches, the message is matched as whole."
-    )
+    ))
     p.add_param("invert", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Invert the condition: report messages which do not match."
-    )
+    ))
     p.add_param("case", bool, defval=False,
-                desc=
-    "Use case-sensitive text matching."
-    )
+                desc=_("@info sieve parameter discription",
+    "Case-sensitive text matching."
+    ))
     p.add_param("accel", unicode, multival=True,
-                metavar="CHAR",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CHAR"),
+                desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields, "
     "to ignore it on matching. "
     "If a catalog defines accelerator marker in the header, "
     "this value overrides it."
-    )
+    ))
     p.add_param("mark", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Add '%(flag)s' flag to each matched message."
-    % dict(flag=_flag_mark)
-    )
+    ) % dict(flag=_flag_mark))
     p.add_param("filter", unicode, multival=True,
-                metavar="HOOKSPEC",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "HOOK"),
+                desc=_("@info sieve parameter discription",
     "F1A hook specification, to filter the msgstr fields through "
     "before matching them. "
-    "Several hooks can be specified either by repeating the parameter."
-    )
+    "Several hooks can be specified by repeating the parameter."
+    ))
     p.add_param("replace", unicode,
-                metavar="REPLSTR",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "REPLSTR"),
+                desc=_("@info sieve parameter discription",
     "Replace all substrings matched by msgstr pattern with REPLSTR. "
     "It can include back-references to matched groups (\\1, \\2, etc.)"
-    )
+    ))
     p.add_param("nomsg", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Do not report message to standard output "
     "(when only the number of matches is wanted)."
-    )
+    ))
     add_param_poeditors(p)
 
 
@@ -424,7 +432,11 @@ class Sieve (object):
         self.replrxs = []
         if self.p.replace is not None:
             if not self.p.msgstr:
-                raise SieveError("cannot replace if no msgstr pattern given")
+                raise SieveError(
+                    _("@info",
+                      "Cannot perform replacement if match "
+                      "on '%(field)s' is not given.")
+                    % dict(field="msgstr"))
             rxflags = re.U
             if not self.p.case:
                 rxflags |= re.I
@@ -495,7 +507,12 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch:
-            report("Total matching: %d" % self.nmatch)
+            msg = (n_("@info:progress",
+                      "Found %(num)d message satisfying the conditions.",
+                      "Found %(num)d messages satisfying the conditions.",
+                      self.nmatch)
+                   % dict(num=self.nmatch))
+            report("===== %s" % msg)
 
 
 _all_ops = set()
@@ -549,14 +566,20 @@ class ExprError (Exception):
             subexpr = None
 
         if self.msg is not None and subexpr is not None:
-            repstr = ("invalid expression at %d [%s]: %s"
-                      % (self.start, subexpr, self.msg))
+            repstr = (_("@info",
+                        "Invalid expression at %(col)d [%(snippet)s]: "
+                        "%(reason)s.")
+                      % dict(col=self.start, snippet=subexpr, reason=self.msg))
         elif self.msg is not None:
-            repstr = "invalid expression: %s" % self.msg
+            repstr = (_("@info",
+                        "Invalid expression: %(reason)s.")
+                      % dict(reason=self.msg))
         elif subexpr is not None:
-            repstr = ("invalid expression at %d [%s]" % (self.start, subexpr))
+            repstr = (_("@info",
+                        "Invalid expression at %(col)d [%(snippet)s].")
+                      % dict(col=self.start, snippet=subexpr))
         else:
-            repstr = "invalid expression"
+            repstr = _("@info", "Invalid expression.")
 
         return unicode(repstr)
 
@@ -615,7 +638,8 @@ def build_msg_matcher (exprstr, mopts=None, abort=False):
     try:
         expr, p = _build_expr_r(exprstr, 0, len(exprstr), mopts)
         if p < len(exprstr):
-            raise ExprError(exprstr, "premature end of expression")
+            raise ExprError(exprstr, _("@item:intext",
+                                       "premature end of expression"))
     except ExprError, e:
         if abort:
             error(unicode(e))
@@ -712,10 +736,12 @@ def _build_expr_r (exprstr, start, end, params):
         # Parse current subexpression, matcher, or operator.
         if exprstr[p] == "(":
             if not can_operand:
-                raise ExprError(exprstr, "expected operator", p)
+                raise ExprError(exprstr, _("@item:intext",
+                                           "expected operator"), p)
             expr, p = _build_expr_r(exprstr, p + 1, end, params)
             if p == end or exprstr[p] != ")":
-                raise ExprError(exprstr, "no closing parenthesis", p)
+                raise ExprError(exprstr, _("@item:intext",
+                                           "no closing parenthesis"), p)
             tstack.append(expr)
             can_operand = False
             can_unary = False
@@ -728,16 +754,20 @@ def _build_expr_r (exprstr, start, end, params):
             tok = exprstr[pp:p].lower()
             if tok in _all_ops:
                 if tok in _unary_ops and not can_unary:
-                    raise ExprError(exprstr, "unexpected unary operator", pp)
+                    raise ExprError(exprstr, _("@item:intext",
+                                              "unexpected unary operator"), pp)
                 if tok in _binary_ops and not can_binary:
-                    raise ExprError(exprstr, "unexpected binary operator", pp)
+                    raise ExprError(exprstr,
+                                    _("@item:intext",
+                                      "unexpected binary operator"), pp)
                 can_operand = True
                 can_unary = True
                 can_binary = False
                 tstack.append(tok)
             else:
                 if not can_operand:
-                    raise ExprError(exprstr, "expected an operator", pp)
+                    raise ExprError(exprstr, _("@item:intext",
+                                               "expected an operator"), pp)
                 expr, p = _build_expr_matcher(tok, exprstr, p, end, params)
                 tstack.append(expr)
                 can_operand = False
@@ -745,7 +775,8 @@ def _build_expr_r (exprstr, start, end, params):
                 can_binary = True
         else:
             raise ExprError(exprstr,
-                            "expected token starting with a letter", p + 1)
+                            _("@item:intext",
+                              "expected token starting with a letter"), p + 1)
 
         # Update expression as possible.
         updated = True
@@ -762,7 +793,9 @@ def _build_expr_r (exprstr, start, end, params):
                         cexpr = lambda *a: not cexpr1(*a)
                     else: # cannot happen
                         raise ExprError(exprstr,
-                                        "unknown unary operator '%s'" % op)
+                                        _("@item:intext",
+                                          "unknown unary operator '%(op)s'")
+                                        % dict(op=op))
                     return cexpr
                 tstack.append(closure())
                 updated = True
@@ -781,15 +814,19 @@ def _build_expr_r (exprstr, start, end, params):
                         cexpr = lambda *a: cexpr1(*a) or cexpr2(*a)
                     else: # cannot happen
                         raise ExprError(exprstr,
-                                        "unknown binary operator '%s'" % op)
+                                        _("@item:intext",
+                                          "unknown binary operator '%(op)s'")
+                                        % dict(op=op))
                     return cexpr
                 tstack.append(closure())
                 updated = True
 
     if len(tstack) >= 2:
-        raise ExprError(exprstr, "premature end of expression", end)
+        raise ExprError(exprstr, _("@item:intext",
+                                   "premature end of expression"), end)
     if len(tstack) == 0:
-        raise ExprError(exprstr, "expected subexpression", start)
+        raise ExprError(exprstr, _("@item:intext",
+                                   "expected subexpression"), start)
 
     return tstack[0], p
 
@@ -797,7 +834,9 @@ def _build_expr_r (exprstr, start, end, params):
 def _build_expr_matcher (mname, exprstr, start, end, params):
 
     if mname not in _all_matchers:
-        raise ExprError(exprstr, "unknown matcher '%s'" % mname,
+        raise ExprError(exprstr, _("@item:intext",
+                                   "unknown matcher '%(match)s'")
+                                 % dict(match=mname),
                         start - len(mname))
 
     # Get matcher value, if any.
@@ -806,12 +845,14 @@ def _build_expr_matcher (mname, exprstr, start, end, params):
     if mname in _op_matchers:
         c = exprstr[p:p + 1]
         if p == end or c.isspace() or c.isalnum() or c in ("(", ")"):
-            raise ExprError(exprstr, "expected parameter delimiter", p)
+            raise ExprError(exprstr, _("@item:intext",
+                                       "expected parameter delimiter"), p)
         delim = exprstr[p]
         pp = p + 1
         p = exprstr.find(delim, p + 1, end)
         if p < 0:
-            raise ExprError(exprstr, "expected closing delimiter", end - 1)
+            raise ExprError(exprstr, _("@item:intext",
+                                       "expected closing delimiter"), end - 1)
         mval = exprstr[pp:p]
     # Get match modifiers, if any.
     mmods = []
@@ -840,8 +881,11 @@ def _create_matcher (name, value, mods, params, neg=False):
     bad_mods = set(mods).difference(known_mods)
     if bad_mods:
         raise ExprError(None,
-                        "unknown modifiers to '%s' matcher: %s"
-                        % (name, " ".join(bad_mods)))
+                        _("@item:intext",
+                          "unknown modifiers %(modlist)s "
+                          "to matcher '%(match)s'")
+                        % dict(modlist=format_item_list(bad_mods),
+                               match=name))
 
     if name in _rx_matchers:
         rxflags = re.U
@@ -850,8 +894,9 @@ def _create_matcher (name, value, mods, params, neg=False):
         try:
             regex = re.compile(value, rxflags)
         except:
-            raise ExprError(None,
-                            "cannot compile regular expression '%s'" % value)
+            raise ExprError(None, _("@item:intext",
+                                    "invalid regular expression '%(regex)s'")
+                                  % dict(regex=value))
 
     if 0: pass
 
@@ -927,25 +972,23 @@ def _create_matcher (name, value, mods, params, neg=False):
             return onchar <= value and tnchar <= value
 
     elif name == "lspan":
+        try:
+            start, end = value.split(":", 1)
+            start = int(start) if start else 0
+            end = int(end) if end else (cat[-1].refline + 1)
+        except:
+            raise ExprError(value, _("@item:intext", "invalid line span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
-            try:
-                start, end = value.split(":", 1)
-                start = int(start) if start else 0
-                end = int(end) if end else (cat[-1].refline + 1)
-            except:
-                raise ExprError("Invalid line span specification '%s'."
-                                % value)
             return msg.refline >= start and msg.refline < end
 
     elif name == "espan":
+        try:
+            start, end = value.split(":", 1)
+            start = int(start) if start else 0
+            end = int(end) if end else (cat[-1].refentry + 1)
+        except:
+            raise ExprError(value, _("@item:intext", "invalid entry span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
-            try:
-                start, end = value.split(":", 1)
-                start = int(start) if start else 0
-                end = int(end) if end else (cat[-1].refentry + 1)
-            except:
-                raise ExprError("Invalid entry span specification '%s'."
-                                % value)
             return msg.refentry >= start and msg.refentry < end
 
     elif name == "branch":
@@ -961,7 +1004,7 @@ def _create_matcher (name, value, mods, params, neg=False):
             return False
 
     else:
-        raise ExprError(None, "unknown matcher '%s'" % name)
+        raise ExprError(name, _("@item:intext", "unknown matcher"), 0)
 
     if neg:
         return lambda *a: not matcher(*a)

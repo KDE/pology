@@ -500,7 +500,7 @@ class Sieve (object):
 
             unknown_flags = set(flags).difference(known_flags)
             if unknown_flags:
-                fmtflags = format_item_list(sorted(unknown_flags))
+                fmtflags = format_item_list(sorted(unknown_flags), quoted=True)
                 raise SieveError(mkerr(_("@item:intext",
                                          "unknown flags %(flaglist)s")
                                        % dict(flaglist=fmtflags)))

@@ -9,15 +9,16 @@ This sieve applies L{hook.equip_header.equip_header_tp_kde} to catalog headers.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.hook.equip_header import equip_header_tp_kde
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Equip catalog headers within KDE Translation Project "
     "with extra information."
-    )
+    ))
 
 
 class Sieve (object):

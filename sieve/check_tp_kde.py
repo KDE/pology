@@ -122,8 +122,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Run only this check instead of all (currently available: %(chklist)s). "
     "Several checks can be specified as a comma-separated list."
-    )
-    % dict(chklist=format_item_list(chnames)))
+    ) % dict(chklist=format_item_list(chnames)))
     p.add_param("showmsg", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Also show the full message that had some problems."

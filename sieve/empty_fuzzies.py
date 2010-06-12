@@ -16,23 +16,24 @@ Sieve options:
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Make all fuzzy messages untranslated."
-    )
+    p.set_desc(_("@info sieve discription",
+    "Clear all fuzzy messages of translation."
+    ))
 
     p.add_param("rmcomments", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Also remove translator comments from fuzzy messages."
-    )
+    ))
     p.add_param("noprev", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Clear only fuzzy messages which do not have previous fields."
-    )
+    ))
 
 
 class Sieve (object):
@@ -60,5 +61,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nemptied > 0:
-            report("Total fuzzy messages emptied: %d" % self.nemptied)
+            msg = (n_("@info:progress",
+                      "Cleared %(num)d fuzzy message of translation.",
+                      "Cleared %(num)d fuzzy messages of translation.",
+                      self.nemptied)
+                   % dict(num=self.nemptied))
+            report("===== %s" % msg)
 
