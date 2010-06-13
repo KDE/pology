@@ -26,30 +26,33 @@ There is just one sieve parameter:
 
 import os
 
-from pology.misc.report import report
-from pology.sieve import SieveError
+from pology import _, n_
 from pology.file.catalog import Catalog
 from pology.file.header import Header
+from pology.misc.report import report
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Merge translation corrections from partial PO files tree into main tree."
     "\n\n"
-    "Give main PO files tree as input and provide path difference where "
-    "partial correction tree is available."
-    )
+    "Give main PO files tree as input and provide the path difference to "
+    "where the partial correction tree is available."
+    ))
 
     p.add_param("pathdelta", unicode, mandatory=True,
-                metavar="FIND:REPLACE",
-                desc=
-    "Specify that partial tree is available at path obtained when FIND is "
-    "replaced with REPLACE inside input path. "
+                metavar=_("@info sieve parameter value placeholder",
+                          "FIND[:REPLACE]"),
+                desc=_("@info sieve parameter discription",
+    "Specify that partial tree is available at path obtained when "
+    "first FIND in the input path is replaced with REPLACE. "
+    "If REPLACE is not given, FIND is just removed. "
     "Example:"
     "\n\n"
     "pathdelta:ui:ui-check"
-    )
+    ))
 
 
 class Sieve (object):
@@ -58,19 +61,12 @@ class Sieve (object):
 
         self.ncorr = 0
 
-        self.p = params
-
         pathdelta = params.pathdelta
-
-        # The delta to construct paths to correction catalogs.
-        if pathdelta:
-            if ":" not in pathdelta:
-                self.pd_srch = pathdelta
-                self.pd_repl = ""
-            else:
-                self.pd_srch, self.pd_repl = pathdelta.split(":", 1)
+        if ":" not in pathdelta:
+            self.pd_srch = pathdelta
+            self.pd_repl = ""
         else:
-            raise SieveError("path delta to correction catalogs not given")
+            self.pd_srch, self.pd_repl = pathdelta.split(":", 1)
 
 
     def process_header (self, hdr, cat):
@@ -116,5 +112,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.ncorr > 0:
-            report("Total corrections merged: %d" % self.ncorr)
+            msg = (n_("@info:progress",
+                      "Merged %(num)d corrected message.",
+                      "Merged %(num)d corrected messages.",
+                      self.ncorr)
+                   % dict(num=self.ncorr))
+            report("===== %s" % msg)
 

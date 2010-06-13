@@ -22,28 +22,29 @@ Sieve options:
 @license: GPLv3
 """
 
-from pology.sieve import SieveError
-from pology.misc.report import report
-from pology.misc.msgreport import warning_on_msg
+from pology import _, n_
 from pology.misc.escape import unescape_c as unescape
+from pology.misc.msgreport import warning_on_msg
+from pology.misc.report import report
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Convert delimitor-embedded context to Gettext context."
-    )
+    p.set_desc(_("@info sieve discription",
+    "Convert delimiter-embedded context to Gettext context."
+    ))
 
     p.add_param("head", unicode, mandatory=True,
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "Start of the msgid field which indicates that the context follows."
-    )
+    ))
     p.add_param("tail", unicode, mandatory=True,
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "End of context in msgid field, after which the text follows."
-    )
+    ))
 
 
 class Sieve (object):
@@ -54,10 +55,12 @@ class Sieve (object):
 
         self.chead = unescape(params.head)
         if not self.chead:
-            raise SieveError("context head cannot be empty string")
+            raise SieveError(
+                _("@info", "Context head cannot be empty string."))
         self.ctail = unescape(params.tail)
         if not self.ctail:
-            raise SieveError("context tail cannot be empty string")
+            raise SieveError(
+                _("@info", "Context tail cannot be empty string."))
 
 
     def process (self, msg, cat):
@@ -71,14 +74,15 @@ class Sieve (object):
         if msg.msgid.startswith(self.chead):
             pos = msg.msgid.find(self.ctail)
             if pos < 0:
-                warning_on_msg("malformed embedded context", msg, cat)
+                warning_on_msg(_("@info",
+                                 "Malformed embedded context."), msg, cat)
                 return
 
             ctxt = msg.msgid[len(self.chead):pos]
             text = msg.msgid[pos + len(self.ctail):]
 
             if not ctxt or not text:
-                warning_on_msg("empty context or text", msg, cat)
+                warning_on_msg(_("@info", "Empty context or text."), msg, cat)
                 return
 
             msg.msgctxt = ctxt
@@ -90,5 +94,11 @@ class Sieve (object):
     def finalize (self):
 
         if self.nconv > 0:
-            report("Total contexts converted: %d" % self.nconv)
+            msg = (n_("@info:progress",
+                      "Converted %(num)d delimiter-embedded context.",
+                      "Converted %(num)d delimiter-embedded contexts.",
+                      self.nconv)
+                   % dict(num=self.nconv))
+            report("===== %s" % msg)
+
 

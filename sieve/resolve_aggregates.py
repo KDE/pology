@@ -52,7 +52,7 @@ If C{first} is issued, the first variant is picked unconditionally.
 
 Since there is no information to split the aggregated source references
 into original groups, they are entirely removed unless requested otherwise
-by issuing the C{keeps} parameter.
+by issuing the C{keepsrc} parameter.
 
 Aggregated messages are always made fuzzy, leaving no way to determine
 if and which of the original messages were fuzzy.
@@ -70,40 +70,40 @@ the C{unfuzzy} parameter.
 # that part is silently not added to the aggregation -- there is no explicit
 # indicator to tell that it was missing.
 # PO file names need not be unique either (if collected from a directory tree),
-# so it is not possibly to deduce this from file names; likewise for project ID.
+# so it is not possible to deduce this from file names; likewise for project ID.
 # This means that there is no way to reconstruct complete original messages,
 # so each part has to be resolved independently.
 
 import re
 
-from pology.sieve import SieveError
-from pology.misc.report import report
+from pology import _, n_
 from pology.file.header import Header
 from pology.file.message import Message
+from pology.misc.report import report
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Resolve aggregate messages produced by 'msgcat'."
-    "\n\n"
-    "By default, aggregate messages are resolved by taking the most "
-    "frequent variant (see sieve documentation for details)."
-    )
+    p.set_desc(_("@info sieve discription",
+    "Resolve aggregate messages produced by '%(cmd)s'."
+    ) % dict(cmd="msgcat"))
 
     p.add_param("first", bool, defval=False,
-                desc=
-    "Always pick the first variant."
-    )
+                desc=_("@info sieve parameter discription",
+    "Always pick the first variant (by default, aggregate messages "
+    "are resolved by taking the most frequent variant)."
+    ))
     p.add_param("unfuzzy", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Unfuzzy resolved messages. "
-    "DANGEROUS; use only if all original messages are known not to be fuzzy."
-    )
+    "DANGEROUS: Use only if all messages in aggregation can be guaranteed "
+    "not to be fuzzy."
+    ))
     p.add_param("keepsrc", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Keep source reference on resolved messages instead of removing them."
-    )
+    ))
 
 
 class Sieve (object):
@@ -112,8 +112,10 @@ class Sieve (object):
 
         exclusive_picks = [params.first]
         if sum(exclusive_picks) > 2:
-            raise SieveError("Only one resolution criterion for "
-                             "aggregate messages can be given.")
+            raise SieveError(
+                _("@info",
+                  "Only one resolution criterion for "
+                  "aggregate messages can be given."))
 
         if params.first:
             self.selvar = _selvar_first
@@ -148,9 +150,19 @@ class Sieve (object):
     def finalize (self):
 
         if self.nresolvedhdr > 0:
-            report("Total aggregate headers resolved: %d" % self.nresolvedhdr)
+            msg = (n_("@info:progress",
+                      "Resolved %(num)d aggregate header.",
+                      "Resolved %(num)d aggregate headers.",
+                      self.nresolvedhdr)
+                   % dict(num=self.nresolvedhdr))
+            report("===== %s" % msg)
         if self.nresolved > 0:
-            report("Total aggregate messages resolved: %d" % self.nresolved)
+            msg = (n_("@info:progress",
+                      "Resolved %(num)d aggregate message.",
+                      "Resolved %(num)d aggregate messages.",
+                      self.nresolved)
+                   % dict(num=self.nresolved))
+            report("===== %s" % msg)
 
 
 def _selvar_first (texts):

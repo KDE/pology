@@ -13,20 +13,21 @@ Sieve parameters:
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Remove previous fields (#| ...) from messages."
-    )
+    ))
 
     p.add_param("all", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove previous fields from all messages "
-    "(by default fields are not removed from messages with fuzzy flag)."
-    )
+    "(by default previous fields are not removed from fuzzy messages)."
+    ))
 
 
 class Sieve (object):
@@ -52,5 +53,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.ncleared > 0:
-            report("Total cleared of previous fields: %d" % self.ncleared)
+            msg = (n_("@info:progress",
+                      "Cleared previous fields from %(num)d message.",
+                      "Cleared previous fields from %(num)d messages.",
+                      self.ncleared)
+                   % dict(num=self.ncleared))
+            report("===== %s" % msg)
 

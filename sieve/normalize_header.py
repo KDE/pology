@@ -10,14 +10,15 @@ to catalog headers.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.hook.normalize_header import normalize_header
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Check and rearrange content of PO header into canonical form."
-    )
+    ))
 
 
 class Sieve (object):

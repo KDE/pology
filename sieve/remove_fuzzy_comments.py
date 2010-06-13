@@ -27,37 +27,38 @@ C{exclude} match.
 
 import re
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Remove selected manual comments in fuzzy messages."
-    )
+    p.set_desc(_("@info sieve discription",
+    "Remove selected manual comments from fuzzy messages."
+    ))
 
     p.add_param("all", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove all manual comments."
-    )
+    ))
     p.add_param("nopipe", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove embedded lists of no-pipe flags (# |, foo, ...)."
-    )
+    ))
     p.add_param("pattern", unicode,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Remove comments matching the regular expression."
-    )
+    ))
     p.add_param("exclude", unicode,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Remove comments not matching the regular expression."
-    )
+    ))
     p.add_param("case", bool, defval=False,
-                desc=
-    "Use case-sensitive pattern matching."
-    )
+                desc=_("@info sieve parameter discription",
+    "Case-sensitive pattern matching."
+    ))
 
 
 
@@ -131,5 +132,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmod > 0:
-            report("Total messages with some comments removed: %d" % self.nmod)
+            msg = (n_("@info:progress",
+                      "Removed some comments from %(num)d fuzzy message.",
+                      "Removed some comments from %(num)d fuzzy messages.",
+                      self.nmod)
+                   % dict(num=self.nmod))
+            report("===== %s" % msg)
 

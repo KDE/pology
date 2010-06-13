@@ -28,33 +28,32 @@ are ignored by default.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.entities import read_entities
-from pology.misc.report import report
+from pology.misc.msgreport import warning_on_msg
+from pology.misc.report import report, format_item_list
 from pology.misc.resolve import resolve_entities
 from pology.misc.stdsvpar import add_param_entdef
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Resolve XML entities in translation."
-    )
+    ))
 
     add_param_entdef(p)
     p.add_param("ignore", unicode, seplist=True,
-                metavar="ENTNAME1,...",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "ENTITY1,..."),
+                desc=_("@info sieve parameter discription",
     "Comma-separated list of entity names to ignore."
-    )
-
+    ))
 
 
 class Sieve (object):
 
     def __init__ (self, params):
-
-        self.nresolved = 0
-        self.nunknown = 0
 
         self.entity_files = params.entdef or []
 
@@ -65,6 +64,8 @@ class Sieve (object):
         # Read entity definitions.
         self.entities = read_entities(self.entity_files)
 
+        self.nresolved = 0
+
 
     def process (self, msg, cat):
 
@@ -74,13 +75,21 @@ class Sieve (object):
                                  self.entities, self.ignored_entities,
                                  cat.filename)
             self.nresolved += len(resolved)
-            self.nunknown += len(unknown)
+            if unknown:
+                warning_on_msg(_("@info",
+                                 "Unknown entities in translation: "
+                                 "%(entlist)s.")
+                               % dict(entlist=format_item_list(unknown)),
+                               msg, cat)
 
 
     def finalize (self):
 
         if self.nresolved > 0:
-            report("Total resolved entities: %d" % self.nresolved)
-        if self.nunknown > 0:
-            report("Total unknown entities: %d" % self.nunknown)
+            msg = (n_("@info:progress",
+                      "Resolved %(num)d entity in translation.",
+                      "Resolved %(num)d entities in translation.",
+                      self.nresolved)
+                   % dict(num=self.nresolved))
+            report("===== %s" % msg)
 

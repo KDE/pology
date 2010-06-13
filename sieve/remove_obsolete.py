@@ -7,14 +7,15 @@ Remove obsolete messages from catalogs.
 @license: GPLv3
 """
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Remove obsolete messages from catalogs."
-    )
+    ))
 
 
 class Sieve (object):
@@ -34,5 +35,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            report("Total obsolete messages removed: %d" % self.nmatch)
+            msg = (n_("@info:progress",
+                      "Removed %(num)d obsolete message.",
+                      "Removed %(num)d obsolete messages.",
+                      self.nmatch)
+                   % dict(num=self.nmatch))
+            report("===== %s" % msg)
 

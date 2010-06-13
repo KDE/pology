@@ -19,23 +19,24 @@ Sieve options:
 @license: GPLv3
 """
 
-from pology.sieve import SieveError
-from pology.misc.report import report
-from pology.misc.msgreport import warning_on_msg
+from pology import _, n_
 from pology.misc.escape import unescape_c as unescape
+from pology.misc.msgreport import warning_on_msg
+from pology.misc.report import report
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Convert separator-embedded context to Gettext context."
-    )
+    ))
 
     p.add_param("sep", unicode, mandatory=True,
-                metavar="STRING",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "STRING"),
+                desc=_("@info sieve parameter discription",
     "Separator between the context and the text in msgid field."
-    )
+    ))
 
 
 class Sieve (object):
@@ -46,7 +47,8 @@ class Sieve (object):
 
         self.csep = unescape(params.sep)
         if not self.csep:
-            raise SieveError("context separator cannot be empty string")
+            raise SieveError(
+                _("@info", "Context separator cannot be empty string."))
 
 
     def process (self, msg, cat):
@@ -73,5 +75,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nconv > 0:
-            report("Total contexts converted: %d" % self.nconv)
+            msg = (n_("@info:progress",
+                      "Converted %(num)d separator-embedded context.",
+                      "Converted %(num)d separator-embedded contexts.",
+                      self.nconv)
+                   % dict(num=self.nconv))
+            report("===== %s" % msg)
 
