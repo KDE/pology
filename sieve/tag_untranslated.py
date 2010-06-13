@@ -32,30 +32,31 @@ Several branch IDs may be given as a comma-separated list.
 @license: GPLv3
 """
 
-from pology.misc.report import report
+from pology import _, n_
 from pology.misc.comments import parse_summit_branches
+from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Tag all untranslated messages with '%s' flag." % _flag_untranslated
-    )
+    p.set_desc(_("@info sieve discription",
+    "Tag all untranslated messages with '%(flag)s' flag."
+    ) % dict(flag=_flag_untranslated))
 
     p.add_param("strip", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove tags from messages."
-    )
+    ))
     p.add_param("wfuzzy", bool,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Also add tags to fuzzy messages."
-    )
+    ))
     p.add_param("branch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
-    "In summited catalogs, consider only messages belonging to given branch. "
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
+    "In summit catalogs, consider only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
-    )
+    ))
 
 
 _flag_untranslated = u"untranslated"
@@ -103,8 +104,17 @@ class Sieve (object):
     def finalize (self):
 
         if self.ntagged > 0:
-            report("Total untranslated messages tagged: %d" % self.ntagged)
+            msg = (n_("@info:progress",
+                      "Tagged %(num)d untranslated message.",
+                      "Tagged %(num)d untranslated messages.",
+                      self.ntagged)
+                   % dict(num=self.ntagged))
+            report("===== %s" % msg)
         if self.ncleared > 0:
-            report("Total untranslated messages cleared of tags: %d"
-                   % self.ncleared)
+            msg = (n_("@info:progress",
+                      "Cleared untranslated tag from %(num)d message.",
+                      "Cleared untranslated tag from %(num)d messages.",
+                      self.ncleared)
+                   % dict(num=self.ncleared))
+            report("===== %s" % msg)
 

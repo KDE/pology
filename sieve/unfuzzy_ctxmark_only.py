@@ -37,25 +37,25 @@ Sieve parameters:
 
 import re
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Unfuzzy messages which got fuzzy only due to changed context marker."
     "\n\n"
-    "(Possible only if catalogs were merged with --previous option.)"
+    "Possible only if catalogs were merged with --previous option."
     "\n\n"
     "By default, unfuzzied messages will get a translator comment with "
-    "the string '%s', so that they can be reviewed later."
-    % "unreviewed-context"
-    )
+    "the string '%(str)s', so that they can be reviewed later."
+    ) % dict(str="unreviewed-context"))
 
     p.add_param("noreview", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Do not add translator comment indicating unreviewed context."
-    )
+    ))
 
 
 _strip_rx = re.compile(r"^\s*@[^\s]+(.*)", re.U)
@@ -97,6 +97,12 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            report("Total unfuzzied due to context marker: %d"
-                   % self.nmatch)
+            msg = (n_("@info:progress",
+                      "Unfuzzied %(num)d message fuzzy due to "
+                      "difference in context marker only.",
+                      "Unfuzzied %(num)d messages fuzzy due to "
+                      "difference in context marker only.",
+                      self.nmatch)
+                   % dict(num=self.nmatch))
+            report("===== %s" % msg)
 

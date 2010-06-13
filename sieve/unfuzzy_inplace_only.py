@@ -13,17 +13,18 @@ if not already such.
 
 import re
 
+from pology import _, n_
 from pology.misc.report import report
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Unfuzzy messages fuzzied only due to some tags being closed in-place "
-    "(like <br> to <br/>)."
+    "(like '%(tag1)s' to '%(tag2)s')."
     "\n\n"
-    "(Possible only if catalogs were merged with --previous option.)"
-    )
+    "Possible only if catalogs were merged with --previous option."
+    ) % dict(tag1="<br>", tag2="<br/>"))
 
 
 _tags_inpl = r"(br|hr|nl)"
@@ -82,7 +83,21 @@ class Sieve (object):
     def finalize (self):
 
         if self.nunfuzz > 0:
-            report("Total unfuzzied due to closing in-place: %d" % self.nunfuzz)
+            msg = (n_("@info:progress",
+                      "Unfuzzied %(num)d message due to "
+                      "closing tags in-place.",
+                      "Unfuzzied %(num)d messages due to "
+                      "closing tags in-place.",
+                      self.nunfuzz)
+                   % dict(num=self.nunfuzz))
+            report("===== %s" % msg)
         if self.nmodinpl > 0:
-            report("Total modified by in-place closing: %d" % self.nmodinpl)
+            msg = (n_("@info:progress",
+                      "Modified %(num)d translations by "
+                      "closing tags in-place.",
+                      "Modified %(num)d translations by "
+                      "closing tags in-place.",
+                      self.nmodinpl)
+                   % dict(num=self.nmodinpl))
+            report("===== %s" % msg)
 

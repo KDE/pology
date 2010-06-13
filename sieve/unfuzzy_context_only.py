@@ -38,33 +38,33 @@ C{noreview} parameter may be useful here too.
 @license: GPLv3
 """
 
-from pology.misc.report import report
+from pology import _, n_
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
+from pology.misc.report import report
 from pology.misc.stdsvpar import add_param_poeditors
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Unfuzzy messages which got fuzzy only due to changed context."
     "\n\n"
-    "(Possible only if catalogs were merged with --previous option.)"
+    "Possible only if catalogs were merged with --previous option."
     "\n\n"
     "By default, unfuzzied messages will get a translator comment with "
-    "the string '%s', so that they can be reviewed later."
-    % "unreviewed-context"
-    )
+    "the string '%(str)s', so that they can be reviewed later."
+    ) % dict(str="unreviewed-context"))
 
     p.add_param("noreview", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Do not add translator comment indicating unreviewed context."
-    )
+    ))
     p.add_param("eqmsgid", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Do not unfuzzy messages which have same msgid as another message, "
     "and report them together with all other messages with the same msgid."
-    )
+    ))
     add_param_poeditors(p)
 
 
@@ -133,7 +133,21 @@ class Sieve (object):
     def finalize (self):
 
         if self.nunfuzz > 0:
-            report("Total unfuzzied due to context: %d" % self.nunfuzz)
+            msg = (n_("@info:progress",
+                      "Unfuzzied %(num)d message fuzzy due to "
+                      "difference in context only.",
+                      "Unfuzzied %(num)d messages fuzzy due to "
+                      "difference in context only.",
+                      self.nunfuzz)
+                   % dict(num=self.nunfuzz))
+            report("===== %s" % msg)
         if self.nrep > 0:
-            report("Total reported due to equality of msgid: %d" % self.nrep)
+            msg = (n_("@info:progress",
+                      "Reported %(num)d message due to equality "
+                      "of '%(field)s' field.",
+                      "Reported %(num)d messages due to equality "
+                      "of '%(field)s' field.",
+                      self.nrep)
+                   % dict(num=self.nrep, field="msgid"))
+            report("===== %s" % msg)
 

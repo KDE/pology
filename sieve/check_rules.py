@@ -185,7 +185,7 @@ def setup_sieve (p):
     p.add_param("branch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
-    "In summited catalogs, consider only messages belonging to given branch. "
+    "In summit catalogs, consider only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
     ))
     p.add_param("xml", unicode,

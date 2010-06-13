@@ -216,140 +216,140 @@ languages that have other than two plural forms.
 @license: GPLv3
 """
 
-import os
-import sys
 import codecs
 import locale
+import os
+import sys
 
-from pology.sieve import SieveError
-from pology.misc.fsops import collect_catalogs
-from pology.misc.tabulate import tabulate
-from pology.misc.split import proper_words
-from pology.misc.comments import parse_summit_branches
+from pology import _, n_
 from pology.file.catalog import Catalog
-from pology.misc.report import report, warning
-import pology.misc.colors as C
-from pology.misc.diff import tdiff
 from pology.file.message import MessageUnsafe
+import pology.misc.colors as C
+from pology.misc.comments import parse_summit_branches
+from pology.misc.diff import tdiff
+from pology.misc.fsops import collect_catalogs
 from pology.misc.langdep import get_hook_lreq
+from pology.misc.report import report, warning, format_item_list
+from pology.misc.split import proper_words
+from pology.misc.tabulate import tabulate
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
-    "Compute translation statistics."
-    "\n\n"
+    p.set_desc(_("@info sieve discription",
+    "Compute translation statistics.\n"
+    "\n"
     "Provides basic count of number of messages by type (translated, fuzzy, "
     "etc.), along with words and character counts, and some other derived "
     "statistics on request."
-    "\n\n"
-    "For details and notes on how counting is done, see documentation to "
-    "pology.sieve.stats."
-    )
+    ))
 
     p.add_param("accel", unicode, multival=True,
-                metavar="CHAR",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "CHAR"),
+                desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields, "
     "to remove it before counting. "
     "If a catalog defines accelerator marker in the header, "
     "this value overrides it."
-    )
+    ))
     p.add_param("detail", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Compute and display some derived statistical quantities."
-    )
+    ))
     p.add_param("incomplete", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "List catalogs which are not fully translated, with incompletness counts."
-    )
+    ))
     p.add_param("incompfile", unicode,
-                metavar="FILE",
-                desc=
-    "Write paths of not fully translated catalogs into a file, one per line."
-    )
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter discription",
+    "Write paths of catalogs that are not fully translated into a file, "
+    "one per line."
+    ))
     p.add_param("templates", unicode,
-                metavar="SRCH:REPL",
-                desc=
+                metavar=_("@info sieve parameter value placeholder",
+                          "FIND:REPLACE"),
+                desc=_("@info sieve parameter discription",
     "Count in templates without a corresponding catalog (i.e. translation on "
     "it has not started yet) into statistics. "
     "Assumes that translated catalogs and templates live in two root "
     "directories with same structure; then for each path of an existing "
     "catalog, its directory is taken and the path to corresponding templates "
-    "directory constructed by replacing first occurence of SRCH with REPL."
-    )
+    "directory constructed by replacing first occurence of FIND with REPLACE."
+    ))
     p.add_param("branch", unicode, seplist=True,
-                metavar="BRANCH",
-                desc=
-    "In summited catalogs, count in only messages belonging to given branch. "
+                metavar=_("@info sieve parameter value placeholder", "BRANCH"),
+                desc=_("@info sieve parameter discription",
+    "In summit catalogs, count in only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
-    )
+    ))
     p.add_param("maxwords", int,
-                metavar="NUMBER",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "NUMBER"),
+                desc=_("@info sieve parameter discription",
     "Count in only messages which have at most this many words, "
     "either in original or translation."
-    )
+    ))
     p.add_param("minwords", int,
-                metavar="NUMBER",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "NUMBER"),
+                desc=_("@info sieve parameter discription",
     "Count in only messages which have at least this many words, "
     "either in original or translation."
-    )
+    ))
     p.add_param("lspan", unicode,
-                metavar="FROM:TO",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FROM:TO"),
+                desc=_("@info sieve parameter discription",
     "Count in only messages at or after line FROM, and before line TO. "
     "If FROM is empty, 0 is assumed; "
     "if TO is empty, total number of lines is assumed."
-    )
+    ))
     p.add_param("espan", unicode,
-                metavar="FROM:TO",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FROM:TO"),
+                desc=_("@info sieve parameter discription",
     "Count in only messages at or after entry FROM, and before entry TO. "
     "If FROM is empty, 0 is assumed; "
     "if TO is empty, total number of entries is assumed."
-    )
+    ))
     p.add_param("bydir", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Report statistics per leaf directory in searched paths."
-    )
+    ))
     p.add_param("byfile", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Report statistics per catalog."
-    )
+    ))
     p.add_param("wbar", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Show statistics in form of word bars."
-    )
+    ))
     p.add_param("msgbar", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Show statistics in form of message bars."
-    )
+    ))
     p.add_param("absolute", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Scale lengths of word and message bars to numbers they represent, "
     "rather than relative to percentage of translation state. "
-    "Useful with '%s' and '%s' parameters, to compare sizes of different "
-    "translation units." % ("byfile", "bydir")
-    )
+    "Useful with '%(par1)s' and '%(par2)s' parameters, "
+    "to compare sizes of different translation units."
+    ) % dict(par1="byfile", par2="bydir"))
     p.add_param("ondiff", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Multiply word counts in fuzzy messages by difference ratio between "
     "current and previous original text."
-    )
+    ))
     p.add_param("mincomp", float, defval=None,
-                metavar="RATIO",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "RATIO"),
+                desc=_("@info sieve parameter discription",
     "Include into statistics only catalogs with sufficient completeness, "
     "as ratio of translated to other messages (real value between 0 and 1)."
-    )
+    ))
     p.add_param("filter", unicode, multival=True,
-                metavar="HOOKSPEC",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "HOOK"),
+                desc=_("@info sieve parameter discription",
     "F1A hook specification, to filter the translation through. "
     "Several filters can be specified by repeating the parameter."
-    )
+    ))
 
 
 class Sieve (object):
@@ -383,11 +383,21 @@ class Sieve (object):
 
         # Counted categories.
         self.count_spec = (
-            ("trn", u"translated"),
-            ("fuz", u"fuzzy"),
-            ("unt", u"untranslated"),
-            ("tot", u"total"),
-            ("obs", u"obsolete"),
+            ("trn",
+             _("@title:row translated messages/words/characters",
+               "translated")),
+            ("fuz",
+             _("@title:row fuzzy messages/words/characters",
+               "fuzzy")),
+            ("unt",
+             _("@title:row untranslated messages/words/characters",
+               "untranslated")),
+            ("tot",
+             _("@title:row fuzzy messages/words/characters",
+               "total")),
+            ("obs",
+             _("@title:row fuzzy messages/words/characters",
+               "obsolete")),
         )
 
         # FIXME: After parameter parser can deliver requested sequence type.
@@ -398,8 +408,11 @@ class Sieve (object):
         def parse_span (spanspec):
             lst = spanspec is not None and spanspec.split(":") or ("", "")
             if len(lst) != 2:
-                raise SieveError("wrong number of elements in span "
-                                 "specification '%s'" % self.p.lspan)
+                raise SieveError(
+                    _("@info",
+                      "Wrong number of elements in span "
+                      "specification '%(spec)s'.")
+                    % dict(spec=self.p.lspan))
             nlst = []
             for el in lst:
                 if not el:
@@ -408,8 +421,11 @@ class Sieve (object):
                     try:
                         nlst.append(int(el))
                     except:
-                        raise SieveError("not an integer in span "
-                                         "specification '%s'" % self.p.lspan)
+                        raise SieveError(
+                            _("@info",
+                              "Not an integer number in span "
+                              "specification '%(spec)s'.")
+                            % dict(spec=self.p.lspan))
             return tuple(nlst)
         self.lspan = parse_span(self.p.lspan)
         self.espan = parse_span(self.p.espan)
@@ -486,7 +502,9 @@ class Sieve (object):
                 tpath = tpath[:pdot] + ".pot"
             # Inform if the template does not exist.
             if not os.path.isfile(tpath):
-                warning("expected template catalog missing: %s" % tpath)
+                warning(_("@info",
+                          "Expected template catalog '%(file)s' is missing.")
+                        % dict(file=tpath))
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
@@ -699,11 +717,6 @@ class Sieve (object):
                 filenames_bydir[cdir].append(filename)
 
         # Arrange sets into ordered list with titles.
-        # NOTE: The title prefixes, ===, etc. are later used
-        # to determine the leval of a particular count.
-        self._tpref_file = "---"
-        self._tpref_dir = "+++"
-        self._tpref_all = "==="
         counts = []
         if self.p.bydir:
             cdirs = counts_bydir.keys();
@@ -712,47 +725,66 @@ class Sieve (object):
                 if self.p.byfile:
                     self._sort_equiv_filenames(filenames_bydir[cdir])
                     for filename in filenames_bydir[cdir]:
-                        counts.append(("%s %s" % (self._tpref_file, filename),
-                                       self.counts[filename]))
-                counts.append(("%s %s/" % (self._tpref_dir, cdir),
-                               counts_bydir[cdir]))
-            counts.append(("%s (overall)" % self._tpref_all, count_overall))
+                        counts.append((filename, self.counts[filename], False))
+                counts.append(("%s/" % cdir, counts_bydir[cdir], False))
+            counts.append((_("@item:intable sum of all other entries",
+                             "(overall)"), count_overall, True))
 
         elif self.p.byfile:
             filenames = self.counts.keys()
             self._sort_equiv_filenames(filenames)
             for filename in filenames:
-                counts.append(("%s %s" % (self._tpref_file, filename),
-                               self.counts[filename]))
-            counts.append(("%s (overall)" % self._tpref_all, count_overall))
+                counts.append((filename, self.counts[filename], False))
+            counts.append((_("@item:intable sum of all other entries",
+                             "(overall)"), count_overall, True))
 
         else:
-            counts.append((None, count_overall))
+            counts.append((None, count_overall, False))
 
         # See if the output will admit color sequences.
         can_color = sys.stdout.isatty() or self.p.raw_colors
 
-        # Indicate conspicuously up front restrictions to counted messages.
+        # Indicate conspicuously up front modifiers to counting.
+        modstrs = []
         if self.p.branch:
-            report(">>> selected-branches: %s" % " ".join(self.p.branch))
+            modstrs.append(_("@item:intext",
+                             "branches %(branchlist)s")
+                           % dict(branchlist=" ".join(self.p.branch)))
         if self.p.maxwords is not None and self.p.minwords is None:
-            report(">>> at-most-words: %d" % self.p.maxwords)
+            modstrs.append(n_("@item:intext",
+                              "at most %(num)d word",
+                              "at most %(num)d words",
+                              self.p.maxwords)
+                           % dict(num=self.p.maxwords))
         if self.p.minwords is not None and self.p.maxwords is None:
-            report(">>> at-least-words: %d" % self.p.minwords)
+            modstrs.append(n_("@item:intext",
+                              "at least %(num)d word",
+                              "at least %(num)d words",
+                             self.p.minwords)
+                           % dict(num=self.p.minwords))
         if self.p.minwords is not None and self.p.maxwords is not None:
-            report(">>> words-in-range: %d-%d" % (self.p.minwords, self.p.maxwords))
+            modstrs.append(n_("@item:intext",
+                              "from %(num1)d to %(num2)d word",
+                              "from %(num1)d to %(num2)d words",
+                              self.p.maxwords)
+                           % dict(num1=self.p.minwords, num2=self.p.maxwords))
         if self.p.lspan:
-            report(">>> line-span: %s" % self.p.lspan)
+            modstrs.append(_("@item:intext",
+                             "line span %(span)s")
+                           % dict(span=self.p.lspan))
         if self.p.espan:
-            report(">>> entry-span: %s" % self.p.espan)
+            modstrs.append(_("@item:intext",
+                             "entry span %(span)s")
+                           % dict(span=self.p.espan))
         if self.p.ondiff:
-            report(">>> scaled-fuzzy-counts")
+            modstrs.append(_("@item:intext",
+                             "scaled fuzzy counts"))
 
         # Should titles be output in-line or on separate lines.
         self.inline = False
         maxtitlecw = 0
         if (not self.p.wbar or not self.p.msgbar) and (not self.p.table):
-            for title, count in counts:
+            for title, count, summed in counts:
                 if title is not None:
                     self.inline = True
                     titlecw = len(title)
@@ -760,7 +792,7 @@ class Sieve (object):
                         maxtitlecw = titlecw
 
         # Output statistics in requested forms.
-        for title, count in counts:
+        for title, count, summed in counts:
             # Output the title if defined.
             if title is not None:
                 if self.inline:
@@ -778,9 +810,9 @@ class Sieve (object):
             if self.p.table:
                 self._tabular_stats(counts, title, count, can_color)
             if self.p.msgbar:
-                self._msg_bar_stats(counts, title, count, can_color)
+                self._msg_bar_stats(counts, title, count, summed, can_color)
             if self.p.wbar:
-                self._w_bar_stats(counts, title, count, can_color)
+                self._w_bar_stats(counts, title, count, summed, can_color)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
@@ -798,10 +830,20 @@ class Sieve (object):
             data.append([x + y for x, y in zip(data[4], data[5])])
             # Columns of the two added.
             # Column names and formats.
-            ond = self.p.ondiff and "*" or ""
-            coln = ["incomplete-catalog",
-                    "msg/f", "msg/u", "msg/f+u", ond + "w/f", "w/u",
-                    ond + "w/f+u"]
+            coln = [_("@title:column",
+                      "catalog"),
+                    _("@title:column fuzzy messages",
+                      "msg/f"),
+                    _("@title:column untranslated messages",
+                      "msg/u"),
+                    _("@title:column fuzzy and untranslated messages",
+                      "msg/f+u"),
+                    _("@title:column words in fuzzy messages",
+                      "w/f"),
+                    _("@title:column words in untranslated messages",
+                      "w/u"),
+                    _("@title:column words in fuzzy and untranslated messages",
+                      "w/f+u")]
             maxfl = max([len(x) for x in filenames])
             dfmt = ["%%-%ds" % maxfl, "%d", "%d", "%d", "%d", "%d", "%d"]
             # Output.
@@ -817,6 +859,11 @@ class Sieve (object):
             ofl = codecs.open(self.p.incompfile, "w", cmdlenc)
             ofl.writelines([x + "\n" for x in filenames])
             ofl.close()
+
+        if modstrs:
+            report(_("@item:intable",
+                     "(modifiers: %(modlist)s)")
+                   % dict(modlist=format_item_list(modstrs)))
 
 
     def _tabular_stats (self, counts, title, count, can_color):
@@ -880,14 +927,35 @@ class Sieve (object):
 
         # Row, column names and formats.
         rown = [tname for tkey, tname in selected_cats]
-        ond = self.p.ondiff and "*" or ""
-        coln = ["msg", "msg/tot",
-                ond + "w-or", ond + "w/tot-or", "w-tr", ond + "ch-or", "ch-tr"]
+        coln = [_("@title:column messages",
+                  "msg"),
+                _("@title:column percentage of total messages",
+                  "msg/tot"),
+                _("@title:column words in original",
+                  "w-or"),
+                _("@title:column percentage of words to total in original",
+                  "w/tot-or"),
+                _("@title:column words in translation",
+                  "w-tr"),
+                _("@title:column percentage of words to total in translation",
+                  "ch-or"),
+                _("@title:column characters in translation",
+                  "ch-tr")]
         dfmt = ["%d", "%.1f%%",
                 "%d", "%.1f%%", "%d", "%d", "%d"]
         if self.p.detail:
-            coln.extend(["w-ef", "ch-ef",
-                         "w/msg-or", "w/msg-tr", "ch/w-or", "ch/w-tr"])
+            coln.extend([_("@title:column word efficiency",
+                           "w-ef"),
+                         _("@title:column character efficiency",
+                           "ch-ef"),
+                         _("@title:column words per message in original",
+                           "w/msg-or"),
+                         _("@title:column words per message in translation",
+                           "w/msg-tr"),
+                         _("@title:column characters per message in original",
+                           "ch/w-or"),
+                         _("@title:column characters per message in translation",
+                           "ch/w-tr")])
             dfmt.extend(["%+.1f%%", "%+.1f%%",
                          "%.1f", "%.1f", "%.1f", "%.1f"])
 
@@ -896,18 +964,24 @@ class Sieve (object):
                         space="   ", none=u"-", colorized=can_color))
 
 
-    def _msg_bar_stats (self, counts, title, count, can_color):
+    def _msg_bar_stats (self, counts, title, count, summed, can_color):
 
-        self._bar_stats(counts, title, count, can_color, "msgs", 0)
-
-
-    def _w_bar_stats (self, counts, title, count, can_color):
-
-        ond = self.p.ondiff and "*" or ""
-        self._bar_stats(counts, title, count, can_color, ond + "w-or", 1)
+        self._bar_stats(counts, title, count, summed, can_color,
+                        _("@item:intable number of messages",
+                          "msgs"),
+                        0)
 
 
-    def _bar_stats (self, counts, title, count, can_color, dlabel, dcolumn):
+    def _w_bar_stats (self, counts, title, count, summed, can_color):
+
+        self._bar_stats(counts, title, count, summed, can_color,
+                        _("@item:intable number of words in original",
+                          "w-or"),
+                        1)
+
+
+    def _bar_stats (self, counts, title, count, summed,
+                    can_color, dlabel, dcolumn):
 
         # Count categories to display and chars/colors associated to them.
         # Note: Use only characters from Latin1.
@@ -918,22 +992,17 @@ class Sieve (object):
         # Find out maximum counts overall.
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
         maxcounts_jumbled = maxcounts.copy()
-        for otitle, ocount in counts:
+        for otitle, ocount, osummed in counts:
+            # If absolute bars, compare counts only for non-summed counts.
+            if self.p.absolute and osummed:
+                continue
+
             # Count both messages and words, for the number display padding.
             for tkey in maxcounts_jumbled:
                 for dcol in (0, 1):
                     c = ocount[tkey][dcol]
                     if maxcounts_jumbled[tkey] < c:
                         maxcounts_jumbled[tkey] = c
-
-            # If absolute bars, compare counts only for same-level titles.
-            if self.p.absolute:
-                if title is None:
-                    if otitle is not None:
-                        continue
-                else:
-                    if otitle is None or not otitle.startswith(title[:1]):
-                        continue
 
             for tkey in maxcounts:
                 c = ocount[tkey][dcolumn]
@@ -988,12 +1057,14 @@ class Sieve (object):
                         10, 20, 50,
                         100, 200, 500,
                         1000, 2000, 5000,
-                        10000, 20000, 50000):
+                        10000, 20000, 50000,
+                        100000, 200000, 500000):
                 if npc * maxbarcw > maxcounts["tot"]:
                     n_per_cell = npc
                     break
             if not n_per_cell:
-                warning("too great count, cannot display bar graph")
+                warning(_("@info",
+                          "Count too large, cannot display bar graph."))
                 return
             for tkey, roundf in (("fuz", roundup), ("unt", roundup),
                                  ("tot", roundnear)):
@@ -1045,15 +1116,7 @@ class Sieve (object):
         fmt_bar = "".join(fmt_bar)
 
         # Assemble final output.
-        # If bars are absolute, show them only for most particular counts.
-        showbar = True
-        if self.p.absolute:
-            if self.p.byfile:
-                showbar = title.startswith(self._tpref_file)
-            elif self.p.bydir:
-                showbar = title.startswith(self._tpref_dir)
-
-        if showbar:
+        if not self.p.absolute or not summed:
             if count["tot"][dcolumn] == 0:
                 fmt_bar = ""
             report("%s %s |%s|" % (fmt_counts, dlabel, fmt_bar))

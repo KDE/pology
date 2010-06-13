@@ -60,122 +60,125 @@ if its use would be ambiguous otherwise.
 @license: GPLv3
 """
 
-import re
 import time
+import re
 
-from pology.sieve import SieveError
+from pology import _, n_
 from pology.misc.report import report, warning
 from pology.misc.resolve import expand_vars
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Set elements of the PO header."
     "\n\n"
-    "Sometimes a certain header field needs to be updated throught many POs, "
-    "and this sieve serves that purpose."
+    "Sometimes a header field needs to be modified, added or removed "
+    "in many catalogs, and this sieve serves that purpose."
     "\n\n"
-    "Note that %%-character in the value is used to expand some preset "
-    "variables. Currently these are: %%%(poname)s - name of the catalog. "
-    "If literal %% is needed (e.g. in plural forms), it can be escaped as %%%%."
-    % dict(poname="poname")
-    )
+    "%%-character in the value is used to expand known variables. "
+    "Currently these are: %%%(var1)s - name of the catalog. "
+    "If literal %% is needed (e.g. in plural forms header), "
+    "it can be escaped as %%%%."
+    ) % dict(var1="poname"))
 
     p.add_param("field", unicode, multival=True,
-                metavar="FIELD:VALUE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", 
+                          "FIELD:VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set a header field to the given value. "
     "This parameter can be repeated, to set several fields in single run."
-    )
+    ))
     p.add_param("create", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Add the field if not present "
-    "(by default the field is set only if it already exists in the header)."
-    )
+    "(by default the field value is set only if the field already exists "
+    "in the header)."
+    ))
     p.add_param("after", unicode,
-                metavar="FIELD",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FIELD"),
+                desc=_("@info sieve parameter discription",
     "When the new field is being added, add it after this field. "
     "If such field does not exist, the new field is added as the last one."
-    )
+    ))
     p.add_param("before", unicode,
-                metavar="FIELD",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FIELD"),
+                desc=_("@info sieve parameter discription",
     "When the new field is being added, add it before this field. "
     "If such field does not exist, the new field is added as the last one."
-    )
+    ))
     p.add_param("reorder", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "If the field to be set is present, but not in the order implied by "
-    "'%(after)s' and '%(before)s' parameters, reinsert it accordingly."
-    % dict(after="after", before="before")
-    )
+    "'%(par1)s' and '%(par2)s' parameters, reinsert it accordingly."
+    ) % dict(par1="after", par2="before"))
     p.add_param("remove", unicode, multival=True,
-                metavar="FIELD",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "FIELD"),
+                desc=_("@info sieve parameter discription",
     "Remove the field."
-    )
+    ))
     p.add_param("removerx", unicode, multival=True,
-                metavar="REGEX",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "REGEX"),
+                desc=_("@info sieve parameter discription",
     "Remove all fields matching the regular expression. "
     "Matching is not case-sensitive."
-    )
+    ))
     p.add_param("title", unicode, multival=True,
-                metavar="VALUE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set title comment to the given value."
     "Can be repeated to set several title lines. "
     "All existing title lines are removed before setting the new ones."
-    )
+    ))
     p.add_param("rmtitle", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove title comments."
-    )
+    ))
     p.add_param("copyright", unicode,
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set copyright comment to the given value."
-    )
+    ))
     p.add_param("rmcopyright", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove the copyright comment."
-    )
+    ))
     p.add_param("license", unicode,
-                metavar="VALUE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set license comment to the given value."
-    )
+    ))
     p.add_param("rmlicense", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove the license comment."
-    )
+    ))
     p.add_param("author", unicode, multival=True,
-                metavar="VALUE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set author comment to the given value. "
     "Can be repeated to set several authors. "
     "All existing authors are removed before setting the new ones."
-    )
+    ))
     p.add_param("rmauthor", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove author comments."
-    )
+    ))
     p.add_param("comment", unicode, multival=True,
-                metavar="VALUE",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "VALUE"),
+                desc=_("@info sieve parameter discription",
     "Set free comment to the given value. "
     "Can be repeated to set several free comment lines. "
     "All existing comment lines are removed before setting the new ones."
-    )
+    ))
     p.add_param("rmcomment", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove free comments."
-    )
+    ))
     p.add_param("rmallcomm", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Remove all header comments."
-    )
+    ))
 
 
 class Sieve (object):
@@ -187,8 +190,11 @@ class Sieve (object):
         for field_value_str in (params.field or []):
             field_value = field_value_str.split(":", 1)
             if len(field_value) != 2:
-                raise SieveError("invalid specification of header field "
-                                 "and value: %s" % field_value_str)
+                raise SieveError(
+                    _("@info",
+                      "Invalid specification '%(spec)s' "
+                      "of header field and value.")
+                    % dict(spec=field_value_str))
             self.fields_values.append(field_value)
 
         # Set fields in reverse, so that 'after' and 'before' parameters
@@ -203,8 +209,11 @@ class Sieve (object):
                 try:
                     rx = re.compile(rxstr, re.U|re.I)
                 except:
-                    raise SieveError("invalid regular expression for removing "
-                                     "fields: %s" % rxstr)
+                    raise SieveError(
+                        _("@info",
+                          "Invalid regular expression '%(regex)s' "
+                          "for removing fields.")
+                        % dict(regex=rxstr))
                 rxs.append(rx)
             params.removerx = rxs
 
@@ -212,25 +221,33 @@ class Sieve (object):
         for title in (params.title or []):
             if re.search(r"copyright|©|\(C\)|license|<.*?@.*?>",
                          title, re.I|re.U):
-                raise SieveError("invalid value for title comment "
-                                 "(contains some elements appropriate "
-                                 "for other types of comments): %s"
-                                 % title)
+                raise SieveError(
+                    _("@info",
+                      "Invalid value '%(val)s' for title comment "
+                      "(it contains some elements appropriate "
+                      "for other types of comments).")
+                    % dict(val=title))
         if params.copyright is not None:
             if not re.search(r"copyright|©|\(C\)", params.copyright, re.I|re.U):
-                raise SieveError("invalid value for copyright comment "
-                                 "(missing word 'copyright'?): %s"
-                                 % params.copyright)
+                raise SieveError(
+                    _("@info",
+                      "Invalid value '%(val)s' for copyright comment "
+                      "(missing the word 'copyright'?).")
+                    % dict(val=params.copyright))
         if params.license is not None:
             if not re.search(r"license", params.license, re.I):
-                raise SieveError("invalid value for license comment "
-                                 "(missing word 'license'?): %s"
-                                 % params.license)
+                raise SieveError(
+                    _("@info",
+                      "Invalid value '%(val)s' for license comment "
+                      "(missing the word 'license'?).")
+                    % dict(val=params.license))
         for author in (params.author or []):
             if not re.search(r"<.*?@.*?>", author):
-                raise SieveError("invalid value for author comment "
-                                 "(missing email address?): %s"
-                                 % author)
+                raise SieveError(
+                    _("@info",
+                      "Invalid value '%(val)s' for author comment "
+                      "(missing the email address?).")
+                    % dict(val=author))
         self.p = params
 
 

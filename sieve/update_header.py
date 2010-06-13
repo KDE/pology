@@ -63,6 +63,7 @@ import os
 import re
 import time
 
+from pology import _, n_
 import pology.misc.config as config
 from pology.misc.report import warning
 from pology.misc.resolve import expand_vars
@@ -71,25 +72,25 @@ from pology.sieve import SieveError
 
 def setup_sieve (p):
 
-    p.set_desc(
+    p.set_desc(_("@info sieve discription",
     "Initialize or update the PO header with own translator data."
-    )
+    ))
     p.add_param("proj", unicode, mandatory=True,
-                metavar="ID",
-                desc=
+                metavar=_("@info sieve parameter value placeholder", "ID"),
+                desc=_("@info sieve parameter discription",
     "Project ID in Pology configuration file, "
     "which contains the necessary project data to update the header."
-    )
+    ))
     p.add_param("init", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Consider header as uninitialized, removing any existing information "
     "before adding own and project data."
-    )
+    ))
     p.add_param("onmod", bool, defval=False,
-                desc=
+                desc=_("@info sieve parameter discription",
     "Update header only if the catalog was otherwise modified "
     "(in sieve chains)."
-    )
+    ))
 
 
 class Sieve (object):
@@ -101,8 +102,10 @@ class Sieve (object):
         # Collect user and project configuration.
         prjsect = "project-" + params.proj
         if not config.has_section(prjsect):
-            raise SieveError("project '%s' not defined in configuration"
-                             % params.proj)
+            raise SieveError(
+                _("@info",
+                  "Project '%(id)s' is not defined in user configuration.")
+                % dict(id=params.proj))
         self.prjcfg = config.section(prjsect)
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
@@ -110,26 +113,36 @@ class Sieve (object):
         # Collect project data.
         self.name = prjcfg.string("name") or usrcfg.string("name")
         if not self.name:
-            warning("Field '%s' not set in project or user configuration."
-                    % "name")
+            warning(_("@info",
+                      "Field '%(field)s' is not set in "
+                      "project or user configuration.")
+                    % dict(field="name"))
         self.email = prjcfg.string("email") or usrcfg.string("email")
         if not self.email:
-            warning("Field '%s' not set in project or user configuration."
-                    % "email")
+            warning(_("@info",
+                      "Field '%(field)s' is not set in "
+                      "project or user configuration.")
+                    % dict(field="email"))
         self.langteam = prjcfg.string("language-team")
         if not self.langteam:
-            warning("Field '%s' not set in project configuration."
-                    % "language-team")
+            warning(_("@info",
+                      "Field '%(field)s' is not set in "
+                      "project configuration.")
+                    % dict(field="language-team"))
         self.teamemail = prjcfg.string("team-email") # ok not to be present
         self.langcode = prjcfg.string("language")
         if not self.langcode:
-            warning("Field '%s' not set in project configuration."
-                    % "language")
+            warning(_("@info",
+                      "Field '%(field)s' is not set in "
+                      "project configuration.")
+                    % dict(field="language"))
         self.encoding = prjcfg.string("encoding", "UTF-8")
         self.plforms = prjcfg.string("plural-forms")
         if not self.plforms:
-            warning("Field '%s' not set in project configuration."
-                    % "plural-forms")
+            warning(_("@info",
+                      "Field '%(field)s' is not set in "
+                      "project configuration.")
+                    % dict(field="plural-forms"))
         self.poeditor = (    prjcfg.string("po-editor")
                           or usrcfg.string("po-editor")) # ok not to be present
 
