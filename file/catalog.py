@@ -267,8 +267,9 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     if p == 0:
                         raise PologyError(
                             _("@info",
-                              "Malformed msgstr ordinal at %(file)s:%(line)d.")
-                            % dict(file=filename, line=lno))
+                              "Malformed '%(field)s' ordinal "
+                              "at %(file)s:%(line)d.")
+                            % dict(file=filename, line=lno, field="msgstr"))
                     msgstr_i = int(line[:p])
                     line = line[p:].lstrip()
                     if line.startswith("]"):
@@ -276,8 +277,9 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     else:
                         raise PologyError(
                             _("@info",
-                              "Malformed msgstr ordinal at %(file)s:%(line)d.")
-                            % dict(file=filename, line=lno))
+                              "Malformed '%(field)s' ordinal "
+                              "at %(file)s:%(line)d.")
+                            % dict(file=filename, line=lno, field="msgstr"))
                 # Add missing msgstr entries.
                 for i in range(len(loc.msg.msgstr), msgstr_i + 1):
                     loc.msg.msgstr.append([])
