@@ -192,7 +192,7 @@ def main ():
         help=_("@info command line option description",
                "Open selected messages in one of the supported PO editors."))
     opars.add_option(
-        "-R", "--max-fraction-select",
+        "-L", "--max-fraction-select",
         metavar=_("@info command line value placeholder", "FRACTION"),
         action="store", dest="max_fraction_select", default=None,
         help=_("@info command line option description",
