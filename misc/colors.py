@@ -13,7 +13,7 @@ import re
 from pology import PologyError, _, n_
 
 
-_known_ctypes = (
+coloring_types = (
     "none",
     "term",
     "html",

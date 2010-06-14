@@ -14,6 +14,8 @@ possibly followed by some optional parameters, and return C{None}.
 """
 
 from pology import _, n_
+from pology.misc.colors import coloring_types
+from pology.misc.report import format_item_list
 
 
 def add_cmdopt_incexc (opars, ormatch=False):
@@ -44,7 +46,7 @@ def add_cmdopt_incexc (opars, ormatch=False):
 
     opars.add_option(
         "-e", "--exclude-name",
-        metavar="REGEX",
+        metavar=_("@info command line value placeholder", "REGEX"),
         dest="exclude_names", action="append",
         help=(_("@info command line option description. "
                 "%(incexc)s is one of the above partial descriptions.",
@@ -54,7 +56,7 @@ def add_cmdopt_incexc (opars, ormatch=False):
               % dict(incexc=exclink)))
     opars.add_option(
         "-E", "--exclude-path",
-        metavar="REGEX",
+        metavar=_("@info command line value placeholder", "REGEX"),
         dest="exclude_paths", action="append",
         help=(_("@info command line option description. "
                 "%(incexc)s is one of the partial descriptions above.",
@@ -63,7 +65,7 @@ def add_cmdopt_incexc (opars, ormatch=False):
               % dict(incexc=exclink)))
     opars.add_option(
         "-i", "--include-name",
-        metavar="REGEX",
+        metavar=_("@info command line value placeholder", "REGEX"),
         dest="include_names", action="append",
         help=(_("@info command line option description. "
                 "%(incexc)s is one of the above partial descriptions.",
@@ -73,7 +75,7 @@ def add_cmdopt_incexc (opars, ormatch=False):
               % dict(incexc=inclink)))
     opars.add_option(
         "-I", "--include-path",
-        metavar="REGEX",
+        metavar=_("@info command line value placeholder", "REGEX"),
         dest="include_paths", action="append",
         help=(_("@info command line option description. "
                 "%(incexc)s is one of the above partial descriptions.",
@@ -143,4 +145,27 @@ def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
         metavar=_("@info command line value placeholder", "FILE"),
         dest="files_from", action="append",
         help=help)
+
+
+def add_cmdopt_colors (opars):
+    """
+    Options for syntax coloring in output.
+    """
+
+    opars.add_option(
+        "-R", "--raw-colors",
+        action="store_true", dest="raw_colors", default=False,
+        help=_("@info command line option description",
+               "Syntax coloring in output independent of destination "
+               "(whether terminal or file)."))
+    defctype = "term"
+    opars.add_option(
+        "--coloring-type",
+        metavar=_("@info command line value placeholder", "TYPE"),
+        action="store", dest="coloring_type", default=defctype,
+        help=(_("@info command line option description",
+                "Type of syntax coloring in output. "
+                "Available types: %(typelist)s; default: %(type)s.")
+              % dict(typelist=format_item_list(coloring_types),
+                     type=defctype)))
 

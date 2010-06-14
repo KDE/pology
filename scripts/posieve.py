@@ -194,6 +194,7 @@ from pology.misc.report import init_file_progress
 from pology.misc.report import list_options
 from pology.misc.report import format_item_list
 from pology.misc.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_incexc
+from pology.misc.stdcmdopt import add_cmdopt_colors
 from pology.misc.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
 
@@ -304,12 +305,6 @@ def main ():
                "Do not display any progress info "
                "(does not influence sieves themselves)."))
     opars.add_option(
-        "-R", "--raw-colors",
-        action="store_true", dest="raw_colors", default=False,
-        help=_("@info command line option description",
-               "Syntax coloring independent of output destination "
-               "(terminal or file)."))
-    opars.add_option(
         "-s",
         metavar=_("@info command line value placeholder", "NAME[:VALUE]"),
         action="append", dest="sieve_params", default=[],
@@ -329,6 +324,7 @@ def main ():
                "Output more detailed progress information."))
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
+    add_cmdopt_colors(opars)
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -352,8 +348,7 @@ def main ():
     except ImportError:
         pass
 
-    if op.raw_colors:
-        set_coloring_globals(outdep=False)
+    set_coloring_globals(ctype=op.coloring_type, outdep=(not op.raw_colors))
 
     # Dummy-set all internal sieves as requested if sieve listing required.
     sieves_requested = []

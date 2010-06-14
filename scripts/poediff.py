@@ -35,6 +35,7 @@ from pology.misc.diff import msg_ediff
 from pology.misc.merge import merge_pofile
 from pology.misc.report import error, warning, report, format_item_list
 from pology.misc.report import list_options
+from pology.misc.stdcmdopt import add_cmdopt_colors
 from pology.misc.vcs import available_vcs, make_vcs
 from pology.scripts.posummit import fuzzy_match_source_files
 
@@ -123,11 +124,6 @@ def main ():
                "When two directories are diffed, ignore catalogs which "
                "are not present in both directories."))
     opars.add_option(
-        "-R", "--raw-colors",
-        action="store_true", dest="raw_colors", default=False,
-        help=_("@info command line option description",
-               "Coloring independent of output destination (terminal, file)."))
-    opars.add_option(
         "--list-options",
         action="store_true", dest="list_options", default=False,
         help=_("@info command line option description",
@@ -137,6 +133,7 @@ def main ():
         action="store_true", dest="list_vcs", default=False,
         help=_("@info command line option description",
                "List the keywords of known version control systems."))
+    add_cmdopt_colors(opars)
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -154,8 +151,7 @@ def main ():
     except ImportError:
         pass
 
-    if op.raw_colors:
-        set_coloring_globals(outdep=False)
+    set_coloring_globals(ctype=op.coloring_type, outdep=(not op.raw_colors))
 
     if op.quick:
         op.do_merge = False
