@@ -16,7 +16,7 @@ import locale
 import time
 
 from pology import _, n_
-import pology.misc.colors as C
+from pology.misc.colors import colors_for_file, resolve_color_markup
 
 
 _prev_text_cr = [None, None]
@@ -101,6 +101,7 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
         lines.append("")
 
     text = "\n".join(lines)
+
     encwrite(file, text)
 
 
@@ -118,14 +119,11 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    if file.isatty():
-        np = _nonws_after_colreset(text)
-        rtext = (_("@info %(c*)s are color tags",
-                   "%(c1)swarning:%(c2)s %(msghead)s%(c3)s%(msgtail)s%(c4)s")
-                 % dict(msghead=text[:np], msgtail=text[np:],
-                        c1=C.BOLD, c2=C.RESET, c3=C.ORANGE, c4=C.RESET))
-    else:
-        rtext = (_("@info", "warning: %(msg)s") % dict(msg=text))
+    colors = colors_for_file(file)
+    rtext = (resolve_color_markup(
+              _("@info",
+                "<bold>warning:</bold> <orange>%(msg)s</orange>"), colors)
+             % dict(msg=text))
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
 
@@ -145,33 +143,13 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    if file.isatty():
-        np = _nonws_after_colreset(text)
-        rtext = (_("@info %(c*)s are color tags",
-                   "%(c1)serror:%(c2)s %(msghead)s%(c3)s%(msgtail)s%(c4)s")
-                 % dict(msghead=text[:np], msgtail=text[np:],
-                        c1=C.BOLD, c2=C.RESET, c3=C.RED, c4=C.RESET))
-    else:
-        rtext = (_("@info", "error: %(msg)s") % dict(msg=text))
+    colors = colors_for_file(file)
+    rtext = (resolve_color_markup(
+             _("@info",
+               "<bold>error:</bold> <red>%(msg)s</red>"), colors)
+             % dict(msg=text))
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
     sys.exit(code)
-
-
-# Position in text of first non-whitespace after first whitespace sequence
-# after last shell color reset.
-# 0 if no color reset, len(text) if no conforming non-whitespace after reset.
-def _nonws_after_colreset (text):
-
-    p = text.rfind(C.RESET)
-    if p >= 0:
-        p += len(C.RESET)
-        while p < len(text) and text[p].isspace():
-            p += 1
-        while p < len(text) and not text[p].isspace():
-            p += 1
-        return p
-    else:
-        return 0
 
 
 def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):

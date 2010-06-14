@@ -782,7 +782,6 @@ def status (options, configs_catpaths, mode):
             _("@title:column obsolete translated messages", "msg/ot"),
             _("@title:column obsolete fuzzy messages", "msg/of"),
             _("@title:column obsolete untranslated messages", "msg/ou")]
-    can_color = sys.stdout.isatty()
     none="-"
 
     # NOTE: When reporting, do not show anything if there are
@@ -807,7 +806,7 @@ def status (options, configs_catpaths, mode):
             for i in range(len(_all_states)):
                 data[i].append(totals_na[_all_states[i]] or None)
         report(tabulate(data=data, coln=coln, rown=rown,
-                        none=none, colorized=can_color))
+                        none=none, hlto=sys.stdout))
 
     # Report counts per catalog if requested.
     if options.show_by_file:
@@ -837,7 +836,7 @@ def status (options, configs_catpaths, mode):
                 dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
                 report("-")
                 report(tabulate(data=data, coln=coln, dfmt=dfmt,
-                                none=none, colorized=can_color))
+                                none=none, hlto=sys.stdout))
 
 
 def msg_to_previous (msg, copy=True):
@@ -960,7 +959,7 @@ def commit (options, configs_catpaths, mode):
     if rown:
         report(_("@info:progress", "===== Ascription summary:"))
         report(tabulate(data, coln=coln, rown=rown, none="-",
-                        colorized=sys.stdout.isatty()))
+                        hlto=sys.stdout))
 
     if options.vcs_commit:
         vcs_commit_catalogs(configs_catpaths, mode.user,
@@ -1291,7 +1290,7 @@ def purge_cat (options, config, catpath, acatpath, stest):
 
 def history_cat (options, config, catpath, acatpath, stest):
 
-    C = colors_for_file(sys.stdout)
+    colors = colors_for_file(sys.stdout)
 
     cat = Catalog(catpath, monitored=False)
     acat = Catalog(acatpath, create=True, monitored=False)
@@ -1329,12 +1328,12 @@ def history_cat (options, config, catpath, acatpath, stest):
 
         hinfo = []
         if hlevels > 0:
-            hinfo += [C.GREEN + _("@info:progress",
-                                  ">>> History follows:") + C.RESET]
+            hinfo += [colors.green(_("@info:progress",
+                                     ">>> History follows:"))]
             hfmt = "%%%dd" % len(str(hlevels))
         for i in range(hlevels):
             a = history[i]
-            ihead = C.BOLD + "#%d" % a.pos + C.RESET + " "
+            ihead = colors.bold("#%d" % a.pos) + " "
             anote_d = dict(user=a.user, tag=a.tag, date=a.date)
             if a.type == ATYPE_MOD:
                 anote = (_("@item:intable",

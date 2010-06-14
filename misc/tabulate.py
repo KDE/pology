@@ -9,11 +9,11 @@ Pretty-printing of tabular data.
 
 import copy
 
-import pology.misc.colors as C
+from pology.misc.colors import colors_for_file
 
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
-              rotated=False, colorized=False, indent="",
+              rotated=False, hlto=None, indent="",
               colnra=False, rownra=False, colw=0):
     """
     Tabulate data in plain text.
@@ -44,8 +44,9 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     @type none: string
     @param rotated: whether the table should be transposed
     @type rotated: bool
-    @param colorized: whether the table should be colorized for shell output
-    @type colorized: bool
+    @param hlto: whether the table should have color highlighting
+        appropriate for the given output file descriptor
+    @type hlto: file
     @param indent: indent string for the whole table
     @type indent: string
     @param colnra: right align column names
@@ -57,6 +58,9 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     @returns: plain text representation of the table (no trailing newline)
     @rtype: string
     """
+
+    if hlto is not None:
+        colors = colors_for_file(hlto)
 
     # Make local copies, to be able to extend to table extents.
     _data = []
@@ -173,8 +177,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
             else:
                 lfmt = u"%-" + str(maxlen[c]) + "s"
             sdata[c][0] = lfmt % (sdata[c][0],)
-            if colorized:
-                sdata[c][0] = C.PURPLE + sdata[c][0] + C.RESET
+            if hlto is not None:
+                sdata[c][0] = colors.purple(sdata[c][0])
     # ...but row names aligned as requested:
     if _rown is not None:
         if rownra:
@@ -183,8 +187,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
             lfmt = u"%-" + str(maxlen[0]) + "s"
         for r in range(nrows + ro):
             sdata[0][r] = lfmt % (sdata[0][r],)
-            if colorized:
-                sdata[0][r] = C.BLUE + sdata[0][r] + C.RESET
+            if hlto is not None:
+                sdata[0][r] = colors.blue(sdata[0][r])
 
     # Assemble the table.
     lines = []

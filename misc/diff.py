@@ -510,8 +510,8 @@ def word_ediff (text_old, text_new, markup=False, format=None, hlto=None,
     dlist, dr = word_diff(text_old, text_new, markup, format, diffr=True)
     if not dlist:
         return diffr and (None, 0.0) or None
-    dwraps = _assemble_ewraps(hlto)
-    dtext = _assemble_ediff(dlist, dwraps)
+    colors = colors_for_file(hlto)
+    dtext = _assemble_ediff(dlist, colors)
 
     return diffr and (dtext, dr) or dtext
 
@@ -700,8 +700,8 @@ def line_ediff (lines_old, lines_new, markup=False, format=None, hlto=None,
     """
 
     dlists, dr = line_diff(lines_old, lines_new, markup, format, diffr=True)
-    dwraps = _assemble_ewraps(hlto)
-    dlines = [(_assemble_ediff(x[0], dwraps), x[1]) for x in dlists]
+    colors = colors_for_file(hlto)
+    dlines = [(_assemble_ediff(x[0], colors), x[1]) for x in dlists]
 
     return diffr and (dlines, dr) or [x[0] for x in dlines]
 
@@ -748,12 +748,11 @@ def _line_ediff_to_oldnew (dlines, word_ediff_to_x):
     return lines
 
 
-def _assemble_ediff (dlist, dwraps):
+def _assemble_ediff (dlist, colors):
 
     if not dlist:
         return None
 
-    old_opn, old_cls, new_opn, new_cls = dwraps
     dtext = []
     other_none = False
     for segtag, segtext in dlist:
@@ -764,9 +763,9 @@ def _assemble_ediff (dlist, dwraps):
             other_none = True
         segtext = _escape_ewraps(segtext)
         if segtag == _new_tag:
-            dtext.append(new_opn + segtext + new_cls + wext)
+            dtext.append(colors.blue(_new_opn + segtext + _new_cls + wext))
         elif segtag == _old_tag:
-            dtext.append(old_opn + segtext + old_cls + wext)
+            dtext.append(colors.red(_old_opn + segtext + _old_cls + wext))
         else:
             dtext.append(segtext)
             haseqseg = True
@@ -780,23 +779,6 @@ def _assemble_ediff (dlist, dwraps):
         dtext += _tagext_none
 
     return dtext
-
-
-def _assemble_ewraps (hlto):
-
-    if not hlto:
-        old_opn = _old_opn
-        old_cls = _old_cls
-        new_opn = _new_opn
-        new_cls = _new_cls
-    else:
-        C = colors_for_file(hlto)
-        old_opn = C.RED + _old_opn
-        old_cls = _old_cls + C.RESET
-        new_opn = C.BLUE + _new_opn
-        new_cls = _new_cls + C.RESET
-
-    return old_opn, old_cls, new_opn, new_cls
 
 
 def _escape_ewraps (text):
@@ -1298,9 +1280,9 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                                     addrem=addrem, diffr=True)
 
     # Construct list of embedded diffs out of original difference list.
-    dwraps = _assemble_ewraps(hlto)
+    colors = colors_for_file(hlto)
     if not addrem:
-        mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], dwraps), x[3])
+        mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], colors), x[3])
         ediffs = map(mtoe, wdiffs)
         ediffs_pf = map(mtoe, wdiffs_pf)
     else:

@@ -36,7 +36,6 @@ from os.path import abspath, basename, dirname, isdir, isfile, join
 import sys
 
 from pology import _, n_
-from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.report import report
 from pology.misc.rules import loadRules, Rule
 from pology.misc.timeout import TimedOutException

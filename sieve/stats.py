@@ -224,7 +224,7 @@ import sys
 from pology import _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
-import pology.misc.colors as C
+from pology.misc.colors import colors_for_file
 from pology.misc.comments import parse_summit_branches
 from pology.misc.diff import tdiff
 from pology.misc.fsops import collect_catalogs
@@ -741,9 +741,6 @@ class Sieve (object):
         else:
             counts.append((None, count_overall, False))
 
-        # See if the output will admit color sequences.
-        can_color = sys.stdout.isatty() or self.p.raw_colors
-
         # Indicate conspicuously up front modifiers to counting.
         modstrs = []
         if self.p.branch:
@@ -792,6 +789,7 @@ class Sieve (object):
                         maxtitlecw = titlecw
 
         # Output statistics in requested forms.
+        colors = colors_for_file(sys.stdout)
         for title, count, summed in counts:
             # Output the title if defined.
             if title is not None:
@@ -799,20 +797,19 @@ class Sieve (object):
                     ntitle = (("%%-%ds" % maxtitlecw) % title)
                 else:
                     ntitle = title
-                if can_color:
-                    # Must color after padding, to avoid it seeing the colors.
-                    ntitle = C.BOLD + ntitle + C.RESET
+                # Must color after padding, to avoid it seeing the colors.
+                ntitle = colors.bold(ntitle)
                 if self.inline:
                     report(ntitle + " ", newline=False)
                 else:
                     report(ntitle)
 
             if self.p.table:
-                self._tabular_stats(counts, title, count, can_color)
+                self._tabular_stats(counts, title, count)
             if self.p.msgbar:
-                self._msg_bar_stats(counts, title, count, summed, can_color)
+                self._msg_bar_stats(counts, title, count, summed)
             if self.p.wbar:
-                self._w_bar_stats(counts, title, count, summed, can_color)
+                self._w_bar_stats(counts, title, count, summed)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
@@ -849,7 +846,7 @@ class Sieve (object):
             # Output.
             report("-")
             report(tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
-                            colorized=can_color))
+                            hlto=sys.stdout))
 
         # Write file names of catalogs which are not fully translated
         # into a file, if requested.
@@ -866,7 +863,7 @@ class Sieve (object):
                    % dict(modlist=format_item_list(modstrs)))
 
 
-    def _tabular_stats (self, counts, title, count, can_color):
+    def _tabular_stats (self, counts, title, count):
 
         # Order counts in tabular form.
         selected_cats = self.count_spec
@@ -961,33 +958,33 @@ class Sieve (object):
 
         # Output the table.
         report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        space="   ", none=u"-", colorized=can_color))
+                        space="   ", none=u"-", hlto=sys.stdout))
 
 
-    def _msg_bar_stats (self, counts, title, count, summed, can_color):
+    def _msg_bar_stats (self, counts, title, count, summed):
 
-        self._bar_stats(counts, title, count, summed, can_color,
+        self._bar_stats(counts, title, count, summed,
                         _("@item:intable number of messages",
                           "msgs"),
                         0)
 
 
-    def _w_bar_stats (self, counts, title, count, summed, can_color):
+    def _w_bar_stats (self, counts, title, count, summed):
 
-        self._bar_stats(counts, title, count, summed, can_color,
+        self._bar_stats(counts, title, count, summed,
                         _("@item:intable number of words in original",
                           "w-or"),
                         1)
 
 
-    def _bar_stats (self, counts, title, count, summed,
-                    can_color, dlabel, dcolumn):
+    def _bar_stats (self, counts, title, count, summed, dlabel, dcolumn):
 
         # Count categories to display and chars/colors associated to them.
         # Note: Use only characters from Latin1.
-        tspecs = (("trn", u"×", C.GREEN),
-                  ("fuz", u"¤", C.BLUE),
-                  ("unt", u"·", C.RED))
+        colors = colors_for_file(sys.stdout)
+        tspecs = (("trn", u"×", colors.green),
+                  ("fuz", u"¤", colors.blue),
+                  ("unt", u"·", colors.red))
 
         # Find out maximum counts overall.
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
@@ -1024,8 +1021,8 @@ class Sieve (object):
             if cstr == "0":
                 cstr = "-"
             cfmt = ("%%%ds" % maxcountscw_jumbled[tkey]) % cstr
-            if can_color:
-                fmt_counts.append(tcol + cfmt + C.RESET)
+            if tcol is not None:
+                fmt_counts.append(tcol(cfmt))
             else:
                 fmt_counts.append(cfmt)
         fmt_counts = "/".join(fmt_counts)
@@ -1108,11 +1105,10 @@ class Sieve (object):
         # Create the bar.
         fmt_bar = []
         for tkey, tchar, tcol in tspecs:
-            if can_color:
-                fmt_bar.append(tcol)
-            fmt_bar.append(tchar * n_cells[tkey])
-        if can_color:
-            fmt_bar.append(C.RESET)
+            bar = tchar * n_cells[tkey]
+            if tcol is not None:
+                bar = tcol(bar)
+            fmt_bar.append(bar)
         fmt_bar = "".join(fmt_bar)
 
         # Assemble final output.

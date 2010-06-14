@@ -524,7 +524,6 @@ from time import time
 
 from pology import PologyError, rootdir, _, n_
 from pology.file.message import MessageUnsafe
-from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.config import strbool
 from pology.misc.langdep import get_hook_lreq, split_req
 from pology.misc.report import report, warning, format_item_list
@@ -556,7 +555,7 @@ def printStat(rules):
               _("@title:column", "time-share")]
         dfmt=[   "%d",           "%.3f",          "%.1f",     "%.2f%%"]
         report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        colorized=sys.stdout.isatty()))
+                        hlto=sys.stdout))
         report(_("@info statistics",
                  "Total application time [s]: %(num).1f")
                % dict(num=totTime))
