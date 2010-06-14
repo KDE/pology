@@ -397,7 +397,9 @@ def main ():
         try:
             sieve_file = open(sieve_path)
         except IOError:
-            error("cannot load sieve: %s" % sieve_path)
+            error(_("@info",
+                    "Cannot load sieve '%(file)s'.")
+                  % dict(file=sieve_path))
         # Load file into new module.
         sieve_mod_name = "sieve_" + str(len(sieve_modules))
         sieve_mod = imp.new_module(sieve_mod_name)
