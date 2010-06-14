@@ -72,7 +72,6 @@ import sys
 from time import strftime, strptime, mktime
 
 from pology import _, n_
-from pology.misc.colors import BOLD, RED, RESET
 from pology.misc.comments import manc_parse_list, parse_summit_branches
 from pology.misc.fsops import collect_files_by_ext
 from pology.file.message import MessageUnsafe
@@ -430,12 +429,13 @@ class Sieve (object):
                 self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
             self.xmlFile.close()
-        msg = (n_("@info:progress",
-                  "Rules detected %(num)d problem.",
-                  "Rules detected %(num)d problems.",
-                  self.nmatch)
-               % dict(num=self.nmatch))
-        report("===== %s" % msg)
+        if self.nmatch > 0:
+            msg = (n_("@info:progress",
+                      "Rules detected %(num)d problem.",
+                      "Rules detected %(num)d problems.",
+                      self.nmatch)
+                   % dict(num=self.nmatch))
+            report("===== %s" % msg)
         printStat(self.rules)
 
 
