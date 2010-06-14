@@ -42,7 +42,10 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
         ("_a2", u"алт2"),
         ("_a3", u"алт3"),
     ]
-    known_envs = set([u"", u"л", u"иј", u"ијл"] + [x[1] for x in known_alts])
+    base_envs = [u"", u"л", u"иј", u"ијл"]
+    all_envs = set(base_envs)
+    for aenv in [x[1] for x in known_alts]:
+        all_envs.update(x + aenv for x in base_envs)
 
     if demoexp:
         demoexp_pkeys = [u"н", u"г", u"д", u"а", u"в", u"и",
@@ -78,23 +81,25 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
 
         try:
             aprops = []
+            seenesuffs = set()
             cenvs = tp.envs(dkey)
             for cenv in cenvs:
                 if cenv != "":
                     envmatched = False
                     for ksuff, esuff in known_alts:
-                        if cenv.endswith(esuff):
+                        if cenv in all_envs and cenv.endswith(esuff):
                             envmatched = True
                             break
                 else:
                     envmatched = True
                     ksuff, esuff = "", ""
-                if envmatched:
+                if envmatched and esuff not in seenesuffs:
                     dkeym = dkey + ksuff
                     props = dict([(x, tp.get2(dkeym, norm_pkey(x)))
                                    for x in needed_pkeys])
                     aprops.append((esuff, props))
-                elif cenv not in known_envs:
+                    seenesuffs.add(esuff)
+                elif cenv not in all_envs:
                     warning(_("@info",
                               "Derivation at %(file)s:%(line)d:%(col)d "
                               "defines unknown environment '%(env)s'.")
