@@ -360,8 +360,9 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
             aenv = []
             for env1 in env:
                 aenv1 = []
-                for env0 in env1:
-                    aenv1.extend((env0 + esuff, env0))
+                for esuff1 in (esuff, ""):
+                    for env0 in env1:
+                        aenv1.append(env0 + esuff1)
                 aenv.append(tuple(aenv1))
             aenvs[suff_id] = tuple(aenv)
     if nmsuff:
