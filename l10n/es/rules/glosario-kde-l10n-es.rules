@@ -1,0 +1,1670 @@
+# Translation choices of spanish team
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+addFilterHook name="es:patternAccents" on="pattern"
+addFilterHook name="es:patternEntities" on="pattern"
+
+validGroup inParenthesis
+valid after="\(" before="\)"
+
+validGroup inQuotes
+valid after="«&unbsp;" before="&unbsp;»"
+
+# «Abort» se traduce como «Interumpir».
+{\babort\b}i
+valid msgstr="interrumpir"
+valid !msgstr="abortar"
+hint="« Abort » se traduce como como « Interrumpir », nunca como « Abortar » (ver glosario)"
+
+# «Adress» se traduce como «Dirección».
+{\badress\b}i
+valid msgstr="dirección"
+hint="« Adress » se traduce como « Dirección » (ver glosario)"
+
+# «Adress book» se traduce como «Libreta de direcciones».
+{\badress book\b}i
+valid msgstr="libreta de direcciones"
+valid !msgstr="libro de direcciones"
+hint="« Adress book » se traduce como « Libreta de direcciones », nunca como « Libro de direcciones » (ver glosario)"
+
+# «Alias» se traduce como «Apodo» si se refiere a personas.
+{\balias\b}i
+valid msgstr="apodo"
+hint="« Alias » se traduce como « Apodo » si se refiere a personas (ver glosario)"
+
+# «Allocate» se traduce como «Asignar».
+{\ballocate\b}i
+valid msgstr="asignar"
+hint="« Allocate » como se traduce como « Asignar » (ver glosario)"
+
+# «API» no se debe traducir.
+{\bAPI\b}i
+valid msgstr="API"
+hint="« API » no se traduce (ver glosario)"
+
+# «Applet» se traduce como «Miniaplicación».
+{\bapplet\b}i
+valid msgstr="miniaplicación"
+valid msgstr="miniaplicaciones"
+hint="« Applet » se traduce como « Miniaplicación » (ver glosario)"
+
+# «Archive» se traduce como «Archivo comprimido».
+{\barchive\b}i
+valid msgstr="archivo comprimido"
+hint="« Archive » se traduce como « Archivo comprimido » (ver glosario)"
+
+# «Array» se traduce como «Matriz», «Vector» o «Array» según el contexto.
+{\barray\b}i
+valid msgstr="matriz"
+valid msgstr="vector"
+hint="« Array » se traduce como « Matriz » o « Vector » excepto en contexto de programación (ver glosario)"
+
+# «Backend» se traduce como «Motor».
+{\bbackend\b}i
+valid msgstr="motor"
+hint="« Backend » se traduce como « Motor » (ver glosario)"
+
+# «Background» se traduce como «Segundo plano» o «Fondo».
+{\bbackground\b}i
+valid msgstr="segundo plano"
+valid msgstr="fondo"
+hint="« Background » se traduce como « Segundo plano » o « Fondo » según el contexto(ver glosario)"
+
+# «Backup» se traduce como «Copia de respaldo».
+{\bbackup\b}i
+valid msgstr="copia de respaldo"
+hint="« Backup » se traduce como « Copia de respaldo » (ver glosario)"
+
+# «Backslash» se traduce como «Barra inversa».
+{\bbackslash\b}i
+valid msgstr="barra inversa"
+valid !msgstr="barra invertida"
+hint="« Backslash » se traduce como « Barra inversa », nunca como « Barra invertida » (ver glosario)"
+
+# «Bandwith» se traduce como «Ancho de banda».
+{\bbandwith\b}i
+valid msgstr="ancho de banda"
+hint="« Bandwith » se traduce como « Ancho de banda » (ver glosario)"
+
+# «To batch» se traduce como «Procesar por lotes».
+{\bbatch\b}i
+valid msgstr="procesar por lotes"
+valid msgstr="proceso por lotes"
+hint="« (to) Batch » se traduce como « Procesar por lotes » (ver glosario)"
+
+# «Batcher» se traduce como «Procesador por lotes».
+{\bbatcher\b}i
+valid msgstr="procesador por lotes"
+hint="« Batcher » se traduce como « Procesador por lotes » (ver glosario)"
+
+# «Batching» se traduce como «Proceso por lotes».
+{\bbatching\b}i
+valid msgstr="proceso por lotes"
+valid msgstr="procesar por lotes"
+hint="« Batching » se traduce como « Proceso por lotes » (ver glosario)"
+
+# «Bit» no se debe traducir.
+{\bbit\b}i
+valid msgstr="bit"
+hint="« Bit » no se debe traducir (ver glosario)"
+
+# «Bits» no se debe traducir.
+{\bbits\b}i
+valid msgstr="bits"
+hint="« Bits » es el plural de « Bit », no se debe traducir (ver glosario)"
+
+# «Block» se traduce como «Bloque».
+{\bblock\b}i
+valid before="\-"
+valid msgstr="bloque"
+valid msgstr="bloquear"
+hint="« Block » se traduce como « Bloque » o « Bloquear » (ver glosario)"
+
+# «Bold» se traduce como «Negrita».
+{\bbold\b}i
+valid msgstr="negrita"
+hint="« Bold » se traduce como « Negrita » (ver glosario)"
+
+# «Bookmark» se traduce como «Marcador».
+{\bbookmark\b}i
+valid msgstr="marcador"
+valid !msgstr="favorito"
+hint="« Bookmark » se traduce como « Marcador », nunca como « Favorito » (ver glosario)"
+
+# «(To) boot» se traduce como «Inicio» o «Arranque».
+{\bboot\b}i
+valid msgstr="inicio"
+valid msgstr="iniciar"
+valid msgstr="arranque"
+valid msgstr="arrancar"
+hint="« Boot » se traduce como « Inicio » o « Arranque » (ver glosario)"
+
+# «Buffer» se traduce como «Memoria temporal/intermedia».
+{\bbuffer\b}i
+valid msgstr="memoria temporal"
+valid msgstr="memoria intermedia"
+valid msgstr="buffer"
+hint="« Buffer » se traduce como « Memoria temporal/intermedia » o se deja sin traducir (ver glosario)"
+
+# «Buffering» se traduce como «Almacenamiento temporal».
+{\bbuffering\b}i
+valid msgstr="almacenamiento temporal"
+valid msgstr="almacenar temporalmente"
+hint="« Buffering » se traduce como « Almacenamiento temporal » (ver glosario)"
+
+# «Bug» se traduce como «Fallo» o «Error».
+{\bbug\b}i
+valid msgstr="fallo"
+valid msgstr="error"
+valid !msgstr="bug"
+hint="« Bug » se traduce como « Fallo » o « Error » (ver glosario)"
+
+# «Byte» no se traduce.
+{\bbyte\b}i
+valid msgstr="byte"
+hint="« Byte » no se traduce (ver glosario)"
+
+# «Bytes» no se traduce.
+{\bbytes\b}i
+valid msgstr="byte"
+hint="« Bytes » no se traduce (ver glosario)"
+
+# «Cache memory» se traduce como «Memoria caché».
+{\bcache memory\b}i
+valid msgstr="memoria caché"
+hint="« Cache memory » se traduce como « Memoria caché » (ver glosario)"
+
+# «Catch-all-entry» se traduce como «Entrada para la ruta por omisión».
+{\bcath-all-entry\b}i
+valid msgstr="entrada para la ruta por omisión"
+hint="« Catch-all-entry » se traduce como « Entrada para la ruta por omisión » (ver glosario)"
+
+# «CD» no se traduce.
+{\bCD\b}i
+valid msgstr="CD"
+hint="« CD » significa « Compact disk », no se traduce (ver glosario)"
+
+# «Check» se traduce como «Comprobar».
+{\bcheck\b}i
+valid msgstr="comprobar"
+valid msgstr="comprobación"
+valid msgstr="compruebe"
+valid msgstr="comprueba"
+valid msgstr="marca"
+valid msgstr="marcar"
+valid msgstr="marque"
+hint="« Check » se traduce como « Comprobar » (ver glosario)"
+
+# «Checksum» se traduce como «suma de verificación».
+{\bchecksum\b}i
+valid msgstr="suma de verificación"
+hint="« Checksum » se traduce como « Suma de verificación » (ver glosario)"
+
+# «Chip» no se traduce.
+{\bchip\b}i
+valid msgstr="chip"
+hint="« Chip » no se traduce (ver glosario)"
+
+# «Clean» se traduce como «Limpiar».
+{\bclean\b}i
+valid msgstr="limpiar"
+valid msgstr="limpia"
+valid msgstr="limpio"
+hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+
+# «Click» se traduce como «Pulsación» o «clic».
+{\bclick\b}i
+valid msgstr="pulsación"
+valid msgstr="clic"
+valid msgstr="pulsar"
+valid msgstr="pulse"
+valid !msgstr="click"
+hint="« Click » se traduce como « Pulsar », « Pulsación » o « Clic » (ver glosario)"
+
+# «Clumsy» se traduce como «Torpe».
+{\bclumsy\b}i
+valid msgstr="torpe"
+hint="« Clumsy » se traduce como « Torpe » (ver glosario)"
+
+# «Combobox» se traduce como «Lista desplegable».
+{\bcombobox\b}i
+valid msgstr="lista desplegable"
+hint="« Combobox » se traduce como « Lista desplegable » (ver glosario)"
+
+# «Command» se traduce como «Orden o «Instrucción».
+{\bcommand\b}i
+valid msgstr="orden"
+valid msgstr="instrucción"
+valid !msgstr="comando"
+hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (ver glosario)"
+
+# «Compact» se traduce como «Comprimir».
+{\bcompact\b}i
+valid msgstr="comprimir"
+hint="« Compact » se traduce como « Comprimir » (ver glosario)"
+
+# «Computer» se traduce como «Equipo».
+{\bcomputer\b}i
+valid msgstr="equipo"
+valid !msgstr="ordenador"
+valid !msgstr="computadora"
+valid !msgstr="computador"
+hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (ver glosario)"
+
+# «Container» se traduce como «Contenedor».
+{\bcontainer\b}i
+valid msgstr="contenedor"
+hint="« Container » se traduce como « Contenedor » (ver glosario)"
+
+# «Contributor» se traduce como «Colaborador».
+{\bcontributor\b}i
+valid msgstr="colaborador"
+hint="« Contributor » se traduce como « Colaborador » (ver glosario)"
+
+# «Copyrigth» se traduce como «Derechos de autor»  o «Copyrigth».
+{\bcopyrigth\b}i
+valid msgstr="derechos de autor"
+valid msgstr="copyrigth"
+hint="« Copyrigth » se traduce como « Derechos de autor » o se deja sin traducir (ver glosario)"
+
+# «Copyrigthed» se traduce como «Sujeto a derechos de autor»  o «Con copyrigth».
+{\bcopyrigthed\b}i
+valid msgstr="sujeto a derechos de autor"
+valid msgstr="con copyrigth"
+hint="« Copyrigthed » se traduce como « Sujeto a derechos de autor » o « Con copyrigth » (ver glosario)"
+
+# «Corrupted» se traduce como «Dañado».
+{\bcorrupted\b}i
+valid msgstr="dañado"
+valid !msgstr="corrupto"
+hint="« Corrupted » se traduce como « Dañado », nunca como « Corrupto » (ver glosario)"
+
+# «Cover» se traduce como «Carátula».
+{\bcover\b}i
+valid msgstr="carátula"
+valid !msgstr="portada"
+valid !msgstr="cubierta"
+hint="« Cover » se traduce como « Carátula », preferible a « Portada » (ver glosario)"
+
+# «CPAN» no se traduce.
+{\bCPAN\b}i
+valid msgstr="CPAN"
+hint="« CPAN » no se debe traducir (ver glosario)"
+
+# «Crypt» se traduce como «Cifrar».
+{\bcrypt\b}i
+valid msgstr="cifrar"
+valid !msgstr="encriptar"
+hint="« Crypt » se traduce como « Cifrar », nunca como « Encriptar » (ver glosario)"
+
+# «Crypted» se traduce como «Cifrado».
+{\bcrypted\b}i
+valid msgstr="cifrado"
+valid !msgstr="encriptado"
+hint="« Crypted » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
+
+# «CTAN» no se traduce.
+{\bCTAN\b}i
+valid msgstr="CTAN"
+hint="« CTAN » no se debe traducir (ver glosario)"
+
+# «CUPS» no se traduce.
+{\bCUPS\b}i
+valid msgstr="CUPS"
+hint="« CUPS » no se debe traducir (ver glosario)"
+
+# «Daemon» se traduce como «Demonio».
+{\bdaemon\b}i
+valid msgstr="demonio"
+hint="« Daemon » se traduce como « Demonio » (ver glosario)"
+
+# «Dashboard» se traduce como «Tablero de mandos».
+{\bdashboard\b}i
+valid msgstr="tablero de mandos"
+valid !msgstr="salpicadero"
+hint="« Dashboard » se traduce como « Tablero de mandos », nunca como « Salpicadero » (ver glosario)"
+
+# «Debug» se traduce como «Depurar».
+{\bdebug\b}i
+valid msgstr="depurar"
+valid msgstr="depuración"
+hint="« Debug » se traduce como « Depurar » (ver glosario)"
+
+# «Debugger» se traduce como «Depurador».
+{\bdebugger\b}i
+valid msgstr="depurador"
+hint="« Debugger » se traduce como « Depurador » (ver glosario)"
+
+# «Debugging» se traduce como «Depuración».
+{\bdebugging\b}i
+valid msgstr="depuración"
+valid msgstr="depurar"
+valid msgstr="depurando"
+hint="« Debugging » se traduce como « Depuración » (ver glosario)"
+
+# «Decode» se traduce como «Descodificar».
+{\bdecode\b}i
+valid msgstr="descodificar"
+valid msgstr="decodificar"
+valid msgstr="decodificación"
+valid msgstr="descodificación"
+hint="« Decode » se traduce como « Descodificar » (ver glosario)"
+
+# «Decrypt» se traduce como «Descifrar».
+{\bdecrypt\b}i
+valid msgstr="descifrar"
+valid !msgstr="desencriptar"
+hint="« Decrypt » se traduce como « Descifrar », nunca como « Desencriptar » (ver glosario)"
+
+# «Decrypted» se traduce como «Descifrado».
+{\bdecrypted\b}i
+valid msgstr="descifrado"
+valid !msgstr="desencriptado"
+hint="« Decrypted » se traduce como « Descifrado », nunca como « Desencriptado » (ver glosario)"
+
+# «Default» se traduce como «Predeterminado».
+{\bdefault\b}i
+valid msgstr="predeterminado"
+valid msgstr="predeterminada"
+valid msgstr="por omisión"
+valid msgstr="defecto"
+hint="« Default » se traduce como « Predeterminado » (ver glosario)"
+
+# «Defragment» se traduce como «Desfragmentar».
+{\bdefragment\b}i
+valid msgstr="desfragmentar"
+hint="« Defragment » se traduce como « Desfragmentar » (ver glosario)"
+
+# «Develop» se traduce como «Desarrollar».
+{\bdevelop\b}i
+valid msgstr="desarrollar"
+hint="« Develop » se traduce como « Desarrollar » (ver glosario)"
+
+# «Developer» se traduce como «Desarrollador».
+{\bdeveloper\b}i
+valid msgstr="desarrollador"
+hint="« Developer » se traduce como « Desarrollador » (ver glosario)"
+
+# «Development» se traduce como «Desarrollo».
+{\bdevelopment\b}i
+valid msgstr="desarrollo"
+hint="« Development » se traduce como « Desarrollo » (ver glosario)"
+
+# «Device» se traduce como «Dispositivo».
+{\bdevice\b}i
+valid msgstr="dispositivo"
+hint="« Device » se traduce como « Dispositivo » (ver glosario)"
+
+# «Dial-up» se traduce como «Marcación telefónica».
+{\bdial-up\b}i
+valid msgstr="marcación telefónica"
+hint="« Dial-up » se traduce como « Marcación telefónica » (ver glosario)"
+
+# «Directory» se traduce como «Carpeta» o «Directorio».
+{\bdirectory\b}i
+valid msgstr="carpeta"
+valid msgstr="directorio"
+hint="« Directory » se traduce como « Carpeta » o « Directorio » según el contexto (ver glosario)"
+
+# «Disable» se traduce como «Desactivar» o «Inutilizar».
+{\bdisable\b}i
+valid msgstr="desactivar"
+valid msgstr="inutilizar"
+hint="« Disable » se traduce como « Desactivar » o « Inutilizar » según el contexto (ver glosario)"
+
+# «Disabled» se traduce como «Desactivado» o «Inutilizado».
+{\bdisabled\b}i
+valid msgstr="desactivado"
+valid msgstr="desactivada"
+valid msgstr="desactivados"
+valid msgstr="desactivadas"
+valid msgstr="inutilizado"
+hint="« Disabled » se traduce como « Desactivado » o « Inutilizado » según el contexto (ver glosario)"
+
+# «Disabling» se traduce como «Desactivación».
+{\bdisabling\b}i
+valid msgstr="desactivación"
+valid msgstr="desactivar"
+valid msgstr="desactivando"
+hint="« Disabling » se traduce como « Desactivación » (ver glosario)"
+
+# «Display» se traduce como «Pantalla», «Visor» o «Mostrar».
+{\bdisplay\b}i
+valid msgstr="pantalla"
+valid msgstr="visor"
+valid msgstr="mostrar"
+valid msgstr="muestra"
+hint="« Display » se traduce como « Pantalla », « Visor » o « Mostrar » (ver glosario)"
+
+# «Download» se traduce como «Descargar».
+{\bdownload\b}i
+valid msgstr="descargar"
+valid msgstr="descarga"
+hint="« Download » se traduce como « Descargar » (ver glosario)"
+
+# «Drag» se traduce como «Arrastrar».
+{\bdrag\b}i
+valid msgstr="arrastrar"
+valid msgstr="arrastre"
+hint="« Drag » se traduce como « Arrastrar » (ver glosario)"
+
+# «Driver» se traduce como «Controlador».
+{\bdriver\b}i
+valid msgstr="controlador"
+valid !msgstr="driver"
+hint="« Driver » se traduce como « Controlador » (ver glosario)"
+
+# «Drop» se traduce como «Soltar».
+{\bdrop\b}i
+valid msgstr="soltar"
+hint="« Drop » se traduce como « Soltar » (ver glosario)"
+
+# «Dumb» se traduce como «Mudo» o «Tonto».
+{\bdumb\b}i
+valid msgstr="mudo"
+valid msgstr="tonto"
+hint="« Dumb » se traduce como « Mudo » o « Tonto » (ver glosario)"
+
+# «DVD» no se traduce.
+{\bDVD\b}i
+valid msgstr="DVD"
+hint="« DVD » no se traduce (ver glosario)"
+
+# «Electronic mail» se traduce como «Correo electrónico».
+{\belectronic mail\b}i
+valid msgstr="correo electrónico"
+hint="« Electronic mail » se traduce como « Correo electrónico » (ver glosario)"
+
+# «Embeb» se traduce como «Empotrar» o «Incrustar».
+{\bembeb\b}i
+valid msgstr="empotrar"
+valid msgstr="incrustar"
+hint="« Embeb » se traduce como « Empotrar » o « Incrustar » (ver glosario)"
+
+# «Embebded» se traduce como «Empotrado», «Incrustado» o «Integrado».
+{\bembebded\b}i
+valid msgstr="empotrado"
+valid msgstr="incrustado"
+valid msgstr="integrado"
+hint="« Embebded » se traduce como « Empotrado », « Incrustado » o « Integrado » (ver glosario)"
+
+# «Enable» se traduce como «Activar».
+{\benable\b}i
+valid msgstr="activar"
+hint="« Enable » se traduce como « Activar » (ver glosario)"
+
+# «Enabling» se traduce como «Activación».
+{\benabling\b}i
+valid msgstr="activación"
+valid msgstr="activar"
+valid msgstr="activando"
+hint="« Enabling » se traduce como « Activación » (ver glosario)"
+
+# «Encrypt» se traduce como «Cifrar».
+{\bencrypt\b}i
+valid msgstr="cifrar"
+valid !msgstr="encriptar"
+hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ver glosario)"
+
+# «Encrypted» se traduce como «Cifrado».
+{\bencrypted\b}i
+valid msgstr="cifrado"
+valid !msgstr="encriptado"
+hint="« Encrypted » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
+
+# «Enter» se traduce como «Intro».
+{\benter\b}i
+valid msgstr="intro"
+valid msgstr="introducir"
+valid msgstr="acceder"
+valid !msgstr="entrar"
+hint="« Enter » se traduce como « Intro », « Introducir » o « Acceder », nunca como « Entrar » (ver glosario)"
+
+# «Entries» se traduce como «Entradas».
+{\bentries\b}i
+valid msgstr="entradas"
+hint="« Entries » se traduce como « Entradas » (ver glosario)"
+
+# «Environment» se traduce como «Entorno».
+{\benvironment\b}i
+valid msgstr="entorno"
+hint="« Environment » se traduce como « Entorno » (ver glosario)"
+
+# «Escape» se traduce como «Escapar».
+{\bescape\b}i
+valid msgstr="escapar"
+valid msgstr="escape"
+hint="« Escape » se traduce como « Escapar » (ver glosario)"
+
+# «Event» se traduce como «Evento».
+{\bevent\b}i
+valid msgstr="evento"
+hint="« Event » se traduce como « Evento » (ver glosario)"
+
+# «Feature» se traduce como «Funcionalidad» o «Característica».
+{\bfeature\b}i
+valid msgstr="funcionalidad"
+valid msgstr="característica"
+hint="« Feature » se traduce como « Funcionalidad » o « Característica » (ver glosario)"
+
+# «Feed» se traduce como «Suministro».
+{\bfeed\b}i
+valid msgstr="suministro"
+valid msgstr="fuente"
+hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
+
+# «Feedback» se traduce como «Comentarios y sugerencias».
+{\bfeedback\b}i
+valid msgstr="comentarios y sugerencias"
+hint="« Feedback » se traduce como « Comentarios y sugerencias » (ver glosario)"
+
+# «File» se traduce como «Archivo».
+{\bfile\b}i
+valid msgstr="archivo"
+valid !msgstr="fichero"
+hint="« File » se traduce como « Archivo », nunca como « Fichero « (ver glosario)"
+
+# «File system» se traduce como «Sistema de archivos».
+{\bfile system\b}i
+valid msgstr="sistema de archivos"
+valid !msgstr="sistema de ficheros"
+hint="« File system » se traduce como « Sistema de archivos » (ver glosario)"
+
+# «File systems» se traduce como «Sistemas de archivos».
+{\bfile systems\b}i
+valid msgstr="sistemas de archivos"
+valid !msgstr="sistemas de ficheros"
+hint="« File systems » se traduce como « Sistemas de archivos » (ver glosario)"
+
+# «Firewall» se traduce como «Cortafuegos».
+{\bfirewall\b}i
+valid msgstr="cortafuegos"
+valid !msgstr="firewall"
+hint="« Firewall » se traduce como « Cortafuegos » (ver glosario)"
+
+# «Flag» se traduce como «Indicador».
+{\bflag\b}i
+valid msgstr="indicador"
+hint="« Flag » se traduce como « Indicador » (ver glosario)"
+
+# «Flame» se traduce como «Crítica destructiva».
+{\bflame\b}i
+valid msgstr="crítica destructiva"
+hint="« Flame » se traduce como « Crítica destructiva » (ver glosario)"
+
+# «Floppy» se traduce como «Disquete».
+{\bfloppy\b}i
+valid msgstr="disquete"
+hint="« Floppy » se traduce como « Disquete » (ver glosario)"
+
+# «Floppy drive» se traduce como «Disquetera».
+{\bfloppy drive\b}i
+valid msgstr="disquetera"
+hint="« Floppy drive » se traduce como « Disquetera » (ver glosario)"
+
+# «Font» se traduce como «Tipo de letra».
+{\bfont\b}i
+valid msgstr="tipo de letra"
+valid !msgstr="tipografía"
+valid !msgstr="fuente"
+hint="« Font » se traduce como « Tipo de letra », nunca como « Fuente » o « Tipografía » (ver glosario)"
+
+# «Foreground» se traduce como «Primer plano».
+{\bforeground\b}i
+valid msgstr="primer plano"
+hint="« Foreground » se traduce como « Primer plano » (ver glosario)"
+
+# «(to) Format» se traduce como «Formatear».
+{\bformat\b}i
+valid msgstr="formatear"
+valid msgstr="formateo"
+valid msgstr="formato"
+hint="« (to) Format » se traduce como « Formatear » (ver glosario)"
+
+# «Formatting» se traduce como «Formateo».
+{\bformatting\b}i
+valid msgstr="formateo"
+valid msgstr="formatear"
+hint="« Formatting » se traduce como « Formateo » (ver glosario)"
+
+# «Forwading» se traduce como «Redirección».
+{\bforwading\b}i
+valid msgstr="redirección"
+valid msgstr="redireccionar"
+hint="« Forwading » se traduce como « Redirección » (ver glosario)"
+
+# «Frame relay» no se traduce.
+{\bframe relay\b}i
+valid msgstr="frame relay"
+hint="« Frame relay » no se traduce (ver glosario)"
+
+# «Framework» se traduce como «Infraestructura».
+{\bframework\b}i
+valid msgstr="infraestructura"
+hint="« Framework » se traduce como « Infraestructura » (ver glosario)"
+
+# «Frontend» se traduce como «Interfaz».
+{\bfrontend\b}i
+valid msgstr="interfaz"
+hint="« Frontend » se traduce como « Interfaz », nunca como « Interface » (ver glosario)"
+
+# «Fully qualifed domain name» se traduce como «Nombre de dominio completo».
+{\bfully qualified domain name\b}i
+valid msgstr="nombre de dominio completo"
+hint="« Fully qualified domain name » se traduce como « Nombre de dominio completo » (ver glosario)"
+
+# «Gateway» se traduce como «Puerta de enlace» o «Pasarela».
+{\bgateway\b}i
+valid msgstr="puerta de enlace"
+valid msgstr="pasarela"
+hint="« Gateway » se traduce como « Puerta de enlace » o « Pasarela » (ver glosario)"
+
+# «(to) Get» se traduce como «Obtener».
+{\bget\b}i
+valid msgstr="obtener"
+hint="« (to) Get » se traduce como « Obtener » (ver glosario)"
+
+# «GNU General Public License» se traduce como «Licencia Pública General GNU».
+{\bGNU General Public License\b}i
+valid msgstr="Licencia Pública General GNU"
+hint="« GNU General Public License » se traduce como « Licencia Pública General GNU » (ver glosario)"
+
+# «Greedy» se traduce como «Voraz».
+{\bgreedy\b}i
+valid msgstr="voraz"
+hint="« Greedy » se traduce como « Voraz » (ver glosario)"
+
+# «GUI» se traduce como «Interfaz gráfica de usuario».
+{\bGUI\b}i
+valid msgstr="interfaz gráfica de usuario"
+hint="« GUI » se traduce como « Interfaz gráfica de usuario » (ver glosario)"
+
+# «GUID» no se traduce.
+{\bGUID\b}i
+valid msgstr="GUID"
+hint="« GUID » no se traduce (ver glosario)"
+
+# «Gzipped» se traduce como «Comprimido con gzip».
+{\bgzipped\b}i
+valid msgstr="comprimido con gzip"
+hint="« Gzipped » se traduce como « Comprimido con gzip » (ver glosario)"
+
+# «(to) Hang» se traduce como «Cuelgue», «Bloquear» o «Colgar».
+{\bhang\b}i
+valid msgstr="cuelgue"
+valid msgstr="colgar"
+valid msgstr="bloquear"
+valid msgstr="bloqueo"
+hint="« Hang » se traduce como « Cuelgue » (ver glosario)"
+
+# «Handsaking» se traduce como «Asentimiento».
+{\bhandsaking\b}i
+valid msgstr="asentimiento"
+valid msgstr="asentir"
+valid msgstr="asintiendo"
+hint="« Handsaking » se traduce como « Asentimiento » (ver glosario)"
+
+# «Hard disk» se traduce como «Disco duro».
+{\bhard disk\b}i
+valid msgstr="disco duro"
+hint="« Hard disk » se traduce como « Disco duro » (ver glosario)"
+
+# «Hard link» se traduce como «Enlace rígido».
+{\bhard link\b}i
+valid msgstr="enlace rígido"
+hint="« Hard link » se traduce como « Enlace rígido » (ver glosario)"
+
+# «Hassle» se traduce como «Enredo».
+{\bhassle\b}i
+valid msgstr="enredo"
+hint="« Hassle » se traduce como « Enredo » (ver glosario)"
+
+# «Home» se traduce como «Carpeta personal» o «Inicio».
+{\bhome\b}i
+valid msgstr="carpeta personal"
+valid msgstr="inicio"
+hint="« Home » se traduce como « Carpeta personal » (ver glosario)"
+
+# «Host» se traduce como «Servidor».
+{\bhost\b}i
+valid msgstr="servidor"
+hint="« Host » se traduce como « Servidor » (ver glosario)"
+
+# «Hosting» se traduce como «Hospedaje».
+{\bhosting\b}i
+valid msgstr="hospedaje"
+valid msgstr="hospedar"
+hint="« Hosting » se traduce como « Hospedaje » (ver glosario)"
+
+# «Hotkey» se traduce como «Atajo de teclado».
+{\bhotkey\b}i
+valid msgstr="atajo de teclado"
+hint="« Hotkey » se traduce como « Atajo de teclado » (ver glosario)"
+
+# «Hub» se traduce como «Concentrador».
+{\bhub\b}i
+valid msgstr="concentrador"
+hint="« Hub » se traduce como « Concentrador » (ver glosario)"
+
+# «IDE» se traduce como «Entorno de desarrollo integrado».
+{\bIDE\b}i
+valid msgstr="entorno de desarrollo integrado"
+hint="« IDE » se traduce como « Entorno de desarrollo integrado » (ver glosario)"
+
+# «Interface» se traduce como «Interfaz».
+{\binterface\b}i
+valid msgstr="interfaz"
+hint="« Interface » se traduce como « Interfaz » (ver glosario)"
+
+# «IRQ» no se traduce.
+{\bIRQ\b}i
+valid msgstr="IRQ"
+hint="« IRQ » no se traduce (ver glosario)"
+
+# «I/O» se traduce como «E/S».
+{\bI/O\b}i
+valid msgstr="E/S"
+hint="« I/O » se traduce como « E/S » entrada/salida (ver glosario)"
+
+# «Italics» se traduce como «Cursiva».
+{\bitalics\b}i
+valid msgstr="cursiva"
+valid !msgstr="itálica"
+hint="« Italic » se traduce como « Cursiva » (ver glosario)"
+
+# «Jumper» se traduce como «Puente».
+{\bjumper\b}i
+valid msgstr="puente"
+hint="« Jumper » se traduce como « Puente » (ver glosario)"
+
+# «Kernel» se traduce como «Núcleo» o «Kernel».
+{\bkernel\b}i
+valid msgstr="núcleo"
+valid msgstr="kernel"
+hint="« Kernel » se traduce como « Núcleo » o « Kernel » (ver glosario)"
+
+# «Keyboard» se traduce como «Teclado».
+{\bkeyboard\b}i
+valid msgstr="teclado"
+hint="« Keyboard » se traduce como « Teclado » (ver glosario)"
+
+# «Keyword» se traduce como «Palabra clave» o «Clave de búsqueda».
+{\bkeyword\b}i
+valid msgstr="palabra clave"
+valid msgstr="clave de búsqueda"
+hint="« Keyword » se traduce como « Palabra clave » o « Clave de búsqueda » (ver glosario)"
+
+# «Language» se traduce como «Idioma».
+{\blanguage\b}i
+valid msgstr="idioma"
+valid msgstr="lenguaje"
+hint="« Language » se traduce como « Idioma » (ver glosario)"
+
+# «Leak» se traduce como «Pérdida» o «Falta».
+{\bleak\b}i
+valid msgstr="pérdida"
+valid msgstr="falta"
+hint="« Leak » se traduce como « Pérdida » o « Falta » (ver glosario)"
+
+# «Library» se traduce como «Biblioteca».
+{\blibrary\b}i
+valid msgstr="biblioteca"
+valid !msgstr="librería"
+hint="« Library » se traduce como « Biblioteca », nunca como « Librería » (ver glosario)"
+
+# «Link» se traduce como «Enlace».
+{\blink\b}i
+valid msgstr="enlace"
+valid msgstr="enlazar"
+valid !msgstr="vínculo"
+valid !msgstr="hipervínculo"
+hint="« Link » se traduce como « Enlace », nunca como « Vínculo » (ver glosario)"
+
+# «Location» se traduce como «Ubicación».
+{\blocation\b}i
+valid msgstr="ubicación"
+valid !msgstr="dirección"
+valid !msgstr="localización"
+hint="« Location » se traduce como « Ubicación », nunca como « Dirección » (ver glosario)"
+
+# «Lock» se traduce como «Bloqueo».
+{\block\b}i
+valid msgstr="bloqueo"
+valid msgstr="bloquear"
+hint="« Lock » se traduce como « Bloqueo » (ver glosario)"
+
+# «Log» se traduce como «Registro».
+{\blog\b}i
+valid msgstr="registro"
+valid msgstr="registrar"
+hint="« Log » se traduce como « Registro » (ver glosario)"
+
+# «Login» se traduce como «Inicio de sesión».
+{\blogin\b}i
+valid msgstr="inicio de sesión"
+valid msgstr="iniciar sesión"
+valid !msgstr="login"
+hint="« Login » se traduce como « Inicio de sesión », no se debe dejar sin traducir (ver glosario)"
+
+# «Login banner» se traduce como «Mensaje de entrada».
+{\blogin banner\b}i
+valid msgstr="mensaje de entrada"
+hint="« Login banner » se traduce como « Mensaje de entrada » (ver glosario)"
+
+# «Loggin in» se traduce como «Inicio de sesión».
+{\bloggin in\b}i
+valid msgstr="inicio de sesión"
+valid msgstr="iniciar sesión"
+valid !msgstr="loggin in"
+hint="« Loggin in » se traduce como « Inicio de sesión », no se debe dejar sin traducir (ver glosario)"
+
+# «Logoff» se traduce como «Fin de sesión».
+{\blogoff\b}i
+valid msgstr="fin de sesión"
+valid msgstr="finalizar sesión"
+valid !msgstr="logoff"
+hint="« Logoff » se traduce como « Fin de sesión », no se debe dejar sin traducir (ver glosario)"
+
+# «Lvalue» se traduce como «Valor a la izquierda».
+{\blvalue\b}i
+valid msgstr="valor a la izquierda"
+valid !msgstr="lvalue"
+hint="« Lvalue » se traduce como « Valor a la izquierda », no se debe dejar sin traducir (ver glosario)"
+
+# «Mail» se traduce como «Correo».
+{\bmail\b}i
+valid msgstr="correo"
+hint="« Mail » se traduce como « Correo » (ver glosario)"
+
+# «Mailer» se traduce como «Gestor de correo».
+{\bmailer\b}i
+valid msgstr="gestor de correo"
+hint="« Mailer » se traduce como « Gestor de correo » (ver glosario)"
+
+# «Mailing list» se traduce como «Lista de correo».
+{\bmailing list\b}i
+valid msgstr="lista de correo"
+hint="« Mailing list » se traduce como « Lista de correo » (ver glosario)"
+
+# «Mainteiner» se traduce como «Responsable» o «Encargado».
+{\bmainteiner\b}i
+valid msgstr="responsable"
+valid msgstr="encargado"
+valid !msgstr="mantenedor"
+hint="« Maintainer » se traduce como « Responsable » o « Encargado » (ver glosario)"
+
+# «Manager» se traduce como «Gestor».
+{\bmanager\b}i
+valid msgstr="gestor"
+valid !msgstr="administrador"
+valid !msgstr="manejador"
+hint="« Manager » se traduce como « Gestor », nunca como « Administrador » (ver glosario)"
+
+# «Mapped» se traduce como «Mapeado».
+{\bmapped\b}i
+valid msgstr="mapeado"
+valid msgstr="mapeada"
+hint="« Mapped » se traduce como « Mapeado » (ver glosario)"
+
+# «Map» se traduce como «Mapear» o «Asignar».
+{\bmap\b}i
+valid msgstr="mapear"
+valid msgstr="asignar"
+valid msgstr="mapa"
+hint="« Map » se traduce como « Mapear » o « Asignar » (ver glosario)"
+
+# «Mask» se traduce como «Máscara» o «Enmascarar».
+{\bmask\b}i
+valid msgstr="máscara"
+valid msgstr="enmascarar"
+hint="« Mask » se traduce como « Máscara » o « Enmascarar » (ver glosario)"
+
+# «Match» se traduce como «Emparejar», «Coincidir» o «Concordar».
+{\bmatch\b}i
+valid msgstr="emparejar"
+valid msgstr="coincidir"
+valid msgstr="coincidan"
+valid msgstr="concordar"
+valid msgstr="empareja"
+valid msgstr="coincide"
+valid msgstr="coincida"
+valid msgstr="concuerda"
+hint="« Match » se traduce como « Emparejar », « Coincidir » o « Concordar » (ver glosario)"
+
+# «Menu» se traduce como «Menú».
+{\bmenu\b}i
+valid msgstr="menú"
+hint="« Menu » se traduce como « Menú » (ver glosario)"
+
+# «Menus» se traduce como «Menús».
+{\bmenus\b}i
+valid msgstr="menús"
+hint="« Menus » se traduce como « Menús » (ver glosario)"
+
+# «Mice» se traduce como «Ratones».
+{\bmice\b}i
+valid msgstr="ratones"
+hint="« Mice » se traduce como « Ratones », es el plurar de « Mouse » (ver glosario)"
+
+# «Mirror» se traduce como «Espejo» o «Reflejar".
+{\bmirror\b}i
+valid msgstr="espejo"
+valid msgstr="reflejar"
+hint="« Mirror » se traduce como « Espejo » o « Reflejar » (ver glosario)"
+
+# «Mistake» se traduce como «Equivocación».
+{\bmistake\b}i
+valid msgstr="equivocación"
+hint="« Mistake » se traduce como « Equivocación » (ver glosario)"
+
+# «Modem» se traduce como «Módem».
+{\bmodem\b}i
+valid msgstr="módem"
+valid !msgstr="modem"
+hint="« Modem » se traduce como « Módem » (ver glosario)"
+
+# «Mount» se traduce como «Montar».
+{\bmount\b}i
+valid msgstr="montar"
+valid msgstr="montaje"
+hint="« Mount » se traduce como « Montar » (ver glosario)"
+
+# «Mouse» se traduce como «Ratón».
+{\bmouse\b}i
+valid msgstr="ratón"
+valid !msgstr="mouse"
+hint="« Mouse » se traduce como « Ratón » (ver glosario)"
+
+# «Multicast» se traduce como «Multidifusión».
+{\bmulticast\b}i
+valid msgstr="multidifusión"
+hint="« Multicast » se traduce como « Multidifusión » (ver glosario)"
+
+# «Multitasking» se traduce como «Multitarea».
+{\bmultitasking\b}i
+valid msgstr="multitarea"
+hint="« Multitasking » se traduce como « Multitarea » (ver glosario)"
+
+# «Netmask» se traduce como «Máscara de red».
+{\bnetmask\b}i
+valid msgstr="máscara de red"
+hint="« Netmask » se traduce como « Máscara de red » (ver glosario)"
+
+# «News feed» se traduce como «Fuente de noticias».
+{\bnews feed\b}i
+valid msgstr="fuente de noticias"
+hint="« News feed » se traduce como « Fuente de noticias » (ver glosario)"
+
+# «Non-inclusive» se traduce como «Exclusivo».
+{\bnon-inclusive\b}i
+valid msgstr="exclusivo"
+hint="« Non-inclusive » se traduce como « Exclusivo » (ver glosario)"
+
+# «Off topic» se traduce como «Fuera de temática».
+{\boff topic\b}i
+valid msgstr="fuera de temática"
+hint="« Off topic » se traduce como « Fuera de temática » (ver glosario)"
+
+# «Ok» se traduce como «Aceptar».
+{\bok\b}i
+valid msgstr="aceptar"
+valid msgstr="correcto"
+hint="« Ok » se traduce como « Aceptar » en botones o « Correcto » en otros casos (ver glosario)"
+
+# «Overlap» se traduce como «Superponer» o «Solapar».
+{\boverlap\b}i
+valid msgstr="superponer"
+valid msgstr="solapar"
+hint="« Overlap » se traduce como « Superponer » o « Solapar » (ver glosario)"
+
+# «Overwrite» se traduce como «Sobrescribir».
+{\boverwrite\b}i
+valid msgstr="sobrescribir"
+valid !msgstr="sobreescribir"
+hint="« Overwrite » se traduce como « Sobrescribir », nunca como « Sobreescribir » (ver glosario)"
+
+# «Parse» se traduce como «Analizar».
+{\bparse\b}i
+valid msgstr="analizar"
+valid msgstr="análisis"
+hint="« Parse » se traduce como « Analizar » (ver glosario)"
+
+# «Password» se traduce como «Contraseña».
+{\bpassword\b}i
+valid msgstr="contraseña"
+valid !msgstr="password"
+hint="« Password » se traduce como « Contraseña » (ver glosario)"
+
+# «Patch» se traduce como «Parche».
+{\bpatch\b}i
+valid after="\-"
+valid msgstr="parche"
+valid msgstr="parchear"
+hint="« Patch » se traduce como « Parche » (ver glosario)"
+
+# «Path» se traduce como «Ruta».
+{\bpath\b}i
+valid msgstr="ruta"
+hint="« Path » se traduce como « Ruta » (ver glosario)"
+
+# «Patience» se traduce como «Solitario».
+{\bpatience\b}i
+valid msgstr="solitario"
+hint="« Patience » se traduce como « Solitario », es un juego de cartas (ver glosario)"
+
+# «Pin» se traduce como «Patilla» o «Código de acceso».
+{\bpin\b}i
+valid msgstr="patilla"
+valid msgstr="código de acceso"
+valid !msgstr="pin"
+hint="« Pin » se traduce como « Patilla » o « Código de acceso » (ver glosario)"
+
+# «Pipe» se traduce como «Redirección».
+{\bpipe\b}i
+valid msgstr="redirección"
+hint="« Pipe » se traduce como « Redirección » (ver glosario)"
+
+# «Pixel» se traduce como «Píxel».
+{\bpixel\b}i
+valid msgstr="píxel"
+hint="« Pixel » se traduce como « Píxel » (ver glosario)"
+
+# «Plugin» se traduce como «Complemento».
+{\bplugin\b}i
+valid msgstr="complemento"
+valid !msgstr="plugin"
+hint="« Plugin » se traduce como « Complemento » (ver glosario)"
+
+# «Policy» se traduce como «Política».
+{\bpolicy\b}i
+valid msgstr="política"
+hint="« Policy » se traduce como « Política » (ver glosario)"
+
+# «Policy issues» se traduce como «Aspectos de normativa».
+{\bpolicy issues\b}i
+valid msgstr="aspectos de normativa"
+hint="« Policy issues » se traduce como « Aspectos de normativa » (ver glosario)"
+
+# «Pop-up» se traduce como «Ventana emergente».
+{\bpop-up\b}i
+valid msgstr="ventana emergente"
+hint="« Pop-up » se traduce como « Ventana emergente » (ver glosario)"
+
+# «Port» se traduce como «Puerto».
+{\bport\b}i
+valid msgstr="puerto"
+valid msgstr="migrar"
+valid msgstr="migración"
+hint="« Port » se traduce como « Puerto » o « Migración » (ver glosario)"
+
+# «Post» se traduce como «Remitir» o «Enviar».
+{\bpost\b}i
+valid msgstr="remitir"
+valid msgstr="enviar"
+valid msgstr="publicar"
+valid !msgstr="postear"
+hint="« Post » se traduce como « Remitir » o « Enviar » (ver glosario)"
+
+# «Postmaster» se traduce como «Administrador de correo».
+{\bpostmaster\b}i
+valid msgstr="administrador de correo"
+hint="« Postmaster » se traduce como « Administrador de correo » (ver glosario)"
+
+# «Profile» se traduce como «Perfil».
+{\bprofile\b}i
+valid msgstr="perfil"
+valid msgstr="analizar el rendimiento"
+hint="« Profile » se traduce como « Perfil » (ver glosario)"
+
+# «Profiler» se traduce como «Analizador de rendimiento».
+{\bprofiler\b}i
+valid msgstr="analizador de rendimiento"
+hint="« Profiler » se traduce como « Analizador de rendimiento » (ver glosario)"
+
+# «Profiling» se traduce como «Análisis de rendimiento».
+{\bprofiling\b}i
+valid msgstr="análisis de rendimiento"
+valid msgstr="analizar rendimiento"
+valid msgstr="analizar el rendimiento"
+hint="« Profiling » se traduce como « Análisis de rendimiento » (ver glosario)"
+
+# «Programmer» se traduce como «Programador».
+{\bprogrammer\b}i
+valid msgstr="programador"
+hint="« Programmer » se traduce como « Programador » (ver glosario)"
+
+# «Prompt» se traduce como «Cursor».
+{\bpromtp\b}i
+valid msgstr="cursor"
+valid msgstr="promtp"
+hint="« Promtp » se traduce como « Cursor » (ver glosario)"
+
+# «Provide» se traduce como «Proporcionar» o «proveer».
+{\bprovide\b}i
+valid msgstr="proporcionar"
+valid msgstr="proporciona"
+valid msgstr="proveer"
+valid msgstr="provee"
+valid msgstr="estipular"
+valid msgstr="estipula"
+hint="« Provide » se traduce como « Proporcionar » o « Proveer » (ver glosario)"
+
+# «Purge» se traduce como «Purgar».
+{\bpurge\b}i
+valid msgstr="purgar"
+hint="« Purge » se traduce como « Purgar » (ver glosario)"
+
+# «Query» se traduce como «Consulta» o «Pregunta».
+{\bquery\b}i
+valid msgstr="consulta"
+valid msgstr="pregunta"
+valid !msgstr="query"
+hint="« Query » se traduce como « Consulta » o « Pregunta » (ver glosario)"
+
+# «Quote» se traduce como «Cita», «Cuota», «Comillas» o «Citar».
+{\bquote\b}i
+valid msgstr="citar"
+valid msgstr="cita"
+valid msgstr="cuota"
+valid msgstr="comillas"
+hint="« Quote » se traduce como « Citar », « Cita », « Cuota » o « Comillas » (ver glosario)"
+
+# «Quoted» se traduce como «Entrecomillado» o «Texto citado».
+{\bquoted\b}i
+valid msgstr="entrecomillado"
+valid msgstr="texto citado"
+hint="« Quoted » se traduce como « Entrecomillado » o « Texto citado » (ver glosario)"
+
+# «Quotelike» se traduce como «Semejante a las comillas».
+{\bquotelike\b}i
+valid msgstr="semejante a las comillas"
+hint="« Quotelike » se traduce como « Semejante a las comillas » (ver glosario)"
+
+# «Raise» se traduce como «Provocar», «Alzar», «Surgir» o «Aumentar».
+{\braise\b}i
+valid msgstr="provocar"
+valid msgstr="alzar"
+valid msgstr="surgir"
+valid msgstr="aumentar"
+hint="« Raise » se traduce como « Provocar », « Alzar », « Surgir » o « Aumentar » (ver glosario)"
+
+# «Range» se traduce como «Intervalo».
+{\brange\b}i
+valid msgstr="intervalo"
+hint="« Range » se traduce como « Intervalo » (ver glosario)"
+
+# «Raw mode» se traduce como «Modo sin formato».
+{\braw mode\b}i
+valid msgstr="modo sin formato"
+valid msgstr="modo en bruto"
+hint="« Raw mode » se traduce como « Modo sin formato » (ver glosario)"
+
+# «Raw text» se traduce como «Texto sin formato».
+{\braw text\b}i
+valid msgstr="texto sin formato"
+hint="« Raw text » se traduce como « Texto sin formato » (ver glosario)"
+
+# «Realtime» se traduce como «Tiempo real».
+{\brealtime\b}i
+valid msgstr="tiempo real"
+hint="« Real time » se traduce como « Tiempo real » (ver glosario)"
+
+# «Reboot» se traduce como «Reinicio».
+{\breboot\b}i
+valid msgstr="reinicio"
+valid msgstr="reiniciar"
+hint="« Reboot » se traduce como « Reiniciar » (ver glosario)"
+
+# «Rebooting» se traduce como «Reinicio».
+{\brebooting\b}i
+valid msgstr="reinicio"
+valid msgstr="reiniciar"
+valid msgstr="reiniciando"
+hint="« Rebooting » se traduce como « Reinicio » (ver glosario)"
+
+# «Relay» se traduce como «Transmisión» o «Retransmisión».
+{\brelay\b}i
+valid msgstr="transmisión"
+valid msgstr="retransmisión"
+valid msgstr="transmitir"
+valid msgstr="retransmitir"
+valid msgstr="relé"
+hint="« Relay » se traduce como « Transmisión » o « Retransmisión » (ver glosario)"
+
+# «Rely on» se traduce como «Depender de», «Confiar en» o «Contar con».
+{\brely on\b}i
+valid msgstr="depender de"
+valid msgstr="confiar en"
+valid msgstr="contar con"
+hint="« Rely on » se traduce como « Depender de », « Confiar en » o « Contar con » (ver glosario)"
+
+# «Requirement» se traduce como «Requisito».
+{\brequirement\b}i
+valid msgstr="requisito"
+hint="« Requirement » se traduce como « Requisito » (ver glosario)"
+
+# «Reset» se traduce como «Reinicio».
+{\breset\b}i
+valid msgstr="reinicio"
+valid msgstr="reiniciar"
+valid !msgstr="restaurar"
+hint="« Reset » se traduce como « Reinicio » (ver glosario)"
+
+# «Resolver» se traduce como «Sistema de resolución».
+{\bresolver\b}i
+valid msgstr="sistema de resolución"
+hint="« Resolver » se traduce como « Sistema de resolución » (ver glosario)"
+
+# «Resolver library» se traduce como «Biblioteca de resolución».
+{\bresolver library\b}i
+valid msgstr="biblioteca de resolución"
+valid !msgstr="librería de resolución"
+hint="« Resolver library » se traduce como « Biblioteca de resolución » (ver glosario)"
+
+# «Respawn» se traduce como «Reinicio».
+{\brespawn\b}i
+valid msgstr="reinicio"
+valid msgstr="reiniciar"
+hint="« Respawn » se traduce como « Reinicio » (ver glosario)"
+
+# «Revert» se traduce como «Revertir».
+{\brevert\b}i
+valid msgstr="revertir"
+hint="« Revert » se traduce como « Revertir » (ver glosario)"
+
+# «Role» se traduce como «Papel».
+{\brole\b}i
+valid msgstr="papel"
+hint="« Role » se traduce como « Papel » (ver glosario)"
+
+# «Router» se traduce como «Enrutador», «Encaminador» o «Router».
+{\brouter\b}i
+valid msgstr="enrutador"
+valid msgstr="encaminador"
+valid msgstr="router"
+hint="« Router » se traduce como « Enrutador » o « Encaminador » (ver glosario)"
+
+# «Routing» se traduce como «Encaminamiento».
+{\brouting\b}i
+valid msgstr="encaminamiento"
+valid msgstr="encaminar"
+valid msgstr="encaminando"
+hint="« Routing » se traduce como « Encaminamiento » (ver glosario)"
+
+# «Run» se traduce como «Ejecución».
+{\brun\b}i
+valid msgstr="ejecución"
+valid msgstr="ejecutar"
+valid msgstr="ejecuta"
+hint="« Run » se traduce como « Ejecución » (ver glosario)"
+
+# «Run-time» se traduce como «Tiempo de ejecución».
+{\brun-time\b}i
+valid msgstr="tiempo de ejecución"
+hint="« Run-time » se traduce como « Tiempo de ejecución » (ver glosario)"
+
+# «Save» se traduce como «Guardar».
+{\bsave\b}i
+valid msgstr="guardar"
+valid !msgstr="salvar"
+hint="« Save » se traduce como « Guardar », nunca como « Salvar » (ver glosario)"
+
+# «Scan» se traduce como «Escanear» o «Explorar».
+{\bscan\b}i
+valid msgstr="escanear"
+valid msgstr="explorar"
+valid msgstr="exploración"
+hint="« Scan » se traduce como « Escanear » o « Explorar » (ver glosario)"
+
+# «Scanner» se traduce como «Escáner».
+{\bscanner\b}i
+valid msgstr="escáner"
+valid !msgstr="scanner"
+hint="« Scanner » se traduce como « Escáner » (ver glosario)"
+
+# «Schedule» se traduce como «Programa», «Horario», «Calendario» o «Planificar».
+{\bschedule\b}i
+valid msgstr="programa"
+valid msgstr="horario"
+valid msgstr="calendario"
+valid msgstr="planificar"
+hint="« Schedule » se traduce como « Programa », « Horario », « Calendario » o « Planificar » (ver glosario)"
+
+# «Scheduler» se traduce como «Planificador».
+{\bscheduler\b}i
+valid msgstr="planificador"
+hint="« Scheduler » se traduce como « Planificador » (ver glosario)"
+
+# «Scoring» se traduce como «Puntuación».
+{\bscoring\b}i
+valid msgstr="puntuación"
+valid msgstr="puntuar"
+valid msgstr="puntuando"
+hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
+
+# «Script» se traduce como «Guión» o «Script».
+{\bscript\b}i
+valid msgstr="guión"
+valid msgstr="guiones"
+valid msgstr="script"
+hint="« Script » se traduce como « Guión » o « Script » (ver glosario)"
+
+# «Scroll» se traduce como «Desplazamiento».
+{\bscroll\b}i
+valid msgstr="desplazamiento"
+valid msgstr="desplazar"
+valid msgstr="desplaza"
+hint="« Scroll » se traduce como « Desplazamiento » (ver glosario)"
+
+# «Scrolling» se traduce como «Desplazamiento».
+{\bscrolling\b}i
+valid msgstr="desplazamiento"
+valid msgstr="desplazar"
+valid msgstr="desplazando"
+hint="« Scrolling » se traduce como « Desplazamiento » (ver glosario)"
+
+# «Send» se traduce como «Enviar» o «Envío».
+{\bsend\b}i
+valid msgstr="enviar"
+valid msgstr="envío"
+hint="« Send » se traduce como « Enviar » o « Envío » (ver glosario)"
+
+# «Sending» se traduce como «Envío».
+{\bsending\b}i
+valid msgstr="envío"
+valid msgstr="enviarlo"
+valid msgstr="enviarla"
+valid msgstr="enviar"
+valid msgstr="enviando"
+hint="« Sending » se traduce como « Envío » (ver glosario)"
+
+# «Server» se traduce como «Servidor».
+{\bserver\b}i
+valid msgstr="servidor"
+hint="« Server » se traduce como « Servidor » (ver glosario)"
+
+# «Setting up» se traduce como «Configuración».
+{\bsetting up\b}i
+valid msgstr="configuración"
+valid msgstr="configurar"
+valid msgstr="configurando"
+hint="« Setting up » se traduce como « Configuración » (ver glosario)"
+
+# «Set up» se traduce como «Configuración» o «Configurar».
+{\bset up\b}i
+valid msgstr="configuración"
+valid msgstr="configurar"
+hint="« Set up » se traduce como « Configuración » o « Configurar » (ver glosario)"
+
+# «Shortcut» se traduce como «Acceso rápido».
+{\bshortcut\b}i
+valid msgstr="acceso rápido"
+valid msgstr="accesos rápidos"
+hint="« Short cut » se traduce como « Acceso rápido » (ver glosario)"
+
+# «Shorthand» se traduce como «Abreviado».
+{\bshorthand\b}i
+valid msgstr="abreviado"
+hint="« Shorthand » se traduce como « Abreviado » (ver glosario)"
+
+# «Shutdown» se traduce como «Apagar el sistema».
+{\bshutdown\b}i
+valid msgstr="apagar el sistema"
+hint="« Shutdown » se traduce como « Apagar el sistema » (ver glosario)"
+
+# «Signal» se traduce como «Señal».
+{\bsignal\b}i
+valid msgstr="señal"
+hint="« Signal » se traduce como « Señal » (ver glosario)"
+
+# «Site» se traduce como «Sitio» o «Nodo».
+{\bsite\b}i
+valid msgstr="sitio"
+valid msgstr="nodo"
+hint="« Site » se traduce como « Sitio » o « Nodo » (ver glosario)"
+
+# «Slash» se traduce como «Barra».
+{\bslash\b}i
+valid msgstr="barra"
+hint="« Slash » se traduce como « Barra » (ver glosario)"
+
+# «Slave» se traduce como «Esclavo».
+{\bslave\b}i
+valid msgstr="esclavo"
+hint="« Slave » se traduce como « Esclavo » (ver glosario)"
+
+# «Slot» se traduce como «Ranura»o «Encajar».
+{\bslot\b}i
+valid msgstr="ranura"
+valid msgstr="encajar"
+hint="« Slot » se traduce como « Ranura » o « Encajar » (ver glosario)"
+
+# «Soft link» se traduce como «Enlace simbólico».
+{\bsoft link\b}i
+valid msgstr="enlace simbólico"
+hint="« Soft link » se traduce como « Enlace simbólico » (ver glosario)"
+
+# «Sort» se traduce como «Ordenar».
+{\bsort\b}i
+valid msgstr="ordenar"
+valid msgstr="ordenación"
+hint="« Sort » se traduce como « Ordenar » (ver glosario)"
+
+# «Spawn» se traduce como «Iniciar».
+{\bspawn\b}i
+valid msgstr="iniciar"
+hint="« Spawn » se traduce como « Iniciar » (ver glosario)"
+
+# «Splashscreen» se traduce como «Pantalla anunciadora».
+{\bsplashscreen\b}i
+valid msgstr="pantalla anunciadora"
+hint="« Splashscreen » se traduce como « Pantalla anunciadora » (ver glosario)"
+
+# «Spool» se traduce como «Cola».
+{\bspool\b}i
+valid msgstr="cola"
+hint="« Spool » se traduce como « Cola » (ver glosario)"
+
+# «Standard disclaimer» se traduce como «Renuncia estándar de responsabilidades».
+{\bstandard disclaimer\b}i
+valid msgstr="renuncia estándar de responsabilidades"
+hint="« Standar disclaimer » se traduce como « Renuncia estándar de responsabilidades » (ver glosario)"
+
+# «Start» se traduce como «Inicio» o «Iniciar».
+{\bstart\b}i
+valid msgstr="inicio"
+valid msgstr="iniciar"
+valid msgstr="comienzo"
+valid msgstr="comenzar"
+hint="« Start » se traduce como « Inicio » o « Iniciar » (ver glosario)"
+
+# «Starting» se traduce como «Inicio».
+{\bstarting\b}i
+valid msgstr="inicio"
+valid msgstr="iniciar"
+valid msgstr="iniciando"
+hint="« Starting » se traduce como « Inicio » (ver glosario)"
+
+# «Stop» se traduce como o «Detener».
+{\bstop\b}i
+valid msgstr="detener"
+hint="« Stop » se traduce como « Detener » (ver glosario)"
+
+# «Stopping» se traduce como «Parada».
+{\bstopping\b}i
+valid msgstr="parada"
+valid msgstr="parar"
+valid msgstr="parando"
+hint="« Stopping » se traduce como « Parada » (ver glosario)"
+
+# «Subclassing» se traduce como «Derivación de clase».
+{\bsubclassing\b}i
+valid msgstr="derivación de clase"
+valid msgstr="derivar clase"
+valid msgstr="derivar la clase"
+hint="« Subclassing » se traduce como « Derivación de clase » (ver glosario)"
+
+# «Subdirectory» se traduce como «Subcarpeta» o «Subdirectorio».
+{\bsubdirectory\b}i
+valid msgstr="subcarpeta"
+valid msgstr="subdirectorio"
+hint="« Subdirectory » se traduce como «Subcarpeta » o « Subdirectorio » (ver glosario)"
+
+# «Subnet» se traduce como «Subred».
+{\bsubnet\b}i
+valid msgstr="subred"
+hint="« Subnet » se traduce como « Subred » (ver glosario)"
+
+# «Subnetting» se traduce como «Segmentación de redes».
+{\bsubnetting\b}i
+valid msgstr="segmentación de redes"
+valid msgstr="segmentar redes"
+hint="« Subnetting » se traduce como « Segmentación de redes » (ver glosario)"
+
+# «Support» se traduce como «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar».
+{\bsupport\b}i
+valid msgstr="admitir"
+valid msgstr="implementar"
+valid msgstr="reconocer"
+valid msgstr="usar"
+valid msgstr="apoyar"
+valid msgstr="apoyo"
+valid !msgstr="soportar"
+valid !msgstr="soporte"
+hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (ver glosario)"
+
+# «Swap» se traduce como «Intercambio».
+{\bswap\b}i
+valid msgstr="intercambio"
+valid msgstr="intercambiar"
+hint="« Swap » se traduce como « Intercambio » (ver glosario)"
+
+# «Symbolic link» se traduce como «Enlace simbólico».
+{\bsymbolic link\b}i
+valid msgstr="enlace simbólico"
+valid msgstr="enlaces simbólicos"
+hint="« Symbolic link » se traduce como « Enlace simbólico » (ver glosario)"
+
+# «System call» se traduce como  «Llamada del sistema».
+{\bsystem call\b}i
+valid msgstr="llamada del sistema"
+hint="« System call » se traduce como « Llamada del sistema » (ver glosario)"
+
+# «Tab» se traduce como  «Pestaña».
+{\btab\b}i
+valid msgstr="pestaña"
+valid msgstr="tabulador"
+valid !msgstr="solapa"
+hint="« Tab » se traduce como « Tabulador » o « Pestaña », nunca como « Solapa » (ver glosario)"
+
+# «Target partition» se traduce como «Partición de destino».
+{\btarget partition\b}i
+valid msgstr="partición de destino"
+hint="« Target partition » se traduce como « Partición de destino » (ver glosario)"
+
+# «Tile» se traduce como «Mosaico».
+{\btile\b}i
+valid msgstr="mosaico"
+hint="« Tile » se traduce como « Mosaico » (ver glosario)"
+
+# «Timeout» se traduce como «Tiempo de espera».
+{\btimeout\b}i
+valid msgstr="tiempo de espera"
+hint="« Timeout » se traduce como « Tiempo de espera » (ver glosario)"
+
+# «Timer» se traduce como «Temporizador».
+{\btimer\b}i
+valid msgstr="temporizador"
+hint="« Timer » se traduce como « Temporizador » (ver glosario)"
+
+# «Timestamp» se traduce como «Marca de tiempo».
+{\btimestamp\b}i
+valid msgstr="marca de tiempo"
+hint="« Timestamp » se traduce como « Marca de tiempo » (ver glosario)"
+
+# «Toggle» se traduce como «Commutador» o «Conmutar».
+{\btoggle\b}i
+valid msgstr="conmutador"
+valid msgstr="conmutar"
+hint="« Toggle » se traduce como « Conmutador » o « Conmutar » (ver glosario)"
+
+# «Topic» se traduce como «Tema».
+{\btopic\b}i
+valid msgstr="tema"
+valid !msgstr="tópico"
+hint="« Topic » se traduce como « Tema » (ver glosario)"
+
+# «Trailing spaces» se traduce como «Espacios finales».
+{\btrailing spaces\b}i
+valid msgstr="espacios finales"
+hint="« Trailing spaces » se traduce como « Espacios finales » (ver glosario)"
+
+# «Transport» se traduce como «Transporte» o «Transportar».
+{\btransport\b}i
+valid msgstr="transporte"
+valid msgstr="transportar"
+hint="« Transport » se traduce como « Transporte » o « transportar x (ver glosario)"
+
+# «Troubleshooting» se traduce como «Resolución de problemas».
+{\btroubleshooting\b}i
+valid msgstr="resolución de problemas"
+valid msgstr="resolver problemas"
+valid msgstr="resolver los problemas"
+valid msgstr="resolviendo problemas"
+hint="« Troubleshooting » se traduce como « Resolución de problemas » (ver glosario)"
+
+# «Type» se traduce como «Tipo» o «Teclear».
+{\btype\b}i
+valid before="\="
+valid before="\-"
+valid msgstr="tipo"
+valid msgstr="teclear"
+valid msgstr="teclea"
+valid msgstr="teclee"
+hint="« Type » se traduce como « Tipo » o « Teclear » (ver glosario)"
+
+# «Upload» se traduce como «Cargar» o «Enviar».
+{\bupload\b}i
+valid msgstr="cargar"
+valid msgstr="enviar"
+valid msgstr="carga"
+valid msgstr="envío"
+hint="« Upload » se traduce como « Cargar » o « Enviar » (ver glosario)"
+
+# «UPS» se traduce como «SAI» o «UPS».
+{\bUPS\b}i
+valid msgstr="SAI"
+valid msgstr="UPS"
+hint="« UPS » se traduce como « SAI » o « UPS »  (ver glosario)"
+
+# «URL» no se traduce.
+{\bURL\b}i
+valid msgstr="URL"
+hint="« URL » no se traduce (ver glosario)"
+
+# «Verbatim copy» se traduce como «Copia literal».
+{\bverbatim copy\b}i
+valid msgstr="copia literal"
+hint="« Verbatim copy » se traduce como « Copia literal » (ver glosario)"
+
+# «Web» no se traduce.
+{\bweb\b}i
+valid msgstr="web"
+hint="« Web » no se traduce (ver glosario)"
+
+# «Widget» se traduce como «Ventana», Control» o «Elemento gráfico».
+{\bwidget\b}i
+valid msgstr="ventana"
+valid msgstr="control"
+valid msgstr="elemento gráfico"
+valid msgstr="elementos gráficos"
+valid msgstr="widget"
+hint="« Widget » se traduce como « Ventana », « Control » o « Elemento gráfico » (ver glosario)"
+
+# «Wizard» se traduce como «Asistente».
+{\bwizard\b}i
+valid msgstr="asistente"
+hint="« Wizard » se traduce como « Asistente » (ver glosario)"
+
+# End of rule file

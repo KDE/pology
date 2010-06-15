@@ -1,0 +1,25 @@
+# This file list PO message context for which no spell check should be done
+# Formating rules:
+#     o One entry per line
+#     o Simple text. No regexp for now.
+#     o Case is ignored
+#     o A line beginning by # is considered as a comment
+#     o Blank lines are ignored
+
+email
+qibaseresult
+qfont
+qunicodecontrol
+name
+.kgm
+advanced urls
+List of words to exclude from index
+KRunner keyword
+@info:credit
+QNativeSocketEngine
+QWebPage
+QUdpSocket
+QODBCResult
+ObjectClass
+Units
+ObjectClass

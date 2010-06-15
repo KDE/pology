@@ -1,0 +1,40 @@
+Rule files syntax
+=================
+
+Naming and path: 
+- a rule file must end with a ".rules" suffix.
+- rule files must be located into the l10n/<lang>/rules directory, where <lang> corresponds to your language code (eg. 'fr' for french rules).
+
+File structure and syntax: 
+- All lines begining with a # are considered as comments.
+- Each rule file must begin with a header indicating the author(s) and license.
+- Each rule file must end with a footer composed of a line of comment (eg. # End of rule file).
+- A blank line is used to separate two rules.
+
+Rule definition: 
+- A rule is composed of three parts: 
+	o The pattern. It is used to find text matching the rule. The pattern should be a valid regular expression.
+	o The hint. It indicates the user what to do to correct the message.
+	o Valid expression. It indicates exceptions for which the rule should not match.
+- Pattern and hint are mandatory. Valid expression is optional.
+
+Pattern syntax: 
+- [regexp] # where 'regexp' is a regular expression ; eg. [status|statut] will trigger the rule for the words 'status' and 'statut'.
+
+Hint syntax: 
+- hint="hint message" # eg. hint="remplacer `status' ou `statut' par `état'".
+
+Valid expression syntax: 
+One rule can have multiple valid expressions. Each is evaluated separately and may be made of regular expressions (represented below with the word 'regexp'). Here are some examples:
+- valid after="regexp" # the rule will not match if it is found after the provided pattern/word
+- valid before="regexp" # the rule will not match if it is found before the provided pattern/word
+- valid before="regexp" after="regexp" # both are needed to cancel the rule triggering
+- valid file="myApps.po" # always valid for this .po file
+- valid file="myApps.po" after="regexp" before="regexp"
+- valid ctx="regexp" after="regexp" before="regexp" # only in a message in this PO context
+- valid file="myApps.po" msgid="The msgid to consider" # only in this message in this .po file (but do we really need this kind of rules ?)
+
+Eg. of rule: 
+[status|statut]
+valid after="[Ss]mb"   
+hint="remplacer `status' ou `statut' par `état'"
