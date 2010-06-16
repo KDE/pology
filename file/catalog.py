@@ -142,7 +142,6 @@ def _parse_po_file (file, MessageType=MessageMonitored,
     def try_finish ():
         if loc.field_context == ctx_msgstr:
             messages1.append(loc.msg)
-            #print filename, lno - 1
             loc.msg = _MessageDict(lcache)
             loc.field_context = ctx_none
             # In header-only mode, the first message read is the header.
@@ -863,6 +862,11 @@ class Catalog (Monitored):
                 if pos is not None:
                     if pos < 0:
                         pos = len(self._messages) + pos
+                    if pos < 0 or pos > len(self._messages):
+                        raise PologyError(
+                            _("@info",
+                              "Trying to insert message into catalog by "
+                              "position out of range."))
                     msgpos_ins.append((msg, pos))
                 else:
                     msgs_auto.append(msg)
@@ -1192,9 +1196,9 @@ class Catalog (Monitored):
         or any pending removals issued, this function will update
         the sequence of messages such that membership operations
         work properly again.
+        Obsolete messages will be moved to end of catalog.
         Referent line and entry numbers will remain invalid,
-        as catalog will not be written out,
-        and there will also be no reordering of obsolete messages.
+        as catalog will not be written out.
 
         This is a less expensive alternative to syncing the catalog,
         when it is only necessary to continue using it in synced state,
@@ -1202,14 +1206,20 @@ class Catalog (Monitored):
         """
 
         # Execute pending removals.
+        # Separate messages into current and obsolete.
         newlst = []
+        newlst_obs = []
         for msg in self._messages:
             if not msg.get("_remove_on_sync", False):
-                newlst.append(msg)
+                if not msg.obsolete:
+                    newlst.append(msg)
+                else:
+                    newlst_obs.append(msg)
+        newlst.extend(newlst_obs)
         self.__dict__["*"] = newlst
         self._messages = self.__dict__["*"]
 
-        # Rebuild key-position links messages.
+        # Rebuild key-position links.
         self._msgpos = {}
         for i in range(len(self._messages)):
             self._msgpos[self._messages[i].key] = i
@@ -2003,4 +2013,38 @@ class Catalog (Monitored):
             msgs_by_src[src].append(msg)
 
         return [(x, msgs_by_src[x]) for x in sources]
+
+
+    def sort_by_source (self):
+        """
+        Sort messages in catalog by source references.
+
+        Source references within each message are sorted too,
+        before messages are sorted by source references.
+
+        If any message changed its position due to sorting,
+        L{sync_map} is called at the end.
+        """
+
+        # Sort source references within messages.
+        for msg in self._messages:
+            sorted_source = sorted(msg.source,
+                                   key=lambda s: (s[0].lower(), s[1]))
+            if self._monitored:
+                msg.source = Monlist(map(Monpair, sorted_source))
+            else:
+                msg.source = sorted_source
+
+        sorted_messages = sorted(self._messages,
+                                 key=lambda m: [(s[0].lower(), s[1])
+                                                for s in m.source[:1]])
+
+        any_moved = False
+        for i in range(len(self._messages)):
+            if sorted_messages[i] is not self._messages[i]:
+                any_moved = True
+                break
+        if any_moved:
+            self._messages = sorted_messages
+            self.sync_map()
 
