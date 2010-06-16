@@ -176,7 +176,9 @@ class Project (object):
             "hook_on_scatter_file" : [],
             "hook_on_scatter_branch": [],
             "hook_on_gather_msg" : [],
+            "hook_on_gather_msg_branch" : [],
             "hook_on_gather_cat" : [],
+            "hook_on_gather_cat_branch" : [],
             "hook_on_gather_file" : [],
             "hook_on_gather_file_branch" : [],
             "hook_on_merge_msg" : [],
@@ -1328,15 +1330,20 @@ def summit_gather_single (summit_name, project, options,
                 if tmp_path: # as soon as catalog is opened, no longer needed
                     os.unlink(tmp_path)
 
+                # Apply hooks to branch catalog.
+                if project.hook_on_gather_cat_branch:
+                    exec_hook_cat(branch_id, branch_name, subdir, branch_cat,
+                                  project.hook_on_gather_cat_branch)
+                    branch_cat.sync_map()
+
                 # Apply hooks to all branch catalog messages here,
                 # as they may modify message keys.
-                if project.hook_on_gather_msg:
+                if project.hook_on_gather_msg_branch:
                     for msg in branch_cat:
                         update_progress()
                         exec_hook_msg(branch_id, branch_name, subdir,
                                       msg, branch_cat,
-                                      project.hook_on_gather_msg)
-                    # Sync only message map, do not write catalog on disk.
+                                      project.hook_on_gather_msg_branch)
                     branch_cat.sync_map()
 
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
@@ -1385,6 +1392,12 @@ def summit_gather_single (summit_name, project, options,
 
     # Update the summit header.
     summit_gather_single_header(summit_cat, prim_branch_cat, project, options)
+
+    # Apply hooks to the summit messages.
+    if project.hook_on_gather_msg:
+        for msg in summit_cat:
+            exec_hook_msg(SUMMIT_ID, summit_cat.name, summit_subdir,
+                          msg, summit_cat, project.hook_on_gather_msg)
 
     # Apply hooks to the summit catalog.
     exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_subdir, summit_cat,
@@ -1807,11 +1820,11 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         # it must be used here to prepare branch message for lookup
         # in summit catalog, as the hook may modify the key.
         branch_msg_lkp = branch_msg
-        if project.hook_on_gather_msg:
+        if project.hook_on_gather_msg_branch:
             branch_msg_lkp = MessageUnsafe(branch_msg)
             exec_hook_msg(branch_id, branch_name, branch_subdir,
                           branch_msg_lkp, branch_cat,
-                          project.hook_on_gather_msg)
+                          project.hook_on_gather_msg_branch)
 
         # Construct branch message for lookup with extended key.
         branch_xkmsg_lkp = extkey_msg(branch_msg_lkp)
