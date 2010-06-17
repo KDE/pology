@@ -1612,3 +1612,114 @@ def editprob (oldtext, newtext):
 
     return ep
 
+
+def descprob (descpath, ancpath, cutoff=None):
+    """
+    Compute the probability that one PO file is a descendant of another.
+
+    Sometimes PO files are renamed, split into two, joined into one,
+    also with possible small changes in messages between old and new set.
+    This functions uses some heuristics to derive the probability
+    that the PO file given by C{apath} is an ancestor of the PO file
+    given by C{dpath}.
+    If the probability cannot be determined (for whatever reason,
+    e.g. if the file contains syntax errors), C{None} is returned.
+
+    By default, only equality versus non-equality of messages is
+    taken into consideration. If C{cutoff} is set to a number 0.0-1.0,
+    then fuzzy matching is performed, and partial similarities greater
+    than the cutoff are counted into the final probability.
+    However, this reduces performance by orders of magnitude
+    (the more the lower the cutoff; 0.7-0.8 may be a reasonable tradeoff).
+
+    @param descpath: path to possible descendent PO file
+    @type descpath: string
+    @param ancpath: path to possible ancestor PO file
+    @type ancpath: string
+
+    @returns: the probability of ancestry [0, 1]
+    @rtype: float or C{None}
+    """
+
+    # Read representative texts of messages.
+    # Ignore non-unique texts (contexts may have been stripped).
+    dtexts = set(_read_msg_texts(descpath))
+    atexts = set(_read_msg_texts(ancpath))
+
+    # Count how many texts from descendant are in ancestor too.
+    # This gives basic probability.
+    neq = len(dtexts.intersection(atexts))
+    prob = float(neq) / len(dtexts)
+
+    # For each text in descendant not found in ancestor,
+    # sum similarity ratios to nearest text in ancestor,
+    # and add to the probability.
+    if cutoff is not None:
+        sumsim = 0.0
+        for dt in dtexts.difference(atexts):
+            seqm = SequenceMatcher()
+            seqm.set_seq2(dt)
+            maxsim = 0.0
+            for at in atexts:
+                seqm.set_seq1(at)
+                sim = seqm.real_quick_ratio()
+                if sim > cutoff:
+                    sim = seqm.quick_ratio()
+                    if sim > cutoff:
+                        sim = seqm.ratio()
+                        if sim > cutoff:
+                            maxsim = max(maxsim, sim)
+            sumsim += maxsim
+        prob += sumsim / len(dtexts)
+
+    # Correct probability for small files.
+    limtotchar1 = 60 # e.g. 3 messages with 2 words (12 characters) each
+    limtotchar2 = 240 # e.g. 10 messages with 4 words (24 characters) each
+    dtotchar = sum(len(t) for t in dtexts)
+    atotchar = sum(len(t) for t in atexts)
+    mintotchar = min(dtotchar, atotchar)
+    maxtotchar = max(dtotchar, atotchar)
+    if mintotchar < limtotchar1:
+        prob *= float(mintotchar) / maxtotchar
+    elif mintotchar < limtotchar2:
+        prob = prob**4
+
+    return prob
+
+
+def _read_msg_texts (path):
+
+    # NOTE: This function needs to be as fast as possible,
+    # so instead of using file.Catalog, the file is manually parsed
+    # to the necessary minimum.
+    # It is more important to be fast than correct,
+    # so parsing ignores some valid but highly unusual PO formatting.
+
+    # NOTE: Intentionally ignoring: file encoding, escaping, msgctxt.
+
+    try:
+        lines = open(path).readlines()
+    except:
+        raise PologyError(
+            _("@info",
+              "Cannot read file '%(file)s'.")
+            % dict(file=path))
+
+    msgids = []
+    inmsgid = False
+    for line in lines:
+        line = line.strip()
+        if line.startswith("msgid "):
+            segs = []
+            line = line[5:].strip()
+            inmsgid = True
+        elif not line.startswith("\""):
+            if inmsgid:
+                msgid = "".join(segs)
+                msgids.append(msgid)
+                inmsgid = False
+        if inmsgid:
+            segs.append(line[1:-1]) # strip quotes
+
+    return msgids
+
