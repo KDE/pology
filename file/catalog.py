@@ -722,6 +722,43 @@ class Catalog (Monitored):
         return msg.key in self._msgpos
 
 
+    def __eq__ (self, ocat):
+        """
+        Whether two catalogs are equal in all apparent parts.
+
+        Catalogs are considered equal if they are of the same length,
+        their headers are equal, and each two messages with the
+        same position are equal.
+
+        Runtime complexity O(n).
+
+        @returns: C{True} if catalogs are equal
+        @rtype: bool
+        """
+
+        if len(self) != len(ocat):
+            return False
+        if self.header != ocat.header:
+            return False
+        for i in range(len(ocat)):
+            if self[i] != ocat[i]:
+                return False
+        return True
+
+
+    def __ne__ (self, ocat):
+        """
+        Whether two catalogs are equal in all apparent parts.
+
+        Equivalent to C{not (self == ocat)}.
+
+        @returns: C{False} if catalogs are equal
+        @rtype: bool
+        """
+
+        return not self.__eq__(ocat)
+
+
     def find (self, msg, wobs=True):
         """
         Position of the message in the catalog.

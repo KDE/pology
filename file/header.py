@@ -260,6 +260,19 @@ class Header (Monitored):
         return self.to_msg() == ohdr.to_msg()
 
 
+    def __ne__ (self, ohdr):
+        """
+        Reports wheter headers are not equal in some apparent parts.
+
+        Equivalent to C{not (self == ohdr)}.
+
+        @returns: C{False} if headers are equal in all apparent parts
+        @rtype: bool
+        """
+
+        return not self.__eq__(ohdr)
+
+
     def to_msg (self, force=False):
         """
         Convert the header into ordinary message object.
