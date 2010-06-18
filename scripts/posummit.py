@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import copy
 from difflib import SequenceMatcher
 import filecmp
 import hashlib
@@ -120,7 +121,36 @@ def main ():
     project = Project(options)
     project.include(options.fproj)
 
-    # Derive some project data.
+    # In summit-over-dynamic-templates mode, derive special project data
+    # for implicitly gathering templates on merge.
+    if project.templates_dynamic and "merge" in options.modes:
+        project.toptions = copy.copy(options)
+        project.toptions.modes = ["gather"]
+        project.toptions.lang = project.templates_lang
+        project.toptions.create = True
+        project.toptions.force = True
+        project.toptions.quiet = True
+        project.tproject = Project(project.toptions)
+        project.tproject.include(project.toptions.fproj)
+        project.tproject.templates_dynamic = False
+        project.tproject.version_control = "none"
+        tpd = project.tproject.summit.get("topdir_templates")
+        if tpd is not None:
+            project.tproject.summit["topdir"] = tpd
+        project.tproject = derive_project_data(project.tproject,
+                                               project.toptions)
+
+    # Explicit gathering in summit-over-dynamic-templates mode
+    # may be useful to check if gathering works.
+    # Make some adjustments for this to go smoothly.
+    if (    project.templates_dynamic and "gather" in options.modes
+        and options.lang == project.templates_lang
+    ):
+        options.create = True
+        project.summit["topdir"] = project.summit["topdir_templates"]
+        project.version_control = "none"
+
+    # Derive project data.
     project = derive_project_data(project, options)
 
     # Collect partial processing specs and inclusion-exclusion test.
@@ -160,6 +190,7 @@ class Project (object):
             "mappings" : [],
 
             "templates_lang" : "",
+            "templates_dynamic" : False,
 
             "summit_wrap" : False,
             "summit_fine_wrap" : True,
@@ -273,6 +304,12 @@ def derive_project_data (project, options):
 
     p = project # shortcut
 
+    # Assert that summit mode is properly specified.
+    if p.templates_dynamic and not p.templates_lang:
+        error(_("@info",
+                "Summit configuration declares dynamic-templates mode, "
+                "but does not declare dummy templates language name."))
+
     # Create summit object from summit dictionary.
     class Summit: pass
     s = Summit()
@@ -382,18 +419,18 @@ def derive_project_data (project, options):
 
     # Decide the extension of catalogs.
     if p.templates_lang and options.lang == p.templates_lang:
-        options.catext = ".pot"
+        catext = ".pot"
     else:
-        options.catext = ".po"
+        catext = ".po"
 
     # Collect catalogs from branches.
     p.catalogs = {}
     for b in p.branches:
-        p.catalogs[b.id] = collect_catalogs(b.topdir, options.catext,
+        p.catalogs[b.id] = collect_catalogs(b.topdir, catext,
                                             b.by_lang, b.ignored,
                                             project, options)
     # ...and from the summit.
-    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, options.catext,
+    p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, catext,
                                              None, None, project, options)
 
     # Resolve ascription filter.
@@ -436,8 +473,8 @@ def derive_project_data (project, options):
                     "%(filelist)s")
                   % dict(name=name, filelist=fstr))
 
-    # At scatter in template-summit mode, add to the collection of branch
-    # catalogs any that should be newly created.
+    # At scatter in summit-over-templates mode, add to the collection of
+    # branch catalogs any that should be newly created.
     p.add_on_scatter = {}
     if (    p.templates_lang and options.lang != p.templates_lang
         and "scatter" in options.modes):
@@ -532,7 +569,7 @@ def derive_project_data (project, options):
                                 p.add_on_scatter[path] = template[0]
 
 
-    # At merge in template-summit mode,
+    # At merge in summit-over-templates mode,
     # if automatic vivification of summit catalogs requested,
     # add to the collection of summit catalogs any that should be created.
     p.add_on_merge = {}
@@ -540,9 +577,12 @@ def derive_project_data (project, options):
         and "merge" in options.modes and (p.vivify_on_merge or options.create)
     ):
         # Collect all summit templates.
-        summit_templates = collect_catalogs(p.summit.topdir_templates,
-                                            ".pot", False, None,
-                                            project, options)
+        if not p.templates_dynamic:
+            summit_templates = collect_catalogs(p.summit.topdir_templates,
+                                                ".pot", False, None,
+                                                project, options)
+        else:
+            summit_templates = p.tproject.catalogs[SUMMIT_ID]
 
         # Go through all summit templates, recording missing summit catalogs.
         for name, spec in summit_templates.iteritems():
@@ -599,7 +639,7 @@ def derive_project_data (project, options):
                     if p.bdict[branch_id].by_lang:
                         summit_subdir = os.path.dirname(summit_subdir)
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
-                                            summit_name + options.catext)
+                                            summit_name + catext)
 
                     # Add missing summit catalog if the mode is gather
                     # and creation is enabled.
@@ -821,11 +861,20 @@ def summit_gather (project, options):
         and not options.force):
         error(_("@info",
                 "Gathering possible only on '%(lang1)s' "
-                "in template summit mode. "
+                "in summit-over-templates mode. "
                 "If this is the very creation of the '%(lang2)s' summit, "
                 "run with options %(opts)s.")
               % dict(lang1=project.templates_lang, lang2=options.lang,
                      opts="--create --force"))
+    elif (    project.templates_dynamic
+          and options.lang == project.templates_lang and not options.force):
+        warning(_("@info",
+                  "Gathering on '%(lang)s' is superfluous in "
+                  "summit-over-dynamic-templates mode. "
+                  "If this is done to check whether gathering works, "
+                  "to supress this message run with option %(opt)s.")
+                % dict(lang=project.templates_lang,
+                       opt="--force"))
 
     # Collect names of summit catalogs to gather.
     summit_names = select_summit_names(project, options)
@@ -855,7 +904,7 @@ def summit_scatter (project, options):
     if project.templates_lang and options.lang == project.templates_lang:
         error(_("@info",
                 "Scattering not possible on '%(lang)s' "
-                "in template summit mode.")
+                "in summit-over-templates mode.")
               % dict(lang=project.templates_lang))
 
     scatter_specs = []
@@ -931,7 +980,8 @@ def summit_merge (project, options):
 
     if project.templates_lang and options.lang == project.templates_lang:
         error(_("@info",
-                "Merging not possible on '%(lang)s' in template summit mode.")
+                "Merging not possible on '%(lang)s' in "
+                "summit-over-templates mode.")
               % dict(lang=project.templates_lang))
 
     merge_specs = []
@@ -942,7 +992,7 @@ def summit_merge (project, options):
     else:
         branch_ids = options.partbids
 
-    # Merge template summit selected and exists.
+    # Setup merging in summit.
     if SUMMIT_ID in branch_ids and project.summit.topdir_templates:
         branch_ids.remove(SUMMIT_ID)
 
@@ -950,9 +1000,12 @@ def summit_merge (project, options):
         summit_names = select_summit_names(project, options)
 
         # Collect template catalogs to use.
-        template_catalogs = collect_catalogs(project.summit.topdir_templates,
-                                             ".pot", None, None,
-                                             project, options)
+        if not project.templates_dynamic:
+            template_catalogs = collect_catalogs(project.summit.topdir_templates,
+                                                 ".pot", None, None,
+                                                 project, options)
+        else:
+            template_catalogs = project.tproject.catalogs[SUMMIT_ID]
 
         # Collect data for summit catalogs to merge.
         for name in summit_names:
@@ -968,7 +1021,7 @@ def summit_merge (project, options):
                                 project.summit_wrapping,
                                 project.summit_fuzzy_merging))
 
-    # Merge selected branches.
+    # Setup merging in branches.
     for branch_id in branch_ids:
         branch = project.bdict[branch_id]
 
@@ -1028,6 +1081,10 @@ def summit_merge (project, options):
         upprogc = lambda: upprog(catpath)
         summit_merge_single(*(merge_spec + (project, options, upprogc)))
     upprog()
+
+    # Remove template tree in summit-over-dynamic-templates mode.
+    if project.templates_dynamic:
+        shutil.rmtree(project.tproject.summit.topdir)
 
 
 def select_branch_catalogs (branch_id, project, options):
@@ -1362,6 +1419,16 @@ def summit_gather_single (summit_name, project, options,
                                       fresh_cat, dep_summit_cats,
                                       project, options, update_progress)
 
+    # Apply hooks to the summit messages.
+    if project.hook_on_gather_msg:
+        for msg in fresh_cat:
+            exec_hook_msg(SUMMIT_ID, fresh_cat.name, summit_subdir,
+                          msg, fresh_cat, project.hook_on_gather_msg)
+
+    # Apply hooks to the summit catalog.
+    exec_hook_cat(SUMMIT_ID, fresh_cat.name, summit_subdir, fresh_cat,
+                  project.hook_on_gather_cat)
+
     # If phony-gather, stop here and return fresh catalog for reference.
     if phony:
         return fresh_cat
@@ -1392,16 +1459,6 @@ def summit_gather_single (summit_name, project, options,
 
     # Update the summit header.
     summit_gather_single_header(summit_cat, prim_branch_cat, project, options)
-
-    # Apply hooks to the summit messages.
-    if project.hook_on_gather_msg:
-        for msg in summit_cat:
-            exec_hook_msg(SUMMIT_ID, summit_cat.name, summit_subdir,
-                          msg, summit_cat, project.hook_on_gather_msg)
-
-    # Apply hooks to the summit catalog.
-    exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_subdir, summit_cat,
-                  project.hook_on_gather_cat)
 
     # Sync to disk.
     if summit_cat.sync():
@@ -2235,17 +2292,21 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
 
     update_progress()
 
+    # Gather the summit template in summit-over-dynamic-templates mode.
+    if project.templates_dynamic and branch_id == SUMMIT_ID:
+        summit_gather_single(catalog_name, project.tproject, project.toptions,
+                             update_progress=update_progress)
+
     # FIXME: Portable construction of temporary file.
-    tmp_dir = os.path.join("/tmp", "summit-merge-%d" % os.getpid())
-    mkdirpath(tmp_dir)
-    tmp_path = os.path.join(tmp_dir, os.path.basename(catalog_path))
+    tmp_path = os.path.join("/tmp", (  os.path.basename(catalog_path)
+                                     + "~merged-%d" % os.getpid()))
 
     # Whether to create pristine catalog from template.
     vivified = catalog_path in project.add_on_merge
 
     # Skip calling msgmerge if template creation dates are equal.
     do_msgmerge = True
-    if not vivified and not options.force:
+    if not vivified and not options.force and not project.templates_dynamic:
         hdr = Catalog(catalog_path, monitored=False, headonly=True).header
         thdr = Catalog(template_path, monitored=False, headonly=True).header
         fname = "POT-Creation-Date"
@@ -2295,13 +2356,21 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 shutil.copyfile(template_path, tmp_path)
 
         getcat = do_open and not headonly
+        ignpotdate = project.templates_dynamic
         cat = merge_pofile(catalog_path_mod, template_path, outpath=tmp_path,
                            wrapping=wrapping, fuzzymatch=fuzzy_merging,
                            minasfz=minasfz, refuzzy=refuzzy,
                            cmppaths=cmppaths, fuzzex=fuzzex, minwnex=minwnex,
                            getcat=getcat, monitored=monitored,
-                           quiet=True, abort=True)
-        if not getcat:
+                           ignpotdate=ignpotdate,
+                           quiet=True, abort=False)
+        if not cat:
+            warning(_("@info",
+                      "Catalog '%(file1)s' not merged with "
+                      "template '%(file2)s' due to errors on merging.")
+                    % dict(file1=catalog_path_mod, file2=template_path))
+            return
+        elif not getcat:
             # Catalog not requested, so the return value is True
             # indicating that the merge succedded.
             cat = None
@@ -2436,12 +2505,13 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                 report(".+   %s" % catalog_path)
             else:
                 report(".    %s" % catalog_path)
-    else:
-        # Remove the temporary merged catalog.
-        os.unlink(tmp_path)
+
+    # Remove the temporary merged catalog.
+    if os.path.exists(tmp_path):
+        os.remove(tmp_path)
 
 
-# FIXME: Export as library function, used by poediff too.
+# FIXME: Export as library function (method of Catalog?), used by poediff too.
 # For each source file mentioned in the test catalog, if it is not mentioned
 # in any of the other catalogs, check for any different, but possibly only
 # renamed/moved source files from the other catalogs (if the these contain
