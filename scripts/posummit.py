@@ -65,7 +65,7 @@ def main ():
                "Apply a non-default ascription filter on scatter."))
     opars.add_option(
         "--create",
-        action="store_true", dest="do_create", default=False,
+        action="store_true", dest="create", default=False,
         help=_("@info command line option description",
                "Allow creation of new summit catalogs."))
     opars.add_option(
@@ -537,7 +537,7 @@ def derive_project_data (project, options):
     # add to the collection of summit catalogs any that should be created.
     p.add_on_merge = {}
     if (    p.templates_lang and options.lang != p.templates_lang
-        and "merge" in options.modes and p.vivify_on_merge
+        and "merge" in options.modes and (p.vivify_on_merge or options.create)
     ):
         # Collect all summit templates.
         summit_templates = collect_catalogs(p.summit.topdir_templates,
@@ -606,7 +606,7 @@ def derive_project_data (project, options):
                     # Record missing summit catalogs as halting the operation
                     # if the mode is gather and creation is not enabled.
                     if "gather" in options.modes:
-                        if not options.do_create:
+                        if not options.create:
                             halting_pairs.append((branch_path, summit_path))
 
                         # Add summit catalog into list of existing catalogs;
