@@ -419,10 +419,19 @@ class Message_base (object):
         @rtype: bool
         """
 
-        if type(self) != type(omsg):
-            omsg = type(self)(omsg)
+        # Make messages the same type.
+        # NOTE: All this instead of just omsg = type(self)(omsg)
+        # for the sake of performance.
+        if not isinstance(omsg, Message_base):
+            omsg = MessageUnsafe(omsg)
+        msg = self
+        if isinstance(self, Message) and isinstance(omsg, MessageUnsafe):
+            msg = MessageUnsafe(msg)
+        elif isinstance(self, MessageUnsafe) and isinstance(omsg, Message):
+            omsg = MessageUnsafe(omsg)
+
         for field in _Message_all_fields:
-            if self.get(field) != omsg.get(field):
+            if msg.get(field) != omsg.get(field):
                 return False
 
         return True
