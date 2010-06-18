@@ -190,8 +190,12 @@ def mkdirpath (dirpath):
 
     @param dirpath: the directory path to create
     @type dirpath: string
+
+    @returns: the path of topmost created directory, if any
+    @rtype: string or C{None}
     """
 
+    toppath = None
     incpath = ""
     for subdir in os.path.normpath(dirpath).split(os.path.sep):
         if not subdir:
@@ -199,6 +203,9 @@ def mkdirpath (dirpath):
         incpath = os.path.join(incpath, subdir)
         if not os.path.isdir(incpath):
             os.mkdir(incpath)
+            if toppath is None:
+                toppath = incpath
+    return toppath
 
 
 def system_wd (cmdline, wdir):
