@@ -23,7 +23,7 @@ def merge_pofile (catpath, tplpath,
                   fuzzymatch=True, cmppaths=None, quiet=False,
                   fuzzex=False, minwnex=0, minasfz=0.0, refuzzy=False,
                   getcat=False, monitored=True,
-                  abort=False):
+                  ignpotdate=False, abort=False):
     """
     Merge a PO file with the PO template.
 
@@ -87,6 +87,9 @@ def merge_pofile (catpath, tplpath,
     @param monitored: if C{getcat} is in effect, whether to open catalog
         in monitoring mode (like the parameter to catalog constructor)
     @type monitored: bool
+    @param ignpotdate: whether to ignore changed C{POT-Creation-Date}
+        if there were no other changes, resetting it to original value
+    @type ignpotdate: bool
     @param abort: whether to abort execution if C{msgmerge} fails
     @type abort: bool
 
@@ -100,6 +103,11 @@ def merge_pofile (catpath, tplpath,
     else:
         wrap = True
         otherwrap = False
+
+    # Store original catalog if change in template creation date
+    # alone should be ignored, for check at the end.
+    if ignpotdate:
+        orig_cat = Catalog(catpath, monitored=False)
 
     # Determine which special operations are to be done.
     correct_exact_matches = cmppaths and (fuzzex or minwnex > 0)
@@ -189,7 +197,9 @@ def merge_pofile (catpath, tplpath,
         shutil.copyfile(outpath, catpath)
 
     # Post-process merged catalog if necessary.
-    if getcat or otherwrap or correct_exact_matches or correct_fuzzy_matches:
+    if (   getcat or otherwrap or correct_exact_matches
+        or correct_fuzzy_matches or ignpotdate
+    ):
         # If fine wrapping requested and catalog should not be returned,
         # everything has to be reformatted, so no need to monitor the catalog.
         catpath1 = outpath or catpath
@@ -211,6 +221,15 @@ def merge_pofile (catpath, tplpath,
                 if msg.fuzzy and msg.msgid_previous is not None:
                     if editprob(msg.msgid_previous, msg.msgid) < minasfz:
                         msg.clear()
+
+        # Revert template creation date change if it was the only change.
+        if ignpotdate:
+            fname = "POT-Creation-Date"
+            orig_potdate = orig_cat.header.get_field_value(fname)
+            new_potdate = cat.header.get_field_value(fname)
+            cat.header.replace_field_value(fname, orig_potdate)
+            if cat != orig_cat:
+                cat.header.replace_field_value(fname, new_potdate)
 
         if not getcat:
             cat.sync(force=otherwrap)
