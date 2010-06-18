@@ -419,6 +419,8 @@ class Message_base (object):
         @rtype: bool
         """
 
+        if type(self) != type(omsg):
+            omsg = type(self)(omsg)
         for field in _Message_all_fields:
             if self.get(field) != omsg.get(field):
                 return False
