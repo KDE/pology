@@ -12,6 +12,7 @@ import os
 import re
 import shutil
 import sys
+import time
 
 import fallback_import_paths
 
