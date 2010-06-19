@@ -242,8 +242,7 @@ class Header (Monitored):
                 m.msgstr[0] += "%s: %s\n" % tuple(field)
 
         if force or self.modcount:
-            if m.fuzzy and self.initialized:
-                m.fuzzy = False
+            m.fuzzy = not self.initialized
 
 
     def __eq__ (self, ohdr):
