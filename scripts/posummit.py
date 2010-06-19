@@ -12,7 +12,6 @@ import os
 import re
 import shutil
 import sys
-import time
 
 import fallback_import_paths
 
@@ -134,11 +133,16 @@ def main ():
         project.tproject.include(project.toptions.fproj)
         project.tproject.templates_dynamic = False
         project.tproject.version_control = "none"
+        project.tproject.summit_wrap = False # performance
+        project.tproject.summit_fine_wrap = False # performance
         tpd = project.tproject.summit.get("topdir_templates")
-        if tpd is not None:
-            project.tproject.summit["topdir"] = tpd
+        if tpd is None:
+            # FIXME: Portability.
+            tpd = "/tmp/summit-templates-%d" % os.getpid()
+        project.tproject.summit["topdir"] = tpd
         project.tproject = derive_project_data(project.tproject,
                                                project.toptions)
+        project.summit["topdir_templates"] = tpd
 
     # Explicit gathering in summit-over-dynamic-templates mode
     # may be useful to check if gathering works.
@@ -1289,8 +1293,15 @@ def summit_gather_single (summit_name, project, options,
     summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
     summit_subdir = project.catalogs[SUMMIT_ID][summit_name][0][1]
 
-    fresh_cat = Catalog("", wrapping=project.summit_wrapping, create=True)
-    fresh_cat.filename = summit_path
+    update_from_old = (    os.path.exists(summit_path)
+                       and not project.templates_dynamic)
+
+    # Do not overwrite the old summit catalog here if it exists,
+    # as it will be needed for comparison later.
+    monitored = update_from_old
+    summit_cat = Catalog("", monitored=monitored,
+                         wrapping=project.summit_wrapping, create=True)
+    summit_cat.filename = summit_path
 
     # Collect branches in which this summit catalog has corresponding
     # branch catalogs, in order of branch priority.
@@ -1329,7 +1340,7 @@ def summit_gather_single (summit_name, project, options,
                 report("-    %s" % summit_path)
 
         # Skip the rest, nothing to gather.
-        return fresh_cat
+        return summit_cat
 
     # Open all corresponding branch catalogs.
     # For each branch catalog, also phony-gather any dependent summit
@@ -1409,59 +1420,69 @@ def summit_gather_single (summit_name, project, options,
     prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
 
     # Gather messages through branch catalogs.
-    # Add summit messages to a fresh catalog, such that if no
-    # summit messages were changed by themselves, but their order changed,
-    # the fresh catalog will still replace the original.
     for branch_id in src_branch_ids:
         for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
             summit_gather_single_bcat(branch_id, branch_cat, is_primary,
-                                      fresh_cat, dep_summit_cats,
+                                      summit_cat, monitored, dep_summit_cats,
                                       project, options, update_progress)
+
+    # Gather the summit header according to primary branch.
+    summit_gather_single_header(summit_cat, prim_branch_cat, project, options)
 
     # Apply hooks to the summit messages.
     if project.hook_on_gather_msg:
-        for msg in fresh_cat:
-            exec_hook_msg(SUMMIT_ID, fresh_cat.name, summit_subdir,
-                          msg, fresh_cat, project.hook_on_gather_msg)
+        for msg in summit_cat:
+            exec_hook_msg(SUMMIT_ID, summit_cat.name, summit_subdir,
+                          msg, summit_cat, project.hook_on_gather_msg)
 
     # Apply hooks to the summit catalog.
-    exec_hook_cat(SUMMIT_ID, fresh_cat.name, summit_subdir, fresh_cat,
+    exec_hook_cat(SUMMIT_ID, summit_cat.name, summit_subdir, summit_cat,
                   project.hook_on_gather_cat)
 
-    # If phony-gather, stop here and return fresh catalog for reference.
+    # If phony-gather, stop here and return summit catalog for reference.
     if phony:
-        return fresh_cat
+        return summit_cat
 
-    # If there were any modified messages, or their order changed,
-    # replace the original with the fresh catalog.
-    summit_cat = Catalog(summit_path, wrapping=project.summit_wrapping,
-                         create=True)
-    summit_created = summit_cat.created() # preserve created state
-    replace = False
-    for pos in range(len(fresh_cat)):
-        update_progress()
-        old_pos = summit_cat.find(fresh_cat[pos])
-        if pos != old_pos:
+    # If the old summit catalog exists, compare with the new.
+    # If there were any modified entries, or their order changed,
+    # replace the old with the new summit catalog.
+    # Copy over unmodified entries from the old catalog,
+    # to avoid line reformatting.
+    if update_from_old:
+        old_cat = Catalog(summit_path, monitored=monitored,
+                          wrapping=project.summit_wrapping)
+        summit_created = False
+        replace = False
+        # Compare headers without some insignificant fields.
+        if cmpnorm_hdr(summit_cat.header) == cmpnorm_hdr(old_cat.header):
+            summit_cat.header = old_cat.header
+        else:
             replace = True
-        if old_pos >= 0:
-            if fresh_cat[pos] != summit_cat[old_pos]:
+        # Compare messages and their positions.
+        for pos in range(len(summit_cat)):
+            update_progress()
+            old_pos = old_cat.find(summit_cat[pos])
+            if pos != old_pos:
                 replace = True
-            else:
-                # Replace newly gathered with old message,
-                # to avoid reformatting.
-                fresh_cat[pos] = summit_cat[old_pos]
+            if old_pos >= 0:
+                if summit_cat[pos] == old_cat[old_pos]:
+                    summit_cat[pos] = old_cat[old_pos]
+                else:
+                    replace = True
+    else:
+        summit_created = True
+        replace = True
+
     if replace:
-        # Set path and header to that of the original.
-        fresh_cat.filename = summit_path
-        fresh_cat.header = summit_cat.header
-        summit_cat = fresh_cat
+        # Set template creation date for the summit catalog
+        # to the current date.
+        # Do not try to trust branch template creation dates,
+        # e.g. by copying the latest one.
+        summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
 
-    # Update the summit header.
-    summit_gather_single_header(summit_cat, prim_branch_cat, project, options)
-
-    # Sync to disk.
-    if summit_cat.sync():
+        # Sync to disk.
+        summit_cat.sync()
 
         # Apply hooks to summit catalog file.
         exec_hook_file(SUMMIT_ID, summit_cat.name, summit_subdir,
@@ -1505,6 +1526,16 @@ def summit_gather_single (summit_name, project, options,
     return summit_cat
 
 
+def cmpnorm_hdr (hdr):
+
+    rhdr = Header(hdr)
+    for field in (
+        "POT-Creation-Date",
+    ):
+        rhdr.remove_field(field)
+    return rhdr
+
+
 def extkey_msg (msg):
 
     # NOTE: If computation of context pad is modified,
@@ -1531,8 +1562,10 @@ def extkey_msg (msg):
 
 
 def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
-                               summit_cat, dep_summit_cats,
+                               summit_cat, monitored, dep_summit_cats,
                                project, options, update_progress):
+
+    MessageType = (Message if monitored else MessageUnsafe)
 
     # Go through messages in the branch catalog, merging them with
     # existing summit messages, or collecting for later insertion.
@@ -1625,7 +1658,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
         summit_msg_by_msg = {}
         for msg in msgs_to_insert:
             update_progress()
-            summit_msg = Message(msg)
+            summit_msg = MessageType(msg)
             summit_set_tags(summit_msg, branch_id, project)
             summit_msg_by_msg[msg] = summit_msg
 
@@ -1789,11 +1822,6 @@ def gather_merge_msg (summit_msg, msg):
 def summit_gather_single_header (summit_cat, prim_branch_cat,
                                  project, options):
 
-    # Update template creation date
-    # if there were any changes to the catalog otherwise.
-    if summit_cat.modcount:
-        summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
-
     # Copy over comments from the primary branch catalog.
     hdr = summit_cat.header
     bhdr = prim_branch_cat.header
@@ -1805,8 +1833,6 @@ def summit_gather_single_header (summit_cat, prim_branch_cat,
 
     # Copy over standard fields from the primary branch catalog.
     for fname in [x[0] for x in Header().field]:
-        if fname == "POT-Creation-Date":
-            continue # handled specially above
         fvalue = prim_branch_cat.header.get_field_value(fname)
         if fvalue is not None:
             summit_cat.header.set_field(fname, fvalue)
@@ -2306,7 +2332,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
 
     # Skip calling msgmerge if template creation dates are equal.
     do_msgmerge = True
-    if not vivified and not options.force and not project.templates_dynamic:
+    if not vivified and not project.templates_dynamic and not options.force:
         hdr = Catalog(catalog_path, monitored=False, headonly=True).header
         thdr = Catalog(template_path, monitored=False, headonly=True).header
         fname = "POT-Creation-Date"
