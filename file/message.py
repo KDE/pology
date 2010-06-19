@@ -663,7 +663,7 @@ class Message_base (object):
         return True
 
 
-    def clear (self, keepmanc=False):
+    def clear (self, keepmanc=False, msgstrlen=None):
         """
         Revert message to pristine untranslated state.
 
@@ -672,6 +672,9 @@ class Message_base (object):
 
         @param keepmanc: do not remove manual comments
         @type keepmanc: bool
+        @param msgstrlen: the number of empty msgstr fields;
+            if C{None}, the existing number of fields is preserved
+        @type msgstrlen: int
         """
 
         if not keepmanc:
@@ -680,7 +683,9 @@ class Message_base (object):
         self.msgctxt_previous = None
         self.msgid_previous = None
         self.msgid_plural_previous = None
-        self.msgstr = type(self.msgstr)([u""] * len(self.msgstr))
+        if msgstrlen is None:
+            msgstrlen = len(self.msgstr)
+        self.msgstr = type(self.msgstr)([u""] * msgstrlen)
 
 
     def state (self):
