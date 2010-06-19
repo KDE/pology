@@ -487,21 +487,14 @@ def collect_configs_catpaths (catpaths):
             catpaths_by_cfgpath[cfgpath] = []
         catpaths = catpaths_by_cfgpath.get(cfgpath)
 
-        # Determine path of ascription catalog.
-        # Pack as (catpath, acatpath) tuple.
-        absrootpath = os.path.abspath(config.catroot)
-        lenarpath = len(absrootpath)
-        lenarpathws = lenarpath + len(os.path.sep)
-        abscatpath = os.path.abspath(catpath)
-        p = abscatpath.find(absrootpath)
-        if p != 0 or abscatpath[lenarpath:lenarpathws] != os.path.sep:
-            error(_("@info",
-                    "Catalog '%(file1)s' not in the root given "
-                    "by configuration '%(file2)s'.")
-                  % dict(file1=catpath, file2=cfgpath))
-        acatpath = join_ncwd(config.ascroot, abscatpath[lenarpathws:])
-        catpath = join_ncwd(catpath)
-        catpaths.append((catpath, acatpath))
+        # If this catalog is under ascription,
+        # determine path to ascription catalog.
+        # Ignore it otherwise.
+        relcatpath = relpath(catpath, config.catroot)
+        if relcatpath is not None:
+            acatpath = join_ncwd(config.ascroot, relcatpath)
+            catpath = join_ncwd(catpath)
+            catpaths.append((catpath, acatpath))
 
     # Link config objects and catalog paths.
     configs_catpaths = []
@@ -509,6 +502,19 @@ def collect_configs_catpaths (catpaths):
         configs_catpaths.append((config, catpaths_by_cfgpath[cfgpath]))
 
     return configs_catpaths
+
+
+def relpath (path, dirpath):
+
+    absdirpath = os.path.abspath(dirpath)
+    lenadpath = len(absdirpath)
+    lenadpathws = lenadpath + len(os.path.sep)
+    abspath = os.path.abspath(path)
+    p = abspath.find(absdirpath)
+    if p == 0 and abspath[lenadpath:lenadpathws] == os.path.sep:
+        return abspath[lenadpathws:]
+    else:
+        return None
 
 
 def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
