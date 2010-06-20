@@ -1646,6 +1646,11 @@ def descprob (descpath, ancpath, cutoff=None):
     dtexts = set(_read_msg_texts(descpath))
     atexts = set(_read_msg_texts(ancpath))
 
+    # Make the computation commutative, by always taking
+    # the file with less messages as possible descendant.
+    if len(dtexts) > len(atexts):
+        dtexts, atexts = atexts, dtexts
+
     # Count how many texts from descendant are in ancestor too.
     # This gives basic probability.
     neq = len(dtexts.intersection(atexts))
@@ -1677,11 +1682,9 @@ def descprob (descpath, ancpath, cutoff=None):
     limtotchar2 = 240 # e.g. 10 messages with 4 words (24 characters) each
     dtotchar = sum(len(t) for t in dtexts)
     atotchar = sum(len(t) for t in atexts)
-    mintotchar = min(dtotchar, atotchar)
-    maxtotchar = max(dtotchar, atotchar)
-    if mintotchar < limtotchar1:
-        prob *= float(mintotchar) / maxtotchar
-    elif mintotchar < limtotchar2:
+    if dtotchar < limtotchar1:
+        prob *= float(dtotchar) / atotchar
+    elif dtotchar < limtotchar2:
         prob = prob**4
 
     return prob
