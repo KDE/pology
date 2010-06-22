@@ -744,9 +744,10 @@ class Sieve (object):
         # Indicate conspicuously up front modifiers to counting.
         modstrs = []
         if self.p.branch:
+            fmtbranches = format_item_list(self.p.branch)
             modstrs.append(_("@item:intext",
-                             "branches %(branchlist)s")
-                           % dict(branchlist=" ".join(self.p.branch)))
+                             "branches (%(branchlist)s)")
+                           % dict(branchlist=fmtbranches))
         if self.p.maxwords is not None and self.p.minwords is None:
             modstrs.append(n_("@item:intext",
                               "at most %(num)d word",
@@ -859,7 +860,7 @@ class Sieve (object):
 
         if modstrs:
             report(_("@item:intable",
-                     "(modifiers: %(modlist)s)")
+                     "modifiers: %(modlist)s")
                    % dict(modlist=format_item_list(modstrs)))
 
 
