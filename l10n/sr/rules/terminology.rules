@@ -384,7 +384,7 @@ valid env="kde" msgstr="&\w*reader\S*;"
 id="rename"
 hint="rename = преименовати"
 valid msgstr="\bпреиме[нњ]"
-valid msgstr="\bмења име|промен\w+ имена" # изузеци где је раздвојени облик понекад згоднији
+valid msgstr="\bмењам? име|промен\w+ имена" # изузеци где је раздвојени облик понекад згоднији
 valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
@@ -398,7 +398,7 @@ valid env="kde" msgstr="\bклик[нћ]\w+ десним"
 id="save"
 hint="save = сачувати"
 valid after="power "
-valid before=" (space|time)"
+valid before=" (space|time|up to)"
 valid msgstr="\bсачувати"
 valid msgstr="\bсачува" !msgstr="\bсачував"
 valid !env="kde" msgstr="\bчува([јм]|њ\w+)?\b"
@@ -446,7 +446,7 @@ valid msgstr="\bпрограм"
 id="space"
 hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
-valid span="space\b" before=" (available|required|of|left|information)" msgstr="\bпростор"
+valid span="space\b" before=" (available|required|of|on disk|left|information)" msgstr="\bпростор"
 valid span="space\b" after="(additional|address|all|allocate|clear|config|digital|disk|disc|empty|enough|free|little|memory|more|much|no|occup\w+ |out of|remaining|of|save|screen|storage|some|sufficient|take up|total|unallocated|used|work|I/O)\W?" msgstr="\bпростор"
 # који спадају под посебне појмове:
 valid span="space\b" after="(blank|swap|user|white)\W?"

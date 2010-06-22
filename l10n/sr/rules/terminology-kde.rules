@@ -176,6 +176,7 @@ valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
 valid msgstr="\bнаредб"
 valid msgstr="&\w*command\S*;"
+valid after="pre-?" msgstr="\bпреднаредб" # боље да буде нова одредница
 valid cat="katetextfilter" msgid="textfilter COMMAND"
 valid cat="konqueror" msgid="to the \S*Paste\S* command" msgstr="за \S*налепљивање\S*"
 
