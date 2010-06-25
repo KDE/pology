@@ -53,8 +53,9 @@ def setup_sieve (p):
     "Possible only if catalogs were merged with --previous option."
     "\n\n"
     "By default, unfuzzied messages will get a translator comment with "
-    "the string '%(str)s', so that they can be reviewed later."
-    ) % dict(str="unreviewed-context"))
+    "the string '%(str)s', so that they can be reviewed later.",
+    str="unreviewed-context"
+    ))
 
     p.add_param("noreview", bool, defval=False,
                 desc=_("@info sieve parameter discription",
@@ -133,21 +134,19 @@ class Sieve (object):
     def finalize (self):
 
         if self.nunfuzz > 0:
-            msg = (n_("@info:progress",
-                      "Unfuzzied %(num)d message fuzzy due to "
-                      "difference in context only.",
-                      "Unfuzzied %(num)d messages fuzzy due to "
-                      "difference in context only.",
-                      self.nunfuzz)
-                   % dict(num=self.nunfuzz))
+            msg = n_("@info:progress",
+                     "Unfuzzied %(num)d message fuzzy due to "
+                     "difference in context only.",
+                     "Unfuzzied %(num)d messages fuzzy due to "
+                     "difference in context only.",
+                     num=self.nunfuzz)
             report("===== %s" % msg)
         if self.nrep > 0:
-            msg = (n_("@info:progress",
-                      "Reported %(num)d message due to equality "
-                      "of '%(field)s' field.",
-                      "Reported %(num)d messages due to equality "
-                      "of '%(field)s' field.",
-                      self.nrep)
-                   % dict(num=self.nrep, field="msgid"))
+            msg = n_("@info:progress",
+                     "Reported %(num)d message due to equality "
+                     "of '%(field)s' field.",
+                     "Reported %(num)d messages due to equality "
+                     "of '%(field)s' field.",
+                     num=self.nrep, field="msgid")
             report("===== %s" % msg)
 

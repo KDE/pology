@@ -71,19 +71,16 @@ def main ():
     cfgsec = pology_config.section("porewrap")
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s [options] POFILE...")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Rewrap keyword text fields in PO files."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2007, 2008, 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s [options] POFILE...",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Rewrap keyword text fields in PO files.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2007, 2008, 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -121,8 +118,7 @@ def main ():
     # Rewrap all catalogs.
     for fname in fnames:
         if op.verbose:
-            report(_("@info:progress", "Rewrapping: %(file)s")
-                   % dict(file=fname))
+            report(_("@info:progress", "Rewrapping: %(file)s", file=fname))
         cat = Catalog(fname, monitored=False)
         wrapping = select_field_wrapping(cfgsec, cat, op)
         cat.set_wrapping(wrapping)

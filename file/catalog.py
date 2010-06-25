@@ -222,8 +222,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 # Cannot reach, all unknown comments treated as manual above.
                 raise PologyError(
                     _("@info",
-                      "Unknown comment type at %(file)s:%(line)d.")
-                    % dict(file=filename, line=lno))
+                      "Unknown comment type at %(file)s:%(line)d.",
+                      file=filename, line=lno))
 
         if line and string_follows: # for starting fields
             if 0: pass
@@ -267,8 +267,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                         raise PologyError(
                             _("@info",
                               "Malformed '%(field)s' ordinal "
-                              "at %(file)s:%(line)d.")
-                            % dict(file=filename, line=lno, field="msgstr"))
+                              "at %(file)s:%(line)d.",
+                              file=filename, line=lno, field="msgstr"))
                     msgstr_i = int(line[:p])
                     line = line[p:].lstrip()
                     if line.startswith("]"):
@@ -277,8 +277,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                         raise PologyError(
                             _("@info",
                               "Malformed '%(field)s' ordinal "
-                              "at %(file)s:%(line)d.")
-                            % dict(file=filename, line=lno, field="msgstr"))
+                              "at %(file)s:%(line)d.",
+                              file=filename, line=lno, field="msgstr"))
                 # Add missing msgstr entries.
                 for i in range(len(loc.msg.msgstr), msgstr_i + 1):
                     loc.msg.msgstr.append([])
@@ -286,8 +286,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
             elif not line.startswith("\""):
                 raise PologyError(
                     _("@info",
-                      "Unknown field name at %(file)s:%(line)d.")
-                    % dict(file=filename, line=lno))
+                      "Unknown field name at %(file)s:%(line)d.",
+                      file=filename, line=lno))
 
         if line and string_follows: # for continuing fields
             if line.startswith("\""):
@@ -311,8 +311,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
             else:
                 raise PologyError(
                     _("@info",
-                      "Expected string continuation at %(file)s:%(line)d.")
-                    % dict(file=filename, line=lno))
+                      "Expected string continuation at %(file)s:%(line)d.",
+                      file=filename, line=lno))
 
         # Update line caches.
         if lcache:
@@ -336,8 +336,8 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 else:
                     raise PologyError(
                         _("@info",
-                          "Internal problem (%(id)d) at %(file)s:%(line)d.")
-                        % dict(id=11, file=filename, line=lno))
+                          "Internal problem (%(id)d) at %(file)s:%(line)d.",
+                          id=11, file=filename, line=lno))
             elif loc.age_context == ctx_current:
                 if loc.field_context == ctx_msgctxt:
                     loc.msg._lines_msgctxt.append(line_raw)
@@ -350,13 +350,13 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                 else:
                     raise PologyError(
                         _("@info",
-                          "Internal problem (%(id)d) at %(file)s:%(line)d.")
-                        % dict(id=12, file=filename, line=lno))
+                          "Internal problem (%(id)d) at %(file)s:%(line)d.",
+                          id=12, file=filename, line=lno))
             else:
                 raise PologyError(
                     _("@info",
-                      "Internal problem (%(id)d) at %(file)s:%(line)d.")
-                    % dict(id=10, file=filename, line=lno))
+                      "Internal problem (%(id)d) at %(file)s:%(line)d.",
+                      id=10, file=filename, line=lno))
 
     try_finish() # the last message
 
@@ -535,8 +535,8 @@ class Catalog (Monitored):
         if not create and not (os.path.exists(filename) or readfh):
             raise PologyError(
                 _("@info",
-                  "File '%(file)s' does not exist.")
-                % dict(file=filename))
+                  "File '%(file)s' does not exist.",
+                  file=filename))
 
         # Read messages or create empty catalog.
         if not truncate and (os.path.exists(filename) or readfh):

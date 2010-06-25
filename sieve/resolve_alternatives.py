@@ -58,8 +58,8 @@ class Sieve (object):
             raise SieveError(
                 _("@info",
                   "Malformed specification for "
-                  "resolution of alternatives '%(spec)s'.")
-                % dict(spec=params.alt))
+                  "resolution of alternatives '%(spec)s'.",
+                  spec=params.alt))
         if self.total is None:
             raise SieveError(
                 _("@info",
@@ -72,13 +72,13 @@ class Sieve (object):
             raise SieveError(
                 _("@info",
                   "Number of alternatives specified as %(num)d, "
-                  "but must be greater than 1.")
-                % dict(num=self.total))
+                  "but must be greater than 1.",
+                  num=self.total))
         if self.select < 1 or self.select > self.total:
             raise SieveError(
                 _("@info",
-                  "Selected alternative no. %(ord)d is out of range.")
-                % dict(ord=self.select))
+                  "Selected alternative no. %(ord)d is out of range.",
+                  ord=self.select))
 
         self.nresolved = 0
 
@@ -100,10 +100,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nresolved > 0:
-            msg = (n_("@info:progress",
-                      "Resolved %(num)d alternative in translation.",
-                      "Resolved %(num)d alternatives in translation.",
-                      self.nresolved)
-                   % dict(num=self.nresolved))
+            msg = n_("@info:progress",
+                     "Resolved %(num)d alternative in translation.",
+                     "Resolved %(num)d alternatives in translation.",
+                     num=self.nresolved)
             report("===== %s" % msg)
 

@@ -109,11 +109,11 @@ import sys
 
 from pology import _, n_
 from pology.file.message import MessageUnsafe
+from pology.hook.remove_subs import remove_accel_msg
 from pology.misc.comments import parse_summit_branches
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.msgreport import report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
-from pology.hook.remove_subs import remove_accel_msg
 from pology.misc.report import report, error, warning, format_item_list
 from pology.misc.stdsvpar import add_param_poeditors
 from pology.sieve import SieveError
@@ -133,44 +133,49 @@ def setup_sieve (p):
     "This can be changed to OR-relation for matching in text fields "
     "(%(fieldlist)s) using the '%(par)s' parameter. "
     "Any matching parameter can be repeated when it makes sense "
-    "(e.g. two matches on msgid)."
-    )
-    % dict(fieldlist=format_item_list(["msgctxt", "msgid", "msgstr",
-                                       "comment"]),
-           par="or"))
+    "(e.g. two matches on msgid).",
+    fieldlist=format_item_list(["msgctxt", "msgid", "msgstr", "comment"]),
+    par="or"
+    ))
 
     # NOTE: Do not add default values for matchers,
     # we need None to see if they were issued or not.
     p.add_param("msgid", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field matches the regular expression."
-    ) % dict(field="msgid"))
+    "Matches if the '%(field)s' field matches the regular expression.",
+    field="msgid"
+    ))
     p.add_param("nmsgid", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field does not match the regular expression."
-    ) % dict(field="msgid"))
+    "Matches if the '%(field)s' field does not match the regular expression.",
+    field="msgid"
+    ))
     p.add_param("msgstr", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field matches the regular expression."
-    ) % dict(field="msgstr"))
+    "Matches if the '%(field)s' field matches the regular expression.",
+    field="msgstr"
+    ))
     p.add_param("nmsgstr", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field does not match the regular expression."
-    ) % dict(field="msgstr"))
+    "Matches if the '%(field)s' field does not match the regular expression.",
+    field="msgstr"
+    ))
     p.add_param("msgctxt", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field matches the regular expression."
-    ) % dict(field="msgctxt"))
+    "Matches if the '%(field)s' field matches the regular expression.",
+    field="msgctxt"
+    ))
     p.add_param("nmsgctxt", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
-    "Matches if the '%(field)s' field does not match the regular expression."
-    ) % dict(field="msgctxt"))
+    "Matches if the '%(field)s' field does not match the regular expression.",
+    field="msgctxt"
+    ))
     p.add_param("comment", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
@@ -230,15 +235,17 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Matches if both the '%(field1)s' and '%(field2)s' field "
     "have at most this many characters "
-    "(0 or less means any number of characters)."
-    ) % dict(field1="msgid", field2="msgstr"))
+    "(0 or less means any number of characters).",
+    field1="msgid", field2="msgstr"
+    ))
     p.add_param("nmaxchar", int,
                 metavar=_("@info sieve parameter value placeholder", "NUM"),
                 desc=_("@info sieve parameter discription",
     "Matches if either the '%(field1)s' or '%(field2)s' field "
     "have more than this many characters "
-    "(0 or less means any number of characters)."
-    ) % dict(field1="msgid", field2="msgstr"))
+    "(0 or less means any number of characters).",
+    field1="msgid", field2="msgstr"
+    ))
     p.add_param("lspan", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "START:END"),
@@ -325,8 +332,9 @@ def setup_sieve (p):
     ))
     p.add_param("mark", bool, defval=False,
                 desc=_("@info sieve parameter discription",
-    "Add '%(flag)s' flag to each matched message."
-    ) % dict(flag=_flag_mark))
+    "Add '%(flag)s' flag to each matched message.",
+    flag=_flag_mark
+    ))
     p.add_param("filter", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "HOOK"),
                 desc=_("@info sieve parameter discription",
@@ -435,8 +443,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Cannot perform replacement if match "
-                      "on '%(field)s' is not given.")
-                    % dict(field="msgstr"))
+                      "on '%(field)s' is not given.",
+                      field="msgstr"))
             rxflags = re.U
             if not self.p.case:
                 rxflags |= re.I
@@ -507,11 +515,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch:
-            msg = (n_("@info:progress",
-                      "Found %(num)d message satisfying the conditions.",
-                      "Found %(num)d messages satisfying the conditions.",
-                      self.nmatch)
-                   % dict(num=self.nmatch))
+            msg = n_("@info:progress",
+                     "Found %(num)d message satisfying the conditions.",
+                     "Found %(num)d messages satisfying the conditions.",
+                     num=self.nmatch)
             report("===== %s" % msg)
 
 
@@ -566,18 +573,18 @@ class ExprError (Exception):
             subexpr = None
 
         if self.msg is not None and subexpr is not None:
-            repstr = (_("@info",
-                        "Invalid expression at %(col)d [%(snippet)s]: "
-                        "%(reason)s.")
-                      % dict(col=self.start, snippet=subexpr, reason=self.msg))
+            repstr = _("@info",
+                       "Invalid expression at %(col)d [%(snippet)s]: "
+                       "%(reason)s.",
+                       col=self.start, snippet=subexpr, reason=self.msg)
         elif self.msg is not None:
-            repstr = (_("@info",
-                        "Invalid expression: %(reason)s.")
-                      % dict(reason=self.msg))
+            repstr = _("@info",
+                       "Invalid expression: %(reason)s.",
+                       reason=self.msg)
         elif subexpr is not None:
-            repstr = (_("@info",
-                        "Invalid expression at %(col)d [%(snippet)s].")
-                      % dict(col=self.start, snippet=subexpr))
+            repstr = _("@info",
+                       "Invalid expression at %(col)d [%(snippet)s].",
+                       col=self.start, snippet=subexpr)
         else:
             repstr = _("@info", "Invalid expression.")
 
@@ -794,8 +801,8 @@ def _build_expr_r (exprstr, start, end, params):
                     else: # cannot happen
                         raise ExprError(exprstr,
                                         _("@item:intext",
-                                          "unknown unary operator '%(op)s'")
-                                        % dict(op=op))
+                                          "unknown unary operator '%(op)s'",
+                                          op=op))
                     return cexpr
                 tstack.append(closure())
                 updated = True
@@ -815,8 +822,8 @@ def _build_expr_r (exprstr, start, end, params):
                     else: # cannot happen
                         raise ExprError(exprstr,
                                         _("@item:intext",
-                                          "unknown binary operator '%(op)s'")
-                                        % dict(op=op))
+                                          "unknown binary operator '%(op)s'",
+                                          op=op))
                     return cexpr
                 tstack.append(closure())
                 updated = True
@@ -835,8 +842,8 @@ def _build_expr_matcher (mname, exprstr, start, end, params):
 
     if mname not in _all_matchers:
         raise ExprError(exprstr, _("@item:intext",
-                                   "unknown matcher '%(match)s'")
-                                 % dict(match=mname),
+                                   "unknown matcher '%(match)s'",
+                                   match=mname),
                         start - len(mname))
 
     # Get matcher value, if any.
@@ -883,9 +890,8 @@ def _create_matcher (name, value, mods, params, neg=False):
         raise ExprError(None,
                         _("@item:intext",
                           "unknown modifiers %(modlist)s "
-                          "to matcher '%(match)s'")
-                        % dict(modlist=format_item_list(bad_mods),
-                               match=name))
+                          "to matcher '%(match)s'",
+                          modlist=format_item_list(bad_mods), match=name))
 
     if name in _rx_matchers:
         rxflags = re.U
@@ -895,8 +901,8 @@ def _create_matcher (name, value, mods, params, neg=False):
             regex = re.compile(value, rxflags)
         except:
             raise ExprError(None, _("@item:intext",
-                                    "invalid regular expression '%(regex)s'")
-                                  % dict(regex=value))
+                                    "invalid regular expression '%(regex)s'",
+                                    regex=value))
 
     if 0: pass
 

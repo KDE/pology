@@ -122,16 +122,14 @@ class Sieve (object):
 
         if self.nmod > 0:
             if not self.strip:
-                msg = (n_("@info:progress",
-                          "Added differences to %(num)d fuzzy message.",
-                          "Added differences to %(num)d fuzzy messages.",
-                          self.nmod)
-                       % dict(num=self.nmod))
+                msg = n_("@info:progress",
+                         "Added differences to %(num)d fuzzy message.",
+                         "Added differences to %(num)d fuzzy messages.",
+                         num=self.nmod)
             else:
-                msg = (n_("@info:progress",
-                          "Stripped differences from %(num)d fuzzy message.",
-                          "Stripped differences from %(num)d fuzzy messages.",
-                          self.nmod)
-                       % dict(num=self.nmod))
+                msg = n_("@info:progress",
+                         "Stripped differences from %(num)d fuzzy message.",
+                         "Stripped differences from %(num)d fuzzy messages.",
+                         num=self.nmod)
             report("===== %s" % msg)
 

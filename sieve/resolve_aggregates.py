@@ -86,8 +86,9 @@ from pology.sieve import SieveError
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Resolve aggregate messages produced by '%(cmd)s'."
-    ) % dict(cmd="msgcat"))
+    "Resolve aggregate messages produced by '%(cmd)s'.",
+    cmd="msgcat"
+    ))
 
     p.add_param("first", bool, defval=False,
                 desc=_("@info sieve parameter discription",
@@ -150,18 +151,16 @@ class Sieve (object):
     def finalize (self):
 
         if self.nresolvedhdr > 0:
-            msg = (n_("@info:progress",
-                      "Resolved %(num)d aggregate header.",
-                      "Resolved %(num)d aggregate headers.",
-                      self.nresolvedhdr)
-                   % dict(num=self.nresolvedhdr))
+            msg = n_("@info:progress",
+                     "Resolved %(num)d aggregate header.",
+                     "Resolved %(num)d aggregate headers.",
+                     num=self.nresolvedhdr)
             report("===== %s" % msg)
         if self.nresolved > 0:
-            msg = (n_("@info:progress",
-                      "Resolved %(num)d aggregate message.",
-                      "Resolved %(num)d aggregate messages.",
-                      self.nresolved)
-                   % dict(num=self.nresolved))
+            msg = n_("@info:progress",
+                     "Resolved %(num)d aggregate message.",
+                     "Resolved %(num)d aggregate messages.",
+                     num=self.nresolved)
             report("===== %s" % msg)
 
 

@@ -87,8 +87,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Invalid specification of single quotes (%(quotes)s), "
-                      "expected two characters.")
-                    % dict(quotes=quotes))
+                      "expected two characters.",
+                      quotes=quotes))
             self.singles = (quotes[0], quotes[1])
         elif params.longsingle is not None:
             quotes = split_escaped(params.longsingle, ",")
@@ -96,8 +96,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Invalid specification of single quotes (%(quotes)s), "
-                      "expected two strings.")
-                    % dict(quotes=quotes))
+                      "expected two strings.",
+                      quotes=quotes))
             self.singles = (quotes[0], quotes[1])
 
         # Pair of double quotes.
@@ -113,8 +113,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Invalid specification of double quotes (%(quotes)s), "
-                      "expected two characters.")
-                    % dict(quotes=quotes))
+                      "expected two characters.",
+                      quotes=quotes))
             self.doubles = (quotes[0], quotes[1])
         elif params.longdouble is not None:
             quotes = split_escaped(params.longdouble, ",")
@@ -122,8 +122,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Invalid specification of double quotes '%(quotes)s', "
-                      "expected two strings.")
-                    % dict(quotes=quotes))
+                      "expected two strings.",
+                      quotes=quotes))
             self.doubles = (quotes[0], quotes[1])
 
 
@@ -162,14 +162,13 @@ class Sieve (object):
 
         nrepl_both = self.nrepl_single + self.nrepl_double
         if nrepl_both > 0:
-            msg = (n_("@info:progress",
-                      "Replaced %(num)d pair of quotes in translation "
-                      "(single+double: %(nums)d+%(numd)d).",
-                      "Replaced %(num)d pairs of quotes in translation "
-                      "(single+double: %(nums)d+%(numd)d).",
-                      nrepl_both)
-                   % dict(num=nrepl_both,
-                          nums=self.nrepl_single, numd=self.nrepl_double))
+            msg = n_("@info:progress",
+                     "Replaced %(num)d pair of quotes in translation "
+                     "(single+double: %(nums)d+%(numd)d).",
+                     "Replaced %(num)d pairs of quotes in translation "
+                     "(single+double: %(nums)d+%(numd)d).",
+                     num=nrepl_both,
+                     nums=self.nrepl_single, numd=self.nrepl_double)
             report("===== %s" % msg)
 
 

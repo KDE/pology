@@ -96,10 +96,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nbad > 0:
-            msg = (n_("@info:progress",
-                      "Detected %(num)d bad pattern in translation.",
-                      "Detected %(num)d bad patterns in translation.",
-                      self.nbad)
-                   % dict(num=self.nbad))
+            msg = n_("@info:progress",
+                     "Detected %(num)d bad pattern in translation.",
+                     "Detected %(num)d bad patterns in translation.",
+                     num=self.nbad)
             report("===== %s" % msg)
 

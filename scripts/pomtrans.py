@@ -38,19 +38,16 @@ def main ():
     showservs.sort()
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] TRANSERV PATHS...")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Perform machine translation of PO files."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s [OPTIONS] TRANSERV PATHS...",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Perform machine translation of PO files.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -78,15 +75,15 @@ def main ():
     opars.add_option(
         "-m", "--flag-%s" % _flag_mtrans,
         action="store_true", dest="flag_mtrans", default=False,
-        help=(_("@info command line option description",
-               "Add '%(flag)s' flag to translated messages.")
-              % dict(flag=_flag_mtrans)))
+        help=_("@info command line option description",
+              "Add '%(flag)s' flag to translated messages.",
+              flag=_flag_mtrans))
     opars.add_option(
         "-n", "--no-fuzzy-flag",
         action="store_false", dest="flag_fuzzy", default=True,
-        help=(_("@info command line option description",
-                "Do not add '%(flag)s' flag to translated messages.")
-              % dict(flag="fuzzy")))
+        help=_("@info command line option description",
+               "Do not add '%(flag)s' flag to translated messages.",
+               flag="fuzzy"))
     opars.add_option(
         "-p", "--parallel-catalogs", dest="parcats",
         metavar=_("@info command line value placeholder", "SEARCH:REPLACE"),
@@ -122,11 +119,13 @@ def main ():
         sys.exit(0)
 
     if len(free_args) < 1:
-        error(_("@info", "Translation service not specified."))
+        error(_("@info",
+                "Translation service not specified."))
     transervkey = free_args.pop(0)
     if transervkey not in _known_transervs:
-        error(_("@info", "Translation service '%(serv)s' not known.")
-              % dict(serv=transervkey))
+        error(_("@info",
+                "Translation service '%(serv)s' not known.",
+                serv=transervkey))
 
     tsbuilder_wopts = _known_transervs[transervkey]
     tsbuilder = lambda slang, tlang: tsbuilder_wopts(slang, tlang, op)
@@ -165,8 +164,8 @@ def translate_direct (paths, tsbuilder, options):
         texts_tr = transerv.translate(texts)
         if texts_tr is None:
             warning(_("@info",
-                      "Translation service failure on '%(file)s'.")
-                    % dict(file=catpath))
+                      "Translation service failure on '%(file)s'.",
+                      file=catpath))
             continue
 
         # Put translated texts into messages.
@@ -198,16 +197,16 @@ def translate_parallel (paths, tsbuilder, options):
     if comppath is not None:
         if not os.path.isfile(comppath):
             error(_("@info",
-                    "Compendium '%(file)s' does not exist.")
-                  % dict(file=comppath))
+                    "Compendium '%(file)s' does not exist.",
+                    file=comppath))
         ccat = Catalog(comppath, monitored=False)
 
     if pathrepl is not None:
         lst = pathrepl.split(":")
         if len(lst) != 2:
             error(_("@info",
-                    "Invalid search and replace specification '%(spec)s'.")
-                  % dict(spec=pathrepl))
+                    "Invalid search and replace specification '%(spec)s'.",
+                    spec=pathrepl))
         pathsrch, pathrepl = lst
 
     catpaths = collect_catalogs(paths)
@@ -220,8 +219,8 @@ def translate_parallel (paths, tsbuilder, options):
             if catpath == pcatpath:
                 error(_("@info",
                         "Parallel catalog and target catalog are same files "
-                        "for '%(file)s'.")
-                      % dict(file=catpath))
+                        "for '%(file)s'.",
+                        file=catpath))
             if os.path.isfile(pcatpath):
                 pcat = Catalog(pcatpath, monitored=False)
 
@@ -259,8 +258,8 @@ def translate_parallel (paths, tsbuilder, options):
                 break
         if texts_tr is None:
             warning(_("@info",
-                      "Translation service failure on '%(file)s'.")
-                    % dict(file=catpath))
+                      "Translation service failure on '%(file)s'.",
+                      file=catpath))
             continue
         ptexts_tr, ctexts_tr = texts_tr
 
@@ -309,14 +308,14 @@ def get_transerv (slang, tlang, scat, tcat, tsbuilder):
         slang = scat.header.get_field_value("Language")
         if not slang:
             error(_("@info",
-                    "Cannot determine language of source catalog '%(file)s'.")
-                  % dict(file=scat.filename))
+                    "Cannot determine language of source catalog '%(file)s'.",
+                    file=scat.filename))
     if not tlang:
         tlang = tcat.header.get_field_value("Language")
         if not tlang:
             error(_("@info",
-                    "Cannot determine language of target catalog '%(file)s'.")
-                  % dict(file=tcat.filename))
+                    "Cannot determine language of target catalog '%(file)s'.",
+                    file=tcat.filename))
 
     trdir = (slang, tlang)
     if trdir not in _transervs:
@@ -344,8 +343,8 @@ class Translator_apertium (object):
             cmdpath = options.transerv_bin
         if not os.path.isfile(cmdpath):
             error(_("@info Apertium is machine translation software",
-                    "Apertium executable not found at '%(path)s'.")
-                  % dict(path=cmdpath))
+                    "Apertium executable not found at '%(path)s'.",
+                    path=cmdpath))
 
         mode = "%s-%s" % (slang, tlang)
 
@@ -377,8 +376,8 @@ class Translator_apertium (object):
         res = collect_system(self.cmdline, instr=stext)
         if res[2] != 0:
             warning(_("@info",
-                      "Executing Apertium failed:\n%(output)s")
-                    % dict(output=res[0]))
+                      "Executing Apertium failed:\n%(output)s",
+                      output=res[0]))
             # ...really res[0], error is output to stdout. Tsk.
             return None
 
@@ -386,8 +385,8 @@ class Translator_apertium (object):
         if len(texts_tr) != len(texts):
             warning(_("@info",
                       "Apertium reported wrong number of translations, "
-                      "%(num1)d instead of %(num2)d.")
-                    % dict(num1=len(texts_tr), num2=len(texts)))
+                      "%(num1)d instead of %(num2)d.",
+                      num1=len(texts_tr), num2=len(texts)))
             return None
 
         texts_tr = [resolve_entities_simple(x, self.htmlents) for x in texts_tr]
@@ -419,8 +418,8 @@ class Translator_google (object):
         except:
             error(_("@info",
                     "Python module '%(mod)s' not available. "
-                    "Try installing the '%(pkg)s' package.")
-                  % dict(mod="simplejson", pkg="python-simplejson"))
+                    "Try installing the '%(pkg)s' package.",
+                    mod="simplejson", pkg="python-simplejson"))
 
         baseurl = "http://ajax.googleapis.com/ajax/services/language/translate"
         langpair = "%s|%s" % (self.slang, self.tlang)

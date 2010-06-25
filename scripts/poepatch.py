@@ -56,20 +56,17 @@ def main ():
     def_do_merge = cfgsec.boolean("merge", True)
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] [OPTIONS] < EDIFF\n"
-          "%(cmd)s -u [OPTIONS] PATHS...")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Apply embedded diff of PO files as patch."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s [OPTIONS] [OPTIONS] < EDIFF\n"
+        "%(cmd)s -u [OPTIONS] PATHS...",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Apply embedded diff of PO files as patch.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -128,20 +125,20 @@ def main ():
     if not op.unembed:
         if free_args:
             error(_("@info",
-                    "Too many arguments in command line: %(argspec)s")
-                   % dict(argspec=" ".join(free_args)))
+                    "Too many arguments in command line: %(argspec)s",
+                    argspec=" ".join(free_args)))
         if op.strip and not op.strip.isdigit():
             error(_("@info",
-                    "Option %(opt)s expects a positive integer value.")
-                  % dict(opt="--strip"))
+                    "Option %(opt)s expects a positive integer value.",
+                    opt="--strip"))
         apply_ediff(op)
     else:
         paths = []
         for path in free_args:
             if not os.path.exists(path):
                 warning(_("@info",
-                          "Path '%(path)s' does not exist.")
-                        % dict(path=path))
+                          "Path '%(path)s' does not exist.",
+                          path=path))
             if os.path.isdir(path):
                 paths.extend(collect_catalogs(path))
             else:
@@ -157,8 +154,8 @@ def apply_ediff (op):
     if op.input:
         if not os.path.isfile(op.input):
             error(_("@info",
-                    "Path '%(path)s' is not a file or does not exist.")
-                  % dict(path=op.input))
+                    "Path '%(path)s' is not a file or does not exist.",
+                    path=op.input))
         edfpath = op.input
         readfh = None
     else:
@@ -168,16 +165,16 @@ def apply_ediff (op):
         ecat = Catalog(edfpath, monitored=False, readfh=readfh)
     except:
         error(_("@info ediff is shorthand for \"embedded difference\"",
-                "Error reading ediff '%(file)s'.")
-              % dict(file=edfpath))
+                "Error reading ediff '%(file)s'.",
+                file=edfpath))
 
     # Split ediff by diffed catalog into original and new file paths,
     # header message, and ordinary messages.
     hmsgctxt = ecat.header.get_field_value(ED._hmsgctxt_field)
     if hmsgctxt is None:
         error(_("@info",
-                "Header field '%(field)s' is missing in the ediff.")
-              % dict(field=ED._hmsgctxt_field))
+                "Header field '%(field)s' is missing in the ediff.",
+                field=ED._hmsgctxt_field))
     edsplits = []
     cehmsg = None
     smsgid = u"\x00"
@@ -234,15 +231,15 @@ def apply_ediff (op):
             if not os.path.isfile(fpath1):
                 warning(_("@info",
                           "Path '%(path)s' is not a file or does not exist, "
-                          "skipping it.")
-                        % dict(path=fpath1))
+                          "skipping it.",
+                          path=fpath1))
                 continue
             try:
                 cat = Catalog(fpath1)
             except:
                 warning(_("@info",
-                          "Error reading catalog '%(file)s', skipping it.")
-                        % dict(file=fpath1))
+                          "Error reading catalog '%(file)s', skipping it.",
+                          file=fpath1))
                 continue
         elif fpath2:
             # New catalog added in diff, create it (or open if it exists).
@@ -254,12 +251,12 @@ def apply_ediff (op):
             except:
                 if os.path.isfile(fpath2):
                     warning(_("@info",
-                              "Error reading catalog '%(file)s', skipping it.")
-                            % dict(file=fpath1))
+                              "Error reading catalog '%(file)s', skipping it.",
+                              file=fpath1))
                 else:
                     warning(_("@info",
-                              "Cannot create catalog '%(file)s', skipping it.")
-                            % dict(file=fpath2))
+                              "Cannot create catalog '%(file)s', skipping it.",
+                              file=fpath2))
                 continue
         else:
             error(_("@info",
@@ -270,8 +267,8 @@ def apply_ediff (op):
         if cat.header.get_field_value(ED._hmsgctxt_field) is not None:
             warning(_("@info",
                       "Catalog '%(file)s' already contains "
-                      "embedded differences, skipping it.")
-                    % dict(file=cat.filename))
+                      "embedded differences, skipping it.",
+                      file=cat.filename))
             continue
 
         # Do not try to patch catalog if the patch contains
@@ -280,8 +277,8 @@ def apply_ediff (op):
                   emsgs, False):
             warning(_("@info",
                       "Patch for catalog '%(file)s' contains unresolved "
-                      "split differences, skipping it.")
-                    % dict(file=cat.filename))
+                      "split differences, skipping it.",
+                      file=cat.filename))
             continue
 
         # Patch the catalog.
@@ -294,36 +291,36 @@ def apply_ediff (op):
                 if not created:
                     if any_rejected and op.embed:
                         report(_("@info:progress E is for \"with embedding\"",
-                                 "Partially patched (E): %(file)s")
-                               % dict(file=cat.filename))
+                                 "Partially patched (E): %(file)s",
+                                 file=cat.filename))
                     elif any_rejected:
                         report(_("@info:progress",
-                                 "Partially patched: %(file)s")
-                               % dict(file=cat.filename))
+                                 "Partially patched: %(file)s",
+                                 file=cat.filename))
                     elif op.embed:
                         report(_("@info:progress E is for \"with embedding\"",
-                                  "Patched (E): %(file)s")
-                               % dict(file=cat.filename))
+                                 "Patched (E): %(file)s",
+                                 file=cat.filename))
                     else:
                         report(_("@info:progress",
-                                 "Patched: %(file)s")
-                               % dict(file=cat.filename))
+                                 "Patched: %(file)s",
+                                 file=cat.filename))
                 else:
                     if op.embed:
                         report(_("@info:progress E is for \"with embedding\"",
-                                 "Created (E): %(file)s")
-                               % dict(file=cat.filename))
+                                 "Created (E): %(file)s",
+                                 file=cat.filename))
                     else:
                         report(_("@info:progress",
-                                 "Created: %(file)s")
-                               % dict(file=cat.filename))
+                                 "Created: %(file)s",
+                                 file=cat.filename))
             else:
                 pass #report("unchanged: %s" % cat.filename)
         else:
             os.unlink(fpath1)
             report(_("@info:progress",
-                     "Removed: %(file)s")
-                   % dict(file=fpath1))
+                     "Removed: %(file)s",
+                     file=fpath1))
 
         # If there were any rejects and reembedding is not in effect,
         # record the necessary to present them.
@@ -357,9 +354,10 @@ def apply_ediff (op):
 
         rcat.filename = rpath
         rcat.sync(force=True, noobsend=True)
-        report(_("@info:progress as in rejected parts of the patch",
-                 "*** Rejects: %(file)s")
-               % dict(file=rcat.filename))
+        report(_("@info:progress file to which rejected parts of the patch "
+                 "have been written to",
+                 "*** Rejects: %(file)s",
+                 file=rcat.filename))
 
 
 # Patch application types.
@@ -439,8 +437,8 @@ def patch_messages (cat, emsgs, ecat, options):
                 cat[pos].flag.add(flag)
         else:
             error_on_msg(_("@info",
-                           "Unknown patch type %(type)s.")
-                         % dict(type=typ), emsg, ecat)
+                           "Unknown patch type %(type)s.",
+                           type=typ), emsg, ecat)
 
     return rejected_emsgs_flags
 
@@ -752,8 +750,8 @@ def unembed_ediff (path, all=False, old=False):
         cat = Catalog(path)
     except:
         warning(_("@info",
-                  "Error reading catalog '%(file)s', skipping it.")
-                % dict(file=path))
+                  "Error reading catalog '%(file)s', skipping it.",
+                  file=path))
         return
 
     hmsgctxt = cat.header.get_field_value(ED._hmsgctxt_field)
@@ -780,9 +778,8 @@ def unembed_ediff (path, all=False, old=False):
                 warning_on_msg(_("@info",
                                  "Unembedding results in duplicate header, "
                                  "previous header at %(line)d(#%(entry)d); "
-                                 "skipping it.")
-                               % dict(line=uehmsg.refline,
-                                      entry=uehmsg.refentry),
+                                 "skipping it.",
+                                 line=uehmsg.refline, entry=uehmsg.refentry),
                                msg, cat)
                 return
             msg_ediff_to_x = not old and msg_ediff_to_new or msg_ediff_to_old
@@ -800,9 +797,8 @@ def unembed_ediff (path, all=False, old=False):
                     warning_on_msg(_("@info",
                                      "Unembedding results in "
                                      "duplicate message, previous message "
-                                     "at %(line)d(#%(entry)d); skipping it.")
-                                   % dict(line=msg_p.refline,
-                                          entry=msg_p.refentry),
+                                     "at %(line)d(#%(entry)d); skipping it.",
+                                     line=msg_p.refline, entry=msg_p.refentry),
                                    msg, cat)
                     return
                 msg.set(msg2)
@@ -812,8 +808,8 @@ def unembed_ediff (path, all=False, old=False):
 
     if cat.sync():
         report(_("@info:progress",
-                 "Unembedded: %(file)s")
-               % dict(file=cat.filename))
+                 "Unembedded: %(file)s",
+                 file=cat.filename))
 
 
 if __name__ == '__main__':

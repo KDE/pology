@@ -628,23 +628,23 @@ class SynderError (PologyError):
     def __unicode__ (self):
 
         if self.source is None:
-            s = (_("@info context of error",
-                   "[synder-%(code)d]: %(msg)s")
-                 % dict(code=self.code, msg=self.message))
+            s = _("@info context of error",
+                  "[synder-%(code)d]: %(msg)s",
+                  code=self.code, msg=self.message)
         elif self.line is None:
-            s = (_("@info context of error",
-                   "[synder-%(code)d] in %(source)s: %(msg)s")
-                 % dict(code=self.code, msg=self.message, source=self.source))
+            s = _("@info context of error",
+                  "[synder-%(code)d] in %(source)s: %(msg)s",
+                  code=self.code, msg=self.message, source=self.source)
         elif self.col is None:
-            s = (_("@info context of error",
-                   "[synder-%(code)d] at %(source)s:%(line)d: %(msg)s")
-                 % dict(code=self.code, msg=self.message, source=self.source,
-                        line=self.line))
+            s = _("@info context of error",
+                  "[synder-%(code)d] at %(source)s:%(line)d: %(msg)s",
+                  code=self.code, msg=self.message, source=self.source,
+                  line=self.line)
         else:
-            s = (_("@info context of error",
-                   "[synder-%(code)d] at %(source)s:%(line)d:%(col)d: %(msg)s")
-                 % dict(code=self.code, msg=self.message, source=self.source,
-                        line=self.line, col=self.col))
+            s = _("@info context of error",
+                  "[synder-%(code)d] at %(source)s:%(line)d:%(col)d: %(msg)s",
+                  code=self.code, msg=self.message, source=self.source,
+                  line=self.line, col=self.col)
 
         return unicode(s)
 
@@ -732,9 +732,9 @@ def _parse_string (instr, srcname=None):
         return _parsed_sources[srcname]
 
     if srcname is None:
-        srcname = (_("@item automatic name for anonymous input stream",
-                     "<stream-%(num)s>")
-                   % dict(num=_anonsrc_count[0]))
+        srcname = _("@item automatic name for anonymous input stream",
+                    "<stream-%(num)s>",
+                    num=_anonsrc_count[0])
         _anonsrc_count[0] += 1
 
     source = _parse_string_w(instr, srcname)
@@ -805,8 +805,8 @@ def _include_sources (source, incpaths):
             # propagate it to this place to report error properly.
             raise SynderError(
                 _("@info",
-                  "Included file '%(name)s' not found at '%(path)s'.")
-                % dict(name=incpath, path=path), 1101, source.name)
+                  "Included file '%(name)s' not found at '%(path)s'.",
+                  name=incpath, path=path), 1101, source.name)
         incsource = _parse_file(path)
         incsources.append(incsource)
 
@@ -945,8 +945,8 @@ def _ctx_handler_ksyn (ksyn, instr, pos, bpos):
     else:
         raise SynderError(
             _("@info",
-              "Unexpected end of derivation head started at %(line)d:%(col)d.")
-            % dict(line=obpos[0], col=obpos[1]),
+              "Unexpected end of derivation head started at %(line)d:%(col)d.",
+              line=obpos[0], col=obpos[1]),
             1010, ksyn.parent.parent.name, bpos)
 
 
@@ -967,8 +967,8 @@ def _ctx_handler_env (env, instr, pos, bpos):
             if env.name == oenv.name:
                 raise SynderError(
                     _("@info",
-                      "Repeated environment name '%(env)s'.")
-                    % dict(env=oenv.name),
+                      "Repeated environment name '%(env)s'.",
+                      env=oenv.name),
                     1022, env.parent.parent.name, obpos)
         prop = _SDProp(env, bpos)
         env.props.append(prop)
@@ -976,8 +976,8 @@ def _ctx_handler_env (env, instr, pos, bpos):
     else:
        raise SynderError(
         _("@info",
-          "Unexpected end of environment head started at %(line)d:%(col)d.")
-        % dict(line=obpos[0], col=obpos[1]),
+          "Unexpected end of environment head started at %(line)d:%(col)d.",
+          line=obpos[0], col=obpos[1]),
         1020, env.parent.parent.name, bpos)
 
 
@@ -1056,8 +1056,8 @@ def _ctx_handler_exp (exp, instr, pos, bpos):
     if enclosed and sep is None or sep == _ch_nl:
         raise SynderError(
             _("@info",
-              "Unexpected end of expander started at %(line)d:%(col)d.")
-            % dict(line=obpos[0], col=obpos[1]),
+              "Unexpected end of expander started at %(line)d:%(col)d.",
+              line=obpos[0], col=obpos[1]),
             1050, exp.parent.parent.parent.parent.name, bpos)
 
     if enclosed:
@@ -1101,8 +1101,8 @@ def _ctx_handler_tag (tag, instr, pos, bpos):
     if enclosed and sep is None or sep == _ch_nl:
         raise SynderError(
             _("@info",
-              "Unexpected end of tag started at %(line)d:%(col)d.")
-            % dict(line=obpos[0], col=obpos[1]),
+              "Unexpected end of tag started at %(line)d:%(col)d.",
+              line=obpos[0], col=obpos[1]),
             1050, exp.parent.parent.parent.parent.name, bpos)
 
     if enclosed:
@@ -1653,8 +1653,8 @@ class Synder (object):
                 raise SynderError(
                     _("@info",
                       "Unknown extra arguments for transformation function "
-                      "requested in derivator constructor: %(arglist)s")
-                    % dict(arglist=format_item_list(sorted(unkeargs))))
+                      "requested in derivator constructor: %(arglist)s",
+                      arglist=format_item_list(sorted(unkeargs))))
             eaords.extend([kneargs.index(x) + 1 for x in eargs])
         else:
             tf0 = tfspec
@@ -1826,8 +1826,8 @@ class Synder (object):
             warning(_("@info",
                       "Derivation at %(pos1)s eliminated due to "
                       "key conflict with the following derivations:\n"
-                      "%(pos2list)s")
-                    % dict(pos1=pos1, pos2list=pos2s))
+                      "%(pos2list)s",
+                      pos1=pos1, pos2list=pos2s))
         else:
             for key in to_remove_keys:
                 keyf(deriv).remove(key)
@@ -2037,8 +2037,8 @@ class Synder (object):
         if deriv is None:
             raise SynderError(
                 _("@info",
-                  "Expansion '%(ref)s' does not reference a known derivation.")
-                % dict(ref=exp.ref, file=source.name, line=exp.pos[0]),
+                  "Expansion '%(ref)s' does not reference a known derivation.",
+                  ref=exp.ref, file=source.name, line=exp.pos[0]),
                 5010, source.name, exp.pos)
 
         # Derive the referenced derivation.
@@ -2102,8 +2102,8 @@ class Synder (object):
         if not props:
             raise SynderError(
                 _("@info",
-                  "Expansion '%(ref)s' expands into nothing.")
-                % dict(ref=exp.ref, file=source.name, line=exp.pos[0]),
+                  "Expansion '%(ref)s' expands into nothing.",
+                  ref=exp.ref, file=source.name, line=exp.pos[0]),
                 5020, source.name, exp.pos)
 
         return props

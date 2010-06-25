@@ -38,19 +38,19 @@ Required external Python modules:
   - none
 
 Required general software:
-  - Gettext, minimum version 0.17.
+  - Gettext >= 0.17
 
 Optional external Python packages:
-  - C{python-dbus}: communication with various external applications,
-        e.g. U{Lokalize<http://userbase.kde.org/Lokalize>} CAT tool.
-  - C{python-enchant}: frontend to various spell-checkers,
-        used by most of Pology's spell checking functionality
+  - C{python-dbus}: communication with various external applications
+        (e.g. U{Lokalize<http://userbase.kde.org/Lokalize>} CAT tool)
+  - C{python-enchant}: frontend to various spell-checkers
+        (used by most of Pology's spell checking functionality)
 
 Optional general software:
-  - LanguageTool (U{http://www.languagetool.org/}): open source language checker,
-        used by the L{check-grammar<sieve.check_grammar>} sieve
+  - LanguageTool (U{http://www.languagetool.org/}): open source language checker
+        (used by the L{check-grammar<sieve.check_grammar>} sieve)
   - Apertium (U{http://www.apertium.org/}): a free/open-source machine
-        translation platform, used by the L{pomtrans<scripts.pomtrans>} script
+        translation platform (used by the L{pomtrans<scripts.pomtrans>} script)
 
 Setup
 =====
@@ -99,6 +99,10 @@ Custom shell completion for Pology scripts is also available::
 @license: GPLv3
 """
 
+import gettext
+import locale
+import os
+
 
 def rootdir ():
     """
@@ -125,7 +129,6 @@ def version ():
 # Collect data paths.
 # Either as installed, when the _paths.py module will be available,
 # or assume locations within the repository.
-import os
 try:
     import pology._paths as _paths
     _mo_dir = _paths.mo
@@ -134,54 +137,177 @@ except ImportError:
 
 
 # Setup translations.
-import gettext
 try:
     _tr = gettext.translation("pology", _mo_dir)
 except IOError:
     _tr = gettext.NullTranslations()
 
 
-def _ (ctxt, text):
+def _ (_ctxt_, _text_, **kwargs):
     """
     Get translation of the text into user's language.
 
-    @param ctxt: the context in which the text is used
-    @type ctxt: string
-    @param text: the text to translate
-    @type text: string
+    If there are any formatting directives in the text,
+    they should be named;
+    the arguments which substitute them are given
+    as keyword values following the text.
+
+    @param _ctxt_: the context in which the text is used
+    @type _ctxt_: string
+    @param _text_: the text to translate
+    @type _text_: string
     @return: translated text if available, otherwise original
     @rtype: string
     """
 
-    trf = _tr.ugettext # camouflaged against xgettext
-    trtext = trf("%s\x04%s" % (ctxt, text))
-    if "\x04" in trtext:
-        trtext = text
-    return unicode(trtext)
+    ts = TextTrans()
+    ts._init(_ctxt_, _text_, None, kwargs)
+    return ts.to_string()
 
 
-def n_ (ctxt, stext, ptext, n):
+def n_ (_ctxt_, _stext_, _ptext_, **kwargs):
     """
     Get translation of the singular/plural text into user's language.
 
-    @param ctxt: the context in which the text is used
-    @type ctxt: string
-    @param stext: the text to translate for the singular case
-    @type stext: string
-    @param ptext: the text to translate for the plural case
-    @type ptext: string
+    If there are any formatting directives in the text,
+    they should be named;
+    the arguments which substitute them are given
+    as keyword values following the text.
+
+    The plural deciding number is given by the C{num} keyword argument.
+    If no such key exists, or its value is not an integer, an error is raised.
+
+    @param _ctxt_: the context in which the text is used
+    @type _ctxt_: string
+    @param _stext_: the text to translate for the singular case
+    @type _stext_: string
+    @param _ptext_: the text to translate for the plural case
+    @type _ptext_: string
     @return: translated text if available, otherwise original
     @rtype: string
     """
 
-    trf = _tr.ungettext # camouflaged against xgettext
-    trtext = trf("%s\x04%s" % (ctxt, stext), ptext, n)
-    if "\x04" in trtext:
-        trtext = (stext if n == 1 else ptext)
-    return unicode(trtext)
+    ts = TextTrans()
+    ts._init(_ctxt_, _stext_, _ptext_, kwargs)
+    return ts.to_string()
 
 
-import locale
+def t_ (_ctxt_, _text_, **kwargs):
+    """
+    Get delayed translation of the text into user's language.
+
+    Like L{_()<_>}, but returns delayed translation object
+    instead of translated text as string.
+    In this way some or all arguments for named formatting directives
+    can be supplied at a later point, using L{with_args} method,
+    and then the translated string obtaned by L{to_string} method.
+
+    @returns: delayed translation
+    @rtype: L{TextTrans}
+    """
+
+    ts = TextTrans()
+    ts._init(_ctxt_, _text_, None, kwargs)
+    return ts
+
+
+def tn_ (_ctxt_, _stext_, _ptext_, **kwargs):
+    """
+    Get delayed translation of the singular/plural text into user's language.
+
+    Like L{n_()<_>}, but returns delayed translation object
+    instead of translated text as string.
+    In this way some or all arguments for named formatting directives
+    can be supplied at a later point, using L{with_args} method,
+    and then the translated string obtaned by L{to_string} method.
+
+    @returns: delayed translation
+    @rtype: L{TextTrans}
+    """
+
+    ts = TextTrans()
+    ts._init(_ctxt_, _stext_, _ptext_, kwargs)
+    return ts
+
+
+class TextTrans:
+    """
+    Class for intermediate handling of translated user-visible text.
+
+    Objects of this type are not functional if created manually,
+    but only through C{t*_()} translation calls.
+    """
+
+    def _init (self, msgctxt, msgid, msgid_plural, kwargs):
+
+        self._msgctxt = msgctxt
+        self._msgid = msgid
+        self._msgid_plural = msgid_plural
+        self._kwargs = kwargs
+
+
+    def _copy (self):
+
+        # Shallow copy all attributes.
+        t = TextTrans()
+        t._msgctxt = self._msgctxt
+        t._msgid = self._msgid
+        t._msgid_plural = self._msgid_plural
+        t._kwargs = dict(self._kwargs)
+        return t
+
+
+    def with_args (self, **kwargs):
+        """
+        Add arguments for substitution in the text, creating new object.
+
+        @returns: new delayed translation
+        @rtype: L{TextTrans}
+        """
+
+        t = self._copy()
+        t._kwargs.update(kwargs)
+        return t
+
+
+    def to_string (self):
+        """
+        Translate the text to get ordinary string.
+
+        @returns: translated text
+        @type: string
+        """
+
+        if self._msgid_plural is None:
+            trf = _tr.ugettext # camouflaged against xgettext
+            if self._msgctxt is None:
+                msgstr = trf(self._msgid)
+            else:
+                msgstr = trf("%s\x04%s" % (self._msgctxt, self._msgid))
+                if "\x04" in msgstr:
+                    msgstr = self._msgid
+        else:
+            n = self._kwargs.get("num")
+            if n is None or not isinstance(n, int):
+                raise PologyError(
+                    _("@info",
+                      "No '%(arg)s' keyword argument to "
+                      "plural translation request.",
+                      arg="num"))
+            trf = _tr.ungettext # camouflaged against xgettext
+            if self._msgctxt is None:
+                msgstr = trf(self._msgid, self._msgid_plural, n)
+            else:
+                msgstr = trf("%s\x04%s" % (self._msgctxt, self._msgid),
+                             self._msgid_plural, n)
+                if "\x04" in msgstr:
+                    msgstr = self._msgid
+
+        msgstr = unicode(msgstr)
+        msgstr = msgstr % self._kwargs
+
+        return msgstr
+
 
 class PologyError (Exception):
     """

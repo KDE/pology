@@ -56,13 +56,13 @@ def parse_entities (defstr, src=None):
         if src:
             raise PologyError(
                 _("@info error report for a named source",
-                  "%(src)s: %(msg)s")
-                % dict(src=src, msg=inst))
+                  "%(src)s: %(msg)s",
+                  src=src, msg=inst))
         else:
             raise PologyError(
                 _("@info error report for a string",
-                  "<string>: %(msg)s")
-                % dict(msg=inst))
+                  "<string>: %(msg)s",
+                  msg=inst))
 
     return entities
 
@@ -140,8 +140,8 @@ def read_entities_by_env (entpathenv, recurse=True, fcap=False):
     if entpath is None:
         warning(_("@info",
                   "Environment variable with paths to entity definitions "
-                  "'%(envar)s' is not set.")
-                % dict(envar=entpathenv))
+                  "'%(envar)s' is not set.",
+                  envar=entpathenv))
         return entities
 
     entfilepaths = collect_files_by_ext(entpath.split(":"), "entities")

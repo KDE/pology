@@ -49,8 +49,9 @@ def setup_sieve (p):
     "Possible only if catalogs were merged with --previous option."
     "\n\n"
     "By default, unfuzzied messages will get a translator comment with "
-    "the string '%(str)s', so that they can be reviewed later."
-    ) % dict(str="unreviewed-context"))
+    "the string '%(str)s', so that they can be reviewed later.",
+    str="unreviewed-context"
+    ))
 
     p.add_param("noreview", bool, defval=False,
                 desc=_("@info sieve parameter discription",
@@ -97,12 +98,11 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            msg = (n_("@info:progress",
-                      "Unfuzzied %(num)d message fuzzy due to "
-                      "difference in context marker only.",
-                      "Unfuzzied %(num)d messages fuzzy due to "
-                      "difference in context marker only.",
-                      self.nmatch)
-                   % dict(num=self.nmatch))
+            msg = n_("@info:progress",
+                     "Unfuzzied %(num)d message fuzzy due to "
+                     "difference in context marker only.",
+                     "Unfuzzied %(num)d messages fuzzy due to "
+                     "difference in context marker only.",
+                     num=self.nmatch)
             report("===== %s" % msg)
 

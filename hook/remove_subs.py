@@ -301,8 +301,9 @@ def _literals_spec (msg, cat):
             except:
                 warning_on_msg(_("@info",
                                  "Field %(field)s states "
-                                 "malformed regex '%(re)s'.")
-                               % dict(field=fname, re=rx_str), msg, cat)
+                                 "malformed regex '%(re)s'.",
+                                 field=fname, re=rx_str),
+                                 msg, cat)
         else:
             heuristic = False
 
@@ -595,8 +596,8 @@ def rewrite_msgid (msg, cat):
         if len(lst) != 4 or lst[0] or lst[3]:
             warning_on_msg(_("@info",
                              "Wrongly separated patterns in "
-                             "rewrite directive '%(dir)s'.")
-                           % dict(dir=rwspec), msg, cat)
+                             "rewrite directive '%(dir)s'.", dir=rwspec),
+                             msg, cat)
             nerrors += 1
             continue
         srch, repl = lst[1], lst[2]
@@ -605,8 +606,8 @@ def rewrite_msgid (msg, cat):
         except:
             warning_on_msg(_("@info",
                              "Invalid search pattern in "
-                             "rewrite directive '%(dir)s'.")
-                           % dict(dir=rwspec), msg, cat)
+                             "rewrite directive '%(dir)s'.", dir=rwspec),
+                             msg, cat)
             nerrors += 1
             continue
         rwrxs.append((rx, repl, rwspec))
@@ -619,8 +620,8 @@ def rewrite_msgid (msg, cat):
         except:
             warning_on_msg(_("@info",
                              "Error in application of "
-                             "rewrite directive '%(dir)s'.")
-                           % dict(dir=rwspec), msg, cat)
+                             "rewrite directive '%(dir)s'.", dir=rwspec),
+                             msg, cat)
             nerrors += 1
 
     return nerrors

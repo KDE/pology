@@ -112,13 +112,13 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
                     if nears:
                         warning(_("@info",
                                   "%(file)s: Unknown entity '%(ent)s' "
-                                  "(near matches: %(entlist)s).")
-                                % dict(file=srcname, ent=entname,
-                                       entlist=format_item_list(nears)))
+                                  "(near matches: %(entlist)s).",
+                                  file=srcname, ent=entname,
+                                  entlist=format_item_list(nears)))
                     else:
                         warning(_("@info",
-                                  "%(file)s: Unknown entity '%(ent)s'.")
-                                % dict(file=srcname, ent=entname))
+                                  "%(file)s: Unknown entity '%(ent)s'.",
+                                  file=srcname, ent=entname))
             else:
                 segs.append(entref)
 
@@ -232,8 +232,8 @@ def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
             if srcname is not None:
                 warning(_("@info",
                           "%(file)s: Malformed alternatives directive "
-                          "'...%(snippet)s'.")
-                        % dict(file=srcname, snippet=rep_text))
+                          "'...%(snippet)s'.",
+                          file=srcname, snippet=rep_text))
             break
 
         # Read the separating character.
@@ -252,8 +252,8 @@ def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
                 if srcname is not None:
                     warning(_("@info",
                               "%(file)s: Too few alternatives in "
-                              "the alternatives directive '...%(snippet)s'.")
-                            % dict(file=srcname, snippet=rep_text))
+                              "the alternatives directive '...%(snippet)s'.",
+                              file=srcname, snippet=rep_text))
                 break
             alts.append(text[pp:p])
         if malformed:
@@ -475,8 +475,8 @@ def expand_vars (text, varmap, head="%"):
             raise PologyError(
                 _("@info",
                   "Empty variable expansion directive "
-                  "at column %(col)d in string '%(str)s'.")
-                % dict(col=(p - hlen), str=text))
+                  "at column %(col)d in string '%(str)s'.",
+                  col=(p - hlen), str=text))
         braced = False
         if text[p] == "{":
             braced = True
@@ -493,8 +493,8 @@ def expand_vars (text, varmap, head="%"):
             raise PologyError(
                 _("@info",
                   "Unclosed variable expansion directive "
-                  "at column %(col)d in string '%(str)s'.")
-                % dict(col=(pp - 1 - hlen), str=text))
+                  "at column %(col)d in string '%(str)s'.",
+                  col=(pp - 1 - hlen), str=text))
         varname = text[pp:p]
         if braced:
             p += 1
@@ -504,8 +504,8 @@ def expand_vars (text, varmap, head="%"):
             raise PologyError(
                 _("@info",
                   "Unknown variable '%(var)s' in variable expansion directive "
-                  "at column %(col)d in string '%(str)s'.")
-                % dict(var=varname, col=pp, str=text))
+                  "at column %(col)d in string '%(str)s'.",
+                  var=varname, col=pp, str=text))
         ntext.append("%s" % varvalue)
 
     return type(text)("").join(ntext)

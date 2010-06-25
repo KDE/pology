@@ -23,8 +23,8 @@ def setup_sieve (p):
     "Unfuzzy messages fuzzied only due to some tags being closed in-place "
     "(like '%(tag1)s' to '%(tag2)s')."
     "\n\n"
-    "Possible only if catalogs were merged with --previous option."
-    ) % dict(tag1="<br>", tag2="<br/>"))
+    "Possible only if catalogs were merged with --previous option.",
+    tag1="<br>", tag2="<br/>"))
 
 
 _tags_inpl = r"(br|hr|nl)"
@@ -83,21 +83,19 @@ class Sieve (object):
     def finalize (self):
 
         if self.nunfuzz > 0:
-            msg = (n_("@info:progress",
-                      "Unfuzzied %(num)d message due to "
-                      "closing tags in-place.",
-                      "Unfuzzied %(num)d messages due to "
-                      "closing tags in-place.",
-                      self.nunfuzz)
-                   % dict(num=self.nunfuzz))
+            msg = n_("@info:progress",
+                     "Unfuzzied %(num)d message due to "
+                     "closing tags in-place.",
+                     "Unfuzzied %(num)d messages due to "
+                     "closing tags in-place.",
+                     num=self.nunfuzz)
             report("===== %s" % msg)
         if self.nmodinpl > 0:
-            msg = (n_("@info:progress",
-                      "Modified %(num)d translations by "
-                      "closing tags in-place.",
-                      "Modified %(num)d translations by "
-                      "closing tags in-place.",
-                      self.nmodinpl)
-                   % dict(num=self.nmodinpl))
+            msg = n_("@info:progress",
+                     "Modified %(num)d translations by "
+                     "closing tags in-place.",
+                     "Modified %(num)d translations by "
+                     "closing tags in-place.",
+                     num=self.nmodinpl)
             report("===== %s" % msg)
 

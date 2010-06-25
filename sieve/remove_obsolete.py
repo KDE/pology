@@ -35,10 +35,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            msg = (n_("@info:progress",
-                      "Removed %(num)d obsolete message.",
-                      "Removed %(num)d obsolete messages.",
-                      self.nmatch)
-                   % dict(num=self.nmatch))
+            msg = n_("@info:progress",
+                     "Removed %(num)d obsolete message.",
+                     "Removed %(num)d obsolete messages.",
+                     num=self.nmatch)
             report("===== %s" % msg)
 

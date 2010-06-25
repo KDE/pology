@@ -132,8 +132,8 @@ def tdiff (seq_old, seq_new, reductf=None, diffr=False):
         else:
             raise PologyError(
                 _("@info \"opcode\" is shorthand for \"operation code\"",
-                  "Unknown opcode '%(code)s' from sequence matcher.")
-                % dict(code=opcode))
+                  "Unknown opcode '%(code)s' from sequence matcher.",
+                  code=opcode))
 
     if reductf is not None:
         dlist = [(tag, el.obj) for tag, el in dlist]
@@ -1082,8 +1082,8 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
         else:
             raise PologyError(
                 _("@info",
-                  "Unknown selection mode '%(mode)s' for partial differencing.")
-                % dict(mode=mode))
+                  "Unknown selection mode '%(mode)s' for partial differencing.",
+                  mode=mode))
 
     # Diff two texts under the given diffing options.
     def _twdiff (text1, text2, islines=False, cpfilter=None):
@@ -1153,8 +1153,8 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
             raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
-                  "while differencing.")
-                % dict(part=part))
+                  "while differencing.",
+                  part=part))
 
     if diffr:
         dr = sumw and sumdr / sumw or 0.0
@@ -1341,8 +1341,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
-                  "while differencing.")
-                % dict(part=part))
+                  "while differencing.",
+                  part=part))
 
     # Pad context to avoid conflicts.
     if (   (ecat is not None and emsg in ecat and ecat.find(emsg) != eokpos)
@@ -1541,8 +1541,8 @@ def _msg_ediff_to_x (emsg, rmsg, new):
             raise PologyError(
                 _("@info",
                   "Unhandled message part '%(part)s' encountered "
-                  "while resolving difference.")
-                % dict(part=part))
+                  "while resolving difference.",
+                  part=part))
 
     # Set resolved parts for real.
     for att, val in atts_vals:
@@ -1705,8 +1705,8 @@ def _read_msg_texts (path):
     except:
         raise PologyError(
             _("@info",
-              "Cannot read file '%(file)s'.")
-            % dict(file=path))
+              "Cannot read file '%(file)s'.",
+              file=path))
 
     msgids = []
     inmsgid = False

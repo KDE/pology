@@ -112,10 +112,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.ncorr > 0:
-            msg = (n_("@info:progress",
-                      "Merged %(num)d corrected message.",
-                      "Merged %(num)d corrected messages.",
-                      self.ncorr)
-                   % dict(num=self.ncorr))
+            msg = n_("@info:progress",
+                     "Merged %(num)d corrected message.",
+                     "Merged %(num)d corrected messages.",
+                     num=self.ncorr)
             report("===== %s" % msg)
 

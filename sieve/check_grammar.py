@@ -87,8 +87,8 @@ class Sieve (object):
         if not self.lang:
             raise SieveCatalogError(_("@info",
                                       "Cannot guess language for "
-                                      "catalog '%(file)s'.")
-                                    % dict(file=cat.filename))
+                                      "catalog '%(file)s'.",
+                                      file=cat.filename))
 
 
     def process (self, msg, cat):
@@ -123,10 +123,9 @@ class Sieve (object):
 
     def finalize (self):
         if self.nmatch:
-            msg = (n_("@info:progress",
-                      "Detected %(num)d problem in grammar.",
-                      "Detected %(num)d problems in grammar.",
-                      self.nmatch)
-                   % dict(num=self.nmatch))
+            msg = n_("@info:progress",
+                     "Detected %(num)d problem in grammar.",
+                     "Detected %(num)d problems in grammar.",
+                     num=self.nmatch)
             report("===== %s" % msg)
 

@@ -80,8 +80,9 @@ def setup_sieve (p):
     "%%-character in the value is used to expand known variables. "
     "Currently these are: %%%(var1)s - name of the catalog. "
     "If literal %% is needed (e.g. in plural forms header), "
-    "it can be escaped as %%%%."
-    ) % dict(var1="poname"))
+    "it can be escaped as %%%%.",
+    var1="poname"
+    ))
 
     p.add_param("field", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", 
@@ -111,8 +112,9 @@ def setup_sieve (p):
     p.add_param("reorder", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "If the field to be set is present, but not in the order implied by "
-    "'%(par1)s' and '%(par2)s' parameters, reinsert it accordingly."
-    ) % dict(par1="after", par2="before"))
+    "'%(par1)s' and '%(par2)s' parameters, reinsert it accordingly.",
+    par1="after", par2="before"
+    ))
     p.add_param("remove", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "FIELD"),
                 desc=_("@info sieve parameter discription",
@@ -193,8 +195,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Invalid specification '%(spec)s' "
-                      "of header field and value.")
-                    % dict(spec=field_value_str))
+                      "of header field and value.",
+                      spec=field_value_str))
             self.fields_values.append(field_value)
 
         # Set fields in reverse, so that 'after' and 'before' parameters
@@ -212,8 +214,8 @@ class Sieve (object):
                     raise SieveError(
                         _("@info",
                           "Invalid regular expression '%(regex)s' "
-                          "for removing fields.")
-                        % dict(regex=rxstr))
+                          "for removing fields.",
+                          regex=rxstr))
                 rxs.append(rx)
             params.removerx = rxs
 
@@ -225,29 +227,29 @@ class Sieve (object):
                     _("@info",
                       "Invalid value '%(val)s' for title comment "
                       "(it contains some elements appropriate "
-                      "for other types of comments).")
-                    % dict(val=title))
+                      "for other types of comments).",
+                      val=title))
         if params.copyright is not None:
             if not re.search(r"copyright|©|\(C\)", params.copyright, re.I|re.U):
                 raise SieveError(
                     _("@info",
                       "Invalid value '%(val)s' for copyright comment "
-                      "(missing the word 'copyright'?).")
-                    % dict(val=params.copyright))
+                      "(missing the word 'copyright'?).",
+                      val=params.copyright))
         if params.license is not None:
             if not re.search(r"license", params.license, re.I):
                 raise SieveError(
                     _("@info",
                       "Invalid value '%(val)s' for license comment "
-                      "(missing the word 'license'?).")
-                    % dict(val=params.license))
+                      "(missing the word 'license'?).",
+                      val=params.license))
         for author in (params.author or []):
             if not re.search(r"<.*?@.*?>", author):
                 raise SieveError(
                     _("@info",
                       "Invalid value '%(val)s' for author comment "
-                      "(missing the email address?).")
-                    % dict(val=author))
+                      "(missing the email address?).",
+                      val=author))
         self.p = params
 
 

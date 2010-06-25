@@ -48,40 +48,40 @@ def add_cmdopt_incexc (opars, ormatch=False):
         "-e", "--exclude-name",
         metavar=_("@info command line value placeholder", "REGEX"),
         dest="exclude_names", action="append",
-        help=(_("@info command line option description. "
-                "%(incexc)s is one of the above partial descriptions.",
-                "Exclude from processing files with names "
-                "(base name without extension) "
-                "matching given regular expression. %(incexc)s")
-              % dict(incexc=exclink)))
+        help=_("@info command line option description. "
+               "%(incexc)s is one of the above partial descriptions.",
+               "Exclude from processing files with names "
+               "(base name without extension) "
+               "matching given regular expression. %(incexc)s",
+               incexc=exclink))
     opars.add_option(
         "-E", "--exclude-path",
         metavar=_("@info command line value placeholder", "REGEX"),
         dest="exclude_paths", action="append",
-        help=(_("@info command line option description. "
-                "%(incexc)s is one of the partial descriptions above.",
-                "Exclude from processing files with paths "
-                "matching given regular expression. %(incexc)s")
-              % dict(incexc=exclink)))
+        help=_("@info command line option description. "
+               "%(incexc)s is one of the partial descriptions above.",
+               "Exclude from processing files with paths "
+               "matching given regular expression. %(incexc)s",
+               incexc=exclink))
     opars.add_option(
         "-i", "--include-name",
         metavar=_("@info command line value placeholder", "REGEX"),
         dest="include_names", action="append",
-        help=(_("@info command line option description. "
-                "%(incexc)s is one of the above partial descriptions.",
-                "Include into processing only files with names "
-                "(base name without extension) "
-                "matching given regular expression. %(incexc)s")
-              % dict(incexc=inclink)))
+        help=_("@info command line option description. "
+               "%(incexc)s is one of the above partial descriptions.",
+               "Include into processing only files with names "
+               "(base name without extension) "
+               "matching given regular expression. %(incexc)s",
+               incexc=inclink))
     opars.add_option(
         "-I", "--include-path",
         metavar=_("@info command line value placeholder", "REGEX"),
         dest="include_paths", action="append",
-        help=(_("@info command line option description. "
-                "%(incexc)s is one of the above partial descriptions.",
-                "Include into processing only files with paths "
-                "matching given regular expression. %(incexc)s")
-              % dict(incexc=inclink)))
+        help=_("@info command line option description. "
+               "%(incexc)s is one of the above partial descriptions.",
+               "Include into processing only files with paths "
+               "matching given regular expression. %(incexc)s",
+               incexc=inclink))
 
 
 def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
@@ -124,21 +124,21 @@ def add_cmdopt_filesfrom (opars, cmnts=True, incexc=True):
 
     vd = dict(head=shead, cmnts=scmnts, incexc=sincexc, tail=stail)
     if cmnts and incexc:
-        help = (_("@info command line option description; "
-                  "combined from the partial descriptions above",
-                  "%(head)s %(cmnts)s %(incexc)s %(tail)s") % vd)
+        help = _("@info command line option description; "
+                 "combined from the partial descriptions above",
+                 "%(head)s %(cmnts)s %(incexc)s %(tail)s", **vd)
     elif incexc:
-        help = (_("@info command line option description; "
-                  "combined from the partial descriptions above",
-                  "%(head)s %(incexc)s %(tail)s") % vd)
+        help = _("@info command line option description; "
+                 "combined from the partial descriptions above",
+                 "%(head)s %(incexc)s %(tail)s", ** vd)
     elif cmnts:
-        help = (_("@info command line option description; "
-                  "combined from the partial descriptions above",
-                  "%(head)s %(cmnts)s %(tail)s") % vd)
+        help = _("@info command line option description; "
+                 "combined from the partial descriptions above",
+                 "%(head)s %(cmnts)s %(tail)s", **vd)
     else:
-        help = (_("@info command line option description; "
-                  "combined from the partial descriptions above",
-                  "%(head)s %(tail)s") % vd)
+        help = _("@info command line option description; "
+                 "combined from the partial descriptions above",
+                 "%(head)s %(tail)s", **vd)
 
     opars.add_option(
         "-f", "--files-from",
@@ -163,9 +163,8 @@ def add_cmdopt_colors (opars):
         "--coloring-type",
         metavar=_("@info command line value placeholder", "TYPE"),
         action="store", dest="coloring_type", default=defctype,
-        help=(_("@info command line option description",
-                "Type of syntax coloring in output. "
-                "Available types: %(typelist)s; default: %(type)s.")
-              % dict(typelist=format_item_list(coloring_types),
-                     type=defctype)))
+        help=_("@info command line option description",
+               "Type of syntax coloring in output. "
+               "Available types: %(typelist)s; default: %(type)s.",
+               typelist=format_item_list(coloring_types), type=defctype))
 

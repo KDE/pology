@@ -40,8 +40,9 @@ from pology.misc.report import report
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Tag all untranslated messages with '%(flag)s' flag."
-    ) % dict(flag=_flag_untranslated))
+    "Tag all untranslated messages with '%(flag)s' flag.",
+    flag=_flag_untranslated
+    ))
 
     p.add_param("strip", bool,
                 desc=_("@info sieve parameter discription",
@@ -104,17 +105,15 @@ class Sieve (object):
     def finalize (self):
 
         if self.ntagged > 0:
-            msg = (n_("@info:progress",
-                      "Tagged %(num)d untranslated message.",
-                      "Tagged %(num)d untranslated messages.",
-                      self.ntagged)
-                   % dict(num=self.ntagged))
+            msg = n_("@info:progress",
+                     "Tagged %(num)d untranslated message.",
+                     "Tagged %(num)d untranslated messages.",
+                     num=self.ntagged)
             report("===== %s" % msg)
         if self.ncleared > 0:
-            msg = (n_("@info:progress",
-                      "Cleared untranslated tag from %(num)d message.",
-                      "Cleared untranslated tag from %(num)d messages.",
-                      self.ncleared)
-                   % dict(num=self.ncleared))
+            msg = n_("@info:progress",
+                     "Cleared untranslated tag from %(num)d message.",
+                     "Cleared untranslated tag from %(num)d messages.",
+                     num=self.ncleared)
             report("===== %s" % msg)
 

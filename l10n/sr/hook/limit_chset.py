@@ -103,8 +103,8 @@ def _limit_to_chset (text, chset, translit, cname):
             continue
         warning(_("@info",
                   "Character '%(char)s' cannot be transliterated "
-                  "into character set %(charset)s, removing it.")
-                % dict(char=c, charset=cname))
+                  "into character set %(charset)s, removing it.",
+                  char=c, charset=cname))
         ltext.append("?")
 
     return "".join(ltext)

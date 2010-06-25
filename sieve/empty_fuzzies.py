@@ -61,10 +61,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nemptied > 0:
-            msg = (n_("@info:progress",
-                      "Cleared %(num)d fuzzy message of translation.",
-                      "Cleared %(num)d fuzzy messages of translation.",
-                      self.nemptied)
-                   % dict(num=self.nemptied))
+            msg = n_("@info:progress",
+                     "Cleared %(num)d fuzzy message of translation.",
+                     "Cleared %(num)d fuzzy messages of translation.",
+                     num=self.nemptied)
             report("===== %s" % msg)
 

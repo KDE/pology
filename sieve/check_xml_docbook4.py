@@ -86,13 +86,12 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            msg = (n_("@info:progress",
-                      "Found %(num)d problem in Docbook markup "
-                      "in translations.",
-                      "Found %(num)d problems in Docbook markup "
-                      "in translations.",
-                      self.nproblems)
-                   % dict(num=self.nproblems))
+            msg = n_("@info:progress",
+                     "Found %(num)d problem in Docbook markup "
+                     "in translations.",
+                     "Found %(num)d problems in Docbook markup "
+                     "in translations.",
+                     num=self.nproblems)
             report("===== %s" % msg)
 
 

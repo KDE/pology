@@ -49,8 +49,8 @@ def organize (dictPath):
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
         error(_("@info",
-                "Malformed header of the dictionary file '%(file)s'.")
-              % dict(file=dictPath))
+                "Malformed header of the dictionary file '%(file)s'.",
+                file=dictPath))
     dictType, dictLang, numWords, dictEnc=m.groups()
 
     # Reopen in correct encoding if not the default.
@@ -66,9 +66,9 @@ def organize (dictPath):
         if word.startswith("personal_ws"):
             continue
         if word in words:
-            report("  " + (_("@item:inlist",
-                            "removed duplicate: %(word)s")
-                           % dict(word=word.rstrip("\n"))))
+            report("  " + _("@item:inlist",
+                            "removed duplicate: %(word)s",
+                            word=word.rstrip("\n")))
         else:
             words.add(word)
     words=list(words)
@@ -83,17 +83,16 @@ def organize (dictPath):
     dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
     dictFile.writelines(words)
     dictFile.close()
-    report("  " + (n_("@item:inlist",
-                      "written %(num)d word",
-                      "written %(num)d words",
-                      len(words))
-                   % dict(num=len(words))))
+    report("  " + n_("@item:inlist",
+                     "written %(num)d word",
+                     "written %(num)d words",
+                     num=len(words)))
 
 
 def usage():
     report(_("@info",
-             "Usage: %(cmd)s DICTFILE...")
-           % dict(cmd=basename(sys.argv[0])))
+             "Usage: %(cmd)s DICTFILE...",
+             cmd=basename(sys.argv[0])))
     sys.exit(1)
 
 

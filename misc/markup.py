@@ -685,10 +685,10 @@ def collect_xml_spec_l1 (specpath):
 
     def signal (msg, bpos):
 
-        emsg = (_("@info \"L1-spec\" is shorthand for "
-                  "\"level 1 specification\"",
-                  "[L1-spec] %(file)s:%(line)d:%(col)d: %(msg)s")
-                % dict(file=specpath, line=bpos[0], col=bpos[1], msg=msg))
+        emsg = _("@info \"L1-spec\" is shorthand for "
+                 "\"level 1 specification\"",
+                 "[L1-spec] %(file)s:%(line)d:%(col)d: %(msg)s",
+                 file=specpath, line=bpos[0], col=bpos[1], msg=msg)
         raise PologyError(emsg)
 
     def advance (stoptest, cmnt=True):
@@ -726,8 +726,9 @@ def collect_xml_spec_l1 (specpath):
             rx = re.compile(rx_str, rx_flags)
         except:
             signal(_("@info the regex is already quoted when inserted",
-                     "Cannot compile regular expression %(regex)s.")
-                    % dict(regex=(wch + rx_str + wch)), lincol)
+                     "Cannot compile regular expression %(regex)s.",
+                     regex=(wch + rx_str + wch)),
+                     lincol)
         return lambda x: rx.search(x) is not None
 
     spec = {}
@@ -746,8 +747,8 @@ def collect_xml_spec_l1 (specpath):
                            lincol)
                 if not valid_tag_rx.search(tag) and tag != dtag_attr:
                     signal(_("@info",
-                             "Invalid tag name '%(tag)s'.")
-                           % dict(tag=tag), lincol)
+                             "Invalid tag name '%(tag)s'.", tag=tag),
+                             lincol)
                 entry = _L1Element(tag)
                 spec[tag] = entry
 
@@ -776,12 +777,12 @@ def collect_xml_spec_l1 (specpath):
                     entry.mattrs.add(attr)
                 if attr in entry.attrs:
                     signal(_("@info",
-                             "Duplicate attribute '%(attr)s'.")
-                           % dict(attr=attr), lincol)
+                             "Duplicate attribute '%(attr)s'.", attr=attr),
+                             lincol)
                 if not valid_attr_rx.search(attr):
                     signal(_("@info",
-                             "Invalid attribute name '%(attr)s'.")
-                           % dict(attr=attr), lincol)
+                             "Invalid attribute name '%(attr)s'.", attr=attr),
+                             lincol)
                 entry.attrs.add(attr)
                 lastattr = attr
 
@@ -820,14 +821,14 @@ def collect_xml_spec_l1 (specpath):
             for c in rx_flag_spec:
                 if c in seen_flags:
                     signal(_("@info",
-                             "Regex flag '%(flag)s' is already issued.")
-                           % dict(flag=c), lincol)
+                             "Regex flag '%(flag)s' is already issued.",
+                             flag=c), lincol)
                 if c == "i":
                     rx_flags |= re.I
                 else:
                     signal(_("@info",
-                             "Unknown regex flag '%(flag)s'.")
-                           % dict(flag=c), lincol)
+                             "Unknown regex flag '%(flag)s'.", flag=c),
+                             lincol)
                 seen_flags.add(c)
             entry.avlints[lastattr] = make_rx_lint(rx_str, rx_flags,
                                                    wch, lincol)
@@ -845,8 +846,8 @@ def collect_xml_spec_l1 (specpath):
             if stag:
                 if stag in entry.stags:
                     signal(_("@info",
-                             "Repeated subtag '%(tag)s'.")
-                           % dict(tag=stag), lincol)
+                             "Repeated subtag '%(tag)s'.", tag=stag),
+                             lincol)
                 entry.stags.add(stag)
 
             if sep == ch_end:
@@ -985,10 +986,10 @@ def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     try:
         parser.Parse(text.encode(xenc), True)
     except xml.parsers.expat.ExpatError, e:
-        errmsg = (_("@info a problem in the given type of markup "
-                    "(e.g. HTML, Docbook)",
-                    "%(mtype)s markup: %(snippet)s.")
-                  % dict(mtype=g.xmlfmt, snippet=e.args[0]))
+        errmsg = _("@info a problem in the given type of markup "
+                   "(e.g. HTML, Docbook)",
+                   "%(mtype)s markup: %(snippet)s.",
+                   mtype=g.xmlfmt, snippet=e.args[0])
         span = _make_span(text, e.lineno, e.offset, errmsg)
         g.spans.append(span)
 
@@ -1077,9 +1078,9 @@ def _handler_start_element (tag, attrs):
 
     # Check existence of the tag.
     if tag not in g.spec and tag != _dummy_top:
-        errmsg = (_("@info",
-                    "%(mtype)s markup: unrecognized tag '%(tag)s'.")
-                  % dict(mtype=g.xmlfmt, tag=tag))
+        errmsg = _("@info",
+                   "%(mtype)s markup: unrecognized tag '%(tag)s'.",
+                   mtype=g.xmlfmt, tag=tag)
         span = _make_span(g.text, g.parser.CurrentLineNumber,
                           g.parser.CurrentColumnNumber + 1, errmsg)
         g.spans.append(span)
@@ -1097,15 +1098,15 @@ def _handler_start_element (tag, attrs):
             if attr not in elspec.attrs:
                 errmsgs.append(_("@info",
                                  "%(mtype)s markup: invalid attribute "
-                                 "'%(attr)s' to tag '%(tag)s'.")
-                               % dict(mtype=g.xmlfmt, attr=attr, tag=tag))
+                                 "'%(attr)s' to tag '%(tag)s'.",
+                                 mtype=g.xmlfmt, attr=attr, tag=tag))
             else:
                 avlint = elspec.avlints.get(attr)
                 if avlint and not avlint(aval):
                     errmsgs.append(_("@info",
                                      "%(mtype)s markup: invalid value "
-                                     "'%(val)s' to attribute '%(attr)s'.")
-                                   % dict(mtype=g.xmlfmt, val=aval, attr=attr))
+                                     "'%(val)s' to attribute '%(attr)s'.",
+                                     mtype=g.xmlfmt, val=aval, attr=attr))
 
     # Check proper parentage.
     if g.tagstack:
@@ -1116,8 +1117,8 @@ def _handler_start_element (tag, attrs):
         ):
             errmsgs.append(_("@info",
                              "%(mtype)s markup: tag '%(tag1)s' cannot be "
-                             "a subtag of '%(tag2)s'.")
-                           % dict(mtype=g.xmlfmt, tag1=tag, tag2=ptag))
+                             "a subtag of '%(tag2)s'.",
+                             mtype=g.xmlfmt, tag1=tag, tag2=ptag))
 
     # Record element stack.
     g.tagstack.append(tag)
@@ -1137,10 +1138,10 @@ def _handler_default (text):
         errmsg = None
         if ent.startswith("#"):
             if nument_to_char(ent) is None:
-                errmsg = (_("@info",
-                            "%(mtype)s markup: invalid numeric "
-                            "entity '%(ent)s'.")
-                          % dict(mtype=g.xmlfmt, ent=ent))
+                errmsg = _("@info",
+                           "%(mtype)s markup: invalid numeric "
+                           "entity '%(ent)s'.",
+                           mtype=g.xmlfmt, ent=ent)
         elif ent not in g.ents and ent not in xml_entities:
             nearents = [] #difflib.get_close_matches(ent, g.ents)
             if nearents:
@@ -1148,14 +1149,14 @@ def _handler_default (text):
                     fmtents = format_item_list(nearents[:5], incmp=True)
                 else:
                     fmtents = format_item_list(nearents)
-                errmsg = (_("@info",
-                            "%(mtype)s markup: unknown entity '%(ent)s' "
-                            "(suggestions: %(entlist)s).")
-                          % dict(mtype=g.xmlfmt, ent=ent, entlist=fmtents))
+                errmsg = _("@info",
+                           "%(mtype)s markup: unknown entity '%(ent)s' "
+                           "(suggestions: %(entlist)s).",
+                           mtype=g.xmlfmt, ent=ent, entlist=fmtents)
             else:
-                errmsg = (_("@info",
-                            "%(mtype)s markup: unknown entity '%(ent)s'.")
-                          % dict(mtype=g.xmlfmt, ent=ent))
+                errmsg = _("@info",
+                           "%(mtype)s markup: unknown entity '%(ent)s'.",
+                           mtype=g.xmlfmt, ent=ent)
 
         if errmsg is not None:
             span = _make_span(g.text, g.parser.CurrentLineNumber,
@@ -1306,9 +1307,9 @@ def check_xmlents (text, ents={}, default=False, numeric=False):
             errmsg = None
             if numeric and ent.startswith("#"):
                 if nument_to_char(ent) is None:
-                    errmsg = (_("@info",
-                                "Invalid numeric entity '%(ent)s'.")
-                              % dict(ent=ent))
+                    errmsg = _("@info",
+                               "Invalid numeric entity '%(ent)s'.",
+                               ent=ent)
             elif ent not in ents and (not default or ent not in xml_entities):
                 nearents = [] #difflib.get_close_matches(ent, ents)
                 if nearents:
@@ -1316,14 +1317,14 @@ def check_xmlents (text, ents={}, default=False, numeric=False):
                         fmtents = format_item_list(nearents[:5], incmp=True)
                     else:
                         fmtents = format_item_list(nearents)
-                    errmsg = (_("@info",
-                                "Unknown entity '%(ent)s' "
-                                "(suggestions: %(entlist)s).")
-                              % dict(ent=ent, entlist=fmtents))
+                    errmsg = _("@info",
+                               "Unknown entity '%(ent)s' "
+                               "(suggestions: %(entlist)s).",
+                               ent=ent, entlist=fmtents)
                 else:
-                    errmsg = (_("@info",
-                                "Unknown entity '%(ent)s'.")
-                              % dict(ent=ent))
+                    errmsg = _("@info",
+                               "Unknown entity '%(ent)s'.",
+                               ent=ent)
 
             if errmsg is not None:
                 spans.append((pp, p, errmsg))
@@ -1367,15 +1368,15 @@ def check_placeholder_els (orig, trans):
     extra_plnums = list(trans_plnums.difference(orig_plnums))
     if missing_plnums:
         tags = "".join(["<placeholder-%s/>" % x for x in missing_plnums])
-        errmsg = (_("@info",
-                    "Missing placeholder tags in translation: %(taglist)s.")
-                  % dict(taglist=format_item_list(tags)))
+        errmsg = _("@info",
+                   "Missing placeholder tags in translation: %(taglist)s.",
+                   taglist=format_item_list(tags))
         spans.append((0, 0, errmsg))
     elif extra_plnums: # do not report both, single glitch may cause them
         tags = "".join(["<placeholder-%s/>" % x for x in extra_plnums])
-        errmsg = (_("@info",
-                    "Superfluous placeholder tags in translation: %(taglist)s.")
-                  % dict(taglist=format_item_list(tags)))
+        errmsg = _("@info",
+                   "Superfluous placeholder tags in translation: %(taglist)s.",
+                   taglist=format_item_list(tags))
         spans.append((0, 0, errmsg))
 
     return spans

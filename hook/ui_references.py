@@ -518,9 +518,9 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                 tag = mt.group(1)
                 m = uiref_extract_tag_rx[tag].search(text, pt)
                 if not m:
-                    errmsg = (_("@info \"tag\" is a tag in HTML/XML context",
-                                "Non-terminated UI reference by tag '%(tag)s'.")
-                              % dict(tag=tag))
+                    errmsg = _("@info \"tag\" is a tag in HTML/XML context",
+                               "Non-terminated UI reference by tag '%(tag)s'.",
+                               tag=tag)
                     errspans.append(mt.span() + (errmsg,))
                     if not spanrep and not quiet:
                         warning_on_msg(errmsg, msg, cat)
@@ -535,11 +535,11 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                 head = mh.group(1)
                 m = uiref_extract_head_rx[head].search(text, ph)
                 if not m:
-                    errmsg = (_("@info \"head\" is the leading part of "
-                                "UI reference, e.g. '~%' in '~%/Save All/'",
-                                "Non-terminated UI reference by "
-                                "head '%(head)s'.")
-                              % dict(head=head))
+                    errmsg = _("@info \"head\" is the leading part of "
+                               "UI reference, e.g. '~%' in '~%/Save All/'",
+                               "Non-terminated UI reference by "
+                               "head '%(head)s'.",
+                               head=head)
                     errspans.append(mh.span() + (errmsg,))
                     if not spanrep and not quiet:
                         warning_on_msg(errmsg, msg, cat)
@@ -696,8 +696,8 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
         if not catpaths:
             warning(_("@info",
                       "UI catalog '%(catname1)s' associated to '%(catname2)s' "
-                      "is not among known catalog paths.")
-                    % dict(catname1=catname, catname2=cat.name))
+                      "is not among known catalog paths.",
+                      catname1=catname, catname2=cat.name))
             continue
         for catpath in catpaths:
             chkey = (xmlescape, catpath)
@@ -824,8 +824,8 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
             errmsgs.append(_("@info \"tail\" is the trailing remainder of "
                              "a UI reference string after parsing",
                              "Superfluous tail '%(str)s' in "
-                             "UI reference '%(ref)s'.")
-                           % dict(str=rep, ref=uitext))
+                             "UI reference '%(ref)s'.",
+                             str=rep, ref=uitext))
         msgctxt, msgid = lst[:2]
         if not msgctxt:
             # FIXME: What about context with existing, but empty context?
@@ -862,8 +862,8 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
             else:
                 errmsgs.append(_("@info",
                                  "Invalid argument specification '%(arg)s' "
-                                 "in UI reference '%(ref)s'.")
-                               % dict(arg=arg_raw, ref=uitext))
+                                 "in UI reference '%(ref)s'.",
+                                 arg=arg_raw, ref=uitext))
 
     # Try to find unambiguous match to msgctxt/msgid.
     rmsg = None
@@ -893,9 +893,9 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
             ruitext = msgid
             errmsgs.append(_("@info",
                              "UI reference '%(ref)s' not translated "
-                             "at %(file)s:%(line)d(#%(entry)d).")
-                           % dict(ref=uitext, file=rcat.filename,
-                                  line=rmsg.refline, entry=rmsg.refentry))
+                             "at %(file)s:%(line)d(#%(entry)d).",
+                             ref=uitext, file=rcat.filename,
+                             line=rmsg.refline, entry=rmsg.refentry))
 
     # If no unambiguous match found, collect all the approximate ones,
     # report and use the original UI text.
@@ -906,37 +906,35 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
             nmsgs = uicat.select_by_msgid_fuzzy(msgid)
             for nmsg in nmsgs:
                 if nmsg.translated:
-                    approx1 = (_("@item condensed display of text and "
-                                 "its translation; they should stand out "
-                                 "well, hence the {{...}} wrapping",
-                                 "{{%(text)s}}={{%(translation)s}} "
-                                 "at %(file)s:%(line)d(#%(entry)d)")
-                               % dict(text=_to_uiref(nmsg),
-                                      translation=nmsg.msgstr[0],
-                                      file=uicat.filename,
-                                      line=nmsg.refline,
-                                      entry=nmsg.refentry))
+                    approx1 = _("@item condensed display of text and "
+                                "its translation; they should stand out "
+                                "well, hence the {{...}} wrapping",
+                                "{{%(text)s}}={{%(translation)s}} "
+                                "at %(file)s:%(line)d(#%(entry)d)",
+                                text=_to_uiref(nmsg),
+                                translation=nmsg.msgstr[0],
+                                file=uicat.filename,
+                                line=nmsg.refline, entry=nmsg.refentry)
                 else:
-                    approx1 = (_("@item condensed display of text without "
-                                 "translation; it should stand out "
-                                 "well, hence the {{...}} wrapping",
-                                 "{{%(text)s}}=(untranslated) "
-                                 "at %(file)s:%(line)d(#%(entry)d)")
-                               % dict(text=_to_uiref(nmsg),
-                                      file=uicat.filename,
-                                      line=nmsg.refline,
-                                      entry=nmsg.refentry))
+                    approx1 = _("@item condensed display of text without "
+                                "translation; it should stand out "
+                                "well, hence the {{...}} wrapping",
+                                "{{%(text)s}}=(untranslated) "
+                                "at %(file)s:%(line)d(#%(entry)d)",
+                                text=_to_uiref(nmsg),
+                                file=uicat.filename,
+                                line=nmsg.refline, entry=nmsg.refentry)
                 approx.append(approx1)
         if approx:
             errmsgs.append(_("@info",
                              "UI reference '%(ref)s' cannot be resolved; "
                              "close matches:\n"
-                             "%(matches)s")
-                           % dict(ref=uitext, matches="\n".join(approx)))
+                             "%(matches)s",
+                             ref=uitext, matches="\n".join(approx)))
         else:
             errmsgs.append(_("@info",
-                             "UI reference '%(ref)s' cannot be resolved.")
-                           % dict(ref=uitext))
+                             "UI reference '%(ref)s' cannot be resolved.",
+                             ref=uitext))
 
     # Strip scripted part if any.
     p = ruitext.find(_ts_fence)
@@ -954,8 +952,8 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
             errmsgs.append(_("@info",
                              "Placeholder '%(plhold)s' not found in resolved "
                              "UI reference text '%(text)s' "
-                             "to reference '%(ref)s'.")
-                           % dict(plhold=plhold, text=ruitext, ref=uitext))
+                             "to reference '%(ref)s'.",
+                             plhold=plhold, text=ruitext, ref=uitext))
 
     return ruitext, errmsgs
 

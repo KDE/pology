@@ -78,18 +78,17 @@ class Sieve (object):
             if unknown:
                 warning_on_msg(_("@info",
                                  "Unknown entities in translation: "
-                                 "%(entlist)s.")
-                               % dict(entlist=format_item_list(unknown)),
+                                 "%(entlist)s.",
+                                 entlist=format_item_list(unknown)),
                                msg, cat)
 
 
     def finalize (self):
 
         if self.nresolved > 0:
-            msg = (n_("@info:progress",
-                      "Resolved %(num)d entity in translation.",
-                      "Resolved %(num)d entities in translation.",
-                      self.nresolved)
-                   % dict(num=self.nresolved))
+            msg = n_("@info:progress",
+                     "Resolved %(num)d entity in translation.",
+                     "Resolved %(num)d entities in translation.",
+                     num=self.nresolved)
             report("===== %s" % msg)
 

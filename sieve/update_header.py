@@ -104,8 +104,8 @@ class Sieve (object):
         if not config.has_section(prjsect):
             raise SieveError(
                 _("@info",
-                  "Project '%(id)s' is not defined in user configuration.")
-                % dict(id=params.proj))
+                  "Project '%(id)s' is not defined in user configuration.",
+                  id=params.proj))
         self.prjcfg = config.section(prjsect)
         prjcfg = config.section(prjsect)
         usrcfg = config.section("user")
@@ -115,34 +115,34 @@ class Sieve (object):
         if not self.name:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
-                      "project or user configuration.")
-                    % dict(field="name"))
+                      "project or user configuration.",
+                      field="name"))
         self.email = prjcfg.string("email") or usrcfg.string("email")
         if not self.email:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
-                      "project or user configuration.")
-                    % dict(field="email"))
+                      "project or user configuration.",
+                      field="email"))
         self.langteam = prjcfg.string("language-team")
         if not self.langteam:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
-                      "project configuration.")
-                    % dict(field="language-team"))
+                      "project configuration.",
+                      field="language-team"))
         self.teamemail = prjcfg.string("team-email") # ok not to be present
         self.langcode = prjcfg.string("language")
         if not self.langcode:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
-                      "project configuration.")
-                    % dict(field="language"))
+                      "project configuration.",
+                      field="language"))
         self.encoding = prjcfg.string("encoding", "UTF-8")
         self.plforms = prjcfg.string("plural-forms")
         if not self.plforms:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
-                      "project configuration.")
-                    % dict(field="plural-forms"))
+                      "project configuration.",
+                      field="plural-forms"))
         self.poeditor = (    prjcfg.string("po-editor")
                           or usrcfg.string("po-editor")) # ok not to be present
 

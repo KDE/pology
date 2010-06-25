@@ -312,8 +312,8 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         raise PologyError(
             _("@info",
               "Unknown markup type '%(mtype)s' to trapnakron derivator "
-              "(known markups: %(mtypelist)s).")
-            % dict(mtype=markup, mtypelist=format_item_list(_known_markups)))
+              "(known markups: %(mtypelist)s).",
+              mtype=markup, mtypelist=format_item_list(_known_markups)))
 
     # Compose environment fallback chains.
     env = []
@@ -842,8 +842,8 @@ def norm_pkey (pkey):
         raise PologyError(
             _("@info",
               "Normalization of property keys requested "
-              "on unsupported data type '%(type)s'.")
-            % dict(type=type(pkey)))
+              "on unsupported data type '%(type)s'.",
+              type=type(pkey)))
 
 
 _norm_rtkey_rx = re.compile("\s", re.U)

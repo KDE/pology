@@ -107,8 +107,8 @@ class Colors:
         else:
             raise PologyError(
                 _("@info",
-                  "Unknown type of coloring '%(type)s' requested.")
-                % dict(type=ctype))
+                  "Unknown type of coloring '%(type)s' requested.",
+                  type=ctype))
 
 
     def unescape (self, text):
@@ -253,8 +253,6 @@ def resolve_color_markup (text, colors):
     Resolve color markup in text according to given color applicator.
 
     Possible tags in text are those as coloring methods of L{Colors}.
-    Also resolved are standard XML entities
-    (C{&lt;}, C{&gt;}, C{&amp;}, C{&apos;}, C{&quot;})
 
     @param colors: color applicator
     @type colors: L{Colors}
@@ -273,15 +271,19 @@ def _resolve_color_markup_w (text, colors, plnum):
     plhold = "\x00%d" % plnum
     if m:
         tag, seg = m.groups()
-        rseg = getattr(colors, tag, lambda t: t)(seg)
-        rseg = colors.unescape(rseg)
+        tagf = getattr(colors, tag, None)
+        if tagf is not None:
+            rseg = tagf(seg)
+        else:
+            rseg = "<%s>%s</%s>" % (tag, seg, tag)
+        #rseg = colors.unescape(rseg)
         pre, aft = text[:m.start()], text[m.end():]
         rtext = _resolve_color_markup_w(pre + plhold + aft, colors, plnum + 1)
         rtext = rtext.replace(plhold, rseg)
-        return rtext
     else:
-        rtext = colors.unescape(text)
-        return rtext
+        rtext = text
+        #rtext = colors.unescape(rtext)
+    return rtext
 
 
 def set_coloring_globals (ctype="term", outdep=True):

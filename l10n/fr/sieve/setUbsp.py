@@ -41,8 +41,7 @@ class Sieve (object):
             report(n_("@info",
                       "Non-breaking spaces added in %(num)d message.",
                       "Non-breaking spaces added in %(num)d messages.",
-                      self.nmatch)
-                   % dict(num=self.nmatch))
+                      num=self.nmatch))
 
     def setUbsp(self, text):
         """Set correctly unbreakable spaces"""

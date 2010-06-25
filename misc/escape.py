@@ -73,8 +73,8 @@ def unescape_c (s):
         if ec is None:
             raise PologyError(
                 _("@info \"C\" is the C programming language",
-                  "Invalid C escape sequence after '%(snippet)s'.")
-                % dict(snippet=s[:p]))
+                  "Invalid C escape sequence after '%(snippet)s'.",
+                  snippet=s[:p]))
         segs.append(ec)
 
     return type(s)().join(segs)

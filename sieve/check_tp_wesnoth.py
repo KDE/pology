@@ -82,8 +82,9 @@ def setup_sieve (p):
                           "KEYWORD,..."),
                 desc=_("@info sieve parameter discription",
     "Run only this check instead of all (currently available: %(chklist)s). "
-    "Several checks can be specified as a comma-separated list."
-    ) % dict(chklist=format_item_list(chnames)))
+    "Several checks can be specified as a comma-separated list.",
+    chklist=format_item_list(chnames)
+    ))
     p.add_param("showmsg", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Also show the full message that had some problems."
@@ -105,8 +106,8 @@ class Sieve (object):
                 fmtchecks = format_item_list(unknown_checks)
                 raise SieveError(
                     _("@info",
-                      "Unknown checks selected: %(chklist)s.")
-                    % dict(chklist=fmtchecks))
+                      "Unknown checks selected: %(chklist)s.",
+                      chklist=fmtchecks))
             self.selected_checks = set(params.check)
 
         self.showmsg = params.showmsg
@@ -168,11 +169,10 @@ class Sieve (object):
     def finalize (self):
 
         if self.nproblems > 0:
-            msg = (n_("@info:progress BfW stands for \"Battle for Wesnoth\"",
-                      "Found %(num)d problem in BfW translations.",
-                      "Found %(num)d problems in BfW translations.",
-                      self.nproblems)
-                   % dict(num=self.nproblems))
+            msg = n_("@info:progress BfW stands for \"Battle for Wesnoth\"",
+                     "Found %(num)d problem in BfW translations.",
+                     "Found %(num)d problems in BfW translations.",
+                     num=self.nproblems)
             report("===== %s" % msg)
 
 
@@ -219,16 +219,16 @@ def _check_interp (msg, cat, strict, hl):
                 hl.append(("msgstr", index,
                            [(None, None,
                              _("@info",
-                               "Missing interpolations: %(interplist)s.")
-                             % dict(interplist=vfmt))]))
+                               "Missing interpolations: %(interplist)s.",
+                               interplist=vfmt))]))
                 nproblems += 1
             elif interps_unknown:
                 vfmt = format_item_list(interps_unknown)
                 hl.append(("msgstr", index,
                            [(None, None,
                              _("@info",
-                               "Unknown interpolations: %(interplist)s.")
-                             % dict(interplist=vfmt))]))
+                               "Unknown interpolations: %(interplist)s.",
+                               interplist=vfmt))]))
                 nproblems += 1
         return nproblems
 
@@ -282,16 +282,16 @@ def _check_wml (msg, cat, strict, hl):
                 hl.append(("msgstr", i,
                            [(None, None,
                              _("@info",
-                               "Missing links: %(linklist)s.")
-                             % dict(linklist=vfmt))]))
+                               "Missing links: %(linklist)s.",
+                               linklist=vfmt))]))
                 nproblems += 1
             elif links_unknown:
                 vfmt = format_item_list(links_unknown)
                 hl.append(("msgstr", i,
                            [(None, None,
                              _("@info",
-                               "Unknown links: %(linklist)s.")
-                             % dict(linklist=vfmt))]))
+                               "Unknown links: %(linklist)s.",
+                               linklist=vfmt))]))
                 nproblems += 1
 
     return nproblems
@@ -402,7 +402,7 @@ def _check_wml_att (tag, content):
             spans.append((p, p2 + 1,
                           _("@info",
                             "'%(attr)s' is not an attribute of "
-                            "tag '%(tag)s'.") % dict(attr=att, tag=tag)))
+                            "tag '%(tag)s'.", attr=att, tag=tag)))
             break
         if content[p2] != "=":
             spans.append((p, p2 + 1,
@@ -410,8 +410,8 @@ def _check_wml_att (tag, content):
             break
         if att in have_atts:
             spans.append((p, p2 + 1,
-                          _("@info", "Attribute '%(attr)s' repeated.")
-                          % dict(attr=att)))
+                          _("@info",
+                            "Attribute '%(attr)s' repeated.", attr=att)))
             break
         have_atts.add(att)
         # Parse value.
@@ -429,8 +429,9 @@ def _check_wml_att (tag, content):
         val = content[p3:p4]
         if not _att_val_check[att](val):
             spans.append((p3, p4,
-                          _("@info", "Invalid value to attribute '%(attr)s'.")
-                          % dict(attr=att)))
+                          _("@info",
+                            "Invalid value to attribute '%(attr)s'.",
+                            attr=att)))
         if att in _link_atts:
             links.add(val)
         # Prepare next loop.
@@ -441,8 +442,8 @@ def _check_wml_att (tag, content):
             if mandatory and att not in have_atts:
                 spans.append((0, 0,
                               _("@info",
-                                "Missing mandatory attribute '%(attr)s'.")
-                              % dict(attr=att)))
+                                "Missing mandatory attribute '%(attr)s'.",
+                                attr=att)))
 
     return spans, links
 

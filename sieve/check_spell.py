@@ -134,8 +134,8 @@ class Sieve (object):
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
             else:
                 warning(_("@info",
-                          "Cannot open file '%(file)s'. XML output disabled.")
-                        % dict(file=xmlPath))
+                          "Cannot open file '%(file)s'. XML output disabled.",
+                          file=xmlPath))
 
         self.accel = params.accel
         self.markup = params.markup
@@ -151,8 +151,8 @@ class Sieve (object):
                 self.pfilters.append((pfilter, hreq))
             else:
                 warning(_("@info",
-                          "Cannot load filter '%(filt)s'.")
-                        % dict(filt=hreq))
+                          "Cannot load filter '%(filt)s'.",
+                          filt=hreq))
 
         self.envs = None
         if self.envs is None and params.env is not None:
@@ -224,13 +224,13 @@ class Sieve (object):
                 except A.AspellConfigError, e:
                     raise SieveError(
                         _("@info",
-                          "Aspell configuration error:\n%(msg)s")
-                        % dict(msg=e))
+                          "Aspell configuration error:\n%(msg)s",
+                          msg=e))
                 except A.AspellError, e:
                     raise SieveError(
                         _("@info",
-                          "Cannot initialize Aspell:\n%(msg)s")
-                        % dict(msg=e))
+                          "Cannot initialize Aspell:\n%(msg)s",
+                          msg=e))
             else:
                 # Create simple internal checker that only checks against
                 # internal supplemental dictionaries.
@@ -305,8 +305,8 @@ class Sieve (object):
                     except TypeError:
                         raise SieveError(
                             _("@info",
-                              "Cannot execute filter '%(filt)s'.")
-                            % dict(filt=pfname))
+                              "Cannot execute filter '%(filt)s'.",
+                              filt=pfname))
 
             # Split text into words.
             if not self.simsp:
@@ -344,8 +344,8 @@ class Sieve (object):
                     except UnicodeEncodeError:
                         warning(_("@info",
                                   "Cannot encode word '%(word)s' in "
-                                  "selected encoding '%(enc)s'.")
-                                % dict(word=word, enc=self.encoding))
+                                  "selected encoding '%(enc)s'.",
+                                  word=word, enc=self.encoding))
             id+=1 # Increase msgstr id count
 
         if failedSuggs and self.lokalize:
@@ -354,8 +354,8 @@ class Sieve (object):
                 if suggs:
                     fmtsuggs=format_item_list(suggs)
                     repls.append(_("@item",
-                                   "%(word)s (suggestions: %(wordlist)s)")
-                                 % dict(word=word, wordlist=fmtsuggs))
+                                   "%(word)s (suggestions: %(wordlist)s)",
+                                   word=word, wordlist=fmtsuggs))
                 else:
                     repls.append("%s" % (word))
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
@@ -374,11 +374,10 @@ class Sieve (object):
                 report("\n".join(slist))
         else:
             if self.nmatch:
-                msg = (n_("@info:progress",
-                          "Encountered %(num)d unknown word.",
-                          "Encountered %(num)d unknown words.",
-                          self.nmatch)
-                       % dict(num=self.nmatch))
+                msg = n_("@info:progress",
+                         "Encountered %(num)d unknown word.",
+                         "Encountered %(num)d unknown words.",
+                         num=self.nmatch)
                 report("===== %s" % msg)
         if self.xmlFile:
             self.xmlFile.write("</po>\n")
@@ -450,8 +449,8 @@ def _read_dict_file (fname):
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
         warning(_("@info",
-                  "Malformed header in dictionary file '%(file)s'.")
-                % dict(file=filepath))
+                  "Malformed header in dictionary file '%(file)s'.",
+                  file=filepath))
         return []
     enc=m.group(4)
     # Reopen in correct encoding if not the default.

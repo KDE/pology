@@ -27,20 +27,17 @@ def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage= (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] VCS [POPATHS...]")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Compose hybridized Ijekavian-Ekavian translation out of "
-          "translation modified from Ekavian to Ijekavian or vice-versa."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage= _("@info command usage",
+        "%(cmd)s [OPTIONS] VCS [POPATHS...]",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Compose hybridized Ijekavian-Ekavian translation out of "
+        "translation modified from Ekavian to Ijekavian or vice-versa.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -72,13 +69,13 @@ def _main ():
         showvcs.sort()
         error(_("@info",
                 "Version control system not given "
-                "(can be one of: %(vcslist)s).")
-              % dict(vcslist=format_item_list(showvcs)))
+                "(can be one of: %(vcslist)s).",
+                vcslist=format_item_list(showvcs)))
     vcskey = free_args.pop(0)
     if vcskey not in available_vcs(flat=True):
         error(_("@info",
-                "Unknown version control system '%(vcs)s'.")
-              % dict(vcs=vcskey))
+                "Unknown version control system '%(vcs)s'.",
+                vcs=vcskey))
     vcs = make_vcs(vcskey)
 
     # Collect PO files in given paths.
@@ -92,8 +89,8 @@ def _main ():
     for path in popaths:
         if not vcs.is_versioned(path):
             error(_("@info",
-                    "Catalog '%(file)s' is not under version control.")
-                  % dict(file=path))
+                    "Catalog '%(file)s' is not under version control.",
+                    file=path))
 
     # Go by modified PO file and hybridize it.
     for path in popaths:
@@ -101,8 +98,8 @@ def _main ():
         tmpf = NamedTemporaryFile(prefix="pohybdl-export-", suffix=".po")
         if not vcs.export(path, options.base_revision, tmpf.name):
             error(_("@info",
-                    "Version control system cannot export file '%(file)s'.")
-                  % dict(file=path))
+                    "Version control system cannot export file '%(file)s'.",
+                    file=path))
         # Hybridize by comparing local head and modified file.
         hybdl(path, tmpf.name, options.accept_changes)
 
@@ -179,8 +176,7 @@ def hybdl (path, path0, accnohyb=False):
                    "cleanly hybridized.",
                    "%(num)d messages in '%(file)s' cannot be "
                    "cleanly hybridized.",
-                   nstopped)
-                % dict(num=nstopped, file=path))
+                   num=nstopped, file=path))
         nhybridized = 0
 
     return nhybridized

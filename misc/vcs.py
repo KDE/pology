@@ -81,8 +81,8 @@ def make_vcs (vcskey):
     if not vcstype:
         raise PologyError(
             _("@info",
-              "Unknown version control system requested by key '%(key)s'.")
-            % dict(key=vcskey))
+              "Unknown version control system requested by key '%(key)s'.",
+              key=vcskey))
     return vcstype()
 
 
@@ -673,8 +673,8 @@ class VcsSubversion (VcsBase):
         if res[-1] != 0:
             warning(_("@info",
                       "Subversion reports it cannot diff path '%(path)s':\n"
-                       "%(msg)s")
-                    % dict(path=path, msg=res[1]))
+                       "%(msg)s",
+                       path=path, msg=res[1]))
             return []
 
         udiff = []
@@ -708,8 +708,8 @@ class VcsSubversion (VcsBase):
         if res[-1] != 0:
             warning(_("@info",
                       "Subversion reports it cannot revert path '%(path)s':\n"
-                      "%(msg)s")
-                    % dict(path=path, msg=res[1]))
+                      "%(msg)s",
+                      path=path, msg=res[1]))
             return False
 
         return True
@@ -756,8 +756,8 @@ class VcsGit (VcsBase):
         if root is None:
             raise PologyError(
                 _("@info \"Git\" is a version control system",
-                  "Cannot find Git repository for '%(path)s'.")
-                % dict(path=path))
+                  "Cannot find Git repository for '%(path)s'.",
+                  path=path))
 
         rpaths = []
         for path in paths:
@@ -797,8 +797,8 @@ class VcsGit (VcsBase):
 
         if os.path.isdir(path):
             warning(_("@info",
-                      "Git cannot remove directories (tried on '%(path)s').")
-                    % dict(path=path))
+                      "Git cannot remove directories (tried on '%(path)s').",
+                      path=path))
             return False
 
         root, path = self._gitroot(path)
@@ -909,13 +909,13 @@ class VcsGit (VcsBase):
         for opath in opaths:
             if not self.is_versioned(opath):
                 warning(_("@info"
-                          "Git cannot commit non-versioned path '%(path)s'.")
-                        % dict(path=opath))
+                          "Git cannot commit non-versioned path '%(path)s'.",
+                          path=opath))
                 return False
             if os.path.exists(opath) and not self.add(opath):
                 warning(_("@info"
-                          "Git cannot add path '%(path)s' to index.")
-                        % dict(path=opath))
+                          "Git cannot add path '%(path)s' to index.",
+                          path=opath))
                 return False
 
         # Reset all paths in index which have not been given to commit.
@@ -1042,8 +1042,8 @@ class VcsGit (VcsBase):
         if res[-1] != 0:
             warning(_("@info"
                       "Git reports it cannot diff path '%(path)s':\n"
-                      "%(msg)s")
-                    % dict(path=path, msg=res[1]))
+                      "%(msg)s",
+                      path=path, msg=res[1]))
             return []
 
         udiff = []
@@ -1079,8 +1079,8 @@ class VcsGit (VcsBase):
         if res[-1] != 0:
             warning(_("@info"
                       "Git reports it cannot revert path '%(path)s':\n"
-                      "%(msg)s")
-                    % dict(path=path, msg=res[1]))
+                      "%(msg)s",
+                      path=path, msg=res[1]))
             return []
 
         return True

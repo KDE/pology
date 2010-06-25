@@ -67,8 +67,8 @@ def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
     else:
         raise PologyError(
             _("@info",
-              "Unknown hyphen replacement mode %(mode)s.")
-            % dict(mode=mode))
+              "Unknown hyphen replacement mode %(mode)s.",
+              mode=mode))
     nobrhyp_rxs = [re.compile(x, re.U) for x in nobrhyp_rxstrs]
 
     # Function to produce replacement for matched pattern.

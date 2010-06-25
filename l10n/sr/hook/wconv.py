@@ -441,13 +441,12 @@ def _hito_w (text, toijek=False, silent=False, validate=False):
                                                 althead=_dhyb_althead,
                                                 srcname=srcname)
     if not allgood and validate:
-        errmsg = (n_("@info \"alternatives directive\" is a term",
-                     "Malformed Ekavian-Ijekavian alternatives directive "
-                     "encountered after %(num)d good directive.",
-                     "Malformed Ekavian-Ijekavian alternatives directive "
-                     "encountered after %(num)d good directives.",
-                     ngood)
-                  % dict(num=ngood))
+        errmsg = n_("@info \"alternatives directive\" is a term",
+                    "Malformed Ekavian-Ijekavian alternatives directive "
+                    "encountered after %(num)d good directive.",
+                    "Malformed Ekavian-Ijekavian alternatives directive "
+                    "encountered after %(num)d good directives.",
+                    num=ngood)
         errspans.append((0, 0, errmsg))
 
     if not validate:
@@ -486,9 +485,9 @@ def _hito_w_simple (text, tick, refmap, ijklen_min, ijklen_max,
             p += len(ijkfrm)
         else:
             segs.append(tick)
-            errmsg = (_("@info \"jat\" is the name of an old Serbian letter",
-                        "Unknown jat-reflex starting from '%(snippet)s'.")
-                      % dict(snippet=text[pp:pp + 20]))
+            errmsg = _("@info \"jat\" is the name of an old Serbian letter",
+                       "Unknown jat-reflex starting from '%(snippet)s'.",
+                       snippet=text[pp:pp + 20])
             if not silent:
                 warning(errmsg)
             if errspans is not None:
@@ -711,8 +710,8 @@ def _delimit (alts, delims):
         raise PologyError(
             _("@info",
               "No delimiter from '%(delimstr)s' can be used for "
-              "alternatives directive containing: %(snippetlist)s.")
-            % dict(delimstr=delims, snippetlist=fmtalts))
+              "alternatives directive containing: %(snippetlist)s.",
+              delimstr=delims, snippetlist=fmtalts))
 
     return delim + delim.join(alts) + delim
 

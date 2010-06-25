@@ -14,7 +14,7 @@ import re
 import sys
 import time
 
-from pology import PologyError, version, _, n_
+from pology import PologyError, version, _, n_, t_
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.hook.gettext_tools import msgfmt
@@ -92,20 +92,17 @@ def main ():
     }
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s MODE [OPTIONS] [PATHS...]")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Keep track of who, when, and how, has translated, modified, "
-          "or reviewed messages in a collection of PO files."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2008, 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s MODE [OPTIONS] [PATHS...]",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Keep track of who, when, and how, has translated, modified, "
+        "or reviewed messages in a collection of PO files.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2008, 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -120,14 +117,14 @@ def main ():
         "-A", "--min-adjsim-diff",
         metavar=_("@info command line value placeholder", "RATIO"),
         action="store", dest="min_adjsim_diff", default=None,
-        help=(_("@info command line option description",
-                "Minimum adjusted similarity between two versions of a message "
-                "needed to show the embedded difference. "
-                "Range 0.0-1.0, where 0 means always to show the difference, "
-                "and 1 never to show it; a convenient range is 0.6-0.8. "
-                "When the difference is not shown, the '%(flag)s' flag is "
-                "added to the message.")
-              % dict(flag=_diffflag_ign)))
+        help=_("@info command line option description",
+               "Minimum adjusted similarity between two versions of a message "
+               "needed to show the embedded difference. "
+               "Range 0.0-1.0, where 0 means always to show the difference, "
+               "and 1 never to show it; a convenient range is 0.6-0.8. "
+               "When the difference is not shown, the '%(flag)s' flag is "
+               "added to the message.",
+               flag=_diffflag_ign))
     opars.add_option(
         "-b", "--show-by-file",
         action="store_true", dest="show_by_file", default=False,
@@ -181,10 +178,10 @@ def main ():
         "-m", "--message",
         metavar=_("@info command line value placeholder", "TEXT"),
         action="store", dest="message", default=None,
-        help=(_("@info command line option description",
-                "Version control commit message for original catalogs, "
-                "when %(opt)s is in effect.")
-              % dict(opt="-c")))
+        help=_("@info command line option description",
+               "Version control commit message for original catalogs, "
+               "when %(opt)s is in effect.",
+               opt="-c"))
     opars.add_option(
         "-o", "--open-in-editor",
         metavar=("|".join(sorted(known_editors))),
@@ -248,13 +245,13 @@ def main ():
     opars.add_option(
         "--all-reviewed",
         action="store_true", dest="all_reviewed", default=False,
-        help=(_("@info command line option description",
-                "Ascribe all messages as reviewed on commit, "
-                "overriding any existing review elements. "
-                "Tags given by %(opt)s apply. "
-                "This should not be done in day-to-day practice; "
-                "the primary use is initial review ascription.")
-              % dict(opt="--tag")))
+        help=_("@info command line option description",
+               "Ascribe all messages as reviewed on commit, "
+               "overriding any existing review elements. "
+               "Tags given by %(opt)s apply. "
+               "This should not be done in day-to-day practice; "
+               "the primary use is initial review ascription.",
+               opt="--tag"))
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
@@ -268,9 +265,9 @@ def main ():
     if modename is None:
         error(_("@info",
                 "Unknown operation mode '%(mode)s' "
-                "(known modes: %(modelist)s).")
-              % dict(mode=rawmodename,
-                     modes=format_item_list("%s/%s" % x for x in mode_spec)))
+                "(known modes: %(modelist)s).",
+                mode=rawmodename,
+                modes=format_item_list("%s/%s" % x for x in mode_spec)))
 
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
@@ -306,9 +303,8 @@ def main ():
         if msgrepf is None:
             error(_("@info",
                     "PO editor '%(ed)s' is not among "
-                    "the supported editors: %(edlist)s.")
-                  % dict(ed=edkey,
-                         edlist=format_item_list(sorted(known_editors))))
+                    "the supported editors: %(edlist)s.",
+                    ed=edkey, edlist=format_item_list(sorted(known_editors))))
         return msgrepf
     def valconv_tags (cstr):
         return set(x.strip() for x in cstr.split(","))
@@ -325,8 +321,8 @@ def main ():
                 value = valconv(valraw)
             except TypeError:
                 error(_("@info",
-                        "Value '%(val)s' to option '%(opt)s' is of wrong type.")
-                      % dict(val=valraw, opt=("--" + optname)))
+                        "Value '%(val)s' to option '%(opt)s' is of wrong type.",
+                        val=valraw, opt=("--" + optname)))
             setattr(options, uoptname, value)
 
     # Collect any external functionality.
@@ -355,9 +351,9 @@ def main ():
         if options.addrem[:1] not in ("a", "e", "r"):
             error(_("@info",
                     "Value '%(val)s' to option '%(opt)s' must start "
-                    "with '%(char1)s', '%(char2)s', or '%(char3)s'.")
-                  % dict(val=options.addrem, opt="--diff-reduce-history",
-                         char1="a", char2="e", char3="r"))
+                    "with '%(char1)s', '%(char2)s', or '%(char3)s'.",
+                    val=options.addrem, opt="--diff-reduce-history",
+                    char1="a", char2="e", char3="r"))
 
     # Create selectors if any explicitly given.
     selector = None
@@ -400,25 +396,25 @@ def main ():
         canselect = True
     else:
         error(_("@info",
-                "Unhandled operation mode '%(mode)s'.")
-              % dict(mode=mode.name))
+                "Unhandled operation mode '%(mode)s'.",
+                mode=mode.name))
 
     mode.user = None
     if needuser:
         if not options.user:
             error(_("@info",
                     "Operation mode '%(mode)s' requires a user "
-                    "to be specified.")
-                  % dict(mode=mode.name))
+                    "to be specified.",
+                    mode=mode.name))
         mode.user = options.user
     if not canselect and selector:
         error(_("@info",
-                "Operation mode '%(mode)s' does not accept selectors.")
-              % dict(mode=mode.name))
+                "Operation mode '%(mode)s' does not accept selectors.",
+                mode=mode.name))
     if not canaselect and aselector:
         error(_("@info",
-                "Operation mode '%(mode)s' does not accept history selectors.")
-              % dict(mode=mode.name))
+                "Operation mode '%(mode)s' does not accept history selectors.",
+                mode=mode.name))
 
     # Collect list of catalogs supplied through command line.
     # If none supplied, assume current working directory.
@@ -447,8 +443,8 @@ def main ():
         f.write(("\n".join(sorted(_modified_cats)) + "\n").encode("utf-8"))
         f.close()
         report(_("@info",
-                 "Paths of modified catalogs written to '%(file)s'.")
-               % dict(file=lfpath))
+                 "Paths of modified catalogs written to '%(file)s'.",
+                 file=lfpath))
 
 
 # FIXME: Imported by others, factor out.
@@ -476,8 +472,8 @@ def collect_configs_catpaths (catpaths):
                 break
         if not cfgpath:
             error(_("@info",
-                    "Cannot find ascription configuration for '%(file)s'.")
-                  % dict(file=catpath))
+                    "Cannot find ascription configuration for '%(file)s'.",
+                    file=catpath))
         cfgpath = join_ncwd(cfgpath) # for nicer message output
         config = configs_by_cfgpath.get(cfgpath)
         if not config:
@@ -562,8 +558,8 @@ def vcs_commit_catalogs (configs_catpaths, user, message=None, onabortf=None):
                 os.remove(cmsgfile)
                 error(_("@info",
                         "VCS reports that some catalogs cannot be committed "
-                        "(commit message preserved in '%(file)s').")
-                      % dict(file=cmsgfile_orig))
+                        "(commit message preserved in '%(file)s').",
+                        file=cmsgfile_orig))
         if cmsgfile:
             os.remove(cmsgfile)
             os.remove(cmsgfile_orig)
@@ -598,12 +594,12 @@ def get_commit_message_file_path (user):
     cmd = "%s %s" % (edcmd, fpath)
     if os.system(cmd):
         error(_("@info",
-                "Еrror from editor command '%(cmd)s' for commit message.")
-              % dict(cmd=cmd))
+                "Еrror from editor command '%(cmd)s' for commit message.",
+                cmd=cmd))
     if not os.path.isfile(fpath):
         error(_("@info",
-                "Editor command '%(cmd)s' did not produce a file.")
-              % dict(cmd=cmd))
+                "Editor command '%(cmd)s' did not produce a file.",
+                cmd=cmd))
 
     cmsg = open(fpath, "r").read()
     if not cmsg.endswith("\n"):
@@ -638,8 +634,8 @@ class Config:
         if self.catroot == self.ascroot:
             error(_("@info",
                     "Catalog root and ascription root for '%(file)s' "
-                    "resolve to same path '%(dir)s'.")
-                  % dict(file=cpath, dir=self.catroot))
+                    "resolve to same path '%(dir)s'.",
+                    file=cpath, dir=self.catroot))
 
         self.title = gsect.get("title", None)
         self.lang_team = gsect.get("language-team", None)
@@ -668,16 +664,16 @@ class Config:
                 usect = dict(config.items(section))
                 if user in self.users:
                     error(_("@info",
-                            "Repeated user '%(user)s' in '%(file)s'.")
-                          % dict(user=user, file=cpath))
+                            "Repeated user '%(user)s' in '%(file)s'.",
+                            user=user, file=cpath))
                 udat = UserData()
                 self.udata[user] = udat
                 self.users.append(user)
                 if "name" not in usect:
                     error(_("@info",
                             "The name is missing for "
-                            "user '%(user)s' in '%(file)s'.")
-                          % dict(user=user, file=cpath))
+                            "user '%(user)s' in '%(file)s'.",
+                            user=user, file=cpath))
                 udat.name = usect.get("name")
                 udat.oname = usect.get("original-name")
                 udat.email = usect.get("email")
@@ -689,8 +685,8 @@ def assert_mode_user (configs_catpaths, mode):
     for config, catpaths in configs_catpaths:
         if mode.user not in config.users:
             error(_("@info",
-                    "User '%(user)s' not defined in '%(file)s'.")
-                  % dict(user=mode.user, file=config.path))
+                    "User '%(user)s' not defined in '%(file)s'.",
+                    user=mode.user, file=config.path))
 
 
 def assert_review_tags (configs_catpaths, tags):
@@ -699,8 +695,8 @@ def assert_review_tags (configs_catpaths, tags):
         for tag in tags:
             if tag not in config.review_tags:
                 error(_("@info",
-                        "Review tag '%(tag)s' not defined in '%(file)s'.")
-                      % dict(tag=tag, file=config.path))
+                        "Review tag '%(tag)s' not defined in '%(file)s'.",
+                        tag=tag, file=config.path))
 
 
 def assert_syntax (configs_catpaths, onabortf=None):
@@ -732,8 +728,8 @@ def status (options, configs_catpaths, mode):
     counts_na = dict([(x, {}) for x in _all_states])
 
     upprog = setup_progress(configs_catpaths,
-                            _("@info:progress",
-                              "Examining state: %(file)s"))
+                            t_("@info:progress",
+                               "Examining state: %(file)s"))
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
             upprog(catpath)
@@ -858,8 +854,8 @@ def msg_to_previous (msg, copy=True):
 def restore_reviews (configs_catpaths, revspecs_by_catmsg):
 
     upprog = setup_progress(configs_catpaths,
-                            _("@info:progress",
-                              "Restoring reviews: %(file)s"))
+                            t_("@info:progress",
+                               "Restoring reviews: %(file)s"))
     nrestored = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -884,8 +880,7 @@ def restore_reviews (configs_catpaths, revspecs_by_catmsg):
         report(n_("@info:progress",
                   "===== Review elements restored to %(num)d message.",
                   "===== Review elements restored to %(num)d messages.",
-                  nrestored)
-               % dict(num=nrestored))
+                  num=nrestored))
 
 
 def restore_review_flags (msg, revtags, unrevd):
@@ -907,8 +902,8 @@ def commit (options, configs_catpaths, mode):
 
     # Ascribe modifications and reviews.
     upprog = setup_progress(configs_catpaths,
-                            _("@info:progress",
-                              "Ascribing: %(file)s"))
+                            t_("@info:progress",
+                               "Ascribing: %(file)s"))
     revels = {}
     counts = dict([(x, [0, 0]) for x in _all_states])
     configs_catpaths_ascmod = []
@@ -976,7 +971,9 @@ def commit (options, configs_catpaths, mode):
 
 def diff (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Diffing for review: %(file)s")
+    upprog = setup_progress(configs_catpaths,
+                            t_("@info:progress",
+                               "Diffing for review: %(file)s"))
     ndiffed = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -988,15 +985,14 @@ def diff (options, configs_catpaths, mode):
         report(n_("@info:progress",
                   "===== %(num)d message diffed for review.",
                   "===== %(num)d messages diffed for review.",
-                  ndiffed)
-               % dict(num=ndiffed))
+                  num=ndiffed))
 
 
 def purge (options, configs_catpaths, mode):
 
     upprog = setup_progress(configs_catpaths,
-                            _("@info:progress",
-                              "Purging review elements: %(file)s"))
+                            t_("@info:progress",
+                               "Purging review elements: %(file)s"))
     npurged = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -1010,23 +1006,23 @@ def purge (options, configs_catpaths, mode):
             report(n_("@info:progress",
                       "===== Review elements purged from %(num)d message.",
                       "===== Review elements purged from %(num)d messages.",
-                      npurged)
-                   % dict(num=npurged))
+                      num=npurged))
         else:
             report(n_("@info:progress",
                       "===== Review elements purged from %(num)d message "
                       "(flags kept).",
                       "===== Review elements purged from %(num)d messages "
                       "(flags kept).",
-                      npurged)
-                   % dict(num=npurged))
+                      num=npurged))
 
     return npurged
 
 
 def history (options, configs_catpaths, mode):
 
-    upprog = setup_progress(configs_catpaths, "Computing histories: %(file)s")
+    upprog = setup_progress(configs_catpaths,
+                            t_("@info:progress",
+                               "Computing histories: %(file)s"))
     nshown = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
@@ -1038,8 +1034,7 @@ def history (options, configs_catpaths, mode):
         report(n_("@info:progress",
                   "===== Histories computed for %(num)d message.",
                   "===== Histories computed for %(num)d messages.",
-                  nshown)
-               % dict(num=nshown))
+                  num=nshown))
 
 
 def commit_cat (options, config, user, catpath, acatpath, stest):
@@ -1088,8 +1083,8 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
                     revels_by_msg[msg.refentry][-1] = False
                     tagfmt = format_item_list(sorted(unknown_revtags))
                     warning_on_msg(_("@info",
-                                     "Unknown review tags: %(taglist)s.")
-                                   % dict(taglist=tagfmt), msg, cat)
+                                     "Unknown review tags: %(taglist)s.",
+                                     taglist=tagfmt), msg, cat)
         # Ascribe modification regardless of the selector.
         if history[0].user is None:
             mod_msgs.append(msg)
@@ -1342,23 +1337,23 @@ def history_cat (options, config, catpath, acatpath, stest):
             ihead = colors.bold("#%d" % a.pos) + " "
             anote_d = dict(user=a.user, tag=a.tag, date=a.date)
             if a.type == ATYPE_MOD:
-                anote = (_("@item:intable",
-                          "modified by %(user)s on %(date)s")
-                         % anote_d)
+                anote = _("@item:intable",
+                          "modified by %(user)s on %(date)s",
+                          **anote_d)
             elif a.type == ATYPE_REV:
                 if not a.tag:
-                    anote = (_("@item:intable",
-                               "reviewed by %(user)s on %(date)s")
-                             % anote_d)
+                    anote = _("@item:intable",
+                              "reviewed by %(user)s on %(date)s",
+                              **anote_d)
                 else:
-                    anote = (_("@item:intable",
-                               "reviewed (%(tag)s) by %(user)s on %(date)s")
-                             % anote_d)
+                    anote = _("@item:intable",
+                              "reviewed (%(tag)s) by %(user)s on %(date)s",
+                              **anote_d)
             else:
                 warning_on_msg(
                     _("@info",
-                      "Unknown ascription type '%(type)s' found in history.")
-                    % dict(type=a.type), msg, cat)
+                      "Unknown ascription type '%(type)s' found in history.",
+                      type=a.type), msg, cat)
                 continue
             hinfo += [ihead + anote]
             if not a.type == ATYPE_MOD:
@@ -1892,8 +1887,8 @@ class _Ascription (object):
         if attr not in self.__dict__:
             raise PologyError(
                 _("@info",
-                  "Trying to set unknown ascription attribute '%(attr)s'.")
-                % dict(attr=attr))
+                  "Trying to set unknown ascription attribute '%(attr)s'.",
+                  attr=attr))
         self.__dict__[attr] = val
 
 
@@ -2086,8 +2081,8 @@ def asc_parse_ascriptions (amsg, acat, config):
         if p < 0:
             warning_on_msg(_("@info",
                              "No type "
-                             "in ascription comment '%(cmnt)s'.")
-                           % dict(cmnt=cmnt), amsg, acat)
+                             "in ascription comment '%(cmnt)s'.",
+                             cmnt=cmnt), amsg, acat)
             continue
         atype = cmnt[:p].strip()
         atag = ""
@@ -2099,22 +2094,22 @@ def asc_parse_ascriptions (amsg, acat, config):
         if len(lst) < 2 or len(lst) > 3:
             warning_on_msg(_("@info",
                              "Wrong number of descriptors "
-                             "in ascription comment '%(cmnt)s'.")
-                           % dict(cmnt=cmnt), amsg, acat)
+                             "in ascription comment '%(cmnt)s'.",
+                             cmnt=cmnt), amsg, acat)
             continue
 
         auser = lst.pop(0).strip()
         if not auser:
             warning_on_msg(_("@info",
                              "Malformed user string "
-                             "in ascription comment '%(cmnt)s'.")
-                           % dict(cmnt=cmnt), amsg, acat)
+                             "in ascription comment '%(cmnt)s'.",
+                             cmnt=cmnt), amsg, acat)
             continue
         if auser not in config.users:
             warning_on_msg(_("@info",
                              "Unknown user "
-                             "in ascription comment '%(cmnt)s'.")
-                           % dict(cmnt=cmnt), amsg, acat)
+                             "in ascription comment '%(cmnt)s'.",
+                             cmnt=cmnt), amsg, acat)
             continue
 
         datestr = lst.pop(0).strip()
@@ -2123,8 +2118,8 @@ def asc_parse_ascriptions (amsg, acat, config):
         except:
             warning_on_msg(_("@info",
                              "Malformed date string "
-                             "in ascription comment '%(cmnt)s'.")
-                           % dict(cmnt=cmnt), amsg, acat)
+                             "in ascription comment '%(cmnt)s'.",
+                             cmnt=cmnt), amsg, acat)
             continue
 
         # States are reset only on modification ascriptions,
@@ -2147,8 +2142,8 @@ def asc_parse_ascriptions (amsg, acat, config):
                 except:
                     warning_on_msg(_("@info",
                                      "Malformed separator length "
-                                     "in ascription comment '%(cmnt)s'.")
-                                   % dict(cmnt=cmnt), amsg, acat)
+                                     "in ascription comment '%(cmnt)s'.",
+                                     cmnt=cmnt), amsg, acat)
                     continue
 
         ascripts.append((auser, atype, atag, date, seplen, isfuzz, isobs))
@@ -2277,8 +2272,8 @@ def parse_datetime (dstr):
             break
     if not m:
         raise PologyError(_("@info",
-                            "Cannot parse date string '%(str)s'.")
-                          % dict(str=dstr))
+                            "Cannot parse date string '%(str)s'.",
+                            str=dstr))
     pgroups = list([int(x or 0) for x in m.groups()])
     pgroups.extend([1] * (3 - len(pgroups)))
     pgroups.extend([0] * (7 - len(pgroups)))
@@ -2303,8 +2298,8 @@ def parse_users (userstr, config, cid=None):
     """
 
     return parse_fixed_set(userstr, config, config.users,
-                           _("@info",
-                             "User '%(name)s' not defined in '%(file)s'."),
+                           t_("@info",
+                              "User '%(name)s' not defined in '%(file)s'."),
                            cid)
 
 
@@ -2320,9 +2315,9 @@ def parse_tags (tagstr, config, cid=None):
     """
 
     tags = parse_fixed_set(tagstr, config, config.review_tags,
-                           _("@info",
-                             "Review tag '%(name)s' "
-                             "not defined in '%(file)s'."),
+                           t_("@info",
+                              "Review tag '%(name)s' "
+                              "not defined in '%(file)s'."),
                            cid)
     if not tags:
         tags = set([""])
@@ -2344,7 +2339,8 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
     els = set(elstr.split(","))
     for el in els:
         if el not in knownels:
-            error(errfmt % dict(name=el, file=config.path), subsrc=cid)
+            error(errfmt.with_args(name=el, file=config.path).to_string(),
+                  subsrc=cid)
     if inverted:
         els = set(knownels).difference(els)
 
@@ -2374,19 +2370,19 @@ def build_selector (selspecs, hist=False):
         sfactory, can_hist = xm_selector_factories.get(sname, (None, False))
         if not sfactory:
             error(_("@info",
-                    "Unknown selector '%(sel)s'.")
-                  % dict(sel=sname))
+                    "Unknown selector '%(sel)s'.",
+                    sel=sname))
         if hist:
             if not can_hist:
                 error(_("@info",
                         "Selector '%(sel)s' cannot be used "
-                        "as history selector.")
-                      % dict(sel=sname))
+                        "as history selector.",
+                        sel=sname))
             if negated:
                 error(_("@info",
                         "Negated selectors (here '%(sel)s') cannot be used "
-                        "as history selectors.")
-                      % dict(sel=sname))
+                        "as history selectors.",
+                        sel=sname))
         selector = sfactory(*sargs)
         if negated:
             selector = negate_selector(selector)
@@ -2942,8 +2938,8 @@ def collect_externals (xmod_path):
         xmod_file = open(xmod_path)
     except IOError:
         error(_("@info",
-                "Cannot load external module '%(file)s'.")
-              % dict(file=xmod_path))
+                "Cannot load external module '%(file)s'.",
+                file=xmod_path))
     # Load file into new module.
     xmod_name = "xmod_" + str(len(_external_mods))
     xmod = imp.new_module(xmod_name)
@@ -2966,8 +2962,8 @@ def collect_externals (xmod_path):
         if xm not in known_xms:
             warning(_("@info",
                       "Unknown external resource '%(res)s' "
-                      "in module '%(file)s'.")
-                    % dict(res=xm, file=xmod_path))
+                      "in module '%(file)s'.",
+                      res=xm, file=xmod_path))
 
 
 # -----------------------------------------------------------------------------

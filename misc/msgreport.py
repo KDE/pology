@@ -39,12 +39,12 @@ def _get_module (name, cmsg=None):
             if cmsg:
                 warning(_("@info",
                           "Cannot import module '%(mod)s'; consequence:\n"
-                          "%(msg)s")
-                        % dict(mod=name, msg=cmsg))
+                          "%(msg)s",
+                          mod=name, msg=cmsg))
             else:
                 warning(_("@info",
-                          "Cannot import module '%(mod)s'.")
-                        % dict(mod=name))
+                          "Cannot import module '%(mod)s'.",
+                          mod=name))
             _modules_on_request[name] = None
 
     return _modules_on_request[name]
@@ -174,8 +174,8 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
         else:
             warning(_("@info",
                       "Unknown field '%(field)s' "
-                      "in highlighting specification.")
-                    % dict(field=name))
+                      "in highlighting specification.",
+                      field=name))
             continue
 
         if len(hspec) > 3:
@@ -231,8 +231,8 @@ def report_msg_to_lokalize (msg, cat, report=None):
     dbus = _get_module("dbus",
                        _("@info",
                          "Communication with Lokalize not possible. "
-                         "Try installing the '%(pkg)s' package.")
-                       % dict(pkg="python-dbus"))
+                         "Try installing the '%(pkg)s' package.",
+                         pkg="python-dbus"))
     if not dbus: return
 
     if msg.obsolete: return
@@ -409,8 +409,8 @@ def report_msg_content (msg, cat,
             else:
                 warning(_("@info",
                           "Unknown field '%(field)s' "
-                          "in highlighting specification.")
-                        % dict(field=name))
+                          "in highlighting specification.",
+                          field=name))
 
     # Report the message.
     mstr = ""
@@ -425,8 +425,8 @@ def report_msg_content (msg, cat,
     # Report notes.
     if note is not None: # global
         notestr = (resolve_color_markup(_("@info",
-                                          "<bold>Note:</bold> "
-                                          "%(msg)s"), colors)
+                                          "<bold>[note]</bold> "
+                                          "%(msg)s", msg="%(msg)s"), colors)
                    % dict(msg=note))
         rsegs.append(notestr)
     if notes_data: # span notes
@@ -443,9 +443,9 @@ def report_msg_content (msg, cat,
                     if seglen > 0:
                         segtext = text[start:end]
                         if len(segtext) > 30:
-                            segtext = (_("@item:intext shortened longer text",
-                                         "%(snippet)s...")
-                                       % dict(snippet=segtext[:27]))
+                            segtext = _("@item:intext shortened longer text",
+                                        "%(snippet)s...",
+                                        snippet=segtext[:27])
                         posinfo = "%s:%d:\"%s\"" % (name, start, escape(segtext))
                     else:
                         posinfo = "%s:%d" % (name, start)
@@ -453,8 +453,8 @@ def report_msg_content (msg, cat,
                     posinfo = "%s" % name
                 posinfo = colors.green(posinfo)
                 rsegs.append(_("@info",
-                               "[%(pos)s]: %(msg)s")
-                            % dict(pos=posinfo, msg=snote))
+                               "[%(pos)s]: %(msg)s",
+                               pos=posinfo, msg=snote))
                 note_ord += 1
 
     # Report the filtered message, if given and requested.
@@ -488,7 +488,8 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
     # Some info on the rule.
     rinfo = (resolve_color_markup(_("@info",
                                     "rule %(rule)s <bold><red>==></red></bold> "
-                                    "<bold>%(msg)s</bold>"), colors)
+                                    "<bold>%(msg)s</bold>",
+                                    rule="%(rule)s", msg="%(msg)s"), colors)
              % dict(rule=rule.displayName, msg=rule.hint))
 
     if showmsg:
@@ -539,17 +540,20 @@ def spell_error(msg, cat, faultyWord, suggestions):
     if msg.msgctxt:
         report(resolve_color_markup(_("@info",
                                       "<bold>Context:</bold> "
-                                      "%(snippet)s"), colors)
+                                      "%(snippet)s",
+                                      snippet="%(snippet)s"), colors)
                % dict(snippet=msg.msgctxt))
     #TODO: color in red part of context that make the mistake
     report(resolve_color_markup(_("@info",
                                   "<bold>Faulty word:</bold> "
-                                  "<red>%(word)s</red>"), colors)
+                                  "<red>%(word)s</red>",
+                                  word="%(word)s"), colors)
            % dict(word=faultyWord))
     if suggestions:
         report(resolve_color_markup(_("@info",
                                       "<bold>Suggestions:</bold> "
-                                      "%(wordlist)s"), colors)
+                                      "%(wordlist)s",
+                                      wordlist="%(wordlist)s"), colors)
                % dict(wordlist=format_item_list(suggestions)))
 
 

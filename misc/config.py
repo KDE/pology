@@ -143,15 +143,15 @@ class section:
                 error(_("@info",
                         "User configuration: value '%(val)s' "
                         "of field '%(field)s' in section '%(sec)s' "
-                        "cannot be converted into '%(type)s' type.")
-                      % dict(val=value, field=name, sec=self.name,
-                             type=typename))
+                        "cannot be converted into '%(type)s' type.",
+                        val=value, field=name, sec=self.name,
+                        type=typename))
             else:
                 error(_("@info",
                         "User configuration: value '%(val)s' "
                         "of field '%(field)s' in section '%(sec)s' "
-                        "cannot be converted into requested type.")
-                      % dict(val=value, field=name, sec=self.name))
+                        "cannot be converted into requested type.",
+                        val=value, field=name, sec=self.name))
 
         return cvalue
 
@@ -250,14 +250,14 @@ class section:
         if len(value) < 2:
             error(_("@info",
                     "User configuration: value '%(val)s' of field '%(field)s' "
-                    "in section '%(sec)s' is too short for a delimited list.")
-                  % dict(val=value, field=name, sec=self.name))
+                    "in section '%(sec)s' is too short for a delimited list.",
+                    val=value, field=name, sec=self.name))
         if value[0].isalnum():
             error(_("@info",
                     "User configuration: value '%(val)s' of field '%(field)s' "
                     "in section '%(sec)s' does not start with "
-                    "a non-alphanumeric delimiter character.")
-                  % dict(val=value, field=name, sec=self.name))
+                    "a non-alphanumeric delimiter character.",
+                    val=value, field=name, sec=self.name))
 
         delim = value[0]
 
@@ -265,8 +265,8 @@ class section:
             error(_("@info",
                     "User configuration: value '%(val)s' of field '%(field)s' "
                     "in section '%(sec)s' does not end with "
-                    "the delimiter character with which it starts.")
-                  % dict(val=value, field=name, sec=self.name))
+                    "the delimiter character with which it starts.",
+                    val=value, field=name, sec=self.name))
 
         lst = value[1:-1].split(delim)
 

@@ -54,21 +54,18 @@ def main ():
     def_do_merge = cfgsec.boolean("merge", True)
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] FILE1 FILE2\n"
-          "%(cmd)s [OPTIONS] DIR1 DIR2\n"
-          "%(cmd)s -c VCS [OPTIONS] [PATHS...]")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Create embedded diffs of PO files."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s [OPTIONS] FILE1 FILE2\n"
+        "%(cmd)s [OPTIONS] DIR1 DIR2\n"
+        "%(cmd)s -c VCS [OPTIONS] [PATHS...]",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Create embedded diffs of PO files.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     showvcs = list(set(available_vcs()).difference(["none"]))
     showvcs.sort()
@@ -84,10 +81,10 @@ def main ():
         "-c", "--vcs",
         metavar=_("@info command line value placeholder", "VCS"),
         dest="version_control",
-        help=(_("@info command line option description",
-                "Paths are under version control by given VCS; "
-                "can be one of: %(vcslist)s.")
-              % dict(vcslist=format_item_list(showvcs))))
+        help=_("@info command line option description",
+               "Paths are under version control by given VCS; "
+               "can be one of: %(vcslist)s.",
+               vcslist=format_item_list(showvcs)))
     opars.add_option(
         "-r", "--revision",
         metavar=_("@info command line value placeholder", "REV1[:REV2]"),
@@ -114,9 +111,9 @@ def main ():
     opars.add_option(
         "-Q", "--quick",
         action="store_true", dest="quick", default=False,
-        help=(_("@info command line option description",
-                "Equivalent to %(opt)s.")
-              % dict(opt="-bns")))
+        help=_("@info command line option description",
+               "Equivalent to %(opt)s.",
+               opt="-bns"))
     opars.add_option(
         "-p", "--paired-only",
         action="store_true", dest="paired_only", default=False,
@@ -163,8 +160,8 @@ def main ():
     if op.version_control:
         if op.version_control not in available_vcs(flat=True):
             error_wcl(_("@info",
-                        "Unknown VCS '%(vcs)s' selected.")
-                      % dict(vcs=op.version_control))
+                        "Unknown VCS '%(vcs)s' selected.",
+                        vcs=op.version_control))
         vcs = make_vcs(op.version_control)
 
     # Sanity checks on paths.
@@ -188,12 +185,12 @@ def main ():
         for path in paths:
             if not os.path.exists(path):
                 error_wcl(_("@info",
-                            "Path '%(path)s' does not exist.")
-                          % dict(path=path))
+                            "Path '%(path)s' does not exist.",
+                            path=path))
             if not vcs.is_versioned(path):
                 error_wcl(_("@info",
-                            "Path '%(path)s' is not under version control.")
-                          % dict(path=path))
+                            "Path '%(path)s' is not under version control.",
+                            path=path))
 
     # Collect and pair PO files in given paths.
     # Each pair specification is in the form of
@@ -207,8 +204,8 @@ def main ():
         lst = op.revision and op.revision.split(":", 1) or []
         if len(lst) > 2:
             error_wcl(_("@info",
-                        "Too many revisions given: %(revlist)s.")
-                      % dict(revspec=format_item_list(lst)))
+                        "Too many revisions given: %(revlist)s.",
+                        revspec=format_item_list(lst)))
         elif len(lst) == 2:
             revs = lst # diff between revisions
         elif len(lst) == 1:
@@ -278,8 +275,8 @@ def diff_pairs (pspecs, merge,
                 cats.append(Catalog(fpath, create=True, monitored=False))
             except:
                 error_wcl(_("@info",
-                            "Cannot parse catalog '%(file)s'.")
-                          % dict(file=fpath), norem=[fpath])
+                            "Cannot parse catalog '%(file)s'.",
+                            file=fpath), norem=[fpath])
         tpos = len(ecat)
         cndiffed = diff_cats(cats[0], cats[1], ecat,
                              merge, hlto, wrem, wadd, noobs)
@@ -749,8 +746,8 @@ def collect_pspecs_from_vcs (vcs, paths, revs, paired_only):
                 if not vcs.export(path, rev or None, expath):
                     error_wcl(_("@info",
                                 "Cannot export path '%(path)s' "
-                                "in revision '%(rev)s'.")
-                              % dict(path=path, rev=rev))
+                                "in revision '%(rev)s'.",
+                                path=path, rev=rev))
                 record_tmppath(expath)
                 expaths[rev] = expath
         expaths = [os.path.normpath(expaths[x]) for x in revs]

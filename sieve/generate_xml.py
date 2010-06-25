@@ -77,8 +77,8 @@ class Sieve (object):
                 self.xmlFile=open(xmlPath, "w", "utf-8")
             else:
                 warning(_("@info",
-                          "Cannot open file '%(file)s'. XML output disabled.")
-                        % dict(file=xmlPath))
+                          "Cannot open file '%(file)s'. XML output disabled.",
+                          file=xmlPath))
         
         self.translatedOnly = params.translatedOnly
         

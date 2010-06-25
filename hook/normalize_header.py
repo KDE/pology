@@ -42,8 +42,8 @@ def _fix_authors (hdr, cat):
         if not m:
             warning(_("@info",
                       "%(file)s: Cannot parse name and email address "
-                      "from translator comment '%(cmnt)s'.")
-                    % dict(file=cat.filename, cmnt=a))
+                      "from translator comment '%(cmnt)s'.",
+                      file=cat.filename, cmnt=a))
             problems = True
             nerr += 1
             continue
@@ -55,8 +55,8 @@ def _fix_authors (hdr, cat):
         if not m:
             warning(_("@info",
                       "%(file)s: Missing years in "
-                      "translator comment '%(cmnt)s'.")
-                    % dict(file=cat.filename, cmnt=a))
+                      "translator comment '%(cmnt)s'.",
+                      file=cat.filename, cmnt=a))
             problems = True
             nerr += 1
             continue
@@ -68,8 +68,8 @@ def _fix_authors (hdr, cat):
             if not m:
                 warning(_("@info",
                           "%(file)s: Cannot parse years in "
-                          "translator comment '%(cmnt)s'.")
-                        % dict(file=cat.filename, cmnt=a))
+                          "translator comment '%(cmnt)s'.",
+                          file=cat.filename, cmnt=a))
                 problems = True
                 nerr += 1
                 break

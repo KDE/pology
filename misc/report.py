@@ -15,7 +15,7 @@ import sys
 import locale
 import time
 
-from pology import _, n_
+from pology import _, n_, t_, TextTrans
 from pology.misc.colors import colors_for_file, resolve_color_markup
 
 
@@ -122,7 +122,8 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     colors = colors_for_file(file)
     rtext = (resolve_color_markup(
               _("@info",
-                "<bold>warning:</bold> <orange>%(msg)s</orange>"), colors)
+                "<bold>[warning]</bold> <orange>%(msg)s</orange>",
+                msg="%(msg)s"), colors)
              % dict(msg=text))
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
@@ -146,13 +147,14 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     colors = colors_for_file(file)
     rtext = (resolve_color_markup(
              _("@info",
-               "<bold>error:</bold> <red>%(msg)s</red>"), colors)
+               "<bold>[error]</bold> <red>%(msg)s</red>",
+               msg="%(msg)s"), colors)
              % dict(msg=text))
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
     sys.exit(code)
 
 
-def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
+def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     """
     Create a function to output progress bar while processing files.
 
@@ -181,9 +183,10 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     by the C{stream} parameter.
 
     Additional formatting for the progress bar may be supplied
-    by the C{addfmt} parameter. It can be either a function taking one
+    by the C{addfmt} parameter. It can be one of: a function taking one
     string parameter (the basic progress bar) and returning a string,
-    or a string with single C{%(file)s} formatting directive.
+    a delayed translation (L{TextTrans}) with single named formatting
+    directive C{%(file)s}, or a plain string with same formatting directive.
 
     @param fpaths: collection of file paths
     @type fpaths: list of strings
@@ -192,7 +195,7 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     @param stream: the stream to output progress to
     @type stream: file
     @param addfmt: additional format for the progress line
-    @type addfmt: (text) -> text or string
+    @type addfmt: (text) -> text or L{TextTrans} or string
 
     @returns: progress updating function
     @rtype: (file_path, last_time, time_interval) -> new_last_time
@@ -210,6 +213,8 @@ def init_file_progress (fpaths, timeint=0.5, stream=sys.stderr, addfmt=None):
     def postfmt (pstr):
         if callable(addfmt):
             pstr = addfmt(pstr)
+        elif isinstance(addfmt, TextTrans):
+            pstr = addfmt.with_args(file=pstr).to_string()
         elif addfmt:
             pstr = addfmt % dict(file=pstr)
         return pstr
@@ -330,11 +335,11 @@ def format_item_list (items, incmp=False, quoted=False):
     ellipsis = _("@item:intext trailing string for incomplete lists, "
                  "e.g. \"...\" in \"apples, bananas, cherries...\"",
                  "...")
-    quoting = _("@item:intext quotes around each element in the list",
-                "'%(el)s'")
+    quoting = t_("@item:intext quotes around each element in the list",
+                 "'%(el)s'")
     itemstrs = map(unicode, items)
     if quoted:
-        itemstrs = [quoting % dict(el=x) for x in items]
+        itemstrs = [quoting.with_args(el=x).to_string() for x in items]
     if not incmp:
         if len(itemstrs) == 0:
             return u""

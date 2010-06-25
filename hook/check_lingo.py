@@ -135,8 +135,8 @@ def _check_spell_w (lang, encoding, variety, extopts,
         clang = lang or cat.language()
         if not clang:
             error(_("@info",
-                    "Cannot determine language of the catalog '%(file)s'.")
-                  % dict(file=cat.filename))
+                    "Cannot determine language of the catalog '%(file)s'.",
+                    file=cat.filename))
         if envs is not None:
             cenvs = envs
         elif cat.environment() is not None:
@@ -177,13 +177,14 @@ def _check_spell_w (lang, encoding, variety, extopts,
                 suggs = [x.decode(encoding) for x in encsuggs]
                 if maxsugg != 0 and suggs:
                     fmtsuggs = format_item_list(suggs, incmp=incmp)
-                    snote = (_("@info",
-                               "Unknown word '%(word)s' "
-                               "(suggestions: %(wordlist)s).")
-                             % dict(word=word, wordlist=fmtsuggs))
+                    snote = _("@info",
+                              "Unknown word '%(word)s' "
+                              "(suggestions: %(wordlist)s).",
+                              word=word, wordlist=fmtsuggs)
                 else:
-                    snote = (_("@info",
-                               "Unknown word '%(word)s'.") % dict(word=word))
+                    snote = _("@info",
+                              "Unknown word '%(word)s'.",
+                              word=word)
                 spans.append(span + (snote,))
 
         if spanrep:
@@ -223,12 +224,12 @@ def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
             checker = A.Aspell(aopts.items())
         except A.AspellConfigError, e:
             error(_("@info",
-                    "Aspell configuration error:\n%(msg)s")
-                  % dict(msg=e))
+                    "Aspell configuration error:\n%(msg)s",
+                    msg=e))
         except A.AspellError, e:
             error(_("@info",
-                    "Cannot initialize Aspell:\n%(msg)s")
-                  % dict(msg=e))
+                    "Cannot initialize Aspell:\n%(msg)s",
+                    msg=e))
     else:
         # Create simple internal checker that only checks against
         # internal supplemental dictionaries.
@@ -290,8 +291,8 @@ def _compose_personal_dict (lang, envs):
     except Exception, e:
         error(_("@info",
                 "Cannot create composited spelling dictionary "
-                "in current working directory:\n%(msg)s")
-              % dict(msg=e.args[0]))
+                "in current working directory:\n%(msg)s",
+                msg=e.args[0]))
 
     return tmpf.name, True
 
@@ -306,8 +307,8 @@ def _read_dict_file (filepath):
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
         error(_("@info",
-                "Malformed header in dictionary file '%(file)s'.")
-              % dict(file=filepath))
+                "Malformed header in dictionary file '%(file)s'.",
+                file=filepath))
     enc = m.group(4)
     # Reopen in correct encoding if not the default.
     if enc.lower() != enc_def.lower():

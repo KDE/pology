@@ -132,10 +132,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmod > 0:
-            msg = (n_("@info:progress",
-                      "Removed some comments from %(num)d fuzzy message.",
-                      "Removed some comments from %(num)d fuzzy messages.",
-                      self.nmod)
-                   % dict(num=self.nmod))
+            msg = n_("@info:progress",
+                     "Removed some comments from %(num)d fuzzy message.",
+                     "Removed some comments from %(num)d fuzzy messages.",
+                     num=self.nmod)
             report("===== %s" % msg)
 

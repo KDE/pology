@@ -59,8 +59,8 @@ def get_module (lang, path, abort=False):
         module = __import__(modpath, globals(), locals(), [""])
     except ImportError:
         _raise_or_abort(_("@info",
-                          "Cannot import module '%(mod)s'.")
-                        % dict(mod=modpath), abort)
+                          "Cannot import module '%(mod)s'.",
+                          mod=modpath), abort)
 
     # TODO: Make more detailed analysis why importing fails:
     # is there  such a language, is there such a file, etc.
@@ -122,16 +122,16 @@ def split_req (langreq, abort=False):
     if lang and not _valid_lang_rx.search(lang):
         _raise_or_abort(_("@info",
                           "Invalid language '%(langcode)s' "
-                          "in item request '%(req)s.'")
-                        % dict(langcode=lang, req=langreq), abort)
+                          "in item request '%(req)s.'",
+                          langcode=lang, req=langreq), abort)
     if not _valid_path_rx.search(path):
         _raise_or_abort(_("@info",
-                          "Invalid path '%(path)s' in item request '%(req)s'.")
-                        % dict(path=path, req=langreq), abort)
+                          "Invalid path '%(path)s' in item request '%(req)s'.",
+                          path=path, req=langreq), abort)
     if item and not _valid_item_rx.search(item):
         _raise_or_abort(_("@info",
-                          "Invalid item '%(item)s' in item request '%(req)s'.")
-                        % dict(item=item, req=langreq), abort)
+                          "Invalid item '%(item)s' in item request '%(req)s'.",
+                          item=item, req=langreq), abort)
 
     path = path.replace("-", "_")
     if item:
@@ -178,8 +178,8 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
         hmodfmt = "%s:%s" % (lang, hmod) if lang else hmod
         _raise_or_abort(_("@info",
                           "Hook module '%(mod)s' does not define "
-                          "'%(func)s' function.")
-                        % dict(mod=hmodfmt, func=func), abort)
+                          "'%(func)s' function.",
+                          mod=hmodfmt, func=func), abort)
     if args is not None:
         try:
             call = eval("call(%s)" % args)
@@ -191,8 +191,8 @@ def get_hook (lang, hmod, func=None, args=None, abort=False):
             _raise_or_abort(_("@info",
                               "Cannot create hook by applying function "
                               "'%(func)s' to argument list %(args)s; "
-                              "reported error:\n%(msg)s")
-                            % dict(func=fspec, args=repr(args), msg=e.args[0]),
+                              "reported error:\n%(msg)s",
+                              func=fspec, args=repr(args), msg=e.args[0]),
                             abort)
 
     return call
@@ -276,8 +276,8 @@ def get_result (lang, mod, func=None, args="", abort=False):
     if call is None:
         _raise_or_abort(_("@info",
                           "Module '%(mod)s' does not define "
-                          "function '%(func)s'.")
-                        % dict(mod=lmod, func=func), abort)
+                          "function '%(func)s'.",
+                          mod=lmod, func=func), abort)
     try:
         res = eval("call(%s)" % args)
     except Exception, e:
@@ -285,9 +285,9 @@ def get_result (lang, mod, func=None, args="", abort=False):
         _raise_or_abort(_("@info",
                           "Evaluating function '%(func)s' in module '%(mod)s' "
                           "with argument list %(args)s failed; "
-                          "reported error:\n%(msg)s")
-                        % dict(func=func, mod=lmod, args=repr(args),
-                               msg=e.args[0]), abort)
+                          "reported error:\n%(msg)s",
+                          func=func, mod=lmod, args=repr(args), msg=e.args[0]),
+                          abort)
 
     return res
 

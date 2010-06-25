@@ -46,9 +46,9 @@ def msgfilter (filtr, options=""):
         if ret:
             warning(_("@info",
                       "%(file)s: %(cmd)s failed with exit code %(num)d "
-                      "(filter: '%(filter)s', options: '%(options)s')")
-                    % dict(file=filepath, cmd="msgfilter", num=ret,
-                           filter=filtr, options=options))
+                      "(filter: '%(filter)s', options: '%(options)s')",
+                      file=filepath, cmd="msgfilter", num=ret, filter=filtr,
+                      options=options))
             return 1
         return 0
 
@@ -86,9 +86,8 @@ def msgfmt (options=""):
         if ret:
             warning(_("@info",
                       "%(file)s: %(cmd)s failed with exit code %(num)d "
-                      "(options: '%(options)s')")
-                    % dict(file=filepath, cmd="msgfmt", num=ret,
-                           options=options))
+                      "(options: '%(options)s')",
+                      file=filepath, cmd="msgfmt", num=ret, options=options))
             return 1
         return 0
 

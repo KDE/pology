@@ -55,8 +55,8 @@ def bad_patterns (rxmatch=False, casesens=True, patterns=None, fromfiles=None):
         for pind, span in indspans:
             pstr = patterns_str[pind]
             report_on_msg(_("@info",
-                            "Bad pattern '%(pattern)s' detected.")
-                          % dict(pattern=pstr), msg, cat)
+                            "Bad pattern '%(pattern)s' detected.",
+                            pattern=pstr), msg, cat)
         return len(indspans)
 
     return hook
@@ -111,9 +111,9 @@ def _bad_patterns_msg_w (rxmatch, casesens, patterns, fromfiles, partrep):
             indspans = _match_patterns(msg.msgstr[i], patterns_cmp)
             spans = []
             for pind, span in indspans:
-                emsg = (_("@info",
-                          "Bad pattern '%(pattern)s' detected.")
-                        % dict(pattern=patterns_str[pind]))
+                emsg = _("@info",
+                         "Bad pattern '%(pattern)s' detected.",
+                         pattern=patterns_str[pind])
                 spans.append(span + (emsg,))
                 nbad += 1
             if spans:

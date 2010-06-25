@@ -113,8 +113,8 @@ def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
         # Report if any Latin text remained in stripped msgstr.
         for m in matches:
             warning_on_msg(_("@info",
-                             "Naked Latin segment '%(snippet)s'.")
-                           % dict(snippet=m.group(0)), msg, cat)
+                             "Naked Latin segment '%(snippet)s'.",
+                             snippet=m.group(0)), msg, cat)
         return len(matches)
     else:
         # Collect and adapt offending spans.

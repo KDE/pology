@@ -232,8 +232,8 @@ class Sieve (object):
                 self.pfilters.append((pfilter, hreq))
             else:
                 warning(_("@info",
-                          "Cannot load filter '%(filt)s'.")
-                        % dict(filt=hreq))
+                          "Cannot load filter '%(filt)s'.",
+                          filt=hreq))
 
         self.suponly = params.suponly
 
@@ -284,8 +284,8 @@ class Sieve (object):
                 raise SieveError(_("@info",
                                    "No spelling dictionary for "
                                    "language '%(lang)s' and "
-                                   "provider '%(prov)s'.")
-                                 % dict(lang=clang, prov=self.providers))
+                                   "provider '%(prov)s'.",
+                                   lang=clang, prov=self.providers))
             self.checkers[ckey] = checker
 
         # Get language-dependent stuff.
@@ -321,8 +321,8 @@ class Sieve (object):
                     except TypeError:
                         raise SieveError(
                             _("@info",
-                              "Cannot execute filter '%(filt)s'.")
-                            % dict(filt=hreq))
+                              "Cannot execute filter '%(filt)s'.",
+                              filt=hreq))
 
             # Split text into words.
             # TODO: See to use markup types somehow.
@@ -354,13 +354,13 @@ class Sieve (object):
                             fsuggs = format_item_list(suggs, incmp=incmp)
                             report_on_msg(_("@info",
                                             "Unknown word '%(word)s' "
-                                            "(suggestions: %(wordlist)s).")
-                                            % dict(word=word, wordlist=fsuggs),
+                                            "(suggestions: %(wordlist)s).",
+                                            word=word, wordlist=fsuggs),
                                           msg, cat)
                         else:
                             report_on_msg(_("@info",
-                                            "Unknown word '%(word)s'.")
-                                          % dict(word=word),
+                                            "Unknown word '%(word)s'.",
+                                            word=word),
                                           msg, cat)
 
         if self.lokalize and failed_w_suggs:
@@ -369,8 +369,8 @@ class Sieve (object):
                 if suggs:
                     fmtsuggs=format_item_list(suggs, incmp=incmp)
                     repls.append(_("@item",
-                                   "%(word)s (suggestions: %(wordlist)s)")
-                                 % dict(word=word, wordlist=fmtsuggs))
+                                   "%(word)s (suggestions: %(wordlist)s)",
+                                   word=word, wordlist=fmtsuggs))
                 else:
                     repls.append("%s" % (word))
             report_msg_to_lokalize(msg, cat, "\n".join(repls))
@@ -381,11 +381,10 @@ class Sieve (object):
         if self.unknown_words:
             if not self.words_only:
                 nwords = len(self.unknown_words)
-                msg = (n_("@info:progress",
-                          "Encountered %(num)d unknown word.",
-                          "Encountered %(num)d unknown words.",
-                          nwords)
-                       % dict(num=nwords))
+                msg = n_("@info:progress",
+                         "Encountered %(num)d unknown word.",
+                         "Encountered %(num)d unknown words.",
+                         num=nwords)
                 report("===== %s" % msg)
             else:
                 wlist = list(self.unknown_words)
@@ -403,8 +402,8 @@ def _create_checker (providers, langtag, words):
         raise PologyError(_("@info",
                             "Python wrapper for Enchant not found, "
                             "please install it (possible package names: "
-                            "%(pkglist)s).")
-                          % dict(pkglist=format_item_list(pkgs)))
+                            "%(pkglist)s).",
+                            pkglist=format_item_list(pkgs)))
 
     if langtag is not None:
         try:
@@ -472,8 +471,8 @@ def _read_wlist_aspell (fname):
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
         warning(_("@info",
-                  "Malformed header in dictionary file '%(file)s'.")
-                % dict(file=fname))
+                  "Malformed header in dictionary file '%(file)s'.",
+                  file=fname))
         return []
     enc = m.group(4)
     # Reopen in correct encoding if not the default.

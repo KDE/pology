@@ -68,8 +68,8 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
             _("@info \"trapnakron\" is a shorthand for "
               "\"Transcriptions and Translations of Names and Acronyms\" "
               "in Serbian",
-              "Unknown trapnakron constructor '%(name)s'.")
-            % dict(name=name))
+              "Unknown trapnakron constructor '%(name)s'.",
+              name=name))
 
     tp = trapcon(*args, **kwargs)
 

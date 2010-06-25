@@ -53,10 +53,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.ncleared > 0:
-            msg = (n_("@info:progress",
-                      "Cleared previous fields from %(num)d message.",
-                      "Cleared previous fields from %(num)d messages.",
-                      self.ncleared)
-                   % dict(num=self.ncleared))
+            msg = n_("@info:progress",
+                     "Cleared previous fields from %(num)d message.",
+                     "Cleared previous fields from %(num)d messages.",
+                     num=self.ncleared)
             report("===== %s" % msg)
 

@@ -331,8 +331,9 @@ def setup_sieve (p):
     "Scale lengths of word and message bars to numbers they represent, "
     "rather than relative to percentage of translation state. "
     "Useful with '%(par1)s' and '%(par2)s' parameters, "
-    "to compare sizes of different translation units."
-    ) % dict(par1="byfile", par2="bydir"))
+    "to compare sizes of different translation units.",
+    par1="byfile", par2="bydir"
+    ))
     p.add_param("ondiff", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Multiply word counts in fuzzy messages by difference ratio between "
@@ -411,8 +412,8 @@ class Sieve (object):
                 raise SieveError(
                     _("@info",
                       "Wrong number of elements in span "
-                      "specification '%(spec)s'.")
-                    % dict(spec=self.p.lspan))
+                      "specification '%(spec)s'.",
+                      spec=self.p.lspan))
             nlst = []
             for el in lst:
                 if not el:
@@ -424,8 +425,8 @@ class Sieve (object):
                         raise SieveError(
                             _("@info",
                               "Not an integer number in span "
-                              "specification '%(spec)s'.")
-                            % dict(spec=self.p.lspan))
+                              "specification '%(spec)s'.",
+                              spec=self.p.lspan))
             return tuple(nlst)
         self.lspan = parse_span(self.p.lspan)
         self.espan = parse_span(self.p.espan)
@@ -503,8 +504,8 @@ class Sieve (object):
             # Inform if the template does not exist.
             if not os.path.isfile(tpath):
                 warning(_("@info",
-                          "Expected template catalog '%(file)s' is missing.")
-                        % dict(file=tpath))
+                          "Expected template catalog '%(file)s' is missing.",
+                          file=tpath))
             # Indicate the template has been matched.
             if tpath not in self.matched_templates:
                 self.matched_templates[tpath] = True
@@ -746,34 +747,31 @@ class Sieve (object):
         if self.p.branch:
             fmtbranches = format_item_list(self.p.branch)
             modstrs.append(_("@item:intext",
-                             "branches (%(branchlist)s)")
-                           % dict(branchlist=fmtbranches))
+                             "branches (%(branchlist)s)",
+                             branchlist=fmtbranches))
         if self.p.maxwords is not None and self.p.minwords is None:
             modstrs.append(n_("@item:intext",
                               "at most %(num)d word",
                               "at most %(num)d words",
-                              self.p.maxwords)
-                           % dict(num=self.p.maxwords))
+                              num=self.p.maxwords))
         if self.p.minwords is not None and self.p.maxwords is None:
             modstrs.append(n_("@item:intext",
                               "at least %(num)d word",
                               "at least %(num)d words",
-                             self.p.minwords)
-                           % dict(num=self.p.minwords))
+                              num=self.p.minwords))
         if self.p.minwords is not None and self.p.maxwords is not None:
             modstrs.append(n_("@item:intext",
-                              "from %(num1)d to %(num2)d word",
-                              "from %(num1)d to %(num2)d words",
-                              self.p.maxwords)
-                           % dict(num1=self.p.minwords, num2=self.p.maxwords))
+                              "from %(num1)d to %(num)d word",
+                              "from %(num1)d to %(num)d words",
+                              num1=self.p.minwords, num=self.p.maxwords))
         if self.p.lspan:
             modstrs.append(_("@item:intext",
-                             "line span %(span)s")
-                           % dict(span=self.p.lspan))
+                             "line span %(span)s",
+                             span=self.p.lspan))
         if self.p.espan:
             modstrs.append(_("@item:intext",
-                             "entry span %(span)s")
-                           % dict(span=self.p.espan))
+                             "entry span %(span)s",
+                             span=self.p.espan))
         if self.p.ondiff:
             modstrs.append(_("@item:intext",
                              "scaled fuzzy counts"))
@@ -860,8 +858,8 @@ class Sieve (object):
 
         if modstrs:
             report(_("@item:intable",
-                     "modifiers: %(modlist)s")
-                   % dict(modlist=format_item_list(modstrs)))
+                     "modifiers: %(modlist)s",
+                     modlist=format_item_list(modstrs)))
 
 
     def _tabular_stats (self, counts, title, count):

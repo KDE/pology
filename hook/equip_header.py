@@ -42,8 +42,8 @@ def equip_header_tp_kde (hdr, cat):
     if not csubdir:
         warning(_("@info TP stands for Translation Project",
                   "Cannot determine KDE TP subdirectory "
-                  "of '%(file)s', skipping header updates.")
-                % dict(file=cat.filename))
+                  "of '%(file)s', skipping header updates.",
+                  file=cat.filename))
         return 1
 
     pathels = os.path.abspath(cat.filename).split(os.path.sep)

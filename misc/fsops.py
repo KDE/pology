@@ -74,13 +74,13 @@ def collect_files (paths,
         elif not os.path.exists(path):
             raise PologyError(
                 _("@info",
-                  "Path '%(path)s' does not exist.")
-                % dict(path=path))
+                  "Path '%(path)s' does not exist.",
+                  path=path))
         else:
             raise PologyError(
                 _("@info",
-                  "Path '%(path)s' is neither a file nor a directory.")
-                % dict(path=path))
+                  "Path '%(path)s' is neither a file nor a directory.",
+                  path=path))
 
     if sort:
         if unique:
@@ -264,8 +264,8 @@ def assert_system (cmdline, echo=False, wdir=None):
                     "Non-zero exit from the previous command."))
         else:
             error(_("@info",
-                    "Non-zero exit from the command:\n%(cmdline)s")
-                  % dict(cmdline=cmdline))
+                    "Non-zero exit from the command:\n%(cmdline)s",
+                    cmdline=cmdline))
 
 
 def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
@@ -346,15 +346,15 @@ def lines_from_file (filepath, encoding=None):
         ifl = codecs.open(filepath, "r", encoding)
     except:
         warning(_("@info",
-                  "Cannot open '%(file)s' for reading.")
-                % dict(file=filepath))
+                  "Cannot open '%(file)s' for reading.",
+                  file=filepath))
         raise
     try:
         content = ifl.read()
     except:
         warning(_("@info",
-                  "Cannot read content of '%(file)s' using %(enc)s encoding.")
-                % dict(file=filepath, enc=encoding))
+                  "Cannot read content of '%(file)s' using %(enc)s encoding.",
+                  file=filepath, enc=encoding))
         raise
     ifl.close()
 
@@ -652,8 +652,8 @@ def _build_path_selector_type (sels):
         else:
             raise PologyError(
                 _("@info",
-                  "Cannot convert object '%(obj)s' into a string matcher.")
-                % dict(obj=sel))
+                  "Cannot convert object '%(obj)s' into a string matcher.",
+                  obj=sel))
     sels_tf = map(tofunc, sels)
 
     return sels_tf
@@ -763,16 +763,16 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
                         raise PologyError(
                             _("@info",
                               "Invalid regular expression in inclusion/"
-                              "exclusion directive at %(file)s:%(line)d.")
-                            % dict(file=fpath, line=lno))
+                              "exclusion directive at %(file)s:%(line)d.",
+                              file=fpath, line=lno))
                     sels.append(rx)
                     break
             if dstr is None:
                 raise PologyError(
                     _("@info",
                       "Unknown inclusion/exclusion directive "
-                      "at %(file)s:%(line)d.")
-                    % dict(file=fpath, line=lno))
+                      "at %(file)s:%(line)d.",
+                      file=fpath, line=lno))
         else:
             paths.append(line)
 

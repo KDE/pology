@@ -170,8 +170,8 @@ def merge_pofile (catpath, tplpath,
         if not os.path.isfile(cmppath):
             raise PologyError(
                 _("@info",
-                  "Compendium does not exist at '%(path)s'.")
-                % dict(path=cmppath))
+                  "Compendium does not exist at '%(path)s'.",
+                  path=cmppath))
         opts.append("--compendium %s" % cmppath)
     if quiet:
         opts.append("--quiet")
@@ -182,8 +182,8 @@ def merge_pofile (catpath, tplpath,
         if abort:
             raise PologyError(
                 _("@info",
-                  "Cannot merge PO file '%(file1)s' with template '%(file2)s'.")
-                % dict(file1=catpath, file2=tplpath))
+                  "Cannot merge PO file '%(file1)s' with template '%(file2)s'.",
+                  file1=catpath, file2=tplpath))
         return None if getcat else False
 
     # If the catalog had only header and no messages,

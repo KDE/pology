@@ -94,11 +94,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nconv > 0:
-            msg = (n_("@info:progress",
-                      "Converted %(num)d delimiter-embedded context.",
-                      "Converted %(num)d delimiter-embedded contexts.",
-                      self.nconv)
-                   % dict(num=self.nconv))
+            msg = n_("@info:progress",
+                     "Converted %(num)d delimiter-embedded context.",
+                     "Converted %(num)d delimiter-embedded contexts.",
+                     num=self.nconv)
             report("===== %s" % msg)
-
 

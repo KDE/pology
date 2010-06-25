@@ -16,7 +16,7 @@ import time
 
 import fallback_import_paths
 
-from pology import version, _, n_
+from pology import version, _, n_, t_
 from pology.file.catalog import Catalog
 from pology.file.header import Header
 from pology.file.message import Message, MessageUnsafe
@@ -43,20 +43,17 @@ def main ():
     locale.setlocale(locale.LC_ALL, "")
 
     # Setup options and parse the command line.
-    usage = (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] CONFIG LANG OPMODE [PARTIAL...]")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Translate PO files spread across different branches "
-          "in a unified fashion."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2007, 2008, 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage = _("@info command usage",
+        "%(cmd)s [OPTIONS] CONFIG LANG OPMODE [PARTIAL...]",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Translate PO files spread across different branches "
+        "in a unified fashion.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2007, 2008, 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
@@ -94,8 +91,8 @@ def main ():
     options.fproj = free_args.pop(0)
     if not os.path.isfile(options.fproj):
         error(_("@info",
-                "Summit configuration file '%(file)s' does not exist.")
-              % dict(file=options.fproj))
+                "Summit configuration file '%(file)s' does not exist.",
+                file=options.fproj))
 
     if len(free_args) < 1:
         opars.error(_("@info", "Language code not given."))
@@ -107,8 +104,8 @@ def main ():
     for mode in options.modes:
         if mode not in ("gather", "scatter", "merge"):
             error(_("@info",
-                    "Unknown operation mode '%(mode)s'.")
-                  % dict(mode=mode))
+                    "Unknown operation mode '%(mode)s'.",
+                    mode=mode))
 
     # Could use some speedup.
     try:
@@ -173,8 +170,8 @@ def main ():
     for mode in options.modes:
         if options.verbose:
             report(_("@info:progress",
-                     "-----> Processing mode: %(mode)s")
-                   % dict(mode=mode))
+                     "-----> Processing mode: %(mode)s",
+                     mode=mode))
         if mode == "gather":
             summit_gather(project, options)
         elif mode == "scatter":
@@ -254,8 +251,8 @@ class Project (object):
         # TODO: Do extensive checks.
         if self.locked and att not in self.__dict__:
             error(_("@info",
-                    "Unknown summit configuration field '%(field)s'.")
-                  % dict(field=att))
+                    "Unknown summit configuration field '%(field)s'.",
+                    field=att))
         self.__dict__[att] = val
 
     def resolve_path (self, path):
@@ -287,8 +284,8 @@ class Project (object):
         if path in self.inclusion_trail:
             error(_("@info",
                     "Circular inclusion of '%(file)s' attempted "
-                    "in summit configuration.")
-                  % dict(file=path))
+                    "in summit configuration.",
+                    file=path))
         self.inclusion_trail.append(path)
         self.locked = True
         exec open(path) in {"S" : self}
@@ -326,8 +323,8 @@ def derive_project_data (project, options):
     # Assert that there are no misnamed keys in the dictionary.
     if sd:
         error(_("@info",
-                "Unknown keys in summit configuration: %(keylist)s.")
-              % dict(keylist=format_item_list(sd.keys())))
+                "Unknown keys in summit configuration: %(keylist)s.",
+                keylist=format_item_list(sd.keys())))
     # Assert that all necessary fields in summit specification exist.
     if s.topdir is None:
         error(_("@info",
@@ -359,8 +356,8 @@ def derive_project_data (project, options):
             except:
                 error(_("@info",
                         "Invalid ignoring regular expression '%(regex)s' "
-                        "in branch '%(branch)s'.")
-                      % dict(branch=b.id, regex=rxstr))
+                        "in branch '%(branch)s'.",
+                        branch=b.id, regex=rxstr))
             return lambda x: bool(rx.search(x))
 
         def chain_ignores ():
@@ -373,8 +370,8 @@ def derive_project_data (project, options):
                 else:
                     error(_("@info",
                             "Invalid ignoring y type '%(type)s' "
-                            "in branch '%(branch)s'.")
-                          % dict(branch=b.id, type=ign))
+                            "in branch '%(branch)s'.",
+                            branch=b.id, type=ign))
             return lambda x: reduce(lambda s, y: s or y(x), ignfs, False)
 
         b.ignored = chain_ignores()
@@ -383,8 +380,8 @@ def derive_project_data (project, options):
         if bd:
             error(_("@info",
                     "Unknown keys in specification of branch '%(branch)s': "
-                    "%(keylist)s.")
-                  % dict(branch=b.id, keylist=format_item_list(bd.keys())))
+                    "%(keylist)s.",
+                    branch=b.id, keylist=format_item_list(bd.keys())))
     p.branches = branches
 
     # Assert that all necessary fields in branch specifications exist.
@@ -395,13 +392,13 @@ def derive_project_data (project, options):
                     "Branch with undefined ID."))
         if branch.id in p.branch_ids:
             error(_("@info",
-                    "Non-unique branch ID '%(branch)s'.")
-                  % dict(branch=branch.id))
+                    "Non-unique branch ID '%(branch)s'.",
+                    branch=branch.id))
         p.branch_ids.append(branch.id)
         if branch.topdir is None:
             error(_("@info",
-                    "Top directory not set for branch '%(branch)s'.")
-                  % dict(branch=branch.id))
+                    "Top directory not set for branch '%(branch)s'.",
+                    branch=branch.id))
 
     # Dictionary of branches by branch id.
     p.bdict = dict([(x.id, x) for x in p.branches])
@@ -451,15 +448,15 @@ def derive_project_data (project, options):
             else:
                 error(_("@info",
                         "Unknown type of definition for "
-                        "ascription filter '%(filt)s'.")
-                      % dict(filt=afname))
+                        "ascription filter '%(filt)s'.",
+                        filt=afname))
             project.ascription_filter = afcall
             break
     if options.asc_filter is not None and project.ascription_filter is None:
         error(_("@info",
                 "Summit configuration does not define "
-                "ascription filter '%(filt)s'.")
-              % dict(filt=options.asc_filter))
+                "ascription filter '%(filt)s'.",
+                filt=options.asc_filter))
 
     # Link summit and ascription catalogs.
     if project.ascription_filter:
@@ -475,8 +472,8 @@ def derive_project_data (project, options):
             fstr = "\n".join([x[0] for x in spec])
             error(_("@info",
                     "Non-unique summit catalog '%(name)s', found as:\n"
-                    "%(filelist)s")
-                  % dict(name=name, filelist=fstr))
+                    "%(filelist)s",
+                    name=name, filelist=fstr))
 
     # At scatter in summit-over-templates mode, add to the collection of
     # branch catalogs any that should be newly created.
@@ -663,8 +660,8 @@ def derive_project_data (project, options):
         fmtlist = "\n".join("%s --> %s" % x for x in halting_pairs)
         error(_("@info",
                 "Missing summit catalogs to branch catalogs:\n"
-                "%(filelist)s")
-              % dict(filelist=fmtlist))
+                "%(filelist)s",
+                filelist=fmtlist))
 
     # Initialize inverse mappings.
     # - part inverse:
@@ -698,8 +695,8 @@ def derive_project_data (project, options):
                 for bpath, bdir in p.catalogs[branch_id][branch_name]:
                     warning(_("@info",
                               "Missing expected summit catalog '%(name)s' "
-                              "for branch catalog '%(file)s'.")
-                            % dict(name=summit_name, file=bpath))
+                              "for branch catalog '%(file)s'.",
+                              name=summit_name, file=bpath))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -714,8 +711,8 @@ def split_path_in_project (project, path):
     if os.path.isfile(path):
         if not path.endswith((".po", ".pot")):
             error(_("@info",
-                    "Non-PO file '%(file)s' given as catalog.")
-                  % dict(file=path))
+                    "Non-PO file '%(file)s' given as catalog.",
+                    file=path))
 
     splits = []
     for b in [project.summit] + project.branches:
@@ -756,8 +753,8 @@ def split_path_in_project (project, path):
                 splits.append((b.id, breldir, catname))
     if not splits:
         error(_("@info",
-                "Path '%(path)s' is not covered by the summit configuration.")
-              % dict(path=path))
+                "Path '%(path)s' is not covered by the summit configuration.",
+                path=path))
 
     return splits
 
@@ -793,8 +790,8 @@ def collect_partspecs (project, specargs):
                 if bid not in project.branch_ids and bid != SUMMIT_ID:
                     error(_("@info",
                             "Branch '%(branch)s' is not defined "
-                            "in the summit configuration.")
-                          % dict(branch=bid))
+                            "in the summit configuration.",
+                            branch=bid))
             if bid and bid not in partbids:
                 partbids.append(bid)
             if fdname:
@@ -868,18 +865,18 @@ def summit_gather (project, options):
                 "Gathering possible only on '%(lang1)s' "
                 "in summit-over-templates mode. "
                 "If this is the very creation of the '%(lang2)s' summit, "
-                "run with options %(opts)s.")
-              % dict(lang1=project.templates_lang, lang2=options.lang,
-                     opts="--create --force"))
+                "run with options %(opts)s.",
+                lang1=project.templates_lang, lang2=options.lang,
+                opts="--create --force"))
     elif (    project.templates_dynamic
           and options.lang == project.templates_lang and not options.force):
         warning(_("@info",
                   "Gathering on '%(lang)s' is superfluous in "
                   "summit-over-dynamic-templates mode. "
                   "If this is done to check whether gathering works, "
-                  "to supress this message run with option %(opt)s.")
-                % dict(lang=project.templates_lang,
-                       opt="--force"))
+                  "to supress this message run with option %(opt)s.",
+                  lang=project.templates_lang,
+                  opt="--force"))
 
     # Collect names of summit catalogs to gather.
     summit_names = select_summit_names(project, options)
@@ -889,16 +886,16 @@ def summit_gather (project, options):
     if not options.verbose:
         catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
         upprog = init_file_progress(catpaths,
-                                    addfmt=_("@info:progres",
-                                             "Gathering: %(file)s"))
+                                    addfmt=t_("@info:progres",
+                                              "Gathering: %(file)s"))
 
     # Gather all selected catalogs.
     for name in summit_names:
         catpath = project.catalogs[SUMMIT_ID][name][0][0]
         if options.verbose:
             report(_("@info:progres",
-                     "Gathering %(file)s...")
-                   % dict(file=catpath))
+                     "Gathering %(file)s...",
+                     file=catpath))
         upprogc = lambda: upprog(catpath)
         summit_gather_single(name, project, options, update_progress=upprogc)
     upprog()
@@ -909,8 +906,8 @@ def summit_scatter (project, options):
     if project.templates_lang and options.lang == project.templates_lang:
         error(_("@info",
                 "Scattering not possible on '%(lang)s' "
-                "in summit-over-templates mode.")
-              % dict(lang=project.templates_lang))
+                "in summit-over-templates mode.",
+                lang=project.templates_lang))
 
     scatter_specs = []
 
@@ -950,16 +947,16 @@ def summit_scatter (project, options):
     # Assure all catalogs to scatter have summit counterparts.
     if missing_in_summit:
         error(_("@info",
-                "Missing necessary summit catalogs: %(namelist)s.")
-              % dict(namelist=format_item_list(missing_in_summit)))
+                "Missing necessary summit catalogs: %(namelist)s.",
+                namelist=format_item_list(missing_in_summit)))
 
     # Setup progress indicator.
     upprog = lambda x: x
     if not options.verbose:
         catpaths = [x[3] for x in scatter_specs if x[1]]
         upprog = init_file_progress(catpaths,
-                                    addfmt=_("@info:progres",
-                                             "Scattering: %(file)s"))
+                                    addfmt=t_("@info:progres",
+                                              "Scattering: %(file)s"))
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
@@ -967,16 +964,16 @@ def summit_scatter (project, options):
         if catpath is not None:
             if options.verbose:
                 report(_("@info:progres",
-                         "Scattering %(file)s...")
-                       % dict(file=catpath))
+                         "Scattering %(file)s...",
+                         file=catpath))
             upprogc = lambda: upprog(catpath)
             summit_scatter_single(*(scatter_spec + (project, options, upprogc)))
         else:
             # Apply post-scatter hooks.
             if options.verbose:
                 report(_("@info:progres",
-                         "Applying post-hook to branch %(branch)s...")
-                       % dict(branch=branch_id))
+                         "Applying post-hook to branch %(branch)s...",
+                         branch=branch_id))
             exec_hook_branch(branch_id, project.hook_on_scatter_branch)
     upprog()
 
@@ -986,8 +983,8 @@ def summit_merge (project, options):
     if project.templates_lang and options.lang == project.templates_lang:
         error(_("@info",
                 "Merging not possible on '%(lang)s' in "
-                "summit-over-templates mode.")
-              % dict(lang=project.templates_lang))
+                "summit-over-templates mode.",
+                lang=project.templates_lang))
 
     merge_specs = []
 
@@ -1016,8 +1013,8 @@ def summit_merge (project, options):
         for name in summit_names:
             if name not in template_catalogs:
                 warning(_("@info",
-                          "No template for summit catalog '%(name)s'.")
-                        % dict(name=name))
+                          "No template for summit catalog '%(name)s'.",
+                          name=name))
                 continue
             summit_path, summit_subdir = project.catalogs[SUMMIT_ID][name][0]
             template_path = template_catalogs[name][0][0]
@@ -1050,8 +1047,8 @@ def summit_merge (project, options):
                 continue
             if not name in template_catalogs:
                 warning(_("@info",
-                          "No template for branch catalog '%(file)s'.")
-                        % dict(file=branch_path))
+                          "No template for branch catalog '%(file)s'.",
+                          file=branch_path))
                 continue
             exact = False
             for template_path, template_subdir in template_catalogs[name]:
@@ -1060,8 +1057,8 @@ def summit_merge (project, options):
                     break
             if not exact:
                 warning(_("@info",
-                          "No exact template for branch catalog '%(file)s'.")
-                        % dict(file=branch_path))
+                          "No exact template for branch catalog '%(file)s'.",
+                          file=branch_path))
                 continue
             merge_specs.append((branch_id, name, branch_subdir,
                                 branch_path, template_path,
@@ -1073,16 +1070,16 @@ def summit_merge (project, options):
     if not options.verbose:
         catpaths = [x[3] for x in merge_specs]
         upprog = init_file_progress(catpaths,
-                                    addfmt=_("@info:progres",
-                                             "Merging: %(file)s"))
+                                    addfmt=t_("@info:progres",
+                                              "Merging: %(file)s"))
 
     # Merge catalogs.
     for merge_spec in merge_specs:
         catpath = merge_spec[3]
         if options.verbose:
             report(_("@info:progres",
-                     "Merging %(file)s...")
-                   % dict(file=catpath))
+                     "Merging %(file)s...",
+                     file=catpath))
         upprogc = lambda: upprog(catpath)
         summit_merge_single(*(merge_spec + (project, options, upprogc)))
     upprog()
@@ -1128,8 +1125,8 @@ def select_branch_catalogs (branch_id, project, options):
                     if not one_found:
                         error(_("@info",
                                 "No catalogs in subdirectory '%(dir)s' "
-                                "of branch '%(branch)s'.")
-                              % dict(dir=sel_subdir, branch=branch_id))
+                                "of branch '%(branch)s'.",
+                                dir=sel_subdir, branch=branch_id))
                 else:
                     # Otherwise, specific catalog is selected.
                     sel_name = part_spec
@@ -1145,8 +1142,8 @@ def select_branch_catalogs (branch_id, project, options):
                     if not one_found:
                         error(_("@info",
                                 "No catalog named '%(name)s' "
-                                "in branch '%(branch)s'.")
-                              % dict(name=sel_name, branch=branch_id))
+                                "in branch '%(branch)s'.",
+                                name=sel_name, branch=branch_id))
 
                 # Also select all branch catalogs which contribute to same
                 # summit catalogs as the already selected ones.
@@ -1188,8 +1185,8 @@ def select_branch_catalogs (branch_id, project, options):
                     sel_name = part_spec
                     if not sel_name in project.catalogs[SUMMIT_ID]:
                         error(_("@info",
-                                "No summit catalog named '%(name)s'.")
-                              % dict(name=sel_name))
+                                "No summit catalog named '%(name)s'.",
+                                name=sel_name))
                     bnames = project.full_inverse_map[sel_name][branch_id]
                     for bname in bnames:
                         if bname in pbcats:
@@ -1234,15 +1231,15 @@ def select_summit_names (project, options):
                                     summit_names.append(name)
                         if not one_found:
                             error(_("@info",
-                                    "No summit directory named '%(name)s'.")
-                                  % dict(name=sel_subdir))
+                                    "No summit directory named '%(name)s'.",
+                                    name=sel_subdir))
                     else: # single name
                         sel_name = part_spec
                         spec = project.catalogs[SUMMIT_ID].get(sel_name)
                         if not spec:
                             error(_("@info",
-                                    "No summit catalog named '%(name)s'.")
-                                  % dict(name=sel_name))
+                                    "No summit catalog named '%(name)s'.",
+                                    name=sel_name))
                         path, subdir = spec[0] # summit catalogs are unique
                         if options.selcatf(path):
                             summit_names.append(sel_name)
@@ -1262,16 +1259,16 @@ def select_summit_names (project, options):
                         if not one_found:
                             error(_("@info",
                                     "No directory named '%(name)s' "
-                                    "in branch '%(branch)s'.")
-                                  % dict(name=sel_subdir, branch=branch_id))
+                                    "in branch '%(branch)s'.",
+                                    name=sel_subdir, branch=branch_id))
                     else: # single name
                         sel_name = part_spec
                         spec = project.catalogs[branch_id].get(sel_name)
                         if not spec:
                             error(_("@info",
                                     "No catalog named '%(name)s' "
-                                    "in branch '%(branch)s'.")
-                                  % dict(name=sel_name, branch=branch_id))
+                                    "in branch '%(branch)s'.",
+                                    name=sel_name, branch=branch_id))
                         for path, subdir in spec:
                             if options.selcatf(path):
                                 summit_names.extend(
@@ -1322,15 +1319,15 @@ def summit_gather_single (summit_name, project, options,
         if project.vcs:
             if not project.vcs.remove(summit_path):
                 warning(_("@info",
-                          "Cannot remove '%(path)s' from version control.")
-                        % dict(path=summit_path))
+                          "Cannot remove '%(path)s' from version control.",
+                          path=summit_path))
         # If not removed by version control, plainly delete.
         if os.path.isfile(summit_path):
             os.unlink(summit_path)
             if os.path.isfile(summit_path):
                 warning(_("@info",
-                          "Cannot remove '%(path)s' from disk.")
-                        % dict(path=summit_path))
+                          "Cannot remove '%(path)s' from disk.",
+                          path=summit_path))
 
         if not os.path.isfile(summit_path):
             if options.verbose:
@@ -1496,8 +1493,8 @@ def summit_gather_single (summit_name, project, options,
         if project.vcs and not project.vcs.is_versioned(summit_cat.filename):
             if not project.vcs.add(summit_cat.filename):
                 warning(_("@info",
-                          "Cannot add '%(file)s' to version control.")
-                        % dict(file=summit_cat.filename))
+                          "Cannot add '%(file)s' to version control.",
+                          file=summit_cat.filename))
             else:
                 added = True
 
@@ -1959,8 +1956,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         warning(n_("@info:progress",
                    "%(file)s: %(num)d message stopped by ascription filter.",
                    "%(file)s: %(num)d messages stopped by ascription filter.",
-                   asc_stopped)
-                % dict(file=branch_path, num=asc_stopped))
+                   file=branch_path, num=asc_stopped))
 
     # If completeness less than minimal acceptable, remove all translations.
     completeness_ratio = float(msgs_translated) / msgs_total
@@ -2081,8 +2077,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         if project.vcs and not project.bdict[branch_id].skip_version_control:
             if not project.vcs.add(branch_cat.filename):
                 warning(_("@info",
-                          "Cannot add '%(file)s' to version control.")
-                        % dict(file=branch_cat.filename))
+                          "Cannot add '%(file)s' to version control.",
+                          file=branch_cat.filename))
 
         paths_str = " ".join(summit_paths)
         if options.verbose:
@@ -2394,8 +2390,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         if not cat:
             warning(_("@info",
                       "Catalog '%(file1)s' not merged with "
-                      "template '%(file2)s' due to errors on merging.")
-                    % dict(file1=catalog_path_mod, file2=template_path))
+                      "template '%(file2)s' due to errors on merging.",
+                      file1=catalog_path_mod, file2=template_path))
             return
         elif not getcat:
             # Catalog not requested, so the return value is True
@@ -2515,8 +2511,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         ):
             if not project.vcs.add(catalog_path):
                 warning(_("@info",
-                          "Cannot add '%(file)s' to version control.")
-                        % dict(file=catalog_path))
+                          "Cannot add '%(file)s' to version control.",
+                          file=catalog_path))
 
         if options.verbose:
             if added:

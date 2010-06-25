@@ -102,8 +102,8 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                 elif cenv not in all_envs:
                     warning(_("@info",
                               "Derivation at %(file)s:%(line)d:%(col)d "
-                              "defines unknown environment '%(env)s'.")
-                            % dict(file=path, line=lno, col=cno, env=cenv))
+                              "defines unknown environment '%(env)s'.",
+                              file=path, line=lno, col=cno, env=cenv))
                     cnproblems += 1
         except Exception, e:
             warning(unicode(e))
@@ -126,9 +126,9 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                         warning(_("@info",
                                   "Derivation at %(file1)s:%(line1)d:%(col1)d "
                                   "has normalized nominative equal to "
-                                  "derivation at %(file2)s:%(line2)d:%(col2)d.")
-                                % dict(file1=path, line1=lno, col1=cno,
-                                       file2=opath, line2=olno, col2=ocno))
+                                  "derivation at %(file2)s:%(line2)d:%(col2)d.",
+                                  file1=path, line1=lno, col1=cno,
+                                  file2=opath, line2=olno, col2=ocno))
                         cnproblems += 1
                 for rtkey in rtkeys: # must be in new loop
                     dkeys_by_rtkey[rtkey] = dkey
@@ -139,17 +139,16 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                 if gender is None:
                     warning(_("@info",
                               "Derivation at %(file)s:%(line)d:%(col)d "
-                              "does not define gender.")
-                            % dict(file=path, line=lno, col=cno))
+                              "does not define gender.",
+                              file=path, line=lno, col=cno))
                     cnproblems += 1
                 else:
                     for gender in hictoall(gender):
                         if gender not in known_genders:
                             warning(_("@info",
                                       "Derivation at %(file)s:%(line)d:%(col)d "
-                                      "defines unknown gender '%(gen)s'.")
-                                    % dict(file=path, line=lno, col=cno,
-                                           gen=gender))
+                                      "defines unknown gender '%(gen)s'.",
+                                      file=path, line=lno, col=cno, gen=gender))
                             cnproblems += 1
 
             # Show selection of expanded properties if requested.
@@ -178,14 +177,14 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
         fmtsrcs = format_item_list(sorted(getattr(x, "pattern", x)
                                           for x in unmatched_srcs))
         warning(_("@info",
-                  "Sources requested by name not found: %(srclist)s.")
-                % dict(srclist=fmtsrcs))
+                  "Sources requested by name not found: %(srclist)s.",
+                  srclist=fmtsrcs))
     if unmatched_keys:
         fmtkeys = format_item_list(sorted(getattr(x, "pattern", x)
                                           for x in unmatched_keys))
         warning(_("@info",
-                  "Derivations requested by key not found: %(keylist)s.")
-                % dict(keylist=fmtkeys))
+                  "Derivations requested by key not found: %(keylist)s.",
+                  keylist=fmtkeys))
 
     return nproblems
 
@@ -217,8 +216,8 @@ def _match_text (text, tests, unmatched_tests=None):
         else:
             raise PologyError(
                 _("@info",
-                  "Unknown matcher type '%(type)s'.")
-                % dict(type=type(test)))
+                  "Unknown matcher type '%(type)s'.",
+                  type=type(test)))
 
     if unmatched_tests is not None:
         if match and test in unmatched_tests:
@@ -419,38 +418,35 @@ def _statistics (tp, onlysrcs, onlykeys):
                  "have been taken into account, but only some selected",
                  "(Selection active.)"))
     report(_("@info statistics",
-             "Total derivations: %(num)d")
-           % dict(num=len(dkeys)))
+             "Total derivations: %(num)d",
+             num=len(dkeys)))
     if len(fpaths) > 0:
         report(_("@info statistics",
-                 "Total files: %(num)d")
-               % dict(num=len(fpaths)))
+                 "Total files: %(num)d",
+                 num=len(fpaths)))
         report(_("@info statistics",
-                 "Average derivations per file: %(num).1f")
-            % dict(num=(float(len(dkeys)) / len(fpaths))))
+                 "Average derivations per file: %(num).1f",
+                 num=(float(len(dkeys)) / len(fpaths))))
         bydif = sorted([(v[1], v[0]) for k, v in fpaths.items()])
         report(_("@info statistics",
-                 "Most derivations in a file: %(num)d (%(file)s)")
-               % dict(num=bydif[-1][0], file=bydif[-1][1]))
+                 "Most derivations in a file: %(num)d (%(file)s)",
+                 num=bydif[-1][0], file=bydif[-1][1]))
 
 
 def _main ():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    usage= (
-        _("@info command usage",
-          "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...")
-        % dict(cmd="%prog"))
-    desc = (
-        _("@info command description",
-          "Check validity and expand derivations from internal trapnakron."))
-    ver = (
-        _("@info command version",
-          u"%(cmd)s (Pology) %(version)s\n"
-          u"Copyright © 2009, 2010 "
-          u"Chusslove Illich (Часлав Илић) <%(email)s>")
-        % dict(cmd="%prog", version=version(), email="caslav.ilic@gmx.net"))
+    usage= _("@info command usage",
+        "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]...",
+        cmd="%prog")
+    desc = _("@info command description",
+        "Check validity and expand derivations from internal trapnakron.")
+    ver = _("@info command version",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = OptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(

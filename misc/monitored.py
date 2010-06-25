@@ -62,14 +62,14 @@ def _assert_spec_single (att, obj, spec):
                 raise PologyError(
                     _("@info",
                       "Expected %(type1)s for attribute '%(attr)s', "
-                      "got %(type2)s.")
-                     % dict(type1=spec["type"], attr=att, type2=type(obj)))
+                      "got %(type2)s.",
+                      type1=spec["type"], attr=att, type2=type(obj)))
             else:
                 raise PologyError(
                     _("@info",
                       "Expected %(type1)s for sequence element, "
-                      "got %(type2)s.")
-                    % dict(type1=spec["type"], type2=type(obj)))
+                      "got %(type2)s.",
+                      type1=spec["type"], type2=type(obj)))
     if "spec" in spec:
         _assert_spec_init(obj, spec["spec"])
 
@@ -175,21 +175,21 @@ class Monitored (object):
             if spec.get("derived", False):
                 raise PologyError(
                     _("@info",
-                      "Derived attribute '%(attr)s' is read-only.")
-                    % dict(attr=att))
+                      "Derived attribute '%(attr)s' is read-only.",
+                      attr=att))
             _assert_spec_single(att, subobj, spec)
         elif att.endswith("_modcount"):
             if not isinstance(subobj, int):
                 raise PologyError(
                     _("@info",
                       "Expected %(type1)s for attribute '%(attr)s', "
-                      "got %(type2)s.")
-                    % dict(type1=int, attr=att, type2=type(subobj)))
+                      "got %(type2)s.",
+                      type1=int, attr=att, type2=type(subobj)))
         else:
             raise PologyError(
                 _("@info",
-                  "Attribute '%(attr)s' is not among specified.")
-                % dict(attr=att))
+                  "Attribute '%(attr)s' is not among specified.",
+                  attr=att))
 
     def assert_spec_getattr (self, att):
         if not hasattr(self, "_spec"):
@@ -197,8 +197,8 @@ class Monitored (object):
         if att not in self._spec:
             raise PologyError(
                 _("@info",
-                  "Attribute '%(attr)s' is not among specified.")
-                % dict(attr=att))
+                  "Attribute '%(attr)s' is not among specified.",
+                  attr=att))
 
     def assert_spec_setitem (self, itemobj):
         if not hasattr(self, "_spec"):
@@ -208,8 +208,8 @@ class Monitored (object):
         else:
             raise PologyError(
                 _("@info",
-                  "Object '%(obj)s' is not specified to be a sequence.")
-                % dict(obj=self))
+                  "Object '%(obj)s' is not specified to be a sequence.",
+                  obj=self))
 
     def assert_spec_getitem (self):
         if not hasattr(self, "_spec"):
@@ -217,8 +217,8 @@ class Monitored (object):
         if "*" not in self._spec:
             raise PologyError(
                 _("@info",
-                  "Object '%(obj)s' is not specified to be a sequence.")
-                % dict(obj=self))
+                  "Object '%(obj)s' is not specified to be a sequence.",
+                  obj=self))
 
 # =============================================================================
 # Monitored pair.

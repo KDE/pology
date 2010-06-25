@@ -62,8 +62,8 @@ class Sieve (object):
             except TypeError:
                 raise SieveError(
                     _("@info",
-                      "Cannot execute filter '%(filt)s'.")
-                    % dict(filt=tfname))
+                      "Cannot execute filter '%(filt)s'.",
+                      filt=tfname))
 
             # Process result based on hook type.
             if isinstance(res, list):
@@ -86,10 +86,9 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmod:
-            msg = (n_("@info:progress",
-                      "Modified %(num)d header by filtering.",
-                      "Modified %(num)d headers by filtering.",
-                      self.nmod)
-                   % dict(num=self.nmod))
+            msg = n_("@info:progress",
+                     "Modified %(num)d header by filtering.",
+                     "Modified %(num)d headers by filtering.",
+                     num=self.nmod)
             report("===== %s" % msg)
 

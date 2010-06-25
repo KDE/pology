@@ -109,20 +109,18 @@ class Sieve (object):
 
         if self.nproblems > 0:
             if not self.strict:
-                msg = (n_("@info:progress",
-                          "Found %(num)d problem in KDE4 markup "
-                          "in translations.",
-                          "Found %(num)d problems in KDE4 markup "
-                          "in translations.",
-                          self.nproblems)
-                       % dict(num=self.nproblems))
+                msg = n_("@info:progress",
+                         "Found %(num)d problem in KDE4 markup "
+                         "in translations.",
+                         "Found %(num)d problems in KDE4 markup "
+                         "in translations.",
+                         num=self.nproblems)
             else:
-                msg = (n_("@info:progress",
-                          "Found %(num)d problem in KDE4 markup "
-                          "in translations (strict mode).",
-                          "Found %(num)d problems in KDE4 markup "
-                          "in translations (strict mode).",
-                          self.nproblems)
-                       % dict(num=self.nproblems))
+                msg = n_("@info:progress",
+                         "Found %(num)d problem in KDE4 markup "
+                         "in translations (strict mode).",
+                         "Found %(num)d problems in KDE4 markup "
+                         "in translations (strict mode).",
+                         num=self.nproblems)
             report("===== %s" % msg)
 
