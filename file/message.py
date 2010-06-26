@@ -12,7 +12,7 @@ while the header entry is handled by L{pology.file.header}.
 @license: GPLv3
 """
 
-from pology.misc.colors import cjoin
+from pology.misc.colors import ColorString, cjoin
 from pology.misc.escape import escape_c as escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
@@ -451,7 +451,8 @@ class Message_base (object):
         return not self.__eq__(omsg)
 
 
-    def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False):
+    def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False,
+                            colorize=0):
 
         prefix = {}
         if self.obsolete:
@@ -464,12 +465,18 @@ class Message_base (object):
         if force or mod["manual_comment"] or not self._lines_manual_comment:
             self._lines_manual_comment = []
             for manc in self.manual_comment:
-                self._lines_manual_comment.extend(wrap_comment_unwrap("", manc))
+                ls = wrap_comment_unwrap("", manc)
+                if colorize >= 2:
+                    ls = [ColorString("<grey>%s</grey>") % x for x in ls]
+                self._lines_manual_comment.extend(ls)
 
         if force or mod["auto_comment"] or not self._lines_auto_comment:
             self._lines_auto_comment = []
             for autoc in self.auto_comment:
-                self._lines_auto_comment.extend(wrap_comment_unwrap(".", autoc))
+                ls = wrap_comment_unwrap(".", autoc)
+                if colorize >= 2:
+                    ls = [ColorString("<blue>%s</blue>") % x for x in ls]
+                self._lines_auto_comment.extend(ls)
 
         if force or mod["source"] or not self._lines_source:
             self._lines_source = []
@@ -480,19 +487,27 @@ class Message_base (object):
                 else:
                     srcrefs.append(src[0])
             if srcrefs:
-                self._lines_source = wrap_comment(":", cjoin(srcrefs, " "))
+                ls = wrap_comment(":", cjoin(srcrefs, " "))
+                if colorize >= 2:
+                    ls = [ColorString("<blue>%s</blue>") % x for x in ls]
+                self._lines_source = ls
 
         if force or mod["flag"] or not self._lines_flag:
             self._lines_flag = []
             # Rearange so that fuzzy is first, if present.
             flst = []
             for fl in self.flag:
-                if fl != u"fuzzy":
-                    flst.append(fl)
-                else:
+                if fl == u"fuzzy":
+                    if colorize >= 1:
+                        fl = ColorString("<underline>%s</underline>") % fl
                     flst.insert(0, fl)
+                else:
+                    flst.append(fl)
             if flst:
-                self._lines_flag = wrap_comment(",", cjoin(flst, ", "))
+                ls = wrap_comment(",", cjoin(flst, ", "))
+                if colorize >= 2:
+                    ls = [ColorString("<blue>%s</blue>") % x for x in ls]
+                self._lines_flag = ls
 
         for att in _Message_single_fields:
             att_lins = "_lines_" + att
@@ -509,6 +524,8 @@ class Message_base (object):
                     else:
                         fname = att
                         pstat = "curr"
+                        if colorize >= 1:
+                            fname = ColorString("<bold>%s</bold>") % fname
                     self.__dict__[att_lins] = wrapf(fname, escape(msgsth),
                                                     prefix[pstat])
 
@@ -523,7 +540,10 @@ class Message_base (object):
             self._lines_msgstr = []
             msgstr = self.msgstr or [u""]
             if self.msgid_plural is None:
-                self._lines_msgstr.extend(wrapf("msgstr",
+                fname = "msgstr"
+                if colorize >= 1:
+                    fname = ColorString("<bold>%s</bold>") % fname
+                self._lines_msgstr.extend(wrapf(fname,
                                           escape(msgstr[0]),
                                           prefix["curr"]))
             else:
@@ -558,7 +578,7 @@ class Message_base (object):
             lins.extend(u"\n")
 
 
-    def to_lines (self, wrapf=wrap_field, force=False):
+    def to_lines (self, wrapf=wrap_field, force=False, colorize=0):
         """
         The line-representation of the message.
 
@@ -578,6 +598,13 @@ class Message_base (object):
             the message.
         @type force: bool
 
+        @param colorize: whether and how much to colorize the message.
+            Typically useful when the message is output to terminal,
+            HTML file, etc. as accompanying information to a user.
+            If the value is 0, no colorization is applied;
+            1 gives conservative colorization, 2 and more full colorization.
+        @type colorize: int
+
         @returns: formatted lines
         @rtype: list of strings
 
@@ -586,12 +613,12 @@ class Message_base (object):
 
         # Renew lines if forced, no lines formed yet, or no modcounter.
         if force or getattr(self, "modcount", True) or not self._lines_all:
-            self._renew_lines(wrapf, force)
+            self._renew_lines(wrapf, force, colorize)
 
         return self._lines_all
 
 
-    def to_string (self, wrapf=wrap_field, force=False):
+    def to_string (self, wrapf=wrap_field, force=False, colorize=0):
         """
         The string-representation of the message.
 
@@ -600,7 +627,7 @@ class Message_base (object):
         @see: L{to_lines}
         """
 
-        return cjoin(self.to_lines(wrapf, force))
+        return cjoin(self.to_lines(wrapf, force, colorize))
 
 
     def _append_to_list (self, other, att):
@@ -927,7 +954,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._lines_msgstr = init.get("_lines_msgstr", [])[:]
 
 
-    def _renew_lines (self, wrapf=wrap_field, force=False):
+    def _renew_lines (self, wrapf=wrap_field, force=False, colorize=0):
 
         mod = {}
         if not self.obsolete_modcount:
@@ -951,7 +978,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
                 mod[att] = True
             mod["msgstr"] = True
 
-        return self._renew_lines_bymod(mod, wrapf, force)
+        return self._renew_lines_bymod(mod, wrapf, force, colorize)
 
 
 class MessageUnsafe (Message_base):
@@ -1012,8 +1039,8 @@ class MessageUnsafe (Message_base):
         # No need to look for line caches, as lines must always be reformatted.
 
 
-    def _renew_lines (self, wrapf=wrap_field, force=False):
+    def _renew_lines (self, wrapf=wrap_field, force=False, colorize=0):
 
         # No monitoring, content must always be reformatted.
-        return self._renew_lines_bymod(None, wrapf, True)
+        return self._renew_lines_bymod(None, wrapf, True, colorize)
 

@@ -414,7 +414,8 @@ def report_msg_content (msg, cat,
     if cat is not None:
         msegs += [_msg_pos_fmt(cat.filename, msg.refline, msg.refentry) + "\n"]
     if showmsg:
-        msegs += [msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"]
+        msgstr = msg.to_string(wrapf=wrapf, force=force, colorize=1)
+        msegs += [msgstr.rstrip() + "\n"]
     if msegs:
         rsegs.append(cjoin(msegs).rstrip())
 
@@ -457,7 +458,8 @@ def report_msg_content (msg, cat,
         fmtnote = (ColorString("<green>%s</green>")
                    % _("@info", ">>> Filtered message was:"))
         rsegs.append(fmtnote)
-        mstr = fmsg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
+        fmsgstr = fmsg.to_string(wrapf=wrapf, force=force, colorize=1)
+        mstr = fmsgstr.rstrip() + "\n"
         rsegs.append(mstr.rstrip())
 
     if delim:
