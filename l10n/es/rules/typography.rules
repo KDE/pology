@@ -1,21 +1,35 @@
 # Spanish typographic rules
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
+
+include file="filter.include"
+
+# Remove single characters in quotes.
+addFilterRegex match="«.»" on="pmsgid,pmsgstr"
+
+# Remove abreviations.
+addFilterRegex match="[etc\.|Ej\.|ej\.|P\.e\.|p\.e\.]" on="pmsgid,pmsgstr"
+
+# Remove special puntuactions.
+addFilterRegex match="\.\.\." on="pmsgid,pmsgstr"
+addFilterRegex match="\?\?\?" on="pmsgid,pmsgstr"
+addFilterRegex match="\%\%" on="pmsgid,pmsgstr"
 
 addFilterHook name="es:patternAccents" on="pattern"
 addFilterHook name="es:patternEntities" on="pattern"
 
 validGroup strongTypo
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*&sp;" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*$"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*\n"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?p>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</?ul>" 
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</qt>"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*<nl/>"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*&unbsp;»"
-valid after="&unbsp;" before="(</[a-zA-Z0-9]+>)*</interface"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*\s" 
+valid after="\S" before="(</[a-zA-Z0-9]+>)*$"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*\n"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*</?p>" 
+valid after="\S" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
+valid after="\S" before="(</[a-zA-Z0-9]+>)*</?ul>" 
+valid after="\S" before="(</[a-zA-Z0-9]+>)*</qt>"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*<nl/>"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*\S»"
+valid after="\S" before="(</[a-zA-Z0-9]+>)*</interface"
 
 validGroup inParenthesis
 valid after="\(" before="\)"
@@ -23,56 +37,49 @@ valid after="\{" before="\}"
 valid after="\[" before="\]"
 valid after="\<" before="\>"
 
-validGroup inQuotes
-valid after="«" before="»"
-
 validGroup alone
 valid after="^" before="$"
 
-validGroup optionTag
-valid after="<option>.*" before=".*</option>"
-
-validGroup tokenTag
-valid after="<token>.*" before=".*</token>"
-
-validGroup bPunctuation
-valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\>\^]"
+validGroup beforePunctuation
+valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^]"
 valid before="$"
+valid after="\&\w+\;"
 
-validGroup aPunctuation
-valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\>\^]"
+validGroup afterPunctuation
+valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^]"
 valid after="^"
 
 validGroup openQuotes
-valid after="[\-\=\.\,\;\:\ ]"
+valid after="\<\>\(\[\{\-\=\.\,\;\:\s]"
+valid after="\&\w+\;"
 valid after="^"
-valid before="\-\=\<\(\[\{"
-valid before="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\%\&\^\_\~]"
+valid before=".+»"
 
 validGroup closeQuotes
-valid before="[\-\=\.\,\;\:\ ]"
+valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
 valid before="$"
-valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\%\-\&\>\^\_\~]"
+valid after="\&\w+\;"
+valid after="«.+"
 
-[:]
+[\s:]
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="No ponga un espacio antes del signo de dos puntos"
+
+[:\S]
 validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
-validGroup alone
-validGroup bPunctuation
-valid after="&unbsp;" before="\t"
-valid after="https?://\S+"
+validGroup beforePunctuation
+valid after="^"
+valid after="\S" before="\t"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
 valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
-valid after="smb://\[nom\[" before="motdepasse"
 valid after="\d\d?" before="\d\d?"
 valid after="([pH]H|hh|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
-valid after="Horas" before="Minutos"
+valid after="horas" before="minutos"
 valid after="minutos" before="segundos"
-valid after="%\d" before="%\d"
-valid after="ht" before="\/\/dig"
+valid after="\%\d" before="\%\d"
 valid before="-?[\)|\(]" # Smiley
 valid before="\s?\d+(px)?;" # CSS
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
@@ -80,330 +87,162 @@ valid after="white-space" # CSS
 valid after="color" before="#|\s?[A-Z-a-z]" # CSS
 valid after="bottom" before="\s\d+" # CSS
 valid after="\"\S+" before="%?\d+\"" # CSS
-valid after="xsl?"
-valid cat="htmlsearch" msgid="^_: List of words to exclude from index" 
-valid after="Process" before=":check" 
-valid after="Process:" before="check"
-valid after=".+:"
-valid before=":.+"
-valid before="slot" 
-valid before="port|PORT"
-valid after="<nom>"
-valid after="PATH|ext"
-valid after="com|host|org" before="\d+"
-valid cat="imgalleryplugin" after="KImGalleryPlugin:" before="slotCreateHtml" 
-valid cat="imgalleryplugin" after="KImGalleryPlugin" before=":slotCreateHtml"  
-valid after="javascript" before="go"
-valid cat="kalgebra" before="="
-valid cat="kbackgammon" after="&sp;%1" before="%2\.$"
-valid cat="kcmioslaveinfo" after="%1"  before="/"
-valid cat="kurifilter" after="</b>" before="<b>ma recherche"  
-valid cat="kcron" after="%H" before="%M" 
-valid cat="kdat" after="%02d" before="%02d"
-valid cat="kio4" after="\d" before="\d"
-valid cat="kio4" after="org" before="port" 
-valid cat="kio_smtp" after="SMTPProtocol" before=":smtp_open" 
-valid cat="kio_smtp" after="SMTPProtocol:" before="smtp_open" 
-valid cat="kiconedit" after="^1" before="1$"
-valid cat="kiconedit" after="^1" before="10$" 
-valid cat="kiconedit" after="^1" before="5$" 
-valid cat="konsole" before="\\"
-valid cat="kshisen" after="%02d" before="%02d"
-valid cat="kshisen" after="XX" before="XX"  
-valid cat="kspread" after="[A-Z0-9]+" before="[A-Z0-9]+" 
-valid cat="kspread" after="(ligne)|(colonne)|(body)" before="(ligne)|(colonne)|(office)"
-valid cat="ktexteditor_plugins" after="H|%"
-valid cat="kcalc" after="\+"
-valid cat="libkcal" before="&unbsp;" after="&unbsp;"
-valid cat="parley" before="verbe"
-valid cat="marble" before="all"
-valid cat="kdevelop" after="attendu.*"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
-hint="Ponga un espacio después del signo de dos puntos y no lo ponga antes"
+hint="Ponga un espacio después del signo de dos puntos"
 
-[;]
+[\s;]
+valid ctx="Numbers and characters"
+valid ctx="CSV separator" 
+hint="No ponga un espacio antes del signo de punto y coma"
+
+[;\S]
 validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
-validGroup alone
-validGroup bPunctuation
-valid after="&amp;[0-9a-zA-Z\.\-]+"
+validGroup beforePunctuation
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
-valid before=" font" # CSS
-valid before="-\)" # Smiley
-valid after=";" 
-valid before=";"
-valid cat="kspread" after="^\S+\(\S+"
-valid cat="kspread" after=";\S+"
-valid cat="kspread" before="\S+;"
-valid cat="kspread" before="\S+\)"
-valid cat="konsole" before="\\"
-valid cat="katepart4" after="plain|txt"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
-hint="Ponga un espacio después del signo de punto y coma y no lo ponga antes"
+hint="Ponga un espacio después del signo de punto y coma"
 
-[!]
-validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
-validGroup alone
-validGroup bPunctuation
-valid after="&unbsp;" before="\)"
-valid after="&unbsp;" before="&unbsp;»"
-valid after="^<" before="--.*--&gt;$"
-valid after="^<" before="DOCTYPE"
-valid after="&unbsp;" before="!"
-valid after="&unbsp;" before="\)"  
-valid after="!" before="!"                  
-valid after="!" before="&sp;"
-valid after="!" before="$"
-valid after="!" before="&lf;"
-valid after="!" before="<"
-valid after="<"
-valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
-valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;" 
-valid cat="kspread" after="[abcx!]|\(valeur\)"
-valid cat="k3b" before="a"
-valid cat="kcalc" after="^x"
-valid cat="kalgebra" after="n"
-valid cat="kturtle" before="="
-valid cat="kphotoalbum" before="Ok"
-valid after="aKtion"
-valid after="Yahoo"
+[\s\!]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
-hint="Ponga un espacio de separación después del signo de cierre de admiración y no lo ponga antes"
+hint="No ponga un espacio antes del signo de cierre de admiración"
 
-# [¡]
-
-[\?]
+[\!\S]
 validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
-validGroup alone
-validGroup bPunctuation
-valid ctx=".*one character"
-valid after="&unbsp;" before="\)"
-valid after="&unbsp;" before="&unbsp;»"
-valid after="https?://\S+"
-valid after="\?" 
-valid cat="kfindpart" after="l" before="t"
-valid cat="kio4" after="extension" before="requête" 
-valid cat="kio4" after="^" before="&sp;"
-valid after="&amp;nbsp;" before="&lt;\/qt&gt;$"
-valid cat="kgoldrunner" after="\?|2"
-valid cat="katefindinfilesplugin" after="<br /><b>"
-valid cat="kdevelop" after="<ul><li><b>"
+validGroup beforePunctuation
+valid after="^\<" before="DOCTYPE"
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="Ponga un espacio después del signo de cierre de admiración"
+
+[\¡]
+valid before=".*\!"
+hint="Cierre la admiración (deben ir emparejadas)"
+
+[\s\?]
 valid ctx="Numbers and characters"
 valid ctx="Query"
-hint="Ponga un espacio de separación después del signo de cierre de interrogación y no lo ponga antes"
+hint="No ponga un espacio antes del signo de cierre de interrogación"
 
-# [\¿]
+[\?\S]
+validGroup strongTypo
+validGroup beforePunctuation
+valid ctx=".*one character"
+valid ctx="Numbers and characters"
+valid ctx="Query"
+hint="Ponga un espacio después del signo de cierre de interrogación"
 
-[,]
-validGroup inQuotes
-validGroup bPunctuation
-valid after="[^&sp;(]" before="&sp;" 
-valid after="[^&sp;(]" before="\n"
-valid after="[^&sp;(]" before="</td>"
-valid after="[0-9]" before="[0-9]"
-valid after="https?://\S+" 
-valid after="^" before="&sp;"
-valid ctx="\w+ OF TRANSLATORS"  
-valid ctx="desktop_po" after="^Keywords=.*" 
-valid after="[^&sp;(&unbsp;)]" before="&lt;br" 
-valid cat="kcmkwinrules" after="\+"
-valid cat="kppp" after="0"
-valid cat="kcalc" after="^" before="$"
-valid cat="kommander" after="\([a-z]+"
+[\¿]
+valid before=".*\?"
+hint="Cierre la interrogación (deben ir emparejadas)"
+
+[\s\,]
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
-hint="Ponga un espacio de separación después del signo de coma y no lo ponga antes"
+hint="No ponga un espacio de separación antes del signo de coma"
 
-[,(?=[a-zA-Z])]
-valid after="x" before="y"
-valid after="^Keywords="
-valid ctx="Query"
-valid cat="kspread"
-valid cat="kcmkwinrules" after="\+"
-valid cat="kommander" after="\([a-z]+" 
-valid ctx="\w+ OF TRANSLATORS" after="."  before="."
+[\,\S]
+validGroup beforePunctuation
+valid after="\d" before="\d" 
+valid ctx="\w+ OF TRANSLATORS"  
 valid ctx="Numbers and characters"
-valid ctx="Keywords"
-hint="Ponga un espacio después de una coma"
+valid ctx="Keywords" 
+valid ctx="Query"
+valid ctx="CSV separator"
+valid msgid="\bYour emails\b"
+hint="Ponga un espacio de separación después del signo de coma"
 
-[»]
-validGroup closeQuotes
-valid after="&unbsp;" before="&sp;"
-valid after="&unbsp;" before="$"
-valid after="&unbsp;" before="\n"
-valid after="&unbsp;" before="&unbsp;(:|\?|!|;|/)" 
-valid after="&unbsp;" before="\." 
-valid after="&unbsp;" before="\)" 
-valid after="&unbsp;" before=","
-valid after="&unbsp;" before="</pre>|</p>|</li>|<br\s?/?>|</a>"
-valid after="&unbsp;" before="</nobr>(&sp;|\.)"
-valid before="\.\,\;\:"
+[»\S]
+validGroup closeQuotes 
+valid after="\S" before="\<\/pre>|\<\/p>|\<\/li>|\<br\s?/?\>|\</a\>"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
-[«]
+[\S«]
 validGroup openQuotes
-valid after="&sp;" before="&unbsp;"
-valid after="\(|'" before="&unbsp;"
-valid after="\t" before="&unbsp;"
-valid after="^|\n|</p>|</?br\s?/?>|<p>|<pre>" before="&unbsp;"
-valid after="&sp;<nobr>" before="&unbsp;"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
 [\"]
-validGroup inQuotes
 validGroup alone
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
-valid after="' ou "
 valid after="\d+"
 valid after="="
 valid after="=\S+" # HTML
 valid msgid="DOCTYPE HTML PUBLIC "
-valid cat="amarok" after="install"
-valid cat="amarok" before="make (un)?install"
-valid cat="kioclient" before="Mount"
-valid cat="kioclient" after="default"
-valid cat="kspread"
-valid cat="ktimetracker" after="^"
-valid cat="kerry" msgstr="guillemet"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
 hint="Utilice comillas españolas (alt-gr z, alt-gr x), en lugar de un apóstrofo"
 
-[&sp;&sp;+]
-valid msgid="&sp;&sp;+"
-hint="Nunca coloque más de un espacio consecutivo"
+[\s\s+]
+valid msgid="\s\s+"
+hint="No coloque más de un espacio consecutivo"
 
-[%]
-validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
-validGroup optionTag
-validGroup tokenTag
-validGroup bPunctuation
-valid after="^"
-valid after="&unbsp;" before="[,\. \)]"
-valid after="&unbsp;" before="&unbsp;[\?!,]"
-valid after="font-size:[0-9]+"# CSS
+[\s\%]
 valid before="[0-9ns]"
 valid before="[A-Za-z_]"
-valid before="{"
 valid before="appname|progname|execname"
 valid before="%"
-valid after="%"
-valid after="^" before=" d'occupation"
-valid after="width=\"\d+" before="\"" # HTML
-valid after="^" before="$"                         
-valid cat="ktexteditor_plugins" before="[a-zA-Z]|:"
-valid cat="guidancewer-manager" before="i"
-valid cat="kcron" after="^" before="H:%M$"
-valid cat="kcron" after="^%H:" before="M$"
-valid cat="kmouth" after="[flt%]"
-valid cat="kopete" before="[mst]|album|player"
-valid cat="amarok" before="track|title|artist|composer|year|album|comment|genre|ignore|initial|folder|filetype|discnumber"
-valid cat="desktop_kdebase" before="progname"
-valid cat="desktop_kdebase" before="pid"
-valid cat="desktop_kdebase" before="signum"
-valid cat="desktop_kdebase" before="signame"
-valid cat="kate" after="caractères " before="s "
-valid cat="kmail" before="D=\""
-valid cat="kmail" before="S=\""
-valid cat="knode" before="NAME|EMAIL|MYEMAIL|f|L"
-valid cat="kaudiocreator" before="[of]"
+valid before="$"
+valid after="width=\"\d+" before="\"" # HTML                         
 valid ctx="Numbers and characters"
-hint="Ponga un espacio de separación después de un signo de porcentaje y no lo ponga antes"
+hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
-[&sp;\,]
-valid after="^Keywords="
-hint="No ponga espacios antes de un signo de coma"
+[\%[A-Za-z]]
+validGroup beforePunctuation
+valid after="font-size:[0-9]+"# CSS
+valid after="width=\"\d+" before="\"" # HTML                         
+valid ctx="Numbers and characters"
+hint="Ponga un espacio de separación después de un signo de porcentaje"
 
-[&sp;\.]
-valid after="^Keywords="
+[\s\.]
 valid before="[a-zA-Z]+" # Nombres de archivos ocultos
 hint="No ponga espacios antes de un signo de punto"
 
-[&sp;\;]
-valid after="^Keywords="
-hint="No ponga espacios antes de un signo de punto y coma"
-
-[&sp;\:]
-valid after="^Keywords="
-hint="No ponga espacios antes de un signo de dos puntos"
-
-
 [\.\)]
 valid after="S\.u\.S\.E"
-valid cat="kregexpeditor" after="\("
 valid cat="kspread"
 valid cat="kstars"
 valid after="etc|min|sec|s|appl|p"
-valid after="\.\."
-valid before="\." after="\."
-valid before="\.\."
 hint="El punto debe estar después del paréntesis (y no antes)"
 
-[\.(?=[A-Z])]
-valid ctx="EMAIL OF TRANSLATORS" before="."
-valid cat="kpackage" after="PACKAGES?" before="TXT"
+[\.\S]
+validGroup beforePunctuation
+valid ctx="EMAIL OF TRANSLATORS"
 valid before="Xclients"
 valid before="Xmodmap"
 valid before="Xsession"
 valid before="Xdefaults"
 valid before="Xresources"
 valid before="DCOPserver"
-valid before="[A-Z]{3}" # Extensions
-valid before="[a-z]{3}" # Extensions
-valid after="[A-Z]" # Acronyms
-valid after="e" before="V."
-valid after="jj" before="MM"
-valid after="MM" before="aaaa"
-valid cat="mailody" after="B" before="V"
-valid cat="kgeography" after="D" before="C\."
-valid cat="kcmlocale" after="MM" before="AA"
-valid after="kmail-uudecoded" before="XXXXXX"
-valid after="(^|&sp;)\*" before="[a-zA-Z3]+(&sp;|$)"
-valid after="([A-Za-z\-]+\.?)+@([A-Za-z]+\.?)" before="([A-Za-z]+\.?)+$"
-valid after="([A-Za-z\-]*\.?)+" before="([A-Za-z\-]+\.?)*@([A-Za-z]+\.?)*"
-valid after="[A-Za-z]*\.?" before="([A-Za-z\-]+\.?)+@([A-Za-z]+\.?)"
-valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
-valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
-valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
+valid before="\/configure"
+valid before="[A-Z]{2}" # Extensions
+valid before="[a-z]{2}" # Extensions
 valid after="Last" before="Fm"
 valid ctx="Numbers and characters"
-valid before="$"
 hint="Ponga un espacio después de un signo de punto"
 
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
-[&unbsp;[:|;] (?=[A-Z])] 
+[\S[,|;]\s[A-Z]]
+# valid after proper names
+valid ctx="NAME OF TRANSLATORS"
+valid after="\s(\d){3}" # Names after year of copyrigth
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-valid before="David|Laura|Gerardo|Martin|Hari" # Authors
-valid before="Français|Anglais|Italien|Espagnol|Allemand"
-valid before="Sendmail|Maj|OpenUniverse|Risk|Tiff|Thor|Verr"
-valid before="F%\d"
-valid before="K3Shell|K3b|Okular"
-valid cat="kspread" before="[A-Z]\s|Pa"
-hint="No ponga ninguna mayúscula después de dos puntos o punto y coma"
+valid before="[A-Za-z]{2}[\s|\,|$]" # Extensions
+hint="Utilice minúsculas después de una coma o punto y coma"
 
-[(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]
-valid after="core&unbsp;|make&unbsp;"
-hint="No combine marcas de negrita o cursiva y la cita"
+[\S[.]\s[a-z]] 
+hint="Utilice mayúsculas después de punto"
 
 # End of rule file

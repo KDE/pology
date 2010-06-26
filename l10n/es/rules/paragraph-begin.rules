@@ -1,0 +1,44 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Espacios al principio del párrafo.
+{^\s}i
+valid msgstr="^\s"
+hint="Compruebe el uso de espacio al principio del párrafo (falta en la traducción)."
+
+{^\S}i
+valid msgstr="^\S"
+hint="Compruebe el uso de espacio al principio del párrafo (sobra en la traducción)."
+
+# Espacios después de un salto de línea.
+{\\n\s}i
+valid msgstr="\\n\s"
+hint="Compruebe el uso de espacio posterior a «\n» (falta en la traducción)."
+
+{\\n\S}i
+valid msgstr="\\n\S"
+hint="Compruebe el uso de espacio posterior a «\n» (sobra en la traducción)."
+
+# Mayúsculas al principio del párrafo.
+{^\s*[A-Z]}i
+valid msgstr="^\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de mayúscula al principio del párrafo"
+
+# Mayúsculas después de un salto de línea.
+{\\n\s*[A-Z]}i
+valid msgstr="\\n\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de mayúscula posterior a «\n».."
+
+# Minúsculas al principio del párrafo.
+{^\s*[a-z]}i
+valid msgstr="^\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de minúscula al principio del párrafo."
+
+# Minúsculas después de un salto de línea.
+{\\n\s*[a-z]}i
+valid msgstr="\\n\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de minúscula posterior a «\n».."
+
+# End of rule file 

@@ -1,0 +1,20 @@
+Cambios 24-6-2010
+- Limpieza de reglas del equipo francés no aplicables.
+- Separar en reglas diferentes la comprobación de uso o no de espacios junto a signos de puntuación.
+- Excluir de la comprobación páginas web y direcciones de correo.
+- Admitir «)», «]», «}», «<» y «>» después de '»'.
+- Admitir «(», «[», «{», «<» y «>» antes de '«'.
+- Permitir cualquier carácter dentro de comillas españolas '«»'.
+- Admitir variables antes de signos de puntuación y paréntesis.
+- Admitir «.» antes de «com», «org» o «net».
+- Admitir «>» después de punto.
+- Admitir «.» antes de «html» y «xml».
+- Admitir « ... ».
+- Admitir «Ej.:», «ej.:», «p.e.:», «Id.» e «id.» y minúscula posterior.
+- Admitir «./configure»
+- Admitir «#!/bin/bash» y similares.
+- No permitir minúsculas después de punto.
+- No permitir mayúsculas después de coma y punto y coma.
+- Comprobar el emparejamiento de signos de admiración e interrogación.
+- Comprobar los paréntesis con reglas similares a las comillas españolas.
+- No obligar a poner espacio después de coma en «Your emails».

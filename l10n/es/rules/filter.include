@@ -1,0 +1,28 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Remove XML-like tags.
+# addFilterRegex match="\<\/?w+\>" on="pmsgid,pmsgstr"
+
+# Remove long command-line options.
+addFilterRegex match="\-\-(\w|\-)+" on="pmsgid,pmsgstr"
+
+# Remove function calls like foo(x, y).
+addFilterRegex match="\w+\(.+\)" on="pmsgid,pmsgstr"
+
+# Remove environment variables.
+addFilterRegex match="\$\<?[A-Z]+\>?" on="pmsgid,pmsgstr"
+
+# Remove XML entities.
+# addFilterRegex match="\&\w+\;" on="pmsgid,pmsgstr"
+
+# Remove web pages.
+addFilterRegex match="(http|https|ftp|sftp):\/\/(\w*\.)+(com|net|org|biz|info|mobi|name)(\.[a-z]{1,3})?(\:\d{2,4})?(\/\w*)*\/?" on="pmsgid,pmsgstr"
+
+# Remove web pages without protocol starting with «www».
+addFilterRegex match="www\.\w*\.(com|net|org|biz|info|mobi|name)(\.[a-z]{1,3})?(\:\d{2,4})?(\/\w*)*\/?" on="pmsgid,pmsgstr"
+
+# Remove email address
+addFilterRegex match="[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}" on="pmsgid,pmsgstr"

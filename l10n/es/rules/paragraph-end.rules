@@ -1,0 +1,81 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Remove XML entities.
+addFilterRegex match="\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+
+# Falta espacio al final del párrafo.
+{\s$}i
+valid msgstr="\s$"
+hint="Compruebe el uso de espacio al final del párrafo (falta en la traducción)."
+
+# Sobra espacio al final del párrafo.
+{\S$}i
+valid msgstr="\S$"
+hint="Compruebe el uso de espacio al final del párrafo (sobra en la traducción)."
+
+# Falta espacio antes del fin de línea «\n».
+{\s\\n}i
+valid msgstr="\s\\n"
+hint="Compruebe el uso de espacio antes del fin de línea «\n» (falta en la traducción)."
+
+# Sobra espacio antes del fin de línea.
+{\S\\n}i
+valid msgstr="\S\\n"
+hint="Compruebe el uso de espacio antes del fin de línea «\n» (sobra en la trducción)."
+
+# Punto al final del párrafo.
+{\.\s*$}i
+valid msgstr="\.\s*$"
+hint="Compruebe el uso de punto al final del párrafo."
+
+# Punto en el fin de línea «\n».
+{\.\s*\\n}i
+valid msgstr="\.\s*\\n"
+hint="Compruebe el uso de punto antes del fin de línea «\n»."
+
+# Dos puntos al final del párrafo.
+{\:\s*$}i
+valid msgstr="\:\s*$"
+hint="Compruebe el uso de dos puntos al final del párrafo."
+
+# Dos puntos en el fin de línea «\n».
+{\:\s*\\n}i
+valid msgstr="\:\s*\\n"
+hint="Compruebe el uso de dos puntos antes del fin de línea «\n»."
+
+# Coma al final del párrafo.
+{\,\s*$}i
+valid msgstr="\,\s*$"
+hint="Compruebe el uso de coma al final del párrafo."
+
+# Coma en el fin de línea «\n».
+{\,\s*\\n}i
+valid msgstr="\,\s*\\n"
+hint="Compruebe el uso de coma antes del fin de línea «\n»"
+
+# Punto y coma al final del párrafo.
+{\;\s*$}i
+valid msgstr="\;\s*$"
+hint="Compruebe el uso de punto y coma al final del párrafo."
+
+# Punto y coma en el fin de línea «\n».
+{\;\s*\\n}i
+valid msgstr="\;\s*\\n"
+hint="Compruebe el uso de punto y coma antes del fin de línea «\n»."
+
+# Paréntesis al final del párrafo.
+{\.\)\s*$}i
+valid msgstr="\)\.\s*$"
+valid msgstr="etc\.\)s*$"
+hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
+
+# Paréntesis en el fin de línea «\n».
+{\.\)\s*\\n}i
+valid msgstr="\)\.\s*\\n"
+valid msgstr="etc\.\)\s*\\n"
+hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
+
+# End of rule file
