@@ -140,7 +140,7 @@ class Sieve (object):
                      "Unfuzzied %(num)d messages fuzzy due to "
                      "difference in context only.",
                      num=self.nunfuzz)
-            report("===== %s" % msg)
+            report("===== " + msg)
         if self.nrep > 0:
             msg = n_("@info:progress",
                      "Reported %(num)d message due to equality "
@@ -148,5 +148,5 @@ class Sieve (object):
                      "Reported %(num)d messages due to equality "
                      "of '%(field)s' field.",
                      num=self.nrep, field="msgid")
-            report("===== %s" % msg)
+            report("===== " + msg)
 

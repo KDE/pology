@@ -98,5 +98,5 @@ class Sieve (object):
                      "Converted %(num)d delimiter-embedded context.",
                      "Converted %(num)d delimiter-embedded contexts.",
                      num=self.nconv)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

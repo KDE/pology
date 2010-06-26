@@ -48,11 +48,12 @@ import locale
 import os
 import re
 import sys
-from textwrap import TextWrapper
 
 from pology import PologyError, _, n_
+from pology.misc.colors import cjoin, cinterp
 from pology.misc.fsops import term_width
 from pology.misc.report import format_item_list
+from pology.misc.wrap import wrap_text
 
 
 class ParamParser (object):
@@ -147,7 +148,7 @@ class ParamParser (object):
             fmts.append(scview.help(wcol, stream))
             fmts.append("")
 
-        return "\n".join(fmts)
+        return cjoin(fmts, "\n")
 
 
     def listcmd (self, subcmds=None, wcol=None, stream=sys.stdout):
@@ -176,13 +177,10 @@ class ParamParser (object):
                    "and its description",
                    " - ")
 
-        initin = " " * 2
-        subsin = initin + " " * (maxsclen + 3)
+        flead = " " * 2
+        lead = flead + " " * (maxsclen + 3)
         if wcol is None:
             wcol = (term_width(stream=stream) or 80) - 1
-        wrapper = TextWrapper(initial_indent=initin,
-                              subsequent_indent=subsin,
-                              width=wcol)
         fmts = []
         for subcmd in subcmds:
             scview = self._scviews.get(subcmd, None)
@@ -194,13 +192,14 @@ class ParamParser (object):
                       cmd=subcmd))
             desc = scview.shdesc()
             if desc:
-                name = ("%%-%ds" % maxsclen) % subcmd
+                name = cinterp("%%-%ds" % maxsclen, subcmd)
                 s = name + ndsep + desc
             else:
                 s = name
-            fmts.extend(wrapper.wrap(s))
+            lines = wrap_text(s, wcol=wcol, flead=flead, lead=lead, addnl=False)
+            fmts.extend(lines)
 
-        return "\n".join(fmts)
+        return cjoin(fmts, "\n")
 
 
     def cmdnames (self):
@@ -625,14 +624,13 @@ class SubcmdView (object):
             wcol = (term_width(stream=stream) or 80) - 1
 
         def fmt_wrap (text, indent=""):
-            wrapper = TextWrapper(initial_indent=indent,
-                                  subsequent_indent=indent,
-                                  width=wcol)
             paras = text.split("\n\n")
             fmtparas = []
             for para in paras:
-                fmtparas.append(wrapper.fill(para))
-            return "\n\n".join(fmtparas)
+                lines = wrap_text(para, wcol=wcol, flead=indent, lead=indent,
+                                  addnl=False)
+                fmtparas.append(cjoin(lines, "\n"))
+            return cjoin(fmtparas, "\n\n")
 
         def fmt_par (param, indent=""):
             s = ""
@@ -648,7 +646,7 @@ class SubcmdView (object):
                     metavar = _("@item:intext default placehodler for "
                                 "the parameter argument",
                                 "ARG")
-                s += ":%s" % metavar
+                s += cinterp(":%s", metavar)
             defval = self._defvals[param]
             admvals = self._admvals[param]
             if ptype is not bool and defval is not None and str(defval):
@@ -697,7 +695,7 @@ class SubcmdView (object):
             for param in o_params:
                 ls += [fmt_par(param, "  ")]
 
-        return "\n".join(ls).strip("\n")
+        return cjoin(ls, "\n").strip("\n")
 
 
     def name (self):

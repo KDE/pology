@@ -12,6 +12,7 @@ while the header entry is handled by L{pology.file.header}.
 @license: GPLv3
 """
 
+from pology.misc.colors import cjoin
 from pology.misc.escape import escape_c as escape
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
@@ -479,7 +480,7 @@ class Message_base (object):
                 else:
                     srcrefs.append(src[0])
             if srcrefs:
-                self._lines_source = wrap_comment(":", " ".join(srcrefs))
+                self._lines_source = wrap_comment(":", cjoin(srcrefs, " "))
 
         if force or mod["flag"] or not self._lines_flag:
             self._lines_flag = []
@@ -491,7 +492,7 @@ class Message_base (object):
                 else:
                     flst.insert(0, fl)
             if flst:
-                self._lines_flag = wrap_comment(",", ", ".join(flst))
+                self._lines_flag = wrap_comment(",", cjoin(flst, ", "))
 
         for att in _Message_single_fields:
             att_lins = "_lines_" + att
@@ -599,7 +600,7 @@ class Message_base (object):
         @see: L{to_lines}
         """
 
-        return "".join(self.to_lines(wrapf, force))
+        return cjoin(self.to_lines(wrapf, force))
 
 
     def _append_to_list (self, other, att):

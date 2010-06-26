@@ -39,5 +39,5 @@ class Sieve (object):
                      "Removed %(num)d obsolete message.",
                      "Removed %(num)d obsolete messages.",
                      num=self.nmatch)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

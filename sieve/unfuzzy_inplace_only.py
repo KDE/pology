@@ -89,7 +89,7 @@ class Sieve (object):
                      "Unfuzzied %(num)d messages due to "
                      "closing tags in-place.",
                      num=self.nunfuzz)
-            report("===== %s" % msg)
+            report("===== " + msg)
         if self.nmodinpl > 0:
             msg = n_("@info:progress",
                      "Modified %(num)d translations by "
@@ -97,5 +97,5 @@ class Sieve (object):
                      "Modified %(num)d translations by "
                      "closing tags in-place.",
                      num=self.nmodinpl)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

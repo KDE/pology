@@ -231,7 +231,7 @@ class Sieve (object):
                          "Found %(num)d problems in "
                          "KDE TP translations (strict mode).",
                          num=self.nproblems)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 def _get_catalog_project_subdir (path):

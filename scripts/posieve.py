@@ -171,17 +171,16 @@ should be considered public API, it is subject to change without notice.
 
 import fallback_import_paths
 
-import sys
-import os
+import glob
 import imp
 import locale
+import os
 import re
-from optparse import OptionParser
-import glob
+import sys
 
 from pology import rootdir, version, _, n_, t_
 from pology.file.catalog import Catalog
-from pology.misc.colors import set_coloring_globals
+from pology.misc.colors import ColorOptionParser, set_coloring_globals
 import pology.misc.config as pology_config
 from pology.misc.escape import escape_sh
 from pology.misc.fsops import str_to_unicode
@@ -223,15 +222,15 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2007, 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--announce-entry",
         action="store_true", dest="announce_entry", default=False,
         help=_("@info command line option description",
-               "Announce that header or message just about to be sieved."))
+               "Announce that header or message is just about to be sieved."))
     opars.add_option(
         "-b", "--skip-obsolete",
         action="store_true", dest="skip_obsolete", default=def_skip_obsolete,

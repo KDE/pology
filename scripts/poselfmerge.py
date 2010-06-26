@@ -9,7 +9,6 @@ Merge PO file with itself, to produce fuzzy matches on similar messages.
 """
 
 import locale
-from optparse import OptionParser
 import os
 import shutil
 import sys
@@ -19,6 +18,7 @@ import fallback_import_paths
 from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
+from pology.misc.colors import ColorOptionParser
 import pology.misc.config as pology_config
 from pology.misc.fsops import collect_catalogs
 from pology.misc.merge import merge_pofile
@@ -47,10 +47,10 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-f", "--files-from",
         metavar=_("@info command line value placeholder", "FILE"),

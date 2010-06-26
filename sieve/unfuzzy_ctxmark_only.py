@@ -104,5 +104,5 @@ class Sieve (object):
                      "Unfuzzied %(num)d messages fuzzy due to "
                      "difference in context marker only.",
                      num=self.nmatch)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

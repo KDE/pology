@@ -21,10 +21,10 @@ import sys
 import os
 import locale
 import re
-from optparse import OptionParser
 from tempfile import NamedTemporaryFile
 
 from pology import version, _, n_
+from pology.misc.colors import ColorOptionParser
 from pology.misc.report import error, warning, report
 from pology.misc.msgreport import error_on_msg, warning_on_msg
 import pology.misc.config as pology_config
@@ -57,7 +57,7 @@ def main ():
 
     # Setup options and parse the command line.
     usage = _("@info command usage",
-        "%(cmd)s [OPTIONS] [OPTIONS] < EDIFF\n"
+        "%(cmd)s [OPTIONS] [OPTIONS] &lt; EDIFF\n"
         "%(cmd)s -u [OPTIONS] PATHS...",
         cmd="%prog")
     desc = _("@info command description",
@@ -65,10 +65,10 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-p", "--strip",
         metavar=_("@info command line value placeholder", "NUM"),

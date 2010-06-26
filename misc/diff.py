@@ -12,7 +12,7 @@ import random
 import re
 
 from pology import PologyError, _, n_
-from pology.misc.colors import colors_for_file
+from pology.misc.colors import ColorString, cjoin
 from pology.file.message import MessageUnsafe
 from pology.misc.report import error
 from pology.misc.split import split_text
@@ -469,7 +469,7 @@ def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
     return diffr and (dlist, diff_ratio) or dlist
 
 
-def word_ediff (text_old, text_new, markup=False, format=None, hlto=None,
+def word_ediff (text_old, text_new, markup=False, format=None, colorize=False,
                 diffr=False):
     """
     Create word-level embedded difference between old and new texts.
@@ -490,19 +490,18 @@ def word_ediff (text_old, text_new, markup=False, format=None, hlto=None,
     tilde.
     If both texts are C{None}, C{None} is returned as the difference.
 
-    The C{hlto} parameter can be used to additionally highlight
-    embedded difference for an output descriptor pointed to by it
-    (e.g. colorized for the shell if given as C{sys.stdout}).
-    If highlighting is applied, L{word_ediff_to_old} and L{word_ediff_to_new}
-    cannot be used to recover the original texts.
+    The C{colorize} parameter can be used to additionally highlight
+    embedded difference by using color markup provided by
+    L{ColorString<misc.colors.ColorString>}.
+    If colorizing is enabled, the return value is a C{ColorString}.
 
     See L{word_diff} for description of other parameters.
 
-    @param hlto: destination to produce extra highlighting for
-    @type hlto: file descriptor
+    @param colorize: whether to colorize differences
+    @type colorize: bool
 
     @returns: string with embedded differences and possibly difference ratio
-    @rtype: string/None or (string/None, float)
+    @rtype: string/ColorString/None or (string/ColorString/None, float)
 
     @see: L{word_diff}
     """
@@ -510,8 +509,7 @@ def word_ediff (text_old, text_new, markup=False, format=None, hlto=None,
     dlist, dr = word_diff(text_old, text_new, markup, format, diffr=True)
     if not dlist:
         return diffr and (None, 0.0) or None
-    colors = colors_for_file(hlto)
-    dtext = _assemble_ediff(dlist, colors)
+    dtext = _assemble_ediff(dlist, colorize)
 
     return diffr and (dtext, dr) or dtext
 
@@ -555,6 +553,9 @@ def word_ediff_to_new (dtext):
 
 
 def _word_ediff_to_oldnew (dtext, capt_this_rx, capt_other_rx):
+
+    if isinstance(dtext, ColorString):
+        dtext = dtext.resolve("none")
 
     if dtext is None:
         return None
@@ -683,7 +684,7 @@ def line_diff (lines_old, lines_new, markup=False, format=None, diffr=False):
     return diffr and (wdiffs, dr) or [x[0] for x in wdiffs]
 
 
-def line_ediff (lines_old, lines_new, markup=False, format=None, hlto=None,
+def line_ediff (lines_old, lines_new, markup=False, format=None, colorize=False,
                 diffr=False):
     """
     Create word-level embedded difference between old and new lines of text.
@@ -700,8 +701,7 @@ def line_ediff (lines_old, lines_new, markup=False, format=None, hlto=None,
     """
 
     dlists, dr = line_diff(lines_old, lines_new, markup, format, diffr=True)
-    colors = colors_for_file(hlto)
-    dlines = [(_assemble_ediff(x[0], colors), x[1]) for x in dlists]
+    dlines = [(_assemble_ediff(x[0], colorize), x[1]) for x in dlists]
 
     return diffr and (dlines, dr) or [x[0] for x in dlines]
 
@@ -748,7 +748,7 @@ def _line_ediff_to_oldnew (dlines, word_ediff_to_x):
     return lines
 
 
-def _assemble_ediff (dlist, colors):
+def _assemble_ediff (dlist, colorize):
 
     if not dlist:
         return None
@@ -763,13 +763,19 @@ def _assemble_ediff (dlist, colors):
             other_none = True
         segtext = _escape_ewraps(segtext)
         if segtag == _new_tag:
-            dtext.append(colors.blue(_new_opn + segtext + _new_cls + wext))
+            d = _new_opn + segtext + _new_cls + wext
+            if colorize:
+                d = ColorString("<blue>%s</blue>") % d
+            dtext.append(d)
         elif segtag == _old_tag:
-            dtext.append(colors.red(_old_opn + segtext + _old_cls + wext))
+            d = _old_opn + segtext + _old_cls + wext
+            if colorize:
+                d = ColorString("<red>%s</red>") % d
+            dtext.append(d)
         else:
             dtext.append(segtext)
             haseqseg = True
-    dtext = u"".join(dtext)
+    dtext = cjoin(dtext)
 
     if other_none:
         # Indicate the other string was none.
@@ -1182,7 +1188,7 @@ _infsep_minlen = 20
 
 def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                emsg=None, ecat=None, eokpos=None, enoctxt=None,
-               emptydc=False, hlto=None, diffr=False):
+               emptydc=False, colorize=False, diffr=False):
     """
     Create word-level embedded difference between extraction-invariant
     parts of messages.
@@ -1233,8 +1239,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     By default the difference comment is not added if there are no indicators,
     but it may be forced by setting C{emptydc} parameter to C{True}.
 
-    Embedded differences can be additionally highlighted for an output
-    descriptor given by C{hlto} parameter (e.g. colorized for the shell).
+    Embedded differences can be additionally colorized (e.g. for terminal)
+    by setting C{colorize} parameter to C{True}.
 
     If C{diffr} is C{True}, aside from the message with embedded differences,
     the total difference ratio is returned (see L{msg_diff}).
@@ -1259,8 +1265,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     @type enoctxt: string
     @param emptydc: whether to add difference comment even if empty
     @type emptydc: bool
-    @param hlto: destination to produce highlighting for
-    @type hlto: file
+    @param colorize: whether to colorize the difference
+    @type colorize: bool
     @param diffr: whether to report difference ratio
     @type diffr: bool
 
@@ -1280,9 +1286,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
                                     addrem=addrem, diffr=True)
 
     # Construct list of embedded diffs out of original difference list.
-    colors = colors_for_file(hlto)
     if not addrem:
-        mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], colors), x[3])
+        mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], colorize), x[3])
         ediffs = map(mtoe, wdiffs)
         ediffs_pf = map(mtoe, wdiffs_pf)
     else:
@@ -1390,8 +1395,8 @@ def msg_ediff_to_new (emsg, rmsg=None):
     """
     Resolve message with embedded difference to the newer message.
 
-    Message cannot be properly resolved if C{hlto} or C{addrem} parameters
-    to L{msg_ediff} were used on embedding.
+    Message cannot be properly resolved if C{addrem} parameter
+    to L{msg_ediff} was used on embedding.
     If this function is called on such a message, the result is undefined.
 
     By default a new message object is created, but using the C{rmsg}

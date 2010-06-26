@@ -116,5 +116,5 @@ class Sieve (object):
                      "Merged %(num)d corrected message.",
                      "Merged %(num)d corrected messages.",
                      num=self.ncorr)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

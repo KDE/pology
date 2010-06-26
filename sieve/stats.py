@@ -224,7 +224,7 @@ import sys
 from pology import _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
-from pology.misc.colors import colors_for_file
+from pology.misc.colors import ColorString, cjoin, cinterp
 from pology.misc.comments import parse_summit_branches
 from pology.misc.diff import tdiff
 from pology.misc.fsops import collect_catalogs
@@ -788,7 +788,6 @@ class Sieve (object):
                         maxtitlecw = titlecw
 
         # Output statistics in requested forms.
-        colors = colors_for_file(sys.stdout)
         for title, count, summed in counts:
             # Output the title if defined.
             if title is not None:
@@ -797,7 +796,9 @@ class Sieve (object):
                 else:
                     ntitle = title
                 # Must color after padding, to avoid it seeing the colors.
-                ntitle = colors.bold(ntitle)
+                ntitle = _("@title",
+                           "<bold>%(title)s</bold>",
+                           title=ntitle)
                 if self.inline:
                     report(ntitle + " ", newline=False)
                 else:
@@ -845,7 +846,7 @@ class Sieve (object):
             # Output.
             report("-")
             report(tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
-                            hlto=sys.stdout))
+                            colorize=True))
 
         # Write file names of catalogs which are not fully translated
         # into a file, if requested.
@@ -957,7 +958,7 @@ class Sieve (object):
 
         # Output the table.
         report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        space="   ", none=u"-", hlto=sys.stdout))
+                        space="   ", none=u"-", colorize=True))
 
 
     def _msg_bar_stats (self, counts, title, count, summed):
@@ -980,10 +981,9 @@ class Sieve (object):
 
         # Count categories to display and chars/colors associated to them.
         # Note: Use only characters from Latin1.
-        colors = colors_for_file(sys.stdout)
-        tspecs = (("trn", u"×", colors.green),
-                  ("fuz", u"¤", colors.blue),
-                  ("unt", u"·", colors.red))
+        tspecs = (("trn", u"×", "green"),
+                  ("fuz", u"¤", "blue"),
+                  ("unt", u"·", "red"))
 
         # Find out maximum counts overall.
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
@@ -1021,10 +1021,11 @@ class Sieve (object):
                 cstr = "-"
             cfmt = ("%%%ds" % maxcountscw_jumbled[tkey]) % cstr
             if tcol is not None:
-                fmt_counts.append(tcol(cfmt))
+                fmt_counts.append((ColorString("<%s>%%s</%s>") % (tcol, tcol))
+                                  % cfmt)
             else:
                 fmt_counts.append(cfmt)
-        fmt_counts = "/".join(fmt_counts)
+        fmt_counts = cjoin(fmt_counts, "/")
 
         # Maximum and nominal bar widths in characters.
         # TODO: Make parameters.
@@ -1106,15 +1107,15 @@ class Sieve (object):
         for tkey, tchar, tcol in tspecs:
             bar = tchar * n_cells[tkey]
             if tcol is not None:
-                bar = tcol(bar)
+                bar = (ColorString("<%s>%%s</%s>") % (tcol, tcol)) % bar
             fmt_bar.append(bar)
-        fmt_bar = "".join(fmt_bar)
+        fmt_bar = cjoin(fmt_bar)
 
         # Assemble final output.
         if not self.p.absolute or not summed:
             if count["tot"][dcolumn] == 0:
                 fmt_bar = ""
-            report("%s %s |%s|" % (fmt_counts, dlabel, fmt_bar))
+            report(cinterp("%s %s |%s|", fmt_counts, dlabel, fmt_bar))
         else:
-            report("%s %s" % (fmt_counts, dlabel))
+            report(cinterp("%s %s", fmt_counts, dlabel))
 

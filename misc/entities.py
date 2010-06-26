@@ -61,7 +61,7 @@ def parse_entities (defstr, src=None):
         else:
             raise PologyError(
                 _("@info error report for a string",
-                  "<string>: %(msg)s",
+                  "&lt;string&gt;: %(msg)s",
                   msg=inst))
 
     return entities

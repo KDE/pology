@@ -252,6 +252,7 @@ import re
 from pology import _, n_
 from pology.file.catalog import Catalog
 from pology.hook.remove_subs import remove_accel_msg, remove_markup_msg
+from pology.misc.colors import cjoin
 from pology.misc.fsops import collect_catalogs_by_env
 from pology.misc.langdep import get_hook_lreq
 from pology.misc.msgreport import warning_on_msg
@@ -930,7 +931,7 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
                              "UI reference '%(ref)s' cannot be resolved; "
                              "close matches:\n"
                              "%(matches)s",
-                             ref=uitext, matches="\n".join(approx)))
+                             ref=uitext, matches=cjoin(approx, "\n")))
         else:
             errmsgs.append(_("@info",
                              "UI reference '%(ref)s' cannot be resolved.",

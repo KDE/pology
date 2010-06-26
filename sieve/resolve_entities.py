@@ -90,5 +90,5 @@ class Sieve (object):
                      "Resolved %(num)d entity in translation.",
                      "Resolved %(num)d entities in translation.",
                      num=self.nresolved)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

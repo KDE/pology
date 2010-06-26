@@ -50,12 +50,6 @@ _tagbr_inplace = (
     "nl",
 )
 
-# Regex of zero-width segments in wrapping.
-_zerowidth_rxs = (
-    # Shell color escapes.
-    ("\033[", re.compile(r"\033\[\d+(;\d+)?m")),
-)
-
 
 def _tag_split (tag):
     """
@@ -82,9 +76,9 @@ def _tag_split (tag):
         return "", ""
 
 
-def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
+def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
                natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
-               wcolmin=0, midbr=True, remtrws=False):
+               wcolmin=0, midbr=True, remtrws=False, addnl=True):
     """
     Wrap text into lines.
 
@@ -92,7 +86,6 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
     Trailing and leading strings can be added to each wrapped line, including
     a special lead for the first line.
 
-    Leading/trailing strings and newline are included into column counting.
     If wrapping column is given as less or equal to zero, the lines are split
     only at unconditional breaks.
 
@@ -101,7 +94,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
 
     @param text: the text to wrap
     @type text: string
-    @param wcol: column to wrap at
+    @param wcol: column to wrap after
     @type wcol: int
     @param lead: prefix for each line
     @type lead: string
@@ -125,7 +118,7 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
     @type tagbr: (string*)
     @param tagbr2: tag names to always break after (like <br>)
     @type tagbr2: (string*)
-    @param wcolmin: minimal column to allow natural breaks at
+    @param wcolmin: minimal column to allow natural breaks after
     @type wcolmin: int
     @param midbr:
         C{True} to allow break in the middle of a word if no usual break
@@ -135,111 +128,110 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
         whether to strictly remove any trailing whitespace in wrapped lines
         (otherwise trailing whitespace may be left in under certain conditions)
     @type remtrws: bool
-    @returns: wrapped lines (each ends with a newline)
+    @param addnl: whether to add newline to end of each line
+    @type addnl: bool
+    @returns: wrapped lines
     @rtype: [string*]
     """
 
     if flead is None:
         flead = lead
 
-    lentext = len(text)
-    lenlead = len(lead)
-    lentrail = len(trail)
-    lenflead = len(flead)
+    rlentext = len(text)
+    atoms = _atomize(text)[:-1] # strip sentry
+    vlenlead = _atomize(lead)[-1][2]
+    vlentrail = _atomize(trail)[-1][2]
+    vlenflead = _atomize(flead)[-1][2]
 
-    # Compute apparent character widths on the display.
-    cwidth = [1] * lentext
-    if isinstance(text, unicode):
-        for i in range(lentext):
-            width_class = unicodedata.east_asian_width(text[i])
-            if width_class in ("W", "F"):
-                cwidth[i] = 2
-
-    if wcol > 0 and lenlead + lentrail + 1 >= wcol:
+    if wcol > 0 and vlenlead + vlentrail + 1 >= wcol:
         raise PologyError(
             _("@info",
               "Wrapping is too tight, cannot fit leading and trailing text."))
 
     lines = [] # list of lines
     nlines = 0
-    p = 0 # position into original text
-    while p < lentext:
+    lenatoms = len(atoms)
+    p = 0 # position into original text by atoms
+    vtext = "".join(x[0] for x in atoms)
+    vposs = tuple(x[2] for x in atoms)
+    while p < lenatoms:
         # Determine effective wrapping column for this line.
-        ewcol = wcol - 1 - lentrail # -1 for newline character
+        ewcol = wcol - 1 - vlentrail # -1 for newline character
         if nlines == 0:
             clead = flead
-            ewcol -= lenflead
+            ewcol -= vlenflead
         else:
             clead = lead
-            ewcol -= lenlead
+            ewcol -= vlenlead
 
         # Find where to wrap.
         atbr = False # immediate break found
         pl = 0 # position into current line
-        ple = 0 # apparent position into current line
+        ple = 0 #b apparent position into current line
         pl_ok = 0 # last good position into current line (where wrap was fine)
         ple_ok = 0 # last good apparent position into current line
-        while p + pl < lentext \
-        and (ple <= ewcol or wcol <= 0 or (not midbr and pl_ok == 0)) \
-        and not atbr:
-            pchar = text[p + pl - 1]
-            cchar = text[p + pl]
-            backtext = text[:p+pl]
-            foretext = text[p+pl:]
+        pvseg, pvlen = "", 0
+        while (    p + pl < lenatoms
+               and (ple <= ewcol or wcol <= 0 or (not midbr and pl_ok == 0))
+               and not atbr
+        ):
+            if pl > 0:
+                pvseg, pvlen = atoms[p + pl - 1][:2]
+            cvseg, cvlen = atoms[p + pl][:2]
+            if postbr or tagbr or tagbr2: # condition for optimization
+                backvtext = vtext[vposs[p]:vposs[p + pl]]
+            if prebr or tagbr: # condition for optimization
+                forevtext = vtext[vposs[p + pl]:]
 
-            # Immediate breaks allowed only after at least one character.
-            if pl >= 1:
+            # Immediate breaks allowed only after
+            # at least one visually non-empty atom.
+            if vposs[p + pl] > vposs[p]:
 
                 # Check for an immediate break by sequence.
                 for br in postbr:
                     if not isinstance(br, tuple):
-                        if backtext.endswith(br):
+                        if backvtext.endswith(br):
                             atbr = True; break
                     else:
                         br1, br2 = br
-                        if backtext.endswith(br1) and not backtext.endswith(br2):
+                        if (    backvtext.endswith(br1)
+                            and not backvtext.endswith(br2)
+                        ):
                             atbr = True; break
                 if atbr: break
                 for br in prebr:
-                    if foretext.startswith(br):
+                    if forevtext.startswith(br):
                         atbr = True; break
                 if atbr: break
 
                 # Check for an immediate break by tag.
                 if tagbr or tagbr2:
-                    if backtext.endswith(">"):
-                        pt = backtext.rfind("<", 0, -1)
+                    if backvtext.endswith(">"):
+                        pt = backvtext.rfind("<", 0, -1)
                         if pt >= 0:
-                            tag, state = _tag_split(backtext[pt:])
-                            if (tag in tagbr2) \
-                            or (tag in tagbr and state in ("close", "inplace")):
+                            tag, state = _tag_split(backvtext[pt:])
+                            if (   (tag in tagbr2)
+                                or (    tag in tagbr
+                                    and state in ("close", "inplace"))
+                            ):
                                 atbr = True; break
                 if tagbr:
-                    if foretext.startswith("<"):
-                        pt = foretext.find(">", 1)
+                    if forevtext.startswith("<"):
+                        pt = forevtext.find(">", 1)
                         if pt >= 0:
-                            tag, state = _tag_split(foretext[:pt+1])
+                            tag, state = _tag_split(forevtext[:pt+1])
                             if tag in tagbr and state == "open":
                                 atbr = True; break
 
             # Check for valid natural break.
-            if pchar == " " \
-            or (cchar != " " and pchar in natbr and cchar not in natbr):
+            if (   pvseg in " "
+                or (cvseg != " " and pvseg in natbr and cvseg not in natbr)
+            ):
                 pl_ok = pl
                 ple_ok = ple
 
-            # Skip zero-width segments.
-            zerowidth = False
-            for zwhead, zwrx in _zerowidth_rxs:
-                if foretext.startswith(zwhead):
-                    m = zwrx.match(foretext)
-                    if m:
-                        pl += m.span()[1]
-                        zerowidth = True
-                        break
-            if not zerowidth:
-                ple += cwidth[p + pl]
-                pl += 1
+            ple += pvlen
+            pl += 1
 
         # If not unconditional break, still enough text, and break possible.
         if not atbr and ple > ewcol and ewcol > 0:
@@ -247,30 +239,33 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
             if ple_ok > wcolmin:
                 pl = pl_ok
                 ple = ple_ok
-            # Backstep any characters still too much if mid-word break allowed.
+            # Backstep any segments still too much if mid-word break allowed.
             if midbr:
                 while pl > 1 and ple > ewcol:
                     pl -= 1
-                    ple -= cwidth[p + pl]
+                    ple -= atoms[pl][1]
 
         # Never break after non-final backslash.
-        if p + pl < lentext:
-            while pl > 1 and text[p + pl - 1] == "\\":
+        if p + pl < lenatoms:
+            while pl > 1 and atoms[p + pl - 1][0] == "\\":
                 pl -= 1
-                ple -= cwidth[p + pl]
+                ple -= atoms[p + pl][1]
 
-        if nlines == 0 \
-        and ((femp and p + pl < lentext) or (ewcol <= 0 and wcol > 0)):
+        if (    nlines == 0
+            and ((femp and p + pl < lenatoms) or (ewcol <= 0 and wcol > 0))
+        ):
             # leaving first line empty
             lines.append(clead + trail)
             pl = 0
         else:
-            lines.append(clead + text[p : p + pl] + trail)
+            p1 = atoms[p][4]
+            p2 = atoms[p + pl][4] if p + pl < lenatoms else rlentext
+            lines.append(clead + text[p1:p2] + trail)
 
         nlines += 1
         p += pl
 
-    if lentext == 0: # in case no text given, main loop did not run
+    if lenatoms == 0: # in case no text given, main loop did not run
         lines.append(flead + trail)
 
     for i in range(len(lines)): # postprocess
@@ -284,9 +279,46 @@ def wrap_text (text, wcol=80, lead="", trail="", flead=None, femp=False,
                 else:      clead = lead
             tmp = lines[i][len(clead):]
             lines[i] = clead + tmp.rstrip()
-        lines[i] += "\n" # terminate with newline
+        if addnl:
+            lines[i] += "\n" # terminate with newline
 
     return lines
+
+
+def _atomize (text):
+    """
+    Split text into atomic segments and compute their visual and raw widths.
+
+    Returns list of tuples
+    (visual segment, visual length, visual position, raw length, raw position).
+    The list always ends with zero-visual length segment,
+    so that it is not empty even if the text is empty,
+    and that last atom's positions are visual and raw lengths of the string.
+    """
+
+    atoms = []
+    isuc = isinstance(text, unicode)
+    vsegf = getattr(text, "visual_segment", None)
+    rpos = 0
+    vpos = 0
+    rlentext = len(text)
+    while rpos < rlentext:
+        rlen = 0
+        if vsegf:
+            vseg, rlen = vsegf(rpos)
+        if rlen == 0:
+            vseg, rlen = text[rpos], 1
+        vlen = 1
+        if isuc and vseg:
+            width_class = unicodedata.east_asian_width(vseg)
+            if width_class in ("W", "F"):
+                vlen = 2
+        atoms.append((vseg, vlen, vpos, rlen, rpos))
+        vpos += vlen
+        rpos += rlen
+    atoms.append((type(text)(""), 0, vpos, 0, rpos))
+
+    return atoms
 
 
 def wrap_field (field, text, preseq=""):
@@ -311,7 +343,7 @@ def wrap_field (field, text, preseq=""):
     @rtype: list of strings
     """
 
-    return wrap_text(text, 80,
+    return wrap_text(text, 79,
                      flead=preseq+field+" \"",
                      lead=preseq+"\"",
                      trail="\"",
@@ -319,7 +351,7 @@ def wrap_field (field, text, preseq=""):
                      prebr=_prebr,
                      postbr=_postbr,
                      femp=True,
-                     wcolmin=40)
+                     wcolmin=39)
 
 
 def wrap_field_unwrap (field, text, preseq=""):
@@ -357,7 +389,7 @@ def wrap_comment (ctype, text):
     @rtype: list of strings
     """
 
-    return wrap_text(text, 80,
+    return wrap_text(text, 79,
                      lead="#"+ctype+" ",
                      femp=False,
                      midbr=False,
@@ -394,7 +426,7 @@ def wrap_field_fine (field, text, preseq=""):
     @see: L{wrap_field}
     """
 
-    return wrap_text(text, 80,
+    return wrap_text(text, 79,
                      flead=preseq+field+" \"",
                      lead=preseq+"\"",
                      trail="\"",

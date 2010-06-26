@@ -127,7 +127,7 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
             segs.append("&")
             p += 1
 
-    new_text = "".join(segs)
+    new_text = type(text)("").join(segs)
 
     return new_text, resolved, unknown
 
@@ -670,7 +670,7 @@ def _remove_fmtdirs_c (text, subs=""):
             if subs:
                 nsegs.append(subs)
 
-    return "".join(nsegs)
+    return type(text)("").join(nsegs)
 
 
 # FIXME: Make it tighter?
@@ -698,7 +698,7 @@ def _remove_fmtdirs_python (text, subs=""):
             if subs:
                 nsegs.append(subs)
 
-    return "".join(nsegs)
+    return type(text)("").join(nsegs)
 
 
 _fmtdir_tail_qt_rx = re.compile(r"L?\d{1,2}")
@@ -723,7 +723,7 @@ def _remove_fmtdirs_qt (text, subs=""):
         else:
             nsegs.append("%")
 
-    return "".join(nsegs)
+    return type(text)("").join(nsegs)
 
 
 def remove_literals (text, subs="", substrs=[], regexes=[], heuristic=True):
@@ -786,7 +786,7 @@ def _remove_by_rx (text, rx, subs=""):
             nsegs.append(subs)
         p = p2
 
-    return "".join(nsegs)
+    return type(text)("").join(nsegs)
 
 
 _literal_url_rx = re.compile(r"\S+://\S*[\w&=]", re.U)

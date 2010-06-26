@@ -155,13 +155,13 @@ class Sieve (object):
                      "Resolved %(num)d aggregate header.",
                      "Resolved %(num)d aggregate headers.",
                      num=self.nresolvedhdr)
-            report("===== %s" % msg)
+            report("===== " + msg)
         if self.nresolved > 0:
             msg = n_("@info:progress",
                      "Resolved %(num)d aggregate message.",
                      "Resolved %(num)d aggregate messages.",
                      num=self.nresolved)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 def _selvar_first (texts):

@@ -6,13 +6,13 @@ import fallback_import_paths
 import sys
 import os
 import locale
-from optparse import OptionParser
 from tempfile import NamedTemporaryFile
 
 from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
 from pology.l10n.sr.hook.wconv import tohi
+from pology.misc.colors import ColorOptionParser
 from pology.misc.comments import manc_parse_flag_list
 from pology.misc.diff import msg_ediff, msg_ediff_to_new
 from pology.misc.fsops import str_to_unicode, collect_catalogs
@@ -36,10 +36,10 @@ def _main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--accept-changes",
         action="store_true", dest="accept_changes", default=False,
@@ -164,7 +164,7 @@ def hybdl (path, path0, accnohyb=False):
             msgh.msgstr = textsh
             msghinv = MessageUnsafe(msg)
             msghinv.msgstr = textshinv
-            msg_ediff(msghinv, msgh, emsg=msgh, hlto=sys.stdout)
+            msg_ediff(msghinv, msgh, emsg=msgh, colorize=True)
             report_msg_content(msgh, cat, delim=("-" * 20))
 
     if nstopped == 0:

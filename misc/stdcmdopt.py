@@ -14,7 +14,7 @@ possibly followed by some optional parameters, and return C{None}.
 """
 
 from pology import _, n_
-from pology.misc.colors import coloring_types
+from pology.misc.colors import get_coloring_types
 from pology.misc.report import format_item_list
 
 
@@ -166,5 +166,5 @@ def add_cmdopt_colors (opars):
         help=_("@info command line option description",
                "Type of syntax coloring in output. "
                "Available types: %(typelist)s; default: %(type)s.",
-               typelist=format_item_list(coloring_types), type=defctype))
+               typelist=format_item_list(get_coloring_types()), type=defctype))
 

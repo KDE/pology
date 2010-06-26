@@ -554,8 +554,7 @@ def printStat(rules):
               _("@title:column tot = total", "tot-time [s]"),
               _("@title:column", "time-share")]
         dfmt=[   "%d",           "%.3f",          "%.1f",     "%.2f%%"]
-        report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        hlto=sys.stdout))
+        report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt, colorize=True))
         report(_("@info statistics",
                  "Total application time [s]: %(num).1f",
                  num=totTime))

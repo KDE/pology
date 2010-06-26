@@ -131,5 +131,5 @@ class Sieve (object):
                          "Stripped differences from %(num)d fuzzy message.",
                          "Stripped differences from %(num)d fuzzy messages.",
                          num=self.nmod)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

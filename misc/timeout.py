@@ -35,7 +35,7 @@ def timed_out (timeout):
 
         def handler (signum, frame):
             report(_("@info:progress",
-                     ">>>>> Timed out! <<<<<"))
+                     ">>>>> Operation timed out."))
             raise TimedOutException()
 
         def new_f (*args, **kwargs):

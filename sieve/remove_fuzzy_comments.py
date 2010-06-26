@@ -136,5 +136,5 @@ class Sieve (object):
                      "Removed some comments from %(num)d fuzzy message.",
                      "Removed some comments from %(num)d fuzzy messages.",
                      num=self.nmod)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

@@ -9,11 +9,11 @@ Pretty-printing of tabular data.
 
 import copy
 
-from pology.misc.colors import colors_for_file
+from pology.misc.colors import ColorString, cjoin
 
 
 def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
-              rotated=False, hlto=None, indent="",
+              rotated=False, colorize=False, indent="",
               colnra=False, rownra=False, colw=0):
     """
     Tabulate data in plain text.
@@ -44,9 +44,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     @type none: string
     @param rotated: whether the table should be transposed
     @type rotated: bool
-    @param hlto: whether the table should have color highlighting
-        appropriate for the given output file descriptor
-    @type hlto: file
+    @param colorize: whether the table should have color highlighting
+    @type colorize: bool
     @param indent: indent string for the whole table
     @type indent: string
     @param colnra: right align column names
@@ -56,11 +55,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     @param colw: minimal column width
     @type colw: integer
     @returns: plain text representation of the table (no trailing newline)
-    @rtype: string
+    @rtype: string/L{ColorString<misc.colors.ColorString>}
     """
-
-    if hlto is not None:
-        colors = colors_for_file(hlto)
 
     # Make local copies, to be able to extend to table extents.
     _data = []
@@ -177,8 +173,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
             else:
                 lfmt = u"%-" + str(maxlen[c]) + "s"
             sdata[c][0] = lfmt % (sdata[c][0],)
-            if hlto is not None:
-                sdata[c][0] = colors.purple(sdata[c][0])
+            if colorize:
+                sdata[c][0] = ColorString("<purple>%s</purple>") % sdata[c][0]
     # ...but row names aligned as requested:
     if _rown is not None:
         if rownra:
@@ -187,8 +183,8 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
             lfmt = u"%-" + str(maxlen[0]) + "s"
         for r in range(nrows + ro):
             sdata[0][r] = lfmt % (sdata[0][r],)
-            if hlto is not None:
-                sdata[0][r] = colors.blue(sdata[0][r])
+            if colorize:
+                sdata[0][r] = ColorString("<blue>%s</blue>") % sdata[0][r]
 
     # Assemble the table.
     lines = []
@@ -196,6 +192,7 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
         cells = []
         for c in range(ncols + co):
             cells.append(sdata[c][r])
-        lines.append(indent + space.join(cells))
+        lines.append(indent + cjoin(cells, space))
 
-    return "\n".join(lines)
+    return cjoin(lines, "\n")
+

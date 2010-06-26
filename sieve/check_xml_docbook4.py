@@ -92,7 +92,7 @@ class Sieve (object):
                      "Found %(num)d problems in Docbook markup "
                      "in translations.",
                      num=self.nproblems)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 _meta_msg_msgctxt = set((

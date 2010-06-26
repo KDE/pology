@@ -119,6 +119,7 @@ import tempfile
 
 from pology import PologyError, rootdir, _, n_
 from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.misc.colors import cjoin
 from pology.misc.comments import manc_parse_list, manc_parse_flag_list
 import pology.misc.config as cfg
 from pology.misc.langdep import get_hook_lreq
@@ -373,7 +374,7 @@ class Sieve (object):
                                    word=word, wordlist=fmtsuggs))
                 else:
                     repls.append("%s" % (word))
-            report_msg_to_lokalize(msg, cat, "\n".join(repls))
+            report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
 
 
     def finalize (self):
@@ -385,7 +386,7 @@ class Sieve (object):
                          "Encountered %(num)d unknown word.",
                          "Encountered %(num)d unknown words.",
                          num=nwords)
-                report("===== %s" % msg)
+                report("===== " + msg)
             else:
                 wlist = list(self.unknown_words)
                 wlist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))

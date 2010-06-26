@@ -17,7 +17,6 @@ should be considered public API, it is subject to change without notice.
 
 import filecmp
 import locale
-from optparse import OptionParser
 import os
 import shutil
 import sys
@@ -28,7 +27,7 @@ import fallback_import_paths
 from pology import version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
-from pology.misc.colors import set_coloring_globals
+from pology.misc.colors import ColorOptionParser, set_coloring_globals, cjoin
 import pology.misc.config as pology_config
 from pology.misc.fsops import str_to_unicode, collect_catalogs
 from pology.misc.diff import msg_ediff
@@ -64,13 +63,13 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     showvcs = list(set(available_vcs()).difference(["none"]))
     showvcs.sort()
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-o", "--output",
         metavar=_("@info command line value placeholder", "POFILE"),
@@ -222,9 +221,8 @@ def main ():
         pspecs = collect_pspecs_from_vcs(vcs, paths, revs, op.paired_only)
 
     # Create the diff.
-    hlto = not op.output and sys.stdout or None
     ecat, ndiffed = diff_pairs(pspecs, op.do_merge,
-                               hlto=hlto, shdr=op.strip_headers,
+                               colorize=(not op.output), shdr=op.strip_headers,
                                noobs=op.skip_obsolete)
 
     # Write out the diff, if any messages diffed.
@@ -243,7 +241,7 @@ def main ():
                 lines.append("\n")
             else:
                 lines.extend(msg.to_lines(force=True, wrapf=ecat.wrapf()))
-        diffstr = "".join(lines)[:-1] # remove last newline
+        diffstr = cjoin(lines)[:-1] # remove last newline
         if op.output:
             file = open(op.output, "w")
             file.write(diffstr.encode(ecat.encoding))
@@ -256,7 +254,7 @@ def main ():
 
 
 def diff_pairs (pspecs, merge,
-                hlto=False, wrem=True, wadd=True, shdr=False, noobs=False):
+                colorize=False, wrem=True, wadd=True, shdr=False, noobs=False):
 
     # Create diffs of messages.
     # Note: Headers will be collected and diffed after all messages,
@@ -279,7 +277,7 @@ def diff_pairs (pspecs, merge,
                             file=fpath), norem=[fpath])
         tpos = len(ecat)
         cndiffed = diff_cats(cats[0], cats[1], ecat,
-                             merge, hlto, wrem, wadd, noobs)
+                             merge, colorize, wrem, wadd, noobs)
         hspecs.append(([not x.created() and x.header or None
                         for x in cats], vpaths, tpos, cndiffed))
         ndiffed += cndiffed
@@ -299,7 +297,7 @@ def diff_pairs (pspecs, merge,
     incpos = 0
     for hdrs, vpaths, pos, cndiffed in hspecs:
         ehmsg, anydiff = diff_hdrs(hdrs[0], hdrs[1], vpaths[0], vpaths[1],
-                                   hmsgctxt, ecat, hlto)
+                                   hmsgctxt, ecat, colorize)
         if anydiff or cndiffed:
             ecat.add(ehmsg, pos + incpos)
             incpos += 1
@@ -389,7 +387,7 @@ _msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
 
 
 def diff_cats (cat1, cat2, ecat,
-               merge=True, hlto=False, wrem=True, wadd=True, noobs=False):
+               merge=True, colorize=False, wrem=True, wadd=True, noobs=False):
 
     # Remove obsolete messages if they are not to be diffed.
     if noobs:
@@ -491,7 +489,7 @@ def diff_cats (cat1, cat2, ecat,
     ndiffed = 0
     for cdpairs, cfnsyn in ((dpairs_by2, None), (dpairs_by1, fnsyn)):
         for msg1, msg2 in cdpairs:
-            ndiffed += add_msg_diff(msg1, msg2, ecat, hlto, cfnsyn)
+            ndiffed += add_msg_diff(msg1, msg2, ecat, colorize, cfnsyn)
 
     return ndiffed
 
@@ -537,7 +535,7 @@ def msg_invert_cp (msg):
     return lmsg
 
 
-def add_msg_diff (msg1, msg2, ecat, hlto, fnsyn=None):
+def add_msg_diff (msg1, msg2, ecat, colorize, fnsyn=None):
 
     # Skip diffing if old and new messages are "same".
     if msg1 and msg2 and msg1.inv == msg2.inv:
@@ -551,7 +549,7 @@ def add_msg_diff (msg1, msg2, ecat, hlto, fnsyn=None):
     emsg = msg2_s or msg1_s
     if emsg is tmsg:
         emsg = MessageUnsafe(tmsg)
-    emsg = msg_ediff(msg1_s, msg2_s, emsg=emsg, ecat=ecat, hlto=hlto)
+    emsg = msg_ediff(msg1_s, msg2_s, emsg=emsg, ecat=ecat, colorize=colorize)
 
     # Add to the diff catalog.
     if fnsyn is None:
@@ -600,14 +598,14 @@ def create_special_diff_pair (msg1, msg2):
     return msg1_s, msg2_s
 
 
-def diff_hdrs (hdr1, hdr2, vpath1, vpath2, hmsgctxt, ecat, hlto):
+def diff_hdrs (hdr1, hdr2, vpath1, vpath2, hmsgctxt, ecat, colorize):
 
     hmsg1, hmsg2 = [x and MessageUnsafe(x.to_msg()) or None
                     for x in (hdr1, hdr2)]
 
     ehmsg = hmsg2 and MessageUnsafe(hmsg2) or None
-    ehmsg, dr = msg_ediff(hmsg1, hmsg2, emsg=ehmsg, ecat=ecat, hlto=hlto,
-                          diffr=True)
+    ehmsg, dr = msg_ediff(hmsg1, hmsg2, emsg=ehmsg, ecat=ecat,
+                          colorize=colorize, diffr=True)
     if dr == 0.0:
         # Revert to empty message if no difference between headers.
         ehmsg = MessageUnsafe()

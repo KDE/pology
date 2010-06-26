@@ -65,5 +65,5 @@ class Sieve (object):
                      "Cleared %(num)d fuzzy message of translation.",
                      "Cleared %(num)d fuzzy messages of translation.",
                      num=self.nemptied)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

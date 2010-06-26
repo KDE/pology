@@ -169,7 +169,7 @@ class Sieve (object):
                      "(single+double: %(nums)d+%(numd)d).",
                      num=nrepl_both,
                      nums=self.nrepl_single, numd=self.nrepl_double)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 # Regular expression for matching special messages by context.

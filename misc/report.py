@@ -16,7 +16,7 @@ import locale
 import time
 
 from pology import _, n_, t_, TextTrans
-from pology.misc.colors import colors_for_file, resolve_color_markup
+from pology.misc.colors import ColorString
 
 
 _prev_text_cr = [None, None]
@@ -74,6 +74,9 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
     @type newline: bool
     """
 
+    if isinstance(text, ColorString):
+        text = text.resolve(dest=file)
+
     cmdname = None
     if showcmd:
         cmdname = os.path.basename(sys.argv[0])
@@ -119,12 +122,9 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    colors = colors_for_file(file)
-    rtext = (resolve_color_markup(
-              _("@info",
-                "<bold>[warning]</bold> <orange>%(msg)s</orange>",
-                msg="%(msg)s"), colors)
-             % dict(msg=text))
+    rtext = _("@info",
+              "<bold>[warning]</bold> <orange>%(msg)s</orange>",
+              msg=text)
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
 
@@ -144,12 +144,9 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    colors = colors_for_file(file)
-    rtext = (resolve_color_markup(
-             _("@info",
-               "<bold>[error]</bold> <red>%(msg)s</red>",
-               msg="%(msg)s"), colors)
-             % dict(msg=text))
+    rtext = _("@info",
+              "<bold>[error]</bold> <red>%(msg)s</red>",
+              msg=text)
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
     sys.exit(code)
 

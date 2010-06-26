@@ -14,7 +14,6 @@ from urllib import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_
-from pology.misc.colors import colors_for_file
 from pology.misc.fsops import get_env_langs
 from pology.misc.msgreport import warning_on_msg
 from pology.misc.report import report, warning
@@ -78,8 +77,6 @@ class Sieve (object):
         # Create connection to the LanguageTool server
         self.connection=HTTPConnection(host, port)
 
-        self.colors = colors_for_file(sys.stdout)
-
 
     def process_header (self, hdr, cat):
 
@@ -109,11 +106,18 @@ class Sieve (object):
                                 continue
                             self.nmatch+=1
                             report("-"*(len(msgstr)+8))
-                            report(self.colors.bold("%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)))
+                            report(_("@info",
+                                     "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
+                                     file=cat.filename, line=msg.refline, entry=msg.refentry))
                             #TODO: create a report function in the right place
                             #TODO: color in red part of context that make the mistake
-                            report(self.colors.bold(_("@label", "Context:"))+error.getAttribute("context"))
-                            report("("+error.getAttribute("ruleId")+")"+self.colors.bold(self.colors.red("==>"))+self.colors.bold(error.getAttribute("msg")))
+                            report(_("@info",
+                                     "<bold>Context:</bold> %(snippet)s",
+                                     snippet=error.getAttribute("context")))
+                            report(_("@info",
+                                     "(%(rule)s) <bold><red>==></red></bold> %(note)s",
+                                     rule=error.getAttribute("ruleId"),
+                                     note=error.getAttribute("msg")))
                             report("")
         except socket.error:
             raise SieveError(_("@info",
@@ -127,5 +131,5 @@ class Sieve (object):
                      "Detected %(num)d problem in grammar.",
                      "Detected %(num)d problems in grammar.",
                      num=self.nmatch)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

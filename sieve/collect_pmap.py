@@ -165,6 +165,7 @@ import re
 
 from pology import _, n_
 from pology.sieve import SieveError
+from pology.misc.colors import cjoin
 from pology.misc.msgreport import warning_on_msg
 from pology.misc.report import report, format_item_list
 from pology.misc.synder import Synder
@@ -362,7 +363,7 @@ class Sieve (object):
         if self.propcons:
             errs = self._validate_props(props, msg, cat, self.propcons)
             if errs:
-                problems = "\n".join(["  %s" % x for x in errs])
+                problems = cjoin(["  " + x for x in errs], "\n")
                 warning_on_msg(_("@info",
                                  "Property map entry fails validation:\n"
                                  "%(msgs)s", msgs=problems),
@@ -439,7 +440,7 @@ class Sieve (object):
                  "Collected %(num)d entry for the property map.",
                  "Collected %(num)d entries for the property map.",
                  num=len(good_entries))
-        report("===== %s" % msg)
+        report("===== " + msg)
 
 
     def _pick_sep (self, teststr, seps):

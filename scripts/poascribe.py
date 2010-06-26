@@ -8,7 +8,6 @@ from ConfigParser import SafeConfigParser
 import datetime
 import imp
 import locale
-from optparse import OptionParser
 import os
 import re
 import sys
@@ -18,7 +17,7 @@ from pology import PologyError, version, _, n_, t_
 from pology.file.catalog import Catalog
 from pology.file.message import Message, MessageUnsafe
 from pology.hook.gettext_tools import msgfmt
-from pology.misc.colors import colors_for_file
+from pology.misc.colors import ColorOptionParser, cjoin
 from pology.misc.comments import parse_summit_branches
 import pology.misc.config as pology_config
 from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
@@ -101,10 +100,10 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--select-ascription",
         metavar=_("@info command line value placeholder", "SELECTOR[:ARGS]"),
@@ -808,7 +807,7 @@ def status (options, configs_catpaths, mode):
             for i in range(len(_all_states)):
                 data[i].append(totals_na[_all_states[i]] or None)
         report(tabulate(data=data, coln=coln, rown=rown,
-                        none=none, hlto=sys.stdout))
+                        none=none, colorize=True))
 
     # Report counts per catalog if requested.
     if options.show_by_file:
@@ -838,7 +837,7 @@ def status (options, configs_catpaths, mode):
                 dfmt = ["%%-%ds" % max([len(x) for x in catpaths])]
                 report("-")
                 report(tabulate(data=data, coln=coln, dfmt=dfmt,
-                                none=none, hlto=sys.stdout))
+                                none=none, colorize=True))
 
 
 def msg_to_previous (msg, copy=True):
@@ -960,7 +959,7 @@ def commit (options, configs_catpaths, mode):
     if rown:
         report(_("@info:progress", "===== Ascription summary:"))
         report(tabulate(data, coln=coln, rown=rown, none="-",
-                        hlto=sys.stdout))
+                        colorize=True))
 
     if options.vcs_commit:
         vcs_commit_catalogs(configs_catpaths, mode.user,
@@ -1291,8 +1290,6 @@ def purge_cat (options, config, catpath, acatpath, stest):
 
 def history_cat (options, config, catpath, acatpath, stest):
 
-    colors = colors_for_file(sys.stdout)
-
     cat = Catalog(catpath, monitored=False)
     acat = Catalog(acatpath, create=True, monitored=False)
 
@@ -1329,33 +1326,34 @@ def history_cat (options, config, catpath, acatpath, stest):
 
         hinfo = []
         if hlevels > 0:
-            hinfo += [colors.green(_("@info:progress",
-                                     ">>> History follows:"))]
+            hinfo += [_("@info:progress",
+                        "<green>>>> History follows:</green>")]
             hfmt = "%%%dd" % len(str(hlevels))
         for i in range(hlevels):
             a = history[i]
-            ihead = colors.bold("#%d" % a.pos) + " "
-            anote_d = dict(user=a.user, tag=a.tag, date=a.date)
             if a.type == ATYPE_MOD:
                 anote = _("@item:intable",
+                          "<bold>#%(pos)d</bold> "
                           "modified by %(user)s on %(date)s",
-                          **anote_d)
+                          pos=a.pos, user=a.user, date=a.date)
             elif a.type == ATYPE_REV:
                 if not a.tag:
                     anote = _("@item:intable",
+                              "<bold>#%(pos)d</bold> "
                               "reviewed by %(user)s on %(date)s",
-                              **anote_d)
+                              pos=a.pos, user=a.user, date=a.date)
                 else:
                     anote = _("@item:intable",
+                              "<bold>#%(pos)d</bold> "
                               "reviewed (%(tag)s) by %(user)s on %(date)s",
-                              **anote_d)
+                               pos=a.pos, user=a.user, tag=a.tag, date=a.date)
             else:
                 warning_on_msg(
                     _("@info",
                       "Unknown ascription type '%(type)s' found in history.",
                       type=a.type), msg, cat)
                 continue
-            hinfo += [ihead + anote]
+            hinfo += [anote]
             if not a.type == ATYPE_MOD:
                 # Nothing more to show if this ascription is not modification.
                 continue
@@ -1367,12 +1365,12 @@ def history_cat (options, config, catpath, acatpath, stest):
             nmsg = history[i_next].msg
             if dmsg != nmsg:
                 msg_ediff(nmsg, dmsg, emsg=dmsg,
-                          pfilter=options.sfilter, hlto=sys.stdout)
+                          pfilter=options.sfilter, colorize=True)
                 dmsgfmt = dmsg.to_string(force=True,
                                          wrapf=cat.wrapf()).rstrip("\n")
                 hindent = " " * (len(hfmt % 0) + 2)
                 hinfo += [hindent + x for x in dmsgfmt.split("\n")]
-        hinfo = "\n".join(hinfo)
+        hinfo = cjoin(hinfo, "\n")
 
         if unasc or msg.fuzzy:
             pmsg = None
@@ -1385,7 +1383,7 @@ def history_cat (options, config, catpath, acatpath, stest):
                 for fprev in _fields_previous:
                     setattr(msg, fprev, None)
                 msg_ediff(pmsg, msg, emsg=msg,
-                          pfilter=options.sfilter, hlto=sys.stdout)
+                          pfilter=options.sfilter, colorize=True)
         report_msg_content(msg, cat,
                            note=(hinfo or None), delim=("-" * 20))
 

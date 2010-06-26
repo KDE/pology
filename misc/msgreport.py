@@ -21,7 +21,7 @@ import sys
 
 from pology import _, n_
 from pology.file.message import Message
-from pology.misc.colors import colors_for_file, resolve_color_markup
+from pology.misc.colors import ColorString, cjoin, cinterp
 from pology.misc.diff import adapt_spans
 from pology.misc.escape import escape_c as escape
 from pology.misc.monitored import Monpair
@@ -69,8 +69,8 @@ def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
     @type file: C{file}
     """
 
-    tfmt = _msg_ref_fmtstr(file) + ": %s"
-    text = tfmt % (cat.filename, msg.refline, msg.refentry, text)
+    posinfo = _msg_pos_fmt(cat.filename, msg.refline, msg.refentry)
+    text = cinterp("%s: %s", posinfo, text)
     report(text, subsrc=subsrc, showcmd=False)
 
 
@@ -93,8 +93,8 @@ def warning_on_msg (text, msg, cat, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    tfmt = _msg_ref_fmtstr(file) + ": %s"
-    text = tfmt % (cat.filename, msg.refline, msg.refentry, text)
+    posinfo = _msg_pos_fmt(cat.filename, msg.refline, msg.refentry)
+    text = cinterp("%s: %s", posinfo, text)
     warning(text, subsrc=subsrc, showcmd=False)
 
 
@@ -119,8 +119,8 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
     @type file: C{file}
     """
 
-    tfmt = _msg_ref_fmtstr(file) + ": %s"
-    text = tfmt % (cat.filename, msg.refline, msg.refentry, text)
+    posinfo = _msg_pos_fmt(cat.filename, msg.refline, msg.refentry)
+    text = cinterp("%s: %s", posinfo, text)
     error(text, code=code, subsrc=subsrc, showcmd=True)
 
 
@@ -149,8 +149,7 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
     @type file: C{file}
     """
 
-    colors = colors_for_file(file)
-    tfmt = _msg_ref_fmtstr(file)
+    refpos = _msg_pos_fmt(cat.filename, msg.refline, msg.refentry)
 
     if not fmsg: # use original message as filtered if not given
         fmsg = msg
@@ -203,10 +202,9 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
                     posinfo = "%s:%d" % (name, start)
             else:
                 posinfo = "%s" % name
-            posinfo = colors.green(posinfo)
+            posinfo = ColorString("<green>%s</green>") % posinfo
 
-            refstr = tfmt % (cat.filename, msg.refline, msg.refentry)
-            rtext = "%s[%s]: %s" % (refstr, posinfo, snote)
+            rtext = cinterp("%s[%s]: %s", refpos, posinfo, snote)
             report(rtext, subsrc=subsrc, showcmd=False)
 
 
@@ -245,7 +243,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
             for span in hspec[2]:
                 if len(span) > 2:
                     notes.append(span[2])
-        report = "\n".join(notes)
+        report = cjoin(notes, "\n")
 
     try:
         try: globals()['lokalizeobj']
@@ -293,7 +291,7 @@ def report_msg_content (msg, cat,
     the message position within it, the message contents,
     and any notes on particular segments.
 
-    Parts of the message can be highlighted using shell colors.
+    Parts of the message can be highlighted using colors.
     Parameter C{highlight} provides the highlighting specification, as
     list of tuples where each tuple consists of: name of the message element
     to highlight, element index (used when the element is a list of values),
@@ -361,7 +359,6 @@ def report_msg_content (msg, cat,
     @type file: file
     """
 
-    colors = colors_for_file(file)
     rsegs = []
 
     wrapf = wrapf or cat.wrapf()
@@ -381,7 +378,7 @@ def report_msg_content (msg, cat,
                     ftext = hspec[3]
                 aspans = adapt_spans(text, ftext, spans, merge=False)
                 notes_data.append((text, name, item, aspans))
-                text = _highlight_spans(text, spans, colors.red, ftext=ftext)
+                text = _highlight_spans(text, spans, "red", ftext=ftext)
                 return text
 
             if name == "msgctxt":
@@ -413,21 +410,19 @@ def report_msg_content (msg, cat,
                           field=name))
 
     # Report the message.
-    mstr = ""
+    msegs = []
     if cat is not None:
-        tfmt = _msg_ref_fmtstr(file)
-        mstr += tfmt % (cat.filename, msg.refline, msg.refentry) + "\n"
+        msegs += [_msg_pos_fmt(cat.filename, msg.refline, msg.refentry) + "\n"]
     if showmsg:
-        mstr += msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
-    if mstr:
-        rsegs.append(mstr.rstrip())
+        msegs += [msg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"]
+    if msegs:
+        rsegs.append(cjoin(msegs).rstrip())
 
     # Report notes.
     if note is not None: # global
-        notestr = (resolve_color_markup(_("@info",
-                                          "<bold>[note]</bold> "
-                                          "%(msg)s", msg="%(msg)s"), colors)
-                   % dict(msg=note))
+        notestr = _("@info",
+                    "<bold>[note]</bold> %(msg)s",
+                    msg=note)
         rsegs.append(notestr)
     if notes_data: # span notes
         note_ord = 1
@@ -451,7 +446,7 @@ def report_msg_content (msg, cat,
                         posinfo = "%s:%d" % (name, start)
                 else:
                     posinfo = "%s" % name
-                posinfo = colors.green(posinfo)
+                posinfo = ColorString("<green>%s</green>") % posinfo
                 rsegs.append(_("@info",
                                "[%(pos)s]: %(msg)s",
                                pos=posinfo, msg=snote))
@@ -459,7 +454,8 @@ def report_msg_content (msg, cat,
 
     # Report the filtered message, if given and requested.
     if fmsg and showfmsg:
-        fmtnote = colors.green(_("@info", ">>> Filtered message was:"))
+        fmtnote = (ColorString("<green>%s</green>")
+                   % _("@info", ">>> Filtered message was:"))
         rsegs.append(fmtnote)
         mstr = fmsg.to_string(wrapf=wrapf, force=force).rstrip() + "\n"
         rsegs.append(mstr.rstrip())
@@ -467,7 +463,7 @@ def report_msg_content (msg, cat,
     if delim:
         rsegs.append(delim)
 
-    rtext = "\n".join(rsegs).rstrip()
+    rtext = cjoin(rsegs, "\n").rstrip()
     report(rtext, subsrc=subsrc, file=file)
 
 
@@ -483,14 +479,11 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
     @param showmsg: whether to show contents of message (either filtered or original)
     """
 
-    colors = colors_for_file(sys.stdout)
-
     # Some info on the rule.
-    rinfo = (resolve_color_markup(_("@info",
-                                    "rule %(rule)s <bold><red>==></red></bold> "
-                                    "<bold>%(msg)s</bold>",
-                                    rule="%(rule)s", msg="%(msg)s"), colors)
-             % dict(rule=rule.displayName, msg=rule.hint))
+    rinfo = _("@info",
+              "rule %(rule)s <bold><red>==></red></bold> "
+              "<bold>%(msg)s</bold>",
+              rule=rule.displayName, msg=rule.hint)
 
     if showmsg:
         report_msg_content(msg, cat,
@@ -534,27 +527,21 @@ def spell_error(msg, cat, faultyWord, suggestions):
     @param cat: pology.file.catalog.Catalog object
     @param faultyWord: badly spelled word
     @param suggestions : list of correct words to suggest"""
-    colors = colors_for_file(sys.stdout)
     report("-"*40)
-    report(colors.bold("%s:%d(%d)" % (cat.filename, msg.refline, msg.refentry)))
+    report(ColorString("<bold>%s:%d(%d)</bold>")
+           % (cat.filename, msg.refline, msg.refentry))
     if msg.msgctxt:
-        report(resolve_color_markup(_("@info",
-                                      "<bold>Context:</bold> "
-                                      "%(snippet)s",
-                                      snippet="%(snippet)s"), colors)
-               % dict(snippet=msg.msgctxt))
+        report(_("@info",
+                 "<bold>Context:</bold> %(snippet)s",
+                 snippet=msg.msgctxt))
     #TODO: color in red part of context that make the mistake
-    report(resolve_color_markup(_("@info",
-                                  "<bold>Faulty word:</bold> "
-                                  "<red>%(word)s</red>",
-                                  word="%(word)s"), colors)
-           % dict(word=faultyWord))
+    report(_("@info",
+             "<bold>Faulty word:</bold> <red>%(word)s</red>",
+             word=faultyWord))
     if suggestions:
-        report(resolve_color_markup(_("@info",
-                                      "<bold>Suggestions:</bold> "
-                                      "%(wordlist)s",
-                                      wordlist="%(wordlist)s"), colors)
-               % dict(wordlist=format_item_list(suggestions)))
+        report(_("@info",
+                 "<bold>Suggestions:</bold> %(wordlist)s",
+                 wordlist=format_item_list(suggestions)))
 
 
 def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
@@ -580,15 +567,10 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
 
 
 # Format string for message reference, based on the file descriptor.
-def _msg_ref_fmtstr (file=sys.stdout):
+def _msg_pos_fmt (path, line, col):
 
-    colors = colors_for_file(file)
-    fmt = ""
-    fmt += colors.cyan("%s") # file name
-    fmt +=  ":" + colors.purple("%d") # line number
-    fmt += "(" + colors.purple("#%d") + ")" # entry number
-
-    return fmt
+    return (ColorString("<cyan>%s</cyan>:<purple>%d</purple>"
+                        "(<purple>#%d</purple>)") % (path, line, col))
 
 
 def _escapeCDATA(text):
@@ -601,7 +583,7 @@ def _escapeCDATA(text):
     return text
 
 
-def _highlight_spans (text, spans, colorf, ftext=None):
+def _highlight_spans (text, spans, color, ftext=None):
     """
     Adds colors around highlighted spans in text.
 
@@ -611,9 +593,8 @@ def _highlight_spans (text, spans, colorf, ftext=None):
     additional elements, which are ignored by this function.
     If start or end index in a span is not an integer, the span is ignored.
 
-    The C{colorf} function takes the text segment and returns
-    it equipped with colors (e.g. terminal escapes or HTML tags).
-    This is typically a method of a L{Colors<misc.colors.Colors>} object.
+    The C{color} parameter is one of the color tags available in
+    L{ColorString<misc.colors.ColorString>} markup.
 
     If C{ftext} is not C{None}, spans are understood as relative to it,
     and the function will try to adapt them to the main text
@@ -623,8 +604,8 @@ def _highlight_spans (text, spans, colorf, ftext=None):
     @type text: string
     @param spans: spans to highlight
     @type spans: list of tuples
-    @param colorf: coloring function
-    @type colorf: (string)->string
+    @param color: color tag
+    @type color: string
     @param ftext: text to which spans are actually relative
     @type ftext: string
 
@@ -632,7 +613,7 @@ def _highlight_spans (text, spans, colorf, ftext=None):
     @rtype: string
     """
 
-    if not spans or colorf is None:
+    if not spans or color is None:
         return text
 
     # Adapt spans regardless if filtered text has been given or not,
@@ -649,7 +630,8 @@ def _highlight_spans (text, spans, colorf, ftext=None):
         if not isinstance(span[0], int) or not isinstance(span[1], int):
             continue
         ctext += text[cstart:span[0]]
-        ctext += colorf(text[span[0]:span[1]])
+        ctext += (ColorString("<%s>%%s</%s>" % (color, color))
+                  % text[span[0]:span[1]]) # outside, to have auto-escaping
         cstart = span[1]
     ctext += text[span[1]:]
 

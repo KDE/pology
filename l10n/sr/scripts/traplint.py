@@ -7,13 +7,13 @@ import sys
 import os
 import re
 import locale
-from optparse import OptionParser
 
 from pology import PologyError, version, _, n_
 from pology.l10n.sr.hook.wconv import ctol, hictoall
 from pology.l10n.sr.trapnakron import rootdir
 from pology.l10n.sr.trapnakron import trapnakron_ui
 from pology.l10n.sr.trapnakron import norm_pkey, norm_rtkey
+from pology.misc.colors import ColorOptionParser
 from pology.misc.fsops import str_to_unicode
 from pology.misc.normalize import identify
 from pology.misc.report import report, warning, format_item_list
@@ -445,10 +445,10 @@ def _main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-e", "--expansion-sample",
         action="store_true", dest="demoexp", default=False,

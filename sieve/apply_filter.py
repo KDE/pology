@@ -109,5 +109,5 @@ class Sieve (object):
                      "Modified %(num)d message by filtering.",
                      "Modified %(num)d messages by filtering.",
                      num=self.nmod)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

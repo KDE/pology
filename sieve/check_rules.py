@@ -72,6 +72,7 @@ import sys
 from time import strftime, strptime, mktime
 
 from pology import _, n_
+from pology.misc.colors import cjoin
 from pology.misc.comments import manc_parse_list, parse_summit_branches
 from pology.misc.fsops import collect_files_by_ext
 from pology.file.message import MessageUnsafe
@@ -416,7 +417,7 @@ class Sieve (object):
                                rule=rule.displayName, msg=rule.hint))
                 for part, item, spans, fval in hl:
                     repls.extend([u"↳ %s" % x[2] for x in spans if len(x) > 2])
-            report_msg_to_lokalize(msg, cat, "\n".join(repls))
+            report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
 
 
     def finalize (self):
@@ -436,7 +437,7 @@ class Sieve (object):
                      "Rules detected %(num)d problem.",
                      "Rules detected %(num)d problems.",
                      num=self.nmatch)
-            report("===== %s" % msg)
+            report("===== " + msg)
         printStat(self.rules)
 
 

@@ -733,8 +733,8 @@ def _parse_string (instr, srcname=None):
 
     if srcname is None:
         srcname = _("@item automatic name for anonymous input stream",
-                    "<stream-%(num)s>",
-                    num=_anonsrc_count[0])
+                    "&lt;stream-%(num)s&gt;",
+                    num=_anonsrc_count[0]).resolve("none")
         _anonsrc_count[0] += 1
 
     source = _parse_string_w(instr, srcname)

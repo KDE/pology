@@ -109,11 +109,11 @@ class Sieve (object):
                      "Tagged %(num)d untranslated message.",
                      "Tagged %(num)d untranslated messages.",
                      num=self.ntagged)
-            report("===== %s" % msg)
+            report("===== " + msg)
         if self.ncleared > 0:
             msg = n_("@info:progress",
                      "Cleared untranslated tag from %(num)d message.",
                      "Cleared untranslated tag from %(num)d messages.",
                      num=self.ncleared)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

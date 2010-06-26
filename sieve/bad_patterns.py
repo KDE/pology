@@ -100,5 +100,5 @@ class Sieve (object):
                      "Detected %(num)d bad pattern in translation.",
                      "Detected %(num)d bad patterns in translation.",
                      num=self.nbad)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

@@ -104,6 +104,9 @@ import locale
 import os
 
 
+from pology.misc.colors import ColorString
+
+
 def rootdir ():
     """
     Get root directory of Pology installation.
@@ -157,7 +160,7 @@ def _ (_ctxt_, _text_, **kwargs):
     @param _text_: the text to translate
     @type _text_: string
     @return: translated text if available, otherwise original
-    @rtype: string
+    @rtype: L{ColorString<misc.colors.ColorString>}
     """
 
     ts = TextTrans()
@@ -184,7 +187,7 @@ def n_ (_ctxt_, _stext_, _ptext_, **kwargs):
     @param _ptext_: the text to translate for the plural case
     @type _ptext_: string
     @return: translated text if available, otherwise original
-    @rtype: string
+    @rtype: L{ColorString<misc.colors.ColorString>}
     """
 
     ts = TextTrans()
@@ -275,7 +278,7 @@ class TextTrans:
         Translate the text to get ordinary string.
 
         @returns: translated text
-        @type: string
+        @rtype: L{ColorString<misc.colors.ColorString>}
         """
 
         if self._msgid_plural is None:
@@ -303,7 +306,7 @@ class TextTrans:
                 if "\x04" in msgstr:
                     msgstr = self._msgid
 
-        msgstr = unicode(msgstr)
+        msgstr = ColorString(msgstr) # before substituting arguments
         msgstr = msgstr % self._kwargs
 
         return msgstr

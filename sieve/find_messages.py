@@ -519,7 +519,7 @@ class Sieve (object):
                      "Found %(num)d message satisfying the conditions.",
                      "Found %(num)d messages satisfying the conditions.",
                      num=self.nmatch)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 _all_ops = set()

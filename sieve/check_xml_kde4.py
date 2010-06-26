@@ -122,5 +122,5 @@ class Sieve (object):
                          "Found %(num)d problems in KDE4 markup "
                          "in translations (strict mode).",
                          num=self.nproblems)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

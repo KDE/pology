@@ -90,5 +90,5 @@ class Sieve (object):
                      "Modified %(num)d header by filtering.",
                      "Modified %(num)d headers by filtering.",
                      num=self.nmod)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

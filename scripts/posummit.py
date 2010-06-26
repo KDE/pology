@@ -7,7 +7,6 @@ import filecmp
 import hashlib
 import imp
 import locale
-from optparse import OptionParser
 import os
 import re
 import shutil
@@ -20,6 +19,7 @@ from pology import version, _, n_, t_
 from pology.file.catalog import Catalog
 from pology.file.header import Header
 from pology.file.message import Message, MessageUnsafe
+from pology.misc.colors import ColorOptionParser
 from pology.misc.fsops import str_to_unicode
 from pology.misc.fsops import mkdirpath, assert_system, collect_system
 from pology.misc.fsops import join_ncwd
@@ -52,10 +52,10 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2007, 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--asc-filter",
         action="store", dest="asc_filter", default=None,

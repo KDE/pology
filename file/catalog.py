@@ -112,7 +112,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
         else:
             filename = _("@item generic name for the source or destination "
                          "of data being read or written",
-                         "<stream>")
+                         "&lt;stream&gt;").resolve("none")
         close_later = False
     lines, fenc = _read_lines_and_encoding(file)
     if close_later:

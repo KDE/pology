@@ -65,13 +65,13 @@ def add_param_entdef (p):
 
     p.add_param("entdef", unicode, multival=True,
                 metavar="FILE",
-                desc=_("@info sieve parameter discription "
-                       "only 'entname' and 'entvalue' in the last line "
+                desc=_("@info sieve parameter discription; "
+                       "in the last line only 'entname' and 'entvalue' "
                        "should be translated",
     "File defining the entities used in messages "
     "(parameter can be repeated to add more files). Entity file "
     "defines entities one per line, in the format:"
     "\n\n"
-    "<!ENTITY entname 'entvalue'>"
+    "&lt;!ENTITY entname 'entvalue'&gt;"
     ))
 

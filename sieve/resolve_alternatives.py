@@ -104,5 +104,5 @@ class Sieve (object):
                      "Resolved %(num)d alternative in translation.",
                      "Resolved %(num)d alternatives in translation.",
                      num=self.nresolved)
-            report("===== %s" % msg)
+            report("===== " + msg)
 

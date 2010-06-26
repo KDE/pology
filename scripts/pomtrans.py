@@ -12,12 +12,12 @@ import fallback_import_paths
 
 import sys
 import os
-from optparse import OptionParser
 import locale
 
 from pology import rootdir, version, _, n_
 from pology.file.catalog import Catalog
 from pology.file.message import MessageUnsafe
+from pology.misc.colors import ColorOptionParser
 from pology.misc.report import report, error, warning
 from pology.misc.fsops import collect_catalogs, collect_system
 from pology.misc.fsops import str_to_unicode
@@ -46,10 +46,10 @@ def main ():
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) <%(email)s>",
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
-    opars = OptionParser(usage=usage, description=desc, version=ver)
+    opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
         "-a", "--accelerator", dest="accel",
         metavar=_("@info command line value placeholder", "CHAR"),

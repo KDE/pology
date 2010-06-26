@@ -173,7 +173,7 @@ class Sieve (object):
                      "Found %(num)d problem in BfW translations.",
                      "Found %(num)d problems in BfW translations.",
                      num=self.nproblems)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
 
 # --------------------------------------

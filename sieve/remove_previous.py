@@ -57,5 +57,5 @@ class Sieve (object):
                      "Cleared previous fields from %(num)d message.",
                      "Cleared previous fields from %(num)d messages.",
                      num=self.ncleared)
-            report("===== %s" % msg)
+            report("===== " + msg)
 
