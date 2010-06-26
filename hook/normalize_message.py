@@ -36,7 +36,7 @@ def demangle_srcrefs (collsrcs=None, collsrcmap=None, truesrcheads=None,
     by catalog. For demangling to be possible in this case,
     the preextraction tool has to provide true source references
     in the extracted comments (C{#.}) of the messages.
-    When that is the case, parameter C{collsrcs) is used to specify
+    When that is the case, parameter C{collsrcs} is used to specify
     the sequence of names of generally known intermediate files,
     parameter C{collsrcmap} of those specific by catalog
     (as dictionary of catalog name to sequence of intermediate file names),
@@ -45,7 +45,7 @@ def demangle_srcrefs (collsrcs=None, collsrcmap=None, truesrcheads=None,
     (If C{truesrcheads} is C{None} or empty, this mode of demangling
     is disabled.)
 
-    For example, collective-intermediate extraction:
+    For example, collective-intermediate extraction::
 
         #. file: apples.clt:156
         #: resources.cpp:328
@@ -67,7 +67,7 @@ def demangle_srcrefs (collsrcs=None, collsrcmap=None, truesrcheads=None,
     composite extensions (including the leading dot), which
     will be demangled by stripping the final extension from the path.
 
-    For example, paired-intermediate extraction:
+    For example, paired-intermediate extraction::
 
         #: apples.clt.h:156
         msgid "Granny Smith"

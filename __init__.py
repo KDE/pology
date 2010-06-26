@@ -202,8 +202,9 @@ def t_ (_ctxt_, _text_, **kwargs):
     Like L{_()<_>}, but returns delayed translation object
     instead of translated text as string.
     In this way some or all arguments for named formatting directives
-    can be supplied at a later point, using L{with_args} method,
-    and then the translated string obtaned by L{to_string} method.
+    can be supplied at a later point, using L{with_args<TextTrans.with_args>}
+    method, and then the translated string obtained
+    by L{to_string<TextTrans.to_string>} method.
 
     @returns: delayed translation
     @rtype: L{TextTrans}
@@ -221,8 +222,9 @@ def tn_ (_ctxt_, _stext_, _ptext_, **kwargs):
     Like L{n_()<_>}, but returns delayed translation object
     instead of translated text as string.
     In this way some or all arguments for named formatting directives
-    can be supplied at a later point, using L{with_args} method,
-    and then the translated string obtaned by L{to_string} method.
+    can be supplied at a later point, using L{with_args<TextTrans.with_args>}
+    method, and then the translated string obtained
+    by L{to_string<TextTrans.to_string>} method.
 
     @returns: delayed translation
     @rtype: L{TextTrans}
