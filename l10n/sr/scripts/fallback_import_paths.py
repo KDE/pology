@@ -14,4 +14,4 @@ import sys
 from os.path import realpath, sep
 
 pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-5])
-sys.path.append(pologypath)
+sys.path.insert(0, pologypath)
