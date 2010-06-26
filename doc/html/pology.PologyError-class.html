@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.synder.SynderError</title>
+  <title>pology.PologyError</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.synder-module.html">Module&nbsp;synder</a> ::
-        Class&nbsp;SynderError
+        Class&nbsp;PologyError
       </span>
     </td>
     <td>
@@ -51,20 +49,26 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SynderError</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class PologyError</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-              object --+            
-                       |            
-exceptions.BaseException --+        
-                           |        
-        exceptions.Exception --+    
-                               |    
-                     <a href="pology.PologyError-class.html">PologyError</a> --+
-                                   |
-                                  <strong class="uidshort">SynderError</strong>
+              object --+        
+                       |        
+exceptions.BaseException --+    
+                           |    
+        exceptions.Exception --+
+                               |
+                              <strong class="uidshort">PologyError</strong>
 </pre>
 
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="pology.sieve.SieveError-class.html">sieve.SieveError</a></li><li>, <a href="pology.misc.timeout.TimedOutException-class.html">misc.timeout.TimedOutException</a></li><li>, <a href="pology.misc.subcmd.SubcmdError-class.html">misc.subcmd.SubcmdError</a></li><li>, <a href="pology.misc.synder.SynderError-class.html">misc.synder.SynderError</a></li>  </ul>
+</dd></dl>
+
 <hr />
+<p>Base exception class for errors in Pology.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -79,11 +83,8 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">message</span>,
-        <span class="summary-sig-arg">code</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.PologyError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>)</span><br />
       Constructor.</td>
           <td align="right" valign="top">
             
@@ -100,7 +101,24 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__unicode__" class="summary-sig-name">__unicode__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__unicode__"></a><span class="summary-sig-name">__unicode__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.PologyError-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      str(x)</td>
           <td align="right" valign="top">
             
             
@@ -112,9 +130,6 @@ exceptions.BaseException --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.PologyError-class.html">PologyError</a></code></b>:
-      <code><a href="pology.PologyError-class.html#__str__">__str__</a></code>
-      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
       <code>__new__</code>
       </p>
@@ -172,10 +187,7 @@ exceptions.BaseException --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">message</span>,
-        <span class="sig-arg">code</span>,
-        <span class="sig-arg">source</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">msg</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -184,15 +196,10 @@ exceptions.BaseException --+
   </tr></table>
   
   <p>Constructor.</p>
-  <p>All the parameters are made available as instance variables.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>message</code></strong> (string) - description of what went wrong</li>
-        <li><strong class="pname"><code>code</code></strong> (int) - numerical ID of the problem</li>
-        <li><strong class="pname"><code>source</code></strong> (string) - name of the source in which the problem occured</li>
-        <li><strong class="pname"><code>pos</code></strong> (int or (int, int)) - line or line and column in the source in which the problem 
-          occured</li>
+        <li><strong class="pname"><code>msg</code></strong> (string) - a description of what went wrong</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -200,24 +207,26 @@ exceptions.BaseException --+
   </dl>
 </td></tr></table>
 </div>
-<a name="__unicode__"></a>
+<a name="__str__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__unicode__</span>(<span class="sig-arg">self</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  
+  <p>str(x)</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="pology.PologyError-class.html#__unicode__">PologyError.__unicode__</a>
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>

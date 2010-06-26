@@ -165,6 +165,24 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#__ne__" class="summary-sig-name">__ne__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ohdr</span>)</span><br />
+      Reports wheter headers are not equal in some apparent parts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">the type that initialized the object</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -188,7 +206,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8996df4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x26ec578&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the header.</td>
           <td align="right" valign="top">
@@ -207,7 +225,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.file.header.Header-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x8996df4&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x26ec578&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the header.</td>
           <td align="right" valign="top">
@@ -319,7 +337,6 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a></code></b>:
-      <code><a href="pology.misc.monitored.Monitored-class.html#__ne__">__ne__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__str__">__str__</a></code>,
@@ -551,6 +568,32 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="__ne__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__ne__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ohdr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reports wheter headers are not equal in some apparent parts.</p>
+  <p>Equivalent to <code>not (self == ohdr)</code>.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>False</code> if headers are equal in all apparent parts</dd>
+    <dt>Overrides:
+        <a href="pology.misc.monitored.Monitored-class.html#__ne__">misc.monitored.Monitored.__ne__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="to_msg"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -589,7 +632,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8996df4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x26ec578&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -615,7 +658,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x8996df4&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x26ec578&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"

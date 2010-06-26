@@ -526,12 +526,14 @@
   class="link">resolve_alternatives</a>). In that case, if the first letter
   is found within an alternative, change cases for first letters in other 
   alternatives of the same directive too.</p>
+  <p>If lowercasing is requested, it is not done if both the first and the 
+  second letter are uppercase (e.g. acronyms, all-caps writting).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
         <li><strong class="pname"><code>upper</code></strong> (bool) - whether to transform to uppercase (lowercase otherwise)</li>
-        <li><strong class="pname"><code>nalts</code></strong> (int &gt;= 0) - if non-zero, the number of alternatives per directive</li>
+        <li><strong class="pname"><code>nalts</code></strong> (int) - if non-zero, the number of alternatives per directive</li>
         <li><strong class="pname"><code>althead</code></strong> (string) - alternatives directive head instead of the default one</li>
     </ul></dd>
     <dt>Returns: string</dt>

@@ -90,13 +90,14 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
+      <span class="summary-type">bool or (bool, [string*])</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">path</span>)</span><br />
-      Add path to version control.</td>
+        <span class="summary-sig-arg">paths</span>,
+        <span class="summary-sig-arg">repadd</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Add paths to version control.</td>
           <td align="right" valign="top">
             
             
@@ -208,7 +209,8 @@ object --+
           <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#commit" class="summary-sig-name">commit</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">paths</span>,
         <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">msgfile</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">msgfile</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">incparents</span>=<span class="summary-sig-default">True</span>)</span><br />
       Commit paths to the repository.</td>
           <td align="right" valign="top">
             
@@ -268,6 +270,24 @@ object --+
         <span class="summary-sig-arg">rev1</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rev2</span>=<span class="summary-sig-default">None</span>)</span><br />
       Get diff between revisions of the given path.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.vcs.VcsSubversion-class.html#revert" class="summary-sig-name">revert</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>)</span><br />
+      Revert a versioned file or directory.</td>
           <td align="right" valign="top">
             
             
@@ -351,26 +371,35 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">path</span>)</span>
+        <span class="sig-arg">paths</span>,
+        <span class="sig-arg">repadd</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Add path to version control.</p>
+  <p>Add paths to version control.</p>
   <p>It depends on the particular VCS what adding means, but in general it 
   should be the point where the subsequent <a 
   href="pology.misc.vcs.VcsBase-class.html#commit" 
   class="link">commit()</a> on the same path will record addition in the 
   repository history.</p>
+  <p>Also a single path can be given instead of sequence of paths.</p>
+  <p>Actually added paths may be different from input paths, e.g. if an 
+  input path is already version controlled, or input path's parent 
+  directory was added as well. List of added paths can be requested with 
+  <code>repadd</code> parameter, and it will become the second element of 
+  return value.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> - path to add</li>
+        <li><strong class="pname"><code>paths</code></strong> - paths to add</li>
+        <li><strong class="pname"><code>repadd</code></strong> - whether to report which paths were actually added</li>
     </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd><code>True</code> if addition successful</dd>
+    <dt>Returns: bool or (bool, [string*])</dt>
+        <dd><code>True</code> if addition successful, possibly list of added 
+          paths</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#add">VcsBase.add</a>
         <dd><em class="note">(inherited documentation)</em></dd>
@@ -561,7 +590,8 @@ object --+
   <h3 class="epydoc"><span class="sig"><span class="sig-name">commit</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">paths</span>,
         <span class="sig-arg">message</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">msgfile</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">msgfile</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">incparents</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -569,8 +599,9 @@ object --+
   </tr></table>
   
   <p>Commit paths to the repository.</p>
-  <p>Paths can include any number of files and directories. It depends on 
-  the particular VCS what committing means, but in general it should be the
+  <p>Paths can include any number of files and directories. Also a single 
+  path string can be given instead of a sequence. It depends on the 
+  particular VCS what committing means, but in general it should be the 
   earliest level at which modifications are recorded in the repository 
   history.</p>
   <p>Commit message can be given either directly, through 
@@ -580,12 +611,21 @@ object --+
   <code>msgfile</code> is ignored. If the commit message is not given, VCS 
   should ask for one as usual (pop an editor window, or whatever the user 
   has configured).</p>
+  <p>Some VCS require that the parent directory of a path to be committed 
+  has been committed itself or included in the commit list if not. If that 
+  is the case, <code>incparents</code> parameter determines if this 
+  function should assure that non-committed parents are included into the 
+  commit list too. This may be expensive to check, so it is good to disable
+  it if all parents are known to be committed or included in the input 
+  paths.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>paths</code></strong> - paths to commit</li>
         <li><strong class="pname"><code>message</code></strong> - commit message</li>
         <li><strong class="pname"><code>msgfile</code></strong> - path to file with the commit message</li>
+        <li><strong class="pname"><code>incparents</code></strong> - whether to automatically include non-committed parents in the 
+          commit list</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if committing succeeded, <code>False</code> 
@@ -719,6 +759,39 @@ object --+
         <dd>tagged unified diff</dd>
     <dt>Overrides:
         <a href="pology.misc.vcs.VcsBase-class.html#diff">VcsBase.diff</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="revert"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">revert</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Revert a versioned file or directory.</p>
+  <p>The path is reverted to the clean version of itself according to 
+  current local repository state.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> - path of the versioned file or directory in local repository</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if reverting succeeded, <code>False</code> 
+          otherwise</dd>
+    <dt>Overrides:
+        <a href="pology.misc.vcs.VcsBase-class.html#revert">VcsBase.revert</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>

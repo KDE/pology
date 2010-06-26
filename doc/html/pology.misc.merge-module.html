@@ -89,6 +89,7 @@
         <span class="summary-sig-arg">refuzzy</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">getcat</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">monitored</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">ignpotdate</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Merge a PO file with the PO template.</td>
           <td align="right" valign="top">
@@ -131,6 +132,7 @@
         <span class="sig-arg">refuzzy</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">getcat</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">monitored</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">ignpotdate</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -199,6 +201,8 @@
           class="link">Catalog</a> or <code>None</code>) - whether to return catalog object on merged file</li>
         <li><strong class="pname"><code>monitored</code></strong> (bool) - if <code>getcat</code> is in effect, whether to open catalog in 
           monitoring mode (like the parameter to catalog constructor)</li>
+        <li><strong class="pname"><code>ignpotdate</code></strong> (bool) - whether to ignore changed <code>POT-Creation-Date</code> if there
+          were no other changes, resetting it to original value</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort execution if <code>msgmerge</code> fails</li>
     </ul></dd>
     <dt>Returns: bool or <a href="pology.file.catalog.Catalog-class.html" 

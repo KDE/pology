@@ -278,6 +278,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
       Check whether XML-like entities in the text are among known.</td>
           <td align="right" valign="top">
@@ -912,6 +913,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -927,6 +929,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - text with entities to check</li>
         <li><strong class="pname"><code>ents</code></strong> (sequence) - known entities</li>
+        <li><strong class="pname"><code>default</code></strong> (bool) - whether default XML entities are allowed (<code>&amp;amp;</code>,
+          etc.)</li>
         <li><strong class="pname"><code>numeric</code></strong> (bool) - whether numeric character entities are allowed</li>
     </ul></dd>
     <dt>Returns: list of (int, int, string) tuples</dt>

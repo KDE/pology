@@ -245,6 +245,42 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__eq__" class="summary-sig-name">__eq__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ocat</span>)</span><br />
+      Whether two catalogs are equal in all apparent parts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#__ne__" class="summary-sig-name">__ne__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ocat</span>)</span><br />
+      Whether two catalogs are equal in all apparent parts.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">int</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -822,11 +858,26 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.file.catalog.Catalog-class.html#sort_by_source" class="summary-sig-name">sort_by_source</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Sort messages in catalog by source references.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.misc.monitored.Monitored-class.html">misc.monitored.Monitored</a></code></b>:
-      <code><a href="pology.misc.monitored.Monitored-class.html#__eq__">__eq__</a></code>,
-      <code><a href="pology.misc.monitored.Monitored-class.html#__ne__">__ne__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
       <code><a href="pology.misc.monitored.Monitored-class.html#__str__">__str__</a></code>,
@@ -1126,6 +1177,62 @@
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if the message exists</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__eq__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__eq__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ocat</span>)</span>
+    <br /><em class="fname">(Equality operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether two catalogs are equal in all apparent parts.</p>
+  <p>Catalogs are considered equal if they are of the same length, their 
+  headers are equal, and each two messages with the same position are 
+  equal.</p>
+  <p>Runtime complexity O(n).</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if catalogs are equal</dd>
+    <dt>Overrides:
+        <a href="pology.misc.monitored.Monitored-class.html#__eq__">misc.monitored.Monitored.__eq__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__ne__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__ne__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ocat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether two catalogs are equal in all apparent parts.</p>
+  <p>Equivalent to <code>not (self == ocat)</code>.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>False</code> if catalogs are equal</dd>
+    <dt>Overrides:
+        <a href="pology.misc.monitored.Monitored-class.html#__ne__">misc.monitored.Monitored.__ne__</a>
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -1477,9 +1584,9 @@
   <p>Update message map.</p>
   <p>In case there were any modifications to message keys, or any pending 
   removals issued, this function will update the sequence of messages such 
-  that membership operations work properly again. Referent line and entry 
-  numbers will remain invalid, as catalog will not be written out, and 
-  there will also be no reordering of obsolete messages.</p>
+  that membership operations work properly again. Obsolete messages will be
+  moved to end of catalog. Referent line and entry numbers will remain 
+  invalid, as catalog will not be written out.</p>
   <p>This is a less expensive alternative to syncing the catalog, when it 
   is only necessary to continue using it in synced state, rather than 
   actually writing it out.</p>
@@ -2219,6 +2326,30 @@
     <dt>Returns: [(string, [<a href="pology.file.message.Message_base-class.html" 
       class="link">Message_base</a>])]</dt>
         <dd>messages grouped by sources</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="sort_by_source"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sort_by_source</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sort messages in catalog by source references.</p>
+  <p>Source references within each message are sorted too, before messages 
+  are sorted by source references.</p>
+  <p>If any message changed its position due to sorting, <a 
+  href="pology.file.catalog.Catalog-class.html#sync_map" 
+  class="link">sync_map</a> is called at the end.</p>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>

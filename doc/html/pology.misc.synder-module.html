@@ -313,7 +313,7 @@
     <p>However, this will cause the <code>gender</code> property in 
     expansion to become <code>Venerafem</code>. For the <code>gender</code>
     property to be taken verbatim, without adding the segments from the 
-    calling derivation around it, we add make it a cutting property by 
+    calling derivation around it, we make it a cutting property by 
     appending an exclamation mark (<code>!</code>) to its key:</p>
 <pre class="literalblock">
    |a: nom=a, gen=e, dat=i, acc=u, gender!=fem
@@ -455,9 +455,8 @@
      @modern: D&#382;ord&#382;| Vo&#353;ington|  # inconsitent indent
 </pre>
     <p>This is done both in order to enforce a single indentation style 
-    when several people are working on the same source, as well as to 
-    discourage indentation schemes unfriendly to version control systems, 
-    such as:</p>
+    when several people are working on the same source, and to discourage 
+    indentation schemes unfriendly to version control systems, such as:</p>
 <pre class="literalblock">
    Isaac Newton: Isak| Njutn|
         @modern: Ajzak| Njuton|
@@ -513,8 +512,7 @@
    Venus: Vener|a
 </pre>
     <p>This enables derivations to be ordered naturally, e.g. 
-    alphabetically, instead of the order being imposed by 
-    technicalities.</p>
+    alphabetically, instead of the order being imposed by dependencies.</p>
     <p>It is possible to include one file with derivations into another. A 
     typical use case would be to split the base derivations into a separate
     file, and include it into the visible derivations. If basic derivations
@@ -561,7 +559,7 @@
     according to shallow inclusion principle) all share a single namespace.
     This means that key syntagmas (derivation keys) across imported files 
     can conflict, and must be resolved by one of outlined methods.</p>
-    <p>Design guideline behind the inclusion mechanism was that in each 
+    <p>Design rationale for the inclusion mechanism was that in each 
     collection of derivations, each <i>visible</i> derivation, one which is
     available to queries by the user of the collection, must be accessible 
     by at least one unique key, which does not depend on the underlying 

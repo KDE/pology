@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.synder.SynderError</title>
+  <title>pology.TextTrans</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,9 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.synder-module.html">Module&nbsp;synder</a> ::
-        Class&nbsp;SynderError
+        Class&nbsp;TextTrans
       </span>
     </td>
     <td>
@@ -51,20 +49,11 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SynderError</h1><p class="nomargin-top"></p>
-<pre class="base-tree">
-              object --+            
-                       |            
-exceptions.BaseException --+        
-                           |        
-        exceptions.Exception --+    
-                               |    
-                     <a href="pology.PologyError-class.html">PologyError</a> --+
-                                   |
-                                  <strong class="uidshort">SynderError</strong>
-</pre>
+<h1 class="epydoc">Class TextTrans</h1><p class="nomargin-top"></p>
+<p>Class for intermediate handling of translated user-visible text.</p>
+  <p>Objects of this type are not functional if created manually, but only 
+  through <code>t*_()</code> translation calls.</p>
 
-<hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -75,16 +64,13 @@ exceptions.BaseException --+
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><a href="pology.TextTrans-class.html" class="link">TextTrans</a></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">message</span>,
-        <span class="summary-sig-arg">code</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Constructor.</td>
+          <td><span class="summary-sig"><a href="pology.TextTrans-class.html#with_args" class="summary-sig-name">with_args</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Add arguments for substitution in the text, creating new object.</td>
           <td align="right" valign="top">
             
             
@@ -96,11 +82,13 @@ exceptions.BaseException --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__unicode__" class="summary-sig-name">__unicode__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="pology.TextTrans-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Translate the text to get ordinary string.</td>
           <td align="right" valign="top">
             
             
@@ -108,50 +96,6 @@ exceptions.BaseException --+
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.PologyError-class.html">PologyError</a></code></b>:
-      <code><a href="pology.PologyError-class.html#__str__">__str__</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
-      <code>__new__</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>__delattr__</code>,
-      <code>__getattribute__</code>,
-      <code>__getitem__</code>,
-      <code>__getslice__</code>,
-      <code>__reduce__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__setstate__</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__hash__</code>,
-      <code>__reduce_ex__</code>
-      </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== PROPERTIES ==================== -->
-<a name="section-Properties"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Properties</span></td>
-</tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>args</code>,
-      <code>message</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__class__</code>
-      </p>
     </td>
   </tr>
 </table>
@@ -164,61 +108,47 @@ exceptions.BaseException --+
     <span class="table-header">Method Details</span></td>
 </tr>
 </table>
-<a name="__init__"></a>
+<a name="with_args"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">message</span>,
-        <span class="sig-arg">code</span>,
-        <span class="sig-arg">source</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">with_args</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Constructor.</p>
-  <p>All the parameters are made available as instance variables.</p>
+  <p>Add arguments for substitution in the text, creating new object.</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>message</code></strong> (string) - description of what went wrong</li>
-        <li><strong class="pname"><code>code</code></strong> (int) - numerical ID of the problem</li>
-        <li><strong class="pname"><code>source</code></strong> (string) - name of the source in which the problem occured</li>
-        <li><strong class="pname"><code>pos</code></strong> (int or (int, int)) - line or line and column in the source in which the problem 
-          occured</li>
-    </ul></dd>
-    <dt>Overrides:
-        object.__init__
-    </dt>
+    <dt>Returns: <a href="pology.TextTrans-class.html" class="link">TextTrans</a></dt>
+        <dd>new delayed translation</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="__unicode__"></a>
+<a name="to_string"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__unicode__</span>(<span class="sig-arg">self</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  
+  <p>Translate the text to get ordinary string.</p>
   <dl class="fields">
-    <dt>Overrides:
-        <a href="pology.PologyError-class.html#__unicode__">PologyError.__unicode__</a>
-    </dt>
+    <dt>Returns: <a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></dt>
+        <dd>translated text</dd>
   </dl>
 </td></tr></table>
 </div>

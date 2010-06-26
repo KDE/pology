@@ -70,7 +70,8 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string</span>
+      <span class="summary-type">string/<a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -81,7 +82,7 @@
         <span class="summary-sig-arg">space</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">  </code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">none</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">rotated</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">colorized</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">indent</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">colnra</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">rownra</span>=<span class="summary-sig-default">False</span>,
@@ -120,7 +121,7 @@
         <span class="sig-arg">space</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">  </code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">none</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">rotated</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">colorized</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">colorize</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">indent</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">colnra</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">rownra</span>=<span class="sig-default">False</span>,
@@ -145,22 +146,23 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>data</code></strong> (list of lists of strings) - column entries (cells) by column</li>
-        <li><strong class="pname"><code>coln</code></strong> (list of strings) - column names</li>
-        <li><strong class="pname"><code>rown</code></strong> (list of strings) - row names</li>
-        <li><strong class="pname"><code>dfmt</code></strong> (list of strings) - format strings per column (e.g. <code>&quot;%+.2f&quot;</code> 
+        <li><strong class="pname"><code>data</code></strong> ([[string*]*]) - column entries (cells) by column</li>
+        <li><strong class="pname"><code>coln</code></strong> ([string*]) - column names</li>
+        <li><strong class="pname"><code>rown</code></strong> ([string*]) - row names</li>
+        <li><strong class="pname"><code>dfmt</code></strong> ([string*]) - format strings per column (e.g. <code>&quot;%+.2f&quot;</code> 
           for floats)</li>
         <li><strong class="pname"><code>space</code></strong> (string) - fill-in for spacing between cells</li>
         <li><strong class="pname"><code>none</code></strong> (string) - fill-in for displaying empty cells (i.e. 
           <code>None</code>-valued)</li>
         <li><strong class="pname"><code>rotated</code></strong> (bool) - whether the table should be transposed</li>
-        <li><strong class="pname"><code>colorized</code></strong> (bool) - whether the table should be colorized for shell output</li>
+        <li><strong class="pname"><code>colorize</code></strong> (bool) - whether the table should have color highlighting</li>
         <li><strong class="pname"><code>indent</code></strong> (string) - indent string for the whole table</li>
         <li><strong class="pname"><code>colnra</code></strong> (bool) - right align column names</li>
         <li><strong class="pname"><code>rownra</code></strong> (bool) - right align row names</li>
         <li><strong class="pname"><code>colw</code></strong> (integer) - minimal column width</li>
     </ul></dd>
-    <dt>Returns: string</dt>
+    <dt>Returns: string/<a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></dt>
         <dd>plain text representation of the table (no trailing newline)</dd>
   </dl>
 </td></tr></table>

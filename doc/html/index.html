@@ -85,19 +85,19 @@
     <p>Required general software:</p>
     <ul>
       <li>
-        Gettext, minimum version 0.17.
+        Gettext &gt;= 0.17
       </li>
     </ul>
     <p>Optional external Python packages:</p>
     <ul>
       <li>
         <code>python-dbus</code>: communication with various external 
-        applications, e.g. <a href="http://userbase.kde.org/Lokalize" 
-        target="_top">Lokalize</a> CAT tool.
+        applications (e.g. <a href="http://userbase.kde.org/Lokalize" 
+        target="_top">Lokalize</a> CAT tool)
       </li>
       <li>
-        <code>python-enchant</code>: frontend to various spell-checkers, 
-        used by most of Pology's spell checking functionality
+        <code>python-enchant</code>: frontend to various spell-checkers 
+        (used by most of Pology's spell checking functionality)
       </li>
     </ul>
     <p>Optional general software:</p>
@@ -105,16 +105,16 @@
       <li>
         LanguageTool (<a href="http://www.languagetool.org/" 
         target="_top">http://www.languagetool.org/</a>): open source 
-        language checker, used by the <a 
+        language checker (used by the <a 
         href="pology.sieve.check_grammar-module.html" 
-        class="link">check-grammar</a> sieve
+        class="link">check-grammar</a> sieve)
       </li>
       <li>
         Apertium (<a href="http://www.apertium.org/" 
         target="_top">http://www.apertium.org/</a>): a free/open-source 
-        machine translation platform, used by the <a 
+        machine translation platform (used by the <a 
         href="pology.scripts.pomtrans-module.html" 
-        class="link">pomtrans</a> script
+        class="link">pomtrans</a> script)
       </li>
     </ul>
   <h1 class="heading">Setup</h1>
@@ -193,6 +193,7 @@
     <li> <strong class="uidlink"><a href="pology.hook.gettext_tools-module.html">pology.hook.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.noop-module.html">pology.hook.noop</a></strong>: <em class="summary">Hook which do nothing.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.normalize_header-module.html">pology.hook.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.hook.normalize_message-module.html">pology.hook.normalize_message</a></strong>: <em class="summary">Various normalizations of messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.remove_subs-module.html">pology.hook.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.ui_references-module.html">pology.hook.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
         texts.</em>    </li>
@@ -201,6 +202,21 @@
     <li> <strong class="uidlink"><a href="pology.l10n-module.html">pology.l10n</a></strong>: <em class="summary">Language-specific Pology tools, arranged in submodules by language 
         code.</em>
     <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es-module.html">pology.l10n.es</a></strong>: <em class="summary">Language-specific tools for Spanish language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook-module.html">pology.l10n.es.hook</a></strong>: <em class="summary">Hooks specific for Spanish.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook.patternAccents-module.html">pology.l10n.es.hook.patternAccents</a></strong>: <em class="summary">Accent equivalence in regular expression patterns.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook.patternEntities-module.html">pology.l10n.es.hook.patternEntities</a></strong>: <em class="summary">Convert special entities in rule patterns.</em>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve-module.html">pology.l10n.es.sieve</a></strong>: <em class="summary">Sieves specific to Spanish language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve.setUbsp-module.html">pology.l10n.es.sieve.setUbsp</a></strong>    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink"><a href="pology.l10n.fr-module.html">pology.l10n.fr</a></strong>: <em class="summary">Language-specific tools for French language.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.l10n.fr.hook-module.html">pology.l10n.fr.hook</a></strong>: <em class="summary">Hooks specific for French.</em>
@@ -263,7 +279,7 @@
     </li>
     <li> <strong class="uidlink"><a href="pology.misc-module.html">pology.misc</a></strong>: <em class="summary">Various functionality for processing contents of PO files.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="pology.misc.colors-module.html">pology.misc.colors</a></strong>: <em class="summary">Standard codes for shell colors.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.colors-module.html">pology.misc.colors</a></strong>: <em class="summary">Standard codes for terminal colors.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.comments-module.html">pology.misc.comments</a></strong>: <em class="summary">Parsing and composing message comments.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.config-module.html">pology.misc.config</a></strong>: <em class="summary">Access user configuration for Pology.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.diff-module.html">pology.misc.diff</a></strong>: <em class="summary">Produce special diffs between strings and other interesting 
@@ -362,6 +378,31 @@
 </table>
 
 <br />
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.TextTrans-class.html" class="summary-name">TextTrans</a><br />
+      Class for intermediate handling of translated user-visible text.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.PologyError-class.html" class="summary-name">PologyError</a><br />
+      Base exception class for errors in Pology.
+    </td>
+  </tr>
+</table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -378,6 +419,104 @@
         <tr>
           <td><span class="summary-sig"><a href="pology-module.html#rootdir" class="summary-sig-name">rootdir</a>()</span><br />
       Get root directory of Pology installation.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology-module.html#version" class="summary-sig-name">version</a>()</span><br />
+      Get Pology version string.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology-module.html#_" class="summary-sig-name">_</a>(<span class="summary-sig-arg">_ctxt_</span>,
+        <span class="summary-sig-arg">_text_</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Get translation of the text into user's language.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology-module.html#n_" class="summary-sig-name">n_</a>(<span class="summary-sig-arg">_ctxt_</span>,
+        <span class="summary-sig-arg">_stext_</span>,
+        <span class="summary-sig-arg">_ptext_</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Get translation of the singular/plural text into user's language.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="pology.TextTrans-class.html" class="link">TextTrans</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology-module.html#t_" class="summary-sig-name">t_</a>(<span class="summary-sig-arg">_ctxt_</span>,
+        <span class="summary-sig-arg">_text_</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Get delayed translation of the text into user's language.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><a href="pology.TextTrans-class.html" class="link">TextTrans</a></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology-module.html#tn_" class="summary-sig-name">tn_</a>(<span class="summary-sig-arg">_ctxt_</span>,
+        <span class="summary-sig-arg">_stext_</span>,
+        <span class="summary-sig-arg">_ptext_</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Get delayed translation of the singular/plural text into user's 
+      language.</td>
           <td align="right" valign="top">
             
             
@@ -415,6 +554,158 @@
   <dl class="fields">
     <dt>Returns: string</dt>
         <dd>absolute directory path</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="version"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">version</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get Pology version string.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>version string</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_</span>(<span class="sig-arg">_ctxt_</span>,
+        <span class="sig-arg">_text_</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get translation of the text into user's language.</p>
+  <p>If there are any formatting directives in the text, they should be 
+  named; the arguments which substitute them are given as keyword values 
+  following the text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>_ctxt_</code></strong> (string) - the context in which the text is used</li>
+        <li><strong class="pname"><code>_text_</code></strong> (string) - the text to translate</li>
+    </ul></dd>
+    <dt>Returns: <a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></dt>
+        <dd>translated text if available, otherwise original</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="n_"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">n_</span>(<span class="sig-arg">_ctxt_</span>,
+        <span class="sig-arg">_stext_</span>,
+        <span class="sig-arg">_ptext_</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get translation of the singular/plural text into user's language.</p>
+  <p>If there are any formatting directives in the text, they should be 
+  named; the arguments which substitute them are given as keyword values 
+  following the text.</p>
+  <p>The plural deciding number is given by the <code>num</code> keyword 
+  argument. If no such key exists, or its value is not an integer, an error
+  is raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>_ctxt_</code></strong> (string) - the context in which the text is used</li>
+        <li><strong class="pname"><code>_stext_</code></strong> (string) - the text to translate for the singular case</li>
+        <li><strong class="pname"><code>_ptext_</code></strong> (string) - the text to translate for the plural case</li>
+    </ul></dd>
+    <dt>Returns: <a href="pology.misc.colors.ColorString-class.html" 
+      class="link">ColorString</a></dt>
+        <dd>translated text if available, otherwise original</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="t_"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">t_</span>(<span class="sig-arg">_ctxt_</span>,
+        <span class="sig-arg">_text_</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get delayed translation of the text into user's language.</p>
+  <p>Like <a href="pology-module.html#_" class="link">_()</a>, but returns 
+  delayed translation object instead of translated text as string. In this 
+  way some or all arguments for named formatting directives can be supplied
+  at a later point, using <a href="pology.TextTrans-class.html#with_args" 
+  class="link">with_args</a> method, and then the translated string 
+  obtained by <a href="pology.TextTrans-class.html#to_string" 
+  class="link">to_string</a> method.</p>
+  <dl class="fields">
+    <dt>Returns: <a href="pology.TextTrans-class.html" class="link">TextTrans</a></dt>
+        <dd>delayed translation</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="tn_"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">tn_</span>(<span class="sig-arg">_ctxt_</span>,
+        <span class="sig-arg">_stext_</span>,
+        <span class="sig-arg">_ptext_</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get delayed translation of the singular/plural text into user's 
+  language.</p>
+  <p>Like <a href="pology-module.html#_" class="link">n_()</a>, but returns
+  delayed translation object instead of translated text as string. In this 
+  way some or all arguments for named formatting directives can be supplied
+  at a later point, using <a href="pology.TextTrans-class.html#with_args" 
+  class="link">with_args</a> method, and then the translated string 
+  obtained by <a href="pology.TextTrans-class.html#to_string" 
+  class="link">to_string</a> method.</p>
+  <dl class="fields">
+    <dt>Returns: <a href="pology.TextTrans-class.html" class="link">TextTrans</a></dt>
+        <dd>delayed translation</dd>
   </dl>
 </td></tr></table>
 </div>

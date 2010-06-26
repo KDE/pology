@@ -160,7 +160,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">string or <code>None</code></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -346,7 +346,8 @@
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#build_path_selector" class="summary-sig-name">build_path_selector</a>(<span class="summary-sig-arg">incnames</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">incpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">excnames</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">excpaths</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">excpaths</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ormatch</span>=<span class="summary-sig-default">False</span>)</span><br />
       Build a path selection function based on inclusion-exclusion 
       condition.</td>
           <td align="right" valign="top">
@@ -360,14 +361,16 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">[string...]</span>
+      <span class="summary-type">[string...] or ([string...], (string)-&gt;bool)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.fsops-module.html#collect_paths_from_file" class="summary-sig-name">collect_paths_from_file</a>(<span class="summary-sig-arg">fpath</span>,
         <span class="summary-sig-arg">cmnts</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">incexc</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">respathf</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">respathf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">getsel</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Collect list of paths from the file.</td>
           <td align="right" valign="top">
             
@@ -380,7 +383,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">[string...]</span>
+      <span class="summary-type">[string...] or ([string...], (string)-&gt;bool)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -389,11 +392,14 @@
         <span class="summary-sig-arg">incpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">excnames</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">excpaths</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ormatch</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">filesfrom</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">cmnts</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">incexc</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">elsecwd</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">respathf</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">respathf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">getsel</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">abort</span>=<span class="summary-sig-default">False</span>)</span><br />
       Collect list of paths from usual sources given on command line.</td>
           <td align="right" valign="top">
             
@@ -583,6 +589,8 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dirpath</code></strong> (string) - the directory path to create</li>
     </ul></dd>
+    <dt>Returns: string or <code>None</code></dt>
+        <dd>the path of topmost created directory, if any</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -871,7 +879,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">build_path_selector</span>(<span class="sig-arg">incnames</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">incpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">excnames</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">excpaths</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">excpaths</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ormatch</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -895,6 +904,13 @@
   method returning true or false value (e.g. compiled regular expression), 
   or a general function taking string and returning true or false 
   value.</p>
+  <p>If <code>ormatch</code> is <code>False</code>, the path is included if
+  there are no inclusion conditions or all inclusion conditions match; the 
+  path is excluded if there is at least one exclusion condition and all 
+  exclusion conditions match. If <code>ormatch</code> is <code>True</code>,
+  the path is included if there are no inclusion conditions or at least one
+  of them matches; the path is excluded if at least one exclusion condition
+  match.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -902,6 +918,7 @@
         <li><strong class="pname"><code>incpaths</code></strong> (sequence (see description)) - conditions for inclusion by full path</li>
         <li><strong class="pname"><code>excnames</code></strong> (sequence (see description)) - conditions for exclusion by base name without extension</li>
         <li><strong class="pname"><code>excpaths</code></strong> (sequence (see description)) - conditions for exclusion by full path</li>
+        <li><strong class="pname"><code>ormatch</code></strong> (bool) - whether conditions are linked with OR</li>
     </ul></dd>
     <dt>Returns: (string)-&gt;bool</dt>
         <dd>path selection function</dd>
@@ -918,7 +935,9 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_paths_from_file</span>(<span class="sig-arg">fpath</span>,
         <span class="sig-arg">cmnts</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">incexc</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">respathf</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">respathf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">getsel</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -930,6 +949,11 @@
   empty lines are skipped. If <code>cmnts</code> is <code>True</code>, then
   also the lines starting with <code>'#'</code> are skipped as 
   comments.</p>
+  <p>The <code>respathf</code> parameter provides a function to be applied 
+  to each path and return a list of paths, which then substitute the 
+  original path. This function can be used, for example, to recursively 
+  collect files from listed directories, or to exclude paths by an external
+  condition.</p>
   <p>If <code>incexc</code> is <code>True</code>, then the lines starting 
   with <code>':'</code> define directives by which files and directories 
   are included or excluded from the final list. Inclusion-exclusion 
@@ -955,16 +979,21 @@
       expression
     </li>
   </ul>
-  <p>Inclusion-exclusion directives are given to <a 
-  href="pology.misc.fsops-module.html#build_path_selector" 
+  <p>The path is included if there are no inclusion directives, or it 
+  matches at least one inclusion directive; the path is excluded if it 
+  matches at least one exclusion directive. Inclusion-exclusion directives 
+  are given to <a href="pology.misc.fsops-module.html#build_path_selector" 
   class="link">build_path_selector</a> to create the path selection 
-  function, and this function is used to filter collected paths (after 
-  application of <code>respathf</code>, if given).</p>
-  <p>The <code>respathf</code> parameter provides a function to be applied 
-  to each path and return a list of paths, which then substitute the 
-  original path. This function can be used, for example, to recursively 
-  collect files from listed directories, or to exclude paths by an external
-  condition.</p>
+  function (with <code>ormatch</code> set to <code>True</code>), which is 
+  then used to filter collected paths (after application of 
+  <code>respathf</code>, if given).</p>
+  <p>If <code>getsel</code> is set to <code>True</code>, the selection 
+  function is returned instead of being applied to read paths immediately. 
+  This is useful in case the <code>respathf</code> parameter is not 
+  sufficient to resolve paths, but more complex processing is required. 
+  from directories externally, instead with <code>respathf</code>). If 
+  there were no inclusion-exclusion directives in the file, the resulting 
+  selection function will return <code>True</code> for any path.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -972,9 +1001,13 @@
         <li><strong class="pname"><code>cmnts</code></strong> (bool) - whether the file can contain comments</li>
         <li><strong class="pname"><code>incexc</code></strong> (boolean) - whether the file can contain inclusion-exclusion directives</li>
         <li><strong class="pname"><code>respathf</code></strong> ((string)-&gt;[string...]) - function to resolve collected paths</li>
+        <li><strong class="pname"><code>getsel</code></strong> (bool) - whether to return constructed path selection function instead of 
+          applying it</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort the execution on exceptions from path resolution
+          or selection functions</li>
     </ul></dd>
-    <dt>Returns: [string...]</dt>
-        <dd>collected paths</dd>
+    <dt>Returns: [string...] or ([string...], (string)-&gt;bool)</dt>
+        <dd>collected paths, possibly with path selection function</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -990,11 +1023,14 @@
         <span class="sig-arg">incpaths</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">excnames</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">excpaths</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ormatch</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">filesfrom</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">cmnts</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">incexc</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">elsecwd</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">respathf</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">respathf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">getsel</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">abort</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -1013,11 +1049,12 @@
   <p>The <code>rawpaths</code> parameter provides a list of directly 
   supplied paths, e.g. from command line arguments. <code>incnames</code>, 
   <code>incpaths</code>, <code>excnames</code>, and <code>excpaths</code> 
-  are lists of inclusion and exclusion expressions, out of which single 
-  path selection function is constructed, see <a 
+  are lists of inclusion and exclusion conditions out of which single path 
+  selection function is constructed, with <code>ormatch</code> determining 
+  how conditions are linked, see <a 
   href="pology.misc.fsops-module.html#build_path_selector" 
   class="link">build_path_selector</a> for details. <code>filesfrom</code> 
-  is a list of files containing lists of paths, and <code>cmnts</code> and 
+  is a list of files containing lists of paths, <code>cmnts</code> and 
   <code>incexc</code> are options for the file format, see <a 
   href="pology.misc.fsops-module.html#collect_paths_from_file" 
   class="link">collect_paths_from_file</a> for details. If both 
@@ -1041,13 +1078,22 @@
   Finally, all paths are filtered through inclusion-exclusion tests; if no 
   inclusion tests are given, then all files are included unless excluded by
   an exclusion test.</p>
+  <p>If <code>getsel</code> is set to <code>True</code>, the path selection
+  function is returned instead of being applied to collected paths. This 
+  function will also include path selection functions constructed from 
+  inclusion-exclusion directives found in <code>filesfrom</code>, linked 
+  with the top conditions according to <code>ormatch</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>respathf</code></strong> ((string)-&gt;[string...]) - function to resolve collected paths</li>
+        <li><strong class="pname"><code>getsel</code></strong> (bool) - whether to return constructed path selection function instead of 
+          applying it</li>
+        <li><strong class="pname"><code>abort</code></strong> (bool) - whether to abort the execution on exceptions from path resolution
+          or selection functions</li>
     </ul></dd>
-    <dt>Returns: [string...]</dt>
-        <dd>collected paths</dd>
+    <dt>Returns: [string...] or ([string...], (string)-&gt;bool)</dt>
+        <dd>collected paths, possibly with path selection function</dd>
   </dl>
 </td></tr></table>
 </div>

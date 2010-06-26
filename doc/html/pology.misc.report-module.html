@@ -157,7 +157,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.report-module.html#init_file_progress" class="summary-sig-name">init_file_progress</a>(<span class="summary-sig-arg">fpaths</span>,
-        <span class="summary-sig-arg">timeint</span>=<span class="summary-sig-default">0.5</span>,
+        <span class="summary-sig-arg">timeint</span>=<span class="summary-sig-default">1.0</span>,
         <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>,
         <span class="summary-sig-arg">addfmt</span>=<span class="summary-sig-default">None</span>)</span><br />
       Create a function to output progress bar while processing files.</td>
@@ -180,6 +180,25 @@
         <span class="summary-sig-arg">short</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">both</span>=<span class="summary-sig-default">False</span>)</span><br />
       Simple list of all option names found in the option parser.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.report-module.html#format_item_list" class="summary-sig-name">format_item_list</a>(<span class="summary-sig-arg">items</span>,
+        <span class="summary-sig-arg">incmp</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">quoted</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Format inline item list, for insertion into text.</td>
           <td align="right" valign="top">
             
             
@@ -327,7 +346,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">init_file_progress</span>(<span class="sig-arg">fpaths</span>,
-        <span class="sig-arg">timeint</span>=<span class="sig-default">0.5</span>,
+        <span class="sig-arg">timeint</span>=<span class="sig-default">1.0</span>,
         <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>,
         <span class="sig-arg">addfmt</span>=<span class="sig-default">None</span>)</span>
   </h3>
@@ -359,16 +378,20 @@
   <p>The output stream for the progress bar can be specified by the 
   <code>stream</code> parameter.</p>
   <p>Additional formatting for the progress bar may be supplied by the 
-  <code>addfmt</code> parameter. It can be either a function taking one 
-  string parameter (the basic progress bar) and returning a string, or a 
-  string with single <code>%s</code> formatting directive.</p>
+  <code>addfmt</code> parameter. It can be one of: a function taking one 
+  string parameter (the basic progress bar) and returning a string, a 
+  delayed translation (<a href="pology.TextTrans-class.html" 
+  class="link">TextTrans</a>) with single named formatting directive 
+  <code>%(file)s</code>, or a plain string with same formatting 
+  directive.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>fpaths</code></strong> (list of strings) - collection of file paths</li>
         <li><strong class="pname"><code>timeint</code></strong> (float) - update interval in seconds</li>
         <li><strong class="pname"><code>stream</code></strong> (file) - the stream to output progress to</li>
-        <li><strong class="pname"><code>addfmt</code></strong> ((text) -&gt; text or string) - additional format for the progress line</li>
+        <li><strong class="pname"><code>addfmt</code></strong> ((text) -&gt; text or <a href="pology.TextTrans-class.html" 
+          class="link">TextTrans</a> or string) - additional format for the progress line</li>
     </ul></dd>
     <dt>Returns: (file_path, last_time, time_interval) -&gt; new_last_time</dt>
         <dd>progress updating function</dd>
@@ -412,6 +435,35 @@
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>formated list of option names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="format_item_list"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">format_item_list</span>(<span class="sig-arg">items</span>,
+        <span class="sig-arg">incmp</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">quoted</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Format inline item list, for insertion into text.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>items</code></strong> (sequence of elements convertible to string by unicode()) - items to list</li>
+        <li><strong class="pname"><code>incmp</code></strong> (bool) - whether some items are omitted from the list</li>
+        <li><strong class="pname"><code>quoted</code></strong> (bool) - whether each item should be quoted</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>inline formatted list of items</dd>
   </dl>
 </td></tr></table>
 </div>

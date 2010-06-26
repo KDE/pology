@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.l10n.sr.hook.nobr</title>
+  <title>pology.l10n.es.hook.patternEntities</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,9 +39,9 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.l10n-module.html">Package&nbsp;l10n</a> ::
-        <a href="pology.l10n.sr-module.html">Package&nbsp;sr</a> ::
-        <a href="pology.l10n.sr.hook-module.html">Package&nbsp;hook</a> ::
-        Module&nbsp;nobr
+        <a href="pology.l10n.es-module.html">Package&nbsp;es</a> ::
+        <a href="pology.l10n.es.hook-module.html">Package&nbsp;hook</a> ::
+        Module&nbsp;patternEntities
       </span>
     </td>
     <td>
@@ -52,17 +52,12 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module nobr</h1><p class="nomargin-top"></p>
-<p>Equip text with no-break characters where possibly helpful.</p>
-  <p>The way text is wrapped in UI, by a general wrapping algorithm, is 
-  sometimes really not appropriate for Serbian ortography. For example, 
-  hyphen-separated case ending should not be wrapped. This module contains 
-  functions to heuristically replace ordinary with no-break characters, 
-  where such bad breaks can be expected.</p>
+<h1 class="epydoc">Module patternEntities</h1><p class="nomargin-top"></p>
+<p>Convert special entities in rule patterns.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
-        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+        Javier Vi&#241;al &lt;fjvinal@gmail.com&gt;
       </p>
       <p><strong>License:</strong>
         GPLv3
@@ -77,14 +72,12 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type"><code>(text) -&gt; text</code></span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.l10n.sr.hook.nobr-module.html#to_nobr_hyphens" class="summary-sig-name">to_nobr_hyphens</a>(<span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">wchars</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">unsafe</span>=<span class="summary-sig-default">False</span>)</span><br />
-      Replace some ordinary hyphens with no-break hyphens [hook factory].</td>
+          <td><span class="summary-sig"><a name="patternEntities"></a><span class="summary-sig-name">patternEntities</span>(<span class="summary-sig-arg">pattern</span>)</span><br />
+      Convert entities in pattern.</td>
           <td align="right" valign="top">
             
             
@@ -107,65 +100,50 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="nobrhyp_char"></a><span class="summary-name">nobrhyp_char</span> = <code title="u'&#8209;'"><code class="variable-quote">u'</code><code class="variable-string">&#8209;</code><code class="variable-quote">'</code></code>
+        <a href="pology.l10n.es.hook.patternEntities-module.html#entities" class="summary-name">entities</a> = <code title="{'amp': u'&amp;',
+ 'cr': u'',
+ 'gt': u'&gt;',
+ 'lf': u'''
+''',
+ 'lt': u'&lt;',
+ 'nbsp': u' ',
+ 'quot': u'&quot;',
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">amp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">cr</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">gt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">lf</code><code class="variable-quote">'</code><code class="variable-op">:</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
-<!-- ==================== FUNCTION DETAILS ==================== -->
-<a name="section-FunctionDetails"></a>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Function Details</span></td>
+    <span class="table-header">Variables Details</span></td>
 </tr>
 </table>
-<a name="to_nobr_hyphens"></a>
+<a name="entities"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">to_nobr_hyphens</span>(<span class="sig-arg">mode</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">wchars</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">unsafe</span>=<span class="sig-default">False</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
+  <h3 class="epydoc">entities</h3>
   
-  <p>Replace some ordinary hyphens with no-break hyphens [hook 
-  factory].</p>
-  <p>An ordinary hyphen is replaced in one of the following modes, as given
-  by the <code>mode</code> parameter:</p>
-  <ul>
-    <li>
-      0: if the hyphen is in between two letters, and either preceded or 
-      followed by at most four letters
-    </li>
-    <li>
-      1: if the hyphen is in between two letters and followed by exactly 
-      one letter
-    </li>
-  </ul>
-  <p>Using the <code>wchars</code> parameter, some extra characters other 
-  than letters can be treated as equal to letters.</p>
-  <p>Note that the function by default substitutes the hyphen only if there
-  are some Cyrillic letters (or an extra character) in the context, as 
-  otherwise the hyphen may be a part of URL, command, etc. This can be 
-  relaxed by setting <code>unsafe</code> to <code>True</code>, when all 
-  letters are treated equally.</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>mode</code></strong> (int) - replacement mode</li>
-        <li><strong class="pname"><code>wchars</code></strong> (string) - extra characters to consider parts of the word</li>
-        <li><strong class="pname"><code>unsafe</code></strong> (bool) - whether to replace hyphen even if no Cyrillic letters nearby</li>
-    </ul></dd>
-    <dt>Returns: <code>(text) -&gt; text</code></dt>
-        <dd>type F1A hook</dd>
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">amp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">cr</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string"></code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">gt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">lf</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'''</code><code class="variable-string"></code>
+<code class="variable-string"></code><code class="variable-quote">'''</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">lt</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">nbsp</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string"> </code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">quot</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">u'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
   </dl>
 </td></tr></table>
 </div>

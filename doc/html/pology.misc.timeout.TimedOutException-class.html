@@ -53,13 +53,15 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class TimedOutException</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-              object --+        
-                       |        
-exceptions.BaseException --+    
-                           |    
-        exceptions.Exception --+
-                               |
-                              <strong class="uidshort">TimedOutException</strong>
+              object --+            
+                       |            
+exceptions.BaseException --+        
+                           |        
+        exceptions.Exception --+    
+                               |    
+                     <a href="pology.PologyError-class.html">PologyError</a> --+
+                                   |
+                                  <strong class="uidshort">TimedOutException</strong>
 </pre>
 
 <hr />
@@ -78,8 +80,8 @@ exceptions.BaseException --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.timeout.TimedOutException-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">value</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">Timed Out</code><code class="variable-quote">'</code></span>)</span><br />
-      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
+        <span class="summary-sig-arg">value</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">timed-out</code><code class="variable-quote">'</code></span>)</span><br />
+      Constructor.</td>
           <td align="right" valign="top">
             
             
@@ -108,6 +110,9 @@ exceptions.BaseException --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.PologyError-class.html">PologyError</a></code></b>:
+      <code><a href="pology.PologyError-class.html#__unicode__">__unicode__</a></code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
       <code>__new__</code>
       </p>
@@ -165,7 +170,7 @@ exceptions.BaseException --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">value</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">Timed Out</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">value</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">timed-out</code><code class="variable-quote">'</code></span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -173,9 +178,12 @@ exceptions.BaseException --+
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  <p>Constructor.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> - a description of what went wrong</li>
+    </ul></dd>
     <dt>Overrides:
         object.__init__
         <dd><em class="note">(inherited documentation)</em></dd>

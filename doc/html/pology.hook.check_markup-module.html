@@ -279,6 +279,7 @@
           <td><span class="summary-sig"><a href="pology.hook.check_markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
       Check existence of XML entities in translations [hook factory].</td>
           <td align="right" valign="top">
@@ -298,7 +299,9 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.check_markup-module.html#check_xmlents_sp" class="summary-sig-name">check_xmlents_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
       Like <a href="pology.hook.check_markup-module.html#check_xmlents" 
       class="link">check_xmlents</a>, except that erroneous spans are 
       returned instead of reporting problems to stdout [hook factory].</td>
@@ -645,6 +648,7 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -654,10 +658,11 @@
   
   <p>Check existence of XML entities in translations [hook factory].</p>
   <p>See <a href="pology.hook.check_markup-module.html#check_xml" 
-  class="link">check_xml</a> for description of parameters. See notes on 
-  checking of entities to <a 
-  href="pology.misc.markup-module.html#check_xmlents" 
-  class="link">check_xmlents</a>.</p>
+  class="link">check_xml</a> for description of parameters 
+  <code>strict</code>, <code>entities</code>, and <code>mkeyw</code>. See 
+  <a href="pology.misc.markup-module.html#check_xmlents" 
+  class="link">check_xmlents</a> for parameters <code>default</code> and 
+  <code>numeric</code>, and for general notes on checking entities.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
         <dd>type S3C hook</dd>
@@ -673,7 +678,9 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;

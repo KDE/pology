@@ -113,7 +113,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="commit_catalogs"></a><span class="summary-sig-name">commit_catalogs</span>(<span class="summary-sig-arg">configs_catpaths</span>,
+          <td><span class="summary-sig"><a name="relpath"></a><span class="summary-sig-name">relpath</span>(<span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">dirpath</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="vcs_commit_catalogs"></a><span class="summary-sig-name">vcs_commit_catalogs</span>(<span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">message</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">onabortf</span>=<span class="summary-sig-default">None</span>)</span></td>
@@ -165,8 +182,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="assert_mode_user"></a><span class="summary-sig-name">assert_mode_user</span>(<span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">mode</span>,
-        <span class="summary-sig-arg">nousers</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
+        <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -182,8 +198,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="assert_review_tag"></a><span class="summary-sig-name">assert_review_tag</span>(<span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">tag</span>)</span></td>
+          <td><span class="summary-sig"><a name="assert_review_tags"></a><span class="summary-sig-name">assert_review_tags</span>(<span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">tags</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -199,7 +215,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="assert_no_review"></a><span class="summary-sig-name">assert_no_review</span>(<span class="summary-sig-arg">configs_catpaths</span>)</span></td>
+          <td><span class="summary-sig"><a name="assert_syntax"></a><span class="summary-sig-name">assert_syntax</span>(<span class="summary-sig-arg">configs_catpaths</span>,
+        <span class="summary-sig-arg">onabortf</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -232,7 +249,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="examine_state"></a><span class="summary-sig-name">examine_state</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="status"></a><span class="summary-sig-name">status</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
@@ -250,44 +267,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_modified"></a><span class="summary-sig-name">ascribe_modified</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">mode</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="ascribe_modified_w"></a><span class="summary-sig-name">ascribe_modified_w</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">mode</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="update_headers_onmod"></a><span class="summary-sig-name">update_headers_onmod</span>(<span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">user</span>)</span></td>
+          <td><span class="summary-sig"><a name="msg_to_previous"></a><span class="summary-sig-name">msg_to_previous</span>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">copy</span>=<span class="summary-sig-default">True</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -321,7 +302,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="restore_review_flags"></a><span class="summary-sig-name">restore_review_flags</span>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">revd</span>,
+        <span class="summary-sig-arg">revtags</span>,
         <span class="summary-sig-arg">unrevd</span>)</span></td>
           <td align="right" valign="top">
             
@@ -338,7 +319,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="ascribe_reviewed"></a><span class="summary-sig-name">ascribe_reviewed</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="commit"></a><span class="summary-sig-name">commit</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
@@ -356,7 +337,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diff_select"></a><span class="summary-sig-name">diff_select</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="diff"></a><span class="summary-sig-name">diff</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
@@ -374,7 +355,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review"></a><span class="summary-sig-name">clear_review</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="purge"></a><span class="summary-sig-name">purge</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
@@ -392,7 +373,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_w"></a><span class="summary-sig-name">clear_review_w</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="history"></a><span class="summary-sig-name">history</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">configs_catpaths</span>,
         <span class="summary-sig-arg">mode</span>)</span></td>
           <td align="right" valign="top">
@@ -410,45 +391,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="show_history"></a><span class="summary-sig-name">show_history</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">configs_catpaths</span>,
-        <span class="summary-sig-arg">mode</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="ascribe_modified_cat"></a><span class="summary-sig-name">ascribe_modified_cat</span>(<span class="summary-sig-arg">options</span>,
-        <span class="summary-sig-arg">config</span>,
-        <span class="summary-sig-arg">user</span>,
-        <span class="summary-sig-arg">catpath</span>,
-        <span class="summary-sig-arg">acatpath</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="ascribe_reviewed_cat"></a><span class="summary-sig-name">ascribe_reviewed_cat</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="commit_cat"></a><span class="summary-sig-name">commit_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">catpath</span>,
@@ -469,7 +412,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="diff_select_cat"></a><span class="summary-sig-name">diff_select_cat</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="diff_cat"></a><span class="summary-sig-name">diff_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
         <span class="summary-sig-arg">acatpath</span>,
@@ -490,7 +433,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="may_have_reviews"></a><span class="summary-sig-name">may_have_reviews</span>(<span class="summary-sig-arg">catpath</span>)</span></td>
+          <td><span class="summary-sig"><a name="may_have_revels"></a><span class="summary-sig-name">may_have_revels</span>(<span class="summary-sig-arg">catpath</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -506,7 +449,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_cat"></a><span class="summary-sig-name">clear_review_cat</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="purge_cat"></a><span class="summary-sig-name">purge_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
         <span class="summary-sig-arg">acatpath</span>,
@@ -526,24 +469,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_cat_simple"></a><span class="summary-sig-name">clear_review_cat_simple</span>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">keepflags</span>=<span class="summary-sig-default">False</span>)</span></td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="show_history_cat"></a><span class="summary-sig-name">show_history_cat</span>(<span class="summary-sig-arg">options</span>,
+          <td><span class="summary-sig"><a name="history_cat"></a><span class="summary-sig-name">history_cat</span>(<span class="summary-sig-arg">options</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">catpath</span>,
         <span class="summary-sig-arg">acatpath</span>,
@@ -563,7 +489,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="clear_review_msg"></a><span class="summary-sig-name">clear_review_msg</span>(<span class="summary-sig-arg">msg</span>,
+          <td><span class="summary-sig"><a name="purge_msg"></a><span class="summary-sig-name">purge_msg</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">keepflags</span>=<span class="summary-sig-default">False</span>)</span></td>
           <td align="right" valign="top">
             
@@ -754,7 +680,7 @@
           <td><span class="summary-sig"><a name="ascribe_msg_any"></a><span class="summary-sig-name">ascribe_msg_any</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
         <span class="summary-sig-arg">atype</span>,
-        <span class="summary-sig-arg">atag</span>,
+        <span class="summary-sig-arg">atags</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>,
         <span class="summary-sig-arg">dt</span>=<span class="summary-sig-default">None</span>)</span></td>
@@ -794,7 +720,7 @@
         <tr>
           <td><span class="summary-sig"><a name="ascribe_msg_rev"></a><span class="summary-sig-name">ascribe_msg_rev</span>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">acat</span>,
-        <span class="summary-sig-arg">tag</span>,
+        <span class="summary-sig-arg">tags</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">config</span>)</span></td>
           <td align="right" valign="top">
@@ -971,7 +897,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="sync_and_rep"></a><span class="summary-sig-name">sync_and_rep</span>(<span class="summary-sig-arg">cat</span>,
-        <span class="summary-sig-arg">shownmod</span>=<span class="summary-sig-default">True</span>)</span></td>
+        <span class="summary-sig-arg">shownmod</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">nmod</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -987,7 +914,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="asc_sync_and_rep"></a><span class="summary-sig-name">asc_sync_and_rep</span>(<span class="summary-sig-arg">acat</span>)</span></td>
+          <td><span class="summary-sig"><a name="asc_sync_and_rep"></a><span class="summary-sig-name">asc_sync_and_rep</span>(<span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">shownmod</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">nmod</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -1578,13 +1507,6 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="ASCWRAPPING"></a><span class="summary-name">ASCWRAPPING</span> = <code title="['fine']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">fine</code><code class="variable-quote">'</code><code class="variable-group">]</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="UFUZZ"></a><span class="summary-name">UFUZZ</span> = <code title="'fuzzy'"><code class="variable-quote">'</code><code class="variable-string">fuzzy</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>

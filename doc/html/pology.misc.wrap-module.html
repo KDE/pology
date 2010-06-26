@@ -76,12 +76,12 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of strings</span>
+      <span class="summary-type">[string*]</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.misc.wrap-module.html#wrap_text" class="summary-sig-name">wrap_text</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">80</span>,
+        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">79</span>,
         <span class="summary-sig-arg">lead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">trail</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">flead</span>=<span class="summary-sig-default">None</span>,
@@ -93,7 +93,8 @@
         <span class="summary-sig-arg">tagbr2</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="summary-sig-arg">wcolmin</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">midbr</span>=<span class="summary-sig-default">True</span>,
-        <span class="summary-sig-arg">remtrws</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">remtrws</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">addnl</span>=<span class="summary-sig-default">True</span>)</span><br />
       Wrap text into lines.</td>
           <td align="right" valign="top">
             
@@ -255,7 +256,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">wrap_text</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">wcol</span>=<span class="sig-default">80</span>,
+        <span class="sig-arg">wcol</span>=<span class="sig-default">79</span>,
         <span class="sig-arg">lead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">trail</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">flead</span>=<span class="sig-default">None</span>,
@@ -267,7 +268,8 @@
         <span class="sig-arg">tagbr2</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="sig-arg">wcolmin</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">midbr</span>=<span class="sig-default">True</span>,
-        <span class="sig-arg">remtrws</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">remtrws</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">addnl</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -278,16 +280,15 @@
   <p>Wrapping behavior and positions can be controlled by several 
   parameters. Trailing and leading strings can be added to each wrapped 
   line, including a special lead for the first line.</p>
-  <p>Leading/trailing strings and newline are included into column 
-  counting. If wrapping column is given as less or equal to zero, the lines
-  are split only at unconditional breaks.</p>
+  <p>If wrapping column is given as less or equal to zero, the lines are 
+  split only at unconditional breaks.</p>
   <p>This is a very general wrapping function, see the more specialized 
   ones in this module for practical use with PO message elements.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>text</code></strong> (string) - the text to wrap</li>
-        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap at</li>
+        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap after</li>
         <li><strong class="pname"><code>lead</code></strong> (string) - prefix for each line</li>
         <li><strong class="pname"><code>trail</code></strong> (string) - suffix for each line</li>
         <li><strong class="pname"><code>flead</code></strong> (<code>None</code> or string) - special suffix for the first line. Normal suffix is used if this 
@@ -296,19 +297,20 @@
           text would not fit into it, <code>False</code> for normal use of 
           the first line</li>
         <li><strong class="pname"><code>natbr</code></strong> (string) - characters other than space to naturally break at</li>
-        <li><strong class="pname"><code>prebr</code></strong> (tuple of strings) - character sequences to unconditionally break before</li>
-        <li><strong class="pname"><code>postbr</code></strong> (tuple of strings) - character sequences to unconditionally break after</li>
-        <li><strong class="pname"><code>tagbr</code></strong> (tuple of strings) - tag names to break before opening and after closing</li>
-        <li><strong class="pname"><code>tagbr2</code></strong> (tuple of strings) - tag names to always break after (like &lt;br&gt;)</li>
-        <li><strong class="pname"><code>wcolmin</code></strong> (int) - minimal column to allow natural breaks at</li>
+        <li><strong class="pname"><code>prebr</code></strong> ((string*)) - character sequences to unconditionally break before</li>
+        <li><strong class="pname"><code>postbr</code></strong> ((string*)) - character sequences to unconditionally break after</li>
+        <li><strong class="pname"><code>tagbr</code></strong> ((string*)) - tag names to break before opening and after closing</li>
+        <li><strong class="pname"><code>tagbr2</code></strong> ((string*)) - tag names to always break after (like &lt;br&gt;)</li>
+        <li><strong class="pname"><code>wcolmin</code></strong> (int) - minimal column to allow natural breaks after</li>
         <li><strong class="pname"><code>midbr</code></strong> (bool) - <code>True</code> to allow break in the middle of a word if no 
           usual break found before <code>wcol</code> has been exceeded</li>
         <li><strong class="pname"><code>remtrws</code></strong> (bool) - whether to strictly remove any trailing whitespace in wrapped 
           lines (otherwise trailing whitespace may be left in under certain
           conditions)</li>
+        <li><strong class="pname"><code>addnl</code></strong> (bool) - whether to add newline to end of each line</li>
     </ul></dd>
-    <dt>Returns: list of strings</dt>
-        <dd>wrapped lines (each ends with a newline)</dd>
+    <dt>Returns: [string*]</dt>
+        <dd>wrapped lines</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.misc.synder.SynderError</title>
+  <title>pology.misc.colors.ColorOptionParser</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,8 +39,8 @@
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
         <a href="pology.misc-module.html">Package&nbsp;misc</a> ::
-        <a href="pology.misc.synder-module.html">Module&nbsp;synder</a> ::
-        Class&nbsp;SynderError
+        <a href="pology.misc.colors-module.html">Module&nbsp;colors</a> ::
+        Class&nbsp;ColorOptionParser
       </span>
     </td>
     <td>
@@ -51,20 +51,21 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SynderError</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Class ColorOptionParser</h1><p class="nomargin-top"></p>
 <pre class="base-tree">
-              object --+            
-                       |            
-exceptions.BaseException --+        
-                           |        
-        exceptions.Exception --+    
-                               |    
-                     <a href="pology.PologyError-class.html">PologyError</a> --+
-                                   |
-                                  <strong class="uidshort">SynderError</strong>
+optparse.OptionContainer --+    
+                           |    
+       optparse.OptionParser --+
+                               |
+                              <strong class="uidshort">ColorOptionParser</strong>
 </pre>
 
 <hr />
+<p>Lightweight wrapper for <code>OptionParser</code> from standard 
+  library <code>optparse</code>, to gracefully handle <a 
+  href="pology.misc.colors.ColorString-class.html" 
+  class="link">ColorString</a> arguments supplied to its methods.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -79,12 +80,9 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">message</span>,
-        <span class="summary-sig-arg">code</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">pos</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Constructor.</td>
+          <td><span class="summary-sig"><a href="pology.misc.colors.ColorOptionParser-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
             
             
@@ -100,7 +98,10 @@ exceptions.BaseException --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.misc.synder.SynderError-class.html#__unicode__" class="summary-sig-name">__unicode__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="pology.misc.colors.ColorOptionParser-class.html#add_option" class="summary-sig-name">add_option</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      add_option(opt_str, ..., kwarg=val, ...)</td>
           <td align="right" valign="top">
             
             
@@ -112,45 +113,57 @@ exceptions.BaseException --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.PologyError-class.html">PologyError</a></code></b>:
-      <code><a href="pology.PologyError-class.html#__str__">__str__</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>optparse.OptionParser</code></b>:
+      <code>add_option_group</code>,
+      <code>check_values</code>,
+      <code>destroy</code>,
+      <code>disable_interspersed_args</code>,
+      <code>enable_interspersed_args</code>,
+      <code>error</code>,
+      <code>exit</code>,
+      <code>expand_prog_name</code>,
+      <code>format_epilog</code>,
+      <code>format_help</code>,
+      <code>format_option_help</code>,
+      <code>get_default_values</code>,
+      <code>get_description</code>,
+      <code>get_option_group</code>,
+      <code>get_prog_name</code>,
+      <code>get_usage</code>,
+      <code>get_version</code>,
+      <code>parse_args</code>,
+      <code>print_help</code>,
+      <code>print_usage</code>,
+      <code>print_version</code>,
+      <code>set_default</code>,
+      <code>set_defaults</code>,
+      <code>set_process_default_values</code>,
+      <code>set_usage</code>
       </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
-      <code>__new__</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>__delattr__</code>,
-      <code>__getattribute__</code>,
-      <code>__getitem__</code>,
-      <code>__getslice__</code>,
-      <code>__reduce__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__setstate__</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>optparse.OptionContainer</code></b>:
+      <code>add_options</code>,
+      <code>format_description</code>,
+      <code>get_option</code>,
+      <code>has_option</code>,
+      <code>remove_option</code>,
+      <code>set_conflict_handler</code>,
+      <code>set_description</code>
       </p>
     </td>
   </tr>
 </table>
-<!-- ==================== PROPERTIES ==================== -->
-<a name="section-Properties"></a>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Properties</span></td>
+    <span class="table-header">Class Variables</span></td>
 </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
-      <code>args</code>,
-      <code>message</code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__class__</code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>optparse.OptionParser</code></b>:
+      <code>standard_option_list</code>
       </p>
     </td>
   </tr>
@@ -172,10 +185,8 @@ exceptions.BaseException --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">message</span>,
-        <span class="sig-arg">code</span>,
-        <span class="sig-arg">source</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">pos</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -183,41 +194,35 @@ exceptions.BaseException --+
     </td>
   </tr></table>
   
-  <p>Constructor.</p>
-  <p>All the parameters are made available as instance variables.</p>
+  
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>message</code></strong> (string) - description of what went wrong</li>
-        <li><strong class="pname"><code>code</code></strong> (int) - numerical ID of the problem</li>
-        <li><strong class="pname"><code>source</code></strong> (string) - name of the source in which the problem occured</li>
-        <li><strong class="pname"><code>pos</code></strong> (int or (int, int)) - line or line and column in the source in which the problem 
-          occured</li>
-    </ul></dd>
     <dt>Overrides:
-        object.__init__
+        optparse.OptionContainer.__init__
     </dt>
   </dl>
 </td></tr></table>
 </div>
-<a name="__unicode__"></a>
+<a name="add_option"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__unicode__</span>(<span class="sig-arg">self</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_option</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  
+  <p>add_option(opt_str, ..., kwarg=val, ...)</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="pology.PologyError-class.html#__unicode__">PologyError.__unicode__</a>
+        optparse.OptionContainer.add_option
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>

@@ -70,6 +70,7 @@
     <li> <strong class="uidlink"><a href="pology.hook.gettext_tools-module.html">pology.hook.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.noop-module.html">pology.hook.noop</a></strong>: <em class="summary">Hook which do nothing.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.normalize_header-module.html">pology.hook.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.hook.normalize_message-module.html">pology.hook.normalize_message</a></strong>: <em class="summary">Various normalizations of messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.remove_subs-module.html">pology.hook.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.hook.ui_references-module.html">pology.hook.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
         texts.</em>    </li>
@@ -78,6 +79,21 @@
     <li> <strong class="uidlink"><a href="pology.l10n-module.html">pology.l10n</a></strong>: <em class="summary">Language-specific Pology tools, arranged in submodules by language 
         code.</em>
     <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es-module.html">pology.l10n.es</a></strong>: <em class="summary">Language-specific tools for Spanish language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook-module.html">pology.l10n.es.hook</a></strong>: <em class="summary">Hooks specific for Spanish.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook.patternAccents-module.html">pology.l10n.es.hook.patternAccents</a></strong>: <em class="summary">Accent equivalence in regular expression patterns.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.hook.patternEntities-module.html">pology.l10n.es.hook.patternEntities</a></strong>: <em class="summary">Convert special entities in rule patterns.</em>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve-module.html">pology.l10n.es.sieve</a></strong>: <em class="summary">Sieves specific to Spanish language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve.setUbsp-module.html">pology.l10n.es.sieve.setUbsp</a></strong>    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink"><a href="pology.l10n.fr-module.html">pology.l10n.fr</a></strong>: <em class="summary">Language-specific tools for French language.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.l10n.fr.hook-module.html">pology.l10n.fr.hook</a></strong>: <em class="summary">Hooks specific for French.</em>
@@ -140,7 +156,7 @@
     </li>
     <li> <strong class="uidlink"><a href="pology.misc-module.html">pology.misc</a></strong>: <em class="summary">Various functionality for processing contents of PO files.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="pology.misc.colors-module.html">pology.misc.colors</a></strong>: <em class="summary">Standard codes for shell colors.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.misc.colors-module.html">pology.misc.colors</a></strong>: <em class="summary">Standard codes for terminal colors.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.comments-module.html">pology.misc.comments</a></strong>: <em class="summary">Parsing and composing message comments.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.config-module.html">pology.misc.config</a></strong>: <em class="summary">Access user configuration for Pology.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.misc.diff-module.html">pology.misc.diff</a></strong>: <em class="summary">Produce special diffs between strings and other interesting 

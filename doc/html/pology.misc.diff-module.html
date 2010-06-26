@@ -133,7 +133,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string/None or (string/None, float)</span>
+      <span class="summary-type">string/ColorString/None or (string/ColorString/None, float)</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -141,7 +141,7 @@
         <span class="summary-sig-arg">text_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create word-level embedded difference between old and new texts.</td>
           <td align="right" valign="top">
@@ -219,7 +219,7 @@
         <span class="summary-sig-arg">lines_new</span>,
         <span class="summary-sig-arg">markup</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create word-level embedded difference between old and new lines of 
       text.</td>
@@ -324,7 +324,7 @@
         <span class="summary-sig-arg">eokpos</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">enoctxt</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">emptydc</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">hlto</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">diffr</span>=<span class="summary-sig-default">False</span>)</span><br />
       Create word-level embedded difference between extraction-invariant 
       parts of messages.</td>
@@ -383,6 +383,25 @@
         <span class="summary-sig-arg">newtext</span>)</span><br />
       Compute the probability that a human would rather edit the old text 
       to obtain the new text, then write it from scratch.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float or <code>None</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#descprob" class="summary-sig-name">descprob</a>(<span class="summary-sig-arg">descpath</span>,
+        <span class="summary-sig-arg">ancpath</span>,
+        <span class="summary-sig-arg">cutoff</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Compute the probability that one PO file is a descendant of another.</td>
           <td align="right" valign="top">
             
             
@@ -613,7 +632,7 @@
         <span class="sig-arg">text_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">colorize</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -636,23 +655,19 @@
   <code>None</code>, but after differencing the tilde appears in the end of
   embedded difference, it is escaped by another tilde. If both texts are 
   <code>None</code>, <code>None</code> is returned as the difference.</p>
-  <p>The <code>hlto</code> parameter can be used to additionally highlight 
-  embedded difference for an output descriptor pointed to by it (e.g. 
-  colorized for the shell if given as <code>sys.stdout</code>). If 
-  highlighting is applied, <a 
-  href="pology.misc.diff-module.html#word_ediff_to_old" 
-  class="link">word_ediff_to_old</a> and <a 
-  href="pology.misc.diff-module.html#word_ediff_to_new" 
-  class="link">word_ediff_to_new</a> cannot be used to recover the original
-  texts.</p>
+  <p>The <code>colorize</code> parameter can be used to additionally 
+  highlight embedded difference by using color markup provided by <a 
+  href="pology.misc.colors.ColorString-class.html" 
+  class="link">ColorString</a>. If colorizing is enabled, the return value 
+  is a <code>ColorString</code>.</p>
   <p>See <a href="pology.misc.diff-module.html#word_diff" 
   class="link">word_diff</a> for description of other parameters.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>hlto</code></strong> (file descriptor) - destination to produce extra highlighting for</li>
+        <li><strong class="pname"><code>colorize</code></strong> (bool) - whether to colorize differences</li>
     </ul></dd>
-    <dt>Returns: string/None or (string/None, float)</dt>
+    <dt>Returns: string/ColorString/None or (string/ColorString/None, float)</dt>
         <dd>string with embedded differences and possibly difference ratio</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
@@ -770,7 +785,7 @@
         <span class="sig-arg">lines_new</span>,
         <span class="sig-arg">markup</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">format</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">colorize</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -999,7 +1014,7 @@
         <span class="sig-arg">eokpos</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">enoctxt</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">emptydc</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">hlto</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">colorize</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">diffr</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -1064,9 +1079,8 @@
   <p>By default the difference comment is not added if there are no 
   indicators, but it may be forced by setting <code>emptydc</code> 
   parameter to <code>True</code>.</p>
-  <p>Embedded differences can be additionally highlighted for an output 
-  descriptor given by <code>hlto</code> parameter (e.g. colorized for the 
-  shell).</p>
+  <p>Embedded differences can be additionally colorized (e.g. for terminal)
+  by setting <code>colorize</code> parameter to <code>True</code>.</p>
   <p>If <code>diffr</code> is <code>True</code>, aside from the message 
   with embedded differences, the total difference ratio is returned (see <a
   href="pology.misc.diff-module.html#msg_diff" class="link">msg_diff</a>). 
@@ -1089,7 +1103,7 @@
         <li><strong class="pname"><code>eokpos</code></strong> (int) - position into <code>ecat</code> where key conflict is ignored</li>
         <li><strong class="pname"><code>enoctxt</code></strong> (string) - <code>msgctxt</code> string that should be padded unconditionally</li>
         <li><strong class="pname"><code>emptydc</code></strong> (bool) - whether to add difference comment even if empty</li>
-        <li><strong class="pname"><code>hlto</code></strong> (file) - destination to produce highlighting for</li>
+        <li><strong class="pname"><code>colorize</code></strong> (bool) - whether to colorize the difference</li>
         <li><strong class="pname"><code>diffr</code></strong> (bool) - whether to report difference ratio</li>
     </ul></dd>
     <dt>Returns: type(emsg or msg2 or msg1 or None) or (type(~), float)</dt>
@@ -1114,11 +1128,10 @@
   </tr></table>
   
   <p>Resolve message with embedded difference to the newer message.</p>
-  <p>Message cannot be properly resolved if <code>hlto</code> or 
-  <code>addrem</code> parameters to <a 
-  href="pology.misc.diff-module.html#msg_ediff" class="link">msg_ediff</a> 
-  were used on embedding. If this function is called on such a message, the
-  result is undefined.</p>
+  <p>Message cannot be properly resolved if <code>addrem</code> parameter 
+  to <a href="pology.misc.diff-module.html#msg_ediff" 
+  class="link">msg_ediff</a> was used on embedding. If this function is 
+  called on such a message, the result is undefined.</p>
   <p>By default a new message object is created, but using the 
   <code>rmsg</code> parameter, en existing message can be given to be 
   filled with all the resolved parts (keeping its own, ignored parts). This
@@ -1202,6 +1215,48 @@
     </ul></dd>
     <dt>Returns: float</dt>
         <dd>the probability of editing the old into the new text [0, 1]</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="descprob"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">descprob</span>(<span class="sig-arg">descpath</span>,
+        <span class="sig-arg">ancpath</span>,
+        <span class="sig-arg">cutoff</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compute the probability that one PO file is a descendant of 
+  another.</p>
+  <p>Sometimes PO files are renamed, split into two, joined into one, also 
+  with possible small changes in messages between old and new set. This 
+  functions uses some heuristics to derive the probability that the PO file
+  given by <code>apath</code> is an ancestor of the PO file given by 
+  <code>dpath</code>. If the probability cannot be determined (for whatever
+  reason, e.g. if the file contains syntax errors), <code>None</code> is 
+  returned.</p>
+  <p>By default, only equality versus non-equality of messages is taken 
+  into consideration. If <code>cutoff</code> is set to a number 0.0-1.0, 
+  then fuzzy matching is performed, and partial similarities greater than 
+  the cutoff are counted into the final probability. However, this reduces 
+  performance by orders of magnitude (the more the lower the cutoff; 
+  0.7-0.8 may be a reasonable tradeoff).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>descpath</code></strong> (string) - path to possible descendent PO file</li>
+        <li><strong class="pname"><code>ancpath</code></strong> (string) - path to possible ancestor PO file</li>
+    </ul></dd>
+    <dt>Returns: float or <code>None</code></dt>
+        <dd>the probability of ancestry [0, 1]</dd>
   </dl>
 </td></tr></table>
 </div>
