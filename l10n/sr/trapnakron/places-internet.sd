@@ -1,4 +1,5 @@
 >base/aff.sd
+>org-activist.sd
 >org-companies.sd
 >software-engines.sd
 >software-system.sd
@@ -18,14 +19,17 @@ Debian BTS Bug Search: Дебијанов|а-> баз|а грешака
     @л: Debianov|a-> baz|a grešaka
 Debian Package Search: Дебијанов|и-> пакет|и-
     @л: Debianov|i-> paket|i-
+Duck Duck Go: Дак дак го|, Дак дак го|ов
+    @л: Duck Duck Go|, Duck Duck Go|ov
+Duck Duck Go Info: |*|{Duck Duck Go} (информације)
+Duck Duck Go Shopping: |*|{Duck Duck Go} (куповина)
+Ecosia, Ecosia search engine: Екозиј|а, Екозиј|ин
+    @л: Ecos|ia, Ecosij|in
 Froogle: Фрогл|, Фрогл|ов
     @л: Froogle|, Froogle|ov
-Google Advanced Search: Гугл| (детаљно)
-    @л: Google| (detaljno)
-Google Image Search: Гугл-слик|е-
-    @л: Google-slik|e-
-Google (I'm Feeling Lucky), |googleimfeelinglucky: Гугл| (из прве руке)
-    @л: Google| (iz prve ruke)
+Google Advanced Search: |*|Google (детаљно)
+Google Image Search: |{Google~н}-слик|е-
+Google (I'm Feeling Lucky), |googleimfeelinglucky: |*|Google (из прве руке)
 KDE Apps, KDE App Search: КДЕ програм|и-
 KDE Bug Database Fulltext Search: КДЕ-ов|а> баз|а грешака (текстуално)
 KDE Bug Database Bug Number Search: КДЕ-ов|а> баз|а грешака (по броју)
@@ -36,11 +40,16 @@ OpenSearch: Отворен|а> претра|га
 RPM-Find: РПМ-траже|ње
 Telephonebook Search Provider: Телефонск|и> именик| (Холандија)
 Teletekst Search Provider: Телетекст| (Холандија)
+Yahoo Local: |{Yahoo~н}-локал|, |{Yahoo~н}-локал|ов
+    @л: Yahoo Local|, Yahoo Local|ov
 
 # ----------------------------------------------------------------------------
 # Продавнице и посредници
 
-Amazon: Амазон|, Амазон|ов
+7Digital: 7-диџитал|, 7-диџитал|ов
+    @л: 7Digital|o, 7Digital|ov
+Amazon, |amazonco: Амазон|, Амазон|ов
+Amazon MP3: |*|amazonco МП3
 Jamendo: Џаменд|о, Џаменд|ов, _род!=м
     @л: Jamend|o, Jamend|ov
 Magnatune, Magnatune.com: Магнатјун|, Магнатјун|ов
@@ -49,6 +58,8 @@ PayPal: Пејпал|, Пејпал|ов, пејпал|>
     @л: PayPal|, PayPal|ov, PayPal|>
 Wikitravel: Викитравел|, Викитравел|ов
     @л: Wikitravel|, Wikitravel|ov
+Yahoo Shopping: |{Yahoo~н}-шопинг|, |{Yahoo~н}-шопинг|ов
+    @л: Yahoo Shopping|, Yahoo Shopping|ov
 
 # ----------------------------------------------------------------------------
 # Дружење, сарадња, комуникација
@@ -75,8 +86,12 @@ Hotmail: Хотмејл|, Хотмејл|ов, хотмејл|>
     @л: Hotmail|, Hotmail|ov, hotmail|>
 identi.ca: Идентик|а, Идентик|ин
     @л: identi.c|a, identi.c|in
+Identi.ca Groups: |*|{identi.ca~н}-груп|е-
+identi.ca Notices: |*|{identi.ca~н}-обавеште|ња
+identi.ca People: |*|{identi.ca~н}-људ|и-и
 KataTudo: Кататуд|о, Кататуд|ов, _род!=м
     @л: KataTud|o, KataTud|ov
+KDE Forums: Форум|и- |KDE~г
 last.fm: ЛастФМ|-, ЛастФМ|-ов
     @л: last.fm|-, last.fm|-ov
 Libre.fm: ЛибреФМ|-, ЛибреФМ|-ов
@@ -97,10 +112,14 @@ Technorati Tags: Техноратијев|е-> ознак|е-
     @л: Technoratijev|e-> oznak|e-
 Twitter: Твитер|, Твитер|ов
     @л: Twitter|, Twitter|ov
+Vimeo: Виме|о, Виме|ов, _род!=м
+Wikia: Викиј|а, Викиј|ин
+    @л: Wik|ia, Wikj|in
 
 # ----------------------------------------------------------------------------
 # Ризнице
 
+Blip.tv: Блип.тв|, Блип.тв|ов
 CPAN - Comprehensive Perl Archive Network: ЦПАН|- — свеобухватн|а> архив|а перла
     @л: CPAN|- — sveobuhvatn|a> arhiv|a Perla
 CTAN Catalog: ЦТАН|-ов> каталог|
@@ -108,12 +127,16 @@ CTAN - Comprehensive TeX Archive Network: ЦТАН|- — свеобухватн|
     @л: CTAN|- — sveobuhvatn|a> arhiv|a TeX-a
 Flickr: Фликр|, Фликр|ов, фликр|>
     @л: Flickr|, Flickr|ov, Flickr|>
+Flickr Creative Commons: |*|Flickr (|{Creative Commons~н})
 Freshmeat: Фрешмит|, Фрешмит|ов
     @л: Freshmeat|, Freshmeat|ov
-Google Maps: Гугл-карт|е-
-    @л: Google-kart|e-
-Google Movies: Гугл-филмов|и-
-    @л: Google-filmov|i-
+GitHub: Гитхаб|, Гитхаб|ов
+    @л: GitHub|, GitHub|ov
+Gitorious: Гиторијус|, Гиторијус|ов
+    @л: Gitorious|, Gitorious|ov
+Google Code: |{Google~н}-код|
+Google Maps: |{Google~н}-карт|е-
+Google Movies: |{Google~н}-филмов|и-
 KDE API Documentation: КДЕ АПИ документациј|а
 KDE-Look: |{KDE~н}-изглед|
 KDE WebSVN: КДЕ|-ов> вебСВН|-
@@ -122,6 +145,9 @@ Ruby Application Archive: Архив|а рубијевских програма
     @л: Arhiv|a ruby programa
 SourceForge: Сорсфорџ|, Сорсфорџ|ов
     @л: SourceForge|, SourceForge|ov
+Yahoo Images: |{Yahoo~н}-слик|е-
+Yahoo Video: |{Yahoo~н}-виде|о, |{Yahoo~н}-виде|ов, _род!=м
+    @л: Yahoo Vide|o, Yahoo Vide|ov
 YouTube: Јутјуб|, Јутјуб|ов
     @л: YouTube|, YouTube|ov
 YouTube HQ: |*|YouTube ХКу
@@ -133,6 +159,7 @@ YouTube HQ: |*|YouTube ХКу
 All Music Guide: Свемузичк|и> водич|
 Babelfish: Бабелфиш|, Бабелфиш|ов
     @л: Babelfish|, Babelfish|ov
+Beolingus Online Dictionary: Беолингус|{}\, речник| на вези
 CDDB: ЦДДБ|-, ЦДДБ|-ов, ЦДДБ|>
 CIA World Fact Book: Цијин|а> Књи|га светских података
     @иј:  Цијин|а> Књи|га свјетских података
@@ -168,6 +195,8 @@ IETF Requests for Comments: ИЕТФ-ов|и-> захтев|и- за комен�
     @иј: ИЕТФ-ов|и-> захтјев|и- за коментаре
 Internet Book List: Интернет спис|ак књига
 Internet Movie Database: Интернет баз|а филмова
+KDE Techbase: |*|Techbase |KDE~г
+KDE Userbase: |*|Userbase |KDE~г
 HyperDictionary.com: Хиперречник|, Хиперречник|ов
     @иј: Хиперрјечник|, Хиперрјечник|ов
 HyperDictionary.com Thesaurus: Хиперречник| (синонимар)
@@ -202,6 +231,7 @@ QRZ.com Callsign Database: КуРЗ.ком| баз|а позивника
 Qt3 Online Documentation: Документациј|а |Qt~г 3 на вези
 Techbase: Техбаз|а, Техбаз|ин
     @л: Techbas|e-a, Techbas|in
+Urban Dictionary: Урбан|и> речник|
 Userbase: Корисничк|а> баз|а
 U.S. Patent Database: Баз|а патената САД
 Wikipedia: Википедиј|а, Википедиј|ин

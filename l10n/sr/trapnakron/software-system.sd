@@ -66,6 +66,7 @@ KDE Software Distribution: Софтверск|а> дистрибуциј|а КД
 Kubuntu: Кубунту|, Кубунту|ов
 Linux: Линукс|, Линукс|ов, линукс|>
     @л: Linux|, Linux|ov, linux|>
+LXDE: ЛИксДЕ|-, ЛИксДЕ|-ов, ЛИксДЕ|>
 MacOS: МекОС|-, МекОС|-ов, МекОС|>
     @л: MacOS|-, MacOS|-ov, MacOS|>
 MacOS X: |*|MacOS X
@@ -115,19 +116,19 @@ Vista: Вист|а, Вист|ин
 VMS: ВМС|-, ВМС|-ов
 WfW: ВфВ|-, ВфВ|-ов
     @л: WfW|-, WfW|-ov
-Windows: Виндоуз|, Виндоуз|ов, виндоуз|>
+Windows, |windowsos: Виндоуз|, Виндоуз|ов, виндоуз|>
     @л: Windows|, Windows|ov, windows|>
-Windows 2000: |*|Windows 2000
-Windows 7: |*|Windows 7
-Windows 95: |*|Windows 95
-Windows 98: |*|Windows 98
-Windows CE: |*|Windows ЦЕ
-Windows ME: |*|Windows МЕ
-Windows NT: |*|Windows НТ
-Windows XP: |*|Windows |XP~н
-Windows Server: |*|Windows сервер|
-    @л: |*|Windows Server|
-Windows Vista: |*|Windows |Vista~., _род!=м
+Windows 2000: |*|windowsos 2000
+Windows 7: |*|windowsos 7
+Windows 95: |*|windowsos 95
+Windows 98: |*|windowsos 98
+Windows CE: |*|windowsos ЦЕ
+Windows ME: |*|windowsos МЕ
+Windows NT: |*|windowsos НТ
+Windows XP: |*|windowsos |XP~н
+Windows Server: |*|windowsos сервер|
+    @л: |*|windowsos Server|
+Windows Vista: |*|windowsos |Vista~., _род!=м
 XFce: Иксефце|, Иксефце|ов
     @л: XFce|, XFce|ov
 XP: ИксП|-, ИксП|-ов
@@ -254,8 +255,8 @@ uTorrent, µTorrent: Микроторент|, Микроторент|ов
     @л: µTorrent|, µTorrent|ov
 wget: Вгет|, Вгет|ов
     @л: wget|, wget|ov
-Windows Explorer: |*|^Windows~.м експлорер|
-    @л: |^Windows~.м Explorer|
+Windows Explorer: |*|^windowsos~.м експлорер|
+    @л: |^windowsos~.м Explorer|
 XFTP: ИксФТП|-, ИксФТП|-ов
     @л: XFTP|-, XFTP|-ov
 

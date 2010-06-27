@@ -17,6 +17,7 @@
 
 3D Earth Model: 3Д-модел| Земље
 Activity Bar: тра|ка активности
+Activity Manager: менаџер| активности
 Analog Clock: аналогн|и> сат|
 Application Information: пода|ци-т о програмима
 Application Job Information: пода|ци-т о пословима програма̂
@@ -51,6 +52,7 @@ Command Line: командн|а линија
 Command line runner: извођ|ач командне линије
 Contacts: контакт|и-
 Control Audio Player: управља|ње аудио плејером
+CPU Monitor: надзор| процесора
 Current Application Control: управља|ње текућим програмом
 Dashboard: инструмент-табл|а
 Dashboard Widget: виџет| |Dashboard~г
@@ -59,9 +61,12 @@ DBpedia queries: упит|и- |DBpedia~г
 Default Plasma Animator: подразумеван|и> |Plasma~.м аниматор|
     @иј: подразумијеван|и> |Plasma~.м аниматор|
 Device Information: пода|ци-т о уређајима
-Device Notifier: обавештава|ње о уређајима
-    @иј: обавјештава|ње о уређајима
+Device Notifier: извештав|ач о уређајима
+    @иј: извјештав|ач о уређајима
+Devices, |devicesrn: уређај|и-
+Desktop, |desktopcnt: ¤површ|-ж
 Desktop Activity: активн|ост површи
+Desktop Dashboard: инструмент-табл|а површи
 Desktop Search: претра|га радне површи
 Desktop Sessions: сесиј|е- радне површи
 Desktop Sessions Runner: извођ|ач сесија радне површи
@@ -71,6 +76,7 @@ Dictionary Data Engine: датомотор| речника
     @иј: датомотор| рјечника
 Digital Clock: дигиталн|и> сат|
 Earth Science Picture of the Day: геонаучн|а> сли|ка дана
+Empty Panel: праз|ан> панел|
 Eyes: оч|и-с
 Favicons: фавикон|е-
 Fifteen Puzzle: петнаестиц|а
@@ -84,6 +90,9 @@ Geolocation: геолокациј|а
 Geolocation GPS: |Geolocation ГПС
 Geolocation IP: |Geolocation ИП
 Google Gadgets: |Google~.жкп справиц|е-
+Hard Disk Status: ста|ње хард диска
+Hardware Info: подац|и- о хардверу
+Hardware Temperature: температур|а хардвера
 Hotplug Event Data Engine: датомотор| врућег укључивања
 Hotplug Events: догађај|и- врућег укључивања
 Icon: икон|а
@@ -130,6 +139,7 @@ Lock/Logout: закључава|{ње}/одјав|а, _род!=с
 MacOS Dashboard Widgets: виџет|и- инструмент-табле |MacOS~г
 Magnifique: магнифик|
 Media Player: медија плејер|
+Memory Status: ста|ње меморије
 Meta Data: метапода|ци-т
 Microblogging: микроблогова|ње
 minicli: миникл|и
@@ -143,9 +153,10 @@ Navigation Panel: навигацион|и> панел|
 Nepomuk Desktop Search Runner: извођ|ач |Nepomuk~гжп претраге површи
 Networking: умрежава|ње
 Network interface information: пода|ци-т о мрежном сучељу
+Network Monitor: надзор| мреже
 Newspaper activity: новинск|а> активн|ост
-New Device Notifier: обавештава|ње о новим уређајима
-    @иј: обавјештава|ње о новим уређајима
+New Device Notifier: извештав|ач о новим уређајима
+    @иј: извјештав|ач о новим уређајима
 News, |newsapl: вест|и-ж
     @иј: вијест|и-ж
 News Ticker: куц|ач вести
@@ -215,14 +226,8 @@ Standard Menu: стандардн|и> мен|и
 Switch Activity: пребацива|ње активности
 Switch Desktop: пребацива|ње површи
 Switch Window: пребацива|ње прозора
-System Monitor: системск|и> монитор|
+System Monitor: надзорник| система
 System Load Viewer: приказив|ач оптерећења система
-System Monitor - CPU: |{System Monitor} (ЦПУ)
-System Monitor - Hard Disk: |{System Monitor} (хард-диск)
-System Monitor - Hardware Info: |{System Monitor} (о хардверу)
-System Monitor - Network: |{System Monitor} (мрежа)
-System Monitor - RAM: |{System Monitor} (РАМ)
-System Monitor - Temperature: |{System Monitor} (температура)
 System Tray: системск|а> касет|а
 Task Management Data Engine: датомотор| управљања задацима
 Task Manager: менаџер| задатака
@@ -251,3 +256,5 @@ Webshortcut runner: извођ|ач веб пречица
 Wikimedia Picture of the Day: |Wikimedia~.жп сли|ка дана
 Window Information: пода|ци-т о прозорима
 Window List: спис|ак прозора
+Windowed widgets: виџет|и- с прозором
+Windows, |windowsrn: прозор|и-
