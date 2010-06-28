@@ -1,0 +1,20 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Remove XML entities.
+addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+
+include file="filter.include"
+
+# «Please» se traduce como «Por favor».
+{\bplease\b}i
+valid msgstr="por\sfavor"
+hint="« Please » se traduce como como « Por favor », sea amable (ver glosario)"
+
+{\bstandard\b}i
+valid msgstr="estándar"
+hint="« Standard » se traduce como como « Estándar », (ver glosario)"
+
+# End of rule file

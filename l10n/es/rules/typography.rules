@@ -1,52 +1,30 @@
 # Spanish typographic rules
 # Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
+# based in the work of the KDE French Team
 # License: GPLv3
 
 include file="filter.include"
 
 # Remove single characters in quotes.
-addFilterRegex match="«.»" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*«.»" on="pmsgid,pmsgstr"
 
-# Remove abreviations.
-addFilterRegex match="[etc\.|Ej\.|ej\.|P\.e\.|p\.e\.]" on="pmsgid,pmsgstr"
+# Remove some abreviations.
+addFilterRegex match="\s?(etc\.|Ej\.|ej\.|P\.e\.|p\.e\.|EE\.UU\.|id\.|Id\.|a\.m\.|p\.m\.|n\.t\.)" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
-addFilterRegex match="\.\.\." on="pmsgid,pmsgstr"
-addFilterRegex match="\?\?\?" on="pmsgid,pmsgstr"
-addFilterRegex match="\%\%" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*(\.\.\.|\?\?\?|\%\%|\:\:)" on="pmsgid,pmsgstr"
 
-addFilterHook name="es:patternAccents" on="pattern"
-addFilterHook name="es:patternEntities" on="pattern"
-
-validGroup strongTypo
-valid after="\S" before="(</[a-zA-Z0-9]+>)*\s" 
-valid after="\S" before="(</[a-zA-Z0-9]+>)*$"
-valid after="\S" before="(</[a-zA-Z0-9]+>)*\n"
-valid after="\S" before="(</[a-zA-Z0-9]+>)*</?p>" 
-valid after="\S" before="(</[a-zA-Z0-9]+>)*</?br\s?/?>" 
-valid after="\S" before="(</[a-zA-Z0-9]+>)*</?ul>" 
-valid after="\S" before="(</[a-zA-Z0-9]+>)*</qt>"
-valid after="\S" before="(</[a-zA-Z0-9]+>)*<nl/>"
-valid after="\S" before="(</[a-zA-Z0-9]+>)*\S»"
-valid after="\S" before="(</[a-zA-Z0-9]+>)*</interface"
-
-validGroup inParenthesis
-valid after="\(" before="\)"
-valid after="\{" before="\}"
-valid after="\[" before="\]"
-valid after="\<" before="\>"
-
-validGroup alone
-valid after="^" before="$"
+# Remove more usual smileis.
+addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" on="pmsgid,pmsgstr"
 
 validGroup beforePunctuation
-valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^]"
+valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
 valid before="$"
 valid after="\&\w+\;"
 
 validGroup afterPunctuation
-valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^]"
+valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
 valid after="^"
 
 validGroup openQuotes
@@ -57,36 +35,30 @@ valid before=".+»"
 
 validGroup closeQuotes
 valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
-valid before="$"
 valid after="\&\w+\;"
+valid before="$"
 valid after="«.+"
 
 [\s:]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid before="\{"
 hint="No ponga un espacio antes del signo de dos puntos"
 
 [:\S]
-validGroup strongTypo
 validGroup beforePunctuation
+valid before="\s"
 valid after="^"
-valid after="\S" before="\t"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
-valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?" before="/" 
-valid after="gg|google" before="KDE|[a-z]+"
+valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?"
 valid after="\d\d?" before="\d\d?"
 valid after="([pH]H|hh|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
 valid after="horas" before="minutos"
 valid after="minutos" before="segundos"
 valid after="\%\d" before="\%\d"
-valid before="-?[\)|\(]" # Smiley
-valid before="\s?\d+(px)?;" # CSS
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
 valid after="white-space" # CSS
-valid after="color" before="#|\s?[A-Z-a-z]" # CSS
-valid after="bottom" before="\s\d+" # CSS
-valid after="\"\S+" before="%?\d+\"" # CSS
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
@@ -100,7 +72,6 @@ valid ctx="CSV separator"
 hint="No ponga un espacio antes del signo de punto y coma"
 
 [;\S]
-validGroup strongTypo
 validGroup beforePunctuation
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
@@ -115,9 +86,7 @@ valid ctx="CSV separator"
 hint="No ponga un espacio antes del signo de cierre de admiración"
 
 [\!\S]
-validGroup strongTypo
 validGroup beforePunctuation
-valid after="^\<" before="DOCTYPE"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Ponga un espacio después del signo de cierre de admiración"
@@ -132,7 +101,6 @@ valid ctx="Query"
 hint="No ponga un espacio antes del signo de cierre de interrogación"
 
 [\?\S]
-validGroup strongTypo
 validGroup beforePunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
@@ -157,92 +125,96 @@ valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
-valid msgid="\bYour emails\b"
+#valid msgid="\bYour emails\b"
 hint="Ponga un espacio de separación después del signo de coma"
 
-[»\S]
+[\»]
 validGroup closeQuotes 
-valid after="\S" before="\<\/pre>|\<\/p>|\<\/li>|\<br\s?/?\>|\</a\>"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
-[\S«]
+[\«]
 validGroup openQuotes
 valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
-[\"]
-validGroup alone
-valid after="\s+(=|]|PS1|\")"
-valid before="\s*/?>|&gt|}"
-valid after="\d+"
-valid after="="
-valid after="=\S+" # HTML
-valid msgid="DOCTYPE HTML PUBLIC "
-valid ctx="Numbers and characters"
-valid ctx="characters are not allowed"
-hint="Utilice comillas españolas (alt-gr z, alt-gr x), en lugar de un apóstrofo"
+[\«]
+valid before=".*\»"
+hint="Cierre la comilla (deben ir emparejadas)"
+
 
 [\s\s+]
 valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
 
 [\s\%]
-valid before="[0-9ns]"
-valid before="[A-Za-z_]"
-valid before="appname|progname|execname"
-valid before="%"
+valid before="(\w|\d)"
 valid before="$"
 valid after="width=\"\d+" before="\"" # HTML                         
 valid ctx="Numbers and characters"
 hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
-[\%[A-Za-z]]
-validGroup beforePunctuation
-valid after="font-size:[0-9]+"# CSS
-valid after="width=\"\d+" before="\"" # HTML                         
-valid ctx="Numbers and characters"
-hint="Ponga un espacio de separación después de un signo de porcentaje"
+#[\%\w]
+#validGroup beforePunctuation
+#valid after="font-size:[0-9]+"# CSS
+#valid after="width=\"\d+" before="\"" # HTML                         
+#valid ctx="Numbers and characters"
+#hint="Ponga un espacio de separación después de un signo de porcentaje"
 
 [\s\.]
-valid before="[a-zA-Z]+" # Nombres de archivos ocultos
+valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
+valid before="[A-Za-z0-9]{2,3}[\s|\,|$]" # Extensions
 hint="No ponga espacios antes de un signo de punto"
 
 [\.\)]
 valid after="S\.u\.S\.E"
 valid cat="kspread"
 valid cat="kstars"
-valid after="etc|min|sec|s|appl|p"
+valid after="etc|min|sec|s|appl"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
 [\.\S]
 validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
-valid before="Xclients"
-valid before="Xmodmap"
-valid before="Xsession"
-valid before="Xdefaults"
-valid before="Xresources"
-valid before="DCOPserver"
-valid before="\/configure"
-valid before="[A-Z]{2}" # Extensions
-valid before="[a-z]{2}" # Extensions
-valid after="Last" before="Fm"
+valid before="D?COPserver"
+valid before="[A-Z]{1,2}" # Extensions
+valid before="[a-z]{1,2}" # Extensions
+valid after="Last" before="F?m"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después de un signo de punto"
 
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
-[\S[,|;]\s[A-Z]]
+#[\S[,|;]\s[A-Z]]
 # valid after proper names
-valid ctx="NAME OF TRANSLATORS"
-valid after="\s(\d){3}" # Names after year of copyrigth
-valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-valid before="[A-Za-z]{2}[\s|\,|$]" # Extensions
-hint="Utilice minúsculas después de una coma o punto y coma"
+#valid ctx="NAME OF TRANSLATORS"
+#valid after="\s(\d){3}" # Names after year of copyrigth
+#valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
+#valid before="[A-Za-z]{2}[\s|\,|$]" # Extensions
+#hint="Utilice minúsculas después de una coma o punto y coma"
+
+#{\S[,|;]\s(?<Nombre>[\w|\d]+)}
+#valid msgstr="\S[,|;]\s[^[A-Z]|?<Nombre>]"
+#hint="Utilice minúsculas después de una coma o punto y coma"
 
 [\S[.]\s[a-z]] 
 hint="Utilice mayúsculas después de punto"
+
+[\(]
+valid before=".*[\)|\»|\"|\']"
+hint="Cierre el paréntesis (deben ir emparejados)"
+
+#[\[]
+#valid before=".*[\]|\»|\"|\']"
+#hint="Cierre el corchete (deben ir emparejados)"
+
+[\{]
+valid before=".*[\}|\»|\"|\']"
+hint="Cierre la llave (deben ir emparejadas)"
+
+[\(c\)]
+valid msgstr="©"
+hint="Utilice el símbolo «©» en lugar de «(c)»"
 
 # End of rule file

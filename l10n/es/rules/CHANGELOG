@@ -1,0 +1,135 @@
+Cambios 28/6/2010
+-----------------
+1.- Cambios en «filter.include»
+- Incluir los espacios de la izquierda (si existen) en las reglas de filtrado.
+(se excluyen para evitar identificaciones incorrectas en la regla 
+de repetición de espacios).
+- Incluir nuevas reglas de filtrado sobre:
+  - Nombres de archivos del sistema.
+  - Directorios ocultos.
+  - Archivos ocultos.
+  - Órdenes que comienzan por punto.
+- Corregir las reglas de filtrado existentes, mejorando la detección de:
+  - Páginas web.
+  - Direcciones de correo.
+  - Entidades XML.
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Quitar referencias al directorio «hook».
+- Corregir el tratamiento de palabras compuestas.
+- Traducciones alternativas para «home» (en solitario 
+o antes de «folder», «directory», «page» y «address»).
+
+3.- Cambios en «typography.rules»
+- Quitar referencias al directorio «hook».
+- Mas limpieza de reglas del equipo francés.
+- Nuevo filtro para excluir de las comprobaciones los emoticones (smileis) 
+mas habituales.
+- Corregir reglas de comillas españolas.
+- Nueva regla sobre símbolo de copyrigth.
+- Nuevas reglas sobre emparejamiento de comillas, paréntesis y llaves.
+
+4.- Nuevo archivo «translators.rules»
+  Contiene reglas sobre los contextos «NAMES|EMAILS OF TRANSLATORS».
+  El error mas habitual es incluir espacios al lado de las comas que 
+separan los nombres o direcciones de correo.
+
+5.- Nuevo archivo «glosario-kde-l10n-es-proposed.rules»
+  Contiene reglas que tiene que revisar el coordinador del equipo antes de su 
+incorporación al glosario y su correspondiente archivo de reglas.
+  Se trata de ampliar el glosario con vocabulario de interés tomado de otras 
+fuentes (p.e. el del equipo gallego).
+
+6.- Archivos que desaparecen. (Hay que borrarlos del repositorio).
+- Directorio «hook», que ya no es necesario después de la limpieza de reglas
+del equipo francés.
+- Archivos «glosario-kde-l10n-es.changelog» y ««typography.changelog»,
+que se sustituyen por este documento.
+
+7.- Nuevo archivo «TODO».
+  Incluye ideas sobre posibles futuras mejoras.
+ 
+Cambios 24/6/2010
+-----------------
+1.- Nuevo archivo «filter.include»
+  Contiene reglas de filtrado para excluir cadenas mediante expresiones 
+regulares (basándose en los ejemplos de la documentación).
+  - Palabras entre etiquetas XML.
+  - Opciones de línea de órdenes.
+  . Parámetros de funciones.
+  - Variables de entorno.
+  - Entidades XML.
+  - Páginas web.
+  - Direcciones de correo.
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Incluir reglas sobre el texto traducido cuando se trata casi siempre de un error (p.e. «soportar»).
+- Admitir «conseguir» como traducción de «get».
+- Admitir «inicial», «inicia» e «inicie» como traducción de «start».
+- Admitir «orden» como traducción de «sort».
+- Admitir «visualización» como traducción de «display».
+- Admitir «active/activa» como traducción de «enable».
+- Admitir «desactive/desactiva» como traducción de «disable».
+- Admitir «configurado/a» y «configure» como traducción de «set up».
+- Admitir «comiencen/comienzan/comienza» como traducción de «start».
+- Admitir «comienza/comienzan» como traducción de «starting».
+- Admitir «principio» como traducción de «start».
+- Admitir «abreviatura» como traducción de «shorthand».
+- Admitir «mapearse» como traducción de «mapped».
+- Admitir «ejecute» como traducción de «run».
+- Admitir «copias de respaldo» como traducción de «backup».
+- Admitir «detenga» y «detiene» como traducción de «stop».
+- Admitir «purga» como traducción de «purge».
+- Admitir «particular» como traducción de «home» después de «dirección».
+- Admitir «archivar» como traducción de «archive».
+- Admitir «explora» como traducción de «scan».
+- Admitir «desplegable» como traducción de «drop-down».
+- Admitir «entrecomillada» como traducción de «quoted».
+- Admitir «salto de línea» como traducción de «line feed».
+- Admitir «dañada» como traducción de «corrupted».
+- Admitir «admite» como traducción de «support».
+- Admitir «proporcione» como traducción de «provide».
+- Admitir «comprimido» como traducción de «compact».
+- Admitir «órdenes» como traducción de «command».
+- Admitir «Map» sin traducir después de «Google».
+- Admitir «server» sin traducir después de «media».
+- Admitir «type=» y «type:» sin traducir.
+- Admitir «-batch» sin traducir.
+- Admitir «/home» sin traducir.
+- Admitir «compact disk» sin traducir.
+- Admitir «ide-scsi» sin traducir.
+- No admitir «URL» como masculino (precedido de «el» o «un»).
+- No admitir «soportan» o «soporten» como traducción de «support». 
+
+3.- Cambios en «typography.rules»
+- Limpieza de reglas del equipo francés no aplicables.
+- Separar en reglas diferentes la comprobación de uso o no de espacios junto a signos de puntuación.
+- Excluir de la comprobación páginas web y direcciones de correo (reglas de filtrado).
+- Admitir «)», «]», «}», «<» y «>» después de '»'.
+- Admitir «(», «[», «{», «<» y «>» antes de '«'.
+- Permitir cualquier carácter dentro de comillas españolas '«»'.
+- Admitir variables antes de signos de puntuación y paréntesis.
+- Admitir «.» antes de «com», «org» o «net».
+- Admitir «>» después de punto.
+- Admitir «.» antes de «html» y «xml».
+- Admitir « ... ».
+- Admitir «Ej.:», «ej.:», «p.e.:», «Id.» e «id.» y minúscula posterior.
+- Admitir «./configure»
+- Admitir «#!/bin/bash» y similares.
+- No permitir minúsculas después de punto.
+- No permitir mayúsculas después de coma y punto y coma.
+- Comprobar el emparejamiento de signos de admiración e interrogación.
+- Comprobar los paréntesis con reglas similares a las comillas españolas.
+- No obligar a poner espacio después de coma en «Your emails».
+
+4.- Nuevo archivo «paragraph-begin.rules»
+  Contiene reglas aplicables en el inicio de párrafo o después de un fin de línea.
+Comprende:
+- Concordancia de espacios.
+- Concordancia de capitalización.
+
+5.- Nuevo archivo «paragraph-end.rules»
+  Contiene reglas aplicables en el fin de párrafo o antes de un fin de línea.
+Comprende:
+- Concordancia de espacios.
+- Concordancia de signos de puntuación.

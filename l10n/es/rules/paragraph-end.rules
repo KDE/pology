@@ -4,7 +4,7 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
 
 # Falta espacio al final del párrafo.
 {\s$}i
@@ -70,12 +70,14 @@ hint="Compruebe el uso de punto y coma antes del fin de línea «\n»."
 {\.\)\s*$}i
 valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)s*$"
+valid msgstr="\w\."
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
 # Paréntesis en el fin de línea «\n».
 {\.\)\s*\\n}i
 valid msgstr="\)\.\s*\\n"
 valid msgstr="etc\.\)\s*\\n"
+valid msgstr="\w\."
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 # End of rule file

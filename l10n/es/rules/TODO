@@ -1,0 +1,28 @@
+ 
+1.- Reglas de puntuación:
+- Excluir la reglas de puntuación para determinados contextos.
+- No aplicar la regla de obligatoriedad de mayúsculas después 
+de coma o punto y coma en el caso de que siga un nombre propio. 
+(Investigar el uso de «proper-words» en pology).
+(He desactivado esta regla por el momento debido al elevado número 
+de falsos positivos).
+- No aplicar la regla de obligatoriedad de espacio después 
+de un punto en el caso que siga un nombre de archivo 
+(archivo oculto o ejecución de orden).
+(De momento ya está hecho para algunos casos frecuentes).
+
+2.- Reglas de vocabulario:
+- Excluirlas para determinados contextos. 
+(como nombres y correos de traductores).
+- Comprobación de la concordancia de género y número.
+- Tratamiento de las conjugaciones de la traducción al español de los verbos
+auxiliares ingleses «did», «will», «would», «could», «should», ..., y en
+combinación con «not».
+- Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
+- Utilizar expresiones regulares para las terminaciones de palabras 
+parecidas (se reduce el número de reglas).
+- Incorporar a las reglas (y en su caso al glosario) las del equipo gallego 
+que resulten aplicables y de interés para nosotros.
+
+3.- Revisar las reglas con otros paquetes (hasta el momento las he probado 
+con «kdelibs», «kdepim», «kdegraphics» y «extragear-multimeadia»).

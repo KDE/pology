@@ -4,25 +4,34 @@
 # License: GPLv3
 
 # Remove XML-like tags.
-# addFilterRegex match="\<\/?w+\>" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\<\/?(\w|\s|\=|\_|\-|\.|\"|\\)+\/?\>" on="pmsgid,pmsgstr"
 
 # Remove long command-line options.
-addFilterRegex match="\-\-(\w|\-)+" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*\-\-(\w|\-)+" on="pmsgid,pmsgstr"
 
 # Remove function calls like foo(x, y).
-addFilterRegex match="\w+\(.+\)" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*\w+\(.*\)" on="pmsgid,pmsgstr"
 
 # Remove environment variables.
-addFilterRegex match="\$\<?[A-Z]+\>?" on="pmsgid,pmsgstr"
-
-# Remove XML entities.
-# addFilterRegex match="\&\w+\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*\$\<?[A-Z]+\>?" on="pmsgid,pmsgstr"
 
 # Remove web pages.
-addFilterRegex match="(http|https|ftp|sftp):\/\/(\w*\.)+(com|net|org|biz|info|mobi|name)(\.[a-z]{1,3})?(\:\d{2,4})?(\/\w*)*\/?" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*(http|https|ftp|sftp):\/\/(\w*\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\4\.\5)(\:\d{2,4})?(\/\w+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*)?(\#\w+)?" on="pmsgid,pmsgstr"
 
-# Remove web pages without protocol starting with «www».
-addFilterRegex match="www\.\w*\.(com|net|org|biz|info|mobi|name)(\.[a-z]{1,3})?(\:\d{2,4})?(\/\w*)*\/?" on="pmsgid,pmsgstr"
+# Remove web pages without protocol, starting with «www».
+addFilterRegex match="\s*www\.(\w*\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\3\.\4)(\:\d{2,4})?(\/\w+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*)?(\#\w+)?" on="pmsgid,pmsgstr"
 
-# Remove email address
-addFilterRegex match="[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}" on="pmsgid,pmsgstr"
+# Remove email addresses.
+addFilterRegex match="\s*(mailto\:)?([a-zA-Z0-9\_\-]+)(\.\2)*\@(\.\2)+\.[a-zA-Z]{2,4}" on="pmsgid,pmsgstr"
+
+# Remove system files.
+addFilterRegex match="\s*(file\:)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/w+)*\/?" on="pmsgid,pmsgstr"
+
+# Remove more important (as I guees) hidden directories.
+addFilterRegex match="\s*\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)(\/w+)*\/?" on="pmsgid,pmsgstr"
+
+# Remove more important (as I guess) hidden files.
+addFilterRegex match="\s*\.(\w+rc|\w+config|aspell\w*|bash\w*|directory|fonts\w*|ICEauthority|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" on="pmsgid,pmsgstr"
+
+# Remove more important (as I guess) commands.
+addFilterRegex match="\s*\.(\/configure)" on="pmsgid,pmsgstr"

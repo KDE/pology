@@ -1,0 +1,40 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Adapted from «Technical mistakes in Norwegian Nynorsk».
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+*msgctxt/(NAME|EMAIL) OF TRANSLATORS/
+id="traductores-comas-despues-espacios"
+hint="No incluya espacios despues de la coma en la lista de traductores"
+valid !msgstr="\,\s"
+
+*msgctxt/(NAME|EMAIL) OF TRANSLATORS/
+id="traductores-comas-antes-espacios"
+hint="No incluya espacios antes de la coma en la lista de traductores"
+valid !msgstr="\s\,"
+
+*msgctxt/NAME OF TRANSLATORS/
+id="traductores-sin-nombre"
+hint="Cumplimente al menos el nombre de un traductor, no aparece el inicio de ninguno"
+valid msgstr="[A-Z]\w+"
+
+*msgctxt/EMAIL OF TRANSLATORS/
+id="traductores-sin-arroba-direccion-correo"
+valid msgstr="\w+\@\w+"
+hint="Compruebe el formato de las direcciones de correo, no incluyen ninguna arroba intermedia"
+
+*msgctxt/EMAIL OF TRANSLATORS/
+id="traductores-sin-punto-direccion-correo"
+valid msgstr="\w\.\w"
+hint="Compruebe el formato de las direcciones de correo, no incluyen ningún punto intermedio"
+
+*msgctxt/EMAIL OF TRANSLATORS/
+id="traductores-caracteres-invalidos-direccion-correo"
+valid msgstr="^[A-Za-z0-9\_\-\@\.\,\s]+$"
+hint="Compruebe el formato de las direcciones de correo, incluyen caracteres no válidos"
+
+# End of rules
