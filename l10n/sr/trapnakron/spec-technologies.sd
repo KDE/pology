@@ -4,6 +4,8 @@
 # ----------------------------------------------------------------------------
 # Хардверске
 
+3DNow!: 3Д-нау|, н&а=3Д-нау!, 3Д-нау!|>
+    @л: 3DNow|, н&а=3DNow!, 3DNow!|>
 ACCESS, |accessbus: ¤аксес|, аксес|>
     @л: ×ACCESS|, ACCESS|>
 ACPI: АЦП|И-, АЦПИ|>
@@ -51,6 +53,8 @@ INDI: ИНД|И-, ИНДИ|>
 InfiniBand: инфинибанд|, инфинибанд|ов, инфинибанд|>
     @л: InfiniBand|, InfiniBand|ov, InfiniBand|>
 ISA: ИС|А, ИСА|>
+iVec: и-век|, и-век|ов, и-век|>
+    @л: iVec|, iVec|ov, iVec|>
 JustLink: џастлинк|, џастлинк|>, _син=|BurnFree~н
     @л: JustLink|, JustLink|>
 LBA: ЛБА|-, ЛБА|>
@@ -58,6 +62,8 @@ MicroChannel: микрочанел|, микрочанел|ов, микрочан
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
 mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
     @л: mini-ITX|-, mini-ITX|>
+MMX: ММИкс|-, ММИкс|-ов, ММИкс|, _пр=Multimedia Extensions
+    @л: MMX|-, MMX|-ov, MMX|>
 NuBus: нубус|, нубус|ов, нубус|>
     @л: NuBus|, NuBus|ov, NuBus|>
 OHCI: ОХЦ|И-, ОХЦИ|>
@@ -79,6 +85,13 @@ SERCOS: СЕРКОС|-, СЕРКОС|>
     @л: SERCOS|-, SERCOS|>
 SMBus: СМбус|, СМбус|>
     @л: SMBus|, SMBus|>
+SSE: ССЕ|-, ССЕ|-ов, ССЕ|>, _пр=Streaming SIMD Extensions
+SSE2: ССЕ|- 2, н&а=ССЕ-2, ССЕ-2|>
+    @л: SSE|- 2, н&а=SSE2, SSE2|>
+SSE3: ССЕ|- 2, н&а=ССЕ3, ССЕ3|>
+    @л: SSE|- 3, н&а=SSE3, SSE3|>
+SSE4: ССЕ|- 4, н&а=ССЕ4, ССЕ4|>
+    @л: SSE|- 4, н&а=SSE4, SSE4|>
 UHCI: УХЦ|И-, УХЦИ|>
 USB: УСБ|-, УСБ|>
 XG, |xgmidi: ИксГ|-, ИксГ|-ов, ИксГ|>
