@@ -166,6 +166,7 @@ valid span="_lv-"
 # The following rules should be applied on pure text.
 clearFilters
 include file="puretext.filters"
+removeFilter handle="uiref"
 
 # Check spelling.
 *hook name="check-lingo/check-spell-sp" factory="" on="msgstr"

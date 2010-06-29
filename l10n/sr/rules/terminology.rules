@@ -472,7 +472,7 @@ valid cat="konsole" msgid="^Remote tab title format:$" msgstr="^Формат у�
 valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
 valid cat="konsole" msgid="^Tab bar position:$" msgstr="^Положај:$"
 
-{\btable}i
+{\btables?\b}i
 id="table"
 hint="table = табела"
 valid before=" of contents"
