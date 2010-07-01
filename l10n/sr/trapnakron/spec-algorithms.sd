@@ -46,25 +46,40 @@ Gauss-Seidel: Гаус-Зајдел|, Гаус-Зајдел|ов
 
 ASCII: аск|и, аски|>
     @л: ASCII|-, ASCII|>
-base64: баз|{а}64
-    @л: base64|*, _rod!=ž
+ASCII85: |{ASCII}-85
+base32: баз|{а}32, база32|>
+    @л: base32|*, base32|>, _rod!=ž
+base64: баз|{а}64, база64|>
+    @л: base64|*, base64|>, _rod!=ž
+base32hex: баз|{а}32хекс, база32хекс|>
+    @л: base32|{*}hex, base32hex|>, _rod!=ž
 Big5: биг5|*, биг5|>, _род!=м
     @л: Big5|*, Big5|>
 Big5-HKSCS: биг5-ХКСЦС|-, биг5-ХКСЦС|>
     @л: Big5-HKSCS|-, Big5-HKSCS|>
 euc-JP: еуц-ЈП|-, еуц-ЈП|>
 euc-KR: еуц-КР|-, еуц-КР|>
+HEX, |hexenc: ХЕКС|-, ХЕКС|>
+    @л: HEX|-, HEX|>
 ISO-8859: ИСО|- 8859, н&а=ИСО-8859, ИСО-8859|>
 KOI8-R: КОИ8-Р|*, КОИ8-Р|>, _род!=м
 KOI8-U: КОИ8-У|*, КОИ8-У|>, _род!=м
 Latin1: латиниц|{а}-1
 Latin2: латиниц|{а}-2
 quoted-printable: навод-читк|о>
+S-Record: с-рекорд|, с-рекорд|>
+    @л: S-Record|, S-Record|>
 Unicode: уникод|, уникод|ов, уникод|ски
     @л: Unicode|, Unicode|ov, Unicode|>
 UTF: УТФ|-, УТФ|>
 UTF-8, UTF8: УТФ-8|*, УТФ-8|>, _род!=м
 UTF-16: УТФ-16|*, УТФ-16|>, _род!=м
+Uuencoding: уу-кодира|ње, уу-код|ни
+    @л: Uuencoding|, Uuencoding|>
+xxencoding: иксикс-кодира|ње, иксикс-код|ни
+    @л: Xxencoding|, Xxencoding|>
+z-base-32: з-баз|{а}-32, з-база-32|>
+    @л: z-base-32|*, z-base-32|>, _rod!=ž
 ZWJ: ЗВЈ|-, ЗВЈ|>
     @л: ZWJ|-, ZWJ|>
 ZWNJ: ЗВНЈ|-, ЗВНЈ|>
