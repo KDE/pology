@@ -276,6 +276,7 @@ class Message_base (object):
         """
 
         self.__dict__["^getsetattr"] = getsetattr
+        self._colorize_prev = None
 
 
     def __getattr__ (self, att):
@@ -611,9 +612,13 @@ class Message_base (object):
         @see: L{pology.misc.wrap}
         """
 
-        # Renew lines if forced, no lines formed yet, or no modcounter.
-        if force or getattr(self, "modcount", True) or not self._lines_all:
+        # Renew lines if one of: forced, no lines formed yet, no modcounter,
+        # different colorization.
+        if (   force or getattr(self, "modcount", True) or not self._lines_all
+            or colorize != self._colorize_prev
+        ):
             self._renew_lines(wrapf, force, colorize)
+            self._colorize_prev = colorize
 
         return self._lines_all
 
@@ -956,8 +961,8 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
     def _renew_lines (self, wrapf=wrap_field, force=False, colorize=0):
 
-        mod = {}
         if not self.obsolete_modcount:
+            mod = {}
             mod["manual_comment"] =    self.manual_comment_modcount \
                                     or self.manual_comment.modcount
             mod["auto_comment"] =    self.auto_comment_modcount \
@@ -970,13 +975,8 @@ class Message (Message_base, Monitored): # order important for get/setattr
         else:
             # Must recompute all lines if the message has been modified
             # by changing the obsolete status.
-            mod["manual_comment"] = True
-            mod["auto_comment"] = True
-            mod["source"] = True
-            mod["flag"] = True
-            for att in _Message_single_fields:
-                mod[att] = True
-            mod["msgstr"] = True
+            mod = None
+            force = True
 
         return self._renew_lines_bymod(mod, wrapf, force, colorize)
 
