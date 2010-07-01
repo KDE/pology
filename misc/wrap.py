@@ -78,7 +78,7 @@ def _tag_split (tag):
 
 def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
                natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
-               wcolmin=0, midbr=True, remtrws=False, addnl=True):
+               wcolmin=0, midbr=True, remtrws=False, endl="\n"):
     """
     Wrap text into lines.
 
@@ -128,8 +128,8 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
         whether to strictly remove any trailing whitespace in wrapped lines
         (otherwise trailing whitespace may be left in under certain conditions)
     @type remtrws: bool
-    @param addnl: whether to add newline to end of each line
-    @type addnl: bool
+    @param endl: line end marker for each line
+    @type endl: string
     @returns: wrapped lines
     @rtype: [string*]
     """
@@ -279,8 +279,8 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
                 else:      clead = lead
             tmp = lines[i][len(clead):]
             lines[i] = clead + tmp.rstrip()
-        if addnl:
-            lines[i] += "\n" # terminate with newline
+        if endl:
+            lines[i] += endl
 
     return lines
 

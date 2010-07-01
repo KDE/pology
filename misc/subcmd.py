@@ -196,7 +196,7 @@ class ParamParser (object):
                 s = name + ndsep + desc
             else:
                 s = name
-            lines = wrap_text(s, wcol=wcol, flead=flead, lead=lead, addnl=False)
+            lines = wrap_text(s, wcol=wcol, flead=flead, lead=lead, endl="")
             fmts.extend(lines)
 
         return cjoin(fmts, "\n")
@@ -628,7 +628,7 @@ class SubcmdView (object):
             fmtparas = []
             for para in paras:
                 lines = wrap_text(para, wcol=wcol, flead=indent, lead=indent,
-                                  addnl=False)
+                                  endl="")
                 fmtparas.append(cjoin(lines, "\n"))
             return cjoin(fmtparas, "\n\n")
 
