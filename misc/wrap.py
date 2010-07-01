@@ -308,11 +308,11 @@ def _atomize (text):
             vseg, rlen = vsegf(rpos)
         if rlen == 0:
             vseg, rlen = text[rpos], 1
-        vlen = 1
-        if isuc and vseg:
-            width_class = unicodedata.east_asian_width(vseg)
-            if width_class in ("W", "F"):
-                vlen = 2
+        vlen = len(vseg)
+        if isuc and vlen:
+            for c in vseg:
+                if unicodedata.east_asian_width(c) in ("W", "F"):
+                    vlen += 1 # 1 = 2 minus (1 already counted)
         atoms.append((vseg, vlen, vpos, rlen, rpos))
         vpos += vlen
         rpos += rlen
