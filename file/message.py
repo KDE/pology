@@ -614,9 +614,9 @@ class Message_base (object):
 
         # Renew lines if one of: forced, no lines formed yet, no modcounter,
         # different colorization.
-        if (   force or getattr(self, "modcount", True) or not self._lines_all
-            or colorize != self._colorize_prev
-        ):
+        if colorize != self._colorize_prev:
+            force = True
+        if force or getattr(self, "modcount", True) or not self._lines_all:
             self._renew_lines(wrapf, force, colorize)
             self._colorize_prev = colorize
 
