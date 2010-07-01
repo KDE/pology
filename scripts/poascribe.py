@@ -1089,7 +1089,7 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
             mod_msgs.append(msg)
             counts[msg.state()][0] += 1
             if options.update_headers and not any_nonmerges:
-                if len(history) > 1 and not merge_modified(history[1].msg, msg):
+                if len(history) == 1 or not merge_modified(history[1].msg, msg):
                     any_nonmerges = True
 
     # Collect non-obsolete ascribed messages that no longer have
