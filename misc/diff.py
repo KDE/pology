@@ -1382,10 +1382,10 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
         for ind in _dcmnt_all_inds: # to have deterministic ordering
             alst = indargs.get(ind)
             if alst is not None:
-                inds.append(_dcmnt_asep.join([ind] + alst))
+                inds.append(cjoin([ind] + alst, _dcmnt_asep))
         dcmnt = _dcmnt_head
         if inds:
-            dcmnt += " " + _dcmnt_sep.join(inds)
+            dcmnt += " " + cjoin(inds, _dcmnt_sep)
         ecomments.insert(0, dcmnt)
 
     return diffr and (emsg, totdr) or emsg
