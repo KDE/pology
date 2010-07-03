@@ -7,8 +7,9 @@
 AAC: ААЦ|-, ААЦ|>
 AC: АЦ|-, АЦ|>
 ACL: АЦЛ|-, АЦЛ|>
-ADC: АДЦ|-, АДЦ|>, _пр=Analog to Digital Converter
+ADC: АДЦ|-, АДЦ|>, _пр=analog to digital converter
 ADS: АДС|-, АДС|>
+AGC: АГЦ|-, АГЦ|>, _пр=automatic gain control
 AGP: АГП|-, АГП|>
 AI: ВИ|*, ВИ|>, _род!=ж, _пр=вештачка интелигенција
     @иј: _пр=вјештачка интелигенција
@@ -127,6 +128,7 @@ GMT: ГМТ|-, ГМТ|>
 GNKSA: ГНКС|А, ГНКСА|>
 GOP: ГОП|-, ГОП|>, _пр=group of pictures
 GPIB: ГПИБ|-, ГПИБ|>
+GPIO: ГП-|IO, _род!=м, _пр=general purpose input output
 GPS: ГПС|-, ГПС|>, _пр=Global Positioning System
 GPU: ГПУ|-, ГПУ|>, _пр=graphics processing unit
 GSSAPI: ГССАП|И-, ГССАПИ|>
