@@ -96,6 +96,11 @@ valid msgstr="\bквада?р" !msgstr='\bцигл'
 # Palapeli (KDE jigsaw puzzle game)
 environment palapeli
 
+{\bpuzzle}i
+id="puzzle"
+hint="puzzle = слагалица"
+valid msgstr="\bслага(лиц|чк|њ)|\bслаж[иеу]"
+
 {\btable}i
 id="table"
 hint="table = табла [играчка]"
@@ -105,6 +110,16 @@ valid msgstr="\bтабл\w+"
 id="puzzletable"
 hint="puzzle table = слагачка табла"
 valid msgstr="слагачк\w+ табл\w+"
+
+{(puzzle )?table area}i
+id="puzzletablearea"
+hint="(puzzle) table area = површ (слагачке) табле"
+valid msgstr="површ\w* (слагачке )?табле"
+
+{viewport}i
+id="viewport"
+hint="viewport = поглед"
+valid msgstr="поглед"
 
 # ====================
 # Partition Manager (KDE disk partitioning tool)
