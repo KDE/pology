@@ -23,7 +23,8 @@ from pology import PologyError, _, n_
 _tag_split_rx = re.compile(r"^\s*<\s*(/?)\s*(\w+)[^/>]*(/?)\s*>\s*$")
 
 # Characters for "natural" breaks where to wrap the text.
-_natbr = u".,;/%-)]}"
+_natbr_after = u".,;/-)]}"
+_natbr_before = u"%({["
 
 # Strings at which the text should be wrapped before or after.
 _prebr = ("|/|",)
@@ -77,7 +78,7 @@ def _tag_split (tag):
 
 
 def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
-               natbr="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
+               natbr="", natbr2="", prebr=(), postbr=(), tagbr=(), tagbr2=(),
                wcolmin=0, midbr=True, remtrws=False, endl="\n"):
     """
     Wrap text into lines.
@@ -110,6 +111,9 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
     @type femp: bool
     @param natbr: characters other than space to naturally break at
     @type natbr: string
+    @param natbr2: characters other than space to naturally break at,
+        also taking the breaking character to the next line
+    @type natbr2: string
     @param prebr: character sequences to unconditionally break before
     @type prebr: (string*)
     @param postbr: character sequences to unconditionally break after
@@ -226,6 +230,7 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
             # Check for valid natural break.
             if (   pvseg in " "
                 or (cvseg != " " and pvseg in natbr and cvseg not in natbr)
+                or cvseg in natbr2
             ):
                 pl_ok = pl
                 ple_ok = ple
@@ -347,7 +352,8 @@ def wrap_field (field, text, preseq=""):
                      flead=preseq+field+" \"",
                      lead=preseq+"\"",
                      trail="\"",
-                     natbr=_natbr,
+                     natbr=_natbr_after,
+                     natbr2=_natbr_before,
                      prebr=_prebr,
                      postbr=_postbr,
                      femp=True,
@@ -430,7 +436,8 @@ def wrap_field_fine (field, text, preseq=""):
                      flead=preseq+field+" \"",
                      lead=preseq+"\"",
                      trail="\"",
-                     natbr=_natbr,
+                     natbr=_natbr_after,
+                     natbr2=_natbr_before,
                      prebr=_prebr,
                      postbr=_postbr,
                      tagbr=_tagbr_normal,
