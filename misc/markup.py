@@ -100,6 +100,8 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
     the wrapped text); to replace C{<code>...</code>} with C{@@@}
     (i.e. remove code segment completely but leave in a marker that there
     was something), the entry is C{{"code": ("", "", "@@@")}}.
+    The replacement for the wrapped text can also be a function,
+    taking a string and returning a string.
     Note that whitespace is automatically simplified, so if whitespace
     given by the replacements should be exactly preserved, use C{WS_*}
     string constants in place of corresponding whitespace characters.
@@ -368,11 +370,14 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set(), ignels=set()):
                 repl_pre = ""
             if repl_post is None:
                 repl_post = ""
-            if repl_cont is None:
+            repl_cont_orig = repl_cont
+            if not isinstance(repl_cont, basestring):
                 repl_cont = _resolve_tags_r(el[-1], tags, subs, keepws, ignels)
                 if el[0] in keepws:
                     # Mask whitespace in wrapped text.
                     repl_cont = _mask_ws(repl_cont)
+            if callable(repl_cont_orig):
+                repl_cont = repl_cont_orig(repl_cont)
             # If space not significant,
             # find first non-whitespace characters in wrapped text
             # and shift them before surrounding replacements.
@@ -505,6 +510,7 @@ _kuit_subs = {
     "_nows" : ("", "", None),
     "_parabr" : ("", WS_NEWLINE*2, None),
     "_ws" : (" ", " ", None),
+    "_ui" : ("[", "]", None),
 }
 _kuit_subs.update([(x, _kuit_subs["_nows"]) for x in _kuit_tags])
 _kuit_subs.update([(x, _kuit_subs["_ws"]) for x in
@@ -512,6 +518,8 @@ _kuit_subs.update([(x, _kuit_subs["_ws"]) for x in
 _kuit_subs.update([(x, _kuit_subs["_parabr"]) for x in
                    "title subtitle para item nl"
                    "".split()])
+_kuit_subs.update([(x, _kuit_subs["_ui"]) for x in
+                   "interface".split()])
 _kuit_ents = { # in addition to default XML entities
 }
 _kuit_keepws = set("""
@@ -582,14 +590,22 @@ def _prep_docbook4_to_plain ():
         "_nows" : ("", "", None),
         "_parabr" : ("", WS_NEWLINE*2, None),
         "_ws" : (" ", " ", None),
+        "_ui" : ("[", "]", None),
+        "_uipath" : ("", "", lambda s: re.sub("\]\s*\[", "->", s, re.U)),
     }
-    _dbk_subs.update([(x, _kuit_subs["_nows"]) for x in _dbk_tags])
-    _dbk_subs.update([(x, _kuit_subs["_parabr"]) for x in
+    _dbk_subs.update([(x, _dbk_subs["_nows"]) for x in _dbk_tags])
+    _dbk_subs.update([(x, _dbk_subs["_parabr"]) for x in
                       "para title".split()]) # FIXME: Add more.
-    _dbk_subs.update([(x, _kuit_subs["_ws"]) for x in
+    _dbk_subs.update([(x, _dbk_subs["_ws"]) for x in
                        "contrib address firstname placeholder surname "
+                       "primary secondary "
+                       "".split()])
+    _dbk_subs.update([(x, _dbk_subs["_ui"]) for x in
                        "guilabel guibutton guiicon guimenu guisubmenu "
-                       "guimenuitem primary secondary "
+                       "guimenuitem "
+                       "".split()])
+    _dbk_subs.update([(x, _dbk_subs["_uipath"]) for x in
+                       "menuchoice "
                        "".split()])
 
     _dbk_ents = { # in addition to default XML entities
