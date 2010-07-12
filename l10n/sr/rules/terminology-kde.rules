@@ -210,9 +210,8 @@ id="copy"
 hint="copy = копирати"
 valid after="backup "
 valid before="right"
+valid after="&" before=";" # ХТМЛ ентитет
 valid msgstr="\bкопи(ра|ј)"
-valid cat="useraccount" msgid="Save copy.*for future" msgstr="Сачувај за убудуће"
-valid cat="lokalize" msgid="copy; 20"
 
 {\bcopy}i
 id="copy_fs"

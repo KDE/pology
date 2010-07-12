@@ -36,6 +36,15 @@ hint="translation file = фајл превода"
 valid msgstr="фајл\w* превода"
 
 # ====================
+# KGet (download manager)
+environment kget
+
+{drop target}i
+id="droptarget"
+hint="drop target = место за спуштање"
+valid msgstr="мест\w+ за спуштање"
+
+# ====================
 # KPPP (modem dialer)
 environment kppp
 
