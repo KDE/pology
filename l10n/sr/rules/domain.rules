@@ -102,6 +102,24 @@ hint="brick = квадар"
 valid msgstr="\bквада?р" !msgstr='\bцигл'
 
 # ====================
+# Okteta (hex editor)
+
+{bit.?field}i
+id="bitfield"
+hint="bitfield = битско поље"
+valid msgstr="битск\w+ пољ\w+"
+
+{byte array}i
+id="bytearray"
+hint="byte array = низ бајтова"
+valid msgstr="низ\w* бајтова"
+
+{offset}i
+id="offset"
+hint="offset = помак"
+valid msgstr="пома[кц]"
+
+# ====================
 # Palapeli (KDE jigsaw puzzle game)
 environment palapeli
 
