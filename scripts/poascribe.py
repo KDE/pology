@@ -11,10 +11,12 @@ import locale
 import os
 import re
 import sys
+from tempfile import NamedTemporaryFile
 import time
 
 from pology import PologyError, version, _, n_, t_
 from pology.file.catalog import Catalog
+from pology.file.header import Header
 from pology.file.message import Message, MessageUnsafe
 from pology.hook.gettext_tools import msgfmt
 from pology.misc.colors import ColorOptionParser, cjoin
@@ -26,6 +28,7 @@ from pology.misc.fsops import str_to_unicode, unicode_to_str
 from pology.misc.fsops import collect_paths_cmdline, collect_catalogs
 from pology.misc.fsops import mkdirpath, join_ncwd
 from pology.misc.langdep import get_hook_lreq
+from pology.misc.merge import merge_pofile
 from pology.misc.monitored import Monlist, Monset
 from pology.misc.msgreport import warning_on_msg, report_msg_content
 from pology.misc.msgreport import report_msg_to_lokalize
@@ -266,7 +269,7 @@ def main ():
                 "Unknown operation mode '%(mode)s' "
                 "(known modes: %(modelist)s).",
                 mode=rawmodename,
-                modes=format_item_list("%s/%s" % x for x in mode_spec)))
+                modelist=format_item_list("%s/%s" % x for x in mode_spec)))
 
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
@@ -1058,6 +1061,8 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
     counts = dict([(x, [0, 0]) for x in _all_states])
     counts0 = counts.copy()
     any_nonmerges = False
+    prev_msgs = []
+    check_mid_msgs = []
     for msg in cat:
         mod, revtags, unrevd = purge_msg(msg)
         if mod:
@@ -1091,9 +1096,23 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
             if options.update_headers and not any_nonmerges:
                 if len(history) == 1 or not merge_modified(history[1].msg, msg):
                     any_nonmerges = True
+            # Record that reconstruction of the post-merge message
+            # should be tried if this message has no prior history
+            # but it is not pristine (it may be that the translator
+            # has merged the catalog and updated fuzzy messages in one step,
+            # without committing the catalog right after merging).
+            if len(history) == 1:
+                check_mid_msgs.append(msg)
+        # Collect latest historical version of the message,
+        # in case reconstruction of post-merge messages is needed.
+        if history[0].user is not None or len(history) > 1:
+            pmsg = history[history[0].user is None and 1 or 0].msg
+            prev_msgs.append(pmsg)
 
     # Collect non-obsolete ascribed messages that no longer have
     # original counterpart, to ascribe as obsolete.
+    # If reconstruction of post-merge messages is needed,
+    # also collect latest historical versions.
     for amsg in acat:
         if amsg not in cat:
             ast = amsg.state()
@@ -1104,18 +1123,32 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
                 st = _st_ofuzzy
             elif ast == _st_untran:
                 st = _st_ountran
-            if st:
+            if st or check_mid_msgs:
                 msg = asc_collect_history_single(amsg, acat, config)[0].msg
-                msg.obsolete = True
-                mod_msgs.append(msg)
-                counts[st][0] += 1
+                if check_mid_msgs:
+                    prev_msgs.append(msg) # before setting it obsolete
+                if st:
+                    msg.obsolete = True
+                    mod_msgs.append(msg)
+                    counts[st][0] += 1
 
     # Shortcut if nothing to do, because sync_and_rep later are expensive.
     if not mod_msgs and not revels_by_msg:
         # No messages to commit.
         return counts0, revels_by_msg, False
 
+    # Construct post-merge messages.
+    mod_mid_msgs = []
+    if check_mid_msgs and not acat.created():
+        mid_cat = create_post_merge_cat(cat, prev_msgs)
+        for msg in check_mid_msgs:
+            mid_msg = mid_cat.get(msg)
+            if mid_msg is not None and mid_msg.fuzzy:
+                mod_mid_msgs.append(mid_msg)
+
     # Ascribe modifications.
+    for mid_msg in mod_mid_msgs: # ascribe post-merge before actual
+        ascribe_msg_mod(mid_msg, acat, user, config)
     for msg in mod_msgs:
         ascribe_msg_mod(msg, acat, user, config)
 
@@ -1529,6 +1562,36 @@ def update_asc_hdr (acat):
 
     acat.header.set_field(u"PO-Revision-Date",
                           unicode(format_datetime(_dt_start)))
+
+
+def create_post_merge_cat (cat, prev_msgs):
+
+    # Prepare previous catalog based on ascription catalog.
+    prev_cat = Catalog("", create=True, monitored=False)
+    prev_cat.header = Header(cat.header)
+    for prev_msg in prev_msgs:
+        prev_cat.add_last(prev_msg)
+    tmpf1 = NamedTemporaryFile(prefix="pology-merged-", suffix=".po")
+    prev_cat.filename = tmpf1.name
+    prev_cat.sync()
+
+    # Prepare template based on current catalog.
+    tmpl_cat = Catalog("", create=True, monitored=False)
+    tmpl_cat.header = Header(cat.header)
+    for msg in cat:
+        if not msg.obsolete:
+            tmpl_msg = MessageUnsafe(msg)
+            tmpl_msg.clear()
+            tmpl_cat.add_last(tmpl_msg)
+    tmpf2 = NamedTemporaryFile(prefix="pology-template-", suffix=".pot")
+    tmpl_cat.filename = tmpf2.name
+    tmpl_cat.sync()
+
+    # Merge previous catalog using current catalog as template.
+    mid_cat = merge_pofile(prev_cat.filename, tmpl_cat.filename,
+                           getcat=True, monitored=False, quiet=True)
+
+    return mid_cat
 
 
 _id_fields = (
