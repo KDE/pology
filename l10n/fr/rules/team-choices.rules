@@ -373,4 +373,16 @@ hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau p
 [événement]
 hint="Utilisez « évènement » (homogénéité)"
 
+{seeder}
+valid msgstr="source"
+hint="Traduisez « seeder » par « source »"
+
+{leecher}
+valid msgstr="preneur"
+hint="Traduisez « leecher » par « preneur »"
+
+{seeding}
+valid msgstr="partage"
+hint="Traduisez « seeding » par « partage »"
+
 # End of rule file
