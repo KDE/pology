@@ -385,4 +385,10 @@ hint="Traduisez « leecher » par « preneur »"
 valid msgstr="partage"
 hint="Traduisez « seeding » par « partage »"
 
+[panneau]i
+valid !msgid="control panel"
+valid cat="kcm_platform"
+valid cat="kstars"
+hint="Traduisez « Control Panel » par « Tableau de bord »" 
+
 # End of rule file
