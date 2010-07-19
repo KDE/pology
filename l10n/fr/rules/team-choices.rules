@@ -397,4 +397,8 @@ valid before=" algorithm"
 valid before="Handle"
 hint="Traduisez « slider » par « glissière »"
 
+{Do not ask again}i
+valid msgstr="Ne plus poser la question"
+hint="Traduisez cela tout simplement par « Ne plus poser la question »"
+
 # End of rule file
