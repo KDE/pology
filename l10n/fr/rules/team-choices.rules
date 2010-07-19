@@ -391,4 +391,10 @@ valid cat="kcm_platform"
 valid cat="kstars"
 hint="Traduisez « Control Panel » par « Tableau de bord »" 
 
+{slider}i
+valid msgstr="curseur"
+valid before=" algorithm"
+valid before="Handle"
+hint="Traduisez « slider » par « glissière »"
+
 # End of rule file
