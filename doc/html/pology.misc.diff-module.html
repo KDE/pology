@@ -189,7 +189,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string or None</span>
+      <span class="summary-type">string or list or None</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -207,7 +207,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">string or None</span>
+      <span class="summary-type">string or list or None</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -734,6 +734,7 @@
   </tr></table>
   
   <p>Recover old version (-) from text with embedded differences.</p>
+  <p>In case there was no old text, <code>None</code> is returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -763,6 +764,7 @@
   </tr></table>
   
   <p>Recover new version (+) from text with embedded differences.</p>
+  <p>In case there was no new text, <code>None</code> is returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -793,13 +795,17 @@
   </tr></table>
   
   <p>Recover removed segments (-) from text with embedded differences.</p>
+  <p>If separator is not <code>None</code>, the joined string of selected 
+  segments is returned. Otherwise, the list of selected segments is 
+  returned. In either case, if there was no old text, <code>None</code> is 
+  returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
-        <li><strong class="pname"><code>sep</code></strong> (string) - separator with which to join selected segments</li>
+        <li><strong class="pname"><code>sep</code></strong> (string or None) - separator with which to join selected segments</li>
     </ul></dd>
-    <dt>Returns: string or None</dt>
+    <dt>Returns: string or list or None</dt>
         <dd>text with only the removed segments</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
@@ -824,13 +830,17 @@
   </tr></table>
   
   <p>Recover added segments (+) from text with embedded differences.</p>
+  <p>If separator is not <code>None</code>, the joined string of selected 
+  segments is returned. Otherwise, the list of selected segments is 
+  returned. In either case, if there was no new text, <code>None</code> is 
+  returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
-        <li><strong class="pname"><code>sep</code></strong> (string) - separator with which to join selected segments</li>
+        <li><strong class="pname"><code>sep</code></strong> (string or None) - separator with which to join selected segments</li>
     </ul></dd>
-    <dt>Returns: string or None</dt>
+    <dt>Returns: string or list or None</dt>
         <dd>text with only the added segments</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
