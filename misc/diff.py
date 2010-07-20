@@ -554,11 +554,10 @@ def word_ediff_to_new (dtext):
 
 def _word_ediff_to_oldnew (dtext, capt_this_rx, capt_other_rx):
 
-    if isinstance(dtext, ColorString):
-        dtext = dtext.resolve("none")
-
     if dtext is None:
         return None
+    if isinstance(dtext, ColorString):
+        dtext = dtext.resolve("none")
     text = dtext
     text = capt_this_rx.sub(r"\1", text)
     text = capt_other_rx.sub(r"", text)
@@ -566,7 +565,57 @@ def _word_ediff_to_oldnew (dtext, capt_this_rx, capt_other_rx):
     if text.endswith(_tagext_none):
         text = text[:-_tagext_none_len]
         if not text and capt_other_rx.search(dtext):
-            return None
+            text = None
+    return text
+
+
+def word_ediff_to_rem (dtext, sep=" "):
+    """
+    Recover removed segments (-) from text with embedded differences.
+
+    @param dtext: text with embedded differences
+    @type dtext: string
+    @param sep: separator with which to join selected segments
+    @type sep: string
+
+    @returns: text with only the removed segments
+    @rtype: string or None
+
+    @see: L{word_ediff}
+    """
+
+    return _word_ediff_to_addrem(dtext, _capt_old_rx, sep)
+
+
+def word_ediff_to_add (dtext, sep=" "):
+    """
+    Recover added segments (+) from text with embedded differences.
+
+    @param dtext: text with embedded differences
+    @type dtext: string
+    @param sep: separator with which to join selected segments
+    @type sep: string
+
+    @returns: text with only the added segments
+    @rtype: string or None
+
+    @see: L{word_ediff}
+    """
+
+    return _word_ediff_to_addrem(dtext, _capt_new_rx, sep)
+
+
+def _word_ediff_to_addrem (dtext, capt_this_rx, sep):
+
+    if dtext is None:
+        return None
+    if isinstance(dtext, ColorString):
+        dtext = dtext.resolve("none")
+    text = sep.join(capt_this_rx.findall(dtext))
+    if (    not text
+        and dtext.endswith((_old_clsc + _tagext_none, _new_clsc + _tagext_none))
+    ):
+        text = None
     return text
 
 
