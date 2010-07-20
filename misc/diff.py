@@ -524,6 +524,8 @@ def word_ediff_to_old (dtext):
     """
     Recover old version (-) from text with embedded differences.
 
+    In case there was no old text, C{None} is returned.
+
     @param dtext: text with embedded differences
     @type dtext: string
 
@@ -539,6 +541,8 @@ def word_ediff_to_old (dtext):
 def word_ediff_to_new (dtext):
     """
     Recover new version (+) from text with embedded differences.
+
+    In case there was no new text, C{None} is returned.
 
     @param dtext: text with embedded differences
     @type dtext: string
@@ -573,13 +577,17 @@ def word_ediff_to_rem (dtext, sep=" "):
     """
     Recover removed segments (-) from text with embedded differences.
 
+    If separator is not C{None}, the joined string of selected segments
+    is returned. Otherwise, the list of selected segments is returned.
+    In either case, if there was no old text, C{None} is returned.
+
     @param dtext: text with embedded differences
     @type dtext: string
     @param sep: separator with which to join selected segments
-    @type sep: string
+    @type sep: string or None
 
     @returns: text with only the removed segments
-    @rtype: string or None
+    @rtype: string or list or None
 
     @see: L{word_ediff}
     """
@@ -591,13 +599,17 @@ def word_ediff_to_add (dtext, sep=" "):
     """
     Recover added segments (+) from text with embedded differences.
 
+    If separator is not C{None}, the joined string of selected segments
+    is returned. Otherwise, the list of selected segments is returned.
+    In either case, if there was no new text, C{None} is returned.
+
     @param dtext: text with embedded differences
     @type dtext: string
     @param sep: separator with which to join selected segments
-    @type sep: string
+    @type sep: string or None
 
     @returns: text with only the added segments
-    @rtype: string or None
+    @rtype: string or list or None
 
     @see: L{word_ediff}
     """
@@ -611,12 +623,14 @@ def _word_ediff_to_addrem (dtext, capt_this_rx, sep):
         return None
     if isinstance(dtext, ColorString):
         dtext = dtext.resolve("none")
-    text = sep.join(capt_this_rx.findall(dtext))
-    if (    not text
+    segs = capt_this_rx.findall(dtext)
+    if sep is not None:
+        segs = sep.join(segs)
+    if (    not segs
         and dtext.endswith((_old_clsc + _tagext_none, _new_clsc + _tagext_none))
     ):
-        text = None
-    return text
+        segs = None
+    return segs
 
 
 def line_diff (lines_old, lines_new, markup=False, format=None, diffr=False):
