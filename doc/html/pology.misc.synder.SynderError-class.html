@@ -129,8 +129,11 @@ exceptions.BaseException --+
       <code>__setstate__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
       <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -217,7 +220,7 @@ exceptions.BaseException --+
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="pology.PologyError-class.html#__unicode__">PologyError.__unicode__</a>
+        exceptions.BaseException.__unicode__
     </dt>
   </dl>
 </td></tr></table>

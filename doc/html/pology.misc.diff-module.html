@@ -189,6 +189,42 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_ediff_to_rem" class="summary-sig-name">word_ediff_to_rem</a>(<span class="summary-sig-arg">dtext</span>,
+        <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>)</span><br />
+      Recover removed segments (-) from text with embedded differences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.misc.diff-module.html#word_ediff_to_add" class="summary-sig-name">word_ediff_to_add</a>(<span class="summary-sig-arg">dtext</span>,
+        <span class="summary-sig-arg">sep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>)</span><br />
+      Recover added segments (+) from text with embedded differences.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">[[(string, string)...]...] or ([([(string, string)...], float)...], 
       float)</span>
     </td><td class="summary">
@@ -420,6 +456,13 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Variables</span></td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.misc'"><code class="variable-quote">'</code><code class="variable-string">pology.misc</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -727,6 +770,68 @@
     </ul></dd>
     <dt>Returns: string or None</dt>
         <dd>new version of the text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#word_ediff" 
+        class="link">word_ediff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="word_ediff_to_rem"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_ediff_to_rem</span>(<span class="sig-arg">dtext</span>,
+        <span class="sig-arg">sep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Recover removed segments (-) from text with embedded differences.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
+        <li><strong class="pname"><code>sep</code></strong> (string) - separator with which to join selected segments</li>
+    </ul></dd>
+    <dt>Returns: string or None</dt>
+        <dd>text with only the removed segments</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.misc.diff-module.html#word_ediff" 
+        class="link">word_ediff</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="word_ediff_to_add"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">word_ediff_to_add</span>(<span class="sig-arg">dtext</span>,
+        <span class="sig-arg">sep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"> </code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Recover added segments (+) from text with embedded differences.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dtext</code></strong> (string) - text with embedded differences</li>
+        <li><strong class="pname"><code>sep</code></strong> (string) - separator with which to join selected segments</li>
+    </ul></dd>
+    <dt>Returns: string or None</dt>
+        <dd>text with only the added segments</dd>
   </dl>
 <div class="fields">      <p><strong>See Also:</strong>
         <a href="pology.misc.diff-module.html#word_ediff" 

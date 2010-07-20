@@ -463,7 +463,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="x"></a><span class="summary-name">x</span> = <code title="'nl'"><code class="variable-quote">'</code><code class="variable-string">nl</code><code class="variable-quote">'</code></code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.misc'"><code class="variable-quote">'</code><code class="variable-string">pology.misc</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="x"></a><span class="summary-name">x</span> = <code title="'interface'"><code class="variable-quote">'</code><code class="variable-string">interface</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -552,10 +559,11 @@
   <code>&lt;code&gt;...&lt;/code&gt;</code> with <code>@@@</code> (i.e. 
   remove code segment completely but leave in a marker that there was 
   something), the entry is <code>{&quot;code&quot;: (&quot;&quot;, 
-  &quot;&quot;, &quot;@@@&quot;)}</code>. Note that whitespace is 
-  automatically simplified, so if whitespace given by the replacements 
-  should be exactly preserved, use <code>WS_*</code> string constants in 
-  place of corresponding whitespace characters.</p>
+  &quot;&quot;, &quot;@@@&quot;)}</code>. The replacement for the wrapped 
+  text can also be a function, taking a string and returning a string. Note
+  that whitespace is automatically simplified, so if whitespace given by 
+  the replacements should be exactly preserved, use <code>WS_*</code> 
+  string constants in place of corresponding whitespace characters.</p>
   <p>To have some entities other than the XML default replaced with proper 
   values, a dictionary of known entities with values may be provided using 
   the <code>ents</code> parameter.</p>

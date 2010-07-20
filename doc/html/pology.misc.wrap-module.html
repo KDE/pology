@@ -87,6 +87,7 @@
         <span class="summary-sig-arg">flead</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">femp</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">natbr</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">natbr2</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">prebr</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="summary-sig-arg">postbr</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="summary-sig-arg">tagbr</span>=<span class="summary-sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
@@ -94,7 +95,7 @@
         <span class="summary-sig-arg">wcolmin</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">midbr</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">remtrws</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">addnl</span>=<span class="summary-sig-default">True</span>)</span><br />
+        <span class="summary-sig-arg">endl</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code></span>)</span><br />
       Wrap text into lines.</td>
           <td align="right" valign="top">
             
@@ -239,6 +240,22 @@
     </td>
   </tr>
 </table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.misc'"><code class="variable-quote">'</code><code class="variable-string">pology.misc</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
 <!-- ==================== FUNCTION DETAILS ==================== -->
 <a name="section-FunctionDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -262,6 +279,7 @@
         <span class="sig-arg">flead</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">femp</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">natbr</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">natbr2</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="sig-arg">prebr</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="sig-arg">postbr</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
         <span class="sig-arg">tagbr</span>=<span class="sig-default"><code class="variable-group">(</code><code class="variable-group">)</code></span>,
@@ -269,7 +287,7 @@
         <span class="sig-arg">wcolmin</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">midbr</span>=<span class="sig-default">True</span>,
         <span class="sig-arg">remtrws</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">addnl</span>=<span class="sig-default">True</span>)</span>
+        <span class="sig-arg">endl</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">\n</code><code class="variable-quote">'</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -297,6 +315,8 @@
           text would not fit into it, <code>False</code> for normal use of 
           the first line</li>
         <li><strong class="pname"><code>natbr</code></strong> (string) - characters other than space to naturally break at</li>
+        <li><strong class="pname"><code>natbr2</code></strong> (string) - characters other than space to naturally break at, also taking 
+          the breaking character to the next line</li>
         <li><strong class="pname"><code>prebr</code></strong> ((string*)) - character sequences to unconditionally break before</li>
         <li><strong class="pname"><code>postbr</code></strong> ((string*)) - character sequences to unconditionally break after</li>
         <li><strong class="pname"><code>tagbr</code></strong> ((string*)) - tag names to break before opening and after closing</li>
@@ -307,7 +327,7 @@
         <li><strong class="pname"><code>remtrws</code></strong> (bool) - whether to strictly remove any trailing whitespace in wrapped 
           lines (otherwise trailing whitespace may be left in under certain
           conditions)</li>
-        <li><strong class="pname"><code>addnl</code></strong> (bool) - whether to add newline to end of each line</li>
+        <li><strong class="pname"><code>endl</code></strong> (string) - line end marker for each line</li>
     </ul></dd>
     <dt>Returns: [string*]</dt>
         <dd>wrapped lines</dd>
