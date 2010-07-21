@@ -8,13 +8,77 @@ addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
 
 include file="filter.include"
 
-# «Please» se traduce como «Por favor».
-{\bplease\b}i
-valid msgstr="por\sfavor"
-hint="« Please » se traduce como como « Por favor », sea amable (ver glosario)"
+# «Settings» se traduce como «Preferencias».
+{\bsettings\b}i
+valid msgstr="preferencias"
+valid msgstr="configuración"
+hint="« Settings » se traduce como como « Preferencias » (ver glosario)"
 
-{\bstandard\b}i
-valid msgstr="estándar"
-hint="« Standard » se traduce como como « Estándar », (ver glosario)"
+# «Built-in» se traduce como «Incorporado».
+{\bbuilt\-in\b}i
+valid msgstr="incorporado"
+valid !msgstr="construido"
+hint="« Built-in » se traduce como como « Incorporado » (ver glosario)"
+
+# «Running» se traduce como «En ejecución».
+{\brun\b}i
+valid msgstr="en\sejecución"
+valid msgstr="ejecutando(se)?"
+valid !msgstr="corriendo"
+hint="« Running » se traduce como como « En ejecución » (ver glosario)"
+
+# «On line» se traduce como «Conectado».
+{\bon(\s|\-)line\b}i
+valid msgstr="conectad(o|a)"
+valid msgstr="con\sconexión"
+hint="« On line » se traduce como como « Conectado » (ver glosario)"
+
+# «Off line» se traduce como «Desconectado».
+{\boff[\s|\-]line\b}i
+valid msgstr="desconectad(o|a)"
+valid msgstr="sin\sconexión"
+hint="« Off line » se traduce como como « Desconectado » (ver glosario)"
+
+# «Logon» se traduce como «Inicio de sesión».
+{\blog\s?on\b}i
+valid msgstr="inicio\sde\ssesión"
+valid msgstr="iniciar\ssesión"
+hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin traducir (ver glosario)"
+
+# «Logout» se traduce como «Fin de sesión».
+{\blog\s?out\b}i
+valid msgstr="fin\sde\ssesión"
+valid msgstr="finalizar\ssesión"
+hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin traducir (ver glosario)"
+
+# «Mirror» se traduce como «Réplica».
+# Creo que debería considerarse erróneo dejarlo en inglés como lo permite actualmente el glosario.
+{\bmirror\b}i
+valid msgstr="réplicar?"
+valid msgstr="espejo"
+valid !msgstr="mirror"
+hint="« Mirror » se traduce como como « Espejo » o « Réplica » (ver glosario)"
+
+# «Composer» se traduce como «Editor».
+{\bcomposer\b}i
+valid msgstr="editor"
+hint="« Composer » se traduce como como « Editor » (ver glosario)"
+
+# «Spellchecking» se traduce como «Corrección ortográfica».
+{\sbpellchecking\b}i
+valid msgstr="corrección\sortográfica"
+hint="« Spellchecking » se traduce como como « Corrección ortográfica » (ver glosario)"
+
+# «Spellchecker» se traduce como «Corrector ortográfico».
+{\bspellchecker\b}i
+valid msgstr="corrector\sortográfico"
+hint="« Spellchecker » se traduce como como « Corrector ortográfico » (ver glosario)"
+
+# «Check» se traduce como «Consulte» en algunos contextos.
+#{\bcheck\b}i
+#valid msgstr="consultar"
+#valid msgstr="consulta"
+#valid msgstr="consulte"
+#hint="« Check » se traduce como como « Consultar » (ver glosario)"
 
 # End of rule file

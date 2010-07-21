@@ -1,0 +1,24 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Remove XML entities.
+addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+
+include file="filter.include"
+
+# «You» se traduce como «Usted».
+{\byou\b}i
+valid msgstr="\busted\b"
+valid msgstr="\ble\b"
+valid msgstr="\bsu\b"
+hint="« You » se traduce como como « Usted », sea educado"
+
+# «Please» se traduce como «Por favor».
+{\bplease\b}i
+valid msgstr="por\sfavor"
+valid msgstr="haga\sel\sfavor"
+hint="« Please » se traduce como como « Por favor », sea educado"
+
+# End of rule file

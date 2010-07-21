@@ -1,3 +1,48 @@
+Cambios 21/7/2010
+-----------------
+1.- Cambios en «filter.include»
+- Mejoras en la detección de archivos del sistema y llamadas a órdenes.
+- Permitir algunos caracteres especiales en los nombres de archivo.
+- Excluir referencias a archivos del directorio personal.
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Simplificación de reglas empleando expresiones regulares para las 
+diversas terminaciones de las traducciones (masculino, femenino, 
+singular y plural).
+- Excluir los caracteres «&» y «-» antes de la revisión del vocabulario.
+(Permite evitar falsos positivos debido a la presencia del caracter de 
+acelerador o el guión en palabras compuestas).
+- Aumentar el número de terminaciones válidas en diversas reglas.
+- Variantes de «support», «scan», «drop, «drag», «pipe», «ok»,
+«login», «logoff», «quoted», «starting, «lock»», «click».
+- Admitir «un poco» como traducción de «a bit».
+- Admitir «desplegar» como traducción de «drop down».
+- Admitir «volver» como traducción de «get back».
+
+3.- Cambios en «typography.rules»
+- Regla de utilizar minúsculas después de coma o punto y coma, excepto 
+cuando figura en mayúscalas en el original (nombres propios).
+- Excluir el contexto de «trans_comment» (CREDITS_FOR_TRANSLATORS) de 
+diversas comprobaciones de puntuación.
+
+4.- Nuevo archivo «being-polite.rules.disabled»
+  Contiene reglas para los que quieran ser mas educados en sus traducciones
+(en un principio, uso de «usted» y «por favor»).
+Inicialmente está desactivado. Para activarlo, hay que renombar el archivo 
+quitando «.disabled».
+
+5.- Cambios «paragraph-begin.rules»
+  Las reglas se aplican también después de un cambio de párrafo con «<p>».
+
+6.- Cambios en «paragraph-end.rules»
+Las reglas se aplican también antes de un fin de párrafo con «</p>».
+
+7.- Nuevo archivo «false-friends.rules».
+  Incluye reglas sobre falsos amigos (Lista tomada de la Wikipedia).
+
+8.- Nuevas propuestas para añadir al glosario oficial en 
+«glosario-kde-l10n-es-proposed.rules»
+
 Cambios 28/6/2010
 -----------------
 1.- Cambios en «filter.include»

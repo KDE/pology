@@ -17,6 +17,11 @@ hint="Compruebe el uso de espacio al principio del párrafo (sobra en la traducc
 valid msgstr="\\n\s"
 hint="Compruebe el uso de espacio posterior a «\n» (falta en la traducción)."
 
+# Espacios después de un nuevo párrafo.
+{\<p\>\s}i
+valid msgstr="\<p\>\s"
+hint="Compruebe el uso de espacio posterior a «<p>» (falta en la traducción)."
+
 {\\n\S}i
 valid msgstr="\\n\S"
 hint="Compruebe el uso de espacio posterior a «\n» (sobra en la traducción)."
@@ -31,6 +36,11 @@ hint="Compruebe el uso de mayúscula al principio del párrafo"
 valid msgstr="\\n\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
 hint="Compruebe el uso de mayúscula posterior a «\n».."
 
+# Mayúsculas después de un nuevo párrafo.
+{\<p\>\s*[A-Z]}i
+valid msgstr="\<p\>\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de mayúscula posterior a «\n».."
+
 # Minúsculas al principio del párrafo.
 {^\s*[a-z]}i
 valid msgstr="^\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
@@ -40,5 +50,10 @@ hint="Compruebe el uso de minúscula al principio del párrafo."
 {\\n\s*[a-z]}i
 valid msgstr="\\n\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
 hint="Compruebe el uso de minúscula posterior a «\n».."
+
+# Minúsculas después de un nuevo párrafo.
+{\<p\>\s*[a-z]}i
+valid msgstr="\<p\>\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+hint="Compruebe el uso de minúscula posterior a «<p>».."
 
 # End of rule file 

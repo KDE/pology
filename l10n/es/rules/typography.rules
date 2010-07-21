@@ -11,6 +11,7 @@ addFilterRegex match="\s*«.»" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\s?(etc\.|Ej\.|ej\.|P\.e\.|p\.e\.|EE\.UU\.|id\.|Id\.|a\.m\.|p\.m\.|n\.t\.)" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?(Sr\.|Sra\.|Dr\.|Dra\.|D\.)" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="\s*(\.\.\.|\?\?\?|\%\%|\:\:)" on="pmsgid,pmsgstr"
@@ -120,12 +121,13 @@ hint="No ponga un espacio de separación antes del signo de coma"
 [\,\S]
 validGroup beforePunctuation
 valid after="\d" before="\d" 
-valid ctx="\w+ OF TRANSLATORS"  
+valid ctx="\w+ OF TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid="CREDIT_FOR_TRANSLATORS"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
-#valid msgid="\bYour emails\b"
 hint="Ponga un espacio de separación después del signo de coma"
 
 [\»]
@@ -141,7 +143,6 @@ hint="Ponga un espacio antes del signo de comilla española de apertura"
 [\«]
 valid before=".*\»"
 hint="Cierre la comilla (deben ir emparejadas)"
-
 
 [\s\s+]
 valid msgid="\s\s+"
@@ -176,6 +177,8 @@ hint="El punto debe estar después del paréntesis (y no antes)"
 [\.\S]
 validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
 valid before="[A-Z]{1,2}" # Extensions
 valid before="[a-z]{1,2}" # Extensions
@@ -186,17 +189,12 @@ hint="Ponga un espacio después de un signo de punto"
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
-#[\S[,|;]\s[A-Z]]
-# valid after proper names
-#valid ctx="NAME OF TRANSLATORS"
-#valid after="\s(\d){3}" # Names after year of copyrigth
-#valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
-#valid before="[A-Za-z]{2}[\s|\,|$]" # Extensions
-#hint="Utilice minúsculas después de una coma o punto y coma"
-
-#{\S[,|;]\s(?<Nombre>[\w|\d]+)}
-#valid msgstr="\S[,|;]\s[^[A-Z]|?<Nombre>]"
-#hint="Utilice minúsculas después de una coma o punto y coma"
+[\S[,|;]\s[A-Z]]
+valid ctx="\w+ TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid="CREDIT_FOR_TRANSLATORS"
+valid msgid="\S[,|;]\s[A-Z]"
+hint="Utilice minúsculas después de una coma o punto y coma"
 
 [\S[.]\s[a-z]] 
 hint="Utilice mayúsculas después de punto"
@@ -216,5 +214,8 @@ hint="Cierre la llave (deben ir emparejadas)"
 [\(c\)]
 valid msgstr="©"
 hint="Utilice el símbolo «©» en lugar de «(c)»"
+
+#[(El|el|La|la)\sA-Z]
+#hint="No utilice artículos determinados antes de un nombre propio (no sea paleto)"
 
 # End of rule file

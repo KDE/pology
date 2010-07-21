@@ -1,0 +1,515 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+# False friends list adapted from http://es.wikipedia.org/wiki/Anexo:Falsos_amigos#Ingl.C3.A9s
+
+# Remove XML entities.
+addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «Abstract» se traduce como «Resumen».
+{\babstract\b}i
+valid msgstr="resumen"
+valid !msgstr="abstract(o|a)"
+hint="« Abstract » se traduce como como « Resumen », no como « Abstracto » (falso amigo)"
+
+# «Actual» se traduce como «Real».
+{\bactual\b}i
+valid msgstr="real"
+valid !msgstr="actual"
+hint="« Actual » se traduce como como « Real », no como « Actual » (falso amigo)"
+
+# «Actually» se traduce como «En realidad».
+{\bactually\b}i
+valid msgstr="en\srealidad"
+valid msgstr="realmente"
+valid msgstr="verdaderamente"
+valid msgstr="a\s\decir\sverdad"
+valid !msgstr="actualmente"
+hint="« Actually » se traduce como como « En realidad », no como « Actualmente » (falso amigo)"
+
+# «Advertisement» se traduce como «Anuncio».
+{\badvertisement\b}i
+valid msgstr="anuncio"
+valid !msgstr="advertencia"
+hint="« Advertisement » se traduce como como « Anuncio », no como « Advertencia » (falso amigo)"
+
+# «Allocation» se traduce como «Asignación».
+{\ballocation\b}i
+valid msgstr="asignación"
+valid !msgstr="alocación"
+hint="« Allocation » se traduce como como « Asignación » (falso amigo)"
+
+# «Apology» se traduce como «Disculpa».
+{\bapology\b}i
+valid msgstr="disculpa"
+valid !msgstr="apología"
+hint="« Apology » se traduce como como « Disculpa », no como « Apología » (falso amigo)"
+
+# «Apply» se traduce como «Solicitar».
+#{\bapply\b}i
+#valid msgstr="solicitar"
+#valid !msgstr="aplicar"
+#hint="« Apply » se traduce como como « Solicitar », no como « Aplicar » (falso amigo)"
+
+# «Assist» se traduce como «Ayudar».
+{\bassist\b}i
+valid msgstr="ayudar"
+valid msgstr="atender"
+valid !msgstr="asistir"
+hint="« Assist » se traduce como como « Ayudar », no como « Asistir » (falso amigo)"
+
+# «Balloon» se traduce como «Globo».
+{\bballoon\b}i
+valid msgstr="globo"
+valid !msgstr="balón"
+hint="« Balloon » se traduce como como « Globo », no como « Balón » (falso amigo)"
+
+# «Billion» se traduce como «Millardo».
+{\bbillion\b}i
+valid msgstr="millardo"
+valid msgstr="mil\smillones"
+valid !msgstr="billón"
+hint="« Billion » se traduce como como « Millardo », no como « Billón » (falso amigo)"
+
+# «Character» se traduce como «Personaje».
+#{\bcharacter\b}i
+#valid msgstr="personaje"
+#valid !msgstr="carácter"
+#hint="« Character » se traduce como como « Personaje », no como « Carácter » (falso amigo)"
+
+# «College» se traduce como «Universidad».
+{\bcollege\b}i
+valid msgstr="universidad"
+valid !msgstr="colegio"
+hint="« College » se traduce como como « Universidad », no como « Colegio » (falso amigo)"
+
+# «Compass» se traduce como «Brújula».
+{\bcompass\b}i
+valid msgstr="brújula"
+valid !msgstr="compás"
+hint="« Compass » se traduce como como « Brújula », no como « Compás » (falso amigo)"
+
+# «Comprehensive» se traduce como «Extenso».
+{\bcomprehensive\b}i
+valid msgstr="extens(o|a)"
+valid msgstr="exhaustiv(o|a)"
+valid !msgstr="comprensiv(o|a)"
+hint="« Comprehensive » se traduce como como « Extenso », no como « Comprensivo » (falso amigo)"
+
+# «Compromise» se traduce como «Concesión».
+{\bcompromise\b}i
+valid msgstr="concesión"
+valid msgstr="componenda"
+valid msgstr="convenio"
+valid msgstr="arreglo\sde\sdiferencias"
+valid !msgstr="compromiso"
+hint="« Compromise » se traduce como como « Convenio », no como « Compromiso » (falso amigo)"
+
+# «Confident» se traduce como «Confiado».
+{\bconfident\b}i
+valid msgstr="confiad(o|a)"
+valid msgstr="segur(o|a)\sde\ssi\smismo"
+valid !msgstr="confidente"
+hint="« Confident » se traduce como como « Confiado », no como « Confidente » (falso amigo)"
+
+# «Consistent» se traduce como «Compatible».
+{\bconsistent\b}i
+valid msgstr="compatible"
+valid msgstr="coherente"
+valid !msgstr="consistente"
+hint="« Consistent » se traduce como como « Compatible », no como « Consistente » (falso amigo)"
+
+# «Contest» se traduce como «Competir».
+{\bcontest\b}i
+valid msgstr="competir"
+valid msgstr="competición"
+valid msgstr="contender"
+valid !msgstr="contestar"
+valid !msgstr="contestación"
+hint="« Contest » se traduce como como « Competir », no como « Contestar » (falso amigo)"
+
+# «Crime» se traduce como «Delito».
+{\bcrime\b}i
+valid msgstr="delito"
+valid !msgstr="crimen"
+hint="« Crime » se traduce como como « Delito », no como « Crimen » (falso amigo)"
+
+# «Criminal» se traduce como «Delincuente».
+{\bcriminal\b}i
+valid msgstr="delincuente"
+valid !msgstr="criminal"
+hint="« Criminal » se traduce como como « Delincuante », no como « Criminal » (falso amigo)"
+
+# «Current» se traduce como «Actual».
+{\bcurrent\b}i
+valid msgstr="actual"
+valid !msgstr="corriente"
+hint="« Current » se traduce como como « Actual », no como « Corriente » (falso amigo)"
+
+# «Date» se traduce como «Fecha».
+{\bdate\b}i
+valid msgstr="fecha"
+valid msgstr="cita"
+valid !msgstr="dato"
+hint="« Date » se traduce como como « Fecha », no como « Dato » (falso amigo)"
+
+# «Deception» se traduce como «Engaño».
+{\bdeception\b}i
+valid msgstr="engaño"
+valid !msgstr="decepción"
+hint="« Deception » se traduce como como « Engaño », no como « Decepción » (falso amigo)"
+
+# «Derogatory» se traduce como «Despectivo».
+{\bderogatory\b}i
+valid msgstr="despectiv(o|a)"
+valid msgstr="peyorativ(o|a)"
+valid !msgstr="derogatori(o|a)"
+hint="« Derogatory » se traduce como como « Despectivo », no como « Derogatorio » (falso amigo)"
+
+# «Discuss» se traduce como «Debatir».
+{\bdiscuss\b}i
+valid msgstr="debatir"
+valid msgstr="intercambiar\sideas"
+valid !msgstr="discutir"
+hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
+
+# «Discussion» se traduce como «Debate».
+{\bdiscussion\b}i
+valid msgstr="debate"
+valid msgstr="intercambio\sde\sideas"
+valid !msgstr="discusión"
+hint="« Discussion » se traduce como como « Debate », no como « Discusión » (falso amigo)"
+
+# «Disgust» se traduce como «Repugnar».
+{\bdisgust\b}i
+valid msgstr="repugnar"
+valid msgstr="asquear"
+valid !msgstr="disgustar"
+hint="« Disgust » se traduce como como « Repugnar », no como « Disgustar » (falso amigo)"
+
+# «Disorder» se traduce como «Trastorno».
+{\bdisorder\b}i
+valid msgstr="trastorno"
+valid !msgstr="desorden"
+hint="« Disorder » se traduce como como « Trastorno », no como « Desorden » (falso amigo)"
+
+# «Diversion» se traduce como «Distracción».
+{\bdiversion\b}i
+valid msgstr="distracción"
+valid msgstr="desvio"
+valid !msgstr="diversión"
+hint="« Diversion » se traduce como como « Distracción », no como « Diversión » (falso amigo)"
+
+# «(to) Divert» se traduce como «Desviar».
+{\bdivert\b}i
+valid msgstr="desviar"
+valid !msgstr="divertir"
+hint="« Divert » se traduce como como « Desviar », no como « Divertir » (falso amigo)"
+
+# «Domestic» se traduce como «Nacional».
+{\bdomestic\b}i
+valid msgstr="nacional"
+valid msgstr="intern(o|a)"
+valid !msgstr="doméstic(o|a)"
+hint="« Domestic » se traduce como como « Nacional », no como « Doméstico » (falso amigo)"
+
+# «Enlarge» se traduce como «Agrandar».
+{\benlarge\b}i
+valid msgstr="agrandar"
+valid !msgstr="alargar"
+hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
+
+# «Eventually» se traduce como «Finalmente».
+{\beventually\b}i
+valid msgstr="finalmente"
+valid msgstr="a\sla\slarga"
+valid !msgstr="eventualmente"
+hint="« Eventually » se traduce como como « Finalmente », no como « Eventualmente » (falso amigo)"
+
+# «Exit» se traduce como «Salida».
+{\bexit\b}i
+valid msgstr="salida"
+valid !msgstr="éxito"
+hint="« Exit » se traduce como como « Salida », no como « Éxito » (falso amigo)"
+
+# «Facilities» se traduce como «Instalaciones».
+{\bfacilities\b}i
+valid msgstr="instalaciones"
+valid !msgstr="facilidades"
+hint="« Facilities » se traduce como como « Instalaciones », no como « Facilidades » (falso amigo)"
+
+# «Genial» se traduce como «Simpático».
+{\bgenial\b}i
+valid msgstr="simpátic(o|a)"
+valid msgstr="jovial"
+valid msgstr="cordial"
+valid msgstr="amistos(o|a)"
+valid !msgstr="genial"
+hint="« Genial » se traduce como como « Simpático », no como « Genial » (falso amigo)"
+
+# «Gentle» se traduce como «Suave».
+{\bgentle\b}i
+valid msgstr="suave"
+valid msgstr="mans(o|a)"
+valid msgstr="moderad(o|a)"
+valid !msgstr="gentil"
+hint="« Gentle » se traduce como como « Suave », no como « Gentil » (falso amigo)"
+
+# «Glove» se traduce como «Guante».
+{\bglobe\b}i
+valid msgstr="guante"
+valid msgstr="globo" before="terráqueo"
+hint="« Glove » se traduce como como « Guante », no como « Globo » (falso amigo)"
+
+# «Idiom» se traduce como «Modismo».
+{\bidiom\b}i
+valid msgstr="modismo"
+valid msgstr="expresión\sidiomática"
+valid !msgstr="idioma"
+hint="« idiom » se traduce como como « Modismo », no como « Idioma » (falso amigo)"
+
+# «In front of» se traduce como «Delante de».
+{\bin\sfront\sof\b}i
+valid msgstr="delante\sde"
+valid !msgstr="enfrente\sde"
+hint="« In front of » se traduce como como « Delante de », no como « Enfrente de » (falso amigo)"
+
+# «Large» se traduce como «Grande».
+{\blarge\b}i
+valid msgstr="grande"
+valid !msgstr="larg(o|a)"
+hint="« Large » se traduce como como « Grande », no como « Largo » (falso amigo)"
+
+# «Lecture» se traduce como «Conferencia».
+{\blecture\b}i
+valid msgstr="conferencia"
+valid !msgstr="lectura"
+hint="« Lecture » se traduce como como « Conferencia », no como « Lectura » (falso amigo)"
+
+# «Lyrics» se traduce como «Letra».
+{\blyrics\b}i
+valid msgstr="letra"
+valid !msgstr="lírica"
+hint="« Lyrics » se traduce como como « Letra », no como « Lírica » (falso amigo)"
+
+# «Notice» se traduce como «Aviso».
+{\bnotice\b}i
+valid msgstr="avis(o|ar)"
+valid msgstr="notificac(ión|ar)"
+valid msgstr="darse\scuenta"
+valid !msgstr="noticia"
+hint="« Notice » se traduce como como « Darse cuenta », no como « Noticia » (falso amigo)"
+
+# «Occur» se traduce como «Aparecer».
+{\boccur\b}i
+valid msgstr="aparecer"
+valid !msgstr="ocurrir"
+hint="« Occur » se traduce como como « Aparecer », no como « Ocurrir » (falso amigo)"
+
+# «Occurs» se traduce como «Aparece».
+{\boccurs\b}i
+valid msgstr="aparece"
+valid !msgstr="ocurre"
+hint="« Occurs » se traduce como como « Aparece », no como « Ocurre » (falso amigo)"
+
+# «Occurrence» se traduce como «Aparición».
+{\boccurrence\b}i
+valid msgstr="aparición"
+valid !msgstr="ocurrencia"
+hint="« Ocurrence » se traduce como como « Aparición », no como « Ocurrencia » (falso amigo)"
+
+# «Offense/Offence» se traduce como «Delito».
+{\boffen(s|c)e\b}i
+valid msgstr="delito"
+valid !msgstr="ofensa"
+hint="« Offense/Offence » se traduce como como « Delito », no como « Ofensa » (falso amigo)"
+
+# «Office» se traduce como «Oficina».
+{\boffice\b}i
+valid msgstr="oficina"
+valid msgstr="despacho"
+valid !msgstr="oficio"
+hint="« Office » se traduce como como « Oficina », no como « Oficio » (falso amigo)"
+
+# «Ordinary» se traduce como «Común».
+{\bordinary\b}i
+valid msgstr="común"
+valid msgstr="normal"
+valid !msgstr="ordinari(o|a)"
+hint="« Ordinary » se traduce como como « Común », no como « Ordinario » (falso amigo)"
+
+# «Parents» se traduce como «Padres».
+{\bparents\b}i
+valid msgstr="padres"
+valid !msgstr="parientes"
+hint="« Parents » se traduce como como « Padres », no como « Parientes » (falso amigo)"
+
+# «Petrol» se traduce como «Gasolina».
+{\bpetrol\b}i
+valid msgstr="gasolina"
+valid !msgstr="petróleo"
+hint="« Petrol » se traduce como como « Gasolina », no como « Petróleo » (falso amigo)"
+
+# «Physician» se traduce como «Médico».
+{\bphysician\b}i
+valid msgstr="médico"
+valid !msgstr="físico"
+hint="« Physician » se traduce como como « Médico », no como « Físico » (falso amigo)"
+
+# «Plain» se traduce como «Sencillo».
+{\bplain\b}i
+valid msgstr="sencill(o|a)"
+valid !msgstr="plan(o|a)"
+hint="« Plain » se traduce como como « Sencillo », no como « Plano » (falso amigo)"
+
+# «Pretend» se traduce como «Fingir».
+{\bpretend\b}i
+valid msgstr="fingir"
+valid !msgstr="pretender"
+hint="« Pretend » se traduce como como « Fingir », no como « Pretender » (falso amigo)"
+
+# «Prevent» se traduce como «Evitar».
+{\bprevent\b}i
+valid msgstr="evitar"
+valid msgstr="impedir"
+valid !msgstr="prevenir"
+hint="« Prevent » se traduce como como « Evitar », no como « Prevenir » (falso amigo)"
+
+# «Produce» se traduce como «Presentar».
+{\bproduce\b}i
+valid msgstr="presentar"
+valid !msgstr="producir"
+hint="« Produce » se traduce como como « Presentar », no como « Producir » (falso amigo)"
+
+# «Quartely» se traduce como «Trimestral».
+{\bquartely\b}i
+valid msgstr="trimestral"
+valid !msgstr="cuatrimestral"
+hint="« Quartely » se traduce como como « Trimestral », no como « Cuatrimestral » (falso amigo)"
+
+# «Quiet» se traduce como «Calmado».
+{\bquiet\b}i
+valid msgstr="calmad(o|a)"
+valid msgstr="callad(o|a)"
+valid msgstr="en\ssilencio"
+valid msgstr="tranquil(o|a)"
+valid !msgstr="quiet(o|a)"
+hint="« Quiet » se traduce como como « Calmado », no como « Quieto » (falso amigo)"
+
+# «Realize» se traduce como «darse cuenta».
+{\brealize\b}i
+valid msgstr="darse\scuenta"
+valid !msgstr="realizar"
+hint="« Realize » se traduce como como « Darse cuenta », no como « Realizar » (falso amigo)"
+
+# «Recipient» se traduce como «Receptor».
+{\brecipient\b}i
+valid msgstr="receptor"
+valid !msgstr="recipiente"
+hint="« Recipient » se traduce como como « Receptor », no como « Recipiente » (falso amigo)"
+
+# «Reclaim» se traduce como «Recuperar».
+{\breclaim\b}i
+valid msgstr="recuperar"
+valid msgstr="sanear"
+valid !msgstr="reclamar"
+hint="« Reclaim » se traduce como como « Recuperar », no como « Reclamar » (falso amigo)"
+
+# «Relevant» se traduce como «Pertinente».
+{\brelevant\b}i
+valid msgstr="pertinente"
+valid msgstr="aplicable"
+valid !msgstr="relevante"
+hint="« Relevant » se traduce como como « pertinente », no como « Relevante » (falso amigo)"
+
+# «Remove» se traduce como «Quitar».
+{\bremove\b}i
+valid msgstr="quitar"
+valid msgstr="eliminar"
+valid !msgstr="remover"
+hint="« Remove » se traduce como como « Quitar », no como « Remover » (falso amigo)"
+
+# «Report» se traduce como «Informar».
+{\breport\b}i
+valid msgstr="inform(ar|e)"
+valid !msgstr="reportar"
+hint="« Report » se traduce como como « Informar », no como « Reportar » (falso amigo)"
+
+# «Resume» se traduce como «Reanudar».
+{\bresume\b}i
+valid msgstr="reanudar"
+valid !msgstr="resumen"
+hint="« Resume » se traduce como como « Reanudar », no como « Resumen » (falso amigo)"
+
+# «Scholar» se traduce como «Erudito».
+{\bscholar\b}i
+valid msgstr="erudit(o|a)"
+valid msgstr="académic(o|a)"
+valid !msgstr="escolar"
+hint="« Scholar » se traduce como como « Erudito », no como « Escolar » (falso amigo)"
+
+# «Silicon» se traduce como «Silicio».
+{\bsilicon\b}i
+valid msgstr="silicio"
+valid !msgstr="silicona"
+hint="« Silicon » se traduce como como « Silicio », no como « Silicona » (falso amigo)"
+
+# «Simple» se traduce como «Sencillo».
+{\bsimple\b}i
+valid msgstr="sencill(o|a)"
+valid !msgstr="simple"
+hint="« Simple » se traduce como como « Sencillo », no como « Simple » (falso amigo)"
+
+# «Stranger» se traduce como «Forastero».
+{\bstranger\b}i
+valid msgstr="foraster(o|a)"
+valid msgstr="extrañ(o|a)"
+valid !msgstr="extranjer(o|a)"
+hint="« Stranger » se traduce como como « Forastero », no como « Extranjero » (falso amigo)"
+
+# «Suggestion» se traduce como «Sugerencia».
+{\bsuggestion\b}i
+valid msgstr="sugerencia"
+valid !msgstr="sugestión"
+hint="« Suggestion » se traduce como como « Sugerencia », no como « Sugestión » (falso amigo)"
+
+# «Sympathetic» se traduce como «Compasivo».
+{\bsymphatetic\b}i
+valid msgstr="compasiv(o|a)"
+valid msgstr="comprensiv(o|a)"
+valid !msgstr="simpátic(o|a)"
+hint="« Sympathetic » se traduce como como « Compasivo », no como « Simpático » (falso amigo)"
+
+# «Symphaty» se traduce como «Compasión».
+{\bsympathy\b}i
+valid msgstr="compasión"
+valid !msgstr="simpatía"
+hint="« Symphaty » se traduce como como « Compasión », no como « Simpatía » (falso amigo)"
+
+# «Target» se traduce como «Blanco».
+{\btarget\b}i
+valid msgstr="blanco"
+valid msgstr="objetivo"
+valid !msgstr="tarjeta"
+hint="« Target » se traduce como como « Blanco », no como « Tarjeta » (falso amigo)"
+
+# «Ultimate» se traduce como «Lo más reciente».
+{\bultimate\b}i
+valid msgstr="lo\smás\sreciente"
+valid msgstr="definitiv(o|a)"
+valid !msgstr="últim(o|a)"
+hint="« Ultimate » se traduce como como « Lo más reciente », no como « Último » (falso amigo)"
+
+# «Yet» se traduce como «Todavía».
+{\byet\b}i
+valid msgstr="todavía"
+valid !msgstr="ya"
+hint="« Yet » se traduce como como « Todavía », no como « Ya » (falso amigo)"
+
+# End of rule file

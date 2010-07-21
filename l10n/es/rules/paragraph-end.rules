@@ -24,7 +24,17 @@ hint="Compruebe el uso de espacio antes del fin de línea «\n» (falta en la tr
 # Sobra espacio antes del fin de línea.
 {\S\\n}i
 valid msgstr="\S\\n"
-hint="Compruebe el uso de espacio antes del fin de línea «\n» (sobra en la trducción)."
+hint="Compruebe el uso de espacio antes del fin de línea «\n» (sobra en la traducción)."
+
+# Falta espacio antes del fin de párrafo.
+{\s\<\/s\>}i
+valid msgstr="\s\<\/s\>"
+hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en la traducción)."
+
+# Sobra espacio antes del fin de línea.
+{\S\<\/s\>}i
+valid msgstr="\S\<\/s\>"
+hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en la traducción)."
 
 # Punto al final del párrafo.
 {\.\s*$}i
@@ -36,6 +46,11 @@ hint="Compruebe el uso de punto al final del párrafo."
 valid msgstr="\.\s*\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n»."
 
+# Punto en el fin de párrafo.
+{\.\s*\<\/s\>}i
+valid msgstr="\.\s*\<\/s\>"
+hint="Compruebe el uso de punto antes del fin de párrafo «</p>»."
+
 # Dos puntos al final del párrafo.
 {\:\s*$}i
 valid msgstr="\:\s*$"
@@ -45,6 +60,11 @@ hint="Compruebe el uso de dos puntos al final del párrafo."
 {\:\s*\\n}i
 valid msgstr="\:\s*\\n"
 hint="Compruebe el uso de dos puntos antes del fin de línea «\n»."
+
+# Dos puntos al final del párrafo.
+{\:\s*\<\/s\>}i
+valid msgstr="\:\s*\<\/s\>"
+hint="Compruebe el uso de dos puntos al final del párrafo «</p>»."
 
 # Coma al final del párrafo.
 {\,\s*$}i
@@ -56,6 +76,11 @@ hint="Compruebe el uso de coma al final del párrafo."
 valid msgstr="\,\s*\\n"
 hint="Compruebe el uso de coma antes del fin de línea «\n»"
 
+# Coma al final del párrafo.
+{\,\s*\<\/s\>}i
+valid msgstr="\,\s*\<\/s\>"
+hint="Compruebe el uso de coma al final del párrafo «</p>»"
+
 # Punto y coma al final del párrafo.
 {\;\s*$}i
 valid msgstr="\;\s*$"
@@ -66,18 +91,30 @@ hint="Compruebe el uso de punto y coma al final del párrafo."
 valid msgstr="\;\s*\\n"
 hint="Compruebe el uso de punto y coma antes del fin de línea «\n»."
 
+# Punto y coma al final del párrafo.
+{\;\s*\<\/s\>}i
+valid msgstr="\;\s*\<\/s\>"
+hint="Compruebe el uso de punto y coma al final del párrafo «</p>»."
+
 # Paréntesis al final del párrafo.
 {\.\)\s*$}i
 valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)s*$"
-valid msgstr="\w\."
+valid msgstr="\w\.$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
 # Paréntesis en el fin de línea «\n».
 {\.\)\s*\\n}i
 valid msgstr="\)\.\s*\\n"
 valid msgstr="etc\.\)\s*\\n"
-valid msgstr="\w\."
+valid msgstr="\w\.\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
+
+# Paréntesis al final del párrafo.
+{\.\)\s*\<\/s\>}i
+valid msgstr="\)\.\s*\<\/s\>"
+valid msgstr="etc\.\)s*\<\/s\>"
+valid msgstr="\w\.\<\/s\>"
+hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 # End of rule file

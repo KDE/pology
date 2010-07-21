@@ -25,13 +25,16 @@ addFilterRegex match="\s*www\.(\w*\.)+((gov|edu|com|mil|org|net|aero|biz|coop|in
 addFilterRegex match="\s*(mailto\:)?([a-zA-Z0-9\_\-]+)(\.\2)*\@(\.\2)+\.[a-zA-Z]{2,4}" on="pmsgid,pmsgstr"
 
 # Remove system files.
-addFilterRegex match="\s*(file\:)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/w+)*\/?" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*(file\:)?(\#\!\/)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/(\w|\.|\-|\_|)+)*\/?" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guees) hidden directories.
-addFilterRegex match="\s*\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)(\/w+)*\/?" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)(\/(\w|\.|\-|\_|)+)*\/?" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guess) hidden files.
-addFilterRegex match="\s*\.(\w+rc|\w+config|aspell\w*|bash\w*|directory|fonts\w*|ICEauthority|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" on="pmsgid,pmsgstr"
+addFilterRegex match="\s*\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|directory|fonts\w*|ICEauthority|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guess) commands.
 addFilterRegex match="\s*\.(\/configure)" on="pmsgid,pmsgstr"
+
+# Remove references home directory files.
+addFilterRegex match="\s*\~\/(\w|\-|\_|\.)+" on="pmsgid,pmsgstr"
