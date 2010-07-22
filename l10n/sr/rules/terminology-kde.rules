@@ -102,8 +102,8 @@ valid cat="dolphin" msgid="the user can toggle the browse button"
 {^Browse\W*$}
 id="browse_button"
 hint="Browse = Прегледај"
-valid ctx="@option"
-valid comment="@option"
+valid ctx="@option|@title"
+valid comment="@option|@title"
 valid msgstr="^Прегледај\W*$"
 
 {\bbrowser}i
