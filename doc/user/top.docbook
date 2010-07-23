@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book lang="en_US">
+
+<title>Pology User Manual</title>
+
+<bookinfo>
+
+    <authorgroup>
+        <author>
+            <firstname>Chusslove</firstname> <surname>Illich</surname>
+            <email>caslav.ilic@gmx.net</email>
+        </author>
+    </authorgroup>
+
+    <!--
+    <copyright>
+        <year>2010</year>
+        <holder>Chusslove Illich (Часлав Илић)</holder>
+    </copyright>
+
+    <legalnotice>
+        <para>This document is published under the terms of GNU Free Documentation Licence, version 1.2.</para>
+    </legalnotice>
+    -->
+
+    <!--
+    <revhistory>
+        <revision>
+            <date>July 23rd, 2010.</date>
+            <revremark>Document started.</revremark>
+        </revision>
+    </revhistory>
+    -->
+
+</bookinfo>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="about.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="sieving.docbook"/>
+
+</book>

@@ -1,0 +1,103 @@
+body {
+    font-family: sans-serif;
+    margin: 1em 5% 1em 5%;
+}
+
+a {
+    color: green;
+    text-decoration: underline;
+}
+a:visited {
+    color: maroon;
+}
+
+div.toc {
+}
+
+h1, h2, h3, h4 {
+    font-family: sans-serif;
+}
+h1, div.chapter * h2 {
+    background-color: seagreen;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+    color: white;
+}
+div.sect1 * h2 {
+    background-color: white;
+    color: seagreen;
+    padding: 0.1em 0em 0.1em 0em;
+    /*border-bottom: 2px solid silver;*/
+}
+h3, h4 {
+    color: seagreen;
+}
+
+div.sect1 {
+    margin-top: 2em;
+}
+
+code {
+    color: darkgreen;
+}
+
+.programlisting {
+    color: darkgreen;
+    background-color: #f4f4f4;
+    padding: 0.5em;
+
+    border: thin solid silver;
+}
+
+.remark {
+}
+.remark:before {
+    content: "[[";
+}
+.remark:after {
+    content: "]]";
+}
+
+div.toc > dl > dt { /* sect1 entry */
+    margin-top: 0.75em;
+    margin-bottom: 0.5em;
+}
+div.toc > dl > dd > dl { /* sect2 block */
+    margin-top: 0em;
+    margin-bottom: 0.0em;
+}
+div.toc > dl > dd > dl > dt { /* sect2 entry */
+    margin-top: 0.0em;
+    margin-bottom: 0.25em;
+}
+
+/*
+p {
+    text-indent: 2em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+p:first-of-type {
+    text-indent: 0em;
+}
+*/
+
+p > sup { /* footnote; damn it, no class */
+    font-size: 75%;
+    vertical-align: top;
+}
+p > sup > a {
+    vertical-align: top;
+}
+
+div.authorgroup {
+    margin-bottom: 1em;
+}
+div.author {
+    margin-bottom: 0.5em;
+}
+h3.author {
+    display:inline;
+    font-size: 100%;
+    color: black;
+    margin: 0;
+}
