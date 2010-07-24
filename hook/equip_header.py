@@ -75,10 +75,10 @@ def equip_header_tp_kde (hdr, cat):
         accmark = "&"
 
     fvs = [
-        (u"Language", unicode(lang), "Language-Team", False),
-        (u"X-Environment", u"kde", None, True),
-        (u"X-Accelerator-Marker", unicode(accmark), None, False),
-        (u"X-Text-Markup", u", ".join(mtypes), None, False),
+        ("Language", lang, "Language-Team", False),
+        ("X-Environment", u"kde", None, True),
+        ("X-Accelerator-Marker", accmark, None, False),
+        ("X-Text-Markup", ", ".join(mtypes), None, False),
     ]
     for fnam, fval, fnamaft, fkeep in fvs:
         if fval is None:
@@ -87,7 +87,7 @@ def equip_header_tp_kde (hdr, cat):
         if not (existing and fkeep):
             if len(existing) > 1:
                 hdr.remove_field(fnam)
-            hdr.set_field(fnam, fval, after=fnamaft)
+            hdr.set_field(unicode(fnam), unicode(fval), after=fnamaft)
 
     return 0
 
