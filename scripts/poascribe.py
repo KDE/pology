@@ -1113,6 +1113,7 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
     # original counterpart, to ascribe as obsolete.
     # If reconstruction of post-merge messages is needed,
     # also collect latest historical versions.
+    cat.sync_map() # in case key fields were purged
     for amsg in acat:
         if amsg not in cat:
             ast = amsg.state()
