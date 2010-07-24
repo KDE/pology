@@ -25,7 +25,8 @@ def equip_header_tp_kde (hdr, cat):
       - C{Language}: the language code of translation;
             set only if the language can be determined
       - C{X-Environment}: linguistic subset of the language of translation
-            (team choices on terminology, ortography...); set to C{kde}
+            (team choices on terminology, ortography...);
+            set to C{kde} if not existing, otherwise left untouched.
       - C{X-Accelerator-Marker}: accelerator marker character which may
             be encountered in text
       - C{X-Text-Markup}: text markups (e.g. Qt rich text, Docbook...) which
@@ -74,17 +75,19 @@ def equip_header_tp_kde (hdr, cat):
         accmark = "&"
 
     fvs = [
-        (u"Language", unicode(lang), "Language-Team"),
-        (u"X-Environment", u"kde", None),
-        (u"X-Accelerator-Marker", unicode(accmark), None),
-        (u"X-Text-Markup", u", ".join(mtypes), None),
+        (u"Language", unicode(lang), "Language-Team", False),
+        (u"X-Environment", u"kde", None, True),
+        (u"X-Accelerator-Marker", unicode(accmark), None, False),
+        (u"X-Text-Markup", u", ".join(mtypes), None, False),
     ]
-    for fnam, fval, fnamaft in fvs:
+    for fnam, fval, fnamaft, fkeep in fvs:
         if fval is None:
             continue
-        if len(hdr.select_fields(fnam)) > 1:
-            hdr.remove_field(fnam)
-        hdr.set_field(fnam, fval, after=fnamaft)
+        existing = hdr.select_fields(fnam)
+        if not (existing and fkeep):
+            if len(existing) > 1:
+                hdr.remove_field(fnam)
+            hdr.set_field(fnam, fval, after=fnamaft)
 
     return 0
 
