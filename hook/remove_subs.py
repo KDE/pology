@@ -627,40 +627,43 @@ def rewrite_msgid (msg, cat):
     return nerrors
 
 
-def rewrite_msgid_inverse (msg, cat):
+def rewrite_inverse (msg, cat):
     """
-    Rewrite C{msgid} by replacing it with the C{msgid} of another message
-    with same C{msgstr[0]} [type F4A hook].
+    Rewrite message by replacing all its elements with that of another message
+    which has the same C{msgstr[0]} [type F4A hook].
 
-    Translator comments may issue C{rewrite-msgid-inverse} directives
-    to replace the C{msgid} (as well as C{msgid_plural}) field
-    with those from another message having the same C{msgstr[0]} field.
-    The argument to the directive is a regular experssion search pattern
-    on C{msgid} (leading and trailing whitespace are stripped from it)
+    Translator comments may issue C{rewrite-inverse} directives
+    to replace all message parts with those from another message
+    having the same C{msgstr[0]} field.
+    The argument to the directive is a regular expression search pattern
+    on C{msgid} and C{msgctxt} (leading and trailing whitespace get stripped)
     which is used to select the particular message if more than
     one other messages have same C{msgstr[0]}.
     Examples::
 
-        # rewrite-msgid-inverse:
-        # rewrite-msgid-inverse: Foo
+        # rewrite-inverse:
+        # rewrite-inverse: Foo
 
     If the pattern does not match or it matches more than one other message,
-    the C{msgid} of current message is not touched; also if the pattern
+    current message is not touched; also if the pattern
     is left empty and there is more than one other message.
+    Search pattern is applied to C{msgctxt} and C{msgid} in turn,
+    and the message is matched if any matches.
     Search pattern is case-sensitive.
 
-    If more than one C{rewrite-msgid-inverse} directive is seen,
+    If more than one C{rewrite-inverse} directive is seen,
     or the search pattern is not valid, a warning on message is issued
-    and C{msgid} is not touched.
+    and current message is not touched.
 
-    C{msgid_plural} is replaced only if both the current and
-    the inversely selected message have it.
+    This hook is then executed again on the resulting message,
+    in case the new translator comments contain another
+    C{rewrite-inverse} directive.
 
     @return: number of errors
     """
 
     # Collect and compile regular expressions.
-    fname = "rewrite-msgid-inverse"
+    fname = "rewrite-inverse"
     rwspecs = manc_parse_field_values(msg, fname)
     if not rwspecs:
         return 0
@@ -690,7 +693,9 @@ def rewrite_msgid_inverse (msg, cat):
                        msg, cat)
         return 1
 
-    sel_msgs = [x for x in msgs if rx.search(x.msgid)] # remove non-matched
+    match = lambda x: (   (x.msgctxt is not None and rx.search(x.msgctxt))
+                       or rx.search(x.msgid))
+    sel_msgs = [x for x in msgs if match(x)] # remove non-matched
     if not sel_msgs:
         warning_on_msg(_("@info",
                          "Inverse rewrite directive matches none of "
@@ -704,12 +709,17 @@ def rewrite_msgid_inverse (msg, cat):
                        msg, cat)
         return 1
 
+    # Copy all parts of the other message.
     omsg = sel_msgs[0]
     msg.msgid = omsg.msgid
     if msg.msgid_plural is not None and omsg.msgid_plural is not None:
         msg.msgid_plural = omsg.msgid_plural
 
-    return 0
+    # Copy comments and recurse.
+    msg.set(omsg)
+    nerrors = rewrite_inverse(msg, cat)
+
+    return nerrors
 
 
 _ent_rx = re.compile(r"&[a-zA-Z0-9_.:-]+;")
