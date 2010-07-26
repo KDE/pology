@@ -580,6 +580,9 @@ class Catalog (Monitored):
         final_spec["*"]["type"] = message_type
         self.assert_spec_init(final_spec)
 
+        # Inverse map (by msgstr) will be computed on first use.
+        self._invmap = None
+
         # Cached plural definition from the header.
         self._plustr = ""
 
@@ -666,10 +669,10 @@ class Catalog (Monitored):
         Runtime complexity O(1), regardless of the C{ident} type.
 
         @param ident: position index or another message
-        @type ident: int or subclass of L{Message_base}
+        @type ident: int or L{Message_base}
 
         @returns: reference to the message in catalog
-        @rtype: subclass of L{Message_base}
+        @rtype: L{Message_base}
         """
 
         self._assert_headonly()
@@ -689,10 +692,10 @@ class Catalog (Monitored):
         Runtime complexity O(1), regardless of the C{ident} type.
 
         @param ident: position index or another message
-        @type ident: int or subclass of L{Message_base}
+        @type ident: int or L{Message_base}
 
         @returns: reference to the message in catalog
-        @rtype: subclass of L{Message_base}
+        @rtype: L{Message_base}
         """
 
         self._assert_headonly()
@@ -712,7 +715,7 @@ class Catalog (Monitored):
         Runtime complexity O(1).
 
         @param msg: message to look for
-        @type msg: subclass of L{Message_base}
+        @type msg: L{Message_base}
 
         @returns: C{True} if the message exists
         @rtype: bool
@@ -766,7 +769,7 @@ class Catalog (Monitored):
         Runtime complexity O(1).
 
         @param msg: message to look for
-        @type msg: subclass of L{Message_base}
+        @type msg: L{Message_base}
         @param wobs: obsolete messages considered non-existant if C{False}
         @type wobs: bool
 
@@ -792,12 +795,12 @@ class Catalog (Monitored):
         Runtime complexity O(1).
 
         @param msg: message for the lookup by key
-        @type msg: subclass of L{Message_base} or None
+        @type msg: L{Message_base} or None
         @param defmsg: fallback in case lookup failed
         @type defmsg: any
 
         @returns: reference to the message in catalog, or default
-        @rtype: subclass of L{Message_base} or type(defmsg)
+        @rtype: L{Message_base} or type(defmsg)
         """
 
         if msg is None:
@@ -840,7 +843,7 @@ class Catalog (Monitored):
         O(n) if the position is not given and the message is not present.
 
         @param msg: message to insert
-        @type msg: subclass of L{Message_base}
+        @type msg: L{Message_base}
 
         @param pos: position index to insert at
         @type pos: int or None
@@ -1032,7 +1035,7 @@ class Catalog (Monitored):
         when the logic allows the removal to be delayed to syncing time.
 
         @param ident: position index or another message
-        @type ident: int or subclass of L{Message_base}
+        @type ident: int or L{Message_base}
 
         @returns: C{None}
         """
@@ -1072,7 +1075,7 @@ class Catalog (Monitored):
         Runtime complexity O(1).
 
         @param ident: position index or another message
-        @type ident: int or subclass of L{Message_base}
+        @type ident: int or L{Message_base}
 
         @returns: C{None}
         """
@@ -1261,6 +1264,24 @@ class Catalog (Monitored):
         for i in range(len(self._messages)):
             self._msgpos[self._messages[i].key] = i
 
+        # Set inverse map to non-computed.
+        self._invmap = None
+
+
+    def _make_invmap (self):
+
+        # Map for inverse lookup (by translation) has as key the msgstr[0],
+        # and the value the list of messages having the same msgstr[0].
+
+        self._invmap = {}
+        for msg in self._messages:
+            ikey = msg.msgstr[0]
+            msgs = self._invmap.get(ikey)
+            if msgs is None:
+                msgs = []
+                self._invmap[ikey] = msgs
+            msgs.append(msg)
+
 
     def insertion_inquiry (self, msg, srefsyn={}):
         """
@@ -1274,7 +1295,7 @@ class Catalog (Monitored):
         Runtime complexity O(n).
 
         @param msg: message to compute the tentative insertion for
-        @type msg: subclass of L{Message_base}
+        @type msg: L{Message_base}
         @param srefsyn: synonymous names to some of the source files
         @type srefsyn: {string: list of strings}
 
@@ -1483,7 +1504,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of subclass of L{Message_base}
+        @rtype: list of L{Message_base}
         """
 
         m = MessageUnsafe({"msgctxt" : msgctxt, "msgid" : msgid})
@@ -1521,7 +1542,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of subclass of L{Message_base}
+        @rtype: list of L{Message_base}
         """
 
         if exctxt and exid:
@@ -1567,12 +1588,12 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of subclass of L{Message_base}
+        @rtype: list of L{Message_base}
         """
 
         selected_msgs = []
         for msg in self._messages:
-            if msg.msgid == msgid and (wobs or not msg.obsolete):
+            if (wobs or not msg.obsolete) and msg.msgid == msgid:
                 selected_msgs.append(msg)
 
         return selected_msgs
@@ -1598,7 +1619,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of subclass of L{Message_base}
+        @rtype: list of L{Message_base}
         """
 
         # Build dictionary of message keys by msgid;
@@ -1622,6 +1643,48 @@ class Catalog (Monitored):
                 selected_msgs.append(self._messages[self._msgpos[msgkey]])
 
         return selected_msgs
+
+
+    def select_by_msgstr (self, msgstr0, wobs=False, lazy=False):
+        """
+        Select messages from the catalog inversely, by their msgstr[0].
+
+        Several messages may have the same C{msgstr[0]} field,
+        so the return value is always a list of messages.
+        Empty list is returned when there is no match.
+
+        Runtime complexity is O(n) if C{lazy} is C{False}.
+        If C{lazy} is C{True}, complexity is O(n) for the first search,
+        and then O(1) until next syncing of the catalog;
+        if msgstr fields of some messages change in between,
+        or messages are added or removed from the catalog,
+        this is not seen until next syncing.
+
+        @param msgstr0: the text of C{msgstr[0]} field
+        @type msgstr0: string
+        @param wobs: whether to include obsolete messages in selection
+        @type wobs: bool
+        @param lazy: whether to assume msgstr are not modified between syncings
+        @type lazy: bool
+
+        @returns: selected messages
+        @rtype: list of L{Message_base}
+        """
+
+        if not lazy:
+            selected_msgs = {}
+            for msg in self._messages:
+                if (wobs or not msg.obsolete) and msg.msgstr[0] == msgstr0:
+                    selected_msgs.append(msg)
+        else:
+            if self._invmap is None:
+                self._make_invmap()
+            selected_msgs = self._invmap.get(msgstr0, [])
+            if not wobs:
+                selected_msgs = [x for x in selected_msgs if not x.obsolete]
+
+        return selected_msgs
+
 
 
     def accelerator (self):
