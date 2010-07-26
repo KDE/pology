@@ -559,7 +559,7 @@ def _rm_ent_in_text (text, entities):
 
 def rewrite_msgid (msg, cat):
     """
-    Rewrite parts of msgid based on translator comments [type F4A hook].
+    Rewrite parts of C{msgid} based on translator comments [type F4A hook].
 
     Translator comments may issue C{rewrite-msgid} directives
     to modify parts of C{msgid} (as well as C{msgid_plural}) fields
@@ -625,6 +625,91 @@ def rewrite_msgid (msg, cat):
             nerrors += 1
 
     return nerrors
+
+
+def rewrite_msgid_inverse (msg, cat):
+    """
+    Rewrite C{msgid} by replacing it with the C{msgid} of another message
+    with same C{msgstr[0]} [type F4A hook].
+
+    Translator comments may issue C{rewrite-msgid-inverse} directives
+    to replace the C{msgid} (as well as C{msgid_plural}) field
+    with those from another message having the same C{msgstr[0]} field.
+    The argument to the directive is a regular experssion search pattern
+    on C{msgid} (leading and trailing whitespace are stripped from it)
+    which is used to select the particular message if more than
+    one other messages have same C{msgstr[0]}.
+    Examples::
+
+        # rewrite-msgid-inverse:
+        # rewrite-msgid-inverse: Foo
+
+    If the pattern does not match or it matches more than one other message,
+    the C{msgid} of current message is not touched; also if the pattern
+    is left empty and there is more than one other message.
+    Search pattern is case-sensitive.
+
+    If more than one C{rewrite-msgid-inverse} directive is seen,
+    or the search pattern is not valid, a warning on message is issued
+    and C{msgid} is not touched.
+
+    C{msgid_plural} is replaced only if both the current and
+    the inversely selected message have it.
+
+    @return: number of errors
+    """
+
+    # Collect and compile regular expressions.
+    fname = "rewrite-msgid-inverse"
+    rwspecs = manc_parse_field_values(msg, fname)
+    if not rwspecs:
+        return 0
+    if len(rwspecs) > 1:
+        warning_on_msg(_("@info",
+                         "More than one inverse rewrite directive "
+                         "encountered."),
+                       msg, cat)
+        return 1
+
+    srch = rwspecs[0]
+    try:
+        rx = re.compile(srch, re.U)
+    except:
+        warning_on_msg(_("@info",
+                         "Invalid search pattern '%(pattern)s' in "
+                         "inverse rewrite directive.", pattern=srch),
+                       msg, cat)
+        return 1
+
+    msgs = cat.select_by_msgstr(msg.msgstr[0], lazy=True)
+    msgs = [x for x in msgs if x.key != msg.key] # remove current
+    if not msgs:
+        warning_on_msg(_("@info",
+                         "There are no other messages with same translation, "
+                         "needed by inverse rewrite directive."),
+                       msg, cat)
+        return 1
+
+    sel_msgs = [x for x in msgs if rx.search(x.msgid)] # remove non-matched
+    if not sel_msgs:
+        warning_on_msg(_("@info",
+                         "Inverse rewrite directive matches none of "
+                         "the other messages with same translation."),
+                       msg, cat)
+        return 1
+    if len(sel_msgs) > 1:
+        warning_on_msg(_("@info",
+                         "Inverse rewrite directive matches more than "
+                         "one other message with same translation."),
+                       msg, cat)
+        return 1
+
+    omsg = sel_msgs[0]
+    msg.msgid = omsg.msgid
+    if msg.msgid_plural is not None and omsg.msgid_plural is not None:
+        msg.msgid_plural = omsg.msgid_plural
+
+    return 0
 
 
 _ent_rx = re.compile(r"&[a-zA-Z0-9_.:-]+;")
