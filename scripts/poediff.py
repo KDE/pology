@@ -218,6 +218,7 @@ def main ():
                     if path.endswith(".po") or path.endswith(".pot"):
                         paths_nc.append(path)
             paths = paths_nc
+            paths.sort()
         pspecs = collect_pspecs_from_vcs(vcs, paths, revs, op.paired_only)
 
     # Create the diff.
