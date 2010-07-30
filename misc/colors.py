@@ -151,27 +151,83 @@ class ColorString (unicode):
                 ctype = "none"
 
         colorf, escapef = _color_packs.get(ctype, "none")
-        return self._resolve_markup_w(unicode(self), colorf, escapef, 0)
-
-
-    _tag_rx = re.compile(r"<\s*([a-z]\w*)\s*>([^<]*)<\s*/\s*\1\s*>", re.U)
-
-    def _resolve_markup_w (self, text, colorf, escapef, plnum):
-
-        m = self._tag_rx.search(text)
-        plhold = "\x00%d" % plnum
-        if m:
-            tag, seg = m.groups()
-            pre, aft = text[:m.start()], text[m.end():]
-            rtext = self._resolve_markup_w(pre + plhold + aft,
-                                           colorf, escapef, plnum + 1)
-            rpre, raft = rtext.split(plhold)
-            rseg = escapef(_resolve_xml_ents(seg)) # before coloring
-            rseg = colorf(tag, rseg, rpre, raft)
-            rtext = rpre + rseg + raft
-        else:
-            rtext = escapef(_resolve_xml_ents(text))
+        text = unicode(self)
+        rtext, epos = self._resolve_markup_w(text, len(text), 0, None, None,
+                                             colorf, escapef)
         return rtext
+
+
+    def _resolve_markup_w (self, text, tlen, pos, tag, ptag, colorf, escapef):
+
+        rsegs = []
+        p = pos
+        valid = True
+        closed = False
+        while p < tlen:
+            pp = p
+            p = text.find("<", p)
+            if p < 0:
+                p = tlen
+            seg = text[pp:p]
+            rsegs.append(escapef(_resolve_xml_ents(seg)))
+            if p == tlen:
+                break
+            pp = p
+            stag, closed, p = self._parse_tag(text, tlen, p)
+            if stag is not None:
+                if not closed:
+                    rseg, p = self._resolve_markup_w(text, tlen, p, stag, tag,
+                                                     colorf, escapef)
+                    rsegs.append(rseg)
+                else:
+                    if tag != stag:
+                        # Wrong closed tag, declare this span not valid
+                        # and reposition at the tag start.
+                        valid = False
+                        p = pp
+                    break
+            else:
+                # Not a proper tag start, just take literal < and go on.
+                rsegs.append("<")
+                p = pp + 1
+        if tag and not closed:
+            valid = False
+
+        rtext = "".join(rsegs)
+        if tag:
+            if valid:
+                rtext = colorf(tag, rtext, ptag)
+            else:
+                # Not proper span, put back opening tag.
+                rtext = "<%s>%s" % (tag, rtext)
+
+        return rtext, p
+
+
+    def _parse_tag (self, text, tlen, pos):
+
+        # FIXME: No possibility of attributes at the moment.
+        if tlen is None:
+            tlen = len(text)
+        p = pos
+        tag = None
+        closed = False
+        if p < tlen and text[p] == "<":
+            p += 1
+            while p < tlen and text[p].isspace():
+                p += 1
+            if p < tlen:
+                if text[p] == "/":
+                    p += 1
+                    closed = True
+                pp = p
+                p = text.find(">", p)
+                if p < 0:
+                    p = tlen
+                else:
+                    tag = text[pp:p].strip()
+                    p += 1
+        return tag, closed, p
 
 
     def visual_segment (self, pos):
@@ -324,7 +380,6 @@ def get_coloring_types ():
     return _color_packs.keys()
 
 
-
 def set_coloring_globals (ctype="term", outdep=True):
     """
     Set global options for coloring.
@@ -357,7 +412,7 @@ _color_packs = {}
 # ----------------------------------------
 # No coloring, all markup elements are just removed.
 
-_color_packs["none"] = (lambda c, s, p, a: s, lambda s: s)
+_color_packs["none"] = (lambda c, s, p: s, lambda s: s)
 
 
 # ----------------------------------------
@@ -378,7 +433,7 @@ _term_colors = {
     "grey": "37m",
 }
 
-def _color_term (col, seg, pre, aft):
+def _color_term (col, seg, pcol):
 
     eseq = _term_colors.get(col)
     if eseq is not None:
@@ -386,12 +441,9 @@ def _color_term (col, seg, pre, aft):
         # repeat the outer color sequence at end, otherwise reset.
         # If outer and current colors match, do nothing.
         eseq2 = _term_reset
-        p = pre.rfind(_term_head)
-        if p >= 0:
-            p += len(_term_head)
-            p2 = pre.find("m", p)
-            if p2 >= 0:
-                eseq2 = pre[p:p2 + 1]
+        peseq = _term_colors.get(pcol)
+        if peseq:
+            eseq2 = _term_head + peseq
         if eseq != eseq2:
             seg = _term_head + eseq + seg + _term_head + eseq2
     return seg
@@ -414,7 +466,7 @@ _html_colors = {
     "grey": "#808080",
 }
 
-def _color_term (col, seg, pre, aft):
+def _color_term (col, seg, pcol):
 
     if col == "bold":
         seg = "<b>%s</b>" % seg
