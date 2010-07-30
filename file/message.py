@@ -13,7 +13,7 @@ while the header entry is handled by L{pology.file.header}.
 """
 
 from pology.misc.colors import ColorString, cjoin
-from pology.misc.escape import escape_c as escape
+from pology.misc.escape import escape_c
 from pology.misc.wrap import wrap_field, wrap_comment, wrap_comment_unwrap
 from pology.misc.monitored import Monitored, Monlist, Monset, Monpair
 
@@ -119,6 +119,15 @@ _Message_inv_fields = (
     "msgid_plural",
     "msgstr",
 )
+
+
+def _escape (text):
+
+    text = escape_c(text)
+    if isinstance(text, ColorString):
+        text = text.replace("&quot;", "\\&quot;")
+    return text
+
 
 class Message_base (object):
     """
@@ -527,7 +536,7 @@ class Message_base (object):
                         pstat = "curr"
                         if colorize >= 1:
                             fname = ColorString("<bold>%s</bold>") % fname
-                    self.__dict__[att_lins] = wrapf(fname, escape(msgsth),
+                    self.__dict__[att_lins] = wrapf(fname, _escape(msgsth),
                                                     prefix[pstat])
 
         # msgstr must be renewed if the plurality of the message changed.
@@ -545,12 +554,15 @@ class Message_base (object):
                 if colorize >= 1:
                     fname = ColorString("<bold>%s</bold>") % fname
                 self._lines_msgstr.extend(wrapf(fname,
-                                          escape(msgstr[0]),
+                                          _escape(msgstr[0]),
                                           prefix["curr"]))
             else:
                 for i in range(len(msgstr)):
-                    self._lines_msgstr.extend(wrapf("msgstr[%d]" % (i,),
-                                                    escape(msgstr[i]),
+                    fname = "msgstr[%d]" % i
+                    if colorize >= 1:
+                        fname = ColorString("<bold>%s</bold>") % fname
+                    self._lines_msgstr.extend(wrapf(fname,
+                                                    _escape(msgstr[i]),
                                                     prefix["curr"]))
 
         # Marshal the lines into proper order.
