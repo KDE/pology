@@ -502,7 +502,7 @@ class VcsSubversion (VcsBase):
     def revision (self, path):
         # Base override.
 
-        res = collect_system("svn info %s@" % path, env=self._env)
+        res = collect_system("svn info %s" % self._ep(path), env=self._env)
         rx = re.compile(r"^Last Changed Rev: *([0-9]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -526,7 +526,7 @@ class VcsSubversion (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
-        res = collect_system("svn info %s@" % path, env=self._env)
+        res = collect_system("svn info %s" % self._ep(path), env=self._env)
         if res[-1] != 0:
             return False
 
@@ -542,12 +542,12 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            cmdline = "svn export %s@ -r BASE %s" % (path, dstpath)
+            cmdline = "svn export %s -r BASE %s" % (self._ep(path), dstpath)
             if collect_system(cmdline)[-1] != 0:
                 return False
             return True
 
-        res = collect_system("svn info %s@" % path, env=self._env)
+        res = collect_system("svn info %s" % self._ep(path), env=self._env)
         if res[-1] != 0:
             return False
         rx = re.compile(r"^URL:\s*(\S+)", re.I)
@@ -563,7 +563,7 @@ class VcsSubversion (VcsBase):
         if rewrite:
             rempath = rewrite(rempath, rev)
 
-        cmdline = "svn export %s@ -r %s %s" % (rempath, rev, dstpath)
+        cmdline = "svn export %s -r %s %s" % (self._ep(rempath), rev, dstpath)
         if collect_system(cmdline)[-1] != 0:
             return False
 
@@ -611,7 +611,7 @@ class VcsSubversion (VcsBase):
     def log (self, path, rev1=None, rev2=None):
         # Base override.
 
-        res = collect_system("svn log %s@" % path, env=self._env)
+        res = collect_system("svn log %s" % self._ep(path), env=self._env)
         if res[-1] != 0:
             return []
         rev = ""
@@ -713,6 +713,13 @@ class VcsSubversion (VcsBase):
             return False
 
         return True
+
+
+    def _ep (self, path):
+        #if "@" in os.path.basename(os.path.normpath(path)):
+        if "@" in path:
+            path = "%s@" % path
+        return path
 
 
 class VcsGit (VcsBase):
