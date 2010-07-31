@@ -23,7 +23,8 @@ Sieve parameters:
   - C{msgbar}: show statistics as ASCII bar of message counts
   - C{wbar}: show statistics as ASCII bar of word counts
   - C{absolute}: make bars show absolute rather than relative info
-  - C{ondiff}: reduce number of words in fuzzy messages by difference ratio
+  - C{ondiff}: split word and character counts in fuzzy messages
+        based on difference ratio
   - C{mincomp}: include only catalogs with sufficient completeness
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
         to matching (see L{misc.langdep.get_hook_lreq} for the format
@@ -69,9 +70,13 @@ satisfying a certain criterion:
 
   - Fuzzy messages are often very easy to correct (e.g. a typo fixed), which
     may make their word count misleading when estimating effort.
-    To amend this somewhat, if parameter C{ondiff} is issued the word count
-    of fuzzy messages is multiplied by the difference ratio between current
-    and previous C{msgid} fields (if previous C{msgid} is available).
+    To amend this somewhat, if parameter C{ondiff} is issued the word
+    and character counts of fuzzy messages are reduced by
+    the difference ratio between current and previous C{msgid} fields,
+    if previous C{msgid} is available and the difference between them
+    is smaller than some threshold.
+    The removed parts of counts are added to translated category,
+    so that total counts remain the same.
 
   - Parameter C{mincomp} can be used to restrict counting only to catalogs
     of completeness equal to or higher than this (measured by ratio of
@@ -336,8 +341,9 @@ def setup_sieve (p):
     ))
     p.add_param("ondiff", bool, defval=False,
                 desc=_("@info sieve parameter discription",
-    "Multiply word counts in fuzzy messages by difference ratio between "
-    "current and previous original text."
+    "Reduce word and character counts in fuzzy messages based on "
+    "difference ratio between current and previous original text, "
+    "and add the removed parts to translated category."
     ))
     p.add_param("mincomp", float, defval=None,
                 metavar=_("@info sieve parameter value placeholder", "RATIO"),
@@ -598,8 +604,10 @@ class Sieve (object):
                     or nwords["tran"] >= self.p.minwords):
                 return
 
-        # Scale word and character counts in fuzzy original if requested.
-        if self.p.ondiff and msg.msgid_previous is not None:
+        # Split word and character counts in fuzzy original if requested.
+        nswords = {}
+        nschars = {}
+        if self.p.ondiff and msg.fuzzy and msg.msgid_previous is not None:
             diff, dr = tdiff(msg.msgid_previous, msg.msgid, diffr=True)
             # Reduce difference ratio to a smaller range by some threshold.
             # Texts more different than the threshold need full review.
@@ -607,44 +615,61 @@ class Sieve (object):
             dr2 = dr / drth
             if dr2 > 1.0:
                 dr2 = 1.0
-            # Difference ratio of 0 can happen if the new and old texts
-            # are the same, normally when only the context has changed.
-            # Word count should not be totally eliminated then,
-            # as it should be seen in statistics that message needs updating.
-            if dr2 == 0.0:
-                dr2 = 0.1
-            nwords["orig"] = int(round(dr2 * nwords["orig"] + 0.5)) # round up
-            nchars["orig"] = int(round(dr2 * nchars["orig"] + 0.5)) # round up
+            # Split counts between primary fuzzy count, and secondary
+            # translated, so that total remains the same.
+            nswords.update({"trn": {}, "fuz": {}})
+            nschars.update({"trn": {}, "fuz": {}})
+            for nitems, nitems2, src in (
+                (nwords, nswords, "orig"), (nwords, nswords, "tran"),
+                (nchars, nschars, "orig"), (nchars, nschars, "tran"),
+            ):
+                num = nitems[src]
+                # Difference ratio of 0 can happen if the new and old texts
+                # are the same, normally when only the context has changed.
+                # Fuzzy counts should not be totally eliminated then,
+                # as it should be seen that message needs updating.
+                if dr2 > 0.0:
+                    rnum = int(round(dr2 * num + 0.5)) # round up
+                else:
+                    rnum = 1
+                nitems2["trn"][src] = num - rnum
+                nitems2["fuz"][src] = rnum
 
         # Detect categories and add the counts.
-        categories = []
+        categories = set()
 
         if not msg.obsolete: # do not count obsolete into totals
             self.count["tot"][0] += 1
-            categories.append("tot")
+            categories.add("tot")
+            if nswords:
+                categories.update(nswords.keys())
 
         if msg.obsolete: # do not split obsolete into fuzzy/translated
             self.count["obs"][0] += 1
-            categories.append("obs")
+            categories.add("obs")
+            nswords = {}
+            nschars = {}
         elif msg.translated:
             self.count["trn"][0] += 1
-            categories.append("trn")
+            categories.add("trn")
         elif msg.fuzzy:
             self.count["fuz"][0] += 1
-            categories.append("fuz")
+            categories.add("fuz")
             if cat.filename not in self.incomplete_catalogs:
                 self.incomplete_catalogs[cat.filename] = True
         elif msg.untranslated:
             self.count["unt"][0] += 1
-            categories.append("unt")
+            categories.add("unt")
             if cat.filename not in self.incomplete_catalogs:
                 self.incomplete_catalogs[cat.filename] = True
 
         for cat in categories:
-            self.count[cat][1] += nwords["orig"]
-            self.count[cat][2] += nwords["tran"]
-            self.count[cat][3] += nchars["orig"]
-            self.count[cat][4] += nchars["tran"]
+            nwords1 = nswords.get(cat, nwords)
+            nchars1 = nschars.get(cat, nchars)
+            self.count[cat][1] += nwords1["orig"]
+            self.count[cat][2] += nwords1["tran"]
+            self.count[cat][3] += nchars1["orig"]
+            self.count[cat][4] += nchars1["tran"]
 
 
     # Sort filenames as if templates-only were within language subdirs.
