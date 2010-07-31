@@ -28,7 +28,7 @@ pology.file.header._Header_spec	pology.file.header-module.html#_Header_spec
 pology.file.header.__package__	pology.file.header-module.html#__package__
 pology.file.header.wrap_field	pology.misc.wrap-module.html#wrap_field
 pology.file.message	pology.file.message-module.html
-pology.file.message.escape	pology.misc.escape-module.html#escape_c
+pology.file.message.wrap_comment_unwrap	pology.misc.wrap-module.html#wrap_comment_unwrap
 pology.file.message.cjoin	pology.misc.colors-module.html#cjoin
 pology.file.message._Message_key_fields	pology.file.message-module.html#_Message_key_fields
 pology.file.message._Message_single_fields	pology.file.message-module.html#_Message_single_fields
@@ -36,16 +36,17 @@ pology.file.message._Message_spec	pology.file.message-module.html#_Message_spec
 pology.file.message._Message_mandatory_fields	pology.file.message-module.html#_Message_mandatory_fields
 pology.file.message.__package__	pology.file.message-module.html#__package__
 pology.file.message.wrap_field	pology.misc.wrap-module.html#wrap_field
+pology.file.message._escape	pology.file.message-module.html#_escape
 pology.file.message._Message_state_fields	pology.file.message-module.html#_Message_state_fields
 pology.file.message.wrap_comment	pology.misc.wrap-module.html#wrap_comment
 pology.file.message._Message_list_fields	pology.file.message-module.html#_Message_list_fields
 pology.file.message._Message_currprev_fields	pology.file.message-module.html#_Message_currprev_fields
 pology.file.message._Message_set_fields	pology.file.message-module.html#_Message_set_fields
 pology.file.message._Message_all_fields	pology.file.message-module.html#_Message_all_fields
-pology.file.message.wrap_comment_unwrap	pology.misc.wrap-module.html#wrap_comment_unwrap
 pology.file.message._Message_fmt_fields	pology.file.message-module.html#_Message_fmt_fields
 pology.file.message._Message_inv_fields	pology.file.message-module.html#_Message_inv_fields
 pology.file.message._Message_list2_fields	pology.file.message-module.html#_Message_list2_fields
+pology.file.message.escape_c	pology.misc.escape-module.html#escape_c
 pology.file.message._Message_sequence_fields	pology.file.message-module.html#_Message_sequence_fields
 pology.hook	pology.hook-module.html
 pology.hook.__package__	pology.hook-module.html#__package__
@@ -180,6 +181,7 @@ pology.hook.remove_subs.remove_accel_msg	pology.hook.remove_subs-module.html#rem
 pology.hook.remove_subs._rm_lit_in_text	pology.hook.remove_subs-module.html#_rm_lit_in_text
 pology.hook.remove_subs._	pology-module.html#_
 pology.hook.remove_subs.rewrite_msgid	pology.hook.remove_subs-module.html#rewrite_msgid
+pology.hook.remove_subs.rewrite_inverse	pology.hook.remove_subs-module.html#rewrite_inverse
 pology.hook.remove_subs._rm_lit_in_text_single	pology.misc.resolve-module.html#remove_literals
 pology.hook.remove_subs._rm_markup_in_text	pology.hook.remove_subs-module.html#_rm_markup_in_text
 pology.hook.remove_subs.manc_parse_list	pology.misc.comments-module.html#manc_parse_list
@@ -266,6 +268,8 @@ pology.l10n.ja.hook.katakana	pology.l10n.ja.hook.katakana-module.html
 pology.l10n.ja.hook.katakana.katakana	pology.l10n.ja.hook.katakana-module.html#katakana
 pology.l10n.ja.hook.katakana._is_katakana	pology.l10n.ja.hook.katakana-module.html#_is_katakana
 pology.l10n.ja.hook.katakana.__package__	pology.l10n.ja.hook.katakana-module.html#__package__
+pology.l10n.nds	pology.l10n.nds-module.html
+pology.l10n.nds.__package__	pology.l10n.nds-module.html#__package__
 pology.l10n.nn	pology.l10n.nn-module.html
 pology.l10n.nn.__package__	pology.l10n.nn-module.html#__package__
 pology.l10n.nn.hook	pology.l10n.nn.hook-module.html
@@ -2083,6 +2087,7 @@ pology.file.catalog.Catalog.wrapping	pology.file.catalog.Catalog-class.html#wrap
 pology.misc.monitored.Monitored.assert_spec_setattr	pology.misc.monitored.Monitored-class.html#assert_spec_setattr
 pology.file.catalog.Catalog.insertion_inquiry	pology.file.catalog.Catalog-class.html#insertion_inquiry
 pology.file.catalog.Catalog.__setitem__	pology.file.catalog.Catalog-class.html#__setitem__
+pology.file.catalog.Catalog.select_by_msgstr	pology.file.catalog.Catalog-class.html#select_by_msgstr
 pology.file.catalog.Catalog.sort_by_source	pology.file.catalog.Catalog-class.html#sort_by_source
 pology.file.catalog.Catalog.set_language	pology.file.catalog.Catalog-class.html#set_language
 pology.file.catalog.Catalog.__eq__	pology.file.catalog.Catalog-class.html#__eq__
@@ -2094,6 +2099,7 @@ pology.file.catalog.Catalog.add_more	pology.file.catalog.Catalog-class.html#add_
 pology.file.catalog.Catalog.set_environment	pology.file.catalog.Catalog-class.html#set_environment
 pology.file.catalog.Catalog.markup	pology.file.catalog.Catalog-class.html#markup
 pology.file.catalog.Catalog.created	pology.file.catalog.Catalog-class.html#created
+pology.file.catalog.Catalog._make_invmap	pology.file.catalog.Catalog-class.html#_make_invmap
 pology.file.catalog.Catalog.remove	pology.file.catalog.Catalog-class.html#remove
 pology.file.catalog.Catalog.plural_index	pology.file.catalog.Catalog-class.html#plural_index
 pology.file.catalog.Catalog._pick_insertion_point	pology.file.catalog.Catalog-class.html#_pick_insertion_point
@@ -2297,7 +2303,6 @@ pology.misc.colors.ColorString.strip	pology.misc.colors.ColorString-class.html#s
 pology.misc.colors.ColorString.__rmul__	pology.misc.colors.ColorString-class.html#__rmul__
 pology.misc.colors.ColorString.ljust	pology.misc.colors.ColorString-class.html#ljust
 pology.misc.colors.ColorString.rjust	pology.misc.colors.ColorString-class.html#rjust
-pology.misc.colors.ColorString._tag_rx	pology.misc.colors.ColorString-class.html#_tag_rx
 pology.misc.colors.ColorString.title	pology.misc.colors.ColorString-class.html#title
 pology.misc.colors.ColorString.visual_segment	pology.misc.colors.ColorString-class.html#visual_segment
 pology.misc.colors.ColorString.rsplit	pology.misc.colors.ColorString-class.html#rsplit
@@ -2309,6 +2314,7 @@ pology.misc.colors.ColorString.__getitem__	pology.misc.colors.ColorString-class.
 pology.misc.colors.ColorString.swapcase	pology.misc.colors.ColorString-class.html#swapcase
 pology.misc.colors.ColorString.zfill	pology.misc.colors.ColorString-class.html#zfill
 pology.misc.colors.ColorString.__add__	pology.misc.colors.ColorString-class.html#__add__
+pology.misc.colors.ColorString._parse_tag	pology.misc.colors.ColorString-class.html#_parse_tag
 pology.misc.colors.ColorString.replace	pology.misc.colors.ColorString-class.html#replace
 pology.misc.colors.ColorString.capitalize	pology.misc.colors.ColorString-class.html#capitalize
 pology.misc.colors.ColorString._escape	pology.misc.colors.ColorString-class.html#_escape
@@ -2549,6 +2555,7 @@ pology.misc.vcs.VcsSubversion.to_commit	pology.misc.vcs.VcsSubversion-class.html
 pology.misc.vcs.VcsSubversion.add	pology.misc.vcs.VcsSubversion-class.html#add
 pology.misc.vcs.VcsSubversion.__init__	pology.misc.vcs.VcsSubversion-class.html#__init__
 pology.misc.vcs.VcsSubversion.revision	pology.misc.vcs.VcsSubversion-class.html#revision
+pology.misc.vcs.VcsSubversion._ep	pology.misc.vcs.VcsSubversion-class.html#_ep
 pology.misc.vcs.VcsSubversion.revert	pology.misc.vcs.VcsSubversion-class.html#revert
 pology.misc.vcs.VcsSubversion.remove	pology.misc.vcs.VcsSubversion-class.html#remove
 pology.misc.vcs.VcsSubversion.commit	pology.misc.vcs.VcsSubversion-class.html#commit

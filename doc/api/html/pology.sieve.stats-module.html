@@ -114,8 +114,8 @@
       info
     </li>
     <li>
-      <code>ondiff</code>: reduce number of words in fuzzy messages by 
-      difference ratio
+      <code>ondiff</code>: split word and character counts in fuzzy 
+      messages based on difference ratio
     </li>
     <li>
       <code>mincomp</code>: include only catalogs with sufficient 
@@ -177,9 +177,12 @@
       Fuzzy messages are often very easy to correct (e.g. a typo fixed), 
       which may make their word count misleading when estimating effort. To
       amend this somewhat, if parameter <code>ondiff</code> is issued the 
-      word count of fuzzy messages is multiplied by the difference ratio 
-      between current and previous <code>msgid</code> fields (if previous 
-      <code>msgid</code> is available).
+      word and character counts of fuzzy messages are reduced by the 
+      difference ratio between current and previous <code>msgid</code> 
+      fields, if previous <code>msgid</code> is available and the 
+      difference between them is smaller than some threshold. The removed 
+      parts of counts are added to translated category, so that total 
+      counts remain the same.
     </li>
     <li>
       Parameter <code>mincomp</code> can be used to restrict counting only 

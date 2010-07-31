@@ -431,7 +431,27 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#rewrite_msgid" class="summary-sig-name">rewrite_msgid</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
-      Rewrite parts of msgid based on translator comments [type F4A hook].</td>
+      Rewrite parts of <code>msgid</code> based on translator comments 
+      [type F4A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.hook.remove_subs-module.html#rewrite_inverse" class="summary-sig-name">rewrite_inverse</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Rewrite message by replacing all its elements with that of another 
+      message which has the same <code>msgstr[0]</code> [type F4A hook].</td>
           <td align="right" valign="top">
             
             
@@ -1022,8 +1042,8 @@
     </td>
   </tr></table>
   
-  <p>Rewrite parts of msgid based on translator comments [type F4A 
-  hook].</p>
+  <p>Rewrite parts of <code>msgid</code> based on translator comments [type
+  F4A hook].</p>
   <p>Translator comments may issue <code>rewrite-msgid</code> directives to
   modify parts of <code>msgid</code> (as well as <code>msgid_plural</code>)
   fields by applying a search regular expression and replace pattern. The 
@@ -1036,6 +1056,51 @@
 </pre>
   <p>If a search pattern is not valid, a warning on message is issued.</p>
   <p>Search pattern is case-sensitive.</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rewrite_inverse"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rewrite_inverse</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Rewrite message by replacing all its elements with that of another 
+  message which has the same <code>msgstr[0]</code> [type F4A hook].</p>
+  <p>Translator comments may issue <code>rewrite-inverse</code> directives 
+  to replace all message parts with those from another message having the 
+  same <code>msgstr[0]</code> field. The argument to the directive is a 
+  regular expression search pattern on <code>msgid</code> and 
+  <code>msgctxt</code> (leading and trailing whitespace get stripped) which
+  is used to select the particular message if more than one other messages 
+  have same <code>msgstr[0]</code>. Examples:</p>
+<pre class="literalblock">
+   # rewrite-inverse:
+   # rewrite-inverse: Foo
+</pre>
+  <p>If the pattern does not match or it matches more than one other 
+  message, current message is not touched; also if the pattern is left 
+  empty and there is more than one other message. Search pattern is applied
+  to <code>msgctxt</code> and <code>msgid</code> in turn, and the message 
+  is matched if any matches. Search pattern is case-sensitive.</p>
+  <p>If more than one <code>rewrite-inverse</code> directive is seen, or 
+  the search pattern is not valid, a warning on message is issued and 
+  current message is not touched.</p>
+  <p>This hook is then executed again on the resulting message, in case the
+  new translator comments contain another <code>rewrite-inverse</code> 
+  directive.</p>
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>number of errors</dd>
