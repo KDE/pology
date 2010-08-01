@@ -2453,59 +2453,58 @@
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-Update catalog header.
-
-If a piece of information is not given (i.e. C{None}),
-the corresponding header field is left unmodified.
-If it is given as empty string, the corresponding header field is removed.
-PO revision date is updated always, to current date.
-
-Some fields (as noted in parameter descriptions) are expanded on variables
-by applying the L{expand_vars&lt;pology.resolve.expand_vars&gt;} function.
-For example::
-
-    title=&quot;Translation of %project into %langname.&quot;
-
-The following variables are available:
-- C{%basename}: PO file base name
-- C{%poname}: PO file base name without .po extension
-- C{%project}: value of C{project} parameter (if not C{None}/empty)
-- C{%langname}: value of C{langname} parameter (if not C{None}/empty)
-- C{%langcode}: value of C{langcode} parameter (if not C{None}/empty)
-
-@param project: project name
-@type project: string
-@param title: translation title (expanded on variables)
-@type title: string
-@param copyright: copyright notice (expanded on variables)
-@type copyright: string
-@param license: license notice (expanded on variables)
-@type license: string
-@param name: translator's name
-@type name: string
-@param email: translator's email address
-@type email: string
-@param teamemail: language team's email address
-@type teamemail: string
-@param langname: full language name
-@type langname: string
-@param langcode: language code
-@type langcode: string
-@param encoding: text encoding
-@type encoding: string
-@param ctenc: content transfer encoding
-@type ctenc: string
-@param plforms: plural forms expression
-@type plforms: string
-@param poeditor: translator's PO editor
-@type poeditor: string
-
-@returns: reference to header
-
+  <p>Update catalog header.</p>
+  <p>If a piece of information is not given (i.e. <code>None</code>), the 
+  corresponding header field is left unmodified. If it is given as empty 
+  string, the corresponding header field is removed. PO revision date is 
+  updated always, to current date.</p>
+  <p>Some fields (as noted in parameter descriptions) are expanded on 
+  variables by applying the <a 
+  href="pology.resolve-module.html#expand_vars" 
+  class="link">expand_vars</a> function. For example:</p>
+<pre class="literalblock">
+   title=&quot;Translation of %project into %langname.&quot;
 </pre>
+  <p>The following variables are available:</p>
+  <ul>
+    <li>
+      <code>%basename</code>: PO file base name
+    </li>
+    <li>
+      <code>%poname</code>: PO file base name without .po extension
+    </li>
+    <li>
+      <code>%project</code>: value of <code>project</code> parameter (if 
+      not <code>None</code>/empty)
+    </li>
+    <li>
+      <code>%langname</code>: value of <code>langname</code> parameter (if 
+      not <code>None</code>/empty)
+    </li>
+    <li>
+      <code>%langcode</code>: value of <code>langcode</code> parameter (if 
+      not <code>None</code>/empty)
+    </li>
+  </ul>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>project</code></strong> (string) - project name</li>
+        <li><strong class="pname"><code>title</code></strong> (string) - translation title (expanded on variables)</li>
+        <li><strong class="pname"><code>copyright</code></strong> (string) - copyright notice (expanded on variables)</li>
+        <li><strong class="pname"><code>license</code></strong> (string) - license notice (expanded on variables)</li>
+        <li><strong class="pname"><code>name</code></strong> (string) - translator's name</li>
+        <li><strong class="pname"><code>email</code></strong> (string) - translator's email address</li>
+        <li><strong class="pname"><code>teamemail</code></strong> (string) - language team's email address</li>
+        <li><strong class="pname"><code>langname</code></strong> (string) - full language name</li>
+        <li><strong class="pname"><code>langcode</code></strong> (string) - language code</li>
+        <li><strong class="pname"><code>encoding</code></strong> (string) - text encoding</li>
+        <li><strong class="pname"><code>ctenc</code></strong> (string) - content transfer encoding</li>
+        <li><strong class="pname"><code>plforms</code></strong> (string) - plural forms expression</li>
+        <li><strong class="pname"><code>poeditor</code></strong> (string) - translator's PO editor</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>reference to header</dd>
   </dl>
 </td></tr></table>
 </div>

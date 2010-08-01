@@ -578,10 +578,12 @@
           class="link">Message_base</a>) - the message to report the content for</li>
         <li><strong class="pname"><code>cat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
           class="link">Catalog</a> or <code>None</code>) - the catalog where the message lives</li>
-        <li><strong class="pname"><code>wrapf</code></strong> ((string)-&gt;[string...]) - the function used for wrapping message fields in output. See 
-          <code class="link">to_lines()</code> method of message classes 
-          for details. If not given, it will be taken from the catalog (see
-          <code class="link">Catalog.wrapf</code>).</li>
+        <li><strong class="pname"><code>wrapf</code></strong> ((string)-&gt;[string...]) - the function used for wrapping message fields in output. See <a 
+          href="pology.message.Message_base-class.html#to_lines" 
+          class="link">to_lines()</a> method of message classes for 
+          details. If not given, it will be taken from the catalog (see <a 
+          href="pology.catalog.Catalog-class.html#wrapf" 
+          class="link">Catalog.wrapf</a>).</li>
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to force reformatting of cached message content</li>
         <li><strong class="pname"><code>note</code></strong> (string) - note about why the content is being reported</li>
         <li><strong class="pname"><code>delim</code></strong> (<code>None</code> or string) - text to print on the line following the message</li>

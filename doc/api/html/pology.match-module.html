@@ -59,7 +59,24 @@
       <p><strong>License:</strong>
         GPLv3
       </p>
-</div><!-- ==================== FUNCTIONS ==================== -->
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.match.ExprError-class.html" class="summary-name">ExprError</a><br />
+      Exception for errors in matching expressions.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -161,7 +178,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology'"><code class="variable-quote">'</code><code class="variable-string">pology</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -225,16 +242,17 @@
   <p>Matcher function returns <code>True</code> if the message is matched, 
   <code>False</code> otherwise.</p>
   <p>In case an error in expression is encountered while building the 
-  matcher, either <code class="link">ExprError</code> exception may be 
-  thrown or execution aborted, depending on the parameter 
-  <code>abort</code>.</p>
+  matcher, either <a href="pology.match.ExprError-class.html" 
+  class="link">ExprError</a> exception may be thrown or execution aborted, 
+  depending on the parameter <code>abort</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>exprstr</code></strong> (string) - expression string</li>
         <li><strong class="pname"><code>mopts</code></strong> (dict or attribute object) - global matching options</li>
         <li><strong class="pname"><code>abort</code></strong> (bool) - on errors in expression, abort execution if <code>True</code>, 
-          raise <code class="link">ExprError</code> if <code>False</code></li>
+          raise <a href="pology.match.ExprError-class.html" 
+          class="link">ExprError</a> if <code>False</code></li>
     </ul></dd>
     <dt>Returns: (msgf, msg, cat, hl=[])-&gt;bool</dt>
         <dd>matcher function</dd>

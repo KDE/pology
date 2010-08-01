@@ -68,8 +68,8 @@
   given language, or checks terminology, etc. Such collections of language 
   and translation-environment dependent rules are maintained within Pology 
   itself, in <code>lang/&lt;lang&gt;/rules/</code> directories.</p>
-  <p>The <code class="link">check-rules</code> sieve is normally used to 
-  apply rules to messages in PO files, while in custom code function <a 
+  <p>The <code>check-rules</code> sieve is normally used to apply rules to 
+  messages in PO files, while in custom code function <a 
   href="pology.rules-module.html#loadRulesFromFile" 
   class="link">loadRulesFromFile</a> can be used to load rules from an 
   arbitrary rule file, and <a href="pology.rules-module.html#loadRules" 
@@ -363,11 +363,11 @@
     a rule common to most translation environments, except for one or few 
     outliers -- the outliers' rule and the common rule to be shadowed 
     should be given same identifiers.</p>
-    <p>The <code class="link">check-rules</code> sieve has the 
-    <code>env</code> parameter to specify the operating environments, when 
-    it will apply the rules according to previous passages. This means that
-    if operating environments are not specified, from sieve's point of view
-    all environment-specific rules are simply ignored.</p>
+    <p>The <code>check-rules</code> sieve has the <code>env</code> 
+    parameter to specify the operating environments, when it will apply the
+    rules according to previous passages. This means that if operating 
+    environments are not specified, from sieve's point of view all 
+    environment-specific rules are simply ignored.</p>
   <h1 class="heading">Message Filtering</h1>
     <p>It is frequently advantageous for a set of rules not to act on raw 
     text given by message fields, but on a suitably filtered variants. For 
@@ -552,9 +552,9 @@
       uses. Therefore the implementation will try to assemble as little 
       filter sets as necessary, judging by their signatures -- a hash of 
       ordering, type, and fields of filters in the current set for a rule. 
-      Likewise, <code class="link">check-rules</code> will apply one filter
-      set only once per message, distributing the appropriate filtered 
-      message to a given rule.</p>
+      Likewise, <code>check-rules</code> will apply one filter set only 
+      once per message, distributing the appropriate filtered message to a 
+      given rule.</p>
       <p>This means that you should be conservative when adding and 
       removing filters, such to produce as little sets as really necessary.
       For example, you may know that filters P and Q can be applied in any 

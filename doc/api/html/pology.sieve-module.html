@@ -50,14 +50,13 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module sieve</h1><p class="nomargin-top"></p>
-<p>Catalog sieves.</p>
-  <p>These modules implement different &quot;sieves&quot; for PO catalogs: 
-  objects to which catalog entries are fed one by one, possibly with 
-  finalization phase at the end. The sieves are presently primarely used by
-  the <code class="link">scripts.posieve</code> script, but may also export
-  public methods for use in other clients. The following passages describe 
-  how sieves are written, but also how clients that use them should 
-  behave.</p>
+<p>Helpers for catalog sieves.</p>
+  <p>Pology's <code>posieve</code> script processes catalogs with 
+  &quot;sieves&quot;: objects to which catalog entries are fed one by one, 
+  possibly with finalization phase at the end. This module contains only 
+  some common helpers used by many sieves, and the following passages 
+  primarily describe how sieves are written, and how clients that use them 
+  should behave.</p>
   <h1 class="heading">Sieve Layout</h1>
     <p>Every sieve module must define the <code>Sieve</code> class, with 
     some mandatory and some optional interface methods and instance 

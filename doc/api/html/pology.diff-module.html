@@ -1062,11 +1062,13 @@
   <p>If <code>diffr</code> is <code>False</code>, the difference is 
   returned as list of 3-tuples of differences by message part: (part name, 
   part item, word difference). The part name can be used to fetch the part 
-  value from the message, using <code class="link">get()</code> method of 
-  message objects. The part item is <code>None</code> for singular message 
-  parts (e.g. <code>msgid</code>), and index for list parts (e.g. 
-  <code>msgstr</code>). See <a href="pology.diff-module.html#word_diff" 
-  class="link">word_diff</a> for the format of word-level difference.</p>
+  value from the message, using <a 
+  href="pology.message.Message_base-class.html#get" class="link">get()</a> 
+  method of message objects. The part item is <code>None</code> for 
+  singular message parts (e.g. <code>msgid</code>), and index for list 
+  parts (e.g. <code>msgstr</code>). See <a 
+  href="pology.diff-module.html#word_diff" class="link">word_diff</a> for 
+  the format of word-level difference.</p>
   <p>If <code>diffr</code> is <code>True</code>, then each part difference 
   has a fourth element, the difference ratio; see <a 
   href="pology.diff-module.html#word_diff" class="link">word_diff</a> for 

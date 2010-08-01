@@ -232,9 +232,10 @@
     thing is that they have to be to told what the accelerator marker 
     character is. This is not done through hook factories (since knowledge 
     of accelerator marker is of wider consequence when processing POs), but
-    either by hook client setting it explicitly (using <code 
-    class="link">set_accelerator()</code> method on catalogs), or by giving
-    it within <code>X-Accelerator-Marker</code> header filed:</p>
+    either by hook client setting it explicitly (using <a 
+    href="pology.catalog.Catalog-class.html#set_accelerator" 
+    class="link">set_accelerator()</a> method on catalogs), or by giving it
+    within <code>X-Accelerator-Marker</code> header filed:</p>
 <pre class="literalblock">
    msgid &quot;&quot;
    msgstr &quot;&quot;
@@ -243,8 +244,8 @@
    &quot;X-Accelerator-Marker: &amp;\n&quot;
 </pre>
     <p>(This field may be set in catalogs throughout the project by 
-    applying the <code class="link">set-header</code> sieve with <code 
-    class="link">posieve</code> script.)</p>
+    applying the <code>set-header</code> sieve with <code>posieve</code> 
+    script.)</p>
     <p>Another is the problem of UI messages containing subsections which 
     would invalidate the target format being translated by the referencing 
     PO, e.g. malformed XML in Docbook catalogs. For example, literal 
@@ -497,10 +498,10 @@
   request</a> string.</p>
   <p>If one or several markup keywords are given as <code>mkeyw</code> 
   parameter, UI reference resolution is skipped for catalogs which do not 
-  report one of the given keywords by their <code 
-  class="link">markup()</code> method. This match may be inverted by 
-  <code>invmkeyw</code> parameter, i.e. to skip resolution for catalogs 
-  reporting one of given keywords.</p>
+  report one of the given keywords by their <a 
+  href="pology.catalog.Catalog-class.html#markup" class="link">markup()</a>
+  method. This match may be inverted by <code>invmkeyw</code> parameter, 
+  i.e. to skip resolution for catalogs reporting one of given keywords.</p>
   <p>The list of UI path separators given by the <code>uipathseps</code> 
   parameter is ordered by priority, such that the first one found in the 
   composite reference text is used to split it into componental UI 
