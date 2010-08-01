@@ -19,7 +19,7 @@ import sys
 from os.path import realpath, sep, dirname
 
 # Library.
-pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-2] + ["pology"])
+pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-2])
 sys.path.insert(0, pologypath)
 
 # For scripts to import from each other.

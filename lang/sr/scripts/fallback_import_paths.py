@@ -13,5 +13,5 @@ L{counterpart for general scripts<scripts.fallback_import_paths>}.
 import sys
 from os.path import realpath, sep
 
-pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-4] + ["pology"])
+pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-4])
 sys.path.insert(0, pologypath)
