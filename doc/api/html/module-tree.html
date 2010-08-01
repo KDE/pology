@@ -54,198 +54,94 @@
         including many smaller scripts and subscripts which can be used to 
         perform various precision tasks.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="pology.file-module.html">pology.file</a></strong>: <em class="summary">Interfaces to PO files.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.file.catalog-module.html">pology.file.catalog</a></strong>: <em class="summary">Collection of PO entries.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.file.header-module.html">pology.file.header</a></strong>: <em class="summary">Header entry in PO catalogs.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.file.message-module.html">pology.file.message</a></strong>: <em class="summary">Message entries in PO catalogs.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.hook-module.html">pology.hook</a></strong>: <em class="summary">Hooks pluggable into various Pology contexts.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.hook.bad_patterns-module.html">pology.hook.bad_patterns</a></strong>: <em class="summary">Detect unwanted patterns in translation.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.check_lingo-module.html">pology.hook.check_lingo</a></strong>: <em class="summary">Check linguistic, language-dependent correctness of text.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.check_markup-module.html">pology.hook.check_markup</a></strong>: <em class="summary">Check validity of text markup.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.equip_header-module.html">pology.hook.equip_header</a></strong>: <em class="summary">Equip catalog headers with extra information.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.gettext_tools-module.html">pology.hook.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.noop-module.html">pology.hook.noop</a></strong>: <em class="summary">Hook which do nothing.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.normalize_header-module.html">pology.hook.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.normalize_message-module.html">pology.hook.normalize_message</a></strong>: <em class="summary">Various normalizations of messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.remove_subs-module.html">pology.hook.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.hook.ui_references-module.html">pology.hook.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
-        texts.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n-module.html">pology.l10n</a></strong>: <em class="summary">Language-specific Pology tools, arranged in submodules by language 
-        code.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.es-module.html">pology.l10n.es</a></strong>: <em class="summary">Language-specific tools for Spanish language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve-module.html">pology.l10n.es.sieve</a></strong>: <em class="summary">Sieves specific to Spanish language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.es.sieve.setUbsp-module.html">pology.l10n.es.sieve.setUbsp</a></strong>    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr-module.html">pology.l10n.fr</a></strong>: <em class="summary">Language-specific tools for French language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr.hook-module.html">pology.l10n.fr.hook</a></strong>: <em class="summary">Hooks specific for French.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr.hook.patternAccents-module.html">pology.l10n.fr.hook.patternAccents</a></strong>: <em class="summary">Accent equivalence in regular expression patterns.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr.hook.patternEntities-module.html">pology.l10n.fr.hook.patternEntities</a></strong>: <em class="summary">Convert special entities in rule patterns.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr.sieve-module.html">pology.l10n.fr.sieve</a></strong>: <em class="summary">Sieves specific to French language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.fr.sieve.setUbsp-module.html">pology.l10n.fr.sieve.setUbsp</a></strong>    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.ja-module.html">pology.l10n.ja</a></strong>: <em class="summary">Language-specific tools for Japanese language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.ja.hook-module.html">pology.l10n.ja.hook</a></strong>: <em class="summary">Hooks specific for Japanese.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.ja.hook.katakana-module.html">pology.l10n.ja.hook.katakana</a></strong>: <em class="summary">Retain only Katakana words in the text, separated by spaces.</em>    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.nds-module.html">pology.l10n.nds</a></strong>: <em class="summary">Language-specific tools for Low Saxon.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.nn-module.html">pology.l10n.nn</a></strong>: <em class="summary">Language-specific tools for Norwegian Nynorsk.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.nn.hook-module.html">pology.l10n.nn.hook</a></strong>: <em class="summary">Hooks specific for Norwegian Nynorsk.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.nn.hook.exclusion-module.html">pology.l10n.nn.hook.exclusion</a></strong>: <em class="summary">Catch inofficial ortography forms in Norwegian Nynorsk translation.</em>    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr-module.html">pology.l10n.sr</a></strong>: <em class="summary">Language-specific tools for Serbian language.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook-module.html">pology.l10n.sr.hook</a></strong>: <em class="summary">Hooks specific for Serbian.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.accents-module.html">pology.l10n.sr.hook.accents</a></strong>: <em class="summary">Process letter accents in Serbian Cyrillic text.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.checks-module.html">pology.l10n.sr.hook.checks</a></strong>: <em class="summary">Various checks for translations into Serbian.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.limit_chset-module.html">pology.l10n.sr.hook.limit_chset</a></strong>: <em class="summary">Limit character set in Serbian texts, by conversion and 
-        transliteration.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.mod_uiref-module.html">pology.l10n.sr.hook.mod_uiref</a></strong>: <em class="summary">Post-filter resolved UI references.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.nobr-module.html">pology.l10n.sr.hook.nobr</a></strong>: <em class="summary">Equip text with no-break characters where possibly helpful.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.reduce-module.html">pology.l10n.sr.hook.reduce</a></strong>: <em class="summary">Reductions of Serbian text convenient in various special uses.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.trapres-module.html">pology.l10n.sr.hook.trapres</a></strong>: <em class="summary">Resolve trapnakron references in translations.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.hook.wconv-module.html">pology.l10n.sr.hook.wconv</a></strong>: <em class="summary">Conversions between scripts and dialects in Serbian.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.scripts-module.html">pology.l10n.sr.scripts</a></strong>: <em class="summary">Scripts specific for Serbian.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.scripts.fallback_import_paths-module.html">pology.l10n.sr.scripts.fallback_import_paths</a></strong>: <em class="summary">Insert fallback import paths in scripts for Serbian language.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.scripts.pohybdl-module.html">pology.l10n.sr.scripts.pohybdl</a></strong>    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.scripts.traplint-module.html">pology.l10n.sr.scripts.traplint</a></strong>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.l10n.sr.trapnakron-module.html">pology.l10n.sr.trapnakron</a></strong>: <em class="summary">Constructors of syntagma derivators for trapnakron.</em>    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.misc-module.html">pology.misc</a></strong>: <em class="summary">Various functionality for processing contents of PO files.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.misc.colors-module.html">pology.misc.colors</a></strong>: <em class="summary">Standard codes for terminal colors.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.comments-module.html">pology.misc.comments</a></strong>: <em class="summary">Parsing and composing message comments.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.config-module.html">pology.misc.config</a></strong>: <em class="summary">Access user configuration for Pology.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.diff-module.html">pology.misc.diff</a></strong>: <em class="summary">Produce special diffs between strings and other interesting 
+    <li> <strong class="uidlink"><a href="pology.bad_patterns-module.html">pology.bad_patterns</a></strong>: <em class="summary">Detect unwanted patterns in translation.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.catalog-module.html">pology.catalog</a></strong>: <em class="summary">Collection of PO entries.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.check_lingo-module.html">pology.check_lingo</a></strong>: <em class="summary">Check linguistic, language-dependent correctness of text.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.check_markup-module.html">pology.check_markup</a></strong>: <em class="summary">Check validity of text markup.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.colors-module.html">pology.colors</a></strong>: <em class="summary">Standard codes for terminal colors.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.comments-module.html">pology.comments</a></strong>: <em class="summary">Parsing and composing message comments.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.config-module.html">pology.config</a></strong>: <em class="summary">Access user configuration for Pology.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.diff-module.html">pology.diff</a></strong>: <em class="summary">Produce special diffs between strings and other interesting 
         objects.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.entities-module.html">pology.misc.entities</a></strong>: <em class="summary">Handle entity definitions.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.escape-module.html">pology.misc.escape</a></strong>: <em class="summary">Escaping texts in various contexts.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.fsops-module.html">pology.misc.fsops</a></strong>: <em class="summary">Operations with environment, file system and external commands.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.langdep-module.html">pology.misc.langdep</a></strong>: <em class="summary">Fetch language-dependent modules, functions, data, etc.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.markup-module.html">pology.misc.markup</a></strong>: <em class="summary">Process text markup.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.merge-module.html">pology.misc.merge</a></strong>: <em class="summary">Merge PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.monitored-module.html">pology.misc.monitored</a></strong>: <em class="summary">Framework for monitored classes.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.msgreport-module.html">pology.misc.msgreport</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.multi-module.html">pology.misc.multi</a></strong>: <em class="summary">Collections of multiple sequences.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.normalize-module.html">pology.misc.normalize</a></strong>: <em class="summary">Various normalizations for strings.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.report-module.html">pology.misc.report</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.resolve-module.html">pology.misc.resolve</a></strong>: <em class="summary">Replacement of segments in text which define some underlying 
+    <li> <strong class="uidlink"><a href="pology.entities-module.html">pology.entities</a></strong>: <em class="summary">Handle entity definitions.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.equip_header-module.html">pology.equip_header</a></strong>: <em class="summary">Equip catalog headers with extra information.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.escape-module.html">pology.escape</a></strong>: <em class="summary">Escaping texts in various contexts.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.fsops-module.html">pology.fsops</a></strong>: <em class="summary">Operations with environment, file system and external commands.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.gettext_tools-module.html">pology.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.header-module.html">pology.header</a></strong>: <em class="summary">Header entry in PO catalogs.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang-module.html">pology.lang</a></strong>: <em class="summary">Language-specific tools, arranged in submodules by language code.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.fr-module.html">pology.lang.fr</a></strong>: <em class="summary">Language-specific tools for French language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.fr.patternAccents-module.html">pology.lang.fr.patternAccents</a></strong>: <em class="summary">Accent equivalence in regular expression patterns.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.fr.patternEntities-module.html">pology.lang.fr.patternEntities</a></strong>: <em class="summary">Convert special entities in rule patterns.</em>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.ja-module.html">pology.lang.ja</a></strong>: <em class="summary">Language-specific tools for Japanese language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.ja.katakana-module.html">pology.lang.ja.katakana</a></strong>: <em class="summary">Retain only Katakana words in the text, separated by spaces.</em>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.nn-module.html">pology.lang.nn</a></strong>: <em class="summary">Language-specific tools for Norwegian Nynorsk.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.nn.exclusion-module.html">pology.lang.nn.exclusion</a></strong>: <em class="summary">Catch inofficial ortography forms in Norwegian Nynorsk translation.</em>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr-module.html">pology.lang.sr</a></strong>: <em class="summary">Language-specific tools for Serbian language.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.accents-module.html">pology.lang.sr.accents</a></strong>: <em class="summary">Process letter accents in Serbian Cyrillic text.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.checks-module.html">pology.lang.sr.checks</a></strong>: <em class="summary">Various checks for translations into Serbian.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.limit_chset-module.html">pology.lang.sr.limit_chset</a></strong>: <em class="summary">Limit character set in Serbian texts, by conversion and 
+        transliteration.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.mod_uiref-module.html">pology.lang.sr.mod_uiref</a></strong>: <em class="summary">Post-filter resolved UI references.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.nobr-module.html">pology.lang.sr.nobr</a></strong>: <em class="summary">Equip text with no-break characters where possibly helpful.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.reduce-module.html">pology.lang.sr.reduce</a></strong>: <em class="summary">Reductions of Serbian text convenient in various special uses.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.trapnakron-module.html">pology.lang.sr.trapnakron</a></strong>: <em class="summary">Constructors of syntagma derivators for trapnakron.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.trapres-module.html">pology.lang.sr.trapres</a></strong>: <em class="summary">Resolve trapnakron references in translations.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.wconv-module.html">pology.lang.sr.wconv</a></strong>: <em class="summary">Conversions between scripts and dialects in Serbian.</em>    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.langdep-module.html">pology.langdep</a></strong>: <em class="summary">Fetch language-dependent modules, functions, data, etc.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.markup-module.html">pology.markup</a></strong>: <em class="summary">Process text markup.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.match-module.html">pology.match</a></strong>: <em class="summary">Matchers and matcher helpers for various objects.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.merge-module.html">pology.merge</a></strong>: <em class="summary">Merge PO files.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.message-module.html">pology.message</a></strong>: <em class="summary">Message entries in PO catalogs.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.monitored-module.html">pology.monitored</a></strong>: <em class="summary">Framework for monitored classes.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.msgreport-module.html">pology.msgreport</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.multi-module.html">pology.multi</a></strong>: <em class="summary">Collections of multiple sequences.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.noop-module.html">pology.noop</a></strong>: <em class="summary">Hook which do nothing.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.normalize-module.html">pology.normalize</a></strong>: <em class="summary">Various normalizations for strings.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.normalize_header-module.html">pology.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.normalize_message-module.html">pology.normalize_message</a></strong>: <em class="summary">Various normalizations of messages.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.proj-module.html">pology.proj</a></strong>: <em class="summary">Translation project specific tools, arranged in submodules by 
+        project key.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.proj.kde-module.html">pology.proj.kde</a></strong>: <em class="summary">Tools specific for KDE Translation Project.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.proj.kde.cattype-module.html">pology.proj.kde.cattype</a></strong>: <em class="summary">Catalog clasification.</em>    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pology.remove_subs-module.html">pology.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.report-module.html">pology.report</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.resolve-module.html">pology.resolve</a></strong>: <em class="summary">Replacement of segments in text which define some underlying 
         values.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.rules-module.html">pology.misc.rules</a></strong>: <em class="summary">Match messages by rules of arbitrary specificity.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.split-module.html">pology.misc.split</a></strong>: <em class="summary">Splitting message fields into syntactical elements.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.stdcmdopt-module.html">pology.misc.stdcmdopt</a></strong>: <em class="summary">Standard command line options.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.stdsvpar-module.html">pology.misc.stdsvpar</a></strong>: <em class="summary">Standard sieve parameters.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.subcmd-module.html">pology.misc.subcmd</a></strong>: <em class="summary">Handle subcommands and their parameters.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.synder-module.html">pology.misc.synder</a></strong>: <em class="summary">Derive forms and properties of syntagmas by macro expansion.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.tabulate-module.html">pology.misc.tabulate</a></strong>: <em class="summary">Pretty-printing of tabular data.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.timeout-module.html">pology.misc.timeout</a></strong>: <em class="summary">A timeout decorator.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.vcs-module.html">pology.misc.vcs</a></strong>: <em class="summary">Version control operations.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.misc.wrap-module.html">pology.misc.wrap</a></strong>: <em class="summary">Text wrapping, with special handling for typical texts in PO files.</em>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts-module.html">pology.scripts</a></strong>: <em class="summary">Standalone scripts for processing PO files and Pology-related 
-        service.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.scripts.create_rules_from_koffice_autocorrect-module.html">pology.scripts.create_rules_from_koffice_autocorrect</a></strong>: <em class="summary">Create Pology rules from the KOffice KWord autocorrect xml file.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.fallback_import_paths-module.html">pology.scripts.fallback_import_paths</a></strong>: <em class="summary">Insert fallback import paths in scripts.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.organizeDict-module.html">pology.scripts.organizeDict</a></strong>: <em class="summary">Organize dictionary file:</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.poascribe-module.html">pology.scripts.poascribe</a></strong>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.poediff-module.html">pology.scripts.poediff</a></strong>: <em class="summary">Create embedded diffs of PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.poepatch-module.html">pology.scripts.poepatch</a></strong>: <em class="summary">Patch PO files from an embedded diff.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.pomtrans-module.html">pology.scripts.pomtrans</a></strong>: <em class="summary">Perform machine translation of PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.porewrap-module.html">pology.scripts.porewrap</a></strong>: <em class="summary">Rewrap keyword text fields in PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.poselfmerge-module.html">pology.scripts.poselfmerge</a></strong>: <em class="summary">Merge PO file with itself, to produce fuzzy matches on similar 
-        messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.posieve-module.html">pology.scripts.posieve</a></strong>: <em class="summary">Sieve messages in collections of PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.scripts.posummit-module.html">pology.scripts.posummit</a></strong>    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve-module.html">pology.sieve</a></strong>: <em class="summary">Catalog sieves.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pology.sieve.apply_filter-module.html">pology.sieve.apply_filter</a></strong>: <em class="summary">Apply filters to translation.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.apply_header_filter-module.html">pology.sieve.apply_header_filter</a></strong>: <em class="summary">Apply filters to headers.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.bad_patterns-module.html">pology.sieve.bad_patterns</a></strong>: <em class="summary">Check for presence of bad patterns in translation.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_grammar-module.html">pology.sieve.check_grammar</a></strong>: <em class="summary">Sieves messages with the LanguageTool grammar checker 
-        (http://www.languagetool.org)</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_rules-module.html">pology.sieve.check_rules</a></strong>: <em class="summary">Try to fail messages by rules and warn when that happens.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_spell-module.html">pology.sieve.check_spell</a></strong>: <em class="summary">Spell-check messages using GNU Aspell (<a href="http://aspell.net/"
-        target="_top">http://aspell.net/</a>).</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_spell_ec-module.html">pology.sieve.check_spell_ec</a></strong>: <em class="summary">Spell-check translation using Enchant.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_tp_kde-module.html">pology.sieve.check_tp_kde</a></strong>: <em class="summary">Check validity of messages in catalogs within KDE Translation 
-        Project.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_tp_wesnoth-module.html">pology.sieve.check_tp_wesnoth</a></strong>: <em class="summary">Check validity of messages in catalogs of The Battle for Wesnoth.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_xml_docbook4-module.html">pology.sieve.check_xml_docbook4</a></strong>: <em class="summary">Lightweight validity checking of POs containing Docbook XML.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.check_xml_kde4-module.html">pology.sieve.check_xml_kde4</a></strong>: <em class="summary">Check validity of markup that can be encountered in native KDE4 
-        catalogs.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.collect_pmap-module.html">pology.sieve.collect_pmap</a></strong>: <em class="summary">Assemble a property map from entries embedded into manual comments.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.diff_previous-module.html">pology.sieve.diff_previous</a></strong>: <em class="summary">Embed differences in original text in fuzzy messages into previous 
-        fields.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.empty_fuzzies-module.html">pology.sieve.empty_fuzzies</a></strong>: <em class="summary">Make all fuzzy messages untranslated.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.equip_header_tp_kde-module.html">pology.sieve.equip_header_tp_kde</a></strong>: <em class="summary">Equip catalog headers within KDE Translation Project with extra 
-        information.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.fancy_quote-module.html">pology.sieve.fancy_quote</a></strong>: <em class="summary">Transform ASCII single and double quotes into fancy counterparts.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.find_messages-module.html">pology.sieve.find_messages</a></strong>: <em class="summary">Find messages in catalogs.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.generate_xml-module.html">pology.sieve.generate_xml</a></strong>: <em class="summary">Generate an XML tree from the input PO files.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.merge_corr_tree-module.html">pology.sieve.merge_corr_tree</a></strong>: <em class="summary">Merge translation corrections from (partial) PO files tree into 
-        main tree.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.normalize_header-module.html">pology.sieve.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.normctxt_delim-module.html">pology.sieve.normctxt_delim</a></strong>: <em class="summary">Convert delimitor-embedded context to Gettext context.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.normctxt_sep-module.html">pology.sieve.normctxt_sep</a></strong>: <em class="summary">Convert separator-embedded context to Gettext context.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.remove_fuzzy_comments-module.html">pology.sieve.remove_fuzzy_comments</a></strong>: <em class="summary">Remove selected manual comments in fuzzy messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.remove_obsolete-module.html">pology.sieve.remove_obsolete</a></strong>: <em class="summary">Remove obsolete messages from catalogs.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.remove_previous-module.html">pology.sieve.remove_previous</a></strong>: <em class="summary">Remove previous fields (<code>#|...</code>) from messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.resolve_aggregates-module.html">pology.sieve.resolve_aggregates</a></strong>: <em class="summary">Resolve aggregate messages produced by <code>msgcat</code>.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.resolve_alternatives-module.html">pology.sieve.resolve_alternatives</a></strong>: <em class="summary">Resolve alternative directives in translation.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.resolve_entities-module.html">pology.sieve.resolve_entities</a></strong>: <em class="summary">Resolve XML entities in translation.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.set_header-module.html">pology.sieve.set_header</a></strong>: <em class="summary">Set elements of the PO header.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.stats-module.html">pology.sieve.stats</a></strong>: <em class="summary">Statistics: message and word counts by category, etc.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.tag_untranslated-module.html">pology.sieve.tag_untranslated</a></strong>: <em class="summary">Tag untranslated messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_context_only-module.html">pology.sieve.unfuzzy_context_only</a></strong>: <em class="summary">Unfuzzy those messages fuzzied only due to a context change.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_ctxmark_only-module.html">pology.sieve.unfuzzy_ctxmark_only</a></strong>: <em class="summary">Unfuzzy messages fuzzied only due to a change in context marker.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.unfuzzy_inplace_only-module.html">pology.sieve.unfuzzy_inplace_only</a></strong>: <em class="summary">Unfuzzy messages fuzzied only due to some tags being closed 
-        in-place (like <code>&lt;br&gt;</code> to 
-        <code>&lt;br/&gt;</code>).</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.sieve.update_header-module.html">pology.sieve.update_header</a></strong>: <em class="summary">Initialize and update the PO header with own translation data.</em>    </li>
-    </ul>
-    </li>
+    <li> <strong class="uidlink"><a href="pology.rules-module.html">pology.rules</a></strong>: <em class="summary">Match messages by rules of arbitrary specificity.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.sieve-module.html">pology.sieve</a></strong>: <em class="summary">Catalog sieves.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.split-module.html">pology.split</a></strong>: <em class="summary">Splitting message fields into syntactical elements.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.stdcmdopt-module.html">pology.stdcmdopt</a></strong>: <em class="summary">Standard command line options.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.stdsvpar-module.html">pology.stdsvpar</a></strong>: <em class="summary">Standard sieve parameters.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.subcmd-module.html">pology.subcmd</a></strong>: <em class="summary">Handle subcommands and their parameters.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.synder-module.html">pology.synder</a></strong>: <em class="summary">Derive forms and properties of syntagmas by macro expansion.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.tabulate-module.html">pology.tabulate</a></strong>: <em class="summary">Pretty-printing of tabular data.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.timeout-module.html">pology.timeout</a></strong>: <em class="summary">A timeout decorator.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.ui_references-module.html">pology.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
+        texts.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.vcs-module.html">pology.vcs</a></strong>: <em class="summary">Version control operations.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.wrap-module.html">pology.wrap</a></strong>: <em class="summary">Text wrapping, with special handling for typical texts in PO files.</em>    </li>
     </ul>
     </li>
 </ul>

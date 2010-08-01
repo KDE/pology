@@ -1,0 +1,1350 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.synder.Synder</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.synder-module.html">Module&nbsp;synder</a> ::
+        Class&nbsp;Synder
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Synder</h1><p class="nomargin-top"></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Synder</strong>
+</pre>
+
+<hr />
+<p>Derivator objects import sources of derivations and get queried for 
+  properties of syntagmas.</p>
+  <p>Lookup can be done by derivation key and property key, but also by 
+  single compound key (serialization of the previous two), to have 
+  interface and behavior similar to built-in dictionaries.</p>
+  <p>Basic usage is rather simple. If there are derivation files 
+  <code>planets.sd</code> and {moons.sd}, they can be used like this:</p>
+<pre class="literalblock">
+   &gt;&gt;&gt; sd = Synder()
+   &gt;&gt;&gt; sd.import_file(&quot;planets.sd&quot;)
+   &gt;&gt;&gt; sd.import_file(&quot;moons.sd&quot;)
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Lookup of properties by derivation and property key.
+   &gt;&gt;&gt; sd.get2(&quot;Venus&quot;, &quot;nom&quot;)
+   Venera
+   &gt;&gt;&gt; sd.get2(&quot;Callisto&quot;, &quot;nom&quot;)
+   Kalisto
+   &gt;&gt;&gt; sd.get2(&quot;Foobar&quot;, &quot;nom&quot;)
+   None
+   &gt;&gt;&gt; # Lookup of properties by compound key.
+   &gt;&gt;&gt; sd[&quot;Venus-nom&quot;]
+   Venera
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Iteration through properties by derivation keys.
+   &gt;&gt;&gt; for dkey in sd.dkeys(): print sd.get2(dkey, &quot;nom&quot;)
+   ...
+   Venera
+   Kalisto
+   Merkur
+   Jupiter
+   &#8230;
+   &gt;&gt;&gt; # Iteration through properties by compound keys.
+   &gt;&gt;&gt; for ckey in sd: print sd[ckey]
+   ...
+   Venera
+   Veneri
+   Venerom
+   &#8230;
+   Merkuru
+   Merkur
+   Merkura
+   &#8230;
+   &gt;&gt;&gt; # Querying for key syntagmas.
+   &gt;&gt;&gt; sd.syns(&quot;Venus&quot;)
+   ['Venus']
+   &gt;&gt;&gt; sd.syns(&quot;Iapetus&quot;)
+   ['Iapetus', 'Japetus']
+   &gt;&gt;&gt; sd.syns(&quot;Japetus&quot;)
+   ['Iapetus', 'Japetus']
+   &gt;&gt;&gt;
+   &gt;&gt;&gt; # Querying for property keys.
+   &gt;&gt;&gt; sd.pkeys(&quot;Venus&quot;)
+   ['gen', 'acc', 'nom', 'dat', 'gender']
+</pre>
+  <p>Syntax errors in derivations sources will raise <a 
+  href="pology.synder.SynderError-class.html" class="link">SynderError</a> 
+  exceptions on import. Unresolvable conflicts in derivation keys will be 
+  reported as warning on import, and conflicted derivations will not be 
+  imported. Errors in expansions are not reported on import, but when the 
+  problematic derivation is queried; warnings are output, and 
+  <code>None</code> (or default value) is returned for all properties.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">env</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">ckeysep</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">strictkey</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">dkeytf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">dkeyitf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pkeytf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pkeyitf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pvaltf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">ksyntf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">envtf</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Constructor of syntagma derivators.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#import_string" class="summary-sig-name">import_string</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">string</span>,
+        <span class="summary-sig-arg">ignhid</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Import string with derivations.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#import_file" class="summary-sig-name">import_file</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">ignhid</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Import file with derivations.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#get2" class="summary-sig-name">get2</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>,
+        <span class="summary-sig-arg">pkey</span>,
+        <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get property value by derivation key and property key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ckey</span>,
+        <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Get property value by compound key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#dkeys" class="summary-sig-name">dkeys</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">single</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Get list of all derivation keys.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#syns" class="summary-sig-name">syns</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get list of key syntagmas by derivation key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#altdkeys" class="summary-sig-name">altdkeys</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get list of all derivation keys pointing to same entry as given key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#pkeys" class="summary-sig-name">pkeys</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get set of property keys available for given derivation key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">{(string, string)*}</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#props" class="summary-sig-name">props</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get dictionary of property values by property keys for given 
+      derivation key.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#envs" class="summary-sig-name">envs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get list of all explicitly defined environments in given derivation.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#source_name" class="summary-sig-name">source_name</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get the name of the source in which the derivation is found.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, int, int)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#source_pos" class="summary-sig-name">source_pos</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dkey</span>)</span><br />
+      Get the position in the source where the derivation is found.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#keys" class="summary-sig-name">keys</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get the list of all compound keys.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#values" class="summary-sig-name">values</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get the list of all property values.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(string, string)*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#items" class="summary-sig-name">items</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get the list of all pairs of compound keys and property values.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#__contains__" class="summary-sig-name">__contains__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ckey</span>)</span><br />
+      Check if the compound key is present in the derivator.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#__getitem__" class="summary-sig-name">__getitem__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ckey</span>)</span><br />
+      Get property value by compound key, in dictionary notation.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">iterator(string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#__iter__" class="summary-sig-name">__iter__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Iterate through all compound keys, in random order.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">iterator(string)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#iterkeys" class="summary-sig-name">iterkeys</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Iterate through all compound keys, in random order.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">iteratorstring)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#itervalues" class="summary-sig-name">itervalues</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Iterate through all property values, in random order.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">iterator((string, string))</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder.Synder-class.html#iteritems" class="summary-sig-name">iteritems</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Iterate through all pairs of compound key and property value, in 
+      random order.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="empty_pcache"></a><span class="summary-sig-name">empty_pcache</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">env</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">ckeysep</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">strictkey</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">dkeytf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">dkeyitf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pkeytf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pkeyitf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pvaltf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">ksyntf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">envtf</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Constructor of syntagma derivators.</p>
+  <p>The default resolution of derivation key conflicts, as described in 
+  module documentation, can be changed to strict resolution through 
+  <code>strictkey</code> parameter. If <code>strictkey</code> is 
+  <code>True</code>, all key syntagmas must be unique.</p>
+  <p>Parameter <code>env</code> is used to specify the environment from 
+  which the derivations are taken. In case no non-default environments have
+  been used in derivations, <code>env</code> is simply empty string. 
+  Otherwise, it can be:</p>
+  <ul>
+    <li>
+      a string specifying a non-default environment
+    </li>
+    <li>
+      a tuple specifying an environment fallback chain
+    </li>
+    <li>
+      a tuple of tuples, specifying more than one environment chain
+    </li>
+  </ul>
+  <p>(Lists can also be used instead of tuples.)</p>
+  <p>If several environment fallback chains are given, when a property is 
+  requrested they are tried in the order of specification, and the first 
+  yielded property is returned. It is also possible to combine properties 
+  from different environment chains in a custom way, by supplying a 
+  property value transformation function (<code>pvaltf</code> 
+  parameter).</p>
+  <p>Compound keys, for single-key lookups, are built by joining the 
+  derivation and property keys with a separator. This separator can be 
+  chosen through <code>ckeysep</code> parameter. The separator string can 
+  be contained inside a derivation key, but it must not be found inside any
+  property key (the compound key is split from the back).</p>
+  <p>A myriad of <i>transformation functions</i> can be applied by 
+  derivator object to imported derivations, through <code>*tf</code> 
+  parameters. They are as follows (stating only default inputs, see below 
+  for more possibilities):</p>
+  <ul>
+    <li>
+      <code>dkeytf</code>: applied to derivation key supplied on lookups 
+      (e.g. in <a href="pology.synder.Synder-class.html#get" 
+      class="link">get</a> or <a 
+      href="pology.synder.Synder-class.html#get2" class="link">get2</a> 
+      methods). Takes the derivation key as parameter, returns either the 
+      derivation key or a tuple of the derivation key and another object.
+    </li>
+    <li>
+      <code>dkeyitf</code>: applied to all derivation keys on import. Same 
+      default input-output as <code>dkey</code>.
+    </li>
+    <li>
+      <code>pkeytf</code>: like <code>dkeytf</code>, only working 
+      analogously on property key instead of derivation key.
+    </li>
+    <li>
+      <code>pkeyitf</code>: like <code>dkeyitf</code>, only working 
+      analogously on property key instead of derivation key.
+    </li>
+    <li>
+      <code>pvaltf</code>: applied to tagged segments of property values. 
+      The input to this function is a list of lists by each environment 
+      fallback chain; list for one environemnt chain consists of 2-tuples, 
+      each tuple having a list of tags as the first element, and a text 
+      segment as the second element. For example, if there is only one 
+      environment chain (e.g. <code>evn=&quot;&quot;</code> or 
+      <code>env=(&quot;someenv&quot;, &quot;&quot;)</code>, and the 
+      property value is derived to be <code>foo ~tag bar</code> in this 
+      environment, then the argument to the function will be <code>[[([''],
+      &quot;foo &quot;), (['tag'], &quot; bar&quot;)]]</code>. If an 
+      environemnt chain yielded no property value, its element will be 
+      <code>None</code> instead of list of 2-tuples. The return value is 
+      the final property value string. Note that simplification will not be
+      applied to this value afterwards, so if desired, <a 
+      href="pology.normalize-module.html#simplify" 
+      class="link">simplify()</a> should be manually called inside the 
+      function.
+    </li>
+    <li>
+      <code>ksyntf</code>: quite similar to <code>pvaltf</code>, only 
+      applied to tagged segments of key syntagmas. The difference is that 
+      there are no multiple environments for key syntagmas, so the input 
+      value is just one list of tagged text segments (what would be the 
+      first element of input list to <code>pvaltf</code>).
+    </li>
+    <li>
+      <code>envtf</code>: applied to environment fallback chain on lookups.
+      Takes original environment chain as argument, returns new environment
+      chain (in one of the forms acceptable as <code>env</code> parameter).
+    </li>
+  </ul>
+  <p>Transformation functions can take more input arguments than the 
+  default described above, on demand. If transformation function  is 
+  supplied directly, e.g. <code>pvaltf=somefunc</code>, it is sent default 
+  inputs. Extra inputs are requested by supplying instead a tuple, where 
+  the first element is the transformation function, and the following 
+  elements are predefined keywords of available extra inputs, e.g. 
+  <code>pvalf=(somefunc, &quot;dkey&quot;, &quot;pkrest&quot;)</code>. 
+  Available extra inputs by transformation function are:</p>
+  <ul>
+    <li>
+      <code>dkeytf</code>: <code>&quot;self&quot;</code> the derivation 
+      object.
+    </li>
+    <li>
+      <code>pkeytf</code>: <code>&quot;self&quot;</code>, 
+      <code>&quot;dkey&quot;</code> the derivation key (original or that 
+      returned by <code>dkeytf</code>), <code>&quot;dkrest&quot;</code> the
+      second object returned by <code>dkeytf</code>.
+    </li>
+    <li>
+      <code>pvaltf</code>: <code>&quot;self&quot;</code>, 
+      <code>&quot;dkey&quot;</code>, <code>&quot;pkey&quot;</code> the 
+      property key (original or that returned by <code>pkeytf</code>), 
+      <code>&quot;env&quot;</code> the tuple of environment chains, 
+      <code>&quot;dkrest&quot;</code>, <code>&quot;pkrest&quot;</code> the 
+      second object returned by <code>pkeytf</code>.
+    </li>
+    <li>
+      <code>ksyntf</code>: <code>&quot;self&quot;</code>, 
+      <code>&quot;dkey&quot;</code>, <code>&quot;dkrest&quot;</code>.
+    </li>
+    <li>
+      <code>envtf</code>: <code>&quot;self&quot;</code>, 
+      <code>&quot;dkey&quot;</code>, <code>&quot;dkrest&quot;</code>.
+    </li>
+  </ul>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>env</code></strong> (string, (string*), ((string*)*)) - environment for derivations</li>
+        <li><strong class="pname"><code>ckeysep</code></strong> (string) - derivation-property key separator in compound keys</li>
+        <li><strong class="pname"><code>strictkey</code></strong> - whether all key syntagmas must be unique to avoid conflicts</li>
+        <li><strong class="pname"><code>dkeytf</code></strong> - transformation function for lookup derivation keys</li>
+        <li><strong class="pname"><code>dkeyitf</code></strong> - transformation function for imported derivation keys</li>
+        <li><strong class="pname"><code>pkeytf</code></strong> - transformation function for lookup property keys</li>
+        <li><strong class="pname"><code>pkeyitf</code></strong> - transformation function for imported property keys</li>
+        <li><strong class="pname"><code>pvaltf</code></strong> - transformation fucntion for property values</li>
+        <li><strong class="pname"><code>ksyntf</code></strong> - transformation fucntion for key syntagamas</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="import_string"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">import_string</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">string</span>,
+        <span class="sig-arg">ignhid</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import string with derivations.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>string</code></strong> (string) - the string to parse</li>
+        <li><strong class="pname"><code>ignhid</code></strong> (bool) - also make hidden derivations visible if <code>True</code></li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>number of newly imported visible derivations</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="import_file"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">import_file</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>,
+        <span class="sig-arg">ignhid</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import file with derivations.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>filename</code></strong> (string) - the path to file to parse</li>
+        <li><strong class="pname"><code>ignhid</code></strong> (bool) - also make hidden derivations visible if <code>True</code></li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>number of newly imported visible derivations</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get2"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get2</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>,
+        <span class="sig-arg">pkey</span>,
+        <span class="sig-arg">defval</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get property value by derivation key and property key.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+        <li><strong class="pname"><code>pkey</code></strong> (string) - property key</li>
+        <li><strong class="pname"><code>defval</code></strong> (string) - the value to return if the property does not exist</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>the property value</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ckey</span>,
+        <span class="sig-arg">defval</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get property value by compound key.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ckey</code></strong> (string) - compound key</li>
+        <li><strong class="pname"><code>defval</code></strong> (string) - the value to return if the property does not exist</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>the property value</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dkeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dkeys</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">single</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of all derivation keys.</p>
+  <p>For derivations accessible through more than one derivation key, by 
+  default all of them are included in the result. If instead only a single 
+  random of those keys is wanted (i.e. strictly one key per derivation), 
+  <code>single</code> can be set to <code>True</code>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>single</code></strong> (param) - whether to return a single key for each derivation</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>list of derivation keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="syns"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">syns</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of key syntagmas by derivation key.</p>
+  <p>Key syntagmas are always returned in the order in which they appear in
+  the derivation. If no derivation is found for the given key, an empty 
+  list is returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>key syntagmas</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="altdkeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">altdkeys</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of all derivation keys pointing to same entry as given 
+  key.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>alternative derivation keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="pkeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">pkeys</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get set of property keys available for given derivation key.</p>
+  <p>If no derivation is found for the given key, an empty set is 
+  returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: set(string*)</dt>
+        <dd>property keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="props"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">props</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get dictionary of property values by property keys for given 
+  derivation key.</p>
+  <p>If no derivation is found for the given key, an empty dictionary is 
+  returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: {(string, string)*}</dt>
+        <dd>property dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="envs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">envs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get list of all explicitly defined environments in given 
+  derivation.</p>
+  <p>&quot;Explicitly&quot; means environments mentioned in the derivation 
+  itself, and not those inherited through expansions.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: [string*]</dt>
+        <dd>explicit environment names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="source_name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">source_name</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the name of the source in which the derivation is found.</p>
+  <p>If no derivation is found for the given key, <code>None</code> is 
+  returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>name of the source</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="source_pos"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">source_pos</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dkey</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the position in the source where the derivation is found.</p>
+  <p>Position is a 3-tuple of file path, line and column numbers. If no 
+  derivation is found for the given key, <code>None</code> is returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>dkey</code></strong> (string) - derivation key</li>
+    </ul></dd>
+    <dt>Returns: (string, int, int)</dt>
+        <dd>source position</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="keys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">keys</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of all compound keys.</p>
+  <dl class="fields">
+    <dt>Returns: [string*]</dt>
+        <dd>compound keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="values"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">values</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of all property values.</p>
+  <dl class="fields">
+    <dt>Returns: [string*]</dt>
+        <dd>property values</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="items"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">items</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of all pairs of compound keys and property values.</p>
+  <dl class="fields">
+    <dt>Returns: [(string, string)*]</dt>
+        <dd>compound keys and property values</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__contains__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__contains__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ckey</span>)</span>
+    <br /><em class="fname">(In operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check if the compound key is present in the derivator.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if present, <code>False</code> otherwie</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__getitem__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__getitem__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">ckey</span>)</span>
+    <br /><em class="fname">(Indexing operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get property value by compound key, in dictionary notation.</p>
+  <p>Like <a href="pology.synder.Synder-class.html#get" 
+  class="link">get</a>, but raises <code>KeyError</code> if key is not 
+  found.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>property value</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__iter__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__iter__</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Iterate through all compound keys, in random order.</p>
+  <dl class="fields">
+    <dt>Returns: iterator(string)</dt>
+        <dd>iterator through compound keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="iterkeys"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">iterkeys</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Iterate through all compound keys, in random order.</p>
+  <dl class="fields">
+    <dt>Returns: iterator(string)</dt>
+        <dd>iterator through compound keys</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="itervalues"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">itervalues</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Iterate through all property values, in random order.</p>
+  <dl class="fields">
+    <dt>Returns: iteratorstring)</dt>
+        <dd>iterator through property values</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="iteritems"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">iteritems</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Iterate through all pairs of compound key and property value, in 
+  random order.</p>
+  <dl class="fields">
+    <dt>Returns: iterator((string, string))</dt>
+        <dd>iterator through compound key property value pairs</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

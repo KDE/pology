@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.subcmd.SubcmdView</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        <a href="pology.subcmd-module.html">Module&nbsp;subcmd</a> ::
+        Class&nbsp;SubcmdView
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class SubcmdView</h1><p class="nomargin-top"></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">SubcmdView</strong>
+</pre>
+
+<hr />
+<p>The view of a particular subcommand in a parameter parser.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Methods</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">subcmd</span>,
+        <span class="summary-sig-arg">desc</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">shdesc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Constructor.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_desc"></a><span class="summary-sig-name">set_desc</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">desc</span>)</span><br />
+      Set description of the subcommand.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_shdesc"></a><span class="summary-sig-name">set_shdesc</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">shdesc</span>)</span><br />
+      Set short description of the subcommand.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#add_param" class="summary-sig-name">add_param</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">ptype</span>,
+        <span class="summary-sig-arg">mandatory</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">attrname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">defval</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">admvals</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">multival</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">seplist</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">metavar</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">desc</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Define a parameter.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#help" class="summary-sig-name">help</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wcol</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stderr</span>)</span><br />
+      Formatted help for the subcommand.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#name" class="summary-sig-name">name</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get subcommand name.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#shdesc" class="summary-sig-name">shdesc</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get short description of the subcommand.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[string]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.subcmd.SubcmdView-class.html#params" class="summary-sig-name">params</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">addcol</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Get the list of subcommand parameters.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Properties</span></td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Method Details</span></td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">parent</span>,
+        <span class="sig-arg">subcmd</span>,
+        <span class="sig-arg">desc</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">shdesc</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Constructor.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>parent</code></strong> (<a href="pology.subcmd.ParamParser-class.html" 
+          class="link">ParamParser</a>) - the parent parameter parser.</li>
+        <li><strong class="pname"><code>subcmd</code></strong> (string) - subcommand name</li>
+        <li><strong class="pname"><code>desc</code></strong> (string) - subcommand description</li>
+        <li><strong class="pname"><code>shdesc</code></strong> (string) - short subcommand description</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_param"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_param</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">ptype</span>,
+        <span class="sig-arg">mandatory</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">attrname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">defval</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">admvals</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">multival</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">seplist</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">metavar</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">desc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Define a parameter.</p>
+  <p>A parameter is at minimum defined by its name and value type, and may 
+  be optional or mandatory. Optional parameter will be set to the supplied 
+  default value if not encountered during parsing.</p>
+  <p>Default value must be of the given parameter type (in the sense of 
+  <code>isinstance()</code>) or <code>None</code>. Default value of 
+  <code>None</code> can be used to be able to check if the parameter has 
+  been parsed at all. If parameter type is boolean, then the default value 
+  has a special meaning: the parameter is always parsed without an argument
+  (a flag), and its value will become negation of the default value. If 
+  parameter value is not arbitrary for the given type, the set of 
+  admissible values can be defined too.</p>
+  <p>Parameter can be used to collect a list of values, in two ways, or 
+  both combined. One is by repeating the parameter several times with 
+  different values, and another by a single parameter value itself being a 
+  comma-separated list of values (in which case the values are parsed into 
+  elements of requested type). For such parameters the default value should
+  be a list too (or <code>None</code>).</p>
+  <p>For help purposes, parameter may be given a description and 
+  metavariable to represent its value.</p>
+  <p>If the parameter being added to current subcommand has the name same 
+  as a previously defined parameter to another subcommand, then the current
+  parameter shares semantics with the old one. This means that the type and
+  list nature of current parameter must match that of the previous one 
+  (i.e. <code>ptype</code>, <code>multival</code>, and <code>seplist</code>
+  must have same values).</p>
+  <p>Double-newline in description string splits text into paragraphs.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> (string) - parameter name</li>
+        <li><strong class="pname"><code>ptype</code></strong> (type) - type of the expected argument</li>
+        <li><strong class="pname"><code>mandatory</code></strong> (bool) - whether parameter is mandatory</li>
+        <li><strong class="pname"><code>attrname</code></strong> (string) - explicit name for the object attribute under which the parsed 
+          parameter value is stored (auto-derived if <code>None</code>)</li>
+        <li><strong class="pname"><code>defval</code></strong> (instance of <code>ptype</code> or <code>None</code>) - default value for the argument</li>
+        <li><strong class="pname"><code>admvals</code></strong> (list of <code>ptype</code> elements or <code>None</code>) - admissible values for the argument</li>
+        <li><strong class="pname"><code>multival</code></strong> (bool) - whether parameter can be repeated for list of values</li>
+        <li><strong class="pname"><code>seplist</code></strong> (bool) - whether parameter is a comma-separated list of values</li>
+        <li><strong class="pname"><code>metavar</code></strong> (string or <code>None</code>) - name for parameter's value</li>
+        <li><strong class="pname"><code>desc</code></strong> (string or <code>None</code>) - description of the parameter</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="help"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">help</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wcol</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stderr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Formatted help for the subcommand.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wcol</code></strong> (int) - column to wrap text at (&lt;= 0 for no wrapping, 
+          <code>None</code> for automatic according to output stream)</li>
+        <li><strong class="pname"><code>stream</code></strong> (file) - intended output stream for the text</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>formatted help</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">name</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get subcommand name.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>subcommand name</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="shdesc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">shdesc</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get short description of the subcommand.</p>
+  <p>Short description was either explicitly provided on construction, or 
+  it is taken as the first sentence of the first paragraph of the full 
+  description.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>short description</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="params"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">params</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">addcol</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get the list of subcommand parameters.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>addcol</code></strong> (bool) - append colon (<code>:</code>) to non-flag parameters</li>
+    </ul></dd>
+    <dt>Returns: [string]</dt>
+        <dd>list of subcommand parameters</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

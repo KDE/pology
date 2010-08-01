@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.resolve</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        Module&nbsp;resolve
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module resolve</h1><p class="nomargin-top"></p>
+<p>Replacement of segments in text which define some underlying 
+  values.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string, [string...], [string...])</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#resolve_entities" class="summary-sig-name">resolve_entities</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">entities</span>,
+        <span class="summary-sig-arg">ignored</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">undefrepl</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Replace XML entities in the text with their values.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#resolve_entities_simple" class="summary-sig-name">resolve_entities_simple</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">entities</span>,
+        <span class="summary-sig-arg">ignored</span>=<span class="summary-sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">vfilter</span>=<span class="summary-sig-default">None</span>)</span><br />
+      As <a href="pology.resolve-module.html#resolve_entities" 
+      class="link">resolve_entities</a>, but returns only the resolved 
+      text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string, int, bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#resolve_alternatives" class="summary-sig-name">resolve_alternatives</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">select</span>,
+        <span class="summary-sig-arg">total</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">altfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">outfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Replace alternatives directives in the text with the selected 
+      alternative.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#resolve_alternatives_simple" class="summary-sig-name">resolve_alternatives_simple</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">select</span>,
+        <span class="summary-sig-arg">total</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">altfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">outfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">condf</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">srcname</span>=<span class="summary-sig-default">None</span>)</span><br />
+      As <a href="pology.resolve-module.html#resolve_alternatives" 
+      class="link">resolve_alternatives</a>, but return only the resolved 
+      text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#first_to_case" class="summary-sig-name">first_to_case</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">upper</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+      Change case of the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#first_to_upper" class="summary-sig-name">first_to_upper</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+      Uppercase the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#first_to_lower" class="summary-sig-name">first_to_lower</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">nalts</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">althead</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span><br />
+      Lowercase the first letter in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#expand_vars" class="summary-sig-name">expand_vars</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">varmap</span>,
+        <span class="summary-sig-arg">head</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">%</code><code class="variable-quote">'</code></span>)</span><br />
+      Expand variables in the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#remove_accelerator" class="summary-sig-name">remove_accelerator</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">accels</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">greedy</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Remove accelerator from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#remove_fmtdirs" class="summary-sig-name">remove_fmtdirs</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">format</span>,
+        <span class="summary-sig-arg">subs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+      Remove format directives from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.resolve-module.html#remove_literals" class="summary-sig-name">remove_literals</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">subs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">substrs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">regexes</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">heuristic</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Remove literal substrings from the text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_ALTHEAD"></a><span class="summary-name">DEFAULT_ALTHEAD</span> = <code title="'~@'"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology'"><code class="variable-quote">'</code><code class="variable-string">pology</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="resolve_entities"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">entities</span>,
+        <span class="sig-arg">ignored</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">undefrepl</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Replace XML entities in the text with their values.</p>
+  <p>Entity values are defined by the supplied dictionary of name-value 
+  pairs. Not all entities need to be replaced, some can be explicitly 
+  ignored. If an entity is neither defined nor ignored, a warning will be 
+  reported to standard output if <code>srcname</code> is given.</p>
+  <p>An undefined entity is by default left untouched in the resulting 
+  text. Instead, the parameter <code>undefrepl</code> can be used to supply
+  a string to substitute for every undefined entity, or a function which 
+  takes the undefined entity name and returns the string to substitute.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>entities</code></strong> (dict) - entity name-value pairs</li>
+        <li><strong class="pname"><code>ignored</code></strong> (a sequence or (string)-&gt;bool) - entities to ignore; a sequence of entity names, or function 
+          taking the entity name and returning <code>True</code> if ignored</li>
+        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report unknown entities to standard output, with 
+          this parameter as source identifier</li>
+        <li><strong class="pname"><code>vfilter</code></strong> (string or (string)-&gt;string) - format string (with single <code>%s</code> directive) or function
+          to apply to every resolved entity value</li>
+        <li><strong class="pname"><code>undefrepl</code></strong> (string of (string)-&gt;string) - string or function to use in case of undefined entity</li>
+    </ul></dd>
+    <dt>Returns: (string, [string...], [string...])</dt>
+        <dd>the resulting text, resolved entities names, and unknown entity 
+          names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="resolve_entities_simple"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_entities_simple</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">entities</span>,
+        <span class="sig-arg">ignored</span>=<span class="sig-default"><code class="variable-group">set([</code><code class="variable-group">])</code></span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">vfilter</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>As <a href="pology.resolve-module.html#resolve_entities" 
+  class="link">resolve_entities</a>, but returns only the resolved 
+  text.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.resolve-module.html#resolve_entities" 
+        class="link">resolve_entities</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="resolve_alternatives"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">select</span>,
+        <span class="sig-arg">total</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">altfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">outfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">condf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Replace alternatives directives in the text with the selected 
+  alternative.</p>
+  <p>Alternatives directives are of the form <code>~@/.../.../...</code>, 
+  for example:</p>
+<pre class="literalblock">
+   I see a ~@/pink/white/ elephant.
+</pre>
+  <p>where <code>~@</code> is the directive head, followed by a character 
+  that defines the delimiter of alternatives (like in <code>sed</code> 
+  command). The number of alternatives per directive is not defined by the 
+  directive itself, but is provided as an external parameter.</p>
+  <p>Alternative directive is resolved into one of the alternative 
+  substrings by given index of the alternative (one-based). Before 
+  substituting the directive, the selected alternative can be filtered 
+  through function given by <code>altfilter</code> parameter. Text outside 
+  of directives can be filtered as well, piece by piece, through the 
+  function given by <code>outfilter</code> parameter.</p>
+  <p>If an alternatives directive is malformed (e.g. to little 
+  alternatives), it may be reported to standard output. Unless all 
+  encountered directives were well-formed, the original text is returned 
+  instead of the partially resolved one.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>select</code></strong> (int &gt; 0) - index of the alternative to select (one-based)</li>
+        <li><strong class="pname"><code>total</code></strong> (int &gt; 0) - number of alternatives per directive</li>
+        <li><strong class="pname"><code>althead</code></strong> (string) - directive head to use instead of the default one</li>
+        <li><strong class="pname"><code>altfilter</code></strong> ((string) -&gt; string) - filter to apply to chosen alternatives</li>
+        <li><strong class="pname"><code>outfilter</code></strong> ((string) -&gt; string) - filter to apply to text outside of directives</li>
+        <li><strong class="pname"><code>condf</code></strong> (None or <code>(x_1, ..., x_n) -&gt; True/False</code>) - resolve current alternative directive only when this function 
+          returns <code>True</code> on call with each alternative as 
+          argument</li>
+        <li><strong class="pname"><code>srcname</code></strong> (None or string) - if not None, report malformed directives to standard output, with
+          this string as source identifier</li>
+    </ul></dd>
+    <dt>Returns: string, int, bool</dt>
+        <dd>resulting text, number of resolved alternatives, and an indicator
+          of well-formedness (<code>True</code> if all directives 
+          well-formed)</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="resolve_alternatives_simple"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">resolve_alternatives_simple</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">select</span>,
+        <span class="sig-arg">total</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">altfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">outfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">condf</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">srcname</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>As <a href="pology.resolve-module.html#resolve_alternatives" 
+  class="link">resolve_alternatives</a>, but return only the resolved 
+  text.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.resolve-module.html#resolve_alternatives" 
+        class="link">resolve_alternatives</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_case"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_case</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">upper</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Change case of the first letter in the text.</p>
+  <p>Text may also have alternatives directives (see <a 
+  href="pology.resolve-module.html#resolve_alternatives" 
+  class="link">resolve_alternatives</a>). In that case, if the first letter
+  is found within an alternative, change cases for first letters in other 
+  alternatives of the same directive too.</p>
+  <p>If lowercasing is requested, it is not done if both the first and the 
+  second letter are uppercase (e.g. acronyms, all-caps writting).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - the text to transform</li>
+        <li><strong class="pname"><code>upper</code></strong> (bool) - whether to transform to uppercase (lowercase otherwise)</li>
+        <li><strong class="pname"><code>nalts</code></strong> (int) - if non-zero, the number of alternatives per directive</li>
+        <li><strong class="pname"><code>althead</code></strong> (string) - alternatives directive head instead of the default one</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>the resulting text</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.resolve-module.html#resolve_alternatives" 
+        class="link">resolve_alternatives</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_upper"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_upper</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Uppercase the first letter in the text.</p>
+  <p>A shortcut for <a href="pology.resolve-module.html#first_to_case" 
+  class="link">first_to_case</a> for uppercasing.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.resolve-module.html#first_to_case" 
+        class="link">first_to_case</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="first_to_lower"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_to_lower</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">nalts</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">althead</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">~@</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Lowercase the first letter in the text.</p>
+  <p>A shortcut for <a href="pology.resolve-module.html#first_to_case" 
+  class="link">first_to_case</a> for lowercasing.</p>
+  <dl class="fields">
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.resolve-module.html#first_to_case" 
+        class="link">first_to_case</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="expand_vars"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">expand_vars</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">varmap</span>,
+        <span class="sig-arg">head</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">%</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Expand variables in the text.</p>
+  <p>Expansion directives start with a directive head (<code>head</code> 
+  parameter), followed by variable name consisting of alphanumeric 
+  characters and underscores, and ending by any other character. Variable 
+  name may also be explicitly delimited within braces. Variable values for 
+  substitution are looked up by name in the <code>varmap</code> dictionary;
+  if not found, <code>NameError</code> is raised.</p>
+  <p>Some examples:</p>
+<pre class="literalblock">
+   expand_vars(&quot;Mary had a little %mammal.&quot;, {&quot;mammal&quot;:&quot;lamb&quot;})
+   expand_vars(&quot;Quite a %{critic}esque play.&quot;, {&quot;critic&quot;:&quot;burl&quot;})
+   expand_vars(&quot;Lost in single ~A.&quot;, {&quot;A&quot;:&quot;parenthesis&quot;}, &quot;~&quot;)
+</pre>
+  <p>Dictionary values are filtered as <code>&quot;%s&quot; % value</code> 
+  prior to substitution. Directive head may be escaped by repeating it 
+  twice in a row.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - string to expand</li>
+        <li><strong class="pname"><code>varmap</code></strong> ((name, value) dictionary) - mapping of variable names to values</li>
+        <li><strong class="pname"><code>head</code></strong> (string) - opening sequence for expansion directive</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_accelerator"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_accelerator</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">accels</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">greedy</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove accelerator from the text.</p>
+  <p>Accelerator markers are characters which determine which letter in the
+  text will be used as keyboard accelerator in user interface. They are 
+  usually a single non-alphanumeric character, and inserted before the 
+  letter which should be the accelerator, e.g. <code>&quot;Foo 
+  &amp;Bar&quot;</code>, <code>&quot;Foo _Bar&quot;</code>, etc. Sometimes,
+  especially in CJK texts, accelerator letter is separated out in 
+  parenthesis, at the start or end of the text, such as <code>&quot;Foo Bar
+  (&amp;B)&quot;</code>.</p>
+  <p>This function will try to remove the accelerator in a smart way. E.g. 
+  it will ignore ampersand in <code>&quot;Foo &amp; Bar&quot;</code>, and 
+  completely remove a CJK-style accelerator.</p>
+  <p>If <code>accels</code> is <code>None</code>, the behavior depends on 
+  the value of <code>greedy</code>. If it is <code>False</code>, text is 
+  removed as is. If it is <code>True</code>, some usual accelerator markers
+  are considered: <code>_</code>, <code>&amp;</code>, <code>~</code>, and 
+  <code>^</code>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to clear of the accelerator</li>
+        <li><strong class="pname"><code>accels</code></strong> (sequence of strings or <code>None</code>) - possible accelerator markers</li>
+        <li><strong class="pname"><code>greedy</code></strong> (bool) - whether to try known markers if <code>accels</code> is 
+          <code>None</code></li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without the accelerator</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_fmtdirs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_fmtdirs</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">format</span>,
+        <span class="sig-arg">subs</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove format directives from the text.</p>
+  <p>Format directives are used to substitute values in the text. An 
+  example text with directives in several formats:</p>
+<pre class="literalblock">
+   &quot;%d men on a %s man's chest.&quot;  # C
+   &quot;%(num)d men on a %(attrib)s man's chest.&quot;  # Python
+   &quot;%1 men on a %2 man's chest.&quot; # KDE/Qt
+</pre>
+  <p>Format is specified by a string keyword. The following formats are 
+  known at the moment: <code>c</code>, <code>qt</code>, c{kde}, c{python}. 
+  Format string may also have <code>-format</code> appended to the keyword,
+  for compatibility with Gettext format flags.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text from which to remove format directives</li>
+        <li><strong class="pname"><code>format</code></strong> (string) - format keyword</li>
+        <li><strong class="pname"><code>subs</code></strong> (string) - text to replace format directives instead of just removing it</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without format directives</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_literals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_literals</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">subs</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">substrs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">regexes</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">heuristic</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove literal substrings from the text.</p>
+  <p>Literal substrings are URLs, email addresses, web site names, command 
+  options, etc. This function will heuristically try to remove such 
+  substrings from the text.</p>
+  <p>Additional literals to remove may be specified as verbatim substrings 
+  (<code>substrs</code> parameter) and regular expressions 
+  (<code>regexes</code>). These are applied before the internal heuristic 
+  matchers. Heuristic removal may be entirely disabled by setting 
+  <code>heuristic</code> to <code>False</code>.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text from which to remove literals</li>
+        <li><strong class="pname"><code>subs</code></strong> (string) - text to replace literals instead of just removing them</li>
+        <li><strong class="pname"><code>substrs</code></strong> (sequence of strings) - additional substrings to remove by direct string match</li>
+        <li><strong class="pname"><code>regexes</code></strong> (sequence of compiled regular expressions) - additional substrings to remove by regex match</li>
+        <li><strong class="pname"><code>heuristic</code></strong> (bool) - whether to apply heuristic at all</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>text without literals</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
