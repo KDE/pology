@@ -33,8 +33,8 @@ Several branch IDs may be given as a comma-separated list.
 """
 
 from pology import _, n_
-from pology.misc.comments import parse_summit_branches
-from pology.misc.report import report
+from pology.comments import parse_summit_branches
+from pology.report import report
 
 
 def setup_sieve (p):

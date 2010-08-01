@@ -16,14 +16,15 @@ import sys
 import fallback_import_paths
 
 from pology import version, _, n_
-from pology.file.catalog import Catalog
-from pology.file.message import MessageUnsafe
-from pology.misc.colors import ColorOptionParser
-import pology.misc.config as pology_config
-from pology.misc.fsops import collect_catalogs
-from pology.misc.merge import merge_pofile
-from pology.misc.report import report, error
-import pology.scripts.porewrap as REW
+from pology.catalog import Catalog
+from pology.message import MessageUnsafe
+from pology.colors import ColorOptionParser
+import pology.config as pology_config
+from pology.fsops import collect_catalogs
+from pology.merge import merge_pofile
+from pology.report import report, error
+
+import porewrap as REW
 
 
 def main ():

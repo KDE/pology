@@ -103,7 +103,7 @@ can be computed using::
 Pology also collects language-specific internal sieves. These are run by
 prefixing sieve name with the language code and a colon. For example, there is
 a sieve for the French language that replaces ordinary with non-breaking spaces
-in some interpunction scenarios, the L{setUbsp<l10n.fr.sieve.setUbsp>},
+in some interpunction scenarios, the L{setUbsp<lang.fr.sieve.setUbsp>},
 which is invoked like this::
 
     $ posieve fr:setUbsp frobaz-fr/
@@ -116,14 +116,14 @@ the file name has to end in C{.py}. Custom sieves can be chained as any other. F
     $ posieve stats,../custom/my_count.py frobaz/
 
 The list of all internal sieves is given within the L{sieve} module, as well
-as instructions on how to write custom sieves. The list of internal language-specific sieves can be found within C{l10n.<lang>.sieve} module of
+as instructions on how to write custom sieves. The list of internal language-specific sieves can be found within C{lang.<lang>.sieve} module of
 the languages that have them.
 
 If an internal sieve contains underscores in its name, they can be replaced
 with dashes in the C{posieve} command line. The dashes will be converted back
 to underscores before trying to resolve the location of the internal sieve.
 
-The following L{user configuration<misc.config>} fields are considered
+The following L{user configuration<config>} fields are considered
 (they may be overridden by command line options):
   - C{[posieve]/skip-on-error}: whether to skip current catalog on
         processing error and go to next, if possible (default C{yes})
@@ -179,22 +179,22 @@ import re
 import sys
 
 from pology import rootdir, version, _, n_, t_
-from pology.file.catalog import Catalog
-from pology.misc.colors import ColorOptionParser, set_coloring_globals
-import pology.misc.config as pology_config
-from pology.misc.escape import escape_sh
-from pology.misc.fsops import str_to_unicode
-from pology.misc.fsops import collect_catalogs, collect_system
-from pology.misc.fsops import build_path_selector, collect_paths_from_file
-from pology.misc.fsops import collect_paths_cmdline
-from pology.misc.msgreport import report_on_msg, warning_on_msg, error_on_msg
-from pology.misc.report import error, warning, report, encwrite
-from pology.misc.report import init_file_progress
-from pology.misc.report import list_options
-from pology.misc.report import format_item_list
-from pology.misc.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_incexc
-from pology.misc.stdcmdopt import add_cmdopt_colors
-from pology.misc.subcmd import ParamParser
+from pology.catalog import Catalog
+from pology.colors import ColorOptionParser, set_coloring_globals
+import pology.config as pology_config
+from pology.escape import escape_sh
+from pology.fsops import str_to_unicode
+from pology.fsops import collect_catalogs, collect_system
+from pology.fsops import build_path_selector, collect_paths_from_file
+from pology.fsops import collect_paths_cmdline
+from pology.msgreport import report_on_msg, warning_on_msg, error_on_msg
+from pology.report import error, warning, report, encwrite
+from pology.report import init_file_progress
+from pology.report import list_options
+from pology.report import format_item_list
+from pology.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_incexc
+from pology.stdcmdopt import add_cmdopt_colors
+from pology.subcmd import ParamParser
 from pology.sieve import SieveMessageError, SieveCatalogError
 
 
@@ -358,7 +358,7 @@ def main ():
             sieves_requested.append(sname)
         # Language-specific sieves.
         modpaths = glob.glob(os.path.join(rootdir(),
-                                          "l10n", "*", "sieve", "[a-z]*.py"))
+                                          "lang", "*", "sieve", "[a-z]*.py"))
         modpaths.sort()
         for modpath in modpaths:
             sname = os.path.basename(modpath)[:-3] # minus .py
@@ -382,7 +382,7 @@ def main ():
             if ":" in sieve_name:
                 # Language-specific internal sieve.
                 lang, name = sieve_name.split(":")
-                sieve_path_base = os.path.join("l10n", lang, "sieve", name)
+                sieve_path_base = os.path.join("lang", lang, "sieve", name)
             else:
                 sieve_path_base = os.path.join("sieve", sieve_name)
             sieve_path_base = sieve_path_base.replace("-", "_") + ".py"

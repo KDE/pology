@@ -29,11 +29,11 @@ are ignored by default.
 """
 
 from pology import _, n_
-from pology.misc.entities import read_entities
-from pology.misc.msgreport import warning_on_msg
-from pology.misc.report import report, format_item_list
-from pology.misc.resolve import resolve_entities
-from pology.misc.stdsvpar import add_param_entdef
+from pology.entities import read_entities
+from pology.msgreport import warning_on_msg
+from pology.report import report, format_item_list
+from pology.resolve import resolve_entities
+from pology.stdsvpar import add_param_entdef
 
 
 def setup_sieve (p):

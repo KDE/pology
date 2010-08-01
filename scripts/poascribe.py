@@ -15,30 +15,29 @@ from tempfile import NamedTemporaryFile
 import time
 
 from pology import PologyError, version, _, n_, t_
-from pology.file.catalog import Catalog
-from pology.file.header import Header
-from pology.file.message import Message, MessageUnsafe
-from pology.hook.gettext_tools import msgfmt
-from pology.misc.colors import ColorOptionParser, cjoin
-from pology.misc.comments import parse_summit_branches
-import pology.misc.config as pology_config
-from pology.misc.diff import msg_diff, msg_ediff, msg_ediff_to_new
-from pology.misc.diff import editprob
-from pology.misc.fsops import str_to_unicode, unicode_to_str
-from pology.misc.fsops import collect_paths_cmdline, collect_catalogs
-from pology.misc.fsops import mkdirpath, join_ncwd
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.merge import merge_pofile
-from pology.misc.monitored import Monlist, Monset
-from pology.misc.msgreport import warning_on_msg, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, warning, error, format_item_list
-from pology.misc.report import init_file_progress
-from pology.misc.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
-from pology.misc.tabulate import tabulate
-from pology.misc.vcs import make_vcs
-from pology.sieve.find_messages import build_msg_fmatcher
-from pology.sieve.update_header import update_header
+from pology.catalog import Catalog
+from pology.header import Header
+from pology.message import Message, MessageUnsafe
+from pology.gettext_tools import msgfmt
+from pology.colors import ColorOptionParser, cjoin
+from pology.comments import parse_summit_branches
+import pology.config as pology_config
+from pology.diff import msg_diff, msg_ediff, msg_ediff_to_new
+from pology.diff import editprob
+from pology.fsops import str_to_unicode, unicode_to_str
+from pology.fsops import collect_paths_cmdline, collect_catalogs
+from pology.fsops import mkdirpath, join_ncwd
+from pology.langdep import get_hook_lreq
+from pology.match import make_msg_fmatcher
+from pology.merge import merge_pofile
+from pology.monitored import Monlist, Monset
+from pology.msgreport import warning_on_msg, report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report, warning, error, format_item_list
+from pology.report import init_file_progress
+from pology.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
+from pology.tabulate import tabulate
+from pology.vcs import make_vcs
 
 
 ASCWRAPPING = ["fine"]
@@ -360,10 +359,10 @@ def main ():
     # Create selectors if any explicitly given.
     selector = None
     if options.selectors:
-        selector = build_selector(options.selectors)
+        selector = make_selector(options.selectors)
     aselector = None
     if options.aselectors:
-        aselector = build_selector(options.aselectors, hist=True)
+        aselector = make_selector(options.aselectors, hist=True)
 
     # Assemble operation mode.
     needuser = False
@@ -375,26 +374,26 @@ def main ():
     if 0: pass
     elif mode.name == "status":
         mode.execute = status
-        mode.selector = selector or build_selector(["any"])
+        mode.selector = selector or make_selector(["any"])
         canselect = True
     elif mode.name == "commit":
         mode.execute = commit
-        mode.selector = selector or build_selector(["any"])
+        mode.selector = selector or make_selector(["any"])
         needuser = True
         canselect = True
     elif mode.name == "diff":
         mode.execute = diff
-        mode.selector = selector or build_selector(["modar"])
+        mode.selector = selector or make_selector(["modar"])
         mode.aselector = aselector
         canselect = True
         canaselect = True
     elif mode.name == "purge":
         mode.execute = purge
-        mode.selector = selector or build_selector(["any"])
+        mode.selector = selector or make_selector(["any"])
         canselect = True
     elif mode.name == "history":
         mode.execute = history
-        mode.selector = selector or build_selector(["any"])
+        mode.selector = selector or make_selector(["any"])
         canselect = True
     else:
         error(_("@info",
@@ -1159,15 +1158,14 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
 
     # Update header if requested and translator's modifications detected.
     if options.update_headers and any_nonmerges:
-        update_header(cat,
-                      project=cat.name,
-                      title=config.title,
-                      name=config.udata[user].name,
-                      email=config.udata[user].email,
-                      teamemail=config.team_email,
-                      langname=config.lang_team,
-                      langcode=config.lang_code,
-                      plforms=config.plural_header)
+        cat.update_header(project=cat.name,
+                          title=config.title,
+                          name=config.udata[user].name,
+                          email=config.udata[user].email,
+                          teamemail=config.team_email,
+                          langname=config.lang_team,
+                          langcode=config.lang_code,
+                          plforms=config.plural_header)
 
     nmod = [len(mod_msgs)]
     if len(rev_msgs) > 0:
@@ -1475,7 +1473,7 @@ def purge_msg (msg, keepflags=False):
 
 
 # Exclusive states of a message, as reported by Message.state().
-# FIXME: These keywords better exported to pology.file.message
+# FIXME: These keywords better exported to pology.message
 _st_tran = "T"
 _st_fuzzy = "F"
 _st_untran = "U"
@@ -2413,7 +2411,7 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
 # Selector specification is a string in format NAME:ARG1:ARG2:...
 # (instead of colon, separator can be any non-alphanumeric excluding
 # underscore and hyphen)
-def build_selector (selspecs, hist=False):
+def make_selector (selspecs, hist=False):
 
     # Component selectors.
     selectors = []
@@ -2483,7 +2481,7 @@ def cached_matcher (expr, cid):
 
     key = ("matcher", expr)
     if key not in _cache:
-        _cache[key] = build_msg_fmatcher(expr, abort=True)
+        _cache[key] = make_msg_fmatcher(expr, abort=True)
 
     return _cache[key]
 
@@ -2508,7 +2506,7 @@ def cached_tags (tag_spec, config, cid):
 
 # -----------------------------------------------------------------------------
 # Selector factories.
-# Use build_selector() to create selectors.
+# Use make_selector() to create selectors.
 
 # NOTE:
 # Plain selectors should return True or False.

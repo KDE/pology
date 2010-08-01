@@ -9,7 +9,7 @@ Pass catalog headers through a combination of L{hooks<hook>}, of types:
   - S4B (C{(hdr, cat)->numerr}) for side-effects on the header
 
 Sieve parameters:
-  - C{filter:<hookspec>}: hook specification (see L{misc.langdep.get_hook_lreq}
+  - C{filter:<hookspec>}: hook specification (see L{langdep.get_hook_lreq}
         for the format of hook specifications)
 
 Parameter C{filter} can be repeated to chain several hooks,
@@ -20,9 +20,9 @@ which are then applied in the order of appearance in the command line.
 """
 
 from pology import _, n_
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.report import report, warning
-from pology.misc.stdsvpar import add_param_filter
+from pology.langdep import get_hook_lreq
+from pology.report import report, warning
+from pology.stdsvpar import add_param_filter
 from pology.sieve import SieveError
 
 
@@ -33,7 +33,7 @@ def setup_sieve (p):
     "\n\n"
     "Catalog header is passed through one or composition of "
     "F4B, V4B, S4B hooks. "
-    "See documentation on pology.hook for details about hooks."
+    "See documentation on pology for details about hooks."
     ))
 
     add_param_filter(p, _("@info sieve parameter discription",

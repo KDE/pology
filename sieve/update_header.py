@@ -6,7 +6,7 @@ Initialize and update the PO header with own translation data.
 When work on a pristine PO starts, or an existing PO is to be revised with
 new translations, this sieve can be used to automatically set PO header
 fields to proper values. The revision date is taken as current, while
-the rest of information is pulled from L{Pology's configuration<misc.config>}.
+the rest of information is pulled from L{Pology's configuration<config>}.
 
 Sieve options:
   - C{proj:<project_id>}: ID of the project
@@ -64,9 +64,9 @@ import re
 import time
 
 from pology import _, n_
-import pology.misc.config as config
-from pology.misc.report import warning
-from pology.misc.resolve import expand_vars
+import pology.config as config
+from pology.report import warning
+from pology.resolve import expand_vars
 from pology.sieve import SieveError
 
 
@@ -166,187 +166,14 @@ class Sieve (object):
             if "PACKAGE" in hdr.license:
                 hdr.license = None
 
-            update_header(cat, project=cat.name, title=title,
-                          name=self.name, email=self.email,
-                          teamemail=self.teamemail,
-                          langname=self.langteam, langcode=self.langcode,
-                          encoding=self.encoding, ctenc="8bit",
-                          plforms=self.plforms,
-                          poeditor=self.poeditor)
+            cat.update_header(project=cat.name, title=title,
+                              name=self.name, email=self.email,
+                              teamemail=self.teamemail,
+                              langname=self.langteam, langcode=self.langcode,
+                              encoding=self.encoding, ctenc="8bit",
+                              plforms=self.plforms,
+                              poeditor=self.poeditor)
         else:
-            update_header(cat,
-                          name=self.name, email=self.email,
-                          poeditor=self.poeditor)
-
-
-def update_header (cat, project=None, title=None, copyright=None, license=None,
-                   name=None, email=None, teamemail=None,
-                   langname=None, langcode=None, encoding=None, ctenc=None,
-                   plforms=None, poeditor=None):
-    """
-    Update catalog header.
-
-    If a piece of information is not given (i.e. C{None}),
-    the corresponding header field is left unmodified.
-    If it is given as empty string, the corresponding header field is removed.
-    PO revision date is updated always, to current date.
-
-    Some fields (as noted in parameter descriptions) are expanded on variables
-    by applying the L{expand_vars<pology.misc.resolve.expand_vars>} function.
-    For example::
-
-         title="Translation of %project into %langname."
-
-    The following variables are available:
-      - C{%basename}: PO file base name
-      - C{%poname}: PO file base name without .po extension
-      - C{%project}: value of C{project} parameter (if not C{None}/empty)
-      - C{%langname}: value of C{langname} parameter (if not C{None}/empty)
-      - C{%langcode}: value of C{langcode} parameter (if not C{None}/empty)
-
-    @param cat: catalog in which the header is to be updated
-    @type cat: L{Catalog<pology.file.header.Catalog>}
-    @param project: project name
-    @type project: string
-    @param title: translation title (expanded on variables)
-    @type title: string
-    @param copyright: copyright notice (expanded on variables)
-    @type copyright: string
-    @param license: license notice (expanded on variables)
-    @type license: string
-    @param name: translator's name
-    @type name: string
-    @param email: translator's email address
-    @type email: string
-    @param teamemail: language team's email address
-    @type teamemail: string
-    @param langname: full language name
-    @type langname: string
-    @param langcode: language code
-    @type langcode: string
-    @param encoding: text encoding
-    @type encoding: string
-    @param ctenc: content transfer encoding
-    @type ctenc: string
-    @param plforms: plural forms expression
-    @type plforms: string
-    @param poeditor: translator's PO editor
-    @type poeditor: string
-
-    @returns: reference to input header
-    """
-
-    varmap = {}
-    varmap["basename"] = os.path.basename(cat.filename)
-    varmap["poname"] = cat.name
-    if project:
-        varmap["project"] = project
-    if langname:
-        varmap["langname"] = langname
-    if langcode:
-        varmap["langcode"] = langcode
-    varhead="%"
-
-    hdr = cat.header
-
-    if title:
-        title = expand_vars(title, varmap, varhead)
-        hdr.title[:] = [unicode(title)]
-    elif title == "":
-        hdr.title[:] = []
-
-    if copyright:
-        copyright = expand_vars(copyright, varmap, varhead)
-        hdr.copyright = unicode(copyright)
-    elif copyright == "":
-        hdr.copyright = None
-
-    if license:
-        license = expand_vars(license, varmap, varhead)
-        hdr.license = unicode(license)
-    elif license == "":
-        hdr.license = None
-
-    if project:
-        hdr.set_field(u"Project-Id-Version", unicode(project))
-    elif project == "":
-        hdr.remove_field(u"Project-Id-Version")
-
-    rdate = time.strftime("%Y-%m-%d %H:%M%z")
-    hdr.set_field(u"PO-Revision-Date", unicode(rdate))
-
-    if name or email:
-        if name and email:
-            tr_ident = "%s <%s>" % (name, email)
-        elif name:
-            tr_ident = "%s" % name
-        else:
-            tr_ident = "<%s>" % email
-
-        # Remove author placeholder.
-        for i in range(len(hdr.author)):
-            if u"FIRST AUTHOR" in hdr.author[i]:
-                hdr.author.pop(i)
-                break
-
-        # Look for current author in the comments,
-        # to update only years if present.
-        cyear = time.strftime("%Y")
-        acfmt = u"%s, %s."
-        new_author = True
-        for i in range(len(hdr.author)):
-            if tr_ident in hdr.author[i]:
-                # Parse the current list of years.
-                years = re.findall(r"\b(\d{2,4})\s*[,.]", hdr.author[i])
-                if cyear not in years:
-                    years.append(cyear)
-                years.sort()
-                hdr.author[i] = acfmt % (tr_ident, ", ".join(years))
-                new_author = False
-                break
-        if new_author:
-            hdr.author.append(acfmt % (tr_ident, cyear))
-
-        hdr.set_field(u"Last-Translator", unicode(tr_ident))
-
-    elif name == "" or email == "":
-        hdr.remove_field(u"Last-Translator")
-
-    if langname:
-        tm_ident = None
-        if langname and teamemail:
-            tm_ident = "%s <%s>" % (langname, teamemail)
-        elif langname:
-            tm_ident = langname
-        hdr.set_field(u"Language-Team", unicode(tm_ident))
-    elif langname == "":
-        hdr.remove_field(u"Language-Team")
-
-    if langcode:
-        hdr.set_field(u"Language", unicode(langcode), after="Language-Team")
-    elif langcode == "":
-        hdr.remove_field(u"Language")
-
-    if encoding:
-        ctval = u"text/plain; charset=%s" % encoding
-        hdr.set_field(u"Content-Type", ctval)
-    elif encoding == "":
-        hdr.remove_field(u"Content-Type")
-
-    if ctenc:
-        hdr.set_field(u"Content-Transfer-Encoding", unicode(ctenc))
-    elif ctenc == "":
-        hdr.remove_field(u"Content-Transfer-Encoding")
-
-    if plforms:
-        hdr.set_field(u"Plural-Forms", unicode(plforms))
-    elif plforms == "":
-        hdr.remove_field(u"Plural-Forms")
-
-    if poeditor:
-        hdr.set_field(u"X-Generator", unicode(poeditor))
-    elif poeditor == "":
-        hdr.remove_field(u"X-Generator")
-
-    return hdr
+            cat.update_header(name=self.name, email=self.email,
+                              poeditor=self.poeditor)
 

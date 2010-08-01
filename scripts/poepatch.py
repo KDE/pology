@@ -24,17 +24,17 @@ import re
 from tempfile import NamedTemporaryFile
 
 from pology import version, _, n_
-from pology.misc.colors import ColorOptionParser
-from pology.misc.report import error, warning, report
-from pology.misc.msgreport import error_on_msg, warning_on_msg
-import pology.misc.config as pology_config
-from pology.misc.fsops import str_to_unicode, mkdirpath, collect_catalogs
-from pology.file.catalog import Catalog
-from pology.file.message import Message, MessageUnsafe
-from pology.file.header import Header
-from pology.misc.diff import msg_ediff, msg_ediff_to_new, msg_ediff_to_old
+from pology.colors import ColorOptionParser
+from pology.report import error, warning, report
+from pology.msgreport import error_on_msg, warning_on_msg
+import pology.config as pology_config
+from pology.fsops import str_to_unicode, mkdirpath, collect_catalogs
+from pology.catalog import Catalog
+from pology.message import Message, MessageUnsafe
+from pology.header import Header
+from pology.diff import msg_ediff, msg_ediff_to_new, msg_ediff_to_old
 
-import pology.scripts.poediff as ED
+import poediff as ED
 
 _flag_ediff = u"ediff"
 _flag_ediff_to_cur = u"%s-to-cur" % _flag_ediff

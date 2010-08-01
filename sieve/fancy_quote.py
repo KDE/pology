@@ -27,9 +27,9 @@ import os
 import re
 
 from pology import _, n_
-from pology.misc.comments import manc_parse_flag_list
-from pology.misc.escape import split_escaped
-from pology.misc.report import report
+from pology.comments import manc_parse_flag_list
+from pology.escape import split_escaped
+from pology.report import report
 from pology.sieve import SieveError
 
 

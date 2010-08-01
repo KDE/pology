@@ -10,7 +10,7 @@ if test x`which epydoc` = x; then
 fi
 
 # Proper module path for epydoc to follow.
-export PYTHONPATH=../../../:$PYTHONPATH
+export PYTHONPATH=../../pology:$PYTHONPATH
 
 rm -rf html/*
 find ../../ -iname \*.pyc | xargs -r rm

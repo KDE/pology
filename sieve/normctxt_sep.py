@@ -20,9 +20,9 @@ Sieve options:
 """
 
 from pology import _, n_
-from pology.misc.escape import unescape_c as unescape
-from pology.misc.msgreport import warning_on_msg
-from pology.misc.report import report
+from pology.escape import unescape_c as unescape
+from pology.msgreport import warning_on_msg
+from pology.report import report
 from pology.sieve import SieveError
 
 

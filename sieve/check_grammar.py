@@ -14,9 +14,9 @@ from urllib import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_
-from pology.misc.fsops import get_env_langs
-from pology.misc.msgreport import warning_on_msg
-from pology.misc.report import report, warning
+from pology.fsops import get_env_langs
+from pology.msgreport import warning_on_msg
+from pology.report import report, warning
 from pology.sieve import SieveError, SieveCatalogError
 
 

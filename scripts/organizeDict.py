@@ -24,7 +24,7 @@ import sys
 
 import fallback_import_paths
 from pology import _, n_
-from pology.misc.report import report, error
+from pology.report import report, error
 
 
 def main():

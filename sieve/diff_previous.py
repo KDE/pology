@@ -37,9 +37,9 @@ Sieve parameters:
 import re
 
 from pology import _, n_
-from pology.misc.comments import parse_summit_branches
-from pology.misc.diff import word_ediff, word_ediff_to_old
-from pology.misc.report import report
+from pology.comments import parse_summit_branches
+from pology.diff import word_ediff, word_ediff_to_old
+from pology.report import report
 
 
 def setup_sieve (p):

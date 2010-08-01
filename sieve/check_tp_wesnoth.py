@@ -59,12 +59,12 @@ import os
 import re
 
 from pology import _, n_
-from pology.misc.report import report, format_item_list
-from pology.misc.msgreport import report_on_msg_hl, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.stdsvpar import add_param_poeditors
+from pology.report import report, format_item_list
+from pology.msgreport import report_on_msg_hl, report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.stdsvpar import add_param_poeditors
 from pology.sieve import SieveError
-from pology.file.message import MessageUnsafe
+from pology.message import MessageUnsafe
 
 
 _ctxtsep = "^"
@@ -451,7 +451,7 @@ def _check_wml_att (tag, content):
 # --------------------------------------
 # Check for Pango markup.
 
-from pology.misc.markup import check_xml_pango_l1
+from pology.markup import check_xml_pango_l1
 
 def _check_pango (msg, cat, strict, hl):
 
@@ -538,7 +538,20 @@ def _check_space (msg, cat, strict, hl):
 # --------------------------------------
 # Check for Docbook markup.
 
-from pology.sieve.check_xml_docbook4 import _check_dbmarkup
+from pology.check_markup import check_docbook4_msg
+
+_check_dbmarkup_pt = [None]
+
+def _check_dbmarkup (msg, cat, strict, hl):
+
+    if not _check_dbmarkup_pt[0]:
+        _check_dbmarkup_pt[0] = check_docbook4_msg(strict=strict, entities=None)
+
+    hl1 = _check_dbmarkup_pt[0](msg, cat)
+    hl.extend(hl1)
+    nproblems = sum(len(x[2]) for x in hl1)
+
+    return nproblems
 
 
 # --------------------------------------
@@ -570,7 +583,7 @@ _known_checks = {
 # Try to heuristically detect which type of markup is used in the message.
 # Detection is conservative: better report no markup, than wrong markup.
 
-from pology.misc.markup import collect_xml_spec_l1
+from pology.markup import collect_xml_spec_l1
 from pology import rootdir
 
 _tags_wml = _known_tags

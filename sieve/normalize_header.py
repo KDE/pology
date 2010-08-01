@@ -3,7 +3,7 @@
 """
 Check and rearrange content of PO header into canonical form.
 
-This sieve applies the L{normalize_header<hook.normalize_header>} hook
+This sieve applies the L{normalize_header<normalize_header>} hook
 to catalog headers.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
@@ -11,7 +11,7 @@ to catalog headers.
 """
 
 from pology import _, n_
-from pology.hook.normalize_header import normalize_header
+from pology.normalize_header import normalize_header
 
 
 def setup_sieve (p):

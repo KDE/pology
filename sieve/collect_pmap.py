@@ -94,7 +94,7 @@ The derivator in this example would be defined like this::
 After the derivator name, the definition lists the keys as in the pmap,
 but followed only by the appropriate endings for the given declination.
 For details about syntagma derivation, see documentation to
-L{pology.misc.synder} module.
+L{pology.synder} module.
 
 It is possible to mix pmap (C{# pmap: ...}) and synder C{# synder: ...} entries
 throughout comments, in a single or collection of PO files.
@@ -165,10 +165,10 @@ import re
 
 from pology import _, n_
 from pology.sieve import SieveError
-from pology.misc.colors import cjoin
-from pology.misc.msgreport import warning_on_msg
-from pology.misc.report import report, format_item_list
-from pology.misc.synder import Synder
+from pology.colors import cjoin
+from pology.msgreport import warning_on_msg
+from pology.report import report, format_item_list
+from pology.synder import Synder
 
 
 def setup_sieve (p):

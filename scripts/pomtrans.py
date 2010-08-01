@@ -15,16 +15,16 @@ import os
 import locale
 
 from pology import rootdir, version, _, n_
-from pology.file.catalog import Catalog
-from pology.file.message import MessageUnsafe
-from pology.misc.colors import ColorOptionParser
-from pology.misc.report import report, error, warning
-from pology.misc.fsops import collect_catalogs, collect_system
-from pology.misc.fsops import str_to_unicode
-import pology.misc.config as pology_config
-from pology.misc.entities import read_entities
-from pology.misc.resolve import resolve_entities_simple
-from pology.hook.remove_subs import remove_accel_msg
+from pology.catalog import Catalog
+from pology.message import MessageUnsafe
+from pology.colors import ColorOptionParser
+from pology.report import report, error, warning
+from pology.fsops import collect_catalogs, collect_system
+from pology.fsops import str_to_unicode
+import pology.config as pology_config
+from pology.entities import read_entities
+from pology.resolve import resolve_entities_simple
+from pology.remove_subs import remove_accel_msg
 
 
 def main ():

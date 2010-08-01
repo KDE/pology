@@ -16,7 +16,12 @@ that may benefit from non-standard paths.
 """
 
 import sys
-from os.path import realpath, sep
+from os.path import realpath, sep, dirname
 
-pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-3])
+# Library.
+pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-2] + ["pology"])
 sys.path.insert(0, pologypath)
+
+# For scripts to import from each other.
+scriptpath = dirname(realpath(sys.argv[0]))
+sys.path.insert(0, scriptpath)

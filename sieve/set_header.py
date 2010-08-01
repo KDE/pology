@@ -64,8 +64,8 @@ import time
 import re
 
 from pology import _, n_
-from pology.misc.report import report, warning
-from pology.misc.resolve import expand_vars
+from pology.report import report, warning
+from pology.resolve import expand_vars
 from pology.sieve import SieveError
 
 

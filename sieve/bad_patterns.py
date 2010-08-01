@@ -28,8 +28,8 @@ for defining, matching, and reporting problems.
 """
 
 from pology import _, n_
-from pology.hook.bad_patterns import bad_patterns_msg
-from pology.misc.report import report
+from pology.bad_patterns import bad_patterns_msg
+from pology.report import report
 
 
 def setup_sieve (p):

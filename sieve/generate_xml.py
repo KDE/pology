@@ -36,9 +36,9 @@ from os.path import abspath, basename, dirname, isdir, isfile, join
 import sys
 
 from pology import _, n_
-from pology.misc.report import report
-from pology.misc.rules import loadRules, Rule
-from pology.misc.timeout import TimedOutException
+from pology.report import report
+from pology.rules import loadRules, Rule
+from pology.timeout import TimedOutException
 
 
 def setup_sieve (p):

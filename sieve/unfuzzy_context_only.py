@@ -39,10 +39,10 @@ C{noreview} parameter may be useful here too.
 """
 
 from pology import _, n_
-from pology.misc.msgreport import report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report
-from pology.misc.stdsvpar import add_param_poeditors
+from pology.msgreport import report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report
+from pology.stdsvpar import add_param_poeditors
 
 
 def setup_sieve (p):

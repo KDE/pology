@@ -37,17 +37,17 @@ import sys
 from time import strftime
 
 from pology import rootdir, _, n_
-from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
-from pology.misc.colors import cjoin
-from pology.misc.comments import manc_parse_list, manc_parse_flag_list
-import pology.misc.config as cfg
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.msgreport import spell_error, spell_xml_error
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, warning, format_item_list
-from pology.misc.split import proper_words
+from pology.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.colors import cjoin
+from pology.comments import manc_parse_list, manc_parse_flag_list
+import pology.config as cfg
+from pology.langdep import get_hook_lreq
+from pology.msgreport import spell_error, spell_xml_error
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report, warning, format_item_list
 from pology.sieve import SieveError
-from pology.sieve.check_spell_ec import add_general_spellcheck_params
+from pology.split import proper_words
+from pology.stdsvpar import add_param_spellcheck
 
 
 def setup_sieve (p):
@@ -56,7 +56,7 @@ def setup_sieve (p):
     "Spell-check translation using Aspell."
     ))
 
-    add_general_spellcheck_params(p)
+    add_param_spellcheck(p)
 
     p.add_param("enc", unicode,
                 metavar=_("@info sieve parameter value placeholder",
@@ -129,7 +129,7 @@ class Sieve (object):
         if params.xml:
             xmlPath=params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
-                #TODO: create nice api to manage xml file and move it to misc/
+                #TODO: create nice api to manage xml file and move it to rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
@@ -243,7 +243,7 @@ class Sieve (object):
 
             # Load list of contexts by which to ignore messages.
             self.ignoredContexts[ckey] = []
-            ignoredContextFile=join(rootdir(), "l10n", clang, "spell", "ignoredContext")
+            ignoredContextFile=join(rootdir(), "lang", clang, "spell", "ignoredContext")
             if isfile(ignoredContextFile):
                 for line in open(ignoredContextFile, "r", "utf-8"):
                     line=line.strip()
@@ -428,7 +428,7 @@ class Sieve (object):
         # Collect all applicable dictionaries.
 
         dictFiles=set()
-        spellRoot=join(rootdir(), "l10n", lang, "spell")
+        spellRoot=join(rootdir(), "lang", lang, "spell")
         spellSub=join(".", (env or ""))
         while spellSub:
             spellDir=join(spellRoot, spellSub)

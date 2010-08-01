@@ -3,14 +3,14 @@
 """
 Equip catalog headers within KDE Translation Project with extra information.
 
-This sieve applies L{hook.equip_header.equip_header_tp_kde} to catalog headers.
+This sieve applies L{equip_header.equip_header_tp_kde} to catalog headers.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
 from pology import _, n_
-from pology.hook.equip_header import equip_header_tp_kde
+from pology.equip_header import equip_header_tp_kde
 
 
 def setup_sieve (p):

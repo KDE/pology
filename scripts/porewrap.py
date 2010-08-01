@@ -17,7 +17,7 @@ but the wrapping policy can be controlled from several sources:
   - command line options C{--wrap} and C{--no-wrap} enable or disable
     wrapping on column, and C{--fine-wrap}/C{--no-fine-wrap} wrapping
     on logical breaks;
-  - L{configuration fields<misc.config>} C{[porewrap]/wrap}
+  - L{configuration fields<config>} C{[porewrap]/wrap}
     and C{[porewrap]/fine-wrap} may be set to C{yes} or C{no},
     corresponding to previous command line options;
   - catalogs themselves may state what wrapping should be applied.
@@ -56,11 +56,11 @@ import sys
 import fallback_import_paths
 
 from pology import version, _, n_
-from pology.file.catalog import Catalog
-from pology.misc.colors import ColorOptionParser
-import pology.misc.config as pology_config
-from pology.misc.fsops import collect_catalogs
-from pology.misc.report import report, error
+from pology.catalog import Catalog
+from pology.colors import ColorOptionParser
+import pology.config as pology_config
+from pology.fsops import collect_catalogs
+from pology.report import report, error
 
 
 def main ():

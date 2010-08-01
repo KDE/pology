@@ -27,9 +27,9 @@ There is just one sieve parameter:
 import os
 
 from pology import _, n_
-from pology.file.catalog import Catalog
-from pology.file.header import Header
-from pology.misc.report import report
+from pology.catalog import Catalog
+from pology.header import Header
+from pology.report import report
 from pology.sieve import SieveError
 
 

@@ -38,7 +38,7 @@ Sieve parameters:
 import re
 
 from pology import _, n_
-from pology.misc.report import report
+from pology.report import report
 
 
 def setup_sieve (p):

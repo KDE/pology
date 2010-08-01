@@ -3,7 +3,7 @@
 """
 Resolve alternative directives in translation.
 
-See description of L{resolve_alternatives()<misc.resolve.resolve_alternatives>}
+See description of L{resolve_alternatives()<resolve.resolve_alternatives>}
 function for information on format and behavior of alternative directives.
 
 Sieve parameters:
@@ -20,9 +20,9 @@ import re
 import sys
 
 from pology import _, n_
-from pology.misc.msgreport import warning_on_msg
-from pology.misc.report import report
-from pology.misc.resolve import resolve_alternatives
+from pology.msgreport import warning_on_msg
+from pology.report import report
+from pology.resolve import resolve_alternatives
 from pology.sieve import SieveError
 
 

@@ -27,7 +27,7 @@ Sieve parameters:
         based on difference ratio
   - C{mincomp}: include only catalogs with sufficient completeness
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
-        to matching (see L{misc.langdep.get_hook_lreq} for the format
+        to matching (see L{langdep.get_hook_lreq} for the format
         of hook specifications)
 
 The accelerator characters should be removed from the messages before
@@ -227,16 +227,16 @@ import os
 import sys
 
 from pology import _, n_
-from pology.file.catalog import Catalog
-from pology.file.message import MessageUnsafe
-from pology.misc.colors import ColorString, cjoin, cinterp
-from pology.misc.comments import parse_summit_branches
-from pology.misc.diff import tdiff
-from pology.misc.fsops import collect_catalogs
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.report import report, warning, format_item_list
-from pology.misc.split import proper_words
-from pology.misc.tabulate import tabulate
+from pology.catalog import Catalog
+from pology.message import MessageUnsafe
+from pology.colors import ColorString, cjoin, cinterp
+from pology.comments import parse_summit_branches
+from pology.diff import tdiff
+from pology.fsops import collect_catalogs
+from pology.langdep import get_hook_lreq
+from pology.report import report, warning, format_item_list
+from pology.split import proper_words
+from pology.tabulate import tabulate
 from pology.sieve import SieveError
 
 

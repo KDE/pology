@@ -26,14 +26,12 @@ import re
 import locale
 import xml.parsers.expat
 
-from pology import rootdir, _, n_
-from pology.hook.check_markup import flag_no_check_markup
-from pology.misc.markup import check_xml_docbook4_l1, check_placeholder_els
-from pology.misc.msgreport import report_on_msg_hl, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report
-from pology.misc.stdsvpar import add_param_poeditors
-from pology.sieve import parse_sieve_flags
+from pology import _, n_
+from pology.check_markup import check_docbook4_msg
+from pology.msgreport import report_on_msg_hl, report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report
+from pology.stdsvpar import add_param_poeditors
 
 
 def setup_sieve (p):
@@ -60,6 +58,8 @@ class Sieve (object):
         self.caller_sync = False # no need to sync catalogs to the caller
         self.caller_monitored = False # no need for monitored messages
 
+        self.check = check_docbook4_msg(strict=False, entities=None)
+
         self.nproblems = 0
 
 
@@ -69,8 +69,8 @@ class Sieve (object):
         if not msg.translated:
             return
 
-        highlight = []
-        self.nproblems += _check_dbmarkup(msg, cat, False, highlight)
+        highlight = self.check(msg, cat)
+        self.nproblems += sum(len(x[2]) for x in highlight)
 
         # Report problems.
         if highlight:
@@ -93,41 +93,4 @@ class Sieve (object):
                      "in translations.",
                      num=self.nproblems)
             report("===== " + msg)
-
-
-_meta_msg_msgctxt = set((
-))
-_meta_msg_msgid = set((
-    "translator-credits",
-))
-_meta_msg_msgid_sw = (
-    "@@image:",
-)
-
-# NOTE: Also used by check_kde_tp
-def _check_dbmarkup (msg, cat, strict, hl):
-
-    # Skip some known meta-messages.
-    if msg.msgctxt in _meta_msg_msgctxt or msg.msgid in _meta_msg_msgid:
-        return 0
-    if msg.msgid.startswith(_meta_msg_msgid_sw):
-        return 0
-
-    # Explicit skipping.
-    if flag_no_check_markup in parse_sieve_flags(msg):
-        return 0
-
-    if not strict and check_xml_docbook4_l1(msg.msgid):
-        return 0
-
-    nproblems = 0
-    for i in range(len(msg.msgstr)):
-        spans = []
-        spans.extend(check_xml_docbook4_l1(msg.msgstr[i]))
-        spans.extend(check_placeholder_els(msg.msgid, msg.msgstr[i]))
-        if spans:
-            nproblems += len(spans)
-            hl.append(("msgstr", i, spans))
-
-    return nproblems
 

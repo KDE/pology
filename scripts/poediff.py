@@ -25,18 +25,19 @@ import time
 import fallback_import_paths
 
 from pology import version, _, n_
-from pology.file.catalog import Catalog
-from pology.file.message import MessageUnsafe
-from pology.misc.colors import ColorOptionParser, set_coloring_globals, cjoin
-import pology.misc.config as pology_config
-from pology.misc.fsops import str_to_unicode, collect_catalogs
-from pology.misc.diff import msg_ediff
-from pology.misc.merge import merge_pofile
-from pology.misc.report import error, warning, report, format_item_list
-from pology.misc.report import list_options
-from pology.misc.stdcmdopt import add_cmdopt_colors
-from pology.misc.vcs import available_vcs, make_vcs
-from pology.scripts.posummit import fuzzy_match_source_files
+from pology.catalog import Catalog
+from pology.message import MessageUnsafe
+from pology.colors import ColorOptionParser, set_coloring_globals, cjoin
+import pology.config as pology_config
+from pology.fsops import str_to_unicode, collect_catalogs
+from pology.diff import msg_ediff
+from pology.merge import merge_pofile
+from pology.report import error, warning, report, format_item_list
+from pology.report import list_options
+from pology.stdcmdopt import add_cmdopt_colors
+from pology.vcs import available_vcs, make_vcs
+
+from posummit import fuzzy_match_source_files
 
 
 _hmsgctxt_field = u"X-Ediff-Header-Context" # by spec

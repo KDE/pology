@@ -77,9 +77,9 @@ the C{unfuzzy} parameter.
 import re
 
 from pology import _, n_
-from pology.file.header import Header
-from pology.file.message import Message
-from pology.misc.report import report
+from pology.header import Header
+from pology.message import Message
+from pology.report import report
 from pology.sieve import SieveError
 
 

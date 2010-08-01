@@ -1,0 +1,93 @@
+# Filter message fields into pure text.
+# Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+# License: GPLv3
+
+# Order of filter addition is significant.
+
+# Rewrite parts of original text based on directives in translator comments.
+addFilterHook name="remove-subs/rewrite-inverse" on="msg"
+addFilterHook name="remove-subs/rewrite-msgid" on="msg"
+
+# Resolve UI references.
+# Translation may contain UI references, original UI strings which
+# are supposed to be automatically resolved into translated UI when
+# final catalogs are made (see documentation on pology.ui_references).
+# UI references should be resolved in pure text for e.g. terminology
+# and spelling checks not to trip over.
+# Environment variable UICATS_SR contains the list of directory paths
+# where UI catalogs are looked up to resolve a given UI reference,
+# while header of a referencing catalog should specify UI catalog names
+# from which the UI messages may come (details also in documentation to
+# pology.ui_references).
+# For this to work in POs with implicit UI references, markup types in
+# a PO must be specified using the X-Text-Markup header field
+# (see documentation to pology.ui_references.remove_markup_text
+# for details).
+# The resolution is quiet, no warnings when a UI reference cannot be resolved,
+# as there are rules to specifically check for their validity.
+# ...in KDE4 UI POs.
+addFilterHook name="ui-references/resolve-ui-kde4" \
+              factory="uicpathenv='UICATS_KDE4_SR', \
+                       mkeyw='kde4', quiet=True" \
+              on="msgstr" \
+              handle="uiref"
+# ...in Docbook documentation POs.
+addFilterHook name="ui-references/resolve-ui-docbook4" \
+              factory="uicpathenv='UICATS_KDE4_SR', \
+                       mkeyw='docbook4', quiet=True" \
+              on="msgstr" \
+              handle="uiref"
+# ...in POs with no implicit UI references.
+# Note that no XML-escaping is done; if it is needed, make another filter
+# for particular environment, with 'xmlescape=True' factory parameter.
+addFilterHook name="ui-references/resolve-ui" \
+              factory="uicpathenv='UICATS_KDE4_SR', \
+                       mkeyw=['docbook4', 'kde4'], invmkeyw=True, \
+                       quiet=True" \
+              on="msgstr" \
+              handle="uiref"
+
+# Remove literal substrings, those which are to be understood by the machine
+# and therefore not translated, as designated by markup.
+# (-> before markup removal)
+addFilterHook name="remove-subs/remove-marlits-msg" on="msg"
+
+# Remove text markup.
+# For this to work, POs need to specify markup types using
+# the X-Text-Markup header field; its value is a markup keyword.
+# For markups known to Pology at any given moment, see documentation on
+# remove_markup_text() function in pology.remove_subs module.
+# The value of the header field may be a comma-separated list of keywords,
+# if there are several markup types present in the PO.
+# (-> before accelerator removal)
+# (-> before literals removal)
+addFilterHook name="remove-subs/remove-markup-msg" on="msg"
+
+# Convert hybridized Ekavian-Yekavian text into Ekavian.
+# (-> after resolving UI references)
+# (-> before accelerator removal)
+addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
+
+# Remove accelerator markers.
+# For this to work, POs need to specify the marker character through
+# the X-Accelerator-Marker header field.
+# (-> after markup removal)
+addFilterHook name="remove-subs/remove-accel-msg" on="msg"
+
+# Replace format directives with tildes (~), based on *-format flags.
+addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
+
+# Remove other literal substrings by heuristics.
+# Heuristics can be augmented by explicit instructions per message,
+# see documentation on remove_literals_text() function
+# in pology.remove_subs module.
+# (-> after markup removal)
+addFilterHook name="remove-subs/remove-literals-msg" on="msg"
+
+# Remove local entities which are to be left as-is in the message.
+addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+
+# Convert accent graphs into Unicode accent compositions,
+# then remove accents from letters alltogether.
+addFilterHook name="sr:accents/resolve_agraphs" on="pmsgstr"
+addFilterHook name="sr:accents/remove_accents" on="pmsgstr"

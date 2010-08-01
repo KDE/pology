@@ -28,13 +28,13 @@ import sys
 import xml.parsers.expat
 
 from pology import _, n_
-from pology.hook.check_markup import flag_no_check_markup
-from pology.misc.entities import read_entities
-from pology.misc.markup import check_xml_kde4_l1
-from pology.misc.msgreport import report_on_msg, report_on_msg_hl
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report
-from pology.misc.stdsvpar import add_param_poeditors, add_param_entdef
+from pology.check_markup import flag_no_check_markup
+from pology.entities import read_entities
+from pology.markup import check_xml_kde4_l1
+from pology.msgreport import report_on_msg, report_on_msg_hl
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report
+from pology.stdsvpar import add_param_poeditors, add_param_entdef
 from pology.sieve import parse_sieve_flags
 
 

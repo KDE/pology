@@ -19,7 +19,7 @@ Sieve parameters:
   - C{markup:<mkeywords>}: markup types by keywords (comma-separated)
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
-        (see L{misc.langdep.get_hook_lreq} for the format of hook specification)
+        (see L{langdep.get_hook_lreq} for the format of hook specification)
   - C{suponly}: do not use system dictionary, only internal supplements
   - C{list}: only report unknown words to stdout, one per line
   - C{lokalize}: open catalogs at failed messages in Lokalize
@@ -47,16 +47,18 @@ See L{file.catalog.Catalog.set_markup} method for known markup types,
 and L{file.catalog.Catalog.markup} for how they may be specified in catalogs.
 
 Pology internally collects language-specific word lists as supplements
-to system spelling dictionaries, within C{l10n/<lang>/spell/} directory.
+to system spelling dictionaries, within C{lang/<lang>/spell/} directory.
 These contain either the words that should enter the default dictionary
 but have not been added yet, or, more importantly, the words that are
 specific to a given translation environment, i.e. too specific to enter
 the general dictionary.
 The C{env} parameter is used to specify one or more environments for which
-word lists are loaded. Each environment is taken to be a subpath within C{l10n/<lang>/spell/<env>}: all word lists in that subpath and
+word lists are loaded. Each environment is taken to be a subpath within
+C{lang/<lang>/spell/<env>}: all word lists in that subpath and
 parent directories will be loaded.
-This means that the word lists are hierarchical, so that all-environment lists (loaded even when C{env} parameter is not given) reside directly in
-C{l10n/<lang>/spell/}, and the more specific ones in subdirectories below it.
+This means that the word lists are hierarchical, so that all-environment lists
+(loaded even when C{env} parameter is not given) reside directly in
+C{lang/<lang>/spell/}, and the more specific ones in subdirectories below it.
 If environment is not given by C{env} parameter, and also not in Pology
 user configuration, the sieve will try to read it from each catalog in turn.
 See L{environment()<file.catalog.Catalog.environment>} method of catalog
@@ -118,16 +120,16 @@ import re
 import tempfile
 
 from pology import PologyError, rootdir, _, n_
-from pology.hook.check_lingo import flag_no_check_spell, elist_well_spelled
-from pology.misc.colors import cjoin
-from pology.misc.comments import manc_parse_list, manc_parse_flag_list
-import pology.misc.config as cfg
-from pology.misc.langdep import get_hook_lreq
-from pology.misc.msgreport import report_on_msg
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, warning, format_item_list
-from pology.misc.split import proper_words
-from pology.misc.stdsvpar import add_param_poeditors
+from pology.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.colors import cjoin
+from pology.comments import manc_parse_list, manc_parse_flag_list
+import pology.config as cfg
+from pology.langdep import get_hook_lreq
+from pology.msgreport import report_on_msg
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report, warning, format_item_list
+from pology.split import proper_words
+from pology.stdsvpar import add_param_spellcheck, add_param_poeditors
 
 
 def setup_sieve (p):
@@ -143,58 +145,7 @@ def setup_sieve (p):
     "Several provider can be given as comma-separated list."
     ))
 
-    add_general_spellcheck_params(p)
-
-
-def add_general_spellcheck_params (p):
-
-    p.add_param("lang", unicode,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "The language dictionary to use."
-    "If a catalog header specifies language itself, this parameter takes "
-    "precedence over it."
-    ))
-    p.add_param("env", unicode, seplist=True,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "Use supplement word lists for this environment within given language. "
-    "Pology configuration and catalog headers may also specify environments, "
-    "this parameter takes precedence over them. "
-    "Several environments can be given as comma-separated list."
-    ))
-    p.add_param("accel", unicode, multival=True,
-                metavar=_("@info sieve parameter value placeholder", "CHAR"),
-                desc=_("@info sieve parameter discription",
-    "Character which is used as UI accelerator marker in text fields."
-    ))
-    p.add_param("markup", unicode, seplist=True,
-                metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
-                desc=_("@info sieve parameter discription",
-    "Markup that can be expected in text fields, as special keyword. "
-    "Several markups can be given as comma-separated list."
-    ))
-    p.add_param("skip", unicode,
-                metavar=_("@info sieve parameter value placeholder", "REGEX"),
-                desc=_("@info sieve parameter discription",
-    "Regular expression to eliminate from spell-checking words that match it."
-    ))
-    p.add_param("filter", unicode, multival=True,
-                metavar=_("@info sieve parameter value placeholder", "HOOK"),
-                desc=_("@info sieve parameter discription",
-    "F1A or F3A/C hook specification, to filter the translation through "
-    "before spell-checking it. "
-    "Several hooks can be specified by repeating the parameter."
-    ))
-    p.add_param("suponly", bool, defval=False,
-                desc=_("@info sieve parameter discription",
-    "Use only internal supplement word lists, and not the system dictionary."
-    ))
-    p.add_param("list", bool, defval=False,
-                desc=_("@info sieve parameter discription",
-    "Output only a simple sorted list of unknown words."
-    ))
-    add_param_poeditors(p)
+    add_param_spellcheck(p)
 
 
 class Sieve (object):
@@ -450,7 +401,7 @@ def _get_word_list_files (lang, env):
 
     # Collect word list paths.
     wlist_files = set()
-    spell_root = os.path.join(rootdir(), "l10n", lang, "spell")
+    spell_root = os.path.join(rootdir(), "lang", lang, "spell")
     spell_subdir = os.path.join(".", (env or ""))
     while spell_subdir:
         spell_dir = os.path.join(spell_root, spell_subdir)

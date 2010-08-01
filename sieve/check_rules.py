@@ -3,15 +3,15 @@
 """
 Try to fail messages by rules and warn when that happens.
 
-This sieve applies a collection of L{special rules<misc.rules>} to
+This sieve applies a collection of L{special rules<rules>} to
 messages, reporting whenever a rule "fails" a message --
 rules are usually written to detect messages faulty, or possibly such,
 in a certain sense.
 
-By default, the sieve reads rules from Pology's internal C{l10n/<lang>/rules/}
+By default, the sieve reads rules from Pology's internal C{lang/<lang>/rules/}
 directories, i.e. written for specific languages, and possibly specific
 translation environments within a given language. Read about how to write
-rules and create rule files in the L{misc.rules} module documentation.
+rules and create rule files in the L{rules} module documentation.
 
 The sieve parameters are:
   - C{lang:<language>}: language for which to fetch and apply the rules
@@ -43,7 +43,7 @@ etc.) and markup types by keyword (e.g. C{xml}, C{html}, etc.) that may
 be present in sieved catalogs. However, providing this information by itself
 does nothing, it is only forced on catalogs (overriding what their headers
 state, if anything) such that filter and validation hooks can properly
-process messages. See documentation to L{rules<misc.rules>} for setting
+process messages. See documentation to L{rules<rules>} for setting
 up these in rule files.
 
 If language and environment are not given by C{lang} and C{env} parameters,
@@ -72,16 +72,16 @@ import sys
 from time import strftime, strptime, mktime
 
 from pology import _, n_
-from pology.misc.colors import cjoin
-from pology.misc.comments import manc_parse_list, parse_summit_branches
-from pology.misc.fsops import collect_files_by_ext
-from pology.file.message import MessageUnsafe
-from pology.misc.msgreport import rule_error, rule_xml_error, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, warning, format_item_list
-from pology.misc.rules import loadRules, printStat
-from pology.misc.stdsvpar import add_param_poeditors
-from pology.misc.timeout import TimedOutException
+from pology.colors import cjoin
+from pology.comments import manc_parse_list, parse_summit_branches
+from pology.fsops import collect_files_by_ext
+from pology.message import MessageUnsafe
+from pology.msgreport import rule_error, rule_xml_error, report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report, warning, format_item_list
+from pology.rules import loadRules, printStat
+from pology.stdsvpar import add_param_poeditors
+from pology.timeout import TimedOutException
 from pology.sieve import SieveError
 
 
@@ -133,7 +133,7 @@ def setup_sieve (p):
                 metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
                 desc=_("@info sieve parameter discription",
     "Markup that can be expected in text fields, as special keyword "
-    "(see documentation to pology.file.catalog, Catalog.set_markup(), "
+    "(see documentation to pology.catalog, Catalog.set_markup(), "
     "for markup keywords currently known to Pology). "
     "If a catalog defines markup type in the header, "
     "this value overrides it."
@@ -245,7 +245,7 @@ class Sieve (object):
         if params.xml:
             xmlPath=params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
-                #TODO: create nice api to manage xml file and move it to misc/rules.py
+                #TODO: create nice api to manage xml file and move it to rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))

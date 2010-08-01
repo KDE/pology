@@ -92,15 +92,17 @@ import os
 import re
 
 from pology import _, n_
-from pology.hook.check_markup import flag_no_check_markup
-from pology.misc.escape import escape_c
-from pology.misc.markup import check_xml_kde4_l1
-from pology.misc.markup import check_xml_qtrich_l1
-from pology.misc.msgreport import report_on_msg_hl, report_msg_content
-from pology.misc.msgreport import report_msg_to_lokalize
-from pology.misc.report import report, format_item_list
-from pology.misc.stdsvpar import add_param_poeditors
+from pology.check_markup import flag_no_check_markup
+from pology.escape import escape_c
+from pology.markup import check_xml_kde4_l1
+from pology.markup import check_xml_qtrich_l1
+from pology.msgreport import report_on_msg_hl, report_msg_content
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report, format_item_list
+from pology.stdsvpar import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
+from pology.proj.kde.cattype import get_project_subdir
+from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
 
 
 def setup_sieve (p):
@@ -164,7 +166,7 @@ class Sieve (object):
 
         # Collect catalog data for determining type.
         cname = cat.name
-        csubdir = _get_catalog_project_subdir(cat.filename)
+        csubdir = get_project_subdir(cat.filename)
         if not csubdir:
             raise SieveCatalogError(
                 _("@info",
@@ -234,64 +236,9 @@ class Sieve (object):
             report("===== " + msg)
 
 
-def _get_catalog_project_subdir (path):
-
-    apath = os.path.abspath(path)
-    up1dir = os.path.basename(os.path.dirname(apath))
-    up2dir = os.path.basename(os.path.dirname(os.path.dirname(apath)))
-    if (   not re.search(r"^(kde|koffice|extragear|playground|qt)", up1dir)
-        or not re.search(r"^(|doc|wiki)messages$", up2dir)
-    ):
-        subdir = None
-    else:
-        subdir = os.path.join(up2dir, up1dir)
-
-    return subdir
-
-
 # Map of checks by name,
 # updated at point of definition of the check.
 _known_checks = {}
-
-# --------------------------------------
-# Catalog classification.
-
-# - plain text
-def is_txt_cat (name, subdir):
-
-    return name.startswith("desktop_") or name.startswith("xml_")
-
-
-# - pure Qt
-_qt_catdirs = (
-    "qt",
-)
-_qt_catnames = (
-    "kdgantt1", "kdgantt",
-)
-_qt_catname_ends = (
-    "_qt",
-)
-def is_qt_cat (name, subdir):
-
-    up1dir = os.path.basename(subdir)
-    if up1dir in _qt_catdirs:
-        return True
-    if name in _qt_catnames:
-        return True
-    for end in _qt_catname_ends:
-        if name.endswith(end):
-            return True
-    return False
-
-
-# - Docbook documentation
-def is_docbook_cat (name, subdir):
-
-    up2dir = os.path.basename(os.path.dirname(subdir))
-
-    return (up2dir == "docmessages")
-
 
 # --------------------------------------
 # Check for KDE4 markup.
@@ -366,7 +313,21 @@ _known_checks["qtmarkup"] = _check_qtmarkup
 # --------------------------------------
 # Check for Docbook markup.
 
-from pology.sieve.check_xml_docbook4 import _check_dbmarkup
+from pology.check_markup import check_docbook4_msg
+
+def _check_dbmarkup (msg, cat, pcache, hl):
+
+    check1 = pcache.get("check_dbmarkup_hook")
+    if not check1:
+        strict = pcache.get("strict", False)
+        check1 = check_docbook4_msg(strict=strict, entities=None)
+        pcache["check_dbmarkup_hook"] = check1
+
+    hl1 = check1(msg, cat)
+    hl.extend(hl1)
+    nproblems = sum(len(x[2]) for x in hl1)
+
+    return nproblems
 
 _known_checks["dbmarkup"] = _check_dbmarkup
 

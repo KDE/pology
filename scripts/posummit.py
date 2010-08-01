@@ -16,23 +16,24 @@ import time
 import fallback_import_paths
 
 from pology import version, _, n_, t_
-from pology.file.catalog import Catalog
-from pology.file.header import Header
-from pology.file.message import Message, MessageUnsafe
-from pology.misc.colors import ColorOptionParser
-from pology.misc.fsops import str_to_unicode
-from pology.misc.fsops import mkdirpath, assert_system, collect_system
-from pology.misc.fsops import join_ncwd
-from pology.misc.fsops import collect_paths_cmdline, build_path_selector
-from pology.misc.merge import merge_pofile
-from pology.misc.monitored import Monpair, Monlist
-from pology.misc.msgreport import report_on_msg
-from pology.misc.report import report, error, warning, format_item_list
-from pology.misc.report import init_file_progress
-from pology.misc.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
-from pology.misc.vcs import make_vcs
-import pology.scripts.poascribe as ASC
-import pology.scripts.porewrap as REW
+from pology.catalog import Catalog
+from pology.header import Header
+from pology.message import Message, MessageUnsafe
+from pology.colors import ColorOptionParser
+from pology.fsops import str_to_unicode
+from pology.fsops import mkdirpath, assert_system, collect_system
+from pology.fsops import join_ncwd
+from pology.fsops import collect_paths_cmdline, build_path_selector
+from pology.merge import merge_pofile
+from pology.monitored import Monpair, Monlist
+from pology.msgreport import report_on_msg
+from pology.report import report, error, warning, format_item_list
+from pology.report import init_file_progress
+from pology.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
+from pology.vcs import make_vcs
+
+import poascribe as ASC
+import porewrap as REW
 
 
 SUMMIT_ID = "+" # must not start with word-character (\w)
@@ -440,9 +441,9 @@ def derive_project_data (project, options):
     for afname, afspec in project.ascription_filters:
         if options.asc_filter is None or afname == options.asc_filter:
             if isinstance(afspec, basestring):
-                afcall = ASC.build_selector([afspec])
+                afcall = ASC.make_selector([afspec])
             elif isinstance(afspec, (tuple, list)):
-                afcall = ASC.build_selector(afspec)
+                afcall = ASC.make_selector(afspec)
             elif callable(afspec):
                 afcall = afspec
             else:
