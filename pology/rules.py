@@ -599,13 +599,13 @@ def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
             report(_("@info:progress",
                      "Rules available for following languages: %(langlist)s.",
                      langlist=format_item_list(languages)))
-            for lang in languages:
-                if lang in sys.argv[-1] or lang in getlocale()[0]:
-                    report(_("@info:progress",
-                             "Autodetected %(langcode)s language.",
-                             langcode=lang))
-                    ruleDir=join(langDir, lang, "rules")
-                    break
+            locLang=re.sub(r"_\w+", "", getlocale()[0])
+            if locLang in languages:
+                lang=locLang
+                report(_("@info:progress",
+                         "Autodetected %(langcode)s language.",
+                         langcode=lang))
+                ruleDir=join(langDir, lang, "rules")
 
         if not ruleDir:
             report(_("@info:progress",
