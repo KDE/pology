@@ -43,8 +43,8 @@ def check_xml (strict=False, entities={}, mkeyw=None):
     C{no-check-markup}, the check is skipped for that message.
     If one or several markup keywords are given as C{mkeyw} parameter,
     check is skipped for all messages in a catalog which does not report
-    one of the given keywords by its L{markup()<file.catalog.Catalog.markup>}
-    method. See L{set_markup()<file.catalog.Catalog.set_markup>} for list of
+    one of the given keywords by its L{markup()<catalog.Catalog.markup>}
+    method. See L{set_markup()<catalog.Catalog.set_markup>} for list of
     markup keywords recognized at the moment.
 
     @param strict: whether to require valid C{msgstr} even if C{msgid} is not

@@ -2170,11 +2170,11 @@ class Catalog (Monitored):
             title="Translation of %project into %langname."
 
         The following variables are available:
-        - C{%basename}: PO file base name
-        - C{%poname}: PO file base name without .po extension
-        - C{%project}: value of C{project} parameter (if not C{None}/empty)
-        - C{%langname}: value of C{langname} parameter (if not C{None}/empty)
-        - C{%langcode}: value of C{langcode} parameter (if not C{None}/empty)
+          - C{%basename}: PO file base name
+          - C{%poname}: PO file base name without .po extension
+          - C{%project}: value of C{project} parameter (if not C{None}/empty)
+          - C{%langname}: value of C{langname} parameter (if not C{None}/empty)
+          - C{%langcode}: value of C{langcode} parameter (if not C{None}/empty)
 
         @param project: project name
         @type project: string

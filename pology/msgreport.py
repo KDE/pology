@@ -334,10 +334,10 @@ def report_msg_content (msg, cat,
     @type cat: L{Catalog} or C{None}
     @param wrapf:
         the function used for wrapping message fields in output.
-        See L{to_lines()<file.message.Message_base.to_lines>} method
+        See L{to_lines()<message.Message_base.to_lines>} method
         of message classes for details.
         If not given, it will be taken from the catalog
-        (see L{Catalog.wrapf<file.catalog.Catalog.wrapf>}).
+        (see L{Catalog.wrapf<catalog.Catalog.wrapf>}).
     @type wrapf: (string)->[string...]
     @param force: whether to force reformatting of cached message content
     @type force: bool

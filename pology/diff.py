@@ -1071,7 +1071,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     Create word-level difference between extraction-invariant parts of messages.
 
     For which parts of a message are considered extraction-invariant,
-    see description of L{inv<file.message.Message_base>} instance variable
+    see description of L{inv<message.Message_base>} instance variable
     of message objects.
 
     There are two return modes, depending on the value of C{diffr} parameter.
@@ -1079,7 +1079,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     If C{diffr} is C{False}, the difference is returned as list of 3-tuples of
     differences by message part: (part name, part item, word difference).
     The part name can be used to fetch the part value from the message,
-    using L{get()<file.message.Message_base.get>} method of message objects.
+    using L{get()<message.Message_base.get>} method of message objects.
     The part item is C{None} for singular message parts (e.g. C{msgid}),
     and index for list parts (e.g. C{msgstr}).
     See L{word_diff<diff.word_diff>} for the format
@@ -1111,9 +1111,9 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     (if the separator is empty, space is used instead).
 
     @param msg1: the message from which to make the difference
-    @type msg1: L{Message_base<file.message.Message_base>} or None
+    @type msg1: L{Message_base<message.Message_base>} or None
     @param msg2: the message to which to make the difference
-    @type msg2: L{Message_base<file.message.Message_base>} or None
+    @type msg2: L{Message_base<message.Message_base>} or None
     @param pfilter: filter to be applied to translation prior to differencing
     @type pfilter: callable
     @param addrem: report equal, added or removed segments instead of
@@ -1310,18 +1310,18 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     If C{pfilter} is given, the ratio refers to difference under filter.
 
     @param msg1: the message from which to make the difference
-    @type msg1: L{Message_base<file.message.Message_base>} or None
+    @type msg1: L{Message_base<message.Message_base>} or None
     @param msg2: the message to which to make the difference
-    @type msg2: L{Message_base<file.message.Message_base>} or None
+    @type msg2: L{Message_base<message.Message_base>} or None
     @param pfilter: filter to be applied to translation prior to differencing
     @type pfilter: callable
     @param addrem: report equal, added or removed segments instead of
         full difference, joined by what follows the selection character
     @type addrem: string
     @param emsg: message to embedd the difference to
-    @type emsg: L{Message_base<file.message.Message_base>}
+    @type emsg: L{Message_base<message.Message_base>}
     @param ecat: catalog of messages to avoid key conflict with
-    @type ecat: L{Catalog<file.catalog.Catalog>}
+    @type ecat: L{Catalog<catalog.Catalog>}
     @param eokpos: position into C{ecat} where key conflict is ignored
     @type eokpos: int
     @param enoctxt: C{msgctxt} string that should be padded unconditionally
@@ -1476,9 +1476,9 @@ def msg_ediff_to_new (emsg, rmsg=None):
     the actual state in effect overrides the indicated added state.
 
     @param emsg: resolvable message with embedded differences
-    @type emsg: L{Message_base<file.message.Message_base>} or None
+    @type emsg: L{Message_base<message.Message_base>} or None
     @param rmsg: message to fill in the resolved parts
-    @type rmsg: L{Message_base<file.message.Message_base>}
+    @type rmsg: L{Message_base<message.Message_base>}
 
     @return: resolved message (or None)
     @rtype: type of first non-None of rmsg, emsg, or None

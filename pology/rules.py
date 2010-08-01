@@ -20,7 +20,7 @@ ortography errors in a given language, or checks terminology, etc.
 Such collections of language and translation-environment dependent rules
 are maintained within Pology itself, in C{lang/<lang>/rules/} directories.
 
-The L{check-rules<sieve.check_rules>} sieve is normally used to apply rules
+The C{check-rules} sieve is normally used to apply rules
 to messages in PO files, while in custom code function L{loadRulesFromFile}
 can be used to load rules from an arbitrary rule file, and L{loadRules}
 to fetch rules from Pology's internal rule files.
@@ -263,7 +263,7 @@ This is used when there is a rule common to most translation environments,
 except for one or few outliers -- the outliers' rule and the common rule
 to be shadowed should be given same identifiers.
 
-The L{check-rules<sieve.check_rules>} sieve has the C{env} parameter to
+The C{check-rules} sieve has the C{env} parameter to
 specify the operating environments, when it will apply the rules according
 to previous passages. This means that if operating environments
 are not specified, from sieve's point of view all environment-specific
@@ -445,7 +445,7 @@ Filtering may be time expensive, and it normally is in real-life uses.
 Therefore the implementation will try to assemble as little filter sets
 as necessary, judging by their signatures -- a hash of ordering, type, and
 fields of filters in the current set for a rule.
-Likewise, L{check-rules<sieve.check_rules>} will apply one filter set only
+Likewise, C{check-rules} will apply one filter set only
 once per message, distributing the appropriate filtered message to
 a given rule.
 

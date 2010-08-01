@@ -1,14 +1,13 @@
 # -*- coding: UTF-8 -*-
 
 """
-Catalog sieves.
+Helpers for catalog sieves.
 
-These modules implement different "sieves" for PO catalogs: objects to which
+Pology's C{posieve} script processes catalogs with "sieves": objects to which
 catalog entries are fed one by one, possibly with finalization phase at the end.
-The sieves are presently primarely used by the L{scripts.posieve} script,
-but may also export public methods for use in other clients. The following
-passages describe how sieves are written, but also how clients that use them
-should behave.
+This module contains only some common helpers used by many sieves,
+and the following passages primarily describe how sieves are written,
+and how clients that use them should behave.
 
 
 Sieve Layout

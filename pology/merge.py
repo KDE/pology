@@ -62,7 +62,7 @@ def merge_pofile (catpath, tplpath,
     @param update: whether to update the PO file in place
     @type update: bool
     @param wrapping: the wrapping policy (see the parameter of the same name
-        to L{catalog constructor<file.catalog.Catalog>})
+        to L{catalog constructor<catalog.Catalog>})
     @type wrapping: sequence of strings
     @param fuzzymatch: whether to perform fuzzy matching
     @type fuzzymatch: bool
@@ -83,7 +83,7 @@ def merge_pofile (catpath, tplpath,
         or even leads to a better fuzzy match.
     @type refuzzy: bool
     @param getcat: whether to return catalog object on merged file
-    @type getcat: L{Catalog<file.catalog.Catalog>} or C{None}
+    @type getcat: L{Catalog<catalog.Catalog>} or C{None}
     @param monitored: if C{getcat} is in effect, whether to open catalog
         in monitoring mode (like the parameter to catalog constructor)
     @type monitored: bool
@@ -94,7 +94,7 @@ def merge_pofile (catpath, tplpath,
     @type abort: bool
 
     @returns: whether merging succedded, or catalog object
-    @rtype: bool or L{Catalog<file.catalog.Catalog>} or C{None}
+    @rtype: bool or L{Catalog<catalog.Catalog>} or C{None}
     """
 
     if wrapping is not None:

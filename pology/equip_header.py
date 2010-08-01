@@ -33,8 +33,8 @@ def equip_header_tp_kde (hdr, cat):
 
     For the hook to function properly, the local checkout of language catalogs
     must match the repository structure up to a certain level.
-    See the documentation on L{check-tp-kde<sieve.check_tp_kde>} sieve for
-    details.
+    See the documentation on C{check-tp-kde} sieve for details.
+    TODO: Put that instruction here.
     """
 
     cname = cat.name

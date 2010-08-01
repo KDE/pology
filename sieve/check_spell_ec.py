@@ -38,13 +38,13 @@ then in Pology user configuration, and finaly by current system locale.
 
 If accelerator marker is not given by C{accel} parameter, the sieve will try
 to guess it; it may choose wrongly or decide that there are no accelerators.
-See L{file.catalog.Catalog.accelerator} method for ways of specifying
+See L{catalog.Catalog.accelerator} method for ways of specifying
 accelerator marker in catalogs.
 
 If markup types are not given by C{markup} parameter, the sieve will try
 to guess them; it may choose wrongly or decide that there is no markup.
-See L{file.catalog.Catalog.set_markup} method for known markup types,
-and L{file.catalog.Catalog.markup} for how they may be specified in catalogs.
+See L{catalog.Catalog.set_markup} method for known markup types,
+and L{catalog.Catalog.markup} for how they may be specified in catalogs.
 
 Pology internally collects language-specific word lists as supplements
 to system spelling dictionaries, within C{lang/<lang>/spell/} directory.
@@ -61,7 +61,7 @@ This means that the word lists are hierarchical, so that all-environment lists
 C{lang/<lang>/spell/}, and the more specific ones in subdirectories below it.
 If environment is not given by C{env} parameter, and also not in Pology
 user configuration, the sieve will try to read it from each catalog in turn.
-See L{environment()<file.catalog.Catalog.environment>} method of catalog
+See L{environment()<catalog.Catalog.environment>} method of catalog
 object for the way environments can be specified in catalog header.
 
 The system dictionary can be avoided alltogether, and only supplemental

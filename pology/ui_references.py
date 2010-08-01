@@ -189,7 +189,7 @@ they have to be to told what the accelerator marker character is. This
 is not done through hook factories (since knowledge of accelerator marker
 is of wider consequence when processing POs), but either by hook client
 setting it explicitly (using
-L{set_accelerator()<file.catalog.Catalog.set_accelerator>} method on catalogs),
+L{set_accelerator()<catalog.Catalog.set_accelerator>} method on catalogs),
 or by giving it within C{X-Accelerator-Marker} header filed::
 
     msgid ""
@@ -199,7 +199,7 @@ or by giving it within C{X-Accelerator-Marker} header filed::
     "X-Accelerator-Marker: &\\n"
 
 (This field may be set in catalogs throughout the project by applying the
-L{set-header<sieve.set_header>} sieve with L{posieve<scripts.posieve>} script.)
+C{set-header} sieve with C{posieve} script.)
 
 Another is the problem of UI messages containing subsections which would
 invalidate the target format being translated by the referencing PO, e.g.
@@ -277,7 +277,7 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
 
     If one or several markup keywords are given as C{mkeyw} parameter,
     UI reference resolution is skipped for catalogs which do not report one
-    of the given keywords by their L{markup()<file.catalog.Catalog.markup>}
+    of the given keywords by their L{markup()<catalog.Catalog.markup>}
     method. This match may be inverted by C{invmkeyw} parameter, i.e.
     to skip resolution for catalogs reporting one of given keywords.
 

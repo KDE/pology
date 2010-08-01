@@ -48,9 +48,9 @@ Optional external Python packages:
 
 Optional general software:
   - LanguageTool (U{http://www.languagetool.org/}): open source language checker
-        (used by the L{check-grammar<sieve.check_grammar>} sieve)
+        (used by the C{check-grammar} sieve)
   - Apertium (U{http://www.apertium.org/}): a free/open-source machine
-        translation platform (used by the L{pomtrans<scripts.pomtrans>} script)
+        translation platform (used by the C{pomtrans} script)
 
 Setup
 =====

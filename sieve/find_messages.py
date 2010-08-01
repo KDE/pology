@@ -113,6 +113,7 @@ from pology.remove_subs import remove_accel_msg
 from pology.comments import parse_summit_branches
 from pology.langdep import get_hook_lreq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg
+from pology.match import ExprError
 from pology.msgreport import report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, error, warning, format_item_list
@@ -361,20 +362,6 @@ def setup_sieve (p):
 _flag_mark = u"match"
 
 
-# Matchers taking a value.
-_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag", "branch"])
-# Matchers not taking a value.
-_nop_matchers = set(["transl", "obsol", "active", "plural"])
-
-# Matchers which produce a regular expression out of their value.
-_rx_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag"])
-
-# All matchers together.
-_all_matchers = set()
-_all_matchers.update(_op_matchers)
-_all_matchers.update(_nop_matchers)
-
-
 class Sieve (object):
 
 
@@ -521,78 +508,4 @@ class Sieve (object):
                      "Found %(num)d messages satisfying the conditions.",
                      num=self.nmatch)
             report("===== " + msg)
-
-
-_all_ops = set()
-_unary_ops = set(["not"])
-_all_ops.update(_unary_ops)
-_binary_ops = set(["and", "or"])
-_all_ops.update(_binary_ops)
-
-
-class ExprError (Exception):
-    """
-    Exception for errors in message matching expressions.
-    """
-
-    def __init__ (self, expr=None, msg=None, start=None, end=None):
-        """
-        Constructor.
-
-        All the parameters are made available as instance variables.
-
-        @param expr: the complete expression that caused the problem
-        @type expr: string or None
-        @param msg: the description of the problem
-        @type msg: string or None
-        @param start: start position of the problem into the expression string
-        @type start: int or None
-        @param end: end position of the problem
-        @type end: int or None
-        """
-
-        self.expr = expr
-        self.msg = msg
-        self.start = start
-        self.end = end
-
-
-    def __unicode__ (self):
-
-        if self.expr is not None and self.start is not None:
-            start = self.start
-            if self.end is not None:
-                end = self.end
-            else:
-                end = self.start + 10
-            subexpr = self.expr[start:end]
-            if start > 0:
-                subexpr = "..." + subexpr
-            if end < len(self.expr):
-                subexpr = subexpr + "..."
-        else:
-            subexpr = None
-
-        if self.msg is not None and subexpr is not None:
-            repstr = _("@info",
-                       "Invalid expression at %(col)d [%(snippet)s]: "
-                       "%(reason)s.",
-                       col=self.start, snippet=subexpr, reason=self.msg)
-        elif self.msg is not None:
-            repstr = _("@info",
-                       "Invalid expression: %(reason)s.",
-                       reason=self.msg)
-        elif subexpr is not None:
-            repstr = _("@info",
-                       "Invalid expression at %(col)d [%(snippet)s].",
-                       col=self.start, snippet=subexpr)
-        else:
-            repstr = _("@info", "Invalid expression.")
-
-        return unicode(repstr)
-
-
-    def __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
 

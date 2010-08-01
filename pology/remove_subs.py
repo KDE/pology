@@ -167,7 +167,7 @@ def remove_markup_text (text, msg, cat):
 
     Expected markup types are determined from the catalog, by calling its
     L{markup()<pology.catalog.Catalog.markup>} method.
-    Use L{set_markup()<file.catalog.Catalog.set_markup>}
+    Use L{set_markup()<catalog.Catalog.set_markup>}
     to set expected markup types after the catalog has been opened,
     in case it does not specify any on its own.
     If catalog reports C{None} for markup types, text is not touched.

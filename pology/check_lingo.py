@@ -53,9 +53,9 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
 
     If C{lang} is C{None}, then automatic detection of the language based
     on the catalog of the message is attempted
-    (see catalog L{language()<file.catalog.Catalog.language>} method).
+    (see catalog L{language()<catalog.Catalog.language>} method).
     Similar is attempted for environments if C{env} is C{None}
-    (see L{environment()<file.catalog.Catalog.environment>} method).
+    (see L{environment()<catalog.Catalog.environment>} method).
 
     Aspell's system dictionary can be completely excluded from the check
     by the C{suponly} parameter, when the check will use only internal

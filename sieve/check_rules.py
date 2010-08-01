@@ -48,8 +48,8 @@ up these in rule files.
 
 If language and environment are not given by C{lang} and C{env} parameters,
 the sieve will try to read them from each catalog in turn.
-See catalog L{language()<file.catalog.Catalog.language>} and
-L{environment()<file.catalog.Catalog.environment>} methods for the ways
+See catalog L{language()<catalog.Catalog.language>} and
+L{environment()<catalog.Catalog.environment>} methods for the ways
 these can be specified in catalog header.
 If in the end no environment is selected, only environment-agnostic rules
 are applied.
