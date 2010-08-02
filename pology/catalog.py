@@ -12,6 +12,7 @@ import difflib
 import os
 import re
 import signal
+import time
 import types
 
 from pology import PologyError, _, n_
@@ -22,6 +23,7 @@ from pology.escape import escape_c as escape
 from pology.escape import unescape_c as unescape
 from pology.fsops import mkdirpath
 from pology.monitored import Monitored
+from pology.resolve import expand_vars
 from pology.wrap import select_field_wrapper
 
 
