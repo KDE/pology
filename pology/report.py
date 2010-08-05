@@ -74,8 +74,9 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
     @type newline: bool
     """
 
-    if isinstance(text, ColorString):
-        text = text.resolve(dest=file)
+    if not isinstance(text, ColorString):
+         text = ColorString("%s") % text
+    text = text.resolve(dest=file)
 
     cmdname = None
     if showcmd:
