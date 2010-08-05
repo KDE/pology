@@ -150,10 +150,14 @@ class ColorString (unicode):
             else:
                 ctype = "none"
 
-        colorf, escapef = _color_packs.get(ctype, "none")
+        color_pack = _color_packs.get(ctype)
+        if color_pack is None:
+            color_pack = _color_packs.get("none")
+        colorf, escapef, finalf = color_pack
         text = unicode(self)
         rtext, epos = self._resolve_markup_w(text, len(text), 0, None, None,
                                              colorf, escapef)
+        rtext = finalf(rtext)
         return rtext
 
 
@@ -412,7 +416,7 @@ _color_packs = {}
 # ----------------------------------------
 # No coloring, all markup elements are just removed.
 
-_color_packs["none"] = (lambda c, s, p: s, lambda s: s)
+_color_packs["none"] = (lambda c, s, p: s, lambda s: s, lambda r: r)
 
 
 # ----------------------------------------
@@ -449,7 +453,7 @@ def _color_term (col, seg, pcol):
     return seg
 
 
-_color_packs["term"] = (_color_term, lambda s: s)
+_color_packs["term"] = (_color_term, lambda s: s, lambda r: r)
 
 
 # ----------------------------------------
@@ -479,5 +483,10 @@ def _color_term (col, seg, pcol):
     return seg
 
 
-_color_packs["html"] = (_color_term, _escape_xml_ents)
+def _finalize_html (line):
+
+    return line.replace("\n", "<br/>\n") + "<br/>"
+
+
+_color_packs["html"] = (_color_term, _escape_xml_ents, _finalize_html)
 
