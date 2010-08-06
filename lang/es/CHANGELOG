@@ -1,3 +1,70 @@
+Cambios 6/8/2010
+-----------------------
+
+1.- Cambios en «filter.include»
+- Mejoras en la detección de URL.
+- Filtrar páginas web de «kde.org».
+- Coincidir siempre con la secuencia mas corta de la expresión regular, 
+usando «*?» o «+?».
+- Incorporar algunos filtros movidos desde «tipography.rules».
+- Añadidas abreviaturas tomadas del anexo del diccionario panhispánico de dudas.
+- Incorporar el «hook» «remove_tasks_without_translation» para filtrar los
+mensajes que no es necesario traducir. 
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Corregir diversos errores de la versión anterior.
+- Añadir mas terminaciones (tanto válidas como erróneas) a las traducciones.
+- Añadir reglas sobre traducciones de formas en plural.
+
+3.- Cambios en «typography.rules»
+- Identificar también como extensiones de archivo válidas, las de 4 
+caracteres y las que contienen el dígitos (como .MP3). Mejora en la 
+detección de delimitadores de las extensiones.
+- Suprimir la regla de utilizar minúsculas después de coma o punto y coma,
+debido a su mal funcionamiento. Nueva regla que la sustituye en
+«paired-words.rules».
+- Regla para detectar siglas en plural en la traducción 
+(con «s» o «'s» al final).
+- Regla para detectar la presencia del signo de punto después del cierre de 
+interrogación o admiración. (No debe ponerse según la RAE).
+- Reglas sobre el uso de puntos suspensivos.
+- Regla de obligatoriedad de coma después de determinadas expresiones 
+(«es decir», «en fin», ...).
+- Regla para detectar signos de punto antes del cierre de comillas españolas.
+(Deben ponerse después, al igual que en los paréntesis).
+
+4.- Cambios en «false-friends.rules»
+- Añadir mas terminaciones (tanto válidas como erróneas) a las traducciones.
+- Añadir traducciones de formas en plural.
+- Nuevos falsos amigos: «absolutely», «introduce», «success».
+
+5.- Cambios en «paragraph-end.rules»
+- Añadir control del orden de comillas españolas y punto al final de párrafo.
+- Corrección de errores en la detección de puntuación antes de fín de 
+parrafo con etiquetas «</p>». (Las reglas no funcionaban correctamente) 
+
+6.- Nuevo archivo «paired-words.rules»
+  Incluye reglas que comparan el contenido del mensaje original con su 
+traducción:
+- Coincidencia de entidades XML.
+- Coincidencia de parámetros.
+- Coincidencia de nombres propios (palabras con mayúscula después de 
+coma o punto y coma).
+
+7.- Ampliación del diccionario.
+- Paises, capitales y gentilicios. (De la RAE)
+- Continentes, océanos y algunos mares. (De la RAE)
+- Idiomas. (De la Wikipedia).
+- Elementos Químicos. (De la Wikipedia).
+- Planetas y principales estrellas y constelaciones. (De la Wikipedia).
+- Mas términos relacionados con KDE y Linux. (De la Wikipedia).
+
+8.- Programación de nuevos «hook» en Python.
+- «remove_subs.py»: Filtra algunas cadenas. Por el momento, palabras que 
+comienzan con mayúsculas y parámetros del tipo «%\d».
+- «remove_tags_without_translation»: Filtra mensajes con determinadas etiquetas 
+que no es necesario traducir. 
+
 Cambios 21/7/2010
 -----------------
 1.- Cambios en «filter.include»
@@ -108,7 +175,8 @@ regulares (basándose en los ejemplos de la documentación).
   - Direcciones de correo.
 
 2.- Cambios en «glosario-kde-l10n-es.rules»
-- Incluir reglas sobre el texto traducido cuando se trata casi siempre de un error (p.e. «soportar»).
+- Incluir reglas sobre el texto traducido cuando se trata casi siempre de un
+error (p.e. «soportar»).
 - Admitir «conseguir» como traducción de «get».
 - Admitir «inicial», «inicia» e «inicie» como traducción de «start».
 - Admitir «orden» como traducción de «sort».
@@ -148,8 +216,10 @@ regulares (basándose en los ejemplos de la documentación).
 
 3.- Cambios en «typography.rules»
 - Limpieza de reglas del equipo francés no aplicables.
-- Separar en reglas diferentes la comprobación de uso o no de espacios junto a signos de puntuación.
-- Excluir de la comprobación páginas web y direcciones de correo (reglas de filtrado).
+- Separar en reglas diferentes la comprobación de uso o no de espacios junto a
+signos de puntuación.
+- Excluir de la comprobación páginas web y direcciones de correo (reglas de
+filtrado).
 - Admitir «)», «]», «}», «<» y «>» después de '»'.
 - Admitir «(», «[», «{», «<» y «>» antes de '«'.
 - Permitir cualquier carácter dentro de comillas españolas '«»'.
@@ -168,7 +238,8 @@ regulares (basándose en los ejemplos de la documentación).
 - No obligar a poner espacio después de coma en «Your emails».
 
 4.- Nuevo archivo «paragraph-begin.rules»
-  Contiene reglas aplicables en el inicio de párrafo o después de un fin de línea.
+  Contiene reglas aplicables en el inicio de párrafo o después de un fin de
+línea.
 Comprende:
 - Concordancia de espacios.
 - Concordancia de capitalización.

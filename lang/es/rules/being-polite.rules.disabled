@@ -4,7 +4,7 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
 
 include file="filter.include"
 

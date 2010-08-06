@@ -4,7 +4,7 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
 
 include file="filter.include"
 
@@ -62,7 +62,14 @@ hint="« Mirror » se traduce como como « Espejo » o « Réplica » (ver glosa
 # «Composer» se traduce como «Editor».
 {\bcomposer\b}i
 valid msgstr="editor"
+valid catrx=".*multimedia" msgstr="compositor"
 hint="« Composer » se traduce como como « Editor » (ver glosario)"
+
+# «Composers» se traduce como «Editores».
+{\bcomposers\b}i
+valid msgstr="editores"
+valid catrx=".*multimedia" msgstr="compositores"
+hint="« Composers » se traduce como como « Editores » (ver glosario)"
 
 # «Spellchecking» se traduce como «Corrección ortográfica».
 {\sbpellchecking\b}i
@@ -73,6 +80,11 @@ hint="« Spellchecking » se traduce como como « Corrección ortográfica » (v
 {\bspellchecker\b}i
 valid msgstr="corrector\sortográfico"
 hint="« Spellchecker » se traduce como como « Corrector ortográfico » (ver glosario)"
+
+# «Spellcheckers» se traduce como «Correctores ortográficos».
+{\bspellcheckers\b}i
+valid msgstr="correctores\sortográficos"
+hint="« Spellcheckers » se traduce como como « Correctores ortográficos » (ver glosario)"
 
 # «Check» se traduce como «Consulte» en algunos contextos.
 #{\bcheck\b}i

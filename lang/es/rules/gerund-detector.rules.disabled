@@ -1,0 +1,18 @@
+ 
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Remove XML entities.
+addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
+
+include file="filter.include"
+
+[\b\w+^(cu)ando\b]i
+hint="Revisión de gerundios"
+
+[\b\w+endo\b]i
+hint="Revisión de gerundios"
+
+# End of rule file

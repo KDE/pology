@@ -1,29 +1,28 @@
- 
 1.- Reglas de puntuación:
-- Excluir la reglas de puntuación para determinados contextos.
-Como «literallayout» o «programlisting»).
-- No aplicar la regla de obligatoriedad de mayúsculas después 
-de coma o punto y coma en el caso de que siga un nombre propio. 
-(Investigar el uso de «proper-words» en pology).
-(De momento la regla está activa cuando en el texto original 
-también hay mayúscula depués de la coma).
 - No aplicar la regla de obligatoriedad de espacio después 
 de un punto en el caso que siga un nombre de archivo 
 (archivo oculto o ejecución de orden).
 (De momento ya está hecho para algunos casos frecuentes).
+- Reglas de puntuación de la RAE.
+- Suprimir las reglas sobre el carácter acelerador. (Se incluían 
+debido a un error en ksvnupdater).
 
 2.- Reglas de vocabulario:
-- Excluirlas para determinados contextos. 
-(Como «literallayout» o «programlisting»).
 - Comprobación de la concordancia de género y número.
 - Tratamiento de las conjugaciones en la traducción al español de los verbos
 auxiliares ingleses «did», «will», «would», «could», «should», ..., y en
-combinación con «not».
+combinación con «not». 
 - Tratamiento de la tercera persona de los verbos ingleses.
 - Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
+* (Para estos casos, emplear la opción «span» de pology, para delimitar el 
+texto original al que se aplica cada variante específica).
 - Añadir mas reglas sobre «false friends».
 - Incorporar a las reglas (y en su caso al glosario) las del equipo gallego 
 que resulten aplicables y de interés para nosotros.
+- Detección del uso inadecuado del gerundio.
+- Laismo, leismo y loismo.
+- Queismo, dequeismo.
+- Voseo y tuteo.
 
-3.- Revisar las reglas con otros paquetes (hasta el momento las he probado 
+3.- Revisar las reglas con otros paquetes; (hasta el momento las he probado 
 con «kdelibs», «kdepim», «kdegraphics» y «extragear-multimeadia»).

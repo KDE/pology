@@ -3,7 +3,7 @@ Rule files syntax
 
 Naming and path: 
 - a rule file must end with a ".rules" suffix.
-- rule files must be located into the l10n/<lang>/rules directory, where <lang> corresponds to your language code (eg. 'fr' for french rules).
+- rule files must be located into the lang/<lang>/rules directory, where <lang> corresponds to your language code (eg. 'es' for spanish rules).
 
 File structure and syntax: 
 - All lines begining with a # are considered as comments.

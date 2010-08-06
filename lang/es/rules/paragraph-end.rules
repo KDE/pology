@@ -4,7 +4,7 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\s?\&(\w|\.|-)+\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
 
 # Falta espacio al final del párrafo.
 {\s$}i
@@ -27,13 +27,13 @@ valid msgstr="\S\\n"
 hint="Compruebe el uso de espacio antes del fin de línea «\n» (sobra en la traducción)."
 
 # Falta espacio antes del fin de párrafo.
-{\s\<\/s\>}i
-valid msgstr="\s\<\/s\>"
+{\s\<\/p\>}i
+valid msgstr="\s\<\/p\>"
 hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en la traducción)."
 
-# Sobra espacio antes del fin de línea.
-{\S\<\/s\>}i
-valid msgstr="\S\<\/s\>"
+# Sobra espacio antes del fin de párrafo.
+{\S\<\/p\>}i
+valid msgstr="\S\<\/p\>"
 hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en la traducción)."
 
 # Punto al final del párrafo.
@@ -47,8 +47,8 @@ valid msgstr="\.\s*\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n»."
 
 # Punto en el fin de párrafo.
-{\.\s*\<\/s\>}i
-valid msgstr="\.\s*\<\/s\>"
+{\.\s*\<\/p\>}i
+valid msgstr="\.\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>»."
 
 # Dos puntos al final del párrafo.
@@ -62,8 +62,8 @@ valid msgstr="\:\s*\\n"
 hint="Compruebe el uso de dos puntos antes del fin de línea «\n»."
 
 # Dos puntos al final del párrafo.
-{\:\s*\<\/s\>}i
-valid msgstr="\:\s*\<\/s\>"
+{\:\s*\<\/p\>}i
+valid msgstr="\:\s*\<\/p\>"
 hint="Compruebe el uso de dos puntos al final del párrafo «</p>»."
 
 # Coma al final del párrafo.
@@ -77,8 +77,8 @@ valid msgstr="\,\s*\\n"
 hint="Compruebe el uso de coma antes del fin de línea «\n»"
 
 # Coma al final del párrafo.
-{\,\s*\<\/s\>}i
-valid msgstr="\,\s*\<\/s\>"
+{\,\s*\<\/p\>}i
+valid msgstr="\,\s*\<\/p\>"
 hint="Compruebe el uso de coma al final del párrafo «</p>»"
 
 # Punto y coma al final del párrafo.
@@ -92,8 +92,8 @@ valid msgstr="\;\s*\\n"
 hint="Compruebe el uso de punto y coma antes del fin de línea «\n»."
 
 # Punto y coma al final del párrafo.
-{\;\s*\<\/s\>}i
-valid msgstr="\;\s*\<\/s\>"
+{\;\s*\<\/p\>}i
+valid msgstr="\;\s*\<\/p\>"
 hint="Compruebe el uso de punto y coma al final del párrafo «</p>»."
 
 # Paréntesis al final del párrafo.
@@ -101,6 +101,7 @@ hint="Compruebe el uso de punto y coma al final del párrafo «</p>»."
 valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)s*$"
 valid msgstr="\w\.$"
+valid msgstr="\w\.\.\.\)$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
 # Paréntesis en el fin de línea «\n».
@@ -108,13 +109,39 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revé
 valid msgstr="\)\.\s*\\n"
 valid msgstr="etc\.\)\s*\\n"
 valid msgstr="\w\.\\n"
+valid msgstr="\w\.\.\.\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 # Paréntesis al final del párrafo.
-{\.\)\s*\<\/s\>}i
-valid msgstr="\)\.\s*\<\/s\>"
-valid msgstr="etc\.\)s*\<\/s\>"
-valid msgstr="\w\.\<\/s\>"
+{\.\)\s*\<\/p\>}i
+valid msgstr="\)\.\s*\<\/p\>"
+valid msgstr="etc\.\)s*\<\/p\>"
+valid msgstr="\w\.\<\/p\>"
+valid msgstr="\w\.\.\.\)\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
+
+# Comilla española al final del párrafo.
+{\.\»\s*$}i
+valid msgstr="\»\.\s*$"
+valid msgstr="etc\.\)s*$"
+valid msgstr="\w\.$"
+valid msgstr="\w\.\.\.\»$"
+hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
+
+# Comilla española en el fin de línea «\n».
+{\.\»\s*\\n}i
+valid msgstr="\»\.\s*\\n"
+valid msgstr="etc\.\»\s*\\n"
+valid msgstr="\w\.\\n"
+valid msgstr="\w\.\.\.\»\\n"
+hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
+
+# Comilla española al final del párrafo.
+{\.\»\s*\<\/p\>}i
+valid msgstr="\»\.\s*\<\/p\>"
+valid msgstr="etc\.\»s*\<\/p\>"
+valid msgstr="\w\.\<\/p\>"
+valid msgstr="\w\.\.\.\»\<\/p\>"
+hint="Compruebe el orden del paréntesis y comillas al final del párrafo «</p>» (al revés que en inglés)."
 
 # End of rule file
