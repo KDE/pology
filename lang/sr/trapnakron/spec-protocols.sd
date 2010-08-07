@@ -165,15 +165,13 @@ OBEX: ОБЕКС|-, ОБЕКС|-ов, ОБЕКС|>
 
 CONT, |s_cont: КОНТ|-
     @л: CONT|-
+DSR: ДСР|-, ДСР|>, _пр=data set ready
+DTR: ДТР|-, ДТР|>, _пр=data terminal ready
 HUP, |s_hup: ХУП|-
 INT, |s_int: ИНТ|-
 KILL, |s_kill: КИЛ|-
     @л: KILL|-
 STOP, |s_stop: СТОП|-
-TERM, |s_term: ТЕРМ|-
-USR1, |s_usr1: УСР1|*, _род!=м
-USR2, |s_usr2: УСР2|*, _род!=м
-
 SIGABRT: СИГАБРТ|-
 SIGCONT: СИГКОНТ|-
     @л: SIGCONT|-
@@ -188,7 +186,7 @@ SIGSTOP: СИГСТОП|-
 SIGTERM: СИГТЕРМ|-
 SIGUSR1: СИГУСР1|*, _род!=м
 SIGUSR2: СИГУСР2|*, _род!=м
-
-DSR: ДСР|-, _пр=Data Set Ready
-DTR: ДТР|-, _пр=Data Terminal Ready
-
+TERM, |s_term: ТЕРМ|-
+TR, |trser: ТР|-, ТР|>, _пр=terminal ready
+USR1, |s_usr1: УСР1|*, _род!=м
+USR2, |s_usr2: УСР2|*, _род!=м
