@@ -491,11 +491,11 @@ C{hook}
 
     An example rule with a test hook as the trigger would be::
 
-        *hook name="ui-references/check-ui" on="msgstr"
+        *hook name="uiref/check-ui" on="msgstr"
         id="check-ui-refs"
         hint="some UI references cannot be validated"
 
-    (see L{ui_references.check_ui} for details).
+    (see L{uiref.check_ui} for details).
 
 Quoting and Escaping
 ====================

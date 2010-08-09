@@ -11,28 +11,28 @@ addFilterHook name="remove-subs/rewrite-msgid" on="msg"
 # Resolve UI references.
 # Translation may contain UI references, original UI strings which
 # are supposed to be automatically resolved into translated UI when
-# final catalogs are made (see documentation on pology.ui_references).
+# final catalogs are made (see documentation on pology.uiref).
 # UI references should be resolved in pure text for e.g. terminology
 # and spelling checks not to trip over.
 # Environment variable UICATS_SR contains the list of directory paths
 # where UI catalogs are looked up to resolve a given UI reference,
 # while header of a referencing catalog should specify UI catalog names
 # from which the UI messages may come (details also in documentation to
-# pology.ui_references).
+# pology.uiref).
 # For this to work in POs with implicit UI references, markup types in
 # a PO must be specified using the X-Text-Markup header field
-# (see documentation to pology.ui_references.remove_markup_text
+# (see documentation to pology.remove_subs.remove_markup_text
 # for details).
 # The resolution is quiet, no warnings when a UI reference cannot be resolved,
 # as there are rules to specifically check for their validity.
 # ...in KDE4 UI POs.
-addFilterHook name="ui-references/resolve-ui-kde4" \
+addFilterHook name="uiref/resolve-ui-kde4" \
               factory="uicpathenv='UICATS_KDE4_SR', \
                        mkeyw='kde4', quiet=True" \
               on="msgstr" \
               handle="uiref"
 # ...in Docbook documentation POs.
-addFilterHook name="ui-references/resolve-ui-docbook4" \
+addFilterHook name="uiref/resolve-ui-docbook4" \
               factory="uicpathenv='UICATS_KDE4_SR', \
                        mkeyw='docbook4', quiet=True" \
               on="msgstr" \
@@ -40,7 +40,7 @@ addFilterHook name="ui-references/resolve-ui-docbook4" \
 # ...in POs with no implicit UI references.
 # Note that no XML-escaping is done; if it is needed, make another filter
 # for particular environment, with 'xmlescape=True' factory parameter.
-addFilterHook name="ui-references/resolve-ui" \
+addFilterHook name="uiref/resolve-ui" \
               factory="uicpathenv='UICATS_KDE4_SR', \
                        mkeyw=['docbook4', 'kde4'], invmkeyw=True, \
                        quiet=True" \

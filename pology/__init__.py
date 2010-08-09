@@ -206,7 +206,7 @@ Hook Factories
 
 Since hooks have fixed input signatures by type, the way to customize
 a given hook behavior is to produce its function by another function.
-The hook-producing function is called a "hook factory". It works by
+The hook-producing function is called a I{hook factory}. It works by
 preparing anything needed for the hook, and then defining the hook proper
 and returning it, thereby creating a lexical closure around it::
 
@@ -220,11 +220,10 @@ and returning it, thereby creating a lexical closure around it::
 
         return hook
 
-In fact, most of hook modules define hook factories rather
-than hooks directly.
+In fact, most existing hooks are defined through factories.
 
-Notes
------
+Notes on Hooks
+--------------
 
 Hooks should be defined in submodules C{<submod>} and language-dependent
 C{lang.<lang>.<submod>}, so that they can be automatically obtained by

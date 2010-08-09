@@ -28,7 +28,7 @@ The C{~%/Install New Theme/} is I{explicitly} marked UI reference, using
 the C{<head>/<reference-text>/} directive, which is resolved into when
 delivery POs are built out of the actually translated ones.
 Slashes in the UI reference directive can be replaced with any other character consistenly (sed-style), while head of the directive can be chosen per project
-(C{~%} is one of the defaults) and given as a parameter of hook factory.
+(C{~%} is one of the defaults) and given as a parameter of resolver factory.
 
 There is also the possibility for C{implicit} UI references, not requiring
 special directive, when UI text is natively separated out of the rest of
@@ -37,7 +37,7 @@ the text. This is the case e.g. in Docbook POs::
     msgid "By pressing the <guibutton>Install New Theme</guibutton>..."
     msgstr "Pritiskom dugmeta <guibutton>Install New Theme</guibutton>..."
 
-Hook factories can be told which tags are known to contain UI references.
+Resolver factories can be told which tags are known to contain UI references.
 (Of course, explicit references can be used alongside implicit ones
 whenever necessary.)
 
@@ -46,19 +46,19 @@ Linking to UI Catalogs
 
 In general, UI reference may not, and especially in case of documentation POs,
 is not present in the same PO file as that where it is referenced.
-Therefore hooks need to know two things: the list of all UI catalogs in the
+Therefore resolvers need to know two things: the list of all UI catalogs in the
 project, and, for given PO which contains references, from which UI catalogs
 it may possibly draw those references.
 
-The list of UI catalogs can be given to hooks explicitly, as list of catalog
-paths. This can, however, be inconvenient, as it causes either that
-the hook client is called from a specific directory if paths are relative,
+The list of UI catalogs can be given to resolverss explicitly, as list of
+catalog paths. This can, however, be inconvenient, as it causes either that
+the resolver client is called from a specific directory if paths are relative,
 or setting up the client for a single machine in case of absolute paths.
 Another way of specifying paths to UI catalogs is by an environment variable,
-which contains colon-separated list of directory paths; hook factory will
+which contains colon-separated list of directory paths; resolver factory will
 search these paths for PO files, and collect them for UI referencing.
 Both the explict list of paths and the environment variable which contains
-the paths are given as parameters to hook factories.
+the paths are given as parameters to resolver factories.
 
 By default, for a given PO file, the UI references in it are looked for only
 in the catalog of the same name, assuming it is found within UI catalogs
@@ -152,7 +152,7 @@ in the argument specification is preceeded with an exclamation mark
 
 In general, but especially with implicit references, the text wrapped
 as reference may actually contain several references in form of UI path
-(e.g. "...go to Foo->Bar->Baz, and check..."). Hook factories can
+(e.g. "...go to Foo->Bar->Baz, and check..."). Resolver factories can
 take one or more strings which are used as UI path separators (e.g. C{->}).
 
 Sometimes the UI reference in the original text is not valid as it is,
@@ -184,10 +184,10 @@ using the original C{msgid} from the UI catalog (both for convenience and
 as necessity).
 
 One typical sequence to remove on normalization is the accelerator marker.
-Hooks eliminate accelerator markers automatically, the only thing is that
+Resolvers eliminate accelerator markers automatically, the only thing is that
 they have to be to told what the accelerator marker character is. This
-is not done through hook factories (since knowledge of accelerator marker
-is of wider consequence when processing POs), but either by hook client
+is not done through resolver factories (since knowledge of accelerator marker
+is of wider consequence when processing POs), but either by resolver client
 setting it explicitly (using
 L{set_accelerator()<catalog.Catalog.set_accelerator>} method on catalogs),
 or by giving it within C{X-Accelerator-Marker} header filed::
@@ -214,7 +214,7 @@ would be referenced as::
     msgid "...<guimenuitem>Scaled &amp; Cropped</guimenuitem>..."
     msgstr "...<guimenuitem>Scaled &amp; Cropped</guimenuitem>..."
 
-Hook factories have parameters for specifying type of escaping needed
+Resolver factories have parameters for specifying type of escaping needed
 for fetched UI texts by target format.
 
 Normalization may flatten several different messages from UI catalog into one.
@@ -222,7 +222,7 @@ Example of this is when C{msgid} fields are equal but for the accelerator.
 If this happens and translations are not the same for all such messages,
 a special "tail" is added to their contexts, consisting of a tilde and
 several alphanumeric characters.
-In this way, the first run of the hook which sees UI reference pointing to
+In this way, the first run of the resolver which sees UI reference pointing to
 one of these messages will report the ambiguity and new contexts with tails,
 so that proper context can be copied and pasted over into the reference.
 The alphanumeric tail is computed based on the original C{msgid} only,
@@ -232,9 +232,10 @@ Notes
 =====
 
 If a UI reference cannot be resolved, for whatever reason (not existing,
-context conflict, not translated, etc.), resolving hooks will output warnings
-and fallback to English text. There are also checker hooks, to be able to
-catch resolution problems, a sorf of "dry run" before building delivery POs.
+context conflict, not translated, etc.), resolving resolvers will output
+warnings and fallback to English text. There are also checker resolvers,
+to be able to catch resolution problems, a sorf of "dry run" before
+building delivery POs.
 
 @var default_headrefs: Default heads for explicit UI references.
 
@@ -367,7 +368,7 @@ def check_ui_docbook4 (headrefs=default_headrefs,
     """
     Check UI references in Docbook 4.x translations [hook factory].
 
-    A convenience hook which fixes some of the parameters to L{check_ui}
+    A convenience resolver which fixes some of the parameters to L{check_ui}
     to match implicit UI references and formatting needs for Docbook POs.
 
     @return: type V3C hook
@@ -395,7 +396,7 @@ def resolve_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
     """
     Resolve UI references in KDE4 UI translations [hook factory].
 
-    A convenience hook which fixes some of the parameters to L{resolve_ui}
+    A convenience resolver which fixes some of the parameters to L{resolve_ui}
     to match implicit UI references and formatting needs for KDE4 UI POs.
 
     If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
@@ -420,7 +421,7 @@ def check_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
     """
     Check UI references in KDE4 UI translations [hook factory].
 
-    A convenience hook which fixes some of the parameters to L{check_ui}
+    A convenience resolver which fixes some of the parameters to L{check_ui}
     to match implicit UI references and formatting needs for KDE4 UI POs.
 
     If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
@@ -446,7 +447,7 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                    xmlescape, pfhook, mkeyw, invmkeyw, quiet,
                    modtext, spanrep):
     """
-    Worker for hook factories.
+    Worker for resolver factories.
     """
 
     # Convert sequences into sets, for fast membership checks.
@@ -463,12 +464,12 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
-    # Resolve post-filtering hook.
+    # Construct post-filtering hook.
     if pfhook is None:
         pfhook = lambda x: x
     elif isinstance(pfhook, basestring):
         pfhook = get_hook_lreq(pfhook)
-    # ...else assume it is already a callable.
+    # ...else assume it is already a hook function.
 
     # Regular expressions for finding and extracting UI references.
     # Add a never-match expression to start regexes for all reference types,
@@ -566,7 +567,7 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
 
     # Function to resolve given UI reference
     # (part that needs to be under closure).
-    def resolve_single_uiref(uiref, msg, cat, hook_helper):
+    def resolve_single_uiref (uiref, msg, cat, resolver_helper):
 
         if ldata.get("uicpaths") is None:
             ldata["uicpaths"] = _collect_ui_catpaths(uicpaths, uicpathenv)
@@ -576,8 +577,8 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                                                    xmlescape)
         normcats = ldata["normcats"]
 
-        hookcl_f3c = lambda uiref: hook_helper(uiref, msg, cat, True, False)
-        hookcl_v3c = lambda uiref: hook_helper(uiref, msg, cat, False, True)
+        hookcl_f3c = lambda uiref: resolver_helper(uiref, msg, cat, True, False)
+        hookcl_v3c = lambda uiref: resolver_helper(uiref, msg, cat, False, True)
         uiref_res, errmsgs = _resolve_single_uiref(uiref, normcats,
                                                    hookcl_f3c, hookcl_v3c)
         uiref_res = pfhook(uiref_res)
@@ -585,8 +586,8 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
         return uiref_res, errmsgs
 
 
-    # The hook itself, in two parts.
-    def hook_helper (msgstr, msg, cat, modtext, spanrep):
+    # The resolver itself, in two parts.
+    def resolver_helper (msgstr, msg, cat, modtext, spanrep):
 
         errspans = []
         tsegs = []
@@ -601,7 +602,7 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
                 tsegs.append(ptext)
                 if uiref is not None:
                     uiref_res, errmsgs = resolve_single_uiref(uiref, msg, cat,
-                                                              hook_helper)
+                                                              resolver_helper)
                     tsegs.append(uiref_res)
                     errspans.extend([(start, end, x) for x in errmsgs])
                     if not spanrep and not quiet:
@@ -618,11 +619,11 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
         else: # S3C hook
             return len(errspans)
 
-    def hook (msgstr, msg, cat):
+    def resolver (msgstr, msg, cat):
 
-        return hook_helper(msgstr, msg, cat, modtext, spanrep)
+        return resolver_helper(msgstr, msg, cat, modtext, spanrep)
 
-    return hook
+    return resolver
 
 
 def _collect_ui_catpaths (uicpaths, uicpathenv):
