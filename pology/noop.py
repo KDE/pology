@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Hook which do nothing.
+Hooks which do nothing.
 
-Noop hooks may be useful in situations where application of a hook
+No-operation hooks may be useful in situations where application of a hook
 is necessary, or when a previously set hook needs to be canceled.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
