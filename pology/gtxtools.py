@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Pipe PO files through Gettext commands.
+Wrappers for commands from Gettext tools.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -15,9 +15,9 @@ from pology.report import warning
 
 def msgfilter (filtr, options=""):
     """
-    Pass PO files through C{msgfilter(1)} [hook factory].
+    Pass PO file through C{msgfilter(1)} [hook factory].
 
-    Hooks modify PO files in place; the executed command is::
+    Wrappers modify PO files in place; the executed command is::
 
         msgfilter <options> -i <filepath> -o <filepath> <filtr>
 
@@ -33,14 +33,14 @@ def msgfilter (filtr, options=""):
     @rtype: C{(filepath) -> numerr}
 
     @note: In case C{msgfilter} does not finish without errors,
-        hooks always report number of errors as 1.
+        wrapper always reports number of errors as 1.
     """
 
     # FIXME: Check availability and version of msgfilter.
 
     base_cmdline = "msgfilter " + options + " "
 
-    def hook (filepath):
+    def wrapper (filepath):
         cmdline = base_cmdline + "-i %s -o %s " % (filepath, filepath) + filtr
         ret = os.system(cmdline)
         if ret:
@@ -52,12 +52,12 @@ def msgfilter (filtr, options=""):
             return 1
         return 0
 
-    return hook
+    return wrapper
 
 
 def msgfmt (options=""):
     """
-    Pass PO files through C{msgfmt(1)} [hook factory].
+    Pass PO file through C{msgfmt(1)} [hook factory].
 
     The file is not modified; the executed command is::
 
@@ -73,14 +73,14 @@ def msgfmt (options=""):
     @rtype: C{(filepath) -> numerr}
 
     @note: In case C{msgfmt} does not finish without errors,
-        hooks always report number of errors as 1.
+        wrapper always reports number of errors as 1.
     """
 
     # FIXME: Check availability and version of msgfmt.
 
     base_cmdline = "msgfmt " + options + " -o/dev/null "
 
-    def hook (filepath):
+    def wrapper (filepath):
         cmdline = base_cmdline + filepath
         ret = os.system(cmdline)
         if ret:
@@ -91,5 +91,5 @@ def msgfmt (options=""):
             return 1
         return 0
 
-    return hook
+    return wrapper
 

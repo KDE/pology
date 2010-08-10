@@ -18,7 +18,7 @@ from pology import PologyError, version, _, n_, t_
 from pology.catalog import Catalog
 from pology.header import Header
 from pology.message import Message, MessageUnsafe
-from pology.gettext_tools import msgfmt
+from pology.gtxtools import msgfmt
 from pology.colors import ColorOptionParser, cjoin
 from pology.comments import parse_summit_branches
 import pology.config as pology_config
