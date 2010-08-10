@@ -2,6 +2,12 @@
 
 """
 Detect unwanted patterns in translation.
+
+@note: This module is deprecated.
+Use L{rules<pology.rules>} through C{check-rules} sieve instead.
+
+@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@license: GPLv3
 """
 
 import re

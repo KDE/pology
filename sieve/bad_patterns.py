@@ -28,7 +28,7 @@ for defining, matching, and reporting problems.
 """
 
 from pology import _, n_
-from pology.bad_patterns import bad_patterns_msg
+from pology.bpatterns import bad_patterns_msg
 from pology.report import report
 
 
