@@ -290,7 +290,8 @@ class Sieve (object):
                     skip=True
                     break
                 for comment in msg.auto_comment:
-                    if context in comment.lower():
+                    comment = comment.lower()
+                    if comment.startswith("tag:") and context in comment:
                         skip=True
                         break
                 if skip:
