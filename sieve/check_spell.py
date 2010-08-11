@@ -289,6 +289,12 @@ class Sieve (object):
                 if context in (msg.msgctxt or u"").lower():
                     skip=True
                     break
+                for comment in msg.auto_comment:
+                    if context in comment.lower():
+                        skip=True
+                        break
+                if skip:
+                    break
             if skip:
                 break
 
