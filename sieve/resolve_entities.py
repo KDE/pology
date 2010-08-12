@@ -33,7 +33,7 @@ from pology.entities import read_entities
 from pology.msgreport import warning_on_msg
 from pology.report import report, format_item_list
 from pology.resolve import resolve_entities
-from pology.stdsvpar import add_param_entdef
+from pology.sieve import add_param_entdef
 
 
 def setup_sieve (p):

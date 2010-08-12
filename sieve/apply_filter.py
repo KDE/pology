@@ -28,7 +28,7 @@ from pology import _, n_
 from pology.langdep import get_hook_lreq
 from pology.msgreport import report_msg_content
 from pology.report import report, warning, error
-from pology.stdsvpar import add_param_filter
+from pology.sieve import add_param_filter
 from pology.sieve import SieveError
 
 

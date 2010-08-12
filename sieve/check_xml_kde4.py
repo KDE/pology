@@ -34,7 +34,7 @@ from pology.markup import check_xml_kde4_l1
 from pology.msgreport import report_on_msg, report_on_msg_hl
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
-from pology.stdsvpar import add_param_poeditors, add_param_entdef
+from pology.sieve import add_param_poeditors, add_param_entdef
 from pology.sieve import parse_sieve_flags
 
 

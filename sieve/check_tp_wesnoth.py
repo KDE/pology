@@ -62,7 +62,7 @@ from pology import _, n_
 from pology.report import report, format_item_list
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
-from pology.stdsvpar import add_param_poeditors
+from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError
 from pology.message import MessageUnsafe
 

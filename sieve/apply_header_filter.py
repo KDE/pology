@@ -22,7 +22,7 @@ which are then applied in the order of appearance in the command line.
 from pology import _, n_
 from pology.langdep import get_hook_lreq
 from pology.report import report, warning
-from pology.stdsvpar import add_param_filter
+from pology.sieve import add_param_filter
 from pology.sieve import SieveError
 
 

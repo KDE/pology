@@ -31,7 +31,7 @@ from pology.check_markup import check_docbook4_msg
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
-from pology.stdsvpar import add_param_poeditors
+from pology.sieve import add_param_poeditors
 
 
 def setup_sieve (p):

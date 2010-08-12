@@ -99,7 +99,7 @@ from pology.markup import check_xml_qtrich_l1
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, format_item_list
-from pology.stdsvpar import add_param_poeditors
+from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat

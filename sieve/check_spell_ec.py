@@ -130,7 +130,7 @@ from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.sieve import SieveError, SieveCatalogError
 from pology.split import proper_words
-from pology.stdsvpar import add_param_spellcheck, add_param_poeditors
+from pology.sieve import add_param_spellcheck, add_param_poeditors
 
 
 def setup_sieve (p):

@@ -80,7 +80,7 @@ from pology.msgreport import rule_error, rule_xml_error, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
-from pology.stdsvpar import add_param_poeditors
+from pology.sieve import add_param_poeditors
 from pology.timeout import TimedOutException
 from pology.sieve import SieveError, SieveCatalogError
 
