@@ -128,6 +128,7 @@ from pology.langdep import get_hook_lreq
 from pology.msgreport import report_on_msg
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
+from pology.sieve import SieveError, SieveCatalogError
 from pology.split import proper_words
 from pology.stdsvpar import add_param_spellcheck, add_param_poeditors
 
@@ -209,35 +210,28 @@ class Sieve (object):
         # Check if the catalog itself states the language, and if yes,
         # create the language-dependent stuff if not already created
         # for this langenv.
-        clang = self.lang or cat.language() or locale.getlocale()[0] or None
+        clang = self.lang or cat.language()
+        if not clang:
+            raise SieveCatalogError(
+                _("@info",
+                  "Cannot determine language for catalog '%(file)s'.",
+                  file=cat.filename))
         cenvs = self.envs or cat.environment() or []
         ckey = (clang, tuple(cenvs))
         if ckey not in self.checkers:
             # Get Pology's internal word list for this langenv.
-            if clang not in self.word_lists:
-                self.word_lists[ckey] = None
-                pd_langs = [clang] # language codes to try
-                # - also try with bare language code,
-                # unless the language came from the PO itself.
-                p = clang.find("_")
-                if p > 0 and not cat.language():
-                    pd_langs.append(clang[:p])
-                for pd_lang in pd_langs:
-                    word_list = _compose_word_list(pd_lang, cenvs)
-                    if word_list:
-                        self.word_lists[ckey] = word_list
-                        break
-
+            if clang not in self.word_lists: # may be in but None
+                self.word_lists[ckey] = _compose_word_list(clang, cenvs)
             # Create spell-checker object.
             clang_mod = (self.suponly and [None] or [clang])[0]
             checker = _create_checker(self.providers, clang_mod,
                                       self.word_lists[ckey])
             if not checker:
-                raise SieveError(_("@info",
-                                   "No spelling dictionary for "
-                                   "language '%(lang)s' and "
-                                   "provider '%(prov)s'.",
-                                   lang=clang, prov=self.providers))
+                raise SieveError(
+                    _("@info",
+                      "No spelling dictionary for language '%(lang)s' and "
+                      "provider '%(prov)s'.",
+                      lang=clang, prov=self.providers))
             self.checkers[ckey] = checker
 
         # Get language-dependent stuff.

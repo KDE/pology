@@ -14,7 +14,6 @@ from urllib import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_
-from pology.fsops import get_env_langs
 from pology.msgreport import warning_on_msg
 from pology.report import report, warning
 from pology.sieve import SieveError, SieveCatalogError
@@ -40,8 +39,7 @@ def setup_sieve (p):
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
                 desc=_("@info sieve parameter discription",
     "Apply rules for this language. "
-    "If not given, autodetection of language is attempted based on "
-    "catalog headers and environment."
+    "If not given, attempt is made to detect language by catalog headers."
     ))
     p.add_param("host", str, defval="localhost",
                 metavar=_("@info sieve parameter value placeholder", "NAME"),
@@ -63,7 +61,6 @@ class Sieve (object):
         self.connection=None # Connection to LanguageTool server
 
         self.setLang=params.lang
-        self.envLang=(get_env_langs() or [None])[0]
 
         # LanguageTool server parameters.
         host=params.host
@@ -80,12 +77,12 @@ class Sieve (object):
 
     def process_header (self, hdr, cat):
 
-        self.lang=(self.setLang or cat.language() or self.envLang)
+        self.lang=(self.setLang or cat.language())
         if not self.lang:
-            raise SieveCatalogError(_("@info",
-                                      "Cannot guess language for "
-                                      "catalog '%(file)s'.",
-                                      file=cat.filename))
+            raise SieveCatalogError(
+                _("@info",
+                  "Cannot determine language for catalog '%(file)s'.",
+                  file=cat.filename))
 
 
     def process (self, msg, cat):

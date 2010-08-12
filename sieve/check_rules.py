@@ -82,7 +82,7 @@ from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
 from pology.stdsvpar import add_param_poeditors
 from pology.timeout import TimedOutException
-from pology.sieve import SieveError
+from pology.sieve import SieveError, SieveCatalogError
 
 
 # Pattern used to marshall path of cached files
@@ -102,7 +102,7 @@ def setup_sieve (p):
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
                 desc=_("@info sieve parameter discription",
     "Load rules for this language "
-    "(if not given, a language is automatically guessed)."
+    "(if not given, attempt is made to detect language by catalog headers)."
     ))
     p.add_param("env", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
@@ -283,6 +283,11 @@ class Sieve (object):
 
         # Choose (possibly loading) appropriate rules for this catalog.
         self.lang = self.globalLang or cat.language()
+        if not self.lang:
+            raise SieveCatalogError(
+                _("@info",
+                  "Cannot determine language for catalog '%(file)s'.",
+                  file=cat.filename))
         self.envs = self.globalEnvs or cat.environment() or []
         rkey = (self.lang, tuple(self.envs))
         if rkey not in self._rulesCache:
@@ -444,8 +449,8 @@ class Sieve (object):
     def _loadRules (self, lang, envs):
 
         # Load rules.
-        rules=loadRules(lang, self.stat, envs,
-                        self.envOnly, self.customRuleFiles)
+        rules=loadRules(lang, envs,
+                        self.envOnly, self.customRuleFiles, self.stat)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.

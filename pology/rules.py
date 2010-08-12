@@ -563,66 +563,35 @@ def printStat(rules):
                  num=totTimeMsg*1000))
 
 
-def loadRules(lang, stat, envs=[], envOnly=False, ruleFiles=None):
+def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False):
     """Load rules for a given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
-    @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @param envs: also load rules applicable in these environments
     @param envOnly: load only rules applicable in given environments
     @param ruleFiles: a list of rule files to load instead of internal
+    @param stat: stat is a boolean to indicate if rule should gather count and time execution
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
     ruleDir=""             # Rules directory
     rules=[]               # List of rule objects
     langDir=join(rootdir(), "lang") # Base of rule files per language
 
-    # Detect language
-    #TODO: use PO language header once it has been implemented
+    # Collect rule files.
     if ruleFiles is not None:
-        if not lang:
-            raise PologyError(
-                _("@info",
-                  "Language must be explicitly given "
-                  "when using external rules."))
-        report(_("@info:progress",
-                 "Using external rules for %(langcode)s language.",
-                 langcode=lang))
+        report(_("@info:progress", "Using external rules."))
     else:
-        if lang:
-            ruleDir=join(langDir, lang, "rules")
-            report(_("@info:progress",
-                     "Using rules for language %(langcode)s.",
-                     langcode=lang))
-        else:
-            # Try to autodetect language
-            languages=[d for d in listdir(langDir) if isdir(join(langDir, d, "rules"))]
-            report(_("@info:progress",
-                     "Rules available for following languages: %(langlist)s.",
-                     langlist=format_item_list(languages)))
-            locLang=re.sub(r"_\w+", "", getlocale()[0])
-            if locLang in languages:
-                lang=locLang
-                report(_("@info:progress",
-                         "Autodetected %(langcode)s language.",
-                         langcode=lang))
-                ruleDir=join(langDir, lang, "rules")
-
-        if not ruleDir:
-            report(_("@info:progress",
-                     "Using default rule files (%(langcode)s).",
-                     langcode="fr"))
-            lang="fr"
-            ruleDir=join(langDir, lang, "rules")
-
-        if isdir(ruleDir):
-            ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
-        else:
+        ruleDir=join(langDir, lang, "rules")
+        if not isdir(ruleDir):
             raise PologyError(
                 _("@info",
-                  "The rule directory '%(dir)s' is not a directory "
-                  "or is not accessible.",
-                  dir=ruleDir))
-    
+                  "There are no internal rules for language '%(langcode)s'.",
+                  langcode=lang))
+        report(_("@info:progress",
+                 "Using internal rules for language '%(langcode)s'.",
+                 langcode=lang))
+        ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
+
+    # Parse rules.
     seenMsgFilters = {}
     for ruleFile in ruleFiles:
         rules.extend(loadRulesFromFile(ruleFile, stat, set(envs), seenMsgFilters))

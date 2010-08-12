@@ -45,7 +45,7 @@ from pology.langdep import get_hook_lreq
 from pology.msgreport import spell_error, spell_xml_error
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
-from pology.sieve import SieveError
+from pology.sieve import SieveError, SieveCatalogError
 from pology.split import proper_words
 from pology.stdsvpar import add_param_spellcheck
 
@@ -191,7 +191,12 @@ class Sieve (object):
         # Check if the catalog itself states the language, and if yes,
         # create the language-dependent stuff if not already created
         # for this language.
-        clang = self.lang or cat.language() or locale.getlocale()[0] or "fr"
+        clang = self.lang or cat.language()
+        if not clang:
+            raise SieveCatalogError(
+                _("@info",
+                  "Cannot determine language for catalog '%(file)s'.",
+                  file=cat.filename))
         cenvs = self.envs or cat.environment() or []
         ckey = (clang, tuple(cenvs))
         if ckey not in self.aspells:
@@ -199,19 +204,8 @@ class Sieve (object):
             self.aspellOptions["lang"] = str(clang)
 
             # Get Pology's internal personal dictonary for this langenv.
-            if ckey not in self.personalDicts:
-                self.personalDicts[ckey] = None
-                pd_langs = [clang] # language codes to try
-                # - also try with bare language code,
-                # unless the language came from the PO itself.
-                p = clang.find("_")
-                if p > 0 and not cat.language():
-                    pd_langs.append(clang[:p])
-                for pd_lang in pd_langs:
-                    personalDict = self._get_personal_dict(pd_lang, cenvs)
-                    if personalDict:
-                        self.personalDicts[ckey] = personalDict
-                        break
+            if ckey not in self.personalDicts: # may be in but None
+                self.personalDicts[ckey] = self._get_personal_dict(clang, cenvs)
             if self.personalDicts[ckey]:
                 self.aspellOptions["personal-path"] = str(self.personalDicts[ckey])
             else:

@@ -135,7 +135,7 @@ def _check_spell_w (lang, encoding, variety, extopts,
         clang = lang or cat.language()
         if not clang:
             error(_("@info",
-                    "Cannot determine language of the catalog '%(file)s'.",
+                    "Cannot determine language for catalog '%(file)s'.",
                     file=cat.filename))
         if envs is not None:
             cenvs = envs
