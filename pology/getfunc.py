@@ -47,8 +47,8 @@ def get_module (modpath, lang=None, proj=None, abort=False, wpath=False):
     @type modpath: string
     @param lang: language code
     @type lang: string
-    @param lang: project code
-    @type lang: string
+    @param proj: project code
+    @type proj: string
     @param abort: whether to abort execution if the module cannot be imported
     @type abort: bool
     @param wpath: whether to also return resolve module path

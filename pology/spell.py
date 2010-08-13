@@ -75,7 +75,7 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
     the C{no-check-spell} L{sieve flag<sieve.parse_sieve_flags>}.
     Alternatively, only certain words may be declared well spelled
     by adding a manual comment starting with C{well-spelled:}
-    and followed by comma-separated list of words. Example:
+    and followed by comma-separated list of words. Example::
 
         # |, no-check-spell
         msgid "Aaaargh, gahhh, khh..."

@@ -1835,7 +1835,7 @@ def check_xmlents (strict=False, entities={}, mkeyw=None,
     Check existence of XML entities in translations [hook factory].
 
     See L{check_xml} for description of parameters C{strict}, C{entities},
-    and C{mkeyw}. See L{validate_xmlents>} for parameters C{default} and
+    and C{mkeyw}. See L{validate_xmlents} for parameters C{default} and
     C{numeric}, and for general notes on checking entities.
 
     @return: type S3C hook
