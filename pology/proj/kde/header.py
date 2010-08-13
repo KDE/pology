@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Equip catalog headers with extra information.
+Additional header operations for KDE Translation Project.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -16,9 +16,9 @@ from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
 
 
-def equip_header_tp_kde (hdr, cat):
+def equip_header (hdr, cat):
     """
-    Equip headers in catalogs within KDE Translation Project [type F4B hook].
+    Add extra information to header [type F4B hook].
 
     The following header fields are set:
       - C{Language}: the language code of translation;
