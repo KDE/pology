@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Limit character set in Serbian texts, by conversion and transliteration.
+Conversions between character sets in Serbian texts.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

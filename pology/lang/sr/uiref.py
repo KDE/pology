@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Post-filter resolved UI references.
+Additions to resolving UI references.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
