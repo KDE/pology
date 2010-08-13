@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Replacement of segments in text which define some underlying values.
+Replace value-defining segments in text with their values.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

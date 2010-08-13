@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Remove special substrings from parts of the message.
+Remove special substrings from text.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
