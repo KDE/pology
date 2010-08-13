@@ -37,7 +37,7 @@ import sys
 from time import strftime
 
 from pology import rootdir, _, n_
-from pology.check_lingo import flag_no_check_spell, elist_well_spelled
+from pology.spell import flag_no_check_spell, elist_well_spelled
 from pology.colors import cjoin
 from pology.comments import manc_parse_list, manc_parse_flag_list
 import pology.config as cfg

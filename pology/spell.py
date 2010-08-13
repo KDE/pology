@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Check linguistic, language-dependent correctness of text.
+Check spelling in text using different spell checkers.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -55,7 +55,7 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
     on the catalog of the message is attempted
     (see catalog L{language()<catalog.Catalog.language>} method).
     Similar is attempted for environments if C{env} is C{None}
-    (see L{environment()<catalog.Catalog.environment>} method).
+    (see catalog L{environment()<catalog.Catalog.environment>} method).
 
     Aspell's system dictionary can be completely excluded from the check
     by the C{suponly} parameter, when the check will use only internal
@@ -65,11 +65,25 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
     Maximum number of suggestions to display is selected by the C{maxsugg}
     parameter; if negative, all suggestions are shown.
 
-    Spelling is performed by internally splitting text into words, and
+    Spell checking is performed by internally splitting text into words, and
     querying Aspell word by word. Spliting is performed in a simple fashion;
     it is assumed that text has been appropriately filtered down to plain text,
     e.g. that any XML-like markup and other literals have been removed
     (see L{remove_subs} for filtering possibilities).
+
+    Spell checking can be skipped entirely on a message by issuing
+    the C{no-check-spell} L{sieve flag<sieve.parse_sieve_flags>}.
+    Alternatively, only certain words may be declared well spelled
+    by adding a manual comment starting with C{well-spelled:}
+    and followed by comma-separated list of words. Example:
+
+        # |, no-check-spell
+        msgid "Aaaargh, gahhh, khh..."
+        msgstr ""
+
+        # well-spelled: Aaaargh, kh
+        msgid "Aaaargh, kh, kh... I have been defeated...!"
+        msgstr ""
 
     @param lang: language of spelling dictionary
     @type lang: string
@@ -128,8 +142,8 @@ def _check_spell_w (lang, encoding, variety, extopts,
     # Cache for constructed checkers.
     checkers = {}
 
-    # The hook itself.
-    def hook (text, msg, cat):
+    # The checker itself.
+    def spcheck (text, msg, cat):
 
         # Check if new spell checker should be constructed.
         clang = lang or cat.language()
@@ -195,7 +209,7 @@ def _check_spell_w (lang, encoding, variety, extopts,
                     report_on_msg(span[2], msg, cat)
             return len(spans)
 
-    return hook
+    return spcheck
 
 
 # Construct Aspell checker for given langenv.
