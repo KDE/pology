@@ -28,7 +28,7 @@ from pology.monitored import Monpair
 from pology.report import report, warning, error, format_item_list
 
 
-# FIXME: Make this a public function in some appropriate module.
+# FIXME: Make this a public function in getfunc module.
 _modules_on_request = {}
 def _get_module (name, cmsg=None):
 

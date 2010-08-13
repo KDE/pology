@@ -27,7 +27,7 @@ from pology.diff import editprob
 from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.fsops import mkdirpath, join_ncwd
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_fmatcher
 from pology.merge import merge_pofile
 from pology.monitored import Monlist, Monset
@@ -336,7 +336,7 @@ def main ():
     if options.filters:
         hfilters = []
         for hspec in options.filters:
-            hfilters.append(get_hook_lreq(hspec, abort=True))
+            hfilters.append(get_hook_ireq(hspec, abort=True))
         def hfilter_composition (text):
             for hfilter in hfilters:
                 text = hfilter(text)

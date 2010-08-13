@@ -9,7 +9,7 @@ Pass catalog headers through a combination of L{hooks<hook>}, of types:
   - S4B (C{(hdr, cat)->numerr}) for side-effects on the header
 
 Sieve parameters:
-  - C{filter:<hookspec>}: hook specification (see L{langdep.get_hook_lreq}
+  - C{filter:<hookspec>}: hook specification (see L{getfunc.get_hook_ireq}
         for the format of hook specifications)
 
 Parameter C{filter} can be repeated to chain several hooks,
@@ -20,7 +20,7 @@ which are then applied in the order of appearance in the command line.
 """
 
 from pology import _, n_
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.report import report, warning
 from pology.sieve import add_param_filter
 from pology.sieve import SieveError
@@ -45,7 +45,7 @@ class Sieve (object):
 
     def __init__ (self, params):
 
-        self.tfilters = [[get_hook_lreq(x, abort=True), x]
+        self.tfilters = [[get_hook_ireq(x, abort=True), x]
                           for x in (params.filter or [])]
 
         # Number of modified headers.

@@ -225,15 +225,15 @@ In fact, most existing hooks are defined through factories.
 Notes on Hooks
 --------------
 
-Hooks should be defined in submodules C{<submod>} and language-dependent
-C{lang.<lang>.<submod>}, so that they can be automatically obtained by
-L{langdep.get_hook()}. In particular, Pology utilities allowing users to
-insert hooks into processing will expect hooks to be in these locations,
-such that L{langdep.get_hook_lreq()} function can fetch the hook from
-a string specification.
-If the hook module implements a single hook function named same as module,
-users can select it by giving only the hook module name,
-without the function name.
+General hooks should be defined in top submodules C{<submod>},
+language-dependent hooks in C{lang.<lang>.<submod>},
+project-dependent in C{proj.<proj>.<submod>},
+and both languge- and project-dependent in C{lang.<lang>.proj.<proj>.<submod>}.
+In this way they can be fetched by L{getfunc.get_hook_ireq()} in various
+non-code contexts, in particular from Pology utilities which enable users to
+insert hooks into processing through command line options or configurations.
+(If the hook module implements a single hook function named same as module,
+users can select it by giving only the hook module name,without the function name.)
 
 Annotated parts for PO messages returned by hooks are a reduced version,
 but a valid instance of highlight specifications used by reporting functions,

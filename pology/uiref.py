@@ -255,7 +255,7 @@ from pology.catalog import Catalog
 from pology.remove import remove_accel_msg, remove_markup_msg
 from pology.colors import cjoin
 from pology.fsops import collect_catalogs_by_env
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.msgreport import warning_on_msg
 from pology.report import warning
 
@@ -274,7 +274,7 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
 
     Resolved UI text can be postprocessed by an F1A hook (C{(text)->text}).
     It can be given either as the hook function itself, or as
-    a L{language request<langdep.get_hook_lreq>} string.
+    a L{language request<getfunc.get_hook_ireq>} string.
 
     If one or several markup keywords are given as C{mkeyw} parameter,
     UI reference resolution is skipped for catalogs which do not report one
@@ -468,7 +468,7 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
     if pfhook is None:
         pfhook = lambda x: x
     elif isinstance(pfhook, basestring):
-        pfhook = get_hook_lreq(pfhook)
+        pfhook = get_hook_ireq(pfhook)
     # ...else assume it is already a hook function.
 
     # Regular expressions for finding and extracting UI references.

@@ -525,7 +525,7 @@ from time import time
 from pology import PologyError, rootdir, _, n_
 from pology.message import MessageUnsafe
 from pology.config import strbool
-from pology.langdep import get_hook_lreq, split_req
+from pology.getfunc import get_hook_ireq, split_ireq
 from pology.report import report, warning, format_item_list
 from pology.tabulate import tabulate
 from pology.timeout import timed_out
@@ -1263,10 +1263,10 @@ def _filterCreateHook (fields):
         hookSpec = "%s~%s" % (hookName, factoryStr)
     else:
         hookSpec = hookName
-    hook = get_hook_lreq(hookSpec, abort=False)
+    hook = get_hook_ireq(hookSpec, abort=False)
 
     sigSegs = []
-    for el in split_req(hookSpec):
+    for el in split_ireq(hookSpec):
         if el is not None:
             sigSegs.append(el)
         else:
@@ -1306,7 +1306,7 @@ def _triggerFromHook (fields):
         hookSpec = "%s~%s" % (hookName, factoryStr)
     else:
         hookSpec = hookName
-    hook = get_hook_lreq(hookSpec, abort=False)
+    hook = get_hook_ireq(hookSpec, abort=False)
 
     msgpart = fieldDict["on"].strip()
     if msgpart not in _triggerKnownMsgParts:

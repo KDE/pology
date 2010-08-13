@@ -17,7 +17,7 @@ from pology import PologyError, rootdir, _, n_
 from pology.comments import manc_parse_flag_list
 from pology.diff import adapt_spans
 from pology.entities import read_entities
-from pology.langdep import get_result_lreq
+from pology.getfunc import get_result_ireq
 from pology.msgreport import report_on_msg
 from pology.multi import Multidict
 from pology.report import format_item_list
@@ -1233,7 +1233,7 @@ def check_xml (strict=False, entities={}, mkeyw=None):
     Several types of values with different semantic are possible:
       - if C{entities} is C{None}, unknown entities are ignored on checking
       - if string, it is understood as a general function evaluation
-        L{request<langdep.get_result_lreq>},
+        L{request<getfunc.get_result_ireq>},
         and its result expected to be (name, value) dictionary-like object
       - otherwise, C{entities} is considered to be a (name, value) dictionary
 
@@ -1334,7 +1334,7 @@ def _get_entities (entspec):
     if entities is not None:
         return entities
 
-    entities = get_result_lreq(entspec)
+    entities = get_result_ireq(entspec)
 
     _loaded_entities_cache[entspec] = entities
     return entities

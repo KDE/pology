@@ -19,7 +19,7 @@ Sieve parameters:
   - C{markup:<mkeywords>}: markup types by keywords (comma-separated)
   - C{skip:<regex>}: do not check words which match given regular expression
   - C{filter:<hookspec>,...}: apply F1A or F3A/C hook prior to spell checking
-        (see L{langdep.get_hook_lreq} for the format of hook specification)
+        (see L{getfunc.get_hook_ireq} for the format of hook specification)
   - C{suponly}: do not use system dictionary, only internal supplements
   - C{list}: only report unknown words to stdout, one per line
   - C{lokalize}: open catalogs at failed messages in Lokalize
@@ -124,7 +124,7 @@ from pology.spell import flag_no_check_spell, elist_well_spelled
 from pology.colors import cjoin
 from pology.comments import manc_parse_list, manc_parse_flag_list
 import pology.config as cfg
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.msgreport import report_on_msg
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
@@ -180,7 +180,7 @@ class Sieve (object):
 
         self.pfilters = []
         for hreq in params.filter or []:
-            pfilter = get_hook_lreq(hreq)
+            pfilter = get_hook_ireq(hreq)
             if pfilter:
                 self.pfilters.append((pfilter, hreq))
             else:

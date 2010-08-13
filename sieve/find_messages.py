@@ -73,7 +73,7 @@ Other sieve parameters:
   - C{case}: case-sensitive match (insensitive by default)
   - C{mark}: mark each matched message with C{match} flag
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
-        to matching (see L{langdep.get_hook_lreq} for the format
+        to matching (see L{getfunc.get_hook_ireq} for the format
         of hook specifications)
   - C{lokalize}: open catalogs at matched messages in Lokalize
   - C{nomsg}: do not report messages (to only count the number of matches)
@@ -111,7 +111,7 @@ from pology import _, n_
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
 from pology.comments import parse_summit_branches
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg
 from pology.match import ExprError
 from pology.msgreport import report_msg_content
@@ -442,7 +442,7 @@ class Sieve (object):
         # Resolve filtering hooks.
         self.pfilters = []
         for hreq in self.p.filter or []:
-            self.pfilters.append(get_hook_lreq(hreq, abort=True))
+            self.pfilters.append(get_hook_ireq(hreq, abort=True))
 
         # Unless replacement or marking requested, no need to monitor/sync.
         if self.p.replace is None and not self.p.mark:

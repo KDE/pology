@@ -13,7 +13,7 @@ Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
         to standard output, rather than reporting erroneous spans as V* hooks)
 
 Sieve parameters:
-  - C{filter:<hookspec>}: hook specification (see L{langdep.get_hook_lreq}
+  - C{filter:<hookspec>}: hook specification (see L{getfunc.get_hook_ireq}
         for the format of hook specifications).
         Can be repeated to chain several hooks, which are applied
         in the order of appearance in the command line.
@@ -25,7 +25,7 @@ Sieve parameters:
 """
 
 from pology import _, n_
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.msgreport import report_msg_content
 from pology.report import report, warning, error
 from pology.sieve import add_param_filter
@@ -57,7 +57,7 @@ class Sieve (object):
 
         self.p = params
 
-        self.tfilters = [[get_hook_lreq(x, abort=True), x]
+        self.tfilters = [[get_hook_ireq(x, abort=True), x]
                          for x in (params.filter or [])]
 
         # Number of modified messages.

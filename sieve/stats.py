@@ -27,7 +27,7 @@ Sieve parameters:
         based on difference ratio
   - C{mincomp}: include only catalogs with sufficient completeness
   - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
-        to matching (see L{langdep.get_hook_lreq} for the format
+        to matching (see L{getfunc.get_hook_ireq} for the format
         of hook specifications)
 
 The accelerator characters should be removed from the messages before
@@ -233,7 +233,7 @@ from pology.colors import ColorString, cjoin, cinterp
 from pology.comments import parse_summit_branches
 from pology.diff import tdiff
 from pology.fsops import collect_catalogs
-from pology.langdep import get_hook_lreq
+from pology.getfunc import get_hook_ireq
 from pology.report import report, warning, format_item_list
 from pology.split import proper_words
 from pology.tabulate import tabulate
@@ -468,7 +468,7 @@ class Sieve (object):
         # Resolve filtering hooks.
         self.pfilters = []
         for hreq in self.p.filter or []:
-            self.pfilters.append(get_hook_lreq(hreq, abort=True))
+            self.pfilters.append(get_hook_ireq(hreq, abort=True))
 
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
@@ -564,7 +564,7 @@ class Sieve (object):
 
         self.pfilters = []
         for hreq in self.p.filter or []:
-            self.pfilters.append(get_hook_lreq(hreq, abort=True))
+            self.pfilters.append(get_hook_ireq(hreq, abort=True))
 
 
         # Count the words and characters in original and translation.
