@@ -221,7 +221,7 @@ def get_hook (modpath, lang=None, proj=None, func=None, args=None, abort=False):
         try:
             call = eval("call(%s)" % args)
         except Exception, e:
-            fspec = "%s.%s" % (modpath, func)
+            fspec = "%s/%s" % (modpath, func)
             _raise_or_abort(_("@info",
                               "Cannot create hook by applying function "
                               "'%(func)s' to argument list %(args)s; "
@@ -315,7 +315,7 @@ def get_result (modpath, lang=None, proj=None, func=None, args="", abort=False):
     modname = modpath.rsplit(".", 1)[-1]
     if func is None:
         func = modname
-    call = getattr(fmod, modname, None)
+    call = getattr(fmod, func, None)
     if call is None:
         _raise_or_abort(_("@info",
                           "Module '%(mod)s' does not define "
@@ -324,7 +324,7 @@ def get_result (modpath, lang=None, proj=None, func=None, args="", abort=False):
     try:
         res = eval("call(%s)" % args)
     except Exception, e:
-        fspec = "%s.%s" % (modpath, func)
+        fspec = "%s/%s" % (modpath, func)
         _raise_or_abort(_("@info",
                           "Evaluating function '%(func)s' "
                           "with argument list %(args)s failed; "
