@@ -69,7 +69,7 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
     querying Aspell word by word. Spliting is performed in a simple fashion;
     it is assumed that text has been appropriately filtered down to plain text,
     e.g. that any XML-like markup and other literals have been removed
-    (see L{remove_subs} for filtering possibilities).
+    (see L{pology.remove} for filtering possibilities).
 
     Spell checking can be skipped entirely on a message by issuing
     the C{no-check-spell} L{sieve flag<sieve.parse_sieve_flags>}.

@@ -28,9 +28,9 @@ def get_module (lang, path, abort=False):
 
     will try to import the C{pology.lang.sr.wconv} module, while::
 
-        get_module(None, ["remove-subs"])
+        get_module(None, ["remove"])
 
-    will try to import the C{pology.remove_subs}.
+    will try to import the L{pology.remove}.
 
     The elements of the module path can also contain hyphens, which will
     be converted into underscores when looking for the module.

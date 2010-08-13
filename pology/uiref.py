@@ -252,7 +252,7 @@ import re
 
 from pology import _, n_
 from pology.catalog import Catalog
-from pology.remove_subs import remove_accel_msg, remove_markup_msg
+from pology.remove import remove_accel_msg, remove_markup_msg
 from pology.colors import cjoin
 from pology.fsops import collect_catalogs_by_env
 from pology.langdep import get_hook_lreq

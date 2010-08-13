@@ -416,9 +416,9 @@ C{addFilterHook}
     based on what each PO itself states the marker character to be,
     the following hook filter can be used::
 
-        addFilterHook name="remove-subs/remove-accel-msg" on="msg"
+        addFilterHook name="remove/remove-accel-msg" on="msg"
 
-    (see L{pology.remove_subs.remove_accel_text} for details).
+    (see L{pology.remove.remove_accel_text} for details).
 
     It depends on the hook type to which parts of the message it can apply.
     Hooks of type F4A (C{(msg, cat) -> numerr}) must apply to C{msg},
@@ -433,10 +433,10 @@ C{addFilterHook}
     the C{factory=} field, in the same form as they would be written when
     calling the factory from the code::
 
-        addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" \\
+        addFilterHook name="remove/remove-fmtdirs-msg-tick" \\
                       factory="'~'" on="msg"
 
-    (see L{pology.remove_subs.remove_fmtdirs_msg_tick} for details).
+    (see L{pology.remove.remove_fmtdirs_msg_tick} for details).
 
 Cost of Filtering
 -----------------

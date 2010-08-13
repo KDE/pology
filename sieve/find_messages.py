@@ -109,7 +109,7 @@ import sys
 
 from pology import _, n_
 from pology.message import MessageUnsafe
-from pology.remove_subs import remove_accel_msg
+from pology.remove import remove_accel_msg
 from pology.comments import parse_summit_branches
 from pology.langdep import get_hook_lreq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg

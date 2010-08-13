@@ -496,7 +496,7 @@ hint="英文字と日本語の間には半角のスペースを入れてくだ�
 removeFilter handle="markup"
 addFilterRegex match="<interface>" repl="「" on="pmsgstr"
 addFilterRegex match="</interface>" repl="」" on="pmsgstr"
-addFilterHook name="remove-subs/remove-markup-msg" on="msg"
+addFilterHook name="remove/remove-markup-msg" on="msg"
 valid !after="[一-龠ぁ-んァ-ヴー]" !before="[一-龠ぁ-んァ-ヴー]"
 valid span="[DFPS]" before="ブロック" cat="kalzium"
 valid span="pH" before="値|測定器" cat="kalzium"

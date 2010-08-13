@@ -11,7 +11,7 @@ import re
 
 from pology import _, n_
 from pology.message import MessageUnsafe
-from pology.remove_subs import remove_accel_msg
+from pology.remove import remove_accel_msg
 from pology.report import error
 
 

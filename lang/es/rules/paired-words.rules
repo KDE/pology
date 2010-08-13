@@ -6,7 +6,7 @@
 include file="filter.include"
 
 
-addFilterHook name="remove_subs/remove_paired_ents" on="msg"
+addFilterHook name="remove/remove_paired_ents" on="msg"
 
 [\&(\w|\d)+\;]
 hint="Existe una entidad en la traducción que no figura en el texto original"

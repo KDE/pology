@@ -56,7 +56,7 @@ id="x-markup-db"
 hint="грешка у обележавању"
 
 # Remove local entities which are to be left as-is in the message.
-addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
 
 # Entities in UI POs with XML-like markup.
 *hook name="markup/check-xmlents-sp" \

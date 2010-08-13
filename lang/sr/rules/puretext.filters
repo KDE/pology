@@ -5,8 +5,8 @@
 # Order of filter addition is significant.
 
 # Rewrite parts of original text based on directives in translator comments.
-addFilterHook name="remove-subs/rewrite-inverse" on="msg"
-addFilterHook name="remove-subs/rewrite-msgid" on="msg"
+addFilterHook name="remove/rewrite-inverse" on="msg"
+addFilterHook name="remove/rewrite-msgid" on="msg"
 
 # Resolve UI references.
 # Translation may contain UI references, original UI strings which
@@ -21,7 +21,7 @@ addFilterHook name="remove-subs/rewrite-msgid" on="msg"
 # pology.uiref).
 # For this to work in POs with implicit UI references, markup types in
 # a PO must be specified using the X-Text-Markup header field
-# (see documentation to pology.remove_subs.remove_markup_text
+# (see documentation to pology.remove.remove_markup_text
 # for details).
 # The resolution is quiet, no warnings when a UI reference cannot be resolved,
 # as there are rules to specifically check for their validity.
@@ -50,18 +50,18 @@ addFilterHook name="uiref/resolve-ui" \
 # Remove literal substrings, those which are to be understood by the machine
 # and therefore not translated, as designated by markup.
 # (-> before markup removal)
-addFilterHook name="remove-subs/remove-marlits-msg" on="msg"
+addFilterHook name="remove/remove-marlits-msg" on="msg"
 
 # Remove text markup.
 # For this to work, POs need to specify markup types using
 # the X-Text-Markup header field; its value is a markup keyword.
 # For markups known to Pology at any given moment, see documentation on
-# remove_markup_text() function in pology.remove_subs module.
+# remove_markup_text() function in pology.remove module.
 # The value of the header field may be a comma-separated list of keywords,
 # if there are several markup types present in the PO.
 # (-> before accelerator removal)
 # (-> before literals removal)
-addFilterHook name="remove-subs/remove-markup-msg" on="msg"
+addFilterHook name="remove/remove-markup-msg" on="msg"
 
 # Convert hybridized Ekavian-Yekavian text into Ekavian.
 # (-> after resolving UI references)
@@ -72,20 +72,20 @@ addFilterHook name="sr:wconv/hitoe" on="pmsgstr"
 # For this to work, POs need to specify the marker character through
 # the X-Accelerator-Marker header field.
 # (-> after markup removal)
-addFilterHook name="remove-subs/remove-accel-msg" on="msg"
+addFilterHook name="remove/remove-accel-msg" on="msg"
 
 # Replace format directives with tildes (~), based on *-format flags.
-addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
+addFilterHook name="remove/remove-fmtdirs-msg-tick" factory="'~'" on="msg"
 
 # Remove other literal substrings by heuristics.
 # Heuristics can be augmented by explicit instructions per message,
 # see documentation on remove_literals_text() function
-# in pology.remove_subs module.
+# in pology.remove module.
 # (-> after markup removal)
-addFilterHook name="remove-subs/remove-literals-msg" on="msg"
+addFilterHook name="remove/remove-literals-msg" on="msg"
 
 # Remove local entities which are to be left as-is in the message.
-addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
+addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
 
 # Convert accent graphs into Unicode accent compositions,
 # then remove accents from letters alltogether.

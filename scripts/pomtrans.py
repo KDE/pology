@@ -24,7 +24,7 @@ from pology.fsops import str_to_unicode
 import pology.config as pology_config
 from pology.entities import read_entities
 from pology.resolve import resolve_entities_simple
-from pology.remove_subs import remove_accel_msg
+from pology.remove import remove_accel_msg
 
 
 def main ():
