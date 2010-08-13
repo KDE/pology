@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.check_lingo</title>
+  <title>pology.spell</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        Module&nbsp;check_lingo
+        Module&nbsp;spell
       </span>
     </td>
     <td>
@@ -49,8 +49,8 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module check_lingo</h1><p class="nomargin-top"></p>
-<p>Check linguistic, language-dependent correctness of text.</p>
+<h1 class="epydoc">Module spell</h1><p class="nomargin-top"></p>
+<p>Check spelling in text using different spell checkers.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -73,7 +73,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.check_lingo-module.html#check_spell" class="summary-sig-name">check_spell</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
+          <td><span class="summary-sig"><a href="pology.spell-module.html#check_spell" class="summary-sig-name">check_spell</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">variety</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">extopts</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
@@ -96,14 +96,14 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.check_lingo-module.html#check_spell_sp" class="summary-sig-name">check_spell_sp</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
+          <td><span class="summary-sig"><a href="pology.spell-module.html#check_spell_sp" class="summary-sig-name">check_spell_sp</a>(<span class="summary-sig-arg">lang</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">variety</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">extopts</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">suponly</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">maxsugg</span>=<span class="summary-sig-default">5</span>)</span><br />
-      Like <a href="pology.check_lingo-module.html#check_spell" 
+      Like <a href="pology.spell-module.html#check_spell" 
       class="link">check_spell</a>, except that erroneous spans are 
       returned instead of reporting problems to stdout [hook factory].</td>
           <td align="right" valign="top">
@@ -202,7 +202,7 @@
   the language based on the catalog of the message is attempted (see 
   catalog <a href="pology.catalog.Catalog-class.html#language" 
   class="link">language()</a> method). Similar is attempted for 
-  environments if <code>env</code> is <code>None</code> (see <a 
+  environments if <code>env</code> is <code>None</code> (see catalog <a 
   href="pology.catalog.Catalog-class.html#environment" 
   class="link">environment()</a> method).</p>
   <p>Aspell's system dictionary can be completely excluded from the check 
@@ -212,12 +212,27 @@
   available. Maximum number of suggestions to display is selected by the 
   <code>maxsugg</code> parameter; if negative, all suggestions are 
   shown.</p>
-  <p>Spelling is performed by internally splitting text into words, and 
-  querying Aspell word by word. Spliting is performed in a simple fashion; 
-  it is assumed that text has been appropriately filtered down to plain 
-  text, e.g. that any XML-like markup and other literals have been removed 
-  (see <a href="pology.remove_subs-module.html" 
-  class="link">remove_subs</a> for filtering possibilities).</p>
+  <p>Spell checking is performed by internally splitting text into words, 
+  and querying Aspell word by word. Spliting is performed in a simple 
+  fashion; it is assumed that text has been appropriately filtered down to 
+  plain text, e.g. that any XML-like markup and other literals have been 
+  removed (see <a href="pology.remove-module.html" 
+  class="link">pology.remove</a> for filtering possibilities).</p>
+  <p>Spell checking can be skipped entirely on a message by issuing the 
+  <code>no-check-spell</code> <a 
+  href="pology.sieve-module.html#parse_sieve_flags" class="link">sieve 
+  flag</a>. Alternatively, only certain words may be declared well spelled 
+  by adding a manual comment starting with <code>well-spelled:</code> and 
+  followed by comma-separated list of words. Example:</p>
+<pre class="literalblock">
+   # |, no-check-spell
+   msgid &quot;Aaaargh, gahhh, khh...&quot;
+   msgstr &quot;&quot;
+
+   # well-spelled: Aaaargh, kh
+   msgid &quot;Aaaargh, kh, kh... I have been defeated...!&quot;
+   msgstr &quot;&quot;
+</pre>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -254,7 +269,7 @@
     </td>
   </tr></table>
   
-  <p>Like <a href="pology.check_lingo-module.html#check_spell" 
+  <p>Like <a href="pology.spell-module.html#check_spell" 
   class="link">check_spell</a>, except that erroneous spans are returned 
   instead of reporting problems to stdout [hook factory].</p>
   <dl class="fields">

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.ui_references</title>
+  <title>pology.uiref</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        Module&nbsp;ui_references
+        Module&nbsp;uiref
       </span>
     </td>
     <td>
@@ -49,7 +49,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module ui_references</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Module uiref</h1><p class="nomargin-top"></p>
 <p>Resolve UI references in translation by following through original 
   texts.</p>
   <p>If PO files which are delivered are not the same PO files which are 
@@ -78,7 +78,7 @@
   actually translated ones. Slashes in the UI reference directive can be 
   replaced with any other character consistenly (sed-style), while head of 
   the directive can be chosen per project (<code>~%</code> is one of the 
-  defaults) and given as a parameter of hook factory.</p>
+  defaults) and given as a parameter of resolver factory.</p>
   <p>There is also the possibility for <code>implicit</code> UI references,
   not requiring special directive, when UI text is natively separated out 
   of the rest of the text. This is the case e.g. in Docbook POs:</p>
@@ -86,26 +86,26 @@
    msgid &quot;By pressing the &lt;guibutton&gt;Install New Theme&lt;/guibutton&gt;...&quot;
    msgstr &quot;Pritiskom dugmeta &lt;guibutton&gt;Install New Theme&lt;/guibutton&gt;...&quot;
 </pre>
-  <p>Hook factories can be told which tags are known to contain UI 
+  <p>Resolver factories can be told which tags are known to contain UI 
   references. (Of course, explicit references can be used alongside 
   implicit ones whenever necessary.)</p>
   <h1 class="heading">Linking to UI Catalogs</h1>
     <p>In general, UI reference may not, and especially in case of 
     documentation POs, is not present in the same PO file as that where it 
-    is referenced. Therefore hooks need to know two things: the list of all
-    UI catalogs in the project, and, for given PO which contains 
+    is referenced. Therefore resolvers need to know two things: the list of
+    all UI catalogs in the project, and, for given PO which contains 
     references, from which UI catalogs it may possibly draw those 
     references.</p>
-    <p>The list of UI catalogs can be given to hooks explicitly, as list of
-    catalog paths. This can, however, be inconvenient, as it causes either 
-    that the hook client is called from a specific directory if paths are 
-    relative, or setting up the client for a single machine in case of 
-    absolute paths. Another way of specifying paths to UI catalogs is by an
-    environment variable, which contains colon-separated list of directory 
-    paths; hook factory will search these paths for PO files, and collect 
-    them for UI referencing. Both the explict list of paths and the 
-    environment variable which contains the paths are given as parameters 
-    to hook factories.</p>
+    <p>The list of UI catalogs can be given to resolverss explicitly, as 
+    list of catalog paths. This can, however, be inconvenient, as it causes
+    either that the resolver client is called from a specific directory if 
+    paths are relative, or setting up the client for a single machine in 
+    case of absolute paths. Another way of specifying paths to UI catalogs 
+    is by an environment variable, which contains colon-separated list of 
+    directory paths; resolver factory will search these paths for PO files,
+    and collect them for UI referencing. Both the explict list of paths and
+    the environment variable which contains the paths are given as 
+    parameters to resolver factories.</p>
     <p>By default, for a given PO file, the UI references in it are looked 
     for only in the catalog of the same name, assuming it is found within 
     UI catalogs (which may <i>not</i> be the case for a documentation PO, 
@@ -200,8 +200,8 @@
     <p>In general, but especially with implicit references, the text 
     wrapped as reference may actually contain several references in form of
     UI path (e.g. &quot;...go to Foo-&gt;Bar-&gt;Baz, and check...&quot;). 
-    Hook factories can take one or more strings which are used as UI path 
-    separators (e.g. <code>-&gt;</code>).</p>
+    Resolver factories can take one or more strings which are used as UI 
+    path separators (e.g. <code>-&gt;</code>).</p>
     <p>Sometimes the UI reference in the original text is not valid as it 
     is, i.e. such message no longer exists in the UI. This mostly happens 
     due to slight interpunction mismatch, small wording changes, etc., such
@@ -228,11 +228,11 @@
     normalized form, rather than using the original <code>msgid</code> from
     the UI catalog (both for convenience and as necessity).</p>
     <p>One typical sequence to remove on normalization is the accelerator 
-    marker. Hooks eliminate accelerator markers automatically, the only 
+    marker. Resolvers eliminate accelerator markers automatically, the only
     thing is that they have to be to told what the accelerator marker 
-    character is. This is not done through hook factories (since knowledge 
-    of accelerator marker is of wider consequence when processing POs), but
-    either by hook client setting it explicitly (using <a 
+    character is. This is not done through resolver factories (since 
+    knowledge of accelerator marker is of wider consequence when processing
+    POs), but either by resolver client setting it explicitly (using <a 
     href="pology.catalog.Catalog-class.html#set_accelerator" 
     class="link">set_accelerator()</a> method on catalogs), or by giving it
     within <code>X-Accelerator-Marker</code> header filed:</p>
@@ -260,14 +260,14 @@
    msgid &quot;...&lt;guimenuitem&gt;Scaled &amp;amp; Cropped&lt;/guimenuitem&gt;...&quot;
    msgstr &quot;...&lt;guimenuitem&gt;Scaled &amp;amp; Cropped&lt;/guimenuitem&gt;...&quot;
 </pre>
-    <p>Hook factories have parameters for specifying type of escaping 
+    <p>Resolver factories have parameters for specifying type of escaping 
     needed for fetched UI texts by target format.</p>
     <p>Normalization may flatten several different messages from UI catalog
     into one. Example of this is when <code>msgid</code> fields are equal 
     but for the accelerator. If this happens and translations are not the 
     same for all such messages, a special &quot;tail&quot; is added to 
     their contexts, consisting of a tilde and several alphanumeric 
-    characters. In this way, the first run of the hook which sees UI 
+    characters. In this way, the first run of the resolver which sees UI 
     reference pointing to one of these messages will report the ambiguity 
     and new contexts with tails, so that proper context can be copied and 
     pasted over into the reference. The alphanumeric tail is computed based
@@ -275,10 +275,10 @@
     messages later get reordered in the UI catalog.</p>
   <h1 class="heading">Notes</h1>
     <p>If a UI reference cannot be resolved, for whatever reason (not 
-    existing, context conflict, not translated, etc.), resolving hooks will
-    output warnings and fallback to English text. There are also checker 
-    hooks, to be able to catch resolution problems, a sorf of &quot;dry 
-    run&quot; before building delivery POs.</p>
+    existing, context conflict, not translated, etc.), resolving resolvers 
+    will output warnings and fallback to English text. There are also 
+    checker resolvers, to be able to catch resolution problems, a sorf of 
+    &quot;dry run&quot; before building delivery POs.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -301,7 +301,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#resolve_ui" class="summary-sig-name">resolve_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#resolve_ui" class="summary-sig-name">resolve_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">tagrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
@@ -327,7 +327,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#check_ui" class="summary-sig-name">check_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#check_ui" class="summary-sig-name">check_ui</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">tagrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
@@ -351,7 +351,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#resolve_ui_docbook4" class="summary-sig-name">resolve_ui_docbook4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#resolve_ui_docbook4" class="summary-sig-name">resolve_ui_docbook4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">pfhook</span>=<span class="summary-sig-default">None</span>,
@@ -373,7 +373,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#check_ui_docbook4" class="summary-sig-name">check_ui_docbook4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#check_ui_docbook4" class="summary-sig-name">check_ui_docbook4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -393,7 +393,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#resolve_ui_kde4" class="summary-sig-name">resolve_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#resolve_ui_kde4" class="summary-sig-name">resolve_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
@@ -416,7 +416,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.ui_references-module.html#check_ui_kde4" class="summary-sig-name">check_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
+          <td><span class="summary-sig"><a href="pology.uiref-module.html#check_ui_kde4" class="summary-sig-name">check_ui_kde4</a>(<span class="summary-sig-arg">headrefs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">~%</code><code class="variable-quote">'</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">uipathseps</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpaths</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">uicpathenv</span>=<span class="summary-sig-default">None</span>,
@@ -494,7 +494,7 @@
   <p>Resolved UI text can be postprocessed by an F1A hook 
   (<code>(text)-&gt;text</code>). It can be given either as the hook 
   function itself, or as a <a 
-  href="pology.langdep-module.html#get_hook_lreq" class="link">language 
+  href="pology.getfunc-module.html#get_hook_ireq" class="link">language 
   request</a> string.</p>
   <p>If one or several markup keywords are given as <code>mkeyw</code> 
   parameter, UI reference resolution is skipped for catalogs which do not 
@@ -548,7 +548,7 @@
   </tr></table>
   
   <p>Check general UI references in translations [hook factory].</p>
-  <p>See <a href="pology.ui_references-module.html#resolve_ui" 
+  <p>See <a href="pology.uiref-module.html#resolve_ui" 
   class="link">resolve_ui</a> for description of parameters.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
@@ -577,9 +577,8 @@
   
   <p>Resolve UI references in Docbook 4.x translations [hook factory].</p>
   <p>A convenience hook which fixes some of the parameters to <a 
-  href="pology.ui_references-module.html#resolve_ui" 
-  class="link">resolve_ui</a> to match implicit UI references and 
-  formatting needs for Docbook POs.</p>
+  href="pology.uiref-module.html#resolve_ui" class="link">resolve_ui</a> to
+  match implicit UI references and formatting needs for Docbook POs.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; msgstr</code></dt>
         <dd>type F3C hook</dd>
@@ -604,10 +603,9 @@
   </tr></table>
   
   <p>Check UI references in Docbook 4.x translations [hook factory].</p>
-  <p>A convenience hook which fixes some of the parameters to <a 
-  href="pology.ui_references-module.html#check_ui" 
-  class="link">check_ui</a> to match implicit UI references and formatting 
-  needs for Docbook POs.</p>
+  <p>A convenience resolver which fixes some of the parameters to <a 
+  href="pology.uiref-module.html#check_ui" class="link">check_ui</a> to 
+  match implicit UI references and formatting needs for Docbook POs.</p>
   <dl class="fields">
     <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
         <dd>type V3C hook</dd>
@@ -635,10 +633,9 @@
   </tr></table>
   
   <p>Resolve UI references in KDE4 UI translations [hook factory].</p>
-  <p>A convenience hook which fixes some of the parameters to <a 
-  href="pology.ui_references-module.html#resolve_ui" 
-  class="link">resolve_ui</a> to match implicit UI references and 
-  formatting needs for KDE4 UI POs.</p>
+  <p>A convenience resolver which fixes some of the parameters to <a 
+  href="pology.uiref-module.html#resolve_ui" class="link">resolve_ui</a> to
+  match implicit UI references and formatting needs for KDE4 UI POs.</p>
   <p>If <code>uipathseps</code> is <code>None</code>, separators known to 
   KUIT <code>&lt;interface&gt;</code> tag will be used automatically.</p>
   <dl class="fields">
@@ -666,10 +663,9 @@
   </tr></table>
   
   <p>Check UI references in KDE4 UI translations [hook factory].</p>
-  <p>A convenience hook which fixes some of the parameters to <a 
-  href="pology.ui_references-module.html#check_ui" 
-  class="link">check_ui</a> to match implicit UI references and formatting 
-  needs for KDE4 UI POs.</p>
+  <p>A convenience resolver which fixes some of the parameters to <a 
+  href="pology.uiref-module.html#check_ui" class="link">check_ui</a> to 
+  match implicit UI references and formatting needs for KDE4 UI POs.</p>
   <p>If <code>uipathseps</code> is <code>None</code>, separators known to 
   KUIT <code>&lt;interface&gt;</code> tag will be used automatically.</p>
   <dl class="fields">

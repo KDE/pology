@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.bad_patterns</title>
+  <title>pology.bpatterns</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        Module&nbsp;bad_patterns
+        Module&nbsp;bpatterns
       </span>
     </td>
     <td>
@@ -49,10 +49,22 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module bad_patterns</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">Module bpatterns</h1><p class="nomargin-top"></p>
 <p>Detect unwanted patterns in translation.</p>
 
-<!-- ==================== FUNCTIONS ==================== -->
+<hr />
+<div class="fields">      <p><strong>Note:</strong>
+        This module is deprecated. Use <a href="pology.rules-module.html" 
+        class="link">rules</a> through <code>check-rules</code> sieve 
+        instead.
+      </p>
+      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -66,7 +78,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.bad_patterns-module.html#bad_patterns" class="summary-sig-name">bad_patterns</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
+          <td><span class="summary-sig"><a href="pology.bpatterns-module.html#bad_patterns" class="summary-sig-name">bad_patterns</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -86,7 +98,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.bad_patterns-module.html#bad_patterns_msg" class="summary-sig-name">bad_patterns_msg</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
+          <td><span class="summary-sig"><a href="pology.bpatterns-module.html#bad_patterns_msg" class="summary-sig-name">bad_patterns_msg</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -106,7 +118,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.bad_patterns-module.html#bad_patterns_msg_sp" class="summary-sig-name">bad_patterns_msg_sp</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
+          <td><span class="summary-sig"><a href="pology.bpatterns-module.html#bad_patterns_msg_sp" class="summary-sig-name">bad_patterns_msg_sp</a>(<span class="summary-sig-arg">rxmatch</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">casesens</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">patterns</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">fromfiles</span>=<span class="summary-sig-default">None</span>)</span><br />
@@ -204,7 +216,7 @@
   </tr></table>
   
   <p>Detect unwanted patterns in translation [hook factory].</p>
-  <p>Like <a href="pology.bad_patterns-module.html#bad_patterns" 
+  <p>Like <a href="pology.bpatterns-module.html#bad_patterns" 
   class="link">bad_patterns</a>, but checks and reports on all 
   <code>msgstr</code> fields in the message.</p>
   <dl class="fields">
@@ -232,7 +244,7 @@
   
   <p>Detect unwanted patterns in translation, report spans [hook 
   factory].</p>
-  <p>Like <a href="pology.bad_patterns-module.html#bad_patterns_msg" 
+  <p>Like <a href="pology.bpatterns-module.html#bad_patterns_msg" 
   class="link">bad_patterns_msg</a>, but reports parts instead of writing 
   to stdout.</p>
   <dl class="fields">

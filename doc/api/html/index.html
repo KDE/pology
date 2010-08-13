@@ -325,10 +325,10 @@
     <h2 class="heading">Hook Factories</h2>
       <p>Since hooks have fixed input signatures by type, the way to 
       customize a given hook behavior is to produce its function by another
-      function. The hook-producing function is called a &quot;hook 
-      factory&quot;. It works by preparing anything needed for the hook, 
-      and then defining the hook proper and returning it, thereby creating 
-      a lexical closure around it:</p>
+      function. The hook-producing function is called a <i>hook 
+      factory</i>. It works by preparing anything needed for the hook, and 
+      then defining the hook proper and returning it, thereby creating a 
+      lexical closure around it:</p>
 <pre class="literalblock">
    def hook_factory (parfoo, parbar):
 
@@ -340,21 +340,22 @@
 
        return hook
 </pre>
-      <p>In fact, most of hook modules define hook factories rather than 
-      hooks directly.</p>
-    <h2 class="heading">Notes</h2>
-      <p>Hooks should be defined in submodules <code>&lt;submod&gt;</code> 
-      and language-dependent <code>lang.&lt;lang&gt;.&lt;submod&gt;</code>,
-      so that they can be automatically obtained by <a 
-      href="pology.langdep-module.html#get_hook" 
-      class="link">langdep.get_hook()</a>. In particular, Pology utilities 
-      allowing users to insert hooks into processing will expect hooks to 
-      be in these locations, such that <a 
-      href="pology.langdep-module.html#get_hook_lreq" 
-      class="link">langdep.get_hook_lreq()</a> function can fetch the hook 
-      from a string specification. If the hook module implements a single 
-      hook function named same as module, users can select it by giving 
-      only the hook module name, without the function name.</p>
+      <p>In fact, most existing hooks are defined through factories.</p>
+    <h2 class="heading">Notes on Hooks</h2>
+      <p>General hooks should be defined in top submodules 
+      <code>&lt;submod&gt;</code>, language-dependent hooks in 
+      <code>lang.&lt;lang&gt;.&lt;submod&gt;</code>, project-dependent in 
+      <code>proj.&lt;proj&gt;.&lt;submod&gt;</code>, and both languge- and 
+      project-dependent in 
+      <code>lang.&lt;lang&gt;.proj.&lt;proj&gt;.&lt;submod&gt;</code>. In 
+      this way they can be fetched by <a 
+      href="pology.getfunc-module.html#get_hook_ireq" 
+      class="link">getfunc.get_hook_ireq()</a> in various non-code 
+      contexts, in particular from Pology utilities which enable users to 
+      insert hooks into processing through command line options or 
+      configurations. (If the hook module implements a single hook function
+      named same as module, users can select it by giving only the hook 
+      module name,without the function name.)</p>
       <p>Annotated parts for PO messages returned by hooks are a reduced 
       version, but a valid instance of highlight specifications used by 
       reporting functions, e.g. <a 
@@ -405,23 +406,27 @@
 </tr>
   <tr><td class="summary">
   <ul class="nomargin">
-    <li> <strong class="uidlink"><a href="pology.bad_patterns-module.html">pology.bad_patterns</a></strong>: <em class="summary">Detect unwanted patterns in translation.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.bpatterns-module.html">pology.bpatterns</a></strong>: <em class="summary">Detect unwanted patterns in translation.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.catalog-module.html">pology.catalog</a></strong>: <em class="summary">Collection of PO entries.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.check_lingo-module.html">pology.check_lingo</a></strong>: <em class="summary">Check linguistic, language-dependent correctness of text.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.check_markup-module.html">pology.check_markup</a></strong>: <em class="summary">Check validity of text markup.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.colors-module.html">pology.colors</a></strong>: <em class="summary">Standard codes for terminal colors.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.comments-module.html">pology.comments</a></strong>: <em class="summary">Parsing and composing message comments.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.config-module.html">pology.config</a></strong>: <em class="summary">Access user configuration for Pology.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.diff-module.html">pology.diff</a></strong>: <em class="summary">Produce special diffs between strings and other interesting 
         objects.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.entities-module.html">pology.entities</a></strong>: <em class="summary">Handle entity definitions.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.equip_header-module.html">pology.equip_header</a></strong>: <em class="summary">Equip catalog headers with extra information.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.escape-module.html">pology.escape</a></strong>: <em class="summary">Escaping texts in various contexts.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.fsops-module.html">pology.fsops</a></strong>: <em class="summary">Operations with environment, file system and external commands.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.gettext_tools-module.html">pology.gettext_tools</a></strong>: <em class="summary">Pipe PO files through Gettext commands.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.getfunc-module.html">pology.getfunc</a></strong>: <em class="summary">Fetch Pology modules, functions, data, etc.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.gtxtools-module.html">pology.gtxtools</a></strong>: <em class="summary">Wrappers for commands from Gettext tools.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.header-module.html">pology.header</a></strong>: <em class="summary">Header entry in PO catalogs.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang-module.html">pology.lang</a></strong>: <em class="summary">Language-specific tools, arranged in submodules by language code.</em>
     <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.es-module.html">pology.lang.es</a></strong>: <em class="summary">Hooks specific for Spanish.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pology.lang.es.remove_subs-module.html">pology.lang.es.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.es.remove_tags_without_translation-module.html">pology.lang.es.remove_tags_without_translation</a></strong>: <em class="summary">Remove contexts that do not have need of translation.</em>    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink"><a href="pology.lang.fr-module.html">pology.lang.fr</a></strong>: <em class="summary">Language-specific tools for French language.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.lang.fr.patternAccents-module.html">pology.lang.fr.patternAccents</a></strong>: <em class="summary">Accent equivalence in regular expression patterns.</em>    </li>
@@ -441,55 +446,51 @@
     <li> <strong class="uidlink"><a href="pology.lang.sr-module.html">pology.lang.sr</a></strong>: <em class="summary">Language-specific tools for Serbian language.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.lang.sr.accents-module.html">pology.lang.sr.accents</a></strong>: <em class="summary">Process letter accents in Serbian Cyrillic text.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.charsets-module.html">pology.lang.sr.charsets</a></strong>: <em class="summary">Conversions between character sets in Serbian texts.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.checks-module.html">pology.lang.sr.checks</a></strong>: <em class="summary">Various checks for translations into Serbian.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.lang.sr.limit_chset-module.html">pology.lang.sr.limit_chset</a></strong>: <em class="summary">Limit character set in Serbian texts, by conversion and 
-        transliteration.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.lang.sr.mod_uiref-module.html">pology.lang.sr.mod_uiref</a></strong>: <em class="summary">Post-filter resolved UI references.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.nobr-module.html">pology.lang.sr.nobr</a></strong>: <em class="summary">Equip text with no-break characters where possibly helpful.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.reduce-module.html">pology.lang.sr.reduce</a></strong>: <em class="summary">Reductions of Serbian text convenient in various special uses.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.trapnakron-module.html">pology.lang.sr.trapnakron</a></strong>: <em class="summary">Constructors of syntagma derivators for trapnakron.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.trapres-module.html">pology.lang.sr.trapres</a></strong>: <em class="summary">Resolve trapnakron references in translations.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.lang.sr.uiref-module.html">pology.lang.sr.uiref</a></strong>: <em class="summary">Additions to resolving UI references.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.lang.sr.wconv-module.html">pology.lang.sr.wconv</a></strong>: <em class="summary">Conversions between scripts and dialects in Serbian.</em>    </li>
     </ul>
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="pology.langdep-module.html">pology.langdep</a></strong>: <em class="summary">Fetch language-dependent modules, functions, data, etc.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.markup-module.html">pology.markup</a></strong>: <em class="summary">Process text markup.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.markup-module.html">pology.markup</a></strong>: <em class="summary">Convert and validate markup in text.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.match-module.html">pology.match</a></strong>: <em class="summary">Matchers and matcher helpers for various objects.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.merge-module.html">pology.merge</a></strong>: <em class="summary">Merge PO files.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.message-module.html">pology.message</a></strong>: <em class="summary">Message entries in PO catalogs.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.monitored-module.html">pology.monitored</a></strong>: <em class="summary">Framework for monitored classes.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.msgreport-module.html">pology.msgreport</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.multi-module.html">pology.multi</a></strong>: <em class="summary">Collections of multiple sequences.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.noop-module.html">pology.noop</a></strong>: <em class="summary">Hook which do nothing.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.normalize-module.html">pology.normalize</a></strong>: <em class="summary">Various normalizations for strings.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.normalize_header-module.html">pology.normalize_header</a></strong>: <em class="summary">Check and rearrange content of PO header into canonical form.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.normalize_message-module.html">pology.normalize_message</a></strong>: <em class="summary">Various normalizations of messages.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.noop-module.html">pology.noop</a></strong>: <em class="summary">Hooks which do nothing.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.normalize-module.html">pology.normalize</a></strong>: <em class="summary">Various normalizations for strings and PO elements.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.proj-module.html">pology.proj</a></strong>: <em class="summary">Translation project specific tools, arranged in submodules by 
         project key.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.proj.kde-module.html">pology.proj.kde</a></strong>: <em class="summary">Tools specific for KDE Translation Project.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pology.proj.kde.cattype-module.html">pology.proj.kde.cattype</a></strong>: <em class="summary">Catalog clasification.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.proj.kde.header-module.html">pology.proj.kde.header</a></strong>: <em class="summary">Additional header operations for KDE Translation Project.</em>    </li>
     </ul>
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="pology.remove_subs-module.html">pology.remove_subs</a></strong>: <em class="summary">Remove special substrings from parts of the message.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.remove-module.html">pology.remove</a></strong>: <em class="summary">Remove special substrings from text.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.report-module.html">pology.report</a></strong>: <em class="summary">Report info, warning and error messages.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.resolve-module.html">pology.resolve</a></strong>: <em class="summary">Replacement of segments in text which define some underlying 
-        values.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.resolve-module.html">pology.resolve</a></strong>: <em class="summary">Replace value-defining segments in text with their values.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.rules-module.html">pology.rules</a></strong>: <em class="summary">Match messages by rules of arbitrary specificity.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.sieve-module.html">pology.sieve</a></strong>: <em class="summary">Helpers for catalog sieves.</em>    </li>
+    <li> <strong class="uidlink"><a href="pology.spell-module.html">pology.spell</a></strong>: <em class="summary">Check spelling in text using different spell checkers.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.split-module.html">pology.split</a></strong>: <em class="summary">Splitting message fields into syntactical elements.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.stdcmdopt-module.html">pology.stdcmdopt</a></strong>: <em class="summary">Standard command line options.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.stdsvpar-module.html">pology.stdsvpar</a></strong>: <em class="summary">Standard sieve parameters.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.subcmd-module.html">pology.subcmd</a></strong>: <em class="summary">Handle subcommands and their parameters.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.synder-module.html">pology.synder</a></strong>: <em class="summary">Derive forms and properties of syntagmas by macro expansion.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.tabulate-module.html">pology.tabulate</a></strong>: <em class="summary">Pretty-printing of tabular data.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.timeout-module.html">pology.timeout</a></strong>: <em class="summary">A timeout decorator.</em>    </li>
-    <li> <strong class="uidlink"><a href="pology.ui_references-module.html">pology.ui_references</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
+    <li> <strong class="uidlink"><a href="pology.uiref-module.html">pology.uiref</a></strong>: <em class="summary">Resolve UI references in translation by following through original 
         texts.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.vcs-module.html">pology.vcs</a></strong>: <em class="summary">Version control operations.</em>    </li>
     <li> <strong class="uidlink"><a href="pology.wrap-module.html">pology.wrap</a></strong>: <em class="summary">Text wrapping, with special handling for typical texts in PO files.</em>    </li>

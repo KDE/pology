@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.equip_header</title>
+  <title>pology.lang.es.remove_subs</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        Module&nbsp;equip_header
+        <a href="pology.lang-module.html">Package&nbsp;lang</a> ::
+        <a href="pology.lang.es-module.html">Package&nbsp;es</a> ::
+        Module&nbsp;remove_subs
       </span>
     </td>
     <td>
@@ -49,12 +51,12 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module equip_header</h1><p class="nomargin-top"></p>
-<p>Equip catalog headers with extra information.</p>
+<h1 class="epydoc">Module remove_subs</h1><p class="nomargin-top"></p>
+<p>Remove special substrings from parts of the message.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
-        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+        Javier Vi&#241;al &lt;fjvinal@gmail.com&gt;
       </p>
       <p><strong>License:</strong>
         GPLv3
@@ -73,10 +75,29 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.equip_header-module.html#equip_header_tp_kde" class="summary-sig-name">equip_header_tp_kde</a>(<span class="summary-sig-arg">hdr</span>,
+          <td><span class="summary-sig"><a href="pology.lang.es.remove_subs-module.html#remove_paired_capital_words" class="summary-sig-name">remove_paired_capital_words</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
-      Equip headers in catalogs within KDE Translation Project [type F4B 
-      hook].</td>
+      Remove all capital words from original, and from translation all that
+      are also found in original [type F4A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.remove_subs-module.html#remove_paired_parameters" class="summary-sig-name">remove_paired_parameters</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Remove all parameters from original, and from translation all that 
+      are also found in original [type F4A hook].</td>
           <td align="right" valign="top">
             
             
@@ -99,7 +120,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology'"><code class="variable-quote">'</code><code class="variable-string">pology</code><code class="variable-quote">'</code></code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.lang.es'"><code class="variable-quote">'</code><code class="variable-string">pology.lang.es</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -112,14 +133,14 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="equip_header_tp_kde"></a>
+<a name="remove_paired_capital_words"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">equip_header_tp_kde</span>(<span class="sig-arg">hdr</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_paired_capital_words</span>(<span class="sig-arg">msg</span>,
         <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -127,33 +148,34 @@
     </td>
   </tr></table>
   
-  <p>Equip headers in catalogs within KDE Translation Project [type F4B 
-  hook].</p>
-  <p>The following header fields are set:</p>
-  <ul>
-    <li>
-      <code>Language</code>: the language code of translation; set only if 
-      the language can be determined
-    </li>
-    <li>
-      <code>X-Environment</code>: linguistic subset of the language of 
-      translation (team choices on terminology, ortography...); set to 
-      <code>kde</code> if not existing, otherwise left untouched.
-    </li>
-    <li>
-      <code>X-Accelerator-Marker</code>: accelerator marker character which
-      may be encountered in text
-    </li>
-    <li>
-      <code>X-Text-Markup</code>: text markups (e.g. Qt rich text, 
-      Docbook...) which may be encountered in text, as keywords
-    </li>
-  </ul>
-  <p>For the hook to function properly, the local checkout of language 
-  catalogs must match the repository structure up to a certain level. See 
-  the documentation on <code>check-tp-kde</code> sieve for details. TODO: 
-  Put that instruction here.</p>
+  <p>Remove all capital words from original, and from translation all that 
+  are also found in original [type F4A hook].</p>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove_paired_parameters"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_paired_parameters</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove all parameters from original, and from translation all that are
+  also found in original [type F4A hook].</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
 </td></tr></table>
 </div>

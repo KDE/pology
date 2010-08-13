@@ -521,11 +521,10 @@
       the marker character to be, the following hook filter can be 
       used:</p>
 <pre class="literalblock">
-   addFilterHook name=&quot;remove-subs/remove-accel-msg&quot; on=&quot;msg&quot;
+   addFilterHook name=&quot;remove/remove-accel-msg&quot; on=&quot;msg&quot;
 </pre>
-      <p>(see <a href="pology.remove_subs-module.html#remove_accel_text" 
-      class="link">pology.remove_subs.remove_accel_text</a> for 
-      details).</p>
+      <p>(see <a href="pology.remove-module.html#remove_accel_text" 
+      class="link">pology.remove.remove_accel_text</a> for details).</p>
       <p>It depends on the hook type to which parts of the message it can 
       apply. Hooks of type F4A (<code>(msg, cat) -&gt; numerr</code>) must 
       apply to <code>msg</code>, whereas F3A (<code>(text, msg, cat) -&gt; 
@@ -540,12 +539,11 @@
       can be given by the <code>factory=</code> field, in the same form as 
       they would be written when calling the factory from the code:</p>
 <pre class="literalblock">
-   addFilterHook name=&quot;remove-subs/remove-fmtdirs-msg-tick&quot; \
+   addFilterHook name=&quot;remove/remove-fmtdirs-msg-tick&quot; \
                  factory=&quot;'~'&quot; on=&quot;msg&quot;
 </pre>
-      <p>(see <a 
-      href="pology.remove_subs-module.html#remove_fmtdirs_msg_tick" 
-      class="link">pology.remove_subs.remove_fmtdirs_msg_tick</a> for 
+      <p>(see <a href="pology.remove-module.html#remove_fmtdirs_msg_tick" 
+      class="link">pology.remove.remove_fmtdirs_msg_tick</a> for 
       details).</p>
     <h2 class="heading">Cost of Filtering</h2>
       <p>Filtering may be time expensive, and it normally is in real-life 
@@ -595,12 +593,12 @@
       list.</p>
       <p>An example rule with a test hook as the trigger would be:</p>
 <pre class="literalblock">
-   *hook name=&quot;ui-references/check-ui&quot; on=&quot;msgstr&quot;
+   *hook name=&quot;uiref/check-ui&quot; on=&quot;msgstr&quot;
    id=&quot;check-ui-refs&quot;
    hint=&quot;some UI references cannot be validated&quot;
 </pre>
-      <p>(see <a href="pology.ui_references-module.html#check_ui" 
-      class="link">ui_references.check_ui</a> for details).</p>
+      <p>(see <a href="pology.uiref-module.html#check_ui" 
+      class="link">uiref.check_ui</a> for details).</p>
   <h1 class="heading">Quoting and Escaping</h1>
     <p>Similar as with the verbose notation for the trigger pattern, any 
     quoted value may consistently use any other character other than the 
@@ -667,10 +665,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.rules-module.html#loadRules" class="summary-sig-name">loadRules</a>(<span class="summary-sig-arg">lang</span>,
-        <span class="summary-sig-arg">stat</span>,
         <span class="summary-sig-arg">envs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">envOnly</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">ruleFiles</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">ruleFiles</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">stat</span>=<span class="summary-sig-default">False</span>)</span><br />
       Load rules for a given language</td>
           <td align="right" valign="top">
             
@@ -765,10 +763,10 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">loadRules</span>(<span class="sig-arg">lang</span>,
-        <span class="sig-arg">stat</span>,
         <span class="sig-arg">envs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">envOnly</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">ruleFiles</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">ruleFiles</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">stat</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -781,11 +779,11 @@
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>lang</code></strong> - lang as a string in two caracter (i.e. fr). If none or empty, try
           to autodetect language</li>
-        <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
-          time execution</li>
         <li><strong class="pname"><code>envs</code></strong> - also load rules applicable in these environments</li>
         <li><strong class="pname"><code>envOnly</code></strong> - load only rules applicable in given environments</li>
         <li><strong class="pname"><code>ruleFiles</code></strong> - a list of rule files to load instead of internal</li>
+        <li><strong class="pname"><code>stat</code></strong> - stat is a boolean to indicate if rule should gather count and 
+          time execution</li>
     </ul></dd>
     <dt>Returns:</dt>
         <dd>list of rules objects or None if rules cannot be found (with 

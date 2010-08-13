@@ -50,7 +50,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module markup</h1><p class="nomargin-top"></p>
-<p>Process text markup.</p>
+<p>Convert and validate markup in text.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
@@ -214,7 +214,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_l1" class="summary-sig-name">check_xml_l1</a>(<span class="summary-sig-arg">text</span>,
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_xml_l1" class="summary-sig-name">validate_xml_l1</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">spec</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">xmlfmt</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>,
@@ -234,15 +234,374 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml" class="summary-sig-name">check_xml</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check general XML markup in translation [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_sp" class="summary-sig-name">check_xml_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_xml" 
+      class="link">check_xml</a>, except that erroneous spans are returned 
+      instead of reporting problems to stdout [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">list of (int, int, string) tuples</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_docbook4_l1" class="summary-sig-name">check_xml_docbook4_l1</a>(<span class="summary-sig-arg">text</span>,
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_docbook4_l1" class="summary-sig-name">validate_docbook4_l1</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
       Validate Docbook 4.x markup in text against <a 
       href="pology.markup-module.html#collect_xml_spec_l1" 
       class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_docbook4" class="summary-sig-name">check_docbook4</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check XML markup in translations of Docbook 4.x catalogs [hook 
+      factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_docbook4_sp" class="summary-sig-name">check_docbook4_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_docbook4" 
+      class="link">check_docbook4</a>, except that erroneous spans are 
+      returned instead of reporting problems to stdout [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msg, cat) -&gt; parts</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_docbook4_msg" class="summary-sig-name">check_docbook4_msg</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check for any known problem in translation in messages in Docbook 4.x
+      catalogs [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_html_l1" class="summary-sig-name">validate_html_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate HTML markup in text against <a 
+      href="pology.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_html" class="summary-sig-name">check_html</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check HTML markup in translations [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_html_sp" class="summary-sig-name">check_html_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_html" 
+      class="link">check_html</a>, except that erroneous spans are returned
+      instead of reporting problems to stdout [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_qtrich_l1" class="summary-sig-name">validate_qtrich_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate Qt rich-text markup in text against <a 
+      href="pology.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_qtrich" class="summary-sig-name">check_qtrich</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check Qt rich-text markup in translations [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_qtrich_sp" class="summary-sig-name">check_qtrich_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_qtrich" 
+      class="link">check_qtrich</a>, except that erroneous spans are 
+      returned instead of reporting problems to stdout [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_kuit_l1" class="summary-sig-name">validate_kuit_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate KUIT markup in text against <a 
+      href="pology.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_kde4_l1" class="summary-sig-name">validate_kde4_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate markup in texts used in KDE4 GUI.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_kde4" class="summary-sig-name">check_kde4</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check XML markup in translations of KDE4 UI catalogs [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_kde4_sp" class="summary-sig-name">check_kde4_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_kde4" 
+      class="link">check_kde4</a>, except that erroneous spans are returned
+      instead of reporting problems to stdout [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of (int, int, string) tuples</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_pango_l1" class="summary-sig-name">validate_pango_l1</a>(<span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Validate Pango markup in text against <a 
+      href="pology.markup-module.html#collect_xml_spec_l1" 
+      class="link">level1</a> specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_pango" class="summary-sig-name">check_pango</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Check XML markup in translations of Pango UI catalogs [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_pango_sp" class="summary-sig-name">check_pango_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_pango" 
+      class="link">check_pango</a>, except that erroneous spans are 
+      returned instead of reporting problems to stdout [hook factory].</td>
           <td align="right" valign="top">
             
             
@@ -275,11 +634,55 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">text</span>,
+          <td><span class="summary-sig"><a href="pology.markup-module.html#validate_xmlents" class="summary-sig-name">validate_xmlents</a>(<span class="summary-sig-arg">text</span>,
         <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
       Check whether XML-like entities in the text are among known.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; numerr</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xmlents" class="summary-sig-name">check_xmlents</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Check existence of XML entities in translations [hook factory].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type"><code>(msgstr, msg, cat) -&gt; spans</code></span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xmlents_sp" class="summary-sig-name">check_xmlents_sp</a>(<span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">entities</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">mkeyw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">numeric</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Like <a href="pology.markup-module.html#check_xmlents" 
+      class="link">check_xmlents</a>, except that erroneous spans are 
+      returned instead of reporting problems to stdout [hook factory].</td>
           <td align="right" valign="top">
             
             
@@ -308,104 +711,6 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (int, int, string) tuples</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_html_l1" class="summary-sig-name">check_xml_html_l1</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Validate HTML markup in text against <a 
-      href="pology.markup-module.html#collect_xml_spec_l1" 
-      class="link">level1</a> specification.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (int, int, string) tuples</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_qtrich_l1" class="summary-sig-name">check_xml_qtrich_l1</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Validate Qt rich-text markup in text against <a 
-      href="pology.markup-module.html#collect_xml_spec_l1" 
-      class="link">level1</a> specification.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (int, int, string) tuples</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_kuit_l1" class="summary-sig-name">check_xml_kuit_l1</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Validate KUIT markup in text against <a 
-      href="pology.markup-module.html#collect_xml_spec_l1" 
-      class="link">level1</a> specification.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (int, int, string) tuples</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_kde4_l1" class="summary-sig-name">check_xml_kde4_l1</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Validate markup in texts used in KDE4 GUI.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">list of (int, int, string) tuples</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.markup-module.html#check_xml_pango_l1" class="summary-sig-name">check_xml_pango_l1</a>(<span class="summary-sig-arg">text</span>,
-        <span class="summary-sig-arg">ents</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Validate Pango markup in text against <a 
-      href="pology.markup-module.html#collect_xml_spec_l1" 
-      class="link">level1</a> specification.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -415,6 +720,13 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Variables</span></td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="flag_no_check_markup"></a><span class="summary-name">flag_no_check_markup</span> = <code title="'no-check-markup'"><code class="variable-quote">'</code><code class="variable-string">no-check-markup</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -784,14 +1096,14 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="check_xml_l1"></a>
+<a name="validate_xml_l1"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_l1</span>(<span class="sig-arg">text</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_xml_l1</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">spec</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">xmlfmt</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ents</span>=<span class="sig-default">None</span>,
@@ -843,14 +1155,103 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="check_xml_docbook4_l1"></a>
+<a name="check_xml"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_docbook4_l1</span>(<span class="sig-arg">text</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check general XML markup in translation [hook factory].</p>
+  <p>Text is only checked to be well-formed XML, and possibly also whether 
+  encountered entities are defined. Markup errors are reported to 
+  stdout.</p>
+  <p><code>msgstr</code> can be either checked only if the 
+  <code>msgid</code> is valid itself, or regardless of the validity of the 
+  original. This is governed by the <code>strict</code> parameter.</p>
+  <p>Entities in addition to XML's default (<code>&amp;lt;</code>, etc.) 
+  may be provided using the <code>entities</code> parameter. Several types 
+  of values with different semantic are possible:</p>
+  <ul>
+    <li>
+      if <code>entities</code> is <code>None</code>, unknown entities are 
+      ignored on checking
+    </li>
+    <li>
+      if string, it is understood as a general function evaluation <a 
+      href="pology.getfunc-module.html#get_result_ireq" 
+      class="link">request</a>, and its result expected to be (name, value)
+      dictionary-like object
+    </li>
+    <li>
+      otherwise, <code>entities</code> is considered to be a (name, value) 
+      dictionary
+    </li>
+  </ul>
+  <p>If a message has <a href="pology.sieve-module.html#parse_sieve_flags" 
+  class="link">sieve flag</a> <code>no-check-markup</code>, the check is 
+  skipped for that message. If one or several markup keywords are given as 
+  <code>mkeyw</code> parameter, check is skipped for all messages in a 
+  catalog which does not report one of the given keywords by its <a 
+  href="pology.catalog.Catalog-class.html#markup" class="link">markup()</a>
+  method. See <a href="pology.catalog.Catalog-class.html#set_markup" 
+  class="link">set_markup()</a> for list of markup keywords recognized at 
+  the moment.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>strict</code></strong> (bool) - whether to require valid <code>msgstr</code> even if 
+          <code>msgid</code> is not</li>
+        <li><strong class="pname"><code>entities</code></strong> (<code>None</code>, dict, or string) - additional entities to consider as known</li>
+        <li><strong class="pname"><code>mkeyw</code></strong> (string or list of strings) - markup keywords for taking catalogs into account</li>
+    </ul></dd>
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xml_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_docbook4_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_docbook4_l1</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -865,8 +1266,8 @@
   <code>&lt;placeholder-N/&gt;</code> elements, which <code>xml2po</code> 
   uses to segment text when extracting markup documents into PO 
   templates.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
   parameter and the return value.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -876,6 +1277,466 @@
     </ul></dd>
     <dt>Returns: list of (int, int, string) tuples</dt>
         <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_docbook4"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_docbook4</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check XML markup in translations of Docbook 4.x catalogs [hook 
+  factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_docbook4_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_docbook4_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_docbook4" 
+  class="link">check_docbook4</a>, except that erroneous spans are returned
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_docbook4_msg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_docbook4_msg</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check for any known problem in translation in messages in Docbook 4.x 
+  catalogs [hook factory].</p>
+  <p>Currently performed checks:</p>
+  <ul>
+    <li>
+      Docbook markup
+    </li>
+    <li>
+      cross-message insertion placeholders
+    </li>
+  </ul>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msg, cat) -&gt; parts</code></dt>
+        <dd>type V4A hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_html_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_html_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate HTML markup in text against <a 
+  href="pology.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>At the moment, this function can only check HTML markup if well-formed
+  in the XML sense, although HTML allows omission of some closing tags.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_html"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_html</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check HTML markup in translations [hook factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters. See notes on 
+  checking HTML markup to <a 
+  href="pology.markup-module.html#validate_html_l1" 
+  class="link">validate_html_l1</a>.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_html_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_html_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_html" 
+  class="link">check_html</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_qtrich_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_qtrich_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate Qt rich-text markup in text against <a 
+  href="pology.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>At the moment, this function can only check Qt rich-text if 
+  well-formed in the XML sense, although Qt rich-text allows HTML-type 
+  omission of closing tags.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_qtrich"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_qtrich</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check Qt rich-text markup in translations [hook factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters. See notes on 
+  checking Qt rich-text to <a 
+  href="pology.markup-module.html#validate_qtrich_l1" 
+  class="link">validate_qtrich_l1</a>.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_qtrich_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_qtrich_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_qtrich" 
+  class="link">check_qtrich</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_kuit_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_kuit_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate KUIT markup in text against <a 
+  href="pology.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>KUIT is the semantic markup for user interface in KDE4.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_kde4_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_kde4_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate markup in texts used in KDE4 GUI.</p>
+  <p>KDE4 GUI texts may contain both Qt rich-text and KUIT markup, even 
+  mixed in the same text.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_kde4"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_kde4</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check XML markup in translations of KDE4 UI catalogs [hook 
+  factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_kde4_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_kde4_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_kde4" 
+  class="link">check_kde4</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="validate_pango_l1"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_pango_l1</span>(<span class="sig-arg">text</span>,
+        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Validate Pango markup in text against <a 
+  href="pology.markup-module.html#collect_xml_spec_l1" 
+  class="link">level1</a> specification.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the <code>ents</code>
+  parameter and the return value.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
+        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
+    </ul></dd>
+    <dt>Returns: list of (int, int, string) tuples</dt>
+        <dd>erroneous spans in the text</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_pango"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_pango</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check XML markup in translations of Pango UI catalogs [hook 
+  factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_pango_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_pango_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_pango" 
+  class="link">check_pango</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -911,14 +1772,14 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="check_xmlents"></a>
+<a name="validate_xmlents"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">text</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">validate_xmlents</span>(<span class="sig-arg">text</span>,
         <span class="sig-arg">ents</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
@@ -945,6 +1806,64 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="check_xmlents"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check existence of XML entities in translations [hook factory].</p>
+  <p>See <a href="pology.markup-module.html#check_xml" 
+  class="link">check_xml</a> for description of parameters 
+  <code>strict</code>, <code>entities</code>, and <code>mkeyw</code>. See 
+  <a href="pology.markup-module.html#validate_xmlents" 
+  class="link">validate_xmlents</a> for parameters <code>default</code> and
+  <code>numeric</code>, and for general notes on checking entities.</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; numerr</code></dt>
+        <dd>type S3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_xmlents_sp"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xmlents_sp</span>(<span class="sig-arg">strict</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">entities</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">mkeyw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">numeric</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like <a href="pology.markup-module.html#check_xmlents" 
+  class="link">check_xmlents</a>, except that erroneous spans are returned 
+  instead of reporting problems to stdout [hook factory].</p>
+  <dl class="fields">
+    <dt>Returns: <code>(msgstr, msg, cat) -&gt; spans</code></dt>
+        <dd>type V3C hook</dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="check_placeholder_els"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -965,8 +1884,8 @@
   <p><code>&lt;placeholder-N/&gt;</code> elements are added into text by 
   <code>xml2po</code>, for finer segmentation of markup documents extracted
   into PO templates.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the return value.</p>
+  <p>See <a href="pology.markup-module.html#validate_xml_l1" 
+  class="link">validate_xml_l1</a> for description of the return value.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -975,172 +1894,6 @@
     </ul></dd>
     <dt>Returns: list of (int, int, string) tuples</dt>
         <dd>erroneous spans in translation</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="check_xml_html_l1"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_html_l1</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Validate HTML markup in text against <a 
-  href="pology.markup-module.html#collect_xml_spec_l1" 
-  class="link">level1</a> specification.</p>
-  <p>At the moment, this function can only check HTML markup if well-formed
-  in the XML sense, although HTML allows omission of some closing tags.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
-  parameter and the return value.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
-        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
-    </ul></dd>
-    <dt>Returns: list of (int, int, string) tuples</dt>
-        <dd>erroneous spans in the text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="check_xml_qtrich_l1"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_qtrich_l1</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Validate Qt rich-text markup in text against <a 
-  href="pology.markup-module.html#collect_xml_spec_l1" 
-  class="link">level1</a> specification.</p>
-  <p>At the moment, this function can only check Qt rich-text if 
-  well-formed in the XML sense, although Qt rich-text allows HTML-type 
-  omission of closing tags.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
-  parameter and the return value.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
-        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
-    </ul></dd>
-    <dt>Returns: list of (int, int, string) tuples</dt>
-        <dd>erroneous spans in the text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="check_xml_kuit_l1"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_kuit_l1</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Validate KUIT markup in text against <a 
-  href="pology.markup-module.html#collect_xml_spec_l1" 
-  class="link">level1</a> specification.</p>
-  <p>KUIT is the semantic markup for user interface in KDE4.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
-  parameter and the return value.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
-        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
-    </ul></dd>
-    <dt>Returns: list of (int, int, string) tuples</dt>
-        <dd>erroneous spans in the text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="check_xml_kde4_l1"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_kde4_l1</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Validate markup in texts used in KDE4 GUI.</p>
-  <p>KDE4 GUI texts may contain both Qt rich-text and KUIT markup, even 
-  mixed in the same text.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
-  parameter and the return value.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
-        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
-    </ul></dd>
-    <dt>Returns: list of (int, int, string) tuples</dt>
-        <dd>erroneous spans in the text</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="check_xml_pango_l1"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_xml_pango_l1</span>(<span class="sig-arg">text</span>,
-        <span class="sig-arg">ents</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Validate Pango markup in text against <a 
-  href="pology.markup-module.html#collect_xml_spec_l1" 
-  class="link">level1</a> specification.</p>
-  <p>See <a href="pology.markup-module.html#check_xml_l1" 
-  class="link">check_xml_l1</a> for description of the <code>ents</code> 
-  parameter and the return value.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>text</code></strong> (string) - text to check</li>
-        <li><strong class="pname"><code>ents</code></strong> (sequence) - set of known entities (in addition to default)</li>
-    </ul></dd>
-    <dt>Returns: list of (int, int, string) tuples</dt>
-        <dd>erroneous spans in the text</dd>
   </dl>
 </td></tr></table>
 </div>
