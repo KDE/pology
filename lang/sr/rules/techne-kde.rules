@@ -35,21 +35,21 @@ addFilterRegex match="~!(.)(.*?)\1" repl="\2" on="pmsgid,pmsgstr"
 # so that checks can be performed separately.
 
 # Markup in KDE4 UI POs.
-*hook name="check-markup/check-xml-kde4-sp" \
+*hook name="markup/check-kde4-sp" \
       factory=!strict=True, entities=None, mkeyw='kde4'! \
       on="msgstr"
 id="x-markup-k"
 hint="грешка у обележавању"
 
 # Markup in pure Qt UI POs.
-*hook name="check-markup/check-xml-qtrich-sp" \
+*hook name="markup/check-qtrich-sp" \
       factory=!strict=True, entities=None, mkeyw='qtrich'! \
       on="msgstr"
 id="x-markup-q"
 hint="грешка у обележавању"
 
 # Markup in Docbook POs.
-*hook name="check-markup/check-xml-docbook4-sp" \
+*hook name="markup/check-docbook4-sp" \
       factory=!strict=True, entities=None, mkeyw='docbook4'! \
       on="msgstr"
 id="x-markup-db"
@@ -59,7 +59,7 @@ hint="грешка у обележавању"
 addFilterHook name="remove-subs/remove-ignored-entities-msg" on="msg"
 
 # Entities in UI POs with XML-like markup.
-*hook name="check-markup/check-xmlents-sp" \
+*hook name="markup/check-xmlents-sp" \
       factory=!strict=True, \
                entities='sr:trapnakron/trapnakron_ui~', default=True, \
                mkeyw=['kde4', 'qtrich']! \
@@ -68,7 +68,7 @@ id="x-entities-uix"
 hint="недефинисани ентитет"
 
 # Entities in UI POs with otherwise plain text.
-*hook name="check-markup/check-xmlents-sp" \
+*hook name="markup/check-xmlents-sp" \
       factory=!strict=True, \
                entities='sr:trapnakron/trapnakron_ui~', \
                mkeyw=['xmlents']! \
@@ -77,7 +77,7 @@ id="x-entities-uit"
 hint="недефинисани ентитет"
 
 # Entities in Docbook POs.
-*hook name="check-markup/check-xmlents-sp" \
+*hook name="markup/check-xmlents-sp" \
       factory=!strict=True, \
                entities='sr:trapnakron/trapnakron_docbook4~', default=True, \
                mkeyw='docbook4'! \

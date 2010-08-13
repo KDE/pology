@@ -92,10 +92,10 @@ import os
 import re
 
 from pology import _, n_
-from pology.check_markup import flag_no_check_markup
+from pology.markup import flag_no_check_markup
 from pology.escape import escape_c
-from pology.markup import check_xml_kde4_l1
-from pology.markup import check_xml_qtrich_l1
+from pology.markup import validate_kde4_l1
+from pology.markup import validate_qtrich_l1
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, format_item_list
@@ -255,8 +255,8 @@ def _check_kde4markup (msg, cat, pcache, hl):
     if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
     if not strict:
-        if (   check_xml_kde4_l1(msg.msgid)
-            or check_xml_kde4_l1(msg.msgid_plural or u"")
+        if (   validate_kde4_l1(msg.msgid)
+            or validate_kde4_l1(msg.msgid_plural or u"")
         ):
             return 0
 
@@ -275,7 +275,7 @@ def _check_kde4markup (msg, cat, pcache, hl):
             pass
 
         for text in (msgstr, msgscript):
-            spans = check_xml_kde4_l1(text)
+            spans = validate_kde4_l1(text)
             if spans:
                 nproblems += len(spans)
                 hl.append(("msgstr", i, spans))
@@ -294,14 +294,14 @@ def _check_qtmarkup (msg, cat, pcache, hl):
     if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
     if not strict:
-        if (   check_xml_qtrich_l1(msg.msgid)
-            or check_xml_qtrich_l1(msg.msgid_plural or u"")
+        if (   validate_qtrich_l1(msg.msgid)
+            or validate_qtrich_l1(msg.msgid_plural or u"")
         ):
             return 0
 
     nproblems = 0
     for i in range(len(msg.msgstr)):
-        spans = check_xml_qtrich_l1(msg.msgstr[i])
+        spans = validate_qtrich_l1(msg.msgstr[i])
         if spans:
             nproblems += len(spans)
             hl.append(("msgstr", i, spans))
@@ -313,7 +313,7 @@ _known_checks["qtmarkup"] = _check_qtmarkup
 # --------------------------------------
 # Check for Docbook markup.
 
-from pology.check_markup import check_docbook4_msg
+from pology.markup import check_docbook4_msg
 
 def _check_dbmarkup (msg, cat, pcache, hl):
 

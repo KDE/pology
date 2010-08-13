@@ -451,7 +451,7 @@ def _check_wml_att (tag, content):
 # --------------------------------------
 # Check for Pango markup.
 
-from pology.markup import check_xml_pango_l1
+from pology.markup import validate_pango_l1
 
 def _check_pango (msg, cat, strict, hl):
 
@@ -459,13 +459,13 @@ def _check_pango (msg, cat, strict, hl):
         return 0
 
     # If the original is not valid, do not check translation.
-    spans_orig = check_xml_pango_l1(msg.msgid)
+    spans_orig = validate_pango_l1(msg.msgid)
     if spans_orig:
         return 0
 
     nproblems = 0
     for i in range(len(msg.msgstr)):
-        spans = check_xml_pango_l1(msg.msgstr[i])
+        spans = validate_pango_l1(msg.msgstr[i])
         if spans:
             hl.append(("msgstr", i, spans))
             nproblems += len(spans)
@@ -538,7 +538,7 @@ def _check_space (msg, cat, strict, hl):
 # --------------------------------------
 # Check for Docbook markup.
 
-from pology.check_markup import check_docbook4_msg
+from pology.markup import check_docbook4_msg
 
 _check_dbmarkup_pt = [None]
 

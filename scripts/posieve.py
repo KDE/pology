@@ -658,6 +658,7 @@ def main ():
                         skip = True
                         break
                     except Exception, e:
+                        raise
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s", msg=e),
                                          msg, cat)

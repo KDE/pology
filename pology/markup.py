@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Process text markup.
+Convert and validate markup in text.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -14,10 +14,17 @@ import xml.parsers.expat
 import difflib
 
 from pology import PologyError, rootdir, _, n_
+from pology.comments import manc_parse_flag_list
 from pology.diff import adapt_spans
 from pology.entities import read_entities
+from pology.langdep import get_result_lreq
+from pology.msgreport import report_on_msg
 from pology.multi import Multidict
 from pology.report import format_item_list
+
+
+# Pipe flag used to manually prevent check for a particular message.
+flag_no_check_markup = "no-check-markup"
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
@@ -921,8 +928,8 @@ _dummy_top = "_"
 class _Global: pass
 _g_xml_l1 = _Global()
 
-def check_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
-                  casesens=True, accelamp=False):
+def validate_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
+                     casesens=True, accelamp=False):
     """
     Validate XML markup in text against L{level1<collect_xml_spec_l1>}
     specification.
@@ -1210,9 +1217,132 @@ def _make_span (text, lno, col, errmsg):
     return (start, end, errmsg)
 
 
+def check_xml (strict=False, entities={}, mkeyw=None):
+    """
+    Check general XML markup in translation [hook factory].
+
+    Text is only checked to be well-formed XML, and possibly also whether
+    encountered entities are defined. Markup errors are reported to stdout.
+
+    C{msgstr} can be either checked only if the C{msgid} is valid itself,
+    or regardless of the validity of the original. This is governed by the
+    C{strict} parameter.
+
+    Entities in addition to XML's default (C{&lt;}, etc.)
+    may be provided using the C{entities} parameter.
+    Several types of values with different semantic are possible:
+      - if C{entities} is C{None}, unknown entities are ignored on checking
+      - if string, it is understood as a general function evaluation
+        L{request<langdep.get_result_lreq>},
+        and its result expected to be (name, value) dictionary-like object
+      - otherwise, C{entities} is considered to be a (name, value) dictionary
+
+    If a message has L{sieve flag<pology.sieve.parse_sieve_flags>}
+    C{no-check-markup}, the check is skipped for that message.
+    If one or several markup keywords are given as C{mkeyw} parameter,
+    check is skipped for all messages in a catalog which does not report
+    one of the given keywords by its L{markup()<catalog.Catalog.markup>}
+    method. See L{set_markup()<catalog.Catalog.set_markup>} for list of
+    markup keywords recognized at the moment.
+
+    @param strict: whether to require valid C{msgstr} even if C{msgid} is not
+    @type strict: bool
+    @param entities: additional entities to consider as known
+    @type entities: C{None}, dict, or string
+    @param mkeyw: markup keywords for taking catalogs into account
+    @type mkeyw: string or list of strings
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_xml_l1, strict, entities, mkeyw, False)
+
+
+def check_xml_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_xml}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_xml_l1, strict, entities, mkeyw, True)
+
+
+# Worker for C{check_xml*} hook factories.
+def _check_xml_w (check, strict, entities, mkeyw, spanrep,
+                  ignctxt=(), ignid=(), ignctxtsw=(), ignidsw=()):
+
+    if mkeyw is not None:
+        if isinstance(mkeyw, basestring):
+            mkeyw = [mkeyw]
+        mkeyw = set(mkeyw)
+
+    # Lazy-evaluated data.
+    ldata = {}
+    def eval_ldata ():
+        ldata["entities"] = _get_entities(entities)
+
+    def checkf (msgstr, msg, cat):
+
+        if (    mkeyw is not None
+            and not mkeyw.intersection(cat.markup() or set())
+        ):
+            return [] if spanrep else 0
+
+        if (   msg.msgctxt in ignctxt
+            or msg.msgid in ignid
+            or (msg.msgctxt is not None and msg.msgctxt.startswith(ignctxt))
+            or msg.msgid.startswith(ignidsw)
+        ):
+            return [] if spanrep else 0
+
+        if not ldata:
+            eval_ldata()
+        entities = ldata["entities"]
+
+        if (   flag_no_check_markup in manc_parse_flag_list(msg, "|")
+            or (    not strict
+                and (   check(msg.msgid, ents=entities)
+                     or check(msg.msgid_plural or u"", ents=entities)))
+        ):
+            return [] if spanrep else 0
+        spans = check(msgstr, ents=entities)
+        if spanrep:
+            return spans
+        else:
+            for span in spans:
+                if span[2:]:
+                    report_on_msg(span[2], msg, cat)
+            return len(spans)
+
+    return checkf
+
+
+# Cache for loaded entities, by entity specification string,
+# to speed up when several markup hooks are using the same setup.
+_loaded_entities_cache = {}
+
+def _get_entities (entspec):
+
+    if not isinstance(entspec, basestring):
+        return entspec
+
+    entities = _loaded_entities_cache.get(entspec)
+    if entities is not None:
+        return entities
+
+    entities = get_result_lreq(entspec)
+
+    _loaded_entities_cache[entspec] = entities
+    return entities
+
+
 _docbook4_l1 = None
 
-def check_xml_docbook4_l1 (text, ents=None):
+def validate_docbook4_l1 (text, ents=None):
     """
     Validate Docbook 4.x markup in text against L{level1<collect_xml_spec_l1>}
     specification.
@@ -1221,7 +1351,7 @@ def check_xml_docbook4_l1 (text, ents=None):
     which C{xml2po} uses to segment text when extracting markup documents
     into PO templates.
 
-    See L{check_xml_l1} for description of the C{ents} parameter
+    See L{validate_xml_l1} for description of the C{ents} parameter
     and the return value.
 
     @param text: text to check
@@ -1239,7 +1369,356 @@ def check_xml_docbook4_l1 (text, ents=None):
         _docbook4_l1 = collect_xml_spec_l1(specpath)
 
     xmlfmt = _("@item markup type", "Docbook4")
-    return check_xml_l1(text, spec=_docbook4_l1, xmlfmt=xmlfmt, ents=ents)
+    return validate_xml_l1(text, spec=_docbook4_l1, xmlfmt=xmlfmt, ents=ents)
+
+
+_db4_meta_msgctxt = set((
+))
+_db4_meta_msgid = set((
+    "translator-credits",
+))
+_db4_meta_msgid_sw = (
+    "@@image:",
+)
+
+def check_docbook4 (strict=False, entities={}, mkeyw=None):
+    """
+    Check XML markup in translations of Docbook 4.x catalogs [hook factory].
+
+    See L{check_xml} for description of parameters.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_docbook4_l1, strict, entities, mkeyw, False,
+                        ignid=_db4_meta_msgid, ignctxt=_db4_meta_msgctxt,
+                        ignidsw=_db4_meta_msgid_sw)
+
+
+def check_docbook4_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_docbook4}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_docbook4_l1, strict, entities, mkeyw, True,
+                        ignid=_db4_meta_msgid, ignctxt=_db4_meta_msgctxt,
+                        ignidsw=_db4_meta_msgid_sw)
+
+
+def check_docbook4_msg (strict=False, entities={}, mkeyw=None):
+    """
+    Check for any known problem in translation in messages
+    in Docbook 4.x catalogs [hook factory].
+
+    Currently performed checks:
+      - Docbook markup
+      - cross-message insertion placeholders
+
+    See L{check_xml} for description of parameters.
+
+    @return: type V4A hook
+    @rtype: C{(msg, cat) -> parts}
+    """
+
+    check_markup = check_docbook4_sp(strict, entities, mkeyw)
+
+    def checkf (msg, cat):
+
+        hl = []
+        for i in range(len(msg.msgstr)):
+            spans = []
+            spans.extend(check_markup(msg.msgstr[i], msg, cat))
+            spans.extend(check_placeholder_els(msg.msgid, msg.msgstr[i]))
+            if spans:
+                hl.append(("msgstr", i, spans))
+        return hl
+
+    return checkf
+
+
+_entpath_html = os.path.join(rootdir(), "spec", "html.entities")
+html_entities = read_entities(_entpath_html)
+
+_html_l1 = None
+
+def validate_html_l1 (text, ents=None):
+    """
+    Validate HTML markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    At the moment, this function can only check HTML markup if well-formed
+    in the XML sense, although HTML allows omission of some closing tags.
+
+    See L{validate_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _html_l1
+    if _html_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        _html_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, html_entities])
+
+    xmlfmt = _("@item markup type", "HTML")
+    return validate_xml_l1(text, spec=_html_l1, xmlfmt=xmlfmt, ents=ents,
+                           accelamp=True, casesens=False)
+
+
+def check_html (strict=False, entities={}, mkeyw=None):
+    """
+    Check HTML markup in translations [hook factory].
+
+    See L{check_xml} for description of parameters.
+    See notes on checking HTML markup to L{validate_html_l1}.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_html_l1, strict, entities, mkeyw, False)
+
+
+def check_html_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_html}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_html_l1, strict, entities, mkeyw, True)
+
+
+_qtrich_l1 = None
+
+def validate_qtrich_l1 (text, ents=None):
+    """
+    Validate Qt rich-text markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    At the moment, this function can only check Qt rich-text if well-formed
+    in the XML sense, although Qt rich-text allows HTML-type omission of
+    closing tags.
+
+    See L{validate_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _qtrich_l1
+    if _qtrich_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "qtrich.l1")
+        _qtrich_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, html_entities])
+
+    xmlfmt = _("@item markup type", "Qt-rich")
+    return validate_xml_l1(text, spec=_qtrich_l1, xmlfmt=xmlfmt, ents=ents,
+                           accelamp=True, casesens=False)
+
+
+def check_qtrich (strict=False, entities={}, mkeyw=None):
+    """
+    Check Qt rich-text markup in translations [hook factory].
+
+    See L{check_xml} for description of parameters.
+    See notes on checking Qt rich-text to L{validate_qtrich_l1}.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_qtrich_l1, strict, entities, mkeyw, False)
+
+
+def check_qtrich_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_qtrich}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_qtrich_l1, strict, entities, mkeyw, True)
+
+
+_kuit_l1 = None
+
+def validate_kuit_l1 (text, ents=None):
+    """
+    Validate KUIT markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    KUIT is the semantic markup for user interface in KDE4.
+
+    See L{validate_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _kuit_l1
+    if _kuit_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "kuit.l1")
+        _kuit_l1 = collect_xml_spec_l1(specpath)
+
+    xmlfmt = _("@item markup type", "KUIT")
+    return validate_xml_l1(text, spec=_kuit_l1, xmlfmt=xmlfmt, ents=ents,
+                           accelamp=True)
+
+
+_kde4_l1 = None
+_kde4_ents = None
+
+def validate_kde4_l1 (text, ents=None):
+    """
+    Validate markup in texts used in KDE4 GUI.
+
+    KDE4 GUI texts may contain both Qt rich-text and KUIT markup,
+    even mixed in the same text.
+
+    See L{validate_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _kde4_l1, _kde4_ents
+    if _kde4_l1 is None:
+        _kde4_l1 = {}
+        spath1 = os.path.join(rootdir(), "spec", "qtrich.l1")
+        _kde4_l1.update(collect_xml_spec_l1(spath1))
+        spath2 = os.path.join(rootdir(), "spec", "kuit.l1")
+        _kde4_l1.update(collect_xml_spec_l1(spath2))
+        _kde4_ents = html_entities.copy()
+
+    if ents is not None:
+        ents = Multidict([ents, _kde4_ents])
+
+    xmlfmt = _("@item markup type", "KDE4")
+    return validate_xml_l1(text, spec=_kde4_l1, xmlfmt=xmlfmt, ents=ents,
+                           accelamp=True, casesens=False)
+
+
+def check_kde4 (strict=False, entities={}, mkeyw=None):
+    """
+    Check XML markup in translations of KDE4 UI catalogs [hook factory].
+
+    See L{check_xml} for description of parameters.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_kde4_l1, strict, entities, mkeyw, False)
+
+
+def check_kde4_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_kde4}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_kde4_l1, strict, entities, mkeyw, True)
+
+
+_pango_l1 = None
+
+def validate_pango_l1 (text, ents=None):
+    """
+    Validate Pango markup in text against L{level1<collect_xml_spec_l1>}
+    specification.
+
+    See L{validate_xml_l1} for description of the C{ents} parameter
+    and the return value.
+
+    @param text: text to check
+    @type text: string
+    @param ents: set of known entities (in addition to default)
+    @type ents: sequence
+
+    @returns: erroneous spans in the text
+    @rtype: list of (int, int, string) tuples
+    """
+
+    global _pango_l1
+    if _pango_l1 is None:
+        specpath = os.path.join(rootdir(), "spec", "pango.l1")
+        _pango_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, html_entities])
+
+    xmlfmt = _("@item markup type", "Pango")
+    return validate_xml_l1(text, spec=_pango_l1, xmlfmt=xmlfmt, ents=ents,
+                           accelamp=True, casesens=False)
+
+
+def check_pango (strict=False, entities={}, mkeyw=None):
+    """
+    Check XML markup in translations of Pango UI catalogs [hook factory].
+
+    See L{check_xml} for description of parameters.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    return _check_xml_w(validate_pango_l1, strict, entities, mkeyw, False)
+
+
+def check_pango_sp (strict=False, entities={}, mkeyw=None):
+    """
+    Like L{check_pango}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    return _check_xml_w(validate_pango_l1, strict, entities, mkeyw, True)
+
+
 
 
 _digits_dec = set("0123456789")
@@ -1288,7 +1767,7 @@ def nument_to_char (nument):
     return unichr(int(numstr, base))
 
 
-def check_xmlents (text, ents={}, default=False, numeric=False):
+def validate_xmlents (text, ents={}, default=False, numeric=False):
     """
     Check whether XML-like entities in the text are among known.
 
@@ -1350,6 +1829,41 @@ def check_xmlents (text, ents={}, default=False, numeric=False):
     return spans
 
 
+def check_xmlents (strict=False, entities={}, mkeyw=None,
+                   default=False, numeric=False):
+    """
+    Check existence of XML entities in translations [hook factory].
+
+    See L{check_xml} for description of parameters C{strict}, C{entities},
+    and C{mkeyw}. See L{validate_xmlents>} for parameters C{default} and
+    C{numeric}, and for general notes on checking entities.
+
+    @return: type S3C hook
+    @rtype: C{(msgstr, msg, cat) -> numerr}
+    """
+
+    def check (text, ents):
+        return validate_xmlents(text, ents, default=default, numeric=numeric)
+
+    return _check_xml_w(check, strict, entities, mkeyw, False)
+
+
+def check_xmlents_sp (strict=False, entities={}, mkeyw=None,
+                      default=False, numeric=False):
+    """
+    Like L{check_xmlents}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
+    """
+
+    def check (text, ents):
+        return validate_xmlents(text, ents, default=default, numeric=numeric)
+
+    return _check_xml_w(check, strict, entities, mkeyw, True)
+
+
 _placeholder_el_rx = re.compile(r"<\s*placeholder-(\d+)\s*/\s*>")
 
 def check_placeholder_els (orig, trans):
@@ -1360,7 +1874,7 @@ def check_placeholder_els (orig, trans):
     C{<placeholder-N/>} elements are added into text by C{xml2po},
     for finer segmentation of markup documents extracted into PO templates.
 
-    See L{check_xml_l1} for description of the return value.
+    See L{validate_xml_l1} for description of the return value.
 
     @param orig: original text
     @type orig: string
@@ -1396,180 +1910,4 @@ def check_placeholder_els (orig, trans):
         spans.append((0, 0, errmsg))
 
     return spans
-
-
-_entpath_html = os.path.join(rootdir(), "spec", "html.entities")
-html_entities = read_entities(_entpath_html)
-
-_html_l1 = None
-
-def check_xml_html_l1 (text, ents=None):
-    """
-    Validate HTML markup in text against L{level1<collect_xml_spec_l1>}
-    specification.
-
-    At the moment, this function can only check HTML markup if well-formed
-    in the XML sense, although HTML allows omission of some closing tags.
-
-    See L{check_xml_l1} for description of the C{ents} parameter
-    and the return value.
-
-    @param text: text to check
-    @type text: string
-    @param ents: set of known entities (in addition to default)
-    @type ents: sequence
-
-    @returns: erroneous spans in the text
-    @rtype: list of (int, int, string) tuples
-    """
-
-    global _html_l1
-    if _html_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "html.l1")
-        _html_l1 = collect_xml_spec_l1(specpath)
-
-    if ents is not None:
-        ents = Multidict([ents, html_entities])
-
-    xmlfmt = _("@item markup type", "HTML")
-    return check_xml_l1(text, spec=_html_l1, xmlfmt=xmlfmt, ents=ents,
-                        accelamp=True, casesens=False)
-
-
-_qtrich_l1 = None
-
-def check_xml_qtrich_l1 (text, ents=None):
-    """
-    Validate Qt rich-text markup in text against L{level1<collect_xml_spec_l1>}
-    specification.
-
-    At the moment, this function can only check Qt rich-text if well-formed
-    in the XML sense, although Qt rich-text allows HTML-type omission of
-    closing tags.
-
-    See L{check_xml_l1} for description of the C{ents} parameter
-    and the return value.
-
-    @param text: text to check
-    @type text: string
-    @param ents: set of known entities (in addition to default)
-    @type ents: sequence
-
-    @returns: erroneous spans in the text
-    @rtype: list of (int, int, string) tuples
-    """
-
-    global _qtrich_l1
-    if _qtrich_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "qtrich.l1")
-        _qtrich_l1 = collect_xml_spec_l1(specpath)
-
-    if ents is not None:
-        ents = Multidict([ents, html_entities])
-
-    xmlfmt = _("@item markup type", "Qt-rich")
-    return check_xml_l1(text, spec=_qtrich_l1, xmlfmt=xmlfmt, ents=ents,
-                        accelamp=True, casesens=False)
-
-
-_kuit_l1 = None
-
-def check_xml_kuit_l1 (text, ents=None):
-    """
-    Validate KUIT markup in text against L{level1<collect_xml_spec_l1>}
-    specification.
-
-    KUIT is the semantic markup for user interface in KDE4.
-
-    See L{check_xml_l1} for description of the C{ents} parameter
-    and the return value.
-
-    @param text: text to check
-    @type text: string
-    @param ents: set of known entities (in addition to default)
-    @type ents: sequence
-
-    @returns: erroneous spans in the text
-    @rtype: list of (int, int, string) tuples
-    """
-
-    global _kuit_l1
-    if _kuit_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "kuit.l1")
-        _kuit_l1 = collect_xml_spec_l1(specpath)
-
-    xmlfmt = _("@item markup type", "KUIT")
-    return check_xml_l1(text, spec=_kuit_l1, xmlfmt=xmlfmt, ents=ents,
-                        accelamp=True)
-
-
-_kde4_l1 = None
-_kde4_ents = None
-
-def check_xml_kde4_l1 (text, ents=None):
-    """
-    Validate markup in texts used in KDE4 GUI.
-
-    KDE4 GUI texts may contain both Qt rich-text and KUIT markup,
-    even mixed in the same text.
-
-    See L{check_xml_l1} for description of the C{ents} parameter
-    and the return value.
-
-    @param text: text to check
-    @type text: string
-    @param ents: set of known entities (in addition to default)
-    @type ents: sequence
-
-    @returns: erroneous spans in the text
-    @rtype: list of (int, int, string) tuples
-    """
-
-    global _kde4_l1, _kde4_ents
-    if _kde4_l1 is None:
-        _kde4_l1 = {}
-        spath1 = os.path.join(rootdir(), "spec", "qtrich.l1")
-        _kde4_l1.update(collect_xml_spec_l1(spath1))
-        spath2 = os.path.join(rootdir(), "spec", "kuit.l1")
-        _kde4_l1.update(collect_xml_spec_l1(spath2))
-        _kde4_ents = html_entities.copy()
-
-    if ents is not None:
-        ents = Multidict([ents, _kde4_ents])
-
-    xmlfmt = _("@item markup type", "KDE4")
-    return check_xml_l1(text, spec=_kde4_l1, xmlfmt=xmlfmt, ents=ents,
-                        accelamp=True, casesens=False)
-
-
-_pango_l1 = None
-
-def check_xml_pango_l1 (text, ents=None):
-    """
-    Validate Pango markup in text against L{level1<collect_xml_spec_l1>}
-    specification.
-
-    See L{check_xml_l1} for description of the C{ents} parameter
-    and the return value.
-
-    @param text: text to check
-    @type text: string
-    @param ents: set of known entities (in addition to default)
-    @type ents: sequence
-
-    @returns: erroneous spans in the text
-    @rtype: list of (int, int, string) tuples
-    """
-
-    global _pango_l1
-    if _pango_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "pango.l1")
-        _pango_l1 = collect_xml_spec_l1(specpath)
-
-    if ents is not None:
-        ents = Multidict([ents, html_entities])
-
-    xmlfmt = _("@item markup type", "Pango")
-    return check_xml_l1(text, spec=_pango_l1, xmlfmt=xmlfmt, ents=ents,
-                        accelamp=True, casesens=False)
 
