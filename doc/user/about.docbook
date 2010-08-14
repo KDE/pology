@@ -6,12 +6,33 @@
 
 <title>A Study of PO</title>
 
-<para></para>
+<para>Many people like to use computer software in their native language. On the average, the working language of developers of a computer program, and the native language of its users, are different. This means that programs need to be <emphasis>translated</emphasis>. For this to be possible, first the program has to be written in such a way that it can fetch and display translations in the language set by the user. Then, there has to exist a method to collect discrete pieces of text (such as button labels, menu items, messages in dialogs...) from the program. Collected pieces of text are written into one or more files of a certain format, which the translators can work on. Finally, translated files may need to be converted into a form that the program can interpret and show translation to the user. There are many different translation systems, which support one or more of these elements of translation process.</para>
+
+<para>In the realm of free software, one particular translation system has become ubiquitous: <ulink url="http://www.gnu.org/software/gettext/">GNU Gettext</ulink>. It covers all the elements of the translation process. It provides a way for programmers to write translatable programs, a way for text to be extracted and collected for translation, a file format on which the translators work, and a set of tools for processing translation files. Beyond the technical aspects, Gettext has evolved a set of conventions, workflows and communication patterns -- a translation <emphasis>culture</emphasis> of sorts.</para>
+
+<para>The most salient element of Gettext from translators' perspective is the translation file format it defines, the PO<footnote>
+<para>"PO" is an acronym for "portable object". This phrase is a quite generic term from the depths of computer science, opaque for practicing translators. Texts on software translation therefore always write simply "PO format", "PO files", etc.</para>
+</footnote> format. Along with other parts of Gettext, the PO format has developed over the years into the technically most capable translation file format today. Its features both enable high quality and efficiency of translation, and yet can still "fit into one person's head". Although the PO format has been documented elsewhere in some detail (notably in the Gettext manual), a <link linkend="ch-poformat">chapter of this text</link> has been devoted to it as well. This is in order to thoroughly explain how the format elements influence the translation practice, and to make sure that terms used later in the text are understood with their exact meaning.</para>
+
+<para>Aside from the tools for batch-processing of PO files provided by GNU Gettext itself, many other tools have been written to operate on PO files. These consist of translation editors (or "PO editors"), which provide translators with more power in editing PO files, and batch-processing tools, for purposes more specific than those covered by Gettext (e.g. conversion from and to other file formats). <emphasis>Pology</emphasis> is one of these specific batch-processing tools.</para>
+
+<para>Pology consists of a <ulink url="http://www.python.org/">Python</ulink> library, with much translation-related functionality beyond basic manipulation of PO file objects, and a collection of scripts based on this library. Both the library and the scripts have this basic trait: they tend to go in depth. Pology is designed to apply various precision tasks to standalone PO files, to process collections of PO files in various ways, and to cooperate with other tools commonly used to handle PO files (such as version control systems). On the programming side Pology strives for simplicity and robustness, so that users who know (some) Python can easily add functionality for their custom needs. To achieve this, Pology fully relies on the conventions of the PO format, without trying to abstract the translation file format.</para>
+
+<para>As one measure of attention to detail, Pology has sections of language-specific and project-specific functionality, and even combinations of those. Users are encouraged to contribute their custom solutions into the main distribution, if these solutions can possibly serve needs of others.</para>
+
+<para>In short, Pology is <emphasis>a study of PO</emphasis>.</para>
 
 <sect1 id="sec-install">
 <title>Obtaining and Installing</title>
 
-<para></para>
+<para>...</para>
+
+</sect1>
+
+<sect1 id="sec-deps">
+<title>Dependencies</title>
+
+<para>...</para>
 
 </sect1>
 
