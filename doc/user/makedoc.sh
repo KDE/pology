@@ -2,9 +2,13 @@
 
 cd $(dirname $0)
 
+mode=$1
+
 topdbk=top.docbook
 
 xmllint --noout --xinclude --postvalid $topdbk || exit 1
+
+test "$mode" = "check" && exit 0
 
 rm -rf html/*; mkdir -p html
 ln -s ../html-data html/data
