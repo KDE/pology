@@ -6,7 +6,7 @@
 
 <title>A Study of PO</title>
 
-<para>Many people like to use computer software in their native language. On the average, the working language of developers of a computer program, and the native language of its users, are different. This means that programs need to be <emphasis>translated</emphasis>. For this to be possible, first the program has to be written in such a way that it can fetch and display translations in the language set by the user. Then, there has to exist a method to collect discrete pieces of text (such as button labels, menu items, messages in dialogs...) from the program. Collected pieces of text are written into one or more files of a certain format, which the translators can work on. Finally, translated files may need to be converted into a form that the program can interpret and show translation to the user. There are many different translation systems, which support one or more of these elements of translation process.</para>
+<para>Many people like to use computer programs in their native language. On the average, the working language of developers of a computer program, and the native language of its users, are different. This means that programs need to be <emphasis>translated</emphasis>. For this to be possible, first the program has to be written in such a way that it can fetch and display translations in the language set by the user. Then, there has to exist a method to collect discrete pieces of text (such as button labels, menu items, messages in dialogs...) from the program. Collected pieces of text are written into one or more files of a certain format, which the translators can work on. Finally, translated files may need to be converted into a form that the program can interpret and show translation to the user. There are many different translation systems, which support one or more of these elements of translation process.</para>
 
 <para>In the realm of free software, one particular translation system has become ubiquitous: <ulink url="http://www.gnu.org/software/gettext/">GNU Gettext</ulink>. It covers all the elements of the translation process. It provides a way for programmers to write translatable programs, a way for text to be extracted and collected for translation, a file format on which the translators work, and a set of tools for processing translation files. Beyond the technical aspects, Gettext has evolved a set of conventions, workflows and communication patterns -- a translation <emphasis>culture</emphasis> of sorts.</para>
 
@@ -16,7 +16,7 @@
 
 <para>Aside from the tools for batch-processing of PO files provided by GNU Gettext itself, many other tools have been written to operate on PO files. These consist of translation editors (or "PO editors"), which provide translators with more power in editing PO files, and batch-processing tools, for purposes more specific than those covered by Gettext (e.g. conversion from and to other file formats). <emphasis>Pology</emphasis> is one of these specific batch-processing tools.</para>
 
-<para>Pology consists of a <ulink url="http://www.python.org/">Python</ulink> library, with much translation-related functionality beyond basic manipulation of PO file objects, and a collection of scripts based on this library. Both the library and the scripts have this basic trait: they tend to go in depth. Pology is designed to apply various precision tasks to standalone PO files, to process collections of PO files in various ways, and to cooperate with other tools commonly used to handle PO files (such as version control systems). On the programming side Pology strives for simplicity and robustness, so that users who know (some) Python can easily add functionality for their custom needs. To achieve this, Pology fully relies on the conventions of the PO format, without trying to abstract the translation file format.</para>
+<para>Pology consists of a <ulink url="http://www.python.org/">Python</ulink> library, with much translation-related functionality beyond basic manipulation of PO file objects, and a collection of scripts based on this library. Both the library and the scripts have this basic trait: they tend to go in depth. Pology is designed to apply precision tasks to standalone PO files, to process collections of PO files in sophisticated ways, and while doing this to cooperate well with other tools commonly used to handle PO files (such as PO editors and version control systems). On the programming side Pology strives for simplicity and robustness, so that users who know (some) Python can easily add functionality for their custom needs. To achieve this, Pology fully relies on the conventions of the PO format, without trying to abstract the translation file format.</para>
 
 <para>As one measure of attention to detail, Pology has sections of language-specific and project-specific functionality, and even combinations of those. Users are encouraged to contribute their custom solutions into the main distribution, if these solutions can possibly serve needs of others.</para>
 
@@ -25,14 +25,89 @@
 <sect1 id="sec-install">
 <title>Obtaining and Installing</title>
 
-<para>...</para>
+<para>Pology is still not a released piece of software, so most likely it cannot be found in operating system's software repositories. Nevertheless, it can be obtained in prepared for use quite simply. To fetch the latest development version of Pology from its version control repository, execute<footnote>
+<para><command>svn</command> is the primary command of <ulink url="http://subversion.tigris.org/">Subversion</ulink> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</para>
+</footnote>:
+<programlisting>
+$ cd <replaceable>PARDIR</replaceable>
+$ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
+</programlisting>
+This will create the <filename>pology/</filename> subdirectory inside the parent directory <replaceable>PARDIR</replaceable>, and download full source of Pology in it. When you want to update to the latest version later on, you do not have to download everything again. Instead you can execute <userinput>svn update</userinput> in Pology's root directory:
+<programlisting>
+$ cd <replaceable>PARDIR</replaceable>/pology
+$ svn update
+</programlisting>
+and only the modifications since the checkout (or the last update) will be downloaded and applied to the existing source tree.</para>
+
+<para>To prepare Pology for use, it is sufficient to set two environment variables, e.g. in the Bash shell:
+<programlisting>
+$ export PATH=<replaceable>PARDIR</replaceable>/pology/bin:$PATH
+$ export PYTHONPATH=<replaceable>PARDIR</replaceable>/pology:$PYTHONPATH
+</programlisting>
+You can put these commands in the shell startup script (<filename>~/.bashrc</filename> for Bash shell), so that paths are already set whenever you start a shell. Setting <envar>PATH</envar> will ready Pology's script for execution, and <envar>PYTHONPATH</envar> its Python library for use in custom Python scripts. It is also possible that there are some scripts in Pology which are specific to the language into which you translte. To make these ready for use as well, additionally add to path:
+<programlisting>
+$ export PATH=<replaceable>PARDIR</replaceable>/pology/lang/<replaceable>LANG</replaceable>/bin:$PATH
+</programlisting>
+where <replaceable>LANG</replaceable> is the language code of your language.</para>
+
+<para>Pology also provides <emphasis>shell completion</emphasis> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:
+<programlisting>
+$ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
+</programlisting>
+Shell completion means that, similarly as for command names, it is possible to contextually complete command parameters by pressing the <keycap>Tab</keycap> key. For example, pressing <keycap>Tab</keycap> just after the <link linkend="ch-sieve"><command>posieve</command> command</link> will complete sieve names, and after the <option>-s</option> option it will complete sieve parameters based on the sieve name.</para>
 
 </sect1>
 
 <sect1 id="sec-deps">
 <title>Dependencies</title>
 
-<para>...</para>
+<para>The following lists the dependencies of Pology, and notes whether they are required or optional, and what they are used for.</para>
+
+<para>Required external Python packages:
+<itemizedlist>
+<listitem>
+<para>None.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Required general software:
+<itemizedlist>
+<listitem>
+<para><ulink url="http://www.gnu.org/software/gettext/">Gettext</ulink> >= 0.17. Some Pology scripts use Gettext tools internally, and the library module <ulink url="../../api/html/pology.gtxtools-module.html"><literal>pology.gtxtools</literal></ulink> wraps some of Gettext tools for use inside Python scripts.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://www.python.org/">Python</ulink> >= 2.5.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Optional external Python packages:
+<itemizedlist>
+<listitem>
+<para><ulink url="http://freedesktop.org/wiki/Software/DBusBindings"><package>python-dbus</package></ulink> >= 0.81. Used for communication with various external applications (e.g. with the <ulink url="http://userbase.kde.org/Lokalize">Lokalize</ulink> PO editor).</para>
+</listitem>
+<listitem>
+<para><ulink url="http://www.rfk.id.au/software/pyenchant/"><package>python-enchant</package></ulink> >= 1.5.2. Frontend to various spell-checkers, used by most of Pology's spell checking functionality.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Optional general software:
+<itemizedlist>
+<listitem>
+<!-- FIXME: Internal link to pomtrans script. -->
+<para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by the <command>pomtrans</command> script.</para>
+</listitem>
+<listitem>
+<!-- FIXME: Internal link to check-grammar sieve. -->
+<para><ulink url="http://www.languagetool.org/">LanguageTool</ulink> >= 1.0. Open source language checker, used by the <literal>check-grammar</literal> sieve.</para>
+</listitem>
+<listitem>
+<para>Version control systems. Used by various Pology scripts that process PO files on the collection level, when the PO files are under version control. Currently supported: <ulink url="http://git-scm.com/">Git</ulink> >= 1.6, <ulink url="http://subversion.tigris.org/">Subversion</ulink> >= 1.4.</para>
+</listitem>
+</itemizedlist>
+</para>
 
 </sect1>
 
