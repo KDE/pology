@@ -30,7 +30,7 @@ import xml.parsers.expat
 from pology import _, n_
 from pology.markup import flag_no_check_markup
 from pology.entities import read_entities
-from pology.markup import check_kde4_l1
+from pology.markup import validate_kde4_l1
 from pology.msgreport import report_on_msg, report_on_msg_hl
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
@@ -87,14 +87,14 @@ class Sieve (object):
         # In in non-strict mode, check XML of translation only if the
         # original itself is valid XML.
         if not self.strict:
-            if (   check_kde4_l1(msg.msgid, ents=self.entities)
-                or check_kde4_l1(msg.msgid_plural or u"", ents=self.entities)
+            if (   validate_kde4_l1(msg.msgid, ents=self.entities)
+                or validate_kde4_l1(msg.msgid_plural or u"", ents=self.entities)
             ):
                 return
 
         highlight = []
         for i in range(len(msg.msgstr)):
-            spans = check_kde4_l1(msg.msgstr[i], ents=self.entities)
+            spans = validate_kde4_l1(msg.msgstr[i], ents=self.entities)
             if spans:
                 self.nproblems += 1
                 highlight.append(("msgstr", i, spans, msg.msgstr[i]))
