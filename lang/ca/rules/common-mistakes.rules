@@ -1,0 +1,28 @@
+# Common Catalan mistakes
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+# «tea» es tradueix per «te» (sense accent).
+{\btea\b}i
+valid msgstr="te"
+hint="«tea» es tradueix per «te» (sense accent)"
+
+# «té» del verb tenir cal que porti accent.
+{\bte\b}i
+valid msgid="tea"
+valid msgid="te"
+hint="«té» (verb tenir) cal que porti accent"
+
+# «world» es tradueix per «món» (amb accent).
+{\bworld\b}i
+valid msgstr="món"
+valid msgstr="mundial"
+valid msgstr="mapamundi"
+valid msgstr="world"
+valid msgstr="altres" cat="kfileshare"
+valid msgstr="tothom" cat="kfileshare"
+hint="«world» es tradueix per «món» (amb accent)"
+
+# End of rule file
