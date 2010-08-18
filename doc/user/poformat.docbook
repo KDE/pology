@@ -6,6 +6,868 @@
 
 <title>The PO Format</title>
 
-<para></para>
+<para>Before going into the format description, it is useful to give an overview of usage contexts for the PO format and of the basic principles behind it.</para>
+
+<para>There are three distinct contexts in which PO files are used:
+<itemizedlist>
+<listitem>
+<para><emphasis>Native dynamic translations</emphasis>. Many programs use the PO format as the native format for their user interface text. These include the KDE and Gnome desktop environments, GNU tools, etc. Translated PO files are compiled into binary MO files (which is done by the <command>msgfmt</command> command from Gettext) and installed in a proper location. Then the program fetches translations from them at runtime, which is what makes this "dynamic" translation.</para>
+</listitem>
+<listitem>
+<para><emphasis>Intermediate dynamic translations</emphasis>. Some software keeps user interface text in their own custom format. This is the case, for example, with Mozilla and OpenOffice programs. Such custom format files are first converted into PO files, translated, and then converted back into the original format, for runtime consumption by these programs.</para>
+</listitem>
+<listitem>
+<para id="p-intsttr"><emphasis>Intermediate static translations</emphasis>. Static text data, such as software documentation, is converted from its source format into the PO format, translated, and then converted back into the original format. An example of such documentation format would be the <ulink url="http://www.docbook.org/">Docbook</ulink>. Out of translated files in the original format, the final documents for user consumption are created, such as PDF files or HTML pages.</para>
+</listitem>
+</itemizedlist>
+This variety of usage should be kept in mind, as while the PO format is one, the text exposed for translation in PO files will have embedded elements which are tightly related to the source of what is translated. For example, user interface text will frequently contain <emphasis>format directives</emphasis>, while documentation text may be written with HTML-like markup. This means that the translator should be aware, in general, of what kind of source is being translated through a particular PO file.</para>
+
+<para>The development of the PO format has been driven solely by the needs of its users, as with time these needs became well formulated and generalizable. Thanks to this, features of the PO format other than the very basic can be gradually introduced as necessary, and stay out of the way when they are not. The format is quite compact, human-readable and editable without special-purpose tools (though, of course, these come in handy). These aspects benefit the learning curve, everyday usage, and instructional texts such as this one.</para>
+
+<para>Although translators will frequently prefer to work on PO files using dedicated PO editors, which purport to hide "technical details" such as the underlying file format, they should nevertheless understand the PO format well. This is because the PO format is more than a simple container of the text to be translated, instead it reflects important concepts in the translation workflow. To put it more concretely, the translator should determine out how a given dedicated PO editor exposes the bits of information from the PO file in its interface, and whether it trully exposes all of them.</para>
+
+<!-- ======================================== -->
+<sect1 id="sec-pobasic">
+<title>Format Basics</title>
+
+<para>The PO format is a plain text format, written in files with <filename>.po</filename> extension. A PO file contains a number of <emphasis>messages</emphasis>, partly independent text segments to be translated, which have been grouped into one file according to some logical division of what is being translated. For example, a standalone program will frequently have all its user interface messages in one PO file, and all documentation messages in another; or, user interface may be split into several PO files by major program modules, documentation split by chapters, etc. PO files are also called <emphasis>message catalogs</emphasis>.</para>
+
+<para>Here is an excerpt from the middle of a PO file, showing three simple messages, which are untranslated:
+<programlisting>
+#: finddialog.cpp:38
+msgid "Globular Clusters"
+msgstr ""
+⁠
+#: finddialog.cpp:39
+msgid "Gaseous Nebulae"
+msgstr ""
+⁠
+#: finddialog.cpp:40
+msgid "Planetary Nebulae"
+msgstr ""
+</programlisting>
+Each message contains the keyword <varname>msgid</varname>, which is followed by the original string (usually in English for software), wrapped in double quotes. The keyword <varname>msgstr</varname> denotes the string which to become the translation, also double-quoted. After you go through the PO file and add translations, these messages would read:
+<programlisting>
+#: finddialog.cpp:38
+msgid "Globular Clusters"
+msgstr "Globularna jata"
+⁠
+#: finddialog.cpp:39
+msgid "Gaseous Nebulae"
+msgstr "Gasne magline"
+⁠
+#: finddialog.cpp:40
+msgid "Planetary Nebulae"
+msgstr "Planetarne magline"
+</programlisting>
+Based on this example, translating a PO file looks rather simple, and for the most part it is. There exists, however, a number of details which you have to take into account from time to time, in order to produce translation of high quality. The rest of this chapter deals with such details.</para>
+
+<para>As is usual with text formats, immediately something must be said about the <emphasis>text encoding</emphasis> of a PO file. While you could use encodings other than UTF-8 if no non-ASCII letters are used in the original text, you really <emphasis>should</emphasis> use UTF-8. The encoding is specified within the PO file itself, and by default it is UTF-8; if you want to use another encoding, you must specify it in the <link linkend="sec-poheader">PO header</link> (described later).</para>
+
+<para>Leaving some messages in the PO file untranslated is technically not a problem. For every untranslated message, programs will typically show the original text to the user, so that not all information is lost. Format converters (such as used in <link linkend="p-intsttr">intermediate static</link> translations) may do the same, or decline to create the target file unless the PO file is translated fully or over a prescribed threshold. Of course, you should strive to have the PO files under your maintenance completely translated, in order for the users not to be faced with mixed original and translated text.</para>
+
+<sect2 id="sec-posrcref">
+<title>Source References</title>
+
+<para>Each message in the previous example also contains the <emphasis>source reference comment</emphasis>, which is the line starting with <literal>#:</literal> above the <literal>msgid "..."</literal> line. It tells from which source file of the program code (or source document of any kind), and the line in that source file, the message has been extracted into the PO file. This piece of data may look strange at first--of what use is it to translators, to merit inclusion in the PO file? Since the PO format has been developed in context of free software, the source reference enables you to actually look up the message in the source file, when you need <emphasis>more context</emphasis> to translate a certain message. This does not require of you to be a programmer, as source code is frequently readable enough to infer the message context without actually understanding the code.</para>
+
+<para>For example, in the translation the text in title position may need to have a certain grammatical or ortographical form, and it may not be apparent from the PO file alone if the message:
+<programlisting>
+#: addcatdialog.cpp:45
+msgid "Import Catalog"
+msgstr ""
+</programlisting>
+is used in title position. By following the source reference, you find this statement in the source file <filename>addcatdialog.cpp</filename>, line 45:
+<programlisting>
+setCaption( i18n( "Import Catalog" ) );
+</programlisting>
+The <literal>setCaption(...)</literal> bit makes it highly likely that the message is indeed being used in a title position. Some dedicated PO editors provide ways to quickly and comfortably look up source references, just by pressing a keyboard shortcut, which makes this approach to context determination that much easier.</para>
+
+</sect2>
+
+<sect2 id="sec-powrap">
+<title>String Wrapping</title>
+
+<para>When a message is long or contains some logical line-breaks, its original and translation strings may be <emphasis>wrapped</emphasis> in the PO file (with wrapping boundary usually at column 80), such as this:
+<programlisting>
+#: indimenu.cpp:96
+msgid ""
+"No INDI devices currently running. To run devices, please select devices "
+"from the Device Manager in the devices menu."
+msgstr ""
+</programlisting>
+This wrapping is entirely invisible to the consumer of the PO file. PO processing tools introduce wrapping mostly as a convenience to translators who like to work on PO files with plain text editors. This means that you are free to wrap the translation (the <varname>msgstr</varname> string) in the same way, differently, or not to wrap it at all. You should only not forget to enclose each wrapped line in double quotes, same as it is done for <varname>msgid</varname>. For example, this translation of the previous message:
+<programlisting>
+#: indimenu.cpp:96
+msgid ""
+"No INDI devices (...)"
+"(...) in the devices menu."
+msgstr ""
+"Nema INDI uređaja (...)"
+"(...) u meniju uređaja."
+</programlisting>
+is equivalent to this one:
+<programlisting>
+#: indimenu.cpp:96
+msgid ""
+"No INDI devices (...)"
+"(...) in the devices menu."
+msgstr "Nema INDI uređaja (...) u meniju uređaja."
+</programlisting>
+</para>
+
+<para>Dedicated PO editors may even not show wrapping to the translator, or wrap lines on their own independent of the underlying PO file. Curiosly enough, most of PO editors seem to follow the original wrapping, at least by default. At any rate, if you would like to have all strings non-wrapped (including <varname>msgid</varname>) or vice versa, there are command line tools to achieve this.</para>
+
+</sect2>
+
+<sect2 id="sec-pomsguniq">
+<title>Uniqueness of Messages</title>
+
+<para>A message in the PO file is <emphasis>uniquely identified</emphasis> by its <varname>msgid</varname> string (this is not entirely true, as will be explained shortly, but consider it approximately true for the moment). This means that, as the source which is translated evolves in time, a message may change some of its elements or the position within the PO file, but as long as it has the same <varname>msgid</varname> string, it is the same message. Those other, non-identifying elements include the translation (<varname>msgstr</varname> string), source reference comments, etc. Position means either the line number in the PO file, or relative position to other messages.</para>
+
+<para>The first consequence of this fact is that the only reliable way to report a message to someone is to state its <varname>msgid</varname> string, in full or in sufficient part, even if the other person has access to the PO file where the message is found.<footnote>
+<para>You may want to point to a message when consulting with fellow translators, or when reporting a typo or another problem in the original text to the authors.</para>
+</footnote> Newcomer translators are sometimes not briefed about this, and then they at first report the line number of the message, or its ordinal number in the range of all messages, without giving the <varname>msgid</varname>. Line numbers cannot work because, for example, of the arbitrary line wrapping as described previously. Ordinal numbers do not work because your PO file may be slightly older or newer than that of the other person, and the ordinals may have changed in the meantime.</para>
+
+<para>The second consequence is that there cannot be two messages with the same <varname>msgid</varname> in the same PO file (again not exactly true, see later). If the same text has been used two or more times in the source, then in the PO file it will appear as a single message, with its source reference comment (<literal>#:</literal>) listing all appearances. For example, the source reference of this message:
+<programlisting>
+#: colorscheme.cpp:79 skycomponents/equator.cpp:31
+msgid "Equator"
+msgstr ""
+</programlisting>
+shows that it is used at two places in the program source code. This feature of the PO format prevents needless duplication of work, by assuring that any duplicate text in the source is translated only once. This efficiency optimization can sometimes be a double-edged sword, but with an elegant solution for the problem that can arise, as you will see shortly.</para>
+
+<para>The third, so to say, consequence, though more of a remark for clarity, is this: you should never modify the <varname>msgid</varname> string. Not only that doing so would have no purpose, but if the <varname>msgid</varname> is modified, the consumer of the translated PO file will not see the message as translated, since it will fetch messages by matching their <varname>msgid</varname> strings.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-pocontext">
+<title>Message Context</title>
+
+<para>Depending on the language of translation, sometimes it may be hard to translate a message properly by considering it in isolation, without any additional context. Naive translation may break style guidelines, or worse, misinterpret the meaning of the original text. To avoid this, there are several ways in which you can infer the context in which the message is used.</para>
+
+<para>One way you have seen already: looking into the source file of the message, as pointed to by the source reference comment. But, this way can be tedious. Not only because the source code may look menacing to a translator, but also, while readily available for free software, it is usually not very comfortable to keep all that source code around just for the sake of context checking. This is a well understood difficulty, so additional context indicators have been devised.</para>
+
+<para>One simple way to keep track of the context is to, when translating a given message, keep in sight several messages that precede and follow it. As a trivial example, the following four messages:
+<programlisting>
+#: locationdialog.cpp:228
+msgid "Really override original data for this city?"
+msgstr ""
+⁠
+#: locationdialog.cpp:229
+msgid "Override Existing Data?"
+msgstr ""
+⁠
+#: locationdialog.cpp:229
+msgid "Override Data"
+msgstr ""
+⁠
+#: locationdialog.cpp:229
+msgid "Do Not Override"
+msgstr ""
+</programlisting>
+are rather obviously a question in some kind of a message dialog, the title of that dialog, and the two answer buttons, so that you know exactly how the messages are related. Aside from the pure meaning, conclusions such as this may be further supported by the style conventions of original text (for English, title word case for dialog titles, but also for push buttons), and the source reference comments (here they reveal that all four messages are in two adjacent lines of the same source file). With time you will start to pick up patterns of this kind which are typical for the source which you translate, and be more confident in your estimates.</para>
+
+<para>Up to this point, all the context gathering rested on the shoulders of the translator. However, when authors of the original text, for example programmers, are themselves sufficiently aware of the translation issues, they can explicitly provide some context for translators. This is particularly warranted when a message is quite strange, when it puts technical limitations on the translation, when it is used in an unexpected way, and so on.</para>
+
+<sect2 id="sec-poautocmnt">
+<title>Extracted Comments</title>
+
+<para>One place where explicit context provided by the authors can be found in a message, is within <emphasis>extracted comments</emphasis>, which start with <literal>#.</literal>. For example, the message:
+<programlisting>
+#. TRANSLATORS: A test phrase with all letters of the English alphabet.
+#. Replace it with a sample text in your language, such that it is
+#. representative of language's writing system.
+#: kdeui/fonts/kfontchooser.cpp:382
+msgid "The Quick Brown Fox Jumps Over The Lazy Dog"
+msgstr ""
+</programlisting>
+has an extracted comment which tells you to avoid translating the English phrase for what it is, but to instead construct a phrase with the described property in your language.</para>
+
+<para>This kind of context usually begins with an agreed-upon keyword, which in the above case is <literal>TRANSLATORS:</literal>, which is recommended by Gettext, but in principle depends on the source environment. It could be, for example, <literal>i18n:</literal> (short for "internationalization").</para>
+
+<para>Extracted comments can sometimes be added not by a human author, but by a tool used to create or process PO files. For example, when markup-text documents are translated, such as HTML, or Docbook for documentation, the extracted comment frequently states the tag which wraps the text in the original document:
+<programlisting>
+#. Tag: title
+#: skycoords.docbook:73
+msgid "The Horizontal Coordinate System"
+msgstr ""
+</programlisting>
+In this example, the <literal>#. Tag: title</literal> comment informs you that the message is a title, so that you can adjust the translation accordingly.</para>
+
+<para>Another frequent example where processing tools provide extracted comments is when the PO file is created in a slightly roundabout way, such that source references do not really point to the source file, but to a temporary source file which existed only during the creation of the PO file. To make this less misleading, the extracted comment may state the true source:
+<programlisting>
+#. i18n: file: tools/observinglist.ui:263
+#. i18n: ectx: property (toolTip), widget (KPushButton, ScopeButton)
+#: rc.cpp:5865
+msgid "Point telescope at highlighted object"
+msgstr ""
+</programlisting>
+Here <literal>rc.cpp:5865</literal> is the reference to the temporary source file, whereas the true source file is given as <literal>file: tools/observinglist.ui:263</literal>. (The other automatically extracted comment, <literal>ectx: ...</literal>, may look a bit cryptic, but you can still easily conclude from it that this message is a tooltip for a push button.)</para>
+
+</sect2>
+
+<sect2 id="sec-podisamb">
+<title>Disambiguating Contexts</title>
+
+<para>Consider the following two messages from an program user interface:
+<programlisting>
+#. TRANSLATORS: First letter in 'Scope'
+#: tools/observinglist.cpp:700
+msgid "S"
+msgstr ""
+⁠
+#. TRANSLATORS: South
+#: skycomponents/horizoncomponent.cpp:429
+msgid "S"
+msgstr ""
+</programlisting>
+At first sight, you could think that it was nice of the programmer to add the explicit context (<literal>#. TRANSLATORS: ...</literal> lines), informing that the "S" of the first message is short for "Scope", and the "S" of the second message short for "South", so that translators know that they should use the letters corresponding to these words in their languages. But, can you spot the problem?</para>
+
+<para>The problem is that these messages cannot be part of a valid PO file, since, as it was <link linkend="sec-pomsguniq">mentioned earlier</link>, all messages must have unique <varname>msgid</varname> strings. Instead, in a real PO file, these two messages would be collapsed into one:
+<programlisting>
+#. TRANSLATORS: First letter in 'Scope'
+#. TRANSLATORS: South
+#: tools/observinglist.cpp:700 skycomponents/horizoncomponent.cpp:429
+msgid "S"
+msgstr ""
+</programlisting>
+Both contexts are still present, translators are still well informed, but it is now required that the words "Scope" and "South" also begin with the same letter in the target language--an extremely unlikely proposal.</para>
+
+<para>In situations such as this, the programmer can equip messages with a different type of context, the <emphasis>disambiguating context</emphasis>. These contexts are no longer presented as extracted comments, but through another keyword string, the <varname>msgctxt</varname>:
+<programlisting>
+#: tools/observinglist.cpp:700
+msgctxt "First letter in 'Scope'"
+msgid "S"
+msgstr ""
+⁠
+#: skycomponents/horizoncomponent.cpp:429
+msgctxt "South"
+msgid "S"
+msgstr ""
+</programlisting>
+This is now a valid PO file, and you can translate each "S" on its own.</para>
+
+<para>This updates the earlier approximation that messages must be unique by <varname>msgid</varname> strings to the real requirement: messages must be unique by the combination of <varname>msgctxt</varname> and <varname>msgid</varname> strings. If the <varname>msgctxt</varname> string is missing, as it usually is, you can think of it as being present but null-valued.<footnote>
+<para>If the <varname>msgctxt</varname> is present but empty, i.e. <literal>msgctxt ""</literal>, this is actually different than the <varname>msgctxt</varname> not being present at all. Hence the term "null-valued" as opposed to simply "empty".</para>
+</footnote></para>
+
+<para>A rather frequent example of need for disambiguating contexts is when the original text is a single adjective in English, and used at several places in the source:
+<programlisting>
+#: utils/kateautoindent.cpp:78 utils/katestyletreewidget.cpp:132
+msgid "Normal"
+msgstr ""
+</programlisting>
+In many languages the adjective form must match the gender of the noun to which it refers, so if the "Normal" above refers both to indentation mode and text style, it is almost certainly necessary to provide disambiguating contexts:
+<programlisting>
+#: utils/katestyletreewidget.cpp:132
+msgctxt "Text style"
+msgid "Normal"
+msgstr "običan"
+⁠
+#: utils/kateautoindent.cpp:78
+msgctxt "Autoindent mode"
+msgid "Normal"
+msgstr "obično"
+</programlisting>
+</para>
+
+<para>You can imagine that programmers in general cannot know when a certain phrase, same in English when used in two contexts, needs different translations in some other language. This means that you, the translator, should inform them to add a disambiguating context when you determine that you need one.<footnote>
+<para>Programmers of free software are frequently aware of this latent necessity, and readily reachable, so you should be able to make the request with little communication overhead.</para>
+</footnote></para>
+
+<para>At the moment of this writing, the <varname>msgctxt</varname> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <varname>msgctxt</varname> was introduced, messages indeed had to be unique by <varname>msgid</varname> alone, so disambiguating context had to be a part of the <varname>msgid</varname>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file comming from a KDE program of circa 2006:
+<programlisting>
+#: utils/katestyletreewidget.cpp:132
+msgid ""
+"_⁠: Text style\n"
+"Normal"
+msgstr "običan"
+</programlisting>
+The disambiguating context has been embedded at the beginning of the <varname>msgid</varname>, surrounded by <literal>_⁠: ...\n</literal>. In a contemporary Gnome program, the same message would look something like this:
+<programlisting>
+#: utils/gatestyletreewidget.c:132
+msgid "Text style|Normal"
+msgstr "običan"
+</programlisting>
+Here the context is again at the beginning of <varname>msgid</varname>, but it is separated from the text only by the pipe character (<literal>|</literal>).</para>
+
+</sect2>
+
+<sect2 id="sec-pomancmnt">
+<title>Translator Comments</title>
+
+<para>Sometimes you will need to translate a message without explicit context in a non-obvious way, after you have determined that such translation is needed by looking into the source or seeing the message in user interface at runtime. This may present a difficulty when the message is revisited, for example, by a proof-reader in the review process, or by another translator if the message got modified later on. This other person may conclude that the translation is wrong and "fix" it, or at the very least waste time by asking around why it was translated in that way.</para>
+
+<para>Conversely, sometimes you may be unsure if your translation is exactly correct, for example if you have correctly guessed the context, or whether you have used correct terminology. In that case you can, of course, consult with fellow translators, but this would break you out of the "flow" state while working. It is better if such communication is delayed to the moment when the translation of the PO file is otherwise complete.</para>
+
+<para>For these situations, you can write down your own inferred context, doubts or notes, in another type of comment, the <emphasis>translator comment</emphasis>. These comments start simply with <literal># </literal> (hash and space), followed by any text whatsoever. As with other comments, there may be any number of them. A hypothetical example:
+<programlisting>
+# Wikipedia says that ‘etrurski’ is our name for this script.
+#: viewpart/UnicodeBlocks.h:151
+msgid "Old Italic"
+msgstr "etrurski"
+</programlisting>
+In reality, a translator comment such as the one above would probably be written in the language of translation, as there is no reason for it to be in English. This is not to say that translator comments should never be in English, there may be situations when that could be advantageous.</para>
+
+<para>It is particularly important to know that translator comments are the <emphasis>only</emphasis> type of comment that all well-behaved PO processing tools are guaranteed to preserve in the same way as translation. For example, if you would write something into an extracted comment (<literal>#.</literal>), it would very soon dissapear in one of the standard maintenance procedures. So make sure you add any personal remarks into translator comments, and nowhere else.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-poconssub">
+<title>Constructive Substrings</title>
+
+<para>Message text sometimes contains substrings which are not visible to the user of the program or to the reader of the manual, but are used by the program or the rendering engine to construct the final visible text. Translators should reproduce such substrings in the translation as well, most of the time exactly as they are in the original, but sometimes also with some modifications.</para>
+
+<para>For better or worse, constructive substrings tend to be tightly linked to the source environment of the text, for example the particular programming language in which the program is written, or the particular markup language for static content like documentation. To produce high quality translations, you will benefit from having basic understanding of the constructive substrings possible in the source environment, of their function and behavior. The prerequisite to this, as mentioned in the opening of this chapter, is that you are aware of what is the source of the text in the PO file.</para>
+
+<sect2 id="sec-poformdir">
+<title>Format Directives</title>
+
+<para>When a file manager shows a message like "Really delete file tmp10.txt?" or "Open with Froobaz", the "tmp10.txt" and "Froobaz" parts had to be added to the rest of the text at runtime. In such cases, the original text as seen by the translator will contain <emphasis>format directives</emphasis>, substrings which the program will replace with dynamically determined arguments to complete the message to be shown to the user.</para>
+
+<para>For example, in the PO file comming from a KDE program, there will be messages like this one:
+<programlisting>
+#: skycomponents/constellationlines.cpp:106
+#, kde-format
+msgid "No star named %1 found."
+msgstr "Nema zvezde po imenu %1."
+</programlisting>
+The format directive in this message is <literal>%1</literal>, and it will be substituted at runtime with the text provided by the user as the name to search for. If several arguments need to be substituted in the text, there can be more format directives with increasing numbers: <literal>%1</literal>, <literal>%2</literal>, <literal>%3</literal>...</para>
+
+<para>A new type of comment has appeared as well, the <emphasis>flags comment</emphasis>. This comment begins with <literal>#,</literal>, followed by the comma-separated list of keywords--the flags--which clarify the state or the type of the message. In this example the flag is <literal>kde-format</literal>, indicating that format directives in the message are of KDE type.</para>
+
+<para>Format directives differ across source environments, but they are usually easy to recognize. The previous message, if it would be found in a Gnome program, would look like this:
+<programlisting>
+#: skycomponents/constellationlines.c:106
+#, c-format
+msgid "No star named %s found."
+msgstr "Nema zvezde po imenu %s."
+</programlisting>
+The format directive changed to <literal>%s</literal>, and the format flag to <literal>c-format</literal>. This is the format used by most programs written in C, and by many written in C++. In C format, the <literal>%s</literal> directive is for substituting string arguments, and another frequent directive is <literal>%d</literal> for integer numbers; but there are many more.</para>
+
+<para>For one more example, to illustrate the diversity of format directives, if the program would have been written in Python the message could look like:
+<programlisting>
+#: skycomponents/constellationlines.cpp:106
+#, python-format
+msgid "No star named %(starname)s found."
+msgstr "Nema zvezde po imenu %(starname)s."
+</programlisting>
+Here the format directive is <literal>%(starname)s</literal>, which indicates the argument type similar to C format (<literal>%s</literal>), but also its name in parenthesis. Hence the <literal>python-format</literal> flag. This name must not be changed in translation, as otherwise the program will not be able to match the directive and make the substitute. This would probably make the program crash when it tries to display the message.</para>
+
+<para>You only need to make sure that each directive from the original string is found in the translation, and very rarely to modify the directives themselves. Format flags, such as <literal>kde-format</literal>, <literal>c-format</literal>, etc., are there not only as information for translators, but they are also used by tools for validating PO files. For example, if you forget or mistype a format directive in the translation, such tools will report it. Dedicated PO editors may warn on the spot, or when saving the PO file. This provides you with a "safety net", so long as you remember to perform the checks after completing the translation (if the PO editor does not do it automatically).</para>
+
+<para>One situation that may require modification of directives is when there are several of them, and they need to be ordered differently in the translation:
+<programlisting>
+#: kxsldbgpart/libxsldbg/xsldbg.cpp:256
+#, kde-format
+msgid "%1 took %2 ms to complete."
+msgstr "Trebalo je %2 ms da se %1 završi."
+</programlisting>
+With KDE format directives, which are numbered, reordering is as simple as above. Similarly for the Python format, where directives are named. But for formats where directives are neither numbered nor named by default, like in C format (where they only state argument type), you can sometimes modify directives to the desired effect:
+<programlisting>
+#: gxsldbgpart/libxsldbg/xsldbg.c:256
+#, c-format
+msgid "%s took %d ms to complete."
+msgstr "Trebalo je %2$d ms da se %1$s završi."
+</programlisting>
+If the directives are numbered or named, and there is more than one same-number or same-name directive, usually any of the duplicates can be dropped in the translation. This may be useful in a longer text, for example when in the translation a pronoun can be safely used instead of repeating the argument:
+<programlisting>
+#: hypothetical.cpp:100
+#, kde-format
+msgid "%1 is the blah, blah, blah. With %1 you can blah, blah."
+msgstr "%1 je bla, bla, bla. Pomoću njega možete bla, bla."
+</programlisting>
+Here "njega" is a pronoun used instead of repeating the <literal>%1</literal>. Conversely, it is possible to repeat the directive where the original text had used a pronoun, if it better fits the translation.</para>
+
+<para>Sometimes, instead of using a format directive, the programmer may try to concatenate the full text out of separate messages:
+<programlisting>
+#: hypothetical.cpp:100
+msgid "No star named "
+msgstr ""
+⁠
+#: hypothetical.cpp:100
+msgid " found."
+msgstr ""
+</programlisting>
+Here the program will fetch the first message, append to it the argument, and then append the second message. This kind of programming is considered as one of the basic errors when making a translatable program, because it forces translators to "piece the puzzle", which may not even be possible in every language. This is thankfully rare today, but when it does happen, while you can try to work around, it is better that you contact the authors to have the source code fixed.</para>
+
+</sect2>
+
+<sect2 id="sec-pomarkup">
+<title>Text Markup</title>
+
+<para>Programs sometimes show parts of the text in non-plain text: certain words may be italic or bold, titles in larger font size, list items with graphical bullets, etc. This is frequent, for example, in tooltips and message boxes. Yet richer typographic elements of this kind are usually found in documentation and other static content, which may need to be suitable both for reading on screen and printing on paper. In such messages, the original text will contain <emphasis>markup</emphasis>, where words, phrases, and whole paragraphs are wrapped with special <emphasis>tags</emphasis>.</para>
+
+<para>The following messages show typical examples of markup in program user interface:
+<programlisting>
+#: rc.cpp:1632 rc.cpp:3283
+msgid "&lt;b>Name:&lt;/b>"
+msgstr ""
+⁠
+#: kgeography.cpp:375
+#, kde-format
+msgid "&lt;qt>Current map:&lt;br/>&lt;b>%1&lt;/b>&lt;/qt>"
+msgstr ""
+⁠
+#: rc.cpp:2537 rc.cpp:4188
+msgid ""
+"&lt;b>Tip&lt;/b>&lt;br/>Some non-Meade telescopes support a subset of the LX200 "
+"command set. Select &lt;tt>LX200 Basic&lt;/tt> to control such devices."
+msgstr ""
+</programlisting>
+The markup in these messages is XML-like, where tags for visual formatting are specified as <literal>&lt;<replaceable>tag</replaceable>&gt;...&lt;/<replaceable>tag</replaceable>&gt;</literal> wrappings around the visible text segments. For example <literal>&lt;b&gt;...&lt;/b&gt;</literal> tells that the text inside should be shown in boldface, while <literal>&lt;tt&gt;...&lt;/tt&gt;</literal> that a monospace font should be used, and lone <literal>&lt;br/&gt;</literal> introduces the line break. A reader knowing some HTML will instantly recognize these tags.</para>
+
+<para>Another frequent XML-like markup is used in documentation PO files, which are in many environments (like KDE or Gnome) mostly written in the Docboox XML format:
+<programlisting>
+#. Tag: title
+#: blackbody.docbook:13
+msgid "&lt;title>Blackbody Radiation&lt;/title>"
+msgstr ""
+⁠
+#. Tag: para
+#: geocoords.docbook:28
+msgid ""
+"The Equator is obviously an important part of this coordinate system; "
+"it represents the &lt;emphasis>zeropoint&lt;/emphasis> of the latitude angle, "
+"and the halfway point between the poles. The Equator is the "
+"&lt;firstterm>Fundamental Plane&lt;/firstterm> of the geographic coordinate "
+"system. &lt;link linkend='ai-skycoords'>All Spherical&lt;/link> Coordinate "
+"Systems define such a Fundamental Plane."
+msgstr ""
+</programlisting>
+The Docbook tags are named somewhat differently to the HTML-like tags from the previous example. The describe the meaning of text that they wrap, rather than the visual appearance (the so called <emphasis>semantic</emphasis> markup). But it is all the same for translator, except that knowing the meanings of text parts may be benefitial for context. Docbook tags will also sometimes provide one or few <emphasis>attributes</emphasis> following the opening tag, such as <literal>&lt;link linkend=...&gt;</literal> in the second message above (HTML tags may have this too).</para>
+
+<para>When translating markup text, you should, in general, reproduce the same set of tags in the translation, assigning them to appropriate translated segments. Under no circumstances may the tags themselves be translated (e.g. <literal>&lt;title&gt;</literal> or <literal>&lt;emphasis&gt;</literal>), since they are processed by the computer to produce the final formatted text. As for tag attributes (<literal>linkend='ai-skycoords'</literal> in the example above), attribute names are also never translated, but in rare occasions their values in quotes may be (usually when a value is clearly a human-readable text).</para>
+
+<para>However, this is not to say that you should never modify markup. Especially with HTML-like tags, not so rarely the markup in the original text is sloppy (missing closing tags), and you are free to correct it in translation. Another example would be in CJK languages<footnote>
+<para>CJK is the usual acronym for ideographical east-Asian languages, the Chinese, Japanese, and Korean.</para>
+</footnote>, where bold text is hard to read at normal font sizes, so CJK translators tend to remove <literal>&lt;b&gt;</literal> tags in favor of quotes. In general, the more you are familiar with the particular markup, the more you can think of doing something other than directly copying it from the original text.</para>
+
+<para>Sometimes there are parts in the original text that may look somewhat like XML-like markup, but are actually not. For example:
+<programlisting>
+#: utils/katecmds.cpp:180
+#, kde-format
+msgid "Missing argument. Usage: %1 &lt;value>"
+msgstr ""                                                                        </programlisting>
+The <literal>&lt;value&gt;</literal> here is not markup, and is shown verbatim to the user. It is a <emphasis>placeholder</emphasis>, an indicator to the user that a real argument should be put in its place. For this reason, in many languages the placeholders are translated, and there is no technical problem with that. You should only exercise caution not to misjudge a tag for a placeholder. After little experience with the particular markup, the difference usually becomes obvious.</para>
+
+<para>There are also non-XML like markups that tend to come up for translation. One could be the wiki markup:
+<programlisting>
+#: .txt:191
+msgid "=== Overlay Images ==="
+msgstr ""
+⁠
+#: poformat.txt:193
+msgid ""
+"A special kind of localized image is an ''overlay image'', one which "
+"does not simply replace the original, but is combined with it [...]"
+msgstr ""
+</programlisting>
+Here <literal>===...===</literal> is the approximate of <literal>&lt;h2&gt;...&lt;h2&gt;</literal> in HTML, while <literal>''...''</literal> is the counterpart of <literal>&lt;i&gt;...&lt;i&gt;</literal>. Another markup type is the source language for man pages, troff:
+<programlisting>
+# type: Plain text
+#: ../../doc/man/wesnoth.6:55
+msgid ""
+"compresses a savefile (B&lt;infile>)  that is in text WML format into "
+"binary WML format (B&lt;outfile>)."
+msgstr ""
+</programlisting>
+where <literal>B&lt;...&gt;</literal> is the equivalent of <literal>&lt;b&gt;...&lt;b&gt;</literal> in HTML.</para>
+
+<para>When you are faced with a new kind of markup, which you have never translated before, you should at least skim through a tutorial or two about it. This will enable you both to recognize it in the original text, and to modify it in translation if necessary.</para>
+
+</sect2>
+
+<sect2 id="sec-poescapes">
+<title>Escape Sequences</title>
+
+<para>There are a few special characters which cannot appear verbatim in the <varname>msgid</varname> or <varname>msgstr</varname> strings. Most obviously, think of the plain double quote (<literal>"</literal>): since it is used to delimit strings, a raw double quote inside the text would terminate the string prematurely, and invalidate the message syntax. Such characters are therefore written as <emphasis>escape sequences</emphasis>, a combination of the backslash (<literal>\</literal>) and another character, which is interpreted into the appropriate real character when showing the message to the user. The plain double quote is written as <literal>\"</literal>:
+<programlisting>
+#: kstars_i18n.cpp:3591
+msgid "The \"face\" on Mars"
+msgstr "\"Lice\" na Marsu"
+</programlisting>
+</para>
+
+<para>Another frequent escaped character is the newline, presented as <literal>\n</literal>:
+<programlisting>
+#: kstarsinit.cpp:699
+msgid ""
+"The initial position is below the horizon.\n"
+"Would you like to reset to the default position?"
+msgstr ""
+"Početni položaj je ispod horizonta.\n"
+"Želite li da vratite na podrazumevani?"
+</programlisting>
+Tools that write out PO files usually unconditionally wrap the text at newlines, ignoring the specified wrap column, even when wrapping has been turned off. This is to increase readability for translator editing the PO file. If the text is not composed of markup (e.g. not Docbook), newlines are significant to the program user too, so you should carry them over into the translation. In general, unless you are confident that you can manipulate newlines in a certain way, you should follow the lead of <varname>msgid</varname>.</para>
+
+<para>Another two escape sequences, usually of much lower frequency than the double quote and the newline, are the tabulator <literal>\t</literal> and the backslash itself <literal>\\</literal> (because single backslash always starts an escape sequence). While other escape sequences are possible, they are extremely rare.</para>
+
+<para>Returning to double quotes, keep in mind that while the English original usually uses plain ASCII quotes, translators tend to use "fancy" quotes according to the orthography of the language:
+<programlisting>
+#: kstars_i18n.cpp:3591
+msgid "The \"face\" on Mars"
+msgstr "„Lice“ na Marsu"
+</programlisting>
+This holds both for double and single quotes. Do check if some particular quote pairs are prescribed by the ortography of your language, and use them if they are.</para>
+
+</sect2>
+
+<sect2 id="sec-poaccel">
+<title>Accelerators</title>
+
+<para>In user interfaces, short texts on widgets used to perform an action or open a dialog, frequently have one letter in them underlined. This indicates that when the user presses the <keycap>Alt</keycap> key (on an IBM PC type keyboard) and the underlined letter together, the corresponding action will be triggered. Such letters are called <emphasis>accelerators</emphasis>, and in message strings they are usually specified by preceding them with a special character, the <emphasis>accelerator marker</emphasis>:
+<programlisting>
+#: kstarsinit.cpp:163
+msgid "Set Focus &amp;Manually..."
+msgstr "Zadaj fokus &amp;ručno..."
+</programlisting>
+Here the accelerator marker is the ampersand (<literal>&amp;</literal>). Thus, the accelerator in this message will be the letter 'm' in the original text, and the letter 'r' in the translation. Accelerator markers differ across environments: ampersand is typical  KDE and Qt programs, in Gnome programs it is the underscore (<literal>_</literal>), in OpenOffice the tilde (<literal>~</literal>), etc.</para>
+
+<para>It may be difficult to choose accelerators in the translation (where to put the accelerator marker), because you can easily get into situations where in the same interface context (e.g. within one menu) two items end up having the same accelerator. This will not do anything too bad, e.g. the program may automatically reassign conflicting accelerators, or the user may have to press <keycap>Alt</keycap> and the letter several times to go through all such items. Nevertheless, it is good to avoid conflicting accelerators, but there is no definite way to do that; you can only try to track the message context in the PO file, and check the running program. This is not only the problem of translation, as not so rarely the original itself introduces conflicting accelerators.</para>
+
+<para>CJK languages use input methods different to alphabetical ones (keyboard layouts), so instead of assigning an ideogram as the accelerator, they add a single Latin letter for that purpose alone:
+<programlisting>
+#: kstarsinit.cpp:163
+msgid "Set Focus &amp;Manually..."
+msgstr "フォーカスを手動でセット(&amp;M)..."
+</programlisting>
+This letter is usually picked to be the same as in the original text, thereby reducing the possibility of accelerator conflicts as much as the programmers were able to avoid conflicts themselves.</para>
+
+<para>Accelerator does not have to be positioned at the start of a word, it can be put next to any letter or number. A reasonable order of choices would be: at the start of the most significant word in the message by default, then if it conflicts another message, at the start of another word, and if it still conflicts, inside one of the words.</para>
+
+<para>The accelerator marker is usually chosen as one of the rarely used characters in normal text, but it may still appear in contexts in which it does not mark an accelerator. For example:
+<programlisting>
+#: kspopupmenu.cpp:203
+msgid "Center &amp;&amp; Track"
+msgstr ""
+⁠
+#. Tag: phrase
+#: config.docbook:137
+msgid "&lt;phrase>Configure &amp;kstars; Window&lt;/phrase>"
+msgstr ""
+</programlisting>
+In the first message, the accelerator marker has been used to escape itself, to produce a verbatim ampersand in output (similar as with escape sequences where double-backslash was used to represent a verbatim backslash). In the second message, the ampersand is used to insert an XML <emphasis>entity</emphasis> <literal>&amp;kstars;</literal>. Only by context can it be concluded that the character is not used as accelerator marker, but after gaining little experience, the distinction will almost always be obvious to you.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-poplurals">
+<title>Plural Forms</title>
+
+<para>Programs frequently need to report to the user the number of objects in a given context: "10 files found", "Do you really want to delete 5 messages?" etc. Of, course, in English such messages should also have singular counterparts, like "1 file found", "...delete 1 message?". This means that two separate English texts are needed in the PO file, one for the singular and another the plural case. You could assume that these would then be two messages, like in this hypothetical example:
+<programlisting>
+#: hypothetical.cpp:100
+#, kde-format
+msgid "Time: %1 second"
+msgstr ""
+⁠
+#: hypothetical.cpp:101
+#, kde-format
+msgid "Time: %1 seconds"
+msgstr ""
+</programlisting>
+Here the program would use the first message when the number of objects is 1, and the second message for any other number.</para>
+
+<para>However, while this also works for some languages other than English (e.g. Spanish, German, French), it does not work for all languages. The reason is that, while English needs one text for unity and another text for any other number, in many languages it is more complicated than that. For example, in some languages the singular form is used for all numbers <emphasis>ending</emphasis> with the digit 1, so it would be wrong to use the singular form only for exactly 1. Furthermore, in some languages more than two texts are needed, for example three: one for all numbers ending in 1, the second for all numbers ending in 2, 3, 4, and the third for all other numbers.</para>
+
+<para>To handle this diversity of plural forms, the PO format implements <emphasis>plural messages</emphasis>. The example above in reality looks like this:
+<programlisting>
+#: mainwindow.cpp:127
+#, kde-format
+msgid "Time: %1 second"
+msgid_plural "Time: %1 seconds"
+msgstr[0] ""
+msgstr[1] ""
+</programlisting>
+The English singular form is given by the <varname>msgid</varname> string, and the plural form by the <varname>msgid_plural</varname> string. There are now several <varname>msgstr</varname> strings, with zero-based indices in square brackets, so that you can write as many translations as there are plural forms in your language. By default two <varname>msgstr</varname> strings will be given, but you may insert the line with the third one (index 2), and so on. For example, the Spanish language has same plural forms as English, and translation to it looks like this:
+<programlisting>
+#: mainwindow.cpp:127
+#, kde-format
+msgid "Time: %1 second"
+msgid_plural "Time: %1 seconds"
+msgstr[0] "Tiempo: %1 segundo"
+msgstr[1] "Tiempo: %1 segundos"
+</programlisting>
+while the Polish translation, which needs three plural forms, is:
+<programlisting>
+#: mainwindow.cpp:127
+#, kde-format
+msgid "Time: %1 second"
+msgid_plural "Time: %1 seconds"
+msgstr[0] "Czas: %1 sekunda"
+msgstr[1] "Czas: %1 sekundy"
+msgstr[2] "Czas: %1 sekund"
+</programlisting>
+</para>
+
+<para>But, how will the program know which plural form corresponds to which numbers? The specification for this is written within the PO file itself, in the file <emphasis>header</emphasis> (PO headers will be <link linkend="sec-poheader">explained later</link>). The specifiction consists of the number of plural forms which every plural message in the given PO file should have, and the computable logical expression which for any given number computes the index of the required plural form. This expression is quite cryptic to untrained eye, but you do not have to really understand how it works. Since it is constant for a given language, you can just copy it from any other translated PO file with plural forms, and by observing the plural messages in that other file, you will clearly see which form (by index of <varname>msgstr</varname>) is used in which situation. Bearing this in mind, just to complete the examples, here is the plural specification for Spanish:
+<programlisting>
+nplurals=2; plural=n != 1;
+</programlisting>
+and for the more complicated Polish plural:
+<programlisting>
+nplurals=3; plural=(n==1 ? 0 : n%10>=2 &amp;&amp; n%10&lt;=4 &amp;&amp; (n%100&lt;10 || n%100>=20) ? 1 : 2);
+</programlisting>
+The <varname>nplurals</varname> variable tells how many forms there are, and <varname>plural</varname> is the expression which computes the index of the <varname>msgstr</varname> string for the given number <varname>n</varname>. (If the syntax of the expression is familiar to you, that is because you know some C programming language).</para>
+
+<para>Sometimes you will come upon a message, or a pair of messages, which are just like the hypothetical example above: having a number in it, but not presented as plural message, when you clearly see it should be. In most programming environments today, this simply means that the programmer forgot to use the plural message. Since this is considered a bug, you should inform the authors to replace the ordinary message with the plural message. In some environments, however, programs are not capable of using plurals, mostly when the PO format is used as intermediate (e.g. for OpenOffice programs). If that is the case, you can only try to translate the message in the "least bad" way.</para>
+
+<sect2 id="sec-pononum">
+<title>Omitting The Number</title>
+
+<para>Quite frequently English singular form will omit the number, that is, only the plural form will contain the format directive for the number:
+<programlisting>
+#: modes/typesdialog.cpp:425
+#, kde-format
+msgid "Are you sure you want to delete this type?"
+msgid_plural "Are you sure you want to delete these %1 types?"
+msgstr[0] ""
+msgstr[1] ""
+</programlisting>
+It depends on the programming environment whether it is allowed to omit the number like this. For example, in KDE programs (<literal>kde-format</literal> flag) this is always possible, also in Gnome programs (<literal>c-format</literal>), but not in pure Qt programs (<literal>qt-format</literal>). If number omission is supported, in the translation you can either omit or retain the number in singular according to what is better for you language, and regardless of whether or not the number was omitted in the original. More precisely, you can omit the number in any plural form that is used for exactly one number. Conversely, if all forms are used for more than one number (e.g. the singular form is used for all numbers ending in digit 1), you cannot omit the number at all.</para>
+
+<para>On rare occasions the plural message will have no number in the original, in either singular or plural. This happens when the programmer merely wanted to choose between the forms for "one" and "several", like this:
+<programlisting>
+#: kgpg.cpp:498
+msgid "Decryption of this file failed:"
+msgid_plural "Decryption of these files failed:"
+msgstr[0] ""
+msgstr[1] ""
+</programlisting>
+In such cases, in translation you should just use the same plural text for all forms but the one which is used for unity (if there is any such).</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-pomerge">
+<title>Merging With Templates</title>
+
+<para>At one point you will have translated the complete PO file, every message in it, and sent it back to the source where it is used. As time passes, the original text at the source is going to change. Programs will get bugs fixed and new features implemented, which will require both new strings in the user interface, and modifications to some of the existing. Documentation will get new chapters, old chapters expanded, old paragraphs modified to better style. At some point, you will want to update your translation so that the source is again fully translated into your language.</para>
+
+<para>This is done in the following way. On the one side, there is your last translated version of the PO file. On the other side, there is the latest pristine PO, with non-translated messages corresponding to the current state of the source. Pristine PO files are called <emphasis>templates</emphasis>, and have the <filename>.pot</filename> extension instead of <filename>.po</filename>. The translated PO file and the template are then <emphasis>merged</emphasis> in a special way, producing a new, partially translated PO for you to work on. The technicalities of merging are not so important at first, as in any established translation project you can just fetch the latest merged PO files. More important is what you can expect to see in a merged PO file.</para>
+
+<para>In general, merged PO files contain four categories of messages. First are those messages which were present in the PO file when you last worked on it, in the sense of having unchanged <varname>msgctxt</varname> and <varname>msgid</varname> strings since then. As expected, their translations (<varname>msgstr</varname> strings) are as you made them, so there is nothing new for you to do about these messages. The second category are entirely new messages, added to the source in the meantime, which you should now translate. New messages are not added in an arbitrary way, for example simply appended to the end of the PO file. Instead they are be interspersed with translated messages, following the order of appearance of messages in the current source. This allows you to continue to infer contexts by preceding and following messages, same as you did when you were translating the PO from scratch. For example:
+<programlisting>
+#: fitshistogram.cpp:347
+msgid "Auto Scale"
+msgstr ""
+⁠
+#: fitshistogram.cpp:350
+msgid "Linear Scale"
+msgstr "linearna skala"
+⁠
+#: fitshistogram.cpp:353
+msgid "Logarithmic Scale"
+msgstr "logaritamska skala"
+</programlisting>
+The first message is a new one, untranslated, and the two other messages are old, translated earlier. From the old messages you can see that the new message is a new choice of scale (possibly for a diagram axis), and not, say, a command or option to change the size of something (as in "scale automatically").</para>
+
+<sect2 id="sec-pofuzzy">
+<title>Fuzzy Messages</title>
+
+<para>The most interesting is the third category of messages in a merged PO file. These are the old messages which were somewhat modified in the meantime, i.e. one or both of their <varname>msgctxt</varname> and <varname>msgid</varname> strings have changed. Or, this can also be a new message, but very similar to one of the old messages. There is actually no way to tell between the two, it is only by similarity to one of the old messages that a modified or new message falls into this category. Either way, such a message is called <emphasis>fuzzy</emphasis>, and looks like this:
+<programlisting>
+#: src/somwidget_impl.cpp:120
+#, fuzzy
+#| msgid "Elements with boiling point around this temperature:"
+msgid "Elements with melting point around this temperature:"
+msgstr "Elementi s tačkom ključanja u blizini ove temperature:"
+</programlisting>
+The <literal>fuzzy</literal> flag indicates that the message is fuzzy. The comment starting with <literal>#|</literal> is called the <emphasis>previous-string comment</emphasis>. It contains the previous value of the <varname>msgid</varname> string, for which the translation in <varname>msgstr</varname> was made. This translation is, however, not valid for the <emphasis>current</emphasis> (non-commented) <varname>msgid</varname> string. By comparing the previous and current <varname>msgid</varname>, you can see that the word "boiling" was replaced with "melting", and you can adjust the translation accordingly. Once you did that, to <emphasis>unfuzzy</emphasis> the message you should remove the <literal>fuzzy</literal> flag and previous string comments (<literal>#|</literal>), so that the final updated message is:
+<programlisting>
+#: src/somwidget_impl.cpp:120
+msgid "Elements with melting point around this temperature:"
+msgstr "Elementi s tačkom topljenja u blizini ove temperature:"
+</programlisting>
+</para>
+
+<para>Previous-string comments are still somewhat fresh addition to the PO format, which means that in some translation environments you will not have them in merged POs. The fuzzy message is then presented only with the <literal>fuzzy</literal> flag:
+<programlisting>
+#: src/somwidget_impl.cpp:120
+#, fuzzy
+msgid "Elements with melting point around this temperature:"
+msgstr "Elementi s tačkom ključanja u blizini ove temperature:"
+</programlisting>
+It may seem that this is no great loss: so long as you are visually comparing texts, instead of comparing the previous (here missing) and current <varname>msgid</varname>, you might as well compare the current <varname>msgid</varname> and the old translation in <varname>msgstr</varname>, and adjust translation based on that. However, there are two disadvantages to this. Less importantly, it may not always be easy to spot a difference by comparing the new original and the old translation. For example, only a typo or some punctuation may have been fixed in the original, leaving you to wonder if you are missing something. More importantly, a dedicated PO editor can use the previous and current <varname>msgid</varname> to highlight differences between them, which makes it that much easier to see what has changed. Even if you are working with an ordinary text editor, there are command-line tools which can embed differences into previous <varname>msgid</varname>, again making them easier to spot. And the bigger the message, the more important to have automatic highlighting--think of a long paragraph where only one word has been changed. For these reasons, if the merged PO files you work on do not have previous-string comments, do inquire with authors if they can enable them (they may simply not know about this possibility, as it is not the default behavior on merging).</para>
+
+<para>Other than <varname>msgid</varname>, the <varname>msgctxt</varname> string can also have the corresponding previous-string comment. Regardless of whether one or both of the <varname>msgctxt</varname> and <varname>msgid</varname> have been changed, both will be given in previous-string comments:
+<programlisting>
+#: kstarsinit.cpp:451
+#, fuzzy
+#| msgctxt "Constellation Line"
+#| msgid "Constell. Line"
+msgctxt "Toggle Constellation Lines in the display"
+msgid "Const. Lines"
+msgstr "Linija sazvežđa"
+</programlisting>
+</para>
+
+<para>In particular, a message will be fuzzied if it previously had no <varname>msgctxt</varname> and got one after merging, or had one and lost it. In the first case, the previous-string comments will contain only the <varname>msgid</varname>, although it may be the same as the current one; by this you will know that the change was only the adding of context. In the second case, the previous-string comments will contain both the <varname>msgctxt</varname> and the <varname>msgid</varname> strings, while there will be no current <varname>msgctxt</varname>. Here are two examples:
+<programlisting>
+#: kstarsinit.cpp:444
+#, fuzzy
+#| msgid "Solar System"
+msgctxt "Toggle Solar System objects in the display"
+msgid "Solar System"
+msgstr "Sunčev sistem"
+⁠
+#: finddialog.cpp:102
+#, fuzzy
+#| msgctxt "object name (optional)"
+#| msgid "Andromeda Galaxy"
+msgid "Andromeda Galaxy"
+msgstr "Andromeda, galaksija"
+</programlisting>
+It is important for a message to become fuzzy when only the disambiguating context is added or removed, because this has been done precisely to shed some light on the original text, which may require modifying the translation.</para>
+
+</sect2>
+
+<sect2 id="sec-pofuzztr">
+<title>Treatment of Fuzzy Messages</title>
+
+<para>Fuzzy messages are a special category only from translator's viewpoint. Consumers of PO files (programs, etc.) will treat them as ordinary untranslated messages, i.e. they will use the original instead of the old translation. This is necessary, as there is no telling how inappropriate the old translation may be for the current original. The algorithm that produces fuzzy messages will sometimes turn out rather strange pairings, which to you or to the user may not look similar at all.</para>
+
+<para>It is important to keep in mind that fuzzy messages are treated as untranslated. Fresh translators will sometimes manually add the <literal>fuzzy</literal> flag to a message to mark they are not entirely sure that the translation is proper, not knowing that this will totally exclude the translation from being used. Thus, you should manually add the <literal>fuzzy</literal> flag only when you are so unsure of the meaning of the message, that you explicitly want to prevent the translation from being used. This is fairly rarely needed. Instead, when you just want to mark the message so that you or someone else can check it later, you should write your doubts in a <link linkend="sec-pomancmnt">translator comment</link>.</para>
+
+</sect2>
+
+<sect2 id="sec-poobsol">
+<title>Obsolete Messages</title>
+
+<para>The last, fourth category are <emphasis>obsolete</emphasis> messages, the messages which are not present in the source any more. All obsolete messages are grouped at the end of the merged PO file, and fully commented out by the <literal>#~</literal> comment:
+<programlisting>
+#~ msgid "Set the telescope longitude and latitude."
+#~ msgstr "Postavi geo. dužinu i širinu teleskopa."
+</programlisting>
+Obsolete messages have no extracted comments or source references, as they are no longer present in the source. Translator comments and flags are retained, as they don't depend on the presence in the source.</para>
+
+<para>It could be said that obsolete messages are in fact no messages at all, given that they do not exist from the point of consumers of the PO file, and there is nothing for translators to do with them. PO tools in general will ignore them, except to preserve them when the PO file is modified. Dedicated PO editors will invariably not show obsolete messages to the translator, and may provide an option to automatically remove them from the file on saving.</para>
+
+<para>What is then the purpose of obsolete messages? It frequently happens that a section of the source content, e.g. the code around a certain feature of a program, is <emphasis>temporarily</emphasis> removed. Authors sometimes want to improve a section of the text separately, outside of the main content which is being translated, and sometimes a section is even briefly omitted by mistake when there are moves and renames in the source. When this happens, the affected messages will become obsolete in the merged PO; but, when the missing section is put back into the source, the merging algorithm will take obsolete messages into account, and promote them to real messages (either translated or fuzzy) where possible. Thus, some previous translation work may be saved.</para>
+
+<para>What you should do with obsolete messages depends on the tools with which you work on PO files. For example, if you and other translators working on the given PO all use dedicated PO editors with internal storage of all previously encountered translations, the <emphasis>translation memory</emphasis><footnote>
+<para>Translation memory is an extremely important topic on its own when the translation is not done using the PO format. With PO files and the concept of merging with templates, translation memories are not of such great importance, but can come in handy.</para>
+</footnote>, there is less need for keeping obsolete messages around, as the editor will be able to fill new messages from the memory; but there are some difficulties, as the need for translators to share the same memory. In practice, many translators choose to keep obsolete messages around for some time, and periodically (e.g. months apart) remove them from PO files. By this they achieve that accidental removals of source content, which are quickly corrected, do not bother them, while avoiding accretion of far too much obsolete material.</para>
+
+</sect2>
+
+<sect2 id="sec-ponewfile">
+<title>Starting a New PO file</title>
+
+<para>In light of the translation maintenance through the process of merging with templates, you can think of starting to work on a never-before translated PO file as just the "initial merging": you will have to take the template and rename it to something with the <varname>.po</varname> extension, and work from there on. What you rename it to depends on the environment, but it is usually one of two things: either the same name as that of the template but with the <varname>.po</varname> extension (like in KDE), or your language code with the <varname>.po</varname> extension (like in Gnome). This basically depends on the organization of the particular translation project.</para>
+
+<para>On the other hand, sometimes for each template in the project an empty PO for your language will have been created and put in a proper place in the source tree, so that you can just start translating it when you get to it.</para>
+
+<para>At any rate, when you start working on a PO file from scratch, the first thing you should do is fill out its <link linkend="sec-poheader">header</link>.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-poheader">
+<title>PO Header</title>
+
+<para>The very first message in each PO file is not a real message, but the <emphasis>header</emphasis>, which provides administrative and technical pieces of information about the PO file. Here is one pristine header, before any translation on the PO file has been done:
+<programlisting>
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2008-09-03 10:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME &lt;EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE &lt;kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+</programlisting>
+The header consists of introductory comments, followed by the empty <varname>msgid</varname>, and by the <varname>msgstr</varname> which contains <emphasis>header fields</emphasis>. The header comments, similar to those of normal messages, are not entirely free form, but have some structure to them. The <varname>msgstr</varname> is divided by newlines (<literal>\n</literal>) into fields of <literal><replaceable>name</replaceable>: <replaceable>value</replaceable></literal> form (the name of the piece of information and the information itself). Although the header is pristine, some of the environment-dependent values are typically already supplied, e.g. wherever the KDE is mentioned in this example. The <literal>fuzzy</literal> flag indicates that the PO file has not been translated earlier. All-uppercase text segments are placeholders which you should replace with real values.</para>
+
+<para>The header updated to reflect the translation state could look like this:
+<programlisting>
+# Translation of kstars.po into Spanish.
+# This file is distributed under the same license as the kdeedu package.
+# Pablo de Vicente &lt;pablo@foo.com>, 2005, 2006, 2007, 2008.
+# Eloy Cuadra &lt;eloy@bar.net>, 2007, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: kstars\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2008-09-01 09:37+0200\n"
+"PO-Revision-Date: 2008-07-22 18:13+0200\n"
+"Last-Translator: Eloy Cuadra &lt;eloy@bar.net>\n"
+"Language-Team: Spanish &lt;kde-l10n-es@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+</programlisting>
+Even if this particular header has been slightly abridged for clarity, it probably still looks menacing, with a lot of data. Are you supposed to manually get <emphasis>all</emphasis> that correct? Not really. If you are using a dedicated PO editor, it will have a comfortable configuration dialog where you can enter data about yourself, your language, and so on, and whenever you save a PO file, the editor will automatically fill out the header. If you are using a plain text editor, there are command line tools to similarly fill out the header automatically. But even with such aids, it is useful to give a few general directions about header comments and fields.</para>
+
+<para>The first comment line usually has the title role, saying something about what is translated and into which language. The second comment tells something about licensing. The following comments each list a translator who at one time worked on this particular PO file, his name, email address, and years of contribution. After that, any freeform comments may be added. The <literal>fuzzy</literal> flag is removed once the work on the PO file is started.</para>
+
+<para>The <literal>Project-Id-Version</literal> header field states the name and possibly version of what is translated, <literal>Report-Msgid-Bugs-To</literal> gives address to write to when you discover problems in original text, <literal>POT-Creation-Date</literal> the time when the catalog template was created, <literal>PO-Revision-Date</literal> the time when the PO file was last edited by a translator, <literal>Last-Translator</literal> the name and address of last translator who worked on the file, and <literal>Language-Team</literal> the name and address of the translation team (if any) which the last translator is part of. The fields <literal>MIME-Version</literal>, <literal>Content-Type</literal>, and <literal>Content-Transfer-Encoding</literal>, are pretty much always and for any language as given above, so they are not interesting (though you could change encoding to something else than UTF-8, in this day and age really think thrice before doing that). The final field, <literal>Plural-Forms</literal>, is where you write the plural specification for your language (as explained in the section on <link linkend="sec-poplurals">plural forms</link>).</para>
+
+<para>Of the presented comments and fields, almost all of them are set when the PO file is translated for the first time. When you come back to a certain PO to update the translation, if no one else worked on that PO in the meantime, you should only update the <literal>PO-Revision-Date</literal> field. If someone has worked on it, you will also have to put your data in <literal>Last-Translator</literal> field. If you get to work on a PO file for the first time after someone else has already worked on it, you should add yourself in the translator list in comments. If you are using a dedicated PO editor, it will perform all these updates for you whenever you save the file.</para>
+
+<para>Note that everything in the header is supposed to be in English, to be understandable to people who do not speak your language. Aside from comments in English, this also means that the name of the language and the language team should be in English, and your own name and names of other translators in their romanized equivalents. This is because, for example, people speaking other languages may need to contact you or your team about any technical problems in the translation (e.g. program maintainers). Keep this in mind also when you are setting up your data in a dedicated PO editor.</para>
+
+<para>Other than the standard header fields, you may encounter some custom fields, whose names begin with <literal>X-</literal>. These fields are added by various PO processing tools. One typical custom field is <literal>X-Generator</literal>, where the dedicated PO editor which you use will write its name and version. Another custom field sometimes seen is <literal>X-Accelerator-Marker</literal>, which states the character used as the <link linkend="sec-poaccel">accelerator marker</link> (recognized by some tools e.g. for searching through PO files, when otherwise the accelerator marker could "mask" a word by being in the middle of it). Different translation environments may add various environment-specific fields for their internal use.</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-poedrepr">
+<title>Representation in Editors</title>
+
+<para>When you translate PO files using a plain text editor, all the message elements will be displayed in it as we have seen in the examples so far. You can edit them at will, including invalidating the syntax if you are not careful. Most capable text editors nowdays have syntax highlighting for the PO format, albeit with different levels of specificity. If you are working with a plain text editor, you should definitely use a command line tool to check the basic correctness of the PO file. <command>msgfmt</command> from the Gettext package is one such tool (use it with the <option>-c</option>).</para>
+
+<para>Dedicated PO editors will provide you with much more automation, but each will have its own ways of presenting and means of editing different elements of a message. As this text has tried to convince you, every element of the PO message is potentially important, so you should take time to find out how and where the given PO editor shows them. Some editors may even not show all elements of the messages, which in the opinion of the author of this text reflects poorly on them. At the extreme end, immediatelly discard an editor which shows you only the original text (the <varname>msgid</varname> string), regardless of any other qualities it may have (this is typical of translation editors not developed around the PO format, but later upgraded to "support" it).</para>
+
+<sect2 id="sec-poedlist">
+<title>List of PO Editors</title>
+
+<para>There is a number of dedicated PO editors available. They all have the same good basic support for the PO format, but each has some specialities and quirks that reflect the background of their authors. Namely, dedicated PO editors are normally written and maintained by people who are themselves engaged in certain translation projects. You should therefore try out the available editors and choose the one which is best suited to you, and possibly to the translation project within which you translate. Here is the list of some dedicated PO editors:
+<itemizedlist>
+<listitem>
+<para><ulink url="http://projects.gnome.org/gtranslator/">Gtranslator</ulink>. A PO editor developed within the Gnome translation project.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://userbase.kde.org/Lokalize">Lokalize</ulink>. A computer-aided translation tool developed within the KDE translation project.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://www.poedit.net/">Poedit</ulink>. A cross-platform lightweight PO editor.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://translate.sourceforge.net/wiki/virtaal/index">Virtaal</ulink>. Translation editor designed to be visually compact and easy to use, yet powerfull.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Some plain text editors can operate in <emphasis>modes</emphasis>, where additional editing commands became available to the user when a file of certain type is opened. Such mode for PO files is available for the following text editors: <ulink url="http://www.gnu.org/software/emacs/">Emacs</ulink>, <ulink url="http://projects.gnome.org/gedit/">Gedit</ulink>, <ulink url="http://www.vim.org/">Vim</ulink>.</para>
+
+</sect2>
+
+</sect1>
 
 </chapter>
