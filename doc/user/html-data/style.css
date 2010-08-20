@@ -4,8 +4,8 @@ body {
 }
 
 a {
-    color: green;
-    text-decoration: underline;
+    color: darkgreen;
+    text-decoration: none;
 }
 a:visited {
     color: maroon;
