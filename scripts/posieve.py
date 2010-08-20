@@ -308,7 +308,7 @@ def main ():
                "Pass a parameter to sieves."))
     opars.add_option(
         "-S",
-        metavar=_("@info command line value placeholder", "NAME[:VALUE]"),
+        metavar=_("@info command line value placeholder", "NAME"),
         action="append", dest="sieve_no_params", default=[],
         help=_("@info command line option description",
                "Remove a parameter to sieves "
