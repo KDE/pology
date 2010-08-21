@@ -37,18 +37,18 @@ valid msgstr="\S\<\/p\>"
 hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en la traducción)."
 
 # Punto al final del párrafo.
-{\.\s*$}i
-valid msgstr="\.\s*$"
+{\.\s*^}i
+valid msgstr="[\.\!\?]\s*$]"
 hint="Compruebe el uso de punto al final del párrafo."
 
 # Punto en el fin de línea «\n».
 {\.\s*\\n}i
-valid msgstr="\.\s*\\n"
+valid msgstr="[\.\!\?]\s*\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n»."
 
 # Punto en el fin de párrafo.
 {\.\s*\<\/p\>}i
-valid msgstr="\.\s*\<\/p\>"
+valid msgstr="[\.\!\?]\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>»."
 
 # Dos puntos al final del párrafo.

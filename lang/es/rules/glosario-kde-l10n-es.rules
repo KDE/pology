@@ -452,7 +452,7 @@ valid msgstr="CTAN"
 hint="« CTAN » no se debe traducir (ver glosario)"
 
 # «CUPS» no se traduce.
-{\bCUPS\b}i
+{\bCUPS\b}
 valid msgstr="CUPS"
 hint="« CUPS » no se debe traducir (ver glosario)"
 
@@ -500,7 +500,7 @@ hint="« Debugging » se traduce como « Depuración » (ver glosario)"
 
 # «Decode» se traduce como «Descodificar».
 {\bdecode\b}i
-valid msgstr="des?codificar"
+valid msgstr="des?codificar?"
 valid msgstr="des?codificación"
 hint="« Decode » se traduce como « Descodificar » (ver glosario)"
 
@@ -774,6 +774,7 @@ hint="« Feature » se traduce como « Funcionalidad » o « Característica » 
 {\bfeatures\b}i
 valid msgstr="funcionalidades"
 valid msgstr="características"
+valid msgstr="proporciona"
 hint="« Features » se traduce como « Funcionalidades » o « Características » (ver glosario)"
 
 # «Feed» se traduce como «Suministro».
@@ -982,7 +983,7 @@ valid msgstr="interfaz\sgráfica\sde\susuario"
 hint="« GUI » se traduce como « Interfaz gráfica de usuario » (ver glosario)"
 
 # «GUID» no se traduce.
-{\bGUID\b}i
+{\bGUID\b}
 valid msgstr="GUID"
 hint="« GUID » no se traduce (ver glosario)"
 
@@ -1132,7 +1133,7 @@ hint="« Interfaces » se traduce como « Interfaces » (ver glosario)"
 
 # «IRQ» no se traduce.
 {\bIRQ\b}i
-valid msgstr="IRQ"
+valid msgstr="irq"
 hint="« IRQ » no se traduce (ver glosario)"
 
 # «I/O» se traduce como «E/S».
@@ -1205,6 +1206,8 @@ hint="« Languages » se traduce como « Idiomas » (ver glosario)"
 # «Leak» se traduce como «Pérdida» o «Falta».
 {\bleak\b}i
 valid msgstr="pérdida"
+valid msgstr="pierde"
+valid msgstr="pierda"
 valid msgstr="falta"
 hint="« Leak » se traduce como « Pérdida » o « Falta » (ver glosario)"
 
@@ -1341,7 +1344,7 @@ hint="« Mailing list » se traduce como « Lista de correo » (ver glosario)"
 
 # «Mailing lists» se traduce como «Listas de correos».
 {\bmailing\slists\b}i
-valid msgstr="listas\sde\scorreos"
+valid msgstr="listas\sde\scorreo"
 hint="« Mailing lists » se traduce como « Listas de correo » (ver glosario)"
 
 # «Mainteiner» se traduce como «Responsable» o «Encargado».
@@ -1437,6 +1440,7 @@ hint="« Mirror » se traduce como « Espejo » o « Reflejar » (ver glosario)"
 {\bmirrors\b}i
 valid msgstr="espejos"
 valid msgstr="refleja"
+valid msgstr="invierte"
 hint="« Mirrors » se traduce como « Espejos » o « Refleja » (ver glosario)"
 
 # «Mistake» se traduce como «Equivocación».
@@ -1536,14 +1540,14 @@ hint="« Passwords » se traduce como « Contraseñas » (ver glosario)"
 {\bpatch\b}i
 #valid after="\-"
 valid msgstr="parch(e|ea)?"
-valid cat="kdemultimedia,extragear-multimedia" msgstr="instrumento"
+valid catrx=".*kmid.*" msgstr="instrumento"
 hint="« Patch » se traduce como « Parche » (ver glosario)"
 
 # «Patchs» se traduce como «Parches».
 {\bpatchs\b}i
 #valid after="\-"
 valid msgstr="parch(es|ea)?"
-valid cat="kdemultimedia,extragear-multimedia" msgstr="instrumentos"
+valid catrx=".*kmid.*" msgstr="instrumentos"
 hint="« Patchs » se traduce como « Parches » (ver glosario)"
 
 # «Path» se traduce como «Ruta».
@@ -2029,12 +2033,12 @@ hint="« Set up » se traduce como « Configuración » o « Configurar » (ver 
 # «Shortcut» se traduce como «Acceso rápido».
 {\bshortcut\b}i
 valid msgstr="accesos?\srápidos?"
-hint="« Short cut » se traduce como « Acceso rápido » (ver glosario)"
+hint="« Shortcut » se traduce como « Acceso rápido » (ver glosario)"
 
 # «Shortcuts» se traduce como «Accesos rápidos».
 {\bshortcuts\b}i
 valid msgstr="accesos\srápidos"
-hint="« Short cuts » se traduce como « Accesos rápidos » (ver glosario)"
+hint="« Shortcuts » se traduce como « Accesos rápidos » (ver glosario)"
 
 # «Shorthand» se traduce como «Abreviado».
 {\bshorthand\b}i
@@ -2236,7 +2240,7 @@ hint="« Swap » se traduce como « Intercambio » (ver glosario)"
 
 # «Symbolic link» se traduce como «Enlace simbólico».
 {\bsymbolic\slink\b}i
-valid msgstr="enlaces?\ssimbólicos"
+valid msgstr="enlaces?\ssimbólicos?"
 hint="« Symbolic link » se traduce como « Enlace simbólico » (ver glosario)"
 
 # «Symbolic links» se traduce como «Enlaces simbólicos».
@@ -2396,6 +2400,7 @@ hint="« Verbatim copy » se traduce como « Copia literal » (ver glosario)"
 # «Web» no se traduce.
 {\bweb\b}i
 valid msgstr="web"
+valid span="trust\s\of\sweb" msgstr="red\sde\sconfianza"
 hint="« Web » no se traduce (ver glosario)"
 
 # «Widget» se traduce como «Ventana», Control» o «Elemento gráfico».

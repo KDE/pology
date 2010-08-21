@@ -1,3 +1,28 @@
+1.- Cambios en «filter.include»
+- Mejoras en la detección de patrones en los filtros.
+- Nuevos filtros basados en el hook "sr/checks.py" de Chusslove Illich.
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Corregir diversos errores de la versión anterior.
+
+3.- Cambios en «typography.rules»
+- Regla para detectar siglas en plural en la traducción 
+también para entidades XML (con «s» o «'s» al final).
+- Regla para detectar palabras iguales consecutivas.
+- Regla para admitir «!» o «?» al final de párrafo cuando el 
+texto original termina en punto.
+- Corrección de pequeños errores en las expresiones regulares.
+
+4.- Cambios en «false-friends.rules»
+-  Correción de errores indicados por Josep Ma. Ferrer. ¡Gracias!
+
+6.- Cambios «paired-words.rules»
+  Se añaden nuevas reglas que comparan el contenido del mensaje original con su 
+traducción, devolviendo error si:
+- La traducción está vacía cuando el mensaje original no lo está.
+- La traducción coincide con el original en contextos en lo que esto no debe ocurrir.
+- La longitud de la traducción es mas del doble de larga que la del original.
+
 Cambios 6/8/2010
 -----------------------
 

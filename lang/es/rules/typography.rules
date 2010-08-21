@@ -16,7 +16,7 @@ valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\
 valid after="^"
 
 validGroup openQuotes
-valid after="\<\>\(\[\{\-\=\.\,\;\:\s]"
+valid after="[\<\>\(\[\{\-\=\.\,\;\:\s]"
 valid after="\&\w+?\;"
 valid after="^"
 valid before=".+»"
@@ -194,15 +194,15 @@ valid msgstr="\.\.\.\s[a-z]"
 hint="Utilice mayúsculas después de punto"
 
 [\(]
-valid before=".*?[\)|\(|\»|\"|\']"
+valid before=".*?[\)\(\»\"\']"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
 #[\[]
-#valid before=".*?[\]|\»|\"|\']"
+#valid before=".*?[\]\»\"\']"
 #hint="Cierre el corchete (deben ir emparejados)"
 
 [\{]
-valid before=".*?[\}|\{|\»|\"|\']"
+valid before=".*?[\}\{\»\"\']"
 hint="Cierre la llave (deben ir emparejadas)"
 
 [\(c\)]
@@ -214,6 +214,15 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 
 [\b[A-Z]{2,6}\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
+
+[\b\&[\w\-]+\;s\b]
+hint="Las siglas se escriben en singular en español (quite la «s» final)"
+
+[\b\&[\w\-]+\;\'s\b]
+hint="Las siglas se escriben en singular en español (quite la «'s» final)"
+
+[\b(w+)\s+(\1)\b]
+hint="Hay una palabra consecutiva repetida en el párrafo"
 
 [ésto\ses\s]i
 hint="Ponga una coma después de «ésto es» (Consulte ortografía de la RAE)"
@@ -236,8 +245,8 @@ hint="Ponga una coma después de «sin embargo» (Consulte ortografía de la RAE
 [no\sobstante\s]i
 hint="Ponga una coma después de «no obstante» (Consulte ortografía de la RAE)"
 
-[además\s]i
-hint="Ponga una coma después de «además» (Consulte ortografía de la RAE)"
+#[además\s]i
+#hint="Ponga una coma después de «además» (Consulte ortografía de la RAE)"
 
 [en\stal\scaso\s]i
 hint="Ponga una coma después de «en tal caso» (Consulte ortografía de la RAE)"

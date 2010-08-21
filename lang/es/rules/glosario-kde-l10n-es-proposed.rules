@@ -31,6 +31,7 @@ hint="« Running » se traduce como como « En ejecución » (ver glosario)"
 {\bon(\s|\-)line\b}i
 valid msgstr="conectad(o|a)"
 valid msgstr="con\sconexión"
+valid msgstr="en\sla\slínea\s+\d"
 hint="« On line » se traduce como como « Conectado » (ver glosario)"
 
 # «Off line» se traduce como «Desconectado».
@@ -62,13 +63,13 @@ hint="« Mirror » se traduce como como « Espejo » o « Réplica » (ver glosa
 # «Composer» se traduce como «Editor».
 {\bcomposer\b}i
 valid msgstr="editor"
-valid catrx=".*multimedia" msgstr="compositor"
+valid catrx=".*amarok.*" msgstr="compositor"
 hint="« Composer » se traduce como como « Editor » (ver glosario)"
 
 # «Composers» se traduce como «Editores».
 {\bcomposers\b}i
 valid msgstr="editores"
-valid catrx=".*multimedia" msgstr="compositores"
+valid catrx=".*amarok.*" msgstr="compositores"
 hint="« Composers » se traduce como como « Editores » (ver glosario)"
 
 # «Spellchecking» se traduce como «Corrección ortográfica».

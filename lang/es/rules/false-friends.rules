@@ -306,7 +306,7 @@ valid !msgstr="discusión"
 hint="« Discussion » se traduce como como « Debate », no como « Discusión » (falso amigo)"
 
 # «Discussions» se traduce como «Debates».
-{\bdiscussion\b}i
+{\bdiscussions\b}i
 valid msgstr="debates"
 valid msgstr="intercambios\sde\sideas"
 valid !msgstr="discusiones"
@@ -768,7 +768,7 @@ hint="« Strangers » se traduce como como « Forasteros », no como « Extranje
 valid msgstr="éxito"
 valid msgstr="satisfactori(o|a)"
 valid !msgstr="suceso"
-hint="« Sucess » se traduce como como « Éxito », no como « Suceso » (falso amigo)"
+hint="« Success » se traduce como como « Éxito », no como « Suceso » (falso amigo)"
 
 # «Suggestion» se traduce como «Sugerencia».
 {\bsuggestion\b}i

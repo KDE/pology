@@ -6,6 +6,9 @@ de un punto en el caso que siga un nombre de archivo
 - Reglas de puntuación de la RAE.
 - Suprimir las reglas sobre el carácter acelerador. (Se incluían 
 debido a un error en ksvnupdater).
+- Comprobar palabras en mayúsculas que no figuren en un diccionario de 
+nombres propios, cuando no sigan a punto o comillas o no se encuentren 
+al inicio de párrafo.
 
 2.- Reglas de vocabulario:
 - Comprobación de la concordancia de género y número.
@@ -16,13 +19,33 @@ combinación con «not».
 - Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
 * (Para estos casos, emplear la opción «span» de pology, para delimitar el 
 texto original al que se aplica cada variante específica).
-- Añadir mas reglas sobre «false friends».
-- Incorporar a las reglas (y en su caso al glosario) las del equipo gallego 
-que resulten aplicables y de interés para nosotros.
+- Añadir mas reglas sobre «false friends». Lista de Eloy Cuadra en:
+http://www.eloihr.net/falsefriends/index.php?page=main
+- Incorporar a las reglas (y en su caso al glosario) las de los siguientes 
+equipos que resulten aplicables y de interés para nosotros:
+    - gl/rules/terminology.rules
+    - ja/rules/terminology.rules
+    - sr/rules/techne-kde-rules
+    - sr/rules/terminology-kde-rules
+    - sr/rules/terminology-rules
 - Detección del uso inadecuado del gerundio.
 - Laismo, leismo y loismo.
 - Queismo, dequeismo.
 - Voseo y tuteo.
 
-3.- Revisar las reglas con otros paquetes; (hasta el momento las he probado 
+3.- Reglas de comparación entre el texto traducido y el original.
+- Incorporar las de KBabel.
+
+4.- Vocabulario.
+- Crear archivos con extensión «.spell» para cada tipo de palabra que deba
+figurar en el vocabulario. Se sigue la clasificación del equipo japones. 
+- Programar un guión de shell que genere un archivo «dict.aspell» a partir
+de los anteriores:
+  - Escribir la cabecera adecuada al idioma del equipo.
+  - Concatenar la cabecera con los archivos «.aspell».
+  - Ejecutar «organizeDict.py» para el resultado (ruta relativa).
+  - Comparar el resultado con el archivo actual.
+- Buscar en la Wikipedia glosarios temáticos.
+ 
+5.- Revisar las reglas con otros paquetes; (hasta el momento las he probado 
 con «kdelibs», «kdepim», «kdegraphics» y «extragear-multimeadia»).
