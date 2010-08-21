@@ -57,15 +57,23 @@ code {
     content: "]]";
 }
 
-div.toc > dl > dt { /* sect1 entry */
+div.toc > dl > dt { /* chapter entry */
     margin-top: 0.75em;
     margin-bottom: 0.5em;
 }
-div.toc > dl > dd > dl { /* sect2 block */
+div.toc > dl > dd > dl { /* chapter block */
     margin-top: 0em;
     margin-bottom: 0.0em;
 }
-div.toc > dl > dd > dl > dt { /* sect2 entry */
+div.toc > dl > dd > dl > dt { /* sect1 entry */
+    margin-top: 0.0em;
+    margin-bottom: 0.25em;
+}
+div.toc > dl > dd > dl > dd > dl { /* sect2 block */
+    margin-top: 0em;
+    margin-bottom: 0.0em;
+}
+div.toc > dl > dd > dl > dd > dl > dt { /* sect2 entry */
     margin-top: 0.0em;
     margin-bottom: 0.25em;
 }
