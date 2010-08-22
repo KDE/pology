@@ -488,10 +488,16 @@ def diff_cats (cat1, cat2, ecat,
         fnsyn = fuzzy_match_source_files(cat2, [cat1])
 
     # Make the diffs.
+    # Must not add diffed messages directly to global ediff catalog,
+    # because then heuristic insertion would throw them all over.
+    # Instead add to local ediff catalog, then copy in order to global.
     ndiffed = 0
+    lecat = Catalog("", create=True, monitored=False)
     for cdpairs, cfnsyn in ((dpairs_by2, None), (dpairs_by1, fnsyn)):
         for msg1, msg2 in cdpairs:
-            ndiffed += add_msg_diff(msg1, msg2, ecat, colorize, cfnsyn)
+            ndiffed += add_msg_diff(msg1, msg2, lecat, colorize, cfnsyn)
+    for emsg in lecat:
+        ecat.add(emsg, len(ecat))
 
     return ndiffed
 
@@ -557,7 +563,7 @@ def add_msg_diff (msg1, msg2, ecat, colorize, fnsyn=None):
     if fnsyn is None:
         ecat.add(emsg, len(ecat))
     else:
-        ecat.add(emsg, None, fnsyn)
+        ecat.add(emsg, srefsyn=fnsyn)
 
     return 1
 
