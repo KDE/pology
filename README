@@ -1,0 +1,82 @@
+Pology
+======
+
+
+What Is This?
+-------------
+
+Pology is a Python library and collection of scripts for in-depth processing
+of PO files, which are the predominant medium for translation of free software
+and associated documents.
+
+Pology is licensed under the GNU General Public License, version 3.
+
+
+Obtaining
+---------
+
+Pology is still not released, so it is likely not available through operating
+system's package manager. The latest development version can be obtained and
+kept up to date from the Subversion repository at:
+
+  $ cd <somewhere>
+  $ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
+  $ svn update pology
+
+
+Installing
+----------
+
+Currently there is no build and installation system in place.
+The scripts and the library can be used directly from the source directory,
+by setting (in Bash):
+
+  $ export PYTHONPATH=<somewhere>/pology:$PYTHONPATH
+  $ export PATH=<somewhere>/pology/bin:$PATH
+
+For convenience, shell completion for some Pology scripts can be activated
+as well (in Bash):
+
+  $ . <somewhere>/pology/completion/bash/pology
+
+
+Documentation
+-------------
+
+Pology comes with user and API documentation. User manual can be found in:
+
+  doc/user/html/index.html  (one page by chapter)
+  doc/user/html/index-mono.html  (everything on one page)
+
+and API documentation in:
+
+  doc/api/html/index.html
+
+
+Contact
+-------
+
+Currently there is no official mailing list or bug tracking system.
+Questions, bug reports, and patches should be directed to the maintainer:
+
+  Chusslove Illich <caslav.ilic@gmx.net>
+
+
+Authors
+-------
+
+This is a non-exhaustive list of people who contributed various stuff:
+
+  Yukiko Bando <ybando@k6.dion.ne.jp>
+  Josep Ma. Ferrer <txemaq@gmail.com>
+  Karl Ove Hufthammer <karl@huftis.org>
+  Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+  Fumiaki Okushi <fumiaki@okushi.com>
+  Goran Rakic (Горан Ракић) <grakic@devbase.net>
+  Sébastien Renard <sebastien.renard@digitalfox.org>
+  Nick Shaforostoff (Николай Шафоростов) <shaforostoff@kde.ru>
+  Nicolas Ternisien <nicolas.ternisien@gmail.com>
+  Marcelino Villarino Aguiar <mvillarino@gmail.com>
+  Javier Viñal <fjvinal@gmail.com>
+  Manfred Wiese <m.j.wiese@web.de>
+
