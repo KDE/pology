@@ -34,6 +34,14 @@
     </revhistory>
     -->
 
+    <abstract>
+
+    <para>Pology is a Python library and collection of scripts for in-depth processing of PO files. The library is designed for easy and robust writing of custom scripts in field environments. The scripts perform wide variety of tasks, from precision operations on individual messages in PO files, to cross-file operations on large collections of PO files. Special support is provided for common elements in PO translation workflow, such as translation editors and version control systems, as well as for language-specific and project-specific needs.</para>
+
+    <para>This document is the referent source of information on Pology. It describes the functionality available to end users, but also gives the overview of programming with Pology, since Pology is easily extensible and users are encouraged to introduce their own processing elements.</para>
+
+    </abstract>
+
 </bookinfo>
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -44,5 +52,26 @@
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
             href="sieving.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="diffpatch.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="summit.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="ascription.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="lingo.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="common.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="combined.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="programming.docbook"/>
 
 </book>

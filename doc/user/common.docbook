@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="ch-common">
+<title>Common Functionality</title>
+
+<para></para>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmshellcomp">
+<title>Shell Completion</title>
+
+<para>Shell completion means that, similarly as for command names, it is possible to contextually complete command parameters by pressing the <keycap>Tab</keycap> key. This allows you to efficiently type in the command line, as well as to quickly remind yourself of options and option parameters without resorting to documentation or browsing the file system.</para>
+
+<para>For example, pressing <keycap>Tab</keycap> just after the <link linkend="ch-sieve"><command>posieve</command> command</link> will complete sieve names, and <keycap>Tab</keycap> after the <option>-s</option> option will complete sieve parameters based on sieves that precede it in the command line. This:
+<programlisting>
+$ posieve s&lt;TAB&gt;
+</programlisting>
+will show all sieves beginning with <literal>s</literal>, and complete the sieve name once sufficient number of characters have been entered to uniquely determine it, while this:
+<programlisting>
+$ posieve stats -s m&lt;TAB&gt;
+</programlisting>
+will show all parameters to <command>stats</command> beggining with <literal>m</literal>, and complete one of them after few more characters are typed in.</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmconfig">
+<title>User Configuration</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmincexc">
+<title>Path Inclusion and Exclusion</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmffrom">
+<title>Reading Paths From a File</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmcolors">
+<title>Output Coloring</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmheader">
+<title>Influential Header Fields</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmhooks">
+<title>Filtering Hooks</title>
+
+<para></para>
+
+</sect1>
+
+</chapter>

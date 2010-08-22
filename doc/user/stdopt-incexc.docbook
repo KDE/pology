@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<varlistentry>
+<term><option>-e REGEX</option>, <option>--exclude-name=REGEX</option>; <option>-E REGEX</option>, <option>--exclude-path=REGEX</option>; <option>-i REGEX</option>, <option>--include-name=REGEX</option>; <option>-I REGEX</option>, <option>--include-path=REGEX</option></term>
+<listitem>
+<para>See section "<xref linkend="sec-cmincexc"/>".</para>
+</listitem>
+</varlistentry>

@@ -4,8 +4,584 @@
 
 <chapter id="ch-sieve">
 
-<title>Sieving Catalog Trees</title>
+<title>Sieving</title>
+
+<para>Translator may want to apply batch-type operations to every message in a single PO file or in collection of PO files, such as searching and replacing text, computing statistics, or validating. However, batch-processing tools for general plain text (<command>grep</command>, <command>sed</command>, <command>awk</command>, etc.) are not very well suited to processing PO files. For example, when looking for a particular word, a generic search tool will not see it if it contains an <link linkend="sec-poaccel">accelerator marker</link>; or, if looking for a two-word phrase, a generic tool will miss it if it is <link linkend="sec-powrap">wrapped</link>. Therefore many tools tailored specifically for batch-processing messages in PO files have been developed, such as those bundled with <ulink url="http://www.gnu.org/software/gettext/">Gettext</ulink> (<command>msggrep</command>, <command>msgfilter</command>, <command>msgattrib</command>...), or from <ulink url="http://translate.sourceforge.net/wiki/toolkit/index">Translate Toolkit</ulink> (<command>pocount</command>, <command>pogrep</command>, <command>pofilter</command>...).</para>
+
+<para>Pology also provides a per-message batch-processing tool, the <command>posieve</command>. What was the need for it, given the myriad of other previously available and powerful tools? In accordance with philosophy of Pology, <command>posieve</command> goes deeper than these other tools. <command>posieve</command> makes easy that which is possible but awkward by combining generic command line tools. <command>posieve</command> is modular from the ground up, such that it is never a design problem to add new functionality to it, even when it is of narrow applicability. Users who know some Python can even write own "plugins" for it. Several processing modules can be applied in a single run of <command>posieve</command>, possibly affecting each other, in ways not possible by generic shell piping and not requiring temporary intermediate files.</para>
+
+<!-- ======================================== -->
+<sect1 id="sec-svbasics">
+<title>Basic Usage</title>
+
+<para>The <command>posieve</command> script itself is actually a simple shell which applies various processing modules, called <emphasis>sieves</emphasis>, to every message in one or more PO files. Some sieves can also request to operate on the header of the PO file, which <command>posieve</command> will then feed to them. A sieve can only examine but also modify messages; if any message is modified, by default the modified PO file will be written out in place. Naturally, <command>posieve</command> has a number of options, but more interestingly, each sieve can define some parameters which determine its behavior. Pology comes with many internal sieves, which do things from general to obscure (possibly language or project specific), and users can define their own sieves.</para>
+
+<para>Here is how you would run the <link linkend="sv-stats"><command>stats</command></link> sieve to collect statistics on all PO files in <filename>frobaz/</filename> directory:
+<programlisting>
+$ posieve stats frobaz/
+</programlisting>
+While PO files in <filename>frobaz/</filename> are being processed, you will see a progress bar with the current file and the number of files to process, and after some time the <command>stats</command> sive will present its findings in a table.</para>
+
+<para>The first non-option argument in the <command>posieve</command> command line is the sieve name, and then any number of directory or file paths can be specified.
+<command>posieve</command> will consider file path arguments to be PO files, and recursively search directory paths to collect all files ending with <filename>.po</filename> or <filename>.pot</filename>. If no paths are specified, PO files to process will be collected from the current working directory.</para>
+
+<para>If the sieve modifies a message and the new PO file is written out in place of the old, the user will be informed by an exclamation mark followed by the file path. An example of a sieve which modifies messages is the <link linkend="sv-tag-untranslated"><command>tag-untranslated</command></link> sieve; it adds
+the <literal>untranslated</literal> flag to every untranslated message, so that you can look them up in a plain text editor (as opposed to <link linkend="sec-poedlist">dedicated PO editor</link>):
+<programlisting>
+$ posieve tag-untranslated frobaz/
+! frobaz/alfa.po
+! frobaz/bravo.po
+! frobaz/charlie.po
+Tagged 42 untranslated messages.
+</programlisting>
+<command>posieve</command> itself tracks message modifications and informs about modified PO files, whereas the final line in this example has been output by the <command>tag-untranslated</command> sieve. Sieves will frequently issue such final reports of their actions.</para>
+
+<para>If a sieve defines some parameters to control its behavior, these can be issued using the <option>-s</option>. This option takes the parameter specification as the argument, which is of the form <literal><replaceable>name</replaceable>:<replaceable>value</replaceable></literal> or just <literal><replaceable>name</replaceable></literal> for switch-type parameters. More than one parameter can be issued by repeating the <option>-s</option>. For example, the <command>stats</command> sieve can be instructed to take into account only messages with at most 5 words:
+<programlisting>
+$ posieve stats -s maxwords:5 frobaz/
+</programlisting>
+to show statistics in greater detail:
+<programlisting>
+$ posieve stats -s detail frobaz/
+</programlisting>
+or to ignore a certain accelerator marker and show bar-type statistics instead of tabular:
+<programlisting>
+$ posieve stats -s accel:_ -s msgbar frobaz/
+</programlisting>
+</para>
+
+<para><command>posieve</command> lists and shows descriptions of its options by the usual <option>-h</option>/<option>--help</option> option. Help for a sieve can be requested by issuing the <option>-H</option>/<option>--help-sieves</option> while a sieve name is present in the command line. All available internal sieves with short descriptions are listed using <option>-l</option>/<option>--list-sieves</option>.</para>
+
+<para>Some sieves are language-specific, which can be seen by their names being of the form <command><replaceable>langcode</replaceable>:<replaceable>name</replaceable></command>. These sieves are primarily intendedfor use on PO files translated to indicated language, but depending on particularities, may be applicable to several more closely related languages. (A sieve which is doing language-specific things, but which is applicable to many languages, is more likely to be named as a general sieve.)</para>
+
+<para>If <link linkend="sec-cmshellcomp">shell completion</link> is active, it can be used to complete sieve names and their parameters.</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-svchains">
+<title>Sieve Chains</title>
+
+<para>It is possible to issue several sieves at once, by passing a comma-separated list of sieve names to <command>posieve</command> in place of single sieve name. This is called a <emphasis>sieve chain</emphasis>.</para>
+
+<para>At minimum, chaining sieves is a performance improving measure, since each PO file is opened (and possibly written out) only once, instead of on each sieve run. For example, you can in one run compute the statistics to see how many messages need to be update and tag all untranslated messages:
+<programlisting>
+$ posieve stats,tag-untranslated frobaz/
+! frobaz/alfa.po
+! frobaz/bravo.po
+! frobaz/charlie.po
+... (table with statistics) ...
+Tagged 42 untranslated messages.
+</programlisting>
+A message in the PO file is passed through each sieve in turn, in the order in which they are issued, before proceding to the next message. If a sieve modifies the message, the next sieve in the chain will operate on that modified version of the message. This means that the ordering of sieves in the command line is significant in general, and that it is interchangable only if the sieves in the chain are independent of each other (as in this example). Chain order also determines the order in which sieve reports are shown; if in this example the order had been <literal>tag-untranslated,stats</literal>, then first the tagged messages line would be written out, followed by the statistics table.</para>
+
+<para>Other than for performance, sieve chains are useful when messages should be modified in a particular way before a sieve gets to operate on it. A good example is when statistics is to be computed on PO files which contain old <link linkend="p-embctxt">embedded contexts</link>, where if nothing would be done, contexts would add to the word count of the original text. To avoid this, a <link linkend="sv-normctxt-sep">context normalization</link> sieve (which converts embedded contexts to <varname>msgctxt</varname>) can be chained with statistics sieve, and the <command>posieve</command> instructed not to write modifications to the PO file. If the embedded context is of the single-separator type, with separator character <literal>|</literal>, the sieve chain is:
+<programlisting>
+$ posieve --no-sync normctxt-sep,stats -s sep:'|' frobaz/
+Converted 21 separator-embedded contexts.
+... (table with statistics) ...
+</programlisting>
+The <option>--no-sync</option> option prevents writing modified messages in the PO file on disk. Note that <literal>|</literal> as parameter value is quoted, because it would be interpreted as a shell pipe otherwise.</para>
+
+<para>Finally, some sieves can stop messages from being pushed further through the sieve chain, so they can be used as a prefilter to other sieves. The     archetypal example of this the <link linkend="sv-find-messages"><command>find-messages</command></link>, which stops non-matched messages from further sieving. For example, to include into statistics only the messages containing the word "quasar", this would be executed:
+<programlisting>
+$ posieve find-messages,stats -s msgid:quasar -s nomsg
+Found 12 messages satisfying the conditions.
+... (table with statistics) ...
+</programlisting>
+The <option>msgid:</option> parameter specifies the word (actually, a regular expression) to be looked up in the original text, while <option>nomsg</option> parameter tells <command>find-messages</command> not to write out matched messages to standard output, which it would by default do. Note that no path was specified, meaning that all PO files in current working directory and below will be sieved.</para>
+
+<para>Examples of sieve chaining so far should have raised the following question: when several sieves are issued, to which of them are the parameters specified by <option>-s</option> options passed? The answer is that a parameter is sent to all sieves which accept parameter of that name. Continuing the previous example, if message texts can contain accelerator marker <literal>&amp;</literal>, this would be specified like this:
+<programlisting>
+$ posieve find-messages,stats -s msgid:quasar -s nomsg -s accel:'&amp;'
+</programlisting>
+<command>find-messages</command> will accept <option>accel</option> in order to also match messages like <literal>"Charybdis Q&amp;uasar"</literal>, while <command>stats</command> will use it to properly split text into words for counting them.</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-svoptions">
+<title>Options</title>
+
+<para>
+Options specific to <command>posieve</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-a</option>, <option>--announce-entry</option></term>
+<listitem>
+<para>A sieve may be buggy and crash or keep <command>posieve</command> in infinite loop on a particular PO entry (header or message). When this option is given, each PO entry will be announced before sieving it, so that you can see exactly where the problem occurs.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-b</option>, <option>--skip-obsolete</option></term>
+<listitem>
+<para>By default <command>posieve</command> will process all messages in the PO file, including the obsolete. Sometimes sieving obsolete messages is not desired, for example when running translation validation sieves. This option can then be used to skip obsolete messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-c</option>, <option>--msgfmt-check</option></term>
+<listitem>
+<para>For <command>posieve</command> to process the PO file, it is only necessary that basic PO syntax is valid, i.e. that <command>msgfmt</command> can compile the file. <command>msgfmt</command> also offers stricter validation mode: to have <command>posieve</command> run this stricter validation on the PO file, issue this option. Invalid files will be reported and will not be sieved.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--force-sync</option></term>
+<listitem>
+<para>When some messages in the PO file are modified, by default only those messages will be reformatted (e.g. strings wrapped as selected) when the PO file is modified on disk. This makes <command>posieve</command> friendly to version control systems. Sometimes, however, you may want that all messages are reformatted, modified or not, and then you can issue this option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-h</option>, <option>--help</option></term>
+<listitem>
+<para>General help on <command>posieve</command>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-H</option>, <option>--help-sieves</option></term>
+<listitem>
+<para><option>-h</option>/<option>--help</option> shows only description of <command>posieve</command> and its options, while this option shows the descriptions and available parameters of issued sieves. For example:
+<programlisting>
+$ posieve find-messages,stats -H
+</programlisting>
+would output help for <command>find-messages</command> and <command>stats</command> sieves.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--issued-params</option></term>
+<listitem>
+<para>List of all sieve parameters and their values that would be issued. Used to check <link linkend="p-svparconfcmd">the interplay of command line and configuration</link> on sieve parameters.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-l</option>, <option>--list-sieves</option></term>
+<listitem>
+<para>List of all internal sieves, with short descriptions.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--list-options</option>; <option>--list-sieve-names</option>; <option>--list-sieve-params</option></term>
+<listitem>
+<para>Simple listings of global options, internal sieve names, and parameters of issued sieves. Intended mainly for writting shell completion definitions.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-m OUTFILE</option>, <option>--output-modified=OUTFILE</option></term>
+<listitem>
+<para>If some PO files were modified by sieving, you may want to follow up with a command to process only those files. <command>posieve</command> will by default output the paths of modified PO files, but also other information, which makes parsing this output for modified paths ungainly. Instead, this option can be used to specify a file to which path of all modified PO files will be written to, one per line.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--no-skip</option></term>
+<listitem>
+<para>If a sieve reports an error, <command>posieve</command> normally skips the problematic message and continues sieving the rest of the PO file, if possible. This is sometimes not desired, when this option will tell <command>posieve</command> to abort with an error message in such cases.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--no-sync</option></term>
+<listitem>
+<para>All messages modified by sieves are by default written back to disk, i.e. their PO files modifed. This option prevents modification of PO files. This comes handy in two cases. One is when you want to check what effect a modifying sieve will have before actually accepting it (a "dry" run). The other case is when you use a modifying sieve as a filter for the next sieve in chain, which only needs to examine messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-q</option>, <option>--quiet</option></term>
+<listitem>
+<para><command>posieve</command> normally shows the progress of sieving, which can be cancelled by this option. (Sieves will still output their own lines.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-s PARAM[:VALUE]</option></term>
+<listitem>
+<para>The central option of <command>posieve</command>, which is used to issue parameters to sieves.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-S PARAM</option></term>
+<listitem>
+<para>When a sieve parameter is issued <link linkend="p-confsvpar">through user configuration</link>, this option can be used to cancel it for one particular run.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--version</option></term>
+<listitem>
+<para>Release and copyright information on <command>posieve</command>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-v</option>, <option>--verbose</option></term>
+<listitem>
+<para>More verbose output, where <command>posieve</command> shows the sieving modes, lists files which are being sieved, etc.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>
+Options common with other Pology tools:
+<variablelist>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-filesfrom.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-incexc.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-colors.docbook"/>
+
+</variablelist>
+</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-svconfig">
+<title>Configuration</title>
+
+<para>The following <link linkend="sec-cmconfig">configuration</link> fields can be used to modify general behavior of <command>posieve</command>:
+<variablelist>
+
+<varlistentry>
+<term><literal>[posieve]/skip-on-error=[*yes|no]</literal></term>
+<listitem>
+<para>Setting to <literal>no</literal> is counterpart to <option>--no-skip</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[posieve]/msgfmt-check=[yes|*no]</literal></term>
+<listitem>
+<para>Setting to <literal>yes</literal> is counterpart to <option>-c</option>/<option>--msgfmt-check</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[posieve]/skip-obsolete=[yes|*no]</literal></term>
+<listitem>
+<para>Setting to <literal>yes</literal> is counterpart to <option>-b</option>/<option>--skip-obsolete</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+For configuration fields that have counterpart command line options, the command line option always takes precedence if issued.</para>
+
+<para id="p-confsvpar">Configuration can also be used to issue sieve parameters, by specifying <literal>[posieve]/param-<replaceable>name</replaceable></literal> fields. For example, parameters <option>transl</option> (a switch) and <option>accel</option> (with value <literal>&amp;</literal>) are issued to all sieves that accept them by writing:
+<programlisting>
+[posieve]
+param-transl = yes
+param-accel = &amp;
+</programlisting>
+</para>
+
+<para>To issue parameters only to certain sieves, parameter name can be followed
+by a sieve list of the form <literal>/<replaceable>sieve1</replaceable>,<replaceable>sieve2</replaceable>,...</literal>; to <emphasis>prevent</emphasis> the parameter from being issued only to certain sieves, prepend <literal>~</literal> to the sieve list. For example:
+<programlisting>
+[posieve]
+param-transl/find-messages = yes  # only for find-messages
+param-accel/~stats = &amp;            # not for stats
+</programlisting>
+</para>
+
+<para>Same parameters can sometimes be repeated in the command line, when it is logically meaningfull to provide several values of that type to a sieve. However, same-name fields cannot be used in configuration to supply several values, because they override each other. Instead, a dot and a unique string (within the sequence) can be appended to the parameter name to make it a unique configuration field:
+<programlisting>
+[posieve]
+param-accel.0 = &amp;
+param-accel.1 = _
+</programlisting>
+Strings after the dot can be anything, but a sequence of numbers or letters in alphabetical order is the least confusing choice.</para>
+
+<para id="p-svparconfcmd">Sieve parameters should be issued from the configuration only as a matter of convenience, when they are almost always used in sieve runs. But occasionaly the parameter issued from the configuration is not appropriate for the given run. Instead of going to configuration and commenting the parameter out temporarily, it can be cancelled in the command line using the <option>-S</option> option (note capital S) followed by the parameter name. You can use <option>--issued-params</option> option to confirm which parameters will be issued after both the command line and the configuration have been taken into account.</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-svinternal">
+<title>Internal Sieves</title>
 
 <para></para>
+
+<sect2 id="sv-apply-filter">
+<title><command>apply-filter</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-apply-header-filter">
+<title><command>apply-header-filter</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-bad-patterns">
+<title><command>bad-patterns</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-grammar">
+<title><command>check-grammar</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-rules">
+<title><command>check-rules</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-spell">
+<title><command>check-spell</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-spell-ec">
+<title><command>check-spell-ec</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-tp-kde">
+<title><command>check-tp-kde</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-tp-wesnoth">
+<title><command>check-tp-wesnoth</command></title>
+<para></para>
+</sect2>
+
+<sect2 id="sv-check-xml-docbook4">
+<title><command>check-xml-docbook4</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-check-xml-kde4">
+<title><command>check-xml-kde4</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-collect-pmap">
+<title><command>collect-pmap</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-diff-previous">
+<title><command>diff-previous</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-empty-fuzzies">
+<title><command>empty-fuzzies</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-equip-header-tp-kde">
+<title><command>equip-header-tp-kde</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-fancy-quote">
+<title><command>fancy-quote</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-find-messages">
+<title><command>find-messages</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-generate-xml">
+<title><command>generate-xml</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-merge-corr-tree">
+<title><command>merge-corr-tree</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-normalize-header">
+<title><command>normalize-header</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-normctxt-delim">
+<title><command>normctxt-delim</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-normctxt-sep">
+<title><command>normctxt-sep</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-remove-fuzzy-comments">
+<title><command>remove-fuzzy-comments</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-remove-obsolete">
+<title><command>remove-obsolete</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-remove-previous">
+<title><command>remove-previous</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-resolve-aggregates">
+<title><command>resolve-aggregates</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-resolve-alternatives">
+<title><command>resolve-alternatives</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-resolve-entities">
+<title><command>resolve-entities</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-set-header">
+<title><command>set-header</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-stats">
+<title><command>stats</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-tag-untranslated">
+<title><command>tag-untranslated</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-unfuzzy-context-only">
+<title><command>unfuzzy-context-only</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-unfuzzy-ctxmark-only">
+<title><command>unfuzzy-ctxmark-only</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-unfuzzy-inplace-only">
+<title><command>unfuzzy-inplace-only</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-update-header">
+<title><command>update-header</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-es:setUbsp">
+<title><command>es:setUbsp</command></title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sv-fr:setUbsp">
+<title><command>fr:setUbsp</command></title>
+
+<para></para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-svexternal">
+<title>External Sieves</title>
+
+<para></para>
+
+</sect1>
 
 </chapter>

@@ -28,7 +28,7 @@ This variety of usage should be kept in mind, as while the PO format is one, the
 
 <!-- ======================================== -->
 <sect1 id="sec-pobasic">
-<title>Format Basics</title>
+<title>Basic Syntax</title>
 
 <para>The PO format is a plain text format, written in files with <filename>.po</filename> extension. A PO file contains a number of <emphasis>messages</emphasis>, partly independent text segments to be translated, which have been grouped into one file according to some logical division of what is being translated. For example, a standalone program will frequently have all its user interface messages in one PO file, and all documentation messages in another; or, user interface may be split into several PO files by major program modules, documentation split by chapters, etc. PO files are also called <emphasis>message catalogs</emphasis>.</para>
 
@@ -279,7 +279,7 @@ msgstr "obično"
 <para>Programmers of free software are frequently aware of this latent necessity, and readily reachable, so you should be able to make the request with little communication overhead.</para>
 </footnote></para>
 
-<para>At the moment of this writing, the <varname>msgctxt</varname> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <varname>msgctxt</varname> was introduced, messages indeed had to be unique by <varname>msgid</varname> alone, so disambiguating context had to be a part of the <varname>msgid</varname>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file comming from a KDE program of circa 2006:
+<para id="p-embctxt">At the moment of this writing, the <varname>msgctxt</varname> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <varname>msgctxt</varname> was introduced, messages indeed had to be unique by <varname>msgid</varname> alone, so disambiguating context had to be a part of the <varname>msgid</varname>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file comming from a KDE program of circa 2006:
 <programlisting>
 #: utils/katestyletreewidget.cpp:132
 msgid ""
@@ -826,7 +826,7 @@ Even if this particular header has been slightly abridged for clarity, it probab
 
 <para>The first comment line usually has the title role, saying something about what is translated and into which language. The second comment tells something about licensing. The following comments each list a translator who at one time worked on this particular PO file, his name, email address, and years of contribution. After that, any freeform comments may be added. The <literal>fuzzy</literal> flag is removed once the work on the PO file is started.</para>
 
-<para>The <literal>Project-Id-Version</literal> header field states the name and possibly version of what is translated, <literal>Report-Msgid-Bugs-To</literal> gives address to write to when you discover problems in original text, <literal>POT-Creation-Date</literal> the time when the catalog template was created, <literal>PO-Revision-Date</literal> the time when the PO file was last edited by a translator, <literal>Last-Translator</literal> the name and address of last translator who worked on the file, and <literal>Language-Team</literal> the name and address of the translation team (if any) which the last translator is part of. The fields <literal>MIME-Version</literal>, <literal>Content-Type</literal>, and <literal>Content-Transfer-Encoding</literal>, are pretty much always and for any language as given above, so they are not interesting (though you could change encoding to something else than UTF-8, in this day and age really think thrice before doing that). The final field, <literal>Plural-Forms</literal>, is where you write the plural specification for your language (as explained in the section on <link linkend="sec-poplurals">plural forms</link>).</para>
+<para>The <literal>Project-Id-Version</literal> header field states the name and possibly version of what is translated, <literal>Report-Msgid-Bugs-To</literal> gives address to write to when you discover problems in original text, <literal>POT-Creation-Date</literal> the time when the PO template was created, <literal>PO-Revision-Date</literal> the time when the PO file was last edited by a translator, <literal>Last-Translator</literal> the name and address of last translator who worked on the file, and <literal>Language-Team</literal> the name and address of the translation team (if any) which the last translator is part of. The fields <literal>MIME-Version</literal>, <literal>Content-Type</literal>, and <literal>Content-Transfer-Encoding</literal>, are pretty much always and for any language as given above, so they are not interesting (though you could change encoding to something else than UTF-8, in this day and age really think thrice before doing that). The final field, <literal>Plural-Forms</literal>, is where you write the plural specification for your language (as explained in the section on <link linkend="sec-poplurals">plural forms</link>).</para>
 
 <para>Of the presented comments and fields, almost all of them are set when the PO file is translated for the first time. When you come back to a certain PO to update the translation, if no one else worked on that PO in the meantime, you should only update the <literal>PO-Revision-Date</literal> field. If someone has worked on it, you will also have to put your data in <literal>Last-Translator</literal> field. If you get to work on a PO file for the first time after someone else has already worked on it, you should add yourself in the translator list in comments. If you are using a dedicated PO editor, it will perform all these updates for you whenever you save the file.</para>
 
@@ -844,24 +844,75 @@ Even if this particular header has been slightly abridged for clarity, it probab
 
 <para>Dedicated PO editors will provide you with much more automation, but each will have its own ways of presenting and means of editing different elements of a message. As this text has tried to convince you, every element of the PO message is potentially important, so you should take time to find out how and where the given PO editor shows them. Some editors may even not show all elements of the messages, which in the opinion of the author of this text reflects poorly on them. At the extreme end, immediatelly discard an editor which shows you only the original text (the <varname>msgid</varname> string), regardless of any other qualities it may have (this is typical of translation editors not developed around the PO format, but later upgraded to "support" it).</para>
 
+<para>Here is the summary of PO message elements, as a checklist of what to look for in a PO editor:
+<itemizedlist>
+<listitem>
+<para><varname>msgid</varname> string (original text)</para>
+</listitem>
+<listitem>
+<para><varname>msgstr</varname> string (translated text)</para>
+</listitem>
+<listitem>
+<para><varname>msgctxt</varname> string (disambiguating context)</para>
+</listitem>
+<listitem>
+<para>extracted comments (context in comment)</para>
+</listitem>
+<listitem>
+<para>source references (source file and line of the message)</para>
+</listitem>
+<listitem>
+<para>flags (<literal>fuzzy</literal>, <literal>*-format</literal>, etc.)</para>
+</listitem>
+<listitem>
+<para>fuzzy state (although among flags, requires special attention)</para>
+</listitem>
+<listitem>
+<para>previous strings (previous <varname>msgctxt</varname> and <varname>msgid</varname> strings in fuzzy messages)</para>
+</listitem>
+<listitem>
+<para>translator comments (added by translators, therefore they should be editable as well)</para>
+</listitem>
+<listitem>
+<para>positional context (good view of preceding and following messages)</para>
+</listitem>
+</itemizedlist>
+</para>
+
 <sect2 id="sec-poedlist">
 <title>List of PO Editors</title>
 
 <para>There is a number of dedicated PO editors available. They all have the same good basic support for the PO format, but each has some specialities and quirks that reflect the background of their authors. Namely, dedicated PO editors are normally written and maintained by people who are themselves engaged in certain translation projects. You should therefore try out the available editors and choose the one which is best suited to you, and possibly to the translation project within which you translate. Here is the list of some dedicated PO editors:
-<itemizedlist>
+<variablelist>
+
+<varlistentry>
+<term><ulink url="http://projects.gnome.org/gtranslator/">Gtranslator</ulink></term>
 <listitem>
-<para><ulink url="http://projects.gnome.org/gtranslator/">Gtranslator</ulink>. A PO editor developed within the Gnome translation project.</para>
+<para>PO editor developed within the Gnome translation project.</para>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://userbase.kde.org/Lokalize">Lokalize</ulink></term>
 <listitem>
-<para><ulink url="http://userbase.kde.org/Lokalize">Lokalize</ulink>. A computer-aided translation tool developed within the KDE translation project.</para>
+<para>Computer-aided translation tool developed within the KDE translation project.</para>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://www.poedit.net/">Poedit</ulink></term>
 <listitem>
-<para><ulink url="http://www.poedit.net/">Poedit</ulink>. A cross-platform lightweight PO editor.</para>
+<para>Cross-platform, lightweight PO editor.</para>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><ulink url="http://translate.sourceforge.net/wiki/virtaal/index">Virtaal</ulink></term>
 <listitem>
-<para><ulink url="http://translate.sourceforge.net/wiki/virtaal/index">Virtaal</ulink>. Translation editor designed to be visually compact and easy to use, yet powerfull.</para>
+<para> Translation editor designed to be visually compact and easy to use, yet powerfull.</para>
 </listitem>
-</itemizedlist>
+</varlistentry>
+</variablelist>
 </para>
 
 <para>Some plain text editors can operate in <emphasis>modes</emphasis>, where additional editing commands became available to the user when a file of certain type is opened. Such mode for PO files is available for the following text editors: <ulink url="http://www.gnu.org/software/emacs/">Emacs</ulink>, <ulink url="http://projects.gnome.org/gedit/">Gedit</ulink>, <ulink url="http://www.vim.org/">Vim</ulink>.</para>

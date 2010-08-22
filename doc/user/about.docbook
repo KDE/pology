@@ -50,11 +50,11 @@ $ export PATH=<replaceable>PARDIR</replaceable>/pology/lang/<replaceable>LANG</r
 </programlisting>
 where <replaceable>LANG</replaceable> is the language code of your language.</para>
 
-<para>Pology also provides <emphasis>shell completion</emphasis> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:
+<para>Pology provides <link linkend="sec-cmshellcomp"><emphasis>shell completion</emphasis></link> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:
 <programlisting>
 $ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
 </programlisting>
-Shell completion means that, similarly as for command names, it is possible to contextually complete command parameters by pressing the <keycap>Tab</keycap> key. For example, pressing <keycap>Tab</keycap> just after the <link linkend="ch-sieve"><command>posieve</command> command</link> will complete sieve names, and after the <option>-s</option> option it will complete sieve parameters based on the sieve name.</para>
+</para>
 
 </sect1>
 
@@ -100,8 +100,7 @@ Shell completion means that, similarly as for command names, it is possible to c
 <para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by the <command>pomtrans</command> script.</para>
 </listitem>
 <listitem>
-<!-- FIXME: Internal link to check-grammar sieve. -->
-<para><ulink url="http://www.languagetool.org/">LanguageTool</ulink> >= 1.0. Open source language checker, used by the <literal>check-grammar</literal> sieve.</para>
+<para><ulink url="http://www.languagetool.org/">LanguageTool</ulink> >= 1.0. Open source language checker, used by the <link linkend="sv-check-grammar"><command>check-grammar</command></link> sieve.</para>
 </listitem>
 <listitem>
 <para>Version control systems. Used by various Pology scripts that process PO files on the collection level, when the PO files are under version control. Currently supported: <ulink url="http://git-scm.com/">Git</ulink> >= 1.6, <ulink url="http://subversion.tigris.org/">Subversion</ulink> >= 1.4.</para>
