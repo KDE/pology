@@ -130,14 +130,17 @@ class Sieve (object):
                       "project configuration.",
                       field="language-team"))
         self.teamemail = prjcfg.string("team-email") # ok not to be present
-        self.langcode = prjcfg.string("language")
+        self.langcode = prjcfg.string("language") or usrcfg.string("language")
         if not self.langcode:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
                       "project configuration.",
                       field="language"))
-        self.encoding = prjcfg.string("encoding", "UTF-8")
-        self.plforms = prjcfg.string("plural-forms")
+        self.encoding = (   prjcfg.string("encoding")
+                         or usrcfg.string("encoding")
+                         or u"UTF-8")
+        self.plforms = (   prjcfg.string("plural-forms")
+                        or usrcfg.string("plural-forms"))
         if not self.plforms:
             warning(_("@info",
                       "Field '%(field)s' is not set in "
