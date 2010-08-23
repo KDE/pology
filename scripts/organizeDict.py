@@ -31,14 +31,27 @@ def main():
 
     locale.setlocale(locale.LC_ALL, "")
 
-    if len(sys.argv)<2:
+    # FIXME: Use pology.colors.ColorOptionParser.
+    reminv=False
+    paths=[]
+    for arg in sys.argv[1:]:
+        if arg.startswith("-"):
+            if arg in ("-r", "--remove-invalid"):
+                reminv = True
+            else:
+                error(_("@info",
+                        "Unknown option '%(opt)s' in command line.",
+                        opt=arg))
+        else:
+            paths.append(arg)
+    if len(paths)<1:
         usage()
 
-    for path in sys.argv[1:]:
-        organize(path)
+    for path in paths:
+        organize(path, reminv)
 
 
-def organize (dictPath):
+def organize (dictPath, reminv=False):
 
     report(dictPath)
     dictEncDefault = "UTF-8"
@@ -60,20 +73,35 @@ def organize (dictPath):
 
     # Read all words and eliminate duplicates.
     words=set()
+    invalidCharacters=re.compile(r"["
+                                 r"\s\x00-\x1F\x7F\!\#\$\%\&\'\(\)\*\+"
+                                 r"\,\.\/\:\;\<\=\>\?\@\[\]\^\_\\`\{\|\}\~"
+                                 r"]")
+    lno = 0
     for word in dictFile:
-        if not word.strip():
-            continue
-        if word.startswith("personal_ws"):
+        lno += 1
+        word=word.strip()
+        if not word or word.startswith("personal_ws"):
             continue
         if word in words:
             report("  " + _("@item:inlist",
-                            "removed duplicate: %(word)s",
-                            word=word.rstrip("\n")))
+                            "duplicate removed: %(word)s",
+                            word=word))
+        elif invalidCharacters.search(word):
+            if not reminv:
+                report("  " + _("@item:inlist",
+                                "*** invalid word at %(line)s: %(word)s",
+                                line=lno, word=word))
+                words.add(word)
+            else:
+                report("  " + _("@item:inlist",
+                                "invalid word removed: %(word)s",
+                                word=word))
         else:
             words.add(word)
+    dictFile.close()
     words=list(words)
     numWords=len(words)
-    dictFile.close()
 
     # Sort the list according to current locale, ignoring case.
     words.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
@@ -81,7 +109,8 @@ def organize (dictPath):
     # Write back the updated dictionary.
     dictFile=open(dictPath, "w", dictEnc)
     dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
-    dictFile.writelines(words)
+    dictFile.write("\n".join(words))
+    dictFile.write("\n")
     dictFile.close()
     report("  " + n_("@item:inlist",
                      "written %(num)d word",
@@ -91,7 +120,7 @@ def organize (dictPath):
 
 def usage():
     report(_("@info",
-             "Usage: %(cmd)s DICTFILE...",
+             "Usage: %(cmd)s [-r|--remove-invalid] DICTFILE...",
              cmd=basename(sys.argv[0])))
     sys.exit(1)
 
