@@ -74,7 +74,7 @@ def organize (dictPath, reminv=False):
     # Read all words and eliminate duplicates.
     words=set()
     invalidCharacters=re.compile(r"["
-                                 r"\s\x00-\x1F\x7F\!\#\$\%\&\'\(\)\*\+"
+                                 r"\s\x00-\x1F\x7F\!\#\$\%\&\(\)\*\+"
                                  r"\,\.\/\:\;\<\=\>\?\@\[\]\^\_\\`\{\|\}\~"
                                  r"]")
     lno = 0
