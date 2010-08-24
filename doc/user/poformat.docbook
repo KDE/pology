@@ -8,7 +8,7 @@
 
 <para>Before going into the format description, it is useful to give an overview of usage contexts for the PO format and of the basic principles behind it.</para>
 
-<para>There are three distinct contexts in which PO files are used:
+<para id="p-dynstattr">There are three distinct contexts in which PO files are used:
 <itemizedlist>
 <listitem>
 <para><emphasis>Native dynamic translations</emphasis>. Many programs use the PO format as the native format for their user interface text. These include the KDE and Gnome desktop environments, GNU tools, etc. Translated PO files are compiled into binary MO files (which is done by the <command>msgfmt</command> command from Gettext) and installed in a proper location. Then the program fetches translations from them at runtime, which is what makes this "dynamic" translation.</para>

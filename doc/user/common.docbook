@@ -5,7 +5,7 @@
 <chapter id="ch-common">
 <title>Common Functionality</title>
 
-<para></para>
+<para>Different parts of Pology provide common functionality, such as thematic groups of options to scripts, file selection patterns, reliance on PO metadata, etc. This chapter describes such common functionality.</para>
 
 <!-- ======================================== -->
 <sect1 id="sec-cmshellcomp">
@@ -21,7 +21,7 @@ will show all sieves beginning with <literal>s</literal>, and complete the sieve
 <programlisting>
 $ posieve stats -s m&lt;TAB&gt;
 </programlisting>
-will show all parameters to <command>stats</command> beggining with <literal>m</literal>, and complete one of them after few more characters are typed in.</para>
+will show all parameters to <command>stats</command> beginning with <literal>m</literal>, and complete one of them after few more characters are typed in.</para>
 
 </sect1>
 
@@ -29,7 +29,301 @@ will show all parameters to <command>stats</command> beggining with <literal>m</
 <sect1 id="sec-cmconfig">
 <title>User Configuration</title>
 
-<para></para>
+<para>Various parts of Pology can be configured through the configuration file <filename>.pologyrc</filename> in the root of user's home directory (<filename>~/.pologyrc</filename> for short). The configuration file does not have to exist, so you have to create it when you want to configure something for the first time. It must be UTF-8 encoded.</para>
+
+<para>The configuration file is in the <ulink url="http://en.wikipedia.org/wiki/INI_file">INI</ulink> format, which is composed of sections beginning with a <literal>[<replaceable>section</replaceable>]</literal> line, and fields of the form <literal><replaceable>field</replaceable> = <replaceable>value</replaceable></literal> within a section. Comments can be written after <literal>#</literal> character at the beginning of the line. Here is an example of a <filename>~/.pologyrc</filename> file:
+<programlisting>
+[user]
+name = Chusslove Illich
+original-name = Часлав Илић
+email = caslav.ilic@gmx.net
+po-editor = Kate
+
+[enchant]
+# Autodetection sufficient.
+
+[posieve]
+msgfmt-check = yes
+param-ondiff/stats = yes
+
+# Project setups follow.
+
+[project-kde]
+language = sr
+language-team = Serbian
+team-email = kde-i18n-sr@kde.org
+plural-forms = nplurals=4; plural=n==1 ? ...
+</programlisting>
+This configuration contains four sections: <literal>[user]</literal>, <literal>[enchant]</literal>, <literal>[posieve]</literal>, and <literal>[project-kde]</literal>. The <literal>[user]</literal> section provides some information on the person who uses Pology. The <literal>[enchant]</literal> section configures the Enchant spell checker wrapper, used by Pology for spell checking. The <literal>[posieve]</literal> section configures the behavior of the <link linkend="ch-sieve"><command>posieve</command></link> script. The <literal>[project-kde]</literal> section provides information on a project that the user contributes translation to.</para>
+
+<para>Some details about the configuration file syntax are as follows. Leading and trailing whitespace in section and field names and values is not significant,  e.g. <literal>foo=bar</literal> is same as <literal>foo = bar</literal>. Percent (%) character is used to expand the value of another field, for example:
+<programlisting>
+rootdir = /path/to/somewhere
+datadir = %(rootdir)s/data
+</programlisting>
+where the <literal>%(...)s</literal> is Python's string interpolation syntax. Importantly, when you need a literal % character within a value (such as in <literal>plural-forms</literal> field in the previous example), you must repeat it twice, <literal>%%</literal>. Switch-type fields (<literal>msgfmt-check</literal> in the previous example) can take any of the following values for the two states: <literal>0</literal>, <literal>no</literal>, <literal>false</literal>, or <literal>off</literal>; and <literal>1</literal>, <literal>yes</literal>, <literal>true</literal>, or <literal>on</literal> (case is not important).</para>
+
+<para>Sections in the configuration can be of one of four general types:
+<itemizedlist>
+<listitem>
+<para>General sections, which provide information used by various parts of Pology as they need them. The <literal>[user]</literal> section from the previous example is a general section.</para>
+</listitem>
+<listitem>
+<para>External tool sections, which are used to configure external libraries and programs used within Pology. The <literal>[enchant]</literal> section from the previous example is of this type.</para>
+</listitem>
+<listitem>
+<para>Internal tool sections, which configure the behavior of Pology's own scripts. This is the <literal>[posieve]</literal> section from the previous example.</para>
+</listitem>
+<listitem>
+<para>Project sections, which provide information related to particular translation projects that the user is contributing to. Names of these sections always start with <literal>project-</literal>, such as <literal>[project-kde]</literal> from the previous example.</para>
+</listitem>
+</itemizedlist>
+Internal tool sections are documented together with the respective tools, while sections of other types are described in the following.</para>
+
+<para>When mentioning configuration fields in their documentation and elsewhere, they are referred to as <literal>[<replaceable>section</replaceable>]/<replaceable>field</replaceable></literal>. If there is only a fixed number of possible values to a field, this is denoted as <literal>[<replaceable>section</replaceable>]/<replaceable>field</replaceable>=[<replaceable>VALUE1</replaceable>|<replaceable>VALUE2</replaceable>|<replaceable>VALUE3</replaceable>|...]</literal>; if one of the values is the default, it is prefixed with a star (*).</para>
+
+<sect2 id="sec-cmcfguser">
+<title>The <literal>[user]</literal> section</title>
+
+<para>Many parts of Pology can take advantage of information about you and the tools you use. This information is given in the <literal>[user]</literal> section. For example, when initializing PO file from a template, your name, email address in the PO header can be filled out, or a PO file can be opened in a translation editor that you use (if it is supported).</para>
+
+<para>Known configuration fields are as follows:
+<variablelist>
+
+<varlistentry>
+<term><literal>[user]/name</literal></term>
+<listitem>
+<para>Your name if it is written in Latin script, or the romanized equivalent of your name. The intention is that it is readable (or semi-readable) to people from various places in the world, who would use it to contact you if necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/original-name</literal></term>
+<listitem>
+<para>This is your name in your native language and script, whatever it may be. If it would be the same as the name in the <literal>[user]/name</literal> field, setting this field is not necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/email</literal></term>
+<listitem>
+<para>Your email address.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/language</literal></term>
+<listitem>
+<para>The language code of the language you translate into. If by any chance you translate into several languages, this field can be overridden in per-project configuration sections.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/encoding</literal></term>
+<listitem>
+<para>The encoding of the PO files you work on. Nowdays this should really, really be UTF-8. If it is not UTF-8 for everything that you work on, you can override it in per-project configuration sections.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/plural-forms</literal></term>
+<listitem>
+<para>The value for the <link linkend="sec-poplurals"><literal>Plural-Forms</literal> PO header field</link> used for your language. If it differs between projects, you can override the value set here in per-project configuration sections.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/po-editor</literal></term>
+<listitem>
+<para>The human-readable name of the editor with which you translate (it does not have to be a dedicated PO editor). This is used in contexts where your editor preference is announced, such as through the <literal>X-Generator</literal> PO header field.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[user]/po-editor-id=[lokalize]</literal></term>
+<listitem>
+<para>The keyword under which the PO editor that you use is known to Pology. For the moment, only Lokalize is supported. This is used when a Pology tool is told to open PO files on the messages it matched.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-cmcfgenchant">
+<title>The <literal>[enchant]</literal> section</title>
+
+<para>This section configures <ulink url="http://www.abisource.com/projects/enchant/">Enchant</ulink>, a wrapper library for spell checking, which is used for Pology's <link linkend="sec-lgspell">spell checking functionality</link>. Through Enchant it is possible to use various spell checkers, such as Aspell, Ispell, Hunspell, etc. in a uniform way.</para>
+
+<para>Known configuration fields are as follows:
+<variablelist>
+
+<varlistentry>
+<term><literal>[enchant]/provider=[aspell|ispell|myspell|...]</literal></term>
+<listitem>
+<para>The keyword denoting the spell checker that Enchant should use. It can also be a comma-separated list of several keywords, when Enchant will use the first available spell checker in the list. You can find the up-to-date list of known provider keywords in the <command>enchant(1)</command> man page.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[enchant]/language</literal></term>
+<listitem>
+<para>The spell checking dictionary that should be used, by language code. This value is used only if the language is not specified in any other way, such as in the PO header or through command line.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[enchant]/environment</literal></term>
+<listitem>
+<para>The sub-language environment for spell checking. This is related to Pology's internal spelling dictionary supplements, see the <link linkend="sec-lgspell">section on spell checking</link>. This value is used only if the environment is not specified in any other way, such as in the PO header or through command line.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-cmcfgaspell">
+<title>The <literal>[aspell]</literal> section</title>
+
+<para>At first Pology used <ulink url="http://aspell.net/">Aspell</ulink> for spell checking, before Enchant was introduced. Direct support for Aspell was nevertheless kept, due to some specifics that the Enchant wrapper does not support yet. (Which means that you should better use Enchant if it satisfies your needs.)</para>
+
+<para>Known configuration fields are as follows:
+<variablelist>
+
+<varlistentry>
+<term><literal>[aspell]/language</literal></term>
+<listitem>
+<para>See <literal>[enchant]/language</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[aspell]/encoding</literal></term>
+<listitem>
+<para>Encoding for the text sent to Aspell.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[aspell]/variety</literal></term>
+<listitem>
+<para>The sub-language variety of the Aspell spelling dictionary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[aspell]/environment</literal></term>
+<listitem>
+<para>See <literal>[enchant]/environment</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[aspell]/supplements-only=[yes|*no]</literal></term>
+<listitem>
+<para>Whether to ignore the system spelling dictionary and use only Pology's internal dictionary supplements.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[aspell]/simple-split=[yes|*no]</literal></term>
+<listitem>
+<para>By default, Pology splits the text into words in a clever fashion (eliminating text markup, format directives, etc.) before sending them to the spell checker. Sometimes this leads to bad result, and then this field can be set to <literal>yes</literal> to split text simply on whitespace (possibly, in the given context, in combination with <link linkend="sec-cmhooks">a pre-filtering hook</link> on the text).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-cmcfgproj">
+<title>Per-project sections (<literal>[project-*]</literal>)</title>
+
+<para>You will easily come into the situation where you need to translate and maintain translated material within different projects, each with its own set of rules and conventions. Pology is designed to support project switching extensively, one element of which are per-project configuration sections.</para>
+
+<para>A project configuration sections has the name <literal>[project-<replaceable>PKEY</replaceable>]</literal>, where <replaceable>PKEY</replaceable> is the project keyword. The project keyword is a semi-free identifier: for projects known to Pology, you should use the keyword already used within Pology (in order to leverage Pology's internal support for the given project), but otherwise you are free to make up your own keywords. See description of <link linkend="p-hdr-xenvironment"><literal>X-Environment</literal></link> PO header field for a list of known project keywords.</para>
+
+<para>Project configuration fields frequently have fallbacks to fields in other configuration sections. This means that when the project field is not set, its corresponding field in that other (more general) section gets used instead. In the following, this is the whenever you are instructed to see a field in another section.</para>
+
+<para>Per-project configuration fields are as follows:
+<variablelist>
+
+<varlistentry>
+<term><literal>[project-*]/name</literal></term>
+<listitem>
+<para>See <literal>[user]/name</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/original-name</literal></term>
+<listitem>
+<para>See <literal>[user]/original-name</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/email</literal></term>
+<listitem>
+<para>See <literal>[user]/email</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/language</literal></term>
+<listitem>
+<para>See <literal>[user]/language</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/language-team</literal></term>
+<listitem>
+<para>This is the name of the team which translates this project into given language. Since usually there is only one translation team per language in a project, the value of this field is just the human-readable name of the language (as opposed to language code) in English.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/team-email</literal></term>
+<listitem>
+<para>The email address for communication with the translation team as whole (usually the team's mailing list).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/encoding</literal></term>
+<listitem>
+<para>See <literal>[user]/encoding</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[project-*]/plural-forms</literal></term>
+<listitem>
+<para>See <literal>[user]/plural-forms</literal>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmregex">
+<title>Regular Expressions</title>
+
+<para>There are great many places in Pology where you can supply a matching pattern, to select or deselect something. This could be a PO file by its path, a PO message by its <varname>msgid</varname>, etc. Almost always and by default, this matching pattern will be a <emphasis>regular expression</emphasis> (or <emphasis>regex</emphasis> for short). Regular expressions are a powerful pattern matching language, a fascinating topic in their own right, and they will serve you well in just about any context of searching on computers. The plain text editor that you use probably offers regular expressions in its search dialog, so does your office text processor, and so on.</para>
+
+<para>Actually, the only point of this brief section is to impress the importance and usefulness of regular expressions onto you, in the case that you have not used them yet. The Internet is full of tutorials on regular expressions, so that there is no point in linking any one particular here.</para>
+
+<para>It should be mentioned that different regular expression engines have somewhat different syntax and expressiveness. Pology uses regular expressions from the Python Standard Library, described here: <ulink url="http://docs.python.org/library/re.html">http://docs.python.org/library/re.html</ulink> (keep in mind that this page is a reference, and not a tutorial, so you should look elsewhere to learn basics of regular expressions).</para>
 
 </sect1>
 
@@ -37,7 +331,49 @@ will show all parameters to <command>stats</command> beggining with <literal>m</
 <sect1 id="sec-cmincexc">
 <title>Path Inclusion and Exclusion</title>
 
-<para></para>
+<para>Pology scripts that can recursively search directory paths for PO files will usually provide several options by which certain files can be included or excluded from processing. The first pair of these options include or exclude files by path:
+<variablelist>
+
+<varlistentry>
+<term><option>-E <replaceable>REGEX</replaceable></option>, <option>--exclude-path=<replaceable>REGEX</replaceable></option></term>
+<listitem>
+<para>Every file with the path that does not match the supplied pattern is excluded from processing. This option can be repeated, when a file is excluded if its path matches <emphasis>every</emphasis> pattern. When you want to exclude by <emphasis>any</emphasis> pattern matching the path, you can connect those patterns with regular expression <literal>|</literal>-operator in a single option. This allows you to build up complex exclusion conditions if necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-I <replaceable>REGEX</replaceable></option>, <option>--include-path=<replaceable>REGEX</replaceable></option></term>
+<listitem>
+<para>Only those files which have the path matching the supplied pattern are included into processing. If the option is repeated, a file is included only if its path matches every pattern.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Especially those PO files which are used at runtime (as opposed to those used for <link linkend="p-dynstattr">static translation</link>), but others too, are frequently sufficiently identified by their <emphasis>domain</emphasis> name. The domain name is the base name of the installed MO file without the extension, e.g. for <filename>/usr/share/locale/sr/LC_MESSAGES/foobar.mo</filename> the domain name is <literal>foobar</literal>. If, in a given translation project, PO files for a given language are all collected under one top directory of that language, their base names are also formed of domain names.<footnote>
+<para>The other frequently encountered file organization is when there is one directory per PO domain, and that directory contains PO files for all languages, named as <filename><replaceable>LANG</replaceable>.po</filename>.</para>
+</footnote> When this is the case, it may be more convenient or safer to match PO files by their domain names instead of paths, which is done by options:
+<variablelist>
+
+<varlistentry>
+<term><option>-e <replaceable>REGEX</replaceable></option>, <option>--exclude-name=<replaceable>REGEX</replaceable></option></term>
+<listitem>
+<para>Counterpart to <option>-E</option>/<option>--exclude-path</option> which matches by domain name.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-i <replaceable>REGEX</replaceable></option>, <option>--include-name=<replaceable>REGEX</replaceable></option></term>
+<listitem>
+<para>Counterpart to <option>-I</option>/<option>--include-path</option> which matches by domain name.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>All inclusion and exclusion options can be freely mixed and repeated, with consequent resolution. A file is processed if it matches all inclusion patterns (if any is given) and does not match at least one exclusion pattern (if any is given). The other way around, a file is not processed if does not match at least one inclusion pattern (if any is given) or it matches all exclusion patterns (if any is given).</para>
 
 </sect1>
 
@@ -62,6 +398,8 @@ will show all parameters to <command>stats</command> beggining with <literal>m</
 <title>Influential Header Fields</title>
 
 <para></para>
+
+<para id="p-hdr-xenvironment"></para>
 
 </sect1>
 

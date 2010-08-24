@@ -175,7 +175,7 @@ would output help for <command>find-messages</command> and <command>stats</comma
 </varlistentry>
 
 <varlistentry>
-<term><option>-m OUTFILE</option>, <option>--output-modified=OUTFILE</option></term>
+<term><option>-m <replaceable>OUTFILE</replaceable></option>, <option>--output-modified=<replaceable>OUTFILE</replaceable></option></term>
 <listitem>
 <para>If some PO files were modified by sieving, you may want to follow up with a command to process only those files. <command>posieve</command> will by default output the paths of modified PO files, but also other information, which makes parsing this output for modified paths ungainly. Instead, this option can be used to specify a file to which path of all modified PO files will be written to, one per line.</para>
 </listitem>
@@ -203,14 +203,14 @@ would output help for <command>find-messages</command> and <command>stats</comma
 </varlistentry>
 
 <varlistentry>
-<term><option>-s PARAM[:VALUE]</option></term>
+<term><option>-s <replaceable>PARAM</replaceable>[:<replaceable>VALUE</replaceable>]</option></term>
 <listitem>
 <para>The central option of <command>posieve</command>, which is used to issue parameters to sieves.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><option>-S PARAM</option></term>
+<term><option>-S <replaceable>PARAM</replaceable></option></term>
 <listitem>
 <para>When a sieve parameter is issued <link linkend="p-confsvpar">through user configuration</link>, this option can be used to cancel it for one particular run.</para>
 </listitem>
