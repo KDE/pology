@@ -1,37 +1,12 @@
 # -*- coding: UTF-8 -*-
 
 """
-Access user configuration for Pology.
+Access the user configuration of Pology.
 
-The user can modify default aspects of Pology's behavior through
-the Pology's global configuration file C{~/.pologyrc}.
-This file is divided into sections and fields in the INI-style format,
-for example::
+The location and the syntax of the configuration file is described
+in the user manual, at C{doc/user/common.docbook#sec-cmconfig}.
 
-    # let's have some apples for the moment
-    [fruit]
-    sort = apples
-    amount = 10
-
-When refering to global configuration within Pology documentation
-(e.g. in documentation for scripts), fields are written shorthand
-as C{[section]/name} (e.g. C{[fruit]/sort} and C{[fruit]/amount}).
-
-The configuration file must be UTF-8 encoded.
-
-For accessing the configuration within Pology code, this module as whole
-is treated as single object. The API reflects division into sections,
-with each section containing configuration fields::
-
-    >>> import pology.config as config
-    >>> fruit = config.section("fruit")
-    >>> fruit.string("sort")
-    'apples'
-    >>> fruit.integer("amount")
-    10
-    >>>
-
-At every place where the configuration is sourced, the API documentation
+At every place where the user configuration is sourced, the API documentation
 should state which sections and fields (with their types) are accessed,
 how they are used, and what is the behavior when they are not set.
 
