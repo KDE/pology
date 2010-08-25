@@ -623,4 +623,7 @@ def read_config_params (scviews, cmdline_parspecs):
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        report("", newline=False)
