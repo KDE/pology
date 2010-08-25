@@ -245,7 +245,7 @@ Internal tool sections are documented together with the respective tools, while 
 
 <para>You will easily come into the situation where you need to translate and maintain translated material within different projects, each with its own set of rules and conventions. Pology is designed to support project switching extensively, one element of which are per-project configuration sections.</para>
 
-<para>A project configuration sections has the name <literal>[project-<replaceable>PKEY</replaceable>]</literal>, where <replaceable>PKEY</replaceable> is the project keyword. The project keyword is a semi-free identifier: for projects known to Pology, you should use the keyword already used within Pology (in order to leverage Pology's internal support for the given project), but otherwise you are free to make up your own keywords. See description of <link linkend="p-hdr-xenvironment"><literal>X-Environment</literal></link> PO header field for a list of known project keywords.</para>
+<para>A project configuration sections has the name <literal>[project-<replaceable>PKEY</replaceable>]</literal>, where <replaceable>PKEY</replaceable> is the project keyword. The project keyword is a semi-free identifier: for projects known to Pology, you should use the keyword already used within Pology (in order to leverage Pology's internal support for the given project), but otherwise you are free to make up your own keywords. See description of the <link linkend="p-hdr-xenvironment"><literal>X-Environment</literal></link> PO header field for the list of established project keywords.</para>
 
 <para>Project configuration fields frequently have fallbacks to fields in other configuration sections. This means that when the project field is not set, its corresponding field in that other (more general) section gets used instead. In the following, this is the whenever you are instructed to see a field in another section.</para>
 
@@ -381,7 +381,79 @@ Internal tool sections are documented together with the respective tools, while 
 <sect1 id="sec-cmffrom">
 <title>Reading Paths From a File</title>
 
-<para></para>
+<para>Sometimes it is convenient to make a temporary or semi-permanent grouping of files, such that the file group can be referenced through a single argument instead of repeating all the files all the time. This is particularly useful when shell piping is not applicable or not comfortable enough. The classic and simple way to group files is by having a file-list file, which contains one file path by line, which a shell command can read to collect files to process.</para>
+
+<para>Many Pology scripts can write and read file-list files. Having scripts write such files automatically is simple enough, just check given script's documentation to see if it has this capability (e.g. the <option>-m</option> option to <command>posieve</command>). More interesting are the special features that you can use when writing a file-list file manually. You would do this for standing categories which are periodically updated, such as a list of PO files ready for release.</para>
+
+<para>For completeness, here is first an example of a basic file-list file:
+<programlisting>
+xray/alpha.po
+xray/bravo.po
+yankee/charlie.po
+yankee/delta.po
+</programlisting>
+</para>
+
+<para>As is usual for path arguments to Pology scripts, you can specify both file and directory paths, and directory paths will be searched recursively for PO files (or whatever the file type that the script is processing):
+<programlisting>
+xray/
+yankee/
+zulu/echo.po
+zulu/foxtrot.po
+</programlisting>
+</para>
+
+<para>You can add comments by starting the line with hash (<literal>#</literal>), and have empty lines:
+<programlisting>
+# Translations ready for release.
+
+# Full modules.
+xray/
+yankee/
+
+# Specific files.
+zulu/echo.po
+zulu/foxtrot.po
+</programlisting>
+</para>
+
+<para>The inclusion-exclusion functionality equivalent to <link linkend="sec-cmincexc">inclusion-exclusion command line options</link> is provided through inclusion-exclusion directives. They are specified by starting the line with colon (<literal>:</literal>), followed by directive type token, followed by a regular expression. The directives are:
+<itemizedlist>
+<listitem>
+<para><literal>:/-<replaceable>REGEX</replaceable></literal> to exclude files by path,</para>
+</listitem>
+<listitem>
+<para><literal>:/+<replaceable>REGEX</replaceable></literal> to include files by path,</para>
+</listitem>
+<listitem>
+<para><literal>:-<replaceable>REGEX</replaceable></literal> to exclude files by base name without extension, and</para>
+</listitem>
+<listitem>
+<para><literal>:+<replaceable>REGEX</replaceable></literal> to include files by base name without extension.</para>
+</listitem>
+</itemizedlist>
+For example, if a whole module should be processed but for one PO file in it, it is easier to list the whole module and exclude that one file, as compared to listing all other files:
+<programlisting>
+# Modules.
+xray/
+yankee/
+# Exclude november.po (in whichever module it is).
+:-november
+</programlisting>
+Ordering and position of include-exclude directives is not significant, as they are all applied to all collected files. The semantics of application of multiple directives is the same as that of <link linkend="sec-cmincexc">counterpart command line options</link>.</para>
+
+<para>File-list files are normally fed to Pology scripts with the following option:
+<variablelist>
+
+<varlistentry>
+<term><option>-f <replaceable>FILE</replaceable></option>, <option>--files-from=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>Read files to process from a file which contains one path per line, or special entries as described above. This option can be repeated to read several file lists. Additional paths to process can still be given as command line arguments. Any inclusion-exclusion options will be applied to the files read from the file as well (in addition to the file's internal inclusion-exclusion directives, if any).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect1>
 
@@ -389,7 +461,31 @@ Internal tool sections are documented together with the respective tools, while 
 <sect1 id="sec-cmcolors">
 <title>Output Coloring</title>
 
-<para></para>
+<para>In some contexts, Pology scripts color the terminal output for better visual separation and highlighting of important parts of the text. Examples include warning and error messages, data presented as tables and bars, and, importantly, matched segments of the text in search and validation operations.</para>
+
+<para>Output coloring is turned on by default, but sensitive to output destination: the text is colored if the output is to the terminal (using terminal escape sequences), but not if it is piped to a file. Pology scripts provide the following options by which you can influence this behavior:
+<variablelist>
+
+<varlistentry>
+<term><option>-R</option>, <option>--raw-colors</option></term>
+<listitem>
+<para>Disables output destination sensitivity, such that the text is always colored. This is useful when the output is piped to another command which can understand terminal escape sequences by which colors are produce, such as <command>less(1)</command>. A typical example would be piping search results from <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link> to be able to scroll them back and forth:
+<programlisting>
+$ posieve find-messages -smsgid:'foobar' dir_full_of_POs/ -R | less -R
+</programlisting>
+The <option>-R</option> of <command>less</command> tells it to interpret escape sequences as colors, rather than showing them as literal text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--coloring-type=[none|term*|html]</option></term>
+<listitem>
+<para>Instead of coloring for the terminal, with this option you can choose another coloring type. <literal>none</literal> disables coloring, <literal>term</literal> is the default, while <literal>html</literal> will produce HTML-tagged text ready for embedding into a web page (e.g. inside a &lt;pre&gt; element). For example, with a little bit of additional scripting, you could use <link linkend="sv-stats">the <command>stats</command> sieve</link> and <literal>html</literal> coloring to periodically update a web page with translation statistics.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect1>
 
