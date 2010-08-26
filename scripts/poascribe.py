@@ -802,10 +802,12 @@ def status (options, configs_catpaths, mode):
             totals[st] = sum(cnt_per_cat.values())
     # See previous NOTE.
     if sum(totals_a.values()) > 0 or sum(totals_na.values()) > 0:
-        rown = [_("@title:row ascribed messages", "ascribed")]
+        rown = [_("@title:row number of ascribed messages",
+                  "ascribed")]
         data = [[totals_a[x] or None] for x in _all_states]
         if sum(totals_na.values()) > 0:
-            rown.append(_("@title:row unascribed messages", "unascribed"))
+            rown.append(_("@title:row number of unascribed messages",
+                          "unascribed"))
             for i in range(len(_all_states)):
                 data[i].append(totals_na[_all_states[i]] or None)
         report(tabulate(data=data, coln=coln, rown=rown,
@@ -827,12 +829,16 @@ def status (options, configs_catpaths, mode):
                 # See previous NOTE.
                 if sum(cc_a) > 0 or sum(cc_na) > 0:
                     data[0].append(catpath)
-                    data[1].append(_("@item:intable ascribed", "asc"))
+                    data[1].append(
+                        _("@item:intable number of ascribed messages",
+                          "asc"))
                     for datac, cc in zip(data[2:], cc_a):
                         datac.append(cc or None)
                     if sum(cc_na) > 0:
                         data[0].append("^^^")
-                        data[1].append(_("@item:intable unascribed", "nasc"))
+                        data[1].append(
+                            _("@item:intable number of unascribed messages",
+                              "nasc"))
                         for datac, cc in zip(data[2:], cc_na):
                             datac.append(cc or None)
             if any(data):
@@ -939,19 +945,33 @@ def commit (options, configs_catpaths, mode):
     assert_syntax(configs_catpaths_ascmod, onabortf=onabortf)
     # ...must be done after committing, to have all review elements purged
 
-    coln = ["modified"]
+    coln = [_("@title:column number of modified messages",
+              "modified")]
     rown = []
     data = [[]]
     for st, stlabel in (
-        (_st_tran, "translated"),
-        (_st_fuzzy, "fuzzy"),
-        (_st_untran, "untranslated"),
-        (_st_otran, "obsolete/t"),
-        (_st_ofuzzy, "obsolete/f"),
-        (_st_ountran, "obsolete/u"),
+        (_st_tran,
+         _("@title:row number of translated messages",
+           "translated")),
+        (_st_fuzzy,
+         _("@title:row number of fuzzy messages",
+           "fuzzy")),
+        (_st_untran,
+         _("@title:row number of untranslated messages",
+           "untranslated")),
+        (_st_otran,
+         _("@title:row number of obsolete translated messages",
+           "obsolete/t")),
+        (_st_ofuzzy,
+         _("@title:row number of obsolete fuzzy messages",
+           "obsolete/f")),
+        (_st_ountran,
+         _("@title:row number of obsolete untranslated messages",
+           "obsolete/u")),
     ):
         if counts[st][1] > 0 and len(coln) < 2:
-            coln.append("reviewed")
+            coln.append(_("@title:column number of reviewed messages",
+                          "reviewed"))
             data.append([])
         if counts[st][0] > 0 or counts[st][1] > 0:
             rown.append(stlabel)
