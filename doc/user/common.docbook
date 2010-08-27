@@ -243,11 +243,9 @@ Internal tool sections are documented together with the respective tools, while 
 <sect2 id="sec-cmcfgproj">
 <title>Per-project sections (<literal>[project-*]</literal>)</title>
 
-<para>You will easily come into the situation where you need to translate and maintain translated material within different projects, each with its own set of rules and conventions. Pology is designed to support project switching extensively, one element of which are per-project configuration sections.</para>
+<para>You will easily come into the situation where you need to translate and maintain translated material within different projects, each with its own set of rules and conventions. Pology is designed to support project switching extensively, and one element of that are per-project configuration sections.</para>
 
-<para>A project configuration sections has the name <literal>[project-<replaceable>PKEY</replaceable>]</literal>, where <replaceable>PKEY</replaceable> is the project keyword. The project keyword is a semi-free identifier: for projects known to Pology, you should use the keyword already used within Pology (in order to leverage Pology's internal support for the given project), but otherwise you are free to make up your own keywords. See description of the <link linkend="p-hdr-xenvironment"><literal>X-Environment</literal></link> PO header field for the list of established project keywords.</para>
-
-<para>Project configuration fields frequently have fallbacks to fields in other configuration sections. This means that when the project field is not set, its corresponding field in that other (more general) section gets used instead. In the following, this is the whenever you are instructed to see a field in another section.</para>
+<para>A project configuration sections has the name <literal>[project-<replaceable>PKEY</replaceable>]</literal>, where <replaceable>PKEY</replaceable> is the project keyword. You can choose the project keyword freely, but it should contain only ASCII letters, digits, underscore and hyphen. Project configuration fields frequently have fallbacks to fields in other configuration sections. This means that when the project field is not set, its corresponding field in that other (more general) section gets used instead. In the following, this is the whenever you are instructed to see a field in another section.</para>
 
 <para>Per-project configuration fields are as follows:
 <variablelist>
@@ -493,9 +491,84 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <sect1 id="sec-cmheader">
 <title>Influential Header Fields</title>
 
-<para></para>
+<para><link linkend="sec-poheader">The PO header</link> is a natural place to provide the information which holds for the PO file as whole. Pology scripts, sieves, and hooks can take into account a number of header fields, when available, to automatically determine some aspects of processing. The fields considered are as follows:
+<variablelist>
 
-<para id="p-hdr-xenvironment"></para>
+<varlistentry id="hdr-language">
+<term><literal>Language</literal></term>
+<listitem>
+<para>This field contains the language code of the translation, which Pology will take into account in all contexts where language-dependent processing is done (such as when <link linkend="sec-lgspell">spell-checking</link>). You can also specify the language into which you translate in <link linkend="sec-cmconfig">user configuration</link>, and sometimes in the command line. The language stated by the PO header will override the user configuration, but it will be in turn overridden by the command line.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hdr-x-accelerator-marker">
+<term><literal>X-Accelerator-Marker</literal></term>
+<listitem>
+<para><link linkend="sec-poaccel">Accelerator markers</link> are a frequent obstacle in text processing, such as <link linkend="sv-find-messages">searching</link> or <link linkend="sec-lgspell">spell-checking</link>, because they can split words apart. This field can be used to specify which character is used as accelerator marker throughout the file, if any. If there are several possible characters, they can be given as comma-separated list<footnote>
+<para>This does mean that the case when the comma itself is the accelerator marker is not covered, but this case is beyond unlikely.</para>
+</footnote>. While it is usually possible to specify the accelerator marker through the command line, the header field is much more convenient and flexible: there is no need to remember to add the command line option at every run, and different PO files can have different accelerator markers. However, if command line option is issued, it will override the header field.</para>
+
+<para>There is a difference between this field not existing in the header, and existing but with an empty value (i.e. <literal>"X-Accelerator-Marker: \n"</literal>). If the field does not exist, some processing elements will go into the "greedy" mode, where they use a list of known frequent accelerator markers (e.g. to remove them from the text). If the field is set to empty value, these processing elements will take it that there are no accelerator markers in text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hdr-x-associated-ui-catalogs">
+<term><literal>X-Associted-UI-Catalogs</literal></term>
+<listitem>
+<para>This field lists the PO domains which are the source of user interface references (button labels, menu items, etc.) throughout the text in current PO file. This makes it possible to automatically fetch and insert UI translations, rather than having to look them up manually and maintain them against changes; see <xref linkend="sec-lguirefs"/> for details. Several PO domains can be given as space- or comma-separated list. If the UI message is found in more than one listed PO domain, the earlier in the list takes precedence.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hdr-x-environment">
+<term><literal>X-Environment</literal></term>
+<listitem>
+<para>The language environment to which the translation belongs; see <xref linkend="sec-lglangenv"/> for details. It can be a single keyword, or a comma-separated list of keywords. If several environments are given, the later in the list (which is usually the more specific) takes precedence.</para>
+
+<para>Pology already has internal support for some more general environments in some languages, so you should use these environment keywords if they apply to your case. These are:
+<itemizedlist>
+<listitem><para><literal>kde</literal> -- <ulink url="http://l10n.kde.org/teams-list.php">translation teams of the KDE</ulink></para></listitem>
+<listitem><para><literal>wesnoth</literal> -- translation teams of <ulink url="http://www.wesnoth.org/">The Battle for Wesnoth</ulink></para></listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry id="hdr-x-text-markup">
+<term><literal>X-Text-Markup</literal></term>
+<listitem>
+<para>When the text contains <link linkend="sec-pomarkup">markup</link>, it may be useful to remove it such that only the plain text remains. This is the case, for example, when computing word counts or applying <link linkend="sec-lgrules">terminology validation rules</link>. Another use case would be the validation of markup itself (whether a tag is properly closed, whether a tag exists, etc.) This header field specifies the markup type found in the text, as a keyword, so that Pology can determine how to process it. Several markup types can be given as comma-separated list.</para>
+
+<para>Pology currently recognizes the following markup types:
+<itemizedlist>
+<listitem><para><literal>docbook4</literal> -- Docbook 4.x markup, in documentation POs</para></listitem>
+<listitem><para><literal>html</literal> -- HTML 4.01</para></listitem>
+<listitem><para><literal>kde4</literal> -- markup in KDE4 UI POs, a mix of Qt rich-text and KUIT</para></listitem>
+<listitem><para><literal>kuit</literal> -- UI semantic markup in KDE 4</para></listitem>
+<listitem><para><literal>qtrich</literal> -- Qt rich-text, (almost) a subset of HTML</para></listitem>
+<listitem><para><literal>xmlents</literal> -- only XML-like entities, no other formal markup</para></listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry id="hdr-x-wrapping">
+<term><literal>X-Wrapping</literal></term>
+<listitem>
+<para>While <link linkend="sec-powrap">string wrapping in PO files</link> is irrelevant to programs that fetch translations from them, and possibly to some dedicated PO editors, it is important for good readability and editability of strings in plain text editors and some other PO editors. This header field can be set to tell Pology how to wrap strings in given PO file, for example, when <command>posieve</command> modifies a message and writes the modified PO file, or when rewrapping is done explicitly by <command>porewrap</command>. The value is a comma-separated list of wrapping modes, chosen from:
+<itemizedlist>
+<listitem><para><literal>basic</literal> -- wrapping on certain column</para></listitem>
+<listitem><para><literal>fine</literal> -- wrapping on logical breaks (such as <literal>&lt;p&gt;</literal> or <literal>&lt;br/&gt;</literal> tags)</para></listitem>
+</itemizedlist>
+Wrapping on escaped newline <literal>\n</literal> is always performed, regardless of the wrapping mode. If the field value is empty, no other wrapping is done. If more than one wrapping mode is given (e.g. <literal>"X-Wrapping: basic, fine\n"</literal>), it is specificaly defined how modes are combined, so the ordering is not important. As usual, if wrapping is specified by a command line option, that will override the header field.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>All of the listed header fields may be set manually, when you get to work on the particular PO file. But frequently it is possible to set them automatically, or at least automatically for the first time with later manual corrections where needed. For this you may use <link linkend="sv-set-header">the <command>set-header</command> sieve</link>. If PO files are periodically merged by the translation project automation (rather than each translator merging on his own only the PO files which he is about to update), the natural moment to run <command>set-header</command> is just after the merging. If translation is done <link linkend="ch-summit">in summit</link>, you can specify in summit configuration to set header fields on merging.</para>
 
 </sect1>
 

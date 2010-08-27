@@ -6,6 +6,8 @@
 
 <title>The PO Format</title>
 
+<para>There is no formal specification of the PO format; instead, the related parts of <ulink url="http://www.gnu.org/software/gettext/manual/html_node/index.html">the Gettext manual</ulink> serve as its working definition. Although the PO format has been documented both by the Gettext manual and elsewhere, in smaller and greater detail, it will be presented here as well. This is in order to thoroughly explain how the format elements influence the translation practice, and to make sure that the terms used in the rest of this manual are understood in their precise meaning.</para>
+
 <para>Before going into the format description, it is useful to give an overview of usage contexts for the PO format and of the basic principles behind it.</para>
 
 <para id="p-dynstattr">There are three distinct contexts in which PO files are used:
