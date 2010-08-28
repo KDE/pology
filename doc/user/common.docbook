@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
- "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+[
+    <!ENTITY apibase "../../api/html">
+    <!ENTITY ap "&apibase;/pology.">
+    <!ENTITY am "-module.html#">
+]>
 
 <chapter id="ch-common">
 <title>Common Functionality</title>
@@ -13,7 +18,7 @@
 
 <para>Shell completion means that, similarly as for command names, it is possible to contextually complete command parameters by pressing the <keycap>Tab</keycap> key. This allows you to efficiently type in the command line, as well as to quickly remind yourself of options and option parameters without resorting to documentation or browsing the file system.</para>
 
-<para>For example, pressing <keycap>Tab</keycap> just after the <link linkend="ch-sieve"><command>posieve</command> command</link> will complete sieve names, and <keycap>Tab</keycap> after the <option>-s</option> option will complete sieve parameters based on sieves that precede it in the command line. This:
+<para>For example, pressing <keycap>Tab</keycap> just after <link linkend="ch-sieve">the <command>posieve</command> command</link> will complete sieve names, and <keycap>Tab</keycap> after the <option>-s</option> option will complete sieve parameters based on sieves that precede it in the command line. This:
 <programlisting>
 $ posieve s&lt;TAB&gt;
 </programlisting>
@@ -469,7 +474,7 @@ Ordering and position of include-exclude directives is not significant, as they 
 <listitem>
 <para>Disables output destination sensitivity, such that the text is always colored. This is useful when the output is piped to another command which can understand terminal escape sequences by which colors are produce, such as <command>less(1)</command>. A typical example would be piping search results from <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link> to be able to scroll them back and forth:
 <programlisting>
-$ posieve find-messages -smsgid:'foobar' dir_full_of_POs/ -R | less -R
+$ posieve find-messages ... -R | less -R
 </programlisting>
 The <option>-R</option> of <command>less</command> tells it to interpret escape sequences as colors, rather than showing them as literal text.</para>
 </listitem>
@@ -524,9 +529,9 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <listitem>
 <para>The language environment to which the translation belongs; see <xref linkend="sec-lglangenv"/> for details. It can be a single keyword, or a comma-separated list of keywords. If several environments are given, the later in the list (which is usually the more specific) takes precedence.</para>
 
-<para>Pology already has internal support for some more general environments in some languages, so you should use these environment keywords if they apply to your case. These are:
+<para>Pology already has internal support for some more general environments in some languages, so you should use these environment keywords if they apply to your case:
 <itemizedlist>
-<listitem><para><literal>kde</literal> -- <ulink url="http://l10n.kde.org/teams-list.php">translation teams of the KDE</ulink></para></listitem>
+<listitem><para><literal>kde</literal> -- translation teams of <ulink url="http://l10n.kde.org/teams-list.php">the KDE community</ulink></para></listitem>
 <listitem><para><literal>wesnoth</literal> -- translation teams of <ulink url="http://www.wesnoth.org/">The Battle for Wesnoth</ulink></para></listitem>
 </itemizedlist>
 </para>
@@ -576,7 +581,245 @@ Wrapping on escaped newline <literal>\n</literal> is always performed, regardles
 <sect1 id="sec-cmhooks">
 <title>Filtering Hooks</title>
 
-<para></para>
+<para>Pology enables the user to insert special processing elements, called <emphasis>hooks</emphasis>, at many places in the processing chain. Hooks are Python functions with certain prescribed input, output, and behavior. Depending on the exact combination of these three ingredients, there are various <emphasis>hook types</emphasis>. Finally, some hooks can be adapted to a given context through their <emphasis>hook factories</emphasis>. Pology defines many hooks internally, and users can add their own external hooks.</para>
+
+<para>Usage of hooks is best illustrated through examples. Suppose that you want to use the <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link> to look for a certain word, but the text contains XML-like tags of the form <literal>&lt;<replaceable>tagname</replaceable>&gt;...&lt;<replaceable>/tagname</replaceable>&gt;</literal> which happen to be throwing off your search. Suppose that there exists a hook called <literal>remove-xml-tags</literal>, in the Pology library module <literal>remove</literal>, which takes a piece of text as input and returns that piece of text cleared of any XML-like tags. Then you could insert this hook into the search to clear the tags before matching the text, by using the <option>filter:</option> parameter to <command>find-messages</command>:
+<programlisting>
+$ posieve find-messages -s filter:'remove/remove-xml-tags' ...
+</programlisting>
+Here <literal>remove/remove-xml-tags</literal> is the hook specification, and this is its usual simplest form: the module name, followed by slash, followed by the hook name. (Sometimes it can be only the module name, when the hook function within that module has the same name as the module, but this is rare.) The hook specification was enclosed in single quotes, for the shell to see it as single string; this was not necessary here, but it is a good habit to keep up when adding hooks through command line, because hook specification can get quite involved.</para>
+
+<para>Suppose now that there is a single hook that can remove any kind of markup from the text (not only XML-like tags) called <literal>remove-markup</literal>, but that it has to be told which markup to remove, by giving it one of the markup type keywords known to Pology. Continuing the previous example, this could be done like this:
+<programlisting>
+$ posieve find-messages -s filter:'remove/remove-markup~"docbook4"' ...
+</programlisting>
+Now the hook specification is <literal>remove/remove-markup~"docbook4"</literal>. Note that outer single quotes in the command line are necessary, as otherwise the shell would strip internal double quotes, which are here integral part of hook specification. <literal>remove-markup</literal> is actually a hook factory, which produces a hook based on the parameters given after the tilde (<literal>~</literal>) character. Here <literal>"docbook4"</literal> is that parameter; why must it be quoted? Because the part after the tilde is passed as argument list to a Python function, and <literal>"docbook4"</literal> must be of string type, which is in Python denoted by quotes. For a hook factory <literal>foo/bar</literal> which would take a string and a number, the hook specification would be <literal>foo/bar~"qwyx",5</literal>. Sometimes a hook factory has default values for some or all of its arguments; in the latter case, if the defaults are sufficient, the part after the tilde in the hook specification can be left empty (e.g. <literal>foo/bar~</literal>).</para>
+
+<para>Hooks can be language- and project-dependent. Suppose that in your language the letters are sometimes accented, but the accents should be ignored on spell-checking. Then Pology may contain a hook which strips accents from text in your language. If your language code is <literal>ll</literal>, and the hook is <literal>remove-accents</literal> in (language-specific) module <literal>remove</literal>, you could check spelling while ignoring accents using the <link linkend="sv-find-messages">the <command>check-spell-ec</command> sieve</link>:
+<programlisting>
+$ posieve check-spell-ec -s filter:'ll:remove/remove-accents' ...
+</programlisting>
+The hook specification now also contains the language code separated by colon, as <literal>ll:...</literal>. If the hook is project-specific instead, it is prefixed with <literal>pp%...</literal>, where <literal>pp</literal> is the project identifier and percent sign the separator. If the hook is both language- and project-specific, then the specification is <literal>ll:pp%...</literal> or <literal>pp%ll:...</literal>.</para>
+
+<sect2 id="sec-cmhooktypes">
+<title>Hook Types</title>
+
+<para>In places where a hook can be inserted, it is convenient to succinctly state which types of hooks are acceptable. Hook types are therefore coded with letter-number-letter combinations. The first letter can be F, V, or S, standing for filtering, validation, or side-effect hook, in that order. Filtering hooks modify their input, validation hooks report problems in input in a way understood by their clients, while side-effect hooks can do anything except modifying the input. The number after the first letter describes the composition of input, which can be pure text, PO message, PO header, etc. and their combinations. The final letter indicates the semantics of the input, like whether the input text is supposed to be the original (<varname>msgid</varname>) or the translation (<varname>msgstr</varname>) or can be any of them.</para>
+
+<para>The following hooks types are currently defined (the hook type is followed by the expected input in parenthesis):
+<variablelist>
+
+<varlistentry>
+<term>F1A (text)</term>
+<listitem>
+<para>Modifies the input text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V1A (text)</term>
+<listitem>
+<para>Validates the input text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S1A (text)</term>
+<listitem>
+<para>Side-effects based on the input text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F3A (text, message, file)</term>
+<listitem>
+<para>Modifies the input text, which is one of the strings in the given PO message, which belongs to the given PO file. The difference between F1A and F3A hooks is that an F1A hook can process text based only on the text itself, while an F3A hook can process text by taking into account the information elsewhere in the PO message (e.g. in comments) and the PO file (e.g. in header). This holds for all *1* and *3* hook types.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V3A (text, message, file)</term>
+<listitem>
+<para>Validates the input text, which is one of the strings in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S3A (text, message, file)</term>
+<listitem>
+<para>Side-effects based on the input text, which is one of the strings in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F3B (original, message, file)</term>
+<listitem>
+<para>Modifies the input text, which is the <varname>msgid</varname> (or <varname>msgid_plural</varname>) string in the given PO message, which belongs to the given PO file. The difference between F3A and F3B hooks is that the input text of an F3B hook is expected to be precisely the original string in the message, while giving anything else will lead to undefined results. This holds for all *3A, *3B, *3C hook types.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V3B (original, message, file)</term>
+<listitem>
+<para>Validates the input text, which is the <varname>msgid</varname> (or <varname>msgid_plural</varname>) string in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S3B (original, message, file)</term>
+<listitem>
+<para>Side-effects based on the input text, which is the <varname>msgid</varname> (or <varname>msgid_plural</varname>) string in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F3C (translation, message, file)</term>
+<listitem>
+<para>Modifies the input text, which is one of the <varname>msgstr</varname> strings in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V3C (translation, message, file)</term>
+<listitem>
+<para>Validates the input text, which is one of the <varname>msgstr</varname> strings in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S3C (translation, message, file)</term>
+<listitem>
+<para>Side-effects based on the input text, which is one of the <varname>msgstr</varname> strings in the given PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F4A (message, file)</term>
+<listitem>
+<para>Modifies the input PO message, which belongs to the given PO file. The difference between F4A and F3A hooks is that an F3A hook can modify only the given string in the message, while an F4A hook can modify any number of strings, comments, etc. in the message. This holds for all *3* and *4* hook types.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V4A (message, file)</term>
+<listitem>
+<para>Validates the input PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S4A (message, file)</term>
+<listitem>
+<para>Side-effects based on the input PO message, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F4B (header, file)</term>
+<listitem>
+<para>Modifies the input PO header, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V4B (header, file)</term>
+<listitem>
+<para>Validates the input PO header, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S4B (header, file)</term>
+<listitem>
+<para>Side-effects based on the input PO header, which belongs to the given PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F5A (file)</term>
+<listitem>
+<para>Modifies the input PO file. As opposed to F1* and F3* hooks, which can modify only elements within PO messages, F5* hooks can also add, remove, and change positions of messages within the PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V5A (file)</term>
+<listitem>
+<para>Validates the input PO file. As opposed to V1* and V3* hooks, which report only problems confined to PO messages, V5* hooks can also report problems due to relation between several PO messages each of which is valid in itself.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S5A (file)</term>
+<listitem>
+<para>Side-effects based on the input PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>F6A (any file)</term>
+<listitem>
+<para>Modifies the input file, whether in PO or another format, on the level of pure text lines. This is unlike F5A hooks which operate on the level of entries in the PO file; F6A hooks are also typically limited to certain types of files, perhaps even only PO files. This holds for all *6* hook types.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>V6A (raw file)</term>
+<listitem>
+<para>Validates the input file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>S6A (raw file)</term>
+<listitem>
+<para>Side-effects based on the input file.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-cminthooks">
+<title>List of Internal Hooks</title>
+
+<para>Pology does not establish strict separation between users and programmers, but presents a continuum between pure use and pure programming, so that users can engage according to their needs and abilities. Hooks, in particular, occupy the middle of this range. On the one hand side, they can be used even from command line; on the other hand side, they are actually Python functions, and hook specifications (in command line and elsewhere) sometimes require Python argument lists (the part after the tilde). This makes it hard both to list all available hooks<footnote>
+<para>For example, any Python function in Pology that takes one string and returns the modified version of that string can be considered an F1A hook!</para>
+</footnote>, and to decide where and how to document them, in the user manual or in the library programming interface (API) documentation. Therefore, the following will be done. Here, in the user manual, only functions written specifically to be used as hooks will be listed, with their types and very short descriptions. To that the link to the complete hook description in the API documentation will be added.<footnote>
+<para>In the API documentation, the very first line of the function description will show if the function is a direct hook or a hook factory, the function header will list the inputs for a direct hook (which conform to the declared hook type) or the factory parameters for a hook factory, and the rest of the description will explain the operation of the hook and the meaning of factory parameters.</para>
+</footnote></para>
+
+<para>General hooks:
+<variablelist>
+
+<varlistentry id="hk-bpatterns-bad_patterns">
+<term><ulink url="&ap;bpatterns&am;bad_patterns"><literal>bpatterns/bad-patterns</literal></ulink> (S3A)</term>
+<term><ulink url="&ap;bpatterns&am;bad_patterns_msg"><literal>bpatterns/bad-patterns-msg</literal></ulink> (S4A)</term>
+<term><ulink url="&ap;bpatterns&am;bad_patterns_msg_sp"><literal>bpatterns/bad-patterns-msg-sp</literal></ulink> (V4A)</term>
+<listitem>
+<para>Detects unwanted patterns in text, by regular expression matching. Patterns can be specified either as direct arguments, or listed in file given as argument.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Language-specific hooks:
+</para>
+
+<para>Project-specific hooks:
+</para>
+
+</sect2>
+
+<sect2 id="sec-cmexthooks">
+<title>Using External Hooks</title>
+
+<para>[Not implemented yet.]</para>
+
+</sect2>
 
 </sect1>
 
