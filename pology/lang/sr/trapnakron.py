@@ -117,24 +117,40 @@ _suff_pltext = "_ot" # for "obican tekst"
 _suff_pltext_id = 10
 _suff_ltmarkup = "_lv" # for "laksa varijanta"
 _suff_ltmarkup_id = 20
-_suff_gematch_m = "_rm" # for "rod muski"
-_suff_gematch_m_id = 30
-_suff_gematch_z = "_rz" # for "rod zenski"
-_suff_gematch_z_id = 31
-_suff_gematch_s = "_rs" # for "rod srednji"
-_suff_gematch_s_id = 32
-_suff_gematch_u = "_ru" # for "rod muski zivi"
-_suff_gematch_u_id = 33
-_gematch_suffs = [_suff_gematch_m, _suff_gematch_z,
-                  _suff_gematch_s, _suff_gematch_u]
-_gematch_suff_ids = [_suff_gematch_m_id, _suff_gematch_z_id,
-                     _suff_gematch_s_id, _suff_gematch_u_id]
-_gematch_suff_ids_set = set(_gematch_suff_ids)
-_gematch_suffs_genders = [
-    (_suff_gematch_m_id, (u"м", u"m")),
-    (_suff_gematch_z_id, (u"ж", u"ž")),
-    (_suff_gematch_s_id, (u"с", u"s")),
-    (_suff_gematch_u_id, (u"у", u"u")),
+_suff_gnmatch_m = "_rm" # for "rod muski"
+_suff_gnmatch_m_id = 30
+_suff_gnmatch_z = "_rz" # for "rod zenski"
+_suff_gnmatch_z_id = 31
+_suff_gnmatch_s = "_rs" # for "rod srednji"
+_suff_gnmatch_s_id = 32
+_suff_gnmatch_u = "_ru" # for "rod muski zivi"
+_suff_gnmatch_u_id = 33
+_suff_gnmatch_mk = "_rmk" # for "rod muski mnozine"
+_suff_gnmatch_mk_id = 34
+_suff_gnmatch_zk = "_rzk" # for "rod zenski mnozine"
+_suff_gnmatch_zk_id = 35
+_suff_gnmatch_sk = "_rsk" # for "rod srednji mnozine"
+_suff_gnmatch_sk_id = 36
+_suff_gnmatch_uk = "_ruk" # for "rod muski zivi mnozine"
+_suff_gnmatch_uk_id = 37
+_gnmatch_suffs = [_suff_gnmatch_m, _suff_gnmatch_z,
+                  _suff_gnmatch_s, _suff_gnmatch_u,
+                  _suff_gnmatch_mk, _suff_gnmatch_zk,
+                  _suff_gnmatch_sk, _suff_gnmatch_uk]
+_gnmatch_suff_ids = [_suff_gnmatch_m_id, _suff_gnmatch_z_id,
+                     _suff_gnmatch_s_id, _suff_gnmatch_u_id,
+                     _suff_gnmatch_mk_id, _suff_gnmatch_zk_id,
+                     _suff_gnmatch_sk_id, _suff_gnmatch_uk_id]
+_gnmatch_suff_ids_set = set(_gnmatch_suff_ids)
+_gnmatch_suffs_genums = [
+    (_suff_gnmatch_m_id, (u"м", u"m"), (u"ј", u"j")),
+    (_suff_gnmatch_z_id, (u"ж", u"ž"), (u"ј", u"j")),
+    (_suff_gnmatch_s_id, (u"с", u"s"), (u"ј", u"j")),
+    (_suff_gnmatch_u_id, (u"у", u"u"), (u"ј", u"j")),
+    (_suff_gnmatch_mk_id, (u"м", u"m"), (u"к", u"k")),
+    (_suff_gnmatch_zk_id, (u"ж", u"ž"), (u"к", u"k")),
+    (_suff_gnmatch_sk_id, (u"с", u"s"), (u"к", u"k")),
+    (_suff_gnmatch_uk_id, (u"у", u"u"), (u"к", u"k")),
 ]
 _suff_systr = "_s" # for "sistemska transkripcija"
 _suff_systr_id = 40
@@ -164,7 +180,7 @@ _pname_suff_ids_set = set(_pname_suff_ids)
 
 def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                 markup="plain", tagmap=None,
-                ptsuff=None, ltsuff=None, gesuff=None,
+                ptsuff=None, ltsuff=None, gnsuff=None,
                 stsuff=None, adsuff=None, nmsuff=None,
                 npkeyto=None, nobrhyp=False, disamb="",
                 runtime=False):
@@ -216,10 +232,11 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         of the markup, where applicable (e.g. people names in Docbook).
       - When fetching a property within a sentence (with keys given e.g.
         as XML entities), sentence construction may require that
-        the resolved value is of certain gender; parameter C{gesuff}
-        can be used to provide a tuple of 4 gender suffixes,
-        such that the property will resolve only if the value of gender
-        matches the gender suffix.
+        the resolved value is of certain gender and number; parameter C{gnsuff}
+        can be used to provide a tuple of 4 suffixes for gender in singular
+        and 4 suffixes for gender in plural,
+        such that the property will resolve only if the value of
+        gender and number matches the gender and number suffix.
       - Parameters C{stsuff} and C{adsuff} provide suffixes through
         which systematic transcription and alternative derivations
         are requested.
@@ -277,8 +294,9 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
     @type ptsuff: string
     @param ltsuff: derivation key suffix to report properties in lighter markup
     @type ltsuff: string
-    @param gesuff: suffixes by gender, to have no resolution if gender is wrong
-    @type gesuff: [(string, string)*]
+    @param gnsuff: suffixes by gender and number, to have no resolution
+        if gender or number do not match
+    @type gnsuff: [(string, string)*]
     @param stsuff: derivation key and environment name suffixes
         to report systematic transcriptions
     @type stsuff: (string, string)
@@ -338,13 +356,13 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         mvends[ptsuff] = _suff_pltext_id
     if ltsuff:
         mvends[ltsuff] = _suff_ltmarkup_id
-    if gesuff:
-        if len(gesuff) != 4:
+    if gnsuff:
+        if len(gnsuff) != 8:
             raise PologyError(
                 _("@info",
-                  "Sequence of gender suffixes must have "
-                  "exactly 4 elements."))
-        mvends.update(zip(gesuff, _gematch_suff_ids))
+                  "Sequence of gender-number suffixes must have "
+                  "exactly 8 elements."))
+        mvends.update(zip(gnsuff, _gnmatch_suff_ids))
     aenvs = {}
     if adsuff or stsuff:
         kesuffs = [] # must have same order as _aenv_suff_ids
@@ -451,7 +469,7 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
     return trapnakron(
         envec, envel, envic, envil,
         markup="plain",
-        gesuff=_gematch_suffs,
+        gnsuff=_gnmatch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
         nmsuff=_pname_suffs,
@@ -478,7 +496,7 @@ def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
     return trapnakron(
         envec, envel, envic, envil,
         markup="plain",
-        gesuff=_gematch_suffs,
+        gnsuff=_gnmatch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
         nmsuff=_pname_suffs,
@@ -515,7 +533,7 @@ def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         tagmap=tagmap,
         ptsuff=_suff_pltext,
         ltsuff=_suff_ltmarkup,
-        gesuff=_gematch_suffs,
+        gnsuff=_gnmatch_suffs,
         stsuff=_systr_ksuff_esuff,
         adsuff=_altdv_ksuffs_esuffs,
         nmsuff=_pname_suffs,
@@ -556,13 +574,16 @@ def _sd_dkey_transf (suffspec, tagmap):
         # Whether to use lighter variant of the markup, where applicable.
         ltmarkup = _suff_ltmarkup_id in found_suff_ids
 
-        # Whether the gender is matching.
-        if _gematch_suff_ids_set.intersection(found_suff_ids):
+        # Whether the gender and number is matching.
+        if _gnmatch_suff_ids_set.intersection(found_suff_ids):
             gstr = sd.get2(dkey, "_rod")
+            nstr = sd.get2(dkey, "_broj", "j")
             genders = list(set(map(ctol, hctocl(gstr)))) if gstr else []
-            if (   not (len(genders) == 1)
-                or not all([(x[0] not in found_suff_ids or genders[0] in x[1])
-                            for x in _gematch_suffs_genders])
+            numbers = list(set(map(ctol, hctocl(nstr)))) if nstr else []
+            if (   not (len(genders) == 1) or not (len(numbers) == 1)
+                or not all([(   x[0] not in found_suff_ids
+                             or (genders[0] in x[1] and numbers[0] in x[2]))
+                            for x in _gnmatch_suffs_genums])
             ):
                 dkey = None
 
