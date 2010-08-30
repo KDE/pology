@@ -787,14 +787,14 @@ The hook specification now also contains the language code separated by colon, a
 
 <para>Pology does not establish strict separation between users and programmers, but presents a continuum between pure use and pure programming, so that users can engage according to their needs and abilities. Hooks, in particular, occupy the middle of this range. On the one hand side, they can be used even from command line; on the other hand side, they are actually Python functions, and hook specifications (in command line and elsewhere) sometimes require Python argument lists (the part after the tilde). This makes it hard both to list all available hooks<footnote>
 <para>For example, any Python function in Pology that takes one string and returns the modified version of that string can be considered an F1A hook!</para>
-</footnote>, and to decide where and how to document them, in the user manual or in the library programming interface (API) documentation. Therefore, the following will be done. Here, in the user manual, only functions written specifically to be used as hooks will be listed, with their types and very short descriptions. To that the link to the complete hook description in the API documentation will be added.<footnote>
+</footnote>, and to decide where and how to document them, in the user manual or in the library programming interface (API) documentation. Therefore, the following will be done. Here, in the user manual, only functions written specifically to be used as hooks will be listed (sometimes grouped by similarity), with their types and short descriptions. To that the link to the complete hook description in the API documentation will be added.<footnote>
 <para>In the API documentation, the very first line of the function description will show if the function is a direct hook or a hook factory, the function header will list the inputs for a direct hook (which conform to the declared hook type) or the factory parameters for a hook factory, and the rest of the description will explain the operation of the hook and the meaning of factory parameters.</para>
 </footnote></para>
 
 <para>General hooks:
 <variablelist>
 
-<varlistentry id="hk-bpatterns-bad_patterns">
+<varlistentry id="hk-bpatterns-bad-patterns">
 <term><ulink url="&ap;bpatterns&am;bad_patterns"><literal>bpatterns/bad-patterns</literal></ulink> (S3A)</term>
 <term><ulink url="&ap;bpatterns&am;bad_patterns_msg"><literal>bpatterns/bad-patterns-msg</literal></ulink> (S4A)</term>
 <term><ulink url="&ap;bpatterns&am;bad_patterns_msg_sp"><literal>bpatterns/bad-patterns-msg-sp</literal></ulink> (V4A)</term>
@@ -803,13 +803,296 @@ The hook specification now also contains the language code separated by colon, a
 </listitem>
 </varlistentry>
 
+<varlistentry id="hk-gtxtools-msgfilter">
+<term><ulink url="&ap;gtxtools&am;msgfilter"><literal>gtxtools/msgfilter</literal></ulink> (F6A)</term>
+<listitem>
+<para>Pipes the PO file through Gettext's <command>msgfilter(1)</command>. The filter argument and options to <command>msgfilter</command> can be specified as parameters to hook factory. (May be used to wrap the PO file canonically, as Pology does not produce exactly the same wrapping as Gettext tools.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-gtxtools-msgfmt">
+<term><ulink url="&ap;gtxtools&am;msgfmt"><literal>gtxtools/msgfmt</literal></ulink> (S6A)</term>
+<listitem>
+<para>Pipes the PO file through Gettext's <command>msgfmt(1)</command>, discarding output and reporting any errors as warnings. Useful for hard check of the PO file syntax, and extended checks performed when <command>msgfmt</command> is run with <option>--check</option> option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-markup-check-xml">
+<term><ulink url="&ap;markup&am;check_xml"><literal>markup/check-xml</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_xml_sp"><literal>markup/check-xml-sp</literal></ulink> (V3C)</term>
+<listitem>
+<para>Checks whether general XML markup in translation is well-formed, and possibly also whether entities are defined. Checks can be performed either only when the original text itself is valid or unconditionally.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-markup-check-xml-spec">
+<term><ulink url="&ap;markup&am;check_docbook4"><literal>markup/check-docbook4</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_docbook4_sp"><literal>markup/check-docbook4-sp</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;markup&am;check_docbook4_msg"><literal>markup/check-docbook4-msg</literal></ulink> (V4A)</term>
+<term><ulink url="&ap;markup&am;check_html"><literal>markup/check-html</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_html_sp"><literal>markup/check-html-sp</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;markup&am;check_qtrich"><literal>markup/check-qtrich</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_qtrich_sp"><literal>markup/check-qtrich-sp</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;markup&am;check_kde4"><literal>markup/check-kde4</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_kde4_sp"><literal>markup/check-kde4-sp</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;markup&am;check_pango"><literal>markup/check-pango</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_pango_sp"><literal>markup/check-pango-sp</literal></ulink> (V3C)</term>
+<listitem>
+<para>Specializations of <link linkend="hk-markup-check-xml"><literal>markup/check-xml</literal></link> hook for various XML formats. Aside from well-formedness, these hooks can also check whether used tags really exist in the format, whether tags are properly nested, etc. (Full conformance to DTD or schema cannot be checked due to chunking into messages.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-markup-check-xmlents">
+<term><ulink url="&ap;markup&am;check_xmlents"><literal>markup/check-xmlents</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;markup&am;check_xmlents_sp"><literal>markup/check-xmlents-sp</literal></ulink> (V3C)</term>
+<listitem>
+<para>Checks whether XML-like entities (<literal>&amp;foo;</literal>) are defined. This can be used when the markup is not trully XML-like but it uses XML-like entities, or simply to have separate checking of tagging (by <link linkend="hk-markup-check-xml-spec"><literal>markup/check-xml-*</literal></link> hooks) and entities for convenience.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-noop">
+<term><ulink url="&ap;noop&am;text"><literal>noop/text</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;noop&am;textm"><literal>noop/textm</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;noop&am;msg"><literal>noop/msg</literal></ulink> (F4A)</term>
+<term><ulink url="&ap;noop&am;hdr"><literal>noop/hdr</literal></ulink> (F4B)</term>
+<term><ulink url="&ap;noop&am;cat"><literal>noop/cat</literal></ulink> (F5A)</term>
+<term><ulink url="&ap;noop&am;path"><literal>noop/path</literal></ulink> (F6A)</term>
+<listitem>
+<para>Filtering hooks that do nothing ("no-operation"). These are useful in contexts where a filtering hook is required, but input should not be really modified.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-normalize-demangle-srcrefs">
+<term><ulink url="&ap;normalize&am;demangle_srcrefs"><literal>normalize/demangle-srcrefs</literal></ulink> (F4A)</term>
+<listitem>
+<para>In some message extraction scenarios, the source references end up pointing to dummy files which existed only during the extraction, but true source references can still be reconstructed (based on dummy file names or extracted comments). This hook will reconstruct true source references and replace dummy references with them.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-normalize-uniq-source">
+<term><ulink url="&ap;normalize&am;uniq_source"><literal>normalize/uniq-source</literal></ulink> (F4A)</term>
+<listitem>
+<para>Sometimes source references in PO message end up doubled (e.g. one prefixed with <filename>./</filename> and the other not) due to perculiarities of the extraction process. This hook will make source references unique.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-normalize-uniq-auto-comment">
+<term><ulink url="&ap;normalize&am;uniq_auto_comment"><literal>normalize/uniq-auto-comment</literal></ulink> (F4A)</term>
+<listitem>
+<para>When extracted comments are automatically added to messages by the extraction tool, if the message is repeated in several source files it may end up containing multiple equal extracted comments. This hook can be used to make extracted comments unique (either all or those matching some criteria).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-normalize-canonical-header">
+<term><ulink url="&ap;normalize&am;canonical_header"><literal>normalize/canonical-header</literal></ulink> (F4B)</term>
+<listitem>
+<para>Rearranges content of the PO header into canonical form. For example, translator comments will be sorted according to years of contribution, any repeated translator comments will be merged, etc.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-accel">
+<term><ulink url="&ap;remove&am;remove_accel_text"><literal>remove/remove-accel-text</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_accel_text_greedy"><literal>remove/remove-accel-text-greedy</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_accel_msg"><literal>remove/remove-accel-msg</literal></ulink> (F4A)</term>
+<term><ulink url="&ap;remove&am;remove_accel_msg_greedy"><literal>remove/remove-accel-msg-greedy</literal></ulink> ()</term>
+<listitem>
+<para>Removes accelerator marker from one or all strings in the message. They will check if the PO file <link linkend="hdr-x-accelerator-marker">specifies the accelerator marker</link>; if not, non-greedy variants will do nothing, while greedy variants will remove everything that is frequently used as accelerator marker.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-markup">
+<term><ulink url="&ap;remove&am;remove_markup_text"><literal>remove/remove-markup-text</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_markup_msg"><literal>remove/remove-markup-msg</literal></ulink> (F4A)</term>
+<listitem>
+<para>Converts markup (e.g. XML tags) in one or all strings in the message to plain text. The PO file will be asked for <link linkend="hdr-x-text-markup">the expected markup types in text</link>; if no markup type is specified, these hooks will do nothing.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-fmtdirs">
+<term><ulink url="&ap;remove&am;remove_fmtdirs_text"><literal>remove/remove-fmtdirs-text</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_fmtdirs_text_tick"><literal>remove/remove-fmtdirs-text-tick</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_fmtdirs_msg"><literal>remove/remove-fmtdirs-msg</literal></ulink> (F4A)</term>
+<term><ulink url="&ap;remove&am;remove_fmtdirs_msg_tick"><literal>remove/remove-fmtdirs-msg-tick</literal></ulink> (F4A)</term>
+<listitem>
+<para>Removes <link linkend="sec-poformdir">format directives</link>
+in one or all strings in the message, or replaces them with a fixed placeholder. The type of format directives is determined by <literal>*-format</literal> message flags.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-literals">
+<term><ulink url="&ap;remove&am;remove_literals_text"><literal>remove/remove-literals-text</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_literals_text_tick"><literal>remove/remove-literals-text-tick</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_literals_msg"><literal>remove/remove-literals-msg</literal></ulink> (F4A)</term>
+<term><ulink url="&ap;remove&am;remove_literals_msg_tick"><literal>remove/remove-literals-msg-tick</literal></ulink> (F4A)</term>
+<listitem>
+<para>Removes "literal" segments from one or all strings in the message, or replaces them wih a fixed placeholder. Literal segments are those which are used as computer input somewhere along the line, such as URLs, email addresses, command line options, etc. and therefore generally do not conform to human language rules. Translator can also explicitly declare literal segments, by adding a special translator comment.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-marlits">
+<term><ulink url="&ap;remove&am;remove_marlits_text"><literal>remove/remove-marlits-text</literal></ulink> (F3A)</term>
+<term><ulink url="&ap;remove&am;remove_marlits_msg"><literal>remove/remove-marlits-msg</literal></ulink> (F4A)</term>
+<listitem>
+<para><link linkend="hk-remove-remove-literals"><literal>remove/remove-literals-*</literal></link> hooks can positively determine only certain types of literals based on the text alone. If the text contains semantic markup, such as Docbook, literal segments can also be determined based on tags, and these hooks will remove both such tags and their text. The markup type will be taken <link linkend="hdr-x-text-markup">from the PO file</link>. (When these hooks are used, <literal>remove/remove-literals-*</literal> is not needed.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-rewrite-msgid">
+<term><ulink url="&ap;remove&am;rewrite_msgid"><literal>remove/rewrite-msgid</literal></ulink> (F4A)</term>
+<listitem>
+<para><link linkend="sec-lgrules">Checks are sometimes defined</link> such that something is first looked up in the original text, and if it is found, something is expected in the translation. No matter how well written these checks are, the original text will sometimes be a bit out of the ordinary, and the check will fail the translation although everything is fine. This can usually be corrected by the translator manually adding a directive, in a special translator comment, to "rewrite" the problematic part of the original before the check is applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-rewrite-inverse">
+<term><ulink url="&ap;remove&am;rewrite_inverse"><literal>remove/rewrite-inverse</literal></ulink> (F4A)</term>
+<listitem>
+<para>The original text in the message needs to be modified for the same reasons as described in <link linkend="hk-remove-rewrite-msgid"><literal>remove/rewrite-msgid</literal></link>, but it is actually easiest to replace the original text entirely with the original text from another message sharing the same translation (i.e. by "inverse" pairing of messages over translation).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-remove-remove-paired-ents">
+<term><ulink url="&ap;remove&am;remove_paired_ents"><literal>remove/remove-paired-ents</literal></ulink> (F4A)</term>
+<listitem>
+<para>Removes all XML-like entities (<literal>&amp;foo;</literal>) from the original text, and all XML-like entities from the translation that were encountered in the original. This may be useful prior to markup validity checks, when the list of defined entities cannot be provided.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-spell">
+<term><ulink url="&ap;spell&am;check_spell"><literal>spell/check-spell</literal></ulink> (S3A)</term>
+<term><ulink url="&ap;spell&am;check_spell_sp"><literal>spell/check-spell-sp</literal></ulink> (V3A)</term>
+<listitem>
+<para>Spell-checking hooks, as one element of <link linkend="sec-lgspell">Pology's spell-checking functionality</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-uiref-resolve-ui">
+<term><ulink url="&ap;uiref&am;resolve_ui"><literal>uiref/resolve-ui</literal></ulink> (F3C)</term>
+<term><ulink url="&ap;uiref&am;resolve_ui_docbook4"><literal>uiref/resolve-ui-docbook4</literal></ulink> (F3C)</term>
+<term><ulink url="&ap;uiref&am;resolve_ui_kde4"><literal>uiref/resolve-ui-kde4</literal></ulink> (F3C)</term>
+<listitem>
+<para>When translating program documentation, using these hooks it is possible to leave UI references (button labels, menu items, etc.) untranslated and let them be <link linkend="sec-lguirefs">automatically inserted into translation later on</link>. The basic hook requires UI references to be manually wrapped in translation in order to be detected, while specialized versions will also use semantic markup for detection (e.g. <literal>&lt;guilabel&gt;</literal> element in Docbook).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-uiref-check-ui">
+<term><ulink url="&ap;uiref&am;check_ui"><literal>uiref/check-ui</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;uiref&am;check_ui_docbook4"><literal>uiref/check-ui-docbook4</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;uiref&am;check_ui_kde4"><literal>uiref/check-ui-kde4</literal></ulink> (V3C)</term>
+<listitem>
+<para>While <link linkend="hk-uiref-resolve-ui"><literal>uiref/resolve-ui</literal></link> hooks will complain when they cannot find a translation for a UI reference, when checking the overall validity of translation it is more convenient to use specialized check-only hooks which will not modify the PO file on succesfully resolved UI references.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 
 <para>Language-specific hooks:
+<variablelist>
+
+<varlistentry id="hk-lang-ja-katakana">
+<term><ulink url="&ap;lang.ja.katakana&am;katakana"><literal>ja:katakana</literal></ulink> (F1A)</term>
+<listitem>
+<para>Removes everything but Katakana words from Japanese text, and separates retained words with spaces. (Used as filter prior to spell-checking words in Katakana.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-nn-exclusion-inofficial-forms">
+<term><ulink url="&ap;lang.nn.exclusion&am;inofficial_forms"><literal>nn:exclusion/inofficial-forms</literal></ulink> (V3C)</term>
+<listitem>
+<para>Checks if there are any inofficial word forms in Norwegian Nynorsk translation.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-accents-resolve-agraphs">
+<term><ulink url="&ap;lang.sr.accents&am;resolve_agraphs"><literal>sr:accents/resolve-agraphs</literal></ulink> (F1A)</term>
+<listitem>
+<para>Converts "accent graphs" to proper accented letters in Serbian Cyrillic text (e.g. <literal>^а</literal> becomes <literal>а̂</literal>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-accents-remove-accents">
+<term><ulink url="&ap;lang.sr.accents&am;remove_accents"><literal>sr:accents/remove-accents</literal></ulink> (F1A)</term>
+<listitem>
+<para>Replaces accented letters in Serbian Cyrillic text with their non-accented counterparts. (Useful as filter prior to spell-checking.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-limit-charset">
+<term><ulink url="&ap;lang.sr.charsets&am;limit_to_isocyr"><literal>sr:charsets/limit-to-isocyr</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.charsets&am;limit_to_isolat"><literal>sr:charsets/limit-to-isolat</literal></ulink> (F1A)</term>
+<listitem>
+<para>In situations where it is necessary to use an 8-bit encoding instead of Unicode for Serbian text, these hooks can be used to constrain characters in text to only those representable by the target 8-bit encoding.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-checks-naked-latin">
+<term><ulink url="&ap;lang.sr.checks&am;naked_latin"><literal>sr:checks/naked-latin</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;lang.sr.checks&am;naked_latin_origui"><literal>sr:checks/naked-latin-origui</literal></ulink> (V3C)</term>
+<term><ulink url="&ap;lang.sr.checks&am;naked_latin_se"><literal>sr:checks/naked-latin-se</literal></ulink> (S3C)</term>
+<term><ulink url="&ap;lang.sr.checks&am;naked_latin_origui_se"><literal>sr:checks/naked-latin-origui-se</literal></ulink> (S3C)</term>
+<listitem>
+<para>In translations into Serbian using Cyrillic script, ordinary segments in Latin script may indicate error or omission in translation. These hooks will look for such stray Latin segments, while ignoring recognizable literal segments such as URLs, commands, options, etc.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-nobr-to-nobr-hyphens">
+<term><ulink url="&ap;lang.sr.nobr.to_nobr_hyphens&am;"><literal>sr:nobr/to-nobr-hyphens</literal></ulink> (F1A)</term>
+<listitem>
+<para>The ordinary hyphen (-) is normally treated as a character on which the text can be split into the next line. In Serbian texts, hyphens are sometimes used to attach case endings to nouns (especially acronyms), which should not be split into the next line. This hooks guesses such positions and replaces the ordinary hyphen with no-break hyphen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-reduce">
+<term><ulink url="&ap;lang.sr.reduce&am;words_ec"><literal>sr:reduce/words-ec</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.reduce&am;words_ec_lw"><literal>sr:reduce/words-ec-lw</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.reduce&am;words_ic"><literal>sr:reduce/words-ic</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.reduce&am;words_ic_lw"><literal>sr:reduce/words-ic-lw</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.reduce&am;words_ic_lw_dlc"><literal>sr:reduce/words-ic-lw-dlc</literal></ulink> (F1A)</term>
+<listitem>
+<para>Various reductions of Serbian text to a subset of words of certain type, possibly rearranged in a particular way.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-trapres-froments">
+<term><ulink url="&ap;lang.sr.trapres&am;froments"><literal>sr:trapres/froments</literal></ulink> (F3C)</term>
+<term><ulink url="&ap;lang.sr.trapres&am;froments_t1"><literal>sr:trapres/froments-t1</literal></ulink> (F3C)</term>
+<term><ulink url="&ap;lang.sr.trapres&am;froments_t1db"><literal>sr:trapres/froments-t1db</literal></ulink> (F3C)</term>
+<listitem>
+<para>Hooks which resolve grammatical inserts in form of XML entities in Serbian text, based on the "trapnakron" contained within Pology. See the documentation in Serbian section for details.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-uiref">
+<term><ulink url="&ap;lang.sr.uiref&am;"><literal>sr:uiref/mod_entities</literal></ulink> (F1A)</term>
+<listitem>
+<para>When UI references are <link linkend="hk-uiref-resolve-ui">automatically resolved</link> in documentation, and the UI texts may contain <link linkend="hk-lang-sr-trapres-froments">grammatical inserts in form of XML entities</link>, these inserts may need to be slightly modified to keep the documentation structure valid.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-lang-sr-wconv">
+<term><ulink url="&ap;lang.sr.wconv&am;ctol"><literal>sr:wconv/ctol</literal></ulink> (F1A)</term>
+<term><ulink url="&ap;lang.sr.wconv&am;cltoa"><literal>sr:wconv/cltoa</literal></ulink> (F1A)</term>
+<term>and many more</term>
+<listitem>
+<para>Hooks for various transliterations and hybridizations of Serbian text, by script (Cyrillic, Latin) and dialect (Ekavian, Ijekavian). See the documentation in Serbian section for details.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </para>
 
 <para>Project-specific hooks:
+<variablelist>
+
+<varlistentry id="hk-proj-kde-header-equip-header">
+<term><ulink url="&ap;proj.kde.header&am;equip_header"><literal>kde%header/equip-header</literal></ulink> (F4B)</term>
+<listitem>
+<para>Adds assorted header fields to PO files within the KDE Translation Project, with values based on their name and position in the repository tree, so that Pology and other tools are better informed how to process them.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </para>
 
 </sect2>
@@ -818,6 +1101,8 @@ The hook specification now also contains the language code separated by colon, a
 <title>Using External Hooks</title>
 
 <para>[Not implemented yet.]</para>
+
+<para>See <xref linkend="sec-prhooks"/> for instructions on how to write and contribute hooks.</para>
 
 </sect2>
 
