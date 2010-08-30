@@ -27,7 +27,7 @@ def msgfilter (filtr, options=""):
     @param filtr: filter to use (e.g. C{cat} for no-op)
     @type filtr: string
     @param options: additional options to pass to C{msgfilter}
-    @type options string
+    @type options: string
 
     @return: type F6A hook
     @rtype: C{(filepath) -> numerr}
