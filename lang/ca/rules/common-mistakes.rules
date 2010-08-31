@@ -17,12 +17,15 @@ hint="«té» (verb tenir) cal que porti accent"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
+valid msgstr="mapamundi"
 valid msgstr="món"
 valid msgstr="mundial"
-valid msgstr="mapamundi"
+valid msgstr="web"
 valid msgstr="world"
 valid msgstr="altres" cat="kfileshare"
 valid msgstr="tothom" cat="kfileshare"
+valid msgstr="tots" cat="kdeprint_theory" #docmessage
+valid msgstr="WWW" before="\swide\sweb"
 hint="«world» es tradueix per «món» (amb accent)"
 
-# End of rule file
+# End of common mistakes rules file

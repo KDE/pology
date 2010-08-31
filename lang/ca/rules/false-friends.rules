@@ -27,6 +27,7 @@ valid msgstr="abstract(e|a)" cat="kdevplatform"
 valid msgstr="abstracte" cat="kdeqt"
 valid msgstr="abstract(e|a)" cat="desktop_kdegames"
 valid msgstr="abstract(e|a)" cat="umbrello"
+valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
 
@@ -88,6 +89,7 @@ hint="«Advices» es tradueix per «Consells», no per «Avisos» (fals amic)"
 valid msgstr="ordre\sdel\sdia"
 valid msgstr="agenda" cat="desktop_kdepim" before="\sview"
 valid msgstr="agenda" cat="korganizer"
+valid msgstr="agenda" cat="korganizer_plugins-chapter"
 valid msgstr="agenda" cat="libeventviews"
 valid !msgstr="agenda"
 hint="«Agenda» es tradueix per «Ordre del dia», no per «Agenda» (fals amic)"
@@ -119,7 +121,7 @@ valid !msgstr="apòsit"
 hint="«Apposite» es tradueix per «Just o Adequat», no per «Apòsit» (fals amic)"
 
 ### Regla desactivada: molts falsos positius 
-### Argument també és una traducciṕ vàlida per «Argument» (p.ex. argument d'una funció)
+### Argument també és una traducció vàlida per «Argument» (p.ex. argument d'una funció)
 ## «Argument» es tradueix per «Discussió».
 #{\bargument\b}i
 #valid msgstr="discussió"
@@ -175,6 +177,7 @@ hint="«Carbon» es tradueix per «Carboni», no per «Carbó» (fals amic)"
 {\bcard\b}i
 valid msgstr="targeta"
 valid msgstr="carta" cat="desktop_kdegames"
+valid msgstr="carta" cat="kpoker"
 valid msgstr="carta" cat="lskat"
 valid !msgstr="carta"
 hint="«Card» es tradueix per «Targeta», no per «Carta» (fals amic)"
@@ -353,6 +356,7 @@ hint="«Crimes» es tradueix per «Delictes», no per «Crims» (fals amic)"
 # «Current» es tradueix per «Actual».
 {\bcurrent\b}i
 valid msgstr="actual"
+valid msgstr="corrent" cat="skrooge" # Compte corrent
 valid !msgstr="corrent"
 hint="«Current» es tradueix per «Actual», no per «Corrent» (fals amic)"
 
@@ -373,6 +377,7 @@ hint="«Curse» es tradueix per «Malefici», no per «Curs» (fals amic)"
 {\bdate\b}i
 valid msgstr="data"
 valid msgstr="cita"
+valid msgstr="dates" before="\sor time" cat="kspread_basics" #docmessage
 valid !msgstr="dada"
 hint="«Date» es tradueix per «Data», no per «Dada» (fals amic)"
 
@@ -580,7 +585,10 @@ hint="«Firm» es tradueix per «Empresa», no per «Firma» (fals amic)"
 # «Font» es tradueix per «Tipus (de lletra)».
 {\bfont\b}i
 valid msgstr="tipus"
+valid msgstr="origen"
 valid msgstr="<font\s"
+valid msgstr="\bfont\b" cat="kleopatra"
+valid msgstr="font" cat="quanta" after="replace\s"
 valid !msgstr="font"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 
@@ -595,8 +603,14 @@ hint="«Gripe» es tradueix per «Mal de ventre», no per «Grip» (fals amic)"
 valid msgstr="casa"
 valid msgstr="inici"
 valid msgstr="home" before="\senvironment\svariable"
+valid msgstr="home" cat="kcron" #docmessage
+valid msgstr="home" cat="kivio_credits" after="where\sopen\ssource\sis\sat\s" #docmessage
 valid msgstr="home" cat="kleopatra" after="gnupg"
 valid msgstr="home" cat="kleopatra" after="gnupg\s"
+valid msgstr="home" cat="kompare" #docmessage
+valid msgstr="home" cat="partitionmanager_appendix" #docmessage
+valid msgstr="home" cat="partitionmanager_installoshowto" #docmessage
+valid msgstr="home" cat="quanta"
 valid !msgstr="home"
 hint="«Home» es tradueix per «Casa», no per «Home» (fals amic)"
 
@@ -686,32 +700,67 @@ hint="«Lyrics» es tradueix per «Lletra», no per «Lírica» (fals amic)"
 {\bnet\b}i
 valid msgstr="xarxa"
 valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop"
+valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop-plugins" #docmessage
 valid msgstr=".net" cat="desktop_extragear-sdk_php-docs"
 valid msgstr=".net" cat="kdevphpdocs"
-valid msgstr="net" cat="kuser" before="\sgetlocalsid"
-valid msgstr="net" cat="klock" after="@gmx."
-valid msgstr="net" cat="marble" after="rotate.aprs."
-valid msgstr="net" cat="marble_qt" after="@kdemail."
+valid msgstr="net" cat="kmymoney" before="\samount" # Valor total
+valid msgstr="net" cat="kmymoney" before="\sworth"  # Valor net
 valid msgstr="net" cat="ksirk" after="@kdetalk."
-valid msgstr="net" cat="plasma_applet_pastebin" after="hosting."
 valid msgstr="net" cat="kspread" before="\spresent value"# Valor actual net
+valid msgstr="net" cat="kuser" before="\sgetlocalsid"
+valid msgstr="net" cat="marble" after="rotate.aprs."
+valid msgstr="net" cat="plasma_applet_pastebin" after="hosting."
+valid msgstr="net" cat="skrooge" after=">\s" # Categoria
+valid msgstr="net" cat="skrooge" after=">\s" # Categoria
+valid msgstr="net" after="@att."
+valid msgstr="net" after="@cberger."
+valid msgstr="net" after="@comcast."
+valid msgstr="net" after="@earthlink."
+valid msgstr="net" after="@example."
+valid msgstr="net" after="@frogmouth."
+valid msgstr="net" after="@gmx."
+valid msgstr="net" after="@gmx\sDOT\s"
+valid msgstr="net" after="@ibm."
+valid msgstr="net" after="@kdab."
+valid msgstr="net" after="@kdemail."
+valid msgstr="net" after="@mediaone."
+valid msgstr="net" after="@meyerhome."
+valid msgstr="net" after="@nerim."
+valid msgstr="net" after="@netscape."
+valid msgstr="net" after="@openprojects."
+valid msgstr="net" after="@pacbell."
+valid msgstr="net" after="@planete."
+valid msgstr="net" after="@telecorp."
+valid msgstr="net" after="@tuxerver."
+valid msgstr="net" after="@usa."
+valid msgstr="net" after="@users.sf."
+valid msgstr="net" after="@verticaladdiction."
+valid msgstr="net" after="darkorb\s"
+valid msgstr="net" after="eigentlich\s"
+valid msgstr="net" after="gmx\s"
 valid msgstr="net" after="irc.freenode."
+valid msgstr="net" after="kdemail\s"
 valid msgstr="net" after="keys.gnupg."
-valid msgstr="net" after="users.sourceforge."
+valid msgstr="net" after="linux\sru\s"
+valid msgstr="net" after="mis\s"
+valid msgstr="net" after="print.sf."
+valid msgstr="net" after="shani\s"
+valid msgstr="net" after="sourceforge."
+valid msgstr="net" after="tantalo\s"
 valid !msgstr="net"
 hint="«Net» es tradueix per «Xarxa», no per «Net» (fals amic)"
 
 # «Notice» es tradueix per «Anunci».
 {\bnotice\b}i
 valid msgstr="anunci"
-valid msgstr="cartell"
 valid msgstr="avís"
+valid msgstr="cartell"
 valid !msgstr="notícia"
 hint="«Notice» es tradueix per «Anunci», no per «Notícia» (fals amic)"
 
 # «Office» es tradueix per «Oficina».
 {\boffice\b}i
-valid msgstr="oficina"
+valid msgstr="oficin(a|es)"
 valid msgstr="despatx"
 valid !msgstr="ofici"
 hint="«Office» es tradueix per «Oficina», no per «Ofici» (fals amic)"
@@ -743,10 +792,14 @@ hint="«Pair» es tradueix per «Parell/Dos», no per «Parella» (fals amic)"
 {\bpan\b}i
 valid msgstr="cassola"
 valid msgstr="paella"
-valid msgstr="panorama" cat="koffice"
+valid msgstr="panorama"
+valid msgstr="panoràmic"
+valid msgstr="panoràmica"
 valid msgstr="d'una\sa\sl'altre" cat="kxsconfig"
+valid msgstr="pan" cat="digikam" after="agfa\s"
 valid msgstr="pan" cat="kdecalendarsystems"
 valid msgstr="pan" cat="kdelibs4"
+valid msgstr="pan" before="\sflute"
 valid !msgstr="pa"
 hint="«Pan» es tradueix per «Cassola», no per «Pa» (fals amic)"
 
@@ -797,9 +850,9 @@ valid msgstr="emplaçament"
 valid msgstr="lloc"
 valid msgstr="ubicació"
 valid msgstr="col·loc(ar|o)"
-valid msgstr="emplaç(ar|o)"
-valid msgstr="situ(ar|o)"
-valid msgstr="pos(ar|o)"
+valid msgstr="emplaç(a|ar|o)"
+valid msgstr="situ(a|ar|o)"
+valid msgstr="pos(a|ar|o)"
 valid !msgstr="plaça"
 hint="«Place» es tradueix per «Lloc», no per «Plaça» (fals amic)"
 
@@ -817,6 +870,7 @@ hint="«Physicians» es tradueix per «Metges», no per «Físics» (fals amic)"
 
 # «Plain» es tradueix per «Senzill».
 {\bplain\b}i
+valid msgstr="normal"
 valid msgstr="senzill(a)"
 valid msgstr="plana" cat="kgeography"
 valid !msgstr="pla(na)"
@@ -824,6 +878,7 @@ hint="«Plain» es tradueix per «Senzill», no per «Pla» (fals amic)"
 
 # «Plains» es tradueix per «Senzills».
 {\bplains\b}i
+valid msgstr="normals"
 valid msgstr="senzill(e)s"
 valid !msgstr="plan(e)s"
 hint="«Plains» es tradueix per «Senzills», no per «Plans» (fals amic)"
@@ -858,7 +913,7 @@ hint="«Prevent» es tradueix per «Evitar», no per «Prevenir» (fals amic)"
 
 # «Produce» es tradueix per «Presentar».
 {\bproduce\b}i
-valid msgstr="present(ar|a|i)"
+valid msgstr="present(ar|a|i|en)"
 valid msgstr="cre(ar|a)"
 valid !msgstr="produ(ir|eixi)"
 hint="«Produce» es tradueix per «Presentar», no per «Produir» (fals amic)"
@@ -996,6 +1051,7 @@ hint="«Rest» es tradueix per «Descansar», no per «Restar» (fals amic)"
 {\bresume\b}i
 valid msgstr="repren(dre|c|s)"
 valid msgstr="resumint" cat="libkdcraw"
+valid msgstr="resume" cat="konversation" after="dcc\s"
 valid !msgstr="resum"
 hint="«Resume» es tradueix per «Reprendre», no per «Resum» (fals amic)"
 
@@ -1068,6 +1124,7 @@ hint="«Silicon» es tradueix per «Silici», no per «Silicona» (fals amic)"
 # «Simple» es tradueix per «Senzill».
 {\bsimple\b}i
 valid msgstr="senzill(a)"
+valid msgstr="senzilles" cat="umbrello_other_features"
 valid msgstr="mer"
 valid msgstr="simple" cat="kuser" after="LDAP\s"
 valid msgstr="simple" cat="kdeqt"
@@ -1122,6 +1179,9 @@ valid msgstr="permtre\sl'ús\sde"
 valid msgstr="recolzar"
 valid msgstr="ser\scompatible\samb"
 valid !msgstr="suportar"
+valid !msgstr="suportat"
+valid !msgstr="suportats"
+valid !msgstr="suportades"
 hint="«Support» es tradueix per «Recolzar (i altres)», no per «Suportar» (fals amic)"
 
 # «Sympathetic» es tradueix per «Comprensiu».
@@ -1184,11 +1244,12 @@ valid msgstr="vil·la"
 valid !msgstr="vila"
 hint="«Villa» es tradueix per «Xalet», no per «Vila» (fals amic)"
 
-# «Violate» es tradueix per «Transgredir».
+# «Violate» es tradueix per «Infringir».
 {\bviolate\b}i
+valid msgstr="infringir"
 valid msgstr="transgredir"
 valid !msgstr="violar"
-hint="«Violate» es tradueix per «Transgredir», no per «Violar» (fals amic)"
+hint="«Violate» es tradueix per «Infringir», no per «Violar» (fals amic)"
 
 # «Wait (for), to» es tradueix per «Esperar».
 {\bwait\b}i
@@ -1196,4 +1257,4 @@ valid msgstr="esperar"
 valid !msgstr="esperar\sper"
 hint="«Wait» es tradueix per «Esperar», no per «Esperar per» (fals amic)"
 
-# End of rule file
+# End of false-friends rules file
