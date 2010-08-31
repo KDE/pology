@@ -3,25 +3,9 @@
 """
 Check for presence of bad patterns in translation.
 
-Sometimes there are simply definable patterns that should never appear
-in translation, such as common grammar or orthographical errors.
-This sieve allows checking for such patterns, either through substring
-matching or regular expressions.
-Patterns can be given as parameters, or, more conveniently, read from files.
+Documented in C{doc/user/sieving.docbook}.
 
-Sieve parameters:
-  - C{pattern:<string>}: pattern to check against
-  - C{fromfile:<path>}: file from which to read patterns
-  - C{rxmatch}: patterns should be treated as regular expressions
-  - C{casesens}: patterns should be treated as case-sensitive
-
-Any number of C{pattern} and C{fromfile} parameters may be given.
-By default, patterns are matched as substrings, and C{rxmatch} parameter
-can be issued to consider patterns as regular expressions.
-
-@note: This sieve is deprecated; instead use the
-L{check-rules<sieve.check_rules>}, which provides much more options
-for defining, matching, and reporting problems.
+@note: Deprecated.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

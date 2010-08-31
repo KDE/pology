@@ -1,24 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Apply filters to translation.
+Apply hooks to translation.
 
-Pass C{msgstr} fields through a combination of L{hooks<hook>}, of types:
-  - F1A (C{(text)->text}) or F3A/C (C{(text/msgstr, msg, cat)->msgstr}),
-        to modify the translation
-  - V1A (C{(text)->spans}) or V3A/C (C{(text/msgstr, msg, cat)->spans}),
-        to validate the translation
-  - S1A (C{(text)->spans}) or S3A/C (C{(text/msgstr, msg, cat)->spans}),
-        for side-effects on translation (e.g. simpler checks which write notes
-        to standard output, rather than reporting erroneous spans as V* hooks)
-
-Sieve parameters:
-  - C{filter:<hookspec>}: hook specification (see L{getfunc.get_hook_ireq}
-        for the format of hook specifications).
-        Can be repeated to chain several hooks, which are applied
-        in the order of appearance in the command line.
-  - C{showmsg}: report every modified message to standard output
-        (for validation hooks, message is automatically output if not valid).
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -35,15 +20,14 @@ from pology.sieve import SieveError
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Apply filters to translation."
+    "Apply hooks to translation."
     "\n\n"
-    "Message's msgstr fields are passed through one or composition of "
-    "F1A, F3A/C, V1A, V3A/C, S1A, S3A/C hooks, as filters. "
-    "See documentation on pology for details about hooks."
+    "Message msgstr fields are passed through one or more of "
+    "F1A, F3A/C, V1A, V3A/C, S1A, S3A/C hooks."
     ))
 
     add_param_filter(p, _("@info sieve parameter discription",
-    "Specification of hook through which msgstr fields are to be filtered."
+    "Specification of the hook through which msgstr fields are passed."
     ))
     p.add_param("showmsg", bool, defval=False,
                 desc=_("@info sieve parameter discription",

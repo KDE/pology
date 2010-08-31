@@ -1,19 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Apply filters to headers.
+Apply hooks to headers.
 
-Pass catalog headers through a combination of L{hooks<hook>}, of types:
-  - F4B (C{(hdr, cat)->numerr}) to modify the header
-  - V4B (C{(hdr, cat)->spans}) to validate the header
-  - S4B (C{(hdr, cat)->numerr}) for side-effects on the header
-
-Sieve parameters:
-  - C{filter:<hookspec>}: hook specification (see L{getfunc.get_hook_ireq}
-        for the format of hook specifications)
-
-Parameter C{filter} can be repeated to chain several hooks,
-which are then applied in the order of appearance in the command line.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -29,15 +19,14 @@ from pology.sieve import SieveError
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Apply filters to header."
+    "Apply hooks to header."
     "\n\n"
-    "Catalog header is passed through one or composition of "
+    "Catalog header is passed through one or more of "
     "F4B, V4B, S4B hooks. "
-    "See documentation on pology for details about hooks."
     ))
 
     add_param_filter(p, _("@info sieve parameter discription",
-    "Specification of hook through which headers are to be filtered."
+    "Specification of the hook through which headers are passed."
     ))
 
 

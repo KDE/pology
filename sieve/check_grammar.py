@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Sieves messages with the LanguageTool grammar checker (http://www.languagetool.org)
+Check language of translation using LanguageTool.
+
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
@@ -24,15 +26,13 @@ _REQUEST="/?language=%s&%s"
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Check language of translation using the LanguageTool checker."
+    "Check language of translation using LanguageTool."
     "\n\n"
     "LanguageTool (http://www.languagetool.org) is an open source "
     "language checker, which may be used as a standalone application, "
     "or in server-client mode. "
-    "This sieve makes use of the latter; the server can easily be "
-    "run locally, and can be downloaded from LanguageTools' web site. "
-    "Also check the web site for the list of supported languages, "
-    "and to which extent they are supported (number of rules)."
+    "This sieve runs in client-server mode, so make sure Language Tool "
+    "is running before this sieve is run."
     ))
 
     p.add_param("lang", unicode, defval=None,
@@ -125,8 +125,8 @@ class Sieve (object):
     def finalize (self):
         if self.nmatch:
             msg = n_("@info:progress",
-                     "Detected %(num)d problem in grammar.",
-                     "Detected %(num)d problems in grammar.",
+                     "Detected %(num)d problem in grammar and style.",
+                     "Detected %(num)d problems in grammar and style.",
                      num=self.nmatch)
             report("===== " + msg)
 

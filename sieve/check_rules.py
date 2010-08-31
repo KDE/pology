@@ -1,65 +1,12 @@
 # -*- coding: UTF-8 -*-
 
 """
-Try to fail messages by rules and warn when that happens.
+Apply language- and project-dependent validation rules to messages.
 
-This sieve applies a collection of L{special rules<rules>} to
-messages, reporting whenever a rule "fails" a message --
-rules are usually written to detect messages faulty, or possibly such,
-in a certain sense.
-
-By default, the sieve reads rules from Pology's internal C{lang/<lang>/rules/}
-directories, i.e. written for specific languages, and possibly specific
-translation environments within a given language. Read about how to write
-rules and create rule files in the L{rules} module documentation.
-
-The sieve parameters are:
-  - C{lang:<language>}: language for which to fetch and apply the rules
-  - C{env:<environment>}: comma-separated list of specific environments
-        within the given language for which to apply the rules
-  - C{envonly}: when specific environments are given, apply only the rules
-        explicitly belonging to them (ignoring environment-agnostic ones)
-  - C{rule:<ruleid>}: comma-separated list of specific rules to apply,
-        by their identifiers; also enables any disabled rule among the selected
-  - C{rulerx:<regex>}: specific rules to apply, those whose identifiers match
-        the regular expression
-  - C{norule:<ruleid>}: comma-separated list of specific rules not to apply
-  - C{norulerx:<ruleid>}: regular expression for specific rules not to apply
-  - C{stat}: show statistics of rule matching at the end
-  - C{accel:<characters>}: characters to consider as accelerator markers
-  - C{markup:<mkeywords>}: markup types by keyword (comma separated)
-  - C{xml:<filename>}: output results of the run in XML format file
-  - C{rfile:<filename>}: read rules from this file, instead of from
-        Pology's internal rule files
-  - C{rdir:<directory>}: read rules from this directory, instead of from
-        Pology's internal rule files
-  - C{branch:<branch_id>}: check only messages from this branch (summit)
-  - C{showfmsg}: show filtered message too when a rule fails a message
-  - C{nomsg}: do not show message content, only problem descriptions
-  - C{lokalize}: open catalogs at failed messages in Lokalize
-
-Parameters C{accel} and C{markup} set accelerator markers (e.g. C{_}, C{&},
-etc.) and markup types by keyword (e.g. C{xml}, C{html}, etc.) that may
-be present in sieved catalogs. However, providing this information by itself
-does nothing, it is only forced on catalogs (overriding what their headers
-state, if anything) such that filter and validation hooks can properly
-process messages. See documentation to L{rules<rules>} for setting
-up these in rule files.
-
-If language and environment are not given by C{lang} and C{env} parameters,
-the sieve will try to read them from each catalog in turn.
-See catalog L{language()<catalog.Catalog.language>} and
-L{environment()<catalog.Catalog.environment>} methods for the ways
-these can be specified in catalog header.
-If in the end no environment is selected, only environment-agnostic rules
-are applied.
-
-Certain rules may be selectively disabled on a given message, by listing
-their identifiers (C{id=} rule property) in C{skip-rule:} embedded list::
-
-    # skip-rule: ruleid1, ruleid1, ...
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
+@author: Chusslove Illich <caslav.ilic@gmx.net>
 @license: GPLv3
 """
 
