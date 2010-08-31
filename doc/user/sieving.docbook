@@ -315,40 +315,283 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <sect1 id="sec-svinternal">
 <title>Internal Sieves</title>
 
-<para></para>
+<para>This section describes the sieves which are contained in Pology distribution and provides instruction for their use.</para>
+
+<para>Some sieve parameters are mandatory, i.e. they have to be issued when the sieve is run. Parameters for which this is the case will have (*) added to their header in the parameter list. Optional parameters which take a value (which are not switches) may or may not have a default value, and when they do, it will be given in square brackets (<literal>[...]</literal>) in the header.</para>
 
 <sect2 id="sv-apply-filter">
 <title><command>apply-filter</command></title>
 
-<para></para>
+<para><command>apply-filter</command> is used to pipe translation through one or several <emphasis>hooks</emphasis> (see <xref linkend="sec-cmhooks"/>). The hooks may modify the translation, validate it, or do something else. More precisely, the following hook types are applicable:
+<itemizedlist>
+<listitem>
+<para>F1A, F3A, F3C, to modify the translation and write changes back to the PO file;</para>
+</listitem>
+<listitem>
+<para>V1A, V3A, V3C, to validate the translation, with standard validation output (highlighted spans and problem messages);</para>
+</listitem>
+<listitem>
+<para>S1A, S3A, S3C, for any side-effect processing on translation (but no modification).</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>filter:<replaceable>hookspec</replaceable></option></term>
+<listitem>
+<para>The hook specification. Can be repeated to add several hooks, which are then applied in the order of specification.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>showmsg</option></term>
+<listitem>
+<para>Report every modified message to standard output. (For validation hooks, message is automatically reported if not valid.)</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-apply-header-filter">
 <title><command>apply-header-filter</command></title>
 
-<para></para>
+<para><command>apply-header-filter</command> is the counterpart to <command>apply-filter</command> to operate on headers instead of messages. Here the applicable hook types are accordingly F4B, V4B, S4B.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>filter:<replaceable>hookspec</replaceable></option></term>
+<listitem>
+<para>The hook specification. Can be repeated to add several hooks, which are then applied in the order of specification.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-bad-patterns">
 <title><command>bad-patterns</command></title>
 
-<para></para>
+<para>Sometimes it is possible to use simple pattern matching to discover things that should never appear in the text, such as common grammar or orthographical errors. <command>bad-patterns</command> can apply such patterns to translation, either as plain substring matching or <link linkend="sec-cmregex">regular expressions</link>. Patterns can be given as parameters, or more conveniently, read from files.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>pattern:<replaceable>string</replaceable></option></term>
+<listitem>
+<para>The pattern to search for. Can be repeated to search for several patterns.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>fromfile:<replaceable>path</replaceable></option></term>
+<listitem>
+<para>Read patterns to search for from the file. Each line contains one pattern. If line starts with <literal>#</literal>, it is treated as comment. Empty lines are ignored. Trailing and leading whitespace is removed from patterns; if it is significant, it can be given inside <literal>[...]</literal> regex operator. This parameter can be repeated to read patterns from several files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rxmatch</option></term>
+<listitem>
+<para>By default patterns are treated as plain substrings. This parameter requests to treat patterns as regular expressions.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>casesens</option></term>
+<listitem>
+<para>By default patterns are case-sensitive. This parameter make them case-insensitive.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<caution><para>This sieve is deprecated. Use <link linkend="sv-check-rules"><command>check-rules</command></link> instead, which applies Pology's <link linkend="sec-lgrules">validation rules</link>.</para></caution>
 
 </sect2>
 
 <sect2 id="sv-check-grammar">
 <title><command>check-grammar</command></title>
 
-<para></para>
+<para><command>check-grammar</command> checks translation with LanguageTool, an open source grammar and style checker (<ulink url="http://www.languagetool.org/">http://www.languagetool.org/</ulink>). LanguageTool supports a number of languages to greater or smaller extent, which you can check on <ulink url="http://www.languagetool.org/languages/">its web site</ulink>.</para>
+
+<para>LanguageTool can be run as standalone program or in client-server mode, and this sieve expects the latter. This means that LanguageTool has to be up and running before this sieve is run. Messages in which problems are discovered are reported to standard output.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>lang:<replaceable>code</replaceable></option></term>
+<listitem>
+<para>The language code for which to apply the rules. If not given, it will be read from each PO file in turn, and if not found there either, an error will be signaled.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>host:<replaceable>hostname</replaceable></option> [<literal>localhost</literal>]</term>
+<listitem>
+<para>Name of the host where the LanguageTool server is running. The default value of <literal>localhost</literal> means that it is running on the same computer where the sieve is run.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>port:<replaceable>number</replaceable></option> [<literal>8081</literal>]</term>
+<listitem>
+<para>TCP port of the host on which the LanguageTool server listens for queries.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-check-rules">
 <title><command>check-rules</command></title>
 
-<para></para>
+<para><command>check-rules</command> applies language- and project-dependent Pology <emphasis>validation rules</emphasis> to translation. See <xref linkend="sec-lgrules"/> for detailed discussion on writing and applying rules.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>lang:<replaceable>code</replaceable></option></term>
+<listitem>
+<para>The language code for which to apply the rules. If not given, it will be each PO file in turn, and if not found there either, an will be signaled.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>env:<replaceable>environment></replaceable></option></term>
+<listitem>
+<para>The language environment for which to apply the rules (see <xref linkend="sec-lglangenv"/>). Several environment can be given as comma-separated list, in which case the later environment in the list takes precedence on conflicted rules. If not given, it may also be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>envonly</option></term>
+<listitem>
+<para>When language environment is given, only the rules explicitly belonging to it are applied, while general rules for the selected language are ignored.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rule:<replaceable>identifiers</replaceable></option></term>
+<listitem>
+<para>Comma-separated list of rule identifiers, to apply only those rules. If a rule selected in this way is disabled in its definition, this enables it.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rulerx:<replaceable>regexes</replaceable></option></term>
+<listitem>
+<para>Like <option>rule</option>, but the values are interpreted as regular expressions by which to match rule identifiers.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>norule:<replaceable>identifiers</replaceable></option></term>
+<listitem>
+<para>Inverse of the <option>rule</option> parameter: selected rules are not applied, and all other are applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>norulerx:<replaceable>regexes</replaceable></option></term>
+<listitem>
+<para>Inverse of the <option>rulerx</option> parameter: selected rules are not applied, and all other are applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>stat</option></term>
+<listitem>
+<para>Rules can take time to apply to all sieved PO files, and this parameter requests to write out some statistics of rule application at the end of sieving.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>accel:<replaceable>characters</replaceable></option></term>
+<listitem>
+<para>Characters to consider as accelerator markers. If not given, they may be read from sieved PO files. Note that this parameter in itself does nothing: it only makes it possible for a particular rule or group of rules to remove the accelerator before matching.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>markup:<replaceable>types</replaceable></option></term>
+<listitem>
+<para>The type of text markup used in messages, by keyword. It can also be a comma-separated list of keywords. If not given, it may be read from sieved PO files. See description of <link linkend="hdr-x-text-markup"><literal>X-Text-Markup</literal></link> in <xref linkend="sec-cmheader"/> for the list of markup keywords currently known to Pology. Similarly to <option>accel</option> parameter, this parameter only enables rules to remove the markup (or do something else) before matching.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>xml:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple and obvious) XML format.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rfile:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>By default internal Pology rules are applied, and this parameter can be used to apply external rules instead, defined in the given rule file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rdir:<replaceable>directory</replaceable></option></term>
+<listitem>
+<para>Like <option>rfile</option>, but external rules are read from a directory containing any number of rule files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>branch:<replaceable>branch</replaceable></option></term>
+<listitem>
+<para>Apply rules only to messages from given branch (<link linkend="ch-summit">summit</link>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>showfmsg</option></term>
+<listitem>
+<para>Rules are sometimes applied to the filtered instead of the original message, and when such message is failed, it may not be obvious what triggered the rule. This parameter requests that the filtered message is written out too when the original message is reported.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>nomsg</option></term>
+<listitem>
+<para>When a message is failed, by default it is output in full together with the problem description. This parameter requests that only the problem description is output.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on failed messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>One or more rules can be disabled on a particular message in the PO file itself, by adding a special translator comment that starts with <literal>skip-rule:</literal> and continues with comma-separated list of rule identifiers:
+<programlisting>
+# skip-rule: <replaceable>ruleid1</replaceable>, <replaceable>ruleid2</replaceable>, ...
+</programlisting>
+</para>
 
 </sect2>
 
@@ -555,13 +798,6 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <sect2 id="sv-update-header">
 <title><command>update-header</command></title>
-
-<para></para>
-
-</sect2>
-
-<sect2 id="sv-es:setUbsp">
-<title><command>es:setUbsp</command></title>
 
 <para></para>
 

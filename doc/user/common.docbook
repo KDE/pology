@@ -579,7 +579,7 @@ Wrapping on escaped newline <literal>\n</literal> is always performed, regardles
 
 <!-- ======================================== -->
 <sect1 id="sec-cmhooks">
-<title>Filtering Hooks</title>
+<title>Processing Hooks</title>
 
 <para>Pology enables the user to insert special processing elements, called <emphasis>hooks</emphasis>, at many places in the processing chain. Hooks are Python functions with certain prescribed input, output, and behavior. Depending on the exact combination of these three ingredients, there are various <emphasis>hook types</emphasis>. Finally, some hooks can be adapted to a given context through their <emphasis>hook factories</emphasis>. Pology defines many hooks internally, and users can add their own external hooks.</para>
 
@@ -800,6 +800,8 @@ The hook specification now also contains the language code separated by colon, a
 <term><ulink url="&ap;bpatterns&am;bad_patterns_msg_sp"><literal>bpatterns/bad-patterns-msg-sp</literal></ulink> (V4A)</term>
 <listitem>
 <para>Detects unwanted patterns in text, by regular expression matching. Patterns can be specified either as direct arguments, or listed in file given as argument.</para>
+
+<caution><para>This hook is deprecated. Use <link linkend="sec-lgrules">validation rules</link> instead, which are much a richer method of defining and checking for problems.</para></caution>
 </listitem>
 </varlistentry>
 
