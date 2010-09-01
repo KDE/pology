@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Check validity of markup that can be encountered in native KDE4 catalogs.
+Check native KDE4 PO files for various problems.
 
 KDE4 catalogs can contain a mix of KUIT and Qt rich text markup.
 
@@ -44,7 +44,7 @@ _tsfence = "|/|"
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Validate text markup in translation in native KDE4 catalogs."
+    "Check native KDE4 PO files for various problems."
     ))
     p.add_param("strict", bool, defval=False,
                 desc=_("@info sieve parameter discription",

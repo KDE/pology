@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-Lightweight validity checking of POs containing Docbook XML.
+Check catalogs covering Docbook 4.x documents for various problems.
 
 Docbook is a complex XML application, and nothing short of full validation
 of XML files generated from translated POs can show if markup is valid.
@@ -37,7 +37,7 @@ from pology.sieve import add_param_poeditors
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Validate text markup in translation in Docbook 4 catalogs."
+    "Check catalogs covering Docbook 4.x documents for various problems."
     ))
 
     p.add_param("showmsg", bool, defval=False,
