@@ -167,7 +167,7 @@ Internal tool sections are documented together with the respective tools, while 
 <varlistentry>
 <term><literal>[enchant]/provider=[aspell|ispell|myspell|...]</literal></term>
 <listitem>
-<para>The keyword denoting the spell checker that Enchant should use. It can also be a comma-separated list of several keywords, when Enchant will use the first available spell checker in the list. You can find the up-to-date list of known provider keywords in the <command>enchant(1)</command> man page.</para>
+<para>The keyword denoting the spell checker that Enchant should use. It can also be a comma-separated list of several keywords, when Enchant will use the first available spell checker in the list. You can find the up-to-date list of all known provider keywords in the <command>enchant(1)</command> man page, and run <command>enchant-lsmod</command> command to see exactly which of those are recognized as available on the system.</para>
 </listitem>
 </varlistentry>
 
@@ -489,6 +489,75 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 
 </variablelist>
 </para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cminttools">
+<title>Integration with Other Tools</title>
+
+<para>One of the general aims of Pology is to fit well with other tools typically found in translation workflows based on PO. Although examples of this can be seen throughout the manual, this section gives the overview of integration by the particular supported tool.</para>
+
+<sect2>
+<title>PO Editors</title>
+
+<para>When Pology is used to validate the translation, be it through informal but <link linkend="sv-find-messages">precise searches</link> or formal <link linkend="sec-lgrules">validation rules</link>, those translations found to be invalid must be modified (or possibly a special translator comment added to the message to silence a false positive). Pology will normally always report the PO file path and the location of the message within the file, so that you can get to it in you preferred PO editor. For greater efficiency, however, Pology can directly open the PO files on problematic messages in some PO editors. Currently these are:
+<variablelist>
+
+<varlistentry>
+<term><ulink url="http://userbase.kde.org/Lokalize">Lokalize</ulink></term>
+<listitem>
+<para>Many <link linkend="ch-sieve">sieves</link>, notably <command>find-messages</command>, <command>check-rules</command>, or <command>check-spell</command>, provide the parameter <option>lokalize</option> to open PO files on reported messages in Lokalize. This means that when run over a collection of PO files, each PO file with at least one reported message will be loaded into one of Lokalize tabs, and only the reported messages will be shown for editing under each tab. A slight catch is that Lokalize must be manually started before a sieve is run, and the Lokalize project which contains all the sieved PO files must be opened; otherwise, simply nothing will happen.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2>
+<title>Version Control Systems</title>
+
+<para>From the viewpoint of translators, PO files are frequently (though not always) handled in the same way as program code, through version control systems (VCS). Pology defines an abstraction of version control functionality, which enables its tools to transparently cooperate with several VCS. Usually it is necessary to tell a Pology tool which VCS is used, which is done by specifying one of VCS keywords. Currently supported VCS and their keywords are:
+<itemizedlist>
+
+<listitem>
+<para><ulink url="http://git-scm.com/">Git</ulink>: <literal>git</literal></para>
+</listitem>
+
+<listitem>
+<para><ulink url="http://subversion.tigris.org/">Subversion</ulink>: <literal>svn</literal>, <literal>subversion</literal></para>
+</listitem>
+
+<listitem>
+<para>none (when specifying a VCS is required, but none is actually used): <literal>none</literal>, <literal>noop</literal></para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>VCS integration is available in following places:
+<itemizedlist>
+
+<listitem>
+<para>Producing embedded diffs with <command>poediff</command> (see <xref linkend="ch-diffpatch"/>). Option <option>-c</option>/<option>--vcs</option> can be used to switch <command>poediff</command> into VCS mode, such that it diffs given paths between repository head and working copy, or between given revisions.</para>
+</listitem>
+
+<listitem>
+<para>Translating in summit (see <xref linkend="ch-summit"/>). <command>posummit</command> will automatically add or remove files from version control as well as to and from disk, so that the modified repository tree can be directly committed after a summit maintenance operation has completed its run.</para>
+</listitem>
+
+<listitem>
+<para>Review ascription (see <xref linkend="ch-ascript"/>). VCS support is central part of <command>poascribe</command>, so it will automatically add, remove and commit files to version control as particular ascription operations require.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>Another interesting aspect of VCS support is that, when writing modified PO files to disk, by default Pology will reformat them (almost) only as much as necessary. For example, if only one <varname>msgstr</varname> string in the whole PO file has changed, and wrapping is active, only this string and nothing else will be rewrapped when the file is written out. This makes VCS revision deltas smaller and more informative.</para>
+
+</sect2>
 
 </sect1>
 
@@ -1107,6 +1176,49 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 <para>See <xref linkend="sec-prhooks"/> for instructions on how to write and contribute hooks.</para>
 
 </sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-cmskipcheck">
+<title>Skipping and Selecting Checks</title>
+
+<para>With all the different heuristic checks and rules that Pology can apply, false positives -- messages proclaimed invalid when they are actually valid -- are inevitable. False positivies are <emphasis>very</emphasis> inconvenient in serious automatic quality control effort. They make it harder for translators to spot real problems, which in turn demotivates them to apply automatic checks at all. If there is one or few dedicated persons in the translation team to tweak and apply automatic checks, they would be particularly hard-hit with this negative feedback. False positives can reduce automatic quality control from a strong normative element in the workflow, to merely advisory "run-if-you-have-the-time" extra.</para>
+
+<para>For this reason, most checks in Pology provide a way for them to be disabled on certain messages, files, or the processing batch, such that it is possible to methodically cancel false positives. From the other side, it is usually possible to run one or few checks on their own, in order to be easier to define and debug. Each checking tool and element documents such functionality, and in the following only some general patterns are described.</para>
+
+<para>The simplest method to disable or enable some checks is "dynamically", for single validation run, through an option to the tool which is being run. For example, <link linkend="sv-check-rules">the <command>check-rules</command> sieve</link> provides several parameters to select and deselect validation rules which are to be applied. The important point here is that checks in Pology usualy have some sort of a unique identifier, a keyword, by which they can be referred to.</para>
+
+<para>"Static" methods to disable or enable checks are those where the instruction is written down somewhere, in a specific format, and automatically taken into account by the validation tool in subsequent runs. There may be several static methods to disable a certain check, differing in their reach: a group of PO files, single PO file, single message, or even a part of the text in the message. Within one PO file, the following methods are common:
+<itemizedlist>
+
+<listitem>
+<para>The PO header is a natural place to disable or enable checks for the complete PO file, by adding a custom <literal>X-</literal> header field.</para>
+</listitem>
+
+<listitem>
+<para>On the single message level, the only place where it is possible to add a manual processing instruction is a <link linkend="sec-pomancmnt">translator comment</link>. This is because if it would put anywhere else (e.g. as extracted comment or a flag), it would be removed on subsequent merging with template. These instructions are usualy kept simple, like this:
+<programlisting>
+# <replaceable>some-instruction</replaceable>: <replaceable>arguments</replaceable>
+#: ...
+msgid "..."
+msgstr "..."
+</programlisting>
+Instructions are always composed of two or more words, separated by hyphens, ended by colon, and followed by an arbitrary argument string (e.g. a list of identifiers of checks to skip on this message). This makes it sufficiently unlikely that another, free-form translator comment will be accidentally interpreted as a known instruction.<footnote>
+<para>Especially considering that free-form translator comments are more usually written in the language of the translation.</para>
+</footnote></para>
+</listitem>
+
+<listitem>
+<para id="p-trflag">A special type of translator comment with processing instructions is a comment of the following form:
+<programlisting>
+# |, <replaceable>flag1</replaceable>, <replaceable>flag2</replaceable>, ...
+</programlisting>
+This is a "translator flag" comment, which is used to set processing instructions too simple to occupy one whole comment line (e.g. those of the switch type, never needing arguments). It starts with <literal>|,</literal>, and continues with comma-separated list of flag-like keywords.</para>
+</listitem>
+
+</itemizedlist>
+</para>
 
 </sect1>
 

@@ -21,6 +21,64 @@
 
 <para></para>
 
+<!--
+Pology internally collects language-specific word lists as supplements
+to system spelling dictionaries, within C{lang/<lang>/spell/} directory.
+These contain either the words that should enter the default dictionary
+but have not been added yet, or, more importantly, the words that are
+specific to a given translation environment, i.e. too specific to enter
+the general dictionary.
+The C{env} parameter is used to specify one or more environments for which
+word lists are loaded. Each environment is taken to be a subpath within
+C{lang/<lang>/spell/<env>}: all word lists in that subpath and
+parent directories will be loaded.
+This means that the word lists are hierarchical, so that all-environment lists
+(loaded even when C{env} parameter is not given) reside directly in
+C{lang/<lang>/spell/}, and the more specific ones in subdirectories below it.
+If environment is not given by C{env} parameter, and also not in Pology
+user configuration, the sieve will try to read it from each catalog in turn.
+See L{environment()<catalog.Catalog.environment>} method of catalog
+object for the way environments can be specified in catalog header.
+
+The system dictionary can be avoided alltogether, and only supplemental
+word lists used instead, by giving the C{suponly} parameter.
+
+Word list files are in Aspell format, and must have C{.aspell} extension.
+This is a simple plain text format listing one correct word per line,
+except for the first line, the header, which states the language code,
+number of words in the list and encoding of the file::
+
+    personal_ws-1.1 fr 1234 UTF-8
+    apricot
+    banana
+    cherry
+    ...
+
+The only significant parameter in the header is in fact the encoding.
+Language code and number of words can be arbitrary, as this sieve
+will not use them.
+To maintain alphabetic ordering of word list files
+(and put the correct number of words in the header, even if not important)
+you can use the L{organizeDict.py<scripts.organizeDict>} script.
+
+It is possible to selectively disable spell-checking for a message,
+or certain words within a message, by adding a special manual comment.
+The whole message is skipped by the no-sieve flag C{no-check-spell}::
+
+    # |, no-check-spell
+
+and only some words within the message by listing them in C{well-spelled:}
+embedded list::
+
+    # well-spelled: word1, word2, ...
+
+Which of these two methods to use depends on the nature of the message and
+specifics of spelling checks for given language/environment.
+For example, if most of the message consists of valid words, but there are
+only one or two which are special in some way, it is probably better to
+list them explicitly, so that all other words are checked.
+-->
+
 </sect1>
 
 <!-- ======================================== -->

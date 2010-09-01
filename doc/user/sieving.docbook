@@ -317,7 +317,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <para>This section describes the sieves which are contained in Pology distribution and provides instruction for their use.</para>
 
-<para>Some sieve parameters are mandatory, i.e. they have to be issued when the sieve is run. Parameters for which this is the case will have (*) added to their header in the parameter list. Optional parameters which take a value (which are not switches) may or may not have a default value, and when they do, it will be given in square brackets (<literal>[...]</literal>) in the header.</para>
+<para><!--Some sieve parameters are mandatory, i.e. they have to be issued when the sieve is run. Parameters for which this is the case will have (*) added to their header in the parameter list.--> Parameters which take a value (which are not switches) may or may not have a default value, and when they do, it will be given in square brackets (<literal>[...]</literal>) in the header.</para>
 
 <sect2 id="sv-apply-filter">
 <title><command>apply-filter</command></title>
@@ -475,7 +475,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>env:<replaceable>environment></replaceable></option></term>
 <listitem>
-<para>The language environment for which to apply the rules (see <xref linkend="sec-lglangenv"/>). Several environment can be given as comma-separated list, in which case the later environment in the list takes precedence on conflicted rules. If not given, it may also be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>).</para>
+<para>The language environment for which to apply the rules (see <xref linkend="sec-lglangenv"/>). Several environments can be given as comma-separated list, in which case the later environment in the list takes precedence on conflicted rules. If not given, it may also be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>).</para>
 </listitem>
 </varlistentry>
 
@@ -524,7 +524,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>accel:<replaceable>characters</replaceable></option></term>
 <listitem>
-<para>Characters to consider as accelerator markers. If not given, they may be read from sieved PO files. Note that this parameter in itself does nothing: it only makes it possible for a particular rule or group of rules to remove the accelerator before matching.</para>
+<para>Characters to consider as <link linkend="sec-poaccel">accelerator markers</link>. If not given, they may be read from sieved PO files. Note that this parameter in itself does nothing: it only makes it possible for a particular rule or group of rules to remove the accelerator before matching.</para>
 </listitem>
 </varlistentry>
 
@@ -538,7 +538,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>xml:<replaceable>file</replaceable></option></term>
 <listitem>
-<para>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple and obvious) XML format.</para>
+<para>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format.</para>
 </listitem>
 </varlistentry>
 
@@ -598,27 +598,282 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <sect2 id="sv-check-spell">
 <title><command>check-spell</command></title>
 
-<para></para>
+<para><command>check-spell</command> checks spelling of translation by splitting it into words and passing them through GNU Aspell (<ulink url="http://aspell.net/">http://aspell.net/</ulink>). This sieve is a more specific counterpart to <link linkend="sv-check-spell-ec"><command>check-spell-ec</command></link>, which exposes some options specific to Aspell and requires no external Python modules, only the Aspell installation. Also read <xref linkend="sec-lgspell"/> for details on spell-checking in Pology.</para>
+
+<para><command>check-spell</command> behaves mostly the same as <command>check-spell-ec</command>, and accepts all the same parameters with same meanings; the exception is the <option>provider</option> parameter, which is not present here since Aspell is the fixed provider. Only the parameters specific to this sieve are described in the following:
+<variablelist>
+
+<varlistentry>
+<term><option>enc:<replaceable>encoding</replaceable></option></term>
+<listitem>
+<para>The encoding in which the text should be sent to Aspell.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>var:<replaceable>variety</replaceable></option></term>
+<listitem>
+<para>The variety of the Aspell dictionary, if any.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>xml:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>By default, messages with unknown words are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Aspell can be configured for use in Pology through user configuration, so that it is not necessary to issue some parameters on every run. See <xref linkend="sec-cmcfgaspell"/>.</para>
 
 </sect2>
 
 <sect2 id="sv-check-spell-ec">
 <title><command>check-spell-ec</command></title>
 
-<para></para>
+<para><command>check-spell-ec</command> uses the Enchant library (<ulink url="http://www.abisource.com/projects/enchant/">http://www.abisource.com/projects/enchant/</ulink>) through PyEnchant Python module (<ulink url="http://pyenchant.sourceforge.net">http://pyenchant.sourceforge.net</ulink>) to provide uniform access to different spell-checkers, such as Aspell, Ispell, Hunspell, etc. Translation is first split into words, possibly eliminating markup and other literal content, and the words are then fed to spell-checker. Messages containing unknown words are reported to standard output, with list of replacement suggestions.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>provider:<replaceable>keyword</replaceable></option></term>
+<listitem>
+<para>The spell-checker that Enchant should use. The value is one of keywords defined by Enchant (e.g. <literal>aspell</literal>, <literal>hunspell</literal>...), and can be seen by running <command>enchant-lsmod</command> command (only providers available on the system are shown). If not given either by this parameter or in user configuration, Enchant will try to select a provider on its own.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lang:<replaceable>code</replaceable></option></term>
+<listitem>
+<para>The language code for which the spelling is checked. If not given, it will be read from each PO file in turn, and if not found there either, an error will be signaled.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>env:<replaceable>environment></replaceable></option></term>
+<listitem>
+<para>The language environment for which to include supplemental dictionaries (see <xref linkend="sec-lglangenv"/>). Several environments can be given as comma-separated list, in which case the union of their dictionaries is used. If not given, environments may be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>) or from user configuration.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>accel:<replaceable>characters</replaceable></option></term>
+<listitem>
+<para>Characters to consider as <link linkend="sec-poaccel">accelerator markers</link>, to remove them before splitting text into words. If not given, they may be read from PO files (see <link linkend="hdr-x-accelerator-marker"><literal>X-Acclerator-Marker</literal></link> in <xref linkend="sec-cmheader"/>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>markup:<replaceable>types</replaceable></option></term>
+<listitem>
+<para>The type of text markup used in messages, by keyword. It can also be a comma-separated list of keywords. If not given, it may be read from PO files (see <link linkend="hdr-x-text-markup"><literal>X-Text-Markup</literal></link> in <xref linkend="sec-cmheader"/>; there the list of markup keywords currently known to Pology is given as well).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>skip:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Words matched by this regular expression are not sent to spell-checker.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>filter:<replaceable>hookspec</replaceable></option></term>
+<listitem>
+<para>The hook to modify the text before splitting into words and spell-checking them (see <xref linkend="sec-cmhooks"/>). The hook type must be F1A, F3A, or F3C. The parameter can be repeated to add several hooks, which are then applied in the order of specification.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>suponly</option></term>
+<listitem>
+<para>By default, internal supplemental spelling dictionaries are added to the system dictionary of the selected spell-checker. This parameter can be issued to instead use only internal dictionaries and not the system dictionary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>list</option></term>
+<listitem>
+<para>By default, when an unknown word is found, the complete message is output, with the problematic word highlighted and possibly the replacement suggestions. With this parameter, only a plain sorted list of unknown words, one per line, is output at the end of sieving. This is useful when a lot of false positives are expected, to quickly add them to the supplemental dictionary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on messages containing unknown words in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para><command>check-spell-ec</command> may be told to skip checking specific messages and words, and it may use internal supplemental spelling dictionaries. See <xref linkend="sec-lgspell"/> for these and other details on spell-checking in Pology.</para>
+
+<para>Enchant can be configured for use in Pology through user configuration, so that it is not necessary to issue some parameters on every run. See <xref linkend="sec-cmcfgenchant"/>.</para>
 
 </sect2>
 
 <sect2 id="sv-check-tp-kde">
 <title><command>check-tp-kde</command></title>
 
-<para></para>
+<para>The <ulink url="http://l10n.kde.org/">KDE Translation Project</ulink> contains a great number of PO files extracted from various types of sources. This results in that for each message, there are things that the translation can, must or must not contain, for the translation to be technically valid. When run over PO files within the KDE TP, <command>check-tp-kde</command> will first try to determine the type of each message and then apply appropriate technical checks to it. Message type is determined based on file location, file header, message flags and contexts; even a particular message in a particular file may be checked for some very specific issue.</para>
+
+<para id="p-techprob">"Technical" issues are those which should be fixed regardless of the language and style of translation, because they can lead to loss of functionality, information or presentation to the user. For example, a technical issue would be badly paired XML tags in translation, when in the original they were well paired; a non-technical issue (and thus not checked) would be when the original ends with a certain punctuation, but translation does not -- whether such details are errors or not, depends on the target language and translation style.</para>
+
+<para>For the sieve to function properly, it needs to detect the project subdirectory of each PO file up to topmost division within the branch, e.g. <filename>messages/kdebase</filename> <filename>docmessages/kdegames</filename>. This means that the local copy of the repository tree needs to follow the repository layout up to that point, e.g. <filename>kde-trunk-ui/kdebase</filename> and <filename>kde-trunk-doc/kdegames</filename> would not be valid local paths.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>strict</option></term>
+<listitem>
+<para>Sometimes the original text itself may not be valid against a certain check. When this is the case, by default the translation is not expected to be valid either, and the check is skipped. Issuing this parameter will force all checks on translation, regardless of whether the original is valid or not. It may still be possible to avoid some checks on those messages that just cannot be repared through translation, if those checks define their own mechanism of cancelation (like adding a special translator comment).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>check:<replaceable>keywords</replaceable></option></term>
+<listitem>
+<para>Comma-separated list of checks to apply, by keyword, instead of all. Available checks are listed below.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>showmsg</option></term>
+<listitem>
+<para>By default, when the message does not pass a check, only its location and the problem are reported. This parameter requests that message is reported in total, possibly with problematic segments of translation highlighted.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on failed messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Currently available checks (keyword in parenthesis):
+<itemizedlist>
+
+<listitem>
+<para>KDE4 markup checking (<literal>kde4markup</literal>).</para>
+</listitem>
+
+<listitem>
+<para>Qt markup checking (<literal>qtmarkup</literal>).</para>
+</listitem>
+
+<listitem>
+<para>Docbook markup checking (<literal>dbmarkup</literal>)</para>
+</listitem>
+
+<listitem>
+<para>No translation scripting in "dumb" messages (<literal>nots</literal>). Translations fetched at runtime by KDE4 translation system may use <ulink url="http://techbase.kde.org/Localization/Concepts/Transcript">translation scripting</ulink>. This check will make sure that scripting is not attempted for other types of messages (used by Qt-only code, for .desktop files, etc.).</para>
+</listitem>
+
+<listitem>
+<para>Qt datetime format messages (<literal>qtdt</literal>). A message is considered to be in this format if it contains the string <literal>qtdt-format</literal> in its <varname>msgctxt</varname> string or among flags.</para>
+</listitem>
+
+<listitem>
+<para>Validity of translator credits (<literal>trcredits</literal>). PO files may contain meta-messages to input translator credits, which should have both valid translations on their own and some congruence between them.</para>
+</listitem>
+
+<listitem>
+<para>Query placeholders in Plasma runners (<literal>plrunq</literal>). Messages in Plasma runners may contain special query placeholder <literal>:q:</literal>, which should be present in translation too.</para>
+</listitem>
+
+<listitem>
+<para>File-specific checking (<literal>catspec</literal>). Certain messages in certain PO files have special validity requirements, and this check activates all such file-specific checks.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>All markup checks can be skipped on a message by adding the <literal>no-check-markup</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
 </sect2>
 
 <sect2 id="sv-check-tp-wesnoth">
 <title><command>check-tp-wesnoth</command></title>
-<para></para>
+
+<para>PO files of <ulink url="http://www.wesnoth.org/">The Battle of Wesnoth</ulink> contain a mix of well-known and custom markup and format directives. <command>check-tp-wesnoth</command> heuristically determines the type of each message in a Wesnoth PO file and applies appropriate technical checks to it (where "technical" has the same meaning as in <link linkend="p-techprob">the <command>check-tp-kde</command> sieve</link>).</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>check:<replaceable>keywords</replaceable></option></term>
+<listitem>
+<para>Comma-separated list of checks to apply, by keyword, instead of all. Available checks are listed below.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>showmsg</option></term>
+<listitem>
+<para>Instead of just showing the message location and problem description, also show the complete message, possibly with higlighted problematic segments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on failed messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Currently available checks (keyword in parenthesis):
+<itemizedlist>
+
+<listitem>
+<para> (<literal></literal>).</para>
+</listitem>
+
+<listitem>
+<para>Stray context separators in translation (<literal>ctxtsep</literal>). Wesnoth is still embedding disambiguating context into <varname>msgid</varname>, by putting it in front of the actual text and separated by <literal>^</literal>. An unwary translator will sometimes mistakes such context for part of the original text, and translate it too.</para>
+</listitem>
+
+<listitem>
+<para>Congruence of WML interpolations (<literal>interp</literal>). WML interpolations look like <literal>"...side $side_number is..."</literal> and normally must match between the original and translation, or else the player would loose information. Only in very rare cases (e.g. some plurals and Markov chain generators) some interpolations may be missing in translation, and then they can be listed space-separated in a translator comment to silence the check:
+<programlisting>
+# ignore-interpolations: <replaceable>interp1</replaceable> <replaceable>interp2</replaceable> ...
+</programlisting>
+(the <literal>$</literal> character is not necessary in the list).
+</para>
+</listitem>
+
+<listitem>
+<para>WML markup checking (<literal>wml</literal>). If WML in translation is not valid, player may see some visual artifacts. Also, links in WML must match between original and translation, to avoid loss of information.</para>
+</listitem>
+
+<listitem>
+<para>Pango markup checking (<literal>pango</literal>). Pango is used in some places for visual text markup instead of WML.</para>
+</listitem>
+
+<listitem>
+<para>Congruence of leading and trailing space (<literal>space</literal>). For many languages, significant leading and trailing space from the original should be preserved. A heuristic is used to determine when leading or trailing space is significant. Only languages explicitly specified internally are checked for this.</para>
+</listitem>
+
+<listitem>
+<para>Docbook validity (<literal>docbook</literal>). Docbook is actually not used as a source format anywhere in Wesnoth, but the Wesnoth manual is converted into Docbook specifically to facilitate translation (weird as it may sound).</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
 </sect2>
 
 <sect2 id="sv-check-xml-docbook4">
