@@ -1,88 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Check validity of messages in catalogs within KDE Translation Project.
+Check validity of translation in catalogs within KDE Translation Project.
 
-KDE Translation Project contains a great number of PO catalogs extracted
-from various types of sources.
-This results in that for each message, there are things that the translation
-can, must or must not contain, for the translation to be technically valid.
-When run over catalogs within KDE TP,
-this sieve will first try to determine the type of each message
-and then apply appropriate technical checks to it.
-Message type is determined based on catalog location, catalog header,
-message flags and contexts; even a particular message in a particular catalog
-may be specifically checked, for some very special library code messages.
-
-"Technical" issues are those which should be fixed regardless of
-the language and style of translation, because they can lead to loss
-of functionality, information or presentation to the user.
-For example, a technical issue would be badly paired XML tags in translation,
-when in the original they were well paired;
-a non-technical issue (and thus not checked) would be when the original ends
-with a certain punctuation, but translation does not -- whether such details
-are errors or not, depends on the target language and translation style.
-
-For the sieve to function properly, it needs to detect the project
-subdirectory of each catalog up to topmost division within the branch,
-e.g. C{messages/kdebase} or C{docmessages/kdegames}.
-This means that the local working copy of the translation files needs
-to follow the repository layout up to this point,
-e.g. C{kde-trunk-ui/kdebase} and C{kde-trunk-doc/kdegames}
-would not be valid local paths.
-
-Sieve parameters:
-  - C{strict}: require translation to be valid even if original is not
-  - C{check}: select only one or few checks to be applied, instead of all
-  - C{showmsg}: show content of the message, with errors highlighted
-  - C{lokalize}: open catalogs at problematic messages in Lokalize
-
-Sometimes the original text itself may not be valid against a certain check.
-If this is the case, by default translation is not expected to be valid either,
-so the check is skipped.
-This behavior can be canceled by issuing the C{strict} sieve parameter,
-when the translation is reported problematic even if the original is such.
-If C{strict} is used, some checks can be ignored on a particular, irreparable
-through translation only message, by adding to it an appropriate
-L{sieve flag<sieve.parse_sieve_flags>}.
-
-Parameter C{check} may be used to to apply only some instead of all checks.
-It takes comma-separated list of check keywords, which are provided in
-the list of checks that follows.
-
-Currently available checks are:
-
-  - KDE4 markup checking (C{kde4markup}).
-    Skipped on a message by C{no-check-markup} sieve flag.
-
-  - Qt markup checking (C{qtmarkup}).
-    Skipped on a message by C{no-check-markup} sieve flag.
-
-  - Docbook markup checking (C{dbmarkup}).
-    Skipped on a message by C{no-check-markup} sieve flag.
-
-  - No translation scripting in dumb messages (C{nots}).
-    Message passing through KDE4 i18n at runtime may make use of
-    U{translation scripting<http://techbase.kde.org/Localization/Concepts/Transcript>};
-    this check will make sure that scripting is not attempted for
-    other types of messages (those used by Qt-only code, etc.)
-
-  - Qt datetime format messages (C{qtdt}).
-    A message is considered to be in this format if
-    it contains "qtdt-format" in C{msgctxt} or among flags.
-
-  - Validity of translator credits (C{trcredits}).
-    Catalogs may contain meta-messages to input translator credits;
-    translations of these messages should be valid on on their own,
-    but also have some congruence between them.
-
-  - Query placeholders in Plasma runners (C{plrunq}).
-    Messages in Plasma runners may contain special query placeholder C{:q:},
-    which should be present in translation too.
-
-  - Catalog-specific checking (C{catspec}).
-    Certain messages in certain catalogs have special validity requirements,
-    and this check activates all such catalog-specific checks.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

@@ -1,55 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Check validity of messages in catalogs of The Battle for Wesnoth.
+Check validity of translation in catalogs of The Battle for Wesnoth.
 
-Sieve parameters:
-  - C{check}: select only one or few checks to be applied, instead of all
-  - C{showmsg}: show content of the message, with errors highlighted
-  - C{lokalize}: open catalogs at problematic messages in Lokalize
-
-Parameter C{check} may be used to to apply only some instead of all checks.
-It takes comma-separated list of check keywords, which are provided in
-the list of checks that follows.
-
-Currently available checks are:
-
-  - Stray context separators in translation (C{ctxtsep}).
-    Wesnoth is still using the old-fashioned way of embedding context
-    into C{msgid}, by putting it in front of and separating by C{^} from
-    the actual text of C{msgid}.
-    An occasional unwary translator sometimes mistakes such context
-    for part of the original text, and translates it too.
-
-  - Congruence of interpolations (C{interp}).
-    Interpolations (C{"...side $side_number is..."}) must match between
-    the original and translation, for the player not to loose information.
-    In very rare cases (e.g. some plurals, Markov chain generators)
-    the congruence of some interpolations may not be desired, in which case
-    they these interpolation can be listed in a special manual comment
-    as space-separated list: C{# ignore-interpolations: interp1 interp2 ...}
-
-  - WML validity (C{wml}).
-    WML in translation should be valid, for the player not to see visual
-    artifacts. Also, WML links must match between original and translation,
-    to avoid loss of information.
-
-  - Pango markup validity (C{pango}).
-    Just like check for WML markup, only for Pango markup instead.
-
-  - Congruence of leading and trailing space (C{space}).
-    For many languages, significant leading and trailing space from the
-    original should be preserved. Heuristics is used to determine such places.
-    Only explicitly listed languages are checked for this.
-
-  - Docbook validity (C{docbook}).
-    Wesnoth manual is written in Docbook, and this check will raise
-    alarm if the translation got Docbook markup wrong.
-    A bit superfluous and less thorough then what the Docbook processor
-    will do when building the language manual, but still may
-    be useful for quick checks (e.g. if a translator does not know how
-    to build the final manual out of Docbook source).
-
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

@@ -1,28 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Spell-check messages using GNU Aspell (U{http://aspell.net/}).
+Spell-check translation using GNU Aspell (U{http://aspell.net/}).
 
-This sieve is a more specific counterpart to
-L{check-spell-ec<sieve.check_spell_ec>}, which deals only with GNU Aspell
-spell checker. Compared to C{check-spell-ec}, it exposes some options specific
-to Aspell, and requires no external Python modules, only Aspell installation.
-
-This sieve behaves mostly same as C{check-spell-ec},
-and accepts all the same parameters with same meanings;
-the exception is the C{provider} parameter,
-which is not present here since Aspell is the fixed provider.
-
-Sieve parameters specific to this sieve:
-  - C{enc:<encoding>}: encoding for text sent to Aspell
-  - C{var:<variety>}: variety of the Aspell dictionary
-  - C{xml:<filename>}: build XML report file
-
-The following user configuration fields are considered:
-  - C{[aspell]/language}: language of the Aspell dictionary
-  - C{[aspell]/encoding}: encoding for text sent to Aspell
-  - C{[aspell]/variety}: variety of the Aspell dictionary
-  - C{[aspell]/supplements-only}: use only internal dictionaries
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3
