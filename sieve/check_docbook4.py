@@ -3,18 +3,7 @@
 """
 Check catalogs covering Docbook 4.x documents for various problems.
 
-Docbook is a complex XML application, and nothing short of full validation
-of XML files generated from translated POs can show if markup is valid.
-This sieve just checks for well-formedness and mere existance of a tag in
-Docbook subset, and on the level of single PO message.
-But this is already enough to catch most of the typical translation errors.
-
-Sieve options:
-  - C{showmsg}: show content of the message, with errors highlighted
-  - C{lokalize}: open catalogs at failed messages in Lokalize
-
-A message can be excluded from checking by adding C{no-check-markup}
-L{sieve flag<sieve.parse_sieve_flags>}.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
