@@ -421,6 +421,49 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 </sect2>
 
+<sect2 id="sv-check-docbook4">
+<title><command>check-docbook4</command></title>
+
+<para><command>check-docbook4</command> checks PO files extracted from Docbook 4.x files. Docbook is an XML format, typically used for documenting software.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>showmsg</option></term>
+<listitem>
+<para>Instead of just showing the message location and problem description, also show the complete message with problematic segments higlighted.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on reported messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Currently performed checks:
+<itemizedlist>
+
+<listitem>
+<para>Markup validity. Docbook is a complex XML format, and nothing short of full validation of XML files generated from translated PO files can show if the translation is technically valid. Therefore <command>check-docbook4</command> checks only well-formedness, whether tags are defined by Docbook, and some nesting constraints, and that on the level of single message. But this is already enough to catch great majority of usual translation errors.</para>
+
+<para>This check can be skipped on a message by adding to it the <literal>no-check-markup</literal> <link linkend="p-trflag">translator flag</link>.</para>
+</listitem>
+
+<listitem>
+<para>Message insertion placeholders. Some extractors of Docbook split out into standalone messages contextually separate units that are found in the middle of flowing paragraphs (e.g. footnotes). When that happens, a special placeholder is left in the originating message, so that the markup can be reconstructed when the translated Docbook file is built. Such placeholders must be carried into translation.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+</sect2>
+
 <sect2 id="sv-check-grammar">
 <title><command>check-grammar</command></title>
 
@@ -453,6 +496,45 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </varlistentry>
 
 </variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sv-check-kde4">
+<title><command>check-kde4</command></title>
+
+<para><command>check-kde4</command> checks PO files extracted from program code based on KDE4 library and its translation system. Note that this really means what it says; this sieve should <emphasis>not</emphasis> be used to check just any PO file which happens to be part of the KDE project (e.g. PO files covering .desktop files, pure Qt code, etc.).</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>strict</option></term>
+<listitem>
+<para>Partly due to historical reasons, and partly due to programmers being sloppy, the original text itself is sometimes not valid by some checks. By default, when the original is not valid, the translation is not expected to be valid either, i.e. it is not checked. This parameter requires that the translation is always checked, regardless of the validity of the original (problems can almost always be avoided in the translation).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on reported messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Currently performed checks:
+<itemizedlist>
+
+<listitem>
+<para>Markup validity. KDE4 messages can contain a mix of <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics">KUIT</ulink> and <ulink url="http://doc.qt.nokia.com/4.6/richtext-html-subset.html">Qt rich text</ulink> markup. Although Qt rich text does not have to be well-formed in XML sense, this check expects well-formedness to be preserved in translation if the original is such (also see the <option>strict</option> parameter).</para>
+
+<para>This check can be skipped on a message by adding to it the <literal>no-check-markup</literal> <link linkend="p-trflag">translator flag</link>.</para>
+</listitem>
+
+</itemizedlist>
 </para>
 
 </sect2>
@@ -580,7 +662,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on failed messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize.</para>
 </listitem>
 </varlistentry>
 
@@ -754,7 +836,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on failed messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize.</para>
 </listitem>
 </varlistentry>
 
@@ -828,7 +910,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on failed messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize.</para>
 </listitem>
 </varlistentry>
 
@@ -873,20 +955,6 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 </itemizedlist>
 </para>
-
-</sect2>
-
-<sect2 id="sv-check-xml-docbook4">
-<title><command>check-xml-docbook4</command></title>
-
-<para></para>
-
-</sect2>
-
-<sect2 id="sv-check-xml-kde4">
-<title><command>check-xml-kde4</command></title>
-
-<para></para>
 
 </sect2>
 
