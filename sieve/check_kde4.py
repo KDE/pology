@@ -3,19 +3,7 @@
 """
 Check native KDE4 PO files for various problems.
 
-KDE4 catalogs can contain a mix of KUIT and Qt rich text markup.
-
-Sieve parameters:
-  - C{strict}: require translation to be valid even if original is not
-  - C{entdef}: file with entity definitions other than the default HTML
-  - C{lokalize}: open catalogs at failed messages in Lokalize
-
-By default, translation is checked for validity only if the original passes
-the same check, which need not be the case always.
-This can be changed by issuing the C{strict} parameter, when translation
-will be checked regardless of the original.
-If this is used, check can be skipped for a particular message by adding
-C{no-check-markup} L{sieve flag<sieve.parse_sieve_flags>}.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
