@@ -20,8 +20,8 @@ valid !msgstr="absolutament"
 hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» (fals amic)"
 
 # «Abstract» es tradueix per «Resum».
-{\babstract\b}i
-valid msgstr="resum"
+{\babstracts?\b}i
+valid msgstr="resums?"
 valid msgstr="abstract(e|a)" cat="kdevphp"
 valid msgstr="abstract(e|a)" cat="kdevplatform"
 valid msgstr="abstracte" cat="kdeqt"
@@ -30,12 +30,6 @@ valid msgstr="abstract(e|a)" cat="umbrello"
 valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
-
-# «Abstracts» es tradueix per «Resums».
-{\babstracts\b}i
-valid msgstr="resums"
-valid !msgstr="abstract(e|a|es)"
-hint="«Abstracts» es tradueix per «Resums», no per «Abstractes» (fals amic)"
 
 # «Actual» es tradueix per «Real».
 {\bactual\b}i
@@ -59,30 +53,18 @@ valid !msgstr="adequat"
 hint="«Adequate» es tradueix per «Suficient», no per «Adequat» (fals amic)"
 
 # «Advertisement» es tradueix per «Anunci».
-{\badvertisement\b}i
-valid msgstr="anunci"
-valid !msgstr="advertència"
-valid !msgstr="advertiment"
+{\badvertisements?\b}i
+valid msgstr="anuncis?"
+valid !msgstr="advertènci(a|es)"
+valid !msgstr="advertiments?"
 hint="«Advertisement» es tradueix per «Anunci», no per «Advertència» (fals amic)"
 
-# «Advertisements» es tradueix per «Anuncis».
-{\badvertisements\b}i
-valid msgstr="anuncis"
-valid !msgstr="advertències"
-valid !msgstr="advertiments"
-hint="«Advertisements» es tradueix per «Anuncis», no per «Advertències» (fals amic)"
-
 # «Advice» es tradueix per «Consell».
-{\badvice\b}i
-valid msgstr="consell"
+{\badvices?\b}i
+valid msgstr="consells?"
 valid !msgstr="avís"
-hint="«Advice» es tradueix per «Consell», no per «Avís» (fals amic)"
-
-# «Advices» es tradueix per «Consells».
-{\badvices\b}i
-valid msgstr="consells"
 valid !msgstr="avisos"
-hint="«Advices» es tradueix per «Consells», no per «Avisos» (fals amic)"
+hint="«Advice» es tradueix per «Consell», no per «Avís» (fals amic)"
 
 # «Agenda» es tradueix per «Ordre del dia».
 {\bagenda\b}i
@@ -147,19 +129,13 @@ valid !msgstr="brau"
 hint="«Brave» es tradueix per «Valent», no per «Brau» (fals amic)"
 
 # «Billion» es tradueix per «mil milions».
-{\bbillion\b}i
-valid msgstr="miliard"
+{\bbillions?\b}i
+valid msgstr="miliards?"
 valid msgstr="mil\smilió"
 valid msgstr="mil\smilions"
-valid !msgstr="bilió"
-hint="«Billion» es tradueix per «Mil milions», no per «Bilió» (fals amic)"
-
-# «Billions» es tradueix per «Milers de milions».
-{\bbillions\b}i
-valid msgstr="miliards"
 valid msgstr="milers\sde\smilions"
-valid !msgstr="bilions"
-hint="«Billions» es tradueix per «Milers de milions», no per «Bilions» (fals amic)"
+valid !msgstr="bili(ó|ons)"
+hint="«Billion» es tradueix per «Mil milions», no per «Bilió» (fals amic)"
 
 # «Boot» es tradueix per «Arrencar».
 {\bboot\b}i
@@ -189,16 +165,10 @@ valid !msgstr="carrera"
 hint="«Career» es tradueix per «Professió», no per «Carrera» (fals amic)"
 
 # «Carpet» es tradueix per «Catifa».
-{\bcarpet\b}i
-valid msgstr="catifa"
-valid !msgstr="carpeta"
+{\bcarpets?\b}i
+valid msgstr="catif(a|es)"
+valid !msgstr="carpet(a|es)"
 hint="«Carpet» es tradueix per «Catifa», no per «Carpeta» (fals amic)"
-
-# «Carpets» es tradueix per «Catifes».
-{\bcarpets\b}i
-valid msgstr="catifes"
-valid !msgstr="carpetes"
-hint="«Carpets» es tradueix per «Catifes», no per «Carpetes» (fals amic)"
 
 # «Casual» es tradueix per «Informal».
 {\bcasual\b}i
@@ -226,18 +196,11 @@ valid !msgstr="col·legi"
 hint="«College» es tradueix per «Facultat», no per «Col·legi» (fals amic)"
 
 # «Command» es tradueix per «Ordre».
-{\bcommand\b}i
-valid msgstr="ordre"
-valid !msgstr="comanda"
-valid !msgstr="comandament"
+{\bcommands?\b}i
+valid msgstr="ordres?"
+valid !msgstr="comand(a|es)"
+valid !msgstr="comandaments?"
 hint="«Command» es tradueix per «Ordre», no per «Comanda» (fals amic)"
-
-# «Commands» es tradueix per «Ordres».
-{\bcommands\b}i
-valid msgstr="ordres"
-valid !msgstr="comandes"
-valid !msgstr="comandaments"
-hint="«Commands» es tradueix per «Ordres», no per «Comandes» (fals amic)"
 
 # «Complexion» es tradueix per «Cutis».
 {\bcomplexion\b}i
@@ -246,18 +209,11 @@ valid !msgstr="complexió"
 hint="«Complexion» es tradueix per «Cutis», no per «Complexió» (fals amic)"
 
 # «Comprehensive» es tradueix per «Exhaustiu».
-{\bcomprehensive\b}i
-valid msgstr="exhausti(u|va)"
-valid msgstr="global"
-valid !msgstr="comprensi(u|va)"
+{\bcomprehensives?\b}i
+valid msgstr="exhausti(u|va|us|ves)"
+valid msgstr="globals?"
+valid !msgstr="comprensi(u|va|us|ves)"
 hint="«Comprehensive» es tradueix per «Exhaustiu o global», no per «Comprensiu» (fals amic)"
-
-# «Comprehensives» es tradueix per «Exhaustius».
-{\bcomprehensives\b}i
-valid msgstr="exhausti(u|ve)s"
-valid msgstr="globals"
-valid !msgstr="comprensi(u|ve)s"
-hint="«Comprehensives» es tradueix per «Exhautius o globals», no per «Comprensius» (fals amic)"
 
 # «Conductor» es tradueix per «Revisor, director d'orquestra».
 {\bconductor\b}i
@@ -282,18 +238,11 @@ valid !msgstr="confident"
 hint="«Confident» es tradueix per «Confiat», no per «Confident» (fals amic)"
 
 # «Contributor» es tradueix per «Col·laborador».
-{\bcontributor\b}i
-valid msgstr="col·laborador"
-valid !msgstr="contribuidor"
-valid !msgstr="contribuent"
+{\bcontributors?\b}i
+valid msgstr="col·laboradors?"
+valid !msgstr="contribuidors?"
+valid !msgstr="contribuents?"
 hint="«Contributor» es tradueix per «Col·laborador», no per «Contribuidor» (fals amic)"
-
-# «Contributors» es tradueix per «Col·laboradors».
-{\bcontributors\b}i
-valid msgstr="col·laboradors"
-valid !msgstr="contribuidors"
-valid !msgstr="contribuents"
-hint="«Contributors» es tradueix per «Col·laboradors», no per «Contribuidors» (fals amic)"
 
 # «Consent» es tradueix per «Consentiment».
 {\bconsent\b}i
@@ -302,18 +251,11 @@ valid !msgstr="consens"
 hint="«Consent» es tradueix per «Consentiment», no per «Consens» (fals amic)"
 
 # «Consistent» es tradueix per «Compatible».
-{\bconsistent\b}i
-valid msgstr="compatible"
-valid msgstr="coherent"
-valid !msgstr="consistent"
+{\bconsistents?\b}i
+valid msgstr="compatibles?"
+valid msgstr="coherents?"
+valid !msgstr="consistents?"
 hint="«Consistent» es tradueix per «Compatible», no per «Consistent» (fals amic)"
-
-# «Consistents» es tradueix per «Compatibles».
-{\bconsistents\b}i
-valid msgstr="compatibles"
-valid msgstr="coherents"
-valid !msgstr="consistents"
-hint="«Consistents» es tradueix per «Compatibles», no per «Consistents» (fals amic)"
 
 # «Constipated» es tradueix per «Restret».
 {\bconstipated\b}i
@@ -342,29 +284,17 @@ valid !msgstr="costum"
 hint="«Costume» es tradueix per «Disfressa», no per «Costum» (fals amic)"
 
 # «Crime» es tradueix per «Delicte».
-{\bcrime\b}i
-valid msgstr="delicte"
-valid !msgstr="crim"
+{\bcrimes?\b}i
+valid msgstr="delictes?"
+valid !msgstr="crims?"
 hint="«Crime» es tradueix per «Delicte», no per «Crim» (fals amic)"
 
-# «Crimes» es tradueix per «Delictes».
-{\bcrimes\b}i
-valid msgstr="delictes"
-valid !msgstr="crims"
-hint="«Crimes» es tradueix per «Delictes», no per «Crims» (fals amic)"
-
 # «Current» es tradueix per «Actual».
-{\bcurrent\b}i
-valid msgstr="actual"
+{\bcurrents?\b}i
+valid msgstr="actuals?"
 valid msgstr="corrent" cat="skrooge" # Compte corrent
-valid !msgstr="corrent"
+valid !msgstr="corrents?"
 hint="«Current» es tradueix per «Actual», no per «Corrent» (fals amic)"
-
-# «Currents» es tradueix per «Actuals».
-{\bcurrents\b}i
-valid msgstr="actuals"
-valid !msgstr="corrents"
-hint="«Currents» es tradueix per «Actuals», no per «Corrents» (fals amic)"
 
 # «Curse» es estradueix per «Malefici».
 {\bcurse\b}i
@@ -374,31 +304,19 @@ valid !msgstr="curs"
 hint="«Curse» es tradueix per «Malefici», no per «Curs» (fals amic)"
 
 # «Date» es tradueix per «Data».
-{\bdate\b}i
-valid msgstr="data"
-valid msgstr="cita"
+{\bdates?\b}i
+valid msgstr="dat(a|es)"
+valid msgstr="cit(a|es)"
 valid msgstr="dates" before="\sor time" cat="kspread_basics" #docmessage
 valid !msgstr="dada"
+valid !msgstr="dades"
 hint="«Date» es tradueix per «Data», no per «Dada» (fals amic)"
 
-# «Dates» es tradueix per «Dates».
-{\bdates\b}i
-valid msgstr="dates"
-valid msgstr="cites"
-valid !msgstr="dades"
-hint="«Dates» es tradueix per «Dates», no per «Dades» (fals amic)"
-
 # «Deception» es tradueix per «Engany».
-{\bdeception\b}i
-valid msgstr="engany"
-valid !msgstr="decepció"
+{\bdeceptions?\b}i
+valid msgstr="enganys?"
+valid !msgstr="decepci(ó|ons)"
 hint="«Deception» es tradueix per «Engany», no per «Decepció» (fals amic)"
-
-# «Deceptions» es tradueix per «Enganys».
-{\bdeceptions\b}i
-valid msgstr="enganys"
-valid !msgstr="decepcions"
-hint="«Deceptions» es tradueix per «Enganys», no per «Decepcions» (fals amic)"
 
 ### Regla desactivada: molts falsos positius
 ### Demostració també pot ser una traducció vàlida per «Demonstration»
@@ -409,9 +327,9 @@ hint="«Deceptions» es tradueix per «Enganys», no per «Decepcions» (fals am
 #hint="«Demonstration» es tradueix per «Manifestació», no per «Demostració» (fals amic)"
 
 # «Devil» es tradueix per «Dimoni».
-{\bdevil\b}i
-valid msgstr="dimoni"
-valid !msgstr="dàbil"
+{\bdevils?\b}i
+valid msgstr="dimonis?"
+valid !msgstr="dèbils?"
 hint="«Devil» es tradueix per «Dimoni», no per «Dèbil» (fals amic)"
 
 # «Diary» es tradueix per «Agenda».
@@ -429,18 +347,11 @@ valid !msgstr="discutir"
 hint="«Discuss» es tradueix per «Debatre», no per «Discutir» (fals amic)"
 
 # «Discussion» es tradueix per «Debat».
-{\bdiscussion\b}i
-valid msgstr="debat"
-valid msgstr="intercanvi\sd'idees"
-valid !msgstr="discussió"
+{\bdiscussions?\b}i
+valid msgstr="debats?"
+valid msgstr="intercanvis?\sd'idees"
+valid !msgstr="discussi(ó|ons)"
 hint="«Discussion» es tradueix per «Debat», no per «Discussió» (fals amic)"
-
-# «Discussions» es tradueix per «Debats».
-{\bdiscussions\b}i
-valid msgstr="debats"
-valid msgstr="intercanvis\sd'idees"
-valid !msgstr="discusions"
-hint="«Discussions» es tradueix per «Debats», no per «Discusions» (fals amic)"
 
 # «Disgust» es tradueix per «Repugnar».
 {\bdisgust\b}i
@@ -450,18 +361,11 @@ valid !msgstr="disgust(ar|a|i)"
 hint="«Disgust» es tradueix per «Repugnar», no per «Disgustar» (fals amic)"
 
 # «Diversion» es tradueix per «Desviament».
-{\bdiversion\b}i
-valid msgstr="distracció"
-valid msgstr="desviament"
-valid !msgstr="diversió"
+{\bdiversions?\b}i
+valid msgstr="distracci(ó|ons)"
+valid msgstr="desviaments?"
+valid !msgstr="diversi(ó|ons)"
 hint="«Diversion» es tradueix per «Desviament», no per «Diversió» (fals amic)"
-
-# «Diversions» es tradueix per «Desviaments».
-{\bdiversions\b}i
-valid msgstr="distraccions"
-valid msgstr="desviaments"
-valid !msgstr="diversions"
-hint="«Diversions» es tradueix per «Distraccions», no per «Diversions» (fals amic)"
 
 # «Divert, to» es tradueix per «Desviar».
 {\bdivert\b}i
@@ -472,10 +376,10 @@ valid !msgstr="divert(eix|eixo)"
 hint="«Divert» es tradueix per «Desviar», no per «Divertir» (fals amic)"
 
 # «Domestic» es tradueix per «Nacional».
-{\bdomestic\b}i
-valid msgstr="nacional"
-valid msgstr="intern(a)"
-valid !msgstr="domèstic(a)"
+{\bdomestics?\b}i
+valid msgstr="nacionals?"
+valid msgstr="intern(s|a|es)"
+valid !msgstr="domèsti(c|ca|ques)"
 hint="«Domestic» es tradueix per «Nacional», no per «Domèstic» (fals amic)"
 
 # «Educated» es tradueix per «Culte».
@@ -536,24 +440,18 @@ valid !msgstr="evidència"
 hint="«Evidence» es tradueix per «Prova o indici», no per «Evidència» (fals amic)"
 
 # «Exit» es tradueix per «Sortida».
-{\bexit\b}i
-valid msgstr="sortida"
+{\bexits?\b}i
+valid msgstr="sortid(a|es)"
 valid msgstr="sortir"
 valid msgstr="surt"
-valid !msgstr="èxit"
+valid !msgstr="èxits?"
 hint="«Exit» es tradueix per «Sortida», no per «Èxit» (fals amic)"
 
-# «Exits» es tradueix per «Sortides».
-{\bexits\b}i
-valid msgstr="sortides"
-valid !msgstr="èxits"
-hint="«Exits» es tradueix per «Sortides», no per «Èxits» (fals amic)"
-
 # «Fabric» es tradueix per «Teixit o tela».
-{\bfabric\b}i
-valid msgstr="teixit"
-valid msgstr="tela"
-valid !msgstr="fàbrica"
+{\bfabrics?\b}i
+valid msgstr="teixits?"
+valid msgstr="tel(a|es)"
+valid !msgstr="fàbri(ca|ques)"
 hint="«Fabric» es tradueix per «Teixit o tela», no per «Fàbrica» (fals amic)"
 
 # «Facilities» es tradueix per «Instal·lacions».
@@ -583,13 +481,13 @@ valid !msgstr="firma"
 hint="«Firm» es tradueix per «Empresa», no per «Firma» (fals amic)"
 
 # «Font» es tradueix per «Tipus (de lletra)».
-{\bfont\b}i
+{\bfonts?\b}i
 valid msgstr="tipus"
-valid msgstr="origen"
+valid msgstr="origens?"
 valid msgstr="<font\s"
 valid msgstr="\bfont\b" cat="kleopatra"
 valid msgstr="font" cat="quanta" after="replace\s"
-valid !msgstr="font"
+valid !msgstr="fonts?"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 
 # «Gripe» es tradueix per «Mal de ventre».
@@ -615,16 +513,10 @@ valid !msgstr="home"
 hint="«Home» es tradueix per «Casa», no per «Home» (fals amic)"
 
 # «Idiom» es tradueix per «Frase feta».
-{\bidiom\b}i
-valid msgstr="frase\sfeta"
-valid !msgstr="idioma"
-hint="«Idiom» es tradueix per «Frase feta», no per «Idiom» (fals amic)"
-
-# «Idioms» es tradueix per «Frases fetes».
-{\bidioms\b}i
-valid msgstr="frases\sfetes"
-valid !msgstr="idiomes"
-hint="«Idioms» es tradueix per «Frase fetes», no per «Idiomes» (fals amic)"
+{\bidioms?\b}i
+valid msgstr="frases?\sfet(a|es)"
+valid !msgstr="idiom(a|es)"
+hint="«Idiom» es tradueix per «Frase feta», no per «Idioma» (fals amic)"
 
 # «Illusion» es tradueix per «Miratge».
 {\billusion\b}i
@@ -665,30 +557,17 @@ valid !msgstr="llarg(a)"
 hint="«Large» es tradueix per «Gran», no per «Llarg» (fals amic)"
 
 # «Lecture» es tradueix per «Conferència».
-{\blecture\b}i
-valid msgstr="conferència"
-valid msgstr="classe"
-valid !msgstr="lectura"
+{\blectures?\b}i
+valid msgstr="conferènci(a|es)"
+valid msgstr="classes?"
+valid !msgstr="lectur(a|es)"
 hint="«Lecture» es tradueix per «Conferència», no per «Lectura» (fals amic)"
 
-# «Lectures» es tradueix per «Conferencies».
-{\blectures\b}i
-valid msgstr="conferencies"
-valid msgstr="classes"
-valid !msgstr="lectures"
-hint="«Lectures» es tradueix per «Conferencies», no per «Lectures» (fals amic)"
-
 # «Library» es tradueix per «Biblioteca».
-{\blibrary\b}i
-valid msgstr="biblioteca"
-valid !msgstr="llibreria"
+{\blibrar(y|ies)\b}i
+valid msgstr="bibliote(ca|ques)"
+valid !msgstr="llibreri(a|es)"
 hint="«Library» es tradueix per «Biblioteca», no per «Llibreria» (fals amic)"
-
-# «Libraries» es tradueix per «Biblioteques».
-{\blibraries\b}i
-valid msgstr="biblioteques"
-valid !msgstr="llibreries"
-hint="«Libraries» es tradueix per «Biblioteques», no per «Llibreries» (fals amic)"
 
 # «Lyrics» es tradueix per «lletra».
 {\blyrics\b}i
@@ -766,20 +645,12 @@ valid !msgstr="ofici"
 hint="«Office» es tradueix per «Oficina», no per «Ofici» (fals amic)"
 
 # «Ordinary» es tradueix per «Normal».
-{\bordinary\b}i
-valid msgstr="corrent"
-valid msgstr="normal"
-valid msgstr="com(ú|una)"
-valid !msgstr="ordinari(a)"
+{\bordinar(y|ies)\b}i
+valid msgstr="corrents?"
+valid msgstr="normals?"
+valid msgstr="com(ú|una|uns|unes)"
+valid !msgstr="ordinari(a|s|es)"
 hint="«Ordinary» es tradueix per «Normal», no per «Ordinari» (fals amic)"
-
-# «Ordinaries» es tradueix per «Normal».
-{\bordinaries\b}i
-valid msgstr="corrents"
-valid msgstr="normals"
-valid msgstr="comun(s|es)"
-valid !msgstr="ordinari(e)s"
-hint="«Ordinaries» es tradueix per «Normals», no per «Ordinaris» (fals amic)"
 
 # «Pair» es tradueix per «Parell/Dos».
 {\bpair\b}i
@@ -819,17 +690,11 @@ valid !msgstr="parcel·la"
 hint="«Parcel» es tradueix per «Paquet», no per «Parcel·la» (fals amic)"
 
 # «Parent» es tradueix per «Pare/Mare».
-{\bparent\b}i
-valid msgstr="pare"
-valid msgstr="mare"
-valid !msgstr="parent"
+{\bparents?\b}i
+valid msgstr="pares?"
+valid msgstr="mares?"
+valid !msgstr="parents?"
 hint="«Parent» es tradueix per «Pare/mare», no per «Parent» (fals amic)"
-
-# «Parents» es tradueix per «Pares».
-{\bparents\b}i
-valid msgstr="pares"
-valid !msgstr="parents"
-hint="«Parents» es tradueix per «Pares», no per «Parents» (fals amic)"
 
 # «Pet» es tradueix per «Animal».
 {\bpet\b}i
@@ -857,31 +722,18 @@ valid !msgstr="plaça"
 hint="«Place» es tradueix per «Lloc», no per «Plaça» (fals amic)"
 
 # «Physician» es tradueix per «Metge».
-{\bphysician\b}i
-valid msgstr="metge"
-valid !msgstr="físic"
+{\bphysicians?\b}i
+valid msgstr="metges?"
+valid !msgstr="físics?"
 hint="«Physician» es tradueix per «Metge», no per «Físic» (fals amic)"
 
-# «Physicians» es tradueix per «Metges».
-{\bphysicians\b}i
-valid msgstr="metges"
-valid !msgstr="físics"
-hint="«Physicians» es tradueix per «Metges», no per «Físics» (fals amic)"
-
 # «Plain» es tradueix per «Senzill».
-{\bplain\b}i
-valid msgstr="normal"
-valid msgstr="senzill(a)"
+{\bplains?\b}i
+valid msgstr="normals?"
+valid msgstr="senzill(a|s|es)"
 valid msgstr="plana" cat="kgeography"
-valid !msgstr="pla(na)"
+valid !msgstr="pla(na|nes)"
 hint="«Plain» es tradueix per «Senzill», no per «Pla» (fals amic)"
-
-# «Plains» es tradueix per «Senzills».
-{\bplains\b}i
-valid msgstr="normals"
-valid msgstr="senzill(e)s"
-valid !msgstr="plan(e)s"
-hint="«Plains» es tradueix per «Senzills», no per «Plans» (fals amic)"
 
 # «Preservative» es tradueix per «Preservatiu».
 {\bpreservative\b}i
@@ -931,51 +783,31 @@ valid !msgstr="prova"
 hint="«Prove» es tradueix per «Demostració», no per «Prova» (fals amic)"
 
 # «Quartely» es tradueix per «Trimestral».
-{\bquartely\b}i
-valid msgstr="trimestral"
-valid !msgstr="quatrimestral"
+{\bquartel(y|ies)\b}i
+valid msgstr="trimestrals?"
+valid !msgstr="quatrimestrals?"
 hint="«Quartely» es tradueix per «Trimestral», no per «Quatrimestral» (fals amic)"
 
-# «Quartelies» es tradueix per «Trimestrals».
-{\bquartelies\b}i
-valid msgstr="trimestrals"
-valid !msgstr="quatrimestrals"
-hint="«Quartelies» es tradueix per «Trimestrales», no per «Quatrimestrals» (fals amic)"
-
 # «Question» es tradueix per «Pregunta».
-{\bquestion\b}i
-valid msgstr="pregunta"
-valid !msgstr="questió"
+{\bquestions?\b}i
+valid msgstr="pregunt(a|es)"
+valid !msgstr="questi(ó|ons)"
 hint="«Question» es tradueix per «Pregunta», no per «Questió» (fals amic)"
 
-# «Questions» es tradueix per «Preguntes».
-{\bquestions\b}i
-valid msgstr="preguntes"
-valid !msgstr="questions"
-hint="«Questions» es tradueix per «Preguntes», no per «Questions» (fals amic)"
-
 # «Quiet» es tradueix per «Callat».
-{\bquiet\b}i
-valid msgstr="calma(t|da)"
-valid msgstr="calla(t|da)"
+{\bquiets?\b}i
+valid msgstr="calma(t|da|ts|des)"
+valid msgstr="calla(t|da|ts|des)"
 valid msgstr="en\ssilenci"
-valid msgstr="tranquil(a)"
-valid !msgstr="quiet(a)"
+valid msgstr="tranquil(a|s|es)"
+valid !msgstr="quiet(a|s|es)"
 hint="«Quiet» es tradueix per «Callat», no per «Quiet» (fals amic)"
 
-# «Quiets» es tradueix per «Callats».
-{\bquiets\b}i
-valid msgstr="calma(t|de)s"
-valid msgstr="calla(t|de)s"
-valid msgstr="en\ssilenci"
-valid msgstr="tranquil(e)s"
-valid !msgstr="quiet(e)s"
-hint="«Quiets» es tradueix per «Callats», no per «Quiets» (fals amic)"
-
 # «Quote» es tradueix per «Cita».
-{\bquote\b}i
-valid msgstr="cita"
-valid msgstr="citació"
+{\bquotes?\b}i
+valid msgstr="cit(a|es)"
+valid msgstr="citaci(ó|ons)"
+valid msgstr="comet(a|es)"
 valid !msgstr="quot(a|es)"
 hint="«Quote» es tradueix per «Cita», no per «Quota» (fals amic)"
 
@@ -999,34 +831,20 @@ valid !msgstr="recept"
 hint="«Receipt» es tradueix per «Rebut», no per «Recepta» (fals amic)"
 
 # «Recipient» es tradueix per «Destinatari».
-{\brecipient\b}i
-valid msgstr="destinatari"
+{\brecipients?\b}i
+valid msgstr="destinataris?"
 valid msgstr="recipient" cat="kleopatra"
-valid !msgstr="recipient"
+valid !msgstr="recipients?"
 hint="«recipient» es tradueix per «Destinatari», no per «Recipient» (fals amic)"
 
-# «Recipients» es tradueix per «Destinataris».
-{\brecipients\b}i
-valid msgstr="destinataris"
-valid !msgstr="recipients"
-hint="«Recipients» es tradueix per «Destinataris», no per «Recipients» (fals amic)"
-
 # «Relevant» es tradueix per «Apropiat».
-{\brelevant\b}i
-valid msgstr="apropiat"
-valid msgstr="aplicable"
-valid msgstr="pertinent"
-valid msgstr="important"
-valid !msgstr="rellevant"
+{\brelevants?\b}i
+valid msgstr="apropiats?"
+valid msgstr="aplicables?"
+valid msgstr="pertinents?"
+valid msgstr="importants?"
+valid !msgstr="rellevants?"
 hint="«Relevant» es tradueix per «Apropiat», no per «Rellevant» (fals amic)"
-
-# «Relevants» es tradueix per «Apropiats».
-{\brelevants\b}i
-valid msgstr="apropiats"
-valid msgstr="aplicables"
-valid msgstr="pertinents"
-valid !msgstr="rellevants"
-hint="«Relevants» es tradueix per «Apropiats», no per «Rellevants» (fals amic)"
 
 # «Remove» es tradueix per «Eliminar».
 {\bremove\b}i
@@ -1074,39 +892,25 @@ valid !msgstr="salt"
 hint="«Salt» es tradueix per «Sal», no per «Salt» (fals amic)"
 
 # «Scholar» es tradueix per «Savi».
-{\bscholar\b}i
-valid msgstr="savi(a)"
-valid msgstr="estudiós(a)"
-valid msgstr="erudit(a)"
-valid msgstr="académic(a)"
-valid !msgstr="escolar"
+{\bscholars?\b}i
+valid msgstr="savi(a|s|es)"
+valid msgstr="estudi(ós|osa|osos|oses)"
+valid msgstr="erudit(t|ta|ts|des)"
+valid msgstr="académi(c|ca|cs|ques)"
+valid !msgstr="escolars?"
 hint="« Scholar » es tradueix per «Savi», no per «Escolar» (fals amic)"
 
-# «Scholars» es tradueix per «Eruditos».
-{\bscholars\b}i
-valid msgstr="erudit(o|a)s"
-valid msgstr="académic(o|a)s"
-valid !msgstr="escolares"
-hint="« Scholars » es tradueix per « Eruditos », no per « Escolares » (fals amic)"
-
 # «Sensible» es tradueix per «Sensat».
-{\bsensible\b}i
-valid msgstr="raonable"
-valid msgstr="sensat"
-valid !msgstr="sensible"
+{\bsensibles?\b}i
+valid msgstr="raonables?"
+valid msgstr="sensats?"
+valid !msgstr="sensibles?"
 hint="«Sensible» es tradueix per «Sensat», no per «Sensible» (fals amic)"
 
-# «Sensibles» es tradueix per «Sensats».
-{\bsensibles\b}i
-valid msgstr="raonables"
-valid msgstr="sensats"
-valid !msgstr="sensibles"
-hint="«Sensibles» es tradueix per «Sensats», no per «Sensibles» (fals amic)"
-
 # «Signature» es tradueix per «Signatura».
-{\bsignature\b}i
-valid msgstr="signatura"
-valid !msgstr="assignatura"
+{\bsignatures?\b}i
+valid msgstr="signatur(a|es)"
+valid !msgstr="assignatur(a|es)"
 hint="«Signature» es tradueix per «Signatura», no per «Assignatura» (fals amic)"
 
 # «Significant» es tradueix per «Important».
@@ -1123,21 +927,14 @@ hint="«Silicon» es tradueix per «Silici», no per «Silicona» (fals amic)"
 
 # «Simple» es tradueix per «Senzill».
 {\bsimple\b}i
-valid msgstr="senzill(a)"
+valid msgstr="senzill(a|s|es)"
 valid msgstr="senzilles" cat="umbrello_other_features"
 valid msgstr="mer"
 valid msgstr="simple" cat="kuser" after="LDAP\s"
 valid msgstr="simple" cat="kdeqt"
-valid !msgstr="simple"
+valid !msgstr="simples?"
 valid !msgstr="simplement"
 hint="«Simple» es tradueix per «Senzill», no per «Simple» (fals amic)"
-
-# «Simples» es tradueix per «Senzills».
-{\bsimples\b}i
-valid msgstr="senzill(e)s"
-valid msgstr="mers"
-valid !msgstr="simples"
-hint="«Simples» es tradueix per «Senzills», no per «Simples» (fals amic)"
 
 # «Soap» es tradueix per «Sabó».
 {\bsoap\b}i
@@ -1185,16 +982,10 @@ valid !msgstr="suportades"
 hint="«Support» es tradueix per «Recolzar (i altres)», no per «Suportar» (fals amic)"
 
 # «Sympathetic» es tradueix per «Comprensiu».
-{\bsymphatetic\b}i
-valid msgstr="comprensi(u|va)"
-valid !msgstr="simpàtic(a)"
+{\bsymphatetics?\b}i
+valid msgstr="comprensi(u|va|us|ves)"
+valid !msgstr="simpàti(c|ca|cs|ques)"
 hint="«Sympathetic» es tradueix per «Comprensiu», no per «Simpàtic» (fals amic)"
-
-# «Sympathetics» es tradueix per «Comprensius».
-{\bsymphatetics\b}i
-valid msgstr="comprensi(u|ve)s"
-valid !msgstr="simpàti(c|que)s"
-hint="«Sympathetics» es tradueix per «Comprensius», no per «Simpàtics» (fals amic)"
 
 # «Symphaty» es tradueix per «Compassió».
 {\bsympathy\b}i
@@ -1203,32 +994,18 @@ valid !msgstr="simpatia"
 hint="«Symphaty» es tradueix per «Compassió», no per «Simpatia» (fals amic)"
 
 # «Target» es tradueix per «Blanc».
-{\btarget\b}i
-valid msgstr="blanc"
-valid msgstr="objetiu"
-valid msgstr="destí"
-valid !msgstr="targeta"
+{\btargets?\b}i
+valid msgstr="blancs?"
+valid msgstr="objetius?"
+valid msgstr="dest(í|ins)"
+valid !msgstr="target(a|es)"
 hint="«Target» es tradueix per «Blanc», no per «Targeta» (fals amic)"
 
-# «Targets» es tradueix per «Blancs».
-{\btargets\b}i
-valid msgstr="blancs"
-valid msgstr="objetius"
-valid msgstr="destins"
-valid !msgstr="targetes"
-hint="«Targets» es tradueix per «Blancs», no per «Targetes» (fals amic)"
-
 # «Topic» es tradueix per «Tema.
-{\btopic\b}i
-valid msgstr="tema"
-valid !msgstr="tòpic"
+{\btopics?\b}i
+valid msgstr="tem(a|es)"
+valid !msgstr="tòpic(s)"
 hint="«Topic» es tradueix per «Tema», no per «Tòpic» (fals amic)"
-
-# «Topics» es tradueix per «Temes».
-{\btopics\b}i
-valid msgstr="temes"
-valid !msgstr="tòpics"
-hint="«Topics» es tradueix per «Temes», no per «Tòpics» (fals amic)"
 
 # «Ultimate» es tradueix per «Definitiu».
 {\bultimate\b}i
