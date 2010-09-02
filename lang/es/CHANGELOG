@@ -1,3 +1,25 @@
+Cambios 2/9/2010
+-----------------------
+1.- Cambios en «filter.include»
+- Los filtros sustituyen los textos por el símbolo "~", para evitar 
+problemas con la reglas de puntuación.
+- El filtro sobre entidades XML que estaba en otras reglas, se pasa a esta.
+- Simplificación de filtros de páginas web.
+- Nuevo filtro de números, fechas y horas.
+
+2.- Cambios en «glosario-kde-l10n-es.rules»
+- Comprobación de que «interfaz» tiene género femenino.
+
+3.- Cambios en «typography.rules»
+- Mejora en las reglas relacionadas con el uso de los signos: punto, coma 
+y punto y coma dentro de números o fechas.
+
+4.- Cambios en «false-friends.rules»
+-  Nuevos falsos amigos tomados de la lista de la web de Eloy Cuadra.
+- Añadidas algunas forma en plural y tercera persona a la lista anterior.
+
+Cambios 23/8/2010
+-----------------------
 1.- Cambios en «filter.include»
 - Mejoras en la detección de patrones en los filtros.
 - Nuevos filtros basados en el hook "sr/checks.py" de Chusslove Illich.
@@ -25,7 +47,6 @@ traducción, devolviendo error si:
 
 Cambios 6/8/2010
 -----------------------
-
 1.- Cambios en «filter.include»
 - Mejoras en la detección de URL.
 - Filtrar páginas web de «kde.org».

@@ -9,7 +9,7 @@ include file="filter.include"
 validGroup beforePunctuation
 valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
 valid before="$"
-valid after="\&\w+?\;"
+valid after="\&[\w\-\_]*?\;"
 
 validGroup afterPunctuation
 valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
@@ -23,28 +23,26 @@ valid before=".+»"
 
 validGroup closeQuotes
 valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
-valid after="\&\w+?\;"
+valid after="\&[\w\-\_]*?\;"
 valid before="$"
 valid after="«.+"
 
-[\s:]
+[\s\:]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="\{"
+valid after="\d+" before="\s?\d+"
 hint="No ponga un espacio antes del signo de dos puntos"
 
-[:\S]
+[\:\S]
 validGroup beforePunctuation
-valid before="\s"
 valid after="^"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
 valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?"
-valid after="\d\d?" before="\d\d?"
-valid after="([pH]H|hh|%h+)" before="(MM|mm|%m+)"
-valid after="(MM|mm|%m+)" before="(SS|ss|%s+)"
-valid after="horas" before="minutos"
-valid after="minutos" before="segundos"
-valid after="\%\d" before="\%\d"
+valid after="\d+\s?" span="\:\d+"
+valid after="horas"
+valid after="minutos"
+valid after="segundos"
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
 valid after="white-space" # CSS
 valid ctx="List of words.*"
@@ -52,9 +50,10 @@ valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
+valid span="\:$"
 hint="Ponga un espacio después del signo de dos puntos"
 
-[\s;]
+[\s\;]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 hint="No ponga un espacio antes del signo de punto y coma"
@@ -66,6 +65,7 @@ valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
+valid span="\;$"
 hint="Ponga un espacio después del signo de punto y coma"
 
 [\s\!]
@@ -77,10 +77,11 @@ hint="No ponga un espacio antes del signo de cierre de admiración"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid span="\!$"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [\¡]
-valid before=".*?\!"
+valid before=".*?[\!\(\{\[\«\"\']"
 hint="Cierre la admiración (deben ir emparejadas)"
 
 [\¡.*?\!\.]
@@ -99,10 +100,11 @@ validGroup beforePunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
 valid ctx="Query"
+valid span="\?$"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [\¿]
-valid before=".*?\?"
+valid before=".*?[\?\(\{\[\«\"\']"
 hint="Cierre la interrogación (deben ir emparejadas)"
 
 [\¿.*?\?\.]
@@ -115,11 +117,12 @@ hint="Ponga en mayúsculas la palabra posterior al cierre de interrogación (Con
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
+valid after="\d+" before="\s?\d+"
 hint="No ponga un espacio de separación antes del signo de coma"
 
 [\,\S]
 validGroup beforePunctuation
-valid after="\d" before="\d" 
+#valid after="\d" before="\d" 
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="CREDIT_FOR_TRANSLATORS"
@@ -127,6 +130,8 @@ valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
+valid after="\d+\s?" span="\,\d"
+valid span="\,$"
 hint="Ponga un espacio de separación después del signo de coma"
 
 [\»]
@@ -135,7 +140,7 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
 [\.\»] 
-valid msgstr="\«\.\»"
+valid after="\«"
 valid after="\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
@@ -145,7 +150,7 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
 [\«]
-valid before=".*\»"
+valid before=".*?[\»\(\{\[\«\"\']"
 hint="Cierre la comilla (deben ir emparejadas)"
 
 [\s\s+]
@@ -153,15 +158,16 @@ valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
 
 [\s\%]
-valid before="(\w|\d)"
+valid before="\w"
 valid before="$"
 valid after="width=\"\d+" before="\"" # HTML                         
 valid ctx="Numbers and characters"
 hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
-valid before="[A-Z]+?\b" # Keywords
-valid before="[A-Za-z0-9]{2,4}\b" # Extensions
+#valid before="[A-Z]+?\b" # Keywords
+valid before="\w{2,4}\b" # Extensions
+valid before="\/\w+" # Files
 hint="No ponga espacios antes de un signo de punto"
 
 [\.\)]
@@ -172,29 +178,33 @@ valid cat="kstars"
 #valid after="etc|min|sec|s|appl"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
-[\.(\S|^\.)]
+[\.\S]
 validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
+valid ctx="Numbers and characters"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
-valid before="[A-Za-z0-9]{1,3}(\s|\,|\.|$|\)|\»)" # Extensions
-valid after="\.\."
-valid after="Last" before="F?m"
-valid ctx="Numbers and characters"
+valid before="\w{1,4}\b" # Extensions
+valid span="Last.Fm"
+valid after="\.\." 
+valid span="\.\." before="\."
+valid span="\.\." after="\."
+valid span="\.$"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s\.]
 hint="No ponga un signo de punto después de puntos suspensivos"
+
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
-[\S\.\s[a-z]]
-valid msgstr="\.\.\.\s[a-z]"
+[\S\.\s[a-zñç]]
+valid after="\." span="\.\.\s[a-zñç]"
 hint="Utilice mayúsculas después de punto"
 
 [\(]
-valid before=".*?[\)\(\»\"\']"
+valid before=".*?[\)\(\{\[\«\"\']"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
 #[\[]
@@ -202,7 +212,7 @@ hint="Cierre el paréntesis (deben ir emparejados)"
 #hint="Cierre el corchete (deben ir emparejados)"
 
 [\{]
-valid before=".*?[\}\{\»\"\']"
+valid before=".*?[\}\{\(\[\«\"\']"
 hint="Cierre la llave (deben ir emparejadas)"
 
 [\(c\)]
@@ -215,13 +225,13 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b[A-Z]{2,6}\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\b\&[\w\-]+\;s\b]
+[\b\&[\w\d\-\_]+\;s\b]
 hint="Las siglas se escriben en singular en español (quite la «s» final)"
 
-[\b\&[\w\-]+\;\'s\b]
+[\b\&[\w\d\-\_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\b(w+)\s+(\1)\b]
+[\b([A-Za-záéíóúüñçÁÉÍÓÚÑÇ])+\b\.{1,2}\b(\1)\b]
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
 [ésto\ses\s]i

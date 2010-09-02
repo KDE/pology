@@ -3,24 +3,23 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-include file="filter.include"
-
 addFilterHook name="remove/remove_paired_ents" on="msg"
 
-[\&(\w|\d)+?\;]
+[\&[\w\d\-\_]*?\;]
 hint="Existe una entidad en la traducción que no figura en el texto original"
-{\&(\w|\d)+?\;}
+{\&[\w\d\-\_]*?\;}
 hint="Existe una entidad en el texto original que no figura en la traducción"
 
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-[(,|;)\s[A-Z](\w|\d)+?\b]
+[(,|;)\s[A-Z].*?\b]
+#[[A-Z].*?\b]
 valid ctx="TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="TRANSLATORS"
 valid msgid="$^"
-valid after="\&(\w|\d)+?\;"
+valid after="\&[\w\d\-\_]*?\;"
 hint="Utilice minúsculas después de una coma o punto y coma"
 
 

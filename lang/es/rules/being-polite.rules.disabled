@@ -3,16 +3,13 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-# Remove XML entities.
-addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
-
 include file="filter.include"
 
 # «You» se traduce como «Usted».
 {\byou\b}i
 valid msgstr="\busted\b"
 valid msgstr="\bustedes\b"
-valid msgstr="(\w|\b)le\b"
+valid msgstr="[\w\b]le\b"
 hint="« You » se traduce como como « Usted », sea educado"
 
 # «Please» se traduce como «Por favor».

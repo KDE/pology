@@ -4,9 +4,6 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-# Remove XML entities.
-addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
-
 include file="filter.include"
 
 [\b\w+^(cu)ando\b]i

@@ -4,7 +4,7 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" repl="~" on="pmsgid,pmsgstr"
 
 # Falta espacio al final del párrafo.
 {\s$}i

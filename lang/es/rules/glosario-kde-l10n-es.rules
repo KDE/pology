@@ -3,9 +3,6 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-# Remove XML entities.
-addFilterRegex match="\s?\&(\w|\d|\.|\-)+?\;" on="pmsgid,pmsgstr"
-
 include file="filter.include"
 
 # Remove accelerator and  hyphen inside words.
@@ -1126,10 +1123,18 @@ hint="« IDE » se traduce como « Entorno de desarrollo integrado » (ver glosa
 valid msgstr="interfaz"
 hint="« Interface » se traduce como « Interfaz » (ver glosario)"
 
+# «Interfaz» es femenino.
+[\b(el|un)\sinterfaz\b]i
+hint="« Interfaz » es de género femenino (ver glosario)"
+
 # «Interfaces» se traduce como «Interfaces».
 {\binterfaces\b}i
 valid msgstr="interfaces"
 hint="« Interfaces » se traduce como « Interfaces » (ver glosario)"
+
+# «Interfaces» es femenino.
+[\b(los|unos)\sinterfaces\b]i
+hint="« Interfaces » es de género femenino (ver glosario)"
 
 # «IRQ» no se traduce.
 {\bIRQ\b}i
