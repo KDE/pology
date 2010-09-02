@@ -21,12 +21,6 @@ C{no-check-markup} L{sieve flag<sieve.parse_sieve_flags>}.
 @license: GPLv3
 """
 
-import locale
-import os
-import re
-import sys
-import xml.parsers.expat
-
 from pology import _, n_
 from pology.markup import flag_no_check_markup
 from pology.entities import read_entities

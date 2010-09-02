@@ -20,12 +20,6 @@ L{sieve flag<sieve.parse_sieve_flags>}.
 @license: GPLv3
 """
 
-import sys
-import os
-import re
-import locale
-import xml.parsers.expat
-
 from pology import _, n_
 from pology.markup import check_docbook4_msg
 from pology.msgreport import report_on_msg_hl, report_msg_content
