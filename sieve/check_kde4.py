@@ -32,9 +32,6 @@ from pology.sieve import add_param_poeditors, add_param_entdef
 from pology.sieve import parse_sieve_flags
 
 
-_tsfence = "|/|"
-
-
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
@@ -104,17 +101,15 @@ class Sieve (object):
         if self.nproblems > 0:
             if not self.strict:
                 msg = n_("@info:progress",
-                         "Found %(num)d problem in KDE4 markup "
-                         "in translations.",
-                         "Found %(num)d problems in KDE4 markup "
-                         "in translations.",
+                         "Found %(num)d problem in KDE4 translations.",
+                         "Found %(num)d problems in KDE4 translations.",
                          num=self.nproblems)
             else:
                 msg = n_("@info:progress",
-                         "Found %(num)d problem in KDE4 markup "
-                         "in translations (strict mode).",
-                         "Found %(num)d problems in KDE4 markup "
-                         "in translations (strict mode).",
+                         "Found %(num)d problem in KDE4 translations "
+                         "(strict mode).",
+                         "Found %(num)d problems in KDE4 translations "
+                         "(strict mode).",
                          num=self.nproblems)
             report("===== " + msg)
 

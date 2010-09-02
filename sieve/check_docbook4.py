@@ -81,10 +81,8 @@ class Sieve (object):
 
         if self.nproblems > 0:
             msg = n_("@info:progress",
-                     "Found %(num)d problem in Docbook markup "
-                     "in translations.",
-                     "Found %(num)d problems in Docbook markup "
-                     "in translations.",
+                     "Found %(num)d problem in Docbook translations.",
+                     "Found %(num)d problems in Docbook translations.",
                      num=self.nproblems)
             report("===== " + msg)
 
