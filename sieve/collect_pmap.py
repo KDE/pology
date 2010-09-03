@@ -1,160 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Assemble a property map from entries embedded into manual comments.
+Assemble a property map from entries in manual comments.
 
-I{Property maps} (short I{pmaps}) are a component of
-U{Transcript<http://techbase.kde.org/Localization/Concepts/Transcript>},
-translation scripting system of KDE 4, by which properties of certain phrases
-can be defined for use in scripted translations.
-
-A property map is a text file, containing a number of entries each
-with one or more keys, followed by any number of key-value properties.
-An example entry, with grammatical declinations of a city name::
-
-    =/Athens/Atina/nom=Atina/gen=Atine/dat=Atini/acc=Atinu//
-
-The first two characters define, respectively, the key-value separator
-(here C{=}) and the property separator (here C{/}) for the current entry,
-and must not be alphanumeric.
-This is followed by a number of entry keys delimited by property separators,
-and then by a number of key-value properties each internaly delimited by
-the key-value separator.
-The entry is terminated by double property separator.
-Properties of an entry defined like this can later be fetched in
-the scripting system by any of the entry keys;
-keys are case- and whitespace-insensitive.
-
-This sieve will parse pmap entries out of manual comments in messages,
-collect them and write out a property map file.
-Entry keys should not be specified, because the contents of
-C{msgid} and C{msgstr} are automatically added as keys.
-
-Since each manual comment is one line, it is also allowed to drop
-the final double separator which would normally terminate the entry.
-The above example would thus look like this in PO message::
-
-    # pmap: =/nom=Atina/gen=Atine/dat=Atini/acc=Atinu/
-    msgctxt "Greece/city"
-    msgid "Athens"
-    msgstr "Atina"
-
-The manual comment starts with C{pmap:} keyword, followed by normal pmap entry
-(except for default keys; only additional keys should be specified).
-It is also possible to split the entry into several comments,
-with only condition that all share the same set of separators::
-
-    # pmap: =/nom=Atina/gen=Atine/
-    # pmap: =/dat=Atini/acc=Atinu/
-
-In case two or more parsed entries have same keys extracted from translation,
-they are all thrown out of the collection and a warning is reported.
-
-Entries are collected only from translated non-plural messages.
-
-Sieve parameters:
-
-  - C{outfile}: file path into which to write the property map
-  - C{propcons}: file defining constraints on property keys and values,
-        used to validate parsed entries
-  - C{extrakeys}: allow defining extra entry keys
-  - C{derivs:<file>}: path to the file defining derivators for synder entries
-  - C{pmhead}: prefix for pmap entries (instead of default C{pmap:})
-  - C{sdhead}: prefix for synder entries (instead of default C{synder:})
-
-If output file is not specified by C{outfile} parameter,
-nothing is written out. Such runs are useful for validation of entries.
-
-Defining additional entry keys (other than C{msgid} and C{msgstr})
-is by default not allowed; issuing the C{extrakeys} parameter allows it.
-
-Derivating Entries
-==================
-
-There is another, more succint way to define pmap entries in comments.
-Instead of writting out all key-value combinations, it is possible instead
-to generate them through use of I{syntagma derivators}, or synders for short.
-In the earlier example::
-
-    # pmap: =/nom=Atina/gen=Atine/dat=Atini/acc=Atinu/
-
-it can be observed that each form has the same root, C{Atin}, followed
-by the appropriate ending for the given form. This makes it convenient
-to reformulate it as syntagma derivation::
-
-    # synder: Atin|a
-
-Here C{|a} is a I{derivator}; all such derivators are defined in
-a separate synder file (having {.sd} extension by convention),
-and made known to the sieve through the C{derivs} parameter.
-The derivator in this example would be defined like this::
-
-    |a: nom=a, gen=e, dat=i, acc=u
-
-After the derivator name, the definition lists the keys as in the pmap,
-but followed only by the appropriate endings for the given declination.
-For details about syntagma derivation, see documentation to
-L{pology.synder} module.
-
-It is possible to mix pmap (C{# pmap: ...}) and synder C{# synder: ...} entries
-throughout comments, in a single or collection of PO files.
-For example, synder entries may be used to cover majority of cases, which
-follow the general rules, while pmap entries can be used for exceptions.
-
-On the other hand, a pmap entry can also be directly reformulated as
-a synder entry, without using a derivator::
-
-    # synder: nom=Atina, gen=Atine, dat=Atini, acc=Atinu
-
-A question may come to mind here: why have pmap entries at all,
-if synder entries can be used in the same capacity and beyond?
-Because syntagma derivations have a lot of special syntax and rules
-(e.g. what if the phrase itself contains a comma?) to keep in mind,
-while raw pmaps have none past what was described above.
-
-Validating Entries
-==================
-
-The C{propcons} parameter can be used to provide a file defining
-constraints on acceptable property keys, and values by each key.
-Its format is the following::
-
-    # Full-line comment.
-    /key-regex-1/value-regex-1/flags # a trailing comment
-    /key-regex-2/value-regex-2/flags
-    :key-regex-3:value-regex-3:flags # different separator
-    ...
-
-Regular expressions for keys and values are delimited by a separator
-defined by first non-whitespace character in the line,
-which must also be non-alphanumeric.
-Before being applied, regular expressions are automatically wrapped
-as C{^(<regex>)$}, so e.g. an expression to require a prefix is given
-as C{<prefix>.*} and a suffix as C{.*<suffix>}.
-
-For example, a constraint file defining no constraints on either
-property keys or values is this::
-
-    /.*/.*/
-
-A constraint definition file stating all allowed property keys,
-and constraining values for some::
-
-    /nom|gen|dat|acc/.*/
-    /gender/m|f|n/
-    /number/s|p/
-
-Flags following the trailing separator are a string of single-character
-indicators. The following are defined:
-  - C{i}: case-insensitive matching for the value
-  - C{I}: case-insensitive matching for the key
-  - C{t}: the value must both match the regular expression I{and}
-        be equal to C{msgstr} (if C{i} is in effect too, equality
-        check is also case-insensitive)
-  - C{r}: regular expression for the key must match at least one key
-        among all defined properties
-
-Constraint definition file must be UTF-8 encoded.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -174,7 +23,7 @@ from pology.synder import Synder
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Assemble a property map from entries embedded into manual comments."
+    "Assemble a property map from entries in manual comments."
     ))
 
     p.add_param("outfile", unicode,
