@@ -3,14 +3,7 @@
 """
 Make all fuzzy messages untranslated.
 
-For every fuzzy message, the translation and fuzzy data (the flag,
-previous fields) are removed. Manual (translator) comments are left in
-by default, but can be removed as well.
-Obsolete fuzzy messages are completely removed.
-
-Sieve options:
-  - C{rmcomments}: also remove manual comments
-  - C{noprev}: clear only fuzzy messages not having previous fields
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

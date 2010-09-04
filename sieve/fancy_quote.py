@@ -3,21 +3,7 @@
 """
 Transform ASCII single and double quotes into fancy counterparts.
 
-Ordinary ASCII quotes are easy to type on most keyboard layouts, and are
-frequently encountered in English original messages -- rather than proper
-English text quotes, i.e. "fancy" quotes. Translators are therefore easily
-moved to use ASCII quotes instead of the fancy quotes appropriate for their
-language. Use this sieve to replace ASCII quotes in the translation with
-selected fancy quotes.
-
-Sieve parameters for simple, character-to-character quote replacement:
-  - C{single:<quotes>}: opening and closing single qoute (two characters)
-  - C{double:<quotes>}: opening and closing double qoute (two characters)
-
-Sieve parameters for character-to-string quote replacement,
-useful e.g. when target quotes are tags or wiki markup:
-  - C{longsingle:<open>,<close>}: opening and closing single quotes
-  - C{longdouble:<open>,<close>}: opening and closing double quotes
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

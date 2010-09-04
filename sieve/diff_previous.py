@@ -3,32 +3,7 @@
 """
 Embed differences in original text in fuzzy messages into previous fields.
 
-When catalogs are merged with C{--previous} option to C{msgmerge},
-fuzzy messages will retain previous version of original text
-(C{msgid}, etc.) under C{#|} comments.
-This sieve makes an I{embedded difference} from previous to current
-original text, placing it into previous fields. For example, the message::
-
-    #: main.c:110
-    #, fuzzy
-    #| msgid "The Record of The Witch River"
-    msgid "Records of The Witch River"
-    msgstr "Beleška o Veštičjoj reci"
-
-will become after sieving::
-
-    #: main.c:110
-    #, fuzzy
-    #| msgid "{-The Record-}{+Records+} of The Witch River"
-    msgid "Records of The Witch River"
-    msgstr "Beleška o Veštičjoj reci"
-
-Text editors may even provide highlighting for the wrapped difference segments
-(e.g. Kwrite/Kate).
-
-Sieve parameters:
-  - C{strip}: remove embedded differences from previous fields
-  - C{branch:<branch_id>}: process only messages from this branch (summit)
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

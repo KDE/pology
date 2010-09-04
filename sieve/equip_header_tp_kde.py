@@ -3,7 +3,7 @@
 """
 Equip catalog headers within KDE Translation Project with extra information.
 
-This sieve applies L{pology.proj.kde.equip_header} to catalog headers.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
