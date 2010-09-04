@@ -860,7 +860,10 @@ The hook specification now also contains the language code separated by colon, a
 <para>In the API documentation, the very first line of the function description will show if the function is a direct hook or a hook factory, the function header will list the inputs for a direct hook (which conform to the declared hook type) or the factory parameters for a hook factory, and the rest of the description will explain the operation of the hook and the meaning of factory parameters.</para>
 </footnote></para>
 
-<para>General hooks:
+<sect3 id="sec-cmghooks">
+<title>General Hooks</title>
+
+<para>
 <variablelist>
 
 <varlistentry id="hk-bpatterns-bad-patterns">
@@ -1058,7 +1061,12 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 </variablelist>
 </para>
 
-<para>Language-specific hooks:
+</sect3>
+
+<sect3 id="sec-cmlshooks">
+<title>Language-Specific Hooks</title>
+
+<para>
 <variablelist>
 
 <varlistentry id="hk-lang-ja-katakana">
@@ -1153,7 +1161,12 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 </variablelist>
 </para>
 
-<para>Project-specific hooks:
+</sect3>
+
+<sect3 id="sec-cmpshooks">
+<title>Project-Specific Hooks</title>
+
+<para>
 <variablelist>
 
 <varlistentry id="hk-proj-kde-header-equip-header">
@@ -1165,6 +1178,8 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 
 </variablelist>
 </para>
+
+</sect3>
 
 </sect2>
 

@@ -1075,7 +1075,7 @@ This begs the question of what is the need for pmap entries at all, if synder en
 :key_regex_3:value_regex_3:flags # different separator
 # etc.
 </programlisting>
-Regular expressions for keys and values are delimited by a separator defined by first non-whitespace character in the line, which must also be non-alphanumeric. Before being compiled, regular expressions are automatically wrapped as <literal>C{^(<replaceable>regex</replaceable>)$</literal>, so that an expression to require a certain prefix is given as <literal><replaceable>prefix</replaceable>.*</literal> and a suffix as <literal>.*<replaceable>suffix</replaceable></literal>. A property key must match one of the key regexs, or else it is considered invalid. Value to that property must then match the value regexes attached to all matched key regexes.</para>
+Regular expressions for keys and values are delimited by a separator defined by first non-whitespace character in the line, which must also be non-alphanumeric. Before being compiled, regular expressions are automatically wrapped as <literal>^(<replaceable>regex</replaceable>)$</literal>, so that an expression to require a certain prefix is given as <literal><replaceable>prefix</replaceable>.*</literal> and a suffix as <literal>.*<replaceable>suffix</replaceable></literal>. A property key must match one of the key regexs, or else it is considered invalid. Value to that property must then match the value regexes attached to all matched key regexes.</para>
 
 <para>For example, a constraint file defining no constraints on either
 property keys or values is:
@@ -1091,37 +1091,20 @@ while a file explicitly listing all allowed property keys, and constraining valu
 </para>
 
 <para>The last separator in the constraint can be followed by a string of single-character flags. These flags are currently defined:
-<variablelist>
-
-<varlistentry>
-<term><literal>i</literal></term>
+<itemizedlist>
 <listitem>
-<para>Case-insensitive matching for the value.</para>
+<para><literal>i</literal>: case-insensitive matching for the value.</para>
 </listitem>
-</varlistentry>
-
-<varlistentry>
-<term><literal>I</literal></term>
 <listitem>
-<para>Case-insensitive matching for the key.</para>
+<para><literal>I</literal>: case-insensitive matching for the key.</para>
 </listitem>
-</varlistentry>
-
-<varlistentry>
-<term><literal>t</literal></term>
 <listitem>
-<para>The value must both match the regular expression and be equal to <varname>msgstr</varname>. If <literal>i</literal> flag is added too, equality check is also case-insensitive.</para>
+<para><literal>t</literal>: the value must both match the regular expression and be equal to <varname>msgstr</varname>. If <literal>i</literal> flag is added too, equality check is also case-insensitive.</para>
 </listitem>
-</varlistentry>
-
-<varlistentry>
-<term><literal>r</literal></term>
 <listitem>
-<para>Regular expression for the key must match at least one key among all defined properties.</para>
+<para><literal>r</literal>: regular expression for the key must match at least one key among all defined properties.</para>
 </listitem>
-</varlistentry>
-
-</variablelist>
+</itemizedlist>
 </para>
 
 <para>Constraint definition file must be encoded with UTF-8.</para>
@@ -1133,28 +1116,125 @@ while a file explicitly listing all allowed property keys, and constraining valu
 <sect2 id="sv-diff-previous">
 <title><command>diff-previous</command></title>
 
-<para></para>
+<para>When PO files are merged with <option>--previous</option> option to <command>msgmerge</command>, fuzzy messages will retain the previous version of original text (<varname>msgctxt</varname>, <varname>msgid</varname> and <varname>msgid_plural</varname>) under <literal>#|</literal> comments. Then <command>diff-previous</command> can be used to embedded differences from previous to current original into previous original strings. For example, the message:
+<programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting>
+will become after sieving:
+<programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "{-The Record-}{+Records+} of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting>
+Text editors may even provide highlighting for the wrapped difference segments
+(e.g. Kwrite/Kate).</para>
+
+<para>This sieve is very useful if your PO editor does not show differences in the original by itself. To be able to easily see exactly what was changed in the original is important both for efficiency and for quality. Think of a long paragraph in which only one word was changed: without a diff it will take you time to reread it, and you may even miss that changed word.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>strip</option></term>
+<listitem>
+<para>Instead of embedding diffs, remove them from messages, recovering the original form of previous strings. This is useful if you did not update all fuzzy messages but you anyway want to send the PO file away (commit it to the repository, etc.).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>branch:<replaceable>branch</replaceable></option></term>
+<listitem>
+<para>Embed diffs only into messages from given branch (<link linkend="ch-summit">summit</link>).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-empty-fuzzies">
 <title><command>empty-fuzzies</command></title>
 
-<para></para>
+<para>For every fuzzy message, <command>empty-fuzzies</command> removes the translation and fuzzy data (the <literal>fuzzy</literal> flag, previous strings). Translator comments are kept by default, but they can be removed as well. Obsolete fuzzy messages are completely removed.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>rmcomments</option></term>
+<listitem>
+<para>Also remove translator comments from fuzzy messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>noprev</option></term>
+<listitem>
+<para>Empty only those fuzzy messages which do not have previous strings (i.e. when the PO file was merged without <option>--previous</option> option to <command>msgmerge</command>).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-equip-header-tp-kde">
 <title><command>equip-header-tp-kde</command></title>
 
-<para></para>
+<para><command>equip-header-tp-kde</command> applies <link linkend="hk-proj-kde-header-equip-header">the <literal>kde%header/equip-header</literal> hook</link> to headers of PO files within the KDE Translation Project.</para>
+
+<caution><para>This sieve is deprecated. Use <link linkend="sv-apply-header-filter"><command>apply-header-filter</command></link> instead, with parameter <literal>filter:kde%header/equip-header</literal>.</para></caution>
 
 </sect2>
 
 <sect2 id="sv-fancy-quote">
 <title><command>fancy-quote</command></title>
 
-<para></para>
+<para>Ordinary ASCII quotes are easy to type on most keyboard layouts, and these quotes are frequently encountered in non-typeset English texts, rather than proper English quotes. These proper quotes are sometimes called "fancy" quotes. When translating from English, translators can thus be easily moved to use ASCII quotes themselves, instead of the fancy quotes appropriate for their language. To somewhat correct this, <command>fancy-quote</command> can be used to replace ASCII quotes in the translation with selected pairs of fancy quotes.</para>
+
+<para>ASCII quotes that are part of text markup (e.g. attribute values in XML-like tags) must not be replaced, and this sieve will use heuristics to determine such places. In fact, it will replace quotes rather conservatively. Nevertheless, unless some sort of automatic validation is available, converted text should be manually inspected for correctness.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>single:<replaceable>quotes</replaceable></option></term>
+<listitem>
+<para>Opening and closing quote to replace ASCII single quotes (i.e. <replaceable>quotes</replaceable> is a two-character string). If not given, single quotes are not replaced (but see the <option>longsingle</option> parameter).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>single:<replaceable>quotes</replaceable></option></term>
+<listitem>
+<para>Opening and closing quote to replace ASCII double quotes. If not given, double quotes are not replaced (but see the <option>longdouble</option> parameter).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>longsingle:<replaceable>open</replaceable>,<replaceable>close</replaceable></option></term>
+<listitem>
+<para>Alternative to <option>single</option>, if opening and closing quotes are not single characters. The value are the opening quote string and the closing quote string, separated by comma.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>longdouble:<replaceable>open</replaceable>,<replaceable>close</replaceable></option></term>
+<listitem>
+<para>Alternative to <option>double</option>, if opening and closing quotes are not single characters.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
