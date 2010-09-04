@@ -79,6 +79,7 @@ div.toc > dl > dd > dl > dd > dl > dt { /* sect2 entry */
 }
 
 /*
+Problem: no way to tell continued paragraph after a figure, listing, etc.
 p {
     text-indent: 2em;
     margin-top: 0.25em;
@@ -88,13 +89,16 @@ p:first-of-type {
     text-indent: 0em;
 }
 */
-
-p > sup { /* footnote; damn it, no class */
+p > sup {
     font-size: 75%;
     vertical-align: top;
 }
 p > sup > a {
     vertical-align: top;
+}
+div.footnote > p {
+    /* text-indent: 2em; */
+    font-size: 75%;
 }
 
 div.authorgroup {
