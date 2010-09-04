@@ -131,8 +131,7 @@ hint="«Brave» es tradueix per «Valent», no per «Brau» (fals amic)"
 # «Billion» es tradueix per «mil milions».
 {\bbillions?\b}i
 valid msgstr="miliards?"
-valid msgstr="mil\smilió"
-valid msgstr="mil\smilions"
+valid msgstr="mil\smili(ó|ons)"
 valid msgstr="milers\sde\smilions"
 valid !msgstr="bili(ó|ons)"
 hint="«Billion» es tradueix per «Mil milions», no per «Bilió» (fals amic)"
@@ -172,8 +171,8 @@ hint="«Carpet» es tradueix per «Catifa», no per «Carpeta» (fals amic)"
 
 # «Casual» es tradueix per «Informal».
 {\bcasual\b}i
-valid msgstr="informal(s)"
-valid !msgstr="casual(s)"
+valid msgstr="informals?"
+valid !msgstr="casuals?"
 hint="«Casual» es tradueix per «Informal», no per «Casual» (fals amic)"
 
 # «Casually» es tradueix per «Informalment».
@@ -217,9 +216,9 @@ hint="«Comprehensive» es tradueix per «Exhaustiu o global», no per «Compren
 
 # «Conductor» es tradueix per «Revisor, director d'orquestra».
 {\bconductor\b}i
-valid msgstr="revisor(a)"
-valid msgstr="director"
-valid !msgstr="conductor(a)"
+valid msgstr="revisora?"
+valid msgstr="directora?"
+valid !msgstr="conductora?"
 hint="«Conductor» es tradueix per «Revisor o director d'orquestra», no per «Conductor» (fals amic)"
 
 # «Conference» es tradueix per «Congrés».
@@ -233,7 +232,7 @@ hint="«Conference» es tradueix per «Congrés», no per «Conferència» (fals
 # «Confident» es tradueix per «Confiat».
 {\bconfident\b}i
 valid msgstr="confia(t|da)"
-valid msgstr="segur(a)"
+valid msgstr="segura?"
 valid !msgstr="confident"
 hint="«Confident» es tradueix per «Confiat», no per «Confident» (fals amic)"
 
@@ -419,7 +418,7 @@ hint="«Enter, to» es tradueix per «Introduir», no per «Entrar» (fals amic)
 # «Escalator» es tradueix per «Escales mecàniques».
 {\bescalator\b}i
 valid msgstr="escal(a|es)"
-valid !msgstr="escalador(a)"
+valid !msgstr="escaladora?"
 hint="«Escalator» es tradueix per «Escales mecàniques», no per «Escalador» (fals amic)"
 
 # «Eventually» es tradueix per «Finalment».
@@ -553,7 +552,7 @@ hint="«Introduce» es tradueix per «Presentar», no per «Introduir» (fals am
 # «Large» es tradueix per «Gran».
 {\blarge\b}i
 valid msgstr="gran"
-valid !msgstr="llarg(a)"
+valid !msgstr="llarga?"
 hint="«Large» es tradueix per «Gran», no per «Llarg» (fals amic)"
 
 # «Lecture» es tradueix per «Conferència».
@@ -649,7 +648,8 @@ hint="«Office» es tradueix per «Oficina», no per «Ofici» (fals amic)"
 valid msgstr="corrents?"
 valid msgstr="normals?"
 valid msgstr="com(ú|una|uns|unes)"
-valid !msgstr="ordinari(a|s|es)"
+valid !msgstr="ordinaria?"
+valid !msgstr="ordinari(s|es)"
 hint="«Ordinary» es tradueix per «Normal», no per «Ordinari» (fals amic)"
 
 # «Pair» es tradueix per «Parell/Dos».
@@ -743,7 +743,7 @@ hint="«Preservative» es tradueix per «Preservatiu», no per «Conservant» (f
 
 # «Presume» es tradueix per «Suposar»
 {\bpresume\b}i
-valid msgstr="suposa(r)"
+valid msgstr="suposar?"
 valid !msgstr="presum(ir|eixo|eixes)"
 hint="«Presume» es tradueix per «Suposar», no per «Presumir» (fals amic)"
 
@@ -772,8 +772,8 @@ hint="«Produce» es tradueix per «Presentar», no per «Produir» (fals amic)"
 
 # «Professor» es tradueix per «Catedràtic».
 {\bprofessor\b}i
-valid msgstr="Catedràtic(a)"
-valid !msgstr="professor(a)"
+valid msgstr="Catedràtica?"
+valid !msgstr="professora?"
 hint="«Professor» es tradueix per «Catedràtic», no per «Professor» (fals amic)"
 
 # «Prove» es tradueix per «Demostració».
@@ -895,7 +895,7 @@ hint="«Salt» es tradueix per «Sal», no per «Salt» (fals amic)"
 {\bscholars?\b}i
 valid msgstr="savi(a|s|es)"
 valid msgstr="estudi(ós|osa|osos|oses)"
-valid msgstr="erudit(t|ta|ts|des)"
+valid msgstr="erudi(t|ta|ts|des)"
 valid msgstr="académi(c|ca|cs|ques)"
 valid !msgstr="escolars?"
 hint="« Scholar » es tradueix per «Savi», no per «Escolar» (fals amic)"
@@ -945,7 +945,7 @@ hint="«Soap» es tradueix per «Sabó», no per «Sopa» (fals amic)"
 # «Spectacles» es tradueix per «Ulleres».
 {\bspectacles\b}i
 valid msgstr="ulleres"
-valid !msgstr="espectacle(s)"
+valid !msgstr="espectacles?"
 hint="«Spectacles» es tradueix per «Ulleres», no per «Espectacles» (fals amic)"
 
 # «Suburb» es tradueix per «Barri residencial».
@@ -957,7 +957,7 @@ hint="«Suburb» es tradueix per «Barri residencial», no per «Suburbi» (fals
 # «Success» es tradueix per «Éxit».
 {\bsuccess\b}i
 valid msgstr="éxit"
-valid msgstr="satisfactori(a)"
+valid msgstr="satisfactoria?"
 valid !msgstr="succés"
 hint="«Success» es tradueix per «Éxit», no per «Succés» (fals amic)"
 
@@ -1011,7 +1011,7 @@ hint="«Topic» es tradueix per «Tema», no per «Tòpic» (fals amic)"
 {\bultimate\b}i
 valid msgstr="el\smés\srecent"
 valid msgstr="definiti(u|va)"
-valid !msgstr="últim(a)"
+valid !msgstr="última?"
 hint="«Ultimate» es tradueix per «Definitiu», no per «Últim» (fals amic)"
 
 # «Villa» es tradueix per «Xalet».

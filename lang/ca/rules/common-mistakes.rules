@@ -4,16 +4,42 @@
 
 include file="filter.include"
 
-# «tea» es tradueix per «te» (sense accent).
+# «a el» ha de ser «al».
+{\ba\sel\b}i
+hint="«a el» s'ha de substituir per «al» (error freqüent)"
+
+# «al respecte» (castellanisme) ha de ser «pel que fa al cas», «referent a això», «respecte a».
+{\bal\srespecte\b}i
+hint="«al respecte» s'ha de substituir per «referent a això» (error freqüent)"
+
+# «fixe» ha de ser «fix» (i prefix, sufix).
+[\bfixes?\b]i
+valid msgid="fixes"
+valid msgstr="xfixes"
+valid msgstr="fixes" cat="k3b" after="imatges\s"
+valid msgstr="fixes" cat="kstars_calc-apcoords" after="en\sel\scel\sno\ssón\s"
+valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
+hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
+
+# «prefixe/sufixe» ha de ser «prefix/sufix».
+[\b(pre|suf)fixes?\b]i
+valid msgid="fixes"
+hint="«sufixe/prefixe» s'ha de substituir per «sufix/prefix» (error freqüent)"
+
+# «hi han» ha de ser «hi ha».
+{\bhi\sha(n|vien)\b}i
+hint="«hi han» s'ha de substituir per «hi ha» (error freqüent)"
+
+# «tea» es tradueix per «te» (sense accent) (error freqüent).
 {\btea\b}i
 valid msgstr="te"
-hint="«tea» es tradueix per «te» (sense accent)"
+hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
 
 # «té» del verb tenir cal que porti accent.
 {\bte\b}i
 valid msgid="tea"
 valid msgid="te"
-hint="«té» (verb tenir) cal que porti accent"
+hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
@@ -26,6 +52,6 @@ valid msgstr="altres" cat="kfileshare"
 valid msgstr="tothom" cat="kfileshare"
 valid msgstr="tots" cat="kdeprint_theory" #docmessage
 valid msgstr="WWW" before="\swide\sweb"
-hint="«world» es tradueix per «món» (amb accent)"
+hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
 
 # End of common mistakes rules file
