@@ -3,100 +3,7 @@
 """
 Find messages in catalogs.
 
-Matches patterns against elements of the message and examines its properties,
-and reports the message if the match is complete. Matched messages are
-reported to standard output, with the name of the file from which they come,
-and referent line and entry number within the file.
-
-Sieve parameters for matching:
-  - C{msgctxt:<regex>}: regular expression to match against the C{msgctxt}
-  - C{msgid:<regex>}: regular expression to match against the C{msgid}
-  - C{msgstr:<regex>}: regular expression to match against the C{msgstr}
-  - C{comment:<regex>}: regular expression to match against comments
-  - C{transl}: the message must be translated
-  - C{obsol}: the message must be obsolete
-  - C{active}: the message must be active (translated and not obsolete)
-  - C{flag:<regex>}: regular expression to match against flags
-  - C{plural}: the message must be plural
-  - C{maxchar}: messages must have no more than this number of characters
-  - C{lspan:<start>:<end>}: the message line number must be in this range
-  - C{espan:<start>:<end>}: the message entry number must be in this range
-  - C{branch:<branch_id>}: match only messages from this branch (summit)
-  - C{fexpr}: logical expression made out of any previous matching typs
-  - C{or}: use OR- instead of AND-matching for text fields
-  - C{invert}: report messages not matching the condition
-
-If more than one of the matching parameters are given (e.g. both C{msgid} and
-C{msgstr}), the message matches only if all of them match.
-Using the C{or} parameter this can be changed for matching in text fields
-(C{msgctxt}, C{msgid}, C{msgstr}, C{comment})
-such that the message matches if any of text fields match.
-In case of plural messages, C{msgid} is considered matched if either C{msgid}
-or C{msgid_plural} fields match, and C{msgstr} if any of the C{msgstr}
-fields match.
-If C{invert} parameter is issued, messages are reported if they do not match
-the condition assembled by other parameters.
-
-Every matching option has a counterpart with prepended C{n*},
-by which the meaning of the match is inverted; for example, if both
-C{msgid:foo} and C{nmsgid:bar} are given, then the message matches
-if its C{msgid} contains C{foo} but does not contain C{bar}.
-
-When simple AND- or OR-matching is not enough, parameter C{fexpr} can
-be used to specify full logical expressions, using any of the basic
-matchers linked with AND, OR, NOT parameters, and parenthesis.
-If a matcher needs a value (e.g. regular expressions), within expression
-it is given as C{MATCHER/VALUE/}, where another nonalphanumeric character
-can be used instead of slash if the value contains it.
-If matchers is influenced by another global parameter (e.g. case sensitivity),
-in the expression it may be able to take overriding modifiers as single
-characters after matcher name, i.e. C{MATCHER/VALUE/MODS} (or C{MATCHER/MODS}
-for parameterless matchers). Examples::
-
-    # Either msgctxt or comment contain 'foo', and msgid contains 'bar'.
-    fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'
-
-    # msgid contains 'quuk' in any casing and msgstr exactly 'Qaak'.
-    fexpr:'msgid/quuk/ and msgstr/Qaak/c'
-
-Available modifiers to matchers are:
-  - C{c}: text matching pattern is case-sensitive
-  - C{i}: text matching pattern is case-insensitive
-
-Sieve parameters for replacement:
-  - C{replace:<string>}: string to replace matched part of translation
-
-The C{replace} option must go together with the C{msgstr} match. As usual for regular expression replacement, the replacement string may contain C{\\<number>} references to groups defined by C{msgstr} match.
-
-Other sieve parameters:
-  - C{accel:<chars>}: strip these characters as accelerator markers
-  - C{case}: case-sensitive match (insensitive by default)
-  - C{mark}: mark each matched message with C{match} flag
-  - C{filter:<hookspec>}: apply F1A filtering hook to translation prior
-        to matching (see L{getfunc.get_hook_ireq} for the format
-        of hook specifications)
-  - C{lokalize}: open catalogs at matched messages in Lokalize
-  - C{nomsg}: do not report messages (to only count the number of matches)
-
-If accelerator character is not given by C{accel} option, the sieve will try
-to guess the accelerator; it may choose wrongly or decide that there are no
-accelerators. E.g. an C{X-Accelerator-Marker} header field is checked for the
-accelerator character.
-
-Using the C{mark} option, C{match} flag will be added to each matched message,
-modifying the PO file. Modified files can then be opened in an editor,
-and messages looked up by this flag.
-This is for cases when the search is performed in order to modify something
-in matched messages, but doing so automatically using C{replace} option
-is not possible or safe enough.
-(Also useful here is the option C{-m} of C{posieve}, to write out
-the paths of modified POs into a separate file.)
-
-When used in a sieve chain, this sieve will stop further sieving of messages
-which do not match. This makes it useful as a filter for selecting subsets
-of messages on which other sieves should operate.
-Parameter C{nomsg} can be used here to prevent reporting of
-matched messages to standard output.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -124,7 +31,7 @@ from pology.sieve import add_param_poeditors
 def setup_sieve (p):
 
     p.set_desc(_("@info sieve discription",
-    "Find and display messages."
+    "Find messages in catalogs."
     "\n\n"
     "Each message is matched according to one or several criteria, "
     "and if it matches as whole, it is displayed to standard output, "
