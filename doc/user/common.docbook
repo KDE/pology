@@ -498,7 +498,7 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 
 <para>One of the general aims of Pology is to fit well with other tools typically found in translation workflows based on PO. Although examples of this can be seen throughout the manual, this section gives the overview of integration by the particular supported tool.</para>
 
-<sect2>
+<sect2 id="sec-cmsupped">
 <title>PO Editors</title>
 
 <para>When Pology is used to validate the translation, be it through informal but <link linkend="sv-find-messages">precise searches</link> or formal <link linkend="sec-lgrules">validation rules</link>, those translations found to be invalid must be modified (or possibly a special translator comment added to the message to silence a false positive). Pology will normally always report the PO file path and the location of the message within the file, so that you can get to it in you preferred PO editor. For greater efficiency, however, Pology can directly open the PO files on problematic messages in some PO editors. Currently these are:
@@ -516,7 +516,7 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 
 </sect2>
 
-<sect2>
+<sect2 id="sec-cmsuppvcs">
 <title>Version Control Systems</title>
 
 <para>From the viewpoint of translators, PO files are frequently (though not always) handled in the same way as program code, through version control systems (VCS). Pology defines an abstraction of version control functionality, which enables its tools to transparently cooperate with several VCS. Usually it is necessary to tell a Pology tool which VCS is used, which is done by specifying one of VCS keywords. Currently supported VCS and their keywords are:

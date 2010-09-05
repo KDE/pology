@@ -1241,7 +1241,282 @@ Text editors may even provide highlighting for the wrapped difference segments
 <sect2 id="sv-find-messages">
 <title><command>find-messages</command></title>
 
-<para></para>
+<para><command>find-messages</command> is the search and replace workhorse of Pology. It applies one or several conditions to different parts of the PO message, with selectable boolean linking between them. If the message is matched as whole, it is reported and possibly some replacements are done. Messages are by default reported to standard output, with full location reference (PO file path, line and entry number), but can also be opened directly in one of supported PO editors (see <xref linkend="sec-cmsupped"/>).</para>
+
+<para>When used in a sieve chain, <command>find-messages</command> will stop further sieving of messages which did not satisfy the conditions. This makes it useful as a filter for selecting subsets of messages on which other sieves should operate.</para>
+
+<para>There are three logical groups of parameters: matching parameters, replacement parameters, and general parameters. Matching and replacement parameters have certain relationships between themselves, while general parameters have mutually independent effects (i.e. as usual for sieve parameters).</para>
+
+<sect3 id="sec-svfmmpar">
+<title>Matching Parameters</title>
+
+<para>Matching parameters specify patterns for matching by parts of the message, or represent binary conditions (whether the message is translated, etc.). For example:
+<programlisting>
+$ posieve find-messages -s msgid:'foo bar'
+</programlisting>
+will report all messages which contain the phrase "foo bar" in their <varname>msgid</varname> (or <varname>msgid_plural</varname>) string. When several matching parameters are given, by default the message is matched if all patterns match; that is, boolean linking of conditions is AND. This:
+<programlisting>
+$ posieve find-messages -s msgid:'foo bar' -s transl
+</programlisting>
+will report all messages that contain "foo bar" in original <emphasis>and</emphasis> are translated. Boolean linking can be switched to OR by issuing the <option>or</option> parameter. To find all messages that contain the word "tooltip" in <emphasis>either</emphasis> context or comments:
+<programlisting>
+$ posieve find-messages -s msgctxt:tooltip -s comment:tooltip -s or
+</programlisting>
+(Actually, the effect of <option>or</option> is somewhat more specific, see its description below.) String matching is by default case insensitive, which can be changed globally by issuing the <option>case</option> parameter.</para>
+
+<para>Every matching parameter has a negative counterpart, named by prepending <literal>n</literal> to the original parameter, which matches when the original parameter does not. Running:
+<programlisting>
+$ posieve find-messages -s msgid:'hello' -s nmsgstr:'zdravo'
+</programlisting>
+would find all messages that contain "hello" in the original and do <emphasis>not</emphasis> contain "zdravo" in the translation (a typical usage pattern in quick terminology checks).</para>
+
+<para>To find all messages not matching a set of conditions, in principle it would be possible to negate the whole condition set by switching between positive/negative parameters and AND/OR-linking, but this can be cumbersome. Instead, the <option>invert</option> parameter can be issued to report messages that are not matched by the condition set.</para>
+
+<para>Sometimes neither simple AND nor simple OR boolean linking is sufficient to form the search. Therefore the <option>fexpr</option> parameter is provided, which can be used to specify a search expression with explicit boolean operators and parentheses for controlling the evaluation order. With <option>fexpr</option>, the previous example could be reformulated as:
+<programlisting>
+$ posieve find-messages -s fexpr:'msgid/hello/ and not msgstr/zdravo/'
+</programlisting>
+For details, see the description of <option>fexpr</option> below.</para>
+
+<para>Currently defined matching parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>(n)msgctxt:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Regular expression to match the <varname>msgctxt</varname> string.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)msgid:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Regular expression to match the <varname>msgid</varname> and <varname>msgid_plural</varname> strings. The condition is satisfed as whole if <emphasis>either</emphasis> of these strings matches.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)msgstr:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Regular expression to match <varname>msgstr</varname> strings. The condition is satisfed as whole if any of the <varname>msgstr</varname> strings matches.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)comment:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Regular expression to match extracted and translator comments and source reference comments. The condition is satisfed as whole if any of these comments matches.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)flag:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Regular expression to match flags. This matches each flag in turn, and not the flag comment as a monolithic string. The condition is satisfed as whole if any flag matches.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)transl</option></term>
+<listitem>
+<para>The message must be translated.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)obsol</option></term>
+<listitem>
+<para>The message must be obsolete.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)active</option></term>
+<listitem>
+<para>The message must be active, i.e. translated and not obsolete.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)plural</option></term>
+<listitem>
+<para>The message must be a plural message.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)maxchar:<replaceable>number</replaceable></option></term>
+<listitem>
+<para>Original and translation can have at most this many characters. The condition is satisfied as whole if all these strings satisfy it.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)lspan:<replaceable>start</replaceable>:<replaceable>end</replaceable></option></term>
+<listitem>
+<para>The referent line number of the message (the line in which its <varname>msgid</varname> string starts) must fall within given range. The starting number is included in the range, the ending number is not.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)espan:<replaceable>start</replaceable>:<replaceable>end</replaceable></option></term>
+<listitem>
+<para>Like <option>lspan</option>, but instead of line numbers it applies to entry numbers. These are the numbers that dedicated PO editors usually report in their user interfaces.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)branch:<replaceable>branch</replaceable></option></term>
+<listitem>
+<para>The message must belong to this branch (<link linkend="ch-summit">summit</link>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)fexpr:<replaceable>expression</replaceable></option></term>
+<listitem>
+
+<para>Boolean expression with explict boolean operators and parenthesis for priority, constructed out of any of the other matching parameters. If a match parameter needs a value (like a regular expression), in the expression it is given as <literal><replaceable>match</replaceable>/<replaceable>value</replaceable>/</literal>, where any nonalphanumeric character can be used consistently instead of <literal>/</literal> (in case the value itself contains <literal>/</literal>). For example, the expression:
+<programlisting>
+fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'
+</programlisting>
+is satisfied if either the context or comments contain "foo", and the original text contains "bar".</para>
+
+<para>If matching is influenced by a general parameter (e.g. case sensitivity), in the expression it may be able to take overriding modifiers in form of single characters after the value, i.e. <literal><replaceable>match</replaceable>/<replaceable>value</replaceable>/<replaceable>modifiers</replaceable></literal>. Assuming that <option>case</option> parameter has not been issued, the expression:
+<programlisting>
+fexpr:'msgid/quuk/ and msgstr/Qaak/c'
+</programlisting>
+will be satisfied if the original text contains "quuk" in any casing, and translation contains exactly "Qaak". Currently available modifiers are:
+<itemizedlist>
+<listitem>
+<para><literal>c</literal>: matching is case-sensitive.</para>
+</listitem>
+<listitem>
+<para><literal>i</literal>: matching is case-insensitive. May be needed when string matching is globally case-sensitive due to <option>case</option> being issued.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect3>
+
+<sect3 id="sec-svfmrpar">
+<title>Replacement Parameters</title>
+
+<para>Replacement is done in pair with matching the appropriate string in the message. For example, to replace each appearance of "foobar" with "fumbar" in translation, this would be run:
+<programlisting>
+$ posieve find-messages -s msgstr:foobar -s replace:fumbar
+</programlisting>
+The <option>replace</option> parameter works in pair with <option>msgstr</option>, i.e. <option>replace</option> cannot be issued without issuing <option>msgstr</option> as well. There are two possible problems with replacement as straightforward as this. The first is that if "foobar" was a whole word (or start of a word), and this word in the text started with upper-case letter, the replacement would make it lower-case. This can be avoided by executing replacement twice with case sensitivity:
+<programlisting>
+$ posieve find-messages -s msgstr:foobar -s replace:fumbar -scase
+$ posieve find-messages -s msgstr:Foobar -s replace:Fumbar -scase
+</programlisting>
+The other problem is if the word is split by an accelerator marker, for example:
+<programlisting>
+msgstr "... f_oobar ..."
+</programlisting>
+The search may still find the word (see the <option>accel</option> parameter below), but direct replacement would cause the loss of accelerator marker, and therefore it is not done.<footnote>
+<para>Some heuristics for reinsertion of the accelerator marker may be implemented in the future.</para>
+</footnote> To see such cases, you should monitor the output of <command>find-messages</command> (always a good idea when doing batch replacement), where matched and replaced parts of the text will be highlighted.</para>
+
+<para>As usual for replacement based on regular expression, the replacement string may contain <literal>\<replaceable>number</replaceable></literal> references to groups defined in the matching pattern. For example, the previous example of case-aware replacement could be more efficiently and more elegantly performed with:
+<programlisting>
+$ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
+</programlisting>
+(Though this is possible only if the original and the replacement start with the same letter.)</para>
+
+<para>Currently defined replacement parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>replace:<replaceable>string</replaceable></option></term>
+<listitem>
+<para>The string to replace the match by <option>msgstr</option> parameter. Can contain regular expression group references.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect3>
+
+<sect3 id="se-svfmgpar">
+<title>General Parameters</title>
+
+<para>Parameters influencing general behavior of <command>find-messages</command> are as follows:
+<variablelist>
+
+<varlistentry>
+<term><option>or</option></term>
+<listitem>
+<para>Boolean OR instead of AND linking of conditions, but only for string matchers: <option>msgctxt</option>, <option>msgid</option>, <option>msgstr</option>, <option>comment</option>. This restriction may seem odd, but it is what is mostly needed in practice. For example, the set of conditions:
+<programlisting>
+-s msgctxt:tooltip -s comment:tooltip -s transl -s or
+</programlisting>
+would match all translated messages which have "tooltip" in context or in comments, and not messages which are either translated or have "tooltip" in context or in comments. For full control over the expression, use the <option>fexpr</option> parameter.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>invert</option></term>
+<listitem>
+<para>Inverts the selection: messages satisfying the condition set are <emphasis>not</emphasis> selected.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>accel:<replaceable>characters</replaceable></option></term>
+<listitem>
+<para>Characters to consider as <link linkend="sec-poaccel">accelerator markers</link>, to remove before applying matching patterns. If not given, they may be read from PO files (see <link linkend="hdr-x-accelerator-marker"><literal>X-Acclerator-Marker</literal></link> in <xref linkend="sec-cmheader"/>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>case</option></term>
+<listitem>
+<para>Matching patterns for strings and comments are by default case-insensitive, and this parameter switches them to case-sensitive.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>mark</option></term>
+<listitem>
+<para>To each selected message a <literal>match</literal> flag is added, modifying the PO file. Modified files can then be opened in the editor,
+and selected messages looked up by this flag. This is typically done when something should be modified in selected messages, but doing that automatically (using <option>replace</option> parameter) is not possible or safe enough. Also useful here is the option <option>-m</option>/<option>--output-modified</option> of <command>posieve</command>, to write out the paths of modified PO files into a separate file, which can then be fed to the editor.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>filter:<replaceable>hookspec</replaceable></option></term>
+<listitem>
+<para>The hook to modify the translation before applying the <option>msgstr</option> matcher to it. The hook type must be F1A. The parameter can be repeated to add several hooks.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>nomsg</option></term>
+<listitem>
+<para>Do not report selected messages, either to standard output or to PO editors. Useful when <command>find-messages</command> is a pre-filter in the sieve chain.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on selected messages in Lokalize (unless <option>nomsg</option> is in effect).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect3>
 
 </sect2>
 
