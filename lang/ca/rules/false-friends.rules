@@ -546,7 +546,7 @@ hint="«Institut» es tradueix per «Fundació o organització», no per «Insti
 {\bintroduce\b}i
 valid msgstr="present(ar|a|i)"
 valid msgstr="provo(car|ca|qui)"
-valid !msgstr="introdu(ir|eixi)"
+valid !msgstr="introdu(ir|eixi|eixin)"
 hint="«Introduce» es tradueix per «Presentar», no per «Introduir» (fals amic)"
 
 # «Large» es tradueix per «Gran».
@@ -621,6 +621,7 @@ valid msgstr="net" after="kdemail\s"
 valid msgstr="net" after="keys.gnupg."
 valid msgstr="net" after="linux\sru\s"
 valid msgstr="net" after="mis\s"
+valid msgstr="net" after="perldoc:/"
 valid msgstr="net" after="print.sf."
 valid msgstr="net" after="shani\s"
 valid msgstr="net" after="sourceforge."
