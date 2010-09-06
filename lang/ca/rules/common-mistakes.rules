@@ -31,6 +31,10 @@ hint="«sufixe/prefixe» s'ha de substituir per «sufix/prefix» (error freqüen
 {\bhi\sha(n|vien)\b}i
 hint="«hi han» s'ha de substituir per «hi ha» (error freqüent)"
 
+# «per exemple» s'abrevia amb un espai al mig «p. ex.».
+{\bp\.ex\.}i
+hint="«p.ex.» s'abrevia amb un espaio al mig «p. ex.» (error freqüent)"
+
 # «tea» es tradueix per «te» (sense accent) (error freqüent).
 {\btea\b}i
 valid msgstr="te"

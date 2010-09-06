@@ -1,0 +1,248 @@
+# Catalan typographic rules
+# Copyrigth 2010, Josep Ma. Ferrer (txemaq@gmail.com)
+# by the KDE Catalan Team (kde-i18n-ca@kde.org)
+# based in the work of the KDE Spanish Team
+# License: GPLv3
+
+include file="filter.include"
+
+validGroup beforePunctuation
+valid after="[a-zA-Z0-9çÇáéíóúàèòÁÉÍÓÚÀÈÒüÜ\>\»\)\]\}\«\%\-\&\<\^\\]"
+valid before="$"
+valid after="\&[\w\-\_]*?\;"
+
+validGroup afterPunctuation
+valid before="[$a-zA-Z0-9çÇáéíóúàèòÁÉÍÓÚÀÈÒüÜ\>\»\(\[\{\«\%\-\&\<\^\\]"
+valid after="^"
+
+validGroup openQuotes
+valid after="[\<\>\(\[\{\-\=\.\,\;\:\s]"
+valid after="\&\w+?\;"
+valid after="^"
+valid before=".+»"
+
+validGroup closeQuotes
+valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
+valid after="\&[\w\-\_]*?\;"
+valid before="$"
+valid after="«.+"
+
+[\s\:]
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+valid before="\{"
+valid after="\d+" before="\s?\d+"
+hint="No s'ha de posar un espai abans del signe dels dos punts (tipografia)"
+
+[\:\S]
+validGroup beforePunctuation
+valid after="^"
+valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
+valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?"
+valid after="\d+\s?" span="\:\d+"
+valid after="hores"
+valid after="minuts"
+valid after="segons"
+valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
+valid after="white-space" # CSS
+valid before="~"
+valid ctx="List of words.*"
+valid ctx="Numbers and characters"
+valid ctx="Hours:minutes:seconds"
+valid ctx="CSV separator"
+valid ctx="Query"
+valid span="\:$"
+hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
+
+[\s\;]
+valid ctx="Numbers and characters"
+valid ctx="CSV separator" 
+hint="No s'ha de posar un espai abans del signe de punt i coma (tipografia)"
+
+[;\S]
+validGroup beforePunctuation
+valid after="&amp;[0-9a-zA-Z\.\-]+"
+valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
+valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
+valid after="bold" before="'"   # CSS
+valid ctx="Numbers and characters"
+valid ctx="CSV separator" 
+valid ctx="unit synonyms for matching user input"
+valid ctx="Query"
+valid span="\;$"
+hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
+
+[\s\!]
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+valid after="-"
+valid before="a="
+hint="No s'ha de posar un espai abans del signe d'admiració (tipografia)"
+
+[\!\S]
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+valid span="\!$"
+valid before="="
+hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
+
+[\¡.*?\!\.]
+hint="No s'ha de posar un punt després del signe d'admiració (tipografia)"
+
+[\¡.*?\!\s[a-z]]
+hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (tipografia)"
+
+[\s\?]
+valid ctx="Numbers and characters"
+valid ctx="Query"
+hint="No s'ha de posar un espai abans del signe d'interrogació (tipografia)"
+
+[\?\S]
+validGroup beforePunctuation
+valid ctx=".*one character"
+valid ctx="Numbers and characters"
+valid ctx="Query"
+valid span="\?$"
+valid span="\?\»"
+valid before="~"
+hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
+
+[\¿.*?\?\.]
+hint="No s'ha de posar un punt després del signe d'interrogació (tipografia)"
+
+[\¿.*?\?\s[a-z]]
+hint="S'ha de posar en majúscula la paraula posterior al signe d'interrogació (tipografia)"
+
+[\s\,]
+valid ctx="Numbers and characters"
+valid ctx="Keywords" 
+valid ctx="CSV separator"
+valid after="\d+" before="\s?\d+"
+hint="No s'ha de posar un espai abans del signe de coma (tipografia)"
+
+[\,\S]
+validGroup beforePunctuation
+#valid after="\d" before="\d" 
+valid ctx="\w+ OF TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid="CREDIT_FOR_TRANSLATORS"
+valid ctx="Numbers and characters"
+valid ctx="Keywords" 
+valid ctx="Query"
+valid ctx="CSV separator"
+valid after="\d+\s?" span="\,\d"
+valid span="\,$"
+valid span="\,\?"
+hint="S'ha de posar un espai després del signe de coma (tipografia)"
+
+[\»]
+validGroup closeQuotes 
+valid ctx="Numbers and characters"
+hint="S'ha de posar un espai després del signe de cometa llatina de tancament (tipografia)"
+
+[\.\»] 
+valid after="\«"
+valid after="\.\."
+hint="S'ha de posar el punt després del signe de cometa llatina de tancament (tipografia)"
+
+[\«]
+validGroup openQuotes
+valid ctx="Numbers and characters"
+hint="S'ha de posar un espai abans del signe de cometa llatina d'obertura (tipografia)"
+
+[\«]
+valid before=".*?[\»\(\{\[\«\"\']"
+hint="Cal obrir i tancar les cometes llatines (tipografia)"
+
+[\s\s+]
+valid msgid="\s\s+"
+hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
+
+[\s\%]
+valid before="\w"
+valid before="$"
+valid before=":m"
+valid after="o"
+valid after="-"
+valid after="width=\"\d+" before="\"" # HTML                         
+valid ctx="Numbers and characters"
+hint="No s'ha de posar un espai abans del signe de percentatge (tipografia)"
+
+[\s\.]
+#valid before="[A-Z]+?\b" # Keywords
+valid before="\w{2,7}\b" # Extensions
+valid before="\/\w+" # Files
+hint="No s'ha de posar un espai abans del signe de punt (tipografia)"
+
+[\.\)]
+valid after="\.\."
+valid after="S\.u\.S\.E"
+valid cat="kspread"
+valid cat="kstars"
+#valid after="etc|min|sec|s|appl"
+hint="S'ha de posar el punt després del parèntesi i no abans (tipografia)"
+
+[\.\S]
+validGroup beforePunctuation
+valid ctx="EMAIL OF TRANSLATORS"
+valid ctx="trans_comment"
+valid ctx="Numbers and characters"
+valid ctx="unit synonyms for matching user input"
+valid msgid="CREDIT_FOR_TRANSLATORS"
+valid before="D?COPserver"
+valid before="\w{1,7}\b" # Extensions
+#valid after="\(" # Versions
+valid after="XXX"
+valid span="Last.Fm"
+valid after="\.\." 
+valid span="\.\." before="\."
+valid span="\.\." after="\."
+valid span="\.$"
+valid span="KDE\se.V."
+valid span="\.~"
+hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
+
+[\.\.\.\s\.]
+hint="No s'ha de posar un signe de punt després de punts suspensius (tipografia)"
+
+[&cr;]
+hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
+
+#[\S\.\s[a-zç]]
+#valid after="\." span="\.\.\s[a-zç]"
+#valid ctx="unit synonyms for matching user input"
+#hint="S'ha d'utilitzar una majúscula després d'un punt (tipografia)"
+
+[\(]
+valid before=".*?[\)\(\{\[\«\"\']"
+hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
+
+#[\[]
+#valid before=".*?[\]\»\""\']"
+#hint="S'han d'obrir i tancar els claudàtors []. Sempre aparellats (tipografia)"
+
+[\{]
+valid before=".*?[\}\{\(\[\«\"\']"
+hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
+
+#[\(c\)]
+#valid msgstr="©"
+#hint="Cal utilitzar el símbol «©» en lloc de «(c)» (tipografia)"
+
+[\b[A-Z]{2,6}s\b]
+hint="Cal escriure les sigles en singular en català (treueiu la «s» final) (tipografia)"
+
+[\b[A-Z]{2,6}\'s\b]
+hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
+
+[\b\&[\w\d\-\_]+\;s\b]
+hint="Cal escriure les sigles en singular en català (treieu la «s» final) (tipografia)"
+
+[\b\&[\w\d\-\_]+\;\'s\b]
+hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
+
+[\b([A-Za-záéíóúàèòüçÁÉÍÓÚÀÈÒÇ])+\b\.{1,2}\b(\1)\b]
+hint="Hi ha una paraula consecutiva repetida en el páragraf (tipografia)"
+
+# End of rule file
