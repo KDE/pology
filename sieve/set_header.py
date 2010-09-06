@@ -3,58 +3,7 @@
 """
 Set elements of the PO header.
 
-Sometimes a certain header field or comment needs to be updated throughout POs,
-and this sieve serves that purpose.
-
-Sieve parameters for setting a field:
-  - C{field:<name>:<value>}: set the named field to the given value
-  - C{create}: add the field if not present
-  - C{after:<name>}: when adding a field, add it after the given field
-  - C{before:<name>}: when adding a field, add it before the given field
-  - C{reorder}: reinsert the field to match implied order
-  - C{remove:<name>}: remove the named field (all, if more than one)
-  - C{removerx:<name>}: remove fields matched by regex (not case-sensitive)
-
-The C{field} parameter takes the exact name of the header field and
-a value to set it to. But, by itself it will set the field only if it
-is already present in the header. To create the field if not present,
-C{create} option must be given. If the field is being added, parameters
-C{after} and C{before} can be used to specify where to insert it;
-by default the new field is appended at the end of the header.
-If the field is present, using the option C{reorder} it can be moved within
-the header to match the order implied by C{after} and C{before}.
-
-Sieve parameters for setting and removing comments:
-  - C{title:<value>}: set title comment to the given value
-  - C{rmtitle}: remove title comments
-  - C{copyright:<value>}: set copyright comment to the given value
-  - C{rmcopyright}: remove copyright comment
-  - C{license:<value>}: set the license comment to the given value
-  - C{rmlicense}: remove license comment
-  - C{author:<value>}: set author comment to the given value
-  - C{rmauthor}: remove author comments
-  - C{comment:<value>}: set free comment to the given value
-  - C{rmcomment}: remove free comments
-  - C{rmallcomm}: remove all header comments
-
-Parameters C{title}, C{author}, and C{comment} can be repeated to set
-several of each, as they are multi-valued properties.
-All existing comments of given type are removed before setting the new ones,
-i.e. the new comments are I{not} appended to the existing.
-
-Comment values are checked for some minimal consistency,
-e.g. author comments must contain email addresses,
-licence comments the word 'licence',
-etc.
-
-Value strings (both of fields and comments) may contain %-directives,
-which are expanded to catalog-dependent substrings prior to setting the value.
-These are:
-  - C{%poname}: catalog name (equal to file name without C{.po} extension)
-
-If literal %-sign is needed, it can be escaped by entering C{%%}.
-The directive can also be given with braces, as C{%{...}},
-if its use would be ambiguous otherwise.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
