@@ -1191,7 +1191,7 @@ Text editors may even provide highlighting for the wrapped difference segments
 
 <para><command>equip-header-tp-kde</command> applies <link linkend="hk-proj-kde-header-equip-header">the <literal>kde%header/equip-header</literal> hook</link> to headers of PO files within the KDE Translation Project.</para>
 
-<caution><para>This sieve is deprecated. Use <link linkend="sv-apply-header-filter"><command>apply-header-filter</command></link> instead, with parameter <literal>filter:kde%header/equip-header</literal>.</para></caution>
+<para>There are no parameters.</para>
 
 </sect2>
 
@@ -1523,35 +1523,143 @@ and selected messages looked up by this flag. This is typically done when someth
 <sect2 id="sv-generate-xml">
 <title><command>generate-xml</command></title>
 
-<para></para>
+<para><command>generate-xml</command> creates a partial XML representation of a group of PO files.</para>
+
+<!-- TODO: Document the format in more detail. -->
+<para>The output XML format is as follows. Each PO file in the group is represented by a <literal>&lt;po&gt;</literal> element, which contains a list of <literal>&lt;msg&gt;</literal> elements, one for each message. The C<literal>&lt;msg&gt;</literal> element contains the usual parts of a PO message:
+<itemizedlist>
+<listitem>
+<para><literal>&lt;line&gt;</literal>: referent line number of the message</para>
+</listitem>
+<listitem>
+<para><literal>&lt;refentry&gt;</literal>: referent entry number of the message</para>
+</listitem>
+<listitem>
+<para><literal>&lt;status&gt;</literal>: current status of the message (obsolete, translated, untranslated, fuzzy)</para>
+</listitem>
+<listitem>
+<para><literal>&lt;msgid&gt;</literal>: the original text</para>
+</listitem>
+<listitem>
+<para><literal>&lt;msgstr&gt;</literal>: the translation</para>
+</listitem>
+<listitem>
+<para><literal>&lt;msgctxt&gt;</literal>: disambiguating context</para>
+</listitem>
+</itemizedlist>
+If the PO message contains plural forms, they will be represented with <literal>&lt;plural&gt;</literal> subelements of <literal>&lt;msgstr&gt;</literal>.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>xml:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>By default the XML content is written to standard output, and this parameter can be used to send it to a file instead</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>translatedOnly</option></term>
+<listitem>
+<para>Only translated messages are exported to XML (i.e. fuzzy, untranslated and obsolete are ignored).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-merge-corr-tree">
 <title><command>merge-corr-tree</command></title>
 
-<para></para>
+<para>When doing corrections on a copy of PO files tree, it is not possible to easily merge back just the updated translations, because word wrapping in PO file can be different, generating much more difference than it should.</para>
+
+<para>Additionally, tools like <command>pogrep</command> from <ulink url="http://translate.sourceforge.net/wiki/toolkit/index">Translate Toolkit</ulink> will create new partial tree as output, containing matched messages only. <command>merge-corr-tree</command> will help you to merge changes made in that partial tree back into the main tree.</para>
+
+<para>The main PO files tree is the input, and the <option>pathdelta</option> parameter is used to provide the path difference to where the partial correction tree is located.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>pathdelta:<replaceable>search</replaceable>:<replaceable>replace</replaceable></option></term>
+<listitem>
+<para>Specifies that the partial tree is located at path obtained when <literal><replaceable>search</replaceable></literal> is replaced with <literal><replaceable>replace</replaceable></literal> in the input path.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-normalize-header">
 <title><command>normalize-header</command></title>
 
-<para></para>
+<para><command>normalize-header</command> applies <link linkend="hk-normalize-canonical-header">the <literal>normalize/canonical-header</literal> hook</link> to PO file headers.</para>
+
+<para>There are no parameters.</para>
 
 </sect2>
 
 <sect2 id="sv-normctxt-delim">
 <title><command>normctxt-delim</command></title>
 
-<para></para>
+<para>In older PO files, disambiguating contexts may be embedded into <varname>msgid</varname> strings, as the initial part of the string delimited from the actual text with predefined substrings, here called the "head" and the "tail". For example, in:
+<programlisting>
+msgid ""
+"_:this-is-context\\n"
+"This is original text"
+msgstr "This is translated text"
+</programlisting>
+the head is the underscore-colon sequence (<literal>_:</literal>), and the tail the newline (<literal>\\n</literal>). <command>normctxt-delim</command> will convert embedded contexts of the delimiter-type to proper <varname>msgctxt</varname> strings.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>head:<replaceable>string</replaceable></option></term>
+<listitem>
+<para>The head of the delimiter-type embedded context.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>tail:<replaceable>string</replaceable></option></term>
+<listitem>
+<para>The tail of the delimiter-type embedded context.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-normctxt-sep">
 <title><command>normctxt-sep</command></title>
 
-<para></para>
+<para>In older PO files, disambiguating contexts may be embedded into <varname>msgid</varname> strings, as the initial part of the string separated from the actual text by a predefined substring. For example, in:
+<programlisting>
+msgid "this-is-context|This is original text"
+msgstr "This is translated text"
+</programlisting>
+the separator string is the pipe character (<literal>|</literal>). <command>normctxt-sep</command> will convert embedded contexts of the separator-type to proper <varname>msgctxt</varname> strings.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>sep:<replaceable>string</replaceable></option></term>
+<listitem>
+<para>The string that separates the context and the text in separator-type embedded context.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
