@@ -3,6 +3,8 @@
 """
 Remove obsolete messages from catalogs.
 
+Documented in C{doc/user/sieving.docbook}.
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """

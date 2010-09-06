@@ -3,23 +3,7 @@
 """
 Remove selected manual comments in fuzzy messages.
 
-Being translator's input, manual comments are copied verbatim to fuzzy
-messages on merge. Depending on the intent behind the particular comments,
-translator may want to automatically remove them for fuzzied messages
-(possibly adding them manually again when revisiting messages).
-
-Sieve parameters for selecting manual comments for removal:
-  - C{all}: all manual comments
-  - C{nopipe}: embedded lists of no-pipe flags (C{# |, foo, ...})
-  - C{pattern:<regex>}: comments matching the regular expression
-  - C{exclude:<regex>}: comments not matching the regular expression
-
-Other sieve parameters:
-  - C{case}: do case-sensitive matching (insensitive by default)
-
-Comments are selected for removal by first applying specific criteria
-in an unspecified order, then the C{pattern} match, and finally the
-C{exclude} match.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

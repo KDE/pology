@@ -3,63 +3,7 @@
 """
 Resolve aggregate messages produced by C{msgcat}.
 
-In default mode of operation, C{msgcat} produces an aggregate message when
-in different catalogs it encounters a message with the same key,
-but different translation or manual or automatic comments.
-A general aggregate message looks like this::
-
-    # #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
-    # manual-comments-1
-    # #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
-    # manual-comments-2
-    # ...
-    # #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
-    # manual-comments-n
-    #. #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
-    #. automatic-comments-1
-    #. #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
-    #. automatic-comments-2
-    #. ...
-    #. #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
-    #. automatic-comments-n
-    #: source-refs-1 source-refs-2 ... source-refs-n
-    #, fuzzy, other-flags
-    msgctxt "context"
-    msgid "original-text"
-    msgstr ""
-    "#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\\n"
-    "translated-text-1\\n"
-    "#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\\n"
-    "translated-text-2\\n"
-    "..."
-    "#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\\n"
-    "translated-text-n"
-
-Each message part is aggregated only if different in at least one message
-in the group. E.g. automatic comments may be aggregated while translations not.
-
-This sieve is used to resolve such aggregate messages into normal messages,
-picking one variant from each aggregated part.
-
-Sieve parameters:
-  - C{first}: always pick the first variant
-  - C{unfuzzy}: unfuzzy resolved messages (I{dangerous}, see below)
-  - C{keepsrc}: keep all source references instead of removing them
-
-By default, the variant picked is the one with most occurences,
-or the first of the several with same number of occurences.
-If C{first} is issued, the first variant is picked unconditionally.
-
-Since there is no information to split the aggregated source references
-into original groups, they are entirely removed unless requested otherwise
-by issuing the C{keepsrc} parameter.
-
-Aggregated messages are always made fuzzy, leaving no way to determine
-if and which of the original messages were fuzzy.
-Therefore, by default, the resolved message is left fuzzy too.
-If, however, it is known beforehand that none of the original messages
-were fuzzy, resolved messages can be unfuzzied by issuing
-the C{unfuzzy} parameter.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

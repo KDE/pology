@@ -3,11 +3,7 @@
 """
 Remove previous fields (C{#|...}) from messages.
 
-By default, previous fields are removed only from messages not having
-the C{fuzzy} flag. This can be changed by giving the C{all} parameter.
-
-Sieve parameters:
-  - C{all}: remove previous fields from all messages
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

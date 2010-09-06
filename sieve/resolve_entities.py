@@ -3,26 +3,7 @@
 """
 Resolve XML entities in translation.
 
-XML entities are substrings of the form C{&entityname;},
-which are resolved at build time or run time into underlying values.
-Sometimes it may be advantageous to have them resolved alreayd in
-the PO file itself.
-
-Sieve parameters:
-  - C{entdef:<filepath>}: path to file containing entity definitions;
-        can be repeated to add several files
-  - C{ignore:<entname1>,...}: entities to ignore when resolving
-
-Entity definition files are plain text files of the following format::
-
-    <!-- This is a commment. -->
-    <!ENTITY name1 'value1'>
-    <!ENTITY name2 'value2'>
-    <!ENTITY name3 'value3'>
-    ...
-
-Standard XML entities (C{&lt;}, C{&gt;}, C{&apos;}, C{&quot;}, C{&amp;})
-are ignored by default.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

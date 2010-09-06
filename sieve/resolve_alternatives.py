@@ -3,12 +3,7 @@
 """
 Resolve alternative directives in translation.
 
-See description of L{resolve_alternatives()<resolve.resolve_alternatives>}
-function for information on format and behavior of alternative directives.
-
-Sieve parameters:
-  - C{alt:N,Mt}: index (1-based) of alternative to take from each derictive,
-        and total number of alternatives per directive (e.g. C{1,2t})
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
