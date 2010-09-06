@@ -1666,42 +1666,211 @@ the separator string is the pipe character (<literal>|</literal>). <command>norm
 <sect2 id="sv-remove-fuzzy-comments">
 <title><command>remove-fuzzy-comments</command></title>
 
-<para></para>
+<para>Being translator's input, translator comments are copied verbatim to fuzzy messages created on merging with template. Depending on the purpose of translator comments (e.g. see <xref linkend="sec-cmskipcheck"/> for some special types), it may be better to automatically remove some of them from fuzzy messages (and then possibly add them back manually when updating the translation). If run without any parameters <command>remove-fuzzy-comments</command> will do nothing, so one or more parameters need to be given to actually remove any comment.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>all</option></term>
+<listitem>
+<para>Simply all translator comments in fuzzy messages are removed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>nopipe</option></term>
+<listitem>
+<para>Translator comments containing <link linkend="p-trflag">translator flags</link> (see <xref linkend="sec-cmskipcheck"/>) are removed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>pattern:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Translator comment must match the given regular expression to be removed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>exclude:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Translator comment is removed if it does not match the given regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>case</option></term>
+<listitem>
+<para>Matching patterns are by default case-insensitive, and this parameter switches to case-sensitivity.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>When several removal criteria are specified, first those other than <option>pattern</option> and <option>exclude</option> are applied in unspecified order, then the <option>pattern</option> match, and finally the <option>exclude</option> match.</para>
 
 </sect2>
 
 <sect2 id="sv-remove-obsolete">
 <title><command>remove-obsolete</command></title>
 
-<para></para>
+<para><command>remove-obsolete</command> simply removes all obsolete messages, whether fuzzy or translated, from the PO file.</para>
+
+<para>There are no parameters.</para>
 
 </sect2>
 
 <sect2 id="sv-remove-previous">
 <title><command>remove-previous</command></title>
 
-<para></para>
+<para><command>remove-previous</command> removes previous strings, i.e. <literal>#| ...</literal> comments, from messages.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>all</option></term>
+<listitem>
+<para>Previous strings are by default removed only from non-fuzzy messages. This parameter specifies to remove previous strings from all messages, including fuzzy.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-resolve-aggregates">
 <title><command>resolve-aggregates</command></title>
 
-<para></para>
+<para>In its default mode of operation, <command>msgcat(1)</command> produces an aggregate message when in different catalogs it encounters a message with the same key but different translation or translator or extracted comments. A general aggregate message looks like this:
+<programlisting>
+# #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
+# manual-comments-1
+# #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
+# manual-comments-2
+# ...
+# #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
+# manual-comments-n
+#. #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
+#. automatic-comments-1
+#. #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
+#. automatic-comments-2
+#. ...
+#. #-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#
+#. automatic-comments-n
+#: source-refs-1 source-refs-2 ... source-refs-n
+#, fuzzy, other-flags
+msgctxt "context"
+msgid "original-text"
+msgstr ""
+"#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\\n"
+"translated-text-1\\n"
+"#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\\n"
+"translated-text-2\\n"
+"..."
+"#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\\n"
+"translated-text-n"
+</programlisting>
+Each message part is aggregated only if different in at least one message
+in the group. For example, extracted comments may be aggregated while translations not.</para>
+
+<para><command>resolve-aggregates</command> is used to resolve aggregate messages of this kind into normal messages, by picking one variant from each aggregated part.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>first</option></term>
+<listitem>
+<para>By default, the picked variant is the one with most occurences, or the first of the several with same number of occurences. If this parameter is issued, the first variant is picked unconditionally.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>unfuzzy</option></term>
+<listitem>
+<para>Aggregated messages are always made fuzzy, leaving no way to determine
+if and which of the original messages were fuzzy. Therefore, by default, the resolved message is left fuzzy too. If, however, it is known beforehand that none of the original messages were fuzzy, resolved messages can be unfuzzied by issuing this parameter.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>keepsrc</option></term>
+<listitem>
+<para>Since there is no information based on which the aggregated source references can be split into originating groups, they are entirely removed unless this parameter is issued.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-resolve-alternatives">
 <title><command>resolve-alternatives</command></title>
 
-<para></para>
+<para><command>resolve-alternatives</command> resolves <emphasis>alternatives directives</emphasis> found in the translation into one of the alternatives.</para>
+
+<para>An alternative directive is a substring of the form <literal>~@/.../.../...</literal>, for example:
+<programlisting>
+msgstr "I see a ~@/pink/white/ elephant."
+</programlisting>
+<literal>~@</literal> is the directive head, which is followed by a character that defines the delimiter of alternatives (can be arbitrary), and then by alternatives themselves. The number of alternatives per directive is not defined by the directive itself, but it is provided as the sieve parameter (i.e. all alternative directives must have some number of alternatives).</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>alt:<replaceable>N</replaceable>,<replaceable>M</replaceable>t</option></term>
+<listitem>
+<para>Specifies how to resolve alternatives. <literal><replaceable>N</replaceable></literal> is the index (starting from 1) of the alternative to take from each directive, and <literal><replaceable>M</replaceable></literal> is the number of alternatives per directive. Example: <literal>alt:1,2t</literal>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>If an alternatives directive is invalid (e.g. too little alternatives), it is reported to standard output. If at least one alternatives directive in the text is not valid, the text is not modifed.</para>
 
 </sect2>
 
 <sect2 id="sv-resolve-entities">
 <title><command>resolve-entities</command></title>
 
-<para></para>
+<para>XML entities are substrings of the form <literal>&lt;<replaceable>entityname</replaceable>&gt;</literal>, typically encountered in XML-like text markups, but elsewhere too. They are resolved into underlying, human-readable values at build time (when translated text documents are created) or at run time (in translated user interfaces). Sometimes it may be better to have them resolved already in the PO file itself, and that is what <command>resolve-entities</command> does.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>entdef:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>Path to the file which contains entitiy definitions. It can be repeated to add several files.</para>
+
+<para>Entity definition files are plain text files of the following format:
+<programlisting>
+&lt;!-- This is a commment. --&gt;
+&lt;!ENTITY name1 'value1'&gt;
+&lt;!ENTITY name2 'value2'&gt;
+&lt;!ENTITY name3 'value3'&gt;
+...
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>ignore:<replaceable>entitynames</replaceable></option></term>
+<listitem>
+<para>Entities which should be ignored during resolution. Standard XML entities (<literal>&amp;lt;</literal>, <literal>&amp;gt;</literal>, <literal>&amp;apos;</literal>, <literal>&amp;quot;</literal>, <literal>&amp;amp;</literal>) are ignored by default.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
