@@ -3,20 +3,7 @@
 """
 Convert delimitor-embedded context to Gettext context.
 
-Context is embedded into C{msgid} field, as the initial part of the field
-starting and ending with predefined substrings, the "head" and the "tail".
-For example, in::
-
-    msgid ""
-    "_:this-is-context\\n"
-    "This is original text"
-    msgstr "This is translated text"
-
-the head is underscore-colon (C{_:}), and the tail newline (C{\\n}).
-
-Sieve options:
-  - C{head} (mandatory): head string of the delimited context
-  - C{tail} (mandatory): tail string of the delimited context
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

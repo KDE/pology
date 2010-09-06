@@ -3,17 +3,7 @@
 """
 Convert separator-embedded context to Gettext context.
 
-Context is embedded into C{msgid} field, as the initial part of the field
-separated from the message text by a predefined substring.
-For example, in::
-
-    msgid "this-is-context|This is original text"
-    msgstr "This is translated text"
-
-the separator string is the pipe character (C{|}).
-
-Sieve options:
-  - C{sep} (mandatory): string used as context separator
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

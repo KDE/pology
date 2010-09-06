@@ -3,21 +3,7 @@
 """
 Merge translation corrections from (partial) PO files tree into main tree.
 
-When doing corrections on a copy of PO files tree it is not possible to easy
-merge back just updated translations as word wrapping in PO file can be
-different, generating much more difference than it should.
-
-Additionally, using tools like C{pogrep} from Translate Toolkit will give new
-partial tree as output with matched messages only. This sieve will help
-translator to merge changes made in that partial tree back into main tree.
-
-Give main PO files tree as input and provide path difference where partial
-correction tree is available.
-
-There is just one sieve parameter:
-  - C{pathdelta:<find>:<replace>}: Specify that partial tree is available
-    at path obtained when C{<find>} is replaced with C{<replace>} inside
-    input path
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @author: Goran Rakic (Горан Ракић) <grakic@devbase.net>

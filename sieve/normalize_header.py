@@ -3,8 +3,7 @@
 """
 Check and rearrange content of PO header into canonical form.
 
-This sieve applies the L{normalize.canonical_header} hook
-to catalog headers.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

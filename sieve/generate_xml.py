@@ -3,27 +3,7 @@
 """
 Generate an XML tree from the input PO files.
 
-This sieve allows the generation of an XML representation of a PO file or
-a list of PO files (depending on options of the posieve.py command line).
-
-Each PO file is represented by a C{<po>} tag which contains a list of C{<msg>} tag, for each message. 
-The C{<msg>} tag contains the classical entries describing a PO message :
-  - C{<line>}: Line number of the message
-  - C{<refentry>}: Reference entry
-  - C{<status>}: Current status of the message (obsolete, translated,
-    untranslated, fuzzy)
-  - C{<msgid>}: Message Identifier
-  - C{<msgstr>}: Translated Message
-  - C{<msgctxt>}: Message Context
-
-Please note that if the translated message contains plural forms, they will be
-described as C{<plural>} subtags of C{<msgstr>} tag.
-
-The sieve parameters are:
-  - C{xml:<filename>}: Export the input PO files into the file instead
-    of the standard output
-  - C{translatedOnly}: Only export translated entries (and so, ignore obsolete,
-    untranslated and fuzzy strings)
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Nicolas Ternisien <nicolas.ternisien@gmail.com>
 @license: GPLv3
