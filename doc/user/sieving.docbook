@@ -1877,7 +1877,161 @@ msgstr "I see a ~@/pink/white/ elephant."
 <sect2 id="sv-set-header">
 <title><command>set-header</command></title>
 
-<para></para>
+<para>Sometimes a PO header field or comment needs to be updated in many PO files at once, and <command>set-header</command> serves that purpose.</para>
+
+<para>Parameters for setting and removing header fields:
+<variablelist>
+
+<varlistentry>
+<term><option>field:<replaceable>name</replaceable>:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the field with given name to given value. This parameter can be repeated to set several fields in one run.</para>
+
+<para>By default, <option>field</option> will actually set the field only if it is already present in the header. To add the field if not present, the <option>create</option> parameter must be issued as well. If the field is being added, parameters <option>after</option> and <option>before</option> can be used to specify where to insert it, or else the new field is appended at the end of the header. If the field is present but not positioned according to <option>after</option> and <option>before</option>, the <option>reorder</option> parameter can be issued to move the field within the header.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>create</option></term>
+<listitem>
+<para>The field should be added if it is not present in the header.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>after</option></term>
+<listitem>
+<para>When a field is added, it should be inserted after this field.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>before</option></term>
+<listitem>
+<para>When a field is added, it should be inserted before this field.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>reorder</option></term>
+<listitem>
+<para>If the field is present, but it is in the wrong place according to <option>after</option> and <option>before</option>, this parameter will cause it to be reinserted in proper place.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>remove:<replaceable>field</replaceable></option></term>
+<listitem>
+<para>Remove the field with this name. If there are several fileds of that name, all are removed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>removerx:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Remove all fields matched by the given regular expression.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Parameters for setting and removing header comments:
+<variablelist>
+
+<varlistentry>
+<term><option>title:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the title comment to the given value. It can be repeated, since the title can be composed of multiple comment lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmtitle</option></term>
+<listitem>
+<para>Remove title comments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>copyright:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the copyright comment to the given value.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmcopyright</option></term>
+<listitem>
+<para>Remove the copyright comment.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>license:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the license comment to the given value.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmlicense</option></term>
+<listitem>
+<para>Remove the license comment.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>author:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the author comment to the given value. It can be repeated, since there may be more authors (i.e. translators).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmauthor</option></term>
+<listitem>
+<para>Remove author comments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>comment:<replaceable>value</replaceable></option></term>
+<listitem>
+<para>Set the free comment to the given value. It can be repeated, since there can be any number of free comment lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmcomment</option></term>
+<listitem>
+<para>Remove free comments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>rmallcomm</option></term>
+<listitem>
+<para>Remove all header comments.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Note that all existing comments of given type are removed before setting the new ones, i.e. the new comments are <emphasis>not</emphasis> appended to the existing. For example, if single <option>author</option> parameter is issued, with a translator name and email address as value, this one translator will replace all existing translators in the header comments.</para>
+
+<para>Comment values are checked for some minimal consistency, e.g. author comments must contain email addresses, licence comments the word "licence", etc.</para>
+
+<para>Value strings (both of fields and comments) may contain %-directives,
+which are expanded to catalog-dependent substrings prior to setting the value.
+Currently available directive are:
+<itemizedlist>
+<listitem>
+<para><literal>%poname</literal>: PO domain name (equal to file name without <filename>.po</filename> extension)</para>
+</listitem>
+</itemizedlist>
+If literal % character is needed (e.g. when setting the <literal>Plural-Forms</literal> field), it can be escaped by doubling it, <literal>%%</literal>. The directive can also be given inside braces, as <literal>%{...}</literal> when it would be ambiguous otherwise.</para>
 
 </sect2>
 
