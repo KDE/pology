@@ -1446,7 +1446,7 @@ $ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
 
 </sect3>
 
-<sect3 id="se-svfmgpar">
+<sect3 id="sec-svfmgpar">
 <title>General Parameters</title>
 
 <para>Parameters influencing general behavior of <command>find-messages</command> are as follows:
@@ -1607,7 +1607,287 @@ and selected messages looked up by this flag. This is typically done when someth
 <sect2 id="sv-stats">
 <title><command>stats</command></title>
 
-<para></para>
+<para><command>stats</command> collects statistics on PO files, such as message and word counts, and more. Statistics can be presented in several ways and on several levels.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>accel:<replaceable>characters</replaceable></option></term>
+<listitem>
+<para>Characters to consider as <link linkend="sec-poaccel">accelerator markers</link>, to remove them when splitting text to count words. If not given, they may be read from PO files (see <link linkend="hdr-x-accelerator-marker"><literal>X-Acclerator-Marker</literal></link> in <xref linkend="sec-cmheader"/>), or else some usual accelerator marker characters are removed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>detail</option></term>
+<listitem>
+<para>In table views, by default only message, word, and character counts are given. This parameter requests additional derived data, such as expansion factors (ratio of words in translation to words in original), number of words per message, etc.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>incomplete</option></term>
+<listitem>
+<para>When run over a collection of PO files, all non-fully translated PO files are listed separately, with very brief statistics of incompleteness.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>incompfile:<replaceable>file</replaceable></option></term>
+<listitem>
+<para>Write a file with paths of all non-fully translated PO files, one per line. This file can then be fed with <option>-f</option>/<option>--from-files</option> back to <command>posieve</command> or another script, to process only incomplete PO files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>templates:<replaceable>search</replaceable>:<replaceable>replace</replaceable></option></term>
+<listitem>
+<para>If there exists both a directory with translated PO files and with POT (template) files, and not every POT file has the corresponding PO file, this parameter can be used to count POT files without PO counterpart as fully untranslated in statistics. Value to the parameter are two strings separated by colon: the first string will be searched for in directory paths of processed PO files, and replaced with the second string to construct corresponding directory paths of POT files. For example:
+<programlisting>
+$ cd $MYTRANSLATIONS
+$ ls
+my_lang  templates
+$ posieve stats -s templates:my_lang:templates my_lang/
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>minwords:<replaceable>number</replaceable></option></term>
+<listitem>
+<para>Only messages with at least this many words (in any of original or translation strings) are counted into statistics.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>maxwords:<replaceable>number</replaceable></option></term>
+<listitem>
+<para>Only messages with at most this many words (in any of original or translation strings) are counted into statistics.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lspan:<replaceable>start</replaceable>:<replaceable>end</replaceable></option></term>
+<listitem>
+<para>Only messages with referent line numbers (line number of <varname>msgid</varname>) in this range are counted into statistics. The starting line is included in the range, the ending line is not. If start is omitted (e.g. <option>lspan::500</option>) it is assumed 0, and if end is omitted (e.g. <option>lspan:300</option> or <option>lspan:300:</option>) it is assumed the total number of lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>espan:<replaceable>start</replaceable>:<replaceable>end</replaceable></option></term>
+<listitem>
+<para>Only messages with entry numbers (as reported by PO editors) in this range are counted into statistics. Same boundary inclusion and omission rules as for <option>lspan</option> apply; e.g. <option>espan:4:8</option> means to count messages with entry numbers 4, 5, 6, and 7.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>branch:<replaceable>branch</replaceable></option></term>
+<listitem>
+<para>Only messages from given branch are counted into statistics (<link linkend="ch-summit">summit</link>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>bydir</option></term>
+<listitem>
+<para>Statistics is broken by directories, that is a report is displayed for each group of PO files in the same directory (and not below it). More usually used with bar displays than with tabular displays.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>byfile</option></term>
+<listitem>
+<para>Statistics is broken by files, that is a report is displayed for each PO file. Usually used with bar displays.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>msgbar</option></term>
+<listitem>
+<para>Instead of a table with detailed statistics, only message counts are shown, accompanied with a text-art bar. Mostly useful in combination with <option>bydir</option> and <option>byfile</option>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>wbar</option></term>
+<listitem>
+<para>Like <option>msgbar</option>, but to have word instead of message counts.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>absolute</option></term>
+<listitem>
+<para>Bar displays (on <option>msgbar</option> and <option>wbar</option>) are normaly relative, meaning that when <option>byfile</option> or <option>bydir</option> is in effect, each bar is of same length. This parameter makes bars scaled to sizes of PO files or directories. For example, if <option>msgbar</option> and <option>byfile</option> are issued, then the bar of a PO file with twice as many messages as another PO file will be twice as long.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>ondiff</option></term>
+<listitem>
+<para>Fuzzy messages are often very easy to correct (e.g. a typo fixed), which may make their word count misleading when estimating translation effort. This can be amended by issuing this parameter, to reduce word and character counts of fuzzy messages by the difference ratio between current and previous original text, providing that the previous original is available and that the difference is smaller than some threshold. Removed parts of counts are added to translated category, so that total counts remain the same.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>mincomp:<replaceable>fraction</replaceable></option></term>
+<listitem>
+<para>Only those PO files which have translation completeness (measured by the ratio of translated to all messages, excluding obsolete) equal to or higher than the given fraction are included into statistics. This is especially useful when for each new template an empty PO file is automatically produced (instead of translators having to start work from a template), to include into statistics only those files which have actually seen some translation (using a small non-zero number for the fraction, e.g. <option>fraction:1e-6</option>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option></option></term>
+<listitem>
+<para>The hook to modify the translation before splitting it to count words and characters (see <xref linkend="sec-cmhooks"/>). The hook type must be F1A. The parameter can be repeated to add several hooks, which are then applied in the order of specification.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<sect3 id="sec-svstemctxt">
+<title>Handling Embedded Contexts</title>
+
+<para>Some older PO files will have disambiguating contexts embedded into the <varname>msgid</varname> string, instead of using the newer standard <varname>msgctxt</varname> string. There are several customary ways in which this is done, but in general it depends on the translation environment where such PO files are used.</para>
+
+<para>Embedded contexts will skew the statistics. Pology contains several sieves for converting embedded contexts into <varname>msgctxt</varname> contexts, named <command>normctxt-*</command>. When statistics on such PO files is computed, a sieve chain should be used in which the <command>stats</command> sieve is preceeded by the context conversion sieve. For example, if the embedded context starts the <varname>msgid</varname> and ends with <literal>|</literal>, statistics should be computed with:
+<programlisting>
+$ posieve --no-sync normctxt-sep,stats -s sep:'|' ...
+</programlisting>
+Note that <command>normctxt-*</command> sieves, since they modify messages, would by default cause PO files to be modified on disk. Option <option>--no-sync</option> is therefore issued to prevent modifications to sieved files.</para>
+
+</sect3>
+
+<sect3 id="sec-svstoutleg">
+<title>Output Legend</title>
+
+<para>The default output from <command>stats</command> is a table where rows present statistics for a category of messages, and columns the particular categories of data:
+<programlisting>
+$ posieve stats frobaz/
+-              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
+translated     ...    ...    ...     ...     ...    ...    ...
+fuzzy          ...    ...    ...     ...     ...    ...    ...
+untranslated   ...    ...    ...     ...     ...    ...    ...
+total          ...    ...    ...     ...     ...    ...    ...
+obsolete       ...    ...    ...     ...     ...    ...    ...
+</programlisting>
+The <literal>total</literal> row is the sum of <literal>translated</literal>, <literal>fuzzy</literal>, and <literal>untranslated</literal> rows, whereas <literal>obsolete</literal> row is excluded. The columns are as follows:
+<itemizedlist>
+<listitem>
+<para><literal>msg</literal>: number of messages</para>
+</listitem>
+<listitem>
+<para><literal>msg/tot</literal>: percentage of messages relative to total</para>
+</listitem>
+<listitem>
+<para><literal>w-or</literal>: number of words in the original</para>
+</listitem>
+<listitem>
+<para><literal>w/tot-or</literal>: percentage of words in the original relative to total</para>
+</listitem>
+<listitem>
+<para><literal>w-tr</literal>: number of words in the translation</para>
+</listitem>
+<listitem>
+<para><literal>ch-or</literal>: number of characters in original</para>
+</listitem>
+<listitem>
+<para><literal>ch-tr</literal>: number of characters in the translation</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>The output with <option>detail</option> parameter in effect is the same as default, with several columns of derived data appended to the table:
+<itemizedlist>
+<listitem>
+<para><literal>w-ef</literal>: word expansion factor (increase in words from the original to the translation)</para>
+</listitem>
+<listitem>
+<para><literal>ch-ef</literal>: character expansion factor (increase in characters from the original to the translation)</para>
+</listitem>
+<listitem>
+<para><literal>w/msg-or</literal>: average of number words per message in the original</para>
+</listitem>
+<listitem>
+<para><literal>w/msg-tr</literal>: average number of words per message in the translation</para>
+</listitem>
+<listitem>
+<para><literal>ch/w-or</literal>: average number of characters per message in the original</para>
+</listitem>
+<listitem>
+<para><literal>ch/w-tr</literal>: average number of characters per message in the translation</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>If any of the sieve parameters that restrict or modify counting (such as <option>ondiff</option>, <option>lspan</option>, etc.) have been issued, this is indicated in the output by a <literal>modifiers: ...</literal> line:
+<programlisting>
+$ posieve stats -s maxwords:5 -s ondiff frobaz/
+(...the statistics table...)
+modifiers: at most 5 words and scaled fuzzy counts
+</programlisting>
+</para>
+
+<para>When the <option>incomplete</option> parameter is given, the statistics table is followed by a table of non-fully translated PO files, with counts of fuzzy and untranslated messages and words:
+<programlisting>
+$ posieve stats -s incomplete frobaz/
+(...the overall statistics table...)
+catalog              msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
+frobaz/foxtrot.po        0      11        11     0   123     123
+frobaz/november.po      19      14        33    85    47     132
+frobaz/sierra.po        22       0        22   231     0     231
+</programlisting>
+In the column names, <literal>msg/*</literal> and <literal>w/*</literal> stand for messages and words; <literal>*/f</literal>, <literal>*/u</literal>, and <literal>*/f+u</literal> stand for fuzzy, untranslated, and the two summed.</para>
+
+<para>When parameters <option>msgbar</option> or <option>wbar</option> are in effect, statistics is presented in the form of a text-art bar, giving visual relation between numbers of translated, fuzzy, and untranslated messages or words:
+<programlisting>
+$ posieve stats -s wbar frobaz/
+4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
+</programlisting>
+A typical condensed overview of translation state is obtained by:
+<programlisting>
+$ posieve stats -s byfile -s msgbar frobaz/
+frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
+frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
+frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
+(overall)          147/41/25 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤××××···|
+</programlisting>
+Note that while message counts are the classic for bar overviews (<option>msgbar</option>), you are probably better off looking at word counts (<option>wbar</option>) instead, because word counts represent more closely the amount of work needed to complete the translation. Rounding of fractions for bars is such that as long as there is at least one fuzzy or untranslated message (or word), the bar will show one incomplete cell.</para>
+
+</sect3>
+
+<sect3 id="sec-svstnotes">
+<title>Notes on Counting</title>
+
+<para>Word and character counts for a message string are obtained by processing it in the following order:
+<itemizedlist>
+<listitem>
+<para>Accelerator markers are removed.</para>
+</listitem>
+<listitem>
+<para>Text markup is eliminated (e.g. XML-like tags).</para>
+</listitem>
+<listitem>
+<para>Other special substrings, such as format directives, are also eliminated (e.g. <literal>%s</literal> in messages with <literal>c-format</literal> flag).</para>
+</listitem>
+<listitem>
+<para>Text is split into words by taking all contiguous sequences of "word characters", which include letters, numbers, and underscore.</para>
+</listitem>
+<listitem>
+<para>All words not starting with a letter are eliminated.</para>
+</listitem>
+<listitem>
+<para>Words that remain are counted into statistics. Whitespace is not included in character count.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>In plural messages, counts for the original are the average of <varname>msgid</varname> and <varname>msgid_plural</varname> strings, and likewise the average of all <varname>msgstr</varname> strings for the translation. In this way, the comparative statistics between the original and the translation is not skewed for languages that have more or less than two plural forms.</para>
+
+</sect3>
 
 </sect2>
 
