@@ -3,57 +3,7 @@
 """
 Initialize and update the PO header with own translation data.
 
-When work on a pristine PO starts, or an existing PO is to be revised with
-new translations, this sieve can be used to automatically set PO header
-fields to proper values. The revision date is taken as current, while
-the rest of information is pulled from L{Pology's configuration<config>}.
-
-Sieve options:
-  - C{proj:<project_id>}: ID of the project
-  - C{init}: treat the header as uninitialized
-  - C{onmod}: update header only if the catalog was otherwise modified
-        (when the sieve is used in chain)
-
-Parameter C{proj} specifies the ID of the project which covers the POs
-about to be operated on. This ID is used as the name of configuration
-section C{[project-<ID>]}, which contains the project data fields.
-Also used are the fields under the C{[user]} section, unless overriden
-in project's section. The configuration fields used are:
-  - C{[project-*]/name} or C{[user]/name}: user's name
-  - C{[project-*]/email} or C{[user]/email}: user's email address
-  - C{[project-*]/language}: language code (IS0 639)
-  - C{[project-*]/language-team}: human-readable language name
-  - C{[project-*]/team-email}: team's email
-  - C{[project-*]/encoding}: encoding of PO files (UTF-8 assumed if not set)
-  - C{[project-*]/plural-forms}: the PO plural header (C{nplurals=...; ...;})
-  - C{[project-*]/po-editor} or C{[user]/po-editor}: the tool used
-        to work on PO files (none assumed if not set)
-
-Non-default header fields are not touched, except the revision date and
-the last translator which are always updated (including the comment
-line, where translators are listed with years of contributions).
-Option C{init} may be used to force setting all fields as if the header
-were uninitialized, overwriting any previous content.
-
-An example of configuration appropriate for this sieve would be::
-
-    [user]
-    name = Chusslove Illich
-    original-name = Часлав Илић
-    email = caslav.ilic@gmx.net
-    po-editor = Kate
-
-    [project-kde]
-    language = sr
-    language-team = Serbian
-    team-email = kde-i18n-sr@kde.org
-    plural-forms = nplurals=4; plural=n==1 ? 3 : n%%10==1 && \\
-                   n%%100!=11 ? 0 : n%%10>=2 && n%%10<=4 && \\
-                   (n%%100<10 || n%%100>=20) ? 1 : 2;
-
-In C{plural-forms} field, note escaped percent characters by doubling them
-(because single C{%} in configuration has special meaning) and splitting
-into several lines by trailing C{\\} (for better look only).
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

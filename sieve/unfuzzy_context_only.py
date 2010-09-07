@@ -3,36 +3,7 @@
 """
 Unfuzzy those messages fuzzied only due to a context change.
 
-When C{msgmerge} is run with C{--previous} option to merge the catalog with
-its template, for fuzzy messages it embeds the previous values of C{msgctxt}
-and C{msgid} fields in special C{#|} comments. Sometimes, the only change to
-the message is in C{msgctxt}, e.g. context added where there was none before.
-Some translators and languages may be less dependent on contexts than the
-other, or there may be a hurry prior to the release of the translation.
-In such case, this sieve can be used to remove the fuzzy state for messages
-where only the context was added/modified, which can be detected by comparing
-the current and the previous fields.
-
-Sieve parameters:
-  - C{noreview}: do not add comments about unreviewed context
-  - C{eqmsgid}: report messages with C{msgid} equal to an unfuzzied message
-  - C{lokalize}: report messages by opening them in Lokalize
-
-By default, unfuzzied messages will also be given a translator comment
-with C{unreviewed-context} string, so that translator may later find and
-review such messages.
-Addition of this comment can be prevented by issuing the C{noreview} parameter,
-but it is usually better to find some time later and review unfuzzied messages.
-
-Sometimes a lot of messages may be automatically equiped with contexts
-(e.g. to group items by a common property), and then it may be necessary
-to review only those messages which got split into two or more messages due
-to newly added contexts.
-In this scenario, C{eqmsgid} parameter may be issued to specifically report
-all translated messages which have the C{msgid} equal to an unfuzzied message
-(including such unfuzzied messages themselves).
-Depending on exactly what kind of contexts have been added,
-C{noreview} parameter may be useful here too.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

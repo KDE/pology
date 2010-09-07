@@ -4,8 +4,7 @@
 Unfuzzy messages fuzzied only due to some tags being closed in-place
 (like C{<br>} to C{<br/>}).
 
-Tags closed in-place in the original are also closed in the translation,
-if not already such.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3

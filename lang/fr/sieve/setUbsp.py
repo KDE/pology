@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
 
 """
+Replace normal space by non-breaking space where needed.
+
+Documented in C{doc/user/sieving.docbook}.
+
 @author: Sébastien Renard <sebastien.renard@digitalfox.org>
 @license: GPLv3"""
 

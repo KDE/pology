@@ -3,30 +3,7 @@
 """
 Tag untranslated messages.
 
-Some people like to translate PO files with ordinary text editor,
-which may provide no more support for editing PO files other
-than e.g. syntax highlighting.
-In such a scenario, this sieve can be used to equip untranslated messages
-with C{untranslated} flag, for easy lookup in the editor.
-E.g. to jump through all incomplete messages (fuzzy and untranslated),
-translator can issue C{, fuzzy|, untranslated} regular expression
-in editor's search facility.
-
-Note that C{untranslated} flags, being custom, will be lost when the PO file
-is merged with the template next time. This is intentional: the only purpose
-of the flag is for immediate editing, and the translator may forget to remove
-some. There is no reason for the flags to persist in that case. Also, if
-the flag is left in after the message has been translated, the subsequent
-run of this sieve will remove the flag.
-
-Sieve options:
-  - C{strip}: instead of adding, strip any C{untranslated} flags
-  - C{wfuzzy}: add C{untranslated} flags to fuzzy messages too
-  - C{branch:<branch_id>}: consider only messages from this branch (summit)
-
-For L{summited<scripts.posummit>} catalogs, the C{branch} option is used to
-restrict modifications to messages from the given branch only.
-Several branch IDs may be given as a comma-separated list.
+Documented in C{doc/user/sieving.docbook}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
