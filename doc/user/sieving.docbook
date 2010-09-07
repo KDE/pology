@@ -641,7 +641,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>branch:<replaceable>branch</replaceable></option></term>
 <listitem>
-<para>Apply rules only to messages from given branch (<link linkend="ch-summit">summit</link>).</para>
+<para>Apply rules only to messages from given branch (<link linkend="ch-summit">summit</link>). Several branches may be given as comma-separated list.</para>
 </listitem>
 </varlistentry>
 
@@ -1150,7 +1150,7 @@ Text editors may even provide highlighting for the wrapped difference segments
 <varlistentry>
 <term><option>branch:<replaceable>branch</replaceable></option></term>
 <listitem>
-<para>Embed diffs only into messages from given branch (<link linkend="ch-summit">summit</link>).</para>
+<para>Embed diffs only into messages from given branch (<link linkend="ch-summit">summit</link>). Several branches may be given as comma-separated list.</para>
 </listitem>
 </varlistentry>
 
@@ -1368,7 +1368,7 @@ For details, see the description of <option>fexpr</option> below.</para>
 <varlistentry>
 <term><option>(n)branch:<replaceable>branch</replaceable></option></term>
 <listitem>
-<para>The message must belong to this branch (<link linkend="ch-summit">summit</link>).</para>
+<para>The message must belong to this branch (<link linkend="ch-summit">summit</link>). Several branches may be given as comma-separated list.</para>
 </listitem>
 </varlistentry>
 
@@ -1610,11 +1610,11 @@ If the PO message contains plural forms, they will be represented with <literal>
 <para>In older PO files, disambiguating contexts may be embedded into <varname>msgid</varname> strings, as the initial part of the string delimited from the actual text with predefined substrings, here called the "head" and the "tail". For example, in:
 <programlisting>
 msgid ""
-"_:this-is-context\\n"
+"_:this-is-context\n"
 "This is original text"
 msgstr "This is translated text"
 </programlisting>
-the head is the underscore-colon sequence (<literal>_:</literal>), and the tail the newline (<literal>\\n</literal>). <command>normctxt-delim</command> will convert embedded contexts of the delimiter-type to proper <varname>msgctxt</varname> strings.</para>
+the head is the underscore-colon sequence (<literal>_:</literal>), and the tail the newline (<literal>\n</literal>). <command>normctxt-delim</command> will convert embedded contexts of the delimiter-type to proper <varname>msgctxt</varname> strings.</para>
 
 <para>Parameters:
 <variablelist>
@@ -1766,12 +1766,12 @@ the separator string is the pipe character (<literal>|</literal>). <command>norm
 msgctxt "context"
 msgid "original-text"
 msgstr ""
-"#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\\n"
-"translated-text-1\\n"
-"#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\\n"
-"translated-text-2\\n"
+"#-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#\n"
+"translated-text-1\n"
+"#-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#\n"
+"translated-text-2\n"
 "..."
-"#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\\n"
+"#-#-#-#-#  po-file-name-n (project-version-id-n)  #-#-#-#-#\n"
 "translated-text-n"
 </programlisting>
 Each message part is aggregated only if different in at least one message
@@ -2116,7 +2116,7 @@ $ posieve stats -s templates:my_lang:templates my_lang/
 <varlistentry>
 <term><option>branch:<replaceable>branch</replaceable></option></term>
 <listitem>
-<para>Only messages from given branch are counted into statistics (<link linkend="ch-summit">summit</link>).</para>
+<para>Only messages from given branch are counted into statistics (<link linkend="ch-summit">summit</link>). Several branches may be given as comma-separated list.</para>
 </listitem>
 </varlistentry>
 
@@ -2325,42 +2325,175 @@ Note that while message counts are the classic for bar overviews (<option>msgbar
 <sect2 id="sv-tag-untranslated">
 <title><command>tag-untranslated</command></title>
 
-<para></para>
+<para>Some translators like to edit PO files with a plain text editor, which may provide no special support for editing PO files, other than perhaps PO syntax highlighting. In this scenario, <command>tag-untranslated</command> can be used to equip untranslated messages with <literal>untranslated</literal> flag, so that they can be easily looked up in the editor.</para>
+
+<para>Since <literal>untranslated</literal> is not one of defined PO flags, it will be lost if the PO file is merged with the template. This is intentional: the only purpose of this flag is to facilitate immediate editing of the PO file, and you may miss to remove some of them while editing. There is no reason for <literal>untranslated</literal> flags to persist in that case. Also, if the flag is not removed after the message has been translated, a subsequent run of this sieve will remove the flag.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>strip</option></term>
+<listitem>
+<para>Instead of being added, <literal>untranslated</literal> flags are stripped. This is useful when you had no time to translate all messages but you want to send the PO file away.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>wfuzzy</option></term>
+<listitem>
+<para><literal>untranslated</literal> flags are added to fuzzy messages as well. This can be useful to be able to jump in the text editor through all incomplete message by just giving <userinput>, untranslated</userinput><footnote>
+<para>Alternatively, if the editor provides regular expressions for searches, you can search for <userinput>, fuzzy|, untranslated</userinput>.</para>
+</footnote>, or when the set of messages to be updated has been limited somehow (e.g. by the <option>branch</option> parameter).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>branch:<replaceable>branch</replaceable></option></term>
+<listitem>
+<para>Tag only untranslated messages from given branch (<link linkend="ch-summit">summit</link>). Several branches may be given as comma-separated list.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-unfuzzy-context-only">
 <title><command>unfuzzy-context-only</command></title>
 
-<para></para>
+<para>Sometimes the message is made fuzzy during merging only due to change in the <varname>msgctxt</varname> string, or its addition or removal. Some translators and languages may be less dependent on contexts than the other, or they may be in a hurry prior to the release of the translation, and then <command>unfuzzy-context-only</command> can be used to unfuzzy these messages in which only the context was modified. This state can be detected by comparing the current and the previous strings in the fuzzy message, i.e. the PO file must have been merged with <option>--previous</option> option to <command>msgmerge</command>.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>noreview</option></term>
+<listitem>
+<para>By default, unfuzzied messages will also be given a translator comment
+with <literal>unreviewed-context</literal> string, so that you may find and review these messages at a later time. This parameter will prevent the addition of such comment, but it is usually safer to review automatically unfuzzied messages when you find the time.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>eqmsgid</option></term>
+<listitem>
+<para>Sometimes a lot of messages in the code may be semi-automatically equipped with contexts (e.g. to group items by a common property), and then it may be necessary to review only those messages which got split into two or more messages due to newly added contexts. This parameter may be issued to specifically report all translated messages which have the their <varname>msgid</varname> string equal to an unfuzzied message, including unfuzzied messages themselves. Depending on exactly what kind of contexts have been added, the <option>noreview</option> parameter may be useful here as well.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>lokalize</option></term>
+<listitem>
+<para>Open the PO file on reported messages in Lokalize.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-unfuzzy-ctxmark-only">
 <title><command>unfuzzy-ctxmark-only</command></title>
 
-<para></para>
+<para><command>unfuzzy-ctxmark-only</command> has a similar but less wide effect compared to the <command>unfuzzy-context-only</command> sieve. It unfuzzies a message only if the only change that caused fuzzyness is in a specific part of <varname>msgctxt</varname> string, the <emphasis>UI context marker</emphasis>.</para>
+
+<para>UI context markers are en element of <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics">KUIT markup</ulink> (KDE user interface text), which state more formally the user interface context in which the text given by the PO message is used. This may be important for translation, since style guidelines will typically somewhat depend on where in the UI the text is seen. For example, there may be two messages in the code which have exactly the same text in English, but one is used as a menu item, and the other as a dialog title; with KUIT, they would be marked as:
+<programlisting>
+msgctxt "@action:inmenu File"
+msgid "Export as HTML"
+msgstr ""
+
+msgctxt "@title:window"
+msgid "Export as HTML"
+msgstr ""
+</programlisting>
+The UI context marker here is the leading part of <varname>msgctxt</varname>, starting with <literal>@...</literal> and ending with first whitespace. <command>unfuzzy-ctxmark-only</command> will unfuzzy the message if only this marker has changed (or was added or removed), but not if the change was in the rest of the context (after the first whitespace).</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>noreview</option></term>
+<listitem>
+<para>See the same-name parameter of <command>unfuzzy-ctxmark-only</command>. Using it here is probably somewhat safer, but this in general it depends on translation style guidelines.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sv-unfuzzy-inplace-only">
 <title><command>unfuzzy-inplace-only</command></title>
 
-<para></para>
+<para>Some text markups may have a "permissible" or "sloppy" mode, where some tags do not have to be explicitly terminated. The typical example is HTML, where <literal>&lt;br&gt;</literal>, <literal>&lt;hr&gt;</literal>, etc. do not have to be written as <literal>&lt;br/&gt;</literal>. (This is unlike XHTML, which is an XML instance and therefore strict in this respect.) When this permissible markup was used in the code, a programmer revisiting that code at a later time may consider it a poor style, and go about fixing it. This may cause some messages in the PO file to become fuzzy. <command>unfuzzy-inplace-only</command> will recognize some of these situations in a fuzzy message (by comparing the current and previous strings) and automatically modify the translation accordingly and unfuzzy the message.</para>
+
+<para>There are no parameters.</para>
 
 </sect2>
 
 <sect2 id="sv-update-header">
 <title><command>update-header</command></title>
 
-<para></para>
+<para>When translation on a PO file starts for the first time, or when a previously translated PO file is being updated after merging, <command>update-header</command> can be used to automatically set and update PO header fields to proper values. The revision date is taken as current, while other pieces of information are read from the user configuration (see <xref linkend="sec-cmconfig"/>). Note that this sieve is normally only of use when you are translating with a plain text editor, while dedicated PO editors should do this automatically when the PO file is saved after editing.</para>
+
+<para>Parameters:
+<variablelist>
+
+<varlistentry>
+<term><option>proj:<replaceable>projectid</replaceable></option></term>
+<listitem>
+<para>The ID of the project to which the PO files to be updated belong. This ID is used to construct the name of the configuration section as <literal>[project-<replaceable>projectid</replaceable>]</literal>, which contains the project data fields. Also used are the fields from the <literal>[user]</literal>, whenever they are not overriden in project's section. See <xref linkend="sec-cmcfguser"/> and <xref linkend="sec-cmcfgproj"/>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>init</option></term>
+<listitem>
+<para>By default, the sieve tries to detect if the header has been initialized before or not, because it differs somewhat what should be changed in the header on initialization and on update. This parameter can be issued to unconditionally treat the header as not initialized, i.e. overwrite any existing content.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>onmod</option></term>
+<listitem>
+<para>The header should be updated only if the PO file was otherwise modified. This parameter makes sense only in a sieve chane, when this sieve is preceded by a potentially modifying sieve.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>An example of a user configuration appropriate for this sieve would be:
+<programlisting>
+[user]
+name = Chusslove Illich
+original-name = Часлав Илић
+email = caslav.ilic@gmx.net
+po-editor = Kate
+
+[project-kde]
+language = sr
+language-team = Serbian
+team-email = kde-i18n-sr@kde.org
+plural-forms = nplurals=4; plural=n==1 ? 3 : n%%10==1 &amp;&amp; \
+               n%%100!=11 ? 0 : n%%10>=2 &amp;&amp; n%%10&lt;=4 &amp;&amp; \
+               (n%%100&lt;10 || n%%100>=20) ? 1 : 2;
+</programlisting>
+Note that percent characters in the <literal>plural-forms</literal> field are escaped by doubling, because single <literal>%</literal> in configuration has special meaning. Also note splitting into several lines by trailing <literal>\</literal> (only for better looks, since configuration lines can be arbitrarily long).</para>
 
 </sect2>
 
 <sect2 id="sv-fr:setUbsp">
 <title><command>fr:setUbsp</command></title>
 
-<para></para>
+<para>In French language, some punctuation characters are separated with a certain amount of whitespace from the preceding word. This is unlike in English, so unwary French translators sometimes miss to add the required space before such punctuation when translating from English. <command>fr:setUbsp</command> will heuristically detect such places and insert the space.</para>
+
+<para>There are no parameters.</para>
 
 </sect2>
 
@@ -2370,7 +2503,9 @@ Note that while message counts are the classic for bar overviews (<option>msgbar
 <sect1 id="sec-svexternal">
 <title>Using External Sieves</title>
 
-<para></para>
+<para>Each internal sieve is a single Python file in <filename>sieve/</filename> subdirectory (and in <filename><replaceable>lang</replaceable>/sieve/</filename> for language-specific sieves). The Python file is named like the sieve, only with hyphens replaced with underscores and with <filename>.py</filename> extension. <command>posieve</command> therefore knows how to find which file to execute when an internal sieve name is given as its first argument.</para>
+
+<para>However, instead of an internal sieve name, the first argument to <command>posieve</command> can also be an explicit path (relative or absolute) to a Python file which implements a sieve. Explicit paths can also be part of a sieve chain, mixed with internal sieve names. This is all there is to running external sieves; see <xref linkend="sec-prsieves"/> for instructions on how to write one.</para>
 
 </sect1>
 
