@@ -5,13 +5,85 @@
 <chapter id="ch-lingo">
 <title>Language Validation and Derivation</title>
 
-<para></para>
+<para>Pology was designed with strong language-specific support in mind, and this chapter describes the currently available features in the direction of validation and derivation of translation as whole and various bits in it.</para>
 
 <!-- ======================================== -->
 <sect1 id="sec-lglangenv">
 <title>The Notion of Language in Pology</title>
 
-<para></para>
+<para>In a highly detailed translation-supporting tool, some functionality must be made language-specific in order to be of actual use. But, it is difficult to agree on what is a language and what is a dialect, what is standard and what is jargon, what is derived from what, what is the proper name of something, and there are many witty remarks about existing classifications. Therefore, Pology takes a rather simple and non-formal approach to the definition of "language", but such that should provide good technical leverage in constructing language-specific functionality.</para>
+
+<para>There are two levels of language-specificity in Pology.</para>
+
+<para>The first level is simply the "language". In linguistic sense this can be a language proper (whatever that means), a dialect, a variant written in different script, etc. Each language in this sense is assigned a code in Pology, when first elements of support for that language are introduced. By convention this code should be an <ulink url="http://en.wikipedia.org/wiki/ISO_639">ISO 639</ulink> code (either two- or three-digit) if applicable, but in principle can be anything else. Another convenient source of language codes is the GNU C library. For example, Portugese language spoken in Portugal would have the code <literal>pt</literal> (ISO 639) while Portugese spoken in Brazil would be <literal>pt_BR</literal> (GNU C library).</para>
+
+<para>The second level of language-specificity is the "environment". In linguistic terms this could be whatever minor variations that differ somewhat in vocabulary, style, tone, or ortography, and are specific to certain groups of people within a single language community. Within Pology, this level is used to support any variations between specific translation environments, such as long-standing translation projects and their teams. Although translating into the same language, translation teams will almost inevitably have some differences in terminology, style guidelines, etc. Environments also have codes assigned, but unlike language codes, environment codes are entirely arbitrary.</para>
+
+<para>In every application in Pology, the language and its environments have a hierarchical connection. In general, language-specific elements defined outside of a specific environment ("environment-agnostic" elements) are a sort of a relaxed least common denominator, and specific environments add their own elements to that. Relaxed means that environment-agnostic elements can sometimes include that which holds for most but not all environments, while each environment can override what it needs to. This prevents the environment-agnostic language support from getting too limited just to cater for perculiarities in certain environments.</para>
+
+<para>When processing PO files, it is necessary to somehow convey to Pology tools to which language and environment the PO files belong. The most effective way of doing this is by adding the necessary information to PO headers. All Pology tools that deal with language-specific elements will check the header of the PO file they process for the language and environment. Some Pology tools will also consult the user configuration (typically with lower priority than PO headers) or provide appropriate command line options (typically giving them higher priority). See <xref linkend="sec-cmheader"/> and <xref linkend="sec-cmconfig"/> for details.</para>
+
+<sect2>
+<title>Supported Languages and Environments</title>
+
+<para>The following languages and environments within those languages currently have some level of support in Pology (assigned code in parenthesis, "t.t." stands for translation team):
+
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="30%"/>
+<colspec colwidth="70%"/>
+<thead>
+<row>
+<entry>Language</entry>
+<entry>Environments</entry>
+</row>
+</thead>
+<tbody>
+
+<row>
+<entry>Catalan (<literal>ca</literal>)</entry>
+</row>
+
+<row>
+<entry>French (<literal>fr</literal>)</entry>
+</row>
+
+<row>
+<entry>Galician (<literal>gl</literal>)</entry>
+</row>
+
+<row>
+<entry>Japanese (<literal>ja</literal>)</entry>
+</row>
+
+<row>
+<entry>Low Saxon (<literal>nds</literal>)</entry>
+</row>
+
+<row>
+<entry>Norwegian Nynorsk (<literal>nn</literal>)</entry>
+</row>
+
+<row>
+<entry>Serbian (<literal>sr</literal>)</entry>
+<entrytbl cols="1">
+<tbody>
+<row><entry>KDE t.t. (<literal>kde</literal>)</entry></row>
+<row><entry>The Battle for Wesnoth t.t. (<literal>wesnoth</literal>)</entry></row>
+</tbody>
+</entrytbl>
+</row>
+
+<row>
+<entry>Spanish (<literal>es</literal>)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+
+</sect2>
 
 </sect1>
 

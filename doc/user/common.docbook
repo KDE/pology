@@ -571,7 +571,7 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <varlistentry id="hdr-language">
 <term><literal>Language</literal></term>
 <listitem>
-<para>This field contains the language code of the translation, which Pology will take into account in all contexts where language-dependent processing is done (such as when <link linkend="sec-lgspell">spell-checking</link>). You can also specify the language into which you translate in <link linkend="sec-cmconfig">user configuration</link>, and sometimes in the command line. The language stated by the PO header will override the user configuration, but it will be in turn overridden by the command line.</para>
+<para>This field contains the language code of the translation, which Pology will take into account in all contexts where language-dependent processing is done (such as when <link linkend="sec-lgspell">spell-checking</link>). You can also specify the language into which you translate in <link linkend="sec-cmconfig">user configuration</link>, and sometimes in the command line. The language stated by the PO header will override the user configuration, but it will be in turn overridden by the command line. See also <xref linkend="sec-lglangenv"/>.</para>
 </listitem>
 </varlistentry>
 
@@ -597,14 +597,6 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <term><literal>X-Environment</literal></term>
 <listitem>
 <para>The language environment to which the translation belongs; see <xref linkend="sec-lglangenv"/> for details. It can be a single keyword, or a comma-separated list of keywords. If several environments are given, the later in the list (which is usually the more specific) takes precedence.</para>
-
-<para>Pology already has internal support for some more general environments in some languages, so you should use these environment keywords if they apply to your case:
-<itemizedlist>
-<listitem><para><literal>kde</literal> -- translation teams of <ulink url="http://l10n.kde.org/teams-list.php">the KDE community</ulink></para></listitem>
-<listitem><para><literal>wesnoth</literal> -- translation teams of <ulink url="http://www.wesnoth.org/">The Battle for Wesnoth</ulink></para></listitem>
-</itemizedlist>
-</para>
-
 </listitem>
 </varlistentry>
 
