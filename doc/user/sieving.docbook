@@ -2503,7 +2503,7 @@ Note that percent characters in the <literal>plural-forms</literal> field are es
 <sect1 id="sec-svexternal">
 <title>Using External Sieves</title>
 
-<para>Each internal sieve is a single Python file in <filename>sieve/</filename> subdirectory (and in <filename><replaceable>lang</replaceable>/sieve/</filename> for language-specific sieves). The Python file is named like the sieve, only with hyphens replaced with underscores and with <filename>.py</filename> extension. <command>posieve</command> therefore knows how to find which file to execute when an internal sieve name is given as its first argument.</para>
+<para>Each internal sieve is a single Python file in <filename>sieve/</filename> subdirectory (and in <filename>lang/<replaceable>langcode</replaceable>/sieve/</filename> for language-specific sieves). The Python file is named like the sieve, only with hyphens replaced with underscores and with <filename>.py</filename> extension. <command>posieve</command> therefore knows how to find which file to execute when an internal sieve name is given as its first argument.</para>
 
 <para>However, instead of an internal sieve name, the first argument to <command>posieve</command> can also be an explicit path (relative or absolute) to a Python file which implements a sieve. Explicit paths can also be part of a sieve chain, mixed with internal sieve names. This is all there is to running external sieves; see <xref linkend="sec-prsieves"/> for instructions on how to write one.</para>
 
