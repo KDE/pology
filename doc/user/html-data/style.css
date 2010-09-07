@@ -113,3 +113,27 @@ h3.author {
     color: black;
     margin: 0;
 }
+
+div.informaltable > table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: none;
+}
+div.informaltable > table > thead > tr > th {
+    border: none;
+    border-top: 0.25mm solid black;
+    border-bottom: 0.25mm solid black;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    background-color: seagreen;
+    color: white;
+    text-align: left;
+}
+div.informaltable > table > tbody > tr > td {
+    border: none;
+    border-bottom: 0.25mm solid gray;
+    vertical-align: top;
+    text-align: left;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+}
