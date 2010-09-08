@@ -4,6 +4,8 @@
 """
 Perform machine translation of PO files.
 
+Documented in C{doc/user/lingo.docbook#sec-lgmtrans}.
+
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
 """
@@ -63,7 +65,7 @@ def main ():
                "Translate from translation to another language, "
                "found in compendium file at the given path."))
     opars.add_option(
-        "-f", "--source-lang", dest="slang",
+        "-s", "--source-lang", dest="slang",
         metavar=_("@info command line value placeholder", "LANG"),
         help=_("@info command line option description",
                "Source language code. "
