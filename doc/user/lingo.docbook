@@ -11,15 +11,15 @@
 <sect1 id="sec-lglangenv">
 <title>The Notion of Language in Pology</title>
 
-<para>In a highly detailed translation-supporting tool, some functionality must be made language-specific in order to be of actual use. But, it is difficult to agree on what is a language and what is a dialect, what is standard and what is jargon, what is derived from what, what is the proper name of something, and there are many witty remarks about existing classifications. Therefore, Pology takes a rather simple and non-formal approach to the definition of "language", but such that should provide good technical leverage in constructing language-specific functionality.</para>
+<para>A versatile translation-supporting tool has to have some language-specific functionality. But, it is difficult to agree on what is a language and what is a dialect, what is standard and what is jargon, what is derived from what, how any of these are named, and there are many witty remarks about existing classifications. Therefore, Pology takes a rather simple and non-formal approach to the definition of "language", but such that should provide good technical leverage for constructing language-specific functionality.</para>
 
 <para>There are two levels of language-specificity in Pology.</para>
 
-<para>The first level is simply the "language". In linguistic sense this can be a language proper (whatever that means), a dialect, a variant written in different script, etc. Each language in this sense is assigned a code in Pology, when first elements of support for that language are introduced. By convention this code should be an <ulink url="http://en.wikipedia.org/wiki/ISO_639">ISO 639</ulink> code (either two- or three-digit) if applicable, but in principle can be anything else. Another convenient source of language codes is the GNU C library. For example, Portugese language spoken in Portugal would have the code <literal>pt</literal> (ISO 639) while Portugese spoken in Brazil would be <literal>pt_BR</literal> (GNU C library).</para>
+<para>The first level is simply the "language". In linguistic sense this can be a language proper (whatever that means), a dialect, a variant written in different script, etc. Each language in this sense is assigned a code in Pology, when first elements of support for that language are introduced. By convention this code should be an <ulink url="http://en.wikipedia.org/wiki/ISO_639">ISO 639</ulink> code (either two- or three-digit) if applicable, but in principle can be anything. Another convenient source of language codes is the GNU C library. For example, Portugese language spoken in Portugal would have the code <literal>pt</literal> (ISO 639) while Portugese spoken in Brazil would be <literal>pt_BR</literal> (GNU C library).</para>
 
-<para>The second level of language-specificity is the "environment". In linguistic terms this could be whatever minor variations that differ somewhat in vocabulary, style, tone, or ortography, and are specific to certain groups of people within a single language community. Within Pology, this level is used to support any variations between specific translation environments, such as long-standing translation projects and their teams. Although translating into the same language, translation teams will almost inevitably have some differences in terminology, style guidelines, etc. Environments also have codes assigned, but unlike language codes, environment codes are entirely arbitrary.</para>
+<para>The second level of language-specificity is the "environment". In linguistic terms this could be whatever distinct but minor variations in vocabulary, style, tone, or ortography, which are specific to certain groups of people within a single language community. Within Pology, this level is used to support variations between specific translation environments, such as long-standing translation projects and their teams. Although translating into the same language, translation teams will almost inevitably have some differences in terminology, style guidelines, etc. Environments also have codes assigned.</para>
 
-<para>In every application in Pology, the language and its environments have a hierarchical connection. In general, language-specific elements defined outside of a specific environment ("environment-agnostic" elements) are a sort of a relaxed least common denominator, and specific environments add their own elements to that. Relaxed means that environment-agnostic elements can sometimes include that which holds for most but not all environments, while each environment can override what it needs to. This prevents the environment-agnostic language support from getting too limited just to cater for perculiarities in certain environments.</para>
+<para>In every application in Pology, the language and its environments have a hierarchical relation. In general, language-specific elements defined outside of a specific environment ("environment-agnostic" elements) are a sort of a relaxed least common denominator, and specific environments add their own elements to that. Relaxed means that environment-agnostic elements can sometimes include that which holds for most but not all environments, while each environment can override what it needs to. This prevents the environment-agnostic language support from getting too limited just to cater for perculiarities in certain environments.</para>
 
 <para>When processing PO files, it is necessary to somehow convey to Pology tools to which language and environment the PO files belong. The most effective way of doing this is by adding the necessary information to PO headers. All Pology tools that deal with language-specific elements will check the header of the PO file they process for the language and environment. Some Pology tools will also consult the user configuration (typically with lower priority than PO headers) or provide appropriate command line options (typically giving them higher priority). See <xref linkend="sec-cmheader"/> and <xref linkend="sec-cmconfig"/> for details.</para>
 
@@ -91,65 +91,67 @@
 <sect1 id="sec-lgspell">
 <title>Spell Checking</title>
 
-<para></para>
+<para>Pology can employ various well-known spell-checkers to check the translation in PO files. Currently there is standalone support for <ulink url="http://aspell.net/">Aspell</ulink>, and unified support for many spell-checkers (including Aspell) through <ulink url="http://www.abisource.com/projects/enchant/">Enchant, the spell-checking wrapper library</ulink> (more precisely, through <ulink url="http://pyenchant.sourceforge.net">Python bindings</ulink> for Enchant).</para>
 
-<!--
-Pology internally collects language-specific word lists as supplements
-to system spelling dictionaries, within C{lang/<lang>/spell/} directory.
-These contain either the words that should enter the default dictionary
-but have not been added yet, or, more importantly, the words that are
-specific to a given translation environment, i.e. too specific to enter
-the general dictionary.
-The C{env} parameter is used to specify one or more environments for which
-word lists are loaded. Each environment is taken to be a subpath within
-C{lang/<lang>/spell/<env>}: all word lists in that subpath and
-parent directories will be loaded.
-This means that the word lists are hierarchical, so that all-environment lists
-(loaded even when C{env} parameter is not given) reside directly in
-C{lang/<lang>/spell/}, and the more specific ones in subdirectories below it.
-If environment is not given by C{env} parameter, and also not in Pology
-user configuration, the sieve will try to read it from each catalog in turn.
-See L{environment()<catalog.Catalog.environment>} method of catalog
-object for the way environments can be specified in catalog header.
+<para>Spell-checking of one PO file or a collection of PO files can be performed directly by <link linkend="ch-sieve">sieving</link> them through one of <link linkend="sv-check-spell"><command>check-spell</command></link> (Aspell) or <link linkend="sv-check-spell-ec"><command>check-spell-ec</command></link> sieves. The sieve will report each unknown word, possibly with a list of suggestions, and the location of the message (file and line/entry numbers). It can also be requested to show the full message, with unknown words in the translation highlighted.</para>
 
-The system dictionary can be avoided alltogether, and only supplemental
-word lists used instead, by giving the C{suponly} parameter.
+<para>Also provided are several <link linkend="hk-spell">spell-checking hooks</link>, which can be used as building blocks in custom translation validation chains. For example, a spell-checking hook can be used to define the spell-checking rule within Pology's <link linkend="sec-lgrules">validation rules</link> collection for a given language.</para>
 
-Word list files are in Aspell format, and must have C{.aspell} extension.
-This is a simple plain text format listing one correct word per line,
-except for the first line, the header, which states the language code,
-number of words in the list and encoding of the file::
+<sect2 id="sec-lgspdicts">
+<title>Internal Spelling Dictionaries</title>
 
-    personal_ws-1.1 fr 1234 UTF-8
-    apricot
-    banana
-    cherry
-    ...
+<para>Pology collects internal language-specific word lists as supplements
+to system spelling dictionaries. One use of internal dictionaries is to record those words which are omitted in the system spelling dictionaries, but are actually proper words in the given language. Such words should be added into internal dictionaries only as an immediate fix for false spelling warnings, with an eye towards integrating them into the upstream spelling dictionaries of respective spell-checkers.</para>
 
-The only significant parameter in the header is in fact the encoding.
-Language code and number of words can be arbitrary, as this sieve
-will not use them.
-To maintain alphabetic ordering of word list files
-(and put the correct number of words in the header, even if not important)
-you can use the L{organizeDict.py<scripts.organizeDict>} script.
+<para>More importantly, internal dictionaries serve to collect words specific to a given environment, i.e. the words which are deemed too specific to be part of the upstream, general spelling dictionaries for the language. For example, this can be technical jargon, with newly coined terms which are yet to be more widely accepted. Another example could be translation of fiction, in books or computer games, where it is common-place to make up words for fictional objects, animals, places, etc. which are not even intended to be more widely used.</para>
 
-It is possible to selectively disable spell-checking for a message,
-or certain words within a message, by adding a special manual comment.
-The whole message is skipped by the no-sieve flag C{no-check-spell}::
+<para>In Pology source tree, internal spelling dictionaries by language are located in <filename>lang/<replaceable>lang</replaceable>/spell/</filename> directories. This directory can contain arbitrary number of dictionary files, which are all automatically picked up by Pology when spelling-checking for that language is done. Dictionary files directly in this directory are environment-agnostic, and should contain only the words which are standard (or standard derivations) in the language, but happen to be missing from the system spelling dictionary. Subdirectories represent specific environments, they are named with the environment code, and can also contain any number of dictionaries. An example of internal dictionary tree with environments:
+<programlisting>
+lang/
+    sr/
+        spell/
+            colors.aspell
+            fruit.aspell
+            ...
+            science.aspell
+            kde/
+                general.aspell
+            wesnoth/
+                general.aspell
+                propernames.aspell
+</programlisting>
+</para>
 
-    # |, no-check-spell
+<para>Dictionary files are in the Aspell word list format (regardless of the spell-checker actually used), and must have <filename>.aspell</filename> extension. This is a simple plain text format, listing one word per line. Only the first line is special, the header, which states the language code, number of words in the list, and the encoding. For example:
+<programlisting>
+personal_ws-1.1 fr 1234 UTF-8
+apricot
+banana
+cherry
+...
+</programlisting>
+Actually the only significant element of the header is the encoding. Language code and number of words can be arbitrary, as Pology will not use them.</para>
 
-and only some words within the message by listing them in C{well-spelled:}
-embedded list::
+<para>Pology provides the <command>organizeDict.py</command> script which sorts word list files alphabetically (and corrects the word count in the header, even if not important), so that you do not have to manually insert new words in proper order. The script is simply run with arbitrary number of word list files as arguments, and modifies them in place. In case of duplicate words, it will report duplicates and eliminate them. In case of words with invalid characters (e.g. space), the script will output a warning, but it will not remove them; automatic removal of invalid words can be requested with <option>-r</option>/<option>--remove-invalid</option> option.</para>
 
-    # well-spelled: word1, word2, ...
+</sect2>
 
-Which of these two methods to use depends on the nature of the message and
-specifics of spelling checks for given language/environment.
-For example, if most of the message consists of valid words, but there are
-only one or two which are special in some way, it is probably better to
-list them explicitly, so that all other words are checked.
--->
+<sect2 id="sec-lgspskip">
+<title>Skipping Messages and Words</title>
+
+<para>Sometimes a message or a few words in it should not be spell-checked. This can be, for example, when the message is dense computer input (like a command line synopsis), or when a word is part of a literal phrase (such as an email address). It may be possible to filter the text to remove some of the non-checkable words prior to spell-checking (especially when spell-checking is done as a <link linkend="sec-lgrules">validation rule</link>), but not all such words can be automatically detect. For example, especially problematic are onomatopoeic constructs ("Aaargh! Who released the beast?!").</para>
+
+<para>For this reason it is possible to manually skip spell-checking on a message, or on certain words within a message, by adding a <link linkend="sec-cmskipcheck">special translator comment</link>. The whole message is skipped by adding the <literal>no-check-spell</literal> translator flag to it:
+<programlisting>
+# |, no-check-spell
+</programlisting>
+Words within the message are skipped by listing them in <literal>well-spelled:</literal> translator comment, comma- or space-separated:
+<programlisting>
+# well-spelled: Aaarg, gaaah, khh
+</programlisting>
+Which of these two levels of skipping to use depends on the nature of the text. For example, if most of the text is composed of proper words, and there are only a few which should not be checked, it is probably better to list those words explicitly instead of skipping the whole message.</para>
+
+</sect2>
 
 </sect1>
 
@@ -157,7 +159,7 @@ list them explicitly, so that all other words are checked.
 <sect1 id="sec-lggrammar">
 <title>Grammar Checking</title>
 
-<para></para>
+<para>With Pology you can use <ulink url="http://www.languagetool.org/">LanguageTool</ulink>, a free grammar and style checker, to check translation in PO files. At the moment LanguageTool is applicable only through <link linkend="sv-check-grammar">the <command>check-grammar</command> sieve</link>, so look up the details in its documentation.</para>
 
 </sect1>
 
@@ -165,13 +167,150 @@ list them explicitly, so that all other words are checked.
 <sect1 id="sec-lgmtrans">
 <title>Machine Translation</title>
 
-<para></para>
+<para><emphasis>Machine translation</emphasis> is the process where a computer program is used to produce translation of more than a trivial piece of text, starting from single sentences, over paragraphs, to full documents. There are debates on how useful machine translation is right now and how much better it could become in the future, and there is a steady line of research in that direction. Limiting to widely available examples of machine translation software today, it is safe to say that, on the one hand, machine translation can preserve a lot of the meaning of the original and thus be very useful to the reader who needs to grasp the main points of the text, but on the other hand, are not at all passable for producing translations of the quality expected of human translators who are native speaker of the target language.</para>
+
+<para>As far as Pology is concerned, the question of machine translation reduces to this: would it increase the efficiency of translation if PO files were first machine-translated, and then manually corrected by a human translator? There is no general answer to this question, as it depends stronly on all elements in the chain: the quality of machine translation software, the source language, the target language, and the human translator. Be that as it may, Pology provides the <command>pomtrans</command> script, which can fill in untranslated messages in PO files by passing original text through various machine translation services.</para>
+
+<para><command>pomtrans</command> has two principal modes of operation. The more straightforward is the direct mode, where original texts are simply <varname>msgid</varname> strings in the given PO file. In this mode, PO files can be machine-translated with:
+<programlisting>
+$ pomtrans <replaceable>transerv</replaceable> -t <replaceable>lang</replaceable> <replaceable>paths...</replaceable>
+</programlisting>
+The first argument is the translation service keyword, chosen from one known to <command>pomtrans</command>. The <option>-t</option> option specifies the target language; it may not be necessary if processed PO files have the <literal>Language:</literal> header field properly set. The source language is assumed to be English, but there is an option to specify another source language. Afterwards an arbitrary number of paths follow, which may be either single PO files or directories which will be recursively searched for PO files.</para>
+
+<para><command>pomtrans</command> will try to translate only untranslated messages, and not fuzzy messages. When it translates a message, by default it will make it fuzzy as well, meaning that a human should go through all machine-translated messages. These defaults are based on the perceived current quality of most machine translation services. There are several command line options to change this behavior.</para>
+
+<para>The other mode of operation is the parallel mode. Here <command>pomtrans</command> takes the original text to be the translation into another language, i.e. <varname>msgstr</varname> strings from a PO file translated into another language. For example, if a PO file should be translated into Spanish (i.e. from English to Spanish), and that same PO file is available fully translated into French (i.e. from English to French), then <command>pomtrans</command> could be used to translate from French to Spanish. This is done in the following way:
+<programlisting>
+$ pomtrans <replaceable>transerv</replaceable> -s <replaceable>lang1</replaceable> -t <replaceable>lang2</replaceable> -p <replaceable>search</replaceable>:<replaceable>replace</replaceable> <replaceable>paths...</replaceable>
+</programlisting>
+As in direct mode, the first argument is the translation service. Then both the source (<option>-s</option>) and the target language (<option>-t</option>) are specified; again, if PO files have their <literal>Language:</literal> header fields set, these options are not necessary. The perculiar here is the <option>-p</option> option, which specifies two strings, separated by colon. These are used to construct paths to source language PO files, by replacing the first string in paths of target language PO files with the second string. For example, if the file tree is:
+<programlisting>
+foo/
+    po/
+        alpha/
+            alpha.pot
+            fr.po
+            es.po
+        bravo/
+            bravo.pot
+            fr.po
+            es.po
+</programlisting>
+then the invocation could be:
+<programlisting>
+$ cd .../foo/
+$ pomtrans <replaceable>transerv</replaceable> -s fr -t es -p es.:fr. po/*/es.po
+</programlisting>
+In case a PO file in target language does not have a counterpart in source language, it is simply skipped.</para>
+
+<para>There is another variation of the parallel mode, where source language texts are drawn not from counterpart PO files, but from a single, compendium PO file in source language. This mode is engaged by giving the path to that compendium with the <option>-c</option> option, instead of the <option>-p</option> option for path replacement.</para>
+
+<sect2 id="sec-lgpomtopts">
+<title>Command Line Options</title>
+
+<para>Options specific to <command>pomtrans</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-a <replaceable>CHARS</replaceable></option>, <option>--accelerator=<replaceable>CHARS</replaceable></option></term>
+<listitem>
+<para>Characters used as <link linkend="sec-poaccel">accelerator markers</link> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<footnote>
+<para>This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</para>
+</footnote></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-c <replaceable>FILE</replaceable></option>, <option>--parallel-compendium=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>The path to source language compendium, in parallel translation mode.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-l</option>, <option>--list-transervs</option></term>
+<listitem>
+<para>Lists known translation services (the keywords which can be the first argument to <command>pomtrans</command>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-m</option>, <option>--flag-mtrans</option></term>
+<listitem>
+<para>Adds the <literal>mtrans</literal> flag to each machine-translated message. This may be useful to positively identify machine-translated messages in the resulting PO file, as otherwise they are simply fuzzy.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-n</option>, <option>--no-fuzzy-flag</option></term>
+<listitem>
+<para>By default machine-translated messages are made fuzzy, which is prevented by this option. It goes without saying that this is dangerous at current state of the art in machine translation, and should be used only in very specific scenarios (e.g. high quality machine translation between two dialects of the same language).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-p <replaceable>SEARCH</replaceable>:<replaceable>REPLACE</replaceable></option>, <option>--parallel-catalogs=<replaceable>SEARCH</replaceable>:<replaceable>REPLACE</replaceable></option></term>
+<listitem>
+<para>The string to search for in paths of target language PO files, and the string to replace them with to construct paths of source language PO files, in parallel translation mode.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-s <replaceable>LANG</replaceable></option>, <option>--source-lang=<replaceable>LANG</replaceable></option></term>
+<listitem>
+<para>The source language code, i.e. the language which is being translated from.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-t <replaceable>LANG</replaceable></option>, <option>--target-lang=<replaceable>LANG</replaceable></option></term>
+<listitem>
+<para>The target language code, i.e. the language which is being translated into.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-T <replaceable>PATH</replaceable></option>, <option>--transerv-bin=<replaceable>PATH</replaceable></option></term>
+<listitem>
+<para>If the selected translation service is (or can be) a program on the local computer, this option can be used to specify the path to its executable file, if it is not in the <envar>PATH</envar>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-lgpomtservs">
+<title>Supported Machine Translation Services</title>
+
+<para>Currently supported translation services are as follows (with keyword in parenthesis):
+<variablelist>
+
+<varlistentry>
+<term>Apertium (<literal>apertium</literal>)</term>
+<listitem>
+<para><ulink url="http://www.apertium.org/">Apertium</ulink> is a free machine translation platform, developed by the TRANSDUCENS research group of University of Alicante. There is a basic web service, but the software can be locally installed and that is how <command>pomtrans</command> uses it (some distributions provide packages).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Google Translate (<literal>google</literal>)</term>
+<listitem>
+<para><ulink url="http://translate.google.com/">Google Translate</ulink> is Google's proprietary web machine-translation service, which can be used free of charge. At the moment, <command>pomtrans</command> makes one query to it per message, which can take quite some time on long PO files.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
 
 </sect1>
 
 <!-- ======================================== -->
 <sect1 id="sec-lguirefs">
-<title>Automatic UI Text Insertion</title>
+<title>Automatic Insertion of UI Labels</title>
 
 <para></para>
 
