@@ -69,6 +69,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
+valid cat="kspread"
 valid span="\;$"
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
@@ -163,6 +164,8 @@ hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 valid before="\w"
 valid before="$"
 valid before=":m"
+valid before="\{APPNAMELC"
+valid before=" "
 valid after="o"
 valid after="-"
 valid after="width=\"\d+" before="\"" # HTML                         
@@ -173,6 +176,7 @@ hint="No s'ha de posar un espai abans del signe de percentatge (tipografia)"
 #valid before="[A-Z]+?\b" # Keywords
 valid before="\w{2,7}\b" # Extensions
 valid before="\/\w+" # Files
+valid after="-" cat="thesaurus_tool"
 hint="No s'ha de posar un espai abans del signe de punt (tipografia)"
 
 [\.\)]
@@ -215,7 +219,7 @@ hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
 #hint="S'ha d'utilitzar una majúscula després d'un punt (tipografia)"
 
 [\(]
-valid before=".*?[\)\(\{\[\«\"\']"
+valid before=".*?[\)\(\{\[\«\"\'~]"
 hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
 
 #[\[]
