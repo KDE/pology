@@ -57,6 +57,7 @@ hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 [\s\;]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
+valid after="Algerian\s*" cat="koffice"
 hint="No s'ha de posar un espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
@@ -85,6 +86,7 @@ validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid span="\!$"
+valid after="~"
 valid before="="
 hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
@@ -154,6 +156,7 @@ hint="S'ha de posar un espai abans del signe de cometa llatina d'obertura (tipog
 
 [\«]
 valid before=".*?[\»\(\{\[\«\"\']"
+valid cat="kformula"
 hint="Cal obrir i tancar les cometes llatines (tipografia)"
 
 [\s\s+]
