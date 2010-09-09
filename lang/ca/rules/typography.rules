@@ -31,6 +31,7 @@ valid after="«.+"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="\{"
+valid before="q\:"
 valid after="\d+" before="\s?\d+"
 hint="No s'ha de posar un espai abans del signe dels dos punts (tipografia)"
 
@@ -45,6 +46,7 @@ valid after="minuts"
 valid after="segons"
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
 valid after="white-space" # CSS
+valid after="~"
 valid before="~"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -52,6 +54,7 @@ valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
 valid span="\:$"
+valid span="\:q"
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
 [\s\;]
@@ -108,7 +111,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid span="\?$"
 valid span="\?\»"
-valid before="~"
+valid after="~"
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
@@ -127,16 +130,18 @@ hint="No s'ha de posar un espai abans del signe de coma (tipografia)"
 [\,\S]
 validGroup beforePunctuation
 #valid after="\d" before="\d" 
+valid msgid="CREDIT_FOR_TRANSLATORS"
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
-valid msgid="CREDIT_FOR_TRANSLATORS"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
 valid after="\d+\s?" span="\,\d"
+valid after="0123456789\-\+"
 valid span="\,$"
 valid span="\,\?"
+valid span="\,\«"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
@@ -179,6 +184,8 @@ hint="No s'ha de posar un espai abans del signe de percentatge (tipografia)"
 #valid before="[A-Z]+?\b" # Keywords
 valid before="\w{2,7}\b" # Extensions
 valid before="\/\w+" # Files
+valid before="~"
+valid after="exec"
 valid after="-" cat="thesaurus_tool"
 hint="No s'ha de posar un espai abans del signe de punt (tipografia)"
 
@@ -251,5 +258,10 @@ hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (t
 
 [\b([A-Za-záéíóúàèòüçÁÉÍÓÚÀÈÒÇ])+\b\.{1,2}\b(\1)\b]
 hint="Hi ha una paraula consecutiva repetida en el páragraf (tipografia)"
+
+[\b(del|el|la|els|les|un|una|uns|unes)\s(del|el|la|els|les|un|una|uns|unes)\b]
+valid after="·"
+valid after="-"
+hint="Hi ha dos articles repetits o consecutius (tipografia)"
 
 # End of rule file
