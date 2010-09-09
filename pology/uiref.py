@@ -254,7 +254,7 @@ from pology import _, n_
 from pology.catalog import Catalog
 from pology.remove import remove_accel_msg, remove_markup_msg
 from pology.colors import cjoin
-from pology.fsops import collect_catalogs_by_env
+from pology.fsops import collect_catalogs, collect_catalogs_by_env
 from pology.getfunc import get_hook_ireq
 from pology.msgreport import warning_on_msg
 from pology.report import warning
@@ -293,6 +293,7 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
     @param uipathseps: separators in composited UI references
     @type uipathseps: list of strings
     @param uicpaths: paths to UI catalogs in the project
+        (both files and directories can be given)
     @type uicpaths: list of strings
     @param uicpathenv: environment variable defining directories
         where UI catalogs may be found (colon-separated directory paths)
@@ -632,7 +633,7 @@ def _collect_ui_catpaths (uicpaths, uicpathenv):
     if uicpathenv is not None:
         all_uicpaths.extend(collect_catalogs_by_env(uicpathenv))
     if uicpaths is not None:
-        all_uicpaths.extend(uicpaths)
+        all_uicpaths.extend(collect_catalogs(uicpaths))
 
     # Convert into dictionary by catalog name.
     # If there are several catalogs with the same name among paths,
