@@ -65,12 +65,6 @@ def main ():
                "Translate from translation to another language, "
                "found in compendium file at the given path."))
     opars.add_option(
-        "-s", "--source-lang", dest="slang",
-        metavar=_("@info command line value placeholder", "LANG"),
-        help=_("@info command line option description",
-               "Source language code. "
-               "Detected from catalogs if not given."))
-    opars.add_option(
         "-l", "--list-transervs",
         action="store_true", dest="list_transervs", default=False,
         help="List available translation services.")
@@ -94,6 +88,12 @@ def main ():
                "found in parallel catalogs. "
                "For given target catalog path, the path to parallel catalog "
                "is constructed by replacing once SEARCH with REPLACE."))
+    opars.add_option(
+        "-s", "--source-lang", dest="slang",
+        metavar=_("@info command line value placeholder", "LANG"),
+        help=_("@info command line option description",
+               "Source language code. "
+               "Detected from catalogs if not given."))
     opars.add_option(
         "-t", "--target-lang", dest="tlang",
         metavar=_("@info command line value placeholder", "LANG"),
