@@ -10,6 +10,7 @@ Matchers and matcher helpers for various objects.
 import re
 
 from pology import _, n_
+from pology.comments import parse_summit_branches
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
 from pology.report import error

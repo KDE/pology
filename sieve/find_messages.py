@@ -17,7 +17,6 @@ import sys
 from pology import _, n_
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
-from pology.comments import parse_summit_branches
 from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg
 from pology.match import ExprError
