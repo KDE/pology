@@ -8,9 +8,68 @@ include file="filter.include"
 {\ba\sel\b}i
 hint="«a el» s'ha de substituir per «al» (error freqüent)"
 
+# «afectar a» ha de ser «afectar» (és transitiu).
+{\bafect[a-zàé]+\sa\b}i
+hint="«de que» s'ha de substituir per «que» (error freqüent)"
+
 # «al respecte» (castellanisme) ha de ser «pel que fa al cas», «referent a això», «respecte a».
 {\bal\srespecte\b}i
 hint="«al respecte» s'ha de substituir per «referent a això» (error freqüent)"
+
+# «a no ser que» (castellanisme) ha de ser «llevat que», «fora que», «tret que», 
+# «excepte que», «si no és que» (aquesta darrera forma implica canvi de temps verbal).
+{\ba\sno\sser\sque\b}i
+hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
+
+# «de el» ha de ser «del».
+{\bde\sel\b}i
+hint="«de el» s'ha de substituir per «del» (error freqüent)"
+
+# «del contrari» (castellanisme) ha de ser «altrament», «d'altra manera», 
+# «en cas contrari», «si no», etc.
+{\bdel\scontrari\b}i
+hint="«del contrari» s'ha de substituir per altrament», «d'altra manera», etc. (error freqüent)"
+
+# «de que» ha de ser «que».
+{\bde\sque\b}i
+hint="«de que» s'ha de substituir per «que» (error freqüent)"
+
+# «de de que» ha de ser «des que».
+{\bdes\sde\sque\b}i
+hint="«des de que» s'ha de substituir per «des que» (error freqüent)"
+
+# «diferent a» ha de ser «diferent de».
+{\bdiferents?\sab}i
+hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
+
+# «doncs» ha de ser «perquè/ja que».
+# "doncs" expressa una conseqüència o una conclusió d'allò que s'acaba de dir. 
+# En altres casos, cal utilitzar "ja que" o "perquè" 
+# (http://www2.upc.edu/slt/fl/fitxa_content.php?id=35&tipus=p)
+{\,\sdoncs\b}i
+hint="«doncs» s'ha de substituir per «perquè/ja que» (error freqüent)"
+
+# Molts falsos positius
+## «e» sola és un error.
+#{\be\b}i
+#hint="«e» sola és un error (error freqüent)"
+
+# «enlloc de» ha de ser «en lloc de».
+{\benlloc\sde\b}i
+hint="«enlloc de» s'ha de substituir per «en lloc de» (error freqüent)"
+
+# «esperar a» ha de ser «esperar».
+{\besperar\sa\b}i
+hint="«esperar a» s'ha de substituir per «esperar» (error freqüent)"
+
+# «esta» ha de ser «està».
+{\besta\b}i
+hint="«esta» s'ha de substituir per «està» (error freqüent)"
+
+# «esteu/sou/quedeu» + +adj plural (com «esteu segurs»)
+# La persona és "vós", per tant ha de ser «esteu segur» (i similars).
+{\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b}i
+hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «fixe» ha de ser «fix» (i prefix, sufix).
 [\bfixes?\b]i
@@ -22,6 +81,10 @@ valid msgstr="fixes" cat="kstars_sideral" after="estrelles\s"
 valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
+# «mapejar» ha de ser «mapar».
+{\bmapej[a-zàé]+\b}i
+hint="«mapejar» s'ha de substituir per «mapar» (error freqüent)"
+
 # «prefixe/sufixe» ha de ser «prefix/sufix».
 [\b(pre|suf)fixes?\b]i
 valid msgid="fixes"
@@ -31,9 +94,22 @@ hint="«sufixe/prefixe» s'ha de substituir per «sufix/prefix» (error freqüen
 {\bhi\sha(n|vien)\b}i
 hint="«hi han» s'ha de substituir per «hi ha» (error freqüent)"
 
+# «per el» ha de ser «pel».
+{\bper\sel\b}i
+hint="«per el» s'ha de substituir per «pel» (error freqüent)"
+
 # «per exemple» s'abrevia amb un espai al mig «p. ex.».
 {\bp\.ex\.}i
-hint="«p.ex.» s'abrevia amb un espaio al mig «p. ex.» (error freqüent)"
+hint="«p.ex.» s'abrevia amb un espai al mig «p. ex.» (error freqüent)"
+
+# «por» hauria de ser «pot» (o algun altre mot correcte).
+{\bpor\b}i
+valid="Por\&t"
+hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
+
+# «tal i com» ha de ser «tal com».
+{\btal\si\scom\b}i
+hint="«tal i com» s'ha de substituir per «tal com» (error freqüent)"
 
 # «tea» es tradueix per «te» (sense accent) (error freqüent).
 {\btea\b}i
@@ -45,6 +121,19 @@ hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
 valid msgid="tea"
 valid msgid="te"
 hint="«té» (verb tenir) cal que porti accent (error freqüent)"
+
+# Molts falsos positius
+## «u» sola és un error.
+#{\bu\b}i
+#hint="«u» sola és un error (error freqüent)"
+
+# «venen» del verb venir cal que porti accent «vénen».
+{\bvenen\b}i
+hint="«venen» (verb venir) cal que porti accent «vénen» (error freqüent)"
+
+# «ves» del verb anar cal que porti accent «vés».
+{\bves\b}i
+hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
