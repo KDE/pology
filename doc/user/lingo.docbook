@@ -242,6 +242,13 @@ In case a PO file in target language does not have a counterpart in source langu
 </varlistentry>
 
 <varlistentry>
+<term><option>-M <replaceable>MODE</replaceable></option>, <option>--translation-mode=<replaceable>MODE</replaceable></option></term>
+<listitem>
+<para>Translation services need as input the mode in which to operate, usually the source and target language at minimum. By default the translation mode is constructed based on source and target languages, but this is sometimes not precise enough. This option can be used to issue a custom mode string for the chosen translation service, overriding the default construction. The format of the mode string is translation service dependent, check documentation of respective translation services for details.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><option>-n</option>, <option>--no-fuzzy-flag</option></term>
 <listitem>
 <para>By default machine-translated messages are made fuzzy, which is prevented by this option. It goes without saying that this is dangerous at current state of the art in machine translation, and should be used only in very specific scenarios (e.g. high quality machine translation between two dialects of the same language).</para>
@@ -312,7 +319,156 @@ In case a PO file in target language does not have a counterpart in source langu
 <sect1 id="sec-lguirefs">
 <title>Automatic Insertion of UI Labels</title>
 
-<para></para>
+<para>In program documentation, but also in help texts in running programs, frequently labels from user interface are mentioned. Here are two such messages, one a UI tooltip, the other a Docbook paragraph:
+<programlisting>
+#: comic.cpp:466
+msgid "Press the \"Get New Comics...\" button to install comics."
+msgstr ""
+
+#: index.docbook:157
+msgid ""
+"&lt;guimenuitem>Selected files only&lt;/guimenuitem> extracts only "
+"the files which have been selected."
+msgstr ""
+</programlisting>
+In the usual translation process, an embedded UI label is manually translated just like the surrounding text. You could directly translate the label, hoping that the original UI message was translated in the same way, but this will frequently not be the case (especially for longer labels). To be thorough, you could look up the UI message in its PO file, or run the program, to see how it was actually translated. There are two problems with being thorough in this way: it takes time to look up original UI messages, and worse, translation of a UI message might change in the future (e.g. after a review) and leave the referencing message out of date.</para>
+
+<para>An obvious solution to these problems, in principle, would be to leave embedded UI labels untranslated but properly marked (such as with <literal>&lt;gui*&gt;</literal> tags in Docbook), and have an automatic system fetch their translations from original UI messages and insert them into referencing messages. However, there could be many implementational variations of this approach (like at which stage of the translation chain the automatic insertion happens), with some significant details to get right.</para>
+
+<para>At present, Pology approaches automatic insertion of UI labels in a generalized way, which does not mandate any particular organization of PO files or translation workflow. It defines a syntax for wrapping and disambiguating UI references, for linking referencing and originating PO files, and provides a series of <link linkend="hk-uiref-resolve-ui">hooks to resolve and validate UI references</link>. A UI reference resolving hook will simply replace a properly equipped non-translated UI label with its translation. This implies that PO files which are delivered must not be the same PO files which are directly translated, because resolving UI references in directly translated PO files would preclude their automatic update in the future<footnote>
+<para>Another advantage is that original text too will sometimes contain out-of-date UI references, which this process will automatically discover and enable the translation to be more up-to-date than the original. Of course, reporting the problem to the authors would be desireable, or even necessary when the related feature no longer exists.</para>
+</footnote>. It is upon the translator or the translation team to establish the separation between delivered and translated PO files. One way is by translating in summit (see <xref linkend="ch-summit"/>), which by definition provides the desired separation, and setting UI reference resolving hooks as filters on scatter.</para>
+<!-- FIXME: Link ...filters on scatter... to hooks section of summit documentation, once ready. -->
+
+<sect2 id="sec-lguiformat">
+<title>Wrapping UI References</title>
+
+<para>If UI references are inserted into the text informally (even if relying on certain ortographic or typographic conventions), then they must be manually wrapped in the translation using an explicit UI reference directive. For example:
+<programlisting>
+#: comic.cpp:466
+msgid "Press the \"Get New Comics...\" button to install comics."
+msgstr "Pritisnite dugme „~%/Get New Comics/“ da instalirate stripove."
+</programlisting>
+Explicit UI reference directives are of the format <replaceable>head</replaceable>/<replaceable>reference-text</replaceable>/. The directive head is <literal>~%</literal> in this example, which is the default, but another head may be specified as parameter to UI resolving hooks. Delimiting slashes in the UI reference directive can be replaced with any other character consistenly (e.g. if the UI text itself contains a slash). Note that the directive head must be fixed for a collection of PO files (though more than one head can be defined), while delimiting character can be freely chosen from one to another directive.</para>
+
+<para>The other the type are implicit UI references, which do not require
+special directive, made possible when UI text is indicated in the text through formal markup. This is the case, for example, in PO files coming from Docbook documenation:
+<programlisting>
+#: index.docbook:157
+msgid ""
+"&lt;guimenuitem>Selected files only&lt;/guimenuitem> extracts only "
+"the files which have been selected."
+msgstr ""
+"&lt;guimenuitem>Selected files only&lt;/guimenuitem> raspakuje samo "
+"datoteke koje su izabrane."
+</programlisting>
+Here the translation contains nothing special, save for the fact that the UI reference is not translated. UI resolving hooks can be given a list of tags to be considered as UI references, and for some common formats (such as Docbook) there are predefined specialized hooks which already list all UI tags.</para>
+
+<para>If the message of the UI text is unique by its <varname>msgid</varname> string in the originating PO file, then it can be wrapped simply as in previous examples. This means that even if it has the <varname>msgctxt</varname> string, the reference will still be resolved. But, if there are several UI messages with same <varname>msgid</varname> (implying different <varname>msgctxt</varname>), then the <varname>msgctxt</varname> string has to be manually added to the reference. This is done by puting the context into the prefix of the reference, separated by the pipe <literal>|</literal> character. For example, if the PO file has these two messages:
+<programlisting>
+msgctxt "@title:menu"
+msgid "Columns"
+msgid "Kolone"
+
+msgctxt "@action:inmenu View Mode"
+msgid "Columns"
+msgstr "kolone"
+</programlisting>
+then the correct one can be selected in an implicit UI reference like this:
+<programlisting>
+msgid ""...&lt;guibutton>Columns&lt;/guibutton>..."
+msgstr "...&lt;guibutton>@title:menu|Columns&lt;/guibutton>..."
+</programlisting>
+In the very unlikely case of <literal>|</literal> character being part of the context string itself, the <literal>¦</literal> character ("broken bar") can be used as the context separator instead.</para>
+
+<para>If the UI reference equipped with context does not resolve to a message through direct match on context, the given context string will next be tried as regular expression match on <varname>msgctxt</varname> strings of the messages with matching <varname>msgid</varname> (matching will be case-insensitive). If this results in exactly one matched message, the reference is resolved. This matching sequence allows simplification and robustness in case of longer contexts, which would look ungainly in the UI reference and may slightly change over time.</para>
+
+<para>If two UI messages have equal <varname>msgid</varname> but are not part of the same PO file, that is not a conflict because one of those PO files has the priority (see <xref linkend="sec-lguilink"/>).</para>
+
+<para>If of UI two messages with equal <varname>msgid</varname> one has <varname>msgctxt</varname> and the other does not, the message without context can be selected by adding the context separator in front of the text with nothing before it (i.e. as if the context is "empty").</para>
+
+<para>Sometimes, though rarely, it happens that the referenced UI text is not statically complete, that is, that it contains a format directive which is resolved at runtime. In such cases, the reference must be transformed to exactly an existing <varname>msgid</varname>, and the arguments are substituted with special syntax. If the UI message is:
+<programlisting>
+msgid "Configure %1..."
+msgstr "Podesi %1..."
+</programlisting>
+then it can be used in an implicit UI reference like this:
+<programlisting>
+msgid "...&lt;guimenuitem>Configure Foobar...&lt;/guimenuitem>..."
+msgstr "...&lt;guimenuitem>Configure %1...^%1:Foobar&lt;/guimenuitem>..."
+</programlisting>
+Substitution arguments follow after the text, separated with the <literal>^</literal> character. Each argument specifies the format directive it replaces and the argument text, separated by <literal>:</literal>. In the unlikely case that <literal>^</literal> is part of the <varname>msgid</varname> itself, the <literal>ª</literal> ("feminine ordinal indicator") can be used instead as the argument separator.</para>
+
+<para>If there are several format directives in the UI reference, they are by default considered "named". This means that all same format directives will be replaced by the same argument. This is the right thing to do for some formats, e.g. <literal>python-format</literal> or <literal>kde-format</literal> messages, but not for all formats. In <literal>c-format</literal>, if there are two <literal>%s</literal> in the text, to replace just one of them with the current argument, the format directive attached to the argument must be preceded with <literal>!</literal>:
+<programlisting>
+#, c-format
+msgid "...&lt;guilabel>This Foo or that Bar&lt;/guilabel>..."
+msgstr "...&lt;guilabel>This %s or that %s.^!%s:foo^!%s:bar&lt;/guilabel>..."
+</programlisting>
+</para>
+
+<para>In general, but especially with implicit references, the text wrapped as reference may actually contain several references in form of UI path (<literal>"...go to Foo->Bar->Baz, and click on..."</literal>). To handle such cases, if it is not possible or it is not convenient to wrap each element of the UI path separately, UI reference resolving hooks can be given one or more UI path separators (e.g. <literal>-></literal>) to split and resolve the element references on their own.</para>
+
+<para>Sometimes the UI reference in the original text is not valid, i.e. such message no longer exists in the program. This can happen due to slight interpunction mismatch, small style changes, etc., such that you can easily locate the correct UI message and use its <varname>msgid</varname> as the reference. However, if the UI reference is not valid due to documentation being outdated, there is no correct UI message to use in translation. This should most certainly be reported to the authors, but up until they fix it, it presents a problem for immediate resolution of UI references. For this reason, a UI reference can be temporarily translated in place, by preceding it with twin context separators:
+<programlisting>
+msgid "...<guilabel>An Outdated Label</guilabel>..."
+msgstr "...<guilabel>||Zastarela etiketa</guilabel>..."
+</programlisting>
+This will resolve into the verbatim text of the reference (i.e. context separators will simply be removed), without the hook complaining about an unresolvable reference.</para>
+
+</sect2>
+
+
+<sect2 id="sec-lguinorm">
+<title>Normalization of UI Text</title>
+
+<para>The text of the UI message may contain some characters and substrings which should not be carried over into the text which references the message, or should be modified. To cater for this, UI PO files are normalized after being opened and before UI references are looked up in them. In fact, UI references are written precisely in this normalized form, rather than using the true original <varname>msgid</varname> from the UI PO file. This is both for convenience and for necessity.</para>
+
+<para>One typical thing to handle in normalization is the accelerator marker. UI reference resolving hooks eliminate accelerator markers automatically, by for that they need to known what the accelerator marker character is. To find this out, hooks will read <link linkend="hdr-x-accelerator-marker">the <literal>X-Accelerator-Marker</literal> header field</link>.</para>
+
+<para>Another problem is when UI messages contain subsections which would invalidate the target format which is being translated in the referencing PO file, e.g. malformed XML in Docbook catalogs. For example, literal <literal>&amp;</literal> must be represented as <literal>&amp;amp;</literal> in Docbook markup, thus this UI message:
+<programlisting>
+msgid "Scaled &amp; Cropped"
+msgstr ""
+</programlisting>
+would be referenced as:
+<programlisting>
+msgid "...&lt;guimenuitem>Scaled &amp;amp; Cropped&lt;/guimenuitem>..."
+msgstr "...&lt;guimenuitem>Scaled &amp;amp; Cropped&lt;/guimenuitem>..."
+</programlisting>
+Resolving hooks have parameters for specifying the type of escaping needed by the target format.</para>
+
+<para>Normalization may flatten several different messages from the UI PO file into one. Example of this is when <varname>msgid</varname> fields are equal but for the accelerator marker. If this happens and normalized translations are not equal for all flattened messages, a special "tail" is added to their contexts, consisting of a tilde and several alphanumeric characters. The first run of the resolving (or validation) hook will report ambiguities of this kind, as well as assigned contexts, so that proper context can be copied and pasted over into the UI reference. The alphanumeric context tail is computed from the non-normalized <varname>msgid</varname> alone, so it will not change if, for example, messages in the UI PO file get reordered.</para>
+
+</sect2>
+
+<sect2 id="sec-lguilink">
+<title>Linking to Originating PO Files</title>
+
+<para>In general, the UI message may not be present in the same PO file in which it is referenced in another messages. This is always the case for documentation PO files. Therefore UI reference resolving hooks need to know two things: the list of all UI PO files (those from which UI references may be drawn), and, for each PO file which contains UI references, the list of PO files from which it may draw UI references.</para>
+
+<para>The list of UI PO files can be given to resolving hooks explicitly, as list of PO file paths (or directory paths to search for PO files). This can, however, be inconvenient, as it implies either that the resolution script must be invoked in a specific directory (if paths are relative), or that UI PO files must reside in a fixed directory on the system where the resolution script is run (if paths are absolute). Therefore there is another way of specifying paths to UI PO files, through an environment variable which contains a colon-separated list of directory paths. Both the explict list of paths and the environment variable which contains the paths can be given as parameters to hooks.</para>
+
+<para>By default, for a given PO file, UI references are looked for only in the PO file of the same name, assuming that it is found among UI PO files. This may be sufficient, for example, for UI references in tooltips, but it is frequently not sufficient for documentation PO files, which may have a different names from corresponding UI PO file names. Therefore a PO file can be manually linked to UI PO files from which it draws UI references, through a special header field <literal>X-Associated-UI-Catalogs</literal>. This field specifies only the PO domain names, as space- or comma-separated list:
+<programlisting>
+msgid ""
+msgstr ""
+"Project-Id-Version: foobar\n"
+"..."
+"X-Associated-UI-Catalogs: foobar libfoobar libqwyx\n"
+</programlisting>
+The order of domain names in the list is important: if the referenced UI message exists in more than one linked PO file, the translation is taken from the one which appears earlier in the list. Knowing PO domain names, resolving hooks can look up the exact file paths in the supplied list of paths.</para>
+
+</sect2>
+
+<sect2 id="sec-lguinotes">
+<title>Notes on UI Reference Resolution</title>
+
+<para>When a UI reference cannot be resolved, for whatever reason -- it does not exist, there is a context conflict, the message is not translated, etc. -- resolving hooks will output warnings and fallback to original text.</para>
+
+<para>For each resolving hook there exists the counterpart validation hook. Validation hooks may be used in a "dry run" before starting to build PO files for delivery, or they may be built into a general translation validation framework (such as Pology's <link linkend="sec-lgrules">validation rules</link>).</para>
+
+</sect2>
 
 </sect1>
 
