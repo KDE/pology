@@ -75,6 +75,14 @@ def main ():
               "Add '%(flag)s' flag to translated messages.",
               flag=_flag_mtrans))
     opars.add_option(
+        "-M", "--translation-mode", dest="tmode",
+        metavar=_("@info command line value placeholder", "MODE"),
+        help=_("@info command line option description",
+               "Translation mode for the chosen translation service. "
+               "Overrides the default translation mode constructed "
+               "based on source and target language. "
+               "Mode string format is translation service dependent."))
+    opars.add_option(
         "-n", "--no-fuzzy-flag",
         action="store_false", dest="flag_fuzzy", default=True,
         help=_("@info command line option description",
@@ -348,7 +356,10 @@ class Translator_apertium (object):
                     "Apertium executable not found at '%(path)s'.",
                     path=cmdpath))
 
-        mode = "%s-%s" % (slang, tlang)
+        if options.tmode is not None:
+            mode = options.tmode
+        else:
+            mode = "%s-%s" % (slang, tlang)
 
         self.cmdline = "%s %s -u -f html" % (cmdpath, mode)
 
@@ -424,7 +435,10 @@ class Translator_google (object):
                     mod="simplejson", pkg="python-simplejson"))
 
         baseurl = "http://ajax.googleapis.com/ajax/services/language/translate"
-        langpair = "%s|%s" % (self.slang, self.tlang)
+        if options.tmode is not None:
+            langpair = options.tmode
+        else:
+            langpair = "%s|%s" % (self.slang, self.tlang)
         baseparams = (("v", "1.0"), ("langpair", langpair), ("ie", "utf8"))
 
         texts_tr = []
