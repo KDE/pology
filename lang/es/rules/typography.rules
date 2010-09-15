@@ -130,7 +130,7 @@ valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
-valid after="\d+\s?" span="\,\d"
+valid span="\,\d" after="\d+\s?"
 valid span="\,$"
 hint="Ponga un espacio de separación después del signo de coma"
 
@@ -175,7 +175,6 @@ valid after="\.\."
 valid after="S\.u\.S\.E"
 valid cat="kspread"
 valid cat="kstars"
-#valid after="etc|min|sec|s|appl"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
 [\.\S]
@@ -184,13 +183,13 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid before="D?COPserver"
-valid before="\w{1,4}\b" # Extensions
-valid span="Last.Fm"
+valid span="\.[A-Za-z]" before="\w{1,3}" # Extensions
+valid span=".F" after="Last" before="m"
 valid after="\.\." 
 valid span="\.\." before="\."
 valid span="\.\." after="\."
 valid span="\.$"
+valid span="\.\<" before="\/p\>"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s\.]

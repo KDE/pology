@@ -1,4 +1,10 @@
+0.- Crear un archivo «CREDITS AND LICENCE».
+
 1.- Reglas de puntuación:
+- No se escribe mayúscula después de dos puntos.
+- Tampoco se escribe en mayúscula la primera letra después de abrir paréntesis 
+(excepto en el caso de que sea una oración completa, que debería llevar punto al final, dentro del paréntesis).
+- Los nombres de los meses y los días de la semana se escriben siempre en minúscula.
 - No aplicar la regla de obligatoriedad de espacio después 
 de un punto en el caso que siga un nombre de archivo 
 (archivo oculto o ejecución de orden).
@@ -14,6 +20,7 @@ auxiliares ingleses «did», «will», «would», «could», «should», ..., y 
 combinación con «not». 
 - Tratamiento de la tercera persona de los verbos ingleses.
 - Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
+- Considerar como válidas las formas reflexivas para la voz pasiva en inglés. 
 * (Para estos casos, emplear la opción «span» de pology, para delimitar el 
 texto original al que se aplica cada variante específica).
 - Añadir mas reglas sobre «false friends». Lista de Eloy Cuadra en:
@@ -25,16 +32,142 @@ equipos que resulten aplicables y de interés para nosotros:
     - sr/rules/techne-kde-rules
     - sr/rules/terminology-kde-rules
     - sr/rules/terminology-rules
+- Adaptar glosarios de:
+    - NAVE
+    - OpenTranslation
+    - ORCA
+    - Ubuntu
 - Detección del uso inadecuado del gerundio.
 - Laismo, leismo y loismo.
 - Queismo, dequeismo.
 - Voseo y tuteo.
+- Crear un nuevo archivo de reglas denominado «common-mistakes.rules», 
+que incluya la verificación de los errores mas habituales en los 
+textos traducidos.
+- Revisar las normas de traducción de OpenOffice y Ubuntu.
 
 3.- Reglas de comparación entre el texto traducido y el original.
 - Incorporar las de KBabel.
 
 4.- Vocabulario.
-- Buscar (principalmente en la Wikipedia) mas glosarios temáticos.
+- Buscar (principalmente en la Wikipedia y Wiktionary) mas glosarios temáticos.
+- Crear glosarios temáticos de unix/linux y gnome.
  
 5.- Revisar las reglas con otros paquetes; (hasta el momento las he probado 
 con «kdelibs», «kdepim», «kdegraphics» y «extragear-multimeadia»).
+
+6.- Reglas de la Wikipedia:
+- La palabra que sigue a un número que comienza una frase debe escribirse en minúscula, 
+ya que se considera que la primera palabra de la frase es el número (aunque esté escrito en cifra): 
+23.330 latas de cerveza y 12.000 latas de refresco. Lo mismo sucede en caso de que se trate de números romanos: 
+...y sonrió. XVIII duquesa de Alba de Tormes, doña Cayetana ha sabido... 
+Cuando el V obispo de San Bartolomé de Chillán condujo....
+
+- Errores frecuentes al tildar
+    *  *adios, corrección: adiós
+    *  *fé, corrección: fe
+    *  *tí, corrección: ti
+    *  *dá, corrección: da
+    *  *dí, corrección: di
+    *  dió, mejor: dio
+    *  fié, mejor: fie (presente fíe)
+    *  fué, mejor: fue
+    *  fuí, mejor: fui
+    *  vió, mejor: vio (puede leerse un interesante artículo sobre estos cuatro monosílabos en este enlace externo: [1])
+    *  *ví, corrección: vi
+    *  mas y más: existen ambas formas, pero con significado diferente:
+          o más es el grado comparativo de mucho;
+          o mas, apenas usado en España pero sí en Hispanoamérica, es una conjunción adversativa que equivale a pero: Lucía dijo que fue ella, mas no puede ser (Lucía dijo que fue ella, pero no puede ser). (Ver también: Acento diacrítico).
+    *  *imágen, corrección: imagen (plural: imágenes).
+    *  *exámen, corrección: examen (plural: exámenes).
+    *  *jóven, corrección: joven (plural: jóvenes).
+    *  *órden, corrección: orden
+    *  *orígen, corrección: origen (la confusión en estos cuatro casos probablemente viene de sus plurales: imágenes, exámenes, órdenes y orígenes)
+    *  *vease, corrección: véase
+    *  *via, corrección: vía.
+Nótese también que «imagen», «examen», «orden» y «origen» son palabras graves terminadas en "n" y, 
+por tanto, no llevan acento ortográfico. En tanto sus plurales se hacen esdrújulas y siempre van tildadas. 
+Una regla que evita un alto porcentaje de los errores es considerar las palabras terminadas en n, s o vocal 
+como naturalmente graves y, por tanto, se escriben sin tilde: «aborigen» (termina en n, se pronuncia [abo'ɾixen]), 
+«zapato» (termina en vocal, se pronuncia [sa'pato]), «pecosos» (termina en s, se pronuncia [pe'kosos]).
+
+- -ción, -cción y -xión
+¿Se escribe «correción» o corrección? En general hay erratas con los -ción y los -cción. Si duda, 
+recuerde que sólo las palabras terminadas en «-cción» aceptan el sufijo «-ctor». Ejemplos: 
+acción >> actor / traducción >> traductor, corrección >> corrector...
+Por el contrario, no se escribirá «inflacción», sino «inflación».
+Para los hablantes seseantes, una importante excepción es el sustantivo conexión, 
+a pesar de que el verbo correspondiente es conectar. Esta irregularidad tiene razones etimológicas, 
+ya que en latín también se escribía CONNEXIO, -ONIS. (Téngase en cuenta que la terminación -cción 
+del castellano viene del latín -CTIO, pronunciada originalmente /ktio/).
+
+- ¿«Gratis» o *«de gratis»?
+La forma correcta es decir "gratis": «El agua es gratis». *"de gratis" es incorrecto 
+(se debe al cruce con expresiones como "de balde"): *«A Lucía le dejaron entrar de gratis».
+
+- Debe escribirse «prescribir», «prescripción», «prescriptible». 
+Son incorrectas, por tanto, las formas con doble -ee- *«Preescribir, preescripción, preescriptible». 
+Similar observación vale para «prever»: «preverse», «previsible» son formas correctas 
+que suelen escribirse de manera errónea como (*«preveer»). Más información.
+
+- ¿Se puede «jugar» un papel?
+En francés se usa jouer para el uso que en español damos a 'representar' un papel de teatro o 'tocar' un instrumento musical. 
+En inglés existe la expresión similar play. Por extensión de «papel» se habla de las funciones, cargos, responsabilidades o 
+importancia que tiene una persona o cosa en un asunto determinado.
+Es un extendido galicismo transportar literalmente el francés jouer son rôle o el inglés play his role 
+("representar su papel") y decir «jugar un papel». Aunque la Real Academia no lo considera erróneo, se considera preferible, 
+sin embargo, utilizar verbos alternativos como «representar» o «desempeñar».
+
+-  ¿Oficina de «soporte» técnico?
+"Soportar" se usa con frecuencia como traducción del inglés support; sin embargo, es un falso amigo. 
+Como verbo, el inglés support significa 'apoyar, admitir, financiar, ser compatible con...'; 
+y como sustantivo 'ayuda' o 'asistencia' (por lo que «soporte técnico» tampoco es una expresión correcta, 
+sino que se tendría que decir «servicio técnico»).
+Soportar es sostener una carga o aguantar algo o a alguien. Por ejemplo:
+    * «No soporto la cebolla.»
+    * «Llevo horas soportando a este mocoso.»
+
+- "¿Hace dos siglos atrás?"
+Si bien es correcto decir «hace dos siglos pasó tal suceso» o «dos siglos atrás pasó tal otro», 
+mezclar las dos oraciones es una redundancia muy común. Es incorrecto decir «hace dos siglos atrás» 
+porque la última palabra y la primera están haciendo referencia a lo mismo, por lo que no deben ser usadas en conjunto. 
+Por el contrario, pueden usarse sustitutivamente para evitar repeticiones.
+
+- "Americano", "norteamericano", "estadounidense"
+Aunque el DRAE incluye "estadounidense" como cuarta acepción del término "americano", 
+el Diccionario panhispánico de dudas desaconseja utilizar este término como sinónimo de "estadounidense", 
+ya que es un calco erróneo del inglés. En cambio, sí considera aceptable emplear el término "norteamericano" 
+en el sentido de "estadounidense": Está muy generalizado, y resulta aceptable, el uso de norteamericano 
+como sinónimo de estadounidense, ya que, aunque en rigor el término norteamericano podría usarse igualmente 
+en alusión a los habitantes de cualquiera de los países de América del Norte o Norteamérica (→ Norteamérica), 
+se aplica corrientemente a los habitantes de los Estados Unidos. Pero debe evitarse el empleo de americano 
+para referirse exclusivamente a los habitantes de los Estados Unidos, uso abusivo que se explica por el hecho 
+de que los estadounidenses utilizan a menudo el nombre abreviado América (en inglés, sin tilde) para referirse 
+a su país. No debe olvidarse que América es el nombre de todo el continente y que son americanos todos los que lo habitan.
+
+- En el español corriente es frecuente encontrar oraciones condicionales de negación implícita enteramente construidas 
+haciendo uso del modo potencial (o condicional del indicativo) y olvidando por completo el modo subjuntivo, 
+que es el modo del deseo o la posibilidad.
+En los tiempos simples (presente y futuro), un período condicional debe construirse empleando el modo subjuntivo 
+en la prótasis y el modo potencial sólo en la apódosis. Ej.:
+
+                    Si lo supiera, lo diría.
+
+En los tiempos compuestos (pasado), la regla sigue siendo la misma. Lo único que hay que tener en cuenta es que el cambio 
+sólo debe afectar al verbo auxiliar. Ej.:
+
+                    Si lo hubiera sabido, lo habría dicho.
+
+Cabe destacar que la RAE, en la última edición de su gramática, acepta también el modo subjuntivo para la apódosis. Ej.:
+
+                    Si lo hubiera sabido, lo hubiera dicho.
+
+Finalmente, un par de sutilezas más:
+
+    * Hay quienes distinguen entre las terminaciones '-iera' y '-iese' del modo subjuntivo y las utilizan según traten 
+de expresar probabilidad o imposibilidad, respectivamente.
+    * La cuestión sobre la inversión de prótasis y apódosis: ver [2].
+    * En el habla popular de algunas regiones de España y América es cosa común encontrar la forma potencial tanto 
+en la prótasis como en la apódosis, cosa inadmisible en un habla o escritura culta. Ejemplos:
+
+                     *Si lo sabría, lo diría, pero el caso es que no lo sé.

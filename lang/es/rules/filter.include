@@ -45,7 +45,7 @@ addFilterRegex match="(file\:|\#\!)?\/(bin|etc|lib|media|proc|srv|var|boot|home|
 addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)(\/(\w|\.|\-|\_|)+?)*?\/?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guess) hidden files.
-addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|directory|fonts\w*?|ICEauthority|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|calendar|directory|fonts\w*?|ICEauthority|lock|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guess) commands.
 addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
@@ -57,7 +57,7 @@ addFilterRegex match="\~\.?\/[\w\-\_\.]+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="(etc\.|Ej\.|ej\.|P\.ej?\.|p\.ej?\.|EE\.UU\.|id\.|Id\.|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(etc\.|Ej\.|ej\.|P\.ej\.|p\.ej\.|EE\.UU\.|id\.|Id\.|a\.m\.|p\.m\.|n\.t\.|expr\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="(Sr\.|Sra\.|Dr\.|Dra\.|D\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="(apdo\.|art\.|atte\.|avda\.|av\.|cap\.|C\.\s\C\.|cent\.|cént\.|Cía\s|C\.\s\P\.|cta\.|dcho\.|dcha\.|depto\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="(EE\.\sUU\.|Fdo\.|Gral\.|Ilmo\.|izdo\.|JJ\.\sOO\.|K\.\sO\.|Ltd\.|Ltdo\.|Ltda\.|máx.|mín\.|pág\.)" repl="~" on="pmsgid,pmsgstr"

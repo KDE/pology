@@ -1,3 +1,25 @@
+Cambios 15/9/2010
+-----------------------
+1.- Cambios en «glosario-kde-l10n-es.rules»
+- Añadidas diversas variantes de tercera persona, pasado y gerundio.
+- Admitir como válido el uso del reflexivo como traducción de la voz pasiva
+(todavía incompleto)
+- Movidas algunas reglas a «common-mistakes.rules».
+
+2.- Cambios en «glosario-kde-l10n-es-proposed.rules»
+- Añadidas múltiples reglas.
+
+3.- Nuevo archivo «common-mistakes.rules»
+- Por el momento incluye reglas sobre errores habituales en cuanto al género 
+de algunos términos y algunas palabras que no se deben usar.
+
+4.- Nuevo archivo «user-interface.rules»
+- Por el momento contiene reglas sobre la traducción de teclas de función.
+
+5.- Ampliación del diccionario.
+- Nuevos términos extraídos del Wiktionary en español, principalmente una gran 
+lista de nombres propios.
+
 Cambios 2/9/2010
 -----------------------
 1.- Cambios en «filter.include»
@@ -15,8 +37,8 @@ problemas con la reglas de puntuación.
 y punto y coma dentro de números o fechas.
 
 4.- Cambios en «false-friends.rules»
--  Nuevos falsos amigos tomados de la lista de la web de Eloy Cuadra.
-- Añadidas algunas forma en plural y tercera persona a la lista anterior.
+- Nuevos falsos amigos tomados de la lista de la web de Eloy Cuadra.
+- Añadidas algunas formas en plural y tercera persona a la lista anterior.
 
 Cambios 23/8/2010
 -----------------------

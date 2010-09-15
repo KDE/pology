@@ -14,6 +14,12 @@ valid msgstr="interrumpir"
 valid !msgstr="abortar"
 hint="« Abort » se traduce como como « Interrumpir », nunca como « Abortar » (ver glosario)"
 
+# «Aborted» se traduce como «Interumpido».
+{\baborted\b}i
+valid msgstr="interrumpid(o|a)"
+valid !msgstr="abortad(o|a)"
+hint="« Aborted » se traduce como como « Interrumpido », nunca como « Abortado » (ver glosario)"
+
 # «Adress» se traduce como «Dirección».
 {\badress^(\sbooks?)\b}i
 valid msgstr="dirección"
@@ -46,6 +52,12 @@ hint="« Alias » se traduce como « Apodo » si se refiere a personas (ver glos
 valid msgstr="asignar"
 valid !msgstr="alocar"
 hint="« Allocate » como se traduce como « Asignar » (ver glosario)"
+
+# «Allocation» se traduce como «Asignación».
+{\ballocation\b}i
+valid msgstr="asignación"
+valid !msgstr="alocación"
+hint="« Allocation » como se traduce como « Asignación » (ver glosario)"
 
 # «API» no se debe traducir.
 {\bAPI\b}i
@@ -117,8 +129,8 @@ valid msgstr="barra\sinversa"
 valid !msgstr="barra\sinvertida"
 hint="« Backslash » se traduce como « Barra inversa », nunca como « Barra invertida » (ver glosario)"
 
-# «Backslashs» se traduce como «Barras inversas».
-{\bbackslashs\b}i
+# «Backslashes» se traduce como «Barras inversas».
+{\bbackslashes\b}i
 valid msgstr="barras\sinversas"
 valid !msgstr="barras\sinvertidas"
 hint="« Backslashs » se traduce como « Barras inversas », nunca como « Barras invertidas » (ver glosario)"
@@ -198,15 +210,15 @@ hint="« Boot » se traduce como « Inicio » o « Arranque » (ver glosario)"
 {\bbuffer\b}i
 valid msgstr="memoria\stemporal"
 valid msgstr="memoria\sintermedia"
-valid msgstr="buffer"
-hint="« Buffer » se traduce como « Memoria temporal/intermedia » o se deja sin traducir (ver glosario)"
+valid msgstr="búfer"
+hint="« Buffer » se traduce como « Memoria temporal/intermedia » o como « Búfer » (ver glosario)"
 
 # «Buffers» se traduce como «Memorias temporales/intermedias».
 {\bbuffers\b}i
 valid msgstr="memorias\stemporales"
 valid msgstr="memorias\sintermedias"
-valid msgstr="buffers"
-hint="« Buffers » se traduce como « Memorias temporales/intermedias » o se deja sin traducir (ver glosario)"
+valid msgstr="búferes"
+hint="« Buffers » se traduce como « Memorias temporales/intermedias » o como « Búferes » (ver glosario)"
 
 # «Buffering» se traduce como «Almacenamiento temporal».
 {\bbuffering\b}i
@@ -216,9 +228,10 @@ hint="« Buffering » se traduce como « Almacenamiento temporal » (ver glosari
 
 # «Bug» se traduce como «Fallo» o «Error».
 {\bbug\b}i
-valid msgstr="fallo"
+valid msgstr="fall(o|a)"
 valid msgstr="error"
 valid !msgstr="bug"
+valid !msgstr="bicho"
 hint="« Bug » se traduce como « Fallo » o « Error » (ver glosario)"
 
 # «Bugs» se traduce como «Fallos» o «Errores».
@@ -238,10 +251,15 @@ hint="« Byte » no se traduce (ver glosario)"
 valid msgstr="bytes"
 hint="« Bytes » no se traduce (ver glosario)"
 
-# «Cache memory» se traduce como «Memoria caché».
-{\bcache\smemory\b}i
-valid msgstr="memoria\scaché"
-hint="« Cache memory » se traduce como « Memoria caché » (ver glosario)"
+# «Cache» se traduce como «Caché».
+{\bcache\b}i
+valid msgstr="caché"
+hint="« Cache » se traduce como « Caché » (ver glosario)"
+
+## «Cache memory» se traduce como «Memoria caché».
+#{\bcache\smemory\b}i
+#valid msgstr="memoria\scaché"
+#hint="« Cache memory » se traduce como « Memoria caché » (ver glosario)"
 
 # «Catch-all-entry» se traduce como «Entrada para la ruta por omisión».
 {\bcath\-all\-entry\b}i
@@ -297,6 +315,21 @@ hint="« Chips » no se traduce (ver glosario)"
 valid msgstr="limpi(ar|a|o|e|eza)"
 hint="« Clean » se traduce como « Limpiar » (ver glosario)"
 
+# «Cleaned» se traduce como «Limpio».
+{\bcleaned\b}i
+valid msgstr="limpio"
+hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+
+# «Cleaner» se traduce como «Limpiador».
+{\bcleaner\b}i
+valid msgstr="limpiadora?"
+hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+
+# «Cleans» se traduce como «Limpia».
+{\bcleans\b}i
+valid msgstr="limpi(a|e)"
+hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+
 # «Click» se traduce como «Pulsación» o «clic».
 {\bclick\b}i
 valid msgstr="puls(ación|ar|a|e)"
@@ -340,9 +373,6 @@ valid msgstr="órdenes"
 valid msgstr="instrucciones"
 hint="« Commands » se traduce como « Órdenes » o « Instrucciones », nunca como « Comandos » (ver glosario)"
 
-[\bcomandos?\b]i
-hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (ver glosario)"
-
 # «Compact disk » se traduce como «Disco compacto».
 {\bcompact\sdisk\b}i
 valid msgstr="disco\scompacto"
@@ -358,6 +388,11 @@ hint="« Compact disks » se traduce como « Discos compactos » (ver glosario)"
 valid msgstr="comprim(e|a|ir|ido|ida)"
 hint="« Compact » se traduce como « Comprimir » (ver glosario)"
 
+# «Compacted» se traduce como «Comprimido».
+{\bcompacted\b}i
+valid msgstr="comprim(ido|ida)"
+hint="« Compacted » se traduce como « Comprimido » (ver glosario)"
+
 # «Computer» se traduce como «Equipo».
 {\bcomputer\b}i
 valid msgstr="equipo"
@@ -367,11 +402,6 @@ hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « 
 {\bcomputers\b}i
 valid msgstr="equipos"
 hint="« Computers » se traduce como « Equipos », no como « Ordenadores » o « Computadoras » (ver glosario)"
-
-[\bordenador(es)?\b]i
-hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (ver glosario)"
-[\bcomputador(a|es|as)?\b]i
-hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (ver glosario)"
 
 # «Container» se traduce como «Contenedor».
 {\bcontainer\b}i
@@ -501,6 +531,16 @@ valid msgstr="des?codificar?"
 valid msgstr="des?codificación"
 hint="« Decode » se traduce como « Descodificar » (ver glosario)"
 
+# «Decoded» se traduce como «Descodificado».
+{\bdecoded\b}i
+valid msgstr="des?codificad(o|a)"
+hint="« Decoded » se traduce como « Descodificado » (ver glosario)"
+
+# «Decoding» se traduce como «Descodificación».
+{\bdecoding\b}i
+valid msgstr="des?codificación"
+hint="« Decoding » se traduce como « Descodificación » (ver glosario)"
+
 # «Decrypt» se traduce como «Descifrar».
 {\bdecrypt\b}i
 valid msgstr="descifr(ar|a|e)"
@@ -536,6 +576,11 @@ hint="« Defragment » se traduce como « Desfragmentar » (ver glosario)"
 {\bdevelop\b}i
 valid msgstr="desarroll(ar|a|e)"
 hint="« Develop » se traduce como « Desarrollar » (ver glosario)"
+
+# «Develops» se traduce como «Desarrolla».
+{\bdevelops\b}i
+valid msgstr="desarroll(a|e)"
+hint="« Develops » se traduce como « Desarrolla » (ver glosario)"
 
 # «Developer» se traduce como «Desarrollador».
 {\bdeveloper\b}i
@@ -597,6 +642,12 @@ valid msgstr="inutilizad(o|a|os|as)"
 valid !msgstr="deshabilitad(o|a|os|as)"
 hint="« Disabled » se traduce como « Desactivado » o « Inutilizado » según el contexto (ver glosario)"
 
+# «Disables» se traduce como «Desactiva» o «Inutiliza».
+{\bdisables\b}i
+valid msgstr="desactiv(a|e)"
+valid msgstr="inutiliz(e|a)"
+hint="« Disables » se traduce como « Desactiva » o « Inutiliza » según el contexto (ver glosario)"
+
 # «Disabling» se traduce como «Desactivación».
 {\bdisabling\b}i
 valid msgstr="desactiva(ción|r|ndo)"
@@ -634,6 +685,11 @@ hint="« Downloads » se traduce como « Descargas » (ver glosario)"
 valid msgstr="arrastr(ar|e|a|o)"
 hint="« Drag » se traduce como « Arrastrar » (ver glosario)"
 
+# «Drags» se traduce como «Arrastra».
+{\bdrags\b}i
+valid msgstr="arrastr(e|a)"
+hint="« Drags » se traduce como « Arrastra » (ver glosario)"
+
 # «Driver» se traduce como «Controlador».
 {\bdriver\b}i
 valid msgstr="controlador"
@@ -656,6 +712,11 @@ hint="« Drop down » se traduce como « Desplegar » (ver glosario)"
 valid msgstr="soltar"
 valid msgstr="suelt(e|a)"
 hint="« Drop » se traduce como « Soltar » (ver glosario)"
+
+# «Drops» se traduce como «Suelta».
+{\bdrops\b}i
+valid msgstr="suelt(e|a)"
+hint="« Drops » se traduce como « Suelta » (ver glosario)"
 
 # «Dumb» se traduce como «Mudo» o «Tonto».
 {\bdumb\b}i
@@ -684,6 +745,12 @@ valid msgstr="empotr(ar|a|e)"
 valid msgstr="incrust(ar|a|e)"
 hint="« Embeb » se traduce como « Empotrar » o « Incrustar » (ver glosario)"
 
+# «Embebs» se traduce como «Empotra» o «Incrusta».
+{\bembebs\b}i
+valid msgstr="empotr(a|e)"
+valid msgstr="incrust(a|e)"
+hint="« Embebs » se traduce como « Empotra » o « Incrusta » (ver glosario)"
+
 # «Embebded» se traduce como «Empotrado», «Incrustado» o «Integrado».
 {\bembebded\b}i
 valid msgstr="empotrad(o|a)"
@@ -699,7 +766,16 @@ hint="« Enable » se traduce como « Activar » (ver glosario)"
 # «Enabled» se traduce como «Activado».
 {\benabled\b}i
 valid msgstr="activad(o|a)s?"
+valid msgstr="se\sactiv(a|e)n?"
+valid msgstr="permitid(o|a)s?"
+valid msgstr="se\permit(a|e)n?"
 hint="« Enabled » se traduce como « Activado » (ver glosario)"
+
+# «Enables» se traduce como «Activa/Permita».
+{\benables\b}i
+valid msgstr="activ(e|a)"
+valid msgstr="permit(a|e)"
+hint="« Enables » se traduce como « Activa/Permita » (ver glosario)"
 
 # «Enabling» se traduce como «Activación».
 {\benabling\b}i
@@ -708,7 +784,13 @@ hint="« Enabling » se traduce como « Activación » (ver glosario)"
 
 # «Encrypt» se traduce como «Cifrar».
 {\bencrypt\b}i
-valid msgstr="cifrar"
+valid msgstr="cifr(ar|a|e)"
+valid !msgstr="encript(ar|a|e)"
+hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ver glosario)"
+
+# «Encrypts» se traduce como «Cifra».
+{\bencrypts\b}i
+valid msgstr="cifr(a|e)"
 valid !msgstr="encript(ar|a|e)"
 hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ver glosario)"
 
@@ -717,6 +799,12 @@ hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ve
 valid msgstr="cifrad(o|a)"
 valid !msgstr="encriptad(o|a)"
 hint="« Encrypted » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
+
+# «Encryption» se traduce como «Cifrado».
+{\bencryption\b}i
+valid msgstr="cifrardo"
+valid !msgstr="encript(o|a)"
+hint="« Encryption » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
 
 # «Enter» se traduce como «Intro».
 {\benter\b}i
@@ -739,6 +827,7 @@ hint="« Entries » se traduce como « Entradas » (ver glosario)"
 # «Environment» se traduce como «Entorno».
 {\benvironment\b}i
 valid msgstr="entorno"
+valid msgstr="environment" after="K\sDesktop\s"
 hint="« Environment » se traduce como « Entorno » (ver glosario)"
 
 # «Environments» se traduce como «Entornos».
@@ -785,16 +874,6 @@ hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver
 valid msgstr="suministros"
 valid msgstr="fuentes"
 hint="« Feeds » se traduce como « Suministros » o « Fuentes de noticias »(ver glosario)"
-
-# «Line feed» se traduce como «Salto de línea».
-{\bline\sfeed\b}i
-valid msgstr="salto\sde\slínea"
-hint="« Line feed » se traduce como « Salto de línea » (ver glosario)"
-
-# «Lines feed» se traduce como «Saltos de línea».
-{\blines\sfeed\b}i
-valid msgstr="saltos\sde\slínea"
-hint="« Lines feed » se traduce como « Saltos de línea » (ver glosario)"
 
 # «Feedback» se traduce como «Comentarios y sugerencias».
 {\bfeedback\b}i
@@ -893,15 +972,32 @@ hint="« Foreground » se traduce como « Primer plano » (ver glosario)"
 valid msgstr="format(ear|eo|ea|o)"
 hint="« (to) Format » se traduce como « Formatear » (ver glosario)"
 
+# « Formats» se traduce como «Formatea».
+{\bformats\b}i
+#valid before="\="
+valid msgstr="format(ee|ea)"
+valid msgstr="formatos"
+hint="« (to) Formats » se traduce como « Formatea » (ver glosario)"
+
 # «Formatting» se traduce como «Formateo».
 {\bformatting\b}i
 valid msgstr="formate(o|ar)"
 hint="« Formatting » se traduce como « Formateo » (ver glosario)"
 
+# «Formattings» se traduce como «Formateos».
+{\bformattings\b}i
+valid msgstr="formateos"
+hint="« Formattings » se traduce como « Formateos » (ver glosario)"
+
 # «Forwading» se traduce como «Redirección».
 {\bforwading\b}i
 valid msgstr="redirecci(ón|onar)"
 hint="« Forwading » se traduce como « Redirección » (ver glosario)"
+
+# «Forwadings» se traduce como «Redirecciones».
+{\bforwadings\b}i
+valid msgstr="redirecciones"
+hint="« Forwadings » se traduce como « Redirecciones » (ver glosario)"
 
 # «Frame relay» no se traduce.
 {\bframe\srelay\b}i
@@ -959,6 +1055,13 @@ valid msgstr="conseguir"
 valid msgstr="consigu(e|a)"
 hint="« (to) Get » se traduce como « Obtener » (ver glosario)"
 
+# « Gets» se traduce como «Obtiene».
+{\bget^(\sback)\b}i
+valid msgstr="obtiene"
+valid msgstr="obtenga"
+valid msgstr="consigu(e|a)"
+hint="« (to) Gets » se traduce como « Obtiene » (ver glosario)"
+
 # «GNU General Public License» se traduce como «Licencia Pública General GNU».
 {\bGNU\sGeneral\sPublic\sLicense\b}i
 valid msgstr="Licencia\sPública\sGeneral\sGNU"
@@ -991,7 +1094,7 @@ hint="« Gzipped » se traduce como « Comprimido con gzip » (ver glosario)"
 
 # «(to) Hang» se traduce como «Cuelgue», «Bloquear» o «Colgar».
 {\bhang\b}i
-valid msgstr="cuelgue"
+valid msgstr="cuelgu(e|a)"
 valid msgstr="colgar"
 valid msgstr="bloque(ar|a|o)"
 hint="« Hang » se traduce como « Cuelgue » (ver glosario)"
@@ -1123,18 +1226,10 @@ hint="« IDE » se traduce como « Entorno de desarrollo integrado » (ver glosa
 valid msgstr="interfaz"
 hint="« Interface » se traduce como « Interfaz » (ver glosario)"
 
-# «Interfaz» es femenino.
-[\b(el|un)\sinterfaz\b]i
-hint="« Interfaz » es de género femenino (ver glosario)"
-
 # «Interfaces» se traduce como «Interfaces».
 {\binterfaces\b}i
 valid msgstr="interfaces"
 hint="« Interfaces » se traduce como « Interfaces » (ver glosario)"
-
-# «Interfaces» es femenino.
-[\b(los|unos)\sinterfaces\b]i
-hint="« Interfaces » es de género femenino (ver glosario)"
 
 # «IRQ» no se traduce.
 {\bIRQ\b}i
@@ -1234,12 +1329,28 @@ valid msgstr="bibliotecas"
 valid !msgstr="librerías"
 hint="« Libraries » se traduce como « Bibliotecas », nunca como « Librerías » (ver glosario)"
 
+# «Line feed» se traduce como «Salto de línea».
+{\bline\sfeed\b}i
+valid msgstr="salto\sde\slínea"
+hint="« Line feed » se traduce como « Salto de línea » (ver glosario)"
+
+# «Line feeds» se traduce como «Saltos de línea».
+{\bline\sfeeds\b}i
+valid msgstr="saltos\sde\slínea"
+hint="« Line feeds » se traduce como « Saltos de línea » (ver glosario)"
+
 # «Link» se traduce como «Enlace».
 {\blink\b}i
 valid msgstr="enlace"
 valid msgstr="enlazar"
 valid !msgstr="(hiper)?vínculo"
 hint="« Link » se traduce como « Enlace », nunca como « Vínculo » (ver glosario)"
+
+# «Linked» se traduce como «Enlazado».
+{\blinked\b}i
+valid msgstr="enlazad(o|a)"
+valid !msgstr="linkad(o|a)"
+hint="« Linked » se traduce como « Enlazado », nunca como « Linkado » (ver glosario)"
 
 # «Links» se traduce como «Enlaces».
 {\blinks\b}i
@@ -1328,9 +1439,6 @@ hint="« Mail » se traduce como « Correo » (ver glosario)"
 {\bmails\b}i
 valid msgstr="correos"
 hint="« Mails » se traduce como « Correos » (ver glosario)"
-
-[\bcorreos?\-e\b]i
-hint="No utilice « Correo-e » solo « Correo » a secas (ver glosario)"
 
 # «Mailer» se traduce como «Gestor de correo».
 {\bmailer\b}i
@@ -1469,6 +1577,11 @@ hint="« Modem » se traduce como « Módem » (ver glosario)"
 valid msgstr="mont(ar|aje|a|e)"
 hint="« Mount » se traduce como « Montar » (ver glosario)"
 
+# «Mounts» se traduce como «Monta».
+{\bmounts\b}i
+valid msgstr="mont(a|e)"
+hint="« Mounts » se traduce como « Monta » (ver glosario)"
+
 # «Mouse» se traduce como «Ratón».
 {\bmouse\b}i
 valid msgstr="ratón"
@@ -1490,10 +1603,21 @@ hint="« Multitasking » se traduce como « Multitarea » (ver glosario)"
 valid msgstr="máscara\sde\sred"
 hint="« Netmask » se traduce como « Máscara de red » (ver glosario)"
 
+
+# «Netmasks» se traduce como «Máscaras de red».
+{\bnetmasks\b}i
+valid msgstr="máscaras\sde\sred"
+hint="« Netmasks » se traduce como « Máscaras de red » (ver glosario)"
+
 # «News feed» se traduce como «Fuente de noticias».
 {\bnews\sfeed\b}i
 valid msgstr="fuente\sde\snoticias"
 hint="« News feed » se traduce como « Fuente de noticias » (ver glosario)"
+
+# «News feeds» se traduce como «Fuentes de noticias».
+{\bnews\sfeeds\b}i
+valid msgstr="fuentes\sde\snoticias"
+hint="« News feeds » se traduce como « Fuentes de noticias » (ver glosario)"
 
 # «Non-inclusive» se traduce como «Exclusivo».
 {\bnon\-inclusive\b}i
@@ -1517,17 +1641,45 @@ valid msgstr="superponer"
 valid msgstr="solapar"
 hint="« Overlap » se traduce como « Superponer » o « Solapar » (ver glosario)"
 
+# «Overlapping» se traduce como «Superposición» o «Solapamiento».
+{\boverlapping\b}i
+valid msgstr="superposición"
+valid msgstr="solapamiento"
+hint="« Overlapping » se traduce como « Superposición » o « Solapamiento » (ver glosario)"
+
+# «Overlaps» se traduce como «Superpone» o «Solapa».
+{\boverlaps\b}i
+valid msgstr="superpone"
+valid msgstr="solap(a|e)"
+hint="« Overlaps » se traduce como « Superpone » o « Solapa » (ver glosario)"
+
 # «Overwrite» se traduce como «Sobrescribir».
 {\boverwrite\b}i
 valid msgstr="sobrescribir"
 valid !msgstr="sobreescribir"
 hint="« Overwrite » se traduce como « Sobrescribir », nunca como « Sobreescribir » (ver glosario)"
 
+# «Overwrites» se traduce como «Sobrescribe».
+{\boverwrites\b}i
+valid msgstr="sobrescrib(e|a)"
+valid !msgstr="sobreescrib(e|a)"
+hint="« Overwrites » se traduce como « Sobrescribe », nunca como « Sobreescribe » (ver glosario)"
+
 # «Parse» se traduce como «Analizar».
 {\bparse\b}i
 valid msgstr="analiz(ar|e|a|o)"
 valid msgstr="análisis"
 hint="« Parse » se traduce como « Analizar » (ver glosario)"
+
+# «Parser» se traduce como «Analizador».
+{\bparser\b}i
+valid msgstr="analizador"
+hint="« Parser » se traduce como « Analizador » (ver glosario)"
+
+# «Parses» se traduce como «Analiza».
+{\bparses\b}i
+valid msgstr="analiz(e|a)"
+hint="« Parses » se traduce como « Analiza » (ver glosario)"
 
 # «Password» se traduce como «Contraseña».
 {\bpassword\b}i
@@ -1585,15 +1737,16 @@ valid msgstr="códigos\sde\sacceso"
 valid !msgstr="pins"
 hint="« Pins » se traduce como « Patillas » o « Códigos de acceso » (ver glosario)"
 
-# «Pipe» se traduce como «Redirección».
+# «Pipe» se traduce como «Redirección/redirigir».
 {\bpipe\b}i
 valid msgstr="redir(ección|igir|ije|ija|ijo)"
-hint="« Pipe » se traduce como « Redirección » (ver glosario)"
+hint="« Pipe » se traduce como « Redirección/redirigir » (ver glosario)"
 
-# «Pipes» se traduce como «Redirecciones».
+# «Pipes» se traduce como «Redirecciones/Redirige».
 {\bpipes\b}i
 valid msgstr="redireccion(es|a)"
-hint="« Pipes » se traduce como « Redirecciones » (ver glosario)"
+valid msgstr="redirig(e|a)"
+hint="« Pipes » se traduce como « Redirecciones/redirige » (ver glosario)"
 
 # «Pixel» se traduce como «Píxel».
 {\bpixel\b}i
@@ -1638,6 +1791,11 @@ hint="« Policy issues » se traduce como « Aspectos de normativa » (ver glosa
 {\bpop\-up\b}i
 valid msgstr="ventana\semergente"
 hint="« Pop-up » se traduce como « Ventana emergente » (ver glosario)"
+
+# «Pop-ups» se traduce como «Ventanas emergentes».
+{\bpop\-ups\b}i
+valid msgstr="ventanas\semergentes"
+hint="« Pop-ups » se traduce como « Ventanas emergentes » (ver glosario)"
 
 # «Port» se traduce como «Puerto».
 {\bport\b}i
@@ -1721,6 +1879,13 @@ valid msgstr="prove(er|e|a)"
 valid msgstr="estipul(ar|a|e)"
 hint="« Provide » se traduce como « Proporcionar » o « Proveer » (ver glosario)"
 
+# «Provides» se traduce como «Proporciona» o «Provee».
+{\bprovides\b}i
+valid msgstr="proporcion(a|e)"
+valid msgstr="prove(e|a)"
+valid msgstr="estipul(a|e)"
+hint="« Provides » se traduce como « Proporciona » o « Provee » (ver glosario)"
+
 # «Purge» se traduce como «Purgar».
 {\bpurge\b}i
 valid msgstr="purgar?"
@@ -1776,6 +1941,16 @@ valid msgstr="surja"
 valid msgstr="aument(ar|a|e)"
 hint="« Raise » se traduce como « Provocar », « Alzar », « Surgir » o « Aumentar » (ver glosario)"
 
+# «Raises» se traduce como «Provoca», «Alza», «Surge» o «Aumenta».
+{\braises\b}i
+valid msgstr="provoca"
+valid msgstr="provoque"
+valid msgstr="alza"
+valid msgstr="surge"
+valid msgstr="surja"
+valid msgstr="aument(a|e)"
+hint="« Raises » se traduce como « Provoca », « Alza », « Surge » o « Aumenta » (ver glosario)"
+
 # «Range» se traduce como «Intervalo».
 {\brange\b}i
 valid msgstr="intervalo"
@@ -1818,6 +1993,11 @@ hint="« Real time » se traduce como « Tiempo real » (ver glosario)"
 valid msgstr="reinici(o|ar|a|e)"
 hint="« Reboot » se traduce como « Reiniciar » (ver glosario)"
 
+# «Reboots» se traduce como «Reinicia».
+{\breboots\b}i
+valid msgstr="reinici(a|e)"
+hint="« Reboots » se traduce como « Reinicia » (ver glosario)"
+
 # «Rebooting» se traduce como «Reinicio».
 {\brebooting\b}i
 valid msgstr="reinici(o|ar|ando)"
@@ -1855,6 +2035,12 @@ valid msgstr="reinici(o|ar|e|a)"
 valid !msgstr="restaur(ar|a|e|o)"
 hint="« Reset » se traduce como « Reinicio » (ver glosario)"
 
+# «Resets» se traduce como «Reinicio».
+{\bresets\b}i
+valid msgstr="reinici(e|a)"
+valid !msgstr="restaur(a|e)"
+hint="« Resets » se traduce como « Reinicia » (ver glosario)"
+
 # «Resolver» se traduce como «Sistema de resolución».
 {\bresolver(^(\slibrary))\b}i
 valid msgstr="sistema\sde\sresolución"
@@ -1882,11 +2068,21 @@ hint="« Resolver libraries » se traduce como « Bibliotecas de resolución » 
 valid msgstr="reinici(o|ar|e|a)"
 hint="« Respawn » se traduce como « Reinicio » (ver glosario)"
 
+# «Respawns» se traduce como «Reinicis».
+{\brespawns\b}i
+valid msgstr="reinici(e|a)"
+hint="« Respawns » se traduce como « Reinicia » (ver glosario)"
+
 # «Revert» se traduce como «Revertir».
 {\brevert\b}i
 valid msgstr="revertir"
 valid msgstr="reviert(e|a)"
 hint="« Revert » se traduce como « Revertir » (ver glosario)"
+
+# «Reverts» se traduce como «Revierte».
+{\breverts\b}i
+valid msgstr="reviert(e|a)"
+hint="« Reverts » se traduce como « Revierte » (ver glosario)"
 
 # «Role» se traduce como «Papel».
 {\brole\b}i
@@ -1924,6 +2120,12 @@ valid msgstr="ejecut(ar|a|e)"
 valid !msgstr="corr(er|a|e|o)"
 hint="« Run » se traduce como « Ejecución » (ver glosario)"
 
+# «Runs» se traduce como «Ejecuta».
+{\bruns\b}i
+valid msgstr="ejecut(a|e)"
+valid !msgstr="corr(a|e)"
+hint="« Runs » se traduce como « Ejecuta » (ver glosario)"
+
 # «Run-time» se traduce como «Tiempo de ejecución».
 {\brun\-time\b}i
 valid msgstr="tiempo\sde\sejecución"
@@ -1935,11 +2137,29 @@ valid msgstr="guard(ar|a|e)"
 valid !msgstr="salv(ar|a|e|o)"
 hint="« Save » se traduce como « Guardar », nunca como « Salvar » (ver glosario)"
 
+# «Saved» se traduce como «Guardado».
+{\bsaves\b}i
+valid msgstr="guardad(o|a)"
+valid !msgstr="salvad(o|a)"
+hint="« Saved » se traduce como « Guardado », nunca como « Salvado » (ver glosario)"
+
+# «Saves» se traduce como «Guarda».
+{\bsaves\b}i
+valid msgstr="guard(a|e)"
+valid !msgstr="salv(a|e)"
+hint="« Saves » se traduce como « Guarda », nunca como « Salva » (ver glosario)"
+
 # «Scan» se traduce como «Escanear» o «Explorar».
 {\bscan\b}i
 valid msgstr="escane(ar|e|o|a)"
 valid msgstr="explor(ar|ación|a|e)"
 hint="« Scan » se traduce como « Escanear » o « Explorar » (ver glosario)"
+
+# «Scans» se traduce como «Escanea» o «Explora».
+{\bscans\b}i
+valid msgstr="escane(e|a)"
+valid msgstr="explor(a|e)"
+hint="« Scans » se traduce como « Escanea » o « Explora » (ver glosario)"
 
 # «Scanner» se traduce como «Escáner».
 {\bscanner\b}i
@@ -2012,6 +2232,11 @@ valid msgstr="envío"
 valid msgstr="enviar(lo|la)?"
 valid msgstr="enviando"
 hint="« Sending » se traduce como « Envío » (ver glosario)"
+
+# «Sends» se traduce como «Envía».
+{\bsends\b}i
+valid msgstr="enví(a|e)"
+hint="« Sends » se traduce como « Envía » (ver glosario)"
 
 # «Server» se traduce como «Servidor».
 {\bserver\b}i
@@ -2129,10 +2354,20 @@ hint="« Soft links » se traduce como « Enlaces simbólicos » (ver glosario)"
 valid msgstr="orden(ar|ación|a|e)?"
 hint="« Sort » se traduce como « Ordenar » (ver glosario)"
 
+# «Sorts» se traduce como «Ordena».
+{\bsorts\b}i
+valid msgstr="orden(a|e)?"
+hint="« Sorts » se traduce como « Ordena » (ver glosario)"
+
 # «Spawn» se traduce como «Iniciar».
 {\bspawn\b}i
 valid msgstr="iniciar"
 hint="« Spawn » se traduce como « Iniciar » (ver glosario)"
+
+# «Spawns» se traduce como «Inicia».
+{\bspawns\b}i
+valid msgstr="inici(a|e)"
+hint="« Spawns » se traduce como « Inicia » (ver glosario)"
 
 # «Splashscreen» se traduce como «Pantalla anunciadora».
 {\bsplashscreen\b}i
@@ -2164,6 +2399,11 @@ valid msgstr="estándar"
 valid !msgstr="standard"
 hint="« Standard » se traduce como como « Estándar », (ver glosario)"
 
+{\bstandards\b}i
+valid msgstr="estándares"
+valid !msgstr="standards"
+hint="« Standards » se traduce como como « Estándares », (ver glosario)"
+
 # «Start» se traduce como «Inicio» o «Iniciar».
 {\bstart\b}i
 valid msgstr="inici(o|a|e|ar|al)"
@@ -2176,9 +2416,16 @@ hint="« Start » se traduce como « Inicio » o « Iniciar » (ver glosario)"
 {\bstarting\b}i
 valid msgstr="inici(o|ar|ando)"
 valid msgstr="comien(zan?|cen?)"
+valid msgstr="comenzando"
 valid msgstr="punto\sde\spartida"
 valid msgstr="a\spartir\sde"
 hint="« Starting » se traduce como « Inicio » (ver glosario)"
+
+# «Starts» se traduce como «Inicia».
+{\bstarts\b}i
+valid msgstr="inici(a|e)"
+valid msgstr="comien(za|ce)"
+hint="« Starts » se traduce como « Inicia »  (ver glosario)"
 
 # «Stop» se traduce como o «Detener».
 {\bstop\b}i
@@ -2233,15 +2480,26 @@ valid msgstr="implement(ar|a|e|en|an|ación)"
 valid msgstr="recono(cer?|cimiento|zcan?)"
 valid msgstr="us(ar|o|e|a|en|an)"
 valid msgstr="apoy(ar|o|e|a|en|an)"
-hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (ver glosario)"
+hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soporta » (ver glosario)"
 
-[\bsoport(ar|e|a|an|en|ado|ada)\b]i
-hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (ver glosario)"
+# «Supports» se traduce como «Admite», «Implementa», «Reconoce», «Usa» o «Apoya».
+{\bsupports\b}i
+valid msgstr="admit(e|a)"
+valid msgstr="implement(a|e)"
+valid msgstr="reconoce"
+valid msgstr="us(e|a)"
+valid msgstr="apoy(e|a)"
+hint="«Supports» se traduce como  «Admite», «Implementa», «Reconoce», «Usa» o «Apoya», nunca como « Soporta » (ver glosario)"
 
 # «Swap» se traduce como «Intercambio».
 {\bswap\b}i
 valid msgstr="intercambi(o|ar|e|a)"
 hint="« Swap » se traduce como « Intercambio » (ver glosario)"
+
+# «Swaps» se traduce como «Intercambis».
+{\bswaps\b}i
+valid msgstr="intercambi(e|a)"
+hint="« Swaps » se traduce como « Intercambis » (ver glosario)"
 
 # «Symbolic link» se traduce como «Enlace simbólico».
 {\bsymbolic\slink\b}i
@@ -2266,7 +2524,8 @@ hint="« System calls » se traduce como « Llamadas del sistema » (ver glosari
 # «Tab» se traduce como  «Pestaña».
 {\btab\b}i
 valid msgstr="pestaña"
-valid msgstr="tabulador"
+valid msgstr="tabula(dor|ción)"
+valid msgstr="tab"
 valid !msgstr="solapa"
 hint="« Tab » se traduce como « Tabulador » o « Pestaña », nunca como « Solapa » (ver glosario)"
 
@@ -2332,6 +2591,11 @@ hint="« Timestamps » se traduce como « Marcas de tiempo » (ver glosario)"
 valid msgstr="conmut(ador|ar|a|e)"
 hint="« Toggle » se traduce como « Conmutador » o « Conmutar » (ver glosario)"
 
+# «Toggles» se traduce como «Commuta».
+{\btoggles\b}i
+valid msgstr="conmut(a|e)"
+hint="« Toggles » se traduce como « Conmuta » (ver glosario)"
+
 # «Topic» se traduce como «Tema».
 {\btopic\b}i
 valid msgstr="tema"
@@ -2357,7 +2621,12 @@ hint="« Trailing spaces » se traduce como « Espacios finales » (ver glosario
 # «Transport» se traduce como «Transporte» o «Transportar».
 {\btransport\b}i
 valid msgstr="transport(e|ar|e|a)"
-hint="« Transport » se traduce como « Transporte » o « transportar x (ver glosario)"
+hint="« Transport » se traduce como « Transporte » o « Transportar » (ver glosario)"
+
+# «Transports» se traduce como «Transportes» o «Transporta».
+{\btransports\b}i
+valid msgstr="transport(es|e|a)"
+hint="« Transports » se traduce como « Transportes » o « Transporta » (ver glosario)"
 
 # «Troubleshooting» se traduce como «Resolución de problemas».
 {\btroubleshooting\b}i
@@ -2393,14 +2662,15 @@ hint="« UPS » se traduce como « SAI » o « UPS »  (ver glosario)"
 valid msgstr="url"
 hint="« URL » no se traduce y es de género femenino (ver glosario)"
 
-# «URL» es femenino.
-[\b(el|un)\surl\b]i
-hint="« URL » es de género femenino (ver glosario)"
-
 # «Verbatim copy» se traduce como «Copia literal».
 {\bverbatim\scopy\b}i
 valid msgstr="copia\sliteral"
 hint="« Verbatim copy » se traduce como « Copia literal » (ver glosario)"
+
+# «Verbatim copies» se traduce como «Copias literales».
+{\bverbatim\scopies\b}i
+valid msgstr="copias\sliterales"
+hint="« Verbatim copies » se traduce como « Copias literales » (ver glosario)"
 
 # «Web» no se traduce.
 {\bweb\b}i

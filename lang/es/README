@@ -33,6 +33,7 @@ not considered by this rules:
 - Abbreviations (Spanish)
 - Usual smilies
 - Complete messages with specific tags.
+- Dates and numbers.
 This filter is based in the documentation examples, regular expressions 
 obtained from the Wikipedia and in the code of the Servian team.
 
@@ -46,7 +47,7 @@ http://es.l10n.kde.org/glosario.php
 
 1.5.- "glosario-kde-l10n-es-proposed.rules"
   New rules about translations that can be included in the glossary.
-That that being approved by the team coordinator, will be moved to the 
+When being approved by the team coordinator, will be moved to the 
 main glossary.
 
 1.5.- "paired-words.rules"
@@ -61,15 +62,15 @@ main glossary.
 
 1.5.- "paragraph-begin.rules"
   Use of spaces and capitalization at the beginning of a new paragraph.
-Similar at the function included in KBabel.
+Similar at the functions included in KBabel.
 
 1.5.- "paragraph-end.rules"
   Use of spaces, capitalization and punctuation at the end of a new paragraph.
-Similar at the function included in KBabel, but more complete and 
+Similar at the functions included in KBabel, but more complete and 
 adapted to Spanish language.
 
 1.6.- "translator.rules"
-  Detects frequent errors with the list of names and emails of translators.
+  Detects frequent errors related with the list of names and emails of translators.
 The main mistake is the presence of unnecessary spaces between names or emails.
 
 1.6.- "typography.rules"
@@ -89,7 +90,7 @@ of context that should no be checked in any case.
   The dictionary is not of exclusive use of pology. It can be used by 
 any other application that use aspell as spell checker. This is the case 
 of all KDE applications and definitely Lokalize. To allow this use, add a 
-symbolic link from the dictionary to "~/.aspell-es_Es.pws". See aspell 
+symbolic link from the dictionary to "~/.aspell-$LANGUAGE.pws". See aspell 
 documentation for details.
   In order to help the maintenance of the dictionary, there are some list of words 
 sorted by topic, at the subdirectory "spell-spec". The whole dictionary can be generated 

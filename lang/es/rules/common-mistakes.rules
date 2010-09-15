@@ -1,0 +1,73 @@
+# Translation choices of spanish team
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «API» es femenino.
+[\b(la|una|esta|esa|los|unos|estos|esos)\API\b]i
+hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
+
+# «BIOS» es masculino.
+[\b(la|una|esta|esa|las|unas|estas|esas)\BIOS\b]i
+hint="« BIOS » es de género masculino (error frecuente)"
+
+# «Caché» es femenino.
+[\b(el|uno|este|ese)\caché\b]i
+hint="« Caché » es de género femenino (error frecuente)"
+
+# «Cachés» es femenino.
+[\b(los|unos|estos|esos)\cachés\b]i
+hint="« Cachés » es de género femenino (error frecuente)"
+
+[\bcoger\b]i
+hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
+
+[\bcomandos?\b]i
+hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (error frecuente)"
+
+[\bcomputador(a|es|as)?\b]i
+hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+
+[\bcorreos?\-e\b]i
+hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
+
+[\bordenador(es)?\b]i
+hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+
+# «Interfaz» es femenino.
+[\b(el|un|este|ese)\sinterfaz\b]i
+hint="« Interfaz » es de género femenino (error frecuente)"
+
+# «Interfaces» es femenino.
+[\b(los|unos|estos|esos)\sinterfaces\b]i
+hint="« Interfaces » es de género femenino (error frecuente)"
+
+# «IRQ» es femenino.
+[\b(el|un|los|unos|estos|esos)IRQ\b]i
+hint="« IRQ » es femenino (error frecuente)"
+
+# «Macro» es femenino.
+[\b(el|uno|este|ese)\macro\b]i
+hint="« Macro » es de género femenino (error frecuente)"
+
+# «Macros» es femenino.
+[\b(los|unos|estos|esos)\cachés\b]i
+hint="« Macros » es de género femenino (error frecuente)"
+
+[\bsoport(ar|e|a|an|en|ado|ada)\b]i
+hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (error frecuente)"
+
+# «URL» es femenino.
+[\b(el|un|los|unos|este|ese)\surl\b]i
+hint="« URL » es de género femenino (error frecuente)"
+
+# «Web» es femenino.
+[\b(el|un|los|unos|este|ese)\sweb\b]i
+hint="« Web » es femenino (error frecuente)"
+
+# End of rule file

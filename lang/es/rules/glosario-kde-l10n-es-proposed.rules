@@ -5,49 +5,469 @@
 
 include file="filter.include"
 
-# «Settings» se traduce como «Preferencias».
-{\bsettings\b}i
-valid msgstr="preferencias"
-valid msgstr="configuración"
-hint="« Settings » se traduce como como « Preferencias » (ver glosario)"
+# «Anti-aliasing» se traduce como «Suavizado de bordes».
+{\banti\-aliasing\b}i
+valid msgstr="suavizado\sde\sbordes"
+hint="« Anti-aliasing: » se traduce como como « Suavizado de bordes » (propuesta glosario)"
+
+# «Attach» se traduce como «Adjuntar/Anexar».
+{\battach\b}i
+valid msgstr="adjunt(ar|a|e)"
+valid msgstr="anex(ar|a|e)"
+valid !msgstr="ata(car|ca|que)"
+hint="« Attach » se traduce como como « Adjuntar/Anexar » (propuesta glosario)"
+
+# «Attachment» se traduce como «Adjunto/Anexo».
+{\battachment\b}i
+valid msgstr="adjunto"
+valid msgstr="anexo"
+hint="« Attachment » se traduce como como « Adjunto/Anexo » (propuesta glosario)"
+
+# «Authenticate» se traduce como «Autenticar».
+{\bauthenticate\b}i
+valid msgstr="autenti(car|ca|que)"
+hint="« Authenticate » se traduce como como « Autenticar » (propuesta glosario)"
+
+# «Authentication» se traduce como «Autenticación».
+{\bauthentication\b}i
+valid msgstr="autenticación"
+hint="« Authentication » se traduce como como « Autenticación » (propuesta glosario)"
+
+# «Autoprobe» se traduce como «Autocomprobación».
+{\bautoprobe\b}i
+valid msgstr="autocomprobación"
+valid !msgstr="autoprueba"
+hint="« Authentication » se traduce como como « Autenticación » (propuesta glosario)"
+
+# «Bandwith» se traduce como «Ancho de banda».
+{\bbandwith\b}i
+valid msgstr="ancho\sde\sbanda"
+hint="« Bandwith » se traduce como como « Ancho de banda » (propuesta glosario)"
+
+# «Benchmark» se traduce como «Banco de pruebas».
+{\bbenchmark\b}i
+valid msgstr="banco\sde\spruebas"
+hint="« Benchmark » se traduce como como « Banco de pruebas » (propuesta glosario)"
+
+# «Benchmarks» se traduce como «Bancos de pruebas».
+{\bbenchmarks\b}i
+valid msgstr="bancos\sde\spruebas"
+hint="« Benchmarks » se traduce como como « Bancos de pruebas » (propuesta glosario)"
+
+# «Bind» se traduce como «Enlazar/Ligar».
+{\bbind\b}i
+valid msgstr="enlaz(ar|a|e)"
+valid msgstr="lig(ar|ue|a)"
+hint="« Bind » se traduce como como « Enlazar/Ligar » (propuesta glosario)"
+
+# «Binding» se traduce como «Enlace/Ligadura».
+{\bbinding\b}i
+valid msgstr="enlace"
+valid msgstr="ligadura"
+hint="« Binding » se traduce como como « Enlace/Ligadura » (propuesta glosario)"
+
+# «Bit mask» se traduce como «Máscara de bits».
+{\bbit\s?mask\b}i
+valid msgstr="máscara\sde\sbits"
+hint="« Bit mask » se traduce como como « Máscara de bits » (propuesta glosario)"
+
+# «Bit masks» se traduce como «Máscaras de bits».
+{\bbits\s?mask\b}i
+valid msgstr="máscaras\sde\sbits"
+hint="« Bit masks » se traduce como como « Máscaras de bits » (propuesta glosario)"
+
+# «Bit map» se traduce como «Mapa de bits».
+{\bbit\s?map\b}i
+valid msgstr="mapa\sde\sbits"
+hint="« Bit map » se traduce como como « Mapa de bits » (propuesta glosario)"
+
+# «Bit maps» se traduce como «Mapas de bits».
+{\bbit\s?maps\b}i
+valid msgstr="mapas\sde\sbits"
+hint="« Bit maps » se traduce como como « Mapas de bits » (propuesta glosario)"
+
+# «Bit rate» se traduce como «Tasa de bits».
+{\bbit\s?rate\b}i
+valid msgstr="tasa\sde\sbits"
+hint="« Bit rate » se traduce como como « Tasa de bits » (propuesta glosario)"
+
+# «Bit stream» se traduce como «Flujo de bits».
+{\bbit\s?stream\b}i
+valid msgstr="flujo\sde\sbits"
+hint="« Bit stream » se traduce como como « Flujo de bits » (propuesta glosario)"
+
+# «Bit streams» se traduce como «Flujos de bits».
+{\bbit\s?streams\b}i
+valid msgstr="flujos\sde\sbits"
+hint="« Bit streams » se traduce como como « Flujos de bits » (propuesta glosario)"
+
+# «Boot loader» se traduce como «Gestor de arranque».
+{\bboot\s?loader\b}i
+valid msgstr="gestor\sde\sarranque"
+hint="« Boot loader » se traduce como como « Gestor de arranque » (propuesta glosario)"
+
+# «Boot loaders» se traduce como «Gestores de arranque».
+{\bboot\s?loaders\b}i
+valid msgstr="gestores\sde\sarranque"
+hint="« Boot loaders » se traduce como como « Gestores de arranque » (propuesta glosario)"
+
+# «Boot partition» se traduce como «Partición de arranque».
+{\bboot\s?partition\b}i
+valid msgstr="partición\sde\sarranque"
+hint="« Boot partition » se traduce como como « Partición de arranque » (propuesta glosario)"
+
+# «Boot partitions» se traduce como «Particiones de arranque».
+{\bboot\s?partitions\b}i
+valid msgstr="particiones\sde\sarranque"
+hint="« Boot partitions » se traduce como como « Particiones de arranque » (propuesta glosario)"
+
+# «Boot record» se traduce como «Registro de arranque».
+{\bboot\s?record\b}i
+valid msgstr="registro\sde\sarranque"
+hint="« Boot record » se traduce como como « Registro de arranque » (propuesta glosario)"
+
+# «Boot records» se traduce como «Registros de arranque».
+{\bboot\s?records\b}i
+valid msgstr="registros\sde\sarranque"
+hint="« Boot records » se traduce como como « Registros de arranque » (propuesta glosario)"
+
+# «Breakpoint» se traduce como «Punto de ruptura».
+{\bbreakpoint\b}i
+valid msgstr="punto\sde\sruptura"
+hint="« Breakpoint » se traduce como como « Punto de ruptura » (propuesta glosario)"
+
+# «Breakpoints» se traduce como «Puntos de ruptura».
+{\bbreakpoints\b}i
+valid msgstr="puntos\sde\sruptura"
+hint="« Breakpoints » se traduce como como « Puntos de ruptura » (propuesta glosario)"
+
+# «Broadcast» se traduce como «Difusión/Difundir».
+{\bbroadcast\b}i
+valid msgstr="difusión"
+valid msgstr="difund(ir|e|a)"
+valid msgstr="anunci(ar|a|e)"
+hint="« Broadcast » se traduce como como « Difusión/Difundir » (propuesta glosario)"
+
+# «Browse» se traduce como «Navegar».
+{\bbrowse\b}i
+valid msgstr="naveg(ar|a|ue)"
+hint="« Browse » se traduce como como « Navegar » (propuesta glosario)"
+
+# «Browser» se traduce como «Navegador».
+{\bbrowser\b}i
+valid msgstr="navegador"
+hint="« Browser » se traduce como como « Navegador » (propuesta glosario)"
+
+# «Browsers» se traduce como «Navegadores».
+{\bbrowsers\b}i
+valid msgstr="navegadores"
+hint="« Browsers » se traduce como como « Navegadores » (propuesta glosario)"
+
+# «Bug-fix» se traduce como «Corrección de error».
+{\bbug\-?fix\b}i
+valid msgstr="corrección\sde\s(error|fallo)"
+hint="« Bug-fix » se traduce como como « Corrección de error » (propuesta glosario)"
 
 # «Built-in» se traduce como «Incorporado».
 {\bbuilt\-in\b}i
 valid msgstr="incorporado"
 valid !msgstr="construido"
-hint="« Built-in » se traduce como como « Incorporado » (ver glosario)"
+hint="« Built-in » se traduce como como « Incorporado » (propuesta glosario)"
 
-# «Running» se traduce como «En ejecución».
-{\brun\b}i
-valid msgstr="en\sejecución"
-valid msgstr="ejecutando(se)?"
-valid !msgstr="corriendo"
-hint="« Running » se traduce como como « En ejecución » (ver glosario)"
+# «Callback» se traduce como «Retrollamada».
+{\bcallback\b}i
+valid msgstr="retrollamada"
+valid msgstr="devolución\sde\sllamada"
+hint="« Callback » se traduce como como « Retrollamada » (propuesta glosario)"
 
-# «On line» se traduce como «Conectado».
-{\bon(\s|\-)line\b}i
-valid msgstr="conectad(o|a)"
-valid msgstr="con\sconexión"
-valid msgstr="en\sla\slínea\s+\d"
-hint="« On line » se traduce como como « Conectado » (ver glosario)"
+# «Canvas» se traduce como «Lienzo/Tapiz».
+{\bcanvas\b}i
+valid msgstr="lienzo"
+valid msgstr="tapiz"
+hint="« Canvas » se traduce como como « Lienzo/Tapiz » (propuesta glosario)"
 
-# «Off line» se traduce como «Desconectado».
-{\boff[\s|\-]line\b}i
-valid msgstr="desconectad(o|a)"
-valid msgstr="sin\sconexión"
-hint="« Off line » se traduce como como « Desconectado » (ver glosario)"
+# «Caret» se traduce como «Circunflejo».
+{\bcaret\b}i
+valid msgstr="circunflejo"
+hint="« Caret » se traduce como como « Circunflejo » (propuesta glosario)"
+
+# «Changelog» se traduce como «Novedades/Últimos cambios».
+{\bchangelog\b}i
+valid msgstr="novedades"
+valid msgstr="últimos\scambios"
+hint="« Changelog » se traduce como como « Novedades/Últimos cambios » (propuesta glosario)"
+
+# «Character set» se traduce como «Juego de caracteres».
+{\bcharacter\sset\b}i
+valid msgstr="juego\sde\scaracteres"
+hint="« Character set » se traduce como como « Juego de caracteres » (propuesta glosario)"
+
+# «Character sets» se traduce como «Juegos de caracteres».
+{\bcharacter\ssets\b}i
+valid msgstr="juegos\sde\scaracteres"
+hint="« Character sets » se traduce como como « Juegos de caracteres » (propuesta glosario)"
+
+# «Charset» se traduce como «Juego de caracteres».
+{\bcharset\b}i
+valid msgstr="juego\sde\scaracteres"
+hint="« Charset » se traduce como como « Juego de caracteres » (propuesta glosario)"
+
+# «Charsets» se traduce como «Juegos de caracteres».
+{\bcharsets\b}i
+valid msgstr="juegos\sde\scaracteres"
+hint="« Charsets » se traduce como como « Juegos de caracteres » (propuesta glosario)"
+
+# «Chat» se traduce como «Charla/Tertulia».
+{\bchat\b}i
+valid msgstr="charla"
+valid msgstr="tertulia"
+valid !msgstr="chat"
+hint="« Chat » se traduce como como « Charla/Tertulia » (propuesta glosario)"
+
+# «Chats» se traduce como «Charlas/Tertulias».
+{\bchat\b}i
+valid msgstr="charlas?"
+valid msgstr="tertulias"
+valid !msgstr="chats"
+hint="« Chats » se traduce como como « Charlas/Tertulias » (propuesta glosario)"
+
+# «Check» se traduce como «Consulte» en algunos contextos.
+#{\bcheck\b}i
+#valid msgstr="consultar"
+#valid msgstr="consulta"
+#valid msgstr="consulte"
+#hint="« Check » se traduce como como « Consultar » (propuesta glosario)"
+
+# «Check button» se traduce como «Botón de verificación».
+{\bcheck\s?button\b}i
+valid msgstr="botón\sde\sverificación"
+hint="« Check button » se traduce como « Botón de verificación » (propuesta glosario)"
+
+# «Check point» se traduce como «Punto de control».
+{\bcheck\s?point\b}i
+valid msgstr="punto\sde\scontrol"
+hint="« Check point » se traduce como « Punto de control » (propuesta glosario)"
+
+# «Check points» se traduce como «Puntos de control».
+{\bcheck\s?points\b}i
+valid msgstr="puntos\sde\scontrol"
+hint="« Check points » se traduce como « Puntos de control » (propuesta glosario)"
+
+# «Clean» se traduce como «Limpio/Limpiar».
+{\bclean\b}i
+valid msgstr="limpi(ar|a|e)"
+valid msgstr="limpio"
+hint="« Clean » se traduce como « Limpiar/Limpio » (propuesta glosario)"
+
+# «Cleans» se traduce como «Limpia».
+{\bcleana\b}i
+valid msgstr="limpi(a|e)"
+valid msgstr="limpios"
+hint="« Cleans » se traduce como « Limpia » (propuesta glosario)"
+
+# «Clear» se traduce como «Borrar».
+{\bclear\b}i
+valid msgstr="borr(ar|a|e)"
+valid !msgstr="claro"
+hint="« Clear » se traduce como « Borrar » (propuesta glosario)"
+
+# «Clears» se traduce como «Borra».
+{\bclear\b}i
+valid msgstr="borr(a|e)"
+valid !msgstr="aclara"
+hint="« Clears » se traduce como « Borra » (propuesta glosario)"
+
+# «Clipboard» se traduce como «Portapapeles».
+{\bclipboards?\b}i
+valid msgstr="portapapeles"
+hint="« Clipboard » se traduce como « Portapapeles » (propuesta glosario)"
+
+# «Closure» se traduce como «Clausura/Cierre».
+{\bclosure\b}i
+valid msgstr="clausura"
+valid msgstr="cierre"
+hint="« Closure » se traduce como « Clausura/Cierre » (propuesta glosario)"
+
+# «Closures» se traduce como «Clausuras/Cierres».
+{\bclosures\b}i
+valid msgstr="clausuras"
+valid msgstr="cierres"
+hint="« Closures » se traduce como « Clausuras/Cierres » (propuesta glosario)"
+
+# «Codec» se traduce como «Códec».
+{\bcodec\b}i
+valid msgstr="códec"
+valid !msgstr="codec"
+hint="« Codec » se traduce como « Códec » (propuesta glosario)"
+
+# «Cold boot» se traduce como «Arranque en frío».
+{\bcold\s?boot\b}i
+valid msgstr="arranque\sen\frío"
+hint="« Cold boot » se traduce como « Arranque en frío » (propuesta glosario)"
+
+# «Colon» se traduce como «Dos puntos».
+{\bcolon\b}i
+valid msgstr="dos\spuntos"
+hint="« Colon » se traduce como « Dos puntos » (propuesta glosario)"
+
+# «Compliant» se traduce como «Conforme con/Compatible».
+{\bcompliants?\b}i
+valid msgstr="conforme\scon"
+valid msgstr="compatible"
+hint="« Compliant » se traduce como « Conforme con/Compatible » (propuesta glosario)"
+
+# «Composer» se traduce como «Editor».
+{\bcomposer\b}i
+valid msgstr="editor"
+valid catrx=".*amarok.*" msgstr="compositor"
+hint="« Composer » se traduce como como « Editor » (propuesta glosario)"
+
+# «Composers» se traduce como «Editores».
+{\bcomposers\b}i
+valid msgstr="editores"
+valid catrx=".*amarok.*" msgstr="compositores"
+hint="« Composers » se traduce como como « Editores » (propuesta glosario)"
+
+# «Computable» se traduce como «Calculable».
+{\bcomputable\b}i
+valid msgstr="calculable"
+hint="« Computable » se traduce como como « Calculable » (propuesta glosario)"
+
+# «Computables» se traduce como «Calculables».
+{\bcomputables\b}i
+valid msgstr="calculables"
+hint="« Computables » se traduce como como « Calculables » (propuesta glosario)"
+
+# «Constraint» se traduce como «Restricción».
+{\bconstraint\b}i
+valid msgstr="restricción"
+hint="« Constraint » se traduce como como « Restricción » (propuesta glosario)"
+
+# «Constraints» se traduce como «Restricciones».
+{\bconstraints\b}i
+valid msgstr="restricciones"
+hint="« Constraints » se traduce como como « Restricciones » (propuesta glosario)"
+
+# «Cordless» se traduce como «Inalámbrico».
+{\bcordless\b}i
+valid msgstr="inalámbrico"
+hint="« Cordless » se traduce como como « Inalámbrico » (propuesta glosario)"
+
+# «Core dump» se traduce como «Volcado de memoria».
+{\bcore\sdump\b}i
+valid msgstr="volcado\sde\smemoria"
+hint="« Core dump » se traduce como como « Volcado de memoria » (propuesta glosario)"
+
+# «Cross compiler» se traduce como «Compilador cruzado».
+{\bcross\scompiler\b}i
+valid msgstr="compilador\scruzado"
+hint="« Cross compiler » se traduce como como « Compilador cruzado » (propuesta glosario)"
+
+# «Customize» se traduce como «Personalizar».
+{\bcustomize\b}i
+valid msgstr="personaliz(ar|a|e)"
+valid !msgstr="customiz(ar|a|e)"
+hint="« Customize » se traduce como como « Personalizar » (propuesta glosario)"
+
+# «Customized» se traduce como «Personalizado».
+{\bcustomize\b}i
+valid msgstr="personalizad(o|a)"
+valid !msgstr="customizad(o|a)"
+hint="« Customizez » se traduce como como « Personalizado » (propuesta glosario)"
+
+# «Customizes» se traduce como «Personaliza».
+{\bcustomize\b}i
+valid msgstr="personaliz(a|e)"
+valid !msgstr="customiz(a|e)"
+hint="« Customizes » se traduce como como « Personaliza » (propuesta glosario)"
+
+# «Cross platform» se traduce como «Multiplataforma».
+{\bcross\splatform\b}i
+valid msgstr="multiplataforma"
+hint="« Cross platform » se traduce como como « Multiplataforma » (propuesta glosario)"
+
+# «Email» se traduce como «Correo».
+{\be\-?mail\b}i
+valid msgstr="correo"
+valid !msgstr="email"
+hint="« Email » se traduce como como « Correo » (propuesta glosario)"
+
+# «Emails» se traduce como «Correos».
+{\be\-?mails\b}i
+valid msgstr="correos"
+valid !msgstr="emails"
+hint="« Emails » se traduce como como « Correos » (propuesta glosario)"
+
+# «Encode» se traduce como «Codificar».
+{\bencode\b}i
+valid msgstr="codifi(car|ca|que)"
+hint="« Encode » se traduce como como « Codificar » (propuesta glosario)"
+
+# «Encoded» se traduce como «Codificado».
+{\bencoded\b}i
+valid msgstr="codificad(o|a)"
+hint="« Encoded » se traduce como como « Codificado » (propuesta glosario)"
+
+# «Encodes» se traduce como «Codifica».
+{\bencode\b}i
+valid msgstr="codifi(ca|que)"
+hint="« Encodes » se traduce como como « Codifica » (propuesta glosario)"
+
+# «Firewall» se traduce como «Cortafuegos».
+{\bfirewalls?\b}i
+valid msgstr="cortafuegos"
+hint="« Firewall » se traduce como como « Cortafuegos » (propuesta glosario)"
+
+# «Groupware» se traduce como «Trabajo en grupo/Colaboración».
+{\bgroupware\b}i
+valid msgstr="trabajo\sen\sgrupo"
+valid msgstr="colaboración"
+valid !msgstr="groupware"
+hint="« Groupware » se traduce como como « Trabajo en grupo/colaboración » (propuesta glosario)"
+
+# «Information technology» se traduce como «Informática».
+{\binformation\stechnology\b}i
+valid msgstr="informática"
+hint="« Information technology » se traduce como como « Infromática » (propuesta glosario)"
+
+# «Interface» se traduce como «Interfaz».
+{\binterface\b}i
+valid msgstr="interfaz"
+hint="« Interface » se traduce como como « Interfaz » (propuesta glosario)"
+
+# «Interfaces» se traduce como «Interfaces».
+{\binterfaces\b}i
+valid msgstr="interfaces"
+hint="« Interfaces » se traduce como como « Interfaces » (propuesta glosario)"
 
 # «Logon» se traduce como «Inicio de sesión».
 {\blog\s?on\b}i
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="iniciar\ssesión"
-hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin traducir (ver glosario)"
+hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin traducir (propuesta glosario)"
 
 # «Logout» se traduce como «Fin de sesión».
 {\blog\s?out\b}i
 valid msgstr="fin\sde\ssesión"
 valid msgstr="finalizar\ssesión"
-hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin traducir (ver glosario)"
+hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin traducir (propuesta glosario)"
+
+# «Macro» se traduce como «Macro».
+{\bmacro\b}i
+valid msgstr="macro"
+hint="« Macro » se traduce como « Macro », (propuesta glosario)"
+
+# «Macros» se traduce como «Macros».
+{\bmacros\b}i
+valid msgstr="macros"
+hint="« Macros » se traduce como « Macros », (propuesta glosario)"
+
+# «Manage» se traduce como «Gestionar».
+{\bmanage\b}i
+valid msgstr="gestion(ar|a|e)"
+valid !msgstr="administr(ar|a|e)"
+valid !msgstr="manej(ar|a|e)"
+hint="« Manage » se traduce como « Gestionar », nunca como « Administrar » (propuesta glosario)"
 
 # «Mirror» se traduce como «Réplica».
 # Creo que debería considerarse erróneo dejarlo en inglés como lo permite actualmente el glosario.
@@ -55,40 +475,112 @@ hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin tr
 valid msgstr="réplicar?"
 valid msgstr="espejo"
 valid !msgstr="mirror"
-hint="« Mirror » se traduce como como « Espejo » o « Réplica » (ver glosario)"
+hint="« Mirror » se traduce como como « Espejo » o « Réplica » (propuesta glosario)"
 
-# «Composer» se traduce como «Editor».
-{\bcomposer\b}i
-valid msgstr="editor"
-valid catrx=".*amarok.*" msgstr="compositor"
-hint="« Composer » se traduce como como « Editor » (ver glosario)"
+# «On line» se traduce como «Conectado».
+{\bon(\s|\-)line\b}i
+valid msgstr="conectad(o|a)"
+valid msgstr="con\sconexión"
+valid msgstr="en\sla\slínea\s+\d"
+hint="« On line » se traduce como como « Conectado » (propuesta glosario)"
 
-# «Composers» se traduce como «Editores».
-{\bcomposers\b}i
-valid msgstr="editores"
-valid catrx=".*amarok.*" msgstr="compositores"
-hint="« Composers » se traduce como como « Editores » (ver glosario)"
+# «Off line» se traduce como «Desconectado».
+{\boff[\s|\-]line\b}i
+valid msgstr="desconectad(o|a)"
+valid msgstr="sin\sconexión"
+hint="« Off line » se traduce como como « Desconectado » (propuesta glosario)"
+
+# «Passphrase» se traduce como «Frase de contraseña».
+{\bpassphrase\b}i
+valid msgstr="frase\sde\scontraseña"
+valid !msgstr="passphrase"
+hint="« Passphrase » se traduce como « Frase de ontraseña » (propuesta glosario)"
+
+# «Passphrases» se traduce como «Frases de contraseña».
+{\bpassphrases\b}i
+valid msgstr="frases\sde\scontraseña"
+valid !msgstr="passphrases"
+hint="« Passphrases » se traduce como « Frases de ontraseña » (propuesta glosario)"
+
+# «Regular expression» se traduce como «Expresión regular».
+{\bregular\sexpression\b}i
+valid msgstr="expresión\sregular"
+hint="« Regular expression » se traduce como « Expresión regular » (propuesta glosario)"
+
+# «Regular expressions» se traduce como «Expresiones regulares».
+{\bregular\sexpressions\b}i
+valid msgstr="expresiones\sregulares"
+hint="« Regular expressions » se traduce como « Expresiones regulares » (propuesta glosario)"
+
+# «Remove» se traduce como «Eliminar/Quitar».
+{\bremove\b}i
+valid msgstr="elimin(ar|a|e)"
+valid msgstr="quit(ar|a|e)"
+hint="« Remove » se traduce como « Eliminar/Quitar » (propuesta glosario)"
+
+# «Removed» se traduce como «Eliminado/Quitado».
+{\bremoved\b}i
+valid msgstr="eliminad(o|a)"
+valid msgstr="quitad(o|a)"
+valid msgstr="se\selimin(a|e)n?"
+hint="« Removed » se traduce como « Eliminado/Quitado » (propuesta glosario)"
+
+# «Running» se traduce como «En ejecución».
+{\brun\b}i
+valid msgstr="en\sejecución"
+valid msgstr="ejecutando(se)?"
+valid !msgstr="corriendo"
+hint="« Running » se traduce como como « En ejecución » (propuesta glosario)"
+
+# «Screenshot» se traduce como «Captura de pantalla».
+{\bscreenshot\b}i
+valid msgstr="captura\s(de|la)\spantalla"
+hint="« Screenshot » se traduce como « Captura de pantalla » (propuesta glosario)"
+
+# «Screenshots» se traduce como «Capturas de pantalla».
+{\bscreenshots\b}i
+valid msgstr="capturas\s(de|las)\spantallas?"
+hint="« Screenshots » se traduce como « Capturas de pantalla » (propuesta glosario)"
+
+# «Settings» se traduce como «Preferencias».
+{\bsettings\b}i
+valid msgstr="preferencias"
+valid msgstr="configuración"
+hint="« Settings » se traduce como como « Preferencias » (propuesta glosario)"
 
 # «Spellchecking» se traduce como «Corrección ortográfica».
 {\sbpellchecking\b}i
 valid msgstr="corrección\sortográfica"
-hint="« Spellchecking » se traduce como como « Corrección ortográfica » (ver glosario)"
+hint="« Spellchecking » se traduce como como « Corrección ortográfica » (propuesta glosario)"
 
 # «Spellchecker» se traduce como «Corrector ortográfico».
 {\bspellchecker\b}i
 valid msgstr="corrector\sortográfico"
-hint="« Spellchecker » se traduce como como « Corrector ortográfico » (ver glosario)"
+hint="« Spellchecker » se traduce como como « Corrector ortográfico » (propuesta glosario)"
 
 # «Spellcheckers» se traduce como «Correctores ortográficos».
 {\bspellcheckers\b}i
 valid msgstr="correctores\sortográficos"
-hint="« Spellcheckers » se traduce como como « Correctores ortográficos » (ver glosario)"
+hint="« Spellcheckers » se traduce como como « Correctores ortográficos » (propuesta glosario)"
 
-# «Check» se traduce como «Consulte» en algunos contextos.
-#{\bcheck\b}i
-#valid msgstr="consultar"
-#valid msgstr="consulta"
-#valid msgstr="consulte"
-#hint="« Check » se traduce como como « Consultar » (ver glosario)"
+# «System board» se traduce como «Placa base».
+{\bsystem\sboard\b}i
+valid msgstr="placa\sbase"
+hint="« System board » se traduce como « Placa base » (propuesta glosario)"
+
+# «System boards» se traduce como «Placas base».
+{\bsystem\sboards\b}i
+valid msgstr="placas\sbase"
+hint="« System boards » se traduce como « Placas base » (propuesta glosario)"
+
+# «Wildcard» se traduce como «Comodín».
+{\bwild\scard\b}i
+valid msgstr="comodín"
+hint="« Wildcard » se traduce como « Comodín » (propuesta glosario)"
+
+# «Wildcards» se traduce como «Comodines».
+{\bwild\scards\b}i
+valid msgstr="comodines"
+hint="« Wildcards » se traduce como « Comodines » (propuesta glosario)"
 
 # End of rule file

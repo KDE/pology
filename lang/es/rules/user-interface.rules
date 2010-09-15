@@ -1,0 +1,104 @@
+# Spanish typographic rules
+# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# based in the work of the KDE French Team
+# License: GPLv3
+
+include file="filter.include"
+ 
+# «Alt» se traduce como «Alt» (regla de traducción de nombres de teclas).
+{\bAlt\b}
+valid msgstr="Alt"
+hint="« Alt » se traduce como como « Alt » (regla de traducción de nombres de teclas)"
+
+# «Backspace» se traduce como «Retroceso» (regla de traducción de nombres de teclas).
+{\bBackspace\b}
+valid msgstr="Retroceso"
+hint="« Backspace » se traduce como como « Retroceso » (regla de traducción de nombres de teclas)"
+
+# «Caps Lock» se traduce como «Bloq Mayús» (regla de traducción de nombres de teclas).
+{\bCaps\sLock\b}
+valid msgstr="Bloq\sMayús"
+hint="« Caps Loack » se traduce como como « Bloq Mayús » (regla de traducción de nombres de teclas)"
+
+# «Ctrl» se traduce como «Ctrl» (regla de traducción de nombres de teclas).
+{\bCtrl\b}
+valid msgstr="Ctrl"
+hint="« Ctrl » se traduce como como « Ctrl » (regla de traducción de nombres de teclas)"
+
+# «Del» se traduce como «Supr» (regla de traducción de nombres de teclas).
+{\bDel\b}
+valid msgstr="Supr"
+hint="« Del » se traduce como como « Supr » (regla de traducción de nombres de teclas)"
+
+## «End» se traduce como «Fin» (regla de traducción de nombres de teclas).
+#{\bEnd\b}
+#valid msgstr="Fin"
+#hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
+
+## «Enter» se traduce como «Intro» (regla de traducción de nombres de teclas).
+#{\bEnter\b}
+#valid msgstr="Intro"
+#hint="« Enter » se traduce como como « Intro » (regla de traducción de nombres de teclas)"
+
+# «Esc» se traduce como «Esc» (regla de traducción de nombres de teclas).
+{\bEsc\b}
+valid msgstr="Esc"
+hint="« Esc » se traduce como como « Esc » (regla de traducción de nombres de teclas)"
+
+# «Ins» se traduce como «Ins» (regla de traducción de nombres de teclas).
+{\bIns\b}
+valid msgstr="Ins"
+hint="« Ins » se traduce como como « Ins » (regla de traducción de nombres de teclas)"
+
+# «Num Lock» se traduce como «Block Num» (regla de traducción de nombres de teclas).
+{\bNum\sLock\b}
+valid msgstr="Bloq\sNum"
+hint="« Num Lock » se traduce como como « Bloq Num » (regla de traducción de nombres de teclas)"
+
+# «Pause» se traduce como «Pausa» (regla de traducción de nombres de teclas).
+{\bPause\b}
+valid msgstr="Pausa"
+hint="« Pause » se traduce como como « Pausa » (regla de traducción de nombres de teclas)"
+
+# «PgDn» se traduce como «Re Pag» (regla de traducción de nombres de teclas).
+{\bPg\s?Dn\b}
+valid msgstr="Re\s?Pag"
+hint="« PgDn » se traduce como como « Re Pag » (regla de traducción de nombres de teclas)"
+
+# «PgUp» se traduce como «Av Pag» (regla de traducción de nombres de teclas).
+{\bPg\s?Dn\b}
+valid msgstr="Av\s?Pag"
+hint="« PgDn » se traduce como como « Av Pag » (regla de traducción de nombres de teclas)"
+
+# «Print Screen» se traduce como «Impr Pant» (regla de traducción de nombres de teclas).
+{\bPrint\s?Screen\b}
+valid msgstr="Impr\s?Pant"
+hint="« Print Screen » se traduce como como « Impr Pant » (regla de traducción de nombres de teclas)"
+
+# «Scroll Lock» se traduce como «Bloq Desp» (regla de traducción de nombres de teclas).
+{\bScroll\s?Lock\b}
+valid msgstr="Bloq\s?Desp"
+hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducción de nombres de teclas)"
+
+# «Shift» se traduce como «Mayús» (regla de traducción de nombres de teclas).
+{\bShift\b}
+valid msgstr="Mayús"
+hint="« Shift » se traduce como como « Mayus » (regla de traducción de nombres de teclas)"
+
+# «SysReq» se traduce como «Pet Sys» (regla de traducción de nombres de teclas).
+{\bSys\s?Req\b}
+valid msgstr="Pet\s?Sys"
+hint="« SysReq » se traduce como como « Pet Sys » (regla de traducción de nombres de teclas)"
+
+# «Spacebar» se traduce como «Barra espaciadora» (regla de traducción de nombres de teclas).
+{\bSpacebar\b}
+valid msgstr="Barra\sespaciadora"
+hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de traducción de nombres de teclas)"
+
+## «Tab» se traduce como «Tab» (regla de traducción de nombres de teclas).
+#{\bTab\b}
+#valid msgstr="Tab"
+#hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
+
+# End of rule file
