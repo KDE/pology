@@ -476,7 +476,432 @@ The order of domain names in the list is important: if the referenced UI message
 <sect1 id="sec-lgrules">
 <title>Validation Rules</title>
 
+<para>There are great many possible mistakes to be made when translating. Some of these mistakes can only be observed and corrected by a human reviewer<footnote>
+<para>Taking into account the current level of artificial intelligence development, which, granted, may become more sophisticated in the future.</para>
+</footnote>, and review is indeed an important part of the translation workflow. However, many mistakes, especially those more technical in nature, can be fully or partially detected by automatic means.</para>
+
+<para>A number of tools are available to perform various checks on translation in PO files. The basic one is Gettext's <command>msgfmt</command> command, which, when run with <option>-c</option>/<option>--check</option> option, will detect many "hard" technical problems. These are the kind of problems which may cause the program that uses translation to crash, or that may cause loss of information to the program user. Another is <ulink url="http://translate.sourceforge.net/wiki/toolkit/pofilter">Translate Toolkit's <command>pofilter</command> command</ulink>, which applies heuristic checks to detect common (and not so common) stylistic and semantic slips in translation. Dedicated PO editors may also provide some checks of their own, or make use of external batch tools.</para>
+
+<para>One commonality of existing validation tools is that they aim for generality, that is, try to apply a fixed battery of checks to all <link linkend="sec-lglangenv">languages and environments</link> (although some differentiation by translation projects may be present, such as in <command>pofilter</command>). Another commonality, unavoidable in heuristic approaches, is wrong detection of valid translation as invalid, the so called "false positives". These two elements produce combined negative effect: since the number and specificity of checks is not that great compared to what a dedicated translator could come up with for given language and environment, and since many reported errors are false positives without possibility for cancelation, the motivation to apply automatic checks sharply decreases; the more so the greater the amount of translation.</para>
+
+<para>Pology therefore provides a system for users to assemble collections of <emphasis>validation rules</emphasis> adapted to their language and environment, with multi-level facilities for applying or skipping rules in certain contexts, pre-filtering of text before applying rules, and post-filtering and opening problematic messages in PO editors. Rules can be written and tuned in the course of translation, and false positives can be systematically canceled, such that over time the collection of rules becomes both highly specific and highly accurate. Since Pology supports language and environment variations from the ground up, such rule collections can be committed to Pology source distribution, so that anyone may use them when applicable.</para>
+
+<para>Validation rules are primarily based on pattern matching with <link linkend="sec-cmregex">regular expressions</link>, but they can in principle contain any Python code through Pology's <link linkend="sec-cmhooks">hook system</link>. For example, since there are spell-checking hooks provided, spell-checking can be easily made into one validation rule. One could even aim to integrate every available check into the validation rule system, such that it becomes the single and uniform source of all automatic checks in the translation workflow.</para>
+
+<para>The primary tool in Pology for applying validation rules is <link linkend="sv-check-rules">the <command>check-rules</command> sieve</link>. This section describes how to write rules, how to organize rule collections, and, importantly, how to handle false positives.</para>
+
+<sect2 id="sec-lgrltour">
+<title>Guided Tour of the Rule System</title>
+
+<para>There are many nuances to the validation rule system in Pology, so it is best to start off with an example-based exposition of the main elements. Subsequent sections will then look into each element in detail.</para>
+
+<para>Rules are defined in rule files, with flat structure and minimalistic syntax, since the idea is to write the rules during the translation (or the translation review). Here is one rule file with two rules:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+[don't|can't|isn't|aren't|won't|shouldn't|wouldn't]i
+id="gram-contr"
+hint="Do not use contractions."
+
+{elevator}i
+id="term-elevator"
+hint="Translate 'elevator' as 'lift'."
+valid msgstr="lift"
+</programlisting>
+A rule file should begin with a comment telling something about the rules defined in the file. Then the rules follow, normally separated by one or more blank lines. Each rule starts with a <emphasis>trigger pattern</emphasis>, of which there are several types. The trigger pattern can sometimes be everything there is to the rule, but it is usually followed by a number of <emphasis>subdirectives</emphasis>.</para>
+
+<para>The first rule above starts with a regular expression pattern on the translation, which is denoted by the <literal>[...]</literal> syntax. The regular expression matches English contractions, case-insensitively as indicated by trailing <literal>i</literal> flag. The trigger pattern is followed by the <literal>id</literal> subdirective, which specifies an identifier for the rule (here <literal>gram-contr</literal> is short for "grammar, contractions"). The identifier does not have to be present, and does not even have to be unique if present (uses of rule identifiers will be explained later). If the rule matches a message, the message is reported to the user as problematic, along with a note provided in the <literal>hint</literal> subdirective.</para>
+
+<para>The second rule starts with a regular expression pattern on the original (rather than the translation), for which the <literal>{...}</literal> syntax is reserved. Then the <literal>id</literal> and <literal>hint</literal> subdirectives follow, as in the first rule. But unlike the first rule, up to this point the second rule would be somewhat strange: report a problem whenever the word "elevator" is found in the original text? That is where the final <literal>valid</literal> subdirective comes in, by specifying a condition on translation (<literal>msgstr=</literal>) which cancels the trigger pattern. So this rule efectively states "report every message which has the word 'elevator' in the original, but not the word 'lift' in the translation", making it a terminology assertion rule.</para>
+
+<para>If the given example rule file is saved as <filename>personal.rules</filename>, it can be applied to a collection of PO files by the <command>check-rules</command> sieve in the following way:
+<programlisting>
+$ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules <replaceable>PATHS...</replaceable>
+</programlisting>
+The path to the rule file to apply is given by the <option>rfile:</option> sieve parameter. All messages which are "failed" by rules will be output to the terminal, with spans of the text that triggered the rule highlighted and the note attached to the rule displayed after the message. Additionally, one of the parameters for automatically opening messages in the PO editor can be issued, to make correcting problems (or canceling false positives) that more comfortable.</para>
+
+<para>The <option>rfile:</option> sieve parameter can be repeated to add several rule files. If all rule files put into one directory (and its subdirectories), a single <option>rdir:</option> parameter can be used to specify the path to that directory, and all files with <filename>.rules</filename> extension will be recursively collected from it and applied. Finally, if rule files are put into Pology's rule directory for the given language, at <filename>lang/<replaceable>lang</replaceable>/rules/</filename>, then <command>check-rules</command> will automatically pick them up when neither <option>rfile:</option> nor <option>rdir:</option> parameters are issued. This is a simple way to test the rules if the intention is to include them into Pology distribution.</para>
+
+<para>Instead of applying all defined rules, parameters <option>rule:</option>, <option>rulerx:</option>, <option>norule:</option>, <option>norulerx:</option> of <command>check-rules</command> can be used to select specific rules to apply or to not apply, by their identifiers. To apply only the no-contractions rule:
+<programlisting>
+$ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s rule:gram-contr <replaceable>PATHS...</replaceable>
+</programlisting>
+and to apply all but terminology rules, assuming that their identifiers start with <literal>term-</literal>:
+<programlisting>
+$ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s norulerx:term-.* <replaceable>PATHS...</replaceable>
+</programlisting>
+</para>
+
+<para>When the rule trigger pattern is a regular expression, it can always be made more or less specific. The previous example of matching English contractions could be generalized like this:
+<programlisting>
+[\w+'t\b]i
+</programlisting>
+This regular expression will match one or more word-characters (<literal>\w+</literal>) followed by 't (<literal>'t</literal>) which is positioned at the word boundary (<literal>\b</literal>). More general patterns increase the likelyhood of false positives, but this is not really a problem, since tweaking the rules in the course of translation is expected. It is a bigger problem if the pattern is made too specific at first, such that it misses out some cases. It is therefore recommended to start with "greedy" patterns, and then constrain them as false positivies are observed.</para>
+
+<para>However, tweaking trigger patterns can only go so far.<footnote>
+<para>And cause regular expressions to become horribly complicated.</para>
+</footnote> The workhorse of rule flexibility is instead the mentioned <literal>valid</literal> subdirective. Within a single <literal>valid</literal> directive there may be several tests, and many types of tests are provided. The trigger will be canceled if all the tests in the <literal>valid</literal> subdirective are satisfied (boolean AND linking). There may be several <literal>valid</literal> subdirectives, each with its own battery of tests, and then the trigger is canceled if any of the <literal>valid</literal> subdirectives are satisfied (boolean OR linking). For example, to disallow a certain word in translation unless used in few specific constructs, the following set of <literal>valid</literal> subdirectives can be used:
+<programlisting>
+[foo]i
+id="style-nofoo"
+hint="The word 'foo' is allowed only in '*goo foo' and 'foo bar*' constructs."
+valid after="goo "
+valid before=" bar"
+</programlisting>
+The first <literal>valid</literal> subdirective cancels the rule if the trigger pattern matched just after a "goo " segment, and the second if it matched just before a " bar" segment. Another example would be a terminology assertion rule where a certain translation is expected in general, but another translation as well is allowed in a specific PO file:
+<programlisting>
+{foobar}i
+id="term-foobar"
+hint="Translate 'foobar' as 'froobaz' (somewhere 'groobaz' allowed too)."
+valid msgstr="froobaz"
+valid msgstr="groobaz" cat="gfoo"
+</programlisting>
+Here the second <literal>valid</literal> subdirective uses the <literal>cat=</literal> test to specify the other possible translation in the specific PO file. Tests can be negated by prepending <literal>!</literal> to them, so to require the specific PO file to have <emphasis>only</emphasis> the other translation:
+<programlisting>
+valid msgstr="froobaz" !cat="gfoo"
+valid msgstr="groobaz" cat="gfoo"
+</programlisting>
+</para>
+
+<para>When a regular expression is not sufficient as the rule trigger, a validation hook can be used instead (one of V* hook types). See <xref linkend="sec-cmhooks"/> for general discussion on hooks in Pology. For example, since there are spell-checking hooks already available, the complete rule for spell-checking could be:
+<programlisting>
+*hook name="spell/check-spell-sp" factory="" on="msgstr"
+id="spelling"
+hint="Misspelled words detected."
+</programlisting>
+The <literal>name=</literal> field specifies the hook, the <literal>factory=</literal> field its parameters (if it may have some), and the <literal>on=</literal> field what parts of the message it should operate on. The parts given by <literal>on=</literal> field must be appropriate for the hook type; since <literal>spell/check-spell-sp</literal> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <literal>hint=</literal> subdirective.</para>
+
+<para>Examples so far all suffer from one basic problem: the trigger pattern will fail to match a word which has an accelerator marker inside it.<footnote>
+<para>Why not remove accelerator markers automatically before applying rules? Because some rules might be exactly about accelerator markers, e.g. if it should not be put next to certain letters.</para>
+</footnote> This is actually an instance of a broader problem, that some rules should operate on a somewhat modified, filtered text, instead on the original text. This is why the rule system in Pology also provides extensive filtering capabilities. If the accelerator marker is <literal>_</literal> (the underscore), here is how it could be removed before applying the rules:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+addFilterRegex match="_" repl="" on="pmsgid,pmsgstr"
+
+# Rules follow...
+</programlisting>
+The <literal>addFilterRegex</literal> directive sets a regular expression filter that will be applied to messages before applying any of the rules that follow. <literal>match=</literal> field provides the pattern, <literal>repl=</literal> what to replace it with, and <literal>on=</literal> which parts of the message to filter.</para>
+
+<para>The accelerator marker filter from the previous example is quite crude. It fixes the accelerator marker character, and it will simply remove all of them from the text. Filters too can be hooks instead of regular expressions, and in this case it is better to use the dedicated accelerator marker removal hook:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+# Rules follow...
+</programlisting>
+<link linkend="hk-remove-remove-accel">The <literal>remove/remove-accel-msg</literal> hook</link> is an F4A hook, and therefore the <literal>on=</literal> field specifies the whole message as the target of filtering. This hook will use information from PO file headers and respect command line overrides to determine the accelerator marker character, and then remove them only from valid accelerator positions.</para>
+
+<para>Filters to not have to be given as global directives, influencing all the rules below them, but they can be defined for a single rule, using one of rule subdirectives. The other way around, global filters can also have a handle assigned (using the <literal>handle=</literal> field), and then this handle can be used to remove the filter on a specific rule.</para>
+
+<para>The last important concept in the Pology's validation rule system are rule environments. The examples so far defined rules for a given language, which means that they in principle apply to any PO file of that language. This is generally insufficient (e.g. terminology differences between translation projects), so rules too can be made to support Pology's <link linkend="sec-lglangenv">language and environment</link> hierarchy. Going back to the initial rule file example, let us assume that while "elevator" should always become "lift", but that English contractions are not accepted only in more formal translations. Then, the rule file could be modified to:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+[don't|can't|isn't|aren't|won't|shouldn't|wouldn't]i
+environment formal
+...
+
+{elevator}i
+...
+</programlisting>
+The first rule now has the <literal>environment</literal> subdirective, which sets this rule's environment to <literal>formal</literal>. If <command>check-rules</command> is now run as before, only the second rule will be applied, as it is environment-agnostic. To apply the first rule as well, the <literal>formal</literal> environment must be requested through the <option>env:</option> sieve parameter:
+<programlisting>
+$ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s env:formal <replaceable>PATHS...</replaceable>
+</programlisting>
+Another way to request the environment is to specify it inside the PO file itself, through the <link linkend="hdr-x-environment">the <literal>X-Environment:</literal> header field</link>. This is generally preferable, because it both reduces the amount of command line arguments (which may be accidentaly omitted sometimes), other parts of Pology too can make use of the environment information in the PO header, and, most importantly, it makes possible that not all PO files processed in a single run belong to the same environment.</para>
+
+<para>If all the rules which belong to the formal environment are grouped at the end of the rule file, then the global <literal>environment</literal> directive can be used to set the environment for all of them, instead of the subdirective on each of them:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+{elevator}i
+...
+
+environment formal
+
+[don't|can't|isn't|aren't|won't|shouldn't|wouldn't]i
+...
+</programlisting>
+A more usual application of the global <literal>environment</literal> directive is to split environment-specific rules into a separate file, and then put the <literal>environment</literal> directive at the top. Most flexibly, <literal>valid</literal> subdirectives provide the <literal>env=</literal> test, so that the rule trigger can be canceled in a condition including the environment. In the running example, this could be used as:
+<programlisting>
+# Personal rules of Horatio the Indefatigable.
+
+[don't|can't|isn't|aren't|won't|shouldn't|wouldn't]i
+...
+valid !env="formal"
+
+{elevator}i
+...
+</programlisting>
+It depends on the particular organization of rule files, and on types of rules, which method of environment-sensitivity should be used. Filters too are sensitive to environments, either conforming to global environment directives same as rules, or using their own <literal>env=</literal> fields.</para>
+
+<para>When requesting environments in validation runs (through <option>env:</option> sieve parameter or <literal>X-Environment:</literal> header field), more than one environment can be specified. Then the rules from all those environments, plus the environment-agnostic rules, will be applied. Here comes another function of rule identifiers (provided with the <literal>id=</literal> rule subdirective): if two rules in different environments have same identifier, then the rule from the more specific environment overrides the rule from the less specific environment. The more specific environment is normally taken to be the one encountered later in the requested environment list.</para>
+
+</sect2>
+
+<sect2 id="sec-lgrlfiles">
+<title>Rule Files</title>
+
+<para>Rule files are kept simple, to facilitate easy editing without
+verbose syntax getting in the way. A rule file has the following layout:
+<programlisting>
+# Title of the rule collection.
+# Author name.
+# License.
+
+# Directives affecting all the rules.
+<replaceable>global-directive</replaceable>
+...
+<replaceable>global-directive</replaceable>
+
+# Rule 1.
+<replaceable>trigger-pattern</replaceable>
+<replaceable>subdirective-1</replaceable>
+...
+<replaceable>subdirective-n</replaceable>
+
+# Rule 2.
+<replaceable>trigger-pattern</replaceable>
+<replaceable>subdirective-1</replaceable>
+...
+<replaceable>subdirective-n</replaceable>
+
+...
+
+# Rule N.
+<replaceable>trigger-pattern</replaceable>
+<replaceable>subdirective-1</replaceable>
+...
+<replaceable>subdirective-n</replaceable>
+</programlisting>
+The rather formal top comment (licence, etc.) is required for the rule files inside Pology distribution. In most contexts rule files are expected to have the <filename>.rules</filename> extension, so it is best to always use it (mandatory for internal rules files). Rule files must be UTF-8 encoded.</para>
+
+</sect2>
+
+<sect2 id="sec-lgrltrigpat">
+<title>Rule Trigger Pattern</title>
+
+<para>The trigger pattern is a regular expression, which can be given within curly or square brackets, <literal>{...}</literal> or <literal>[...]</literal>, to match the original or the translation part of the message, respectively. The closing bracket may be followed by single-character matching modifiers, as follows:
+<itemizedlist>
+<listitem>
+<para><literal>i</literal>: case-sensitive matching for <emphasis>all</emphasis> patterns in the rule, including but not limited to the trigger pattern. Default matching is case-insensitive.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Bracketed patterns are the shorthand notation, which are sufficient most of the time. There is also the more verbose notation <literal>*<replaceable>message-part</replaceable>/<replaceable>regex</replaceable>/<replaceable>modifiers</replaceable></literal>, where instead of <literal>/</literal> any other non-letter character can be used consistently as separator. The verbose notation is needed when some part of the message other than the original or the translation should be matched, or when brackets would cause balancing issues (e.g. when a closing curly bracket without the opening bracket is a part of the match for the original text). For all messages, <literal><replaceable>message-part</replaceable></literal> can be one of the following keywords:
+<itemizedlist>
+<listitem>
+<para><literal>msgid</literal>: match on original</para>
+</listitem>
+<listitem>
+<para><literal>msgstr</literal>: match on translation</para>
+</listitem>
+<listitem>
+<para><literal>msgctxt</literal>: match on disambiguating context</para>
+</listitem>
+</itemizedlist>
+For example, <literal>{foobar}i</literal> is equivalent to <literal>*msgid/foobar/i</literal>.</para>
+
+<para>For plural messages, <literal>msgid/.../</literal> (and conversely <literal>{...}</literal>) tries to match either the <varname>msgid</varname> or the <varname>msgid_plural</varname> string, whereas <literal>msgstr/.../</literal> (and <literal>[...]</literal>) try to match any <varname>msgstr</varname> string. If only particular of these strings should be matched, the following keywords can be used as well:
+<itemizedlist>
+<listitem>
+<para><literal>msgid_singular</literal>: match only the <varname>msgid</varname> string</para>
+</listitem>
+<listitem>
+<para><literal>msgid_plural</literal>: match only the <varname>msgid_plural</varname> string</para>
+</listitem>
+<listitem>
+<para><literal>msgstr_<replaceable>N</replaceable></literal>: match only the <varname>msgstr</varname> string with index <literal><replaceable>N</replaceable></literal></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>If the trigger pattern matches, the message is by default considered "failed" by the rule. The message may be still passed by subdirectives that follow, which test if some additional conditions hold.</para>
+
+</sect2>
+
+<sect2 id="sec-lgrlsubdirs">
+<title>Rule Subdirectives</title>
+
+<para>There are several types of rule subdirectives. The main subdirective is <literal>valid</literal>, which provides additional tests to pass the message failed by the trigger pattern. The tests are given by a list of <literal><replaceable>name</replaceable>="<replaceable>pattern</replaceable>"</literal> entries. For a <literal>valid</literal> directive to pass the message, all its tests must hold, and if any of the <literal>valid</literal> directives passes the message, then the rule as whole passes it. Effectively, this means the boolean AND relationship within a directive, and OR across directives.</para>
+
+<para>The following tests are currently available in <literal>valid</literal> subdirectives:
+<variablelist>
+
+<varlistentry>
+<term><literal>msgid="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The original text (<varname>msgid</varname> or <varname>msgid_plural</varname> string) must match the regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>msgstr="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The translation (any <varname>msgstr</varname> string) must match the regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>ctx="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The disambiguating context (<varname>msgctxt</varname> string) must match the regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>srcref="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The file path of one of the source references (in <literal>#: ...</literal> comment) must match the regular expression</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>comment="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>One of the extracted or translator comments (<literal>#. ...</literal> or <literal># ...</literal>) must match the regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>span="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The text segment matched by the trigger pattern must match this regular expression as well.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>before="<replaceable>REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The text segment matched by the trigger pattern must be placed exactly before one of the text segments matched by this regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>after</literal></term>
+<listitem>
+<para>The text segment matched by the trigger pattern must be placed exactly after one of the text segments matched by this regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>cat="<replaceable>DOMAIN1</replaceable>,<replaceable>DOMAIN2</replaceable>,..."</literal></term>
+<listitem>
+<para>The PO domain name (i.e. MO file name without <filename>.mo</filename> extension) must be contained in the given comma-separated list of domain names.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>catrx="<replaceable>REGEX</replaceable></literal></term>
+<listitem>
+<para>The PO domain name must match the regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>env="<replaceable>ENV1</replaceable>,<replaceable>ENV2</replaceable>,..."</literal></term>
+<listitem>
+<para>The operating environment must be contained in the given comma-separated list of environment keywords.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>head="/<replaceable>FIELD-REGEX</replaceable>/<replaceable>VALUE-REGEX</replaceable>"</literal></term>
+<listitem>
+<para>The PO file header must contain the field and value combination, each specified by a regular expression pattern. Instead of <literal>/</literal>, any other character may be used consistently as delimiter for the field regular expression.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Each test can be negated by prefixing it with <literal>!</literal>. For example, <literal>!cat="foo,bar"</literal> will match if the PO domain name is neither <literal>foo</literal> nor <literal>bar</literal>. Tests are "short-circuiting", so it is good for performance to put simple direct matching tests (e.g. <literal>cat=</literal>, <literal>env=</literal>) before more more expensive regular expression tests (<literal>msgid=</literal>, <literal>msgstr=</literal>, etc.).</para>
+
+<para>Subdirectives other than <literal>valid</literal> set states and properties of the rule. The property directives are written simply as <literal><replaceable>property</replaceable>="<replaceable>value</replaceable>"</literal>. These include:
+<variablelist>
+
+<varlistentry>
+<term><literal>hint</literal></term>
+<listitem>
+<para>A note to show to the user when the rule fails a message.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>id</literal></term>
+<listitem>
+<para>An "almost unique" identifier for the rule (see <xref linkend="sec-lgrlenvs"/>).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+State directives are given by the directive name, possibly followed by
+keyword parameters: <literal><replaceable>directive</replaceable> <replaceable>arg1</replaceable> ...</literal>. These can be:
+<variablelist>
+
+<varlistentry>
+<term><literal>validGroup <replaceable>GROUPNAME</replaceable></literal></term>
+<listitem>
+<para>Includes a previously defined standalone group of <literal>valid</literal> subdirectives.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>environment <replaceable>ENVNAME</replaceable></literal></term>
+<listitem>
+<para>Sets the environment in which the rule is applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>disabled</literal></term>
+<listitem>
+<para>Disables the rule, i.e. makes it pass all messages regardless of the trigger pattern and <literal>valid</literal> subdirectives.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-lgrlglobdirs">
+<title>Global Rule Directives</title>
+
 <para></para>
+
+</sect2>
+
+<sect2 id="sec-lgrlenvs">
+<title>Rule Environments</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-lgrlfilter">
+<title>Filtering Before Rule Application</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-lgrlspectrig">
+<title>Special Rule Triggers</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-lgrlquotesc">
+<title>Quoting and Escaping in Rules</title>
+
+<para></para>
+
+</sect2>
 
 </sect1>
 
