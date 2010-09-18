@@ -283,6 +283,7 @@ valid cat="kaffeine4" msgid="Free to air"
 valid cat="kuser" msgid="CRYPT"
 valid after="x-en"
 valid after="x-de"
+valid after="identity-"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
