@@ -565,11 +565,11 @@ valid msgstr="groobaz" cat="gfoo"
 
 <para>When a regular expression is not sufficient as the rule trigger, a validation hook can be used instead (one of V* hook types). See <xref linkend="sec-cmhooks"/> for general discussion on hooks in Pology. For example, since there are spell-checking hooks already available, the complete rule for spell-checking could be:
 <programlisting>
-*hook name="spell/check-spell-sp" factory="" on="msgstr"
+*hook name="spell/check-spell-sp" on="msgstr"
 id="spelling"
 hint="Misspelled words detected."
 </programlisting>
-The <literal>name=</literal> field specifies the hook, the <literal>factory=</literal> field its parameters (if it may have some), and the <literal>on=</literal> field what parts of the message it should operate on. The parts given by <literal>on=</literal> field must be appropriate for the hook type; since <literal>spell/check-spell-sp</literal> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <literal>hint=</literal> subdirective.</para>
+The <literal>name=</literal> field specifies the hook, and the <literal>on=</literal> field what parts of the message it should operate on. The parts given by <literal>on=</literal> field must be appropriate for the hook type; since <literal>spell/check-spell-sp</literal> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <literal>hint=</literal> subdirective.</para>
 
 <para>Examples so far all suffer from one basic problem: the trigger pattern will fail to match a word which has an accelerator marker inside it.<footnote>
 <para>Why not remove accelerator markers automatically before applying rules? Because some rules might be exactly about accelerator markers, e.g. if it should not be put next to certain letters.</para>
@@ -642,7 +642,7 @@ It depends on the particular organization of rule files, and on types of rules, 
 </sect2>
 
 <sect2 id="sec-lgrlfiles">
-<title>Rule Files</title>
+<title>Layout of Rule Files</title>
 
 <para>Rule files are kept simple, to facilitate easy editing without
 verbose syntax getting in the way. A rule file has the following layout:
@@ -681,9 +681,9 @@ The rather formal top comment (licence, etc.) is required for the rule files ins
 </sect2>
 
 <sect2 id="sec-lgrltrigpat">
-<title>Rule Trigger Pattern</title>
+<title>Rule Triggers</title>
 
-<para>The trigger pattern is a regular expression, which can be given within curly or square brackets, <literal>{...}</literal> or <literal>[...]</literal>, to match the original or the translation part of the message, respectively. The closing bracket may be followed by single-character matching modifiers, as follows:
+<para>The rule trigger is most often a regular expression pattern, given within curly or square brackets, <literal>{...}</literal> or <literal>[...]</literal>, to match the original or the translation part of the message, respectively. The closing bracket may be followed by single-character matching modifiers, as follows:
 <itemizedlist>
 <listitem>
 <para><literal>i</literal>: case-sensitive matching for <emphasis>all</emphasis> patterns in the rule, including but not limited to the trigger pattern. Default matching is case-insensitive.</para>
@@ -719,7 +719,38 @@ For example, <literal>{foobar}i</literal> is equivalent to <literal>*msgid/fooba
 </itemizedlist>
 </para>
 
-<para>If the trigger pattern matches, the message is by default considered "failed" by the rule. The message may be still passed by subdirectives that follow, which test if some additional conditions hold.</para>
+<para id="p-triggerhooks">When regular expressions on message strings are not sufficient as rule triggers, a hook can be used instead. Hooks are described in <xref linkend="sec-cmhooks"/>. Since hooks are Python functions, in principle any kind of test can be performed by them. A rule with the hook trigger is defined as follows:
+<programlisting>
+*hook name="<replaceable>hookspec</replaceable>" on="<replaceable>part</replaceable>" casesens="[yes|no]"
+# Rule subdirectives follow...
+</programlisting>
+The <literal>name=</literal> field provides the hook specification. Only V* type (validation) hooks can be used in this context. The <literal>on=</literal> field defines on which part of the message the hook will operate, and needs to conform to the hook type. The following message parts can be specified, with associated hook types:
+<itemizedlist>
+
+<listitem>
+<para><literal>msg</literal>: the hook applies to the complete message; for type V4A hooks.</para>
+</listitem>
+
+<listitem>
+<para><literal>msgid</literal>: the hook applies to the original text (<varname>msgid</varname>, <varname>msgid_plural</varname>), but considering other parts of the message; for type V3A and V3B hooks.</para>
+</listitem>
+
+<listitem>
+<para><literal>msgstr</literal>: the hook applies to the translation text (all <varname>msgstr</varname> strings), but considering other parts of the message; for type V3A and V3C hooks.</para>
+</listitem>
+
+<listitem>
+<para><literal>pmsgid</literal>: the hook applies to the original text, without considering the rest of the message; for type V1A hooks.</para>
+</listitem>
+
+<listitem>
+<para><literal>pmsgstr</literal>: the hook applies to the translation, without considering the rest of the message; for type V1A hooks.</para>
+</listitem>
+
+</itemizedlist>
+The <literal>casesens=</literal> field in trigger hook specification controls whether the patterns in the rest of the rule (primarily in <literal>valid</literal> subdirectives) are case-sensitive or not. This field can be omitted, and then patterns are case-sensitive.</para>
+
+<para>If the rule trigger pattern matches (or the trigger hook reports some problems), the message is by default considered "failed" by the rule. The message may be still passed by subdirectives that follow, which test if some additional conditions hold.</para>
 
 </sect2>
 
@@ -859,7 +890,14 @@ keyword parameters: <literal><replaceable>directive</replaceable> <replaceable>a
 <varlistentry>
 <term><literal>disabled</literal></term>
 <listitem>
-<para>Disables the rule, i.e. makes it pass all messages regardless of the trigger pattern and <literal>valid</literal> subdirectives.</para>
+<para>Disables the rule, so that it is no longer applied to messages. Disabled rule can still be applied by direct request (e.g. using the <option>rule:</option> parameter of <command>check-rules</command> sieve).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>addFilterRegex</literal>, <literal>addFilterHook</literal>, <literal>removeFilter</literal></term>
+<listitem>
+<para>A group of subdirectives to define filters which are applied to messages before the rule is applied to them. See <xref linkend="sec-lgrlfilter"/>.</para>
 </listitem>
 </varlistentry>
 
@@ -869,37 +907,255 @@ keyword parameters: <literal><replaceable>directive</replaceable> <replaceable>a
 </sect2>
 
 <sect2 id="sec-lgrlglobdirs">
-<title>Global Rule Directives</title>
+<title>Global Directives in Rule Files</title>
 
-<para></para>
+<para>Global directives are typically placed at the beginning of a rule file, before any rules. They define common elements for all rules to use, or set state for all rules below them. A global directive can also be placed in the middle of the rule file, between two rules, when it will affect all the rules that follow it, but not those that precede it. The following global directives are defined:
+<variablelist>
+
+<varlistentry>
+<term><literal>validGroup</literal></term>
+<listitem>
+<para>Defines common groups of <literal>valid</literal> subdirectives, which can be included by any rule using the <literal>validGroup</literal> subdirective:
+<programlisting>
+# Global validity group.
+validGroup passIfQuoted
+valid after="“" before="”"
+valid after="‘" before="’"
+
+....
+
+# Rule X.
+{...}
+validGroup passIfQuoted
+valid ...
+...
+
+# Rule Y.
+{...}
+validGroup passIfQuoted
+valid ...
+...
+</programlisting>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>environment</literal></term>
+<listitem>
+<para>Sets a specific environment for the rules that follow, unless overriden with the namesake rule subdirective:
+<programlisting>
+# Global environment.
+environment FOO
+
+...
+
+# Rule X, belongs to FOO.
+{...}
+...
+
+# Rule Y, overrides to BAR.
+{...}
+environment BAR
+...
+</programlisting>
+See <xref linkend="sec-lgrlenvs"/> for details on use of environments.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>include</literal></term>
+<listitem>
+<para>Used to include files into rule files:
+<programlisting>
+include file="foo.something"
+</programlisting>
+If the file to include is specified by relative path, it is taken as relative to the file which includes it.</para>
+
+<para>The intent behind <literal>include</literal> directive is not to include one rule file into another (files with <filename>.rules</filename> extension), because normally all rule files in a directory are automatically included by the rule applicator (e.g. <command>check-rules</command> sieve). Instead, files that are included should have an extension different from <filename>.rules</filename>, and contain a number of directives needed in several rule files; for example, a set of <link linkend="sec-lgrlfilter">filters</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>addFilterRegex</literal>, <literal>addFilterHook</literal>, <literal>removeFilter</literal></term>
+<listitem>
+<para>A group of directives to define filters which are applied to messages before the rules are applied. See <xref linkend="sec-lgrlfilter"/>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect2>
 
 <sect2 id="sec-lgrlenvs">
-<title>Rule Environments</title>
+<title>Effect of Rule Environments</title>
 
-<para></para>
+<para>When there are no <literal>environment</literal> directives in a rule file, either global or as rule subdirectives, then all rules in that rule file are considered as being "environment-agnostic". When applying a rule set (e.g. with the <command>check-rules</command> sieve), the applicator may be put into one or more <emphasis>operating environments</emphasis>, either by specifying them as arguments (e.g. in command line) or in PO file headers. If one or more operating environments are given and the rule is environment-agnostic, it will be applied to the message irrespective of the operating environments. However, if there were some <literal>environment</literal> directives in the rule file, some rules will be environment-specific. An environment-specific rule will be applied only if its environment matches one of the set operating environments.</para>
+
+<para>Rule environments are used to control application of rules between different translation environments (projects, teams, people). Some rules may be common to all environments, some may be somewhat common, and some not common at all. Common rules would than be made environment-agnostic (i.e. not covered by
+any <literal>environment</literal> directive), while entirely non-common rules would be provided in separate rule files per environment, with one global
+<literal>environment</literal> directive in each.</para>
+
+<para>How to handle "somewhat" common rules depends on circumstances. They could simply be defined as environment-specific, just like non-common rules, but this may reduce the amount of common rules too much for the sake of perculiar environments. Another way would be to define them as environment-agnostic, and then override them in certain environments. This is done by giving the environment-specific rule the same identifier (<literal>id</literal> subdirective) as that of the environment-agnostic rule. It may also happen that the bulk of the rule is environment-agnostic, except for a few tests in <literal>valid</literal> subdirectives which are not. In this case, <literal>env=</literal> and <literal>!env=</literal> tests can be used to differentiate between environments.</para>
 
 </sect2>
 
 <sect2 id="sec-lgrlfilter">
-<title>Filtering Before Rule Application</title>
+<title>Filtering Messages for Rules</title>
 
-<para></para>
+<para>It is frequently advantageous to apply a set of rules not on the message as it is, but on a suitably filtered variant. For example, if rules are used for terminology checks, it would be good to remove any markup from the text; otherwise, an <literal>&lt;email&gt;</literal> tag in the original could be understood as a real word, and a warning issued for missing the expected counterpart in the translation.</para>
 
-</sect2>
+<para>Filters sets are created using <literal>addFilter*</literal> directives, global or within rules:
+<programlisting>
+# Remove XML-like tags.
+addFilterRegex match="&lt;.*?>" on="pmsgid,pmsgstr"
+# Remove long command-line options.
+addFilterRegex match="--[\w-]+" on="pmsgid,pmsgstr"
 
-<sect2 id="sec-lgrlspectrig">
-<title>Special Rule Triggers</title>
+# Rule A will act on a message filtered by previous two directives.
+{...}
+...
 
-<para></para>
+# Remove function calls like foo(x, y).
+addFilterRegex match="\w+\(.*?\)" on="pmsgid,pmsgstr"
+
+# Rule B will act on a message filtered by previous three directives.
+{...}
+...
+</programlisting>
+Filters are added cumulatively to the filter set, and the current set
+is affecting all the rules below it.<footnote>
+<para>These filtering examples are only for illustrative purposes, as there are more precise methods to remove markup, or literals such as command line options.</para>
+</footnote> If a <literal>addFilter*</literal> directive appears within the rule, it adds a filter only to the filter set of that rule:
+<programlisting>
+# Rule C, with an additional filter just for itself.
+{...}
+addFilterRegex match="grep\(1\)" on="pmsgstr"
+...
+
+# Rule D, sees only previous global filter additions.
+{...}
+...
+</programlisting>
+These examples illustrate use of the <literal>addFilterRegex</literal> directive, which is described in more detail below, as well as other <literal>addFilter*</literal> directives.</para>
+
+<para>All <literal>addFilter*</literal> have the <literal>on=</literal> field. It specifies the message part on which the filter should operate, similar to the <literal>on=</literal> field in hook rule triggers. Unlike in triggers, in filters it is possible to state several parts to filter, as comma-separated list. The following message parts are exposed for filtering:
+<itemizedlist>
+
+<listitem>
+<para><literal>msg</literal>: filter the "complete" message. What this means exactly depends on the particular filter directive.</para>
+</listitem>
+
+<listitem>
+<para><literal>msgid</literal>: filter the original text (<varname>msgid</varname>, <varname>msgid_plural</varname>), but possibly taking into account other parts of the message.</para>
+</listitem>
+
+<listitem>
+<para><literal>msgstr</literal>: filter the translation (all <varname>msgstr</varname> strings), but possibly taking into account other parts of the message.</para>
+</listitem>
+
+<listitem>
+<para><literal>pmsgid</literal>: filter the original text.</para>
+</listitem>
+
+<listitem>
+<para><literal>pmsgstr</literal>: filter the translation.</para>
+</listitem>
+
+<listitem>
+<para><literal>pattern</literal>: a quasi-part, to filter not the message, but all matching patterns (regular expressions, substring tests, equality tests) in the rules themselves.</para>
+</listitem>
+
+</itemizedlist>
+Not all filter directives can filter on all of these parts. Admissible parts are listed with each filter directive.</para>
+
+<para>To remove a filter from the current filter set, <literal>addFilter*</literal> directives can define the filter <emphasis>handle</emphasis>, which can then be given to a <literal>removeFilter</literal> directive:
+<programlisting>
+addFilterRegex match="&lt;.*?>" on="pmsgid,pmsgstr" handle="tags"
+
+# Rule A, "tags" filter applies to it.
+{...}
+...
+
+# Rule B, removes "tags" filter only for itself.
+{...}
+removeFilter handle="tags"
+...
+
+# Rule C, "tags" filter applies to it again.
+{...}
+...
+
+removeFilter handle="tags"
+
+# Rule D, "tags" filter does not apply to it and any following rule.
+{...}
+...
+</programlisting>
+Several filters may share the same handle, in which case the <literal>removeFilter</literal> directive removes all of them from the current filter set. One filter can have more than one handle, given as comma-separated list of handles in <literal>handle=</literal> field, and then it can be removed from the filter set by any of those handles. Likewise, the <literal>handle=</literal> field in <literal>removeFilter</literal> directive can state several handles by which to remove filters. <literal>removeFilter</literal> as rule subdirective influences the complete rule, regardless of its position among other subdirectives.</para>
+
+<para><literal>clearFilters</literal> directive is used to completely clear the filter set. It has no fields. Like <literal>removeFilter</literal>, it can be issued either globally, or as rule subdirective.</para>
+
+<para>A filter may be added or removed only in certain environments, specified by the <literal>env=</literal> field in <literal>addFilter*</literal> and <literal>removeFilter</literal> directives.</para>
+
+<sect3 id="sec-lgrlfiltdirs">
+<title>Filter Directives</title>
+
+<para>Currently the following directives for adding filters are available:
+<variablelist>
+
+<varlistentry>
+<term><literal>addFilterRegex</literal></term>
+<listitem>
+<para>Parts of the text to remove are determined by a regular expression match. The pattern is given by the <literal>match=</literal> field. If instead of simple removal of the matched segment the replacement is wanted, the <literal>repl=</literal> field is used to specify the replacement string (it can include backreferences to regex groups in the pattern):
+<programlisting>
+# Replace in translation the %&lt;number> format directives with a tilde.
+addFilterRegex match="%\d+" repl="~" on="pmsgstr"
+</programlisting>
+Case-sensitivity of matching can be changed by adding the <literal>casesens=[yes|no]</literal> field; default is case-sensitive matching.</para>
+
+<para>Applicable (<literal>on=</literal> field) to <literal>pmsgid</literal>, <literal>pmsgstr</literal>, and <literal>pattern</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>addFilterHook</literal></term>
+<listitem>
+<para>Text is processed with a filtering hook (F* hook types). The hook specification is given by the <literal>name=</literal> field. For example, to remove accelerator markers from UI messages in a smart way, while checking various sources for the exact accelerator marker character (command line, PO file header), this filter can be set:
+<programlisting>
+addFilterHook name="remove/remove-accel-msg" on="msg"
+</programlisting>
+</para>
+
+<para>Applicable (<literal>on=</literal> field) to <literal>msg</literal> (for F4A hooks), <literal>msgid</literal> (F3A, F3B), <literal>msgstr</literal> (F3A, F3C), <literal>pmsgid</literal> (F1A), <literal>pmsgstr</literal> (F1A), and <literal>pattern</literal> (F1A).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect3>
+
+<sect3 id="sec-lgrlfiltercost">
+<title>Cost of Filtering</title>
+
+<para>Filtering may be run-time expensive, and it normally is in practical uses. Therefore the rule applicator will try to create and apply as few unique filter sets as possible, by considering their signatures -- a hash of ordering, type, and fields in the filter set for the given rule. Each message will be filtered only as many times as there are different filter sets, rather than once for every rule. The appropriate filtered version of the message will be given to each rule according to its filter set.</para>
+
+<para>This means that you should be careful when adding and removing filters, in order to have as few filter sets as really necessary. For example, you may know that filters P and Q can be applied in any order, and in one rule file specify P followed by Q, but in another rule file Q followed by P. However, the rule applicator must assume that the order of filters is significant, so it will create two filter sets, PQ and QP, and spend twice as much time in filtering.</para>
+
+<para>For big filter sets which are needed in several rule files, the best is to split them out in a separate file and use the <literal>include</literal> global directive to include them at the beginning of rule files.</para>
+
+</sect3>
 
 </sect2>
 
 <sect2 id="sec-lgrlquotesc">
 <title>Quoting and Escaping in Rules</title>
 
-<para></para>
+<para>In all the examples so far, ASCII double quotes were used as value delimiters (<literal>"..."</literal>). However, just as in the verbose notation for trigger patterns (<literal>*msgid/.../</literal>, etc.), all quoted values can in fact consistently use any other non-alphanumeric character (e.g. single quote, slash, etc.). From the other side, literal quotes inside a value can also be escaped by prefixing them with <literal>\</literal> (backslash). Values which are regular expression are sent to the regular expression engine without resolving any backslash-escapes other than on the quote character itself.</para>
+
+<para>The general statement terminator in a rule file is the newline, but if a line would be too long, it can be continued into the next line by putting <literal>\</literal> (backslash) in the last column.</para>
 
 </sect2>
 
