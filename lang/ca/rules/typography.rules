@@ -4,6 +4,15 @@
 # based in the work of the KDE Spanish Team
 # License: GPLv3
 
+# la l·l geminada porta un punt volat (no un punt normal)
+# Aquesta regla la poso abans del filter.include perquè en cas contrari hi ha 
+# una regla que l'anul·la («Remove web pages» a filter.include)
+[l\.l]
+valid after="raphae"
+valid after="michae"
+valid after="\<email>"
+hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
+
 include file="filter.include"
 
 validGroup beforePunctuation
@@ -32,6 +41,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="\{"
 valid before="q\:"
+valid before="local\:"
 valid before="pserver"
 valid before="="
 valid before="ext\:"
@@ -50,6 +60,7 @@ valid after="segons"
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
 valid after="white-space" # CSS
 valid after="~"
+valid after="mètode\s" cat="cervisia"
 valid before="~"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -68,6 +79,7 @@ hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid after="Algerian\s*" cat="koffice"
+valid span="\s\;$" cat="kleopatra" # docmessages
 hint="No s'ha de posar un espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
@@ -76,12 +88,14 @@ valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
+valid before="~"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
 valid cat="kspread"
-valid span="\;$"
+valid span=";$"
+valid span=";[eN]" cat="kleopatra" # docmessages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
 [\s\!]
@@ -121,9 +135,13 @@ valid ctx="Query"
 valid span="\?$"
 valid span="\?\»"
 valid span="\?d" cat="kio_audiocd"
+valid span="\?d" cat="kioslave_audiocd"
 valid span="\?1" cat="plasma_applet_plasmaboard"
+valid span="\?\>" cat="kopete_pipes"
+valid span="\?~" cat="kate_highlighting" # docmessages
 valid after="~"
 valid after="i\s" cat="lokalize"
+valid after="\*" cat="adblock"
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
@@ -156,6 +174,7 @@ valid span="\,\?"
 valid span="\,\«"
 valid span="\,~"
 valid span="\,\." cat="ktimetracker"
+valid span="\,1" cat="kate_regular-expressions"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
@@ -205,11 +224,15 @@ valid before="\/\w+" # Files
 valid before="h\b" # .h files
 valid before="~"
 valid before="calendar"
+valid before="adiumMessageStyle"
+valid before="cvsignore"
+valid before="\.\." cat="kate_highlighting" # docmessages
 valid after="\:"
 valid after="exec"
 valid after="gdbserver"
 valid after="-" cat="thesaurus_tool"
 valid after="cmake" cat="jovie"
+valid span="\s\.$" cat="ktouch"
 valid ctx="function prototype"
 hint="No s'ha de posar un espai abans del signe de punt (tipografia)"
 
@@ -221,11 +244,11 @@ valid ctx="Numbers and characters"
 valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
-valid before="\w{1,10}\b" # Extensions
+valid before="\w{1,16}\b" # Extensions
 valid after="XXX"
 valid after="\.\." 
 valid after="\*" 
-valid span="Last.Fm"
+valid span="Last\.Fm"
 valid span="\.\." before="\."
 valid span="\.\." after="\."
 valid span="\.$"
@@ -293,20 +316,16 @@ hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (t
 valid span="c\." cat="kleopatra"
 hint="Hi ha una paraula consecutiva repetida en el páragraf (tipografia)"
 
-[\b(del|el|la|els|les|un|una|uns|unes)\s(del|el|la|els|les|un|una|uns|unes)\b]
-valid after="·"
+[\b(del|dels|el|la|els|les|un|una|uns|unes)\s(el|la|els|les|un|una|uns|unes)\b]
+valid after="·" # punt volat de la l·l geminada
 valid after="-"
 valid after="&"
 valid before="·"
-valid before="\sTerbi"
-valid before="\snivell" cat="kgoldrunner"
-valid before="\sservei" cat="kcm_krfb"
-valid before="\scompte" cat="kfileshare"
-valid before="\sservidor" cat="kopete"
-valid before="\sCMS" cat="kleopatra"
-valid before="\sllenç" cat="krita"
-valid ctx="inmenu colors"
 hint="Hi ha dos articles repetits o consecutius (tipografia)"
+
+[\b(del|dels)\s(del|dels)\b]
+valid before="\sKDE" cat="kcm_platform"
+hint="Hi ha dos articles (del/dels) repetits o consecutius (tipografia)"
 
 # manca apóstrof: el/al/de/del/pel/es/se + vocal (també amb H)
 [{\b(el|al|de|del|pel|es|se)\s(a|e|i|o|u|A|E|I|O|U|h)]
@@ -315,9 +334,5 @@ hint="Cal apostrofar «el/al/de/del/pel/es/se» davant de vocal (o h) (tipografi
 # manca apóstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
 [\sla\s(a|e|o|A|E|O|ha|he|ho)[a-zéíóúàèòüç]+\b]
 hint="Cal apostrofar «la» davant de vocal (o h), excepte i,u,hi,hu àtones (tipografia)"
-
-# la l geminada porta un punt volat (no un punt normal)
-[.l\.l.]
-hint="La l geminada port un punt volat (no un punt normal) (tipografia)"
 
 # End of rule file
