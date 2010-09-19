@@ -45,8 +45,10 @@ valid before="local\:"
 valid before="pserver"
 valid before="="
 valid before="ext\:"
+valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="\d+" before="\s?\d+"
-hint="No s'ha de posar un espai abans del signe dels dos punts (tipografia)"
+valid cat="amarokcollectionscanner_qt"
+hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
 [\:\S]
 validGroup beforePunctuation
@@ -61,6 +63,7 @@ valid after="font-family|font-size|font-style|font-weight|text-align|text-decora
 valid after="white-space" # CSS
 valid after="~"
 valid after="mètode\s" cat="cervisia"
+valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid before="~"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -80,7 +83,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid after="Algerian\s*" cat="koffice"
 valid span="\s\;$" cat="kleopatra" # docmessages
-hint="No s'ha de posar un espai abans del signe de punt i coma (tipografia)"
+hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
 validGroup beforePunctuation
@@ -103,20 +106,24 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid after="-"
 valid before="a="
-hint="No s'ha de posar un espai abans del signe d'admiració (tipografia)"
+valid before="DOCTYPE" cat="quanta"
+hint="No s'ha de posar cap espai abans del signe d'admiració (tipografia)"
 
 [\!\S]
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid ctx="Description of a condition"
 valid span="\!$"
+valid span="\!D" cat="quanta"
 valid after="~"
+valid after="\s\*" cat="konversation"
 valid before="="
 valid before="~"
 hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
 [\¡.*?\!\.]
-hint="No s'ha de posar un punt després del signe d'admiració (tipografia)"
+hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
 [\¡.*?\!\s[a-z]]
 hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (tipografia)"
@@ -125,7 +132,7 @@ hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (ti
 valid ctx="Numbers and characters"
 valid ctx="Query"
 valid after="i" cat="lokalize"
-hint="No s'ha de posar un espai abans del signe d'interrogació (tipografia)"
+hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
 validGroup beforePunctuation
@@ -139,13 +146,14 @@ valid span="\?d" cat="kioslave_audiocd"
 valid span="\?1" cat="plasma_applet_plasmaboard"
 valid span="\?\>" cat="kopete_pipes"
 valid span="\?~" cat="kate_highlighting" # docmessages
+valid span="\?\:" cat="quanta"
 valid after="~"
 valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
-hint="No s'ha de posar un punt després del signe d'interrogació (tipografia)"
+hint="No s'ha de posar cap punt després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\s[a-z]]
 hint="S'ha de posar en majúscula la paraula posterior al signe d'interrogació (tipografia)"
@@ -155,7 +163,7 @@ valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
 valid after="\d+" before="\s?\d+"
-hint="No s'ha de posar un espai abans del signe de coma (tipografia)"
+hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
 [\,\S]
 validGroup beforePunctuation
@@ -175,6 +183,7 @@ valid span="\,\«"
 valid span="\,~"
 valid span="\,\." cat="ktimetracker"
 valid span="\,1" cat="kate_regular-expressions"
+valid span="\,\}" cat="kile"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
@@ -194,6 +203,8 @@ hint="S'ha de posar un espai abans del signe de cometa llatina d'obertura (tipog
 
 [\«]
 valid before=".*?[\»\(\{\[\«\"\']"
+valid before=".+Unicode" cat="amarok"
+valid after="contenir\s.+" cat="kile"
 valid cat="kformula"
 hint="Cal obrir i tancar les cometes llatines (tipografia)"
 
@@ -206,19 +217,18 @@ hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 valid before="\w"
 valid before="$"
 valid before=":m"
-valid before="\{APPNAME"
-valid before="\{AUTHOR"
-valid before="\{album"
+valid before="\{(APPNAME|AUTHOR|album|title|dest)"
 valid before="\s"
+valid before="~" cat="krecipes"
+valid before="~" cat="krusader"
 valid after="\,"
 valid after="o"
 valid after="-"
 valid after="width=\"\d+" before="\"" # HTML
 valid ctx="Numbers and characters"
-hint="No s'ha de posar un espai abans del signe de percentatge (tipografia)"
+hint="No s'ha de posar cap espai abans del signe de percentatge (tipografia)"
 
 [\s\.]
-#valid before="[A-Z]+?\b" # Keywords
 valid before="\w{2,7}\b" # Extensions
 valid before="\/\w+" # Files
 valid before="h\b" # .h files
@@ -227,14 +237,18 @@ valid before="calendar"
 valid before="adiumMessageStyle"
 valid before="cvsignore"
 valid before="\.\." cat="kate_highlighting" # docmessages
+valid before="%1" cat="kxsldbg"
 valid after="\:"
 valid after="exec"
 valid after="gdbserver"
 valid after="-" cat="thesaurus_tool"
 valid after="cmake" cat="jovie"
+valid after="usant" cat="kile"
+valid after="columna\sn\sentrada.+" cat="kile"
 valid span="\s\.$" cat="ktouch"
+valid span="\s\.$" cat="kile"
 valid ctx="function prototype"
-hint="No s'ha de posar un espai abans del signe de punt (tipografia)"
+hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
 validGroup beforePunctuation
@@ -245,6 +259,7 @@ valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
+valid after="~" cat="cupsdconf4"
 valid after="XXX"
 valid after="\.\." 
 valid after="\*" 
@@ -261,12 +276,14 @@ hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 [\.\)]
 valid after="\.\."
 valid after="S\.u\.S\.E"
+valid after="\." cat="krusader"
+valid before="\$" cat="quanta"
 valid cat="kspread"
 valid cat="kstars"
 hint="S'ha de posar el punt després del parèntesi i no abans (tipografia)"
 
 [\.\.\.\s\.]
-hint="No s'ha de posar un signe de punt després de punts suspensius (tipografia)"
+hint="No s'ha de posar cap signe de punt després de punts suspensius (tipografia)"
 
 [&cr;]
 hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
@@ -278,6 +295,7 @@ hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
 
 [\(]
 valid before=".*?[\)\(\{\[\«\"\'~]"
+valid before="\s(esquerre|dret)" cat="kile"
 valid after="\%1" cat="kalgebra"
 valid after="\.\s" cat="kstars"
 valid after="QPixmap" cat="kommander"
@@ -293,6 +311,8 @@ hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
 
 [\{]
 valid before=".*?[\}\{\(\[\«\"\']"
+valid before="\s(esquerre|dret)" cat="kile"
+valid before="~" after="~" cat="quanta"
 valid after="esperava\s" cat="umbrello"
 hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
 
