@@ -7,24 +7,24 @@
 # Remove text markup. For this to work, POs need to specify markup types
 # using the X-Text-Markup header field; its value is a markup keyword.
 # For markups known to Pology at any given moment, see documentation on
-# remove_markup_text() function in pology.remove_subs module.
+# remove_markup_text() function in pology.remove module.
 # The value of the header field may be a comma-separated list of keywords,
 # if there are several markup types present in the PO.
 # (-> before accelerator removal)
 # (-> before literals removal)
-addFilterHook name="remove-subs/remove-markup-msg" on="msg" handle="markup"
+addFilterHook name="remove/remove-markup-msg" on="msg" handle="markup"
 
 # Remove accelerator markers. For this to work, POs need to specify
 # the marker character through the X-Accelerator-Marker header field.
 # (-> after markup removal)
-addFilterHook name="remove-subs/remove-accel-msg" on="msg" handle="accel"
+addFilterHook name="remove/remove-accel-msg" on="msg" handle="accel"
 
 # Replace format directives with tildes (~), based on *-format flags.
-addFilterHook name="remove-subs/remove-fmtdirs-msg-tick" factory="'~'" on="msg" handle="fmtdirs"
+addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg" handle="fmtdirs"
 
 # Replace other literal substrings, which are to be understood by the machine
 # and therefore not translated, with xxxxx. Heuristics can be augmented by explicit
 # instructions per message, see documentation on remove_literals_text()
-# function in pology.remove_subs module.
+# function in pology.remove module.
 # (-> after markup removal)
-addFilterHook name="remove-subs/remove-literals-msg-tick" factory="'xxxxx'" on="msg" handle="literals"
+addFilterHook name="remove/remove-literals-msg-tick~'xxxxx'" on="msg" handle="literals"
