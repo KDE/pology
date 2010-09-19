@@ -727,7 +727,7 @@ def _filterOnPattern (func):
     return aggregate
 
 
-_filterRegexKnownFields = set(["match", "repl", "case"])
+_filterRegexKnownFields = set(["match", "repl", "casesens"])
 
 def _filterCreateRegex (fields):
 
@@ -752,19 +752,12 @@ def _filterCreateRegex (fields):
     return func, sig
 
 
-_filterHookKnownFields = set(["name", "factory"])
-
 def _filterCreateHook (fields):
 
-    _checkFields("addFilterHook", fields, _filterHookKnownFields, ["name"])
+    _checkFields("addFilterHook", fields, ["name"], ["name"])
     fieldDict = dict(fields)
 
-    hookName = fieldDict["name"]
-    factoryStr = fieldDict.get("factory")
-    if factoryStr is not None:
-        hookSpec = "%s~%s" % (hookName, factoryStr)
-    else:
-        hookSpec = hookName
+    hookSpec = fieldDict["name"]
     hook = get_hook_ireq(hookSpec, abort=False)
 
     sigSegs = []
@@ -799,16 +792,10 @@ _triggerKnownMsgParts = set([
 
 def _triggerFromHook (fields):
 
-    _checkFields("hook", fields, ["name", "factory", "on"], ["name", "on"])
+    _checkFields("hook", fields, ["name", "on"], ["name", "on"])
     fieldDict = dict(fields)
 
-    hookName = fieldDict["name"]
-    factoryStr = fieldDict.get("factory")
-    if factoryStr is not None:
-        hookSpec = "%s~%s" % (hookName, factoryStr)
-    else:
-        hookSpec = hookName
-    hook = get_hook_ireq(hookSpec, abort=False)
+    hook = get_hook_ireq(fieldDict["name"], abort=False)
 
     msgpart = fieldDict["on"].strip()
     if msgpart not in _triggerKnownMsgParts:
