@@ -1153,9 +1153,138 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 <sect2 id="sec-lgrlquotesc">
 <title>Quoting and Escaping in Rules</title>
 
-<para>In all the examples so far, ASCII double quotes were used as value delimiters (<literal>"..."</literal>). However, just as in the verbose notation for trigger patterns (<literal>*msgid/.../</literal>, etc.), all quoted values can in fact consistently use any other non-alphanumeric character (e.g. single quote, slash, etc.). From the other side, literal quotes inside a value can also be escaped by prefixing them with <literal>\</literal> (backslash). Values which are regular expression are sent to the regular expression engine without resolving any backslash-escapes other than on the quote character itself.</para>
+<para>In all the examples so far, ASCII double quotes were used as value delimiters (<literal>"..."</literal>). However, just as in the verbose notation for trigger patterns (<literal>*msgid/.../</literal>, etc.), all quoted values can in fact consistently use any other non-alphanumeric character (e.g. single quote, slash, etc.). On the other hand, literal quotes inside a value can be escaped by prefixing them with <literal>\</literal> (backslash). Values which are regular expression are sent to the regular expression engine without resolving any escapes other than for the quote character itself.</para>
 
 <para>The general statement terminator in a rule file is the newline, but if a line would be too long, it can be continued into the next line by putting <literal>\</literal> (backslash) in the last column.</para>
+
+</sect2>
+
+<sect2 id="sec-lgrlfalse">
+<title>Canceling False Positives</title>
+
+<para>As it was explained earlier, it is very important to have a through system of handling false positives in validation rules. There are several levels on which false positives can be canceled, and they will be described in the following, going from the nearest to the furthest from the rule definition itself. Some guidelines on when to use which level will also be provided, but you should keep in mind that this is far from a well-examined topic.</para>
+
+<sect3 id="sec-lgrlfpdisable">
+<title>Disabling a Rule</title>
+
+<para>The <literal>disable</literal> subdirective can be added to the rule to disable its application. This may seem a quaint method of "handling false positivies", but it is not outright ridiculous, because a disabled rule can still be applied by directly requesting it (e.g. <option>rule:</option> parameter of <command>check-rules</command>). This is useful for rules which produce too many false positivies to be applied as part of a rule set, but which are still better than ad-hoc searches. In other words, such rules can be understood as codified special searches, to be run only when the user has enough time to wade through all the false positives in search for the few real problems.</para>
+
+</sect3>
+
+<sect3 id="sec-lgrlfptrigger">
+<title>Restricting the Rule Trigger</title>
+
+<para>The first real way of canceling false positives is by making the regular expression pattern for the rule trigger less greedy. For example, the trigger pattern for the terminology rule on "tool" could be written at first as:
+<programlisting>
+{\btool}i
+</programlisting>
+This will match any word that starts with <literal>tool</literal>, due to <literal>\b</literal> word boundary token at pattern start. The word boundary is not repeated at the end with the intention to also catch the plural form of the word, "tools". But, this pattern will also match the word "toolbar", which may have its own rule. Then, the pattern can be restricted to really match only "tool" and "tools", in several ways, for example:
+<programlisting>
+{\btools?\b}i
+</programlisting>
+Now the word boundary is placed at the end as well, but also the optional letter 's' is inserted (<literal>?</literal> means "zero or one appearance of the preceding element"). Another way would be to write out both forms in full:
+<programlisting>
+{\b(tool|tools)\b}i
+</programlisting>
+The brackets are needed because the OR-operator <literal>|</literal> has lower priority than word boundary <literal>\b</literal>, so without brackets the meaning would be "word which starts with 'tool' or ends with 'tools'".</para>
+
+</sect3>
+
+<sect3 id="sec-lgrlfpvaldir">
+<title>Adding <literal>valid</literal> Subdirectives to the Rule</title>
+
+<para>Python's regular expressions, used in rule patterns, have rich special features, but which are frequently better not used in rules. For example, the trigger for the terminology rule on "line" (of text) could be written at first as:
+<programlisting>
+{\blines?\b}i
+</programlisting>
+But this would also catch the phrase "command line", which as a standalone concept, may have its own rule. To avoid this match, a proficient user of regular expressions may think of adding a <emphasis>negative lookbehind</emphasis> to the trigger pattern:
+<programlisting>
+{(?&lt;!command )\blines?\b}i
+</programlisting>
+However, it much less cryptic and more extensible to add a <literal>valid</literal> subdirective instead:
+<programlisting>
+{\blines?\b}i
+valid after="command "
+</programlisting>
+This cancels the rule if the word "line" was matched just after the word "command", while clearly showing the special-case context.</para>
+
+<para><literal>valid</literal> subdirectives are particularly useful for wider rule cancelations, such as by PO domain (catalog) name. For example, the word "wizard" could be translated differently when denoting a step-by-step dialog in a utilitarian program and a learned magic wielding character in a computer game. Then the <literal>cat=</literal> test can be used to allow the other term in the game's PO file:
+<programlisting>
+{\bwizard}i
+valid msgstr="<replaceable>term-for-step-by-step-dialog</replaceable>
+valid cat="foodungeon" msgstr="<replaceable>term-for-magician</replaceable>"
+</programlisting>
+This requires specifying the domain names of all games with wizard characters to which the rule set is applied, which may not be that comfortable. Another way could be to introduce the <literal>fantasy</literal> environment and use the <literal>env=</literal> test:
+<programlisting>
+{\bwizard}i
+valid msgstr="<replaceable>term-for-step-by-step-dialog</replaceable>"
+valid env="fantasy" msgstr="<replaceable>term-for-magician</replaceable>"
+</programlisting>
+and to add the <literal>fantasy</literal> environment <link linkend="hdr-x-environment">into the header</link> of the PO file that needs it.</para>
+
+</sect3>
+
+<sect3 id="sec-lgrlfpskip">
+<title>Skipping the Rule on a Message</title>
+
+<para>Sometimes there is just a single strange message that falsely triggers the rule, such that there is nothing to generalize about the false positive. You could still cancel this false positivie in the rule definition itself, by adding a <literal>valid</literal> directive with the <literal>cat=</literal> test for the PO domain name and <literal>msgid=</literal> test to single out the troublesome message:
+<programlisting>
+{\bfroobaz}i
+id="term-frobaz"
+valid msgstr="..."
+valid cat="foo" msgid="the amount of froobaz-HX which led to"
+</programlisting>
+However, rules are supposed to be at least somewhat general, and singling out a particular message in the rule is as excessive non-generality as it gets. It is also a maintenance problem: the message may dissapear in the future, leaving cruft in the rule file, or it may change slightly, but enough for the <literal>msgid=</literal> test not to match it any more.</para>
+
+<para>A much better way of skipping a rule on a particular message is by adding a special translator comment to that message, in the PO file:
+<programlisting>
+# skip-rule: term-froobaz
+msgid "...the amount of froobaz-HX which led to..."
+msgstr "..."
+</programlisting>
+The comment starts with <literal>skip-rule:</literal>, and is followed by a comma-separated list of rules to skip, by their identifiers (defined by <literal>id=</literal> in the rule).</para>
+
+<para>There is a catch to the translator comment approach, though. When a with <literal>skip-rule:</literal> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <varname>msgstr</varname> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbate by some PO editors, which underrepresent translator comments in the user interface (or even do not enable editing them!). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<footnote>
+<para>Until that is sufficiently satisfied, one simple safety measure is to remove <literal>skip-rule:</literal> comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</para>
+</footnote></para>
+
+</sect3>
+
+<sect3 id="sec-lgrlfpreworig">
+<title>Rewriting Original Text of a Message</title>
+
+<para>Sometimes it is possible to do better than plainly skipping a rule on a message. Consider the following message:
+<programlisting>
+#: dialogs/ScriptManager.cpp:498
+msgid "Please refer to the console debug output for more information."
+msgstr "Pogledajte ispravljački izlaz u školjci za više podataka."
+</programlisting>
+An observant translator could conclude that "console" is not the best choice of term in the original text, that "shell" (or "terminal") would be more accurate, and translate the message as if the more accurate term was used in the original. However, this could cause the terminology rule for "console" (in its accurate meaning) to complain about the proper term missing in translation. Adding <literal>skip-rule: term-console</literal> comment would indeed cancel this false positive, but what about the terminology rule on "shell"? There is nothing in the original text to trigger it and check for the proper term in translation.</para>
+
+<para>This example is an instance of the general case where the translator would formulate the original text somewhat differently, and make the translation based on that reformulation. Or, when the mere style of the original causes a rule to be falsely triggered, while diferently worded original would be just fine. In such cases, instead of adding a comment to crudely skip a rule, translator can add a comment to <emphasis>rewrite</emphasis> the original text before applying rules to it:
+<programlisting>
+# rewrite-msgid: /console/shell/
+#: dialogs/ScriptManager.cpp:498
+msgid "Please refer to the console debug output for more information."
+msgstr "Pogledajte ispravljački izlaz u školjci za više podataka."
+</programlisting>
+The rewrite directive comment starts with <literal>rewrite-msgid:</literal> and is followed by search regular expression and replacement strings, delimited with <literal>/</literal> or another non-alphanumeric character. With this rewrite, the wrong terminology rule, for "console", will not be triggered, while the correct rule, for "shell", will be.</para>
+
+<para>At the moment, unlike <literal>skip-rule:</literal>, <literal>rewrite-msgid:</literal> is not an integral part of the rule system. It is instead implemented as a filtering hook. So to use it, add this filter into rule files (or into the filter set file included by rule files):
+<programlisting>
+addFilterHook name="remove/rewrite-msgid" on="msg"
+</programlisting>
+</para>
+
+<para>Sometimes it is not quite clear whether to skip a rule or rewrite the original, that is, whether to use <literal>skip-rule:</literal> or <literal>rewrite-msgid:</literal> comment. A guideline could be as follows. If the concept covered by the falsely triggered rule is present but somewhat camouflaged in the original, or one concept is switched for another (such as "console" with "shell" in the example above), then <literal>rewrite-msgid:</literal> should be used to "normalize" the original text. If the original text has nothing to do with the concept covered by the triggered rule, then <literal>skip-rule:</literal> should be used. An example of the latter would be such a message from a game:
+<programlisting>
+# skip-rule: term-shell
+# src/tanks_options.cpp:249
+msgid "Fire shells upward"
+</programlisting>
+Here the word "shell" denotes a cannon shell, which has nothing to do with <literal>term-shell</literal> rule for the operating system shell, and the rule is therefore skipped.</para>
+
+</sect3>
 
 </sect2>
 
