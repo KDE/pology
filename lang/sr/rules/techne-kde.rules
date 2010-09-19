@@ -35,22 +35,21 @@ addFilterRegex match="~!(.)(.*?)\1" repl="\2" on="pmsgid,pmsgstr"
 # so that checks can be performed separately.
 
 # Markup in KDE4 UI POs.
-*hook name="markup/check-kde4-sp" \
-      factory=!strict=True, entities=None, mkeyw='kde4'! \
+*hook name="markup/check-kde4-sp~strict=True, entities=None, mkeyw='kde4'" \
       on="msgstr"
 id="x-markup-k"
 hint="грешка у обележавању"
 
 # Markup in pure Qt UI POs.
-*hook name="markup/check-qtrich-sp" \
-      factory=!strict=True, entities=None, mkeyw='qtrich'! \
+*hook name="markup/check-qtrich-sp~\
+            strict=True, entities=None, mkeyw='qtrich'" \
       on="msgstr"
 id="x-markup-q"
 hint="грешка у обележавању"
 
 # Markup in Docbook POs.
-*hook name="markup/check-docbook4-sp" \
-      factory=!strict=True, entities=None, mkeyw='docbook4'! \
+*hook name="markup/check-docbook4-sp~\
+            strict=True, entities=None, mkeyw='docbook4'" \
       on="msgstr"
 id="x-markup-db"
 hint="грешка у обележавању"
@@ -59,28 +58,28 @@ hint="грешка у обележавању"
 addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
 
 # Entities in UI POs with XML-like markup.
-*hook name="markup/check-xmlents-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_ui~', default=True, \
-               mkeyw=['kde4', 'qtrich']! \
+*hook name="markup/check-xmlents-sp~\
+            strict=True, \
+            entities='sr:trapnakron/trapnakron_ui~', default=True, \
+            mkeyw=['kde4', 'qtrich']" \
       on="msgstr"
 id="x-entities-uix"
 hint="недефинисани ентитет"
 
 # Entities in UI POs with otherwise plain text.
-*hook name="markup/check-xmlents-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_ui~', \
-               mkeyw=['xmlents']! \
+*hook name="markup/check-xmlents-sp~\
+            strict=True, \
+            entities='sr:trapnakron/trapnakron_ui~', \
+            mkeyw=['xmlents']" \
       on="msgstr"
 id="x-entities-uit"
 hint="недефинисани ентитет"
 
 # Entities in Docbook POs.
-*hook name="markup/check-xmlents-sp" \
-      factory=!strict=True, \
-               entities='sr:trapnakron/trapnakron_docbook4~', default=True, \
-               mkeyw='docbook4'! \
+*hook name="markup/check-xmlents-sp~\
+            strict=True, \
+            entities='sr:trapnakron/trapnakron_docbook4~', default=True, \
+            mkeyw='docbook4'" \
       on="msgstr"
 # Remove entities used as-is in KDE documentation.
 addFilterRegex match="&\S+\.e?mail;" on="pmsgid,pmsgstr"
@@ -98,23 +97,23 @@ clearFilters
 # No filters (e.g. markup designates references automatically).
 
 # ...in KDE4 UI POs.
-*hook name="uiref/check-ui-kde4" \
-      factory="uicpathenv='UICATS_KDE4_SR', mkeyw='kde4'" \
+*hook name="uiref/check-ui-kde4~\
+            uicpathenv='UICATS_KDE4_SR', mkeyw='kde4'" \
       on="msgstr"
 id="x-uiref-k"
 hint="неуспело разрешавање ниске сучеља"
 
 # ...in KDE documentation POs.
-*hook name="uiref/check-ui-docbook4" \
-      factory="uicpathenv='UICATS_KDE4_SR', mkeyw='docbook4'" \
+*hook name="uiref/check-ui-docbook4~\
+            uicpathenv='UICATS_KDE4_SR', mkeyw='docbook4'" \
       on="msgstr"
 id="x-uiref-db"
 hint="неуспело разрешавање ниске сучеља"
 
 # ...in other catalogs (e.g. pure Qt UI, desktop files).
-*hook name="uiref/check-ui" \
-      factory="uicpathenv='UICATS_KDE4_SR', \
-               mkeyw=['docbook4', 'kde4'], invmkeyw=True" \
+*hook name="uiref/check-ui~\
+            uicpathenv='UICATS_KDE4_SR', \
+            mkeyw=['docbook4', 'kde4'], invmkeyw=True" \
       on="msgstr"
 id="x-uiref-o"
 hint="неуспело разрешавање ниске сучеља"
@@ -169,7 +168,7 @@ include file="puretext.filters"
 removeFilter handle="uiref"
 
 # Check spelling.
-*hook name="spell/check-spell-sp" factory="" on="msgstr"
+*hook name="spell/check-spell-sp~" on="msgstr"
 # Remove Latin-only words.
 # There may also be non-Latin case endings, remove them too.
 addFilterRegex match="[a-zđžćčš]+(-\w+)?" on="pmsgid,pmsgstr"

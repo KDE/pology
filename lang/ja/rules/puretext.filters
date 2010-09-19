@@ -20,11 +20,11 @@ addFilterHook name="remove/remove-markup-msg" on="msg" handle="markup"
 addFilterHook name="remove/remove-accel-msg" on="msg" handle="accel"
 
 # Replace format directives with tildes (~), based on *-format flags.
-addFilterHook name="remove/remove-fmtdirs-msg-tick" factory="'~'" on="msg" handle="fmtdirs"
+addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg" handle="fmtdirs"
 
 # Replace other literal substrings, which are to be understood by the machine
 # and therefore not translated, with xxxxx. Heuristics can be augmented by explicit
 # instructions per message, see documentation on remove_literals_text()
 # function in pology.remove module.
 # (-> after markup removal)
-addFilterHook name="remove/remove-literals-msg-tick" factory="'xxxxx'" on="msg" handle="literals"
+addFilterHook name="remove/remove-literals-msg-tick~'xxxxx'" on="msg" handle="literals"
