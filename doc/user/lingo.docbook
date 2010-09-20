@@ -1294,7 +1294,392 @@ Here the word "shell" denotes a cannon shell, which has nothing to do with <lite
 <sect1 id="sec-lgsynder">
 <title>Syntagma Derivation</title>
 
-<para></para>
+<para>Consider a message extracted from a .desktop file, representing the name of a GUI utility:
+<programlisting>
+#. field: Name
+#: data/froobaz.desktop:5
+msgid "Froobaz Image Examiner"
+msgstr ""
+</programlisting>
+Program names from .desktop files can be read and presented to the user by any other program. For example, when an image is right-clicked in a file browser, it could offer to open the file with the utility named with this message. In the PO file of that file browser, the message for the menu item could be:
+<programlisting>
+#. TRANSLATORS: %s is a program name, to open a file with.
+#: src/contextmenu.c:5
+msgid "Open with %s"
+msgstr ""
+</programlisting>
+In languages featuring noun inflection, it is likely that the program name in this message should have the grammar case different from the nominative (basic) case. This means that simply inserting the name read from the .desktop file, into directly translated text, will produce a grammatically incorrect phrase. Translator may try to adapt the message to the nominative form of the name (by shuffling words, adding "helper" words, adding punctuation), but this will produce stylistically suboptimal phrase. That is, style will be sacrificed for grammar. In order not to have to make such compromises, now and in the future certain <emphasis>translation scripting</emphasis> systems may be available atop the PO format<footnote>
+<para>As of this writting, one currently operative translation scripting system is <ulink url="http://techbase.kde.org/Localization/Concepts/Transcript">KDE's Transcript</ulink>. Another one being developed, albeit not with PO format as base, is <ulink url="http://wiki.mozilla.org/L20n">Mozilla's L20n</ulink>.</para>
+</footnote>, which would, in this example, enable the translator to specify which non-nominative form of the program name to fetch and insert.</para>
+
+<para>Whatever the shape the translation scripting system takes, different forms of phrases have to be derived somehow for use by that system. Given the nuances of spoken languages, fully automatic derivation is probably not going to be possible<footnote>
+<para>An exception would be <ulink url="http://en.wikipedia.org/wiki/Constructed_language">constructed languages</ulink> with regular grammar, such as Esperanto.</para>
+</footnote>. Pology therefore provides the <emphasis>syntagma<footnote>
+<para>A combination of words having a certain meaning, possibly greater than the sum of meanings of each word.</para>
+</footnote> derivator</emphasis> system (<emphasis>synder</emphasis> for short), which allows manual derivation of phrase forms and properties with minimal verbosity, using macro expansion based on partial regularities in the grammar.</para>
+
+<para>Syntagma derivations can be written and maintained in a standalone plain text file, although currently Pology provides no end-user functionality to convert such files (i.e. derive all forms defined by them) to formats which a target translation system could consume. Instead, one can make use of the <classname>Synder</classname> class from the <package>pology.synder</package> module to construct a custom converters. Of course, in the future, such converters may become part of Pology. There are already syntax highlighting definitions for the synder file format, for some text editors, in the <filename>syntax/</filename> directory of Pology distribution.</para>
+
+<para>What is provided right now in terms of end-user functionality is <link linkend="sv-collect-pmap">the <command>collect-pmap</command> sieve</link>. It enables translators to write syntagma derivations in translator comments in PO messages, and then extract them (deriving all forms) into a file in the appropriate format for the target translation system. The example message above from the .desktop file could be equipped with a synder entry like this:
+<programlisting>
+# synder: Frubaz|ov ispitiv|ač slika
+#. field: Name
+#: data/froobaz.desktop:5
+msgid "Froobaz Image Examiner"
+msgstr "Frubazov ispitivač slika"
+</programlisting>
+The translator comment starts with the keyword <literal>synder:</literal>, and is followed by the synder entry which defines all the needed forms of the translated name. What you can see is that the synder entry is quite compact, exactly two characters longer than the pure translated name, and yet it defines over a dozen forms and some properties (gender, number) of the name.</para>
+
+<para>The rest of this section describes the syntax of synder entries, and the layout and organization of synder files. As an example application, we consider a dictionary of proper names, where for each name in the source language we want to define the basic name and some of its forms and properties in the target language.</para>
+
+<sect2 id="sec-lgsdbasic">
+<title>Basic Derivations</title>
+
+<para>For the name in source language <emphasis>Venus</emphasis> and in target language <emphasis>Venera</emphasis>, we could write the following simplest derivation, which defines only the basic form in the target language:
+<programlisting>
+Venus: =Venera
+</programlisting>
+<literal>Venus</literal> is the <emphasis>key syntagma</emphasis> or the <emphasis>derivation key</emphasis>, and it is separated by the colon (<literal>:</literal>) from the properties of the syntagma. Properties are written as <literal><replaceable>key</replaceable>=<replaceable>value</replaceable></literal> pairs, and separated by commas; in <literal>=Venera</literal>, the <emphasis>property key</emphasis> is the empty string, and the <emphasis>property value</emphasis> is <literal>Venera</literal>.</para>
+
+<para>We would now like to define some grammar cases in the target language. <emphasis>Venera</emphasis> is the nominative (basic) case, so instead of the empty string we set <literal>nom</literal> as its property key. Other cases that we want to define are genitive (<literal>gen</literal>) <emphasis>Venere</emphasis>, dative (<literal>dat</literal>) <emphasis>Veneri</emphasis>, and accusative (<literal>acc</literal>) <emphasis>Veneru</emphasis>. Then we can write:
+<programlisting>
+Venus: nom=Venera, gen=Venere, dat=Veneri, acc=Veneru
+</programlisting>
+</para>
+
+<para>By this point, everything is written out manually, there are no "macro derivations" to speak of. But observe the difference between different grammar cases of <emphasis>Venera</emphasis> -- only the final letter is changing. Therefore, we first write the following <emphasis>base derivation</emphasis> for
+this system of case endings alone, called <literal>declension-1</literal>:
+<programlisting>
+|declension-1: nom=a, gen=e, dat=i, acc=u
+</programlisting>
+A base derivation is normally also <emphasis>hidden</emphasis>, by prepending <literal>|</literal> (pipe) to its key syntagma. We make it hidden because it should be used only in other derivations, and does not represent a proper entry
+in our dictionary example. In the processing stage, derivations with hidden key syntagmas will not be offered on queries into dictionary. We can now use this base derivation to shorten the derivation for <emphasis>Venus</emphasis>:
+<programlisting>
+Venus: Vener|declension-1
+</programlisting>
+Here <literal>Vener</literal> is the <emphasis>root</emphasis>, and <literal>|declension-1</literal> is the <emphasis>expansion</emphasis>, which references the previously defined base derivation. The final forms are derived by inserting the property values found in the expansion (<literal>a</literal> from <literal>nom=a</literal>, <literal>e</literal> from <literal>gen=e</literal>, etc.) at the position where the expansion occurs, for each of the property keys found in the expansion, thus obtaining the desired properties (<literal>nom=Venera</literal>, <literal>gen=Venere</literal>, etc.) for the current derivation.</para>
+
+<para>Note that <literal>declension-1</literal> may be a too verbose name for the base derivation. If the declension type can be identified by the stem of the nominative case (here <literal>a</literal>), to have much more natural derivations we could write:
+<programlisting>
+|a: nom=a, gen=e, dat=i, acc=u
+Venus: Vener|a
+</programlisting>
+Now the derivation looks just like the nominative case alone, only having the root and the stem separated by <literal>|</literal>.</para>
+
+<para>The big gain of this transformation is, of course, when there are many syntagmas having the same declension type. Other such source-target pairs could be <emphasis>Earth</emphasis> and <emphasis>Zemlja</emphasis>, <emphasis>Europe</emphasis> and <emphasis>Evropa</emphasis>, <emphasis>Rhea</emphasis> and <emphasis>Reja</emphasis>, so we can write:
+<programlisting>
+|a: nom=a, gen=e, dat=i, acc=u
+Venus: Vener|a
+Earth: Zemlj|a
+Europe: Evrop|a
+Rhea: Rej|a
+</programlisting>
+From this it can also be seen that derivations are terminated by newline. If necessary, single derivation can be split into several lines by putting a <literal>\</literal> character (backslash) at the end of each line but the last.</para>
+
+<para>Expansions are implicitly terminated by a whitespace or a comma, or by another expansion. If these characters are part of the expansion itself (i.e. of the key syntagma of the derivation that the expansion refers to), or the text continues right after the expansion without a whitespace, curly brackets can be used to explicitly delimit the expansion:
+<programlisting>
+Alpha Centauri: Alf|{a}-Kentaur
+</programlisting>
+</para>
+
+<para>Any character which is special in the current context may be escaped with a backslash. Only the second colon here is the separator:
+<programlisting>
+Destination\: Void: Odredišt|{e}: ništavilo
+</programlisting>
+because the first colon is escaped, and the third colon is not in the context where colon is a special character.</para>
+
+<para>A single derivation may state more than one key syntagma, comma-separated. For example, if the syntagma in source language has several spellings:
+<programlisting>
+Iapetus, Japetus: Japet|
+</programlisting>
+The key syntagma can also be an empty string. This is useful for base derivations when the stem-naming is used and the stem happens to be null
+-- such as in the previous example. The derivation to which this empty expansion refers to would be:
+<programlisting>
+|: nom=, gen=a, dat=u, acc=
+</programlisting>
+</para>
+
+<para>Same-valued properties do not have to be repeated, but instead
+several property keys can be linked to one value, separated with <literal>&amp;</literal> (ampersand). In the previous base derivation, <literal>nom=</literal> and <literal>acc=</literal> properties could be unified in this way, resulting in:
+<programlisting>
+|: nom&amp;acc=, gen=a, dat=u
+</programlisting>
+</para>
+
+<para>Synder files may contain comments, starting with <literal>#</literal> and continuing to the end of line:
+<programlisting>
+# A comment.
+Venus: Vener|a # another comment
+</programlisting>
+</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdmulexp">
+<title>Multiple Expansions</title>
+
+<para>A single derivation may contain more than one expansion. There are two distinct types of multiple expansion, <emphasis>outer</emphasis> and <emphasis>inner</emphasis>.</para>
+
+<para>Outer multiple expansion is used when it is advantageous to split derivations by grammar classes. The examples so far were only deriving grammar cases of nouns, but we may also want to define possesive adjectives per noun. For <emphasis>Venera</emphasis>, the possesive adjective in nominative case is <emphasis>Venerin</emphasis>. Using the stem-naming of base derivations, we could write:
+<programlisting>
+|a: …  # as above
+|in: …  # posessive adjective
+Venus: Vener|a, Vener|in
+</programlisting>
+Expansions are resolved from left to right, with the expected effect of derived properties accumulating along the way. The only question is what happens if two expansions produce properties with same keys but different values. In this case, the value produced by the last (rightmost) expansion overrides previous values.</para>
+
+<para>Inner multiple expansion is used on multi-word syntagmas, when more than one word needs expansion. For example, the source syntagma <emphasis>Orion Nebula</emphasis> has the target pair <emphasis>Orionova maglina</emphasis>, in which the first word is a possesive adjective, and the second word a noun. The derivation for this is:
+<programlisting>
+|a: …  # as above
+|ova>: …  # posessive adjective as noun, > is not special here
+Orion Nebula: Orion|ova> maglin|a
+</programlisting>
+Inner expansions are resolved from left to right, such everything on the right of the expansion currently resolved is treated as literal text. If all expansions define same properties by key, then the total derivation will have all those properties, with values derived as expected. However, if there is some difference in property sets, then the total derivation will get their intersection, i.e. only those properties found in all expansions.</para>
+
+<para>Both outer and inner expansion may be used in a single derivation.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdexpmask">
+<title>Expansion Masks</title>
+
+<para>An expansion can be made not to include all the properties defined in the refered to derivation, but only a subset of them. It can also be made to modify the property keys from the refered to derivation.</para>
+
+<para>Recall the example of <emphasis>Orion Nebula</emphasis> and <emphasis>Orionova maglina</emphasis>. Here the possesive adjective <emphasis>Orionova</emphasis> has to be matched in both case and gender to the noun <emphasis>maglina</emphasis>, which is of feminine gender. Earlier we defined a special adjective-as-noun derivation <literal>|ova></literal>, specialized for feminine gender nouns, but now we want to make use of the full posessive adjective derivation, which is not specialized to any gender. Let the property keys of this derivation be of the form <literal>nommas</literal>
+(nominative masculine), <literal>genmas</literal> (genitive masculine), …, <literal>nomfem</literal> (nominative feminine), <literal>genfem</literal> (genitive feminine), …. If we use the stem of nominative masculine form, <emphasis>Orionov</emphasis>, to name the possesive adjective base derivation, we get:
+<programlisting>
+|ov: nommas=…, genmas=…, …, nomfem=…, genfem=…, …
+Orion Nebula: Orion|ov~...fem maglin|a
+</programlisting>
+<literal>|ov~...fem</literal> is a <emphasis>masked</emphasis> expansion. It specifies to include only those properties with keys starting with any three characters and ending in <literal>fem</literal>, as well as to drop <literal>fem</literal> (being a constant) from the resulting property keys. This precisely selects only the feminine forms of the possesive adjective and transforms their keys into noun keys needed to match with those of <literal>|a</literal> expansion.</para>
+
+<para>We could also use this same masked expansion as the middle step, to produce the feminine-specialized adjective-as-noun base derivation:
+<programlisting>
+|ov: nommas=…, genmas=…, …, nomfem=…, genfem=…, …
+|ova>: |ov~...fem
+Orion Nebula: Orion|ova> maglin|a
+</programlisting>
+</para>
+
+<para>A special case of masked expansion is when there are no variable characters in the mask (no dots). In the pair <emphasis>Constellation of Cassiopeia</emphasis> and <emphasis>Sazvežđe Kasiopeje</emphasis>, the <emphasis>of Cassiopeia</emphasis> is translated as single word in genitive case, <emphasis>Kasiopeje</emphasis>, avoiding the need for preposition. If standalone <emphasis>Cassiopeia</emphasis> has its own derivation, then we can use it like this:
+<programlisting>
+Cassiopeia: Kasiopej|a
+Constellation of Cassiopeia: Sazvežđ|e |Cassiopeia~gen
+</programlisting>
+<literal>|e</literal> is the usual nominative-stem expansion. The <literal>|Cassiopeia~gen</literal> expansion produces only the genitive form of <emphasis>Cassiopeia</emphasis>, but with the empty property key. If this expansion would be treated as normal inner expansion, it would cancel all properties produced by <literal>|e</literal> expansion, since none of them has an empty key. Instead, when an expansion produces a single property with empty key, its value is treated as literal text and concatenated to all property values produced up to that point. Just as if we had written:
+<programlisting>
+Constellation of Cassiopeia: Sazvežđ|e Kasiopeje
+</programlisting>
+</para>
+
+<para>Sometimes the default modification of propety keys, removal of all fixed characters in the mask, is not what we want. This should be a rare case, but if it happens, the mask can also be given a <emphasis>key extender</emphasis>. For example, if we would want to select only feminine forms of the <literal>|ov</literal> expansion, but preserve the <literal>fem</literal> ending of the resulting keys, we would write:
+<programlisting>
+Foobar: Fubar|ov~...fem%*fem
+</programlisting>
+The key extender in this expansion is <literal>%*fem</literal>. For each resulting property, the final key is constructed by substituting every <literal>*</literal> with the key resulting from the <literal>~...fem</literal> mask. Thus, the <literal>fem</literal> ending is readded to every key, as desired.</para>
+
+<para>Expanded values can have their capitalization changed. By prepending <literal>^</literal> (circumflex) or <literal>`</literal> (backtick) to the syntagma key of the expansion, the first letter in fetched values is uppercased or lowercased, respectively. We could derive the pair <emphasis>Distant Sun</emphasis> and <emphasis>Udaljeno sunce</emphasis> by using the pair <emphasis>Sun</emphasis> and <emphasis>Sunce</emphasis> (note the case difference in <emphasis>Sunce</emphasis>/<emphasis>sunce</emphasis>) like this:
+<programlisting>
+Sun: Sunc|e  # this defines uppercase first letter
+Distant Sun: Dalek|o> |`Sun  # this needs lowercase first letter
+</programlisting>
+</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdspecprop">
+<title>Special Properties</title>
+
+<para>Property keys may be given several endings, to make these properties behave differently from what was described so far. These ending are not treated as part of the property key itself, so they should not be given when querying derivations by syntagma and property key.</para>
+
+<para><emphasis>Cutting</emphasis> properties are used to avoid the normal value concatenation on expansion. For example, if we want to define the gender of nouns through base expansions, we could come up with:
+<programlisting>
+|a: nom=a, gen=e, dat=i, acc=u, gender=fem
+Venus: Vener|a
+</programlisting>
+However, this will cause the <literal>gender</literal> property in expansion to become <literal>Venerafem</literal>. For the <literal>gender</literal> property to be taken verbatim, without concatenting segments from the calling derivation, we make it a cutting property by appending <literal>!</literal> (exclamation mark) to its key:
+<programlisting>
+|a: nom=a, gen=e, dat=i, acc=u, gender!=fem
+</programlisting>
+Now when dictionary is queried for <literal>Venus</literal> syntagma and <literal>gender</literal> property, we will get the expected <literal>fem</literal> value.</para>
+
+<para>Cutting properties also behave differently in multiple inner expansions. Instead of being canceled when not all inner expansions define it, simply the rightmost value is taken -- just like in outer expansions.</para>
+
+<para><emphasis>Terminal</emphasis> properties are those hidden with respect to expansion, i.e. they are not taken into the calling derivation. A property is made terminal by appending <literal>.</literal> (dot) to its key. For example, if some derivations have the short description property <literal>desc</literal>, we typically do not want it to propagate into calling derivations which happen not to override it by outer expansion:
+<programlisting>
+Mars: Mars|, desc.=planet
+Red Mars: Crven|i> |Mars  # a novel
+</programlisting>
+</para>
+
+<para><emphasis>Canceling</emphasis> properties will cause a previously defined property with the same key to be removed from the collection of properties. Canceling property is indicated by ending its key with <literal>^</literal> (circumflex). The value of canceling property has no meaning, and can be anything. Canceling is useful in expansions and alternative derivations (more on that later), where some properties introduced by expansion or alternative fallback should be removed from the final collection of properties.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdtags">
+<title>Text Tags</title>
+
+<para>Key syntagmas and property values can be equipped with arbitrary simple tags, which start with the tag name in the form <literal>~<replaceable>tag</replaceable></literal> and extend to the next tag
+or the end of syntagma. For example, when deriving people names, we may want to tag their first and last name, using tags <literal>~fn</literal> and <literal>~ln</literal> respectively:
+<programlisting>
+~fn Isaac ~ln Newton: ~fn Isak| ~ln Njutn|
+</programlisting>
+In default queries to the dictionary, tags are simply ignored, syntagmas and property values are reported as if there were no tags. However, custom derivators (based on the <classname>Synder</classname> class from <package>pology.synder</package>) can define transformation functions, to which tagged text segments will be passed, so that they can treat them specially when producing the final text.</para>
+
+<para>Tag is implicitly terminated by whitespace or comma (or colon in key syntagmas), but if none of these characters can be put after the tag, the tag name can be explicitly delimited with curly brackets, as <literal>~{<replaceable>tag</replaceable>}</literal>.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdalts">
+<title>Alternative Derivations</title>
+
+<para>Sometimes there may be several alternative derivations to the given syntagma. The default derivation (in some suitable sense) is written as explained so far, and alternative derivations are written under named <emphasis>environments</emphasis>.</para>
+
+<para>For example, if deriving a transcribed person's name, there may be several versions of the transcription. <emphasis>Isaac Newton</emphasis>, as the name of the Renaissance scientist, may be normally used in its traditional transcription <emphasis>Isak Njutn</emphasis>, while a contemporary person of that name would be transcribed in the modern way, as <emphasis>Ajzak Njuton</emphasis>. Then, in the entry of Newton the scientist, we could also mention what the modern transcription would be, under the environment <literal>modern</literal>:
+<programlisting>
+Isaac Newton: Isak| Njutn|
+    @modern: Ajzak| Njuton|
+</programlisting>
+Alternative derivations are put on their own lines after the default derivation, and instead of the key syntagma, they begin with the environment name. The environment name starts with <literal>@</literal> and ends with colone, and then  the usual derivation follows. It is conventional, but not mandatory, to add some indent to the environment name. There can be any number of non-default environments.</para>
+
+<para>The immediate question that arises is how are expansions treated in non-default environments. In the previous example, what does <literal>|</literal> expansion resolve to in <literal>modern</literal> environment? This depends on how the synder file is processed. By default, it is required that derivations referenced by expansions have matching environments. If <literal>|</literal> were defined as:
+<programlisting>
+|: nom=, gen=a, dat=u, acc=
+</programlisting>
+then the expansion of <emphasis>Isaac Newton</emphasis> in <literal>modern</literal> environment would fail. Instead, it would be necessary to define the base derivations as:
+<programlisting>
+|: nom=, gen=a, dat=u, acc=
+    @modern: nom=, gen=a, dat=u, acc=
+</programlisting>
+However, this may not be a very useful requirement. As can be seen in this example already, in many cases base derivations are likely to be same for all environments, so they would be needlessly duplicated. It is therefore possible to define <emphasis>environment fallback</emphasis> chain in processing, such that when a derivation in certain environment is requested but not available, environments in the fallback chain are tried in order. In this example, if the chain would be given as <literal>("modern", "")</literal> (the empty string is the name of default environment), then we could write:
+<programlisting>
+|: nom=, gen=a, dat=u, acc=
+Isaac Newton: Isak| Njutn|
+    @modern: Ajzak| Njuton|
+Charles Messier: Šarl| Mesje|
+</programlisting>
+When derivation of <emphasis>Isaac Newton</emphasis> in <literal>modern</literal> environment is requested, the default expansion for <literal>|</literal> will be used, and the derivation will succeed. Derivation of <emphasis>Charles Messier</emphasis> in <literal>modern</literal> environment will succeed too, because the environment fallback chain is applied throughout;
+if <emphasis>Charles Messier</emphasis> had different modern transcription, we would have explicitly provided it.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdwspace">
+<title>Treatment of Whitespace</title>
+
+<para>ASCII whitespace in derivations, namely the space, tab and newline,
+is not preserved as-is, but by default it is <emphasis>simplified</emphasis> in final property values. The simplification consists of removing all leading and trailing ASCII whitespace, and replacing all inner sequences of ASCII whitespace with a single space. Thus, these two derivations are equivalent:
+<programlisting>
+Venus: nom=Venera
+Venus  :  nom =  Venera
+</programlisting>
+but these two are not:
+<programlisting>
+Venus: Vener|a
+Venus: Vener  |a
+</programlisting>
+because the two spaces between the root <literal>Vener</literal> and expansion <literal>|a</literal> become inner spaces in resulting values, so they get converted into a single space.</para>
+
+<para>Non-ASCII whitespace, on the other hand, is preserved as-is. This means that significant whitespace, like non-breaking space, zero width space, word joiners, etc. can be used normally.</para>
+
+<para>It is possible to have different treatment of whitespace, through an optional parameter to the derivator object (<classname>Synder</classname> class). This parameter is a transformation function to which text segments with raw whitespace are passed, so that anything can be done with them.</para>
+
+<para>Due to simplifaction of whitespace, indentation of key syntagmas and environment names is not significant, but it is nevertheless enforced to be consistent. This will not be accepted as valid syntax:
+<programlisting>
+Isaac Newton: Isak| Njutn|
+    @modern: Ajzak| Njuton|
+ George Washington: Džordž| Vašington|  # inconsitent indent
+  @modern: Džordž| Vošington|  # inconsitent indent
+</programlisting>
+Consistent indenting is enforced both for stylistic reasons when several people are working on the same synder file, and to discourage indentation styles unfriendly to version control systems, such as:
+<programlisting>
+Isaac Newton: Isak| Njutn|
+     @modern: Ajzak| Njuton|
+George Washington: Džordž| Vašington|
+          @modern: Džordž| Vošington|  # inconsitent indent
+</programlisting>
+Unfriendliness to version control comes from the need to reindent lines which are otherwise unchanged, merely in order to keep them aligned to lines which were actually changed.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsdorg">
+<title>Uniqueness, Ordering, and Inclusions</title>
+
+<para>Within single synder file, each derivation must have at least one unique key syntagma, because they are used as keys in dictionary lookups. These two derivations are in conflict:
+<programlisting>
+Mars: Mars|  # the planet
+Mars: mars|  # the chocholate bar
+</programlisting>
+</para>
+
+<para>There are several possibilities to resolve key conflicts. The simplest possibility is to use keyword-like key syntagmas, if key syntagmas themselves do not need to be human readable:
+<programlisting>
+marsplanet: Mars|
+marsbar: mars|
+</programlisting>
+If key syntagmas have to be human readable, then one option is to extend them in human readable way as well:
+<programlisting>
+Mars (planet): Mars|
+Mars (chocolate bar): mars|
+</programlisting>
+This method too is not acceptable if key syntagmas are intended to be of equal weight to derived syntagmas, like in a dictionary application. In that case, the solution is to add a hidden keyword-like syntagma to both derivations:
+<programlisting>
+Mars, |marsplanet: Mars|
+Mars, |marsbar: mars|
+</programlisting>
+Processing will now silently eliminate <literal>Mars</literal> as the key to either derivation, because it is conflicted, and leave only <literal>marsplanet</literal> as key for the first and <literal>marsbar</literal> as key for the second derivation. These remaining keys must also used in expansions, to reference the appropriate derivation. However, when querying the dictionary for key syntagmas by key <literal>marsplanet</literal>, only <emphasis>Mars</emphasis> will be returned, because <literal>marsplanet</literal> is hidden; likewise for <literal>marsbar</literal>.</para>
+
+<para>Ordering of derivations is not important. The following order is valid,
+although the expansion <literal>|Venus~gen</literal> is seen before the derivation of <emphasis>Venus</emphasis>:
+<programlisting>
+Merchants of Venus: Trgovc|i> s |Venus~gen
+Venus: Vener|a
+</programlisting>
+This enables derivations to be ordered naturally, e.g. alphabetically,
+instead of the order being imposed by dependencies.</para>
+
+<para>It is possible to include one synder file into another. A typical use case would be to split out base derivations into a separate file, and include it into other synder files. If basic derivations are defined in <filename>base.sd</filename>:
+<programlisting>
+|: nom=, gen=a, dat=u, acc=, gender!=mas
+|a: nom=a, gen=e, dat=i, acc=u, gender!=fem
+…
+</programlisting>
+then the file <filename>solarsys.sd</filename>, placed in the same directory, can include <filename>base.sd</filename> and use its derivations in expansions like this:
+<programlisting>
+>base.sd
+Mercury: Merkur|
+Venus: Vener|a
+Earth: Zemlj|a
+…
+</programlisting>
+<literal>></literal> is the inclusion directive, followed by the absolute or relative path to file to be included. If the path is relative, it is considered relative to the including file, and not to some externaly defined set of
+inclusion paths.</para>
+
+<para>If the including and the included file contain a derivation with same key syntagmas, these two derivations are <emphasis>not</emphasis> a conflict. On expansion, first the derivations from the current file are checked, and if the referenced derivation is not there, then the included files are checked in reverse of the inclusion order. In this way, it is possible to override some of base derivations in one or few including files.</para>
+
+<para>Inclusions are "shallow": only the derivations in the included file itself are visible (available for use in expansions) in the including file. In other words, if file A includes file B, and file B includes file C, then derivations from C are not automatically visible in A; to use them, A must explicitly include C.</para>
+
+<para>Shallow inclusion and ordering-independent resolution of expansions, taken together, enable mutual inclusions: A can include B, while B can include A. This is an important capability when building derivations of taxonomies. While derivation of X naturally belongs to file A and of Y to file B, X may nevertheless be used in expansion in another derivation in B, and Y in another derivation in A.</para>
+
+<para>To make derivations from several synder files available for queries, these files are imported into the derivator object one by one. Derivations from imported files (but not from files included by them, according to shallow inclusion principle) all share a single namespace. This means that key syntagmas across imported files can conflict, and must be resolved by one of outlined methods.</para>
+
+<para>The design rationale for the inclusion mechanism was that in each collection of derivations, each <emphasis>visible</emphasis> derivation, one which is available to queries by the user of the collection, must be accessible by at least one unique key, which does not depend on the underlying file hierarchy.</para>
+
+</sect2>
+
+<sect2 id="sec-lgsderrors">
+<title>Error Handling</title>
+
+<para>There are three levels of errors which may happen in syntagma derivations.</para>
+
+<para>The first level are syntax errors, such as synder entry missing a colon which separates the key syntagma from the rest of the entry, unclosed curly bracket in expansion, etc. These errors are reported as soon as the synder file is imported into the derivator object or included by another synder file.</para>
+
+<para>The second level of errors are expansion errors, such as an expansion referencing an undefined derivation, or an expansion mask discarding all properties. These errors are reported lazily, when the problematic derivation is actually looked up for the first time.</para>
+
+<para>The third level is occupied by semantic errors, such as if we want every derivation to have a certain property, or <literal>gender</literal> property to have only values <literal>mas</literal>, <literal>fem</literal>, and <literal>neu</literal>, etc. and a derivation violates some of these requirements. At the moment, there is no prepared way to catch semantic errors.</para>
+
+<para>In future, a mechanism (in form of file-level directives, perhaps) may be introduced to immediately report reference errors on request, and to constrain property keys and property values to avoid semantic errors. Until then, the way to validate a collection of derivations would be to write a piece of Python code which will import all files into a derivator object, iterate through derivations (this alone will catch expansion errors) and check for semantic errors.</para>
+
+</sect2>
 
 </sect1>
 
