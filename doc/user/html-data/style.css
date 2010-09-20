@@ -132,6 +132,7 @@ div.informaltable > table > thead > tr > th {
 }
 div.informaltable > table > tbody > tr > td {
     border: none;
+    border-top: 0.25mm solid gray;
     border-bottom: 0.25mm solid gray;
     vertical-align: top;
     text-align: left;
