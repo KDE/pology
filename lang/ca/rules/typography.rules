@@ -4,6 +4,10 @@
 # based in the work of the KDE Spanish Team
 # License: GPLv3
 
+# Hook to eliminate accel mark,
+# it works with"X-Accelerator-Marker" header in PO files
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
 # la l·l geminada porta un punt volat (no un punt normal)
 # Aquesta regla la poso abans del filter.include perquè en cas contrari hi ha 
 # una regla que l'anul·la («Remove web pages» a filter.include)
@@ -354,5 +358,23 @@ hint="Cal apostrofar «el/al/de/del/pel/es/se» davant de vocal (o h) (tipografi
 # manca apóstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
 [\sla\s(a|e|o|A|E|O|ha|he|ho)[a-zéíóúàèòüç]+\b]
 hint="Cal apostrofar «la» davant de vocal (o h), excepte i,u,hi,hu àtones (tipografia)"
+
+# «e» sola és un error.
+[\be\b]
+valid before="\:|\-|/|\.|\^"
+valid after="\-|\~|\{|\%|base\s"
+valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
+valid ctx="Exponential"
+valid cat="kspread"
+hint="«e» sola és un error (error freqüent)"
+
+# «u» sola és un error.
+[\bu\b]i
+valid before="\:|\-|\s\(massa\)"
+valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
+valid after="\%\d\s" cat="kalzium,plasma_engine_kalzium"
+valid cat="kgoldrunner,kubrick,kfile_exr,libincidenceeditors,kspread"
+valid ctx="Undefined"
+hint="«u» sola és un error (error freqüent)"
 
 # End of rule file

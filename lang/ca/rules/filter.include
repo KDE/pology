@@ -55,10 +55,10 @@ addFilterRegex match="\~\.?\/[\w\-\_\.]+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="\s?(etc\.|Ex\.|ex\.|P\.ex?\.|p\.ex?\.|EUA|id\.|ID\.|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?(etc\.|Ex\.|ex\.|P\.\sex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\s?(Sr\.|Sra\.|Dr\.|Dra\.|D\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\s?(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\s?(máx.|mín\.|pàg\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\s?(màx.|mín\.|pàg\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\s?(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.\P\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\s?(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
 

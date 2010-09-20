@@ -1,6 +1,10 @@
 Rule files syntax
 =================
 
+There is a good documentation in pology/doc/api/html/index.html about rules syntax.
+
+Next, a little summary:
+
 Naming and path: 
 - a rule file must end with a ".rules" suffix.
 - rule files must be located into the lang/<lang>/rules directory, where <lang> corresponds to your language code (eg. 'fr' for french rules).
