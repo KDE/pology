@@ -198,10 +198,10 @@ as the former is (tentatively) easier to comprehend.</para>
 <para>A PO message consists of several types of parts: strings, comments, flags, source references, etc. It would not be very constructive to diff all of them; for example, while <varname>msgstr</varname> strings should clearly be included into diffing, source references most probably should not. To avoid pondering over the advantages and disadvantages of including each and every message part, there already exists a well-defined splitting of message parts into two groups, one of which will be taken into diffing, and the other not. These two groups are:
 <itemizedlist>
 <listitem>
-<para><emphasis>Extraction-invariant</emphasis> parts are those which do not depend on placement (or even presence) of the message in the source file. These are <varname>msgid</varname> string, <varname>msgstr</varname> strings, manual comments, etc.</para>
+<para id="p-msgparts-extinv"><emphasis>Extraction-invariant</emphasis> parts are those which do not depend on placement (or even presence) of the message in the source file. These are <varname>msgid</varname> string, <varname>msgstr</varname> strings, manual comments, etc.</para>
 </listitem>
 <listitem>
-<para><emphasis>Extraction-prescribed</emphasis> parts are those which cannot exist independently of the source file from which the message is extracted, such as format flags or extracted comments.</para>
+<para id="p-msgparts-extpre"><emphasis>Extraction-prescribed</emphasis> parts are those which cannot exist independently of the source file from which the message is extracted, such as format flags or extracted comments.</para>
 </listitem>
 </itemizedlist>
 Only extraction-invariant parts will be diffed. The working definition of which parts belong to this group is provided by what remains in obsolete messages in PO files:
@@ -465,7 +465,7 @@ Of course, the diffing tool should compute the appropriate separator such that i
 
 </sect2>
 
-<sect2 id="sec-dpfrmparing">
+<sect2 id="sec-dpfrmpairing">
 <title>Pairing Messages From Two PO Files</title>
 
 <para>By now it was described how to make an embedded diff out of two messages, once it has been decided that those messages should be diffed. However, the translator is not expected to decide which messages to diff, but which PO files to diff. The diffing tools should then automatically <emphasis>pair</emphasis> for diffing the messages from the two PO files, and this section describes the several pairing criteria.</para>
@@ -552,9 +552,9 @@ msgstr "{+Beleška o Veštičjoj reci+}~"
 </informaltable>
 (That the message has been fully added or removed can be seen by trailing tilde in the <varname>msgid</varname> string, which indicates that the old or new <varname>msgid</varname> does not exist at all, and so neither the message with it.)</para>
 
-<para>Instead, messages left unpaired by key should be tested for <emphasis>pairing by pivoting</emphasis> around previous strings (secondary pairing). The two messages above will thus be paired due to the fact that the current <varname>msgid</varname> of the old message is equal to the previous <varname>msgid</varname> of the new message, and will produce a single ediff message <link linkend="t-ediff-nf-to-f">as shown earlier</link>.</para>
+<para id="p-pairing-pivoting">Instead, messages left unpaired by key should be tested for <emphasis>pairing by pivoting</emphasis> around previous strings (secondary pairing). The two messages above will thus be paired due to the fact that the current <varname>msgid</varname> of the old message is equal to the previous <varname>msgid</varname> of the new message, and will produce a single ediff message <link linkend="t-ediff-nf-to-f">as shown earlier</link>.</para>
 
-<para>Finally, consider the third related combination, when the old PO file has not yet been merged with the template, while the new PO file has both been merged and its translation updated:
+<para id="p-pairing-merging">Finally, consider the third related combination, when the old PO file has not yet been merged with the template, while the new PO file has both been merged and its translation updated:
 <informaltable>
 <tgroup cols="2">
 <colspec colwidth="2cm"/>
@@ -579,7 +579,7 @@ msgstr "Beleške o Veštičjoj reci"
 </tbody>
 </tgroup>
 </informaltable>
-Once again it would be a waste to present the old message as fully removed and the new message as fully added in the resulting ediff. When a message is left unpaired after both pairing by key and pairing by pivoting, then the two PO files can be merged in the background -- as if the new is the template for the old, and vice versa -- and then tested for chained pairing by pivoting and by key with the merged catalog as intermediary. This <emphasis>pairing by merging</emphasis> (tertiary pairing) will then produce another natural ediff:
+Once again it would be a waste to present the old message as fully removed and the new message as fully added in the resulting ediff. When a message is left unpaired after both pairing by key and pairing by pivoting, then the two PO files can be merged in the background -- as if the new is the template for the old, and vice versa -- and then tested for chained pairing by pivoting and by key with the merged PO file as intermediary. This <emphasis>pairing by merging</emphasis> (tertiary pairing) will then produce another natural ediff:
 <informaltable>
 <tgroup cols="2">
 <colspec colwidth="2cm"/>
@@ -605,7 +605,7 @@ msgstr "{-Beleška-}{+Beleške+} o Veštičjoj reci"
 <sect2 id="sec-dpfrmcollect">
 <title>Collecting Diffed Messages</title>
 
-<para>For the ediff of two PO files to also be a syntactically valid PO file, constructed ediff messages should be preceded by a PO header in output. At first glance, this PO header could be itself the ediff of PO headers of the catalogs which were diffed. However, there are several issues with this approach:
+<para>For the ediff of two PO files to also be a syntactically valid PO file, constructed ediff messages should be preceded by a PO header in output. At first glance, this PO header could be itself the ediff of headers of the PO files which were diffed. However, there are several issues with this approach:
 <itemizedlist>
 
 <listitem>
@@ -712,7 +712,143 @@ The padding sequence is appended to the original <varname>msgctxt</varname>, sep
 <sect1 id="sec-dpdiff">
 <title>Producing Ediffs with <command>poediff</command></title>
 
-<para></para>
+<para>The <command>poediff</command> script in Pology implements embedded diffing of PO files as defined in the previous section. To diff two PO files, running the usual:
+<programlisting>
+$ poediff orig/foo.po mod/foo.po
+</programlisting>
+will write out the ediff PO content to standard output, with some basic shell coloring of difference segments. The ediff can be written into a file (an ediff PO file) either with shell redirection, or the <option>-o</option>/<option>--output</option>. It is equally simple to diff directories:
+<programlisting>
+$ poediff orig/ mod/
+</programlisting>
+By default, given directories are recursively searched for PO files, and the PO files present in only one of the directories will also be included in the ediff.</para>
+
+<sect2 id="sec-dpdiffvcs">
+<title>Diffing With Underlying VCS</title>
+
+<para>When PO files are handled by a version control system (VCS), <command>poediff</command> can be put into VCS mode using the <option>-c/--vcs <replaceable>VCS</replaceable></option> option, where the value is the keyword of one of the <link linkend="sec-cmsuppvcs">version control systems supported by Pology</link>. In VCS mode, instead of giving two paths to diff, any number of version-controlled paths (files or directories) are given. Without other options, all locally modified PO files in these paths are diffed against the last commit known to local repository. For example, if a program is using a Subversion repository, then the PO files in its <filename>po/</filename> directory can be diffed with:
+<programlisting>
+$ poediff -c svn prog/po/
+</programlisting>
+</para>
+
+<para>Specific revisions to diff can be given by the <option>-r/--revision <replaceable>REV1</replaceable>[:<replaceable>REV2</replaceable>]</option>. <literal><replaceable>REV1</replaceable></literal> and <literal><replaceable>REV2</replaceable></literal> are not necessarily direct revision IDs, but any strings that the underlying VCS can convert into revision IDs. If <literal><replaceable>REV2</replaceable></literal> is omitted, diffing is preformed from <literal><replaceable>REV1</replaceable></literal> to current working copy.</para>
+
+<para>When ediff is made in VCS mode, <varname>msgid</varname> strings in header ediffs will state revision IDs, in &lt;&lt;&lt;-separated comments next to file paths:
+<programlisting>
+# =========================================================
+# ...
+msgctxt "~"
+msgid ""
+"- prog/po/sr.po &lt;&lt;&lt; 20537\n"
+"+ prog/po/sr.po"
+msgstr "..."
+</programlisting>
+</para>
+
+</sect2>
+
+<sect2 id="sec-dpdiffopt">
+<title>Command Line Options</title>
+
+<para>
+Options specific to <command>poediff</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-b</option>, <option>--skip-obsolete</option></term>
+<listitem>
+<para>By default, <link linkend="sec-poobsol">obsolete messages</link> are treated equally to non-obsolete, and can feature in the ediff output. This makes it possible to detect when a message has become obsolete, or has returned from obsolescence, and show this in the ediff. But sometimes including obsolete messages into diffing may not desired, and then this option can be issued to ignore them.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-c <replaceable>VCS</replaceable></option>, <option>--vcs=<replaceable>VCS</replaceable></option></term>
+<listitem>
+<para>The keyword of the underlying version control system, to switch <command>poediff</command> into <link linkend="sec-dpdiffvcs">VCS mode</link>. See <xref linkend="sec-cmsuppvcs"/> for the list of supported version control systems (or issue <option>--list-vcs</option> option).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--list-options</option>, <option>--list-vcs</option></term>
+<listitem>
+<para>Simple listings of options and VCS keywords. Intended mainly for writting shell completion definitions.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-n</option>, <option>--no-merge</option></term>
+<listitem>
+<para>Disable pairing of messages by <link linkend="p-pairing-merging">by internal merging</link> of diffed PO files. Merging is performed only if there were some messages left unpaired after pairing by key and <link linkend="p-pairing-pivoting">by pivoting</link>, so in the usual circumstances it is not done anyway. But when it is done, it may produce strange results, so this option can be used to prevent it.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-o <replaceable>FILE</replaceable></option>, <option>--output=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>The ediff is by default written to the standard output, and this option can be used to send it to a file instead.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-p</option>, <option>--paired-only</option></term>
+<listitem>
+<para>When directories are diffed, by default the PO files present in only one of them will be included into the ediff, i.e. all their messages will be shown as added or removed. This option will limit diffing only to files present in both directories, in the sense of having the same relative paths (rather than e.g. same PO domain name).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-Q</option>, <option>--quick</option></term>
+<listitem>
+<para>Produced maximally stripped-down output, sometimes useful for quick visual observation of changes, but which cannot be used as patch. Equivalent to <option>-bns</option>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-r <replaceable>REV1</replaceable>[:<replaceable>REV2</replaceable>]</option>, <option>--revision=<replaceable>REV1</replaceable>[:<replaceable>REV2</replaceable>]</option></term>
+<listitem>
+<para>When operating in <link linkend="sec-dpdiffvcs">VCS mode</link>, the default is to make the diff from the last commit to the current working copy. This option can be used to diff between any two revisions. If the second revision is omitted, the diff is taken from first revision to current working copy.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-s</option>, <option>--strip-headers</option></term>
+<listitem>
+<para>Prevents diffing of PO headers, as well as inclusion of top ediff header in the output. This reduces clutter when the intention is to see only changes in messages through many PO files, but the resulting ediff cannot be used as patch.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>
+Options common with other Pology tools:
+<variablelist>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-colors.docbook"/>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-dpdiffcfg">
+<title>User Configuration</title>
+
+<para><command>poediff</command> will consult <link linkend="sec-cmcfguser">the <literal>[user]</literal> section</link> in <link linkend="sec-cmconfig">user configuration</link> to fill out some of the header of the ediff PO file. It also consults its own section, with the following fields avaialbe:
+<variablelist>
+
+<varlistentry>
+<term><literal>[poediff]/merge=[*yes|no]</literal></term>
+<listitem>
+<para>Setting to <literal>no</literal> is counterpart to <option>--no-merge</option> command line option, i.e. this field can be used to permanently disable message pairing <link linkend="p-pairing-merging">by merging</link>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
 
 </sect1>
 
@@ -720,7 +856,255 @@ The padding sequence is appended to the original <varname>msgctxt</varname>, sep
 <sect1 id="sec-dppatch">
 <title>Applying Ediffs as Patches with <command>poepatch</command></title>
 
-<para></para>
+<para>Basic application of an ediff patch is much easier than that of a line-level patch, because there will be no conflicts if messages have different wrapping, ordering, or <link linkend="p-msgparts-extpre">extraction-prescribed</link> parts (source references, etc.). The patch is applied by resolving each ediff message from it into the originating old and new message, and if either the old or the new message exists (by key) in the target PO file and has equal <link linkend="p-msgparts-extinv">extraction-invariant</link> parts, then the message modification is applied, and otherwise rejected.</para>
+
+<para>Applying the modification to the target message means overwriting its extraction-invariant parts with those from the new message from the ediff, and leaving other parts untouched. If the target message is already equal to the new message by extraction-invariant parts, then the patch is silently ignored. This means that if the same patch is applied twice to the target PO file, the second application makes no modifications. Likewise if, by chance, the modifications given by the patch were already independently performed by another translator (e.g. a few simple updates to unfuzzy messages).</para>
+
+<para>Command-line interface of Pology's <command>poepatch</command> is much like that of <command>patch(1)</command>, sans the myriad of its more obscure options. There is the <option>-p</option> option to strip leading elements of file paths in the ediff, and <option>-d</option> option to append to them a directory path where target PO files are to be looked up. If the ediff was produced in <link linkend="sec-dpdiffvcs">VCS mode</link>, then it can be applied as patch in any of the following ways:
+<programlisting>
+$ cd repos/prog/po &amp;&amp; poepatch &lt;ediff.po
+$ cd repos/ &amp;&amp; poepatch -p0 &lt;ediff.po
+$ poepatch -d repos/app/po &lt;ediff.po
+</programlisting>
+</para>
+
+<para>Header modifications (coming from the header ediff message) are applied in a slightly relaxed fashion: some of the standard header fields are ignored when checking whether the patch is applicable. These are the fields which are known to be volatile as the PO file goes through different translators, and do not influence the processing of the PO file (e.g. such as encoding or plural forms). The ignored fields are: <literal>POT-Creation-Date</literal>, <literal>PO-Revision-Date</literal>, <literal>Last-Translator</literal>, <literal>X-Generator</literal>. When the header modification is accepted, the ignored fields in the target header are overwritten with those from the patch (including being added or removed).</para>
+
+<sect2 id="sec-dppatchrej">
+<title>Handling Rejected Ediffs</title>
+
+<para>All ediff messages which were rejected as patches will be written out to <filename>stdin.rej.po</filename> in the current working directory if the patch was read from standard input, or to <filename><replaceable>FILE</replaceable>.rej.po</filename> if the patch file was given by <option>-i <replaceable>FILE</replaceable>.po</option> option.</para>
+
+<para>The file with rejected ediff messages will again be an ediff PO file. It will have the header as before, except that its comment will mention that the file contains rejects of a patching operation. Afterwards, rejected ediff messages rejected will follow. Every header ediff message will be present whether rejected or not, for the same purpose of separation and provision of file paths, but if it was not rejected as patch itself, it will be stripped of comments and <varname>msgstr</varname> string.</para>
+
+<para>Furthermore, to every straigh-out rejected ediff message an <literal>ediff-no-match</literal> flag will be added. This is done, naturally, because some ediff messages may not be rejected straight-out. Consider the following scenario. A PO file has been merged to produce the fuzzy message:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: tools/power.c:348
+msgid "Active sonar low frequency"
+msgstr "Niska frekvencija aktivnog sonara"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: tools/power.c:361
+#, fuzzy
+#| msgid "Active sonar low frequency"
+msgid "Active sonar high frequency"
+msgstr "Niska frekvencija aktivnog sonara"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The translator updates the PO file, which produces the usual ediff message when going from fuzzy to translated:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#. ediff: state {-fuzzy-}
+#: tools/power.c:361
+msgid "Active sonar {-low-}{+high+} frequency"
+msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+However, <emphasis>before</emphasis> this patch could have been applied, the programmer adds a trailing colon to the same message, and the catalog is merged again to produce:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>new-2</entry>
+<entry><programlisting>
+#: tools/power.c:361
+#, fuzzy
+#| msgid "Active sonar low frequency"
+msgid "Active sonar high frequency:"
+msgstr "Niska frekvencija aktivnog sonara"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The patch cannot be cleanly applied at this point, due to the extra colon added in the meantime to the <varname>msgid</varname>, so it has to be rejected. If nothing else is done, it would appear in the file of rejects as:
+<programlisting>
+#. ediff: state {-fuzzy-}
+#: tools/power.c:361
+#, ediff-no-match
+msgid "Active sonar {-low-}{+high+} frequency"
+msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
+</programlisting>
+</para>
+
+<para id="p-split-rejects">It is wastefull to reject such a near-matching patch without any indication that it could be easily adapted to the latest message in the target PO file. Therefore, when an ediff message is rejected, the following analysis is performed: by trying out message pairings as on diffing, could the old message from the patch be paired with a current message from the target PO, and that current message with the new message from the patch? Or, in other words, can an existing message in the target PO be "fitted in between" the old and new messages defined by the patch? If this is the case, instead of the original, two special ediff messages -- <emphasis>split rejects</emphasis> -- are constructed and written out: one from the old to the current message, and another from the current to the new message. They are flagged as <literal>ediff-to-cur</literal> and <literal>ediff-to-new</literal>, respectively:
+<programlisting>
+#: tools/power.c:361
+#, fuzzy, ediff-to-cur
+#| msgid "Active sonar low frequency"
+msgid "Active sonar high frequency{+:+}"
+msgstr "Niska frekvencija aktivnog sonara"
+⁠
+#. ediff: state {-fuzzy-}
+#: tools/power.c:361
+#, ediff-to-new
+#| msgid "Active sonar {-low-}{+high+} frequency{+:+}"
+msgid "Active sonar {-low-}{+high+} frequency"
+msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
+</programlisting>
+</para>
+
+<para>There are more ways to interpret split rejects, depending on the circumstances. In this example, from the <literal>ediff-to-cur</literal> message the reviewer can see what had changed in the target message after the translator made the ediff. This can also be seen by comparing difference embedded into previous and current <varname>msgid</varname> strings in the <literal>ediff-to-new</literal> message. With a bit of editing, the reviewer can fold these two messages into an applicable patch:
+<programlisting>
+#. ediff: state {-fuzzy-}
+#: tools/power.c:361
+#, ediff
+msgid "Active sonar {-low-}{+high+} frequency:"
+msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
+</programlisting>
+Since the file of rejects is also an ediff PO, after edits such as this to make some patches applicable, it can be <emphasis>reapplied</emphasis> as patch. When that is done, <command>poepatch</command> will silently ignore all ediff messages having <literal>ediff-no-match</literal> or <literal>ediff-to-new</literal> flags, as these have already been determined inapplicable. That is why in this example the reviewer has replaced the <literal>ediff-to-new</literal> flag with the plain <literal>ediff</literal> in the folded ediff message.</para>
+
+</sect2>
+
+<sect2 id="sec-dppatchemb">
+<title>Embedding Patches</title>
+
+<para>Depending on the kind of text which is being translated, and distance between the source and target language grammar, ortography, and style, it may be difficult to review the ediff in isolation. In general, messages in ediff PO file will lack <emphasis>positional context</emphasis>, which is in the full PO provided by messages immediately preceding and following the observed message. For example, a long passage from documentation probably needs no positional context. But a short, newly added message such as "Crimson" could very well need one, if it has neither <varname>msgctxt</varname> nor an extracted comment describing it: is it really a color? what grammatical ending should it have (in a language which matches adjective to noun gender)? Several messages around it in the full PO file could easily show whether it is just another color in a row, and their grammatical endings (determined by a translator earlier).</para>
+
+<para>Another difficulty is when an ediff message needs some editing before being applied. This may not be easy to do this directly in the ediff PO file. Everything is fine so long as only the added text segments (<literal>{+...+}</literal>) are edited, but if the sentence needs to be restructured more thoroughly, the reviewer would have to make sure to put all additions into existing or new <literal>{+...+}</literal> segments, and to wrap all removals as <literal>{-...-}</literal> segments. If this is not carefully performed, the patch will not be applicable any more, as the old message resolved from it will no longer exactly match a message in the target PO file.</para>
+
+<para>For these reasons, <command>poepatch</command> can apply the patch such as not to resolve the ediff, but to set all its extraction-invariant fields to the message in the target PO file. In effect, the target PO file becomes an ediff PO by itself, but only in the messages which were actually patched. To mark these messages for lookup, the usual <literal>ediff</literal> flag is added to them. For example, if the message in the patch file was:
+<programlisting>
+#: title.c:274
+msgid "Tutorial"
+msgstr "{-Tutorijal-}{+Podučavanje+}"
+</programlisting>
+then when the patch is successfully applied with embedding, the patched message in target PO file will look like this, among other messages:
+<programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+⁠
+#: title.c:292
+#, ediff
+msgid "Tutorial"
+msgstr "{-Tutorijal-}{+Podučavanje+}"
+⁠
+#: title.c:328
+msgid "Start the Expedition"
+msgstr "Pođi u ekspediciju"
+</programlisting>
+Other than the addition of the <literal>ediff</literal> flag, note that the patched message kept its own source reference, rather than being overwritten by that from the patch. Same holds for all extraction-prescribed parts.</para>
+
+<para>The reviewer can now jump over <literal>ediff</literal> flags, always having the full positional context for each patched message, and being able to edit it to heart's content, with only minimal care not to invalidate the ediff format. Wrapped difference segments can be entirely removed, non-wrapped segments can be freely edited; it should only not happen that a wrapped segment looses its opening or closing sequence. But this does not mean that the reviewer has to remove difference segments, that is, to manually unembed patched messages. <command>poepatch</command> can do this automatically, when run on the embedded-patched PO file with the <option>-u</option>/<option>--unembed</option> option.</para>
+
+<para>A patch is applied with embedding by issuing the <option>-e</option>/<option>--embed</option> option:
+<programlisting>
+$ poepatch -e &lt;ediff.po
+patched (E): foo.po
+</programlisting>
+where <literal>(E)</literal> in the output indicates that the embedding is engaged. After the patched PO file had been reviewed and patched messages possibly edited, all remaining embedded differences are removed, i.e. resolved to new versions, by running:
+<programlisting>
+$ poepatch -u foo.po
+</programlisting>
+More precisely, only those messages having the <literal>ediff</literal> flag are resolved, therefore the reviewer <emphasis>must not</emphasis> remove them (unless manually unembedding the whole message).</para>
+
+<para>What happens with rejected patches when embedding is engaged? They are also added into the target PO file, with heuristic positioning, and no separate file with rejects is created. Same as on plain patching, straight-out rejects will have the <literal>ediff-no-match</literal> flag, and split rejects <literal>ediff-to-cur</literal> or <literal>ediff-to-new</literal>. If these are not manually resolved during the review (<literal>ediff-no-match</literal> messages removed, <literal>ediff-to-*</literal> messages removed or folded), when <command>poepatch</command> is run to unembed the differences, it will remove all <literal>ediff-no-match</literal> and <literal>ediff-to-new</literal> messages, and resolve <literal>ediff-to-cur</literal> messages to current version.</para>
+
+</sect2>
+
+<sect2 id="sec-dppatchopt">
+<title>Command Line Options</title>
+
+<para>
+Options specific to <command>poepatch</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-a</option>, <option>--aggressive</option></term>
+<listitem>
+<para>After the messages from the patch and the target PO file have been paired, normally only those differences that have no conflicts (e.g. in translation) will be applied. This option can be issued to instead unconditionally overwrite all <link linkend="p-msgparts-extinv">extraction-invariant</link> parts of the message in the target PO file with those defined by the paired patch.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-d</option>, <option>--directory</option></term>
+<listitem>
+<para>The directory path to prepend to file paths read from the patch file, when trying to match the files on disk to patch.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-e</option>, <option>--embed</option></term>
+<listitem>
+<para>Apply patch <link linkend="sec-dppatchemb">with embedding</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-i <replaceable>FILE</replaceable></option>, <option>--input=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>Read the patch from the given file instead from standard input.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-n</option>, <option>--no-merge</option></term>
+<listitem>
+<para>When <link linkend="p-split-rejects">split rejects</link> are computed, all <link linkend="sec-dpfrmpairing">methods for pairing messages</link> like on diffing are used. Pairing by merging can sometimes lead to same strange results as on diffing, and this option disables it.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-p <replaceable>NUM</replaceable></option>, <option>--strip=<replaceable>NUM</replaceable></option></term>
+<listitem>
+<para>Strips the smallest prefix containing the given number of slashes from file paths read from the patch file, when trying to match the files on disk to patch. If this option is not given, only the base name of each read file path is taken as relative path to match on disk. (This is the same behavior as in <command>patch(1)</command>.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-u</option>, <option>--unembed</option></term>
+<listitem>
+<para>Clears all embedded differences in input PO files, after they have been patched <link linkend="sec-dppatchemb">with embedding</link>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-dppatchcfg">
+<title>User Configuration</title>
+
+<para><command>poepatch</command> consults the following <link linkend="sec-cmconfig">user configuration</link> fields:
+<variablelist>
+
+<varlistentry>
+<term><literal>[poepatch]/merge=[*yes|no]</literal></term>
+<listitem>
+<para>Setting to <literal>no</literal> is counterpart to <option>--no-merge</option> command line option, i.e. this field can be used to permanently disable <link linkend="p-pairing-merging">pairing by mergingM</link> when computing split rejects.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
 
 </sect1>
 
