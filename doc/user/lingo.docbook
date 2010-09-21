@@ -1002,7 +1002,7 @@ any <literal>environment</literal> directive), while entirely non-common rules w
 </sect2>
 
 <sect2 id="sec-lgrlfilter">
-<title>Filtering Messages for Rules</title>
+<title>Filtering Messages</title>
 
 <para>It is frequently advantageous to apply a set of rules not on the message as it is, but on a suitably filtered variant. For example, if rules are used for terminology checks, it would be good to remove any markup from the text; otherwise, an <literal>&lt;email&gt;</literal> tag in the original could be understood as a real word, and a warning issued for missing the expected counterpart in the translation.</para>
 
@@ -1151,7 +1151,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 </sect2>
 
 <sect2 id="sec-lgrlquotesc">
-<title>Quoting and Escaping in Rules</title>
+<title>Quoting and Escaping</title>
 
 <para>In all the examples so far, ASCII double quotes were used as value delimiters (<literal>"..."</literal>). However, just as in the verbose notation for trigger patterns (<literal>*msgid/.../</literal>, etc.), all quoted values can in fact consistently use any other non-alphanumeric character (e.g. single quote, slash, etc.). On the other hand, literal quotes inside a value can be escaped by prefixing them with <literal>\</literal> (backslash). Values which are regular expression are sent to the regular expression engine without resolving any escapes other than for the quote character itself.</para>
 

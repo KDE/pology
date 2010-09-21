@@ -5,6 +5,724 @@
 <chapter id="ch-diffpatch">
 <title>Diffing and Patching</title>
 
+<para><emphasis>Line-level</emphasis> diffing of plain text files assumes that the file is chunked into lines as largest well-defined units, that each line has a significant standalone meaning, and that the ordering of lines is not arbitrary. For example, this is typical of programming language code.</para>
+
+<para>Superficially, PO files could also be considered "a programming language of translation", and amenable to same line-level treatment on diffing. However, some of the outlined assumptions, which make line-level diffing viable, are violated in the PO format. Firstly, the minimal unit of PO file is one message, whereas one line has little semantic value. Secondly, ordering of messages can be arbitrary in principle (e.g. dependent on the order of extraction from program code files), such that two line-wise very different PO files are actually equivalent from translator's viewpoint. And thirdly, good number of lines in the PO file are auxiliary, neither original text nor translation, generated either automatically or by the programmer (e.g. source references, extracted comments), all of which are out of translator's scope for modifications.</para>
+
+<para>Due to these difficulties, the common way to use line-level diffing with PO files is only for review, and even that with some preparations. Due to myriad line-wise different but semantically equivalent representations of the PO file, it is almost useless to send line-level diffs as patches. Translators are instead told to always send full PO files to the reviewer or the commiter, no matter what is the amount of modifications. Then, the reviewer merges the received PO file (new version), and possibly the original (old version), with current PO template, without wrapping of message strings (<varname>msgid</varname>, <varname>msgstr</varname>, etc.). This "normalizes" the old and the new file with respect to all semantically non-significant elements, and only then can line-level diffing be performed. Additionally, since a long non-wrapped line of text may differ only in few words, a dedicated diff viewer which can highlight <emphasis>word-level</emphasis> differences should be used. Ordinary diff syntax highlighting (e.g. in shell, or in general text editor) would waste reviewer's time in trying to see those few changed words.</para>
+
+<para>Even with preparations and dedicated diff viewer at hand, there is at least one significant case which is still not reasonably covered: when a fuzzy message with previous strings (i.e. when PO file was merged with <option>--previous</option> option to <command>msgmerge</command>) has been updated and unfuzzied. For example:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+⁠  #: main.c:110
+- #, fuzzy
+- #| msgid "The Record of The Witch River"
+  msgid "Records of The Witch River"
+- msgstr "Beleška o Veštičjoj reci"
++ msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The line-level diff viewer will know to show word-level diff for modified translation, but it cannot know that it should also show word-level diff between the removed previous and current <varname>msgid</varname> strings, so that reviewer can see what has changed <emphasis>in the original</emphasis> text (i.e. why had the message became fuzzy), and based on that judge whether the translation was properly adapted.</para>
+
+<para>A dedicated PO editor may be able to show the truly proper, <emphasis>message-level</emphasis> difference.<footnote>
+<para>For example Lokalize, when operating in <ulink url="http://docs.kde.org/stable/en/kdesdk/lokalize/sync.html">merge mode</ulink>.</para>
+</footnote> Even then, however, it remains necessary to send around full PO files, and possibly to normalize them to a lesser extent before comparing. Additionally, the diff format becomes tied to the given PO editor, instead of being self-contained and processable by various tools (such as line-level diffs are).</para>
+
+<para>This chapter therefore introduces the format and semantics for self-contained, message-level diffing of PO files -- the <emphasis>embedded diff</emphasis> -- and presents the Pology tools which implement it.</para>
+
+<!-- ======================================== -->
+<sect1 id="sec-dpformat">
+<title>The Embedded Diff Format</title>
+
+<para>Difference between two PO messages should primarily, though not exclusively, consist of differences between its string parts (<varname>msgid</varname>, <varname>msgstr</varname>, etc.) To be well observable, differences between strings should be as localized as possible -- think of a long paragraph in which only the spelling of a word or some punctuation was changed. Finally, the format of the complete PO message diff should be intuitively comprehensible to translators which are used to the PO format itself, and to some extent compatible with existing PO processing tools.</para>
+
+<para>These considerations lead to making the diff of two PO messages be a PO message itself. In other words, the diff gets <emphasis>embedded</emphasis> into the regular parts of a PO message. An embedded diff (<emphasis>ediff</emphasis> for short) message should be at least syntactically valid, if not semantically (it should not cause a simple <command>msgfmt</command> run to fail, though <command>msgfmt --check</command> could). To be possible to exchange ediffs as patches for PO files, the embedding should be resolvable into the old and the new messages from which the diff was created.</para>
+
+<para>In this way, if ediff messages are packed into a PO file (an <emphasis>ediff PO</emphasis>), existing PO tools can be used to review and modify the diff. For example, highlighting in a text editor will need only minimal upgrades to show the embedded differences (more on that below), and otherwise it will already highlight ediff message parts as usual.</para>
+
+<para>To fully define the ediff format, the following questions should be answered:
+<itemizedlist>
+<listitem>
+<para>How to represent embedded differences in strings?</para>
+</listitem>
+<listitem>
+<para>Which parts of the PO message should be diffed?</para>
+</listitem>
+<listitem>
+<para>How to pair for diffing messages from two PO files?</para>
+</listitem>
+<listitem>
+<para>How to present collection of diffed messages?</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<sect2 id="sec-dpfrmembstr">
+<title>Embedding Differences into Strings</title>
+
+<para>Once the word-level difference between the old and the new string has been computed, it should be somehow embedded it into the new string (or, equivalently, the old string). This can be done by wrapping removed and added text segments with <literal>{-...-}</literal> and <literal>{+...+}</literal>, respectively:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+"Records of The Witch River"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+"Records of The Witch River"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+"{-The Record-}{+Records+} of The Witch River"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+
+<para>It may happen that an opening or closing wrapper sequence occurs as a literal part of diffed strings<footnote>
+<para>Although this should be quite rare. In the collection of PO files from several translation projects, with over 2 million words in total, there was not a single occurence where one of the chosen wrapper sequences was part of the text.</para>
+</footnote>, so some method of escaping is necessary. This is done by inserting a <literal>~</literal> (tilde) in the middle of the literal sequence:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+"Foo {+ bar"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+"Foo {+ qwyx"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+"Foo {~+ {-bar-}{+qwyx+}"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+If strings instead contain the literal sequence <literal>{~+</literal>, then another tilde is inserted, and so on. In this way, ediff can be unambiguously resolved to old and new versions of the string. Escaping by inserting tildes also makes it easier to write a syntax higlighting definition for an editor, as the wrapper pattern is automatically broken by the tilde.</para>
+
+<para>It may happen that a given string is not merely empty in the old or new PO message, but that it does not exist at all (e.g. <literal>msgctxt</literal>). For this reason it is possible to make ediff between an existing and non-existing string as well, in which case a tilde is appended to the very end of the ediff:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+ 
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+"a-context-note"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+"{+a-context-note+}~"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+Here too escaping is provided, by inserting further tildes if the ediff between two existing strings would result in a trailing tilde (if the old string is <literal>"~"</literal> and the new <literal>"foo~"</literal>, the ediff is <literal>"{+foo+}~~"</literal>).</para>
+
+<para>It is not necessary to prescribe the exact algorithm for computing the difference between two strings. In fact, the diffing tool may allow translator to select between several diffing algorithms, depending on personal taste and situation. For example, the default algorithm of <link linkend="sec-dpdiff">Pology's <command>poediff</command></link> does the following: words are diffed as atomic sequences, all non-word segments (punctuation, markup tags, etc.) are diffed character by character, and equal non-word segments in between two different words (e.g. whitespace) are included into the difference segment. Hence the above ediff
+<programlisting>
+"{-The Record-}{+Records+} of The Witch River"
+</programlisting>
+instead of the smaller
+<programlisting>
+"{-The -}Record{+s+} of The Witch River"
+</programlisting>
+as the former is (tentatively) easier to comprehend.</para>
+
+<para>Since every difference segment in the ediff message is represented in the described way, it is sufficient to upgrade the PO syntax highlighting of an editor<footnote>
+<para>At the moment, the following text and PO editors are known to have highlighting for ediffs: Kate, Kwrite, Lokalize.</para>
+</footnote> to indiscriminately highlight <literal>{-...-}</literal> and <literal>{+...+}</literal> segments everywhere in the message.</para>
+
+</sect2>
+
+<sect2 id="sec-dpfrmincparts">
+<title>Message Parts Included in Diffing</title>
+
+<para>A PO message consists of several types of parts: strings, comments, flags, source references, etc. It would not be very constructive to diff all of them; for example, while <varname>msgstr</varname> strings should clearly be included into diffing, source references most probably should not. To avoid pondering over the advantages and disadvantages of including each and every message part, there already exists a well-defined splitting of message parts into two groups, one of which will be taken into diffing, and the other not. These two groups are:
+<itemizedlist>
+<listitem>
+<para><emphasis>Extraction-invariant</emphasis> parts are those which do not depend on placement (or even presence) of the message in the source file. These are <varname>msgid</varname> string, <varname>msgstr</varname> strings, manual comments, etc.</para>
+</listitem>
+<listitem>
+<para><emphasis>Extraction-prescribed</emphasis> parts are those which cannot exist independently of the source file from which the message is extracted, such as format flags or extracted comments.</para>
+</listitem>
+</itemizedlist>
+Only extraction-invariant parts will be diffed. The working definition of which parts belong to this group is provided by what remains in obsolete messages in PO files:
+<itemizedlist>
+<listitem>
+<para>current original text: <varname>msgctxt</varname>, <varname>msgid</varname>, and <varname>msgid_plural</varname> strings</para>
+</listitem>
+<listitem>
+<para>previous original text: <literal>#| msgctxt</literal>, <literal>#| msgid</literal>, and <literal>#| msgid_plural</literal> comments</para>
+</listitem>
+<listitem>
+<para>translation text: <varname>msgstr</varname> strings</para>
+</listitem>
+<listitem>
+<para>translator comments</para>
+</listitem>
+<listitem>
+<para>fuzzy state (whether the <literal>fuzzy</literal> flag is present)</para>
+</listitem>
+<listitem>
+<para>obsolete state (whether the message is obsolete)</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Strings and translator comments are presented in the ediff message as embedded word-level differences, as described earlier. Changes in state, fuzzy and obsolete, are represented differently. A special "extracted" comment is added to the ediff message, starting with <literal>#. ediff:</literal> and listing any extra information needed to describe the ediff, including the state changes. Here is an example of two messages and the ediff they would produce<footnote>
+<para>Whether two messages such as these would get paired for diffing in the first place, will be discussed later on.</para>
+</footnote>:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#, fuzzy
+#~| msgid "Accurate subpolar weather cycles"
+#~ msgid "Accurate subpolar climate cycles"
+#~ msgstr "Tačni ciklusi subpolarnog vremena"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#. ui: property (text), widget (QCheckBox, accCyclesTrop)
+#: config.ui:180
+#, fuzzy
+#| msgid "Accurate tropical weather cycles"
+msgctxt "some-superfluous-context"
+msgid "Accurate tropical climate cycles"
+msgstr "Tačni ciklusi tropskog vremena"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#. ediff: state {-obsolete-}
+#. ui: property (text), widget (QCheckBox, accCyclesTrop)
+#: config.ui:180
+#, fuzzy
+#| msgid "Accurate {-subpolar-}{+tropical+} weather cycles"
+msgctxt "{+some-superfluous-context+}~"
+msgid "Accurate {-subpolar-}{+tropical+} climate cycles"
+msgstr "Tačni ciklusi {-subpolarnog-}{+tropskog+} vremena"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+
+<para>The first thing to note is that the ediff message contains not only the extraction-invariant parts, but also verbatim copies of extraction-prescribed parts from the new message. Effectively, the ediff is embedded into the copy of the new message. Extraction-prescribed parts are not simply discarded in order to provide more context when reviewing the diff. Here, for example, the extracted comment states that the text is a checkbox label, which may be important for the style of translation.</para>
+
+<para>The other important element is the <literal>#. ediff:</literal> dummy extracted comment, which here indicates that the obsolete state has been "removed", i.e. the message was unobsoleted betwen then old and the new version of the PO file. Aside from state changes, few other indicators may be present in this comment, and they will be mentioned later on. The ediff comment is present only when necessary, if there are any indicators to show.</para>
+
+<para>If diffing of two messages would always be conducted part for part, for all message parts which are taken into diffing, then in some cases the resulting ediff would not be very useful. Consider how the first example in this chapter, the line-level diff of a fuzzy and translated message, would look like as ediff if diffed part for part:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#. ediff: state {-fuzzy-}
+#: main.c:110
+#| msgid "{-The Record of The Witch River-}~"
+msgid "Records of The Witch River"
+msgstr "{-Beleška-}{+Beleške+} o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+This ediff suffers from the same problem as the line-level diff: instead of showing the difference from previous to current <varname>msgid</varname> string, the current <varname>msgid</varname> is left untouched, while the previous <varname>msgid</varname> is simply shown to have been removed.</para>
+
+<para>Therefore, instead of diffing directly part for part, a special transformation takes place when <emphasis>exactly one</emphasis> of the two diffed messages is fuzzy and contains previous original strings. This splits into two directions: from fuzzy to non-fuzzy, and from non-fuzzy to fuzzy.</para>
+
+<para>Diffing from a fuzzy to a non-fuzzy message is the more usual of the two directions. It typically appears when the translation has been updated after merging with template. In this case, the old and the new message are shuffled prior to diffing in the following way (<literal>*-rest</literal> denotes all diffed parts that are neither original text nor fuzzy state):
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+fuzzy                   -->     fuzzy
+old-previous-strings    -->     old-previous-strings
+old-current-strings     -->     old-previous-strings
+old-rest                -->     old-rest
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+-                       -->     -
+-                       -->     old-current-strings
+new-current-strings     -->     new-current-strings
+new-rest                -->     new-rest
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+When these shuffled messages are diffed, the resulting ediff message's current strings will show the important difference, that between the previous original text of the old (fuzzy) message and the current original text of the new (non-fuzzy) message. Ediff message's previous strings will show the less important difference between the old message's previous and current strings, but <emphasis>only</emphasis> if it is not the same as the difference between current strings. This may sound confusing, but the actual ediff produced in this way is quite intuitive:
+<informaltable id="t-ediff-f-to-nf">
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#. ediff: state {-fuzzy-}
+#: main.c:110
+msgid "{-The Record-}{+Records+} of The Witch River"
+msgstr "{-Beleška-}{+Beleške+} o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+From this the reviewer can see that the message was unfuzzied, the change in the original text that caused the message to become fuzzy, and what was changed in the translation to unfuzzy it. The old version of the text (in removed and equal segments) is that from the message <emphasis>before</emphasis> it got fuzzied, and the new version (in added and equal segments) is that from the message after it was unfuzzied.</para>
+
+<para>The other special direction, from a non-fuzzy to a fuzzy message, should be less frequent. It appears, for example, when the diff is taken from the old, completely translated PO file, to the new PO file which has been merged with the latest template. In this case, the shuffling is as follows:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+-                       -->     -
+-                       -->     new-previous-strings
+old-current-strings     -->     old-current-strings
+old-rest                -->     old-rest
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+fuzzy                   -->     fuzzy
+new-previous-strings    -->     new-current-strings
+new-current-strings     -->     new-current-strings
+new-rest                -->     new-rest
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The difference in ediff messages's current strings will again be the most important one, and in previous strings the less important one and shown only if not equal to the difference in current strings. Here is what this will result in when applied one step earlier, just after merging with template:
+<informaltable id="t-ediff-nf-to-f">
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:89
+msgid "The Record of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#. ediff: state {+fuzzy+}
+#: main.c:110
+#, fuzzy
+msgid "{-The Record-}{+Records+} of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The reviewer can see that the message became fuzzy, and the change in the original text that caused that.</para>
+
+<para>The diffing tool may add custom additional information at the end of any strings in the ediff message (<varname>msgid</varname>, <varname>msgstr</varname>, etc.), separated with a newline, a repeated block of one or more characters, and a newline. When this is done, the <literal>#. ediff:</literal> comment will have the <literal>infsep</literal> indicator, which states the character block used and the number of repetitions in the separator:
+<programlisting>
+#. ediff: state {+fuzzy+}, infsep +- 20
+#: main.c:110
+#, fuzzy
+msgid "{-The Record-}{+Records+} of The Witch River"
+msgstr ""
+"Beleška o Veštičjoj reci\n"
+"+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n"
+"<replaceable>additional-information></replaceable>"
+</programlisting>
+Of course, the diffing tool should compute the appropriate separator such that it does not conflict with a part of the text in one of the strings. What could be this additional information? For example, it could be a filtered version of the text, to ease some special review type.</para>
+
+</sect2>
+
+<sect2 id="sec-dpfrmparing">
+<title>Pairing Messages From Two PO Files</title>
+
+<para>By now it was described how to make an embedded diff out of two messages, once it has been decided that those messages should be diffed. However, the translator is not expected to decide which messages to diff, but which PO files to diff. The diffing tools should then automatically <emphasis>pair</emphasis> for diffing the messages from the two PO files, and this section describes the several pairing criteria.</para>
+
+<para>Most obviously, messages should be <emphasis>paired by key</emphasis>, which can be called primary pairing. The PO message key is the unique combination of <varname>msgctxt</varname> and <varname>msgid</varname> strings. In the most usual case -- reviewing an ediff from incomplete PO file with fuzzy and untranslated messages, to an updated PO file with those messages translated -- pairing by key will be fully sufficient, as both PO files will contain exactly the same set of messages. These two messages will be paired by key:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+
+<para>But what should happen if some messages are left unpaired after pairing by key? Consider the earlier example where the diff was taken from the older fully translated to the newer merged PO file:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:89
+msgid "The Record of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+#, fuzzy
+#| msgid "The Record of The Witch River"
+msgid "Records of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+The keys, here just current <varname>msgid</varname> strings, of the two messages do not match, so they cannot be paired by key. Yet it would be ungainly to represent the old message as fully removed, and the new message as fully added, in the resulting ediff:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#: main.c:89
+msgid "{-The Record of The Witch River-}~"
+msgstr "{-Beleška o Veštičjoj reci-}~"
+⁠
+#. ediff: state {+fuzzy+}
+#: main.c:110
+#, fuzzy
+#| msgid "{+The Record of The Witch River+}~"
+msgid "{+Records of The Witch River+}~"
+msgstr "{+Beleška o Veštičjoj reci+}~"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+(That the message has been fully added or removed can be seen by trailing tilde in the <varname>msgid</varname> string, which indicates that the old or new <varname>msgid</varname> does not exist at all, and so neither the message with it.)</para>
+
+<para>Instead, messages left unpaired by key should be tested for <emphasis>pairing by pivoting</emphasis> around previous strings (secondary pairing). The two messages above will thus be paired due to the fact that the current <varname>msgid</varname> of the old message is equal to the previous <varname>msgid</varname> of the new message, and will produce a single ediff message <link linkend="t-ediff-nf-to-f">as shown earlier</link>.</para>
+
+<para>Finally, consider the third related combination, when the old PO file has not yet been merged with the template, while the new PO file has both been merged and its translation updated:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>old</entry>
+<entry><programlisting>
+#: main.c:89
+msgid "The Record of The Witch River"
+msgstr "Beleška o Veštičjoj reci"
+</programlisting></entry>
+</row>
+<row>
+<entry>new</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "Records of The Witch River"
+msgstr "Beleške o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+Once again it would be a waste to present the old message as fully removed and the new message as fully added in the resulting ediff. When a message is left unpaired after both pairing by key and pairing by pivoting, then the two PO files can be merged in the background -- as if the new is the template for the old, and vice versa -- and then tested for chained pairing by pivoting and by key with the merged catalog as intermediary. This <emphasis>pairing by merging</emphasis> (tertiary pairing) will then produce another natural ediff:
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="2cm"/>
+<colspec />
+<tbody>
+<row>
+<entry>diff</entry>
+<entry><programlisting>
+#: main.c:110
+msgid "{-The Record-}{+Records+} of The Witch River"
+msgstr "{-Beleška-}{+Beleške+} o Veštičjoj reci"
+</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</para>
+
+<para>It can be left to the diffing tool to decide which pairing methods beyond the primary pairing, by key, to use. There should not be much reason not to perform secondary pairing, by pivoting, as well. If tertiary pairing, by merging, is done, the user should be allowed to disable it, as it can sometimes produce strange results (subject to the fuzzy matching algorithm).</para>
+
+</sect2>
+
+<sect2 id="sec-dpfrmcollect">
+<title>Collecting Diffed Messages</title>
+
+<para>For the ediff of two PO files to also be a syntactically valid PO file, constructed ediff messages should be preceded by a PO header in output. At first glance, this PO header could be itself the ediff of PO headers of the catalogs which were diffed. However, there are several issues with this approach:
+<itemizedlist>
+
+<listitem>
+<para>The reviewer of the ediff PO file would not be informed at once if there was any difference between the headers. Headers tend to be long, and a small change in one of header fields may go visually unnoticed.</para>
+</listitem>
+
+<listitem>
+<para>Depending on the amount of changes between the two headers, the resulting ediff message of the header could be too badly formed to represent the header as such. For example, if some header fields in <varname>msgstr</varname> were added or removed, embedded difference wrappers would invalidate the MIME-header format of <varname>msgstr</varname>, which could confuse PO processing tools.</para>
+</listitem>
+
+<listitem>
+<para>How would the diff of two <emphasis>collections</emphasis> of PO files (e.g. directories) be packed into a single ediff PO? To pack diffs of several file pairs into one diff file is an expected feature of diffing tools.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>To avert these difficulties, the following is done instead. First, a minimal valid header is constructed for the ediff PO file, <emphasis>independently</emphasis> of the headers in diffed PO files. The precise content can be left to the diffing tool, with <link linkend="sec-dpdiff">Pology's <command>poediff</command></link> producing something like:
+<programlisting>
+# +- ediff -+
+msgid ""
+msgstr ""
+"Project-Id-Version: ediff\n"
+"PO-Revision-Date: 2009-02-08 01:20+0100\n"
+"Last-Translator: J. Random Translator\n"
+"Language-Team: Differs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Ediff-Header-Context: ~\n"
+</programlisting>
+The <literal>PO-Revision-Date</literal> header field is naturally set to the date when the ediff was made. Values for the <literal>Last-Translator</literal> and <literal>Language-Team</literal> fields can be somehow pulled from the environment (<command>poediff</command> will fetch them from <link linkend="sec-cmcfguser">Pology user configuration</link>, or set some dummy values). Encoding of the ediff PO can be chosen at will, so long as all constructed ediff messages can be encoded with it (<command>poediff</command> will always use UTF-8). The purpose of the final, <literal>X-Ediff-Header-Context</literal> field will be explained shortly.</para>
+
+<para>It is the first next entry in the ediff PO file that will actually be the ediff of headers of the two diffed PO files. Headers are diffed just like any other message, but the resulting ediff is given a few additional decorations:
+<programlisting>
+# =========================================================
+# Translation of The Witch River into Serbian.
+# Koja Kojic &lt;koja.kojic@nedohodnik.net>, 2008.
+# {+Era Eric &lt;era.eric@ledopad.net>, 2008.+}~
+msgctxt "~"
+msgid ""
+"- l10n-wr/sr/wriver-main.po\n"
+"+ l10n-wr/sr-mod/wriver-main.po\n"
+msgstr ""
+"Project-Id-Version: wriver 0.1\n"
+"POT-Creation-Date: 2008-09-22 09:17+0200\n"
+"PO-Revision-Date: 2008-09-{-25 20:44-}{+28 21:49+}+0100\n"
+"Last-Translator: {-Koja Kojic &lt;koja.kojic@nedohodnik-}"
+"{+Era Eric &lt;era.eric@ledopad+}.net>\n"
+"Language-Team: Serbian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+</programlisting>
+Observe the usual ediff segments: translator comment with a new translator who updated the PO file has been added, and the <literal>PO-Revision-Date</literal> and <literal>Last-Translator</literal> header fields contain ediffs reflecting the update. These are the only actual differences between the two headers. More interesting are the additional decorations:</para>
+<itemizedlist>
+
+<listitem>
+<para>The very first translator comment (here a long line of equality signs) can be anything, and serves as a strong visual indicator of the header ediff. This is especially convenient when the ediff PO file contains diffs of several pairs of PO files.</para>
+</listitem>
+
+<listitem>
+<para>That this particular message is a header ediff, is indicated by the <varname>msgctxt</varname> string set to a special value, here a single tilde. This value is given up front by the <literal>X-Ediff-Header-Context</literal> of the ediff PO header. It should be computed during diffing such that it does not conflict with <varname>msgctxt</varname> of one of the message ediffs (e.g. it may simply be a sufficiently long sequence of tildes).</para>
+</listitem>
+
+<listitem>
+<para>The <varname>msgid</varname> string of the header ediff contains newline-separated paths of the diffed PO files. More precisely, the two lines of the <varname>msgid</varname> string are in the form <literal>[+-] <replaceable>file-path</replaceable>[ &lt;&lt;&lt; <replaceable>comment</replaceable>]\n</literal>. The trailing newline of the second file path is elided if the <varname>msgstr</varname> string does not end in newline, to prevent <command>msgfmt</command> from complaining. The file path is followed by the optional, <literal>&lt;&lt;&lt;</literal>-separated comment. This comment can be used for any purpose, one which will be demonstrated in <command>poediff</command>.</para>
+</listitem>
+
+</itemizedlist>
+
+<para>Although when a PO file is properly updated there should always be some difference in the header, it may happen that there is none. In such case, the header ediff message is still added, but it contains only the additional decorations: the visual separator comment, the special <varname>msgctxt</varname>, and the <varname>msgid</varname> with file paths. All other comments and <varname>msgstr</varname> are empty; the empty <varname>msgstr</varname> immediatelly shows that there is no difference between the headers. This "empty" header ediff is needed to provide the file paths of diffed PO files, and, if several pairs of PO files were diffed, to separate their  diffs in the ediff PO file.</para>
+
+<para>After the header ediff message, ordinary ediff messages follow. When all constructed ediff messages from the current pair of PO files are listed, the next pair starts with a new header ediff message, and so on.</para>
+
+<para>Especially when diffing several pairs of PO files, it may happen that two ediff messages have same keys (<varname>msgid</varname> and <varname>msgctxt</varname> strings) and thus cannot be both added as such to the ediff PO file. When that happens, the ediff message which was added after the first with the same key, will have its <varname>msgctxt</varname> string <emphasis>padded</emphasis> by few random alphanumerics, to make its key unique. This padding sequence will be recorded in the <literal>#. ediff:</literal> comment, as <literal>ctxtpad</literal> field. For example:
+<programlisting>
+# =========================================================
+msgctxt "~"
+msgid "...(first PO header ediff)..."
+msgstr "..."
+⁠
+#. ediff: state {-fuzzy-}
+msgid "White{+ horizon+}"
+msgstr "Belo{+ obzorje+}"
+⁠
+# =========================================================
+msgctxt "~"
+msgid "...(second PO header ediff)..."
+msgstr "..."
+⁠
+#. ediff: state {-fuzzy-}, ctxtpad q9ac3
+msgctxt "|q9ac3~"
+msgid "White{+ horizon+}"
+msgstr "Belo{+ obzorje+}"
+</programlisting>
+The padding sequence is appended to the original <varname>msgctxt</varname>, separated by <literal>|</literal>. If there was no original <varname>msgctxt</varname>, the padding sequence is further extended by a tilde.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-dpdiff">
+<title>Producing Ediffs with <command>poediff</command></title>
+
 <para></para>
 
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-dppatch">
+<title>Applying Ediffs as Patches with <command>poepatch</command></title>
+
+<para></para>
+
+</sect1>
+
 </chapter>
+
