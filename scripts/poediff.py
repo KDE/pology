@@ -4,12 +4,7 @@
 """
 Create embedded diffs of PO files.
 
-The concept of embedded diffing for PO files is described in detail at
-U{http://techbase.kde.org/Localization/Tools/Pology/PO_Embedded_Diffing}.
-The usage of this script is also explained in the article.
-
-@warning: This module is a script for end-use. No exposed functionality
-should be considered public API, it is subject to change without notice.
+Documented in C{doc/user/diffpatch.docbook#sec-dppatch}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -72,11 +67,10 @@ def main ():
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-o", "--output",
-        metavar=_("@info command line value placeholder", "POFILE"),
-        dest="output",
+        "-b", "--skip-obsolete",
+        action="store_true", dest="skip_obsolete", default=False,
         help=_("@info command line option description",
-               "Output diff catalog to a file instead of stdout."))
+               "Do not diff obsolete messages."))
     opars.add_option(
         "-c", "--vcs",
         metavar=_("@info command line value placeholder", "VCS"),
@@ -85,41 +79,6 @@ def main ():
                "Paths are under version control by given VCS; "
                "can be one of: %(vcslist)s.",
                vcslist=format_item_list(showvcs)))
-    opars.add_option(
-        "-r", "--revision",
-        metavar=_("@info command line value placeholder", "REV1[:REV2]"),
-        dest="revision",
-        help=_("@info command line option description",
-               "Revision from which to diff to current working copy, "
-               "or from first to second revision (if VCS is given)."))
-    opars.add_option(
-        "-b", "--skip-obsolete",
-        action="store_true", dest="skip_obsolete", default=False,
-        help=_("@info command line option description",
-               "Do not diff obsolete messages."))
-    opars.add_option(
-        "-n", "--no-merge",
-        action="store_false", dest="do_merge", default=def_do_merge,
-        help=_("@info command line option description",
-               "Do not try to indirectly pair messages by merging catalogs."))
-    opars.add_option(
-        "-s", "--strip-headers",
-        action="store_true", dest="strip_headers", default=False,
-        help=_("@info command line option description",
-               "Do not diff headers and do not write out the top header "
-               "(resulting output cannot be used as patch)."))
-    opars.add_option(
-        "-Q", "--quick",
-        action="store_true", dest="quick", default=False,
-        help=_("@info command line option description",
-               "Equivalent to %(opt)s.",
-               opt="-bns"))
-    opars.add_option(
-        "-p", "--paired-only",
-        action="store_true", dest="paired_only", default=False,
-        help=_("@info command line option description",
-               "When two directories are diffed, ignore catalogs which "
-               "are not present in both directories."))
     opars.add_option(
         "--list-options",
         action="store_true", dest="list_options", default=False,
@@ -130,6 +89,42 @@ def main ():
         action="store_true", dest="list_vcs", default=False,
         help=_("@info command line option description",
                "List the keywords of known version control systems."))
+    opars.add_option(
+        "-n", "--no-merge",
+        action="store_false", dest="do_merge", default=def_do_merge,
+        help=_("@info command line option description",
+               "Do not try to indirectly pair messages by merging catalogs."))
+    opars.add_option(
+        "-o", "--output",
+        metavar=_("@info command line value placeholder", "POFILE"),
+        dest="output",
+        help=_("@info command line option description",
+               "Output diff catalog to a file instead of stdout."))
+    opars.add_option(
+        "-p", "--paired-only",
+        action="store_true", dest="paired_only", default=False,
+        help=_("@info command line option description",
+               "When two directories are diffed, ignore catalogs which "
+               "are not present in both directories."))
+    opars.add_option(
+        "-Q", "--quick",
+        action="store_true", dest="quick", default=False,
+        help=_("@info command line option description",
+               "Equivalent to %(opt)s.",
+               opt="-bns"))
+    opars.add_option(
+        "-r", "--revision",
+        metavar=_("@info command line value placeholder", "REV1[:REV2]"),
+        dest="revision",
+        help=_("@info command line option description",
+               "Revision from which to diff to current working copy, "
+               "or from first to second revision (if VCS is given)."))
+    opars.add_option(
+        "-s", "--strip-headers",
+        action="store_true", dest="strip_headers", default=False,
+        help=_("@info command line option description",
+               "Do not diff headers and do not write out the top header "
+               "(resulting output cannot be used as patch)."))
     add_cmdopt_colors(opars)
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))

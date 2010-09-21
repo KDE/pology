@@ -4,12 +4,7 @@
 """
 Patch PO files from an embedded diff.
 
-The concept of embedded diffing for PO files is described in detail at
-U{http://techbase.kde.org/Localization/Tools/Pology/PO_Embedded_Diffing}.
-The usage of this script is also explained in the article.
-
-@warning: This module is a script for end-use. No exposed functionality
-should be considered public API, it is subject to change without notice.
+Documented in C{doc/user/diffpatch.docbook#sec-dpdiff}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -70,6 +65,35 @@ def main ():
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
+        "-a", "--aggressive",
+        action="store_true", dest="aggressive", default=False,
+        help=_("@info command line option description",
+               "Apply every message to its paired message in the target file, "
+               "irrespective of whether its non-pairing parts match too."))
+    opars.add_option(
+        "-d", "--directory",
+        metavar=_("@info command line value placeholder", "DIR"),
+        dest="directory",
+        help=_("@info command line option description",
+               "Prepend this directory path to any resolved target file path."))
+    opars.add_option(
+        "-e", "--embed",
+        action="store_true", dest="embed", default=False,
+        help=_("@info command line option description",
+               "Instead of applying resolved newer version of the message, "
+               "add the full embedded diff into the target file."))
+    opars.add_option(
+        "-i", "--input",
+        metavar=_("@info command line value placeholder", "FILE"),
+        dest="input",
+        help=_("@info command line option description",
+               "Read the patch from the given file instead of standard input."))
+    opars.add_option(
+        "-n", "--no-merge",
+        action="store_false", dest="do_merge", default=def_do_merge,
+        help=_("@info command line option description",
+               "Do not try to indirectly pair messages by merging catalogs."))
+    opars.add_option(
         "-p", "--strip",
         metavar=_("@info command line value placeholder", "NUM"),
         dest="strip",
@@ -78,40 +102,11 @@ def main ():
                "each file name found in the ediff file (like in patch(1)). "
                "If not given, only the base name of each file is taken."))
     opars.add_option(
-        "-d", "--directory",
-        metavar=_("@info command line value placeholder", "DIR"),
-        dest="directory",
-        help=_("@info command line option description",
-               "Append this directory path to any resolved target file path."))
-    opars.add_option(
-        "-a", "--aggressive",
-        action="store_true", dest="aggressive", default=False,
-        help=_("@info command line option description",
-               "Apply every message to its paired message in the target file, "
-               "irrespective of whether its non-pairing parts match too."))
-    opars.add_option(
-        "-e", "--embed",
-        action="store_true", dest="embed", default=False,
-        help=_("@info command line option description",
-               "Instead of applying resolved newer version of the message, "
-               "add the full embedded diff into the target file."))
-    opars.add_option(
         "-u", "--unembed",
         action="store_true", dest="unembed", default=False,
         help=_("@info command line option description",
                "Instead of applying a patch, resolve all embedded differences "
                "in given paths to newer versions of messages."))
-    opars.add_option(
-        "-n", "--no-merge",
-        action="store_false", dest="do_merge", default=def_do_merge,
-        help=_("@info command line option description",
-               "Do not try to indirectly pair messages by merging catalogs."))
-    opars.add_option(
-        "-i", "--input",
-        metavar=_("@info command line value placeholder", "FILE"),
-        dest="input",
-        help=_("@info command line option description",
-               "Get embedded difference from file instead of stdout."))
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
