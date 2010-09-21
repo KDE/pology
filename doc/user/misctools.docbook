@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="ch-misctools">
+<title>Miscellaneous Tools</title>
+
+<para>This chapter describes various smaller standalone tools in Pology, which do not introduce any major PO processing concepts nor can be grouped under a common topic.</para>
+
+<!-- ======================================== -->
+<sect1 id="sec-mirewrap">
+<title>Rewrapping PO Files with <command>porewrap</command></title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-miselfmerge">
+<title>Self-Merging PO Files with <command>poselfmerge</command></title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-mimtrans">
+<title>Machine Translation with <command>pomtrans</command></title>
+
+<para><emphasis>Machine translation</emphasis> is the process where a computer program is used to produce translation of more than a trivial piece of text, starting from single sentences, over paragraphs, to full documents. There are debates on how useful machine translation is right now and how much better it could become in the future, and there is a steady line of research in that direction. Limiting to widely available examples of machine translation software today, it is safe to say that, on the one hand, machine translation can preserve a lot of the meaning of the original and thus be very useful to the reader who needs to grasp the main points of the text, but on the other hand, are not at all passable for producing translations of the quality expected of human translators who are native speaker of the target language.</para>
+
+<para>As far as Pology is concerned, the question of machine translation reduces to this: would it increase the efficiency of translation if PO files were first machine-translated, and then manually corrected by a human translator? There is no general answer to this question, as it depends stronly on all elements in the chain: the quality of machine translation software, the source language, the target language, and the human translator. Be that as it may, Pology provides the <command>pomtrans</command> script, which can fill in untranslated messages in PO files by passing original text through various machine translation services.</para>
+
+<para><command>pomtrans</command> has two principal modes of operation. The more straightforward is the direct mode, where original texts are simply <varname>msgid</varname> strings in the given PO file. In this mode, PO files can be machine-translated with:
+<programlisting>
+$ pomtrans <replaceable>transerv</replaceable> -t <replaceable>lang</replaceable> <replaceable>paths...</replaceable>
+</programlisting>
+The first argument is the translation service keyword, chosen from one known to <command>pomtrans</command>. The <option>-t</option> option specifies the target language; it may not be necessary if processed PO files have the <literal>Language:</literal> header field properly set. The source language is assumed to be English, but there is an option to specify another source language. Afterwards an arbitrary number of paths follow, which may be either single PO files or directories which will be recursively searched for PO files.</para>
+
+<para><command>pomtrans</command> will try to translate only untranslated messages, and not fuzzy messages. When it translates a message, by default it will make it fuzzy as well, meaning that a human should go through all machine-translated messages. These defaults are based on the perceived current quality of most machine translation services. There are several command line options to change this behavior.</para>
+
+<para>The other mode of operation is the parallel mode. Here <command>pomtrans</command> takes the original text to be the translation into another language, i.e. <varname>msgstr</varname> strings from a PO file translated into another language. For example, if a PO file should be translated into Spanish (i.e. from English to Spanish), and that same PO file is available fully translated into French (i.e. from English to French), then <command>pomtrans</command> could be used to translate from French to Spanish. This is done in the following way:
+<programlisting>
+$ pomtrans <replaceable>transerv</replaceable> -s <replaceable>lang1</replaceable> -t <replaceable>lang2</replaceable> -p <replaceable>search</replaceable>:<replaceable>replace</replaceable> <replaceable>paths...</replaceable>
+</programlisting>
+As in direct mode, the first argument is the translation service. Then both the source (<option>-s</option>) and the target language (<option>-t</option>) are specified; again, if PO files have their <literal>Language:</literal> header fields set, these options are not necessary. The perculiar here is the <option>-p</option> option, which specifies two strings, separated by colon. These are used to construct paths to source language PO files, by replacing the first string in paths of target language PO files with the second string. For example, if the file tree is:
+<programlisting>
+foo/
+    po/
+        alpha/
+            alpha.pot
+            fr.po
+            es.po
+        bravo/
+            bravo.pot
+            fr.po
+            es.po
+</programlisting>
+then the invocation could be:
+<programlisting>
+$ cd .../foo/
+$ pomtrans <replaceable>transerv</replaceable> -s fr -t es -p es.:fr. po/*/es.po
+</programlisting>
+In case a PO file in target language does not have a counterpart in source language, it is simply skipped.</para>
+
+<para>There is another variation of the parallel mode, where source language texts are drawn not from counterpart PO files, but from a single, compendium PO file in source language. This mode is engaged by giving the path to that compendium with the <option>-c</option> option, instead of the <option>-p</option> option for path replacement.</para>
+
+<sect2 id="sec-mimtopts">
+<title>Command Line Options</title>
+
+<para>Options specific to <command>pomtrans</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-a <replaceable>CHARS</replaceable></option>, <option>--accelerator=<replaceable>CHARS</replaceable></option></term>
+<listitem>
+<para>Characters used as <link linkend="sec-poaccel">accelerator markers</link> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<footnote>
+<para>This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</para>
+</footnote></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-c <replaceable>FILE</replaceable></option>, <option>--parallel-compendium=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>The path to source language compendium, in parallel translation mode.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-l</option>, <option>--list-transervs</option></term>
+<listitem>
+<para>Lists known translation services (the keywords which can be the first argument to <command>pomtrans</command>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-m</option>, <option>--flag-mtrans</option></term>
+<listitem>
+<para>Adds the <literal>mtrans</literal> flag to each machine-translated message. This may be useful to positively identify machine-translated messages in the resulting PO file, as otherwise they are simply fuzzy.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-M <replaceable>MODE</replaceable></option>, <option>--translation-mode=<replaceable>MODE</replaceable></option></term>
+<listitem>
+<para>Translation services need as input the mode in which to operate, usually the source and target language at minimum. By default the translation mode is constructed based on source and target languages, but this is sometimes not precise enough. This option can be used to issue a custom mode string for the chosen translation service, overriding the default construction. The format of the mode string is translation service dependent, check documentation of respective translation services for details.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-n</option>, <option>--no-fuzzy-flag</option></term>
+<listitem>
+<para>By default machine-translated messages are made fuzzy, which is prevented by this option. It goes without saying that this is dangerous at current state of the art in machine translation, and should be used only in very specific scenarios (e.g. high quality machine translation between two dialects of the same language).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-p <replaceable>SEARCH</replaceable>:<replaceable>REPLACE</replaceable></option>, <option>--parallel-catalogs=<replaceable>SEARCH</replaceable>:<replaceable>REPLACE</replaceable></option></term>
+<listitem>
+<para>The string to search for in paths of target language PO files, and the string to replace them with to construct paths of source language PO files, in parallel translation mode.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-s <replaceable>LANG</replaceable></option>, <option>--source-lang=<replaceable>LANG</replaceable></option></term>
+<listitem>
+<para>The source language code, i.e. the language which is being translated from.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-t <replaceable>LANG</replaceable></option>, <option>--target-lang=<replaceable>LANG</replaceable></option></term>
+<listitem>
+<para>The target language code, i.e. the language which is being translated into.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-T <replaceable>PATH</replaceable></option>, <option>--transerv-bin=<replaceable>PATH</replaceable></option></term>
+<listitem>
+<para>If the selected translation service is (or can be) a program on the local computer, this option can be used to specify the path to its executable file, if it is not in the <envar>PATH</envar>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-mimtservs">
+<title>Supported Machine Translation Services</title>
+
+<para>Currently supported translation services are as follows (with keyword in parenthesis):
+<variablelist>
+
+<varlistentry>
+<term>Apertium (<literal>apertium</literal>)</term>
+<listitem>
+<para><ulink url="http://www.apertium.org/">Apertium</ulink> is a free machine translation platform, developed by the TRANSDUCENS research group of University of Alicante. There is a basic web service, but the software can be locally installed and that is how <command>pomtrans</command> uses it (some distributions provide packages).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Google Translate (<literal>google</literal>)</term>
+<listitem>
+<para><ulink url="http://translate.google.com/">Google Translate</ulink> is Google's proprietary web machine-translation service, which can be used free of charge. At the moment, <command>pomtrans</command> makes one query to it per message, which can take quite some time on long PO files.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

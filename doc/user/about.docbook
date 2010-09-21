@@ -96,7 +96,7 @@ $ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
 <para>Optional general software:
 <itemizedlist>
 <listitem>
-<para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by <link linkend="sec-lgmtrans">the <command>pomtrans</command> script</link>.</para>
+<para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by <link linkend="sec-mimtrans">the <command>pomtrans</command> script</link>.</para>
 </listitem>
 <listitem>
 <para><ulink url="http://www.languagetool.org/">LanguageTool</ulink> >= 1.0. Open source language checker, used by the <link linkend="sv-check-grammar"><command>check-grammar</command></link> sieve.</para>
