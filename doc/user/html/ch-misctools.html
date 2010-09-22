@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chapter&nbsp;7.&nbsp;Miscellaneous Tools</title>
+<link rel="stylesheet" href="data/style.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Pology User Manual">
+<link rel="up" href="index.html" title="Pology User Manual">
+<link rel="prev" href="ch-ascript.html" title="Chapter&nbsp;6.&nbsp;Ascribing Modifications and Reviews">
+<link rel="next" href="ch-lingo.html" title="Chapter&nbsp;8.&nbsp;Language Validation and Derivation">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr>
+<th colspan="3" align="center">Chapter&nbsp;7.&nbsp;Miscellaneous Tools</th>
+</tr>
+<tr>
+<td width="20%" align="left"><a accesskey="p" href="ch-ascript.html">Prev</a>&nbsp;</td>
+<th width="60%" align="center">&nbsp;</th>
+<td width="20%" align="right">&nbsp;<a accesskey="n" href="ch-lingo.html">Next</a></td>
+</tr>
+</table>
+<hr></div>
+<div class="chapter">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="ch-misctools" id="ch-misctools"></a>Chapter&nbsp;7.&nbsp;Miscellaneous Tools</h2>
+</div>
+</div>
+</div>
+<p>This chapter describes various smaller standalone tools in Pology, which do not introduce any major PO processing concepts nor can be grouped under a common topic.</p>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-mirewrap" id="sec-mirewrap"></a>7.1.&nbsp;Rewrapping PO Files with <span class="command"><strong>porewrap</strong></span></h2>
+</div>
+</div>
+</div>
+<p>The <span class="command"><strong>porewrap</strong></span> script does one simple thing: it rewraps message strings (<code class="varname">msgid</code>, <code class="varname">msgstr</code>, etc.) in PO files. Gettext's tools, e.g. <span class="command"><strong>msgcat</strong></span>, can be used for rewrapping as well, so what is the reason of existence of <span class="command"><strong>porewrap</strong></span>? The lesser reason is convenience. Arbitrary number of PO file paths can be given to it as arguments, as well as directory paths which will be recursively search for PO files. The more important reason is that Pology can also perform "fine" wrapping, as described in <a class="xref" href="ch-common.html#sec-cmwrap" title="9.8.&nbsp;Line Wrapping in PO Messages">Section&nbsp;9.8, “Line Wrapping in PO Messages”</a>. Thus, running:</p>
+<pre class="programlisting">
+$ porewrap --no-wrap --fine-wrap somedir/
+</pre>
+<p>will rewrap all PO files found in <code class="filename">somedir/</code> and below, such that basic wrapping (on column) is disabled (<code class="literal">--no-wrap</code>), while fine wrapping (on logical breaks) is enabled (<code class="literal">--fine-wrap</code>).</p>
+<p>Other than from command line options, <span class="command"><strong>porewrap</strong></span> will also consult the PO file header and the user configuration, for the wrapping mode. Command line options have the highest priority, followed by the PO header, and the user configuration at the end. For details on how to set the wrapping mode in PO headers, see the description of <code class="literal">X-Wrapping</code> header field in <a class="xref" href="ch-common.html#sec-cmheader" title="9.9.&nbsp;Influential Header Fields">Section&nbsp;9.9, “Influential Header Fields”</a>. If none of these sources specify the wrapping mode, <span class="command"><strong>porewrap</strong></span> will apply basic wrapping.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mirwopts" id="sec-mirwopts"></a>7.1.1.&nbsp;Command Line Options</h3>
+</div>
+</div>
+</div>
+<p>Options specific to <span class="command"><strong>porewrap</strong></span>:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="option">-v</code>, <code class="option">--verbose</code></span></dt>
+<dd>
+<p>Since <span class="command"><strong>porewrap</strong></span> just opens and writes back all the PO files given to it, it normally does not report anything. But this option can be issued for it to report PO file paths as they have been written out.</p>
+</dd>
+</dl>
+</div>
+<p>Options common with other Pology tools:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="option">--wrap</code>; <code class="option">--no-wrap</code>; <code class="option">--fine-wrap</code>; <code class="option">--no-fine-wrap</code>; <code class="option">--wrap-column=COL</code></span></dt>
+<dd>
+<p>See <a class="xref" href="ch-common.html#sec-cmwropts" title="9.8.1.&nbsp;Common Command Line Options for Wrapping">Section&nbsp;9.8.1, “Common Command Line Options for Wrapping”</a>.</p>
+</dd>
+<dt><span class="term"><code class="option">-F FILE</code>, <code class="option">--files-from=FILE</code></span></dt>
+<dd>
+<p>See <a class="xref" href="ch-common.html#sec-cmffrom" title="9.5.&nbsp;Reading Paths From a File">Section&nbsp;9.5, “Reading Paths From a File”</a>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mirwcfg" id="sec-mirwcfg"></a>7.1.2.&nbsp;User Configuration</h3>
+</div>
+</div>
+</div>
+<p><span class="command"><strong>porewrap</strong></span> reads the wrapping mode fields as described in <a class="xref" href="ch-common.html#sec-cmwrcfg" title="9.8.2.&nbsp;Common User Configuration Fields for Wrapping">Section&nbsp;9.8.2, “Common User Configuration Fields for Wrapping”</a>, from its <code class="literal">[porewrap]</code> section.</p>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-miselfmerge" id="sec-miselfmerge"></a>7.2.&nbsp;Self-Merging PO Files with <span class="command"><strong>poselfmerge</strong></span></h2>
+</div>
+</div>
+</div>
+<p>Normally, PO files are periodically merged with latest PO templates, to introduce changes from the source material while preserving as much of the existing translation as possible. <span class="command"><strong>poselfmerge</strong></span>, on the other hand, will merge the PO file with "itself". More precisely, it will derive the temporary template version of the PO file (by cleaning it from translations and other details), and then merge the original PO file with the derived template, by calling <span class="command"><strong>msgmerge</strong></span> internally. This can have several uses:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>The fuzzy matching algorithm of <span class="command"><strong>msgmerge</strong></span> is extremely fast and robust, but treats all messages the same and in isolation, without trying out more complicated (and necessarily much slower) heuristic criteria. This can cause the translator to spend more time updating a fuzzy message than it would take to translate it from scratch. <span class="command"><strong>poselfmerge</strong></span> can be therefore instructed to go over all fuzzy messages created by merging, and apply additional heuristics to determine whether to leave the message fuzzy or to clean it up and make it fully untranslated.</p>
+</li>
+<li class="listitem">
+<p>Sometimes the PO file can contain a number of quite similar longer messages (this is especially the case when <a class="link" href="ch-summit.html" title="Chapter&nbsp;5.&nbsp;Summitting Translation Branches">translating in summit</a>). A capable PO editor should automatically offer the previous translation on the next similar message (by using internal translation memory), and show the what the small differences in the original text are, thus greately speeding up the translation of that message. If, however, the PO editor is not that capable, or you use a plain text editor, while translating you can simply skip every long message that looks familiar, and afterwards run <span class="command"><strong>poselfmerge</strong></span> on the PO file to introduce fuzzy matches on those messages.</p>
+</li>
+<li class="listitem">
+<p>More generally, if your PO editor does not have (a good enough) translation memory feature, or you edit PO files with a plain text editor, you can instruct <span class="command"><strong>poselfmerge</strong></span> to use one or more <span class="emphasis"><em>PO compendia</em></span> to provide additional exact and fuzzy matches. This is essentially the batch application of translation memory. <a class="xref" href="ch-combined.html#sec-cbcompend" title="10.1.&nbsp;Creating and Using Compendia">Section&nbsp;10.1, “Creating and Using Compendia”</a> provides some hints on how to create and maintain PO compendia.</p>
+</li>
+</ul>
+</div>
+<p>Arguments to <span class="command"><strong>poselfmerge</strong></span> are any number of PO file paths or directories to search for PO files, which will be modified in place:</p>
+<pre class="programlisting">
+$ poselfmerge foo.po bar.po somedir/
+</pre>
+<p>However, this run will do almost nothing (except possibly rewrap files), just as <span class="command"><strong>msgmerge</strong></span> would do nothing if the same template were used twice. Instead, all special processing must be requested by command line options, or activated through the <a class="link" href="ch-common.html#sec-cmconfig" title="9.2.&nbsp;User Configuration">user configuration</a> to avoid issuing some options with same values all the time.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mismopts" id="sec-mismopts"></a>7.2.1.&nbsp;Command Line Options</h3>
+</div>
+</div>
+</div>
+<p>Options specific to <span class="command"><strong>poselfmerge</strong></span>:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="option">-A <em class="replaceable"><code>RATIO</code></em></code>, <code class="option">--min-adjsim-fuzzy=<em class="replaceable"><code>RATIO</code></em></code></span></dt>
+<dd>
+<p>The minimum required "adjust similarity" between the old and the new orginal text in a fuzzy message, in order to accept it and not clean it to untranslated state. The similarity is expressed as the ratio in range 0.0-1.0, with 0.0 meaning no similarity and 1.0 no difference. A practical range is 0.6-0.8. If this option is not issued, fuzzy messages are kept as they are (as if 0.0 would be given).</p>
+<p>The requirement for computation of adjusted similarity is that fuzzy messages contain previous strings, i.e. that the PO file was originally merged with <code class="option">--previous</code> to <span class="command"><strong>msgmerge</strong></span>.</p>
+</dd>
+<dt><span class="term"><code class="option">-b</code>, <code class="option">--rebase-fuzzies</code></span></dt>
+<dd>
+<p>Normally, when merging with template, the untranslated and fuzzy messages already present in the PO file are not checked again for approximate matches. This is on the one hand side a performance measure (why fuzzy match again something that was already matched before?), and on the other hand a safety measure (higher trust in an old fuzzy match based on the PO file itself than e.g. a new match from an arbitrary compendium). By issuing this option, prior to merging all untranslated message are removed from the PO file, as well as all fuzzy messages which still have their base translated message in the PO file (judging by previous strings). This activates fuzzy matching on untranslated messages (e.g. if new compendium given, or for similar messages skipped during translation), and updates base translated messages on fuzzy messages.</p>
+</dd>
+<dt><span class="term"><code class="option">-C <em class="replaceable"><code>POFILE</code></em></code>, <code class="option">--compendium=<em class="replaceable"><code>POFILE</code></em></code></span></dt>
+<dd>
+<p>The PO file to use as compendium on merging, to produce more exact and fuzzy matches. This option can be repeated to add several compendia.</p>
+</dd>
+<dt><span class="term"><code class="option">-v</code>, <code class="option">--verbose</code></span></dt>
+<dd>
+<p><span class="command"><strong>poselfmerge</strong></span> normally operates silently, and this option requests some progress information. Quite useful if processing a large collection of PO files, because merging and post-merge processing can take <span class="emphasis"><em>a lot</em></span> of time (especially in presence of compendium).</p>
+</dd>
+<dt><span class="term"><code class="option">-W <em class="replaceable"><code>NUMBER</code></em></code>, <code class="option">--min-words-exact=<em class="replaceable"><code>NUMBER</code></em></code></span></dt>
+<dd>
+<p>When an exact match for an untranslated message is produced from the compendium, it is not always safe to silently accept it, because the compendium may contain translations from contexts totally unrelated with the current PO file. The shorter the message, the higher the chance that translation will not be suitable in current context. This option provides the minimum number of words (in the original) to accept an exact match from the compendium, or else the message is made fuzzy. The reasonable value depends on the relation between the source and the target language, with 5 to 10 probably being on the safe side.</p>
+<p>Note that afterwards you can see when an exact match has been demoted into a fuzzy one, by that message not having previous strings (<code class="literal">#| msgid "..."</code>, etc.).</p>
+</dd>
+<dt><span class="term"><code class="option">-x</code>, <code class="option">--fuzzy-exact</code></span></dt>
+<dd>
+<p>This option is used to unconditionally demote exact matches from the compendium into fuzzy messages (e.g. regardless of the length of the text, as done by <code class="option">-W</code>/<code class="option">--min-words-exact</code>). This may be needed, for example, when there is a strict review procedure in place, and the compendium is built from unreviewed translations.</p>
+</dd>
+</dl>
+</div>
+<p>Options common with other Pology tools:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="option">--wrap</code>; <code class="option">--no-wrap</code>; <code class="option">--fine-wrap</code>; <code class="option">--no-fine-wrap</code>; <code class="option">--wrap-column=COL</code></span></dt>
+<dd>
+<p>See <a class="xref" href="ch-common.html#sec-cmwropts" title="9.8.1.&nbsp;Common Command Line Options for Wrapping">Section&nbsp;9.8.1, “Common Command Line Options for Wrapping”</a>.</p>
+</dd>
+<dt><span class="term"><code class="option">-F FILE</code>, <code class="option">--files-from=FILE</code></span></dt>
+<dd>
+<p>See <a class="xref" href="ch-common.html#sec-cmffrom" title="9.5.&nbsp;Reading Paths From a File">Section&nbsp;9.5, “Reading Paths From a File”</a>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mismcfg" id="sec-mismcfg"></a>7.2.2.&nbsp;User Configuration</h3>
+</div>
+</div>
+</div>
+<p>It is likely that the translator will have a certain personal preference of the various match acceptance criteria provided by command line options. Instead of issuing those options all the time, the following user configuration fields may be set:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="literal">[poselfmerge]/fuzzy-exact=[yes|*no]</code></span></dt>
+<dd>
+<p>Counterpart to the <code class="option">-x</code>/<code class="option">--fuzzy-exact</code> option.</p>
+</dd>
+<dt><span class="term"><code class="literal">[poselfmerge]/min-adjsim-fuzzy</code></span></dt>
+<dd>
+<p>Counterpart to the <code class="option">-A</code>/<code class="option">--min-adjsim-fuzzy</code> option.</p>
+</dd>
+<dt><span class="term"><code class="literal">[poselfmerge]/min-words-exact</code></span></dt>
+<dd>
+<p>Counterpart to the <code class="option">-W</code>/<code class="option">--min-words-exact</code> option.</p>
+</dd>
+<dt><span class="term"><code class="literal">[poselfmerge]/rebase-fuzzies=[yes|*no]</code></span></dt>
+<dd>
+<p>Counterpart to the <code class="option">-b</code>/<code class="option">--rebase-fuzzies</code> option.</p>
+</dd>
+</dl>
+</div>
+<p>Of course, command line options can be issued to override the user configuration fields when necessary.</p>
+<p><span class="command"><strong>poselfmerge</strong></span> also reads the wrapping mode fields as described in <a class="xref" href="ch-common.html#sec-cmwrcfg" title="9.8.2.&nbsp;Common User Configuration Fields for Wrapping">Section&nbsp;9.8.2, “Common User Configuration Fields for Wrapping”</a>, from its <code class="literal">[poselfmerge]</code> section.</p>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-mimtrans" id="sec-mimtrans"></a>7.3.&nbsp;Machine Translation with <span class="command"><strong>pomtrans</strong></span></h2>
+</div>
+</div>
+</div>
+<p><span class="emphasis"><em>Machine translation</em></span> is the process where a computer program is used to produce translation of more than a trivial piece of text, starting from single sentences, over paragraphs, to full documents. There are debates on how useful machine translation is right now and how much better it could become in the future, and there is a steady line of research in that direction. Limiting to widely available examples of machine translation software today, it is safe to say that, on the one hand, machine translation can preserve a lot of the meaning of the original and thus be very useful to the reader who needs to grasp the main points of the text, but on the other hand, are not at all passable for producing translations of the quality expected of human translators who are native speaker of the target language.</p>
+<p>As far as Pology is concerned, the question of machine translation reduces to this: would it increase the efficiency of translation if PO files were first machine-translated, and then manually corrected by a human translator? There is no general answer to this question, as it depends stronly on all elements in the chain: the quality of machine translation software, the source language, the target language, and the human translator. Be that as it may, Pology provides the <span class="command"><strong>pomtrans</strong></span> script, which can fill in untranslated messages in PO files by passing original text through various machine translation services.</p>
+<p><span class="command"><strong>pomtrans</strong></span> has two principal modes of operation. The more straightforward is the direct mode, where original texts are simply <code class="varname">msgid</code> strings in the given PO file. In this mode, PO files can be machine-translated with:</p>
+<pre class="programlisting">
+$ pomtrans <em class="replaceable"><code>transerv</code></em> -t <em class="replaceable"><code>lang</code></em> <em class="replaceable"><code>paths...</code></em>
+</pre>
+<p>The first argument is the translation service keyword, chosen from one known to <span class="command"><strong>pomtrans</strong></span>. The <code class="option">-t</code> option specifies the target language; it may not be necessary if processed PO files have the <code class="literal">Language:</code> header field properly set. The source language is assumed to be English, but there is an option to specify another source language. Afterwards an arbitrary number of paths follow, which may be either single PO files or directories which will be recursively searched for PO files.</p>
+<p><span class="command"><strong>pomtrans</strong></span> will try to translate only untranslated messages, and not fuzzy messages. When it translates a message, by default it will make it fuzzy as well, meaning that a human should go through all machine-translated messages. These defaults are based on the perceived current quality of most machine translation services. There are several command line options to change this behavior.</p>
+<p>The other mode of operation is the parallel mode. Here <span class="command"><strong>pomtrans</strong></span> takes the original text to be the translation into another language, i.e. <code class="varname">msgstr</code> strings from a PO file translated into another language. For example, if a PO file should be translated into Spanish (i.e. from English to Spanish), and that same PO file is available fully translated into French (i.e. from English to French), then <span class="command"><strong>pomtrans</strong></span> could be used to translate from French to Spanish. This is done in the following way:</p>
+<pre class="programlisting">
+$ pomtrans <em class="replaceable"><code>transerv</code></em> -s <em class="replaceable"><code>lang1</code></em> -t <em class="replaceable"><code>lang2</code></em> -p <em class="replaceable"><code>search</code></em>:<em class="replaceable"><code>replace</code></em> <em class="replaceable"><code>paths...</code></em>
+</pre>
+<p>As in direct mode, the first argument is the translation service. Then both the source (<code class="option">-s</code>) and the target language (<code class="option">-t</code>) are specified; again, if PO files have their <code class="literal">Language:</code> header fields set, these options are not necessary. The perculiar here is the <code class="option">-p</code> option, which specifies two strings, separated by colon. These are used to construct paths to source language PO files, by replacing the first string in paths of target language PO files with the second string. For example, if the file tree is:</p>
+<pre class="programlisting">
+foo/
+    po/
+        alpha/
+            alpha.pot
+            fr.po
+            es.po
+        bravo/
+            bravo.pot
+            fr.po
+            es.po
+</pre>
+<p>then the invocation could be:</p>
+<pre class="programlisting">
+$ cd .../foo/
+$ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.:fr. po/*/es.po
+</pre>
+<p>In case a PO file in target language does not have a counterpart in source language, it is simply skipped.</p>
+<p>There is another variation of the parallel mode, where source language texts are drawn not from counterpart PO files, but from a single, compendium PO file in source language. This mode is engaged by giving the path to that compendium with the <code class="option">-c</code> option, instead of the <code class="option">-p</code> option for path replacement.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mimtopts" id="sec-mimtopts"></a>7.3.1.&nbsp;Command Line Options</h3>
+</div>
+</div>
+</div>
+<p>Options specific to <span class="command"><strong>pomtrans</strong></span>:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="option">-a <em class="replaceable"><code>CHARS</code></em></code>, <code class="option">--accelerator=<em class="replaceable"><code>CHARS</code></em></code></span></dt>
+<dd>
+<p>Characters used as <a class="link" href="ch-poformat.html#sec-poaccel" title="2.3.4.&nbsp;Accelerators">accelerator markers</a> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<sup>[<a name="id671465" href="#ftn.id671465" class="footnote" id="id671465">14</a>]</sup></p>
+</dd>
+<dt><span class="term"><code class="option">-c <em class="replaceable"><code>FILE</code></em></code>, <code class="option">--parallel-compendium=<em class="replaceable"><code>FILE</code></em></code></span></dt>
+<dd>
+<p>The path to source language compendium, in parallel translation mode.</p>
+</dd>
+<dt><span class="term"><code class="option">-l</code>, <code class="option">--list-transervs</code></span></dt>
+<dd>
+<p>Lists known translation services (the keywords which can be the first argument to <span class="command"><strong>pomtrans</strong></span>).</p>
+</dd>
+<dt><span class="term"><code class="option">-m</code>, <code class="option">--flag-mtrans</code></span></dt>
+<dd>
+<p>Adds the <code class="literal">mtrans</code> flag to each machine-translated message. This may be useful to positively identify machine-translated messages in the resulting PO file, as otherwise they are simply fuzzy.</p>
+</dd>
+<dt><span class="term"><code class="option">-M <em class="replaceable"><code>MODE</code></em></code>, <code class="option">--translation-mode=<em class="replaceable"><code>MODE</code></em></code></span></dt>
+<dd>
+<p>Translation services need as input the mode in which to operate, usually the source and target language at minimum. By default the translation mode is constructed based on source and target languages, but this is sometimes not precise enough. This option can be used to issue a custom mode string for the chosen translation service, overriding the default construction. The format of the mode string is translation service dependent, check documentation of respective translation services for details.</p>
+</dd>
+<dt><span class="term"><code class="option">-n</code>, <code class="option">--no-fuzzy-flag</code></span></dt>
+<dd>
+<p>By default machine-translated messages are made fuzzy, which is prevented by this option. It goes without saying that this is dangerous at current state of the art in machine translation, and should be used only in very specific scenarios (e.g. high quality machine translation between two dialects of the same language).</p>
+</dd>
+<dt><span class="term"><code class="option">-p <em class="replaceable"><code>SEARCH</code></em>:<em class="replaceable"><code>REPLACE</code></em></code>, <code class="option">--parallel-catalogs=<em class="replaceable"><code>SEARCH</code></em>:<em class="replaceable"><code>REPLACE</code></em></code></span></dt>
+<dd>
+<p>The string to search for in paths of target language PO files, and the string to replace them with to construct paths of source language PO files, in parallel translation mode.</p>
+</dd>
+<dt><span class="term"><code class="option">-s <em class="replaceable"><code>LANG</code></em></code>, <code class="option">--source-lang=<em class="replaceable"><code>LANG</code></em></code></span></dt>
+<dd>
+<p>The source language code, i.e. the language which is being translated from.</p>
+</dd>
+<dt><span class="term"><code class="option">-t <em class="replaceable"><code>LANG</code></em></code>, <code class="option">--target-lang=<em class="replaceable"><code>LANG</code></em></code></span></dt>
+<dd>
+<p>The target language code, i.e. the language which is being translated into.</p>
+</dd>
+<dt><span class="term"><code class="option">-T <em class="replaceable"><code>PATH</code></em></code>, <code class="option">--transerv-bin=<em class="replaceable"><code>PATH</code></em></code></span></dt>
+<dd>
+<p>If the selected translation service is (or can be) a program on the local computer, this option can be used to specify the path to its executable file, if it is not in the <code class="envar">PATH</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-mimtservs" id="sec-mimtservs"></a>7.3.2.&nbsp;Supported Machine Translation Services</h3>
+</div>
+</div>
+</div>
+<p>Currently supported translation services are as follows (with keyword in parenthesis):</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term">Apertium (<code class="literal">apertium</code>)</span></dt>
+<dd>
+<p><a class="ulink" href="http://www.apertium.org/" target="_top">Apertium</a> is a free machine translation platform, developed by the TRANSDUCENS research group of University of Alicante. There is a basic web service, but the software can be locally installed and that is how <span class="command"><strong>pomtrans</strong></span> uses it (some distributions provide packages).</p>
+</dd>
+<dt><span class="term">Google Translate (<code class="literal">google</code>)</span></dt>
+<dd>
+<p><a class="ulink" href="http://translate.google.com/" target="_top">Google Translate</a> is Google's proprietary web machine-translation service, which can be used free of charge. At the moment, <span class="command"><strong>pomtrans</strong></span> makes one query to it per message, which can take quite some time on long PO files.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="footnotes"><br>
+<hr width="100" align="left">
+<div class="footnote">
+<p><sup>[<a name="ftn.id671465" href="#id671465" class="para" id="ftn.id671465">14</a>]</sup> This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left"><a accesskey="p" href="ch-ascript.html">Prev</a>&nbsp;</td>
+<td width="20%" align="center">&nbsp;</td>
+<td width="40%" align="right">&nbsp;<a accesskey="n" href="ch-lingo.html">Next</a></td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Chapter&nbsp;6.&nbsp;Ascribing Modifications and Reviews&nbsp;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+<td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;8.&nbsp;Language Validation and Derivation</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

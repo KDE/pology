@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Chapter&nbsp;1.&nbsp;A Study of PO</title>
+<link rel="stylesheet" href="data/style.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Pology User Manual">
+<link rel="up" href="index.html" title="Pology User Manual">
+<link rel="prev" href="index.html" title="Pology User Manual">
+<link rel="next" href="ch-poformat.html" title="Chapter&nbsp;2.&nbsp;The PO Format">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr>
+<th colspan="3" align="center">Chapter&nbsp;1.&nbsp;A Study of PO</th>
+</tr>
+<tr>
+<td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td>
+<th width="60%" align="center">&nbsp;</th>
+<td width="20%" align="right">&nbsp;<a accesskey="n" href="ch-poformat.html">Next</a></td>
+</tr>
+</table>
+<hr></div>
+<div class="chapter">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="ch-about" id="ch-about"></a>Chapter&nbsp;1.&nbsp;A Study of PO</h2>
+</div>
+</div>
+</div>
+<p>Many people like to use computer programs in their native language. On the average, the working language of developers of a computer program, and the native language of its users, are different. This means that programs need to be <span class="emphasis"><em>translated</em></span>. For this to be possible, first the program has to be written in such a way that it can fetch and display translations in the language set by the user. Then, there has to exist a method to collect discrete pieces of text (such as button labels, menu items, messages in dialogs...) from the program. Collected pieces of text are written into one or more files of a certain format, which the translators can work on. Finally, translated files may need to be converted into a form that the program can interpret and show translation to the user. There are many different translation systems, which support one or more of these elements of translation process.</p>
+<p>In the realm of free software, one particular translation system has become ubiquitous: the <a class="ulink" href="http://www.gnu.org/software/gettext/" target="_top">GNU Gettext</a>. It covers all the elements of the translation process. It provides a way for programmers to write translatable programs, a way for text to be extracted and collected for translation, a file format on which the translators work, and a set of tools for processing translation files. Beyond the technical aspects, Gettext has evolved a set of conventions, workflows and communication patterns -- a translation <span class="emphasis"><em>culture</em></span> of sorts.</p>
+<p>The most salient element of Gettext from translators' perspective is the translation file format it defines, the PO<sup>[<a name="id611220" href="#ftn.id611220" class="footnote" id="id611220">1</a>]</sup> format. Along with other parts of Gettext, the PO format has developed over the years into the technically most capable translation file format today. Its features both enable high quality and efficiency of translation, and yet can all "fit into one person's head". <a class="link" href="ch-poformat.html" title="Chapter&nbsp;2.&nbsp;The PO Format">A chapter of this manual</a> provides a tour of the PO format from translator's perspective.</p>
+<p>Aside from the tools provided by GNU Gettext itself, many other tools for processing PO files have been written. These consist of translation editors (or "PO editors"), which provide translators with more power in editing PO files, and batch-processing tools, for purposes more specific than those covered by Gettext (e.g. conversion from and to other file formats). <span class="emphasis"><em>Pology</em></span> is one of these specific batch-processing tools.</p>
+<p>Pology consists of a <a class="ulink" href="http://www.python.org/" target="_top">Python</a> library, with much translation-related functionality beyond basic manipulation of PO file objects, and a collection of scripts based on this library. Both the library and the scripts have this basic trait: they tend to go in depth. Pology is designed to apply precision tasks to standalone PO files, to process collections of PO files in sophisticated ways, and while doing this to cooperate well with other tools commonly used to handle PO files (such as PO editors and version control systems). On the programming side Pology strives for simplicity and robustness, so that users who know (some) Python can easily add functionality for their custom needs. To achieve this, Pology fully relies on the conventions of the PO format, without trying to abstract the translation file format.</p>
+<p>As one measure of attention to detail, Pology has sections of language-specific and project-specific functionality, and even combinations of those. Users are encouraged to contribute their custom solutions into the main distribution, if these solutions can possibly serve needs of others.</p>
+<p>In short, Pology is <span class="emphasis"><em>a study of PO</em></span>.</p>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-install" id="sec-install"></a>1.1.&nbsp;Obtaining and Installing</h2>
+</div>
+</div>
+</div>
+<p>Pology is still not a released piece of software, so most likely it cannot be found in operating system's software repositories. Nevertheless, it can be obtained in prepared for use quite simply. To fetch the latest development version of Pology from its version control repository, execute<sup>[<a name="id555819" href="#ftn.id555819" class="footnote" id="id555819">2</a>]</sup>:</p>
+<pre class="programlisting">
+$ cd <em class="replaceable"><code>PARDIR</code></em>
+$ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
+</pre>
+<p>This will create the <code class="filename">pology/</code> subdirectory inside the parent directory <em class="replaceable"><code>PARDIR</code></em>, and download full source of Pology in it. When you want to update to the latest version later on, you do not have to download everything again. Instead you can execute <strong class="userinput"><code>svn update</code></strong> in Pology's root directory:</p>
+<pre class="programlisting">
+$ cd <em class="replaceable"><code>PARDIR</code></em>/pology
+$ svn update
+</pre>
+<p>and only the modifications since the checkout (or the last update) will be downloaded and applied to the existing source tree.</p>
+<p>To prepare Pology for use, it is sufficient to set two environment variables, e.g. in the Bash shell:</p>
+<pre class="programlisting">
+$ export PATH=<em class="replaceable"><code>PARDIR</code></em>/pology/bin:$PATH
+$ export PYTHONPATH=<em class="replaceable"><code>PARDIR</code></em>/pology:$PYTHONPATH
+</pre>
+<p>You can put these commands in the shell startup script (<code class="filename">~/.bashrc</code> for Bash shell), so that paths are already set whenever you start a shell. Setting <code class="envar">PATH</code> will ready Pology's script for execution, and <code class="envar">PYTHONPATH</code> its Python library for use in custom Python scripts. It is also possible that there are some scripts in Pology which are specific to the language into which you translte. To make these ready for use as well, additionally add to path:</p>
+<pre class="programlisting">
+$ export PATH=<em class="replaceable"><code>PARDIR</code></em>/pology/lang/<em class="replaceable"><code>LANG</code></em>/bin:$PATH
+</pre>
+<p>where <em class="replaceable"><code>LANG</code></em> is the language code of your language.</p>
+<p>Pology provides <a class="link" href="ch-common.html#sec-cmshellcomp" title="9.1.&nbsp;Shell Completion"><span class="emphasis"><em>shell completion</em></span></a> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:</p>
+<pre class="programlisting">
+$ . <em class="replaceable"><code>PARDIR</code></em>/pology/completion/bash/pology
+</pre></div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-deps" id="sec-deps"></a>1.2.&nbsp;Dependencies</h2>
+</div>
+</div>
+</div>
+<p>The following lists the dependencies of Pology, and notes whether they are required or optional, and what they are used for.</p>
+<p>Required external Python packages:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>None.</p>
+</li>
+</ul>
+</div>
+<p>Required general software:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p><a class="ulink" href="http://www.gnu.org/software/gettext/" target="_top">Gettext</a> &gt;= 0.17. Some Pology scripts use Gettext tools internally, and the library module <a class="ulink" href="../../api/html/pology.gtxtools-module.html" target="_top"><code class="literal">pology.gtxtools</code></a> wraps some of Gettext tools for use inside Python scripts.</p>
+</li>
+<li class="listitem">
+<p><a class="ulink" href="http://www.python.org/" target="_top">Python</a> &gt;= 2.5.</p>
+</li>
+</ul>
+</div>
+<p>Optional external Python packages:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p><a class="ulink" href="http://freedesktop.org/wiki/Software/DBusBindings" target="_top"><span class="package">python-dbus</span></a> &gt;= 0.81. Used for communication with various external applications (e.g. with the <a class="ulink" href="http://userbase.kde.org/Lokalize" target="_top">Lokalize</a> PO editor).</p>
+</li>
+<li class="listitem">
+<p><a class="ulink" href="http://www.rfk.id.au/software/pyenchant/" target="_top"><span class="package">python-enchant</span></a> &gt;= 1.5.2. Frontend to various spell-checkers, used by most of Pology's spell checking functionality.</p>
+</li>
+</ul>
+</div>
+<p>Optional general software:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p><a class="ulink" href="http://www.apertium.org/" target="_top">Apertium</a> &gt;= 0.2. A free/open-source machine translation platform, used by <a class="link" href="ch-misctools.html#sec-mimtrans" title="7.3.&nbsp;Machine Translation with pomtrans">the <span class="command"><strong>pomtrans</strong></span> script</a>.</p>
+</li>
+<li class="listitem">
+<p><a class="ulink" href="http://www.languagetool.org/" target="_top">LanguageTool</a> &gt;= 1.0. Open source language checker, used by the <a class="link" href="ch-sieve.html#sv-check-grammar" title="3.5.5.&nbsp;check-grammar"><span class="command"><strong>check-grammar</strong></span></a> sieve.</p>
+</li>
+<li class="listitem">
+<p>Version control systems. Used by various Pology scripts that process PO files on the collection level, when the PO files are under version control. Currently supported: <a class="ulink" href="http://git-scm.com/" target="_top">Git</a> &gt;= 1.6, <a class="ulink" href="http://subversion.tigris.org/" target="_top">Subversion</a> &gt;= 1.4.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="footnotes"><br>
+<hr width="100" align="left">
+<div class="footnote">
+<p><sup>[<a name="ftn.id611220" href="#id611220" class="para" id="ftn.id611220">1</a>]</sup> "PO" is an acronym for "portable object". This phrase is a quite generic term from the depths of computer science, opaque for practicing translators. Texts on software translation therefore always write simply "PO format", "PO files", etc.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id555819" href="#id555819" class="para" id="ftn.id555819">2</a>]</sup> <span class="command"><strong>svn</strong></span> is the primary command of <a class="ulink" href="http://subversion.tigris.org/" target="_top">Subversion</a> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td>
+<td width="20%" align="center">&nbsp;</td>
+<td width="40%" align="right">&nbsp;<a accesskey="n" href="ch-poformat.html">Next</a></td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Pology User Manual&nbsp;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+<td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;2.&nbsp;The PO Format</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
