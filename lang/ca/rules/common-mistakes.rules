@@ -10,6 +10,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 
 # «a el» ha de ser «al».
 [\ba\sel\b]i
+valid before="\·" 
 hint="«a el» s'ha de substituir per «al» (error freqüent)"
 
 # «afectar a» ha de ser «afectar» (és transitiu).

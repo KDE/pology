@@ -249,8 +249,7 @@ valid after="-" cat="thesaurus_tool"
 valid after="cmake" cat="jovie"
 valid after="usant" cat="kile"
 valid after="columna\sn\sentrada.+" cat="kile"
-valid span="\s\.$" cat="ktouch"
-valid span="\s\.$" cat="kile"
+valid span="\s\.$" cat="ktouch,kile"
 valid ctx="function prototype"
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
@@ -373,6 +372,10 @@ hint="«e» sola és un error (error freqüent)"
 valid before="\:|\-|\s\(massa\)"
 valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
 valid after="\%\d\s" cat="kalzium,plasma_engine_kalzium"
+valid after="(filtre|en)\s" cat="kstars_colorandtemp" # docmessages
+valid after="prioritats\s.+" cat="korganizer" # docmessages
+valid after="di\(" cat="kate_regular-expressions" # docmessages
+valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid cat="kgoldrunner,kubrick,kfile_exr,libincidenceeditors,kspread"
 valid ctx="Undefined"
 hint="«u» sola és un error (error freqüent)"
