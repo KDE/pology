@@ -135,7 +135,7 @@
         <span class="summary-sig-arg">tagmap</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ptsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">ltsuff</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">gesuff</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">gnsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">stsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">adsuff</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">nmsuff</span>=<span class="summary-sig-default">None</span>,
@@ -306,7 +306,7 @@
         <span class="sig-arg">tagmap</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ptsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">ltsuff</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">gesuff</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">gnsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">stsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">adsuff</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">nmsuff</span>=<span class="sig-default">None</span>,
@@ -367,10 +367,11 @@
       <li>
         When fetching a property within a sentence (with keys given e.g. as
         XML entities), sentence construction may require that the resolved 
-        value is of certain gender; parameter <code>gesuff</code> can be 
-        used to provide a tuple of 4 gender suffixes, such that the 
-        property will resolve only if the value of gender matches the 
-        gender suffix.
+        value is of certain gender and number; parameter 
+        <code>gnsuff</code> can be used to provide a tuple of 4 suffixes 
+        for gender in singular and 4 suffixes for gender in plural, such 
+        that the property will resolve only if the value of gender and 
+        number matches the gender and number suffix.
       </li>
       <li>
         Parameters <code>stsuff</code> and <code>adsuff</code> provide 
@@ -425,7 +426,8 @@
         <li><strong class="pname"><code>tagmap</code></strong> (dict string -&gt; string) - tags to assign to properties by derivation keys</li>
         <li><strong class="pname"><code>ptsuff</code></strong> (string) - derivation key suffix to report plain text properties</li>
         <li><strong class="pname"><code>ltsuff</code></strong> (string) - derivation key suffix to report properties in lighter markup</li>
-        <li><strong class="pname"><code>gesuff</code></strong> ([(string, string)*]) - suffixes by gender, to have no resolution if gender is wrong</li>
+        <li><strong class="pname"><code>gnsuff</code></strong> ([(string, string)*]) - suffixes by gender and number, to have no resolution if gender or
+          number do not match</li>
         <li><strong class="pname"><code>stsuff</code></strong> ((string, string)) - derivation key and environment name suffixes to report systematic
           transcriptions</li>
         <li><strong class="pname"><code>adsuff</code></strong> ((string, string) or ((string, string)*)) - derivation key and environment name suffixes to report 

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pology.config</title>
+  <title>pology.lang.es.compare_with_original</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,9 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pology-module.html">Package&nbsp;pology</a> ::
-        Module&nbsp;config
+        <a href="pology.lang-module.html">Package&nbsp;lang</a> ::
+        <a href="pology.lang.es-module.html">Package&nbsp;es</a> ::
+        Module&nbsp;compare_with_original
       </span>
     </td>
     <td>
@@ -49,41 +51,18 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module config</h1><p class="nomargin-top"></p>
-<p>Access the user configuration of Pology.</p>
-  <p>The location and the syntax of the configuration file is described in 
-  the user manual, at 
-  <code>doc/user/common.docbook#sec-cmconfig</code>.</p>
-  <p>At every place where the user configuration is sourced, the API 
-  documentation should state which sections and fields (with their types) 
-  are accessed, how they are used, and what is the behavior when they are 
-  not set.</p>
+<h1 class="epydoc">Module compare_with_original</h1><p class="nomargin-top"></p>
+<p>Make some comparations between the translation and the riginal 
+  text.</p>
 
 <hr />
 <div class="fields">      <p><strong>Author:</strong>
-        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+        Javier Vi&#241;al &lt;fjvinal@gmail.com&gt;
       </p>
       <p><strong>License:</strong>
         GPLv3
       </p>
-</div><!-- ==================== CLASSES ==================== -->
-<a name="section-Classes"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Classes</span></td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="pology.config.section-class.html" class="summary-name">section</a><br />
-      Section of the configuration.
-    </td>
-  </tr>
-</table>
-<!-- ==================== FUNCTIONS ==================== -->
+</div><!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -93,12 +72,14 @@
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.config-module.html#has_section" class="summary-sig-name">has_section</a>(<span class="summary-sig-arg">name</span>)</span><br />
-      Check if the section of the configuration exists already.</td>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#remove_tags_without_translation" class="summary-sig-name">remove_tags_without_translation</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Remove all paragraph that belong to contexts that do not have need of
+      translation.[type F4A hook].</td>
           <td align="right" valign="top">
             
             
@@ -110,12 +91,52 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">bool</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.config-module.html#strbool" class="summary-sig-name">strbool</a>(<span class="summary-sig-arg">value</span>)</span><br />
-      Parse the string specification of a boolean value.</td>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_empty_translation" class="summary-sig-name">test_if_empty_translation</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare the translalion qith the original text, to test if the 
+      translation is empty.[type V4A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_very_long_translation" class="summary-sig-name">test_if_very_long_translation</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare the translalion qith the original text, to test if the 
+      transaled text is much longer than the original.[type V4A hook].</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_not_translated" class="summary-sig-name">test_if_not_translated</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare the translalion qith the original text, to test if the 
+      paragraph is not translated.[type V4A hook].</td>
           <td align="right" valign="top">
             
             
@@ -138,7 +159,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology'"><code class="variable-quote">'</code><code class="variable-string">pology</code><code class="variable-quote">'</code></code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.lang.es'"><code class="variable-quote">'</code><code class="variable-string">pology.lang.es</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -151,62 +172,95 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="has_section"></a>
+<a name="remove_tags_without_translation"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">has_section</span>(<span class="sig-arg">name</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_tags_without_translation</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Check if the section of the configuration exists already.</p>
+  <p>Remove all paragraph that belong to contexts that do not have need of 
+  translation.[type F4A hook].</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>name</code></strong> (string) - name of the section</li>
-    </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd><code>True</code> if the section exists, <code>False</code> 
-          otherwise</dd>
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="strbool"></a>
+<a name="test_if_empty_translation"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">strbool</span>(<span class="sig-arg">value</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_if_empty_translation</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
     </td>
   </tr></table>
   
-  <p>Parse the string specification of a boolean value.</p>
-  <p>Values considered <code>false</code> are: <code>&quot;0&quot;</code>, 
-  <code>&quot;no&quot;</code>, <code>&quot;false&quot;</code>, 
-  <code>&quot;off&quot;</code>; and <code>True</code>: <code>1</code>, 
-  <code>&quot;yes&quot;</code>, <code>&quot;true&quot;</code>, 
-  <code>&quot;on&quot;</code>. String is stripped of leading and trailing 
-  whitespace and lowercased before matching.</p>
-  <p>If the string matches none of the expected logical specifiers, 
-  <code>None</code> is returned.</p>
+  <p>Compare the translalion qith the original text, to test if the 
+  translation is empty.[type V4A hook].</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>value</code></strong> (string) - string to parse</li>
-    </ul></dd>
-    <dt>Returns: bool</dt>
-        <dd>parsed boolean</dd>
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_if_very_long_translation"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_if_very_long_translation</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compare the translalion qith the original text, to test if the 
+  transaled text is much longer than the original.[type V4A hook].</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_if_not_translated"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_if_not_translated</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compare the translalion qith the original text, to test if the 
+  paragraph is not translated.[type V4A hook].</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>number of errors</dd>
   </dl>
 </td></tr></table>
 </div>
